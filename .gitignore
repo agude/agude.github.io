@@ -1,3 +1,59 @@
+# Jekyll
 _site
 .sass-cache
 .jekyll-metadata
+
+# Github ignore lists from: https://github.com/github/gitignore
+# Available under the MIT license (https://github.com/github/gitignore)
+
+# Github Archives Ignore List
+## It's better to unpack these files and commit the raw source because
+## git has its own built in compression methods.
+*.7z
+*.jar
+*.rar
+*.zip
+*.gz
+*.bzip
+*.bz2
+*.xz
+*.lzma
+*.cab
+
+## Packing-only formats
+*.iso
+*.tar
+
+## Package management formats
+*.dmg
+*.xpi
+*.gem
+*.egg
+*.deb
+*.rpm
+*.msi
+*.msm
+*.msp
+
+# Github CVS Ignore List
+/CVS/*
+*/CVS/*
+.cvsignore
+*/.cvsignore
+
+# Github Linux Ignore List
+*~
+
+## KDE directory preferences
+.directory
+
+# Github SVN Ignore List
+.svn/
+
+# Github vim Ignore List
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
