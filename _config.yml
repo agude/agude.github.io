@@ -12,15 +12,16 @@ permalink:        pretty
 # Setup
 title:            Alex Gude
 tagline:          'Scientist'
-description:      'Data scientist'
+description:      'Data Scientist'
 url:              http://alexgude.com
 baseurl:          /
 
-author:
-name:           'Alexander Gude'
-url:             http://alexgude.com
+author:           'Alexander Gude'
+name:             'Alexander Gude'
 
+# Blog
 paginate:         5
+paginate_path:    "/blog/page:num/"
 
 # Custom vars
 version:          2.1.0
