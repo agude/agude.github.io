@@ -8,7 +8,7 @@ title: Home
 I'm **Alex Gude**, a data scientist with a passion for plots, but also cycling
 and photography. I'm an [Insight Data Science
 alumni](http://insightdatascience.com) through whom I found my current job at
-an awesome [Silicon Valley challenge lab](http://lab41.org). In my previous
+an awesome Silicon Valley challenge lab. In my previous
 life I was a high energy particle physicist at CERN, and a cosmologist at
 Lawrence Berkeley Labs.
 
