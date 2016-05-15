@@ -14,3 +14,11 @@ Lawrence Berkeley Labs.
 
 You can find my thoughts about random subjects [here on my blog](/blog). The
 code that I write lives on my [Github page](https://github.com/agude).
+
+## Recent Posts
+
+<ul>
+{% for post in site.posts limit:5 %}
+    <li><a href="{{ post.url }}">{{ post.title }}</a>
+{% endfor %}
+</ul>
