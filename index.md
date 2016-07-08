@@ -16,7 +16,7 @@ I write about whatever catches my attention [here on this site](/blog), and I
 write about data science, machine learning, deep learning, and development on
 my company's blog, [Gab41](https://gab41.lab41.org/). If you're interested in
 my thoughts in real time, follow me on Twitter:
-[@Alex_Gude](https://twitter.com/alex_gude).
+[@Alex_Gude](https://twitter.com/alex_gude)
 
 The code that I write lives on my [Github page](https://github.com/agude);
 check it out! Bug reports and pull requests welcome!
