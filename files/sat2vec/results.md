@@ -1,6 +1,6 @@
 The full results of running [Word2Vec on SAT analogies][blog_link]:
 
-[blog_link]: https://alexgude.com/2016/07/11/SAT2Vec/
+[blog_link]: http://alexgude.com/2016/07/11/SAT2Vec/
 
 # Sorted by ranking of the correct answer
 
