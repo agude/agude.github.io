@@ -1,6 +1,11 @@
 ---
 layout: post
 title: "Double-checking FiveThirtyEight's 2016 Primary Predictions"
+description: >
+  How well did FiveThirtyEight do in predicting the primary results? I
+  Double-check FiveThirtyEight's Polls Plus model by comparing its predictions
+  to the outcomes of the 2016 primaries.
+image: /files/2016_primary_prediction/538_scaled_results.png
 ---
 
 I'm a big fan of Nate Silver, the editor-in-chief of the data blog

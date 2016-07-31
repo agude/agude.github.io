@@ -1,6 +1,11 @@
 ---
 layout: post
 title: "Dragon Farkle: Simulating the End Game"
+description: >
+  How many soldiers do you need to successful defeat the dragon in Dragon
+  Farkle, and how likely to succeed is your attack? I find out by simulating a
+  game of Dragon Farkle!
+image: /files/dragon_farkle/dragon_farkle_soldier_expectation_value.png
 ---
 
 <!--![St. George and the Dragon by Anthony van Dyck.]({{ site.url

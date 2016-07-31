@@ -1,6 +1,11 @@
 ---
 layout: post
 title: "Further Double-checking FiveThirtyEight's 2016 Primary Predictions"
+description: >
+  Is FiveThirtyEight's Polls Plus model biased against any candidate? I
+  continue my double-checking their model by looking at each candidate
+  individually.
+image: /files/2016_primary_prediction/538_scaled_results_dem_by_candidate.png
 ---
 
 After my [last blog post]({% post_url 2016-04-28-double_checking_538 %})
