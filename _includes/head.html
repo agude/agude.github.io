@@ -7,7 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
   <!--Twitter card and OpenGraph-->
+  {% if page.title == "Home" %}
   <meta name="twitter:card" content="summary">
+  {% elsif page.id %}
+  <meta name="twitter:card" content="summary_large_image">
+  {% endif %}
   <meta name="twitter:site" content="@alex_gude">
   <meta name="twitter:creator" content="@alex_gude">
   <meta name="og:site_name" content="AlexGude.com">
