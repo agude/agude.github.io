@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Whereto.Photo: Using Data Science to Take Great Photos"
+title: "WhereTo.Photo: Using Data Science to Take Great Photos"
 description: >
   Where is the best spot to take a photo in San Francisco? Learn how I
   answered this question with my Insight Data Science project!
