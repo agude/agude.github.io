@@ -172,7 +172,7 @@ Gate"]({{ site.url}}/files/whereto_photo/Goldengate_with_pic.png)
 Sometimes though, the algorithm failed, as in this case for the search term
 "Cars":
 
-![A failed search for "Cars"](/{{ site.url}}files/whereto_photo/Cars_failure.png)
+![A failed search for "Cars"]({{ site.url}}/files/whereto_photo/Cars_failure.png)
 
 In this case the normalization by the global KDE made Treasure Island the
 predicted best location because the only photos taken there were for a car
