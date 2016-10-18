@@ -43,7 +43,9 @@ cells.
 
 ## Good Uses
 
-That said, I think notebooks are great for the following:
+This is not to say that the use of [Jupyter Notebooks should be considered
+harmful](https://en.wikipedia.org/wiki/Considered_harmful); they are great
+for:
 
 - **Exploring data:** In-line plots make it very easy to check
   something, make a tweak, and check again. The caching of variables means
