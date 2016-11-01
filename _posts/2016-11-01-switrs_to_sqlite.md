@@ -3,7 +3,8 @@ layout: post
 title: "Introducing 'SWITRS to SQLite'"
 description: >
   The State of California stores information about all the traffic accidents
-  in the state in the SWITRS database; this script lets you convert it to SQLite!
+  in the state in the SWITRS database; this script lets you convert it to
+  SQLite for easy querying!
 image: /files/switrs_to_sqlite/chp.jpg
 ---
 
@@ -110,5 +111,5 @@ There are some weird artifacts and grid patterns that show up which are not
 due to our mapping but are inherent in the data. Some further clean up will be
 necessary before doing any analysis! A Jupyter notebook used to make the map
 can be found [here]({{ site.url }}/files/switrs_to_sqlite/SWITRS Crash Map.ipynb)
-([Rendered on
+([rendered on
 Github](https://github.com/agude/agude.github.io/blob/master/files/switrs_to_sqlite/SWITRS%20Crash%20Map.ipynb)).
