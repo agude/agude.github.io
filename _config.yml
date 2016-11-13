@@ -1,30 +1,20 @@
 # Dependencies
-#markdown:         kramdown
-#highlighter:      rouge
 gems:
     - jekyll-paginate
     - jekyll-gist
 
 # Permalinks
 permalink:        pretty
-#relative_permalinks: true
 
 # Setup
 title:            Alex Gude
-tagline:          'Scientist'
-description:      'Data Scientist'
+tagline:          'Data Scientist'
+description:      'The home page and blog of Alexander Gude'
 url:              http://alexgude.com
 baseurl:          /
 
 author:           'Alexander Gude'
-name:             'Alexander Gude'
 
 # Blog
 paginate:         5
 paginate_path:    "/blog/page:num/"
-
-# Custom vars
-version:          2.1.0
-
-github:
-repo:           https://github.com/poole/hyde
