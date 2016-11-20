@@ -8,6 +8,9 @@ layout: default
   {{ content }}
 </article>
 
+<!-- Share Buttons -->
+{% include share.html %}
+
 {% if site.related_posts != empty %}
   <!-- Related Posts -->
   <aside class="related">
@@ -26,6 +29,3 @@ layout: default
     </ul>
   </aside>
 {% endif %}
-
-<!-- Share Buttons -->
-{% include share.html %}
