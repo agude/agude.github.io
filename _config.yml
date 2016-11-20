@@ -8,13 +8,14 @@ gems:
 permalink:        pretty
 
 # Setup
-title:            Alex Gude
-tagline:          'Data Scientist'
-description:      'The home page and blog of Alexander Gude'
+author:           "Alexander Gude"
+title:            "Alex Gude"
+tagline:          "Data Scientist"
+description:      "The home page and blog of Alexander Gude"
+
+# URL
 url:              http://alexgude.com
 baseurl:          ""
-
-author:           'Alexander Gude'
 
 # Blog
 paginate:         5
