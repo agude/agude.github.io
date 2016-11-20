@@ -12,7 +12,7 @@ title:            Alex Gude
 tagline:          'Data Scientist'
 description:      'The home page and blog of Alexander Gude'
 url:              http://alexgude.com
-baseurl:          /
+baseurl:          ""
 
 author:           'Alexander Gude'
 
