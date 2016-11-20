@@ -27,3 +27,14 @@ paginate_path:    "/blog/page:num/"
 sass:
     sass_dir: _sass
     style:    compressed
+
+# Compress HTML http://jch.penibelst.de/
+compress_html:
+    clippings: []
+    comments: []
+    endings: []
+    ignore:
+        envs: []
+    blanklines: false
+    profile: false
+    startings: []
