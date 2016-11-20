@@ -8,7 +8,9 @@ gems:
 permalink:        pretty
 
 # Setup
-author:           "Alexander Gude"
+author:
+    name: "Alexander Gude"
+
 title:            "Alex Gude"
 tagline:          "Data Scientist"
 description:      "The home page and blog of Alexander Gude"
