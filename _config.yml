@@ -19,3 +19,8 @@ author:           'Alexander Gude'
 # Blog
 paginate:         5
 paginate_path:    "/blog/page:num/"
+
+# SASS
+sass:
+    sass_dir: _sass
+    style:    compressed
