@@ -1,7 +1,6 @@
 @charset "utf-8";
 
-// Import partials from `site.sass_dir`
-@import "syntax";
-@import "poole";
+/* Import partials from `site.sass_dir` */
+@import "poole"; /* poole imports multiple subfiles */
 @import "hyde";
 @import "rrssb";
