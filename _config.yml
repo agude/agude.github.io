@@ -10,6 +10,8 @@ permalink:        pretty
 # Setup
 author:
     name: "Alexander Gude"
+    first: "Alexander"
+    last: "Gude"
 
 title:            "Alex Gude"
 tagline:          "Data Scientist"
@@ -18,6 +20,7 @@ description:      "The home page and blog of Alexander Gude"
 # URL
 url:              http://alexgude.com
 baseurl:          ""
+name:             "AlexGude.com"
 
 # Blog
 paginate:         5

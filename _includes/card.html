@@ -1,59 +1,81 @@
-<!--Twitter card and OpenGraph-->
-{% assign twitter-name = site.data.social.twitter %}
-
+{% comment %} Test for home page {% endcomment %}
 {% if page.title == "Home" %}
-  <meta name="twitter:card" content="summary">
-{% elsif page.id %}
-  <meta name="twitter:card" content="summary_large_image">
+  {% assign is-home = true %}
+{% else %}
+  {% assign is-home = false %}
 {% endif %}
-<meta name="twitter:site" content="@{{ twitter-name }}">
+
+{% comment %} If home {% endcomment %}
+{% if is-home %}
+  {% assign card-title = site.title | append: " &middot; " | append: site.tagline %}
+  {% assign og-type = "profile" %}
+{% else %}
+  {% comment %} If post {% endcomment %}
+  {% assign card-title = page.title %}
+  {% assign og-type = "article" %}
+{% endif %}
+
+{% comment %}
+  If the page has a description, use that, otherwise use the site's.
+{% endcomment %}
+{% if page.description %}
+  {% assign card-description = page.description %}
+{% else %}
+  {% assign card-description = site.description %}
+{% endif %}
+
+{% comment %}
+  If the page has an image, use that, otherwise use an author photo.
+{% endcomment %}
+{% if page.image %}
+  {% assign card-image = site.url | append: "/" | append: page.image %}
+  {% assign twitter-card-type = "summary_large_image"%}
+{% else %}
+  {% assign card-image = site.url | append: "/files/headshot.jpg" %}
+  {% assign twitter-card-type = "summary" %}
+{% endif %}
+
+{% assign twitter-name = site.data.social.twitter %}
+{% assign card-url = site.url | append: page.url %}
+
+{% comment %} Set creation and modified times. {% endcomment %}
+{% if page.date %}
+  {% assign published-time = page.date | date_to_xmlschema %}
+{% else %}
+  {% assign published-time = "now" | date: "%B %d, %Y" | date_to_xmlschema %}
+{% endif %}
+
+<!-- Site-wide metadata -->
+<meta name="twitter:card"    content="{{ twitter-card-type }}">
+<meta name="twitter:site"    content="@{{ twitter-name }}">
 <meta name="twitter:creator" content="@{{ twitter-name }}">
-<meta name="og:site_name" content="AlexGude.com">
+<meta name="og:site_name"    content="{{ site.name }}">
 
 <!-- Title -->
-{% if page.title == "Home" %}
-  <meta name="twitter:title" content="{{ site.title }} &middot; {{ site.tagline }}">
-  <meta property="og:title"  content="{{ site.title }} &middot; {{ site.tagline }}">
-{% elsif page.title %}
-  <meta name="twitter:title" content="{{ page.title }}">
-  <meta property="og:title"  content="{{ page.title }}">
-{% else %}
-  <meta name="twitter:title" content="{{ site.title }} &middot; {{ site.tagline }}">
-  <meta property="og:title"  content="{{ site.title }} &middot; {{ site.tagline }}">
-{% endif %}
+<meta name="twitter:title" content="{{ card-title }}">
+<meta property="og:title"  content="{{ card-title }}">
 
-<!-- url -->
-{% if page.url %}
-  <meta name="twitter:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-{% endif %}
+<!-- URL -->
+<meta name="twitter:url" content="{{ card-url }}">
+<meta property="og:url"  content="{{ card-url }}">
 
 <!-- Description -->
-{% if page.description %}
-  <meta name="twitter:description" content="{{ page.description }}">
-  <meta property="og:description"  content="{{ page.description }}">
-{% else %}
-  <meta name="twitter:description" content="{{ site.description }}">
-  <meta property="og:description"  content="{{ site.description }}">
-{% endif %}
+<meta name="twitter:description" content="{{ card-description }}">
+<meta property="og:description"  content="{{ card-description }}">
 
 <!-- Image -->
-{% if page.image %}
-  <meta name="twitter:image" content="{{ site.url }}/{{ page.image }}">
-  <meta property="og:image"  content="{{ site.url }}/{{ page.image }}">
-{% else %}
-  <meta name="twitter:image" content="{{ site.url }}/files/headshot.jpg">
-  <meta property="og:image"  content="{{ site.url }}/files/headshot.jpg">
-{% endif %}
+<meta name="twitter:image" content="{{ card-image }}">
+<meta property="og:image"  content="{{ card-image }}">
 
 <!-- OpenGraph Type -->
-{% if page.id %} <!-- Post -->
-  <meta property="og:type" content="article">
-  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
-  <meta property="article:author" content="{{ site.url }}">
-{% elsif page.title == "Home" %} <!-- Home Page -->
-  <meta property="og:type" content="profile">
-  <meta property="profile:first_name" content="Alexander">
-  <meta property="profile:last_name" content="Gude">
-  <meta property="profile:user_name" content="@{{ twitter-name }}">
+<meta property="og:type" content="{{ og-type }}">
+{% if is-home %}
+<!-- Home Page -->
+  <meta property="profile:first_name"     content="{{ site.author.first }}">
+  <meta property="profile:last_name"      content="{{ site.author.last }}">
+  <meta property="profile:user_name"      content="@{{ twitter-name }}">
+{% else %}
+<!-- Article Page -->
+  <meta property="article:published_time" content="{{ published-time }}">
+  <meta property="article:author"         content="{{ site.url }}">
 {% endif %}
