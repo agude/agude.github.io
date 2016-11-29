@@ -3,6 +3,10 @@ _site
 .sass-cache
 .jekyll-metadata
 
+# Jupyter
+.ipynb_checkpoints
+.ipynb_checkpoints/*
+
 # Github ignore lists from: https://github.com/github/gitignore
 # Available under the MIT license (https://github.com/github/gitignore)
 

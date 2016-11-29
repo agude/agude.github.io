@@ -41,7 +41,7 @@ Democrats:
 
 ![The distributions of results normalized to the prediction for the Democrats
 by candidate.]({{ site.url
-}}/files/2016_primary_prediction/538_scaled_results_dem_by_candidate.png)
+}}/files/2016_primary_prediction/538_scaled_results_dem_by_candidate.svg)
 
 FiveThirtyEight slightly over predicts Clinton's results, but does a pretty
 good job with Sanders. Michigan, of course, is the outlier for both.
@@ -50,7 +50,7 @@ The Republicans:
 
 ![The distributions of results normalized to the prediction for the
 Republicans by candidate.]({{ site.url
-}}/files/2016_primary_prediction/538_scaled_results_gop_by_candidate.png)
+}}/files/2016_primary_prediction/538_scaled_results_gop_by_candidate.svg)
 
 The Republicans, despite the craziness in their primary, are well modeled.
 Only Rubio is really skewed, tending to have his results over predicted.

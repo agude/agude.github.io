@@ -94,7 +94,7 @@ highest and lowest result on the Democrats' plot are the predictions from
 Michigan for Clinton and Sanders respectively.
 
 ![The distributions of results normalized to the prediction.]({{ site.url
-}}/files/2016_primary_prediction/538_scaled_results.png)
+}}/files/2016_primary_prediction/538_scaled_results.svg)
 
 In conclusion, FiveThirtyEight is doing a good job of getting the size of the
 confidence interval right, 80% of the results fall within it, but they are

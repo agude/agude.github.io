@@ -57,7 +57,7 @@ soldiers are lost before the dragon is defeated. If the player runs out of
 soldiers or rolls a farkle we will discard the run. The results are:
 
 ![The average number of soldiers lost during a win.]({{ site.url
-}}/files/dragon_farkle/dragon_farkle_soldier_expectation_value.png)
+}}/files/dragon_farkle/dragon_farkle_soldier_expectation_value.svg)
 
 The various peaks are due to the fact that there are always an integer number
 of rolls made in a turn and there is a limited set of scores that be earned
@@ -72,7 +72,7 @@ of turns, and record the outcome for each. The results are:
 
 ![The various outcomes of attacking the dragon as a function of the number of
 soldiers.]({{ site.url
-}}/files/dragon_farkle/dragon_farkle_combined_probability.png)
+}}/files/dragon_farkle/dragon_farkle_combined_probability.svg)
 
 If you go into the turn with 5000 soldiers, you will win about 40% of the time
 and you will lose by rolling a farkle about 60% of the time. You will lose by
