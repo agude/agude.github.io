@@ -3,6 +3,7 @@ gems:
     - jekyll-paginate
     - jekyll-gist
     - jekyll-sitemap
+    - jekyll-seo-tag
 
 # Permalinks
 permalink:        pretty
@@ -12,10 +13,13 @@ author:
     name: "Alexander Gude"
     first: "Alexander"
     last: "Gude"
+    twitter: "alex_gude"
+    github: "agude"
 
 title:            "Alex Gude"
 tagline:          "Data Scientist"
 description:      "The home page and blog of Alexander Gude"
+logo:             /files/headshot.jpg
 
 # URL
 url:              http://alexgude.com
@@ -25,6 +29,17 @@ name:             "AlexGude.com"
 # Blog
 paginate:         5
 paginate_path:    "/blog/page:num/"
+
+# Social for jekyll-seo-tag
+twitter:
+    username: "alex_gude"
+
+social:
+    name: "Alexander Gude"
+    links:
+        - https://twitter.com/alex_gude
+        - https://github.com/agude
+        - https://linkedin.com/in/AlexanderGude
 
 # SASS
 sass:

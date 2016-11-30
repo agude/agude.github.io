@@ -4,17 +4,6 @@
   <!-- Enable responsiveness on mobile devices-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Twitter Card and OpenGraph Tags -->
-  {% include card.html %}
-
-  <title>
-    {% if page.title == "Home" %}
-      {{ site.title }} &middot; {{ site.tagline }}
-    {% else %}
-      {{ page.title }} &middot; {{ site.title }}
-    {% endif %}
-  </title>
-
   <!-- CSS -->
   <style type="text/css">
   {% capture include_to_scssify %} {% include main.scss %} {% endcapture %}
@@ -27,4 +16,8 @@
 
   <!-- RSS -->
   <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ site.baseurl }}/atom.xml">
+
+  <!-- Twitter Card and OpenGraph Tags -->
+  {% comment %} From jekyll/jekyll-seo-tag {% endcomment %}
+  {% seo %}
 </head>
