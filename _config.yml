@@ -41,6 +41,9 @@ social:
         - https://github.com/agude
         - https://linkedin.com/in/AlexanderGude
 
+# Google site verification via Jekyll-seo-tag
+google_site_verification: NnoUcVom5yrsNeAcRLx7yQvWortvmqEP-yazzCmGSMA
+
 # SASS
 sass:
     sass_dir: _sass
