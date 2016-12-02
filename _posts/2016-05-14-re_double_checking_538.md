@@ -6,6 +6,7 @@ description: >
   continue my double-checking their model by looking at each candidate
   individually.
 image: /files/2016_primary_prediction/538_scaled_results_dem_by_candidate.png
+redirect_from: /2016/05/14/re_double_checking_538/
 ---
 
 After my [last blog post]({% post_url 2016-04-28-double_checking_538 %})

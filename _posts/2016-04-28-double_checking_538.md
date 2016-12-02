@@ -6,6 +6,7 @@ description: >
   Double-check FiveThirtyEight's Polls Plus model by comparing its predictions
   to the outcomes of the 2016 primaries.
 image: /files/2016_primary_prediction/538_scaled_results.png
+redirect_from: /2016/04/28/double_checking_538/
 ---
 
 I'm a big fan of Nate Silver, the editor-in-chief of the data blog

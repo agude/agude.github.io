@@ -6,6 +6,7 @@ description: >
   Farkle, and how likely to succeed is your attack? I find out by simulating a
   game of Dragon Farkle!
 image: /files/dragon_farkle/dragon_farkle_soldier_expectation_value.png
+redirect_from: /2016/05/30/dragon_farkle/
 ---
 
 <!--![St. George and the Dragon by Anthony van Dyck.]({{ site.url

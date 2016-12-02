@@ -5,9 +5,7 @@ gems:
     - jekyll-sitemap
     - jekyll-seo-tag
     - jekyll-feed
-
-# Permalinks
-permalink:        pretty
+    - jekyll-redirect-from
 
 # Setup
 author:
@@ -30,6 +28,7 @@ name:             "AlexGude.com"
 # Blog
 paginate:         5
 paginate_path:    "/blog/page:num/"
+permalink: /blog/:slug/
 
 # Social for jekyll-seo-tag
 twitter:

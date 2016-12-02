@@ -5,6 +5,7 @@ description: >
   Where is the best spot to take a photo in San Francisco? Learn how I
   answered this question with my Insight Data Science project!
 image: /files/whereto_photo/WhereTo.Photo.png
+redirect_from: /2016/09/22/whereto_photo/
 ---
 
 ![Screenshot of the front page of

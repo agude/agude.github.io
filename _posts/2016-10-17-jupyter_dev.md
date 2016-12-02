@@ -5,6 +5,7 @@ description: >
   Jupyter Notebooks are great for a lot of things; development of code is not
   one of them.
 image: /files/jupyter_dev/red_spot.jpg
+redirect_from: /2016/10/17/jupyter_dev/
 ---
 
 ![The Great Red Spot on the planet Jupiter]({{ site.url }}/files/jupyter_dev/red_spot.jpg)

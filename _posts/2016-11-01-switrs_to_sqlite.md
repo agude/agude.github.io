@@ -6,6 +6,7 @@ description: >
   in the state in the SWITRS database; this script lets you convert it to
   SQLite for easy querying!
 image: /files/switrs_to_sqlite/chp.jpg
+redirect_from: /2016/11/01/switrs_to_sqlite/
 ---
 
 ![A CHP cruiser]({{ site.url }}/files/switrs_to_sqlite/chp.jpg)
