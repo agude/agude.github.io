@@ -4,6 +4,7 @@ gems:
     - jekyll-gist
     - jekyll-sitemap
     - jekyll-seo-tag
+    - jekyll-feed
 
 # Permalinks
 permalink:        pretty
