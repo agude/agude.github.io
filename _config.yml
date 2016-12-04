@@ -59,3 +59,8 @@ compress_html:
     blanklines: false
     profile: false
     startings: []
+
+# Excluded files from site
+exclude:
+    - LICENSE.md
+    - CNAME
