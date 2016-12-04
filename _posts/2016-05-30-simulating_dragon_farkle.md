@@ -5,25 +5,25 @@ description: >
   How many soldiers do you need to successful defeat the dragon in Dragon
   Farkle, and how likely to succeed is your attack? I find out by simulating a
   game of Dragon Farkle!
-image: /files/dragon_farkle/dragon_farkle_soldier_expectation_value.png
+image: /files/dragon_farkle/st_george_and_the_dragon.jpg
 redirect_from: /2016/05/30/dragon_farkle/
 ---
 
-<!--![St. George and the Dragon by Anthony van Dyck.]({{ site.url
-}}/files/dragon_farkle/st_george_and_the_dragon.jpg)-->
+![Juliusz Kossak's painting Saint George Killing the Dragon]({{ site.url
+}}/files/dragon_farkle/st_george_and_the_dragon.jpg)
 
 Some of my friends came over last week to play board games and while we ate
-dinner we played Dragon Farkle because it is simple enough to not distract us
-from the meal. The game involves rolling six normal six-side dice and a
-special six-sided die with the following sides: `{0, 0, 0, 0, 1, 2}`. On their
-turn a player rolls the dice to try to recruit soldiers for their army by
-scoring points. They score points by rolling various combinations on the dice
-(ignoring the special die, which mainly modifies how many points are awarded)
-such as three-of-a-kind, straights, and even solitary 1s and 5s. Dice that are
-part of a scoring combination are removed and the remaining dice are rerolled
-to attempt to score more points. If all the dice are removed, the player gets
-six more dice and continues. If no scoring combinations are present in a roll,
-the roll is a "farkle" and the turn generally ends.
+dinner we played Dragon Farkle because it was a simple enough game to not
+distract us from the meal. The game involves rolling six normal six-side dice
+and a special six-sided die with the following sides: `{0, 0, 0, 0, 1, 2}`. On
+their turn a player rolls the dice to try to recruit soldiers for their army
+by scoring points. They score points by rolling various combinations on the
+dice (ignoring the special die, which mainly modifies how many points are
+awarded) such as three-of-a-kind, straights, and even solitary 1s and 5s. Dice
+that are part of a scoring combination are removed and the remaining dice are
+rerolled to attempt to score more points. If all the dice are removed, the
+player gets six more dice and continues. If no scoring combinations are
+present in a roll, the roll is a "farkle" and the turn generally ends.
 
 When a player has enough soldiers (5000 is the minimum specified by the rules)
 they may forgo recruiting more to instead attack the dragon. When a player
