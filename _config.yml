@@ -44,6 +44,9 @@ social:
 # Google site verification via Jekyll-seo-tag
 google_site_verification: NnoUcVom5yrsNeAcRLx7yQvWortvmqEP-yazzCmGSMA
 
+# Google Analytics
+google_analytics: UA-88777885-1
+
 # SASS
 sass:
     sass_dir: _sass
