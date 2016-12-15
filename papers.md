@@ -1,6 +1,9 @@
 ---
 layout: page
 title: Papers
+description: >
+  A list of papers by Alexander Gude covering machine learning, high energy
+  particle physics, and supernova cosmology! Check them out!
 ---
 
 ## Machine Learning

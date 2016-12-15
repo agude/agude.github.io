@@ -1,8 +1,12 @@
 ---
 layout: page
 title: Blog
+description: >
+  Posts from Alexander Gude on machine learning, data science, computing, and
+  and other interesting topics! Updated just often enough! Come on in!
 ---
 
+<!-- Posts -->
 <div class="posts">
   {% for post in paginator.posts %}
     <article class="post">
@@ -19,6 +23,7 @@ title: Blog
   {% endfor %}
 </div>
 
+<!-- "Older" and "Newer" buttons -->
 <div class="pagination">
   {% if paginator.next_page %}
     <a class="pagination-item older" href="{{ paginator.next_page_path | prepend: site.baseurl }}">Older</a>
