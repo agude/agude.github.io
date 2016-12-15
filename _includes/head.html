@@ -22,6 +22,8 @@
   {% comment %} From jekyll/jekyll-seo-tag {% endcomment %}
   {% seo %}
 
-  <!-- Google Analytics -->
-  {% include analytics.html %}
+  {% if jekyll.environment == 'production' %}
+    <!-- Google Analytics -->
+    {% include analytics.html %}
+  {% endif %}
 </head>
