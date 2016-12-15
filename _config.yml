@@ -47,6 +47,9 @@ google_site_verification: NnoUcVom5yrsNeAcRLx7yQvWortvmqEP-yazzCmGSMA
 # Google Analytics
 google_analytics: UA-88777885-1
 
+# Disable jekyll-optional-front-matter plugin
+require_front_matter: true
+
 # SASS
 sass:
     sass_dir: _sass
