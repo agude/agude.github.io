@@ -1,10 +1,26 @@
-The full results of running [Word2Vec on SAT analogies][blog_link]:
+---
+layout: post
+title: SAT2VEC Results
+description: >
+  The results of running a pretrained Word2Vec model on SAT analogies. Spoiler
+  alert: It isn't getting into a good college!
+image: /files/sat2vec/Pasternak_The_Night_Before_the_Exam.jpg
+permalink: blog/sat2vec/results/
+date: 2016-07-11
+---
 
-[blog_link]: http://alexgude.com/2016/07/11/SAT2Vec/
+![Leonid Pasternak's painting The Night Before the Exam]({{ site.url
+}}/files/sat2vec/Pasternak_The_Night_Before_the_Exam.jpg)
 
-# Sorted by ranking of the correct answer
+Below are the full results of running [Word2Vec on SAT analogies][post]. For
+each analogy, the first word pair is the one the model is most confident is
+correct, while the **bolded** word pair is the one that is actually correct.
 
-## Ranked First
+[post]: {% post_url 2016-07-11-SAT2Vec %}
+
+### Sorted by ranking of the correct answer
+
+#### Ranked First
 
 | authenticity : counterfeit   | Distance   |
 |:-----------------------------|:-----------|
@@ -70,7 +86,7 @@ The full results of running [Word2Vec on SAT analogies][blog_link]:
 | dismantle : longer     | 0.821      |
 | wilt : higher          | 0.857      |
 
-## Ranked Second
+#### Ranked Second
 
 | embarrass : humiliate   | Distance   |
 |:------------------------|:-----------|
@@ -136,7 +152,7 @@ The full results of running [Word2Vec on SAT analogies][blog_link]:
 | wicked : insinuate | 0.866      |
 | strict : pamper    | 0.875      |
 
-## Ranked Third
+#### Ranked Third
 
 | maceration : liquid    | Distance   |
 |:-----------------------|:-----------|
@@ -250,7 +266,7 @@ The full results of running [Word2Vec on SAT analogies][blog_link]:
 | hothead : prudent     | 0.929      |
 | saint : notorious     | 1.064      |
 
-## Ranked Forth
+#### Ranked Forth
 
 | invariable : change        | Distance   |
 |:---------------------------|:-----------|
@@ -276,7 +292,7 @@ The full results of running [Word2Vec on SAT analogies][blog_link]:
 | **doctor : cure**    | **1.064**  |
 | decision : vacillate | 1.155      |
 
-## Ranked Fifth
+#### Ranked Fifth
 
 | braggart : modesty         | Distance   |
 |:---------------------------|:-----------|
