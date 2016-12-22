@@ -12,24 +12,24 @@ redirect_from: /2016/04/28/double_checking_538/
 ![Child at a blackboard]({{ site.url }}/files/2016_primary_prediction/black_board_01.jpg)
 
 I'm a big fan of Nate Silver, the editor-in-chief of the data blog
-[FiveThirtyEight](https://fivethirtyeight.com/). I've been following him since
-his (amazingly successful) predictions of the 2008 elections. This year he and
-his team are looking to repeat their previous success and have begun
-[predicting the presidential
-primaries](http://projects.fivethirtyeight.com/election-2016/primary-forecast/).
-Their work has taken some criticism from the supporters of various candidates,
-and so I thought it would be interesting to double-check just how well they
-have been performing.
+[FiveThirtyEight][538]. I've been following him since his (amazingly
+successful) predictions of the 2008 elections. This year he and his team are
+looking to repeat their previous success and have begun [predicting the
+presidential primaries][primary]. Their work has taken some criticism from the
+supporters of various candidates, and so I thought it would be interesting to
+double-check just how well they have been performing.
+
+[538]: https://fivethirtyeight.com/
+[primary]: http://projects.fivethirtyeight.com/election-2016/primary-forecast/
 
 The code used to perform the analysis explained in this post can be found in
-this [Jupyter Notebook]({{ site.url
-}}/files/2016_primary_prediction/Prediction Check -- 538 2016 Primary.ipynb)
-([Rendered on
-Github](https://github.com/agude/agude.github.io/blob/master/files/2016_primary_prediction/Prediction%20Check%20--%20538%202016%20Primary.ipynb))
-. The data used are here: [Republican Results]({{ site.url
-}}/files/2016_primary_prediction/2016_gop_primary_dataframe.csv), [Democrat
-Results]({{ site.url
-}}/files/2016_primary_prediction/2016_dem_primary_dataframe.csv)
+this [Jupyter Notebook][notebook] ([rendered on Github][rendered]). The data
+used are here: [Republican Results][gopdata], [Democrat Results][demdata]
+
+[notebook]: {{ site.url }}/files/2016_primary_prediction/Prediction Check -- 538 2016 Primary.ipynb
+[rendered]: https://github.com/agude/agude.github.io/blob/master/files/2016_primary_prediction/Prediction%20Check%20--%20538%202016%20Primary.ipynb
+[gopdata]: {{ site.url }}/files/2016_primary_prediction/2016_gop_primary_dataframe.csv
+[demdata]: {{ site.url }}/files/2016_primary_prediction/2016_dem_primary_dataframe.csv
 
 ## FiveThirtyEight's Polls-plus Model
 
@@ -39,7 +39,9 @@ these components is modeled in its own manner and they are combined to build a
 probability distribution of each candidates' vote share. These distributions
 are used to predict the likelihood of a candidate winning. For a complete
 overview of FiveThirtyEight's primary model, see their description
-[here](https://fivethirtyeight.com/features/how-we-are-forecasting-the-2016-presidential-primary-election/).
+[here][description].
+
+[description]: https://fivethirtyeight.com/features/how-we-are-forecasting-the-2016-presidential-primary-election/
 
 ## Acquiring the Data
 
@@ -66,7 +68,9 @@ above, so I went through by hand and estimated the intervals for every
 candidate in each state. This added some uncertainty, but probably not much
 more than than 1 percentage point on the numbers, which is accounted for in
 the final result. The data on the actual outcomes was copied from
-[Politico](http://www.politico.com/2016-election/results/map/president).
+[Politico][politico].
+
+[politico]: http://www.politico.com/2016-election/results/map/president
 
 ## Testing the Predictions
 
@@ -105,5 +109,6 @@ getting the position slightly off; the actual result is lower than the
 prediction more than 10% of the time.
 
 **Update:** _Additional analyses with this data are presented in [Further
-Double-checking FiveThirtyEight's 2016 Primary Predictions]({% post_url
-2016-05-14-re_double_checking_538 %})._
+Double-checking FiveThirtyEight's 2016 Primary Predictions][redouble]._
+
+[redouble]: {% post_url 2016-05-14-re_double_checking_538 %}

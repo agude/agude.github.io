@@ -10,18 +10,21 @@ image: /files/switrs_accidents_by_date/1923_dc_car_crash.jpg
 ![Men gathered around a crashed car in Washington DC, 1923]({{ site.url
 }}/files/switrs_accidents_by_date/1923_dc_car_crash.jpg)
 
-The [Statewide Integrated Traffic Records System
-(SWITRS)](http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp) contains a
+The [Statewide Integrated Traffic Records System (SWITRS)][switrs] contains a
 wealth of information, enough to determine who, where, when, and sometimes why
-and how for every traffic accident in California. Today, with the assistance of my
-[SWITRS-to-SQLite script](https://github.com/agude/SWITRS-to-SQLite)
-([discussed previously]({% post_url 2016-11-01-switrs_to_sqlite %})), I'm
+and how for every traffic accident in California. Today, with the assistance
+of my [SWITRS-to-SQLite script][s2s] ([discussed previously][lastpost]), I'm
 going to look at when accidents happen, and specifically on what dates.
 
+[switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
+[s2s]: https://github.com/agude/SWITRS-to-SQLite
+[lastpost]: {% post_url 2016-11-01-switrs_to_sqlite %}
+
 As always, the Jupyter notebook used to do this analysis can be found
-[here]({{ site.url }}/files/switrs_accidents_by_date/SWITRS Crash Dates.ipynb)
-([rendered on
-Github](https://github.com/agude/agude.github.io/blob/master/files/switrs_accidents_by_date/SWITRS%20Crash%20Dates.ipynb)).
+[here][notebook] ([rendered on Github][rendered]).
+
+[notebook]: {{ site.url }}/files/switrs_accidents_by_date/SWITRS Crash Dates.ipynb
+[rendered]: https://github.com/agude/agude.github.io/blob/master/files/switrs_accidents_by_date/SWITRS%20Crash%20Dates.ipynb
 
 ## Data Selection
 
@@ -53,20 +56,23 @@ obvious:
 2. Each year is similar, with a mid-year lull and wildly varying
    increases and decrease right before the end of the year.
 
-The first trend is easy to explain: the [Great
-Recession](https://en.wikipedia.org/wiki/Great_Recession) put many people
+The first trend is easy to explain: the [Great Recession][gr] put many people
 out of work, who then stopped commuting. The second trend is also due to
 reduced driving; we'll look at it in detail below.
+
+[gr]: https://en.wikipedia.org/wiki/Great_Recession
 
 ## Day-by-day
 
 To explore the second trend, we'll need to look at the data day-by-day instead
 of a week at a time. Below is a plot of the average number of accidents on
 each day of the year. The average is calculated by summing the number of
-accidents on a specific day (say, September 22nd) across the years 2001 to 2015. The
-sum is then divided by the number of times that specific day appeared in the
-timespan (15, except for the [leap day](https://en.wikipedia.org/wiki/February_29),
-which only appears 3 times).
+accidents on a specific day (say, September 22nd) across the years 2001 to
+2015. The sum is then divided by the number of times that specific day
+appeared in the timespan (15, except for the [leap day][leapday], which only
+appears 3 times).
+
+[leapday]: https://en.wikipedia.org/wiki/February_29
 
 ![Line plot showing average accidents by day of the
 year]({{ site.url }}/files/switrs_accidents_by_date/mean_accidents_by_date.svg)

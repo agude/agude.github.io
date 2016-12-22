@@ -10,11 +10,13 @@ redirect_from: /2016/10/17/jupyter_dev/
 
 ![The Great Red Spot on the planet Jupiter]({{ site.url }}/files/jupyter_dev/red_spot.jpg)
 
-[Jupyter Notebooks](https://jupyter.org/) are great! They make it really
-convenient to tinker with a new library and are excellent for documenting
-projects that include code. What Jupyter Notebooks are not great for, and what I find
-many people (including my lab) using them for, is development. There are three
-reasons for this:
+[Jupyter Notebooks][jpy] are great! They make it really convenient to tinker
+with a new library and are excellent for documenting projects that include
+code. What Jupyter Notebooks are not great for, and what I find many people
+(including my lab) using them for, is development. There are three reasons for
+this:
+
+[jpy]: https://jupyter.org/
 
 ### 1. Version Control
 
@@ -45,8 +47,7 @@ cells.
 ## Good Uses
 
 This is not to say that the use of [Jupyter Notebooks should be considered
-harmful](https://en.wikipedia.org/wiki/Considered_harmful); they are great
-for:
+harmful][harmful]; they are great for:
 
 - **Exploring data:** In-line plots make it very easy to check
   something, make a tweak, and check again. The caching of variables means
@@ -59,6 +60,10 @@ for:
   text, and images so they make an excellent way to document an analysis and
   provide a way for others to interface with it.
 
+[harmful]: https://en.wikipedia.org/wiki/Considered_harmful
+
 So in closing: I use Jupyter Notebooks where they excel---like documenting
-analyses for this blog or tweaking algorithms for [WhereTo.Photo]({% post_url
-2016-09-22-whereto_photo %})---and try to stick to pure code for other cases.
+analyses for this blog or tweaking algorithms for
+[WhereTo.Photo][whereto]---and try to stick to pure code for other cases.
+
+[whereto]: {% post_url 2016-09-22-whereto_photo %}

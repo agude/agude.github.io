@@ -12,32 +12,37 @@ redirect_from: /2016/11/01/switrs_to_sqlite/
 ![A CHP cruiser]({{ site.url }}/files/switrs_to_sqlite/chp.jpg)
 
 The State of California maintains a database called the [Statewide Integrated
-Traffic Records System
-(SWITRS)](http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp). It contains a
-record of every traffic accident that has been reported in the state—the time
-of the accident, the location, the vehicles involved, and the reason for the
-crash. And even better, it is [publicly
-available](https://github.com/agude/SWITRS-to-SQLite/blob/master/requesting_data.md)!
+Traffic Records System (SWITRS)][switrs]. It contains a record of every
+traffic accident that has been reported in the state—the time of the accident,
+the location, the vehicles involved, and the reason for the crash. And even
+better, it is [publicly available][data]!
 
-Unfortunately, the data is delivered as a set of large [CSV
-files](https://en.wikipedia.org/wiki/Comma-separated_values). Normally you
-could just load them into [Pandas](http://pandas.pydata.org/), but there is
-one, big problem: the data is spread across three files! This means you must
-join the rows between them to select the incidents you are looking for. Pandas
-can do these joins, but not without overflowing the memory on my laptop. If
-only the data were in a proper database!
+[switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
+[data]: https://github.com/agude/SWITRS-to-SQLite/blob/master/requesting_data.md
+
+Unfortunately, the data is delivered as a set of large [CSV files][csv].
+Normally you could just load them into [Pandas][pandas], but there is one, big
+problem: the data is spread across three files! This means you must join the
+rows between them to select the incidents you are looking for. Pandas can do
+these joins, but not without overflowing the memory on my laptop. If only the
+data were in a proper database!
+
+[csv]: https://en.wikipedia.org/wiki/Comma-separated_values
+[pandas]: http://pandas.pydata.org/
 
 ## SWITRS-to-SQLite
 
-To solve this problem, I wrote
-[SWITRS-to-SQLite](https://github.com/agude/SWITRS-to-SQLite).
-SWITRS-to-SQLite is a Python script that takes the three CSV files returned by
-SWITRS and converts them into a [SQLite3 database](https://sqlite.org/). This
-allows you to perform standard [SQL
-queries](https://en.wikipedia.org/wiki/SQL) on the data before pulling it into
-an analysis system like Pandas. Additionally, the script does some data
-cleanup like converting the various null value indicators to a true `NULL`,
-and converting the date and time information to a form recognized by SQLite.
+To solve this problem, I wrote [SWITRS-to-SQLite][s2s]. SWITRS-to-SQLite is a
+Python script that takes the three CSV files returned by SWITRS and converts
+them into a [SQLite3 database][sqlite]. This allows you to perform standard
+[SQL queries][sql] on the data before pulling it into an analysis system like
+Pandas. Additionally, the script does some data cleanup like converting the
+various null value indicators to a true `NULL`, and converting the date and
+time information to a form recognized by SQLite.
+
+[s2s]: https://github.com/agude/SWITRS-to-SQLite
+[sqlite]: https://sqlite.org/
+[sql]: https://en.wikipedia.org/wiki/SQL
 
 ### Installation and Running
 
@@ -111,6 +116,7 @@ California from 2001 to 2016:
 There are some weird artifacts and grid patterns that show up which are not
 due to our mapping but are inherent in the data. Some further clean up will be
 necessary before doing any analysis! A Jupyter notebook used to make the map
-can be found [here]({{ site.url }}/files/switrs_to_sqlite/SWITRS Crash Map.ipynb)
-([rendered on
-Github](https://github.com/agude/agude.github.io/blob/master/files/switrs_to_sqlite/SWITRS%20Crash%20Map.ipynb)).
+can be found [here][notebook] ([rendered on Github][rendered]).
+
+[notebook]: {{ site.url }}/files/switrs_to_sqlite/SWITRS Crash Map.ipynb
+[rendered]: https://github.com/agude/agude.github.io/blob/master/files/switrs_to_sqlite/SWITRS%20Crash%20Map.ipynb

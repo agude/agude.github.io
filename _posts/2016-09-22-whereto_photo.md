@@ -12,12 +12,14 @@ redirect_from: /2016/09/22/whereto_photo/
 WhereTo.Photo]({{ site.url }}/files/whereto_photo/WhereTo.Photo.png)
 
 After graduating from the University of Minnesota, I moved back to California
-to attend [Insight Data Science](http://insightdatascience.com/). Insight is a
-seven week program that takes newly minted PhDs in quantitative fields and
-grooms them for careers in data science. The first four weeks of the program
-focus on building a data product using publicly available data. The project I
-built, **Whereto.photo**, tried to answer the question: _Where is the best
-place in this city to take a picture?_
+to attend [Insight Data Science][insight]. Insight is a seven week program
+that takes newly minted PhDs in quantitative fields and grooms them for
+careers in data science. The first four weeks of the program focus on building
+a data product using publicly available data. The project I built,
+**Whereto.photo**, tried to answer the question: _Where is the best place in
+this city to take a picture?_
+
+[insight]: http://insightdatascience.com/
 
 In this post I'm going to walk through how I built my project from
 brainstorming and data processing to hosting.
@@ -34,10 +36,11 @@ lot of photos available from Instagram and Flickr, so I decided to do a photo
 project.
 
 When I arrive in a new city I generally already have an idea of what landmarks
-I want to shoot, maybe a sunset or a bridge or a [wall caked in
-gum](https://en.wikipedia.org/wiki/Gum_Wall), but I don't know the best place
-to go to shoot them. So the question I decided to answer was: _Where can I go
-around here to take the best picture of X?_
+I want to shoot, maybe a sunset or a bridge or a [wall caked in gum][gumwall],
+but I don't know the best place to go to shoot them. So the question I decided
+to answer was: _Where can I go around here to take the best picture of X?_
+
+[gumwall]: https://en.wikipedia.org/wiki/Gum_Wall
 
 Answering this question would require me to determine three things about the
 photos that made up my data:
@@ -77,17 +80,19 @@ the images.
 
 There are two types of tags applied to Flickr images. The first type are user
 applied tags, and the second type are machine applied tags. Machine applied
-tags generally just duplicate the [EXIF
-data](https://en.wikipedia.org/wiki/Exif) and so I removed them. User tags are
-(as their name suggests) applied by the user and may contain any information
-they deem appropriate. These tags often contain subjects ("golden gate"),
-locations ("san francisco"), equipment notes ("canon ef 50mm f/1.8"), and
-emotions ("sad"). All tags were converted to lowercase to remove duplicates
-that differed only by capitalization. Unfortunately
-[flickrapi](https://stuvel.eu/flickrapi-doc/), which I used to make my
-requests, takes multi-word tags and removes the spaces leaving a single
-monster word. This meant that when users accessed my project I also had to
-strip the spaces from their queries in order to match tags.
+tags generally just duplicate the [EXIF data][exif] and so I removed them.
+User tags are (as their name suggests) applied by the user and may contain any
+information they deem appropriate. These tags often contain subjects ("golden
+gate"), locations ("san francisco"), equipment notes ("canon ef 50mm f/1.8"),
+and emotions ("sad"). All tags were converted to lowercase to remove
+duplicates that differed only by capitalization. Unfortunately
+[flickrapi][api], which I used to make my requests, takes multi-word tags and
+removes the spaces leaving a single monster word. This meant that when users
+accessed my project I also had to strip the spaces from their queries in order
+to match tags.
+
+[exif]: https://en.wikipedia.org/wiki/Exif
+[api]: https://stuvel.eu/flickrapi-doc/
 
 To determine the quality of a photo I had two pieces of metadata I could use:
 views and favorites. I decided to use views because favorites were rare; any
@@ -105,22 +110,24 @@ best spot to take a photos of the tagged subject.
 
 My first attempt was to cluster the photos in space, weighted by their
 quality, so that the cluster centers would indicate areas of high quality
-photos. I tried [_k_-means
-clustering](https://en.wikipedia.org/wiki/K-means_clustering) and
-[DBSCAN](https://en.wikipedia.org/wiki/DBSCAN) but found them too inflexible;
-some tags had a single cluster of photos while others had many, and the
-density and spacing between clusters varied too much from tag to tag for any
-single set of parameters to work.
+photos. I tried [_k_-means clustering][kmeans] and [DBSCAN][dbscan] but found
+them too inflexible; some tags had a single cluster of photos while others had
+many, and the density and spacing between clusters varied too much from tag to
+tag for any single set of parameters to work.
 
-My second attempt used [kernel density estimation
-(KDE)](https://en.wikipedia.org/wiki/Kernel_density_estimation) to estimate
-the probability density of good photos in the city as a function of location.
-The maximum in this distribution was then the "best spot" to take a photo of
-the tagged thing. This algorithm worked well, except it favored areas with
-lots of photos, not necessarily areas with the best photos. For example, in
-San Francisco the maximum of the "flowers" KDE was in the financial distract,
-not because the best flower photos were taken there, but because every tourist
+[kmeans]: https://en.wikipedia.org/wiki/K-means_clustering
+[dbscan]: https://en.wikipedia.org/wiki/DBSCAN
+
+My second attempt used [kernel density estimation (KDE)][kde] to estimate the
+probability density of good photos in the city as a function of location. The
+maximum in this distribution was then the "best spot" to take a photo of the
+tagged thing. This algorithm worked well, except it favored areas with lots of
+photos, not necessarily areas with the best photos. For example, in San
+Francisco the maximum of the "flowers" KDE was in the financial distract, not
+because the best flower photos were taken there, but because every tourist
 took dozens of mediocre photos there tagged flowers.
+
+[kde]: https://en.wikipedia.org/wiki/Kernel_density_estimation
 
 My solution to this was to calculate a second, global KDE for each city using
 every photo. I then divided the KDE for a specific tag by the global KDE which
@@ -131,12 +138,13 @@ algorithm now preferred areas with a surprisingly large amount of quality
 photos instead of areas with just a large number of photos.
 
 The maximum of this normalized KDE was computed by using the
-[Broyden–Fletcher–Goldfarb–Shanno
-algorithm](https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm)
-from SciPy. The fitter often wandered off the edge of the map and into the
-water, and so a penalty was applied to all points in the water (using the
-`basemap.isWater()` method). The starting locations of the minimizer were hand
-selected to cover the major land masses in each city.
+[Broyden–Fletcher–Goldfarb–Shanno algorithm][bfgs] from SciPy. The fitter
+often wandered off the edge of the map and into the water, and so a penalty
+was applied to all points in the water (using the `basemap.isWater()` method).
+The starting locations of the minimizer were hand selected to cover the major
+land masses in each city.
+
+[bfgs]: https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm
 
 An example fit for the tag `goldengate` is shown below. The blue point is the
 estimated best location, the green triangles are the hand selected start
@@ -149,10 +157,12 @@ used in the calculation.
 ## The Website
 
 The results of the analysis was made available on **Whereto.photo**. The
-website was served with [Flask](http://flask.pocoo.org/), and the maxima for
+website was served with [Flask][flask], and the maxima for
 each tag and the associated photos were stored in a MySQL database. The user
 input was lowercased and concatenated into a single string and only exact
 matches to tags were used.
+
+[flask]: http://flask.pocoo.org/
 
 Here is what the website would show if the user searched for "Golden Gate":
 

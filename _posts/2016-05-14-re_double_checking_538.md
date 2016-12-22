@@ -11,36 +11,36 @@ redirect_from: /2016/05/14/re_double_checking_538/
 
 ![Child at a blackboard]({{ site.url }}/files/2016_primary_prediction/black_board_02.jpg)
 
-After my [last blog post]({% post_url 2016-04-28-double_checking_538 %})
-double-checking [FiveThirtyEight presidential primary
-predictions](http://projects.fivethirtyeight.com/election-2016/primary-forecast/),
-I was asked by a friend if I could do two additional things:
+After my [last blog post][lastpost] double-checking [FiveThirtyEight
+presidential primary predictions][primary], I was asked by a friend if I could
+do two additional things:
 
 1. Separate out the candidates in the plots
 2. Look at how badly FiveThirtyEight's predictions missed on average for each
    candidate
 
+[lastpost]: {% post_url 2016-04-28-double_checking_538 %}
+[primary]: http://projects.fivethirtyeight.com/election-2016/primary-forecast/
+
 This post will address both of those requests.
 
 Just like last time I have included the code used to perform the analysis in
-this [Jupyter Notebook]({{ site.url
-}}/files/2016_primary_prediction/Prediction Second Check -- 538 2016 Primary.ipynb)
-([Rendered on
-Github](https://github.com/agude/agude.github.io/blob/master/files/2016_primary_prediction/Prediction%20Second%20Check%20--%20538%202016%20Primary.ipynb))
-. The data used are here: [Republican Results]({{ site.url
-}}/files/2016_primary_prediction/2016_gop_primary_dataframe.csv), [Democrat
-Results]({{ site.url
-}}/files/2016_primary_prediction/2016_dem_primary_dataframe.csv). The data
-have not been updated since April 28th, 2016 so newer primaries are not
+this [Jupyter Notebook][notebook] ([rendered on Github][rendered]). The data
+used are here: [Republican Results][gopdata], [Democrat Results][demdata]. The
+data have not been updated since April 28th, 2016 so newer primaries are not
 included.
+
+[notebook]: {{ site.url }}/files/2016_primary_prediction/Prediction Second Check -- 538 2016 Primary.ipynb
+[rendered]: https://github.com/agude/agude.github.io/blob/master/files/2016_primary_prediction/Prediction%20Second%20Check%20--%20538%202016%20Primary.ipynb
+[gopdata]: {{ site.url }}/files/2016_primary_prediction/2016_gop_primary_dataframe.csv
+[demdata]: {{ site.url }}/files/2016_primary_prediction/2016_dem_primary_dataframe.csv
 
 ## Scaled Results By Candidate
 
 Here is what the scaled result plots look like broken out by candidate, where
 the scaling is such that the 80% confidence interval has been transformed to
-extend between -1 and 1 (as explained in more detail in my
-[previous post]({% post_url 2016-04-28-double_checking_538 %})). The
-Democrats:
+extend between -1 and 1 (as explained in more detail in my [previous
+post][lastpost]). The Democrats:
 
 ![The distributions of results normalized to the prediction for the Democrats
 by candidate.]({{ site.url

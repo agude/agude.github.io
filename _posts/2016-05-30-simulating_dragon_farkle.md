@@ -13,17 +13,20 @@ redirect_from: /2016/05/30/dragon_farkle/
 }}/files/dragon_farkle/st_george_and_the_dragon.jpg)
 
 Some of my friends came over last week to play board games and while we ate
-dinner we played Dragon Farkle because it was a simple enough game to not
-distract us from the meal. The game involves rolling six normal six-side dice
-and a special six-sided die with the following sides: `{0, 0, 0, 0, 1, 2}`. On
-their turn a player rolls the dice to try to recruit soldiers for their army
-by scoring points. They score points by rolling various combinations on the
-dice (ignoring the special die, which mainly modifies how many points are
-awarded) such as three-of-a-kind, straights, and even solitary 1s and 5s. Dice
-that are part of a scoring combination are removed and the remaining dice are
-rerolled to attempt to score more points. If all the dice are removed, the
-player gets six more dice and continues. If no scoring combinations are
-present in a roll, the roll is a "farkle" and the turn generally ends.
+dinner we played [Dragon Farkle][dragonfarkle] because it was a simple enough
+game to not distract us from the meal. The game involves rolling six normal
+six-side dice and a special six-sided die with the following sides: `{0, 0, 0,
+0, 1, 2}`. On their turn a player rolls the dice to try to recruit soldiers
+for their army by scoring points. They score points by rolling various
+combinations on the dice (ignoring the special die, which mainly modifies how
+many points are awarded) such as three-of-a-kind, straights, and even solitary
+1s and 5s. Dice that are part of a scoring combination are removed and the
+remaining dice are rerolled to attempt to score more points. If all the dice
+are removed, the player gets six more dice and continues. If no scoring
+combinations are present in a roll, the roll is a "farkle" and the turn
+generally ends.
+
+[dragonfarkle]: http://www.zmangames.com/store/p18/Dragon_Farkle.html
 
 When a player has enough soldiers (5000 is the minimum specified by the rules)
 they may forgo recruiting more to instead attack the dragon. When a player
@@ -46,11 +49,14 @@ you have more soldiers and have a better shot? So of course, the question came
 up while playing: "On average, how many soldiers do I need to win?" Although
 you can answer this question with pen and paper, I---being an experimental
 physicist at heart---decided to simulate the game in order to answer the
-question. The notebook that performs the simulation can be found [here]({{
-site.url }}/files/dragon_farkle/Dragon Farkle Simulation.ipynb). The plotting
-notebook is [here]({{ site.url }}/files/dragon_farkle/Plot Results.ipynb)
-([Rendered on
-Github](https://github.com/agude/agude.github.io/blob/master/files/dragon_farkle/Plot%20Results.ipynb)).
+question. The notebook that performs the simulation can be found
+[here][notebook] ([rendered on Github][rendered]). The plotting notebook is
+[here][plotnotebook] ([rendered on Github][plotrendered]).
+
+[notebook]: {{ site.url }}/files/dragon_farkle/Dragon Farkle Simulation.ipynb
+[rendered]: https://github.com/agude/agude.github.io/blob/master/files/dragon_farkle/Dragon%20Farkle%20Simulation.ipynb
+[plotnotebook]: {{ site.url }}/files/dragon_farkle/Plot Results.ipynb
+[plotrendered]: https://github.com/agude/agude.github.io/blob/master/files/dragon_farkle/Plot%20Results.ipynb
 
 Let's look at how many soldiers you need, on average, to win the game.
 To do so, we'll simulate attacking the dragon and keep track of how many
