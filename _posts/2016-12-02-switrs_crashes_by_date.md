@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SWITIRS: On What Days Do People Crash?"
+title: "SWITRS: On What Days Do People Crash?"
 description: >
   What day of the year has the most car crashes? The fewest? Find out as I
   look at California's accident data! Hint: they're both holidays!
