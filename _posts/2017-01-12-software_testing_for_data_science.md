@@ -13,9 +13,9 @@ image: /files/data-science-testing/brick_header.jpg
 
 From the title _"Data Scientist"_ you would guess that we work with data, and
 we do some sort of science, but what you might miss is that we write a lot of
-code! Because of this fact, good development practices **are** good data
-science practices! One of these practices that is extremely useful for data
-science, and easy to start doing, is [**testing**][testing_wiki].
+code. This means that good development practices **are** good data
+science practices! A good practice to start with, one that is not only easy to
+do but extremely useful, is [**testing**][testing_wiki].
 
 [testing_wiki]: https://en.wikipedia.org/wiki/Software_testing
 
@@ -39,10 +39,10 @@ previously][s2s_blog]).
 The first step in a data driven analysis is reading your data. Often data is
 read from a database, but sometimes (as was the case in SWITRS) it is from a
 file on disk. Testing your data loading involves generating a fake data source
-and attempting to read it. For example, here is [the test][gzip_test] which
+and attempting to read it. For example, [here][gzip_test] is the test which
 verifies that my code can read `.gzip` data files:
 
-[gzip_test]: https://github.com/agude/SWITRS-to-SQLite/blob/master/tests/test_open_records_file.py
+[gzip_test]: https://github.com/agude/SWITRS-to-SQLite/blob/5167c7d9ffe7384224a76b1f209b7638fdd70362/tests/test_open_records_file.py#L8-L18
 
 {% highlight python %}
 from etl import open_record_file
@@ -64,21 +64,20 @@ In this test I create a very small gzip file, read it with the function being
 tested, and verify that it reports the same content that I wrote to the file.
 It was helpful to have this function when writing the library because I wanted
 to be able to read both zipped files and plain text (since compressing the
-files can save several gigabytes of disk space), and this test ensured I
-didn't break the ability to read one of these file types while working on the
-other.
+files can save several gigabytes of disk space). This test ensured I didn't
+break the ability to read one of these file types while working on the other.
 
 ## Data Cleaning and Transformation Tests
 
-After the raw data is loaded, it is often necessary to clean and transform it,
-that is parse it. I've found that the parser code benefits enormously from
-tests for three reasons:
+After the raw data is loaded, it is often necessary to parse (read, clean, and
+transform) it. I've found that the parser code benefits enormously from tests
+for three reasons:
 
-1. It has to deal with high number of edge cases because data is never as
-   clean as we would like it to be.
-2. It often has the most bespoke code because everyone's data is different.
-3. It must change when the raw data format changes, which is more likely than
-   not to be outside of your control.
+- It has to deal with high number of edge cases because data is never as clean
+  as we would like it to be.
+- It often has the most bespoke code because everyone's data is different.
+- It must change when the raw data format changes, which is more likely than
+  not to be outside of your control.
 
 Testing the parser is simple: create pairs of examples of raw data and
 correctly parsed results, then test that the code produces the right result
@@ -86,7 +85,7 @@ when provided the raw data. You should have (at least) one of these pairs for
 each variation of data you expect to encounter. For example, here is a
 simplified version of the [tests for my `convert` function][convert_tests]:
 
-[convert_tests]: https://github.com/agude/SWITRS-to-SQLite/blob/master/tests/test_converters.py
+[convert_tests]: https://github.com/agude/SWITRS-to-SQLite/blob/5167c7d9ffe7384224a76b1f209b7638fdd70362/tests/test_converters.py#L7-L40
 
 {% highlight python %}
 from etl import convert
@@ -108,31 +107,35 @@ def test_convert():
         # Conversion failure
         ("a", int, None, None),
     )
-    for val, dtype, nulls, res in convert_vals:
-        assert convert(val=val, dtype=dtype, nulls=nulls) == res
+    for val, dtype, nulls, answer in convert_vals:
+        assert convert(val=val, dtype=dtype, nulls=nulls) == answer
 {% endhighlight %}
 
-The function takes in strings read out of a CSV file and converts them to a
-Python type, with an optional list of `NULL` values.
+The [`convert` function][convert_fn] takes a string, a type, and a list of
+values that should map to the [`NULL` value][wiki_null]. If the string is in
+the `NULL` list then `None` should be returned, otherwise the string should be
+converted to the type and returned. The tests provide example inputs and check
+that they match the example output.
 
-These tests were essential for verifying that the poorly specified CSV files
-which make up SWITRS were correctly read. The data contained within them had
-many edge cases that had to be handled correctly: multiple input values that
-all mean `NULL`, multiple input values that all map to `True` or `False`, a
-mix of strings and numbers in the same column, and occasionally spaces
-prepended or appended to values. A solid set of unit tests gave me confidence
-that the functions worked correctly and allowed me to track all of the edge
-cases as I discovered them.
+[convert_fn]: https://github.com/agude/SWITRS-to-SQLite/blob/5167c7d9ffe7384224a76b1f209b7638fdd70362/switrs_to_sqlite/switrs_to_sqlite.py#L25-L64
+[wiki_null]: https://en.wikipedia.org/wiki/Null_(SQL)
+
+The SWITRS data files contained many edge cases---as is common in raw data!
+These edge cases include: multiple input values that all mean `NULL`, multiple
+input values that all map to `True` or `False`, a mix of strings and numbers
+in the same column, and occasionally spaces prepended or appended to values. A
+solid set of unit tests gave me confidence that the parsing functions worked
+correctly and allowed me to track all of the edge cases as I discovered them.
 
 ## Integration Tests
 
-Finally, once all components have been tested in isolation, you should test
+Once all components have been tested in isolation, you should test
 the system as a whole. This ensures that the components, which we are already
 confident in individually, are put together correctly into a working program.
 For example, I [test the class][vr_test] that parses a row from one of the CSV
 files using the `convert` function (and a few others) tested above as follows:
 
-[vr_test]: https://github.com/agude/SWITRS-to-SQLite/blob/master/tests/test_victimrow.py
+[vr_test]: https://github.com/agude/SWITRS-to-SQLite/blob/5167c7d9ffe7384224a76b1f209b7638fdd70362/tests/test_victimrow.py
 
 {% highlight python %}
 from etl import VictimRow
@@ -160,14 +163,13 @@ integers, and `NULL`. Verifying this manually by hand would be quite tedious!
 
 ## Tests: Remembering So You Don't Have To
 
-A final remark: one of the great things about tests is they can keep track of
-the complexity of your input data for you. When you find a new value in your
-data that your code doesn't handle correctly, add it to the tests! This does
-two things for you:
+A final remark: tests are great because they keep track of the complexity
+of your input data! When you find a new value in your data that your code
+doesn't handle correctly, add it to the tests! This does two things for you:
 
-1. You'll know your code is fixed when the test starts passing.
-2. You will never mishandle that value again, regardless of what happens in
-   the future.
+- You'll know your code is fixed when the test starts passing.
+- You will never mishandle that value again, regardless of what happens in the
+  future.
 
 This takes a lot of mental load off you, allowing you to focus more on the
 science, and less on the data parsing!
