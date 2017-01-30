@@ -41,6 +41,8 @@ This selects every accident that happened before 2016 that has a collision
 date stored. The current year, 2016, is excluded because the data from it is
 incomplete.
 
+## Accidents per Week
+
 The first thing to look at is crashes as a function of time. Below, I plot
 accidents per week to make the trends clearer; plotting per day results in too
 many points to separate by eye.
