@@ -31,8 +31,7 @@ As always, the Jupyter notebook used to do this analysis can be found
 The data was selected using the following query:
 
 {% highlight sql %}
-SELECT Collision_Date
-FROM Collision AS C
+SELECT Collision_Date FROM Collision
 WHERE Collision_Date IS NOT NULL
 AND Collision_Date <= '2015-12-31'  -- 2016 is incomplete
 {% endhighlight %}
