@@ -3,7 +3,7 @@ layout: post
 title: "SWITRS: On What Days Do Motorcycles Crash?"
 description: >
   On what day of the year do motorcycles crash? Do riders take the day off for
-  Christmas? Do they ride in the winter? Find out when I look at SWITRS crash
+  Christmas? Do they even ride in the winter? Find out when I look at SWITRS crash
   data!
 image: /files/switrs-motorcycle-accidents-by-date/african-american-mp-wwii.jpg
 ---
@@ -16,10 +16,11 @@ California][lastpost]. This time I'm going to go through the same analysis but
 restrict myself to looking at accidents involving motorcycles. Motorcycle
 accidents are the original reason I tracked down the [SWITRS][switrs] data; my
 father rode motorcycles for years (he only recently stopped) and we wanted to
-better understand what sort of risks that brought.
+better understand what sort of risks that brought ([clearly, not very much][survivorship_bias]).
 
 [lastpost]: {% post_url 2016-12-02-switrs_crashes_by_date %}
 [switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
+[survivorship_bias]: https://en.wikipedia.org/wiki/Survivorship_bias
 
 As per usual, the Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
@@ -52,7 +53,7 @@ complete data for the year.
 
 The number of riders on a given day (or more accurately, the number of miles
 ridden by them) has the most impact on the number of crashes. From now on
-I'll treat the as equivalent, even though there are some confounding factors,
+I'll treat the two as equivalent, even though there are some confounding factors,
 like weather; I hope to look at these other factors in a later post.
 
 [apw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#accidents-per-week
@@ -136,7 +137,7 @@ and 22 in 2012.
 Finally, each weekend is like a mini-holiday, so if my two rider model holds
 then I would expect to see a similar seasonal trend: recreational riders
 should fill in for missing commuters during the summer, and not as much during
-the winter. To check, I [plot][violin] the number of accidents by day of the
+the winter. To check, I [plotted][violin] the number of accidents by day of the
 week, divided into winter (November--April) and summer (May--October) seasons.
 
 [violin]: https://en.wikipedia.org/wiki/Violin_plot
@@ -147,9 +148,9 @@ site.url
 
 The weekday trend is similar for both seasons: Monday has the fewest
 accidents, and the rest of the days are roughly equal. The weekends are where
-the real differences lie. During the summer there is a substantial increase in
+the real differences lie. During the summer, there is a substantial increase in
 the number of accidents (including on Friday), while in the winter the
-increase is there, but less prominent. This suggests that there are
+increase is there but less prominent. This suggests that there are
 recreational riders at all times, but especially during the summer.
 
 This is not the exact trend we observed for holidays, where we saw a constant
