@@ -14,13 +14,28 @@ image: /files/switrs-motorcycle-accidents-by-date/african-american-mp-wwii.jpg
 A few months ago I wrote a post in which [I explored when accidents happen in
 California][lastpost]. This time I'm going to go through the same analysis but
 restrict myself to looking at accidents involving motorcycles. Motorcycle
-accidents are the original reason I tracked down the [SWITRS][switrs] data; my
+accidents are the original reason I tracked down the [SWITRS][switrs] data: my
 father rode motorcycles for years (he only recently stopped) and we wanted to
-better understand what sort of risks that brought ([clearly, not very much][survivorship_bias]).
+better understand what sort of risks that brought.
 
 [lastpost]: {% post_url 2016-12-02-switrs_crashes_by_date %}
 [switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
-[survivorship_bias]: https://en.wikipedia.org/wiki/Survivorship_bias
+
+I expected the general trends to match the trends I found when [looking at all
+motor-vehicles][lastpost]. There I found that commute accidents accounted for
+the majority of accidents, and so holidays where people got the day off
+resulted in many fewer accidents, while holidays where people did not get the
+day off resulted in more accidents as people commuted and then drove to
+holiday events after work.
+
+One thing before we get started: the number of riders on a given day (or more
+accurately, the [number of miles ridden by them][vmot]) has the most impact on
+the number of crashes. If there are more riders, there are going to be more
+crashes. From now on I'll treat the two numbers as equivalent, even though
+there are some confounding factors, like weather; I hope to look at these
+other factors in a later post.
+
+[vmot]: https://en.wikipedia.org/wiki/Vehicle_miles_of_travel
 
 As per usual, the Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
@@ -43,7 +58,7 @@ AND Motorcycle_Collision == 1       -- Involves a motorcycle
 AND Collision_Date <= '2015-12-31'  -- 2016 is incomplete
 {% endhighlight %}
 
-This gives me 193,336 data points to examine spanning 2001 to 2015. [Just as
+This gave me 193,336 data points to examine spanning 2001 to 2015. [Just as
 before][ds], accidents from 2016 are rejected because there is not yet
 complete data for the year.
 
@@ -51,94 +66,74 @@ complete data for the year.
 
 ## Accidents per Week
 
-The number of riders on a given day (or more accurately, the number of miles
-ridden by them) has the most impact on the number of crashes. From now on
-I'll treat the two as equivalent, even though there are some confounding factors,
-like weather; I hope to look at these other factors in a later post.
+For all motor-vehicles [I found that there was a decrease in accidents][apw]
+starting in 2008 as people stopped driving to work during the [Great
+Recession][gr], but otherwise that week-to-week rate changed relatively
+slowly, with holidays providing the largest increases and decreases. For just
+motorcycles, plotted below, the trends are completely different.
 
 [apw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#accidents-per-week
-
-To start, I plot the amount of motorcycle crashes week-by-week for all 15
-years:
-
-![Line plot showing accidents per week from 2001 to
-2015]({{ site.url }}/files/switrs-motorcycle-accidents-by-date/motorcycle_accidents_per_week_in_california.svg)
-
-The trend is strikingly different from [the one involving all accidents][apw]!
-There are roughly 9000 accidents a week in California but only about 300 of
-them involve motorcycles. There is also a much stronger seasonal effect---even
-in sunny California people do not ride motorcycles in the winter! The general
-trend is upwards with a small dip from the [Great Recession][gr], but it is
-much less pronounced than the dip seen in the statistics for all accidents.
-I can think of two possibilities:
-
-1. There are many recreational motorcycle riders who continue riding even if
-   out of work.
-2. Motorcycle commuters were not as affected by the layoffs as the general
-   population.
-
-Of course some combination is also possible: perhaps commuters who were laid
-off used their free time to ride more. I'll discuss the evidence for this "two
-rider model" as we continue through the data.
-
 [gr]: https://en.wikipedia.org/wiki/Great_Recession
+
+![Line plot showing accidents per week from 2001 to 2015]({{ site.url
+}}/files/switrs-motorcycle-accidents-by-date/motorcycle_accidents_per_week_in_california.svg)
+
+As expected there are far fewer accidents because there are far fewer
+motorcycles: there are about [27 million vehicles in California but only
+770,000 motorcycles][dot]. There is, however, a strong seasonal effect---even
+in sunny California motorcycle ridership drops drastically in the winter!
+Unlike for trend for all vehicles, there is not a large decrease due to the
+recession, and there is an overall upward trend.
+
+[dot]: https://www.fhwa.dot.gov/policyinformation/statistics/2012/mv1.cfm
+
+These trends suggest that commute traffic is not dominant for motorcycles.
+People keep riding even when out of work, but they also stop riding when the
+weather is poor. We'll look at accidents by day of the year instead of a week
+at a time.
 
 ## Day-by-day
 
-There are clear seasonal trends, but there are even finer-grained effects. To
-explore these I'll plot the average number of crashes by day of the year; this
-plot was created in the exact same manner as the one looking at all vehicle
-accidents from [last time][dbd]:
+When looking at all motor-vehicle accidents [I observed that holidays were the
+maxima and minima][dbd] in the average number of crashes by day of the year.
+On holidays where people have the day off the number of crashes decrease,
+whereas the number increases on holidays where people work and then go out
+afterward. Motorcycle accidents do not follow this trend. Instead, the
+holidays show higher variance: some holidays dip, some spike, others show
+almost deviation from a normal day.
 
 [dbd]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-by-day
 
 ![Line plot showing average accidents by day of the
 year]({{ site.url }}/files/switrs-motorcycle-accidents-by-date/mean_motorcycle_accidents_by_date.svg)
 
-The small number of motorcycle accidents leads to more "noise" in our time
-series than we saw previously: even just five more motorcycle accidents
-in a day leads to a 15-20% change! This is the reason we average the 15 years
-together, it helps to smooth out single days where something horrible
-happened, and lets us look at trends that depend on the date itself.
+The summer holidays are muted, many hardly visible in the data. Winter
+holidays, but contrast show both peaks and valleys. I would interpret this as
+due to the seasonal weather: during the summer any day is a good day to ride,
+but during the winter the weather provides either an excuse to stay in most
+days, but some holidays provide the extra motivation to get out on the bike.
 
-Once we account for the noise and the seasonal trend, we can see a few
-differences from the [same plot for all vehicles][dbd]. During the first part
-of the year there are some large swings, with MLK's Birthday and Valentine's
-Day showing about 20% increases as compared to the surrounding days while
-Washington's Birthday has about a 20% decrease. In the summer, holidays have a
-minor effect, with only Memorial day showing a major deviation. As we head
-into fall and winter, holidays start to show up again as decreases in the
-number of accidents.
-
-Using the two rider model mentioned above could explain these trends:
-commuters ride more consistently through inclement weather because they have
-to get to work while recreational riders are more likely to take the day off
-if it is cold and rainy. Summer holidays show little deviation because
-commuters who have the day off are replaced by recreational riders, whereas
-drops are seen for winter holidays because the weather and shorter days keeps
-recreational riders home.
-
-This still leaves MLK's Birthday to explain, and I admit I do not have a good
-theory. Perhaps, having not ridden all winter, the recreational riders are a
-bit rusty (and hence have more accidents) but decide to make use of the
-three-day weekend to get out and ride.
-
-Finally, there is one outlier that I must address: the sharp peak between
-Washington's Birthday and St. Patrick's Day is [leap day][leapday]. I believe
-this peak is a statistical artifact; the mean for all other days is calculated
-with `n = 15`, but only `n = 3` for leap day. A few more accidents than normal
-would skew the mean high. The number of accidents are 36 in 2004, 49 in 2008,
-and 22 in 2012.
+There is one outlier that I must address. The sharp peak between Washington's
+Birthday and St. Patrick's Day is [leap day][leapday]. This peak is a
+statistical artifact. The mean for all other days is calculated with `n = 15`,
+but only `n = 3` for leap day.
 
 [leapday]: https://en.wikipedia.org/wiki/February_29
 
 ## Day of the Week
 
-Finally, each weekend is like a mini-holiday, so if my two rider model holds
-then I would expect to see a similar seasonal trend: recreational riders
-should fill in for missing commuters during the summer, and not as much during
-the winter. To check, I [plotted][violin] the number of accidents by day of the
-week, divided into winter (November--April) and summer (May--October) seasons.
+The weekends [showed a decrease in the number of all motor-vehicle
+accidents][dotw], but for motorcycles weekends are prime riding time and so we
+actually see an increase on the weekends. Weekends are actually like a
+mini-holiday, so they provide a way to look at the same seasonal holiday
+phenomenon [discussed above][this_dbd].
+
+[dotw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-of-the-week
+[this_dbd]: #day-by-day
+
+These [violin plots][violin] show the distribution of accidents by day of the
+week over the 15 years. They are divided into two seasons: summer
+(May--October) and winter (November--April).
 
 [violin]: https://en.wikipedia.org/wiki/Violin_plot
 
@@ -146,23 +141,20 @@ week, divided into winter (November--April) and summer (May--October) seasons.
 site.url
 }}/files/switrs-motorcycle-accidents-by-date/motorcycle_accidents_by_day_of_the_week_and_season.svg)
 
-The weekday trend is similar for both seasons: Monday has the fewest
-accidents, and the rest of the days are roughly equal. The weekends are where
-the real differences lie. During the summer, there is a substantial increase in
-the number of accidents (including on Friday), while in the winter the
-increase is there but less prominent. This suggests that there are
-recreational riders at all times, but especially during the summer.
-
-This is not the exact trend we observed for holidays, where we saw a constant
-number of riders during the summer, and a decrease in winter. However, this
-might be accounted for by the fact that riders, or all types, are less likely
-to ride on holidays, perhaps because they have social events to attend.
+There is lower ridership in winter over all, but there is also a smaller
+increase in the number of riders out on the weekend. However, the
+distributions are elongated as compared to summer meaning on some days there
+are many riders, and some days there are almost none. Like the trends for
+holidays, this could be due to weather. Summer weekends have consistently high
+ridership.
 
 ## Conclusion
 
-The idea that there are two types of motorcycle riders is an interesting one,
-and one I think riders themselves would support. I see hints of it in the
-data, but nothing conclusive. In the future I'd like to try exploring it more
-by looking at the types of motorcycles, where they crash, and the types of
-accidents. I suspect all three of these will be quite different between the
-two populations.
+Motorcycle accidents do not follow the same trends as for all motor-vehicles.
+Motorcyclists continue riding even when they do not have a job, but seasons
+have a large effect on the number of riders out on the road.
+Riders are also out on holidays in the summer when other vehicles take the day
+off, and have high variance for winter holidays and weekends when the weather
+may turn against them. There are many more ways to explore motor cycle
+accidents---time of day, type of motorcycle, vehicle at fault---but those will
+have to wait for another day.
