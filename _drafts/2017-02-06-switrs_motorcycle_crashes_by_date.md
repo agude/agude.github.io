@@ -4,7 +4,7 @@ title: "SWITRS: On What Days Do Motorcycles Crash?"
 description: >
   Motorcycles riders are a different breed, born to chase excitment! So when
   do they crash? Using California's SWITRS data I find out! I'll give you a
-  hint: it isn't on the way to their 9-5!
+  hint: it is not on the way to their 9-5!
 image: /files/switrs-motorcycle-accidents-by-date/police_in_stockholm.jpg
 ---
 
@@ -22,11 +22,10 @@ better understand what sort of risks that brought.
 [switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
 
 I expected the general trends to match the trends I found when [looking at all
-motor-vehicles][lastpost]. There I found that commute accidents accounted for
-the majority of accidents, and so holidays where people got the day off
-resulted in many fewer accidents, while holidays where people did not get the
-day off resulted in more accidents as people commuted and then drove to
-holiday events after work.
+motor vehicles][lastpost]. There I found that commute accidents accounted for
+the majority of accidents, and so holidays and weekends that most people have
+off result in fewer accidents. Motorcycles, we will see, do not follow these
+trends.
 
 One thing before we get started: the number of riders on a given day (or more
 accurately, the [number of miles ridden by them][vmot]) has the most impact on
@@ -66,12 +65,12 @@ complete data for the year.
 
 ## Accidents per Week
 
-For all motor-vehicles, [I found that there was a decrease in accidents][apw]
+For all motor vehicles, [I found that there was a decrease in accidents][apw]
 starting in 2008 as people stopped driving to work during the [Great
-Recession][gr]; but apart from that trend, I found that the week-to-week rate changed relatively
-little, with holidays providing the largest increases and decreases. When I
-looked at just motorcycles, I expected to see similar trends as for all motor
-vehicles. However, the trends (plotted below) are completely different.
+Recession][gr]; but apart from that trend, I found that the week-to-week rate
+changed relatively little, with holidays providing the largest increases and
+decreases. When I looked at just motorcycles, I expected to see similar
+trends. However, the trends (plotted below) are completely different.
 
 [apw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#accidents-per-week
 [gr]: https://en.wikipedia.org/wiki/Great_Recession
@@ -91,10 +90,10 @@ motorcycle accidents.
 [dot]: https://www.fhwa.dot.gov/policyinformation/statistics/2012/mv1.cfm
 
 As I noted above for all vehicles, commute accidents account for the major of
-accidents. However, the trends suggest that for accidents involving
-motorcycles, commute traffic is not dominant. People keep riding even when out
-of work; but they also stop riding when the weather is poor. Next we'll look at
-accidents by day of the year instead of by week.
+accidents. However, the data suggest that for accidents involving motorcycles,
+commute traffic is not dominant. People keep riding even when out of work; but
+they also stop riding when the weather is poor. Next we'll look at accidents
+by day of the year instead of by week.
 
 ## Day-by-Day
 
@@ -112,13 +111,13 @@ others show almost deviation from a normal day.
 site.url
 }}/files/switrs-motorcycle-accidents-by-date/mean_motorcycle_accidents_by_date.svg)
 
-The summer holidays do not stand out; many are hardly visible in the data.
+The summer holidays do not stand out; only memorial day is readily visible.
 Winter holidays, by contrast, show both peaks and valleys. I would interpret
 this as due to the seasonal weather: during the summer, any day is a good day
-to ride; but during the winter the weather keeps many riders off the roads on most days.
-But it would appear that some winter holidays provide rider with the extra
-motivation to get out on the bike. Look, for example, at Martian Luther King
-Jr. Day, which occurs in January.
+to ride; but during the winter the weather keeps many riders off the roads on
+most days. But it would appear that some winter holidays provide rider with
+the extra motivation to get out on the bike. Look, for example, at Martian
+Luther King Jr. Day, which occurs in January.
 
 There is one outlier that I must address. The sharp peak between Washington's
 Birthday and St. Patrick's Day is [leap day][leapday]. This peak is a
@@ -136,7 +135,7 @@ as a kind of mini-holiday, they provide a way to look at the same seasonal
 holiday phenomenon [discussed above][this_dbd]. Winter holidays showed high
 variance, so I would expect to see some weekends with high winter ridership,
 and some with low ridership. Summer holidays had low variance, so I expect to
-see similar ridership on all weekends.
+see similar ridership on all summer weekends.
 
 [dotw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-of-the-week
 [this_dbd]: #day-by-day
@@ -165,7 +164,7 @@ weekend results could be due to weather.
 
 ## Conclusion
 
-Motorcycle accidents do not follow the same trends as for all motor-vehicles.
+Motorcycle accidents do not follow the same trends as for all motor vehicles.
 Motorcyclists continue riding even when they do not have a job.  Seasons have
 a large effect on the number of riders out on the road. Riders are also out on
 holidays in the summer when other vehicles take the day off, and have high
