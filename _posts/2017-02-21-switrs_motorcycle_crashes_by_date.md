@@ -31,8 +31,9 @@ One thing before we get started: the number of riders on a given day (or more
 accurately, the [number of miles ridden by them][vmot]) has the most impact on
 the number of crashes. If there are more riders, there are going to be more
 crashes. From now on I'll treat the two numbers as equivalent, even though
-there are some confounding factors, like weather; I hope to look at these
-other factors in a later post.
+there are some confounding factors, like weather, which would change the ratio
+of accidents to number of riders on the road; I hope to look at these other
+factors in a later post.
 
 [vmot]: https://en.wikipedia.org/wiki/Vehicle_miles_of_travel
 
@@ -57,9 +58,9 @@ AND Motorcycle_Collision == 1       -- Involves a motorcycle
 AND Collision_Date <= '2015-12-31'  -- 2016 is incomplete
 {% endhighlight %}
 
-This gave me 193,336 data points to examine spanning 2001 to 2015. [Just as
-before][ds], accidents from 2016 are rejected because there is not yet
-complete data for the year.
+This gave me 193,336 data points (accidents) to examine spanning 2001 to 2015.
+[Just as before][ds], accidents from 2016 are rejected because there is not
+yet complete data for the year.
 
 [ds]: {% post_url 2016-12-02-switrs_crashes_by_date %}#data-selection
 
@@ -84,16 +85,17 @@ only 770,000 are motorcycles][dot]. The next observation is that, unlike for
 all vehicles, there is a strong seasonal effect---even in sunny California,
 motorcycle ridership drops drastically in the winter! And unlike the trend for
 all vehicles, there is not a large decrease due to the recession. Finally, I
-note that there is there is an overall upward trend in the number of
-motorcycle accidents.
+note that there is an overall upward trend in the number of motorcycle
+accidents.
 
 [dot]: https://www.fhwa.dot.gov/policyinformation/statistics/2012/mv1.cfm
 
-As I noted above for all vehicles, commute accidents account for the major of
-accidents. However, the data suggest that for accidents involving motorcycles,
-commute traffic is not dominant. People keep riding even when out of work; but
-they also stop riding when the weather is poor. Next we'll look at accidents
-by day of the year instead of by week.
+As I noted above, commute accidents for all vehicles account for the majority
+of accidents. However, the data suggest that for accidents involving
+motorcycles, commute traffic is not dominant. Moreover, unlike the results for
+all vehicles, people keep riding even when out of work; but they also stop
+riding when the weather is poor. Next we'll look at accidents by day of the
+year instead of by week.
 
 ## Day-by-Day
 
@@ -111,11 +113,11 @@ others show almost deviation from a normal day.
 site.url
 }}/files/switrs-motorcycle-accidents-by-date/mean_motorcycle_accidents_by_date.svg)
 
-The summer holidays do not stand out; only memorial day is readily visible.
+The summer holidays do not stand out; only Memorial Day is readily visible.
 Winter holidays, by contrast, show both peaks and valleys. I would interpret
 this as due to the seasonal weather: during the summer, any day is a good day
 to ride; but during the winter the weather keeps many riders off the roads on
-most days. But it would appear that some winter holidays provide rider with
+most days. But it would appear that some winter holidays provide riders with
 the extra motivation to get out on the bike. Look, for example, at Martian
 Luther King Jr. Day, which occurs in January.
 
