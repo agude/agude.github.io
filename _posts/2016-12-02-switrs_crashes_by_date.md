@@ -63,7 +63,7 @@ reduced driving; we'll look at it in detail below.
 
 [gr]: https://en.wikipedia.org/wiki/Great_Recession
 
-## Day-by-day
+## Day-by-Day
 
 To explore the second trend, we'll need to look at the data day-by-day instead
 of a week at a time. Below is a plot of the average number of accidents on
