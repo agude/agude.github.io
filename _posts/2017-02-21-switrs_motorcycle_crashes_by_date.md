@@ -105,7 +105,7 @@ On holidays where people have the day off, the number of crashes decreases,
 whereas the number increases on holidays where people work and then go out
 afterward, like Halloween. Motorcycle accidents do not follow this trend.
 Instead, the holidays show quite disparate results: some holidays dip, some spike,
-others show almost deviation from a normal day.
+others show almost no deviation from a normal day.
 
 [dbd]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-by-day
 
@@ -154,11 +154,11 @@ site.url
 
 There is lower ridership in winter over all (top row), as indicated by the
 central dotted line indicating average number of accidents. And we can see an
-increase on weekends; but during the winter, that weekend increase is small
-as compared with summer (bottom row). However, the winter distributions are
-more elongated than those from summer, meaning that on some days there are
-many riders, and on others there are almost none. Summer weekends, by
-contrast, have consistently high ridership.
+increase on weekends; but during the winter, that weekend increase is small as
+compared with summer (bottom row). However, the winter distributions are more
+elongated than those from summer, meaning that on some days there are many
+riders, and on others there are almost none. Summer weekends, by contrast,
+have consistently high ridership.
 
 Thus, it appears we can conclude that weekend rider behavior does seem to
 track seasonal holiday riding behavior. And like the trends for holidays, the
