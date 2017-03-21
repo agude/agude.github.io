@@ -44,10 +44,10 @@ choice for normalization because:
 - The weeks after the time change have similar lighting to the week of the
 time change.
 - The accident rate is still elevated (as we shall see) a week later, so
-normalizing by very next week hides some of the increase that is due to the
-start of DST.
+normalizing by the very next week hides some of the increase that is due to
+the start of DST.
 
-The [violin plots][violin] below shows the distribution of these ratios from
+The [violin plots][violin] below show the distribution of these ratios from
 the years 2001 to 2016. A value greater than 1 means that there are more
 accidents during the week when DST starts than the week after.
 
@@ -58,10 +58,7 @@ after the start of daylight saving time, divided by the week two weeks
 after.]({{ site.url
 }}/files/switrs-dst/accidents_two_weeks_after_dst_change_in_california.svg)
 
-Except for Sunday, every day of the week after the time change has a higher
-rate of accidents on average! I am surprised that the accident rate stays high
-for so long. This indicates that it takes even longer than a week for people
-to catch up on sleep and for the accident rate to go back to normal.
+Except for Sunday, every day of the week following the time change has on average a higher rate of accidents! I am surprised that the accident rate stays high for so long. This indicates that it takes even longer than a week for people to catch up on sleep and for the accident rate to go back to normal.
 
 Daylight savings time causes more accidents, but those of us in California
 might be in luck! State Assembly member [Kansen Chu][chu] has introduced a
