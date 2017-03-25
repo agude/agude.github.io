@@ -4,11 +4,11 @@ title: "SWITRS: On What Days Do People Crash?"
 description: >
   What day of the year has the most car crashes? The fewest? Find out as I
   look at California's accident data! Hint: they're both holidays!
-image: /files/switrs_accidents_by_date/1923_dc_car_crash.jpg
+image: /files/switrs-accidents-by-date/1923_dc_car_crash.jpg
 ---
 
 ![Men gathered around a crashed car in Washington DC, 1923]({{ site.url
-}}/files/switrs_accidents_by_date/1923_dc_car_crash.jpg)
+}}/files/switrs-accidents-by-date/1923_dc_car_crash.jpg)
 
 The [Statewide Integrated Traffic Records System (SWITRS)][switrs] contains a
 wealth of information, enough to determine who, where, when, and sometimes why
@@ -23,8 +23,8 @@ going to look at when accidents happen, and specifically on what dates.
 As always, the Jupyter notebook used to do this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-[notebook]: {{ site.url }}/files/switrs_accidents_by_date/SWITRS Crash Dates.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/switrs_accidents_by_date/SWITRS%20Crash%20Dates.ipynb
+[notebook]: {{ site.url }}/files/switrs-accidents-by-date/SWITRS Crash Dates.ipynb
+[rendered]: https://github.com/agude/agude.github.io/blob/master/files/switrs-accidents-by-date/SWITRS%20Crash%20Dates.ipynb
 
 ## Data Selection
 
@@ -47,7 +47,7 @@ accidents per week to make the trends clearer; plotting per day results in too
 many points to separate by eye.
 
 ![Line plot showing accidents per week from 2001 to
-2015]({{ site.url }}/files/switrs_accidents_by_date/accidents_per_week_in_california.svg)
+2015]({{ site.url }}/files/switrs-accidents-by-date/accidents_per_week_in_california.svg)
 
 The week-to-week variation is rather significant, but two major trends are
 obvious:
@@ -76,7 +76,7 @@ appears 3 times).
 [leapday]: https://en.wikipedia.org/wiki/February_29
 
 ![Line plot showing average accidents by day of the
-year]({{ site.url }}/files/switrs_accidents_by_date/mean_accidents_by_date.svg)
+year]({{ site.url }}/files/switrs-accidents-by-date/mean_accidents_by_date.svg)
 
 Holidays account for the extrema, with the minimum number of accidents taking
 place on Christmas, and the maximum number taking place on Halloween. In fact,
@@ -104,21 +104,34 @@ post.
 ## Day of the Week
 
 Finally, let's look at accidents by day of the week. On weekends, like
-holidays, we would expect most people to not go to work. Below is a plot of
-accidents by day of the week. It is a strip plot (or sometimes a univariate
-dot plot) where each day in the dataset is plotted as a dot. The y position of
-the dot indicates the number of accidents, while the x position only indicates
-the day of the week with random jitter added to reduce overlap. For each
-collection of dots I have also plotted one and two standard
-deviations using error bars. The black dot in the middle is the mean.
+holidays, we would expect most people to not go to work. Below is a [violin
+plot][violin] of accidents by day of the week. The width of each "violin"
+indicates the number of days with that value while the center line indicates
+the median, and the two outer lines indicate the interquartile.
 
-![Strip plot showing accidents by day of the
-week]({{ site.url }}/files/switrs_accidents_by_date/accidents_by_day_of_the_week.svg)
+[violin]: https://en.wikipedia.org/wiki/Violin_plot
 
-The first four weekdays have roughly the same number of crashes. Friday has
-more, presumably because people are more likely to go out after work. Saturday
-drops to a level slightly below the weekdays, though not by much, and Sunday
-has the lowest accident count.
+![Violin plot showing accidents by day of the week]({{ site.url }}/files/switrs-accidents-by-date/accidents_by_day_of_the_week.svg)
 
-So in the end the results are not too surprising: accidents happen when people
+The distribution for each day of the week is bimodal. This is due to the [two
+plateaus in accident rates][apw]: a high one from 2001-2006, and a lower one
+from 2011--2014. The first four weekdays have roughly the same number of
+crashes. Friday has more, presumably because people are more likely to go out
+after work. Saturday drops to a level slightly below the weekdays, though not
+by much, and Sunday has the lowest accident count.
+
+
+[apw]: #accidents-per-week
+
+In the end the results are not too surprising: accidents happen when people
 are driving, not when they're sitting at home celebrating!
+
+---
+
+**Update**: _Replaced the [univariate dot plot][dot_plot] in the [Day of the
+Week][dow] section with a [violin plot][violin_plot]._
+
+[dot_plot]: {{ site.url }}/files/switrs-accidents-by-date/accidents_by_day_of_the_week_dot.svg
+[violin_plot]: {{ site.url }}/files/switrs-accidents-by-date/accidents_by_day_of_the_week.svg
+
+[dow]: #day-of-the-week
