@@ -3,19 +3,20 @@ layout: post
 title: "Visualizing Multiple Data Distributions"
 description: >
   Need to compare a set of distributions of some variable? Histograms are OK,
-  but try something fancier! Read on to learn about box, strip, swarm, or
+  but try something fancier! Read on to learn about box, strip, swarm, and
   violin plots!
 image: /files/distribution-plots/accidents_by_day_of_the_week_violin.svg
 ---
 
-One of the first step when exploring data is to look at its distribution. For
+One of the first steps when exploring data is to look at its distribution. For
 single distributions, or for comparing a small number, [histograms][hist] are
-great. However, as the number of distributions to compare grows histograms
-become less and less clear. Fortunately, there are some good alternatives.
+great. However, as the number of distributions to compare grows, histograms
+become less and less useful for visualizing data. Fortunately, there are some
+good alternatives.
 
 [hist]: https://en.wikipedia.org/wiki/Histogram
 
-In this post, I'll look at a few different plots types I explored when
+In this post, I'll look at a few different plot types I explored when
 comparing the [distributions of accidents by day of the week][dotw]. More
 information about the data can be found in the original post: [_SWITRS: On
 What Days Do People Crash?_][post]
@@ -32,7 +33,7 @@ The Jupyter notebook used to make these plots can be found [here][notebook]
 ## Box Plots
 
 [**Box Plots**][box], or box-and-whisker plots, are one of the simpler ways of
-plotting a series of distributions. The box shows the 1st and 3rd quartile
+plotting a series of distributions. The edges of the box show the 1st and 3rd quartile
 while the line within the box shows the median (2nd quartile). The whiskers
 show the extent of the data, but their usage is not standardized. Sometimes
 they show the full extent of the data, sometimes some percentage of the
@@ -40,7 +41,7 @@ inner-quartile range, and sometimes one standard deviation from the mean. If
 they do not show the full extent, the points not included in the whiskers are
 plotted individually.
 
-Box plots quickly convey some essential statistics about that distributions
+Box plots quickly convey some essential statistics about the distributions
 and make no assumptions about the underlying data, which is both a strength
 and a weakness. Their simplicity can hide important information, and their
 non-standard whiskers can cause confusion if what they represent is not
@@ -62,12 +63,12 @@ but we can't tell anything about the actual shape of the distributions.
 
 [**Strip Plots**][strip], also called dot plots or univariate dot plots, try
 to give us a little---well a lot---more information than box plots. They plot
-_ever_ point in the dataset, which can give you a good view of what is
+_every_ point in the dataset, which can give you a good view of what is
 happening. They often have a bit of random jitter added to each point along
 the categorical axis so that the points do not overlap as much.
 
 Strip plots make it is easy to see all the outliers. The density of points
-also give an approximation of the underlying distribution, although this can
+also gives an approximation of the underlying distribution, although this can
 be hard to judge by eye because the distance in the categorical axis, while
 meaningless, obscures the true distance between points. Overlapping points
 also make it tough to estimate the true distribution, especially as the number
@@ -100,8 +101,8 @@ Swarm plots share many of the same advantages of strip plots, but without as
 much clutter to hide their salient features. Unfortunately, spreading out the
 points in a non-overlapping fashion limits the number of points that can be
 plotted---there is only so much space on the page! Additionally, the algorithm
-that calculates the positions is computational expensive and so scales poorly
-to a large number of points.[^1]
+that calculates the positions is computationally expensive and so scales poorly
+as the number of points increases.[^1]
 
 This slow generation time is especially harmful during exploratory analyses.
 It is easy to keep engaged with the problem when a plot takes a second
@@ -114,10 +115,10 @@ from 2001–2015 by day of the week.]({{ site.url
 }}/files/distribution-plots/accidents_by_day_of_the_week_swarm.svg)
 
 I generated this plot using a sampled subset of the data because the swarms
-piled up when trying to show the full dataset. Even so you can see some of the
+piled up when trying to show the full dataset. Even so, you can see some of the
 points have piled up against the edges of each column. The swarm plot makes
 the relative accident rates easier to see than on the strip plot. The bimodal
-nature of the distributions much clearer and their shape can almost be made
+nature of the distributions is much clearer and their shape can almost be made
 out. However, the thickness of the plotted points causes the formation of the
 strands extending out from each swarm which make judging the true shape of the
 distributions difficult.
@@ -133,13 +134,13 @@ number of observations: if the violin is thick at some value it means there
 are a lot of data points there, if it is thin then there are few. The inside
 of the violin is often marked to indicate additional information. The violins
 below have the quartiles draw inside them as dashed lines, but miniature box
-plots are also common inner marking.
+plots are another common inner marking.
 
 [violin]: https://en.wikipedia.org/wiki/Violin_plot
 [kde]: https://en.wikipedia.org/wiki/Kernel_density_estimation
 
 The main disadvantage of violin plots is that the KDE bandwidth must be
-selected. Too low and the features of the data are washes out. Too high and
+selected. Too low and the features of the data are washed out. Too high and
 the KDE overfits the data. This limits their usefulness when there are only a
 few data points. The lack of standardization when it comes to the inner
 markings also makes them hard to interpret if they aren't explicitly
@@ -159,7 +160,7 @@ points go into that thin tail is unclear.
 
 I like violin plots [**a**][dotw] [**whole**][moto_dotw] [**lot**][dst]! While
 swarm and strip plots show lots of detail and box plots provide good overviews
-with the  summary statistics, I find violin plots to be a good middle ground.
+with the summary statistics, I find violin plots to be a good middle ground.
 The KDE provides more detail than a pure box plot, includes the same useful
 summary statistics, and avoids cluttering the plot with every data point.
 
