@@ -5,8 +5,11 @@ description: >
   Need to compare a set of distributions of some variable? Histograms are OK,
   but try something fancier! Read on to learn about box, strip, swarm, and
   violin plots!
-image: /files/distribution-plots/accidents_by_day_of_the_week_violin.svg
+image: /files/distribution-plots/Petrov-Vodkin_violin_1921.jpg
 ---
+
+![A painting of a violin by Kuzma Petrov-Vodkin from 1921]({{ site.url
+}}/files/distribution-plots/Petrov-Vodkin_violin_1921.jpg)
 
 One of the first steps when exploring data is to look at its distribution. For
 single distributions, or for comparing a small number, [histograms][hist] are
