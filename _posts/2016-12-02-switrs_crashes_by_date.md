@@ -7,8 +7,10 @@ description: >
 image: /files/switrs-accidents-by-date/1923_dc_car_crash.jpg
 ---
 
-![Men gathered around a crashed car in Washington DC, 1923]({{ site.url
-}}/files/switrs-accidents-by-date/1923_dc_car_crash.jpg)
+{% capture file_dir %}{{ site.url }}/files/switrs-accidents-by-date{% endcapture %}
+
+![Men gathered around a crashed car in Washington DC, 1923]({{ file_dir
+}}/1923_dc_car_crash.jpg)
 
 The [Statewide Integrated Traffic Records System (SWITRS)][switrs] contains a
 wealth of information, enough to determine who, where, when, and sometimes why
@@ -23,7 +25,7 @@ going to look at when accidents happen, and specifically on what dates.
 As always, the Jupyter notebook used to do this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-[notebook]: {{ site.url }}/files/switrs-accidents-by-date/SWITRS Crash Dates.ipynb
+[notebook]: {{ file_dir }}/SWITRS Crash Dates.ipynb
 [rendered]: https://github.com/agude/agude.github.io/blob/master/files/switrs-accidents-by-date/SWITRS%20Crash%20Dates.ipynb
 
 ## Data Selection
@@ -46,8 +48,8 @@ The first thing to look at is crashes as a function of time. Below, I plot
 accidents per week to make the trends clearer; plotting per day results in too
 many points to separate by eye.
 
-![Line plot showing accidents per week from 2001 to
-2015]({{ site.url }}/files/switrs-accidents-by-date/accidents_per_week_in_california.svg)
+![Line plot showing accidents per week from 2001 to 2015]({{ file_dir
+}}/accidents_per_week_in_california.svg)
 
 The week-to-week variation is rather significant, but two major trends are
 obvious:
@@ -75,8 +77,8 @@ appears 3 times).
 
 [leapday]: https://en.wikipedia.org/wiki/February_29
 
-![Line plot showing average accidents by day of the
-year]({{ site.url }}/files/switrs-accidents-by-date/mean_accidents_by_date.svg)
+![Line plot showing average accidents by day of the year]({{ file_dir
+}}/mean_accidents_by_date.svg)
 
 Holidays account for the extrema, with the minimum number of accidents taking
 place on Christmas, and the maximum number taking place on Halloween. In fact,
@@ -111,7 +113,8 @@ the median, and the two outer lines indicate the interquartile.
 
 [violin]: https://en.wikipedia.org/wiki/Violin_plot
 
-![Violin plot showing accidents by day of the week]({{ site.url }}/files/switrs-accidents-by-date/accidents_by_day_of_the_week.svg)
+![Violin plot showing accidents by day of the week]({{ file_dir
+}}/accidents_by_day_of_the_week.svg)
 
 The distribution for each day of the week is bimodal. This is due to the [two
 plateaus in accident rates][apw]: a high one from 2001-2006, and a lower one
@@ -131,7 +134,7 @@ are driving, not when they're sitting at home celebrating!
 **Update**: _Replaced the [univariate dot plot][dot_plot] in the [Day of the
 Week][dow] section with a [violin plot][violin_plot]._
 
-[dot_plot]: {{ site.url }}/files/switrs-accidents-by-date/accidents_by_day_of_the_week_dot.svg
-[violin_plot]: {{ site.url }}/files/switrs-accidents-by-date/accidents_by_day_of_the_week.svg
+[dot_plot]: {{ file_dir }}/accidents_by_day_of_the_week_dot.svg
+[violin_plot]: {{ file_dir }}/accidents_by_day_of_the_week.svg
 
 [dow]: #day-of-the-week

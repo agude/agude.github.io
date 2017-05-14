@@ -8,8 +8,10 @@ image: /files/whereto_photo/WhereTo.Photo.png
 redirect_from: /2016/09/22/whereto_photo/
 ---
 
-![Screenshot of the front page of
-WhereTo.Photo]({{ site.url }}/files/whereto_photo/WhereTo.Photo.png)
+{% capture file_dir %}{{ site.url }}/files/whereto_photo{% endcapture %}
+
+![Screenshot of the front page of WhereTo.Photo]({{ file_dir
+}}/WhereTo.Photo.png)
 
 After graduating from the University of Minnesota, I moved back to California
 to attend [Insight Data Science][insight]. Insight is a seven week program
@@ -67,8 +69,8 @@ Francisco had 255,232 photos, Seattle had 118,464, and New York had 474,649.
 
 Here is every photo in my dataset for San Francisco:
 
-![Every photo from San Francisco in the
-dataset]({{ site.url}}/files/whereto_photo/sf_all_photos.png)
+![Every photo from San Francisco in the dataset]({{ file_dir
+}}/sf_all_photos.png)
 
 ## Photo Subject and Quality
 
@@ -151,8 +153,8 @@ estimated best location, the green triangles are the hand selected start
 points, the red heat map is the normalized KDE, and black dots are the photos
 used in the calculation.
 
-![The KDE and best photo location for the tag
-`goldengate`]({{ site.url}}/files/whereto_photo/Goldengate_map.png)
+![The KDE and best photo location for the tag `goldengate`]({{ file_dir
+}}/Goldengate_map.png)
 
 ## The Website
 
@@ -166,8 +168,7 @@ matches to tags were used.
 
 Here is what the website would show if the user searched for "Golden Gate":
 
-![The result page of the query "Golden
-Gate"]({{ site.url}}/files/whereto_photo/Goldengate.png)
+![The result page of the query "Golden Gate"]({{ file_dir }}/Goldengate.png)
 
 The blue circles are photos, and the blue marker is the predicted best
 location. You can see the best location matches the maximum found on the
@@ -177,13 +178,13 @@ photos in the predicted best location were in fact great photos. Here is an
 example of the user clicking on a photo near the best location for the "Golden
 Gate" query:
 
-![A preview of one of the photos from the query "Golden
-Gate"]({{ site.url}}/files/whereto_photo/Goldengate_with_pic.png)
+![A preview of one of the photos from the query "Golden Gate"]({{ file_dir
+}}/Goldengate_with_pic.png)
 
 Sometimes though, the algorithm failed, as in this case for the search term
 "Cars":
 
-![A failed search for "Cars"]({{ site.url}}/files/whereto_photo/Cars_failure.png)
+![A failed search for "Cars"]({{ file_dir }}/Cars_failure.png)
 
 In this case the normalization by the global KDE made Treasure Island the
 predicted best location because the only photos taken there were for a car

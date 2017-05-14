@@ -8,8 +8,9 @@ description: >
 image: /files/distribution-plots/Petrov-Vodkin_violin_1921.jpg
 ---
 
-![A painting of a violin by Kuzma Petrov-Vodkin from 1921]({{ site.url
-}}/files/distribution-plots/Petrov-Vodkin_violin_1921.jpg)
+{% capture file_dir %}{{ site.url }}/files/distribution-plots{% endcapture %}
+
+![A painting of a violin by Kuzma Petrov-Vodkin from 1921]({{ file_dir }}/Petrov-Vodkin_violin_1921.jpg)
 
 One of the first steps when exploring data is to look at its distribution. For
 single distributions, or for comparing a small number, [histograms][hist] are
@@ -30,7 +31,7 @@ What Days Do People Crash?_][post]
 The Jupyter notebook used to make these plots can be found [here][notebook]
 ([rendered on Github][rendered]).
 
-[notebook]: {{ site.url }}/files/distribution-plots/Plot Types.ipynb
+[notebook]: {{ file_dir }}/Plot Types.ipynb
 [rendered]: https://github.com/agude/agude.github.io/blob/master/files/distribution-plots/Plot%20Types.ipynb
 
 ## Box Plots
@@ -53,8 +54,8 @@ clearly stated.
 [box]: https://en.wikipedia.org/wiki/Box_plot
 
 ![A box plot showing the distribution of accidents per day in California
-from 2001–2015 by day of the week.]({{ site.url
-}}/files/distribution-plots/accidents_by_day_of_the_week_box.svg)
+from 2001–2015 by day of the week.]({{ file_dir
+}}/accidents_by_day_of_the_week_box.svg)
 
 These box plots show the distributions of the [number of accidents per day in
 California by day of the week][dotw] from 2001--2015. From the box plots it is
@@ -80,8 +81,8 @@ of points increases.
 [strip]: https://en.wikipedia.org/wiki/Dot_plot_(statistics)#Dot_plots
 
 ![A strip plot showing the distribution of accidents per day in California
-from 2001–2015 by day of the week.]({{ site.url
-}}/files/distribution-plots/accidents_by_day_of_the_week_strip.svg)
+from 2001–2015 by day of the week.]({{ file_dir
+}}/accidents_by_day_of_the_week_strip.svg)
 
 With the strip plot it is still possible to tell which days have more
 accidents, but without the quartiles to guide the eye it is not as easy. We
@@ -114,8 +115,8 @@ plummets as my iteration time explodes and I have to constantly context
 switch.
 
 ![A swarm plot showing the distribution of accidents per day in California
-from 2001–2015 by day of the week.]({{ site.url
-}}/files/distribution-plots/accidents_by_day_of_the_week_swarm.svg)
+from 2001–2015 by day of the week.]({{ file_dir
+}}/accidents_by_day_of_the_week_swarm.svg)
 
 I generated this plot using a sampled subset of the data because the swarms
 piled up when trying to show the full dataset. Even so, you can see some of the
@@ -150,8 +151,8 @@ markings also makes them hard to interpret if they aren't explicitly
 explained.
 
 ![A violin plot showing the distribution of accidents per day in California
-from 2001–2015 by day of the week.]({{ site.url
-}}/files/distribution-plots/accidents_by_day_of_the_week_violin.svg)
+from 2001–2015 by day of the week.]({{ file_dir
+}}/accidents_by_day_of_the_week_violin.svg)
 
 The violin plots make the bimodal nature of the distributions crystal clear.
 Likewise it is easy to see that there is an increase on Friday and a decrease

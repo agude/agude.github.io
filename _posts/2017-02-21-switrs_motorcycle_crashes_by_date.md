@@ -8,8 +8,10 @@ description: >
 image: /files/switrs-motorcycle-accidents-by-date/police_in_stockholm.jpg
 ---
 
-![A policeman on a motorcycle in Stockholm, 1959]({{ site.url
-}}/files/switrs-motorcycle-accidents-by-date/police_in_stockholm.jpg)
+{% capture file_dir %}{{ site.url }}/files/switrs-motorcycle-accidents-by-date{% endcapture %}
+
+![A policeman on a motorcycle in Stockholm, 1959]({{ file_dir
+}}/police_in_stockholm.jpg)
 
 A few months ago I wrote a post in which [I explored when accidents happen in
 California][lastpost]. This time I'm going to go through the same analysis but
@@ -40,7 +42,7 @@ factors in a later post.
 As per usual, the Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-[notebook]: {{ site.url }}/files/switrs-motorcycle-accidents-by-date/SWITRS Crash Dates With Motorcycles.ipynb
+[notebook]: {{ file_dir }}/SWITRS Crash Dates With Motorcycles.ipynb
 [rendered]: https://github.com/agude/agude.github.io/blob/master/files/switrs-motorcycle-accidents-by-date/SWITRS%20Crash%20Dates%20With%20Motorcycles.ipynb
 
 ## Data Selection
@@ -76,8 +78,8 @@ trends. However, the trends (plotted below) are completely different.
 [apw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#accidents-per-week
 [gr]: https://en.wikipedia.org/wiki/Great_Recession
 
-![Line plot showing accidents per week from 2001 to 2015]({{ site.url
-}}/files/switrs-motorcycle-accidents-by-date/motorcycle_accidents_per_week_in_california.svg)
+![Line plot showing accidents per week from 2001 to 2015]({{ file_dir
+}}/motorcycle_accidents_per_week_in_california.svg)
 
 As expected, there are far fewer accidents because there are far fewer
 motorcycles: there are about [27 million vehicles in California, but of those
@@ -110,8 +112,7 @@ others show almost no deviation from a normal day.
 [dbd]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-by-day
 
 ![Line plot showing average motorcycle accidents by day of the year]({{
-site.url
-}}/files/switrs-motorcycle-accidents-by-date/mean_motorcycle_accidents_by_date.svg)
+file_dir }}/mean_motorcycle_accidents_by_date.svg)
 
 The summer holidays do not stand out; only Memorial Day is readily visible.
 Winter holidays, by contrast, show both peaks and valleys. I would interpret
@@ -149,8 +150,7 @@ the week over the 15 year period. They are divided into two seasons: summer
 [violin]: https://en.wikipedia.org/wiki/Violin_plot
 
 ![Violin plot showing accidents by day of the week in summer and winter]({{
-site.url
-}}/files/switrs-motorcycle-accidents-by-date/motorcycle_accidents_by_day_of_the_week_and_season.svg)
+file_dir }}/motorcycle_accidents_by_day_of_the_week_and_season.svg)
 
 There is lower ridership in winter over all (top row), as indicated by the
 central dotted line indicating average number of accidents. And we can see an

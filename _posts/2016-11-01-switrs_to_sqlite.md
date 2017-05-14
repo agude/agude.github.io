@@ -9,7 +9,9 @@ image: /files/switrs_to_sqlite/chp.jpg
 redirect_from: /2016/11/01/switrs_to_sqlite/
 ---
 
-![A CHP cruiser]({{ site.url }}/files/switrs_to_sqlite/chp.jpg)
+{% capture file_dir %}{{ site.url }}/files/switrs_to_sqlite{% endcapture %}
+
+![A CHP cruiser]({{ file_dir }}/chp.jpg)
 
 The State of California maintains a database called the [Statewide Integrated
 Traffic Records System (SWITRS)][switrs]. It contains a record of every
@@ -111,12 +113,12 @@ This gives us a map of the locations of all the accidents in the state of
 California from 2001 to 2016:
 
 ![A map of the location of all the accidents in the state of California from
-2001 to 2016]({{ site.url }}/files/switrs_to_sqlite/switrs_crash_map.png)
+2001 to 2016]({{ file_dir }}/switrs_crash_map.png)
 
 There are some weird artifacts and grid patterns that show up which are not
 due to our mapping but are inherent in the data. Some further clean up will be
 necessary before doing any analysis! A Jupyter notebook used to make the map
 can be found [here][notebook] ([rendered on Github][rendered]).
 
-[notebook]: {{ site.url }}/files/switrs_to_sqlite/SWITRS Crash Map.ipynb
+[notebook]: {{ file_dir }}/SWITRS Crash Map.ipynb
 [rendered]: https://github.com/agude/agude.github.io/blob/master/files/switrs_to_sqlite/SWITRS%20Crash%20Map.ipynb

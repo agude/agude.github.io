@@ -8,8 +8,9 @@ description: >
 image: /files/switrs-dst/dst_change_gare_saint_lazare_1937.png
 ---
 
-![A man adjusts the central time of the gate Saint Lazare in Paris, 1937]({{
-site.url }}/files/switrs-dst/dst_change_gare_saint_lazare_1937.png)
+{% capture file_dir %}{{ site.url }}/files/switrs-dst{% endcapture %}
+
+![A man adjusts the central time of the gate Saint Lazare in Paris, 1937]({{ file_dir }}/dst_change_gare_saint_lazare_1937.png)
 
 The [daylight saving time][dst] (DST) change is awful---we get less sleep and
 it [might not even save energy][energy] as was intended! Worse, studies by
@@ -26,7 +27,7 @@ in the [SWITRS data][s2s_post] that I've collected.
 The Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-[notebook]: {{ site.url }}/files/switrs-dst/SWITRS Daylight Saving Time Crashes.ipynb
+[notebook]: {{ file_dir }}/SWITRS Daylight Saving Time Crashes.ipynb
 [rendered]: https://github.com/agude/agude.github.io/blob/master/files/switrs-dst/SWITRS%20Daylight%20Saving%20Time%20Crashes.ipynb
 
 ## Accident Ratio
@@ -55,8 +56,8 @@ accidents during the week when DST starts than the week after.
 
 ![Violin plot showing the ratio of accidents per day of the week for the week
 after the start of daylight saving time, divided by the week two weeks
-after.]({{ site.url
-}}/files/switrs-dst/accidents_two_weeks_after_dst_change_in_california.svg)
+after.]({{ file_dir
+}}/accidents_two_weeks_after_dst_change_in_california.svg)
 
 Except for Sunday, every day of the week following the time change has on average a higher rate of accidents! I am surprised that the accident rate stays high for so long. This indicates that it takes even longer than a week for people to catch up on sleep and for the accident rate to go back to normal.
 
@@ -72,5 +73,5 @@ all get that hour of sleep we deserve.
 
 [^1]: It is also possible to use the week before or the week directly after to normalize. For the curious, I have also made [a plot using the week before for normalization][before_plot] and [the week after][after_plot]. They both show the same trend.
 
-[before_plot]: {{ site.url }}/files/switrs-dst/accidents_after_dst_change_in_california_before.svg
-[after_plot]: {{ site.url }}/files/switrs-dst/accidents_after_dst_change_in_california.svg
+[before_plot]: {{ file_dir }}/accidents_after_dst_change_in_california_before.svg
+[after_plot]: {{ file_dir }}/accidents_after_dst_change_in_california.svg

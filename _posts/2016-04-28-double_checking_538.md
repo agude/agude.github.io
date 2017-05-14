@@ -9,7 +9,9 @@ image: /files/2016_primary_prediction/black_board_01.jpg
 redirect_from: /2016/04/28/double_checking_538/
 ---
 
-![Child at a blackboard]({{ site.url }}/files/2016_primary_prediction/black_board_01.jpg)
+{% capture file_dir %}{{ site.url }}/files/2016_primary_prediction{% endcapture %}
+
+![Child at a blackboard]({{ file_dir }}/black_board_01.jpg)
 
 I'm a big fan of Nate Silver, the editor-in-chief of the data blog
 [FiveThirtyEight][538]. I've been following him since his (amazingly
@@ -26,10 +28,10 @@ The code used to perform the analysis explained in this post can be found in
 this [Jupyter Notebook][notebook] ([rendered on Github][rendered]). The data
 used are here: [Republican Results][gopdata], [Democrat Results][demdata]
 
-[notebook]: {{ site.url }}/files/2016_primary_prediction/Prediction Check -- 538 2016 Primary.ipynb
+[notebook]: {{ file_dir }}/Prediction Check -- 538 2016 Primary.ipynb
 [rendered]: https://github.com/agude/agude.github.io/blob/master/files/2016_primary_prediction/Prediction%20Check%20--%20538%202016%20Primary.ipynb
-[gopdata]: {{ site.url }}/files/2016_primary_prediction/2016_gop_primary_dataframe.csv
-[demdata]: {{ site.url }}/files/2016_primary_prediction/2016_dem_primary_dataframe.csv
+[gopdata]: {{ file_dir }}/2016_gop_primary_dataframe.csv
+[demdata]: {{ file_dir }}/2016_dem_primary_dataframe.csv
 
 ## FiveThirtyEight's Polls-plus Model
 
@@ -53,7 +55,7 @@ for Clinton and 41.3% for Sanders) and the 80% confidence interval is
 highlighted in blue (roughly 54 to 64 for Clinton and 36 to 46 for Sanders).
 
 ![An example of the 538 probability distributions for the democratic primary
-in New York]({{ site.url }}/files/2016_primary_prediction/538_ny_predictions.png)
+in New York]({{ file_dir }}/538_ny_predictions.png)
 
 The 80% confidence interval is what we're interested in looking at because it
 gives us the simplest test of how well the model has performed. This interval
@@ -100,8 +102,8 @@ plot, where the minus sign indicates that the prediction was too low. The
 highest and lowest result on the Democrats' plot are the predictions from
 Michigan for Clinton and Sanders respectively.
 
-![The distributions of results normalized to the prediction.]({{ site.url
-}}/files/2016_primary_prediction/538_scaled_results.svg)
+![The distributions of results normalized to the prediction.]({{ file_dir
+}}/538_scaled_results.svg)
 
 In conclusion, FiveThirtyEight is doing a good job of getting the size of the
 confidence interval right, 80% of the results fall within it, but they are

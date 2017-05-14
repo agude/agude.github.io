@@ -8,8 +8,9 @@ description: >
 image: /files/data-science-testing/brick_header.jpg
 ---
 
-![A pile of bricks, the "units" of a wall]({{ site.url
-}}/files/data-science-testing/brick_header.jpg)
+{% capture file_dir %}{{ site.url }}/files/data-science-testing{% endcapture %}
+
+![A pile of bricks, the "units" of a wall]({{ file_dir }}/brick_header.jpg)
 
 From the title _"Data Scientist"_ you would guess that we work with data, and
 we do some sort of science, but what you might miss is that we write a lot of

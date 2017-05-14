@@ -8,7 +8,9 @@ image: /files/jupyter_dev/red_spot.jpg
 redirect_from: /2016/10/17/jupyter_dev/
 ---
 
-![The Great Red Spot on the planet Jupiter]({{ site.url }}/files/jupyter_dev/red_spot.jpg)
+{% capture file_dir %}{{ site.url }}/files/jupyter_dev{% endcapture %}
+
+![The Great Red Spot on the planet Jupiter]({{ file_dir }}/red_spot.jpg)
 
 [Jupyter Notebooks][jpy] are great! They make it really convenient to tinker
 with a new library and are excellent for documenting projects that include

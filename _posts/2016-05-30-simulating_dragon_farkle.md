@@ -9,8 +9,10 @@ image: /files/dragon_farkle/st_george_and_the_dragon.jpg
 redirect_from: /2016/05/30/dragon_farkle/
 ---
 
-![Juliusz Kossak's painting Saint George Killing the Dragon]({{ site.url
-}}/files/dragon_farkle/st_george_and_the_dragon.jpg)
+{% capture file_dir %}{{ site.url }}/files/dragon_farkle{% endcapture %}
+
+![Juliusz Kossak's painting Saint George Killing the Dragon]({{ file_dir
+}}/st_george_and_the_dragon.jpg)
 
 Some of my friends came over last week to play board games and while we ate
 dinner we played [Dragon Farkle][dragonfarkle] because it was a simple enough
@@ -53,9 +55,9 @@ question. The notebook that performs the simulation can be found
 [here][notebook] ([rendered on Github][rendered]). The plotting notebook is
 [here][plotnotebook] ([rendered on Github][plotrendered]).
 
-[notebook]: {{ site.url }}/files/dragon_farkle/Dragon Farkle Simulation.ipynb
+[notebook]: {{ file_dir }}/Dragon Farkle Simulation.ipynb
 [rendered]: https://github.com/agude/agude.github.io/blob/master/files/dragon_farkle/Dragon%20Farkle%20Simulation.ipynb
-[plotnotebook]: {{ site.url }}/files/dragon_farkle/Plot Results.ipynb
+[plotnotebook]: {{ file_dir }}/Plot Results.ipynb
 [plotrendered]: https://github.com/agude/agude.github.io/blob/master/files/dragon_farkle/Plot%20Results.ipynb
 
 Let's look at how many soldiers you need, on average, to win the game.
@@ -63,8 +65,8 @@ To do so, we'll simulate attacking the dragon and keep track of how many
 soldiers are lost before the dragon is defeated. If the player runs out of
 soldiers or rolls a farkle we will discard the run. The results are:
 
-![The average number of soldiers lost during a win.]({{ site.url
-}}/files/dragon_farkle/dragon_farkle_soldier_expectation_value.svg)
+![The average number of soldiers lost during a win.]({{ file_dir
+}}/dragon_farkle_soldier_expectation_value.svg)
 
 The various peaks are due to the fact that there are always an integer number
 of rolls made in a turn and there is a limited set of scores that be earned
@@ -78,8 +80,7 @@ are reached. Here we'll fix the number of soldiers you have, simulate a bunch
 of turns, and record the outcome for each. The results are:
 
 ![The various outcomes of attacking the dragon as a function of the number of
-soldiers.]({{ site.url
-}}/files/dragon_farkle/dragon_farkle_combined_probability.svg)
+soldiers.]({{ file_dir }}/dragon_farkle_combined_probability.svg)
 
 If you go into the turn with 5000 soldiers, you will win about 40% of the time
 and you will lose by rolling a farkle about 60% of the time. You will lose by

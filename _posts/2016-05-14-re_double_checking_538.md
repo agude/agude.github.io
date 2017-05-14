@@ -9,7 +9,9 @@ image: /files/2016_primary_prediction/black_board_02.jpg
 redirect_from: /2016/05/14/re_double_checking_538/
 ---
 
-![Child at a blackboard]({{ site.url }}/files/2016_primary_prediction/black_board_02.jpg)
+{% capture file_dir %}{{ site.url }}/files/2016_primary_prediction{% endcapture %}
+
+![Child at a blackboard]({{ file_dir }}/black_board_02.jpg)
 
 After my [last blog post][lastpost] double-checking [FiveThirtyEight
 presidential primary predictions][primary], I was asked by a friend if I could
@@ -30,10 +32,10 @@ used are here: [Republican Results][gopdata], [Democrat Results][demdata]. The
 data have not been updated since April 28th, 2016 so newer primaries are not
 included.
 
-[notebook]: {{ site.url }}/files/2016_primary_prediction/Prediction Second Check -- 538 2016 Primary.ipynb
+[notebook]: {{ file_dir }}/Prediction Second Check -- 538 2016 Primary.ipynb
 [rendered]: https://github.com/agude/agude.github.io/blob/master/files/2016_primary_prediction/Prediction%20Second%20Check%20--%20538%202016%20Primary.ipynb
-[gopdata]: {{ site.url }}/files/2016_primary_prediction/2016_gop_primary_dataframe.csv
-[demdata]: {{ site.url }}/files/2016_primary_prediction/2016_dem_primary_dataframe.csv
+[gopdata]: {{ file_dir }}/2016_gop_primary_dataframe.csv
+[demdata]: {{ file_dir }}/2016_dem_primary_dataframe.csv
 
 ## Scaled Results By Candidate
 
@@ -43,8 +45,7 @@ extend between -1 and 1 (as explained in more detail in my [previous
 post][lastpost]). The Democrats:
 
 ![The distributions of results normalized to the prediction for the Democrats
-by candidate.]({{ site.url
-}}/files/2016_primary_prediction/538_scaled_results_dem_by_candidate.svg)
+by candidate.]({{ file_dir }}/538_scaled_results_dem_by_candidate.svg)
 
 FiveThirtyEight slightly over predicts Clinton's results, but does a pretty
 good job with Sanders. Michigan, of course, is the outlier for both.
@@ -52,8 +53,7 @@ good job with Sanders. Michigan, of course, is the outlier for both.
 The Republicans:
 
 ![The distributions of results normalized to the prediction for the
-Republicans by candidate.]({{ site.url
-}}/files/2016_primary_prediction/538_scaled_results_gop_by_candidate.svg)
+Republicans by candidate.]({{ file_dir }}/538_scaled_results_gop_by_candidate.svg)
 
 The Republicans, despite the craziness in their primary, are well modeled.
 Only Rubio is really skewed, tending to have his results over predicted.
