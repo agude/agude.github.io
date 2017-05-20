@@ -173,7 +173,7 @@ summary statistics, and avoids cluttering the plot with every data point.
 
 ---
 
-[^1]: The box and violin plots in this post take about a second to render on my desktop. The strip plot take 5 seconds. The swam plot take **74 seconds**!
+[^1]: The box and violin plots in this post take about a second to render on my desktop. The strip plot take 5 seconds. The swarm plot take **74 seconds**!
 
 {% comment %}
 |-----------+----------------+
