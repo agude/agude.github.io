@@ -113,6 +113,7 @@ southbound train than Sunday.
 
 [^1]: The full title is _La Méthode Graphique Dans les Sciences Expérimentales et Principalement en Physiologie et en Médecine_, or roughly _The Graphical Method in Experimental Sciences and Mainly in Physiology and Medicine_.
 [^2]: The caption in Marey's book reads: _"Graphique de la marche des trains sur un chemin de fer, d'après la méthode de Ibry"_ or _"Graph showing the progress of trains on a railway, according to the method of Ibry"_. Unfortunately, little else is know of Ibry, and so this type of chart is often named for Marey instead.
-[^3]: The mileposts markers are off by up to 100m for stations south of the Lawrence. I tried to measure the actual track distances using [OpenStreetMap][osm] but found that I could not do so more accurately than the milepost numbers.
+[^3]: The mileposts markers are off by up to 100m for stations south of [Lawrence][lawrence]. I tried to measure the actual track distances using [OpenStreetMap][osm] but found that I could not do so more accurately than the milepost numbers.
 
+[lawrence]: https://en.wikipedia.org/wiki/Lawrence_station_(Caltrain)
 [osm]: https://www.openstreetmap.org/#map=11/37.5574/-122.3050&layers=T
