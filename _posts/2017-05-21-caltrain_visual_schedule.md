@@ -11,8 +11,8 @@ image: /files/caltrain-schedule/sp_3208_with_train_128_in_redwood_city_ca_in_aug
 In 1878, [Étienne-Jules Marey][ejm] published [_La Méthode
 Graphique_][original_graphique],[^1] a manual on using graphs for data
 analysis. The book included Ibry's[^2] [famous visualization of a French train
-schedule][schedule_image] which shows the position (x-axis) of trains
-traveling from Paris to Lyon as a function of the time of day (y-axis). The
+schedule][schedule_image] which shows the position (y-axis) of trains
+traveling from Paris to Lyon as a function of the time of day (x-axis). The
 schedule elegantly packs a lot of information into a small space: the speed
 and direction of trains are indicated by their slope, and when lines cross it
 indicates that the trains pass each other. The schedule is such an iconic
