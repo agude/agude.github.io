@@ -32,8 +32,8 @@ earlier example was produced by Serjev in Russia][paper]. Nor was it the last,
 as many people have produced similar diagrams for [the T in Boston][boston],
 [BART][bart], and [Caltrain][caltrain_vis] (and [over][caltrain_vis2], and
 [over][caltrain_vis3], and [over][caltrain_vis4] again). As a frequent
-[Caltrain][caltrain] commuter, I thought I try to put my spin on it. You can
-find the Jupyter notebook used to make these schedules [here][notebook]
+[Caltrain][caltrain] commuter, I thought I would try to put my spin on it. You
+can find the Jupyter notebook used to make these schedules [here][notebook]
 ([rendered on Github][rendered]). The schedule data is from [Caltrain's
 developer site][dev].
 
