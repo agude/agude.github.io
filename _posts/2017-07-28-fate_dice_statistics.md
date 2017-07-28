@@ -16,9 +16,9 @@ image: /files/fate-dice-statistics/fate_dice.jpg
 My friends and I played [Fate][fate], a [role-playing game][rpg], for a few
 years during graduate school. Over that time we developed superstitions about
 the various dice we rolled. Since we were (are) huge nerds we decided to
-record (almost) all of the roles so we could see if the dice were really
-biased. We looked at the data a bit when we finished playing, but I thought it
-would be interesting to dig it back out and play around with it some more.
+record (almost) all of the rolls to determine if the dice really were biased.
+We cursorily looked at the data when we finished playing, but I thought it
+would be interesting to dig it back out and analyze it more deeply.
 
 [rpg]: https://en.wikipedia.org/wiki/Tabletop_role-playing_game
 [fate]: http://www.evilhat.com/home/fate-core/
@@ -26,10 +26,10 @@ would be interesting to dig it back out and play around with it some more.
 ## Fate Dice
 
 [Fate dice][dice] (also called Fudge dice) have six sides and three values
-that each show up equally: plus, blank, and minus. These represent +1, 0, and
--1 respectively. Four dice are rolled at a time and their results are summed
-giving a range of -4 to 4. The [notation][dice_notation] for this type of roll
-is `4dF`.
+with equal probability of appearing: plus, blank, and minus. These
+respectively represent +1, 0, and -1 . Four dice are rolled at a time and
+their results are summed, giving a range of -4 to 4. The
+[notation][dice_notation] for this type of roll is `4dF`.
 
 [dice]: https://en.wikipedia.org/wiki/Fudge_(role-playing_game_system)#Fudge_dice
 [dice_notation]: https://en.wikipedia.org/wiki/Dice_notation
@@ -55,11 +55,11 @@ These probabilities are:
 
 We had four sets of Fate dice, colored blue, red, black, and white. We wrote
 down only the sum of each roll, since the individual dice in the set are
-indistinguishable. This means that if one of the die is biased, it will take
+indistinguishable. This means that if one of the dice is biased, it will take
 longer to show up than if we had been able to explore the results
 individually. As per usual, you can find the Jupyter notebook used to make
-these schedules [here][notebook] ([rendered on Github][rendered]). The data is
-[here][data].
+these calculations [here][notebook] ([rendered on Github][rendered]). The data
+is [here][data].
 
 [notebook]: {{file_dir}}/Fate Dice Statistics.ipynb
 [rendered]: https://github.com/agude/agude.github.io/blob/master/files/fate-dice-statistics/Fate%20Dice%20Statistics.ipynb
@@ -70,20 +70,21 @@ points indicate the number of rolls that came up with a certain value, while
 the grey area is the range in which we would expect to find a result produced
 by a fair set of dice 99% of the time.
 
-[![The results of our roles during out Fate campaign.][results_plot]][results_plot]
+[![The results of our rolls during out Fate campaign.][results_plot]][results_plot]
 
 [results_plot]: {{ file_dir }}/fate_dice_rolls.svg
 
-The blue dice were rolled the most (because we thought the red and black set
-were unlucky), but estimating by eye it looks like it was actually biased!
-The "cursed" red and black dice seem to be fine. The white dice have one bin
-(very) high, but it's hard to tell by eye if that is significant.
+The blue dice were rolled the most (because we thought the red and black sets
+were unlucky), but visual inspection suggests that they were actually biased!
+Contrary to our superstitions, the "cursed" red and black dice seem to have
+been fine. The white dice have one bin (very) high, but it's hard to tell by
+eye if that is significant.
 
 ## Significance
 
 To check whether the dice are biased, a [chi-squared test][chi2] is required.
-The chi-squared test essentially looks at how far each point in a distribution
-is away from the expected value for that point, and normalizes by the
+The chi-squared test essentially looks at how far away each point in a
+distribution is from the expected value for that point, and normalizes by the
 variance. The test statistic is then compared to the results expected from a
 [chi-squared distribution][chi2_dist] and a significance is obtained. Running
 this test on our dice yields the following results:
