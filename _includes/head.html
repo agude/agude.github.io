@@ -26,4 +26,9 @@
     <!-- Google Analytics -->
     {% include analytics.html %}
   {% endif %}
+
+  {% if page.use_latex %}
+    <!-- MathJax -->
+    {% include mathjax.html %}
+  {% endif %}
 </head>
