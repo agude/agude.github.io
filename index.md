@@ -27,7 +27,7 @@ can be found at [Gab41][gab41]. If you're interested in my thoughts in real
 time, follow me on Twitter: [@{{ twitter-name }}][twitter]
 
 [blog]: /blog
-[gab41]: http://www.hep.umn.edu/us-cms
+[gab41]: https://gab41.lab41.org/
 [twitter]: https://twitter.com/{{ twitter-name }}
 
 The code that I write lives on my [Github page][github]. Check it out! Bug
