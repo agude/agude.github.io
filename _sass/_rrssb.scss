@@ -172,6 +172,14 @@ $black_hover:#878787;
     background-color: $black_hover
 }
 
+.rrssb-buttons li.rrssb-xing a {
+    background-color: $black
+}
+
+.rrssb-buttons li.rrssb-xing a:hover {
+    background-color: $black_hover
+}
+
 .rrssb-buttons li a {
     background-color: #ccc;
     border-radius: 2px;
@@ -185,6 +193,7 @@ $black_hover:#878787;
     position: relative;
     text-align: center;
     text-decoration: none;
+    //text-transform: uppercase;
     -webkit-transition: background-color .2s ease-in-out;
     transition: background-color .2s ease-in-out;
     width: 100%
@@ -448,4 +457,12 @@ $black_hover:#878787;
 
 .rrssb-buttons.tiny-format li.rrssb-print a .rrssb-icon:hover .rrssb-icon svg path {
     fill: #5a656f
+}
+
+.rrssb-buttons.tiny-format li.rrssb-xing a .rrssb-icon svg path {
+    fill: #005A5F
+}
+
+.rrssb-buttons.tiny-format li.rrssb-xing a .rrssb-icon:hover .rrssb-icon svg path {
+    fill: #000
 }
