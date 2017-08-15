@@ -1,11 +1,11 @@
 # Dependencies
 gems:
-    - jekyll-paginate
-    - jekyll-gist
-    - jekyll-sitemap
-    - jekyll-seo-tag
     - jekyll-feed
+    - jekyll-gist
+    - jekyll-paginate
     - jekyll-redirect-from
+    - jekyll-seo-tag
+    - jekyll-sitemap
 
 # Setup
 author:
@@ -15,19 +15,19 @@ author:
     twitter: "alex_gude"
     github: "agude"
 
-title:            "Alex Gude"
-tagline:          "Data Scientist"
-description:      "The home page and blog of Alexander Gude"
-logo:             /files/headshot.jpg
+title: "Alex Gude"
+tagline: "Data Scientist"
+description: "The home page and blog of Alexander Gude"
+logo: /files/headshot.jpg
 
 # URL
-url:              http://alexgude.com
-baseurl:          ""
-name:             "AlexGude.com"
+url: http://alexgude.com
+baseurl: ""
+name: "AlexGude.com"
 
 # Blog
-paginate:         5
-paginate_path:    "/blog/page:num/"
+paginate: 5
+paginate_path: "/blog/page:num/"
 permalink: /blog/:slug/
 
 # Social for jekyll-seo-tag
@@ -53,7 +53,7 @@ require_front_matter: true
 # SASS
 sass:
     sass_dir: _sass
-    style:    compressed
+    style: compressed
 
 # Compress HTML http://jch.penibelst.de/
 compress_html:
