@@ -2,8 +2,9 @@
 layout: default
 title: Home
 description: >
-  Hi there! I'm Alex Gude, and this site is where you can find my thoughts on
-  technology, data science, machine learning, and more!
+  Hi there! I'm Alex Gude, a physicist and data scientist in Silicon Valley.
+  This site is where you can find my thoughts on technology, data science,
+  machine learning, and more!
 ---
 
 {% assign twitter-name = site.author.twitter %}
@@ -47,6 +48,5 @@ Below you can find the three most recent posts, older posts can be found on my
   <br>
   {{ post.description }}
   </li>
-
 {% endfor %}
 </ul>
