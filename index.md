@@ -44,9 +44,16 @@ Below you can find the three most recent posts, older posts can be found on my
 <ul>
 {% for post in site.posts limit:3 %}
   <li>
-  <a href="{{ post.url }}"><strong>{{ post.title }}</strong></a>
-  <br>
-  {{ post.description }}
+    <a href="{{ post.url }}"><strong>{{ post.title }}</strong></a>
+    <br>
+    <table>
+      <tr>
+        <td style="vertical-align: center; ">
+          <img src="{{ site.url }}{{ post.image }}" style="max-width: 120px;">
+        </td>
+        <td>{{ post.description }}</td>
+      </tr>
+    </table>
   </li>
 {% endfor %}
 </ul>
