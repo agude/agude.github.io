@@ -50,6 +50,10 @@ google_analytics: UA-88777885-1
 # Disable jekyll-optional-front-matter plugin
 require_front_matter: true
 
+# Theme configuration
+theme_config:
+    sidebar_color: '#3465a4'
+
 # SASS
 sass:
     sass_dir: _sass

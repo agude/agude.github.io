@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+/* Pull in variables from _config.yaml */
+$sidebar_color: {{ site.theme_config.sidebar_color }};
+
 /* Import partials from `site.sass_dir` */
 @import "poole"; /* poole imports multiple subfiles */
 @import "hyde";
