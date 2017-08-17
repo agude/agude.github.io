@@ -1,0 +1,65 @@
+.author {
+  border: 1px solid darken(#ffffff, 10%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  background: darken(#ffffff, 3%);
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+  .info {
+    text-align: center;
+    align-items: center;
+    float: left;
+    color: #fff;
+    padding-top: 20px;
+    flex: 1 100%;
+    @media all and (min-width: 600px) {
+      flex: 1;
+    }
+    .name {
+      font-weight: 300;
+      font-family: 'Open Sans Condensed', sans-serif;
+      margin-top: -5px;
+    }
+    .social {
+      a {
+        text-decoration: none;
+        color: lighten(#ffffff, 5%);
+        padding: 5px;
+        &:hover {
+          color: lighten(#ffffff, 20%);
+        }
+      }
+      margin-top: -23px;
+    }
+    img {
+      border-radius: 50%;
+      height: 100px;
+      width: 100px;
+      margin: auto;
+    }
+  }
+
+  .about {
+    float: right;
+    //color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #ffffff;
+    flex: 1 100%;
+    @media all and (min-width: 600px) {
+      flex: 2;
+    }
+    .bio {
+      padding: 10px;
+    }
+  }
+  ::-moz-selection {
+    background-color: lighten(#ffffff, 10%);
+    color: #fff;
+  }
+  ::selection {
+    background-color: lighten(#ffffff, 10%);
+    color: #fff;
+  }
+}

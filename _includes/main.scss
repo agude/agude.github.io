@@ -8,4 +8,5 @@ $sidebar_color: {{ site.theme_config.sidebar_color }};
 @import "hyde";
 @import "rrssb";
 @import "custom";
+@import "author"; /* Author Blurb Box */
 @import "font"; /* Google Webfonts */

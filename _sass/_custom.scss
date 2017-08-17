@@ -17,8 +17,10 @@
   @extend .portrait;
 }
 
-.sidebar-portrait img {
+.authorcard-portrait {
   @extend .portrait;
+  width: 150px;
+  height: 150px;
 }
 
 // Cards
@@ -41,6 +43,10 @@
 }
 
 .article-card {
+  @extend .card;
+}
+
+.author-card {
   @extend .card;
 }
 
@@ -77,3 +83,4 @@ img + em { // An image followed by an emphasized line
   display: block;
   text-align: center;
 }
+
