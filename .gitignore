@@ -3,6 +3,9 @@ _site
 .sass-cache
 .jekyll-metadata
 
+# Ruby
+Gemfile.lock
+
 # Jupyter
 .ipynb_checkpoints
 .ipynb_checkpoints/*

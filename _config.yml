@@ -74,3 +74,4 @@ compress_html:
 exclude:
     - LICENSE.md
     - CNAME
+    - Gemfile
