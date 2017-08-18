@@ -41,19 +41,25 @@ reports and pull requests welcome!
 Below you can find the three most recent posts, older posts can be found on my
 [blog][blog]:
 
-<ul>
-{% for post in site.posts limit:3 %}
-  <li>
-    <a href="{{ post.url }}"><strong>{{ post.title }}</strong></a>
-    <br>
+{% for post in site.posts limit:5 %}
+  <div class="article-card">
     <table>
       <tr>
-        <td style="vertical-align: center; ">
-          <img src="{{ site.url }}{{ post.image }}" style="max-width: 120px;">
+        <td>
+        {% comment %} The image. {% endcomment %}
+          <a href="{{ post.url }}">
+            <img src="{{ site.url }}{{ post.image }}">
+          </a>
         </td>
-        <td>{{ post.description }}</td>
+        <td>
+          {% comment %} The text blurb. {% endcomment %}
+          <a href="{{ post.url }}">
+            <strong>{{ post.title }}</strong>
+          </a>
+          <br>
+          {{ post.description }}
+        </td>
       </tr>
     </table>
-  </li>
+  </div>
 {% endfor %}
-</ul>
