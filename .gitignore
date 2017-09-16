@@ -5,6 +5,7 @@ _site
 
 # Ruby
 Gemfile.lock
+.bundle
 
 # Jupyter
 .ipynb_checkpoints
