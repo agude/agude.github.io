@@ -17,49 +17,55 @@ A lot has been written about how to perform technical interviews. What
 questions to ask, what questions not to ask, why the questions we used to ask
 are bad. I have nothing of value to add to that debate.[^1]
 
-What I do have to add is one guiding principle: **Do not waste anyone's
-time!**
+What I do have to add is one guiding principle for the interviewing company:
+**Do not waste anyone's time!**
 
 Do not waste the time of the candidate by making them jump through endless
-hoops. Do not waste the time of your own people who are interviewing
-candidates by losing candidates due to poor communication. To this end, I have
+hoops. Do not waste the time of your own people (the ones performing the
+interview) by losing candidates due to poor communication. To this end, I have
 two simple pieces of advice that very few of the companies I have interviewed
 with have followed.
 
 ## Structure: Just Enough
 
-A few companies I have interviewed with have had labyrinthine processes
-including multiple phone screens, multiple days of on sites, phone screens and
-take-home projects. Instead, ask what you hope to learn with a second
-interview (or phone screen, or data challenge) that you failed to learn the
-first time, and then figure out how to learn that key piece of information in
-just one round.
+A few companies I have interviewed with have had labyrinthine processes such
+as:
+
+- multiple phone screens
+- multiple days of on-site interview loops
+- phone screens as well as take-home projects
+
+Instead of utilizing such protracted methods, ask what you hope to learn with
+a second interview (or phone screen, or data challenge) that you failed to
+learn the first time, and then figure out how to learn that key piece of
+information in just one round.
 
 I think the following steps are enough:
 
 - Resume screen (performed without the candidate)
-- Casual chat about the position
+- Casual chat with the candidate about the position
 - Technical screen
-- On-site
+- On-site interview loop
 
 ## Communicate: Often
 
-The vast majority of companies communicate poorly during the hiring process.
-There are long periods of silence followed by unpredictable bursts of noise.
-Worse, some companies just stop communicating altogether! The companies that
-offered the best experience had recruiters who stayed in constant contact, who
-set appointments and kept them. The absolute best even scheduled the post
-on-site feedback (and hiring decision) phone call at the same time they gave
-me the schedule for the on-site itself. I very much appreciated knowing that
-at a set time in the future I would know the outcome.
+The vast majority of companies follow poor communication practices during the
+hiring process. Often, there are long periods of silence followed by
+unpredictable bursts of noise. Worse, some companies simply stop communicating
+altogether! The companies that offered the best experience had recruiters who
+stayed in constant contact, and who set appointments and kept them. The
+absolute best even scheduled the post on-site interview loop feedback (and
+hiring decision) phone call at the same time they gave me the schedule for the
+on-site itself. I very much appreciated knowing that I would know the outcome
+at a set time in the future.
 
-Being better at communicating is easy. Communicate before each step in the
-hiring process and let the candidate know what to expect. Then communicate
-after each step and let the candidate know whether they are moving on, or not.
-Ideally, schedule these interactions ahead of time so there is no doubt as to
-when they will happen. This gives the candidate a fixed date on which they
-will have an answer, and gives a deadline to the hiring team to make a
-decision.
+Improving communication during the hiring process is simple. Communicate
+before each step in the hiring process and let the candidate know what to
+expect. Then communicate after each step and let the candidate know whether or
+not they are continuing in the hiring process. Ideally, schedule these
+interactions ahead of time so there is no doubt as to when they will happen.
+This gives the candidate a fixed date on which they will have an answer, and
+gives a deadline to the hiring team to make a decision.
 
 ## That's It
 
