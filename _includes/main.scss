@@ -6,5 +6,6 @@ $sidebar_color: {{ site.theme_config.sidebar_color }};
 /* Import partials from `site.sass_dir` */
 @import "poole"; /* poole imports multiple subfiles */
 @import "hyde";
+@import "custom";
 @import "rrssb";
 @import "font"; /* Google Webfonts */
