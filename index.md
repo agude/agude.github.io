@@ -42,24 +42,11 @@ Below you can find the three most recent posts, older posts can be found on my
 [blog][blog]:
 
 {% for post in site.posts limit:5 %}
-  <div class="article-card">
-    <table>
-      <tr>
-        <td>
-        {% comment %} The image. {% endcomment %}
-          <a href="{{ post.url }}">
-            <img src="{{ site.url }}{{ post.image }}">
-          </a>
-        </td>
-        <td>
-          {% comment %} The text blurb. {% endcomment %}
-          <a href="{{ post.url }}">
-            <strong>{{ post.title }}</strong>
-          </a>
-          <br>
-          {{ post.description }}
-        </td>
-      </tr>
-    </table>
-  </div>
+  {% comment %} Article cards with an image and description. {% endcomment %}
+  {% include article_card.html
+    url=post.url
+    image=post.image
+    title=post.title
+    description=post.description
+  %}
 {% endfor %}
