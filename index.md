@@ -38,15 +38,15 @@ reports and pull requests welcome!
 
 ## Recent Posts
 
-Below you can find the three most recent posts, older posts can be found on my
+Below you can find the most recent posts; older posts can be found on my
 [blog][blog]:
 
-<ul>
-{% for post in site.posts limit:3 %}
-  <li>
-  <a href="{{ post.url }}"><strong>{{ post.title }}</strong></a>
-  <br>
-  {{ post.description }}
-  </li>
+{% for post in site.posts limit:5 %}
+  {% comment %} Article cards with an image and description. {% endcomment %}
+  {% include article_card.html
+    url=post.url
+    image=post.image
+    title=post.title
+    description=post.description
+  %}
 {% endfor %}
-</ul>

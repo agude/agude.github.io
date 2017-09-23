@@ -1,0 +1,20 @@
+<div class="article-card">
+  <table>
+    <tr>
+      <td>
+        {% comment %} The image. {% endcomment %}
+        <a href="{{ include.url }}">
+          <img src="{{ site.url }}{{ include.image }}">
+        </a>
+      </td>
+      <td>
+        {% comment %} The text blurb. {% endcomment %}
+        <a href="{{ include.url }}">
+          <strong>{{ include.title }}</strong>
+        </a>
+        <br>
+        {{ include.description }}
+      </td>
+    </tr>
+  </table>
+</div>
