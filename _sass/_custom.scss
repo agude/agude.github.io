@@ -1,5 +1,5 @@
-/* Circular portrait on the sidebar */
-.circular-portrait {
+// Portraits
+.portrait {
   position: relative;
   width: 250px;
   height: 250px;
@@ -8,7 +8,38 @@
   margin: auto; // Center horizontally
 }
 
-.circular-portrait img {
+.portrait img {
   width: 100%;
   height: auto;
+}
+
+.sidebar-portrait {
+  @extend .portrait;
+}
+
+.sidebar-portrait img {
+  @extend .portrait;
+}
+
+// Cards
+.card {
+
+  img {
+    max-width: 150px;
+    margin: auto;
+  }
+
+  table {
+    border: 2px solid #e5e5e5;
+  }
+
+  td, th {
+    border: 0px solid #e5e5e5;
+    background-color: #f9f9f9;
+  }
+
+}
+
+.article-card {
+  @extend .card;
 }
