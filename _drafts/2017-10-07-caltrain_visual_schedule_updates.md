@@ -13,14 +13,14 @@ image: /files/caltrain-schedule/an_outbound_sp_commuter_train_sequence_by_roger_
 On July 15, 2017, Caltrain changed their weekend schedule in order to allow
 construction related to the [Peninsula Corridor Electrification
 Project][pcep]. Instead of running hourly, trains now run roughly every 90
-minutes. This can make it a little frustrating to try to get to the city to
-have [avocado toast][at] with your friends; a fact I discovered when I showed
-up at the [San Antonio station][sas] on the 15th and learned my train was
-going to take 20 more minutes to show up.
+minutes---a fact I discovered when I showed up at the [San Antonio
+station][sas] on the 15th and learned it would be another 20 minutes before my
+train would arrive. This can make it a little frustrating when trying to get
+to the city to have [avocado toast][at] with your friends.
 
 [pcep]: https://en.wikipedia.org/wiki/Electrification_of_Caltrain
-[at]: http://knowyourmeme.com/memes/avocado-toast
 [sas]: https://en.wikipedia.org/wiki/San_Antonio_station_(Caltrain)
+[at]: http://knowyourmeme.com/memes/avocado-toast
 
 A new schedule is not all bad though; it means a chance to reuse the script I
 developed to produce [visual schedules for Caltrain][lastpost]. You can find
