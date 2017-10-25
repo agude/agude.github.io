@@ -37,8 +37,8 @@ data is from [Caltrain's developer site][dev].
 The top schedule is the new July 15th one, the old schedule is below. Click to
 enlarge.
 
-[![Caltrain][saturday_new]][saturday_new]
-[![Caltrain][saturday]][saturday]
+[![Marey visual train schedule for caltrain on Saturday after the July 15 change][saturday_new]][saturday_new]
+[![Marey visual train schedule for caltrain on Saturday before the July 15 change][saturday]][saturday]
 
 [saturday]: {{ file_dir }}/caltrain_saturday_20170308.svg
 [saturday_new]: {{ file_dir }}/caltrain_saturday_20170715.svg
@@ -53,8 +53,8 @@ peninsula the same as the number heading down.
 
 Again, the top schedule is the new one, the bottom one is the old schedule.
 
-[![Caltrain][sunday_new]][sunday_new]
-[![Caltrain][sunday]][sunday]
+[![Marey visual train schedule for caltrain on Sunday after the July 15 change][sunday_new]][sunday_new]
+[![Marey visual train schedule for caltrain on Sunday before the July 15 change][sunday]][sunday]
 
 [sunday]: {{ file_dir }}/caltrain_sunday_20170308.svg
 [sunday_new]: {{ file_dir }}/caltrain_sunday_20170715.svg

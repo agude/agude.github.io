@@ -72,8 +72,8 @@ full weekday schedule is [here][weekday] ([northbound only][weekday_north] and
 [weekday_south]: {{ file_dir }}/caltrain_weekday_south.svg
 [weekday_gilroy]: {{ file_dir }}/caltrain_weekday_gilroy.svg
 
-[![Caltrain][weekday_morning]][weekday_morning]
-[![Caltrain][weekday_evening]][weekday_evening]
+[![Marey visual train schedule for caltrain during the weekday morning commute][weekday_morning]][weekday_morning]
+[![Marey visual train schedule for caltrain during the weekday evening commute][weekday_evening]][weekday_evening]
 
 [weekday_morning]: {{ file_dir }}/caltrain_weekday_morning.svg
 [weekday_evening]: {{ file_dir }}/caltrain_weekday_evening.svg
@@ -95,8 +95,8 @@ morning's commute.
 
 ### Weekend
 
-[![Caltrain][saturday]][saturday]
-[![Caltrain][sunday]][sunday]
+[![Marey visual train schedule for caltrain on Saturday][saturday]][saturday]
+[![Marey visual train schedule for caltrain on Sunday][sunday]][sunday]
 
 [saturday]: {{ file_dir }}/caltrain_saturday.svg
 [sunday]: {{ file_dir }}/caltrain_sunday.svg
