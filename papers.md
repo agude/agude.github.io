@@ -36,7 +36,7 @@ description: >
 - Suzuki et al., *The Hubble Space Telescope Cluster Supernova Survey: V.
   Improving the Dark Energy Constraints Above z\>1 and Building an
   Early-Type-Hosted Supernova Sample* 2012, ApJ, 746, 85.
-  ([arXiv:1105.3470](http://arxiv.org/abs/1105.3470))
+  ([10.1088/0004-637X/746/1/85](http://dx.doi.org/10.1088/0004-637X/746/1/85))
 - Dawson et al., *An Intensive HST Survey for z\>1 Supernovae by Targeting
   Galaxy Clusters* 2009, AJ, 138, 1271.
   ([arXiv:0908.3928](http://arxiv.org/abs/0908.3928))
