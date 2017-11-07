@@ -20,7 +20,7 @@
       {% endcomment %}
 
       {% for node in site.pages %}
-        {% if node.title != null and node.layout == "page" %}
+        {% if node.title != null and node.layout == "page" and node.sidebar_include != false %}
           {% unless node.url contains "page" %} {% comment %} Paginated Blog pages should not be included in the sidebar. {% endcomment %}
             <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{site.baseurl}}{{ node.url }}">{{ node.title }}</a>
           {% endunless %}
@@ -28,9 +28,10 @@
       {% endfor %}
 
     </nav>
-
     <small>
       &copy; <time datatime="{{ '2016-01-01T00:00:00Z' | date_to_xmlschema }}">2016</time>–<time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time>. All rights reserved.
+      <br>
+      <a class="legal{% if page.url == "/privacy-policy/" %} active{% endif %}" href="/privacy-policy/">Privacy Policy</a>
     </small>
   </div>
 </aside>
