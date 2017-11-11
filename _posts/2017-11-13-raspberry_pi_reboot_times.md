@@ -3,7 +3,7 @@ layout: post
 title: "How Fast Does a Raspberry Pi Reboot?"
 description: >
   My Raspberry Pis have to reboot every evening to avoid a memory leak. As
-  they say, when you have a memory leak, make animated plots! See how fast
+  they say, when you have a memory leak, make animated plots to see how fast
   they reboot!
 image: /files/raspberry-pi/raspberry_pi_2_b_by_evan-amos.jpg
 ---
@@ -13,7 +13,7 @@ image: /files/raspberry-pi/raspberry_pi_2_b_by_evan-amos.jpg
 I own two [Raspberry Pis][pi] which are currently taped to my kitchen
 cabinets. They perform a range of tasks that require an always-on, but
 low-power, computer. The first one, named [Raspberry Pion][pion],[^1] seeds
-open source torrents 24/7. It is a slightly older (and hence slower)
+open-source torrents 24/7. It is a slightly older (and hence slower)
 [Raspberry Pi 2 Model B][pi2]. The second one, named [Raspberry
 Kaon][kaon],[^2] runs a VPN that I connect to when using insecure wireless
 networks away from home. It is a newer [Raspberry Pi 3 Model B][pi3].
@@ -27,10 +27,11 @@ networks away from home. It is a newer [Raspberry Pi 3 Model B][pi3].
 Both computers run [Ubuntu Mate 16.04 for the Raspberry Pi][mate], and both
 suffer from a memory leak I have not been able to track down. My solution is
 to reboot the computers at 0100 every night using a [cronjob][cron]. They
-report their status to Twitter when they come back online, which lets me know
-that they have succeeded and how long it took. [One of my friends][charles]
-noticed that Raspberry Pion seemed to take a few seconds longer than Raspberry
-Kaon, which prompted me to take a look.
+report their status to Twitter  when they come
+back online, which lets me know that they have successfully rebooted and how
+long it took. [One of my friends][charles] noticed that Raspberry Pion seemed
+to take a few seconds longer than Raspberry Kaon, which prompted me to take a
+look.
 
 [mate]: https://ubuntu-mate.org/raspberry-pi/
 [cron]: https://en.wikipedia.org/wiki/Cron
@@ -40,23 +41,43 @@ You can find the notebook [here][notebook] ([rendered on Github][rendered]).
 Pion's tweet data is [here][pion_tweets], and Kaon's tweet data is
 [here][kaon_tweets].
 
-[notebook]: {{ file_dir }}/20170715-Caltrain Marey Schedule.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/caltrain-schedule/20170715-Caltrain%20Marey%20Schedule.ipynb
+[notebook]: {{ file_dir }}/Rasperry Pi Reboot Times.ipynb
+[rendered]: https://github.com/agude/agude.github.io/blob/master/files/raspberry-pi/Rasperry%20Pi%20Reboot%20Times.ipynb
 [pion_tweets]: {{ file_dir }}/pion_tweets.csv
 [kaon_tweets]: {{ file_dir }}/kaon_tweets.csv
 
 ## Reboot Times
 
+The Raspberry Pis report the time they come back online to Twitter, [as
+follows][example]:
+
+[example]: https://twitter.com/RaspberryKaon/status/929272644498624513
+
+![An example of the status Tweet sent by Raspberry Kaon][tweet]
+
+[tweet]: {{ file_dir }}/20171111_reboot_tweet.png
+
+The clocks on the Raspberry Pis are kept synchronized with a central server
+using [NTP][ntp]. The network latency of sending the tweet is not an issue as
+the timestamps are generated locally before being sent to Twitter. However,
+the two machines differ in more than just their hardware: the Raspberry Pi 2
+serves torrents meaning it has hundreds of network connections open which
+might slow down its shutdown process. So this is not a completely fair
+benchmark.
+
+[ntp]: https://en.wikipedia.org/wiki/Network_Time_Protocol
+
 I pulled down all the reboot announcement tweets from my two Raspberry Pis and
 computed the time difference in seconds from 0100. I discarded any difference
-over five minutes, as these were mostly cases where the Raspberry Pi rebooted
-at some other time of the day. The following is an animated histogram
-comparing the reboot times of the two computers over the 10 months they have
-been running. Each month is about one second of animation.
+over five minutes, as these were primarily cases where the Raspberry Pi
+rebooted at some other time of the day. From these I created an animated
+histogram comparing the reboot times of the two computers over the 10 months
+they have been running. Each month is about one second of animation.
 
 {% capture video_file %}{{ file_dir }}/raspberry_pi_reboot_times_2_vs_3_animation.mp4{% endcapture %}
 {% include video.html file=video_file %}
-[Here is a static image][plot] if you prefer.
+
+[Here is a static image of the plot][plot] if you prefer.
 
 [plot]: {{ file_dir }}/raspberry_pi_reboot_times_2_vs_3.svg
 
@@ -70,11 +91,12 @@ to a half a second of no updates!
 
 ## Animated Plots
 
-I am a big fan of using animation to represent the time axis. I think it makes
-the display rather intuitive. Using `FuncAnimation` from `matplotlib` was a
-bit tough (and I think my code is far from optimal), but once I got it working
-it was a lot faster than rendering the individual frames and creating the
-video afterwards. In the future I hope to make more fun animations!
+A final note about animated plots: I am a huge fan of using animation to
+represent the time axis because I think it makes the display of information
+more intuitive. Using `FuncAnimation` from `matplotlib` was a bit tough (and I
+think my code is far from optimal), but once I got it working it was a lot
+faster than rendering the individual frames and creating the video afterwards.
+In the future I hope to make more fun animations!
 
 ---
 
