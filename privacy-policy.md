@@ -18,7 +18,7 @@ Google records:
 - What website you came from (Google search, Twitter, LinkedIn, etc.)
 - How long you stay on each page
 - What type of computer and operating system you are using
-- What country you are connecting fro;
+- What country you are connecting from
 
 And a bunch more. Please see [Google Analytics's Terms of Service][google_tos].
 
