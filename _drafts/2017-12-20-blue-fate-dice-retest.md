@@ -5,12 +5,12 @@ description: >
   A few months ago I tested my Fate Dice for biases. Now, I retest the
   "biased" set and see if it really is unlucky! Unfortunately, things aren't
   so clear...
-image: /files/fate-dice-statistics/fate_dice.jpg
+image: /files/fate-dice-statistics/blue_fate_dice.jpg
 ---
 
 {% capture file_dir %}{{ site.url }}/files/fate-dice-statistics/{% endcapture %}
 
-![The black, blue, and red sets of dice.]({{ file_dir }}/fate_dice.jpg)
+![The blue set of dice.]({{ file_dir }}/blue_fate_dice.jpg)
 
 [A few months ago][previous] I dug up the data from my [Fate campaign][fate]
 and used it to test the dice we used for biases. I concluded that three of the
