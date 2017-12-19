@@ -28,7 +28,7 @@ would be interesting to dig it back out and analyze it more deeply.
 with equal probability of appearing: plus, blank, and minus. These
 respectively represent +1, 0, and -1 . Four dice are rolled at a time and
 their results are summed, giving a range of -4 to 4. The
-[notation][dice_notation] for this type of roll is `4dF`.
+[notation][dice_notation] for this type of roll is 4dF.
 
 [dice]: https://en.wikipedia.org/wiki/Fudge_(role-playing_game_system)#Fudge_dice
 [dice_notation]: https://en.wikipedia.org/wiki/Dice_notation
