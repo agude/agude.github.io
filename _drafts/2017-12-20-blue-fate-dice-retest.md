@@ -14,12 +14,12 @@ image: /files/fate-dice-statistics/fate_dice.jpg
 
 [A few months ago][previous] I dug up the data from my [Fate campaign][fate]
 and used it to test the dice we used for biases. I concluded that three of the
-sets were fine, but that the fourth set, the blue dice, were significantly biased, with [_P_ <
+sets were fine, but that the fourth set, the blue dice, were significantly biased, with [_p_ <
 0.01][pvalue]!
 
 [previous]: {% post_url 2017-07-28-fate_dice_statistics %}
 [fate]: http://www.evilhat.com/home/fate-core/
-[pvalue]: https://en.wikipedia.org/wiki/P-value
+[pvalue]: https://en.wikipedia.org/wiki/p-value
 
 As a scientist, I want to know more than simply whether or not the dice are
 biased; I also want to understand *how* they are biased. Is only one of the
@@ -85,8 +85,8 @@ dice 99% of the time. I discussed in detail how these regions are computed in
 Let me stop for a second: _**This is surprising!**_
 
 My [previous test][previous_significance] shows that the blue dice were biased
-at the _P_ < 0.01 level and yet not a single count is outside the 99% range
-this time! Using a [chi-squared test][chi2] test on the new data gives _P_ =
+at the _p_ < 0.01 level and yet not a single count is outside the 99% range
+this time! Using a [chi-squared test][chi2] test on the new data gives _p_ =
 0.66, which does not rule out the unbiased hypothesis! In fact, this new test
 agrees the best with the unbiased hypothesis of all the tests [performed last
 time][previous_significance]!
@@ -114,9 +114,9 @@ statistics and systematics.
 ### Statistics
 
 It is possible that the dice are biased (or fine) and the test that says
-otherwise is just a statistical fluke. At _P_ < 0.01 that happens 1 in 100
+otherwise is just a statistical fluke. At _p_ < 0.01 that happens 1 in 100
 times. Performing further tests would answer this question: biased dice would
-have more results with a low _P_-value, while unbiased dice would have few.
+have more results with a low _p_-value, while unbiased dice would have few.
 
 ### Systematics
 
@@ -126,7 +126,7 @@ first test was less controlled: we wrote down results when we remembered, the
 person writing the results changed from day to day, and the person rolling
 also changed. Further, we often remembered to start recording only **after** a
 particularly bad roll. Performing multiple tests and looking at the
-distribution of the _P_ value might offer a clue indicating whether the first
+distribution of the _p_ value might offer a clue indicating whether the first
 test was systematically off, but it is hard to disentangle from statistical
 uncertainty.
 

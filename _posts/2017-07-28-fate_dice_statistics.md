@@ -94,24 +94,25 @@ this test on our dice yields the following results:
 [chi2]: https://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test
 [chi2_dist]: https://en.wikipedia.org/wiki/Chi-squared_distribution
 
-|-------+-------------+---------+
-| Dice  | chi-squared | p-value |
-|:------|------------:|--------:|
-| Blue  |       26.31 |   0.001 | 
-|-------+-------------+---------|
-| Black |        9.32 |   0.315 |
-|-------+-------------+---------|
-| Red   |       10.77 |   0.215 |
-|-------+-------------+---------|
-| White |       19.07 |   0.014 |
-|-------+-------------+---------|
+|-------+-------------+-----------+
+| Dice  | chi-squared | _p_-value |
+|:------|------------:|----------:|
+| Blue  |       26.31 |     0.001 | 
+|-------+-------------+-----------|
+| Black |        9.32 |     0.315 |
+|-------+-------------+-----------|
+| Red   |       10.77 |     0.215 |
+|-------+-------------+-----------|
+| White |       19.07 |     0.014 |
+|-------+-------------+-----------|
 
 The chi-squared test has some [caveats about low expected values][caveats],
 but at worst we only have two (out of nine) bins below five expected entries.
-Looking at the p-values we conclude roughly the same as our "_chi-by-eye_"
-test above: the blue dice are significantly biased, while the black and red
-dice show no evidence of being unfair. The white dice are not biased at the `p
-< 0.01` level, but that single high bin is odd and to be absolutely sure I
-would want to roll them a lot more and check.
+Looking at the [_p_-values][pvalue] we conclude roughly the same as our
+"_chi-by-eye_" test above: the blue dice are significantly biased, while the
+black and red dice show no evidence of being unfair. The white dice are not
+biased at the _p_ < 0.01 level, but that single high bin is odd and to be
+absolutely sure I would want to roll them a lot more and check.
 
 [caveats]: https://stats.stackexchange.com/q/93212
+[pvalue]: https://en.wikipedia.org/wiki/p-value
