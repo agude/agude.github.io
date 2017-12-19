@@ -14,19 +14,19 @@ image: /files/fate-dice-statistics/fate_dice.jpg
 
 [A few months ago][previous] I dug up the data from my [Fate campaign][fate]
 and used it to test the dice we used for biases. I concluded that three of the
-sets were fine, but that the blue dice were significantly biased, with [_P_ <
+sets were fine, but that the fourth set, the blue dice, were significantly biased, with [_P_ <
 0.01][pvalue]!
 
 [previous]: {% post_url 2017-07-28-fate_dice_statistics %}
 [fate]: http://www.evilhat.com/home/fate-core/
 [pvalue]: https://en.wikipedia.org/wiki/P-value
 
-As a scientist, I want to know more than just that the dice are biased, I want
-to understand how they are biased. Are three of the dice fine and one is
-really bad? Are they all slightly wrong and combined it is significant? These
-questions could not be answered with the data at hand as only the finally
-total for each roll was recorded. Fortunately, I still have the dice, so I
-decided to retest them!
+As a scientist, I want to know more than simply whether or not the dice are
+biased; I also want to understand *how* they are biased. Is only one of the
+dice actually bad? Are they all slightly biased, but only when combined
+together is the bias significant? These questions could not be answered with
+the data at hand as only the final total for each roll was recorded.
+Fortunately, I still have the dice, so I decided to retest them!
 
 That new test data is [here][new_data]. The old test data is [here][old_data].
 You can find the Jupyter notebook used to make these calculations
@@ -39,14 +39,13 @@ You can find the Jupyter notebook used to make these calculations
 
 ## Individual Tests
 
-To perform the test I rolled one of the die 500 times in a row and recorded
-the results. I then picked another die and repeated the process, giving me
-2000 total rolls. See my [previous post][previous_fate_dice] for a review of
-how Fate dice work.
+To perform the test I rolled each 500 times in a row and recorded
+the results, for a total of 2000 rolls. See my [previous post][previous_fate_dice] 
+for a review of how Fate dice work.
 
 [previous_fate_dice]: {% post_url 2017-07-28-fate_dice_statistics %}#fate-dice
 
-One way to visualize all the roles is to sum up the results for each die roll
+One way to visualize all the rolls is to sum up the results for each die roll
 by roll. This gives a cumulative total that wanders up and down as the die
 rolls high and low results. Each die can then be modeled as a [1-dimensional
 random walk][random_walk]. I've plotted the contours that 95% and 99% of
@@ -68,13 +67,13 @@ together the dice are biased.
 Each die was rolled individually, but Fate dice are rolled four at a time and
 summed. In order to mimic this with the data I generated, I took the first
 roll of each of the four dice and added them together, treating that as one
-roll. I did this for with the rest of the data to get 500 rolls for the set of
-dice.
+roll. I repeated this process for the rest of the data to get 500 rolls for
+the set of dice.
 
 That gives the following distribution, where the points indicate the number
-of rolls of the dice that came up with a certain value and the grey area is
+of rolls of the dice that came up with a certain value, and the grey area is
 the range in which we would expect to find a result produced by a fair set of
-dice 99% of the time. I discussed how these regions are computing in detail in
+dice 99% of the time. I discussed in detail how these regions are computed in
 [a previous post][regions_post].
 
 [regions_post]: {% post_url 2017-08-14-fate_dice_intervals %}
@@ -106,16 +105,11 @@ The first test, from my [previous post][previous], very quickly wanders
 outside the 99% contour and spends much of its time there. The second test
 stays solidly within the contours.
 
-<!--
-[![The results of the second set of blue dice rolls.][combined_results_plot]][combined_results_plot]
-[combined_results_plot]: {{ file_dir }}/blue_fate_dice_rolls_combined.svg
--->
-
 ## Explanation
 
 So what explains a significant result in the first test and not in the second?
-There are a few possibilities, that fall into two categories: statistics and
-systematics.
+There are a few possibilities, all of which fall into two categories:
+statistics and systematics.
 
 ### Statistics
 
@@ -127,17 +121,18 @@ have more results with a low _P_-value, while unbiased dice would have few.
 ### Systematics
 
 It is also possible, and I think more likely, that one of the tests was
-performed in a biased manner. The second test was very carefully done, but
-the first test was less controlled: we wrote down results when we remembered,
-the person writing the results changed from day to day, and the person rolling
+performed in a biased manner. The second test was very carefully done, but the
+first test was less controlled: we wrote down results when we remembered, the
+person writing the results changed from day to day, and the person rolling
 also changed. Further, we often remembered to start recording only **after** a
 particularly bad roll. Performing multiple tests and looking at the
-distribution of the _P_ value might offer a clue to if the first test was
-systematically off, but it is hard to disentangle from statistical uncertainty.
+distribution of the _P_ value might offer a clue indicating whether the first
+test was systematically off, but it is hard to disentangle from statistical
+uncertainty.
 
 ## Conclusion
 
-So what was it, statistics or systematic? If I had to bet I'd say that the
+So what was it, statistics or systematic? If I had to bet, I'd say that the
 first test was performed poorly and that the dice are probably fine. Am I
 going to test them _**again**_ to check? Maybe... You will see it here if I
 do!
