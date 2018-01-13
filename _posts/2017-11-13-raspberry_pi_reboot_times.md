@@ -27,11 +27,10 @@ networks away from home. It is a newer [Raspberry Pi 3 Model B][pi3].
 Both computers run [Ubuntu Mate 16.04 for the Raspberry Pi][mate], and both
 suffer from a memory leak I have not been able to track down. My solution is
 to reboot the computers at 0100 every night using a [cronjob][cron]. They
-report their status to Twitter  when they come
-back online, which lets me know that they have successfully rebooted and how
-long it took. [One of my friends][charles] noticed that Raspberry Pion seemed
-to take a few seconds longer than Raspberry Kaon, which prompted me to take a
-look.
+report their status to Twitter  when they come back online, which lets me know
+that they have successfully rebooted and how long it took. [One of my
+friends][charles] noticed that Raspberry Pion seemed to take a few seconds
+longer than Raspberry Kaon, which prompted me to take a look.
 
 [mate]: https://ubuntu-mate.org/raspberry-pi/
 [cron]: https://en.wikipedia.org/wiki/Cron
@@ -100,8 +99,9 @@ In the future I hope to make more fun animations!
 
 ---
 
-[^1]: Physicists have notoriously terrible senses of humor.
-[^2]: I have [tau][tau][^3] left if I get a third one; after that naming will be tough.
-[^3]: Physicists do not call it the "tauon", that just sounds silly.
+[^1]: From [pion][wiki_pion]; physicists have notoriously terrible senses of humor.
+[^2]: After the [kaon][wiki_kaon], of course. If I get another, I'll have to name it something like [J/ψ][jpsi], and that just doesn't have the same ring to it.
 
-[tau]: https://www.raspberrypi.org/products/raspberry-pi-2-model-b/
+[wiki_pion]: https://en.wikipedia.org/wiki/Pion
+[wiki_kaon]: https://en.wikipedia.org/wiki/Kaon
+[jpsi]: https://en.wikipedia.org/wiki/J/psi_meson
