@@ -96,12 +96,13 @@ companies I've worked for) have PhDs, but I think that is an artifact of how
 new the position is. Teaching the useful skills in a much shorter amount of
 time than required for a PhD is what the master's degree programs in data
 science, and eventually the undergraduate degrees, will attempt to do. And I
-believe they will, after some trial and error, succeed. So if your goal is to
-be a data scientist, ask yourself this: would you rather have a master's in
-data science, and four or five years of experience in that industry, or would
-you rather be fresh out of a PhD program with no "practical" experience in the
-field? Several of my friends are in the latter position and I can tell you: it
-isn't easy!
+believe they will succeed after some trial and error.
+
+So if your goal is to be a data scientist, ask yourself this: would you rather
+have a master's in data science, and four or five years of experience in that
+industry, or would you rather be fresh out of a PhD program with no
+"practical" experience in the field? Several of my friends are in the latter
+position and I can tell you: it isn't easy!
 
 ## Would I do it again?
 
