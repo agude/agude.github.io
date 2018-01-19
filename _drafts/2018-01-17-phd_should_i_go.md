@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: "Should I Get a PhD?"
 description: >
