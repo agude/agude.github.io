@@ -82,7 +82,7 @@ expensive][op_cost]. You spend six or seven years training for a job you will
 not get. You learn a lot along the way, but you could certainly learn the
 useful things in a much shorter amount of time.
 
-[op_cost]: https://en.wikipedia.org/wiki/Opportunity_cost<Paste>
+[op_cost]: https://en.wikipedia.org/wiki/Opportunity_cost
 
 In six years, if you get rid of the physics courses, exams, and teaching, you
 could fit a lot of training and on-the-job experience. Most of the experience
