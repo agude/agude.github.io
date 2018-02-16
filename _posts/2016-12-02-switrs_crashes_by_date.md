@@ -71,7 +71,7 @@ To explore the second trend, we'll need to look at the data day-by-day instead
 of a week at a time. Below is a plot of the average number of accidents on
 each day of the year. The average is calculated by summing the number of
 accidents on a specific day (say, September 22nd) across the years 2001 to
-2015. The sum is then divided by the number of times that specific day
+2015\. The sum is then divided by the number of times that specific day
 appeared in the timespan (15, except for the [leap day][leapday], which only
 appears 3 times).
 
