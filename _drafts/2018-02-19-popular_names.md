@@ -32,8 +32,8 @@ Jupyter notebook used to perform this analysis [here][notebook] ([rendered on
 Github][rendered]). 
 
 [data]: https://www.ssa.gov/oact/babynames/names.zip
-[notebook]: {{file_dir}}/Blue Fate Dice Statistics.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/fate-dice-statistics/Blue%20Fate%20Dice%20Statistics.ipynb
+[notebook]: {{file_dir}}/Most Popular Names Blit Same Time.ipynb
+[rendered]: https://github.com/agude/agude.github.io/blob/master/files/names/Most%20Popular%20Names%20Blit%20Same%20Time.ipynb
 
 ## Boys Names
 
