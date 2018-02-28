@@ -45,11 +45,11 @@ Github][rendered]).
 
 The plot shows the fraction of boys born in a specific year given one of the
 most popular names. When a name is the highest line on the chart, that name is
-the most popular name in America during that time. We can not tell which name
-is the second most popular in a given year because I have only included names
-that reach the number one spot at some point. For example, William is the
-second most popular name in 1920, but because it never reaches the top spot it
-is not included in the plot.
+the most popular name in America during that time. We can not tell from the
+plot which name is the second most popular in a given year because I have only
+included names that reach the number one spot at some point. For example,
+William is the second most popular name in 1920, but because it never reaches
+the top spot it is not included in the plot.
 
 Using the plot we can see that the most popular boy's names are timeless; they
 retain the top spot for decades, and remain popular even a century later. They
@@ -95,13 +95,13 @@ Isabella, and Sophia, which are neck-and-neck through the 2000s.
 
 ## Thoughts and Observations
 
-Why are the most popular girl's names driven by fads, but boy's names are not? I
-have a theory: throughout history, far more men have been famous than women.
+Why are the most popular girl's names driven by fads, but boy's names are not?
+I have a theory: throughout history, far more men have been famous than women.
 This shows up in biblical names as well, with Mary being essentially the only
-women of importance in the Bible. This allows boy's names to survive generation
-to generation as parents look to famous men for inspiration and use their
-names. Parents of girls had fewer options, and so new names were able to fill
-the void each generation, leading to their quick rise and fall.
+women of importance in the Bible. This allows boy's names to survive
+generation to generation as parents look to famous men for inspiration and
+used their names. Parents of girls had fewer options, and so new names were
+able to fill the void each generation, leading to their quick rise and fall.
 
 One pattern that is evident for both boy's and girl's names is the declining
 relative popularity of the top names. In the 1880s, the most popular name for
