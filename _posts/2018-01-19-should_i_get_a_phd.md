@@ -119,6 +119,8 @@ other options.
 [^1]: Go Bears! 🐻
 [^2]: Go Golden Gophers! [🐿️](https://twitter.com/goldythegopher/status/657228811751264256)
 [^3]: A postdoc is a position used to gain more experience before applying for professorships. Graduates often spend five to six years doing multiple postdocs, which are all but required to land a professorship.
-[^4]: I was forced to take a year off after undergrad; a story I'll recount some other time.
+[^4]: I was forced to take a year off after undergrad; [a story I shared in another post][grad_post].
 [^5]: Or, at least, you should not!
 [^6]: You probably aren't.
+
+[grad_post]: {% post_url 2018-03-14-my_grad_school_journey %}
