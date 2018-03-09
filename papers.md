@@ -9,7 +9,9 @@ description: >
 ## Machine Learning
 
 - Ni et al., *Sampled Image Tagging and Retrieval Methods on User Generated
-  Content* ([arXiv:1611.06962](https://arxiv.org/abs/1611.06962))
+  Content*, British Machine Vision Conference 2017.
+  ([Conference](https://www.dropbox.com/s/q2bquqawpg8htgc/0956.pdf?dl=1A))
+  ([arXiv:1611.06962](https://arxiv.org/abs/1611.06962))
 
 ## Physics
 
