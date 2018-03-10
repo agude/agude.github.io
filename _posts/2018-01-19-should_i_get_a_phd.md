@@ -123,4 +123,4 @@ other options.
 [^5]: Or, at least, you should not!
 [^6]: You probably aren't.
 
-[grad_post]: {% post_url 2018-03-14-my_grad_school_journey %}
+[grad_post]: {% post_url 2018-03-14-a_career_starts_with_rejection %}

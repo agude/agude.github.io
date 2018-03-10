@@ -5,10 +5,10 @@ description: >
   When I applied for graduate school I didn't just get rejected from a few of
   them... I got rejected from ALL of the ones I applied for! It felt like a
   wall, but it was just a small speed bump in life.
-image: /files/my-grad-school-journey/wheeler_auditorium_steps_in_1940.jpg
+image: /files/a-career-starts-with-rejection/wheeler_auditorium_steps_in_1940.jpg
 ---
 
-{% capture file_dir %}{{ site.url }}/files/my-grad-school-journey{% endcapture %}
+{% capture file_dir %}{{ site.url }}/files/a-career-starts-with-rejection{% endcapture %}
 
 <!--
 ![Students sitting on the steps of Wheeler Hall on the University of
