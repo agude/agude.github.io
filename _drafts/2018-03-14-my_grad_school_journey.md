@@ -2,19 +2,25 @@
 layout: post
 title: "The Typical Successful Career Starts with Rejection"
 description: >
-  I think I have been relatively successful in my career so far, even though
-  it is nothing like I thought it would be. But it didn't start out looking
-  that way.
-image: /files/
+  When I applied for graduate school I didn't just get rejected from a few of
+  them... I got rejected from ALL of the ones I applied for! It felt like a
+  wall, but it was just a small speed bump in life.
+image: /files/my-grad-school-journey/wheeler_auditorium_steps_in_1940.jpg
 ---
 
 {% capture file_dir %}{{ site.url }}/files/my-grad-school-journey{% endcapture %}
 
+<!--
+![Students sitting on the steps of Wheeler Hall on the University of
+California, Berkeley campus in 1940]({{
+file_dir}}/wheeler_auditorium_steps_in_1940.jpg)
+-->
+
 [Moritz Hardt][mrtz] posted a [tweet][mrtz_tweet] the other day saying "It's
 that time of the year to keep in mind that the typical start of a successful
-academic career is getting rejected from a bunch of good grad schools." This
-led to a lot of successful people replying about their own failures and how
-they did not stop them.
+academic career is getting rejected from a bunch of good grad schools." Lots
+people replied about how their own failures did not stop them. This post is my
+reply.
 
 [mrtz]: http://mrtz.org
 [mrtz_tweet]: https://twitter.com/mrtz/status/950493433822560257
@@ -23,16 +29,17 @@ they did not stop them.
 that the typical start of a successful academic career is getting rejected
 from a bunch of good grad schools."]({{ file_dir }}/mrtz_tweet.png)
 
-## My Story
 
-[I do not have an academic career][phd], but I have done OK. Moritz's tweet
-made me want to share my story as well, which is this: a successful career can
-start after being reject by every graduate school you applied to.
+My story is a little different than Moritz's. [I do not have an academic
+career][phd], I wasn't rejected from a few good grad schools but from all of
+them, and yet, I'm happy where I ended up.
 
 [phd]: {% post_url 2018-01-19-should_i_get_a_phd %}
 
-I wanted to be a Physicist since I was fourteen, so the path was laid before
-me: BA, PhD, professor. I did my BA at Berkeley. The next step was graduate
+## To Grad School
+
+I wanted to be a Physicist since I was fourteen, so I knew the path before me:
+BA, PhD, professor. I did my BA at Berkeley. The next step was graduate
 school, which meant writing essays and taking the GRE. But the GRE made me
 anxious, so I studied poorly, and I did terribly. I got into none of the
 graduate schools I applied to in 2008.
@@ -51,9 +58,10 @@ gave a chance to, but I'm thankful that I was one of them.
 I graduated from grad school in 2015 and went to [Insight Data
 Science][insight]. From there I got a job doing machine learning at
 [Lab41][lab41], where I published [a paper][paper] ([arXiv][arxiv]) and spent
-two great years. Now I lead a data science group at [Intuit][intuit]. Failing
-to get into graduate school in 2008 was crushing at the time, but it did not
-hurt me in the long run.
+two great years learning from my brilliant coworkers. Now, I lead a data
+science team at [Intuit][intuit]. Failing to get into graduate school in 2008
+was crushing at the time, but in the long run it was just a minor bump in the
+road.
 
 [insight]: https://www.insightdatascience.com
 [lab41]: https://www.lab41.org
