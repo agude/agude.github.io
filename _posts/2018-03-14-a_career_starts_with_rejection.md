@@ -39,10 +39,11 @@ them, and yet, I'm happy where I ended up.
 ## To Grad School
 
 I wanted to be a Physicist since I was fourteen, so I knew the path before me:
-BA, PhD, professor. I did my BA at Berkeley. The next step was graduate
-school, which meant writing essays and taking the GRE. But the GRE made me
-anxious, so I studied poorly, and I did terribly. I got into none of the
-graduate schools I applied to in 2008.
+BA, PhD, professor. As I finished up my BA at [Berkeley][ucb], I started
+preparing for the GRE. But the test made me anxious, so I studied poorly, and
+did terribly. I got into none of the graduate schools I applied to in 2008.
+
+[ucb]: https://en.wikipedia.org/wiki/University_of_California,_Berkeley
 
 I tried again in 2009. Not the GRE, thinking about it brought even more
 anxiety after the first time, but applying. Thankfully, the [University of
@@ -60,8 +61,8 @@ Science][insight]. From there I got a job doing machine learning at
 [Lab41][lab41], where I published [a paper][paper] ([arXiv][arxiv]) and spent
 two great years learning from my brilliant coworkers. Now, I lead a data
 science team at [Intuit][intuit]. Failing to get into graduate school in 2008
-was crushing at the time, but in the long run it was just a minor bump in the
-road.
+was crushing at the time, but it taught me that everyone falls, and sometimes
+they just need a bit of a hand to get back up and on their way.
 
 [insight]: https://www.insightdatascience.com
 [lab41]: https://www.lab41.org
