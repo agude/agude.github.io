@@ -7,21 +7,15 @@ description: >
 ---
 
 <!-- Posts -->
-<div class="posts">
-  {% for post in paginator.posts %}
-    <article class="post">
-      <h1 class="post-title">
-        <a href="{{site.baseurl}}{{ post.url }}">
-          {{ post.title }}
-        </a>
-      </h1>
-
-      <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date: '%B %d, %Y' }}</time>
-
-      {{ post.content }}
-    </article>
-  {% endfor %}
-</div>
+{% for post in paginator.posts %}
+  {% comment %} Article cards with an image and description. {% endcomment %}
+  {% include article_card.html
+    url=post.url
+    image=post.image
+    title=post.title
+    description=post.description
+  %}
+{% endfor %}
 
 <!-- "Older" and "Newer" buttons -->
 <div class="pagination">
