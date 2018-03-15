@@ -10,12 +10,6 @@ image: /files/a-career-starts-with-rejection/wheeler_auditorium_steps_in_1940.jp
 
 {% capture file_dir %}{{ site.url }}/files/a-career-starts-with-rejection{% endcapture %}
 
-<!--
-![Students sitting on the steps of Wheeler Hall on the University of
-California, Berkeley campus in 1940]({{
-file_dir}}/wheeler_auditorium_steps_in_1940.jpg)
--->
-
 [Moritz Hardt][mrtz] posted a [tweet][mrtz_tweet] the other day saying "It's
 that time of the year to keep in mind that the typical start of a successful
 academic career is getting rejected from a bunch of good grad schools." Lots
