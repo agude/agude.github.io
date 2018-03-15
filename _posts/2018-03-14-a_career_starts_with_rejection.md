@@ -2,9 +2,9 @@
 layout: post
 title: "The Typical Successful Career Starts with Rejection"
 description: >
-  When I applied for graduate school I didn't just get rejected from a few of
-  them... I got rejected from ALL of the ones I applied for! It felt like a
-  wall, but it was just a small speed bump in life.
+  When I applied for graduate school I was rejected, not by a few good grad
+  schools, but by all of them! But thanks to a little kindness, I was able to
+  continue onward.
 image: /files/a-career-starts-with-rejection/wheeler_auditorium_steps_in_1940.jpg
 ---
 
@@ -25,7 +25,9 @@ from a bunch of good grad schools."]({{ file_dir }}/mrtz_tweet.png)
 
 
 My story is a little different than Moritz's. [I do not have an academic
-career][phd], I was rejected, not by a few good grad schools, but by all of
+career][phd],
+
+I was rejected, not by a few good grad schools, but by all of
 them, and yet, I am happy with where I ended up.
 
 [phd]: {% post_url 2018-01-19-should_i_get_a_phd %}
