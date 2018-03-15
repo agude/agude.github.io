@@ -20,7 +20,7 @@ file_dir}}/wheeler_auditorium_steps_in_1940.jpg)
 that time of the year to keep in mind that the typical start of a successful
 academic career is getting rejected from a bunch of good grad schools." Lots
 people replied about how their own failures did not stop them. This post is my
-reply.
+own response.
 
 [mrtz]: http://mrtz.org
 [mrtz_tweet]: https://twitter.com/mrtz/status/950493433822560257
@@ -31,8 +31,8 @@ from a bunch of good grad schools."]({{ file_dir }}/mrtz_tweet.png)
 
 
 My story is a little different than Moritz's. [I do not have an academic
-career][phd], I wasn't rejected from a few good grad schools but from all of
-them, and yet, I'm happy where I ended up.
+career][phd], I was rejected, not by a few good grad schools, but by all of
+them, and yet, I am happy with where I ended up.
 
 [phd]: {% post_url 2018-01-19-should_i_get_a_phd %}
 
@@ -40,16 +40,18 @@ them, and yet, I'm happy where I ended up.
 
 I wanted to be a Physicist since I was fourteen, so I knew the path before me:
 BA, PhD, professor. As I finished up my BA at [Berkeley][ucb], I started
-preparing for the GRE. But the test made me anxious, so I studied poorly, and
-did terribly. I got into none of the graduate schools I applied to in 2008.
+preparing for the GRE. But test anxiety caused me to study poorly, and
+ultimately my test results were terrible. None of the graduate schools I
+applied to in 2008 accepted me.
 
 [ucb]: https://en.wikipedia.org/wiki/University_of_California,_Berkeley
 
-I tried again in 2009. Not the GRE, thinking about it brought even more
-anxiety after the first time, but applying. Thankfully, the [University of
-Minnesota][umn] (and more specifically, the too kind [Yuichi Kubota][yk])
-looked past my test scores and gave me a spot. I wasn't the only person he
-gave a chance to, but I'm thankful that I was one of them.
+I tried again in 2009. Not the GRE, since thinking about it brought even more
+anxiety than the first time, but simply applying once again to various
+graduate schools. Thankfully, the [University of Minnesota][umn] (and more
+specifically, the too kind [Yuichi Kubota][yk]) looked past my test scores and
+gave me a spot. I wasn't the only person he gave a chance to, but I'm thankful
+that I was one of them.
 
 [umn]: https://en.wikipedia.org/wiki/University_of_Minnesota
 [yk]: https://www.physics.umn.edu/people/yk.html
