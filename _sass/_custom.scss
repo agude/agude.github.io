@@ -59,3 +59,15 @@
   margin : auto;
   height : auto;
 }
+
+// Site Title (to avoid using H1)
+.site-title {
+  color: #fff;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 3.25rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: .5rem;
+  margin-top: 0;
+  text-rendering: optimizeLegibility;
+}
