@@ -6,13 +6,16 @@ description: >
   Farkle, and how likely to succeed is your attack? I find out by simulating a
   game of Dragon Farkle!
 image: /files/dragon_farkle/st_george_and_the_dragon.jpg
+image_alt: >
+  Juliusz Kossak's watercolor painting titled "Saint George Killing the
+  Dragon". It shows a man in armor, riding a horse, spearing a dragon on the
+  ground with a lance.
 redirect_from: /2016/05/30/dragon_farkle/
 ---
 
 {% capture file_dir %}{{ site.url }}/files/dragon_farkle{% endcapture %}
 
-![Juliusz Kossak's painting Saint George Killing the Dragon]({{ file_dir
-}}/st_george_and_the_dragon.jpg)
+{% include lead_image.html %}
 
 Some of my friends came over last week to play board games and while we ate
 dinner we played [Dragon Farkle][dragonfarkle] because it was a simple enough

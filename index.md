@@ -46,6 +46,7 @@ Below you can find the most recent posts; older posts can be found on my
   {% include article_card.html
     url=post.url
     image=post.image
+    image_alt=post.image_alt
     title=post.title
     description=post.description
   %}

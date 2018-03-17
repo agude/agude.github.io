@@ -6,12 +6,15 @@ description: >
   generation of parents. Are their preferences the same for boy's names as for
   girl's names? I plot the trends to find out!
 image: /files/names/swedish_children.jpg
+image_alt: >
+  A photo of four Swedish children, two boys and two girls, taken sometime in
+  the 1920s. The boys are wearing matching clothes, and the girls are wearing
+  matching dresses.
 ---
 
 {% capture file_dir %}{{ site.url }}/files/names{% endcapture %}
 
-![I photo of four Swedish children, two boys and two girls, taken sometime in
-the 1920s.]({{ file_dir }}/swedish_children.jpg)
+{% include lead_image.html %}
 
 In the last few years I've named two sons, so I have been thinking about names
 a lot. The only constraint my wife and I followed when picking names was that

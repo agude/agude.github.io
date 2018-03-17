@@ -4,6 +4,10 @@ title: "Caltrain Visual Schedule"
 description: >
   In 1878, Marey published a famous visual train schedule based on work by Ibry. What would it look like for Silicon Valley's Caltrain? Come find out!
 image: /files/caltrain-schedule/sp_3208_with_train_128_in_redwood_city_ca_in_august_1980_by_roger_puta.jpg
+image_alt: >
+  A Southern Pacific Railroad commuter train in Redwood City, circa August
+  1980. The train is grey with a bright red square painted on the front
+  containing the letters "SP" in white.
 ---
 
 {% capture file_dir %}{{ site.url }}/files/caltrain-schedule{% endcapture %}

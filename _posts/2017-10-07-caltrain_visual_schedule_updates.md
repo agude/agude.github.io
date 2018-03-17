@@ -6,6 +6,10 @@ description: >
   work, so I updated my Marey/Ibry/Serjev visual schedules to see how it
   changed!
 image: /files/caltrain-schedule/an_outbound_sp_commuter_train_sequence_by_roger_puta.jpg
+image_alt: >
+  An outbound Southern Pacific Railroad commuter train leaving San Francisco.
+  The train is grey with a bright red square painted on the front containing
+  the letters "SP" in white.
 ---
 
 {% capture file_dir %}{{ site.url }}/files/caltrain-schedule{% endcapture %}

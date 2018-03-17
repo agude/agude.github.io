@@ -6,12 +6,15 @@ description: >
   Double-check FiveThirtyEight's Polls Plus model by comparing its predictions
   to the outcomes of the 2016 primaries.
 image: /files/2016_primary_prediction/black_board_01.jpg
+image_alt: >
+  A black and white photograph of a child filling in a bar graph on a
+  chalkboard.
 redirect_from: /2016/04/28/double_checking_538/
 ---
 
 {% capture file_dir %}{{ site.url }}/files/2016_primary_prediction{% endcapture %}
 
-![Child at a blackboard]({{ file_dir }}/black_board_01.jpg)
+{% include lead_image.html %}
 
 I'm a big fan of Nate Silver, the editor-in-chief of the data blog
 [FiveThirtyEight][538]. I've been following him since his (amazingly

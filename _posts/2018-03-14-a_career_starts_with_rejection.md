@@ -6,6 +6,9 @@ description: >
   schools, but by all of them! But thanks to a little kindness, I was able to
   continue onward.
 image: /files/a-career-starts-with-rejection/wheeler_auditorium_steps_in_1940.jpg
+image_alt: >
+  A black and white photo of male students sitting on the steps of Wheeler
+  Hall on the University of California, Berkeley campus in 1940.
 ---
 
 {% capture file_dir %}{{ site.url }}/files/a-career-starts-with-rejection{% endcapture %}
@@ -19,9 +22,9 @@ own response.
 [mrtz]: http://mrtz.org
 [mrtz_tweet]: https://twitter.com/mrtz/status/950493433822560257
 
-![Moritz Hardt's Tweet saying: "It's that time of the year to keep in mind
-that the typical start of a successful academic career is getting rejected
-from a bunch of good grad schools."]({{ file_dir }}/mrtz_tweet.png)
+![A screenshot of Moritz Hardt's Tweet saying: "It's that time of the year to
+keep in mind that the typical start of a successful academic career is getting
+rejected from a bunch of good grad schools."]({{ file_dir }}/mrtz_tweet.png)
 
 My story is a little different than Moritz's. [I do not have an academic
 career][phd], I was rejected, not by a few good grad schools, but by all of
