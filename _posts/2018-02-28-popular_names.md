@@ -14,7 +14,7 @@ image_alt: >
 
 {% capture file_dir %}{{ site.url }}/files/names{% endcapture %}
 
-![{{ page.image_alt }}]({{ file_dir }}/swedish_children.jpg)
+{% include lead_image.html %}
 
 In the last few years I've named two sons, so I have been thinking about names
 a lot. The only constraint my wife and I followed when picking names was that

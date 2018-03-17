@@ -13,7 +13,7 @@ image_alt: >
 
 {% capture file_dir %}{{ site.url }}/files/fate-dice-statistics/{% endcapture %}
 
-![{{ page.image_alt }}]({{ file_dir }}/fate_dice.jpg)
+{% include lead_image.html %}
 
 My friends and I played [Fate][fate], a [role-playing game][rpg], for a few
 years during graduate school. Over that time we developed superstitions about

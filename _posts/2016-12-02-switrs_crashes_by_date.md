@@ -13,7 +13,7 @@ image_alt: >
 
 {% capture file_dir %}{{ site.url }}/files/switrs-accidents-by-date{% endcapture %}
 
-![{{ page.image_alt }}]({{ file_dir }}/1923_dc_car_crash.jpg)
+{% include lead_image.html %}
 
 The [Statewide Integrated Traffic Records System (SWITRS)][switrs] contains a
 wealth of information, enough to determine who, where, when, and sometimes why

@@ -12,7 +12,7 @@ image_alt: >
 
 {% capture file_dir %}{{ site.url }}/files/data-science-testing{% endcapture %}
 
-![{{ page.image_alt }}]({{ file_dir }}/brick_header.jpg)
+{% include lead_image.html %}
 
 From the title _"Data Scientist"_ you would guess that we work with data, and
 we do some sort of science, but what you might miss is that we write a lot of

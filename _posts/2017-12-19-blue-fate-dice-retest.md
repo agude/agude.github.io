@@ -12,7 +12,7 @@ image_alt: >
 
 {% capture file_dir %}{{ site.url }}/files/fate-dice-statistics/{% endcapture %}
 
-![{{ page.image_alt }}]({{ file_dir }}/blue_fate_dice.jpg)
+{% include lead_image.html %}
 
 [A few months ago][previous] I dug up the data from my [Fate campaign][fate]
 and used it to test the dice we used for biases. I concluded that three of the

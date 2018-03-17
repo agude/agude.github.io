@@ -12,7 +12,7 @@ redirect_from: /2016/10/17/jupyter_dev/
 
 {% capture file_dir %}{{ site.url }}/files/jupyter_dev{% endcapture %}
 
-![{{ page.image_alt }}]({{ file_dir }}/red_spot.jpg)
+{% include lead_image.html %}
 
 [Jupyter Notebooks][jpy] are great! They make it really convenient to tinker
 with a new library and are excellent for documenting projects that include

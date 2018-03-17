@@ -14,7 +14,7 @@ image_alt: >
 
 {% capture file_dir %}{{ site.url }}/files/phd-should-i-go/{% endcapture %}
 
-![{{ page.image_alt }}]({{ file_dir }}/alexis_carrel_at_the_1913_columbia_university_commencement.jpg)
+{% include lead_image.html %}
 
 When I was fourteen, I knew that I was destined to become a physics professor,
 so when I finished my BA at UC Berkeley[^1] it never even crossed my mind to

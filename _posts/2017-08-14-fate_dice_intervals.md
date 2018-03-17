@@ -14,7 +14,7 @@ use_latex: True
 
 {% capture file_dir %}{{ site.url }}/files/fate-dice-statistics/{% endcapture %}
 
-![{{ page.image_alt }}]({{ file_dir }}/alphonse-mucha-fate-1920.jpg)
+{% include lead_image.html %}
 
 Last month [I checked my Fate dice for biases][lastpost]. One of the things I
 did was plot an interval for the 4dF outcomes (-4 through 4) we expect from a

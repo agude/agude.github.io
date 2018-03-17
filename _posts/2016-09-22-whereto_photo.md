@@ -12,7 +12,7 @@ redirect_from: /2016/09/22/whereto_photo/
 
 {% capture file_dir %}{{ site.url }}/files/whereto_photo{% endcapture %}
 
-![{{ page.image_alt }}]({{ file_dir }}/WhereTo.Photo.png)
+{% include lead_image.html %}
 
 After graduating from the University of Minnesota, I moved back to California
 to attend [Insight Data Science][insight]. Insight is a seven week program

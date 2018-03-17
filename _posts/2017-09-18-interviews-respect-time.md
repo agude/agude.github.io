@@ -13,7 +13,7 @@ image_alt: >
 
 {% capture file_dir %}{{ site.url }}/files/interviews/{% endcapture %}
 
-![{{ page.image_alt }}]({{ file_dir }}/watch_and_suite_jeremy_beadle.jpg)
+{% include lead_image.html %}
 
 A lot has been written about how to perform technical interviews. What
 questions to ask, what questions not to ask, why the questions we used to ask

@@ -15,7 +15,7 @@ redirect_from: /2016/05/30/dragon_farkle/
 
 {% capture file_dir %}{{ site.url }}/files/dragon_farkle{% endcapture %}
 
-![{{ image_alt }}]({{ file_dir }}/st_george_and_the_dragon.jpg)
+{% include lead_image.html %}
 
 Some of my friends came over last week to play board games and while we ate
 dinner we played [Dragon Farkle][dragonfarkle] because it was a simple enough

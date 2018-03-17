@@ -14,7 +14,7 @@ redirect_from: /2016/11/01/switrs_to_sqlite/
 
 {% capture file_dir %}{{ site.url }}/files/switrs_to_sqlite{% endcapture %}
 
-![{{ page.image_alt }}]({{ file_dir }}/chp.jpg)
+{% include lead_image.html %}
 
 The State of California maintains a database called the [Statewide Integrated
 Traffic Records System (SWITRS)][switrs]. It contains a record of every

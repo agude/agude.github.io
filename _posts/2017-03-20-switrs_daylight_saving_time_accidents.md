@@ -12,7 +12,7 @@ image_alt: >
 
 {% capture file_dir %}{{ site.url }}/files/switrs-dst{% endcapture %}
 
-![{{ page.image_alt }}]({{ file_dir }}/dst_change_gare_saint_lazare_1937.png)
+{% include lead_image.html %}
 
 The [daylight saving time][dst] (DST) change is awful---we get less sleep and
 it [might not even save energy][energy] as was intended! Worse, studies by

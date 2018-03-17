@@ -12,7 +12,7 @@ image_alt: >
 
 {% capture file_dir %}{{ site.url }}/files/distribution-plots{% endcapture %}
 
-![{{ page.image_alt }}]({{ file_dir }}/Petrov-Vodkin_violin_1921.jpg)
+{% include lead_image.html %}
 
 One of the first steps when exploring data is to look at its distribution. For
 single distributions, or for comparing a small number, [histograms][hist] are
