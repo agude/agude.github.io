@@ -2,15 +2,17 @@
 layout: post
 title: "Fate Dice: Statistics Testing Is Hard"
 description: >
-  A few months ago I tested my Fate Dice for biases. Now, I retest the
+  A few months ago I tested my Fate dice for biases. Now, I retest the
   "biased" set and see if it really is unlucky! Unfortunately, things aren't
   so clear...
 image: /files/fate-dice-statistics/blue_fate_dice.jpg
+image_alt: >
+  A set of four blue Fate dice resting on top of a wooden table.
 ---
 
 {% capture file_dir %}{{ site.url }}/files/fate-dice-statistics/{% endcapture %}
 
-![The blue set of dice.]({{ file_dir }}/blue_fate_dice.jpg)
+![{{ page.image_alt }}]({{ file_dir }}/blue_fate_dice.jpg)
 
 [A few months ago][previous] I dug up the data from my [Fate campaign][fate]
 and used it to test the dice we used for biases. I concluded that three of the
@@ -53,7 +55,7 @@ random walks lie within.
 
 [random_walk]: https://en.wikipedia.org/wiki/Random_walk
 
-[![The cumulative roll values for each of the four fate dice.][cumulative_dice]][cumulative_dice]
+[![The cumulative roll values for each of the four Fate dice.][cumulative_dice]][cumulative_dice]
 
 [cumulative_dice]: {{ file_dir }}/blue_fate_dice_cumulative_rolls.svg
 

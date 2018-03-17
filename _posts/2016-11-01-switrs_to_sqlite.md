@@ -6,12 +6,15 @@ description: >
   in the state in the SWITRS database; this script lets you convert it to
   SQLite for easy querying!
 image: /files/switrs_to_sqlite/chp.jpg
+image_alt: >
+  A sports utility vehicle belonging to the California Highway Patrol is
+  parked in front of the Golden Gate Bridge.
 redirect_from: /2016/11/01/switrs_to_sqlite/
 ---
 
 {% capture file_dir %}{{ site.url }}/files/switrs_to_sqlite{% endcapture %}
 
-![A CHP cruiser]({{ file_dir }}/chp.jpg)
+![{{ page.image_alt }}]({{ file_dir }}/chp.jpg)
 
 The State of California maintains a database called the [Statewide Integrated
 Traffic Records System (SWITRS)][switrs]. It contains a record of every

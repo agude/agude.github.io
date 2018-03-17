@@ -6,12 +6,15 @@ description: >
   like? There are a lot of ways to estimate it. In this post I'll go through
   four methods.
 image: /files/fate-dice-statistics/alphonse-mucha-fate-1920.jpg
+image_alt: >
+  An oil painting titled "Fate", painted in 1920 by Alphonse Mucha. It depicts
+  a woman in a white robe holding an oil lamp.
 use_latex: True
 ---
 
 {% capture file_dir %}{{ site.url }}/files/fate-dice-statistics/{% endcapture %}
 
-![Fate, by Alphonse Mucha, 1920]({{ file_dir }}/alphonse-mucha-fate-1920.jpg)
+![{{ page.image_alt }}]({{ file_dir }}/alphonse-mucha-fate-1920.jpg)
 
 Last month [I checked my Fate dice for biases][lastpost]. One of the things I
 did was plot an interval for the 4dF outcomes (-4 through 4) we expect from a

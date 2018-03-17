@@ -5,12 +5,14 @@ description: >
   Jupyter Notebooks are great for a lot of things; development of code is not
   one of them.
 image: /files/jupyter_dev/red_spot.jpg
+image_alt: >
+  An image of the planet Jupiter showing the Great Red Spot.
 redirect_from: /2016/10/17/jupyter_dev/
 ---
 
 {% capture file_dir %}{{ site.url }}/files/jupyter_dev{% endcapture %}
 
-![The Great Red Spot on the planet Jupiter]({{ file_dir }}/red_spot.jpg)
+![{{ page.image_alt }}]({{ file_dir }}/red_spot.jpg)
 
 [Jupyter Notebooks][jpy] are great! They make it really convenient to tinker
 with a new library and are excellent for documenting projects that include

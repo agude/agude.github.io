@@ -6,12 +6,15 @@ description: >
   graduate school in physics. But was it the right idea? And should you follow
   in my footsteps?
 image: /files/phd-should-i-go/alexis_carrel_at_the_1913_columbia_university_commencement.jpg
+image_alt: >
+  A black and white photo from the 1913 Columbia University Commencement
+  featuring a group of men in doctoral gowns wearing mortarboards. Nobel Prize
+  winner Alexis Carrel is amongst them.
 ---
 
 {% capture file_dir %}{{ site.url }}/files/phd-should-i-go/{% endcapture %}
 
-![Alexi Carrel at the 1913 Columbia University Commencement]({{ file_dir
-}}/alexis_carrel_at_the_1913_columbia_university_commencement.jpg)
+![{{ page.image_alt }}]({{ file_dir }}/alexis_carrel_at_the_1913_columbia_university_commencement.jpg)
 
 When I was fourteen, I knew that I was destined to become a physics professor,
 so when I finished my BA at UC Berkeley[^1] it never even crossed my mind to

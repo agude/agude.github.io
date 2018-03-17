@@ -5,12 +5,15 @@ description: >
   What day of the year has the most car crashes? The fewest? Find out as I
   look at California's accident data! Hint: they're both holidays!
 image: /files/switrs-accidents-by-date/1923_dc_car_crash.jpg
+image_alt: >
+  A black and white photo of about a dozen men and boys standing around a
+  broken car taken in Washington D.C. in 1923. One of the car's wheels has
+  splintered and the car is tilted over.
 ---
 
 {% capture file_dir %}{{ site.url }}/files/switrs-accidents-by-date{% endcapture %}
 
-![Men gathered around a crashed car in Washington DC, 1923]({{ file_dir
-}}/1923_dc_car_crash.jpg)
+![{{ page.image_alt }}]({{ file_dir }}/1923_dc_car_crash.jpg)
 
 The [Statewide Integrated Traffic Records System (SWITRS)][switrs] contains a
 wealth of information, enough to determine who, where, when, and sometimes why
