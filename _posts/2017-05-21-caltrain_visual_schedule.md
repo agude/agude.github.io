@@ -10,7 +10,7 @@ image_alt: >
   containing the letters "SP" in white.
 ---
 
-{% capture file_dir %}{{ site.url }}/files/caltrain-schedule{% endcapture %}
+{% capture file_dir %}/files/caltrain-schedule{% endcapture %}
 
 In 1878, [Étienne-Jules Marey][ejm] published [_La Méthode
 Graphique_][original_graphique],[^1] a manual on using graphs for data

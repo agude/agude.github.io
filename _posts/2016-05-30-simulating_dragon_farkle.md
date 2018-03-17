@@ -13,7 +13,7 @@ image_alt: >
 redirect_from: /2016/05/30/dragon_farkle/
 ---
 
-{% capture file_dir %}{{ site.url }}/files/dragon_farkle{% endcapture %}
+{% capture file_dir %}/files/dragon_farkle{% endcapture %}
 
 {% include lead_image.html %}
 

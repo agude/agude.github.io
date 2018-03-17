@@ -11,7 +11,7 @@ image_alt: >
   Hall on the University of California, Berkeley campus in 1940.
 ---
 
-{% capture file_dir %}{{ site.url }}/files/a-career-starts-with-rejection{% endcapture %}
+{% capture file_dir %}/files/a-career-starts-with-rejection{% endcapture %}
 
 [Moritz Hardt][mrtz] posted a [tweet][mrtz_tweet] the other day saying "It's
 that time of the year to keep in mind that the typical start of a successful

@@ -12,7 +12,7 @@ image_alt: >
   traffic passes by.
 ---
 
-{% capture file_dir %}{{ site.url }}/files/switrs-motorcycle-accidents-by-date{% endcapture %}
+{% capture file_dir %}/files/switrs-motorcycle-accidents-by-date{% endcapture %}
 
 ![A policeman on a motorcycle in Stockholm, 1959]({{ file_dir
 }}/police_in_stockholm.jpg)

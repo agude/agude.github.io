@@ -10,7 +10,7 @@ image_alt: >
   An avant-garde painting of a violin by Kuzma Petrov-Vodkin from 1921.
 ---
 
-{% capture file_dir %}{{ site.url }}/files/distribution-plots{% endcapture %}
+{% capture file_dir %}/files/distribution-plots{% endcapture %}
 
 {% include lead_image.html %}
 

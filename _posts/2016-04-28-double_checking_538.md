@@ -12,7 +12,7 @@ image_alt: >
 redirect_from: /2016/04/28/double_checking_538/
 ---
 
-{% capture file_dir %}{{ site.url }}/files/2016_primary_prediction{% endcapture %}
+{% capture file_dir %}/files/2016_primary_prediction{% endcapture %}
 
 {% include lead_image.html %}
 

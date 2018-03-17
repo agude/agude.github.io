@@ -11,7 +11,7 @@ image_alt: >
   is pulling on the cuff next to the watch.
 ---
 
-{% capture file_dir %}{{ site.url }}/files/interviews/{% endcapture %}
+{% capture file_dir %}/files/interviews/{% endcapture %}
 
 {% include lead_image.html %}
 
