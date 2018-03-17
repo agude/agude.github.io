@@ -12,7 +12,7 @@ image_alt: >
   matching dresses.
 ---
 
-{% capture file_dir %}{{ site.url }}/files/names{% endcapture %}
+{% capture file_dir %}/files/names{% endcapture %}
 
 {% include lead_image.html %}
 

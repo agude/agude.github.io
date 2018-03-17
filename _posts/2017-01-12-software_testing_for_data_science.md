@@ -10,7 +10,7 @@ image_alt: >
   A pile of worn bricks covered in dust and chips of other bricks.
 ---
 
-{% capture file_dir %}{{ site.url }}/files/data-science-testing{% endcapture %}
+{% capture file_dir %}/files/data-science-testing{% endcapture %}
 
 {% include lead_image.html %}
 

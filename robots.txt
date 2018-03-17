@@ -7,5 +7,10 @@
 User-agent: *
 Disallow:
 
-# The auto-generated sitemap
+# The auto-generated sitemap{% comment %}
+The Sitemap URL MUST be the full URL! See:
+
+https://stackoverflow.com/a/14218476/1342354
+https://www.sitemaps.org/protocol.html#submit_robots
+{% endcomment %}
 Sitemap: {{ site.url }}/sitemap.xml

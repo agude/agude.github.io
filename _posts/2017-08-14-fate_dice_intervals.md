@@ -12,7 +12,7 @@ image_alt: >
 use_latex: True
 ---
 
-{% capture file_dir %}{{ site.url }}/files/fate-dice-statistics/{% endcapture %}
+{% capture file_dir %}/files/fate-dice-statistics/{% endcapture %}
 
 {% include lead_image.html %}
 

@@ -12,7 +12,7 @@ image_alt: >
   winner Alexis Carrel is amongst them.
 ---
 
-{% capture file_dir %}{{ site.url }}/files/phd-should-i-go/{% endcapture %}
+{% capture file_dir %}/files/phd-should-i-go/{% endcapture %}
 
 {% include lead_image.html %}
 

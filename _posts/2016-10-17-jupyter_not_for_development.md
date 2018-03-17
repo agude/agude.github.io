@@ -10,7 +10,7 @@ image_alt: >
 redirect_from: /2016/10/17/jupyter_dev/
 ---
 
-{% capture file_dir %}{{ site.url }}/files/jupyter_dev{% endcapture %}
+{% capture file_dir %}/files/jupyter_dev{% endcapture %}
 
 {% include lead_image.html %}
 

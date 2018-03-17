@@ -10,7 +10,7 @@ image_alt: >
   A photo of a Raspberry Pi 2B computer on a white background.
 ---
 
-{% capture file_dir %}{{ site.url }}/files/raspberry-pi{% endcapture %}
+{% capture file_dir %}/files/raspberry-pi{% endcapture %}
 
 I own two [Raspberry Pis][pi] which are currently taped to my kitchen
 cabinets. They perform a range of tasks that require an always-on, but

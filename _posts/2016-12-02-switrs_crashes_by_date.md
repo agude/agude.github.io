@@ -11,7 +11,7 @@ image_alt: >
   splintered and the car is tilted over.
 ---
 
-{% capture file_dir %}{{ site.url }}/files/switrs-accidents-by-date{% endcapture %}
+{% capture file_dir %}/files/switrs-accidents-by-date{% endcapture %}
 
 {% include lead_image.html %}
 

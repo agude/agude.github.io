@@ -5,12 +5,16 @@ description: >
   The results of running a pretrained Word2Vec model on SAT analogies. Spoiler
   alert: It isn't getting into a good college!
 image: /files/sat2vec/Pasternak_The_Night_Before_the_Exam.jpg
+image_alt: >
+  An impressionistic painting titled "Night Before the Exam" by Leonid
+  Pasternak. The painting shows four students sitting around a kitchen table
+  studying for a exam. One student holds a skull, while the others longue
+  around smoking or studying books or papers.
 permalink: blog/sat2vec/results/
 date: 2016-07-11
 ---
 
-![Leonid Pasternak's painting The Night Before the Exam]({{ site.url
-}}/files/sat2vec/Pasternak_The_Night_Before_the_Exam.jpg)
+{% include lead_image.html %}
 
 Below are the full results of running [Word2Vec on SAT analogies][post]. For
 each analogy, the first word pair is the one the model is most confident is

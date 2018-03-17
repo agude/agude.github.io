@@ -12,7 +12,7 @@ image_alt: >
   the letters "SP" in white.
 ---
 
-{% capture file_dir %}{{ site.url }}/files/caltrain-schedule{% endcapture %}
+{% capture file_dir %}/files/caltrain-schedule{% endcapture %}
 
 On July 15, 2017, Caltrain changed their weekend schedule in order to allow
 construction related to the [Peninsula Corridor Electrification

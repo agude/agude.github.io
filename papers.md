@@ -34,7 +34,7 @@ description: >
 
 - **Gude**, *Spectral Study of Twenty-Three Type Ia Supernovae Using Principal
   Component Analysis* 2008, UC Berkeley Honors Thesis.
-  ([PDF]({{ site.url }}/files/undergrad_thesis.pdf))
+  ([PDF](/files/undergrad_thesis.pdf))
 - Suzuki et al., *The Hubble Space Telescope Cluster Supernova Survey: V.
   Improving the Dark Energy Constraints Above z\>1 and Building an
   Early-Type-Hosted Supernova Sample* 2012, ApJ, 746, 85.

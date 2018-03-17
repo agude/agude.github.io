@@ -12,7 +12,7 @@ image_alt: >
 redirect_from: /2016/11/01/switrs_to_sqlite/
 ---
 
-{% capture file_dir %}{{ site.url }}/files/switrs_to_sqlite{% endcapture %}
+{% capture file_dir %}/files/switrs_to_sqlite{% endcapture %}
 
 {% include lead_image.html %}
 

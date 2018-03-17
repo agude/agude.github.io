@@ -10,7 +10,7 @@ image_alt: >
 redirect_from: /2016/09/22/whereto_photo/
 ---
 
-{% capture file_dir %}{{ site.url }}/files/whereto_photo{% endcapture %}
+{% capture file_dir %}/files/whereto_photo{% endcapture %}
 
 {% include lead_image.html %}
 

@@ -12,7 +12,7 @@ image_alt: >
 redirect_from: /2016/05/14/re_double_checking_538/
 ---
 
-{% capture file_dir %}{{ site.url }}/files/2016_primary_prediction{% endcapture %}
+{% capture file_dir %}/files/2016_primary_prediction{% endcapture %}
 
 ![Child at a blackboard]({{ file_dir }}/black_board_02.jpg)
 

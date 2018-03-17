@@ -10,7 +10,7 @@ image_alt: >
   A set of four blue Fate dice resting on top of a wooden table.
 ---
 
-{% capture file_dir %}{{ site.url }}/files/fate-dice-statistics/{% endcapture %}
+{% capture file_dir %}/files/fate-dice-statistics/{% endcapture %}
 
 {% include lead_image.html %}
 

@@ -10,7 +10,7 @@ image_alt: >
   A man adjusts the central time of the Gare Saint-Lazare in Paris, 1937.
 ---
 
-{% capture file_dir %}{{ site.url }}/files/switrs-dst{% endcapture %}
+{% capture file_dir %}/files/switrs-dst{% endcapture %}
 
 {% include lead_image.html %}
 
