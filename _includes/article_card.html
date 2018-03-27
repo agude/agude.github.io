@@ -1,16 +1,10 @@
-{% comment %} Get the alt text. {% endcomment %}
-{% if include.image_alt == nil or include.image_alt == "" %}
-  {% capture alt_text %}Article header image, used for decoration.{% endcapture %}
-{% else %}
-  {% capture alt_text %}{{ include.image_alt }}{% endcapture %}
-{% endif %}
 <div class="article-card">
   <table>
     <tr>
       <td>
         {% comment %} The image. {% endcomment %}
         <a href="{{ include.url }}">
-          <img src="{{ include.image }}" alt="{{ alt_text }}">
+          <img src="{{ include.image }}" alt="{{ include.image_alt | default: "Article header image, used for decoration." }}">
         </a>
       </td>
       <td>

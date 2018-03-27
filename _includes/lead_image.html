@@ -1,7 +1,1 @@
-{% comment %} Get the alt text. {% endcomment %}
-{% if page.image_alt == nil or page.image_alt == "" %}
-  {% capture alt_text %}Article header image, used for decoration.{% endcapture %}
-{% else %}
-  {% capture alt_text %}{{ page.image_alt }}{% endcapture %}
-{% endif %}
-![{{ alt_text }}]({{ page.image }})
+![{{ page.image_alt | default: "Article header image, used for decoration." }}]({{ page.image }})
