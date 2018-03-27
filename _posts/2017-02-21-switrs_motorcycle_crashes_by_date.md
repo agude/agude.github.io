@@ -14,8 +14,7 @@ image_alt: >
 
 {% capture file_dir %}/files/switrs-motorcycle-accidents-by-date{% endcapture %}
 
-![A policeman on a motorcycle in Stockholm, 1959]({{ file_dir
-}}/police_in_stockholm.jpg)
+{% include lead_image.html %}
 
 A few months ago I wrote a post in which [I explored when accidents happen in
 California][lastpost]. This time I'm going to go through the same analysis but
