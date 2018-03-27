@@ -28,8 +28,10 @@ going to look at when accidents happen, and specifically on what dates.
 As always, the Jupyter notebook used to do this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-[notebook]: {{ file_dir }}/SWITRS Crash Dates.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/switrs-accidents-by-date/SWITRS%20Crash%20Dates.ipynb
+{% capture notebook_uri %}{{ "SWITRS Crash Dates.ipynb" | uri_escape }}{% endcapture %} 
+
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
 ## Data Selection
 

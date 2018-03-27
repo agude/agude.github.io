@@ -45,8 +45,10 @@ factors in a later post.
 As per usual, the Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-[notebook]: {{ file_dir }}/SWITRS Crash Dates With Motorcycles.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/switrs-motorcycle-accidents-by-date/SWITRS%20Crash%20Dates%20With%20Motorcycles.ipynb
+{% capture notebook_uri %}{{ "SWITRS Crash Dates With Motorcycles.ipynb" | uri_escape }}{% endcapture %} 
+
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
 ## Data Selection
 

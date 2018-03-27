@@ -31,8 +31,10 @@ The code used to perform the analysis explained in this post can be found in
 this [Jupyter Notebook][notebook] ([rendered on Github][rendered]). The data
 used are here: [Republican Results][gopdata], [Democrat Results][demdata]
 
-[notebook]: {{ file_dir }}/Prediction Check -- 538 2016 Primary.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/2016_primary_prediction/Prediction%20Check%20--%20538%202016%20Primary.ipynb
+{% capture notebook_uri %}{{ "Prediction Check -- 538 2016 Primary.ipynb" | uri_escape }}{% endcapture %} 
+
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 [gopdata]: {{ file_dir }}/2016_gop_primary_dataframe.csv
 [demdata]: {{ file_dir }}/2016_dem_primary_dataframe.csv
 

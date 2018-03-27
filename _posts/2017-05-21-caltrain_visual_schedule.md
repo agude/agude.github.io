@@ -41,6 +41,8 @@ can find the Jupyter notebook used to make these schedules [here][notebook]
 ([rendered on Github][rendered]). The schedule data is from [Caltrain's
 developer site][dev].
 
+{% capture notebook_uri %}{{ "Caltrain Marey Schedule.ipynb" | uri_escape }}{% endcapture %}
+
 [paper]: http://dx.doi.org/10.1080/09332480.2013.772394
 [boston]: http://mbtaviz.github.io/
 [bart]: http://www.drones.com/bart.html
@@ -49,8 +51,8 @@ developer site][dev].
 [caltrain_vis3]: https://www.davidstarke.com/projects/caltrain/
 [caltrain_vis4]: http://www.svds.com/wp-content/uploads/2016/05/DataEDGE_2016.pdf#page=14
 [caltrain]: https://en.wikipedia.org/wiki/Caltrain
-[notebook]: {{ file_dir}}/Caltrain Marey Schedule.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/caltrain-schedule/Caltrain%20Marey%20Schedule.ipynb
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 [dev]: http://www.caltrain.com/developer.html
 
 ## Caltrain

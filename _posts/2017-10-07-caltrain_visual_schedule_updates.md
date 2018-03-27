@@ -31,9 +31,11 @@ developed to produce [visual schedules for Caltrain][lastpost]. You can find
 the notebook [here][notebook] ([rendered on Github][rendered]). The schedule
 data is from [Caltrain's developer site][dev].
 
+{% capture notebook_uri %}{{ "20170715-Caltrain Marey Schedule.ipynb" | uri_escape }}{% endcapture %}
+
 [lastpost]: {% post_url 2017-05-21-caltrain_visual_schedule %}
-[notebook]: {{ file_dir }}/20170715-Caltrain Marey Schedule.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/caltrain-schedule/20170715-Caltrain%20Marey%20Schedule.ipynb
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 [dev]: http://www.caltrain.com/developer.html
 
 # Saturday

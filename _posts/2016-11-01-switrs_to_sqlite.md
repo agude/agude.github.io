@@ -123,5 +123,7 @@ due to our mapping but are inherent in the data. Some further clean up will be
 necessary before doing any analysis! A Jupyter notebook used to make the map
 can be found [here][notebook] ([rendered on Github][rendered]).
 
-[notebook]: {{ file_dir }}/SWITRS Crash Map.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/switrs_to_sqlite/SWITRS%20Crash%20Map.ipynb
+{% capture notebook_uri %}{{ "SWITRS Crash Map.ipynb" | uri_escape }}{% endcapture %} 
+
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}

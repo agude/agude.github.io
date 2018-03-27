@@ -32,17 +32,19 @@ Fortunately, I still have the dice, so I decided to retest them!
 
 That new test data is [here][new_data]. The old test data is [here][old_data].
 You can find the Jupyter notebook used to make these calculations
-[here][notebook] ([rendered on Github][rendered]). 
+[here][notebook] ([rendered on Github][rendered]).
+
+{% capture notebook_uri %}{{ "Blue Fate Dice Statistics.ipynb" | uri_escape }}{% endcapture %}
 
 [new_data]: {{file_dir}}/blue_fate_dice_rolls.csv
 [old_data]: {{file_dir}}/fate_dice_data.csv
-[notebook]: {{file_dir}}/Blue Fate Dice Statistics.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/fate-dice-statistics/Blue%20Fate%20Dice%20Statistics.ipynb
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
 ## Individual Tests
 
 To perform the test I rolled each 500 times in a row and recorded
-the results, for a total of 2000 rolls. See my [previous post][previous_fate_dice] 
+the results, for a total of 2000 rolls. See my [previous post][previous_fate_dice]
 for a review of how Fate dice work.
 
 [previous_fate_dice]: {% post_url 2017-07-28-fate_dice_statistics %}#fate-dice

@@ -29,8 +29,10 @@ As per usual, you can find the Jupyter notebook used to perform these
 calculations and make the plots [here][notebook] ([rendered on
 Github][rendered]).
 
-[notebook]: {{file_dir}}/Fate Dice Expectation Regions.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/fate-dice-statistics/Fate%20Dice%20Expectation%20Regions.ipynb
+{% capture notebook_uri %}{{ "Fate Dice Expectation Regions.ipynb" | uri_escape }}{% endcapture %} 
+
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
 ## Normal Approximation
 

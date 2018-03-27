@@ -31,11 +31,13 @@ explore the trends by looking at names that were the most popular in the
 United States for at least one year. The data is from the Social Security
 Administration, and can be downloaded [here][data]. You can find the Jupyter
 notebook used to perform this analysis [here][notebook] ([rendered on
-Github][rendered]). 
+Github][rendered]).
+
+{% capture notebook_uri %}{{ "Most Popular Names Blit Same Time.ipynb" | uri_escape }}{% endcapture %}
 
 [data]: https://www.ssa.gov/oact/babynames/names.zip
-[notebook]: {{file_dir}}/Most Popular Names Blit Same Time.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/names/Most%20Popular%20Names%20Blit%20Same%20Time.ipynb
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
 ## Boy's Names
 

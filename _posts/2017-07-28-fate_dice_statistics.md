@@ -63,8 +63,10 @@ individually. As per usual, you can find the Jupyter notebook used to make
 these calculations [here][notebook] ([rendered on Github][rendered]). The data
 is [here][data].
 
-[notebook]: {{file_dir}}/Fate Dice Statistics.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/fate-dice-statistics/Fate%20Dice%20Statistics.ipynb
+{% capture notebook_uri %}{{ "Fate Dice Statistics.ipynb" | uri_escape }}{% endcapture %} 
+
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 [data]: {{file_dir}}/fate_dice_data.csv
 
 Here are the distributions of rolls for each of the four sets of dice. The

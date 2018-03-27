@@ -15,8 +15,7 @@ redirect_from: /2016/05/30/dragon_farkle/
 
 {% capture file_dir %}/files/dragon_farkle{% endcapture %}
 
-{% include lead_image.html %}
-
+{% include lead_image.html %} 
 Some of my friends came over last week to play board games and while we ate
 dinner we played [Dragon Farkle][dragonfarkle] because it was a simple enough
 game to not distract us from the meal. The game involves rolling six normal
@@ -58,10 +57,13 @@ question. The notebook that performs the simulation can be found
 [here][notebook] ([rendered on Github][rendered]). The plotting notebook is
 [here][plotnotebook] ([rendered on Github][plotrendered]).
 
-[notebook]: {{ file_dir }}/Dragon Farkle Simulation.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/dragon_farkle/Dragon%20Farkle%20Simulation.ipynb
-[plotnotebook]: {{ file_dir }}/Plot Results.ipynb
-[plotrendered]: https://github.com/agude/agude.github.io/blob/master/files/dragon_farkle/Plot%20Results.ipynb
+{% capture notebook_uri %}{{ "Dragon Farkle Simulation.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_plotting_uri %}{{ "Plot Results.ipynb" | uri_escape }}{% endcapture %} 
+
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
+[plotnotebook]: {{ file_dir }}/{{ notebook_plotting_uri }}
+[plotrendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_plotting_uri }}
 
 Let's look at how many soldiers you need, on average, to win the game.
 To do so, we'll simulate attacking the dragon and keep track of how many

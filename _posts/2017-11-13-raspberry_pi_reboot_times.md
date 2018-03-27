@@ -42,8 +42,10 @@ You can find the notebook [here][notebook] ([rendered on Github][rendered]).
 Pion's tweet data is [here][pion_tweets], and Kaon's tweet data is
 [here][kaon_tweets].
 
-[notebook]: {{ file_dir }}/Rasperry Pi Reboot Times.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/raspberry-pi/Rasperry%20Pi%20Reboot%20Times.ipynb
+{% capture notebook_uri %}{{ "Rasperry Pi Reboot Times.ipynb" | uri_escape }}{% endcapture %}
+
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 [pion_tweets]: {{ file_dir }}/pion_tweets.csv
 [kaon_tweets]: {{ file_dir }}/kaon_tweets.csv
 

@@ -29,8 +29,10 @@ in the [SWITRS data][s2s_post] that I've collected.
 The Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-[notebook]: {{ file_dir }}/SWITRS Daylight Saving Time Crashes.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/switrs-dst/SWITRS%20Daylight%20Saving%20Time%20Crashes.ipynb
+{% capture notebook_uri %}{{ "SWITRS Daylight Saving Time Crashes.ipynb" | uri_escape }}{% endcapture %} 
+
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
 ## Accident Ratio
 

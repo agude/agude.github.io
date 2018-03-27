@@ -35,8 +35,10 @@ used are here: [Republican Results][gopdata], [Democrat Results][demdata]. The
 data have not been updated since April 28th, 2016 so newer primaries are not
 included.
 
-[notebook]: {{ file_dir }}/Prediction Second Check -- 538 2016 Primary.ipynb
-[rendered]: https://github.com/agude/agude.github.io/blob/master/files/2016_primary_prediction/Prediction%20Second%20Check%20--%20538%202016%20Primary.ipynb
+{% capture notebook_uri %}{{ "Prediction Second Check -- 538 2016 Primary.ipynb" | uri_escape }}{% endcapture %}
+
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 [gopdata]: {{ file_dir }}/2016_gop_primary_dataframe.csv
 [demdata]: {{ file_dir }}/2016_dem_primary_dataframe.csv
 
