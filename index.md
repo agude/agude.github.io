@@ -27,8 +27,8 @@ development related topics. My old work blog (with mostly deep learning stuff)
 can be found at [Gab41][gab41]. If you're interested in my thoughts in real
 time, follow me on Twitter: [@{{ twitter-name }}][twitter]
 
-[blog]: /blog
-[gab41]: https://gab41.lab41.org/
+[blog]: /blog/
+[gab41]: https://gab41.lab41.org/@Alex.Gude
 [twitter]: https://twitter.com/{{ twitter-name }}
 
 The code that I write lives on my [Github page][github]. Check it out! Bug
