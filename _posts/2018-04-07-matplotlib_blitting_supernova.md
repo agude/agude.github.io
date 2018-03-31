@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Matplotlib Animation Blitting: Supernova"
+title: "Making Animations Quickly with Matplotlib Blitting"
 description: >
   Animating plots is great way to show how some quantity changes in time, but
   they can be slow to generate in matplotlib! Thankfully, blitting makes
@@ -26,30 +26,29 @@ But making animations in [`matplotlib`][matplotlib] can take a long time. Not
 just to write the code, but waiting for it to run! The easiest, but slowest,
 way to make an animation is to redraw the entire plot every frame. Using this
 method it took roughly 20 minutes to render a single animation for my [names
-post][names]! Fortunately, there is a much faster way: matplotlib's
-[ablitting][blit]. Blitting took that 20 minute render time to under a minute!
+post][names]! Fortunately, there is a much faster way: matplotlib's [animation
+blitting][blit]. Blitting took that 20 minute render time to under a minute!
 
 [matplotlib]: https://matplotlib.org
 [blit]: https://en.wikipedia.org/wiki/Bit_blit
 
 ## The Data
 
-We'll be using data from the [Nearby Supernova Factory][nsf],[^1] specifically
-for [Supernova 2011fe][sn2011fe] from [Pereira et al.][pereira][^2] The
-[spectrum][spectrum] of a supernova tells use a lot about how the star
-exploded, and a time series of these spectra shows how the explosion changes
-over time. The animation we'll be making in this post is shown below:
+For our example, we will use data from the [Nearby Supernova
+Factory][nsf],[^1] specifically from [Supernova 2011fe][sn2011fe] from
+[Pereira et al.][pereira][^2] The [spectrum][spectrum] of a supernova tells us
+a lot about what is going on in the explosion, so looking at a time series
+tells us how the explosion is evolving.
 
 [nsf]: https://snfactory.lbl.gov
 [sn2011fe]: https://en.wikipedia.org/wiki/SN_2011fe
 [pereira]: https://doi.org/10.1051/0004-6361/201221008
 [spectrum]: https://en.wikipedia.org/wiki/Astronomical_spectroscopy
 
-{% capture video_file %}{{ file_dir }}/sn2011fe_spectral_time_series.mp4{% endcapture %}
-{% include video.html file=video_file %}
-
-The data is available [here][data]. The notebook with the code below is
-[here][notebook] ([rendered on Github][rendered]).
+The data is available [here][data]. The notebook with the all the code is
+[here][notebook] ([rendered on Github][rendered]). The code in the notebooks
+is complete, including doc strings and comments, while I have stripped down
+the examples below for clarity.
 
 {% capture notebook_uri %}{{ "Matplotlib Animation Blitting Example - Supernova Spectra.ipynb" | uri_escape }}{% endcapture %}
 
@@ -57,151 +56,158 @@ The data is available [here][data]. The notebook with the code below is
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
+This is the animation we will be making:
+
+{% capture video_file %}{{ file_dir }}/sn2011fe_spectral_time_series.mp4{% endcapture %}
+{% include video.html file=video_file %}
+
+It shows the amount of light (flux) the telescope saw as a function of the
+wavelength of light. The data was only taken every few days, so to make the
+animation smooth we will linearly interpolate the data. We will need a
+function, `flux_from_day(day)`, that returns a numpy array of flux values for
+a specific day. The deatils of how the function works can be found in the
+[notebook][notebook].
+
 ## Blitting
 
-Matplotlib uses blitting to produce animations by updating only the changing
-foreground objects over a stationary background image. This is much faster
-than re-rendering the entire plot. In order to use blitting, matplotlib
-requires you to define three functions:
-
-- [`init_func()`][init_func]: draws the static background.
-- [`frames()`][frames]: yields the information needed to draw each update
-- [`func(frame)`][func]: takes frame data and updates the artists
-
-[init_func]: #init_func-function
-[frames]: #frames-function
-[func]: #func-function
-
-### init_func Function
-
-The `init_func()` draws the background of the animation. It takes no arguments
-and must return an interable of [artists][artists]. The artists are the
-objects that will be updated by [`func(frame)`][func].
+Blitting breaks the animation into two components: the unchanging background
+elements, and the [artist objects][artists] that are updated each frame. It
+requires us to write three functions:
 
 [artists]: https://matplotlib.org/users/artists.html
+
+- [`init_fig()`][init_fig]: draws the static background
+- [`frame_iter()`][frame_iter]: yields the `frame_data` needed to draw each update
+- [`update_artists(frame_data)`][update_artists]: takes `frame_data` and
+updates the artists
+
+[init_fig]: #init_fig-function
+[frame_iter]: #frame_iter-function
+[update_artists]: #update_artists-function
+
+The artists that are updated each frame must be kept in an interable
+container. A normal list will work, but a more convenient way to do this is
+using a [`namedtuple`][namedtuple]. This will let us access the different
+artists like `artists.flux_line`, instead of having to remember their index
+number.
+
+[namedtuple]: https://docs.python.org/2/library/collections.html#collections.namedtuple
+
+### init_fig Function
+
+The `init_fig()` function draws the background of the animation. It takes no
+arguments and must return an iterable of the artists to be updated every
+frame, which in our case are contained in the namedtuple discussed above.
+
+Our example function sets the labels, the title, and the range of the plot.
+It is here where we would draw anything else that is unchanging, like the
+legend, or some text labels, if we needed too. Here it is:
 
 {% highlight python %}
 def init_fig(fig, ax, artists):
     """Initialize the figure, used to draw the first
     frame for the animation.
-
-    Because this function must return a list of artists
-    to be modified in the animation, a list is passed
-    in and returned without being used or altered.
-
-    Args:
-      fig (matplotlib figure): a matplotlib figure object
-      ax (matplotlib axis): a matplotlib axis object
-      artists: a list of artist objects
-
-    Returns:
-      list: the unaltered input artists
-
     """
     # Set the axis and plot titles
     ax.set_title("Supernova 2011fe Spectrum", fontsize=22)
     ax.set_xlabel("Wavelength [Å]", fontsize=20)
-    FLUX_LABEL = "Flux [erg s$​^{-1}$ cm$​^{-2}$ Å$​^{-1}$]"
+    FLUX_LABEL = "Flux [erg s$^{-1}$ cm$^{-2}$ Å$^{-1}$]"
     ax.set_ylabel(FLUX_LABEL, fontsize=20)
 
     # Set the axis range
     plt.xlim(3000, 10000)
     plt.ylim(0, 1.25e-12)
 
-    # Set tick label size
-    ax.tick_params(axis='both', which='major', labelsize=12)
-
-    # Pad the ticks so they do not overlap at the corner
-    ax.tick_params(axis='x', pad=10)
-    ax.tick_params(axis='y', pad=10)
-
     # Must return the list of artists, but we use a pass
     # through so that they aren't created multiple times
     return artists
 {% endhighlight %}
 
-This function sets up the axises labels, sets the range of the plot, and would
-do any other setup work needed like making a legend.
-
-You will notice that I said it takes no arguments, but I gave it three anyway.
-It's hard to have no inputs (without using globals), but one trick it to use
-[partial application][partial], which I will demonstrate when we [put it all
-together][put]. The function must return the list of artists to update, but I
-find it's easier to declare those outside of the function and then pass them
-in as an argument.
+You will notice that I said the function takes no arguments, but I gave it
+three anyway. It's hard to have no inputs (without using globals), but one
+trick is to use [partial application][partial], which I will demonstrate when
+we [put it all together][put]. The function must return the list of artists to
+update, but I find it's easier to declare those outside of the function and
+then pass them in as an argument.
 
 [partial]: https://en.wikipedia.org/wiki/Partial_application
-[put]: #putting it together
+[put]: #putting-it-all-together
 
-### Frames Function
+### frame_iter Function
+
+The `frame_iter()` function is an generator that returns the data needed to
+update the artist for each frame. It yields `frame_data`, which can be any
+sort of Python da. This function also must take no arguments, and so like
+[`init_fig()`][init_fig] we will use the partial trick to bind the arguments.
+
+Our function loops over the days from maximum light and returns the flux
+values from that day, as well as string of the day to update the text label.
 
 {% highlight python %}
-def step_through_frames(from_day, until_day):
+def frame_iter(from_day, until_day):
     """Iterate through the days of the spectra and return
     flux and day number.
-
-    Args:
-        from_day (int): start day, measured from B-max
-        until_day (int): day to stop just before, measured
-            from B-max
-
-    Returns:
-        tuple: a tuple containing the numpy array of flux
-            values and the current day of the year
-
     """
-    # B band max happened on a specific day, and we calculate
-    # all dates from then
-    B_MAX_STR = "2011-09-10T12:40:10"
-    FORMAT_STR = "%Y-%m-%dT%H:%M:%S"
-    b_max_date = datetime.strptime(B_MAX_STR, FORMAT_STR)
-    for ten_day in range(from_day * 10, until_day * 10):
-        day = ten_day / 10
+    for day in range(from_day, until_day):
         flux = flux_from_day(day)
-
-        date = b_max_date + timedelta(day)
-
-        yield (flux_from_day(day), date.strftime("%Y-%m-%d"))
+        # Yield events so the function can be looped over
+        yield (flux, "Day: {day}".format(day))
 {% endhighlight %}
 
-### Func Function
+### update_artists Function
+
+Once we have [`frame_iter()`][frame_iter] to generate the data for each frame,
+`update_artists()` is really simple. All it has to do is:
+
+1. Unpack the `frames_data`
+2. Update the plot line and the text
+
+For the line we call `.set_data()` to insert the new values; for the text we
+call `.set_text()`.
 
 {% highlight python %}
 def update_artists(frames, artists, lambdas):
-    """Update artists with data from each frame.
-
-    Args:
-        frames (tuple): contains the flux values as a numpy
-            array and days from B-Max as a float
-        artists (list of Artists): a list of artists to update
-
-    """
+    """Update artists with data from each frame."""
     flux, day = frames
 
     artists.flux_line.set_data(lambdas, flux)
     artists.day.set_text(day)
 {% endhighlight %}
 
-### Putting it together
+Lines and text are easy, but other plot objects (like histograms) are
+associated with multiple artists, which makes it harder to update them.
 
-Once we've written the three functions.
+### Putting it all together
+
+Once we've written the three functions, it is pretty simple to make our
+animation:
+
+1. Create the figure (`fig`) and axes (`ax`).
+2. Create the list of artists, in this case a line (`plt.plot`) and some text
+   (`ax.text`).
+3. Partially apply the functions by binding inputs to them with `partial`
+4. Create the animation object (`animation.FuncAnimation`) 
+5. Save the animation as an `.mp4` (`anim.save`).
+
+Here are those steps in code:
 
 {% highlight python %}
-# Create the plot
+# 1. Create the plot
 fig, ax = plt.subplots(figsize=(12, 7))
 
-# Set the artists
+# 2. Initialize the artists with empty data
+Artists = namedtuple("Artists", ("flux_line", "day"))
 artists = Artists(
-    plt.plot([], [], animated=True, label="Flux")[0],
-    ax.text(0.987, 0.955, "", fontsize=20, transform=ax.transAxes, horizontalalignment='right', verticalalignment='center'),
+    plt.plot([], [], animated=True)[0],
+    ax.text(x=0.987, y=0.955, s=""),
 )
 
-# Apply the three plotting functions written above
+# 3. Apply the three plotting functions written above
 init = partial(init_fig, fig=fig, ax=ax, artists=artists)
-step = partial(step_through_frames, -15, 25)
-update = partial(update_artists, artists=artists, lambdas=df["lambda"].unique())
+step = partial(frame_iter, from_day=-15, until_day=25)
+update = partial(update_artists, artists=artists, lambdas=lambdas)
 
-# Generate the animation
+# 4. Generate the animation
 anim = animation.FuncAnimation(
     fig=fig,
     func=update,
@@ -211,9 +217,24 @@ anim = animation.FuncAnimation(
     repeat_delay=5000,
 )
 
-# Save the animation
-anim.save('/tmp/sn2011fe_spectral_time_series.mp4', fps=24, extra_args=['-vcodec', 'libx264'], dpi=300, metadata=VIDEO_META)
+# 5. Save the animation
+anim.save(
+  filename='/tmp/sn2011fe_spectral_time_series.mp4',
+  fps=24,
+  extra_args=['-vcodec', 'libx264'],
+  dpi=300,
+)
 {% endhighlight %}
+
+The only tricky thing is the use of partial application. Partial application
+binds some (or all) of the arguments to the function and creates a new
+function that takes fewer arguments. Essentially, it's like setting a default
+value for the arguments.
+
+We can partially apply by setting some of the arguments, like `update()`
+above, which still takes a `frame` argument. We can also fully apply the
+functions by specifying all the arguments, allowing them to be called without
+any input, like `init()` and `step()` above.
 
 ## A little extra
 
