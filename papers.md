@@ -20,7 +20,7 @@ description: >
 - **Gude**, *Measurement of the phistar distribution of Z bosons decaying to
   electron pairs with the CMS experiment at a center-of-mass energy of 8 TeV*,
   Ph.D. Thesis for the University of Minnesota ([UMN
-  Library](http://hdl.handle.net/11299/175445)) ([Video of
+  Library](https://hdl.handle.net/11299/175445)) ([Video of
   Defense](https://www.youtube.com/watch?v=oEcGh5ds4D8))
 - CMS Collaboration, *Search for heavy neutrinos and W bosons with
   right-handed couplings in proton–proton collisions at sqrt(s)=8 TeV*, Eur.
