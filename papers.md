@@ -17,11 +17,12 @@ description: >
 
 ### High Energy Physics
 
-- **Gude**, *Measurement of the phistar distribution of Z bosons decaying to
-  electron pairs with the CMS experiment at a center-of-mass energy of 8 TeV*,
-  Ph.D. Thesis for the University of Minnesota ([UMN
+- **Gude**, [*Measurement of the phistar distribution of Z bosons decaying to
+  electron pairs with the CMS experiment at a center-of-mass energy of 8
+  TeV*][thesis_post], Ph.D. Thesis for the University of Minnesota ([UMN
   Library](https://hdl.handle.net/11299/175445)) ([Video of
-  Defense](https://www.youtube.com/watch?v=oEcGh5ds4D8))
+  Defense](https://www.youtube.com/watch?v=oEcGh5ds4D8)) ([Readable
+  summary][thesis_post])
 - CMS Collaboration, *Search for heavy neutrinos and W bosons with
   right-handed couplings in proton–proton collisions at sqrt(s)=8 TeV*, Eur.
   Phys. J. C (2014) 74: 3149.
@@ -29,6 +30,8 @@ description: >
 - CMS Collaboration, *Measurement of the Rapidity and Transverse Momentum
   Distributions of Z Bosons in pp Collisions at sqrt(s)=7 TeV*, Phys. Rev. D
   85, 032002 (2012). ([Journal](http://dx.doi.org/10.1103/PhysRevD.85.032002))
+
+[thesis_post]: {% post_url 2018-05-14-my_phd_thesis %}
 
 ### Supernova Cosmology
 
