@@ -75,6 +75,12 @@ protons collide. Some people like to think of it as a very large camera, and
 that actually isn't so bad an analogy: like a camera, CMS measures particles
 using silicon (and some other materials) and saves the output somewhere.
 
+Doing research with this data has some subtleties, but is essentially just
+counting. We predict how many events with a certain characteristic, for
+example, two high energy electrons, we would see based on our understanding
+of the Standard Model. Then we count the number of events that CMS recorded
+with those characteristics.
+
 ## Transverse Momentum
 
 I said I studied low energy QCD, but then immediately introduced the highest
@@ -99,19 +105,26 @@ against problems with the detector. $$\phi^{*}$$ measures the angle between
 the two electrons instead of their energy, which is easier to measure
 accurately due to the design of CMS.
 
-## Backgrounds and Other Issues
+## Backgrounds, Event Selection, and Other Issues
 
 The events I was interested in had two electrons in them, but not every event
 with two electrons came from a Z decay. Events that produce two electrons for
 other reasons are called _background_ events, and the primary difficulty in
 any high energy experiment is separating the background from the events we are
-interested in. The primary way we try to figure out what the background looks
-like is through [Monte Carlo experiments (MC)][mc] where we generate virtual
-data using the math prescribed by the Standard Model. We tune this generated
-data on other particle decays that look similar to, but are not, the ones we
-are interested in. For example, since I cared about double electron events, we
-tuned our MC on events with one electron and one [muon][muon] (which is very
-much like an electron, but heavier).
+interested in. We use simple selection rules, called _cuts_, to select the
+events we want. For example, I required two electrons, one with very high
+energy and in the middle of the detector (where we get the most accurate
+measurement), and one other electron with a little less energy anywhere in the
+detector. Before we count the events, we have to figure out how many of them
+are background (which do not count).
+
+The way we try to figure out what the background looks like is through [Monte
+Carlo experiments (MC)][mc] where we generate virtual data using the math
+prescribed by the Standard Model. We tune this generated data on other
+particle decays that look similar to, but are not, the ones we are interested
+in. For example, since I cared about double electron events, we tuned our MC
+on events with one electron and one [muon][muon] (which is very much like an
+electron, but heavier).
 
 Below is an example of what the MC predicted the signal (blue) and backgrounds
 (everything else) looked like for my experiment. The black points are all the
@@ -133,9 +146,24 @@ information about the true underlying event.
 
 ## Results
 
+The results of six years of my life are shown in the (absolutely hideous) plot
+below:
+
 [![A plot showing the final result comparing the measured phi star
 distribution to the distributions predicted by various QCD Monte Carlo
 simulations][result]][result]
 
 [result]: {{ file_dir }}/final_result.svg
 
+Each collection of points in the top plot is a count of the events, for a
+specific bin in $$\phi^*$$. The black points are the count of events seen in
+CMS, and the colored points are the number of events predicted by various
+Monte Carlo generator programs that use various approximations of the Standard
+Model. The bottom plot is the ratio of MC events over CMS events. If the
+generators were perfectly simulating reality, all the points would be right at
+1, but of course they are not perfect so the points drift up and down. The
+blue points (from the [MadGraph][madgraph]) do the best job, but even they
+miss by up to 5%. This result can be used to better tune the generators to
+better model reality.
+
+[madgraph]: http://madgraph.physics.illinois.edu
