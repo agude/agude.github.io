@@ -99,6 +99,11 @@ represent the time axis because I think it makes the display of information
 more intuitive. Using `FuncAnimation` from `matplotlib` was a bit tough (and I
 think my code is far from optimal), but once I got it working it was a lot
 faster than rendering the individual frames and creating the video afterwards.
+For tips on making the animation render even faster, see my [post on using
+blitting in `matplotlib`][blitting].
+
+[blitting]: {% post_url 2018-04-07-matplotlib_blitting_supernova %}
+
 In the future I hope to make more fun animations!
 
 ---
