@@ -22,11 +22,11 @@ the popularity of names changed in the US][names].
 [reboot]: {% post_url 2017-11-13-raspberry_pi_reboot_times %}
 [names]: {% post_url 2018-02-28-popular_names %}
 
-But making animations in [`matplotlib`][matplotlib] can take a long time. Not
+But making animations in [matplotlib][matplotlib] can take a long time. Not
 just to write the code, but waiting for it to run! The easiest, but slowest,
 way to make an animation is to redraw the entire plot every frame. Using this
 method it took roughly 20 minutes to render a single animation for my [names
-post][names]! Fortunately, there is a much faster way: matplotlib's [animation
+post][names]! Fortunately there is a much faster way: matplotlib's [animation
 blitting][blit]. Blitting took that 20 minute render time to under a minute!
 
 [matplotlib]: https://matplotlib.org
@@ -34,11 +34,10 @@ blitting][blit]. Blitting took that 20 minute render time to under a minute!
 
 ## The Data
 
-For our example, we will use data from the [Nearby Supernova
-Factory][nsf],[^1] specifically from [Supernova 2011fe][sn2011fe] from
-[Pereira et al.][pereira][^2] The [spectrum][spectrum] of a supernova tells us
-a lot about what is going on in the explosion, so looking at a time series
-tells us how the explosion is evolving.
+We will plot the spectrum of [Supernova 2011fe][sn2011fe] from [Pereira et
+al.][pereira][^1] by the [Nearby Supernova Factory][nsf].[^2] The
+[spectrum][spectrum] of a supernova tells us about what is going on in the
+explosion, so looking at a time series tells us how the explosion is evolving.
 
 [nsf]: https://snfactory.lbl.gov
 [sn2011fe]: https://en.wikipedia.org/wiki/SN_2011fe
@@ -63,9 +62,9 @@ This is the animation we will be making:
 
 It shows the amount of light (flux) the telescope saw as a function of the
 wavelength of light. The data was only taken every few days, so to make the
-animation smooth we will linearly interpolate the data. We will need a
-function, `flux_from_day(day)`, that returns a numpy array of flux values for
-a specific day. The deatils of how the function works can be found in the
+animation smooth we will linearly interpolate the data. We will use the
+function `flux_from_day(day)`, which returns a numpy array of flux values for
+a specific day. The details of how the function works can be found in the
 [notebook][notebook].
 
 ## Blitting
@@ -101,7 +100,7 @@ frame, which in our case are contained in the namedtuple discussed above.
 
 Our example function sets the labels, the title, and the range of the plot.
 It is here where we would draw anything else that is unchanging, like the
-legend, or some text labels, if we needed too. Here it is:
+legend, or some text labels, if we needed to. Here it is:
 
 {% highlight python %}
 def init_fig(fig, ax, artists):
@@ -137,11 +136,13 @@ then pass them in as an argument.
 
 The `frame_iter()` function is an generator that returns the data needed to
 update the artist for each frame. It yields `frame_data`, which can be any
-sort of Python da. This function also must take no arguments, and so like
-[`init_fig()`][init_fig] we will use the partial trick to bind the arguments.
+sort of Python data type or object. This function also must take no arguments,
+and so like [`init_fig()`][init_fig] we will use the partial trick to bind the
+arguments.
 
-Our function loops over the days from maximum light and returns the flux
-values from that day, as well as string of the day to update the text label.
+Our function loops over the days relative to maximum light and returns the
+flux values from that day, as well as string of the day to update the text
+label.
 
 {% highlight python %}
 def frame_iter(from_day, until_day):
@@ -159,11 +160,11 @@ def frame_iter(from_day, until_day):
 Once we have [`frame_iter()`][frame_iter] to generate the data for each frame,
 `update_artists()` is really simple. All it has to do is:
 
-1. Unpack the `frames_data`
-2. Update the plot line and the text
+1. Unpack the `frames_data`.
+2. Update the plot line and the text.
 
 For the line we call `.set_data()` to insert the new values; for the text we
-call `.set_text()`.
+call `.set_text()`. Our function is short:
 
 {% highlight python %}
 def update_artists(frames, artists, lambdas):
@@ -174,8 +175,10 @@ def update_artists(frames, artists, lambdas):
     artists.day.set_text(day)
 {% endhighlight %}
 
-Lines and text are easy, but other plot objects (like histograms) are
-associated with multiple artists, which makes it harder to update them.
+Lines and text are easy to update, but other plot objects (like histograms)
+are associated with multiple artists, which makes it harder to update them.
+Unfortunately, the only solution is to write a much more complicated update
+function for each type.
 
 ### Putting it all together
 
@@ -185,8 +188,8 @@ animation:
 1. Create the figure (`fig`) and axes (`ax`).
 2. Create the list of artists, in this case a line (`plt.plot`) and some text
    (`ax.text`).
-3. Partially apply the functions by binding inputs to them with `partial`
-4. Create the animation object (`animation.FuncAnimation`) 
+3. Partially apply the functions by binding inputs to them with `partial`.
+4. Create the animation object (`animation.FuncAnimation`).
 5. Save the animation as an `.mp4` (`anim.save`).
 
 Here are those steps in code:
@@ -205,7 +208,8 @@ artists = Artists(
 # 3. Apply the three plotting functions written above
 init = partial(init_fig, fig=fig, ax=ax, artists=artists)
 step = partial(frame_iter, from_day=-15, until_day=25)
-update = partial(update_artists, artists=artists, lambdas=lambdas)
+update = partial(update_artists, artists=artists,
+                 lambdas=np.arange(3298, 9700, 2.5))
 
 # 4. Generate the animation
 anim = animation.FuncAnimation(
@@ -226,17 +230,18 @@ anim.save(
 )
 {% endhighlight %}
 
-The only tricky thing is the use of partial application. Partial application
+The only tricky thing is the use of partial applications. Partial application
 binds some (or all) of the arguments to the function and creates a new
 function that takes fewer arguments. Essentially, it's like setting a default
 value for the arguments.
 
-We can partially apply by setting some of the arguments, like `update()`
-above, which still takes a `frame` argument. We can also fully apply the
-functions by specifying all the arguments, allowing them to be called without
-any input, like `init()` and `step()` above.
+For the `update()` function above, we use partial application to fix some of
+the arguments, while leaving the `frame` argument as one that still must be
+supplied at call time. To create the `init()` and `step()` functions above, we
+full apply the parent functions, allowing the new functions to be called
+without any inputs.
 
-## A little extra
+## A Little Extra
 
 Of course, you can add a bit more to the plot, like the [photometrics
 filters][filters] used:
@@ -257,7 +262,7 @@ interested, the notebook to generate that plot is [here][notebook_extra]
 
 ---
 
-[^1]: Aldering et al., *Overview of the Nearby Supernova Factory*, Proceedings Volume 4836, Survey and Other Telescope Technologies and Discoveries; (2002); doi: [10.1117/12.458107][aldering_2002]
-[^2]: Pereira et al., *Spectrophotometric time series of SN 2011fe from the Nearby Supernova Factory*, A&A 554, A27 (2013), doi: [10.1051/0004-6361/201221008][pereira]
+[^1]: Pereira et al., *Spectrophotometric time series of SN 2011fe from the Nearby Supernova Factory*, A&A 554, A27 (2013), doi: [10.1051/0004-6361/201221008][pereira]
+[^2]: Aldering et al., *Overview of the Nearby Supernova Factory*, Proceedings Volume 4836, Survey and Other Telescope Technologies and Discoveries; (2002); doi: [10.1117/12.458107][aldering_2002]
 
 [aldering_2002]: https://doi.org/10.1117/12.458107
