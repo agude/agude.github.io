@@ -9,6 +9,18 @@ image_alt: >
 use_latex: True
 ---
 
+I graduated from the University of Minnesota in 2015 with a [PhD][phd] in high
+energy particle physics. As part of that endeavor, I spent years traveling to
+and from [CERN][cern] where I studied the decay of [Z bosons][z] into
+[electrons][e]. I wrote an esoteric thesis on a very specific part of this
+decay, but no one is ever going to read that, so below I have tried to write a
+much shorter, and much more readable, version.
+
+[phd]: {% post_url 2018-01-19-should_i_get_a_phd %}
+[cern]: https://cern.ch
+[z]: https://en.wikipedia.org/wiki/W_and_Z_bosons
+[e]: https://en.wikipedia.org/wiki/Electron
+
 ## Measurement of the phistar distribution of Z bosons decaying to electron pairs with the CMS experiment at a center-of-mass energy of 8 TeV
 
 {% capture file_dir %}/files/my-phd-thesis/{% endcapture %}
@@ -41,8 +53,6 @@ momentum, $$Q_T$$ of the Z boson, or how much the boson was moving in the
 direction transverse to the proton beams at the time it decayed.
 
 [thesis]: https://hdl.handle.net/11299/175445
-[z]: https://en.wikipedia.org/wiki/W_and_Z_bosons
-[e]: https://en.wikipedia.org/wiki/Electron
 
 ## The Large Hadron Collider and the Compact Muon Solenoid
 
@@ -68,55 +78,67 @@ LHC.][lhc_diagram]][lhc_diagram]
 
 [lhc_diagram]: {{ file_dir }}/alex_lhc_layout.svg
 
-CMS is a 14,000 ton physics experiment run by nearly 3000 physicists and
-engineers. It is built around a proton-proton collision point and measures the
-speed, mass, and direction of all the particles that are created after the two
-protons collide. Some people like to think of it as a very large camera, and
-that actually isn't so bad an analogy: like a camera, CMS measures particles
-using silicon (and some other materials) and saves the output somewhere.
+CMS is a 14,000 ton experiment run by nearly 3000 physicists and engineers. It
+is built around a point on the LHC where protons collide and measures the
+speed, mass, and flight direction of all the particles that are created after
+the two protons collide. Some people like to think of it as a very large
+camera, and that actually isn't so bad an analogy: like a camera, CMS measures
+particles using silicon (and some other materials) and saves the output
+somewhere to be viewed later.
 
-Doing research with this data has some subtleties, but is essentially just
+Doing research with this data has some subtleties, but it is essentially just
 counting. We predict how many events with a certain characteristic, for
-example, two high energy electrons, we would see based on our understanding
-of the Standard Model. Then we count the number of events that CMS recorded
-with those characteristics.
+example two high energy electrons, we would see based on our understanding of
+the Standard Model. Then we count the number of events that CMS recorded with
+those characteristics.
 
 ## Transverse Momentum
 
 I said I studied low energy QCD, but then immediately introduced the highest
 energy collider in the world. This is not, it turns out, a contradiction.
 While the LHC is very high energy, all that energy is directed along the
-beamline; the protons have almost no energy transverse to the beamline, and so
-this gives us that low energy QCD system we desire. The $$Z \to ee$$ decay is
-a great way to study this low energy regime because neither the Z nor the
-electrons interact via QCD, and so the only QCD effects in the decay chain are
-from the initial proton-proton collision.
+beamline; the protons have almost no energy transverse to the beamline,[^1]
+and so this gives us the low energy QCD system that we desire. The $$Z \to
+ee$$ decay is a great way to study this low energy regime because neither the
+Z nor the electrons interact via QCD, and so the only QCD effects in the decay
+chain are from the initial proton-proton collision.
 
-I measured the transverse momentum, $$Q_T$$, of the Z boson, which is the way
-the boson moves just before it decays. Measuring this not only tells us about
-the low energy regime of QCD, but it also helps to constrain the mass of the W
-boson, which is otherwise hard to measure, and is interesting because it helps
-determine some fundamental quantities in the Standard Model and because there
-is some disagreement between the measured value and the predicted value.
+I measured the transverse momentum, $$Q_T$$, of the Z boson, which describes
+the way the boson moves just before it decays. Measuring this not only tells
+us about the low energy regime of QCD, but it also helps to constrain the mass
+of the W boson, which is otherwise hard to measure, and is interesting because
+it helps determine some fundamental quantities in the Standard Model and
+because there is some disagreement between the measured value and the
+predicted value.
 
 But actually, I didn't measure $$Q_T$$, I measured a new variable called
 $$\phi^{*}$$, which measures the same effect as $$Q_T$$, but is more robust
-against problems with the detector. $$\phi^{*}$$ measures the angle between
-the two electrons instead of their energy, which is easier to measure
+against shortcomings in the detector design. $$\phi^{*}$$ measures the angle
+between the two electrons instead of their energy, which is easier to measure
 accurately due to the design of CMS.
 
 ## Backgrounds, Event Selection, and Other Issues
 
 The events I was interested in had two electrons in them, but not every event
-with two electrons came from a Z decay. Events that produce two electrons for
+with two electrons comes from a Z decay. Events that produce two electrons for
 other reasons are called _background_ events, and the primary difficulty in
 any high energy experiment is separating the background from the events we are
-interested in. We use simple selection rules, called _cuts_, to select the
-events we want. For example, I required two electrons, one with very high
-energy and in the middle of the detector (where we get the most accurate
-measurement), and one other electron with a little less energy anywhere in the
-detector. Before we count the events, we have to figure out how many of them
-are background (which do not count).
+interested in, called _signal_ events. We use simple selection rules, called
+_cuts_, to select the events we want. This selection happens in two stages:
+
+1. As the collisions are happening in the detector (at a rate of 40 million
+   times a second), a fast data processing system called the trigger applies
+   very simple cuts to select interesting events out of the huge number of
+   uninteresting ones.
+2. After the data has been saved to disk, I apply a more precise set of cuts
+   to select just the events that I think are likely to come from the $$Z \to
+   ee$$ decay.
+
+For example, in that second set of cuts I required two electrons, one with
+very high energy and in the middle of the detector (where we get the most
+accurate measurement), and one other electron with a little less energy
+anywhere in the detector. Before we count the events, we have to figure out
+how many of them are background (which do not count).
 
 The way we try to figure out what the background looks like is through [Monte
 Carlo experiments (MC)][mc] where we generate virtual data using the math
@@ -146,8 +168,8 @@ information about the true underlying event.
 
 ## Results
 
-The results of six years of my life are shown in the (absolutely hideous) plot
-below:
+The results of six years of my life are shown in the (absolutely hideous, I
+confess) plot below:
 
 [![A plot showing the final result comparing the measured phi star
 distribution to the distributions predicted by various QCD Monte Carlo
@@ -163,7 +185,11 @@ Model. The bottom plot is the ratio of MC events over CMS events. If the
 generators were perfectly simulating reality, all the points would be right at
 1, but of course they are not perfect so the points drift up and down. The
 blue points (from the [MadGraph][madgraph]) do the best job, but even they
-miss by up to 5%. This result can be used to better tune the generators to
-better model reality.
+miss by up to 5%. This result can be used to tune the generators to better
+model reality.
 
 [madgraph]: http://madgraph.physics.illinois.edu
+
+---
+
+[^1]: Space has three dimensions. The beam moves in one of those dimensions; the other two dimensions are the ones _transverse to the beam line_.
