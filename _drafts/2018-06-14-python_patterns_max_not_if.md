@@ -1,18 +1,15 @@
 ---
 layout: post
-title: "Python Patterns: `max` instead of `if`"
+title: "Python Patterns: max instead of if"
 description: >
-  I often find myself looping over a set of objects to find the one with the
-  greatest score. Normally this means an if statement, but there are more
-  elegant ways to do it!
-image: /files/phd-should-i-go/alexis_carrel_at_the_1913_columbia_university_commencement.jpg
+  I often have to loop over a set of objects to find the one with the greatest
+  score. You can use an if statement and a placeholder, but there are more
+  elegant ways!
+image: /files/patterns/max_not_if.jpg
 image_alt: >
-  A black and white photo from the 1913 Columbia University Commencement
-  featuring a group of men in doctoral gowns wearing mortarboards. Nobel Prize
-  winner Alexis Carrel is amongst them.
+  A watercolor drawing of a Spectacled Caiman fighting with a False Coral
+  Snake by Maria Sibylla Merian.
 ---
-
-{% capture file_dir %}/files/phd-should-i-go/{% endcapture %}
 
 {% include lead_image.html %}
 
