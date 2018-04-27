@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Python Patterns: max instead of if"
+title: "Python Patterns: max Instead of if"
 description: >
   I often have to loop over a set of objects to find the one with the greatest
   score. You can use an if statement and a placeholder, but there are more
