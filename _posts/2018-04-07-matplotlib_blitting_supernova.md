@@ -25,9 +25,10 @@ the popularity of names changed in the US][names].
 But making animations in [matplotlib][matplotlib] can take a long time. Not
 just to write the code, but waiting for it to run! The easiest, but slowest,
 way to make an animation is to redraw the entire plot every frame. Using this
-method it took roughly 20 minutes to render a single animation for my [names
-post][names]! Fortunately there is a much faster way: matplotlib's [animation
-blitting][blit]. Blitting took that 20 minute render time to under a minute!
+method, it took roughly 20 minutes to render a single animation for my [names
+post][names]! Fortunately there is a significantly faster alternative:
+matplotlib's [animation blitting][blit]. Blitting increased rendering speed by
+a factor of 20!
 
 [matplotlib]: https://matplotlib.org
 [blit]: https://en.wikipedia.org/wiki/Bit_blit
@@ -44,7 +45,7 @@ explosion, so looking at a time series tells us how the explosion is evolving.
 [pereira]: https://doi.org/10.1051/0004-6361/201221008
 [spectrum]: https://en.wikipedia.org/wiki/Astronomical_spectroscopy
 
-The data is available [here][data]. The notebook with the all the code is
+The data is available [here][data]. The notebook with all the code is
 [here][notebook] ([rendered on Github][rendered]). The code in the notebooks
 is complete, including doc strings and comments, while I have stripped down
 the examples below for clarity.
@@ -61,11 +62,11 @@ This is the animation we will be making:
 {% include video.html file=video_file %}
 
 It shows the amount of light (flux) the telescope saw as a function of the
-wavelength of light. The data was only taken every few days, so to make the
-animation smooth we will linearly interpolate the data. We will use the
-function `flux_from_day(day)`, which returns a numpy array of flux values for
-a specific day. The details of how the function works can be found in the
-[notebook][notebook].
+wavelength of light. The data was only sampled once every few days, so to make
+the animation smooth we will linearly interpolate the data. This is
+implemented by the function `flux_from_day(day)`, which returns a numpy array
+of flux values for a specific day. The details of how the function works can
+be found in the [notebook][notebook].
 
 ## Blitting
 
@@ -84,11 +85,11 @@ updates the artists
 [frame_iter]: #frame_iter-function
 [update_artists]: #update_artists-function
 
-The artists that are updated each frame must be kept in an interable
-container. A normal list will work, but a more convenient way to do this is
-using a [`namedtuple`][namedtuple]. This will let us access the different
-artists like `artists.flux_line`, instead of having to remember their index
-number.
+The artists that are updated each frame must be kept in an iterable container.
+A normal list will work, but a more convenient way to do this is using a
+[`namedtuple`][namedtuple]. This will let us access the different artists by
+name, for example `artists.flux_line`, instead of having to remember their
+index number.
 
 [namedtuple]: https://docs.python.org/2/library/collections.html#collections.namedtuple
 
@@ -98,9 +99,9 @@ The `init_fig()` function draws the background of the animation. It takes no
 arguments and must return an iterable of the artists to be updated every
 frame, which in our case are contained in the namedtuple discussed above.
 
-Our example function sets the labels, the title, and the range of the plot.
-It is here where we would draw anything else that is unchanging, like the
-legend, or some text labels, if we needed to. Here it is:
+Our example function sets the labels, the title, and the range of the plot. It
+is here where we would draw anything else that is unchanging, like the legend,
+or some text labels, if we needed to. Here it is:
 
 {% highlight python %}
 def init_fig(fig, ax, artists):
@@ -134,11 +135,11 @@ then pass them in as an argument.
 
 ### frame_iter Function
 
-The `frame_iter()` function is an generator that returns the data needed to
+The `frame_iter()` function is a generator that returns the data needed to
 update the artist for each frame. It yields `frame_data`, which can be any
 sort of Python data type or object. This function also must take no arguments,
-and so like [`init_fig()`][init_fig] we will use the partial trick to bind the
-arguments.
+and so like [`init_fig()`][init_fig] we will use the partial application trick
+to bind the arguments.
 
 Our function loops over the days relative to maximum light and returns the
 flux values from that day, as well as string of the day to update the text
@@ -163,8 +164,8 @@ Once we have [`frame_iter()`][frame_iter] to generate the data for each frame,
 1. Unpack the `frames_data`.
 2. Update the plot line and the text.
 
-For the line we call `.set_data()` to insert the new values; for the text we
-call `.set_text()`. Our function is short:
+For the plot line we call `.set_data()` to insert the new values; for the text
+we call `.set_text()`. Our function is short:
 
 {% highlight python %}
 def update_artists(frames, artists, lambdas):
@@ -238,7 +239,7 @@ value for the arguments.
 For the `update()` function above, we use partial application to fix some of
 the arguments, while leaving the `frame` argument as one that still must be
 supplied at call time. To create the `init()` and `step()` functions above, we
-full apply the parent functions, allowing the new functions to be called
+fully apply the parent functions, allowing the new functions to be called
 without any inputs.
 
 ## A Little Extra
