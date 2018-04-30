@@ -66,7 +66,7 @@ There is one potential pitfall here: `max()` picks the tuple with the largest
 first element (the score in our case), which is what we want. But, if the
 first elements are the same in both tuples, `max()` continues through the
 remaining elements until the tie is broken. So if two words have the same
-score, `max()` will then compare the words next, which is does alphabetically.
+score, `max()` will then compare the words next, which it does lexically.
 
 To have `max()` only compare the first element, we can use the `key`
 parameter. The `key` parameter takes a function that is called on each object
@@ -93,7 +93,7 @@ score itself? Then there is an even simpler way!
 
 By default `max()` uses the standard comparison operator, but we can change
 that using the `key` argument as we did above. We can use `score_word()` as
-comparison function:
+the comparison function:
 
 {% highlight python %}
 words = possible_words(my_letters)
