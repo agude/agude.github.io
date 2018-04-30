@@ -31,10 +31,10 @@ The [Standard Model][sm] of particle physics is one of the most accurate
 theories humans have ever come up with, describing nature almost exactly as we
 observe it. Yet we know it is incomplete, and even in the more complete areas
 there are regions where it is very difficult to calculate what will happen.
-One of these areas is low energy [quantum chromodynamics (QCD)][qcd], the part
-of the theory that handles the interaction of [protons][p], [neutrons][n], and
-the [quarks][q] that make them up, and the [gluons][g] that bind them
-together.
+One of these regions is low energy [quantum chromodynamics (QCD)][qcd]. This
+part of the theory that handles the interaction of [protons][p],
+[neutrons][n], and the [quarks][q] that make them up, and the [gluons][g] that
+bind them together.
 
 [sm]: https://en.wikipedia.org/wiki/Standard_Model
 [qcd]: https://en.wikipedia.org/wiki/Quantum_chromodynamics
@@ -43,26 +43,28 @@ together.
 [q]: https://en.wikipedia.org/wiki/Quark
 [g]: https://en.wikipedia.org/wiki/Gluon
 
-For [my thesis][thesis], I studied the interaction $$pp \to Z \to e^-e^+$$:
-two protons colliding to produce a [Z boson][z], which decays to two
-[electrons][e] (well, an electron and a positron, but particle physicists just
-call those electrons). This lets us explore the low energy QCD region (the
-$$pp$$ collision) but using particles without any QCD interaction to make them
-messy (the $$e^-e^+$$ pair). More specifically, I looked at the transverse
-momentum, $$Q_T$$ of the Z boson, or how much the boson was moving in the
-direction transverse to the proton beams at the time it decayed.
+For [my thesis][thesis], I studied the interaction $$pp \to Z \to e^-e^+$$,
+that is two protons colliding to produce a [Z boson][z], which decays to two
+[electrons][e].[^1] This lets us explore the low energy QCD region (the $$pp$$
+collision) but using particles without any QCD interaction to make them messy
+(the $$e^-e^+$$ pair). More specifically, I looked at the transverse momentum,
+$$Q_T$$ of the Z boson, or how much the boson was moving in the direction
+transverse to the proton beams at the time it decayed.
 
 [thesis]: https://hdl.handle.net/11299/175445
 
-## The Large Hadron Collider and the Compact Muon Solenoid
+### The Large Hadron Collider and the Compact Muon Solenoid
 
-The [Large Hadron Collider (LHC)][lhc] is a very large, and very high energy
+The [Large Hadron Collider (LHC)][lhc] is a very large, and very high energy,
 particle collider on the boarder of Switzerland and France. It takes protons
-and spins them around until they're traveling close to the speed of light, and
-then smashes them together. This creates a lot of energy which is dissipated
-by creating new particles. It allows us to test the Standard Model at a very
+and spins them around until they are traveling close to the speed of light,
+and then smashes them together. This creates a region of space with a lot of
+energy which is dissipated by creating new particles.
+
+Looking at these collisions allows us to test the Standard Model at a very
 high energies where new particles may exist. Multiple smaller particle
-accelerators feed into the LHC (as shown below), and it hosts four major
+accelerators feed into the LHC (as shown below) and act like on-ramps, getting
+the particles up-to-speed before they enter the LHC. The LHC hosts four major
 experiments: [ATLAS][atlas]; [ALICE][alice]; [LHCb][lhcb]; and [CMS][cms], the
 Compact Muon Solenoid, which was my experiment.
 
@@ -84,31 +86,38 @@ speed, mass, and flight direction of all the particles that are created after
 the two protons collide. Some people like to think of it as a very large
 camera, and that actually isn't so bad an analogy: like a camera, CMS measures
 particles using silicon (and some other materials) and saves the output
-somewhere to be viewed later.
+somewhere to be viewed later. A cutaway of the detector (with silhouette for
+scale) is shown below, with the collision point at the very center.
+
+[![A cutaway diagram of the CMS detector showing the various pieces that make
+it up.][cms_cutaway]][cms_cutaway]
+
+[cms_cutaway]: {{ file_dir }}/cms-color-white.png
 
 Doing research with this data has some subtleties, but it is essentially just
 counting. We predict how many events with a certain characteristic, for
-example two high energy electrons, we would see based on our understanding of
-the Standard Model. Then we count the number of events that CMS recorded with
-those characteristics.
+example containing two high energy electrons, we would see based on our
+understanding of the Standard Model. Then we count the number of events that
+CMS recorded with those characteristics.
 
-## Transverse Momentum
+### Transverse Momentum
 
 I said I studied low energy QCD, but then immediately introduced the highest
 energy collider in the world. This is not, it turns out, a contradiction.
 While the LHC is very high energy, all that energy is directed along the
-beamline; the protons have almost no energy transverse to the beamline,[^1]
+beamline; the protons have almost no energy transverse to the beamline,[^2]
 and so this gives us the low energy QCD system that we desire. The $$Z \to
 ee$$ decay is a great way to study this low energy regime because neither the
-Z nor the electrons interact via QCD, and so the only QCD effects in the decay
-chain are from the initial proton-proton collision.
+Z nor the electrons interact via QCD, so the only QCD effects in the decay
+chain are from the initial proton-proton collision. This makes it an easy to
+measure signal.
 
 I measured the transverse momentum, $$Q_T$$, of the Z boson, which describes
 the way the boson moves just before it decays. Measuring this not only tells
 us about the low energy regime of QCD, but it also helps to constrain the mass
-of the W boson, which is otherwise hard to measure, and is interesting because
-it helps determine some fundamental quantities in the Standard Model and
-because there is some disagreement between the measured value and the
+of the W boson, which is otherwise hard to measure. The W mass is interesting
+because it helps determine some fundamental quantities in the Standard Model
+and because there is some disagreement between the measured value and the
 predicted value.
 
 But actually, I didn't measure $$Q_T$$, I measured a new variable called
@@ -117,7 +126,7 @@ against shortcomings in the detector design. $$\phi^{*}$$ measures the angle
 between the two electrons instead of their energy, which is easier to measure
 accurately due to the design of CMS.
 
-## Backgrounds, Event Selection, and Other Issues
+### Backgrounds, Event Selection, and Other Issues
 
 The events I was interested in had two electrons in them, but not every event
 with two electrons comes from a Z decay. Events that produce two electrons for
@@ -136,9 +145,10 @@ _cuts_, to select the events we want. This selection happens in two stages:
 
 For example, in that second set of cuts I required two electrons, one with
 very high energy and in the middle of the detector (where we get the most
-accurate measurement), and one other electron with a little less energy
-anywhere in the detector. Before we count the events, we have to figure out
-how many of them are background (which do not count).
+accurate measurement), and one other with a little less energy anywhere in the
+detector. Even with this selection some background events slip through;
+figuring out how many is most of the work done in my thesis, because when we
+count up events, we do not count the background.
 
 The way we try to figure out what the background looks like is through [Monte
 Carlo experiments (MC)][mc] where we generate virtual data using the math
@@ -166,7 +176,7 @@ estimated by using MC events and putting them through the analysis pipeline.
 This lets us check what the analysis would have measured, while having
 information about the true underlying event.
 
-## Results
+### Results
 
 The results of six years of my life are shown in the (absolutely hideous, I
 confess) plot below:
@@ -180,16 +190,17 @@ simulations][result]][result]
 Each collection of points in the top plot is a count of the events, for a
 specific bin in $$\phi^*$$. The black points are the count of events seen in
 CMS, and the colored points are the number of events predicted by various
-Monte Carlo generator programs that use various approximations of the Standard
-Model. The bottom plot is the ratio of MC events over CMS events. If the
-generators were perfectly simulating reality, all the points would be right at
-1, but of course they are not perfect so the points drift up and down. The
-blue points (from the [MadGraph][madgraph]) do the best job, but even they
-miss by up to 5%. This result can be used to tune the generators to better
-model reality.
+Monte Carlo generator programs that use different approximations of the
+Standard Model. The bottom plot is the ratio of MC events over observed
+events. If the generators were perfectly simulating reality, all the points
+would be right at 1, but of course they are not perfect so the points drift up
+and down. The blue points (from the [MadGraph][madgraph]) do the best job, but
+even they miss by up to 5%. This result can be used to tune the generators to
+better model reality.
 
 [madgraph]: http://madgraph.physics.illinois.edu
 
 ---
 
-[^1]: Space has three dimensions. The beam moves in one of those dimensions; the other two dimensions are the ones _transverse to the beam line_.
+[^1]: Well, an electron and a positron, but particle physicists just call those electrons
+[^2]: Space has three dimensions. The beam moves in one of those dimensions; the other two dimensions are the ones _transverse to the beam line_.
