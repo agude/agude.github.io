@@ -12,13 +12,15 @@ use_latex: True
 
 {% include lead_image.html %}
 
-I graduated from the University of Minnesota in 2015 with a [PhD][phd] in high
-energy particle physics. As part of that endeavor, I spent years traveling to
-and from [CERN][cern] where I studied the decay of [Z bosons][z] into
-[electrons][e]. I wrote an esoteric thesis on a very specific part of this
-decay, but no one is ever going to read that, so below I have tried to write a
-much shorter, and much more readable, version.
+Three years ago today, I defeneded [my thesis][thesis] and graduated from the
+University of Minnesota with a [PhD][phd] in high energy particle physics. As
+part of that endeavor, I spent years traveling to and from [CERN][cern] where
+I studied the decay of [Z bosons][z] into [electrons][e]. I wrote an esoteric
+thesis on a very specific part of this decay, but no one is ever going to read
+that, so below I have tried to write a much shorter, and much more readable,
+version.
 
+[thesis]: https://hdl.handle.net/11299/175445
 [phd]: {% post_url 2018-01-19-should_i_get_a_phd %}
 [cern]: https://cern.ch
 [z]: https://en.wikipedia.org/wiki/W_and_Z_bosons
@@ -51,8 +53,6 @@ collision) but using particles without any QCD interaction to make them messy
 (the $$e^-e^+$$ pair). More specifically, I looked at the transverse momentum,
 $$Q_T$$ of the Z boson, or how much the boson was moving in the direction
 transverse to the proton beams at the time it decayed.
-
-[thesis]: https://hdl.handle.net/11299/175445
 
 ### The Large Hadron Collider and the Compact Muon Solenoid
 
@@ -201,10 +201,26 @@ Standard Model. The bottom plot is the ratio of MC events over observed
 events. If the generators were perfectly simulating reality, all the points
 would be right at 1, but of course they are not perfect so the points drift up
 and down. The blue points (from the [MadGraph][madgraph]) do the best job, but
-even they miss by up to 5%. This result can be used to tune the generators to
-better model reality.
+even they miss by up to 5%.
 
 [madgraph]: http://madgraph.physics.illinois.edu
+
+## In Summary
+
+So that's it! I measured the angle between pairs of electrons in the CMS
+detector and compared it to the angle predicted by the Standard Model. The
+result can be used to fine-tune the Monte Carlo generators we use so that
+future measurements have better estimations. But will my result be used for
+that? It's unclear.
+
+I graduated quickly without publishing the results of my thesis in a journal.
+In fact, my thesis was embargoed for six months to let my adviser and post doc
+tidy it up for publication, but various complications prevented that.
+
+That is scientific research though: spending years of your life chasing down a
+subject cared about by only a handful of people. That is part of the reason I
+wanted to write this post, in the hope that more than a handful of people
+would read it, and learn what I did.
 
 ---
 
