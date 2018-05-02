@@ -31,7 +31,7 @@ description: >
   Distributions of Z Bosons in pp Collisions at sqrt(s)=7 TeV*, Phys. Rev. D
   85, 032002 (2012). ([Journal](http://dx.doi.org/10.1103/PhysRevD.85.032002))
 
-[thesis_post]: {% post_url 2018-05-14-my_phd_thesis %}
+[thesis_post]: {% post_url 2018-05-20-my_phd_thesis %}
 
 ### Supernova Cosmology
 
