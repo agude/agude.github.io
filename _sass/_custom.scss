@@ -73,12 +73,7 @@
 }
 
 // Image captions using this trick: https://stackoverflow.com/a/30366422
-img + em {
-  display: block;
-  text-align: center;
-}
-
-a + em {
+img + em { // An image followed by an emphasized line
   display: block;
   text-align: center;
 }
