@@ -78,7 +78,9 @@ Compact Muon Solenoid, which was my experiment.
 
 [![A diagram showing the LHC and the location of the four major experiments.
 Also shown are the smaller accelerators the feed protons into the
-LHC.][lhc_diagram]][lhc_diagram]
+LHC.][lhc_diagram]][lhc_diagram] _A diagram showing the LHC and the location
+of the four major experiments. Also shown are the smaller accelerators the
+feed protons into the LHC._
 
 [lhc_diagram]: {{ file_dir }}/alex_lhc_layout.svg
 
@@ -91,9 +93,11 @@ particles using silicon (and some other materials) and saves the output
 somewhere to be viewed later.
 
 [![A cutaway diagram of the CMS detector showing the various pieces that make
-it up.][cms_cutaway]][cms_cutaway]
+it up.][cms_cutaway]][cms_cutaway] _Cutaway model of CMS by Tai Sakuma and
+Thomas McCauley ([CC-BY 3.0][cc])[^2]_
 
 [cms_cutaway]: {{ file_dir }}/cms-color-white.png
+[cc]: https://creativecommons.org/licenses/by/3.0/
 
 The cutaway above shows the detector (with silhouette for scale). The
 collision point is in the center. The detector is built in layers around this
@@ -113,7 +117,7 @@ our prediction.
 I said I studied low energy QCD, but then immediately introduced the highest
 energy collider in the world. This is not, as it turns out, a contradiction.
 While the LHC is very high energy, all that energy is directed along the
-beamline; the protons have almost no energy transverse to the beamline,[^2]
+beamline; the protons have almost no energy transverse to the beamline,[^3]
 and so this gives us the low energy QCD system that we desire. The $$Z \to
 ee$$ decay is a great way to study this low energy regime because neither the
 Z nor the electrons interact via QCD, so the only QCD effects in the decay
@@ -175,7 +179,10 @@ perfect.
 [muon]: https://en.wikipedia.org/wiki/Muon
 
 [![A plot showing the Z mass peak in data, with stacked histograms showing the
-estimated contribution from the background and signal events.][z_peak]][z_peak]
+estimated contribution from the background and signal
+events.][z_peak]][z_peak] _A plot showing the Z mass peak in data, with
+stacked histograms showing the estimated contribution from the background and
+signal events._
 
 [z_peak]: {{ file_dir }}/z_peak.svg
 
@@ -192,7 +199,9 @@ confess) plot below:
 
 [![A plot showing the final result comparing the measured phi star
 distribution to the distributions predicted by various QCD Monte Carlo
-simulations][result]][result]
+simulations.][result]][result] _A plot showing the final result comparing the
+measured $$\phi^*$$ distribution to the distributions predicted by various QCD
+Monte Carlo simulations._
 
 [result]: {{ file_dir }}/final_result.svg
 
@@ -229,4 +238,5 @@ handful of people would read it, and learn about what I did.
 ---
 
 [^1]: Well, an electron and a positron, but particle physicists just call those electrons because precision is for mathematicians.
-[^2]: Space has three dimensions. The beam moves in one of those dimensions; the other two dimensions are the ones _transverse to the beam line_.
+[^2]: Sakuma, T. and McCauley, T., _Detector and Event Visualization with SketchUp at the CMS Experiment_, Journal of Physics: Conference Series, Volume 513, Track 2 (2014), doi: [10.1088/1742-6596/513/2/022032](http://dx.doi.org/10.1088/1742-6596/513/2/022032)
+[^3]: Space has three dimensions. The beam moves in one of those dimensions; the other two dimensions are the ones _transverse to the beam line_.
