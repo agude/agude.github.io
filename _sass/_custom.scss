@@ -71,3 +71,14 @@
   margin-top: 0;
   text-rendering: optimizeLegibility;
 }
+
+// Image captions using this trick: https://stackoverflow.com/a/30366422
+img + em {
+  display: block;
+  text-align: center;
+}
+
+a + em {
+  display: block;
+  text-align: center;
+}
