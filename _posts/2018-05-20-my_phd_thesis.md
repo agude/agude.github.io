@@ -33,7 +33,7 @@ fashion.
 The [Standard Model][sm] of particle physics is one of the most accurate
 theories humans have ever come up with, describing nature almost exactly as we
 observe it. Yet, for all its accuracy, we know it is still incomplete, and
-even pn the more complete areas there are regions where it is very difficult
+even in the more complete areas there are regions where it is very difficult
 to calculate what will happen. One of these regions is low energy [quantum
 chromodynamics (QCD)][qcd]. This is the part of the theory that handles the
 interaction of [protons][p], [neutrons][n], the [quarks][q] that make them up,
