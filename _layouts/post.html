@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<article class="post">
+<article role="article" class="post">
   <h1 class="post-title">{{ page.title }}</h1>
   <time datetime="{{ page.date | date_to_xmlschema }}" class="post-date">{{ page.date | date: '%B %d, %Y' }}</time>
   {{ content }}
@@ -13,7 +13,7 @@ layout: default
 
 {% if site.related_posts != empty %}
   <!-- Related Posts -->
-  <aside class="related">
+  <aside role="complementary" class="related">
     <h2>Recent Posts</h2>
     {% comment %}
     On Github, related posts simply uses the most recent posts.
