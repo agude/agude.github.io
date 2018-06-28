@@ -16,8 +16,8 @@ image_alt: >
 [Moritz Hardt][mrtz] posted a [tweet][mrtz_tweet] the other day saying "It's
 that time of the year to keep in mind that the typical start of a successful
 academic career is getting rejected from a bunch of good grad schools." Lots
-people replied about how their own failures did not stop them. This post is my
-own response.
+of people replied about how their own failures did not stop them. This post is
+my own response.
 
 [mrtz]: http://mrtz.org
 [mrtz_tweet]: https://twitter.com/mrtz/status/950493433822560257
