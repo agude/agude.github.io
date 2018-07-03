@@ -8,7 +8,7 @@ image_alt: >
   Test
 ---
 
-{% capture file_dir %}/files/supernova/{% endcapture %}
+{% capture file_dir %}/files/supernova_plot_update/{% endcapture %}
 
 <!--{% include lead_image.html %}-->
 
