@@ -8,7 +8,7 @@ image_alt: >
   Test
 ---
 
-{% capture file_dir %}/files/supernova_plot_update/{% endcapture %}
+{% capture file_dir %}/files/supernova-plot-update/{% endcapture %}
 
 <!--{% include lead_image.html %}-->
 
@@ -35,6 +35,14 @@ of the space is wasted with large margins in order to fit the legend. The axes
 titles are wrong and do not include the units they measure. The tick labels
 collide at the corner.
 
+The code that generated this plot can be found [here][old_plot_code]
+([rendered on Github][old_rendered]). It is not very good, but then I did
+write it almost a decade ago.
+
+{% capture old_notebook_uri %}{{ "Old Plot.ipynb" | uri_escape }}{% endcapture %} 
+[old_plot_code]: {{ file_dir }}/{{ old_notebook_uri }}
+[old_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ old_notebook_uri }}
+
 ## Improvements
 
 I had not thought of the plot for years, until I ran into the plot again while
@@ -46,6 +54,14 @@ result of my improvements is below:
 explosion, but updated to better convey the information.][new_supernova]][new_supernova]
 
 [new_supernova]: {{ file_dir }}/SN_2002cx_Spectra_log.svg
+
+The code that generated the improved plot can be found [here][new_plot_code]
+([rendered on Github][new_rendered]). The code was improved as well, something
+I will cover in a future post.
+
+{% capture new_notebook_uri %}{{ "New Plot.ipynb" | uri_escape }}{% endcapture %} 
+[new_plot_code]: {{ file_dir }}/{{ new_notebook_uri }}
+[new_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ new_notebook_uri }}
 
 Why is this plot an improvement? It fixes the obvious errors and reduces the
 clutter and unused space so the information shines through. 
