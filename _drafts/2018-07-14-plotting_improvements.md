@@ -3,10 +3,12 @@ layout: post
 title: "Improving An Old Supernova Plot"
 description: >
   Test
-image: /files/supernova/SN_2002cx_Spectra_log_old.svg
+image: /files/supernova-plot-update/virgo_by_sidney_hall.jpg
 image_alt: >
-  Test
+  A drawing by Sidney Hall of the constellation Virgo represented as a Woman
+  with angel wings and a pink and green dress.
 ---
+
 
 {% capture file_dir %}/files/supernova-plot-update/{% endcapture %}
 
