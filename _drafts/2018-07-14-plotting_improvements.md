@@ -2,17 +2,16 @@
 layout: post
 title: "Improving An Old Supernova Plot"
 description: >
-  Test
+  I learned to use matplotlib more than ten years ago. Around that time, I
+  made a plot of supernova 2002cx for Wikipedia, but it was not terrible good.
+  So this year, I updated it!
 image: /files/supernova-plot-update/virgo_by_sidney_hall.jpg
 image_alt: >
   A drawing by Sidney Hall of the constellation Virgo represented as a Woman
   with angel wings and a pink and green dress.
 ---
 
-
 {% capture file_dir %}/files/supernova-plot-update/{% endcapture %}
-
-<!--{% include lead_image.html %}-->
 
 I worked as a [supernova cosmologist][sn_cosmo] when I was an undergraduate,
 which was more than ten years ago now. During that time, I made this plot of
@@ -41,7 +40,7 @@ The code that generated this plot can be found [here][old_plot_code]
 ([rendered on Github][old_rendered]). It is not very good, but then I did
 write it almost a decade ago.
 
-{% capture old_notebook_uri %}{{ "Old Plot.ipynb" | uri_escape }}{% endcapture %} 
+{% capture old_notebook_uri %}{{ "Old Plot.ipynb" | uri_escape }}{% endcapture %}
 [old_plot_code]: {{ file_dir }}/{{ old_notebook_uri }}
 [old_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ old_notebook_uri }}
 
@@ -61,12 +60,12 @@ The code that generated the improved plot can be found [here][new_plot_code]
 ([rendered on Github][new_rendered]). The code was improved as well, something
 I will cover in a future post.
 
-{% capture new_notebook_uri %}{{ "New Plot.ipynb" | uri_escape }}{% endcapture %} 
+{% capture new_notebook_uri %}{{ "New Plot.ipynb" | uri_escape }}{% endcapture %}
 [new_plot_code]: {{ file_dir }}/{{ new_notebook_uri }}
 [new_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ new_notebook_uri }}
 
 Why is this plot an improvement? It fixes the obvious errors and reduces the
-clutter and unused space so the information shines through. 
+clutter and unused space so the information shines through.
 
 To start, I removed the legend and replaced it with a label by each spectra.
 This not only helps you to identify the lines quicker, it cuts down on the
