@@ -22,7 +22,7 @@ a data product using publicly available data. The project I built,
 **Whereto.photo**, tried to answer the question: _Where is the best place in
 this city to take a picture?_
 
-[insight]: http://insightdatascience.com/
+[insight]: https://www.insightdatascience.com/
 
 In this post I'm going to walk through how I built my project from
 brainstorming and data processing to hosting.

@@ -238,5 +238,5 @@ handful of people would read it, and learn about what I did.
 ---
 
 [^1]: Well, an electron and a positron, but particle physicists just call those electrons because precision is for mathematicians.
-[^2]: Sakuma, T. and McCauley, T., _Detector and Event Visualization with SketchUp at the CMS Experiment_, Journal of Physics: Conference Series, Volume 513, Track 2 (2014), doi: [10.1088/1742-6596/513/2/022032](http://dx.doi.org/10.1088/1742-6596/513/2/022032)
+[^2]: Sakuma, T. and McCauley, T., _Detector and Event Visualization with SketchUp at the CMS Experiment_, Journal of Physics: Conference Series, Volume 513, Track 2 (2014), doi: [10.1088/1742-6596/513/2/022032](https://dx.doi.org/10.1088/1742-6596/513/2/022032)
 [^3]: Space has three dimensions. The beam moves in one of those dimensions; the other two dimensions are the ones _transverse to the beam line_.

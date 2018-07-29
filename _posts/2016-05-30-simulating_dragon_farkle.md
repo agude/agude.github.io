@@ -30,7 +30,7 @@ are removed, the player gets six more dice and continues. If no scoring
 combinations are present in a roll, the roll is a "farkle" and the turn
 generally ends.
 
-[dragonfarkle]: http://www.zmangames.com/store/p18/Dragon_Farkle.html
+[dragonfarkle]: https://www.zmangames.com/en/products/dragon-farkle/
 
 When a player has enough soldiers (5000 is the minimum specified by the rules)
 they may forgo recruiting more to instead attack the dragon. When a player

@@ -23,7 +23,7 @@ We cursorily looked at the data when we finished playing, but I thought it
 would be interesting to dig it back out and analyze it more deeply.
 
 [rpg]: https://en.wikipedia.org/wiki/Tabletop_role-playing_game
-[fate]: http://www.evilhat.com/home/fate-core/
+[fate]: https://www.evilhat.com/home/fate-core/
 
 ## Fate Dice
 

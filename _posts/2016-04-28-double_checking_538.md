@@ -25,7 +25,7 @@ supporters of various candidates, and so I thought it would be interesting to
 double-check just how well they have been performing.
 
 [538]: https://fivethirtyeight.com/
-[primary]: http://projects.fivethirtyeight.com/election-2016/primary-forecast/
+[primary]: https://projects.fivethirtyeight.com/election-2016/primary-forecast/
 
 The code used to perform the analysis explained in this post can be found in
 this [Jupyter Notebook][notebook] ([rendered on Github][rendered]). The data
@@ -77,7 +77,7 @@ more than than 1 percentage point on the numbers, which is accounted for in
 the final result. The data on the actual outcomes was copied from
 [Politico][politico].
 
-[politico]: http://www.politico.com/2016-election/results/map/president
+[politico]: https://www.politico.com/2016-election/results/map/president
 
 ## Testing the Predictions
 

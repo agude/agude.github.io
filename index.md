@@ -17,7 +17,7 @@ but also cycling and photography. I got my start in the valley at [Insight
 Data Science][insight]. In my previous life, I was a [high energy particle
 physicist][hep] at CERN and a [cosmologist][scp] at Lawrence Berkeley Labs.
 
-[insight]: http://insightdatascience.com
+[insight]: https://www.insightdatascience.com
 [hep]: http://www.hep.umn.edu/us-cms
 [scp]: http://supernova.lbl.gov
 

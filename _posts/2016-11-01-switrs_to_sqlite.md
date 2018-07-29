@@ -33,7 +33,7 @@ these joins, but not without overflowing the memory on my laptop. If only the
 data were in a proper database!
 
 [csv]: https://en.wikipedia.org/wiki/Comma-separated_values
-[pandas]: http://pandas.pydata.org/
+[pandas]: https://pandas.pydata.org/
 
 ## SWITRS-to-SQLite
 

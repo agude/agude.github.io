@@ -23,7 +23,7 @@ methods of computing those regions. While writing this post, I came upon a
 [NIST handbook page][nist] that covers the same topic; check it out too!
 
 [lastpost]: {% post_url 2017-07-28-fate_dice_statistics %}
-[nist]: http://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm
+[nist]: https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm
 
 As per usual, you can find the Jupyter notebook used to perform these
 calculations and make the plots [here][notebook] ([rendered on

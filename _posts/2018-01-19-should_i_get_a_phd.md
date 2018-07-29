@@ -29,7 +29,7 @@ Valley. The dream of becoming a physics professor had long since been
 abandoned. I never even applied for a [postdoc position][postdoc], which would
 have been the next step in the process.[^3]
 
-[insight]: http://insightdatascience.com
+[insight]: https://www.insightdatascience.com
 [postdoc]: https://en.wikipedia.org/wiki/Postdoctoral_researcher
 
 So what caused me to redirect my ambitions and energy? What is it that,

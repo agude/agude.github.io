@@ -20,7 +20,7 @@ sets were fine, but that the fourth set, the blue dice, were significantly biase
 0.01][pvalue]!
 
 [previous]: {% post_url 2017-07-28-fate_dice_statistics %}
-[fate]: http://www.evilhat.com/home/fate-core/
+[fate]: https://www.evilhat.com/home/fate-core/
 [pvalue]: https://en.wikipedia.org/wiki/p-value
 
 As a scientist, I want to know more than simply whether or not the dice are

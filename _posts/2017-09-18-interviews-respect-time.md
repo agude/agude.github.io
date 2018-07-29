@@ -79,4 +79,4 @@ your way to a better experience for the candidates and the interviewers.
 
 [^1]: If that is what you'd like though, I think [Li Haoyi' _How to conduct a good Programming Interview_][lihaoyi] is pretty good.
 
-[lihaoyi]: http://www.lihaoyi.com/post/HowtoconductagoodProgrammingInterview.html
+[lihaoyi]: https://www.lihaoyi.com/post/HowtoconductagoodProgrammingInterview.html

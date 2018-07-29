@@ -26,10 +26,10 @@ description: >
 - CMS Collaboration, *Search for heavy neutrinos and W bosons with
   right-handed couplings in proton–proton collisions at sqrt(s)=8 TeV*, Eur.
   Phys. J. C (2014) 74: 3149.
-  ([Journal](http://dx.doi.org/10.1140/epjc/s10052-014-3149-z))
+  ([Journal](https://dx.doi.org/10.1140/epjc/s10052-014-3149-z))
 - CMS Collaboration, *Measurement of the Rapidity and Transverse Momentum
   Distributions of Z Bosons in pp Collisions at sqrt(s)=7 TeV*, Phys. Rev. D
-  85, 032002 (2012). ([Journal](http://dx.doi.org/10.1103/PhysRevD.85.032002))
+  85, 032002 (2012). ([Journal](https://dx.doi.org/10.1103/PhysRevD.85.032002))
 
 [thesis_post]: {% post_url 2018-05-20-my_phd_thesis %}
 
@@ -41,13 +41,13 @@ description: >
 - Suzuki et al., *The Hubble Space Telescope Cluster Supernova Survey: V.
   Improving the Dark Energy Constraints Above z\>1 and Building an
   Early-Type-Hosted Supernova Sample* 2012, ApJ, 746, 85.
-  ([10.1088/0004-637X/746/1/85](http://dx.doi.org/10.1088/0004-637X/746/1/85))
+  ([10.1088/0004-637X/746/1/85](https://dx.doi.org/10.1088/0004-637X/746/1/85))
 - Dawson et al., *An Intensive HST Survey for z\>1 Supernovae by Targeting
   Galaxy Clusters* 2009, AJ, 138, 1271.
-  ([arXiv:0908.3928](http://arxiv.org/abs/0908.3928))
+  ([arXiv:0908.3928](https://arxiv.org/abs/0908.3928))
 - Barbary et al., *Discovery of an Unusual Optical Transient with the Hubble
   Space Telescope* 2008, ApJ, 690, 1358.
-  ([arXiv:0809.1648](http://arxiv.org/abs/0809.1648))
+  ([arXiv:0809.1648](https://arxiv.org/abs/0809.1648))
 - Kuznetsova et al., *A New Determination of the High-Redshift Type Ia
   Supernova Rates with the Hubble Space Telescope Advanced Camera for Surveys*
-  2008, ApJ, 673, 981. ([arXiv:0710.3120](http://arxiv.org/abs/0710.3120))
+  2008, ApJ, 673, 981. ([arXiv:0710.3120](https://arxiv.org/abs/0710.3120))

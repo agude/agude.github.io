@@ -25,7 +25,7 @@ do two additional things:
    candidate
 
 [lastpost]: {% post_url 2016-04-28-double_checking_538 %}
-[primary]: http://projects.fivethirtyeight.com/election-2016/primary-forecast/
+[primary]: https://projects.fivethirtyeight.com/election-2016/primary-forecast/
 
 This post will address both of those requests.
 

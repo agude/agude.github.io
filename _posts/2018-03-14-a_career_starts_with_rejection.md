@@ -19,7 +19,7 @@ academic career is getting rejected from a bunch of good grad schools." Lots
 of people replied about how their own failures did not stop them. This post is
 my own response.
 
-[mrtz]: http://mrtz.org
+[mrtz]: https://mrtz.org
 [mrtz_tweet]: https://twitter.com/mrtz/status/950493433822560257
 
 ![A screenshot of Moritz Hardt's Tweet saying: "It's that time of the year to

@@ -23,7 +23,7 @@ in the [SWITRS data][s2s_post] that I've collected.
 [dst]: https://en.wikipedia.org/wiki/Daylight_saving_time
 [energy]: https://www.scientificamerican.com/article/does-daylight-saving-times-save-energy/
 [varughese]: https://www.ncbi.nlm.nih.gov/pubmed/11152980
-[smith]: http://www.colorado.edu/economics/papers/WPs-14/wp14-05/abstract14-05.html
+[smith]: https://www.colorado.edu/economics/papers/WPs-14/wp14-05/abstract14-05.html
 [s2s_post]: {% post_url 2016-11-01-switrs_to_sqlite %}
 
 The Jupyter notebook used to perform this analysis can be found

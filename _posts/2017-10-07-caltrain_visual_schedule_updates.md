@@ -24,7 +24,7 @@ to the city to have [avocado toast][at] with your friends.
 
 [pcep]: https://en.wikipedia.org/wiki/Electrification_of_Caltrain
 [sas]: https://en.wikipedia.org/wiki/San_Antonio_station_(Caltrain)
-[at]: http://knowyourmeme.com/memes/avocado-toast
+[at]: https://knowyourmeme.com/memes/avocado-toast
 
 A new schedule is not all bad though; it means a chance to reuse the script I
 developed to produce [visual schedules for Caltrain][lastpost]. You can find
