@@ -41,6 +41,17 @@ social:
         - https://github.com/agude
         - https://linkedin.com/in/AlexanderGude
 
+defaults:
+  # Add a default image and Twitter card for non-post layouts for jekyll-seo-tag
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      image: /files/headshot-small.jpg
+      twitter:
+        card: "summary"
+
 # Google site verification via Jekyll-seo-tag
 google_site_verification: NnoUcVom5yrsNeAcRLx7yQvWortvmqEP-yazzCmGSMA
 
