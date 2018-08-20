@@ -106,7 +106,7 @@ at something, and a novice at other things.
 ![A landscape of the Stanford hills including the Stanford Dish shrouded in
 light fog. The sun is setting behind the dish making the sky appear bright
 white.][dish_2]
-[_Stanford Dish_][dish_morning] (cropped), © [Jawed][jawed] ([CC-BY 3.0][cc-by-3])
+[_Stanford Dish_][dish_jawed] (cropped), © [Jawed][jawed] ([CC-BY 3.0][cc-by-3])
 
 [dish_jawed]: https://commons.wikimedia.org/wiki/File:Stanford_Dish.jpg
 [jawed]: https://en.wikipedia.org/wiki/User:Jawed
