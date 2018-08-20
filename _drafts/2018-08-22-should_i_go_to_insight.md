@@ -15,6 +15,11 @@ image_alt: >
 {% capture file_dir %}/files/insight/{% endcapture %}
 
 {% include lead_image.html %}
+[_Stanford Dish in the early morning hours_][dish_morning], © [Brian Hama][brian] ([CC-BY-SA 4.0][cc-by-sa-4])
+
+[dish_morning]: https://commons.wikimedia.org/wiki/File:Stanford_Dish_in_the_early_morning_hours.jpg
+[brian]: https://en.wikipedia.org/wiki/User:Brianhama
+[cc-by-sa-4]: https://creativecommons.org/licenses/by-sa/4.0/deed.en
 
 Following [Neha's][neha] [advice][advice] about writing a blog post for any
 email that you've written over and over, I thought I'd answer a question I get
@@ -101,6 +106,11 @@ at something, and a novice at other things.
 ![A landscape of the Stanford hills including the Stanford Dish shrouded in
 light fog. The sun is setting behind the dish making the sky appear bright
 white.][dish_2]
+[_Stanford Dish_][dish_morning] (cropped), © [Jawed][jawed] ([CC-BY 3.0][cc-by-3])
+
+[dish_jawed]: https://commons.wikimedia.org/wiki/File:Stanford_Dish.jpg
+[jawed]: https://en.wikipedia.org/wiki/User:Jawed
+[cc-by-3]: https://creativecommons.org/licenses/by/3.0/deed.en
 
 [dish_2]: {{ file_dir}}/stanford_dish_by_jawed_cc_by_3.jpg
 
