@@ -2,9 +2,9 @@
 layout: post
 title: "Should I Go To Insight Data Science?"
 description: >
-  Insight promises an easy transition to a career in data science or machine
-  learning, but is it the right program for you? I have a few words of advice
-  offered from experience.
+  Insight promises an easy transition from academia to a career in data
+  science or machine learning, but is it the right program for you? I have a
+  few words of advice offered from experience.
 image: /files/insight/stanford_dish_in_the_early_morning_hours_by_brianhama_cc_by_sa_4.jpg
 image_alt: >
   The Stanford Dish, a large radio telescope, in the early morning light. The
@@ -25,12 +25,12 @@ often: "I'm trying to get a job in data science; should I attend
 [advice]: https://twitter.com/math_rachel/status/822958139343446016
 [insight]: https://www.insightdatascience.com/
 
-I'm qualified to answer this question because I was an Insight Fellow in June
-of 2015 in the data science track (DS-SV-2015B). That, of course, is also my
-bias: I found my current and previous job through Insight, made a bunch of friends, and am
-happy with the experience in general. I am also a technical adviser, meaning I
-mentor the Fellows weekly in exchange for a small bit of equity in the
-company.[^1]
+I'm qualified to answer this question because during the summer of 2015 I was
+an Insight Fellow in the data science track (DS-SV-2015B). That, of course, is
+also my bias: I found my current and previous job through Insight, made a
+bunch of friends, and am happy with the experience in general. I am also a
+technical adviser, meaning I mentor Fellows weekly in exchange for a small bit
+of equity in the company.[^1]
 
 ## What is Insight?
 
@@ -38,20 +38,21 @@ Insight is a program to help people find jobs in data science related fields.
 Their initial program was the [data science][insight] track---which I will
 discuss in the remainder of this post---but they have expanded to cover
 various other data-related fields as well. The data science program is offered
-multiple cities: Boston, New York, Seattle, Toronto, and the Bay Area. There
-is also a remote session that is entirely online. They accept only PhDs,
+in multiple cities: Boston, New York, Seattle, Toronto, and the Bay Area.
+There is also a remote session that is entirely online. They accept only PhDs,
 mostly from technical fields but also a few other technically minded folk with
 liberal arts PhDs. Each program runs for about three months and at the end you
 will (ideally) have a job.
 
 ## What Would I Do There?
 
-Insight isn't like graduate school. While there are a few talks covering a variety
-of useful topics---SQL, startups and equity, tech interviews, etc.---the
-majority of the learning is project based. You pick a project and then spend a
-few weeks (feverishly) working on it, learning by doing and by talking to the
-people around you. If you are interested in seeing what one of these projects
-looks like, I wrote about mine in detail: [WhereTo.Photo][my_project].
+Insight isn't like graduate school. While there are a few talks covering a
+variety of useful topics---SQL, startups and equity, tech interviews,
+etc.---the majority of the learning is project based. You pick a project and
+then spend a few weeks (feverishly) working on it, learning by doing and by
+talking to the people around you. If you are interested in seeing what one of
+these projects looks like, I wrote about mine in detail:
+[WhereTo.Photo][my_project].
 
 [my_project]: {% post_url 2016-09-22-whereto_photo %}
 
@@ -69,8 +70,8 @@ can demo at any particular company is limited.
 
 Over the next few weeks you show off your project at some of the companies
 that you selected (eight per Fellow during my session) in what Insight calls a
-demo. The demo quick: a short presentation about the project you built, a live
-demonstration of it, and a few minutes for questions. [My demo slides are
+demo. The demo consists of a short presentation about the project you built, a
+live demonstration of it, and a few minutes for questions. [My demo slides are
 here][demo] if you want to see what that looks like.
 
 [demo]: https://docs.google.com/presentation/d/1BwKT9-hDt0jHaCS6qjVlPptYKe5CkCwQUpqdT4GI8hM/edit?usp=sharing
@@ -85,15 +86,15 @@ Throughout the program you receive guidance from a range of people:
 
 - _Insight staff_, who are often outstanding Fellows from previous sessions
 hired to lead the program.
-- _Industry mentors_, who have worked in data science for some time, for
-example, me.
-- _Previous Fellows_ who come back to help teach the next generation (me
-also).
+- _Industry mentors_, who have worked in data science for some time, such as
+myself.
+- _Previous Fellows_ who come back to help teach the next generation, also
+such as myself.
 - _The other Fellows_ who make up your session.
 
-This last group **shouldn't be underestimated**: you learn a lot from the
-other Fellows as you ask each other for help with your projects. Everyone is
-an expert at something, and a novice at something else.
+This last group **shouldn't be underestimated**: you learn a lot from your
+peers as you ask each other for help with your projects. Everyone is an expert
+at something, and a novice at other things.
 
 ## Why Should I Go?
 
@@ -114,7 +115,7 @@ them without Insight to make the introduction.
 
 ### A Killer Network
 
-Insight is also a great way to build a professional network. There are over a
+Insight is also a great way to build a professional network. There are over 
 fifteen hundred alumni scattered all across the country. Friends from my
 session now work at a wide variety of companies, including:
 AdRoll, 
@@ -151,10 +152,10 @@ dinner with the people from my session.
 Insight doesn't charge the Fellows anything, and they even offer a limited
 number of need-based scholarships to help cover expenses. Still, living
 without a job for three or four months is hard. Rent in the Bay Area will set
-you back around $2000 a month. My wife and I had a good amount of savings, but
-it was just about wiped out renting for three months without a second source
-of income. We did not have to fall back on our credit cards, but I know
-Fellows who needed to.
+you back around $2000 a month at least. My wife and I had a good amount of
+savings, but it was just about wiped out renting for three months without a
+second source of income. We did not have to fall back on our credit cards, but
+I know Fellows who needed to.
 
 Insight is also not your employer, so you will have to get health insurance
 somewhere else. My graduate school insurance lasted over the summer, but this
@@ -169,8 +170,8 @@ that they loved in data science, but for a few of them it took a long time.
 About a third of my class had offers within a week or two, another third took
 about a month or slightly longer, and the last third dragged out over a few
 months with one or two of my friends taking more than four months. I've known
-Fellows in other sessions who have taken six months of interviewing to get an
-offer.
+Fellows in other sessions who spent six months interviewing before receiving
+an offer.
 
 [faq]: https://www.insightdatascience.com/faq
 
