@@ -14,12 +14,15 @@ image_alt: >
 
 {% capture file_dir %}/files/insight/{% endcapture %}
 
-{% include lead_image.html %}
-[_Stanford Dish in the early morning hours_][dish_morning], © [Brian Hama][brian] ([CC-BY-SA 4.0][cc-by-sa-4])
-
-[dish_morning]: https://commons.wikimedia.org/wiki/File:Stanford_Dish_in_the_early_morning_hours.jpg
-[brian]: https://en.wikipedia.org/wiki/User:Brianhama
-[cc-by-sa-4]: https://creativecommons.org/licenses/by-sa/4.0/deed.en
+{% capture stanford_dish_twilight %}{{file_dir}}/stanford_dish_in_the_early_morning_hours_by_brianhama_cc_by_sa_4.jpg{% endcapture %}
+{% include figure.html
+  url=stanford_dish_twilight
+  image_alt='The Stanford Dish, a large radio telescope, in the early morning
+    light. The sky is purple and blue, and the dish is a white metal-lattice
+    structure glowing softly pink in the light. At the top of the dish is a
+    red light.'
+  caption='<a href="https://commons.wikimedia.org/wiki/File:Stanford_Dish_in_the_early_morning_hours.jpg"><em>Stanford Dish in the early morning hours</em></a>, © <a href="https://en.wikipedia.org/wiki/User:Brianhama"></a> (<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC-BY-SA 4.0</a>)'
+%}
 
 Following [Neha's][neha] [advice][advice] about writing a blog post for any
 email that you've written over and over, I thought I'd answer a question I get
@@ -103,16 +106,14 @@ at something, and a novice at other things.
 
 ## Why Should I Go?
 
-![A landscape of the Stanford hills including the Stanford Dish shrouded in
-light fog. The sun is setting behind the dish making the sky appear bright
-white.][dish_2]
-[_Stanford Dish_][dish_jawed] (cropped), © [Jawed][jawed] ([CC-BY 3.0][cc-by-3])
-
-[dish_jawed]: https://commons.wikimedia.org/wiki/File:Stanford_Dish.jpg
-[jawed]: https://en.wikipedia.org/wiki/User:Jawed
-[cc-by-3]: https://creativecommons.org/licenses/by/3.0/deed.en
-
-[dish_2]: {{ file_dir}}/stanford_dish_by_jawed_cc_by_3.jpg
+{% capture stanford_dish %}{{file_dir}}/stanford_dish_by_jawed_cc_by_3.jpg{% endcapture %}
+{% include figure.html
+  url=stanford_dish
+  image_alt='A landscape of the Stanford hills including the Stanford Dish
+    shrouded in light fog. The sun is setting behind the dish making the sky
+    appear bright white.'
+  caption='<a href="https://commons.wikimedia.org/wiki/File:Stanford_Dish.jpg"><em>Stanford Dish</em></a> (cropped), © <a href="https://en.wikipedia.org/wiki/User:Jawed">Jawed</a> (<a href="https://creativecommons.org/licenses/by/3.0/deed.en">CC-BY 3.0</a>)'
+%}
 
 ### Lots of Exposure
 
