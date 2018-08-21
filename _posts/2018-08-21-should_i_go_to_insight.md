@@ -21,7 +21,7 @@ image_alt: >
     light. The sky is purple and blue, and the dish is a white metal-lattice
     structure glowing softly pink in the light. At the top of the dish is a
     red light.'
-  caption='<a href="https://commons.wikimedia.org/wiki/File:Stanford_Dish_in_the_early_morning_hours.jpg"><em>Stanford Dish in the early morning hours</em></a>, © <a href="https://en.wikipedia.org/wiki/User:Brianhama"></a> (<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC-BY-SA 4.0</a>)'
+  caption='<a href="https://commons.wikimedia.org/wiki/File:Stanford_Dish_in_the_early_morning_hours.jpg"><em>Stanford Dish in the early morning hours</em></a>, © <a href="https://en.wikipedia.org/wiki/User:Brianhama">Brian Hama</a> (<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC-BY-SA 4.0</a>)'
 %}
 
 Following [Neha's][neha] [advice][advice] about writing a blog post for any
