@@ -67,6 +67,8 @@ speaking his second word a month later. We suspect Theo picked up signing
 quickly because it was a universal language in our house; Mom would only speak
 Cantonese and I would only speak English, but we both responded to his signs.
 
+[baby_sign]: https://en.wikipedia.org/wiki/Baby_sign_language
+
 Theo's language development is plotted below, showing the number of words he
 could speak in each "language" as a function of how old he was.
 
