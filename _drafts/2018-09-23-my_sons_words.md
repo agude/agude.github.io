@@ -45,11 +45,11 @@ You can find the Jupyter notebook used to perform this analysis
 [here][notebook] ([rendered on Github][rendered]). The data can be found
 [here][data].
 
-{% capture notebook_uri %}{{ "Most Popular Names Blit Same Time.ipynb" | uri_escape }}{% endcapture %}
+{% capture notebook_uri %}{{ "Theo's first words.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
-[data]: https://www.ssa.gov/oact/babynames/names.zip
+[data]: {{ file_dir }}/theo_words.csv
 
 ## Development
 
