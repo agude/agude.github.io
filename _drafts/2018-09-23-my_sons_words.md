@@ -95,3 +95,41 @@ parents do. The quick rise happened when he was visiting his grandparents
 regularly, and the plateau is when we stopped visiting for a few months while
 my parents were out of town. It will be interesting to see if Spanish
 continues developing when we visit them again.
+
+## The Words
+
+Below is plotted a selection of some of Theo's first words in each language.
+Notice that I have switched to a log plot for the _y_-axis to better show the
+beginnings of each language.
+
+[![A plot showing the first words my son could speak as a function of
+age.][first_words]][first_words]
+
+[first_words]: {{ file_dir }}/child0_first_words.svg
+
+In a future post I'll explore when Theo learned different groups of words
+(colors, numbers, foods, etc.), but for now here are some of the fun words
+Theo learned:
+
+- **Little Brother** (Cantonese): Theo has a brother who is 18 months younger
+than him; it only took Theo a few weeks to learn what the new intruder was
+called.
+- **Google** (English): We have a few [Google Homes][google_home] in our
+apartment and so we say the trigger word, "Hey Google", several times a day.
+Theo quickly picked it up. We knew we was saying "Google" and not babbling
+"Gaga" because he would either point at the device or grab it and shout at it
+when saying it.
+- **Cookie** (Spanish): Theo's first word in Spanish was "Cookie". We can
+blame the grandparents for this, as they love giving him sweets.
+- **Monkey** (Sign): "Monkey" is signed by holding one hand out with palm up
+and bouncing the other on top of it, palm facing out and fingers spread. He
+invented this sign after we used it while singing [Five Little
+Monkeys][five_monkeys].
+- **Pig** (Sign): "Pig" is signed by rubbing your chin between thumb and index
+finger. He modeled this sign after the hand motions I would make while reading
+[The Three Little Pigs][three_pigs], specifically during the line "Not by the
+hair on my chiny chin chin".
+
+[google_home]: https://en.wikipedia.org/wiki/Google_Home
+[five_monkeys]: https://en.wikipedia.org/wiki/Five_Little_Monkeys
+[three_pigs]: https://en.wikipedia.org/wiki/The_Three_Little_Pigs
