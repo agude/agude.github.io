@@ -17,14 +17,6 @@ development would be interesting, because she and her parents speak Cantonese
 and my parents speak Spanish (although they did not really pass it on to me);
 being huge nerds, we decided to record his progress.
 
-{% comment %}
-[![A plot showing the number of words my son could speak as a function of
-age.][words_plot]][words_plot]
-
-[words_plot]: {{ file_dir }}/child0_total_words.svg
-{% endcomment %}
-
-
 ## The Data
 
 We collected the data using a Google form. We decided a "word" was a phrase or
@@ -75,7 +67,7 @@ could speak in each "language" as a function of how old he was.
 [![A plot showing the number of words my son could speak as a function of
 age.][words_plot_linear]][words_plot_linear]
 
-[words_plot_linear]: {{ file_dir }}/child0_total_words_linear.svg
+[words_plot_linear]: {{ file_dir }}/theo_total_words_linear.svg
 
 Theo continued adding signs and Cantonese words for three months before he spoke
 a word in English, the language I speak to him. That is when he also started
@@ -105,7 +97,7 @@ beginnings of each language.
 [![A plot showing the first words my son could speak as a function of
 age.][first_words]][first_words]
 
-[first_words]: {{ file_dir }}/child0_first_words.svg
+[first_words]: {{ file_dir }}/theo_first_words.svg
 
 In a future post I'll explore when Theo learned different groups of words
 (colors, numbers, foods, etc.), but for now here are some of the fun words
