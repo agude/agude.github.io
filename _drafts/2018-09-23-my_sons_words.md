@@ -5,12 +5,12 @@ description: >
   My son is a little over two and unfortunately he has two huge nerds for
   parents. We tracked every word he's spoken to watch his language
   developement, and now you can join us!
-image: /files/words/Articulation_by_j_w_orr.png
+image: /files/my-sons-words/Articulation_by_j_w_orr.png
 image_alt: >
   A woodcut by JW Orr.
 ---
 
-{% capture file_dir %}/files/words/{% endcapture %}
+{% capture file_dir %}/files/my-sons-words/{% endcapture %}
 
 My son Theo was born in the summer of 2016. My wife and I knew his language
 development would be interesting, because she and her parents speak Cantonese
