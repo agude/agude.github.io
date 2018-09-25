@@ -58,12 +58,17 @@ accidents during the week when DST starts than the week after.
 
 [violin]: https://en.wikipedia.org/wiki/Violin_plot
 
-![Violin plot showing the ratio of accidents per day of the week for the week
+[![Violin plot showing the ratio of accidents per day of the week for the week
 after the start of daylight saving time, divided by the week two weeks
-after.]({{ file_dir
-}}/accidents_two_weeks_after_dst_change_in_california.svg)
+after.][ratio_plot]][ratio_plot]
 
-Except for Sunday, every day of the week following the time change has on average a higher rate of accidents! I am surprised that the accident rate stays high for so long. This indicates that it takes even longer than a week for people to catch up on sleep and for the accident rate to go back to normal.
+[ratio_plot]: {{ file_dir }}/accidents_two_weeks_after_dst_change_in_california.svg
+
+Except for Sunday, every day of the week following the time change has on
+average a higher rate of accidents! I am surprised that the accident rate
+stays high for so long. This indicates that it takes even longer than a week
+for people to catch up on sleep and for the accident rate to go back to
+normal.
 
 Daylight savings time causes more accidents, but those of us in California
 might be in luck! State Assembly member [Kansen Chu][chu] has introduced a
