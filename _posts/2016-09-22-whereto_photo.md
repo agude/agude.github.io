@@ -70,8 +70,9 @@ Francisco had 255,232 photos, Seattle had 118,464, and New York had 474,649.
 
 Here is every photo in my dataset for San Francisco:
 
-![Every photo from San Francisco in the dataset]({{ file_dir
-}}/sf_all_photos.png)
+[![Every photo from San Francisco in the dataset][every_photo_plot]][every_photo_plot]
+
+[every_photo_plot]: {{ file_dir }}/sf_all_photos.png
 
 ## Photo Subject and Quality
 
@@ -154,8 +155,9 @@ estimated best location, the green triangles are the hand selected start
 points, the red heat map is the normalized KDE, and black dots are the photos
 used in the calculation.
 
-![The KDE and best photo location for the tag `goldengate`]({{ file_dir
-}}/Goldengate_map.png)
+[![The KDE and best photo location for the tag `goldengate`][kde_plot]][kde_plot]
+
+[kde_plot]: {{ file_dir }}/Goldengate_map.png
 
 ## The Website
 
@@ -169,7 +171,9 @@ matches to tags were used.
 
 Here is what the website would show if the user searched for "Golden Gate":
 
-![The result page of the query "Golden Gate"]({{ file_dir }}/Goldengate.png)
+[![The result page of the query "Golden Gate"][result_page]][result_page]
+
+[result_page]: {{ file_dir }}/Goldengate.png
 
 The blue circles are photos, and the blue marker is the predicted best
 location. You can see the best location matches the maximum found on the
@@ -179,13 +183,16 @@ photos in the predicted best location were in fact great photos. Here is an
 example of the user clicking on a photo near the best location for the "Golden
 Gate" query:
 
-![A preview of one of the photos from the query "Golden Gate"]({{ file_dir
-}}/Goldengate_with_pic.png)
+[![A preview of one of the photos from the query "Golden Gate"][preview]][preview]
+
+[preview]: {{ file_dir }}/Goldengate_with_pic.png 
 
 Sometimes though, the algorithm failed, as in this case for the search term
 "Cars":
 
-![A failed search for "Cars"]({{ file_dir }}/Cars_failure.png)
+[![A failed search for "Cars"][failed_search]][failed_search]
+
+[failed_search]: {{ file_dir }}/Cars_failure.png
 
 In this case the normalization by the global KDE made Treasure Island the
 predicted best location because the only photos taken there were for a car
