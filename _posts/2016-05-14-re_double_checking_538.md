@@ -49,16 +49,20 @@ the scaling is such that the 80% confidence interval has been transformed to
 extend between -1 and 1 (as explained in more detail in my [previous
 post][lastpost]). The Democrats:
 
-![The distributions of results normalized to the prediction for the Democrats
-by candidate.]({{ file_dir }}/538_scaled_results_dem_by_candidate.svg)
+[![The distributions of results normalized to the prediction for the Democrats
+by candidate.][scaled_dem]][scaled_dem]
+
+[scaled_dem]: {{ file_dir }}/538_scaled_results_dem_by_candidate.svg
 
 FiveThirtyEight slightly over predicts Clinton's results, but does a pretty
 good job with Sanders. Michigan, of course, is the outlier for both.
 
 The Republicans:
 
-![The distributions of results normalized to the prediction for the
-Republicans by candidate.]({{ file_dir }}/538_scaled_results_gop_by_candidate.svg)
+[![The distributions of results normalized to the prediction for the
+Republicans by candidate.][scaled_gop]][scaled_gop]
+
+[scaled_gop]: {{ file_dir }}/538_scaled_results_gop_by_candidate.svg
 
 The Republicans, despite the craziness in their primary, are well modeled.
 Only Rubio is really skewed, tending to have his results over predicted.

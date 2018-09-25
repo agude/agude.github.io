@@ -115,8 +115,10 @@ map.plot(x, y, 'k.', markersize=1.5)
 This gives us a map of the locations of all the accidents in the state of
 California from 2001 to 2016:
 
-![A map of the location of all the accidents in the state of California from
-2001 to 2016]({{ file_dir }}/switrs_crash_map.png)
+[![A map of the location of all the accidents in the state of California from
+2001 to 2016][crash_map]][crash_map]
+
+[crash_map]: {{ file_dir }}/switrs_crash_map.png
 
 There are some weird artifacts and grid patterns that show up which are not
 due to our mapping but are inherent in the data. Some further clean up will be

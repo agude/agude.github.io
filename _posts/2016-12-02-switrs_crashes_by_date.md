@@ -53,8 +53,10 @@ The first thing to look at is crashes as a function of time. Below, I plot
 accidents per week to make the trends clearer; plotting per day results in too
 many points to separate by eye.
 
-![Line plot showing accidents per week from 2001 to 2015]({{ file_dir
-}}/accidents_per_week_in_california.svg)
+[![Line plot showing accidents per week from 2001 to
+2015][per_week_plot]][per_week_plot]
+
+[per_week_plot]: {{ file_dir }}/accidents_per_week_in_california.svg
 
 The week-to-week variation is rather significant, but two major trends are
 obvious:
@@ -82,8 +84,10 @@ appears 3 times).
 
 [leapday]: https://en.wikipedia.org/wiki/February_29
 
-![Line plot showing average accidents by day of the year]({{ file_dir
-}}/mean_accidents_by_date.svg)
+[![Line plot showing average accidents by day of the
+year][average_accidents]][average_accidents]
+
+[average_accidents]: {{ file_dir }}/mean_accidents_by_date.svg
 
 Holidays account for the extrema, with the minimum number of accidents taking
 place on Christmas, and the maximum number taking place on Halloween. In fact,
@@ -118,8 +122,10 @@ the median, and the two outer lines indicate the interquartile.
 
 [violin]: https://en.wikipedia.org/wiki/Violin_plot
 
-![Violin plot showing accidents by day of the week]({{ file_dir
-}}/accidents_by_day_of_the_week.svg)
+[![Violin plot showing accidents by day of the
+week][accident_violin_plot]][accident_violin_plot]
+
+[accident_violin_plot]: {{ file_dir }}/accidents_by_day_of_the_week.svg
 
 The distribution for each day of the week is bimodal. This is due to the [two
 plateaus in accident rates][apw]: a high one from 2001-2006, and a lower one
@@ -127,7 +133,6 @@ from 2011--2014. The first four weekdays have roughly the same number of
 crashes. Friday has more, presumably because people are more likely to go out
 after work. Saturday drops to a level slightly below the weekdays, though not
 by much, and Sunday has the lowest accident count.
-
 
 [apw]: #accidents-per-week
 

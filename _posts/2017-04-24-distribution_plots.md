@@ -57,9 +57,10 @@ clearly stated.
 
 [box]: https://en.wikipedia.org/wiki/Box_plot
 
-![A box plot showing the distribution of accidents per day in California
-from 2001–2015 by day of the week.]({{ file_dir
-}}/accidents_by_day_of_the_week_box.svg)
+[![A box plot showing the distribution of accidents per day in California from
+2001–2015 by day of the week.][box_plot]][box_plot]
+
+[box_plot]: {{ file_dir }}/accidents_by_day_of_the_week_box.svg
 
 These box plots show the distributions of the [number of accidents per day in
 California by day of the week][dotw] from 2001--2015. From the box plots it is
@@ -84,9 +85,10 @@ of points increases.
 
 [strip]: https://en.wikipedia.org/wiki/Dot_plot_(statistics)#Dot_plots
 
-![A strip plot showing the distribution of accidents per day in California
-from 2001–2015 by day of the week.]({{ file_dir
-}}/accidents_by_day_of_the_week_strip.svg)
+[![A strip plot showing the distribution of accidents per day in California
+from 2001–2015 by day of the week.][strip_plot]][strip_plot]
+
+[strip_plot]: {{ file_dir }}/accidents_by_day_of_the_week_strip.svg
 
 With the strip plot it is still possible to tell which days have more
 accidents, but without the quartiles to guide the eye it is not as easy. We
@@ -118,9 +120,10 @@ or two to pop up, but when they take more than a minute my productivity
 plummets as my iteration time explodes and I have to constantly context
 switch.
 
-![A swarm plot showing the distribution of accidents per day in California
-from 2001–2015 by day of the week.]({{ file_dir
-}}/accidents_by_day_of_the_week_swarm.svg)
+[![A swarm plot showing the distribution of accidents per day in California
+from 2001–2015 by day of the week.][swarm_plot]][swarm_plot]
+
+[swarm_plot]: {{ file_dir }}/accidents_by_day_of_the_week_swarm.svg
 
 I generated this plot using a sampled subset of the data because the swarms
 piled up when trying to show the full dataset. Even so, you can see some of the
@@ -154,9 +157,10 @@ few data points. The lack of standardization when it comes to the inner
 markings also makes them hard to interpret if they aren't explicitly
 explained.
 
-![A violin plot showing the distribution of accidents per day in California
-from 2001–2015 by day of the week.]({{ file_dir
-}}/accidents_by_day_of_the_week_violin.svg)
+[![A violin plot showing the distribution of accidents per day in California
+from 2001–2015 by day of the week.][violin_plot]][violin_plot]
+
+[violin_plot]: {{ file_dir }}/accidents_by_day_of_the_week_violin.svg
 
 The violin plots make the bimodal nature of the distributions crystal clear.
 Likewise it is easy to see that there is an increase on Friday and a decrease
