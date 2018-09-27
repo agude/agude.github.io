@@ -10,6 +10,7 @@ image_alt: >
   A sports utility vehicle belonging to the California Highway Patrol is
   parked in front of the Golden Gate Bridge.
 redirect_from: /2016/11/01/switrs_to_sqlite/
+categories: switrs
 ---
 
 {% capture file_dir %}/files/switrs_to_sqlite{% endcapture %}
