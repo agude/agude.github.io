@@ -32,8 +32,7 @@ category or not.
 
 {% assign placed_articles = 0 %}
 {% if page.categories != empty %}
-  {% assign sorted = site.posts | sort: 'date' %}
-  {% for post in sorted %}
+  {% for post in site.posts %}
     {% if placed_articles < 3 and post.url != page.url %}
       {% for category in page.categories %}
         {% if post.categories contains category %}
