@@ -13,12 +13,19 @@ image_alt: >
 
 {% include lead_image.html %}
 
-I am not the kind of person who I thought would be the target of academic
-bullying. I am male, I am tall, I am solidly built, and I generally get along
-with everyone. Likewise, my abuser was not the kind of person I would have
-looked out for. She was a woman, she was short, she did not look threatening
-in anyway. And yet within only a few months of meeting her, I was in the
-hospital.
+Working at CERN was the highlight of my academic career. In many ways it is
+the perfect place for a scientist, a place where you get to work on the most
+cutting-edge problems in your field while surrounded by people who all share
+the same passion for the work. But in one way, for me, it was horrible: it is
+where I met the woman would abuse me until I abandoned the project I had been
+sent over to work on.
+
+I am not the kind of person who I thought would be the target of [academic
+bullying][bullying]. I'm big, I'm tough, I get along with pretty much
+everyone. My abuser did not match my stereotypes of a bully either: she was a
+woman, diminutive, hardly threatening.
+
+[bullying]: https://en.wikipedia.org/wiki/Workplace_bullying_in_academia
 
 Writing this post, even years after the fact, was surprisingly tough; just
 thinking back on the events and the person raises my heart rate and makes me
@@ -30,12 +37,12 @@ hiding it.
 ## Heading to CERN, and The Start
 
 In 2012, I went to [CERN][cern] to complete some of my required service work
-on the [Compact Muon Solenoid][cms]. Service work is the
-mopping and sweeping of experimental physics: it must be done to produce the
-scientific results, but it is not really science in and of itself. For my
-service work, I was a High Level Trigger (HLT) on-call. I would take
-rotations monitoring the system and generally be available to trouble shoot
-problems at a moments notice, day or night.
+on the [Compact Muon Solenoid][cms]. Service work is the mopping and sweeping
+of experimental physics: it must be done to produce the scientific results,
+but it is not really science in and of itself. For my service work, I was a
+High Level Trigger (HLT) on-call. I took rotations monitoring the system and
+I had to be available to trouble shoot problems at a moments notice, day or
+night.
 
 [cern]: https://home.cern/
 [cms]: https://en.wikipedia.org/wiki/Compact_Muon_Solenoid
@@ -54,8 +61,8 @@ misunderstanding on my part indicated a problem with the on boarding system.
 
 ## The Attacks and My Panic Attack
 
-I do not remember how it started, but it soon became a constant barrage
-constant. Emails sent to the entire HLT list telling me that I was an idiot.
+I do not remember how the abuse started, but it soon became a constant
+barrage. Emails sent to the entire HLT list telling me that I was an idiot.
 Comments in group meetings saying that same. Saying that I was doing a
 terrible job. That I was doing the work too slow. That I did not know
 anything.
@@ -69,7 +76,7 @@ it happened: I could not stop clenching my fists, or even move my arms. I sunk
 to the floor as my heart raced in fear at having lost control of my movements.
 
 My post doc came back to the office then. He helped me into our Peugeot
-Partner CERN van and drove me to the hospital. By the time we got their I felt
+Partner CERN van and drove me to the hospital. By the time we got there I felt
 off, but could move at least. The doctor did an EKG because of my history of
 heart problems but found nothing wrong. He told me to try to avoid the person
 who was causing me stress and then discharged me.
@@ -82,26 +89,28 @@ great. Removing myself from the group stopped the abuse, but I felt like I let
 her win.
 
 For his part, my advisor---whom I love and would highly recommend---did not
-handle the response correctly. While he helped to get me out of the abusive
-situation, he would later privately defend her to me, implying that she was
-difficult to work with but was a really good scientist. Perhaps he was trying
-to explain why she would escape punishment, but I did not need to hear that, I
-needed his support. And of course, my bully suffered no consequences, and she
-is still working at CERN to this day.
+handle the response correctly. While he helped to get me away from my abuser,
+he would later privately defend her to me, implying that she was difficult to
+work with but was a really good scientist. Perhaps he was trying to explain
+why she would escape punishment, but I did not need to hear that, I needed his
+support. Of course, my bully suffered no consequences, and she is still
+working at CERN to this day.
 
-## Misc
+## The End
 
 [Bullying in academia][bullying] is not something you expect going in to your
 PhD program. Universities, national and international labs, and even your
 research group do not have good systems in place to [deal with brilliant
-jerks][jerks]. Most companies, it seems, do not either.
+jerks][jerks]. Most companies, it seems, do not either. I was able to escape
+and get on with my life, but I hope that future generations of grad students
+and academics won't have to. Until then, consider my anecdote in the same vein
+as my previous one [_Should I Get a PhD?_][phd]; advice for aspiring academics
+about a topic they might not have considered.
 
-[bullying]: https://en.wikipedia.org/wiki/Workplace_bullying_in_academia
 [jerks]: https://boss.blogs.nytimes.com/2012/09/26/what-do-you-do-with-the-brilliant-jerk/
+[phd]: {% post_url 2018-01-19-should_i_get_a_phd %}
 
 ---
 
 [^1]: The more responsibilities you could claim, the better your chances of [landing that rare tenure-track position][phd] most post docs desired.
 [^2]: Most of the previous on-calls were veterans who did not need in depth training or documentation. They understood the system because they had built it.
-
-[phd]: {% post_url 2018-01-19-should_i_get_a_phd %}
