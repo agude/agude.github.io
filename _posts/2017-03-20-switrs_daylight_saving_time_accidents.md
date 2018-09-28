@@ -8,6 +8,7 @@ description: >
 image: /files/switrs-dst/dst_change_gare_saint_lazare_1937.png
 image_alt: >
   A man adjusts the central time of the Gare Saint-Lazare in Paris, 1937.
+categories: switrs
 ---
 
 {% capture file_dir %}/files/switrs-dst{% endcapture %}
