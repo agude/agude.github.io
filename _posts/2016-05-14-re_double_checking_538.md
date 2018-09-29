@@ -10,6 +10,7 @@ image_alt: >
   A black and white photograph of a child filling in a bar graph on a
   chalkboard.
 redirect_from: /2016/05/14/re_double_checking_538/
+categories: fivethirtyeight
 ---
 
 {% capture file_dir %}/files/2016_primary_prediction{% endcapture %}
