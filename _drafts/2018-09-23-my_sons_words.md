@@ -83,11 +83,11 @@ English exploded also, but a little later. At 25 months he knew about 40
 English words, and now he knows over 100 a month and a half later!
 
 His Spanish development took off at around the same time, but quickly
-plateaued. The reason is simple: neither of us speaks it well, but my parents
-do. The quick rise happened when he was visiting his grandparents regularly,
-and the plateau is when we stopped visiting for a few months while my parents
-were out of town. It will be interesting to see if Spanish continues
-developing when we visit them again.
+plateaued, only to take off again recently. The reason is simple: neither of
+us speaks it well, but my parents do. The quick rise happened when he was
+visiting his grandparents regularly, and the plateau is when we stopped
+visiting for a few months while my parents were out of town. Now that we are
+visiting them again, he has started picking up more words.
 
 ## The Words
 
