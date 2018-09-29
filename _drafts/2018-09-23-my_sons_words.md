@@ -15,28 +15,28 @@ image_alt: >
 
 My son Theo was born in the summer of 2016. My wife and I knew his language
 development would be interesting, because she and her parents speak Cantonese
-and my parents speak Spanish (although they did not really pass it on to me);
-being huge nerds, we decided to record his progress.
+and my parents speak Spanish (although they did not really pass it on to me).
+Being huge nerds, we decided to record his progress.
 
 ## The Data
 
 We collected the data using a Google form. We decided a "word" was a phrase or
 sign that Theo associated with a specific concept. This meant that when he
 babbled "mama" or "baba" at 10 months we did not count those because he didn't
-have a clear association. We did count some made-up words that did had
+have a clear association. We did count some made-up words where he had an
 association, but these were mostly in sign language where he would invent
-signs to convey his meaning.
+them to convey his meaning.
 
-We found data collection to be very difficult and error prone. Deciding when
-Theo had a clear association was difficult because the best indicator was that
-he used the word multiple times for the same thing. Sometimes these reuses
-would be separated by many days, forcing us to try to remember when he first
-used it.
+We found data collection to be difficult and error prone. Deciding when Theo
+had a clear association was hard because the best indicator was that he used
+the word multiple times for the same thing. Sometimes these reuses would be
+separated by many days, forcing us to try to remember when he first used it.
 
 As Theo got older and much better at language, we ran into new issues. First,
 he was learning so fast that we had trouble keeping up and remembering if a
 word had been recorded our not. Second, he became so good at mimicking sounds
-that he would repeat words back to you, but not remember them later.
+that he would repeat words back to you several times, but not remember them
+later.
 
 Still, we think the data is a pretty good representation of his language
 development. I'll spend a future post exploring some off the quality issues.
@@ -77,21 +77,21 @@ language my parents speak to him.
 
 Theo slowly added words, week by week, until right before he turned 2. At 23
 months his language acquisition exploded. He started the period knowing 25
-Cantonese words. He knew 50 a month later, and almost 100 after just two
+Cantonese words. He knew 50 a month later, and almost 100 after two
 months. Theo is now 26 months old and knows almost 200 words in Cantonese.
 English exploded also, but a little later. At 25 months he knew about 40
 English words, and now he knows over 100 a month and a half later!
 
 His Spanish development took off at around the same time, but quickly
-plateaued. The reasoning is simple: neither of us speaks it well, but my
-parents do. The quick rise happened when he was visiting his grandparents
-regularly, and the plateau is when we stopped visiting for a few months while
-my parents were out of town. It will be interesting to see if Spanish
-continues developing when we visit them again.
+plateaued. The reason is simple: neither of us speaks it well, but my parents
+do. The quick rise happened when he was visiting his grandparents regularly,
+and the plateau is when we stopped visiting for a few months while my parents
+were out of town. It will be interesting to see if Spanish continues
+developing when we visit them again.
 
 ## The Words
 
-Below is plotted a selection of some of Theo's first words in each language.
+I plotted a selection of some of Theo's first words in each language below.
 Notice that I have switched to a log plot for the _y_-axis to better show the
 beginnings of each language.
 
