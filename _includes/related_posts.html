@@ -4,6 +4,7 @@ category or not.
 {% endcomment %}
 
 {% assign max_posts = 3 %}
+{% assign placed_posts = '' | split: '' %}
 
 {% comment %} Store the two h2 snippets to variables {% endcomment %}
 
@@ -30,29 +31,34 @@ category or not.
 
 {% comment %} Try to get up to max_posts related posts {% endcomment %}
 
-{% assign placed_articles = 0 %}
 {% if page.categories != empty %}
   {% for post in site.posts %}
-    {% if placed_articles < 3 and post.url != page.url %}
-      {% for category in page.categories %}
-        {% if post.categories contains category %}
-          {% comment %} Place the h2 if we haven't already {% endcomment %}
-          {% if placed_h2 == false %}
-            {{ related_snippet }}
-            {% assign placed_h2 = true %}
+    {% if post.url != page.url %}
+      {% if placed_posts.size < 3 %}
+        {% for category in page.categories %}
+          {% if post.categories contains category %}
+            {% unless placed_posts contains post.url %}
+              {% comment %} Place the h2 if we haven't already {% endcomment %}
+              {% if placed_h2 == false %}
+                {{ related_snippet }}
+                {% assign placed_h2 = true %}
+              {% endif %}
+              {% comment %} Place a related article {% endcomment %}
+              {% include article_card.html
+                url=post.url
+                image=post.image
+                image_alt=post.image_alt
+                title=post.title
+                description=post.description
+              %}
+              {% assign placed_posts = placed_posts | push: post.url %}
+              {% continue %}
+            {% endunless %}
           {% endif %}
-          {% comment %} Place a related article {% endcomment %}
-          {% include article_card.html
-            url=post.url
-            image=post.image
-            image_alt=post.image_alt
-            title=post.title
-            description=post.description
-          %}
-          {% assign placed_articles = placed_articles | plus: 1 %}
-          {% continue %} 
-        {% endif %}
-      {% endfor %}
+        {% endfor %}
+      {% else %}
+        {% break %}
+      {% endif %}
     {% endif %}
   {% endfor %}
 {% endif %}
@@ -60,23 +66,28 @@ category or not.
 {% comment %} Fill in the remaining posts with recent ones {% endcomment %}
 
 {% if site.related_posts != empty %}
-  {% assign articles_left = max_posts | minus: placed_articles %}
-  {% if articles_left > 0 %}
+  {% if placed_posts.size < max_posts %}
     {% comment %} Place the h2 if we haven't already {% endcomment %}
     {% if placed_h2 == false %}
       {{ recent_snippet }}
       {% assign placed_h2 = true %}
     {% endif %}
     {% comment %} Place a recent article {% endcomment %}
-    {% for post in site.related_posts limit:articles_left %}
-      {% include article_card.html
-        url=post.url
-        image=post.image
-        image_alt=post.image_alt
-        title=post.title
-        description=post.description
-      %}
-      {% assign placed_articles = placed_articles | plus: 1 %}
+    {% for post in site.related_posts %}
+      {% if placed_posts.size < max_posts %}
+        {% unless placed_posts contains post.url %}
+          {% include article_card.html
+            url=post.url
+            image=post.image
+            image_alt=post.image_alt
+            title=post.title
+            description=post.description
+          %}
+          {% assign placed_posts = placed_posts | push: post.url %}
+        {% endunless %}
+      {% else %}
+        {% break %}
+      {% endif %}
     {% endfor %}
   {% endif %}
 {% endif %}
