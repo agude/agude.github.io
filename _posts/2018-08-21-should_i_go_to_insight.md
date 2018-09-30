@@ -10,6 +10,7 @@ image_alt: >
   The Stanford Dish, a large radio telescope, in the early morning light. The
   sky is purple and blue, and the dish is a white metal-lattice structure
   glowing softly pink in the light. At the top of the dish is a red light.
+categories: career-advice
 ---
 
 {% capture file_dir %}/files/insight/{% endcapture %}
