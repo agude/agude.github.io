@@ -8,7 +8,7 @@ description: >
 image: /files/my-sons-words/Articulation_by_j_w_orr.png
 image_alt: >
   A woodcut by J. W. Orr showing a woman using a blackboard to teach young
-  children how to prounce words.
+  children how to pronounce words.
 ---
 
 {% capture file_dir %}/files/my-sons-words/{% endcapture %}
