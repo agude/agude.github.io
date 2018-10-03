@@ -109,7 +109,7 @@ than him; it only took Theo a few weeks to learn what the new intruder was
 called.
 - **Google** (English): We have a few [Google Homes][google_home] in our
 apartment and so we say the trigger word, "Hey Google", several times a day.
-Theo quickly picked it up. We knew we was saying "Google" and not babbling
+Theo quickly picked it up. We knew he was saying "Google" and not babbling
 "Gaga" because he would either point at the device or grab it and shout at it
 when saying it.
 - **Cookie** (Spanish): Theo's first word in Spanish was "Cookie". We can
