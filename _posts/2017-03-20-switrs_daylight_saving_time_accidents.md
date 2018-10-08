@@ -17,14 +17,14 @@ categories: switrs
 
 The [daylight saving time][dst] (DST) change is awful---we get less sleep and
 it [might not even save energy][energy] as was intended! Worse, studies by
-[Varughese][varughese] and [Smith][smith] have shown that the time change
-increases the number of automobile accidents! Let's look for a similar trend
-in the [SWITRS data][s2s_post] that I've collected.
+[Varughese & Allen][varughese] and [Smith][smith] have shown that the time
+change increases the number of automobile accidents! Let's look for a similar
+trend in the [SWITRS data][s2s_post] that I've collected.
 
 [dst]: https://en.wikipedia.org/wiki/Daylight_saving_time
 [energy]: https://www.scientificamerican.com/article/does-daylight-saving-times-save-energy/
-[varughese]: https://www.ncbi.nlm.nih.gov/pubmed/11152980
-[smith]: https://www.colorado.edu/economics/papers/WPs-14/wp14-05/abstract14-05.html
+[varughese]: https://doi.org/10.1016/S1389-9457(00)00032-0
+[smith]: https://doi.org/10.1257/app.20140100
 [s2s_post]: {% post_url 2016-11-01-switrs_to_sqlite %}
 
 The Jupyter notebook used to perform this analysis can be found
@@ -47,8 +47,8 @@ choice for normalization because:
 
 [apw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#accidents-per-week
 
-- The weeks after the time change have similar lighting to the week of the
-time change.
+- The weeks after the time change have similar daylight hours to the week of
+the time change.
 - The accident rate is still slightly elevated a week later, so normalizing by
 the very next week hides some of the increase that is due to the start of
 DST.[^2]
