@@ -5,8 +5,11 @@ description: >
   Getting my PhD was mostly a great experience, but one woman made my life
   hell for a short time at CERN. It's tough to write about, but I thought I
   owed it to myself and others.
-image: /files/my-academic-bully/teaching_punctuation_by_j_w_orr.png
+image: /files/my-academic-bully/the_dunce_by_harold_copping.jpg
 image_alt: >
+  A painting by Harold Dunce shows a boy in a suite sitting alone one a bench.
+  He is surrounded by books, and he holds one in his right hand loosely as if
+  about to drop it. He hangs his head in sorrow or shame.
 ---
 
 {% capture file_dir %}/files/my-academic-bully/{% endcapture %}
