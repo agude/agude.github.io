@@ -49,13 +49,13 @@ choice for normalization because:
 
 - The weeks after the time change have similar lighting to the week of the
 time change.
-- The accident rate is still elevated (as we shall see) a week later, so
-normalizing by the very next week hides some of the increase that is due to
-the start of DST.
+- The accident rate is still slightly elevated a week later, so normalizing by
+the very next week hides some of the increase that is due to the start of
+DST.[^2]
 
 The [violin plots][violin] below show the distribution of these ratios from
 the years 2001 to 2016. A value greater than 1 means that there are more
-accidents during the week when DST starts than the week after.
+accidents during the week when DST starts than two weeks after.
 
 [violin]: https://en.wikipedia.org/wiki/Violin_plot
 
@@ -67,8 +67,8 @@ after.][ratio_plot]][ratio_plot]
 
 Except for Sunday, every day of the week following the time change has on
 average a higher rate of accidents! I am surprised that the accident rate
-stays high for so long. This indicates that it takes even longer than a week
-for people to catch up on sleep and for the accident rate to go back to
+stays high the entire week. This indicates that it takes even longer than a
+week for people to catch up on sleep and for the accident rate to go back to
 normal.
 
 Daylight savings time causes more accidents, but those of us in California
@@ -81,7 +81,15 @@ all get that hour of sleep we deserve.
 
 ---
 
-[^1]: It is also possible to use the week before or the week directly after to normalize. For the curious, I have also made [a plot using the week before for normalization][before_plot] and [the week after][after_plot]. They both show the same trend.
+**Update**: I have rewritten part of this article to make my methodology
+clearer. The [changes can be found in git][changes].
+
+[changes]: https://github.com/agude/agude.github.io/commit/1092c8ce001a946eb47ae07cc0c65324a1417a82
+
+[^1]: It is also possible to use the week before or the week directly after the DST change to normalize. For the curious, I have also made [a plot using the week before for normalization][before_plot] and [the week after][after_plot]. They both show the same trend.
+[^2]: I assume that people are back to normal after three weeks, and so I use that week as a control. I then compare that ratios of the control week with [one week after the DST change][1_vs_3] and [two weeks after the DST change][2_vs_3] to see which is more normal. One week after has Monday and Thursday high, indicating people are still having more accidents than we expect. Two weeks after the ratios are near one, and so I conclude people are back to normal by then. 
 
 [before_plot]: {{ file_dir }}/accidents_after_dst_change_in_california_before.svg
 [after_plot]: {{ file_dir }}/accidents_after_dst_change_in_california.svg
+[1_vs_3]: {{ file_dir }}/accidents_one_and_three_weeks_after_dst_change_in_california.svg
+[2_vs_3]: {{ file_dir }}/accidents_two_and_three_weeks_after_dst_change_in_california.svg
