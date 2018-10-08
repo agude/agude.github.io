@@ -67,8 +67,7 @@ misunderstanding on my part indicated a problem with the on boarding system.
 I do not remember how the abuse started, but it soon became a constant
 barrage. Emails sent to the entire HLT list telling me that I was an idiot.
 Comments in group meetings saying that same. Saying that I was doing a
-terrible job. That I was doing the work too slow. That I did not know
-anything.
+terrible job. That I was doing the work too slow. That I knew nothing.
 
 My panic attack came on suddenly. If asked, I would have said that a panic
 attack must start with a moment of sheer panic, but mine did not. Mine started
