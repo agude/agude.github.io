@@ -20,13 +20,13 @@ Working at CERN was the highlight of my academic career. In many ways it is
 the perfect place for a scientist, a place where you get to work on the most
 cutting-edge problems in your field while surrounded by people who all share
 the same passion for the work. But in one way, for me, it was horrible: it is
-where I met the woman would abuse me until I abandoned the project I had been
+where I met the woman who would abuse me until I abandoned the project I had been
 sent over to work on.
 
 I am not the kind of person who I thought would be the target of [academic
 bullying][bullying]. I'm big, I'm tough, I get along with pretty much
 everyone. My abuser did not match my stereotypes of a bully either: she was a
-woman, diminutive, hardly threatening.
+woman, diminutive, seemingly unthreatening.
 
 [bullying]: https://en.wikipedia.org/wiki/Workplace_bullying_in_academia
 
@@ -40,12 +40,12 @@ hiding it.
 ## Heading to CERN, and The Start
 
 In 2012, I went to [CERN][cern] to complete some of my required service work
-on the [Compact Muon Solenoid][cms]. Service work is the mopping and sweeping
-of experimental physics: it must be done to produce the scientific results,
-but it is not really science in and of itself. For my service work, I was a
-High Level Trigger (HLT) on-call. I took rotations monitoring the system and
-I had to be available to trouble shoot problems at a moments notice, day or
-night.
+on the [Compact Muon Solenoid experiment][cms]. Service work is the mopping
+and sweeping of experimental physics: it must be done to produce the desired
+scientific results, but it is not really science in and of itself. For my
+service work, I was a High Level Trigger (HLT) on-call. I took rotations
+monitoring the system and I had to be available to troubleshoot problems at a
+moment's notice, day or night.
 
 [cern]: https://home.cern/
 [cms]: https://en.wikipedia.org/wiki/Compact_Muon_Solenoid
@@ -54,19 +54,19 @@ The HLT group ran the on-call program. The group was composed of grad students
 and post docs (and some professors) who wrote the software, built the
 hardware, and monitored the system. The post doc I worked with from Minnesota
 ran part of the group, and his deputy was a French post doc and my eventual
-abuser. She did not like me from the get go; I suspect she saw me as a natural
-ally to my post doc who she was in competition with.[^1]
+abuser. She did not like me from the get-go; I suspect she saw me as a natural
+ally to my post doc, with whom she was in competition.[^1]
 
 The HLT post docs and grad students spent lots of time training me to handle
 the responsibilities of the on-call position. In fact, as one of the first
 people to go through the training,[^2] they spent extra time with me as any
-misunderstanding on my part indicated a problem with the on boarding system.
+misunderstanding on my part indicated a problem with the onboarding system.
 
 ## The Attacks and My Panic Attack
 
 I do not remember how the abuse started, but it soon became a constant
 barrage. Emails sent to the entire HLT list telling me that I was an idiot.
-Comments in group meetings saying that same. Saying that I was doing a
+Comments in group meetings saying the same. Saying that I was doing a
 terrible job. That I was doing the work too slow. That I knew nothing.
 
 My panic attack came on suddenly. If asked, I would have said that a panic
@@ -87,21 +87,21 @@ who was causing me stress and then discharged me.
 
 I told my adviser I would not work with the bully or in the HLT group anymore.
 He agreed to this and found me another service job to work on, which was
-great. Removing myself from the group stopped the abuse, but I felt like I let
+great. Removing myself from the group stopped the abuse, but I felt like I had let
 her win.
 
 For his part, my advisor---whom I love and would highly recommend---did not
 handle the response correctly. While he helped to get me away from my abuser,
 he would later privately defend her to me, implying that she was difficult to
 work with but was a really good scientist. Perhaps he was trying to explain
-why she would escape punishment, but I did not need to hear that, I needed his
+why she would escape punishment, but I did not need to hear that; I needed his
 support. Of course, my bully suffered no consequences, and she is still
 working at CERN to this day.
 
 ## The End
 
-[Bullying in academia][bullying] is not something you expect going in to your
-PhD program. Universities, national and international labs, and even your
+[Bullying in academia][bullying] is not something you expect when starting
+your PhD program. Universities, national and international labs, and even your
 research group do not have good systems in place to [deal with brilliant
 jerks][jerks]. Most companies, it seems, do not either. I was able to escape
 and get on with my life, but I hope that future generations of grad students
