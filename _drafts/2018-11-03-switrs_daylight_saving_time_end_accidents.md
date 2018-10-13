@@ -72,8 +72,8 @@ after.][ratio_plot]][ratio_plot]
 [ratio_plot]: {{ file_dir }}/accidents_after_end_dst_in_california.svg
 
 There is, on average, a larger number of crashes on Sunday when the time
-changes as seen by [Varughese & Allen][varughese]. However, the same excess is
-not seen when a different normalization is chosen, like using the [week
+changes as seen by Varughese & Allen. However, the same excess is not seen
+when a different normalization is chosen, like using the [week
 before][before_plot] or [two weeks after][after_plot].[^2] The week before has
 different lighting during commute times and so it is easier to dismiss, but
 two weeks after has similar lighting.
@@ -83,11 +83,11 @@ two weeks after has similar lighting.
 
 ## _t_-Test
 
-Instead, we turn away from our "_chi-by-eye_" test and do an actual statistical
-test: a [_two-tailed paired t-test_][paired_t-test], the same test used by
-[Varughese & Allen][varughese]. They find a significant (_p_ < 0.002) increase
-in the number of deadly accidents on the Sunday that DST ends, but I do not
-(_p_ = 0.082).
+Instead, we turn away from our "_chi-by-eye_" test and do an actual
+statistical test: a [_two-tailed paired t-test_][paired_t-test], the same test
+used by Varughese & Allen. They find a significant (_p_ < 0.002) increase in
+the number of deadly accidents on the Sunday that DST ends, but I do not (_p_
+= 0.082).
 
 Our methods are different in a few key ways: 
 
