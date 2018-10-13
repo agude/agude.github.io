@@ -99,11 +99,6 @@ significant result (_p_ = 0.158).
 
 [paired_t-test]: https://en.wikipedia.org/wiki/Paired_difference_test
 
-## Prop 7
-
-I do not find a significant increase in the number of accidents when
-DST ends.
-
 As for California, [Kansen Chu][chu] has once again given us a chance to get
 rid of the time change with [Prop 7][prop7]. His [earlier bill
 failed][ab-385], so he has gone directly to the voters this time. I, for one,
