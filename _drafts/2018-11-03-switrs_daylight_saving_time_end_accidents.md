@@ -18,8 +18,8 @@ categories: switrs
 We all hate the change to [daylight saving time][dst] (DST) in the spring; it
 makes us tired, grumpy, but worst of all it [causes us to crash our cars at a
 higher rate][dst_article]! The end of DST is not as universally reviled,
-probably because we get the hour of sleep we lost back, but [Varughese &
-Allen][varughese] found that there was a "significant increase in number of
+probably because we get back the hour of sleep we lost earlier in the year, but [Varughese &
+Allen][varughese] found that there was still a "significant increase in number of
 accidents on the Sunday of the fall shift from DST".[^1]
 
 [dst]: https://en.wikipedia.org/wiki/Daylight_saving_time
@@ -52,7 +52,7 @@ week later, when people are presumably back to normal.
 [apw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#accidents-per-week
 [dst_ar]: {% post_url 2017-03-20-switrs_daylight_saving_time_accidents %}#accident-ratio
 
-Unlike last time, I am not normalize by the number of accidents two weeks
+Unlike last time, I am not normalizing by the number of accidents two weeks
 after the change. The reason for this is simple: that's Thanksgiving week, and
 [as I showed before][thanksgiving] the number of accidents is greatly reduced
 during the holidays.
