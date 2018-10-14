@@ -10,6 +10,7 @@ image_alt: >
   A painting by Harold Dunce shows a boy in a suite sitting alone one a bench.
   He is surrounded by books, and he holds one in his right hand loosely as if
   about to drop it. He hangs his head in sorrow or shame.
+categories: career-advice
 ---
 
 {% capture file_dir %}/files/my-academic-bully/{% endcapture %}
