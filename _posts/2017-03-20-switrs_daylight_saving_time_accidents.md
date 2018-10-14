@@ -71,7 +71,30 @@ stays high the entire week. This indicates that it takes even longer than a
 week for people to catch up on sleep and for the accident rate to go back to
 normal.
 
-Daylight savings time causes more accidents, but those of us in California
+## _t_-Test
+
+So the "_chi-by-eye_" plot is suggestive, but I can quantify whether the
+results are significant using a [two-tailed paired _t_-test][paired_t-test].
+This is the method Varughese & Allen use. Doing so gives the following
+results.
+
+[paired_t-test]: https://en.wikipedia.org/wiki/Student%27s_t-test#Paired_samples
+
+| Day          | _t_-value |   _p_-value |
+|:-------------|----------:|------------:|
+| **Monday**   |       2.7 |   **0.017** |
+| **Tuesday**  |       2.5 |   **0.023** |
+| Wednesday    |       1.6 |     0.122   |
+| Thursday     |       1.4 |     0.191   |
+| Friday       |       0.9 |     0.361   |
+| **Saturday** |       2.6 |   **0.019** |
+| Sunday (DST) |      -1.6 |     0.121   |
+
+The increase in accidents on Monday is significant, as is Tuesday and
+Saturday. Sunday is the only day that trends lower (matching the plot), but
+not significantly.
+
+So daylight savings time causes more accidents, but those of us in California
 might be in luck! State Assembly member [Kansen Chu][chu] has introduced a
 bill to [finally do away with DST][ab-385]! Hopefully it will pass and let us
 all get that hour of sleep we deserve.
