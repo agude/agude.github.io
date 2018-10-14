@@ -53,7 +53,9 @@ defaults:
         card: "summary"
 
 # Google site verification via Jekyll-seo-tag
-google_site_verification: NnoUcVom5yrsNeAcRLx7yQvWortvmqEP-yazzCmGSMA
+webmaster_verifications:
+  google: NnoUcVom5yrsNeAcRLx7yQvWortvmqEP-yazzCmGSMA
+  bing: 529AEED96113CF6F5C0DB973E3336D9E
 
 # Google Analytics
 google_analytics: UA-88777885-1
