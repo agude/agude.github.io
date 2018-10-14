@@ -97,7 +97,7 @@ Our methods are different in a few key ways:
 If I reproduce their methods with my dataset, I still do not find a
 significant result (_p_ = 0.158).
 
-[paired_t-test]: https://en.wikipedia.org/wiki/Paired_difference_test
+[paired_t-test]: https://en.wikipedia.org/wiki/Student%27s_t-test#Paired_samples
 
 As for California, [Kansen Chu][chu] has once again given us a chance to get
 rid of the time change with [Prop 7][prop7]. His [earlier bill
