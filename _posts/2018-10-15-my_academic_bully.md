@@ -62,15 +62,18 @@ The HLT post docs and grad students spent lots of time training me to handle
 the responsibilities of the on-call position. In fact, as one of the first
 people to go through the training,[^2] they spent extra time with me as any
 misunderstanding on my part indicated a problem with the onboarding system.
+Although she would later abuse me for incompetence, my abuser refused to
+contribute to my training.
 
 ## The Attacks and My Panic Attack
 
 I do not remember how the abuse started, but it soon became a constant
 barrage. Emails sent to the entire HLT list telling me that I was an idiot.
-Comments in group meetings saying the same. Saying that I was doing a
-terrible job. That I was doing the work too slow. That I knew nothing.
+Comments in group meetings saying the same. Saying that I was doing a terrible
+job. That I was doing the work too slow. That I knew nothing. That I made them
+look bad.
 
-My panic attack came on suddenly. If asked, I would have said that a panic
+My panic attack came on suddenly. If asked, I would have guessed that a panic
 attack must start with a moment of sheer panic, but mine did not. Mine started
 with anger. I had just gotten back to my office from a meeting and opened my
 email to find another one from my bully. I clenched my fists, imagining the
@@ -104,11 +107,11 @@ working at CERN to this day.
 [Bullying in academia][bullying] is not something you expect when starting
 your PhD program. Universities, national and international labs, and even your
 research group do not have good systems in place to [deal with brilliant
-jerks][jerks]. Most companies, it seems, do not either. I was able to escape
-and get on with my life, but I hope that future generations of grad students
-and academics won't have to. Until then, consider my anecdote in the same vein
-as my previous one [_Should I Get a PhD?_][phd]; advice for aspiring academics
-about a topic they might not have considered.
+jerks][jerks]. I was able to escape and get on with my life, but I hope that
+future generations of grad students and academics won't have to. Until then,
+consider my anecdote in the same vein as my previous one: [_Should I Get a
+PhD?_][phd]; advice for aspiring academics about a topic they might not have
+considered.
 
 [jerks]: https://boss.blogs.nytimes.com/2012/09/26/what-do-you-do-with-the-brilliant-jerk/
 [phd]: {% post_url 2018-01-19-should_i_get_a_phd %}
