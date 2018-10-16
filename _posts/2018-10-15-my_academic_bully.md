@@ -29,7 +29,7 @@ bullying][bullying]. I'm big, I'm tough, I get along with pretty much
 everyone. My abuser did not match my stereotypes of a bully either: she was a
 woman, diminutive, seemingly unthreatening.
 
-[bullying]: https://en.wikipedia.org/wiki/Workplace_bullying_in_academia
+[bullying]: https://doi.org/10.1038/d41586-018-06040-w
 
 Writing this post, even years after the fact, was surprisingly tough; just
 thinking back on the events and the person raises my heart rate and makes me
