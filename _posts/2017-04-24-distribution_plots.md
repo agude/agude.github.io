@@ -86,9 +86,10 @@ of points increases.
 [strip]: https://en.wikipedia.org/wiki/Dot_plot_(statistics)#Dot_plots
 
 [![A strip plot showing the distribution of accidents per day in California
-from 2001–2015 by day of the week.][strip_plot]][strip_plot]
+from 2001–2015 by day of the week.][strip_plot_png]][strip_plot]
 
 [strip_plot]: {{ file_dir }}/accidents_by_day_of_the_week_strip.svg
+[strip_plot_png]: {{ file_dir }}/accidents_by_day_of_the_week_strip.png
 
 With the strip plot it is still possible to tell which days have more
 accidents, but without the quartiles to guide the eye it is not as easy. We
@@ -121,9 +122,10 @@ plummets as my iteration time explodes and I have to constantly context
 switch.
 
 [![A swarm plot showing the distribution of accidents per day in California
-from 2001–2015 by day of the week.][swarm_plot]][swarm_plot]
+from 2001–2015 by day of the week.][swarm_plot_png]][swarm_plot]
 
 [swarm_plot]: {{ file_dir }}/accidents_by_day_of_the_week_swarm.svg
+[swarm_plot_png]: {{ file_dir }}/accidents_by_day_of_the_week_swarm.png
 
 I generated this plot using a sampled subset of the data because the swarms
 piled up when trying to show the full dataset. Even so, you can see some of the
