@@ -101,11 +101,13 @@ significant result (_p_ = 0.158).
 
 As for California, [Kansen Chu][chu] has once again given us a chance to get
 rid of the time change with [Prop 7][prop7]. His [earlier bill
-failed][ab-385], so he has gone directly to the voters this time. I, for one,
-am voting yes!
+failed][ab-385], so he has gone directly to the voters this time. Although
+[permanent DST is not the ideal solution][usc], I'm still for getting rid of
+the time change itself!
 
 [chu]: https://en.wikipedia.org/wiki/Kansen_Chu
 [prop7]: https://ballotpedia.org/California_Proposition_7,_Permanent_Daylight_Saving_Time_Measure_(2018)
+[usc]: https://medium.com/@USC/why-proposition-7-is-bad-for-public-health-825905ba54f6
 [ab-385]: https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201520160AB385
 
 ---
