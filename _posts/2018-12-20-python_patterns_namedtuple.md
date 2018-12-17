@@ -33,8 +33,8 @@ card = (
 )
 {% endhighlight python %}
 
-Simple, but a little confusing. What does `None` signify? Writing code to work with
-these objects is error prone:
+Simple, but a little confusing. What does `None` signify? Writing code to work
+with these objects is error prone:
 
 {% highlight python %}
 def check_email(card):
@@ -46,15 +46,15 @@ def check_email(card):
   return is_valid
 {% endhighlight python %}
 
-Is `2` the correct index to use? Maybe it was `3`? Catching mistakes in the code is tough for anyone
-reading it.
+Is `2` the correct index to use? Maybe it was `3`? Catching mistakes in the
+code is tough for anyone reading it.
 
 ## Alternatives
 
 A dictionary is a natural solution to this problem, because we can use strings
-as keys, e.g. `card["email"]` instead of `card[2]`. But we might need to
-maintain compatibility with something that expects a sequence, as was the case
-when [passing artists around in my `matplotlib` blitting post][blitting].
+as keys, for example `card["email"]` instead of `card[2]`. But we might need
+to maintain compatibility with something that expects a sequence, as was the
+case when [passing artists around in my `matplotlib` blitting post][blitting].
 
 [blitting]: {% post_url 2018-04-07-matplotlib_blitting_supernova %}#blitting
 
@@ -80,13 +80,14 @@ class Card:
   # and many other methods
 {% endhighlight python %}
 
-Not difficult to write, but tedious due to all of the boilerplate code. Thankfully, someone has already done so.
+Not difficult to write, but tedious due to all of the boilerplate code.
+Thankfully, someone has already done so.
 
 ## Named Tuples
 
 The [named tuple][namedtuple] functions exactly like a tuple, with one
-addition: you can access each component of the tuple by name. Our card example would now looks
-like this:
+addition: you can access each component of the tuple by name. Our card example
+would now looks like this:
 
 [namedtuple]: https://docs.python.org/3/library/collections.html#collections.namedtuple
 
