@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Python Patterns: namedtuple"
+title: "Python Patterns: Named Tuples"
 description: >
   I often have to loop over a set of objects to find the one with the greatest
   score. You can use an if statement and a placeholder, but there are more
@@ -12,42 +12,40 @@ image_alt: >
 categories: python_patterns
 ---
 
-\\ include lead_image.html %}
+{% include lead_image.html %}
 
-If you are working with ordered data in Python, odds are you are going to use
-a [sequence][seq]. Lists and tuples are simple: they provide a method to
-iterate over their data in order, they're built-in to Python and so available
-everywhere, and many third-party libraries require you to use an object with
-the same sort of signature. They work great when your data is simple.
+In Python, [sequence][seq] are a great way to hold a set of ordered data. As
+long as the data is simple, a list or tuple is perfect because they are
+included in every install of Python. But data is not always simple; you can
+put any object you want in a sequence, making it easy to lose track of what is
+where.
 
 [seq]: https://docs.python.org/3.7/library/stdtypes.html#sequence-types-list-tuple-range
 
-Python, though, does not require you to keep things simple. You can put any
-sort of object in a list or tuple, which makes it easy to lose track of what
-is where. One might create cards in a virtual address book like this:
+For example, one might create cards in a virtual address book like this:
 
-\\ highlight python %}
+{% highlight python %}
 card = (
   "Alex",
   "Gude",
-  "alex@alexgude.com",
+  "me@alexgude.com",
   None,
   "17 St., Smaller Town, CA",
 )
-\\ endhighlight python %}
+{% endhighlight python %}
 
-Simple, but a little confusing. What's that `None`? Writing code to work with
+Simple, but a little confusing. What is that `None`? Writing code to work with
 these objects is error prone:
 
-\\ highlight python %}
+{% highlight python %}
 def check_email(card):
   """Check if a card has an email
   address that is valid."""
   email = card[2]  # 2?!
-  is_valid = '@' in email
+  is_valid = email is not None and '@' in email
 
   return is_valid
-\\ endhighlight python %}
+{% endhighlight python %}
 
 Is 2 right? Maybe it was 3? Catching mistakes in the code is tough for anyone
 reading it.
@@ -63,34 +61,37 @@ when [passing artists around in my `matplotlib` blitting post][blitting].
 
 Instead, we could build a class that acts like a list or tuple::
 
-\\ highlight python %}
+{% highlight python %}
 class Card:
   def __init__(self, first_name, last_name, ...):
     self.__internal = [first_name, last_name, ...]
     self.first_name = self.__internal[0]
     self.last_name = self.__internal[1]
-    ...
+    ...  # etc.
 
   def __len__(self):
-    return self.__internal.__len__
+    return self.__internal.__len__()
 
-  def __getitem__(self):
-    return self.__internal.__getitem__
+  def __getitem__(self, key):
+    return self.__internal.__getitem__(key)
 
   def __next__(self):
-    return self.__internal.__getitem__
-\\ endhighlight python %}
+    return self.__internal.__next__()
+
+  # and many more dunder methods
+{% endhighlight python %}
 
 A little annoying to write. Thankfully, someone has already done so.
 
-## `namedtuple`
+## Named Tuples
 
-The [named tuple][namedtuple] functions exactly like a tuple, with one addition: you can
-access the data by name. Our card example would now look like this:
+The [named tuple][namedtuple] functions exactly like a tuple, with one
+addition: you can access the data by name. Our card example would now looks
+like this:
 
 [namedtuple]: https://docs.python.org/3/library/collections.html#collections.namedtuple
 
-\\ highlight python %}
+{% highlight python %}
 from collections import namedtuple
 
 Card = namedtuple(
@@ -106,17 +107,17 @@ Card = namedtuple(
 )
 
 alex_card = Card(
-    "Alex", "Gude", "alex@alexgude.com",
+    "Alex", "Gude", "me@alexgude.com",
     None, "17 St., Smaller Town, CA",
 )
-\\ endhighlight python %}
+{% endhighlight python %}
 
 This is a much cleaner than our original card tuple. We now know the missing
 value is the phone number! We can access the values with dot operators as
 well: `card.email`. And the named tuple stills works exactly as you would
 expect for a standard tuple:
 
-\\ highlight python %}
+{% highlight python %}
 # For loops work
 for item in alex_card:
     print(item)
@@ -126,19 +127,20 @@ alex_card[2] == alex_card.email
 
 # And we can unpack
 first, last, email, phone, address = alex_tuple
-\\ endhighlight python %}
+{% endhighlight python %}
 
-Code that operates on this named tuple is much easier to read; the following
-snippet is clearly extracting the email value:
+Code that operates on this named tuple is much easier to read as well, because
+it does not rely on [magic numbers][magic_number]:
 
-\\ highlight python %}
+{% highlight python %}
 def new_check_email(card):
   """Check if a card has an email
   address that is valid."""
-  is_valid = '@' in card.email
+  email = card.email
+  is_valid = email is not None and '@' in email
 
   return is_valid
-\\ endhighlight python %}
+{% endhighlight python %}
 
-Of course, or old function will still work with it's magic number 2 and all,
-because the named tuples are backwards compatible!
+Named tuples are not as well known as dictionaries or classes, but they solve
+a common problem and while making your code more readable!
