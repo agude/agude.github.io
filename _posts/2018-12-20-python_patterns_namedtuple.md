@@ -2,13 +2,12 @@
 layout: post
 title: "Python Patterns: Named Tuples"
 description: >
-  I often have to loop over a set of objects to find the one with the greatest
-  score. You can use an if statement and a placeholder, but there are more
-  elegant ways!
+  Sometimes I need to store an ordered dataset, but reference specific members
+  from it. Named tuples in Python provide a clean way to do this!
 image: /files/patterns/lycodon_modestus.jpg
 image_alt: >
-  A watercolor drawing of a Spectacled Caiman fighting with a False Coral
-  Snake by Maria Sibylla Merian.
+  A drawing of a Lycodon Modestus snake from the Iconographic Zoologica
+  collection.
 categories: python_patterns
 ---
 
