@@ -12,13 +12,13 @@ image_alt: >
 categories: python_patterns
 ---
 
-{% include lead_image.html %}
+\\ include lead_image.html %}
 
 If you are working with ordered data in Python, odds are you are going to use
 a [sequence][seq]. Lists and tuples are simple: they provide a method to
 iterate over their data in order, they're built-in to Python and so available
-everywhere, and many third-party libraries require an object with the same
-sort of signature. They work great when your data is simple.
+everywhere, and many third-party libraries require you to use an object with
+the same sort of signature. They work great when your data is simple.
 
 [seq]: https://docs.python.org/3.7/library/stdtypes.html#sequence-types-list-tuple-range
 
@@ -26,7 +26,7 @@ Python, though, does not require you to keep things simple. You can put any
 sort of object in a list or tuple, which makes it easy to lose track of what
 is where. One might create cards in a virtual address book like this:
 
-{% highlight python %}
+\\ highlight python %}
 card = (
   "Alex",
   "Gude",
@@ -34,12 +34,12 @@ card = (
   None,
   "17 St., Smaller Town, CA",
 )
-{% endhighlight python %}
+\\ endhighlight python %}
 
 Simple, but a little confusing. What's that `None`? Writing code to work with
-these objects is no better:
+these objects is error prone:
 
-{% highlight python %}
+\\ highlight python %}
 def check_email(card):
   """Check if a card has an email
   address that is valid."""
@@ -47,18 +47,23 @@ def check_email(card):
   is_valid = '@' in email
 
   return is_valid
-{% endhighlight python %}
+\\ endhighlight python %}
 
-Is 2 right? Maybe 3? Catching mistakes in the code is tough.
+Is 2 right? Maybe it was 3? Catching mistakes in the code is tough for anyone
+reading it.
 
 ## Alternatives
 
 A dictionary is a natural solution to this problem, because we can use strings
 as keys like `card["email"]` instead of `card[2]`. But we might need to
-maintain compatability with something that expects a sequence. We could build
-a class like this:
+maintain compatibility with something that expects a sequence, as was the case
+when [passing artists around in my `matplotlib` blitting post][blitting].
 
-{% highlight python %}
+[blitting]: {% post_url 2018-04-07-matplotlib_blitting_supernova %}#blitting
+
+Instead, we could build a class that acts like a list or tuple::
+
+\\ highlight python %}
 class Card:
   def __init__(self, first_name, last_name, ...):
     self.__internal = [first_name, last_name, ...]
@@ -74,16 +79,18 @@ class Card:
 
   def __next__(self):
     return self.__internal.__getitem__
-{% endhighlight python %}
+\\ endhighlight python %}
 
 A little annoying to write. Thankfully, someone has already done so.
 
 ## `namedtuple`
 
-The named tuple functions exactly like a tuple, with one addition: you can
+The [named tuple][namedtuple] functions exactly like a tuple, with one addition: you can
 access the data by name. Our card example would now look like this:
 
-{% highlight python %}
+[namedtuple]: https://docs.python.org/3/library/collections.html#collections.namedtuple
+
+\\ highlight python %}
 from collections import namedtuple
 
 Card = namedtuple(
@@ -92,17 +99,46 @@ Card = namedtuple(
         "first_name",
         "last_name",
         "email",
-        "phone",
+        "phone",  # Our empty field revealed!
         "address",
     ]
 
 )
 
-card = Card(
+alex_card = Card(
     "Alex", "Gude", "alex@alexgude.com",
     None, "17 St., Smaller Town, CA",
 )
-{% endhighlight python %}
+\\ endhighlight python %}
 
-We can still get the email with `card[2]`, but we can also get it with
-`card.email`, which is much clearer!
+This is a much cleaner than our original card tuple. We now know the missing
+value is the phone number! We can access the values with dot operators as
+well: `card.email`. And the named tuple stills works exactly as you would
+expect for a standard tuple:
+
+\\ highlight python %}
+# For loops work
+for item in alex_card:
+    print(item)
+
+# We can access with . or []
+alex_card[2] == alex_card.email
+
+# And we can unpack
+first, last, email, phone, address = alex_tuple
+\\ endhighlight python %}
+
+Code that operates on this named tuple is much easier to read; the following
+snippet is clearly extracting the email value:
+
+\\ highlight python %}
+def new_check_email(card):
+  """Check if a card has an email
+  address that is valid."""
+  is_valid = '@' in card.email
+
+  return is_valid
+\\ endhighlight python %}
+
+Of course, or old function will still work with it's magic number 2 and all,
+because the named tuples are backwards compatible!
