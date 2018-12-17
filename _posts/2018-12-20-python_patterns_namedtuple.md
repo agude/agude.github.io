@@ -13,7 +13,7 @@ categories: python_patterns
 
 {% include lead_image.html %}
 
-In Python, [sequence][seq] are a great way to hold a set of ordered data. As
+In Python, [sequences][seq] are a great way to hold a set of ordered data. As
 long as the data is simple, a list or tuple is perfect because they are
 included in every install of Python. But data is not always simple; you can
 put any object you want in a sequence, making it easy to lose track of what is
@@ -33,7 +33,7 @@ card = (
 )
 {% endhighlight python %}
 
-Simple, but a little confusing. What is that `None`? Writing code to work with
+Simple, but a little confusing. What does `None` signify? Writing code to work with
 these objects is error prone:
 
 {% highlight python %}
@@ -46,13 +46,13 @@ def check_email(card):
   return is_valid
 {% endhighlight python %}
 
-Is 2 right? Maybe it was 3? Catching mistakes in the code is tough for anyone
+Is `2` the correct index to use? Maybe it was `3`? Catching mistakes in the code is tough for anyone
 reading it.
 
 ## Alternatives
 
 A dictionary is a natural solution to this problem, because we can use strings
-as keys like `card["email"]` instead of `card[2]`. But we might need to
+as keys, e.g. `card["email"]` instead of `card[2]`. But we might need to
 maintain compatibility with something that expects a sequence, as was the case
 when [passing artists around in my `matplotlib` blitting post][blitting].
 
@@ -77,15 +77,15 @@ class Card:
   def __next__(self):
     return self.__internal.__next__()
 
-  # and many more dunder methods
+  # and many other methods
 {% endhighlight python %}
 
-A little annoying to write. Thankfully, someone has already done so.
+Not difficult to write, but tedious due to all of the boilerplate code. Thankfully, someone has already done so.
 
 ## Named Tuples
 
 The [named tuple][namedtuple] functions exactly like a tuple, with one
-addition: you can access the data by name. Our card example would now looks
+addition: you can access each component of the tuple by name. Our card example would now looks
 like this:
 
 [namedtuple]: https://docs.python.org/3/library/collections.html#collections.namedtuple
@@ -111,7 +111,7 @@ alex_card = Card(
 )
 {% endhighlight python %}
 
-This is a much cleaner than our original card tuple. We now know the missing
+This is much cleaner than our original card tuple. We now know the missing
 value is the phone number! We can access the values with dot operators as
 well: `card.email`. And the named tuple stills works exactly as you would
 expect for a standard tuple:
@@ -142,4 +142,4 @@ def new_check_email(card):
 {% endhighlight python %}
 
 Named tuples are not as well known as dictionaries or classes, but they solve
-a common problem and while making your code more readable!
+a common problem and make your code more readable!
