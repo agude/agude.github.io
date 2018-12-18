@@ -87,11 +87,12 @@ updates the artists
 
 The artists that are updated each frame must be kept in an iterable container.
 A normal list will work, but a more convenient way to do this is using a
-[`namedtuple`][namedtuple]. This will let us access the different artists by
-name, for example `artists.flux_line`, instead of having to remember their
-index number.
+[`namedtuple`][namedtuple] (which I [discuss in detail in another
+post][tuple_post]). This will let us access the different artists by name, for
+example `artists.flux_line`, instead of having to remember their index number.
 
 [namedtuple]: https://docs.python.org/2/library/collections.html#collections.namedtuple
+[tuple_post]: {% post_url 2018-12-18-python_patterns_namedtuple %}
 
 ### init_fig Function
 
