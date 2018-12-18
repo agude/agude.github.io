@@ -132,6 +132,8 @@ first, last, email, phone, address = alex_tuple
 Code that operates on this named tuple is much easier to read as well, because
 it does not rely on [magic numbers][magic_number]:
 
+[magic_number]: https://en.wikipedia.org/wiki/Magic_number_(programming)
+
 {% highlight python %}
 def new_check_email(card):
   """Check if a card has an email
