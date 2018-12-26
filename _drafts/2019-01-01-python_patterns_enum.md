@@ -2,10 +2,11 @@
 layout: post
 title: "Python Patterns: Enum"
 description: >
-image: /files/patterns/lycodon_modestus.jpg
+  
+image: /files/patterns/locupletissimi_rerum_naturalium_thesauri_v1_lxxxiii_snake.png
 image_alt: >
-  A drawing of a Lycodon Modestus snake from the Iconographic Zoologica
-  collection.
+  A drawing of a red and white snake taken from Plate LXXXIII from
+  Locupletissimi rerum naturalium thesauri volume 1.
 categories: python_patterns
 ---
 
