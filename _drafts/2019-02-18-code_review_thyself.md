@@ -15,18 +15,19 @@ code review another developer checks your code and gives you feedback. I'm not
 going to go into details about how to do a code review, for that I recommend
 [Michael Lynch's][ml_twitter] [_How To Do Code Reviews Like a
 Human_][like_a_human]. Instead, I'm going to walk you through a _self review_
-of my own, old code.
+of my (really) old code.
 
 [ml_twitter]: https://twitter.com/deliberatecoder
 [like_a_human]: https://mtlynch.io/human-code-reviews-1/
 
-## The Old
+## The Old Code
 
 In 2011, I [wrote a dice roller in Python][2011_code]. It read a [dice
 notation string][dice_notation] and generated the right random numbers to
 simulate rolling the dice. In 2013, I went back and [completely rewrote the
 code][2013_code] to use an [LL parser][ll_parser] (because I wanted to learn
-how).
+how). This made it a lot more complciated, but also able to handle much more
+complicated dice notation, like `5(d10-1)+15-3L-H`.[^1]
 
 [2011_code]: https://github.com/agude/Dice/blob/48b37b24dee336ede767e31ec888894ba139a27b/dice.py
 [dice_notation]: https://en.wikipedia.org/wiki/Dice_notation
@@ -62,22 +63,20 @@ def roll(self, doSum=None):
     print(values)
 {% endhighlight python %}
 
-The class (`self`) variables are:
+The class (`self`) variables are defined elsewhere, so a quick summary is:
 
 - `number`: The number of dice to roll.
 - `size`: The number of sides per die.
 - `highestMod`/`lowestMod`: Whether to drop a certain number of highest or
   lowest rolled dice
-- `globalMod`: A number added to the sum of the rolled dice.
-- `localMod`: A number added to each die before summing.
-- `doSum`: Should the dice be summed, or should the individual rolls be
-reported.
+- `globalMod`/`localMod`: Modifiers to add to the dice.
+- `doSum`: Sum the result instead of reporting individually.
 
-[2018_code]: https://github.com/agude/Dice/blob/cf96a6629b9f4e58813bf45b25a567f630c8f711/dice/dice.py
 
-## The Review
+## Code Review
 
-This code has roughly four parts, so I'll break it into four pieces to review:
+The code is divided into four parts, so I'll break it into four pieces to
+review:
 
 {% highlight python %}
 def roll(self, doSum=None):
@@ -130,7 +129,16 @@ This chunk of code is pretty good!
     print(values)
 {% endhighlight python %}
 
+- Instead of overwriting `doSum` above, just test the `or` here.
+- Consider `return` instead of `print`. It is easy to print a returned value,
+but it's hard to write tests for print statements.
 
+
+## The New Code
+
+And here is the [updated version of the code][2018_code]:
+
+[2018_code]: https://github.com/agude/Dice/blob/cf96a6629b9f4e58813bf45b25a567f630c8f711/dice/dice.py
 
 {% highlight python %}
 def roll(self, do_sum=False):
@@ -170,3 +178,7 @@ def roll(self, do_sum=False):
 
 I have removed almost all of the logging code to make it a little less
 cluttered.
+
+---
+
+[^1]: Which translates to: Roll five dice with ten sides. From each die subtract one from the result. Drop the three lowest and the highest die. Sum the remaining dice and add fifteen.
