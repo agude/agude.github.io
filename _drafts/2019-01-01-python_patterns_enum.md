@@ -2,7 +2,7 @@
 layout: post
 title: "Python Patterns: Enum"
 description: >
-  
+
 image: /files/patterns/locupletissimi_rerum_naturalium_thesauri_v1_lxxxiii_snake.png
 image_alt: >
   A drawing of a red and white snake taken from Plate LXXXIII from
@@ -12,9 +12,25 @@ categories: python_patterns
 
 {% include lead_image.html %}
 
+Things often come in sets:
+
+- States
+- Pokemon
+- Playing cards
+
+Each collection has a set of items that belong to them---California, Charizard,
+Jack of Clubs---and other items that do not---Norway, Omnimon, Black Lotus.
+Checking if an item is a valid member of the set is a common task, and there
+are many mays to do so in Python. You can use strings and tuples, you can
+store them in lists, sets, or classes. But a particularly good way to do it is
+with [**enumerations**][enums] or enums.
+
+[enums]: https://docs.python.org/3/library/enum.html
+
 ## Playing Cards
 
-We might implement a [playing card][card_52] as follows:
+Without using enums we might implement a [standard playing card][card_52] as
+follows:
 
 [card_52]: https://en.wikipedia.org/wiki/Standard_52-card_deck
 
@@ -44,21 +60,23 @@ Class PlayingCard:
     return self.rank == other.rank
 {% endhighlight python %}
 
-We had to write a bit of an annoying `__rank_to_value()` function to make it
-easy to compare Aces to Kings, but over all it is not so bad. We can now
-declare cards easily enough:
+This will let us compare cards using comparison opperators, but to do so we
+had to write a bit of an annoying `__rank_to_value()` function; otherwise Aces
+and Kings would be tough to compare to 2s and 3s.
+
+With that done, we can now declare cards easily enough:
 
 {% highlight python %}
-ace_of_spades        = PlayingCard("Spade", "A")
-king_of_hearts       = PlayingCard("Heart", "K")
-dead_eight_of_spades = PlayingCard("Spades", 8)
-dead_eight_of_clubs  = PlayingCard("Club", "8")
-my_favorite_card     = PlayingCard("Stars", 85)
+ace_of_spades    = PlayingCard("Spade", "A")
+king_of_hearts   = PlayingCard("Heart", "K")
+eight_of_spades  = PlayingCard("Spades", 8)
+eight_of_clubs   = PlayingCard("Club", "8")
+my_favorite_card = PlayingCard("Stars", 85)
 {% endhighlight python %}
 
 Did you catch all the errors? We could write some error checking in the class
-to check values, but it would again be a bit tedious. Python includes a better
-way.
+to check values, but it would again be a bit tedious. Enums will make it much
+easier.
 
 ## The Enum
 
@@ -84,7 +102,7 @@ class CardSuit(Enum):
 The function `auto()` sets the values and insures that they are unique. The
 members are not orderable (so `CardSuit.CLUBS > CardSuit.DIAMONDS` will raise
 an error), but do have equality (so `CardSuit.CLUBS != CardSuit.DIAMONDS`
-works). This will let us makesure only valid suits are accepted.
+works). This will let us ensure only valid suits are accepted.
 
 We can also test other values against the Enum to see if they are members:
 
@@ -144,7 +162,7 @@ Class PlayingCard:
     return self.rank == other.rank
 {% endhighlight python %}
 
-It is not much easier to catch errors in our card definitions (in fact, the
+It is now much easier to catch errors in our card definitions (in fact, the
 runtime will catch them for you):
 
 {% highlight python %}
