@@ -32,7 +32,7 @@ There are many ways to represent members from these sets in Python:
 [namedtuples]: {% post_url 2018-12-18-python_patterns_namedtuple %}
 
 But is `"PR"` a valid state? Is `Pokemon("Digimon")` a member of Pokemon? Is
-`("Lotus", "Black")` a playing card? We could maintain a seperate `set()` of
+`("Lotus", "Black")` a playing card? We could maintain a separate `set()` of
 all valid members to check, but then we have to maintain that.
 
 Thankfully, Python provides a way to create these sets and their members at
@@ -73,7 +73,7 @@ class PlayingCard:
     return self.rank == other.rank
 {% endhighlight python %}
 
-This class works with the standard comparison opperators, but to do so we had
+This class works with the standard comparison operators, but to do so we had
 to write a bit of an annoying `__rank_to_value()` function; otherwise Aces and
 Kings would be tough to compare to 2s and 3s!
 
