@@ -18,12 +18,25 @@ Things often come in sets:
 - Pokemon
 - Playing cards
 
-Each collection has a set of items that belong to them---California, Charizard,
-Jack of Clubs---and other items that do not---Norway, Omnimon, Black Lotus.
-Checking if an item is a valid member of the set is a common task, and there
-are many mays to do so in Python. You can use strings and tuples, you can
-store them in lists, sets, or classes. But a particularly good way to do it is
-with [**enumerations**][enums] or enums.
+Each set has items that belong to them (like California, Charizard, Jack of
+Clubs) and checking if an item is a valid member is a common task. Some
+collections (playing cards, for example) are also orderable; twos come before
+fives which come before Kings.
+
+There are many ways to represent members from these sets in Python:
+
+- Unique string: `"CA"`, `"WA"`, `"MN"`
+- Classes: `class Pokemon: ... `
+- Tuples (or [namedtuples][namedtuples]): `("Clubs", "J")`, `("Hearts", 5)` 
+
+[namedtuples]: {% post_url 2018-12-18-python_patterns_namedtuple %}
+
+But is `"PR"` a valid state? Is `Pokemon("Digimon")` a member of Pokemon? Is
+`("Lotus", "Black")` a playing card? We could maintain a seperate `set()` of
+all valid members to check, but then we have to maintain that.
+
+Thankfully, Python provides a way to create these sets and their members at
+the same time: [**enumerations**][enums], or enums.
 
 [enums]: https://docs.python.org/3/library/enum.html
 
@@ -36,14 +49,14 @@ follows:
 
 {% highlight python %}
 @total_ordering
-Class PlayingCard:
+class PlayingCard:
   def __init__(self, suit, rank):
     self.suit = suit
     self.rank = rank
     self.__rank_to_value()
 
   def __rank_to_value(self):
-    # Convert face cards to int values
+    """ Convert face cards to integer values. """
     if rank == "A":
       self.__value = 14
     elif rank == "K":
@@ -60,9 +73,9 @@ Class PlayingCard:
     return self.rank == other.rank
 {% endhighlight python %}
 
-This will let us compare cards using comparison opperators, but to do so we
-had to write a bit of an annoying `__rank_to_value()` function; otherwise Aces
-and Kings would be tough to compare to 2s and 3s.
+This class works with the standard comparison opperators, but to do so we had
+to write a bit of an annoying `__rank_to_value()` function; otherwise Aces and
+Kings would be tough to compare to 2s and 3s!
 
 With that done, we can now declare cards easily enough:
 
@@ -74,23 +87,23 @@ eight_of_clubs   = PlayingCard("Club", "8")
 my_favorite_card = PlayingCard("Stars", 85)
 {% endhighlight python %}
 
-Did you catch all the errors? We could write some error checking in the class
-to check values, but it would again be a bit tedious. Enums will make it much
-easier.
+Did you catch all the errors? We could write some error checking in the class,
+but it would again be a bit tedious. Enums will let us  represent the
+suites and values, check that they are valid, and order based on value,
+without writing a lot of extra code.
 
-## The Enum
-
-
-## Revisiting Cards
+## Playing Cards with Enums
 
 An enum has exactly the properties we want:
 
-- We can test membership, so only real suits and values are allowed
+- We can test membership, so only real suits and values are allowed.
 - We can order them, so we know that King > Jack > Ten.
 
 First, we define the suits:
 
 {% highlight python %}
+from enum import Enum, auto
+
 class CardSuit(Enum):
     """ Playing card suits. """
     CLUBS = auto()
@@ -122,6 +135,8 @@ Second, we define a `CardValue`, this time using `IntEnum` because we want the
 values to be comparable.
 
 {% highlight python %}
+from enum import IntEnum, unique
+
 @unique
 class CardRank(IntEnum):
     """ Playing card values. They are order able as excepted:
@@ -137,9 +152,8 @@ class CardRank(IntEnum):
     ACE = 14
 {% endhighlight python %}
 
-Because we're using an `IntEnum`, we can order the values: `CardRank.TEN <
-CardRank.KING`. The decorator `@unique` checks that we haven't double assigned
-any values.
+These `IntEnum`s are orderable: `CardRank.TEN < CardRank.KING`. The decorator
+`@unique` adds a check that makes sure we haven't double assigned any values.
 
 Now the card class is easy to implement:
 
