@@ -19,8 +19,8 @@ a score for each one of them, and save both the best score and object
 associated with it. For example, looking for the highest scoring word that I
 can make in [Scrabble][scrabble] with the letters I currently have.
 
-The one way to do this is to loop over all the objects and use a placeholder
-to remember the best one seen so far, like this:
+One way to do this is to loop over all the objects and use a placeholder to
+remember the best one seen so far, like this:
 
 [scrabble]: https://en.wikipedia.org/wiki/Scrabble
 
@@ -38,8 +38,9 @@ for word in possible_words(my_letters):
     best_word = word
 {% endhighlight python %}
 
-This code is not that complicated, but we can still improve its readability
-with a quick tweak.
+You have probably written this logic before in some of your own code. The code
+is not that complicated, but we can still improve its readability with a quick
+tweak.
 
 ## Simplifying with `max()`
 
@@ -92,8 +93,8 @@ if we only cared about the word that generated the highest score, not the
 score itself? Then there is an even simpler way!
 
 By default `max()` uses the standard comparison operator, but we can change
-that using the `key` argument as we did above. We can use `score_word()` as
-the comparison function:
+that to use our `score_word()` using the same `key` argument from above. Then
+we have:
 
 {% highlight python %}
 words = possible_words(my_letters)
