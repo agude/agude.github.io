@@ -2,9 +2,8 @@
 layout: post
 title: "Python Patterns: Enum"
 description: >
-  Things in the real world often come in sets of specific items, like countries,
-  states, or playing cards. You can assign an integer to each item, but Python
-  has a more elegant way.
+  Things often come in sets of specific items, like states, Pokémon, or
+  playing cards. Python has an elegant way of representing them using enum.
 image: /files/patterns/locupletissimi_rerum_naturalium_thesauri_v1_lxxxiii_snake.png
 image_alt: >
   A drawing of a red and white snake taken from Plate LXXXIII from
@@ -14,11 +13,7 @@ categories: python_patterns
 
 {% include lead_image.html %}
 
-Things often come in sets:
-
-- States
-- Pokémon
-- Playing cards
+Things often come in sets, for example, States, Pokémon, Playing cards, etc.
 
 Each set has items that belong to them (like California, Charizard, Jack of
 Clubs) and checking if an item is a valid member is a common task. Some
@@ -166,12 +161,12 @@ Class PlayingCard:
   def __init__(self, suit, rank):
     # Check that the suit is valid
     if not isinstance(suit, CardSuit):
-      Raise("{} is an invalid CardSuit.".format(suit))
+      raise ValueError("{} is an invalid CardSuit.".format(suit))
     self.suit = suit
 
     # Check that the rank is valid
     if not isinstance(rank, CardRank):
-      Raise("{} is an invalid CardRank.".format(rank))
+      raise ValueError("{} is an invalid CardRank.".format(rank))
     self.rank = rank
 
   def __lt__(self, other):
@@ -181,11 +176,13 @@ Class PlayingCard:
     return self.rank == other.rank
 {% endhighlight python %}
 
-It is now much easier to catch errors in our card definitions (in fact, the
-runtime will catch them for you):
+It is now much easier to catch errors in our card definitions:
 
 {% highlight python %}
 ace_of_spades    = PlayingCard(CardSuit.SPADES, CardRank.ACE)
 king_of_hearts   = PlayingCard(CardSuit.HEARTS, CardRank.KING)
 my_favorite_card = PlayingCard("Stars", 85)  # Obviously wrong
 {% endhighlight python %}
+
+Not only are they obvious by eye (`"Stars"` is clearly not a `CardSuit`), but
+the runtime will even raise an error!
