@@ -2,8 +2,8 @@
 layout: post
 title: "Python Patterns: Enum"
 description: >
-  Things the real world often come in sets of specific items, like countries,
-  states, or playing cards. You can assign each item an integer, but Python
+  Things in the real world often come in sets of specific items, like countries,
+  states, or playing cards. You can assign an integer to each item, but Python
   has a more elegant way.
 image: /files/patterns/locupletissimi_rerum_naturalium_thesauri_v1_lxxxiii_snake.png
 image_alt: >
@@ -17,7 +17,7 @@ categories: python_patterns
 Things often come in sets:
 
 - States
-- Pokemon
+- Pokémon
 - Playing cards
 
 Each set has items that belong to them (like California, Charizard, Jack of
@@ -90,9 +90,9 @@ my_favorite_card = PlayingCard("Stars", 85)
 {% endhighlight python %}
 
 Did you catch all the errors? We could write some error checking in the class,
-but it would again be a bit tedious. Enums will let us represent the suites
-and ranks, check that they are valid, and order based on value, without
-writing a lot of extra code.
+but it would again be a bit tedious. Instead, let's implement this using enums.
+Enums will let us represent the suits and ranks, check that they are valid, 
+and order based on value, without writing a lot of extra code.
 
 ## Playing Cards with Enums
 
