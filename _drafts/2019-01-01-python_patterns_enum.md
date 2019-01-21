@@ -2,7 +2,9 @@
 layout: post
 title: "Python Patterns: Enum"
 description: >
-
+  Things the real world often come in sets of specific items, like countries,
+  states, or playing cards. You can assign each item an integer, but Python
+  has a more elegant way.
 image: /files/patterns/locupletissimi_rerum_naturalium_thesauri_v1_lxxxiii_snake.png
 image_alt: >
   A drawing of a red and white snake taken from Plate LXXXIII from
@@ -32,8 +34,8 @@ There are many ways to represent members from these sets in Python:
 [namedtuples]: {% post_url 2018-12-18-python_patterns_namedtuple %}
 
 But is `"PR"` a valid state? Is `Pokemon("Digimon")` a member of Pokemon? Is
-`("Lotus", "Black")` a playing card? We could maintain a separate `set()` of
-all valid members to check, but then we have to maintain that.
+`("Lotus", "Black")` a playing card? We could keep a separate `set()` of all
+valid members to check, but then we have to maintain it.
 
 Thankfully, Python provides a way to create these sets and their members at
 the same time: [**enumerations**][enums], or enums.
@@ -88,15 +90,15 @@ my_favorite_card = PlayingCard("Stars", 85)
 {% endhighlight python %}
 
 Did you catch all the errors? We could write some error checking in the class,
-but it would again be a bit tedious. Enums will let us  represent the
-suites and values, check that they are valid, and order based on value,
-without writing a lot of extra code.
+but it would again be a bit tedious. Enums will let us represent the suites
+and ranks, check that they are valid, and order based on value, without
+writing a lot of extra code.
 
 ## Playing Cards with Enums
 
 An enum has exactly the properties we want:
 
-- We can test membership, so only real suits and values are allowed.
+- We can test membership, so only real suits and ranks are allowed.
 - We can order them, so we know that King > Jack > Ten.
 
 First, we define the suits:
@@ -115,9 +117,10 @@ class CardSuit(Enum):
 The function `auto()` sets the values and insures that they are unique. The
 members are not orderable (so `CardSuit.CLUBS > CardSuit.DIAMONDS` will raise
 an error), but do have equality (so `CardSuit.CLUBS != CardSuit.DIAMONDS`
-works). This will let us ensure only valid suits are accepted.
+works). We can also test membership easily, allowing us to ensure only valid
+suits are accepted.
 
-We can also test other values against the Enum to see if they are members:
+An example of some of the properties:
 
 {% highlight python %}
 hearts = CardSuit.HEARTS
@@ -152,7 +155,7 @@ class CardRank(IntEnum):
     ACE = 14
 {% endhighlight python %}
 
-These `IntEnum`s are orderable: `CardRank.TEN < CardRank.KING`. The decorator
+The `IntEnum`s are orderable so `CardRank.TEN < CardRank.KING`. The decorator
 `@unique` adds a check that makes sure we haven't double assigned any values.
 
 Now the card class is easy to implement:
@@ -161,10 +164,12 @@ Now the card class is easy to implement:
 @total_ordering
 Class PlayingCard:
   def __init__(self, suit, rank):
+    # Check that the suit is valid
     if not isinstance(suit, CardSuit):
       Raise("{} is an invalid CardSuit.".format(suit))
     self.suit = suit
 
+    # Check that the rank is valid
     if not isinstance(rank, CardRank):
       Raise("{} is an invalid CardRank.".format(rank))
     self.rank = rank
