@@ -16,7 +16,7 @@ categories: switrs
 
 {% include lead_image.html %}
 
-It is time use [SWITRS data][switrs] to look at traffic accidents in
+It is time to use [SWITRS data][switrs] to look at traffic accidents in
 California again. I have previously used the data to look [when cars
 crash][car_switrs]---during holidays when people both drive to work and to
 parties after---and [when motorcycles crash][mc_switrs]---during the summer
@@ -27,8 +27,9 @@ closer to my heart: **bicycle accidents**.
 [car_switrs]: {% post_url 2016-12-02-switrs_crashes_by_date %}
 [mc_switrs]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}
 
-I have been commuting on my bike for years now, and before I had kids I put in
-thousands of miles a year for fun.
+I have been commuting on my bike for years now, and when I was younger I used
+to put in thousands of miles a year for fun. So knowing more about when
+accidents happen is something I am very interested in.
 
 As per usual, the Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
@@ -37,6 +38,22 @@ As per usual, the Jupyter notebook used to perform this analysis can be found
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
+
+## A Simple Model
+
+Before we dig into the data, I have a simple model for how many bicycle
+accidents there are. It is:
+
+$$ N_{accidents} = P_{\textrm{car-bike}} L_{miles\textrm{ }biked} \rho_{car\textrm{ }density} $$
+
+That is, the number of accidents involving bicycles ($$N$$) is the probability of an
+accident happening when a bike encounters a car ($$P$$) times the number of cars
+encountered ($$L\rho$$). The number of accidents goes up when more cars or more bikes are on the road,
+but it can also go up if the probability changes, for example, from having
+more distracted drivers.
+
+This ignores some accidents, like solo accidents and those that do not involve
+a car, but these are rarer in the dataset.[^1]
 
 ## Data Selection
 
@@ -61,13 +78,7 @@ the data has not been fully
 
 ## Accidents per Week
 
-I have a simple model for how bicycle accidents happen. I got it 
-
-$$ \sigma_{bike} = \lambda l \rho_{car}$$
-
-Where $$\sigma_{bike}$$  $$\lambda l \rho_{car}$$
-
-For car crashes, [I found that that was a large dip in 2008][car_apw] as
+For car crashes, [I found that there was a large dip in 2008][car_apw] as
 people stopped driving to work during the [Great Recession][gr]. For
 motorcycle crashes, [I found strong seasonality][mc_apw] as people hung up
 their helmets during the winter. For bicycles, we have the following pattern:
@@ -81,82 +92,65 @@ their helmets during the winter. For bicycles, we have the following pattern:
 
 [per_week_plot]: {{ file_dir }}/bicycle_accidents_per_week_in_california.svg
 
+It shows features similar to both cars and motorcycles:
+
+- The number of accidents increases after 2008, and then begins decreasing
+after 2013, almost exactly the **opposite** of the car pattern.
+- Accidents are highly seasonal, just like motorcycles. Apparently neither
+cyclists nor bikers like riding in the rain.
+
+To me, this suggests that the number of cars on the road is not the dominant
+factor in the number of bicycle accidents (which mostly involve collisions
+with cars).
+
 ## Day-by-Day
 
-When looking at all motor-vehicle accidents [I observed that holidays were the
-maxima and minima][dbd] in the average number of crashes by day of the year.
-On holidays where people have the day off, the number of crashes decreases,
-whereas the number increases on holidays where people work and then go out
-afterward, like Halloween. Motorcycle accidents do not follow this trend.
-Instead, the holidays show quite disparate results: some holidays dip, some spike,
-others show almost no deviation from a normal day.
+Car drivers are involved in accidents [on holidays where they also
+work][car_dbd], like St. Patrick's Day. Motorcycles are in accidents during
+summer holidays. Bicycles, on the other hand, have no holidays with a large
+excess in the number of accidents. Some holidays, like Christmas and
+Thanksgiving, keep people from getting on their bikes, but none seem to
+motivate to get on the road.
 
-[dbd]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-by-day
+[car_dbd]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-by-day
+[mc_dbd]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}#day-by-day
 
 [![Line plot showing average motorcycle accidents by day of the
 year][average_accidents]][average_accidents]
 
 [average_accidents]: {{ file_dir }}/mean_bicycle_accidents_by_date.svg
 
-The summer holidays do not stand out; only Memorial Day is readily visible.
-Winter holidays, by contrast, show both peaks and valleys. I would interpret
-this as due to the seasonal weather: during the summer, any day is a good day
-to ride; but during the winter the weather keeps many riders off the roads on
-most days. But it would appear that some winter holidays provide riders with
-the extra motivation to get out on the bike. Look, for example, at Martian
-Luther King Jr. Day, which occurs in January.
-
-There is one outlier that I must address. The sharp peak between Washington's
-Birthday and St. Patrick's Day is [leap day][leapday]. This peak is a
-statistical artifact. The mean for all other days is calculated with `n = 15`,
-but only `n = 3` for leap day.
-
-[leapday]: https://en.wikipedia.org/wiki/February_29
+New Year's Day, St. Patrick's Day, and the 4th of July are all higher than
+they would be if they were not holidays, although you can't tell from this
+plot. On those days, people tend to go out and celebrate with alcohol, which
+leads to solo crashes. I will examine that in a future post.
 
 ## Day of the Week
 
-The weekends [showed a decrease in the number of all motor-vehicle
-accidents][dotw]. But for motorcycles, for whom weekends are the prime riding
-time, there is actually an increase on the weekends. If we think of weekends
-as a kind of mini-holiday, they provide a way to look at the same seasonal
-holiday phenomenon [discussed above][this_dbd]. Winter holidays showed high
-variance, so I would expect to see some weekends with high winter ridership,
-and some with low ridership. Summer holidays had low variance, so I expect to
-see similar ridership on all summer weekends.
+For cars, [weekends show a decrease in the number of accidents][car_dotw] as people stop
+commuting. For motorcycles, [weekends show an increase in the number of
+accidents][mc_dotw] as people use their time off to ride. As a recreational
+cyclist, I expected accidents to increase on the weekend as people put on
+their Lycra and took to the back roads for fun. But this is not the case:
 
-[dotw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-of-the-week
-[this_dbd]: #day-by-day
+[car_dotw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-of-the-week
+[mc_dotw]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}#day-of-the-week
 
-The [violin plots][violin] below show the distribution of accidents by day of
-the week over the 15 year period. They are divided into two seasons: summer
-(May--October) and winter (November--April).
-
-[violin]: https://en.wikipedia.org/wiki/Violin_plot
-
-[![Violin plot showing accidents by day of the week in summer and
-winter][accident_violin_plot]][accident_violin_plot]
+[![Violin plot showing the number of bicycle accidents by day of the
+week][accident_violin_plot]][accident_violin_plot]
 
 [accident_violin_plot]: {{ file_dir }}/bicycle_accidents_by_day_of_the_week.svg
 
-There is lower ridership in winter over all (top row), as indicated by the
-central dotted line indicating average number of accidents. And we can see an
-increase on weekends; but during the winter, that weekend increase is small as
-compared with summer (bottom row). However, the winter distributions are more
-elongated than those from summer, meaning that on some days there are many
-riders, and on others there are almost none. Summer weekends, by contrast,
-have consistently high ridership.
+These [violin plots][violin] show the distribution of accidents by day of the
+week over the 17 year period. There is a large drop in the number of accidents
+on weekends, indicating a decrease in the number of riders. This is surprising
+to me, I did not realize bikes where so popular for commuting and weekday
+errands.
 
-Thus, it appears we can conclude that weekend rider behavior does seem to
-track seasonal holiday riding behavior. And like the trends for holidays, the
-weekend results could be due to weather.
+[violin]: https://en.wikipedia.org/wiki/Violin_plot
 
 ## Conclusion
 
-Motorcycle accidents do not follow the same trends as for all motor vehicles.
-Motorcyclists continue riding even when they do not have a job.  Seasons have
-a large effect on the number of riders out on the road. Riders are also out on
-holidays in the summer when other vehicles take the day off, and have high
-variance for winter holidays and weekends when the weather may turn against
-them. There are many more ways to explore motorcycle accidents---time of day,
-type of motorcycle, vehicle at fault---but those will have to wait for another
-day.
+---
+
+[^1]: SWITRS reports are filled out when the police or CHP are called to the scene. As such, they skew towards worse accidents. Of the recorded accidents, **TODO**: Fill in number.
