@@ -17,7 +17,7 @@ categories: switrs
 {% include lead_image.html %}
 
 It is time to use [SWITRS data][switrs] to look at traffic accidents in
-California again. I have previously used the data to look [when cars
+California again. I have previously used the data to look at [when cars
 crash][car_switrs]---during holidays when people both drive to work and to
 parties after---and [when motorcycles crash][mc_switrs]---during the summer
 when its good riding weather. Today I want to look at something a little
@@ -48,8 +48,8 @@ $$ N_{\textrm{accidents}} = P_{\textrm{car-bike}} \, L_{\textrm{miles biked}} \,
 
 That is, the number of accidents involving bicycles ($$N$$) is the probability of an
 accident happening when a bike encounters a car ($$P$$) times the number of cars
-encountered ($$L \lambda$$). This ignores some accidents, like solo accidents
-and those that do not involve a car, but these are rare in the dataset.[^1]
+encountered ($$L \lambda$$). This ignores some accidents, like solo crashes
+and those that do not involve a car, but these are rare.[^1]
 
 We won't be able to test the validity of this model with the SWITRS data
 alone, but we can use it to reason about what is happening. For example, if
@@ -104,7 +104,7 @@ cyclists nor bikers like riding in the rain.
 Thinking back to [the model][model] we can try to reason about the trend. We
 know the number of cars increased, so the decrease in accidents in the last
 few years is either due to a decrease in the  number of cyclists---possibly
-because they traded their bikes for cars as they found employment---or
+because they traded their bikes for cars as they found employment---or a
 decrease in likelihood of an accident---perhaps because drivers are more used
 to cyclists and lookout for them.
 
@@ -113,11 +113,11 @@ to cyclists and lookout for them.
 ## Day-by-Day
 
 Car drivers are involved in accidents [on holidays where they also
-work][car_dbd], like St. Patrick's Day. Motorcycles are in accidents during
-summer holidays. Bicycles, on the other hand, have no holidays with a large
-excess in the number of accidents. Some holidays, like Christmas and
-Thanksgiving, keep people from getting on their bikes, but none seem to
-motivate to get out and ride.
+work][car_dbd], like Halloween. Motorcycles are in accidents during summer
+holidays. Bicycles, on the other hand, have no holidays with a large excess in
+the number of accidents. Some holidays, like Christmas and Thanksgiving, keep
+people from getting on their bikes, but none seem to motivate to get out and
+ride.
 
 [car_dbd]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-by-day
 [mc_dbd]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}#day-by-day
@@ -150,19 +150,24 @@ week][accident_violin_plot]][accident_violin_plot]
 
 These [violin plots][violin] show the distribution of accidents by day of the
 week over the 17 year period. There is a large drop in the number of accidents
-on weekends, 
+on weekends. This is surprising to me. I would have expected a lot more
+cyclists to be out on the weekend, leading to more interactions with cars.
 
-
-**TODO:** Think this through.
-
-
-indicating a decrease in the number of riders. This is surprising
-to me, I did not realize bikes where so popular for commuting and weekday
-errands.
+It's possible that this is true, there are more riders, but they're are just
+enough fewer cars that the accident rate still goes down. Or perhaps the
+riders are better at avoiding accidents. Or maybe the cyclists are out in the
+countryside away from the cars. Or perhaps weekend drivers are better at
+avoiding cyclists. Without more data, we can't tell.
 
 [violin]: https://en.wikipedia.org/wiki/Violin_plot
 
 ## Conclusion
+
+Bicycle accidents surprised me a little. I would have expected bikes to show a
+similar pattern to motorcycles, since both are used to both commute and for
+fun. However, bikes show a greatly reduced accident rate on the weekend while
+motorcycles show an increase. Bikes and cars also seem to trade off, with car
+accidents increasing in recent years while bike accidents fall off.
 
 ---
 
