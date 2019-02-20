@@ -53,7 +53,10 @@ but it can also go up if the probability changes, for example, from having
 more distracted drivers.
 
 This ignores some accidents, like solo accidents and those that do not involve
-a car, but these are rarer in the dataset.[^1]
+a car, but these are rare in the dataset.[^1]
+
+We won't be able to test the validity of this model with the SWITRS data
+alone, but we can use it to reason about what is happening.
 
 ## Data Selection
 
@@ -72,7 +75,7 @@ AND Collision_Date <= '2017-12-31'  -- 2018 is incomplete
 
 This gave me 223,772 data points (accidents) to examine spanning 2001 to 2017.
 [Just as before][ds], accidents from the most recent year are rejected because
-the data has not been fully 
+the database dump comes from September 2018, and so the year is incomplete.
 
 [ds]: {% post_url 2016-12-02-switrs_crashes_by_date %}#data-selection
 
@@ -99,9 +102,14 @@ after 2013, almost exactly the **opposite** of the car pattern.
 - Accidents are highly seasonal, just like motorcycles. Apparently neither
 cyclists nor bikers like riding in the rain.
 
-To me, this suggests that the number of cars on the road is not the dominant
-factor in the number of bicycle accidents (which mostly involve collisions
-with cars).
+Thinking back to [the model][model] we can try to reason about the trend. We
+know the number of cars increased, so the decrease in accidents in the last
+few years is either due to a decrease in the  number of cyclists---possibly
+because they traded their bikes for cars as they found employment---or
+decrease in likelihood of an accident---perhaps because drivers are more used
+to cyclists and lookout for them.
+
+[model]: #a-simple-model
 
 ## Day-by-Day
 
@@ -153,4 +161,4 @@ errands.
 
 ---
 
-[^1]: SWITRS reports are filled out when the police or CHP are called to the scene. As such, they skew towards worse accidents. Of the recorded accidents, **TODO**: Fill in number.
+[^1]: Of the 223,772 recorded accidents with bicycles, **89% involve a car**. There is a bias though: SWITRS reports are filled out when the police or CHP are called to the scene. As such, they skew towards worse accidents.
