@@ -2,9 +2,8 @@
 layout: post
 title: "SWITRS: On What Days Do Cyclists Crash?"
 description: >
-  Motorcycles riders are a different breed, born to chase excitment! So when
-  do they crash? Let's find out using California's SWITRS data! I'll give you a
-  hint: it is not on the way to their 9-5!
+  California accident data doesn't just cover cars, it covers bikes too! This
+  time we look at when cyclists crash in California.
 image: /files/switrs-bicycle-accidents-by-date/wilhelmina_cycle_co.jpg
 image_alt: >
   An 1890s advertisement for Wilhelmina Cycle Co. Ltd. showing a family on bicycles.
@@ -46,10 +45,10 @@ accidents there are. It is:
 
 $$ N_{\textrm{accidents}} = P_{\textrm{car-bike}} \, L_{\textrm{miles biked}} \, \lambda_{\textrm{cars per mile}} $$
 
-That is, the number of accidents involving bicycles ($$N$$) is the probability of an
-accident happening when a bike encounters a car ($$P$$) times the number of cars
-encountered ($$L \lambda$$). This ignores some accidents, like solo crashes
-and those that do not involve a car, but these are rare.[^1]
+That is, the number of accidents involving bicycles ($$N$$) is the probability
+of an accident happening when a bike encounters a car ($$P$$) times the number
+of cars encountered ($$L \lambda$$). This ignores some accidents, like solo
+crashes and those that do not involve a car, but these are rare.[^1]
 
 We won't be able to test the validity of this model with the SWITRS data
 alone, but we can use it to reason about what is happening. For example, if
@@ -105,8 +104,8 @@ Thinking back to [the model][model] we can try to reason about the trend. We
 know the number of cars increased, so the decrease in accidents in the last
 few years is either due to a decrease in the  number of cyclists---possibly
 because they traded their bikes for cars as they found employment---or a
-decrease in the likelihood of an accident---perhaps because drivers are more used
-to cyclists and look out for them.
+decrease in the likelihood of an accident---perhaps because drivers are more
+used to cyclists and look out for them.
 
 [model]: #a-simple-model
 
@@ -134,11 +133,12 @@ leads to solo crashes. I will examine that in a future post.
 
 ## Day of the Week
 
-For cars, [weekends show a decrease in the number of accidents][car_dotw] as people stop
-commuting. For motorcycles, [weekends show an increase in the number of
-accidents][mc_dotw] as people use their time off to ride. As a recreational
-cyclist, I expected accidents to increase on the weekend as people put on
-their Lycra and take to the back roads for fun. But this is not the case:
+For cars, [weekends show a decrease in the number of accidents][car_dotw] as
+people stop commuting. For motorcycles, [weekends show an increase in the
+number of accidents][mc_dotw] as people use their time off to ride. As a
+recreational cyclist, I expected accidents to increase on the weekend as
+people put on their Lycra and take to the back roads for fun. But this is not
+the case:
 
 [car_dotw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-of-the-week
 [mc_dotw]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}#day-of-the-week
@@ -153,22 +153,23 @@ week over the 17 year period. There is a large drop in the number of accidents
 on weekends. This is surprising to me. I would have expected a lot more
 cyclists to be out on the weekend, leading to more interactions with cars.
 
-It's possible that this (an increased number of cyclists) is true but there are just
-enough fewer cars that the accident rate still goes down. Or perhaps the
-riders are better at avoiding accidents. Or maybe the cyclists are out in the
-countryside away from the cars. Or perhaps weekend drivers are better at
+It's possible that this (an increased number of cyclists) is true but there
+are just enough fewer cars that the accident rate still goes down. Or perhaps
+the riders are better at avoiding accidents. Or maybe the cyclists are out in
+the countryside away from the cars. Or perhaps weekend drivers are better at
 avoiding cyclists. Without more data, we can't tell.
 
 [violin]: https://en.wikipedia.org/wiki/Violin_plot
 
 ## Conclusion
 
-This analysis of bicycle accidents surprised me a little. I expected bikes to show a
-similar pattern to motorcycles, since both are used to both commute and for
-fun. However, bikes show a greatly reduced accident rate on the weekend while
-motorcycles show an increase. Bikes and cars also seem to trade off, with car
-accidents increasing in recent years while bike accidents fall off. Further study and
-additional data is necessary before I can determine the reasons behind this trend.
+This analysis of bicycle accidents surprised me a little. I expected bikes to
+show a similar pattern to motorcycles, since both are used to both commute and
+for fun. However, bikes show a greatly reduced accident rate on the weekend
+while motorcycles show an increase. Bikes and cars also seem to trade off,
+with car accidents increasing in recent years while bike accidents fall off.
+Further study and additional data is necessary before I can determine the
+reasons behind this trend.
 
 ---
 
