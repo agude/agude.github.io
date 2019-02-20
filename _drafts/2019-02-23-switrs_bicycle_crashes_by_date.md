@@ -21,7 +21,7 @@ California again. I have previously used the data to look [when cars
 crash][car_switrs]---during holidays when people both drive to work and to
 parties after---and [when motorcycles crash][mc_switrs]---during the summer
 when its good riding weather. Today I want to look at something a little
-closer to my heart: **bicycle accidents**.
+closer to my heart: **bicycles**.
 
 [switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
 [car_switrs]: {% post_url 2016-12-02-switrs_crashes_by_date %}
@@ -44,19 +44,18 @@ As per usual, the Jupyter notebook used to perform this analysis can be found
 Before we dig into the data, I have a simple model for how many bicycle
 accidents there are. It is:
 
-$$ N_{accidents} = P_{\textrm{car-bike}} L_{miles\textrm{ }biked} \rho_{car\textrm{ }density} $$
+$$ N_{\textrm{accidents}} = P_{\textrm{car-bike}} \, L_{\textrm{miles biked}} \, \lambda_{\textrm{cars per mile}} $$
 
 That is, the number of accidents involving bicycles ($$N$$) is the probability of an
 accident happening when a bike encounters a car ($$P$$) times the number of cars
-encountered ($$L\rho$$). The number of accidents goes up when more cars or more bikes are on the road,
-but it can also go up if the probability changes, for example, from having
-more distracted drivers.
-
-This ignores some accidents, like solo accidents and those that do not involve
-a car, but these are rare in the dataset.[^1]
+encountered ($$L \lambda$$). This ignores some accidents, like solo accidents
+and those that do not involve a car, but these are rare in the dataset.[^1]
 
 We won't be able to test the validity of this model with the SWITRS data
-alone, but we can use it to reason about what is happening.
+alone, but we can use it to reason about what is happening. For example, if
+the number of accidents increases, that could be because there are more cars
+or bikes on the road, or because the probability of collision increased
+(perhaps due to distracted drivers or worse average weather).
 
 ## Data Selection
 
@@ -73,9 +72,9 @@ AND Bicycle_Collision == 1          -- Involves a bicycle
 AND Collision_Date <= '2017-12-31'  -- 2018 is incomplete
 {% endhighlight %}
 
-This gave me 223,772 data points (accidents) to examine spanning 2001 to 2017.
-[Just as before][ds], accidents from the most recent year are rejected because
-the database dump comes from September 2018, and so the year is incomplete.
+This gave me 223,772 data points to examine spanning 2001 to 2017. [Just as
+before][ds], accidents from the most recent year are rejected because the
+database dump comes from September 2018, and so the year is incomplete.
 
 [ds]: {% post_url 2016-12-02-switrs_crashes_by_date %}#data-selection
 
@@ -118,7 +117,7 @@ work][car_dbd], like St. Patrick's Day. Motorcycles are in accidents during
 summer holidays. Bicycles, on the other hand, have no holidays with a large
 excess in the number of accidents. Some holidays, like Christmas and
 Thanksgiving, keep people from getting on their bikes, but none seem to
-motivate to get on the road.
+motivate to get out and ride.
 
 [car_dbd]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-by-day
 [mc_dbd]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}#day-by-day
@@ -139,7 +138,7 @@ For cars, [weekends show a decrease in the number of accidents][car_dotw] as peo
 commuting. For motorcycles, [weekends show an increase in the number of
 accidents][mc_dotw] as people use their time off to ride. As a recreational
 cyclist, I expected accidents to increase on the weekend as people put on
-their Lycra and took to the back roads for fun. But this is not the case:
+their Lycra and take to the back roads for fun. But this is not the case:
 
 [car_dotw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-of-the-week
 [mc_dotw]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}#day-of-the-week
@@ -151,7 +150,13 @@ week][accident_violin_plot]][accident_violin_plot]
 
 These [violin plots][violin] show the distribution of accidents by day of the
 week over the 17 year period. There is a large drop in the number of accidents
-on weekends, indicating a decrease in the number of riders. This is surprising
+on weekends, 
+
+
+**TODO:** Think this through.
+
+
+indicating a decrease in the number of riders. This is surprising
 to me, I did not realize bikes where so popular for commuting and weekday
 errands.
 
