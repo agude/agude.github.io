@@ -3,7 +3,7 @@ layout: post
 title: "SWITRS: On What Days Do Cyclists Crash?"
 description: >
   Motorcycles riders are a different breed, born to chase excitment! So when
-  do they crash? Using California's SWITRS data I find out! I'll give you a
+  do they crash? Let's find out using California's SWITRS data! I'll give you a
   hint: it is not on the way to their 9-5!
 image: /files/switrs-bicycle-accidents-by-date/wilhelmina_cycle_co.jpg
 image_alt: >
@@ -105,14 +105,14 @@ Thinking back to [the model][model] we can try to reason about the trend. We
 know the number of cars increased, so the decrease in accidents in the last
 few years is either due to a decrease in the  number of cyclists---possibly
 because they traded their bikes for cars as they found employment---or a
-decrease in likelihood of an accident---perhaps because drivers are more used
-to cyclists and lookout for them.
+decrease in the likelihood of an accident---perhaps because drivers are more used
+to cyclists and look out for them.
 
 [model]: #a-simple-model
 
 ## Day-by-Day
 
-Car drivers are involved in accidents [on holidays where they also
+Car are involved in accidents [on holidays during which the drivers also
 work][car_dbd], like Halloween. Motorcycles are in accidents during summer
 holidays. Bicycles, on the other hand, have no holidays with a large excess in
 the number of accidents. Some holidays, like Christmas and Thanksgiving, keep
@@ -153,7 +153,7 @@ week over the 17 year period. There is a large drop in the number of accidents
 on weekends. This is surprising to me. I would have expected a lot more
 cyclists to be out on the weekend, leading to more interactions with cars.
 
-It's possible that this is true, there are more riders, but they're are just
+It's possible that this (an increased number of cyclists) is true but there are just
 enough fewer cars that the accident rate still goes down. Or perhaps the
 riders are better at avoiding accidents. Or maybe the cyclists are out in the
 countryside away from the cars. Or perhaps weekend drivers are better at
@@ -163,11 +163,12 @@ avoiding cyclists. Without more data, we can't tell.
 
 ## Conclusion
 
-Bicycle accidents surprised me a little. I would have expected bikes to show a
+This analysis of bicycle accidents surprised me a little. I expected bikes to show a
 similar pattern to motorcycles, since both are used to both commute and for
 fun. However, bikes show a greatly reduced accident rate on the weekend while
 motorcycles show an increase. Bikes and cars also seem to trade off, with car
-accidents increasing in recent years while bike accidents fall off.
+accidents increasing in recent years while bike accidents fall off. Further study and
+additional data is necessary before I can determine the reasons behind this trend.
 
 ---
 
