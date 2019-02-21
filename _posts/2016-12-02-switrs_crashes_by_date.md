@@ -149,13 +149,17 @@ are driving, not when they're sitting at home celebrating!
 ---
 
 **Update**: _Replaced the [univariate dot plot][dot_plot] in the [Day of the
-Week][dow] section with a [violin plot][violin_plot]. Also removed Trucks,
-[Motorcycles][mc_switrs], Bicycles, and pedestrians from the data set. This
-removed about 10% of the accidents, but did not qualitatively change the
-results. These results will be covered in their own posts._
+Week][dow] section with a [violin plot][violin_plot]; see this [git
+diff][changes_1]. Also removed Trucks, [Motorcycles][mc_switrs], Bicycles, and
+pedestrians from the data set; see this [git diff][changes_2]. This removed
+about 10% of the accidents, but did not qualitatively change the results.
+These results will be covered in their own posts._
 
 [dot_plot]: {{ file_dir }}/accidents_by_day_of_the_week_dot.svg
 [violin_plot]: {{ file_dir }}/accidents_by_day_of_the_week.svg
 
 [dow]: #day-of-the-week
 [mc_switrs]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}
+
+[changes_1]: https://github.com/agude/agude.github.io/commit/d03b7b23535fcc80155fdd50fa2838a739484659#diff-773b58bce0ad600cf854e41c88b640cc
+[changes_2]: https://github.com/agude/agude.github.io/commit/677643568d459cb58684416759e4dc86d7110476#diff-773b58bce0ad600cf854e41c88b640cc
