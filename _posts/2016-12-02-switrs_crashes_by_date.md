@@ -20,7 +20,7 @@ The [Statewide Integrated Traffic Records System (SWITRS)][switrs] contains a
 wealth of information, enough to determine who, where, when, and sometimes why
 and how for every traffic accident in California. Today, with the assistance
 of my [SWITRS-to-SQLite script][s2s] ([discussed previously][lastpost]), I'm
-going to look at when accidents happen, and specifically on what dates.
+going to look at when car accidents happen, and specifically on what dates.
 
 [switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
 [s2s]: https://github.com/agude/SWITRS-to-SQLite
@@ -29,7 +29,7 @@ going to look at when accidents happen, and specifically on what dates.
 As always, the Jupyter notebook used to do this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-{% capture notebook_uri %}{{ "SWITRS Crash Dates.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "SWITRS Crash Dates.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
@@ -42,9 +42,15 @@ The data was selected using the following query:
 SELECT Collision_Date FROM Collision
 WHERE Collision_Date IS NOT NULL
 AND Collision_Date <= '2015-12-31'  -- 2016 is incomplete
+-- We only want car accidents
+AND Bicycle_Collision IS NOT 1
+AND Motorcycle_Collision IS NOT 1
+AND Pedestrian_Collision IS NOT 1
+AND Truck_Collision IS NOT 1
+
 {% endhighlight %}
 
-This selects every accident that happened before 2016 that has a collision
+This selects every car accident that happened before 2016 that has a collision
 date stored. The current year, 2016, is excluded because the data from it is
 incomplete.
 
@@ -143,9 +149,13 @@ are driving, not when they're sitting at home celebrating!
 ---
 
 **Update**: _Replaced the [univariate dot plot][dot_plot] in the [Day of the
-Week][dow] section with a [violin plot][violin_plot]._
+Week][dow] section with a [violin plot][violin_plot]. Also removed Trucks,
+[Motorcycles][mc_switrs], Bicycles, and pedestrians from the data set. This
+removed about 10% of the accidents, but did not qualitatively change the
+results. These results will be covered in their own posts._
 
 [dot_plot]: {{ file_dir }}/accidents_by_day_of_the_week_dot.svg
 [violin_plot]: {{ file_dir }}/accidents_by_day_of_the_week.svg
 
 [dow]: #day-of-the-week
+[mc_switrs]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}
