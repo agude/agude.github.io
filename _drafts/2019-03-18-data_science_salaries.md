@@ -2,8 +2,11 @@
 layout: post
 title: "Data Science Salaries"
 description: >
-image: /files/data-science-salaries/
-image_alt: >
+  How do data scientists salaries vary by experience and location? Read on to
+  find out!
+image: /files/data-science-salaries/josef_wagner_hohenberg_the_billing_coins.jpg
+image_alt: > 
+  A painting of coins on a table by Josef Wagner-Höhenberg.
 categories: career-advice
 ---
 
@@ -12,23 +15,23 @@ categories: career-advice
 {% include lead_image.html %}
 
 One of the most important things to know when looking for a job is your market
-value. What better way to determine that than with data![^1] Some
-sites&#8288;---&#8288;like [Indeed][indeed] and
-[Glassdoor][glassdoor]&#8288;---&#8288;offer aggregate salary data, but give
-you only a limited look at the data. That's why I prefer survey that [Insight
-Data Science][] alumni put together. With the full data I can slice it however
-I want.
+value. For a data science position, what better way to determine that than
+with data![^1] Some sites&#8288;---&#8288;like [Indeed][indeed] and
+[Glassdoor][glassdoor]&#8288;---&#8288;offer aggregate salary information, but
+give you only a limited look at the data. That's why I prefer survey that
+[Insight][insight] alumni put together. With the full dataset I can slice it
+however I want.
 
 [indeed]: https://www.indeed.com/salaries/Data-Scientist-Salaries,-Mountain-View-CA
 [glassdoor]: https://www.glassdoor.com/Salaries/san-jose-data-scientist-salary-SRCH_IL.0,8_IM761_KO9,23.htm
-[rsu]: https://en.wikipedia.org/wiki/Restricted_stock
+[insight]: https://www.insightdatascience.com
 
 The data is available [here][data]. The notebook with all the code is
 [here][notebook] ([rendered on Github][rendered]).
 
 {% capture notebook_uri %}{{ "Data Science Salary Data.ipynb" | uri_escape }}{% endcapture %}
 
-[data]: TODO
+[data]: {{ file_dir }}/insight_salary_survey_cleaned.csv
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
@@ -57,31 +60,32 @@ greater range, although this is likely due to the larger number in the sample
 
 ## Location, Location, Location
 
-The market rate for a data scientist varies wildly by location. Since 
+The market rate for a data scientist varies wildly by location.
 
 [![Box plot showing that the West Coast has the highest total compensation,
 followed by New York City.][region_plot]][region_plot]
 
 [region_plot]: {{ file_dir }}/data_science_total_comp_by_region.svg
 
-Is the main driver stock? Let remove stock grants and look again:
+Compensation in California is the highest, by far, and the data scientists
+with the highest compensation are all there. California companies often give
+their employees stock; does that account for most of the difference? Let's
+remove stock grants and look again:
 
 [![Box plot showing that the West Coast has the highest total compensation,
 followed by New York City.][region_salary_plot]][region_salary_plot]
 
 [region_salary_plot]: {{ file_dir }}/data_science_salary_by_region.svg
 
-The median for California drops $20k when removing stock, the median for the
-Northwest drops $5k, and the Northeast and Midwest don't change. The
-highest paid individuals in California all drop drastically, and the new highest paid person if in New York!
-
-Stock grants do to drive most of the difference between California data
-scientists and data scientists elsewhere.
+The median compensation in California drops $20k when removing stock, the
+median in the Northwest drops $5k, and the Northeast and Midwest don't change.
+The highest paid individuals in California all drop drastically, and the new
+highest paid person if in New York!
 
 ## Experience Counts (A Lot!)
 
 Finally, how much does experience matter? Looking at just California this
-time:
+time, because I have the most data for salaries there:
 
 [![Box plot showing each year of experience increases a data scientist's total
 compensation tremendously.][exp_plot]][exp_plot]
@@ -95,20 +99,21 @@ But what is happening to people with four years of experience? There are very
 few in the survey (N=4), so the median can be pulled by any particular
 outlier. For example, someone who got a job in 2012 (when Insight started) and
 stayed there for four years. One of the data scientists is in a "Junior"
-position, so it's possible they counted their school work when most do not.
+position, so it's possible they counted their school work when answering how
+much experience they had whereas most do not.
 
 I have found it is much easier to get a raise this large when starting a new
-position, so this plot argues the importance of not staying at your first job
-too long!
+position, so this plot argues for the importance of not staying at your first
+job too long!
 
-## Now You Know (But Knowing Is Only Half)
+## Now You Know (But Knowing Is Only Half the Battle)
 
-So now you have a better idea what the job market looks like, but that isn't
-enough. To get what you are worth, you are going to negotiate. I highly
-recommend reading [Patrick McKenzie's][pat] [_**Salary Negotiation: Make More
-Money, Be More Valued**_][negotiate] post. Negotiating has earned me between 5%
-and 10% increases to my offers with little work, which as you can see from the
-numbers in this post, can be substantial!
+Now you have a better idea what the data science job market looks like, but
+that isn't enough. To get what you're worth, you have to negotiate as well. I
+highly recommend reading [Patrick McKenzie's][pat] [_**Salary Negotiation:
+Make More Money, Be More Valued**_][negotiate] post. Negotiating has earned me
+between 5% and 10% increases to my offers with little work, which as you can
+see from the numbers in this post, can be substantial!
 
 [pat]: https://twitter.com/patio11
 [negotiate]: https://www.kalzumeus.com/2012/01/23/salary-negotiation/
