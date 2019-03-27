@@ -70,9 +70,13 @@ class PlayingCard:
     return self.rank == other.rank
 {% endhighlight python %}
 
-This class works with the standard comparison operators, but to do so we had
-to write a bit of an annoying `__rank_to_value()` function; otherwise Aces and
-Kings would be tough to compare to 2s and 3s!
+This class works with the standard comparison operators (thanks to [the
+`@total_ordering` decorator, which I discuss in another
+post][total_ordering]), but to do so we had to write a bit of an annoying
+`__rank_to_value()` function; otherwise Aces and Kings would be tough to
+compare to 2s and 3s!
+
+[total_ordering]: {% post_url 2019-04-15-python_patterns_total_ordering %}
 
 With that done, we can now declare cards easily enough:
 
