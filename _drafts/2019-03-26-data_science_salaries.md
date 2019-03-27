@@ -59,7 +59,7 @@ greater range, although this is likely due to the larger number in the sample
 
 ## Location, Location, Location
 
-The market rate for a data scientist varies wildly by location.
+The market rate for a data scientist varies wildly by location:
 
 [![Box plot showing that the West Coast has the highest total compensation,
 followed by New York City.][region_plot]][region_plot]
@@ -67,10 +67,10 @@ followed by New York City.][region_plot]][region_plot]
 [region_plot]: {{ file_dir }}/data_science_total_comp_by_region.svg
 
 Compensation in California is the highest, by far. Technology companies often
-give employees stock in addition to their base pay and many of them are based
-in California. Do these stock grants account for most of the compensation
-difference between California and the rest of the nation? Let's remove stock
-and look again:
+give employees stock in addition to their base pay and many of these companies
+are based in California. Do those stock grants account for most of the
+compensation difference between California and the rest of the nation? Let's
+remove stock and look again:
 
 [![Box plot showing that the West Coast has the highest total compensation,
 followed by New York City.][region_salary_plot]][region_salary_plot]
@@ -97,12 +97,12 @@ compensation by $100k!
 
 But what is happening to people with four years of experience? There are very
 few in the survey (N=4), so the median can be pulled by any particular
-outlier. For example, if one of them got a job in 2012 (when Insight started) and
-stayed there for four years, they would miss out on the large raises that come
-from jumping to a new company. Additionally, one of the data scientists who
-said they had four years experience also said they were in a "Junior"
-position, so it's possible they counted their school work when answering
-whereas most would not count school.
+outlier. For example, if one of them got a job in 2012 and stayed there for
+four years, they would miss out on the large raises that come from jumping to
+a new company. Additionally, one of the data scientists who said they had four
+years experience also said they were in a "Junior" position, so it's possible
+they counted their school work when answering whereas most would not count
+school.
 
 I have found it is much easier to get a large raise when starting a new
 position, so this plot argues for the importance of not staying at your first
