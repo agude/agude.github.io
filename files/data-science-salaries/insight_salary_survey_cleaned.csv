@@ -1,0 +1,165 @@
+timestamp,base_salary,annual_bonus,relocation_and_signing,equity_or_stock_per_year,total_comp,total_recurring_comp,job_title,seniority,years_exp,degree,approx_location,coarse_region,fine_region,gender,ethnicity,age_range,age
+04/21/17 03:23 PM,115000,8000,7500,59500,190000,182500,Data Scientist,Junior/entry level,0,Doctorate,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+04/21/17 03:27 PM,137800,16000,28000,0,181800,153800,Machine Learning Engineer,Middle,1,Doctorate,South Bay,West Coast,Bay Area,NULL,NULL,NULL,NULL
+04/21/17 03:28 PM,125000,16000,5000,15000,161000,156000,Data Scientist,Junior/entry level,1,Doctorate,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+04/21/17 03:31 PM,125000,15000,0,0,140000,140000,Data Scientist,Senior,1,Doctorate,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+04/21/17 03:43 PM,150000,0,10000,50000,210000,200000,Data Scientist,Middle,1,Doctorate,Bay area,West Coast,Bay Area,NULL,NULL,NULL,NULL
+04/21/17 03:44 PM,110000,25000,10000,0,145000,135000,Data Scientist,Junior/entry level,1,Doctorate,New York,East Coast,New York,NULL,NULL,NULL,NULL
+04/21/17 04:02 PM,110000,0,0,29250,139250,139250,Data Scientist,Middle,1,Doctorate,San Francisco,West Coast,San Francisco,NULL,NULL,NULL,NULL
+04/21/17 04:12 PM,140000,14000,30000,25000,209000,179000,Data Scientist,Junior/entry level,1,Doctorate,Facebook,West Coast,Bay Area,NULL,NULL,NULL,NULL
+04/21/17 04:12 PM,133000,20000,0,0,153000,153000,Data Scientist,Middle,2,Doctorate,Silicon Valley,West Coast,Bay Area,NULL,NULL,NULL,NULL
+04/21/17 04:15 PM,67000,0,0,0,67000,67000,Analyst,Junior/entry level,1,Doctorate,New York,East Coast,New York,NULL,NULL,NULL,NULL
+04/21/17 05:00 PM,160000,0,0,10000,170000,170000,Data Scientist,Senior,2,Doctorate,San Francisco,West Coast,San Francisco,NULL,NULL,NULL,NULL
+04/21/17 05:24 PM,137000,10000,35000,22500,204500,169500,Data Scientist,Middle,1,Doctorate,Bay Area (Peninsula),West Coast,Bay Area,NULL,NULL,NULL,NULL
+04/21/17 06:08 PM,160000,0,15000,87500,262500,247500,Data Scientist,Middle,2,Doctorate,SF,West Coast,San Francisco,NULL,NULL,NULL,NULL
+04/22/17 12:58 AM,152000,21000,10000,5000,188000,178000,Data Engineer,Senior,2,Master's Degree,"Palo Alto, CA",West Coast,Bay Area,NULL,NULL,NULL,NULL
+04/22/17 07:05 AM,180000,36000,0,37250,253250,253250,Data Scientist,Senior,2,Doctorate,New York,East Coast,New York,NULL,NULL,NULL,NULL
+04/22/17 09:17 AM,170000,NULL,NULL,NULL,170000,170000,Machine Learning Engineer,Senior,5,Doctorate,San Francisco,West Coast,San Francisco,NULL,NULL,NULL,NULL
+04/22/17 09:48 AM,140000,0,3500,5000,148500,145000,Data Scientist,Middle,2,Doctorate,Northeast,East Coast,Northeast,NULL,NULL,NULL,NULL
+04/22/17 10:24 AM,130000,0,2000,32000,164000,162000,Software Engineer,Junior/entry level,1,Doctorate,San Francisco,West Coast,San Francisco,NULL,NULL,NULL,NULL
+04/22/17 10:28 AM,185000,0,0,41250,226250,226250,Data Scientist,Senior,3,Doctorate,New York,East Coast,New York,NULL,NULL,NULL,NULL
+04/22/17 11:39 AM,160000,0,10000,20000,190000,180000,Data Scientist,Middle,2,Doctorate,SF,West Coast,San Francisco,NULL,NULL,NULL,NULL
+04/22/17 12:22 PM,105000,10500,2000,NULL,117500,115500,Data Scientist,Junior/entry level,1,Doctorate,NYC,East Coast,New York,NULL,NULL,NULL,NULL
+04/22/17 01:08 PM,80000,2000,0,0,82000,82000,Data Scientist,Junior/entry level,1,Doctorate,CA,West Coast,NULL,NULL,NULL,NULL,NULL
+04/22/17 01:44 PM,195000,19500,0,0,214500,214500,Data Scientist,Middle,2,Doctorate,SF,West Coast,San Francisco,NULL,NULL,NULL,NULL
+04/22/17 05:14 PM,121000,0,5000,8750,134750,129750,Data Scientist,Middle,2,Doctorate,SF,West Coast,San Francisco,NULL,NULL,NULL,NULL
+04/22/17 06:48 PM,152500,NULL,10000,11375,173875,163875,Data Scientist,Junior/entry level,1,Doctorate,San Francisco,West Coast,San Francisco,NULL,NULL,NULL,NULL
+04/23/17 02:29 AM,140000,10000,0,25000,175000,175000,Data Scientist,Junior/entry level,1,Doctorate,Bay Area,West Coast,Bay Area,NULL,NULL,NULL,NULL
+04/23/17 05:48 AM,80000,NULL,NULL,NULL,80000,80000,Data Scientist,Junior/entry level,1,Doctorate,New York,East Coast,New York,NULL,NULL,NULL,NULL
+04/23/17 08:59 AM,105000,0,0,3000,108000,108000,Data Scientist,Middle,1,Master's Degree,Bay Area,West Coast,Bay Area,NULL,NULL,NULL,NULL
+04/23/17 09:38 AM,125000,0,10000,0,135000,125000,Software Engineer,Middle,1,ABD + Masters,Boston,Northeast,Boston,NULL,NULL,NULL,NULL
+04/23/17 02:59 PM,125000,18750,0,16000,159750,159750,Data Scientist,Junior/entry level,1,Doctorate,Los Angeles,West Coast,Southern California,NULL,NULL,NULL,NULL
+04/23/17 07:31 PM,118000,3000,0,10000,131000,131000,Data Scientist,Middle,2,Doctorate,Boston,Northeast,Boston,NULL,NULL,NULL,NULL
+04/24/17 01:21 AM,137500,14000,10000,90000,251500,241500,Data Scientist,Senior,4,Doctorate,Bay Area,West Coast,Bay Area,NULL,NULL,NULL,NULL
+04/24/17 05:54 AM,160000,NULL,0,NULL,160000,160000,Data Scientist,Senior,3,Doctorate,NYC,East Coast,New York,NULL,NULL,NULL,NULL
+04/24/17 08:50 AM,115000,0,35000,18000,168000,133000,Data Scientist,Junior/entry level,1,Doctorate,Seattle,Northwest,Seattle,NULL,NULL,NULL,NULL
+04/24/17 10:24 AM,105000,0,0,0,105000,105000,Data Scientist,Senior,0,Doctorate,new york city,East Coast,New York,NULL,NULL,NULL,NULL
+04/24/17 11:03 AM,105000,NULL,5000,NULL,110000,105000,Data Scientist,Middle,2,Doctorate,Southwest US,Southwest,Southwest,NULL,NULL,NULL,NULL
+04/24/17 12:38 PM,126400,0,10000,0,136400,126400,Data Scientist,Middle,1,Doctorate,Manhattan,East Coast,New York,NULL,NULL,NULL,NULL
+04/24/17 12:55 PM,105000,0,0,NULL,105000,105000,Data Scientist,Middle,1,Doctorate,Boston,Northeast,Boston,NULL,NULL,NULL,NULL
+04/24/17 04:13 PM,140000,NULL,NULL,30000,170000,170000,Data Scientist,Middle,4,Doctorate,San Francisco,West Coast,San Francisco,NULL,NULL,NULL,NULL
+04/24/17 07:15 PM,126000,NULL,,NULL,126000,126000,Analyst,Junior/entry level,1,Doctorate,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+04/25/17 06:56 PM,90000,NULL,12000,NULL,102000,90000,Data Scientist,Junior/entry level,1,Doctorate,East Coast,East Coast,NULL,NULL,NULL,NULL,NULL
+04/26/17 06:27 AM,100000,0,0,0,100000,100000,Data Engineer,Middle,2,Bachelor's Degree,NYC,East Coast,New York,NULL,NULL,NULL,NULL
+04/26/17 01:39 PM,200000,0,7500,5000,212500,205000,Data Scientist,Senior,2,Doctorate,Bay Area,West Coast,Bay Area,NULL,NULL,NULL,NULL
+04/26/17 07:40 PM,125000,0,5000,0,130000,125000,Data Scientist,Junior/entry level,1,Doctorate,SOMA,West Coast,San Francisco,NULL,NULL,NULL,NULL
+04/26/17 08:32 PM,100000,NULL,15000,NULL,115000,100000,Data Engineer,Junior/entry level,5,Bachelor's Degree,Seattle,Northwest,Seattle,NULL,NULL,NULL,NULL
+04/27/17 03:33 PM,120000,20000,0,0,140000,140000,Data Scientist,Junior/entry level,0,Doctorate,Boston,Northeast,Boston,NULL,NULL,NULL,NULL
+04/27/17 07:34 PM,125000,10000,0,0,135000,135000,Data Scientist,Junior/entry level,1,Doctorate,East Coast,East Coast,East Coast,NULL,NULL,NULL,NULL
+05/01/17 10:07 AM,180000,13000,13000,NULL,206000,193000,Data Scientist,Middle,2,Doctorate,Mountain View,West Coast,Bay Area,NULL,NULL,NULL,NULL
+05/01/17 10:29 AM,150000,10000,10000,60000,230000,220000,Data Scientist,Middle,1,Doctorate,Bay Area,West Coast,Bay Area,NULL,NULL,NULL,NULL
+05/01/17 10:33 AM,85000,2000,2000,0,89000,87000,Analyst,Senior,0,Doctorate,NYC,East Coast,New York,NULL,NULL,NULL,NULL
+05/01/17 10:40 AM,140000,10000,10000,45000,205000,195000,Data Engineer,Junior/entry level,1,Bachelor's Degree,SF Bay Area,West Coast,Bay Area,Male,NULL,NULL,NULL
+05/01/17 11:06 AM,160000,15000,15000,80000,270000,255000,Data Engineer,Middle,4,Master's Degree,SF Bay Area,West Coast,Bay Area,Male,White,NULL,NULL
+05/01/17 11:14 AM,120000,0,0,100000,220000,220000,Machine Learning Engineer,Junior/entry level,0,Doctorate,San Francisco,West Coast,San Francisco,Male,White,NULL,NULL
+05/01/17 11:48 AM,160000,10000,10000,NULL,180000,170000,Data Scientist,Senior,2,Doctorate,New York,East Coast,New York,Male,NULL,NULL,NULL
+05/01/17 12:06 PM,100000,0,0,0,100000,100000,Data Scientist,Middle,1,Doctorate,boston,Northeast,Boston,Male,White,NULL,NULL
+05/01/17 06:18 PM,120000,0,0,2000,122000,122000,Data Scientist,Junior/entry level,1,Doctorate,New York City,East Coast,New York,Female,White,NULL,NULL
+05/02/17 06:58 AM,145000,NULL,20000,NULL,165000,145000,Data Scientist,Middle,2,Doctorate,South Bay,West Coast,Bay Area,Male,NULL,20-29,29
+05/02/17 11:43 AM,155000,NULL,47000,NULL,202000,155000,Data Scientist,Middle,2,Doctorate,SF,West Coast,San Francisco,Female,NULL,20-29,28
+05/02/17 11:45 AM,155000,NULL,47000,NULL,202000,155000,Data Scientist,Middle,2,Doctorate,SF,West Coast,San Francisco,Female,NULL,20-29,28
+05/02/17 01:02 PM,110000,0,5000,10000,125000,120000,Data Scientist,Junior/entry level,1,Doctorate,San Francisco,West Coast,San Francisco,Male,White,20-29,29
+05/02/17 10:29 PM,120000,0,0,4000,124000,124000,Data Engineer,Junior/entry level,5,Bachelor's Degree,Bay Area,West Coast,Bay Area,Male,Asian,20-29,29
+05/03/17 08:12 AM,130000,9000,15000,,154000,139000,Data Scientist,Middle,1,Doctorate,New York City,East Coast,New York,Male,White,30-39,30
+05/03/17 09:01 AM,153000,11000,0,18000,182000,182000,Data Scientist,Senior,1,Doctorate,San Francisco,West Coast,San Francisco,Male,White,30-39,31
+05/03/17 10:32 PM,175000,9000,NULL,NULL,184000,184000,Data Scientist,Senior,2,Doctorate,Bay Area,West Coast,Bay Area,Male,White,30-39,34
+05/04/17 02:16 PM,140000,NULL,3000,NULL,143000,140000,Data Scientist,Senior,3,Doctorate,New York,East Coast,New York,Female,White,30-39,35
+05/04/17 06:10 PM,110000,15000,8000,0,133000,125000,Data Scientist,Middle,1,Doctorate,East Coast,East Coast,NULL,Male,White,20-29,28
+05/04/17 06:20 PM,122000,18000,0,9000,149000,149000,Data Scientist,Middle,2,Doctorate,East Coast,East Coast,NULL,Female,NULL,NULL,NULL
+05/06/17 07:58 PM,90000,30000,1000,NULL,121000,120000,Data Scientist,Junior/entry level,0,Doctorate,Palo Alto,West Coast,Bay Area,Male,Indian,30-39,38
+05/09/17 10:47 PM,125000,0,10000,NULL,135000,125000,Data Scientist,Middle,1,Doctorate,Northwest,Northwest,Northwest,Female,White,40,NULL
+05/13/17 01:30 PM,137000,0,10000,20000,167000,157000,Software Engineer,Middle,2,Doctorate,San Francisco,West Coast,San Francisco,Female,White,20-29,28
+05/20/17 07:24 PM,135000,13500,40000,35000,223500,183500,Data Scientist,Middle,0,Doctorate,Silicon Valley,West Coast,Bay Area,Female,White,30-39,37
+05/23/17 10:38 PM,140000,0,0,20000,160000,160000,Data Scientist,Middle,2,Doctorate,New York,East Coast,New York,NULL,NULL,NULL,NULL
+08/08/17 03:24 AM,180000,21600,0,0,201600,201600,Machine Learning Engineer,Senior,1,Doctorate,Silicon Valley,West Coast,Bay Area,Male,White,30-39,31
+08/08/17 11:50 AM,175000,15000,20000,7000,217000,197000,Data Scientist,Senior,2,Doctorate,Boston,Northeast,Boston,Female,White,30-39,35
+07/14/18 09:01 PM,135000,0,15000,4000,154000,139000,Data Scientist,Junior/entry level,0,Doctorate,San Francisco,West Coast,Bay Area,Female,Asian,30-39,30
+07/14/18 09:41 PM,165000,0,0,150000,315000,315000,Data Scientist,Junior/entry level,2,Doctorate,San Francisco,West Coast,Bay Area,Male,Asian,30-39,34
+07/14/18 11:06 PM,135000,0,20000,10000,165000,145000,Data Scientist,Middle,3,Doctorate,Seattle,Northwest,Seattle,Male,Asian,40,42
+07/14/18 11:28 PM,150000,0,0,0,150000,150000,Product Manager,Middle,2,Doctorate,Boston,Northeast,Boston,Male,White,30-39,30
+07/15/18 12:36 AM,110000,14000,0,0,124000,124000,Data Scientist,Middle,0,Doctorate,East Coast,East Coast,NULL,Male,NULL,30-39,30
+07/15/18 03:16 AM,125000,6250,0,0,131250,131250,Data Scientist,Middle,1,Doctorate,New York,East Coast,New York,Female,White,30-39,30
+07/15/18 03:35 AM,130000,0,100000,0,230000,130000,Data Scientist,Junior/entry level,1,Doctorate,Boston,Northeast,Boston,Male,White,30-39,34
+07/15/18 04:01 AM,125000,17500,0,45000,187500,187500,Data Scientist,Middle,0,Doctorate,Boston,Northeast,Boston,Female,White,30-39,33
+07/15/18 06:02 AM,112000,0,15000,0,127000,112000,Data Scientist,Junior/entry level,0,Doctorate,Boston,Northeast,Boston,Male,White,30-39,31
+07/15/18 06:07 AM,155000,15000,55000,0,225000,170000,Data Scientist,Senior,3,Doctorate,Minneapolis,Midwest,Minneapolis,NULL,NULL,NULL,NULL
+07/15/18 07:42 AM,107000,10000,2000,0,119000,117000,Data Scientist,Junior/entry level,1,Doctorate,DC,East Coast,Washington DC,Male,Asian,30-39,31
+07/15/18 11:42 AM,135000,13500,0,16800,165300,165300,Data Scientist,Middle,2,Doctorate,Boston,Northeast,Boston,Male,White,30-39,30
+07/15/18 12:42 PM,165000,0,10000,200000,375000,365000,Data Scientist,Senior,2,Doctorate,Bay Area,West Coast,Bay Area,NULL,NULL,NULL,NULL
+07/15/18 02:26 PM,113000,15000,0,0,128000,128000,Data Scientist,Middle,1,Doctorate,New York,East Coast,New York,Male,Asian,30-39,33
+07/15/18 04:46 PM,110000,12400,0,4100,126500,126500,Machine Learning Engineer,Junior/entry level,1,Master's Degree,New York,East Coast,New York,Male,White,20-29,28
+07/15/18 05:49 PM,111000,0,0,NULL,111000,111000,Data Scientist,Middle,3,Doctorate,Chicago,Midwest,Chicago,Male,White,30-39,33
+07/15/18 06:23 PM,145000,21750,25000,50000,241750,216750,Data Scientist,Middle,2,Doctorate,"Mountain View, CA",West Coast,Bay Area,Male,White,30-39,32
+07/15/18 07:58 PM,146000,20000,45000,50000,261000,216000,Machine Learning Engineer,Middle,0,Doctorate,NYC,East Coast,New York,Male,White,30-39,31
+07/15/18 08:55 PM,119000,NULL,NULL,2500,121500,121500,Data Scientist,Junior/entry level,1,Doctorate,San Francisco,West Coast,San Francisco,Male,Asian,30-39,38
+07/15/18 09:11 PM,125000,NULL,5000,NULL,130000,125000,Data Scientist,Junior/entry level,0,Doctorate,San Francisco,West Coast,San Francisco,Female,Indian,30-39,32
+07/16/18 07:33 AM,120000,NULL,NULL,NULL,120000,120000,Data Scientist,Middle,0,Doctorate,Downtown SF,West Coast,San Francisco,Male,White,30-39,36
+07/16/18 08:46 AM,120000,NULL,NULL,NULL,120000,120000,Data Scientist,Middle,1,Doctorate,New York,East Coast,New York,Female,White,30-39,31
+07/16/18 09:29 AM,130000,NULL,9000,NULL,139000,130000,Data Scientist,Junior/entry level,4,Master's Degree,Sunnyvale,West Coast,Bay Area,Male,Asian,30-39,30
+07/16/18 09:43 AM,165000,33000,10000,66000,274000,264000,Data Scientist,Senior,3,Doctorate,"Mountain View, CA",West Coast,Bay Area,Male,White,30-39,32
+07/16/18 10:41 AM,155000,15500,35000,32500,238000,203000,Data Scientist,Middle,3,Doctorate,San Francisco,West Coast,San Francisco,Female,Mixed,30-39,33
+07/16/18 10:44 AM,130000,19500,15000,4700,169200,154200,Data Scientist,Junior/entry level,1,Doctorate,Redwood City,West Coast,Bay Area,Male,Indian,30-39,37
+07/16/18 12:53 PM,121000,NULL,NULL,NULL,121000,121000,Data Scientist,Senior,3,Doctorate,Southwest US,Southwest,Southwest,Female,White,30-39,31
+07/16/18 01:08 PM,127000,NULL,22500,7500,157000,134500,Data Scientist,Junior/entry level,0,Doctorate,Seattle,Northwest,Seattle,Female,Mixed,30-39,32
+07/16/18 02:14 PM,110000,11000,NULL,NULL,121000,121000,Data Scientist,Junior/entry level,1,Doctorate,Boston,Northeast,Boston,Male,White,30-39,32
+07/16/18 08:11 PM,110000,NULL,NULL,NULL,110000,110000,Data Engineer,Middle,3,Bachelor's Degree,New York,East Coast,New York,Male,White,20-29,26
+07/16/18 10:22 PM,175000,32000,NULL,NULL,207000,207000,Data Scientist,Senior,4,Doctorate,NYC,East Coast,New York,Male,White,NULL,NULL
+07/16/18 10:32 PM,135000,25000,NULL,NULL,160000,160000,Data Scientist,Middle,3,Doctorate,NYC,East Coast,New York,NULL,NULL,NULL,NULL
+07/17/18 05:59 AM,140000,30000,50000,15000,235000,185000,Data Scientist,Senior,2,Doctorate,Texas,Southwest,Southwest,Male,White,30-39,33
+07/17/18 07:30 AM,103000,NULL,NULL,NULL,103000,103000,Machine Learning Engineer,Junior/entry level,2,Doctorate,"Minneapolis, MN",Midwest,Minneapolis,Male,White,30-39,31
+07/17/18 02:04 PM,140000,30000,5000,NULL,175000,170000,Data Scientist,Middle,3,Doctorate,Boston,Northeast,Boston,Male,White,20-29,28
+07/17/18 02:19 PM,140000,NULL,3000,50000,193000,190000,Data Scientist,Middle,1,Doctorate,Bay Area,West Coast,Bay Area,Male,White,29-29,29
+07/17/18 03:49 PM,110000,NULL,100500,NULL,210500,110000,Data Scientist,Junior/entry level,1,Doctorate,Dorchester ,East Coast,New York,Male,Arab,30-39,39
+07/18/18 07:42 AM,118000,17700,10000,NULL,145700,135700,Data Scientist,Middle,1,Doctorate,New York City Suburbs,East Coast,New York,Male,Asian,30-39,34
+07/18/18 07:55 AM,133000,26000,10000,NULL,169000,159000,Data Scientist,Senior,2,Doctorate,New York ,East Coast,New York,Male,NULL,30-39,37
+07/18/18 10:32 AM,100000,NULL,5000,NULL,105000,100000,Data Scientist,Senior,1,Doctorate,"Washington, DC",East Coast,Washington DC,Male,White,20-29,29
+07/18/18 12:26 PM,126000,NULL,NULL,NULL,126000,126000,Data Engineer,Middle,2,Master's Degree,NYC,East Coast,New York,Male,Hispanic,20-29,28
+07/20/18 08:57 AM,118000,7000,6000,NULL,131000,125000,Data Scientist,Junior/entry level,2,Doctorate,Minnesota,Midwest,Minneapolis,Transgender,White,30-39,32
+07/21/18 10:03 PM,125000,NULL,12000,NULL,137000,125000,Data Scientist,Junior/entry level,0,Doctorate,San Jose,West Coast,Bay Area,Male,Hispanic,20-29,29
+08/04/18 05:00 PM,110000,12000,20000,2250,144250,124250,Data Scientist,Senior,3,Doctorate,Toronto,International,Canada,Male,Asian,30-39,30
+08/09/18 06:39 PM,140000,NULL,NULL,NULL,140000,140000,Analyst,Senior,2,Doctorate,"Palo Alto, CA",West Coast,Bay Area,Female,NULL,30-39,32
+08/10/18 02:10 PM,180000,32000,10000,66000,288000,278000,Data Scientist,Senior,3,Doctorate,Mountain View,West Coast,Bay Area,Male,White,30-39,32
+08/15/18 01:28 PM,260000,NULL,NULL,NULL,260000,260000,Data Scientist,Junior/entry level,1,Doctorate,NYC,East Coast,New York,Male,White,20-29,29
+08/17/18 01:21 AM,160000,NULL,NULL,20000,180000,180000,Data Scientist,Middle,1,Doctorate,San Francisco,West Coast,San Francisco,Female,Indian,30-39,37
+08/21/18 08:03 PM,145000,21750,25000,50000,241750,216750,Data Scientist,Middle,2,Doctorate,Redwood City,West Coast,Bay Area,Male,White,30-39,32
+08/21/18 08:03 PM,140000,NULL,NULL,NULL,140000,140000,Data Scientist,Senior,3,Doctorate,SF,West Coast,Bay Area,Male,NULL,30-39,32
+09/27/18 04:17 PM,190000,NULL,NULL,45000,235000,235000,Data Scientist,Senior,1,Master's Degree,San Francisco,West Coast,Bay Area,Male,NULL,30-39,33
+09/27/18 07:20 PM,185000,27750,50000,70000,332750,282750,Data Scientist,Senior,3,Doctorate,San Francisco,West Coast,Bay Area,Male,White,30-39,30
+09/28/18 06:00 AM,135000,NULL,NULL,NULL,135000,135000,Data Scientist,Senior,1,Doctorate,Southeastern USA,Southeast,Southeast,Male,White,30-39,39
+09/28/18 07:29 AM,105000,1,1,1,105003,105002,Analyst,Senior,5,Doctorate,Colorado,Midwest,Midwest,Male,White,30-39,37
+09/28/18 08:37 AM,125000,NULL,10000,NULL,135000,125000,Data Scientist,Middle,0,Doctorate,Memphis,South,South,Male,White,30-39,38
+09/28/18 10:30 AM,135000,6750,20000,10000,171750,151750,Data Scientist,Middle,3,Doctorate,Seattle,Northwest,Seattle,Male,Asian,40,43
+09/28/18 10:56 AM,140000,NULL,5000,NULL,145000,140000,Data Scientist,Middle,1,Doctorate,New York,East Coast,New York,Male,White,30-39,30
+09/28/18 02:26 PM,130000,NULL,10000,NULL,140000,130000,Data Scientist,Junior/entry level,1,Doctorate,San Francisco,West Coast,Bay Area,Male,White,20-29,29
+09/28/18 02:41 PM,115000,NULL,NULL,NULL,115000,115000,Data Engineer,Junior/entry level,1,Bachelor's Degree,San Francisco,West Coast,Bay Area,Male,White,30-39,34
+09/28/18 04:16 PM,130000,NULL,NULL,NULL,130000,130000,Data Scientist,Junior/entry level,0,Doctorate,Seattle,Northwest,Seattle,Male,White,20-29,28
+10/08/18 10:23 AM,150000,15000,NULL,NULL,165000,165000,Data Scientist,Middle,2,Doctorate,New York City,East Coast,New York,Female,White,30-39,30
+10/22/18 02:35 PM,145000,NULL,NULL,1000,146000,146000,Data Scientist,Senior,3,Doctorate,Bay Area,West Coast,Bay Area,Male,White,30-39,30
+10/26/18 11:45 AM,118000,17700,10000,NULL,145700,135700,Data Scientist,Junior/entry level,0,Doctorate,New York Area,East Coast,New York,Male,Asian,30-39,34
+10/26/18 12:02 PM,141750,NULL,NULL,NULL,141750,141750,Data Scientist,Senior,4,Doctorate,New York,East Coast,New York,Female,White,30-39,37
+10/26/18 12:21 PM,110500,11000,NULL,NULL,121500,121500,Data Scientist,Junior/entry level,1,Doctorate,Boston,Northeast,Boston,Male,White,30-39,33
+10/26/18 12:46 PM,105000,20000,NULL,NULL,125000,125000,Data Engineer,Middle,3,Master's Degree,San Francisco,West Coast,Bay Area,Male,Asian,30-39,35
+10/26/18 02:55 PM,140000,NULL,NULL,25000,165000,165000,Data Engineer,Middle,3,Bachelor's Degree,New York,East Coast,New York,Female,Asian,20-29,24
+10/26/18 04:11 PM,135000,NULL,5000,NULL,140000,135000,Data Engineer,Junior/entry level,1,Master's Degree,Nyc,East Coast,New York,Male,Asian,30-39,32
+10/26/18 04:30 PM,155000,NULL,15000,NULL,170000,155000,Data Scientist,Middle,4,Doctorate,NYC,East Coast,New York,Male,White,40,44
+10/26/18 10:51 PM,120000,NULL,10000,10000,140000,130000,Data Engineer,Junior/entry level,3,Master's Degree,LA,West Coast,Southern California,Female,White,20-29,28
+10/27/18 06:45 AM,138000,NULL,3000,1250,142250,139250,Data Scientist,Junior/entry level,1,Doctorate,NYC,East Coast,New York,Male,NULL,30-39,30
+10/27/18 07:31 AM,110000,NULL,NULL,NULL,110000,110000,Data Scientist,Junior/entry level,0,Doctorate,Colorado,Midwest,Midwest,NULL,NULL,NULL,NULL
+10/27/18 02:41 PM,150000,20000,NULL,NULL,170000,170000,Data Scientist,Junior/entry level,1,Doctorate,silicon valley,West Coast,Bay Area,Male,Hispanic,30-39,37
+10/27/18 06:19 PM,121000,6050,15000,NULL,142050,127050,Data Scientist,Junior/entry level,1,Doctorate,DC,East Coast,Washington DC,Male,NULL,NULL,NULL
+10/29/18 07:53 AM,125000,12000,,NULL,137000,137000,Data Scientist,Middle,1,Doctorate,Boston,Northeast,Boston,Male,NULL,NULL,NULL
+10/29/18 10:50 AM,148000,0,0,NULL,148000,148000,Data Scientist,Middle,4,Doctorate,New York,East Coast,New York,Male,White,30-39,32
+10/29/18 01:17 PM,150000,37500,NULL,NULL,187500,187500,Data Scientist,Middle,5,Doctorate,NYC,East Coast,New York,Female,White,30-39,37
+10/30/18 10:49 AM,190000,NULL,NULL,45000,235000,235000,Data Scientist,Middle,2,Master's Degree,San Francisco,West Coast,San Francisco,Male,NULL,30-39,33
+11/05/18 05:30 AM,154000,NULL,24000,NULL,178000,154000,Data Engineer,Senior,5,Bachelor's Degree,Seoul,International,International,Male,White,40,41
+11/15/18 10:06 PM,150000,5000,5000,10000,170000,165000,Data Scientist,Senior,3,Doctorate,New York,East Coast,New York,NULL,NULL,NULL,NULL
+11/21/18 03:41 PM,96000,NULL,NULL,NULL,96000,96000,Data Scientist,Senior,1,Doctorate,"Seoul, South Korea",International,International,Male,Asian,30-39,36
+11/27/18 07:41 AM,152000,15200,10000,NULL,177200,167200,Data Scientist,Senior,4,Doctorate,NYC,East Coast,New York,Female,White,30-39,39
+03/05/19 03:52 PM,150000,NULL,NULL,150000,300000,300000,Data Scientist,Middle,3,Doctorate,San Francisco,West Coast,San Francisco,Female,White,30-39,33
+03/05/19 04:14 PM,120000,10000,NULL,NULL,130000,130000,Machine Learning Engineer,Junior/entry level,1,Doctorate,Seattle,Northwest,Seattle,Female,Asian,30-39,32
+03/05/19 06:56 PM,155000,NULL,3000,3000,161000,158000,Data Scientist,Senior,2,Doctorate,NYC,East Coast,New York,Male,NULL,30-39,30
+03/06/19 10:23 AM,124000,NULL,2000,2000,128000,126000,Data Scientist,Middle,2,Doctorate,Boston,Northeast,Boston,Female,NULL,30-39,32
+03/06/19 06:07 PM,148000,,,,148000,148000,Data Scientist,Senior,4,Doctorate,San Francisco,West Coast,San Francisco,Male,White,30-39,33
+03/06/19 08:14 PM,110000,14000,,,124000,124000,Data Scientist,Middle,1,Doctorate,East Coast,East Coast,,Male,Black,30-39,31
+03/07/19 07:21 AM,115000,9000,3000,,127000,124000,Data Scientist,Middle,3,Doctorate,Minneapolis,Midwest,Minneapolis,Male,White,30-39,30
+03/07/19 09:18 AM,120000,7000,5000,,132000,127000,Software Engineer,Middle,3,Doctorate,Minneapolis,Midwest,Minneapolis,Male,White,30-39,31
