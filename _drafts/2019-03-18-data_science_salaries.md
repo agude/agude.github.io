@@ -15,10 +15,10 @@ categories: career-advice
 {% include lead_image.html %}
 
 One of the most important things to know when looking for a job is your market
-value. For a data science position, what better way to determine that than
-with data![^1] Some sites&#8288;---&#8288;like [Indeed][indeed] and
+value. For data science positions, what better way to determine that than with
+data![^1] Some sites&#8288;---&#8288;like [Indeed][indeed] and
 [Glassdoor][glassdoor]&#8288;---&#8288;offer aggregate salary information, but
-give you only a limited look at the data. That's why I prefer survey that
+they won't give you all their data. That's why I prefer the survey that
 [Insight][insight] alumni put together. With the full dataset I can slice it
 however I want.
 
@@ -38,8 +38,7 @@ The data is available [here][data]. The notebook with all the code is
 ## Scientists, Engineers, and Analysts
 
 The dataset is mostly comprised of data scientists, but there are a few
-engineers and analysts as well, so we can compare salary across multiple job
-titles:
+engineers and analysts as well, so we can compare salary across job titles:
 
 [![Box plot showing that machine learning engineers earn the most, followed by
 data scientists.][vs_plot]][vs_plot]
@@ -67,10 +66,11 @@ followed by New York City.][region_plot]][region_plot]
 
 [region_plot]: {{ file_dir }}/data_science_total_comp_by_region.svg
 
-Compensation in California is the highest, by far, and the data scientists
-with the highest compensation are all there. California companies often give
-their employees stock; does that account for most of the difference? Let's
-remove stock grants and look again:
+Compensation in California is the highest, by far. Technology companies often
+give employees stock in addition to their base pay and many of them are based
+in California. Do these stock grants account for most of the compensation
+difference between California and the rest of the nation? Let's remove stock
+and look again:
 
 [![Box plot showing that the West Coast has the highest total compensation,
 followed by New York City.][region_salary_plot]][region_salary_plot]
@@ -78,9 +78,9 @@ followed by New York City.][region_salary_plot]][region_salary_plot]
 [region_salary_plot]: {{ file_dir }}/data_science_salary_by_region.svg
 
 The median compensation in California drops $20k when removing stock, the
-median in the Northwest drops $5k, and the Northeast and Midwest don't change.
-The highest paid individuals in California all drop drastically, and the new
-highest paid person if in New York!
+median in the Northwest (another major tech hub) drops $5k, and the Northeast
+and Midwest don't change. The highest paid individuals in California all drop
+drastically with the new highest paid person in New York!
 
 ## Experience Counts (A Lot!)
 
@@ -97,12 +97,14 @@ compensation by $100k!
 
 But what is happening to people with four years of experience? There are very
 few in the survey (N=4), so the median can be pulled by any particular
-outlier. For example, someone who got a job in 2012 (when Insight started) and
-stayed there for four years. One of the data scientists is in a "Junior"
-position, so it's possible they counted their school work when answering how
-much experience they had whereas most do not.
+outlier. For example, if one of them got a job in 2012 (when Insight started) and
+stayed there for four years, they would miss out on the large raises that come
+from jumping to a new company. Additionally, one of the data scientists who
+said they had four years experience also said they were in a "Junior"
+position, so it's possible they counted their school work when answering
+whereas most would not count school.
 
-I have found it is much easier to get a raise this large when starting a new
+I have found it is much easier to get a large raise when starting a new
 position, so this plot argues for the importance of not staying at your first
 job too long!
 
@@ -112,8 +114,8 @@ Now you have a better idea what the data science job market looks like, but
 that isn't enough. To get what you're worth, you have to negotiate as well. I
 highly recommend reading [Patrick McKenzie's][pat] [_**Salary Negotiation:
 Make More Money, Be More Valued**_][negotiate] post. Negotiating has earned me
-between 5% and 10% increases to my offers with little work, which as you can
-see from the numbers in this post, can be substantial!
+between 5% and 10% increases to my offers, which as you can see from the
+numbers in this post, are substantial!
 
 [pat]: https://twitter.com/patio11
 [negotiate]: https://www.kalzumeus.com/2012/01/23/salary-negotiation/
