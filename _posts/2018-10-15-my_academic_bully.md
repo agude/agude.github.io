@@ -7,7 +7,7 @@ description: >
   owed it to myself and others.
 image: /files/my-academic-bully/the_dunce_by_harold_copping.jpg
 image_alt: >
-  A painting by Harold Dunce shows a boy in a suite sitting alone one a bench.
+  A painting by Harold Dunce shows a boy in a suite sitting alone on a bench.
   He is surrounded by books, and he holds one in his right hand loosely as if
   about to drop it. He hangs his head in sorrow or shame.
 categories: career-advice
