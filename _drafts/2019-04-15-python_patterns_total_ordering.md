@@ -2,8 +2,8 @@
 layout: post
 title: "Python Patterns: @total_ordering"
 description: >
-  Things often come in sets of specific items, like states, Pokémon, or
-  playing cards. Python has an elegant way of representing them using enum.
+  Your classes can make use of the rich Python comparison operators just like
+  the default classes. Here I'll show you how to do it even easier.
 image: /files/patterns/locupletissimi_rerum_naturalium_thesauri_v1_lxxxiii_snake.png
 image_alt: >
   A drawing of a red and white snake taken from Plate LXXXIII from
@@ -13,15 +13,15 @@ categories: python_patterns
 
 {% include lead_image.html %}
 
-Python classes come with a set of rich comparison operators. I can lexically
-compare strings like so:
+Python classes come with a set of rich comparison operators. I can compare
+strings lexically like so:
 
 {% highlight python %}
 "alex" > "alan"
 "dog" < "cat"
 {% endhighlight python %}
 
-And of course I can sort numbers, even integers and floats together:
+And I can sort numbers including integers and floats:
 
 {% highlight python %}
 sorted((4, 3, 2.2, 5)) == (2.2, 3, 4, 5)
@@ -29,8 +29,9 @@ sorted((4, 3, 2.2, 5)) == (2.2, 3, 4, 5)
 
 All of these are made possible by special ["dunder" methods][dunder] defined
 by each class. Implementing comparison and sorting for your own classes is as
-easy as defining six methods, one each for `== != > => < <=`. Thankfully,
-Python has a helper method that makes it simplier: [`@total_ordering`][total].
+easy as defining six methods, one each for `==`, `!=`, `>`, `=>`, `<`, and
+`<=`. Thankfully, Python has a helper method that makes it simplier:
+[`@total_ordering`][total].
 
 [dunder]: TODO
 [total]: https://docs.python.org/3/library/functools.html#functools.total_ordering
@@ -98,15 +99,15 @@ class Book:
 That is a lot of highly-redundant code!
 
 Math tells us that if `self > other` is true, than `self < other` and `self ==
-other` are false. We could write our own logic taking advantage of this, but
-Python has a built in for that: [the `@total_ordering` decorator][total] from
-`functools`
+other` are false. We could write our own logic taking advantage of this fact,
+but that is exactly what [the `@total_ordering` decorator][total] from
+`functools` does already.
 
 ## With `@total_ordering`
 
 Using the `@total_ordering` decorator[^1] we only have to define `__eq__` and
-one of the other comparison methods. The rest of the methods are filled in
-using the logic described above. It's used like so:
+one of the other comparison methods. The rest of the methods are filled in for
+us. It's used like so:
 
 {% highlight python %}
 from functools import total_ordering
@@ -138,11 +139,17 @@ before! We can sort our books easily:
 my_books = [
   Book("Absalom, Absalom!", "William Faulkner"),
   Book("The Sun Also Rises", "Ernest Hemmingway"),
-  Book("For Whom The Bells Toll", "Ernest Hemmingway"),
+  Book("For Whom The Bell Tolls", "Ernest Hemmingway"),
   Book("The Sound and the Fury", "William Faulkner"),
 ]
 
-sorted_books = sorted(my_books)
+for book in sorted(my_books):
+  print(book.author, ",", book.title)
+
+# >> Ernest Hemmingway, For Whom The Bell Tolls
+# >> Ernest Hemmingway, The Sun Also Rises
+# >> William Faulkner, Absalom, Absalom!
+# >> William Faulkner, The Sound and the Fury
 {% endhighlight python %}
 
 ---
