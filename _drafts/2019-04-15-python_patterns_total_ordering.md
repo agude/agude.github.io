@@ -4,10 +4,9 @@ title: "Python Patterns: @total_ordering"
 description: >
   Your classes can make use of the rich Python comparison operators just like
   the default classes. Here I'll show you how to do it even easier.
-image: /files/patterns/locupletissimi_rerum_naturalium_thesauri_v1_lxxxiii_snake.png
+image: /files/patterns/biologia_centrali_americana_coronella_annulata.jpg
 image_alt: >
-  A drawing of a red and white snake taken from Plate LXXXIII from
-  Locupletissimi rerum naturalium thesauri volume 1.
+  A drawing of a red, black, and yellow milk snake.
 categories: python_patterns
 ---
 
