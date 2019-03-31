@@ -26,13 +26,13 @@ And I can sort numbers including integers and floats:
 sorted((4, 3, 2.2, 5)) == (2.2, 3, 4, 5)
 {% endhighlight python %}
 
-All of these are made possible by special ["dunder" methods][dunder] defined
-by each class. Implementing comparison and sorting for your own classes is as
-easy as defining six methods, one each for `==`, `!=`, `>`, `=>`, `<`, and
-`<=`. Thankfully, Python has a helper method that makes it simplier:
-[`@total_ordering`][total].
+All of these are made possible by [special methods][special] defined by each
+class. Implementing comparison and sorting for your own classes is as easy as
+defining six methods, one each for `==`, `!=`, `>`, `=>`, `<`, and `<=`.
+Thankfully, Python has a helper method that makes it simpler: [the
+`@total_ordering` decorator][total].
 
-[dunder]: TODO
+[special]: https://docs.python.org/3/reference/datamodel.html#specialnames
 [total]: https://docs.python.org/3/library/functools.html#functools.total_ordering
 
 ## Your Library
@@ -49,8 +49,8 @@ class Book:
 
 We want the `Book` class to be comparable, because that will allow us to order
 the books on the shelf (using `sorted()` for instance). Books will be sorted
-first by author and then by title. To implement that, we write the six
-"dunder" methods like this:
+first by author and then by title. To implement that, we write the six special
+methods like this:
 
 {% highlight python %}
 class Book:
@@ -137,19 +137,21 @@ before! We can sort our books easily:
 {% highlight python %}
 my_books = [
   Book("Absalom, Absalom!", "William Faulkner"),
-  Book("The Sun Also Rises", "Ernest Hemmingway"),
-  Book("For Whom The Bell Tolls", "Ernest Hemmingway"),
+  Book("The Sun Also Rises", "Ernest Hemingway"),
+  Book("For Whom The Bell Tolls", "Ernest Hemingway"),
   Book("The Sound and the Fury", "William Faulkner"),
 ]
 
 for book in sorted(my_books):
   print(book.author, ",", book.title)
 
-# >> Ernest Hemmingway, For Whom The Bell Tolls
-# >> Ernest Hemmingway, The Sun Also Rises
+# >> Ernest Hemingway, For Whom The Bell Tolls
+# >> Ernest Hemingway, The Sun Also Rises
 # >> William Faulkner, Absalom, Absalom!
 # >> William Faulkner, The Sound and the Fury
 {% endhighlight python %}
 
 ---
-[^1]: A decorator is a function that takes a Python object as an argument and returns a (often) modified copy of the object.
+[^1]: A [decorator][decorator] is a function that takes a Python object as an argument and returns a (often) modified copy of the object.
+
+[decorator]: https://docs.python.org/3/glossary.html#term-decorator
