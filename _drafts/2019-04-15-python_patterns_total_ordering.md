@@ -99,8 +99,7 @@ That is a lot of highly-redundant code!
 
 Math tells us that if `self > other` is true, than `self < other` and `self ==
 other` are false. We could write our own logic taking advantage of this fact,
-but that is exactly what [the `@total_ordering` decorator][total] from
-`functools` does already.
+but that is exactly what `@total_ordering` from `functools` does already.
 
 ## With `@total_ordering`
 
