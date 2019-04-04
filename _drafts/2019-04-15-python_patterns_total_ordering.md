@@ -27,10 +27,10 @@ sorted((4, 3, 2.2, 5)) == (2.2, 3, 4, 5)
 {% endhighlight python %}
 
 All of these are made possible by [special methods][special] defined by each
-class. Implementing comparison and sorting for your own classes is as easy as
-defining six methods, one each for `==`, `!=`, `>`, `=>`, `<`, and `<=`.
-Thankfully, Python has a helper method that makes it simpler: [the
-`@total_ordering` decorator][total].
+class. Implementing comparison and sorting for your own classes means defining
+six methods, one each for `==`, `!=`, `>`, `=>`, `<`, and `<=`. Thankfully,
+Python has a helper method that makes it even simpler: [the `@total_ordering`
+decorator][total].
 
 [special]: https://docs.python.org/3/reference/datamodel.html#specialnames
 [total]: https://docs.python.org/3/library/functools.html#functools.total_ordering
@@ -149,6 +149,8 @@ for book in sorted(my_books):
 # >> William Faulkner, Absalom, Absalom!
 # >> William Faulkner, The Sound and the Fury
 {% endhighlight python %}
+
+And we didn't have to write six methods!
 
 ---
 [^1]: A [decorator][decorator] is a function that takes a Python object as an argument and returns a (often) modified copy of the object.
