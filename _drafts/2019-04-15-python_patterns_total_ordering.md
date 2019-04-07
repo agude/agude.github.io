@@ -3,7 +3,7 @@ layout: post
 title: "Python Patterns: @total_ordering"
 description: >
   Your classes can make use of the rich Python comparison operators just like
-  the default classes. Here I'll show you how to do it even easier.
+  the built-in classes. Here I'll show you how to do it while minimizing boilerplate.
 image: /files/patterns/biologia_centrali_americana_coronella_annulata.jpg
 image_alt: >
   A drawing of a red, black, and yellow milk snake.
@@ -17,7 +17,7 @@ strings lexically like so:
 
 {% highlight python %}
 "alex" > "alan"
-"dog" < "cat"
+"cat" < "dog"
 {% endhighlight python %}
 
 And I can sort numbers including integers and floats:
@@ -37,8 +37,8 @@ decorator][total].
 
 ## Your Library
 
-Let's make a class to hold books, so we can keep track of our library. A basic
-`Book` class might look like:
+Let's make a class to hold books so we can keep track of our library. A basic
+`Book` class might look like this:
 
 {% highlight python %}
 class Book:
@@ -47,9 +47,9 @@ class Book:
     self.author = author
 {% endhighlight python %}
 
-We want the `Book` class to be comparable, because that will allow us to order
+We want the `Book` class to be comparable because that will allow us to order
 the books on the shelf (using `sorted()` for instance). Books will be sorted
-first by author and then by title. To implement that, we write the six special
+first by author and then by title. To implement that, we might write the six special
 methods like this:
 
 {% highlight python %}
@@ -95,7 +95,7 @@ class Book:
     return ours >= theirs
 {% endhighlight python %}
 
-That is a lot of highly-redundant code!
+That is a lot of boilerplate code!
 
 Math tells us that if `self > other` is true, than `self < other` and `self ==
 other` are false. We could write our own logic taking advantage of this fact,
