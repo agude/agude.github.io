@@ -6,7 +6,8 @@ description: >
   the built-in classes. Here I'll show you how to do it while minimizing boilerplate.
 image: /files/patterns/biologia_centrali_americana_coronella_annulata.jpg
 image_alt: >
-  A drawing of a red, black, and yellow milk snake.
+  A drawing of a red, black, and yellow milk snake from Biologia Centrali
+  Americana.
 categories: python_patterns
 ---
 
@@ -23,7 +24,7 @@ strings lexically like so:
 And I can sort numbers including integers and floats:
 
 {% highlight python %}
-sorted((4, 3, 2.2, 5)) == (2.2, 3, 4, 5)
+sorted((4, 3, 2.2, 5)) == [2.2, 3, 4, 5]
 {% endhighlight python %}
 
 All of these are made possible by [special methods][special] defined by each
@@ -98,8 +99,9 @@ class Book:
 That is a lot of boilerplate code!
 
 Math tells us that if `self > other` is true, than `self < other` and `self ==
-other` are false. We could write our own logic taking advantage of this fact,
-but that is exactly what `@total_ordering` from `functools` does already.
+other` are false. We could write our own logic taking advantage of this fact
+to reduce the boilerplate, but that is exactly what `@total_ordering` from
+`functools` does already!
 
 ## With `@total_ordering`
 
@@ -142,7 +144,11 @@ my_books = [
 ]
 
 for book in sorted(my_books):
-  print(book.author, ",", book.title)
+  output = "{author}, {title}".format(
+    author=book.author,
+    title=book.title,
+  )
+  print(output)
 
 # >> Ernest Hemingway, For Whom The Bell Tolls
 # >> Ernest Hemingway, The Sun Also Rises
