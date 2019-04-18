@@ -54,18 +54,18 @@ time information to a form recognized by SQLite.
 
 Installation is easy with `pip`:
 
-{% highlight shell %}
+```shell
 pip install switrs-to-sqlite
-{% endhighlight %}
+```
 
 Running the script on the downloaded data is simple:
 
-{% highlight shell %}
+```shell
 switrs_to_sqlite \
 CollisionRecords.txt \
 PartyRecords.txt \
 VictimRecords.txt
-{% endhighlight %}
+```
 
 This will run for a while (about an hour on my ancient desktop) and produce a
 SQLite3 file named `switrs.sqlite3`.
@@ -75,7 +75,7 @@ SQLite3 file named `switrs.sqlite3`.
 Now that we have the SQLite file, let us make a map of all recorded accidents.
 We load the file and select all accidents with GPS coordinates as follows:
 
-{% highlight python %}
+```python
 import pandas as pd
 import sqlite3
 
@@ -90,11 +90,11 @@ with sqlite3.connect("./switrs.sqlite3") as con:
 
     # Construct a Dataframe from the results
     df = pd.read_sql_query(query, con)
-{% endhighlight %}
+```
 
 Then making a map is simple:
 
-{% highlight python %}
+```python
 from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
 
@@ -111,7 +111,7 @@ map = Basemap(
 x,y = map(df['Longitude'].values, df['Latitude'].values)
 
 map.plot(x, y, 'k.', markersize=1.5)
-{% endhighlight %}
+```
 
 This gives us a map of the locations of all the accidents in the state of
 California from 2001 to 2016:
