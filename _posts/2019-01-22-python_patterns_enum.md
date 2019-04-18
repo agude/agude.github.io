@@ -44,7 +44,7 @@ follows:
 
 [card_52]: https://en.wikipedia.org/wiki/Standard_52-card_deck
 
-{% highlight python %}
+```python
 @total_ordering
 class PlayingCard:
   def __init__(self, suit, rank):
@@ -68,7 +68,7 @@ class PlayingCard:
 
   def __eq__(self, other):
     return self.rank == other.rank
-{% endhighlight python %}
+```
 
 This class works with the standard comparison operators (thanks to [the
 `@total_ordering` decorator, which I discuss in another
@@ -80,13 +80,13 @@ compare to 2s and 3s!
 
 With that done, we can now declare cards easily enough:
 
-{% highlight python %}
+```python
 ace_of_spades    = PlayingCard("Spade", "A")
 king_of_hearts   = PlayingCard("Heart", "K")
 eight_of_spades  = PlayingCard("Spades", 8)
 eight_of_clubs   = PlayingCard("Club", "8")
 my_favorite_card = PlayingCard("Stars", 85)
-{% endhighlight python %}
+```
 
 Did you catch all the errors? We could write some error checking in the class,
 but it would again be a bit tedious. Instead, let's implement this using enums.
@@ -102,7 +102,7 @@ An enum has exactly the properties we want:
 
 First, we define the suits:
 
-{% highlight python %}
+```python
 from enum import Enum, auto
 
 class CardSuit(Enum):
@@ -111,7 +111,7 @@ class CardSuit(Enum):
     DIAMONDS = auto()
     HEARTS = auto()
     SPADES = auto()
-{% endhighlight python %}
+```
 
 The function `auto()` sets the values and insures that they are unique. The
 members are not orderable (so `CardSuit.CLUBS > CardSuit.DIAMONDS` will raise
@@ -121,7 +121,7 @@ suits are accepted.
 
 An example of some of the properties:
 
-{% highlight python %}
+```python
 hearts = CardSuit.HEARTS
 clubs = CardSuit.CLUBS
 stars = "stars"
@@ -131,12 +131,12 @@ hearts != stars  # True
 
 # And we can test membership
 isinstance(stars, CardSuit)  # False
-{% endhighlight python %}
+```
 
 Second, we define a `CardValue`, this time using `IntEnum` because we want the
 values to be comparable.
 
-{% highlight python %}
+```python
 from enum import IntEnum, unique
 
 @unique
@@ -152,14 +152,14 @@ class CardRank(IntEnum):
     QUEEN = 12
     KING = 13
     ACE = 14
-{% endhighlight python %}
+```
 
 The `IntEnum`s are orderable so `CardRank.TEN < CardRank.KING`. The decorator
 `@unique` adds a check that makes sure we haven't double assigned any values.
 
 Now the card class is easy to implement:
 
-{% highlight python %}
+```python
 @total_ordering
 Class PlayingCard:
   def __init__(self, suit, rank):
@@ -178,15 +178,15 @@ Class PlayingCard:
 
   def __eq__(self, other):
     return self.rank == other.rank
-{% endhighlight python %}
+```
 
 It is now much easier to catch errors in our card definitions:
 
-{% highlight python %}
+```python
 ace_of_spades    = PlayingCard(CardSuit.SPADES, CardRank.ACE)
 king_of_hearts   = PlayingCard(CardSuit.HEARTS, CardRank.KING)
 my_favorite_card = PlayingCard("Stars", 85)  # Obviously wrong
-{% endhighlight python %}
+```
 
 Not only are they obvious by eye (`"Stars"` is clearly not a `CardSuit`), but
 the runtime will even raise an error!

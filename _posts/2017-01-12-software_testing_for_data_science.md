@@ -47,7 +47,7 @@ verifies that my code can read `.gzip` data files:
 
 [gzip_test]: https://github.com/agude/SWITRS-to-SQLite/blob/5167c7d9ffe7384224a76b1f209b7638fdd70362/tests/test_open_records_file.py#L8-L18
 
-{% highlight python %}
+```python
 from etl import open_record_file
 
 def test_read_gzipped_file(tmpdir):
@@ -61,7 +61,7 @@ def test_read_gzipped_file(tmpdir):
     # Read back the file
     with open_record_file(file_path) as f:
         assert f.read() == contents
-{% endhighlight %}
+```
 
 In this test I create a very small gzip file, read it with the function being
 tested, and verify that it reports the same content that I wrote to the file.
@@ -90,7 +90,7 @@ simplified version of the [tests for my `convert` function][convert_tests]:
 
 [convert_tests]: https://github.com/agude/SWITRS-to-SQLite/blob/5167c7d9ffe7384224a76b1f209b7638fdd70362/tests/test_converters.py#L7-L40
 
-{% highlight python %}
+```python
 from etl import convert
 
 def test_convert():
@@ -112,7 +112,7 @@ def test_convert():
     )
     for val, dtype, nulls, answer in convert_vals:
         assert convert(val=val, dtype=dtype, nulls=nulls) == answer
-{% endhighlight %}
+```
 
 The [`convert` function][convert_fn] takes a string, a type, and a list of
 values that should map to the [`NULL` value][wiki_null]. If the string is in
@@ -140,7 +140,7 @@ files using the `convert` function (and a few others) tested above as follows:
 
 [vr_test]: https://github.com/agude/SWITRS-to-SQLite/blob/5167c7d9ffe7384224a76b1f209b7638fdd70362/tests/test_victimrow.py
 
-{% highlight python %}
+```python
 from etl import VictimRow
 
 # You should do this with a fixture, but this is a simple example
@@ -158,7 +158,7 @@ def test_victimrows():
     for row, answer in ROWS:
         c = VictimRow(row)
         assert c.values == answer
-{% endhighlight %}
+```
 
 I provide example rows from the CSV as input along with the expected correct
 output. You'll notice it has to read strings and convert them into strings,

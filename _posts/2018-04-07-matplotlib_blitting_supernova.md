@@ -104,7 +104,7 @@ Our example function sets the labels, the title, and the range of the plot. It
 is here where we would draw anything else that is unchanging, like the legend,
 or some text labels, if we needed to. Here it is:
 
-{% highlight python %}
+```python
 def init_fig(fig, ax, artists):
     """Initialize the figure, used to draw the first
     frame for the animation.
@@ -122,7 +122,7 @@ def init_fig(fig, ax, artists):
     # Must return the list of artists, but we use a pass
     # through so that they aren't created multiple times
     return artists
-{% endhighlight %}
+```
 
 You will notice that I said the function takes no arguments, but I gave it
 three anyway. It's hard to have no inputs (without using globals), but one
@@ -146,7 +146,7 @@ Our function loops over the days relative to maximum light and returns the
 flux values from that day, as well as string of the day to update the text
 label.
 
-{% highlight python %}
+```python
 def frame_iter(from_day, until_day):
     """Iterate through the days of the spectra and return
     flux and day number.
@@ -155,7 +155,7 @@ def frame_iter(from_day, until_day):
         flux = flux_from_day(day)
         # Yield events so the function can be looped over
         yield (flux, "Day: {day}".format(day))
-{% endhighlight %}
+```
 
 ### update_artists Function
 
@@ -168,14 +168,14 @@ Once we have [`frame_iter()`][frame_iter] to generate the data for each frame,
 For the plot line we call `.set_data()` to insert the new values; for the text
 we call `.set_text()`. Our function is short:
 
-{% highlight python %}
+```python
 def update_artists(frames, artists, lambdas):
     """Update artists with data from each frame."""
     flux, day = frames
 
     artists.flux_line.set_data(lambdas, flux)
     artists.day.set_text(day)
-{% endhighlight %}
+```
 
 Lines and text are easy to update, but other plot objects (like histograms)
 are associated with multiple artists, which makes it harder to update them.
@@ -196,7 +196,7 @@ animation:
 
 Here are those steps in code:
 
-{% highlight python %}
+```python
 # 1. Create the plot
 fig, ax = plt.subplots(figsize=(12, 7))
 
@@ -230,7 +230,7 @@ anim.save(
   extra_args=['-vcodec', 'libx264'],
   dpi=300,
 )
-{% endhighlight %}
+```
 
 The only tricky thing is the use of partial applications. Partial application
 binds some (or all) of the arguments to the function and creates a new

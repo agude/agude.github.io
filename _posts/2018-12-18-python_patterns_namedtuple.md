@@ -23,7 +23,7 @@ where.
 
 For example, one might create cards in a virtual address book like this:
 
-{% highlight python %}
+```python
 card = (
   "Alex",
   "Gude",
@@ -31,12 +31,12 @@ card = (
   None,
   "17 St., Smaller Town, CA",
 )
-{% endhighlight python %}
+```
 
 Simple, but a little confusing. What does `None` signify? Writing code to work
 with these objects is error prone:
 
-{% highlight python %}
+```python
 def check_email(card):
   """Check if a card has an email
   address that is valid."""
@@ -44,7 +44,7 @@ def check_email(card):
   is_valid = email is not None and '@' in email
 
   return is_valid
-{% endhighlight python %}
+```
 
 Is `2` the correct index to use? Maybe it was `3`? Catching mistakes in the
 code is tough for anyone reading it.
@@ -60,7 +60,7 @@ case when [passing artists around in my `matplotlib` blitting post][blitting].
 
 Instead, we could build a class that acts like a list or tuple::
 
-{% highlight python %}
+```python
 class Card:
   def __init__(self, first_name, last_name, ...):
     self.__internal = [first_name, last_name, ...]
@@ -78,7 +78,7 @@ class Card:
     return self.__internal.__next__()
 
   # and many other methods
-{% endhighlight python %}
+```
 
 Not difficult to write, but tedious due to all of the boilerplate code.
 Thankfully, someone has already done so.
@@ -91,7 +91,7 @@ would now looks like this:
 
 [namedtuple]: https://docs.python.org/3/library/collections.html#collections.namedtuple
 
-{% highlight python %}
+```python
 from collections import namedtuple
 
 Card = namedtuple(
@@ -110,14 +110,14 @@ alex_card = Card(
     "Alex", "Gude", "me@alexgude.com",
     None, "17 St., Smaller Town, CA",
 )
-{% endhighlight python %}
+```
 
 This is much cleaner than our original card tuple. We now know the missing
 value is the phone number! We can access the values with dot operators as
 well: `card.email`. And the named tuple stills works exactly as you would
 expect for a standard tuple:
 
-{% highlight python %}
+```python
 # For loops work
 for item in alex_card:
     print(item)
@@ -127,14 +127,14 @@ alex_card[2] == alex_card.email
 
 # And we can unpack
 first, last, email, phone, address = alex_tuple
-{% endhighlight python %}
+```
 
 Code that operates on this named tuple is much easier to read as well, because
 it does not rely on [magic numbers][magic_number]:
 
 [magic_number]: https://en.wikipedia.org/wiki/Magic_number_(programming)
 
-{% highlight python %}
+```python
 def new_check_email(card):
   """Check if a card has an email
   address that is valid."""
@@ -142,7 +142,7 @@ def new_check_email(card):
   is_valid = email is not None and '@' in email
 
   return is_valid
-{% endhighlight python %}
+```
 
 Named tuples are not as well known as dictionaries or classes, but they solve
 a common problem and make your code more readable!
