@@ -98,7 +98,7 @@ high trial count required.
 The following code (which can be found in the [notebook][rendered]) will
 "roll" 4dF _N_ times per trial, and perform 10,000 trials:
 
-{% highlight python %}
+```python
 def simulate_rolls(n, trials=10000):
     """ Simulate rolling 4dF N times and calculate the expectation
     intervals.
@@ -123,7 +123,7 @@ def simulate_rolls(n, trials=10000):
             results[i].append(count)
 
     return results
-{% endhighlight %}
+```
 
 After generating the trials, the intervals are computed by looking at the 0.5
 percentile and the 99.5 percentile for each possible 4dF outcomes. The results

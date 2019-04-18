@@ -38,7 +38,7 @@ As always, the Jupyter notebook used to do this analysis can be found
 
 The data was selected using the following query:
 
-{% highlight sql %}
+```sql
 SELECT Collision_Date FROM Collision
 WHERE Collision_Date IS NOT NULL
 AND Collision_Date <= '2015-12-31'  -- 2016 is incomplete
@@ -48,7 +48,7 @@ AND Motorcycle_Collision IS NOT 1
 AND Pedestrian_Collision IS NOT 1
 AND Truck_Collision IS NOT 1
 
-{% endhighlight %}
+```
 
 This selects every car accident that happened before 2016 that has a collision
 date stored. The current year, 2016, is excluded because the data from it is
