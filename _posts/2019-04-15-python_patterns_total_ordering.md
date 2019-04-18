@@ -16,16 +16,16 @@ categories: python_patterns
 Python classes come with a set of rich comparison operators. I can compare
 strings lexically like so:
 
-{% highlight python %}
+```python
 "alex" > "alan"
 "cat" < "dog"
-{% endhighlight python %}
+```
 
 And I can sort numbers including integers and floats:
 
-{% highlight python %}
+```python
 sorted((4, 3, 2.2, 5)) == [2.2, 3, 4, 5]
-{% endhighlight python %}
+```
 
 All of these are made possible by [special methods][special] defined by each
 class. Implementing comparison and sorting for your own classes means defining
@@ -41,19 +41,19 @@ decorator][total].
 Let's make a class to hold books so we can keep track of our library. A basic
 `Book` class might look like this:
 
-{% highlight python %}
+```python
 class Book:
   def __init__(self, title, author):
     self.title = title
     self.author = author
-{% endhighlight python %}
+```
 
 We want the `Book` class to be comparable because that will allow us to order
 the books on the shelf (using `sorted()` for instance). Books will be sorted
 first by author and then by title. To implement that, we might write the six special
 methods like this:
 
-{% highlight python %}
+```python
 class Book:
   def __init__(self, title, author):
     self.title = title
@@ -94,7 +94,7 @@ class Book:
     ours = (self.author, self.title)
     theirs = (other.author, other.title)
     return ours >= theirs
-{% endhighlight python %}
+```
 
 That is a lot of boilerplate code!
 
@@ -109,7 +109,7 @@ Using the `@total_ordering` decorator[^1] we only have to define `__eq__` and
 one of the other comparison methods. The rest of the methods are filled in for
 us. It's used like so:
 
-{% highlight python %}
+```python
 from functools import total_ordering
 
 
@@ -130,12 +130,12 @@ class Book:
     ours = (self.author, self.title)
     theirs = (other.author, other.title)
     return ours < theirs
-{% endhighlight python %}
+```
 
 Now we have a much more compact class, but with the same functionality as
 before! We can sort our books easily:
 
-{% highlight python %}
+```python
 my_books = [
   Book("Absalom, Absalom!", "William Faulkner"),
   Book("The Sun Also Rises", "Ernest Hemingway"),
@@ -154,7 +154,7 @@ for book in sorted(my_books):
 # >> Ernest Hemingway, The Sun Also Rises
 # >> William Faulkner, Absalom, Absalom!
 # >> William Faulkner, The Sound and the Fury
-{% endhighlight python %}
+```
 
 And we didn't have to write six methods!
 

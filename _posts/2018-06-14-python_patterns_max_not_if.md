@@ -24,7 +24,7 @@ remember the best one seen so far, like this:
 
 [scrabble]: https://en.wikipedia.org/wiki/Scrabble
 
-{% highlight python %}
+```python
 # Set up placeholder variables
 best_score = 0
 best_word = None
@@ -36,7 +36,7 @@ for word in possible_words(my_letters):
   if score > best_score:
     best_score = score
     best_word = word
-{% endhighlight python %}
+```
 
 You have probably written this logic before in some of your own code. The code
 is not that complicated, but we can still improve its readability with a quick
@@ -47,7 +47,7 @@ tweak.
 What does `if score > best_score` remind you of? The way we might implement
 the `max()` function! Using `max()` helps us simplify the code nicely:
 
-{% highlight python %}
+```python
 # Set up placeholder variables
 best_seen = (0, None)
 
@@ -57,7 +57,7 @@ for word in possible_words(my_letters):
 
   newest_seen = (score, word)
   best_seen = max(best_seen, newest_seen)
-{% endhighlight python %}
+```
 
 Storing all the data together in a single tuple means that assignment and
 comparison are now handled all at once. This makes it less likely that we will
@@ -74,7 +74,7 @@ parameter. The `key` parameter takes a function that is called on each object
 and returns another object to use in the comparison. We can use it to select
 just the first entry like so:
 
-{% highlight python %}
+```python
 # Set up placeholder variables
 best_seen = (0, None)
 
@@ -84,7 +84,7 @@ for word in possible_words(my_letters):
 
   newest_seen = (score, word)
   best_seen = max(best_seen, newest_seen, key=lambda x: x[0])
-{% endhighlight python %}
+```
 
 ## Even Simpler
 
@@ -96,10 +96,10 @@ By default `max()` uses the standard comparison operator, but we can change
 that to use our `score_word()` using the same `key` argument from above. Then
 we have:
 
-{% highlight python %}
+```python
 words = possible_words(my_letters)
 best_word = max(words, key=score_word)
-{% endhighlight python %}
+```
 
 Which gives us a very compact (and relatively fool proof) pattern, with all
 the looping and placeholders pushed into the implementation of `max()`.

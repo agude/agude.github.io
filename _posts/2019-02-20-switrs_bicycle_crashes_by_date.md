@@ -64,12 +64,12 @@ I selected accidents involving bicycles from the [SQLite database][s2s]
 [s2s]: https://github.com/agude/SWITRS-to-SQLite
 [s2s_post]: {% post_url 2016-11-01-switrs_to_sqlite %}
 
-{% highlight sql %}
+```sql
 SELECT Collision_Date FROM Collision
 WHERE Collision_Date IS NOT NULL
 AND Bicycle_Collision == 1          -- Involves a bicycle
 AND Collision_Date <= '2017-12-31'  -- 2018 is incomplete
-{% endhighlight %}
+```
 
 This gave me 223,772 data points to examine spanning 2001 to 2017. [Just as
 before][ds], accidents from the most recent year are rejected because the
