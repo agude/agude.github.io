@@ -15,26 +15,34 @@ categories: career-advice
 {% include lead_image.html %}
 
 The [gender pay gap][pay_gap] is a contentious issue, especially in tech where
-[women are historical excluded][women_in_tech]. I have some data to look at
-the pay gap in Data Science, using the same [Insight][insight] alumni survey I
-used [last time][last_time].
+[women are historical excluded][women_in_tech]. I can look at the pay gap in
+Data Science using the same [Insight][insight] alumni survey I used [last
+time][last_time].
 
 [pay_gap]: https://en.wikipedia.org/wiki/Gender_pay_gap
 [women_in_tech]: https://qz.com/work/1287881/how-technology-companies-alienate-women-during-recruitment/
 [insight]: https://www.insightdatascience.com
 [last_time]: {% post_url 2019-03-26-data_science_salaries %} 
 
-This data has some biases, in that it is collected from Insight
-alumni who are, mostly:
+This data has some biases, in that it is collected from Insight alumni who
+are mostly:
 
 - PhDs
 - Early career
 - In high-demand markets
 - Coached on salary negotiation
 
-Additionally, gender was not on the original survey and only added later, so
-around a third of the data does not have that information. With those
-limitations noted, I'll move on.
+The gender question was only added to the survey later, so around a third of
+the data does not have that information.
+
+Others have looked into the same question before: [Florian
+Lindstaedt][florian] used a much larger (but less clean) dataset from Kaggle
+to [look at the issue on his blog][kaggle_survey]. He found that for data
+scientists younger than 30, women earned slightly more, but in the 30-35 age
+group men earned more.
+
+[florian]: https://flolytic.com/
+[kaggle_survey]: https://flolytic.com/blog/gender-pay-gap-among-data-scientists-on-kaggle
 
 The data is available [here][data]. The notebook with all the code is
 [here][notebook] ([rendered on Github][rendered]).
