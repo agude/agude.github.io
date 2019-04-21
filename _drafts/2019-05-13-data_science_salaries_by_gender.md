@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Data Science Salaries: Men Vs. Women"
+title: "The Gender Pay Gap in Data Science Salaries"
 description: >
   How do data scientists salaries for women compare to men? This month we
   explore pay by gender and location.
@@ -15,17 +15,23 @@ categories: career-advice
 {% include lead_image.html %}
 
 The [gender pay gap][pay_gap] is a contentious issue, especially in tech where
-[women are historical excluded][women_in_tech]. I can look at the pay gap in
-Data Science using the same [Insight][insight] alumni survey I used [last
-time][last_time].
+[women are historical excluded][women_in_tech]. Others have looked into the
+same question before: [Florian Lindstaedt][florian] used a much larger (but
+less clean) dataset from Kaggle to [look at the issue on his
+blog][kaggle_survey]. He found that for data scientists younger than 30, women
+earned slightly more, but in the 30-35 age group men earned more.
 
 [pay_gap]: https://en.wikipedia.org/wiki/Gender_pay_gap
 [women_in_tech]: https://qz.com/work/1287881/how-technology-companies-alienate-women-during-recruitment/
+[florian]: https://flolytic.com/
+[kaggle_survey]: https://flolytic.com/blog/gender-pay-gap-among-data-scientists-on-kaggle
+
+I can look at the pay gap in Data Science using the same [Insight][insight]
+alumni survey I used [last time][last_time]. This data has some biases, in
+that it is collected from Insight alumni who are mostly:
+
 [insight]: https://www.insightdatascience.com
 [last_time]: {% post_url 2019-03-26-data_science_salaries %} 
-
-This data has some biases, in that it is collected from Insight alumni who
-are mostly:
 
 - PhDs
 - Early career
@@ -33,19 +39,17 @@ are mostly:
 - Coached on salary negotiation
 
 The gender question was only added to the survey later, so around a third of
-the data does not have that information.
+the data does not have that information. This leaves us 79 men and 28 women.
+Not a huge sample, but better than nothing.
 
-Others have looked into the same question before: [Florian
-Lindstaedt][florian] used a much larger (but less clean) dataset from Kaggle
-to [look at the issue on his blog][kaggle_survey]. He found that for data
-scientists younger than 30, women earned slightly more, but in the 30-35 age
-group men earned more.
+Of course, this low number of woman might itself be a further bias: Insight
+generally has pretty gender-balanced cohorts, so that fact the many fewer
+women have filled out the survey is worrying. It is possible that non-response
+is not random and instead is correlated to the underlying distribution, for
+example, perhaps people who are paid less refuse to report.
 
-[florian]: https://flolytic.com/
-[kaggle_survey]: https://flolytic.com/blog/gender-pay-gap-among-data-scientists-on-kaggle
-
-The data is available [here][data]. The notebook with all the code is
-[here][notebook] ([rendered on Github][rendered]).
+The data used in this post is available [here][data]. The notebook with all
+the code is [here][notebook] ([rendered on Github][rendered]).
 
 {% capture notebook_uri %}{{ "Data Science Salary Data Gender.ipynb" | uri_escape }}{% endcapture %}
 
@@ -55,11 +59,11 @@ The data is available [here][data]. The notebook with all the code is
 
 ## Gendered Pay
 
-Here are all the data scientists in the dataset, divided by gender. I have
-removed all the non-data scientists (like the [MLEs I looked at last
-time][last_time_mle] because I have very few responses from them. I have also
-removed the one data scientist who marked themselves as "transgender" without
-indicating their gender identity further.
+First, I'll look at total recurring compensation by gender. I have removed all
+the non-data scientists (like the [MLEs I looked at last time][last_time_mle]
+because I have very few responses from them. I have also removed the one data
+scientist who marked themselves as "transgender" without indicating their
+gender identity further.
 
 [last_time_mle]: {% post_url 2019-03-26-data_science_salaries %}#scientists-engineers-and-analysts
 
@@ -77,14 +81,8 @@ median man, but of course the number of samples is really small.
 | Female  |                     $149k |
 | Male    |                     $139k |
 
-At this point I will note a further bias in the data: there are far fewer
-women than men, even though Insight generally has pretty balanced cohorts. It
-is possible that non-response is not random and instead is correlated to the
-underlying distribution, for example, perhaps people who are paid less refuse
-to report.
-
-There are lots of things I would like to explore---like if women and men see
-the same [effects from seniority that I observed last
+There are lots of things I would like to explore---like "do women benifit from
+seniority the same as men?", like [I observed last
 time][last_time_senior]---but I just do not have enough women in the sample to
 say anything conclusive.
 
