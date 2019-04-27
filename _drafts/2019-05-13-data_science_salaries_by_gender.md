@@ -90,6 +90,29 @@ say anything conclusive.
 
 ## By Region
 
-[![A swarm plot showing salaries for male and female data scientists in California and the East Coast.][gender_plot_region]][gender_plot]
+[![A swarm plot showing salaries for male and female data scientists in California and the East Coast.][gender_plot_region]][gender_plot_region]
 
 [gender_plot_region]: {{ file_dir }}/data_science_total_comp_gender_and_location.svg
+
+|  Gender |     Age |  Median Total Compensation |
+|:--------|--------:|---------------------------:|
+|  Female |  0--30  |                      $155k |
+|  Female | 31--35  |                      $164k |
+|  Female |    35+  |                      $180k |
+|    Male |  0--30  |                      $140k |
+|    Male | 31--35  |                      $148k |
+|    Male |    35+  |                      $138k |
+
+
+## By Age
+
+[![A swarm plot showing salaries for male and female data scientists in California and the East Coast by age][gender_plot_age]][gender_plot_age]
+
+[gender_plot_age]: {{ file_dir }}/data_science_total_comp_gender_and_age.svg
+
+|  Gender |  Median Total Compensation |
+|:--------|---------------------------:|
+|  Female |                      $168k |
+|  Female |                      $145k |
+|    Male |                      $162k |
+|    Male |                      $136k |
