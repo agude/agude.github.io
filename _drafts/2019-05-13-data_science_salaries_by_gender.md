@@ -15,38 +15,41 @@ categories: career-advice
 {% include lead_image.html %}
 
 The [gender pay gap][pay_gap] is a contentious issue, especially in tech where
-[women are historical excluded][women_in_tech]. Others have looked into the
-same question before: [Florian Lindstaedt][florian] used a much larger (but
-less clean) dataset from Kaggle to [look at the issue on his
-blog][kaggle_survey]. He found that for data scientists younger than 30, women
-earned slightly more, but in the 30-35 age group men earned more.
+[women are historical excluded][women_in_tech]. We can explore it in Data
+Science a little with the same [Insight data][insight] I used [last time to
+look at Data Science salaries in general][last_time].
 
 [pay_gap]: https://en.wikipedia.org/wiki/Gender_pay_gap
 [women_in_tech]: https://qz.com/work/1287881/how-technology-companies-alienate-women-during-recruitment/
+[insight]: https://www.insightdatascience.com
+[last_time]: {% post_url 2019-03-26-data_science_salaries %} 
+
+Others have looked into the same question before: [Florian
+Lindstaedt][florian] used a much larger (but less clean) dataset from Kaggle
+to [look at the issue on his blog][kaggle_survey]. He found that for data
+scientists younger than 30, women earned slightly more, but in the 30-35 age
+group men earned more.
+
 [florian]: https://flolytic.com/
 [kaggle_survey]: https://flolytic.com/blog/gender-pay-gap-among-data-scientists-on-kaggle
 
-I can look at the pay gap in Data Science using the same [Insight][insight]
-alumni survey I used [last time][last_time]. This data has some biases, in
+Our data is much smaller, but better curated. However, it has some biases, in
 that it is collected from Insight alumni who are mostly:
-
-[insight]: https://www.insightdatascience.com
-[last_time]: {% post_url 2019-03-26-data_science_salaries %} 
 
 - PhDs
 - Early career
 - In high-demand markets
 - Coached on salary negotiation
 
-The gender question was only added to the survey later, so around a third of
-the data does not have that information. This leaves us 79 men and 28 women.
-Not a huge sample, but better than nothing.
+Asking the respondant's gender was only added to the survey later, so around a
+third of the data does not have that information. This leaves us 79 men and 28
+women. Not a huge sample, but better than nothing.
 
 Of course, this low number of woman might itself be a further bias: Insight
 generally has pretty gender-balanced cohorts, so that fact the many fewer
 women have filled out the survey is worrying. It is possible that non-response
-is not random and instead is correlated to the underlying distribution, for
-example, perhaps people who are paid less refuse to report.
+is correlated to the underlying distribution, for example, perhaps people who
+are paid less refuse to report.
 
 The data used in this post is available [here][data]. The notebook with all
 the code is [here][notebook] ([rendered on Github][rendered]).
@@ -57,19 +60,20 @@ the code is [here][notebook] ([rendered on Github][rendered]).
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
-## Gendered Pay
+## Pay: Men Vs. Women
 
-First, I'll look at total recurring compensation by gender. I have removed all
+Here is total recurring compensation[^1] by gender. I have removed all
 the non-data scientists (like the [MLEs I looked at last time][last_time_mle]
 because I have very few responses from them. I have also removed the one data
-scientist who marked themselves as "transgender" without indicating their
-gender identity further.
+scientist who responded "transgender" without indicating their gender identity
+further.
 
 [last_time_mle]: {% post_url 2019-03-26-data_science_salaries %}#scientists-engineers-and-analysts
 
 So, how is pay equality in data science?
 
-[![A swarm plot showing salaries for male and female data scientists.][gender_plot]][gender_plot]
+[![A swarm plot showing salaries for male and female data
+scientists.][gender_plot]][gender_plot]
 
 [gender_plot]: {{ file_dir }}/data_science_total_comp_gender.svg
 
@@ -81,38 +85,63 @@ median man, but of course the number of samples is really small.
 | Female  |                     $149k |
 | Male    |                     $139k |
 
-There are lots of things I would like to explore---like "do women benifit from
+There are lots of things I would like to explore---like "do women benefit from
 seniority the same as men?", like [I observed last
 time][last_time_senior]---but I just do not have enough women in the sample to
 say anything conclusive.
 
 [last_time_senior]: {% post_url 2019-03-26-data_science_salaries %}#experience-counts-a-lot
 
+Instead I will look at salaries by region (which I know drives large pay
+differences) and age, which [Florian looked at][kaggle_survey].
+
 ## By Region
 
-[![A swarm plot showing salaries for male and female data scientists in California and the East Coast.][gender_plot_region]][gender_plot_region]
+Only California (LA, San Francisco, and Silicon Valley) and the Northeast
+(New York, Boston, and DC) have enough resonants to form any reasonable
+conclusions, so I limit my sample to those regions.
+
+[![A swarm plot showing salaries for male and female data scientists in
+California and the East Coast.][gender_plot_region]][gender_plot_region]
 
 [gender_plot_region]: {{ file_dir }}/data_science_total_comp_gender_and_location.svg
 
-|  Gender |     Age |  Median Total Compensation |
-|:--------|--------:|---------------------------:|
-|  Female |  0--30  |                      $155k |
-|  Female | 31--35  |                      $164k |
-|  Female |    35+  |                      $180k |
-|    Male |  0--30  |                      $140k |
-|    Male | 31--35  |                      $148k |
-|    Male |    35+  |                      $138k |
+Again, these look pretty equal, with the median woman earning more than the
+median man in both regions.
 
+{% comment %}Raw HTML is needed to have entries span columns or rows.{% endcomment %}
+<table>
+  <thead>
+    <tr> <th>Region</th> <th>Gender</th> <th style="text-align: right">Median Total Compensation</th> </tr>
+  </thead>
+  <tbody>
+    <tr> <td rowspan="2">California</td>  <td>Female</td>  <td style="text-align: right">$168k</td> </tr>
+    <tr>                                  <td>Male</td>    <td style="text-align: right">$162k</td> </tr>
+    <tr> <td rowspan="2">Northeast</td>   <td>Female</td>  <td style="text-align: right">$145k</td> </tr>
+    <tr>                                  <td>Male</td>    <td style="text-align: right">$136k</td> </tr>
+  </tbody>
+</table>
 
 ## By Age
 
-[![A swarm plot showing salaries for male and female data scientists in California and the East Coast by age][gender_plot_age]][gender_plot_age]
+[![A swarm plot showing salaries for male and female data scientists in
+California and the East Coast by age][gender_plot_age]][gender_plot_age]
 
 [gender_plot_age]: {{ file_dir }}/data_science_total_comp_gender_and_age.svg
 
-|  Gender |  Median Total Compensation |
-|:--------|---------------------------:|
-|  Female |                      $168k |
-|  Female |                      $145k |
-|    Male |                      $162k |
-|    Male |                      $136k |
+<table>
+  <thead>
+    <tr><th>Age</th> <th>Gender</th> <th style="text-align: right">Median Total Compensation</th></tr>
+  </thead>
+  <tbody>
+    <tr> <td rowspan="2">0 to 30</td>  <td>Female</td>  <td style="text-align: right">$155k</td> </tr>
+    <tr>                               <td>Male</td>    <td style="text-align: right">$140k</td> </tr>
+    <tr> <td rowspan="2">31–35</td>    <td>Female</td>  <td style="text-align: right">$164k</td> </tr>
+    <tr>                               <td>Male</td>    <td style="text-align: right">$148k</td> </tr>
+    <tr> <td rowspan="2">36+</td>      <td>Female</td>  <td style="text-align: right">$180k</td> </tr>
+    <tr>                               <td>Male</td>    <td style="text-align: right">$138k</td> </tr>
+  </tbody>
+</table>
+
+---
+[^1]: Salary plus yearly bonus plus yearly stock grant. Signing bonus is not included.
