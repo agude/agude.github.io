@@ -81,21 +81,14 @@ average. I call this the Mean Absolute Miss Value, or MAMV.
 
 The result of this calculation for each candidate are tabulated below:
 
-|-----------+-------------------------+
-| Candidate | Mean Absolute Miss Vale |
-|:----------|:-----------------------:|
-| Clinton   | 0.84                    |
-|:----------|:-----------------------:|
-| Sanders   | 1.00                    |
-|:----------|:-----------------------:|
-| Trump     | 0.66                    |
-|:----------|:-----------------------:|
-| Cruz      | 0.28                    |
-|:----------|:-----------------------:|
-| Rubio     | 0.57                    |
-|:----------|:-----------------------:|
-| Carson    | 0.00                    |
-|:----------|:-----------------------:|
+| Candidate | Mean Absolute Miss Value |
+|:----------|-------------------------:|
+| Clinton   |                     0.84 |
+| Sanders   |                     1.00 |
+| Trump     |                     0.66 |
+| Cruz      |                     0.28 |
+| Rubio     |                     0.57 |
+| Carson    |                     0.00 |
 
 Carson's predictions are always in the interval, so his MAMV is 0. The missed
 predictions for the Republicans are better that for the Democrats, with Trump

@@ -40,19 +40,13 @@ their results are summed, giving a range of -4 to 4. The
 Figuring out the probability of rolling a value is just simple combinatorics.
 These probabilities are:
 
-|----------+-------------+
 | Value    | Probability |
 |:---------|------------:|
 | 0        |       19/81 |
-|----------+-------------+
 | 1 xor -1 |       16/81 |
-|----------+-------------+
 | 2 xor -2 |       10/81 |
-|----------+-------------+
 | 3 xor -3 |        4/81 |
-|----------+-------------+
 | 4 xor -4 |        1/81 |
-|----------+-------------+
 
 ## Rolls
 
@@ -100,17 +94,12 @@ this test on our dice yields the following results:
 [chi2]: https://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test
 [chi2_dist]: https://en.wikipedia.org/wiki/Chi-squared_distribution
 
-|-------+-------------+-----------+
 | Dice  | chi-squared | _p_-value |
 |:------|------------:|----------:|
 | Blue  |       26.31 |     0.001 | 
-|-------+-------------+-----------|
 | Black |        9.32 |     0.315 |
-|-------+-------------+-----------|
 | Red   |       10.77 |     0.215 |
-|-------+-------------+-----------|
 | White |       19.07 |     0.014 |
-|-------+-------------+-----------|
 
 The chi-squared test has some [caveats about low expected values][caveats],
 but at worst we only have two (out of nine) bins below five expected entries.

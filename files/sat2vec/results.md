@@ -27,7 +27,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 #### Ranked First
 
 | authenticity : counterfeit   | Distance   |
-|:-----------------------------|:-----------|
+|:-----------------------------|-----------:|
 | **reliability : erratic**    | **0.758**  |
 | mobility : energetic         | 0.977      |
 | argument : contradictory     | 0.997      |
@@ -35,7 +35,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | anticipation : solemn        | 1.049      |
 
 | agenda : conference   | Distance   |
-|:----------------------|:-----------|
+|:----------------------|-----------:|
 | **map : trip**        | **0.875**  |
 | teacher : class       | 0.951      |
 | executive : employee  | 1.035      |
@@ -43,7 +43,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | agency : assignment   | 1.083      |
 
 | fix : stable           | Distance   |
-|:-----------------------|:-----------|
+|:-----------------------|-----------:|
 | **fortify : strong**   | **0.607**  |
 | captivate : attractive | 0.786      |
 | deter : active         | 0.8        |
@@ -51,7 +51,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | mend : torn            | 0.863      |
 
 | fugitive : flee      | Distance   |
-|:---------------------|:-----------|
+|:---------------------|-----------:|
 | **braggart : boast** | **0.836**  |
 | sage : stifle        | 0.874      |
 | firebrand : quibble  | 0.902      |
@@ -59,7 +59,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | parasite : foster    | 0.967      |
 
 | chronological : time   | Distance   |
-|:-----------------------|:-----------|
+|:-----------------------|-----------:|
 | **ordinal : place**    | **0.688**  |
 | abnormal : value       | 0.873      |
 | coincidental : health  | 0.932      |
@@ -67,7 +67,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | virtual : truth        | 1.055      |
 
 | soot : grimy         | Distance   |
-|:---------------------|:-----------|
+|:---------------------|-----------:|
 | **rain : sodden**    | **0.68**   |
 | dust : radiant       | 0.828      |
 | frost : transparent  | 0.893      |
@@ -75,7 +75,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | sunshine : fruitless | 0.907      |
 
 | massive : bulk        | Distance   |
-|:----------------------|:-----------|
+|:----------------------|-----------:|
 | **gigantic : size**   | **0.66**   |
 | trivial : importance  | 0.849      |
 | interminable : legacy | 0.901      |
@@ -83,7 +83,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | ultimate : magnitude  | 1.031      |
 
 | reinforce : stronger   | Distance   |
-|:-----------------------|:-----------|
+|:-----------------------|-----------:|
 | **erode : weaker**     | **0.454**  |
 | shirk : greater        | 0.762      |
 | abound : lesser        | 0.776      |
@@ -93,7 +93,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 #### Ranked Second
 
 | embarrass : humiliate   | Distance   |
-|:------------------------|:-----------|
+|:------------------------|-----------:|
 | reduce : enlarge        | 0.921      |
 | **pilfer : steal**      | **0.971**  |
 | labor : succeed         | 1.008      |
@@ -101,7 +101,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | spank : whip            | 1.098      |
 
 | equanimity : harried       | Distance   |
-|:---------------------------|:-----------|
+|:---------------------------|-----------:|
 | erudition : urbane         | 0.748      |
 | **moderation : dissolute** | **0.849**  |
 | intuition : logical        | 0.922      |
@@ -109,7 +109,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | celebrity : infamous       | 1.009      |
 
 | runner : marathon     | Distance   |
-|:----------------------|:-----------|
+|:----------------------|-----------:|
 | referee : tournament  | 0.939      |
 | **oarsman : regatta** | **0.945**  |
 | martyr : massacre     | 0.948      |
@@ -117,7 +117,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | horse : stable        | 1.026      |
 
 | medicine : illness      | Distance   |
-|:------------------------|:-----------|
+|:------------------------|-----------:|
 | stimulant : sensitivity | 0.914      |
 | **law : anarchy**       | **0.924**  |
 | etiquette : discipline  | 1.009      |
@@ -125,7 +125,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | hunger : thirst         | 1.157      |
 
 | extort : obtain         | Distance   |
-|:------------------------|:-----------|
+|:------------------------|-----------:|
 | explode : ignite        | 0.89       |
 | **plagiarize : borrow** | **0.959**  |
 | purify : strain         | 1.027      |
@@ -133,7 +133,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | consider : appeal       | 1.158      |
 
 | disorganized : system    | Distance   |
-|:-------------------------|:-----------|
+|:-------------------------|-----------:|
 | greedy : money           | 0.865      |
 | **traitorous : loyalty** | **0.891**  |
 | athletic : intelligence  | 0.992      |
@@ -141,7 +141,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | conserve : party         | 1.04       |
 
 | topaz : yellow        | Distance   |
-|:----------------------|:-----------|
+|:----------------------|-----------:|
 | sapphire : red        | 0.481      |
 | **amethyst : purple** | **0.522**  |
 | amber : blue          | 0.705      |
@@ -149,7 +149,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | diamond : carat       | 1.103      |
 
 | clumsy : botch     | Distance   |
-|:-------------------|:-----------|
+|:-------------------|-----------:|
 | clever : eradicate | 0.825      |
 | **lazy : shirk**   | **0.837**  |
 | willful : heed     | 0.864      |
@@ -159,7 +159,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 #### Ranked Third
 
 | maceration : liquid    | Distance   |
-|:-----------------------|:-----------|
+|:-----------------------|-----------:|
 | sublimation : gas      | 0.854      |
 | trail : path           | 0.917      |
 | **erosion : weather**  | **0.929**  |
@@ -167,7 +167,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | evaporation : humidity | 1.086      |
 
 | lumen : brightness   | Distance   |
-|:---------------------|:-----------|
+|:---------------------|-----------:|
 | candle : light       | 0.908      |
 | density : darkness   | 0.919      |
 | **inches : length**  | **1.004**  |
@@ -175,7 +175,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | color : hue          | 1.038      |
 
 | enfranchise : slavery      | Distance   |
-|:---------------------------|:-----------|
+|:---------------------------|-----------:|
 | anatomy : physiology       | 0.95       |
 | equation : mathematics     | 1.033      |
 | **liberate : confine**     | **1.038**  |
@@ -183,7 +183,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | appeasement : unreasonable | 1.153      |
 
 | walk : legs      | Distance   |
-|:-----------------|:-----------|
+|:-----------------|-----------:|
 | grind : nose     | 0.76       |
 | gleam : eyes     | 0.773      |
 | **chew : mouth** | **0.812**  |
@@ -191,7 +191,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | cover : book     | 1.047      |
 
 | drip : gush        | Distance   |
-|:-------------------|:-----------|
+|:-------------------|-----------:|
 | curl : roll        | 0.933      |
 | stream : tributary | 0.975      |
 | **dent : destroy** | **1.002**  |
@@ -199,7 +199,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | bend : angle       | 1.054      |
 
 | cot : bed                 | Distance   |
-|:--------------------------|:-----------|
+|:--------------------------|-----------:|
 | tea : lemon               | 0.974      |
 | hotel : motel             | 1.004      |
 | **tissue : handkerchief** | **1.036**  |
@@ -207,7 +207,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | lesson : composition      | 1.079      |
 
 | sodden : moist            | Distance   |
-|:--------------------------|:-----------|
+|:--------------------------|-----------:|
 | wet : liquid              | 0.827      |
 | nostalgic : emotional     | 0.972      |
 | **maudlin : sentimental** | **0.974**  |
@@ -215,7 +215,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | arid : harsh              | 1.048      |
 
 | paltry : significance   | Distance   |
-|:------------------------|:-----------|
+|:------------------------|-----------:|
 | austere : landscape     | 0.803      |
 | redundant : discussion  | 0.829      |
 | **banal : originality** | **0.861**  |
@@ -223,7 +223,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | opulent : wealth        | 0.984      |
 
 | paltry : significance   | Distance   |
-|:------------------------|:-----------|
+|:------------------------|-----------:|
 | austere : landscape     | 0.803      |
 | redundant : discussion  | 0.829      |
 | **banal : originality** | **0.861**  |
@@ -231,7 +231,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | opulent : wealth        | 0.984      |
 
 | hospitable : courtesy   | Distance   |
-|:------------------------|:-----------|
+|:------------------------|-----------:|
 | leisurely : haste       | 0.872      |
 | despondent : glee       | 0.885      |
 | **vindictive : spite**  | **0.922**  |
@@ -239,7 +239,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | infamous : honor        | 1.056      |
 
 | humdrum : bore          | Distance   |
-|:------------------------|:-----------|
+|:------------------------|-----------:|
 | stodgy : excite         | 0.913      |
 | nutritious : sicken     | 0.945      |
 | **heartrending : move** | **0.959**  |
@@ -247,7 +247,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | grim : amuse            | 1.04       |
 
 | entice : repel      | Distance   |
-|:--------------------|:-----------|
+|:--------------------|-----------:|
 | implore : entreat   | 0.948      |
 | officiate : preside | 1.012      |
 | **flourish : fade** | **1.027**  |
@@ -255,7 +255,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | lubricate : grease  | 1.043      |
 
 | sullen : brood     | Distance   |
-|:-------------------|:-----------|
+|:-------------------|-----------:|
 | despondent : laugh | 0.78       |
 | lethargic : cavort | 0.795      |
 | **docile : obey**  | **0.93**   |
@@ -263,7 +263,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | poised : blunder   | 0.99       |
 
 | author : literate     | Distance   |
-|:----------------------|:-----------|
+|:----------------------|-----------:|
 | cynic : gullible      | 0.804      |
 | doctor : fallible     | 0.822      |
 | **judge : impartial** | **0.898**  |
@@ -273,7 +273,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 #### Ranked Forth
 
 | invariable : change        | Distance   |
-|:---------------------------|:-----------|
+|:---------------------------|-----------:|
 | unfathomable : depth       | 0.826      |
 | incurable : disease        | 0.881      |
 | varied : appearance        | 0.963      |
@@ -281,7 +281,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | extraneous : proposition   | 0.974      |
 
 | turtle : reptile   | Distance   |
-|:-------------------|:-----------|
+|:-------------------|-----------:|
 | leaf : branch      | 0.86       |
 | oyster : clam      | 0.994      |
 | snail : shellfish  | 0.994      |
@@ -289,7 +289,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | snake : rattle     | 1.123      |
 
 | juror : judge        | Distance   |
-|:---------------------|:-----------|
+|:---------------------|-----------:|
 | broom : sweep        | 0.932      |
 | umpire : oust        | 0.948      |
 | criminal : sentence  | 0.99       |
@@ -299,7 +299,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 #### Ranked Fifth
 
 | braggart : modesty         | Distance   |
-|:---------------------------|:-----------|
+|:---------------------------|-----------:|
 | wallflower : timidity      | 0.804      |
 | embezzler : greed          | 0.863      |
 | candidate : ambition       | 0.951      |
@@ -307,7 +307,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | **fledgling : experience** | **0.987**  |
 
 | maven : expertise         | Distance   |
-|:--------------------------|:-----------|
+|:--------------------------|-----------:|
 | athlete : determination   | 0.796      |
 | monarch : wisdom          | 0.805      |
 | neophyte : honesty        | 0.831      |
@@ -315,7 +315,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | **supplicant : humility** | **0.882**  |
 
 | concomitant : accompanying   | Distance   |
-|:-----------------------------|:-----------|
+|:-----------------------------|-----------:|
 | separate : attached          | 0.919      |
 | rough : texture              | 1.029      |
 | tanned : leather             | 1.05       |
@@ -323,7 +323,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | **loyal : staunch**          | **1.103**  |
 
 | morbid : unfavorable      | Distance   |
-|:--------------------------|:-----------|
+|:--------------------------|-----------:|
 | maternal : unfavorable    | 0.455      |
 | vigilant : unfavorable    | 0.504      |
 | disputatious : favorable  | 0.561      |
