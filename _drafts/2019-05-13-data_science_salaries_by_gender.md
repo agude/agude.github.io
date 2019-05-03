@@ -15,9 +15,9 @@ categories: career-advice
 {% include lead_image.html %}
 
 The [gender pay gap][pay_gap] is a contentious issue, especially in tech where
-[women are historical excluded][women_in_tech]. We can explore it in Data
-Science a little with the same [Insight data][insight] I used [last time to
-look at Data Science salaries in general][last_time].
+[women are historical excluded][women_in_tech]. We can explore the gap in Data
+Science salaries a little with the same [Insight data][insight] I used [last
+time to look at Data Science salaries in general][last_time].
 
 [pay_gap]: https://en.wikipedia.org/wiki/Gender_pay_gap
 [women_in_tech]: https://qz.com/work/1287881/how-technology-companies-alienate-women-during-recruitment/
@@ -33,7 +33,7 @@ group men earned more.
 [florian]: https://flolytic.com/
 [kaggle_survey]: https://flolytic.com/blog/gender-pay-gap-among-data-scientists-on-kaggle
 
-Our data is much smaller, but better curated. However, it has some biases, in
+Our data is much smaller, but better curated. However, it has some biases in
 that it is collected from Insight alumni who are mostly:
 
 - PhDs
@@ -41,8 +41,8 @@ that it is collected from Insight alumni who are mostly:
 - In high-demand markets
 - Coached on salary negotiation
 
-Asking the respondant's gender was only added to the survey later, so around a
-third of the data does not have that information. This leaves us 79 men and 28
+Asking the respondant's gender was added to the survey late, so around a third
+of the data does not have that information. This leaves us 79 men and 28
 women. Not a huge sample, but better than nothing.
 
 Of course, this low number of woman might itself be a further bias: Insight
@@ -63,7 +63,7 @@ the code is [here][notebook] ([rendered on Github][rendered]).
 ## Pay: Men Vs. Women
 
 Here is total recurring compensation[^1] by gender. I have removed all
-the non-data scientists (like the [MLEs I looked at last time][last_time_mle]
+the non-data scientists (like the [MLEs I looked at last time][last_time_mle])
 because I have very few responses from them. I have also removed the one data
 scientist who responded "transgender" without indicating their gender identity
 further.
@@ -98,7 +98,7 @@ differences) and age, which [Florian looked at][kaggle_survey].
 ## By Region
 
 Only California (LA, San Francisco, and Silicon Valley) and the Northeast
-(New York, Boston, and DC) have enough resonants to form any reasonable
+(New York, Boston, and DC) have enough respondants to form any reasonable
 conclusions, so I limit my sample to those regions.
 
 [![A swarm plot showing salaries for male and female data scientists in
@@ -124,10 +124,17 @@ median man in both regions.
 
 ## By Age
 
+Finally, I can check what Florian found: that women under 30 out earned the
+same age men, but men out earned women in the 30--35 age range. I use the same
+selection as above, but now partitioning by age instead of region.
+
 [![A swarm plot showing salaries for male and female data scientists in
 California and the East Coast by age][gender_plot_age]][gender_plot_age]
 
 [gender_plot_age]: {{ file_dir }}/data_science_total_comp_gender_and_age.svg
+
+I do not see the same trend as Florian. In my data, women out earn men at
+every age level.
 
 <table>
   <thead>
@@ -144,4 +151,4 @@ California and the East Coast by age][gender_plot_age]][gender_plot_age]
 </table>
 
 ---
-[^1]: Salary plus yearly bonus plus yearly stock grant. Signing bonus is not included.
+[^1]: Salary, yearly bonus, and yearly stock grant. Signing bonus is not included.
