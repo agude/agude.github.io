@@ -63,6 +63,16 @@ table {
   border-collapse: collapse;
 }
 
+thead {
+  background-color: $sidebar_color;
+}
+
+thead th {
+  color: white;
+  border: 0;
+}
+
+
 td,
 th {
   padding: .25rem .5rem;
