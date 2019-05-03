@@ -92,13 +92,10 @@ simulation every bound had a equal chance of being increased by 1, reduced by
 results. The numbers I report use the mean from the results of these
 simulations, and the uncertainties are two standard deviations.
 
-|------------+----------------+----------------------------+-----------------|
 | Party      | Prediction Low | Prediction Within Interval | Prediction High |
-|:-----------|:--------------:|:--------------------------:|:---------------:|
+|:-----------|---------------:|---------------------------:|----------------:|
 | Democratic | 5.5 +- 3.0%    | 77.6 +- 4.2%               | 17.0 +- 3.0%    |
-|------------+----------------+----------------------------+-----------------|
 | Republican | 6.5 +- 1.2%    | 78.6 +- 3.3%               | 14.9 +- 3.1%    |
-|------------+----------------+----------------------------+-----------------|
 
 Finally, we can visualize these results by scaling the 80% confidence interval
 to the interval -1 to 1. Any result from -1 to 1 is a good prediction,
