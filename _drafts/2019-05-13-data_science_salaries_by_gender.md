@@ -33,7 +33,7 @@ group men earned more.
 [florian]: https://flolytic.com/
 [kaggle_survey]: https://flolytic.com/blog/gender-pay-gap-among-data-scientists-on-kaggle
 
-Our data is much smaller, but better curated. However, it has some biases in
+My data is much smaller, but better curated. However, it has some biases in
 that it is collected from Insight alumni who are mostly:
 
 - PhDs
@@ -41,7 +41,7 @@ that it is collected from Insight alumni who are mostly:
 - In high-demand markets
 - Coached on salary negotiation
 
-Asking the respondant's gender was added to the survey late, so around a third
+Asking the respondent's gender was added to the survey late, so around a third
 of the data does not have that information. This leaves us 79 men and 28
 women. Not a huge sample, but better than nothing.
 
@@ -86,9 +86,8 @@ median man, but of course the number of samples is really small.
 | Male    |                     $139k |
 
 There are lots of things I would like to explore---like "do women benefit from
-seniority the same as men?", like [I observed last
-time][last_time_senior]---but I just do not have enough women in the sample to
-say anything conclusive.
+seniority the same as men?", as [I observed last time][last_time_senior]---but
+I just do not have enough women in the sample to say anything conclusive.
 
 [last_time_senior]: {% post_url 2019-03-26-data_science_salaries %}#experience-counts-a-lot
 
@@ -133,8 +132,8 @@ California and the East Coast by age][gender_plot_age]][gender_plot_age]
 
 [gender_plot_age]: {{ file_dir }}/data_science_total_comp_gender_and_age.svg
 
-I do not see the same trend as Florian. In my data, women out earn men at
-every age level.
+I do not see Florian's trend; instead the salaries look roughly equal, with
+the median woman earning more in every age group, as shown below:
 
 <table>
   <thead>
@@ -149,6 +148,14 @@ every age level.
     <tr>                               <td>Male</td>    <td style="text-align: right">$138k</td> </tr>
   </tbody>
 </table>
+
+## Conclusion
+
+In my small dataset, women in data science earn the same as men, and they do
+so across regions and age groups. I wish I could have explored more slices of
+the data to look at things like seniority, percent of compensation in stock,
+etc., but slicing the data very quickly reduces the number of data points
+beyond usefulness.
 
 ---
 [^1]: Salary, yearly bonus, and yearly stock grant. Signing bonus is not included.
