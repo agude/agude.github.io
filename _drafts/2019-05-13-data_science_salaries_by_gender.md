@@ -4,7 +4,7 @@ title: "The Gender Pay Gap in Data Science Salaries"
 description: >
   How do data scientists salaries for women compare to men? This month we
   explore pay by gender and location.
-image: /files/data-science-salaries/josef_wagner_hohenberg_the_billing_coins.jpg
+image: /files/data-science-salaries/josef_wagner_hohenberg_the_notary_2_coins.jpg
 image_alt: > 
   A painting of coins on a table by Josef Wagner-Höhenberg.
 categories: career-advice
