@@ -14,8 +14,6 @@ categories: career-advice
 
 {% include lead_image.html %}
 
-historicaly
-
 The [gender pay gap][pay_gap] is a contentious issue, especially in tech where
 [women are historically excluded][women_in_tech]. We can explore the gap in
 Data Science salaries a little with the same [Insight data][insight] I used
