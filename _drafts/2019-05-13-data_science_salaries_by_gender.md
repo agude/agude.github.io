@@ -2,7 +2,7 @@
 layout: post
 title: "The Gender Pay Gap in Data Science Salaries"
 description: >
-  How do data scientists salaries for women compare to men? This month we
+  How do the salaries of woman data scientists compare to those of men? This month we
   explore pay by gender and location.
 image: /files/data-science-salaries/josef_wagner_hohenberg_the_notary_2_coins.jpg
 image_alt: > 
@@ -62,11 +62,10 @@ the code is [here][notebook] ([rendered on Github][rendered]).
 
 ## Pay: Men Vs. Women
 
-Here is total recurring compensation[^1] by gender. I have removed all
-the non-data scientists (like the [MLEs I looked at last time][last_time_mle])
-because I have very few responses from them. I have also removed the one data
-scientist who responded "transgender" without indicating their gender identity
-further.
+Here is total recurring compensation[^1] by gender. I have removed all 
+non-data scientists (like the [MLEs I looked at last time][last_time_mle])
+because there are very few responses from them. I have also removed the one data
+scientist who responded "transgender" without further indicating their gender identity.
 
 [last_time_mle]: {% post_url 2019-03-26-data_science_salaries %}#scientists-engineers-and-analysts
 
@@ -77,7 +76,7 @@ scientists.][gender_plot]][gender_plot]
 
 [gender_plot]: {{ file_dir }}/data_science_total_comp_gender.svg
 
-Pretty equal, actually! The median woman in the sample earns more then the
+Pretty equal, actually! The median woman in the sample earns more than the
 median man, but of course the number of samples is really small.
 
 | Gender  |  Median Total Compensation|
@@ -85,8 +84,8 @@ median man, but of course the number of samples is really small.
 | Female  |                     $149k |
 | Male    |                     $139k |
 
-There are lots of things I would like to explore---like "do women benefit from
-seniority the same as men?", as [I observed last time][last_time_senior]---but
+There are lots of things I would like to explore---like "do women see the same benefit from
+seniority as men?", as [I observed last time][last_time_senior]---but
 I just do not have enough women in the sample to say anything conclusive.
 
 [last_time_senior]: {% post_url 2019-03-26-data_science_salaries %}#experience-counts-a-lot
@@ -105,7 +104,7 @@ California and the East Coast.][gender_plot_region]][gender_plot_region]
 
 [gender_plot_region]: {{ file_dir }}/data_science_total_comp_gender_and_location.svg
 
-Again, these look pretty equal, with the median woman earning more than the
+Again, these look pretty equal, with the median woman earning slightly more than the
 median man in both regions.
 
 {% comment %}Raw HTML is needed to have entries span columns or rows.{% endcomment %}
@@ -123,8 +122,8 @@ median man in both regions.
 
 ## By Age
 
-Finally, I can check what Florian found: that women under 30 out earned the
-same age men, but men out earned women in the 30--35 age range. I use the same
+Finally, I can check what Florian found: that women under 30 earned more than 
+men in the same age range, but men out earned women in the 30--35 age range. I use the same
 selection as above, but now partitioning by age instead of region.
 
 [![A swarm plot showing salaries for male and female data scientists in
