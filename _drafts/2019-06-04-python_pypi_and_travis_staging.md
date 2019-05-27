@@ -21,6 +21,7 @@ _after_ all the tests in the many different versions had passed. Running a
 bunch of tests, and then deploying you software is exactly what [Travis
 Stages][travis_stages] was designed for. There was just one problem: I
 couldn't find a good example of how to do it with multiple Python versions.
+This post will explain how to do it.
 
 [wbma]: https://github.com/agude/wayback-machine-archiver
 [wbma_post]: TODO
