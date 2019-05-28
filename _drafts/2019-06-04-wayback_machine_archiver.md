@@ -3,7 +3,7 @@ layout: post
 title: "Wayback Machine Archiver: Backup Pages with Python"
 description: >
   The Internet Archive's Wayback Machine tries to keep a complete copy of the
-  internet. With this script, you can submit pages for indexing effortlessly.
+  internet. With this script, you can submit pages for effortless indexing.
 image: /files/wayback-machine-archiver/library_of_congress_1902_crop.jpg
 image_alt: >
   A photo of the Library of Congress in 1902.
@@ -31,7 +31,7 @@ Archiver**][wbma] to automate it.
 
 ## Wayback Machine Archiver
 
-The Archiver runs on [Python][python] 2.7, or 3.4+. It can be installed with
+The Archiver runs on either [Python][python] 2.7 or 3.4+. It can be installed with
 pip:
 
 [python]: https://www.python.org/
@@ -84,6 +84,6 @@ well", so it leaves the scheduling to another program. I recommend
 
 If you find my Archiver useful, please consider [**donating to the Internet
 Archive**][donate]; none of this would be possible without them! Your company
-may even match your donation, mine does!
+may even match your donation like mine does!
 
 [donate]: https://archive.org/donate/
