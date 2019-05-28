@@ -7,7 +7,7 @@ description: >
 image: /files/wayback-machine-archiver/library_of_congress_1902_crop.jpg
 image_alt: >
   A photo of the Library of Congress in 1902.
-categories: my_software
+categories: my_projects
 ---
 
 {% include lead_image.html %}
