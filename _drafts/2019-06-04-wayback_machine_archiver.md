@@ -70,19 +70,20 @@ archiving the sitemap as well as the pages they link to. Checkout the
 
 Archiver follows the [Unix Philosophy][up] of "Make each program do one thing
 well", so it leaves the scheduling to another program. I recommend
-[`cron`][cron]. Here how I backup my site, and a few others, each day:
+[`cron`][cron]. Here is how I backup my site, and a few others, each day:
 
 [up]: https://en.wikipedia.org/wiki/Unix_philosophy
 [cron]: https://en.wikipedia.org/wiki/Cron
 
 ```
-@daily archiver --sitemaps https://alexgude.com/sitemap.xml --archive-sitemap-also --log INFO
-@daily archiver --sitemaps http://charles.uno/sitemap.xml --archive-sitemap-also --log INFO
-@daily archiver https://www.radiokeysmusic.com --sitemaps https://www.radiokeysmusic.com/sitemap.xml --archive-sitemap-also --log INFO
+# Backup three websites weekly
+@weekly archiver --sitemaps https://alexgude.com/sitemap.xml --archive-sitemap-also --log INFO
+@weekly archiver --sitemaps http://charles.uno/sitemap.xml --archive-sitemap-also --log INFO
+@weekly archiver https://www.radiokeysmusic.com --sitemaps https://www.radiokeysmusic.com/sitemap.xml --archive-sitemap-also --log INFO
 ```
 
-If you find my Archiver useful, please consider [donating to the Internet
-Archive][donate]; none of this would be possible without them! Your company
+If you find my Archiver useful, please consider [**donating to the Internet
+Archive**][donate]; none of this would be possible without them! Your company
 may even match your donation, mine does!
 
 [donate]: https://archive.org/donate/
