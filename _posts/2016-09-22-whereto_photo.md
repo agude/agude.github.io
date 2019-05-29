@@ -8,6 +8,7 @@ image: /files/whereto_photo/WhereTo.Photo.png
 image_alt: >
   A screenshot of the front page of WhereTo.Photo.
 redirect_from: /2016/09/22/whereto_photo/
+categories: my_projects
 ---
 
 {% capture file_dir %}/files/whereto_photo{% endcapture %}
