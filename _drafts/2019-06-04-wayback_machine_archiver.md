@@ -31,8 +31,8 @@ Archiver**][wbma] to automate it.
 
 ## Wayback Machine Archiver
 
-The Archiver runs on either [Python][python] 2.7 or 3.4+. It can be installed with
-pip:
+The Archiver runs on either [Python][python] 2.7 or 3.4+. It can be installed
+with pip:
 
 [python]: https://www.python.org/
 
