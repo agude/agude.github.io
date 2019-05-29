@@ -24,12 +24,12 @@ couldn't find a good example of how to do it with multiple Python versions.
 This post will explain how to do it.
 
 [wbma]: https://github.com/agude/wayback-machine-archiver
-[wbma_post]: TODO
+[wbma_post]: {% post_url 2019-06-04-wayback_machine_archiver %}
 [wbma_pypi]: https://pypi.org/project/wayback-machine-archiver/
 [travis_stages]: https://docs.travis-ci.com/user/build-stages/
 
 ---
 
-[^1]: 2.7, 3.4 through 3.7, the development versions of 3.7 and 3.8, the nightly release, and [pypy 2.7 and 3.5][pypy].
+[^1]: Currently 2.7, 3.4 through 3.7, the development versions of 3.7 and 3.8, the nightly release, and [pypy 2.7 and 3.5][pypy].
 
 [pypy]: https://pypy.org/
