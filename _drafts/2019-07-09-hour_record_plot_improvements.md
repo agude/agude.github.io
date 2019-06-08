@@ -11,9 +11,14 @@ image_alt: >
 
 {% capture file_dir %}/files/hour-record/{% endcapture %}
 
-I am a huge fan of cycling.
+The [cycling hour record][hour_record] is a grueling experience: the would-be
+record setter rides as far as they can in on hour. In the modern era, it was
+first set in 1972 by the great [Eddy Merckx][merckx],[^1] and it has traded
+hands multiple times since. Wikipedia has a plot showing this progression,
+which I have copied below:
 
-Here is the progression of the hour record plot from Wikipedia:
+[hour_record]: https://en.wikipedia.org/wiki/Hour_record
+[merckx]: https://en.wikipedia.org/wiki/Eddy_Merckx
 
 {% capture wiki_plot %}{{file_dir}}/Progression_of_Hour_record_from_Merckx_to_Unified.png{% endcapture %}
 {% include figure.html
@@ -27,14 +32,16 @@ Here is the progression of the hour record plot from Wikipedia:
 %}
 
 This plot gets the message across---the distance went up quickly in a short
-amount of time, twice---but could be much more effective. Here are some things
-it does poorly:
-- Leaves a lot of empty space.
-- Missing legend and title.[^1]
-- Too much precision in the date labels.
-- Too small text.
+amount of time, twice---but could be much more effective. Here are some
+problems:
 
-Here is how I would fix these.
+- It is missing a legend and title necessary to understand it.[^2]
+- Has too much precision in the date labels, which are down to the day but do
+  not align with when the records were set.
+- The too text is too small to read easily.
+- Has a lot of unused space.
+
+I love cycling, and I love data, so I gave improving the plot a try.
 
 ## Improvements
 
@@ -68,13 +75,18 @@ because it is clear that it shows "years".
 
 Using the extra white space, I have added **a lot** more information to the
 plot: I have added the name of the rider who set each record, and the distance
-they rode. Now you can tell that the great [Eddy Merckx][merckx][^2] set the
+they rode.
+
+
+Now you can tell that Merckx
+
+
+ set the
 record first, and that [Chris Boardman][boardman] set it three times across
 two records.
 
-[merckx]: https://en.wikipedia.org/wiki/Eddy_Merckx
 [boardman]: https://en.wikipedia.org/wiki/Chris_Boardman
 
 ---
-[^1]: Plots do not need a title or axis labels if the subject is clear without them. In this case though, you would never figure out it was the "Mens' Hour Record Progression" unless someone told you.
-[^2]: The 🐐!
+[^1]: The 🐐!
+[^2]: Plots do not need a title or axis labels if the subject is clear without them. In this case though, you would never figure out it was the "Mens' Hour Record Progression" unless someone told you.
