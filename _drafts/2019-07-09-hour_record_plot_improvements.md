@@ -5,8 +5,10 @@ description: >
   I learned to use matplotlib more than ten years ago. Around that time, I
   made a plot of supernova 2002cx for Wikipedia, but it was not terrible good.
   So this year, I updated it!
-image: /files/hour-record/mens_hour_records_progression.svg
+image: /files/hour-record/bicycle_race_by_calvert_litho_co_1895.jpg
 image_alt: >
+  A chromolithograph showing six men in colorful clothing racing bikes on a
+  dirt track.
 categories: plotting
 ---
 
