@@ -7,6 +7,7 @@ description: >
   So this year, I updated it!
 image: /files/hour-record/mens_hour_records_progression.svg
 image_alt: >
+categories: plotting
 ---
 
 {% capture file_dir %}/files/hour-record/{% endcapture %}
@@ -41,51 +42,44 @@ problems:
 - The too text is too small to read easily.
 - Has a lot of unused space.
 
-I love cycling, and I love data, so I gave improving the plot a try.
+I love cycling, and I love plots, so I gave improving it a try.
 
 ## Improvements
 
-I had not thought of the plot for years, until I ran into it again while
-browsing Wikipedia. Using the experience I have gained since then to fix
-and re-release it to the world seemed like the right thing to do. The
-result of my improvements is below:
+Here is my version:
 
 [![The same information as above, but using a step plot with better labeling.][my_plot]][my_plot]
 
 [my_plot]: {{ file_dir }}/mens_hour_records_progression.svg
 
 The code that generated the improved plot can be found [here][new_plot_code]
-([rendered on Github][new_rendered]).
+([rendered on Github][new_rendered]). I also made the [same type of plot for
+the Women's Hour Record progression][women].
+
+[women]: {{ file_dir }}/womens_hour_records_progression.svg
 
 {% capture new_notebook_uri %}{{ "Hour Record Replot.ipynb" | uri_escape }}{% endcapture %}
 [new_plot_code]: {{ file_dir }}/{{ new_notebook_uri }}
 [new_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ new_notebook_uri }}
 
-Why is this plot an improvement? It fixes the obvious errors, and reduces the
-clutter and unused space so that the presented information is foremost.
-
-The title makes the subject clear: the Progression of the Men's Hour Record.
-The legend is pretty minimal, but conveys that there are three different types
-of record, and they are each a different color.
+I added a title and legend. The title makes the subject clear: the Progression
+of the Men's Hour Record. The legend is pretty minimal, but conveys that there
+are three different types of record, and they are each a different color.
 
 The tick labels are now much larger and easier to read. I have changed the
 date ticks to every decade, because we do not really care about an exact date,
-just a rough time and the ordering. I have also removed the x-axis label
+just a rough time and the ordering. I have added a light shading for each
+decade to make them easier to tell apart. I have also removed the x-axis label
 because it is clear that it shows "years".
 
 Using the extra white space, I have added **a lot** more information to the
 plot: I have added the name of the rider who set each record, and the distance
-they rode.
+they rode. I have also added a line indicating the status of each record at
+each point in time, making it easy to see where the record is at any point,
+and helping to highlight the times when the record stood for a long time.
 
-
-Now you can tell that Merckx
-
-
- set the
-record first, and that [Chris Boardman][boardman] set it three times across
-two records.
-
-[boardman]: https://en.wikipedia.org/wiki/Chris_Boardman
+This plot took a lot of work to make---matplotlib is not the most forgiving
+library---but I think it was worth it.
 
 ---
 [^1]: The 🐐!
