@@ -54,15 +54,17 @@ Here is my version:
 
 [my_plot]: {{ file_dir }}/mens_hour_records_progression.svg
 
-The code that generated the improved plot can be found [here][new_plot_code]
-([rendered on Github][new_rendered]). I also made the [same type of plot for
-the Women's Hour Record progression][women].
+I also made the [same type of plot for the Women's Hour Record progression][women].
 
 [women]: {{ file_dir }}/womens_hour_records_progression.svg
+
+The code that generated the improved plots can be found [here][new_plot_code]
+([rendered on Github][new_rendered]). The data [is here][data].
 
 {% capture new_notebook_uri %}{{ "Hour Record Replot.ipynb" | uri_escape }}{% endcapture %}
 [new_plot_code]: {{ file_dir }}/{{ new_notebook_uri }}
 [new_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ new_notebook_uri }}
+[data]: {{ file_dir }}/hour_record_dataframe.json
 
 I added a title and legend. The title makes the subject clear: the Progression
 of the Men's Hour Record. The legend is pretty minimal, but conveys that there
