@@ -28,7 +28,7 @@ which I have copied below:
   url=wiki_plot
   image_alt='A dot plot showing the time and distance for various mens hour records.'
   caption='<a href="https://en.wikipedia.org/wiki/File:Progression_of_Hour_record_from_Merckx_to_Unified.png"><em>Progression
-  of Hour record from Merckx to Unified</em></a>, © <a
+  of Hour record from Merckx to Unified</em></a>, ©<a
   href="https://en.wikipedia.org/wiki/User:XyZAn">XyZAn</a> (<a
   href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC-BY-SA
   3.0</a>)'
