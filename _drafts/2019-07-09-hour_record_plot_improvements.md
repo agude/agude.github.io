@@ -3,7 +3,7 @@ layout: post
 title: "Improving Wikipedia's Hour Record Plot"
 description: >
   I learned to use matplotlib more than ten years ago. Around that time, I
-  made a plot of supernova 2002cx for Wikipedia, but it was not terrible good.
+  made a plot of supernova 2002cx for Wikipedia, but it was not very good.
   So this year, I updated it!
 image: /files/hour-record/bicycle_race_by_calvert_litho_co_1895.jpg
 image_alt: >
@@ -15,7 +15,7 @@ categories: plotting
 {% capture file_dir %}/files/hour-record/{% endcapture %}
 
 The [cycling hour record][hour_record] is a grueling experience: the would-be
-record setter rides as far as they can in on hour. In the modern era, it was
+record setter rides as far as they can in one hour. In the modern era, it was
 first set in 1972 by the great [Eddy Merckx][merckx],[^1] and it has traded
 hands multiple times since. Wikipedia has a plot showing this progression,
 which I have copied below:
@@ -26,7 +26,7 @@ which I have copied below:
 {% capture wiki_plot %}{{file_dir}}/Progression_of_Hour_record_from_Merckx_to_Unified.png{% endcapture %}
 {% include figure.html
   url=wiki_plot
-  image_alt='A dot plot showing the time and distance for various mens hour records.'
+  image_alt='A dot plot showing the time and distance for various men's hour records.'
   caption='<a href="https://en.wikipedia.org/wiki/File:Progression_of_Hour_record_from_Merckx_to_Unified.png"><em>Progression
   of Hour record from Merckx to Unified</em></a>, ©<a
   href="https://en.wikipedia.org/wiki/User:XyZAn">XyZAn</a> (<a
@@ -34,17 +34,17 @@ which I have copied below:
   3.0</a>)'
 %}
 
-This plot gets the message across---the distance went up quickly in a short
-amount of time, twice---but could be much more effective. Here are some
+This plot gets the message across---twice, the distance went up quickly in a short
+amount of time---but could be much more effective. Here are some
 problems:
 
-- It is missing a legend and title necessary to understand it.[^2]
-- Has too much precision in the date labels, which are down to the day but do
+- It is missing a legend and title, which are both necessary to understand it.[^2]
+- It has too much precision in the date labels, which are down to the day but do
   not align with when the records were set.
-- The too text is too small to read easily.
+- The label text is too small to read easily.
 - Has a lot of unused space.
 
-I love cycling, and I love plots, so I gave improving it a try.
+I love cycling, and I love plots, so I tried improving the plot.
 
 ## Improvements
 
@@ -80,7 +80,7 @@ Using the extra white space, I have added **a lot** more information to the
 plot: I have added the name of the rider who set each record, and the distance
 they rode. I have also added a line indicating the status of each record at
 each point in time, making it easy to see where the record is at any point,
-and helping to highlight the times when the record stood for a long time.
+and helping to highlight the instances when the record stood for a long time.
 
 This plot took a lot of work to make---matplotlib is not the most forgiving
 library---but I think it was worth it.
