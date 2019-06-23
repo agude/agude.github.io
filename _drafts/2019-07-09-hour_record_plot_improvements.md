@@ -2,9 +2,8 @@
 layout: post
 title: "Improving Wikipedia's Hour Record Plot"
 description: >
-  I learned to use matplotlib more than ten years ago. Around that time, I
-  made a plot of supernova 2002cx for Wikipedia, but it was not very good.
-  So this year, I updated it!
+  I love Wikipedia, I love cycling, and I love data! So today, I improve
+  Wikipedia's Hour Record Plot! Come take a look!
 image: /files/hour-record/bicycle_race_by_calvert_litho_co_1895.jpg
 image_alt: >
   A chromolithograph showing six men in colorful clothing racing bikes on a
@@ -26,8 +25,9 @@ which I have copied below:
 {% capture wiki_plot %}{{file_dir}}/Progression_of_Hour_record_from_Merckx_to_Unified.png{% endcapture %}
 {% include figure.html
   url=wiki_plot
-  image_alt='A dot plot showing the time and distance for various men's hour records.'
-  caption='<a href="https://en.wikipedia.org/wiki/File:Progression_of_Hour_record_from_Merckx_to_Unified.png"><em>Progression
+  image_alt="A dot plot showing the time and distance for various men's hour records."
+  caption='<a
+  href="https://en.wikipedia.org/wiki/File:Progression_of_Hour_record_from_Merckx_to_Unified.png"><em>Progression
   of Hour record from Merckx to Unified</em></a>, ©<a
   href="https://en.wikipedia.org/wiki/User:XyZAn">XyZAn</a> (<a
   href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC-BY-SA
