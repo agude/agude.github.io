@@ -64,10 +64,10 @@ class PlayingCard:
       self.__value = self.rank
 
   def __lt__(self, other):
-    return self.rank < other.rank
+    return self.__value < other.__value
 
   def __eq__(self, other):
-    return self.rank == other.rank
+    return self.__value == other.__value
 ```
 
 This class works with the standard comparison operators (thanks to [the
