@@ -41,6 +41,7 @@ reports and pull requests welcome!
 Below you can find the most recent posts; older posts can be found on my
 [blog][blog]:
 
+<div class="card-grid">
 {% for post in site.posts limit:5 %}
   {% comment %} Article cards with an image and description. {% endcomment %}
   {% include article_card.html
@@ -51,3 +52,4 @@ Below you can find the most recent posts; older posts can be found on my
     description=post.description
   %}
 {% endfor %}
+</div>

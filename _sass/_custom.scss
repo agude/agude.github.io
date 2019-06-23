@@ -21,27 +21,26 @@
   @extend .portrait;
 }
 
-// Cards
-.card {
-
-  img {
-    max-width: 150px;
-    margin: auto;
-  }
-
-  table {
-    border: 2px solid #e5e5e5;
-  }
-
-  td, th {
-    border: 0px solid #e5e5e5;
-    background-color: #f9f9f9;
-  }
-
+// Card Grid
+.card-grid {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  grid-gap: 10px;
+  background-color: #f9f9f9;
+  align-items: center;
+  border-radius: 5px;
 }
 
-.article-card {
-  @extend .card;
+.card-element {
+  padding: 0px;
+}
+
+.card-image {
+  @extend .card-element;
+}
+
+.card-text {
+  @extend .card-element;
 }
 
 // Legal links
