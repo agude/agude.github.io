@@ -10,11 +10,13 @@ image_alt: >
   A pile of worn bricks covered in dust and chips of other bricks.
 ---
 
+{% capture file_dir %}/files/travis/{% endcapture %}
+
 {% include lead_image.html %}
 
 I recently finished a new Python program, [`wayback-machine-archiver`][wbma].
 See my [recent post for details][wbma_post]. It supports **many** different
-versions of Python[^1], which required me to [automate the build system][ab].
+versions of Python,[^1] which required me to [automate the build system][ab].
 I needed my build system to:
 
 - Install the software for each supported Python version.
@@ -41,7 +43,9 @@ simplified version below:
 
 [config]: https://github.com/agude/wayback-machine-archiver/blob/b3d0955e03a09662c1eb9ea962e527a8299bc209/.travis.yml
 
-First, we set up the Python versions to use for testing:
+### Run Tests in Parallel
+
+We start by set up the Python versions to use for testing:
 
 ```yaml
 language: python
@@ -53,21 +57,34 @@ python:
   - "pypy3"
 ```
 
-This will run tests in paralell on Python 2.7, 3.7, and [Pypy3][pypy].
+This will run tests in parallel on Python 2.7, 3.7, and [Pypy3][pypy]. I
+removed a bunch of version for clarity; to add move just write them in the
+list.
+
+Then, we tell Travis how to set up the environment and test the code: 
 
 ```yaml
 install:
   - pip install -r requirements.txt
-  - pip install pypandoc
-addons:
-  apt_packages:
-    - pandoc  # Required to convert the README to a Pypi description
 script:
+  # Unit tests
   - python -m pytest -v
+  # Install and smoke test
   - pip install .
   - archiver --help
+```
 
-# The default job (above) is the test job, the package build job is specified below
+This installs the dependencies, then it runs the unit tests, then it makes
+sure we can pip install the package and runs a quick ["smoke test"][smoke] on
+the installed package.
+
+[smoke]: https://en.wikipedia.org/wiki/Smoke_testing_(software)
+
+### Build and Deploy
+
+After the tests succeed (and _only_ after) we build the Pypi package:
+
+```yaml
 jobs:
   include:
     - stage: build
@@ -77,7 +94,7 @@ jobs:
         provider: pypi
         user: alexgude
         password:
-          secure: Bq6I8x+9K99zWucn+zqkFzB2snyftI2vXqhHTFiJthyzQYsX1FlOB9muVsmcNEFi9I/100tGwPNBKa/oAtGfE55wzzqTiFRQ3XqT/JPkk5l+mvPlCKM3NsqslR/EPmanecLdaceCHboHOQy34tAHAjyjD3vsqvsqOMIo8UNItUeR5diIG4pUEaN1rBa8wmn1SHhUK9n746qLKHuUSknSybSaZJUsjnOy6eZnCpZ3NVlZLLNjKtZmcyX4LwGI7+Oxj/Ag0iEnJ/6tTB1Bl/0lLzQNk5hqQOv9jEG2pQ4+hK5Oa/exaj/kJFE8+odx9iM33o9ZWHOXwptQeyPfF/2Wefj7t519fubqND/JHanN3NMzx6KTdBqwv2KLnvgt+dx1URc3VMSp4dNPgeNfbqlOCDjCVWrYdxEtn7s2vsAw+mAFYRXcppCzjWsXBlRFwCU6g98JuPncY6XsFZ1TrI2IdUnB8+MaHRXFzxuEhRt3ygOfnAGzAVhLuhercOBvGJ8JaVofNi+2JwtVX/h/ImwwufRnZRyfw5ICsSEzGVxZGho7VawmywxFAjptIe6CZl/JhoZFfTU/z8TgRiIPMM8C3Sc1ntZF4JmLu6Vg3U/QQliFXbpNSyOyChlWLzexrvYsKcdXThfjk5qQAiW9syBR8jfCHBEkNmj2MXVWrgYVGw4=
+          secure: Bq6I8x...sqslR  # Hashed password
         distributions: "sdist bdist_wheel"
         on:
           tags: true
@@ -86,9 +103,23 @@ jobs:
         skip_existing: true
 ```
 
+This defines a new stage to build the package in 3.7 and then deploys it to
+Pypi, but only if it is the master branch on a tagged (from [`git
+tag`][tag]) release.
+
+[tag]: https://git-scm.com/book/en/v2/Git-Basics-Tagging
+
+Which gives you this:[^2]
+
+[![A screen shot of the resulting Travis run from this
+configuration file.][result_png]][result_png]
+
+[result_png]: {{ file_dir }}/results.png
 
 ---
 
 [^1]: Currently 2.7, 3.4 through 3.7, the development versions of 3.7 and 3.8, the nightly release, and [pypy 2.7 and 3.5][pypy].
 
 [pypy]: https://pypy.org/
+
+[^2]: I took out a bunch of the versions in the example YAML configuration; the screen shot shows all the versions I test against.
