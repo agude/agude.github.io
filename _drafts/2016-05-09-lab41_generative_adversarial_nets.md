@@ -6,9 +6,7 @@ description: >
     about one learned by another network! Find out more with my summary of
     Generative Adversarial Networks!
 image: /files/gans/header.jpg
-tags:
-    - deep learning
-    - reading group
+categories: lab41
 ---
 
 
@@ -37,7 +35,7 @@ algorithm that generates images of cats is performing a generative task.
 
 Neural networks have proven to be extremely effective at discriminative
 tasks---beating 95% accuracy on various test benchmarks---but perform less
-effectively at generative tasks. Goodfellow’s key idea was to turn the
+effectively at generative tasks. Goodfellow's key idea was to turn the
 generation of images (normally a generative task) into a partially
 discriminative task to benefit from this effectiveness. In a GAN model there
 are two networks. One network, the generative network `G`, learns to generate

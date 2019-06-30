@@ -6,9 +6,7 @@ description: >
   network on my phone? You compress it! Come find out how deep compression saves
   space and power!
 image: /files/deep-compression/header.jpg
-tags:
-    - deep learning
-    - reading group
+categories: lab41
 ---
 
 
@@ -34,7 +32,7 @@ are going to run on a mobile device (where they could, for example,
 automatically tag pictures as they are taken) they must be compressed in some
 manner. In this paper the authors apply three compression methods to the
 weights of various networks and measure the results. A diagram of the three
-methods and their results are below; I’ll walk you through them in more depth
+methods and their results are below; I'll walk you through them in more depth
 in the next few paragraphs.
 
 [an]: http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks
@@ -69,7 +67,7 @@ is shown below.
 _A toy example of trained quantization and weight sharing. On the top row,
 weights of the same color have been clustered and will be replaced by a
 centroid value. On the bottom row, gradients are calculated and used to update
-the centroids. From Han, Mao, and Dally’s paper._
+the centroids. From Han, Mao, and Dally's paper._
 
 The third and final compression method is **Huffman Coding**. Huffman coding is a
 standard lossless compression technique. The general idea is that it uses
@@ -93,9 +91,9 @@ showing the energy efficiency and speedups due to compression are shown below:
 _The energy efficiency and speedups due to compression for various layers in
 the neural networks. The dense bars are the results before compression, and
 the pruned bars are the results after. Note the Y axis is log10! From Han,
-Mao, and Dally’s paper._
+Mao, and Dally's paper._
 
-Han, Mao, and Dally’s compression techniques achieve an almost perfect result:
+Han, Mao, and Dally's compression techniques achieve an almost perfect result:
 the in memory size of a network is reduced, the run speed is increased, and
 the energy used to perform the calculation is decreased. Although designed
 with mobile in mind, their compression is so successful I would not be

@@ -6,9 +6,7 @@ description: >
   went one step further? Find out how stochastic depth improves your network
   by dropping whole layers!
 image: /files/gans/header.jpg
-tags:
-    - deep learning
-    - reading group
+categories: lab41
 ---
 
 
