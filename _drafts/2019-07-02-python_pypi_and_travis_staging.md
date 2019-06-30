@@ -39,7 +39,7 @@ This post will explain how to do it.
 ## The Travis Configuration
 
 Here is the full [Travis Configuration file][config]. I'll go through a
-simplified version below:
+simplified version below that covers just the essentials:
 
 [config]: https://github.com/agude/wayback-machine-archiver/blob/b3d0955e03a09662c1eb9ea962e527a8299bc209/.travis.yml
 
@@ -57,9 +57,12 @@ python:
   - "pypy3"
 ```
 
-This will run tests in parallel on Python 2.7, 3.7, and [Pypy3][pypy]. I
-removed a bunch of version for clarity; to add move just write them in the
-list.
+This will run tests in parallel on Python 2.7, 3.7, and [Pypy3][pypy]. Python
+3.7 is [only supported on Ubuntu Xenial][supported], so we set that as the
+`dist`. I removed a bunch of version for clarity; to add move just write them
+in the list.
+
+[supported]: https://docs.travis-ci.com/user/languages/python/#python-37-and-higher
 
 Then, we tell Travis how to set up the environment and test the code: 
 
