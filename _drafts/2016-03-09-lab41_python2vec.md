@@ -9,7 +9,6 @@ image: /files/python2vec/header.jpg
 categories: lab41
 ---
 
-
 ![A generic picture of code on a screen. It's HTML, not Python, but
 whatever.]({{ site.url }}/files/python2vec/header.jpg)
 
@@ -107,7 +106,7 @@ post][datasets_post] I introduced some of the datasets we worked with,
 including a single Python repository. Since then we have added many
 repositories to the dataset. These are:
 
-[datasets_post]: {% post_url 2016-02-08-recommender_systems_datasets %}
+[datasets_post]: {% post_url 2016-02-08-lab41_recommender_systems_datasets %}
 
 - [**matplotlib**][mpl]: A plotting library
 - [**scikit-learn**][skl]: A machine learning library
