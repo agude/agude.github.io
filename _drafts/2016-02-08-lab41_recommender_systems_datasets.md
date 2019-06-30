@@ -6,10 +6,7 @@ description: >
   data? Don't worry, there are tons of great, open source datasets for
   recommender systems!
 image: TODO
-tag:
-    - reading group
-    - machine learning
-    - recommender systems
+categories: lab41
 ---
 
 

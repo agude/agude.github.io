@@ -6,9 +6,7 @@ description: >
   want to recommend code snippets? Then you need word embeddings, like my
   Python2Vec!
 image: /files/python2vec/header.jpg
-tags:
-    - word embedding
-    - reading group
+categories: lab41
 ---
 
 
