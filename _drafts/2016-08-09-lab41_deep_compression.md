@@ -6,13 +6,15 @@ description: >
   network on my phone? You compress it! Come find out how deep compression saves
   space and power!
 image: /files/deep-compression/header.jpg
+image_alt: >
+  A photo shot looking upwards between two buildings, the colors of the
+  windows fade as you move down reminding me of compression.
 categories: lab41
 ---
 
+{% capture file_dir %}/files/deep-compression/{% endcapture %}
 
-![A photo shot looking upwards between two buildings, the colors of the
-windows fade as you move down reminding me of compression.]({{ site.url
-}}/files/deep-compression/header.jpg)
+{% include lead_image.html %}
 
 [The next paper from our reading group][arxiv] is by Song Han, Huizi Mao, and William
 J. Dally. It won the best paper award at ICLR 2016. It details three methods
@@ -38,8 +40,7 @@ in the next few paragraphs.
 [an]: http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks
 [vgg]: https://arxiv.org/abs/1409.1556
 
-![A chart sumarizing the stages of deep compression.]({{ site.url
-}}/files/deep-compression/compression_stages.png)
+![A chart sumarizing the stages of deep compression.]({{ file_dir }}/compression_stages.png)
 _A summary of the three stages in the compression pipeline proposed by Han,
 Mao, and Dally. Note that the size reduction is cumulative. Image from their
 paper._
@@ -62,8 +63,8 @@ values performs best. This compression method reduces the size of the networks
 by a factor of 3 or 4. A diagram with an example of this compression technique
 is shown below.
 
-![A diagram showing how weights are quantized.]({{ site.url
-}}/files/deep-compression/quantization.png)
+![A diagram showing how weights are quantized.]({{ file_dir
+}}/quantization.png)
 _A toy example of trained quantization and weight sharing. On the top row,
 weights of the same color have been clustered and will be replaced by a
 centroid value. On the bottom row, gradients are calculated and used to update
@@ -86,8 +87,8 @@ than their old versions (4 times faster on mobile GPU) and use less energy (4
 times less). These results are achieved with no loss in performance! A plot
 showing the energy efficiency and speedups due to compression are shown below:
 
-![A diagram showing how weights are quantized.]({{ site.url
-}}/files/deep-compression/energy_usage_of_deep_learning.png)
+![A diagram showing how weights are quantized.]({{
+file_dir}}/energy_usage_of_deep_learning.png)
 _The energy efficiency and speedups due to compression for various layers in
 the neural networks. The dense bars are the results before compression, and
 the pruned bars are the results after. Note the Y axis is log10! From Han,
