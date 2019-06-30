@@ -6,6 +6,7 @@ description: >
   NLP. But what about sentences? Read on to learn about skip-thought vectors,
   a sentence embedding algorithm!
 image: /files/skip-thought/header.jpg
+categories: lab41
 ---
 
 
