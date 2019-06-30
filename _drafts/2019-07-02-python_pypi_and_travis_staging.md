@@ -5,7 +5,7 @@ description: >
   Often when building packages, we want to test against multiple versions of
   the language, and then build the package once. I will show you how using
   Travis Stages.
-image: /files/data-science-testing/brick_header.jpg
+image: /files/travis/us_airforce_construction_by_sue_sapp.jpg
 image_alt: >
   A pile of worn bricks covered in dust and chips of other bricks.
 ---
