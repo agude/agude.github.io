@@ -3,7 +3,7 @@ layout: post
 title: "Using Travis Build Stages to Test Multiple Versions"
 description: >
   Often when building packages, we want to test against multiple versions of
-  the language, and then build the package once. I will show you how using
+  the language, and then build the package once. I will show you how to accomplish this using
   Travis Stages.
 image: /files/travis/us_airforce_construction_by_sue_sapp.jpg
 image_alt: >
@@ -29,7 +29,7 @@ the Python versions had passed.
 [ab]: https://en.wikipedia.org/wiki/Build_automation
 [wbma_pypi]: https://pypi.org/project/wayback-machine-archiver/
 
-Running a bunch of tests, and then deploying you software is exactly what
+Running a bunch of tests, and then deploying your software is exactly what
 [Travis Stages][travis_stages] were designed for. There was just one problem:
 I couldn't find a good example of how to do it with multiple Python versions.
 This post will explain how to do it.
@@ -45,7 +45,7 @@ simplified version below that covers just the essentials:
 
 ### Run Tests in Parallel
 
-We start by set up the Python versions to use for testing:
+We start by setting up the Python versions to use for testing:
 
 ```yaml
 language: python
@@ -59,12 +59,12 @@ python:
 
 This will run tests in parallel on Python 2.7, 3.7, and [Pypy3][pypy]. Python
 3.7 is [only supported on Ubuntu Xenial][supported], so we set that as the
-`dist`. I removed a bunch of version for clarity; to add move just write them
+`dist`. I removed a bunch of version for clarity; to add more, just write them
 in the list.
 
 [supported]: https://docs.travis-ci.com/user/languages/python/#python-37-and-higher
 
-Then, we tell Travis how to set up the environment and test the code: 
+Next, we tell Travis how to set up the environment and test the code: 
 
 ```yaml
 install:
@@ -77,8 +77,8 @@ script:
   - archiver --help
 ```
 
-This installs the dependencies, then it runs the unit tests, then it makes
-sure we can pip install the package and runs a quick ["smoke test"][smoke] on
+This installs the dependencies, runs the unit tests, makes
+sure we can pip install the package, and finally runs a quick ["smoke test"][smoke] on
 the installed package.
 
 [smoke]: https://en.wikipedia.org/wiki/Smoke_testing_(software)
@@ -112,7 +112,7 @@ tag`][tag]) release.
 
 [tag]: https://git-scm.com/book/en/v2/Git-Basics-Tagging
 
-Which gives you this:[^2]
+Which gives us this:[^2]
 
 [![A screen shot of the resulting Travis run from this
 configuration file.][result_png]][result_png]
