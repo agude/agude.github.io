@@ -8,6 +8,7 @@ description: >
 image: /files/distribution-plots/Petrov-Vodkin_violin_1921.jpg
 image_alt: >
   An avant-garde painting of a violin by Kuzma Petrov-Vodkin from 1921.
+categories: plotting
 ---
 
 {% capture file_dir %}/files/distribution-plots{% endcapture %}

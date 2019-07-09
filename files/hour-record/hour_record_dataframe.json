@@ -1,0 +1,652 @@
+{
+ "schema": {
+  "fields": [
+   {
+    "name": "index",
+    "type": "integer"
+   },
+   {
+    "name": "date",
+    "type": "datetime"
+   },
+   {
+    "name": "rider",
+    "type": "string"
+   },
+   {
+    "name": "age",
+    "type": "number"
+   },
+   {
+    "name": "velodrome",
+    "type": "string"
+   },
+   {
+    "name": "distance (km)",
+    "type": "number"
+   },
+   {
+    "name": "equipment",
+    "type": "string"
+   },
+   {
+    "name": "success",
+    "type": "boolean"
+   },
+   {
+    "name": "gender",
+    "type": "string"
+   },
+   {
+    "name": "record",
+    "type": "string"
+   }
+  ],
+  "primaryKey": [
+   "index"
+  ],
+  "pandas_version": "0.20.0"
+ },
+ "data": [
+  {
+   "index": 0,
+   "date": "1972-10-25T00:00:00.000Z",
+   "rider": "Eddy Merckx",
+   "age": 27.0,
+   "velodrome": "Agust\u00edn Melgar (333 meters outdoor concrete high-altitude), Mexico City, Mexico",
+   "distance (km)": 49.431,
+   "equipment": "Drop handlebar, round steel tubing frame, wire spokes.",
+   "success": true,
+   "gender": "men",
+   "record": "uci"
+  },
+  {
+   "index": 1,
+   "date": "1972-11-25T00:00:00.000Z",
+   "rider": "Maria Cressari",
+   "age": null,
+   "velodrome": "Agust\u00edn Melgar Olympic Velodrome, Mexico City, Mexico",
+   "distance (km)": 41.471,
+   "equipment": "4.7-kilogram Colnago, drop handlebars, wire spokes.[12]",
+   "success": true,
+   "gender": "women",
+   "record": "uci"
+  },
+  {
+   "index": 2,
+   "date": "1978-09-16T00:00:00.000Z",
+   "rider": "Keetie van Oosten",
+   "age": 29.0,
+   "velodrome": "Munich, Germany",
+   "distance (km)": 43.082,
+   "equipment": "RIH superlight steel frame, drop handlebars, wire spokes.[13][14]",
+   "success": true,
+   "gender": "women",
+   "record": "uci"
+  },
+  {
+   "index": 3,
+   "date": "1984-01-19T00:00:00.000Z",
+   "rider": "Francesco Moser",
+   "age": 32.0,
+   "velodrome": "Agust\u00edn Melgar (333 meters outdoor concrete high-altitude), Mexico City, Mexico",
+   "distance (km)": 50.808,
+   "equipment": "Bullhorn handlebar, oval steel tubing frame, disc wheels.",
+   "success": true,
+   "gender": "men",
+   "record": "best"
+  },
+  {
+   "index": 4,
+   "date": "1984-01-23T00:00:00.000Z",
+   "rider": "Francesco Moser",
+   "age": 32.0,
+   "velodrome": "Agust\u00edn Melgar (333 meters outdoor concrete high-altitude), Mexico City, Mexico",
+   "distance (km)": 51.151,
+   "equipment": "Bullhorn handlebar, oval steel tubing frame, disc wheels.",
+   "success": true,
+   "gender": "men",
+   "record": "best"
+  },
+  {
+   "index": 5,
+   "date": "1986-09-20T00:00:00.000Z",
+   "rider": "Jeannie Longo-Ciprelli",
+   "age": 27.0,
+   "velodrome": "Colorado Springs, United States",
+   "distance (km)": 44.77,
+   "equipment": null,
+   "success": true,
+   "gender": "women",
+   "record": "best"
+  },
+  {
+   "index": 6,
+   "date": "1987-09-23T00:00:00.000Z",
+   "rider": "Jeannie Longo-Ciprelli",
+   "age": 28.0,
+   "velodrome": "Colorado Springs, United States",
+   "distance (km)": 44.933,
+   "equipment": null,
+   "success": true,
+   "gender": "women",
+   "record": "best"
+  },
+  {
+   "index": 7,
+   "date": "1989-10-01T00:00:00.000Z",
+   "rider": "Jeannie Longo-Ciprelli",
+   "age": 30.0,
+   "velodrome": "Agust\u00edn Melgar Olympic Velodrome, Mexico City, Mexico",
+   "distance (km)": 46.352,
+   "equipment": null,
+   "success": true,
+   "gender": "women",
+   "record": "best"
+  },
+  {
+   "index": 8,
+   "date": "1993-07-17T00:00:00.000Z",
+   "rider": "Graeme Obree",
+   "age": 27.0,
+   "velodrome": "Vikingskipet (250 meters indoor wood sea-level), Hamar, Norway",
+   "distance (km)": 51.596,
+   "equipment": "Graeme Obree-style \"praying mantis\" handlebar, round steel tubing frame, carbon tri-spoke wheels.",
+   "success": true,
+   "gender": "men",
+   "record": "best"
+  },
+  {
+   "index": 9,
+   "date": "1993-07-23T00:00:00.000Z",
+   "rider": "Chris Boardman",
+   "age": 24.0,
+   "velodrome": "Velodrome du Lac (250 meters indoor wood sea-level), Bordeaux, France",
+   "distance (km)": 52.27,
+   "equipment": "Triathlon handlebar, carbon airfoil tubing frame, carbon 4-spoke wheels.",
+   "success": true,
+   "gender": "men",
+   "record": "best"
+  },
+  {
+   "index": 10,
+   "date": "1994-04-27T00:00:00.000Z",
+   "rider": "Graeme Obree",
+   "age": 28.0,
+   "velodrome": "Velodrome du Lac (250 meters indoor wood sea-level), Bordeaux, France",
+   "distance (km)": 52.713,
+   "equipment": "Graeme Obree-style \"praying mantis\" handlebar, round steel tubing frame, carbon tri-spoke wheels.",
+   "success": true,
+   "gender": "men",
+   "record": "best"
+  },
+  {
+   "index": 11,
+   "date": "1994-09-02T00:00:00.000Z",
+   "rider": "Miguel Indurain",
+   "age": 30.0,
+   "velodrome": "Velodrome du Lac (250 meters indoor wood sea-level), Bordeaux, France",
+   "distance (km)": 53.04,
+   "equipment": "Wide triathlon handlebar, carbon monocoque aero frame, disc wheels.",
+   "success": true,
+   "gender": "men",
+   "record": "best"
+  },
+  {
+   "index": 12,
+   "date": "1994-10-22T00:00:00.000Z",
+   "rider": "Tony Rominger",
+   "age": 33.0,
+   "velodrome": "Velodrome du Lac (250 meters indoor wood sea-level), Bordeaux, France",
+   "distance (km)": 53.832,
+   "equipment": "Triathlon handlebar, oval steel tubing frame, disc wheels.",
+   "success": true,
+   "gender": "men",
+   "record": "best"
+  },
+  {
+   "index": 13,
+   "date": "1994-11-05T00:00:00.000Z",
+   "rider": "Tony Rominger",
+   "age": 33.0,
+   "velodrome": "Velodrome du Lac (250 meters indoor wood sea-level), Bordeaux, France",
+   "distance (km)": 55.291,
+   "equipment": "Triathlon handlebar, oval steel tubing frame, disc wheels.",
+   "success": true,
+   "gender": "men",
+   "record": "best"
+  },
+  {
+   "index": 14,
+   "date": "1995-04-29T00:00:00.000Z",
+   "rider": "Catherine Marsal",
+   "age": 24.0,
+   "velodrome": "Bordeaux, France",
+   "distance (km)": 47.112,
+   "equipment": "Corima carbon composite bicycle. Corima 12 spoke/Corima disc wheels. Tri-Bar.[16]",
+   "success": true,
+   "gender": "women",
+   "record": "best"
+  },
+  {
+   "index": 15,
+   "date": "1995-06-17T00:00:00.000Z",
+   "rider": "Yvonne McGregor",
+   "age": 34.0,
+   "velodrome": "Manchester, England",
+   "distance (km)": 47.411,
+   "equipment": "Terry Dolan bicycle. Cinelli tri-bar, Corima disc wheels",
+   "success": true,
+   "gender": "women",
+   "record": "best"
+  },
+  {
+   "index": 16,
+   "date": "1996-09-06T00:00:00.000Z",
+   "rider": "Chris Boardman",
+   "age": 28.0,
+   "velodrome": "Manchester Velodrome (250 meters indoor wood sea-level), Manchester, UK",
+   "distance (km)": 56.375,
+   "equipment": "Graeme Obree \"superman-style\" handlebar, carbon monocoque aero frame, 5-spoke front and rear disc wheel.",
+   "success": true,
+   "gender": "men",
+   "record": "best"
+  },
+  {
+   "index": 17,
+   "date": "1996-10-26T00:00:00.000Z",
+   "rider": "Jeannie Longo-Ciprelli",
+   "age": 38.0,
+   "velodrome": "Agust\u00edn Melgar Olympic Velodrome, Mexico City, Mexico",
+   "distance (km)": 48.159,
+   "equipment": null,
+   "success": true,
+   "gender": "women",
+   "record": "best"
+  },
+  {
+   "index": 18,
+   "date": "2000-10-18T00:00:00.000Z",
+   "rider": "Anna Wilson-Millward",
+   "age": 26.0,
+   "velodrome": "Vodafone Arena, Melbourne, Australia",
+   "distance (km)": 43.501,
+   "equipment": "Perkins, Columbus steel tubing, box section rims, wire spokes",
+   "success": true,
+   "gender": "women",
+   "record": "uci"
+  },
+  {
+   "index": 19,
+   "date": "2000-10-27T00:00:00.000Z",
+   "rider": "Chris Boardman",
+   "age": 32.0,
+   "velodrome": "Manchester Velodrome (250 meters indoor wood sea-level), Manchester, UK",
+   "distance (km)": 49.441,
+   "equipment": "Drop handlebar, carbon fibre tubing frame, wire spokes.",
+   "success": true,
+   "gender": "men",
+   "record": "uci"
+  },
+  {
+   "index": 20,
+   "date": "2000-11-05T00:00:00.000Z",
+   "rider": "Jeannie Longo-Ciprelli",
+   "age": 42.0,
+   "velodrome": "Agust\u00edn Melgar Olympic Velodrome, Mexico City, Mexico",
+   "distance (km)": 44.767,
+   "equipment": "Drop handlebar, steel tubing frame, wire spokes.",
+   "success": true,
+   "gender": "women",
+   "record": "uci"
+  },
+  {
+   "index": 21,
+   "date": "2000-12-07T00:00:00.000Z",
+   "rider": "Jeannie Longo-Ciprelli",
+   "age": 42.0,
+   "velodrome": "Agust\u00edn Melgar, Mexico City, Mexico",
+   "distance (km)": 45.094,
+   "equipment": "Drop handlebar, steel tubing frame, wire spokes.",
+   "success": true,
+   "gender": "women",
+   "record": "uci"
+  },
+  {
+   "index": 22,
+   "date": "2003-10-01T00:00:00.000Z",
+   "rider": "Leontien Zijlaard-van Moorsel",
+   "age": 33.0,
+   "velodrome": "Agust\u00edn Melgar, Mexico City, Mexico",
+   "distance (km)": 46.065,
+   "equipment": "Drop handlebar, Koga chromoly tubing frame, box section rims, wire spokes[15]",
+   "success": true,
+   "gender": "women",
+   "record": "uci"
+  },
+  {
+   "index": 23,
+   "date": "2005-07-19T00:00:00.000Z",
+   "rider": "Ond\u0159ej Sosenka",
+   "age": 29.0,
+   "velodrome": "Krylatskoye (333 meters indoor wood sea-level), Moscow, Russia",
+   "distance (km)": 49.7,
+   "equipment": "Drop handlebar, carbon fibre tubing frame, wire spokes.",
+   "success": true,
+   "gender": "men",
+   "record": "uci"
+  },
+  {
+   "index": 24,
+   "date": "2014-09-18T00:00:00.000Z",
+   "rider": "Jens Voigt",
+   "age": 43.0,
+   "velodrome": "Velodrome Suisse, Grenchen, Switzerland",
+   "distance (km)": 51.11,
+   "equipment": "Triathlon handlebar, Trek carbon fibre tubing frame, disc wheels,[30] chain on a 55/14 gear ratio.[31]",
+   "success": true,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 25,
+   "date": "2014-10-30T00:00:00.000Z",
+   "rider": "Matthias Br\u00e4ndle",
+   "age": 24.0,
+   "velodrome": "World Cycling Center, Aigle, Switzerland",
+   "distance (km)": 51.852,
+   "equipment": "Triathlon handlebar, SCOTT carbon fibre tubing frame, disc wheels, chain on a 55/13 gear ratio.[31]",
+   "success": true,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 26,
+   "date": "2015-01-31T00:00:00.000Z",
+   "rider": "Jack Bobridge",
+   "age": 24.0,
+   "velodrome": "Darebin International Sports Centre, Melbourne, Australia",
+   "distance (km)": 51.3,
+   "equipment": "Triathlon handlebar, Cervelo carbon fibre tubing frame, disc wheels.",
+   "success": false,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 27,
+   "date": "2015-02-08T00:00:00.000Z",
+   "rider": "Rohan Dennis",
+   "age": 24.0,
+   "velodrome": "Velodrome Suisse, Grenchen, Switzerland",
+   "distance (km)": 52.491,
+   "equipment": "Triathlon handlebar, BMC carbon fibre tubing frame, disc wheels, chain on a 56/14 gear ratio.[35]",
+   "success": true,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 28,
+   "date": "2015-02-25T00:00:00.000Z",
+   "rider": "Thomas Dekker",
+   "age": 30.0,
+   "velodrome": "Aguascalientes Bicentenary Velodrome, Aguascalientes, Mexico",
+   "distance (km)": 52.221,
+   "equipment": "Koga TeeTeeTrack with Mavic Comete Track wheels, Koga components, Rotor cranks with a KMC (3/32\") chain on a 58/14 gear ratio.[37]",
+   "success": false,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 29,
+   "date": "2015-02-28T00:00:00.000Z",
+   "rider": "Sarah Storey",
+   "age": 37.0,
+   "velodrome": "Lee Valley VeloPark, London, United Kingdom",
+   "distance (km)": 45.502,
+   "equipment": "Ridley Arena Carbon track bike with triathlon bars, Pro rear disc wheel, front disk wheel, Shimano Dura-Ace groupset.[70]",
+   "success": false,
+   "gender": "women",
+   "record": "unified"
+  },
+  {
+   "index": 30,
+   "date": "2015-03-14T00:00:00.000Z",
+   "rider": "Gustav Larsson",
+   "age": 34.0,
+   "velodrome": "Manchester Velodrome, Manchester, United Kingdom",
+   "distance (km)": 50.016,
+   "equipment": "Ridley carbon track bike with front and rear disc wheels, triathlon handlebars.",
+   "success": false,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 31,
+   "date": "2015-05-02T00:00:00.000Z",
+   "rider": "Alex Dowsett",
+   "age": 26.0,
+   "velodrome": "Manchester Velodrome, Manchester, United Kingdom[40]",
+   "distance (km)": 52.937,
+   "equipment": "Canyon Speedmax WHR carbon track bike, with Campagnolo Pista disc wheels, Pista crankset with 54 or 55 or 56t chainring.[41][42]",
+   "success": true,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 32,
+   "date": "2015-06-07T00:00:00.000Z",
+   "rider": "Bradley Wiggins",
+   "age": 35.0,
+   "velodrome": "Lee Valley VeloPark, London, United Kingdom[43]",
+   "distance (km)": 54.526,
+   "equipment": "Pinarello Bolide HR, SRAM Crankset,[44] modified front fork, custom printed handlebars,[45] 58/14 gear ratio.[46]",
+   "success": true,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 33,
+   "date": "2015-09-12T00:00:00.000Z",
+   "rider": "Molly Shaffer Van Houweling",
+   "age": 42.0,
+   "velodrome": "Aguascalientes Bicentenary Velodrome, Aguascalientes, Mexico",
+   "distance (km)": 46.273,
+   "equipment": "Cervelo T4 track bike with double Mavic Comete discwheels, running 56/14 gear ratio.[64][72]",
+   "success": true,
+   "gender": "women",
+   "record": "unified"
+  },
+  {
+   "index": 34,
+   "date": "2016-01-22T00:00:00.000Z",
+   "rider": "Bridie O'Donnell",
+   "age": 41.0,
+   "velodrome": "Super-Drome, Adelaide, Australia",
+   "distance (km)": 46.882,
+   "equipment": "Cervelo T4 track bike.[75]",
+   "success": true,
+   "gender": "women",
+   "record": "unified"
+  },
+  {
+   "index": 35,
+   "date": "2016-02-27T00:00:00.000Z",
+   "rider": "Evelyn Stevens",
+   "age": 32.0,
+   "velodrome": "OTC Velodrome, Colorado, United States of America",
+   "distance (km)": 47.98,
+   "equipment": "Specialized Shiv modified for the track, SRAM groupset with 53t or 54t chainrings, Zipp 900 front wheel, Zipp Super 9 rear disc, Bioracer skinsuit.",
+   "success": true,
+   "gender": "women",
+   "record": "unified"
+  },
+  {
+   "index": 36,
+   "date": "2016-03-21T00:00:00.000Z",
+   "rider": "Micah Gross",
+   "age": null,
+   "velodrome": "Velodrome Suisse de Granges, Granges, Switzerland",
+   "distance (km)": 48.255,
+   "equipment": null,
+   "success": false,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 37,
+   "date": "2016-09-16T00:00:00.000Z",
+   "rider": "Tom Zirbel",
+   "age": 37.0,
+   "velodrome": "Aguascalientes Bicentenary Velodrome, Aguascalientes, Mexico[48]",
+   "distance (km)": 53.037,
+   "equipment": "Modified Diamondback Serios time trial bike, fitted with special HED disc wheels[48] and a gearing of 53/13[49]",
+   "success": false,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 38,
+   "date": "2017-01-28T00:00:00.000Z",
+   "rider": "Martin Toft Madsen",
+   "age": 31.0,
+   "velodrome": "Ballerup Super Arena, Ballerup, Denmark[51]",
+   "distance (km)": 52.114,
+   "equipment": "Argon 18 Electron Pro, Mavic Comete discs, SRM + Fibre-Lyte chain ring, and a gearing of 54/13",
+   "success": false,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 39,
+   "date": "2017-02-25T00:00:00.000Z",
+   "rider": "Marc Dubois",
+   "age": null,
+   "velodrome": "Velodrome Suisse de Granges, Granges, Switzerland",
+   "distance (km)": 48.337,
+   "equipment": "RB1213 track bike with double DT Swiss disc wheels",
+   "success": false,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 40,
+   "date": "2017-07-02T00:00:00.000Z",
+   "rider": "Wojciech Ziolkowski",
+   "age": null,
+   "velodrome": "Arena Pruszkow, Pruszkow,Poland",
+   "distance (km)": 49.47,
+   "equipment": "BMC Trackmachine TR01, Mavic Comete disc wheels, Custom Prinzwear TT Suit",
+   "success": false,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 41,
+   "date": "2017-07-21T00:00:00.000Z",
+   "rider": "Jaime Nielsen",
+   "age": 32.0,
+   "velodrome": "Avantidrome, Cambridge, New Zealand",
+   "distance (km)": 47.791,
+   "equipment": null,
+   "success": false,
+   "gender": "women",
+   "record": "unified"
+  },
+  {
+   "index": 42,
+   "date": "2017-10-07T00:00:00.000Z",
+   "rider": "Vittoria Bussi",
+   "age": 30.0,
+   "velodrome": "Aguascalientes Bicentenary Velodrome, Aguascalientes, Mexico",
+   "distance (km)": 47.576,
+   "equipment": "Giant Trinity track bike with Walker Brothers double-disc wheels",
+   "success": false,
+   "gender": "women",
+   "record": "unified"
+  },
+  {
+   "index": 43,
+   "date": "2017-10-07T00:00:00.000Z",
+   "rider": "Mikkel Bjerg",
+   "age": 18.0,
+   "velodrome": "Odense Cykelbane, Odense, Denmark[54]",
+   "distance (km)": 52.311,
+   "equipment": "Giant trinity track bike, Mavic disc wheels",
+   "success": false,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 44,
+   "date": "2018-01-11T00:00:00.000Z",
+   "rider": "Martin Toft Madsen",
+   "age": 32.0,
+   "velodrome": "Ballerup Super Arena, Ballerup, Denmark[55]",
+   "distance (km)": 52.324,
+   "equipment": "Argon 18 Electron Pro, Mavic Comete discs, SRM + Fibre-Lyte chain ring, and a gearing of 54/13",
+   "success": false,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 45,
+   "date": "2018-07-26T00:00:00.000Z",
+   "rider": "Martin Toft Madsen",
+   "age": 33.0,
+   "velodrome": "Aguascalientes Bicentenary Velodrome, Aguascalientes, Mexico[56]",
+   "distance (km)": 53.63,
+   "equipment": "Argon 18 Electron Pro, Mavic Comete discs, SRM + Fibre-Lyte chain ring, and a gearing of 54/13",
+   "success": false,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 46,
+   "date": "2018-08-22T00:00:00.000Z",
+   "rider": "Dion Beukeboom",
+   "age": 29.0,
+   "velodrome": "Aguascalientes Bicentenary Velodrome, Aguascalientes, Mexico[58]",
+   "distance (km)": 52.757,
+   "equipment": "Customized Giant Trinity road frame, with a gearing of 58/14",
+   "success": false,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 47,
+   "date": "2018-09-13T00:00:00.000Z",
+   "rider": "Vittoria Bussi",
+   "age": 31.0,
+   "velodrome": "Aguascalientes Bicentenary Velodrome, Aguascalientes, Mexico",
+   "distance (km)": 48.007,
+   "equipment": "Endura skin suit, HVMN Ketone, and Liv Bike [82]",
+   "success": true,
+   "gender": "women",
+   "record": "unified"
+  },
+  {
+   "index": 48,
+   "date": "2018-10-04T00:00:00.000Z",
+   "rider": "Mikkel Bjerg",
+   "age": 19.0,
+   "velodrome": "Odense Cykelbane, Odense, Denmark[59]",
+   "distance (km)": 53.73,
+   "equipment": "Giant trinity track bike, Mavic disc wheels",
+   "success": false,
+   "gender": "men",
+   "record": "unified"
+  },
+  {
+   "index": 49,
+   "date": "2019-04-16T00:00:00.000Z",
+   "rider": "Victor Campenaerts",
+   "age": 27.0,
+   "velodrome": "Aguascalientes Bicentenary Velodrome, Aguascalientes, Mexico[60]",
+   "distance (km)": 55.089,
+   "equipment": "Ridley Arena Hour Record bike, 330mm custom handlebars, custom handlebar extensions specifically moulded for Campenaerts' forearms, F-Surface Plus aero paint, Campagnolo drivetrain, full carbon disc Campagnolo Ghibli wheels, C-Bear bottom bracket bearings.[61]",
+   "success": true,
+   "gender": "men",
+   "record": "unified"
+  }
+ ]
+}
