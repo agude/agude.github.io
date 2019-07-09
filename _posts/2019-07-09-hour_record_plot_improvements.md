@@ -67,7 +67,8 @@ The code that generated the improved plots can be found [here][new_plot_code]
 
 I added a title and legend. The title makes the subject clear: the progression
 of the men's hour record. The legend is pretty minimal, but conveys that there
-are three different types of record, and they are each a different color.
+are three different types of record, and they are each plotted in a different
+color.
 
 The tick labels are now much larger and easier to read. I have changed the
 date ticks to every decade because we do not really care about an exact date,
