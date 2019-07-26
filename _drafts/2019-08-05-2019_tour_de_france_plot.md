@@ -22,32 +22,6 @@ found a way to combine the two.
 [tour]: https://en.wikipedia.org/wiki/Tour_de_France
 [last_post]: {% post_url 2019-07-09-hour_record_plot_improvements %}
 
-<!--
-## The Races Within the Race
-
-The Tour is said to have multiple races within the race because there are
-multiple prizes that can be won and different groups of riders have set their
-sights on them. They are:
-
-- The [Yellow Jersey][yellow]: Most prestigious; awarded to the rider with the
-lowest combined time across all 21 stages. When we say [PERSON X won the Tour
-de France][winner], we mean he won the Yellow Jersey.
-- The [White Jersey][white]: Awarded to the rider under 27 with the lowest
-combined time on all the stages.
-- The [Green Jersey][green]: Awarded to the rider with the most sprint points,
-earned for winning or placing in various sprints during the stages.
-- The [Polka Dot Jersey][polka_dot]: Awarded to the rider with the most
-mountain points, earned for being one of the first few riders to reach the
-summits of the various mountains.
-
-[yellow]:
-[winner]:
-[white]:
-[green]:
-[polka_dot]:
-
--->
-
 ## The Race for Yellow
 
 Only a few riders are really in contention for the Yellow Jersey; the vast
@@ -61,10 +35,10 @@ and single day races.
 [thomas]:
 [alaphillippe]: 
 
-Below I have plotted how the top-finishing riders did throughout the race by
-showing how far behind the leader they were after each stage. Where a rider's
-line is near the top they are close to taking over the lead; when they drop
-down they are losing time.
+I show how the top-finishing riders did throughout the race by plotting how
+far behind the leader they were after each stage. Where a rider's line is near
+the top they are close to taking over the lead; when they drop down they are
+losing time.
 
 [![A line plot showing how far behind the leader each top-finishing rider was after each stage.][gc_plot]][gc_plot]
 
