@@ -11,11 +11,11 @@ image_alt: >
 categories: plotting
 ---
 
-{% capture file_dir %}/files/hour-record/{% endcapture %}
+{% capture file_dir %}/files/tour-de-france/{% endcapture %}
 
 There is no bigger event in cycling than the [Tour de France][tour], a race which
 takes most of July as its 21 stages meander around France before bringing the
-riders to a fated final sprint in Paris on the Champs Elysée. I love both
+riders to a fateful final sprint in Paris on the Champs-Élysées. I love both
 cycling and plots, as I [mentioned last month][last_post], so once again I
 found a way to combine the two.
 
@@ -24,32 +24,34 @@ found a way to combine the two.
 
 ## The Race for Yellow
 
-Only a few riders are really in contention for the Yellow Jersey; the vast
-majority of the others are brought along to support their team leaders. Going
-into the 2019 Tour, defending champion [Geraint Thomas][thomas], but there
-were several strong challengers. [Julian Alaphillippe][alaphillippe], who held
-the Jersey for the most days, was a dark horse contender who surprised the
-experts; he was a rider who had traditionally excelled at hunting stage wins
-and single day races.
+The [Yellow Jersey][yellow] is awarded to the rider with the lowest combined
+time across all 21 stages of the tour. Only a few riders are really in
+contention for yellow; the vast majority of the others are brought along to
+support their team leaders. Going into the 2019 Tour, defending champion
+[Geraint Thomas][thomas], but there were several strong challengers. [Julian
+Alaphilippe][alaphillippe], who held the Jersey for the most days, was a dark
+horse contender who surprised the experts; he was a rider who had
+traditionally excelled at hunting stage wins and single day races.
 
-[thomas]:
-[alaphillippe]: 
+[yellow]: https://en.wikipedia.org/wiki/General_classification_in_the_Tour_de_France
+[thomas]: https://en.wikipedia.org/wiki/Geraint_Thomas
+[alaphillippe]: https://en.wikipedia.org/wiki/Julian_Alaphilippe
 
-I show how the top-finishing riders did throughout the race by plotting how
-far behind the leader they were after each stage. Where a rider's line is near
-the top they are close to taking over the lead; when they drop down they are
-losing time.
+Below I show how the top-finishing riders did throughout the race by plotting
+how far behind the leader they were after each stage. Where a rider's line is
+near the top they are close to taking over the lead; when they drop down they
+are losing time.
 
 [![A line plot showing how far behind the leader each top-finishing rider was after each stage.][gc_plot]][gc_plot]
 
-[gc_plot]: {{ file_dir }}/mens_hour_records_progression.svg
+[gc_plot]: {{ file_dir }}/2019_tour_de_france_top_5.svg
 
 ## The Rest of the Race
 
 From the above plot you might think that all riders finish within a few
 minutes of each other. But they do not. The last place rider, the [laterne
-rouge], was nearly XX HOURS <!-- TODO --> behind the winner.
+rouge], was four and a half **hours** behind the winner.
 
 [![A line plot showing how far behind the leader every rider was for each stage.][full_plot]][full_plot]
 
-[full_plot]: {{ file_dir }}/mens_hour_records_progression.svg
+[full_plot]: {{ file_dir }}/2019_tour_de_france.svg
