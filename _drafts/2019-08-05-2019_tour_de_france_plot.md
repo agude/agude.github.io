@@ -28,14 +28,11 @@ The [Yellow Jersey][yellow] is awarded to the rider with the lowest combined
 time across all 21 stages of the tour. Only a few riders are really in
 contention for yellow; the vast majority of the others are brought along to
 support their team leaders. Going into the 2019 Tour, defending champion
-[Geraint Thomas][thomas], but there were several strong challengers. [Julian
-Alaphilippe][alaphillippe], who held the Jersey for the most days, was a dark
-horse contender who surprised the experts; he was a rider who had
-traditionally excelled at hunting stage wins and single day races.
+[Geraint Thomas][thomas] was the favorite, but there were several strong
+challengers.
 
 [yellow]: https://en.wikipedia.org/wiki/General_classification_in_the_Tour_de_France
 [thomas]: https://en.wikipedia.org/wiki/Geraint_Thomas
-[alaphillippe]: https://en.wikipedia.org/wiki/Julian_Alaphilippe
 
 Below I show how the top-finishing riders did throughout the race by plotting
 how far behind the leader they were after each stage. Where a rider's line is
@@ -46,11 +43,30 @@ are losing time.
 
 [gc_plot]: {{ file_dir }}/2019_tour_de_france_top_5.svg
 
+[Julian Alaphilippe][alaphillippe]---a dark horse contender who surprised the
+experts---held the Jersey for the most days. He lost it for two days on stage
+5 to a sprinter [Giulio Ciccone][ciccone], but took it back on stage 8 and
+held until the shortened stage 19, when [Egan Bernal][bernal] took it with a
+decisive attack. Surprisingly, Alaphilippe won the [individual time
+trial][itt] and gained a minute on the climbers Bernal and [Emanuel
+Buchmann][buchmann], even distancing time-trialist Thomas. Alaphilippe, who is
+not a pure climber, lost time on most mountain stages. He began to slip on
+stage 15, lost the jersey on 19, and lost his podium spot on stage 20,
+finishing 5th when they rolled through the Champs-Élysées.
+
+[alaphillippe]: https://en.wikipedia.org/wiki/Julian_Alaphilippe
+[ciccone]: https://en.wikipedia.org/wiki/Giulio_Ciccone
+[bernal]: https://en.wikipedia.org/wiki/Egan_Bernal
+[itt]: https://en.wikipedia.org/wiki/Individual_time_trial
+[buchmann]: https://en.wikipedia.org/wiki/Emanuel_Buchmann
+
 ## The Rest of the Race
 
 From the above plot you might think that all riders finish within a few
 minutes of each other. But they do not. The last place rider, the [laterne
-rouge], was four and a half **hours** behind the winner.
+rouge][laterne], was four and a half **hours** behind Egan Bernal.
+
+[laterne]: https://en.wikipedia.org/w/index.php?title=Special:Search&search=laterne+rogue&ns0=1&searchToken=9a18cf0pz7eygcn020bcbg80t
 
 [![A line plot showing how far behind the leader every rider was for each stage.][full_plot]][full_plot]
 
