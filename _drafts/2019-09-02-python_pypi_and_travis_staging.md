@@ -7,7 +7,7 @@ description: >
   Travis Stages.
 image: /files/travis/us_airforce_construction_by_sue_sapp.jpg
 image_alt: >
-  A pile of worn bricks covered in dust and chips of other bricks.
+  A construction site with the metal frame of a building and various pieces of heavy equipment parked around it.
 ---
 
 {% capture file_dir %}/files/travis/{% endcapture %}
