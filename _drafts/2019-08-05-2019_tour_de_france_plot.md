@@ -12,14 +12,22 @@ categories: plotting
 
 {% capture file_dir %}/files/tour-de-france/{% endcapture %}
 
-There is no bigger event in cycling than the [Tour de France][tour], a race which
-takes most of July as its 21 stages meander around France before bringing the
-riders to a fateful final sprint in Paris on the Champs-Élysées. I love both
-cycling and plots, as I [mentioned last month][last_post], so once again I
-found a way to combine the two.
+There is no bigger event in cycling than the [Tour de France][tour], a race
+which takes most of July as crisscrosses France before bringing the riders to
+a fateful final sprint in Paris on the Champs-Élysées. I love both cycling and
+plots, as I [mentioned last month][last_post], so once again I found a way to
+combine the two, but exploring how the race unfolded graphically.
 
 [tour]: https://en.wikipedia.org/wiki/Tour_de_France
 [last_post]: {% post_url 2019-07-09-hour_record_plot_improvements %}
+
+The code that generated the plots can be found [here][plot_code]
+([rendered on Github][rendered]). The data [is here][data].
+
+{% capture notebook_uri %}{{ "Tour de France Plot.ipynb" | uri_escape }}{% endcapture %}
+[plot_code]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
+[data]: {{ file_dir }}/2019-tdf-dataframe.json
 
 ## The Race for Yellow
 
@@ -42,28 +50,29 @@ are losing time.
 
 [gc_plot]: {{ file_dir }}/2019_tour_de_france_top_5.svg
 
-[Julian Alaphilippe][alaphillippe]---a dark horse contender who surprised the
-experts---held the jersey for the most days. He lost it for two days on stage
-5 to a sprinter [Giulio Ciccone][ciccone], but took it back on stage 8 and
-held until the shortened stage 19, when [Egan Bernal][bernal] took it with a
-decisive attack. Surprisingly, Alaphilippe won the [individual time
-trial][itt] and gained a minute on the climbers Bernal and [Emanuel
-Buchmann][buchmann], even distancing time-trialist Thomas. Alaphilippe, who is
-not a pure climber, lost time on most mountain stages. He began to slip on
-stage 15, lost the jersey on 19, and lost his podium spot on stage 20,
-finishing 5th when they rolled through the Champs-Élysées.
+[Julian Alaphilippe][alaphillippe] held the jersey for the most days, even
+defending it on the [individual time trial][itt] against expert time trialist
+Thomas. But Alaphilippe is not a climber, and he lost time in the Alps to 
+[Egan Bernal][bernal], [Steven Kruijswijk][kruijswijk], [Emanuel
+Buchmann][buchmann], and [Thibaut Pinot][pinot], who stormed back with a
+massive attack on stage 15 put in a massive attack. Unfortunately, Pinot was
+forced to withdraw on stage 19 due to an injury. Alaphilippe finally fell
+behind during that stage, losing the yellow jersey to Bernal. He lost his
+podium spot on stage 20 when he cracked during the final part of the climb.
+Alaphilippe finished 5th when they rolled through the Champs-Élysées.
 
 [alaphillippe]: https://en.wikipedia.org/wiki/Julian_Alaphilippe
-[ciccone]: https://en.wikipedia.org/wiki/Giulio_Ciccone
-[bernal]: https://en.wikipedia.org/wiki/Egan_Bernal
 [itt]: https://en.wikipedia.org/wiki/Individual_time_trial
+[bernal]: https://en.wikipedia.org/wiki/Egan_Bernal
+[kruijswijk]: https://en.wikipedia.org/wiki/Steven_Kruijswijk
 [buchmann]: https://en.wikipedia.org/wiki/Emanuel_Buchmann
+[pinot]: https://en.wikipedia.org/wiki/Thibaut_Pinot
 
 ## The Rest of the Race
 
-From the above plot you might think that all riders finish within a few
-minutes of each other. But they do not. The last place rider, the [lanterne
-rouge][lanterne], was four and a half **hours** behind Egan Bernal.
+From the above plot you might think that all the riders in the Tour finish
+within a few minutes of each other. But they do not. The last place rider, the
+[lanterne rouge][lanterne], was four and a half **hours** behind Egan Bernal.
 
 [lanterne]: https://en.wikipedia.org/wiki/Lanterne_rouge
 
@@ -81,18 +90,19 @@ injury in the second week of the race.
 [langeveld]: https://en.wikipedia.org/wiki/Sebastian_Langeveld
 
 [Peter Sagan][sagan], the [green jersey][green] winner, was only interested in
-sprints, so he took it easy on mountain stages as you can see in the steep
-declines on stages 14 and 15 (the Pyrenees) and Stages 18--20 (the Alps). Most
-other riders had similar performance, as you can see, although some recovered
-time on stage 17 when the favorites let a large break away group escape and
-take a 20 minute advantage. Sagan did not make that group, as we can see.
+sprints. He took it easy on the mountain stages to conserve energy, as you can
+see in the steep declines on stages 14 and 15 (the Pyrenees) and Stages 18--20
+(the Alps). Most other riders similarly, as you can see, although some
+recovered time on stage 17 when the favorites let a large breakaway group
+escape and take a 20 minute advantage. Sagan did not make that group, as we
+can see.
 
 [Romain Bardet][bardet], the [polka dot jersey][polka_dot] winner, was
 fighting for the yellow jersey until stage 14 where he cracked and lost 20
-minutes. This forced him to pivot to going for the climbing jersey. To win
-this, he had to be one of the first at the top of the major climbs, so for the
-remaining stages he stayed with the favorites or attacked early, keeping his
-time behind pretty consistent.
+minutes. This forced him to pivot to trying to win the climbing jersey, which
+meant he needed to be one of the first riders to reach the top of the
+remaining climbs. For the remaining stages he stayed with the favorites or
+attacked early, keeping his time behind pretty consistent.
 
 [sagan]: https://en.wikipedia.org/wiki/Peter_Sagan
 [green]: https://en.wikipedia.org/wiki/Points_classification_in_the_Tour_de_France
