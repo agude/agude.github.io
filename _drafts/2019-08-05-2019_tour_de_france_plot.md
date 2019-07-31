@@ -16,7 +16,7 @@ There is no bigger event in cycling than the [Tour de France][tour], a race
 which takes most of July as crisscrosses France before bringing the riders to
 a fateful final sprint in Paris on the Champs-Élysées. I love both cycling and
 plots, as I [mentioned last month][last_post], so once again I found a way to
-combine the two, but exploring how the race unfolded graphically.
+combine the two, by exploring how the race unfolded graphically.
 
 [tour]: https://en.wikipedia.org/wiki/Tour_de_France
 [last_post]: {% post_url 2019-07-09-hour_record_plot_improvements %}
