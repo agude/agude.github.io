@@ -13,10 +13,10 @@ categories: plotting
 {% capture file_dir %}/files/tour-de-france/{% endcapture %}
 
 There is no bigger event in cycling than the [Tour de France][tour], a race
-which takes most of July as it crisscrosses France before bringing the riders to
-a fateful final sprint in Paris on the Champs-Élysées. I love both cycling and
-plots (as I [mentioned last month][last_post]), so once again I found a way to
-combine the two, by graphically exploring how the race unfolded.
+which takes most of July as it crisscrosses France before bringing the riders
+to a fateful final sprint in Paris on the Champs-Élysées. I love both cycling
+and plots (as I [mentioned last month][last_post]), so once again I found a
+way to combine the two, by graphically exploring how the race unfolded.
 
 [tour]: https://en.wikipedia.org/wiki/Tour_de_France
 [last_post]: {% post_url 2019-07-09-hour_record_plot_improvements %}
@@ -43,8 +43,8 @@ challengers.
 
 Below I show how the top-finishing riders did throughout the race by plotting
 how far behind the leader they were after each stage. Where a rider's line is
-near the top they are close to taking the lead; when they drop down they
-are losing time.
+near the top they are close to taking the lead; when they drop down they are
+losing time.
 
 [![A line plot showing how far behind the leader each top-finishing rider was after each stage.][gc_plot]][gc_plot]
 
@@ -52,14 +52,14 @@ are losing time.
 
 [Julian Alaphilippe][alaphillippe] held the jersey for the most days, even
 defending it on the [individual time trial][itt] against expert time trialist
-Thomas. But Alaphilippe is not a climber, and he lost time in the Alps to 
+Thomas. But Alaphilippe is not a climber, and he lost time in the Alps to
 [Egan Bernal][bernal], [Steven Kruijswijk][kruijswijk], [Emanuel
 Buchmann][buchmann], and [Thibaut Pinot][pinot], who stormed back with a
-massive attack on stage 15. Unfortunately, Pinot was
-forced to withdraw on stage 19 due to an injury. Alaphilippe finally fell
-behind during that stage, losing the yellow jersey to Bernal. He lost his
-podium spot on stage 20 when he cracked during the final part of the climb.
-Alaphilippe finished 5th when they rolled through the Champs-Élysées.
+massive attack on stage 15. Unfortunately, Pinot was forced to withdraw on
+stage 19 due to an injury. Alaphilippe finally fell behind during that stage,
+losing the yellow jersey to Bernal. He lost his podium spot on stage 20 when
+he cracked during the final part of the climb. Alaphilippe finished 5th when
+they rolled through the Champs-Élysées.
 
 [alaphillippe]: https://en.wikipedia.org/wiki/Julian_Alaphilippe
 [itt]: https://en.wikipedia.org/wiki/Individual_time_trial
@@ -92,8 +92,8 @@ injury in the second week of the race.
 [Peter Sagan][sagan], the [green jersey][green] winner, was only interested in
 sprints. He took it easy on the mountain stages to conserve energy, as you can
 see in the steep declines on stages 14 and 15 (the Pyrenees) and Stages 18--20
-(the Alps). Most other riders performed similarly, as you can see, although some
-recovered time on stage 17 when the favorites let a large breakaway group
+(the Alps). Most other riders performed similarly, as you can see, although
+some recovered time on stage 17 when the favorites let a large breakaway group
 escape and take a 20 minute advantage. Sagan did not make that group, as we
 can see.
 
