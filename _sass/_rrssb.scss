@@ -4,13 +4,14 @@ $black_hover:#878787;
 .sharing {
     width: 50%;
     float: right;
+    margin: 0.25em;
 }
 
 .rrssb-buttons {
     box-sizing: border-box;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 12px;
-    height: 36px;
+    height: 3em;
     margin: 0;
     padding: 0;
     width: 100%
@@ -30,10 +31,10 @@ $black_hover:#878787;
     box-sizing: border-box;
     float: left;
     height: 100%;
-    line-height: 13px;
+    line-height: 1.08em;
     list-style: none;
     margin: 0;
-    padding: 0 2px
+    padding: 0 0.166em;
 }
 
 .rrssb-buttons li.rrssb-email a {
