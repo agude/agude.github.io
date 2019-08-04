@@ -21,27 +21,32 @@
   @extend .portrait;
 }
 
-// Cards
-.card {
-
-  img {
-    max-width: 150px;
-    margin: auto;
-  }
-
-  table {
-    border: 2px solid #e5e5e5;
-  }
-
-  td, th {
-    border: 0px solid #e5e5e5;
-    background-color: #f9f9f9;
-  }
-
+// Card Grid
+.card-grid {
+  display: grid;
+  grid-template-columns: 10em auto;
+  grid-gap: 0.5em;
+  background-color: #f9f9f9;
+  align-items: center;
+  border: 0.15em solid #e5e5e5;
+  border-radius: 5px;
+  padding: 0.25em;
 }
 
-.article-card {
-  @extend .card;
+.card-element {
+  padding: 0.2em;
+}
+
+.card-image {
+  @extend .card-element;
+  img {
+    margin: 0;
+  }
+}
+
+.card-text {
+  @extend .card-element;
+  font-size: 85%;
 }
 
 // Legal links
