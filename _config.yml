@@ -67,6 +67,10 @@ require_front_matter: true
 theme_config:
     sidebar_color: '#3465a4'
 
+# Hack to prevent external styles from leaking in. For details, see
+# https://github.com/jekyll/jekyll/issues/7478#issuecomment-454346783.
+theme: null
+
 # SASS
 sass:
     sass_dir: _sass
