@@ -7,15 +7,17 @@ description: >
 ---
 
 <!-- Posts -->
-{% for post in paginator.posts %}
-  {% comment %} Article cards with an image and description. {% endcomment %}
-  {% include article_card.html
-    url=post.url
-    image=post.image
-    title=post.title
-    description=post.description
-  %}
-{% endfor %}
+<div class="card-grid">
+  {% for post in paginator.posts %}
+    {% comment %} Article cards with an image and description. {% endcomment %}
+    {% include article_card.html
+      url=post.url
+      image=post.image
+      title=post.title
+      description=post.description
+    %}
+  {% endfor %}
+</div>
 
 <!-- "Older" and "Newer" buttons -->
 <div class="pagination">

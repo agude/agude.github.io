@@ -14,13 +14,15 @@ learning new tricks, both for Python and coding in general.
 
 A share some of things I have learned in blog posts, shown below:
 
-{% for post in site.categories.python_patterns %}
-  {% comment %} Article cards with an image and description. {% endcomment %}
-  {% include article_card.html
-    url=post.url
-    image=post.image
-    image_alt=post.image_alt
-    title=post.title
-    description=post.description
-  %}
-{% endfor %}
+<div class="card-grid">
+  {% for post in site.categories.python_patterns %}
+    {% comment %} Article cards with an image and description. {% endcomment %}
+    {% include article_card.html
+      url=post.url
+      image=post.image
+      image_alt=post.image_alt
+      title=post.title
+      description=post.description
+    %}
+  {% endfor %}
+</div>
