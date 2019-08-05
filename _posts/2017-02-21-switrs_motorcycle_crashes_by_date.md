@@ -11,6 +11,8 @@ image_alt: >
   gear. He stands over a motorcycle on side of a street in Stockholm as
   traffic passes by.
 categories: switrs
+seo:
+  date_modified: 2019-02-20T20:13:43-0800
 ---
 
 {% capture file_dir %}/files/switrs-motorcycle-accidents-by-date{% endcapture %}
