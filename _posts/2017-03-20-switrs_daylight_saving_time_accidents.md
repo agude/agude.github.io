@@ -106,9 +106,11 @@ all get that hour of sleep we deserve.
 
 ---
 
-**Update**: I have rewritten part of this article to make my methodology
-clearer and add a _t_-test. The changes can be found in git; the [first
-set][changes_1] and the [second set][changes_2].
+**Updated <time datetime="{{ page.seo.date_modified | date_to_xmlschema }}">{{
+page.seo.date_modified | date: '%B %d, %Y' }}</time>**: _I have rewritten part
+of this article to make my methodology clearer and add a t-test. The changes
+can be found in git; the [first set][changes_1] and the [second
+set][changes_2]._
 
 [changes_1]: https://github.com/agude/agude.github.io/commit/1092c8ce001a946eb47ae07cc0c65324a1417a82
 [changes_2]: https://github.com/agude/agude.github.io/commit/2661f23d005a97206a03eca02f1078de9ae0fec4
