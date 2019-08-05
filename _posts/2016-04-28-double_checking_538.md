@@ -11,6 +11,8 @@ image_alt: >
   chalkboard.
 redirect_from: /2016/04/28/double_checking_538/
 categories: fivethirtyeight
+seo:
+  date_modified: 2016-05-15T16:30:52-0700
 ---
 
 {% capture file_dir %}/files/2016_primary_prediction{% endcapture %}

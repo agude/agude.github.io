@@ -10,6 +10,8 @@ image_alt: >
   broken car taken in Washington D.C. in 1923. One of the car's wheels has
   splintered and the car is tilted over.
 categories: switrs
+seo:
+  date_modified: 2018-09-24T21:19:35-0700
 ---
 
 {% capture file_dir %}/files/switrs-accidents-by-date{% endcapture %}
