@@ -117,7 +117,9 @@ confidence interval right, 80% of the results fall within it, but they are
 getting the position slightly off; the actual result is lower than the
 prediction more than 10% of the time.
 
-**Update:** _Additional analyses with this data are presented in [Further
-Double-checking FiveThirtyEight's 2016 Primary Predictions][redouble]._
+**Updated <time datetime="{{ page.seo.date_modified | date_to_xmlschema }}">{{
+page.seo.date_modified | date: '%B %d, %Y' }}</time>**: _Additional analyses
+with this data are presented in [Further Double-checking FiveThirtyEight's
+2016 Primary Predictions][redouble]._
 
 [redouble]: {% post_url 2016-05-14-re_double_checking_538 %}
