@@ -119,6 +119,12 @@ configuration file.][result_png]][result_png]
 
 [result_png]: {{ file_dir }}/results.png
 
+I hope that helps you set up your own Python packages for testing and
+deployment! In the future, I hope to migrate to [Github
+Actions][github_actions], but that is for another time.
+
+[github_actions]: https://github.com/features/actions
+
 ---
 
 [^1]: Currently 2.7, 3.4 through 3.7, the development versions of 3.7 and 3.8, the nightly release, and [pypy 2.7 and 3.5][pypy].
