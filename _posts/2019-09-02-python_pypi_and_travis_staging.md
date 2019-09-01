@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "Using Travis Build Stages to Test Multiple Versions"
+title: "Using Travis Build Stages to Test Python Versions Python and Publish
+to Pypi"
 description: >
   Often when building packages, we want to test against multiple versions of
   the language, and then build the package once. I will show you how to accomplish this using
