@@ -56,37 +56,36 @@ from a business or user perspective. A good way to frame this is "What does a
 false positive cost my user?" and "How does that compare to the cost of a
 false negative?" 
 
-Sometimes a _false positive is costly_, as might be the case if the action we
-take with out model is drastic like shutting down a user's account. In that
-case we need to be confident that when we do take action, we are only
-targeting the right users. Then [precision][precision] is more important,
-since we want to make sure the most of the events the model flags are true
-positives. This is not the case for our _'high value customer'_ model, because
-showing a user an up-sell page is unlikely to hurt them or cause them to
-churn.
+Sometimes a **false positive is costly**, as might be the case if the action
+we take with out model is drastic like shutting down a user's account. In that
+case we need to be confident that when we do take action we are only targeting
+the right users. Then [precision][precision] is more important, since we want
+to make sure the most of the events the model flags are true positives. This
+is not the situation for our _'high value customer'_ model, because showing a
+user an up-sell page is unlikely to hurt them or cause them to churn.
 
 [precision]: https://en.wikipedia.org/wiki/Precision_and_recall#Recall 
 
-Instead, in our case a _false negative is costly_, because we lose the chance
-at a large revenue increase from the up-sell. [Recall][recall] is more
+Instead, in our case a **false negative is costly**, because we lose the
+chance at a large revenue increase from the up-sell. [Recall][recall] is more
 important, as we would rather show a few extra users our up-sell page than
 miss the chance to convert a sale.
 
 [recall]: https://en.wikipedia.org/wiki/Precision_and_recall#Recall 
 
-A good answer then would conclude that recall is the right metric to weight
-more heavily, but the answer would include the rational I explained above
-considering the cost of the model on the user.
+There are many other metrics that might be useful. The important part is not
+so much the metric itself, but what is motivating it, which should be the
+business use case and customer experience.
 
-## The Best Metric: Dollars
+## A Great Metric: Dollars
 
-The best metric then is the formalized version of our customer focused one:
-dollars. Assigning a dollar value to each model result (true positive, false
-positive, etc.) would allow us to optimize for revenue. This is often doable
-in simple models (like our _'high value customer'_ model), but in more
-complicated ones (like the fraud models I work on) it can be difficult.[^1]
-For an example of using dollars in model optimization, see Airbnb's post on
-[_Fighting Financial Fraud with Targeted Friction_][airbnb].
+A great metric is the formalized version of our customer focused one: dollars.
+Assigning a dollar value to each model result (true positive, false positive,
+etc.) would allow us to optimize for revenue. This is often doable in simple
+models (like our _'high value customer'_ model), but in more complicated ones
+(like the fraud models I work on) it can be difficult.[^1] For an example of
+using dollars in model optimization, see Airbnb's post on [_Fighting Financial
+Fraud with Targeted Friction_][airbnb].
 
 [airbnb]: https://medium.com/airbnb-engineering/fighting-financial-fraud-with-targeted-friction-82d950d8900e
 
