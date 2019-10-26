@@ -65,7 +65,7 @@ positives. This is not the situation for our _'high value customer'_ model,
 because showing a user an up-sell page is unlikely to hurt them or cause them
 to churn.
 
-[precision]: https://en.wikipedia.org/wiki/Precision_and_recall#Recall 
+[precision]: https://en.wikipedia.org/wiki/Precision_and_recall#Precision
 
 Instead, in our case a **false negative is costly**, because we lose the
 chance at a large revenue increase from the up-sell. [Recall][recall] is more
