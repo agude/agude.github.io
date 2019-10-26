@@ -91,7 +91,7 @@ Fraud with Targeted Friction_][airbnb].
 [airbnb]: https://medium.com/airbnb-engineering/fighting-financial-fraud-with-targeted-friction-82d950d8900e
 
 In short, a good metric is one which ties closely to the business or customer
-use.
+use. Consider their point of view when answering a metrics question.
 
 ---
 
