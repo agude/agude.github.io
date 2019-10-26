@@ -2,12 +2,12 @@
 layout: post
 title: "Interview Question: What Machine Learning Metric to Use"
 description: >
-  One of my favorite questions to ask in an interview is "what metric should you use to
-  decide if your model works?". Read on to find out what a good answer looks
-  like!
+  One of my favorite questions to ask in an interview is "What metric should
+  you use to decide if your model works?". Read on to find out what a good
+  answer looks like!
 image: /files/interviews/Artgate_Fondazione_Cariplo_-_Canova_Antonio,_Allegoria_della_Giustizia.jpg
 image_alt: >
-  TODO REPLACE
+  A relief showing a women holding up a set of balance scales.
 categories: inteviewing
 ---
 
@@ -22,9 +22,9 @@ up with:
 
 > How would you measure the success of this model in production?
 
-I have heard a lot of answers. They generally fall into two categories: machine learning
-theory focused, and business focused. The first is good, the second is better.
-I will go through each below.
+I have heard a lot of answers. They generally fall into two categories:
+machine learning theory focused, and business focused. The first is good, the
+second is better. I will go through each below.
 
 To have something concrete to discuss, we will consider the following problem:
 "Train a model to classify customers as _'high value customer'_, and use it to
@@ -38,14 +38,14 @@ total number of things.
 
 **Accuracy is rarely a good answer for real world problems**, because the
 classes are often imbalanced. If only 1 in 1000 users is a _'high value
-customer'_, then a model that only returns 'false', despite having an accuracy of
-99.9%, would be clearly worthless.
+customer'_, then a model that only returns 'false', despite having an accuracy
+of 99.9%, would be clearly worthless.
 
 When pushed about accuracy's obvious shortcomings, the candidate may fall back
 to something like F1 score, which is the harmonic mean of precision and
 recall. **F1 is a lazy answer**. It is better than accuracy because it is
 relatively less sensitive to imbalanced data, but rarely are precision and
-recall equally important (how the customer interacts with the model determines 
+recall equally important (how the customer interacts with the model determines
 their relative weighting) and so the harmonic mean is not often applicable.
 
 ## Customer Focused
@@ -56,13 +56,14 @@ from a business or user perspective. A good way to frame this is "What does a
 false positive cost my user?" and "How does that compare to the cost of a
 false negative?" 
 
-Sometimes a **false positive is costly**, as might be the case if the resulting 
-action is drastic, like shutting down a user's account. To avoid that, we need 
-to be confident when we take action that we are only targeting the right users. 
-In such a scenario, [precision][precision] is more important since we want
-to make sure that most of the events the model flags are true positives. This
-is not the situation for our _'high value customer'_ model, because showing a
-user an up-sell page is unlikely to hurt them or cause them to churn.
+Sometimes a **false positive is costly**, as might be the case if the
+resulting action is drastic, like shutting down a user's account. To avoid
+that, we need to be confident when we take action that we are only targeting
+the right users. In such a scenario, [precision][precision] is more important
+since we want to make sure that most of the events the model flags are true
+positives. This is not the situation for our _'high value customer'_ model,
+because showing a user an up-sell page is unlikely to hurt them or cause them
+to churn.
 
 [precision]: https://en.wikipedia.org/wiki/Precision_and_recall#Recall 
 
@@ -88,6 +89,9 @@ using dollars in model optimization, see Airbnb's post on [_Fighting Financial
 Fraud with Targeted Friction_][airbnb].
 
 [airbnb]: https://medium.com/airbnb-engineering/fighting-financial-fraud-with-targeted-friction-82d950d8900e
+
+In short, a good metric is one which ties closely to the business or customer
+use.
 
 ---
 
