@@ -1,0 +1,1039 @@
+{
+  "schema": {
+    "fields": [
+      {
+        "name": "index",
+        "type": "datetime"
+      },
+      {
+        "name": "first_prize",
+        "type": "number"
+      },
+      {
+        "name": "total",
+        "type": "number"
+      },
+      {
+        "name": "first_prize_adjusted_euro",
+        "type": "number"
+      },
+      {
+        "name": "total_adjusted_euro",
+        "type": "number"
+      },
+      {
+        "name": "first_prize_adjusted_usd",
+        "type": "number"
+      },
+      {
+        "name": "total_adjusted_usd",
+        "type": "number"
+      }
+    ],
+    "primaryKey": [
+      "index"
+        ],
+        "pandas_version": "0.20.0"
+  },
+  "data": [
+    {
+      "index": "1903-12-31T00:00:00.000Z",
+      "first_prize": 3000.0,
+      "total": 20000.0,
+      "first_prize_adjusted_euro": 11828.0,
+      "total_adjusted_euro": 78851.0,
+      "first_prize_adjusted_usd": 15471.0,
+      "total_adjusted_usd": 103138.0
+    },
+    {
+      "index": "1904-12-31T00:00:00.000Z",
+      "first_prize": 5000.0,
+      "total": 21000.0,
+      "first_prize_adjusted_euro": 19993.0,
+      "total_adjusted_euro": 83969.0,
+      "first_prize_adjusted_usd": 26151.0,
+      "total_adjusted_usd": 109833.0
+    },
+    {
+      "index": "1905-12-31T00:00:00.000Z",
+      "first_prize": 4000.0,
+      "total": 25000.0,
+      "first_prize_adjusted_euro": 16010.0,
+      "total_adjusted_euro": 100063.0,
+      "first_prize_adjusted_usd": 20941.0,
+      "total_adjusted_usd": 130884.0
+    },
+    {
+      "index": "1906-12-31T00:00:00.000Z",
+      "first_prize": 5000.0,
+      "total": 25000.0,
+      "first_prize_adjusted_euro": 19756.0,
+      "total_adjusted_euro": 98779.0,
+      "first_prize_adjusted_usd": 25841.0,
+      "total_adjusted_usd": 129204.0
+    },
+    {
+      "index": "1907-12-31T00:00:00.000Z",
+      "first_prize": 4000.0,
+      "total": 25000.0,
+      "first_prize_adjusted_euro": 15586.0,
+      "total_adjusted_euro": 97415.0,
+      "first_prize_adjusted_usd": 20387.0,
+      "total_adjusted_usd": 127420.0
+    },
+    {
+      "index": "1908-12-31T00:00:00.000Z",
+      "first_prize": 4000.0,
+      "total": 30000.0,
+      "first_prize_adjusted_euro": 15236.0,
+      "total_adjusted_euro": 114270.0,
+      "first_prize_adjusted_usd": 19929.0,
+      "total_adjusted_usd": 149467.0
+    },
+    {
+      "index": "1909-12-31T00:00:00.000Z",
+      "first_prize": 5000.0,
+      "total": 25000.0,
+      "first_prize_adjusted_euro": 19083.0,
+      "total_adjusted_euro": 95416.0,
+      "first_prize_adjusted_usd": 24961.0,
+      "total_adjusted_usd": 124805.0
+    },
+    {
+      "index": "1910-12-31T00:00:00.000Z",
+      "first_prize": 5000.0,
+      "total": 25000.0,
+      "first_prize_adjusted_euro": 18509.0,
+      "total_adjusted_euro": 92547.0,
+      "first_prize_adjusted_usd": 24211.0,
+      "total_adjusted_usd": 121053.0
+    },
+    {
+      "index": "1911-12-31T00:00:00.000Z",
+      "first_prize": 5000.0,
+      "total": 30000.0,
+      "first_prize_adjusted_euro": 16842.0,
+      "total_adjusted_euro": 101052.0,
+      "first_prize_adjusted_usd": 22030.0,
+      "total_adjusted_usd": 132177.0
+    },
+    {
+      "index": "1912-12-31T00:00:00.000Z",
+      "first_prize": 5000.0,
+      "total": 32500.0,
+      "first_prize_adjusted_euro": 17029.0,
+      "total_adjusted_euro": 110691.0,
+      "first_prize_adjusted_usd": 22275.0,
+      "total_adjusted_usd": 144785.0
+    },
+    {
+      "index": "1913-12-31T00:00:00.000Z",
+      "first_prize": 5000.0,
+      "total": 39900.0,
+      "first_prize_adjusted_euro": 16469.0,
+      "total_adjusted_euro": 131426.0,
+      "first_prize_adjusted_usd": 21542.0,
+      "total_adjusted_usd": 171907.0
+    },
+    {
+      "index": "1914-12-31T00:00:00.000Z",
+      "first_prize": 5000.0,
+      "total": 45000.0,
+      "first_prize_adjusted_euro": 16469.0,
+      "total_adjusted_euro": 148224.0,
+      "first_prize_adjusted_usd": 21542.0,
+      "total_adjusted_usd": 193880.0
+    },
+    {
+      "index": "1915-12-31T00:00:00.000Z",
+      "first_prize": null,
+      "total": null,
+      "first_prize_adjusted_euro": null,
+      "total_adjusted_euro": null,
+      "first_prize_adjusted_usd": null,
+      "total_adjusted_usd": null
+    },
+    {
+      "index": "1916-12-31T00:00:00.000Z",
+      "first_prize": null,
+      "total": null,
+      "first_prize_adjusted_euro": null,
+      "total_adjusted_euro": null,
+      "first_prize_adjusted_usd": null,
+      "total_adjusted_usd": null
+    },
+    {
+      "index": "1917-12-31T00:00:00.000Z",
+      "first_prize": null,
+      "total": null,
+      "first_prize_adjusted_euro": null,
+      "total_adjusted_euro": null,
+      "first_prize_adjusted_usd": null,
+      "total_adjusted_usd": null
+    },
+    {
+      "index": "1918-12-31T00:00:00.000Z",
+      "first_prize": null,
+      "total": null,
+      "first_prize_adjusted_euro": null,
+      "total_adjusted_euro": null,
+      "first_prize_adjusted_usd": null,
+      "total_adjusted_usd": null
+    },
+    {
+      "index": "1919-12-31T00:00:00.000Z",
+      "first_prize": 5000.0,
+      "total": 50000.0,
+      "first_prize_adjusted_euro": 6378.0,
+      "total_adjusted_euro": 63783.0,
+      "first_prize_adjusted_usd": 8343.0,
+      "total_adjusted_usd": 83428.0
+    },
+    {
+      "index": "1920-12-31T00:00:00.000Z",
+      "first_prize": 15000.0,
+      "total": 80765.0,
+      "first_prize_adjusted_euro": 13926.0,
+      "total_adjusted_euro": 74984.0,
+      "first_prize_adjusted_usd": 18216.0,
+      "total_adjusted_usd": 98080.0
+    },
+    {
+      "index": "1921-12-31T00:00:00.000Z",
+      "first_prize": 15000.0,
+      "total": 80000.0,
+      "first_prize_adjusted_euro": 15898.0,
+      "total_adjusted_euro": 84787.0,
+      "first_prize_adjusted_usd": 20794.0,
+      "total_adjusted_usd": 110903.0
+    },
+    {
+      "index": "1922-12-31T00:00:00.000Z",
+      "first_prize": 10000.0,
+      "total": 80000.0,
+      "first_prize_adjusted_euro": 11029.0,
+      "total_adjusted_euro": 88228.0,
+      "first_prize_adjusted_usd": 14425.0,
+      "total_adjusted_usd": 115404.0
+    },
+    {
+      "index": "1923-12-31T00:00:00.000Z",
+      "first_prize": 10000.0,
+      "total": 100000.0,
+      "first_prize_adjusted_euro": 9936.0,
+      "total_adjusted_euro": 99356.0,
+      "first_prize_adjusted_usd": 12996.0,
+      "total_adjusted_usd": 129959.0
+    },
+    {
+      "index": "1924-12-31T00:00:00.000Z",
+      "first_prize": 10000.0,
+      "total": 100000.0,
+      "first_prize_adjusted_euro": 8723.0,
+      "total_adjusted_euro": 87231.0,
+      "first_prize_adjusted_usd": 11410.0,
+      "total_adjusted_usd": 114099.0
+    },
+    {
+      "index": "1925-12-31T00:00:00.000Z",
+      "first_prize": 15000.0,
+      "total": 99000.0,
+      "first_prize_adjusted_euro": 12194.0,
+      "total_adjusted_euro": 80483.0,
+      "first_prize_adjusted_usd": 15951.0,
+      "total_adjusted_usd": 105273.0
+    },
+    {
+      "index": "1926-12-31T00:00:00.000Z",
+      "first_prize": 15000.0,
+      "total": 109000.0,
+      "first_prize_adjusted_euro": 9373.0,
+      "total_adjusted_euro": 68111.0,
+      "first_prize_adjusted_usd": 12260.0,
+      "total_adjusted_usd": 89091.0
+    },
+    {
+      "index": "1927-12-31T00:00:00.000Z",
+      "first_prize": 12000.0,
+      "total": 100000.0,
+      "first_prize_adjusted_euro": 7182.0,
+      "total_adjusted_euro": 59854.0,
+      "first_prize_adjusted_usd": 9395.0,
+      "total_adjusted_usd": 78290.0
+    },
+    {
+      "index": "1928-12-31T00:00:00.000Z",
+      "first_prize": 12000.0,
+      "total": 100000.0,
+      "first_prize_adjusted_euro": 7197.0,
+      "total_adjusted_euro": 59974.0,
+      "first_prize_adjusted_usd": 9414.0,
+      "total_adjusted_usd": 78447.0
+    },
+    {
+      "index": "1929-12-31T00:00:00.000Z",
+      "first_prize": 10000.0,
+      "total": 150000.0,
+      "first_prize_adjusted_euro": 5647.0,
+      "total_adjusted_euro": 84709.0,
+      "first_prize_adjusted_usd": 7387.0,
+      "total_adjusted_usd": 110800.0
+    },
+    {
+      "index": "1930-12-31T00:00:00.000Z",
+      "first_prize": 72000.0,
+      "total": 606000.0,
+      "first_prize_adjusted_euro": 40338.0,
+      "total_adjusted_euro": 339508.0,
+      "first_prize_adjusted_usd": 52762.0,
+      "total_adjusted_usd": 444081.0
+    },
+    {
+      "index": "1931-12-31T00:00:00.000Z",
+      "first_prize": 25000.0,
+      "total": 650000.0,
+      "first_prize_adjusted_euro": 14575.0,
+      "total_adjusted_euro": 378938.0,
+      "first_prize_adjusted_usd": 19064.0,
+      "total_adjusted_usd": 495655.0
+    },
+    {
+      "index": "1932-12-31T00:00:00.000Z",
+      "first_prize": 30000.0,
+      "total": 700000.0,
+      "first_prize_adjusted_euro": 19198.0,
+      "total_adjusted_euro": 447955.0,
+      "first_prize_adjusted_usd": 25111.0,
+      "total_adjusted_usd": 585931.0
+    },
+    {
+      "index": "1933-12-31T00:00:00.000Z",
+      "first_prize": 30000.0,
+      "total": 749000.0,
+      "first_prize_adjusted_euro": 19833.0,
+      "total_adjusted_euro": 495157.0,
+      "first_prize_adjusted_usd": 25941.0,
+      "total_adjusted_usd": 647671.0
+    },
+    {
+      "index": "1934-12-31T00:00:00.000Z",
+      "first_prize": 30000.0,
+      "total": 737610.0,
+      "first_prize_adjusted_euro": 20702.0,
+      "total_adjusted_euro": 509005.0,
+      "first_prize_adjusted_usd": 27079.0,
+      "total_adjusted_usd": 665785.0
+    },
+    {
+      "index": "1935-12-31T00:00:00.000Z",
+      "first_prize": null,
+      "total": 1092050.0,
+      "first_prize_adjusted_euro": null,
+      "total_adjusted_euro": 821804.0,
+      "first_prize_adjusted_usd": null,
+      "total_adjusted_usd": 1074931.0
+    },
+    {
+      "index": "1936-12-31T00:00:00.000Z",
+      "first_prize": 100000.0,
+      "total": 1000000.0,
+      "first_prize_adjusted_euro": 70134.0,
+      "total_adjusted_euro": 701336.0,
+      "first_prize_adjusted_usd": 91736.0,
+      "total_adjusted_usd": 917357.0
+    },
+    {
+      "index": "1937-12-31T00:00:00.000Z",
+      "first_prize": 200000.0,
+      "total": 800000.0,
+      "first_prize_adjusted_euro": 111500.0,
+      "total_adjusted_euro": 446001.0,
+      "first_prize_adjusted_usd": 145844.0,
+      "total_adjusted_usd": 583375.0
+    },
+    {
+      "index": "1938-12-31T00:00:00.000Z",
+      "first_prize": 100000.0,
+      "total": 900000.0,
+      "first_prize_adjusted_euro": 49076.0,
+      "total_adjusted_euro": 441682.0,
+      "first_prize_adjusted_usd": 64192.0,
+      "total_adjusted_usd": 577726.0
+    },
+    {
+      "index": "1939-12-31T00:00:00.000Z",
+      "first_prize": 100000.0,
+      "total": 900000.0,
+      "first_prize_adjusted_euro": 46037.0,
+      "total_adjusted_euro": 414336.0,
+      "first_prize_adjusted_usd": 60217.0,
+      "total_adjusted_usd": 541957.0
+    },
+    {
+      "index": "1940-12-31T00:00:00.000Z",
+      "first_prize": null,
+      "total": null,
+      "first_prize_adjusted_euro": null,
+      "total_adjusted_euro": null,
+      "first_prize_adjusted_usd": null,
+      "total_adjusted_usd": null
+    },
+    {
+      "index": "1941-12-31T00:00:00.000Z",
+      "first_prize": null,
+      "total": null,
+      "first_prize_adjusted_euro": null,
+      "total_adjusted_euro": null,
+      "first_prize_adjusted_usd": null,
+      "total_adjusted_usd": null
+    },
+    {
+      "index": "1942-12-31T00:00:00.000Z",
+      "first_prize": null,
+      "total": null,
+      "first_prize_adjusted_euro": null,
+      "total_adjusted_euro": null,
+      "first_prize_adjusted_usd": null,
+      "total_adjusted_usd": null
+    },
+    {
+      "index": "1943-12-31T00:00:00.000Z",
+      "first_prize": null,
+      "total": null,
+      "first_prize_adjusted_euro": null,
+      "total_adjusted_euro": null,
+      "first_prize_adjusted_usd": null,
+      "total_adjusted_usd": null
+    },
+    {
+      "index": "1944-12-31T00:00:00.000Z",
+      "first_prize": null,
+      "total": null,
+      "first_prize_adjusted_euro": null,
+      "total_adjusted_euro": null,
+      "first_prize_adjusted_usd": null,
+      "total_adjusted_usd": null
+    },
+    {
+      "index": "1945-12-31T00:00:00.000Z",
+      "first_prize": null,
+      "total": null,
+      "first_prize_adjusted_euro": null,
+      "total_adjusted_euro": null,
+      "first_prize_adjusted_usd": null,
+      "total_adjusted_usd": null
+    },
+    {
+      "index": "1946-12-31T00:00:00.000Z",
+      "first_prize": null,
+      "total": null,
+      "first_prize_adjusted_euro": null,
+      "total_adjusted_euro": null,
+      "first_prize_adjusted_usd": null,
+      "total_adjusted_usd": null
+    },
+    {
+      "index": "1947-12-31T00:00:00.000Z",
+      "first_prize": 500000.0,
+      "total": 4580000.0,
+      "first_prize_adjusted_euro": 26844.0,
+      "total_adjusted_euro": 245894.0,
+      "first_prize_adjusted_usd": 35113.0,
+      "total_adjusted_usd": 321633.0
+    },
+    {
+      "index": "1948-12-31T00:00:00.000Z",
+      "first_prize": 600000.0,
+      "total": 7000000.0,
+      "first_prize_adjusted_euro": 20324.0,
+      "total_adjusted_euro": 237111.0,
+      "first_prize_adjusted_usd": 26584.0,
+      "total_adjusted_usd": 310144.0
+    },
+    {
+      "index": "1949-12-31T00:00:00.000Z",
+      "first_prize": 1000000.0,
+      "total": 12000000.0,
+      "first_prize_adjusted_euro": 29923.0,
+      "total_adjusted_euro": 359078.0,
+      "first_prize_adjusted_usd": 39140.0,
+      "total_adjusted_usd": 469678.0
+    },
+    {
+      "index": "1950-12-31T00:00:00.000Z",
+      "first_prize": 1000000.0,
+      "total": 14000000.0,
+      "first_prize_adjusted_euro": 27203.0,
+      "total_adjusted_euro": 380840.0,
+      "first_prize_adjusted_usd": 35582.0,
+      "total_adjusted_usd": 498144.0
+    },
+    {
+      "index": "1951-12-31T00:00:00.000Z",
+      "first_prize": 1000000.0,
+      "total": 18278000.0,
+      "first_prize_adjusted_euro": 23390.0,
+      "total_adjusted_euro": 427527.0,
+      "first_prize_adjusted_usd": 30595.0,
+      "total_adjusted_usd": 559211.0
+    },
+    {
+      "index": "1952-12-31T00:00:00.000Z",
+      "first_prize": 1000000.0,
+      "total": 28000000.0,
+      "first_prize_adjusted_euro": 20903.0,
+      "total_adjusted_euro": 585279.0,
+      "first_prize_adjusted_usd": 27341.0,
+      "total_adjusted_usd": 765552.0
+    },
+    {
+      "index": "1953-12-31T00:00:00.000Z",
+      "first_prize": 2000000.0,
+      "total": 35000000.0,
+      "first_prize_adjusted_euro": 42529.0,
+      "total_adjusted_euro": 744251.0,
+      "first_prize_adjusted_usd": 55628.0,
+      "total_adjusted_usd": 973489.0
+    },
+    {
+      "index": "1954-12-31T00:00:00.000Z",
+      "first_prize": 2000000.0,
+      "total": 38445000.0,
+      "first_prize_adjusted_euro": 42359.0,
+      "total_adjusted_euro": 814249.0,
+      "first_prize_adjusted_usd": 55406.0,
+      "total_adjusted_usd": 1065048.0
+    },
+    {
+      "index": "1955-12-31T00:00:00.000Z",
+      "first_prize": 2000000.0,
+      "total": 36685000.0,
+      "first_prize_adjusted_euro": 41981.0,
+      "total_adjusted_euro": 770043.0,
+      "first_prize_adjusted_usd": 54912.0,
+      "total_adjusted_usd": 1007226.0
+    },
+    {
+      "index": "1956-12-31T00:00:00.000Z",
+      "first_prize": 2000000.0,
+      "total": 38000000.0,
+      "first_prize_adjusted_euro": 40289.0,
+      "total_adjusted_euro": 765495.0,
+      "first_prize_adjusted_usd": 52699.0,
+      "total_adjusted_usd": 1001277.0
+    },
+    {
+      "index": "1957-12-31T00:00:00.000Z",
+      "first_prize": 2000000.0,
+      "total": 40000000.0,
+      "first_prize_adjusted_euro": 39116.0,
+      "total_adjusted_euro": 782314.0,
+      "first_prize_adjusted_usd": 51164.0,
+      "total_adjusted_usd": 1023277.0
+    },
+    {
+      "index": "1958-12-31T00:00:00.000Z",
+      "first_prize": 2000000.0,
+      "total": 40000000.0,
+      "first_prize_adjusted_euro": 33984.0,
+      "total_adjusted_euro": 679682.0,
+      "first_prize_adjusted_usd": 44452.0,
+      "total_adjusted_usd": 889033.0
+    },
+    {
+      "index": "1959-12-31T00:00:00.000Z",
+      "first_prize": 2000000.0,
+      "total": 41710000.0,
+      "first_prize_adjusted_euro": 32030.0,
+      "total_adjusted_euro": 667991.0,
+      "first_prize_adjusted_usd": 41896.0,
+      "total_adjusted_usd": 873741.0
+    },
+    {
+      "index": "1960-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 400000.0,
+      "first_prize_adjusted_euro": 30887.0,
+      "total_adjusted_euro": 617749.0,
+      "first_prize_adjusted_usd": 40401.0,
+      "total_adjusted_usd": 808023.0
+    },
+    {
+      "index": "1961-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 500000.0,
+      "first_prize_adjusted_euro": 29901.0,
+      "total_adjusted_euro": 747518.0,
+      "first_prize_adjusted_usd": 39111.0,
+      "total_adjusted_usd": 977763.0
+    },
+    {
+      "index": "1962-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 583425.0,
+      "first_prize_adjusted_euro": 28558.0,
+      "total_adjusted_euro": 833086.0,
+      "first_prize_adjusted_usd": 37355.0,
+      "total_adjusted_usd": 1089687.0
+    },
+    {
+      "index": "1963-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 550000.0,
+      "first_prize_adjusted_euro": 27250.0,
+      "total_adjusted_euro": 749387.0,
+      "first_prize_adjusted_usd": 35644.0,
+      "total_adjusted_usd": 980208.0
+    },
+    {
+      "index": "1964-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 543200.0,
+      "first_prize_adjusted_euro": 26354.0,
+      "total_adjusted_euro": 715785.0,
+      "first_prize_adjusted_usd": 34472.0,
+      "total_adjusted_usd": 936257.0
+    },
+    {
+      "index": "1965-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 414275.0,
+      "first_prize_adjusted_euro": 25712.0,
+      "total_adjusted_euro": 532584.0,
+      "first_prize_adjusted_usd": 33631.0,
+      "total_adjusted_usd": 696626.0
+    },
+    {
+      "index": "1966-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 424700.0,
+      "first_prize_adjusted_euro": 25036.0,
+      "total_adjusted_euro": 531632.0,
+      "first_prize_adjusted_usd": 32747.0,
+      "total_adjusted_usd": 695381.0
+    },
+    {
+      "index": "1967-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 541300.0,
+      "first_prize_adjusted_euro": 24401.0,
+      "total_adjusted_euro": 660419.0,
+      "first_prize_adjusted_usd": 31917.0,
+      "total_adjusted_usd": 863836.0
+    },
+    {
+      "index": "1968-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 574850.0,
+      "first_prize_adjusted_euro": 23328.0,
+      "total_adjusted_euro": 670508.0,
+      "first_prize_adjusted_usd": 30513.0,
+      "total_adjusted_usd": 877034.0
+    },
+    {
+      "index": "1969-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 600000.0,
+      "first_prize_adjusted_euro": 21904.0,
+      "total_adjusted_euro": 657130.0,
+      "first_prize_adjusted_usd": 28651.0,
+      "total_adjusted_usd": 859535.0
+    },
+    {
+      "index": "1970-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 605525.0,
+      "first_prize_adjusted_euro": 20822.0,
+      "total_adjusted_euro": 630400.0,
+      "first_prize_adjusted_usd": 27235.0,
+      "total_adjusted_usd": 824572.0
+    },
+    {
+      "index": "1971-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 470600.0,
+      "first_prize_adjusted_euro": 19736.0,
+      "total_adjusted_euro": 464391.0,
+      "first_prize_adjusted_usd": 25815.0,
+      "total_adjusted_usd": 607429.0
+    },
+    {
+      "index": "1972-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 552000.0,
+      "first_prize_adjusted_euro": 18584.0,
+      "total_adjusted_euro": 512916.0,
+      "first_prize_adjusted_usd": 24308.0,
+      "total_adjusted_usd": 670901.0
+    },
+    {
+      "index": "1973-12-31T00:00:00.000Z",
+      "first_prize": 20000.0,
+      "total": 660000.0,
+      "first_prize_adjusted_euro": 17320.0,
+      "total_adjusted_euro": 571546.0,
+      "first_prize_adjusted_usd": 22654.0,
+      "total_adjusted_usd": 747590.0
+    },
+    {
+      "index": "1974-12-31T00:00:00.000Z",
+      "first_prize": 30000.0,
+      "total": 802650.0,
+      "first_prize_adjusted_euro": 22849.0,
+      "total_adjusted_euro": 611327.0,
+      "first_prize_adjusted_usd": 29887.0,
+      "total_adjusted_usd": 799623.0
+    },
+    {
+      "index": "1975-12-31T00:00:00.000Z",
+      "first_prize": 30000.0,
+      "total": 842695.0,
+      "first_prize_adjusted_euro": 20437.0,
+      "total_adjusted_euro": 574084.0,
+      "first_prize_adjusted_usd": 26732.0,
+      "total_adjusted_usd": 750910.0
+    },
+    {
+      "index": "1976-12-31T00:00:00.000Z",
+      "first_prize": 100000.0,
+      "total": 1004500.0,
+      "first_prize_adjusted_euro": 62158.0,
+      "total_adjusted_euro": 624374.0,
+      "first_prize_adjusted_usd": 81303.0,
+      "total_adjusted_usd": 816689.0
+    },
+    {
+      "index": "1977-12-31T00:00:00.000Z",
+      "first_prize": 100000.0,
+      "total": 1168490.0,
+      "first_prize_adjusted_euro": 56817.0,
+      "total_adjusted_euro": 663900.0,
+      "first_prize_adjusted_usd": 74317.0,
+      "total_adjusted_usd": 868389.0
+    },
+    {
+      "index": "1978-12-31T00:00:00.000Z",
+      "first_prize": 100000.0,
+      "total": 1227545.0,
+      "first_prize_adjusted_euro": 52078.0,
+      "total_adjusted_euro": 639279.0,
+      "first_prize_adjusted_usd": 68118.0,
+      "total_adjusted_usd": 836185.0
+    },
+    {
+      "index": "1979-12-31T00:00:00.000Z",
+      "first_prize": 100000.0,
+      "total": 1338120.0,
+      "first_prize_adjusted_euro": 47002.0,
+      "total_adjusted_euro": 628938.0,
+      "first_prize_adjusted_usd": 61479.0,
+      "total_adjusted_usd": 822659.0
+    },
+    {
+      "index": "1980-12-31T00:00:00.000Z",
+      "first_prize": 100000.0,
+      "total": 1487930.0,
+      "first_prize_adjusted_euro": 41375.0,
+      "total_adjusted_euro": 615626.0,
+      "first_prize_adjusted_usd": 54119.0,
+      "total_adjusted_usd": 805247.0
+    },
+    {
+      "index": "1981-12-31T00:00:00.000Z",
+      "first_prize": 130000.0,
+      "total": 2324000.0,
+      "first_prize_adjusted_euro": 47431.0,
+      "total_adjusted_euro": 847926.0,
+      "first_prize_adjusted_usd": 62041.0,
+      "total_adjusted_usd": 1109098.0
+    },
+    {
+      "index": "1982-12-31T00:00:00.000Z",
+      "first_prize": 150000.0,
+      "total": 2207220.0,
+      "first_prize_adjusted_euro": 48952.0,
+      "total_adjusted_euro": 720320.0,
+      "first_prize_adjusted_usd": 64030.0,
+      "total_adjusted_usd": 942188.0
+    },
+    {
+      "index": "1983-12-31T00:00:00.000Z",
+      "first_prize": 160000.0,
+      "total": 2304260.0,
+      "first_prize_adjusted_euro": 47642.0,
+      "total_adjusted_euro": 686121.0,
+      "first_prize_adjusted_usd": 62316.0,
+      "total_adjusted_usd": 897455.0
+    },
+    {
+      "index": "1984-12-31T00:00:00.000Z",
+      "first_prize": 160000.0,
+      "total": 2561450.0,
+      "first_prize_adjusted_euro": 44359.0,
+      "total_adjusted_euro": 710151.0,
+      "first_prize_adjusted_usd": 58023.0,
+      "total_adjusted_usd": 928887.0
+    },
+    {
+      "index": "1985-12-31T00:00:00.000Z",
+      "first_prize": 120000.0,
+      "total": 3003050.0,
+      "first_prize_adjusted_euro": 31446.0,
+      "total_adjusted_euro": 786940.0,
+      "first_prize_adjusted_usd": 41131.0,
+      "total_adjusted_usd": 1029328.0
+    },
+    {
+      "index": "1986-12-31T00:00:00.000Z",
+      "first_prize": 300000.0,
+      "total": 4500680.0,
+      "first_prize_adjusted_euro": 76547.0,
+      "total_adjusted_euro": 1148384.0,
+      "first_prize_adjusted_usd": 100125.0,
+      "total_adjusted_usd": 1502101.0
+    },
+    {
+      "index": "1987-12-31T00:00:00.000Z",
+      "first_prize": 300000.0,
+      "total": 6284700.0,
+      "first_prize_adjusted_euro": 74246.0,
+      "total_adjusted_euro": 1555374.0,
+      "first_prize_adjusted_usd": 97114.0,
+      "total_adjusted_usd": 2034449.0
+    },
+    {
+      "index": "1988-12-31T00:00:00.000Z",
+      "first_prize": 808000.0,
+      "total": 7567250.0,
+      "first_prize_adjusted_euro": 194711.0,
+      "total_adjusted_euro": 1823551.0,
+      "first_prize_adjusted_usd": 254685.0,
+      "total_adjusted_usd": 2385228.0
+    },
+    {
+      "index": "1989-12-31T00:00:00.000Z",
+      "first_prize": 1500000.0,
+      "total": 8104215.0,
+      "first_prize_adjusted_euro": 348572.0,
+      "total_adjusted_euro": 1883267.0,
+      "first_prize_adjusted_usd": 455936.0,
+      "total_adjusted_usd": 2463338.0
+    },
+    {
+      "index": "1990-12-31T00:00:00.000Z",
+      "first_prize": 2000000.0,
+      "total": 10073450.0,
+      "first_prize_adjusted_euro": 449480.0,
+      "total_adjusted_euro": 2263907.0,
+      "first_prize_adjusted_usd": 587926.0,
+      "total_adjusted_usd": 2961220.0
+    },
+    {
+      "index": "1991-12-31T00:00:00.000Z",
+      "first_prize": 2000000.0,
+      "total": 9017850.0,
+      "first_prize_adjusted_euro": 435543.0,
+      "total_adjusted_euro": 1963829.0,
+      "first_prize_adjusted_usd": 569696.0,
+      "total_adjusted_usd": 2568714.0
+    },
+    {
+      "index": "1992-12-31T00:00:00.000Z",
+      "first_prize": 2000000.0,
+      "total": 10162950.0,
+      "first_prize_adjusted_euro": 425335.0,
+      "total_adjusted_euro": 2161327.0,
+      "first_prize_adjusted_usd": 556343.0,
+      "total_adjusted_usd": 2827044.0
+    },
+    {
+      "index": "1993-12-31T00:00:00.000Z",
+      "first_prize": 2000000.0,
+      "total": 11000000.0,
+      "first_prize_adjusted_euro": 416995.0,
+      "total_adjusted_euro": 2293471.0,
+      "first_prize_adjusted_usd": 545435.0,
+      "total_adjusted_usd": 2999890.0
+    },
+    {
+      "index": "1994-12-31T00:00:00.000Z",
+      "first_prize": 2200000.0,
+      "total": 11597450.0,
+      "first_prize_adjusted_euro": 451027.0,
+      "total_adjusted_euro": 2377618.0,
+      "first_prize_adjusted_usd": 589949.0,
+      "total_adjusted_usd": 3109956.0
+    },
+    {
+      "index": "1995-12-31T00:00:00.000Z",
+      "first_prize": 2200000.0,
+      "total": 12091250.0,
+      "first_prize_adjusted_euro": 443487.0,
+      "total_adjusted_euro": 2437417.0,
+      "first_prize_adjusted_usd": 580087.0,
+      "total_adjusted_usd": 3188174.0
+    },
+    {
+      "index": "1996-12-31T00:00:00.000Z",
+      "first_prize": 2200000.0,
+      "total": 12002250.0,
+      "first_prize_adjusted_euro": 434792.0,
+      "total_adjusted_euro": 2372036.0,
+      "first_prize_adjusted_usd": 568713.0,
+      "total_adjusted_usd": 3102653.0
+    },
+    {
+      "index": "1997-12-31T00:00:00.000Z",
+      "first_prize": 2200000.0,
+      "total": 11972150.0,
+      "first_prize_adjusted_euro": 429636.0,
+      "total_adjusted_euro": 2338030.0,
+      "first_prize_adjusted_usd": 561970.0,
+      "total_adjusted_usd": 3058174.0
+    },
+    {
+      "index": "1998-12-31T00:00:00.000Z",
+      "first_prize": 2200000.0,
+      "total": 12019650.0,
+      "first_prize_adjusted_euro": 426649.0,
+      "total_adjusted_euro": 2330990.0,
+      "first_prize_adjusted_usd": 558063.0,
+      "total_adjusted_usd": 3048965.0
+    },
+    {
+      "index": "1999-12-31T00:00:00.000Z",
+      "first_prize": 2200000.0,
+      "total": 14964950.0,
+      "first_prize_adjusted_euro": 424536.0,
+      "total_adjusted_euro": 2887803.0,
+      "first_prize_adjusted_usd": 555299.0,
+      "total_adjusted_usd": 3777284.0
+    },
+    {
+      "index": "2000-12-31T00:00:00.000Z",
+      "first_prize": 2200000.0,
+      "total": 15500500.0,
+      "first_prize_adjusted_euro": 417469.0,
+      "total_adjusted_euro": 2941357.0,
+      "first_prize_adjusted_usd": 546055.0,
+      "total_adjusted_usd": 3847333.0
+    },
+    {
+      "index": "2001-12-31T00:00:00.000Z",
+      "first_prize": 2200000.0,
+      "total": 16470750.0,
+      "first_prize_adjusted_euro": 410637.0,
+      "total_adjusted_euro": 3074320.0,
+      "first_prize_adjusted_usd": 537119.0,
+      "total_adjusted_usd": 4021250.0
+    },
+    {
+      "index": "2002-12-31T00:00:00.000Z",
+      "first_prize": 335390.0,
+      "total": 2664035.0,
+      "first_prize_adjusted_euro": 403027.0,
+      "total_adjusted_euro": 3201283.0,
+      "first_prize_adjusted_usd": 527165.0,
+      "total_adjusted_usd": 4187320.0
+    },
+    {
+      "index": "2003-12-31T00:00:00.000Z",
+      "first_prize": 400000.0,
+      "total": 2877705.0,
+      "first_prize_adjusted_euro": 470849.0,
+      "total_adjusted_euro": 3387409.0,
+      "first_prize_adjusted_usd": 615876.0,
+      "total_adjusted_usd": 4430775.0
+    },
+    {
+      "index": "2004-12-31T00:00:00.000Z",
+      "first_prize": 400000.0,
+      "total": 3000000.0,
+      "first_prize_adjusted_euro": 461030.0,
+      "total_adjusted_euro": 3457728.0,
+      "first_prize_adjusted_usd": 603034.0,
+      "total_adjusted_usd": 4522753.0
+    },
+    {
+      "index": "2005-12-31T00:00:00.000Z",
+      "first_prize": 400000.0,
+      "total": 3000000.0,
+      "first_prize_adjusted_euro": 452493.0,
+      "total_adjusted_euro": 3393696.0,
+      "first_prize_adjusted_usd": 591866.0,
+      "total_adjusted_usd": 4438998.0
+    },
+    {
+      "index": "2006-12-31T00:00:00.000Z",
+      "first_prize": 450000.0,
+      "total": 3200000.0,
+      "first_prize_adjusted_euro": 500890.0,
+      "total_adjusted_euro": 3561887.0,
+      "first_prize_adjusted_usd": 655171.0,
+      "total_adjusted_usd": 4658994.0
+    },
+    {
+      "index": "2007-12-31T00:00:00.000Z",
+      "first_prize": 450000.0,
+      "total": 3200000.0,
+      "first_prize_adjusted_euro": 493687.0,
+      "total_adjusted_euro": 3510661.0,
+      "first_prize_adjusted_usd": 645749.0,
+      "total_adjusted_usd": 4591990.0
+    },
+    {
+      "index": "2008-12-31T00:00:00.000Z",
+      "first_prize": 450000.0,
+      "total": 3200000.0,
+      "first_prize_adjusted_euro": 480240.0,
+      "total_adjusted_euro": 3415040.0,
+      "first_prize_adjusted_usd": 628160.0,
+      "total_adjusted_usd": 4466917.0
+    },
+    {
+      "index": "2009-12-31T00:00:00.000Z",
+      "first_prize": 450000.0,
+      "total": 3200000.0,
+      "first_prize_adjusted_euro": 479760.0,
+      "total_adjusted_euro": 3411625.0,
+      "first_prize_adjusted_usd": 627532.0,
+      "total_adjusted_usd": 4462450.0
+    },
+    {
+      "index": "2010-12-31T00:00:00.000Z",
+      "first_prize": 450000.0,
+      "total": 3200000.0,
+      "first_prize_adjusted_euro": 472556.0,
+      "total_adjusted_euro": 3360399.0,
+      "first_prize_adjusted_usd": 618110.0,
+      "total_adjusted_usd": 4395446.0
+    },
+    {
+      "index": "2011-12-31T00:00:00.000Z",
+      "first_prize": 450000.0,
+      "total": 3412546.0,
+      "first_prize_adjusted_euro": 462951.0,
+      "total_adjusted_euro": 3510762.0,
+      "first_prize_adjusted_usd": 605546.0,
+      "total_adjusted_usd": 4592122.0
+    },
+    {
+      "index": "2012-12-31T00:00:00.000Z",
+      "first_prize": 450000.0,
+      "total": 3414246.0,
+      "first_prize_adjusted_euro": 453890.0,
+      "total_adjusted_euro": 3509384.0,
+      "first_prize_adjusted_usd": 593694.0,
+      "total_adjusted_usd": 4590320.0
+    },
+    {
+      "index": "2013-12-31T00:00:00.000Z",
+      "first_prize": 450000.0,
+      "total": 2023300.0,
+      "first_prize_adjusted_euro": 450001.0,
+      "total_adjusted_euro": 2023304.0,
+      "first_prize_adjusted_usd": 588607.0,
+      "total_adjusted_usd": 2646508.0
+    }
+  ]
+}
