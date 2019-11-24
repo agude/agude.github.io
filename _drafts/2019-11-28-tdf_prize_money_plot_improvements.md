@@ -87,13 +87,10 @@ depending on the year. I have normalized all values to
 2013 Euro. I have included this information in the subtitle so that it
 survives even if the plot is separated from its caption on Wikipedia.
 
-This plot took a lot of work to make---matplotlib is not the most forgiving
-library---but I think it was worth it. Of course, as a good [WikiFairy][wf], I
-[contributed the plots back to Wikipedia][plot_link] so that everyone can
-benefit from the improvements!
+Overall I think it is an improvement, so I have contributed it back to the
+community [here][plot_link].
 
-[wf]: https://en.wikipedia.org/wiki/Wikipedia:WikiFairy
-[plot_link]: https://en.wikipedia.org/w/index.php?title=Hour_record&oldid=903869466#Statistics
+[plot_link]: https://commons.wikimedia.org/wiki/File:Tdf_prize_money_in_2013_euro.svg
 
 ---
 [^1]: Inflation is exponential.
