@@ -2,12 +2,12 @@
 layout: post
 title: "Improving Wikipedia's Tour de France Prize Money Plot"
 description: >
-  I love Wikipedia, I love cycling, and I love data! So today, I improve
-  Wikipedia's Hour Record Plot! Come take a look!
-image: /files/hour-record/bicycle_race_by_calvert_litho_co_1895.jpg
+  Time to improve another plot from Wikipedia. This time I tackle one showing
+  the prize money in the Tour de France over time!
+image: /files/tdf-prize-money/godinat_and_level_in_1934.jpg
 image_alt: >
-  A chromolithograph showing six men in colorful clothing racing bikes on a
-  dirt track.
+  Black and white photograph of Léon Level and André Godinat looking at a map
+  during the Paris–Saint-Etienne race in 1934.
 categories: plotting
 ---
 
