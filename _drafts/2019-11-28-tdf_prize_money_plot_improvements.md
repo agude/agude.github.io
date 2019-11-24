@@ -73,20 +73,19 @@ I fixed the X-axis so that the dates are now correct! The first race is in
 labels make it clear what is plotted. I have added my (patent pending 😛) grey
 stripes to the background to indicate each decade.
 
-I have change the Y-axis to be more readable by abbreviating the numbers using
-_K_ and _M_. I have removed the label and replaced it with the euro symbol (€)
+I changed the Y-axis to be more readable by abbreviating the numbers using
+_K_ and _M_. I also removed the label and replaced it with the euro symbol (€)
 on each tick.
 
-I have made the all the text larger and have made the lines thicker to make
-the plot easier to read when small. I have also changed from a line plot to a
-step plot because the prize changes are discrete, not constantly changing in
-time.
+I made all the text larger and the lines thicker to improve legibility when the plot
+is downscaled. I have also changed from a line plot to a step plot because the amount 
+of prize money changes at specific moments in time, not continually.
 
 Finally, I have cleaned up the data a bit. The original plot used uncorrected
 Euro even though the original prizes were in old Franc, new Franc, and Euro
 depending on the year. I have normalized all values to
 2013 Euro. I have included this information in the subtitle so that it
-survives when when the plot is separated from its caption on Wikipedia.
+survives even if the plot is separated from its caption on Wikipedia.
 
 This plot took a lot of work to make---matplotlib is not the most forgiving
 library---but I think it was worth it. Of course, as a good [WikiFairy][wf], I
