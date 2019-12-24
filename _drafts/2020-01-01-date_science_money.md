@@ -126,7 +126,6 @@ days, but finally returned an offer with $5,000 higher base comp and $50,000
 more in RSUs. It was a lot more stressful than my first negotiating, but again
 the return on investment was huge!
 
----
 [^1]: Although as a [quant][quant] friend of mine pointed out that: "Zero is also an integer multiple."
 [^2]: I generally sell my RSUs immediately; I already have my salary and health insurance tied up in my employment so selling them lets me diversify my holdings.
 
