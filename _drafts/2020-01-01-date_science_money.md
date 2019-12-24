@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Data Science, Compensation, and Money"
+title: "Data Science, Compensation, and Asking for Money"
 description: >
 image: /files/
 image_alt: >
