@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Data Science, Compenstation, and Money"
+title: "Data Science, Compensation, and Money"
 description: >
 image: /files/
 image_alt: >
@@ -33,7 +33,7 @@ certainty. I wasn't going to drag my family around the globe just to end up
 six years older and once again looking for a job. I had seen what the academic
 job market was like by watching the people around me at CERN try and
 universally fail to land a tenure track job. So I decided to head back to
-where I was from---the Bay Area--and see what if I could make it as a data
+where I was from---the Bay Area---and see if I could make it as a data
 scientist with the help of the Insight program.
 
 [leaving]: {% post_url 2018-01-19-should_i_get_a_phd %}
@@ -42,9 +42,10 @@ scientist with the help of the Insight program.
 
 As someone who had never been motivated by money, as I looked for a job I
 discovered I was a little naive as to what all the numbers meant. Fortunately,
-Insight anticipated this and brought data scientists, startup founders, and
-tech company executives to educate us naive scientists in the ways of money. I
-learned more about salary, bonuses, and equity than I ever thought I would.
+Insight anticipated this and brought experienced data scientists, startup
+founders, and tech company executives to educate us naive scientists in the
+ways of money. I learned more about salary, bonuses, and equity than I ever
+thought I would.
 
 I knew **base salary**: what you're paid in semi-weekly paychecks to do the
 job. It's what I thought of when I heard "This job pays $120k a year". But
@@ -87,11 +88,11 @@ was lower.
 
 ## Negotiating
 
-Once I had decided on an offer, I entered the most stressful part. Insight had
-conditioned me that regardless of the offer I decided to accept, I had to
-negotiate it. I spent a few days talking to my friends and family about the
-offer trying to work up the courage to call the hiring manager. In the end I
-took a deep breath and wrote a quick email:
+Once I had decided on an offer, I entered the most stressful part:
+negotiating. Insight had conditioned me that regardless of the offer I decided
+to accept, I had to negotiate it. I spent a few days talking to my friends and
+family about the offer trying to work up the courage to call the hiring
+manager. In the end I took a deep breath and wrote a quick email:
 
 > Hi!
 >
@@ -102,8 +103,8 @@ took a deep breath and wrote a quick email:
 > Alex
 
 They wrote back a few hours later having increased the offer by $7,500 and I
-signed immediately. A five minute email got earned me $18,000 over two years
-in increased salary and bonus. A pretty good return on investment for a few
+signed immediately. A five minute email earned me $18,000 over two years in
+increased salary and bonus. A pretty good return on investment for a few
 minutes of stress.
 
 Two years later I got an amazing offer from my current company, far higher
@@ -126,7 +127,7 @@ more in RSUs. It was a lot more stressful than my first negotiating, but again
 the return on investment was huge!
 
 ---
-[^1]: Although as a [quant][quant] friend of mine pointed out about that: "Zero is also an integer multiple."
+[^1]: Although as a [quant][quant] friend of mine pointed out that: "Zero is also an integer multiple."
 [^2]: I generally sell my RSUs immediately; I already have my salary and health insurance tied up in my employment so selling them lets me diversify my holdings.
 
 [quant]: https://en.wikipedia.org/wiki/Quantitative_analysis_(finance)
