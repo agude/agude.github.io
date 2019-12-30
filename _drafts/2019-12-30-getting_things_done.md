@@ -22,10 +22,10 @@ taking on new responsibilities: mentor new hires, improve internal processes,
 attend planning meetings and follow up, and so on.
 
 By the time I was running a team, I no longer had one thing I was focusing on
-a day, I had dozens. Often these things would only take a 15-30 minutes to do,
+a day; instead, I had dozens. Often these things would only take 15-30 minutes to do,
 but I would have to fit them in with all my meetings. My strategy of "remember
 what I need to do today" stopped working because I just had too many things to
-do, and items were added and removed constantly.
+do, and items were constantly added and removed.
 
 I needed a strategy; what I came up with was a version of [David
 Allen's][allen] [Getting Things Done][gtd]. Here is how I do it.
@@ -41,8 +41,8 @@ the electronic and paper versions---in my email using the "important" flag,
 and in my brain which meant I had to check multiple places when I had an
 opening in my schedule to complete a task. I decided the one place to track
 tasks would be [Trello][trello] because adding and arranging tasks is easy, it
-supports my computer and phone, and has enough power-ups that I can customize
-my workflow.
+supports my computer and phone, and has enough [power-ups](#useful-power-ups) that I can
+use to customize my workflow.
 
 [trello]: https://trello.com/
 
@@ -62,7 +62,7 @@ want to take, etc.
 
 Every morning I triage my tasks by taking one of two actions:
 
-1. If the task can be done in 5 minutes I do it immediately.
+1. If the task can be done in 5 minutes, I do it immediately.
 2. If the task can't be completed quickly, I move it to the correct column and
    make sure all the meta data like title are descriptive.
 
@@ -76,7 +76,7 @@ When I have time to complete some tasks, I look at **Do Today** and pick
 something I can fit in, and do it. Then I move the task to **Done**.
 
 The **Learning** column is special, it is where I store links to things I want
-to read, but did not have time to when I encounter them. If I'm honest, it's
+to read, but did not have time to when I encountered them. If I'm honest, it's
 mostly a place where I store links I find on Twitter when I'm on my phone.
 
 ## Capturing Tasks
@@ -86,7 +86,7 @@ IO"_, meaning it must be easy to record a task and that you should not worry
 about getting it recorded perfectly. Triage is when you can clean up any
 typos and add context.
 
-There were three places I captured tasks:
+There are three places where I capture tasks:
 
 - **My Computer**: Here I often write out a long task and put it directly into
 the correct column because the computer makes data entry easy.
@@ -102,7 +102,7 @@ of my phone makes adding task really fast.
 ## Useful Power-Ups
 
 Trello has some useful addons called "power-ups". I found two power-ups to be
-useful (although you can only use one on the free plan):
+useful (although the free plan only allows you to use one power-up at a time):
 
 - **Card Repeater**: This power-up lets you schedule a card to reappear. I
 used it for things that have to happen on a fixed schedule like "plan for the
