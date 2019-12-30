@@ -22,10 +22,10 @@ taking on new responsibilities: mentor new hires, improve internal processes,
 attend planning meetings and follow up, and so on.
 
 By the time I was running a team, I no longer had one thing I was focusing on
-a day; instead, I had dozens. Often these things would only take 15-30 minutes to do,
-but I would have to fit them in with all my meetings. My strategy of "remember
-what I need to do today" stopped working because I just had too many things to
-do, and items were constantly added and removed.
+a day; instead, I had dozens. Often these things would only take 15-30 minutes
+to do, but I would have to fit them in with all my meetings. My strategy of
+"remember what I need to do today" stopped working because I just had too many
+things to do, and items were constantly added and removed.
 
 I needed a strategy; what I came up with was a version of [David
 Allen's][allen] [Getting Things Done][gtd]. Here is how I do it.
@@ -41,8 +41,8 @@ the electronic and paper versions---in my email using the "important" flag,
 and in my brain which meant I had to check multiple places when I had an
 opening in my schedule to complete a task. I decided the one place to track
 tasks would be [Trello][trello] because adding and arranging tasks is easy, it
-supports my computer and phone, and has enough [power-ups](#useful-power-ups) that I can
-use to customize my workflow.
+supports my computer and phone, and has enough [power-ups](#useful-power-ups)
+that I can use to customize my workflow.
 
 [trello]: https://trello.com/
 
@@ -81,9 +81,9 @@ mostly a place where I store links I find on Twitter when I'm on my phone.
 
 ## Capturing Tasks
 
-A good friend told me that the key to this system was that _"you can't block on
-IO"_, meaning it must be easy to record a task and that you should not worry
-about getting it recorded perfectly. Triage is when you can clean up any
+A good friend told me that the key to this system was that _"you can't block
+on IO"_, meaning it must be easy to record a task and that you should not
+worry about getting it recorded perfectly. Triage is when you can clean up any
 typos and add context.
 
 There are three places where I capture tasks:
@@ -91,9 +91,9 @@ There are three places where I capture tasks:
 - **My Computer**: Here I often write out a long task and put it directly into
 the correct column because the computer makes data entry easy.
 - **In My Email**: I use an Outlook plugin that takes an email and turns it
-directly into a task in Trello. These tasks end up in the _Inbox_ and I
-triage them later. This lets me go through the dozens (or hundreds) of emails
-and quickly get the ones that require action turned into a task.
+directly into a task in Trello. These tasks end up in the _Inbox_ and I triage
+them later. This lets me go through the dozens (or hundreds) of emails and
+quickly get the ones that require action turned into a task.
 - **On The Go**: I use the Trello app on my phone, and I have a widget that
 lets me add a card with the press of a button. Just like email, this puts it
 into the _Inbox_ column for later triage. I find using the dictation feature
