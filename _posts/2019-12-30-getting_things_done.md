@@ -11,7 +11,6 @@ image_alt: >
 categories: career-advice
 ---
 
-
 {% capture file_dir %}/files/getting-things-done/{% endcapture %}
 
 {% include lead_image.html %}
