@@ -8,7 +8,7 @@ image: /files/getting-things-done/sticky-notes-by-irfan-simsar.jpg
 image_alt: >
   Colorful sticky notes arranged in a grid on the window of an office
   building.
-categories: career_advice
+categories: career-advice
 ---
 
 
