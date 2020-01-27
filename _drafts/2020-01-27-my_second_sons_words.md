@@ -104,6 +104,10 @@ A few fun words:
 - **Grandpa** (Spanish): As the only person who speaks Spanish full-time to
 him, it makes sense that Grandpa would be Cory's first Spanish word. Cory has
 always had a special affinity for my father, so it is appropriate as well.
-- **Cow** (English) and **Lola** (Spanish): Cory started singing _La Vaca
-Lola_ (Lola the cow) and quickly learned most of the words. He still loves
-cows, and it is still one of his favorite songs.
+- **Cow** (English and Spanish) and **Lola** (Spanish): Cory started singing
+_La Vaca Lola_ (Lola the cow) and quickly learned most of the words. He still
+loves cows, and it is still one of his favorite songs.
+- **Older Brother** (Cantonese): Theo is one of the defining features of
+Cory's life as both Cory's best friend and primary antagonizer. Cory learned
+to identify him quickly (and often would just point and say "big brother" when
+Theo had pushed him over).
