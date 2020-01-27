@@ -92,3 +92,7 @@ exclude:
     - LICENSE.md
     - CNAME
     - Gemfile
+    - redirects.json
+
+redirect_from:
+    json: false
