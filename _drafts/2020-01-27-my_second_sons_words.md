@@ -111,3 +111,15 @@ loves cows, and it is still one of his favorite songs.
 Cory's life as both Cory's best friend and primary antagonizer. Cory learned
 to identify him quickly (and often would just point and say "big brother" when
 Theo had pushed him over).
+- **Older Sister** (Cantonese): Cory doesn't have a sister, but a there we two
+girls who lived next door in our apartment who he would play with who he
+called "older sister".
+- **Lion Dancer** (Cantonese): Theo became obsessed with lion dancers during
+Lunar New Year last year. Cory has picked up on this obsession as well and
+often does a solo lion dance.
+- **Google** and **Deebot** (English): We have a lot of tech in our house and
+Cory has learned about it. We talk to our Google Homes several times a day,
+and Deebot vacuums the kitchen every night.
+
+Of course, now that I have two datasets I can compare how they developed. Look
+for those posts in the near future!
