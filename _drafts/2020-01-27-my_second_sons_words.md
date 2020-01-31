@@ -21,9 +21,9 @@ up the various languages that our family speaks.
 ## The Data
 
 The data was collected in the [same manner as last time][theo_post_data]. The
-only difference was I added a new language category for "animal sounds" because
-when recording that data for Theo I realized it was hard to tell "moo" from
-"mu". A catch-all category for animals made data logging much easier.
+only difference was I added a new language category for "animal sounds"
+because when recording that data for Theo I realized it was hard to tell "moo"
+from "mu". A catch-all category for animals made data logging much easier.
 
 [theo_post_data]: {% post_url 2018-09-30-my_sons_words %}#the-data
 
@@ -40,7 +40,7 @@ You can find the Jupyter notebook used to perform this analysis
 [here][notebook] ([rendered on Github][rendered]). The data can be found
 [here][data].
 
-{% capture notebook_uri %}{{ "Theo's first words.ipynb" | uri_escape }}{% endcapture %}
+{% capture notebook_uri %}{{ "Cory's first words.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
@@ -50,8 +50,8 @@ You can find the Jupyter notebook used to perform this analysis
 
 Cory's first [baby sign][baby_sign] was waving goodbye at 11 months. He
 learned four more---pointing at things he wanted, blowing kisses, shaking his
-head for "no", and shaking his hands for "all done"---before speaking his first
-word. His first word, [like his older brother][theo_post_dev], was in
+head for "no", and shaking his hands for "all done"---before speaking his
+first word. His first word, [like his older brother][theo_post_dev], was in
 Cantonese, although it was "dad" and not "dog". It was two more months before
 he said "mom" in Cantonese, at which point he already knew "older brother",
 "ball", "there", and "pick me up". My wife was disappointed it took so long,
@@ -114,16 +114,16 @@ loves cows, and it is still one of his favorite songs.
 Cory's life as both Cory's best friend and primary antagonizer. Cory learned
 to identify him quickly (and often would just point and say "big brother" when
 Theo had pushed him over).
-- **Older Sister** (Cantonese): Cory doesn't have a sister, but there were
-two girls who lived next door to our apartment with whom he would play and
-call "older sister".
+- **Older Sister** (Cantonese): Cory doesn't have a sister, but there were two
+girls who lived next door to our apartment with whom he would play and call
+"older sister".
 - **Lion Dancer** (Cantonese): Theo became obsessed with lion dancers during
 Lunar New Year last year. Cory has picked up on this obsession as well and
 often does a solo lion dance.
 - **Google** and **Deebot** (English): We have a lot of technology in our
-house and Cory has learned all about it. We talk to our Google Home devices several
-times a day trying to get them to play music or animal sounds, and Deebot
-vacuums the kitchen every night as Cory watches in awe.
+house and Cory has learned all about it. We talk to our Google Home devices
+several times a day trying to get them to play music or animal sounds, and
+Deebot vacuums the kitchen every night as Cory watches in awe.
 
 Of course, now that I have two datasets I can compare how both boys developed.
 Look for those posts in the near future!
