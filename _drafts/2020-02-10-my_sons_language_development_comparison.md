@@ -1,0 +1,83 @@
+---
+layout: post
+title: "Comparison of My Two Sons' Language Development"
+description: >
+  Being a nerd dad, I recorded all the words my first two sons spoke as they
+  learned them. Now, I compare their language development rate!
+image: /files/my-sons-words-comparison/Articulation_by_j_w_orr.png
+image_alt: >
+  A woodcut by J. W. Orr showing a woman using a blackboard to teach young
+  children how to pronounce words.
+---
+
+{% capture file_dir %}/files/my-sons-words-comparison/{% endcapture %}
+
+My son Theo was born in the summer of 2016 and my son Cory was born in the
+winter of 2017. Our family is multi-lingual so we knew our sons' would have
+complicated and therefore interesting language development. My wife and I are
+(unsurprisingly) **huge nerds** so we wrote down each new word they learned so
+we could explore how they learned language. I wrote [a post focusing on Theo's
+language development][theo_post] and [another post focusing on Cory's language
+development][cory_post]; this month I will compare their development.
+
+[theo_post]: {% post_url 2018-09-30-my_sons_words %}
+[cory_post]: {% post_url 2020-01-30-my_second_sons_words %}
+
+## The Data
+
+The data was collected by my wife and I trying attempting to identify when the
+boys had learned a new word and writing it down. This is error prone, but we
+hope most of the errors cancel out. The most common error is writing down
+words they boy do not yet really know. This would lead to an increase in the
+number of words known at any time in the data. I discuss data collection in a
+little more depth in [Theo's data section][theo_post_data] and [Cory's data
+section][cory_post_data].
+
+[theo_post_data]: {% post_url 2018-09-30-my_sons_words %}#the-data
+[cory_post_data]: {% post_url 2020-01-30-my_second_sons_words %}#the-data
+
+You can find the Jupyter notebook used to perform this analysis
+[here][notebook] ([rendered on Github][rendered]). The data can be found
+[here][data].
+
+{% capture notebook_uri %}{{ "Theo vs Cory words.ipynb" | uri_escape }}{% endcapture %}
+
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
+[data]: {{ file_dir }}/theo_words.csv
+
+## Development
+
+
+Below I have plotted the number of words each child knew as a function of
+their age. Theo, our first son, has dashed lines; Cory, our second son, has
+solid lines.
+
+[![A plot showing the number of words my son could speak as a function of
+age.][words_plot]][words_plot]
+
+[words_plot]: {{ file_dir }}/child0_vs_child1_total_words_linear.svg
+
+Second children are known to have slower onset of language
+development.[^1][^2] They reach their first 50 known words more slowly, but
+catch up to their older siblings quickly, learning their first 100 words at
+about the same age. Theo and Cory do not follow this trend. Cory was 3 to 4
+months faster then Theo to hit language development milestones in Cantonese,
+English, and Spanish; he also knew many more animal sounds. Spanish was tough
+for Theo to pick up, as [mentioned in his post][theo_post], because my mother
+had injured herself and Theo could not visit my parents for a few months.
+
+Sign is the only area where Theo eventually learned faster than Cory. I
+suspect this is because he needed sign to communicate because he did not have
+many words, whereas Cory gave up on sign once he could talk.
+
+Final, I owe Theo's doctor an apology: she was always a little worried about
+Theo's language development, but we did not take it seriously because we knew
+that bilingual children developed language more slowly. Looking at the data
+and comparing to his brother, I think our pediatrician was right to be
+worried. Thankfully, Theo has had no problems since and now talks incessantly.
+
+---
+
+[^1]: Pine, J. M., _Variation in vocabulary development as a function of birth order._ Child Development, 66(1), 272–281. (1995). doi:[10.2307/1131205](https://doi.org/10.2307/1131205)
+[^2]: Berglund, E., Eriksson, M., and Westerlund, M. _Communicative skills in relation to gender, birth order, childcare and socioeconomic status in 18‐month‐old children._ Scandinavian Journal of Psychology, 46: 485-491. (2005). doi:[10.1111/j.1467-9450.2005.00480.x](https://doi.org/10.1111/j.1467-9450.2005.00480.x)
