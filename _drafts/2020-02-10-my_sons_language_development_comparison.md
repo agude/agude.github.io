@@ -61,11 +61,14 @@ age.][words_plot]][words_plot]
 Second children are known to have slower onset of language
 development.[^1][^2] They reach their first 50 known words more slowly, but
 catch up to their older siblings quickly, learning their first 100 words at
-about the same age. Theo and Cory do not follow this trend. Cory was 3 to 4
-months faster then Theo to hit language development milestones in Cantonese,
-English, and Spanish; he also knew many more animal sounds. Spanish was tough
-for Theo to pick up, as [mentioned in his post][theo_post], because my mother
-had injured herself and Theo could not visit my parents for a few months.
+about the same age. The advatange is small though; the average difference
+between time to first 50 words is only 1 month.
+
+Theo and Cory do not follow this trend. Cory was 3 to 4 months faster then
+Theo to hit language development milestones in Cantonese, English, and
+Spanish; he also knew many more animal sounds. Spanish was tough for Theo to
+pick up, as [mentioned in his post][theo_post], because my mother had injured
+herself and Theo could not visit my parents for a few months.
 
 Sign is the only area where Theo eventually learned faster than Cory. I
 suspect this is because he needed sign to communicate because he did not have
