@@ -18,27 +18,27 @@ complicated and therefore interesting language development. My wife and I are
 (unsurprisingly) **huge nerds** so we wrote down each new word they learned so
 we could explore how they learned language. I wrote [a post focusing on Theo's
 language development][theo_post] and [another post focusing on Cory's language
-development][cory_post]; this month I will compare their development.
+development][cory_post]; this month I compare them.
 
 [theo_post]: {% post_url 2018-09-30-my_sons_words %}
 [cory_post]: {% post_url 2020-01-30-my_second_sons_words %}
 
 ## The Data
 
-The data was collected by my wife and I trying attempting to identify when the
-boys had learned a new word and writing it down. This is error prone, but we
-hope most of the errors cancel out. The most common error is writing down
-words they boy do not yet really know. This would lead to an increase in the
-number of words known at any time in the data. I discuss data collection in a
-little more depth in [Theo's data section][theo_post_data] and [Cory's data
-section][cory_post_data].
+The data was collected by my wife and I attempting to identify when the boys
+had learned a new word and writing it down. The most common error is writing
+down words they boy do not yet really know. This would lead to an increase in
+the number of words known at any time in the data; still the difference
+between the boys should be unaffected as the error pushes the data in the same
+direction for both of them. 
+
+I discuss data collection in more depth in [Theo's data
+section][theo_post_data] and [Cory's data section][cory_post_data]. You can
+find the Jupyter notebook used to perform this analysis [here][notebook]
+([rendered on Github][rendered]). The data can be found [here][data].
 
 [theo_post_data]: {% post_url 2018-09-30-my_sons_words %}#the-data
 [cory_post_data]: {% post_url 2020-01-30-my_second_sons_words %}#the-data
-
-You can find the Jupyter notebook used to perform this analysis
-[here][notebook] ([rendered on Github][rendered]). The data can be found
-[here][data].
 
 {% capture notebook_uri %}{{ "Theo vs Cory words.ipynb" | uri_escape }}{% endcapture %}
 
@@ -48,31 +48,32 @@ You can find the Jupyter notebook used to perform this analysis
 
 ## Development
 
+Below I have plotted the number of words each of my sons knew as a function of
+their age. Theo, our first son, is represented by dashed lines; Cory, our
+second son, is represented by solid lines.
 
-Below I have plotted the number of words each child knew as a function of
-their age. Theo, our first son, has dashed lines; Cory, our second son, has
-solid lines.
-
-[![A plot showing the number of words my son could speak as a function of
-age.][words_plot]][words_plot]
+[![A plot showing the number of words my sons could speak as a function of
+their age.][words_plot]][words_plot]
 
 [words_plot]: {{ file_dir }}/child0_vs_child1_total_words_linear.svg
 
 Second children are known to have slower onset of language
-development.[^1][^2] They reach their first 50 known words more slowly, but
+development.[^1][^2] They learn their first 50 known words more slowly, but
 catch up to their older siblings quickly, learning their first 100 words at
-about the same age. The advatange is small though; the average difference
-between time to first 50 words is only 1 month.
+about the same age. The advantage is small though; the average difference
+between time to first 50 words between the first and second child is only 1
+month.
 
 Theo and Cory do not follow this trend. Cory was 3 to 4 months faster then
 Theo to hit language development milestones in Cantonese, English, and
-Spanish; he also knew many more animal sounds. Spanish was tough for Theo to
-pick up, as [mentioned in his post][theo_post], because my mother had injured
-herself and Theo could not visit my parents for a few months.
+Spanish; he also knew many more animal sounds. Theo was artificially
+limited in his Spanish acquisition though, as [mentioned in his
+post][theo_post], because my mother had injured herself and so Theo could not
+visit my parents for a few months.
 
 Sign is the only area where Theo eventually learned faster than Cory. I
-suspect this is because he needed sign to communicate because he did not have
-many words, whereas Cory gave up on sign once he could talk.
+suspect this is because he needed sign to communicate as he did not know as
+many words as quickly, whereas Cory gave up on sign once he could talk.
 
 Final, I owe Theo's doctor an apology: she was always a little worried about
 Theo's language development, but we did not take it seriously because we knew
