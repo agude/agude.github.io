@@ -13,8 +13,8 @@ image_alt: >
 {% capture file_dir %}/files/my-sons-words-comparison/{% endcapture %}
 
 My son Theo was born in the summer of 2016 and my son Cory was born in the
-winter of 2017. Our family is multi-lingual so we knew our sons' would have
-complicated and therefore interesting language development. My wife and I are
+winter of 2017. Our family is multi-lingual so we knew our sons would therefore have
+complicated and interesting language development. My wife and I are
 (unsurprisingly) **huge nerds** so we wrote down each new word they learned so
 we could explore how they learned language. I wrote [a post focusing on Theo's
 language development][theo_post] and [another post focusing on Cory's language
@@ -27,13 +27,13 @@ development][cory_post]; this month I compare them.
 
 The data was collected by my wife and I attempting to identify when the boys
 had learned a new word and writing it down. The most common error is writing
-down words they boy do not yet really know. This would lead to an increase in
+down words the boy does not yet really know. This would lead to an increase in
 the number of words known at any time in the data; still the difference
 between the boys should be unaffected as the error pushes the data in the same
 direction for both of them. 
 
-I discuss data collection in more depth in [Theo's data
-section][theo_post_data] and [Cory's data section][cory_post_data]. You can
+I discuss data collection in more depth in [Theo's][theo_post_data] and 
+[Cory's][cory_post_data] data sections. You can
 find the Jupyter notebook used to perform this analysis [here][notebook]
 ([rendered on Github][rendered]). The data can be found [here][data].
 
@@ -61,7 +61,7 @@ Second children are known to have slower onset of language
 development.[^1][^2] They learn their first 50 known words more slowly, but
 catch up to their older siblings quickly, learning their first 100 words at
 about the same age. The advantage is small though; the average difference
-between time to first 50 words between the first and second child is only 1
+in time to first 50 words between the first and second child is only 1
 month.
 
 Theo and Cory do not follow this trend. Cory was 3 to 4 months faster then
@@ -75,7 +75,7 @@ Sign is the only area where Theo eventually learned faster than Cory. I
 suspect this is because he needed sign to communicate as he did not know as
 many words as quickly, whereas Cory gave up on sign once he could talk.
 
-Final, I owe Theo's doctor an apology: she was always a little worried about
+Finally, I owe Theo's doctor an apology: she was always a little worried about
 Theo's language development, but we did not take it seriously because we knew
 that bilingual children developed language more slowly. Looking at the data
 and comparing to his brother, I think our pediatrician was right to be
