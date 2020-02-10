@@ -27,10 +27,10 @@ on Cory's language development][cory_post]; this month I compare them.
 
 The data was collected by my wife and I attempting to identify when the boys
 had learned a new word and writing it down. The most common error is writing
-down words the boy does not yet really know. This would lead to an increase in
-the number of words known at any time in the data; still the difference
-between the boys should be unaffected as the error pushes the data in the same
-direction for both of them.
+down words one of the boys does not yet really know. This would lead to an
+increase in the number of words known at any time in the data; still the
+difference between the boys should be unaffected as the error pushes the data
+in the same direction for both of them.
 
 I discuss data collection in more depth in [Theo's][theo_post_data] and
 [Cory's][cory_post_data] data sections. You can find the Jupyter notebook used
