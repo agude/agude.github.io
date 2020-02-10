@@ -10,6 +10,7 @@ image_alt: >
   children punctuation.
 seo:
   date_modified: 2020-02-09T21:13:10-800
+categories: childhood_language
 ---
 
 {% capture file_dir %}/files/my-second-sons-words/{% endcapture %}
