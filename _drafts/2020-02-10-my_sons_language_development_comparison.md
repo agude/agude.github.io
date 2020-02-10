@@ -4,10 +4,9 @@ title: "Comparison of My Two Sons' Language Development"
 description: >
   Being a nerd dad, I recorded all the words my first two sons spoke as they
   learned them. Now, I compare their language development rate!
-image: /files/my-sons-words-comparison/Articulation_by_j_w_orr.png
+image: /files/my-sons-words-comparison/coal_miners_child_in_grade_school_lejunior_harlan_county_kentucky.jpg
 image_alt: >
-  A woodcut by J. W. Orr showing a woman using a blackboard to teach young
-  children how to pronounce words.
+  Black and white photo of a young boy at a school desk.
 ---
 
 {% capture file_dir %}/files/my-sons-words-comparison/{% endcapture %}
