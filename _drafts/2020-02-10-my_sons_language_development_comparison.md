@@ -34,7 +34,7 @@ direction for both of them.
 I discuss data collection in more depth in [Theo's][theo_post_data] and
 [Cory's][cory_post_data] data sections. You can find the Jupyter notebook used
 to perform this analysis [here][notebook] ([rendered on Github][rendered]).
-The data can be found [here][data].
+The data can be found [here][theo_data] and [here][cory_data].
 
 [theo_post_data]: {% post_url 2018-09-30-my_sons_words %}#the-data
 [cory_post_data]: {% post_url 2020-01-30-my_second_sons_words %}#the-data
@@ -43,7 +43,8 @@ The data can be found [here][data].
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
-[data]: {{ file_dir }}/theo_words.csv
+[theo_data]: /files/my-sons-words/theo_words.csv
+[cory_data]: /files/my-second-sons-words/cory_words.csv
 
 ## Development
 
