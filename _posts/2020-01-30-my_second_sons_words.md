@@ -8,6 +8,8 @@ image: /files/my-second-sons-words/teaching_punctuation_by_j_w_orr.png
 image_alt: >
   A woodcut by J. W. Orr showing a man using a blackboard to teach young
   children punctuation.
+seo:
+  date_modified: 2020-02-09T21:13:10-800
 ---
 
 {% capture file_dir %}/files/my-second-sons-words/{% endcapture %}
@@ -125,5 +127,14 @@ house and Cory has learned all about it. We talk to our Google Home devices
 several times a day trying to get them to play music or animal sounds, and
 Deebot vacuums the kitchen every night as Cory watches in awe.
 
-Of course, now that I have two datasets I can compare how both boys developed.
-Look for those posts in the near future!
+Of course, now that I have two datasets I can [compare how both boys
+developed][compare_post]. Look for those posts in the near future!
+
+[compare_post]: {% post_url 2020-02-10-my_sons_language_development_comparison %}
+
+---
+
+**Updated <time datetime="{{ page.seo.date_modified | date_to_xmlschema }}">{{
+page.seo.date_modified | date: '%B %d, %Y' }}</time>**: I have added a link to
+the [post comparing the development of Theo and Cory][compare_post].
+

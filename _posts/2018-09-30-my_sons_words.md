@@ -9,6 +9,8 @@ image: /files/my-sons-words/Articulation_by_j_w_orr.png
 image_alt: >
   A woodcut by J. W. Orr showing a woman using a blackboard to teach young
   children how to pronounce words.
+seo:
+  date_modified: 2020-02-09T21:13:10-800
 ---
 
 {% capture file_dir %}/files/my-sons-words/{% endcapture %}
@@ -104,9 +106,9 @@ In a future post I'll explore when Theo learned different groups of words
 (colors, numbers, foods, etc.), but for now here are some of the fun words
 Theo learned:
 
-- **Little Brother** (Cantonese): Theo has a brother who is 18 months younger
-than him; it only took Theo a few weeks to learn what the new intruder was
-called.
+- **Little Brother** (Cantonese): Theo has a brother, Cory,  who is 18 months
+younger than him; it only took Theo a few weeks to learn what the new intruder
+was called.
 - **Google** (English): We have a few [Google Homes][google_home] in our
 apartment and so we say the trigger word, "Hey Google", several times a day.
 Theo quickly picked it up. We knew he was saying "Google" and not babbling
@@ -126,3 +128,18 @@ hair on my chiny chin chin".
 [google_home]: https://en.wikipedia.org/wiki/Google_Home
 [five_monkeys]: https://en.wikipedia.org/wiki/Five_Little_Monkeys
 [three_pigs]: https://en.wikipedia.org/wiki/The_Three_Little_Pigs
+
+Finally, I [tracked Cory's language development and wrote about it
+too][cory_post], and I [compared the development of Theo and Cory in another
+post][compare_post].
+
+[cory_post]: {% post_url 2020-01-30-my_second_sons_words %}
+[compare_post]: {% post_url 2020-02-10-my_sons_language_development_comparison %}
+
+---
+
+**Updated <time datetime="{{ page.seo.date_modified | date_to_xmlschema }}">{{
+page.seo.date_modified | date: '%B %d, %Y' }}</time>**: I have added a link to
+the [post comparing the development of Theo and Cory][compare_post] and to
+[Cory's post][cory_post].
+
