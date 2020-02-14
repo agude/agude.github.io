@@ -89,10 +89,10 @@ compensation was lower.
 ## Negotiating
 
 Once I had decided on an offer, I entered the most stressful part:
-negotiating. Insight had drill into me that regardless of the offer I decided
-to accept, I had to negotiate it. I spent a few days talking to my friends and
-family about the offer trying to work up the courage to call the hiring
-manager. In the end I took a deep breath and wrote a quick email:
+negotiating. Insight had drilled into me that regardless of the offer I
+decided to accept, I had to negotiate it. I spent a few days talking to my
+friends and family about the offer trying to work up the courage to call the
+hiring manager. In the end I took a deep breath and wrote a quick email:
 
 > Hi!
 > 
@@ -129,14 +129,14 @@ complete our goals.
 I wrote an email asking for a lot and got a reply back asking for a phone
 call. I laid out my rationale—that my friends with similar experience were
 getting those kinds of offers. They kept me sweating for a few days, but
-finally returned an offer with $5,000 higher base salary and $50,000 more in
+finally returned an offer with a $5,000 higher base salary and $50,000 more in
 RSUs. It was a lot more stressful than my first negotiating experience because
 I did not have a fallback option, but again the return on investment was huge!
 
 ## Helping Others Negotiate
 
 Even if you are not motivated by money, as I was not, if there is some cause
-you care about---your family, the environment, helpings others---you should
+you care about---your family, the environment, helping others---you should
 negotiate. Why? Because money will give you the means to advance your aims.
 You can donate it, hire someone with it, or put it away for later. In the end,
 either you or your employer will have the extra dollars; who do you think will
@@ -144,7 +144,7 @@ spend it better?
 
 One of my friends got a great offer for a software developer position in the
 midwest and was reluctant to negotiate. He asked me, "I have no kids, I have a
-house, my wife and I don't need anything thing. Do I still negotiate?" I
+house, my wife and I don't need anything. Should I still negotiate?" I
 encouraged him to do so anyway. With just a few emails he got a larger signing
 bonus[^3] which, true to his ideals, he donated to charity.
 
@@ -153,7 +153,7 @@ signed their offer letter yet, but that is often enough. Hiring managers spend
 a lot of time screening candidates; when they find one they think is a good
 fit they are anxious to close the deal before someone else makes them an
 offer. Offering to sign immediately if your conditions are met is a great way
-to open a negotiating. You signal to the other party that if they do this one
+to open a negotiation. You signal to the other party that if they do this one
 thing for you they will get what they want: your signature. It's a win-win.
 
 Another one of my friends got an offer for her first data science job at an
