@@ -28,34 +28,35 @@ instantly at home.
 [cern]: https://en.wikipedia.org/wiki/CERN
 [phd]: {% post_url 2018-05-20-my_phd_thesis %}
 
-When I ended up [leaving academia][leaving] academia several years later, it was
-for stability, not money. I had no intention of dragging my family around the globe 
-just to end up six years older and once again hunting for a job; I had seen my CERN
-colleagues try and universally fail to land tenure track positions. So I decided to
-head back to where I grew up---the Bay Area---and see if I could make it as a
-data scientist with the help of the Insight program.
+When I ended up [leaving academia][leaving] academia several years later, it
+was for stability, not money. I had no intention of dragging my family around
+the globe just to end up six years older and once again hunting for a job; I
+had seen my CERN colleagues try and universally fail to land tenure track
+positions. So I decided to head back to where I grew up---the Bay Area---and
+see if I could make it as a data scientist with the help of the Insight
+program.
 
 [leaving]: {% post_url 2018-01-19-should_i_get_a_phd %}
 
 ## Compensation
 
-As someone who had never been motivated by money, I discovered during my job search
-that I was a little naive as to what all the numbers meant. Fortunately,
-Insight anticipated this and brought experienced data scientists, startup
-founders, and tech company executives to give us a crash course on life outside of
-academia. I learned everything there was to know about salary, bonuses,
-and equity.
+As someone who had never been motivated by money, I discovered during my job
+search that I was a little naive as to what all the numbers meant.
+Fortunately, Insight anticipated this and brought experienced data scientists,
+startup founders, and tech company executives to give us a crash course on
+life outside of academia. I learned everything there was to know about salary,
+bonuses, and equity.
 
-I was already familiar with **base salary**: what you're paid in semi-weekly paychecks in
-exchange for doing your job. It's what I thought of when I heard "This job pays $120,000 a year." But
-salary isn't everything for data scientists since we receive multiple other forms of
-compensation as well.
+I was already familiar with **base salary**: what you're paid in semi-weekly
+paychecks in exchange for doing your job. It's what I thought of when I heard
+"This job pays $120,000 a year." But salary isn't everything for data
+scientists since we receive multiple other forms of compensation as well.
 
-Every offer I received paid a **yearly bonus** of 15-20% based on 
-performance. Those were for data science and machine learning positions at
-standard tech companies, but I heard from some data scientists in finance and
-investment that they would be upset if their bonuses were not "integer
-multiples of their salary."[^1]
+Every offer I received paid a **yearly bonus** of 15-20% based on performance.
+Those were for data science and machine learning positions at standard tech
+companies, but I heard from some data scientists in finance and investment
+that they would be upset if their bonuses were not "integer multiples of their
+salary."[^1]
 
 Finally, Insight spent a lot of time teaching us about **equity**: owning a
 piece of the company you're working in. For [publicly traded
@@ -79,10 +80,10 @@ your shares might be worth less than you thought if you're far down the
 
 After all the preparation and contemplation about compensation, I had two
 offers to consider. But how to choose? Just pick the biggest number, right?
-Turns out it isn't so simple. There are a lot of _intangibles_--like "what work
-would I be doing" and "who would I work with"--that matter a lot, possibly
-more than money. I decided to go with the offer that had a bunch of great
-people on the team and a very interesting problem, even though the total
+Turns out it isn't so simple. There are a lot of _intangibles_--like "what
+work would I be doing" and "who would I work with"--that matter a lot,
+possibly more than money. I decided to go with the offer that had a bunch of
+great people on the team and a very interesting problem, even though the total
 compensation was lower.
 
 ## Negotiating
@@ -108,14 +109,14 @@ minutes of stress.
 
 That time I had leverage: an offer from another company that was higher than
 the offer I wanted to accept. Having another offer is a great way to
-demonstrate what your true market value is; after all, the offer demonstrates 
+demonstrate what your true market value is; after all, the offer demonstrates
 clearly what someone is willing to pay you.
 
 Two years later, I got an amazing offer from my current company, far higher
-than what I'd said I was looking for during the interview. I knew I had made a slight
-error giving the first number, and in the back of my mind I could hear my
-Insight advisor telling me to negotiate. But I was nervous; I did not have a
-counter offer for leverage or to fall back on.
+than what I'd said I was looking for during the interview. I knew I had made a
+slight error giving the first number, and in the back of my mind I could hear
+my Insight advisor telling me to negotiate. But I was nervous; I did not have
+a counter offer for leverage or to fall back on.
 
 I talked to the VCs I worked with for a few days to work up the courage. They
 all thought negotiating was the correct thing to do (they were right), even
@@ -137,7 +138,7 @@ I did not have a fallback option, but again the return on investment was huge!
 Even if you are not motivated by money, as I was not, if there is some cause
 you care about---your family, the environment, helpings others---you should
 negotiate. Why? Because money will give you the means to advance your aims.
-You can donate it, hire someone with it, or put it away for later. In the end, 
+You can donate it, hire someone with it, or put it away for later. In the end,
 either you or your employer will have the extra dollars; who do you think will
 spend it better?
 
@@ -147,20 +148,20 @@ house, my wife and I don't need anything thing. Do I still negotiate?" I
 encouraged him to do so anyway. With just a few emails he got a larger signing
 bonus[^3] which, true to his ideals, he donated to charity.
 
-The only leverage he had was that they wanted to hire him and he had not signed
-their offer letter yet, but that is often enough. Hiring managers spend a lot
-of time screening candidates; when they find one they think is a good fit they
-are anxious to close the deal before someone else makes them an offer.
-Offering to sign immediately if your conditions are met is a great way to open
-a negotiating. You signal to the other party that if they do this one thing
-for you they will get what they want: your signature. It's a win-win.
+The only leverage he had was that they wanted to hire him and he had not
+signed their offer letter yet, but that is often enough. Hiring managers spend
+a lot of time screening candidates; when they find one they think is a good
+fit they are anxious to close the deal before someone else makes them an
+offer. Offering to sign immediately if your conditions are met is a great way
+to open a negotiating. You signal to the other party that if they do this one
+thing for you they will get what they want: your signature. It's a win-win.
 
 Another one of my friends got an offer for her first data science job at an
 autonomous driving company. She had a few other offers pending, but this was
 her dream job. I had helped through each part of her job search and so she
 called me to talk over the offer. I told her it was a great offer, but since
-she still had offers pending she should ask them for $10,000 more base salary to
-sign immediately.
+she still had offers pending she should ask them for $10,000 more base salary
+to sign immediately.
 
 She initially balked; it was her preferred company after all and she didn't
 want to lose the offer. I told her they had already spent a lot of money
@@ -177,23 +178,23 @@ negotiating][patio11], where he covers everything from what the employer's
 bargaining position is to a step-by-step guide through the whole negotiating
 process, and even what to say to avoid the dreaded "So what's your current
 salary?" question. Patrick's guide has helped engineers and data scientists
-earn combined millions of dollars in additional compensation; you should join their
-ranks!
+earn combined millions of dollars in additional compensation; you should join
+their ranks!
 
 [patio11]: https://www.kalzumeus.com/2012/01/23/salary-negotiation/
 
-Finally, remember that money isn't everything. You can negotiate all
-the different parts of your compensation, including things you might not
-consider part of your compensation: vacation days, work location, and
-the ability to work from home. These can be easier to negotiate because as an
-employee we often value them much higher than the exact monetary value assigned 
-by employers.
+Finally, remember that money isn't everything. You can negotiate all the
+different parts of your compensation, including things you might not consider
+part of your compensation: vacation days, work location, and the ability to
+work from home. These can be easier to negotiate because as an employee we
+often value them much higher than the exact monetary value assigned by
+employers.
 
-Negotiating an offer is stressful but lucrative. Data scientists have a lot
-of different types of compensation and our profession is in high demand,
-which makes negotiating easier because we have a lot of flexibility in what to
-ask for and the hiring manager has an incentive to get us to sign. It's
-easier than you think, and you have nothing to lose.
+Negotiating an offer is stressful but lucrative. Data scientists have a lot of
+different types of compensation and our profession is in high demand, which
+makes negotiating easier because we have a lot of flexibility in what to ask
+for and the hiring manager has an incentive to get us to sign. It's easier
+than you think, and you have nothing to lose.
 
 ---
 
