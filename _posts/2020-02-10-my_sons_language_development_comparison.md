@@ -64,7 +64,7 @@ catch up to their older siblings quickly, learning their first 100 words at
 about the same age. The advantage is small though; the average difference in
 time to first 50 words between the first and second child is only 1 month.
 
-Theo and Cory do not follow this trend. Cory was 3 to 4 months faster then
+Theo and Cory do not follow this trend. Cory was 3 to 4 months faster than
 Theo to hit language development milestones in Cantonese, English, and
 Spanish; he also knew many more animal sounds. Theo was artificially limited
 in his Spanish acquisition though, as [mentioned in his post][theo_post],
