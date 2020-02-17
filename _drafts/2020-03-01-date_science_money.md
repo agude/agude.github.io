@@ -33,7 +33,7 @@ was for stability, not money. I had no intention of dragging my family around
 the globe just to end up six years older and once again hunting for a job; I
 had seen my CERN colleagues try and universally fail to land tenure track
 positions. So I decided to head back to where I grew up---the Bay Area---and
-see if I could make it as a data scientist with the help of the Insight
+see if I could make it as a data scientist with the help of the Insight Data Science
 program.
 
 [leaving]: {% post_url 2018-01-19-should_i_get_a_phd %}
@@ -50,7 +50,7 @@ bonuses, and equity.
 I was already familiar with **base salary**: what you're paid in semi-weekly
 paychecks in exchange for doing your job. It's what I thought of when I heard
 "This job pays $120,000 a year." But salary isn't everything for data
-scientists since we receive multiple other forms of compensation as well.
+scientists as we receive multiple other forms of compensation as well.
 
 Every offer I received paid a **yearly bonus** of 15-20% based on performance.
 Those were for data science and machine learning positions at standard tech
@@ -71,7 +71,7 @@ Startups were more complicated. I didn't get any offers from startups, but
 this is what I learned from Insight and from working with VCs for two years:
 particularly valuable early hires can receive up to a few percent ownership of
 the startup, but over time that share would ["dilute"][dilution] as new stock
-was issued. Complicated vesting structures could mean even with a good exit,
+was issued. Complicated vesting structures could mean that even with a good exit,
 your shares might be worth less than you thought if you're far down the
 [liquidation preference][lp] stack.
 
@@ -80,8 +80,8 @@ your shares might be worth less than you thought if you're far down the
 
 After all the preparation and contemplation about compensation, I had two
 offers to consider. But how to choose? Just pick the biggest number, right?
-Turns out it isn't so simple. There are a lot of _intangibles_--like "what
-work would I be doing" and "who would I work with"--that matter a lot,
+Turns out it isn't so simple. There are a lot of _intangibles_---like "what
+work would I be doing" and "who would I work with"---that matter a lot,
 possibly more than money. I decided to go with the offer that had a bunch of
 great people on the team and a very interesting problem, even though the total
 compensation was lower.
@@ -143,8 +143,8 @@ either you or your employer will have the extra dollars; who do you think will
 spend it better?
 
 One of my friends got a great offer for a software developer position in the
-midwest and was reluctant to negotiate. He asked me, "I have no kids, I have a
-house, my wife and I don't need anything. Should I still negotiate?" I
+midwest and was reluctant to negotiate. He asked me, "I have no kids, and I have a
+house. My wife and I don't need anything. Should I still negotiate?" I
 encouraged him to do so anyway. With just a few emails he got a larger signing
 bonus[^3] which, true to his ideals, he donated to charity.
 
@@ -184,17 +184,17 @@ their ranks!
 [patio11]: https://www.kalzumeus.com/2012/01/23/salary-negotiation/
 
 Finally, remember that money isn't everything. You can negotiate all the
-different parts of your compensation, including things you might not consider
+various parts of your compensation, including things you might not consider
 part of your compensation: vacation days, work location, and the ability to
 work from home. These can be easier to negotiate because as an employee we
 often value them much higher than the exact monetary value assigned by
 employers.
 
-Negotiating an offer is stressful but lucrative. Data scientists have a lot of
-different types of compensation and our profession is in high demand, which
-makes negotiating easier because we have a lot of flexibility in what to ask
-for and the hiring manager has an incentive to get us to sign. It's easier
-than you think, and you have nothing to lose.
+Negotiating an offer is stressful but lucrative. Data scientists receive many 
+different kinds of compensation and our profession is in high demand, which 
+makes negotiating easier because we have many levers to pull and the hiring 
+manager just wants to get your signature. It’s easier than you think, and you 
+truly have nothing to lose.
 
 ---
 
