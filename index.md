@@ -3,8 +3,8 @@ layout: default
 title: Home
 description: >
   Hi there! I'm Alex Gude, a physicist and data scientist in Silicon Valley.
-  This site is where you can find my thoughts on technology, data science,
-  machine learning, and more!
+  This site is where you can find my thoughts on machine learning, data
+  science, technology, and more!
 ---
 
 {% assign twitter-name = site.author.twitter %}
@@ -23,7 +23,7 @@ physicist][hep] at CERN and a [cosmologist][scp] at Lawrence Berkeley Labs.
 
 I write about whatever catches my attention [here on this site][blog]; mostly
 that means data science, machine learning, deep learning, and software
-development related topics. My old work blog (with mostly deep learning stuff)
+development related topics. My writings on deep learning from my time at Lab41
 can be found at [Gab41][gab41]. If you're interested in my thoughts in real
 time, follow me on Twitter: [@{{ twitter-name }}][twitter]
 
@@ -36,10 +36,10 @@ reports and pull requests welcome!
 
 [github]: https://github.com/{{ github-name }}
 
-## Recent Posts
+## Recent Writings
 
-Below you can find the most recent posts; older posts can be found on my
-[blog][blog]:
+Below you can find my most recent articles and projects; older ones can be
+found [here][blog]:
 
 <div class="card-grid">
 {% for post in site.posts limit:5 %}
