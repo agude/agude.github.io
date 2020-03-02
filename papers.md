@@ -6,6 +6,9 @@ description: >
   particle physics, and supernova cosmology! Check them out!
 ---
 
+Here are some of the academic papers I have written on machine learning, high
+energy physics, and cosmology.
+
 ## Machine Learning
 
 - Ni et al., *Sampled Image Tagging and Retrieval Methods on User Generated
