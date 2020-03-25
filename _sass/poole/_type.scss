@@ -118,3 +118,32 @@ a[href^="#fnref:"] {
   font-size: 1.25rem;
   font-weight: 300;
 }
+
+/* Dashed un-ordered lists */
+ul {
+  list-style-type: none;
+  padding-left: 2em;
+}
+
+ul > li:before {
+  content: "—"; /* em dash */
+  position: absolute;
+  margin-left: -1.1em; 
+  font-weight: bold;
+}
+
+/* Bold numbers for numbered lists */
+ol > li {
+  margin: 0;
+  padding-left: 2em;
+  text-indent: -2em;
+  list-style-type: none;
+  counter-increment: item;
+}
+
+ol > li:before {
+  content: counter(item) ".";
+  font-weight: bold;
+  margin-left: -1.1em; 
+  padding-right: 0.5em;
+}
