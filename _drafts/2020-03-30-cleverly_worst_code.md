@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "My Most Terribly Clever(ly&nbsp;Terrible) Code"
+title: "My Terribly Clever(ly&nbsp;Terrible) Code"
 description: >
-  When I was young and naive I tried to write very clever code. Here is the
-  worst example.
+  When I was young and naive I tried to write very clever code. Here is one of
+  the worst examples.
 image: /files/patterns/biologia_centrali_americana_coronella_annulata.jpg
 image_alt: >
   A drawing of a red, black, and yellow milk snake from Biologia Centrali
@@ -13,42 +13,52 @@ categories: coding
 
 {% include lead_image.html %}
 
-I started learning C++ after five years of writing Python. I thought I wrote
-pretty good code,[^1] and like all new programmers I enjoyed finding clever
-solutions to problems. Unfortunately I was a bit too clever sometimes.
+I started learning C++ after having written Python for five years, so I
+thought I was pretty good at writing code and thinking through problems.[^1]
+Like all new programs I enjoyed finding clever solutions to problems;
+sometimes too clever. This is the story of one of those times.
+
 
 ## The Problem
 
-For one problem I had to handle setting some state based on two variables,
-each variable could take one of a few discrete values. For simplicity we can
-think of the variables as `destination` which can take values `{north, east,
-south, west}` and `travel_mode` which can be `{airplane, car, bike}`. All
-twelve combinations required doing different processing, so at some point I
-wrote something like:
+I had to handle setting some state based on two variables. Each variable could
+take one of a few discrete values. For simplicity, think of the variables and
+possible values:
+
+| Variable Name | Possible Values                  |
+|:--------------|---------------------------------:|
+| `direction`   | `north`, `east`, `south`, `west` |
+| `travel_mode` | `bike`, `car`, `airplane`        |
+
+All twelve combinations required doing something slightly different, so the
+first code I wrote looked something like this:
 
 ```cpp
-if (destination == "north" && travel_mode == "bike") {
+if (direction == "north" && travel_mode == "bike") {
   do_north_bike_stuff();
 }
-else if (destination == "north" && travel_mode == "car") { 
+else if (direction == "north" && travel_mode == "car") { 
   do_north_car_stuff();
 }
 else if ( ... ) { 
-  ...
-} ...
+  ... // etc.
+}
 ```
 
-This code wasn't clever; it was boring and repetative! But I had recently
-learned about a cool way to rewrite `if/else` in C++: the `switch` statement.
-I was itching to use it.
+This code wasn't clever; it was boring and repetative so I looked for a way to
+rewrite it! I had recently learned about a cool way to replace [`if/else`][if]
+in C++: the [`switch`][switch] statement. I had to use it!
+
+[if]: https://en.cppreference.com/w/cpp/language/if
+[switch]: https://en.cppreference.com/w/cpp/language/switch
 
 ## Making It Worse
 
-But a `switch` statement needs integral values, so I had to map each
-variable's states to numbers. Easy enough, but I quickly ran into a problem: I
-had to switch based on both values, so I had to combine the integers in some
-manner. Then I remembered a "useful" math fact: the [product of unique primes
-is itself unique][fta].[^2] A horrible plan came together, it looked like this:
+But a `switch` statement needs integral values, so I had to map each state to
+numbers. Easy enough, but I quickly ran into a problem: I had to switch based
+on both values, so I had to combine the integers in some manner. Then I
+remembered a "useful" math fact: the [product of unique primes is itself
+unique][fta].[^2] A horrible plan came together, it looked like this:
 
 [fta]: https://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic
 
@@ -62,26 +72,30 @@ int BIKE = 11;
 int CAR = 13;
 int PLANE = 17;
 
-switch(destination * travel_mode) {
+switch(direction * travel_mode) {
   case NORTH * BIKE:  do_north_bike_stuff(); break;
   case EAST  * BIKE:  do_east_bike_stuff(); break;
-  ...
+  ... // etc.
   case WEST  * PLANE: do_west_plane_stuff(); break;
 }
 ```
 
-My code was actually even worse. I did not assign nice readable variables like
-`NORTH` but just used the numbers, so it looked like `case 2 * 11:
-do_north_bike_stuff()`.
+My code was actually even worse; if you are morbidly curious I [archived it
+here][code]. I did not assign nice readable variables like `NORTH` but just
+used the numbers, so it looked like `case 2 * 11: do_north_bike_stuff()`.
+
+[code]: /blog/cleverly-worst-code/the-code-itself/
 
 This code is **way** too clever; needing number theory to understand
-control flow should be a _huge_ warning sign. With ten years more experience,
-I actually prefer the verbose but understandable `if/else` method.
+control flow is a _huge_ warning sign. With ten years more experience, I
+actually prefer the verbose but understandable `if/else` method.
 
 ## A Better Way
 
-I think a hybrid method is actually the way to go, using `enum` and a few
-helper functions:
+I think a hybrid method is actually the way to go, using [`enum`][enum][^3]
+and a few helper functions:
+
+[enum]: https://en.cppreference.com/w/cpp/language/enum
 
 ```cpp
 enum TravelMode { BIKE, CAR, PLANE };
@@ -96,8 +110,8 @@ switch(travel_mode) {
 void do_bike_stuff(Direction dir) {
   switch(dir) {
     case NORTH: ...; break;
-    case EAST: ...
-    ...
+    case EAST: ...; break;
+    ... // etc.
   }
 }
 ```
@@ -110,7 +124,13 @@ very similar, and very different from how a plane would.
 - By using `enum` the compilier can check that we handle every case. If we
 forget `case BIKE` or `case EAST`, the compilier can warn us.
 
+In the end, readable is better than clever, even if you have a bunch more
+lines to read!
+
 ---
 
 [^1]: _Narrator_: He didn't.
 [^2]: _Narrator_: It was not useful.
+[^3]: See [_Python Patterns: Enum_][enum_post], which covers use-cases for `enum` in Python. It works essentially the same in C++.
+
+[enum_post]: {% post_url 2019-01-22-python_patterns_enum %}
