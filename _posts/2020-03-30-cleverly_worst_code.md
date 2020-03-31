@@ -129,7 +129,7 @@ lines to read!
 
 ---
 
-[^1]: _Narrator_: He didn't.
+[^1]: _Narrator_: He wasn't.
 [^2]: _Narrator_: It was not useful.
 [^3]: See [_Python Patterns: Enum_][enum_post], which covers use-cases for `enum` in Python. It works essentially the same in C++.
 
