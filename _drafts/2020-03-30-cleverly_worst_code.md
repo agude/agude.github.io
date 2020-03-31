@@ -4,12 +4,13 @@ title: "My Terribly Clever(ly&nbsp;Terrible) Code"
 description: >
   When I was young and naive I tried to write very clever code. Here is one of
   the worst examples.
-image: /files/patterns/biologia_centrali_americana_coronella_annulata.jpg
+image: /files/worst-code/montreal_light_head_and_power_consolidated_linesmen_1928.jpg
 image_alt: >
-  A drawing of a red, black, and yellow milk snake from Biologia Centrali
-  Americana.
+  A black and white photo of three linesmen repairing a tangle of overhead wires.
 categories: coding
 ---
+
+{% capture file_dir %}/files/worst-code/{% endcapture %}
 
 {% include lead_image.html %}
 
@@ -17,7 +18,6 @@ I started learning C++ after having written Python for five years, so I
 thought I was pretty good at writing code and thinking through problems.[^1]
 Like all new programs I enjoyed finding clever solutions to problems;
 sometimes too clever. This is the story of one of those times.
-
 
 ## The Problem
 
