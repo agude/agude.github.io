@@ -45,7 +45,7 @@ else if ( ... ) {
 }
 ```
 
-This code wasn't clever; it was boring and repetative so I looked for a way to
+This code wasn't clever; it was boring and repetitive so I looked for a way to
 rewrite it! I had recently learned about a cool way to replace [`if/else`][if]
 in C++: the [`switch`][switch] statement. I had to use it!
 
