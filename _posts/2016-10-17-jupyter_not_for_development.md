@@ -8,6 +8,7 @@ image: /files/jupyter_dev/red_spot.jpg
 image_alt: >
   An image of the planet Jupiter showing the Great Red Spot.
 redirect_from: /2016/10/17/jupyter_dev/
+categories: jupyter
 ---
 
 {% capture file_dir %}/files/jupyter_dev{% endcapture %}
