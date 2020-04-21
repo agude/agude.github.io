@@ -17,8 +17,13 @@ categories:
 I have [strong opinions about the best use of Jupyter notebooks in data science][nb_post]. 
 They are incredibly useful for data exploration and analysis. I use them
 constantly, both at work and here on my website. However, I often start
-completely from scratch in a brand new, entirely empty notebook.
+completely from scratch in a brand new, entirely empty notebook. Then as I
+start making plots I realize I have already writen something similar, leading
+me to go digging through my projects on Github. After five years of doing
+that, I've tired, so I've decided to create a set of notebook templates that
+collect all my best practices into one place.
 
 
 [nb_post]: {% post_url 2016-10-17-jupyter_not_for_development %}
 
+[library]: https://github.com/agude/Jupyter-Notebook-Template-Library
