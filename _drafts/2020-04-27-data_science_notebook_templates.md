@@ -4,7 +4,7 @@ title: "Jupyter Notebook Templates for Data Science"
 description: >
   Jupyter notebooks are great for data exploration; jump start your work with
   this library of userful notebook templates!
-image: /files/wayback-machine-archiver/library_of_congress_1902_crop.jpg
+image: /files/jupyter-library/jupiter_cassini_20001229.jpg
 image_alt: >
   A photo of the Library of Congress in 1902.
 categories: 
@@ -14,14 +14,13 @@ categories:
 
 {% include lead_image.html %}
 
-I have [strong opinions about the best use of Jupyter notebooks in data
-science][nb_post]. One of those is they are the best way to do data
-exploration and visualization, and so I find I use them constantly both at
-work and here on my website.
+I love Jupyter notebooks (even if [I have strong opinions about their
+misuse][nb_post]) and so I use them constantly, both at work and here. They
+are the best way to explore a dataset and make visualizations. But my workflow
+with notebooks is not very efficient; it is:
 
 [nb_post]: {% post_url 2016-10-17-jupyter_not_for_development %}
 
-But I am not as efficient as I could be, because this is my workflow:
 
 1. Start a brand new, _completely empty_ notebook.
 2. Load the data and start cleaning it.
@@ -32,13 +31,15 @@ But I am not as efficient as I could be, because this is my workflow:
    which probably is not the most recent or nicest version).
 7. Hack the code up and make it even uglier.
 
-After five years I am tired that, so I've decided to create a set of notebook
-templates that collect all my best practices into one place.
+After five years I am ready for something better. That something is my Jupyter
+Notebook Template Library.
 
 # Jupyter Notebook Template Library
 
-The [Jupyter Notebook Template Library][library] contains notebooks that you
-can grab and start working with right away. It guarantees that each project
-starts with the most recent version of all my helper functions.
+The [library][library] is a repository of notebook templates, each targeted at
+a different use case. The goal is to allow you to go to one place, find the
+right starter notebook, and get right into your work as efficiently as
+possible. The library guarantees that your notebook always have the latest and
+greatest helper functions without having to dig through your old work.
 
 [library]: https://github.com/agude/Jupyter-Notebook-Template-Library
