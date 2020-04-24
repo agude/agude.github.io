@@ -34,12 +34,20 @@ with notebooks is not very efficient; it is:
 After five years I am ready for something better. That something is my Jupyter
 Notebook Template Library.
 
-# Jupyter Notebook Template Library
+## Jupyter Notebook Template Library
 
 The [library][library] is a repository of notebook templates, each targeted at
-a different use case. The goal is to allow you to go to one place, find the
-right starter notebook, and get right into your work as efficiently as
-possible. The library guarantees that your notebook always have the latest and
-greatest helper functions without having to dig through your old work.
+a different use case. The goal is change the above workflow, to this:
+
+1. Download the right template.
+2. Load data and start cleaning it.
+3. Make **beautiful** plots.
+
+The templates let you get right to working with the data as quickly as
+possible. And the library guarantees that your notebook will always have the
+latest and greatest helper functions without having to dig through your old
+work.
 
 [library]: https://github.com/agude/Jupyter-Notebook-Template-Library
+
+### The Templates
