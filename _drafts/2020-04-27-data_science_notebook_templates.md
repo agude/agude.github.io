@@ -17,9 +17,9 @@ categories:
 {% include lead_image.html %}
 
 I love Jupyter notebooks (even if [I have strong opinions about their
-misuse][nb_post]) and so I use them constantly, both at work and here. They
-are the best way to explore a dataset and make visualizations. But my workflow
-with notebooks is not very efficient; it is:
+misuse][nb_post]) and so I use them constantly, both at work and here in my
+articles. They are the best way to explore a dataset and make visualizations.
+But my workflow with notebooks is not very efficient; it is:
 
 [nb_post]: {% post_url 2016-10-17-jupyter_not_for_development %}
 
@@ -33,14 +33,14 @@ with notebooks is not very efficient; it is:
    which probably is not the most recent or nicest version).
 7. Hack the code up and make it even uglier.
 
-After five years I am ready for something better. That something is my Jupyter
-Notebook Template Library.
+After five years I am ready for something better. That something is my [**Jupyter
+Notebook Template Library**][library].
 
 ## Jupyter Notebook Template Library
 
-The [**Jupyter Notebook Template Library**][library] is a repository of
-notebook templates, each targeted at a different use case. The templates let
-you get right to working with the data as quickly as possible. And the library
+The [Jupyter Notebook Template Library][library] is a repository of notebook
+templates, each targeted at a different use case. The templates let you get
+right to working with the data as quickly as possible. And the library
 guarantees that your notebook will always have the latest and greatest helper
 functions without having to dig through your old work.
 
@@ -82,7 +82,8 @@ And get this:
 
 [example]: {{ file_dir }}/example_plot.svg
 
-With all the font sizes set, my patented stripes, and a focused legend.
+With all the font sizes already set, my patented stripes in the background,
+and a focused legend.
 
 Enjoy the templates, I hope they make you more productive! And it you are
 feeling generous, I would love [contributions][submit]!
