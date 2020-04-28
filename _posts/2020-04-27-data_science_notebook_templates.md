@@ -25,7 +25,6 @@ following steps:
 
 [nb_post]: {% post_url 2016-10-17-jupyter_not_for_development %}
 
-
 1. Start a brand new, _completely empty_ notebook.
 2. Load the data and start cleaning it.
 3. Begin making plots.
@@ -37,7 +36,7 @@ following steps:
 
 After five years, I am ready for something better. And so I present the [**Jupyter
 Notebook Template Library**][library], which has revolutionized my workflow and which
-I gladly share with you as well, gentle reader. 😉
+I gladly share with you as well, gentle reader.
 
 ## Jupyter Notebook Template Library
 
