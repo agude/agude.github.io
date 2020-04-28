@@ -14,9 +14,9 @@ categories: coding
 
 {% include lead_image.html %}
 
-I started learning C++ after having written Python for five years, so I
+I started learning C++ in graduate school. I had written Python for five years, so I
 thought I was pretty good at writing code and thinking through problems.[^1]
-Like all new programs I enjoyed finding clever solutions to problems;
+Like many new programmers I enjoyed finding clever solutions to problems;
 sometimes too clever. This is the story of one of those times.
 
 ## The Problem
@@ -28,7 +28,7 @@ possible values:
 | Variable Name | Possible Values                  |
 |:--------------|---------------------------------:|
 | `direction`   | `north`, `east`, `south`, `west` |
-| `travel_mode` | `bike`, `car`, `airplane`        |
+| `travel_mode` | `bike`, `car`, `plane`        |
 
 All twelve combinations required doing something slightly different, so the
 first code I wrote looked something like this:
@@ -45,7 +45,7 @@ else if ( ... ) {
 }
 ```
 
-This code wasn't clever; it was boring and repetative so I looked for a way to
+This code wasn't clever; it was boring and repetitive so I looked for a way to
 rewrite it! I had recently learned about a cool way to replace [`if/else`][if]
 in C++: the [`switch`][switch] statement. I had to use it!
 
@@ -92,7 +92,7 @@ actually prefer the verbose but understandable `if/else` method.
 
 ## A Better Way
 
-I think a hybrid method is actually the way to go, using [`enum`][enum][^3]
+So how would I write it now? I think a hybrid method is actually the way to go, using [`enum`][enum][^3]
 and a few helper functions:
 
 [enum]: https://en.cppreference.com/w/cpp/language/enum
