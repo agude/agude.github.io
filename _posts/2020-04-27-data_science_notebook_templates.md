@@ -19,6 +19,7 @@ categories:
 I love Jupyter notebooks (even if [I have strong opinions about their
 misuse][nb_post]) and so I use them constantly, both at work and here in my
 articles. They are the best way to explore a dataset and make visualizations.
+
 But my workflow with notebooks is not very efficient; it is made up of the 
 following steps:
 
@@ -36,7 +37,7 @@ following steps:
 
 After five years, I am ready for something better. And so I present the [**Jupyter
 Notebook Template Library**][library], which has revolutionized my workflow and which
-I gladly share with you as well, gentle reader.
+I gladly share with you as well, gentle reader. 😉
 
 ## Jupyter Notebook Template Library
 
