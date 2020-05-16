@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "A Review of Nookdesk"
+title: "A Review of Nookdesk's Standing Desk"
 description: >
   I bought a Nookdesk standing desk now that I'm working from home; read on to
   find out how I like it!
@@ -15,7 +15,7 @@ categories: review
 {% include lead_image.html %}
 
 I bought a standing desk recently since I am working from home three days a
-week.[^1] There were many desks that I considered, but I finally bought a
+week. There were many desks that I considered, but I finally bought a
 [Nookdesk][nookdesk]. It was not an easy decision because I could only find
 [one **real** review online][review]; all the others were press releases
 rewritten on a short deadline.
@@ -27,18 +27,13 @@ I am also happy with it. For more details, read on.
 [nookdesk]: https://www.nookdesk.com/
 [review]: https://macsources.com/nookdesk-review-ordering-and-building-of-the-smart-desk-that-enhances-your-life/
 
-## Nookdesk Options and Accessories
+## Options and Accessories
 
 ### Desktop
-The [Nookdesk][nookdesk] has a lot of options for customization. The desktops
-are offered in multiple materials:
 
-- Laminate (Base)
-- Wood Laminate (+$100)
-- Plantation Oak (+$200)
-- Bamboo (+$350)
-
-The desk surface is always 30″ deep with widths from 48″ to 72″. The desk
+The [Nookdesk][nookdesk] has a lot of customization options. The desktops are
+offered in multiple materials from laminate up to solid bamboo. The desk
+surface is always 30″ deep with widths from 48″ to 72″. The desk
 frame comes in three colors: white, black, and grey.
 
 I chose a 30″ by 72″(+$200) blackwood laminate (+$100) desktop with white
@@ -48,7 +43,7 @@ the black desktop.
 
 ### Storage
 
-The Nookdesk has some unique storage options. The first is the "upper storage"
+The Nookdesk has some unique storage options. One option is the "upper storage"
 addon which I would describe as a shelf. It is mounted on the top of the desk
 at the back edge. It is 12″ deep and raised 4″ off desktop. I store my
 controller and headphones under the shelf and I put my monitors on top to
@@ -60,13 +55,16 @@ front edge. I did not order one because I like to have my desk surface very
 close to my knees in the sitting position, and the lower storage would add 4″
 to the bottom of the desk. It also costs $100.
 
-The ability to add some storage to my desk, and raise my monitors at the same
-time, was what sold me on the desk as compared to its competitors.
+The ability to add some storage to my desk and raise my monitors at the same
+time was what originally drew me to the Nookdesk and was what finally sold me
+on them.
 
 ### Accessories
 
 Nookdesk offers a wide variety of accessories, from keyboard trays to
 speakers. Below I list only the ones I purchased.
+
+#### Controller
 
 The Nookdesk comes with one of two controllers: a simple one which just has up
 and down buttons and a programmable one with three memory settings for an
@@ -74,6 +72,8 @@ additional $34. I got the programmable controller because getting my desk to
 exactly the right height each time was important for me. In the end I only
 really needed two memory positions: one for standing and one for sitting. I
 still have not assigned the third position.
+
+#### Powerstrip
 
 Nookdesk sells a Freeport power strip that attaches to the
 underside of the desk for $80. It has 8 outlets (including 2 with space around
@@ -85,6 +85,8 @@ I suspect it could have found a cheaper power strip to mount.
 
 [qc]: https://en.wikipedia.org/wiki/Quick_Charge
 
+#### CPU Mount
+
 Nookdesk also sells an under-desk CPU mount. It will fit towers up to 9.25″
 wide and 30″ tall, although if the desk it fully lowered it only have 20″ of
 clearance for the tower. The holder costs $100, but I love mine. It is one of
@@ -95,3 +97,45 @@ to all the desk to rise while leaving the computer stationary on the floor.
 Finally I bought the cable management tray. It is a metal try that runs along
 the bottom of the desk at the rear edge and allows you to tuck your cables
 into it to keep them tidy. It costs $100.
+
+## Delivery and Assembly
+
+### Shipping
+
+If you do not create an account to checkout---as I did not---then you have to
+use a special page on the Nookdesk site to check your order status. You should
+be able to enter your email address and find your order, but it did not work
+for me. Instead, I had to contact support. Thankfully they were able to send
+me a tracking number.
+
+Delivery was free (due to a coupon code) but seems to run about $120 without
+it. I received 6 boxes from FedEx, split into two shipments, one week after
+placing my order. The box containing the desktop was very large and relatively
+heavy; I was able to lug it up my stairs by myself but it would have been much
+easier to have a second person. The desk frame box was also really heavy
+because it contains the two motors that move the desk up and down.
+
+### Assembly
+
+Assembling the desk was actually more difficult than I expected. There were a
+few problems:
+
+- The hardware---screws, bolts, guides, and whatnot---was packed in unlabeled
+bags and the instructions reused the same icons to indicate different screws.
+- The bill of materials included items that came loose and those preinstalled
+in the same count. When it said "10 screws of type X" it might mean there are
+4 in the bag and 6 already attached to the frame.
+- Hardware was included that is only used for some optional accessories. At
+the end I had bolts leftover that I had not used at all and I wondered if I
+had made some horrible assembly mistake.
+- Two hex keys are included, but one of them had such poor tolerance that it
+would not actually drive the bolts. I had to use a set of hex keys I had
+instead.
+
+Assembly took between 3 and 4 hours, but was not particularly difficult. I
+made a minor mistake where I did not install the frame rails at the right time
+and had to backtrack and remove some pieces to get them in. [Jon
+Walters][review] says he made the same mistake in his review.
+
+You do need enough space to flip the desk over as the build is started with the
+desk upside down.
