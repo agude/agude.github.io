@@ -4,13 +4,13 @@ title: "A Review of Nookdesk's Standing Desk"
 description: >
   I bought a Nookdesk standing desk now that I'm working from home; read on to
   find out how I like it!
-image: /files/worst-code/montreal_light_head_and_power_consolidated_linesmen_1928.jpg
+image: /files/nookdesk/nookdesk.jpg
 image_alt: >
   A black and white photo of three linesmen repairing a tangle of overhead wires.
 categories: review
 ---
 
-{% capture file_dir %}{% endcapture %}
+{% capture file_dir %}/files/nookdesk/{% endcapture %}
 
 {% include lead_image.html %}
 
@@ -38,6 +38,10 @@ frame. The desktop is 3/4″ thick. The wood laminate feels great; smooth with
 just a bit of depth from the grain. The white frame contrasts nicely with the
 black desktop.
 
+![The wood laminate surface.][surface]
+
+[surface]: {{ file_dir }}/nookdesk_wood_laminate_surface.jpg
+
 The desk height ranges from 23.5″ to 49″ as measured from the ground to the
 top of the desktop. This is just enough range for me as use it at 26.5″ when
 seated and 47.5″ when standing.
@@ -50,6 +54,10 @@ desk at the back edge. It is 12″ deep and raised 4″ off desktop. I store my
 controller and headphones under the shelf and I put my monitors on top to
 bring them up to eye-level. The upper storage add-on cost $100, but was well
 worth it.
+
+![The upper storage add-on to the nookdesk.][upper]
+
+[upper]: {{ file_dir }}/nookdesk_upper_storage.jpg
 
 There is a similar "lower storage" shelf that mounts under the desk at the
 front edge. I did not order one because I like to have my desk surface very
@@ -67,6 +75,10 @@ speakers. Below I list only the ones I purchased.
 
 ### Controller
 
+![The desk motor controller.][controller]
+
+[controller]: {{ file_dir }}/nookdesk_controller.jpg
+
 The Nookdesk comes with one of two controllers: a simple one which just has up
 and down buttons and a programmable one with three memory settings for an
 additional $34. I got the programmable controller because getting my desk to
@@ -75,6 +87,10 @@ really needed two memory positions: one for standing and one for sitting. I
 still have not assigned the third position.
 
 ### Powerstrip
+
+![The freeport powerstrip mounted under the desk.][power]
+
+[power]: {{ file_dir }}/nookdesk_freeport_powerstrip.jpg
 
 Nookdesk sells a Freeport power strip that attaches to the
 underside of the desk for $80. It has 8 outlets (including 2 with space around
@@ -92,16 +108,24 @@ Nookdesk also sells an under-desk CPU mount. It will fit towers up to 9.25″
 wide and 30″ tall, although if the desk is in its lowest position there is
 only 20″ of clearance for the tower. The holder costs $100.
 
+![The under-desk CPU mount.][cpu]
+
+[cpu]: {{ file_dir }}/nookdesk_cpu_mount.jpg
+
 I love the CPU mount; it is one of my favorite features of the desk. It keeps
 my computer off the ground and frees up space on my desktop. I highly
 recommend it.
 
 ### Cable Tray
 
+![The under-desk cable tray.][tray]
+
+[tray]: {{ file_dir }}/nookdesk_cable_tray.jpg
+
 I bought the cable management tray. It is a metal tray that runs along the
 bottom of the desk at the rear edge and allows you to tuck your cables into it
 to keep them tidy. It costs $100. It does a good job of keeping cables tucked
-awawy, but seems expensive for what it does.
+away, but seems expensive for what it does.
 
 ## Shipping
 
@@ -134,14 +158,23 @@ some horrible assembly mistake.
 - Two hex keys are included, but one of them had such poor tolerance that it
 would not drive the bolts. I had to use a set of hex keys I had instead.
 
-Assembly took between 3 and 4 hours, but was not particularly difficult. I
-made a minor mistake where I did not install the frame rails at the right time
-and had to backtrack and remove some pieces to get them in. [Jon
-Walters][review] says he made the same mistake in his review.
+Assembly took between 3 to 4 hours, but was not particularly difficult. I made
+a minor mistake where I did not install the frame rails at the right time and
+had to backtrack and remove some pieces to get them in. [Jon Walters][review]
+says he made the same mistake in his review.
 
-You do need enough space to flip the desk over as the build is started with the
-desk upside down. The desk is unweildy, so it helps to have a second person
-for this step, but I was able to do the entire build solo.
+Another problem I had was assembling the shelf. The metal frame is attached
+only using the friction between the screw heads and the plate, which kept
+separating. The screws need a set of washers, but they are not included. I
+provided my own which fixed the problem.
+
+![Attaching the upper storage with washers.][washers]
+
+[washers]: {{ file_dir }}/nookdesk_shelf_washer.jpg
+
+You need enough space to flip the desk over as well because the build is
+started with the desk upside down. The desk is unwieldy, so it helps to have a
+second person for this step, but I was able to do the entire build solo.
 
 ## Final Thoughts
 
