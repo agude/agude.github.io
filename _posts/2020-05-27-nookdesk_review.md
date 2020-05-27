@@ -2,11 +2,11 @@
 layout: post
 title: "A Review of Nookdesk's Standing Desk"
 description: >
-  I bought a Nookdesk standing desk now that I'm working from home; read on to
-  find out how I like it!
+  I bought a Nookdesk standing desk now that I'm working from home; I like it!
+  Read on for a detailed review.
 image: /files/nookdesk/nookdesk.jpg
 image_alt: >
-  A black and white photo of three linesmen repairing a tangle of overhead wires.
+  The Nookdesk in my office, raised to standing height.
 categories: review
 ---
 
