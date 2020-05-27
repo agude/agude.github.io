@@ -19,9 +19,9 @@ week. I considered many desks but I decided on a [Nookdesk][nookdesk]. It was
 not an easy to choose because I only found [one **real** review
 online][review]; all the others were rewritten press releases.
 
-Luckily I had a good friend who had just bought one. She was happy with the
-Nookdesk and I bought mine on the strength of her recommendation. In short, I
-am also happy with it. For a complete review, read on.
+Luckily I have a good friend who had just bought one. She was happy with her
+Nookdesk and so I bought mine on the strength of her recommendation. As it turns
+out, that was a good decision. For a complete review, read on.
 
 [nookdesk]: https://www.nookdesk.com/
 [review]: https://macsources.com/nookdesk-review-ordering-and-building-of-the-smart-desk-that-enhances-your-life/
@@ -29,14 +29,13 @@ am also happy with it. For a complete review, read on.
 ## Desktop and Frame
 
 The [Nookdesk][nookdesk] has a lot of customization options. The desktops are
-offered in multiple materials from laminate up to solid bamboo. The desktop is
-always 30″ deep with widths from 48″ to 72″. It is 3/4″ thick. The desk frame
-comes in three colors: white, black, and grey.
+offered in multiple materials from various laminates to solid bamboo. The
+desktop is always 30″ deep with widths from 48″ to 72″. It is 3/4″ thick. The
+desk frame comes in three colors: white, black, and grey.
 
 I chose a 30″ by 72″ (+$200) blackwood laminate (+$100) desktop with white
-frame.  The wood laminate feels great; smooth with
-just a bit of depth from the grain. The white frame contrasts nicely with the
-black desktop.
+frame.  The wood laminate feels great: smooth with just a bit of depth from
+the grain. The white frame contrasts nicely with the black desktop.
 
 ![The wood laminate surface.][surface]
 
@@ -49,11 +48,11 @@ seated and 47.5″ when standing.
 ## Storage
 
 The Nookdesk has some unique storage options. One of them is the "upper
-storage" add-on which I would describe as "a shelf". It is mounted on the top
-of the desk at the back edge. It is 12″ deep and raised 4″ off desktop. I
-store my game controller and headphones under the shelf and I put my monitors
-on top to bring them up to eye-level. The upper storage add-on cost $100, but
-was well worth it.
+storage" add-on which I would describe more as a shelf. It is mounted on the
+top of the desk at the back edge. It is 12″ deep and rises 4″ above the
+desktop. I store my game controller and headphones under the shelf, and I put
+my monitors on top to bring them up to eye-level. The upper storage add-on
+cost $100, but was well worth the expense.
 
 ![The upper storage add-on to the nookdesk.][upper]
 
@@ -62,11 +61,11 @@ was well worth it.
 There is a similar "lower storage" shelf that mounts under the desk at the
 front edge. I did not order one because I like to have my desk surface very
 close to my knees in the sitting position, and the lower storage would add 4″
-to the bottom of the desk. It also costs $100.
+to the bottom of the desk. Like the "upper storage", it also costs $100.
 
 The ability to add some storage to my desk and raise my monitors was the
 feature that originally drew me to the Nookdesk and was what finally sold me
-on them.
+on it.
 
 ## Accessories
 
@@ -79,8 +78,8 @@ speakers. Below I review only the ones I purchased.
 
 [controller]: {{ file_dir }}/nookdesk_controller.jpg
 
-The Nookdesk comes with one of two controllers: a simple one which just has up
-and down buttons and a programmable one with three memory settings for an
+The Nookdesk comes with one of two controllers: a simple one which has only up
+and down buttons, and a programmable one with three memory settings for an
 additional $34. I got the programmable controller because getting my desk to
 exactly the right height each time was important to me. I only really needed
 two memory positions: one for standing and one for sitting. I still have not
@@ -99,7 +98,7 @@ those extra-large plugs) and four USB-A outlets, three of which provide up
 
 You can plug the desk's motor into one of the eight outlets so that you only
 have to plug in the Freeport to the wall. I am satisfied with the power strip,
-but I suspect it could have found a cheaper one from a third party.
+but I suspect I could have found a cheaper one from a third party.
 
 [qc]: https://en.wikipedia.org/wiki/Quick_Charge
 
@@ -123,11 +122,11 @@ up space on my desktop. I recommend it highly!
 
 [tray]: {{ file_dir }}/nookdesk_cable_tray.jpg
 
-I bought the cable management tray. It is a metal tray that runs along the
-bottom of the desk at the rear edge and allows you to tuck your cables into it
-to keep them tidy. It costs $100. It does a good job of keeping cables from
-hanging down and getting in your way when you're sitting, but seems expensive.
-However, I don't know how I would organize my cables without it.
+The cable management tray is a metal tray that runs along the bottom of the
+desk at the rear edge and allows you to tuck your cables into it to keep them
+tidy. It costs $100. It does a good job of keeping cables from hanging down
+and getting in your way when you're sitting, but seems expensive. However, I
+don't know how I would organize my cables without it.
 
 ## Ordering and Shipping
 
@@ -156,22 +155,22 @@ few problems:
 
 - The hardware---screws, bolts, guides, and whatnot---was packed in unlabeled
 bags and the instructions reused the same icons to indicate different screws.
-- The bill of materials listed items that came in the bags and those
-preinstalled in the same count. When it said "10 screws of type X" it might
-mean there are 4 in the bag and 6 already attached to the frame.
+- The bill of materials listed both items that came in the bags and those that
+came preinstalled in the same count. When it said "10 screws of type X" it
+might mean there were 4 in the bag and 6 already attached to the frame.
 - Hardware was included that is only used for optional accessories. I had
 screws leftover that I had not used at all. This made me worry that I had
 completely forgotten some critical step.
 - Two hex keys are included, but one of them had such poor tolerance that it
-would not drive the bolts. I had to use a set of hex keys I had instead.
+would not drive the bolts. I ended up using a set of hex keys that I already
+owned.
 - The shelf is connected to the frame with four screws, but the contact area
-is so small it kept coming apart. I needed to add washers (not included) to
-make a solid connection. See my photo below:
+is so small it kept coming apart. I needed to add washers that I had lying
+around to make a solid connection. See my photo below:
 
 ![Attaching the upper storage with washers.][washers]
 
 [washers]: {{ file_dir }}/nookdesk_shelf_washer.jpg
-
 
 Assembly took between 3 to 4 hours, but was not particularly difficult. I made
 a minor mistake where I did not install the frame rails at the right time and
