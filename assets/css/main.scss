@@ -6,6 +6,9 @@
 /* Pull in variables from _config.yaml */
 $sidebar_color: {{ site.theme_config.sidebar_color }};
 
+/* Must load variables first! */
+@import "variables";
+
 /* Import partials from `site.sass_dir` */
 @import "poole"; /* poole imports multiple subfiles */
 @import "hyde";
