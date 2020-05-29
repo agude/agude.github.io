@@ -12,22 +12,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: $h1-font-size;
 }
 
 h2 {
   margin-top: 1rem;
-  font-size: 1.5rem;
+  font-size: $h2-font-size;
 }
 
 h3 {
   margin-top: 1.5rem;
-  font-size: 1.25rem;
+  font-size: $h3-font-size;
 }
 
 h4, h5, h6 {
   margin-top: 1rem;
-  font-size: 1rem;
+  font-size: $h456-font-size;
 }
 
 p {
@@ -61,7 +61,7 @@ hr {
 }
 
 abbr {
-  font-size: 85%;
+  font-size: $abbr-font-size;
   font-weight: bold;
   color: #555;
   text-transform: uppercase;
@@ -106,7 +106,7 @@ a[href^="#fnref:"] {
 /* List of footnotes */
 .footnotes {
   margin-top: 1em;
-  font-size: 85%;
+  font-size: $footnote-font-size;
 }
 
 .footnotes p {
@@ -119,7 +119,7 @@ a[href^="#fnref:"] {
  */
 
 .lead {
-  font-size: 1.25rem;
+  font-size: $lead-font-size;
   font-weight: 300;
 }
 

@@ -10,8 +10,8 @@ $black_hover:#878787;
 .rrssb-buttons {
     box-sizing: border-box;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    height: 3em;
+    font-size: $rrssb-font-size;
+    height: 2.5em;
     margin: 0;
     padding: 0;
     width: 100%

@@ -17,12 +17,15 @@ body {
 
 html {
   font-family: $root-font-family;
-  font-size: $root-font-size;
   line-height: $root-line-height;
 
-  @media (min-width: $large-breakpoint) {
-    font-size: $large-font-size;
+  @media (min-width: 48em) {
+      font-size: 16px;
   }
+  @media (min-width: 58em) {
+      font-size: 20px;
+  }
+
 }
 
 body {
@@ -58,7 +61,7 @@ img {
 table {
   margin-bottom: 1.2em;
   width: 100%;
-  font-size: 85%;
+  font-size: $table-font-size;
   font-variant-numeric: lining-nums tabular-nums;
   border-collapse: collapse;
   border-width: 0.12em 0;

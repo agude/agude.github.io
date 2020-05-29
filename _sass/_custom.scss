@@ -48,13 +48,13 @@
 
 .card-text {
   @extend .card-element;
-  font-size: 85%;
+  font-size: $card-font-size;
 }
 
 // Legal links
 .legal {
-  font-size: 75%;
-  color: #999;
+  font-size: $legal-font-size;
+  color: #999999;
 }
 
 // Video
@@ -69,12 +69,12 @@
 
 // Site Title (to avoid using H1)
 .site-title {
-  color: #fff;
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  font-size: 3.25rem;
+  color: #ffffff;
+  font-family: $site-title-font-family;
+  font-size: $site-title-font-size;
   font-weight: 600;
   line-height: 1.25;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   margin-top: 0;
   text-rendering: optimizeLegibility;
 }
