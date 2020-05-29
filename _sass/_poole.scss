@@ -14,7 +14,7 @@
  */
 
 /* Must load variables first! */
-@import "poole/variables";
+@import "variables";
 
 /* Load remaining style files */
 @import "poole/base";
@@ -22,7 +22,6 @@
 @import "poole/syntax";
 @import "poole/code";
 @import "poole/layout";
-@import "poole/masthead";
 @import "poole/posts";
 @import "poole/pagination";
 @import "poole/message";
