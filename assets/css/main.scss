@@ -3,9 +3,6 @@
 
 @charset "utf-8";
 
-/* Pull in variables from _config.yaml */
-$sidebar_color: {{ site.theme_config.sidebar_color }};
-
 /* Must load variables first! */
 @import "variables";
 
