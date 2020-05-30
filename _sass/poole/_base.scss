@@ -20,10 +20,13 @@ html {
   line-height: $root-line-height;
 
   @media (min-width: 48em) {
-      font-size: 16px;
+      font-size: $small-screen-root-font-size;
   }
   @media (min-width: 58em) {
-      font-size: 20px;
+      font-size: $root-font-size;
+  }
+  @media (min-width: $large-breakpoint) {
+      font-size: $root-font-size;
   }
 
 }
