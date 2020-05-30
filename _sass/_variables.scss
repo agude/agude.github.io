@@ -1,16 +1,17 @@
 $root-font-family: "PT Sans", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
-$root-font-size: 16px;
+$code-font-family: "Ubuntu Mono", Monaco, Consolas, "Lucida Console", Menlo, "Courier New", monospace;
+$site-title-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+
 $root-line-height: 1.5;
 
-$body-color: #515151;
 $body-bg: #fff;
+$body-color: #515151;
+$border-color: #e5e5e5;
+$code-color: #bf616a;
 $link-color: #268bd2;
 $sidebar-color: #3465a4;
 
-$border-color: #e5e5e5;
-
 $large-breakpoint: 38em;
-$large-font-size: 20px;
 
 // Font sizes
 //
