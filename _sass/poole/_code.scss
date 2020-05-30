@@ -51,6 +51,7 @@ pre code {
     /* Make sure numbers aren't selectable */
     -webkit-user-select: none;
        -moz-user-select: none;
+        -ms-user-select: none;
             user-select: none;
   }
 }
