@@ -9,12 +9,6 @@
           box-sizing: border-box;
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
 html {
   font-family: $root-font-family;
   line-height: $root-line-height;
@@ -29,11 +23,15 @@ html {
       font-size: $root-font-size;
   }
 
+  margin: 0;
+  padding: 0;
 }
 
 body {
   color: $body-color;
   background-color: $body-bg;
+  margin: 0;
+  padding: 0;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
