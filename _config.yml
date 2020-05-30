@@ -63,10 +63,6 @@ google_analytics: UA-88777885-1
 # Disable jekyll-optional-front-matter plugin
 require_front_matter: true
 
-# Theme configuration
-theme_config:
-    sidebar_color: '#3465a4'
-
 # Hack to prevent external styles from leaking in. For details, see
 # https://github.com/jekyll/jekyll/issues/7478#issuecomment-454346783.
 theme: null
