@@ -14,8 +14,9 @@ use_latex: True
 
 Three years ago today, I defended [my thesis][thesis] and graduated from the
 University of Minnesota with a [PhD][phd] in high energy particle physics. As
-part of that endeavor, I spent years traveling to and from [CERN][cern] where
-I studied the decay of [Z bosons][z] into [electrons][e]. I wrote an esoteric
+part of that endeavor, I spent years traveling to and from [<abbr
+title="European Organization for Nuclear Research">CERN</abbr>][cern] where I
+studied the decay of [Z bosons][z] into [electrons][e]. I wrote an esoteric
 thesis on a very specific part of this decay which I have, because no one is
 ever going to read it, attempted to summarize below in a more accessible
 fashion.
@@ -26,7 +27,7 @@ fashion.
 [z]: https://en.wikipedia.org/wiki/W_and_Z_bosons
 [e]: https://en.wikipedia.org/wiki/Electron
 
-## Measurement of the phistar distribution of Z bosons decaying to electron pairs with the CMS experiment at a center-of-mass energy of 8 TeV
+## Measurement of the phistar distribution of Z bosons decaying to electron pairs with the <abbr title="Compact Muon Solenoid">CMS</abbr> experiment at a center-of-mass energy of 8 TeV
 
 {% capture file_dir %}/files/my-phd-thesis/{% endcapture %}
 
@@ -35,9 +36,10 @@ theories humans have ever come up with, describing nature almost exactly as we
 observe it. Yet, for all its accuracy, we know it is still incomplete, and
 even in the more complete areas there are regions where it is very difficult
 to calculate what will happen. One of these regions is low energy [quantum
-chromodynamics (QCD)][qcd]. This is the part of the theory that handles the
-interaction of [protons][p], [neutrons][n], the [quarks][q] that make them up,
-and the [gluons][g] that bind them together.
+chromodynamics][qcd] (<abbr title="Quantum Chromodynamics">QCD</abbr>). This
+is the part of the theory that handles the interaction of [protons][p],
+[neutrons][n], the [quarks][q] that make them up, and the [gluons][g] that
+bind them together.
 
 [sm]: https://en.wikipedia.org/wiki/Standard_Model
 [qcd]: https://en.wikipedia.org/wiki/Quantum_chromodynamics
@@ -48,27 +50,34 @@ and the [gluons][g] that bind them together.
 
 For [my thesis][thesis], I studied the interaction $$pp \to Z \to e^-e^+$$,
 that is, two protons colliding to produce a [Z boson][z] which then decays to
-two [electrons][e].[^1] This lets us explore the low energy QCD region (the
-$$pp$$ collision) using particles (the $$e^-e^+$$ pair) which do not have any
-messy QCD interactions to confound the data. More specifically, I looked at
-the transverse momentum, $$Q_T$$, of the Z boson, or how much the boson was
-moving in the direction transverse to the proton beams at the time it decayed.
+two [electrons][e].[^1] This lets us explore the low energy <abbr
+title="Quantum Chromodynamics">QCD</abbr> region (the $$pp$$ collision) using
+particles (the $$e^-e^+$$ pair) which do not have any messy <abbr
+title="Quantum Chromodynamics">QCD</abbr> interactions to confound the data.
+More specifically, I looked at the transverse momentum, $$Q_T$$, of the Z
+boson, or how much the boson was moving in the direction transverse to the
+proton beams at the time it decayed.
 
 ### The Large Hadron Collider and the Compact Muon Solenoid
 
-The [Large Hadron Collider (LHC)][lhc] is a very large, and very high energy,
-particle collider on the boarder between Switzerland and France. It takes
-protons and accelerates them along a circular track until they are traveling
-close to the speed of light, and then smashes them together. This creates a
-region of space with a lot of energy which is dissipated by creating new
-particles.
+The [Large Hadron Collider][lhc] (<abbr title="Large Hadron
+Collider">LHC</abbr>) is a very large, and very high energy, particle collider
+on the boarder between Switzerland and France. It takes protons and
+accelerates them along a circular track until they are traveling close to the
+speed of light, and then smashes them together. This creates a region of space
+with a lot of energy which is dissipated by creating new particles.
 
 Looking at these collisions allows us to test the Standard Model at very high
 energies where undiscovered particles may exist. Multiple smaller particle
-accelerators feed into the LHC (as shown below) and act like on-ramps, getting
-the particles up-to-speed before they enter the LHC. The LHC hosts four major
-experiments: [ATLAS][atlas]; [ALICE][alice]; [LHCb][lhcb]; and [CMS][cms], the
-Compact Muon Solenoid, which was my experiment.
+accelerators feed into the <abbr title="Large Hadron Collider">LHC</abbr> (as
+shown below) and act like on-ramps, getting the particles up-to-speed before
+they enter the <abbr title="Large Hadron Collider">LHC</abbr>. The <abbr
+title="Large Hadron Collider">LHC</abbr> hosts four major experiments: [<abbr
+title="A Toroidal LHC Apparatus">ATLAS</abbr>][atlas]; [<abbr title="A Large
+Ion Collider Experiment">ALICE</abbr>][alice]; [<abbr title="LHC
+Beauty">LHCb</abbr>][lhcb]; and <abbr title="Compact Muon
+Solenoid">CMS</abbr>, the [Compact Muon Solenoid][cms], which was my
+experiment.
 
 [lhc]: https://en.wikipedia.org/wiki/Large_Hadron_Collider
 [atlas]: https://en.wikipedia.org/wiki/ATLAS_experiment
@@ -81,19 +90,20 @@ Compact Muon Solenoid, which was my experiment.
   url=lhc_diagram
   image_alt='A diagram showing the LHC and the location of the four major
     experiments. Also shown are the smaller accelerators the feed protons into
-    the LHC.'
+    the LHC'
   caption='A diagram showing the LHC and the location of the four major
     experiments. Also shown are the smaller accelerators the feed protons into
     the LHC.'
 %}
 
-CMS is a 14,000 ton experiment run by nearly 3000 physicists and engineers. It
-is built around a point on the LHC where protons collide and measures the
-speed, mass, and flight direction of all the particles that are created after
-the two protons collide. Some people like to think of it as a very large
-camera, and that actually isn't so bad an analogy: like a camera, CMS measures
-particles using silicon (and some other materials) and saves the output
-somewhere to be viewed later.
+<abbr title="Compact Muon Solenoid">CMS</abbr> is a 14,000 ton experiment run
+by nearly 3000 physicists and engineers. It is built around a point on the
+<abbr title="Large Hadron Collider">LHC</abbr> where protons collide and
+measures the speed, mass, and flight direction of all the particles that are
+created after the two protons collide. Some people like to think of it as a
+very large camera, and that actually isn't so bad an analogy: like a camera,
+CMS measures particles using silicon (and some other materials) and saves the
+output somewhere to be viewed later.
 
 {% capture cms_cutaway %}{{ file_dir }}/cms-color-white.png{% endcapture %}
 {% include figure.html
@@ -109,38 +119,43 @@ collision point, with each layer designed to measure a different property of a
 particle. By combining the measurements from all the layers we can tell which
 particles were created and what direction they traveled in.
 
-Doing research with the data generated by CMS has some subtleties, but it is
-essentially just counting. We predict how many events with a certain
-characteristic, for example containing two high energy electrons, we should
-see based on our understanding of the Standard Model. Then we count the number
-of events that CMS recorded with those characteristics and compare the data to
-our prediction.
+Doing research with the data generated by <abbr title="Compact Muon
+Solenoid">CMS</abbr> has some subtleties, but it is essentially just counting.
+We predict how many events with a certain characteristic, for example
+containing two high energy electrons, we should see based on our understanding
+of the Standard Model. Then we count the number of events that <abbr
+title="Compact Muon Solenoid">CMS</abbr> recorded with those characteristics
+and compare the data to our prediction.
 
 ### Transverse Momentum
 
-I said I studied low energy QCD, but then immediately introduced the highest
-energy collider in the world. This is not, as it turns out, a contradiction.
-While the LHC is very high energy, all that energy is directed along the
-beamline; the protons have almost no energy transverse to the beamline,[^3]
-and so this gives us the low energy QCD system that we desire. The $$Z \to
-ee$$ decay is a great way to study this low energy regime because neither the
-Z nor the electrons interact via QCD, so the only QCD effects in the decay
+I said I studied low energy <abbr title="Quantum Chromodynamics">QCD</abbr>,
+but then immediately introduced the highest energy collider in the world. This
+is not, as it turns out, a contradiction. While the <abbr title="Large Hadron
+Collider">LHC</abbr> is very high energy, all that energy is directed along
+the beamline; the protons have almost no energy transverse to the
+beamline,[^3] and so this gives us the low energy <abbr title="Quantum
+Chromodynamics">QCD</abbr> system that we desire. The $$Z \to ee$$ decay is a
+great way to study this low energy regime because neither the Z nor the
+electrons interact via <abbr title="Quantum Chromodynamics">QCD</abbr>, so the
+only <abbr title="Quantum Chromodynamics">QCD</abbr> effects in the decay
 chain are from the initial proton-proton collision. This makes it an easy to
 measure signal.
 
 I measured the transverse momentum, $$Q_T$$, of the Z boson, which describes
 the way the boson moves just before it decays. Measuring this not only tells
-us about the low energy regime of QCD, but it also helps to constrain the mass
-of the W boson, which is otherwise hard to measure. The W mass is interesting
-because it helps determine some fundamental quantities in the Standard Model,
-and because there is some disagreement between the measured value and the
+us about the low energy regime of <abbr title="Quantum
+Chromodynamics">QCD</abbr>, but it also helps to constrain the mass of the W
+boson, which is otherwise hard to measure. The W mass is interesting because
+it helps determine some fundamental quantities in the Standard Model, and
+because there is some disagreement between the measured value and the
 predicted value.
 
 But actually, I didn't measure $$Q_T$$, I measured a new variable called
 $$\phi^{*}$$, which measures the same effect as $$Q_T$$, but is more robust
 against shortcomings in the detector design. $$\phi^{*}$$ measures the angle
 between the two electrons instead of their energy, which is easier to measure
-accurately due to the design of CMS.
+accurately due to the design of <abbr title="Compact Muon Solenoid">CMS</abbr>.
 
 ### Backgrounds, Event Selection, and Other Issues
 
@@ -167,17 +182,18 @@ figuring out how many is most of the work done in my thesis, because when we
 count up events, we naturally do not want to include the background.
 
 The way we try to figure out what the background looks like is through [Monte
-Carlo experiments (MC)][mc] where we generate virtual data using the math
-prescribed by the Standard Model. We tune this generated data on other
-particle decays that look similar to, but are not, the ones we are interested
-in. For example, since I cared about double electron events, we tuned our MC
-on events with one electron and one [muon][muon] (which is very much like an
-electron, but heavier).
+Carlo experiments][mc] (<abbr title="Monte Carlo">MC</abbr>) where we generate
+virtual data using the math prescribed by the Standard Model. We tune this
+generated data on other particle decays that look similar to, but are not, the
+ones we are interested in. For example, since I cared about double electron
+events, we tuned our <abbr title="Monte Carlo">MC</abbr> on events with one
+electron and one [muon][muon] (which is very much like an electron, but
+heavier).
 
-Below is an example of what the MC predicted the signal (blue) and backgrounds
-(everything else) would look like for my experiment. The black points are all
-the events selected for the analysis, so you can see the agreement is not
-perfect.
+Below is an example of what the <abbr title="Monte Carlo">MC</abbr> predicted
+the signal (blue) and backgrounds (everything else) would look like for my
+experiment. The black points are all the events selected for the analysis, so
+you can see the agreement is not perfect.
 
 [mc]: https://en.wikipedia.org/wiki/Monte_Carlo_method
 [muon]: https://en.wikipedia.org/wiki/Muon
@@ -191,11 +207,12 @@ perfect.
     showing the estimated contribution from the background and signal events.'
 %}
 
-There were other issues to work through as well, like estimating how good CMS
-was at measuring various things. These biases were mostly corrected or
-estimated by using MC events and putting them through the analysis pipeline.
-This lets us check what the analysis would have measured, while having
-information about the true underlying event.
+There were other issues to work through as well, like estimating how good
+<abbr title="Compact Muon Solenoid">CMS</abbr> was at measuring various
+things. These biases were mostly corrected or estimated by using <abbr
+title="Monte Carlo">MC</abbr> events and putting them through the analysis
+pipeline. This lets us check what the analysis would have measured, while
+having information about the true underlying event.
 
 ### Results
 
@@ -215,23 +232,24 @@ confess) plot below:
 
 Each collection of points in the top plot is a count of the events, for a
 specific bin in $$\phi^*$$. The black points are the count of events seen in
-CMS, and the colored points are the number of events predicted by various
-Monte Carlo generator programs that use different approximations of the
-Standard Model. The bottom plot is the ratio of MC events over observed
-events. If the generators were perfectly simulating reality, all the points
-would be right at 1, but of course they are not perfect so the points drift up
-and down. The blue points (from the [MadGraph][madgraph]) do the best job, but
+<abbr title="Compact Muon Solenoid">CMS</abbr>, and the colored points are the
+number of events predicted by various Monte Carlo generator programs that use
+different approximations of the Standard Model. The bottom plot is the ratio
+of <abbr title="Monte Carlo">MC</abbr> events over observed events. If the
+generators were perfectly simulating reality, all the points would be right at
+1, but of course they are not perfect so the points drift up and down. The
+blue points (from the [MadGraph][madgraph] generator) do the best job, but
 even they miss by up to 5%.
 
 [madgraph]: http://madgraph.physics.illinois.edu
 
 ## In Summary
 
-So that's it! I measured the angle between pairs of electrons in the CMS
-detector, and compared it to the angle predicted by the Standard Model. The
-result can be used to fine-tune the Monte Carlo generators we use so that
-future measurements have better estimates. But will my result be used for
-that? It's unclear.
+So that's it! I measured the angle between pairs of electrons in the <abbr
+title="Compact Muon Solenoid">CMS</abbr> detector, and compared it to the
+angle predicted by the Standard Model. The result can be used to fine-tune the
+Monte Carlo generators we use so that future measurements have better
+estimates. But will my result be used for that? It's unclear.
 
 I graduated quickly without publishing the results of my thesis in a journal.
 In fact, my thesis was embargoed for six months to let my adviser and post doc
