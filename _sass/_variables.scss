@@ -1,0 +1,40 @@
+$root-font-family: "PT Sans", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+$code-font-family: "Ubuntu Mono", Monaco, Consolas, "Lucida Console", Menlo, "Courier New", monospace;
+$site-title-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+
+$root-line-height: 1.5;
+
+$body-bg: #ffffff;
+$body-color: #515151;
+$border-color: #e5e5e5;
+$code-color: #bf616a;
+$link-color: #268bd2;
+$sidebar-color: #3465a4;
+
+$large-breakpoint: 38em;
+
+// Font sizes
+//
+// We use em so that they scale according to what the user sets in their
+// browser. The default is 25% larger (20px if the default is 16px), but for
+// small view sizes we use the user value.
+$small-screen-root-font-size: 1em;
+$root-font-size: 1.25em;
+
+// Set headline font-sizes
+$site-title-font-size: 3.25rem;
+$h1-font-size: 2rem;
+$h2-font-size: 1.5rem;
+$h3-font-size: 1.25rem;
+$h456-font-size: 1rem;
+
+// Set font sizes of some special elements
+$abbr-font-size: 0.85rem;
+$card-font-size: 0.85rem;
+$code-block-font-size: 0.80rem;
+$code-inline-font-size: 0.85em;  // em because we embed it in other things, like tables
+$footnote-font-size: 0.85rem;
+$lead-font-size: 1.25rem;
+$legal-font-size: 0.625rem;
+$rrssb-font-size: 0.70rem;
+$table-font-size: 0.85rem;
