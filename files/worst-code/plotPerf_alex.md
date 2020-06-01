@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page-not-on-sidebar
 title: "The Terribly Clever(ly&nbsp;Terrible) Code"
 description: >
   The actual worst code I have ever written.
