@@ -1,28 +1,572 @@
-/*
- *                        ___
- *                       /\_ \
- *  _____     ___     ___\//\ \      __
- * /\ '__`\  / __`\  / __`\\ \ \   /'__`\
- * \ \ \_\ \/\ \_\ \/\ \_\ \\_\ \_/\  __/
- *  \ \ ,__/\ \____/\ \____//\____\ \____\
- *   \ \ \/  \/___/  \/___/ \/____/\/____/
- *    \ \_\
- *     \/_/
+/* Body resets
  *
- * Designed, built, and released under MIT license by @mdo. Learn more at
- * https://github.com/poole/poole.
+ * Update the foundational and global aspects of the page.
  */
 
-/* Must load variables first! */
-@import "poole/variables";
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
 
-/* Load remaining style files */
-@import "poole/base";
-@import "poole/type";
-@import "poole/syntax";
-@import "poole/code";
-@import "poole/layout";
-@import "poole/masthead";
-@import "poole/posts";
-@import "poole/pagination";
-@import "poole/message";
+html {
+  font-family: $root-font-family;
+  line-height: $root-line-height;
+
+  @media (min-width: 48em) {
+    font-size: $small-screen-root-font-size;
+  }
+  @media (min-width: 58em) {
+    font-size: $root-font-size;
+  }
+  @media (min-width: $large-breakpoint) {
+    font-size: $root-font-size;
+  }
+
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: $body-color;
+  background-color: $body-bg;
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+/* No `:visited` state is required by default (browsers will use `a`) */
+a {
+  color: $link-color;
+  text-decoration: none;
+
+  /* `:focus` is linked to `:hover` for basic accessibility */
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+
+  strong {
+    color: inherit;
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  margin: 0 0 1rem;
+  border-radius: 5px;
+}
+
+table {
+  margin-bottom: 1.2em;
+  width: 100%;
+  font-size: $table-font-size;
+  font-variant-numeric: lining-nums tabular-nums;
+  border-collapse: collapse;
+  border-width: 0.12em 0;
+  border-color: #515151;
+  border-style: solid;
+}
+
+thead {
+  border-bottom: 0.06em solid #515151;
+  color: #303030;
+}
+
+td,
+th {
+  padding: .25em .5em;
+}
+
+th {
+  text-align: left;
+}
+/* Typography
+ *
+ * Headings, body text, lists, and other misc typographic elements.
+ */
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: .5rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #313131;
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  font-size: $h1-font-size;
+}
+
+h2 {
+  margin-top: 1rem;
+  font-size: $h2-font-size;
+}
+
+h3 {
+  margin-top: 1.5rem;
+  font-size: $h3-font-size;
+}
+
+h4, h5, h6 {
+  margin-top: 1rem;
+  font-size: $h456-font-size;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+strong {
+  color: #303030;
+}
+
+ul, ol, dl {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-bottom: .5rem;
+}
+
+hr {
+  position: relative;
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #ffffff;
+}
+
+abbr {
+  font-size: $abbr-font-size;
+  font-weight: bold;
+  color: #555555;
+  text-transform: uppercase;
+
+  &[title] {
+    cursor: help;
+    border-bottom: 1px dotted #e5e5e5;
+  }
+}
+
+blockquote {
+  padding: .5rem 1rem;
+  margin: .8rem 0;
+  color: #7a7a7a;
+  border-left: .25rem solid #e5e5e5;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 30em) {
+    padding-right: 5rem;
+    padding-left: 1.25rem;
+  }
+}
+
+
+// Markdown footnotes
+
+/* Footnote number within body text */
+a[href^="#fn:"],
+/* Back to footnote link */
+a[href^="#fnref:"] {
+  display: inline-block;
+  margin-left: 0.1em;
+  font-weight: bold;
+}
+
+/* List of footnotes */
+.footnotes {
+  margin-top: 1em;
+  font-size: $footnote-font-size;
+}
+
+.footnotes p {
+  margin-block-end: 0.5em;
+}
+
+/* Custom type
+ *
+ * Extend paragraphs with `.lead` for larger introductory text.
+ */
+
+.lead {
+  font-size: $lead-font-size;
+  font-weight: 300;
+}
+
+/* Dashed un-ordered lists, but not the social buttons */
+ul {
+  list-style-type: none;
+  padding-left: 2em;
+}
+
+ul > li:before {
+  content: "—"; /* em dash */
+  position: absolute;
+  margin-left: -1.1em;
+  font-weight: bold;
+}
+
+ul.rrssb-buttons > li:before {
+  display: none;
+}
+
+/* Bold numbers for numbered lists */
+ol > li {
+  margin: 0;
+  list-style-type: none;
+  counter-increment: item;
+}
+
+ol > li:before {
+  content: counter(item) ".";
+  font-weight: bold;
+  margin-left: -1.1em;
+  float: left;
+}
+.highlight .hll { background-color: #ffffcc; }
+.highlight .c { color: #999999; } /* Comment */
+.highlight .err { color: #aa0000; background-color: #ffaaaa; } /* Error */
+.highlight .k { color: #006699; } /* Keyword */
+.highlight .o { color: #555555; } /* Operator */
+.highlight .cm { color: #0099ff; font-style: italic; } /* Comment.Multiline */
+.highlight .cp { color: #009999; } /* Comment.Preproc */
+.highlight .c1 { color: #999999; } /* Comment.Single */
+.highlight .cs { color: #999999; } /* Comment.Special */
+.highlight .gd { background-color: #ffcccc; border: 1px solid #cc0000; } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #ff0000; } /* Generic.Error */
+.highlight .gh { color: #003300; } /* Generic.Heading */
+.highlight .gi { background-color: #ccffcc; border: 1px solid #00cc00; } /* Generic.Inserted */
+.highlight .go { color: #aaaaaa; } /* Generic.Output */
+.highlight .gp { color: #000099; } /* Generic.Prompt */
+.highlight .gs { } /* Generic.Strong */
+.highlight .gu { color: #003300; } /* Generic.Subheading */
+.highlight .gt { color: #99cc66; } /* Generic.Traceback */
+.highlight .kc { color: #006699; } /* Keyword.Constant */
+.highlight .kd { color: #006699; } /* Keyword.Declaration */
+.highlight .kn { color: #006699; } /* Keyword.Namespace */
+.highlight .kp { color: #006699; } /* Keyword.Pseudo */
+.highlight .kr { color: #006699; } /* Keyword.Reserved */
+.highlight .kt { color: #007788; } /* Keyword.Type */
+.highlight .m { color: #ff6600; } /* Literal.Number */
+.highlight .s { color: #d44950; } /* Literal.String */
+.highlight .na { color: #4f9fcf; } /* Name.Attribute */
+.highlight .nb { color: #336666; } /* Name.Builtin */
+.highlight .nc { color: #00aa88; } /* Name.Class */
+.highlight .no { color: #336600; } /* Name.Constant */
+.highlight .nd { color: #9999ff; } /* Name.Decorator */
+.highlight .ni { color: #999999; } /* Name.Entity */
+.highlight .ne { color: #cc0000; } /* Name.Exception */
+.highlight .nf { color: #cc00ff; } /* Name.Function */
+.highlight .nl { color: #9999ff; } /* Name.Label */
+.highlight .nn { color: #00ccff; } /* Name.Namespace */
+.highlight .nt { color: #2f6f9f; } /* Name.Tag */
+.highlight .nv { color: #003333; } /* Name.Variable */
+.highlight .ow { color: #000000; } /* Operator.Word */
+.highlight .w { color: #bbbbbb; } /* Text.Whitespace */
+.highlight .mf { color: #ff6600; } /* Literal.Number.Float */
+.highlight .mh { color: #ff6600; } /* Literal.Number.Hex */
+.highlight .mi { color: #ff6600; } /* Literal.Number.Integer */
+.highlight .mo { color: #ff6600; } /* Literal.Number.Oct */
+.highlight .sb { color: #cc3300; } /* Literal.String.Backtick */
+.highlight .sc { color: #cc3300; } /* Literal.String.Char */
+.highlight .sd { color: #cc3300; font-style: italic; } /* Literal.String.Doc */
+.highlight .s2 { color: #cc3300; } /* Literal.String.Double */
+.highlight .se { color: #cc3300; } /* Literal.String.Escape */
+.highlight .sh { color: #cc3300; } /* Literal.String.Heredoc */
+.highlight .si { color: #aa0000; } /* Literal.String.Interpol */
+.highlight .sx { color: #cc3300; } /* Literal.String.Other */
+.highlight .sr { color: #33aaaa; } /* Literal.String.Regex */
+.highlight .s1 { color: #cc3300; } /* Literal.String.Single */
+.highlight .ss { color: #ffcc33; } /* Literal.String.Symbol */
+.highlight .bp { color: #336666; } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #003333; } /* Name.Variable.Class */
+.highlight .vg { color: #003333; } /* Name.Variable.Global */
+.highlight .vi { color: #003333; } /* Name.Variable.Instance */
+.highlight .il { color: #ff6600; } /* Literal.Number.Integer.Long */
+
+.css .o,
+.css .o + .nt,
+.css .nt + .nt { color: #999999; }
+/* Code
+ *
+ * Inline and block-level code snippets. Includes tweaks to syntax highlighted
+ * snippets from Pygments/Rouge and Gist embeds.
+ */
+
+code,
+pre {
+  font-family: $code-font-family;
+}
+
+code {
+  padding: 0.25em 0.5em;
+  font-size: $code-inline-font-size;
+  color: $code-color;
+  background-color: #f9f9f9;
+  border-radius: 3px;
+}
+
+pre {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+// Fenced Code Blocks like ```python ...```
+pre code {
+  padding: 0;
+  font-size: $code-block-font-size;
+  color: inherit;
+  background-color: transparent;
+}
+
+/* Pygments via Jekyll */
+.highlight {
+  padding: 0.2rem;
+  margin-bottom: 1rem;
+  line-height: 1.12;
+  background-color: #f9f9f9;
+  border-radius: 0.25rem;
+
+  pre {
+    margin-bottom: 0;
+    overflow-x: auto;
+  }
+
+  .lineno {
+    display: inline-block; /* Ensures the null space also isn't selectable */
+    padding-right: 0.75rem;
+    padding-left: 0.25rem;
+    color: #999999;
+    /* Make sure numbers aren't selectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+/* Layout
+ *
+ * Styles for managing the structural hierarchy of the site.
+ */
+
+.container {
+  max-width: 38rem;
+  padding-left:  1.5rem;
+  padding-right: 1.5rem;
+  margin-left:  auto;
+  margin-right: auto;
+}
+
+footer {
+  margin-bottom: 2rem;
+}
+/* Posts and pages
+ *
+ * Each post is wrapped in `.post` and is used on default and post layouts. Each
+ * page is wrapped in `.page` and is only used on the page layout.
+ */
+
+.page,
+.post {
+  margin-bottom: 1em;
+
+  li + li {
+    margin-top: .25rem;
+  }
+}
+
+/* Blog post or page title */
+.page-title,
+.post-title,
+.post-title a {
+  color: #303030;
+}
+.page-title,
+.post-title {
+  margin-top: 0;
+}
+
+/* Meta data line below post title */
+.post-date {
+  display: none;
+  margin-top: -.5rem;
+  margin-bottom: 1rem;
+  color: #9a9a9a;
+}
+
+
+/* Related posts */
+.related {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+}
+/* Pagination
+ *
+ * Super lightweight (HTML-wise) blog pagination. `span`s are provide for when
+ * there are no more previous or next posts to show.
+ */
+
+.pagination {
+  overflow: hidden; /* clearfix */
+  margin: 0 -1.5rem 1rem;
+  color: #cccccc;
+  text-align: center;
+}
+
+/* Pagination items can be `span`s or `a`s */
+.pagination-item {
+  display: block;
+  padding: 1em;
+  border: solid #eeeeee;
+  border-width: 1px 0;
+
+  &:first-child {
+    margin-bottom: -1px;
+  }
+}
+
+/* Only provide a hover state for linked pagination items */
+a.pagination-item:hover {
+  background-color: #f5f5f5;
+}
+
+@media (min-width: 30em) {
+  .pagination {
+    margin: 1em 0;
+  }
+
+  .pagination-item {
+    float: left;
+    width: 50%;
+    border-width: 3px;
+
+    &:first-child {
+      margin-bottom: 0;
+      border-top-left-radius:    5px;
+      border-bottom-left-radius: 5px;
+    }
+    &:last-child {
+      margin-left: -3px;
+      border-top-right-radius:    5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
+}
+/*
+ * Sidebar
+ *
+ * Flexible banner for housing site name, intro, and "footer" content. Starts
+ * out above content in mobile and later moves to the side with wider viewports.
+ */
+
+.sidebar {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: rgba(255,255,255,.5);
+  background-color: #202020;
+}
+@media (min-width: 48em) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 18rem;
+    text-align: left;
+  }
+}
+
+/* Sidebar links */
+.sidebar a {
+  color: #ffffff;
+}
+
+/* Sidebar nav */
+.sidebar-nav {
+  margin-bottom: 1rem;
+}
+.sidebar-nav-item {
+  display: block;
+  line-height: 1.75;
+}
+a.sidebar-nav-item:hover,
+a.sidebar-nav-item:focus {
+  text-decoration: underline;
+}
+.sidebar-nav-item.active {
+  font-weight: bold;
+}
+
+/* Sticky sidebar
+ *
+ * Add the `sidebar-sticky` class to the sidebar's container to affix it the
+ * contents to the bottom of the sidebar in tablets and up.
+ */
+
+@media (min-width: 48em) {
+  .sidebar-sticky {
+    position: absolute;
+    right:  1rem;
+    bottom: 1rem;
+    left:   1rem;
+  }
+}
+
+/* Container
+ *
+ * Align the contents of the site above the proper threshold with some margin-fu
+ * with a 25%-wide `.sidebar`.
+ */
+
+.container {
+  padding-left:  1rem;
+  padding-right: 1rem;
+}
+
+.content {
+  padding-top:    4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 48em) {
+  .content {
+    max-width: 38rem;
+    margin-left: 20rem;
+    margin-right: 2rem;
+  }
+}
+
+@media (min-width: 64em) {
+  .content {
+    margin-left: 22rem;
+    margin-right: 4rem;
+  }
+}
+
+.themed .sidebar {
+  background-color: $sidebar-color;
+}
+.themed .content a,
+.themed .related-posts li a:hover {
+  color: $sidebar_color;
+}
