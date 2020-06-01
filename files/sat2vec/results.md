@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page-not-on-sidebar
 title: SAT2VEC Results
 description: >
   The results of running a pretrained Word2Vec model on SAT analogies. Spoiler
