@@ -9,7 +9,9 @@ image_alt: >
 categories: machine-learning
 ---
 
-{% capture file_dir %}/files/my-sons-words-comparison/{% endcapture %}
+{% capture file_dir %}/files/shadow-mode/{% endcapture %}
+
+{% include lead_image.html %}
 
 Deploying a machine learning product so that it can be used is essential to
 getting value out of it. But it is often one of the hardest parts of building
