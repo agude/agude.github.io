@@ -1,13 +1,12 @@
 ---
 layout: post
-title: "Comparison of My Two Sons' Language Development"
+title: "Machine Learning Deployment: Shadow Mode"
 description: >
-  Being a nerd dad, I recorded all the words my first two sons spoke as they
-  learned them. Now, I compare their language development rate!
+  Deploying machine learning models is hard.
 image: /files/my-sons-words-comparison/coal_miners_child_in_grade_school_lejunior_harlan_county_kentucky.jpg
 image_alt: >
   Black and white photo of a young boy at a school desk.
-categories: childhood_language
+categories: machine-learning
 ---
 
 {% capture file_dir %}/files/my-sons-words-comparison/{% endcapture %}
@@ -49,16 +48,20 @@ that the results can be compared.
 
 The advantages of this method are:
 
-*The caller has control.* They decide when to switch the shadow model to live.
-They can roll back instantly if there are problems. They can even stop the
-experiment if it is hurting their system. *The call can be different.* If the
-shadow model requires different inputs (perhaps a new ID associated with the
-user) its API can be different than the live model.
+- **The caller has control.** They decide when to switch the shadow model to
+live. They can roll back instantly if there are problems. They can even stop
+the experiment if it is hurting their system. 
+- **The call can be different.** If the shadow model requires different inputs
+(perhaps a new ID associated with the user) its API can be different than the
+live model.
 
-The main disadvantages are: *The change is close to the customer.* The calling
-code is generally closer to the core business, so any bug introduced is likely
-to be more impactful. *Tighter coordination is required.* The team that owns
-the model and the team that calls it have to be 
+The main disadvantages are: 
+
+- **The change is close to the customer.** The calling code is generally
+closer to the core business, so any bug introduced is likely to be more
+impactful. 
+- **Tighter coordination is required.** The team that owns the model and the
+team that calls it have to be 
 
 This gives the caller all the control, which is the main advantage. It lets
 them decide when to switch out the models and lets them instantly switch back
