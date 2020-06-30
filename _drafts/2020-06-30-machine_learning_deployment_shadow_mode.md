@@ -3,9 +3,9 @@ layout: post
 title: "Machine Learning Deployment: Shadow Mode"
 description: >
   Deploying machine learning models is hard.
-image: /files/my-sons-words-comparison/coal_miners_child_in_grade_school_lejunior_harlan_county_kentucky.jpg
+image: /files/shadow-mode/bricks_at_mit.jpg
 image_alt: >
-  Black and white photo of a young boy at a school desk.
+  A black and white photo of bricks making up Kresge Auditorium at MIT.
 categories: machine-learning
 ---
 
