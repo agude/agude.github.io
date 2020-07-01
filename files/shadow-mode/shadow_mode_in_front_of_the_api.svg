@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="969.7323"
+   height="576.29382"
+   viewBox="0 0 969.7323 576.29383"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="shadow_mode_in_front_of_the_api.svg">
+  <title
+     id="title6082">Shadow Mode in front of the API</title>
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5688"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5690"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#555753;fill-opacity:1;fill-rule:evenodd;stroke:#555753;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4371"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#555753;fill-opacity:1;fill-rule:evenodd;stroke:#555753;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4365"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#555753;fill-opacity:1;fill-rule:evenodd;stroke:#555753;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutL"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4522"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         style="fill:#555753;fill-opacity:1;fill-rule:evenodd;stroke:#555753;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,-4.8,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-6"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4371-6"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#555753;fill-opacity:1;fill-rule:evenodd;stroke:#555753;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-62"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4371-8"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#555753;fill-opacity:1;fill-rule:evenodd;stroke:#555753;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5688-6"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5690-0"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#555753;fill-opacity:1;fill-rule:evenodd;stroke:#555753;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-2"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4371-7"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#555753;fill-opacity:1;fill-rule:evenodd;stroke:#555753;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.6139667"
+     inkscape:cx="213.83755"
+     inkscape:cy="431.09737"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     units="px"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="3742"
+     inkscape:window-height="2124"
+     inkscape:window-x="3938"
+     inkscape:window-y="36"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Shadow Mode in front of the API</dc:title>
+        <dc:date>2020-06-30</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Alexander Gude</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>machine learning</rdf:li>
+            <rdf:li>shadow mode</rdf:li>
+            <rdf:li>api</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Boxes"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-116.75529,-459.0062)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="564.54559"
+       y="1023.0449"
+       id="text4138"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4140"
+         x="564.54559"
+         y="1023.0449" /></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Text"
+     style="display:inline"
+     transform="translate(-116.75529,-6.6440353)">
+    <path
+       style="display:inline;fill:#555753;fill-rule:evenodd;stroke:#555753;stroke-width:5.20514202;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
+       d="m 607.81144,120.61321 127.08926,0 0,0"
+       id="path4356-0"
+       inkscape:connector-curvature="0" />
+    <g
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="text4142-6"
+       transform="translate(0,14)">
+      <path
+         d="m 776.61235,530.62026 q 3.15,0 4.8,-1.2 1.65,-1.2 1.65,-3.6 0,-1.45 -0.6,-2.45 -0.6,-1.05 -1.6,-1.8 -1,-0.8 -2.25,-1.35 -1.25,-0.6 -2.55,-1.1 -1.5,-0.6 -2.9,-1.35 -1.35,-0.75 -2.45,-1.75 -1.05,-1 -1.7,-2.35 -0.6,-1.35 -0.6,-3.2 0,-4.05 2.55,-6.3 2.55,-2.3 7.1,-2.3 1.25,0 2.45,0.2 1.25,0.15 2.3,0.4 1.05,0.25 1.85,0.6 0.85,0.35 1.35,0.7 l -1.3,3.45 q -1,-0.6 -2.75,-1.2 -1.75,-0.6 -3.9,-0.6 -2.25,0 -3.9,1.15 -1.65,1.1 -1.65,3.35 0,1.3 0.45,2.2 0.5,0.9 1.3,1.6 0.85,0.65 1.95,1.2 1.1,0.55 2.4,1.1 1.9,0.8 3.45,1.6 1.6,0.8 2.7,1.9 1.15,1.1 1.75,2.6 0.65,1.5 0.65,3.65 0,4.05 -2.75,6.25 -2.7,2.15 -7.8,2.15 -1.65,0 -3.1,-0.25 -1.45,-0.2 -2.6,-0.55 -1.1,-0.35 -1.95,-0.7 -0.85,-0.35 -1.3,-0.65 l 1.25,-3.4 q 1,0.55 2.95,1.3 1.95,0.7 4.75,0.7 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4242"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 793.46235,533.52026 0,-33.95 4.15,-0.7 0,11.8 q 1,-0.4 2.25,-0.6 1.25,-0.25 2.45,-0.25 2.65,0 4.4,0.8 1.8,0.75 2.85,2.15 1.05,1.4 1.5,3.35 0.45,1.95 0.45,4.3 l 0,13.1 -4.1,0 0,-12.2 q 0,-4.3 -1.2,-6.05 -1.2,-1.8 -4.3,-1.8 -1.3,0 -2.55,0.3 -1.2,0.25 -1.75,0.5 l 0,19.25 -4.15,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4244"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 827.66235,530.57026 q 1.55,0 2.75,-0.1 1.25,-0.1 2.05,-0.25 l 0,-6.9 q -0.8,-0.25 -1.95,-0.4 -1.1,-0.15 -2.35,-0.15 -1.15,0 -2.25,0.2 -1.1,0.15 -1.95,0.6 -0.85,0.45 -1.4,1.2 -0.55,0.7 -0.55,1.8 0,2.25 1.5,3.15 1.55,0.85 4.15,0.85 z m -0.4,-20.8 q 2.6,0 4.35,0.65 1.8,0.65 2.9,1.8 1.1,1.15 1.55,2.8 0.45,1.65 0.45,3.6 l 0,14.5 q -1.45,0.25 -3.85,0.6 -2.35,0.35 -4.85,0.35 -1.9,0 -3.7,-0.35 -1.8,-0.3 -3.2,-1.1 -1.4,-0.85 -2.25,-2.3 -0.85,-1.45 -0.85,-3.7 0,-2 0.85,-3.35 0.9,-1.4 2.25,-2.25 1.4,-0.85 3.15,-1.2 1.8,-0.4 3.6,-0.4 2.45,0 4.8,0.55 l 0,-1.15 q 0,-1.05 -0.25,-2 -0.2,-1 -0.85,-1.8 -0.6,-0.8 -1.7,-1.25 -1.05,-0.5 -2.75,-0.5 -2.15,0 -3.75,0.3 -1.6,0.3 -2.45,0.6 l -0.5,-3.4 q 0.85,-0.4 2.8,-0.7 2,-0.3 4.25,-0.3 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4246"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 857.21235,515.22026 q -0.7,-0.65 -2.05,-1.2 -1.35,-0.6 -2.8,-0.6 -1.65,0 -2.85,0.65 -1.15,0.65 -1.9,1.8 -0.75,1.1 -1.1,2.7 -0.35,1.55 -0.35,3.35 0,4.05 1.9,6.25 1.9,2.2 4.95,2.2 1.55,0 2.6,-0.15 1.1,-0.15 1.6,-0.3 l 0,-14.7 z m 0,-15.65 4.15,-0.7 0,34 q -1.35,0.4 -3.45,0.8 -2.1,0.4 -4.9,0.4 -2.5,0 -4.55,-0.85 -2.05,-0.85 -3.5,-2.4 -1.45,-1.6 -2.25,-3.85 -0.8,-2.25 -0.8,-5.05 0,-2.7 0.65,-4.9 0.7,-2.25 2,-3.85 1.3,-1.6 3.1,-2.5 1.85,-0.9 4.2,-0.9 1.85,0 3.25,0.45 1.4,0.45 2.1,0.95 l 0,-11.6 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4248"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 887.91235,521.92026 q 0,2.75 -0.8,5 -0.75,2.2 -2.15,3.8 -1.4,1.6 -3.35,2.5 -1.95,0.85 -4.25,0.85 -2.25,0 -4.2,-0.85 -1.9,-0.9 -3.3,-2.5 -1.4,-1.6 -2.2,-3.8 -0.75,-2.25 -0.75,-5 0,-2.75 0.75,-5 0.8,-2.25 2.2,-3.8 1.4,-1.6 3.3,-2.45 1.95,-0.9 4.2,-0.9 2.3,0 4.25,0.9 1.95,0.85 3.35,2.45 1.4,1.55 2.15,3.8 0.8,2.25 0.8,5 z m -4.25,0 q 0,-3.95 -1.7,-6.2 -1.7,-2.3 -4.6,-2.3 -2.85,0 -4.55,2.3 -1.65,2.25 -1.65,6.2 0,3.9 1.65,6.2 1.7,2.25 4.55,2.25 2.9,0 4.6,-2.25 1.7,-2.3 1.7,-6.2 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4250"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 907.06235,533.52026 q -0.75,-1.7 -1.3,-3.1 -0.55,-1.4 -1.1,-2.8 -0.5,-1.4 -1.05,-2.9 -0.5,-1.55 -1.2,-3.5 -0.7,1.95 -1.25,3.5 -0.55,1.5 -1.1,2.9 -0.5,1.4 -1.1,2.8 -0.55,1.4 -1.3,3.1 l -3.1,0 q -1.4,-6.15 -2.35,-12.15 -0.9,-6.05 -1.35,-11.05 l 3.9,0 q 0.15,1.95 0.3,3.85 0.2,1.85 0.45,3.9 0.25,2.05 0.55,4.45 0.35,2.4 0.75,5.4 0.8,-2 1.35,-3.5 0.55,-1.5 1,-2.85 0.45,-1.35 0.85,-2.75 0.45,-1.4 0.95,-3.15 l 3.1,0 q 0.5,1.75 0.9,3.15 0.4,1.4 0.85,2.75 0.45,1.35 0.95,2.85 0.5,1.5 1.25,3.45 0.45,-2.75 0.8,-5.1 0.35,-2.35 0.6,-4.4 0.25,-2.1 0.45,-4.05 0.2,-1.95 0.35,-4 l 3.75,0 q -0.25,2.5 -0.6,5.35 -0.35,2.85 -0.85,5.85 -0.5,3 -1.1,6.1 -0.6,3.05 -1.25,5.9 l -3.1,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4252"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 952.46235,517.97026 4.8,-15.4 3.85,0 q 1,7.3 1.4,14.95 0.45,7.65 0.8,16 l -4,0 q -0.05,-2.7 -0.1,-5.85 -0.05,-3.15 -0.15,-6.5 -0.05,-3.35 -0.15,-6.8 -0.05,-3.45 -0.15,-6.7 l -4.5,14.1 -3.6,0 -4.6,-14.1 q -0.05,3.25 -0.15,6.7 -0.05,3.4 -0.15,6.8 -0.05,3.35 -0.15,6.5 -0.05,3.15 -0.1,5.85 l -4,0 q 0.15,-3.8 0.35,-7.8 0.2,-4 0.45,-7.95 0.3,-3.95 0.65,-7.8 0.4,-3.85 0.85,-7.4 l 3.8,0 4.85,15.4 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4254"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 987.91235,521.92026 q 0,2.75 -0.8,5 -0.75,2.2 -2.15,3.8 -1.4,1.6 -3.35,2.5 -1.95,0.85 -4.25,0.85 -2.25,0 -4.2,-0.85 -1.9,-0.9 -3.3,-2.5 -1.4,-1.6 -2.2,-3.8 -0.75,-2.25 -0.75,-5 0,-2.75 0.75,-5 0.8,-2.25 2.2,-3.8 1.4,-1.6 3.3,-2.45 1.95,-0.9 4.2,-0.9 2.3,0 4.25,0.9 1.95,0.85 3.35,2.45 1.4,1.55 2.15,3.8 0.8,2.25 0.8,5 z m -4.25,0 q 0,-3.95 -1.7,-6.2 -1.7,-2.3 -4.6,-2.3 -2.85,0 -4.55,2.3 -1.65,2.25 -1.65,6.2 0,3.9 1.65,6.2 1.7,2.25 4.55,2.25 2.9,0 4.6,-2.25 1.7,-2.3 1.7,-6.2 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4256"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 1007.2124,515.22026 q -0.7,-0.65 -2.05,-1.2 -1.35,-0.6 -2.8,-0.6 -1.65,0 -2.85005,0.65 -1.15,0.65 -1.9,1.8 -0.75,1.1 -1.1,2.7 -0.35,1.55 -0.35,3.35 0,4.05 1.9,6.25 1.9,2.2 4.95005,2.2 1.55,0 2.6,-0.15 1.1,-0.15 1.6,-0.3 l 0,-14.7 z m 0,-15.65 4.15,-0.7 0,34 q -1.35,0.4 -3.45,0.8 -2.1,0.4 -4.9,0.4 -2.5,0 -4.55005,-0.85 -2.05,-0.85 -3.5,-2.4 -1.45,-1.6 -2.25,-3.85 -0.8,-2.25 -0.8,-5.05 0,-2.7 0.65,-4.9 0.7,-2.25 2,-3.85 1.3,-1.6 3.1,-2.5 1.85,-0.9 4.20005,-0.9 1.85,0 3.25,0.45 1.4,0.45 2.1,0.95 l 0,-11.6 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4258"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 1027.8624,509.77026 q 4.7,0 7.25,2.95 2.55,2.9 2.55,8.85 l 0,1.45 -16.6,0 q 0.25,3.6 2.35,5.5 2.15,1.85 6,1.85 2.2,0 3.75,-0.35 1.55,-0.35 2.35,-0.75 l 0.55,3.5 q -0.75,0.4 -2.7,0.85 -1.95,0.45 -4.4,0.45 -3,0 -5.3,-0.9 -2.25,-0.95 -3.75,-2.55 -1.5,-1.6 -2.25,-3.8 -0.75,-2.25 -0.75,-4.85 0,-3.1 0.95,-5.4 0.95,-2.3 2.5,-3.8 1.55,-1.5 3.5,-2.25 1.95,-0.75 4,-0.75 z m 5.6,9.9 q 0,-2.95 -1.55,-4.65 -1.55,-1.75 -4.1,-1.75 -1.45,0 -2.65,0.55 -1.15,0.55 -2,1.45 -0.85,0.9 -1.35,2.05 -0.5,1.15 -0.65,2.35 l 12.3,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4260"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 1056.8124,534.07026 q -2.2,0 -3.65,-0.6 -1.45,-0.6 -2.3,-1.8 -0.85,-1.2 -1.2,-2.95 -0.35,-1.8 -0.35,-4.15 l 0,-21.95 -6.7,0 0,-3.5 10.8,0 0,25.45 q 0,1.75 0.2,2.85 0.25,1.1 0.7,1.8 0.5,0.65 1.2,0.9 0.7,0.25 1.65,0.25 1.45,0 2.7,-0.35 1.25,-0.35 1.95,-0.75 l 0.6,3.5 q -0.3,0.15 -0.85,0.4 -0.55,0.2 -1.3,0.4 -0.75,0.2 -1.65,0.35 -0.85,0.15 -1.8,0.15 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4262"
+         inkscape:connector-curvature="0" />
+    </g>
+    <rect
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#729fcf;fill-opacity:1;fill-rule:nonzero;stroke:#3465a4;stroke-width:5.22731733;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+       id="rect4169-3"
+       width="337.29727"
+       height="178.68327"
+       x="746.20074"
+       y="327.8555"
+       ry="18.769222" />
+    <g
+       id="g4327"
+       transform="translate(0,-25.720672)">
+      <rect
+         ry="18.769222"
+         y="56.992241"
+         x="746.57666"
+         height="178.68327"
+         width="337.29727"
+         id="rect4169"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#729fcf;fill-opacity:1;fill-rule:nonzero;stroke:#3465a4;stroke-width:5.22731733;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate" />
+    </g>
+    <g
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="text4142-6-5"
+       transform="translate(0,-26)">
+      <path
+         d="m 812.01233,273.90533 0,3.5 -18.45,0 0,-30.95 4.1,0 0,27.45 14.35,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4265"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 824.46233,250.60533 q -1.3,0 -2.25,-0.9 -0.95,-0.9 -0.95,-2.45 0,-1.55 0.95,-2.45 0.95,-0.9 2.25,-0.9 1.35,0 2.25,0.9 0.95,0.9 0.95,2.45 0,1.55 -0.95,2.45 -0.9,0.9 -2.25,0.9 z m -1.05,7.05 -6.7,0 0,-3.45 10.8,0 0,14.25 q 0,3.45 0.95,4.65 0.95,1.15 2.85,1.15 1.45,0 2.65,-0.35 1.25,-0.35 1.95,-0.75 l 0.6,3.5 q -0.3,0.15 -0.85,0.4 -0.55,0.2 -1.3,0.4 -0.7,0.2 -1.6,0.35 -0.85,0.15 -1.8,0.15 -2.2,0 -3.65,-0.6 -1.45,-0.6 -2.35,-1.8 -0.85,-1.2 -1.2,-2.95 -0.35,-1.8 -0.35,-4.15 l 0,-10.8 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4267"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 862.51233,254.20533 q -0.9,3.25 -2.05,6.4 -1.15,3.1 -2.35,6.1 -1.2,2.95 -2.45,5.65 -1.25,2.7 -2.4,5.05 l -3.75,0 q -2.35,-4.7 -4.75,-10.7 -2.4,-6 -4.25,-12.5 l 4.5,0 q 0.6,2.2 1.35,4.65 0.8,2.45 1.65,4.9 0.85,2.45 1.7,4.75 0.9,2.25 1.75,4.05 0.85,-1.8 1.75,-4.05 0.95,-2.3 1.85,-4.75 0.9,-2.45 1.7,-4.9 0.85,-2.45 1.45,-4.65 l 4.3,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4269"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 876.96233,253.65533 q 4.7,0 7.25,2.95 2.55,2.9 2.55,8.85 l 0,1.45 -16.6,0 q 0.25,3.6 2.35,5.5 2.15,1.85 6,1.85 2.2,0 3.75,-0.35 1.55,-0.35 2.35,-0.75 l 0.55,3.5 q -0.75,0.4 -2.7,0.85 -1.95,0.45 -4.4,0.45 -3,0 -5.3,-0.9 -2.25,-0.95 -3.75,-2.55 -1.5,-1.6 -2.25,-3.8 -0.75,-2.25 -0.75,-4.85 0,-3.1 0.95,-5.4 0.95,-2.3 2.5,-3.8 1.55,-1.5 3.5,-2.25 1.95,-0.75 4,-0.75 z m 5.6,9.9 q 0,-2.95 -1.55,-4.65 -1.55,-1.75 -4.1,-1.75 -1.45,0 -2.65,0.55 -1.15,0.55 -2,1.45 -0.85,0.9 -1.35,2.05 -0.5,1.15 -0.65,2.35 l 12.3,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4271"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 926.56233,261.85533 4.8,-15.4 3.85,0 q 1,7.3 1.4,14.95 0.45,7.65 0.8,16 l -4,0 q -0.05,-2.7 -0.1,-5.85 -0.05,-3.15 -0.15,-6.5 -0.05,-3.35 -0.15,-6.8 -0.05,-3.45 -0.15,-6.7 l -4.5,14.1 -3.6,0 -4.6,-14.1 q -0.05,3.25 -0.15,6.7 -0.05,3.4 -0.15,6.8 -0.05,3.35 -0.15,6.5 -0.05,3.15 -0.1,5.85 l -4,0 q 0.15,-3.8 0.35,-7.8 0.2,-4 0.45,-7.95 0.3,-3.95 0.65,-7.8 0.4,-3.85 0.85,-7.4 l 3.8,0 4.85,15.4 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4273"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 962.01233,265.80533 q 0,2.75 -0.8,5 -0.75,2.2 -2.15,3.8 -1.4,1.6 -3.35,2.5 -1.95,0.85 -4.25,0.85 -2.25,0 -4.2,-0.85 -1.9,-0.9 -3.3,-2.5 -1.4,-1.6 -2.2,-3.8 -0.75,-2.25 -0.75,-5 0,-2.75 0.75,-5 0.8,-2.25 2.2,-3.8 1.4,-1.6 3.3,-2.45 1.95,-0.9 4.2,-0.9 2.3,0 4.25,0.9 1.95,0.85 3.35,2.45 1.4,1.55 2.15,3.8 0.8,2.25 0.8,5 z m -4.25,0 q 0,-3.95 -1.7,-6.2 -1.7,-2.3 -4.6,-2.3 -2.85,0 -4.55,2.3 -1.65,2.25 -1.65,6.2 0,3.9 1.65,6.2 1.7,2.25 4.55,2.25 2.9,0 4.6,-2.25 1.7,-2.3 1.7,-6.2 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4275"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 981.31233,259.10533 q -0.7,-0.65 -2.05,-1.2 -1.35,-0.6 -2.8,-0.6 -1.65,0 -2.85,0.65 -1.15,0.65 -1.9,1.8 -0.75,1.1 -1.1,2.7 -0.35,1.55 -0.35,3.35 0,4.05 1.9,6.25 1.9,2.2 4.95,2.2 1.55,0 2.6,-0.15 1.1,-0.15 1.6,-0.3 l 0,-14.7 z m 0,-15.65 4.15,-0.7 0,34 q -1.35,0.4 -3.45,0.8 -2.1,0.4 -4.9,0.4 -2.5,0 -4.55,-0.85 -2.05,-0.85 -3.5,-2.4 -1.45,-1.6 -2.25,-3.85 -0.8,-2.25 -0.8,-5.05 0,-2.7 0.65,-4.9 0.7,-2.25 2,-3.85 1.3,-1.6 3.1,-2.5 1.85,-0.9 4.2,-0.9 1.85,0 3.25,0.45 1.4,0.45 2.1,0.95 l 0,-11.6 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4277"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 1001.9623,253.65533 q 4.7,0 7.25,2.95 2.55,2.9 2.55,8.85 l 0,1.45 -16.59997,0 q 0.25,3.6 2.35,5.5 2.15,1.85 5.99997,1.85 2.2,0 3.75,-0.35 1.55,-0.35 2.35,-0.75 l 0.55,3.5 q -0.75,0.4 -2.7,0.85 -1.95,0.45 -4.4,0.45 -3,0 -5.29997,-0.9 -2.25,-0.95 -3.75,-2.55 -1.5,-1.6 -2.25,-3.8 -0.75,-2.25 -0.75,-4.85 0,-3.1 0.95,-5.4 0.95,-2.3 2.5,-3.8 1.55,-1.5 3.5,-2.25 1.95,-0.75 3.99997,-0.75 z m 5.6,9.9 q 0,-2.95 -1.55,-4.65 -1.55,-1.75 -4.1,-1.75 -1.45,0 -2.64997,0.55 -1.15,0.55 -2,1.45 -0.85,0.9 -1.35,2.05 -0.5,1.15 -0.65,2.35 l 12.29997,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4279"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 1030.9123,277.95533 q -2.2,0 -3.65,-0.6 -1.45,-0.6 -2.3,-1.8 -0.85,-1.2 -1.2,-2.95 -0.35,-1.8 -0.35,-4.15 l 0,-21.95 -6.7,0 0,-3.5 10.8,0 0,25.45 q 0,1.75 0.2,2.85 0.25,1.1 0.7,1.8 0.5,0.65 1.2,0.9 0.7,0.25 1.65,0.25 1.45,0 2.7,-0.35 1.25,-0.35 1.95,-0.75 l 0.6,3.5 q -0.3,0.15 -0.85,0.4 -0.55,0.2 -1.3,0.4 -0.75,0.2 -1.65,0.35 -0.85,0.15 -1.8,0.15 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4281"
+         inkscape:connector-curvature="0" />
+    </g>
+    <rect
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#fcaf3e;fill-opacity:1;fill-rule:nonzero;stroke:#f57900;stroke-width:5.22731733;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+       id="rect4169-6"
+       width="337.29727"
+       height="178.68327"
+       x="119.36895"
+       y="184.40964"
+       ry="18.769222" />
+    <g
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="text4142-6-5-2">
+      <path
+         d="m 160.99258,405.05968 q -1.75,1 -3.75,1.45 -1.95,0.5 -4.2,0.5 -2.75,0 -5.1,-0.95 -2.3,-1 -4,-2.95 -1.7,-2 -2.7,-5.05 -0.95,-3.05 -0.95,-7.2 0,-3.95 1,-6.95 1.05,-3 2.8,-5.05 1.75,-2.05 4.1,-3.1 2.35,-1.05 5,-1.05 1.85,0 3.75,0.5 1.95,0.5 3.8,1.65 l -1.2,3.4 q -3.3,-1.9 -6.2,-1.9 -2.05,0 -3.7,0.9 -1.6,0.85 -2.75,2.5 -1.15,1.65 -1.8,3.95 -0.6,2.3 -0.6,5.15 0,3.2 0.65,5.55 0.7,2.35 1.9,3.9 1.2,1.55 2.85,2.3 1.7,0.75 3.65,0.75 1.45,0 3.05,-0.35 1.6,-0.4 3.3,-1.35 l 1.1,3.4 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4212" />
+      <path
+         d="m 175.74258,403.40968 q 1.55,0 2.75,-0.1 1.25,-0.1 2.05,-0.25 l 0,-6.9 q -0.8,-0.25 -1.95,-0.4 -1.1,-0.15 -2.35,-0.15 -1.15,0 -2.25,0.2 -1.1,0.15 -1.95,0.6 -0.85,0.45 -1.4,1.2 -0.55,0.7 -0.55,1.8 0,2.25 1.5,3.15 1.55,0.85 4.15,0.85 z m -0.4,-20.8 q 2.6,0 4.35,0.65 1.8,0.65 2.9,1.8 1.1,1.15 1.55,2.8 0.45,1.65 0.45,3.6 l 0,14.5 q -1.45,0.25 -3.85,0.6 -2.35,0.35 -4.85,0.35 -1.9,0 -3.7,-0.35 -1.8,-0.3 -3.2,-1.1 -1.4,-0.85 -2.25,-2.3 -0.85,-1.45 -0.85,-3.7 0,-2 0.85,-3.35 0.9,-1.4 2.25,-2.25 1.4,-0.85 3.15,-1.2 1.8,-0.4 3.6,-0.4 2.45,0 4.8,0.55 l 0,-1.15 q 0,-1.05 -0.25,-2 -0.2,-1 -0.85,-1.8 -0.6,-0.8 -1.7,-1.25 -1.05,-0.5 -2.75,-0.5 -2.15,0 -3.75,0.3 -1.6,0.3 -2.45,0.6 l -0.5,-3.4 q 0.85,-0.4 2.8,-0.7 2,-0.3 4.25,-0.3 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4214" />
+      <path
+         d="m 204.89258,406.90968 q -2.2,0 -3.65,-0.6 -1.45,-0.6 -2.3,-1.8 -0.85,-1.2 -1.2,-2.95 -0.35,-1.8 -0.35,-4.15 l 0,-21.95 -6.7,0 0,-3.5 10.8,0 0,25.45 q 0,1.75 0.2,2.85 0.25,1.1 0.7,1.8 0.5,0.65 1.2,0.9 0.7,0.25 1.65,0.25 1.45,0 2.7,-0.35 1.25,-0.35 1.95,-0.75 l 0.6,3.5 q -0.3,0.15 -0.85,0.4 -0.55,0.2 -1.3,0.4 -0.75,0.2 -1.65,0.35 -0.85,0.15 -1.8,0.15 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4216" />
+      <path
+         d="m 229.89258,406.90968 q -2.2,0 -3.65,-0.6 -1.45,-0.6 -2.3,-1.8 -0.85,-1.2 -1.2,-2.95 -0.35,-1.8 -0.35,-4.15 l 0,-21.95 -6.7,0 0,-3.5 10.8,0 0,25.45 q 0,1.75 0.2,2.85 0.25,1.1 0.7,1.8 0.5,0.65 1.2,0.9 0.7,0.25 1.65,0.25 1.45,0 2.7,-0.35 1.25,-0.35 1.95,-0.75 l 0.6,3.5 q -0.3,0.15 -0.85,0.4 -0.55,0.2 -1.3,0.4 -0.75,0.2 -1.65,0.35 -0.85,0.15 -1.8,0.15 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4218" />
+      <path
+         d="m 248.44258,379.55968 q -1.3,0 -2.25,-0.9 -0.95,-0.9 -0.95,-2.45 0,-1.55 0.95,-2.45 0.95,-0.9 2.25,-0.9 1.35,0 2.25,0.9 0.95,0.9 0.95,2.45 0,1.55 -0.95,2.45 -0.9,0.9 -2.25,0.9 z m -1.05,7.05 -6.7,0 0,-3.45 10.8,0 0,14.25 q 0,3.45 0.95,4.65 0.95,1.15 2.85,1.15 1.45,0 2.65,-0.35 1.25,-0.35 1.95,-0.75 l 0.6,3.5 q -0.3,0.15 -0.85,0.4 -0.55,0.2 -1.3,0.4 -0.7,0.2 -1.6,0.35 -0.85,0.15 -1.8,0.15 -2.2,0 -3.65,-0.6 -1.45,-0.6 -2.35,-1.8 -0.85,-1.2 -1.2,-2.95 -0.35,-1.8 -0.35,-4.15 l 0,-10.8 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4220" />
+      <path
+         d="m 266.54258,383.80968 q 2.25,-0.55 4.45,-0.85 2.25,-0.3 4.2,-0.3 4.65,0 7,2.4 2.4,2.4 2.4,7.7 l 0,13.6 -4.1,0 0,-12.85 q 0,-2.25 -0.4,-3.65 -0.4,-1.4 -1.15,-2.15 -0.7,-0.8 -1.75,-1.1 -1,-0.3 -2.2,-0.3 -1,0 -2.15,0.15 -1.1,0.1 -2.15,0.3 l 0,19.6 -4.15,0 0,-22.55 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4222" />
+      <path
+         d="m 305.29258,404.20968 q -0.7,0.4 -2.15,0.85 -1.45,0.45 -3.35,0.45 -2.05,0 -3.85,-0.65 -1.75,-0.7 -3.1,-2.05 -1.3,-1.4 -2.1,-3.5 -0.75,-2.15 -0.75,-5.05 0,-2.55 0.7,-4.65 0.75,-2.15 2.1,-3.7 1.4,-1.55 3.4,-2.4 2,-0.9 4.55,-0.9 3,0 5.1,0.45 2.15,0.4 3.6,0.8 l 0,20.7 q 0,5.4 -2.75,7.8 -2.7,2.4 -8.2,2.4 -2.25,0 -4.1,-0.35 -1.8,-0.35 -3.2,-0.85 l 0.75,-3.65 q 1.3,0.55 2.95,0.9 1.7,0.35 3.7,0.35 3.6,0 5.15,-1.45 1.55,-1.45 1.55,-4.7 l 0,-0.8 z m 0,-17.4 q -0.6,-0.2 -1.65,-0.35 -1.05,-0.2 -2.85,-0.2 -3.2,0 -4.9,2.2 -1.65,2.2 -1.65,5.85 0,2 0.45,3.45 0.5,1.4 1.3,2.35 0.85,0.9 1.9,1.35 1.05,0.4 2.25,0.4 1.55,0 2.9,-0.45 1.4,-0.45 2.25,-1.05 l 0,-13.55 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4224" />
+      <path
+         d="m 360.99258,405.05968 q -1.75,1 -3.75,1.45 -1.95,0.5 -4.2,0.5 -2.75,0 -5.1,-0.95 -2.3,-1 -4,-2.95 -1.7,-2 -2.7,-5.05 -0.95,-3.05 -0.95,-7.2 0,-3.95 1,-6.95 1.05,-3 2.8,-5.05 1.75,-2.05 4.1,-3.1 2.35,-1.05 5,-1.05 1.85,0 3.75,0.5 1.95,0.5 3.8,1.65 l -1.2,3.4 q -3.3,-1.9 -6.2,-1.9 -2.05,0 -3.7,0.9 -1.6,0.85 -2.75,2.5 -1.15,1.65 -1.8,3.95 -0.6,2.3 -0.6,5.15 0,3.2 0.65,5.55 0.7,2.35 1.9,3.9 1.2,1.55 2.85,2.3 1.7,0.75 3.65,0.75 1.45,0 3.05,-0.35 1.6,-0.4 3.3,-1.35 l 1.1,3.4 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4226" />
+      <path
+         d="m 385.99258,394.75968 q 0,2.75 -0.8,5 -0.75,2.2 -2.15,3.8 -1.4,1.6 -3.35,2.5 -1.95,0.85 -4.25,0.85 -2.25,0 -4.2,-0.85 -1.9,-0.9 -3.3,-2.5 -1.4,-1.6 -2.2,-3.8 -0.75,-2.25 -0.75,-5 0,-2.75 0.75,-5 0.8,-2.25 2.2,-3.8 1.4,-1.6 3.3,-2.45 1.95,-0.9 4.2,-0.9 2.3,0 4.25,0.9 1.95,0.85 3.35,2.45 1.4,1.55 2.15,3.8 0.8,2.25 0.8,5 z m -4.25,0 q 0,-3.95 -1.7,-6.2 -1.7,-2.3 -4.6,-2.3 -2.85,0 -4.55,2.3 -1.65,2.25 -1.65,6.2 0,3.9 1.65,6.2 1.7,2.25 4.55,2.25 2.9,0 4.6,-2.25 1.7,-2.3 1.7,-6.2 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4228" />
+      <path
+         d="m 405.29258,388.05968 q -0.7,-0.65 -2.05,-1.2 -1.35,-0.6 -2.8,-0.6 -1.65,0 -2.85,0.65 -1.15,0.65 -1.9,1.8 -0.75,1.1 -1.1,2.7 -0.35,1.55 -0.35,3.35 0,4.05 1.9,6.25 1.9,2.2 4.95,2.2 1.55,0 2.6,-0.15 1.1,-0.15 1.6,-0.3 l 0,-14.7 z m 0,-15.65 4.15,-0.7 0,34 q -1.35,0.4 -3.45,0.8 -2.1,0.4 -4.9,0.4 -2.5,0 -4.55,-0.85 -2.05,-0.85 -3.5,-2.4 -1.45,-1.6 -2.25,-3.85 -0.8,-2.25 -0.8,-5.05 0,-2.7 0.65,-4.9 0.7,-2.25 2,-3.85 1.3,-1.6 3.1,-2.5 1.85,-0.9 4.2,-0.9 1.85,0 3.25,0.45 1.4,0.45 2.1,0.95 l 0,-11.6 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4230" />
+      <path
+         d="m 425.94258,382.60968 q 4.7,0 7.25,2.95 2.55,2.9 2.55,8.85 l 0,1.45 -16.6,0 q 0.25,3.6 2.35,5.5 2.15,1.85 6,1.85 2.2,0 3.75,-0.35 1.55,-0.35 2.35,-0.75 l 0.55,3.5 q -0.75,0.4 -2.7,0.85 -1.95,0.45 -4.4,0.45 -3,0 -5.3,-0.9 -2.25,-0.95 -3.75,-2.55 -1.5,-1.6 -2.25,-3.8 -0.75,-2.25 -0.75,-4.85 0,-3.1 0.95,-5.4 0.95,-2.3 2.5,-3.8 1.55,-1.5 3.5,-2.25 1.95,-0.75 4,-0.75 z m 5.6,9.9 q 0,-2.95 -1.55,-4.65 -1.55,-1.75 -4.1,-1.75 -1.45,0 -2.65,0.55 -1.15,0.55 -2,1.45 -0.85,0.9 -1.35,2.05 -0.5,1.15 -0.65,2.35 l 12.3,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path4232" />
+    </g>
+    <path
+       style="fill:#555753;fill-rule:evenodd;stroke:#555753;stroke-width:5.20514202;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="m 609.71154,417.19714 127.08926,0 0,0"
+       id="path4356"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g4374"
+       transform="matrix(1.0090624,0,0,1.1119368,-179.87122,-33.895706)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5686"
+         d="M 633.17872,273.34771 738.95012,149.06212"
+         style="fill:#555753;fill-rule:evenodd;stroke:#555753;stroke-width:4.69949198;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5688)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path5686-7"
+         d="m 632.68542,274.15483 105.7714,124.28559"
+         style="display:inline;fill:#555753;fill-rule:evenodd;stroke:#555753;stroke-width:4.69949198;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5688-6)" />
+    </g>
+    <g
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="text4294">
+      <path
+         d="m 489.17144,566.26565 q 3.15,0 4.8,-1.2 1.65,-1.2 1.65,-3.6 0,-1.45 -0.6,-2.45 -0.6,-1.05 -1.6,-1.8 -1,-0.8 -2.25,-1.35 -1.25,-0.6 -2.55,-1.1 -1.5,-0.6 -2.9,-1.35 -1.35,-0.75 -2.45,-1.75 -1.05,-1 -1.7,-2.35 -0.6,-1.35 -0.6,-3.2 0,-4.05 2.55,-6.3 2.55,-2.3 7.1,-2.3 1.25,0 2.45,0.2 1.25,0.15 2.3,0.4 1.05,0.25 1.85,0.6 0.85,0.35 1.35,0.7 l -1.3,3.45 q -1,-0.6 -2.75,-1.2 -1.75,-0.6 -3.9,-0.6 -2.25,0 -3.9,1.15 -1.65,1.1 -1.65,3.35 0,1.3 0.45,2.2 0.5,0.9 1.3,1.6 0.85,0.65 1.95,1.2 1.1,0.55 2.4,1.1 1.9,0.8 3.45,1.6 1.6,0.8 2.7,1.9 1.15,1.1 1.75,2.6 0.65,1.5 0.65,3.65 0,4.05 -2.75,6.25 -2.7,2.15 -7.8,2.15 -1.65,0 -3.1,-0.25 -1.45,-0.2 -2.6,-0.55 -1.1,-0.35 -1.95,-0.7 -0.85,-0.35 -1.3,-0.65 l 1.25,-3.4 q 1,0.55 2.95,1.3 1.95,0.7 4.75,0.7 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5059" />
+      <path
+         d="m 506.02144,569.16565 0,-33.95 4.15,-0.7 0,11.8 q 1,-0.4 2.25,-0.6 1.25,-0.25 2.45,-0.25 2.65,0 4.4,0.8 1.8,0.75 2.85,2.15 1.05,1.4 1.5,3.35 0.45,1.95 0.45,4.3 l 0,13.1 -4.1,0 0,-12.2 q 0,-4.3 -1.2,-6.05 -1.2,-1.8 -4.3,-1.8 -1.3,0 -2.55,0.3 -1.2,0.25 -1.75,0.5 l 0,19.25 -4.15,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5061" />
+      <path
+         d="m 540.22144,566.21565 q 1.55,0 2.75,-0.1 1.25,-0.1 2.05,-0.25 l 0,-6.9 q -0.8,-0.25 -1.95,-0.4 -1.1,-0.15 -2.35,-0.15 -1.15,0 -2.25,0.2 -1.1,0.15 -1.95,0.6 -0.85,0.45 -1.4,1.2 -0.55,0.7 -0.55,1.8 0,2.25 1.5,3.15 1.55,0.85 4.15,0.85 z m -0.4,-20.8 q 2.6,0 4.35,0.65 1.8,0.65 2.9,1.8 1.1,1.15 1.55,2.8 0.45,1.65 0.45,3.6 l 0,14.5 q -1.45,0.25 -3.85,0.6 -2.35,0.35 -4.85,0.35 -1.9,0 -3.7,-0.35 -1.8,-0.3 -3.2,-1.1 -1.4,-0.85 -2.25,-2.3 -0.85,-1.45 -0.85,-3.7 0,-2 0.85,-3.35 0.9,-1.4 2.25,-2.25 1.4,-0.85 3.15,-1.2 1.8,-0.4 3.6,-0.4 2.45,0 4.8,0.55 l 0,-1.15 q 0,-1.05 -0.25,-2 -0.2,-1 -0.85,-1.8 -0.6,-0.8 -1.7,-1.25 -1.05,-0.5 -2.75,-0.5 -2.15,0 -3.75,0.3 -1.6,0.3 -2.45,0.6 l -0.5,-3.4 q 0.85,-0.4 2.8,-0.7 2,-0.3 4.25,-0.3 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5063" />
+      <path
+         d="m 569.77144,550.86565 q -0.7,-0.65 -2.05,-1.2 -1.35,-0.6 -2.8,-0.6 -1.65,0 -2.85,0.65 -1.15,0.65 -1.9,1.8 -0.75,1.1 -1.1,2.7 -0.35,1.55 -0.35,3.35 0,4.05 1.9,6.25 1.9,2.2 4.95,2.2 1.55,0 2.6,-0.15 1.1,-0.15 1.6,-0.3 l 0,-14.7 z m 0,-15.65 4.15,-0.7 0,34 q -1.35,0.4 -3.45,0.8 -2.1,0.4 -4.9,0.4 -2.5,0 -4.55,-0.85 -2.05,-0.85 -3.5,-2.4 -1.45,-1.6 -2.25,-3.85 -0.8,-2.25 -0.8,-5.05 0,-2.7 0.65,-4.9 0.7,-2.25 2,-3.85 1.3,-1.6 3.1,-2.5 1.85,-0.9 4.2,-0.9 1.85,0 3.25,0.45 1.4,0.45 2.1,0.95 l 0,-11.6 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5065" />
+      <path
+         d="m 600.47144,557.56565 q 0,2.75 -0.8,5 -0.75,2.2 -2.15,3.8 -1.4,1.6 -3.35,2.5 -1.95,0.85 -4.25,0.85 -2.25,0 -4.2,-0.85 -1.9,-0.9 -3.3,-2.5 -1.4,-1.6 -2.2,-3.8 -0.75,-2.25 -0.75,-5 0,-2.75 0.75,-5 0.8,-2.25 2.2,-3.8 1.4,-1.6 3.3,-2.45 1.95,-0.9 4.2,-0.9 2.3,0 4.25,0.9 1.95,0.85 3.35,2.45 1.4,1.55 2.15,3.8 0.8,2.25 0.8,5 z m -4.25,0 q 0,-3.95 -1.7,-6.2 -1.7,-2.3 -4.6,-2.3 -2.85,0 -4.55,2.3 -1.65,2.25 -1.65,6.2 0,3.9 1.65,6.2 1.7,2.25 4.55,2.25 2.9,0 4.6,-2.25 1.7,-2.3 1.7,-6.2 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5067" />
+      <path
+         d="m 619.62144,569.16565 q -0.75,-1.7 -1.3,-3.1 -0.55,-1.4 -1.1,-2.8 -0.5,-1.4 -1.05,-2.9 -0.5,-1.55 -1.2,-3.5 -0.7,1.95 -1.25,3.5 -0.55,1.5 -1.1,2.9 -0.5,1.4 -1.1,2.8 -0.55,1.4 -1.3,3.1 l -3.1,0 q -1.4,-6.15 -2.35,-12.15 -0.9,-6.05 -1.35,-11.05 l 3.9,0 q 0.15,1.95 0.3,3.85 0.2,1.85 0.45,3.9 0.25,2.05 0.55,4.45 0.35,2.4 0.75,5.4 0.8,-2 1.35,-3.5 0.55,-1.5 1,-2.85 0.45,-1.35 0.85,-2.75 0.45,-1.4 0.95,-3.15 l 3.1,0 q 0.5,1.75 0.9,3.15 0.4,1.4 0.85,2.75 0.45,1.35 0.95,2.85 0.5,1.5 1.25,3.45 0.45,-2.75 0.8,-5.1 0.35,-2.35 0.6,-4.4 0.25,-2.1 0.45,-4.05 0.2,-1.95 0.35,-4 l 3.75,0 q -0.25,2.5 -0.6,5.35 -0.35,2.85 -0.85,5.85 -0.5,3 -1.1,6.1 -0.6,3.05 -1.25,5.9 l -3.1,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5069" />
+      <path
+         d="m 672.67144,569.16565 -1.85,-8.1 -11.9,0 -1.8,8.1 -4.2,0 q 0.85,-3.3 1.9,-7.15 1.05,-3.85 2.25,-7.9 1.25,-4.05 2.6,-8.1 1.35,-4.1 2.85,-7.8 l 5.1,0 q 1.45,3.7 2.75,7.8 1.35,4.05 2.5,8.1 1.2,4.05 2.25,7.9 1.05,3.85 1.9,7.15 l -4.35,0 z m -7.75,-27.35 q -1.15,3.15 -2.5,7.3 -1.35,4.15 -2.55,8.55 l 10,0 q -1.15,-4.5 -2.5,-8.65 -1.3,-4.2 -2.45,-7.2 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5071" />
+      <path
+         d="m 689.22144,537.91565 q 2.75,0 4.8,0.7 2.1,0.7 3.45,2 1.4,1.25 2.05,3 0.7,1.75 0.7,3.9 0,4.85 -2.85,7.5 -2.85,2.6 -8.55,2.6 l -3.6,0 0,11.55 -4.1,0 0,-30.5 q 0.9,-0.2 1.95,-0.35 1.1,-0.15 2.15,-0.25 1.1,-0.1 2.1,-0.1 1.05,-0.05 1.9,-0.05 z m 0.3,3.55 q -1.3,0 -2.5,0.05 -1.2,0 -1.8,0.1 l 0,12.5 3.4,0 q 3.75,0 5.55,-1.5 1.85,-1.5 1.85,-4.95 0,-6.2 -6.5,-6.2 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5073" />
+      <path
+         d="m 717.02144,541.71565 0,23.95 6,0 0,3.5 -16.1,0 0,-3.5 6,0 0,-23.95 -6,0 0,-3.5 16.1,0 0,3.5 -6,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5075" />
+    </g>
+    <rect
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ad7fa8;fill-opacity:1;fill-rule:nonzero;stroke:#75507b;stroke-width:4.84334373;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+       id="rect4136-3"
+       width="57.502678"
+       height="223.36255"
+       x="572.87012"
+       y="8.9319315"
+       ry="10.189371"
+       rx="10.644559" />
+    <rect
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ad7fa8;fill-opacity:1;fill-rule:nonzero;stroke:#75507b;stroke-width:4.84334373;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+       id="rect4136-3-5"
+       width="57.502678"
+       height="223.36255"
+       x="572.87012"
+       y="305.51587"
+       ry="10.189371"
+       rx="10.644559" />
+    <g
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Liberation Serif';-inkscape-font-specification:'Liberation Serif';letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="text4294-3">
+      <path
+         d="m 524.57144,268.05438 0,3.5 -18.45,0 0,-30.95 4.1,0 0,27.45 14.35,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5078" />
+      <path
+         d="m 537.02144,244.75438 q -1.3,0 -2.25,-0.9 -0.95,-0.9 -0.95,-2.45 0,-1.55 0.95,-2.45 0.95,-0.9 2.25,-0.9 1.35,0 2.25,0.9 0.95,0.9 0.95,2.45 0,1.55 -0.95,2.45 -0.9,0.9 -2.25,0.9 z m -1.05,7.05 -6.7,0 0,-3.45 10.8,0 0,14.25 q 0,3.45 0.95,4.65 0.95,1.15 2.85,1.15 1.45,0 2.65,-0.35 1.25,-0.35 1.95,-0.75 l 0.6,3.5 q -0.3,0.15 -0.85,0.4 -0.55,0.2 -1.3,0.4 -0.7,0.2 -1.6,0.35 -0.85,0.15 -1.8,0.15 -2.2,0 -3.65,-0.6 -1.45,-0.6 -2.35,-1.8 -0.85,-1.2 -1.2,-2.95 -0.35,-1.8 -0.35,-4.15 l 0,-10.8 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5080" />
+      <path
+         d="m 575.07144,248.35438 q -0.9,3.25 -2.05,6.4 -1.15,3.1 -2.35,6.1 -1.2,2.95 -2.45,5.65 -1.25,2.7 -2.4,5.05 l -3.75,0 q -2.35,-4.7 -4.75,-10.7 -2.4,-6 -4.25,-12.5 l 4.5,0 q 0.6,2.2 1.35,4.65 0.8,2.45 1.65,4.9 0.85,2.45 1.7,4.75 0.9,2.25 1.75,4.05 0.85,-1.8 1.75,-4.05 0.95,-2.3 1.85,-4.75 0.9,-2.45 1.7,-4.9 0.85,-2.45 1.45,-4.65 l 4.3,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5082" />
+      <path
+         d="m 589.52144,247.80438 q 4.7,0 7.25,2.95 2.55,2.9 2.55,8.85 l 0,1.45 -16.6,0 q 0.25,3.6 2.35,5.5 2.15,1.85 6,1.85 2.2,0 3.75,-0.35 1.55,-0.35 2.35,-0.75 l 0.55,3.5 q -0.75,0.4 -2.7,0.85 -1.95,0.45 -4.4,0.45 -3,0 -5.3,-0.9 -2.25,-0.95 -3.75,-2.55 -1.5,-1.6 -2.25,-3.8 -0.75,-2.25 -0.75,-4.85 0,-3.1 0.95,-5.4 0.95,-2.3 2.5,-3.8 1.55,-1.5 3.5,-2.25 1.95,-0.75 4,-0.75 z m 5.6,9.9 q 0,-2.95 -1.55,-4.65 -1.55,-1.75 -4.1,-1.75 -1.45,0 -2.65,0.55 -1.15,0.55 -2,1.45 -0.85,0.9 -1.35,2.05 -0.5,1.15 -0.65,2.35 l 12.3,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5084" />
+      <path
+         d="m 646.77144,271.55438 -1.85,-8.1 -11.9,0 -1.8,8.1 -4.2,0 q 0.85,-3.3 1.9,-7.15 1.05,-3.85 2.25,-7.9 1.25,-4.05 2.6,-8.1 1.35,-4.1 2.85,-7.8 l 5.1,0 q 1.45,3.7 2.75,7.8 1.35,4.05 2.5,8.1 1.2,4.05 2.25,7.9 1.05,3.85 1.9,7.15 l -4.35,0 z m -7.75,-27.35 q -1.15,3.15 -2.5,7.3 -1.35,4.15 -2.55,8.55 l 10,0 q -1.15,-4.5 -2.5,-8.65 -1.3,-4.2 -2.45,-7.2 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5086" />
+      <path
+         d="m 663.32144,240.30438 q 2.75,0 4.8,0.7 2.1,0.7 3.45,2 1.4,1.25 2.05,3 0.7,1.75 0.7,3.9 0,4.85 -2.85,7.5 -2.85,2.6 -8.55,2.6 l -3.6,0 0,11.55 -4.1,0 0,-30.5 q 0.9,-0.2 1.95,-0.35 1.1,-0.15 2.15,-0.25 1.1,-0.1 2.1,-0.1 1.05,-0.05 1.9,-0.05 z m 0.3,3.55 q -1.3,0 -2.5,0.05 -1.2,0 -1.8,0.1 l 0,12.5 3.4,0 q 3.75,0 5.55,-1.5 1.85,-1.5 1.85,-4.95 0,-6.2 -6.5,-6.2 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5088" />
+      <path
+         d="m 691.12144,244.10438 0,23.95 6,0 0,3.5 -16.1,0 0,-3.5 6,0 0,-23.95 -6,0 0,-3.5 16.1,0 0,3.5 -6,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';writing-mode:lr-tb"
+         id="path5090" />
+    </g>
+  </g>
+</svg>

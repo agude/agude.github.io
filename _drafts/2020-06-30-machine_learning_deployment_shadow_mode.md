@@ -76,7 +76,11 @@ To put a model in shadow mode _in front of the API_, you host two API
 endpoints: one for the live model and one for the shadow model. The caller
 makes a call to both of them whenever they would normally call the live model.
 The caller can disregard the response, but they should log it so that the
-results can be compared.
+results can be compared. I have drawn this structure below:
+
+[![A diagram showing how in front of the API shadow mode is constructed.][front_pic]][front_pic]
+
+[front_pic]: {{ file_dir }}/shadow_mode_in_front_of_the_api.svg
 
 This way of deploying is well-suited to situations where the calling team is
 change-adverse or has very strict requirements for how the shadow model must
@@ -109,7 +113,12 @@ second model as well as a logging action.
 
 To put a model in shadow mode _behind the API_, you change the code that
 responds to API requests to call the live and shadow model. You log the
-results of both models[^3] but only return the result from the live model.
+results of both models[^3] but only return the result from the live model. I
+have drawn a schematic of this below:
+
+[![A diagram showing how behind the API shadow mode is constructed.][behind_pic]][behind_pic]
+
+[behind_pic]: {{ file_dir }}/shadow_mode_behind_the_api.svg
 
 This method is great when you want to move quickly (and break things), because
 you can change the shadow model without having to coordinate with the calling
