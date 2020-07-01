@@ -153,5 +153,5 @@ experiment.
 ---
 
 [^1]: **Disclaimer**: I was a technical editor for the book, but make no money off sales. 
-[^2]: By _"live model"_, I mean whatever system is currently doing the job that the shadow model will do. It could be a model, a heuristic, a simple `if` statement or even nothing at all.
+[^2]: By _"live model"_, I mean whatever system is currently doing the job that the shadow model will do. It could be a model, a heuristic, a simple `if` statement, or even nothing at all.
 [^3]: You _are_ logging your live results, right?
