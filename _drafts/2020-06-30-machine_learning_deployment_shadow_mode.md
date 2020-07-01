@@ -14,12 +14,12 @@ categories: machine-learning
 {% include lead_image.html %}
 
 Deploying a machine learning product so that it can be used is essential to
-getting value out of it. But it is often one of the hardest parts of building
-the product.
+getting value out of it. But it is one of the hardest parts of building the
+product.
 
 In this post I will focus on a small piece of deployment: _"How do I test my
 new model in production?"_ One answer, and a way I often deploy models to
-begin, is **shadow mode**.
+start, is **shadow mode**.
 
 If you're interested in a broader overview of building and deploying machine
 learning products, I highly recommend [Emmanuel Ameisen's][manu] book:
@@ -28,14 +28,12 @@ learning products, I highly recommend [Emmanuel Ameisen's][manu] book:
 [manu]: https://mlpowered.com/
 [book]: https://mlpowered.com/book/
 
-
 ## What Is Shadow Mode?
 
 To launch a model in shadow mode you deploy the new, shadow model alongside
 the old, live model.[^2] The live model continues to handle all the requests,
 but the shadow model also runs on some (or all) of the requests. This allows
-you to test the performance of the new model while relying on the
-tried-and-true live model to serve the user.
+you to test the new model while relying on the tried-and-true live model.
 
 ## When Would I Use Shadow Mode?
 
@@ -48,34 +46,31 @@ in the correct format. You can also check the latency is not too high.
 you expect (for example, your model is not reporting just a single value for
 all input).
 - **Performance**: You can verify that the shadow model is producing results
-comparable or better than the live model.
+comparable to or better than the live model.
 
 Shadow mode works well when the result of the model does not need a user
-action to validate it. Models where you try to influence the user, for example
-a recommendation model where success means more sales converted, are best
-tested using an [A/B test][ab]. The big difference between A/B and shadow mode
-is that in an A/B test traffic is split between the two models and in shadow
-mode the models operate on (some of) the same events.
+action to validate it. Models where you try to influence the user---for
+example a recommendation model where success means more sales converted---are
+best tested using an [A/B test][ab]. The big difference between an A/B test
+and shadow mode is that in an A/B test traffic is split between the two models
+and in shadow mode the models operate on the same events.
 
 [ab]: https://en.wikipedia.org/wiki/A/B_testing
 
 ## How Do I Deploy In Shadow Mode?
 
-There are two ways that I think of deploying to shadow mode. They are relative
-to the [API][api] for the live model, and are:
+There are two ways that I think of deploying in shadow mode. They are relative
+to the [API][api] for the live model, and are [_in front of the live
+API_][front] and [_behind the live API_][behind].
 
 [api]: https://en.wikipedia.org/wiki/Application_programming_interface
-
-- [In Front of the live API][front]
-- [Behind the live API][behind]
-
 [front]: #in-front-of-the-api
 [behind]: #behind-the-api
 
 ### In Front of the API
 
 To put a model in shadow mode _in front of the API_, you host two API
-endpoints---one for the live model and one for the shadow model. The caller
+endpoints: one for the live model and one for the shadow model. The caller
 makes a call to both of them whenever they would normally call the live model.
 The caller can disregard the response, but they should log it so that the
 results can be compared.
