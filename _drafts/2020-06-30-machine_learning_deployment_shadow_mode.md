@@ -132,6 +132,12 @@ ready to replace the live model, you will need to change the API version and
 change the calling code to use this new version. This means there is a little
 extra work to be done once you are satisfied with your test results.
 
+## Conclusion
+
+Deploying a model in shadow mode is an easy way to test your model on live
+data. It is flexible and allows you to empower the right team to control the
+experiment.
+
 ---
 
 [^1]: **Disclaimer**: I was a technical editor for the book, but make no money off sales.
