@@ -61,12 +61,12 @@ during the holidays.
 
 Just as last time, the [violin plots][violin] below show the distribution of
 these ratios from the years 2001 to 2017. A value greater than 1 means that
-there are more accidents during the week when DST starts than two weeks after.
+there are more accidents during the week when DST ends than the week after.
 
 [violin]: https://en.wikipedia.org/wiki/Violin_plot
 
 [![Violin plot showing the ratio of accidents per day of the week for the week
-after the start of daylight saving time, divided by the week two weeks
+daylight saving time ends, divided by the week
 after.][ratio_plot]][ratio_plot]
 
 [ratio_plot]: {{ file_dir }}/accidents_after_end_dst_in_california.svg
