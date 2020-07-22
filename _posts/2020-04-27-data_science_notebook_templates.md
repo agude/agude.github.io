@@ -85,6 +85,20 @@ and a focused legend:
 
 [example]: {{ file_dir }}/example_plot.svg
 
+You can read more about the plotting notebook in detail here:
+
+<!-- A grid of hand-selected related posts. -->
+<div class="card-grid">
+{% assign plotting_post = site.posts | where:"title", 'Jupyter Notebook Templates for Data Science: Plotting' | first %}
+{% include article_card.html
+  url=plotting_post.url
+  image=plotting_post.image
+  image_alt=plotting_post.image_alt
+  title=plotting_post.title
+  description=plotting_post.description
+%}
+</div>
+
 Enjoy the templates, I hope they make you more productive! And if you are
 feeling generous, I would love [contributions][submit]!
 
