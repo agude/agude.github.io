@@ -31,4 +31,9 @@
     <!-- MathJax -->
     {% include mathjax.html %}
   {% endif %}
+
+  {% if page.canonical %}
+    <!-- Canonical Link -->
+    <link rel="canonical" href="{{ page.canonical }}" />
+  {% endif %}
 </head>
