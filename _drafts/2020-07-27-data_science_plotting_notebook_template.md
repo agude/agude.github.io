@@ -16,10 +16,10 @@ categories:
 
 {% include lead_image.html %}
 
-I recently released my [Jupyter Notebook Template Library][library], in part
-to help myself so I do not have to spend hours poking through my old notebooks
-to find handy code snippets. In this post I dive into the plotting notebook to
-show you what it can do.
+I recently released my [Jupyter Notebook Template Library][library]. Its goal
+is to accelerate your data science projects without having to to spend hours
+poking through old notebooks to find handy code snippets. In this post I dive
+into the plotting notebook to show you what it can do.
 
 [library]: https://github.com/agude/Jupyter-Notebook-Template-Library
 
@@ -28,18 +28,20 @@ show you what it can do.
 ## The Plotting Notebook
 
 Visualizing your data is a critical step in understanding your data, and so it
-is appropriate that the first notebook in the library helps with making
-beautiful plots.
+is appropriate that the [**first notebook in the library**][plotting_nb] helps
+with making beautiful plots.
+
+[plotting_nb]: https://github.com/agude/Jupyter-Notebook-Template-Library/blob/d6cda39c388154cb8f4073e669efff109c743a99/notebooks/basic-plotting-template.ipynb
 
 The notebook begins with a bunch of boilerplate to set some metadata that is
 saved to the files and change some defaults like the figure size and
 resolution, font size, and legend frame. After that there are a few helpful
-functions which I will discuss in more detail.
+functions which I will discuss below.
 
 ### Draw Bands
 
-One of my favorite functions is the `draw_bands()` function. It draws a set of
-colored bands on the background of the plot based on the axis tick locations.
+One of my favorite functions is `draw_bands()`. It draws a set of colored
+bands on the background of the plot based on the axis tick locations.
 
 When called with just the axis, like `draw_bands(ax)`, it produces this:
 
@@ -54,22 +56,24 @@ alpha=0.05)`, which produces:
 
 [orange_bands_plot]: {{ file_dir }}/orange_bands.svg
 
-These bands help guide the eye to where the ticks are, which is especially
-useful when your x-axis is time. I use these bands when:
+These bands are a subtle way of indicating where on the X-axis a point lies,
+which is especially useful when plotting a time series. I use them often. Here
+are some examples:
 
 - [**Discussing my sons' language development**][language_post] to highlight each month.
 - [**Plotting the progression of the cycling hour record**][hour_post] to show each decade.  
 - [**Exploring when cyclists are involved in traffic accidents**][bike_post] to highlight the seasonality.
 
-[language_post]: {% post_url 2020-02-10-my_sons_language_development_comparison %}
-[hour_post]: {% post_url 2019-07-09-hour_record_plot_improvements %}
-[bike_post]: {% post_url 2019-02-20-switrs_bicycle_crashes_by_date %}
+[language_post]: {% post_url 2020-02-10-my_sons_language_development_comparison %}#development
+[hour_post]: {% post_url 2019-07-09-hour_record_plot_improvements %}#improvements
+[bike_post]: {% post_url 2019-02-20-switrs_bicycle_crashes_by_date %}#day-by-day
 
 ### Draw Legends
 
-I like minimal legends. Often just color is enough for simple plots, so I
-wrote a function to change the color of the legend text to match the line,
-called `draw_colored_legend()`. It produces a legend like on this plot:
+I like minimal, but informative, legends. Color alone is often enough to
+differentiate lines or points on simple plots, so I wrote a function to change
+the color of the legend text to match the line, called
+`draw_colored_legend()`. It produces a legend like on this plot:
 
 [![A plot showing my colored legend.][legend_plot]][legend_plot]
 
@@ -87,13 +91,14 @@ I have used these types of legends when:
 - [**Plotting Tour de France Prize Money**][tdf_post] to label the winner's prize compared to the total.
 - [**Comparing Data Science Salaries by Gender**][salary_post] to differentiate the points for men and women.
 
-[son_post]: {% post_url 2020-01-30-my_second_sons_words %}
-[tdf_post]: {% post_url 2019-11-25-tdf_prize_money_plot_improvements %}
-[salary_post]: {% post_url 2019-05-09-data_science_salaries_by_gender %}
+[son_post]: {% post_url 2020-01-30-my_second_sons_words %}#the-words
+[tdf_post]: {% post_url 2019-11-25-tdf_prize_money_plot_improvements %}#improvements
+[salary_post]: {% post_url 2019-05-09-data_science_salaries_by_gender %}#by-region
 
 ## Putting It Together
 
-This notebook allows you to make a plot like this:
+The [plotting notebook][plotting_nb] lets you make beautiful plots quickly and
+easily. It lets you make this plot:
 
 [![An example plot from the notebook library][example]][example]
 
@@ -118,8 +123,9 @@ draw_bands(ax)
 save_plot(fig, "/tmp/output.svg")
 ```
 
-If the notebook template is useful, be sure to let me know on [Twitter][twit]
-or [Github][github]. Your feedback helps make the project better for everyone!
+If the notebook template library is useful to you, be sure to let me know on
+[Twitter][twit] or [Github][github]. Your feedback helps make the project
+better for everyone!
 
 [twit]: https://twitter.com/alex_gude/
 [github]: https://github.com/agude/Jupyter-Notebook-Template-Library/issues
