@@ -6,9 +6,14 @@ description: >
   NLP. But what about sentences? Read on to learn about skip-thought vectors,
   a sentence embedding algorithm!
 image: /files/skip-thought/header.jpg
+canonical: https://gab41.lab41.org/lab41-reading-group-skip-thought-vectors-fec68c05aa92
 categories: lab41
 ---
 
+_This post [originally appeared on Lab41's blog: Gab41][original]. It is
+reposted here with permission._
+
+[original]: {{ page.canonical }}
 
 ![A picture of old books on shelves taken at an angle.]({{ site.url
 }}/files/skip-thought/header.jpg)
