@@ -18,7 +18,7 @@ categories:
 
 I recently released my [Jupyter Notebook Template Library][library]. Its goal
 is to accelerate your data science projects without having to to spend hours
-poking through old notebooks to find handy code snippets. In this post I dive
+poring over old notebooks to find handy code snippets. In this post I dive
 into the plotting notebook to show you what it can do.
 
 [library]: https://github.com/agude/Jupyter-Notebook-Template-Library
@@ -27,20 +27,20 @@ into the plotting notebook to show you what it can do.
 
 ## The Plotting Notebook
 
-Visualizing your data is a critical step in understanding your data, and so it
+Visualizing your data is a critical step in understanding it, and so it
 is appropriate that the [**first notebook in the library**][plotting_nb] helps
 with making beautiful plots.
 
 [plotting_nb]: https://github.com/agude/Jupyter-Notebook-Template-Library/blob/d6cda39c388154cb8f4073e669efff109c743a99/notebooks/basic-plotting-template.ipynb
 
-The notebook begins with a bunch of boilerplate to set some metadata that is
-saved to the files and change some defaults like the figure size and
+The notebook begins with boilerplate code that defines metadata for the
+resulting files and also changes some defaults, such as the figure size and
 resolution, font size, and legend frame. After that there are a few helpful
 functions which I will discuss below.
 
 ### Draw Bands
 
-One of my favorite functions is `draw_bands()`. It draws a set of colored
+One of my favorite functions is `draw_bands()`. It draws a set of alternating colored
 bands on the background of the plot based on the axis tick locations.
 
 When called with just the axis, like `draw_bands(ax)`, it produces this:
@@ -85,7 +85,7 @@ the future.
 
 [brittle]: https://en.wikipedia.org/wiki/Software_brittleness
 
-I have used these types of legends when:
+This legend style can be seen in these posts:
 
 - [**Plotting my son's language development**][son_post] to label each language.
 - [**Plotting Tour de France Prize Money**][tdf_post] to label the winner's prize compared to the total.
@@ -97,14 +97,14 @@ I have used these types of legends when:
 
 ## Putting It Together
 
-The [plotting notebook][plotting_nb] lets you make beautiful plots quickly and
-easily. It lets you make this plot:
+The [plotting notebook][plotting_nb] enables you to make beautiful plots quickly and
+easily. For example, this plot:
 
 [![An example plot from the notebook library][example]][example]
 
 [example]: {{ file_dir }}/example_plot.svg
 
-With only this code:
+Was produced by this short code snippet:
 
 ```python
 fig, ax = setup_plot(
