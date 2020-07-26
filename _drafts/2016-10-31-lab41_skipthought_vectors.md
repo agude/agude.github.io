@@ -1,22 +1,20 @@
 ---
 layout: post
 title: "Lab41 Reading Group: Skip-Thought Vectors"
+gab41: https://gab41.lab41.org/lab41-reading-group-skip-thought-vectors-fec68c05aa92
 description: >
   Word embeddings are great and should be your first stop for doing word based
   NLP. But what about sentences? Read on to learn about skip-thought vectors,
   a sentence embedding algorithm!
 image: /files/skip-thought/header.jpg
-canonical: https://gab41.lab41.org/lab41-reading-group-skip-thought-vectors-fec68c05aa92
+image_alt: >
+  A picture of old books on shelves taken at an angle.
 categories: lab41
 ---
 
-_This post [originally appeared on Lab41's blog: Gab41][original]. It is
-reposted here with permission._
+{% capture file_dir %}/files/skip-thought/{% endcapture %}
 
-[original]: {{ page.canonical }}
-
-![A picture of old books on shelves taken at an angle.]({{ site.url
-}}/files/skip-thought/header.jpg)
+{% include lead_image.html %}
 
 Continuing the tour of older papers that started with our [ResNet blog
 post][rn], we now take on [**Skip-Thought Vectors**][arxiv] by [Kiros][kiros]
@@ -25,10 +23,10 @@ was not tuned for a single task and did not require labeled data to train.
 They took inspiration from Word2Vec skip-gram (you can find [my explanation of
 that algorithm here][w2v]) and attempt to extend it to sentences.
 
-[rn]: TODO
+[rn]: {% post_url 2016-09-08-lab41_resnet %}
 [arxiv]: https://arxiv.org/abs/1506.06726
 [kiros]: http://www.cs.toronto.edu/~rkiros/
-[w2v]: TODO Py2vec
+[w2v]: {% post_url 2016-03-09-lab41_python2vec %}#word-embeddings
 
 Skip-thought vectors are created using an encoder-decoder model. The encoder
 takes in the training sentence and outputs a vector. There are two decoders
@@ -43,7 +41,9 @@ minimal tokenization is done to the input sentences. A diagram indicating the
 input sentence and the two predicted sentences is shown below.
 
 ![A diagram showing how a sentence is predicted by the sentence that follows
-and precedes it.]({{ site.url }}/files/skip-thought/st_example.png)
+and precedes it.][sentence_pred_image]
+
+[sentence_pred_image]: {{ file_dir }}/st_example.png
 
 Given a sentence (the grey dots), skip-thought attempts to predict the
 preceding sentence (red dots) and the next sentence (green dots). Figure from
@@ -78,7 +78,9 @@ translation from the Word2Vec vectors to the word vectors in their sentences.
 Below are shown the nearest neighbor words after the vocabulary expansion
 using query words that do not appear in the training vocabulary:
 
-![A table of the nearest neighbor words.]({{ site.url }}/files/skip-thought/words.png)
+![A table of the nearest neighbor words.][words]
+
+[words]: {{ file_dir }}/words.png
 
 Nearest neighbor words for various words that were not included in the
 training vocabulary. Table from the paper.
@@ -89,8 +91,8 @@ closest sentence to a query sentence; here are some examples:
 > **Query**: "I'm sure you'll have a glamorous evening," she said, giving an
 > exaggerated wink.
 
-> **Retrieved**: "I'm really glad you came to the party
-> tonight," he said, turning to her.
+> **Retrieved**: "I'm really glad you came to the party tonight," he said,
+> turning to her.
 
 And:
 
