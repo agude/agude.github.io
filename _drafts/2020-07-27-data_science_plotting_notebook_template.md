@@ -2,11 +2,10 @@
 layout: post
 title: "Jupyter Notebook Templates for Data Science: Plotting"
 description: >
-  Jupyter notebooks are great for data exploration; jumpstart your
-  visualizations with this plotting notebook!
+  Jumpstart your visualizations with this Jupyter plotting notebook!
 image: /files/jupyter-library/jupiter_red_spot_juno.jpg
 image_alt: >
-  A photo of the Library of Congress in 1902.
+  The planet Jupiter as seen by the Juno spacecraft.
 categories: 
   - jupyter
   - my_projects
@@ -27,8 +26,8 @@ into the plotting notebook to show you what it can do.
 
 ## The Plotting Notebook
 
-Visualizing your data is a critical step in understanding it, and so it
-is appropriate that the [**first notebook in the library**][plotting_nb] helps
+Visualizing your data is a critical step in understanding it, and so it is
+appropriate that the [**first notebook in the library**][plotting_nb] helps
 with making beautiful plots.
 
 [plotting_nb]: https://github.com/agude/Jupyter-Notebook-Template-Library/blob/d6cda39c388154cb8f4073e669efff109c743a99/notebooks/basic-plotting-template.ipynb
@@ -71,19 +70,20 @@ are some examples:
 ### Draw Legends
 
 I like minimal, but informative, legends. Color alone is often enough to
-differentiate lines or points on simple plots, so I wrote a function to change
-the color of the legend text to match the line, called
-`draw_colored_legend()`. It produces a legend like on this plot:
+differentiate lines or points, so I wrote a function to change the color of
+the legend text to match the line, called `draw_colored_legend()`. It produces
+a legend like on this plot:
 
 [![A plot showing my colored legend.][legend_plot]][legend_plot]
 
 [legend_plot]: {{ file_dir }}/legend.svg
 
 This function is a little [brittle][brittle]; it works well for scatter plots,
-but fails for some other matplotlib objects. I plan to make it more robust in
-the future.
+but fails for some other Matplotlib objects. I plan to [make it more
+robust][bug] in the future.
 
 [brittle]: https://en.wikipedia.org/wiki/Software_brittleness
+[bug]: https://github.com/agude/Jupyter-Notebook-Template-Library/issues/3
 
 This legend style can be seen in these posts:
 
@@ -97,8 +97,8 @@ This legend style can be seen in these posts:
 
 ## Putting It Together
 
-The [plotting notebook][plotting_nb] enables you to make beautiful plots quickly and
-easily. For example, this plot:
+The [plotting notebook][plotting_nb] enables you to make beautiful plots
+quickly and easily. For example, this plot:
 
 [![An example plot from the notebook library][example]][example]
 
