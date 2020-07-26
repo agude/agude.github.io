@@ -6,11 +6,14 @@ description: >
   want to recommend code snippets? Then you need word embeddings, like my
   Python2Vec!
 image: /files/python2vec/header.jpg
+image_alt: >
+  A generic picture of code on a screen. It's HTML, not Python, but whatever.
 categories: lab41
 ---
 
-![A generic picture of code on a screen. It's HTML, not Python, but
-whatever.]({{ site.url }}/files/python2vec/header.jpg)
+{% capture file_dir %}/files/python2vec/{% endcapture %}
+
+{% include lead_image.html %}
 
 The reason that Lab41 embarked on the [Hermes recommender systems
 challenge][anna] was to move towards assisting data scientists and software
@@ -108,23 +111,25 @@ repositories to the dataset. These are:
 
 [datasets_post]: {% post_url 2016-02-08-lab41_recommender_systems_datasets %}
 
-- [**matplotlib**][mpl]: A plotting library
-- [**scikit-learn**][skl]: A machine learning library
-- [**numpy**][numpy]: A scientific computing library
-- [**pandas**][pandas]: A columnar data analysis library
-- [**django**][django]: A web framework
-- [**scipy**][scipy]: A scientific computing library
-- [**flask**][flask]: A micro web framework
-- [**requests**][requests]: A HTTP requests library
-- [**ansible**][ansible]: An IT automation platform
-- [**sentry**][sentry]: A crash reporting utility
-- [**scrapy**][scrapy]: A web scraper
-- [**Mailpile**][mailpile]: An email client
-- [**sshuttle**][sshuttle]: A proxy server
-- [**salt**][salt]: An IT automation platform
-- [**NewsBlur**][newsblur]: A newsreader
-- [**beets**][beets]: A music library manager
-- [**SublimeCodeIntel**][sublime]: An autocomplete engine
+| Library                         | Description                       |
+|:--------------------------------|:----------------------------------|
+| [**ansible**][ansible]          | An IT automation platform.        |
+| [**beets**][beets]              | A music library manager.          |
+| [**django**][django]            | A web framework.                  |
+| [**flask**][flask]              | A micro web framework.            |
+| [**Mailpile**][mailpile]        | An email client.                  |
+| [**matplotlib**][mpl]           | A plotting library.               |
+| [**NewsBlur**][newsblur]        | A newsreader.                     |
+| [**numpy**][numpy]              | A scientific computing library.   |
+| [**pandas**][pandas]            | A columnar data analysis library. |
+| [**requests**][requests]        | A HTTP requests library.          |
+| [**salt**][salt]                | An IT automation platform.        |
+| [**scikit-learn**][skl]         | A machine learning library.       |
+| [**scipy**][scipy]              | A scientific computing library.   |
+| [**scrapy**][scrapy]            | A web scraper.                    |
+| [**sentry**][sentry]            | A crash reporting utility.        |
+| [**sshuttle**][sshuttle]        | A proxy server.                   |
+| [**SublimeCodeIntel**][sublime] | An autocomplete engine.           |
 
 [mpl]: https://github.com/matplotlib/matplotlib
 [skl]: https://github.com/scikit-learn/scikit-learn
@@ -148,7 +153,7 @@ Originally we were heavily biased towards data science-related libraries (as
 you might expect, us being data scientists), so we have tried to diversify by
 selecting some popular non-data science related projects.
 
-In total this gives us 9,424 files written by 5,307 authors, consisting of
+In total this gives us 9424 files written by 5307 authors, consisting of
 2,555,194 lines. We tokenize the lines by lowercasing everything and splitting
 on all whitespace and punctuation characters. This leaves us with 10,325,475
 words, of which 254,851 are distinct.
@@ -157,13 +162,13 @@ This data were processed with [MLlib's Word2Vec class][mllib_w2v] as follows:
 
 [mllib_w2v]: https://spark.apache.org/docs/latest/mllib-feature-extraction.html#word2vec
 
-{% highlight python %}
+```python
 from pyspark.mllib.feature import Word2Vec
 
 word2vec = Word2Vec()
 word2vec.setMinCount(25)
 word2vec.setVectorSize(50)
-{% endhighlight %}
+```
 
 The resulting model and code needed to explore it can be found
 [here][p2v_files]. Included is an [Jupyter notebook with an example of using
@@ -182,7 +187,7 @@ to train your model.
 Now that we have a model, we can explore it and see what comes out! First we
 find all the words near range, a function often used in for loops:
 
-{% highlight python %}
+```python
 >>> model.closest_words('range', n=5)
 
 [(1.701, u'i'),
@@ -190,7 +195,7 @@ find all the words near range, a function often used in for loops:
  (2.128, u'xrange'),
  (2.536, u'03d'),
  (2.586, u'k')]
-{% endhighlight %}
+```
 
 The five words that come up are all things you would expect to appear near
 range in the code: `i` and `k` are common looping variable names, `zip` is a
@@ -203,7 +208,7 @@ from knowing about them if they did not.
 
 Let's try our original example from the introduction:
 
-{% highlight python %}
+```python
 >>> model.closest_words('array', n=5)
 
 [(1.563, u'masked_equal'),
@@ -211,8 +216,7 @@ Let's try our original example from the introduction:
  (1.616, u'newshape'),
  (1.618, u'rational'),
  (1.696, u'unravel_index')]
-{% endhighlight %}
-
+```
 
 Again we find many similarities to the array function: `zeros` creates an
 all-zero array, `masked_equal` operates on an array, `newshape` is an argument
