@@ -1,14 +1,20 @@
 ---
 layout: post
 title: "The Nine Must-Have Datasets for Investigating Recommender Systems"
+gab41: https://gab41.lab41.org/the-nine-must-have-datasets-for-investigating-recommender-systems-ce9421bf981c#.abs1ftta9
 description: >
   Do you want to play around with recommender systems, but you don't have any
   data? Don't worry, there are tons of great, open source datasets for
   recommender systems!
 image: TODO
+image_alt: >
+  TODO
 categories: lab41
 ---
 
+{% capture file_dir %}TODO{% endcapture %}
+
+{% include lead_image.html %}
 
 TODO
 ![A picture of old books on shelves taken at an angle.]({{ site.url
@@ -142,10 +148,10 @@ The dataset is [available here][lastfm_data].
 
 ### Wikipedia
 
-[Wikipedia][wp] is a collaborative encyclopedia written by its users. In addition to
-providing information to students desperately writing term papers at the last
-minute, Wikipedia also provides a data dump of every edit made to every
-article by every user ever. This dataset has been widely used for social
+[Wikipedia][wp] is a collaborative encyclopedia written by its users. In
+addition to providing information to students desperately writing term papers
+at the last minute, Wikipedia also provides a data dump of every edit made to
+every article by every user ever. This dataset has been widely used for social
 network analysis, testing of graph and database implementations, as well as
 studies of the behavior of users of Wikipedia. One can also view the edit
 actions taken by users as an implicit rating indicating that they care about
