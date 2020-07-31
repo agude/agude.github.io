@@ -1,17 +1,20 @@
 ---
 layout: post
 title: "Lab41 Reading Group: Deep Networks with Stochastic Depth"
+gab41: https://gab41.lab41.org/lab41-reading-group-deep-networks-with-stochastic-depth-564321956729
 description: >
   Dropout successfully regularizes networks by dropping nodes, but what if we
   went one step further? Find out how stochastic depth improves your network
   by dropping whole layers!
-image: /files/gans/header.jpg
+image: /files/stochastic-depth/header.jpg
+image_alt: >
+  Zion national park, a very deep canyon, put probably not stochastically deep.
 categories: lab41
 ---
 
+{% capture file_dir %}/files/stochastic-depth/{% endcapture %}
 
-![Zion national park, a very deep canyon, put probably not stochastically
-deep.]({{ site.url }}/files/stochastic-depth/header.jpg)
+{% include lead_image.html %}
 
 [Today's paper][arxiv] is by Gao Huang, Yu Sun, _et al._ It introduces a new
 way to perturb networks during training in order to improve their performance.
@@ -57,10 +60,13 @@ dropped!
 
 [res_net_post]: {% post_url 2016-09-08-lab41_resnet %}
 
-![A diagram of a ResNet block, or ResBlock]({{ site.url
-}}/files/resnet/resblock.svg)
-_A ResBlock. The top path is a convolution layer, while the bottom path is a
-pass through. From Gao Huang, Yu Sun, et al._
+{% capture image_1 %} {{ site.url }}/files/resnet/resblock.svg {% endcapture %}
+{% include figure.html
+  url=image_1
+  image_alt="A diagram of a ResNet block, or ResBlock."
+  caption="A ResBlock. The top path is a convolution layer, while the bottom
+  path is a pass through. From Gao Huang, Yu Sun, et al."
+%}
 
 Stochastic depth adds a new hyper-parameter, `p(l)`, the probability of dropping
 a layer as a function of its depth. They take `p(l)` to be linear with it equal
@@ -71,11 +77,17 @@ training time. The authors also show that it reduces the problems associated
 with vanishing gradients and diminishing feature use, as expected for a
 shallower network.
 
-![A graph explaining how the network is trained, and the drop chance of each
-layer.]({{ site.url }}/files/stochastic-depth/training.png)
-_An example training run on a network with stochastic depth. The red and blue
-bars indicate the probability of dropping a layer, p(l). In this example layer
-3 and layer 5 have been dropped. From Gao Huang, Yu Sun, et al._
+{% capture image_2 %} {{ file_dir }}/training.png {% endcapture %}
+{% include figure.html
+  url=image_2
+  image_alt="A graph explaining how the network is trained, and the drop
+  chance of each layer."
+  caption="An example training run on a network with stochastic depth. The red
+  and blue bars indicate the probability of dropping a layer, p(l). In this
+  example layer 3 and layer 5 have been dropped. From Gao Huang, Yu Sun, et
+  al."
+%}
+
 
 In addition to aiding in training, the trained networks actually **perform
 better** than networks trained without stochastic depth! This is because
@@ -98,8 +110,8 @@ The main idea behind stochastic depth is relatively simple, remove some layers
 when training to make the network train is if it were shallow, but the results
 are surprisingly good. The new networks not only train faster, but they
 perform better as well. Further, the idea is compatible with other methods of
-improving network training like [batch normalization][bn]. All in all, stochastic
-depth is an essentially free improvement when training a deep network. I look
-forward to giving it a shot in my next model!
+improving network training like [batch normalization][bn]. All in all,
+stochastic depth is an essentially free improvement when training a deep
+network. I look forward to giving it a shot in my next model!
 
 [bn]: https://gab41.lab41.org/batch-normalization-what-the-hey-d480039a9e3b
