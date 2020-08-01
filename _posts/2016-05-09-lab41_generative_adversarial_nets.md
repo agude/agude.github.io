@@ -9,7 +9,9 @@ description: >
 image: /files/gans/header.jpg
 image_alt: >
   A coffee, reading glasses, and a book sit on a table in front of a MacBook.
-categories: lab41
+categories: 
+  - reading_group
+  - lab41
 ---
 
 {% capture file_dir %}/files/gans/{% endcapture %}
