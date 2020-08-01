@@ -1,24 +1,21 @@
 ---
 layout: post
 title: "The Nine Must-Have Datasets for Investigating Recommender Systems"
-gab41: https://gab41.lab41.org/the-nine-must-have-datasets-for-investigating-recommender-systems-ce9421bf981c#.abs1ftta9
+gab41: http://www.lab41.org/nine-datasets-for-investigating-recommender-systems/
 description: >
   Do you want to play around with recommender systems, but you don't have any
   data? Don't worry, there are tons of great, open source datasets for
   recommender systems!
-image: TODO
+image: /files/recommender-datasets/header.jpg
 image_alt: >
-  TODO
+  Part of the painting 'Allegory of the Four Elements' by Cornelis Jacobsz,
+  1610.
 categories: lab41
 ---
 
-{% capture file_dir %}TODO{% endcapture %}
+{% capture file_dir %}/files/recommender-datasets/{% endcapture %}
 
 {% include lead_image.html %}
-
-TODO
-![A picture of old books on shelves taken at an angle.]({{ site.url
-}}/files/skip-thought/header.jpg)
 
 Lab41 is currently in the midst of Project Hermes, an exploration of different
 recommender systems in order to build up some intuition (and of course, hard
@@ -107,8 +104,12 @@ simple. Not every user rates the same number of items. Instead some users rate
 many items and most users rate a few. This can be seen in the following
 histogram:
 
-![Two histograms comparing the fraction of the Jester and MovieLens datasets
-rated by users.]({{ site.url }}/files/recommender-datasets/rating_density.svg)
+{% capture image_1 %} {{ file_dir }}/rating_density.svg {% endcapture %}
+{% include figure.html
+  url=image_1
+  image_alt="Two histograms comparing the fraction of the Jester and MovieLens datasets rated by users."
+  caption="A comparison of how much of each dataset a user rates for Jester and MovieLens 1M."
+%}
 
 The dataset is [available here][jester].
 
