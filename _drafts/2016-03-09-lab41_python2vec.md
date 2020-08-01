@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Python2Vec: Word Embeddings for Source Code"
+gab41: http://www.lab41.org/py2vec/
 description: >
   Parsing source code is easy; just let the interpreter do it! But what if you
   want to recommend code snippets? Then you need word embeddings, like my
