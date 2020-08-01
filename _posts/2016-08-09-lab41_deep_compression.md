@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Lab41 Reading Group: Deep Compression"
+gab41: https://gab41.lab41.org/lab41-reading-group-deep-compression-9c36064fb209
 description: >
   Deep learning is the future, but how can I fit a battery-drain, half-gigabyte
   network on my phone? You compress it! Come find out how deep compression saves
@@ -16,10 +17,10 @@ categories: lab41
 
 {% include lead_image.html %}
 
-[The next paper from our reading group][arxiv] is by Song Han, Huizi Mao, and William
-J. Dally. It won the best paper award at ICLR 2016. It details three methods
-of compressing a neural network in order to reduce the size of the network on
-disk, improve performance, and decrease run time.
+[The next paper from our reading group][arxiv] is by Song Han, Huizi Mao, and
+William J. Dally. It won the best paper award at ICLR 2016. It details three
+methods of compressing a neural network in order to reduce the size of the
+network on disk, improve performance, and decrease run time.
 
 [arxiv]: https://arxiv.org/abs/1510.00149
 
@@ -40,18 +41,22 @@ in the next few paragraphs.
 [an]: http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks
 [vgg]: https://arxiv.org/abs/1409.1556
 
-![A chart sumarizing the stages of deep compression.]({{ file_dir }}/compression_stages.png)
-_A summary of the three stages in the compression pipeline proposed by Han,
-Mao, and Dally. Note that the size reduction is cumulative. Image from their
-paper._
+{% capture image_1 %} {{ file_dir }}/compression_stages.png {% endcapture %}
+{% include figure.html
+  url=image_1
+  image_alt="A chart sumarizing the stages of deep compression."
+  caption="A summary of the three stages in the compression pipeline proposed
+  by Han, Mao, and Dally. Note that the size reduction is cumulative. Image
+  from their paper."
+%}
 
-The first compression method is **Network Pruning**. In this method a network is
-fully trained and then any connections with a weight below a certain threshold
-are removed leaving a sparse network. The sparse network is then retrained to
-ensure the remaining connections are used optimally. This form of compression
-reduced the size of AlexNet by a factor of 9, and VGG-16 by a factor of 13.
-The authors also use a clever data structure that makes use of variably sized
-integers to store the network after this compression.
+The first compression method is **Network Pruning**. In this method a network
+is fully trained and then any connections with a weight below a certain
+threshold are removed leaving a sparse network. The sparse network is then
+retrained to ensure the remaining connections are used optimally. This form of
+compression reduced the size of AlexNet by a factor of 9, and VGG-16 by a
+factor of 13. The authors also use a clever data structure that makes use of
+variably sized integers to store the network after this compression.
 
 The second compression method is **Trained Quantization and Weight Sharing**.
 Here the weights in a network are clustered together with other weights of
@@ -63,15 +68,18 @@ values performs best. This compression method reduces the size of the networks
 by a factor of 3 or 4. A diagram with an example of this compression technique
 is shown below.
 
-![A diagram showing how weights are quantized.]({{ file_dir
-}}/quantization.png)
-_A toy example of trained quantization and weight sharing. On the top row,
-weights of the same color have been clustered and will be replaced by a
-centroid value. On the bottom row, gradients are calculated and used to update
-the centroids. From Han, Mao, and Dally's paper._
+{% capture image_2 %} {{ file_dir }}/quantization.png {% endcapture %}
+{% include figure.html
+  url=image_2
+  image_alt="A diagram showing how weights are quantized."
+  caption="A toy example of trained quantization and weight sharing. On the
+  top row, weights of the same color have been clustered and will be replaced
+  by a centroid value. On the bottom row, gradients are calculated and used to
+  update the centroids. From Han, Mao, and Dally's paper."
+%}
 
-The third and final compression method is **Huffman Coding**. Huffman coding is a
-standard lossless compression technique. The general idea is that it uses
+The third and final compression method is **Huffman Coding**. Huffman coding
+is a standard lossless compression technique. The general idea is that it uses
 fewer bits to represent data that appears frequently and more bits to
 represent data that appears infrequently. For more details see the [Wikipedia
 Article][wiki]. Huffman coding reduces network size by 20% to 30%.
@@ -87,12 +95,15 @@ than their old versions (4 times faster on mobile GPU) and use less energy (4
 times less). These results are achieved with no loss in performance! A plot
 showing the energy efficiency and speedups due to compression are shown below:
 
-![A diagram showing how weights are quantized.]({{
-file_dir}}/energy_usage_of_deep_learning.png)
-_The energy efficiency and speedups due to compression for various layers in
-the neural networks. The dense bars are the results before compression, and
-the pruned bars are the results after. Note the Y axis is log10! From Han,
-Mao, and Dally's paper._
+{% capture image_3 %} {{ file_dir }}/energy_usage_of_deep_learning.png {% endcapture %}
+{% include figure.html
+  url=image_3
+  image_alt="A diagram showing energy effiency and speedups due to compression."
+  caption="The energy efficiency and speedups due to compression for various
+  layers in the neural networks. The dense bars are the results before
+  compression, and the pruned bars are the results after. Note the Y axis is
+  log10! From Han, Mao, and Dally's paper."
+%}
 
 Han, Mao, and Dally's compression techniques achieve an almost perfect result:
 the in memory size of a network is reduced, the run speed is increased, and
