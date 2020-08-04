@@ -1,7 +1,6 @@
 ---
 layout: page
 title: Lab41 Posts
-sidebar_include: false
 description: >
   All of the articles written by Alex Gude for Lab41's blog on Deep Learning,
   Machine Learning, and Data Science.
