@@ -24,11 +24,13 @@ physicist][hep] at CERN and a [cosmologist][scp] at Lawrence Berkeley Labs.
 I write about whatever catches my attention [here on this site][blog]; mostly
 that means data science, machine learning, deep learning, and software
 development related topics. My writings on deep learning from my time at Lab41
-can be found at [Gab41][gab41]. If you're interested in my thoughts in real
-time, follow me on Twitter: [@{{ twitter-name }}][twitter]
+can be found at [Gab41][gab41] and [rehosted on this page][lab41_posts]. If
+you're interested in my thoughts in real time, follow me on Twitter: [@{{
+twitter-name }}][twitter]
 
 [blog]: /blog/
 [gab41]: https://gab41.lab41.org/@Alex.Gude
+[lab41_posts]: /lab41/
 [twitter]: https://twitter.com/{{ twitter-name }}
 
 The code that I write lives on my [Github page][github]. Check it out! Bug
