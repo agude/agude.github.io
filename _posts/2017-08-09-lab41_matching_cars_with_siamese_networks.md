@@ -103,10 +103,6 @@ step, and so allows optimizing both portions at the same time. This
 arrangement achieved the best results by far, hitting nearly 93% accuracy on
 our test set.
 
-A cartoon of our Siamese network architecture. The two convolutional blocks
-(CNN) output vectors which are joined together and then passed through a set
-of fully connected (FC) layers for classification.
-
 {% capture image_1 %} {{ file_dir }}/siamese_network.png {% endcapture %}
 {% include figure.html
   url=image_1
