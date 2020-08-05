@@ -84,3 +84,8 @@ img + em { // An image followed by an emphasized line
   display: block;
   text-align: center;
 }
+
+// Center the image in a figure
+figure img {
+  margin: auto;
+}
