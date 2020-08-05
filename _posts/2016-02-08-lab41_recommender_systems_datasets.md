@@ -10,7 +10,9 @@ image: /files/recommender-datasets/header.jpg
 image_alt: >
   Part of the painting 'Allegory of the Four Elements' by Cornelis Jacobsz,
   1610.
-categories: lab41
+categories: 
+  - lab41
+  - hermes
 ---
 
 {% capture file_dir %}/files/recommender-datasets/{% endcapture %}
