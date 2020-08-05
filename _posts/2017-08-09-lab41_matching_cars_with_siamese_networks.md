@@ -8,7 +8,9 @@ description: >
 image: /files/siamese-networks/header.jpg
 image_alt: >
   View of a freeway seen through a chain-link fence at sunset.
-categories: lab41
+categories: 
+  - lab41
+  - pelops
 ---
 
 {% capture file_dir %}/files/siamese-networks/{% endcapture %}
@@ -16,12 +18,13 @@ categories: lab41
 {% include lead_image.html %}
 
 Lab41 just finished [**Pelops**][pelops], a _vehicle re-identification
-project_ using data from fixed video cameras. Last time I talked about
-"chipping", that is extracting an image of a vehicle from a frame of video
-automatically. We found that background subtraction worked OK based on the
-small amount of labeled data we had.
+project_ using data from fixed video cameras. [Last time I talked about
+"chipping"][chipping], that is extracting an image of a vehicle from a frame
+of video automatically. We found that background subtraction worked OK based
+on the small amount of labeled data we had.
 
 [pelops]: https://github.com/Lab41/pelops
+[chipping]: {% post_url 2017-08-07-lab41_object_localization_without_deep_learning %}
 
 In this post I'll go over the rest of the pipeline: **feature extraction** and
 **vehicle matching**.

@@ -8,7 +8,9 @@ description: >
 image: /files/object-localization/header.jpg
 image_alt: >
   Cars crossing the Golden Gate Bridge as seen from Marin.
-categories: lab41
+categories: 
+  - lab41
+  - pelops
 ---
 
 {% capture file_dir %}/files/object-localization/{% endcapture %}
@@ -30,8 +32,10 @@ We broke the project down into three parts:
 - **Matching**: grouping chips of the same vehicle based on their feature
   representations
 
-Today I'll show you our approach to chipping; feature extraction and matching
-will follow in a later post.
+Today I'll show you our approach to chipping; [feature extraction and matching
+are covered in a later post][next_post].
+
+[next_post]: {% post_url 2017-08-09-lab41_matching_cars_with_siamese_networks %}
 
 ## Chipping
 
