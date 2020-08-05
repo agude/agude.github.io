@@ -9,7 +9,9 @@ description: >
 image: /files/python2vec/header.jpg
 image_alt: >
   A generic picture of code on a screen. It's HTML, not Python, but whatever.
-categories: lab41
+categories: 
+  - lab41
+  - hermes
 ---
 
 {% capture file_dir %}/files/python2vec/{% endcapture %}
