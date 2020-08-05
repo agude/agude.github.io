@@ -13,6 +13,13 @@ image_alt: >
 categories: career-advice
 ---
 
+**Update:** Insight has [_significantly changed its funding model_][funding].
+I have added a note to the section [Insight is _Free_, but
+**EXPENSIVE**][free].
+
+[funding]: https://insightfellows.com/financing
+[free]: #insight-is-free-but-expensive
+
 {% capture file_dir %}/files/insight/{% endcapture %}
 
 {% capture stanford_dish_twilight %}{{file_dir}}/stanford_dish_in_the_early_morning_hours_by_brianhama_cc_by_sa_4.jpg{% endcapture %}
@@ -161,8 +168,14 @@ dinner with the people from my session.
 
 ### Insight is _Free_, but **EXPENSIVE**
 
-Insight doesn't charge the Fellows anything, and they even offer a limited
-number of need-based scholarships to help cover expenses. Still, living
+**Update:** Insight has [_significantly changed its funding model_][funding]
+since I wrote this article. They now require either a refundable upfront
+payment, or an [income sharing agreement][isa].
+
+[isa]: https://en.wikipedia.org/wiki/Income_share_agreement
+
+~~Insight doesn't charge the Fellows anything, and they even offer a limited
+number of need-based scholarships to help cover expenses.~~ Still, living
 without a job for three or four months is hard. Rent in the Bay Area will set
 you back around $2000 a month at least. My wife and I had a good amount of
 savings, but it was just about wiped out renting for three months without a
