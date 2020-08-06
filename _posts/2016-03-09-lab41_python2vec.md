@@ -188,7 +188,7 @@ to train your model.
 ## Exploring the Model
 
 Now that we have a model, we can explore it and see what comes out! First we
-find all the words near range, a function often used in for loops:
+find all the words near `range`, a function often used in for loops:
 
 ```python
 >>> model.closest_words('range', n=5)
@@ -202,7 +202,7 @@ find all the words near range, a function often used in for loops:
 
 The five words that come up are all things you would expect to appear near
 range in the code: `i` and `k` are common looping variable names, `zip` is a
-function to manipulate lists, and `xrange` performs the same function at range
+function to manipulate lists, and `xrange` performs the same function as range
 but without instantiating a list. `03d` seems slightly odd at first, but it is
 used in number formatting expressions and pairs well with range, which
 generates lists of numbers. In a recommender sense, suggesting `xrange` and
