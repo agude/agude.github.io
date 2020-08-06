@@ -201,12 +201,12 @@ find all the words near `range`, a function often used in for loops:
 ```
 
 The five words that come up are all things you would expect to appear near
-range in the code: `i` and `k` are common looping variable names, `zip` is a
-function to manipulate lists, and `xrange` performs the same function as range
+`range` in the code: `i` and `k` are common looping variable names, `zip` is a
+function to manipulate lists, and `xrange` performs the same function as `range`
 but without instantiating a list. `03d` seems slightly odd at first, but it is
-used in number formatting expressions and pairs well with range, which
+used in number formatting expressions and pairs well with `range`, which
 generates lists of numbers. In a recommender sense, suggesting `xrange` and
-`zip` would be useful, as someone using range would almost certainly benefit
+`zip` would be useful, as someone using `range` would almost certainly benefit
 from knowing about them if they did not.
 
 Let's try our original example from the introduction:
@@ -221,7 +221,7 @@ Let's try our original example from the introduction:
  (1.696, u'unravel_index')]
 ```
 
-Again we find many similarities to the array function: `zeros` creates an
+Again we find many similarities to the `array` function: `zeros` creates an
 all-zero array, `masked_equal` operates on an array, `newshape` is an argument
 used when reshaping an array, `rational` is a data type that can be stored in
 an array, and `unravel_index` converts 1D indices into multiple dimensions.
