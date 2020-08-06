@@ -89,3 +89,20 @@ img + em { // An image followed by an emphasized line
 figure img {
   margin: auto;
 }
+
+// Check boxes
+input[type="checkbox"].task-list-item-checkbox {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  margin: 4px 8px 4px 4px !important;
+  width: 0.85rem;
+  height: 0.85rem !important;
+  border: 3px solid $body-bg;
+  outline: 1.5px solid $body-color;
+  vertical-align: bottom;
+}
+
+input[type="checkbox"]:checked.task-list-item-checkbox {
+    background: $body-color;
+}
