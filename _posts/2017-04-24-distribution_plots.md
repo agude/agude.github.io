@@ -24,7 +24,7 @@ good alternatives.
 [hist]: https://en.wikipedia.org/wiki/Histogram
 
 In this post, I'll look at a few different plot types I explored when
-comparing the [distributions of accidents by day of the week][dotw]. More
+comparing the [distributions of crashes by day of the week][dotw]. More
 information about the data can be found in the original post: [_SWITRS: On
 What Days Do People Crash?_][post]
 
@@ -58,15 +58,15 @@ clearly stated.
 
 [box]: https://en.wikipedia.org/wiki/Box_plot
 
-[![A box plot showing the distribution of accidents per day in California from
+[![A box plot showing the distribution of crashes per day in California from
 2001–2015 by day of the week.][box_plot]][box_plot]
 
 [box_plot]: {{ file_dir }}/accidents_by_day_of_the_week_box.svg
 
-These box plots show the distributions of the [number of accidents per day in
+These box plots show the distributions of the [number of crashes per day in
 California by day of the week][dotw] from 2001--2015. From the box plots it is
-easy to see that there are more accidents on Fridays and that the weekends have
-fewer accidents than the weekdays. Most of the outliers are on the high side,
+easy to see that there are more crashes on Fridays and that the weekends have
+fewer crashes than the weekdays. Most of the outliers are on the high side,
 but we can't tell anything about the actual shape of the distributions.
 
 ## Strip Plots
@@ -86,14 +86,14 @@ of points increases.
 
 [strip]: https://en.wikipedia.org/wiki/Dot_plot_(statistics)#Dot_plots
 
-[![A strip plot showing the distribution of accidents per day in California
+[![A strip plot showing the distribution of crashes per day in California
 from 2001–2015 by day of the week.][strip_plot_png]][strip_plot]
 
 [strip_plot]: {{ file_dir }}/accidents_by_day_of_the_week_strip.svg
 [strip_plot_png]: {{ file_dir }}/accidents_by_day_of_the_week_strip.png
 
 With the strip plot it is still possible to tell which days have more
-accidents, but without the quartiles to guide the eye it is not as easy. We
+crashes, but without the quartiles to guide the eye it is not as easy. We
 can now start to see that the distributions are bimodal, although it is
 difficult to see details with all the points. Strip plots are enticing because
 they show literally all of the data, but plots which summarize the data are
@@ -122,7 +122,7 @@ or two to pop up, but when they take more than a minute my productivity
 plummets as my iteration time explodes and I have to constantly context
 switch.
 
-[![A swarm plot showing the distribution of accidents per day in California
+[![A swarm plot showing the distribution of crashes per day in California
 from 2001–2015 by day of the week.][swarm_plot_png]][swarm_plot]
 
 [swarm_plot]: {{ file_dir }}/accidents_by_day_of_the_week_swarm.svg
@@ -131,7 +131,7 @@ from 2001–2015 by day of the week.][swarm_plot_png]][swarm_plot]
 I generated this plot using a sampled subset of the data because the swarms
 piled up when trying to show the full dataset. Even so, you can see some of the
 points have piled up against the edges of each column. The swarm plot makes
-the relative accident rates easier to see than on the strip plot. The bimodal
+the relative crash rates easier to see than on the strip plot. The bimodal
 nature of the distributions is much clearer and their shape can almost be made
 out. However, the thickness of the plotted points causes the formation of the
 strands extending out from each swarm which make judging the true shape of the
@@ -160,7 +160,7 @@ few data points. The lack of standardization when it comes to the inner
 markings also makes them hard to interpret if they aren't explicitly
 explained.
 
-[![A violin plot showing the distribution of accidents per day in California
+[![A violin plot showing the distribution of crashes per day in California
 from 2001–2015 by day of the week.][violin_plot]][violin_plot]
 
 [violin_plot]: {{ file_dir }}/accidents_by_day_of_the_week_violin.svg
@@ -168,7 +168,7 @@ from 2001–2015 by day of the week.][violin_plot]][violin_plot]
 The violin plots make the bimodal nature of the distributions crystal clear.
 Likewise it is easy to see that there is an increase on Friday and a decrease
 on Sunday. However, we have lost sight of our outliers. We can see that the
-Friday violin extends to almost 3000 accidents, but exactly how many data
+Friday violin extends to almost 3000 crashes, but exactly how many data
 points go into that thin tail is unclear.
 
 ## Conclusion
@@ -180,7 +180,7 @@ The KDE provides more detail than a pure box plot, includes the same useful
 summary statistics, and avoids cluttering the plot with every data point.
 
 [moto_dotw]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}#day-of-the-week
-[dst]: {% post_url 2017-03-20-switrs_daylight_saving_time_accidents %}#accident-ratio
+[dst]: {% post_url 2017-03-20-switrs_daylight_saving_time_accidents %}#crash-ratio
 
 ---
 
