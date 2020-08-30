@@ -119,14 +119,15 @@ But map already allows us to do pairwise operations:
 new_cards = map(tuple_to_card, card_suits, card_ranks)
 ```
 
-Of course, we could write our own map using list comprehension:
+Of course, we could write our own map using [list comprehension][comp]:
+
+[comp]: https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions
 
 ```python
 new_cards = [tuple_to_card(card_tuple) for card_tuple in cards]
 ```
 
 Which, perhaps, is a little more Pythonic.
-
 
 ## Filter
 
@@ -157,7 +158,6 @@ just_hearts = filter(
 ```
 
 Of course, again, we could write this as a comprehension:
-
 
 ```python
 just_hearts = [
