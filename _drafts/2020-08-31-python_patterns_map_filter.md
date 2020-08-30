@@ -13,114 +13,146 @@ categories: python_patterns
 
 {% include lead_image.html %}
 
-One of the things that is great about coding is it lets you do a simple task
-over and over again. A common way to do so is to store the data in a list and
-process it item-by-item in a for loop.
+Computers are great at doing a simple action over and over again. A common
+way to make them do such a task is to store data in a list and iterate over it
+with a for loop, calling a function for each item.
 
-For example, we might want to pull the text out of an HTML document which is
-stored line-by-line as stings:
+But Python has some great functions to replace for loops, which I will cover
+below after a quick example.
+
+## Playing Cards
+
+Given a list of playing cards as tuples, like so:
 
 ```python
-text_lines = []
-for line in html_lines:
-    parsed_line = extract_text(line)
-    text_lines.append(parsed_line)
+cards = [
+  ("Spades", 14),
+  ("Diamonds", 13),
+  ("Hearts", 2),
+  ("Spades", 8),
+  ("Clubs", 11),
+  ...  # etc.
+]
 ```
 
-This code is fine: short, clean, not a lot that can go wrong.
-But I love to replace custom code with Python built-ins whenever possible,
-because the built-ins are fast, well tested, and concise.
+We want to convert them to `PlayingCard` objects as [defined in my previous
+post on `enums`][enums]. We need a function to convert our tuple into the
+class:
 
-Python provides some great ways to replace for loops with built-ins, I'll
-cover them below.
+[enums]: {% post_url 2019-01-22-python_patterns_enum %}#playing-cards-with-enums
+
+```python
+def tuple_to_card(card_tuple):
+  suit, rank = card_tuple
+  
+  card = PlayingCard(
+    CardSuit(suit),
+    CardRank(rank)
+  )
+
+  return card
+```
+
+This makes it easy to parse the list with a quick loop:
+
+```python
+new_cards = []
+for card_tuple in cards:
+  new_card = tuple_to_card(card_tuple)
+  new_cards.append(new_card)
+```
+
+And we can even filter the cards so that we only keep hearts:
+
+```python
+just_hearts = []
+for card_tuple in cards:
+  new_card = tuple_to_card(card_tuple)
+  if new_card.suit is CardSuit.HEARTS:
+    just_hearts.append(new_card)
+```
+
+These code snippets are fine: short, clean, not a lot that can go wrong. But I
+love to replace custom code with Python built-ins whenever possible, because
+they are fast, well tested, and concise. Python provides two functions that
+can simplify even these already simple code fragments: `map()` and `filter()`.
 
 ## Map
 
 The [`map()` function][map] replaces a for loop that calls a function on each
-item of a list, just as I did in the above HTML parsing example. Here is how I
-would write the HTML example (in one line!) with map:
+item of a list, just as we did in the above when making `PlayingCard` objects.
+Here is how we could rewrite the above code using map:
 
 [map]: https://docs.python.org/3.7/library/functions.html#map
 
 ```python
-text_lines = map(extract_text, html_lines)
+new_cards = map(tuple_to_card, cards)
 ```
 
 Simple!
 
-It is often useful to define the processing function inline using a
-[`lambda`][lambda]:
+If the function is not too complicated, it can be useful to define it inline
+with a [`lambda` function][lambda]:
 
 [lambda]: https://docs.python.org/3/reference/expressions.html#lambda
 
 ```python
-take_two_chars = lambda x: x[:2]
-parsed = map(take_two_chars, text_lines)
+get_card_rank = lambda card_tuple: card_tuple[1]
+ranks = map(get_card_rank, cards)
 ```
 
-Sometimes the function we need to call takes multiple arguments. Consider the
-following (trivial) example function:
+But what if instead of tuples we had two lists, one of suits and one of ranks?
+We could use the [`zip` function][zip] like so:
+
+[zip]: https://docs.python.org/3.7/library/functions.html#zip
 
 ```python
-def add(x, y):
-  return x+y
+new_cards = []
+for card_tuple in zip(card_suits, card_ranks):
+  new_card = tuple_to_card(card_tuple)
+  new_cards.append(new_card)
 ```
 
-If we need to fix one of the arguments, we can [partially apply][partial] the
-function before calling:
-
-[partial]: https://en.wikipedia.org/wiki/Partial_application
+But map already allows us to do pairwise operations:
 
 ```python
-from functools import partial
-
-add_two = partial(add, y=2)
-nums_plus_two = map(add_two, nums)
-```
-
-If we have have two lists and need to call the function pairwise on the
-elements. We could write a for loop like this:
-
-```python
-sums = []
-for x, y in zip(first_nums, second_nums):
-  sums.append(add(x, y))
-```
-
-But we can do that with map as well, as it takes any number of iterables:
-
-```python
-sums = map(add, first_nums, second_nums)
+new_cards = map(tuple_to_card, card_suits, card_ranks)
 ```
 
 ## Filter
 
-The [`filter()` function][filter] covers a special case of `map()`: when the
-function returns True or False and we only keep the elements of the original
-list that return True.
-
-For example, if we wanted to only keep cards from our hand that were hearts,
-we might write:
+But how would we filter the list so that we only keep hearts, as in our second
+example? We could wrap the `map` call in a for loop:
 
 ```python
 just_hearts = []
-
-for card in hand:
-  if card.suit == "heart":  # Keep if True
+for card in map(tuple_to_card, cards):
+  if card.suit is CardSuit.HEARTS:
     just_hearts.append(card)
 ```
 
-A more clever way to denote the card's suit than using strings would be to use
-`enum`s. [I covered how to do that in a previous article][enums].
-
-[enums]: {% post_url 2019-01-22-python_patterns_enum %}#playing-cards-with-enums
-
-The [`filter()` function][filter] turns this into:
+But the [`filter()` function][filter] does that for us! It takes a function
+and an iterable and returns only the elements of the iterable that evaluate to
+`True` when the function is called on them. This allows us to rewrite the
+above as:
 
 [filter]: https://docs.python.org/3.7/library/functions.html#filter
 
 ```python
-is_a_heart = lambda card: card.suit == "heart"
-just_hearts = filter(is_a_heart, hand)
+is_a_heart = lambda card: card.suit is CardSuit.HEARTS
+
+just_hearts = filter(
+  is_a_heart,
+  map(tuple_to_card, cards)
+)
 ```
 
+Making our example very short, very readable, and even a bit...
+[functional][functional].[^1]
+
+[functional]: https://en.wikipedia.org/wiki/Functional_programming
+
+---
+[^1]: But what about `reduce()`, the third function of the classic "filter-map-reduce" triplet? Python does have a reduce function, but it was moved to `functools.reduce()` because ["a loop is more readable most of the time"][reduce].
+
+[reduce]: https://www.python.org/dev/peps/pep-3100/#built-in-namespace
