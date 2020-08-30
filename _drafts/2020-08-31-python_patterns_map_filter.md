@@ -119,6 +119,15 @@ But map already allows us to do pairwise operations:
 new_cards = map(tuple_to_card, card_suits, card_ranks)
 ```
 
+Of course, we could write our own map using list comprehension:
+
+```python
+new_cards = [tuple_to_card(card_tuple) for card_tuple in cards]
+```
+
+Which, perhaps, is a little more Pythonic.
+
+
 ## Filter
 
 But how would we filter the list so that we only keep hearts, as in our second
@@ -147,8 +156,18 @@ just_hearts = filter(
 )
 ```
 
-Making our example very short, very readable, and even a bit...
-[functional][functional].[^1]
+Of course, again, we could write this as a comprehension:
+
+
+```python
+just_hearts = [
+  tuple_to_card(card_tuple) for card_tuple in cards
+  if tuple_to_card(card_tuple).suit is CardSuit.HEARTS
+]
+```
+
+Which is not as readable as the `map` and `filter` example, which is very
+short, very readable, and even a bit... [functional][functional].[^1]
 
 [functional]: https://en.wikipedia.org/wiki/Functional_programming
 
