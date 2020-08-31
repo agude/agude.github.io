@@ -27,7 +27,7 @@ Data Science salaries a little with the same [Insight data][insight] I used
 Others have looked into the same question before: [Florian
 Lindstaedt][florian] used a much larger (but less clean) dataset from Kaggle
 to [look at the issue on his blog][kaggle_survey]. He found that for data
-scientists younger than 30, women earned slightly more, but in the 30-35 age
+scientists younger than 30, women earned slightly more, but in the 30--35 age
 group men earned more.
 
 [florian]: https://flolytic.com/
