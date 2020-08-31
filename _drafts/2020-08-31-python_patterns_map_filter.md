@@ -13,7 +13,7 @@ categories: python_patterns
 
 {% include lead_image.html %}
 
-Computers are great at doing a simple action over and over again. A common
+Computers are great at performing a simple action over and over again. A common
 way to make them do such a task is to store data in a list and iterate over it
 with a for loop, calling a function for each item.
 
@@ -36,7 +36,7 @@ cards = [
 ```
 
 We want to convert them to `PlayingCard` objects as [defined in my previous
-post on `enums`][enums]. We need a function to convert our tuple into the
+post on `enums`][enums]. To do this, we need a function to convert a tuple into the
 class:
 
 [enums]: {% post_url 2019-01-22-python_patterns_enum %}#playing-cards-with-enums
@@ -47,7 +47,7 @@ def tuple_to_card(card_tuple):
   
   card = PlayingCard(
     CardSuit(suit),
-    CardRank(rank)
+    CardRank(rank),
   )
 
   return card
@@ -72,7 +72,7 @@ for card_tuple in cards:
     just_hearts.append(new_card)
 ```
 
-These code snippets are fine: short, clean, not a lot that can go wrong. But I
+These code snippets are fine: short and clean, with not a lot that can go wrong. But I
 love to replace custom code with Python built-ins whenever possible, because
 they are fast, well tested, and concise. Python provides two functions that
 can simplify even these already simple code fragments: `map()` and `filter()`.
@@ -101,8 +101,8 @@ get_card_rank = lambda card_tuple: card_tuple[1]
 ranks = map(get_card_rank, cards)
 ```
 
-But what if instead of tuples we had two lists, one of suits and one of ranks?
-We could use the [`zip` function][zip] like so:
+But what if instead of tuples we had two lists: one of suits and one of ranks?
+We could use the [`zip` function][zip] to combine the two lists like a zipper:
 
 [zip]: https://docs.python.org/3.7/library/functions.html#zip
 
@@ -166,7 +166,7 @@ just_hearts = [
 ]
 ```
 
-Which is not as readable as the `map` and `filter` example, which is very
+However, this is not as readable as the `map` and `filter` example, which is very
 short, very readable, and even a bit... [functional][functional].[^1]
 
 [functional]: https://en.wikipedia.org/wiki/Functional_programming
