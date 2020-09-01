@@ -21,7 +21,7 @@ taking on new responsibilities: mentor new hires, improve internal processes,
 attend planning meetings and follow up, and so on.
 
 By the time I was running a team, I no longer had one thing I was focusing on
-a day; instead, I had dozens. Often these things would only take 15-30 minutes
+a day; instead, I had dozens. Often these things would only take 15--30 minutes
 to do, but I would have to fit them in with all my meetings. My strategy of
 "remember what I need to do today" stopped working because I just had too many
 things to do, and items were constantly added and removed.

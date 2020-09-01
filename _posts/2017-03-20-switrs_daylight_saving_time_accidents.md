@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "SWITRS: Accidents After Daylight Saving Time"
+title: "SWITRS: Car Crashes After Daylight Saving Time"
 description: >
   Day light saving time leaves us drowsy and cranky at work, but it also leads
-  to an increase in traffic accidents! Find out exactly how many more there
+  to an increase in traffic collisions! Find out exactly how many more there
   are with this analysis!
 image: /files/switrs-dst/dst_change_gare_saint_lazare_1937.png
 image_alt: >
@@ -20,7 +20,7 @@ seo:
 The [daylight saving time][dst] (DST) change is awful---we get less sleep and
 it [might not even save energy][energy] as was intended! Worse, studies by
 [Varughese & Allen][varughese] and [Smith][smith] have shown that the time
-change increases the number of automobile accidents! Let's look for a similar
+change increases the number of automobile crashes! Let's look for a similar
 trend in the [SWITRS data][s2s_post] that I've collected.
 
 [dst]: https://en.wikipedia.org/wiki/Daylight_saving_time
@@ -37,41 +37,40 @@ The Jupyter notebook used to perform this analysis can be found
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
-## Accident Ratio
+## Crash Ratio
 
-The analysis is relatively simple. I start with the number of accidents that
+The analysis is relatively simple. I start with the number of crashes that
 happen on the days following the start of DST in California. I divide the
-amount of accidents on each day by the number of accidents on the same day of
-the week but two weeks later.[^1] Taking the ratio cancels out most of the
-effects that are unrelated to the time change---like the fact that [accident
-rates vary by 30% depending on the year][apw]. Two weeks after is a good
-choice for normalization because:
+amount of crashes on each day by the number of crashes on the same day of the
+week but two weeks later.[^1] Taking the ratio cancels out most of the effects
+that are unrelated to the time change---like the fact that [crash rates vary
+by 30% depending on the year][apw]. Two weeks after is a good choice for
+normalization because:
 
-[apw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#accidents-per-week
+[apw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#crashes-per-week
 
 - The weeks after the time change have similar daylight hours to the week of
-the time change.
-- The accident rate is still slightly elevated a week later, so normalizing by
-the very next week hides some of the increase that is due to the start of
-DST.[^2]
+  the time change.
+- The crashes rate is still slightly elevated a week later, so normalizing by
+  the very next week hides some of the increase that is due to the start of
+  DST.[^2]
 
 The [violin plots][violin] below show the distribution of these ratios from
 the years 2001 to 2016. A value greater than 1 means that there are more
-accidents during the week when DST starts than two weeks after.
+crashes during the week when DST starts than two weeks after.
 
 [violin]: https://en.wikipedia.org/wiki/Violin_plot
 
-[![Violin plot showing the ratio of accidents per day of the week for the week
+[![Violin plot showing the ratio of crashes per day of the week for the week
 after the start of daylight saving time, divided by the week two weeks
 after.][ratio_plot]][ratio_plot]
 
 [ratio_plot]: {{ file_dir }}/accidents_two_weeks_after_dst_change_in_california.svg
 
 Except for Sunday, every day of the week following the time change has on
-average a higher rate of accidents! I am surprised that the accident rate
-stays high the entire week. This indicates that it takes even longer than a
-week for people to catch up on sleep and for the accident rate to go back to
-normal.
+average a higher rate of crashes! I am surprised that the crash rate stays
+high the entire week. This indicates that it takes even longer than a week for
+people to catch up on sleep and for the crash rate to go back to normal.
 
 ## _t_-Test
 
@@ -92,11 +91,11 @@ results.
 | **Saturday** |       2.6 |   **0.019** |
 | Sunday (DST) |      -1.6 |     0.121   |
 
-The increase in accidents on Monday is significant, as is Tuesday and
-Saturday. Sunday is the only day that trends lower (matching the plot), but
-not significantly.
+The increase in crashes on Monday is significant, as is Tuesday and Saturday.
+Sunday is the only day that trends lower (matching the plot), but not
+significantly.
 
-So daylight savings time causes more accidents, but those of us in California
+So daylight savings time causes more crashes, but those of us in California
 might be in luck! State Assembly member [Kansen Chu][chu] has introduced a
 bill to [finally do away with DST][ab-385]! Hopefully it will pass and let us
 all get that hour of sleep we deserve.
@@ -116,7 +115,7 @@ set][changes_2]._
 [changes_2]: https://github.com/agude/agude.github.io/commit/2661f23d005a97206a03eca02f1078de9ae0fec4
 
 [^1]: It is also possible to use the week before or the week directly after the DST change to normalize. For the curious, I have also made [a plot using the week before for normalization][before_plot] and [the week after][after_plot]. They both show the same trend.
-[^2]: I assume that people are back to normal after three weeks, and so I use that week as a control. I then compare that ratios of the control week with [one week after the DST change][1_vs_3] and [two weeks after the DST change][2_vs_3] to see which is more normal. One week after has Monday and Thursday high, indicating people are still having more accidents than we expect. Two weeks after the ratios are near one, and so I conclude people are back to normal by then. 
+[^2]: I assume that people are back to normal after three weeks, and so I use that week as a control. I then compare that ratios of the control week with [one week after the DST change][1_vs_3] and [two weeks after the DST change][2_vs_3] to see which is more normal. One week after has Monday and Thursday high, indicating people are still having more crashes than we expect. Two weeks after the ratios are near one, and so I conclude people are back to normal by then. 
 
 [before_plot]: {{ file_dir }}/accidents_after_dst_change_in_california_before.svg
 [after_plot]: {{ file_dir }}/accidents_after_dst_change_in_california.svg
