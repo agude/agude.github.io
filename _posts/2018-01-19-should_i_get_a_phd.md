@@ -33,7 +33,7 @@ have been the next step in the process.[^3]
 [insight]: https://www.insightdatascience.com
 [postdoc]: https://en.wikipedia.org/wiki/Postdoctoral_researcher
 
-So what caused me to redirect my ambitions and energy? What is it that,
+So what caused me to redirect my ambitions and energy? What was it that,
 despite thoroughly enjoying my six years in Minnesota,[^4] has led me to
 wonder if I would still do it again were I to be given a second chance? And
 what should my answer be when I am asked by students whether they should
@@ -114,7 +114,7 @@ It's hard to answer because I really like how my life has ended up. I would be
 in a completely different place---in terms of my family, my career, and my
 personality---had I not gone. And yet, for the reasons above, it is hard for
 me to recommend the same path to others. If you absolutely know you are going
-to be a professor[^6], then you should pursue your goal and enter a PhD
+to be a professor,[^6] then you should pursue your goal and enter a PhD
 program, but if you just want to break into data science, you should consider
 other options.
 
