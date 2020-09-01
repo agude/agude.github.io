@@ -70,8 +70,10 @@ Github][data_rendered]).
 
 I fixed the X-axis so that the dates are now correct! The first race is in
 1903 as expected. I have also removed the axis label because I think the tick
-labels make it clear what is plotted. I have added my (patent pending 😛) grey
-stripes to the background to indicate each decade.
+labels make it clear what is plotted. I have added my ([patent pending
+😛][pending]) grey stripes to the background to indicate each decade.
+
+[pending]: {% post_url 2020-07-27-data_science_plotting_notebook_template %}#draw-bands
 
 I changed the Y-axis to be more readable by abbreviating the numbers using
 _K_ and _M_. I also removed the label and replaced it with the euro symbol (€)
