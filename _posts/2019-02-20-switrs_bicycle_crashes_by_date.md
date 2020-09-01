@@ -2,7 +2,7 @@
 layout: post
 title: "SWITRS: On What Days Do Cyclists Crash?"
 description: >
-  California accident data doesn't just cover cars, it covers bikes too! This
+  California crash data doesn't just cover cars, it covers bikes too! This
   time we look at when cyclists crash in California.
 image: /files/switrs-bicycle-accidents-by-date/wilhelmina_cycle_co.jpg
 image_alt: >
@@ -15,7 +15,7 @@ categories: switrs
 
 {% include lead_image.html %}
 
-It is time to use [SWITRS data][switrs] to look at traffic accidents in
+It is time to use [SWITRS data][switrs] to look at vehicle crashes in
 California again. I have previously used the data to look at [when cars
 crash][car_switrs]---during holidays when people both drive to work and to
 parties after---and [when motorcycles crash][mc_switrs]---during the summer
@@ -28,7 +28,7 @@ closer to my heart: **bicycles**.
 
 I have been commuting on my bike for years now, and when I was younger I used
 to put in thousands of miles a year for fun. So knowing more about when
-accidents happen is something I am very interested in.
+crashes happen is something I am very interested in.
 
 As per usual, the Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
@@ -41,24 +41,24 @@ As per usual, the Jupyter notebook used to perform this analysis can be found
 ## A Simple Model
 
 Before we dig into the data, I have a simple model for how many bicycle
-accidents there are. It is:
+crashes there are. It is:
 
-$$ N_{\textrm{accidents}} = P_{\textrm{car-bike}} \, L_{\textrm{miles biked}} \, \lambda_{\textrm{cars per mile}} $$
+$$ N_{\textrm{crashes}} = P_{\textrm{car-bike}} \, L_{\textrm{miles biked}} \, \lambda_{\textrm{cars per mile}} $$
 
-That is, the number of accidents involving bicycles ($$N$$) is the probability
-of an accident happening when a bike encounters a car ($$P$$) times the number
-of cars encountered ($$L \lambda$$). This ignores some accidents, like solo
-crashes and those that do not involve a car, but these are rare.[^1]
+That is, the number of crashes involving bicycles ($$N$$) is the probability
+of a crash happening when a bike encounters a car ($$P$$) times the number of
+cars encountered ($$L \lambda$$). This ignores some crashes, like solo crashes
+and those that do not involve a car, but these are rare.[^1]
 
 We won't be able to test the validity of this model with the SWITRS data
 alone, but we can use it to reason about what is happening. For example, if
-the number of accidents increases, that could be because there are more cars
-or bikes on the road, or because the probability of collision increased
-(perhaps due to distracted drivers or worse average weather).
+the number of crashes increases, that could be because there are more cars or
+bikes on the road, or because the probability of collision increased (perhaps
+due to distracted drivers or worse average weather).
 
 ## Data Selection
 
-I selected accidents involving bicycles from the [SQLite database][s2s]
+I selected crashes involving bicycles from the [SQLite database][s2s]
 ([discussed previously][s2s_post]) with the following query:
 
 [s2s]: https://github.com/agude/SWITRS-to-SQLite
@@ -72,56 +72,56 @@ AND Collision_Date <= '2017-12-31'  -- 2018 is incomplete
 ```
 
 This gave me 223,772 data points to examine spanning 2001 to 2017. [Just as
-before][ds], accidents from the most recent year are rejected because the
+before][ds], crashes from the most recent year are rejected because the
 database dump comes from September 2018, and so the year is incomplete.
 
 [ds]: {% post_url 2016-12-02-switrs_crashes_by_date %}#data-selection
 
-## Accidents per Week
+## Crashes per Week
 
 For car crashes, [I found that there was a large dip in 2008][car_apw] as
 people stopped driving to work during the [Great Recession][gr]. For
 motorcycle crashes, [I found strong seasonality][mc_apw] as people hung up
 their helmets during the winter. For bicycles, we have the following pattern:
 
-[car_apw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#accidents-per-week
-[mc_apw]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}#accidents-per-week
+[car_apw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#crashes-per-week
+[mc_apw]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}#crashes-per-week
 [gr]: https://en.wikipedia.org/wiki/Great_Recession
 
-[![Line plot showing bicycles accidents per week from 2001 through
+[![Line plot showing bicycles crashes per week from 2001 through
 2017][per_week_plot]][per_week_plot]
 
 [per_week_plot]: {{ file_dir }}/bicycle_accidents_per_week_in_california.svg
 
 It shows features similar to both cars and motorcycles:
 
-- The number of accidents increases after 2008, and then begins decreasing
-after 2013, almost exactly the **opposite** of the car pattern.
-- Accidents are highly seasonal, just like motorcycles. Apparently neither
-cyclists nor bikers like riding in the rain.
+- The number of crashes increases after 2008, and then begins decreasing after
+  2013, almost exactly the **opposite** of the car pattern.
+- Crashes are highly seasonal, just like motorcycles. Apparently neither
+  cyclists nor bikers like riding in the rain.
 
 Thinking back to [the model][model] we can try to reason about the trend. We
-know the number of cars increased, so the decrease in accidents in the last
-few years is either due to a decrease in the  number of cyclists---possibly
+know the number of cars increased, so the decrease in crashes in the last few
+years is either due to a decrease in the  number of cyclists---possibly
 because they traded their bikes for cars as they found employment---or a
-decrease in the likelihood of an accident---perhaps because drivers are more
+decrease in the likelihood of a crashes---perhaps because drivers are more
 used to cyclists and look out for them.
 
 [model]: #a-simple-model
 
 ## Day-by-Day
 
-Car are involved in accidents [on holidays during which the drivers also
-work][car_dbd], like Halloween. Motorcycles are in accidents during summer
+Car are involved in crashes [on holidays during which the drivers also
+work][car_dbd], like Halloween. Motorcycles are in crashes during summer
 holidays. Bicycles, on the other hand, have no holidays with a large excess in
-the number of accidents. Some holidays, like Christmas and Thanksgiving, keep
+the number of crashes. Some holidays, like Christmas and Thanksgiving, keep
 people from getting on their bikes, but none seem to motivate to get out and
 ride.
 
 [car_dbd]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-by-day
 [mc_dbd]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}#day-by-day
 
-[![Line plot showing average motorcycle accidents by day of the
+[![Line plot showing average motorcycle crashes by day of the
 year][average_accidents]][average_accidents]
 
 [average_accidents]: {{ file_dir }}/mean_bicycle_accidents_by_date.svg
@@ -133,44 +133,44 @@ leads to solo crashes. I will examine that in a future post.
 
 ## Day of the Week
 
-For cars, [weekends show a decrease in the number of accidents][car_dotw] as
+For cars, [weekends show a decrease in the number of crashes][car_dotw] as
 people stop commuting. For motorcycles, [weekends show an increase in the
-number of accidents][mc_dotw] as people use their time off to ride. As a
-recreational cyclist, I expected accidents to increase on the weekend as
-people put on their Lycra and take to the back roads for fun. But this is not
-the case:
+number of crashes][mc_dotw] as people use their time off to ride. As a
+recreational cyclist, I expected crashes to increase on the weekend as people
+put on their Lycra and take to the back roads for fun. But this is not the
+case:
 
 [car_dotw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-of-the-week
 [mc_dotw]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}#day-of-the-week
 
-[![Violin plot showing the number of bicycle accidents by day of the
+[![Violin plot showing the number of bicycle crashes by day of the
 week][accident_violin_plot]][accident_violin_plot]
 
 [accident_violin_plot]: {{ file_dir }}/bicycle_accidents_by_day_of_the_week.svg
 
-These [violin plots][violin] show the distribution of accidents by day of the
-week over the 17 year period. There is a large drop in the number of accidents
+These [violin plots][violin] show the distribution of crashes by day of the
+week over the 17 year period. There is a large drop in the number of crashes
 on weekends. This is surprising to me. I would have expected a lot more
 cyclists to be out on the weekend, leading to more interactions with cars.
 
-It's possible that this (an increased number of cyclists) is true but there
-are just enough fewer cars that the accident rate still goes down. Or perhaps
-the riders are better at avoiding accidents. Or maybe the cyclists are out in
-the countryside away from the cars. Or perhaps weekend drivers are better at
-avoiding cyclists. Without more data, we can't tell.
+It's possible that there are more cyclists on the weekend but there are enough
+fewer cars that the crash rate still goes down. Or perhaps the riders are
+better at avoiding crashes. Or maybe the cyclists are out in the countryside
+away from the cars. Or perhaps weekend drivers are better at avoiding
+cyclists. Without more data, we can't tell.
 
 [violin]: https://en.wikipedia.org/wiki/Violin_plot
 
 ## Conclusion
 
-This analysis of bicycle accidents surprised me a little. I expected bikes to
-show a similar pattern to motorcycles, since both are used to both commute and
-for fun. However, bikes show a greatly reduced accident rate on the weekend
-while motorcycles show an increase. Bikes and cars also seem to trade off,
-with car accidents increasing in recent years while bike accidents fall off.
-Further study and additional data is necessary before I can determine the
-reasons behind this trend.
+This analysis of bicycle crashes surprised me a little. I expected bikes to
+show a similar pattern to motorcycles, since they are both used to commute and
+for fun. However, bikes show a greatly reduced crash rate on the weekend while
+motorcycles show an increase. Bikes and cars also seem to trade off, with car
+crashes increasing in recent years while bike crashes fall off. Further study
+and additional data is necessary before I can determine the reasons behind
+this trend.
 
 ---
 
-[^1]: Of the 223,772 recorded accidents with bicycles, **89% involve a car**. There is a bias though: SWITRS reports are filled out when the police or CHP are called to the scene. As such, they skew towards worse accidents.
+[^1]: Of the 223,772 recorded crashes with bicycles, **89% involve a car**. There is a bias though: SWITRS reports are filled out when the police or CHP are called to the scene. As such, they skew towards worse accidents.

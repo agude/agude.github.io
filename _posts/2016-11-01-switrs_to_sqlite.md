@@ -2,7 +2,7 @@
 layout: post
 title: "Introducing 'SWITRS to SQLite'"
 description: >
-  The State of California stores information about all the traffic accidents
+  The State of California stores information about all the traffic collisions
   in the state in the SWITRS database; this script lets you convert it to
   SQLite for easy querying!
 image: /files/switrs_to_sqlite/chp.jpg
@@ -19,8 +19,8 @@ categories: switrs my_projects
 
 The State of California maintains a database called the [Statewide Integrated
 Traffic Records System (SWITRS)][switrs]. It contains a record of every
-traffic accident that has been reported in the state—the time of the accident,
-the location, the vehicles involved, and the reason for the crash. And even
+traffic collision that has been reported in the state---the time of the crash,
+the location, the vehicles involved, and the reason for the crash. Even
 better, it is [publicly available][data]!
 
 [switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
@@ -70,10 +70,10 @@ VictimRecords.txt
 This will run for a while (about an hour on my ancient desktop) and produce a
 SQLite3 file named `switrs.sqlite3`.
 
-### Accident Mapping Example
+### Crash Mapping Example
 
-Now that we have the SQLite file, let us make a map of all recorded accidents.
-We load the file and select all accidents with GPS coordinates as follows:
+Now that we have the SQLite file, let us make a map of all recorded crashes.
+We load the file and select all incidents with GPS coordinates as follows:
 
 ```python
 import pandas as pd
@@ -100,7 +100,7 @@ import matplotlib.pyplot as plt
 
 fig = plt.figure(figsize=(20,20))
 
-map = Basemap(
+basemap = Basemap(
     projection='gall',
     llcrnrlon = -126,   # lower-left corner longitude
     llcrnrlat = 32,     # lower-left corner latitude
@@ -108,15 +108,15 @@ map = Basemap(
     urcrnrlat = 43,     # upper-right corner latitude
 )
 
-x,y = map(df['Longitude'].values, df['Latitude'].values)
+x, y = basemap(df['Longitude'].values, df['Latitude'].values)
 
 map.plot(x, y, 'k.', markersize=1.5)
 ```
 
-This gives us a map of the locations of all the accidents in the state of
+This gives us a map of the locations of all the crashes in the state of
 California from 2001 to 2016:
 
-[![A map of the location of all the accidents in the state of California from
+[![A map of the location of all the crashes in the state of California from
 2001 to 2016][crash_map]][crash_map]
 
 [crash_map]: {{ file_dir }}/switrs_crash_map.png

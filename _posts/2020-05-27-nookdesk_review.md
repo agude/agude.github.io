@@ -131,10 +131,10 @@ don't know how I would organize my cables without it.
 ## Ordering and Shipping
 
 You can order the desk without creating an account on Nookdesk's website, but
-if you do getting your order status is difficult. You are supposed use a
-special page on the site where you enter your email address, but it did not
-work for me. Instead I had to get customer support to send me the tracking
-number.
+if you do not create an account then retrieving your order status is
+difficult. You are supposed use a special page on the site where you enter
+your email address, but it did not work for me. Instead I had to get customer
+support to send me the tracking number.
 
 Delivery was free (due to a [coupon code, `NOOK150`][code]) but seems to run
 about $120 normally. The desk was sent by FedEx in two shipments totaling six
@@ -145,12 +145,12 @@ boxes. The two shipments arrived on the same day a week after I ordered.
 The box containing the desktop was very large and relatively heavy. I was able
 to lug it up my stairs by myself but it would have been much easier to have a
 second person. The box containing the desk frame was also really heavy
-(perhaps more so) because it contained the two motors that move the desk up
-and down, but it was thankfully pretty compact and so easy to maneuver.
+(perhaps more so) because of the two motors that move the desk up and down,
+but it was thankfully pretty compact and so easy to maneuver.
 
 ## Assembly
 
-Assembling the desk was actually more difficult than I expected. There were a
+Assembling the desk was actually harder than I expected because there were a
 few problems:
 
 - The hardware---screws, bolts, guides, and whatnot---was packed in unlabeled
@@ -172,10 +172,11 @@ around to make a solid connection. See my photo below:
 
 [washers]: {{ file_dir }}/nookdesk_shelf_washer.jpg
 
-Assembly took between 3 to 4 hours, but was not particularly difficult. I made
-a minor mistake where I did not install the frame rails at the right time and
-had to backtrack and remove some pieces to get them in. [Jon Walters][review]
-says he made the same mistake in his review.
+Assembly took between 3 to 4 hours, but was not particularly difficult after I
+worked through the above issues. I made a minor mistake where I did not
+install the frame rails at the right time and had to backtrack and remove some
+pieces to get them in. [Jon Walters][review] says he made the same mistake in
+his review.
 
 You need enough space to flip the desk over during assembly because the build
 is started with the desk upside down. The desk is unwieldy, so it helps to

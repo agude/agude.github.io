@@ -61,8 +61,8 @@ stage 19 due to an injury.
 
 Alaphilippe finally fell behind during that stage as well, losing the yellow
 jersey to Bernal. He lost his podium spot on stage 20 when he cracked during
-the final part of the climb. Alaphilippe finished 5th when they rolled through
-the Champs-Élysées.
+the final part of the climb. Alaphilippe finished 5th when the peloton rolled
+through the Champs-Élysées.
 
 [alaphillippe]: https://en.wikipedia.org/wiki/Julian_Alaphilippe
 [itt]: https://en.wikipedia.org/wiki/Individual_time_trial
