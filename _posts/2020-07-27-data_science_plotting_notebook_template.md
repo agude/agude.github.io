@@ -78,13 +78,6 @@ a legend like on this plot:
 
 [legend_plot]: {{ file_dir }}/legend.svg
 
-This function is a little [brittle][brittle]; it works well for scatter plots,
-but fails for some other Matplotlib objects. I plan to [make it more
-robust][bug] in the future.
-
-[brittle]: https://en.wikipedia.org/wiki/Software_brittleness
-[bug]: https://github.com/agude/Jupyter-Notebook-Template-Library/issues/3
-
 This legend style can be seen in these posts:
 
 - [**Plotting my son's language development**][son_post] to label each language.
