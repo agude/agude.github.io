@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Interviewing in 2020: Observations and Thoughts"
+title: "Data Science Interviews in the 2020 Pandemic"
 description: >
   In the middle of the COVID-19 pandemic, I found myself looking for a data
   science job for the third time in my life. This post covers what I learned.
@@ -13,16 +13,39 @@ categories: python_patterns
 
 {% include lead_image.html %}
 
-Intuit laid off about 700 people across the company September 21st and I was
-one of them.
+I started looking for a job this year, in the [middle of a pandemic][covid],
+because Intuit cut my old position in COVID-related layoffs. I spent the last
+three months preparing for interviews and interviewing.
 
-I first interviewed for a job in data science job in 2015 right out of
-[Insight][insight]. I interviewed again two years later with a little more
-experience and confidence. 
+[covid]: https://en.wikipedia.org/wiki/COVID-19_pandemic
+
+The interview process was different from when I first interviewed as a young
+data scientist right out of [Insight][insight], and even different from when I
+interviewed last in 2017\. Here is what I observed.
 
 [insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
 
 ## Observations
+
+All of the interviews this year followed [the form I outlined in my post on not
+wasting a candidate's time][interviews], which I appreciated. That form is:
+
+[interviews]: {% post_url 2017-09-18-interviews-respect-time %}
+
+- **Prescreen**: A resume or recruiter screen of the candidate, often offline.
+- **Technical Screen**: A call with a team member or a take home assignment to
+  assess the candidate's technical skills.
+- **On-site Interview Loop**: An all day interview with multiple team members
+  and the hiring manager.
+
+The one part of the experience that several companies failed at was
+communication and scheduling. Some companies took an entire month to convey
+feedback from an interview step.
+
+I don't know why some recruiters struggle with communicating with
+candidates---it seems like table stakes in their profession---but I have seen
+it every time I have interviewed. Companies that communicate effectively and
+decide quickly have a strong advantage in recruiting talent.
 
 ### Salary Negotiation
 
@@ -35,48 +58,53 @@ in interviewing!
 
 <!-- TODO #45: Update links to negotiation post -->
 
-[California's 2018 law banning using salary history to determine an offer
-salary][salary_law] could be the reason for this behavior, but it specifically
-_does not_ ban asking about salary expectations. It might also be that the
-more senior roles I'm interviewing for now are hard enough to hire for that
-they do not want to reject candidates without a chance to negotiate.
+[California banned using salary history to determine an offer in
+2018][salary_law] which could be the reason for this behavior, but it
+specifically _does not_ ban asking about salary expectations. It might be that
+the more senior roles I'm interviewing for now are hard enough to find
+candidates for that the companies don't want to reject anyone without a chance
+to vet them for the role first.
 
 [salary_law]: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=432.3&lawCode=LAB
 
-### Technical Phone Screens
+### Technical Screens
 
-In 2015 and 2017 I had real trouble with phone screens. Often they were
-stereotypical _engineering_ interviews where I was asked to [invert a binary
-search tree][tweet] or some other question that would never come up in my job
-as a data scientist. I solved these when I had seen the problem before in my
-studies or could come up with the _"trick"_ to solve it efficiently. I passed
-about half of my phone screens.
+In 2015 and 2017 I had real trouble with the technical screens. Often they
+were stereotypical _engineering_ interviews where I was asked to [invert a
+binary search tree][tweet] or some other question that had never come up in my
+job as a data scientist. I was able to solve these problems when I had seen
+them before in my studies or could come up with the _"trick"_ on the fly. I
+passed about half of my technical screens.
 
 [tweet]: https://twitter.com/mxcl/status/608682016205344768
 
-In 2020, my experience was vastly different. I only got one question that was
-even close to "invert this BST", and that was a mistake where I was given the
-_software engineering_ phone screen accidentally.
+In 2020, my experience was vastly different. Only one screen was even close to
+"invert this BST", and that was a mistake where they later admitted that I was
+given the _software engineering_ technical hone screen accidentally.
 
-All of the other phone screens involved reasonable questions that would come
-up in a data scientist's day to day work like manipulating a dataset,
-calculating some simple features, or implementing really simple algorithms or
-metrics. With these more applied questions, I passed all of my phone screens!
+All of the other screens involved reasonable questions that would come up in a
+data scientist's day to day work like manipulating a dataset, calculating some
+simple features, or implementing really simple algorithms or metrics. With
+these more applied questions, I passed all of my technical screens!
 
 ### Virtual On-Sites
 
-In 2017 on-sites were on site! In 2020 they have moved to being done over
-video conferencing. I thought virtual on-sites would be less draining, but I
-felt even more exhausted after them. I missed the opportunity to get lunch
-with a team member, but I still felt I was able to connect with the
-interviewers well.
+In 2017 on-sites were on site! In 2020 they are done via video conferencing. I
+thought virtual on-sites would be less draining, but I felt even more
+exhausted after them. I missed the opportunity to get lunch with a team member
+that the normal on-site provided, but I still felt I was able to connect well
+with the interviewers.
+
+#### Whiteboard Coding
 
 There were fewer coding problems during the on-sites than previously and all
 of them were done in an online editor instead of on a whiteboard. This worked
 great! I actually found myself looking forward to the coding challenges
-because, with the improvement of coding on _*an actual computer*_ they were a
-nice break from the other interviews. Just like the phone screens these
+because, with the improvement of coding on **an actual computer**, they were a
+nice break from the other interviews. Just like the technical screens these
 questions were all directly applicable to the work I would be doing.
+
+#### Open-ended Problems and Behavioral Questions
 
 This time there were more open-ended interviews that dig into some problem the
 business may have (like "How would you help us filter spam?") or go really
@@ -86,8 +114,8 @@ effective in the virtual format, perhaps because the lack of a whiteboard made
 it so the interviewer and I had to have a conversation instead of me giving a
 lecture.
 
-This time interviewing was also the only time that companies asked [behavioral
-questions][behave]; three of the five on-sites had them this time.
+I also got [behavioral questions][behave] for the first time; three of the
+five on-sites had them.
 
 [behave]: https://en.wikipedia.org/wiki/Job_interview#Behavioral_interview_questions
 
@@ -99,19 +127,19 @@ how I did during each round:
 {% comment %} This allows styling the table text without cutting and pasting a
 lot of HTML. {% endcomment %}
 {% capture pass %}<span style="color:ForestGreen">Pass</span>{% endcapture %}
-{% capture fail %}<span style="color:Red">Fail</span>{% endcapture %}
+{% capture fail %}<span style="color:Red">Reject</span>{% endcapture %}
 {% capture declined %}<span style="color:DarkBlue">Declined</span>{% endcapture %}
 {% capture accepted %}<span style="color:ForestGreen">Accepted</span>{% endcapture %}
 
-| **Company**      | Prescreen | Phone Screen |                 On-Site | Offer |
-|------------------|----------:|-------------:|------------------------:|------:|
-| **DocuSign**     |  {{pass}} |     {{pass}} | {{declined}}[^docusign] |   --- |
-| **Grand Rounds** |  {{pass}} |     {{pass}} |                {{fail}} |   --- |
-| **Salesforce**   |  {{fail}} |          --- |                     --- |   --- |
-| **Square**       |  {{pass}} |     {{pass}} |                {{pass}} |   --- |
-| **Stripe**       |  {{pass}} |     {{pass}} |                {{fail}} |   --- |
-| **Twitch**       |  {{pass}} |     {{pass}} |                {{pass}} |   --- |
-| **Twitter**      |  {{pass}} |     {{pass}} |                {{fail}} |   --- |
+| **Company**      | Prescreen | Phone Screen |                 On-Site |        Offer |
+|------------------|----------:|-------------:|------------------------:|-------------:|
+| **DocuSign**     |  {{pass}} |     {{pass}} | {{declined}}[^docusign] |          --- |
+| **Grand Rounds** |  {{pass}} |     {{pass}} |                {{fail}} |          --- |
+| **Salesforce**   |  {{fail}} |          --- |                     --- |          --- |
+| **Square**       |  {{pass}} |     {{pass}} |                {{pass}} | {{accepted}} |
+| **Stripe**       |  {{pass}} |     {{pass}} |                {{fail}} |          --- |
+| **Twitch**       |  {{pass}} |     {{pass}} |                {{pass}} | {{declined}} |
+| **Twitter**      |  {{pass}} |     {{pass}} |                {{fail}} |          --- |
 
 I am very happy with how well phone screens went this time around, as
 mentioned above. I also feel good about the on-site to offer rate. I felt that
@@ -119,7 +147,7 @@ the Twitch, Twitter, and Square interviews all went well, so I am disappointed
 by the lack of an offer from Twitter.
 
 The Stripe interview revealed the position to be less well aligned with my
-skill set[^2] and career aspirations than I'd hope, so I think the reject
+skill set[^ab] and career aspirations than I'd hope, so I think the reject
 there is fair.
 
 I generally do not apply to work for startups, for a variety of reasons
@@ -136,6 +164,6 @@ interviewing during a pandemic!
 ---
 
 [^docusign]: DocuSign and I were unable to schedule an on-site before my other offers would have expired.
-[^2]: The role was a little heavier on [the "analytics" side of data science than the "building" side][ab] which I prefer.
+[^ab]: The role was a little heavier on [the "analytics" side of data science than the "building" side][ab] which I prefer.
 
 [ab]: https://www.dezyre.com/article/type-a-data-scientist-vs-type-b-data-scientist/194
