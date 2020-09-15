@@ -4,10 +4,10 @@ title: "Data Science Interviews in the 2020 Pandemic"
 description: >
   In the middle of the COVID-19 pandemic, I found myself looking for a data
   science job for the third time in my life. This post covers what I learned.
-image: /files/patterns/naturalists_misc_vol_1_painted_snake.jpg
+image: /files/2020-interviewing/nighhawks_crop.jpg
 image_alt: >
-  A drawing of an orange and black snake from The Naturalist's Miscellany
-  Volume 1.
+  A crop of Hopper's Nighthawks, showing a man in a suit sitting alone at the
+  counter of a diner.
 categories: python_patterns
 ---
 
