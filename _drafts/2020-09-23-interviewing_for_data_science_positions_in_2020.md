@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Data Science Interviews in the 2020 Pandemic"
+title: "Data Science Interviews During the 2020 Pandemic"
 description: >
   In the middle of the COVID-19 pandemic, I found myself looking for a data
   science job for the third time in my life. This post covers what I learned.
@@ -27,8 +27,9 @@ interviewed last in 2017\. Here is what I observed.
 
 ## Observations
 
-All of the interviews this year followed [the form I outlined in my post on not
-wasting a candidate's time][interviews], which I appreciated. That form is:
+All of the interviews this year followed [the structure I outlined in my post
+on not wasting a candidate's time][interviews], which I appreciated. That
+structure is:
 
 [interviews]: {% post_url 2017-09-18-interviews-respect-time %}
 
@@ -38,9 +39,9 @@ wasting a candidate's time][interviews], which I appreciated. That form is:
 - **On-site Interview Loop**: An all day interview with multiple team members
   and the hiring manager.
 
-The one part of the experience that several companies failed at was
-communication and scheduling. Some companies took an entire month to convey
-feedback from an interview step.
+Although all the companies structured the interviews well, several failed at
+communicating and scheduling. Some took an entire month to convey feedback
+from an interview step.
 
 I don't know why some recruiters struggle with communicating with
 candidates---it seems like table stakes in their profession---but I have seen
@@ -63,9 +64,10 @@ in interviewing!
 specifically _does not_ ban asking about salary expectations. It might be that
 the more senior roles I'm interviewing for now are hard enough to find
 candidates for that the companies don't want to reject anyone without a chance
-to vet them for the role first.
+to get the candidate [committed to the role][loss].
 
 [salary_law]: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=432.3&lawCode=LAB
+[loss]: https://en.wikipedia.org/wiki/Loss_aversion
 
 ### Technical Screens
 
@@ -99,23 +101,25 @@ with the interviewers.
 
 There were fewer coding problems during the on-sites than previously and all
 of them were done in an online editor instead of on a whiteboard. This worked
-great! I actually found myself looking forward to the coding challenges
-because, with the improvement of coding on **an actual computer**, they were a
-nice break from the other interviews. Just like the technical screens these
-questions were all directly applicable to the work I would be doing.
+great!
+
+I actually found myself looking forward to the coding challenges because, with
+the improvement of coding on **an actual computer**, they were a nice break
+from the other interviews. Just like the technical screens these questions
+were all directly applicable to the work I would be doing.
 
 #### Open-ended Problems and Behavioral Questions
 
-This time there were more open-ended interviews that dig into some problem the
-business may have (like "How would you help us filter spam?") or go really
-deep on a project I had worked on previously. I would get some of these
-questions during my previous years of interviewing, but they felt much more
-effective in the virtual format, perhaps because the lack of a whiteboard made
-it so the interviewer and I had to have a conversation instead of me giving a
-lecture.
+This time there were more open-ended interviews that dug into some problem the
+business had (like "How would you help us filter spam?") or went really deep
+on a project I had worked on previously. I would get some of these questions
+during my previous years of interviewing, but they felt much more effective in
+the virtual format, perhaps because the lack of a whiteboard made it so the
+interviewer and I had to have a conversation instead of me giving a lecture.
 
-I also got [behavioral questions][behave] for the first time; three of the
-five on-sites had them.
+I also was asked [behavioral questions][behave] for the first time. They were
+present in three of the five on-sites, including one company that had 90
+minutes of them!
 
 [behave]: https://en.wikipedia.org/wiki/Job_interview#Behavioral_interview_questions
 
@@ -131,17 +135,19 @@ lot of HTML. {% endcomment %}
 {% capture declined %}<span style="color:DarkBlue">Declined</span>{% endcapture %}
 {% capture accepted %}<span style="color:ForestGreen">Accepted</span>{% endcapture %}
 
-| **Company**      | Prescreen | Phone Screen |                 On-Site |        Offer |
-|------------------|----------:|-------------:|------------------------:|-------------:|
-| **DocuSign**     |  {{pass}} |     {{pass}} | {{declined}}[^docusign] |          --- |
-| **Grand Rounds** |  {{pass}} |     {{pass}} |                {{fail}} |          --- |
-| **Salesforce**   |  {{fail}} |          --- |                     --- |          --- |
-| **Square**       |  {{pass}} |     {{pass}} |                {{pass}} | {{accepted}} |
-| **Stripe**       |  {{pass}} |     {{pass}} |                {{fail}} |          --- |
-| **Twitch**       |  {{pass}} |     {{pass}} |                {{pass}} | {{declined}} |
-| **Twitter**      |  {{pass}} |     {{pass}} |                {{fail}} |          --- |
+TODO: Update Offer column to be correct.
 
-I am very happy with how well phone screens went this time around, as
+| **Company**      | Prescreen | Technical Screen |                 On-Site |        Offer |
+|------------------|----------:|-----------------:|------------------------:|-------------:|
+| **DocuSign**     |  {{pass}} |         {{pass}} | {{declined}}[^docusign] |          --- |
+| **Grand Rounds** |  {{pass}} |         {{pass}} |                {{fail}} |          --- |
+| **Salesforce**   |  {{fail}} |              --- |                     --- |          --- |
+| **Square**       |  {{pass}} |         {{pass}} |                {{pass}} | {{accepted}} |
+| **Stripe**       |  {{pass}} |         {{pass}} |                {{fail}} |          --- |
+| **Twitch**       |  {{pass}} |         {{pass}} |                {{pass}} | {{declined}} |
+| **Twitter**      |  {{pass}} |         {{pass}} |                {{fail}} |          --- |
+
+I am very happy with how well technical screens went this time around, as
 mentioned above. I also feel good about the on-site to offer rate. I felt that
 the Twitch, Twitter, and Square interviews all went well, so I am disappointed
 by the lack of an offer from Twitter.
