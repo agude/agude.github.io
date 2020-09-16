@@ -14,32 +14,32 @@ categories: python_patterns
 {% include lead_image.html %}
 
 I started looking for a job this year, in the [middle of a pandemic][covid],
-because Intuit cut my old position in COVID-related layoffs. I spent the last
-three months preparing for interviews and interviewing.
+because Intuit cut my old position as part of COVID-related layoffs. Consequently, 
+I spent the last three months preparing for and participating in job interviews.
 
 [covid]: https://en.wikipedia.org/wiki/COVID-19_pandemic
 
 The interview process was different from when I first interviewed as a young
-data scientist right out of [Insight][insight], and even different from when I
-interviewed last in 2017\. Here is what I observed.
+data scientist right out of [Insight][insight], and even different from my more recent
+interview experiences in 2017.
 
 [insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
 
 ## Observations
 
 All of the interviews this year followed [the structure I outlined in my post
-on not wasting a candidate's time][interviews], which I appreciated. That
-structure is:
+on not wasting a candidate's time][interviews], which I appreciated. To summarize, 
+that structure is:
 
 [interviews]: {% post_url 2017-09-18-interviews-respect-time %}
 
 - **Prescreen**: A resume or recruiter screen of the candidate, often offline.
-- **Technical Screen**: A call with a team member or a take home assignment to
-  assess the candidate's technical skills.
-- **On-site Interview Loop**: An all day interview with multiple team members
+- **Technical Screen**: Either a call with a team member or a take-home 
+  assignment to assess the candidate's technical skills.
+- **On-site Interview Loop**: An all-day interview with multiple team members
   and the hiring manager.
 
-Although all the companies structured the interviews well, several failed at
+Although all of the companies structured the interviews well, several failed at
 communicating and scheduling. Some took an entire month to convey feedback
 from an interview step.
 
@@ -54,8 +54,7 @@ The first conversation with every recruiter in 2017 involved talking about
 present salary and future expectations. In 2020, not a single recruiter asked
 about compensation until after they had made a verbal offer. This surprised me
 because waiting to open negotiations until that late in the process offers the
-candidate an advantage; the company has already spent considerable resources
-in interviewing!
+candidate an advantage as they now know that the company has strong interest in them.
 
 <!-- TODO #45: Update links to negotiation post -->
 
@@ -85,17 +84,17 @@ In 2020, my experience was vastly different. Only one screen was even close to
 given the _software engineering_ technical hone screen accidentally.
 
 All of the other screens involved reasonable questions that would come up in a
-data scientist's day to day work like manipulating a dataset, calculating some
+data scientist's daily work, like manipulating a dataset, calculating some
 simple features, or implementing really simple algorithms or metrics. With
 these more applied questions, I passed all of my technical screens!
 
 ### Virtual On-Sites
 
 In 2017 on-sites were on site! In 2020 they are done via video conferencing. I
-thought virtual on-sites would be less draining, but I felt even more
-exhausted after them. I missed the opportunity to get lunch with a team member
-that the normal on-site provided, but I still felt I was able to connect well
-with the interviewers.
+thought virtual on-sites would be less draining, but I actually felt even more
+exhausted after them. However,  I still felt I was able to connect well
+with the interviewers despite no longer having the opportunity to eat lunch 
+with a team member as in normal on-sites.
 
 #### Whiteboard Coding
 
@@ -105,15 +104,15 @@ great!
 
 I actually found myself looking forward to the coding challenges because, with
 the improvement of coding on **an actual computer**, they were a nice break
-from the other interviews. Just like the technical screens these questions
+from the other interviews. Just like the technical screens, these questions
 were all directly applicable to the work I would be doing.
 
 #### Open-ended Problems and Behavioral Questions
 
 This time there were more open-ended interviews that dug into some problem the
-business had (like "How would you help us filter spam?") or went really deep
-on a project I had worked on previously. I would get some of these questions
-during my previous years of interviewing, but they felt much more effective in
+business had (for example "How would you help us filter spam?") or went really deep
+exploring a project I had worked on previously. Although I was asked some of these questions
+during my previous years of interviewing they felt much more effective in
 the virtual format, perhaps because the lack of a whiteboard made it so the
 interviewer and I had to have a conversation instead of me giving a lecture.
 
@@ -147,17 +146,17 @@ TODO: Update Offer column to be correct.
 | **Twitch**       |  {{pass}} |         {{pass}} |                {{pass}} | {{declined}} |
 | **Twitter**      |  {{pass}} |         {{pass}} |                {{fail}} |          --- |
 
-I am very happy with how well technical screens went this time around, as
+I am very happy with how well the technical screens went this time around, as
 mentioned above. I also feel good about the on-site to offer rate. I felt that
 the Twitch, Twitter, and Square interviews all went well, so I am disappointed
 by the lack of an offer from Twitter.
 
 The Stripe interview revealed the position to be less well aligned with my
-skill set[^ab] and career aspirations than I'd hope, so I think the reject
-there is fair.
+skill set[^ab] and career aspirations than I'd hoped, so I think their decision
+to not extend an offer was fair.
 
-I generally do not apply to work for startups, for a variety of reasons
-personal and [financial][sense]. I agreed to interview at Grand Rounds after a
+I generally do not apply to work for startups, for a variety of reasons both
+personal and [financial][sense]. However, I agreed to interview at Grand Rounds after a
 friend reached out because I did not want to turn down any opportunities. In
 the end we all knew it was a bad fit.
 
