@@ -61,12 +61,12 @@ negotiation strategy, but the recruiters did it for me!
 
 <!-- TODO #45: Update links to negotiation post -->
 
-[California banned using salary history to determine an offer in
-2018][salary_law] which could be the reason for this behavior, but it
-specifically _does not_ ban asking about salary expectations. It might be that
-the more senior roles I'm interviewing for now are hard enough to find
-candidates for that the companies don't want to reject anyone without a chance
-to get the candidate [committed to the role][loss].
+This behavior might be explained by [California's new law which bans using
+salary history to determine an offer][salary_law], but it specifically _does
+not_ ban asking about salary expectations. It might be that the more senior
+roles I'm interviewing for now are hard enough to find candidates for that the
+companies don't want to reject anyone without a chance to get the candidate
+[committed to the role][loss].
 
 [salary_law]: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=432.3&lawCode=LAB
 [loss]: https://en.wikipedia.org/wiki/Loss_aversion
@@ -88,8 +88,8 @@ given the _software engineering_ technical screen by mistake.
 
 All of the other screens involved reasonable questions that would come up in a
 data scientist's daily work, like manipulating a dataset, calculating some
-simple features, or implementing really simple algorithms or metrics. With
-these more applied questions, I passed all of my technical screens!
+features, or implementing really simple algorithms or metrics. With these more
+applied questions, I passed all of my technical screens!
 
 ### Virtual On-Sites
 
@@ -151,9 +151,13 @@ TODO: Update Offer column to be correct.
 | **Twitter**      |  {{pass}} |         {{pass}} |                {{fail}} |          --- |
 
 I am very happy with how well the technical screens went this time around, as
-mentioned above. I also feel good about the on-site to offer rate. I felt that
-the Twitch, Twitter, and Square interviews all went well, so I am disappointed
-by the lack of an offer from Twitter.
+mentioned above. I also feel good about the on-site to offer rate, although
+more offers would always be better of course.
+
+I felt three interviews went really well: Square, Twitch, and Twitter. I
+thought I connected well with the teams and demonstrated that I had the skills
+they were looking for. So I was disappointed to not get an offer from Twitter,
+but excited for the offers from Square and Twitch.
 
 The Stripe interview revealed the position to be less well aligned with my
 skill set[^ab] and career aspirations than I'd hoped, so I think their
@@ -166,8 +170,8 @@ opportunities. In the end we all knew it was a bad fit.
 
 [sense]: https://zainamro.com/notes/working-for-a-startup-makes-less-sense
 
-I'm excited to get to work at TODO:COMPANY and even more excited to be done
-interviewing during a pandemic!
+so, after all that, I'm excited to get to work at TODO:COMPANY and even more
+excited to be done interviewing during a pandemic!
 
 ---
 
