@@ -13,15 +13,15 @@ categories: python_patterns
 
 {% include lead_image.html %}
 
-I started looking for a job this year, in the [middle of a pandemic][covid],
-because Intuit cut my old position as part of COVID-related layoffs. Consequently, 
-I spent the last three months preparing for and participating in job interviews.
+I started looking for a job this year because Intuit cut my old position as
+part of [COVID-related][covid] layoffs. Consequently, I spent the last three
+months preparing for and participating in job interviews.
 
 [covid]: https://en.wikipedia.org/wiki/COVID-19_pandemic
 
 The interview process was different from when I first interviewed as a young
-data scientist right out of [Insight][insight], and even different from my more recent
-interview experiences in 2017.
+data scientist right out of [Insight][insight], and even different from my
+more recent interview experiences in 2017.
 
 [insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
 
@@ -44,9 +44,10 @@ communicating and scheduling. Some took an entire month to convey feedback
 from an interview step.
 
 I don't know why some recruiters struggle with communicating with
-candidates---it seems like table stakes in their profession---but I have seen
-it every time I have interviewed. Companies that communicate effectively and
-decide quickly have a strong advantage in recruiting talent.
+candidates---it seems like table stakes in their profession---but it is
+something I have experienced during every interview cycle. Companies that
+communicate effectively and decide quickly have a strong advantage in
+recruiting talent.
 
 ### Salary Negotiation
 
@@ -54,7 +55,9 @@ The first conversation with every recruiter in 2017 involved talking about
 present salary and future expectations. In 2020, not a single recruiter asked
 about compensation until after they had made a verbal offer. This surprised me
 because waiting to open negotiations until that late in the process offers the
-candidate an advantage as they now know that the company has strong interest in them.
+candidate an advantage as they now know that the company has strong interest
+in them. Previously I have had to try to delay this conversation as part of my
+negotiation strategy, but the recruiters did it for me!
 
 <!-- TODO #45: Update links to negotiation post -->
 
@@ -71,17 +74,17 @@ to get the candidate [committed to the role][loss].
 ### Technical Screens
 
 In 2015 and 2017 I had real trouble with the technical screens. Often they
-were stereotypical _engineering_ interviews where I was asked to [invert a
-binary search tree][tweet] or some other question that had never come up in my
-job as a data scientist. I was able to solve these problems when I had seen
-them before in my studies or could come up with the _"trick"_ on the fly. I
-passed about half of my technical screens.
+were stereotypical _engineering_ interviews where I was asked to do something
+difficult but irrelevant, like [invert a binary search tree][tweet]. I was
+able to solve these problems when I had seen them before in my studies or
+could come up with the _"trick"_ on the fly. I passed about half of my
+technical screens.
 
 [tweet]: https://twitter.com/mxcl/status/608682016205344768
 
 In 2020, my experience was vastly different. Only one screen was even close to
 "invert this BST", and that was a mistake where they later admitted that I was
-given the _software engineering_ technical hone screen accidentally.
+given the _software engineering_ technical screen by mistake.
 
 All of the other screens involved reasonable questions that would come up in a
 data scientist's daily work, like manipulating a dataset, calculating some
@@ -92,9 +95,9 @@ these more applied questions, I passed all of my technical screens!
 
 In 2017 on-sites were on site! In 2020 they are done via video conferencing. I
 thought virtual on-sites would be less draining, but I actually felt even more
-exhausted after them. However,  I still felt I was able to connect well
-with the interviewers despite no longer having the opportunity to eat lunch 
-with a team member as in normal on-sites.
+exhausted after them. However,  I still felt I was able to connect well with
+the interviewers despite no longer having the opportunity to eat lunch with a
+team member as in normal on-sites.
 
 #### Whiteboard Coding
 
@@ -110,15 +113,16 @@ were all directly applicable to the work I would be doing.
 #### Open-ended Problems and Behavioral Questions
 
 This time there were more open-ended interviews that dug into some problem the
-business had (for example "How would you help us filter spam?") or went really deep
-exploring a project I had worked on previously. Although I was asked some of these questions
-during my previous years of interviewing they felt much more effective in
-the virtual format, perhaps because the lack of a whiteboard made it so the
-interviewer and I had to have a conversation instead of me giving a lecture.
+business had (for example "How would you help us filter spam?") or went really
+deep exploring a project I had worked on previously. Although I was asked some
+of these questions during my previous years of interviewing they felt much
+more effective in the virtual format, perhaps because the lack of a whiteboard
+made it so the interviewer and I had to have a conversation instead of me
+giving a lecture.
 
-I also was asked [behavioral questions][behave] for the first time. They were
-present in three of the five on-sites, including one company that had 90
-minutes of them!
+This round of interviews was the first time I was asked [behavioral
+questions][behave]. They were present in three of the five on-sites, including
+one company that had 90 minutes of them!
 
 [behave]: https://en.wikipedia.org/wiki/Job_interview#Behavioral_interview_questions
 
@@ -152,16 +156,15 @@ the Twitch, Twitter, and Square interviews all went well, so I am disappointed
 by the lack of an offer from Twitter.
 
 The Stripe interview revealed the position to be less well aligned with my
-skill set[^ab] and career aspirations than I'd hoped, so I think their decision
-to not extend an offer was fair.
+skill set[^ab] and career aspirations than I'd hoped, so I think their
+decision to not extend an offer was fair.
 
 I generally do not apply to work for startups, for a variety of reasons both
-personal and [financial][sense]. However, I agreed to interview at Grand Rounds after a
-friend reached out because I did not want to turn down any opportunities. In
-the end we all knew it was a bad fit.
+personal and [financial][sense]. However, I agreed to interview at Grand
+Rounds after a friend reached out because I did not want to turn down any
+opportunities. In the end we all knew it was a bad fit.
 
 [sense]: https://zainamro.com/notes/working-for-a-startup-makes-less-sense
-
 
 I'm excited to get to work at TODO:COMPANY and even more excited to be done
 interviewing during a pandemic!
