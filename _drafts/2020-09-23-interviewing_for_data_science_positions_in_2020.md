@@ -59,7 +59,7 @@ candidate an advantage as they now know that the company has strong interest
 in them. Previously I have had to try to delay this conversation as part of my
 negotiation strategy, but the recruiters did it for me!
 
-<!-- TODO #45: Update links to negotiation post -->
+{% comment %} TODO #45: Update links to negotiation post {% endcomment %}
 
 This behavior might be explained by [California's new law which bans using
 salary history to determine an offer][salary_law], but it specifically _does
@@ -138,8 +138,6 @@ lot of HTML. {% endcomment %}
 {% capture declined %}<span style="color:DarkBlue">Declined</span>{% endcapture %}
 {% capture accepted %}<span style="color:ForestGreen">Accepted</span>{% endcapture %}
 
-TODO: Update Offer column to be correct.
-
 | **Company**      | Prescreen | Technical Screen |                 On-Site |        Offer |
 |------------------|----------:|-----------------:|------------------------:|-------------:|
 | **DocuSign**     |  {{pass}} |         {{pass}} | {{declined}}[^docusign] |          --- |
@@ -170,8 +168,8 @@ opportunities. In the end we all knew it was a bad fit.
 
 [sense]: https://zainamro.com/notes/working-for-a-startup-makes-less-sense
 
-so, after all that, I'm excited to get to work at TODO:COMPANY and even more
-excited to be done interviewing during a pandemic!
+So, after all that, I'm excited to get to work at Square and even more excited
+to be done interviewing during a pandemic!
 
 ---
 
