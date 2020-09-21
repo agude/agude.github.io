@@ -8,7 +8,7 @@ image: /files/2020-interviewing/nighhawks_crop.jpg
 image_alt: >
   A crop of Hopper's Nighthawks, showing a man in a suit sitting alone at the
   counter of a diner.
-categories: python_patterns
+categories: interviewing
 ---
 
 {% include lead_image.html %}
