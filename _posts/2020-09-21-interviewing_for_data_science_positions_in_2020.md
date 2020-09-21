@@ -39,15 +39,10 @@ that structure is:
 - **On-site Interview Loop**: An all-day interview with multiple team members
   and the hiring manager.
 
-Although all of the companies structured the interviews well, several failed at
-communicating and scheduling. Some took an entire month to convey feedback
-from an interview step.
-
-I don't know why some recruiters struggle with communicating with
-candidates---it seems like table stakes in their profession---but it is
-something I have experienced during every interview cycle. Companies that
-communicate effectively and decide quickly have a strong advantage in
-recruiting talent.
+Although all of the companies structured the interviews well, several failed
+at the second area I emphasize in my post: **Communication**. One company took
+an entire month to convey feedback from an interview step while another did
+not get back to me about my on-site until I had emailed them several times.
 
 ### Salary Negotiation
 
@@ -56,8 +51,9 @@ present salary and future expectations. In 2020, not a single recruiter asked
 about compensation until after they had made a verbal offer. This surprised me
 because waiting to open negotiations until that late in the process offers the
 candidate an advantage as they now know that the company has strong interest
-in them. Previously I have had to try to delay this conversation as part of my
-negotiation strategy, but the recruiters did it for me!
+in them. Previously I have tried to delay this conversation as long as
+possible as part of my negotiation strategy, but this time the recruiters did
+it for me!
 
 {% comment %} TODO #45: Update links to negotiation post {% endcomment %}
 
@@ -95,9 +91,8 @@ applied questions, I passed all of my technical screens!
 
 In 2017 on-sites were on site! In 2020 they are done via video conferencing. I
 thought virtual on-sites would be less draining, but I actually felt even more
-exhausted after them. However,  I still felt I was able to connect well with
-the interviewers despite no longer having the opportunity to eat lunch with a
-team member as in normal on-sites.
+exhausted after them. However,  I still felt I was able to connect on a
+personal level with the interviewers, despite not being in the same place.
 
 #### Whiteboard Coding
 
@@ -105,10 +100,10 @@ There were fewer coding problems during the on-sites than previously and all
 of them were done in an online editor instead of on a whiteboard. This worked
 great!
 
-I actually found myself looking forward to the coding challenges because, with
-the improvement of coding on **an actual computer**, they were a nice break
-from the other interviews. Just like the technical screens, these questions
-were all directly applicable to the work I would be doing.
+I found myself looking forward to the coding challenges because, with the
+improvement of coding on **an actual computer**, they were a nice break from
+the other interviews. Just like the technical screens, these questions were
+all directly applicable to the work I would be doing.
 
 #### Open-ended Problems and Behavioral Questions
 
