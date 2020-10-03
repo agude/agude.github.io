@@ -34,10 +34,10 @@ The code that generated the plots can be found [here][plot_code]
 
 The most prestigious award at the Tour is the [yellow jersey][yellow], which
 is awarded to the rider with the lowest combined time across all 21 stages of
-the tour. [Egan Bernal][bernal], as last year's winner, was the favorite going
-into this year, especially so since [Team Ineos][ineos] left former winners
-[Chris Froome][froome] and [Geraint Thomas][thomas] off their Tour roster,
-making Bernal the sole leader for his team.
+the tour. [Egan Bernal][bernal] was the favorite going
+into this year as he had won last year's race. Benifiting his chances was the
+fact that [Team Ineos][ineos] left former winners [Chris Froome][froome] and
+[Geraint Thomas][thomas] off their Tour roster, making Bernal the sole leader for his team.
 
 [yellow]: https://en.wikipedia.org/wiki/General_classification_in_the_Tour_de_France
 [bernal]: https://en.wikipedia.org/wiki/Egan_Bernal
@@ -45,44 +45,37 @@ making Bernal the sole leader for his team.
 [froome]: https://en.wikipedia.org/wiki/Chris_Froome
 [thomas]: https://en.wikipedia.org/wiki/Geraint_Thomas
 
-Another favorite was [Primož Roglič][roglic][^roglic_name] who had won last
-year's [Vuelta a España][vuelta], taken 4th in a previous Tour, and whose
-team, [Jumbo--Visma][jumbo], included a star-studded support roster.
+Another favorite was [Primož Roglič][roglic] who had won last year's [Vuelta a
+España][vuelta], taken 4th in a previous Tour, and whose team,
+[Jumbo--Visma][jumbo], included a star-studded support roster.
 
 [roglic]: https://en.wikipedia.org/wiki/Primo%C5%BE_Rogli%C4%8D
 [vuelta]: https://en.wikipedia.org/wiki/2019_Vuelta_a_Espa%C3%B1a
 [jumbo]: https://en.wikipedia.org/wiki/Team_Jumbo%E2%80%93Visma
 
-<!-- TODO: Keep writing! -->
+Here is how the top five riders at the end of the race got there:
 
-Below I show how the top riders did throughout the race by plotting how far
-behind the leader they were after each stage. Where a rider's line is near the
-top they are close to taking the lead; when they drop down they are losing
-time.
-
-[![A line plot showing how far behind the leader each top-finishing rider was after each stage.][gc_plot]][gc_plot]
+[![A line plot showing how far behind the leader each top-finishing rider was
+after each stage of the 2020 Tour de France.][gc_plot]][gc_plot]
 
 [gc_plot]: {{ file_dir }}/2020_tour_de_france_top_5.svg
 
-[Julian Alaphilippe][alaphillippe] held the jersey for the most days, even
-defending it on the [individual time trial][itt] against expert time trialist
-Thomas. But Alaphilippe is not a climber, and after a brave defense of the
-jersey in the Pyrenees, he lost time in the Alps to [Egan Bernal][bernal],
-[Steven Kruijswijk][kruijswijk], [Emanuel Buchmann][buchmann], and [Thibaut
-Pinot][pinot]. Pinot had looked out of contention earlier, but stormed back
-with a massive attack on stage 15. Unfortunately, he was forced to withdraw on
-stage 19 due to an injury.
+After leading for most of the race, Roglič lost nearly a minute to [Tadej
+Pogačar][pogacar], a young Slovenian riding his first Tour ever, on the
+penultimate stage. Roglič had defended the jersey since stage 9, possibly as
+part of a strategy to take the jersey early in case the race had to be
+canceled midway through.
 
-Alaphilippe finally fell behind during that stage as well, losing the yellow
-jersey to Bernal. He lost his podium spot on stage 20 when he cracked during
-the final part of the climb. Alaphilippe finished 5th when the peloton rolled
-through the Champs-Élysées.
+[pogacar]: https://en.wikipedia.org/wiki/Tadej_Poga%C4%8Dar
 
-[alaphillippe]: https://en.wikipedia.org/wiki/Julian_Alaphilippe
-[itt]: https://en.wikipedia.org/wiki/Individual_time_trial
-[kruijswijk]: https://en.wikipedia.org/wiki/Steven_Kruijswijk
-[buchmann]: https://en.wikipedia.org/wiki/Emanuel_Buchmann
-[pinot]: https://en.wikipedia.org/wiki/Thibaut_Pinot
+But the long defense left Roglič vulnerable. In a ride that caused 17-time
+tour rider [George Hincapie][hincapie] to declare it ["the greatest tour I have
+ever seen"][themove], Pogačar stormed back on [La Planche des Belles Filles][planche],
+taking first on the stage by 1′21″.
+
+[hincapie]: https://en.wikipedia.org/wiki/George_Hincapie
+[themove]: https://wedu.team/themove/2020-tour-de-france-stage-20
+[planche]: https://en.wikipedia.org/wiki/La_Planche_des_Belles_Filles
 
 ## The Rest of the Race
 
@@ -124,7 +117,3 @@ favorites or attacked early, keeping his time behind pretty consistent.
 [green]: https://en.wikipedia.org/wiki/Points_classification_in_the_Tour_de_France
 [bardet]: https://en.wikipedia.org/wiki/Romain_Bardet
 [polka_dot]: https://en.wikipedia.org/wiki/Mountains_classification_in_the_Tour_de_France
-
----
-
-[^roglic_name]: His name is "Primož Roglič" on Jumbo's site, but "Primož Roglic" on the Tour's site. I use "Roglic" in the plots because that is how the data comes out of my scraper.
