@@ -34,10 +34,11 @@ The code that generated the plots can be found [here][plot_code]
 
 The most prestigious award at the Tour is the [yellow jersey][yellow], which
 is awarded to the rider with the lowest combined time across all 21 stages of
-the tour. [Egan Bernal][bernal] was the favorite going
-into this year as he had won last year's race. Benifiting his chances was the
-fact that [Team Ineos][ineos] left former winners [Chris Froome][froome] and
-[Geraint Thomas][thomas] off their Tour roster, making Bernal the sole leader for his team.
+the race. [Egan Bernal][bernal] was the favorite going into this year as he
+had won last year's race. Benefiting his chances was the fact that [Team
+Ineos][ineos] left former winners [Chris Froome][froome] and [Geraint
+Thomas][thomas] off their Tour roster, making Bernal the sole leader for his
+team.
 
 [yellow]: https://en.wikipedia.org/wiki/General_classification_in_the_Tour_de_France
 [bernal]: https://en.wikipedia.org/wiki/Egan_Bernal
@@ -60,6 +61,13 @@ after each stage of the 2020 Tour de France.][gc_plot]][gc_plot]
 
 [gc_plot]: {{ file_dir }}/2020_tour_de_france_top_5.svg
 
+Stage 7 stands out on this plot. Although large time-gaps are normally
+happen on mountain finishes, this stage was completely flat. Instead of a
+steep climb, strong winds split the [peloton][peloton] in two and several top
+riders were stuck in the chasing group where they lost 1′21″.
+
+[peloton]: https://en.wikipedia.org/wiki/Peloton
+
 After leading for most of the race, Roglič lost nearly a minute to [Tadej
 Pogačar][pogacar], a young Slovenian riding his first Tour ever, on the
 penultimate stage. Roglič had defended the jersey since stage 9, possibly as
@@ -69,13 +77,57 @@ canceled midway through.
 [pogacar]: https://en.wikipedia.org/wiki/Tadej_Poga%C4%8Dar
 
 But the long defense left Roglič vulnerable. In a ride that caused 17-time
-tour rider [George Hincapie][hincapie] to declare it ["the greatest tour I have
+Tour rider [George Hincapie][hincapie] to declare it ["the greatest Tour I have
 ever seen"][themove], Pogačar stormed back on [La Planche des Belles Filles][planche],
-taking first on the stage by 1′21″.
+taking first on the stage by 1′21″. Every other top rider lost time on the
+stage as well, even [Richie Porte][porte] who came in third for the stage and
+knocked [Miguel Ángel López][lopez] out of the top three overall.
 
 [hincapie]: https://en.wikipedia.org/wiki/George_Hincapie
 [themove]: https://wedu.team/themove/2020-tour-de-france-stage-20
 [planche]: https://en.wikipedia.org/wiki/La_Planche_des_Belles_Filles
+[porte]: https://en.wikipedia.org/wiki/Richie_Porte
+[lopez]: https://en.wikipedia.org/wiki/Miguel_%C3%81ngel_L%C3%B3pez_(cyclist)
+
+### Disappointing Results
+
+Many riders set their sights on the yellow jersey but fall short. Crashes,
+illness, and simply not being in form drag even top riders down. Here are the
+riders who went for the glory but could not keep it up for the full three
+weeks:
+
+[![A line plot showing how some of the under-performing riders fell in the
+rankings.][under_plot]][under_plot]
+
+[under_plot]: {{ file_dir }}/2020_tour_de_france_underperforming.svg
+
+Notice that the y-axis now extends to over two hours behind the leader, not
+the minutes behind in the first chart.
+
+Lopez was on the podium when he started stage 20, but he lost over 6 minutes
+in a disastrous time trial, falling to 6th overall.
+
+[Guillaume Martin][martin] finished 11th, his highest ever place, but he had
+been in the top three for much of the early race with Bernal and Pogačar. He
+lost time during stage 13 after holding strong during the first real test of
+the Pyrenees.
+
+[martin]: https://en.wikipedia.org/wiki/Guillaume_Martin
+
+Bernal entered the tour the favorite after winning last year, but his injury
+in the [Critérium du Dauphiné][crit] a month early proved worse than hoped for
+when he lost 7′20″ on stage 15. Bernal withdrew---a controversial
+decision---before stage 17 after losing another 27 minutes on stage 16.
+
+[crit]: https://en.wikipedia.org/wiki/Crit%C3%A9rium_du_Dauphin%C3%A9
+
+[Nairo Quintana][quintana], who was twice kept out of yellow by the brilliance
+of Chris Froome, faltered along with Bernal on stage 15 after being injured
+during a crash on stage 13. He was able to stabilize but cracked again on
+stage 18, losing almost half an hour.
+
+[quintana]: https://en.wikipedia.org/wiki/Nairo_Quintana
+
 
 ## The Rest of the Race
 
