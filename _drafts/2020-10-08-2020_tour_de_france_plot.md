@@ -114,20 +114,22 @@ the Pyrenees.
 
 [martin]: https://en.wikipedia.org/wiki/Guillaume_Martin
 
-Bernal entered the tour the favorite after winning last year, but his injury
-in the [Critérium du Dauphiné][crit] a month early proved worse than hoped for
-when he lost 7′20″ on stage 15. Bernal withdrew---a controversial
-decision---before stage 17 after losing another 27 minutes on stage 16.
-
-[crit]: https://en.wikipedia.org/wiki/Crit%C3%A9rium_du_Dauphin%C3%A9
-
-[Nairo Quintana][quintana], who was twice kept out of yellow by the brilliance
-of Chris Froome, faltered along with Bernal on stage 15 after being injured
-during a crash on stage 13. He was able to stabilize but cracked again on
-stage 18, losing almost half an hour.
+Both Bernal---last years winner---and [Nario Quintana][quintana]---two time
+runner up to Chris Froome---defended well in the early mountains but lost time
+in the [Massif Central][mc]. They were suffering from injuries in earlier
+crashes. In a controversial move, Bernal withdrew from the race after he lost
+time, leading some to accuse him of not honoring the historic race. Quintana
+fought on, but lost lots of time in the high Alps.
 
 [quintana]: https://en.wikipedia.org/wiki/Nairo_Quintana
+[mc]: https://en.wikipedia.org/wiki/Massif_Central
 
+Thibaut Pinot crashed on stage 1 and tumbled out of contention as soon as the race hit
+the mountains. [Emanuel Buchmann][buchmann] crashed in a previous race and his
+ability to start was in question. Both were found out in the first mountains.
+
+[pinot]: https://en.wikipedia.org/wiki/Thibaut_Pinot
+[buchmann]: https://en.wikipedia.org/wiki/Emanuel_Buchmann
 
 ## The Rest of the Race
 
