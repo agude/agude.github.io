@@ -133,41 +133,28 @@ ability to start was in question. Both were found out in the first mountains.
 
 ## The Rest of the Race
 
-From the above plot you might think that all the riders in the Tour finish
-within a few minutes of each other. But they do not. The last place rider, the
-[lanterne rouge][lanterne], was four and a half **hours** behind Egan Bernal.
+The Tour has over 100 riders and most of them are not competing for yellow.
+Here is how every rider who finished did:
 
-[lanterne]: https://en.wikipedia.org/wiki/Lanterne_rouge
+[![A line plot showing how far behind the leader every rider was for each
+stage.][full_plot]][full_plot]
 
-[![A line plot showing how far behind the leader every rider was for each stage.][full_plot]][full_plot]
+[full_plot]: {{ file_dir }}/2020_tour_de_france.svg
 
-[full_plot]: {{ file_dir }}/2019_tour_de_france.svg
+Buchmann, the lowest placed rider in our previous plot, is actually ahead of
+most of the riders! We can also see the race started out tough, probably
+due to the chance that it might be canceled after the first rest day, with
+large time gaps opening up even before the first mountains.
 
-Bernal and Alaphilippe, who looked so far apart in the first plot, are now
-seen to be neck-and-neck. [Yoann Offredo][offredo] looked like a lock to win
-the lanterne rogue when he fell ill on stage 8, but [Sebastian
-Langeveld][langeveld] took it in the penultimate stage after suffering an
-injury in the second week of the race.
+The latter half of the second week was also tough with the hilly Massif
+Central and mountainous Alps. By the last few stages the time gaps were pretty
+much set and most riders maintained their relative positions.
 
-[offredo]: https://en.wikipedia.org/wiki/Yoann_Offredo
-[langeveld]: https://en.wikipedia.org/wiki/Sebastian_Langeveld
+[Peter Sagan][sagan] and [Sam Bennett][bennett] were competing for the [green
+jersey][green], which Bennett won. Both of them saved their energy, and hence
+lost time, on mountainous stages so they could give it their all in the
+sprints.
 
-[Peter Sagan][sagan], the [green jersey][green] winner, was only interested in
-sprints. He took it easy on the mountain stages to conserve energy, as you can
-see in the steep declines on stages 14 and 15 (in the Pyrenees) and Stages 18--20
-(in the Alps). Most other riders performed similarly, although some recovered
-time on stage 17 when the favorites let a large breakaway group escape and
-gain a 20 minute advantage. Sagan did not make that group, which is clear from
-his lack of rise on the plot.
-
-[Romain Bardet][bardet], the [polka dot jersey][polka_dot] winner, was
-fighting for the yellow jersey until stage 14 where he cracked and lost 20
-minutes. This forced him to pivot to trying to win the climbing jersey, which
-meant he needed to be one of the first riders to reach the top of the
-remaining climbs. For the last few climbing stages he stayed with the
-favorites or attacked early, keeping his time behind pretty consistent.
-
+[bennett]: https://en.wikipedia.org/wiki/Sam_Bennett_(cyclist)
 [sagan]: https://en.wikipedia.org/wiki/Peter_Sagan
 [green]: https://en.wikipedia.org/wiki/Points_classification_in_the_Tour_de_France
-[bardet]: https://en.wikipedia.org/wiki/Romain_Bardet
-[polka_dot]: https://en.wikipedia.org/wiki/Mountains_classification_in_the_Tour_de_France
