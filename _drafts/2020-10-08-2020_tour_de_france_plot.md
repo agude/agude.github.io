@@ -4,7 +4,7 @@ title: "Plotting the 2020 Tour de France"
 description: >
   The Tour de France is a sporting event decided by mere minutes; to see
   exactly how those minutes were earned, read on for my plots!
-image: /files/tour-de-france/tour_de_france_1932.jpg
+image: /files/tour-de-france/tour_de_france_1932_second.jpg
 image_alt: >
   A black and white photo of the competitors in the 1932 Tour de France.
 categories: plotting
