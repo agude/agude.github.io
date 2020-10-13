@@ -2,7 +2,7 @@
 layout: post
 title: "Plotting the 2020 Tour de France"
 description: >
-  The Tour de France is a sporting event decided by mere minutes; to see
+  The Tour de France is a race decided by mere minutes; to see
   exactly how those minutes were earned, read on for my plots!
 image: /files/tour-de-france/tour_de_france_1932_second.jpg
 image_alt: >
@@ -16,7 +16,7 @@ The [Tour de France][tour] was postponed by [the pandemic][covid] this year,
 but finally kicked off in late August. Although there were worries that the
 race would have to be stopped in the middle, it made it all the way to the
 final sprint on the Champs-Élysées in Paris. In this post, just like [last
-year][last_post], I will explore how the Tour unfolded in plots.
+year's][last_post], I will use plots to explore how the Tour unfolded.
 
 [tour]: https://en.wikipedia.org/wiki/2020_Tour_de_France
 [covid]: https://en.wikipedia.org/wiki/COVID-19_pandemic
@@ -62,7 +62,7 @@ after each stage of the 2020 Tour de France.][gc_plot]][gc_plot]
 
 [gc_plot]: {{ file_dir }}/2020_tour_de_france_top_5.svg
 
-Stage 7 stands out on this plot. Although large time gaps normally occur
+Stage 7 stands out in this plot. Although large time gaps normally occur
 during mountain finishes, this completely flat stage shook up the race for
 yellow. Instead of a steep climb, strong winds split the [peloton][peloton] in
 two and several top riders were stuck in the chasing group where they lost
@@ -93,8 +93,8 @@ knocked [Miguel Ángel López][lopez] out of the top three overall.
 
 ### Disappointing Results
 
-Many riders set their sights on the yellow jersey but fall short. Crashes,
-illness, and simply not being in form drag even top riders down. Here are the
+Many riders set their sights on the yellow jersey but ultimately fall short. Crashes,
+illness, and simply not being in form can drag down even top riders. Here are the
 riders who went for the glory but could not keep it up for the full three
 weeks:
 
@@ -111,7 +111,7 @@ was. He was on the podium in 3rd place when he started stage 20, but he lost
 over 6 minutes in a disastrous time trial.
 
 [Guillaume Martin][martin] finished 11th, his highest ever place, but he had
-been in the top three for much of the early race, keeping up favorites Bernal
+been in the top three for much of the early race, keeping up with favorites Bernal
 and Roglič. He lost time during stage 13 after holding strong during the first
 real test in the Pyrenees.
 
@@ -119,8 +119,8 @@ real test in the Pyrenees.
 
 Both Bernal---last years winner---and [Nario Quintana][quintana]---two time
 runner up to Chris Froome---defended well in the early mountains but lost time
-in the high [Massif Central][mc]. They were suffering from injuries in earlier
-crashes. In a controversial move, Bernal withdrew from the race after he lost
+in the high [Massif Central][mc]. They were suffering from injuries incurred during crashes earlier
+in the race. In a controversial move, Bernal withdrew from the race after he lost
 time.[^sportsmanship] Quintana fought on and finished in Paris, but lost lots
 of time in the Alps.
 
@@ -129,7 +129,7 @@ of time in the Alps.
 
 Thibaut Pinot crashed on stage 1. [Emanuel Buchmann][buchmann] crashed in a
 previous race and his ability to start was in question. Both were found out in
-the first mountains and never recovered, but both stayed in the race through
+the first mountains and never recovered, but nevertheless stayed in the race through
 the end.
 
 [pinot]: https://en.wikipedia.org/wiki/Thibaut_Pinot
@@ -137,7 +137,7 @@ the end.
 
 ## The Rest of the Race
 
-More than 100 riders finished the Tour and most of them were not competing yellow. Here
+More than 100 riders finished the Tour, but most of them were not competing for the yellow jersey. Here
 are the paths taken by all 146 riders who finished in Paris:
 
 [![A line plot showing how far behind the leader every rider was for each
