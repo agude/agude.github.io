@@ -176,6 +176,11 @@ avoid being cut for being too slow.
 [lanterne]: https://en.wikipedia.org/wiki/Lanterne_rouge
 [ewan]: https://en.wikipedia.org/wiki/Caleb_Ewan
 
+This year's Tour was unique due to needing to adjust to the COVID pandemic,
+but it turned out to be one of the most exciting races in the history of the
+sport! And what's more, it gave us some much-needed entertainment during these
+dark time.
+
 ---
 
 [^sportsmanship]: Ineos said Bernal dropped out to "focus on recovery", but many fans felt that Bernal---who had won last year, placed as high as second this year, and worn the [white jersey][white] for the best young rider---was abandoning the most prestigious race of the season to avoid embarrassment at the hands of his opponents. 
