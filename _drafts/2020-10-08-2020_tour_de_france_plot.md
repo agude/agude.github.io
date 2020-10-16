@@ -35,10 +35,9 @@ The code that generated the plots can be found [here][plot_code]
 The most prestigious award at the Tour is the [yellow jersey][yellow], which
 is awarded to the rider with the lowest combined time across all 21 stages of
 the race. [Egan Bernal][bernal] was the favorite going into this year as he
-had won last year's race. Another point in his favor was that his team,
-[Ineos][ineos], had declared him the sole leader and left former winners
-[Chris Froome][froome] and [Geraint Thomas][thomas]---who had co-led the team
-last year---off the roster.
+had won last year's race. His team, [Ineos][ineos], had also decided to
+dedicate all of their resources to him and left former winner and previous
+co-leads [Chris Froome][froome] and [Geraint Thomas][thomas] off the roster.
 
 [yellow]: https://en.wikipedia.org/wiki/General_classification_in_the_Tour_de_France
 [bernal]: https://en.wikipedia.org/wiki/Egan_Bernal
@@ -79,11 +78,12 @@ canceled midway through.
 [pogacar]: https://en.wikipedia.org/wiki/Tadej_Poga%C4%8Dar
 
 But the long defense left Roglič vulnerable. In a ride that caused 17-time
-Tour rider [George Hincapie][hincapie] to declare it ["the greatest Tour I have
-ever seen"][themove], Pogačar stormed back on [La Planche des Belles Filles][planche],
-taking first on the stage by 1′21″. Every other top rider lost time on the
-stage as well, even [Richie Porte][porte] who came in third for the stage and
-knocked [Miguel Ángel López][lopez] out of the top three overall.
+Tour rider [George Hincapie][hincapie] to declare it ["the greatest Tour I
+have ever seen"][themove], Pogačar stormed back on [La Planche des Belles
+Filles][planche], taking first on the stage by 1′21″. Every other top rider
+lost time on the stage as well, even [Richie Porte][porte] who came in third
+for the stage and knocked [Miguel Ángel López][lopez] out of the top three
+overall.
 
 [hincapie]: https://en.wikipedia.org/wiki/George_Hincapie
 [themove]: https://wedu.team/themove/2020-tour-de-france-stage-20
@@ -93,10 +93,10 @@ knocked [Miguel Ángel López][lopez] out of the top three overall.
 
 ### Disappointing Results
 
-Many riders set their sights on the yellow jersey but ultimately fall short. Crashes,
-illness, and simply not being in form can drag down even top riders. Here are the
-riders who went for the glory but could not keep it up for the full three
-weeks:
+Many riders set their sights on the yellow jersey but ultimately fall short.
+Crashes, illness, and simply not being in form can drag down even top riders.
+Here are the riders who went for the glory but could not keep it up for the
+full three weeks:
 
 [![A line plot showing how some of the under-performing riders fell in the
 rankings.][under_plot]][under_plot]
@@ -111,34 +111,35 @@ was. He was on the podium in 3rd place when he started stage 20, but he lost
 over 6 minutes in a disastrous time trial.
 
 [Guillaume Martin][martin] finished 11th, his highest ever place, but he had
-been in the top three for much of the early race, keeping up with favorites Bernal
-and Roglič. He lost time during stage 13 after holding strong during the first
-real test in the Pyrenees.
+been in the top three for much of the early race, keeping up with favorites
+Bernal and Roglič. He lost time during stage 13 after holding strong during
+the first real test in the Pyrenees.
 
 [martin]: https://en.wikipedia.org/wiki/Guillaume_Martin
 
 Both Bernal---last years winner---and [Nario Quintana][quintana]---two time
 runner up to Chris Froome---defended well in the early mountains but lost time
-in the high [Massif Central][mc]. They were suffering from injuries incurred during crashes earlier
-in the race. In a controversial move, Bernal withdrew from the race after he lost
-time.[^sportsmanship] Quintana fought on and finished in Paris, but lost lots
-of time in the Alps.
+in the high [Massif Central][mc]. They were suffering from injuries incurred
+during crashes earlier in the race. In a controversial move, Bernal withdrew
+from the race after he lost time.[^sportsmanship] Quintana fought on and
+finished in Paris, but lost lots of time in the Alps.
 
 [quintana]: https://en.wikipedia.org/wiki/Nairo_Quintana
 [mc]: https://en.wikipedia.org/wiki/Massif_Central
 
 Thibaut Pinot crashed on stage 1. [Emanuel Buchmann][buchmann] crashed in a
-previous race and his ability to start was in question. Both were found out in
-the first mountains and never recovered, but nevertheless stayed in the race through
-the end.
+previous race and his ability to start was in question. Both lost time in the
+first mountains and never recovered, but nevertheless stayed in the race
+through the end.
 
 [pinot]: https://en.wikipedia.org/wiki/Thibaut_Pinot
 [buchmann]: https://en.wikipedia.org/wiki/Emanuel_Buchmann
 
 ## The Rest of the Race
 
-More than 100 riders finished the Tour, but most of them were not competing for the yellow jersey. Here
-are the paths taken by all 146 riders who finished in Paris:
+More than 100 riders finished the Tour, but most of them were not competing
+for the yellow jersey. Here are the paths taken by all 146 riders who finished
+in Paris:
 
 [![A line plot showing how far behind the leader every rider was for each
 stage.][full_plot]][full_plot]
@@ -146,20 +147,20 @@ stage.][full_plot]][full_plot]
 [full_plot]: {{ file_dir }}/2020_tour_de_france.svg
 
 Buchmann, the lowest placed rider in our previous plot, is actually ahead of
-most of the riders! We can also see the race started out tough, probably
-due to the chance that it might be canceled after the first rest day, with
-large time gaps opening up even before the first mountains.
+most of the riders! We can also see the race started out tough, probably due
+to the chance that it might be canceled after the first rest day, with large
+time gaps opening up even before the first mountains.
 
 The latter half of the second week was also tough with the hilly Massif
 Central and mountainous Alps. By the last few stages, the time gaps were
 pretty much set and most riders maintained their relative positions.
 
 Two riders of note are [Peter Sagan][sagan] and [Sam Bennett][bennett], who
-were competing for the [green jersey][green]. Both of them
-saved their energy, and hence lost time, on mountainous stages so they could
-give it their all in the sprints. Even though Sagan finished about an hour
-ahead of Bennett, he lost the Jersey. Bennett had done a better job of
-managing his energy and using it where it counted.
+were competing for the [green jersey][green]. Both of them saved their energy,
+and hence lost time, on mountainous stages so they could give it their all in
+the sprints. Even though Sagan finished about an hour ahead of Bennett, he
+lost the Jersey. Bennett had done a better job of managing his energy and
+using it where it counted.
 
 [bennett]: https://en.wikipedia.org/wiki/Sam_Bennett_(cyclist)
 [sagan]: https://en.wikipedia.org/wiki/Peter_Sagan
