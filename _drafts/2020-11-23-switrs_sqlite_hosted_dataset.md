@@ -60,6 +60,11 @@ even included a [demo notebook on Kaggle][demo_nb] so you can jump right in!
 [db_link]: https://www.kaggle.com/alexgude/california-traffic-collision-data-from-switrs
 [demo_nb]: https://www.kaggle.com/alexgude/starter-california-traffic-collisions-from-switrs
 
+The dataset also has its own [DOI][doi]: [10.34740/kaggle/dsv/1671261][my_doi]
+
+[doi]: https://en.wikipedia.org/wiki/Digital_object_identifier
+[my_doi]: https://www.doi.org/10.34740/kaggle/dsv/1671261
+
 Read on for an example of how to use the dataset and an explanation of how I
 created it.
 
