@@ -148,9 +148,9 @@ import sqlite3
 with sqlite3.connect("./switrs.sqlite3") as con:
 
     query = (
-        "SELECT Latitude, Longitude "
-        "FROM Collision AS C "
-        "WHERE Latitude IS NOT NULL AND Longitude IS NOT NULL"
+        "SELECT latitude, longitude "
+        "FROM collision "
+        "WHERE latitude IS NOT NULL AND longitude IS NOT NULL"
     )
 
     # Construct a Dataframe from the results
@@ -173,7 +173,7 @@ basemap = Basemap(
     urcrnrlat = 43,     # upper-right corner latitude
 )
 
-x, y = basemap(df['Longitude'].values, df['Latitude'].values)
+x, y = basemap(df['longitude'].values, df['latitude'].values)
 
-map.plot(x, y, 'k.', markersize=1.5)
+basemap.plot(x, y, 'k.', markersize=1.5)
 ```
