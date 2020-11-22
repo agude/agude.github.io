@@ -4,11 +4,10 @@ title: "Introducing the SWITRS SQLite Hosted Dataset"
 description: >
   California traffic collision data has been hard to get, that's why I am now
   currating and hosting it! Come take a look!
-image: /files/switrs_to_sqlite/chp.jpg
+image: /files/switrs-dataset/tram_auto_crash_in_1957_frederiksplein_amsterdam.jpg
 image_alt: >
-  A sports utility vehicle belonging to the California Highway Patrol is
-  parked in front of the Golden Gate Bridge.
-redirect_from: /2016/11/01/switrs_to_sqlite/
+  A photo of a tram and a delivery van collision in Frederiksplein, Amsterdam,
+  1957.
 categories: switrs my_projects
 ---
 
