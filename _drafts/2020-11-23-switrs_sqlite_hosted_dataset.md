@@ -11,7 +11,9 @@ image_alt: >
 categories: switrs my_projects
 ---
 
-{% capture file_dir %}/files/switrs_to_sqlite{% endcapture %}
+{% assign twitter-name = site.author.twitter %}
+
+{% capture file_dir %}/files/switrs-dataset{% endcapture %}
 
 {% include lead_image.html %}
 
@@ -36,6 +38,7 @@ I even maintain a [helpful script][s2s] to convert the messy CSV files
 California will let you download into a clean [SQLite database][sqlite].
 
 [s2s]: {% post_url 2016-11-01-switrs_to_sqlite %}
+[sqlite]: https://en.wikipedia.org/wiki/SQLite
 
 But requesting the data is painful; you have to set up an account with the
 state, submit your request via a rough web-form, and wait for them to compile
@@ -45,15 +48,17 @@ later!_
 Luckily I have saved all the data I've requested which goes back to January
 1st, 2001. So I resolved to make the data easily available to everyone.
 
-## SWITRS Hosted Dataset
+## The SWITRS Hosted Dataset
 
 I have combined all of my data requests into one SQLite database. You no
 longer have to worry about requesting the data or using my script to claen it
 up, I have done all that work for you.
 
-You can [**download the datebase**][db_link] and get right to work!
+You can [**download the datebase**][db_link] and get right to work! I have
+even included a [demo notebook on Kaggle][demo_nb] so you can jump right in!
 
 [db_link]: https://www.kaggle.com/alexgude/california-traffic-collision-data-from-switrs
+[demo_nb]: https://www.kaggle.com/alexgude/starter-california-traffic-collisions-from-switrs
 
 Read on for an example of how to use the dataset and an explanation of how I
 created it.
@@ -140,40 +145,21 @@ California][s2s_plot].
 
 [s2s_plot]: {% post_url 2016-11-01-switrs_to_sqlite %}#crash-mapping-example
 
-```python
-import pandas as pd
-import sqlite3
+Just download the data, unzip it, and run the [notebook][notebook] ([rendered
+on Github][rendered]). This will produce this plot:
 
-# Read sqlite query results into a pandas DataFrame
-with sqlite3.connect("./switrs.sqlite3") as con:
 
-    query = (
-        "SELECT latitude, longitude "
-        "FROM collision "
-        "WHERE latitude IS NOT NULL AND longitude IS NOT NULL"
-    )
+{% capture notebook_uri %}{{ "Mapping California Crashes 2001 to 2020.ipynb" | uri_escape }}{% endcapture %} 
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
-    # Construct a Dataframe from the results
-    df = pd.read_sql_query(query, con)
-```
+[![A map of the location of all the crashes in the state of California from
+2001 to 2020][plot]][plot]
 
-Then making a map is simple:
+[plot]: {{ file_dir }}/2001-2020_california_traffic_collisions_map.png
 
-```python
-from mpl_toolkits.basemap import Basemap
-import matplotlib.pyplot as plt
+I hope this [hosted dataset][db_link] makes working with the data fast and
+easy. If you make something, I'd love to see it! Send it to me on Twitter:
+[@{{ twitter-name }}][twitter]
 
-fig = plt.figure(figsize=(20,20))
-
-basemap = Basemap(
-    projection='gall',
-    llcrnrlon = -126,   # lower-left corner longitude
-    llcrnrlat = 32,     # lower-left corner latitude
-    urcrnrlon = -113,   # upper-right corner longitude
-    urcrnrlat = 43,     # upper-right corner latitude
-)
-
-x, y = basemap(df['longitude'].values, df['latitude'].values)
-
-basemap.plot(x, y, 'k.', markersize=1.5)
-```
+[twitter]: https://twitter.com/{{ twitter-name }}
