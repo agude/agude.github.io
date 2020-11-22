@@ -135,7 +135,7 @@ SELECT * FROM (
 
 The [script to do this is here][script].
 
-[script]: TODO
+[script]: https://github.com/agude/SWITRS-to-SQLite/blob/master/scripts/combine_databases.sql
 
 ### Using the dataset
 
@@ -147,7 +147,6 @@ California][s2s_plot].
 
 Just download the data, unzip it, and run the [notebook][notebook] ([rendered
 on Github][rendered]). This will produce this plot:
-
 
 {% capture notebook_uri %}{{ "Mapping California Crashes 2001 to 2020.ipynb" | uri_escape }}{% endcapture %} 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
