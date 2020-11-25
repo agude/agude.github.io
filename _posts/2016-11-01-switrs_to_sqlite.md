@@ -110,7 +110,7 @@ basemap = Basemap(
 
 x, y = basemap(df['Longitude'].values, df['Latitude'].values)
 
-map.plot(x, y, 'k.', markersize=1.5)
+basemap.plot(x, y, 'k.', markersize=1.5)
 ```
 
 This gives us a map of the locations of all the crashes in the state of
