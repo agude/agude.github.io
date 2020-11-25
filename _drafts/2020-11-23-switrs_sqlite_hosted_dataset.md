@@ -3,7 +3,7 @@ layout: post
 title: "Introducing the SWITRS SQLite Hosted Dataset"
 description: >
   California traffic collision data has been hard to get, that's why I am now
-  currating and hosting it! Come take a look!
+  curating and hosting it! Come take a look!
 image: /files/switrs-dataset/tram_auto_crash_in_1957_frederiksplein_amsterdam.jpg
 image_alt: >
   A photo of a tram and a delivery van collision in Frederiksplein, Amsterdam,
@@ -51,8 +51,8 @@ Luckily I have saved all the data I've requested which goes back to January
 ## The SWITRS Hosted Dataset
 
 I have combined all of my data requests into one SQLite database. You no
-longer have to worry about requesting the data or using my script to claen it
-up, I have done all that work for you.
+longer have to worry about requesting the data or using my script to clean it
+up since I have done all that work for you.
 
 You can **download the datebase** from either [Kaggle (requires
 account)][db_link] or [Zenodo (no account required!)][zen_link] and get right
@@ -92,10 +92,10 @@ I made the following assumptions when merging the datasets:
 
 - The collision records table from the more recent dataset was correct when
   there was a conflict.
-- The corresponding part records and victim records to that collision record
+- The party records and victim records corresponding to that collision record
   were also the most correct.
 
-These assumptions allowed me to write out the join logic to create the hosted
+These assumptions allowed me to write out the following join logic to create the hosted
 set. First I selected `case_id` from each copy of the data, preferring the
 newer ones:
 
@@ -147,14 +147,14 @@ The [script to do this is here][script].
 
 ### Using the dataset
 
-With the dataset hosted, it is trivial to reproduce the work I did when I
+Using the hosted dataset, it is simple to reproduce the work I did when I
 announced the data converter script: [plotting the location off all crashes in
 California][s2s_plot].
 
 [s2s_plot]: {% post_url 2016-11-01-switrs_to_sqlite %}#crash-mapping-example
 
 Just download the data, unzip it, and run the [notebook][notebook] ([rendered
-on Github][rendered]). This will produce this plot:
+on Github][rendered]). This will produce the following plot:
 
 {% capture notebook_uri %}{{ "Mapping California Crashes 2001 to 2020.ipynb" | uri_escape }}{% endcapture %} 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
