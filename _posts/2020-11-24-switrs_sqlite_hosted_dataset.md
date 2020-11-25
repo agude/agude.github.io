@@ -54,10 +54,10 @@ I have combined all of my data requests into one SQLite database. You no
 longer have to worry about requesting the data or using my script to clean it
 up since I have done all that work for you.
 
-You can **download the datebase** from either [Kaggle (requires
-account)][db_link] or [Zenodo (no account required!)][zen_link] and get right
-to work! I have even included a [demo notebook on Kaggle][demo_nb] so you can
-jump right in!
+You can **download the datebase** from either [**Kaggle** (requires
+account)][db_link] or [**Zenodo** (no account required!)][zen_link] and get
+right to work! I have even included a [demo notebook on Kaggle][demo_nb] so
+you can jump right in!
 
 [db_link]: https://www.kaggle.com/alexgude/california-traffic-collision-data-from-switrs
 [zen_link]: https://zenodo.org/record/4284843
