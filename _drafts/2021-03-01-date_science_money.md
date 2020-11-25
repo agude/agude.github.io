@@ -4,7 +4,7 @@ title: "Data Science, Compensation, and Asking for Money"
 description: >
 image: /files/
 image_alt: >
-categories: plotting
+categories: career-advice
 ---
 
 {% capture file_dir %}/files//{% endcapture %}
@@ -193,7 +193,7 @@ employers.
 Negotiating an offer is stressful but lucrative. Data scientists receive many 
 different kinds of compensation and our profession is in high demand, which 
 makes negotiating easier because we have many levers to pull and the hiring 
-manager just wants to get your signature. It’s easier than you think, and you 
+manager just wants to get your signature. It's easier than you think, and you 
 truly have nothing to lose.
 
 ---
