@@ -80,8 +80,8 @@ instituted. To created the hosted dataset I had to merge these four datasets.
 There were two main challenges:
 
 1. Each dataset contains three tables: collision records, party records, and
-   victim records; but _only_ the collision records table contains a [**primary
-   key**][primary_key]. That key is the `case_id`.
+   victim records; but _only_ the collision records table contains a
+   [**primary key**][primary_key]. That key is the `case_id`.
 2. The records are occasionally updated after the fact, but again only the
    collision records table has a column (`process_date`) indicating when the
    record was last modified.
@@ -95,9 +95,9 @@ I made the following assumptions when merging the datasets:
 - The party records and victim records corresponding to that collision record
   were also the most correct.
 
-These assumptions allowed me to write out the following join logic to create the hosted
-set. First I selected `case_id` from each copy of the data, preferring the
-newer ones:
+These assumptions allowed me to write out the following join logic to create
+the hosted set. First I selected `case_id` from each copy of the data,
+preferring the newer ones:
 
 ```sql
 -- Select all from 2020
