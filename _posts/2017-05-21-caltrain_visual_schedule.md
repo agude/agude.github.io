@@ -7,7 +7,7 @@ image: /files/caltrain-schedule/sp_3208_with_train_128_in_redwood_city_ca_in_aug
 image_alt: >
   A Southern Pacific Railroad commuter train in Redwood City, circa August
   1980. The train is grey with a bright red square painted on the front
-  containing the letters "SP" in white.
+  containing the letters 'SP' in white.
 categories: caltrain
 ---
 
