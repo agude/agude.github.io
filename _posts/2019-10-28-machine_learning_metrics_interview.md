@@ -8,7 +8,7 @@ description: >
 image: /files/interviews/Artgate_Fondazione_Cariplo_-_Canova_Antonio,_Allegoria_della_Giustizia.jpg
 image_alt: >
   A relief showing a women holding up a set of balance scales.
-categories: inteviewing
+categories: interviewing
 ---
 
 {% capture file_dir %}/files/interviews/{% endcapture %}
