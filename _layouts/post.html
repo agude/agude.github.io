@@ -11,7 +11,7 @@ layout: default
     {% assign sorted = page.categories | sort %}
     {% for category in sorted %}
     <a class="post-tag" href="/category/{{ category }}/">
-      #{{ category | capitalize }}
+      #{{ category }}
     </a>
     {% endfor %}
   {% endif %}
