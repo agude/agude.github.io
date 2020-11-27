@@ -11,7 +11,7 @@ image_alt: >
   A photo shot looking upwards between two buildings, the colors of the
   windows fade as you move down reminding me of compression.
 categories: 
-  - reading_group
+  - reading-group
   - lab41
 ---
 
