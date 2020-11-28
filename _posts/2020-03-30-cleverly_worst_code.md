@@ -7,7 +7,8 @@ description: >
 image: /files/worst-code/montreal_light_head_and_power_consolidated_linesmen_1928.jpg
 image_alt: >
   A black and white photo of three linesmen repairing a tangle of overhead wires.
-categories: coding
+categories:
+  - software-development
 ---
 
 {% capture file_dir %}/files/worst-code/{% endcapture %}
