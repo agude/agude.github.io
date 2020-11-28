@@ -9,7 +9,9 @@ image: /files/patterns/max_not_if.jpg
 image_alt: >
   A watercolor drawing of a Spectacled Caiman fighting with a False Coral
   Snake by Maria Sibylla Merian.
-categories: python_patterns
+categories:
+  - python-patterns
+  - software-development
 ---
 
 {% include lead_image.html %}

@@ -8,7 +8,9 @@ image: /files/patterns/lycodon_modestus.jpg
 image_alt: >
   A drawing of a Lycodon Modestus snake from the Iconographic Zoologica
   collection.
-categories: python_patterns
+categories:
+  - python-patterns
+  - software-development
 ---
 
 {% include lead_image.html %}
