@@ -10,7 +10,8 @@ image_alt: >
   A black and white photo from 1959 of a policeman in full-leather protective
   gear. He stands over a motorcycle on side of a street in Stockholm as
   traffic passes by.
-categories: switrs
+categories: 
+  - california-traffic-data 
 seo:
   date_modified: 2019-02-20T20:13:43-0800
 ---

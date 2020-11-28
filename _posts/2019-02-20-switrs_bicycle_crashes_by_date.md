@@ -8,7 +8,8 @@ image: /files/switrs-bicycle-accidents-by-date/wilhelmina_cycle_co.jpg
 image_alt: >
   An 1890s advertisement for Wilhelmina Cycle Co. Ltd. showing a family on bicycles.
 use_latex: True
-categories: switrs
+categories: 
+  - california-traffic-data 
 ---
 
 {% capture file_dir %}/files/switrs-bicycle-accidents-by-date{% endcapture %}
