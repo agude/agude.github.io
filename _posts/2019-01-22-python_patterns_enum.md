@@ -8,7 +8,9 @@ image: /files/patterns/locupletissimi_rerum_naturalium_thesauri_v1_lxxxiii_snake
 image_alt: >
   A drawing of a red and white snake taken from Plate LXXXIII from
   Locupletissimi rerum naturalium thesauri volume 1.
-categories: python_patterns
+categories:
+  - python-patterns
+  - software-development
 ---
 
 {% include lead_image.html %}
@@ -24,7 +26,7 @@ There are many ways to represent members from these sets in Python:
 
 - Unique string: `"CA"`, `"WA"`, `"MN"`
 - Classes: `class Pokemon: ... `
-- Tuples (or [namedtuples][namedtuples]): `("Clubs", "J")`, `("Hearts", 5)` 
+- Tuples (or [namedtuples][namedtuples]): `("Clubs", "J")`, `("Hearts", 5)`
 
 [namedtuples]: {% post_url 2018-12-18-python_patterns_namedtuple %}
 
@@ -90,7 +92,7 @@ my_favorite_card = PlayingCard("Stars", 85)
 
 Did you catch all the errors? We could write some error checking in the class,
 but it would again be a bit tedious. Instead, let's implement this using enums.
-Enums will let us represent the suits and ranks, check that they are valid, 
+Enums will let us represent the suits and ranks, check that they are valid,
 and order based on value, without writing a lot of extra code.
 
 ## Playing Cards with Enums

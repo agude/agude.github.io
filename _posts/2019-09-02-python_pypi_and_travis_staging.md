@@ -8,7 +8,10 @@ description: >
   Travis Stages.
 image: /files/travis/us_airforce_construction_by_sue_sapp.jpg
 image_alt: >
-  A construction site with the metal frame of a building and various pieces of heavy equipment parked around it.
+  A construction site with the metal frame of a building and various pieces of
+  heavy equipment parked around it.
+categories:
+  - software-development
 ---
 
 {% capture file_dir %}/files/travis/{% endcapture %}

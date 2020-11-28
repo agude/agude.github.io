@@ -8,7 +8,9 @@ image: /files/patterns/biologia_centrali_americana_coronella_annulata.jpg
 image_alt: >
   A drawing of a red, black, and yellow milk snake from Biologia Centrali
   Americana.
-categories: python_patterns
+categories:
+  - python-patterns
+  - software-development
 ---
 
 {% include lead_image.html %}
