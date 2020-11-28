@@ -8,7 +8,8 @@ description: >
 image: /files/fate-dice-statistics/blue_fate_dice.jpg
 image_alt: >
   A set of four blue Fate dice resting on top of a wooden table.
-categories: fate-dice
+categories:
+  - fun-and-games
 ---
 
 {% capture file_dir %}/files/fate-dice-statistics/{% endcapture %}
