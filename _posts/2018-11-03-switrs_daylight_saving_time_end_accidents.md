@@ -8,7 +8,8 @@ description: >
 image: /files/switrs-dst/a_woman_sets_the_clocks_forward.jpg
 image_alt: >
   A blonde woman adjusts the time on a row of clocks at a store.
-categories: switrs
+categories: 
+  - california-traffic-data 
 ---
 
 {% capture file_dir %}/files/switrs-dst{% endcapture %}
