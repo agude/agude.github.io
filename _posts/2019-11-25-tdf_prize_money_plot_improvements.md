@@ -8,7 +8,8 @@ image: /files/tdf-prize-money/godinat_and_level_in_1934.jpg
 image_alt: >
   Black and white photograph of Léon Level and André Godinat looking at a map
   during the Paris–Saint-Etienne race in 1934.
-categories: plotting
+categories:
+  - data-visualization
 ---
 
 {% capture file_dir %}/files/tdf-prize-money/{% endcapture %}

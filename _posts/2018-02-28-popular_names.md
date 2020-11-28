@@ -10,6 +10,8 @@ image_alt: >
   A photo of four Swedish children, two boys and two girls, taken sometime in
   the 1920s. The boys are wearing matching clothes, and the girls are wearing
   matching dresses.
+category:
+  - data-visualization
 ---
 
 {% capture file_dir %}/files/names{% endcapture %}
