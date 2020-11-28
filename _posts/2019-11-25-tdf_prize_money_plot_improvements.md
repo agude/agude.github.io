@@ -9,6 +9,7 @@ image_alt: >
   Black and white photograph of Léon Level and André Godinat looking at a map
   during the Paris–Saint-Etienne race in 1934.
 categories:
+  - cycling
   - data-visualization
 ---
 
