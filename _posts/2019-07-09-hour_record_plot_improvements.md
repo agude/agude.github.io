@@ -8,7 +8,8 @@ image: /files/hour-record/bicycle_race_by_calvert_litho_co_1895.jpg
 image_alt: >
   A chromolithograph showing six men in colorful clothing racing bikes on a
   dirt track.
-categories: plotting
+categories:
+  - data-visualization
 ---
 
 {% capture file_dir %}/files/hour-record/{% endcapture %}

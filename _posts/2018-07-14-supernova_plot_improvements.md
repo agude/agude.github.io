@@ -9,7 +9,8 @@ image: /files/supernova-plot-update/virgo_by_sidney_hall.jpg
 image_alt: >
   A drawing by Sidney Hall of the constellation Virgo represented as a Woman
   with angel wings and a pink and green dress.
-categories: plotting
+categories:
+  - data-visualization
 ---
 
 {% capture file_dir %}/files/supernova-plot-update/{% endcapture %}

@@ -7,7 +7,8 @@ description: >
 image: /files/tour-de-france/tour_de_france_1932.jpg
 image_alt: >
   A black and white photo of the competitors in the 1932 Tour de France.
-categories: plotting
+categories:
+  - data-visualization
 ---
 
 {% capture file_dir %}/files/tour-de-france/{% endcapture %}

@@ -9,7 +9,8 @@ image: /files/matplotlib-blitting-supernova/m101.jpg
 image_alt: >
   A color image of the M101 Pinwheel Galaxy, a spiral galaxy, composed of
   multiple exposures taken by NASA and the European Space Agency.
-categories: plotting
+categories:
+  - data-visualization
 ---
 
 {% capture file_dir %}/files/matplotlib-blitting-supernova{% endcapture %}
