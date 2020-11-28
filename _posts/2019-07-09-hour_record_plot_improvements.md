@@ -9,6 +9,7 @@ image_alt: >
   A chromolithograph showing six men in colorful clothing racing bikes on a
   dirt track.
 categories:
+  - cycling
   - data-visualization
 ---
 

@@ -10,6 +10,7 @@ image_alt: >
 use_latex: True
 categories: 
   - california-traffic-data 
+  - cycling
 ---
 
 {% capture file_dir %}/files/switrs-bicycle-accidents-by-date{% endcapture %}
