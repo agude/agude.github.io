@@ -4,7 +4,8 @@ title: "Data Science, Compensation, and Asking for Money"
 description: >
 image: /files/
 image_alt: >
-categories: career-advice
+categories: 
+  - career-advice
 ---
 
 {% capture file_dir %}/files//{% endcapture %}
