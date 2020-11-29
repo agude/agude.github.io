@@ -7,7 +7,8 @@ description: >
 image: /files/nookdesk/nookdesk.jpg
 image_alt: >
   The Nookdesk in my office, raised to standing height.
-categories: review
+categories: 
+  - opinions
 ---
 
 {% capture file_dir %}/files/nookdesk/{% endcapture %}

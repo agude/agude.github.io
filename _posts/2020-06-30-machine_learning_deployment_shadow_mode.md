@@ -7,7 +7,8 @@ description: >
 image: /files/shadow-mode/bricks_at_mit.jpg
 image_alt: >
   A black and white photo of bricks making up Kresge Auditorium at MIT.
-categories: machine-learning
+categories: 
+  - machine-learning
 ---
 
 {% capture file_dir %}/files/shadow-mode/{% endcapture %}
