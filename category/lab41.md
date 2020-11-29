@@ -9,9 +9,9 @@ description: >
 ---
 
 I worked at Lab41 from 2015 and 2017. Part of my job was to write articles for
-our blog, [**Gab41 blog**][gab41]. I covered some of the projects I worked on,
-but my favorite and most popular posts were for the **reading group series**
-where I reviewed some key papers in deep learning.
+our blog, [**Gab41**][gab41]. There I covered some of the projects I worked
+on, but my favorite and most popular posts were for the **reading group
+series** where I reviewed some key papers in deep learning.
 
 [gab41]: https://gab41.lab41.org/
 
