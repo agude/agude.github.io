@@ -10,7 +10,7 @@ image_alt: >
   A watercolor drawing of a Spectacled Caiman fighting with a False Coral
   Snake by Maria Sibylla Merian.
 categories:
-  - python-patterns
+  - python
   - software-development
 ---
 
