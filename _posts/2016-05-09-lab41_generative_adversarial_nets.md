@@ -10,7 +10,7 @@ image: /files/gans/header.jpg
 image_alt: >
   A coffee, reading glasses, and a book sit on a table in front of a MacBook.
 categories: 
-  - reading_group
+  - reading-group
   - lab41
 ---
 

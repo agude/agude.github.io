@@ -9,8 +9,9 @@ image: /files/caltrain-schedule/an_outbound_sp_commuter_train_sequence_by_roger_
 image_alt: >
   An outbound Southern Pacific Railroad commuter train leaving San Francisco.
   The train is grey with a bright red square painted on the front containing
-  the letters "SP" in white.
-categories: caltrain
+  the letters 'SP' in white.
+categories:
+  - data-visualization
 ---
 
 {% capture file_dir %}/files/caltrain-schedule{% endcapture %}

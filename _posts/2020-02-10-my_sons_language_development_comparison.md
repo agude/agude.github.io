@@ -7,7 +7,8 @@ description: >
 image: /files/my-sons-words-comparison/coal_miners_child_in_grade_school_lejunior_harlan_county_kentucky.jpg
 image_alt: >
   Black and white photo of a young boy at a school desk.
-categories: childhood_language
+categories:
+  - childhood-language
 ---
 
 {% capture file_dir %}/files/my-sons-words-comparison/{% endcapture %}

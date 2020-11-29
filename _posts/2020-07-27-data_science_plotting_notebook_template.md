@@ -7,8 +7,10 @@ image: /files/jupyter-library/jupiter_red_spot_juno.jpg
 image_alt: >
   The planet Jupiter as seen by the Juno spacecraft.
 categories: 
+  - data-visualization
+  - data-science
   - jupyter
-  - my_projects
+  - my-projects
 ---
 
 {% capture file_dir %}/files/jupyter-library/{% endcapture %}

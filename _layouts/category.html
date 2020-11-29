@@ -1,0 +1,21 @@
+---
+layout: default
+---
+<div class="categories">
+  <h1 class="category-title">
+    Topic:&nbsp;{{ page.category-title }}
+  </h1>
+  {{ content }}
+  <div class="card-grid">
+    {% for post in site.categories[page.category-name] %}
+      {% comment %} Article cards with an image and description. {% endcomment %}
+      {% include article_card.html
+        url=post.url
+        image=post.image
+        image_alt=post.image_alt
+        title=post.title
+        description=post.description
+      %}
+    {% endfor %}
+  </div>
+</div>

@@ -8,7 +8,9 @@ image: /files/patterns/naturalists_misc_vol_1_painted_snake.jpg
 image_alt: >
   A drawing of an orange and black snake from The Naturalist's Miscellany
   Volume 1.
-categories: python_patterns
+categories:
+  - python
+  - software-development
 ---
 
 {% include lead_image.html %}
@@ -44,7 +46,7 @@ class:
 ```python
 def tuple_to_card(card_tuple):
   suit, rank = card_tuple
-  
+
   card = PlayingCard(
     CardSuit(suit),
     CardRank(rank),

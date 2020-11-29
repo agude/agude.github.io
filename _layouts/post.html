@@ -4,7 +4,18 @@ layout: default
 
 <article role="article" class="post">
   <h1 class="post-title">{{ page.title }}</h1>
+  <div class="post-under-title">
   <time datetime="{{ page.date | date_to_xmlschema }}" class="post-date">{{ page.date | date: '%B %d, %Y' }}</time>
+  {% if page.categories %}
+    <!-- Categories -->
+    {% assign sorted = page.categories | sort %}
+    {% for category in sorted %}
+    <a class="post-tag" href="/topics/{{ category }}/">
+      #{{ category }}
+    </a>
+    {% endfor %}
+  {% endif %}
+  </div>
 
   {% if page.gab41 %}
     <!-- Top note with link back to Gab41 -->

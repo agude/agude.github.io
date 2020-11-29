@@ -9,7 +9,8 @@ image: /files/a-career-starts-with-rejection/wheeler_auditorium_steps_in_1940.jp
 image_alt: >
   A black and white photo of male students sitting on the steps of Wheeler
   Hall on the University of California, Berkeley campus in 1940.
-categories: career-advice
+categories: 
+  - career-advice
 ---
 
 {% capture file_dir %}/files/a-career-starts-with-rejection{% endcapture %}

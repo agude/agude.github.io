@@ -8,6 +8,9 @@ description: >
 image: /files/data-science-testing/brick_header.jpg
 image_alt: >
   A pile of worn bricks covered in dust and chips of other bricks.
+categories:
+  - data-science
+  - software-development
 ---
 
 {% capture file_dir %}/files/data-science-testing{% endcapture %}
