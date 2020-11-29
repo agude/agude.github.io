@@ -12,6 +12,7 @@ seo:
   date_modified: 2020-02-09T21:13:10-800
 categories:
   - childhood-language
+  - data-visualization
 ---
 
 {% capture file_dir %}/files/my-second-sons-words/{% endcapture %}
