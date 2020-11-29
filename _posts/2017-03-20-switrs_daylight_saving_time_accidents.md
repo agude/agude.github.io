@@ -10,6 +10,7 @@ image_alt: >
   A man adjusts the central time of the Gare Saint-Lazare in Paris, 1937.
 categories: 
   - california-traffic-data 
+  - data-science
 seo:
   date_modified: 2018-10-13T22:25:17-0700
 ---

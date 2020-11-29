@@ -12,6 +12,7 @@ image_alt: >
   traffic passes by.
 categories: 
   - california-traffic-data 
+  - data-science
 seo:
   date_modified: 2019-02-20T20:13:43-0800
 ---
