@@ -11,6 +11,7 @@ image_alt: >
   a woman in a white robe holding an oil lamp.
 use_latex: True
 categories:
+  - data-science
   - fun-and-games
 ---
 

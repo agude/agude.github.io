@@ -8,6 +8,7 @@ image_alt: >
   The planet Jupiter as seen by the Juno spacecraft.
 categories: 
   - data-visualization
+  - data-science
   - jupyter
   - my_projects
 ---

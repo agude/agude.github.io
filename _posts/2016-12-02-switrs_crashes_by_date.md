@@ -11,6 +11,7 @@ image_alt: >
   splintered and the car is tilted over.
 categories: 
   - california-traffic-data 
+  - data-science
 seo:
   date_modified: 2018-09-24T21:19:35-0700
 ---
