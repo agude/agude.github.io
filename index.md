@@ -30,7 +30,7 @@ twitter-name }}][twitter]
 
 [blog]: /blog/
 [gab41]: https://gab41.lab41.org/@Alex.Gude
-[lab41_posts]: /category/lab41/
+[lab41_posts]: /topics/lab41/
 [twitter]: https://twitter.com/{{ twitter-name }}
 
 The code that I write lives on my [Github page][github]. Check it out! Bug
