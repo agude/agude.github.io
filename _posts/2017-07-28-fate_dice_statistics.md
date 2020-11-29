@@ -9,7 +9,9 @@ image: /files/fate-dice-statistics/fate_dice.jpg
 image_alt: >
   Three sets of four Fate dice, colored blue, red, and black, resting on top
   of a wooden table.
-categories: fate-dice
+categories:
+  - data-science
+  - fun-and-games
 ---
 
 {% capture file_dir %}/files/fate-dice-statistics/{% endcapture %}

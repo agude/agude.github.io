@@ -7,7 +7,9 @@ description: >
 image: /files/data-science-salaries/josef_wagner_hohenberg_the_notary_2_coins.jpg
 image_alt: > 
   A painting of coins on a table by Josef Wagner-Höhenberg.
-categories: career-advice
+categories:
+  - career-advice
+  - data-science
 ---
 
 {% capture file_dir %}/files/data-science-salaries/{% endcapture %}

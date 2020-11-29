@@ -8,6 +8,8 @@ description: >
 image: /files/raspberry-pi/raspberry_pi_2_b_by_evan-amos.jpg
 image_alt: >
   A photo of a Raspberry Pi 2B computer on a white background.
+categories:
+  - data-visualization
 ---
 
 {% capture file_dir %}/files/raspberry-pi{% endcapture %}

@@ -8,8 +8,9 @@ image: /files/jupyter-library/jupiter_cassini_20001229.jpg
 image_alt: >
   A photo of the Library of Congress in 1902.
 categories: 
+  - data-science
   - jupyter
-  - my_projects
+  - my-projects
 ---
 
 {% capture file_dir %}/files/jupyter-library/{% endcapture %}

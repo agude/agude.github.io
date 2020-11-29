@@ -10,7 +10,8 @@ image_alt: >
   A black and white photograph of a child filling in a bar graph on a
   chalkboard.
 redirect_from: /2016/04/28/double_checking_538/
-categories: fivethirtyeight
+categories:
+  - data-science
 seo:
   date_modified: 2016-05-15T16:30:52-0700
 ---

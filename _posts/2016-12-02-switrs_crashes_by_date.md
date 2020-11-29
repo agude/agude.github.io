@@ -9,7 +9,9 @@ image_alt: >
   A black and white photo of about a dozen men and boys standing around a
   broken car taken in Washington D.C. in 1923. One of the car's wheels has
   splintered and the car is tilted over.
-categories: switrs
+categories: 
+  - california-traffic-data 
+  - data-science
 seo:
   date_modified: 2018-09-24T21:19:35-0700
 ---

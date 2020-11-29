@@ -106,3 +106,13 @@ input[type="checkbox"].task-list-item-checkbox {
 input[type="checkbox"]:checked.task-list-item-checkbox {
     background: $body-color;
 }
+
+// Tags on posts
+.post-under-title {
+  margin-top: -0.7rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-tag {
+  font-family: $code-font-family;
+}

@@ -8,7 +8,9 @@ image: /files/switrs-dataset/tram_auto_crash_in_1957_frederiksplein_amsterdam.jp
 image_alt: >
   A photo of a tram and a delivery van collision in Frederiksplein, Amsterdam,
   1957.
-categories: switrs my_projects
+categories: 
+  - california-traffic-data 
+  - my-projects
 ---
 
 {% assign twitter-name = site.author.twitter %}

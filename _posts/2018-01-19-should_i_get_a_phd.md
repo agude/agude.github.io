@@ -10,7 +10,9 @@ image_alt: >
   A black and white photo from the 1913 Columbia University Commencement
   featuring a group of men in doctoral gowns wearing mortarboards. Nobel Prize
   winner Alexis Carrel is amongst them.
-categories: career-advice
+categories:
+  - career-advice
+  - opinions
 ---
 
 {% capture file_dir %}/files/phd-should-i-go/{% endcapture %}

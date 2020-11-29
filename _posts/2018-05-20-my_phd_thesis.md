@@ -8,6 +8,8 @@ image: /files/my-phd-thesis/20110610--Building_40-,_or_-My_Home_Away_From_Home-.
 image_alt: >
   A color photo of CERN's Building 40 at sunset.
 use_latex: True
+categories:
+  - reading-group
 ---
 
 {% include lead_image.html %}
