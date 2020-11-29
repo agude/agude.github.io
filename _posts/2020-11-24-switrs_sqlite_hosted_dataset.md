@@ -10,7 +10,7 @@ image_alt: >
   1957.
 categories: 
   - california-traffic-data 
-  - my_projects
+  - my-projects
 ---
 
 {% assign twitter-name = site.author.twitter %}

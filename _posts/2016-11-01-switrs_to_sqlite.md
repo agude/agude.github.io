@@ -12,7 +12,7 @@ image_alt: >
 redirect_from: /2016/11/01/switrs_to_sqlite/
 categories: 
   - california-traffic-data 
-  - my_projects
+  - my-projects
 ---
 
 {% capture file_dir %}/files/switrs_to_sqlite{% endcapture %}
