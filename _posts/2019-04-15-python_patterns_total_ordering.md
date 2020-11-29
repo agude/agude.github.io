@@ -9,7 +9,7 @@ image_alt: >
   A drawing of a red, black, and yellow milk snake from Biologia Centrali
   Americana.
 categories:
-  - python-patterns
+  - python
   - software-development
 ---
 

@@ -9,7 +9,7 @@ image_alt: >
   A drawing of a red and white snake taken from Plate LXXXIII from
   Locupletissimi rerum naturalium thesauri volume 1.
 categories:
-  - python-patterns
+  - python
   - software-development
 ---
 

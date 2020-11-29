@@ -9,7 +9,7 @@ image_alt: >
   A drawing of an orange and black snake from The Naturalist's Miscellany
   Volume 1.
 categories:
-  - python-patterns
+  - python
   - software-development
 ---
 
