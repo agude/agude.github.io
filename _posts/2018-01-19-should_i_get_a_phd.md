@@ -12,6 +12,7 @@ image_alt: >
   winner Alexis Carrel is amongst them.
 categories:
   - career-advice
+  - opinions
 ---
 
 {% capture file_dir %}/files/phd-should-i-go/{% endcapture %}

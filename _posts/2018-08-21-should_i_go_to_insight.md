@@ -14,6 +14,7 @@ seo:
   date_modified: 2020-08-05T15:28:12-0700
 categories:
   - career-advice
+  - opinions
 ---
 
 **Update:** Insight has [_significantly changed its funding model_][funding].
