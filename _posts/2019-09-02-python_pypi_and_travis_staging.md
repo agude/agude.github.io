@@ -11,6 +11,7 @@ image_alt: >
   A construction site with the metal frame of a building and various pieces of
   heavy equipment parked around it.
 categories:
+  - python
   - software-development
 ---
 
