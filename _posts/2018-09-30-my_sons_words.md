@@ -11,7 +11,8 @@ image_alt: >
   children how to pronounce words.
 seo:
   date_modified: 2020-02-09T21:13:10-800
-categories: childhood_language
+categories: 
+  - childhood-language
 ---
 
 {% capture file_dir %}/files/my-sons-words/{% endcapture %}
