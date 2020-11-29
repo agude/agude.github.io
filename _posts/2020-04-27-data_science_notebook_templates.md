@@ -10,7 +10,7 @@ image_alt: >
 categories: 
   - data-science
   - jupyter
-  - my_projects
+  - my-projects
 ---
 
 {% capture file_dir %}/files/jupyter-library/{% endcapture %}
