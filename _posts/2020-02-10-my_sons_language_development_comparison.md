@@ -9,6 +9,7 @@ image_alt: >
   Black and white photo of a young boy at a school desk.
 categories:
   - childhood-language
+  - data-visualization
 ---
 
 {% capture file_dir %}/files/my-sons-words-comparison/{% endcapture %}
