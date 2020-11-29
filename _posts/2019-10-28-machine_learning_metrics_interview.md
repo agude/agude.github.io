@@ -8,7 +8,9 @@ description: >
 image: /files/interviews/Artgate_Fondazione_Cariplo_-_Canova_Antonio,_Allegoria_della_Giustizia.jpg
 image_alt: >
   A relief showing a women holding up a set of balance scales.
-categories: interviewing
+categories:
+  - machine-learning
+  - interviewing
 ---
 
 {% capture file_dir %}/files/interviews/{% endcapture %}
@@ -54,7 +56,7 @@ The best candidates consider the problem more deeply. Instead of jumping to
 find a metric, they start by thinking about the experience of using a model
 from a business or user perspective. A good way to frame this is "What does a
 false positive cost my user?" and "How does that compare to the cost of a
-false negative?" 
+false negative?"
 
 Sometimes a **false positive is costly**, as might be the case if the
 resulting action is drastic, like shutting down a user's account. To avoid
@@ -72,7 +74,7 @@ chance at a large revenue increase from the up-sell. [Recall][recall] is more
 important, as we would rather show a few extra users our up-sell page than
 miss the chance to convert a sale.
 
-[recall]: https://en.wikipedia.org/wiki/Precision_and_recall#Recall 
+[recall]: https://en.wikipedia.org/wiki/Precision_and_recall#Recall
 
 There are many other metrics that might be useful. The important part is not
 so much the metric itself, but what is motivating it, which should be the
