@@ -11,6 +11,7 @@ image_alt: >
   is pulling on the cuff next to the watch.
 categories: 
   - interviewing
+  - opinions
 ---
 
 {% capture file_dir %}/files/interviews/{% endcapture %}
