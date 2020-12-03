@@ -10,9 +10,7 @@ layout: default
     <!-- Categories -->
     {% assign sorted = page.categories | sort %}
     {% for category in sorted %}
-    <a class="post-tag" href="/topics/{{ category }}/">
-      #{{ category }}
-    </a>
+    <a class="post-tag" href="/topics/{{ category }}/">#{{ category }}</a>
     {% endfor %}
   {% endif %}
   </div>
