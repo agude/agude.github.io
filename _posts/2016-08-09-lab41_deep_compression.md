@@ -7,6 +7,7 @@ description: >
   network on my phone? You compress it! Come find out how deep compression saves
   space and power!
 image: /files/deep-compression/header.jpg
+show_lead_image: True
 image_alt: >
   A photo shot looking upwards between two buildings, the colors of the
   windows fade as you move down reminding me of compression.
@@ -16,8 +17,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/deep-compression/{% endcapture %}
-
-{% include lead_image.html %}
 
 [The next paper from our reading group][arxiv] is by Song Han, Huizi Mao, and
 William J. Dally. It won the best paper award at ICLR 2016. It details three

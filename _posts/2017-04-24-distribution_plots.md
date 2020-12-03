@@ -6,6 +6,7 @@ description: >
   but try something fancier! Read on to learn about box, strip, swarm, and
   violin plots!
 image: /files/distribution-plots/Petrov-Vodkin_violin_1921.jpg
+show_lead_image: True
 image_alt: >
   An avant-garde painting of a violin by Kuzma Petrov-Vodkin from 1921.
 categories:
@@ -14,8 +15,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/distribution-plots{% endcapture %}
-
-{% include lead_image.html %}
 
 One of the first steps when exploring data is to look at its distribution. For
 single distributions, or for comparing a small number, [histograms][hist] are

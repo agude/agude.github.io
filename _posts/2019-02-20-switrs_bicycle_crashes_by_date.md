@@ -5,6 +5,7 @@ description: >
   California crash data doesn't just cover cars, it covers bikes too! This
   time we look at when cyclists crash in California.
 image: /files/switrs-bicycle-accidents-by-date/wilhelmina_cycle_co.jpg
+show_lead_image: True
 image_alt: >
   An 1890s advertisement for Wilhelmina Cycle Co. Ltd. showing a family on bicycles.
 use_latex: True
@@ -15,8 +16,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/switrs-bicycle-accidents-by-date{% endcapture %}
-
-{% include lead_image.html %}
 
 It is time to use [SWITRS data][switrs] to look at vehicle crashes in
 California again. I have previously used the data to look at [when cars

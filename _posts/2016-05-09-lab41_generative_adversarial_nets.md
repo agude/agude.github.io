@@ -7,6 +7,7 @@ description: >
     about one learned by another network! Find out more with my summary of
     Generative Adversarial Networks!
 image: /files/gans/header.jpg
+show_lead_image: True
 image_alt: >
   A coffee, reading glasses, and a book sit on a table in front of a MacBook.
 categories: 
@@ -15,8 +16,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/gans/{% endcapture %}
-
-{% include lead_image.html %}
 
 One of the great things about working at Lab41 is that we are always taking on
 new and exciting projects, but this means we need to stay knowledgeable in

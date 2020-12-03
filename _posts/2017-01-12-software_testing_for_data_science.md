@@ -6,6 +6,7 @@ description: >
   modeling. Software tests can ensure that your code does what you think it
   does!
 image: /files/data-science-testing/brick_header.jpg
+show_lead_image: True
 image_alt: >
   A pile of worn bricks covered in dust and chips of other bricks.
 categories:
@@ -14,8 +15,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/data-science-testing{% endcapture %}
-
-{% include lead_image.html %}
 
 From the title _"Data Scientist"_ you would guess that we work with data, and
 we do some sort of science, but what you might miss is that we write a lot of

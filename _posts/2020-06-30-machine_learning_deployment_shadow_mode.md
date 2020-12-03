@@ -5,6 +5,7 @@ description: >
   Deploying machine learning models is hard; Shadow Mode is one way to make
   testing a little easier.
 image: /files/shadow-mode/bricks_at_mit.jpg
+show_lead_image: True
 image_alt: >
   A black and white photo of bricks making up Kresge Auditorium at MIT.
 categories: 
@@ -12,8 +13,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/shadow-mode/{% endcapture %}
-
-{% include lead_image.html %}
 
 Deploying a machine learning product so that it can be used is essential to
 getting value out of it. But it is one of the hardest parts of building the
