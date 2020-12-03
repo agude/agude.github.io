@@ -5,6 +5,7 @@ description: >
   Your classes can make use of the rich Python comparison operators just like
   the built-in classes. Here I'll show you how to do it while minimizing boilerplate.
 image: /files/patterns/biologia_centrali_americana_coronella_annulata.jpg
+show_lead_image: True
 image_alt: >
   A drawing of a red, black, and yellow milk snake from Biologia Centrali
   Americana.
@@ -12,8 +13,6 @@ categories:
   - python
   - software-development
 ---
-
-{% include lead_image.html %}
 
 Python classes come with a set of rich comparison operators. I can compare
 strings lexically like so:

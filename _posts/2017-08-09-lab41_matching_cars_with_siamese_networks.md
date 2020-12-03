@@ -6,6 +6,7 @@ description: >
   Matching the same object across separate images is tough, but Siamese
   networks can learn to do it pretty well! Read on for details.
 image: /files/siamese-networks/header.jpg
+show_lead_image: True
 image_alt: >
   View of a freeway seen through a chain-link fence at sunset.
 categories: 
@@ -14,8 +15,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/siamese-networks/{% endcapture %}
-
-{% include lead_image.html %}
 
 Lab41 just finished [**Pelops**][pelops], a _vehicle re-identification
 project_ using data from fixed video cameras. [Last time I talked about

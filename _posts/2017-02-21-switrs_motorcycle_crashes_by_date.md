@@ -6,6 +6,7 @@ description: >
   do they crash? Using California's SWITRS data I find out! I'll give you a
   hint: it is not on the way to their 9-5!
 image: /files/switrs-motorcycle-accidents-by-date/police_in_stockholm.jpg
+show_lead_image: True
 image_alt: >
   A black and white photo from 1959 of a policeman in full-leather protective
   gear. He stands over a motorcycle on side of a street in Stockholm as
@@ -18,8 +19,6 @@ seo:
 ---
 
 {% capture file_dir %}/files/switrs-motorcycle-accidents-by-date{% endcapture %}
-
-{% include lead_image.html %}
 
 A few months ago I wrote a post in which [I explored when car crashes happen
 in California][lastpost]. This time I'm going to go through the same analysis

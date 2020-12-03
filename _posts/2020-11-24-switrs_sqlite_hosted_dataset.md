@@ -5,6 +5,7 @@ description: >
   California traffic collision data has been hard to get, that's why I am now
   curating and hosting it! Come take a look!
 image: /files/switrs-dataset/tram_auto_crash_in_1957_frederiksplein_amsterdam.jpg
+show_lead_image: True
 image_alt: >
   A photo of a tram and a delivery van collision in Frederiksplein, Amsterdam,
   1957.
@@ -16,8 +17,6 @@ categories:
 {% assign twitter-name = site.author.twitter %}
 
 {% capture file_dir %}/files/switrs-dataset{% endcapture %}
-
-{% include lead_image.html %}
 
 The State of California maintains a database of traffic collisions called the
 [Statewide Integrated Traffic Records System (SWITRS)][switrs]. I have made

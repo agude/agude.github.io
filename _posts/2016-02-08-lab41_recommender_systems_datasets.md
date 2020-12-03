@@ -7,6 +7,7 @@ description: >
   data? Don't worry, there are tons of great, open source datasets for
   recommender systems!
 image: /files/recommender-datasets/header.jpg
+show_lead_image: True
 image_alt: >
   Part of the painting 'Allegory of the Four Elements' by Cornelis Jacobsz,
   1610.
@@ -16,8 +17,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/recommender-datasets/{% endcapture %}
-
-{% include lead_image.html %}
 
 Lab41 is currently in the midst of Project Hermes, an exploration of different
 recommender systems in order to build up some intuition (and of course, hard

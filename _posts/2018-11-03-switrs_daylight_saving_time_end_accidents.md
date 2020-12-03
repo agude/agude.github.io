@@ -6,6 +6,7 @@ description: >
   about when DST ends? Some researchers have found that it does lead to more
   crashes, so I take a look using California's SWITRS data.
 image: /files/switrs-dst/a_woman_sets_the_clocks_forward.jpg
+show_lead_image: True
 image_alt: >
   A blonde woman adjusts the time on a row of clocks at a store.
 categories: 
@@ -14,8 +15,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/switrs-dst{% endcapture %}
-
-{% include lead_image.html %}
 
 We all hate the change to [daylight saving time][dst] (DST) in the spring; it
 makes us tired, grumpy, but worst of all it [causes us to crash our cars at a

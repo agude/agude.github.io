@@ -6,6 +6,7 @@ description: >
   rolled a lot of dice and developed a lot of superstitions, but were any of
   them correct?
 image: /files/fate-dice-statistics/fate_dice.jpg
+show_lead_image: True
 image_alt: >
   Three sets of four Fate dice, colored blue, red, and black, resting on top
   of a wooden table.
@@ -15,8 +16,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/fate-dice-statistics/{% endcapture %}
-
-{% include lead_image.html %}
 
 My friends and I played [Fate][fate], a [role-playing game][rpg], for a few
 years during graduate school. Over that time we developed superstitions about

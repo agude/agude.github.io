@@ -6,6 +6,7 @@ description: >
   like? There are a lot of ways to estimate it. In this post I'll go through
   four methods.
 image: /files/fate-dice-statistics/alphonse-mucha-fate-1920.jpg
+show_lead_image: True
 image_alt: >
   An oil painting titled 'Fate', painted in 1920 by Alphonse Mucha. It depicts
   a woman in a white robe holding an oil lamp.
@@ -16,8 +17,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/fate-dice-statistics/{% endcapture %}
-
-{% include lead_image.html %}
 
 Last month [I checked my Fate dice for biases][lastpost]. One of the things I
 did was plot an interval for the 4dF outcomes (-4 through 4) we expect from a

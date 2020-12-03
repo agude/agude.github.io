@@ -6,6 +6,7 @@ description: >
   you use to decide if your model works?". Read on to find out what a good
   answer looks like!
 image: /files/interviews/Artgate_Fondazione_Cariplo_-_Canova_Antonio,_Allegoria_della_Giustizia.jpg
+show_lead_image: True
 image_alt: >
   A relief showing a women holding up a set of balance scales.
 categories:
@@ -14,8 +15,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/interviews/{% endcapture %}
-
-{% include lead_image.html %}
 
 As part of our interview cycle, candidates work with some data and build a
 simple model. After we talk through the modeling and data work, I ask them to
