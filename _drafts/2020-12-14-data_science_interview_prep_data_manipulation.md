@@ -11,6 +11,30 @@ categories: career_advice interview_prep
 
 {% include lead_image.html %}
 
+I often get asked by newly-minted PhDs trying to get their first job:
+
+> How can I prepare for data interviews? Do you have any examples of datasets
+> to practice with that you can share?
+
+I never had a good answer. I would tell them a lot about how interviews went,
+but I never had something I could share that they could work with and practice
+on.
+
+But as of today, that's changing. In this post I put together a series of
+practice questions like the kind you might see (or be expected to come up
+with) in a hands-on data interview using the [curated and hosted
+dataset of California Traffic accidents][switrs_dataset]. The dataset is
+avaliable for download from both [Kaggle][kaggle] and [Zenodo][zenodo], and I
+even have an [example notebook][example_notebook] for how to work with the
+data entirely online within Kaggle.
+
+[switrs_dataset]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
+[kaggle]: https://www.kaggle.com/alexgude/california-traffic-collision-data-from-switrs
+[zenodo]: https://zenodo.org/record/4284843
+[example_notebook]: https://www.kaggle.com/alexgude/starter-california-traffic-collisions-from-switrs
+
+## Interview Format
+
 ## Questions
 
 ### How many collisions between two vehicles were there in 2017?
