@@ -4,6 +4,7 @@ title: "Jupyter Notebook Templates for Data Science: Plotting"
 description: >
   Jumpstart your visualizations with this Jupyter plotting notebook!
 image: /files/jupyter-library/jupiter_red_spot_juno.jpg
+show_lead_image: True
 image_alt: >
   The planet Jupiter as seen by the Juno spacecraft.
 categories: 
@@ -14,8 +15,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/jupyter-library/{% endcapture %}
-
-{% include lead_image.html %}
 
 I recently released my [Jupyter Notebook Template Library][library]. Its goal
 is to accelerate your data science projects without having to to spend hours

@@ -5,14 +5,13 @@ description: >
   In the middle of the COVID-19 pandemic, I found myself looking for a data
   science job for the third time in my life. This post covers what I learned.
 image: /files/2020-interviewing/nighhawks_crop.jpg
+show_lead_image: True
 image_alt: >
   A crop of Hopper's Nighthawks, showing a man in a suit sitting alone at the
   counter of a diner.
 categories:
   - interviewing
 ---
-
-{% include lead_image.html %}
 
 I started looking for a job this year because Intuit cut my old position as
 part of [COVID-related][covid] layoffs. Consequently, I spent the last three

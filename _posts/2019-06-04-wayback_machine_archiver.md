@@ -5,13 +5,12 @@ description: >
   The Internet Archive's Wayback Machine tries to keep a complete copy of the
   internet. With this script, you can submit pages for effortless indexing.
 image: /files/wayback-machine-archiver/library_of_congress_1902_crop.jpg
+show_lead_image: True
 image_alt: >
   A photo of the Library of Congress in 1902.
 categories:
   - my-projects
 ---
-
-{% include lead_image.html %}
 
 The [Internet Archive][ia] runs a service called the [Wayback Machine][wbm] to
 create a digital archive of the entire internet. It contains the [first

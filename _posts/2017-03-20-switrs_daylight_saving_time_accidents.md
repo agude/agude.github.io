@@ -6,6 +6,7 @@ description: >
   to an increase in traffic collisions! Find out exactly how many more there
   are with this analysis!
 image: /files/switrs-dst/dst_change_gare_saint_lazare_1937.png
+show_lead_image: True
 image_alt: >
   A man adjusts the central time of the Gare Saint-Lazare in Paris, 1937.
 categories: 
@@ -16,8 +17,6 @@ seo:
 ---
 
 {% capture file_dir %}/files/switrs-dst{% endcapture %}
-
-{% include lead_image.html %}
 
 The [daylight saving time][dst] (DST) change is awful---we get less sleep and
 it [might not even save energy][energy] as was intended! Worse, studies by

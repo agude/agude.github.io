@@ -6,6 +6,7 @@ description: >
   they can be slow to generate in matplotlib! Thankfully, blitting makes
   animating much faster! Learn how to here!
 image: /files/matplotlib-blitting-supernova/m101.jpg
+show_lead_image: True
 image_alt: >
   A color image of the M101 Pinwheel Galaxy, a spiral galaxy, composed of
   multiple exposures taken by NASA and the European Space Agency.
@@ -14,8 +15,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/matplotlib-blitting-supernova{% endcapture %}
-
-{% include lead_image.html %}
 
 Animations are a great way to show the passage of time in a plot. I have used
 animation to show [how long my Raspberry Pis take to reboot][reboot] and [how

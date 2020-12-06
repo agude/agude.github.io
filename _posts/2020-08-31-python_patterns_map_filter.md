@@ -5,6 +5,7 @@ description: >
   For loops are great, but I am a big fan of replacing them with simple
   functions. Python provides a couple of building blocks.
 image: /files/patterns/naturalists_misc_vol_1_painted_snake.jpg
+show_lead_image: True
 image_alt: >
   A drawing of an orange and black snake from The Naturalist's Miscellany
   Volume 1.
@@ -12,8 +13,6 @@ categories:
   - python
   - software-development
 ---
-
-{% include lead_image.html %}
 
 Computers are great at performing a simple action over and over again. A common
 way to make them do such a task is to store data in a list and iterate over it

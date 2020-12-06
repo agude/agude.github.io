@@ -7,6 +7,7 @@ description: >
   NLP. But what about sentences? Read on to learn about skip-thought vectors,
   a sentence embedding algorithm!
 image: /files/skip-thought/header.jpg
+show_lead_image: True
 image_alt: >
   A picture of old books on shelves taken at an angle.
 categories: 
@@ -15,8 +16,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/skip-thought/{% endcapture %}
-
-{% include lead_image.html %}
 
 Continuing the tour of older papers that started with our [ResNet blog
 post][rn], we now take on [**Skip-Thought Vectors**][arxiv] by [Kiros][kiros]

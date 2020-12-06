@@ -5,6 +5,7 @@ description: >
   How do the salaries of woman data scientists compare to those of men? This month we
   explore pay by gender and location.
 image: /files/data-science-salaries/josef_wagner_hohenberg_the_notary_2_coins.jpg
+show_lead_image: True
 image_alt: > 
   A painting of coins on a table by Josef Wagner-Höhenberg.
 categories:
@@ -13,8 +14,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/data-science-salaries/{% endcapture %}
-
-{% include lead_image.html %}
 
 The [gender pay gap][pay_gap] is a contentious issue, especially in tech where
 [women are historically excluded][women_in_tech]. We can explore the gap in

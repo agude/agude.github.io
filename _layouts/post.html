@@ -24,6 +24,13 @@ layout: default
     </p>
   {% endif %}
 
+  {% if page.show_lead_image and page.image %}
+    <img
+      src="{{ page.image }}"
+      alt="{{ page.image_alt | default: "Article header image, used for decoration." | strip }}"
+    />
+  {% endif %}
+
   {{ content }}
 </article>
 

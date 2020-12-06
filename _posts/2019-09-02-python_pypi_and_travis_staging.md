@@ -7,6 +7,7 @@ description: >
   the language, and then build the package once. I will show you how to accomplish this using
   Travis Stages.
 image: /files/travis/us_airforce_construction_by_sue_sapp.jpg
+show_lead_image: True
 image_alt: >
   A construction site with the metal frame of a building and various pieces of
   heavy equipment parked around it.
@@ -16,8 +17,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/travis/{% endcapture %}
-
-{% include lead_image.html %}
 
 I recently finished a new Python program, [`wayback-machine-archiver`][wbma].
 See my [recent post for details][wbma_post]. It supports **many** different

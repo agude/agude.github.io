@@ -7,6 +7,7 @@ description: >
   went one step further? Find out how stochastic depth improves your network
   by dropping whole layers!
 image: /files/stochastic-depth/header.jpg
+show_lead_image: True
 image_alt: >
   Zion national park, a very deep canyon, put probably not stochastically deep.
 categories: 
@@ -15,8 +16,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/stochastic-depth/{% endcapture %}
-
-{% include lead_image.html %}
 
 [Today's paper][arxiv] is by Gao Huang, Yu Sun, _et al._ It introduces a new
 way to perturb networks during training in order to improve their performance.

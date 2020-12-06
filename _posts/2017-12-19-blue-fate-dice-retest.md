@@ -6,6 +6,7 @@ description: >
   "biased" set and see if it really is unlucky! Unfortunately, things aren't
   so clear...
 image: /files/fate-dice-statistics/blue_fate_dice.jpg
+show_lead_image: True
 image_alt: >
   A set of four blue Fate dice resting on top of a wooden table.
 categories:
@@ -14,8 +15,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/fate-dice-statistics/{% endcapture %}
-
-{% include lead_image.html %}
 
 [A few months ago][previous] I dug up the data from my [Fate campaign][fate]
 and used it to test the dice we used for biases. I concluded that three of the

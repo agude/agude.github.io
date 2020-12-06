@@ -6,6 +6,7 @@ description: >
   Finding objects in images can be hard if you have only a little data. In
   this post I examine a few approaches that work with few training examples!
 image: /files/object-localization/header.jpg
+show_lead_image: True
 image_alt: >
   Cars crossing the Golden Gate Bridge as seen from Marin.
 categories: 
@@ -14,8 +15,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/object-localization/{% endcapture %}
-
-{% include lead_image.html %}
 
 Lab41 is just wrapping up a vehicle re-identification project named
 [**Pelops**][pelops]. The goal was to be able to identify if the same car
