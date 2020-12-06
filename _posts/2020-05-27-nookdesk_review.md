@@ -5,6 +5,7 @@ description: >
   I bought a Nookdesk standing desk now that I'm working from home; I like it!
   Read on for a detailed review.
 image: /files/nookdesk/nookdesk.jpg
+show_lead_image: True
 image_alt: >
   The Nookdesk in my office, raised to standing height.
 categories: 
@@ -12,8 +13,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/nookdesk/{% endcapture %}
-
-{% include lead_image.html %}
 
 I bought a standing desk recently because I am working from home three days a
 week. I considered many desks but I decided on a [Nookdesk][nookdesk]. It was

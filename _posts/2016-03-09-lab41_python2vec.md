@@ -7,6 +7,7 @@ description: >
   want to recommend code snippets? Then you need word embeddings, like my
   Python2Vec!
 image: /files/python2vec/header.jpg
+show_lead_image: True
 image_alt: >
   A generic picture of code on a screen. It's HTML, not Python, but whatever.
 categories: 
@@ -15,8 +16,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/python2vec/{% endcapture %}
-
-{% include lead_image.html %}
 
 The reason that Lab41 embarked on the [Hermes recommender systems
 challenge][anna] was to move towards assisting data scientists and software

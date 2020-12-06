@@ -5,6 +5,7 @@ description: >
   How do data scientists salaries vary by experience and location? Read on to
   find out!
 image: /files/data-science-salaries/josef_wagner_hohenberg_the_billing_coins.jpg
+show_lead_image: True
 image_alt: > 
   A painting of coins on a table by Josef Wagner-Höhenberg.
 categories: 
@@ -13,8 +14,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/data-science-salaries/{% endcapture %}
-
-{% include lead_image.html %}
 
 One of the most important things to know when looking for a job is your market
 value. For data science positions, what better way to determine that than with

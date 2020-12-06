@@ -5,6 +5,7 @@ description: >
   When I was young and naive I tried to write very clever code. Here is one of
   the worst examples.
 image: /files/worst-code/montreal_light_head_and_power_consolidated_linesmen_1928.jpg
+show_lead_image: True
 image_alt: >
   A black and white photo of three linesmen repairing a tangle of overhead wires.
 categories:
@@ -13,12 +14,10 @@ categories:
 
 {% capture file_dir %}/files/worst-code/{% endcapture %}
 
-{% include lead_image.html %}
-
-I started learning C++ in graduate school. I had written Python for five years, so I
-thought I was pretty good at writing code and thinking through problems.[^1]
-Like many new programmers I enjoyed finding clever solutions to problems;
-sometimes too clever. This is the story of one of those times.
+I started learning C++ in graduate school. I had written Python for five
+years, so I thought I was pretty good at writing code and thinking through
+problems.[^1] Like many new programmers I enjoyed finding clever solutions to
+problems; sometimes too clever. This is the story of one of those times.
 
 ## The Problem
 

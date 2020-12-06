@@ -5,6 +5,7 @@ description: >
   What day of the year has the most car crashes? The fewest? Find out as I
   look at California's crash data! Hint: they're both holidays!
 image: /files/switrs-accidents-by-date/1923_dc_car_crash.jpg
+show_lead_image: True
 image_alt: >
   A black and white photo of about a dozen men and boys standing around a
   broken car taken in Washington D.C. in 1923. One of the car's wheels has
@@ -17,8 +18,6 @@ seo:
 ---
 
 {% capture file_dir %}/files/switrs-accidents-by-date{% endcapture %}
-
-{% include lead_image.html %}
 
 The [Statewide Integrated Traffic Records System (SWITRS)][switrs] contains a
 wealth of information, enough to determine who, where, when, and sometimes why

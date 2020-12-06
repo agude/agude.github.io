@@ -5,6 +5,7 @@ description: >
   Jupyter notebooks are great for data exploration; jumpstart your work with
   this library of useful notebook templates!
 image: /files/jupyter-library/jupiter_cassini_20001229.jpg
+show_lead_image: True
 image_alt: >
   A photo of the Library of Congress in 1902.
 categories: 
@@ -14,8 +15,6 @@ categories:
 ---
 
 {% capture file_dir %}/files/jupyter-library/{% endcapture %}
-
-{% include lead_image.html %}
 
 I love Jupyter notebooks (even if [I have strong opinions about their
 misuse][nb_post]) and so I use them constantly, both at work and here in my
