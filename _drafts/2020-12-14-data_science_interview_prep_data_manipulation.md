@@ -79,10 +79,25 @@ A good first thing to check is "How much data am I dealing with?"
 
 <button id="button" onclick="showhide(hidden1)">Show solution</button>
 <div class="hidden" id="hidden1" markdown="1" style="display: none;">
+
+Each row in the collisions database represents one collision, so the solution
+is nice and short:
+
 ```sql
 SELECT COUNT(1) AS collision_count
 FROM collisions
 ```
+
+Which returns:
+
+<div class="low-width-table" markdown="1" style="max-width: 20%">
+
+|   collision_count |
+|------------------:|
+|         9,172,565 |
+
+</div>
+
 </div>
 
 ### How many solo motorcycle accidents are there per year?
@@ -93,6 +108,10 @@ involved in the crash.
 
 <button id="button" onclick="showhide(hidden2)">Show solution</button>
 <div class="hidden" id="hidden2" markdown="1" style="display: none;">
+
+Now we have to filter and group by. Their is also the fact that SQLite doesn't
+have a `YEAR()` function, so we have to use `strftime` instead:
+
 ```sql
 SELECT
   strftime('%Y', collision_date) as collision_year,
@@ -103,6 +122,36 @@ WHERE motorcycle_collision = True
 GROUP BY collision_year
 ORDER BY collision_year
 ```
+
+This gives us:
+
+<div class="low-width-table" markdown="1" style="max-width: 20%">
+
+|   collision_year |   collision_count |
+|:-----------------|------------------:|
+|             2001 |              3258 |
+|             2002 |              3393 |
+|             2003 |              3822 |
+|             2004 |              3955 |
+|             2005 |              3755 |
+|             2006 |              3967 |
+|             2007 |              4513 |
+|             2008 |              4948 |
+|             2009 |              4266 |
+|             2010 |              3902 |
+|             2011 |              4054 |
+|             2012 |              4143 |
+|             2013 |              4209 |
+|             2014 |              4267 |
+|             2015 |              4415 |
+|             2016 |              4471 |
+|             2017 |              4373 |
+|             2018 |              4240 |
+|             2019 |              3772 |
+|             2020 |              2984 |
+
+</div>
+
 </div>
 
 ### What percent of collisions involve males aged 16-25?
@@ -112,16 +161,33 @@ they're involved in.
 
 <button id="button" onclick="showhide(hidden3)">Show solution</button>
 <div class="hidden" id="hidden3" markdown="1" style="display: none;">
+
+The age and gender of the drivers are in the parties table so the query does a
+simple filter on those entries. The tricky part comes from needing the ratio:
+we have to get the total number of collisions. We could hard-code it, but I
+prefer calculating it as part of the query. There isn't a super elegant way to
+do it in SQLite, but a sub-query works fine. We also have to cast to a float
+to avoid integer division.
+
 ```sql
-SELECT
-  COUNT(DISTINCT c.case_id) 
-  / (SELECT CAST(COUNT(1) AS FLOAT) FROM collisions) AS percentage
-FROM collisions AS c
-    LEFT JOIN parties AS p
-    ON c.case_id = p.case_id
-WHERE p.party_sex = 'male'
-AND p.party_age BETWEEN 16 AND 25
+SELECT 
+    COUNT(DISTINCT case_id) 
+    / (SELECT CAST(COUNT(DISTINCT case_id) AS FLOAT) FROM parties) AS percentage
+FROM parties
+WHERE party_sex = 'male'
+AND party_age BETWEEN 16 AND 25
 ```
+
+The result is:
+
+<div class="low-width-table" markdown="1" style="max-width: 20%">
+
+|   percentage |
+|-------------:|
+|        0.242 |
+
+</div>
+
 </div>
 
 ### What make of vehicle has the largest fraction of accidents on the weekend? During the work week?
@@ -217,6 +283,8 @@ ORDER BY number_seen DESC;
 
 Which gives us this table (truncated):
 
+<div class="low-width-table" markdown="1" style="max-width: 20%">
+
 | vehicle_make   |   number_seen |
 |:---------------|--------------:|
 | TOYOTA         |     2,374,621 |
@@ -245,6 +313,8 @@ Which gives us this table (truncated):
 | TOYOTS         |             5 |
 | TYOTA          |             4 |
 | ...            |           ... |
+
+</div>
 
 Here is how I would handle it: The top 5 make up the vast majority of entries.
 I would fix those by hand and move on.
