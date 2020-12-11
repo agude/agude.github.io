@@ -21,10 +21,10 @@ function showhide(d) {
 
 {% capture file_dir %}/files/switrs-dataset{% endcapture %}
 
-I often get asked by newly-minted PhDs trying to get their first job:
+I often get asked by newly-minted PhDs trying to get their first data job:
 
-> How can I prepare for dataset interviews? Do you have any examples of
-> datasets to practice with that you can share?
+> How can I prepare for dataset-based interviews? Do you have any examples of
+> datasets to practice with?
 
 I never had a good answer. I would tell them a lot about how interviews went,
 but I wished I had something to share that they could work with and practice
@@ -33,7 +33,7 @@ on.
 As of today, that's changing. In this post I put together a series of practice
 questions like the kind you might see (or be expected to come up with) in a
 hands-on data interview using the [curated and hosted dataset of California
-Traffic accidents][switrs_dataset]. The dataset is avaliable for download from
+Traffic accidents][switrs_dataset]. The dataset is available for download from
 both [Kaggle][kaggle] and [Zenodo][zenodo], and I even have an [example
 notebook][example_notebook] for how to work with the data entirely online
 within Kaggle.
@@ -47,10 +47,10 @@ within Kaggle.
 
 As I mentioned in [my post about my last interview experience][last_post],
 data science and machine learning interviews have gotten more practical,
-covering tasks that we are commonly expected to do instead of hard but
-irrelevant problems. One common interview section involves working with a
-dataset, answering some simple questions about it, and then building some
-simple features.
+covering tasks that show up in the day-to-day work of a data scientist instead
+of hard but irrelevant problems. One common interview type involves working
+with a dataset, answering some simple questions about it, and then building
+some simple features.
 
 [last_post]: {% post_url 2020-09-21-interviewing_for_data_science_positions_in_2020 %}
 
@@ -60,10 +60,11 @@ sometimes they want you to come up with your own.
 
 [pandas]: https://en.wikipedia.org/wiki/Pandas_(software)
 
-I have prepared a set of questions similar to what you would get in a real
-interview. For the exercise you will be using the SWITRS dataset. I have included
-a notebook to get your start in Pandas or SQL (but with a dataframe as the
-output). The solution notebooks can be found at the very end.
+To help people prepare, I have created a set of questions similar to what you
+would get in a real interview. For the exercise you will be using the SWITRS
+dataset. I have included a notebook to get your start in Pandas or SQL (but
+with a dataframe as the output). The solution notebooks can be found at the
+very end.
 
 Good luck, and if you have any questions or suggestions please reach out to me
 on Twitter: [@{{ twitter-name }}][twitter]
@@ -71,7 +72,6 @@ on Twitter: [@{{ twitter-name }}][twitter]
 [twitter]: https://twitter.com/{{ twitter-name }}
 
 ## Questions
-
 
 ### How many collisions are there in the dataset?
 
@@ -91,65 +91,9 @@ FROM collisions
 Which returns:
 
 <div class="low-width-table" markdown="1" style="max-width: 20%">
-
 |   collision_count |
 |------------------:|
 |         9,172,565 |
-
-</div>
-
-</div>
-
-### How many solo motorcycle accidents are there per year?
-
-Now we're going to look at a subset of the data, so we need to select only the
-correct rows. Note, by _solo_ I mean the motorcycle is the only vehicle
-involved in the crash.
-
-<button id="button" onclick="showhide(hidden2)">Show solution</button>
-<div class="hidden" id="hidden2" markdown="1" style="display: none;">
-
-Now we have to filter and group by. Their is also the fact that SQLite doesn't
-have a `YEAR()` function, so we have to use `strftime` instead:
-
-```sql
-SELECT
-  strftime('%Y', collision_date) as collision_year,
-  count(1) AS collision_count
-FROM collisions
-WHERE motorcycle_collision = True
-  AND party_count = 1
-GROUP BY collision_year
-ORDER BY collision_year
-```
-
-This gives us:
-
-<div class="low-width-table" markdown="1" style="max-width: 20%">
-
-|   collision_year |   collision_count |
-|:-----------------|------------------:|
-|             2001 |              3258 |
-|             2002 |              3393 |
-|             2003 |              3822 |
-|             2004 |              3955 |
-|             2005 |              3755 |
-|             2006 |              3967 |
-|             2007 |              4513 |
-|             2008 |              4948 |
-|             2009 |              4266 |
-|             2010 |              3902 |
-|             2011 |              4054 |
-|             2012 |              4143 |
-|             2013 |              4209 |
-|             2014 |              4267 |
-|             2015 |              4415 |
-|             2016 |              4471 |
-|             2017 |              4373 |
-|             2018 |              4240 |
-|             2019 |              3772 |
-|             2020 |              2984 |
-
 </div>
 
 </div>
@@ -181,25 +125,95 @@ AND party_age BETWEEN 16 AND 25
 The result is:
 
 <div class="low-width-table" markdown="1" style="max-width: 20%">
-
 |   percentage |
 |-------------:|
 |        0.242 |
+</div>
 
 </div>
+
+### How many solo motorcycle crashes are there per year?
+
+One type of collision is a "_solo_" crash, where a vehicle drives off the road
+or into an object. How many solo motorcycle crashes where there each year?
+Why is 2020 so low?
+
+<button id="button" onclick="showhide(hidden2)">Show solution</button>
+<div class="hidden" id="hidden2" markdown="1" style="display: none;">
+
+To select the right rows we filter and to get the count per year we need to
+use a group by. SQLite does not have a `YEAR()` function, so we have to use
+`strftime` instead. In a real interview, you can normally just assume that the
+function you need will exist without getting into specifics of the SQL
+dialect.
+
+```sql
+SELECT
+  strftime('%Y', collision_date) AS collision_year,
+  count(1) AS collision_count
+FROM collisions
+WHERE motorcycle_collision = True
+  AND party_count = 1
+GROUP BY collision_year
+ORDER BY collision_year
+```
+
+This gives us:
+
+<div class="low-width-table" markdown="1" style="max-width: 20%">
+|   collision_year |   collision_count |
+|:-----------------|------------------:|
+|             2001 |              3258 |
+|             2002 |              3393 |
+|             2003 |              3822 |
+|             2004 |              3955 |
+|             2005 |              3755 |
+|             2006 |              3967 |
+|             2007 |              4513 |
+|             2008 |              4948 |
+|             2009 |              4266 |
+|             2010 |              3902 |
+|             2011 |              4054 |
+|             2012 |              4143 |
+|             2013 |              4209 |
+|             2014 |              4267 |
+|             2015 |              4415 |
+|             2016 |              4471 |
+|             2017 |              4373 |
+|             2018 |              4240 |
+|             2019 |              3772 |
+|             2020 |              2984 |
+</div>
+
+The count is low in 2020 primarily because the data doesn't cover the whole
+year. It is likely also low due to the COVID pandemic which kept people off
+the streets, at least initially. To differentiate these two causes we could
+compare month by month to last year.
 
 </div>
 
 ### What make of vehicle has the largest fraction of accidents on the weekend? During the work week?
 
-Weekdays are generally commute and work traffic, while weekends involves
-recreational travel. Do we see different vehicles involved in collisions on
-these days?
+Weekdays are generally commute and work-related traffic, while weekends
+involves recreational travel. Do we see different vehicles involved in
+collisions on these days?
 
 Only consider vehicle makes with at least 10,000 collisions.
 
 <button id="button" onclick="showhide(hidden4)">Show solution</button>
 <div class="hidden" id="hidden4" markdown="1" style="display: none;">
+
+This query is tricky. We need to aggregate collisions by vehicle make, which
+means we need the parties table. We also care about when the crash happened,
+which means we need the collisions table.
+
+I use a sub-query to do the aggregation and then two additional queries to
+select the correct rows. A `WTIH` clause keeps it tidy so we don't have to
+copy/paste the sub-query twice.
+
+For complicated queries like this one, there are always many ways to do it.
+I'd love to hear how you got it to work!
+
 ```sql
 WITH counter AS (
   SELECT
