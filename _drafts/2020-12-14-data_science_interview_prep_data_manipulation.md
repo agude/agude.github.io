@@ -19,7 +19,7 @@ function showhide(d) {
 
 {% assign twitter-name = site.author.twitter %}
 
-{% capture file_dir %}/files/switrs-dataset{% endcapture %}
+{% capture file_dir %}/files/interview-prep{% endcapture %}
 
 I often get asked by newly-minted PhDs trying to get their first data job:
 
@@ -365,3 +365,6 @@ So that's it! I hope it was useful and you learned something!
 
 I have a [notebook with my SQL answers here][sql_answers]. A [notebook with
 Pandas solutions is here][pandas_answers].
+
+[sql_answers]: {{ file_dir }}/Interview Prep SQL Solutions.ipynb
+[pandas_answers]: {{ file_dir }}/Interview Prep Python Solutions.ipynb
