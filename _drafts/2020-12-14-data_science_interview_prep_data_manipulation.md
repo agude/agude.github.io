@@ -26,7 +26,7 @@ I often get asked by newly-minted PhDs trying to get their first data job:
 > How can I prepare for dataset-based interviews? Do you have any examples of
 > datasets to practice with?
 
-I never had a good answer. I would tell them a lot about how interviews went,
+I never had a good answer. I would tell them about how the interviews worked,
 but I wished I had something to share that they could work with and practice
 on.
 
@@ -62,9 +62,8 @@ sometimes they want you to come up with your own.
 
 To help people prepare, I have created a set of questions similar to what you
 would get in a real interview. For the exercise you will be using the SWITRS
-dataset. I have included a notebook to get your start in Pandas or SQL (but
-with a dataframe as the output). The solution notebooks can be found at the
-very end.
+dataset. I have included a notebook to get you started in Pandas or SQL. The
+solution notebooks can be found at the very end.
 
 Good luck, and if you have any questions or suggestions please reach out to me
 on Twitter: [@{{ twitter-name }}][twitter]
@@ -91,14 +90,16 @@ FROM collisions
 Which returns:
 
 <div class="low-width-table" markdown="1" style="max-width: 20%">
+
 |   collision_count |
 |------------------:|
 |         9,172,565 |
-</div>
 
 </div>
 
-### What percent of collisions involve males aged 16-25?
+</div>
+
+### What percent of collisions involve males aged 16--25?
 
 Young men are famously unsafe drivers, lets look at how many collisions
 they're involved in.
@@ -116,7 +117,8 @@ to avoid integer division.
 ```sql
 SELECT 
     COUNT(DISTINCT case_id) 
-    / (SELECT CAST(COUNT(DISTINCT case_id) AS FLOAT) FROM parties) AS percentage
+    / (SELECT CAST(COUNT(DISTINCT case_id) AS FLOAT) FROM parties)
+    AS percentage
 FROM parties
 WHERE party_sex = 'male'
 AND party_age BETWEEN 16 AND 25
@@ -125,32 +127,34 @@ AND party_age BETWEEN 16 AND 25
 The result is:
 
 <div class="low-width-table" markdown="1" style="max-width: 20%">
+
 |   percentage |
 |-------------:|
 |        0.242 |
+
 </div>
 
 </div>
 
 ### How many solo motorcycle crashes are there per year?
 
-One type of collision is a "_solo_" crash, where a vehicle drives off the road
-or into an object. How many solo motorcycle crashes where there each year?
-Why is 2020 so low?
+A "_solo_" crash is one where the driver runs off the road or hits a
+stationary object. How many solo motorcycle crashes where there each year? Why
+is 2020 so low?
 
 <button id="button" onclick="showhide(hidden2)">Show solution</button>
 <div class="hidden" id="hidden2" markdown="1" style="display: none;">
 
-To select the right rows we filter and to get the count per year we need to
-use a group by. SQLite does not have a `YEAR()` function, so we have to use
-`strftime` instead. In a real interview, you can normally just assume that the
-function you need will exist without getting into specifics of the SQL
-dialect.
+To select the right rows we filter with `WHERE` and to get the count per year
+we need to use a `GROUP BY`. SQLite does not have a `YEAR()` function, so we
+have to use `strftime` instead. In a real interview, you can normally just
+assume that the function you need will exist without getting into the
+specifics of the SQL dialect.
 
 ```sql
 SELECT
-  strftime('%Y', collision_date) AS collision_year,
-  count(1) AS collision_count
+  STRFTIME('%Y', collision_date) AS collision_year,
+  COUNT(1) AS collision_count
 FROM collisions
 WHERE motorcycle_collision = True
   AND party_count = 1
@@ -161,8 +165,9 @@ ORDER BY collision_year
 This gives us:
 
 <div class="low-width-table" markdown="1" style="max-width: 20%">
+
 |   collision_year |   collision_count |
-|:-----------------|------------------:|
+|-----------------:|------------------:|
 |             2001 |              3258 |
 |             2002 |              3393 |
 |             2003 |              3822 |
@@ -183,11 +188,12 @@ This gives us:
 |             2018 |              4240 |
 |             2019 |              3772 |
 |             2020 |              2984 |
+
 </div>
 
 The count is low in 2020 primarily because the data doesn't cover the whole
-year. It is likely also low due to the COVID pandemic which kept people off
-the streets, at least initially. To differentiate these two causes we could
+year. It is also low due to the COVID pandemic which kept people off the
+streets, at least initially. To differentiate these two causes we could
 compare month by month to last year.
 
 </div>
@@ -205,24 +211,36 @@ Only consider vehicle makes with at least 10,000 collisions.
 
 This query is tricky. We need to aggregate collisions by vehicle make, which
 means we need the parties table. We also care about when the crash happened,
-which means we need the collisions table.
+which means we need the collisions table. So we need to join these tables
+together.
 
-I use a sub-query to do the aggregation and then two additional queries to
-select the correct rows. A `WTIH` clause keeps it tidy so we don't have to
-copy/paste the sub-query twice.
+I use a sub-query to do the aggregation. A `WTIH` clause keeps it tidy so we
+don't have to copy/paste the sub-query twice. I use `HAVING` to filter out
+makes with too few collisions; it has to be `HAVING` and not `WHERE` because
+it filters **after** the aggregation.
 
-For complicated queries like this one, there are always many ways to do it.
-I'd love to hear how you got it to work!
+I then construct two queries that read from the sub-query to select the
+highest row for the weekend and weekdays. I `UNION` to two queries together so
+we end up with a single table containing our results. The double select is to
+allow the `ORDER BY` before the `UNION`.
+
+In an interview setting, I would have just written two simpler queries: one
+that gets the highest weekend fraction and one that gets the highest weekday
+fraction with a lot of copy and pasted code. This would have been a lot faster
+to come up with and write.
+
+A note: for complicated queries like this one there are always many ways to do
+it. I'd love to hear how you got it to work!
 
 ```sql
 WITH counter AS (
   SELECT
     p.vehicle_make AS make, 
     SUM(
-      CASE WHEN strftime('%w', c.collision_date) IN ('0', '6') THEN 1 ELSE 0 END
+      CASE WHEN STRFTIME('%w', c.collision_date) IN ('0', '6') THEN 1 ELSE 0 END
     ) AS weekend_count,
     SUM(
-      CASE WHEN strftime('%w', c.collision_date) IN ('0', '6') THEN 0 ELSE 1 END
+      CASE WHEN STRFTIME('%w', c.collision_date) IN ('0', '6') THEN 0 ELSE 1 END
     ) AS weekday_count,
     count(1) AS total
   FROM collisions AS c
@@ -262,9 +280,9 @@ Which yields:
 | HARLEY-DAVIDSON |          19,125 |          30,477 |  49,602 |             0.385  |             0.614  |
 | PETERBILT       |            6477 |          64,102 |  70,579 |             0.092  |             0.908  |
 
-This makes sense, Peterbilt is a commercial truck manufacturer which you
-expect to be driven for work. Harley-Davidson makes iconic motorcycles that
-people ride for fun on the weekend with their friends.
+These results makes sense, Peterbilt is a commercial truck manufacturer which
+you expect to be driven for work. Harley-Davidson makes iconic motorcycles
+that people ride for fun on the weekend with their friends.
 
 </div>
 
@@ -277,11 +295,12 @@ What steps would you take to fix this problem?
 
 <button id="button" onclick="showhide(hidden5)">Show solution</button>
 <div class="hidden" id="hidden5" markdown="1" style="display: none;">
-This is a case where there is no _right_ answer, just more and more correct
-the more work you put in. We have to find the values that are likely to
-represent "Toyota" and then figure out how to handle them.
+This is a case where there is no _right_ answer. You can get a more and more
+correct answer as you spend more time, but at some point you have to decide it
+is good enough.
 
-A really simple query does pretty well at finding likely candidates:
+The first step is to figure out what values might represent Toyota. I do that
+with a few simple `LIKE` filters:
 
 ```sql
 SELECT 
@@ -292,7 +311,7 @@ WHERE LOWER(vehicle_make) = 'toyota'
   OR LOWER(vehicle_make) LIKE 'toy%'
   OR LOWER(vehicle_make) LIKE 'ty%'
 GROUP BY vehicle_make
-ORDER BY number_seen DESC;
+ORDER BY number_seen DESC
 ```
 
 Which gives us this table (truncated):
@@ -330,7 +349,19 @@ Which gives us this table (truncated):
 
 </div>
 
-Here is how I would handle it: The top 5 make up the vast majority of entries.
-I would fix those by hand and move on.
+Most of those look like they mean Toyota, although Tymco is a different
+company the makes street sweepers.
+
+Here is how I would handle this issue: the top 5 make up the vast majority of entries.
+I would fix those by hand and move on. More generally it seems that makes are
+represented mostly by their name or a four-letter abbreviation. It wouldn't
+be too hard to fix these for the most common makes.
 
 </div>
+
+## Answers
+
+So that's it! I hope it was useful and you learned something!
+
+I have a [notebook with my SQL answers here][sql_answers]. A [notebook with
+Pandas solutions is here][pandas_answers].
