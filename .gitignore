@@ -66,3 +66,9 @@ Gemfile.lock
 Session.vim
 .netrwhist
 *~
+
+# Directory where I dump stuff
+_backup
+
+# Ruby Gems
+.vendor
