@@ -11,8 +11,12 @@ categories:
 
 <!-- Simple script to call from the "Show/Hide" buttons-->
 <script type="text/javascript">
-function showhide(d) {
-  d.style.display = (d.style.display !== "none") ? "none" : "block";
+function showhide(element) {
+  if (element.style.display !== "none") {
+    element.style.display = "none";
+  } else {
+    element.style.display = "block";
+  }
 }
 </script>
 
