@@ -20,8 +20,6 @@ function showhide(element) {
 }
 </script>
 
-{% assign twitter-name = site.author.twitter %}
-
 {% capture file_dir %}/files/interview-prep{% endcapture %}
 
 I often get asked by newly-minted PhDs trying to get their first data job:
@@ -30,8 +28,7 @@ I often get asked by newly-minted PhDs trying to get their first data job:
 > datasets to practice with?
 
 I never had a good answer. I would tell them about how the interviews worked,
-but I wished I had something to share that they could work with and practice
-on.
+but I wished I had something to share that they could get their hands on.
 
 As of today, that's changing. In this post I put together a series of practice
 questions like the kind you might see (or be expected to come up with) in a
@@ -69,9 +66,9 @@ dataset. I have included a notebook to get you started in Pandas or SQL. The
 solution notebooks can be found at the very end.
 
 Good luck, and if you have any questions or suggestions please reach out to me
-on Twitter: [@{{ twitter-name }}][twitter]
+on Twitter: [@{{ site.author.twitter }}][twitter]
 
-[twitter]: https://twitter.com/{{ twitter-name }}
+[twitter]: https://twitter.com/{{ site.author.twitter }}
 
 ## Questions
 
