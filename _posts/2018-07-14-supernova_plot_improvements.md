@@ -6,6 +6,7 @@ description: >
   made a plot of supernova 2002cx for Wikipedia, but it was not terrible good.
   So this year, I updated it!
 image: /files/supernova-plot-update/virgo_by_sidney_hall.jpg
+hide_lead_image: True
 image_alt: >
   A drawing by Sidney Hall of the constellation Virgo represented as a Woman
   with angel wings and a pink and green dress.

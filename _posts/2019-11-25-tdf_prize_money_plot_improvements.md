@@ -5,6 +5,7 @@ description: >
   Time to improve another plot from Wikipedia. This time I tackle one showing
   the prize money in the Tour de France over time!
 image: /files/tdf-prize-money/godinat_and_level_in_1934.jpg
+hide_lead_image: True
 image_alt: >
   Black and white photograph of Léon Level and André Godinat looking at a map
   during the Paris–Saint-Etienne race in 1934.

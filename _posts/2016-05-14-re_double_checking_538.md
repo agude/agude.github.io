@@ -6,6 +6,7 @@ description: >
   continue my double-checking their model by looking at each candidate
   individually.
 image: /files/2016_primary_prediction/black_board_02.jpg
+hide_lead_image: True
 image_alt: >
   A black and white photograph of a child filling in a bar graph on a
   chalkboard.

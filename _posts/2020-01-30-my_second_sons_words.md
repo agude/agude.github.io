@@ -5,6 +5,7 @@ description: >
   My second son is a little over two years old. We tracked every word he's
   spoken to watch his language development, and now you can observe it too!
 image: /files/my-second-sons-words/teaching_punctuation_by_j_w_orr.png
+hide_lead_image: True
 image_alt: >
   A woodcut by J. W. Orr showing a man using a blackboard to teach young
   children punctuation.

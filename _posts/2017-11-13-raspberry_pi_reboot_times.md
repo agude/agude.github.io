@@ -6,6 +6,7 @@ description: >
   they say, when you have a memory leak, make animated plots to see how fast
   they reboot!
 image: /files/raspberry-pi/raspberry_pi_2_b_by_evan-amos.jpg
+hide_lead_image: True
 image_alt: >
   A photo of a Raspberry Pi 2B computer on a white background.
 categories:
