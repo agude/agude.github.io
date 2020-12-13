@@ -5,7 +5,6 @@ description: >
   In the middle of the COVID-19 pandemic, I found myself looking for a data
   science job for the third time in my life. This post covers what I learned.
 image: /files/2020-interviewing/nighhawks_crop.jpg
-show_lead_image: True
 image_alt: >
   A crop of Hopper's Nighthawks, showing a man in a suit sitting alone at the
   counter of a diner.

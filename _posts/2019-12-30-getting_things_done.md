@@ -5,7 +5,6 @@ description: >
   As I've gotten more senior as a data scientist, I've found I have to keep
   track of more and more things. This is how I do it!
 image: /files/getting-things-done/sticky-notes-by-irfan-simsar.jpg
-show_lead_image: True
 image_alt: >
   Colorful sticky notes arranged in a grid on the window of an office
   building.

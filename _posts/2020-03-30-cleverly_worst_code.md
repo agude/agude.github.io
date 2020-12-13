@@ -5,7 +5,6 @@ description: >
   When I was young and naive I tried to write very clever code. Here is one of
   the worst examples.
 image: /files/worst-code/montreal_light_head_and_power_consolidated_linesmen_1928.jpg
-show_lead_image: True
 image_alt: >
   A black and white photo of three linesmen repairing a tangle of overhead wires.
 categories:

@@ -6,7 +6,6 @@ description: >
   "biased" set and see if it really is unlucky! Unfortunately, things aren't
   so clear...
 image: /files/fate-dice-statistics/blue_fate_dice.jpg
-show_lead_image: True
 image_alt: >
   A set of four blue Fate dice resting on top of a wooden table.
 categories:

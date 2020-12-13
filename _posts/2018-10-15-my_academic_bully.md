@@ -6,7 +6,6 @@ description: >
   hell for a short time at CERN. It's tough to write about, but I thought I
   owed it to myself and others.
 image: /files/my-academic-bully/the_dunce_by_harold_copping.jpg
-show_lead_image: True
 image_alt: >
   A painting, 'The Dunce', by Harold Copping from 1886 shows a boy in a suite
   sitting alone on a bench. He is surrounded by books, and he holds one in his

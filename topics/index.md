@@ -1,6 +1,7 @@
 ---
 layout: page-not-on-sidebar
 title: Topics
+hide_lead_image: True
 description: >
   Alex Gude's writings organized by topic.
 ---

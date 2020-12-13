@@ -7,7 +7,6 @@ description: >
   went one step further? Find out how stochastic depth improves your network
   by dropping whole layers!
 image: /files/stochastic-depth/header.jpg
-show_lead_image: True
 image_alt: >
   Zion national park, a very deep canyon, put probably not stochastically deep.
 categories: 

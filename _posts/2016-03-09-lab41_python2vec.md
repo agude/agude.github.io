@@ -7,7 +7,6 @@ description: >
   want to recommend code snippets? Then you need word embeddings, like my
   Python2Vec!
 image: /files/python2vec/header.jpg
-show_lead_image: True
 image_alt: >
   A generic picture of code on a screen. It's HTML, not Python, but whatever.
 categories: 

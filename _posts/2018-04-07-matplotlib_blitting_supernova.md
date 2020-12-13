@@ -6,7 +6,6 @@ description: >
   they can be slow to generate in matplotlib! Thankfully, blitting makes
   animating much faster! Learn how to here!
 image: /files/matplotlib-blitting-supernova/m101.jpg
-show_lead_image: True
 image_alt: >
   A color image of the M101 Pinwheel Galaxy, a spiral galaxy, composed of
   multiple exposures taken by NASA and the European Space Agency.

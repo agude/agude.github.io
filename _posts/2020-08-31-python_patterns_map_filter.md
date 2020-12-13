@@ -5,7 +5,6 @@ description: >
   For loops are great, but I am a big fan of replacing them with simple
   functions. Python provides a couple of building blocks.
 image: /files/patterns/naturalists_misc_vol_1_painted_snake.jpg
-show_lead_image: True
 image_alt: >
   A drawing of an orange and black snake from The Naturalist's Miscellany
   Volume 1.

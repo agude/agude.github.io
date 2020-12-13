@@ -5,7 +5,6 @@ description: >
   Things often come in sets of specific items, like states, Pokémon, or
   playing cards. Python has an elegant way of representing them using enum.
 image: /files/patterns/locupletissimi_rerum_naturalium_thesauri_v1_lxxxiii_snake.png
-show_lead_image: True
 image_alt: >
   A drawing of a red and white snake taken from Plate LXXXIII from
   Locupletissimi rerum naturalium thesauri volume 1.

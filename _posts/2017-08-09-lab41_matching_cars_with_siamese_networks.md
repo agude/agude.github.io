@@ -6,7 +6,6 @@ description: >
   Matching the same object across separate images is tough, but Siamese
   networks can learn to do it pretty well! Read on for details.
 image: /files/siamese-networks/header.jpg
-show_lead_image: True
 image_alt: >
   View of a freeway seen through a chain-link fence at sunset.
 categories: 

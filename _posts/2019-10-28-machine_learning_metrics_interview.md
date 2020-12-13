@@ -6,7 +6,6 @@ description: >
   you use to decide if your model works?". Read on to find out what a good
   answer looks like!
 image: /files/interviews/Artgate_Fondazione_Cariplo_-_Canova_Antonio,_Allegoria_della_Giustizia.jpg
-show_lead_image: True
 image_alt: >
   A relief showing a women holding up a set of balance scales.
 categories:

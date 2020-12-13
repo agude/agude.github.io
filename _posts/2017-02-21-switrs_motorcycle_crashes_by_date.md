@@ -6,7 +6,6 @@ description: >
   do they crash? Using California's SWITRS data I find out! I'll give you a
   hint: it is not on the way to their 9-5!
 image: /files/switrs-motorcycle-accidents-by-date/police_in_stockholm.jpg
-show_lead_image: True
 image_alt: >
   A black and white photo from 1959 of a policeman in full-leather protective
   gear. He stands over a motorcycle on side of a street in Stockholm as

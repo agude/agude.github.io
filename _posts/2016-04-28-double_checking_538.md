@@ -6,7 +6,6 @@ description: >
   Double-check FiveThirtyEight's Polls Plus model by comparing its predictions
   to the outcomes of the 2016 primaries.
 image: /files/2016_primary_prediction/black_board_01.jpg
-show_lead_image: True
 image_alt: >
   A black and white photograph of a child filling in a bar graph on a
   chalkboard.

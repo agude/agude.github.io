@@ -5,7 +5,6 @@ description: >
   Sometimes I need to store an ordered dataset, but reference specific members
   from it. Named tuples in Python provide a clean way to do this!
 image: /files/patterns/lycodon_modestus.jpg
-show_lead_image: True
 image_alt: >
   A drawing of a Lycodon Modestus snake from the Iconographic Zoologica
   collection.

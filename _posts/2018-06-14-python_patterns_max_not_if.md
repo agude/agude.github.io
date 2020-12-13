@@ -6,7 +6,6 @@ description: >
   score. You can use an if statement and a placeholder, but there are more
   elegant ways!
 image: /files/patterns/max_not_if.jpg
-show_lead_image: True
 image_alt: >
   A watercolor drawing of a Spectacled Caiman fighting with a False Coral
   Snake by Maria Sibylla Merian.

@@ -5,7 +5,6 @@ description: >
   How do data scientists salaries vary by experience and location? Read on to
   find out!
 image: /files/data-science-salaries/josef_wagner_hohenberg_the_billing_coins.jpg
-show_lead_image: True
 image_alt: > 
   A painting of coins on a table by Josef Wagner-Höhenberg.
 categories: 
