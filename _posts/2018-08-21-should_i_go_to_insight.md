@@ -6,6 +6,7 @@ description: >
   science or machine learning, but is it the right program for you? I have a
   few words of advice offered from experience.
 image: /files/insight/stanford_dish_in_the_early_morning_hours_by_brianhama_cc_by_sa_4.jpg
+hide_lead_image: True
 image_alt: >
   The Stanford Dish, a large radio telescope, in the early morning light. The
   sky is purple and blue, and the dish is a white metal-lattice structure

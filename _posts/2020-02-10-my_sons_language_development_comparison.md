@@ -5,6 +5,7 @@ description: >
   Being a nerd dad, I recorded all the words my first two sons spoke as they
   learned them. Now, I compare their language development rate!
 image: /files/my-sons-words-comparison/coal_miners_child_in_grade_school_lejunior_harlan_county_kentucky.jpg
+hide_lead_image: True
 image_alt: >
   Black and white photo of a young boy at a school desk.
 categories:

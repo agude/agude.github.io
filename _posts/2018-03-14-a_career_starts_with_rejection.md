@@ -6,6 +6,7 @@ description: >
   schools, but by all of them! But thanks to a little kindness, I was able to
   continue onward.
 image: /files/a-career-starts-with-rejection/wheeler_auditorium_steps_in_1940.jpg
+hide_lead_image: True
 image_alt: >
   A black and white photo of male students sitting on the steps of Wheeler
   Hall on the University of California, Berkeley campus in 1940.

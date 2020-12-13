@@ -5,6 +5,7 @@ description: >
   The Tour de France is a sporting event decided by mere minutes; to see
   exactly how those minutes were earned, read on for my plots!
 image: /files/tour-de-france/tour_de_france_1932.jpg
+hide_lead_image: True
 image_alt: >
   A black and white photo of the competitors in the 1932 Tour de France.
 categories:

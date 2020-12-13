@@ -6,6 +6,7 @@ description: >
   parents. We tracked every word he's spoken to watch his language
   development, and now you can join us!
 image: /files/my-sons-words/Articulation_by_j_w_orr.png
+hide_lead_image: True
 image_alt: >
   A woodcut by J. W. Orr showing a woman using a blackboard to teach young
   children how to pronounce words.

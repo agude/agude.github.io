@@ -5,6 +5,7 @@ description: >
   I love Wikipedia, I love cycling, and I love data! So today, I improve
   Wikipedia's Hour Record Plot! Come take a look!
 image: /files/hour-record/bicycle_race_by_calvert_litho_co_1895.jpg
+hide_lead_image: True
 image_alt: >
   A chromolithograph showing six men in colorful clothing racing bikes on a
   dirt track.
