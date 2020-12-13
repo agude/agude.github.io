@@ -3,12 +3,10 @@ layout: page-not-on-sidebar
 title: "The Terribly Clever(ly&nbsp;Terrible) Code"
 description: >
   The actual worst code I have ever written.
-image: /files/sat2vec/Pasternak_The_Night_Before_the_Exam.jpg
+image: /files/worst-code/montreal_light_head_and_power_consolidated_linesmen_1928.jpg
+hide_lead_image: True
 image_alt: >
-  An impressionistic painting titled "Night Before the Exam" by Leonid
-  Pasternak. The painting shows four students sitting around a kitchen table
-  studying for a exam. One student holds a skull, while the others longue
-  around smoking or studying books or papers.
+  A black and white photo of three linesmen repairing a tangle of overhead wires.
 permalink: blog/cleverly-worst-code/the-code-itself/
 ---
 
