@@ -363,12 +363,16 @@ be too hard to fix these for the most common makes.
 
 </div>
 
-## Answers
+## Solutions
 
 So that's it! I hope it was useful and you learned something!
 
-I have a [notebook with my SQL answers here][sql_answers]. A [notebook with
-Pandas solutions is here][pandas_answers].
+Here are my notebooks with the solutions:
+
+- The [SQL solution notebook][sql_answers]
+- The [Python/Pandas solution notebook][pandas_answers]
+
+Let me know if you find any more elegant solutions!
 
 [sql_answers]: {{ file_dir }}/Interview Prep SQL Solutions.ipynb
 [pandas_answers]: {{ file_dir }}/Interview Prep Python Solutions.ipynb
