@@ -7,7 +7,6 @@ description: >
   data? Don't worry, there are tons of great, open source datasets for
   recommender systems!
 image: /files/recommender-datasets/header.jpg
-show_lead_image: True
 image_alt: >
   Part of the painting 'Allegory of the Four Elements' by Cornelis Jacobsz,
   1610.

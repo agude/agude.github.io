@@ -7,7 +7,6 @@ description: >
   the language, and then build the package once. I will show you how to accomplish this using
   Travis Stages.
 image: /files/travis/us_airforce_construction_by_sue_sapp.jpg
-show_lead_image: True
 image_alt: >
   A construction site with the metal frame of a building and various pieces of
   heavy equipment parked around it.

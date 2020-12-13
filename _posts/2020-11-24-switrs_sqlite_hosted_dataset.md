@@ -5,7 +5,6 @@ description: >
   California traffic collision data has been hard to get, that's why I am now
   curating and hosting it! Come take a look!
 image: /files/switrs-dataset/tram_auto_crash_in_1957_frederiksplein_amsterdam.jpg
-show_lead_image: True
 image_alt: >
   A photo of a tram and a delivery van collision in Frederiksplein, Amsterdam,
   1957.

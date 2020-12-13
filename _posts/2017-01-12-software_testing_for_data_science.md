@@ -6,7 +6,6 @@ description: >
   modeling. Software tests can ensure that your code does what you think it
   does!
 image: /files/data-science-testing/brick_header.jpg
-show_lead_image: True
 image_alt: >
   A pile of worn bricks covered in dust and chips of other bricks.
 categories:

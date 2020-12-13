@@ -6,7 +6,6 @@ description: >
   about when DST ends? Some researchers have found that it does lead to more
   crashes, so I take a look using California's SWITRS data.
 image: /files/switrs-dst/a_woman_sets_the_clocks_forward.jpg
-show_lead_image: True
 image_alt: >
   A blonde woman adjusts the time on a row of clocks at a store.
 categories: 

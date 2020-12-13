@@ -6,7 +6,6 @@ description: >
   rolled a lot of dice and developed a lot of superstitions, but were any of
   them correct?
 image: /files/fate-dice-statistics/fate_dice.jpg
-show_lead_image: True
 image_alt: >
   Three sets of four Fate dice, colored blue, red, and black, resting on top
   of a wooden table.

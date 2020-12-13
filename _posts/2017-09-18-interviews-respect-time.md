@@ -6,7 +6,6 @@ description: >
   company! But it could be much better! Here I propose one guiding principle
   to make it easier on everyone.
 image: /files/interviews/watch_and_suite_jeremy_beadle.jpg
-show_lead_image: True
 image_alt: >
   A closeup of a watch on a man's wrist. The man is wearing a nice suite and
   is pulling on the cuff next to the watch.

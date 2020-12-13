@@ -6,7 +6,6 @@ description: >
   graduate school in physics. But was it the right idea? And should you follow
   in my footsteps?
 image: /files/phd-should-i-go/alexis_carrel_at_the_1913_columbia_university_commencement.jpg
-show_lead_image: True
 image_alt: >
   A black and white photo from the 1913 Columbia University Commencement
   featuring a group of men in doctoral gowns wearing mortarboards. Nobel Prize

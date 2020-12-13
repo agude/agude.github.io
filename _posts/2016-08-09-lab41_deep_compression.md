@@ -7,7 +7,6 @@ description: >
   network on my phone? You compress it! Come find out how deep compression saves
   space and power!
 image: /files/deep-compression/header.jpg
-show_lead_image: True
 image_alt: >
   A photo shot looking upwards between two buildings, the colors of the
   windows fade as you move down reminding me of compression.
