@@ -2,8 +2,10 @@
 layout: post
 title: "Data Science Interview Practice: Data Manipulation"
 description: >
-image: /files/switrs-dataset/tram_auto_crash_in_1957_frederiksplein_amsterdam.jpg
+image: /files/interview-prep/food_conservation_workers_at_comstock_hall_cornell_1917.jpg
 image_alt: >
+  A black and white photo of four women sitting at desks with typewriters,
+  stacks of papers, and card catalogs.
 categories:
   - career-advice
   - interview-prep
