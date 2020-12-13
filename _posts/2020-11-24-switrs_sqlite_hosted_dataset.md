@@ -13,8 +13,6 @@ categories:
   - my-projects
 ---
 
-{% assign twitter-name = site.author.twitter %}
-
 {% capture file_dir %}/files/switrs-dataset{% endcapture %}
 
 The State of California maintains a database of traffic collisions called the
@@ -167,6 +165,6 @@ on Github][rendered]). This will produce the following plot:
 
 I hope this [hosted dataset][db_link] makes working with the data fast and
 easy. If you make something, I'd love to see it! Send it to me on Twitter:
-[@{{ twitter-name }}][twitter]
+[@{{ site.author.twitter }}][twitter]
 
-[twitter]: https://twitter.com/{{ twitter-name }}
+[twitter]: https://twitter.com/{{ site.author.twitter }}

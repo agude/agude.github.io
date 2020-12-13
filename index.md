@@ -7,9 +7,6 @@ description: >
   science, technology, and more!
 ---
 
-{% assign twitter-name = site.author.twitter %}
-{% assign github-name = site.author.github %}
-
 # Hi there!
 
 I'm **Alex Gude**, a data scientist with a passion for plots and algorithms,
@@ -26,17 +23,17 @@ that means data science, machine learning, deep learning, and software
 development related topics. My writings on deep learning from my time at Lab41
 can be found at [Gab41][gab41] and [rehosted on this page][lab41_posts]. If
 you're interested in my thoughts in real time, follow me on Twitter: [@{{
-twitter-name }}][twitter]
+site.author.twitter }}][twitter]
 
 [blog]: /blog/
 [gab41]: https://gab41.lab41.org/@Alex.Gude
 [lab41_posts]: /topics/lab41/
-[twitter]: https://twitter.com/{{ twitter-name }}
+[twitter]: https://twitter.com/{{ site.author.twitter }}
 
 The code that I write lives on my [Github page][github]. Check it out! Bug
 reports and pull requests welcome!
 
-[github]: https://github.com/{{ github-name }}
+[github]: https://github.com/{{ site.author.github }}
 
 ## Recent Writings
 
