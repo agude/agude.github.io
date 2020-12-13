@@ -3,7 +3,6 @@ layout: post
 title: "Data Science Interview Practice: Data Manipulation"
 description: >
 image: /files/switrs-dataset/tram_auto_crash_in_1957_frederiksplein_amsterdam.jpg
-show_lead_image: True
 image_alt: >
 categories:
   - career-advice
