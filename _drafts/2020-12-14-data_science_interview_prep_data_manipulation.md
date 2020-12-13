@@ -2,6 +2,8 @@
 layout: post
 title: "Data Science Interview Practice: Data Manipulation"
 description: >
+  I often get asked how to practice data science interviews, so here is a
+  practice dataset with a set of questions to answer. Good luck!
 image: /files/interview-prep/food_conservation_workers_at_comstock_hall_cornell_1917.jpg
 image_alt: >
   A black and white photo of four women sitting at desks with typewriters,
