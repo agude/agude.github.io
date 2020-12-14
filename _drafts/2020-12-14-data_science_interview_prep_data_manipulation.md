@@ -39,7 +39,7 @@ questions like the kind you might see (or be expected to come up with) in a
 hands-on data interview using the [curated and hosted dataset of California
 Traffic accidents][switrs_dataset]. The dataset is available for download from
 both [Kaggle][kaggle] and [Zenodo][zenodo], and I even have an [example
-notebook][example_notebook] for how to work with the data entirely online
+notebook][example_notebook] demonstrating how to work with the data entirely online
 within Kaggle.
 
 [switrs_dataset]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
@@ -49,8 +49,8 @@ within Kaggle.
 
 ## Interview Format
 
-As I mentioned in [my post about my last interview experience][last_post],
-data science and machine learning interviews have gotten more practical,
+As I mentioned in [my post about my most recent interview experience][last_post],
+data science and machine learning interviews have become more practical,
 covering tasks that show up in the day-to-day work of a data scientist instead
 of hard but irrelevant problems. One common interview type involves working
 with a dataset, answering some simple questions about it, and then building
@@ -105,15 +105,15 @@ Which returns:
 
 ### What percent of collisions involve males aged 16--25?
 
-Young men are famously unsafe drivers, lets look at how many collisions
+Young men are famously unsafe drivers so let's look at how many collisions
 they're involved in.
 
 <button id="button" onclick="showhide(hidden3)">Show solution</button>
 <div class="hidden" id="hidden3" markdown="1" style="display: none;">
 
 The age and gender of the drivers are in the parties table so the query does a
-simple filter on those entries. The tricky part comes from needing the ratio:
-we have to get the total number of collisions. We could hard-code it, but I
+simple filter on those entries. The tricky part comes from needing to calculate the ratio as this
+requires us to get the total number of collisions. We could hard-code the lookup, but I
 prefer calculating it as part of the query. There isn't a super elegant way to
 do it in SQLite, but a sub-query works fine. We also have to cast to a float
 to avoid integer division.
@@ -143,8 +143,8 @@ The result is:
 ### How many solo motorcycle crashes are there per year?
 
 A "_solo_" crash is one where the driver runs off the road or hits a
-stationary object. How many solo motorcycle crashes where there each year? Why
-is 2020 so low?
+stationary object. How many solo motorcycle crashes were there each year? Why
+does 2020 seem to (relatively) have so few?
 
 <button id="button" onclick="showhide(hidden2)">Show solution</button>
 <div class="hidden" id="hidden2" markdown="1" style="display: none;">
@@ -196,7 +196,7 @@ This gives us:
 </div>
 
 The count is low in 2020 primarily because the data doesn't cover the whole
-year. It is also low due to the COVID pandemic which kept people off the
+year. It is also low due to the COVID pandemic keeping people off the
 streets, at least initially. To differentiate these two causes we could
 compare month by month to last year.
 
@@ -215,7 +215,7 @@ Only consider vehicle makes with at least 10,000 collisions.
 
 This query is tricky. We need to aggregate collisions by vehicle make, which
 means we need the parties table. We also care about when the crash happened,
-which means we need the collisions table. So we need to join these tables
+which means we need the collisions table. So we need to join these two tables
 together.
 
 I use a sub-query to do the aggregation. A `WTIH` clause keeps it tidy so we
@@ -224,7 +224,7 @@ makes with too few collisions; it has to be `HAVING` and not `WHERE` because
 it filters **after** the aggregation.
 
 I then construct two queries that read from the sub-query to select the
-highest row for the weekend and weekdays. I `UNION` to two queries together so
+highest row for the weekend and weekdays. I `UNION` the two queries together so
 we end up with a single table containing our results. The double select is to
 allow the `ORDER BY` before the `UNION`.
 
@@ -292,8 +292,8 @@ that people ride for fun on the weekend with their friends.
 
 ### How many different values represent "Toyota" in the Parties database? How would you go about correcting for this?
 
-Data is **_never_** as clean as you would hope, even after I [curated it for
-you][switrs_dataset]. How many different ways does "Toyota" show up?
+Data is **_never_** as clean as you would hope,  and this applies even to the [curated
+SWITRS dataset][switrs_dataset]. How many different ways does "Toyota" show up?
 
 What steps would you take to fix this problem?
 
@@ -354,12 +354,12 @@ Which gives us this table (truncated):
 </div>
 
 Most of those look like they mean Toyota, although Tymco is a different
-company the makes street sweepers.
+company that makes street sweepers.
 
 Here is how I would handle this issue: the top 5 make up the vast majority of entries.
 I would fix those by hand and move on. More generally it seems that makes are
 represented mostly by their name or a four-letter abbreviation. It wouldn't
-be too hard to fix these for the most common makes.
+be too hard to detect and fix these for the most common makes.
 
 </div>
 
