@@ -68,11 +68,18 @@ sometimes they want you to come up with your own.
 To help people prepare, I have created a set of questions similar to what you
 would get in a real interview. For the exercise you will be using the SWITRS
 dataset. I have included a notebook to get you started in [**SQL**][sql_start]
-or [**Pandas**][python_start]. The solution notebooks can be found at the very
-end.
+([rendered on Github][sql_start_rendered]) or [**Pandas**][python_start]
+([rendered on Github][python_start_rendered]). The solution notebooks can be
+found at the very end.
 
 [sql_start]: {{ file_dir }}/Interview Prep SQL.ipynb
+{% capture sql_start_notebook_uri %}{{ "Interview Prep SQL.ipynb" | uri_escape }}{% endcapture %}
+[sql_start_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ sql_start_notebook_uri }}
+
 [python_start]: {{ file_dir }}/Interview Prep Python.ipynb
+{% capture python_start_notebook_uri %}{{ "Interview Prep Python.ipynb" | uri_escape }}{% endcapture %}
+[python_start_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ python_start_notebook_uri }}
+
 
 Good luck, and if you have any questions or suggestions please reach out to me
 on Twitter: [@{{ site.author.twitter }}][twitter]
@@ -406,10 +413,17 @@ So that's it! I hope it was useful and you learned something!
 
 Here are my notebooks with the solutions:
 
-- The [SQL solution notebook][sql_answers]
-- The [Python/Pandas solution notebook][pandas_answers]
-
-Let me know if you find any more elegant solutions!
+- The [SQL solution notebook][sql_answers] ([Rendered on
+Github][sql_rendered])
+- The [Python/Pandas solution notebook][pandas_answers] ([Rendered on
+Github][python_rendered])
 
 [sql_answers]: {{ file_dir }}/Interview Prep SQL Solutions.ipynb
+{% capture sql_notebook_uri %}{{ "Interview Prep SQL Solutions.ipynb" | uri_escape }}{% endcapture %}
+[sql_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ sql_notebook_uri }}
+
 [pandas_answers]: {{ file_dir }}/Interview Prep Python Solutions.ipynb
+{% capture python_notebook_uri %}{{ "Interview Prep Python Solutions.ipynb" | uri_escape }}{% endcapture %}
+[python_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ python_notebook_uri }}
+
+Let me know if you find any more elegant solutions!
