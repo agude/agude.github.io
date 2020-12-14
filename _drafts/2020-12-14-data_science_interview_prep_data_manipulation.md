@@ -10,6 +10,7 @@ image_alt: >
   stacks of papers, and card catalogs.
 categories:
   - career-advice
+  - interviewing
   - interview-prep
 ---
 
@@ -39,8 +40,8 @@ questions like the kind you might see (or be expected to come up with) in a
 hands-on data interview using the [curated and hosted dataset of California
 Traffic accidents][switrs_dataset]. The dataset is available for download from
 both [Kaggle][kaggle] and [Zenodo][zenodo], and I even have an [example
-notebook][example_notebook] demonstrating how to work with the data entirely online
-within Kaggle.
+notebook][example_notebook] demonstrating how to work with the data entirely
+online within Kaggle.
 
 [switrs_dataset]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
 [kaggle]: https://www.kaggle.com/alexgude/california-traffic-collision-data-from-switrs
@@ -49,12 +50,12 @@ within Kaggle.
 
 ## Interview Format
 
-As I mentioned in [my post about my most recent interview experience][last_post],
-data science and machine learning interviews have become more practical,
-covering tasks that show up in the day-to-day work of a data scientist instead
-of hard but irrelevant problems. One common interview type involves working
-with a dataset, answering some simple questions about it, and then building
-some simple features.
+As I mentioned in [my post about my most recent interview
+experience][last_post], data science and machine learning interviews have
+become more practical, covering tasks that show up in the day-to-day work of a
+data scientist instead of hard but irrelevant problems. One common interview
+type involves working with a dataset, answering some simple questions about
+it, and then building some simple features.
 
 [last_post]: {% post_url 2020-09-21-interviewing_for_data_science_positions_in_2020 %}
 
@@ -112,11 +113,11 @@ they're involved in.
 <div class="hidden" id="hidden3" markdown="1" style="display: none;">
 
 The age and gender of the drivers are in the parties table so the query does a
-simple filter on those entries. The tricky part comes from needing to calculate the ratio as this
-requires us to get the total number of collisions. We could hard-code the lookup, but I
-prefer calculating it as part of the query. There isn't a super elegant way to
-do it in SQLite, but a sub-query works fine. We also have to cast to a float
-to avoid integer division.
+simple filter on those entries. The tricky part comes from needing to
+calculate the ratio as this requires us to get the total number of collisions.
+We could hard-code the number, but I prefer calculating it as part of the
+query. There isn't a super elegant way to do it in SQLite, but a sub-query
+works fine. We also have to cast to a float to avoid integer division.
 
 ```sql
 SELECT 
@@ -196,9 +197,9 @@ This gives us:
 </div>
 
 The count is low in 2020 primarily because the data doesn't cover the whole
-year. It is also low due to the COVID pandemic keeping people off the
-streets, at least initially. To differentiate these two causes we could
-compare month by month to last year.
+year. It is also low due to the COVID pandemic keeping people off the streets,
+at least initially. To differentiate these two causes we could compare month
+by month to last year.
 
 </div>
 
@@ -208,7 +209,9 @@ Weekdays are generally commute and work-related traffic, while weekends
 involves recreational travel. Do we see different vehicles involved in
 collisions on these days?
 
-Only consider vehicle makes with at least 10,000 collisions.
+Only consider vehicle makes with at least 10,000 collisions, in order to focus
+only on common vehicles where the difference between weekend and weekday usage
+will be significant.
 
 <button id="button" onclick="showhide(hidden4)">Show solution</button>
 <div class="hidden" id="hidden4" markdown="1" style="display: none;">
@@ -218,20 +221,49 @@ means we need the parties table. We also care about when the crash happened,
 which means we need the collisions table. So we need to join these two tables
 together.
 
-I use a sub-query to do the aggregation. A `WTIH` clause keeps it tidy so we
-don't have to copy/paste the sub-query twice. I use `HAVING` to filter out
-makes with too few collisions; it has to be `HAVING` and not `WHERE` because
-it filters **after** the aggregation.
+In an interview setting, I would write two simpler queries: one
+that gets the highest weekend fraction and one that gets the highest weekday
+fraction with a lot of copy and pasted code. This is a lot easier to work out.
+Here is an example of one of those queries:
+
+```sql
+SELECT 
+  make,
+  weekday_count / CAST(total AS FLOAT) AS weekday_ratio
+FROM (    
+  SELECT
+    p.vehicle_make AS make,
+    SUM(
+      CASE WHEN STRFTIME('%w', c.collision_date) IN ('0', '6') THEN 1 ELSE 0 END
+    ) AS weekend_count,
+    SUM(
+      CASE WHEN STRFTIME('%w', c.collision_date) IN ('0', '6') THEN 0 ELSE 1 END
+    ) AS weekday_count,
+    count(1) AS total
+  FROM collisions AS c
+  LEFT JOIN parties AS p
+    ON c.case_id = p.case_id
+  GROUP BY make
+  HAVING total >= 10000
+)
+ORDER BY weekday_ratio DESC
+LIMIT 1
+```
+
+Then I would copy and paste this but replace the `weekend_ratio` with a
+`weekday_ratio`. It isn't as "elegant" because we have to duplicate code, but
+it is easy to write.
+
+Combining the queries is possible. To do so I first use a sub-query to do the
+aggregation. A `WTIH` clause keeps it tidy so we don't have to copy/paste the
+sub-query twice. I use `HAVING` to filter out makes with too few collisions;
+it has to be `HAVING` and not `WHERE` because it filters **after** the
+aggregation.
 
 I then construct two queries that read from the sub-query to select the
-highest row for the weekend and weekdays. I `UNION` the two queries together so
-we end up with a single table containing our results. The double select is to
-allow the `ORDER BY` before the `UNION`.
-
-In an interview setting, I would have just written two simpler queries: one
-that gets the highest weekend fraction and one that gets the highest weekday
-fraction with a lot of copy and pasted code. This would have been a lot faster
-to come up with and write.
+highest row for the weekend and weekdays. I `UNION` the two queries together
+so we end up with a single table containing our results. The double select is
+to allow the `ORDER BY` before the `UNION`.
 
 A note: for complicated queries like this one there are always many ways to do
 it. I'd love to hear how you got it to work!
@@ -292,8 +324,9 @@ that people ride for fun on the weekend with their friends.
 
 ### How many different values represent "Toyota" in the Parties database? How would you go about correcting for this?
 
-Data is **_never_** as clean as you would hope,  and this applies even to the [curated
-SWITRS dataset][switrs_dataset]. How many different ways does "Toyota" show up?
+Data is **_never_** as clean as you would hope,  and this applies even to the
+[curated SWITRS dataset][switrs_dataset]. How many different ways does
+"Toyota" show up?
 
 What steps would you take to fix this problem?
 
@@ -356,10 +389,10 @@ Which gives us this table (truncated):
 Most of those look like they mean Toyota, although Tymco is a different
 company that makes street sweepers.
 
-Here is how I would handle this issue: the top 5 make up the vast majority of entries.
-I would fix those by hand and move on. More generally it seems that makes are
-represented mostly by their name or a four-letter abbreviation. It wouldn't
-be too hard to detect and fix these for the most common makes.
+Here is how I would handle this issue: the top 5 make up the vast majority of
+entries. I would fix those by hand and move on. More generally it seems that
+makes are represented mostly by their name or a four-letter abbreviation. It
+wouldn't be too hard to detect and fix these for the most common makes.
 
 </div>
 
