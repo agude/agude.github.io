@@ -11,6 +11,7 @@ image_alt: >
 categories:
   - machine-learning
   - interviewing
+  - interview-prep
 ---
 
 {% capture file_dir %}/files/interviews/{% endcapture %}
