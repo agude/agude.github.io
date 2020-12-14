@@ -67,8 +67,12 @@ sometimes they want you to come up with your own.
 
 To help people prepare, I have created a set of questions similar to what you
 would get in a real interview. For the exercise you will be using the SWITRS
-dataset. I have included a notebook to get you started in Pandas or SQL. The
-solution notebooks can be found at the very end.
+dataset. I have included a notebook to get you started in [**SQL**][sql_start]
+or [**Pandas**][python_start]. The solution notebooks can be found at the very
+end.
+
+[sql_start]: {{ file_dir }}/Interview Prep SQL.ipynb
+[python_start]: {{ file_dir }}/Interview Prep Python.ipynb
 
 Good luck, and if you have any questions or suggestions please reach out to me
 on Twitter: [@{{ site.author.twitter }}][twitter]
