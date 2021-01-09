@@ -14,17 +14,6 @@ categories:
   - interview-prep
 ---
 
-<!-- Simple script to call from the "Show/Hide" buttons-->
-<script type="text/javascript">
-function showhide(element) {
-  if (element.style.display !== "none") {
-    element.style.display = "none";
-  } else {
-    element.style.display = "block";
-  }
-}
-</script>
-
 {% capture file_dir %}/files/interview-prep{% endcapture %}
 
 A common interview type for data scientists and machine learning engineers is
@@ -109,12 +98,14 @@ we're going to ban accounts we want to be reasonably sure that we have
 targeted the right accounts. I covered thinking about metrics in detail in
 another post: [_What Machine Learning Metric to Use_][metrics_post].
 
+[metrics_post]: {% post_url 2019-10-28-machine_learning_metrics_interview %}
+
 Often the interviewer will turn a question back to you. I suspect Twitter has
 humans do some review of spam bots now, so I'd ask about that. If they do I
 would proposed using the model to automatically block the most egregious
 examples so humans can focus their attention elsewhere.
 
-The metrics we track are:
+The metrics we will track are:
 
 - Precision: We only want to block accounts we're really sure of; if some get
 through humans can review those.
@@ -122,4 +113,55 @@ through humans can review those.
 platform, so we track that as a ratio to account for growth in the platform
 that might make spam look like it's increasing. 
 
-[metrics_post]: {% post_url 2019-10-28-machine_learning_metrics_interview %}
+### Data
+
+The interviewer will often tell you about a source of data in the prompt, but
+there are often more sources you can reason about. For Twitter here are some
+database they likely have that will be useful:
+
+- A database of tweets, including sending account, any accounts mentioned,
+time of the tweet, text of the tweet.
+- A database of accounts with information about each user, when they signed
+up, follower count, following count, etc.
+- A database of login events with information about when accounts logged in,
+the device and IP address of the login, if any multi-factor authentication was
+passed.
+- An ops database with information about what humans thought of various
+different accounts that were reported as bots.
+
+### Labels and Features
+
+It helps to think what sort of behavior a spam bot might do, and then try to
+build features around those. For example:
+
+- Bots do not write each message, they use a template or other method of
+generating text. So _message similarity_ is probably a good feature.
+- Bots are used because they're cheap and scale, so things like number of
+messages sent is likely useful, also number of unique accounts contacted.
+- Bots are controlled from some place, so they might login from a small set of
+IPs (or known cloud IPs), or from a small set of devices.
+- Bots don't sleep or eat, so they can message around the clock as opposed to
+a couple hours a day, so a feature around the number of hours active is likely
+useful.
+
+I'm going to treat this as a supervised classification, so I'll need labels as
+well. If we have rules or an ops team we will likely be able to get some
+labels from them. Otherwise we might have to do it by hand.
+
+### Model Selection
+
+I generally try to start at the simplest model that will work. Since this is
+a supervised classification problem, logistic regression or a forest are good
+candidates. I would likely go with a forest because they tend to "just work"
+and are a little less sensitive to feature processing.
+
+Deep learning is not something I would use here. It's great for image and
+video, audio, or NLP, but for a problem where you have a set of labels, a set
+of features that you believe to be predictive, it is generally overkill.
+
+One thing to consider when training is the dataset is probably going to be
+wildly imbalanced. I would start by down sampling (since we likely have
+millions of events), but would be ready to discuss other methods and trade
+offs.
+
+### Validation
