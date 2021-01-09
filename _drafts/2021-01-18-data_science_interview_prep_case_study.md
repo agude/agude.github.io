@@ -71,26 +71,27 @@ example.
 
 ## Case Study
 
-Here is the question:
+Here is the prompt:
 
-> Here at Twitter, bad actors occasionally use automated accounts, known as
-> "bots", to abuse our platform. How would build a system to help detect bot
-> accounts?
+> At Twitter, bad actors occasionally use automated accounts, known as "bots",
+> to abuse our platform. How would build a system to help detect bot accounts?
 
 ### Problem
 
 Here are some questions I would ask about the problem:
 
-**What systems do you currently have to do this?** Likely they have some
-heuristic or simple rules system already. If so, I'd want to find out what
-it's failing at. If they don't have a system in place currently, it means I
-can target lower hanging fruit.
+**What systems do you currently have to do this? Do you have an ops team that
+reviews bot accounts?** Likely they have some heuristic or simple rules system
+already. If so, I'd want to find out what it's failing at. If they don't have
+a system in place currently, it means I can target lower hanging fruit. In
+either case a team and rules can be used to bootstrap labels for a model.
 
 **Is there a specific type of bot that's causing problems? Like foreign
 influence operations ("Russian Bots!") or cryptocurrency fraud bots or spam
 bots?** Here I am trying to do two things: 
 
-- Show that I have done my homework and have thought about some likely problems the company faces.
+- Show that I have done my homework and have thought about some likely
+problems the company faces.
 - Trying to reduce the scope of the problem to a well-defined use case.
 
 By the end of this discussion the interviewer and I have agreed to focus on
@@ -113,9 +114,12 @@ humans do some review of spam bots now, so I'd ask about that. If they do I
 would proposed using the model to automatically block the most egregious
 examples so humans can focus their attention elsewhere.
 
-The metrics we would track are:
+The metrics we track are:
 
 - Precision: We only want to block accounts we're really sure of; if some get
 through humans can review those.
+- Automated Spam fraction: Our goal is to reduce the amount of spam on the
+platform, so we track that as a ratio to account for growth in the platform
+that might make spam look like it's increasing. 
 
 [metrics_post]: {% post_url 2019-10-28-machine_learning_metrics_interview %}
