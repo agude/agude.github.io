@@ -19,18 +19,27 @@ categories:
 A common interview type for data scientists and machine learning engineers is
 the machine learning case study. In it, the interviewer will ask a question
 about how the candidate would build a certain model. These questions can be
-challenging for new data scientists because they often lack a lot of practical
-experience building and shipping models in a business.
+challenging for new data scientists because the interview is open-ended and
+new data scientists often lack practical experience building and shipping
+models in a business context.
 
-Just like last time where I [put together and example data manipulation
-interview practice problem][last_post], this time I will walk you through a
-practice case study.
+I have a lot of practice with these types of interviews, both from my time at
+[Insight][should_i_go], from my many times [interviewing for a new
+job][interviewing], and from designing and implementing Intuit's data science
+interview. Just like last time where I [put together an example data
+manipulation interview practice problem][last_post], this time I will walk you
+through a practice case study and how I would work through it.
 
+[should_i_go]: {% post_url 2018-08-21-should_i_go_to_insight %}
+[interviewing]: {% post_url 2020-09-21-interviewing_for_data_science_positions_in_2020 %}
 [last_post]: {% post_url 2020-12-14-data_science_interview_prep_data_manipulation %}
 
 ## My Approach
 
-I attack case study interviews in a set order:
+Case study interviews are just conversations. This can make them tougher than
+they need to be because they lack the obvious structure of a coding interview
+or [data manipulation interview][last_post]. I find its helpful to impose some
+structure on the conversation by approaching the problem in this order:
 
 1. **Problem**: Dive in with the interviewer and explore what the problem is.
    Look for edge cases, simple cases that you might be able to close out
