@@ -76,53 +76,67 @@ Here is the prompt:
 
 ### Problem
 
-Here are some questions I would ask about the problem:
+At the start of the interview I try to full explore the bounds of the problem,
+which is often pretty open. My goal with this section is to:
 
-**What systems do you currently have to do this? Do you have an ops team that
-reviews bot accounts?** Likely they have some heuristic or simple rules system
-already. If so, I'd want to find out what it's failing at. If they don't have
-a system in place currently, it means I can target lower hanging fruit. In
-either case a team and rules can be used to bootstrap labels for a model.
+- Fully understand the problem and all the edges cases.
+- Agree on the scope of the problem to solve, the tighter the better.
+- Demonstrate any knowledge I have on the subject, especially from researching
+  the company previously.
 
-**Is there a specific type of bot that's causing problems? Like foreign
-influence operations ("Russian Bots!") or cryptocurrency fraud bots or spam
-bots?** Here I am trying to do two things: 
+Our Twitter bot prompt has a lot of things we could attack. I know Twitter has
+dozens of types of bots from my [harmless Raspberry Pi bots][rpi_bot], to
+["Russian Bots" trying to influence elections][russia_bot], to [bots spreading
+spam][spam_bot]. I would pick one problem to focus on using my best guess as
+to business impact. In this case spam bots is likely a problem that causes
+measurable harm (drives users away, drives advertisers away). Russian bots are
+a probably a bigger issue in terms of public perception, but that's much
+harder to measure.
 
-- Show that I have done my homework and have thought about some likely
-problems the company faces.
-- Trying to reduce the scope of the problem to a well-defined use case.
+[rpi_bot]: {% post_url  2017-11-13-raspberry_pi_reboot_times %}
+[russia_bot]: https://en.wikipedia.org/wiki/Russian_web_brigades 
+[spam_bot]: https://en.wikipedia.org/wiki/Spambot
 
-By the end of this discussion the interviewer and I have agreed to focus on
-"spam bots", which are accounts that tweet advertising messages at people. I'm
-going to treat it as a supervised classification problem where the goal is to
-identify accounts that are spam bots.
+After deciding on the scope, I would ask more about the systems they currently
+have to deal with it. Likely Twitter has an ops team to help identify spam and
+block accounts and they may even have a rules based system. Those systems will
+be a good source of data about the bad actors and they likely also have
+metrics they track for this problem.
 
 ### Metric
 
-Having decided to focus on spam, my first question is:
+Having agreed on what part of the problem to focus on, we now turn to how we
+are going to measure our impact. There is no point shipping a model if you
+can't measure how it's effecting the business.
 
-**How is this model going to be used? Is it just for tracking trends or is
-there an enforcement action?** What action the model takes drives what metrics
-we care most about. If this is just for tracking, perhaps we care most about
-tagging all the bots, even if some humans get flagged. On the other hand, if
-we're going to ban accounts we want to be reasonably sure that we have
-targeted the right accounts. I covered thinking about metrics in detail in
-another post: [_What Machine Learning Metric to Use_][metrics_post].
+Metrics and model use go hand-in-hand, so first we have to agree on what the
+model will be used for. For spam we could use the model to just mark suspected
+accounts for human review and tracking, or we could outright block accounts
+based on the model result. If we pick the human review option, it's probably more
+important to get all the bots even if some good customers are effected. If we
+go with immediate action, it is likely more important to only ban bad
+accounts. I covered thinking about metrics like this in detail in
+another post, [_What Machine Learning Metric to Use_][metrics_post]. Take a
+look!
 
 [metrics_post]: {% post_url 2019-10-28-machine_learning_metrics_interview %}
 
-Often the interviewer will turn a question back to you. I suspect Twitter has
-humans do some review of spam bots now, so I'd ask about that. If they do I
-would proposed using the model to automatically block the most egregious
-examples so humans can focus their attention elsewhere.
+I would argue the automatic blocking model will have higher impact because it
+frees our ops people to focus on other bad behavior. We want two sets of
+metrics: **offline** for when we are training and **online** for when the
+model is deployed.
 
-The metrics we will track are:
+Our offline metric will be precision because, based on the argument above, we
+want to be really sure we're only banning bad accounts.
 
-- Precision: We only want to block accounts we're really sure of; if some get
-through humans can review those.
-- Automated Spam fraction: Our goal is to reduce the amount of spam on the
-platform, so we track that as a ratio to account for growth in the platform
-that might make spam look like it's increasing. 
+Our online metrics are more business focused:
+
+- **Ops time saved**: Ops is spending some amount of time review spam now; how
+much can we cut that down?
+- **Spam fraction**: What percent of Tweets are spam now? Can we reduce this?
+
+It is often useful, as with the spam fraction metric, to normalize our metrics
+so they don't go up or down just because we have more customers!
 
 ### Data
 
