@@ -77,7 +77,8 @@ Here is the prompt:
 ### Problem
 
 At the start of the interview I try to full explore the bounds of the problem,
-which is often pretty open. My goal with this section is to:
+which is often pretty open ended. My goal with this part of the interview is
+to:
 
 - Fully understand the problem and all the edges cases.
 - Agree on the scope of the problem to solve, the tighter the better.
@@ -126,8 +127,8 @@ frees our ops people to focus on other bad behavior. We want two sets of
 metrics: **offline** for when we are training and **online** for when the
 model is deployed.
 
-Our offline metric will be precision because, based on the argument above, we
-want to be really sure we're only banning bad accounts.
+Our offline metric will be **precision** because, based on the argument above,
+we want to be really sure we're only banning bad accounts.
 
 Our online metrics are more business focused:
 
@@ -140,38 +141,66 @@ so they don't go up or down just because we have more customers!
 
 ### Data
 
-The interviewer will often tell you about a source of data in the prompt, but
-there are often more sources you can reason about. For Twitter here are some
-database they likely have that will be useful:
+Now that we know what we're doing and how to measure it's success, it's time
+to figure out what data we can use. Just based on how a company operates, you
+can make a really good guess as to the data they have. For Twitter we know
+they have to track Tweets, accounts, and logins, so they must have databases
+with those information. Here are what I think they contain:
 
-- A database of tweets, including sending account, any accounts mentioned,
-time of the tweet, text of the tweet.
-- A database of accounts with information about each user, when they signed
-up, follower count, following count, etc.
-- A database of login events with information about when accounts logged in,
-the device and IP address of the login, if any multi-factor authentication was
-passed.
-- An ops database with information about what humans thought of various
-different accounts that were reported as bots.
+- **Tweets database**: Sending account, mentioned accounts, parent Tweet,
+  Tweet text.
+- **Interactions database**: Account, Tweet, action (retweet, favorite, etc.)
+- **Accounts database**: Account name, handle, creation date, creation
+  device, creation IP address.
+- **Following database**: Account, followed account.
+- **Login database**: Account, date, login device, login IP address, success
+  or fail reason.
+- **Ops database**: Account, restriction, human reasoning.
+
+And a lot more. From these we can find out a lot about an account and the
+Tweets they send, who they send to, who those people react, and possibly how
+login events tie different accounts together.
 
 ### Labels and Features
 
-It helps to think what sort of behavior a spam bot might do, and then try to
-build features around those. For example:
+Having figured out what data is available, it's time to process it. Because
+I'm treating this as a classification problem, I'll need **labels** to tell me
+the ground truth for accounts, and I'll need **features** which describe the
+behavior of the accounts.
 
-- Bots do not write each message, they use a template or other method of
-generating text. So _message similarity_ is probably a good feature.
-- Bots are used because they're cheap and scale, so things like number of
-messages sent is likely useful, also number of unique accounts contacted.
-- Bots are controlled from some place, so they might login from a small set of
-IPs (or known cloud IPs), or from a small set of devices.
-- Bots don't sleep or eat, so they can message around the clock as opposed to
-a couple hours a day, so a feature around the number of hours active is likely
-useful.
+### Labels
 
-I'm going to treat this as a supervised classification, so I'll need labels as
-well. If we have rules or an ops team we will likely be able to get some
-labels from them. Otherwise we might have to do it by hand.
+Since I have an ops team handling spam, I have historic examples of bad
+behavior which I can use as positive labels.[^positive_labels] If there aren't
+enough I can use tricks to try to expand my labels, for example looking at IP
+address or devices associated with spammers and labeling other accounts from
+the same place and time.
+
+[^positive_labels]:
+    In this case a "positive label" means the account is a spam bot, and a
+    "negative label" means they are not.
+
+Negative labels are harder to come by. I know Twitter has verified users who
+are unlikely to be spam bots, so I can use them. That dataset is also likely
+highly imbalanced, that is most users are not spammers, so randomly selecting
+accounts is also a possibility to build negative labels.
+
+### Features
+
+To build features, it helps to think what sort of behavior a spam bot might
+do, and then try to codify that behavior. For example:
+
+- **Bots can't write truely unique messages**; they must use a template or
+  language generator. This should lead to similar messages, so looking at how
+  repetitive an accounts Tweets are is a good feature.
+- **Bots are used because they scale.** They can run all the time and send
+  messages to hundreds or thousands (or millions) or users. Number of unique
+  Tweet recipients and number of minutes per day with a Tweet sent are likely
+  good features.
+- **Bots have a controller.** Someone is benefiting from the spam, and they
+  have to control their bots. Features around logins might help here like
+  number of accounts seen from this IP address or device, similarity of login
+  time, etc.
 
 ### Model Selection
 
