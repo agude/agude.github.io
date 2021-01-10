@@ -177,8 +177,8 @@ address or devices associated with spammers and labeling other accounts from
 the same place and time.
 
 [^positive_labels]:
-    In this case a "positive label" means the account is a spam bot, and a
-    "negative label" means they are not.
+    In this case a _positive label_ means the account is a spam bot, and a
+    _negative label_ means they are not.
 
 Negative labels are harder to come by. I know Twitter has verified users who
 are unlikely to be spam bots, so I can use them. That dataset is also likely
