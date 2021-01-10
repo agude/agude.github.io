@@ -84,7 +84,9 @@ problems the company faces.
 - Trying to reduce the scope of the problem to a well-defined use case.
 
 By the end of this discussion the interviewer and I have agreed to focus on
-"spam bots", which are accounts that tweet advertising messages at people.
+"spam bots", which are accounts that tweet advertising messages at people. I'm
+going to treat it as a supervised classification problem where the goal is to
+identify accounts that are spam bots.
 
 ### Metric
 
@@ -165,3 +167,21 @@ millions of events), but would be ready to discuss other methods and trade
 offs.
 
 ### Validation
+
+Validation is not too hard at this point. We focus on the offline metric we
+decided on above: precision. We don't have to worry much about what data to
+hold out, as long as we split on the account level. I'd start simple with a
+validation set, training set, and test set.
+
+### Deployment
+
+Since our goal is to block accounts, I would start our model in **shadow
+mode**, which I [discussed in detail in another post][shadow_mode]. This would
+allow us to see how the model performs on real data without the risk of
+blocking good accounts. I would track it's performance using our other metric:
+what fraction of tweets are from spam bots? I can compute this metric both as
+it is currently and what it would be if the model had been in action mode.
+Hopefully the model would significantly lower the number and make a good case
+for turning it on.
+
+[shadow_mode]: {% post_url 2020-06-30-machine_learning_deployment_shadow_mode %}
