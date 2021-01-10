@@ -205,35 +205,57 @@ do, and then try to codify that behavior. For example:
 ### Model Selection
 
 I generally try to start at the simplest model that will work. Since this is
-a supervised classification problem, logistic regression or a forest are good
-candidates. I would likely go with a forest because they tend to "just work"
-and are a little less sensitive to feature processing.
+a supervised classification problem and I have written some simple features,
+logistic regression or a forest are good candidates. I would likely go with a
+forest because they tend to "just work" and are a little less sensitive to
+feature processing.[^processing]
+
+[^processing]:
+    If using [regularization] (and you should) you have to scale your
+    features for logistic regression. Random forests do not require this.
+
+[regularization]: https://en.wikipedia.org/wiki/Regularization_(mathematics)
 
 Deep learning is not something I would use here. It's great for image and
 video, audio, or NLP, but for a problem where you have a set of labels, a set
 of features that you believe to be predictive, it is generally overkill.
 
 One thing to consider when training is the dataset is probably going to be
-wildly imbalanced. I would start by down sampling (since we likely have
+wildly imbalanced. I would start by down-sampling (since we likely have
 millions of events), but would be ready to discuss other methods and trade
 offs.
 
 ### Validation
 
 Validation is not too hard at this point. We focus on the offline metric we
-decided on above: precision. We don't have to worry much about what data to
-hold out, as long as we split on the account level. I'd start simple with a
-validation set, training set, and test set.
+decided on above: precision. We don't have to worry much about leaking data
+between our holdout sets if we split at the account level, although if we
+include bots from the same [botnet][botnet] into our different sets there will
+be a little data leakage. I would start with a simple validation/training/test
+split with fixed fractions of the dataset.
+
+[botnet]: https://en.wikipedia.org/wiki/Botnet
 
 ### Deployment
 
-Since our goal is to block accounts, I would start our model in **shadow
+Since our goal is to block accounts, I would deploy our model in **shadow
 mode**, which I [discussed in detail in another post][shadow_mode]. This would
 allow us to see how the model performs on real data without the risk of
-blocking good accounts. I would track it's performance using our other metric:
-what fraction of tweets are from spam bots? I can compute this metric both as
-it is currently and what it would be if the model had been in action mode.
-Hopefully the model would significantly lower the number and make a good case
-for turning it on.
+blocking good accounts. I would track it's performance using our online
+metrics: spam fraction and ops time saved. I can compute these metrics both
+assuming the model does and does not block the flagged accounts and them
+compare them. If the comparison is favorable, the model should be promoted to
+action mode.
 
 [shadow_mode]: {% post_url 2020-06-30-machine_learning_deployment_shadow_mode %}
+
+## Let Me Know!
+
+I hope this exercise has been helpful! Please reach out and let me know at
+[@{{ site.author.twitter }}][twitter] if you have any comments or
+improvements!
+
+[twitter]: https://twitter.com/{{ site.author.twitter }}
+
+---
+{% comment %}<hr> above footnotes.{% endcomment %}
