@@ -38,8 +38,8 @@ through a practice case study and how I would work through it.
 
 Case study interviews are just conversations. This can make them tougher than
 they need to be because they lack the obvious structure of a coding interview
-or [data manipulation interview][last_post]. I find its helpful to impose some
-structure on the conversation by approaching the problem in this order:
+or [data manipulation interview][last_post]. I find it's helpful to impose
+some structure on the conversation by approaching the problem in this order:
 
 1. **Problem**: Dive in with the interviewer and explore what the problem is.
    Look for edge cases, simple cases that you might be able to close out
@@ -89,10 +89,10 @@ Our Twitter bot prompt has a lot of things we could attack. I know Twitter has
 dozens of types of bots from my [harmless Raspberry Pi bots][rpi_bot], to
 ["Russian Bots" trying to influence elections][russia_bot], to [bots spreading
 spam][spam_bot]. I would pick one problem to focus on using my best guess as
-to business impact. In this case spam bots is likely a problem that causes
+to business impact. In this case spam bots are likely a problem that causes
 measurable harm (drives users away, drives advertisers away). Russian bots are
-a probably a bigger issue in terms of public perception, but that's much
-harder to measure.
+probably a bigger issue in terms of public perception, but that's much harder
+to measure.
 
 [rpi_bot]: {% post_url  2017-11-13-raspberry_pi_reboot_times %}
 [russia_bot]: https://en.wikipedia.org/wiki/Russian_web_brigades 
@@ -108,13 +108,13 @@ metrics they track for this problem.
 
 Having agreed on what part of the problem to focus on, we now turn to how we
 are going to measure our impact. There is no point shipping a model if you
-can't measure how it's effecting the business.
+can't measure how it's affecting the business.
 
 Metrics and model use go hand-in-hand, so first we have to agree on what the
 model will be used for. For spam we could use the model to just mark suspected
 accounts for human review and tracking, or we could outright block accounts
 based on the model result. If we pick the human review option, it's probably more
-important to get all the bots even if some good customers are effected. If we
+important to get all the bots even if some good customers are affected. If we
 go with immediate action, it is likely more important to only ban bad
 accounts. I covered thinking about metrics like this in detail in
 another post, [_What Machine Learning Metric to Use_][metrics_post]. Take a
@@ -190,7 +190,7 @@ accounts is also a possibility to build negative labels.
 To build features, it helps to think what sort of behavior a spam bot might
 do, and then try to codify that behavior. For example:
 
-- **Bots can't write truely unique messages**; they must use a template or
+- **Bots can't write truly unique messages**; they must use a template or
   language generator. This should lead to similar messages, so looking at how
   repetitive an accounts Tweets are is a good feature.
 - **Bots are used because they scale.** They can run all the time and send
@@ -243,7 +243,7 @@ mode**, which I [discussed in detail in another post][shadow_mode]. This would
 allow us to see how the model performs on real data without the risk of
 blocking good accounts. I would track it's performance using our online
 metrics: spam fraction and ops time saved. I can compute these metrics both
-assuming the model does and does not block the flagged accounts and them
+assuming the model does and does not block the flagged accounts and then
 compare them. If the comparison is favorable, the model should be promoted to
 action mode.
 
