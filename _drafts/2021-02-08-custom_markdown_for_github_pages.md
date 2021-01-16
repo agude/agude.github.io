@@ -4,15 +4,16 @@ title: "Making Custom Markdown for Github Pages"
 description: >
   I love Markdown, I take all my notes in it and write my blog in it. But
   sometimes you want to create new syntax; read on to find out how!
-image: /files/interview-prep/food_conservation_workers_at_comstock_hall_cornell_1917.jpg
+image: /files/jekyll/stansaab_censor_and_operator.jpg 
 image_alt: >
-  A black and white photo of four women sitting at desks with typewriters,
-  stacks of papers, and card catalogs.
+  A black and white photo of a man in a short-sleeve collared shirt uses an
+  osciliscope to adjust a circuit board on a Stansaab "Censor" computer at
+  Standard Radio's factory in Ulvsunda, Stockholm.
 categories:
   - software-development
 ---
 
-{% capture file_dir %}/files/interview-prep{% endcapture %}
+{% capture file_dir %}/files/jekyll/{% endcapture %}
 
 [Markdown] is a great way to write; simple enough to be read as text, with all
 the power of HTML. I have been using it for my own notes for a decade and this
