@@ -2,12 +2,12 @@
 layout: post
 title: "Data Science Interview Practice: Machine Learning Case Study"
 description: >
-  I often get asked how to practice data science interviews, so here is a
-  practice dataset with a set of questions to answer. Good luck!
-image: /files/interview-prep/food_conservation_workers_at_comstock_hall_cornell_1917.jpg
+  A common interview type for data scientists and machine learning engineers
+  is the ML case study. Read on for an example of how I solve them!
+image: /files/interview-prep/henry_reid_at_his_desk_nasa.jpg
 image_alt: >
-  A black and white photo of four women sitting at desks with typewriters,
-  stacks of papers, and card catalogs.
+  A black and white photo of Henry J.E. Reid, Directory of the Langley
+  Aeronautics Laborator, in a suit writing while sitting at a desk.
 categories:
   - career-advice
   - interviewing
@@ -76,11 +76,11 @@ Here is the prompt:
 
 ### Problem
 
-At the start of the interview I try to full explore the bounds of the problem,
-which is often pretty open ended. My goal with this part of the interview is
-to:
+At the start of the interview I try to fully explore the bounds of the
+problem, which is often pretty open ended. My goal with this part of the
+interview is to:
 
-- Fully understand the problem and all the edges cases.
+- Understand the problem and all the edges cases.
 - Agree on the scope of the problem to solve, the tighter the better.
 - Demonstrate any knowledge I have on the subject, especially from researching
   the company previously.
@@ -141,11 +141,11 @@ so they don't go up or down just because we have more customers!
 
 ### Data
 
-Now that we know what we're doing and how to measure it's success, it's time
-to figure out what data we can use. Just based on how a company operates, you
-can make a really good guess as to the data they have. For Twitter we know
-they have to track Tweets, accounts, and logins, so they must have databases
-with those information. Here are what I think they contain:
+Now that we know what we're doing and how to measure its success, it's time to
+figure out what data we can use. Just based on how a company operates, you can
+make a really good guess as to the data they have. For Twitter we know they
+have to track Tweets, accounts, and logins, so they must have databases with
+that information. Here are what I think they contain:
 
 - **Tweets database**: Sending account, mentioned accounts, parent Tweet,
   Tweet text.
