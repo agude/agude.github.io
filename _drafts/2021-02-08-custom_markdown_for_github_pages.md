@@ -32,7 +32,7 @@ doing so felt clunky when compared to how smooth writing Markdown normally is.
 
 I created a way to define my own syntax based on [Anatol Broder's][ab]
 [Compress] and [Sylvain Durand's][sd] post on [_Improving typography on
-Jekyll_][it]. It uses [Liquid] to re-write the web page **after** it has been
+Jekyll_][it]. It uses [Liquid] to rewrite the web page **after** it has been
 compiled, allowing complete control on formatting and allowing you to define
 custom Markdown syntax. Since it uses only the default tools built in to
 Jekyll, it works natively on [Github Pages]! Here is how it works:
