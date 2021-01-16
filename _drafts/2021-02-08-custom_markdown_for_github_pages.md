@@ -15,51 +15,54 @@ categories:
 {% capture file_dir %}/files/interview-prep{% endcapture %}
 
 [Markdown] is a great way to write; simple enough to be read as text, with all
-the power of HTML. I have been using it for my own notes for a decade and of
-course this site is written in Markdown using [Jekyll].
+the power of HTML. I have been using it for my own notes for a decade and this
+site is written in Markdown using [Jekyll].
 
 Markdown provides a lot of syntax to simplify HTML, like `**BOLD**` to create
 `<strong>BOLD</strong>` text, or `> Quote` to create
 `<blockquote>Quote</blockquote>`. Recently, for my [MiniFate] project, I
 wanted to add a few custom `<span>` elements to highlight specific pieces of
 the text. I could have fallen back to writing it out in HTML each time, but
-this clashed with how smooth writing Markdown normally is.
+doing so felt clunky when compared to how smooth writing Markdown normally is.
 
 [Markdown]: https://en.wikipedia.org/wiki/Markdown
 [Jekyll]: https://en.wikipedia.org/wiki/Jekyll_(software)
 [MiniFate]: https://github.com/MiniFate/MiniFate
 
-I looked for an alternative and discovered one based on [Anatol Broder's][ab]
-[Compress] and [Sylvain Durand's][sd] post on [_Improving Typograph on
-Jekyll_][it]. It uses [Liquid] to re-write the webpage **after** it has been
+I created a way to define my own syntax based on [Anatol Broder's][ab]
+[Compress] and [Sylvain Durand's][sd] post on [_Improving typography on
+Jekyll_][it]. It uses [Liquid] to re-write the web page **after** it has been
 compiled, allowing complete control on formatting and allowing you to define
-custom Markdown syntax. And since it uses only the default tools in Jekyll, it
-works natively on Github Pages! Here is how it works:
+custom Markdown syntax. Since it uses only the default tools built in to
+Jekyll, it works natively on [Github Pages]! Here is how it works:
 
 [ab]: https://bro.doktorbro.net/
 [Compress]: https://jch.penibelst.de/
 [sd]: https://sylvaindurand.org/
 [it]: https://sylvaindurand.org/improving-typography-on-jekyll/
 [Liquid]: https://shopify.github.io/liquid/
+[Github Pages]: https://pages.github.com/
 
 ## Layouts
-The [order of interpretation][ooo] for Jekyll runs Liquid _before_ rendering
-Markdown, which means you can't modify the HTML with Liquid. But pushing
-content to a layout happens _after_ the HTML is fully rendered, and layouts
-can contain their own Liquid, Markdown, and HTML. This allows us to run Liquid
-on the fully rendered HTML!
 
-[ooo]: https://jekyllrb.com/tutorials/orderofinterpretation/
+The [order of interpretation][ooi] for Jekyll runs Liquid _before_ compiling
+Markdown to HTML, which means you can't modify the HTML with Liquid. But
+pushing content to a layout happens _after_ the HTML is compiled, and layouts
+can contain their own Liquid code. This allows us to run Liquid on the full
+HTML of the page!
+
+[ooi]: https://jekyllrb.com/tutorials/orderofinterpretation/
 
 We start with a very simple layout placed in `_layouts/substitute.html`:
 
 {% raw %}
 ```liquid
 ---
-layout: compress
----
 
+---
+{% comment %}
 <!-- This is the code block to define custom syntax -->
+{% endcomment %}
 {% assign output = content
     | replace: '-!', '<u>'
     | replace: '!-', '</u>'
@@ -81,7 +84,7 @@ layout: substitute
 <!DOCTYPE html>
 <html lang="en">
   <body>
-    <main role="main">
+    <main>
       {{ content }}
     </main>
   </body>
@@ -89,12 +92,12 @@ layout: substitute
 ```
 {% endraw %}
 
-And that's it! All the customization is in changing the Liquid in
-`substitute.html`. Here are some examples.
+And that's it! All the customization is controlled by changing the Liquid code
+in `substitute.html`. Below are some examples.
 
-### Defining Customer Markup
+### Defining Custom Markup
 
-One thing we can do is define customer markup. Markdown has now syntax for
+We can do is define custom markup. Markdown has no syntax for
 <u>Underline</u>, but we can define some like this:
 
 {% raw %}
@@ -106,7 +109,7 @@ One thing we can do is define customer markup. Markdown has now syntax for
 ```
 {% endraw %}
 
-Now `-!Underline!-` is compiles to `<u>Underline</u>`. We can define anything
+Now `-!Underline!-` compiles to `<u>Underline</u>`. We can define anything
 we'd like in the substitution, for example a full `<span>`:
 
 {% raw %}
@@ -120,18 +123,20 @@ we'd like in the substitution, for example a full `<span>`:
 
 Which can be fully customized with CSS.
 
-There are two limitations to this method:
+This method has two limitations:
 
-- We have to pick characters that the Markdown parser won't interpreted, so `_` and `*` would not work.
-- We need define unique opening and closing syntax to match the opening and
+- We have to use characters that the Markdown parser won't interpreted, so `_`
+  and `*` won't work.
+- We need to define unique opening and closing syntax to match the opening and
   closing HTML elements.
 
 We can avoid these constraints by overriding standard Markdown syntax.
 
 ### Overriding Markdown Syntax
 
-I never use `~~Strike~~`, which insert `<del>Strike</del>` to mark text that
-has been removed. Instead I can override it to be <u>Underline</u> as follows:
+I never use `~~Strike~~` in my writing, which inserts `<del>Strike</del>` to
+denote text that has been removed. We can override it to insert
+<u>Underline</u> instead as follows:
 
 {% raw %}
 ```liquid
@@ -142,15 +147,15 @@ has been removed. Instead I can override it to be <u>Underline</u> as follows:
 ```
 {% endraw %}
 
-Notice that I don't replace `~~`, I replace `<del>`. This is because the
+Notice that I didn't replace `~~`, I replaced `<del>`. This is because the
 template Liquid substitutes _after_ the Markdown is compiled to HTML.
 
 ### Replacement
 
-Of course we can replace **anything** using this method, not just custom
+Of course, we can replace **anything** using this method, not just custom
 Markdown syntax or HTML elements. We can define a macro that is replaced by an
 image or table. We can even reshape the page, for example, adding an `<hr>`
-above the footnotes automatically:
+above the footnotes automatically like this:
 
 {% raw %}
 ```liquid
@@ -162,8 +167,9 @@ above the footnotes automatically:
 
 ## Conclusion
 
-Using layouts allows us to use the full power of [Liquid] to update our
-webpage after the HTML is compiled, and it works natively on Github pages! If
-you built 
+Using layouts gives us the full power of [Liquid] to update our web pages
+after the HTML is compiled, and it works natively on Github pages! I hope you
+use this to build awesome web pages and if you do let me know on Twitter: [@{{
+site.author.twitter }}][twitter]
 
-
+[twitter]: https://twitter.com/{{ site.author.twitter }}
