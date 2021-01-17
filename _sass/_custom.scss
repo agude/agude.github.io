@@ -118,3 +118,12 @@ input[type="checkbox"]:checked.task-list-item-checkbox {
   font-family: $code-font-family;
   font-weight: bold;
 }
+
+// Details with markdown="1"
+summary p {
+  display: inline;
+}
+
+summary {
+  margin-bottom: 1rem;
+}
