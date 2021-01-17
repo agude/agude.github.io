@@ -206,24 +206,24 @@ example:
 
 ### Model Selection
 
-I generally try to start at the simplest model that will work. Since this is
-a supervised classification problem and I have written some simple features,
-logistic regression or a forest are good candidates. I would likely go with a
-forest because they tend to "just work" and are a little less sensitive to
-feature processing.[^processing]
+I try to start at the simplest model that will work when starting a new
+project. Since this is a supervised classification problem and I have written
+some simple features, logistic regression or a forest are good candidates. I
+would likely go with a forest because they tend to "just work" and are a
+little less sensitive to feature processing.[^processing]
 
 [^processing]:
-    If using [regularization] (and you should) you have to scale your
-    features for logistic regression. Random forests do not require this.
+    If you use [regularization] with logistic regression (and you should) you
+    need to scale your features. Random forests do not require this.
 
 [regularization]: https://en.wikipedia.org/wiki/Regularization_(mathematics)
 
-Deep learning is not something I would use here. It's great for image and
-video, audio, or NLP, but for a problem where you have a set of labels, a set
-of features that you believe to be predictive, it is generally overkill.
+Deep learning is not something I would use here. It's great for image, video,
+audio, or NLP, but for a problem where you have a set of labels and a set of
+features that you believe to be predictive it is generally overkill.
 
-One thing to consider when training is the dataset is probably going to be
-wildly imbalanced. I would start by down-sampling (since we likely have
+One thing to consider when training is that the dataset is probably going to
+be wildly imbalanced. I would start by down-sampling (since we likely have
 millions of events), but would be ready to discuss other methods and trade
 offs.
 
@@ -240,14 +240,20 @@ split with fixed fractions of the dataset.
 
 ### Deployment
 
-Since our goal is to block accounts, I would deploy our model in **shadow
-mode**, which I [discussed in detail in another post][shadow_mode]. This would
-allow us to see how the model performs on real data without the risk of
-blocking good accounts. I would track it's performance using our online
-metrics: spam fraction and ops time saved. I can compute these metrics both
-assuming the model does and does not block the flagged accounts and then
-compare them. If the comparison is favorable, the model should be promoted to
-action mode.
+Since we want to classify an entire account and not a specific tweet, we don't
+need to run the model in real-time when Tweets are posted. Instead we can run
+batches and can decide on the time between runs by looking at something like
+the characteristic time a spam bot takes to send out Tweets. We can add
+rate limiting to Tweet sending as well to slow the spam bots and give us more
+time to decide without impacting normal users.
+
+For deployment, I would start in **shadow mode**, which I [discussed in detail
+in another post][shadow_mode]. This would allow us to see how the model
+performs on real data without the risk of blocking good accounts. I would
+track it's performance using our online metrics: spam fraction and ops time
+saved. I can compute these metrics both assuming the model does and does not
+block the flagged accounts and then compare them. If the comparison is
+favorable, the model should be promoted to action mode.
 
 [shadow_mode]: {% post_url 2020-06-30-machine_learning_deployment_shadow_mode %}
 
