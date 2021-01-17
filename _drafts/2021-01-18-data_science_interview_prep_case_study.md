@@ -21,13 +21,13 @@ the machine learning case study. In it, the interviewer will ask a question
 about how the candidate would build a certain model. These questions can be
 challenging for new data scientists because the interview is open-ended and
 new data scientists often lack practical experience building and shipping
-models in a business context.
+models at a company.
 
 I have a lot of practice with these types of interviews, both from my time at
-[Insight][should_i_go], from my many times [interviewing for a new
-job][interviewing], and from designing and implementing Intuit's data science
-interview. Just like last time where I [put together an example data
-manipulation interview practice problem][last_post], this time I will walk you
+[Insight][should_i_go], from my many experiences [interviewing for
+jobs][interviewing], and from designing and implementing Intuit's data science
+interview. Like my last article where I [put together an example data
+manipulation interview practice problem][last_post], this time I will walk
 through a practice case study and how I would work through it.
 
 [should_i_go]: {% post_url 2018-08-21-should_i_go_to_insight %}
@@ -42,13 +42,13 @@ or [data manipulation interview][last_post]. I find it's helpful to impose
 some structure on the conversation by approaching the problem in this order:
 
 1. **Problem**: Dive in with the interviewer and explore what the problem is.
-   Look for edge cases, simple cases that you might be able to close out
-   quickly, and high impact parts of the problem.
+   Look for edge cases or simple and high-impact parts of the problem that you
+   might be able to close out quickly.
 2. **Metrics**: Once you have decided what exactly you're solving for, figure
    out how you will measure success. Focus on what is important to the
    business and not just what is easy to measure.
 3. **Data**: Figure out what data is available to solve the problem. The
-   interview might give you a couple of examples, but ask about additional
+   interviewer might give you a couple of examples, but ask about additional
    information sources. If you know of some public data that might be useful,
    bring it up here too.
 4. **Labels and Features**: Using the data sources you discussed, what
@@ -64,8 +64,7 @@ some structure on the conversation by approaching the problem in this order:
    away with batch? How would you check performance in production? How would
    you monitor for drift?
 
-I will cover each of these in more detail below as I walk through a specific
-example.
+I will cover each of these in more detail below.
 
 ## Case Study
 
@@ -77,8 +76,8 @@ Here is the prompt:
 ### Problem
 
 At the start of the interview I try to fully explore the bounds of the
-problem, which is often pretty open ended. My goal with this part of the
-interview is to:
+problem, which is often open ended. My goal with this part of the interview is
+to:
 
 - Understand the problem and all the edges cases.
 - Agree on the scope of the problem to solve, the tighter the better.
@@ -115,10 +114,9 @@ model will be used for. For spam we could use the model to just mark suspected
 accounts for human review and tracking, or we could outright block accounts
 based on the model result. If we pick the human review option, it's probably more
 important to get all the bots even if some good customers are affected. If we
-go with immediate action, it is likely more important to only ban bad
-accounts. I covered thinking about metrics like this in detail in
-another post, [_What Machine Learning Metric to Use_][metrics_post]. Take a
-look!
+go with immediate action, it is likely more important to only ban truly bad
+accounts. I covered thinking about metrics like this in detail in another
+post, [_What Machine Learning Metric to Use_][metrics_post]. Take a look!
 
 [metrics_post]: {% post_url 2019-10-28-machine_learning_metrics_interview %}
 
@@ -149,7 +147,7 @@ that information. Here are what I think they contain:
 
 - **Tweets database**: Sending account, mentioned accounts, parent Tweet,
   Tweet text.
-- **Interactions database**: Account, Tweet, action (retweet, favorite, etc.)
+- **Interactions database**: Account, Tweet, action (retweet, favorite, etc.).
 - **Accounts database**: Account name, handle, creation date, creation
   device, creation IP address.
 - **Following database**: Account, followed account.
@@ -170,29 +168,33 @@ behavior of the accounts.
 
 ### Labels
 
-Since I have an ops team handling spam, I have historic examples of bad
+Since there is an ops team handling spam, I have historic examples of bad
 behavior which I can use as positive labels.[^positive_labels] If there aren't
 enough I can use tricks to try to expand my labels, for example looking at IP
-address or devices associated with spammers and labeling other accounts from
-the same place and time.
+address or devices that are associated with spammers and labeling other
+accounts with the same login characteristics.
 
 [^positive_labels]:
     In this case a _positive label_ means the account is a spam bot, and a
     _negative label_ means they are not.
 
 Negative labels are harder to come by. I know Twitter has verified users who
-are unlikely to be spam bots, so I can use them. That dataset is also likely
-highly imbalanced, that is most users are not spammers, so randomly selecting
-accounts is also a possibility to build negative labels.
+are unlikely to be spam bots, so I can use them. But verified users are
+certainly very different from "normal" good users because they have far more
+followers.
+
+It is a safe bet that there are far more good users than spam bots, so
+randomly selecting accounts can be used to build a negative label set.
 
 ### Features
 
-To build features, it helps to think what sort of behavior a spam bot might
-do, and then try to codify that behavior. For example:
+To build features, it helps to think about what sort of behavior a spam bot
+might exhibit, and then try to codify that behavior into features. For
+example:
 
 - **Bots can't write truly unique messages**; they must use a template or
   language generator. This should lead to similar messages, so looking at how
-  repetitive an accounts Tweets are is a good feature.
+  repetitive an account's Tweets are is a good feature.
 - **Bots are used because they scale.** They can run all the time and send
   messages to hundreds or thousands (or millions) or users. Number of unique
   Tweet recipients and number of minutes per day with a Tweet sent are likely
