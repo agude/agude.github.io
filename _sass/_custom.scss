@@ -118,3 +118,19 @@ input[type="checkbox"]:checked.task-list-item-checkbox {
   font-family: $code-font-family;
   font-weight: bold;
 }
+
+// Details with markdown="1"
+details>summary {
+  list-style: none;
+  margin-bottom: 1rem;
+}
+
+summary::after {
+  content: " ▶ Show";
+  color: $link-color;
+  display: block;
+}
+
+details[open] summary:after {
+  content: " ▼ Hide";
+}
