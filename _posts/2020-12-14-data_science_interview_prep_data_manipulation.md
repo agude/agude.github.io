@@ -14,17 +14,6 @@ categories:
   - interview-prep
 ---
 
-<!-- Simple script to call from the "Show/Hide" buttons-->
-<script type="text/javascript">
-function showhide(element) {
-  if (element.style.display !== "none") {
-    element.style.display = "none";
-  } else {
-    element.style.display = "block";
-  }
-}
-</script>
-
 {% capture file_dir %}/files/interview-prep{% endcapture %}
 
 I often get asked by newly-minted PhDs trying to get their first data job:
@@ -90,10 +79,11 @@ on Twitter: [@{{ site.author.twitter }}][twitter]
 
 ### How many collisions are there in the dataset?
 
-A good first thing to check is "How much data am I dealing with?"
+<details markdown="1">
 
-<button id="button" onclick="showhide(hidden1)">Show solution</button>
-<div class="hidden" id="hidden1" markdown="1" style="display: none;">
+<summary markdown="1">
+A good first thing to check is "How much data am I dealing with?"
+</summary>
 
 Each row in the collisions database represents one collision, so the solution
 is nice and short:
@@ -112,16 +102,16 @@ Which returns:
 |         9,172,565 |
 
 </div>
-
-</div>
+</details>
 
 ### What percent of collisions involve males aged 16--25?
 
+<details markdown="1">
+
+<summary markdown="1">
 Young men are famously unsafe drivers so let's look at how many collisions
 they're involved in.
-
-<button id="button" onclick="showhide(hidden3)">Show solution</button>
-<div class="hidden" id="hidden3" markdown="1" style="display: none;">
+</summary>
 
 The age and gender of the drivers are in the parties table so the query does a
 simple filter on those entries. The tricky part comes from needing to
@@ -150,16 +140,17 @@ The result is:
 
 </div>
 
-</div>
+</details>
 
 ### How many solo motorcycle crashes are there per year?
 
+<details markdown="1">
+
+<summary markdown="1">
 A "_solo_" crash is one where the driver runs off the road or hits a
 stationary object. How many solo motorcycle crashes were there each year? Why
 does 2020 seem to (relatively) have so few?
-
-<button id="button" onclick="showhide(hidden2)">Show solution</button>
-<div class="hidden" id="hidden2" markdown="1" style="display: none;">
+</summary>
 
 To select the right rows we filter with `WHERE` and to get the count per year
 we need to use a `GROUP BY`. SQLite does not have a `YEAR()` function, so we
@@ -212,10 +203,13 @@ year. It is also low due to the COVID pandemic keeping people off the streets,
 at least initially. To differentiate these two causes we could compare month
 by month to last year.
 
-</div>
+</details>
 
 ### What make of vehicle has the largest fraction of accidents on the weekend? During the work week?
 
+<details markdown="1">
+
+<summary markdown="1">
 Weekdays are generally commute and work-related traffic, while weekends
 involves recreational travel. Do we see different vehicles involved in
 collisions on these days?
@@ -224,8 +218,7 @@ Only consider vehicle makes with at least 10,000 collisions, in order to focus
 only on common vehicles where the difference between weekend and weekday usage
 will be significant.
 
-<button id="button" onclick="showhide(hidden4)">Show solution</button>
-<div class="hidden" id="hidden4" markdown="1" style="display: none;">
+</summary>
 
 This query is tricky. We need to aggregate collisions by vehicle make, which
 means we need the parties table. We also care about when the crash happened,
@@ -331,18 +324,19 @@ These results makes sense, Peterbilt is a commercial truck manufacturer which
 you expect to be driven for work. Harley-Davidson makes iconic motorcycles
 that people ride for fun on the weekend with their friends.
 
-</div>
+</details>
 
 ### How many different values represent "Toyota" in the Parties database? How would you go about correcting for this?
 
-Data is **_never_** as clean as you would hope,  and this applies even to the
+<details markdown="1">
+
+<summary markdown="1">Data is **_never_** as clean as you would hope,  and this applies even to the
 [curated SWITRS dataset][switrs_dataset]. How many different ways does
 "Toyota" show up?
 
 What steps would you take to fix this problem?
+</summary>
 
-<button id="button" onclick="showhide(hidden5)">Show solution</button>
-<div class="hidden" id="hidden5" markdown="1" style="display: none;">
 This is a case where there is no _right_ answer. You can get a more and more
 correct answer as you spend more time, but at some point you have to decide it
 is good enough.
@@ -405,7 +399,7 @@ entries. I would fix those by hand and move on. More generally it seems that
 makes are represented mostly by their name or a four-letter abbreviation. It
 wouldn't be too hard to detect and fix these for the most common makes.
 
-</div>
+</details>
 
 ## Solutions
 
