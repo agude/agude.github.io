@@ -120,25 +120,17 @@ input[type="checkbox"]:checked.task-list-item-checkbox {
 }
 
 // Details with markdown="1"
-summary>p {
-  display: inline;  // Gives same spacing as normal paragraphs
-}
-
-summary::marker {
-  color: $link-color;
-}
-
-summary::-webkit-details-marker {
-  color: $link-color;
-}
-
 details>summary {
+  list-style: none;
   margin-bottom: 1rem;
 }
 
-span.detail-button {
+summary::after {
+  content: " ▶ Show";
   color: $link-color;
-  font-size: 0.8em;
-  padding-left: 0.2em;
-  padding-right: 0.2em;
+  display: block;
+}
+
+details[open] summary:after {
+  content: " ▼ Hide";
 }

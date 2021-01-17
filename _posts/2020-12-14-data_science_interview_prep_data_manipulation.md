@@ -59,7 +59,8 @@ would get in a real interview. For the exercise you will be using the SWITRS
 dataset. I have included a notebook to get you started in [**SQL**][sql_start]
 ([rendered on Github][sql_start_rendered]) or [**Pandas**][python_start]
 ([rendered on Github][python_start_rendered]). The solution notebooks can be
-found at the very end.
+found at the very end and I have included answers in this post, click the
+arrow to show them.
 
 [sql_start]: {{ file_dir }}/Interview Prep SQL.ipynb
 {% capture sql_start_notebook_uri %}{{ "Interview Prep SQL.ipynb" | uri_escape }}{% endcapture %}
@@ -75,9 +76,6 @@ on Twitter: [@{{ site.author.twitter }}][twitter]
 [twitter]: https://twitter.com/{{ site.author.twitter }}
 
 ## Questions
-
-Here are the practice questions; my answers are hidden, expand them by
-clicking on the arrow (<span class="detail-button">▶</span>).
 
 ### How many collisions are there in the dataset?
 
