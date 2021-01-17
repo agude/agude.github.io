@@ -69,13 +69,15 @@ found at the very end.
 {% capture python_start_notebook_uri %}{{ "Interview Prep Python.ipynb" | uri_escape }}{% endcapture %}
 [python_start_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ python_start_notebook_uri }}
 
-
 Good luck, and if you have any questions or suggestions please reach out to me
 on Twitter: [@{{ site.author.twitter }}][twitter]
 
 [twitter]: https://twitter.com/{{ site.author.twitter }}
 
 ## Questions
+
+Here are the practice questions; my answers are hidden, expand them by
+clicking on the arrow (<span class="detail-button">▶</span>).
 
 ### How many collisions are there in the dataset?
 
