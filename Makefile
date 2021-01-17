@@ -1,16 +1,20 @@
 IMAGE := jekyll-image-agude
 MOUNT := /workspace
 
-.PHONY: all serve drafts debug image refresh
+.PHONY: all clean serve drafts debug image refresh
 
 all: serve
 
+# Clean out _site and other caches
+clean: image
+	docker run --rm -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll clean
+
 # Serve the site as it will appear when published.
-serve: image
+serve: image clean
 	docker run --rm -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll serve --watch --safe --incremental --livereload
 
 # Serve the site but also publish drafts.
-drafts: image
+drafts: image clean
 	docker run --rm -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll serve --drafts --future --watch --safe --incremental --livereload
 
 # Interactive session within the image so you can poke around.
