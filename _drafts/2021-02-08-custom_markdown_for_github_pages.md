@@ -67,9 +67,6 @@ place it in `_layouts/substitute.html`:
 
 {% raw %}
 ```liquid
----
-
----
 {% comment %}
 <!-- This is the code block to define custom syntax -->
 {% endcomment %}
@@ -110,8 +107,8 @@ in `substitute.html`. Below are some examples.
 
 ### Defining Custom Markup
 
-We can do is define custom markup. Markdown has no syntax for
-<u>Underline</u>, but we can define some like this:
+We can now create custom markup. Markdown has no syntax for <u>Underline</u>,
+but we can define some like this:
 
 {% raw %}
 ```liquid
@@ -122,8 +119,10 @@ We can do is define custom markup. Markdown has no syntax for
 ```
 {% endraw %}
 
-Now `-!Underline!-` compiles to `<u>Underline</u>`. We can define anything
-we'd like in the substitution, for example a full `<span>`:
+Now `-!Underline!-` compiles to `<u>Underline</u>`. 
+
+But we can go further: we can define anything we'd like in the substitution,
+for example a `<span>`:
 
 {% raw %}
 ```liquid
@@ -138,10 +137,15 @@ Which can be fully customized with CSS.
 
 This method has two limitations:
 
-- We have to use characters that the Markdown parser won't interpreted, so `_`
-  and `*` won't work.
+- We have to use characters that the Markdown parser won't
+  interpreted.[^reserved]
 - We need to define unique opening and closing syntax to match the opening and
   closing HTML elements.
+
+[^reserved]:
+    This means you can't use `_`, `*`, `` ` ``, and `~~`. Some syntax
+    characters like `#`, `>`, and `-` are OK as long as they aren't used at
+    the start of a line.
 
 We can avoid these constraints by overriding standard Markdown syntax.
 
@@ -161,7 +165,8 @@ denote text that has been removed. We can override it to insert
 {% endraw %}
 
 Notice that I didn't replace `~~`, I replaced `<del>`. This is because the
-template Liquid substitutes _after_ the Markdown is compiled to HTML.
+template Liquid substitutes _after_ the Markdown is compiled to HTML, and so
+`~~` has already been removed from the page.
 
 ### Replacement
 
@@ -186,3 +191,5 @@ use this to build awesome web pages and if you do let me know on Twitter: [@{{
 site.author.twitter }}][twitter]
 
 [twitter]: https://twitter.com/{{ site.author.twitter }}
+
+---
