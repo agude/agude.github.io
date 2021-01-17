@@ -120,10 +120,14 @@ input[type="checkbox"]:checked.task-list-item-checkbox {
 }
 
 // Details with markdown="1"
-summary p {
-  display: inline;
+summary>p {
+  display: inline;  // Gives same spacing as normal paragraphs
 }
 
-summary {
+summary::marker {
+  color: $link-color;
+}
+
+details>summary {
   margin-bottom: 1rem;
 }
