@@ -15,9 +15,9 @@ categories:
 
 {% capture file_dir %}/files/jekyll/{% endcapture %}
 
-[Markdown] is a great way to write; simple enough to be read as text, with all
-the power of HTML. I have been using it for my own notes for a decade and this
-site is written in Markdown using [Jekyll].
+[Markdown] is a great way to write; simple enough to be read as text, but with
+the ability to fall back to full HTML if required. I have been using it for my
+own notes for a decade and this site is written in Markdown using [Jekyll].
 
 Markdown provides a lot of syntax to simplify HTML, like `**BOLD**` to create
 `<strong>BOLD</strong>` text, or `> Quote` to create
@@ -46,15 +46,24 @@ Jekyll, it works natively on [Github Pages]! Here is how it works:
 
 ## Layouts
 
-The [order of interpretation][ooi] for Jekyll runs Liquid _before_ compiling
-Markdown to HTML, which means you can't modify the HTML with Liquid. But
-pushing content to a layout happens _after_ the HTML is compiled, and layouts
-can contain their own Liquid code. This allows us to run Liquid on the full
-HTML of the page!
+The [order of interpretation][ooi] for to build a page in Jekyll is:
 
 [ooi]: https://jekyllrb.com/tutorials/orderofinterpretation/
 
-We start with a very simple layout placed in `_layouts/substitute.html`:
+1. Substitute site and page variables.
+2. Run Liquid functions.
+3. Compile Markdown to HTML.
+4. Push compiled HTML into its layout template, if there is one.
+5. Write to file.
+
+The problem is that Liquid runs before compiling, so we can't use Liquid
+code embedded on a page to modify the final HTML. But there is a workaround:
+the fully compiled HTML is pushed to a layout (if one is specified) and that
+layout restarts the page build order! This means we can modify a page's HTML using Liquid written in the page's
+layout template!
+
+To define our custom syntax then, we just need to write a simple layout and
+place it in `_layouts/substitute.html`:
 
 {% raw %}
 ```liquid
@@ -73,7 +82,10 @@ We start with a very simple layout placed in `_layouts/substitute.html`:
 ```
 {% endraw %}
 
-Then we change our primary layout (probably `_layouts/default.html`) to
+Here `content` is the special variable that contains the compiled HTML from
+the page that is using the template.
+
+We then change our primary layout (probably `_layouts/default.html`) to
 inherit from `substitute`:
 
 {% raw %}
