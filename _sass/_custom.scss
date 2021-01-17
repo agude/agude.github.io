@@ -128,6 +128,17 @@ summary::marker {
   color: $link-color;
 }
 
+summary::-webkit-details-marker {
+  color: $link-color;
+}
+
 details>summary {
   margin-bottom: 1rem;
+}
+
+span.detail-button {
+  color: $link-color;
+  font-size: 0.8em;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
 }
