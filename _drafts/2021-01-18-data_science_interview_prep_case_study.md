@@ -23,12 +23,12 @@ challenging for new data scientists because the interview is open-ended and
 new data scientists often lack practical experience building and shipping
 product-quality models.
 
-I have a lot of practice with these types of interviews as a result of my time at
-[Insight][should_i_go], my many experiences [interviewing for
-jobs][interviewing], and my role in designing and implementing Intuit's data science
-interview. Similar to my last article where I [put together an example data
-manipulation interview practice problem][last_post], this time I will walk
-through a practice case study and how I would work through it.
+I have a lot of practice with these types of interviews as a result of my time
+at [Insight][should_i_go], my many experiences [interviewing for
+jobs][interviewing], and my role in designing and implementing Intuit's data
+science interview. Similar to my last article where I [put together an example
+data manipulation interview practice problem][last_post], this time I will
+walk through a practice case study and how I would work through it.
 
 [should_i_go]: {% post_url 2018-08-21-should_i_go_to_insight %}
 [interviewing]: {% post_url 2020-09-21-interviewing_for_data_science_positions_in_2020 %}
@@ -37,40 +37,45 @@ through a practice case study and how I would work through it.
 ## My Approach
 
 Case study interviews are just conversations. This can make them tougher than
-they need to be because they lack the obvious structure of a coding interview
-or [data manipulation interview][last_post]. I find it's helpful to impose
-some structure on the conversation by approaching it in this order:
+they need to be for junior data scientists because they lack the obvious
+structure of a coding interview or [data manipulation interview][last_post]. I
+find it's helpful to impose my own structure on the conversation by
+approaching it in this order:
 
 1. **Problem**: Dive in with the interviewer and explore what the problem is.
    Look for edge cases or simple and high-impact parts of the problem that you
    might be able to close out quickly.
-2. **Metrics**: Once you have determined the scope and parameters of the problem you're trying to solve, figure
-   out how you will measure success. Focus on what is important to the
-   business and not just what is easy to measure.
+2. **Metrics**: Once you have determined the scope and parameters of the
+   problem you're trying to solve, figure out how you will measure success.
+   Focus on what is important to the business and not just what is easy to
+   measure.
 3. **Data**: Figure out what data is available to solve the problem. The
    interviewer might give you a couple of examples, but ask about additional
    information sources. If you know of some public data that might be useful,
    bring it up here too.
 4. **Labels and Features**: Using the data sources you discussed, what
    features would you build? If you are attacking a supervised classification
-   problem, how would you generate labels? How would you see if they were useful?
+   problem, how would you generate labels? How would you see if they were
+   useful?
 5. **Model**: Now that you have a metric, data, features, and labels, what
    model is a good fit? Why? How would you train it? What do you need to watch
    out for?
 6. **Validation**: How would you make sure your model works offline? What data
-   would you hold out? What metrics would you measure?
+   would you hold out to test your model works as expected? What metrics would
+   you measure?
 7. **Deployment and Monitoring**: Having developed a model you are comfortable
-   with, how would you deploy it? Does it need to be real-time or is it sufficient to batch inputs and periodically run the model? How would you check performance in production? How would
-   you monitor for drift?
-
-I will cover each of these in more detail below.
+   with, how would you deploy it? Does it need to be real-time or is it
+   sufficient to batch inputs and periodically run the model? How would you
+   check performance in production? How would you monitor for model drift
+   where its performance changes over time?
 
 ## Case Study
 
 Here is the prompt:
 
 > At Twitter, bad actors occasionally use automated accounts, known as "bots",
-> to abuse our platform. How would you build a system to help detect bot accounts?
+> to abuse our platform. How would you build a system to help detect bot
+> accounts?
 
 ### Problem
 
@@ -79,18 +84,19 @@ problem, which is often open ended. My goal with this part of the interview is
 to:
 
 - Understand the problem and all the edges cases.
-- Come to an agreement with the interviewer on the scope--narrower is better!--of the problem to solve.
+- Come to an agreement with the interviewer on the scope---narrower is
+  better!---of the problem to solve.
 - Demonstrate any knowledge I have on the subject, especially from researching
   the company previously.
 
-Our Twitter bot prompt has a lot of angles from which we could attack. I know Twitter has
-dozens of types of bots, ranging from my [harmless Raspberry Pi bots][rpi_bot], to
-["Russian Bots" trying to influence elections][russia_bot], to [bots spreading
-spam][spam_bot]. I would pick one problem to focus on using my best guess as
-to business impact. In this case spam bots are likely a problem that causes
-measurable harm (drives users away, drives advertisers away). Russian bots are
-probably a bigger issue in terms of public perception, but that's much harder
-to measure.
+Our Twitter bot prompt has a lot of angles from which we could attack. I know
+Twitter has dozens of types of bots, ranging from my [harmless Raspberry Pi
+bots][rpi_bot], to ["Russian Bots" trying to influence elections][russia_bot],
+to [bots spreading spam][spam_bot]. I would pick one problem to focus on using
+my best guess as to business impact. In this case spam bots are likely a
+problem that causes measurable harm (drives users away, drives advertisers
+away). Russian bots are probably a bigger issue in terms of public perception,
+but that's much harder to measure.
 
 [rpi_bot]: {% post_url  2017-11-13-raspberry_pi_reboot_times %}
 [russia_bot]: https://en.wikipedia.org/wiki/Russian_web_brigades 
@@ -111,10 +117,10 @@ can't measure how it's affecting the business.
 Metrics and model use go hand-in-hand, so first we have to agree on what the
 model will be used for. For spam we could use the model to just mark suspected
 accounts for human review and tracking, or we could outright block accounts
-based on the model result. If we pick the human review option, it's probably more
-important to get all the bots even if some good customers are affected. If we
-go with immediate action, it is likely more important to only ban truly bad
-accounts. I covered thinking about metrics like this in detail in another
+based on the model result. If we pick the human review option, it's probably
+more important to get all the bots even if some good customers are affected.
+If we go with immediate action, it is likely more important to only ban truly
+bad accounts. I covered thinking about metrics like this in detail in another
 post, [_What Machine Learning Metric to Use_][metrics_post]. Take a look!
 
 [metrics_post]: {% post_url 2019-10-28-machine_learning_metrics_interview %}
@@ -129,12 +135,12 @@ we want to be really sure we're only banning bad accounts.
 
 Our online metrics are more business focused:
 
-- **Ops time saved**: Ops is currently spending some amount of time reviewing spam; how
-much can we cut that down?
+- **Ops time saved**: Ops is currently spending some amount of time reviewing
+  spam; how much can we cut that down?
 - **Spam fraction**: What percent of Tweets are spam? Can we reduce this?
 
-It is often useful to normalize metrics, like the spam fraction metric,
-so they don't go up or down just because we have more customers!
+It is often useful to normalize metrics, like the spam fraction metric, so
+they don't go up or down just because we have more customers!
 
 ### Data
 
@@ -155,8 +161,8 @@ that information. Here are what I think they contain:
 - **Ops database**: Account, restriction, human reasoning.
 
 And a lot more. From these we can find out a lot about an account and the
-Tweets they send, who they send to, who those people react to, and possibly how
-login events tie different accounts together.
+Tweets they send, who they send to, who those people react to, and possibly
+how login events tie different accounts together.
 
 ### Labels and Features
 
@@ -228,8 +234,8 @@ offs.
 
 ### Validation
 
-Validation is not too difficult at this point. We focus on the offline metric we
-decided on above: precision. We don't have to worry much about leaking data
+Validation is not too difficult at this point. We focus on the offline metric
+we decided on above: precision. We don't have to worry much about leaking data
 between our holdout sets if we split at the account level, although if we
 include bots from the same [botnet][botnet] into our different sets there will
 be a little data leakage. I would start with a simple validation/training/test
@@ -242,15 +248,17 @@ split with fixed fractions of the dataset.
 Since we want to classify an entire account and not a specific tweet, we don't
 need to run the model in real-time when Tweets are posted. Instead we can run
 batches and can decide on the time between runs by looking at something like
-the characteristic time a spam bot takes to send out Tweets. We can add
-rate limiting to Tweet sending as well to slow the spam bots and give us more
-time to decide without impacting normal users.
+the characteristic time a spam bot takes to send out Tweets. We can add rate
+limiting to Tweet sending as well to slow the spam bots and give us more time
+to decide without impacting normal users.
 
 For deployment, I would start in **shadow mode**, which I [discussed in detail
 in another post][shadow_mode]. This would allow us to see how the model
 performs on real data without the risk of blocking good accounts. I would
 track its performance using our online metrics: spam fraction and ops time
-saved. I would compute these metrics twice, once using the assumption that the model blocks flagged accounts, and once assuming that it does not block flagged accounts, and then compare the two outcomes. If the comparison is
+saved. I would compute these metrics twice, once using the assumption that the
+model blocks flagged accounts, and once assuming that it does not block
+flagged accounts, and then compare the two outcomes. If the comparison is
 favorable, the model should be promoted to action mode.
 
 [shadow_mode]: {% post_url 2020-06-30-machine_learning_deployment_shadow_mode %}
@@ -263,5 +271,4 @@ improvements!
 
 [twitter]: https://twitter.com/{{ site.author.twitter }}
 
----
-{% comment %}<hr> above footnotes.{% endcomment %}
+---{% comment %}<hr> above footnotes.{% endcomment %}
