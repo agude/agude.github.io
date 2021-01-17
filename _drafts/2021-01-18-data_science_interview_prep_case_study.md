@@ -21,12 +21,12 @@ the machine learning case study. In it, the interviewer will ask a question
 about how the candidate would build a certain model. These questions can be
 challenging for new data scientists because the interview is open-ended and
 new data scientists often lack practical experience building and shipping
-models at a company.
+product-quality models.
 
-I have a lot of practice with these types of interviews, both from my time at
-[Insight][should_i_go], from my many experiences [interviewing for
-jobs][interviewing], and from designing and implementing Intuit's data science
-interview. Like my last article where I [put together an example data
+I have a lot of practice with these types of interviews as a result of my time at
+[Insight][should_i_go], my many experiences [interviewing for
+jobs][interviewing], and my role in designing and implementing Intuit's data science
+interview. Similar to my last article where I [put together an example data
 manipulation interview practice problem][last_post], this time I will walk
 through a practice case study and how I would work through it.
 
@@ -39,12 +39,12 @@ through a practice case study and how I would work through it.
 Case study interviews are just conversations. This can make them tougher than
 they need to be because they lack the obvious structure of a coding interview
 or [data manipulation interview][last_post]. I find it's helpful to impose
-some structure on the conversation by approaching the problem in this order:
+some structure on the conversation by approaching it in this order:
 
 1. **Problem**: Dive in with the interviewer and explore what the problem is.
    Look for edge cases or simple and high-impact parts of the problem that you
    might be able to close out quickly.
-2. **Metrics**: Once you have decided what exactly you're solving for, figure
+2. **Metrics**: Once you have determined the scope and parameters of the problem you're trying to solve, figure
    out how you will measure success. Focus on what is important to the
    business and not just what is easy to measure.
 3. **Data**: Figure out what data is available to solve the problem. The
@@ -57,11 +57,10 @@ some structure on the conversation by approaching the problem in this order:
 5. **Model**: Now that you have a metric, data, features, and labels, what
    model is a good fit? Why? How would you train it? What do you need to watch
    out for?
-6. **Validation**: How would you make sure you model works offline? What data
+6. **Validation**: How would you make sure your model works offline? What data
    would you hold out? What metrics would you measure?
 7. **Deployment and Monitoring**: Having developed a model you are comfortable
-   with, how would you deploy it? Does it need to be real-time or can you get
-   away with batch? How would you check performance in production? How would
+   with, how would you deploy it? Does it need to be real-time or is it sufficient to batch inputs and periodically run the model? How would you check performance in production? How would
    you monitor for drift?
 
 I will cover each of these in more detail below.
@@ -71,7 +70,7 @@ I will cover each of these in more detail below.
 Here is the prompt:
 
 > At Twitter, bad actors occasionally use automated accounts, known as "bots",
-> to abuse our platform. How would build a system to help detect bot accounts?
+> to abuse our platform. How would you build a system to help detect bot accounts?
 
 ### Problem
 
@@ -80,12 +79,12 @@ problem, which is often open ended. My goal with this part of the interview is
 to:
 
 - Understand the problem and all the edges cases.
-- Agree on the scope of the problem to solve, the tighter the better.
+- Come to an agreement with the interviewer on the scope--narrower is better!--of the problem to solve.
 - Demonstrate any knowledge I have on the subject, especially from researching
   the company previously.
 
-Our Twitter bot prompt has a lot of things we could attack. I know Twitter has
-dozens of types of bots from my [harmless Raspberry Pi bots][rpi_bot], to
+Our Twitter bot prompt has a lot of angles from which we could attack. I know Twitter has
+dozens of types of bots, ranging from my [harmless Raspberry Pi bots][rpi_bot], to
 ["Russian Bots" trying to influence elections][russia_bot], to [bots spreading
 spam][spam_bot]. I would pick one problem to focus on using my best guess as
 to business impact. In this case spam bots are likely a problem that causes
@@ -130,11 +129,11 @@ we want to be really sure we're only banning bad accounts.
 
 Our online metrics are more business focused:
 
-- **Ops time saved**: Ops is spending some amount of time review spam now; how
+- **Ops time saved**: Ops is currently spending some amount of time reviewing spam; how
 much can we cut that down?
-- **Spam fraction**: What percent of Tweets are spam now? Can we reduce this?
+- **Spam fraction**: What percent of Tweets are spam? Can we reduce this?
 
-It is often useful, as with the spam fraction metric, to normalize our metrics
+It is often useful to normalize metrics, like the spam fraction metric,
 so they don't go up or down just because we have more customers!
 
 ### Data
@@ -156,7 +155,7 @@ that information. Here are what I think they contain:
 - **Ops database**: Account, restriction, human reasoning.
 
 And a lot more. From these we can find out a lot about an account and the
-Tweets they send, who they send to, who those people react, and possibly how
+Tweets they send, who they send to, who those people react to, and possibly how
 login events tie different accounts together.
 
 ### Labels and Features
@@ -168,7 +167,7 @@ behavior of the accounts.
 
 ### Labels
 
-Since there is an ops team handling spam, I have historic examples of bad
+Since there is an ops team handling spam, I have historical examples of bad
 behavior which I can use as positive labels.[^positive_labels] If there aren't
 enough I can use tricks to try to expand my labels, for example looking at IP
 address or devices that are associated with spammers and labeling other
@@ -206,7 +205,7 @@ example:
 
 ### Model Selection
 
-I try to start at the simplest model that will work when starting a new
+I try to start with the simplest model that will work when starting a new
 project. Since this is a supervised classification problem and I have written
 some simple features, logistic regression or a forest are good candidates. I
 would likely go with a forest because they tend to "just work" and are a
@@ -229,7 +228,7 @@ offs.
 
 ### Validation
 
-Validation is not too hard at this point. We focus on the offline metric we
+Validation is not too difficult at this point. We focus on the offline metric we
 decided on above: precision. We don't have to worry much about leaking data
 between our holdout sets if we split at the account level, although if we
 include bots from the same [botnet][botnet] into our different sets there will
@@ -250,9 +249,8 @@ time to decide without impacting normal users.
 For deployment, I would start in **shadow mode**, which I [discussed in detail
 in another post][shadow_mode]. This would allow us to see how the model
 performs on real data without the risk of blocking good accounts. I would
-track it's performance using our online metrics: spam fraction and ops time
-saved. I can compute these metrics both assuming the model does and does not
-block the flagged accounts and then compare them. If the comparison is
+track its performance using our online metrics: spam fraction and ops time
+saved. I would compute these metrics twice, once using the assumption that the model blocks flagged accounts, and once assuming that it does not block flagged accounts, and then compare the two outcomes. If the comparison is
 favorable, the model should be promoted to action mode.
 
 [shadow_mode]: {% post_url 2020-06-30-machine_learning_deployment_shadow_mode %}
