@@ -72,3 +72,7 @@ _backup
 
 # Ruby Gems
 .vendor
+
+# SQLite databases
+*.sqlite
+*.sqlite3
