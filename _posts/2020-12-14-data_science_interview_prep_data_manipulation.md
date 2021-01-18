@@ -120,10 +120,20 @@ We could hard-code the number, but I prefer calculating it as part of the
 query. There isn't a super elegant way to do it in SQLite, but a sub-query
 works fine. We also have to cast to a float to avoid integer division.
 
+There are a lot of `NULL` values for age and sex. I assume they are
+uncorrelated to age and sex which allows me to remove them. If we were worried
+about this assumption, we could leave them in and treat the answer as a lower
+bound.
+
 ```sql
 SELECT 
     COUNT(DISTINCT case_id) 
-    / (SELECT CAST(COUNT(DISTINCT case_id) AS FLOAT) FROM parties)
+    / (
+        SELECT CAST(COUNT(DISTINCT case_id) AS FLOAT) 
+        FROM parties 
+        WHERE party_age IS NOT NULL
+        AND party_sex IS NOT NULL
+        )
     AS percentage
 FROM parties
 WHERE party_sex = 'male'
@@ -136,7 +146,7 @@ The result is:
 
 |   percentage |
 |-------------:|
-|        0.242 |
+|        0.258 |
 
 </div>
 
@@ -225,31 +235,26 @@ means we need the parties table. We also care about when the crash happened,
 which means we need the collisions table. So we need to join these two tables
 together.
 
-In an interview setting, I would write two simpler queries: one
-that gets the highest weekend fraction and one that gets the highest weekday
-fraction with a lot of copy and pasted code. This is a lot easier to work out.
-Here is an example of one of those queries:
+In an interview setting, I would write two simpler queries: one that gets the
+highest weekend fraction and one that gets the highest weekday fraction with a
+lot of copy and pasted code. This is a lot easier to work out. Here is an
+example of one of those queries:
 
 ```sql
-SELECT 
-  make,
-  weekday_count / CAST(total AS FLOAT) AS weekday_ratio
-FROM (    
-  SELECT
-    p.vehicle_make AS make,
-    SUM(
-      CASE WHEN STRFTIME('%w', c.collision_date) IN ('0', '6') THEN 1 ELSE 0 END
-    ) AS weekend_count,
-    SUM(
-      CASE WHEN STRFTIME('%w', c.collision_date) IN ('0', '6') THEN 0 ELSE 1 END
-    ) AS weekday_count,
-    count(1) AS total
-  FROM collisions AS c
-  LEFT JOIN parties AS p
-    ON c.case_id = p.case_id
-  GROUP BY make
-  HAVING total >= 10000
-)
+SELECT
+  p.vehicle_make AS make,
+  AVG(
+    CASE WHEN STRFTIME('%w', c.collision_date) IN ('0', '6') THEN 1 ELSE 0 END
+  ) AS weekend_ratio,
+  AVG(
+    CASE WHEN STRFTIME('%w', c.collision_date) IN ('0', '6') THEN 0 ELSE 1 END
+  ) AS weekday_ratio,
+  count(1) AS total
+FROM collisions AS c
+LEFT JOIN parties AS p
+  ON c.case_id = p.case_id
+GROUP BY make
+HAVING total >= 10000
 ORDER BY weekday_ratio DESC
 LIMIT 1
 ```
@@ -276,12 +281,12 @@ it. I'd love to hear how you got it to work!
 WITH counter AS (
   SELECT
     p.vehicle_make AS make, 
-    SUM(
+    AVG(
       CASE WHEN STRFTIME('%w', c.collision_date) IN ('0', '6') THEN 1 ELSE 0 END
-    ) AS weekend_count,
-    SUM(
+    ) AS weekend_fraction,
+    AVG(
       CASE WHEN STRFTIME('%w', c.collision_date) IN ('0', '6') THEN 0 ELSE 1 END
-    ) AS weekday_count,
+    ) AS weekday_fraction,
     count(1) AS total
   FROM collisions AS c
   LEFT JOIN parties AS p
@@ -292,9 +297,7 @@ WITH counter AS (
 
 SELECT * FROM (
   SELECT 
-    *,
-    weekend_count / CAST(total AS FLOAT) AS weekend_fraction,
-    weekday_count / CAST(total AS FLOAT) AS weekday_fraction
+    *
   FROM counter
   ORDER BY weekend_fraction DESC
   LIMIT 1
@@ -304,9 +307,7 @@ UNION
 
 SELECT * FROM (
   SELECT 
-    *,
-    weekend_count / CAST(total AS FLOAT) AS weekend_fraction,
-    weekday_count / CAST(total AS FLOAT) AS weekday_fraction
+    *
   FROM counter
   ORDER BY weekday_fraction DESC
   LIMIT 1
@@ -315,10 +316,10 @@ SELECT * FROM (
 
 Which yields:
 
-| make            |   weekend_count |   weekday_count |   total |   weekend_fraction |   weekday_fraction |
-|:----------------|----------------:|----------------:|--------:|-------------------:|-------------------:|
-| HARLEY-DAVIDSON |          19,125 |          30,477 |  49,602 |             0.385  |             0.614  |
-| PETERBILT       |            6477 |          64,102 |  70,579 |             0.092  |             0.908  |
+| make            |   weekend_fraction |   weekday_fraction |   total |
+|:----------------|-------------------:|-------------------:|--------:|
+| HARLEY-DAVIDSON |             0.385  |             0.614  |  49,602 |
+| PETERBILT       |             0.092  |             0.908  |  70,579 |
 
 These results makes sense, Peterbilt is a commercial truck manufacturer which
 you expect to be driven for work. Harley-Davidson makes iconic motorcycles
@@ -420,4 +421,9 @@ Github][python_rendered])
 {% capture python_notebook_uri %}{{ "Interview Prep Python Solutions.ipynb" | uri_escape }}{% endcapture %}
 [python_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ python_notebook_uri }}
 
+A special thanks to [**Quynh M. Nguyen**][quynhneo] who came up with some simplifications for my queries!
+
+[quynhneo]: https://github.com/quynhneo
+
 Let me know if you find any more elegant solutions!
+
