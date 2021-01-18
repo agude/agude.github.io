@@ -413,12 +413,12 @@ Github][sql_rendered])
 - The [Python/Pandas solution notebook][pandas_answers] ([Rendered on
 Github][python_rendered])
 
-[sql_answers]: {{ file_dir }}/Interview Prep SQL Solutions.ipynb
 {% capture sql_notebook_uri %}{{ "Interview Prep SQL Solutions.ipynb" | uri_escape }}{% endcapture %}
+[sql_answers]: {{ file_dir }}/{{ sql_notebook_uri }}
 [sql_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ sql_notebook_uri }}
 
-[pandas_answers]: {{ file_dir }}/Interview Prep Python Solutions.ipynb
 {% capture python_notebook_uri %}{{ "Interview Prep Python Solutions.ipynb" | uri_escape }}{% endcapture %}
+[pandas_answers]: {{ file_dir }}/{{ python_notebook_uri }}
 [python_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ python_notebook_uri }}
 
 A special thanks to [**Quynh M. Nguyen**][quynhneo] who came up with some simplifications for my queries!
