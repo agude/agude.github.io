@@ -62,12 +62,12 @@ dataset. I have included a notebook to get you started in [**SQL**][sql_start]
 found at the very end and I have included answers in this post, click the
 arrow to show them.
 
-[sql_start]: {{ file_dir }}/Interview Prep SQL.ipynb
 {% capture sql_start_notebook_uri %}{{ "Interview Prep SQL.ipynb" | uri_escape }}{% endcapture %}
+[sql_start]: {{ file_dir }}/{{ sql_start_notebook_uri }}
 [sql_start_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ sql_start_notebook_uri }}
 
-[python_start]: {{ file_dir }}/Interview Prep Python.ipynb
 {% capture python_start_notebook_uri %}{{ "Interview Prep Python.ipynb" | uri_escape }}{% endcapture %}
+[python_start]: {{ file_dir }}/{{ python_start_notebook_uri }}
 [python_start_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ python_start_notebook_uri }}
 
 Good luck, and if you have any questions or suggestions please reach out to me
