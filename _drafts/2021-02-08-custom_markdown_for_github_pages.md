@@ -33,7 +33,7 @@ doing so felt clunky when compared to how smooth writing Markdown normally is.
 I created a way to define my own syntax based on [Anatol Broder's][ab]
 [Compress] and [Sylvain Durand's][sd] post on [_Improving typography on
 Jekyll_][it]. It uses [Liquid] to rewrite the web page **after** it has been
-compiled, allowing complete control on formatting and allowing you to define
+compiled, giving you complete control of formatting and allowing you to define
 custom Markdown syntax. Since it uses only the default tools built in to
 Jekyll, it works natively on [Github Pages]! Here is how it works:
 
@@ -46,21 +46,21 @@ Jekyll, it works natively on [Github Pages]! Here is how it works:
 
 ## Layouts
 
-The [order of interpretation][ooi] for to build a page in Jekyll is:
+The [order of interpretation][ooi] to build a page in Jekyll is:
 
 [ooi]: https://jekyllrb.com/tutorials/orderofinterpretation/
 
 1. Substitute site and page variables.
 2. Run Liquid functions.
 3. Compile Markdown to HTML.
-4. Push compiled HTML into its layout template, if there is one.
+4. Push the compiled HTML into its layout template, if there is one.
 5. Write to file.
 
-The problem is that Liquid runs before compiling, so we can't use Liquid
-code embedded on a page to modify the final HTML. But there is a workaround:
-the fully compiled HTML is pushed to a layout (if one is specified) and that
-layout restarts the page build order! This means we can modify a page's HTML using Liquid written in the page's
-layout template!
+The problem is that Liquid runs before compiling, so we can't use Liquid code
+embedded on a page to modify the final HTML. But there is a workaround: the
+fully compiled HTML is pushed to a layout (if one is specified) and that
+layout restarts the page build order! This means we can modify a page's HTML
+using Liquid written in the page's layout template!
 
 To define our custom syntax then, we just need to write a simple layout and
 place it in `_layouts/substitute.html`:
@@ -107,8 +107,7 @@ in `substitute.html`. Below are some examples.
 
 ### Defining Custom Markup
 
-We can now create custom markup. Markdown has no syntax for <u>Underline</u>,
-but we can define some like this:
+Markdown has no syntax for <u>Underline</u>, but we can define some like this:
 
 {% raw %}
 ```liquid
@@ -138,8 +137,8 @@ Which can be fully customized with CSS.
 This method has two limitations:
 
 - We have to use characters that the Markdown parser won't
-  interpreted.[^reserved]
-- We need to define unique opening and closing syntax to match the opening and
+  interpret.[^reserved]
+- We must define unique opening and closing syntax to match the opening and
   closing HTML elements.
 
 [^reserved]:
@@ -153,7 +152,7 @@ We can avoid these constraints by overriding standard Markdown syntax.
 
 I never use `~~Strike~~` in my writing, which inserts `<del>Strike</del>` to
 denote text that has been removed. We can override it to insert
-<u>Underline</u> instead as follows:
+`<u>Underline</u>` instead as follows:
 
 {% raw %}
 ```liquid
