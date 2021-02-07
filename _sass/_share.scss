@@ -1,0 +1,33 @@
+.sharing {
+  float: right;
+  // Flexbox configuration
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+}
+
+.social-button {
+  padding: 0.4em;
+  margin: 0.15em;
+  width: 2em;
+  height: 2em;
+  border-radius: 0.3em;
+
+  // Use a flex inside each button to align the SVG
+  display: flex;
+  align-items: center;
+  align-content: center;
+
+  svg {
+    fill: white;
+  }
+
+  background: $share-button-color;
+
+  &:hover {
+    background: $share-hover-color;
+  }
+}

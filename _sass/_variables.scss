@@ -4,12 +4,14 @@ $site-title-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 
 $root-line-height: 1.5;
 
-$body-bg: #ffffff;
-$body-color: #515151;
-$border-color: #e5e5e5;
-$code-color: #bf616a;
-$link-color: #268bd2;
-$sidebar-color: #3465a4;
+$body-bg:            white;
+$body-color:         hsl(  0,  0%, 32%);
+$border-color:       hsl(  0,  0%, 90%);
+$code-color:         hsl(354, 42%, 56%);
+$link-color:         hsl(205, 69%, 49%);
+$sidebar-color:      hsl(214, 52%, 42%);
+$share-button-color: hsl(  0,  0%, 13%);
+$share-hover-color:  hsl(  0,  0%, 53%);
 
 $large-breakpoint: 38em;
 
