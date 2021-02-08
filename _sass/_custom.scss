@@ -104,19 +104,22 @@ input[type="checkbox"].task-list-item-checkbox {
 }
 
 input[type="checkbox"]:checked.task-list-item-checkbox {
-    background: $body-color;
+  background: $body-color;
 }
 
 // Tags on posts
 .post-under-title {
-  margin-top: -0.7rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
   font-size: 1.2rem;
 }
 
-.post-tag {
+a.post-tag {
+  margin-right: 0.8em;
+  margin-bottom: 0.8em;
   font-family: $code-font-family;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 // Details with markdown="1"
