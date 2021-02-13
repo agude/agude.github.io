@@ -11,11 +11,11 @@ clean: image
 
 # Serve the site as it will appear when published.
 serve: image clean
-	docker run --rm -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll serve --watch --safe --incremental --livereload
+	docker run --rm -p 4000:4000 -p 35729:35729 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll serve --watch --safe --incremental --livereload
 
 # Serve the site but also publish drafts.
 drafts: image clean
-	docker run --rm -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll serve --drafts --future --watch --safe --incremental --livereload
+	docker run --rm -p 4000:4000 -p 35729:35729 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll serve --drafts --future --watch --safe --incremental --livereload
 
 # Interactive session within the image so you can poke around.
 debug: image
