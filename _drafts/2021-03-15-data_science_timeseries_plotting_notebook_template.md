@@ -5,7 +5,7 @@ description: >
   Jumpstart your timeseries visualizations with this Jupyter plotting notebook!
 image: /files/jupyter-library/jupiter_in_the_rearview_mirror.jpg
 image_alt: >
-  The planet Jupiter as seen by the Juno spacecraft.
+  The planet Jupiter as seen by the departing Juno spacecraft.
 categories: 
   - data-visualization
   - data-science
@@ -15,29 +15,45 @@ categories:
 
 {% capture file_dir %}/files/jupyter-library/{% endcapture %}
 
+I often have data where each row describes an event that happened at some
+time. Each row might be [a word that my son spoke for the first
+time][sons_language], or [a collision that happened in California][collision],
+or [the finishing place of a rider in the Tour de France][tour]. Common
+questions to ask are:
 
+[sons_language]: {% post_url 2020-02-10-my_sons_language_development_comparison %}
+[collision]: {% post_url 2019-02-20-switrs_bicycle_crashes_by_date %}
+[tour]: {% post_url 2020-10-16-2020_tour_de_france_plot %}
 
-I recently released my [Jupyter Notebook Template Library][library]. Its goal
-is to accelerate your data science projects without having to to spend hours
-poring over old notebooks to find handy code snippets. In this post I dive
-into the plotting notebook to show you what it can do.
+> What does the distribution of these events look like in time? Are there more
+> of Type A events, or Type B?
 
-[library]: https://github.com/agude/Jupyter-Notebook-Template-Library
+Plotting the data as a time series is the way to answer these questions,
+but I never remember how to pivot the table, aggregate the events by type, and
+resample to the right frequency. So I made the [**Time Series Plotting
+Notebook**][plotting_nb] to remember for me.
 
-[nb_post]: {% post_url 2016-10-17-jupyter_not_for_development %}
+[plotting_nb]: TODO
 
-## The Plotting Notebook
+## The Time Series Plotting Notebook
+
+Suppose we were interested in the 
+
+|  ID  |   datetime |  vehicle_make |
+|:-----|-----------:|--------------:|
+| 0    | 2020-01-01 |         Honda |
+| 1    | 2020-02-01 |        Toyota |
+| 2    | 2020-01-01 |         Other |
+| ...  |        ... |           ... |
+
+[switrs_data]: {% post_url 2020-01-30-my_second_sons_words %}
 
 Visualizing your data is a critical step in understanding it, and so it is
 appropriate that the [**first notebook in the library**][plotting_nb] helps
 with making beautiful plots.
 
-[plotting_nb]: https://github.com/agude/Jupyter-Notebook-Template-Library/blob/d6cda39c388154cb8f4073e669efff109c743a99/notebooks/basic-plotting-template.ipynb
 
-The notebook begins with boilerplate code that defines metadata for the
-resulting files and also changes some defaults, such as the figure size and
-resolution, font size, and legend frame. After that there are a few helpful
-functions which I will discuss below.
+The notebook contains two helpful functions for handling this data:
 
 ### Draw Bands
 
