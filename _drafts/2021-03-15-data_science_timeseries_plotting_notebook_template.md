@@ -72,30 +72,36 @@ plot_time_series(
 
 Which would produce this plot:
 
-[![A simple plot of the number of collisions by vehicle make in California][first_plot]][first_plot]
+[![A simple plot of the number of collisions by vehicle make in
+California][first_plot]][first_plot]
 
 [first_plot]: {{ file_dir }}/make_collision_in_time_first_version.svg
 
-But you can also customize the color using `draw_bands(ax, color="orange",
-alpha=0.05)`, which produces:
+The function has as few optional parameters:
 
-[![A plot showing the orange bands.][orange_bands_plot]][orange_bands_plot]
+- `resample_frequency` which controls the timescale over which the data is
+aggregated.
+- `aggfunc` which controls how the data is aggregated.
+- `linewidth` which can be used to make the lines larger if there are only a
+few of them, or thinner if there is lots of data.
 
-[orange_bands_plot]: {{ file_dir }}/orange_bands.svg
+### Simple Legend
 
-These bands are a subtle way of indicating where on the X-axis a point lies,
-which is especially useful when plotting a time series. I use them often. Here
-are some examples:
+I like simple legends. My [basic plotting notebook][first_notebook] has a
+function to remove all the extra information from the legend box leaving only
+the color and the label. This time I have taken it a step further: I wrote a
+function to get rid of the box and label each line.
 
-- [**Discussing my sons' language development**][language_post] to highlight each month.
-- [**Plotting the progression of the cycling hour record**][hour_post] to show each decade.  
-- [**Exploring when cyclists are involved in traffic accidents**][bike_post] to highlight the seasonality.
+[first_notebook]: {% post_url 2020-07-27-data_science_plotting_notebook_template %}#draw-legends
 
-[language_post]: {% post_url 2020-02-10-my_sons_language_development_comparison %}#development
-[hour_post]: {% post_url 2019-07-09-hour_record_plot_improvements %}#improvements
-[bike_post]: {% post_url 2019-02-20-switrs_bicycle_crashes_by_date %}#day-by-day
+The function `draw_left_legend()` will draw labels on the end of each line,
+like so:
 
-### Draw Legends
+[![A simple plot of the number of collisions by vehicle make in California
+with left legend][second_plot]][second_plot]
+
+[second_plot]: {{ file_dir }}/make_collision_in_time_second_version.svg
+
 
 I like minimal, but informative, legends. Color alone is often enough to
 differentiate lines or points, so I wrote a function to change the color of
