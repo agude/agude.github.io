@@ -74,7 +74,7 @@ Which would produce this plot:
 
 [![A simple plot of the number of collisions by vehicle make in California][first_plot]][first_plot]
 
-[first_plot]: {{ file_dir }}/bands.svg
+[first_plot]: {{ file_dir }}/make_collision_in_time_first_version.svg
 
 But you can also customize the color using `draw_bands(ax, color="orange",
 alpha=0.05)`, which produces:
