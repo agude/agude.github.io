@@ -18,12 +18,12 @@ categories:
 I often have data where each row describes an event that happened at some
 time. Each row might be [a word that my son spoke for the first
 time][sons_language], or [a collision that happened in California][collision],
-or [the finishing place of a rider in the Tour de France][tour]. Common
+or [the finishing place of a rider in the Tour de France][2020_tour]. Common
 questions to ask are:
 
 [sons_language]: {% post_url 2020-02-10-my_sons_language_development_comparison %}
 [collision]: {% post_url 2019-02-20-switrs_bicycle_crashes_by_date %}
-[tour]: {% post_url 2020-10-16-2020_tour_de_france_plot %}
+[2020_tour]: {% post_url 2020-10-16-2020_tour_de_france_plot %}
 
 > What does the distribution of these events look like in time? Are there more
 > of Type A events, or Type B?
@@ -87,10 +87,13 @@ few of them, or thinner if there is lots of data.
 
 ### Simple Legend
 
-I like simple legends. My [basic plotting notebook][first_notebook] has a
-function to remove all the extra information from the legend box leaving only
-the color and the label. This time I have taken it a step further: I wrote a
-function to get rid of the box and label each line.
+Simple legends are great; they convey their information most effectively
+because all the superfluous noise has been removed. 
+
+My [basic plotting notebook][first_notebook] has a function to remove all the
+extra information from the legend box leaving only the color and the label.
+This time I have taken it a step further: I wrote a function to get rid of the
+box and label each line.
 
 [first_notebook]: {% post_url 2020-07-27-data_science_plotting_notebook_template %}#draw-legends
 
@@ -102,57 +105,42 @@ with left legend][second_plot]][second_plot]
 
 [second_plot]: {{ file_dir }}/make_collision_in_time_second_version.svg
 
+I've used this legend when [_Plotting the winners of the 2019 Tour de
+France_][2019_tour] as well as the [_2020 Tour de France_][2020_tour].
 
-I like minimal, but informative, legends. Color alone is often enough to
-differentiate lines or points, so I wrote a function to change the color of
-the legend text to match the line, called `draw_colored_legend()`. It produces
-a legend like on this plot:
-
-[![A plot showing my colored legend.][legend_plot]][legend_plot]
-
-[legend_plot]: {{ file_dir }}/legend.svg
-
-This legend style can be seen in these posts:
-
-- [**Plotting my son's language development**][son_post] to label each language.
-- [**Plotting Tour de France Prize Money**][tdf_post] to label the winner's prize compared to the total.
-- [**Comparing Data Science Salaries by Gender**][salary_post] to differentiate the points for men and women.
-
-[son_post]: {% post_url 2020-01-30-my_second_sons_words %}#the-words
-[tdf_post]: {% post_url 2019-11-25-tdf_prize_money_plot_improvements %}#improvements
-[salary_post]: {% post_url 2019-05-09-data_science_salaries_by_gender %}#by-region
+[2019_tour]: {% post_url 2019-08-05-2019_tour_de_france_plot %}
 
 ## Putting It Together
 
-The [plotting notebook][plotting_nb] enables you to make beautiful plots
-quickly and easily. For example, this plot:
+The [time series plotting notebook][plotting_nb] enables you to quickly plot
+your data in time with only a few lines of code. Here is the final version of
+the plot with all the code required:
 
 [![An example plot from the notebook library][example]][example]
 
-[example]: {{ file_dir }}/example_plot.svg
+[example]: {{ file_dir }}/make_collision_in_time.svg
 
 Was produced by this short code snippet:
 
 ```python
-fig, ax = setup_plot(
-    title="Title",
-    xlabel="X-axis",
-    ylabel="Y-axis",
-)
+import seaborne as sns
 
-ax.scatter(np.random.rand(500)-0.65, np.random.rand(500), label="First dataset")
-ax.scatter(np.random.rand(500)-0.35, np.random.rand(500), label="Second dataset")
+fig, ax = setup_plot(title="Collisions by Make")
 
-draw_colored_legend(ax)
+pivot = plot_time_series(df, ax, date_col=DATE_COL, category_col="vehicle_make", resample_frequency="W")
 
-draw_bands(ax)
+# Move labels slightly to avoid overlap
+nudges = {"Toyota": 15, "Honda": -8}
+draw_left_legend(ax, nudges=nudges, fontsize=25)
 
-save_plot(fig, "/tmp/output.svg")
+sns.despine(trim=True)
+
+save_plot(fig, "/tmp/make_collision_in_time.svg")
 ```
 
-If the notebook template library is useful to you, be sure to let me know on
-[Twitter][twit] or [Github][github]. Your feedback helps make the project
-better for everyone!
+I hope the the notebook template library is useful to you! Let me know on
+[Twitter][twit] or [Github][github] if it is. Your feedback helps make the
+project better for everyone!
 
 [twit]: https://twitter.com/alex_gude/
 [github]: https://github.com/agude/Jupyter-Notebook-Template-Library/issues
