@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Jupyter Notebook Templates for Data Science: Plotting Timeseries"
+title: "Jupyter Notebook Templates for Data Science: Plotting Time Series"
 description: >
   Jumpstart your timeseries visualizations with this Jupyter plotting notebook!
 image: /files/jupyter-library/jupiter_in_the_rearview_mirror.jpg
@@ -37,7 +37,10 @@ Notebook**][plotting_nb] to remember for me.
 
 ## The Time Series Plotting Notebook
 
-Suppose we were interested in the 
+Suppose we are interested in the looking at the number of automobile
+collisions by make using my [curated SWITRS dataset][switrs_data]. We could
+extract one row for each collision and the associated vehicle, which would
+look like this:
 
 |  ID  |   datetime |  vehicle_make |
 |:-----|-----------:|--------------:|
@@ -46,25 +49,32 @@ Suppose we were interested in the
 | 2    | 2020-01-01 |         Other |
 | ...  |        ... |           ... |
 
-[switrs_data]: {% post_url 2020-01-30-my_second_sons_words %}
+[switrs_data]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
 
-Visualizing your data is a critical step in understanding it, and so it is
-appropriate that the [**first notebook in the library**][plotting_nb] helps
-with making beautiful plots.
-
-
-The notebook contains two helpful functions for handling this data:
+My [**time series plotting notebook**][plotting_nb] has two helpful functions
+to visualize this data.
 
 ### Draw Bands
 
-One of my favorite functions is `draw_bands()`. It draws a set of alternating colored
-bands on the background of the plot based on the axis tick locations.
+The first function, `plot_time_series()` is simple. It takes a dataframe
+formatted like the above data and returns a plot showing the number of events
+broken out by value in the categorical column. For example, to plot the number
+of accidents per week by vehicle make, we would call:
 
-When called with just the axis, like `draw_bands(ax)`, it produces this:
+```python
+plot_time_series(
+  df, ax,
+  date_col="datetime",
+  category_col="vehicle_make",
+  resample_frequency="W",
+)
+```
 
-[![A plot showing the default grey bands.][bands_plot]][bands_plot]
+Which would produce this plot:
 
-[bands_plot]: {{ file_dir }}/bands.svg
+[![A simple plot of the number of collisions by vehicle make in California][first_plot]][first_plot]
+
+[first_plot]: {{ file_dir }}/bands.svg
 
 But you can also customize the color using `draw_bands(ax, color="orange",
 alpha=0.05)`, which produces:
