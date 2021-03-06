@@ -144,7 +144,7 @@ You can read more about it here:
 %}
 </div>
 
-## Enjoy
+## Conclusion
 
 Enjoy the templates, I hope they make you more productive! And if you are
 feeling generous, I would love [contributions][submit]!
