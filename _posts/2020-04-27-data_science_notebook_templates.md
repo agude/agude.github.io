@@ -98,6 +98,54 @@ You can read more about the plotting notebook in detail here:
 %}
 </div>
 
+### The Time Series Plotting Template
+
+The [**second notebook in the library**][plotting_nb_ts] helps you take a
+dataframe of events and turn it into a time series plot with each item broken
+out into its own line.
+
+[plotting_nb_ts]: https://github.com/agude/Jupyter-Notebook-Template-Library/blob/master/notebooks/basic-time-series-plotting-template.ipynb
+
+You just write:
+
+```python
+import seaborne as sns
+
+fig, ax = setup_plot(title="Collisions by Make")
+
+pivot = plot_time_series(df, ax, date_col=DATE_COL, category_col="vehicle_make", resample_frequency="W")
+
+# Move labels slightly to avoid overlap
+nudges = {"Toyota": 15, "Honda": -8}
+draw_left_legend(ax, nudges=nudges, fontsize=25)
+
+sns.despine(trim=True)
+
+save_plot(fig, "/tmp/output.svg")
+```
+
+To make this plot:
+
+[![An example plot from the time series notebook library][example_ts]][example_ts]
+
+[example_ts]: {{ file_dir }}/make_collision_in_time.svg
+
+You can read more about it here:
+
+<!-- A grid of hand-selected related posts. -->
+<div class="card-grid">
+{% assign plotting_post = site.posts | where:"title", 'Jupyter Notebook Templates for Data Science: Plotting Time Series' | first %}
+{% include article_card.html
+  url=plotting_post.url
+  image=plotting_post.image
+  image_alt=plotting_post.image_alt
+  title=plotting_post.title
+  description=plotting_post.description
+%}
+</div>
+
+## Enjoy
+
 Enjoy the templates, I hope they make you more productive! And if you are
 feeling generous, I would love [contributions][submit]!
 
