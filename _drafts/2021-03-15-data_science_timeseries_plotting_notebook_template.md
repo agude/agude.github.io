@@ -2,7 +2,7 @@
 layout: post
 title: "Jupyter Notebook Templates for Data Science: Plotting Time Series"
 description: >
-  Jumpstart your timeseries visualizations with this Jupyter plotting notebook!
+  Jumpstart your time series visualizations with this Jupyter plotting notebook!
 image: /files/jupyter-library/jupiter_in_the_rearview_mirror.jpg
 image_alt: >
   The planet Jupiter as seen by the departing Juno spacecraft.
