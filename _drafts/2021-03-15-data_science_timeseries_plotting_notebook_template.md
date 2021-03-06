@@ -16,24 +16,24 @@ categories:
 {% capture file_dir %}/files/jupyter-library/{% endcapture %}
 
 I often have data where each row describes an event that happened at some
-time. Each row might be [a word that my son spoke for the first
+time. The data might describe [a word that my son spoke for the first
 time][sons_language], or [a collision that happened in California][collision],
-or [the finishing place of a rider in the Tour de France][2020_tour]. Common
-questions to ask are:
+or [the finishing place of a rider in the Tour de France][2020_tour]. Some
+questions I always want to answer with the data are:
 
-[sons_language]: {% post_url 2020-02-10-my_sons_language_development_comparison %}
-[collision]: {% post_url 2019-02-20-switrs_bicycle_crashes_by_date %}
-[2020_tour]: {% post_url 2020-10-16-2020_tour_de_france_plot %}
+[sons_language]: {% post_url 2020-02-10-my_sons_language_development_comparison %}#development
+[collision]: {% post_url 2019-02-20-switrs_bicycle_crashes_by_date %}#crashes-per-week
+[2020_tour]: {% post_url 2020-10-16-2020_tour_de_france_plot %}#the-race-for-yellow
 
-> What does the distribution of these events look like in time? Are there more
-> of Type A events, or Type B?
+- What does the distribution of these events look like in time? 
+- Are there more of events of Type A or Type B?
 
-Plotting the data as a time series is the way to answer these questions,
+Plotting the data as a time series is the best way to answer these questions,
 but I never remember how to pivot the table, aggregate the events by type, and
 resample to the right frequency. So I made the [**Time Series Plotting
 Notebook**][plotting_nb] to remember for me.
 
-[plotting_nb]: TODO
+[plotting_nb]: https://github.com/agude/Jupyter-Notebook-Template-Library/blob/master/notebooks/basic-time-series-plotting-template.ipynb
 
 ## The Time Series Plotting Notebook
 
@@ -51,22 +51,22 @@ look like this:
 
 [switrs_data]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
 
-My [**time series plotting notebook**][plotting_nb] has two helpful functions
+The [**time series plotting notebook**][plotting_nb] has two helpful functions
 to visualize this data.
 
-### Draw Bands
+### Plot Time Series
 
 The first function, `plot_time_series()` is simple. It takes a dataframe
 formatted like the above data and returns a plot showing the number of events
-broken out by value in the categorical column. For example, to plot the number
-of accidents per week by vehicle make, we would call:
+for each value in the categorical column. For example, to plot the number of
+accidents per week by vehicle make, we would call:
 
 ```python
 plot_time_series(
   df, ax,
   date_col="datetime",
   category_col="vehicle_make",
-  resample_frequency="W",
+  resample_frequency="W",  # Resample to 'W'eeks
 )
 ```
 
@@ -108,19 +108,19 @@ with left legend][second_plot]][second_plot]
 I've used this legend when [_Plotting the winners of the 2019 Tour de
 France_][2019_tour] as well as the [_2020 Tour de France_][2020_tour].
 
-[2019_tour]: {% post_url 2019-08-05-2019_tour_de_france_plot %}
+[2019_tour]: {% post_url 2019-08-05-2019_tour_de_france_plot %}#the-race-for-yellow
 
 ## Putting It Together
 
 The [time series plotting notebook][plotting_nb] enables you to quickly plot
 your data in time with only a few lines of code. Here is the final version of
-the plot with all the code required:
+the plot:
 
 [![An example plot from the notebook library][example]][example]
 
 [example]: {{ file_dir }}/make_collision_in_time.svg
 
-Was produced by this short code snippet:
+Which was produced by this short code snippet:
 
 ```python
 import seaborne as sns
@@ -138,7 +138,7 @@ sns.despine(trim=True)
 save_plot(fig, "/tmp/make_collision_in_time.svg")
 ```
 
-I hope the the notebook template library is useful to you! Let me know on
+I hope the notebook template library is useful to you! Let me know on
 [Twitter][twit] or [Github][github] if it is. Your feedback helps make the
 project better for everyone!
 
