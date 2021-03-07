@@ -15,8 +15,8 @@ categories:
 
 {% capture file_dir %}/files/jupyter-library/{% endcapture %}
 
-I often have data where each row describes an event that happened at some
-time. The data might describe [a word that my son spoke for the first
+I often have data where each row describes an event. 
+The data might describe [a word that my son spoke for the first
 time][sons_language], or [a collision that happened in California][collision],
 or [the finishing place of a rider in the Tour de France][2020_tour]. Some
 questions I always want to answer with the data are:
@@ -37,7 +37,7 @@ Notebook**][plotting_nb] to remember for me.
 
 ## The Time Series Plotting Notebook
 
-Suppose we are interested in the looking at the number of automobile
+Suppose we are looking at the number of automobile
 collisions by make using my [curated SWITRS dataset][switrs_data]. We could
 extract one row for each collision and the associated vehicle, which would
 look like this:
@@ -52,7 +52,7 @@ look like this:
 [switrs_data]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
 
 The [**time series plotting notebook**][plotting_nb] has two helpful functions
-to visualize this data.
+to visualize this data: `plot_time_series()` and `draw_left_legend()`.
 
 ### Plot Time Series
 
@@ -63,7 +63,8 @@ accidents per week by vehicle make, we would call:
 
 ```python
 plot_time_series(
-  df, ax,
+  df, 
+  ax,
   date_col="datetime",
   category_col="vehicle_make",
   resample_frequency="W",  # Resample to 'W'eeks
@@ -77,9 +78,9 @@ California][first_plot]][first_plot]
 
 [first_plot]: {{ file_dir }}/make_collision_in_time_first_version.svg
 
-The function has as few optional parameters:
+The function accepts a few optional parameters:
 
-- `resample_frequency` which controls the timescale over which the data is
+- `resample_frequency`: controls the timescale over which the data is
 aggregated.
 - `aggfunc` which controls how the data is aggregated.
 - `linewidth` which can be used to make the lines larger if there are only a
@@ -87,8 +88,8 @@ few of them, or thinner if there is lots of data.
 
 ### Simple Legend
 
-Simple legends are great; they convey their information most effectively
-because all the superfluous noise has been removed. 
+Simple legends are great. They convey their information effectively
+because the superfluous noise has been removed. 
 
 My [basic plotting notebook][first_notebook] has a function to remove all the
 extra information from the legend box leaving only the color and the label.
