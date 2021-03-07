@@ -15,20 +15,17 @@ categories:
 
 {% capture file_dir %}/files/jupyter-library/{% endcapture %}
 
-I often have data where each row describes an event. 
-The data might describe [a word that my son spoke for the first
-time][sons_language], or [a collision that happened in California][collision],
-or [the finishing place of a rider in the Tour de France][2020_tour]. Some
-questions I always want to answer with the data are:
+I often have data where each row describes an event. The data might describe
+[a word that my son spoke for the first time][sons_language], or [a collision
+that happened in California][collision], or [the finishing place of a rider in
+the Tour de France][2020_tour]. A question I always want to answer with the
+data is: _What does the distribution of these events look like in time?_
 
 [sons_language]: {% post_url 2020-02-10-my_sons_language_development_comparison %}#development
 [collision]: {% post_url 2019-02-20-switrs_bicycle_crashes_by_date %}#crashes-per-week
 [2020_tour]: {% post_url 2020-10-16-2020_tour_de_france_plot %}#the-race-for-yellow
 
-- What does the distribution of these events look like in time? 
-- Are there more of events of Type A or Type B?
-
-Plotting the data as a time series is the best way to answer these questions,
+Plotting the data as a time series is the best way to answer this question,
 but I never remember how to pivot the table, aggregate the events by type, and
 resample to the right frequency. So I made the [**Time Series Plotting
 Notebook**][plotting_nb] to remember for me.
@@ -37,10 +34,9 @@ Notebook**][plotting_nb] to remember for me.
 
 ## The Time Series Plotting Notebook
 
-Suppose we are looking at the number of automobile
-collisions by make using my [curated SWITRS dataset][switrs_data]. We could
-extract one row for each collision and the associated vehicle, which would
-look like this:
+Suppose we are looking at the number of automobile collisions by make using my
+[curated SWITRS dataset][switrs_data]. We could extract one row for each
+collision and the associated vehicle, which would look like this:
 
 |  ID  |   datetime |  vehicle_make |
 |:-----|-----------:|--------------:|
@@ -88,13 +84,12 @@ few of them, or thinner if there is lots of data.
 
 ### Simple Legend
 
-Simple legends are great. They convey their information effectively
-because the superfluous noise has been removed. 
-
-My [basic plotting notebook][first_notebook] has a function to remove all the
-extra information from the legend box leaving only the color and the label.
-This time I have taken it a step further: I wrote a function to get rid of the
-box and label each line.
+Simple legends are great. They convey their information effectively because
+the superfluous noise has been removed. My [basic plotting
+notebook][first_notebook] has a function to remove all the extra information
+from the legend box leaving only the color and the label. This time I have
+taken it a step further: I wrote a function to get rid of the box and label
+each line.
 
 [first_notebook]: {% post_url 2020-07-27-data_science_plotting_notebook_template %}#draw-legends
 
