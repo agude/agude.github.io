@@ -11,11 +11,10 @@ description: >
 
 I'm **Alex Gude**, a data scientist with a passion for plots and algorithms,
 but also cycling and photography. I got my start in the valley at [Insight
-Data Science][insight]. In my previous life, I was a [high energy particle
-physicist][hep] at CERN and a [cosmologist][scp] at Lawrence Berkeley Labs.
+Data Science][insight]. In my previous life, I was a high energy particle
+physicist at CERN and a [cosmologist][scp] at Lawrence Berkeley Labs.
 
 [insight]: https://www.insightdatascience.com
-[hep]: http://www.hep.umn.edu/us-cms
 [scp]: http://supernova.lbl.gov
 
 I write about whatever catches my attention [here on this site][blog]; mostly
