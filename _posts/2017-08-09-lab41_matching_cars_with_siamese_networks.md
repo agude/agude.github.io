@@ -118,7 +118,7 @@ which contains pictures of 776 uniquely identified vehicles. There are
 multiple pictures of each vehicle taken from 20 different traffic cameras in
 China. An example of two VeRi images is show below.
 
-[veri]: ieeexplore.ieee.org/document/7553002/
+[veri]: https://ieeexplore.ieee.org/document/7553002/
 
 {% capture image_2 %} {{ file_dir }}/trucks.jpg {% endcapture %}
 {% include figure.html
