@@ -323,6 +323,7 @@ code {
 pre {
   margin-top: 0;
   margin-bottom: 1rem;
+  overflow: auto;
 }
 
 // Fenced Code Blocks like ```python ...```
@@ -343,21 +344,14 @@ pre code {
 
   pre {
     margin-bottom: 0;
-    overflow-x: auto;
   }
 
-  .lineno {
-    display: inline-block; /* Ensures the null space also isn't selectable */
-    padding-right: 0.75rem;
-    padding-left: 0.25rem;
-    color: #999999;
-    /* Make sure numbers aren't selectable */
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  // Triple backticks (code fencing) doubles the .highlight elements
+  .highlight {
+    padding: 0;
   }
 }
+
 /* Layout
  *
  * Styles for managing the structural hierarchy of the site.
