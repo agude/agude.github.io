@@ -58,3 +58,42 @@ Kaggle does have some significant downsides though. First, users must create
 an account to download the data. Second, Kaggle is a for-profit company that
 is famous for dropping support for their products. I don't trust them to host
 the data long term.
+
+### Pros
+
+- Free for you and me
+- Community
+  - Forums
+  - Challenges
+- Great docs
+- Built in compute
+  - Demo notebook
+- DOI
+- Versioning
+- Activity feed
+
+### Cons
+
+- Google is infamous for [shutting stuff down][killedbygoogle]
+- Account required
+
+[killedbygoogle]: https://killedbygoogle.com/
+
+## Zenodo
+
+### Pros
+
+- Hosted by CERN, which [knows a little something about keeping websites
+up][first_site]
+- Lets you point DOI elsewhere
+- DOI
+- Tracks citations
+- MD5
+- Activity feed
+
+[first_site]: http://info.cern.ch/
+
+### Cons
+
+- No one uses it
+- Upload finicky
