@@ -35,6 +35,12 @@ both is the right thing to do.
 [db_link]: https://www.kaggle.com/alexgude/california-traffic-collision-data-from-switrs
 [zen_link]: https://zenodo.org/record/4284843
 
+## Requirements?
+
+- FREE
+- EASY
+- SOMEWHERE PEOPLE COULD FIND IT
+
 ## Kaggle
 
 Kaggle is a great place to host a dataset. It allows users to download the
@@ -77,23 +83,57 @@ the data long term.
 - Google is infamous for [shutting stuff down][killedbygoogle]
 - Account required
 
-[killedbygoogle]: https://killedbygoogle.com/
 
 ## Zenodo
 
-### Pros
+Zenodo---hosted by CERN---is a much simpler and smaller service than Kaggle.
+It does not a community built up around it. It does not have attached cloud
+compute. They have almost no users.[^usage]
 
-- Hosted by CERN, which [knows a little something about keeping websites
-up][first_site]
-- Lets you point DOI elsewhere
-- DOI
-- Tracks citations
-- MD5
-- Activity feed
+So why use Zenodo? Simple: Google is infamous for [killing
+products][killedbygoogle] while CERN knows a little something about [keeping
+websites online][first_site]. I trust CERN's stewardship of the dataset. I am
+far more confident that you will be able to download it from Zenodo in 10
+years than from Kaggle.
 
+[killedbygoogle]: https://killedbygoogle.com/
 [first_site]: http://info.cern.ch/
 
-### Cons
+Zenodo has great support for academic dataset usage. It allows you to use any
+valid DOI, so I was able to reuse the one from Kaggle, although it will also
+generate one for you if you wish. It will track citations to your dataset and
+provides links to the papers. It will even let you export the citation to
+[BibTex][bibtex] or generate a text citation on the website. Zenodo lets you
+link your identity to your [Open Researcher and Contributor ID][orcid].
 
-- No one uses it
-- Upload finicky
+[bibtex]: https://en.wikipedia.org/wiki/BibTeX
+[orcid]: https://en.wikipedia.org/wiki/ORCID
+
+Unlike Kaggle, Zenodo makes downloading easy. You do not need an account, you
+just go to the page and click the download button. It also shows a [MD5
+hash][md5] of the file so you can verify your download is exactly the same as
+the file on the server.
+
+[md5]: https://en.wikipedia.org/wiki/MD5
+
+Zenodo has a problem in addition to its low usage though: uploading a dataset
+often fails. I originally tried to upload the uncompressed database but that
+failed multiple times. After reaching out to their support (who were very
+responsive and helpful), I compressed the database tried again. The smaller
+file succeed where the larger one had failed.
+
+## Conclusion
+
+I think using both Kaggle and Zenodo is the perfect way to host a public
+dataset. Kaggle has a great community and lets people quickly discover your
+dataset and make use of it. The downside is the uncertain longevity and the
+fact that you need an account to download the dataset. Zenodo perfectly
+complements Kaggle's weakness as its backed by CERN, an organization that
+takes data hosting seriously, and makes it very easy to download the dataset.
+
+---
+
+[^usage]: As of this post, my dataset has been viewed 161 times on Zenodo and
+    downloaded just 47 times. It has been viewed 47,800 times on Kaggle and
+    downloaded 3017 times. In addition, there have been 24 Kaggle notebooks
+    posted that make use of the data.
