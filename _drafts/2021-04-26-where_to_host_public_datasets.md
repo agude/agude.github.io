@@ -4,8 +4,10 @@ title: "Where to Host Public Datasets?"
 description: >
   When I released the SWITRS dataset, I had to find a place to host a 5 Gig
   dataset. Here is what I learned.
-image: /files/switrs-dataset/tram_auto_crash_in_1957_frederiksplein_amsterdam.jpg
+image: /files/switrs-dataset/doe_computer.jpg
 image_alt: >
+  An overhead photo of a Department of Energy supercomputer showing the
+  ethernet interconnects.
 categories: 
   - california-traffic-data 
   - data-science
