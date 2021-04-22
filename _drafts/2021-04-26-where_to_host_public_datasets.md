@@ -15,29 +15,35 @@ categories:
 
 {% capture file_dir %}/files/switrs-dataset{% endcapture %}
 
-I spent a lot of time cleaning up the [California Statewide Integrated Traffic
-Records System (SWITRS)][switrs] dataset for use in my own projects. I even
-wrote a [helpful script][s2s] to do so automatically. I thought that would
-make it easy for others to use the data, but no. They still had to request the
-data, download it, and then run the scripts. Worse, some of the old data was
-no longer available.
+Cleaning a dataset is tough work. I spent weeks figuring out what all the
+columns of the [California Statewide Integrated Traffic Records System
+(SWITRS)][switrs] dataset meant and additional time [writing scripts to parse
+and fix it][s2s]. I wanted other people to be able to make use of the data
+without going through the same hassle, so I released the scripts.
 
 [switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
 [s2s]: {% post_url 2016-11-01-switrs_to_sqlite %}
+
+It wasn't enough. People still had to request the data, download it, and then
+run the scripts. Still too much of a hurdle for most people. And worse,
+California no longer provided some of the oldest data. It was suddenly
+impossible for other people to reproduce my earlier work!
+
 [sqlite]: https://en.wikipedia.org/wiki/SQLite
 
-I decided to [create a clean dataset and host it][hosted_dataset_post] so that
-people could start using it immediately. Unfortunately, the data was pretty
-large, so finding a site to host it was not easy. In the end I choose two
-places: [**Kaggle**][db_link] and [**Zenodo**][zen_link]. In this post I'll
-share the lessons I learned, the benefits of each site, and why I think using
-both is the right thing to do.
+Luckily, I had saved all of the data. So I decided to [host the dataset
+online][hosted_dataset_post] to make it easy to start using right away.
+
+But there was a problem: the dataset was so large that finding a site to host
+it was not easy. In the end I choose two places: [**Kaggle**][db_link] and
+[**Zenodo**][zen_link]. In this post I'll share the lessons I learned, the
+benefits of each site, and why I think using both is the right thing to do.
 
 [hosted_dataset_post]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
 [db_link]: https://www.kaggle.com/alexgude/california-traffic-collision-data-from-switrs
 [zen_link]: https://zenodo.org/record/4284843
 
-## Requirements?
+## My Requirements
 
 - FREE
 - EASY
