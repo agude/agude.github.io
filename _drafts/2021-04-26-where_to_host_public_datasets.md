@@ -25,9 +25,9 @@ without going through the same hassle, so I released the scripts.
 [s2s]: {% post_url 2016-11-01-switrs_to_sqlite %}
 
 It wasn't enough. People still had to request the data, download it, and then
-run the scripts. Still too much of a hurdle for most people. And worse,
-California no longer provided some of the oldest data. It was suddenly
-impossible for other people to reproduce my earlier work!
+run the scripts. Too much of a hurdle for most people. And worse, California
+no longer provided some of the oldest data. It was suddenly impossible for
+other people to reproduce my earlier work!
 
 [sqlite]: https://en.wikipedia.org/wiki/SQLite
 
@@ -64,16 +64,19 @@ I had four requirements:
   it was just going to disappear tomorrow. I wanted the data to be available
   for years and years.
 
-[AWS Open Data][aws] was suggested, but it looked like a lot of work to set up
-and it was unclear exactly how free it was. Further, getting the data wasn't
-easy if you had never worked with S3 before. Ideally I wanted a big button
-that said "Download this data!".
+[AWS Open Data][aws] was one option I considered, but it looked like a lot of
+work to set up and it was unclear exactly how free it was. Further, getting
+the data wasn't easy if you had never worked with S3 before. Ideally, I wanted
+a service that had a big button that said "Download this data!"
 
 [aws]: https://aws.amazon.com/opendata
 
-I also considered self-hosting on my Raspberry Pis, but quickly dismissed it.
-Availability would be terrible, download speeds would be even worse, and it
-would force me to perform a lot of maintenance to keep it running.
+I also considered self-hosting on [my Raspberry Pis][pi], but quickly
+dismissed it. Availability would be terrible, download speeds would be even
+worse, and it would force me to perform a lot of maintenance to keep it
+running.
+
+[pi]: {% post_url 2017-11-13-raspberry_pi_reboot_times %}
 
 In the end I settled on two services:
 
@@ -108,8 +111,8 @@ working with it.
 ## Zenodo
 
 Zenodo---hosted by CERN---is a much simpler and smaller service than Kaggle.
-It does not a community built up around it. It does not have attached cloud
-compute. They have almost no users.[^usage]
+It does not hat a community built up around it. It does not have attached
+cloud compute. They have almost no users.[^usage]
 
 So why use Zenodo? Simple: Google [kills products left and
 right][killedbygoogle] while CERN knows a little something about [keeping
