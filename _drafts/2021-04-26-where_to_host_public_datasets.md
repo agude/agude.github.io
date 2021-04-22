@@ -45,9 +45,37 @@ benefits of each site, and why I think using both is the right thing to do.
 
 ## My Requirements
 
-- FREE
-- EASY
-- SOMEWHERE PEOPLE COULD FIND IT
+I had four requirements:
+
+- **Free**: The service had to be free for me, and free for the end users as
+  well. Requiring someone to pay for access to an open source dataset that I
+  had volunteered to curate is unfair and would certainly drastically reduce
+  the number of people making use of it.
+- **Easy**: It had to be easy for me to set up. I wanted a service where I
+  could get started without having to email someone for permission. I also
+  wanted it to be easy for the end user to get the data so that the largest
+  number of people could make use of it.
+- **Discoverable**: It was important to me that people could easily find the
+  dataset. There are dozens of sites that host large files, but they aren't
+  places where people would go look for data. To help people find it I would
+  have to set up a web page pointing to the download, which wasn't something I
+  wanted to maintain.
+- **Permanent**: Finally, there was no point in going through all this work if
+  it was just going to disappear tomorrow. I wanted the data to be available
+  for years and years.
+
+[AWS Open Data][aws] was suggested, but it looked like a lot of work to set up
+and it was unclear exactly how free it was. Further, getting the data wasn't
+easy if you had never worked with S3 before. Ideally I wanted a big button
+that said "Download this data!".
+
+[aws]: https://aws.amazon.com/opendata
+
+I also considered self-hosting on my Raspberry Pis, but quickly dismissed it.
+Availability would be terrible, download speeds would be even worse, and it
+would force me to perform a lot of maintenance to keep it running.
+
+In the end I settled on two services:
 
 ## Kaggle
 
