@@ -79,10 +79,17 @@ In the end I settled on two services:
 
 ## Kaggle
 
-Kaggle is a great place to host a dataset. It allows users to download the
-file _or_ work with the data directly in Kaggle's hosted notebooks. The author
-can even set up a [demo notebook][demo_nb] to demonstrate how to work with the
-data. Kaggle will even help you set up a [DOI][doi] for your data. Mine is:
+Kaggle is a great place to host a dataset. It's free, easy to use (with the
+exception that you need an account), and is a well known place to find
+datasets making it discoverable. The one downside is that Google is [infamous
+for killing services][killedbygoogle], so the data might not last.
+
+[killedbygoogle]: https://killedbygoogle.com/
+
+Kaggle allows users to download the file _or_ work with the data directly in
+Kaggle's hosted notebooks. The author can even set up a [demo
+notebook][demo_nb] to demonstrate how to work with the data. Kaggle will even
+help you set up a [DOI][doi] for your data. Mine is:
 [10.34740/kaggle/dsv/1671261][my_doi]
 
 [demo_nb]: https://www.kaggle.com/alexgude/starter-california-traffic-collisions-from-switrs
@@ -93,32 +100,10 @@ Kaggle supports really deep data documentation. You can write an introduction
 for each table and each column. Additionally, Kaggle will automatically
 generate histograms of each column and some summary statistics.
 
-Kaggle is more than just hosting; it is a community. Other people can
-share their work, set up challenges using the data, and ask questions in the forum, and
-
-Kaggle does have some significant downsides though. First, users must create
-an account to download the data. Second, Kaggle is a for-profit company that
-is famous for dropping support for their products. I don't trust them to host
-the data long term.
-
-### Pros
-
-- Free for you and me
-- Community
-  - Forums
-  - Challenges
-- Great docs
-- Built in compute
-  - Demo notebook
-- DOI
-- Versioning
-- Activity feed
-
-### Cons
-
-- Google is infamous for [shutting stuff down][killedbygoogle]
-- Account required
-
+Kaggle is more than just hosting; it is a community. Other people can share
+their work, set up challenges using the data, and ask questions in the forum.
+This community makes it easy for people to find the data and get started
+working with it.
 
 ## Zenodo
 
@@ -126,13 +111,12 @@ Zenodo---hosted by CERN---is a much simpler and smaller service than Kaggle.
 It does not a community built up around it. It does not have attached cloud
 compute. They have almost no users.[^usage]
 
-So why use Zenodo? Simple: Google is infamous for [killing
-products][killedbygoogle] while CERN knows a little something about [keeping
+So why use Zenodo? Simple: Google [kills products left and
+right][killedbygoogle] while CERN knows a little something about [keeping
 websites online][first_site]. I trust CERN's stewardship of the dataset. I am
 far more confident that you will be able to download it from Zenodo in 10
 years than from Kaggle.
 
-[killedbygoogle]: https://killedbygoogle.com/
 [first_site]: http://info.cern.ch/
 
 Zenodo has great support for academic dataset usage. It allows you to use any
