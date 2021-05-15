@@ -23,14 +23,15 @@ specialized roles.
 [phd]: /blog/should-i-get-a-phd/#but-there-are-no-jobs
 [insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
 
-At Insight there were two types of fellows: those who were most interested in
+## The Split
+
+At Insight people feel into two broad skill sets: those most interested in
 statistics and experiment design and those most interested in coding and
 machine learning. We interviewed for the same roles because many companies
 were just looking for "data scientists".[^unicorn] This wasted a lot of time
 for us and for the companies as they interviewed people who did not want to do
 specific job they were hiring for. The obvious solution was that these would
 become different roles with different expected skills.
-
 
 There are several reasons for the split:
 
@@ -48,6 +49,18 @@ There are several reasons for the split:
   almost every major college). Of course the best way to teach ten years worth
   of knowledge in four is to split it across three people. Splitting the job
   into multiple different ones allows people to be trained more quickly.
+
+## The Spectrum
+
+### Business Analyst
+
+### Data Scientist
+
+### Modeler
+
+### Machine Learning Engineer
+
+### Data Engineer
 
 
 ---
