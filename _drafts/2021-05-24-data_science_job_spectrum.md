@@ -37,14 +37,14 @@ It became clear that data science covered too many skills and responsibilities
 to be lumped into one job title, which meant it would inevitably split into
 multiple, distinct roles.
 
-There are several reasons for the split:
+The split made sense for many reasons:
 
 - **There are no unicorns.** Data scientists who are experts in every part of
   the data ecosystem are not just rare, they are mythical. Everyone has
   strengths and weaknesses. By splitting the role, people could focus on the
   part they were most passionate about.
-- **Training a person to do it all takes too long.** In the beginning most
-  data scientists had PhDs in some data-related field. They had each spent a
+- **Training a person to do it all takes too long.** In the beginning, most
+  data scientists had PhDs in some data-related field. They each spent a
   decade learning math, statistics, coding, how to work with large datasets,
   how to structure an experiment, et cetera, et cetera, et cetera. But that
   process was and is too slow to meet the current demand for data scientists.
@@ -54,6 +54,20 @@ There are several reasons for the split:
   into multiple different ones allows people to be trained more quickly.
 
 ## The Spectrum
+
+But data science did not just split in two or even three pieces. It expanded
+into a full spectrum of roles. You could break up these data roles across
+multiple axises, but I find just one works pretty well: **Engineeriness**
+That is, how close is the role to a traditional software engineering role?
+
+On one side you have roles that work almost entirely with data and
+domain-specific languages for data access and processing. As you move towards
+the other end you start working with "lower-level" languages and often less on
+the contents on the data and more on supportive tooling around it.
+
+As a spectrum, a job can fall anywhere on it. Here are five common job
+titles in a rough order from least to most "engineery". Of course in the real
+world these jobs often overlap heavily with their neighbors.
 
 ### Business Analyst
 
