@@ -56,26 +56,39 @@ The split made sense for many reasons:
 ## The Spectrum
 
 But data science did not just split in two or even three pieces. It expanded
-into a full spectrum of roles. You could break up these data roles across
-multiple axises, but I find just one works pretty well: **Engineeriness**
-That is, how close is the role to a traditional software engineering role?
+into a full spectrum of roles. You could define the difference between these
+roles along multiple axises, but I find just one works pretty well:
+**Engineeriness** That is, how close the role is to a traditional software
+engineering role?
 
-On one side you have roles that work almost entirely with data and
-domain-specific languages for data access and processing. As you move towards
-the other end you start working with "lower-level" languages and often less on
-the contents on the data and more on supportive tooling around it.
+On the "low engineeriness" side of the spectrum you have roles that work
+almost entirely with data and domain-specific languages for data access and
+processing. As you move towards the other end you start working with
+"lower-level" languages and often less on the content on the data and more on
+supportive tooling around it.
 
-As a spectrum, a job can fall anywhere on it. Here are five common job
-titles in a rough order from least to most "engineery". Of course in the real
-world these jobs often overlap heavily with their neighbors.
+A specific job can fall anywhere on the spectrum, but the job title will give
+you a rough idea of where. Here are five common job titles in a rough order
+from least to most "engineery". Of course, in the real world, these jobs often
+overlap heavily with their neighbors.
 
 ### Business Analyst
 
-Builds entirely internally facing things. Reports, dashboards,
+A _business analyst_[^biz] uses data to help the company understand what has
+happened, what is happening, and what will likely happen so they can make
+better decisions. Their primary deliverables are internal-facing reports,
+dashboards, and presentations. They are generally really adapt at SQL and
+making data visualizations, but are less likely to use general-purpose
+languages like Python.
 
-Tools: SQL, Tableau, Spreadsheets
+[^biz]: Sometimes data analyst, business intelligence analyst, or even data
+    scientist.
 
 ### Data Scientist
+
+A _data scientist_[^ds]
+
+[^ds]: Also product data scientist.
 
 Tools: Python, Jupyter notebooks, Pandas, R
 
