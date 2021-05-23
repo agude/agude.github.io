@@ -2,16 +2,16 @@
 layout: post
 title: "The Spectrum of Data Science Jobs:<br>From Unicorns to Teams"
 description: >
-image: /files/interview-prep/henry_reid_at_his_desk_nasa.jpg
+image: /files/data-science-spectrum/tribeam_prism.jpg
 image_alt: >
-  TODO
+  A triangular prism breaking white light into its components.
 categories:
   - career-advice
   - data-science
   - interviewing
 ---
 
-{% capture file_dir %}/files/interview-prep{% endcapture %}
+{% capture file_dir %}/files/data-science-spectrum/{% endcapture %}
 
 I discovered data science as a possible career in 2014 when I was looking for
 something to do after [deciding not to pursue a career in academia][phd]. Less
