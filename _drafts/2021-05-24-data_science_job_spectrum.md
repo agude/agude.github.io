@@ -25,21 +25,24 @@ specialized roles.
 
 ## The Split
 
-At Insight people feel into two broad skill sets: those most interested in
+At Insight people fell into two broad skill sets: those most interested in
 statistics and experiment design and those most interested in coding and
-machine learning. We interviewed for the same roles because many companies
-were just looking for "data scientists".[^unicorn] This wasted a lot of time
-for us and for the companies as they interviewed people who did not want to do
-specific job they were hiring for. The obvious solution was that these would
-become different roles with different expected skills.
+machine learning. We interviewed for the same roles because most companies
+were not more specific about what they were looking for than "data <span
+class="nowrap">scientists".[^unicorn]</span>
+
+This wasted a lot of time for us and for the companies as they interviewed
+people who did not fit the job profile nor were interested in doing so.
+It became clear that data science covered too many skills and responsibilities
+to be lumped into one job title, which meant it would inevitably split into
+multiple, distinct roles.
 
 There are several reasons for the split:
 
 - **There are no unicorns.** Data scientists who are experts in every part of
-  the data ecosystem are not just rare, they are mythical. Everyone is better
-  in some area than others. Splitting the data ecosystem into multiple,
-  distinct roles allows people to work in the areas where they're strongest
-  and most passionate.
+  the data ecosystem are not just rare, they are mythical. Everyone has
+  strengths and weaknesses. By splitting the role, people could focus on the
+  part they were most passionate about.
 - **Training a person to do it all takes too long.** In the beginning most
   data scientists had PhDs in some data-related field. They had each spent a
   decade learning math, statistics, coding, how to work with large datasets,
@@ -54,13 +57,26 @@ There are several reasons for the split:
 
 ### Business Analyst
 
+Builds entirely internally facing things. Reports, dashboards,
+
+Tools: SQL, Tableau, Spreadsheets
+
 ### Data Scientist
+
+Tools: Python, Jupyter notebooks, Pandas, R
 
 ### Modeler
 
+Tools: Python, Jupyter notebooks, Pandas, scikit-learn, xgboost, Scala?, Java?
+REST APIs? DOCKER?
+
 ### Machine Learning Engineer
 
+Tools: Java, Docker, Kubernetes?, Airflow?, Cloud Stuff!
+
 ### Data Engineer
+
+Tools: SQL Databases, MongoDB Spark, Kafka, Redshift, Airflow
 
 
 ---
