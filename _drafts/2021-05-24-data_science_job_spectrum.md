@@ -115,8 +115,11 @@ Tools: Java, Docker, Kubernetes?, Airflow?, Cloud Stuff!
 
 ### Data Engineer
 
-Tools: SQL Databases, MongoDB Spark, Kafka, Redshift, Airflow
-
+_Data engineers_ build the infrastructure the data flows through. All the SQL
+databases, NoSQL, queues, streams, etc. that power the business and allow the
+other data roles to make use of it. They're experts in a cloud services (where
+these systems are mostly hosted) and scaling systems meet the demands of
+millions or billions of users while collecting and organizing their data.
 
 ---
 [^pro]: At least in the sense that I was paid to do it... I don't claim to
