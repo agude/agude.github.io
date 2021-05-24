@@ -86,16 +86,28 @@ languages like Python.
 
 ### Data Scientist
 
-A _data scientist_[^ds]
+A _data scientist_[^ds] helps the company make better decisions like an
+analyst, 
 
-[^ds]: Also product data scientist.
+[^ds]: Also product data scientist, sometimes decision scientist.
 
 Tools: Python, Jupyter notebooks, Pandas, R
 
 ### Modeler
 
-Tools: Python, Jupyter notebooks, Pandas, scikit-learn, xgboost, Scala?, Java?
-REST APIs? DOCKER?
+_Machine learning modeler_[^mlm] is a rare title, but I include it because I
+feel it fills the hole between data scientist and machine learning engineer.
+This role focuses on building models that directly impact customers. They find
+customer problems, building models to solve them, and own them all the way
+from first iteration through hosting it in production. They use Python,
+machine learning frameworks like TensorFlow, sometimes Scala and Spark,
+Docker, and REST APIs.
+
+This is the role I feel most comfortable in, with its mix of software
+development, machine learning, and direct impact on customers.
+
+[^mlm]: This role is sometimes called data scientist, sometimes machine
+    learning engineer; often it those two roles split the responcibility.
 
 ### Machine Learning Engineer
 
