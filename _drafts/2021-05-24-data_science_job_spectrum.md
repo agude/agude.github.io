@@ -86,12 +86,18 @@ languages like Python.
 
 ### Data Scientist
 
-A _data scientist_[^ds] helps the company make better decisions like an
-analyst, 
+A _data scientist_[^ds] is an expert at statistics and experimental design.
+They don't just plot trends, they understand what causes them, and how you can
+influence them. They can clean a dataset, find biases, and then use it to
+power decisions and products. They use more general programing languages like
+R or Python.
 
-[^ds]: Also product data scientist, sometimes decision scientist.
+[^ds]: Also product data scientist, sometimes decision scientist,
+    statistician. These align closely with [Michael
+    Hochster's][@michaelhochster] [Type A Data Scientists][type_a_b].
 
-Tools: Python, Jupyter notebooks, Pandas, R
+[@michaelhochster]: https://twitter.com/michaelhochster
+[type_a_b]: https://www.quora.com/What-is-data-science/answer/Michael-Hochster
 
 ### Modeler
 
@@ -108,10 +114,20 @@ development, machine learning, and direct impact on customers.
 
 [^mlm]: This role is sometimes called data scientist, sometimes machine
     learning engineer; often it those two roles split the responcibility.
+    These rolls are closer to [Michael Hochster's][@michaelhochster] [Type B
+    Data Scientists][type_a_b].
 
 ### Machine Learning Engineer
 
-Tools: Java, Docker, Kubernetes?, Airflow?, Cloud Stuff!
+A _machine learning engineer_[^mle] focuses on the engineering underlying
+machine learning modeling and hosting. They often build ML tooling, hosting,
+and pieces of ML specific infrastructure like feature stores. They focus on
+making sure the machine learning models can scale to meet the demands of
+running in production and return answers fast enough to be used. They
+generally work with lower-level languages than the modelers like Scala or
+Java. Many MLEs come from a software engineering background.
+
+[^mle]: Sometime machine learning infrastructure engineer.
 
 ### Data Engineer
 
@@ -127,7 +143,7 @@ millions or billions of users while collecting and organizing their data.
 
 [^unicorn]: In the **Unicorn Era** companies tried to hire people who spanned
     the entire spectrum of data jobs from setting up the basic infrastructure,
-    to building analyses on top of it, and shipping and owning models into
+    to building analyses on top of it, to shipping and owning models into
     production. This full skill set was incredibly rare (hence, "unicorn"),
     but since there weren't a ton of data science jobs and the field was still
     ill defined, it worked OK.
