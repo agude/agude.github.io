@@ -2,6 +2,9 @@
 layout: post
 title: "The Spectrum of Data Science Jobs:<br>From Unicorns to Teams"
 description: >
+  Data science has left the era of the Unicorn and entered the era of the
+  team, but that means there is now a whole spectrum of data science jobs.
+  Here is what they do.
 image: /files/data-science-spectrum/tribeam_prism.jpg
 image_alt: >
   A triangular prism breaking white light into its components.
