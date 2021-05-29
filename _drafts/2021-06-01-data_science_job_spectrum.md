@@ -29,51 +29,6 @@ multiple, specialized roles.
 [phd]: /blog/should-i-get-a-phd/#but-there-are-no-jobs
 [insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
 
-## The Split
-
-At Insight people fell into two broad skill sets: those most interested in
-statistics and experiment design and those most interested in coding and
-machine learning. We interviewed for the same roles, possibly because the
-companies were used to looking for unicorns that could do it all, even though
-we would have preferred more specialized roles.[^unicorn]
-
-[^unicorn]: In the **Unicorn Era** companies tried to hire people who spanned
-    the entire spectrum of data jobs from setting up the basic infrastructure,
-    to building analyses on top of it, to shipping and owning models into
-    production. This full skill set was incredibly rare (hence, "unicorn"),
-    but since there weren't a ton of data science jobs and the field was still
-    ill defined, it worked OK.
-
-    But the demand for data scientists exploded and the tasks they were asked
-    to perform became more and more demanding. It no longer made sense to try
-    to find one person to do it all. For one, you just could not hire enough
-    people who were "unicorns". Instead the role was split into multiple
-    different positions so that the work that had before been owned by
-    individuals with ill defined titles instead was distributed across an
-    entire teams. Hence, the **Team Era**.
-
-This wasted a lot of time for both us and the companies as they interviewed
-people who did not fit the job and were interested in doing so. It was clear
-that data science covered too many disparate skills and responsibilities to be
-lumped into one job title, which meant is would inevitably split into
-multiple, distinct roles.[^split]
-
-[^split]: The split made sense for many reasons:
-
-    - **There are no unicorns.** Data scientists who are experts in every part of
-      the data ecosystem are not just rare, they are mythical. Everyone has
-      strengths and weaknesses. By splitting the role, people could focus on the
-      part they were most passionate about.
-    - **Training a person to do it all takes too long.** In the beginning, most
-      data scientists had PhDs in some data-related field. They each spent a
-      decade learning math, statistics, coding, how to work with large datasets,
-      how to structure an experiment, et cetera, et cetera, et cetera. But that
-      process was and is too slow to meet the current demand for data scientists.
-      A shorter, undergraduate major was required (and has since been adopted by
-      almost every major college). Of course the best way to teach ten years worth
-      of knowledge in four is to split it across three people. Splitting the job
-      into multiple different ones allows people to be trained more quickly.
-
 ## The Spectrum
 
 But data science did not just split in two or even three pieces. It expanded
