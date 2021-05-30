@@ -132,7 +132,6 @@ To make this plot:
 
 You can read more about it here:
 
-<!-- A grid of hand-selected related posts. -->
 <div class="card-grid">
 {% assign plotting_post = site.posts | where:"title", 'Jupyter Notebook Templates for Data Science: Plotting Time Series' | first %}
 {% include article_card.html
