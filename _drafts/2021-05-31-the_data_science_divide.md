@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The Data Science Divide:<br>From Unicorns to Teams"
+title: "The Data Science Split:<br>From Unicorns to Teams"
 description: >
   When data science started the job covered everything from setting up
   databases to running experiments to making models. But finding Unicorns was
@@ -28,50 +28,53 @@ multiple, specialized roles.
 [phd]: /blog/should-i-get-a-phd/#but-there-are-no-jobs
 [insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
 
-# Unicorns to Teams
+## The Split
 
-In the **Unicorn Era** companies tried to hire people who spanned the entire
-spectrum of data jobs from setting up the basic infrastructure, to building
-analyses on top of it, to shipping and owning models into production. This
-full skill set was incredibly rare (hence, "unicorn"), but since there weren't
-a ton of data science jobs and the field was still ill defined, it worked OK.
+At Insight I ran into lots of different types of data scientists. Some were
+really, really good at statistics; others lived for experiment design and
+power analysis; some---like me---loved writing clean, performant code and
+playing around with deep learning. Yet at the end of the program we mostly
+interviewed for jobs that were no more specific than "data scientist". The
+companies were looking for someone to set up their data teams and extract
+value from their data.
 
-But the demand for data scientists exploded and the tasks they were asked to
-perform became more and more demanding. It no longer made sense to try to find
-one person to do it all. For one, you just could not hire enough people who
-were "unicorns". Instead the role was split into multiple different positions
-so that the work that had before been owned by individuals with ill defined
-titles instead was distributed across an entire teams. Hence, the **Team
-Era**.
+This was the tail end of the unicorn era. Data engineering had already become
+it's own specialty, but everything else was still under the umbrella term
+data scientist. But even as a neophyte I could see further splits coming.
 
-## The Divide
+### Unicorn Era 💻🦄
 
-At Insight people fell into two broad skill sets: those most interested in
-statistics and experiment design and those most interested in coding and
-machine learning. We interviewed for the same roles, possibly because the
-companies were used to looking for unicorns that could do it all, even though
-we would have preferred more specialized roles.
+The **Unicorn Era** was the time when data science was first being
+established. Companies had heard that "data was the new oil" and were
+desperate to hire someone to refine it for them. They looked to hire
+someone who could span the entire spectrum of data jobs, from setting up the
+infrastructure, to building analyses on top of it, to shipping and owning
+models in production. But people who could master all of these skills were not
+just rare, they were mythical. Hence, unicorns.
 
-This wasted a lot of time for both us and the companies as they interviewed
-people who did not fit the job and were interested in doing so. It was clear
-that data science covered too many disparate skills and responsibilities to be
-lumped into one job title, which meant is would inevitably split into
-multiple, distinct roles.
+It worked OK for awhile. There were only a few data science jobs so companies
+only need to find a scant handful of unicorns. Still it couldn't last. Demand
+for data scientists exploded and the tasks they were asked to perform became
+more and more demanding. It no longer made sense to try to find a single
+person to do it all. 
 
-The split made sense for many reasons:
+First, finding unicorns had always been nearly impossible. Every data
+scientist is an expert in some part of the field, but almost no one is great
+at everything **and** interested in all of it. Splitting the role allows
+people to focus on the areas that they were most passionate about.
 
-- **There are no unicorns.** Data scientists who are experts in every part of
-  the data ecosystem are not just rare, they are mythical. Everyone has
-  strengths and weaknesses. By splitting the role, people could focus on the
-  part they were most passionate about.
-- **Training a person to do it all takes too long.** In the beginning, most
-  data scientists had PhDs in some data-related field. They each spent a
-  decade learning math, statistics, coding, how to work with large datasets,
-  how to structure an experiment, et cetera, et cetera, et cetera. But that
-  process was and is too slow to meet the current demand for data scientists.
-  A shorter, undergraduate major was required (and has since been adopted by
-  almost every major college). Of course the best way to teach ten years worth
-  of knowledge in four is to split it across three people. Splitting the job
-  into multiple different ones allows people to be trained more quickly.
+Second, training a data scientist---waiting for them to finish a PhD in some
+_other_ subject first while hoping the required data skills would rub off on
+them in the process---took **too long**. An undergraduate degree was the
+obvious solution and every college was spinning up a data science
+undergraduate program at the time. But how could you impart the ten years of
+knowledge gathered in the lead up to a PhD in just four? You can't--- unless
+you split it across three different people.
+
+### The Team Era 🧑🏾‍💻 🧑🏻‍💻 🧑🏿‍💻 🧑🏽‍💻 🧑🏼‍💻
+
+So the role slow split into multiple different positions so that the work that
+had before been owned by individuals with ill defined titles instead was
+distributed across an entire teams. Hence, the **Team Era**.
 
 ---
