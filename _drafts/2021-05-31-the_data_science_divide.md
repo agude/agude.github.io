@@ -5,9 +5,10 @@ description: >
   When data science started the job covered everything from setting up
   databases to running experiments to making models. But finding Unicorns was
   impossible; something had to give.
-image: /files/data-science-spectrum/tribeam_prism.jpg
+image: /files/data-science-spectrum/eugene_f_kranz_1965.jpg
 image_alt: >
-  A triangular prism breaking white light into its components.
+  Gene Kranz sits at a console in the NASA Mission Operations Control Room.
+  He is wearing a single ear headset and flipping a pencil back and forth.
 categories:
   - career-advice
   - data-science
