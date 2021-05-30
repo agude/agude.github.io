@@ -74,8 +74,23 @@ you split it across three different people.
 
 ### The Team Era 🧑🏾‍💻 🧑🏻‍💻 🧑🏿‍💻 🧑🏽‍💻 🧑🏼‍💻
 
-So the role slow split into multiple different positions so that the work that
-had before been owned by individuals with ill defined titles instead was
-distributed across an entire teams. Hence, the **Team Era**.
+The role slowly split into multiple positions. Work that had before been owned
+by individuals with ill defined titles instead was distributed across an
+entire teams. Hence, the **Team Era**.
+
+Now data science relies on a whole spectrum of jobs, covering everything from
+setting up the underlying infrastructure, to building models, to reporting out
+the results. I discuss five of these roles in my next post:
+
+<div class="card-grid">
+{% assign post = site.posts | where:"title", "The Data Science Spectrum:<br>From Analyst to Machine Learning" | first %}
+{% include article_card.html
+  url=post.url
+  image=post.image
+  image_alt=post.image_alt
+  title=post.title
+  description=post.description
+%}
+</div>
 
 ---
