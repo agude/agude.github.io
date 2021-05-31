@@ -16,39 +16,46 @@ categories:
 
 {% capture file_dir %}/files/data-science-spectrum/{% endcapture %}
 
-I discovered data science as a possible career in 2014 when I was looking for
-something to do after [deciding not to pursue a career in academia][phd]. Less
-than a year later I was a professional data scientist,[^pro] having moved
-across country and gotten a job with the help of [Insight][insight]. It was
-there that I realized that the data science role was already splintering into
-multiple, specialized roles.
+The role of a data scientist has become narrower and more specialized as the
+demand for them has increased. In my last post, [_The Data Science Split_][last_post], 
+I talked about why I think this happened. In this post, I will walk through a
+few of the most common roles in the data ecosystem and cover what they do and
+what their skill sets are.
 
-[^pro]: At least in the sense that I was paid to do it... I don't claim to
-    have been any good.
+[last_post]: {% post_url 2021-05-31-the_data_science_split %}
 
-[phd]: /blog/should-i-get-a-phd/#but-there-are-no-jobs
-[insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
+It useful to know where you prefer to be on the data science spectrum, as it
+will determine what roles you should apply for. "What are the responsibilities
+of this position and what the key skills to be successful in it?" is one of
+the first questions I ask when applying to a new position. The answer lets me
+map that specific role to its place in the ecosystem and helps me determine if
+I would be interested in the job.
 
 ## The Spectrum
 
-But data science did not just split in two or even three pieces. It expanded
-into a full spectrum of roles. You could define the differences between these
-roles along multiple axises, but I find using just one works pretty well:
+You could define the spectrum of data science along multiple axises, but I
+find using just one works pretty well:[^research]
+
+[^research]: If I were to add a second axis, it would probably be
+    **Researchiness** to differentiate the product focused data roles covered
+    in this post from the more academic roles present at some large companies.
+    The biggest difference is "publishing papers" is a metric more researchy
+    roles track.
 
 **Engineeriness**: Roughly, how close the role is to a traditional software
 engineering role.
 
 On the "low engineeriness" side of the spectrum you have roles that work
-almost entirely with data and domain-specific languages for data access and
-processing. As you move towards the other end you start working with
-"lower-level" languages and often less on the content on the data and more on
-supportive tooling around it.
+almost entirely with the contents of the data and domain-specific languages
+for data access, processing, and plotting. As you move towards the other end
+you start working with "lower-level" languages and often less on the on the
+data itself and more on supportive tooling around it.
 
-A specific job at a particular company could fall anywhere on the spectrum,
-but the title gives a good idea of where exactly it fits. Below are five
-common job titles in a rough order from least to most "engineery". Of course,
-in the real world, the responsibilities of these jobs overlaps heavily with
-their neighbors on the spectrum.
+A particular job at a company could fall anywhere on the spectrum, but the
+title gives a good idea of where exactly it fits. Below are five common job
+titles in a rough order from least to most "engineery". Of course, in the real
+world, the responsibilities of these jobs overlaps heavily with their
+neighbors on the spectrum.
 
 ### Business Analyst
 
@@ -67,8 +74,8 @@ languages like Python.
 A _data scientist_[^ds] is an expert at statistics and experimental design.
 They don't just plot trends, they understand what causes them, and how you can
 influence them. They can clean a dataset, find biases, and then use it to
-power decisions and products. They use more general programing languages like
-R or Python.
+power decisions and products. They work with more general programing languages
+like R or Python.
 
 [^ds]: Also product data scientist, sometimes decision scientist,
     statistician. These align closely with [Michael
@@ -79,25 +86,28 @@ R or Python.
 
 ### Modeler
 
-_Machine learning modeler_[^mlm] is a rare title, but I include it because I
+_Machine learning modeler_[^mlm] is a rarer title, but I include it because I
 feel it fills the hole between data scientist and machine learning engineer.
 This role focuses on building models that directly impact customers. They find
-customer problems, building models to solve them, and own them all the way
-from first iteration through hosting it in production. They use Python,
-machine learning frameworks like TensorFlow, sometimes Scala and Spark,
-Docker, and REST APIs.
-
-This is the role I feel most comfortable in, with its mix of software
-development, machine learning, and direct impact on customers.
+customer problems, build machine learning models to solve them, and own those
+models all the way from first iteration through hosting it in production. They
+use Python, machine learning frameworks like TensorFlow, sometimes Scala and
+Spark, Docker, and REST APIs.
 
 [^mlm]: This role is sometimes called data scientist, sometimes machine
-    learning engineer; often it those two roles split the responcibility.
-    These rolls are closer to [Michael Hochster's][@michaelhochster] [Type B
-    Data Scientists][type_a_b].
+    learning engineer; often those two roles split the responcibility. These
+    rolls are closer to [Michael Hochster's][@michaelhochster] [Type B Data
+    Scientists][type_a_b].
+
+This is the role I feel most comfortable in, with its mix of [software
+development][dev], [machine learning][ml], and direct impact on customers.
+
+[dev]: /topics/software-development/
+[ml]: /topics/machine-learning/
 
 ### Machine Learning Engineer
 
-A _machine learning engineer_[^mle] focuses on the engineering underlying
+A _machine learning engineer_[^mle] focuses on the platforms underlying
 machine learning modeling and hosting. They often build ML tooling, hosting,
 and pieces of ML specific infrastructure like feature stores. They focus on
 making sure the machine learning models can scale to meet the demands of
