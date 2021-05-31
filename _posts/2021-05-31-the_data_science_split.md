@@ -43,7 +43,7 @@ This was the tail end of the unicorn era. Data engineering had already become
 it's own specialty, but everything else was still under the umbrella term data
 scientist. Even as a neophyte I could see further splits coming.
 
-### Unicorn Era 💻 🦄
+### Unicorn Era
 
 The **Unicorn Era** was the time when data science was first being
 established. Companies had heard that "data was the new oil" and were
@@ -72,7 +72,7 @@ undergraduate program. But how could you impart the ten years of knowledge
 gathered in the lead up to a PhD in just four? You can't--- unless you split
 it across three different people.
 
-### The Team Era 🧑🏾‍💻 🧑🏻‍💻 🧑🏿‍💻 🧑🏽‍💻 🧑🏼‍💻
+### The Team Era
 
 The data science role slowly split into multiple positions. Work that had
 before been owned by individuals with ill defined titles instead was
