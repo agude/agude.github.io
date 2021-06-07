@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The Data Science Spectrum:<br>From Analyst to Machine Learning"
+title: "The Data Science Spectrum: <br>From Analyst to Machine Learning"
 description: >
   Data science has left the era of the Unicorn and entered the era of the
   team, but that means there is now a whole spectrum of data science jobs.

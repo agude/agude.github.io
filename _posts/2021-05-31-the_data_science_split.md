@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The Data Science Split:<br>From Unicorns to Teams"
+title: "The Data Science Split: <br>From Unicorns to Teams"
 description: >
   When data science started the job covered everything from setting up
   databases to running experiments to making models. But finding Unicorns was
