@@ -103,6 +103,3 @@ the COVID-19 stay-at-home order.][hist_plot]][hist_plot]
 
 
 [hist_plot]: {{ file_dir }}/fatality_rate_per_week_in_california_after_covid_histograms.svg
-
----
-
