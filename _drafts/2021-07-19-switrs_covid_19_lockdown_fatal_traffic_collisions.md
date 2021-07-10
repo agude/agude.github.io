@@ -9,7 +9,7 @@ categories:
   - data-science
 ---
 
-{% capture file_dir %}/files/switrs-bicycle-accidents-by-date{% endcapture %}
+{% capture file_dir %}/files/switrs-covid{% endcapture %}
 
 California had its [first case of COVID-19][covid] on January 26, 2020. The
 Governor [mandated a state-wide stay-at-home order][order] on March 19, 2020.
@@ -79,6 +79,30 @@ rates vary drastically year-to-year][collision_rates]. I cut off the data in
 November because the reporting is not yet complete for December.
 
 [collision_rates]: {% post_url 2016-12-02-switrs_crashes_by_date %}/#crashes-per-week
+
+## Fatality Rate
+
+I calculate the fatality rate weekly. It is simply the number of traffic
+collisions that resulted in a fatality divided by the total number of
+collisions. Here is what that rate looks like before and after the
+stay-at-home order:
+
+[![The traffic fatality rate in California before and after the COVID-19
+stay-at-home order.][ts_plot]][ts_plot]
+
+[ts_plot]: {{ file_dir }}/fatality_rate_per_week_in_california_after_covid.svg
+
+You can see the fatality rate **immediately** jumps up to over 1% for the
+first time in our dataset, and then goes even higher in the coming.
+
+Another way to look at this data is to plot of histogram of the rate before
+and after the stay-at-home order. Here it is:
+
+[![A histogram showing traffic fatality rate in California before and after
+the COVID-19 stay-at-home order.][hist_plot]][hist_plot]
+
+
+[hist_plot]: {{ file_dir }}/fatality_rate_per_week_in_california_after_covid_histograms.svg
 
 ---
 
