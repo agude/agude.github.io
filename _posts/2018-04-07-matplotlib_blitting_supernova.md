@@ -36,13 +36,17 @@ a factor of 20!
 ## The Data
 
 We will plot the spectrum of [Supernova 2011fe][sn2011fe] from [Pereira et
-al.][pereira][^1] by the [Nearby Supernova Factory][nsf].[^2] The
-[spectrum][spectrum] of a supernova tells us about what is going on in the
-explosion, so looking at a time series tells us how the explosion is evolving.
+al.][pereira][^pereira_cite] by the [Nearby Supernova
+Factory][nsf].[^aldering_cite] The [spectrum][spectrum] of a supernova tells
+us about what is going on in the explosion, so looking at a time series tells
+us how the explosion is evolving.
 
 [nsf]: https://snfactory.lbl.gov
 [sn2011fe]: https://en.wikipedia.org/wiki/SN_2011fe
 [pereira]: https://doi.org/10.1051/0004-6361/201221008
+[^pereira_cite]: Pereira et al., *Spectrophotometric time series of SN 2011fe from the Nearby Supernova Factory*, A&A 554, A27 (2013), doi: [10.1051/0004-6361/201221008][pereira]
+[^aldering_cite]: Aldering et al., *Overview of the Nearby Supernova Factory*, Proceedings Volume 4836, Survey and Other Telescope Technologies and Discoveries; (2002); doi: [10.1117/12.458107][aldering_2002]
+[aldering_2002]: https://doi.org/10.1117/12.458107
 [spectrum]: https://en.wikipedia.org/wiki/Astronomical_spectroscopy
 
 The data is available [here][data]. The notebook with all the code is
@@ -261,10 +265,3 @@ interested, the notebook to generate that plot is [here][notebook_extra]
 
 [notebook_extra]: {{ file_dir }}/{{ notebook_extra_uri }}
 [rendered_extra]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_extra_uri }}
-
----
-
-[^1]: Pereira et al., *Spectrophotometric time series of SN 2011fe from the Nearby Supernova Factory*, A&A 554, A27 (2013), doi: [10.1051/0004-6361/201221008][pereira]
-[^2]: Aldering et al., *Overview of the Nearby Supernova Factory*, Proceedings Volume 4836, Survey and Other Telescope Technologies and Discoveries; (2002); doi: [10.1117/12.458107][aldering_2002]
-
-[aldering_2002]: https://doi.org/10.1117/12.458107

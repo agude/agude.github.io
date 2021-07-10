@@ -42,18 +42,25 @@ The Jupyter notebook used to perform this analysis can be found
 The analysis is relatively simple. I start with the number of crashes that
 happen on the days following the start of DST in California. I divide the
 amount of crashes on each day by the number of crashes on the same day of the
-week but two weeks later.[^1] Taking the ratio cancels out most of the effects
+week but two weeks later.[^after] Taking the ratio cancels out most of the effects
 that are unrelated to the time change---like the fact that [crash rates vary
 by 30% depending on the year][apw]. Two weeks after is a good choice for
 normalization because:
 
+[^after]: It is also possible to use the week before or the week directly after the DST change to normalize. For the curious, I have also made [a plot using the week before for normalization][before_plot] and [the week after][after_plot]. They both show the same trend.
+[before_plot]: {{ file_dir }}/accidents_after_dst_change_in_california_before.svg
+[after_plot]: {{ file_dir }}/accidents_after_dst_change_in_california.svg
 [apw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#crashes-per-week
 
 - The weeks after the time change have similar daylight hours to the week of
   the time change.
 - The crashes rate is still slightly elevated a week later, so normalizing by
   the very next week hides some of the increase that is due to the start of
-  DST.[^2]
+  DST.[^back_to_normal]
+
+[^back_to_normal]: I assume that people are back to normal after three weeks, and so I use that week as a control. I then compare that ratios of the control week with [one week after the DST change][1_vs_3] and [two weeks after the DST change][2_vs_3] to see which is more normal. One week after has Monday and Thursday high, indicating people are still having more crashes than we expect. Two weeks after the ratios are near one, and so I conclude people are back to normal by then. 
+[1_vs_3]: {{ file_dir }}/accidents_one_and_three_weeks_after_dst_change_in_california.svg
+[2_vs_3]: {{ file_dir }}/accidents_two_and_three_weeks_after_dst_change_in_california.svg
 
 The [violin plots][violin] below show the distribution of these ratios from
 the years 2001 to 2016. A value greater than 1 means that there are more
@@ -102,22 +109,3 @@ all get that hour of sleep we deserve.
 
 [chu]: https://en.wikipedia.org/wiki/Kansen_Chu
 [ab-385]: https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201520160AB385
-
----
-
-**Updated <time datetime="{{ page.seo.date_modified | date_to_xmlschema }}">{{
-page.seo.date_modified | date: '%B %d, %Y' }}</time>**: _I have rewritten part
-of this article to make my methodology clearer and add a t-test. The changes
-can be found in git; the [first set][changes_1] and the [second
-set][changes_2]._
-
-[changes_1]: https://github.com/agude/agude.github.io/commit/1092c8ce001a946eb47ae07cc0c65324a1417a82
-[changes_2]: https://github.com/agude/agude.github.io/commit/2661f23d005a97206a03eca02f1078de9ae0fec4
-
-[^1]: It is also possible to use the week before or the week directly after the DST change to normalize. For the curious, I have also made [a plot using the week before for normalization][before_plot] and [the week after][after_plot]. They both show the same trend.
-[^2]: I assume that people are back to normal after three weeks, and so I use that week as a control. I then compare that ratios of the control week with [one week after the DST change][1_vs_3] and [two weeks after the DST change][2_vs_3] to see which is more normal. One week after has Monday and Thursday high, indicating people are still having more crashes than we expect. Two weeks after the ratios are near one, and so I conclude people are back to normal by then. 
-
-[before_plot]: {{ file_dir }}/accidents_after_dst_change_in_california_before.svg
-[after_plot]: {{ file_dir }}/accidents_after_dst_change_in_california.svg
-[1_vs_3]: {{ file_dir }}/accidents_one_and_three_weeks_after_dst_change_in_california.svg
-[2_vs_3]: {{ file_dir }}/accidents_two_and_three_weeks_after_dst_change_in_california.svg

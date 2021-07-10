@@ -16,15 +16,18 @@ categories:
 {% capture file_dir %}/files/caltrain-schedule{% endcapture %}
 
 In 1878, [Étienne-Jules Marey][ejm] published [_La Méthode
-Graphique_][original_graphique],[^1] a manual on using graphs for data
-analysis. The book included Ibry's[^2] [famous visualization of a French train
-schedule][schedule_image] which shows the position (y-axis) of trains
+Graphique_][original_graphique],[^lmgd] a manual on using graphs for data
+analysis. The book included Ibry's[^ibry] [famous visualization of a French
+train schedule][schedule_image] which shows the position (y-axis) of trains
 traveling from Paris to Lyon as a function of the time of day (x-axis). The
 schedule elegantly packs a lot of information into a small space: the speed
 and direction of trains are indicated by their slope, and when lines cross it
 indicates that the trains pass each other. The schedule is such an iconic
-visualization that [Tufte][tufte] used it as the cover of _The Visual
-Display of Quantitative Information_.
+visualization that [Tufte][tufte] used it as the cover of _The Visual Display
+of Quantitative Information_.
+
+[^lmgd]: The full title is _La Méthode Graphique Dans les Sciences Expérimentales et Principalement en Physiologie et en Médecine_, or roughly _The Graphical Method in Experimental Sciences and Mainly in Physiology and Medicine_.
+[^ibry]: The caption in Marey's book reads: _"Graphique de la marche des trains sur un chemin de fer, d'après la méthode de Ibry"_ or _"Graph showing the progress of trains on a railway, according to the method of Ibry"_. Unfortunately, little else is know of Ibry, and so this type of chart is often named for Marey instead.
 
 [![Graph showing the progress of trains on a railway, according to the method
 of Ibry][schedule_image]][schedule_image]
@@ -64,9 +67,12 @@ The three types of train are color coded as follows: local trains are blue,
 limited-stop trains are green, and baby bullets are red. Every stop for a
 train is indicated by a circle. The spacing between the stations on the y-axis
 is scaled to the actual distance [recorded on the track
-mileposts][mileposts].[^3] Click the schedules for larger versions.
+mileposts][mileposts].[^note] Click the schedules for larger versions.
 
 [mileposts]: https://en.wikipedia.org/wiki/List_of_Caltrain_stations
+[^note]: The mileposts markers are off by up to 100m for stations south of [Lawrence][lawrence]. I tried to measure the actual track distances using [OpenStreetMap][osm] but found that I could not do so more accurately than the milepost numbers.
+[lawrence]: https://en.wikipedia.org/wiki/Lawrence_station_(Caltrain)
+[osm]: https://www.openstreetmap.org/#map=11/37.5574/-122.3050&layers=T
 
 ### Weekday
 
@@ -117,12 +123,3 @@ north and southbound trips. Saturday has two more north bound, and one more
 southbound train than Sunday.
 
 [rs]: https://en.wikipedia.org/wiki/Rolling_stock
-
----
-
-[^1]: The full title is _La Méthode Graphique Dans les Sciences Expérimentales et Principalement en Physiologie et en Médecine_, or roughly _The Graphical Method in Experimental Sciences and Mainly in Physiology and Medicine_.
-[^2]: The caption in Marey's book reads: _"Graphique de la marche des trains sur un chemin de fer, d'après la méthode de Ibry"_ or _"Graph showing the progress of trains on a railway, according to the method of Ibry"_. Unfortunately, little else is know of Ibry, and so this type of chart is often named for Marey instead.
-[^3]: The mileposts markers are off by up to 100m for stations south of [Lawrence][lawrence]. I tried to measure the actual track distances using [OpenStreetMap][osm] but found that I could not do so more accurately than the milepost numbers.
-
-[lawrence]: https://en.wikipedia.org/wiki/Lawrence_station_(Caltrain)
-[osm]: https://www.openstreetmap.org/#map=11/37.5574/-122.3050&layers=T

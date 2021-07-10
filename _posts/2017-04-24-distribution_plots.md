@@ -34,7 +34,7 @@ What Days Do People Crash?_][post]
 The Jupyter notebook used to make these plots can be found [here][notebook]
 ([rendered on Github][rendered]).
 
-{% capture notebook_uri %}{{ "Plot Types.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "Plot Types.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
@@ -114,7 +114,9 @@ much clutter to hide their salient features. Unfortunately, spreading out the
 points in a non-overlapping fashion limits the number of points that can be
 plotted---there is only so much space on the page! Additionally, the algorithm
 that calculates the positions is computationally expensive and so scales poorly
-as the number of points increases.[^1]
+as the number of points increases.[^time]
+
+[^time]: The box and violin plots in this post take about a second to render on my desktop. The strip plot take 5 seconds. The swarm plot take **74 seconds**!
 
 This slow generation time is especially harmful during exploratory analyses.
 It is easy to keep engaged with the problem when a plot takes a second
@@ -181,10 +183,6 @@ summary statistics, and avoids cluttering the plot with every data point.
 
 [moto_dotw]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}#day-of-the-week
 [dst]: {% post_url 2017-03-20-switrs_daylight_saving_time_accidents %}#crash-ratio
-
----
-
-[^1]: The box and violin plots in this post take about a second to render on my desktop. The strip plot take 5 seconds. The swarm plot take **74 seconds**!
 
 {% comment %}
 | Plot      | Time to render |

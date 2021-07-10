@@ -85,17 +85,13 @@ A great metric is the formalized version of our customer focused one: dollars.
 Assigning a dollar value to each model result (true positive, false positive,
 etc.) would allow us to optimize for revenue. This is often doable in simple
 models (like our _'high value customer'_ model), but in more complicated ones
-(like the fraud models I work on) it can be difficult.[^1] For an example of
+(like the fraud models I work on) it can be difficult.[^rep] For an example of
 using dollars in model optimization, see Airbnb's post on [_Fighting Financial
 Fraud with Targeted Friction_][airbnb].
 
+[^rep]: One of our largest costs is [reputational risk][rep_risk], which is very hard to assign a number to.
+[rep_risk]: https://en.wikipedia.org/wiki/Reputational_risk
 [airbnb]: https://medium.com/airbnb-engineering/fighting-financial-fraud-with-targeted-friction-82d950d8900e
 
 In short, a good metric is one which ties closely to the business or customer
 use. Consider their point of view when answering a metrics question.
-
----
-
-[^1]: One of our largest costs is [reputational risk][rep_risk], which is very hard to assign a number to.
-
-[rep_risk]: https://en.wikipedia.org/wiki/Reputational_risk

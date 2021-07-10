@@ -167,11 +167,9 @@ just_hearts = [
 ```
 
 However, this is not as readable as the `map` and `filter` example, which is very
-short, very readable, and even a bit... [functional][functional].[^1]
+short, very readable, and even a bit... [functional][functional].[^reduce]
 
 [functional]: https://en.wikipedia.org/wiki/Functional_programming
-
----
-[^1]: But what about `reduce()`, the third function of the classic "filter-map-reduce" triplet? Python does have a reduce function, but it was moved to `functools.reduce()` because ["a loop is more readable most of the time"][reduce].
-
+[^reduce]: But what about `reduce()`, the third function of the classic "filter-map-reduce" triplet? Python does have a reduce function, but it was moved to `functools.reduce()` because ["a loop is more readable most of the time"][reduce].
 [reduce]: https://www.python.org/dev/peps/pep-3100/#built-in-namespace
+

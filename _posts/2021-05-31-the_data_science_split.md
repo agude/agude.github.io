@@ -93,5 +93,3 @@ reporting out the results. I discuss five of these roles in my next post:
   description=post.description
 %}
 </div>
-
----

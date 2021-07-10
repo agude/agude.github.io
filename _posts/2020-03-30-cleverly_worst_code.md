@@ -15,8 +15,10 @@ categories:
 
 I started learning C++ in graduate school. I had written Python for five
 years, so I thought I was pretty good at writing code and thinking through
-problems.[^1] Like many new programmers I enjoyed finding clever solutions to
-problems; sometimes too clever. This is the story of one of those times.
+problems.[^wasnt] Like many new programmers I enjoyed finding clever solutions
+to problems; sometimes too clever. This is the story of one of those times.
+
+[^wasnt]: _Narrator_: He wasn't.
 
 ## The Problem
 
@@ -57,9 +59,10 @@ But a `switch` statement needs integral values, so I had to map each state to
 numbers. Easy enough, but I quickly ran into a problem: I had to switch based
 on both values, so I had to combine the integers in some manner. Then I
 remembered a "useful" math fact: the [product of unique primes is itself
-unique][fta].[^2] A horrible plan came together, it looked like this:
+unique][fta].[^useful] A horrible plan came together, it looked like this:
 
 [fta]: https://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic
+[^useful]: _Narrator_: It was not useful.
 
 ```cpp
 int NORTH = 2;
@@ -91,10 +94,12 @@ actually prefer the verbose but understandable `if/else` method.
 
 ## A Better Way
 
-So how would I write it now? I think a hybrid method is actually the way to go, using [`enum`][enum][^3]
-and a few helper functions:
+So how would I write it now? I think a hybrid method is actually the way to
+go, using [`enum`][enum][^post] and a few helper functions:
 
 [enum]: https://en.cppreference.com/w/cpp/language/enum
+[^post]: See [_Python Patterns: Enum_][enum_post], which covers use-cases for `enum` in Python. It works essentially the same in C++.
+[enum_post]: {% post_url 2019-01-22-python_patterns_enum %}
 
 ```cpp
 enum TravelMode { BIKE, CAR, PLANE };
@@ -125,11 +130,3 @@ forget `case BIKE` or `case EAST`, the compilier can warn us.
 
 In the end, readable is better than clever, even if you have a bunch more
 lines to read!
-
----
-
-[^1]: _Narrator_: He wasn't.
-[^2]: _Narrator_: It was not useful.
-[^3]: See [_Python Patterns: Enum_][enum_post], which covers use-cases for `enum` in Python. It works essentially the same in C++.
-
-[enum_post]: {% post_url 2019-01-22-python_patterns_enum %}

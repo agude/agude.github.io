@@ -22,6 +22,9 @@ See my [recent post for details][wbma_post]. It supports **many** different
 versions of Python,[^1] which required me to [automate the build system][ab].
 I needed my build system to:
 
+[^1]: Currently 2.7, 3.4 through 3.7, the development versions of 3.7 and 3.8, the nightly release, and [pypy 2.7 and 3.5][pypy].
+[pypy]: https://pypy.org/
+
 - Install the software for each supported Python version.
 - Run tests against each Python version.
 - Publish **_exactly once_** to [Pypi][wbma_pypi] when all the tests in all
@@ -115,7 +118,9 @@ tag`][tag]) release.
 
 [tag]: https://git-scm.com/book/en/v2/Git-Basics-Tagging
 
-Which gives us this:[^2]
+Which gives us this:[^note]
+
+[^note]: I took out a bunch of the versions in the example YAML configuration; the screen shot shows all the versions I test against.
 
 [![A screen shot of the resulting Travis run from this
 configuration file.][result_png]][result_png]
@@ -128,10 +133,3 @@ Actions][github_actions], but that is for another time.
 
 [github_actions]: https://github.com/features/actions
 
----
-
-[^1]: Currently 2.7, 3.4 through 3.7, the development versions of 3.7 and 3.8, the nightly release, and [pypy 2.7 and 3.5][pypy].
-
-[pypy]: https://pypy.org/
-
-[^2]: I took out a bunch of the versions in the example YAML configuration; the screen shot shows all the versions I test against.

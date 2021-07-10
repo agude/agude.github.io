@@ -18,7 +18,10 @@ categories:
 
 A lot has been written about how to perform technical interviews. What
 questions to ask, what questions not to ask, why the questions we used to ask
-are bad. I have nothing of value to add to that debate.[^1]
+are bad. I have nothing of value to add to that debate.[^haoyi]
+
+[^haoyi]: If that is what you'd like though, I think [Li Haoyi's _How to conduct a good Programming Interview_][lihaoyi] is pretty good.
+[lihaoyi]: https://www.lihaoyi.com/post/HowtoconductagoodProgrammingInterview.html
 
 What I do have to add is one guiding principle for the interviewing company:
 **Do not waste anyone's time!**
@@ -75,9 +78,3 @@ gives a deadline to the hiring team to make a decision.
 It is tough to hire, but it is not tough to be better at structuring
 interviews. Respect the time of all parties involved and you will be well on
 your way to a better experience for the candidates and the interviewers.
-
----
-
-[^1]: If that is what you'd like though, I think [Li Haoyi' _How to conduct a good Programming Interview_][lihaoyi] is pretty good.
-
-[lihaoyi]: https://www.lihaoyi.com/post/HowtoconductagoodProgrammingInterview.html

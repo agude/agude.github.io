@@ -51,7 +51,9 @@ an Insight Fellow in the data science track (DS-SV-2015B). That, of course, is
 also my bias: I found my current and previous job through Insight, made a
 bunch of friends, and am happy with the experience in general. I am also a
 technical adviser, meaning I mentor Fellows weekly in exchange for a small bit
-of equity in the company.[^1]
+of equity in the company.[^disclaimer]
+
+[^disclaimer]: For the record, they also buy me dinner when I come in to mentor after work.
 
 ## What is Insight?
 
@@ -228,7 +230,3 @@ finding the perfect first company for me. Could I have gotten a data science
 job without Insight? Probably, but the experience certainly would have been
 more painful, and I don't think I would be as happy with the outcome because
 the network I built has really helped expand my possibilities.
-
----
-
-[^1]: For the record, they also buy me dinner when I come in to mentor after work.

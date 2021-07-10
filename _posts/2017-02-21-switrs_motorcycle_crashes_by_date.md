@@ -181,13 +181,3 @@ variance for winter holidays and weekends when the weather may turn against
 them. There are many more ways to explore motorcycle crashes---time of day,
 type of motorcycle, vehicle at fault---but those will have to wait for another
 day.
-
----
-
-**Updated <time datetime="{{ page.seo.date_modified | date_to_xmlschema }}">{{
-page.seo.date_modified | date: '%B %d, %Y' }}</time>**: _Edited post for
-brevity, clarity, and correctness; see [this git diff][changes_1] and [this
-git diff][changes_2]._
-
-[changes_1]: https://github.com/agude/agude.github.io/commit/bf38e9a48a9933d55a2b03191f08a5517d879a05#diff-e120a9b3b16bca5a999f11e031230e3b
-[changes_2]: https://github.com/agude/agude.github.io/commit/b0d5f8010df6f0d419bf1c3f36409f8a16165fc4#diff-e120a9b3b16bca5a999f11e031230e3b

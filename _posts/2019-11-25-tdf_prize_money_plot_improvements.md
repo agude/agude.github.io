@@ -32,10 +32,11 @@ showing how that prize money has grown over the years:
 %}
 
 The plot is pretty good, at least at first glance! It is (appropriately) a
-[log plot][log_wiki].[^1] It labels all of its pieces. It even has gaps for
+[log plot][log_wiki].[^exp] It labels all of its pieces. It even has gaps for
 when the race was not held. But the plot also has a few problems:
 
 [log_wiki]: https://en.wikipedia.org/wiki/Semi-log_plot
+[^exp]: Inflation is exponential.
 
 - The X-axis is wrong; the race did not start before 1900 and the two gaps are
 from the World Wars which did not happen in 1898 and 1921.
@@ -96,6 +97,3 @@ Overall I think it is an improvement, so I have contributed it back to the
 community [here][plot_link].
 
 [plot_link]: https://commons.wikimedia.org/wiki/File:Tdf_prize_money_in_2013_euro.svg
-
----
-[^1]: Inflation is exponential.

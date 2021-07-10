@@ -124,5 +124,3 @@ databases, NoSQL, queues, streams, etc. that power the business and allow the
 other data roles to make use of it. They're experts in a cloud services (where
 these systems are mostly hosted) and scaling systems meet the demands of
 millions or billions of users while collecting and organizing their data.
-
----

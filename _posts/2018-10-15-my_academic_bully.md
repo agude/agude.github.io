@@ -56,14 +56,18 @@ and post docs (and some professors) who wrote the software, built the
 hardware, and monitored the system. The post doc I worked with from Minnesota
 ran part of the group, and his deputy was a French post doc and my eventual
 abuser. She did not like me from the get-go; I suspect she saw me as a natural
-ally to my post doc, with whom she was in competition.[^1]
+ally to my post doc, with whom she was in competition.[^tenure]
+
+[^tenure]: The more responsibilities you could claim, the better your chances of [landing that rare tenure-track position][phd] most post docs desired.
 
 The HLT post docs and grad students spent lots of time training me to handle
 the responsibilities of the on-call position. In fact, as one of the first
-people to go through the training,[^2] they spent extra time with me as any
-misunderstanding on my part indicated a problem with the onboarding system.
-Although she would later abuse me for incompetence, my abuser refused to
-contribute to my training.
+people to go through the training,[^training] they spent extra time with me as
+any misunderstanding on my part indicated a problem with the onboarding
+system. Although she would later abuse me for incompetence, my abuser refused
+to contribute to my training.
+
+[^training]: Most of the previous on-calls were veterans who did not need in depth training or documentation. They understood the system because they had built it.
 
 ## The Attacks and My Panic Attack
 
@@ -115,8 +119,3 @@ considered.
 
 [jerks]: https://boss.blogs.nytimes.com/2012/09/26/what-do-you-do-with-the-brilliant-jerk/
 [phd]: {% post_url 2018-01-19-should_i_get_a_phd %}
-
----
-
-[^1]: The more responsibilities you could claim, the better your chances of [landing that rare tenure-track position][phd] most post docs desired.
-[^2]: Most of the previous on-calls were veterans who did not need in depth training or documentation. They understood the system because they had built it.

@@ -39,10 +39,11 @@ Github][rendered]).
 
 One of the simplest ways of determining how often we expect an outcome to
 appear is to assume that the distribution of results is
-[Gaussian][normal].[^1] If the outcome has a probability _P_, and the dice are
-thrown _N_ times, then the range of expected results is:
+[Gaussian][normal].[^clt] If the outcome has a probability _P_, and the dice
+are thrown _N_ times, then the range of expected results is:
 
 [normal]: https://en.wikipedia.org/wiki/Normal_distribution
+[^clt]: The [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem) can be used to justify this approximation, but as you can see in the plot in the [binomial section](#binomial-probability), even for large _N_ the distribution is not a perfect Gaussian.
 
 $$ M_{\pm} = NP \pm z \sqrt{NP(1-P)} $$
 
@@ -200,7 +201,3 @@ values, but begins predicting lower intervals as the value increases, finally
 ending with a nonsense negative count. The Wilson interval is consistently
 higher than the other values, and this discrepancy increases as the value of
 the roll increases.
-
----
-
-[^1]: The [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem) can be used to justify this approximation, but as you can see in the plot in the [binomial section](#binomial-probability), even for large _N_ the distribution is not a perfect Gaussian.

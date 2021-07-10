@@ -62,11 +62,13 @@ the code is [here][notebook] ([rendered on Github][rendered]).
 
 ## Pay: Men Vs. Women
 
-Here is total recurring compensation[^1] by gender. I have removed all 
+Here is total recurring compensation[^salary] by gender. I have removed all
 non-data scientists (like the [MLEs I looked at last time][last_time_mle])
-because there are very few responses from them. I have also removed the one data
-scientist who responded "transgender" without further indicating their gender identity.
+because there are very few responses from them. I have also removed the one
+data scientist who responded "transgender" without further indicating their
+gender identity.
 
+[^salary]: Salary, yearly bonus, and yearly stock grant. Signing bonus is not included.
 [last_time_mle]: {% post_url 2019-03-26-data_science_salaries %}#scientists-engineers-and-analysts
 
 So, how is pay equality in data science?
@@ -95,8 +97,8 @@ differences) and age, which [Florian looked at][kaggle_survey].
 
 ## By Region
 
-Only California (LA, San Francisco, and Silicon Valley) and the Northeast
-(New York, Boston, and DC) have enough respondants to form any reasonable
+Only California (LA, San Francisco, and Silicon Valley) and the Northeast (New
+York, Boston, and DC) have enough respondents to form any reasonable
 conclusions, so I limit my sample to those regions.
 
 [![A swarm plot showing salaries for male and female data scientists in
@@ -155,6 +157,3 @@ so across regions and age groups. I wish I could have explored more slices of
 the data to look at things like seniority, percent of compensation in stock,
 etc., but slicing the data very quickly reduces the number of data points
 beyond usefulness.
-
----
-[^1]: Salary, yearly bonus, and yearly stock grant. Signing bonus is not included.

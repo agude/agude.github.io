@@ -16,12 +16,13 @@ categories:
 
 One of the most important things to know when looking for a job is your market
 value. For data science positions, what better way to determine that than with
-data![^1] Some sites&#8288;---&#8288;like [Indeed][indeed] and
+data![^data] Some sites&#8288;---&#8288;like [Indeed][indeed] and
 [Glassdoor][glassdoor]&#8288;---&#8288;offer aggregate salary information, but
 they won't give you all their data. That's why I prefer the survey that
 [Insight][insight] alumni put together. With the full dataset I can slice it
 however I want.
 
+[^data]: Companies pay good money to get salary data so they know exactly what a good (and bad) offer looks like. You should have the same information.
 [indeed]: https://www.indeed.com/salaries/Data-Scientist-Salaries,-Mountain-View-CA
 [glassdoor]: https://www.glassdoor.com/Salaries/san-jose-data-scientist-salary-SRCH_IL.0,8_IM761_KO9,23.htm
 [insight]: https://www.insightdatascience.com
@@ -119,6 +120,3 @@ numbers in this post, are substantial!
 
 [pat]: https://twitter.com/patio11
 [negotiate]: https://www.kalzumeus.com/2012/01/23/salary-negotiation/
-
----
-[^1]: Companies pay good money to get salary data so they know exactly what a good (and bad) offer looks like. You should have the same information.

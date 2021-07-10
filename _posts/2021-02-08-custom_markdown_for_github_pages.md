@@ -190,5 +190,3 @@ use this to build awesome web pages and if you do let me know on Twitter: [@{{
 site.author.twitter }}][twitter]
 
 [twitter]: https://twitter.com/{{ site.author.twitter }}
-
----

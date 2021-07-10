@@ -18,11 +18,12 @@ categories:
 
 The [cycling hour record][hour_record] is a grueling experience: the would-be
 record setter rides as far as they can in one hour. The record was first set
-in the modern era by the great [Eddy Merckx][merckx],[^1] and it has traded
+in the modern era by the great [Eddy Merckx][merckx],[^goat] and it has traded
 hands multiple times since. Wikipedia has this plot showing the progression:
 
 [hour_record]: https://en.wikipedia.org/wiki/Hour_record
 [merckx]: https://en.wikipedia.org/wiki/Eddy_Merckx
+[^goat]: The 🐐!
 
 {% capture wiki_plot %}{{file_dir}}/Progression_of_Hour_record_from_Merckx_to_Unified.png{% endcapture %}
 {% include figure.html
@@ -40,11 +41,13 @@ This plot gets the message across---twice, the distance went up quickly in a sho
 amount of time---but could be much more effective. Here are some
 problems:
 
-- It is missing a legend and title, which are both necessary to understand it.[^2]
+- It is missing a legend and title, which are both necessary to understand it.[^plot]
 - It has too much precision in the date labels, which are down to the day but do
   not align with when the records were set.
 - The label text is too small to read easily.
 - It has a lot of unused space.
+
+[^plot]: Plots do not need a title or axis labels if the subject is clear without them. In this case though, you would never figure out it was the "Men's Hour Record Progression" unless someone told you.
 
 I love cycling, and I love plots, so I tried my hand at improving the plot.
 
@@ -92,7 +95,3 @@ benefit from the improvements!
 
 [wf]: https://en.wikipedia.org/wiki/Wikipedia:WikiFairy
 [plot_link]: https://en.wikipedia.org/w/index.php?title=Hour_record&oldid=903869466#Statistics
-
----
-[^1]: The 🐐!
-[^2]: Plots do not need a title or axis labels if the subject is clear without them. In this case though, you would never figure out it was the "Men's Hour Record Progression" unless someone told you.

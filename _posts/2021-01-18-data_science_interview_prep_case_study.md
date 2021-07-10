@@ -270,5 +270,3 @@ I hope this exercise has been helpful! Please reach out and let me know at
 improvements!
 
 [twitter]: https://twitter.com/{{ site.author.twitter }}
-
----{% comment %}<hr> above footnotes.{% endcomment %}

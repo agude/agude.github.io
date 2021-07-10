@@ -17,10 +17,10 @@ categories:
 
 I own two [Raspberry Pis][pi] which are currently taped to my kitchen
 cabinets. They perform a range of tasks that require an always-on, but
-low-power, computer. The first one, named [Raspberry Pion][pion],[^1] seeds
-open-source torrents 24/7. It is a slightly older (and hence slower)
+low-power, computer. The first one, named [Raspberry Pion][pion],[^humor]
+seeds open-source torrents 24/7. It is a slightly older (and hence slower)
 [Raspberry Pi 2 Model B][pi2]. The second one, named [Raspberry
-Kaon][kaon],[^2] runs a VPN that I connect to when using insecure wireless
+Kaon][kaon],[^kaon] runs a VPN that I connect to when using insecure wireless
 networks away from home. It is a newer [Raspberry Pi 3 Model B][pi3].
 
 [pi]: https://en.wikipedia.org/wiki/Raspberry_Pi
@@ -28,6 +28,11 @@ networks away from home. It is a newer [Raspberry Pi 3 Model B][pi3].
 [pi3]: https://www.raspberrypi.org/products/raspberry-pi-3-model-b/
 [pion]: https://twitter.com/RaspberryPion
 [kaon]: https://twitter.com/RaspberryKaon
+[^humor]: From [pion][wiki_pion]; physicists have notoriously terrible senses of humor.
+[wiki_pion]: https://en.wikipedia.org/wiki/Pion
+[^kaon]: After the [kaon][wiki_kaon], of course. If I get another, I'll have to name it something like [J/ψ][jpsi], and that just doesn't have the same ring to it.
+[wiki_kaon]: https://en.wikipedia.org/wiki/Kaon
+[jpsi]: https://en.wikipedia.org/wiki/J/psi_meson
 
 Both computers run [Ubuntu Mate 16.04 for the Raspberry Pi][mate], and both
 suffer from a memory leak I have not been able to track down. My solution is
@@ -108,12 +113,3 @@ blitting in `matplotlib`][blitting].
 [blitting]: {% post_url 2018-04-07-matplotlib_blitting_supernova %}
 
 In the future I hope to make more fun animations!
-
----
-
-[^1]: From [pion][wiki_pion]; physicists have notoriously terrible senses of humor.
-[^2]: After the [kaon][wiki_kaon], of course. If I get another, I'll have to name it something like [J/ψ][jpsi], and that just doesn't have the same ring to it.
-
-[wiki_pion]: https://en.wikipedia.org/wiki/Pion
-[wiki_kaon]: https://en.wikipedia.org/wiki/Kaon
-[jpsi]: https://en.wikipedia.org/wiki/J/psi_meson

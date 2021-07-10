@@ -142,6 +142,8 @@ lot of HTML. {% endcomment %}
 | **Twitch**       |  {{pass}} |         {{pass}} |                {{pass}} | {{declined}} |
 | **Twitter**      |  {{pass}} |         {{pass}} |                {{fail}} |          --- |
 
+[^docusign]: DocuSign and I were unable to schedule an on-site before my other offers would have expired.
+
 I am very happy with how well the technical screens went this time around, as
 mentioned above. I also feel good about the on-site to offer rate, although
 more offers would always be better of course.
@@ -155,6 +157,9 @@ The Stripe interview revealed the position to be less well aligned with my
 skill set[^ab] and career aspirations than I'd hoped, so I think their
 decision to not extend an offer was fair.
 
+[^ab]: The role was a little heavier on [the "analytics" side of data science than the "building" side][ab] which I prefer.
+[ab]: https://www.dezyre.com/article/type-a-data-scientist-vs-type-b-data-scientist/194
+
 I generally do not apply to work for startups, for a variety of reasons both
 personal and [financial][sense]. However, I agreed to interview at Grand
 Rounds after a friend reached out because I did not want to turn down any
@@ -164,10 +169,3 @@ opportunities. In the end we all knew it was a bad fit.
 
 So, after all that, I'm excited to get to work at Square and even more excited
 to be done interviewing during a pandemic!
-
----
-
-[^docusign]: DocuSign and I were unable to schedule an on-site before my other offers would have expired.
-[^ab]: The role was a little heavier on [the "analytics" side of data science than the "building" side][ab] which I prefer.
-
-[ab]: https://www.dezyre.com/article/type-a-data-scientist-vs-type-b-data-scientist/194
