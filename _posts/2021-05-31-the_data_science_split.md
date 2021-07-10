@@ -84,7 +84,7 @@ infrastructure, to improving specialized tooling, to building models, to
 reporting out the results. I discuss five of these roles in my next post:
 
 <div class="card-grid">
-{% assign post = site.posts | where:"title", "The Data Science Spectrum:<br>From Analyst to Machine Learning" | first %}
+{% assign post = site.posts | where:"title", "The Data Science Spectrum: <br>From Analyst to Machine Learning" | first %}
 {% include article_card.html
   url=post.url
   image=post.image
