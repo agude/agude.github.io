@@ -62,10 +62,14 @@ their age.][words_plot]][words_plot]
 [words_plot]: {{ file_dir }}/child0_vs_child1_total_words_linear.svg
 
 Second children are known to have slower onset of language
-development.[^1][^2] They learn their first 50 known words more slowly, but
-catch up to their older siblings quickly, learning their first 100 words at
-about the same age. The advantage is small though; the average difference in
-time to first 50 words between the first and second child is only 1 month.
+development.[^pine][^berglund] They learn their first 50 known words more
+slowly, but catch up to their older siblings quickly, learning their first 100
+words at about the same age. The advantage is small though; the average
+difference in time to first 50 words between the first and second child is
+only 1 month.
+
+[^pine]: Pine, J. M., _Variation in vocabulary development as a function of birth order._ Child Development, 66(1), 272–281. (1995). doi:[10.2307/1131205](https://doi.org/10.2307/1131205)
+[^berglund]: Berglund, E., Eriksson, M., and Westerlund, M. _Communicative skills in relation to gender, birth order, childcare and socioeconomic status in 18‐month‐old children._ Scandinavian Journal of Psychology, 46: 485-491. (2005). doi:[10.1111/j.1467-9450.2005.00480.x](https://doi.org/10.1111/j.1467-9450.2005.00480.x)
 
 Theo and Cory do not follow this trend. Cory was 3 to 4 months faster than
 Theo to hit language development milestones in Cantonese, English, and
@@ -83,8 +87,3 @@ Theo's language development, but we did not take it seriously because we knew
 that bilingual children developed language more slowly. Looking at the data
 and comparing to his brother, I think our pediatrician was right to be
 worried. Thankfully, Theo has had no problems since and now talks incessantly.
-
----
-
-[^1]: Pine, J. M., _Variation in vocabulary development as a function of birth order._ Child Development, 66(1), 272–281. (1995). doi:[10.2307/1131205](https://doi.org/10.2307/1131205)
-[^2]: Berglund, E., Eriksson, M., and Westerlund, M. _Communicative skills in relation to gender, birth order, childcare and socioeconomic status in 18‐month‐old children._ Scandinavian Journal of Psychology, 46: 485-491. (2005). doi:[10.1111/j.1467-9450.2005.00480.x](https://doi.org/10.1111/j.1467-9450.2005.00480.x)

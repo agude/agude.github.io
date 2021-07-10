@@ -49,7 +49,9 @@ $$ N_{\textrm{crashes}} = P_{\textrm{car-bike}} \, L_{\textrm{miles biked}} \, \
 That is, the number of crashes involving bicycles ($$N$$) is the probability
 of a crash happening when a bike encounters a car ($$P$$) times the number of
 cars encountered ($$L \lambda$$). This ignores some crashes, like solo crashes
-and those that do not involve a car, but these are rare.[^1]
+and those that do not involve a car, but these are rare.[^rare]
+
+[^rare]: Of the 223,772 recorded crashes with bicycles, **89% involve a car**. There is a bias though: SWITRS reports are filled out when the police or CHP are called to the scene. As such, they skew towards worse accidents.
 
 We won't be able to test the validity of this model with the SWITRS data
 alone, but we can use it to reason about what is happening. For example, if
@@ -171,7 +173,3 @@ motorcycles show an increase. Bikes and cars also seem to trade off, with car
 crashes increasing in recent years while bike crashes fall off. Further study
 and additional data is necessary before I can determine the reasons behind
 this trend.
-
----
-
-[^1]: Of the 223,772 recorded crashes with bicycles, **89% involve a car**. There is a bias though: SWITRS reports are filled out when the police or CHP are called to the scene. As such, they skew towards worse accidents.

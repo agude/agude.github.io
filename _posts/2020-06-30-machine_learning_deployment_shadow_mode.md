@@ -23,18 +23,21 @@ initially deploying models, is **shadow mode**.
 
 If you're interested in a broader overview of building and deploying machine
 learning products, I highly recommend [Emmanuel Ameisen's][manu] book:
-[_Building Machine Learning Powered Applications_][book]![^1]
+[_Building Machine Learning Powered Applications_][book]![^disclaimer]
 
 [manu]: https://mlpowered.com/
 [book]: https://mlpowered.com/book/
+[^disclaimer]: **Disclaimer**: I was a technical editor for the book, but make no money off sales. 
 
 ## What Is Shadow Mode?
 
 To launch a model in shadow mode, you deploy the new, shadow model alongside
-the old, live model.[^2] The live model continues to handle all requests, but
-the shadow model also runs on some (or all) of the requests. This allows you
-to safely test the new model against real data while avoiding the risk of
+the old, live model.[^live] The live model continues to handle all requests,
+but the shadow model also runs on some (or all) of the requests. This allows
+you to safely test the new model against real data while avoiding the risk of
 service disruptions.
+
+[^live]: By _"live model"_, I mean whatever system is currently doing the job that the shadow model will do. It could be a model, a heuristic, a simple `if` statement, or even nothing at all.
 
 ## When Would I Use Shadow Mode?
 
@@ -112,8 +115,10 @@ second model as well as a logging action.
 
 To put a model in shadow mode _behind the API_, you change the code that
 responds to API requests to call the live and shadow model. You log the
-results of both models[^3] but only return the result from the live model. I
-have drawn a schematic of this below:
+results of both models[^logging] but only return the result from the live
+model. I have drawn a schematic of this below:
+
+[^logging]: You _are_ logging your live results, right?
 
 [![A diagram showing how behind the API shadow mode is constructed.][behind_pic]][behind_pic]
 
@@ -148,9 +153,3 @@ extra work to be done once you are satisfied with your test results.
 Deploying a model in shadow mode is an easy way to test your model on live
 data. It is flexible and allows you to empower the right team to control the
 experiment.
-
----
-
-[^1]: **Disclaimer**: I was a technical editor for the book, but make no money off sales. 
-[^2]: By _"live model"_, I mean whatever system is currently doing the job that the shadow model will do. It could be a model, a heuristic, a simple `if` statement, or even nothing at all.
-[^3]: You _are_ logging your live results, right?

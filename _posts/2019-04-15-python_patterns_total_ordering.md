@@ -105,9 +105,12 @@ to reduce the boilerplate, but that is exactly what `@total_ordering` from
 
 ## With `@total_ordering`
 
-Using the `@total_ordering` decorator[^1] we only have to define `__eq__` and
+Using the `@total_ordering` decorator[^to] we only have to define `__eq__` and
 one of the other comparison methods. The rest of the methods are filled in for
 us. It's used like so:
+
+[^to]: A [decorator][decorator] is a function that takes a Python object as an argument and returns a (often) modified copy of the object.
+[decorator]: https://docs.python.org/3/glossary.html#term-decorator
 
 ```python
 from functools import total_ordering
@@ -157,8 +160,3 @@ for book in sorted(my_books):
 ```
 
 And we didn't have to write six methods!
-
----
-[^1]: A [decorator][decorator] is a function that takes a Python object as an argument and returns a (often) modified copy of the object.
-
-[decorator]: https://docs.python.org/3/glossary.html#term-decorator

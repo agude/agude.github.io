@@ -129,6 +129,8 @@ finished in Paris, but lost lots of time in the Alps.
 
 [quintana]: https://en.wikipedia.org/wiki/Nairo_Quintana
 [mc]: https://en.wikipedia.org/wiki/Massif_Central
+[^sportsmanship]: Ineos said Bernal dropped out to "focus on recovery", but many fans felt that Bernal---who had won last year, placed as high as second this year, and worn the [white jersey][white] for the best young rider---was abandoning the most prestigious race of the season to avoid embarrassment at the hands of his opponents. 
+[white]: https://en.wikipedia.org/wiki/White_jersey
 
 Thibaut Pinot crashed on stage 1. [Emanuel Buchmann][buchmann] crashed in a
 previous race and his ability to start was in question. Both lost time in the
@@ -183,9 +185,3 @@ This year's Tour was unique due to needing to adjust to the COVID pandemic,
 but it turned out to be one of the most exciting races in the history of the
 sport! And what's more, it gave us some much-needed entertainment during these
 dark time.
-
----
-
-[^sportsmanship]: Ineos said Bernal dropped out to "focus on recovery", but many fans felt that Bernal---who had won last year, placed as high as second this year, and worn the [white jersey][white] for the best young rider---was abandoning the most prestigious race of the season to avoid embarrassment at the hands of his opponents. 
-
-[white]: https://en.wikipedia.org/wiki/White_jersey

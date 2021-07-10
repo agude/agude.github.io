@@ -18,29 +18,36 @@ categories:
 {% capture file_dir %}/files/phd-should-i-go/{% endcapture %}
 
 When I was fourteen, I knew that I was destined to become a physics professor,
-so when I finished my BA at UC Berkeley[^1] it never even crossed my mind to
-do anything but go to graduate school. After all, one must first go to
+so when I finished my BA at UC Berkeley[^bear] it never even crossed my mind
+to do anything but go to graduate school. After all, one must first go to
 graduate school to become a professor, and a professorship was in my future.
-Ergo, graduate school (specifically, the University of Minnesota[^2]) was the
-next step in my journey.
+Ergo, graduate school (specifically, the University of Minnesota[^umn]) was
+the next step in my journey.
+
+[^bear]: Go Bears! 🐻
+[^umn]: Go Golden Gophers! [🐿️](https://twitter.com/goldythegopher/status/657228811751264256)
 
 Seven years later, as a freshly minted PhD in particle physics, I went
 straight to [Insight Data Science][insight] to begin a career in Silicon
 Valley. The dream of becoming a physics professor had long since been
 abandoned. I never even applied for a [postdoc position][postdoc], which would
-have been the next step in the process.[^3]
+have been the next step in the process.[^pd]
 
 [insight]: https://www.insightdatascience.com
 [postdoc]: https://en.wikipedia.org/wiki/Postdoctoral_researcher
+[^pd]: A postdoc is a position used to gain more experience before applying for professorships. Graduates often spend five to six years doing multiple postdocs, which are all but required to land a professorship.
 
 So what caused me to redirect my ambitions and energy? What was it that,
-despite thoroughly enjoying my six years in Minnesota,[^4] has led me to
-wonder if I would still do it again were I to be given a second chance? And
+despite thoroughly enjoying my six years in Minnesota,[^year_off] has led me
+to wonder if I would still do it again were I to be given a second chance? And
 what should my answer be when I am asked by students whether they should
 pursue a physics PhD? These are not easy questions to answer, nor will any
 particular answer be suitable for all, but if you are wondering if you should
 follow in my footsteps (or wondering about the road not taken), then a review
 of my experiences may reveal insights.
+
+[^year_off]: I was forced to take a year off after undergrad; [a story I shared in another post][grad_post].
+[grad_post]: {% post_url 2018-03-14-a_career_starts_with_rejection %}
 
 ## You learn a lot
 
@@ -81,11 +88,12 @@ tenure track positions. Those are terrible odds.
 
 ## And the opportunity cost is very high
 
-You don't spend your own money on a graduate degree,[^5] but it is still [very
-expensive][op_cost]. You spend six or seven years training for a job you will
-not get. You learn a lot along the way, but you could certainly learn the
+You don't spend your own money on a graduate degree,[^dont] but it is still
+[very expensive][op_cost]. You spend six or seven years training for a job you
+will not get. You learn a lot along the way, but you could certainly learn the
 useful things in a much shorter amount of time.
 
+[^dont]: Or, at least, you should not!
 [op_cost]: https://en.wikipedia.org/wiki/Opportunity_cost
 
 In six years, if you get rid of the physics courses, exams, and teaching, you
@@ -114,17 +122,8 @@ It's hard to answer because I really like how my life has ended up. I would be
 in a completely different place---in terms of my family, my career, and my
 personality---had I not gone. And yet, for the reasons above, it is hard for
 me to recommend the same path to others. If you absolutely know you are going
-to be a professor,[^6] then you should pursue your goal and enter a PhD
+to be a professor,[^arent] then you should pursue your goal and enter a PhD
 program, but if you just want to break into data science, you should consider
 other options.
 
----
-
-[^1]: Go Bears! 🐻
-[^2]: Go Golden Gophers! [🐿️](https://twitter.com/goldythegopher/status/657228811751264256)
-[^3]: A postdoc is a position used to gain more experience before applying for professorships. Graduates often spend five to six years doing multiple postdocs, which are all but required to land a professorship.
-[^4]: I was forced to take a year off after undergrad; [a story I shared in another post][grad_post].
-[^5]: Or, at least, you should not!
-[^6]: You probably aren't.
-
-[grad_post]: {% post_url 2018-03-14-a_career_starts_with_rejection %}
+[^arent]: You probably aren't.

@@ -114,6 +114,11 @@ Zenodo---hosted by CERN---is a much simpler and smaller service than Kaggle.
 It does not hat a community built up around it. It does not have attached
 cloud compute. They have almost no users.[^usage]
 
+[^usage]: As of this post, my dataset has been viewed 161 times on Zenodo and
+    downloaded just 47 times. It has been viewed 47,800 times on Kaggle and
+    downloaded 3017 times. In addition, there have been 24 Kaggle notebooks
+    posted that make use of the data.
+
 So why use Zenodo? Simple: Google [kills products left and
 right][killedbygoogle] while CERN knows a little something about [keeping
 websites online][first_site]. I trust CERN's stewardship of the dataset. I am
@@ -153,10 +158,3 @@ dataset and make use of it. The downside is the uncertain longevity and the
 fact that you need an account to download the dataset. Zenodo perfectly
 complements Kaggle's weakness as its backed by CERN, an organization that
 takes data hosting seriously, and makes it very easy to download the dataset.
-
----
-
-[^usage]: As of this post, my dataset has been viewed 161 times on Zenodo and
-    downloaded just 47 times. It has been viewed 47,800 times on Kaggle and
-    downloaded 3017 times. In addition, there have been 24 Kaggle notebooks
-    posted that make use of the data.

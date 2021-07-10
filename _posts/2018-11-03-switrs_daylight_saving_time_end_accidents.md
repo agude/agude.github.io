@@ -18,9 +18,12 @@ categories:
 We all hate the change to [daylight saving time][dst] (DST) in the spring; it
 makes us tired, grumpy, but worst of all it [causes us to crash our cars at a
 higher rate][dst_article]! The end of DST is not as universally reviled,
-probably because we get back the hour of sleep we lost earlier in the year, but [Varughese &
-Allen][varughese] found that there was still a "significant increase in number of
-crashes on the Sunday of the fall shift from DST".[^1]
+probably because we get back the hour of sleep we lost earlier in the year,
+but [Varughese & Allen][varughese] found that there was still a "significant
+increase in number of crashes on the Sunday of the fall shift from
+DST".[^varughese_cite]
+
+[^varughese_cite]: Varughese, J. and Allen, R., _Fatal accidents following changes in daylight savings time: the American experience_, Sleep Medicine, Volume 2, Issue 1, p. 31 - 36, doi: [https://doi.org/10.1016/S1389-9457(00)00032-0][varughese]
 
 [dst]: https://en.wikipedia.org/wiki/Daylight_saving_time
 [dst_article]: {% post_url 2017-03-20-switrs_daylight_saving_time_accidents %}
@@ -74,12 +77,13 @@ after.][ratio_plot]][ratio_plot]
 There is, on average, a larger number of crashes on Sunday when the time
 changes as seen by Varughese & Allen. However, the same excess is not seen
 when a different normalization is chosen, like using the [week
-before][before_plot] or [two weeks after][after_plot].[^2] The week before has
-different lighting during commute times and so it is easier to dismiss, but
-two weeks after has similar lighting.
+before][before_plot] or [two weeks after][after_plot].[^after] The week before
+has different lighting during commute times and so it is easier to dismiss,
+but two weeks after has similar lighting.
 
 [before_plot]: {{ file_dir }}/accidents_after_end_dst_in_california_before.svg
 [after_plot]: {{ file_dir }}/accidents_two_weeks_after_end_dst_in_california.svg
+[^after]: The large deviations on the two week plot for Thursday and Friday are explained by Thanksgiving and Black Friday.
 
 ## _t_-Test
 
@@ -109,8 +113,3 @@ the time change itself!
 [prop7]: https://ballotpedia.org/California_Proposition_7,_Permanent_Daylight_Saving_Time_Measure_(2018)
 [usc]: https://medium.com/@USC/why-proposition-7-is-bad-for-public-health-825905ba54f6
 [ab-385]: https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201520160AB385
-
----
-
-[^1]: Varughese, J. and Allen, R., _Fatal accidents following changes in daylight savings time: the American experience_, Sleep Medicine, Volume 2, Issue 1, p. 31 - 36, doi: [https://doi.org/10.1016/S1389-9457(00)00032-0][varughese]
-[^2]: The large deviations on the two week plot for Thursday and Friday are explained by Thanksgiving and Black Friday.
