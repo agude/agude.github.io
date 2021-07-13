@@ -44,10 +44,10 @@ often.[^nhtsa]
     National Highway Traffic Safety Administration. (June 3rd, 2021). [_2020
     Fatality Data Show Increased Traffic Fatalities During Pandemic_][fatal]. 
 
-I can't test that hypothosis with my [SWITRS data][hosted_dataset_post]---it
+I can't test that hypothesis with my [SWITRS data][hosted_dataset_post]---it
 does not include much information about driving behavior, only about
 collisions---but I can look at the fatality rate on California roads. You can
-follow along using my notebook **TODO** using the data hosted on 
+follow along using my notebook **TODO** using the data hosted on
 [Kaggle][db_link] or [Zenodo][zen_link].
 
 {% capture notebook_uri %}{{ "SWITRS Crash Dates With Bicycles.ipynb" | uri_escape }}{% endcapture %} 
@@ -101,5 +101,21 @@ and after the stay-at-home order. Here it is:
 [![A histogram showing traffic fatality rate in California before and after
 the COVID-19 stay-at-home order.][hist_plot]][hist_plot]
 
-
 [hist_plot]: {{ file_dir }}/fatality_rate_per_week_in_california_after_covid_histograms.svg
+
+The weeks with the highest fatality rate before the pandemic are between 0.8
+and 1%. These overlap with the _lowest_ fatality rate weeks after the
+stay-at-home order. These are clearly different distributions, but we can
+quantify that difference with a [Mann--Whitney _U_ test][mwu].
+
+[mwu]: https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test
+
+The Mann--Whitney test compares the probability that a value randomly drawn
+from the first distribution is larger than one randomly drawn from the second
+distribution, with a correction for ties, that is: `P(X > Y) + 1/2 P(X=Y) != 1/2`
+
+The test, unsurprisingly, gives a _p_-value of 3.6e-14, indicating that these
+distributions are significantly different.
+
+
+
