@@ -12,10 +12,10 @@ categories:
 {% capture file_dir %}/files/switrs-covid{% endcapture %}
 
 California had its [first case of COVID-19][covid] on January 26, 2020. The
-Governor [mandated a state-wide stay-at-home order][order] on March 19, 2020.
+Governor mandated a [state-wide stay-at-home order][order] on March 19, 2020.
 The morning and evening commutes stopped Immediately. Total traffic volume
 decreased by more than 50% and stayed low for weeks. Slowly the restrictions
-were loosened and traffic returned, but has still not reached pre-pandemic
+were relaxed and traffic returned, but has still not reached pre-pandemic
 levels.
 
 [covid]: https://en.wikipedia.org/wiki/COVID-19_pandemic_in_California
@@ -112,10 +112,13 @@ quantify that difference with a [Mann--Whitney _U_ test][mwu].
 
 The Mann--Whitney test compares the probability that a value randomly drawn
 from the first distribution is larger than one randomly drawn from the second
-distribution, with a correction for ties, that is: `P(X > Y) + 1/2 P(X=Y) != 1/2`
+distribution, with a correction for ties. If this probability is not 50% (as
+it would be if they were the same) then the distributions must be different.
+The test is nonparametric and only assumes that the observations are
+independent, that they are orderable, that under the null hypothesis the
+distributions are equal, and under the alternative hypothesis the
+distributions are different.
 
 The test, unsurprisingly, gives a _p_-value of 3.6e-14, indicating that these
-distributions are significantly different.
-
-
-
+distributions are significantly different, meaning that the California
+stay-at-home order significantly increased the traffic fatality rate.
