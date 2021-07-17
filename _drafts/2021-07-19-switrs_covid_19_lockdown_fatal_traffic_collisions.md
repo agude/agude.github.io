@@ -51,17 +51,20 @@ I can't test that hypothesis with my [SWITRS data][hosted_dataset_post]---it
 does not include much information about driving behavior, only about
 collisions---but I can look at the fatality rate on California roads.
 
+[hosted_dataset_post]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
+
 The code for this analysis can be found [here][notebook] ([rendered on
 Github][rendered]). The data is available on [Kaggle][db_link] or
-[Zenodo][zen_link].
+[Zenodo][zen_link]. There is a [hosted Kaggle Notebook][kn] version of this
+post as well to help you dive right in.
 
 {% capture notebook_uri %}{{ "SWITRS Fatalities During COVID Lockdown.ipynb" | uri_escape }}{% endcapture %} 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
-[hosted_dataset_post]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
 [db_link]: https://www.kaggle.com/alexgude/california-traffic-collision-data-from-switrs
 [zen_link]: https://zenodo.org/record/4284843
+[kn]: https://www.kaggle.com/alexgude/switrs-increase-in-traffic-fatalities-after-covid
 
 ## Data
 
