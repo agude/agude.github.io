@@ -46,11 +46,12 @@ often.[^nhtsa]
 
 I can't test that hypothesis with my [SWITRS data][hosted_dataset_post]---it
 does not include much information about driving behavior, only about
-collisions---but I can look at the fatality rate on California roads. You can
-follow along using my notebook **TODO** using the data hosted on
-[Kaggle][db_link] or [Zenodo][zen_link].
+collisions---but I can look at the fatality rate on California roads. The code
+for this analysis can be found [here][notebook] ([rendered on
+Github][rendered]). The data is available on [Kaggle][db_link] or
+[Zenodo][zen_link].
 
-{% capture notebook_uri %}{{ "SWITRS Crash Dates With Bicycles.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "SWITRS Fatalities During COVID Lockdown.ipynb" | uri_escape }}{% endcapture %} 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
