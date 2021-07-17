@@ -18,21 +18,19 @@ categories:
 
 California had its [first case of COVID-19][covid] on January 26, 2020. The
 Governor mandated a [state-wide stay-at-home order][order] on March 19, 2020.
-The morning and evening commutes stopped Immediately. Total traffic volume
-decreased by more than 50% and stayed low for weeks. Slowly the restrictions
-were relaxed and traffic returned, but has still not reached pre-pandemic
-levels.
+The morning and evening commutes stopped immediately. Traffic volume decreased
+by more than 50% and stayed low for weeks. Slowly the restrictions were
+relaxed and traffic returned, but has still not reached pre-pandemic levels.
 
 [covid]: https://en.wikipedia.org/wiki/COVID-19_pandemic_in_California
 [order]: https://en.wikipedia.org/wiki/California_government_response_to_the_COVID-19_pandemic
 
 The number of traffic collisions **decreased** as you would expect with the
 decreased volume but, surprisingly, the severity of the collisions
-**increased**. The [rate of fatal accidents increased all across the
+**increased**. The [rate of fatal accidents increased across the
 country][fatal]. The National Highway Traffic Safety Administration attributes
-the increase to a change in behavior by drivers who stayed on the road,
-specifically driving more recklessly and wearing their seatbelt less
-often.[^nhtsa]
+the increase to a change in behavior by drivers who stayed on the road: they
+drove more recklessly and wore their seatbelt less often.[^nhtsa]
 
 [fatal]: https://www.nhtsa.gov/press-releases/2020-fatality-data-show-increased-traffic-fatalities-during-pandemic
 
@@ -51,8 +49,9 @@ often.[^nhtsa]
 
 I can't test that hypothesis with my [SWITRS data][hosted_dataset_post]---it
 does not include much information about driving behavior, only about
-collisions---but I can look at the fatality rate on California roads. The code
-for this analysis can be found [here][notebook] ([rendered on
+collisions---but I can look at the fatality rate on California roads.
+
+The code for this analysis can be found [here][notebook] ([rendered on
 Github][rendered]). The data is available on [Kaggle][db_link] or
 [Zenodo][zen_link].
 
@@ -64,7 +63,7 @@ Github][rendered]). The data is available on [Kaggle][db_link] or
 [db_link]: https://www.kaggle.com/alexgude/california-traffic-collision-data-from-switrs
 [zen_link]: https://zenodo.org/record/4284843
 
-## Data Selection
+## Data
 
 I selected all collisions in the dataset between the start of 2019 and
 November 30th, 2020, including whether their was a fatality as a result of the
@@ -88,10 +87,10 @@ November because the reporting is not yet complete for December.
 
 ## Fatality Rate
 
-I calculate the fatality rate weekly. It is simply the number of traffic
-collisions that resulted in a fatality divided by the total number of
-collisions. Here is what that rate looks like before and after the
-stay-at-home order:
+I calculate the weekly fatality rate. It is the number of traffic collisions
+that resulted in a fatality divided by the total number of collisions during
+the week. Here is what that rate looks like before and after the stay-at-home
+order:
 
 [![The traffic fatality rate in California before and after the COVID-19
 stay-at-home order.][ts_plot]][ts_plot]
@@ -99,7 +98,8 @@ stay-at-home order.][ts_plot]][ts_plot]
 [ts_plot]: {{ file_dir }}/fatality_rate_per_week_in_california_after_covid.svg
 
 You can see the fatality rate **immediately** jumps up to over 1% for the
-first time in our dataset, and then goes even higher in the coming.
+first time in our dataset, and then goes even higher in the coming weeks. It
+stays elevated for the entirety our data range.
 
 Another way to look at this data is to plot of histogram of the rate before
 and after the stay-at-home order. Here it is:
@@ -109,7 +109,7 @@ the COVID-19 stay-at-home order.][hist_plot]][hist_plot]
 
 [hist_plot]: {{ file_dir }}/fatality_rate_per_week_in_california_after_covid_histograms.svg
 
-The weeks with the highest fatality rate before the pandemic are between 0.8
+The weeks with the highest fatality rate before the pandemic are between 0.8%
 and 1%. These overlap with the _lowest_ fatality rate weeks after the
 stay-at-home order. These are clearly different distributions, but we can
 quantify that difference with a [Mann--Whitney _U_ test][mwu].
@@ -125,6 +125,6 @@ independent, that they are orderable, that under the null hypothesis the
 distributions are equal, and under the alternative hypothesis the
 distributions are different.
 
-The test, unsurprisingly, gives a _p_-value of 3.6e-14, indicating that these
+The test confirms our eye test with a _p_-value of 3.6e-14. These
 distributions are significantly different, meaning that the California
-stay-at-home order significantly increased the traffic fatality rate.
+stay-at-home order increased the traffic fatality rate.
