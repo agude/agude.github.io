@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Plotting the 2020 Tour de France"
+title: "Plotting the 2021 Tour de France"
 description: >
   The Tour de France is a race decided by mere minutes; to see
   exactly how those minutes were earned, read on for my plots!
@@ -15,38 +15,42 @@ categories:
 
 {% capture file_dir %}/files/tour-de-france/{% endcapture %}
 
-The [Tour de France][tour] was postponed by [the pandemic][covid] this year,
-but finally kicked off in late August. Although there were worries that the
-race would have to be stopped in the middle, it made it all the way to the
-final sprint on the Champs-Élysées in Paris. In this post, just like [last
-year's][last_post], I will use plots to explore how the Tour unfolded.
+The 108th edition of the [Tour de France][tour] started in late June this
+year. The race was shifted back slightly to avoid overlapping the Summer
+Olympics.
+
+In this post, just like [last year's][last_post], I will use plots to explore how the Tour unfolded.
 
 [tour]: https://en.wikipedia.org/wiki/2020_Tour_de_France
 [covid]: https://en.wikipedia.org/wiki/COVID-19_pandemic
-[last_post]: {% post_url 2019-08-05-2019_tour_de_france_plot %}
+[last_post]: {% post_url 2020-10-16-2020_tour_de_france_plot %}
 
 The code that generated the plots can be found [here][plot_code]
 ([rendered on Github][rendered]). The data [is here][data].
 
-{% capture notebook_uri %}{{ "Tour de France 2020 Plot.ipynb" | uri_escape }}{% endcapture %}
+{% capture notebook_uri %}{{ "Tour de France 2021 Plot.ipynb" | uri_escape }}{% endcapture %}
 [plot_code]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
-[data]: {{ file_dir }}/2020-tdf-dataframe.json
+[data]: {{ file_dir }}/2021-tdf-dataframe.json
 
 ## The Race for Yellow
 
-The most prestigious award at the Tour is the [yellow jersey][yellow], which
-is awarded to the rider with the lowest combined time across all 21 stages of
-the race. [Egan Bernal][bernal] was the favorite going into this year as he
-had won last year's race. His team, [Ineos][ineos], had also decided to
-dedicate all of their resources to him and left former winner and previous
-co-leads [Chris Froome][froome] and [Geraint Thomas][thomas] off the roster.
+The top award in the Tour is the [yellow jersey][yellow], which is awarded to
+the rider with the lowest combined time across the 21 stages of the race.
+[Tadej Pogačar][pogacar], the incredibly young[^young] and surprisingly dominant
+winner of last year's race, was the clear favorite.
 
 [yellow]: https://en.wikipedia.org/wiki/General_classification_in_the_Tour_de_France
-[bernal]: https://en.wikipedia.org/wiki/Egan_Bernal
-[ineos]: https://en.wikipedia.org/wiki/Ineos_Grenadiers
-[froome]: https://en.wikipedia.org/wiki/Chris_Froome
-[thomas]: https://en.wikipedia.org/wiki/Geraint_Thomas
+[pogacar]: https://en.wikipedia.org/wiki/Tadej_Poga%C4%8Dar
+
+[^young]: 
+    Pogačar is the second youngest winner of the Tour at 21, with only [Henri
+    Cornet][cornet]--the winner of the 1904 edition of the Tour--having won
+    just 10 days short of 20.
+
+[cornet]: https://en.wikipedia.org/wiki/Henri_Cornet
+
+
 
 [Primož Roglič][roglic] was another favorite. He had won last year's [Vuelta a
 España][vuelta], taken 4th in a previous Tour, and his team,
@@ -72,13 +76,6 @@ two and several top riders were stuck in the chasing group where they lost
 
 [peloton]: https://en.wikipedia.org/wiki/Peloton
 
-After leading for most of the race, Roglič lost nearly a minute to [Tadej
-Pogačar][pogacar], a young Slovenian riding his first Tour ever, on the
-penultimate stage. Roglič had defended the jersey since stage 9, possibly as
-part of a strategy to take the jersey early in case the race had to be
-canceled midway through.
-
-[pogacar]: https://en.wikipedia.org/wiki/Tadej_Poga%C4%8Dar
 
 But the long defense left Roglič vulnerable. In a ride that caused 17-time
 Tour rider [George Hincapie][hincapie] to declare it ["the greatest Tour I
@@ -120,7 +117,7 @@ the first real test in the Pyrenees.
 
 [martin]: https://en.wikipedia.org/wiki/Guillaume_Martin
 
-Both Bernal---last year's winner---and [Nario Quintana][quintana]---two time
+Both Bernal---last years winner---and [Nario Quintana][quintana]---two time
 runner up to Chris Froome---defended well in the early mountains but lost time
 in the high [Massif Central][mc]. They were suffering from injuries incurred
 during crashes earlier in the race. In a controversial move, Bernal withdrew
@@ -129,13 +126,7 @@ finished in Paris, but lost lots of time in the Alps.
 
 [quintana]: https://en.wikipedia.org/wiki/Nairo_Quintana
 [mc]: https://en.wikipedia.org/wiki/Massif_Central
-[^sportsmanship]:
-    Ineos said Bernal dropped out to "focus on recovery", but many fans felt
-    that Bernal---who had won last year, placed as high as second this year,
-    and worn the [white jersey][white] for the best young rider---was
-    abandoning the most prestigious race of the season to avoid embarrassment
-    at the hands of his opponents. 
-
+[^sportsmanship]: Ineos said Bernal dropped out to "focus on recovery", but many fans felt that Bernal---who had won last year, placed as high as second this year, and worn the [white jersey][white] for the best young rider---was abandoning the most prestigious race of the season to avoid embarrassment at the hands of his opponents. 
 [white]: https://en.wikipedia.org/wiki/White_jersey
 
 Thibaut Pinot crashed on stage 1. [Emanuel Buchmann][buchmann] crashed in a
@@ -176,6 +167,7 @@ using it where it counted.
 [bennett]: https://en.wikipedia.org/wiki/Sam_Bennett_(cyclist)
 [sagan]: https://en.wikipedia.org/wiki/Peter_Sagan
 [green]: https://en.wikipedia.org/wiki/Points_classification_in_the_Tour_de_France
+[froome]: https://en.wikipedia.org/wiki/Chris_Froome
 
 Finally, [Roger Kluge][kluge] won the [lanterne rouge][lanterne], finishing
 six hours behind Pogačar. His job in the race had been to escort his team's
