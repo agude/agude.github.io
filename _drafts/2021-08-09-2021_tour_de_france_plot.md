@@ -4,10 +4,10 @@ title: "Plotting the 2021 Tour de France"
 description: >
   The Tour de France is a race decided by mere minutes; to see
   exactly how those minutes were earned, read on for my plots!
-image: /files/tour-de-france/tour_de_france_1932_second.jpg
+image: /files/tour-de-france/tour_de_france_1932_swiss_team.jpg
 hide_lead_image: True
 image_alt: >
-  A black and white photo of the competitors in the 1932 Tour de France.
+  A black and white photo of the Swiss team in the 1932 Tour de France.
 categories:
   - cycling
   - data-visualization
