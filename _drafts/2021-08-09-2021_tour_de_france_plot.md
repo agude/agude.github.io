@@ -98,7 +98,7 @@ the race.
 
 [cross]: https://en.wikipedia.org/wiki/Cyclo-cross
 
-[Ben O'Connor][oconnor] attempted to contest Pogačar's lead in stage 9 with a
+[Ben O'Connor][oconnor] attempted to contest Pogačar's lead on stage 9 with a
 solo break away win but fell two minutes short and putting him in second
 place. He wasn't able to hold his form and eventually placed forth after
 losing time in the Pyrenees.
@@ -123,51 +123,66 @@ Turkey][tot], which raised the possibility of him beating Merckx's record.
 [merckx]: https://en.wikipedia.org/wiki/Eddy_Merckx
 [tot]: https://en.wikipedia.org/wiki/2021_Presidential_Tour_of_Turkey
 
+Here is how the sprint race turned out, with sprint stages shaded in grey:
 
+[![A line plot showing how far behind the points leader the top five sprint
+sprinters were.][sprint_plot]][sprint_plot]
+
+[sprint_plot]: {{ file_dir }}/2021_tour_de_france_top_5_sprint.svg
+
+Cavendish took the lead in the points competition with a win on stage 4. He
+extended his lead on stage 6 with another win which brought him up to 32
+all-time, just 2 behind Merckx. Cavendish had to survive the Alps in stages 7
+and 8 if he wanted another shot at sprint wins. He managed to avoid the time
+cuts with the help of his team and went on to win twice more on stages 10 and
+13, where second place [Michael Matthews][matthews] falls to his lowest point
+before clawing his way back over the next few stages.
+
+[matthews]: https://en.wikipedia.org/wiki/Michael_Matthews_(cyclist)
+
+Cavendish's win on stage 13 tied Merckx's record of 34 tour wins and set him
+up to beat the record on the [final sprint of the tour on the
+Champs-Élysées][ce_sprint]. Unfortunately it was not to be, Cavendish came in
+third on the final sprint behind Wout van Aert and [Jasper
+Philipsen][philipsen]. Cavendish may have another chance to beat the record in
+2022, but as he is at the tail-end of his career it is not even certain he
+will make the race.
+
+[ce_sprint]: https://en.wikipedia.org/wiki/Champs-%C3%89lys%C3%A9es_stage_in_the_Tour_de_France
+[philipsen]: https://en.wikipedia.org/wiki/Jasper_Philipsen
 
 ## The Rest of the Race
 
-More than 100 riders finished the Tour, but most of them were not competing
-for the yellow jersey. Here are the paths taken by all 146 riders who finished
-in Paris:
+184 riders started the race and 141 finished. Here is how each rider fared:
 
 [![A line plot showing how far behind the leader every rider was for each
 stage.][full_plot]][full_plot]
 
-[full_plot]: {{ file_dir }}/2020_tour_de_france.svg
+[full_plot]: {{ file_dir }}/2021_tour_de_france.svg
 
-Buchmann, the lowest placed rider in our previous plot, is actually ahead of
-most of the riders! We can also see the race started out tough, probably due
-to the chance that it might be canceled after the first rest day, with large
-time gaps opening up even before the first mountains.
+As you can see, Cavendish paced himself in the mountains, finishing with the
+slowest rider to save his energy. Cavendish's teammate, [Tim
+Declercq][declercq], stayed with the sprinter to makes sure he avoid the time
+cut, but lost over 15 minutes in stage 13 when he was caught in a crash.
+Declercq held on as other riders dropped out to finish last as the [lanterne
+rougue][lanterne].
 
-The latter half of the second week was also tough with the hilly Massif
-Central and mountainous Alps. By the last few stages, the time gaps were
-pretty much set and most riders maintained their relative positions.
-
-Two riders of note are [Peter Sagan][sagan] and [Sam Bennett][bennett], who
-were competing for the [green jersey][green]. Both of them saved their energy,
-and hence lost time, on mountainous stages so they could give it their all in
-the sprints. Even though Sagan finished about an hour ahead of Bennett, he
-lost the Jersey. Bennett had done a better job of managing his energy and
-using it where it counted.
-
-[bennett]: https://en.wikipedia.org/wiki/Sam_Bennett_(cyclist)
-[sagan]: https://en.wikipedia.org/wiki/Peter_Sagan
-[green]: https://en.wikipedia.org/wiki/Points_classification_in_the_Tour_de_France
-[froome]: https://en.wikipedia.org/wiki/Chris_Froome
-
-Finally, [Roger Kluge][kluge] won the [lanterne rouge][lanterne], finishing
-six hours behind Pogačar. His job in the race had been to escort his team's
-sprinter, [Caleb Ewan][ewan], through the race. This often meant falling back
-on climbs and waiting for Ewan so they could tackle the mountains together and
-avoid being cut for being too slow.
-
-[kluge]: https://en.wikipedia.org/wiki/Roger_Kluge
+[declercq]: https://en.wikipedia.org/wiki/Tim_Declercq
 [lanterne]: https://en.wikipedia.org/wiki/Lanterne_rouge
-[ewan]: https://en.wikipedia.org/wiki/Caleb_Ewan
 
-This year's Tour was unique due to needing to adjust to the COVID pandemic,
-but it turned out to be one of the most exciting races in the history of the
-sport! And what's more, it gave us some much-needed entertainment during these
-dark time.
+Finally, how did the other riders who held the yellow jersey during the race,
+[Julian Alaphilippe][alaphilippe] and Mathieu van der Poel, do? Van der Poel
+dropped out when they hit the mountains to prepare for the Olympics. Despite
+his strength, he is not the type of rider who could have won this tour, being
+to heavy to compete in the mountain stages. Alaphilippe, although not a
+climber, can compete in the mountains as [we saw in the 2019 Tour][2019_tour],
+but he too started to lose time in the Alps. He held on and finished in Paris,
+but far down the leaderboard.
+
+[alaphilippe]: https://en.wikipedia.org/wiki/Julian_Alaphilippe
+[2019_tour]: {% post_url 2019-08-05-2019_tour_de_france_plot %}#the-race-for-yellow
+
+Although this competition for the yellow jersey lacked the excitement of last
+year's Tour, Mark Cavendish's amazing return to form provided some rare
+sprinting tension. Hopefully he will return next year to attempt to break
+Merckx's record!
