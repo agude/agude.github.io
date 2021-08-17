@@ -16,12 +16,14 @@ categories:
 {% capture file_dir %}/files/tour-de-france/{% endcapture %}
 
 The 108th edition of the [Tour de France][tour] started in late June this
-year. The race was shifted back slightly to avoid overlapping the Summer
-Olympics.
+year. The start date was shifted back slightly to avoid overlapping with the
+[rescheduled 2020 Summer Olympics][olympics], but the race was otherwise
+unaffected by the [ongoing COVID pandemic][covid] which forced the
+postponement of last year's race. In this post, just like [last
+year's][last_post], I plot how the race unfolded.
 
-In this post, just like [last year's][last_post], I will use plots to explore how the Tour unfolded.
-
-[tour]: https://en.wikipedia.org/wiki/2020_Tour_de_France
+[tour]: https://en.wikipedia.org/wiki/2021_Tour_de_France
+[olympics]: https://en.wikipedia.org/wiki/2020_Summer_Olympics
 [covid]: https://en.wikipedia.org/wiki/COVID-19_pandemic
 [last_post]: {% post_url 2020-10-16-2020_tour_de_france_plot %}
 
@@ -38,7 +40,7 @@ The code that generated the plots can be found [here][plot_code]
 The top award in the Tour is the [yellow jersey][yellow], which is awarded to
 the rider with the lowest combined time across the 21 stages of the race.
 [Tadej Pogačar][pogacar], the incredibly young[^young] and surprisingly dominant
-winner of last year's race, was the clear favorite.
+winner of last year's race, was the clear favorite this year.
 
 [yellow]: https://en.wikipedia.org/wiki/General_classification_in_the_Tour_de_France
 [pogacar]: https://en.wikipedia.org/wiki/Tadej_Poga%C4%8Dar
@@ -50,92 +52,78 @@ winner of last year's race, was the clear favorite.
 
 [cornet]: https://en.wikipedia.org/wiki/Henri_Cornet
 
-
-
-[Primož Roglič][roglic] was another favorite. He had won last year's [Vuelta a
-España][vuelta], taken 4th in a previous Tour, and his team,
-[Jumbo--Visma][jumbo], included a star-studded support roster.
+[Primož Roglič][roglic] was again a favorite, having [taking second place in
+last year's Tour][last_post] and gone on to defend his title in the [Vuelta a
+España][vuelta].
 
 [roglic]: https://en.wikipedia.org/wiki/Primo%C5%BE_Rogli%C4%8D
-[vuelta]: https://en.wikipedia.org/wiki/2019_Vuelta_a_Espa%C3%B1a
-[jumbo]: https://en.wikipedia.org/wiki/Team_Jumbo%E2%80%93Visma
+[vuelta]: https://en.wikipedia.org/wiki/2020_Vuelta_a_Espa%C3%B1a
 
-After three weeks of racing, here is how the top five riders fared through the
-stages:
+[Ineos Grenadiers][ineos] teammates [Richie Porte][porte], [Geraint
+Thomas][thomas], and [Richard Carapaz][carapaz] were also in the running.
+Porte had won the [Critérium du Dauphiné][cdd]---considered a warm-up race for
+the Tour used to test a rider's form---and Thomas had placed third in the
+Critérium and was the 2018 Tour winner. Carapaz had won the [Tour de
+Suisse][tds] the other Tour warm-up race.
+
+[ineos]: https://en.wikipedia.org/wiki/Ineos_Grenadiers
+[porte]: https://en.wikipedia.org/wiki/Richie_Porte
+[thomas]: https://en.wikipedia.org/wiki/Geraint_Thomas
+[carapaz]: https://en.wikipedia.org/wiki/Richard_Carapaz
+[cdd]: https://en.wikipedia.org/wiki/2021_Crit%C3%A9rium_du_Dauphin%C3%A9
+[tds]: https://en.wikipedia.org/wiki/2021_Tour_de_Suisse
+
+The race for yellow turned out to be far less exciting than last year,
+indicated by the large time gap that formed early in the race:
 
 [![A line plot showing how far behind the leader each top-finishing rider was
 after each stage of the 2020 Tour de France.][gc_plot]][gc_plot]
 
-[gc_plot]: {{ file_dir }}/2020_tour_de_france_top_5.svg
+[gc_plot]: {{ file_dir }}/2021_tour_de_france_top_5.svg
 
-Stage 7 stands out in this plot. Although large time gaps normally occur
-during mountain finishes, this completely flat stage shook up the race for
-yellow. Instead of a steep climb, strong winds split the [peloton][peloton] in
-two and several top riders were stuck in the chasing group where they lost
-1′21″.
+Pogačar only faltered on stage 7 as the race entered the Alps. He dropped to
+almost four minutes behind [Mathieu van der Poel][mvdp] and three and half
+minutes behind [Wout van Aert][wva],[^cyclocross] but
+stormed back on stage 8 to take the lead, which he maintained for the rest of
+the race.
 
-[peloton]: https://en.wikipedia.org/wiki/Peloton
+[mvdp]: https://en.wikipedia.org/wiki/Mathieu_van_der_Poel
+[wva]: https://en.wikipedia.org/wiki/Wout_van_Aert
+[^cyclocross]:
+    Van der Poel and van Aert are an exciting pair to watch! They got their
+    start dominating [cyclo-cross][cross], where their only real competition
+    was each other. Van der Poel has won four of the last seven Cyclo-cross World
+    Championships, and van Aert has won the other three. Both have continued their
+    domination---and rivalry---on the road in the last few years.
+
+[cross]: https://en.wikipedia.org/wiki/Cyclo-cross
+
+[Ben O'Connor][oconnor] attempted to contest Pogačar's lead in stage 9 with a
+solo break away win but fell two minutes short and putting him in second
+place. He wasn't able to hold his form and eventually placed forth after
+losing time in the Pyrenees.
+
+[oconnor]: https://en.wikipedia.org/wiki/Ben_O%27Connor_(cyclist)
+
+### The Green Jersey
+
+Although the race for yellow was unexciting, the race for the [green
+jersey][green]---awarded based on points earned for intermediate sprints and
+stage wins---was incredibly exciting. [Mark Cavendish][cav], considered by
+some to be the greatest sprinter ever, entered the race having won 30 stages
+of the Tour, just [four behind][most_stage_wins] all-time great [Eddy
+Merckx][merckx]. But Cavendish had not won a Tour sprint since 2016 or any stage
+since 2018 and was considered well past his prime. However in early 2021 he
+showed a return to his winning form with dominate sprints in the [Tour of
+Turkey][tot], which raised the possibility of him beating Merckx's record.
+
+[green]: https://en.wikipedia.org/wiki/Points_classification_in_the_Tour_de_France
+[cav]: https://en.wikipedia.org/wiki/Mark_Cavendish
+[most_stage_wins]: https://en.wikipedia.org/wiki/Tour_de_France_records_and_statistics#Stage_wins_per_rider
+[merckx]: https://en.wikipedia.org/wiki/Eddy_Merckx
+[tot]: https://en.wikipedia.org/wiki/2021_Presidential_Tour_of_Turkey
 
 
-But the long defense left Roglič vulnerable. In a ride that caused 17-time
-Tour rider [George Hincapie][hincapie] to declare it ["the greatest Tour I
-have ever seen"][themove], Pogačar stormed back on [La Planche des Belles
-Filles][planche], taking first on the stage by 1′21″. Every other top rider
-lost time on the stage as well, even [Richie Porte][porte] who came in third
-for the stage and knocked [Miguel Ángel López][lopez] out of the top three
-overall.
-
-[hincapie]: https://en.wikipedia.org/wiki/George_Hincapie
-[themove]: https://wedu.team/themove/2020-tour-de-france-stage-20
-[planche]: https://en.wikipedia.org/wiki/La_Planche_des_Belles_Filles
-[porte]: https://en.wikipedia.org/wiki/Richie_Porte
-[lopez]: https://en.wikipedia.org/wiki/Miguel_%C3%81ngel_L%C3%B3pez_(cyclist)
-
-### Disappointing Results
-
-Many riders set their sights on the yellow jersey but ultimately fall short.
-Crashes, illness, and simply not being in form can drag down even top riders.
-Here are the riders who went for the glory but could not keep it up for the
-full three weeks:
-
-[![A line plot showing how some of the under-performing riders fell in the
-rankings.][under_plot]][under_plot]
-
-[under_plot]: {{ file_dir }}/2020_tour_de_france_underperforming.svg
-
-Notice that the y-axis now extends to over two hours behind the leader, not
-the minutes behind in the first chart.
-
-It might be hard to call a top 6 finish a disappointment, but for Lopez is
-was. He was on the podium in 3rd place when he started stage 20, but he lost
-over 6 minutes in a disastrous time trial.
-
-[Guillaume Martin][martin] finished 11th, his highest ever place, but he had
-been in the top three for much of the early race, keeping up with favorites
-Bernal and Roglič. He lost time during stage 13 after holding strong during
-the first real test in the Pyrenees.
-
-[martin]: https://en.wikipedia.org/wiki/Guillaume_Martin
-
-Both Bernal---last years winner---and [Nario Quintana][quintana]---two time
-runner up to Chris Froome---defended well in the early mountains but lost time
-in the high [Massif Central][mc]. They were suffering from injuries incurred
-during crashes earlier in the race. In a controversial move, Bernal withdrew
-from the race after he lost time.[^sportsmanship] Quintana fought on and
-finished in Paris, but lost lots of time in the Alps.
-
-[quintana]: https://en.wikipedia.org/wiki/Nairo_Quintana
-[mc]: https://en.wikipedia.org/wiki/Massif_Central
-[^sportsmanship]: Ineos said Bernal dropped out to "focus on recovery", but many fans felt that Bernal---who had won last year, placed as high as second this year, and worn the [white jersey][white] for the best young rider---was abandoning the most prestigious race of the season to avoid embarrassment at the hands of his opponents. 
-[white]: https://en.wikipedia.org/wiki/White_jersey
-
-Thibaut Pinot crashed on stage 1. [Emanuel Buchmann][buchmann] crashed in a
-previous race and his ability to start was in question. Both lost time in the
-first mountains and never recovered, but nevertheless stayed in the race
-through the end.
-
-[pinot]: https://en.wikipedia.org/wiki/Thibaut_Pinot
-[buchmann]: https://en.wikipedia.org/wiki/Emanuel_Buchmann
 
 ## The Rest of the Race
 
