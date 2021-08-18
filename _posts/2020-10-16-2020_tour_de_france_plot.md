@@ -120,7 +120,7 @@ the first real test in the Pyrenees.
 
 [martin]: https://en.wikipedia.org/wiki/Guillaume_Martin
 
-Both Bernal---last years winner---and [Nario Quintana][quintana]---two time
+Both Bernal---last year's winner---and [Nario Quintana][quintana]---two time
 runner up to Chris Froome---defended well in the early mountains but lost time
 in the high [Massif Central][mc]. They were suffering from injuries incurred
 during crashes earlier in the race. In a controversial move, Bernal withdrew
@@ -129,7 +129,13 @@ finished in Paris, but lost lots of time in the Alps.
 
 [quintana]: https://en.wikipedia.org/wiki/Nairo_Quintana
 [mc]: https://en.wikipedia.org/wiki/Massif_Central
-[^sportsmanship]: Ineos said Bernal dropped out to "focus on recovery", but many fans felt that Bernal---who had won last year, placed as high as second this year, and worn the [white jersey][white] for the best young rider---was abandoning the most prestigious race of the season to avoid embarrassment at the hands of his opponents. 
+[^sportsmanship]:
+    Ineos said Bernal dropped out to "focus on recovery", but many fans felt
+    that Bernal---who had won last year, placed as high as second this year,
+    and worn the [white jersey][white] for the best young rider---was
+    abandoning the most prestigious race of the season to avoid embarrassment
+    at the hands of his opponents. 
+
 [white]: https://en.wikipedia.org/wiki/White_jersey
 
 Thibaut Pinot crashed on stage 1. [Emanuel Buchmann][buchmann] crashed in a
