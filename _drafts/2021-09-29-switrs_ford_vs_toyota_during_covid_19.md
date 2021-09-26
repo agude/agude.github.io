@@ -5,7 +5,6 @@ description: >
   California was put under a stay-at-home order in March, 2020. Toyota drivers
   stayed home, Ford drivers did not; why?!
 image: /files/switrs-covid/mail_truck_tries_to_climb_tree_in_boston_1927.jpg
-hide_lead_image: True
 image_alt: >
   A black and white photo from 1927 of an old USPS truck crashed into a tree at the side
   of the road.
@@ -31,8 +30,8 @@ California][f_vs_t]][f_vs_t]
 This plot isn't perfect---I will fix it below---but even so it is striking.
 Before the [stay-at-home order][order] the number of collisions involving
 [Toyotas][toyota] was much higher than those involving [Fords][ford]. After
-the order, the trend flips. Fords have more collisions. I had to try to figure
-out why.
+the order, the trend flips. Fords have more collisions. I had to figure out
+why.
 
 [order]: https://en.wikipedia.org/wiki/California_government_response_to_the_COVID-19_pandemic
 [toyota]: https://en.wikipedia.org/wiki/Toyota
@@ -80,9 +79,9 @@ November because the reporting is not yet complete for December.
 
 The number of collisions depends on many factors, primary among them is
 [vehicle miles traveled][vmt].[^mn_pub_safety] To help control for VMT, I
-normalize the mean number of collisions from January through June of 2019.
-This gives me a baseline to compare how the number of collisions for each
-vehicle make changes. Here is the normalized plot:
+normalize the mean number of collisions for each make of vehicle from January
+through June of 2019. This gives me a baseline to compare against. Here is the
+normalized plot:
 
 [vmt]: https://en.wikipedia.org/wiki/Units_of_transportation_measurement#Fatalities_by_VMT
 [^mn_pub_safety]: 
@@ -120,7 +119,7 @@ work and hence not commuting. But right after, the series diverge:
   mandated it.
 - Toyota collisions drop much more the week of the order, likely indicating
   that more Toyota drivers stayed at home when told to do so.
-- Ford collisions have recovered towards their pre-pandemic level faster than
+- Ford collisions recovered towards their pre-pandemic level faster than
   Toyota collisions, indicating that Ford drivers were quicker to get back on
   the road when allowed to.
 
@@ -129,8 +128,8 @@ Taken together, I think these observations suggest the difference is due to a
 workers generally have more flexible work arrangements and their jobs are
 easier to do from home, whereas blue-collar workers have to travel to a job
 site to perform their work. Blue-collar workers are more conservative than
-white-collar workers and more likely to buy American branded
-cars.[^political_cars]
+white-collar workers and more likely to buy American branded cars like
+Fords.[^political_cars]
 
 [white_collar]: https://en.wikipedia.org/wiki/White-collar_worker
 [blue_collar]: https://en.wikipedia.org/wiki/Blue-collar_worker
@@ -150,8 +149,8 @@ cars.[^political_cars]
 
 [nyt_car]: https://www.nytimes.com/2005/04/01/automobiles/your-car-politics-on-wheels.html
 
-Initially I thought this different be driven purely by the prevalence of Ford
-trucks, but as we shall see it is not just trucks versus cars.
+Initially I thought this difference would be driven purely by the prevalence
+of Ford trucks, but as we shall see it is not just trucks versus cars.
 
 ### Trucks
 
@@ -169,8 +168,9 @@ higher than the 50% Toyota reached when including non-trucks.
 
 ### Location
 
-Perhaps Ford owners just live in areas with loser restrictions, like the
-Central Valley? No. Here is data from a single Bay Area county:
+Perhaps Ford owners just live in areas with looser restrictions, like the
+Central Valley? No. Here is data from Contra Costa County, part of the Bay
+Area:
 
 [![The collision rate for Fords compared to Toyotas in Contra Costa County
 before and after the COVID-19 stay at home order in California, with mean
@@ -184,8 +184,8 @@ population.
 
 ### Age
 
-Young drivers get in more accidents, perhaps there is a strong age difference?
-There is an age difference, see:
+Young drivers get in more accidents. Perhaps there is a strong age difference
+driving the trend? There is an age difference, see:
 
 [![Area normalized distribution of Toyota and Ford driver ages during the
 COVID-19 stay at home order in California.][age_dist]][age_dist]
