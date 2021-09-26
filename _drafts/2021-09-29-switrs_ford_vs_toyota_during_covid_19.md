@@ -201,3 +201,14 @@ normalized from January 2019 through June
 2019.][f_vs_t_norm_age]][f_vs_t_norm_age]
 
 [f_vs_t_norm_age]: {{ file_dir }}/covid_pandemic_normalized_ford_vs_toyota_collisions_age_30_to_50.svg
+
+### Putting It All Together
+
+A person's identity is made up of many traits: their age, their politics,
+where they live, what job they do, and yes, what car they drive. I looked at
+three different traits---vehicle type, location, and age---and none of them
+explain the entirety of the collision rate difference between Toyotas and
+Fords after the COVID-19 stay-at-home order. My conclusion is that Ford
+drivers are just different from Toyota drivers, along multiple different
+dimensions, which accounts for the different behavior after the pandemic
+started.
