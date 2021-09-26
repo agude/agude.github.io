@@ -209,6 +209,5 @@ where they live, what job they do, and yes, what car they drive. I looked at
 three different traits---vehicle type, location, and age---and none of them
 explain the entirety of the collision rate difference between Toyotas and
 Fords after the COVID-19 stay-at-home order. My conclusion is that Ford
-drivers are just different from Toyota drivers, along multiple different
-dimensions, which accounts for the different behavior after the pandemic
-started.
+drivers are just different from Toyota drivers, in multiple ways, each of
+which contributes to the trend.
