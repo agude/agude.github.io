@@ -2,14 +2,13 @@
 layout: post
 title: "SWITRS: Differences in Vehicle Collision Rates by Manufacturer During COVID-19"
 description: >
-  California was put under a stay-at-home order in March, 2020. As expected,
-  traffic volume decreased, but what happened to rate of fatal accidents? They
-  skyrocketed!
-image: /files/switrs-covid/auto_accident_on_bloor_street_west_in_1918.jpg
+  California was put under a stay-at-home order in March, 2020. Toyota drivers
+  stayed home, Ford drivers did not; why?!
+image: /files/switrs-covid/mail_truck_tries_to_climb_tree_in_boston_1927.jpg
 hide_lead_image: True
 image_alt: >
-  A black and white photo of an old car slid up against the curb, its front
-  wheels completely buckled. A crowed stands on the sidewalk looking on.
+  A black and white photo from 1927 of an old USPS truck crashed into a tree at the side
+  of the road.
 categories: 
   - california-traffic-data 
   - data-science
