@@ -104,9 +104,9 @@ California, with mean normalized from January 2019 through June 2019.][f_vs_t_no
 
 [f_vs_t_norm]: {{ file_dir }}/covid_pandemic_normalized_ford_vs_toyota_collisions.svg
 
-### Interpretation
+## Interpretation
 
-The normalized rates match well up through the [Christmas and New Year
+The normalized rates match up well through the [Christmas and New Year
 holidays][xmas], which is the big two-week dip caused by people taking time
 off work and hence not commuting. But right after, the series diverge:
 
@@ -148,5 +148,36 @@ cars.[^political_cars]
 
 [nyt_car]: https://www.nytimes.com/2005/04/01/automobiles/your-car-politics-on-wheels.html
 
-Initially I thought this would be driven purely by the prevalence of Ford
+Initially I thought this different be driven purely by the prevalence of Ford
 trucks, but as we shall see it is not just trucks versus cars.
+
+### Trucks
+
+Is it just that there are more Ford trucks? No.
+
+[![The collision rate for Ford trucks compared to Toyota trucks before and
+after the COVID-19 stay at home order in California, with mean normalized from
+January 2019 through June 2019.][f_vs_t_norm_truck]][f_vs_t_norm_truck]
+
+[f_vs_t_norm_truck]: {{ file_dir }}/covid_pandemic_normalized_ford_vs_toyota_collisions_trucks.svg
+
+The same pattern holds, although both makes recover faster, with Fords
+returning to pre-pandemic levels and Toyota getting to 80%, which is much
+higher than the 50% Toyota reached when including non-trucks.
+
+### Location
+
+Perhaps Ford owners just live in areas with loser restrictions, like the
+Central Valley? No. Here is restricted to a single Bay Area county:
+
+[![The collision rate for Fords compared to Toyotas in Contra Costa County
+before and after the COVID-19 stay at home order in California, with mean
+normalized from January 2019 through June
+2019.][f_vs_t_norm_cc]][f_vs_t_norm_cc]
+
+[f_vs_t_norm_cc]: {{ file_dir }}/covid_pandemic_normalized_ford_vs_toyota_collisions_contra_costa.svg
+
+Same pattern, but with a lot more noise due to the smaller population.
+
+### Age
+
