@@ -5,6 +5,7 @@ description: >
   California was put under a stay-at-home order in March, 2020. Toyota drivers
   stayed home, Ford drivers did not; why?!
 image: /files/switrs-covid/mail_truck_tries_to_climb_tree_in_boston_1927.jpg
+hide_lead_image: True
 image_alt: >
   A black and white photo from 1927 of an old USPS truck crashed into a tree at the side
   of the road.
