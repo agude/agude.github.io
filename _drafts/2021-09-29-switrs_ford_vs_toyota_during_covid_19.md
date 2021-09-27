@@ -43,7 +43,7 @@ Github][rendered]). The data is available on [Kaggle][db_link] or
 [Zenodo][zen_link]. There is a [hosted Kaggle Notebook][kn] version of this
 post as well to help you dive right in.
 
-{% capture notebook_uri %}{{ "SWITRS Fatalities During COVID Lockdown.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "SWITRS Ford vs Toyota During Lockdown.ipynb" | uri_escape }}{% endcapture %} 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
