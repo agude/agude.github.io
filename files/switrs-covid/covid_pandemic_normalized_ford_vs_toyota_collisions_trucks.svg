@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2021-09-25T20:22:09.933732</dc:date>
+    <dc:date>2021-09-26T22:32:06.464463</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -886,7 +886,17 @@ z
     </g>
    </g>
    <g id="line2d_18">
-    <path clip-path="url(#p840b21295e)" d="M 90.892115 207.541757 
+    <path clip-path="url(#p8335169736)" d="M 471.455518 444.4945 
+L 471.455518 63.9745 
+" style="fill:none;stroke:#ff0000;stroke-linecap:round;stroke-width:2;"/>
+   </g>
+   <g id="LineCollection_1">
+    <path clip-path="url(#p8335169736)" d="M 85.666989 190.8145 
+L 242.420793 190.8145 
+" style="fill:none;stroke:#2ca02c;stroke-width:3;"/>
+   </g>
+   <g id="line2d_19">
+    <path clip-path="url(#p8335169736)" d="M 90.892115 207.541757 
 L 96.988097 207.541757 
 L 96.988097 193.987257 
 L 103.084078 193.987257 
@@ -1082,8 +1092,8 @@ L 694.394261 257.241591
 L 694.394261 257.241591 
 " style="fill:none;stroke:#1f77b4;stroke-linecap:round;stroke-width:2;"/>
    </g>
-   <g id="line2d_19">
-    <path clip-path="url(#p840b21295e)" d="M 90.892115 196.207403 
+   <g id="line2d_20">
+    <path clip-path="url(#p8335169736)" d="M 90.892115 196.207403 
 L 96.988097 196.207403 
 L 96.988097 195.539964 
 L 103.084078 195.539964 
@@ -1280,16 +1290,6 @@ L 694.394261 264.286123
 L 694.394261 327.025336 
 L 694.394261 327.025336 
 " style="fill:none;stroke:#ff7f0e;stroke-linecap:round;stroke-width:2;"/>
-   </g>
-   <g id="line2d_20">
-    <path clip-path="url(#p840b21295e)" d="M 471.455518 444.4945 
-L 471.455518 63.9745 
-" style="fill:none;stroke:#ff0000;stroke-linecap:round;stroke-width:2;"/>
-   </g>
-   <g id="LineCollection_1">
-    <path clip-path="url(#p840b21295e)" d="M 85.666989 190.8145 
-L 242.420793 190.8145 
-" style="fill:none;stroke:#2ca02c;stroke-width:3;"/>
    </g>
    <g id="line2d_21"/>
    <g id="line2d_22"/>
@@ -1844,7 +1844,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p840b21295e">
+  <clipPath id="p8335169736">
    <rect height="380.52" width="669.6" x="55.230625" y="63.9745"/>
   </clipPath>
  </defs>

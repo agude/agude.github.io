@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2021-09-26T10:37:20.803000</dc:date>
+    <dc:date>2021-09-26T22:32:58.600904</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -886,7 +886,17 @@ z
     </g>
    </g>
    <g id="line2d_18">
-    <path clip-path="url(#p7451be01ff)" d="M 90.892115 214.096935 
+    <path clip-path="url(#pdc49e5ddb2)" d="M 471.455518 444.16375 
+L 471.455518 63.64375 
+" style="fill:none;stroke:#ff0000;stroke-linecap:round;stroke-width:2;"/>
+   </g>
+   <g id="LineCollection_1">
+    <path clip-path="url(#pdc49e5ddb2)" d="M 85.666989 190.48375 
+L 242.420793 190.48375 
+" style="fill:none;stroke:#2ca02c;stroke-width:3;"/>
+   </g>
+   <g id="line2d_19">
+    <path clip-path="url(#pdc49e5ddb2)" d="M 90.892115 214.096935 
 L 96.988097 214.096935 
 L 96.988097 195.497508 
 L 103.084078 195.497508 
@@ -1086,8 +1096,8 @@ L 694.394261 275.960243
 L 694.394261 275.960243 
 " style="fill:none;stroke:#1f77b4;stroke-linecap:round;stroke-width:2;"/>
    </g>
-   <g id="line2d_19">
-    <path clip-path="url(#p7451be01ff)" d="M 90.892115 228.263726 
+   <g id="line2d_20">
+    <path clip-path="url(#pdc49e5ddb2)" d="M 90.892115 228.263726 
 L 96.988097 228.263726 
 L 96.988097 179.724142 
 L 103.084078 179.724142 
@@ -1286,16 +1296,6 @@ L 694.394261 309.415843
 L 694.394261 342.786807 
 L 694.394261 342.786807 
 " style="fill:none;stroke:#ff7f0e;stroke-linecap:round;stroke-width:2;"/>
-   </g>
-   <g id="line2d_20">
-    <path clip-path="url(#p7451be01ff)" d="M 471.455518 444.16375 
-L 471.455518 63.64375 
-" style="fill:none;stroke:#ff0000;stroke-linecap:round;stroke-width:2;"/>
-   </g>
-   <g id="LineCollection_1">
-    <path clip-path="url(#p7451be01ff)" d="M 85.666989 190.48375 
-L 242.420793 190.48375 
-" style="fill:none;stroke:#2ca02c;stroke-width:3;"/>
    </g>
    <g id="line2d_21"/>
    <g id="line2d_22"/>
@@ -1498,7 +1498,7 @@ z
    </g>
    <g id="text_22">
     <!-- Mean normalized from -->
-    <g style="fill:#2ca02c;" transform="translate(69.991608 291.93925)scale(0.24 -0.24)">
+    <g style="fill:#2ca02c;" transform="translate(69.991608 279.25525)scale(0.24 -0.24)">
      <defs>
       <path d="M 475 0 
 L 475 4581 
@@ -1563,7 +1563,7 @@ z
      <use x="911.523438" xlink:href="#ArialMT-6d"/>
     </g>
     <!-- January through June -->
-    <g style="fill:#2ca02c;" transform="translate(69.991608 317.32375)scale(0.24 -0.24)">
+    <g style="fill:#2ca02c;" transform="translate(69.991608 304.63975)scale(0.24 -0.24)">
      <defs>
       <path d="M 184 1300 
 L 731 1375 
@@ -1933,7 +1933,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p7451be01ff">
+  <clipPath id="pdc49e5ddb2">
    <rect height="380.52" width="669.6" x="55.230625" y="63.64375"/>
   </clipPath>
  </defs>
