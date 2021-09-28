@@ -49,7 +49,7 @@ post as well to help you dive right in.
 
 [db_link]: https://www.kaggle.com/alexgude/california-traffic-collision-data-from-switrs
 [zen_link]: https://zenodo.org/record/4284843
-[kn]: https://www.kaggle.com/alexgude/switrs-increase-in-traffic-fatalities-after-covid
+[kn]: https://www.kaggle.com/alexgude/switrs-vehicle-collision-rates-difference-by-make/
 
 ## Data
 
