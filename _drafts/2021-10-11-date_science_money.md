@@ -34,10 +34,11 @@ was for stability, not money. I had no intention of dragging my family around
 the globe just to end up six years older and once again hunting for a job; I
 had seen my CERN colleagues try and universally fail to land tenure track
 positions. So I decided to head back to where I grew up---the Bay Area---and
-see if I could make it as a data scientist with the help of the Insight Data Science
-program.
+see if I could make it as a data scientist with the help of the [Insight Data
+Science program][insight].
 
 [leaving]: {% post_url 2018-01-19-should_i_get_a_phd %}
+[insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
 
 ## Compensation
 
@@ -57,16 +58,25 @@ Every offer I received paid a **yearly bonus** of 15-20% based on performance.
 Those were for data science and machine learning positions at standard tech
 companies, but I heard from some data scientists in finance and investment
 that they would be upset if their bonuses were not "integer multiples of their
-salary."[^1]
+salary."[^quant_note]
+
+[^quant_note]: Although as a [quant][quant] friend of mine pointed out: "Zero
+    is also an integer multiple."
+
+[quant]: https://en.wikipedia.org/wiki/Quantitative_analysis_(finance)
 
 Finally, Insight spent a lot of time teaching us about **equity**: owning a
 piece of the company you're working in. For [publicly traded
 companies][public], my offers were simple: I would get a certain number of
 [RSUs][rsu] that would vest over the next three or four years at which point I
-could sell them on the stock market (or hold them).[^2]
+could sell them on the stock market (or hold them).[^rsu_sale]
 
 [public]: https://en.wikipedia.org/wiki/Public_company
 [rsu]: https://en.wikipedia.org/wiki/Restricted_stock
+
+[^rsu_sale]: I generally sell my RSUs immediately; I already have my salary and
+    health insurance tied up in my employment, so selling the RSUs lets me
+    diversify my holdings.
 
 Startups were more complicated. I didn't get any offers from startups, but
 this is what I learned from Insight and from working with VCs for two years:
@@ -147,7 +157,9 @@ One of my friends got a great offer for a software developer position in the
 midwest and was reluctant to negotiate. He asked me, "I have no kids, and I have a
 house. My wife and I don't need anything. Should I still negotiate?" I
 encouraged him to do so anyway. With just a few emails he got a larger signing
-bonus[^3] which, true to his ideals, he donated to charity.
+bonus[^bonus] which, true to his ideals, he donated to charity.
+
+[^bonus]: A one-time bonus paid when you start a new job.
 
 The only leverage he had was that they wanted to hire him and he had not
 signed their offer letter yet, but that is often enough. Hiring managers spend
@@ -196,11 +208,3 @@ different kinds of compensation and our profession is in high demand, which
 makes negotiating easier because we have many levers to pull and the hiring 
 manager just wants to get your signature. It's easier than you think, and you 
 truly have nothing to lose.
-
----
-
-[^1]: Although as a [quant][quant] friend of mine pointed out: "Zero is also an integer multiple."
-[^2]: I generally sell my RSUs immediately; I already have my salary and health insurance tied up in my employment, so selling the RSUs lets me diversify my holdings.
-[^3]: A one-time bonus paid when you start a new job.
-
-[quant]: https://en.wikipedia.org/wiki/Quantitative_analysis_(finance)
