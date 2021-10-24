@@ -12,9 +12,19 @@ image_alt: >
   them.
 categories: 
   - career-advice
+  - data-science 
 ---
 
 {% capture file_dir %}/files/data-science-salaries/{% endcapture %}
+
+---
+
+_This post was meant to be a chapter in a book where data scientists who had
+transitioned from academia to industry shared their experience and advince.
+Unfortunately the 2020 pandemic seems to have killed the project, so I am
+sharing my chapter here. Enjoy!_
+
+---
 
 I didn't become a physicist for money, quite the opposite in fact. I remember
 walking across UC Berkeley's Sproul Plaza with my father on our way to our
