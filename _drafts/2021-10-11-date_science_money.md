@@ -1,14 +1,20 @@
 ---
 layout: post
 title: "Data Science, Compensation, and Asking for Money"
-description: >
-image: /files/
-image_alt: >
+description: > 
+  Advice about data science salaries and examples from my career of
+  negotiating your offer.
+image: /files/data-science-salaries/Wagner-höhenberg_paying_his_dues.jpg
+image_alt: > 
+  Painting by Josef Wagner-Höhenberg showing a late 1800s farmer signing a
+  contract at a wooden table while a notary gestures to the two bankers at the
+  other end of the table who have a pile of gold and silver coins in front of
+  them.
 categories: 
   - career-advice
 ---
 
-{% capture file_dir %}/files//{% endcapture %}
+{% capture file_dir %}/files/data-science-salaries/{% endcapture %}
 
 I didn't become a physicist for money, quite the opposite in fact. I remember
 walking across UC Berkeley's Sproul Plaza with my father on our way to our
