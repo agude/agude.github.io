@@ -34,24 +34,41 @@ L1 → L2 → L3 → L4 → L5 → L6 ...
               ↳ M4 → M5 → M6 ...
 ```
 
-The only role open to the most junior engineers are IC roles, which makes
-sense: they lack the hard-earned experience you want an engineering manager to
-have. As junior engineers get promoted they move from L1 to L2 and so on until
-at some point they reach a level (L4 in my cartoon example above) where they
-can move onto the management track. Of course not ever IC gets this
-opportunity.
+The only role open to the most junior engineers are IC roles (prefixed with L
+in the chart), which makes sense: they lack the hard-earned experience
+companies want an engineering manager to have. As junior engineers get
+promoted they move from L1 to L2 and so on until at some point they reach a
+level (L4 in my cartoon example above) where they can move onto the management
+track (prefixed with M). Of course not ever IC gets this opportunity.
 
 These tracks narrow as they go up. There are a generally a lot more L1, L2,
-and L3 engineers than L4 (although sometimes there are only a few at a lower
-level, some companies prefer to only hire experienced ICs). Likewise there are
-more M4 engineering managers than M5 senior managers or M6 Directors (or
-whatever the particular company calls their management levels).
+and L3 engineers than L4. Likewise there are more M4 engineering managers than
+M5 managers or M6 managers (who at that point might have a title like
+"director"). M4 managers run a team of IC. Managers at M5 or above run
+teams of teams consisting of some IC and some subordinate managers running
+their own teams.
+
+High level IC on the other hand won't have people who report to them. Instead
+they provide value by tackling harder problems and using soft power to
+influence technical decisions in the organization. For more on their role,
+see: TODO High level IC roles
+
+A lot has been written about what it means to be an IC or a manager, how to
+decide on the tracks, etc. 
+
+## The Pyramid and the Spire
+
+While both tracks narrow as they go up---that is there are more people at the
+lower levels than the higher levels---their shape is different. The IC track
+starts out broad, with possibly thousands or even tens of thousands of
+engineers. But it narrows very quickly. In my last company there were
+thousands of engineers, but only a single L8 in the entire company. There were
+no L9s.
+single engineer at the L8 level in 
 
 
-There are more roles at the bottom of each track than the top, but the manager
-track narrows more slowly.
-
+<!--
 [![The Manager and IC tracks.][tracks]][tracks]
 
 [tracks]: {{ file_dir }}/tracks.svg
-
+-->
