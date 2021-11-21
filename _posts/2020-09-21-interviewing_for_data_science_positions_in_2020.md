@@ -51,10 +51,10 @@ about compensation until after they had made a verbal offer. This surprised me
 because waiting to open negotiations until that late in the process offers the
 candidate an advantage as they now know that the company has strong interest
 in them. Previously I have tried to delay this conversation as long as
-possible as part of my negotiation strategy, but this time the recruiters did
-it for me!
+possible as part of [my negotiation strategy][asking_for_money], but this time
+the recruiters did it for me!
 
-{% comment %} TODO #45: Update links to negotiation post {% endcomment %}
+[asking_for_money]: {% post_url 2021-10-25-data_science_asking_for_more_money %}
 
 This behavior might be explained by [California's new law which bans using
 salary history to determine an offer][salary_law], but it specifically _does
