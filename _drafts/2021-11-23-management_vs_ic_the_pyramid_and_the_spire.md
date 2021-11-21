@@ -15,60 +15,86 @@ categories:
 
 {% capture file_dir %}/files/pyramid/{% endcapture %}
 
-## Manager Vs IC
+Most tech companies have two tracks for engineers, data scientists, and other
+technical people:[^engineer] an individual contributer (IC) track and a manager track.
+The intent is that a technical person should be able to advance their career
+without switching to managing people---which is an entirely different skill
+set and job.
 
-Most tech companies have two tracks for engineers and data scientists: a
-manager track and an individual contributer (IC) track. The intent is that a
-technical person should be able to advance their career without switching to
-managing people---an entirely different skill set and job. While this is true,
-you can continue to be promoted without going into management, there are some
-trade offs.
+I have been on both tracks, and while it is true that you can continue to be
+promoted without going into management, there are some trade offs.
 
-### The Structure of the tracks
+[^engineer]: Which I will refer to as "engineers" from here on.
 
-Every company is slightly different, but most of them have their two tracks
+## The Structure of the tracks
+
+Every company is slightly different, but most of them have their tracks
 set up something like this:
 
-```text
-L1 → L2 → L3 → L4 → L5 → L6 ...
-              ↳ M4 → M5 → M6 ...
+``` text
+    L1 → L2 → L3 → L4 → L5 → L6 ...
+                  ↳ M4 → M5 → M6 ...
 ```
 
-The only role open to the most junior engineers are IC roles (prefixed with L
-in the chart), which makes sense: they lack the hard-earned experience
-companies want an engineering manager to have. As junior engineers get
-promoted they move from L1 to L2 and so on until at some point they reach a
-level (L4 in my cartoon example above) where they can move onto the management
-track (prefixed with M). Of course not ever IC gets this opportunity.
+Where an **L** (short for "Level") indicates an IC role and an **M** indicates
+a manager role. The higher the number, the more senior the role.
 
-These tracks narrow as they go up. There are a generally a lot more L1, L2,
-and L3 engineers than L4. Likewise there are more M4 engineering managers than
-M5 managers or M6 managers (who at that point might have a title like
-"director"). M4 managers run a team of IC. Managers at M5 or above run
-teams of teams consisting of some IC and some subordinate managers running
-their own teams.
+The only role open to the most junior engineers are IC roles which makes
+sense: they lack the hard-earned experience companies want an engineering
+manager to have. They get promoted they move from L1 to L2 and so on until at
+some point they reach a level (L4 in my cartoon example above) where they can
+move onto the management track (prefixed with M). Of course not ever IC gets
+this opportunity.
 
-High level IC on the other hand won't have people who report to them. Instead
-they provide value by tackling harder problems and using soft power to
-influence technical decisions in the organization. For more on their role,
-see: TODO High level IC roles
+Both tracks narrow as they go up. There are generally a lot (perhaps tens of
+thousands for the [tech giants][giants]) of L1, L2, and L3s in a company, but
+L4s and above are rarer. Likewise they have an army of front-line managers
+(M4) but only one CEO (or two in rare instances) at the top of the management
+track.
 
-A lot has been written about what it means to be an IC or a manager, how to
-decide on the tracks, etc. 
+[giants]: https://en.wikipedia.org/wiki/Big_Tech
+
+While both tracks narrow as they go up, they do not do so in a different
+manner.
 
 ## The Pyramid and the Spire
 
-While both tracks narrow as they go up---that is there are more people at the
-lower levels than the higher levels---their shape is different. The IC track
-starts out broad, with possibly thousands or even tens of thousands of
-engineers. But it narrows very quickly. In my last company there were
-thousands of engineers, but only a single L8 in the entire company. There were
-no L9s.
-single engineer at the L8 level in 
+The IC track is very wide at the bottom. I was not exaggerating when I said
+that their are tens-of-thousands of lower level ICs at the tech giants. But
+what is different is how fast they narrow. The IC track gets narrow very
+quickly while the manager track stays broad longer. Let me share some examples
+from my previous company:
 
+### The Highest Levels
 
-<!--
-[![The Manager and IC tracks.][tracks]][tracks]
+At the very highest level, there were a few (probably about five) executive
+vice presidents---M9 on my example tracks. There were no L9s at the company.
+There was a single L8, someone with more than 30 years of IC experience in
+Silicon Valley. The company had more than a dozen M8s.
 
-[tracks]: {{ file_dir }}/tracks.svg
--->
+### In Data
+
+In the data organization, there was one senior vice presidents (M8), two vice
+presidents (M7), and roughly five directors (M6). There were only two L6s, and
+one of them had almost 20 years of experience in the company. All of the
+managers has less tenure than that.
+
+## The Track Forward
+
+I am very happy as an IC, I love solving problems and writing code. But I love
+helping people, setting strategy, and communicating with partners. I still
+haven't decided which track I will stay on in the long term.
+
+From a pure numbers game, if I want to climb to the highest levels, the
+manager track looks better. But it is easier to jump between companies on the
+IC track---I could leave my job today and have a stack of comprable IC offers
+within a month. Also the manager job is **just different**, I would no longer
+be an engineer.
+
+I find [Charity Majors's][cm] post [_Engineering Management: The Pendulum Or
+The Ladder_][wtf] an excellent discussion of the drawbacks of being a manager
+and one strategy for jumping back and forth, one that has guided my career
+thinking. Give it a look!
+
+[cm]: https://twitter.com/mipsytipsy
+[wtf]: https://charity.wtf/2019/01/04/engineering-management-the-pendulum-or-the-ladder/
