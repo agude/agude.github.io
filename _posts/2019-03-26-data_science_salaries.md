@@ -18,14 +18,20 @@ One of the most important things to know when looking for a job is your market
 value. For data science positions, what better way to determine that than with
 data![^data] Some sites&#8288;---&#8288;like [Indeed][indeed] and
 [Glassdoor][glassdoor]&#8288;---&#8288;offer aggregate salary information, but
-they won't give you all their data. That's why I prefer the survey that
+they won't give you all their data.[^levels] That's why I prefer the survey that
 [Insight][insight] alumni put together. With the full dataset I can slice it
 however I want.
+
+[^levels]: 
+    One site, [levels.fyi][levels], **does** offer their data and has
+    very accurate total compensation information. Definitely give them a look if
+    you are trying to figure out what your skills are worth!
 
 [^data]: Companies pay good money to get salary data so they know exactly what a good (and bad) offer looks like. You should have the same information.
 [indeed]: https://www.indeed.com/salaries/Data-Scientist-Salaries,-Mountain-View-CA
 [glassdoor]: https://www.glassdoor.com/Salaries/san-jose-data-scientist-salary-SRCH_IL.0,8_IM761_KO9,23.htm
 [insight]: https://www.insightdatascience.com
+[levels]: https://levels.fyi
 
 The data is available [here][data]. The notebook with all the code is
 [here][notebook] ([rendered on Github][rendered]).
@@ -116,7 +122,10 @@ that isn't enough. To get what you're worth, you have to negotiate as well. I
 highly recommend reading [Patrick McKenzie's][pat] [_**Salary Negotiation:
 Make More Money, Be More Valued**_][negotiate] post. Negotiating has earned me
 between 5% and 10% increases to my offers, which as you can see from the
-numbers in this post, are substantial!
+numbers in this post, are substantial! I wrote about my experience negotiating
+with some tips here: [_**Data Science, Compensation, and Asking for
+Money**_][asking_for_money].
 
 [pat]: https://twitter.com/patio11
 [negotiate]: https://www.kalzumeus.com/2012/01/23/salary-negotiation/
+[asking_for_money]: {% post_url 2021-10-25-data_science_asking_for_more_money %}
