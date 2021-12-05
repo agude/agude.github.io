@@ -43,7 +43,7 @@ The only role open to the most junior engineers are IC roles which makes
 sense: they lack the hard-earned experience companies want an engineering
 manager to have. They get promoted they move from L1 to L2 and so on until at
 some point they reach a level (L4 in my cartoon example above) where they can
-move onto the management track (prefixed with M). Of course not ever IC gets
+move onto the management track (prefixed with M). Of course not every IC gets
 this opportunity.
 
 Both tracks narrow as they go up. There are generally a lot (perhaps tens of
