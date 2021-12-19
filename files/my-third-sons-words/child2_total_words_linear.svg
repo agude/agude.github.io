@@ -1755,14 +1755,6 @@ Q 70.758594 174.37875 74.358594 174.37875
 z
 " style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
     </g>
-    <g id="line2d_29">
-     <path d="M 77.958594 54.594375 
-L 77.958594 54.594375 
-L 77.958594 54.594375 
-L 77.958594 54.594375 
-L 77.958594 54.594375 
-" style="fill: none; stroke: #1f77b4; stroke-width: 2.5; stroke-linecap: round"/>
-    </g>
     <g id="text_28">
      <!-- Chinese -->
      <g style="fill: #1f77b4" transform="translate(77.958594 60.894375)scale(0.18 -0.18)">
@@ -1802,14 +1794,6 @@ z
       <use xlink:href="#ArialMT-65" x="311.279297"/>
      </g>
     </g>
-    <g id="line2d_30">
-     <path d="M 77.958594 80.055937 
-L 77.958594 80.055937 
-L 77.958594 80.055937 
-L 77.958594 80.055937 
-L 77.958594 80.055937 
-" style="fill: none; stroke: #ff7f0e; stroke-width: 2.5; stroke-linecap: round"/>
-    </g>
     <g id="text_29">
      <!-- English -->
      <g style="fill: #ff7f0e" transform="translate(77.958594 86.355937)scale(0.18 -0.18)">
@@ -1846,14 +1830,6 @@ z
       <use xlink:href="#ArialMT-68" x="272.363281"/>
      </g>
     </g>
-    <g id="line2d_31">
-     <path d="M 77.958594 105.947812 
-L 77.958594 105.947812 
-L 77.958594 105.947812 
-L 77.958594 105.947812 
-L 77.958594 105.947812 
-" style="fill: none; stroke: #2ca02c; stroke-width: 2.5; stroke-linecap: round"/>
-    </g>
     <g id="text_30">
      <!-- Spanish -->
      <g style="fill: #2ca02c" transform="translate(77.958594 112.247812)scale(0.18 -0.18)">
@@ -1866,14 +1842,6 @@ L 77.958594 105.947812
       <use xlink:href="#ArialMT-68" x="305.761719"/>
      </g>
     </g>
-    <g id="line2d_32">
-     <path d="M 77.958594 131.62875 
-L 77.958594 131.62875 
-L 77.958594 131.62875 
-L 77.958594 131.62875 
-L 77.958594 131.62875 
-" style="fill: none; stroke: #d62728; stroke-width: 2.5; stroke-linecap: round"/>
-    </g>
     <g id="text_31">
      <!-- Sign -->
      <g style="fill: #d62728" transform="translate(77.958594 137.92875)scale(0.18 -0.18)">
@@ -1882,14 +1850,6 @@ L 77.958594 131.62875
       <use xlink:href="#ArialMT-67" x="88.916016"/>
       <use xlink:href="#ArialMT-6e" x="144.53125"/>
      </g>
-    </g>
-    <g id="line2d_33">
-     <path d="M 77.958594 157.30125 
-L 77.958594 157.30125 
-L 77.958594 157.30125 
-L 77.958594 157.30125 
-L 77.958594 157.30125 
-" style="fill: none; stroke: #9467bd; stroke-width: 2.5; stroke-linecap: round"/>
     </g>
     <g id="text_32">
      <!-- Animal Sound -->
