@@ -9,6 +9,8 @@ description: >
 image: /files/pyramid/the_great_sphyinx_david_roberts_1839.jpg
 image_alt: >
   A painting of the Great Sphinx with two pyramids in the background.
+seo:
+  date_modified: 2021-12-20T15:20:36-08:00
 categories:
   - career-advice
 ---
@@ -16,15 +18,16 @@ categories:
 {% capture file_dir %}/files/pyramid/{% endcapture %}
 
 Most tech companies have two tracks for engineers, data scientists, and other
-technical people:[^engineer] an individual contributer (IC) track and a manager track.
+technical people: an individual contributer (IC) track and a manager track.
 The intent is that a technical person should be able to advance their career
-without switching to managing people---which is an entirely different skill
-set and job.
+along the IC track without switching to managing people---which is an entirely
+different skill set and job.
 
 I have been on both tracks, and while it is true that you can continue to be
-promoted without going into management, there are some trade offs.
-
-[^engineer]: Which I will refer to as "engineers" from here on.
+promoted without going into management, there are some trade offs. Many of
+these trade offs are discussed in depth elsewhere, but there is one I want to
+highlight that that is less obvious: _There is more room at the top of the
+manager track than the IC track._
 
 ## The Structure of the tracks
 
@@ -37,14 +40,22 @@ set up something like this:
 ```
 
 Where an **L** (short for "Level") indicates an IC role and an **M** indicates
-a manager role. The higher the number, the more senior the role.
+a manager role. The higher the number, the more senior the role.[^numbers]
 
-The only role open to the most junior engineers are IC roles which makes
-sense: they lack the hard-earned experience companies want an engineering
-manager to have. They get promoted they move from L1 to L2 and so on until at
-some point they reach a level (L4 in my cartoon example above) where they can
-move onto the management track (prefixed with M). Of course not every IC gets
-this opportunity.
+[^numbers]: In this example I started the track at L1, but many companies
+      start it at a different number. Amazon seems to start at 4, Apple at 2,
+      Facebook at 3, Google at 3, and Microsoft at 59. For a lot more
+      information on a specific company's levels and total compenstation, see
+      [levels.fyi][levels].
+
+[levels]: https://www.levels.fyi
+
+The only role open to the most junior engineers and scientists are IC roles,
+which makes sense: junior people lack the hard-earned experience companies
+want a manager to have. As they get promoted they move from L1 to L2 and so on
+until at some point they reach a level (L4 in my cartoon example above) where
+they can move onto the management track (prefixed with M). Of course not every
+IC gets this opportunity.
 
 Both tracks narrow as they go up. There are generally a lot (perhaps tens of
 thousands for the [tech giants][giants]) of L1, L2, and L3s in a company, but
@@ -54,13 +65,10 @@ track.
 
 [giants]: https://en.wikipedia.org/wiki/Big_Tech
 
-While both tracks narrow as they go up, they do not do so in a different
-manner.
-
 ## The Pyramid and the Spire
 
 The IC track is very wide at the bottom. I was not exaggerating when I said
-that their are tens-of-thousands of lower level ICs at the tech giants. But
+that there are tens-of-thousands of lower level ICs at the tech giants. But
 what is different is how fast they narrow. The IC track gets narrow very
 quickly while the manager track stays broad longer. Let me share some examples
 from my previous company:
@@ -76,7 +84,7 @@ Silicon Valley. The company had more than a dozen M8s.
 
 In the data organization, there was one senior vice presidents (M8), two vice
 presidents (M7), and roughly five directors (M6). There were only two L6s, and
-one of them had almost 20 years of experience in the company. All of the
+one of them had almost 20 years of experience at the company. All of the
 managers has less tenure than that.
 
 ## The Track Forward
