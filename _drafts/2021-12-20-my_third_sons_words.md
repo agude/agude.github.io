@@ -2,9 +2,8 @@
 layout: post
 title: "My Third Son's Language Development"
 description: >
-  My son is a little over two and unfortunately he has two huge nerds for
-  parents. We tracked every word he's spoken to watch his language
-  development, and now you can join us!
+  We tracked my third son's language development word by word. Here, in plots,
+  is how he learned to speak. Take a look!
 image: /files/my-third-sons-words/taylor_and_alfred_by_j_w_orr.jpg
 hide_lead_image: True
 image_alt: >
