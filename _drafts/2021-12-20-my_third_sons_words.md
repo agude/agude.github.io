@@ -129,9 +129,9 @@ Here is a selection of fun words Ash learned:
 
 [google_home]: https://en.wikipedia.org/wiki/Google_Home
 
-Finally, I also [tracked Cory's language development and wrote about it
-too][cory_post], and I [compared the development of Theo and Cory in another
-post][compare_post].
+Finally, I also [tracked and wrote about Cory's language
+development][cory_post] and [compared the development of Theo and Cory in
+another post][compare_post].
 
 [cory_post]: {% post_url 2020-01-30-my_second_sons_words %}
 [compare_post]: {% post_url 2020-02-10-my_sons_language_development_comparison %}
