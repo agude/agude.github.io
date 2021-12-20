@@ -8,6 +8,8 @@ image: /files/my-sons-words-comparison/coal_miners_child_in_grade_school_lejunio
 hide_lead_image: True
 image_alt: >
   Black and white photo of a young boy at a school desk.
+seo:
+  date_modified: 2021-12-19T19:04:46-08:00
 categories:
   - childhood-language
   - data-visualization
@@ -87,3 +89,14 @@ Theo's language development, but we did not take it seriously because we knew
 that bilingual children developed language more slowly. Looking at the data
 and comparing to his brother, I think our pediatrician was right to be
 worried. Thankfully, Theo has had no problems since and now talks incessantly.
+
+## Other Writings on Language Development
+
+If you enjoyed this article, here are all the other articles I wrote about
+[language development][language_topic]!
+
+[language_topic]: /topics/childhood-language/
+
+{% include topic_posts_but_not_current.html
+  topic="childhood-language"
+%}

@@ -11,7 +11,7 @@ image_alt: >
   A woodcut by J. W. Orr showing a woman using a blackboard to teach young
   children how to pronounce words.
 seo:
-  date_modified: 2020-02-09T21:13:10-800
+  date_modified: 2021-12-19T19:04:09-08:00
 categories: 
   - childhood-language
   - data-visualization
@@ -133,17 +133,13 @@ hair on my chiny chin chin".
 [five_monkeys]: https://en.wikipedia.org/wiki/Five_Little_Monkeys
 [three_pigs]: https://en.wikipedia.org/wiki/The_Three_Little_Pigs
 
-Finally, I [tracked Cory's language development and wrote about it
-too][cory_post], and I [compared the development of Theo and Cory in another
-post][compare_post].
+## Other Writings on Language Development
 
-[cory_post]: {% post_url 2020-01-30-my_second_sons_words %}
-[compare_post]: {% post_url 2020-02-10-my_sons_language_development_comparison %}
+If you enjoyed this article, here are all the other articles I wrote about
+[language development][language_topic]!
 
----
+[language_topic]: /topics/childhood-language/
 
-**Updated <time datetime="{{ page.seo.date_modified | date_to_xmlschema }}">{{
-page.seo.date_modified | date: '%B %d, %Y' }}</time>**: I have added a link to
-the [post comparing the development of Theo and Cory][compare_post] and to
-[Cory's post][cory_post].
-
+{% include topic_posts_but_not_current.html
+  topic="childhood-language"
+%}

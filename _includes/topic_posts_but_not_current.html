@@ -1,0 +1,18 @@
+{% comment %}
+Generate a list of posts from a topic, but excluding the current page.
+{% endcomment %}
+
+<div class="card-grid">
+  {% for post in site.categories[include.topic] %}
+    {% if post.url != page.url %}
+      {% comment %} Article cards with an image and description. {% endcomment %}
+      {% include article_card.html
+        url=post.url
+        image=post.image
+        image_alt=post.image_alt
+        title=post.title
+        description=post.description
+      %}
+    {% endif %}
+  {% endfor %}
+</div>
