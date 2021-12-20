@@ -10,7 +10,7 @@ image_alt: >
   A woodcut by J. W. Orr showing a man using a blackboard to teach young
   children punctuation.
 seo:
-  date_modified: 2020-02-09T21:13:10-800
+  date_modified: 2021-12-19T19:04:19-08:00
 categories:
   - childhood-language
   - data-visualization
@@ -131,14 +131,13 @@ house and Cory has learned all about it. We talk to our Google Home devices
 several times a day trying to get them to play music or animal sounds, and
 Deebot vacuums the kitchen every night as Cory watches in awe.
 
-Of course, now that I have two datasets I can [compare how both boys
-developed][compare_post]. Look for those posts in the near future!
+## Other Writings on Language Development
 
-[compare_post]: {% post_url 2020-02-10-my_sons_language_development_comparison %}
+If you enjoyed this article, here are all the other articles I wrote about
+[language development][language_topic]!
 
----
+[language_topic]: /topics/childhood-language/
 
-**Updated <time datetime="{{ page.seo.date_modified | date_to_xmlschema }}">{{
-page.seo.date_modified | date: '%B %d, %Y' }}</time>**: I have added a link to
-the [post comparing the development of Theo and Cory][compare_post].
-
+{% include topic_posts_but_not_current.html
+  topic="childhood-language"
+%}
