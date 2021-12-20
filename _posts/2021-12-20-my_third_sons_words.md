@@ -56,9 +56,9 @@ Ash's first word was "milk" in Cantonese, spoken at 13 months old. Milk was
 something he loved back then and the word is still in frequent use. He often
 demands "milk milk milk" while shoving his empty cup towards us. His second
 word was "mom" in Cantonese and his third word was "dad" in English. Unlike my
-other children, Ash didn't not start using the Cantonese word for "dad" until
-very late. He preferred his own pidgin where he would simply use the English
-word "dad" in an otherwise Cantonese phrase.
+other children, Ash didn't start using the Cantonese word for "dad" until very
+late. He preferred his own pidgin where he would simply use the English word
+"dad" in an otherwise Cantonese phrase.
 
 [chinglish]: https://en.wikipedia.org/wiki/Chinglish
 
