@@ -5,13 +5,11 @@ description: >
   My son is a little over two and unfortunately he has two huge nerds for
   parents. We tracked every word he's spoken to watch his language
   development, and now you can join us!
-image: /files/my-sons-words/Articulation_by_j_w_orr.png
+image: /files/my-third-sons-words/taylor_and_alfred_by_j_w_orr.jpg
 hide_lead_image: True
 image_alt: >
-  A woodcut by J. W. Orr showing a woman using a blackboard to teach young
-  children how to pronounce words.
-seo:
-  date_modified: 2020-02-09T21:13:10-800
+  A woodcut by J. W. Orr showing a father giving his son a picture book in a
+  richly appointed study.
 categories: 
   - childhood-language
   - data-visualization
