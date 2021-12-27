@@ -74,9 +74,9 @@ working from home during the COVID pandemic. This meant that:
 
 [ash_dev]: {% post_url 2021-12-20-my_third_sons_words %}#development
 
-1. We used a lot more English at home.
-2. I was able to better identify when he had learned new English words but not
-   new Chinese words, which led to a selection effect in what was recorded.
+- We used a lot more English at home.
+- I was able to better identify when he had learned new English words but not
+  new Chinese words, which led to a selection effect in what was recorded.
 
 Interestingly my wife tells me that Cory's current Chinese is worse than
 Theo's was at the same age. Perhaps Cory's development slowed or there is more
