@@ -15,33 +15,32 @@ categories:
 
 {% capture file_dir %}/files/all-my-sons-words-comparison/{% endcapture %}
 
-My son Theo was born in the summer of 2016 and my son Cory was born in the
-winter of 2017. Our family is multi-lingual so we knew our sons would
-therefore have complicated and interesting language development. My wife and I
-are (unsurprisingly) **huge nerds** so we wrote down each new word they
-learned so we could explore how they learned language. I wrote [a post
-focusing on Theo's language development][theo_post] and [another post focusing
-on Cory's language development][cory_post]; this month I compare them.
+I tracked the language development of all three of my sons. I wrote [a post
+focusing on Theo's language development][theo_post], [another post focusing
+on Cory's language development][cory_post], and [a final one focusing on Ash's
+language development][ash_post]. In this post I'll compare them all.
 
 [theo_post]: {% post_url 2018-09-30-my_sons_words %}
 [cory_post]: {% post_url 2020-01-30-my_second_sons_words %}
+[ash_post]: {% post_url 2021-12-20-my_third_sons_words %}
 
 ## The Data
 
-The data was collected by my wife and I attempting to identify when the boys
-had learned a new word and writing it down. The most common error is writing
-down words one of the boys does not yet really know. This would lead to an
-increase in the number of words known at any time in the data; still the
-difference between the boys should be unaffected as the error pushes the data
-in the same direction for both of them.
+The data was collected by my wife and I using a Google form on our phones.
+When we heard a new word we would log it. I then normalized the words
+(sometimes we would write down Grandma and sometimes grandmother, for example)
+by hand and took the first occurrence of each word in each language as the date
+when they learned it.
 
-I discuss data collection in more depth in [Theo's][theo_post_data] and
-[Cory's][cory_post_data] data sections. You can find the Jupyter notebook used
-to perform this analysis [here][notebook] ([rendered on Github][rendered]).
-The data can be found [here][theo_data] and [here][cory_data].
+I discuss data collection in more depth in [Theo's][theo_post_data], 
+[Cory's][cory_post_data], and [Ash's][ash_post_data] data sections. You can
+find the Jupyter notebook used to perform this analysis [here][notebook]
+([rendered on Github][rendered]). The data can be found [here][theo_data], 
+[here][cory_data], and [here][ash_data].
 
 [theo_post_data]: {% post_url 2018-09-30-my_sons_words %}#the-data
 [cory_post_data]: {% post_url 2020-01-30-my_second_sons_words %}#the-data
+[ash_post_data]: {% post_url 2021-12-20-my_third_sons_words %}#the-data
 
 {% capture notebook_uri %}{{ "Theo vs Cory vs Ash words.ipynb" | uri_escape }}{% endcapture %}
 
@@ -54,40 +53,51 @@ The data can be found [here][theo_data] and [here][cory_data].
 ## Development
 
 Below I have plotted the number of words each of my sons knew as a function of
-their age. Theo, our first son, is represented by dashed lines; Cory, our
-second son, is represented by solid lines.
+their age. Theo, our first son, is represented by dotted lines; Cory, our
+second son, is represented by dashed lines; Ash, our third son, is represented
+with solid lines.
 
 [![A plot showing the number of words my sons could speak as a function of
 their age.][words_plot]][words_plot]
 
 [words_plot]: {{ file_dir }}/child0_vs_child1_vs_child2_total_words_linear.svg
 
-Second children are known to have slower onset of language
-development.[^pine][^berglund] They learn their first 50 known words more
-slowly, but catch up to their older siblings quickly, learning their first 100
-words at about the same age. The advantage is small though; the average
-difference in time to first 50 words between the first and second child is
-only 1 month.
+Cory learned all languages much faster than his brothers. Theo was the slowest
+on English and Chinese, the primary languages of our household, but slightly
+faster than Ash on Spanish, Sign, and Animal Sounds. Interestingly, Ash's
+Chinese started strong but has slowed; had we kept recording I suspect Theo
+would have caught up and passed him at 26 months of age.
 
-[^pine]: Pine, J. M., _Variation in vocabulary development as a function of birth order._ Child Development, 66(1), 272–281. (1995). doi:[10.2307/1131205](https://doi.org/10.2307/1131205)
-[^berglund]: Berglund, E., Eriksson, M., and Westerlund, M. _Communicative skills in relation to gender, birth order, childcare and socioeconomic status in 18‐month‐old children._ Scandinavian Journal of Psychology, 46: 485-491. (2005). doi:[10.1111/j.1467-9450.2005.00480.x](https://doi.org/10.1111/j.1467-9450.2005.00480.x)
+I discuss the slow Chinese acquisition in the [development
+section of Ash's post][ash_dev], but briefly I think it is related to me
+working from home during the COVID pandemic. This meant that:
 
-Theo and Cory do not follow this trend. Cory was 3 to 4 months faster than
-Theo to hit language development milestones in Cantonese, English, and
-Spanish; he also knew many more animal sounds. Theo was artificially limited
-in his Spanish acquisition though, as [mentioned in his post][theo_post],
-because my mother had injured herself and so Theo could not visit my parents
-for a few months.
+[ash_dev]: {% post_url 2021-12-20-my_third_sons_words %}#development
 
-Sign is the only area where Theo eventually learned faster than Cory. I
-suspect this is because he needed sign to communicate as he did not know as
-many words as quickly, whereas Cory gave up on sign once he could talk.
+1. We used a lot more English at home.
+2. I was able to better identify when he had learned new English words but not
+   new Chinese words, which led to a selection effect in what was recorded.
 
-Finally, I owe Theo's doctor an apology: she was always a little worried about
-Theo's language development, but we did not take it seriously because we knew
-that bilingual children developed language more slowly. Looking at the data
-and comparing to his brother, I think our pediatrician was right to be
-worried. Thankfully, Theo has had no problems since and now talks incessantly.
+Interestingly my wife tells me that Cory's current Chinese is worse than
+Theo's was at the same age. Perhaps Cory's development slowed or there is more
+to proficiency than just number of words known.
+
+The shape of the English curves are all very similar, just displaced in time.
+I would guess this has to do with the fact that they are always surrounded by
+English speakers to learn from whereas the other languages require special
+interactions with their family to learn.
+
+Ash's Spanish has taken off much slower, although in comparison he is not too
+far behind Theo. Theo's long drought of words is due to an injury my mom
+sustained that prevented them from watching Theo and so reduced his contact
+with Spanish. Ash doesn't have the same excuse, but it does show it's not too
+late for him to pick it up.
+
+Ash never got much into sign language. He learned pointing quickly and got by
+just doing that until he could speak. We also didn't emphasize it as much
+because we were very busy with our other two boys. I suspect this is why he
+didn't know as many animal sounds as well: I used to sit with Theo and Cory
+and point at animals in books and teach them but I did not do this with Ash.
 
 ## Other Writings on Language Development
 
