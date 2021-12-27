@@ -2,9 +2,10 @@
 layout: post
 title: "Comparing Pre- and Post-sale Estimates of House Price"
 description: >
-image: /files/realtor-estimate-comparison/
-hide_lead_image: True
+image: /files/realtor-estimate-comparison/1935_house_plans.jpg
 image_alt: >
+  A line drawing of a two bedroom home done for a 1935 architecture
+  competition.
 categories:
   - data-visualization
 ---
