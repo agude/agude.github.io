@@ -2,8 +2,9 @@
 layout: post
 title: "Comparison of My Three Sons' Language Development"
 description: >
-  Being a nerd dad, I recorded all the words my first three sons spoke as they
-  learned them. Now, I compare their language development rate!
+  I recorded the words my sons spoke as they learned our various languages and
+  now I compare how each developed! Find out who spoke first and who was slow
+  to pick up languages!
 image: /files/all-my-sons-words-comparison/miners_children_belva_mine_kentucky_nara.jpg
 hide_lead_image: True
 image_alt: >
@@ -99,6 +100,11 @@ just doing that until he could speak. We also didn't emphasize it as much
 because we were very busy with our other two boys. I suspect this is why he
 didn't know as many animal sounds as well: I used to sit with Theo and Cory
 and point at animals in books and teach them but I did not do this with Ash.
+
+As a final note: our kids' doctors were worried about both Theo and Ash's
+language development being too slow. Some of that worry transfered to us as
+parents. Keeping track of their words like this was reassuring---we could see
+that Ash was on pace compared to Theo, and we knew Theo turned out fine!
 
 ## Other Writings on Language Development
 
