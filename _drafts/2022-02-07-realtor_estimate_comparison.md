@@ -11,12 +11,20 @@ categories:
 
 {% capture file_dir %}/files/realtor-estimate-comparison/{% endcapture %}
 
+When I bought my house several years ago I was unsure how much money it would
+take to actually buy it. There was the list-price, of course, but I didn't
+expect that to be the actual price the seller would accept. Zillow and Redfin
+estimated two different prices, both slightly higher than the list price, and
+my realtor suggested a forth based on comprable homes. In the end we made up a
+number combining all four prices, nudged it up a bit as a hedge, and had our
+offer accepted. It left me wondering if there was a better way to predict
+prices, and if Zillow and Redfin had been right with their predicted prices.
 
-A house in my neighborhood recently put up a "For Sale" sign which prompted me
-to look online for the listing. I couldn't find one. None of the online real
-estate brokers had picked up the listing yet. Instead they showed an estimated
-value of the house. I realized I had a chance to compare their current price
-estimates with the actual listing and sales price.
+Recently a house in my neighborhood recently put up a "For Sale" sign which
+prompted me to look online for the listing. I couldn't find one. None of the
+online real estate brokers had picked up the listing yet. I realized I had a
+chance to compare their current price estimates with the actual listing and
+sales price.
 
 ## Data Collection
 
@@ -91,12 +99,14 @@ conditions and more importantly about the condition of the house and property
 relative to its neighbors. However, in this case the list price was obviously
 too low and likely intended to entice buyers.
 
+Xome's pre-list estimate is the closest to the sale value, missing by just
+about 3%, although they gave themselves a lot of room with their uncertainty.
 Here are the four pre-listing estimates ranked from lowest to highest absolute
 error:
 
-| Company         |  Pre-listing |
-|:----------------|-------------:|
-| **Xome**        |         $30k |
-| **Redfin**      |         $74K |
-| **Realtor.com** |         $93K |
-| **Zillow**      |        $132K |
+| Company         |  Absolute Error| Percent Error |
+|:----------------|---------------:|--------------:|
+| **Xome**        |           $30k |          2.8% |
+| **Redfin**      |           $74K |          6.9% |
+| **Realtor.com** |           $93K |          8.7% |
+| **Zillow**      |          $132K |         12.3% |
