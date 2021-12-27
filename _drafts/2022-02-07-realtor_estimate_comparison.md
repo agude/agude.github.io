@@ -2,6 +2,9 @@
 layout: post
 title: "Comparing Pre- and Post-sale Estimates of House Price"
 description: >
+  Can Zillow and Redfin predict prices accurately? I look at a house sold in
+  my neighborhood and compare the sale price to the price predicted by Zillow
+  and Redfin before they knew it was for sale.
 image: /files/realtor-estimate-comparison/1935_house_plans.jpg
 image_alt: >
   A line drawing of a two bedroom home done for a 1935 architecture
