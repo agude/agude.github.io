@@ -2,12 +2,13 @@
 layout: post
 title: "Comparison of My Three Sons' Language Development"
 description: >
-  Being a nerd dad, I recorded all the words my first two sons spoke as they
+  Being a nerd dad, I recorded all the words my first three sons spoke as they
   learned them. Now, I compare their language development rate!
-image: /files/all-my-sons-words-comparison/
+image: /files/all-my-sons-words-comparison/miners_children_belva_mine_kentucky_nara.jpg
 hide_lead_image: True
 image_alt: >
-  Black and white photo of a young boy at a school desk.
+  Black and white photo of two young boys hanging out a window, their faces
+  smudged with soot.
 categories:
   - childhood-language
   - data-visualization
