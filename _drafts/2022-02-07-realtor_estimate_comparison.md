@@ -10,6 +10,7 @@ image_alt: >
   A line drawing of a two bedroom home done for a 1935 architecture
   competition.
 categories:
+  - data-science
   - data-visualization
 ---
 
