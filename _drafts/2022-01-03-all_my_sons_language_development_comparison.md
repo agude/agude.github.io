@@ -29,9 +29,9 @@ language development][ash_post]. In this post I'll compare them all.
 
 The data was collected by my wife and I using a Google form on our phones.
 When we heard a new word we would log it. I then normalized the words
-(sometimes we would write down Grandma and sometimes grandmother, for example)
-by hand and took the first occurrence of each word in each language as the date
-when they learned it.
+(sometimes we would write down grandma and sometimes grandmother for the same
+word, for example) by hand and took the first occurrence of each word in each
+language as the date when they learned it.
 
 I discuss data collection in more depth in [Theo's][theo_post_data], 
 [Cory's][cory_post_data], and [Ash's][ash_post_data] data sections. You can
@@ -88,11 +88,11 @@ I would guess this has to do with the fact that they are always surrounded by
 English speakers to learn from whereas the other languages require special
 interactions with their family to learn.
 
-Ash's Spanish has taken off much slower, although in comparison he is not too
-far behind Theo. Theo's long drought of words is due to an injury my mom
-sustained that prevented them from watching Theo and so reduced his contact
-with Spanish. Ash doesn't have the same excuse, but it does show it's not too
-late for him to pick it up.
+Ash's Spanish has taken off much slower than our other two sons, although in
+comparison he is not too far behind Theo. Theo's long drought of words is due
+to an injury my mom sustained that prevented them from watching Theo and so
+reduced his contact with Spanish. Ash doesn't have the same excuse, but it
+does show it's not too late for him to pick it up.
 
 Ash never got much into sign language. He learned pointing quickly and got by
 just doing that until he could speak. We also didn't emphasize it as much
