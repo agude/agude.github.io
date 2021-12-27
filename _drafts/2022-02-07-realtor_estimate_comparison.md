@@ -49,7 +49,7 @@ data is summarized in the table below:
 I could not find Realtor.com's estimate after the listing went up, so it is
 not included. Xome did not change their estimate after the listing was posted.
 
-The house was listed at $948k and sold for $1,070k.
+The house was listed at $948K and sold for $1,070K.
 
 ## Plot
 
