@@ -5,7 +5,7 @@ description: >
   Can Zillow and Redfin predict prices accurately? I look at a house sold in
   my neighborhood and compare the sale price to the price predicted by Zillow
   and Redfin before they knew it was for sale.
-image: /files/realtor-estimate-comparison/1935_house_plans.jpg
+image: /files/online-realtor-estimate-comparison/1935_house_plans.jpg
 image_alt: >
   A line drawing of a two bedroom home done for a 1935 architecture
   competition.
@@ -14,7 +14,7 @@ categories:
   - data-visualization
 ---
 
-{% capture file_dir %}/files/realtor-estimate-comparison/{% endcapture %}
+{% capture file_dir %}/files/online-realtor-estimate-comparison/{% endcapture %}
 
 When I bought my house several years ago I was unsure how much money it would
 take to actually buy it. There was the list-price, of course, but I didn't
@@ -30,6 +30,16 @@ prompted me to look online for the listing. I couldn't find one. None of the
 online real estate brokers had picked up the listing yet. I realized I had a
 chance to compare their current price estimates with the actual listing and
 sales price.
+
+You can find the Jupyter notebook used to perform this analysis
+[here][notebook] ([rendered on Github][rendered]). The data can be found
+[here][data].
+
+{% capture notebook_uri %}{{ "House Price Estimate Plot.ipynb" | uri_escape }}{% endcapture %}
+
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
+[data]: {{ file_dir }}/house_price_estimate_date.csv
 
 ## Data Collection
 
@@ -93,9 +103,9 @@ highest pre-listing estimate.
 ### Comments
 
 Zillow and Redfin _strongly_ disagree about what the value of the house is
-initially, with a difference between their estimates of $200k. Both estimates
-poorly predict the final sales price, with Zillow underestimating by $132k and
-Redfin overestimating by $74k.
+initially, with a difference between their estimates of $200K. Both estimates
+poorly predict the final sales price, with Zillow underestimating by $132K and
+Redfin overestimating by $74K.
 
 Both estimates revert towards the list price when it is posted, with Redfin's
 slightly higher than the listing and Zillow's slightly lower. This makes some
@@ -111,7 +121,7 @@ error:
 
 | Company         |  Absolute Error| Percent Error |
 |:----------------|---------------:|--------------:|
-| **Xome**        |           $30k |          2.8% |
+| **Xome**        |           $30K |          2.8% |
 | **Redfin**      |           $74K |          6.9% |
 | **Realtor.com** |           $93K |          8.7% |
 | **Zillow**      |          $132K |         12.3% |
