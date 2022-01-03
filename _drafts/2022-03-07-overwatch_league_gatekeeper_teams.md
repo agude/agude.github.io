@@ -182,10 +182,11 @@ with a 75% win rate against worse teams.
 
 [2019_spark]: https://en.wikipedia.org/wiki/2019_Hangzhou_Spark_season
 
-What feels right about the Spark being the gatekeepers is it follows the
-storyline of the 2019 season: that the Titans and the Shock were a tier above
-everyone else in GOATS with only New York Excelsior being able to compete.
-
+What feels right about the highly-ranked Spark being the gatekeepers is it
+follows the storyline of the 2019 season: that the Titans and the Shock were a
+tier above everyone else in the GOATS meta, that with a only a few other top
+teams able to compete, and that everyone else floundered trying to play team
+composition they did not have the skill to.
 
 ### 2020 Season
 
@@ -214,6 +215,23 @@ Asia regions separately.
 | Washington Justice     |                 69 |
 | Boston Uprising        |                --- |
 
+The [2020 Atlanta Reign][2020_reign] were the first time I remember a team
+specifically being referred to as a gatekeeper. They had flashy, lopsided
+games against teams below them in the standings, but constantly failed to
+advance by beating teams ahead of them. You can see it in their stats: The
+Reign have an 85% win rate against lower ranked teams---the third highest in
+the league behind the eventual champions the Shock and Washington who only had
+team below them---but just an 18% win rate against higher ranked teams. 
+
+[2020_reign]: https://en.wikipedia.org/wiki/2020_Atlanta_Reign_season
+
+However, I think the [2020 Dallas Fuel][2020_fuel] are the true gatekeepers of
+the league. They had almost as high a win rate against worse teams at 83%, but
+a much lower win rate against better teams at 7%---the lowest in the league
+that year!
+
+[2020_fuel]: https://en.wikipedia.org/wiki/2020_Dallas_Fuel_season
+
 #### Asia
 
 | Team                   |   Gatekeeper Score |
@@ -221,32 +239,63 @@ Asia regions separately.
 | Shanghai Dragons       |                --- |
 | Guangzhou Charge       |                 40 |
 | New York Excelsior     |                 38 |
-| Hangzhou Spark         |                 50 |
+| **Hangzhou Spark**     |             **50** |
 | Seoul Dynasty          |                 32 |
 | Chengdu Hunters        |                 23 |
 | London Spitfire        |                --- |
 
+The Asian Region in 2020 had two truisms: the Shanghai Dragons beat everyone,
+and the London[^london] Spitfire lost to everyone. The [2020 Hangzhou
+Spark][2020_spark] look like a good candidate for the gatekeepers of the
+region, beating lower ranked teams 67% of the time, but only managing 17%
+against better teams.
+
+[2020_spark]: https://en.wikipedia.org/wiki/2020_Hangzhou_Spark_season
+
+[^london]: I know London is not in Asia, and neither is New York, but during
+           the pandemic some teams decided to move to Korea for safety.
 
 ## 2021 Season
 
+The 2021 season was again split into two regions due to COVID, but there was a
+lot more cross-play between the regions as each of the four tournaments and
+the playoffs included teams from both regions. Still, I only look at the
+record against teams within the region as that is how regular season standings
+were determined.
+
+<!-- TODO: Points also determine standing in 2020 and 20201 -->
+
 ### North America
 
-| Team                   |   Gatekeeper Score |
-|:-----------------------|-------------------:|
-| Dallas Fuel            |                --- |
-| Los Angeles Gladiators |                 70 |
-| Atlanta Reign          |                 32 |
-| San Francisco Shock    |                 43 |
-| Houston Outlaws        |                 47 |
-| Washington Justice     |                 39 |
-| Toronto Defiant        |                 62 |
-| Paris Eternal          |                 46 |
-| Boston Uprising        |                 31 |
-| Florida Mayhem         |                 69 |
-| London Spitfire        |                100 |
-| Vancouver Titans       |                --- |
+| Team                       |   Gatekeeper Score |
+|:---------------------------|-------------------:|
+| Dallas Fuel                |                --- |
+| **Los Angeles Gladiators** |             **70** |
+| Atlanta Reign              |                 32 |
+| San Francisco Shock        |                 43 |
+| Houston Outlaws            |                 47 |
+| Washington Justice         |                 39 |
+| **Toronto Defiant**        |             **62** |
+| Paris Eternal              |                 46 |
+| Boston Uprising            |                 31 |
+| Florida Mayhem             |                 69 |
+| **London Spitfire**        |            **100** |
+| Vancouver Titans           |                --- |
+
+
+The [2021 London Spitfire][2021_spitfire] were a terrible and disappointing
+team. The majority of the team had been called up from the Spitfire's academy
+team the [British Hurricane][hurricane]. The Hurricane had gone 12-0 and won
+the 2020 Overwatch Contenders (Overwatch's minor league), but in 2021 the
+called up players were only able to eek out a 1-15 season, getting their only
+win in the infamous [Bread Bowl][breadstick_bowl] against the 1-15 Vancouver
+Titans. That gave the Spitfire a 1-0 record against lower ranked teams and a
+0-15 record against higher ranked teams, resulting in a perfect 100 point
+gatekeeper score.
 
 [breadstick_bowl]: https://overwatchleague.com/en-us/match/37333
+
+[hurricane]: https://en.wikipedia.org/wiki/British_Hurricane
 
 ### Asia
 
