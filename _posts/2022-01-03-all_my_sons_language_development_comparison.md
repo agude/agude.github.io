@@ -3,8 +3,7 @@ layout: post
 title: "Comparison of My Three Sons' Language Development"
 description: >
   I recorded the words my sons spoke as they learned our various languages and
-  now I compare how each developed! Find out who spoke first and who was slow
-  to pick up languages!
+  now I compare how each developed! Read on to find out how each son learned.
 image: /files/all-my-sons-words-comparison/miners_children_belva_mine_kentucky_nara.jpg
 hide_lead_image: True
 image_alt: >
@@ -64,11 +63,12 @@ their age.][words_plot]][words_plot]
 
 [words_plot]: {{ file_dir }}/child0_vs_child1_vs_child2_total_words_linear.svg
 
-Cory learned all languages much faster than his brothers. Theo was the slowest
-on English and Chinese, the primary languages of our household, but slightly
-faster than Ash on Spanish, Sign, and Animal Sounds. Interestingly, Ash's
-Chinese started strong but has slowed; had we kept recording I suspect Theo
-would have caught up and passed him at 26 months of age.
+Cory learned all of the languages much faster than his brothers. Theo was the
+slowest to learn English and Chinese, the primary languages of our household,
+but slightly faster than Ash on Spanish, Sign, and Animal Sounds.
+Interestingly, Ash's Chinese started strong but has slowed; had we kept
+recording I suspect Theo would have caught up and passed him at 26 months of
+age.
 
 I discuss the slow Chinese acquisition in the [development
 section of Ash's post][ash_dev], but briefly I think it is related to me
@@ -80,7 +80,12 @@ working from home during the COVID pandemic. This meant that:
 - I was able to better identify when he had learned new English words but not
   new Chinese words, which led to a selection effect in what was recorded.
 
-Interestingly my wife tells me that Cory's current Chinese is worse than
+With one additional month of living with Ash (not reflected in the chart and
+data) his Chinese has really taken off recently, using whole sentences instead
+of just a few words, which leads me to suspect that the slowdown in the data
+is mostly due to the selection effect mentioned above.
+
+Also interestingly my wife tells me that Cory's current Chinese is worse than
 Theo's was at the same age. Perhaps Cory's development slowed or there is more
 to proficiency than just number of words known.
 
@@ -90,10 +95,10 @@ English speakers to learn from whereas the other languages require special
 interactions with their family to learn.
 
 Ash's Spanish has taken off much slower than our other two sons, although in
-comparison he is not too far behind Theo. Theo's long drought of words is due
-to an injury my mom sustained that prevented them from watching Theo and so
-reduced his contact with Spanish. Ash doesn't have the same excuse, but it
-does show it's not too late for him to pick it up.
+comparison he is not too far behind Theo. Theo's long drought of Spanish words
+is due to an injury my mom sustained that prevented her and my father from
+watching Theo and so reduced his contact with Spanish. Ash doesn't have the
+same excuse, but it does show it's not too late for him to pick it up.
 
 Ash never got much into sign language. He learned pointing quickly and got by
 just doing that until he could speak. We also didn't emphasize it as much
