@@ -283,19 +283,32 @@ were determined.
 | Vancouver Titans           |                --- |
 
 
-The [2021 London Spitfire][2021_spitfire] were a terrible and disappointing
-team. The majority of the team had been called up from the Spitfire's academy
-team the [British Hurricane][hurricane]. The Hurricane had gone 12-0 and won
-the 2020 Overwatch Contenders (Overwatch's minor league), but in 2021 the
-called up players were only able to eek out a 1-15 season, getting their only
-win in the infamous [Bread Bowl][breadstick_bowl] against the 1-15 Vancouver
-Titans. That gave the Spitfire a 1-0 record against lower ranked teams and a
-0-15 record against higher ranked teams, resulting in a perfect 100 point
-gatekeeper score.
+The [2021 London Spitfire][2021_spitfire] were a disappointing team. The
+majority of the team had been called up from the Spitfire's academy team the
+[British Hurricane][hurricane] who had gone 12-0 and won the 2020
+Overwatch Contenders (Overwatch's minor league). But they floundered in
+Overwatch league, barely scrapping together a 1-15 season. They got their only
+win in the infamous [Bread Bowl][breadstick_bowl] against the also 1-15
+[Vancouver Titans][2021_titans]. That gave the Spitfire a 1-0 record against lower ranked
+teams and a 0-15 record against higher ranked teams, resulting in a perfect
+100 point gatekeeper score.
 
-[breadstick_bowl]: https://overwatchleague.com/en-us/match/37333
-
+[2021_spitfire]: https://en.wikipedia.org/wiki/2021_London_Spitfire_season
 [hurricane]: https://en.wikipedia.org/wiki/British_Hurricane
+[breadstick_bowl]: https://overwatchleague.com/en-us/match/37333
+[2021_titans]: https://en.wikipedia.org/wiki/2021_Vancouver_Titans_season
+
+Of course a one-win team isn't a gatekeeper, despite what the score says.
+Likewise it's hard to call the [2021 Los Angeles Gladiators][2021_gladiators]
+gatekeeper because their 0% win rate against higher ranked teams (just the
+[Dallas Fuel][2021_fuel]) represents only two games.
+
+[2021_gladiators]: https://en.wikipedia.org/wiki/2021_Los_Angeles_Gladiators_season
+[2021_fuel]: https://en.wikipedia.org/wiki/2021_Dallas_Fuel_season
+
+For that reason, I think the [2021 Toronto Defiant][2021_defiant] are the
+gatekeepers of the North American Region.
+
 
 ### Asia
 
