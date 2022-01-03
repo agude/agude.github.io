@@ -9,7 +9,7 @@ hide_lead_image: True
 image_alt: >
   Black and white photo of a young boy at a school desk.
 seo:
-  date_modified: 2021-12-19T19:04:46-08:00
+  date_modified: 2021-12-23T15:10:55-08:00
 categories:
   - childhood-language
   - data-visualization
