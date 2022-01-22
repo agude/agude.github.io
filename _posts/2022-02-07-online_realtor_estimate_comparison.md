@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Comparing Pre- and Post-sale Estimates of House Price"
+title: "Comparing Pre- and Post-sale Estimates of the Price of a House"
 description: >
   Can Zillow and Redfin predict prices accurately? I look at a house sold in
   my neighborhood and compare the sale price to the price predicted by Zillow
@@ -18,7 +18,7 @@ categories:
 
 When I bought my house several years ago I was unsure how much money it would
 take to actually buy it. There was the list-price, of course, but I didn't
-expect that to be the actual price the seller would accept. Zillow and Redfin
+expect that to be the price the seller would accept. Zillow and Redfin
 estimated two different prices, both slightly higher than the list price, and
 my realtor suggested a forth based on comprable homes. In the end we made up a
 number combining all four prices, nudged it up a bit as a hedge, and had our
@@ -27,9 +27,8 @@ prices, and if Zillow and Redfin had been right with their predicted prices.
 
 Recently a house in my neighborhood recently put up a "For Sale" sign which
 prompted me to look online for the listing. I couldn't find one. None of the
-online real estate brokers had picked up the listing yet. I realized I had a
-chance to compare their current price estimates with the actual listing and
-sales price.
+online real estate brokers had picked it up yet. I realized I had a chance to
+compare their current price estimates with the actual listing and sales price.
 
 You can find the Jupyter notebook used to perform this analysis
 [here][notebook] ([rendered on Github][rendered]). The data can be found
@@ -50,21 +49,21 @@ after the listing was picked up and again after the sale was complete. The
 data is summarized in the table below:
 
 {% comment %} Aliasing some long numbers to make the table prettier.{% endcomment %}
-{% capture xome_pre %}$1,040K<span class="supsub"><sup>+90K</sup><sub>-91K</sub></span>{% endcapture %}
-{% capture xome_post %}$1,074K<span class="supsub"><sup>+91K</sup><sub>-113K</sub></span>{% endcapture %}
+{% capture xome_pre %}$1040K<span class="supsub"><sup>+90K</sup><sub>-91K</sub></span>{% endcapture %}
+{% capture xome_post %}$1074K<span class="supsub"><sup>+91K</sup><sub>-113K</sub></span>{% endcapture %}
 
 | Company         |  Pre-listing | Post-listing |     Post-sale |
 |:----------------|-------------:|-------------:|--------------:|
-| **Zillow**      |        $938K |        $941K |       $1,077K |
-| **Realtor.com** |        $977K | Not Recorded |       $1,105K |
+| **Zillow**      |        $938K |        $941K |       $1077K |
+| **Realtor.com** |        $977K | Not Recorded |       $1105K |
 | **Xome**        | {{xome_pre}} |    Unchanged | {{xome_post}} |
-| **Redfin**      |      $1,144K |        $963K |       $1,090K |
+| **Redfin**      |      $1144K |        $963K |       $1090K |
 
 
 I could not find Realtor.com's estimate after the listing went up, so it is
 not included. Xome did not change their estimate after the listing was posted.
 
-The house was listed at $948K and sold for $1,070K.
+The house was listed at $948K and sold for $1070K.
 
 ## Plot
 
