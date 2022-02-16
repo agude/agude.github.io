@@ -25,10 +25,10 @@ number combining all four prices, nudged it up a bit as a hedge, and had our
 offer accepted. It left me wondering if there was a better way to predict
 prices, and if Zillow and Redfin had been right with their predicted prices.
 
-Recently a house in my neighborhood recently put up a "For Sale" sign which
-prompted me to look online for the listing. I couldn't find one. None of the
-online real estate brokers had picked it up yet. I realized I had a chance to
-compare their current price estimates with the actual listing and sales price.
+Recently a house in my neighborhood put up a "For Sale" sign which prompted me
+to look online for the listing. I couldn't find one. None of the online real
+estate brokers had picked it up yet. I realized I had a chance to compare
+their current price estimates with the actual listing and sales price.
 
 You can find the Jupyter notebook used to perform this analysis
 [here][notebook] ([rendered on Github][rendered]). The data can be found
