@@ -11,7 +11,7 @@ categories:
 
 {% capture file_dir %}/files/tour-de-france/{% endcapture %}
 
-Watching the [Overwatch league][owl] is probably my nerdiest hobby (after
+Watching the [Overwatch league][owl] is probably my nerdiest hobby (well after
 doing data analysis on the weekend and writing these posts of course). 
 
 [owl]: https://en.wikipedia.org/wiki/Overwatch_League
@@ -45,40 +45,46 @@ There are a few problems with this score:
 ### Undefined Scores
 
 The best and worst team each season have an undefined score because there are
-no teams better or worse than them. This is a small problem because to be a
+no teams better or worse than them. This is not a big problem because to be a
 gatekeeper you must gatekeep someone, and you can't do that at the top or
 bottom of the standings.
 
 ### High Volatility Near the Top and Bottom
 
 Teams near the top or the bottom of the standings have only a smaller number
-of matches used to compute one part of their score. This tends to increase the
-volatility of their scores relative to midtable teams that have a lot of
-matches counted on either side of their score.
+of matches used to compute one component of their score. This tends to
+increase the volatility of their scores relative to midtable teams that have a
+lot of matches counted on either side.
 
 This is a bigger problem because it means that teams near the top and bottom
 are more likely to have a high gatekeeper score just because they won or lost
 a single match, whereas teams in the middle need to win or lose a bunch of
 matches to change their score.
 
-I could adjust the score by the number of games, or put an estimate on the
+I could adjust the score by the number of games, or compute an estimate on the
 variance, but for now I will just call out this issue as we run into it.
 
 ## The Data
 
 I use two sources of data for this comparison. The first is [a record of the
 outcome of every map played][map_stats] from the Overwatch League's Stat Lab.
-I transform this data to get match-level win-loss records for each team by
+I transform this data to get match-level[^match] win-loss records for each team by
 opponent.
+
+[^match]: A match consists of multiple maps that are played sequentially. The
+          first team to win a specific number of maps wins the match. The
+          number of map wins needed is often 3, but occasionally 4 or more for
+          tournaments. Some seasons all maps were played out even if one team
+          had already clinched the match.
 
 [map_stats]: https://assets.blz-contentstack.com/v3/assets/blt321317473c90505c/blt4c7ee43fcc7a63c2/61537dcd1bb8c23cf8bbde70/match_map_stats.zip
 
 The second data source is the standings of all teams by season as determined
 at the end of the regular season. I scrape this from [Liquipedia][liquipedia].
-The reason I use the regular season standings instead of the final standings
-are final standings are based on a handful of playoff games while the season
-standings incorporate many more matches and so should be a more accurate
-estimate of a teams performance level.
+I use the regular season standings instead of the final standings because
+final standings are based on a handful of playoff games while the season
+standings incorporate many more matches and so provide a more accurate
+estimate of a team's performance.
 
 [liquipedia]: https://liquipedia.net/overwatch/Overwatch_League 
 
@@ -114,13 +120,14 @@ think could rightfully be called "gatekeepers".
 [2018_dragons]: https://en.wikipedia.org/wiki/2018_Shanghai_Dragons_season
 
 The [2018 Florida Mayhem][2018_florida] were a bad team with a possibly even
-worse uniform. They went 7-33 in the inaugural season and were only saved from
-the bottom of the rankings only by the _worst team in professional sports
-history:_ the [0-40 Shanghai Dragons][2018_dragons]. The Mayhem went 3-0
-against the Dragons giving them a 100% win rate against worse teams, and 4-33
-against better teams giving them an impressive 11% win rate, which combine to
-give them a gatekeeper score of 89!
+worse uniform. They went 7-33 in the inaugural season and were saved from the
+bottom of the rankings by the _team with the_ [_worst losing streak_][streak]
+_in professional sports history:_ the [0-40 Shanghai Dragons][2018_dragons].
+The Mayhem went 3-0 against the Dragons for a 100% win rate against worse
+teams, and 4-33 against better teams giving them an impressively bad 11% win
+rate. Combining those rates yields a gatekeeper score of 89!
 
+[streak]: https://www.espn.com/esports/story/_/id/25535277/espn-esports-awards-2018-why-shanghai-dragons-0-40-record-espn-biggest-disappointment-year
 [2018_florida]: https://en.wikipedia.org/wiki/2018_Florida_Mayhem_season
 [2018_dragons]: https://en.wikipedia.org/wiki/2018_Shanghai_Dragons_season
 
@@ -142,7 +149,11 @@ map differential as you work your way up from the bottom.
 
 The 2019 season added 8 teams to the league and was dominated by the
 highly-technical [GOATS meta][goats] in which teams played three tanks and
-three supports and were forced to rigorously track ability usage.
+three supports. During this meta teams were forced to rigorously track their
+opponents ability usage and perfectly time their own in order to win fights.
+Teams like Vancouver, San Francisco, and New York mastered this style and
+dominated the league while many others failed to achieve the high-level of
+coordination required and sunk down in the rankings.
 
 [goats]: https://thegamehaus.com/overwatch/a-comprehensive-history-of-overwatch-metas-part-15-goats/2020/02/06/
 
@@ -169,24 +180,25 @@ three supports and were forced to rigorously track ability usage.
 | Boston Uprising        |                 24 |
 | Florida Mayhem         |                --- |
 
-Once again a bottom-ranked team has the highest score and for the [same
-reason][volatility]. The [2019 Washington Justice][2019_justice] went 4-0
+Once again a bottom-ranked team has the highest score and for the same reason:
+[volatility][volatility]. The [2019 Washington Justice][2019_justice] went 4-0
 against Boston and Florida and 4-20 against better teams.
 
 [2019_justice]: https://en.wikipedia.org/wiki/2019_Washington_Justice_season
 
 More interesting are the [2019 Hangzhou Spark][2019_spark], who placed fourth.
 They lost every game against the top three teams, going 0-7, including 2 lost
-playoff games against the eventual champions the Shock. They made up for it
-with a 75% win rate against worse teams. 
+playoff games against the eventual champions the San Francisco Shock. But they
+made up for it with a 75% win rate against worse teams. 
 
 [2019_spark]: https://en.wikipedia.org/wiki/2019_Hangzhou_Spark_season
 
 What feels right about the highly-ranked Spark being the gatekeepers is it
-follows the storyline of the 2019 season: that the Titans and the Shock were a
-tier above everyone else in the GOATS meta, that with a only a few other top
-teams able to compete, and that everyone else floundered trying to play team
-composition they did not have the skill to.
+follows the storyline of the 2019 season: that the Vancouver Titans and the
+San Francisco Shock were a tier above everyone else in the GOATS meta, that
+only a few other top teams were able to execute the GOATS composition with
+enough coordination (among them New York), and that everyone else floundered
+trying to play a meta they did not have the skill to.
 
 ### 2020 Season
 
@@ -232,6 +244,9 @@ that year!
 
 [2020_fuel]: https://en.wikipedia.org/wiki/2020_Dallas_Fuel_season
 
+<!-- TODO: Look at "win quality"? Did Atlanta win more blowouts against lower
+teams? Or maybe that's another post? -->
+
 #### Asia
 
 | Team                   |   Gatekeeper Score |
@@ -244,7 +259,7 @@ that year!
 | Chengdu Hunters        |                 23 |
 | London Spitfire        |                --- |
 
-The Asian Region in 2020 had two truisms: the Shanghai Dragons beat everyone,
+The Asian region in 2020 had two truisms: the Shanghai Dragons beat everyone,
 and the London[^london] Spitfire lost to everyone. The [2020 Hangzhou
 Spark][2020_spark] look like a good candidate for the gatekeepers of the
 region, beating lower ranked teams 67% of the time, but only managing 17%
@@ -286,12 +301,12 @@ were determined.
 The [2021 London Spitfire][2021_spitfire] were a disappointing team. The
 majority of the team had been called up from the Spitfire's academy team the
 [British Hurricane][hurricane] who had gone 12-0 and won the 2020
-Overwatch Contenders (Overwatch's minor league). But they floundered in
+Overwatch Contenders season (Overwatch's minor league). But they floundered in
 Overwatch league, barely scrapping together a 1-15 season. They got their only
 win in the infamous [Bread Bowl][breadstick_bowl] against the also 1-15
-[Vancouver Titans][2021_titans]. That gave the Spitfire a 1-0 record against lower ranked
-teams and a 0-15 record against higher ranked teams, resulting in a perfect
-100 point gatekeeper score.
+[Vancouver Titans][2021_titans]. That gave the Spitfire a 1-0 record against
+lower ranked teams and a 0-15 record against higher ranked teams, resulting in
+a perfect 100 point gatekeeper score.
 
 [2021_spitfire]: https://en.wikipedia.org/wiki/2021_London_Spitfire_season
 [hurricane]: https://en.wikipedia.org/wiki/British_Hurricane
@@ -307,8 +322,7 @@ gatekeeper because their 0% win rate against higher ranked teams (just the
 [2021_fuel]: https://en.wikipedia.org/wiki/2021_Dallas_Fuel_season
 
 For that reason, I think the [2021 Toronto Defiant][2021_defiant] are the
-gatekeepers of the North American Region.
-
+gatekeepers of the North American Region. <!-- TODO: What's their record? -->
 
 ### Asia
 
@@ -316,10 +330,10 @@ gatekeepers of the North American Region.
 |:-----------------------|-------------------:|
 | Shanghai Dragons       |                --- |
 | Chengdu Hunters        |                 53 |
-| Seoul Dynasty          |                 62 |
+| **Seoul Dynasty**      |             **62** |
 | Philadelphia Fusion    |                 40 |
 | Hangzhou Spark         |                 42 |
 | New York Excelsior     |                 27 |
-| Guangzhou Charge       |                 79 |
+| **Guangzhou Charge**   |             **79** |
 | Los Angeles Valiant    |                --- |
 
