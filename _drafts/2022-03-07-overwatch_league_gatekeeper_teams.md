@@ -12,7 +12,7 @@ categories:
 {% capture file_dir %}/files/tour-de-france/{% endcapture %}
 
 Watching the [Overwatch league][owl] is probably my nerdiest hobby (well after
-doing data analysis on the weekend and writing these posts of course). 
+doing data analysis on the weekend so I can write these posts of course). 
 
 [owl]: https://en.wikipedia.org/wiki/Overwatch_League
 
@@ -58,8 +58,8 @@ lot of matches counted on either side.
 
 This is a bigger problem because it means that teams near the top and bottom
 are more likely to have a high gatekeeper score just because they won or lost
-a single match, whereas teams in the middle need to win or lose a bunch of
-matches to change their score.
+a single match, whereas teams in the middle need to win or lose many matches
+to change their score.
 
 I could adjust the score by the number of games, or compute an estimate on the
 variance, but for now I will just call out this issue as we run into it.
@@ -79,12 +79,11 @@ opponent.
 
 [map_stats]: https://assets.blz-contentstack.com/v3/assets/blt321317473c90505c/blt4c7ee43fcc7a63c2/61537dcd1bb8c23cf8bbde70/match_map_stats.zip
 
-The second data source is the standings of all teams by season as determined
-at the end of the regular season. I scrape this from [Liquipedia][liquipedia].
-I use the regular season standings instead of the final standings because
-final standings are based on a handful of playoff games while the season
-standings incorporate many more matches and so provide a more accurate
-estimate of a team's performance.
+The second data source is the regular season standings of all the teams. I
+scrape this data from [Liquipedia][liquipedia]. I use the regular season
+standings because the final standings are based on a handful of playoff games
+while the season standings incorporate many more matches and so provide a more
+accurate estimate of a team's performance.
 
 [liquipedia]: https://liquipedia.net/overwatch/Overwatch_League 
 
@@ -98,7 +97,7 @@ to go label them by hand.
 
 Here are the gatekeeper scores for each season and region. The tables are
 ordered according to the regular season ranking. I have highlighted teams I
-think could rightfully be called "gatekeepers".
+think could rightfully be called gatekeepers.
 
 ### 2018 Season
 
@@ -147,13 +146,14 @@ map differential as you work your way up from the bottom.
 
 ### 2019 Season
 
-The 2019 season added 8 teams to the league and was dominated by the
+The 2019 season added eight teams to the league and was dominated by the
 highly-technical [GOATS meta][goats] in which teams played three tanks and
-three supports. During this meta teams were forced to rigorously track their
+three supports. During this meta, teams were forced to rigorously track their
 opponents ability usage and perfectly time their own in order to win fights.
-Teams like Vancouver, San Francisco, and New York mastered this style and
-dominated the league while many others failed to achieve the high-level of
-coordination required and sunk down in the rankings.
+The Vancouver Titans, the San Francisco Shock, and to a lesser extent the New
+York Excelsior mastered this style of play and dominated the league while many
+other teams failed to achieve the high-level of coordination required and sunk
+down in the rankings.
 
 [goats]: https://thegamehaus.com/overwatch/a-comprehensive-history-of-overwatch-metas-part-15-goats/2020/02/06/
 
@@ -188,8 +188,8 @@ against Boston and Florida and 4-20 against better teams.
 
 More interesting are the [2019 Hangzhou Spark][2019_spark], who placed fourth.
 They lost every game against the top three teams, going 0-7, including 2 lost
-playoff games against the eventual champions the San Francisco Shock. But they
-made up for it with a 75% win rate against worse teams. 
+playoff games against the eventual champions the San Francisco Shock. But the
+Spark made up for it with a 75% win rate against worse teams. 
 
 [2019_spark]: https://en.wikipedia.org/wiki/2019_Hangzhou_Spark_season
 
@@ -268,7 +268,7 @@ against better teams.
 [2020_spark]: https://en.wikipedia.org/wiki/2020_Hangzhou_Spark_season
 
 [^london]: I know London is not in Asia, and neither is New York, but during
-           the pandemic some teams decided to move to Korea for safety.
+           the pandemic these teams decided to move to Korea for safety.
 
 ## 2021 Season
 
