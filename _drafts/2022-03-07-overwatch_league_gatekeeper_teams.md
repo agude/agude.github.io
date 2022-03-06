@@ -322,7 +322,11 @@ gatekeeper because their 0% win rate against higher ranked teams (just the
 [2021_fuel]: https://en.wikipedia.org/wiki/2021_Dallas_Fuel_season
 
 For that reason, I think the [2021 Toronto Defiant][2021_defiant] are the
-gatekeepers of the North American Region. <!-- TODO: What's their record? -->
+gatekeepers of the North American Region. They had typical middle of the pack
+season: finishing 7 out of 12 in the West, a 9-7 match record, and a perfectly
+balance map record with 32 wins and 32 losses.
+
+[2021_defiant]: https://en.wikipedia.org/wiki/2021_Toronto_Defiant_season
 
 ### Asia
 
