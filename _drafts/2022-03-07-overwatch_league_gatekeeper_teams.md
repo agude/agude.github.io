@@ -2,14 +2,14 @@
 layout: post
 title: "Gatekeeper Teams of the Overwatch League"
 description: >
-image: /files/tour-de-france/tour_de_france_1932_swiss_team.jpg
+image: /files/overwatch_league/gate_of_damascus_jerusalem_april_14_1939_by_louis_haghe_and_david_roberts.jpg
 hide_lead_image: True
 image_alt: >
 categories:
   - fun-and-games
 ---
 
-{% capture file_dir %}/files/tour-de-france/{% endcapture %}
+{% capture file_dir %}/files/overwatch_league/{% endcapture %}
 
 Watching the [Overwatch league][owl] is probably my nerdiest hobby (well after
 doing data analysis on the weekend so I can write these posts of course). 
