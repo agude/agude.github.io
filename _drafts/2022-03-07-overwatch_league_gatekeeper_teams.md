@@ -204,8 +204,8 @@ trying to play a meta they did not have the skill to.
 
 The 2020 Overwatch League season was split into two regions with very few
 games played between them due to the [2020 COVID pandemic][pandemic]. For that
-reason I have split the comparison in two and look at the North America and
-Asia regions separately.
+reason I have split the comparison in two and look at the North American and
+Asian regions separately.
 
 [pandemic]: https://en.wikipedia.org/wiki/COVID-19_pandemic
 
@@ -322,9 +322,10 @@ gatekeeper because their 0% win rate against higher ranked teams (just the
 [2021_fuel]: https://en.wikipedia.org/wiki/2021_Dallas_Fuel_season
 
 For that reason, I think the [2021 Toronto Defiant][2021_defiant] are the
-gatekeepers of the North American Region. They had typical middle of the pack
+gatekeepers of the North American region. They had typical middle of the pack
 season: finishing 7 out of 12 in the West, a 9-7 match record, and a perfectly
-balance map record with 32 wins and 32 losses.
+balance map record with 32 wins and 32 losses. To round it out, they had an
+82% win rate against worse teams and just a 20% win rate against better teams.
 
 [2021_defiant]: https://en.wikipedia.org/wiki/2021_Toronto_Defiant_season
 
@@ -341,3 +342,19 @@ balance map record with 32 wins and 32 losses.
 | **Guangzhou Charge**   |             **79** |
 | Los Angeles Valiant    |                --- |
 
+The [2021 Guangzhou Charge][2021_charge] have the highest gatekeeper score it
+is, once again, [due to only having a single team below them][volatility]: the
+winless [2021 Los Angles Valiant][2021_valiant]. So they are not my pick for
+the gatekeeper of Asian region.
+
+[2021_charge]: https://en.wikipedia.org/wiki/2021_Guangzhou_Charge_season
+[2021_valiant]: https://en.wikipedia.org/wiki/2021_Los_Angeles_Valiant_season
+
+Instead, I choose the [2021 Seoul Dynasty][2021_dynasty], who had a similarly
+bad win rate against better teams (22% for Dynasty, 21% for Valiant), but who
+earn their 85% win rate against lower ranked teams honestly by beating teams
+that have actually won games, like the 10 and 10 [2021 Philadelphia
+Fusion][2021_fusion].
+
+[2021_dynasty]: https://en.wikipedia.org/wiki/2021_Seoul_Dynasty_season
+[2021_fusion]: https://en.wikipedia.org/wiki/2021_Philadelphia_Fusion_season
