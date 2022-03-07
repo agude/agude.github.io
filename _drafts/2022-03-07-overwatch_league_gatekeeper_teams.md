@@ -66,10 +66,18 @@ variance, but for now I will just call out this issue as I run into it.
 
 ## The Data
 
-I use two sources of data for this comparison. The first is [a record of the
+I used two sources of data for this comparison. The first is [a record of the
 outcome of every map played][map_stats] from the Overwatch League's Stat Lab.
-I transform this data to get match-level[^match] win-loss records for each team by
-opponent.
+I transform this data to get match-level[^match] win-loss records for each
+team by opponent. You can find that data [here][match_level_data] and the
+notebook to parse it is [here][gatekeeper_notebook] ([rendered on
+Github][gatekeeper_rendered]).
+
+[match_level_data]: {{ file_dir }}/match_level_data.json
+
+{% capture notebook_gatekeeper_uri %}{{ "OWL Gatekeeper Teams.ipynb" | uri_escape }}{% endcapture %} 
+[gatekeeper_notebook]: {{ file_dir }}/{{ notebook_gatekeeper_uri }}
+[gatekeeper_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_gatekeeper_uri }}
 
 [^match]: A match consists of multiple maps that are played sequentially. The
           first team to win a specific number of maps wins the match. The
@@ -80,37 +88,29 @@ opponent.
 [map_stats]: https://overwatchleague.com/en-us/statslab
 
 The second data source is the regular season standings of all the teams. I
-scrape this data from [Liquipedia][liquipedia]. I use the regular season
+scrape this data from [Liquipedia][liquipedia]. I used the regular season
 standings because the final standings are based on a handful of playoff games
 while the season standings incorporate many more matches and so provide a more
-accurate estimate of a team's performance.
+accurate estimate of a team's performance. The parsed match data is
+[here][standings_data]. The code to generate the data frame is
+[here][parser_notebook] ([rendered on Github][parser_rendered]).
 
 [liquipedia]: https://liquipedia.net/overwatch/Overwatch_League 
-
-To compute the gatekeeper score I use both regular season and tournament
-games, primarily because the dataset does not separate them and I don't want
-to go label them by hand.
-
-{% capture notebook_gatekeeper_uri %}{{ "OWL Gatekeeper Teams.ipynb" | uri_escape }}{% endcapture %} 
-[gatekeeper_notebook]: {{ file_dir }}/{{ notebook_gatekeeper_uri }}
-[gatekeeper_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_gatekeeper_uri }}
+[standings_data]: {{ file_dir }}/owl_standings.json
 
 {% capture notebook_parser_uri %}{{ "OWL Gatekeeper Teams.ipynb" | uri_escape }}{% endcapture %} 
 [parser_notebook]: {{ file_dir }}/{{ notebook_parser_uri }}
 [parser_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_parser_uri }}
 
-[standings_data]: {{ file_dir }}/owl_standings.json
-[match_level_data]: {{ file_dir }}/match_level_data.json
-[combined_data]: {{ file_dir }}/combined_standings_data.json
+To compute the gatekeeper score I used both regular season and tournament
+games, primarily because the dataset does not separate them and I don't want
+to go label them by hand.
 
-The final data, with all the gatekeeper scores, is [here][combined_data]. The
-data from the Overwatch League Statslab is [here][match_level_data]. The
-notebook used to generate this data frame and make the tables show in this
-post is [here][gatekeeper_notebook] ([rendered on
+The final, combined data frame, can be found [here][combined_data]. The
+notebook to read it is [here][gatekeeper_notebook] ([rendered on
 Github][gatekeeper_rendered]).
 
-The parsed match data is [here][standings_data]. The code to generate the data
-frame is [here][parser_notebook] ([rendered on Github][parser_rendered]).
+[combined_data]: {{ file_dir }}/combined_standings_data.json
 
 ## The Gatekeepers
 
@@ -139,8 +139,10 @@ think could rightfully be called gatekeepers.
 
 The [2018 Florida Mayhem][2018_florida] were a bad team with a possibly even
 worse uniform. They went 7-33 in the inaugural season and were saved from the
-bottom of the rankings by the _team with the_ [_worst losing streak_][streak]
-_in professional sports history:_ the [0-40 Shanghai Dragons][2018_dragons].
+bottom of the rankings by the **team with the** [**worst losing
+streak**][streak] **in professional sports history:** the [0-40 Shanghai
+Dragons][2018_dragons].
+
 The Mayhem went 3-0 against the Dragons for a 100% win rate against worse
 teams, and 4-33 against better teams giving them an impressively bad 11% win
 rate. Combining those rates yields a gatekeeper score of 89!
@@ -249,7 +251,7 @@ Asian regions separately.
 The [2020 Atlanta Reign][2020_reign] were the first time I remember a team
 specifically being referred to as a gatekeeper. They had flashy, lopsided
 games against teams below them in the standings, but constantly failed to
-advance by beating teams ahead of them. You can see it in their stats: The
+advance by beating teams ahead of them. You can see it in their stats: the
 Reign have an 85% win rate against lower ranked teams---the third highest in
 the league behind the eventual champions the Shock and Washington who only had
 team below them---but just an 18% win rate against higher ranked teams. 
@@ -275,11 +277,14 @@ that year!
 | Chengdu Hunters        |                 23 |
 | London Spitfire        |                --- |
 
-The Asian region in 2020 had two truisms: the Shanghai Dragons beat everyone,
-and the London[^london] Spitfire lost to everyone. The [2020 Hangzhou
-Spark][2020_spark] look like a good candidate for the gatekeepers of the
-region, beating lower ranked teams 67% of the time, but only managing 17%
-against better teams.
+There were two facts in the 2020 Asian region: the Shanghai Dragons were the
+best team in the region by a mile, and the London[^london] Spitfire were the
+worst by a wide margin.
+
+Amongst the remaining teams, the [2020 Hangzhou Spark][2020_spark] look like a
+good candidate for the gatekeepers. They beat lower ranked teams
+67% of the time, but only managing 17% against better teams, and they finished
+exactly in the middle of the pack in the standings.
 
 [2020_spark]: https://en.wikipedia.org/wiki/2020_Hangzhou_Spark_season
 
@@ -293,8 +298,6 @@ lot more cross-play between the regions as each of the four tournaments and
 the playoffs included teams from both regions. Still, I only look at the
 record against teams within the region as that is how regular season standings
 were determined.
-
-<!-- TODO: Points also determine standing in 2020 and 20201 -->
 
 ### North America
 
@@ -315,11 +318,11 @@ were determined.
 
 
 The [2021 London Spitfire][2021_spitfire] were a disappointing team. The
-majority of the team had been called up from the Spitfire's academy team the
-[British Hurricane][hurricane] who had gone 12-0 and won the 2020
+majority of the players had been called up from the Spitfire's academy team
+the [British Hurricane][hurricane] who had gone 12-0 and won the 2020
 Overwatch Contenders season (Overwatch's minor league). But they floundered in
-Overwatch league, barely scrapping together a 1-15 season. They got their only
-win in the infamous [Bread Bowl][breadstick_bowl] against the also 1-15
+the Overwatch league, barely scrapping together a 1-15 season. They got their
+only win in the infamous [Bread Bowl][breadstick_bowl] against the 1-15
 [Vancouver Titans][2021_titans]. That gave the Spitfire a 1-0 record against
 lower ranked teams and a 0-15 record against higher ranked teams, resulting in
 a perfect 100 point gatekeeper score.
@@ -338,10 +341,11 @@ gatekeeper because their 0% win rate against higher ranked teams (just the
 [2021_fuel]: https://en.wikipedia.org/wiki/2021_Dallas_Fuel_season
 
 For that reason, I think the [2021 Toronto Defiant][2021_defiant] are the
-gatekeepers of the North American region. They had typical middle of the pack
-season: finishing 7 out of 12 in the West, a 9-7 match record, and a perfectly
-balance map record with 32 wins and 32 losses. To round it out, they had an
-82% win rate against worse teams and just a 20% win rate against better teams.
+gatekeepers of the North American region. They had a typical middle of the
+pack season: finishing 7 out of 12 in the West, a 9-7 match record, and a
+perfectly balance map record with 32 wins and 32 losses. To round it out, they
+had an 82% win rate against worse teams and just a 20% win rate against better
+teams.
 
 [2021_defiant]: https://en.wikipedia.org/wiki/2021_Toronto_Defiant_season
 
@@ -358,19 +362,19 @@ balance map record with 32 wins and 32 losses. To round it out, they had an
 | **Guangzhou Charge**   |             **79** |
 | Los Angeles Valiant    |                --- |
 
-The [2021 Guangzhou Charge][2021_charge] have the highest gatekeeper score it
-is, once again, [due to only having a single team below them][volatility]: the
-winless [2021 Los Angles Valiant][2021_valiant]. So they are not my pick for
-the gatekeeper of Asian region.
+The [2021 Guangzhou Charge][2021_charge] have the highest gatekeeper score,
+but it is, once again, [due to only having a single team below
+them][volatility]: the winless [2021 Los Angles Valiant][2021_valiant]. So
+I do not think they're a good choice for gatekeepers.
 
 [2021_charge]: https://en.wikipedia.org/wiki/2021_Guangzhou_Charge_season
 [2021_valiant]: https://en.wikipedia.org/wiki/2021_Los_Angeles_Valiant_season
 
-Instead, I choose the [2021 Seoul Dynasty][2021_dynasty], who had a similarly
-bad win rate against better teams (22% for Dynasty, 21% for Valiant), but who
-earn their 85% win rate against lower ranked teams honestly by beating teams
-that have actually won games, like the 10 and 10 [2021 Philadelphia
-Fusion][2021_fusion].
+Instead, I would choose the [2021 Seoul Dynasty][2021_dynasty], who had a
+similarly bad win rate against better teams (22% for Dynasty, 21% for
+Charge), but who earn their 85% win rate against lower ranked teams honestly
+by beating teams that have actually won games, like the 10 and 10 [2021
+Philadelphia Fusion][2021_fusion].
 
 [2021_dynasty]: https://en.wikipedia.org/wiki/2021_Seoul_Dynasty_season
 [2021_fusion]: https://en.wikipedia.org/wiki/2021_Philadelphia_Fusion_season
