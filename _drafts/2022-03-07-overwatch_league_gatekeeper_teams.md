@@ -3,7 +3,7 @@ layout: post
 title: "Gatekeeper Teams of the Overwatch League"
 description: >
 image: /files/overwatch_league/gate_of_damascus_jerusalem_april_14_1939_by_louis_haghe_and_david_roberts.jpg
-hide_lead_image: True
+hide_lead_image: False
 image_alt: >
 categories:
   - fun-and-games
@@ -25,12 +25,12 @@ so they define the dividing line between the two groups.
 [mid]: https://en.wiktionary.org/wiki/midtable
 
 Determining which team is the gatekeeper of each season seems like a good
-question to answer with data. We can look for a team that is good at beating
+question to answer with data. I can look for a team that is good at beating
 low-level competitors, but fails against the top teams.
 
 ## Gatekeeper Score
 
-To find the gatekeepers of each season, we need to define some metric to
+To find the gatekeepers of each season, I need to define some metric to
 measure them by. I will use what I call the **gatekeeper score**.
 
 The gatekeeper score is the win percentage against teams that finished
@@ -40,7 +40,7 @@ beats all lower ranked teams but loses to all the teams above them, would have
 a gatekeeper score of 100 (100% win rate against lower teams minus 0% win rate
 against high teams).
 
-There are a few problems with this score:
+This score captures most of what I want, but there are a few problems:
 
 ### Undefined Scores
 
@@ -51,18 +51,18 @@ bottom of the standings.
 
 ### High Volatility Near the Top and Bottom
 
-Teams near the top or the bottom of the standings have only a smaller number
-of matches used to compute one component of their score. This tends to
-increase the volatility of their scores relative to midtable teams that have a
-lot of matches counted on either side.
+Teams near the top or the bottom of the standings have a small number of
+matches used to compute one component of their score. This tends to increase
+the volatility of their scores relative to midtable teams that have a lot of
+matches counted on either side.
 
 This is a bigger problem because it means that teams near the top and bottom
 are more likely to have a high gatekeeper score just because they won or lost
 a single match, whereas teams in the middle need to win or lose many matches
 to change their score.
 
-I could adjust the score by the number of games, or compute an estimate on the
-variance, but for now I will just call out this issue as we run into it.
+I could adjust the score by the number of games, or compute an estimate of the
+variance, but for now I will just call out this issue as I run into it.
 
 ## The Data
 
@@ -77,7 +77,7 @@ opponent.
           tournaments. Some seasons all maps were played out even if one team
           had already clinched the match.
 
-[map_stats]: https://assets.blz-contentstack.com/v3/assets/blt321317473c90505c/blt4c7ee43fcc7a63c2/61537dcd1bb8c23cf8bbde70/match_map_stats.zip
+[map_stats]: https://overwatchleague.com/en-us/statslab
 
 The second data source is the regular season standings of all the teams. I
 scrape this data from [Liquipedia][liquipedia]. I use the regular season
@@ -91,7 +91,26 @@ To compute the gatekeeper score I use both regular season and tournament
 games, primarily because the dataset does not separate them and I don't want
 to go label them by hand.
 
-<!-- TODO: Link to notebooks and data -->
+{% capture notebook_gatekeeper_uri %}{{ "OWL Gatekeeper Teams.ipynb" | uri_escape }}{% endcapture %} 
+[gatekeeper_notebook]: {{ file_dir }}/{{ notebook_gatekeeper_uri }}
+[gatekeeper_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_gatekeeper_uri }}
+
+{% capture notebook_parser_uri %}{{ "OWL Gatekeeper Teams.ipynb" | uri_escape }}{% endcapture %} 
+[parser_notebook]: {{ file_dir }}/{{ notebook_parser_uri }}
+[parser_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_parser_uri }}
+
+[standings_data]: {{ file_dir }}/owl_standings.json
+[match_level_data]: {{ file_dir }}/match_level_data.json
+[combined_data]: {{ file_dir }}/combined_standings_data.json
+
+The final data, with all the gatekeeper scores, is [here][combined_data]. The
+data from the Overwatch League Statslab is [here][match_level_data]. The
+notebook used to generate this data frame and make the tables show in this
+post is [here][gatekeeper_notebook] ([rendered on
+Github][gatekeeper_rendered]).
+
+The parsed match data is [here][standings_data]. The code to generate the data
+frame is [here][parser_notebook] ([rendered on Github][parser_rendered]).
 
 ## The Gatekeepers
 
