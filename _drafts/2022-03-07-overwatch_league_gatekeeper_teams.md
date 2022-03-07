@@ -263,9 +263,6 @@ that year!
 
 [2020_fuel]: https://en.wikipedia.org/wiki/2020_Dallas_Fuel_season
 
-<!-- TODO: Look at "win quality"? Did Atlanta win more blowouts against lower
-teams? Or maybe that's another post? -->
-
 #### Asia
 
 | Team                   |   Gatekeeper Score |
