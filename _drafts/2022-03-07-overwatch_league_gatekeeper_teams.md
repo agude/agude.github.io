@@ -91,7 +91,7 @@ The second data source is the regular season standings of all the teams. I
 scrape this data from [Liquipedia][liquipedia]. I used the regular season
 standings because the final standings are based on a handful of playoff games
 while the season standings incorporate many more matches and so provide a more
-accurate estimate of a team's performance. The parsed match data is
+accurate estimate of a team's performance. The parsed standings data is
 [here][standings_data]. The code to generate the data frame is
 [here][parser_notebook] ([rendered on Github][parser_rendered]).
 
