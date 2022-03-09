@@ -2,9 +2,14 @@
 layout: post
 title: "Gatekeeper Teams of the Overwatch League"
 description: >
+  In the Overwatch League, a "gatekeeper" team is one that beats all the lower
+  ranked teams but can't beat higher ranked teams. I use match data to
+  determine which teams are each season's gatekeeper.
 image: /files/overwatch_league/gate_of_damascus_jerusalem_april_14_1939_by_louis_haghe_and_david_roberts.jpg
 hide_lead_image: False
-image_alt: >
+image_alt: > 
+  Drawing showing the Gate of Damascus in Jeusalem. Many men and camels wait
+  outside.
 categories:
   - fun-and-games
 ---
