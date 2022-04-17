@@ -17,15 +17,25 @@ categories:
 {% capture file_dir %}/files/online-realtor-estimate-comparison/{% endcapture %}
 
 
-[previous_post]: {% post_url 2022-02-07-online_realtor_estimate_comparison %}
 
 I [wrote about the pre- and post-sale estimates][previous_post] of a house's
-sale price from four online brokers a little while ago. Zillow, Redfin, and
-Realtor.com where pretty badly off, whereas Xome did pretty well. The biggest
-limitation of my experiment was that I only collected data for one house, but
-another limitation was that I only collected that data at one point in time
-for the house. I wrote down one value for each broker before the listing, one
-value for each after the list, and a final value after the sale.
+sale price from four online brokers a little while ago. One limitation of that
+experiment was that I only collected the data at one point in time for the
+house. I wrote down one value for each broker before the listing, one value
+for each after the list, and a final value after the sale.
+
+[previous_post]: {% post_url 2022-02-07-online_realtor_estimate_comparison %}
+
+But what if the estimates change day-to-day? [Christopher Moody][chris] posted
+[this on Twitter][twitter]:
+
+[chris]: https://twitter.com/chrisemoody
+[twitter]: https://twitter.com/chrisemoody/status/1493686691378315264
+
+> I suspect that their algos factor in impressions. I bet there's a
+> fascinating time series in between pre- and post-listing price estimates
+
+So I decided to look.
 
 You can find the Jupyter notebook used to perform this analysis
 [here][notebook] ([rendered on Github][rendered]). The data can be found
@@ -43,13 +53,12 @@ I recorded the estimated sales price everyday from Zillow and Redfin. I
 excluded Realtor.com and Xome because they do not update their estimate
 frequently (they seem to only update when the status of the house changes from
 pre-listing to listing to pending to sold). I occasionally missed a day of
-data because I was collecting it manually.[^script]
+data because I was collecting it manually.
 
-[^script]: I automated the data collection with a Python script. It worked
-    when I ran it manually and then silently failed when run via cron. It took
-    me a few weeks to debug by which time the experiment was already over. I
-    never actually figured out what was wrong, I just finally wrapped it in a
-    shell script and that worked immediately. 🤷
+Unfortunately the idea to collect the time series came after the house was
+already pending, so I missed some of the most interesting changes. I have set
+up a script to scrape listings for a few other houses and should have a better
+time series for another article.
 
 ## Plot
 
@@ -67,17 +76,25 @@ estimates for Zillow are shown using blue triangles.
 
 ### Comments
 
-Redfin's initial estimate, before the home was listed, was $1,189k. Zillow's
-initial estimated was $883k. The final sale price was $1,275k. Redfin reverted
-to just above the list price when the house was listed for sale. I missed
-Zillow's price on that date but based on my [last post on the
-subject][previous_post] they almost certainly did the same.
+There is _a lot_ of movement in the estimates. Redfin and Zillow start of far
+apart. Redfin reverts strongly to the list price once the house if official on
+the market (I missed Zillow's price on the day of listing). As the house goes
+pending, both estimates have increased drastically.
 
-Redfin's estimate had increased by about $150k over the list price by the time
-the house went pending. I suspect their model takes into account the
-popularity of the listing on the site, and based on how popular the property
-was in real life I suspect it must have been garnering a lot of attention
-online as well.
+This suggests that some impression metric is used in the model, because there
+is not much other information available that could cause such a large
+increase. It will be interesting to see what a better time series will reveal.
 
-Zillow also increased it's estimate after the house went pending, but not as
-much.
+Both estimates vary day-to-day even after the house is pending. You would
+think all the information you need to determine the sale price would be
+present once the offer is made, but I'm sure facts you can observe after the
+listing is pending---like how long the closing period is---have predictive
+power. Redfin's estimate remains pretty tight while Zillow's changes wildly,
+sometimes by 20% between days!
+
+Finally, both estimates completely miss the actual sales price. It is not
+immediate though; they take about a week to do so. Possibly a model update is
+triggered immediately for newly listed properties---notice how the Redfin
+price adjusts the same day it was listed---but not for sales? This makes some
+sense. A listing is an event these business care about because they can profit
+off it, but a sale does not provide that opportunity.
