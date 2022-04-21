@@ -5,10 +5,10 @@ description: >
   Can Zillow and Redfin predict prices accurately? I look at a house sold in
   my neighborhood and compare the sale price to the price predicted by Zillow
   and Redfin before they knew it was for sale.
-image: /files/online-realtor-estimate-comparison/1935_house_plans.jpg
+image: /files/online-realtor-estimate-comparison/1935_houses_in_san_francisco.jpg
 image_alt: >
-  A line drawing of a two bedroom home done for a 1935 architecture
-  competition.
+  A line drawing of two houses in San Francisco from Architect and Engineer
+  magazine.
 categories:
   - data-science
   - data-visualization
