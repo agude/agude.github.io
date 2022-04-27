@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Comparing Pre- and Post-sale Estimates of the Price of a House"
+title: "Comparing Zillow and Redfin Price Estimates in Time"
 description: >
   How do Zillow and Redfin's home price estimates change in time? I use a
   recently sold house in my neightborhood to find out. Come check it out!
