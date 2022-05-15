@@ -42,11 +42,11 @@ Let me explain:
 
 ## Movement
 
-Moving around in Vim is a little different than most other programs because
-there are many ways to do it. Most users start by using the arrow keys, but
-they quickly learn they can use `hjkl` to move the cursor. Using `hjkl` might
-seem unnatural but it starts the user down the path towards thinking in modes,
-and besides it is nice to not have to move your hand off the home row.
+Moving around in Vim is a little different from other programs because there
+are so many ways to do it. Most users start with the arrow keys, but they
+quickly learn about using `hjkl` to move the cursor. Using `hjkl` might seem
+unnatural but it starts the user down the path towards thinking in modes, and
+besides it is nice to not have to move your hand off the home row.
 
 Eventually, in the spirit of sharpening their saws, most users learn they can
 use search, marks, and GOTOs to more efficiently "jump" to where they want to
@@ -89,8 +89,8 @@ done [here on Reddit][reddit][^reddit_quote] or [here on Stack Overflow][romainl
     > vimmer:                             /fo<CR>
     > ```
 
-And they are right. `hjkl` can't compete on pure speed of movement. But
-they're great when actually editing code.
+And they are right on one point: `hjkl` can't compete on pure speed of
+movement. But they wrong when it comes to actually editing code.
 
 ## Code Editing
 
@@ -102,7 +102,10 @@ layout, and considering what changes I am going to make. I feel more connected
 with the logic of what the code describes than when I'm jumping quickly around
 the file.
 
-If you think about it, Vim is designed for this type of editing: you spend
-very little time in insert mode typing code into the editor, instead you spend
-most of your time in another mode. And I find the lazy scrolling around of
-`hjkl` to fit perfectly into this flow.
+If you think about it, this is exactly the type of editing Vim was designed
+for. Unlike most editors where you can just type and insert characters, Vim
+forces you to decide that you are going to make an insertion and then move to
+insert mode to do it. Then you immediately leave insert mode. Vim expects you
+to spend only part of your time writing, it expects you to spend a lot of
+time reading, reorganizing, and navigating your code. And I find the lazy
+scrolling of `hjkl` to fit perfectly with this philosophy.
