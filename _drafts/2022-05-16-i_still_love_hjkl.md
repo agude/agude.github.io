@@ -4,13 +4,15 @@ title: "Vim: I still love hjkl"
 description: >
   A lot of Vim users think you grow out of using hjkl for movement. After 17
   years, I haven't. Here's why.
-image: /files/
+image: /files/hjkl/c_l_sholes_type_writing_machine_patent.jpg
 image_alt: >
+  A crop of the 1896 patent for the C. L. Sholes Type Writing Machine, showing
+  an overhead drawing of the keyboard.
 categories:
   - opinions
 ---
 
-{% capture file_dir %}/files/vim_eldar{% endcapture %}
+{% capture file_dir %}/files/hjkl{% endcapture %}
 
 I learned Vim in 2005 when I got my first job at Lawrence Berkeley Lab. I
 needed to become comfortable working on the command line, which included
