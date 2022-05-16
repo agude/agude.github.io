@@ -58,7 +58,41 @@ Numeric (which would later become Numpy).
 
 [idl_is_bad]: https://en.wikipedia.org/wiki/IDL_(programming_language)
 
-My time with Nao was a formative experience. I learned Python, Linux and the
-command line, and Vim. Maybe most importantly I learned that a computer could
-be made to do what you told it to do, that its purpose was to solve your
-problems, and if you knew the right language you make it do magic.
+My time with Nao was formative. I learned Python, Linux and the command line,
+and Vim. Most importantly I learned that a computer could be made to do what
+you told it to do, that its purpose was to solve your problems, and if you
+knew the right language you make it do magic.
+
+# Data Science
+
+As I neared the end of my PhD I realized I was not going to be a professor,
+the odds were just too bad. I figured out my fallback would be moving back to
+the Bay Area and getting a software engineering job, so I started taking
+algorithm classes and practicing coding interviews.
+
+Around this time I stumbled onto the blog of a former student instrcutor of
+mine, [Jessica Kirkpatrick][jessica]. The top post was [_Career Profiles:
+Astronomer to Data Scientist_][jess_post], which said:
+
+> _What, if any, additional training did you complete in order to meet the
+> qualifications?_
+>
+> 1) I participated in Scicoder where I learned about databases. 
+> 
+> 2) I participated in a consulting internship where I learned about working
+> on interdisciplinary teams, tech/business applications of the scientific
+> method, and working with customers 
+> 
+> 3) I was accepted to (but didn't end up participating in) the **Insight Data
+> Science Fellows Program** where I would have learned more about the transition
+> from academia to tech, the tools used in data science / analytics, and
+> prepared for tech interviews. I got my job offer at Yammer before this
+> internship started so I participated as a mentor/recruiter instead of a
+> fellow.
+
+I clicked the link to Insight Data Science. It said "Applications due in 2
+days". I decided to apply, even with such limited time to put together an
+application. It was accepted!
+
+[jessica]: https://twitter.com/berkeleyjess
+[jess_post]: https://berkeleyjess.blogspot.com/2014/07/career-profiles-astronomer-to-data.html
