@@ -30,7 +30,7 @@ used: [Vim][vim]. It has been my primary editor ever since.[^neovim]
 Most Vim users love tweaking their editor configurations and perfecting their
 editing habits. This is referred to as [sharpening their saws][saw] by Drew
 Neil. I am no exception of course---I made a [custom color scheme,
-*Eldar*][eldar] to make Vim that much more perfect for me---but there is one
+*Eldar*][eldar], to make Vim that much more perfect for me---but there is one
 area where I am an iconoclast: 
 
 I still love `hjkl`.
