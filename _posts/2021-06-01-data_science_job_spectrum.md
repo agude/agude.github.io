@@ -62,7 +62,7 @@ neighbors on the spectrum.
 A _business analyst_[^biz] uses data to help the company understand what has
 happened, what is happening, and what will likely happen so they can make
 better decisions. Their primary deliverables are internal-facing reports,
-dashboards, and presentations. They are generally really adapt at SQL and
+dashboards, and presentations. They are generally really adept at SQL and
 making data visualizations, but are less likely to use general-purpose
 languages like Python.
 
@@ -74,8 +74,8 @@ languages like Python.
 A _data scientist_[^ds] is an expert at statistics and experimental design.
 They don't just plot trends, they understand what causes them, and how you can
 influence them. They can clean a dataset, find biases, and then use it to
-power decisions and products. They work with more general programing languages
-like R or Python.
+power decisions and products. They work with more general programming
+languages like R or Python.
 
 [^ds]: Also product data scientist, sometimes decision scientist,
     statistician. These align closely with [Michael
@@ -122,5 +122,5 @@ Java. Many MLEs come from a software engineering background.
 _Data engineers_ build the infrastructure the data flows through. All the SQL
 databases, NoSQL, queues, streams, etc. that power the business and allow the
 other data roles to make use of it. They're experts in a cloud services (where
-these systems are mostly hosted) and scaling systems meet the demands of
+these systems are mostly hosted) and scaling systems to meet the demands of
 millions or billions of users while collecting and organizing their data.
