@@ -94,8 +94,8 @@ movement. But they wrong when it comes to actually editing code.
 
 ## Code Editing
 
-When I am editing code, I am not writing the most of the time. I am reading. I
-am thinking. I find `hjkl` amazingly effective for this.
+When I am editing code, I am not writing most of the time. I am reading. I am
+thinking. I find `hjkl` amazingly effective for this.
 
 Using `hjkl` lets me browse my code line by line, taking in the structure, the
 layout, and considering what changes I am going to make. I feel more connected
