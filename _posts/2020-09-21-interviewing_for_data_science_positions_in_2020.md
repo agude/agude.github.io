@@ -161,11 +161,30 @@ decision to not extend an offer was fair.
 [ab]: https://www.dezyre.com/article/type-a-data-scientist-vs-type-b-data-scientist/194
 
 I generally do not apply to work for startups, for a variety of reasons both
-personal and [financial][sense]. However, I agreed to interview at Grand
-Rounds after a friend reached out because I did not want to turn down any
-opportunities. In the end we all knew it was a bad fit.
+personal and [financial][sense].[^sense] However, I agreed to interview at
+Grand Rounds after a friend reached out because I did not want to turn down
+any opportunities. In the end we all knew it was a bad fit.
 
-[sense]: https://zainamro.com/notes/working-for-a-startup-makes-less-sense
+[sense]: https://every.to/napkin-math/you-probably-shouldn-t-work-at-a-startup-9387b632-345c-4a22-bac0-3cb92f0eecf1
+[^sense]: The previous article I linked here has been purged from the
+      internet, so I found a replacement by Evan Armstrong. I've copied the
+      relevant part below:
+
+      > Say you have a 2% chance of picking a unicorn and being a member of
+      > the founding team. That 2% is honestly way too high for most people,
+      > and perhaps a bit low for others, but a good median to anchor on. $10M
+      > * 2% = $200K. And realistically you're only going to get that this
+      > tranche of equity every 3-4 years at most, so that's a risk-adjusted
+      > value of $50–$66k.
+      >
+      > In contrast, if you were to take a job at a tier 1 tech firm, such as
+      > Facebook or Google, as a high-quality engineer your salary can be
+      > $200-400k with an additional $100-250K in equity. You will receive the
+      > best benefits package known to mankind, with massages, free food, the
+      > finest gear money can buy, 401Ks, bonus programs, copious amounts of
+      > vacation, and the list goes on. Your total compensation package of
+      > salary + equity + benefits will be far higher versus a startup. 
+
 
 So, after all that, I'm excited to get to work at Square and even more excited
 to be done interviewing during a pandemic!
