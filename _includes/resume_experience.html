@@ -1,0 +1,12 @@
+<div class="resume-experience-section-header"> 
+    {% comment %}The first line including company and location. {% endcomment %}
+    <div class="resume-experience-row">
+      <h3><span class="resume-experience-company">{{ include.company | markdownify }}</span></h3>
+      <span class="resume-experience-location">{{ include.location | markdownify }}</span>                 
+    </div>
+    {% comment %}The second line including position and dates. {% endcomment %}
+    <div class="resume-experience-row">
+      <span class="resume-experience-position">{{ include.position | markdownify }}</span>
+      <span class="resume-experience-dates">{{ include.dates | markdownify }}</span>                                                                    
+    </div>
+</div>

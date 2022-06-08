@@ -1,36 +1,42 @@
 ---
-layout: default
+layout: resume
 title: "Alexander Gude's Resume"
 ---
 
-## Alexander Gude
+# Alexander Gude
 
-Senior Data Scientist / Machine Learning Engineer
+<div class="subtitle">Senior Data Scientist / Machine Learning Engineer</div>
 
-https://www.linkedin.com/in/alexandergude
+## Statement
 
-### Statement
+Machine Learning Engineer with {{ "now" | date: "%Y" | minus: 2015 }} years of
+experience in direct, customer-facing engagements and shipping data science
+and machine learning products. Led teams in adopting engineering best
+practices for code review and CI/CD pipelines and drove transition to
+enterprise technologies to save in operation costs, reduce production bugs,
+and accelerate feature processing.
 
-Data scientist with 5 years of experience in direct, customer-facing
-engagements and shipping data science and ma- chine learning products. Led
-teams in adopting engineering best practices for code review and CI/CD
-pipelines and drove transition to enterprise technologies to save in operation
-costs, reduce production bugs, and accelerate feature processing.
+## Experience
 
-### Experience
+{% include resume_experience.html
+  company="Cash App"
+  location="Remote"
+  position="Staff Machine Learning Engineer, Modeler"
+  dates="2020--Present"
+%}
 
-#### Cash App, of Block Inc.
+- Deployed first ACH categorization model for Cash App Banking, reducing
+  uncategorized transactions by 50% and increasing tracked payroll deposit
+  volume by 30%. The improved income categorization has allowed us to make
+  more profitable loans by sizing loan offers to expected ability to repay. 
 
-Remote
-
-Staff Machine Learning Engineer, Modeler 2020--Present
+{% include resume_experience.html
+  company="Intuit"
+  location="Mountain View, CA"
+  position="Staff Data Scientist / Senior Data Science Manager"
+  dates="2017--2020"
+%}
  
-#### Intuit
-
-Mountain View, CA
-
-Staff Data Scietist / Senior Data Science Manager 2017--2020
-
 - Led 8 data scientists in building machine learning models to detect and stop
   fraud.
 - Drove adoption of engineering best practices by the team, including
@@ -49,10 +55,12 @@ Staff Data Scietist / Senior Data Science Manager 2017--2020
   reduction in wrongly challenged users, stopping 10X as many fraudsters, and
   shortening feature processing time from 2 hours to under a second.
 
-#### Lab41, an In-Q-Tel Lab
-Menlo Park, CA
-
-Data Scientist 2015--2017
+{% include resume_experience.html
+  company="Lab41, an In-Q-Tel Lab"
+  location="Menlo Park, CA"
+  position="Data Scientist"
+  dates="2015--2017"
+%}
 
 - Led a team of 3 engineers in investigating the latest computer vision
   techniques for vehicle re-identification using deep learning and develop a
@@ -67,3 +75,26 @@ Data Scientist 2015--2017
 - Designed and implemented a recommender system evaluation framework in Python
   and Spark and leveraged it to develop a Python-snippet recommender using
   word embeddings.
+
+## Skills
+
+{% capture latex %}<span class="latex">L<sup>a</sup>T<sub>e</sub>X</span>{% endcapture %}
+
+| **Languages** | Python, Scala, SQL, shell script, C++, {{latex}} |
+| **Tools** | Sagemaker, NumPy, SciPy, Matplotlib, Tensorflow, Pandas, Spark, git, Linux, vim |
+
+## Education
+
+{% include resume_experience.html
+  company="University of Minnesota"
+  location="Minneapolis, MN"
+  position="PhD, High Energy Particle Physics"
+  dates="2009--2015"
+%}
+
+{% include resume_experience.html
+  company="University of California, Berkeley"
+  location="Berkeley, CA"
+  position="BA, Physics (Honors), College of Letters and Sciences"
+  dates="2004--2008"
+%}
