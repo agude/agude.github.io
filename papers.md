@@ -1,5 +1,6 @@
 ---
 layout: page
+sidebar_include: true
 title: Papers
 description: >
   A list of papers by Alexander Gude covering machine learning, high energy
