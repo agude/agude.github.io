@@ -1,0 +1,8 @@
+<div class="resume-skills-grid">
+    {% comment %}The first line for languages.{% endcomment %}
+    <div class="resume-languages-title"><strong>Languages</strong></div>
+    <div class="resume-languages">{{ include.languages | markdownify }}</div>
+    {% comment %}The second line for Toosl.{% endcomment %}
+    <div class="resume-tools-title"><strong>Tools</strong></div>
+    <div class="resume-tools">{{ include.tools | markdownify }}</div>
+</div>

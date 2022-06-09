@@ -28,7 +28,7 @@ and accelerate feature processing.
 - Deployed first ACH categorization model for Cash App Banking, reducing
   uncategorized transactions by 50% and increasing tracked payroll deposit
   volume by 30%. The improved income categorization has allowed us to make
-  more profitable loans by sizing loan offers to expected ability to repay. 
+  more profitable loans by sizing loan offers to expected ability to repay.
 
 {% include resume_experience.html
   company="Intuit"
@@ -36,7 +36,7 @@ and accelerate feature processing.
   position="Staff Data Scientist / Senior Data Science Manager"
   dates="2017--2020"
 %}
- 
+
 - Led 8 data scientists in building machine learning models to detect and stop
   fraud.
 - Drove adoption of engineering best practices by the team, including
@@ -78,10 +78,13 @@ and accelerate feature processing.
 
 ## Skills
 
-{% capture latex %}<span class="latex">L<sup>a</sup>T<sub>e</sub>X</span>{% endcapture %}
+{% capture latex %}
+{% endcapture %}
 
-| **Languages** | Python, Scala, SQL, shell script, C++, {{latex}} |
-| **Tools** | Sagemaker, NumPy, SciPy, Matplotlib, Tensorflow, Pandas, Spark, git, Linux, vim |
+{% include resume_skills.html
+languages='Python, Scala, SQL, shell script, C++, <span class="latex">L<sup>a</sup>T<sub>e</sub>X</span>'
+  tools="Sagemaker, NumPy, SciPy, Matplotlib, Tensorflow, Pandas, Spark, git, Linux, vim"
+%}
 
 ## Education
 

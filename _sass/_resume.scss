@@ -1,5 +1,15 @@
-.resume {
-  //font-family: Palatino, Palatino Linotype, Palatino LT STD, Book Antiqua, Georgia, serif;
+// Justify text
+.resume p, li {
+  word-break: break-word;
+  text-align: justify;
+  text-justify: inter-character;
+  hyphens: auto;
+  hyphenate-limit-lines: 2;
+}
+
+// Headers
+.resume h1, h2, h3 {
+  font-family: Palatino, Palatino Linotype, Palatino LT STD, Book Antiqua, Georgia, serif;
 }
 
 .resume h1 {
@@ -16,72 +26,64 @@
   overflow: hidden;
 }
 
-.resume h2:after {
+.resume h2:after { // Add a line after the header text
   content: '';
   display: inline-block;
-  vertical-align:middle;
-  border-bottom: 0.1rem solid  $sidebar-color;
-}
-
-.resume h2:after {
-  width: 80%;
+  vertical-align: middle;
+  border-bottom: 0.1rem solid $sidebar-color;
+  width: 100%;
   margin-right: -100%;
 }
 
-.resume h3 {
-  margin-top: 0.1rem;
+// Header grid
+.resume-header-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 0.2em;
+  padding: 0.2em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
 }
 
-.resume-experience-section-header {
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-  overflow: hidden;
+.resume-header-grid p, h3 {
+  text-align: unset;
+  margin: 0;
 }
 
-.resume-experience-row {
-  overflow: hidden;
-  margin-top: 0.1rem;
-  margin-bottom: 0.1rem;
+.resume-company, .resume-position {
+  justify-self: start;
+  align-self: end;
 }
 
-.resume-experience-company, .resume-experience-position {
-  float: left;
+.resume-location, .resume-dates {
+  justify-self: end;
+  align-self: end;
 }
 
-.resume-experience-location, .resume-experience-dates {
-  float: right;
-}
-
-.resume-experience-location {
+.resume-location {
   font-weight: bold;
 }
 
-.resume-experience-position, .resume-experience-dates {
+.resume-position, .resume-dates {
   font-style: italic;
 }
 
-.resume-experience-section-header {
+// Skills table
+.resume-skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 0.2em;
+  padding: 0.2em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
 }
 
-// Justify text
-.resume p, li {
-  word-break: break-word;  
-  text-align: justify;  
-  text-justify: inter-character;    
-  hyphens: auto;  
-  hyphenate-limit-lines: 2;  
-}
-
-.resume-experience-section-header p {
+.resume-skills-grid p {
   text-align: unset;
-  margin-bottom: 0;
+  margin: 0;
 }
 
-.resume table {
-  border-style: none;
-}
-
-// LaTeX
+// LaTeX word
 .tex sub, .latex sub, .latex sup {
   text-transform: uppercase;
 }
