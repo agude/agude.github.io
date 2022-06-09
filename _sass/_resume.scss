@@ -1,5 +1,5 @@
 // Justify text
-.resume p, li {
+.resume p, .resume li {
   word-break: break-word;
   text-align: justify;
   text-justify: inter-character;
@@ -8,7 +8,7 @@
 }
 
 // Headers
-.resume h1, h2, h3 {
+.resume h1, .resume h2, .resume h3 {
   font-family: Palatino, Palatino Linotype, Palatino LT STD, Book Antiqua, Georgia, serif;
 }
 
@@ -45,7 +45,7 @@
   margin-bottom: 0.25em;
 }
 
-.resume-header-grid p, h3 {
+.resume-header-grid p, .resume h3 {
   text-align: unset;
   margin: 0;
 }
