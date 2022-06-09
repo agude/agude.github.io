@@ -20,7 +20,7 @@
       {% endcomment %}
 
       {% for node in site.pages %}
-        {% if node.title != null and node.layout == "page" and node.sidebar_include != false %}
+        {% if node.title != null and node.sidebar_include == true %}
           {% unless node.url contains "page" %} {% comment %} Paginated Blog pages should not be included in the sidebar. {% endcomment %}
             <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{site.baseurl}}{{ node.url }}">{{ node.title }}</a>
           {% endunless %}

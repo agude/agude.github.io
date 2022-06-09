@@ -1,6 +1,9 @@
 ---
 layout: resume
-title: "Alexander Gude's Resume"
+sidebar_include: true
+title: "Resume"
+description: >
+  Alexander Gude's Resume. Alex is a Machine Learning engineer.
 ---
 
 # Alexander Gude
