@@ -1,0 +1,106 @@
+// Justify text
+.resume p, li {
+  word-break: break-word;
+  text-align: justify;
+  text-justify: inter-character;
+  hyphens: auto;
+  hyphenate-limit-lines: 2;
+}
+
+// Headers
+.resume h1, h2, h3 {
+  font-family: Palatino, Palatino Linotype, Palatino LT STD, Book Antiqua, Georgia, serif;
+}
+
+.resume h1 {
+  text-align: center;
+}
+
+.resume .subtitle {
+  text-align: center;
+  font-size: $h3-font-size;
+}
+
+.resume h2 {
+  color: $sidebar-color;
+  overflow: hidden;
+}
+
+.resume h2:after { // Add a line after the header text
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  border-bottom: 0.1rem solid $sidebar-color;
+  width: 100%;
+  margin-right: -100%;
+}
+
+// Header grid
+.resume-header-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 0.2em;
+  padding: 0.2em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.resume-header-grid p, h3 {
+  text-align: unset;
+  margin: 0;
+}
+
+.resume-company, .resume-position {
+  justify-self: start;
+  align-self: end;
+}
+
+.resume-location, .resume-dates {
+  justify-self: end;
+  align-self: end;
+}
+
+.resume-location {
+  font-weight: bold;
+}
+
+.resume-position, .resume-dates {
+  font-style: italic;
+}
+
+// Skills table
+.resume-skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 0.2em;
+  padding: 0.2em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.resume-skills-grid p {
+  text-align: unset;
+  margin: 0;
+}
+
+// LaTeX word
+.tex sub, .latex sub, .latex sup {
+  text-transform: uppercase;
+}
+
+.tex sub, .latex sub {
+  vertical-align: -0.5ex;
+  margin-left: -0.1667em;
+  margin-right: -0.125em;
+}
+
+.tex, .latex, .tex sub, .latex sub {
+  font-size: 1em;
+}
+
+.latex sup {
+  font-size: 0.85em;
+  vertical-align: 0.15em;
+  margin-left: -0.36em;
+  margin-right: -0.15em;
+}
