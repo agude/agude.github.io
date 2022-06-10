@@ -1,24 +1,21 @@
 // Portraits
-.portrait {
-  position: relative;
-  width: 250px;
-  height: 250px;
-  overflow: hidden;
-  border-radius: 50%;
-  margin: auto; // Center horizontally
-}
-
-.portrait img {
-  width: 100%;
-  height: auto;
-}
-
 .sidebar-portrait {
-  @extend .portrait;
-}
+    position: relative;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: auto; // Center horizontally
 
-.sidebar-portrait img {
-  @extend .portrait;
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+  // Hide the image if the screen is too small and the sidebar is out
+  @media (min-width: $sidebar-appear-breakpoint) and (max-height: 52rem) {
+    display: none;
+  }
 }
 
 // Card Grid
