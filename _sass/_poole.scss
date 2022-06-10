@@ -18,10 +18,10 @@ html {
   font-family: $root-font-family;
   line-height: $root-line-height;
 
-  @media (min-width: 48em) {
+  @media (min-width: $sidebar-appear-breakpoint) {
     font-size: $small-screen-root-font-size;
   }
-  @media (min-width: 58em) {
+  @media (min-width: $font-size-increase-breakpoint) {
     font-size: $root-font-size;
   }
   @media (min-width: $large-breakpoint) {
@@ -172,7 +172,7 @@ blockquote {
     margin-bottom: 0;
   }
 
-  @media (min-width: 30em) {
+  @media (min-width: $large-top-bar-breakpoint) {
     padding-right: 5rem;
     padding-left: 1.25rem;
   }
@@ -472,7 +472,7 @@ a.pagination-item:hover {
   color: rgba(255,255,255,.5);
   background-color: #202020;
 }
-@media (min-width: 48em) {
+@media (min-width: $sidebar-appear-breakpoint) {
   .sidebar {
     position: fixed;
     top: 0;
@@ -510,7 +510,7 @@ a.sidebar-nav-item:focus {
  * contents to the bottom of the sidebar in tablets and up.
  */
 
-@media (min-width: 48em) {
+@media (min-width: $sidebar-appear-breakpoint) {
   .sidebar-sticky {
     position: absolute;
     right:  1rem;
@@ -535,7 +535,7 @@ a.sidebar-nav-item:focus {
   padding-bottom: 4rem;
 }
 
-@media (min-width: 48em) {
+@media (min-width: $sidebar-appear-breakpoint) {
   .content {
     max-width: 38rem;
     margin-left: 20rem;
@@ -543,7 +543,7 @@ a.sidebar-nav-item:focus {
   }
 }
 
-@media (min-width: 64em) {
+@media (min-width: $more-space-breakpoint) {
   .content {
     margin-left: 22rem;
     margin-right: 4rem;
