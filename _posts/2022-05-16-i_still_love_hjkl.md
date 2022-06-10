@@ -90,7 +90,7 @@ done [here on Reddit][reddit][^reddit_quote] or [here on Stack Overflow][romainl
     > ```
 
 And they are right on one point: `hjkl` can't compete on pure speed of
-movement. But they wrong when it comes to actually editing code.
+movement. But they are wrong when it comes to actually editing code.
 
 ## Code Editing
 
@@ -104,8 +104,8 @@ the file.
 
 If you think about it, this is exactly the type of editing Vim was designed
 for. Unlike most editors where you can just type and insert characters, Vim
-forces you to decide that you are going to make an insertion and then move to
-insert mode to do it. Then you immediately leave insert mode. Vim expects you
-to spend only part of your time writing, it expects you to spend a lot of
+forces you to decide that you are going to make an insertion and then switch
+to insert mode to do it. Then you immediately leave insert mode. Vim expects
+you to spend only part of your time writing, it expects you to spend a lot of
 time reading, reorganizing, and navigating your code. And I find the lazy
 scrolling of `hjkl` to fit perfectly with this philosophy.
