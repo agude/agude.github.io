@@ -13,7 +13,6 @@ $sidebar-color:      hsl(214, 52%, 42%);
 $share-button-color: hsl(  0,  0%, 13%);
 $share-hover-color:  hsl(  0,  0%, 53%);
 
-$large-breakpoint: 38em;
 
 // Font sizes
 //
@@ -39,3 +38,10 @@ $footnote-font-size: 0.85rem;
 $lead-font-size: 1.25rem;
 $legal-font-size: 0.625rem;
 $table-font-size: 0.85rem;
+
+// Screen Widths for transformations
+$large-top-bar-breakpoint: 30em;
+$large-breakpoint: 38em;
+$sidebar-appear-breakpoint: 48em;
+$more-space-breakpoint: 64em;
+$font-size-increase-breakpoint: 58em;
