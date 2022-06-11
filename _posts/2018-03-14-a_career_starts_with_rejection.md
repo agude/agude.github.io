@@ -53,7 +53,7 @@ gave me a spot. I wasn't the only person he gave a chance to, but I'm thankful
 that I was one of them.
 
 [umn]: https://en.wikipedia.org/wiki/University_of_Minnesota
-[yk]: https://www.physics.umn.edu/people/yk.html
+[yk]: https://cse.umn.edu/physics/yuichi-kubota
 
 ## And Onward
 
