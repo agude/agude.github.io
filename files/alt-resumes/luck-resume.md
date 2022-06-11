@@ -1,95 +1,40 @@
 ---
 layout: resume
-sidebar_include: true
-title: "Resume"
+title: "Alex's Lucky Resume"
 description: >
-  Alexander Gude's Resume. Alex is a Machine Learning engineer.
+  Alexander Gude's Lucky Resume. Listing all the times I got ahead in my
+  career by luck or someone giving me a lucky break in my career.
 ---
 
 # Alexander Gude
 
-<div class="subtitle">Senior Data Scientist / Machine Learning Engineer</div>
+<div class="subtitle">Lucky Data Scientist / Machine Learning Engineer</div>
+
+<br>
+
+_Note:_ I wrote this resume chronologically so it tells a better story top to
+bottom. My [**real resume**][resume] is in the more standard reverse
+chronological order I recommend.
+
+[resume]: /resume/
 
 ## Statement
 
-Machine Learning Engineer with {{ "now" | date: "%Y" | minus: 2015 }} years of
-experience in direct, customer-facing engagements and shipping data science
-and machine learning products. Led teams in adopting engineering best
-practices for code review and CI/CD pipelines and drove transition to
-enterprise technologies to save in operation costs, reduce production bugs,
-and accelerate feature processing.
-
-## Experience
-
-{% include resume_experience.html
-  company="Cash App"
-  location="Remote"
-  position="Staff Machine Learning Engineer, Modeler"
-  dates="2020--Present"
-%}
-
-- Deployed first ACH categorization model for Cash App Banking, reducing
-  uncategorized transactions by 50% and increasing tracked payroll deposit
-  volume by 30%. The improved income categorization has allowed us to make
-  more profitable loans by sizing loan offers to expected ability to repay.
-
-{% include resume_experience.html
-  company="Intuit"
-  location="Mountain View, CA"
-  position="Staff Data Scientist / Senior Data Science Manager"
-  dates="2017--2020"
-%}
-
-- Led 8 data scientists in building machine learning models to detect and stop
-  fraud.
-- Drove adoption of engineering best practices by the team, including
-  implementation of peer review for code changes and automated correctness
-  checking, building of CI/CD pipelines for code and model deployment, and
-  added metrics around test coverage and code health, reducing number of P0
-  production bugs from 2 in the first year to 0.
-- Deployed the first in-product, real-time account takeover prevention model
-  at Intuit---launched in production in TurboTax and alerted security to a
-  possible breach within the first week of running. Back-testing showed it
-  would have detected 95% of last year's stolen tax return downloads.
-- Drove migration of machine learning models from Intuit's on-prem data center
-  to AWS platform without interruption of services, saving $1.5M per year in
-  operation costs.
-- Improved the TurboTax Online account takeover model leading to a 90%
-  reduction in wrongly challenged users, stopping 10X as many fraudsters, and
-  shortening feature processing time from 2 hours to under a second.
-
-{% include resume_experience.html
-  company="Lab41, an In-Q-Tel Lab"
-  location="Menlo Park, CA"
-  position="Data Scientist"
-  dates="2015--2017"
-%}
-
-- Led a team of 3 engineers in investigating the latest computer vision
-  techniques for vehicle re-identification using deep learning and develop a
-  system within 6 months that enabled clients to automatically detect the same
-  vehicle across multiple videos from security cameras. Handed over the new
-  system to customer's internal development team and provided training.
-- Worked as part of a team of 3 scientists to develop an embedding technique
-  to train a convolutional neural network on unlabeled, open-source image
-  data. Built a system using TensorFlow that learned to embed images and text
-  into a joint vector space, allowing customers to perform content-based image
-  retrieval on a corpus of 100M untagged images.
-- Designed and implemented a recommender system evaluation framework in Python
-  and Spark and leveraged it to develop a Python-snippet recommender using
-  word embeddings.
-
-## Skills
-
-{% capture latex %}
-{% endcapture %}
-
-{% include resume_skills.html
-languages='Python, Scala, SQL, shell script, C++, <span class="latex">L<sup>a</sup>T<sub>e</sub>X</span>'
-  tools="Sagemaker, NumPy, SciPy, Matplotlib, Tensorflow, Pandas, Spark, git, Linux, vim"
-%}
+I am a Staff Machine Learning Engineer at a major tech company. I finished my
+PhD in high energy particle physics about {{ "now" | date: "%Y" | minus: 2015
+}}  years ago. I started college {{ "now" | date: "%Y" | minus: 2004 }} years
+ago sure I was going to be a physicist. It's been a winding journey, with now
+small amount of lucky breaks. I wrote this resume to highlight all the times
+something out of my control got me ahead in my career.
 
 ## Education
+
+{% include resume_experience.html
+  company="University of California, Berkeley"
+  location="Berkeley, CA"
+  position="BA, Physics (Honors), College of Letters and Sciences"
+  dates="2004--2008"
+%}
 
 {% include resume_experience.html
   company="University of Minnesota"
@@ -98,9 +43,83 @@ languages='Python, Scala, SQL, shell script, C++, <span class="latex">L<sup>a</s
   dates="2009--2015"
 %}
 
+- My [GRE score was pretty bad][rejection]. In 2008 I was rejected from every
+  grad school I applied to. In 2009, Yuichi Kubota saw my application to
+  Minnesota and thought "I think we can give him a shot". He did that for a
+  lot of people my year.
+
+[rejection]: {% post_url 2018-03-14-a_career_starts_with_rejection %}#to-grad-school
+
+## Experience
+
 {% include resume_experience.html
-  company="University of California, Berkeley"
+  company="Supernova Cosmology Project"
   location="Berkeley, CA"
-  position="BA, Physics (Honors), College of Letters and Sciences"
-  dates="2004--2008"
+  position="Undergraduate Research Assistant"
+  dates="2005-2009"
 %}
+
+- My friend's aunt worked at Lawrence Berkeley Labs as en executive assistant.
+  My resume got passed to her (I don't even recall how exactly) where it
+  eventually found its way to the [Supernova Cosmology Project][scp] under
+  Nobel prize winner [Saul Perlmutter][saul]. Saul's post doc, Nao Suzuki,
+  wanted a research assistant and invited me up to the lab.
+- Weirdly, and lucky for me, Nao had decided not to use [IDL][idl_is_bad], the
+  standard language for astrophysics software, and instead wanted to work with
+  Python. We used Numarray and Numeric (which would later become Numpy).
+
+[scp]: https://en.wikipedia.org/wiki/Supernova_Cosmology_Project
+[saul]: https://en.wikipedia.org/wiki/Saul_Perlmutter
+[idl_is_bad]: https://en.wikipedia.org/wiki/IDL_(programming_language)
+
+{% include resume_experience.html
+  company="Insight Data Science"
+  location="Palo Alto, CA"
+  position="Data Scientist Fellow"
+  dates="2015"
+%}
+
+- In 2014 I was looking for what to do after I finished my PhD, having
+  realized I did not want to go through the faculty lottery. One day I was
+  looking through my saved bookmarks when I clicked on the link to a blog
+  written by my former student instructor at Berkeley, [Jessica
+  Kirkpatrick][jessica]. The top post was [_Career Profiles: Astronomer to Data
+  Scientist_][jess_post].[^jk_post] Inside was a link to Insight Data Science
+  which I clicked. I saw there were just two days until applications were due. I
+  threw one together and was accepted to the program.
+- My advisor told me there was no way I would graduate by January 2015 (he was
+  right). I emailed Insight and asked if I could delay starting until the next
+  session. They said yes. I have since learned their policy is not to do that.
+  I'm glad someone made an exception.
+
+[jessica]: https://twitter.com/berkeleyjess
+[jess_post]: https://berkeleyjess.blogspot.com/2014/07/career-profiles-astronomer-to-data.html
+
+[^jk_post]: The text of [_Career Profiles: Astronomer to Data Scientist_][jess_post]:
+
+    > _What, if any, additional training did you complete in order to meet the
+    > qualifications?_
+    >
+    > 1) I participated in Scicoder where I learned about databases. 
+    > 
+    > 2) I participated in a consulting internship where I learned about
+    > working on interdisciplinary teams, tech/business applications of the
+    > scientific method, and working with customers 
+    > 
+    > 3) I was accepted to (but didn't end up participating in) the **Insight
+    > Data Science Fellows Program** where I would have learned more about the
+    > transition from academia to tech, the tools used in data science /
+    > analytics, and prepared for tech interviews. I got my job offer at
+    > Yammer before this internship started so I participated as a
+    > mentor/recruiter instead of a fellow.
+    
+{% include resume_experience.html
+  company="Intuit"
+  location="Mountain View, CA"
+  position="Staff Data Scientist / Senior Data Science Manager"
+  dates="2017--2020"
+%}
+
+- My manager and director both left Intuit within a short time period, leaving
+  our team rudderless. It gave me to opportunity to step into a management
+  role first unofficially, and then officially several months later.
