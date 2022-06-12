@@ -9,11 +9,11 @@
   }
 
   // Headers
-  h1, h2, h3 {
+  .fake-h1, h1, h2, h3 {
     font-family: $site-title-font-family;
   }
 
-  h1 {
+  .fake-h1, h1 {
     text-align: center;
   }
 
