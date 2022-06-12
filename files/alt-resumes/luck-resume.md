@@ -10,22 +10,22 @@ description: >
 
 <div class="subtitle">Lucky Data Scientist / Machine Learning Engineer</div>
 
-<br>
-
-_Note:_ I wrote this resume chronologically so it tells a better story top to
-bottom. My [**real resume**][resume] is in the more standard reverse
-chronological order I recommend.
-
-[resume]: /resume/
-
 ## Statement
 
-I am a Staff Machine Learning Engineer at a major tech company. I finished my
-PhD in high energy particle physics about {{ "now" | date: "%Y" | minus: 2015
-}}  years ago. I started college {{ "now" | date: "%Y" | minus: 2004 }} years
-ago sure I was going to be a physicist. It's been a winding journey, with now
-small amount of lucky breaks. I wrote this resume to highlight all the times
-something out of my control got me ahead in my career.
+I am currently a machine learning engineer at a major tech company. My career
+has taken a winding path, but I am very happy with where I am and where I am
+headed. I would not have been able to predict my path if you had asked me when
+I was starting undergrad intent on studying physics, or even later when I was
+in grad school smashing high energy particles together.
+
+At every moment I have worked hard to get where I am, but I wouldn't have
+gotten here without a series of **lucky breaks**: times when some event
+completely outside of my control worked out in my favor.
+
+I think it is important to remember that no one is entirely self made; every
+story, every path, has some element of luck that make them wander where they
+do. I have cataloged my lucky breaks on this page in the form of a too-honest
+resume.
 
 ## Education
 
@@ -59,7 +59,7 @@ something out of my control got me ahead in my career.
   dates="2005-2009"
 %}
 
-- My friend's aunt worked at Lawrence Berkeley Labs as en executive assistant.
+- My friend's aunt worked at Lawrence Berkeley Labs as an executive assistant.
   My resume got passed to her (I don't even recall how exactly) where it
   eventually found its way to the [Supernova Cosmology Project][scp] under
   Nobel prize winner [Saul Perlmutter][saul]. Saul's post doc, Nao Suzuki,
