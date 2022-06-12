@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "My Resume with Annotated Luck"
+title: "A Career Involves Luck: My Annotated Resume"
 description: >
   My career has been a great success so far and a lot of that success has been
   due to luck. In this post I catalog all the lucky breaks I can remember in
@@ -26,17 +26,13 @@ categories:
 
 I am currently a machine learning engineer at a major tech company. My career
 has taken a winding path, but I am very happy with where I am and where I am
-headed. I would not have been able to predict my path if you had asked me when
-I was starting undergrad intent on studying physics, or even later when I was
-in grad school smashing high energy particles together.
-
-At every moment I have worked hard to get where I am, but I wouldn't have
-gotten here without a series of **lucky breaks**: times when some event
-completely outside of my control worked out in my favor.
+headed. I have worked hard, but that alone does not explain my success; I have
+had many **lucky breaks**, times when some event completely outside of my
+control worked out in my favor.
 
 I think it is important to remember that no one is entirely self made; every
-path has some element of luck that make them wander where they do. I have
-cataloged my lucky breaks on this page in the form of a too-honest resume.
+career has some element of luck involved. I have cataloged my lucky breaks on
+this page in the form of a too-honest resume.
 
 ## Education
 
