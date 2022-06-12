@@ -3,14 +3,15 @@ layout: post
 title: "My Resume with Annotated Luck"
 description: >
   My career has been a great success so far and a lot of that success has been
-  due to luck. In this post I catalog all the lucky breaks I can remember.
-image: /files/data-science-spectrum/eugene_f_kranz_1965.jpg
+  due to luck. In this post I catalog all the lucky breaks I can remember in
+  the form of a resume.
+image: /files/alt-resumes/landsknecht_playing_dice_by_theodor_alt_1913_sg468z.jpg
+hide_lead_image: True
 image_alt: >
-  Gene Kranz sits at a console in the NASA Mission Operations Control Room.
-  He is wearing a single ear headset and flipping a pencil back and forth.
+  A pencil drawing of three Landsknecht mercenaries playing dice on top of a
+  military snare drum.
 categories:
   - career-advice
-  - data-science
 ---
 
 {% capture file_dir %}/files/alt-resumes/{% endcapture %}
@@ -55,11 +56,12 @@ resume.
 %}
 
 - My [GRE score was pretty bad][rejection]. In 2008 I was rejected from every
-  grad school I applied to. In 2009, Yuichi Kubota saw my application to
+  grad school I applied to. In 2009, [Yuichi Kubota][yk] saw my application to
   Minnesota and thought "I think we can give him a shot". He did that for a
   lot of people my year.
 
 [rejection]: {% post_url 2018-03-14-a_career_starts_with_rejection %}#to-grad-school
+[yk]: https://www.physics.umn.edu/people/yk.html
 
 ## Experience
 
