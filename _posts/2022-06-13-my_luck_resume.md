@@ -6,7 +6,6 @@ description: >
   due to luck. In this post I catalog all the lucky breaks I can remember in
   the form of a resume.
 image: /files/alt-resumes/landsknecht_playing_dice_by_theodor_alt_1913_sg468z.jpg
-hide_lead_image: True
 image_alt: >
   A pencil drawing of three Landsknecht mercenaries playing dice on top of a
   military snare drum.
