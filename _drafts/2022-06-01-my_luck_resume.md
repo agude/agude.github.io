@@ -13,86 +13,145 @@ categories:
   - data-science
 ---
 
-{% capture file_dir %}/files/data-science-spectrum/{% endcapture %}
+{% capture file_dir %}/files/alt-resumes/{% endcapture %}
 
-I am currently a staff-level machine learning engineer at a major tech
-company.
+<div class="resume" markdown="1">
 
-8 years ago I was a PhD student unsure of what to do next.
+<div class="fake-h1">Alexander Gude</div>
 
-18 years ago I was just starting college and knew I was going to be a
-physicist.
+<div class="subtitle">Lucky Data Scientist / Machine Learning Engineer</div>
 
-# Coding
+## Statement
 
-I started writing code on my Ti-83 in high school instead of doing math
-class.I realized I could make the calculator do a lot of work for me and that
-drew me in. Soon I was making text based GUIs and even (really bad) games like
-"move the π symbol around the screen". I later took these skills and started
-making really complicated Excel spread sheets for roleplaying games that would
-track my character's power-level and progression and role dice for me.
+I am currently a machine learning engineer at a major tech company. My career
+has taken a winding path, but I am very happy with where I am and where I am
+headed. I would not have been able to predict my path if you had asked me when
+I was starting undergrad intent on studying physics, or even later when I was
+in grad school smashing high energy particles together.
 
-When I got to college I tried to learn Java, but I had no motivation to use
-it. There were no problems I was trying to solve.
+At every moment I have worked hard to get where I am, but I wouldn't have
+gotten here without a series of **lucky breaks**: times when some event
+completely outside of my control worked out in my favor.
 
-# LBL
+I think it is important to remember that no one is entirely self made; every
+story, every path, has some element of luck that make them wander where they
+do. I have cataloged my lucky breaks on this page in the form of a too-honest
+resume.
 
-I realized in 2005 that I needed to get a summer research position if I wanted
-to be a physicist (and I did). I didn't really know how to go about it though.
-Luckily for me, my good friend from high school had an aunt how worked as an
-executive assistant at Lawrence Berkeley Labs (LBL). My mom heard from my
-friend's mom that [Saul Perlmutter's][saul] group, the [Supernova Cosmology
-Project][scp] (SCP) was looking for undergraduates. I threw together an
-application, handed it in, and got the job.
+## Education
 
-[saul]: https://en.wikipedia.org/wiki/Saul_Perlmutter
+{% include resume_experience.html
+  company="University of California, Berkeley"
+  location="Berkeley, CA"
+  position="BA, Physics (Honors), College of Letters and Sciences"
+  dates="2004--2008"
+%}
+
+{% include resume_experience.html
+  company="University of Minnesota"
+  location="Minneapolis, MN"
+  position="PhD, High Energy Particle Physics"
+  dates="2009--2015"
+%}
+
+- My [GRE score was pretty bad][rejection]. In 2008 I was rejected from every
+  grad school I applied to. In 2009, Yuichi Kubota saw my application to
+  Minnesota and thought "I think we can give him a shot". He did that for a
+  lot of people my year.
+
+[rejection]: {% post_url 2018-03-14-a_career_starts_with_rejection %}#to-grad-school
+
+## Experience
+
+{% include resume_experience.html
+  company="Supernova Cosmology Project"
+  location="Berkeley, CA"
+  position="Undergraduate Research Assistant"
+  dates="2005-2009"
+%}
+
+- My friend's aunt worked at Lawrence Berkeley Labs as an executive assistant.
+  My resume got passed to her (I don't even recall how exactly) where it
+  eventually found its way to the [Supernova Cosmology Project][scp] under
+  Nobel prize winner [Saul Perlmutter][saul]. Saul's post doc, Nao Suzuki,
+  wanted a research assistant and invited me up to the lab.
+- Weirdly, and lucky for me, Nao had decided not to use [IDL][idl_is_bad], the
+  standard language for astrophysics software, and instead wanted to work with
+  Python. We used Numarray and Numeric (which would later become Numpy).
+- Nao also thought I should learn a text editor and introduced me to the one
+  he used: Vim. It is my primary text editor to this day (I'm writing this
+  post on it).
+
 [scp]: https://en.wikipedia.org/wiki/Supernova_Cosmology_Project
-
-# Python, Vim, Linux
-
-I worked with Nao Suzuki, a post doc in the SCP. Weirdly, and lucky for me, he
-had decided not to use [IDL][idl_is_bad], the standard language for
-astrophyscis software, and instead wanted to work with Python. I picked up
-Python quickly because I suddenly had a reason to use it. We used Numarray and
-Numeric (which would later become Numpy).
-
+[saul]: https://en.wikipedia.org/wiki/Saul_Perlmutter
 [idl_is_bad]: https://en.wikipedia.org/wiki/IDL_(programming_language)
 
-My time with Nao was formative. I learned Python, Linux and the command line,
-and Vim. Most importantly I learned that a computer could be made to do what
-you told it to do, that its purpose was to solve your problems, and if you
-knew the right language you make it do magic.
+{% include resume_experience.html
+  company="Insight Data Science"
+  location="Palo Alto, CA"
+  position="Data Scientist Fellow"
+  dates="2015"
+%}
 
-# Data Science
-
-As I neared the end of my PhD I realized I was not going to be a professor,
-the odds were just too bad. I figured out my fallback would be moving back to
-the Bay Area and getting a software engineering job, so I started taking
-algorithm classes and practicing coding interviews.
-
-Around this time I stumbled onto the blog of a former student instrcutor of
-mine, [Jessica Kirkpatrick][jessica]. The top post was [_Career Profiles:
-Astronomer to Data Scientist_][jess_post], which said:
-
-> _What, if any, additional training did you complete in order to meet the
-> qualifications?_
->
-> 1) I participated in Scicoder where I learned about databases. 
-> 
-> 2) I participated in a consulting internship where I learned about working
-> on interdisciplinary teams, tech/business applications of the scientific
-> method, and working with customers 
-> 
-> 3) I was accepted to (but didn't end up participating in) the **Insight Data
-> Science Fellows Program** where I would have learned more about the transition
-> from academia to tech, the tools used in data science / analytics, and
-> prepared for tech interviews. I got my job offer at Yammer before this
-> internship started so I participated as a mentor/recruiter instead of a
-> fellow.
-
-I clicked the link to Insight Data Science. It said "Applications due in 2
-days". I decided to apply, even with such limited time to put together an
-application. It was accepted!
+- I was looking for what to do after I finished my PhD, having realized I did
+  not want to go through the faculty lottery. One day I was looking through my
+  saved bookmarks when I clicked on the link to a blog written by my former
+  student instructor at Berkeley, [Jessica Kirkpatrick][jessica]. The top post
+  was [_Career Profiles: Astronomer to Data Scientist_][jess_post].[^jk_post]
+  Inside was a link to Insight Data Science, which I clicked. There were just
+  two days until applications were due so I threw one together and was
+  accepted.
+- My advisor told me there was no way I would graduate by January, 2015 (he
+  was right). I emailed Insight and asked if I could delay starting until the
+  next session. They said yes. I have since learned their policy is not to do
+  that. I'm glad someone made an exception.
 
 [jessica]: https://twitter.com/berkeleyjess
 [jess_post]: https://berkeleyjess.blogspot.com/2014/07/career-profiles-astronomer-to-data.html
+
+[^jk_post]: The text of [_Career Profiles: Astronomer to Data Scientist_][jess_post]:
+
+    > _What, if any, additional training did you complete in order to meet the
+    > qualifications?_
+    >
+    > 1) I participated in Scicoder where I learned about databases. 
+    > 
+    > 2) I participated in a consulting internship where I learned about
+    > working on interdisciplinary teams, tech/business applications of the
+    > scientific method, and working with customers 
+    > 
+    > 3) I was accepted to (but didn't end up participating in) the **Insight
+    > Data Science Fellows Program** where I would have learned more about the
+    > transition from academia to tech, the tools used in data science /
+    > analytics, and prepared for tech interviews. I got my job offer at
+    > Yammer before this internship started so I participated as a
+    > mentor/recruiter instead of a fellow.
+    
+{% include resume_experience.html
+  company="Intuit"
+  location="Mountain View, CA"
+  position="Staff Data Scientist / Senior Data Science Manager"
+  dates="2017--2020"
+%}
+
+- My manager and director both left Intuit within a short time period, leaving
+  our team rudderless. It gave me to opportunity to step into a management
+  role first unofficially, and then officially several months later.
+
+{% include resume_experience.html
+  company="Cash App"
+  location="Remote"
+  position="Machine Learning Engineer, Modeler"
+  dates="2015"
+%}
+
+- While [looking for a job][job] after being laid off during COVID, I called
+  my friend and former coworker from Lab41, Patrick Callier, asking if he had
+  a lead on any positions at Square. He suggested I should work for Cash App
+  and introduced my to my current boss and skip-level (also both Insight
+  Alumni). 
+
+
+[job]: {% post_url 2020-09-21-interviewing_for_data_science_positions_in_2020 %}
+
+</div>
