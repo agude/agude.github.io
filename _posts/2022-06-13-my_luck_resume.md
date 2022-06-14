@@ -139,7 +139,7 @@ this page in the form of a too-honest resume.
   company="Cash App"
   location="Remote"
   position="Machine Learning Engineer, Modeler"
-  dates="2015"
+  dates="2020--Present"
 %}
 
 - While [looking for a job][job] after being laid off during COVID, I called
