@@ -76,12 +76,13 @@ this page in the form of a too-honest resume.
   Python. We used Numarray and Numeric (which would later become Numpy),
   giving me a head start in the skills I'd need later for machine learning.
 - Nao also thought I should learn a text editor and introduced me to the one
-  he used: Vim. It is my primary text editor to this day (I'm writing this
-  post on it).
+  he used: [Vim][vim]. It is my primary text editor to this day (I'm writing
+  this post on it).
 
 [scp]: https://en.wikipedia.org/wiki/Supernova_Cosmology_Project
 [saul]: https://en.wikipedia.org/wiki/Saul_Perlmutter
 [idl_is_bad]: https://en.wikipedia.org/wiki/IDL_(programming_language)
+[vim]: https://en.wikipedia.org/wiki/Vim_(text_editor)
 
 {% include resume_experience.html
   company="Insight Data Science"
