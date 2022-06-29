@@ -130,10 +130,9 @@ this page in the form of a too-honest resume.
   dates="2017--2020"
 %}
 
-- My manager and director both left Intuit within a short time period just as
-  I joined, leaving our team rudderless. It gave me to opportunity to step
-  into a management role first unofficially, and then officially several
-  months later.
+- My manager and director both left Intuit just after I joined, leaving our
+  team rudderless. It gave me an opportunity to step into a management role
+  first unofficially, and then officially several months later.
 
 {% include resume_experience.html
   company="Cash App"
