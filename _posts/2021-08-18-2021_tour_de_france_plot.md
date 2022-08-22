@@ -81,7 +81,7 @@ last year, indicated by the large time gap between Pogačar and the rest of the
 field that formed early in the race:
 
 [![A line plot showing how far behind the leader each top-finishing rider was
-after each stage of the 2020 Tour de France.][gc_plot]][gc_plot]
+after each stage of the 2021 Tour de France.][gc_plot]][gc_plot]
 
 [gc_plot]: {{ file_dir }}/2021_tour_de_france_top_5.svg
 
