@@ -46,12 +46,12 @@ past two years, so he was the favorite going into this tour.
 
 Other favorites this year were:
 
-- **[Primož Roglič][roglic]**, who came in second in 2020.
-- **[Jonas Vingegaard][vingegaard]**, who came in second last year.
-- **[Geraint Thomas][thomas]**, who won won in 2018 and finished second in 2019.
-- **[Aleksandr Vlasov][vlasov]**, who won the Tour de Romandie earlier in the year.
-- **[Daniel Martínez][martinez]**, who won the Tour of the Basque Country
-  earlier in the year.
+- [Primož Roglič][roglic], who came in second in 2020.
+- [Jonas Vingegaard][vingegaard], who came in second last year.
+- [Geraint Thomas][thomas], who won won in 2018 and finished second in 2019.
+- [Aleksandr Vlasov][vlasov], who won the Tour de Romandie earlier in the year.
+- [Daniel Martínez][martinez], who won the Tour of the Basque Country earlier
+  in the year.
 
 [roglic]: https://en.wikipedia.org/wiki/Primo%C5%BE_Rogli%C4%8D
 [thomas]: https://en.wikipedia.org/wiki/Geraint_Thomas
