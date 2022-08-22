@@ -30,10 +30,10 @@ been delayed by [COVID][covid] and 2021 edition moved to avoid the
 The code that generated the plots can be found [here][plot_code]
 ([rendered on Github][rendered]). The data [is here][data].
 
-{% capture notebook_uri %}{{ "Tour de France 2021 Plot.ipynb" | uri_escape }}{% endcapture %}
+{% capture notebook_uri %}{{ "Tour de France 2022 Plot.ipynb" | uri_escape }}{% endcapture %}
 [plot_code]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
-[data]: {{ file_dir }}/2021-tdf-dataframe.json
+[data]: {{ file_dir }}/2022-tdf-dataframe.json
 
 ## The Race for Yellow
 
