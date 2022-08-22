@@ -60,6 +60,14 @@ Other favorites this year were:
 [vlasov]: https://en.wikipedia.org/wiki/Aleksandr_Vlasov_(cyclist)
 [martinez]: https://en.wikipedia.org/wiki/Daniel_Mart%C3%ADnez_(cyclist)
 
+After three weeks of racing, here is how the top five riders fared through the
+stages:
+
+[![A line plot showing how far behind the leader each top-finishing rider was
+after each stage of the 2022 Tour de France.][gc_plot]][gc_plot]
+
+[gc_plot]: {{ file_dir }}/2022_tour_de_france_top_5.svg
+
 Pogačar started strong, taking the yellow Jersey on stage 6 after beating out
 Vingegaard in the final sprint. He held it through the first few Alp stages
 before getting isolated on stage 11. Roglič and Vingegaard, both riding for
@@ -72,11 +80,6 @@ yellow jersey.
 
 [jumbo]: https://en.wikipedia.org/wiki/Daniel_Mart%C3%ADnez_(cyclist)
 [col]: https://en.wikipedia.org/wiki/Col_du_Galibier
-
-[![A line plot showing how far behind the leader each top-finishing rider was
-after each stage of the 2022 Tour de France.][gc_plot]][gc_plot]
-
-[gc_plot]: {{ file_dir }}/2022_tour_de_france_top_5.svg
 
 Pogačar and Thomas stayed neck-and-neck until stage 16 when Vingegaard and
 Pogačar attacked in the Pyrenees and dropped the other contenders.
