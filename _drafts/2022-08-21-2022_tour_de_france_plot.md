@@ -37,10 +37,9 @@ The code that generated the plots can be found [here][plot_code]
 
 ## The Race for Yellow
 
-The [yellow jersey][yellow], which is awarded to the rider with the lowest
-combined time across the 21 stages of the race, was won by [Tadej
-Pogačar][pogacar] the past two years, so he was the favorite going into this
-tour.
+The [yellow jersey][yellow], awarded to the rider with the lowest combined
+time across the 21 stages of the race, was won by [Tadej Pogačar][pogacar] the
+past two years, so he was the favorite going into this tour.
 
 [yellow]: https://en.wikipedia.org/wiki/General_classification_in_the_Tour_de_France
 [pogacar]: https://en.wikipedia.org/wiki/Tadej_Poga%C4%8Dar
@@ -84,6 +83,23 @@ yellow jersey.
 Pogačar and Thomas stayed neck-and-neck until stage 16 when Vingegaard and
 Pogačar attacked in the Pyrenees and dropped the other contenders.
 
+### The Green Jersey
+
+The race for the [green jersey][green], awarded to the rider with the most
+sprint points which are earned by winning intermediate sprints and stages, was
+relatively boring this year. [Wout van Aert][van aert] ran away with it, never
+losing the jersey after winning it on stage 2.
+
+[green]: https://en.wikipedia.org/wiki/Points_classification_in_the_Tour_de_France
+[van aert]: https://en.wikipedia.org/wiki/Wout_van_Aert
+
+Here is how the sprint race turned out, with sprint stages shaded in grey:
+
+[![A line plot showing how far behind the points leader the top five sprint
+sprinters were.][sprint_plot]][sprint_plot]
+
+[sprint_plot]: {{ file_dir }}/2022_tour_de_france_top_5_sprint.svg
+
 ## The Rest of the Race
 
 176 riders started the race and just 136 finished, the lowest number to finish
@@ -94,13 +110,12 @@ stage.][full_plot]][full_plot]
 
 [full_plot]: {{ file_dir }}/2022_tour_de_france.svg
 
-The green jersey, awarded for winning the most sprint points, was taken by
-[Wout van Aert][van aert] with a modern-era record setting 480 points. He
-paced himself well, finishing solidly in the middle of the pack. Last year the
-green jersey winner [Mark Cavendish][cavendish] finished near the bottom in
-2021 because he was a much weaker climber than van Aert.
+Wout van Aert, the green jersey winner, paced himself well. He finished just
+above the middle of the pack. This is in contrast to last year's winner, [Mark
+Cavendish][cavendish], who finished near the bottom that year, because he is a
+much weaker climber than van Aert. Van Aert is an amazing talent, able to
+climb and sprint!
 
-[van aert]: https://en.wikipedia.org/wiki/Wout_van_Aert
 [cavendish]: https://en.wikipedia.org/wiki/Mark_Cavendish
 
 Another sprinter, [Caleb Ewan][ewan], got the [lanterne rougue][lanterne], a
