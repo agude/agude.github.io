@@ -4,10 +4,10 @@ title: "Plotting the 2022 Tour de France"
 description: >
   The 2022 Tour de France saw a new winner, Jonas Vingegaard! See how he won
   in this post!
-image: /files/tour-de-france/tour_de_france_1932_swiss_team.jpg
+image: /files/tour-de-france/tour_de_france_1932_italian_team.jpg
 hide_lead_image: True
 image_alt: >
-  A black and white photo of the Swiss team in the 1932 Tour de France.
+  A black and white photo of the Italian team in the 1932 Tour de France.
 categories:
   - cycling
   - data-visualization
