@@ -28,6 +28,24 @@ and accelerate feature processing.
   dates="2020--Present"
 %}
 
+- Estimated the impact of instant bank account opening (as opposed to delayed
+  until card shipment) to customer paycheck deposit attach rates. Took the
+  lead in pre-emptively building anti-fraud checkpoints for the process and
+  worked with legal, compliance, and business operations to get the program
+  green-lit by our external banking partners. Instant bank accounts delivered
+  a 90% increase in paycheck deposits by our customers and a 55% increase in
+  dollar inflows from paychecks.
+- Developed high-recall metrics for monitoring fraud across all ACH transfers
+  giving high visibility into developing problem areas. Built automated alerts
+  based on these metrics so bad activity did not slip through any gaps.
+- Using the fraud metrics, targeted high precision rules and machine learning
+  models to curtail the worst fraud. Lowered fraud volumes by 12x in 18
+  months.
+- Monitored the fraud metrics for tax returns deposited to customer accounts.
+  Briefed the IRS and state tax administrators on Cash App Tax's anti-fraud
+  program, including my monitoring, alerting, models, and rules. My work gave
+  them enough confidence to not redirect tax refund deposits from our
+  customer's bank accounts, which were 18% of all inflows in 2022.
 - Deployed first ACH categorization model for Cash App Banking, reducing
   uncategorized transactions by 50% and increasing tracked payroll deposit
   volume by 30%. The improved income categorization has allowed us to make
