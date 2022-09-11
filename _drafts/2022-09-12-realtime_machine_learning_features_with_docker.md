@@ -64,8 +64,14 @@ have three options:
 
 1. Run the model without the information from the most recent event.
 2. Wait for the most recent event to reach the feature store and then
-   predict.[^time_out]
+   predict.
 3. Compute the feature in real-time outside the feature store.
+
+The first option is easy but we lose valuable features. The second option is
+slow and might add an unacceptable delay (for example we might have 100ms to
+respond, but the feature store might take seconds to update).[^time_out] The
+third option adds complexity, but allows a fast response while still making
+use of the additional features. I will cover one way to do it below.
 
 [^time_out]:
     A more likely outcome is the model will fail its [service-level
@@ -73,11 +79,6 @@ have three options:
     the model and taking some default fallback option.
 
 [sla]: https://en.wikipedia.org/wiki/Service-level_agreement
-
-The first option is easy but we lose valuable features. The second option is
-slow and might add an unacceptable delay (for example we might have 100ms to
-respond, but the feature store might take seconds to update). I'll cover a way
-to do the third option.
 
 ## Real-time Computation
 
