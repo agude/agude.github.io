@@ -37,7 +37,10 @@ but the shadow model also runs on some (or all) of the requests. This allows
 you to safely test the new model against real data while avoiding the risk of
 service disruptions.
 
-[^live]: By _"live model"_, I mean whatever system is currently doing the job that the shadow model will do. It could be a model, a heuristic, a simple `if` statement, or even nothing at all.
+[^live]:
+    By _"live model"_, I mean whatever system is currently doing the job that
+    the shadow model will do. It could be a model, a heuristic, a simple `if`
+    statement, or even nothing at all.
 
 ## When Would I Use Shadow Mode?
 
