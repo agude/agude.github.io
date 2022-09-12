@@ -51,7 +51,7 @@ diagram) but they have not had time to yet. The target event does give some
 data to the ML model (generally something simple like a user ID or event ID so
 the model knows what features to get) but this is fast.
 
-## Real-time features
+## Real-time Features
 
 But what if the event the model is scoring is a received transaction? Or what
 if the features can only be computed in real-time? For example, the feature
@@ -76,7 +76,7 @@ use of the additional features. I will cover one way to do it below.
 [^time_out]:
     A more likely outcome is the model will fail its [service-level
     agreement][sla] and the system will move on after a short time, ignoring
-    the model and taking some default fallback option.
+    the model and taking some fallback option.
 
 [sla]: https://en.wikipedia.org/wiki/Service-level_agreement
 
