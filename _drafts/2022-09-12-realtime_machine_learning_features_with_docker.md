@@ -82,4 +82,35 @@ use of the additional features. I will cover one way to do it below.
 
 ## Real-time Computation
 
+Instead we can compute the real-time features in the model host. The model
+serving platform almost certainly has to have some code to handle inputs from
+the caller and to fetch the features from the feature store, so adding a
+little extra logic there is not a stretch. To use real-time features you make
+three changes:
 
+- You add some proto-features to the feature store.
+- You add some information to the model call signature.
+- You add some additional feature processing code to the model.
+
+The model then gets the proto-feature, combines it with the additional
+information in the call, and computes the real-time feature which is used in
+the prediction.
+
+For example, the feature "_Has this user ever logged in from this location?_"
+should be a boolean (True/False) returned from the feature store, but that is
+too slow. To calculate it in real-time we:
+
+- Make a proto-feature "_List of all locations the user has logged in from_".
+- Add `current_location` to the model call.
+- Compute the feature by checking if the `current_location` is in the list of
+  previous location.
+
+Changing the model signature can be tough because it often requires upstream
+changes to the code that calls the model, but sometimes the information is
+already in the call. For example, if the location in this feature is an IP
+address (a common way to track logins), there is a good chance we already pass
+that in so the model can fetch IP address related features.
+
+[![A diagram showing how computing features ahead of time and in real-time works.][rt_pic]][rt_pic]
+
+[rt_pic]: {{ file_dir }}/realtime_feature_computation.svg
