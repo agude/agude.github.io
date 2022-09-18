@@ -100,6 +100,12 @@ To use this system to calculate real-time features, we make three changes:
 - Do additional processing in the data handling code to combine the
   proto-features and data from the target event into a real-time feature.
 
+The diagram changes very slightly:
+
+[![A diagram showing how computing features ahead of time works.][rt_model_pic]][rt_model_pic]
+
+[rt_model_pic]: {{ file_dir }}/realtime_model_host.svg
+
 Here is how that would work for our example login feature:
 
 - Add a proto-feature that is a list of previous login locations.
