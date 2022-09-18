@@ -5,9 +5,9 @@ description: >
   Models often derive great value from real-time features, but computing them
   is hard because it has to be done quickly. Here is one way I have done it
   successfully.
-image: /files/shadow-mode/bricks_at_mit.jpg
+image: /files/realtime-features/20110727-14-38-39--customs_house_tower_close.jpg
 image_alt: >
-  A black and white photo of bricks making up Kresge Auditorium at MIT.
+  A black and white photo of the clock on the Customs House Tower in Boston.
 categories: 
   - machine-learning
 ---
@@ -54,7 +54,8 @@ compute them below.
 
 Let's consider a simplified machine learning system that that looks like this:
 
-[![A diagram showing how computing features ahead of time works.][batch_pic]][batch_pic]
+[![A diagram showing a machine learning system with incoming events, a feature
+store, and a model host.][batch_pic]][batch_pic]
 
 [batch_pic]: {{ file_dir }}/batched_feature_computation.svg
 
@@ -79,7 +80,9 @@ is fast compared to waiting for the feature store.
 
 Let's take a closer look at the model host:
 
-[![A diagram showing how computing features ahead of time works.][batch_model_pic]][batch_model_pic]
+[![A diagram focusing on the model host component of the above diagram. It
+shows how data handling code brings in features before passing them to the
+model itself.][batch_model_pic]][batch_model_pic]
 
 [batch_model_pic]: {{ file_dir }}/batched_model_host.svg
 
@@ -102,7 +105,10 @@ To use this system to calculate real-time features, we make three changes:
 
 The diagram changes very slightly:
 
-[![A diagram showing how computing features ahead of time works.][rt_model_pic]][rt_model_pic]
+[![A diagram focusing on the model host component of the first diagram. It
+shows what modifying the system to calculate real-time features would look
+like, with additional data handling code, proto-feature inputs, and more data
+from the target event.][rt_model_pic]][rt_model_pic]
 
 [rt_model_pic]: {{ file_dir }}/realtime_model_host.svg
 
