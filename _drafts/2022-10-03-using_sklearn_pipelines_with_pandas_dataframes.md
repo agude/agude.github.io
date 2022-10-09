@@ -41,9 +41,81 @@ to use Pipelines with Pandas Dataframes.
 
 It _should_ be simple to use a Pandas dataframe in a pipeline, after all
 scikit-learn [has a `ColumnTransformer`][col_trans] to work with dataframe
-columns
+columns. Just define the transformers and the columns they apply to, then
+string them together, right?
 
 [col_trans]: https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer
-p
 
-https://scikit-learn.org/stable/auto_examples/compose/plot_column_transformer_mixed_types.html
+```python
+step_1 = ColumnTransformer([
+  # Name,    Transform,       columns
+  ("step_1", SimpleImputer(), [col_1]),
+])
+
+step_2 = ColumnTransformer([
+  ("step_2", StandardScaler(), [col_1, col_2]),
+])
+
+pipeline = Pipeline(
+  steps=[
+    ("step_1", step_1), 
+    ("step_2", step_2), 
+  ]
+)
+```
+
+But this won't work. After `step_1`, the Dataframe has been converted to a
+Numpy array without column names, so `step_2` will fail.
+
+## A working pipeline
+
+Instead, we have to define a pipeline for each group of columns that has a
+unique set of transforms, as detailed in the scikit-learn examples: [_Column
+Transformer with Mixed Types_][mixed_types].
+
+[mixed_types]: https://scikit-learn.org/stable/auto_examples/compose/plot_column_transformer_mixed_types.html
+
+First we define a pipeline for each group of columns:
+
+```python
+numeric_pipeline = Pipeline(
+    steps=[
+        ("impute_missing", SimpleImputer(strategy="median")),
+        ("standard_scale", StandardScaler()),
+    ]
+)
+
+unordered_categories_pipeline = Pipeline(
+    steps=[
+        ("one-hot_encode ", OneHotEncoder()),
+    ]
+)
+
+ordered_categories_pipeline = Pipeline(
+    steps=[
+        ("size_encoder", OrdinalEncoder(categories=[size])),
+    ]
+)
+```
+Then we apply each of those pipelines to the correct columns using a single
+`ColumnTransformer`:
+
+```python
+# Apply each feature pipeline using a column transform
+col_transform = ColumnTransformer(
+  transformers=[
+    ("numeric_pipeline", numeric_pipeline, ["x1", "x2", "x3", "x4"]),
+    ("unordered_categories_pipeline", unordered_categories_pipeline, ["cat1"],),
+    ("ordered_categories_pipeline", ordered_categories_pipeline, ["cat2"],),
+  ],
+  remainder="drop",
+)
+
+# Put it into another pipeline so we can train
+final_pipeline = Pipeline(
+  steps=[
+    ("feature_processing", col_transform),
+    ("train_model", model_training_code_here),
+  ]
+)
+```
