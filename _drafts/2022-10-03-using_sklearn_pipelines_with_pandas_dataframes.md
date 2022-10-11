@@ -49,11 +49,11 @@ string them together, right?
 ```python
 step_1 = ColumnTransformer([
   # Name,    Transform,       columns
-  ("step_1", SimpleImputer(), [col_1]),
+  ("step_1", SimpleImputer(), ["num_1"]),
 ])
 
 step_2 = ColumnTransformer([
-  ("step_2", StandardScaler(), [col_1, col_2]),
+  ("step_2", StandardScaler(), ["num_1", "num_2"]),
 ])
 
 pipeline = Pipeline(
@@ -75,28 +75,23 @@ Transformer with Mixed Types_][mixed_types].
 
 [mixed_types]: https://scikit-learn.org/stable/auto_examples/compose/plot_column_transformer_mixed_types.html
 
-First we define a pipeline for each group of columns:
+We define a pipeline for each group of columns:
 
 ```python
-numeric_pipeline = Pipeline(
-    steps=[
-        ("impute_missing", SimpleImputer(strategy="median")),
-        ("standard_scale", StandardScaler()),
-    ]
+imputation_pipeline = Pipeline(
+  steps=[
+    ("impute_missing", SimpleImputer()),
+    ("standard_scale", StandardScaler()),
+  ]
 )
 
-unordered_categories_pipeline = Pipeline(
-    steps=[
-        ("one-hot_encode ", OneHotEncoder()),
-    ]
-)
-
-ordered_categories_pipeline = Pipeline(
-    steps=[
-        ("size_encoder", OrdinalEncoder(categories=[size])),
-    ]
+scalar_pipeline = Pipeline(
+  steps=[
+    ("standard_scale", StandardScaler()),
+  ]
 )
 ```
+
 Then we apply each of those pipelines to the correct columns using a single
 `ColumnTransformer`:
 
@@ -104,18 +99,46 @@ Then we apply each of those pipelines to the correct columns using a single
 # Apply each feature pipeline using a column transform
 col_transform = ColumnTransformer(
   transformers=[
-    ("numeric_pipeline", numeric_pipeline, ["x1", "x2", "x3", "x4"]),
+    ("imputation_pipeline", imputation_pipeline, ["num_1"]),
+    ("scalar_pipeline", scalar_pipeline, ["num_2"],),
+  ],
+)
+```
+
+It is unfortunately a little more verbose, but it gets what we need done.
+
+We can even apply another transformation across all the columns, for example a
+[principal component analysis][pca] to reduce the dimensions, by wrapping the
+above transform in another pipeline:
+
+[pca]: https://en.wikipedia.org/wiki/Principal_component_analysis
+
+```python
+# Put it into another pipeline so we can train
+final_pipeline = Pipeline(
+  steps=[
+    ("feature_processing", col_transform),
+    ("reduce_dimensions", PCA()),
+    ("train_model", model_training_code_here),
+  ]
+)
+
+```
+
+There is one downside: you can't apply the columnar transforms and then apply
+another transform to a different, overlapping subset. At least not easily.
+
+##
+
+```python
+# Apply each feature pipeline using a column transform
+col_transform = ColumnTransformer(
+  transformers=[
+    ("numeric_pipeline", numeric_pipeline, ["num1","num2"]),
     ("unordered_categories_pipeline", unordered_categories_pipeline, ["cat1"],),
     ("ordered_categories_pipeline", ordered_categories_pipeline, ["cat2"],),
   ],
   remainder="drop",
 )
 
-# Put it into another pipeline so we can train
-final_pipeline = Pipeline(
-  steps=[
-    ("feature_processing", col_transform),
-    ("train_model", model_training_code_here),
-  ]
-)
 ```
