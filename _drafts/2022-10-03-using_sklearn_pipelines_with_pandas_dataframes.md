@@ -51,8 +51,8 @@ transformer was a numpy array. This meant that if you used a second
 ValueError: Specifying the columns using strings is only supported for pandas DataFrames
 ```
 
-But scikit-learn [just updated their pipeline API][pr] to fix this! Now there
-is the option to output Pandas dataframes!
+But scikit-learn version 1.2 [updated the pipeline API][pr] to fix this! Now
+there is the option to output Pandas dataframes!
 
 [pr]: https://github.com/scikit-learn/scikit-learn/pull/23734
 
