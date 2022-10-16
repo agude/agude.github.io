@@ -37,45 +37,34 @@ to use Pipelines with Pandas Dataframes.
 
 [pipelines]: https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html
 
-## Pandas and Pipelines: Not So Simple
+## Pandas and Pipelines: Formerly Not So Simple
 
-It _should_ be simple to use a Pandas dataframe in a pipeline, after all
-scikit-learn [has a `ColumnTransformer`][col_trans] to work with dataframe
-columns. Just define the transformers and the columns they apply to, then
-string them together, right?
+It used to be tough to use Pandas Dataframes and scikit-learn pipelines
+together. There [was a `ColumnTransformer`][col_trans] to work with
+dataframes, but it had some major limitations since the output of the
+transformer was a numpy array. This meant that if you used a second
+`ColumnTransformer` in your pipeline you would get the following error:
 
 [col_trans]: https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer
 
-```python
-step_1 = ColumnTransformer([
-  # Name,    Transform,       columns
-  ("step_1", SimpleImputer(), ["num_1"]),
-])
-
-step_2 = ColumnTransformer([
-  ("step_2", StandardScaler(), ["num_1", "num_2"]),
-])
-
-pipeline = Pipeline(
-  steps=[
-    ("step_1", step_1), 
-    ("step_2", step_2), 
-  ]
-)
+```
+ValueError: Specifying the columns using strings is only supported for pandas DataFrames
 ```
 
-But this won't work. After `step_1`, the Dataframe has been converted to a
-Numpy array without column names, so `step_2` will fail.
+But scikit-learn [just updated their pipeline API][pr] to fix this! Now there
+is the option to output Pandas dataframes!
+
+[pr]: https://github.com/scikit-learn/scikit-learn/pull/23734
 
 ## A working pipeline
 
-Instead, we have to define a pipeline for each group of columns that has a
-unique set of transforms, as detailed in the scikit-learn examples: [_Column
-Transformer with Mixed Types_][mixed_types].
+Now that the [`set_output` API][setoutput] exists, we can chain
+`ColumnTransformer` without error!
 
-[mixed_types]: https://scikit-learn.org/stable/auto_examples/compose/plot_column_transformer_mixed_types.html
+[setoutput]: https://scikit-learn.org/dev/auto_examples/miscellaneous/plot_set_output.html
 
-We define a pipeline for each group of columns:
+For example, we can define a pipeline for each group of columns we want to
+apply a transform to, like so:
 
 ```python
 imputation_pipeline = Pipeline(
@@ -100,45 +89,37 @@ Then we apply each of those pipelines to the correct columns using a single
 col_transform = ColumnTransformer(
   transformers=[
     ("imputation_pipeline", imputation_pipeline, ["num_1"]),
-    ("scalar_pipeline", scalar_pipeline, ["num_2"],),
+    ("scalar_pipeline", scalar_pipeline, ["num_2", "num_3"],),
   ],
 )
 ```
 
-It is unfortunately a little more verbose, but it gets what we need done.
-
-We can even apply another transformation across all the columns, for example a
-[principal component analysis][pca] to reduce the dimensions, by wrapping the
-above transform in another pipeline:
-
-[pca]: https://en.wikipedia.org/wiki/Principal_component_analysis
+And then we can even chain another `ColumnTransformer`:
 
 ```python
-# Put it into another pipeline so we can train
+# Use PCA on just some of the columns
+col_pca = ColumnTransformer(
+  transformers=[
+    ("pca", PCA(), ["feature_processing__num_1", "feature_processing__num_2"]),
+  ],
+)
+
+# Put it all together in a pipeline to train a model
 final_pipeline = Pipeline(
   steps=[
     ("feature_processing", col_transform),
-    ("reduce_dimensions", PCA()),
+    ("reduce_dimensions", col_pca),
     ("train_model", model_training_code_here),
   ]
 )
 
 ```
 
-There is one downside: you can't apply the columnar transforms and then apply
-another transform to a different, overlapping subset. At least not easily.
+The one trick, as you can see, is the columns are renamed based on previous
+transformers. So instead of `num_1`, the column is now called
+`feature_processing__num_1` since it goes through the `feature_processing`
+transform right before the [PCA][pca] step.
 
-##
+[pca]: https://en.wikipedia.org/wiki/Principal_component_analysis
 
-```python
-# Apply each feature pipeline using a column transform
-col_transform = ColumnTransformer(
-  transformers=[
-    ("numeric_pipeline", numeric_pipeline, ["num1","num2"]),
-    ("unordered_categories_pipeline", unordered_categories_pipeline, ["cat1"],),
-    ("ordered_categories_pipeline", ordered_categories_pipeline, ["cat2"],),
-  ],
-  remainder="drop",
-)
 
-```
