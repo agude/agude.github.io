@@ -12,7 +12,7 @@ categories:
   - machine-learning
 ---
 
-{% capture file_dir %}/files/worst-code/{% endcapture %}
+{% capture file_dir %}/files/pandas-pipelines/{% endcapture %}
 
 [Scikit-learn][sklearn] is a popular Python library for training machine
 learning models. [Pandas][pandas] is a popular Python library for manipulating
@@ -122,4 +122,12 @@ transform right before the [PCA][pca] step.
 
 [pca]: https://en.wikipedia.org/wiki/Principal_component_analysis
 
+## Complete Example
 
+Here is a [Jupyter notebook][notebook] ([rendered on Github][rendered])
+with a toy dataset and a full Pandas pipeline example. Hope it helps!
+
+{% capture notebook_uri %}{{ "pandas_pipeline_example.ipynb" | uri_escape }}{% endcapture %}
+
+[notebook]: {{ file_dir }}/{{ notebook_uri }}
+[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
