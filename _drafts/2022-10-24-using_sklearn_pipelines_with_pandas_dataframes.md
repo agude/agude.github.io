@@ -65,64 +65,50 @@ Now that the [`set_output` API][setoutput] exists, we can chain
 
 [setoutput]: https://scikit-learn.org/dev/auto_examples/miscellaneous/plot_set_output.html
 
-For example, we can define a pipeline for each group of columns we want to
-apply a transform to, like so:
-
-```python
-imputation_pipeline = Pipeline(
-  steps=[
-    ("impute_missing", SimpleImputer()),
-    ("standard_scale", StandardScaler()),
-  ]
-)
-
-scalar_pipeline = Pipeline(
-  steps=[
-    ("standard_scale", StandardScaler()),
-  ]
-)
-```
-
-Then we apply each of those pipelines to the correct columns using a single
-`ColumnTransformer`:
+For example, we can impute for one column, and then scale it and a few others.
+First we set up the two `ColumnTransformer`, one to impute and one to scale:
 
 ```python
 # Apply each feature pipeline using a column transform
-col_transform = ColumnTransformer(
-  transformers=[
-    ("imputation_pipeline", imputation_pipeline, ["num_1"]),
-    ("scalar_pipeline", scalar_pipeline, ["num_2", "num_3"],),
-  ],
+imputer = (
+  "imputer",
+  ColumnTransformer(
+    [("col_impute", SimpleImputer(), ["x1"])],
+    remainder="passthrough",
+  ),
+)
+
+scaler = (
+  "scaler",
+  ColumnTransformer(
+    [
+      (
+        "col_scale",
+        StandardScaler(),
+        ["col_impute__x1", "remainder__x2", "remainder__x3"],
+      )
+    ],
+    remainder="passthrough",
+  ),
 )
 ```
 
-And then we can even chain another `ColumnTransformer`:
+Then we combined them in a pipeline:
 
 ```python
-# Use PCA on just some of the columns
-col_pca = ColumnTransformer(
-  transformers=[
-    ("pca", PCA(), ["feature_processing__num_1", "feature_processing__num_2"]),
-  ],
-)
-
-# Put it all together in a pipeline to train a model
-final_pipeline = Pipeline(
-  steps=[
-    ("feature_processing", col_transform),
-    ("reduce_dimensions", col_pca),
-    ("train_model", model_training_code_here),
-  ]
-)
-
+pipe = Pipeline(
+    steps=[
+        imputer,
+        scaler,
+    ]
+).set_output(transform="pandas")
 ```
 
-The one trick, as you can see, is the columns are renamed based on previous
-transformers. So instead of `num_1`, the column is now called
-`feature_processing__num_1` since it goes through the `feature_processing`
-transform right before the [PCA][pca] step.
+And it works! There are two tricks; we have to:
 
-[pca]: https://en.wikipedia.org/wiki/Principal_component_analysis
+1. Make the output of each step a dataframe with `set_output(transform="pandas")`.
+2. Adjust the columns names of the downstream steps because they get prepended
+   with the name of the previous steps they've gone through.
 
 ## Complete Example
 
