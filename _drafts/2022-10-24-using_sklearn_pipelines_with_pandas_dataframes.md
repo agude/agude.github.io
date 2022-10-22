@@ -6,7 +6,8 @@ description: >
   learning models. Here is how to get them to work together.
 image: /files/pandas-pipelines/navy_pipes.jpg
 image_alt: >
-  A black and white photo of three linesmen repairing a tangle of overhead wires.
+  A black and white photo of a man wearing a naval hat filing the ends of metal
+  pipes.
 categories:
   - software-development
   - machine-learning
@@ -48,7 +49,8 @@ transformer was a numpy array. This meant that if you used a second
 [col_trans]: https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer
 
 ```
-ValueError: Specifying the columns using strings is only supported for pandas DataFrames
+ValueError: Specifying the columns using strings is
+only supported for pandas DataFrames
 ```
 
 But scikit-learn version 1.2 [updated the pipeline API][pr] to fix this! Now
