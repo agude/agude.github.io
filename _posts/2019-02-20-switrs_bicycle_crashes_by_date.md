@@ -51,7 +51,9 @@ of a crash happening when a bike encounters a car ($$P$$) times the number of
 cars encountered ($$L \lambda$$). This ignores some crashes, like solo crashes
 and those that do not involve a car, but these are rare.[^rare]
 
-[^rare]: Of the 223,772 recorded crashes with bicycles, **89% involve a car**. There is a bias though: SWITRS reports are filled out when the police or CHP are called to the scene. As such, they skew towards worse accidents.
+[^rare]: Of the 223,772 recorded crashes with bicycles, **89% involve a car**.
+    There is a bias though: SWITRS reports are filled out when the police or
+    CHP are called to the scene. As such, they skew towards worse accidents.
 
 We won't be able to test the validity of this model with the SWITRS data
 alone, but we can use it to reason about what is happening. For example, if
