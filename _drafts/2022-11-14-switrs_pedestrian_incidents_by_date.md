@@ -77,7 +77,9 @@ when instead of decreasing like bicycle collisions they **increased
 strongly**. Like both bicycles and motorcycle crashes,
 pedestrian incidents are strongly seasonal but they decrease in the summer
 (when there is a lot of light for cars to see them) and **increase in the
-winter** when it gets dark early and cars can't see them.
+winter** when it gets dark early and cars can't see them. And of course there
+is a massive decrease when COVID restrictions kept most people home starting
+in March 2020.
 
 ## Day-by-day
 
