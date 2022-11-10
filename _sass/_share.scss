@@ -15,7 +15,17 @@
   width: 2em;
   height: 2em;
   border-radius: 0.3em;
+}
 
+.sidebar-button {
+  padding: 0.25em;
+  margin: 0.15em;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 0.2em;
+}
+
+.sidebar-button, .social-button {
   // Use a flex inside each button to align the SVG
   display: flex;
   align-items: center;
@@ -31,3 +41,17 @@
     background: $share-hover-color;
   }
 }
+
+// For the sidebar buttons
+
+.sidebar-social-links {
+  float: center;
+  // Flexbox configuration
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+}
+
