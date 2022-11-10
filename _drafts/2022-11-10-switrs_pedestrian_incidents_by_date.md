@@ -2,7 +2,7 @@
 layout: post
 title: "SWITRS: On What Days Do Pedestrians Get Hit?"
 description: >
-image: /files/switrs-covid/mail_truck_tries_to_climb_tree_in_boston_1927.jpg
+image: /files/switrs-pedestrian-incidents-by-date/auto_accident_loc_2016842389_1926.jpg
 hide_lead_image: True
 image_alt: >
 categories: 
