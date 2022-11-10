@@ -16,7 +16,9 @@ author:
     first: "Alexander"
     last: "Gude"
     twitter: "alex_gude"
+    mastodon: "alex_gude"
     github: "agude"
+    linkedin: "alexandergude"
 
 title: "Alex Gude"
 tagline: "Data Scientist"
@@ -43,6 +45,7 @@ social:
         - https://twitter.com/alex_gude
         - https://github.com/agude
         - https://linkedin.com/in/AlexanderGude
+        - https://fediscience.org/@alex_gude
 
 defaults:
   # Add a default image and Twitter card for non-post layouts for jekyll-seo-tag
