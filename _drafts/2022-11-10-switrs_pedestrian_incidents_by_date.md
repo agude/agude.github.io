@@ -1,10 +1,15 @@
 ---
 layout: post
-title: "SWITRS: On What Days Do Pedestrians Get Hit?"
+title: "SWITRS: On What Days Do Drivers Hit Pedestrians?"
 description: >
+  Being a pedestrian is dangerous in a world built for automobiles. In this
+  post explore how pedestrian-involved collisions have trended in time. Take a
+  look!
 image: /files/switrs-pedestrian-incidents-by-date/auto_accident_loc_2016842389_1926.jpg
-hide_lead_image: True
+hide_lead_image: False
 image_alt: >
+  Black and white photo from 1926 of men and boys crowded around a car that
+  has driven into a lamppost and lost it's front left wheel.
 categories: 
   - california-traffic-data 
   - data-science
@@ -15,8 +20,8 @@ categories:
 It has been a while since I have used the [SWITRS data][switrs] to look at
 vehicle collisions in California. Since my last article---[_On What Days Do
 Cyclists Crash?_][last_post]---we have lived through a massive
-[pandemic][covid] that **significantly changed** how people drive, including
-[a huge increase to fatalities][fatalities_post] and changing [what type of
+[pandemic][covid] that _significantly changed_ how people drive, including [a
+huge increase to fatalities][fatalities_post] and changing [what type of
 drivers have crashes][toyota_post].
 
 [switrs]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
@@ -25,7 +30,8 @@ drivers have crashes][toyota_post].
 [fatalities_post]: {% post_url 2021-07-19-switrs_covid_19_lockdown_fatal_traffic_collisions %} 
 [toyota_post]: {% post_url 2021-09-27-switrs_ford_vs_toyota_during_covid_19 %}
 
-This time I am going to look at the most vulnerable road users: pedestrians.
+So with all the new data, I wanted to look at the most vulnerable road users:
+pedestrians.
 
 As per usual, the Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
@@ -76,17 +82,17 @@ Pedestrian involved incidents were flat or slightly down until about 2013,
 when instead of decreasing like bicycle collisions they **increased
 strongly**. Like both bicycles and motorcycle crashes,
 pedestrian incidents are strongly seasonal but they decrease in the summer
-(when there is a lot of light for cars to see them) and **increase in the
-winter** when it gets dark early and cars can't see them. And of course there
-is a massive decrease when COVID restrictions kept most people home starting
-in March 2020.
+(when there is a lot of light for drivers to see pedestrians) and **increase
+in the winter** when it gets dark early and drivers can't see them. Of course
+there is also a massive decrease when COVID restrictions kept most people home
+starting in March 2020.
 
 ## Day-by-day
 
 [Cars are involved in crashes][car_dbd] on days when drivers have to commute
-to work _and_ on holidays when people travel. The worst day is Halloween when
+to work _and_ on holidays where people travel. The worst day is Halloween when
 people work and then go out and have fun after. I wondered when looking at the
-car data if the large increase in Halloween was due to a large increase in
+car data if the large increase on Halloween was due to a large increase in
 pedestrian collisions; the answer is no:
 
 [car_dbd]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-by-day
@@ -98,11 +104,11 @@ average over 2001 through 2020.][per_date_plot]][per_date_plot]
 
 Halloween has by far the most incidents where pedestrians are hit by drivers.
 But its only about 15 to 20 more incidents than on any other October day, and
-there are almost 200 additional car crashes on Halloween. A number of
+there are almost 200 additional car crashes on Halloween. The number of
 additional pedestrian incidents does not account for much of the increase in
 car crashes.
 
-I will look at Halloween related incidents in my next post.
+I will look into Halloween related incidents in more depth in my next post.
 {%comment%}TODO: UPDATE THIS{%endcomment%}
 
 Otherwise there are some interesting patterns. Many holidays trend the same
