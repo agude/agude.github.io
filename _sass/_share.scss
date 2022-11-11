@@ -43,15 +43,27 @@
 }
 
 // For the sidebar buttons
-
 .sidebar-social-links {
-  float: center;
+  color: #ffffff;
+}
+
+.sidebar-social-links-buttons {
   // Flexbox configuration
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   align-content: center;
 }
-
+@media (min-width: $sidebar-appear-breakpoint) {
+  .sidebar-social-links-buttons {
+    // Flexbox configuration
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+  }
+}
