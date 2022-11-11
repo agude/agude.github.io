@@ -28,10 +28,37 @@
       {% endfor %}
 
     </nav>
+
+    {% comment %} Social links {% endcomment %}
+    <div class="sidebar-social-links">
+      Follow me on: 
+      <div class="sidebar-social-links-buttons">
+        <!-- Twitter Button -->
+        <a rel="me" class="sidebar-button twitter-button" href="https://twitter.com/{{ site.author.twitter }}">
+          {% include icon-twitter.svg %}
+        </a>
+        <!-- Mastodon Button -->
+        <a rel="me" class="sidebar-button mastodon-button" href="https://fediscience.org/@{{ site.author.mastodon }}">
+          {% include icon-mastodon.svg %}
+        </a>
+        <!-- LinkedIn Button -->
+        <a rel="me" class="sidebar-button linkedin-button" href="https://www.linkedin.com/in/{{ site.author.linkedin}}/">
+          {% include icon-linkedin.svg %}
+        </a>
+        <!-- RSS Button -->
+        <a class="sidebar-button rss-button" href="/feed.xml">
+          {% include icon-rss.svg %}
+        </a>
+      </div>
+    </div>
+    <br>
+
+    {% comment %} Legal text {% endcomment %}
     <small>
-      &copy; <time datetime="{{ '2016-01-01T00:00:00Z' | date_to_xmlschema }}">2016</time>–<time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time>. All rights reserved.
-      <br>
       <a class="legal{% if page.url == "/privacy-policy/" %} active{% endif %}" href="/privacy-policy/">Privacy Policy</a>
+      <br>
+      &copy;&nbsp;<time datetime="{{ '2016-01-01T00:00:00Z' | date_to_xmlschema }}">2016</time>–<time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time> by {{ site.author.name }}
     </small>
+
   </div>
 </aside>

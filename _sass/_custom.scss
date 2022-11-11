@@ -13,7 +13,7 @@
     }
 
   // Hide the image if the screen is too small and the sidebar is out
-  @media (min-width: $sidebar-appear-breakpoint) and (max-height: 52rem) {
+  @media (min-width: $sidebar-appear-breakpoint) and (max-height: 62rem) {
     display: none;
   }
 }
@@ -46,6 +46,11 @@
 .card-text {
   @extend .card-element;
   font-size: $card-font-size;
+}
+
+// Small sidebar
+.sidebar small {
+  font-size: $legal-font-size; 
 }
 
 // Legal links
