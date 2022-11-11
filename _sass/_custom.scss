@@ -48,6 +48,11 @@
   font-size: $card-font-size;
 }
 
+// Small sidebar
+.sidebar small {
+  font-size: $legal-font-size; 
+}
+
 // Legal links
 .legal {
   font-size: $legal-font-size;
