@@ -14,7 +14,7 @@ categories:
 
 Last time I wrote about [when pedestrians are hit by cars][last_post]. I
 discovered that [Halloween is the day with _the most_ pedestrian
-incidents][last_post_dbd], and that [the commute times][last_post_hbh] are
+incidents][last_post_dbd], and that [the commute hours][last_post_hbh] are
 when most pedestrians are hit. Now I'll dive a little deeper into those
 patterns using the same [SWITRS data][switrs].
 
