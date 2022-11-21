@@ -90,17 +90,32 @@ incidents.
 ## Fatality Rates
 
 But Walker actually makes a very specific claim: that fatalities involving
-children increase on Halloween. So does it? Here is a plot of the fatality
-rates for each year's Halloween, separated into weekday and weekend:
+children increase on Halloween. So does it? We need to look at the fatality
+rate instead of just counts because the number of people driving and walking
+changes year-by-year and using the rate helps to normalize some of this out.
+Here is a plot of the fatality rates for each year's Halloween, separated into
+weekday and weekend:
 
 [![Fatality rate for pedestrians per year on Halloween separated by weekday vs
 weekend.][fatality_plot]][fatality_plot]
 
 [fatality_plot]: {{ file_dir }}/pedestrian_fatality_rate_by_day_type_on_halloween.svg
 
-This is not just children
+This is all pedestrians, not just children. By eye, the distributions look
+pretty similar. A [Mann--Whitney U test][mwut] confirms with a _p_-value of
+0.93; not significantly different.
+
+But what about children (pedestrians under 18)? Here is that data:
+
+[mwut]: https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test
 
 [![Fatality rate for child pedestrians per year on Halloween separated by
 weekday vs weekend.][child_fatality_plot]][child_fatality_plot]
 
 [child_fatality_plot]: {{ file_dir }}/children_pedestrian_fatality_rate_by_day_type_on_halloween.svg
+
+Notice the number of children killed by cars on weekend Halloweens is 0!
+Whereas during weekday about half of the Halloweens have a child death. But
+are these distributions different? Still not significantly so, with a
+_p_-value of 0.08, but the lower _p_-value does indicate that there is more
+evidence for the specific claim about child deaths than for all pedestrians.
