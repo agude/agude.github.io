@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SWITRS: Halloweed Pedestrians Safety"
+title: "SWITRS: Pedestrian Safety on Halloween"
 description: >
 image: /files/switrs-pedestrian-halloween/auto_accident_loc_2016819574_1920.jpg
 hide_lead_image: False
@@ -92,11 +92,11 @@ incidents.
 ## Fatality Rates
 
 But Walker actually makes a very specific claim: that fatalities involving
-children increase on Halloween. So does it? We need to look at the fatality
-rate instead of just counts because the number of people driving and walking
-changes year-by-year and using the rate helps to normalize some of this out.
-Here is a plot of the fatality rates for each year's Halloween, separated into
-weekday and weekend:
+children increase on Halloweens that are on weekdays. So does it? To check we
+need to look at the fatality rate instead of just counts because the number of
+people driving and walking changes year-by-year and using the rate helps to
+normalize some of this out. Here is a plot of the fatality rates for each
+year's Halloween, separated into weekday and weekend:
 
 [![Fatality rate for pedestrians per year on Halloween separated by weekday vs
 weekend.][fatality_plot]][fatality_plot]
@@ -117,7 +117,9 @@ weekday vs weekend.][child_fatality_plot]][child_fatality_plot]
 [child_fatality_plot]: {{ file_dir }}/children_pedestrian_fatality_rate_by_day_type_on_halloween.svg
 
 Notice the number of children killed by cars on weekend Halloweens is 0!
-Whereas during weekday about half of the Halloweens have a child death. But
-are these distributions different? Still not significantly so, with a
+Whereas during weekdays about half of the Halloweens have a child death. 
+
+But are these distributions different? Still not significantly so, with a
 _p_-value of 0.08, but the lower _p_-value does indicate that there is more
 evidence for the specific claim about child deaths than for all pedestrians.
+So Walker was probably right.
