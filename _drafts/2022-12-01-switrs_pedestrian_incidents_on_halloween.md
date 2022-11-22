@@ -2,9 +2,11 @@
 layout: post
 title: "SWITRS: Halloweed Pedestrians Safety"
 description: >
-image: /files/switrs-covid/mail_truck_tries_to_climb_tree_in_boston_1927.jpg
-hide_lead_image: True
+image: /files/switrs-pedestrian-halloween/auto_accident_loc_2016819574_1920.jpg
+hide_lead_image: False
 image_alt: >
+  Black and white photo from around 1920 of men in suits with hats crowded
+  around a car that has driven over a curb and lost its front left wheel.
 categories: 
   - california-traffic-data 
   - data-science
