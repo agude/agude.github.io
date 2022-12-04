@@ -91,9 +91,9 @@ starting in March 2020.
 
 [Cars are involved in crashes][car_dbd] on days when drivers have to commute
 to work _and_ on holidays where people travel. The worst day is Halloween when
-people work and then go out and have fun after. I wondered when looking at the
-car data if the large increase on Halloween was due to a large increase in
-pedestrian collisions; the answer is no:
+people work and then go out and have fun after. I was curious if the large
+increase on Halloween was due to a large increase in pedestrian collisions;
+the answer is no:
 
 [car_dbd]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-by-day
 
@@ -102,14 +102,14 @@ average over 2001 through 2020.][per_date_plot]][per_date_plot]
 
 [per_date_plot]: {{ file_dir }}/mean_pedestrian_incidents_by_date.svg
 
-Halloween has by far the most incidents where pedestrians are hit by drivers.
-But its only about 15 to 20 more incidents than on any other October day, and
-there are almost 200 additional car crashes on Halloween. The number of
-additional pedestrian incidents does not account for much of the increase in
-car crashes.
+On Halloween, drivers are more likely to hit pedestrians than on any other day
+of the year. But its only about 15 to 20 more incidents than on any other
+October day, and there are almost 200 additional car crashes on Halloween. The
+number of additional pedestrian incidents does not account for much of the
+increase in car crashes. For a more detailed analysis of pedestrian collisions
+on Halloween, [check out my other post][next_post].
 
-I will look into Halloween related incidents in more depth in my next post.
-{%comment%}TODO: UPDATE THIS{%endcomment%}
+[next_post]: {% post_url 2022-12-01-switrs_pedestrian_incidents_on_halloween %}
 
 Otherwise there are some interesting patterns. Many holidays trend the same
 direction as cars: New Years, Memorial Day, Veterans Day, Thanksgiving, and
