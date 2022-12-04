@@ -14,15 +14,14 @@ categories:
 
 {% capture file_dir %}/files/switrs-pedestrian-halloween{% endcapture %}
 
-Last time I wrote about [when pedestrians are hit by cars][last_post]. I
-discovered that [Halloween is the day with _the most_ pedestrian
-incidents][last_post_dbd], and that [the commute hours][last_post_hbh] are
-when most pedestrians are hit. Now I'll dive a little deeper into those
-patterns using the same [SWITRS data][switrs].
+In my last post, I found that Halloween is the [most dangerous day of the year
+for pedestrians][last_post], with a higher number of incidents than any other
+day, according to [data from SWITRS][switrs]. I also found that the risk of
+pedestrian incidents is higher during commute hours, regardless of the date.
+In this article, I will explore these patterns in more detail using the same
+SWITRS data, but with a focus on Halloween.
 
 [last_post]: {% post_url 2022-11-10-switrs_pedestrian_incidents_by_date %}
-[last_post_dbd]: {% post_url 2022-11-10-switrs_pedestrian_incidents_by_date %}#day-by-day
-[last_post_hbh]: {% post_url 2022-11-10-switrs_pedestrian_incidents_by_date %}#hour-by-hour
 [switrs]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
 
 As per usual, the Jupyter notebook used to perform this analysis can be found
@@ -81,33 +80,41 @@ weekdays.][by_hour_plot]][by_hour_plot]
 
 [by_hour_plot]: {{ file_dir }}/pedestrian_incidents_by_hour_on_halloween.svg
 
-Just like we saw in the "all days" data, weekdays [have two large commute
-peaks and a school pickup peak][last_post_hbh]. There is a large increase in
-the number of collisions around 18:00 on both days which is likely due to a
-combination of darkness making it hard for drivers to see pedestrians and
-trick-or-treating bring more people out walking. This data supports Walker's
-observation that commute traffic causes a large increase in pedestrian
-incidents.
+As we saw in the data for all dates, weekdays [have two major peaks in
+collisions during the morning and evening commutes, as well as a peak during
+school pickup times][last_post_hbh]. Examining the data for Halloween
+specifically, we see that when it falls on a weekday the three expected peaks
+(morning and evening commutes, and school pick-up) are present, but there is
+also a fourth peak at 18:00, likely due to a combination of darkness making it
+difficult for drivers to see pedestrians and trick-or-treating bringing more
+people out walking. This data supports Walker's observation that commuter
+traffic contributes significantly to the number of pedestrian incidents.
+
+[last_post_hbh]: {% post_url 2022-11-10-switrs_pedestrian_incidents_by_date %}#hour-by-hour
 
 ## Fatality Rates
 
-But Walker actually makes a very specific claim: that fatalities involving
-children increase on Halloweens that are on weekdays. So does it? To check we
-need to look at the fatality rate instead of just counts because the number of
-people driving and walking changes year-by-year and using the rate helps to
-normalize some of this out. Here is a plot of the fatality rates for each
-year's Halloween, separated into weekday and weekend:
+But Walker makes a very specific claim: that fatalities involving children
+increase on weekday Halloweens. Does the data support this claim? To find out,
+we need to look at the fatality rate instead of the total number of fatalities
+because the number of people driving and walking changes year-by-year and
+using the rate helps to normalize some of this variation. Below is a plot of
+the fatality rates for each year's Halloween, separated into weekday and
+weekend:
 
 [![Fatality rate for pedestrians per year on Halloween separated by weekday vs
 weekend.][fatality_plot]][fatality_plot]
 
 [fatality_plot]: {{ file_dir }}/pedestrian_fatality_rate_by_day_type_on_halloween.svg
 
-This is all pedestrians, not just children. By eye, the distributions look
-pretty similar. A [Mann--Whitney U test][mwut] confirms with a _p_-value of
-0.93; not significantly different.
+The data above includes all pedestrian fatalities, not just those involving
+children. At first glance, the distributions for weekday and weekend Halloween
+fatalities appear similar. A [Mann--Whitney U test][mwut] confirms this, with
+a _p_-value of 0.93, indicating that the difference between the two is not
+statistically significant.
 
-But what about children (pedestrians under 18)? Here is that data:
+But what about children alone (defined as pedestrians under 18)? Here is that
+data:
 
 [mwut]: https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test
 
@@ -116,10 +123,13 @@ weekday vs weekend.][child_fatality_plot]][child_fatality_plot]
 
 [child_fatality_plot]: {{ file_dir }}/children_pedestrian_fatality_rate_by_day_type_on_halloween.svg
 
-Notice the number of children killed by cars on weekend Halloweens is 0!
-Whereas during weekdays about half of the Halloweens have a child death. 
+One interesting observation is that no children have been killed by cars on
+weekend Halloweens, whereas about half of the weekdays have seen at least one
+child death. This suggests that there is something about weekday Halloweens
+that makes them particularly dangerous for children, consistent with Walker's
+claim.
 
-But are these distributions different? Still not significantly so, with a
-_p_-value of 0.08, but the lower _p_-value does indicate that there is more
-evidence for the specific claim about child deaths than for all pedestrians.
-So Walker was probably right.
+Despite this, the data does not show a significant difference between the two
+distributions, with a _p_-value of 0.08. However, this lower _p_-value as
+compared to the all-ages data does indicate some evidence for the specific
+claim about child deaths. 
