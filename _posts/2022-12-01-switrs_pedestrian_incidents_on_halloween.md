@@ -2,6 +2,9 @@
 layout: post
 title: "SWITRS: Pedestrian Safety on Halloween"
 description: >
+  Halloween can be a dangerous time for pedestrians. In this post, I explore
+  the statistics on pedestrian-vehicle collisions, including when these
+  incidents are most likely to occur.
 image: /files/switrs-pedestrian-halloween/auto_accident_loc_2016819574_1920.jpg
 hide_lead_image: False
 image_alt: >
