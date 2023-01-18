@@ -13,19 +13,17 @@ categories:
 [last_post]: {% post_url 2022-11-10-switrs_pedestrian_incidents_by_date %}
 [switrs]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
 
-The recent explosion in the progress of AI-generated art, sparked by the
-open-source release of [Stable Diffusion][sd], has been breathtaking to
-witness. Before our eyes a new artistic medium and tool are being invented.
-But not everyone views it in a positive light. Many artists feel that [AI art
-stole their work to train on][stolen][^stolen_quote].
-
-Others are [organizing 
-protests][anti] on popular websites like _ArtStation_
+The open-source release of [Stable Diffusion][sd] has sparked and explosion of
+progress in AI-generated art. Before our eyes a new artistic medium and tool
+are being invented. But not everyone views it in a positive light. Many
+artists feel that [AI art stole their work][stolen][^stolen_quote] and have
+[organized protests][anti] on popular sites like _ArtStation_. Other artists
+[claim that AI-generated art can't be art][not_art].[^not_art_quote]
 
 [sd]: https://en.wikipedia.org/wiki/Stable_Diffusion
 [stolen]: https://twitter.com/Artofinca/status/1599730391698485248
-[not_art]: https://www.vice.com/en/article/ake9me/artists-are-revolt-against-ai-art-on-artstation
 [anti]: https://arstechnica.com/information-technology/2022/12/artstation-artists-stage-mass-protest-against-ai-generated-artwork/
+[not_art]: https://www.vice.com/en/article/ake9me/artists-are-revolt-against-ai-art-on-artstation
 
 [^stolen_quote]:
     > Current AI "art" is created on the backs of hundreds of thousands of
@@ -37,7 +35,7 @@ protests][anti] on popular websites like _ArtStation_
 
 [^not_art_quote]:
 
-    >I believe art is something inherently and intrinsically human, even
+    >"I believe art is something inherently and intrinsically human, even
     >corporate art made-for-hire is meticulously crafted by experts in their
     >fields," [Nicholas] Kole said. "When we sit down to draw, design, sculpt
     >or paint, each mark is made with an intention. Each step of the process
@@ -56,19 +54,29 @@ protests][anti] on popular websites like _ArtStation_
 
 AI art and the debate around it fascinates me for two reasons:
 
-1. Machine learning is my job, so I am excited to see the field advance.
-2. I am an artist, and I come from a long line of artists.
+1. I am a Machine learning engineer; my job is to build systems like the ones
+   generating these pieces of art.
+2. I am an artist, specifically a landscape photographer, and I come from a
+   long line of artists.
 
 My great-great-great grandfather was the Norwegian landscape painter [Hans
 Gude][hans_gude] and my father, also named [Hans Gude][hans_gude_2], was [an
-accomplished oil painter][painter]. I don't have their skill with a brush but
-I still longed to make art, so I picked up a camera.
+accomplished oil painter][painter].[^hans_art] I don't have their skill with a
+brush but I still longed to make art, so I picked up a camera.
+
+[^hans_art]:
+    My father somewhat rejected the title of "artist", although in later life
+    he branded himself as such. He prefered to think of himself as a
+    craftsman, honing his skills through hardwork and study.
 
 Photography appealed to me **specifically because** it used technology. I
 like learning new technologies and how to master them. I _also_ thought it
 would be easier to learn to make art I was happy with with a camera than with
-oil paints and although I learned that photography has its own skills to
-master, after 15 years I think I was right.
+oil paints. Although I learned that photography has its own skills to master,
+after 15 years I think I was right: it is much easier than oil painting.
+
+I think that's why I feel some kinship with these prompt engineers. 
+
 
 Regardless I think AI is here to stay. It is too useful a tool. So I like to
 think about it from a tool perspective and for that I like to think about how
