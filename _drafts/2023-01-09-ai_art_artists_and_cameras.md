@@ -13,12 +13,14 @@ categories:
 [last_post]: {% post_url 2022-11-10-switrs_pedestrian_incidents_by_date %}
 [switrs]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
 
-The open-source release of [Stable Diffusion][sd] has sparked and explosion of
-progress in AI-generated art. Before our eyes a new artistic medium and tool
-are being invented. But not everyone views it in a positive light. Many
-artists feel that [AI art stole their work][stolen][^stolen_quote] and have
-[organized protests][anti] on popular sites like _ArtStation_. Other artists
-[claim that AI-generated art can't be art][not_art].[^not_art_quote]
+The open-source release of [Stable Diffusion][sd] has sparked an explosion of
+progress in AI-generated art. It is in its infancy, but I can already tell
+this new artistic tool is going to revolutionize visual art creation. But not
+everyone views AI art generation in a positive light. Many artists feel that
+[AI art stole their work][stolen][^stolen_quote] and have [organized
+protests][anti] on popular sites like _ArtStation_. Other artists [claim that
+AI-generated art can't be art][not_art][^not_art_quote] because it isn't
+human.
 
 [sd]: https://en.wikipedia.org/wiki/Stable_Diffusion
 [stolen]: https://twitter.com/Artofinca/status/1599730391698485248
@@ -52,6 +54,8 @@ artists feel that [AI art stole their work][stolen][^stolen_quote] and have
 
 [chloe]: https://twitter.com/chloexiang
 
+## My Artistic Talent
+
 AI art and the debate around it fascinates me for two reasons:
 
 1. I am a Machine learning engineer; my job is to build systems like the ones
@@ -59,10 +63,12 @@ AI art and the debate around it fascinates me for two reasons:
 2. I am an artist, specifically a landscape photographer, and I come from a
    long line of artists.
 
+I sympathize with the users of AI art, because I am a photographer.
+
 My great-great-great grandfather was the Norwegian landscape painter [Hans
-Gude][hans_gude] and my father, also named [Hans Gude][hans_gude_2], was [an
-accomplished oil painter][painter].[^hans_art] I don't have their skill with a
-brush but I still longed to make art, so I picked up a camera.
+Gude][hans_gude] and my father, also named [Hans Gude][hans_gude_2], was [an accomplished oil
+<span style="white-space:nowrap">painter][painter].[^hans_art]</span> I don't have their skill with a brush but
+I still longed to make art, so I picked up a camera.
 
 [^hans_art]:
     My father somewhat rejected the title of "artist", although in later life
