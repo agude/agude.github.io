@@ -5,7 +5,7 @@ description: >
   AI generated art took off with the open-source release of Stable Diffusion,
   leaving some artists worried. As an artist and machine learning engineer,
   here is my take.
-image: /files/ai_artists_and_technology/candidate_2.png
+image: /files/ai_artists_and_technology/field_of_yellow_by_alex_gude_oil_painted_by_stable_diffusion.jpg
 hide_lead_image: False
 image_alt: >
   An image generated from one of my landscape photos using Stable Diffusion
