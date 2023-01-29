@@ -2,6 +2,9 @@
 layout: post
 title: "Art, Artists, and Technology"
 description: >
+  AI generated art took off with the open-source release of Stable Diffusion,
+  leaving some artists are worried. As an artist and machine learning
+  engineer, here is my take.
 image: /files/switrs-pedestrian-halloween/auto_accident_loc_2016819574_1920.jpg
 hide_lead_image: False
 image_alt: >
