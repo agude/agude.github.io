@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Art, Artists, and Technology"
+title: "AI, Artists, and Technology"
 description: >
   AI generated art took off with the open-source release of Stable Diffusion,
   leaving some artists are worried. As an artist and machine learning
@@ -8,7 +8,13 @@ description: >
 image: /files/ai_art_artists_and_cameras/candidate_2.png
 hide_lead_image: False
 image_alt: >
+  An image generated from one of my landscape photos using Stable Diffusion
+  with img2img to make it look more like an oil painting. It shows yellow
+  flowers, with a forest behind them. The Jura Mountains loom behind the
+  forest, and the sky is bright blue with some large white clouds.
 categories: 
+  - machine-learning
+  - opinions
 ---
 
 {% capture file_dir %}/files/ai_art_artists_and_cameras{% endcapture %}
@@ -17,7 +23,7 @@ categories:
 [switrs]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
 
 The open-source release of [Stable Diffusion][sd] has sparked an explosion of
-progress in AI-generated art. It is in its infancy, but I can already tell
+progress in [AI-generated art][ai_art]. It is in its infancy, but I can already tell
 this new artistic tool is going to revolutionize visual art creation. But not
 everyone views AI art generation in a positive light. Many artists feel that
 [AI art stole their work][stolen][^stolen_quote] and have [organized
@@ -26,6 +32,7 @@ AI-generated art can't be art][not_art][^not_art_quote] because it isn't
 human.
 
 [sd]: https://en.wikipedia.org/wiki/Stable_Diffusion
+[ai_art]: https://en.wikipedia.org/wiki/Artificial_intelligence_art
 [stolen]: https://twitter.com/Artofinca/status/1599730391698485248
 [anti]: https://arstechnica.com/information-technology/2022/12/artstation-artists-stage-mass-protest-against-ai-generated-artwork/
 [not_art]: https://www.vice.com/en/article/ake9me/artists-are-revolt-against-ai-art-on-artstation
