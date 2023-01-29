@@ -54,47 +54,94 @@ human.
 
 [chloe]: https://twitter.com/chloexiang
 
-## My Artistic Talent
+## AI and Photography as Art
 
-AI art and the debate around it fascinates me for two reasons:
+I come down on the side of AI-artists.
 
-1. I am a Machine learning engineer; my job is to build systems like the ones
-   generating these pieces of art.
-2. I am an artist, specifically a landscape photographer, and I come from a
-   long line of artists.
+This is probably unsurprising because I am a machine learning engineer, it is
+my job to build the types of systems these artists are using. But what is less
+obvious is that my support is also because I am an artist, specifically a
+landscape photographer.
 
-I sympathize with the users of AI art, because I am a photographer.
+Photography has [a complicated history as "art"][jstor]. Although the first
+photograph was taken in 1826, it wasn't until 1924 that an American museum
+recognized the medium as art by [including photographs in its permanent
+collection][as]. At fist artists feared photography would replace traditional
+visual arts due to the ease of taking a picture. But eventually they realized
+it was a useful tool that could be combined with other art forms, even if they
+did not recognize photography as an art in its own
+right.[^brush_and_pencil][^the_new_path]
 
-My great-great-great grandfather was the Norwegian landscape painter [Hans
-Gude][hans_gude] and my father, also named [Hans Gude][hans_gude_2], was [an accomplished oil
-<span style="white-space:nowrap">painter][painter].[^hans_art]</span> I don't have their skill with a brush but
-I still longed to make art, so I picked up a camera.
+[jstor]: https://daily.jstor.org/when-photography-was-not-art/
+
+[as]: https://en.wikipedia.org/wiki/Alfred_Stieglitz
+
+[^brush_and_pencil]: 
+    > The fear has sometimes been expressed that photography would in time
+    > entirely supersede the art of painting. Some people seem to think that
+    > when the process of taking photographs in colors has been perfected and
+    > made common enough, the painter will have nothing more to do. We need
+    > not fear anything of the kind. Perfection in photography may rid us in
+    > time of all the poor work done in color. The work of the artist,
+    > however, in which is seen his own individuality, his own perception of
+    > the beautiful, his own creation in fact, can no more perish than the
+    > soul which inspired it.  
+
+    Henrietta Clopath. _Genuine Art versus Mechanism_, in [_Brush and Pencil_
+    Vol. 7, No. 6 (1901-03-01)][bap], pp. 331-333
+
+[bap]: https://doi.org/10.2307/25505621
+
+[^the_new_path]:
+    > Photography is an infinitely valuable mechanism by which to obtain records
+    > of limited abstract truth, and as such, may be of great service to the
+    > artist. Much may be learned about drawing by reference to a good photograph,
+    > that even a man of quick natural perception would be slow to learn without
+    > such help. But, unless the real shortcomings of the photograph are
+    > understood, it must certainly mislead if followed.
+    >
+    > But beyond these merely technical matters, art differs from any
+    > mechanical process in being "the expression of man's delight in God's
+    > work", and thus it appeals to, and awakens all noble sympathy and right
+    > feeling. All labor of love must have something beyond mere mechanism at the
+    > bottom of it.
+
+    _Art and Photography_, in [_The New Path_ Vol. 2, No. 12
+    (1865-12-01)][tnp], pp. 198-199
+
+[tnp]: https://www.jstor.org/stable/20542505
+
+## My Family, The Painters
+
+Although I am a photographer, my family has a long history of painting. My
+great-great-great grandfather was the Norwegian landscape painter [Hans
+Gude][hans_gude]. My father, also named [Hans Gude][hans_gude_2], was [an
+accomplished oil painter][painter].[^hans_art] I wanted to make art, but I
+did not have their skill with a brush so I picked up a camera and lens
+instead.
+
+[hans_gude]: https://en.wikipedia.org/wiki/Hans_Gude
+[hans_gude_2]: https://www.hfgudeart.com/about2
+[painter]: https://www.hfgudeart.com/
 
 [^hans_art]:
     My father somewhat rejected the title of "artist", although in later life
     he branded himself as such. He prefered to think of himself as a
     craftsman, honing his skills through hardwork and study.
 
-Photography appealed to me **specifically because** it used technology. I
-like learning new technologies and how to master them. I _also_ thought it
-would be easier to learn to make art I was happy with with a camera than with
-oil paints. Although I learned that photography has its own skills to master,
-after 15 years I think I was right: it is much easier than oil painting.
+I was drawn to photography **specifically because** it used technology. I like
+learning new technologies and how to master them. I _also_ thought it would be
+easier to learn to make art I was happy with with a camera than with oil
+paints. I have since learned that photography has its own set of skills to
+master, but after 15 years I think I was mostly right: it is much easier than
+oil painting.
 
-I think that's why I feel some kinship with these prompt engineers. 
+I wonder what my great grandfather would have think of my art. He spent months
+or years creating his seascapes, while my photographs are captured in a
+fraction of a second with the push of a button, and maybe a few hours later
+spend adjusting tone curve and highlights.
 
-
-Regardless I think AI is here to stay. It is too useful a tool. So I like to
-think about it from a tool perspective and for that I like to think about how
-my art form came to be.
-
-I wonder what my great grandfather would have thought of my art. Compared to
-his seascapes which could take months or years to execute, my photos take a
-fraction of a second to push a button and then maybe a few hours adjusting
-highlights and tone curves. But while I don't have their level of skill, I
-like to think that my landscape photography at least follows in my family's
-artistic footsteps.
-
-[hans_gude]: https://en.wikipedia.org/wiki/Hans_Gude
-[hans_gude_2]: https://www.hfgudeart.com/about2
-[painter]: https://www.hfgudeart.com/
+But I like to think that he would view my work as a continuation of our
+family's artistic tradition. Maybe in the future, my descendants will find the
+camera too complicated and instead compose prompts for AI to translate into
+images. To me, that's simply another evolution of the art form.
