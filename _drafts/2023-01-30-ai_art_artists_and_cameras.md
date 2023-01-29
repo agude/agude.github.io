@@ -5,13 +5,13 @@ description: >
   AI generated art took off with the open-source release of Stable Diffusion,
   leaving some artists are worried. As an artist and machine learning
   engineer, here is my take.
-image: /files/switrs-pedestrian-halloween/auto_accident_loc_2016819574_1920.jpg
+image: /files/ai_art_artists_and_cameras/candidate_2.png
 hide_lead_image: False
 image_alt: >
 categories: 
 ---
 
-{% capture file_dir %}/files/switrs-pedestrian-halloween{% endcapture %}
+{% capture file_dir %}/files/ai_art_artists_and_cameras{% endcapture %}
 
 [last_post]: {% post_url 2022-11-10-switrs_pedestrian_incidents_by_date %}
 [switrs]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
