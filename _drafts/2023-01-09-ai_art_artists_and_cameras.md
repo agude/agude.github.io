@@ -113,12 +113,11 @@ right.[^brush_and_pencil][^the_new_path]
 
 ## My Family's Art
 
-Although I am a photographer, my family has a long history of painting. My
-great-great-great grandfather was the Norwegian landscape painter [Hans
-Gude][hans_gude]. My father, also named [Hans Gude][hans_gude_2], was [an
-accomplished oil painter][painter].[^hans_art] I too wanted to make art, but I
-did not have their skill with a brush so I picked up a camera and lens
-instead.
+My family has a long history of painting. My great-great-great grandfather was
+the Norwegian landscape painter [Hans Gude][hans_gude]. My father, also named
+[Hans Gude][hans_gude_2], was [an accomplished oil
+painter][painter].[^hans_art] I too wanted to make art, but I did not have
+their skill with a brush so I picked up a camera and lens instead.
 
 [hans_gude]: https://en.wikipedia.org/wiki/Hans_Gude
 [hans_gude_2]: https://www.hfgudeart.com/about2
