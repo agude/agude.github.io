@@ -130,10 +130,9 @@ their skill with a brush so I picked up a camera and lens instead.
 
 I was drawn to photography **specifically because** it used technology. I like
 learning new technologies and how to master them. I _also_ thought it would be
-easier to learn to make art I was happy with with a camera than with oil
-paints. I have since learned that photography has its own set of skills to
-master, but after 15 years I think I was mostly right: it is much easier than
-oil painting.
+easier to learn to make art I was happy using a camera. I have since learned
+that photography has its own set of skills to master, but after 15 years I
+think I was mostly right: it is much easier than oil painting.
 
 I wonder what my great grandfather would have think of my art. He spent months
 or years creating his seascapes, while my photographs are captured in a
