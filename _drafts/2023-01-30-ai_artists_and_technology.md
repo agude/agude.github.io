@@ -23,12 +23,12 @@ categories:
 [switrs]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
 
 The open-source release of [Stable Diffusion][sd] has sparked an explosion of
-progress in [AI-generated art][ai_art]. It is in its infancy, but I can already tell
-this new artistic tool is going to revolutionize visual art creation. But not
-everyone views AI art generation in a positive light. Many artists feel that
-[AI art stole their work][stolen][^stolen_quote] and have [organized
-protests][anti] on popular sites like _ArtStation_. Other artists [claim that
-AI-generated art can't be art][not_art][^not_art_quote] because it isn't
+progress in [AI-generated art][ai_art]. Although it is in its infancy, I can
+already tell this new tool is going to revolutionize visual art creation. But
+not everyone views AI art in a positive light. Many artists feel that [AI art
+stole their work][stolen][^stolen_quote] and have [organized protests][anti]
+on popular sites like _ArtStation_. Other artists [claim that AI-generated art
+can't be art][not_art][^not_art_quote] because it isn't
 human.
 
 [sd]: https://en.wikipedia.org/wiki/Stable_Diffusion
@@ -76,11 +76,11 @@ landscape photographer.
 Photography has [a complicated history as "art"][jstor]. Although the first
 photograph was taken in 1826, it wasn't until 1924 that an American museum
 recognized the medium as art by [including photographs in its permanent
-collection][as]. At fist artists feared photography would replace traditional
+collection][as]. At first artists feared photography would replace traditional
 visual arts due to the ease of taking a picture. But eventually they realized
 it was a useful tool that could be combined with other art forms, even if they
 did not recognize photography as an art in its own
-right.[^brush_and_pencil][^the_new_path]
+right.[^brush_and_pencil]<sup>, </sup>[^the_new_path]
 
 [jstor]: https://daily.jstor.org/when-photography-was-not-art/
 
@@ -127,7 +127,7 @@ My family has a long history of painting. My great-great-great grandfather was
 the Norwegian landscape painter [Hans Gude][hans_gude]. My father, also named
 [Hans Gude][hans_gude_2], was [an accomplished oil
 painter][painter].[^hans_art] I too wanted to make art, but I did not have
-their skill with a brush so I picked up a camera and lens instead.
+their skill with a brush so I picked up a camera instead.
 
 [hans_gude]: https://en.wikipedia.org/wiki/Hans_Gude
 [hans_gude_2]: https://www.hfgudeart.com/about2
@@ -140,14 +140,14 @@ their skill with a brush so I picked up a camera and lens instead.
 
 I was drawn to photography **specifically because** it used technology. I like
 learning new technologies and how to master them. I _also_ thought it would be
-easier to learn to make art I was happy using a camera. I have since learned
-that photography has its own set of skills to master, but after 15 years I
-think I was mostly right: it is much easier than oil painting.
+easier to make art I was happy using a camera. I have since learned that
+photography has its own set of skills to master, but after 15 years I think I
+was mostly right: it is much easier than oil painting.
 
-I wonder what my great grandfather would have think of my art. He spent months
-or years creating his seascapes, while my photographs are captured in a
-fraction of a second with the push of a button, and maybe a few hours later
-spend adjusting tone curve and highlights.
+I wonder what my great grandfather would think of my art. He spent months or
+years creating his seascapes, while my photographs are captured in a fraction
+of a second with the push of a button, and maybe a few hours adjusting tone
+curve and highlights back at my computer.
 
 But I like to think that he would view my work as a continuation of our
 family's artistic tradition. Maybe in the future, my descendants will find the
