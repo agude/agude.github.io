@@ -121,6 +121,12 @@ an art in its own right.[^brush_and_pencil]<sup>, </sup>[^the_new_path]
 
 [tnp]: https://www.jstor.org/stable/20542505
 
+The concerns and criticisms currently being directed towards AI-generated art
+are the same as those leveled against photography in the past. And just as
+photography eventually gained acceptance as a valid form of art so will
+AI-generated art. The resistance against it may be strong, but ultimately, it
+is a losing battle.
+
 ## My Family's Art
 
 My family has a long history of painting. My great-great-great grandfather was
