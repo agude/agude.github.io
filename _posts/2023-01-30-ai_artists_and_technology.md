@@ -73,14 +73,14 @@ my job to build the types of systems these artists are using. But what is less
 obvious is that my support is also because I am an artist, specifically a
 landscape photographer.
 
-Photography has [a complicated history as "art"][jstor]. Although the first
-photograph was taken in 1826, it wasn't until 1924 that an American museum
-recognized the medium as art by [including photographs in its permanent
-collection][as]. At first artists feared photography would replace traditional
-visual arts due to the ease of taking a picture. But eventually they realized
-it was a useful tool that could be combined with other art forms, even if they
-did not recognize photography as an art in its own
-right.[^brush_and_pencil]<sup>, </sup>[^the_new_path]
+Photography---just like AI-generated art---has [a complicated history as
+"art"][jstor]. Although the first photograph was taken in 1826, it wasn't
+until 1924 that an American museum recognized the medium as art by [including
+photographs in its permanent collection][as]. At first artists feared
+photography would replace traditional visual arts due to the ease of taking a
+picture. But eventually they realized it was a useful tool that could be
+combined with other art forms, even if they did not recognize photography as
+an art in its own right.[^brush_and_pencil]<sup>, </sup>[^the_new_path]
 
 [jstor]: https://daily.jstor.org/when-photography-was-not-art/
 
@@ -140,7 +140,7 @@ their skill with a brush so I picked up a camera instead.
 
 I was drawn to photography **specifically because** it used technology. I like
 learning new technologies and how to master them. I _also_ thought it would be
-easier to make art I was happy using a camera. I have since learned that
+easier to make art I was happy with using a camera. I have since learned that
 photography has its own set of skills to master, but after 15 years I think I
 was mostly right: it is much easier than oil painting.
 
