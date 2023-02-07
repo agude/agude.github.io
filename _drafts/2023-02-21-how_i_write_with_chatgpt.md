@@ -68,9 +68,8 @@ I start by writing a rough draft which may consists of a few bullet points or
 a detailed set of paragraphs. Next, I give it to ChatGPT for refinement.
 ```
 
-I iterate on this process, taking parts of my text I'm not happy with and
-sending them to ChatGPT, until I like how the work flows.
-
+I iterate using this process, refining my text by sending the sections I'm
+unhappy with to ChatGPT for improvement until I'm satisfied.
 
 ### Edit 2
 
@@ -269,6 +268,5 @@ unhappy with for improvement until I'm content with the overall flow.
 Final:
 
 I iterate using this process, refining my text by sending the sections I'm
-unhappy with to ChatGPT for improvement until I'm satisfied with it.
-
+unhappy with to ChatGPT for improvement until I'm satisfied.
 ```
