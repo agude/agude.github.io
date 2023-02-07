@@ -34,38 +34,29 @@ Let me illustrate how I use ChatGPT to write and copyedit my work.
 I start by writing a rough draft which may consists of a few bullet points or
 a detailed set of paragraphs. Next, I give it to ChatGPT for refinement.
 
-```
-First draft:
+#### Prompt
 
-I start by writing a rough draft. This draft could be a just a few bullet
-points or completely fleshed out paragraphs. I then feed it into chatGPT:
+> Give me three versions of this paragraph: 
+>
+> I start by writing a rough draft. This draft could be a just a few bullet
+> points or completely fleshed out paragraphs. I then feed it into chatGPT:
 
-Prompt:
+#### Output
 
-Give me three versions of this paragraph: 
-
-I start by writing a rough draft. This draft could be a just a few bullet
-points or completely fleshed out paragraphs. I then feed it into chatGPT:
-
-Output:
-
-1. "I begin my writing process with a rough draft, which may range from a
-   simple list of bullet points to fully developed paragraphs. Next, I input
-   it into ChatGPT."
-2. "My writing method starts with a rough draft - it could be a brief outline
-   or a detailed set of paragraphs. Afterwards, I pass it to ChatGPT."
-3. "To start, I create a preliminary draft - it may consist of a handful of
-   bullet points or fully written paragraphs. Afterwards, I utilize ChatGPT to
-   refine it further."
-```
+> 1. "I begin my writing process with a rough draft, which may range from a
+>    simple list of bullet points to fully developed paragraphs. Next, I input
+>    it into ChatGPT."
+> 2. "My writing method starts with a rough draft - it could be a brief outline
+>    or a detailed set of paragraphs. Afterwards, I pass it to ChatGPT."
+> 3. "To start, I create a preliminary draft - it may consist of a handful of
+>    bullet points or fully written paragraphs. Afterwards, I utilize ChatGPT to
+>    refine it further."
 
 I don't usually take the entire output from ChatGPT, rather I use it to
 inspire my own editing:
 
-```
-I start by writing a rough draft which may consists of a few bullet points or
-a detailed set of paragraphs. Next, I give it to ChatGPT for refinement.
-```
+> I start by writing a rough draft which may consists of a few bullet points
+> or a detailed set of paragraphs. Next, I give it to ChatGPT for refinement.
 
 I iterate using this process, refining my text by sending the sections I'm
 unhappy with to ChatGPT for improvement until I'm satisfied.
