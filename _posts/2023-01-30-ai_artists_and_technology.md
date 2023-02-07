@@ -19,9 +19,6 @@ categories:
 
 {% capture file_dir %}/files/ai_artists_and_technology{% endcapture %}
 
-[last_post]: {% post_url 2022-11-10-switrs_pedestrian_incidents_by_date %}
-[switrs]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
-
 The open-source release of [Stable Diffusion][sd] has sparked an explosion of
 progress in [AI-generated art][ai_art]. Although it is in its infancy, I can
 already tell this new tool is going to revolutionize visual art creation. But
