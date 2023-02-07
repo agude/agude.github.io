@@ -24,7 +24,7 @@ entertaining but not useful.
 
 But ChatGPT is an incredibly useful tool for my writing due to its ability to
 rapidly iterate through alternative phrasings for ideas, sentences, and
-paragraphs. In these cases, the model's habit of generating false information
+paragraphs. In this cases, the model's habit of generating false information
 is not a concern because I wrote the original input so I know what it should
 say, and I can easily edit out any inaccuracies introduced by the model.
 
