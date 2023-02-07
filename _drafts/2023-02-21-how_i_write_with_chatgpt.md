@@ -21,7 +21,7 @@ In these cases, the model's habit of generating false information is not a
 concern because I wrote the original input so I know what it should say, and I
 can easily edit out any inaccuracies introduced by the model.
 
-Let me illustrate how I use ChatGPT to write and revise my work.
+Let me illustrate how I use ChatGPT to write and copyedit my work.
 
 ## My Writing Process
 
