@@ -12,14 +12,21 @@ categories:
 
 {% capture file_dir %}/files/chatgpt{% endcapture %}
 
-ChatGPT, the new large language model from OpenAI, has received widespread
-attention for its versatility in conversation, information retrieval, and even
-song writing. However, it's tendency to generate false but believable
-information has led many to see it as entertaining but not useful.
+[ChatGPT][chatgpt], the new [large language model][llm] from [OpenAI][oai],
+has received widespread attention for its versatility in conversation,
+information retrieval, and even song writing. However, it's tendency to
+generate false but believable information has led many to see it as
+entertaining but not useful.
 
-In these cases, the model's habit of generating false information is not a
-concern because I wrote the original input so I know what it should say, and I
-can easily edit out any inaccuracies introduced by the model.
+[chatgpt]: https://en.wikipedia.org/wiki/ChatGPT
+[llm]: https://en.wikipedia.org/wiki/Language_model
+[oai]: https://en.wikipedia.org/wiki/OpenAI
+
+But ChatGPT is an incredibly useful tool for my writing due to its ability to
+rapidly iterate through alternative phrasings for ideas, sentences, and
+paragraphs. In these cases, the model's habit of generating false information
+is not a concern because I wrote the original input so I know what it should
+say, and I can easily edit out any inaccuracies introduced by the model.
 
 Let me illustrate how I use ChatGPT to write and copyedit my work.
 
