@@ -45,7 +45,8 @@ Prompt:
 
 Give me three versions of this paragraph: 
 
-I start by writing a rough draft. This draft could be a just a few bullet points or completely fleshed out paragraphs. I then feed it into chatGPT:
+I start by writing a rough draft. This draft could be a just a few bullet
+points or completely fleshed out paragraphs. I then feed it into chatGPT:
 
 Output:
 
@@ -67,7 +68,9 @@ I start by writing a rough draft which may consists of a few bullet points or
 a detailed set of paragraphs. Next, I give it to ChatGPT for refinement.
 ```
 
-##  
+I iterate on this process, taking parts of my text I'm not happy with and
+sending them to ChatGPT, until I like how the work flows.
+
 
 ### Edit 2
 
@@ -240,5 +243,32 @@ Output:
 Edit:
 
 Let me illustrate how I use ChatGPT to write and revise my work.
+
+```
+
+### Edit 7
+
+```
+Prompt:
+
+Give me three versions of this:
+
+I iterate on this process, taking parts of my text I'm not happy with and
+sending them to ChatGPT, until I like how the work flows.
+
+Response:
+
+1. Revising my text with ChatGPT's help, I improve it piece by piece until I'm
+satisfied with the flow.
+2. With the aid of ChatGPT, I repeat the process of refining my text by
+sending unsatisfactory portions for improvement until I achieve the desired
+flow.
+3. I use ChatGPT to continuously refine my text, sending sections I'm
+unhappy with for improvement until I'm content with the overall flow.
+
+Final:
+
+I iterate using this process, refining my text by sending the sections I'm
+unhappy with to ChatGPT for improvement until I'm satisfied with it.
 
 ```
