@@ -40,7 +40,7 @@ a detailed set of paragraphs. Next, I give it to ChatGPT for refinement.
 > Give me three versions of this paragraph: 
 >
 > I start by writing a rough draft. This draft could be a just a few bullet
-> points or completely fleshed out paragraphs. I then feed it into chatGPT:
+> points or completely fleshed out paragraphs. I then feed it into ChatGPT:
 
 #### Output
 
@@ -62,61 +62,10 @@ inspire my own editing:[^edit_4]<sup>, </sup>[^edit_5]
 I iterate using this process, refining my text by sending the sections I'm
 unhappy with to ChatGPT for improvement until I'm satisfied.[^edit_6]
 
-[^edit_1]:
-    #### Prompt
 
-    ChatGPT is the new large language model from OpenAI. It has garnered a lot
-    of attention for its wide range of abilities from conversation to writing
-    songs to information retrieval. It has also drawn criticism for its habit
-    of making up plausible but completely wrong facts, leading many to
-    conclude that while it is entertaining it is not useful.
+[^edit_1]: {% include chatgpt_edit.html prompt="ChatGPT is the new large language model from OpenAI. It has garnered a lot of attention for its wide range of abilities from conversation to writing songs to information retrieval. It has also drawn criticism for its habit of making up plausible but completely wrong facts, leading many to conclude that while it is entertaining it is not useful." output="- OpenAI's ChatGPT is a highly advanced language model that has received widespread attention for its diverse abilities, including conversation, songwriting, and information retrieval. However, its tendency to generate false information that appears credible has led to criticism and the conclusion that, although entertaining, it may not be practical. - ChatGPT, the new AI model from OpenAI, has captured considerable attention for its wide range of skills, such as conversation, songwriting, and information retrieval. Despite this, its propensity for producing believable but false facts has sparked criticism, and many view it as entertaining but not practical. - OpenAI's ChatGPT, a new and sophisticated language model, has drawn a lot of attention for its versatility in conversation, songwriting, and information retrieval. Despite this, it has also faced criticism for generating seemingly credible but completely false information, leading many to see it as entertaining but lacking practicality." %}
 
-    #### Output
-
-    - "OpenAI's ChatGPT is a highly advanced language model that has received
-    widespread attention for its diverse abilities, including conversation,
-    songwriting, and information retrieval. However, its tendency to generate
-    false information that appears credible has led to criticism and the
-    conclusion that, although entertaining, it may not be practical."
-    - "ChatGPT, the new AI model from OpenAI, has captured considerable
-    attention for its wide range of skills, such as conversation, songwriting,
-    and information retrieval. Despite this, its propensity for producing
-    believable but false facts has sparked criticism, and many view it as
-    entertaining but not practical."
-    - "OpenAI's ChatGPT, a new and sophisticated language model, has drawn a
-    lot of attention for its versatility in conversation, songwriting, and
-    information retrieval. Despite this, it has also faced criticism for
-    generating seemingly credible but completely false information, leading
-    many to see it as entertaining but lacking practicality."
-
-[^edit_2]:
-    #### Prompt
-
-    I find ChatGPT to be incredibly useful as part of my writing process,
-    because ChatGPT makes it fast and easy to generate different possible ways
-    to write down an idea, sentence, or paragraph. In these cases the fact
-    that the model makes things up is irrelevant because I wrote the original
-    source material so I can filter out any inaccuracies the model introduces.
-
-    #### Output
-
-    - "I consider ChatGPT to be a valuable tool in my writing process due to
-    its ability to quickly and effortlessly generate various ways of phrasing
-    an idea, sentence, or paragraph. In these cases, the fact that the model
-    generates false information is not a concern as I am the originator of the
-    source material and can easily identify and remove any inaccuracies
-    introduced by the model."
-    - "For me, ChatGPT is an extremely useful aspect of my writing as it
-    facilitates the rapid creation of alternative phrasings for ideas,
-    sentences, or paragraphs. The model's tendency to generate false
-    information is inconsequential in these scenarios as I am the source of
-    the original material and can easily filter out any inaccuracies
-    introduced by the model."
-    - "ChatGPT is an indispensable part of my writing process as it enables me
-    to quickly generate various ways to express an idea, sentence, or
-    paragraph. Its tendency to produce false information is not a problem as I
-    am the writer of the original source material, and I can easily eliminate
-    any inaccuracies introduced by the model."
+[^edit_2]: {% include chatgpt_edit.html prompt=" I find ChatGPT to be incredibly useful as part of my writing process, because ChatGPT makes it fast and easy to generate different possible ways to write down an idea, sentence, or paragraph. In these cases the fact that the model makes things up is irrelevant because I wrote the original source material so I can filter out any inaccuracies the model introduces. " output="- I consider ChatGPT to be a valuable tool in my writing process due to its ability to quickly and effortlessly generate various ways of phrasing an idea, sentence, or paragraph. In these cases, the fact that the model generates false information is not a concern as I am the originator of the source material and can easily identify and remove any inaccuracies introduced by the model. - For me, ChatGPT is an extremely useful aspect of my writing as it facilitates the rapid creation of alternative phrasings for ideas, sentences, or paragraphs. The model's tendency to generate false information is inconsequential in these scenarios as I am the source of the original material and can easily filter out any inaccuracies introduced by the model. - ChatGPT is an indispensable part of my writing process as it enables me to quickly generate various ways to express an idea, sentence, or paragraph. Its tendency to produce false information is not a problem as I am the writer of the original source material, and I can easily eliminate any inaccuracies introduced by the model." %}
 
 [^edit_4]:
     #### Prompt
