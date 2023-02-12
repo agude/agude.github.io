@@ -1,6 +1,6 @@
-{% comment %}
-The HTML is *VERY* sensitive to new lines, so we fill with comments to make
-sure it looks like one line to the Markdown parser.
+{%- comment %}
+The HTML is *VERY* sensitive to new lines, so we fill with {{- null -}} which
+does nothing _except_ consume a new line on eitherside.
 
 Otherwise it doens't work inside footnotes.
 
@@ -8,22 +8,17 @@ See:
 https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-include-external-content-inside-footnotes
 
 {% endcomment -%}
-<div class="chatgpt-edit-block">
-  {%- comment %}{% endcomment -%}
-  <div class="chatgpt-prompt">
-    {%- comment %}{%- endcomment %}
-    <strong>Prompt</strong>
-    {%- comment %}{%- endcomment -%}
-    <br>
-{%- comment %}{% endcomment -%}<div class="chatgpt-prompt-only">
-{%- comment %}{% endcomment -%}<blockquote>{{include.prompt}}</blockquote>
-{%- comment %}{% endcomment -%}</div>
-{%- comment %}{% endcomment -%}</div>
-{%- comment %}{% endcomment -%}<div class="chatgpt-output">
-{%- comment %}{% endcomment -%}<strong>Output</strong>
-{%- comment %}{% endcomment -%}<br>
-{%- comment %}{% endcomment -%}<div class="chatgpt-output-only">
-{%- comment %}{% endcomment -%}<blockquote>{{include.output}}</blockquote>
-{%- comment %}{% endcomment -%}</div>
-{%- comment %}{% endcomment -%}</div>
-{%- comment %}{% endcomment -%}</div>
+<div class="chatgpt-edit-block">{{- null -}}
+  <div class="chatgpt-prompt">{{- null -}}
+    <strong>Prompt</strong>{{- null -}}
+    <div class="chatgpt-prompt-only">{{- null -}}
+      <blockquote>{{include.prompt}}</blockquote>{{- null -}}
+    </div>{{- null -}}
+  </div>{{- null -}}
+  <div class="chatgpt-output">{{- null -}}
+    <strong>Output</strong>{{- null -}}
+    <div class="chatgpt-output-only">{{- null -}}
+      <blockquote>{{include.output}}</blockquote>{{- null -}}
+    </div>{{- null -}}
+  </div>{{- null -}}
+</div>{{- null -}}
