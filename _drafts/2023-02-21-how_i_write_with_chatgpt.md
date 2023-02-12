@@ -5,9 +5,13 @@ description: >
   OpenAI's ChatGPT is viewed as entertaining but not useful because it makes
   up facts. But I find it incredibly valuable for writing. Here is how I use
   it.
-image: /files/ai_artists_and_technology/field_of_yellow_by_alex_gude_oil_painted_by_stable_diffusion.jpg
+image: /files/chatgpt/00137-2463433472-watercolor_illustration,_(adorable_robot),_desk_lamp,_sitting_at_a_(((typewriter))),_(chair),_desk,_(clear),_(straight_lines).jpg
 hide_lead_image: False
 image_alt: >
+    'A colorful watercolor illustration of a robot sitting at a desk with a
+    typewriter infront of the robot. Generated with stable diffusion. Prompt:
+    "watercolor illustration, (adorable robot), desk lamp, sitting at a
+    (((typewriter))), (chair), desk, (clear), (straight lines)"'
 categories: 
   - career-advice
   - machine-learning
