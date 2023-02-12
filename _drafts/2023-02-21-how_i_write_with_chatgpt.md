@@ -2,6 +2,9 @@
 layout: post
 title: How I Write with ChatGPT
 description: >
+  OpenAI's ChatGPT is viewed as entertaining but not useful because it makes
+  up facts. But I find it incredibly valuable for writing. Here is how I use
+  it.
 image: /files/ai_artists_and_technology/field_of_yellow_by_alex_gude_oil_painted_by_stable_diffusion.jpg
 hide_lead_image: False
 image_alt: >
