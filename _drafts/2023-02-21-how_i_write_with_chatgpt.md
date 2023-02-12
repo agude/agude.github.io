@@ -19,7 +19,7 @@ categories:
 widespread attention for its versatility in conversation, information
 retrieval, and even song writing. However, it's tendency to generate false but
 believable information has led many to see it as _entertaining_ but not
-_useful_.[^edit_1]
+_useful_.[^edit_1]<sup> (Click to see my edit prompts.)</sup>
 
 [chatgpt]: https://en.wikipedia.org/wiki/ChatGPT
 [oai]: https://en.wikipedia.org/wiki/OpenAI
