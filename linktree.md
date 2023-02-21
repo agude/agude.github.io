@@ -3,40 +3,40 @@ layout: default
 title: Alex Gude's Linktree
 description: >
   Important links for Alex Gude.
-sidebar_include: true
+sidebar_include: false
 ---
+
+# My Links
+
 <div class="linktree-container">
+
+  <!-- Twitter -->
   <a rel="me" class="linktree-item" href="https://twitter.com/{{ site.author.twitter }}">
     <div class="social-button twitter-button linktree-images">{% include icon-twitter.svg %}</div>
     <div class="linktree-text">@alex_gude</div>
   </a>
 
-  <a rel="me" class="linktree-item" href="https://twitter.com/{{ site.author.twitter }}">
-    <div class="social-button twitter-button linktree-images">{% include icon-twitter.svg %}</div>
-    <div class="linktree-text">@alex_gude</div>
-  </a>
-
-  {% comment %}
-  <div class="linktree-element linktree-image">
   <!-- Mastodon -->
-  <a rel="me" class="social-button mastodon-button" href="https://fediscience.org/@{{ site.author.mastodon }}">
-    {% include icon-mastodon.svg %}
+  <a rel="me" class="linktree-item" href="https://fediscience.org/@{{ site.author.mastodon }}">
+    <div class="social-button mastodon-button linktree-images">{% include icon-mastodon.svg %}</div>
+    <div class="linktree-text">@alex_gude@fediscience.org</div>
   </a>
-  </div>
 
-  <div class="linktree-element linktree-text">
   <!-- LinkedIn -->
-  <a rel="me" class="social-button linkedin-button" href="https://www.linkedin.com/in/{{ site.author.linkedin}}/">
-    {% include icon-linkedin.svg %}
+  <a rel="me" class="linktree-item" href="https://www.linkedin.com/in/{{ site.author.linkedin}}/">
+    <div class="social-button linkedin-button linktree-images">{% include icon-linkedin.svg %}</div>
+    <div class="linktree-text">Alexander Gude</div>
   </a>
-  </div>
 
-  <div class="linktree-element">
-  <!-- RSS -->
-  <a class="social-button rss-button" href="/feed.xml">
-    {% include icon-rss.svg %}
+  <!-- Website -->
+  <a rel="me" class="linktree-item" href="/">
+    <div class="linktree-text">alexgude.com</div>
   </a>
-  </div>
-  {% endcomment %}
+
+  <!-- RSS -->
+  <a rel="me" class="linktree-item" href="/feed.xml">
+    <div class="social-button rss-button linktree-images">{% include icon-rss.svg %}</div>
+    <div class="linktree-text">alexgude.com</div>
+  </a>
 
 </div>
