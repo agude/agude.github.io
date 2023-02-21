@@ -21,13 +21,24 @@ sidebar_include: false
 
   <!-- Mastodon -->
   {% capture mastodon_url %}https://fediscience.org/@{{ site.author.mastodon }}{% endcapture %}
-  {% capture mastodon_text %}@{{ site.author.mastodon }}@fediscience.org{% endcapture %}
+  {% capture mastodon_text %}@{{ site.author.mastodon }}{% endcapture %}
   {% capture mastodon_icon %}{% include icon-mastodon.svg %}{% endcapture %}
   {% include linktree_item.html
     link=mastodon_url
     text=mastodon_text
     icon=mastodon_icon
     button_class="mastodon-button"
+  %}
+
+  <!-- Github -->
+  {% capture github_url %}https://github.com/{{ site.author.github }}{% endcapture %}
+  {% capture github_text %}{{ site.author.github }}{% endcapture %}
+  {% capture github_icon %}{% include icon-github.svg %}{% endcapture %}
+  {% include linktree_item.html
+    link=github_url
+    text=github_text
+    icon=github_icon
+    button_class="github-button"
   %}
 
   <!-- LinkedIn -->
