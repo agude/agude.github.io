@@ -18,13 +18,22 @@
   }
 }
 
-// Linktree Grid
-.linktree-links-grid {
-  display: grid;
-  grid-template-columns: 10em auto;
-  grid-gap: 0.5em;
-  background-color: #f9f9f9;
+// Linktree container
+.linktree-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0.25em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.linktree-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
+  background-color: #f9f9f9;
   border: 0.15em solid #e5e5e5;
   border-radius: 5px;
   padding: 0.25em;
@@ -32,10 +41,17 @@
   margin-bottom: 0.25em;
 }
 
-.linktree-element {
-  padding: 0.2em;
-  border: 0.15em solid #e5e5e5;
-  border-radius: 5px;
+.linktree-image {
+  border: 0.15em solid red;
+  top: 50%;
+  left: 50%;
+}
+
+.linktree-text {
+  text-align: center;
+  font-size: $card-font-size;
+  flex-grow: 1;
+
 }
 
 // Card Grid

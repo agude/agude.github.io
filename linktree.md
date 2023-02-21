@@ -5,25 +5,26 @@ description: >
   Important links for Alex Gude.
 sidebar_include: true
 ---
-<div class="linktree-links-grid">
-
-  <!-- Twitter -->
-  <div class="linktree-element">
-  <a rel="me" class="social-button twitter-button" href="https://twitter.com/{{ site.author.twitter }}">
-  {% include icon-twitter.svg %}
-  <br>
-  @alex_gude@twitter.com
+<div class="linktree-container">
+  <a rel="me" class="linktree-item" href="https://twitter.com/{{ site.author.twitter }}">
+    <div class="social-button twitter-button linktree-images">{% include icon-twitter.svg %}</div>
+    <div class="linktree-text">@alex_gude</div>
   </a>
-  </div>
 
-  <div class="linktree-element">
+  <a rel="me" class="linktree-item" href="https://twitter.com/{{ site.author.twitter }}">
+    <div class="social-button twitter-button linktree-images">{% include icon-twitter.svg %}</div>
+    <div class="linktree-text">@alex_gude</div>
+  </a>
+
+  {% comment %}
+  <div class="linktree-element linktree-image">
   <!-- Mastodon -->
   <a rel="me" class="social-button mastodon-button" href="https://fediscience.org/@{{ site.author.mastodon }}">
     {% include icon-mastodon.svg %}
   </a>
   </div>
 
-  <div class="linktree-element">
+  <div class="linktree-element linktree-text">
   <!-- LinkedIn -->
   <a rel="me" class="social-button linkedin-button" href="https://www.linkedin.com/in/{{ site.author.linkedin}}/">
     {% include icon-linkedin.svg %}
@@ -36,5 +37,6 @@ sidebar_include: true
     {% include icon-rss.svg %}
   </a>
   </div>
+  {% endcomment %}
 
 </div>
