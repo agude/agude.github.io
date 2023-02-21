@@ -1,0 +1,12 @@
+<a rel="me" class="linktree-item" href="{{ include.link }}">
+  {% comment %} The SVG icon {% endcomment %}
+  <div class="social-button {{ include.button_class | default ''}} linktree-images">
+    {{ include.icon }}
+  </div>
+  {% comment %} The text of the link {% endcomment %}
+  <div class="linktree-text">
+    <strong>
+      {{ include.text }}
+    </strong>
+  </div>
+</a>

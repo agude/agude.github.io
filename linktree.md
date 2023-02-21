@@ -6,38 +6,57 @@ description: >
 sidebar_include: false
 ---
 
-# My Links
-
 <div class="linktree-container">
 
   <!-- Twitter -->
-  <a rel="me" class="linktree-item" href="https://twitter.com/{{ site.author.twitter }}">
-    <div class="social-button twitter-button linktree-images">{% include icon-twitter.svg %}</div>
-    <div class="linktree-text"><strong>@alex_gude</strong></div>
-  </a>
+  {% capture twitter_url %}https://twitter.com/{{ site.author.twitter }}{% endcapture %}
+  {% capture twitter_text %}@{{ site.author.twitter }}{% endcapture %}
+  {% capture twitter_icon %}{% include icon-twitter.svg %}{% endcapture %}
+  {% include linktree_item.html
+    link=twitter_url
+    text=twitter_text
+    icon=twitter_icon
+    button_class="twitter-button"
+  %}
 
   <!-- Mastodon -->
-  <a rel="me" class="linktree-item" href="https://fediscience.org/@{{ site.author.mastodon }}">
-    <div class="social-button mastodon-button linktree-images">{% include icon-mastodon.svg %}</div>
-    <div class="linktree-text"><strong>@alex_gude@fediscience.org</strong></div>
-  </a>
+  {% capture mastodon_url %}https://fediscience.org/@{{ site.author.mastodon }}{% endcapture %}
+  {% capture mastodon_text %}@{{ site.author.mastodon }}@fediscience.org{% endcapture %}
+  {% capture mastodon_icon %}{% include icon-mastodon.svg %}{% endcapture %}
+  {% include linktree_item.html
+    link=mastodon_url
+    text=mastodon_text
+    icon=mastodon_icon
+    button_class="mastodon-button"
+  %}
 
   <!-- LinkedIn -->
-  <a rel="me" class="linktree-item" href="https://www.linkedin.com/in/{{ site.author.linkedin}}/">
-    <div class="social-button linkedin-button linktree-images">{% include icon-linkedin.svg %}</div>
-    <div class="linktree-text"><strong>Alexander Gude</strong></div>
-  </a>
+  {% capture linkedin_url %}https://www.linkedin.com/in/{{ site.author.linkedin }}{% endcapture %}
+  {% capture linkedin_text %}{{ site.author.name }}{% endcapture %}
+  {% capture linkedin_icon %}{% include icon-linkedin.svg %}{% endcapture %}
+  {% include linktree_item.html
+    link=linkedin_url
+    text=linkedin_text
+    icon=linkedin_icon
+    button_class="linkedin-button"
+  %}
 
   <!-- Website -->
-  <a rel="me" class="linktree-item" href="/">
-    <div class="social-button rss-button linktree-images">{% include icon-globe.svg %}</div>
-    <div class="linktree-text"><strong>alexgude.com</strong></div>
-  </a>
+  {% capture website_icon %}{% include icon-globe.svg %}{% endcapture %}
+  {% include linktree_item.html
+    link="/"
+    text="alexgude.com"
+    icon=website_icon
+    button_class="website-button"
+  %}
 
   <!-- RSS -->
-  <a rel="me" class="linktree-item" href="/feed.xml">
-    <div class="social-button rss-button linktree-images">{% include icon-rss.svg %}</div>
-    <div class="linktree-text"><strong>alexgude.com/feed.xml</strong></div>
-  </a>
+  {% capture rss_icon %}{% include icon-rss.svg %}{% endcapture %}
+  {% include linktree_item.html
+    link="/feed.xml"
+    text="alexgude.com/feed.xml"
+    icon=rss_icon
+    button_class="rss-button"
+  %}
 
 </div>
