@@ -8,7 +8,7 @@ sidebar_include: false
 
 <div class="linktree-container">
 
-  <!-- Twitter -->
+  {% comment %} Twitter {% endcomment %}
   {% capture twitter_url %}https://twitter.com/{{ site.author.twitter }}{% endcapture %}
   {% capture twitter_text %}@{{ site.author.twitter }}{% endcapture %}
   {% capture twitter_icon %}{% include icon-twitter.svg %}{% endcapture %}
@@ -19,7 +19,7 @@ sidebar_include: false
     button_class="twitter-button"
   %}
 
-  <!-- Mastodon -->
+  {% comment %} Mastodon {% endcomment %}
   {% capture mastodon_url %}https://fediscience.org/@{{ site.author.mastodon }}{% endcapture %}
   {% capture mastodon_text %}@{{ site.author.mastodon }}{% endcapture %}
   {% capture mastodon_icon %}{% include icon-mastodon.svg %}{% endcapture %}
@@ -30,7 +30,7 @@ sidebar_include: false
     button_class="mastodon-button"
   %}
 
-  <!-- Github -->
+  {% comment %} Github {% endcomment %}
   {% capture github_url %}https://github.com/{{ site.author.github }}{% endcapture %}
   {% capture github_text %}{{ site.author.github }}{% endcapture %}
   {% capture github_icon %}{% include icon-github.svg %}{% endcapture %}
@@ -41,7 +41,7 @@ sidebar_include: false
     button_class="github-button"
   %}
 
-  <!-- LinkedIn -->
+  {% comment %} LinkedIn {% endcomment %}
   {% capture linkedin_url %}https://www.linkedin.com/in/{{ site.author.linkedin }}{% endcapture %}
   {% capture linkedin_text %}{{ site.author.name }}{% endcapture %}
   {% capture linkedin_icon %}{% include icon-linkedin.svg %}{% endcapture %}
@@ -52,7 +52,7 @@ sidebar_include: false
     button_class="linkedin-button"
   %}
 
-  <!-- Website -->
+  {% comment %} Website {% endcomment %}
   {% capture website_icon %}{% include icon-globe.svg %}{% endcapture %}
   {% include linktree_item.html
     link="/"
@@ -61,7 +61,7 @@ sidebar_include: false
     button_class="website-button"
   %}
 
-  <!-- RSS -->
+  {% comment %} RSS {% endcomment %}
   {% capture rss_icon %}{% include icon-rss.svg %}{% endcapture %}
   {% include linktree_item.html
     link="/feed.xml"
