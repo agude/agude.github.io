@@ -4,8 +4,6 @@ title: Alex Gude's Linktree
 description: >
   Important links for Alex Gude.
 sidebar_include: false
-redirect_from:
-  - links
 ---
 
 <div class="headline-center" markdown="1">
