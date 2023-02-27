@@ -127,8 +127,10 @@ this page in the form of a too-honest resume.
 {% include resume_experience.html
   company="Intuit"
   location="Mountain View, CA"
-  position="Staff Data Scientist / Senior Data Science Manager"
+  position="Staff Data Scientist"
   dates="2017--2020"
+  position_2="Senior Data Science Manager"
+  dates_2="2018--2019"
 %}
 
 - My manager and director both left Intuit just after I joined, leaving our
@@ -138,8 +140,10 @@ this page in the form of a too-honest resume.
 {% include resume_experience.html
   company="Cash App"
   location="Remote"
-  position="Machine Learning Engineer, Modeler"
-  dates="2020--Present"
+  position="Senior Staff (L7) Machine Learning Engineer, Modeler"
+  dates="2023--Present"
+  position_2="Staff (L6) Machine Learning Engineer, Modeler"
+  dates_2="2020--2023"
 %}
 
 - While [looking for a job][job] after being laid off during COVID, I called

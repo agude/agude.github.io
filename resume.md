@@ -24,8 +24,10 @@ and accelerate feature processing.
 {% include resume_experience.html
   company="Cash App"
   location="Remote"
-  position="Staff Machine Learning Engineer, Modeler"
-  dates="2020--Present"
+  position="Senior Staff (L7) Machine Learning Engineer, Modeler"
+  dates="2023--Present"
+  position_2="Staff (L6) Machine Learning Engineer, Modeler"
+  dates_2="2020--2023"
 %}
 
 - Estimated the impact of instant bank account opening (as opposed to delayed
@@ -54,8 +56,10 @@ and accelerate feature processing.
 {% include resume_experience.html
   company="Intuit"
   location="Mountain View, CA"
-  position="Staff Data Scientist / Senior Data Science Manager"
+  position="Staff Data Scientist"
   dates="2017--2020"
+  position_2="Senior Data Science Manager"
+  dates_2="2018--2019"
 %}
 
 - Led 8 data scientists in building machine learning models to detect and stop
