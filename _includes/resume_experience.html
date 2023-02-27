@@ -5,4 +5,9 @@
     {% comment %}The second line including position and dates. {% endcomment %}
     <div class="resume-position">{{ include.position | markdownify }}</div>
     <div class="resume-dates">{{ include.dates | markdownify }}</div>
+    {% comment %}The third line including position and dates. {% endcomment %}
+    {% if include.position_2 != null %}
+      <div class="resume-position">{{ include.position_2 | markdownify }}</div>
+      <div class="resume-dates">{{ include.dates_2 | markdownify }}</div>
+    {% endif %}
 </div>

@@ -24,7 +24,8 @@ can be found at [Gab41][gab41] and [rehosted on this page][lab41_posts]. If
 you're interested in my thoughts in real time (as well as sneak peaks at what
 I'm writing), follow me at _@{{ site.author.twitter }}_ on <a rel="me"
 href="https://twitter.com/{{ site.author.twitter }}">Twitter</a> and <a
-rel="me" href="https://fediscience.org/@{{ site.author.mastodon }}">Mastodon</a>.
+rel="me" href="https://{{ site.author.mastodon_instance }}/@{{
+site.author.mastodon }}">Mastodon</a>.
 
 [blog]: /blog/
 [gab41]: https://gab41.lab41.org/@Alex.Gude
