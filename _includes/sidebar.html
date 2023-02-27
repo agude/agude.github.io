@@ -33,23 +33,23 @@
     <div class="sidebar-social-links">
       Follow me on: 
       <div class="sidebar-social-links-buttons">
-        <!-- Twitter Button -->
+        {% comment %} Twitter Button {% endcomment %}
         <a rel="me" class="sidebar-button twitter-button" href="https://twitter.com/{{ site.author.twitter }}">
           {% include icon-twitter.svg %}
         </a>
-        <!-- Mastodon Button -->
+        {% comment %} Mastodon Button {% endcomment %}
         <a rel="me" class="sidebar-button mastodon-button" href="https://{{ site.author.mastodon_instance }}/@{{ site.author.mastodon }}">
           {% include icon-mastodon.svg %}
         </a>
-        <!-- Github Button -->
+        {% comment %} Github Button {% endcomment %}
         <a rel="me" class="sidebar-button github-button" href="https://www.github.com/{{ site.author.github}}/">
           {% include icon-github.svg %}
         </a>
-        <!-- LinkedIn Button -->
+        {% comment %} LinkedIn Button {% endcomment %}
         <a rel="me" class="sidebar-button linkedin-button" href="https://www.linkedin.com/in/{{ site.author.linkedin}}/">
           {% include icon-linkedin.svg %}
         </a>
-        <!-- RSS Button -->
+        {% comment %} RSS Button {% endcomment %}
         <a class="sidebar-button rss-button" href="/feed.xml">
           {% include icon-rss.svg %}
         </a>
