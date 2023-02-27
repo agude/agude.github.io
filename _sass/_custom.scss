@@ -29,8 +29,9 @@
 }
 
 .linktree-item {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: min-content 1fr;
   justify-content: center;
   align-items: center;
   background-color: #f9f9f9;
