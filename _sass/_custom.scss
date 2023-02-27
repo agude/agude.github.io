@@ -27,9 +27,9 @@ div.headline-center {
 
 // Card Grid
 .card-grid {
-  display: grid;
-  grid-template-columns: 10em auto;
-  grid-gap: 0.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
   background-color: #f9f9f9;
   align-items: center;
   border: 0.15em solid #e5e5e5;
@@ -37,6 +37,13 @@ div.headline-center {
   padding: 0.25em;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
+}
+
+.article-card {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 0.5em;
+  align-items: center;
 }
 
 .card-element {
