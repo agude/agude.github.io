@@ -27,12 +27,10 @@ Chat from Microsoft, and Bard from Google.
 
 ## What Are They Good For?
 
-In math there is a type of problem where it is hard (or impossible) to
-generate a solution, but if given a solution it is easy to verify. For
-example, it is hard to find the solution to an integral, but it is trivial to
-take the derivative of the solution and confirm that it is correct. In these
-situations a common strategy is to "guess" the form of the solution and then
-verify that it is correct.
+In math, there are a types of problems where finding a solution is difficult
+or impossible, but verifying a solution is easy. A common strategy to solve
+these problems is to guess the solution's form and then verify it, such as for
+an integral where the solution can be verified by taking its derivative.
 
 These problems---where generating the solution is hard but verifying it is
 easy---are where large language models excel. Think of editing a paragraph. It
