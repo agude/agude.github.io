@@ -33,16 +33,18 @@ these problems is to guess the solution's form and then verify it, such as for
 an integral where the solution can be verified by taking its derivative.
 
 Large language models are particularly useful for exactly these types of
-tasks: _where generating a solution is hard, but verifying it is easy_.
+tasks: **where generating a solution is hard, but verifying it is easy**.
 Editing a paragraph is a prime example of this kind of task since writing
 multiple versions is time-consuming, whereas verifying the quality of a single
 paragraph can be done quickly.
 
 ## What Are They Bad For?
 
+LLMs are **bad for problems where verification is hard** compared to the
+generation of an answer.
+
 Some people are using LLMs as a replacement for search engines. This is a
 perfect example of a **bad use** of the technology because verifying the
 accuracy of the information provided by the model takes time and effort. In
 fact, it often involves additional searches to confirm the validity of the
-answer, which defeats the purpose of using an LLM.
-
+answer, which defeats the purpose of using an LLM in the first place.
