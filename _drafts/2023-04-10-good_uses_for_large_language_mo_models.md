@@ -24,6 +24,12 @@ Chat from Microsoft, and Bard from Google.
 [chatgpt]: https://en.wikipedia.org/wiki/ChatGPT
 [oai]: https://en.wikipedia.org/wiki/OpenAI
 
+I gave an example in my last post of a good application for LLMs: [editing
+prose][last_post]. But what features of that problem make it particularly
+well-suited to solving it with a model? I will clarify why in the rest of this
+post.
+
+[last_post]: {% post_url 2023-02-13-how_i_write_with_chatgpt %}
 
 ## What Are They Good For?
 
