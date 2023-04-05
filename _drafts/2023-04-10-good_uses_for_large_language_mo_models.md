@@ -35,7 +35,7 @@ this post.
 ## What Are They Good For?
 
 In math, there are a types of problems where finding a solution is difficult
-or impossible, but verifying a solution is easy. A common strategy to solve
+or impossible, but confirming a solution is easy. A common strategy to solve
 these problems is to guess the solution's form and then verify it, such as for
 an integral where the solution can be verified by taking its derivative.
 
