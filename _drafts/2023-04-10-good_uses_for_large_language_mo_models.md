@@ -32,9 +32,8 @@ or impossible, but verifying a solution is easy. A common strategy to solve
 these problems is to guess the solution's form and then verify it, such as for
 an integral where the solution can be verified by taking its derivative.
 
-These problems---where generating the solution is hard but verifying it is
-easy---are where large language models excel. Think of editing a paragraph. It
-is hard to write down five different version, it would take me probably 2-3
-minutes each and I'd be exhausted at the end. But I can read one of the
-paragraphs in about 10 seconds and judge if it is good and correct. Editing is
-hard but verifying the edit is easy, the perfect place to use an LLM!
+Large language models are particularly useful for exactly these types of
+tasks: _where generating a solution is hard, but verifying it is easy_.
+Editing a paragraph is a prime example of this kind of task since writing
+multiple versions is time-consuming, whereas verifying the quality of a single
+paragraph can be done quickly.
