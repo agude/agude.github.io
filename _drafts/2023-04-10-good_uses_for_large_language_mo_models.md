@@ -38,9 +38,11 @@ Editing a paragraph is a prime example of this kind of task since writing
 multiple versions is time-consuming, whereas verifying the quality of a single
 paragraph can be done quickly.
 
-Many people are using LLMs to replace search engines. This is a **bad use** of
-these models because verifying the correctness of the information it returns
-takes a long time. In fact, determining if the answer is correct involves
-searching for the information again and so you might as well have done that
-in the first place!
+## What Are They Bad For?
+
+Some people are using LLMs as a replacement for search engines. This is a
+perfect example of a **bad use** of the technology because verifying the
+accuracy of the information provided by the model takes time and effort. In
+fact, it often involves additional searches to confirm the validity of the
+answer, which defeats the purpose of using an LLM.
 
