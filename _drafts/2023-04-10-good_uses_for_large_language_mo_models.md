@@ -37,3 +37,10 @@ tasks: _where generating a solution is hard, but verifying it is easy_.
 Editing a paragraph is a prime example of this kind of task since writing
 multiple versions is time-consuming, whereas verifying the quality of a single
 paragraph can be done quickly.
+
+Many people are using LLMs to replace search engines. This is a **bad use** of
+these models because verifying the correctness of the information it returns
+takes a long time. In fact, determining if the answer is correct involves
+searching for the information again and so you might as well have done that
+in the first place!
+
