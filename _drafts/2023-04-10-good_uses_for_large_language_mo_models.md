@@ -18,11 +18,20 @@ categories:
 
 {% capture file_dir %}/files/chatgpt{% endcapture %}
 
-Large language models (LLMs) like [ChatGPT][chatgpt] from [OpenAI][oai], Bing
-Chat from Microsoft, and Bard from Google.
+Large language models (LLMs) like [ChatGPT][chatgpt] from [OpenAI][oai], [Bing
+Chat][bing] from [Microsoft][msft], and [Bard][lambda] from [Google][goog]
+have taken off in the last few months. It feels like we have reached some
+inflection point as the technology wows users. But not everyone is impressed,
+several people have prompted it, gotten back made up "hallucinations", and
+written the technology off. I have LLMs to be incredibly valuable, if you know
+when to use them.
 
 [chatgpt]: https://en.wikipedia.org/wiki/ChatGPT
 [oai]: https://en.wikipedia.org/wiki/OpenAI
+[bing]: https://en.wikipedia.org/wiki/GPT-4#Microsoft_Bing
+[msft]: https://en.wikipedia.org/wiki/Microsoft
+[lambda]: https://en.wikipedia.org/wiki/LaMDA
+[goog]: https://en.wikipedia.org/wiki/Google
 
 I gave an example in my last post of a good application for LLMs: [editing
 prose][last_post]. But what specifically makes this problem ideal for solving
