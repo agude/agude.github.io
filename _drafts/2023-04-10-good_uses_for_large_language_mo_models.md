@@ -20,19 +20,16 @@ categories:
 
 Large language models (LLMs) like [ChatGPT][chatgpt], [Bing Chat][bing], and
 [Bard][lambda] have gained tremendous popularity in recent months as they
-begin to astound users with their abilities. It feels like we have reached a
-turning point for the technology as people start to integrate it into their
+begin to astound users with their abilities. It feels like a pivotal moment in
+the technology's growth as it becomes increasingly integrated into people's
 workflows. Despite the excitement, some people are already dismissing the
-technology after they received nonsensical responses to their questions.
-However, I find LLMs to be incredibly valuable tools, _if_ you know when to
-use them.
+technology after they tried it and received nonsensical responses to their
+questions. However, I find LLMs to be incredibly valuable tools, _if_ you know
+when to use them.
 
 [chatgpt]: https://en.wikipedia.org/wiki/ChatGPT
-[oai]: https://en.wikipedia.org/wiki/OpenAI
 [bing]: https://en.wikipedia.org/wiki/GPT-4#Microsoft_Bing
-[msft]: https://en.wikipedia.org/wiki/Microsoft
 [lambda]: https://en.wikipedia.org/wiki/LaMDA
-[goog]: https://en.wikipedia.org/wiki/Google
 
 I gave an example in my last post of a good application for LLMs: [editing
 prose][last_post]. But what specifically makes this problem ideal for solving
