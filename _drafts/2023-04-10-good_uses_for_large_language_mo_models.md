@@ -52,6 +52,9 @@ Editing a paragraph is a prime example of this kind of task since writing
 multiple versions is time-consuming, whereas verifying the quality of a single
 paragraph can be done quickly.
 
+Another good use case is writing code, especially if you have tests in place
+to verify the code's correctness.
+
 ## What Are They Bad For?
 
 LLMs are **bad for problems where verification is hard** compared to the
