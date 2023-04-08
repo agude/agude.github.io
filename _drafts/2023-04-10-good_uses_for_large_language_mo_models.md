@@ -43,7 +43,7 @@ this post.
 In math, there are a types of problems where finding a solution is difficult
 or impossible, but confirming a solution is easy. A common strategy to solve
 these problems is to guess the solution's form and then verify it, such as for
-an integral where the solution can be verified by taking its derivative.
+an integral where the solution can be checked by taking its derivative.
 
 Large language models are particularly useful for exactly these types of
 tasks: **where generating a solution is hard, but verifying it is easy**.
