@@ -19,13 +19,12 @@ categories:
 {% capture file_dir %}/files/chatgpt{% endcapture %}
 
 Large language models (LLMs) like [ChatGPT][chatgpt], [Bing Chat][bing], and
-[Bard][lambda] have gained tremendous popularity in recent months as they
-begin to astound users with their abilities. It feels like a pivotal moment in
-the technology's growth as it becomes increasingly integrated into people's
-workflows. Despite the excitement, some people are already dismissing the
-technology after they tried it and received nonsensical responses to their
-questions. However, I find LLMs to be incredibly valuable tools, _if_ you know
-when to use them.
+[Bard][lambda] have gained tremendous popularity in recent months. It feels
+like a pivotal moment in the technology's growth as it becomes increasingly
+integrated into people's workflows. But despite the excitement, some people
+are already dismissing the technology after they asked it questions and
+received nonsensical responses. I think they are mistaken. LLMs are incredibly
+valuable tools, _if_ you know when to use them.
 
 [chatgpt]: https://en.wikipedia.org/wiki/ChatGPT
 [bing]: https://en.wikipedia.org/wiki/GPT-4#Microsoft_Bing
