@@ -2,9 +2,9 @@
 layout: post
 title: When Are Large Language Models Useful?
 description: >
-  OpenAI's ChatGPT is viewed as entertaining but not useful because it makes
-  up facts. But I find it incredibly valuable for writing. Here is how I use
-  it.
+  Large language models (LLMs) are incredibly valuable tools, but they're not
+  for everything. Here's a simple rule to know when to use them and when to
+  avoid them.
 image: /files/chatgpt/00137-2463433472-watercolor_illustration_adorable_robot_desk_lamp_sitting_at_a_typewriter_chair_desk_clear_straight_lines.jpg
 hide_lead_image: False
 image_alt: >
