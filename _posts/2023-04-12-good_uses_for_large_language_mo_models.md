@@ -8,7 +8,7 @@ description: >
 image: files/chatgpt/00259-1343806484-A_drawing_of_a_cute_robot_color_writing_with_a_pen_sitting_at_a_desk.jpg
 hide_lead_image: False
 image_alt: >
-    'A colorful illustration of a two robots sitting at a desk with with
+    A colorful illustration of a two robots sitting at a desk with with
     empty paper and books infront of them. One is holding a pencil. Generated 
     with stable diffusion. Prompt: A drawing of a cute robot, color, writing 
     with a pen, sitting at a desk
