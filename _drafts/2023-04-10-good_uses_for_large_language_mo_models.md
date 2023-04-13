@@ -5,13 +5,13 @@ description: >
   Large language models (LLMs) are incredibly valuable tools, but they're not
   for everything. Here's a simple rule to know when to use them and when to
   avoid them.
-image: /files/chatgpt/00137-2463433472-watercolor_illustration_adorable_robot_desk_lamp_sitting_at_a_typewriter_chair_desk_clear_straight_lines.jpg
+image: files/chatgpt/00259-1343806484-A drawing of a cute robot, color, writing with a pen, sitting at a desk.jpg
 hide_lead_image: False
 image_alt: >
-    'A colorful watercolor illustration of a robot sitting at a desk with a
-    typewriter infront of the robot. Generated with stable diffusion. Prompt:
-    watercolor illustration, adorable robot, desk lamp, sitting at a
-    typewriter, chair, desk, clear, straight lines'
+    'A colorful illustration of a two robots sitting at a desk with with
+    empty paper and books infront of them. One is holding a pencil. Generated 
+    with stable diffusion. Prompt: A drawing of a cute robot, color, writing 
+    with a pen, sitting at a desk
 categories: 
   - machine-learning
 ---
