@@ -33,11 +33,6 @@
   {% comment %} From jekyll/jekyll-seo-tag {% endcomment %}
   {% seo %}
 
-  {% if jekyll.environment == 'production' %}
-    <!-- Google Analytics -->
-    {% include analytics.html %}
-  {% endif %}
-
   {% if page.use_latex %}
     <!-- MathJax -->
     {% include mathjax.html %}

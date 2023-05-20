@@ -64,9 +64,6 @@ webmaster_verifications:
   google: NnoUcVom5yrsNeAcRLx7yQvWortvmqEP-yazzCmGSMA
   bing: 529AEED96113CF6F5C0DB973E3336D9E
 
-# Google Analytics
-google_analytics: UA-88777885-1
-
 # Disable jekyll-optional-front-matter plugin
 require_front_matter: true
 

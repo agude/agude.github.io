@@ -59,8 +59,6 @@
 
     {% comment %} Legal text {% endcomment %}
     <small>
-      <a class="legal{% if page.url == "/privacy-policy/" %} active{% endif %}" href="/privacy-policy/">Privacy Policy</a>
-      <br>
       &copy;&nbsp;<time datetime="{{ '2016-01-01T00:00:00Z' | date_to_xmlschema }}">2016</time>–<time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time> by {{ site.author.name }}
     </small>
 
