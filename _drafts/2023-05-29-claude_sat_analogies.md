@@ -6,7 +6,7 @@ description: >
   better? A small test of Anthropic's Claude LLM.
 image: /files/sat2vec/00225-2672697451-impressionistic_painting,_four_men_studying_at_a_desk,_smoking,_looking_over_papers,_window_in_the_background.png
 image_alt: >
-  An impressionistic painting based on "Night Before the Exam" by Leonid
+  An impressionistic painting based on 'Night Before the Exam' by Leonid
   Pasternak, generated with Stable Diffusion using img2img from the original.
   The painting shows four students sitting around a kitchen table studying for
   a exam. Prompt: Impressionistic painting, four men studying at a desk,
@@ -81,9 +81,13 @@ Then I gave it an analogy like:
 > <span markdown="0">------------------------</span>
 >
 >  fortify : strong
+>
 >  captivate : attractive
+>
 >  deter : active
+>
 >  furrow : productive
+>
 >  mend : torn
 </div>
 </div>
