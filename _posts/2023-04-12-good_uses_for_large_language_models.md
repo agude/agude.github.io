@@ -12,6 +12,7 @@ image_alt: >
     empty paper and books infront of them. One is holding a pencil. Generated 
     with stable diffusion. Prompt: A drawing of a cute robot, color, writing 
     with a pen, sitting at a desk
+redirect_from: blog/good-uses-for-large-language-mo-models/
 categories: 
   - machine-learning
 ---
