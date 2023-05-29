@@ -2,17 +2,19 @@
 layout: post
 title: "Claude Solves SAT Analogies"
 description: >
-  Could Word2Vec pass the SAT analogies section and get accepted to a good
-  college? I take a pre-trained model and find out!
-image: /files/sat2vec/Pasternak_The_Night_Before_the_Exam.jpg
+  Word2Vec failed to solve SAT analogies, can modern language models do
+  better? A small test of Anthropic's Claude LLM.
+image: /files/sat2vec/00225-2672697451-impressionistic_painting,_four_men_studying_at_a_desk,_smoking,_looking_over_papers,_window_in_the_background.png
 image_alt: >
-  An impressionistic painting titled 'Night Before the Exam' by Leonid
-  Pasternak. The painting shows four students sitting around a kitchen table
-  studying for a exam. One student holds a skull, while the others longue
-  around smoking or studying books or papers.
+  An impressionistic painting based on 'Night Before the Exam' by Leonid
+  Pasternak, generated with Stable Diffusion using img2img from the original.
+  The painting shows four students sitting around a kitchen table studying for
+  a exam. Prompt: Impressionistic painting, four men studying at a desk,
+  smoking, looking over papers, window in the background.
 categories:
   - machine-learning
 ---
+
 
 {% capture file_dir %}/files/sat2vec{% endcapture %}
 
