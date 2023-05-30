@@ -14,6 +14,7 @@ image_alt: >
     with a pen, sitting at a desk
 redirect_from: blog/good-uses-for-large-language-mo-models/
 categories: 
+  - generative-ai
   - machine-learning
 ---
 

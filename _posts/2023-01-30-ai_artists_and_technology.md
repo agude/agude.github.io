@@ -13,6 +13,7 @@ image_alt: >
   flowers, with a forest behind them. The Jura Mountains loom behind the
   forest, and the sky is bright blue with some large white clouds.
 categories: 
+  - generative-ai
   - machine-learning
   - opinions
 ---

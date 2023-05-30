@@ -12,6 +12,7 @@ image_alt: >
   a exam. Prompt: Impressionistic painting, four men studying at a desk,
   smoking, looking over papers, window in the background.
 categories:
+  - generative-ai
   - machine-learning
 ---
 
