@@ -13,6 +13,7 @@ image_alt: >
     watercolor illustration, adorable robot, desk lamp, sitting at a
     typewriter, chair, desk, clear, straight lines'
 categories: 
+  - generative-ai
   - machine-learning
 ---
 

@@ -220,14 +220,6 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | oblique : familiarity   | 0.895      |
 | opulent : wealth        | 0.984      |
 
-| paltry : significance   | Distance   |
-|:------------------------|-----------:|
-| austere : landscape     | 0.803      |
-| redundant : discussion  | 0.829      |
-| **banal : originality** | **0.861**  |
-| oblique : familiarity   | 0.895      |
-| opulent : wealth        | 0.984      |
-
 | hospitable : courtesy   | Distance   |
 |:------------------------|-----------:|
 | leisurely : haste       | 0.872      |
