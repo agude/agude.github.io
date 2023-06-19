@@ -83,3 +83,7 @@ Of course, this is a great place to [use enums][enum_post]!
 [enum_post]: {% post_url 2019-01-22-python_patterns_enum %}
 
 ### Maintenance
+
+Model performance changes overtime. With the API returning actions you can
+handle this change much easier because you are free to to update thresholds,
+retrain old models, or completely deprecate models.
