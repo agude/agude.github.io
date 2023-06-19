@@ -15,10 +15,10 @@ categories:
 
 At a previous job, my team built models that stopped ATOs---[Account
 takeovers][ato_wiki], where a fraudster steals someone's account credentials
-and attempts to use them to takeover the account. The engineering team that
-owned the login flow would call our model [API][api_wiki], and we would return
-the model score. The engineering team had a threshold in their code, and if
-the score crossed that threshold, they would take some action.
+and attempts to use them. The engineering team that owned the login flow would
+call our model [API][api_wiki], and we would return the model score. The
+engineering team had a threshold in their code, and if the score crossed that
+threshold, they would take some action.
 
 [ato_wiki]: https://en.wikipedia.org/wiki/Credit_card_fraud#Account_takeover
 [api_wiki]: https://en.wikipedia.org/wiki/API
@@ -35,6 +35,8 @@ why we built the ATO API the way we did: to address the organizational issue
 that the engineering team did not trust the machine learning team.
 
 [shadow_mode_post]: {% post_url 2020-06-30-machine_learning_deployment_shadow_mode %}#in-front-of-the-api
+
+But if your teams trust each other, there is a much better way to build.
 
 ## What is a better way?
 
