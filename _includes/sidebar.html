@@ -37,6 +37,10 @@
         <a rel="me" class="sidebar-button twitter-button" href="https://twitter.com/{{ site.author.twitter }}">
           {% include icon-twitter.svg %}
         </a>
+        {% comment %} BlueSky Button {% endcomment %}
+        <a rel="me" class="sidebar-button bluesky-button" href="https://bsky.app/profile/{{ site.author.bluesky }}">
+          {% include icon-bluesky.svg %}
+        </a>
         {% comment %} Mastodon Button {% endcomment %}
         <a rel="me" class="sidebar-button mastodon-button" href="https://{{ site.author.mastodon_instance }}/@{{ site.author.mastodon }}">
           {% include icon-mastodon.svg %}

@@ -25,7 +25,9 @@ you're interested in my thoughts in real time (as well as sneak peaks at what
 I'm writing), follow me at _@{{ site.author.twitter }}_ on <a rel="me"
 href="https://twitter.com/{{ site.author.twitter }}">Twitter</a> and <a
 rel="me" href="https://{{ site.author.mastodon_instance }}/@{{
-site.author.mastodon }}">Mastodon</a>.
+site.author.mastodon }}">Mastodon</a>, or at the handle <a rel="me"
+href="https://bsky.app/profile/{{ site.author.bluesky }}">_@{{
+site.author.bluesky }}_ on BlueSky</a>.
 
 [blog]: {% link blog/index.html %}
 [gab41]: https://gab41.lab41.org/@Alex.Gude
