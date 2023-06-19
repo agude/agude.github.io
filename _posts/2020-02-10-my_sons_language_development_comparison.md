@@ -49,8 +49,8 @@ The data can be found [here][theo_data] and [here][cory_data].
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
-[theo_data]: /files/my-sons-words/theo_words.csv
-[cory_data]: /files/my-second-sons-words/cory_words.csv
+[theo_data]: {% link files/my-sons-words/theo_words.csv %}
+[cory_data]: {% link files/my-second-sons-words/cory_words.csv %}
 
 ## Development
 
@@ -95,7 +95,7 @@ worried. Thankfully, Theo has had no problems since and now talks incessantly.
 If you enjoyed this article, here are all the other articles I wrote about
 [language development][language_topic]!
 
-[language_topic]: /topics/childhood-language/
+[language_topic]: {% link topics/childhood-language.md %}
 
 {% include topic_posts_but_not_current.html
   topic="childhood-language"

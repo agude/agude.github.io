@@ -138,7 +138,7 @@ hair on my chiny chin chin".
 If you enjoyed this article, here are all the other articles I wrote about
 [language development][language_topic]!
 
-[language_topic]: /topics/childhood-language/
+[language_topic]: {% link topics/childhood-language.md %}
 
 {% include topic_posts_but_not_current.html
   topic="childhood-language"

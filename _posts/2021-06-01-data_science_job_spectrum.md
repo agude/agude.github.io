@@ -102,8 +102,8 @@ Spark, Docker, and REST APIs.
 This is the role I feel most comfortable in, with its mix of [software
 development][dev], [machine learning][ml], and direct impact on customers.
 
-[dev]: /topics/software-development/
-[ml]: /topics/machine-learning/
+[dev]: {% link topics/software-development.md %}
+[ml]: {% link topics/machine-learning.md %}
 
 ### Machine Learning Engineer
 

@@ -26,7 +26,7 @@ multiple, specialized roles.
 [^pro]: At least in the sense that I was paid to do it... I don't claim to
     have been any good.
 
-[phd]: /blog/should-i-get-a-phd/#but-there-are-no-jobs
+[phd]: {% post_url 2018-01-19-should_i_get_a_phd %}#but-there-are-no-jobs
 [insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
 
 ## The Split

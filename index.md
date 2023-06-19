@@ -27,9 +27,9 @@ href="https://twitter.com/{{ site.author.twitter }}">Twitter</a> and <a
 rel="me" href="https://{{ site.author.mastodon_instance }}/@{{
 site.author.mastodon }}">Mastodon</a>.
 
-[blog]: /blog/
+[blog]: {% link blog/index.html %}
 [gab41]: https://gab41.lab41.org/@Alex.Gude
-[lab41_posts]: /topics/lab41/
+[lab41_posts]: {% link topics/lab41.md %}
 
 The code that I write lives on my <a rel="me" href="https://github.com/{{
 site.author.github }}">Github page</a>. Check it out! Bug reports and pull
