@@ -50,10 +50,12 @@ of authentication, such as a code sent to their email.
 account until the user recovers it.
 
 These actions do a really good job of hiding the implementation behind the
-API. Once you've done so there are a few useful machine learning patterns you
-can take advantage of.
+API. You can freely change thresholds when the model performance changes,
+retrain the model, or even replace it entirely.
 
-### Use multiple systems
+But you can do something else too, you can add more models!
+
+### Using multiple systems
 
 A common fraud-prevention strategy is to train a new model for each new fraud
 pattern identified. This allows each model to be highly [precise][pr_wiki],
@@ -68,24 +70,38 @@ system returns the most drastic action recommended by any model or rule.
 In code:
 
 ```python
-# List of actions returned by all the models and rules,
-# consists of values from {'Allow', 'Step-up', 'Lock'}
-all_results = get_system_results()  
+def ato_api(event_token):
+  # List of actions returned by all the models and rules,
+  # consists of values from {'Allow', 'Step-up', 'Lock'}
+  all_results = get_ato_system_results(event_token)  
 
-if 'Lock' in all_results:
-  return 'Lock'
-elif 'Step-up' in all_results:
-  return 'Step-up'
+  if 'Lock' in all_results:
+    return 'Lock'
+  elif 'Step-up' in all_results:
+    return 'Step-up'
 
-return 'Allow'
+  return 'Allow'
 ```
 
-Of course, this is a great place to [use enums][enum_post]!
+Of course, this is a great place to use [enums][enum_post] and
+[max][max_post]:
 
 [enum_post]: {% post_url 2019-01-22-python_patterns_enum %}
+[max_post]: {% post_url 2018-06-14-python_patterns_max_not_if %}
 
-### Maintenance
+```python
+from enum import IntEnum, unique
 
-Model performance changes overtime. With the API returning actions you can
-handle this change much easier because you are free to to update thresholds,
-retrain old models, or completely deprecate models.
+@unique
+class Action(IntEnum):
+  ALLOW = 0
+  STEPUP = 1
+  LOCK = 2
+
+def ato_api(event_token):
+  # List of actions returned by all the models and rules,
+  # consists of values from Action() enum
+  all_results = get_ato_system_results(event_token)  
+
+  return max(all_results)
+```
