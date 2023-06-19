@@ -57,11 +57,11 @@ But you can do something else too, you can add more models!
 
 ### Using multiple systems
 
-A common fraud-prevention strategy is to train a new model for each new fraud
+A common fraud-prevention strategy is to train a model for each new fraud
 pattern identified. This allows each model to be highly [precise][pr_wiki],
 while also improving the [recall][pr_wiki] of the overall system. These
 multi-model systems are often augmented with simple rules, such as "No logins
-from Russia allowed." In the end, the system takes all the outputs of the
+from Russia allowed." In the end, the system takes the outputs of the various
 models and rules and aggregates them in some way. In our ATO example, the
 system returns the most drastic action recommended by any model or rule.
 
