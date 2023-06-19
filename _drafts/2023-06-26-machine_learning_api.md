@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Machine Learning Deployment: Hide Your Score!"
+title: "Machine Learning Deployment:<br>Return Actions, Not Score"
 description: >
-  Deploying machine learning models is hard; Shadow Mode is one way to make
-  testing a little easier.
+  A poorly designed machine learning model API will leave you trapped.
+  Properly hiding your implementation will make life much easier!
 image: /files/shadow-mode/bricks_at_mit.jpg
 image_alt: >
   A black and white photo of bricks making up Kresge Auditorium at MIT.
