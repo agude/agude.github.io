@@ -23,10 +23,10 @@ threshold, they would take some action.
 [ato_wiki]: https://en.wikipedia.org/wiki/Credit_card_fraud#Account_takeover
 [api_wiki]: https://en.wikipedia.org/wiki/API
 
-You can probably already see the problem: APIs are **supposed to hide the
-implementation details** behind them, but instead we returned the
-_uncalibrated_ model score. Any change behind the API---such as retraining the
-model or replacing it---would leak details to the front end.
+You can probably already see the problem: APIs are **meant to hide the inner
+workings behind them**. But by returning the raw model scores, we revealed too
+much detail. Any changes to the model, like retraining it, could change the
+scores and break the front end.
 
 In my guide to [_deploying machine learning models in shadow
 mode_][shadow_mode_post], I stated that deploying changes "in front of the
