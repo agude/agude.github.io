@@ -10,6 +10,7 @@ image_alt: >
   A black and white photo of the clock on the Customs House Tower in Boston.
 categories: 
   - machine-learning
+  - machine-learning-engineering
 ---
 
 {% capture file_dir %}/files/realtime-features/{% endcapture %}

@@ -9,6 +9,7 @@ image_alt: >
   A black and white photo of bricks making up Kresge Auditorium at MIT.
 categories: 
   - machine-learning
+  - machine-learning-engineering
 ---
 
 {% capture file_dir %}/files/shadow-mode/{% endcapture %}

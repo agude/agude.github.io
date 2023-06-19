@@ -11,6 +11,7 @@ image_alt: >
 categories:
   - software-development
   - machine-learning
+  - machine-learning-engineering
 ---
 
 {% capture file_dir %}/files/pandas-pipelines/{% endcapture %}
