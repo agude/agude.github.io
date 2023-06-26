@@ -4,9 +4,12 @@ title: "Machine Learning Deployment:<br>Return Actions, Not Score"
 description: >
   A poorly designed machine learning model API will leave you trapped.
   Properly hiding your implementation will make life much easier!
-image: /files/shadow-mode/bricks_at_mit.jpg
+image: /files/ml-api/00678-3489016266-a_simple_color_pencil_drawing_a_cute_robot,_plugging_cat5_cable_into_a_network_switch,_white_background.png
 image_alt: >
-  A black and white photo of bricks making up Kresge Auditorium at MIT.
+    A colorful pencil drawing of two robots fussing with some techno-thingy
+    between them. Generated with stable diffusion. Prompt: A simple color
+    pencil drawing a ((cute robot)), plugging cat5 cable into a network
+    switch, white background
 categories: 
   - machine-learning
   - machine-learning-engineering
