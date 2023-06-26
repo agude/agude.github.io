@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Machine Learning Deployment:<br>Return Actions, Not Score"
+title: "Machine Learning Deployment: <br>Return Actions, Not Score"
 description: >
   A poorly designed machine learning model API will leave you trapped.
   Properly hiding your implementation will make life much easier!
@@ -10,7 +10,7 @@ image_alt: >
     between them. Generated with stable diffusion. Prompt: A simple color
     pencil drawing a ((cute robot)), plugging cat5 cable into a network
     switch, white background
-categories: 
+categories:
   - machine-learning
   - machine-learning-engineering
 ---
@@ -77,7 +77,7 @@ In code:
 def ato_api(event_token):
   # List of actions returned by all the models and rules,
   # consists of values from {'Allow', 'Step-up', 'Lock'}
-  all_results = get_ato_system_results(event_token)  
+  all_results = get_ato_system_results(event_token)
 
   if 'Lock' in all_results:
     return 'Lock'
@@ -105,7 +105,7 @@ class Action(IntEnum):
 def ato_api(event_token):
   # List of actions returned by all the models and rules,
   # consists of values from Action() enum
-  all_results = get_ato_system_results(event_token)  
+  all_results = get_ato_system_results(event_token)
 
   return max(all_results)
 ```
