@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Machine Learning Deployment: <br>Return Actions, Not Score"
+title: "Machine Learning Deployment: <br>Return Actions, Not Scores"
 description: >
   A poorly designed machine learning model API will leave you trapped.
   Properly hiding your implementation will make life much easier!
