@@ -73,9 +73,9 @@ experienced riders.
 I've contacted Rad's support several times---to order spokes and the brake
 tool, and to replace a faulty accessory. They were generally quick and helpful
 but I've never needed support for other bikes. And the last interaction was
-terrible: their front basket was defective and instead of helping out Rad
-support accused me of being unable to use a screw driver and then stopped
-responding.
+terrible: Rad's front basket was defective, and after I sent them photographic
+proof, they accused me of being unable to use a screw driver and stopped
+responding. It was the worst support experience I've ever had.
 
 ## Final Thoughts
 
@@ -83,6 +83,6 @@ The RadWagon was a savior during the pandemic, letting us escape the house and
 ride when we'd otherwise be trapped inside. It also beats driving kids in a
 car---hauling them on the back makes getting to the park part of the fun.
 
-But the bike needs constant maintenance that is difficult even for experienced
-mechanic, and Rad's support is not great. I wish I had purchased a
+But the bike needs constant maintenance that is difficult even for and
+experienced mechanic, and Rad's support is not great. I wish I had purchased a
 higher-quality bike that wouldn't fail so frequently.
