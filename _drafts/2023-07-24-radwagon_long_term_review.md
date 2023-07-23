@@ -2,9 +2,12 @@
 layout: post
 title: "A 1850-mile Review of the RadWagon 3"
 description: >
+    The RadWagon electric cargo bike was a savior during lockdown family
+    rides, but frustrating maintenance and support issues disappoint. Read my
+    in-depth review.
 image: /files/radwagon/loaded_radwagon_3.jpg
 image_alt: >
-  Radwagon 3 loaded with clothing and balance bikes in the grass.
+  RadWagon 3 loaded with clothing and balance bikes in the grass.
 categories:
   - opinions
 ---
