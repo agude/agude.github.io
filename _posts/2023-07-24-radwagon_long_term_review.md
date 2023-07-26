@@ -49,11 +49,11 @@ and she has it all the way down.
 
 ### Motor
 
-The bike uses a rear hub motor that can put out 750 Watts and easily bring the
-bike up to it's computer limited top speed of 20 miles per hour. The bike has
-a throttle, which I love for getting started from a stop, and enough power to
-carry me, two kids, and some balance bikes up a steep hill. The downside
-though is the hub motor puts a lot of stress on the rear wheel.
+The 750W rear hub motor easily brings the bike to its 20 miles per hour
+computer-limited top speed. The bike has a throttle, which I love for getting
+started from a stop, and enough power to carry me, two kids, and some balance
+bikes up a steep hill. The downside though is the hub motor puts a lot of
+stress on the rear wheel.
 
 ### Flaws
 
