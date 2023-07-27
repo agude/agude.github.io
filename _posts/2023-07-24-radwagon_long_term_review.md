@@ -86,6 +86,6 @@ The RadWagon was a savior during the pandemic, letting us escape the house and
 ride when we'd otherwise be trapped inside. It also beats driving kids in a
 car---hauling them on the back makes getting to the park part of the fun.
 
-But the bike needs constant maintenance that is difficult even for and
+But the bike needs constant maintenance that is difficult even for an
 experienced mechanic, and Rad's support is not great. I wish I had purchased a
 higher-quality bike that wouldn't fail so frequently.
