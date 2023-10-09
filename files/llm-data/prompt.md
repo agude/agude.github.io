@@ -22,7 +22,7 @@ fields is the "make" of the vehicle, for example, "Honda", "Ford",
 
 But this field a free-text field filled out by the CHP officer on the scene of
 the collision. As such there are misspellings, abbreviations, and other
-mistakes that have to be fixed.
+mistakes that have to be fixed. 
 
 I have created a set of makes as follows (including `NONE` as a placeholder
 for unknown values). Here is the list in a Python `Enum`:
@@ -112,58 +112,53 @@ class Make(Enum):
     YAMAHA                  = "yamaha"
 ```
 
-I will provide you with a list of strings. You are to return a Python
-dictionary mapping the strings to the enum values above. And example set of
-strings:
+Take note that anything unknown should be tagged with `Make.None`. And do not
+make up new Enum values.
 
-```
-MINNI
-CHVROLET
-AMERICAN LA FRANCE
-GILG
-WHITEGMC
-FRTH
-HONDA MC
-WINNE
-FREIGH
-VOLKWA
-HYNUDAI
-MAZ
-VOLKW
-TOT
-INFI
-LAND RVR
-HYNU
-VOLOVO
-MNI
-HYUNDI
-```
-
-And the correct mapping:
+I will provide you with a string. You are to return a Python dictionary with
+the following keys, in this same order:
 
 ```python
-MAKE_MAP = {
-  "MINNI": Make.MINI.value,
-  "CHVROLET": Make.CHEVROLET.value,
-  "AMERICAN LA FRANCE": Make.AMERICAN_LAFRANCE.value,
-  "GILG": Make.GILLIG.value,
-  "WHITEGMC": Make.GMC.value,
-  "FRTH": Make.FREIGHTLINER.value,
-  "HONDA MC": Make.HONDA.value,
-  "WINNE": Make.WINNEBAGO.value,
-  "FREIGH": Make.FREIGHTLINER.value,
-  "VOLKWA": Make.VOLKSWAGEN.value,
-  "HYNUDAI": Make.HYUNDAI.value,
-  "MAZ": Make.MAZDA.value,
-  "VOLKW": Make.VOLKSWAGEN.value,
-  "TOT": Make.TOYOTA.value,
-  "INFI": Make.INFINITI.value,
-  "LAND RVR": Make.LAND_ROVER.value,
-  "HYNU": Make.HYUNDAI.value,
-  "VOLOVO": Make.VOLVO.value,
-  "MNI": Make.MINI.value,
-  "HYUNDI": Make.HYUNDAI.value,
+{
+  explanation: "An explanation of why you think the enum value is a good match, or why there is no match possible.",
+  input_string: "The input string",
+  enum: "The correct enum from above",
+  no_match: "`True` or `False`. True if there is no matching enum or no way to make a match, otherwise False.", 
 }
 ```
-</div>
-</div>
+
+For example, for the input `VOLX`:
+
+```python
+{
+  explanation: """VOLX is pronouced similarly to 'Volks' and therefore this is
+    probably an abbreviation of 'Volkswagen'. There is an enum value for
+    Volkswagon, `Make.VOLKSWAGEN`, already so we use that.""",
+  input_string: "VOLX",
+  enum: make.VOLKSWAGEN,
+  no_match: False,
+}
+```
+
+For example, for the input `COROLLA`:
+
+```python
+{
+  explanation: """COROLLA is not a make, but is a model of car. The maker of
+  the Corolla is Toyota, so the correct mapping is Make.TOYOTA.""",
+  input_string: "COROLLA",
+  enum: make.TOYOTA,
+  no_match: False,
+}
+```
+
+For example, for the input `(()`:
+
+```python
+{
+  explanation: "(() is gibberish. We can not determine a correct make, so use Make.NONE.",
+  input_string: "(()",
+  enum: make.NONE,
+  no_match: True,
+}
+```

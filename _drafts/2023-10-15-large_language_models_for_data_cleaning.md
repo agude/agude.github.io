@@ -71,9 +71,11 @@ What we want is to solve a few-shot, multi-label classification problem. The
 classification part _could_ be done without a large language model, but to
 make it few-shot almost certainly would require some sort of language model.
 
+### Prompting
+
 The first step is to write a prompt explaining the task, the expected return
 value, and a few examples of input and correct outputs. Here is a shortened
-version, the full one is [here][prompt]:
+version, the full one is [here][prompt], starting with the instructions:
 
 [prompt]: /blog/llm-data/prompt/
 
@@ -85,8 +87,8 @@ version, the full one is [here][prompt]:
 > 
 > But this field a free-text field filled out by the CHP officer on the scene
 > of the collision. As such there are misspellings, abbreviations, and other
-> mistakes that have to be fixed.
->
+> mistakes that have to be fixed. 
+> 
 > I have created a set of makes as follows (including `NONE` as a placeholder
 > for unknown values). Here is the list in a Python `Enum`:
 > 
@@ -95,38 +97,75 @@ version, the full one is [here][prompt]:
 > class Make(Enum):
 >     ACADIAN                 = "acadian"
 >     ACURA                   = "acura"
+>     ALFA_ROMERO             = "alfa romera"
+>     AMC                     = "american motors"
 >     ...
->     YAMAHA                  = "yamaha"
-> ```
->
-> I will provide you with a list of strings. You are to return a Python dictionary mapping the strings to the enum values above. And example set of strings:
-> 
-> ```
-> MINNI
-> CHVROLET
-> AMERICAN LA FRANCE
-> GILG
-> WHITEGMC
-> FRTH
-> HONDA MC
-> WINNE
 > ```
 > 
-> And the correct mapping:
+> Take note that anything unknown should be tagged with `Make.None`. And do
+> not make up new Enum values.
+</div>
+</div>
+
+Then the output format:
+
+<div class="chatgpt-edit-block"> 
+<div class="chatgpt-prompt-only" markdown="1"> 
+> I will provide you with a string. You are to return a Python dictionary with
+> the following keys, in this same order:
 > 
 > ```python
-> MAKE_MAP = {
->   "MINNI": Make.MINI.value,
->   "CHVROLET": Make.CHEVROLET.value,
->   "AMERICAN LA FRANCE": Make.AMERICAN_LAFRANCE.value,
->   "GILG": Make.GILLIG.value,
->   "WHITEGMC": Make.GMC.value,
->   "FRTH": Make.FREIGHTLINER.value,
->   "HONDA MC": Make.HONDA.value,
->   "WINNE": Make.WINNEBAGO.value,
+> {
+>   explanation: "An explanation of why you think the enum value is a good match, or why there is no match possible.",
+>   input_string: "The input string",
+>   enum: "The correct enum from above",
+>   no_match: "`True` or `False`. True if there is no matching enum or no way to make a match, otherwise False.", 
 > }
 > ```
 </div>
 </div>
 
-Then gave the model the 900.
+And finally some examples of input and output:
+
+<div class="chatgpt-edit-block"> 
+<div class="chatgpt-prompt-only" markdown="1"> 
+> For example, for the input `VOLX`:
+>
+> ```python
+> {
+>   explanation: """VOLX is pronouced similarly to 'Volks' and therefore this is
+>     probably an abbreviation of 'Volkswagen'. There is an enum value for
+>     Volkswagon, `Make.VOLKSWAGEN`, already so we use that.""",
+>   input_string: "VOLX",
+>   enum: make.VOLKSWAGEN,
+>   no_match: False,
+> }
+> ```
+</div>
+</div>
+
+### Answers
+
+For simplicity I sent the model batches of 100-200 strings sorted
+alphabetically. If I had API access, I would have sent one string each time
+with a set of custom examples pulled from a currated set (a form of
+[retrieval-augmented generation][rag]).
+
+[rag]: https://en.wikipedia.org/w/index.php?title=Prompt_engineering&oldid=1179231833#Retrieval-augmented_generation
+
+I think the batches helped the model figure out very short entries since it
+would see multiple similar strings next to eachother. For example, it failed
+when I gave it `WNBG` (Winnebago) by itself, but succeeded when I gave it the
+list:
+
+```
+WINN
+WINNE   
+WINNEBAG
+WINNEBAGO
+WINNI
+WNBG 
+WNBGO
+```
+
+### Performance
