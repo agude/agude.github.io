@@ -107,7 +107,10 @@ version, the full one is [here][prompt], starting with the instructions:
 </div>
 </div>
 
-Then the output format:
+Then the output format, with instructions to include an explanation of its
+logic first, which can [help model accuracy][cot]:
+
+[cot]: https://arxiv.org/abs/2201.11903
 
 <div class="chatgpt-edit-block"> 
 <div class="chatgpt-prompt-only" markdown="1"> 
@@ -146,7 +149,7 @@ And finally some examples of input and output:
 
 ### Answers
 
-For simplicity I sent the model batches of 100-200 strings sorted
+For simplicity, I sent the model batches of 100-200 strings sorted
 alphabetically. If I had API access, I would have sent one string each time
 with a set of custom examples pulled from a currated set (a form of
 [retrieval-augmented generation][rag]).
@@ -169,3 +172,13 @@ WNBGO
 ```
 
 ### Performance
+
+This method actually works pretty well. Of my 902 entries the model:
+
+- Fixed 2 of them that I had gotten wrong.
+- Got 682 correct, matching what I wrote by hand.
+- And missed 218, but often by using an enum value that didn't exist.
+
+This is pretty good! Finding the wrong entries was much faster than writing
+the entire list by hand, and in many cases a quick find replace would fix the
+error.
