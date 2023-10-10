@@ -35,7 +35,10 @@ But since they can write anything they occasionally make it a little harder on
 us by abbreviating or mistyping, for example `VOLX` and `DODDGE`. And
 sometimes they make it impossible by writing `--` or `______`.
 
-The solution is to go through, one by one, and create a mapping like:
+The solution is to go through, one by one, and create a [mapping][enum_post]
+like:
+
+[enum_post]: {% post_url 2019-01-22-python_patterns_enum %}
 
 ```python
 @unique
