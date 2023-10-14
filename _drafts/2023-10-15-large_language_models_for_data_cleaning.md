@@ -16,24 +16,28 @@ redirect_from: blog/good-uses-for-large-language-mo-models/
 categories: 
   - generative-ai
   - machine-learning
+  - california-traffic-data
 ---
 
 {% capture file_dir %}/files/chatgpt{% endcapture %}
 
 I maintain the [SWITRS-to-sqlite][s2s] Python library that parses and cleans
-up California Highway Patrol traffic collision database. One of the fields the
-officers have to fill out at the scene of the crash is the brand[^make] of the
-car. This field is a free text field, but there is a very limited number of
-common brands, so it should be converted to a categorical variable.
+up California Highway Patrol's traffic collision database. One of the fields
+the responding officer has to fill out at the scene of the crash is the
+make[^make] of the vehicle. This field is a free text field, but there is a
+relatively small number of common brands, so it should be mapped to a
+categorical column.
 
-[^make]: Referred to in America as the "make" of the car.
+[^make]: 
+    The "make" of a vehicle is the brand of the manfacturer, like 'Honda',
+    'Ford', 'Tesla', etc.
 
 [s2s]: {% post_url 2016-11-01-switrs_to_sqlite %}
 
-This is easy when the officer writes `FORD` or `HONDA`, which they mostly do.
-But since they can write anything they occasionally make it a little harder on
-us by abbreviating or mistyping, for example `VOLX` and `DODDGE`. And
-sometimes they make it impossible by writing `--` or `______`.
+This is straightforward when the officer writes `FORD` or `HONDA`, which they
+mostly do. But since the officer can write anything, they occasionally make it
+a little harder on us by abbreviating or mistyping, for example `VOLX` and
+`DODDGE`. And sometimes they make it impossible by writing `--` or `______`.
 
 The solution is to go through, one by one, and create a [mapping][enum_post]
 like:
@@ -41,17 +45,19 @@ like:
 [enum_post]: {% post_url 2019-01-22-python_patterns_enum %}
 
 ```python
+# Enumeration of common vehicle makes
 @unique
 class Make(Enum):
-    CHEVROLET  = "chevrolet"
-    HINO       = "hino"
-    INFINITI   = "infiniti"
-    GMC        = "gmc"
-    MITSUBISHI = "mitsubishi"
-    # Special Token for unknown
-    NONE       = None
+  CHEVROLET  = "chevrolet"
+  GMC        = "gmc"
+  HINO       = "hino"
+  INFINITI   = "infiniti"
+  MITSUBISHI = "mitsubishi"
+  # Special Token for unknown make
+  NONE       = None
 
-MAKE_MAP = {
+# Dictionary mapping raw values to Make enum
+make_map = {
   "CHEVRLT":  Make.CHEVROLET,
   "HINO/":    Make.HINO,
   "INFINITY": Make.INFINITI,
@@ -61,24 +67,27 @@ MAKE_MAP = {
 }
 ```
 
-But making this mapping is tedious---I should know, [I did it for over 900 entries][git].
+As someone who did this mapping by hand for [over 900 entries][git], it is
+quite tedious. Fortunately, making sense of mangled text is something [Large
+Language Models (LLMs) are pretty good at][good_llm]!
 
 [git]:  https://github.com/agude/SWITRS-to-SQLite/blob/85ac7e7850680bd47f3fef5a44ab180d8ee9dd8b/switrs_to_sqlite/make_map.py
+[good_llm]: {% post_url 2023-04-12-good_uses_for_large_language_models %}
 
-Fortunately, looking at mangled text and making sense of it is something Large
-language models (LLMs) are pretty good at!
 
 ## Automating
 
-What we want is to solve a few-shot, multi-label classification problem. The
-classification part _could_ be done without a large language model, but to
-make it few-shot almost certainly would require some sort of language model.
+The goal is to perform few-shot, multi-label classification of vehicle makes.
+Few-shot because we are going to give the model just a handful of examples of
+what output we expect, and multi-label because there are many possible vehicle
+makes it will have to map to.
 
 ### Prompting
 
-The first step is to write a prompt explaining the task, the expected return
-value, and a few examples of input and correct outputs. Here is a shortened
-version, the full one is [here][prompt], starting with the instructions:
+The first step is to write a prompt explaining the task to the model, the
+expected return value, and a few examples of input and correct outputs. Here
+is a shortened version, the full one is [here][prompt], starting with the
+instructions:
 
 [prompt]: /blog/llm-data/prompt/
 
@@ -131,7 +140,7 @@ logic first, which can [help model accuracy][cot]:
 </div>
 </div>
 
-And finally some examples of input and output:
+And finally some examples of inputs and correct outputs:
 
 <div class="chatgpt-edit-block"> 
 <div class="chatgpt-prompt-only" markdown="1"> 
@@ -152,17 +161,16 @@ And finally some examples of input and output:
 
 ### Answers
 
-For simplicity, I sent the model batches of 100-200 strings sorted
-alphabetically. If I had API access, I would have sent one string each time
-with a set of custom examples pulled from a currated set (a form of
-[retrieval-augmented generation][rag]).
+Since I was manually copying the prompt into the model's web interface, I used
+batches of 100--200 string sorted alphabetically. With API access, I could
+have used [retrieval-augmented generation][rag] to create custom examples for
+each string while sending them one at a time.
 
 [rag]: https://en.wikipedia.org/w/index.php?title=Prompt_engineering&oldid=1179231833#Retrieval-augmented_generation
 
-I think the batches helped the model figure out very short entries since it
-would see multiple similar strings next to eachother. For example, it failed
-when I gave it `WNBG` (Winnebago) by itself, but succeeded when I gave it the
-list:
+Splitting the data into batches helped the model figure out very short
+entries. For example, the model failed when given `WNBG` (Winnebago) by
+itself, but succeeded when I gave it the list:
 
 ```
 WINN
@@ -174,14 +182,16 @@ WNBG
 WNBGO
 ```
 
+I believe seeing multiple short versions next to eachother helped the model
+infer the right mapping.
+
 ### Performance
 
-This method actually works pretty well. Of my 902 entries the model:
+I obtained the following performance on my 902 hand-mapped entries:
 
-- Fixed 2 of them that I had gotten wrong.
-- Got 682 correct, matching what I wrote by hand.
-- And missed 218, but often by using an enum value that didn't exist.
+- The model correctly fixed 2 entries that I had gotten wrong.
+- It matched 682 (75.6%) of my hand-labeled mappings. 
+- It missed 218 (24.1%) of the mappings, frequently using made-up enum values.
 
-This is pretty good! Finding the wrong entries was much faster than writing
-the entire list by hand, and in many cases a quick find replace would fix the
-error.
+This is reasonably good performance, as finding wrong entries is pretty quick
+(and many could be fixed with find and replace).
