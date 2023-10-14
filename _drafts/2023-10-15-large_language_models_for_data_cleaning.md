@@ -2,9 +2,8 @@
 layout: post
 title: Using Large Language Models to clean data
 description: >
-  Large language models (LLMs) are incredibly valuable tools, but they're not
-  for everything. Here's a simple rule to know when to use them and when to
-  avoid them.
+  Manually fixing messy data is tedious and slow. But thankfully, LLMs are
+  pretty good are piecing together mangled text. Read on to find out how!
 image: /files/chatgpt/00259-1343806484-A_drawing_of_a_cute_robot_color_writing_with_a_pen_sitting_at_a_desk.jpg
 hide_lead_image: False
 image_alt: >
