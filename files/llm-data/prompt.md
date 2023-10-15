@@ -3,13 +3,10 @@ layout: page-not-on-sidebar
 title: Claude SAT Analogy Results
 description: >
   The prompt for my SWITRS Make mapping.
-image: /files/sat2vec/00225-2672697451-impressionistic_painting,_four_men_studying_at_a_desk,_smoking,_looking_over_papers,_window_in_the_background.png
+image: /files/llm-data/00045-1994538970-a_simple_color_pencil_drawing_a_robot,_inspecting_a_car,_holding_a_clipboard,_white_background.png
 image_alt: >
-  An impressionistic painting based on 'Night Before the Exam' by Leonid
-  Pasternak, generated with Stable Diffusion using img2img from the original.
-  The painting shows four students sitting around a kitchen table studying for
-  a exam. Prompt: Impressionistic painting, four men studying at a desk,
-  smoking, looking over papers, window in the background.
+  A pencil drawing of a robot inspecting a car. Prompt: A simple color pencil
+  drawing a robot, inspecting a car, holding a clipboard, white background.
 permalink: blog/llm-data/prompt/
 date: 2023-10-15
 ---

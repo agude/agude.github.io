@@ -4,13 +4,11 @@ title: Using Large Language Models to clean data
 description: >
   Manually fixing messy data is tedious and slow. But thankfully, LLMs are
   pretty good are piecing together mangled text. Read on to find out how!
-image: /files/chatgpt/00259-1343806484-A_drawing_of_a_cute_robot_color_writing_with_a_pen_sitting_at_a_desk.jpg
+image: /files/llm-data/00045-1994538970-a_simple_color_pencil_drawing_a_robot,_inspecting_a_car,_holding_a_clipboard,_white_background.png
 hide_lead_image: False
 image_alt: >
-    A colorful illustration of a two robots sitting at a desk with with
-    empty paper and books infront of them. One is holding a pencil. Generated 
-    with stable diffusion. Prompt: A drawing of a cute robot, color, writing 
-    with a pen, sitting at a desk
+  A pencil drawing of a robot inspecting a car. Prompt: A simple color pencil
+  drawing a robot, inspecting a car, holding a clipboard, white background.
 redirect_from: blog/good-uses-for-large-language-mo-models/
 categories: 
   - generative-ai
