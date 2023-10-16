@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Using Large Language Models to clean data
+title: Using Large Language Models To Clean Data
 description: >
   Manually fixing messy data is tedious and slow. But thankfully, LLMs are
   pretty good are piecing together mangled text. Read on to find out how!
