@@ -4,5 +4,20 @@ layout: default
 
 <article role="article" class="page">
   <h1 class="page-title">{{ page.title }}</h1>
+  <div class="written-by">By <span class="author-name">{{ page.author }}</span></div>
+  {% if page.series %}
+  <div class="book-series">Book {{page.book_number}} of the '{{ page.series }}'</div>
+  {% endif %}
+
+  <h2 class="book-review-headline">Review</h2>
+  {% comment %}Add star rating, if one exists in the metadata{% endcomment %}
+  {% if page.rating %}
+  {% include book_rating.html rating=page.rating %}
+  {% endif %}
+
+
   {{ content }}
+
+  {% comment %}Links to other reviews.{% endcomment %}
+
 </article>
