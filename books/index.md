@@ -6,32 +6,47 @@ permalink: /books/
 description: >
   Alexander Gude's (short) book reviews.
 ---
-{% assign books = site.books | sort: 'title' %}
+{% assign sorted_titles = "" %}
 
-{% for book in books %}
-  {% assign title = book.title | remove: 'The ' %}
-  {% assign first_letter = title | slice: 0 %}
+{% for book in site.books %}
+  {% assign title = book.title | remove: "The " %}
+  {% assign sorted_titles = sorted_titles | append: title | append: "|" %}
+{% endfor %}
 
-  {% comment %} Don't include this page in the list{% endcomment %}
-  {% if title == page.title %}
-    {% continue %}
-  {% endif %}
+{% assign sorted_titles = sorted_titles | split: "|" | sort %}
 
-  {% comment %}
-  We need to consume the spaces before the H2 using `-`, otherwise the HTML
-  will be indented and Jekyll will interpret it as a raw block.
-  {% endcomment %}
-  {% if prev_letter != first_letter -%}
-    <h2>{{ first_letter }}</h2>
-    {% assign prev_letter = first_letter %}
-  {% endif %}
+{% for sort_title in sorted_titles %}
+  {% for book in site.books %}
+    {% assign mod_title = book.title | remove: "The " %}
+    {% if mod_title == sort_title %}
 
-  <ul>
-    <li>
+      {% assign title = book.title %}
+      {% assign first_letter = sort_title | slice: 0 %}
+
+      {% comment %} Don't include this page in the list{% endcomment %}
+      {% if title == page.title %}
+      {% continue %}
+      {% endif %}
+
+      {% if prev_letter != first_letter %}
+        {% comment %}
+        In order to keep HTML indented, we have to capture and output it.
+        Otherwise it has to be shoved up against the left margin.
+        {% endcomment %}
+
+<h2 class="book-letter-headline">{{ first_letter }}</h2>
+
+      {% assign prev_letter = first_letter %}
+      {% endif %}
+
+<ul>
+<li>
       {% include book_link.html title=book.title %}
-      <br>by {{ book.author }}
+<br>by {{ book.author }}
       {% include book_rating.html rating=book.rating %}
-    </li>
-  </ul>
+</li>
+</ul>
 
+    {% endif %}
+  {% endfor %}
 {% endfor %}
