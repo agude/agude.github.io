@@ -19,7 +19,10 @@ small compared to those idea. It is the story of one man, Horza.
 
 Horza bumbles his was from situation to situation, each one worse than the
 last. He is unlikable, unskilled, and has little impact on the world.[^banks]
-His vignettes are nasty, brutish, and short.
+His vignettes are nasty, brutish, and short. Banks's uses violence and
+gruesome imagery---something [he is infamous for][wasp]---is off putting.
+
+[wasp]: https://en.wikipedia.org/wiki/The_Wasp_Factory
 
 [^banks]:
     Banks says this is the point:
