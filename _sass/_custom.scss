@@ -154,7 +154,6 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
 }
 
 // ChatGPT include
-
 .chatgpt-prompt-only,
 .chatgpt-output-only {
   font-family: $code-font-family;
@@ -163,4 +162,8 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
 // Book titles in paragraphs
 .book-title {
   font-style: italic;
+}
+
+.book-rating-span {
+  font-size: 1.2em;
 }
