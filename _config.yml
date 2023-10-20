@@ -49,16 +49,26 @@ social:
         - https://linkedin.com/in/AlexanderGude
         - https://fediscience.org/@alex_gude
 
+# Collections
+collections:
+    books:
+        output: true
+
 defaults:
   # Add a default image and Twitter card for non-post layouts for jekyll-seo-tag
-  -
-    scope:
+  - scope:
       path: ""
       type: "pages"
     values:
       image: /files/headshot-small.jpg
       twitter:
         card: "summary"
+  # Add default layout for the books collection
+  - scope:
+      path: ""
+      type: "books"
+    values:
+      layout: "book"
 
 # Google site verification via Jekyll-seo-tag
 webmaster_verifications:

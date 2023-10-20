@@ -27,7 +27,7 @@ div.headline-center {
 
 // Small sidebar
 .sidebar small {
-  font-size: $legal-font-size; 
+  font-size: $legal-font-size;
 }
 
 // Legal links
@@ -155,7 +155,12 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
 
 // ChatGPT include
 
-.chatgpt-prompt-only, 
+.chatgpt-prompt-only,
 .chatgpt-output-only {
   font-family: $code-font-family;
+}
+
+// Book titles in paragraphs
+.book-title {
+  font-style: italic;
 }
