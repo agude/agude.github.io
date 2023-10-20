@@ -12,10 +12,10 @@ excited to finally get started. Unfortunately, <span class="book-title">
 Consider Phlebas</span> was not a great introduction.
 
 The book is considered a "space opera", and there are some hints at
-interesting ideas: a ship that can set off every warhead on board to send a
-coded message while still escaping the blast, a truly galactic scale war, and
-giant trains used as underground command centers. But the story itself feels
-small compared to those idea. It is the story of one man, Horza.
+interesting, grand ideas: a ship that can set off every warhead on board to
+send a coded message while still escaping the blast, a truly galactic scale
+war, and giant trains used as underground command centers. But the story
+itself feels small compared to those idea. It is the story of one man, Horza.
 
 Horza bumbles his was from situation to situation, each one worse than the
 last. He is unlikable, unskilled, and has little impact on the world.[^banks]
@@ -43,7 +43,7 @@ gruesome imagery---something [he is infamous for][wasp]---is off putting.
 [int]: https://web.archive.org/web/20071223184232/http://homepages.compuserve.de/Mostral/interviews/starlog94.htm
 
 
-I think that Horza's bleak reality is supposed to contrast that his belief
+I think that Horza's bleak reality is supposed to contrast with his belief
 that his side of the war is the more enlightened one, but it was just
 unpleasant to read about him _drowning in literal shit_ and _having his
 fingers chewed off_.
