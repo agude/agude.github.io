@@ -32,7 +32,8 @@ little too far into the genre for me.
 ### The Soldier's Tale
 {% include book_rating.html rating=5 %}
 
-A story with action, mystery, and our first really good look at the Shrike.
+A story with action, mystery, and our first really good look at both the
+Ousters and the Shrike.
 
 ### The Poet's Tale
 {% include book_rating.html rating=3 %}
