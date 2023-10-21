@@ -5,10 +5,7 @@ author: Iain M. Banks
 series: Culture
 book_number: 1
 rating: 2
-image: /books/covers/consider_phlebas.jpg
-hide_lead_image: False
-image_alt: >
-  Cover of Consider Phlebas.
+cover_image: /books/covers/consider_phlebas.jpg
 ---
 
 I've been meaning to read Banks's Culture for more than two decades, so I was

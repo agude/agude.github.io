@@ -5,10 +5,7 @@ author: Peter F. Hamilton
 series: The Void Trilogy
 book_number: 1
 rating: 5
-image: /books/covers/the_dreaming_void.jpg
-hide_lead_image: False
-image_alt: >
-  Cover of The Dreaming Void.
+cover_image: /books/covers/the_dreaming_void.jpg
 ---
 
 <span class="book-title">The Dreaming Void</span> is set in the same universe

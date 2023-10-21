@@ -5,10 +5,7 @@ author: Peter F. Hamilton
 series: Commonwealth Saga
 book_number: 2
 rating: 5
-image: /books/covers/judas_unchained.jpg
-hide_lead_image: False
-image_alt: >
-  Cover of Judas Unchained.
+cover_image: /books/covers/judas_unchained.jpg
 ---
 
 The sequel to {% include book_link.html title="Pandora's Star" %}, <span

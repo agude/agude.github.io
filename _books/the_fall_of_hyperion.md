@@ -5,10 +5,7 @@ author: Dan Simmons
 series: Hyperion Cantos
 book_number: 2
 rating: null
-image: /books/covers/the_fall_of_hyperion.jpg
-hide_lead_image: False
-image_alt: >
-  Cover of The Fall of Hyperion.
+cover_image: /books/covers/the_fall_of_hyperion.jpg
 ---
 
 Reading in process, check back soon!

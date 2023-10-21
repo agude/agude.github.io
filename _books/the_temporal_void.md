@@ -5,10 +5,7 @@ author: Peter F. Hamilton
 series: The Void Trilogy
 book_number: 2
 rating: 4
-image: /books/covers/the_temporal_void.jpg
-hide_lead_image: False
-image_alt: >
-  Cover of The Temporal Void.
+cover_image: /books/covers/the_temporal_void.jpg
 ---
 
 The second book in Hamilton's Void Trilogy, <span class="book-title">The
