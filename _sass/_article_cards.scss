@@ -19,11 +19,25 @@
   align-items: center;
 }
 
+.book-card {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr;
+  grid-gap: 0.5em;
+  align-items: center;
+}
+
 .card-element {
   padding: 0.2em;
 }
 
 .card-image {
+  @extend .card-element;
+  img {
+    margin: 0;
+  }
+}
+
+.card-book-cover {
   @extend .card-element;
   img {
     margin: 0;
