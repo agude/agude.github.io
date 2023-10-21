@@ -55,7 +55,7 @@ category or not.
               title=book.title
               author=book.author
               rating=book.rating
-              description=book.description
+              description=book.excerpt
             %}
             {% assign placed_books = placed_books | push: book.url %}
             {% continue %}
@@ -92,7 +92,7 @@ category or not.
               title=book.title
               author=book.author
               rating=book.rating
-              description=book.description
+              description=book.excerpt
             %}
             {% assign placed_books = placed_books | push: book.url %}
             {% continue %}
@@ -128,7 +128,7 @@ category or not.
             title=book.title
             author=book.author
             rating=book.rating
-            description=book.description
+            description=book.excerpt
           %}
           {% assign placed_books = placed_books | push: book.url %}
         {% endunless %}
