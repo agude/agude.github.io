@@ -5,6 +5,10 @@ author: Peter F. Hamilton
 series: The Void Trilogy
 book_number: 3
 rating: 4
+image: /books/covers/the_evolutionary_void.jpg
+hide_lead_image: False
+image_alt: >
+  Cover of The Evolutionary Void.
 ---
 
 The final book in Hamilton's Void Trilogy, <span class="book-title">The Evolutionary Void</span>, finishes off the story a little too quickly. The

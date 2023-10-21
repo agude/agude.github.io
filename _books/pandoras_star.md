@@ -5,6 +5,10 @@ author: Peter F. Hamilton
 series: Commonwealth Saga
 book_number: 1
 rating: 4
+image: /books/covers/pandoras_star.jpg
+hide_lead_image: False
+image_alt: >
+  Cover of Pandora's Star.
 ---
 
 A sci-fi book that reads more like a thriller. I couldn't put <span
