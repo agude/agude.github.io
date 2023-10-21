@@ -46,7 +46,6 @@ gruesome imagery---something [he is infamous for][wasp]---is off putting.
 
 [int]: https://web.archive.org/web/20071223184232/http://homepages.compuserve.de/Mostral/interviews/starlog94.htm
 
-
 I think that Horza's bleak reality is supposed to contrast with his belief
 that his side of the war is the more enlightened one, but it was just
 unpleasant to read about him _drowning in literal shit_ and _having his
