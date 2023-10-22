@@ -1,0 +1,31 @@
+<div class="book-card">
+  <div class="card-element card-book-cover">
+    <a href="{{ include.url }}">
+      <img 
+        src="{{ include.image }}"
+        alt="Book cover of {{ include.title }}."
+      >
+    </a>
+  </div>
+  <div class="card-element card-text">
+    {% comment %} The text blurb. {% endcomment %}
+    <a href="{{ include.url }}">
+      <span class="book-title">{{ include.title }}</span>
+    </a>
+    {% if include.author %}
+      <br>
+      <span clas="by-author">
+        by
+        <span clas="author-name">
+          {{ include.author }}
+        </span>
+      </span>
+    {% endif %}
+    {% if include.rating %}
+      {% include book_rating.html rating=include.rating %}
+    {% endif %}
+  </div>
+  <div class="card-element card-text">
+    {{ include.description }}
+  </div>
+</div>
