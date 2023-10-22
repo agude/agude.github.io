@@ -145,12 +145,12 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
 .supsub sub {
     position: relative;
     display: block;
-    font-size: .5em;
+    font-size: 0.5em;
     line-height: 1.2;
 }
 
 .supsub sub {
-    top: .3em;
+    top: 0.3em;
 }
 
 // ChatGPT include
@@ -164,8 +164,9 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
   font-style: italic;
 }
 
-.book-rating-span {
-  font-size: 1.2em;
+.book-rating {
+  font-size: 1.3em;
+  margin-bottom: 0.5em;
 }
 
 // Book Cover Images at top of article
