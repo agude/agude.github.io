@@ -1,0 +1,143 @@
+{% comment %}
+Related posts or recent posts, depending on if the article is part of a
+category or not.
+{% endcomment %}
+
+{% assign max_books = 3 %}
+{% assign placed_books = '' | split: '' %}
+
+{% comment %} Store the two h2 snippets to variables {% endcomment %}
+
+{% assign placed_h2 = false %}
+
+{% capture related_snippet %}
+<!-- Related Books -->
+<aside role="complementary" class="related">
+  <h2>Related Books</h2>
+  <div class="card-grid">
+{% endcapture %}
+
+{% capture recent_snippet %}
+<!-- Recent Books -->
+<aside role="complementary" class="related">
+  <h2>Recent Books</h2>
+  <div class="card-grid">
+{% endcapture %}
+
+{% capture close_h2 %}
+  </div>
+</aside>
+{% endcapture %}
+
+{% assign reversed_chronological_books = site.books | sort: "date" | reverse %}
+{% assign series_order_books = site.books | sort: "book_number" %}
+
+{% comment %} Start by trying to find other books in the series. {% endcomment %}
+{% if page.series != empty %}
+  {% for book in series_order_books %}
+    {% if book.url != page.url %}
+      {% if placed_books.size < 3 %}
+        {% comment %}Pick same series{% endcomment %}
+        {% if book.series == page.series %}
+          {% unless placed_books contains book.url %}
+            {% comment %} Place the h2 if we haven't already {% endcomment %}
+            {% if placed_h2 == false %}
+              {{ related_snippet }}
+              {% assign placed_h2 = true %}
+            {% endif %}
+
+            {% comment %} Place a related article {% endcomment %}
+
+            {% include book_card.html
+              url=book.url
+              image=book.cover_image
+              title=book.title
+              author=book.author
+              rating=book.rating
+              description=book.excerpt
+            %}
+            {% assign placed_books = placed_books | push: book.url %}
+            {% continue %}
+          {% endunless %}
+        {% endif %}
+      {% comment %}Too many books already{% endcomment %}
+      {% else %}
+        {% break %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% comment %} Then books by the same author {% endcomment %}
+{% if page.author != empty %}
+  {% for book in reversed_chronological_books %}
+    {% if book.url != page.url %}
+      {% if placed_books.size < 3 %}
+        {% comment %}Pick same author{% endcomment %}
+        {% if book.author == page.author %}
+          {% unless placed_books contains book.url %}
+            {% comment %} Place the h2 if we haven't already {% endcomment %}
+            {% if placed_h2 == false %}
+              {{ related_snippet }}
+              {% assign placed_h2 = true %}
+            {% endif %}
+
+            {% comment %} Place a related article {% endcomment %}
+
+            {% include book_card.html
+              url=book.url
+              image=book.cover_image
+              title=book.title
+              author=book.author
+              rating=book.rating
+              description=book.excerpt
+            %}
+            {% assign placed_books = placed_books | push: book.url %}
+            {% continue %}
+          {% endunless %}
+        {% endif %}
+      {% comment %}Too many books already{% endcomment %}
+      {% else %}
+        {% break %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% comment %} Fill in the remaining posts with recent ones {% endcomment %}
+
+
+{% if site.related_posts != empty %}
+  {% if placed_books.size < max_books %}
+    {% if placed_h2 == false %}
+      {{ recent_snippet }}
+      {% assign placed_h2 = true %}
+    {% endif %}
+    {% for book in reversed_chronological_books %}
+      {% if book.url == page.url %}
+        {% continue %}
+      {% endif %}
+      {% if placed_books.size < max_books %}
+        {% unless placed_books contains book.url %}
+          {% include book_card.html
+            url=book.url
+            image=book.cover_image
+            title=book.title
+            author=book.author
+            rating=book.rating
+            description=book.excerpt
+          %}
+          {% assign placed_books = placed_books | push: book.url %}
+        {% endunless %}
+      {% else %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endif %}
+
+{% comment %} Close the h2 divs if they were placed {% endcomment %}
+
+{% if placed_h2 == true %}
+  {{ close_h2 }}
+{% endif %}

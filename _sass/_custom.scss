@@ -167,3 +167,18 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
 .book-rating-span {
   font-size: 1.2em;
 }
+
+// Book Cover Images at top of article
+.floating-book-cover {
+  float: right;
+}
+
+.book-cover-lead {
+  // If the image is smaller, use it's natural size
+  // otherwise restrict it
+  max-height: 20em;
+  height: auto;
+  width: auto;
+  padding: 1em;
+  margin: 0em;
+}

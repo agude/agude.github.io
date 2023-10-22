@@ -42,7 +42,13 @@ description: >
 <ul>
 <li>
       {% include book_link.html title=book.title %}
-<br>by {{ book.author }}
+<br>
+<span clas="by-author">
+by
+<span clas="author-name">
+    {{ book.author }}
+</span>
+</span>
       {% include book_rating.html rating=book.rating %}
 </li>
 </ul>

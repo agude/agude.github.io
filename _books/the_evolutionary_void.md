@@ -5,9 +5,11 @@ author: Peter F. Hamilton
 series: The Void Trilogy
 book_number: 3
 rating: 4
+cover_image: /books/covers/the_evolutionary_void.jpg
 ---
 
-The final book in Hamilton's Void Trilogy, <span class="book-title">The Evolutionary Void</span>, finishes off the story a little too quickly. The
+The final book in Hamilton's Void Trilogy, <span class="book-title">The
+Evolutionary Void</span>, finishes off the story a little too quickly. The
 ending feels rushed.
 
 At the end of {% include book_link.html title="The Temporal Void" %}, Edeard

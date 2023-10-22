@@ -5,6 +5,7 @@ author: Dan Simmons
 series: Hyperion Cantos
 book_number: 1
 rating: 4
+cover_image: /books/covers/hyperion.jpg
 ---
 
 <span class="book-title">Hyperion</span>, was not at all the book I expected.
