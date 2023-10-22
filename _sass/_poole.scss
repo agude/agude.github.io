@@ -212,31 +212,16 @@ a[href^="#fnref:"] {
 
 /* Dashed un-ordered lists, but not the social buttons */
 ul {
-  list-style-type: none;
-  padding-left: 2em;
+  list-style-type: "— "; /* em dash with space*/
 }
 
-ul > li:before {
-  content: "—"; /* em dash */
-  position: absolute;
-  margin-left: -1.1em;
-  // Add space between the bullet and the item text
+ul > li::marker {
   font-weight: bold;
 }
 
 /* Bold numbers for numbered lists */
-ol > li {
-  margin: 0;
-  list-style-type: none;
-  counter-increment: item;
-}
-
-ol > li:before {
-  content: counter(item) ".";
+ol > li::marker {
   font-weight: bold;
-  // Move the numbers closer to the left margin
-  margin-left: -1.1em;
-  float: left;
 }
 
 .highlight .hll { background-color: #ffffcc; }
