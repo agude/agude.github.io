@@ -8,8 +8,8 @@ rating: 2
 image: /books/covers/consider_phlebas.jpg
 ---
 
-I've been meaning to read Banks's Culture for more than two decades, so I was
-excited to finally get started. Unfortunately, <span class="book-title">
+I've been meaning to read Banks's Culture series for more than two decades, so
+I was excited to finally get started. Unfortunately, <span class="book-title">
 Consider Phlebas</span> was not a great introduction.
 
 The book is considered a "space opera", and there are some hints at
