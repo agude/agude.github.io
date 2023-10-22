@@ -50,7 +50,7 @@ category or not.
 
             {% include book_card.html
               url=book.url
-              image=book.cover_image
+              image=book.image
               title=book.title
               author=book.author
               rating=book.rating
@@ -86,7 +86,7 @@ category or not.
 
             {% include book_card.html
               url=book.url
-              image=book.cover_image
+              image=book.image
               title=book.title
               author=book.author
               rating=book.rating
@@ -121,7 +121,7 @@ category or not.
         {% unless placed_books contains book.url %}
           {% include book_card.html
             url=book.url
-            image=book.cover_image
+            image=book.image
             title=book.title
             author=book.author
             rating=book.rating
