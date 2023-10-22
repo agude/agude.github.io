@@ -220,6 +220,7 @@ ul > li:before {
   content: "—"; /* em dash */
   position: absolute;
   margin-left: -1.1em;
+  // Add space between the bullet and the item text
   font-weight: bold;
 }
 
@@ -233,9 +234,11 @@ ol > li {
 ol > li:before {
   content: counter(item) ".";
   font-weight: bold;
+  // Move the numbers closer to the left margin
   margin-left: -1.1em;
   float: left;
 }
+
 .highlight .hll { background-color: #ffffcc; }
 .highlight .c { color: #999999; } /* Comment */
 .highlight .err { color: #aa0000; background-color: #ffaaaa; } /* Error */
