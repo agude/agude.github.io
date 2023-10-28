@@ -6,6 +6,10 @@ permalink: /books/
 description: >
   Alexander Gude's (short) book reviews.
 ---
+
+Below you'll find short reviews of the various books I've read, sorted by
+title:
+
 {% assign sorted_titles = "" %}
 
 {% for book in site.books %}
