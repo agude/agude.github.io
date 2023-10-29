@@ -1,5 +1,5 @@
 ---
-date: 2023-10-17
+date: 2023-10-27
 title: The Fall of Hyperion
 author: Dan Simmons
 series: Hyperion Cantos
