@@ -15,14 +15,14 @@ Below you'll find short reviews of the various books I've read, sorted by
 author ([alphabetical][book_list], [rating][book_list_by_rating],
 [series][book_list_by_series]):
 
-{% comment %}This sorted list will be used in a double for loop to insure that
-books are sorted in their sections{% endcomment %}
+{% comment %} NEED TO ACTUALLY USE THIS
 {% assign sorted_titles = "" %}
 
 {% for book in site.books %}
   {% assign title = book.title | remove: "The " %}
   {% assign sorted_titles = sorted_titles | append: title | append: "|" %}
 {% endfor %}
+{% endcomment %}
 
 {% comment %}This sorted list is used to put the <h2> sections in the right
 order.{% endcomment %}
