@@ -1,6 +1,5 @@
 ---
 title: Book Reviews
-sidebar_include: true
 layout: page
 permalink: /books/by-author/
 description: >
