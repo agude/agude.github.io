@@ -19,6 +19,8 @@ title:
 
 {% assign sorted_titles = sorted_titles | split: "|" | sort %}
 
+{% assign first_place = true %}
+
 {% for sort_title in sorted_titles %}
   {% for book in site.books %}
     {% assign mod_title = book.title | remove: "The " %}
@@ -38,25 +40,27 @@ title:
         Otherwise it has to be shoved up against the left margin.
         {% endcomment %}
 
-<h2 class="book-letter-headline">{{ first_letter }}</h2>
+        {% if first_place == false %}
+  </div>
+        {% endif %}
+        {% assign first_place = false %}
+        
 
+<h2 class="book-letter-headline">{{ first_letter }}</h2>
+<div class="card-grid">
       {% assign prev_letter = first_letter %}
       {% endif %}
 
-<ul>
-<li>
-      {% include book_link.html title=book.title %}
-<br>
-<span clas="by-author">
-by
-<span clas="author-name">
-    {{ book.author }}
-</span>
-</span>
-      {% include book_rating.html rating=book.rating %}
-</li>
-</ul>
+{% include book_card.html
+  url=book.url
+  image=book.image
+  title=book.title
+  author=book.author
+  rating=book.rating
+  description=book.excerpt
+%}
 
     {% endif %}
   {% endfor %}
 {% endfor %}
+</div>
