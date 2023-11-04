@@ -7,8 +7,12 @@ description: >
   Alexander Gude's (short) book reviews.
 ---
 
+[book_list]: {% link books/index.md %}
+[book_list_by_author]: {% link books/by_author.md %}
+[book_list_by_series]: {% link books/by_series.md %}
+
 Below you'll find short reviews of the various books I've read, sorted by
-title:
+title ([author][book_list_by_author], [series][book_list_by_series]):
 
 {% comment %}This sorted list will be used in a double for loop to insure that
 books are sorted in their sections{% endcomment %}
