@@ -26,9 +26,12 @@ on the spaceship _Theseus_ have been altered mentally:
   human but likely not conscious.
 
 They approach the alien ship _Rorschach_. Although it seems to communicate in
-English, they realize it just pattern-matches and does not understand language.
-They board _Rorschach_, capturing aliens called Scramblers---extremely
-intelligent but, like _Rorschach_ and Sarasti, not conscious.
+English, they realize it just pattern-matches and does not understand
+language. They board _Rorschach_, capturing aliens called
+Scramblers---extremely intelligent but, like _Rorschach_ and Sarasti, not
+conscious. The Scramblers escape, and the crew realizes _Rorschach_ planted
+them intentionally to be captured. _Rorschach_ has been manipulating them from
+the start.
 
 The book argues consciousness may have accidentally evolved in humans and now
 hinders us. The less conscious characters are more capable---James, with four
