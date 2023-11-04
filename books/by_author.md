@@ -25,9 +25,21 @@ author:
 {% assign sorted_authors = sorted_authors | split: "|" | uniq | sort %}
 
 {% for sort_author in sorted_authors %}
+  {% if sort_author == null or sort_author == ''%}
+    {% continue %}
+  {% endif %}
+
+  {% if first_place == false %}
+</div>
+  {% endif %}
+  {% assign first_place = false %}
+
 <h2 class="book-author-headline">{{ sort_author }}</h2>
+<div class="card-grid">
+
   {% for book in site.books %}
     {% assign author = book.author %}
+
     {% if sort_author == author %}
 
       {% assign title = book.title %}
@@ -37,20 +49,16 @@ author:
         {% continue %}
       {% endif %}
 
-<ul>
-<li>
-      {% include book_link.html title=book.title %}
-<br>
-<span clas="by-author">
-by
-<span clas="author-name">
-    {{ book.author }}
-</span>
-</span>
-      {% include book_rating.html rating=book.rating %}
-</li>
-</ul>
+{% include book_card.html
+  url=book.url
+  image=book.image
+  title=book.title
+  author=book.author
+  rating=book.rating
+  description=book.excerpt
+%}
 
     {% endif %}
   {% endfor %}
 {% endfor %}
+</div>

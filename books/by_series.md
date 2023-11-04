@@ -24,8 +24,21 @@ series:
 
 {% assign sorted_series = sorted_series | split: "|" | uniq | sort %}
 
+{% assign first_place = true %}
+
 {% for sort_series in sorted_series %}
+  {% if sort_series == null or sort_series == ''%}
+    {% continue %}
+  {% endif %}
+
+  {% if first_place == false %}
+</div>
+  {% endif %}
+  {% assign first_place = false %}
+
 <h2 class="book-series-headline">{{ sort_series }}</h2>
+<div class="card-grid">
+
   {% for book in site.books %}
     {% assign series = book.series %}
     {% if sort_series == series %}
@@ -37,20 +50,16 @@ series:
         {% continue %}
       {% endif %}
 
-<ul>
-<li>
-      {% include book_link.html title=book.title %}
-<br>
-<span clas="by-author">
-by
-<span clas="author-name">
-    {{ book.author }}
-</span>
-</span>
-      {% include book_rating.html rating=book.rating %}
-</li>
-</ul>
+{% include book_card.html
+  url=book.url
+  image=book.image
+  title=book.title
+  author=book.author
+  rating=book.rating
+  description=book.excerpt
+%}
 
     {% endif %}
   {% endfor %}
 {% endfor %}
+</div>
