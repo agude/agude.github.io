@@ -9,9 +9,11 @@ description: >
 [book_list]: {% link books/index.md %}
 [book_list_by_author]: {% link books/by_author.md %}
 [book_list_by_series]: {% link books/by_series.md %}
+[book_list_by_rating]: {% link books/by_rating.md %}
 
 Below you'll find short reviews of the various books I've read, sorted by
-author ([alphabetical][book_list], [series][book_list_by_series]):
+author ([alphabetical][book_list], [rating][book_list_by_rating],
+[series][book_list_by_series]):
 
 {% comment %}This sorted list will be used in a double for loop to insure that
 books are sorted in their sections{% endcomment %}
