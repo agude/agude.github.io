@@ -51,11 +51,13 @@ headlines, but not before the first headline.{% endcomment %}
 <div class="card-grid">
 
   {% for book in site.books %}
-    book: {{ book.title }}
-    rating: {{ book.rating }}
-    test rating: {{ sort_rating }}
+    {% comment %}Convert both ratings to quoted strings so they are the same
+    type, otherwise the `book.rating` is an int, and the `sort_rating` is an
+    unquoted string.{% endcomment %}
+    {% capture book_rating %}'{{book.rating}}'{% endcapture %}
+    {% capture test_rating %}'{{sort_rating}}'{% endcapture %}
 
-    {% if sort_rating != book.rating %}
+    {% if test_rating == book_rating %}
 
       {% include book_card.html
         url=book.url
