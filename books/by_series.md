@@ -15,14 +15,10 @@ Below you'll find short reviews of the various books I've read, sorted by
 series ([alphabetical][book_list], [author][book_list_by_author],
 [rating][book_list_by_rating]):
 
-{% comment %} NEED TO ACTUALLY USE THIS
-{% assign sorted_titles = "" %}
 
-{% for book in site.books %}
-  {% assign title = book.title | remove: "The " %}
-  {% assign sorted_titles = sorted_titles | append: title | append: "|" %}
-{% endfor %}
-{% endcomment %}
+{% comment %}This sorted list is used to put the books in series order in each
+<h2> heading.{% endcomment %}
+{% assign sorted_books = site.books | sort: 'book_number' %}
 
 {% comment %}This sorted list is used to put the <h2> sections in the right
 order.{% endcomment %}
@@ -52,7 +48,7 @@ headlines, but not before the first headline.{% endcomment %}
 <h2 class="book-list-headline">{{ sort_series }}</h2>
 <div class="card-grid">
 
-  {% for book in site.books %}
+  {% for book in sorted_books %}
     {% assign series = book.series %}
     {% if sort_series == series %}
 
