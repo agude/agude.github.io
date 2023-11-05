@@ -15,22 +15,30 @@ Below you'll find short reviews of the various books I've read, sorted by
 author ([alphabetical][book_list], [rating][book_list_by_rating],
 [series][book_list_by_series]):
 
-{% assign sorted_titles = "" %}
-
+{% comment %} These two sorting are so that books under and author headline
+are ordered by series, and then book order within the series. Yes it is
+horrible. {% endcomment %}
+{% assign sorted_series = "" %}
 {% for book in site.books %}
-  {% assign title = book.title | remove: "The " %}
-  {% assign sorted_titles = sorted_titles | append: title | append: "|" %}
+  {% assign sorted_series = sorted_series | append: book.series | append: "|" %}
 {% endfor %}
-{% assign sorted_titles = sorted_titles | split: "|" | sort %}
+{% comment %}Add a blank series to cover books without series (we convert
+their null to '' below).{% endcomment %}
+{% assign sorted_series = sorted_series | append: '' | append: "|" %}
+{% assign sorted_series = sorted_series | split: "|" | uniq | sort %}
+
+{% assign sorted_book_number = "" %}
+{% for book in site.books %}
+  {% assign sorted_book_number = sorted_book_number | append: book.book_number | append: "|" %}
+{% endfor %}
+{% assign sorted_book_number = sorted_book_number | split: "|" | uniq | sort %}
 
 {% comment %}This sorted list is used to put the <h2> sections in the right
 order.{% endcomment %}
 {% assign sorted_authors = "" %}
-
 {% for book in site.books %}
   {% assign sorted_authors = sorted_authors | append: book.author | append: "|" %}
 {% endfor %}
-
 {% assign sorted_authors = sorted_authors | split: "|" | uniq | sort %}
 
 {% comment %} We have to place a <div></div> pair between all the <h2>
@@ -54,23 +62,39 @@ headlines, but not before the first headline.{% endcomment %}
   {% comment %}To get each section to show up in alphabetical order, we have
   to do a double for loop. We could probably get away with sorting site.books
   if we weren't dropping "The " from the title.{% endcomment %}
-  {% for sort_title in sorted_titles %}
-    {% for book in site.books %}
-      {% assign mod_title = book.title | remove: "The " %}
-      {% assign author = book.author %}
+  {% for sort_series in sorted_series %}
+    {% for sort_number in sorted_book_number %}
+      {% for book in site.books %}
 
-      {% if sort_author == author and sort_title == mode_title %}
+        {% comment %}Convert both to quoted strings so they are the same
+        type.{% endcomment %}
+        {% capture test_number %}'{{sort_number}}'{% endcapture %}
+        {% capture book_number %}'{{book.book_number}}'{% endcapture %}
 
-        {% include book_card.html
-          url=book.url
-          image=book.image
-          title=book.title
-          author=book.author
-          rating=book.rating
-          description=book.excerpt
-        %}
+        {% if sort_author == book.author %}
+          {% comment %}Books without series will have null, which we convert
+          to '' to match the '' we inserted in the series list above.{% endcomment %}
+          {% if book.series == null %}
+            {% assign book_series = '' %}
+          {% else %}
+            {% assign book_series = book.series %}
+          {% endif %}
+          {% if sort_series == book_series %}
+            {% if test_number == book_number %}
 
-      {% endif %}
+              {% include book_card.html
+                url=book.url
+                image=book.image
+                title=book.title
+                author=book.author
+                rating=book.rating
+                description=book.excerpt
+              %}
+
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
     {% endfor %}
   {% endfor %}
 {% endfor %}
