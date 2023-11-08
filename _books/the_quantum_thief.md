@@ -23,11 +23,17 @@ get entangled in local affairs. The end up starting a revolution to free the
 Oubliette---a walking city where all memories encrypted and stored online,
 allowing precise control over what others can remember about you.
 
-The world building is exceptional, with many new and exciting ideas! Like the
-walking city that must keep moving to avoid the machines trying to destroy it.
-The life cycle of the citizens who spend part of their time living normally
-and part of the time enslaved to maintain the city. Using time---the time your
-have before you are enslaved---as a currency for everything.
+The world building is exceptional, with many new and exciting
+ideas![^overly_cute] Like the walking city that must keep moving to avoid the
+machines trying to destroy it. The life cycle of the citizens who spend part
+of their time living normally and part of the time enslaved to maintain the
+city. Using time---the time your have before you are enslaved---as a currency
+for everything.
+
+[^overly_cute]:
+    There are also some overly cute ideas like "What if gaming clans became
+    part of the government and still went on raids!" and "What if prison was
+    an actual prisoner's dilemma game!"
 
 There are so many mysteries too. Who is le Flambeur and why was he
 imprisoned? What is his relation to the Martians? What is the unnamed treasure
