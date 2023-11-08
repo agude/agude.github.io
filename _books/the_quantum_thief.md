@@ -9,7 +9,9 @@ image: /books/covers/the_quantum_thief.jpg
 ---
 
 <span class="book-title">The Quantum Thief</span> is a sci-fi novel following
-the adventures of the gentleman thief Jean le Flambeur.
+the adventures of the gentleman thief Jean le Flambeur as he navigates a
+futuristic solar system to reclaim his lost memories and pull off an
+impossible heist.
 
 The story follows Jean the exceptional thief le Flambeur, who is broken out of
 prison by a god-like, uploaded-intelligence to steal sometime highly valuable.
