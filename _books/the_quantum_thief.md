@@ -8,38 +8,33 @@ rating: 3
 image: /books/covers/the_quantum_thief.jpg
 ---
 
-<span class="book-title">The Quantum Thief</span> is a sci-fi novel that
-follows the adventures of the gentleman thief Jean le Flambeur.
+<span class="book-title">The Quantum Thief</span> is a sci-fi novel following
+the adventures of the gentleman thief Jean le Flambeur.
 
-The story follows Jean le Flambeur, an exceptional thief, who is broken out of
-prison by a god-like, uploaded-intelligence to steal some unspecified thing of
-great value. But there is a problem: le Flambeur wiped his own mind and hid
-his memories before he was captured. If he is going to pull off a heist, first
-he has to get them back.
+The story follows Jean the exceptional thief le Flambeur, who is broken out of
+prison by a god-like, uploaded-intelligence to steal sometime highly valuable.
+But there is a problem: le Flambeur wiped his own mind and hid his memories
+before capture. To pull off the heist, he must get them back.
 
-Le Flambeur and his handler head to Mars to recover his memory. They quickly
-get entangled with local affairs and end up starting a revolution to free the
-Oubliette---a walking city where all memories encrypted and stored on the
-local internet, allowing people to precisely control what others can remember
-about them.
+Le Flambeur and his handler go to Mars to recover his memories, where they quickly
+get entangled in local affairs. The end up starting a revolution to free the
+Oubliette---a walking city where all memories encrypted and stored online,
+allowing precise control over what others can remember about you.
 
-The world building is exceptional! There are so many new and exciting ideas in
-the book! The walking city that must keep moving to avoid the grey goo
-machines trying to destroy it. The life and death cycle of citizens who spend
-part of their time living normally and part of the time enslaved to perform
-maintenance on the city. And using time---the time your have before you are
-enslaved---as a currency for everything.
+The world building is exceptional, with many new and exciting ideas! Like the
+walking city that must keep moving to avoid the machines trying to destroy it.
+The life cycle of the citizens who spend part of their time living normally
+and part of the time enslaved to maintain the city. Using time---the time your
+have before you are enslaved---as a currency for everything.
 
-And there are so many mysteries! Who is le Flambeur and what did he do to be
-thrown in prison? What is his relation to all the people on Mars? What is so
-important that he is the one who can steal it? Why do the people of the
-Oubliette accept the horrible bargain of being enslaved half their endless
-lives?
+There are so many mysteries too. Who is le Flambeur and why was he
+imprisoned? What is his relation to the Martians? What is the unnamed treasure
+only he can steal? Why do Oubliette citizens accept their awful bargain of
+enslavement?
 
 The problem is: I didn't care. Shocking twist after shocking twist didn't
-phase me because I didn't identify with any of the characters. At several
-points during the book I put it down and realized that I had no desire to find
-out how it ended. It only finished it by making myself pick up the book and
-flip through a few more pages.
+faze me because I didn't connect with any of the characters. At several
+points I put down the book, realizing I had no desire to find out how it
+ended. I only finished it by forcing myself to read a few pages at a time.
 
 In the end, a wonderful backdrop with thin story on top.
