@@ -33,7 +33,7 @@ for everything.
 [^overly_cute]:
     There are also some overly cute ideas like "What if gaming clans became
     part of the government and still went on raids!" and "What if prison was
-    an actual prisoner's dilemma game!"
+    an **actual prisoner's dilemma**!"
 
 There are so many mysteries too. Who is le Flambeur and why was he
 imprisoned? What is his relation to the Martians? What is the unnamed treasure
