@@ -45,4 +45,4 @@ faze me because I didn't connect with any of the characters. At several
 points I put down the book, realizing I had no desire to find out how it
 ended. I only finished it by forcing myself to read a few pages at a time.
 
-In the end, a wonderful backdrop with thin story on top.
+In the end, a deep backdrop with shallow story on top.
