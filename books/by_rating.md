@@ -1,19 +1,16 @@
 ---
 title: "Book Reviews: By Rating"
+short_title: By Rating
 layout: page
 permalink: /books/by-rating/
+book_topbar_include: true
 description: >
   Alexander Gude's (short) book reviews.
 ---
 
-[book_list]: {% link books/index.md %}
-[book_list_by_author]: {% link books/by_author.md %}
-[book_list_by_series]: {% link books/by_series.md %}
-[book_list_by_rating]: {% link books/by_rating.md %}
+Below you'll find short reviews of the books I've read, sorted by rating.
 
-Below you'll find short reviews of the various books I've read, sorted by
-series ([alphabetical][book_list], [author][book_list_by_author],
-[series][book_list_by_series]):
+{% include books_topbar.html %}
 
 {% assign sorted_titles = "" %}
 
