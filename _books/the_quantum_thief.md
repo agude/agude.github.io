@@ -13,22 +13,25 @@ the adventures of the gentleman thief Jean le Flambeur as he navigates a
 futuristic solar system to reclaim his lost memories and pull off an
 impossible heist.
 
-The story follows Jean the exceptional thief le Flambeur, who is broken out of
-prison by a god-like, uploaded-intelligence to steal sometime highly valuable.
-But there is a problem: le Flambeur wiped his own mind and hid his memories
-before capture. To pull off the heist, he must get them back.
+Jean le Flambeur, an _exceptional_ thief, is broken out of prison by a
+god-like, uploaded-intelligence to steal sometime highly valuable. But there
+is a problem: le Flambeur wiped his own mind and hid his memories before
+capture. To pull off the heist, he must get them back.
 
 Le Flambeur and his handler go to Mars to recover his memories, where they quickly
-get entangled in local affairs. The end up starting a revolution to free the
-Oubliette---a walking city where all memories encrypted and stored online,
+get entangled in local affairs. They end up starting a revolution to free the
+Oubliette---a walking city where all memories are encrypted and stored online,
 allowing precise control over what others can remember about you.
 
 The world building is exceptional, with many new and exciting
-ideas![^overly_cute] Like the walking city that must keep moving to avoid the
-machines trying to destroy it. The life cycle of the citizens who spend part
-of their time living normally and part of the time enslaved to maintain the
-city. Using time---the time your have before you are enslaved---as a currency
-for everything.
+ideas,[^overly_cute] like: 
+- The walking city that must keep moving to avoid the
+  machines trying to destroy it. 
+- The life cycle of the citizens who spend part
+  of the time living normally and part of the time enslaved to maintain the
+  city.
+- Using time---the time your have before you are enslaved---as a currency
+  for everything.
 
 [^overly_cute]:
     There are also some overly cute ideas like "What if gaming clans became
