@@ -1,10 +1,10 @@
 ---
-date: 2023-11-07
+date: 2023-11-13
 title: The Fractal Prince
 author: Hannu Rajaniemi
 series: Jean le Flambeur
 book_number: 2
-rating: null 
+rating: 4
 image: /books/covers/the_fractal_prince.jpg
 ---
 
