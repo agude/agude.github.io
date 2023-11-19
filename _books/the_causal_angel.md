@@ -8,4 +8,5 @@ rating: 4
 image: /books/covers/the_causal_angel.jpg
 ---
 
-<span class="book-title">The Causal Angel</span> is in progress!
+<span class="book-title">The Causal Angel</span> is the final book in the Jean
+le Flambeur trilogy.
