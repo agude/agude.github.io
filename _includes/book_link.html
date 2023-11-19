@@ -19,7 +19,7 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
 {%- endfor -%}
 
 <span class="book-title">{{- null -}}
-{%- if url -%}
+{%- if url and page.url != url %}
   <a href="{{ url }}">{{ include.title }}</a>
 {%- else -%}
   {{ include.title }}
