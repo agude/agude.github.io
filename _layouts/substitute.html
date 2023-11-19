@@ -8,6 +8,8 @@ This replaces pieces of rendered page with new pieces, all at compile time.
 
 {% assign output = content
   | replace: '<div class="footnotes" role="doc-endnotes">', '<hr><div class="footnotes" role="doc-endnotes">'
+  | replace: '=[', '<span class="book-title">'
+  | replace: ']=', '</span>'
 %}
 
 {{output}}
