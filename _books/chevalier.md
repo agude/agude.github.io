@@ -1,10 +1,10 @@
 ---
-date: 2023-11-18
+date: 2023-11-21
 title: Chevalier
 author: Scott Warren
 series: War Horses
 book_number: 1
-rating: null
+rating: 4
 image: /books/covers/chevalier.jpg
 ---
 
