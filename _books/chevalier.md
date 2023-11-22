@@ -9,24 +9,22 @@ image: /books/covers/chevalier.jpg
 ---
 
 <span class="book-title">Chevalier</span> is a modern reimagining of 1980's
-mech sci-fi like Battletech. It is a quick read with lots of action and not a
-lot else, but that was exactly what I was looking for.
+mech sci-fi like Battletech, Gundam, and Macross. It's a quick, action-packed
+read---not very deep but highly entertaining---that focuses on making mechs
+feel like realistic battlefield tech, not magic.
 
-The plot is a classic: Vandal is an upright tank---what mechs are called
-in-universe---mechanic in a mercenary company. When some mysterious and badass
-other mercenaries decimate his unit, he's forced to put down the wrench and
-become a pilot, which he is naturally gifted at. He makes friends with the
-other new pilots, is shoved into combat much too quickly out of necessity, and
-triumphs over the mercenaries who first defeated his unit, although not in the
-way you would expect if this were just a simple action-movie.
+The plot is a classic: Vandal is a mech (called upright tanks) mechanic in a
+mercenary company. When mysterious, badass mercenaries decimate his unit, he's
+forced to become a pilot instead, a role he is naturally gifted at. He
+befriends the other new pilots and is thrust into combat prematurely out of
+necessity, triumphing over the rival mercenaries in an unexpected way.
 
-The universe is interesting. It is an alternate history earth where [Baghdad
-wasn't sacked in 1258][sack], leading to space flight during the crusades, and
-cementing the Spanish and Arabs as the two major powers. But the story focuses
-very tightly on Vandal and people around him, so not much of the setting is
-explored. I hope we learn more about the setting in the next novel in the
-series, {% include book_link.html title="Ymir" %}.
+The setting is an alternate history where [Baghdad was never sacked in
+1258][sack]. This led to space flight during the crusades, cementing Spain and
+the Ottomans as major powers. But the story focuses tightly on Vandal and
+those around him, so the wider setting remains under-explored. Hopefully more
+background comes in the sequel, {% include book_link.html title="Ymir" %}.
 
 [sack]: https://en.wikipedia.org/wiki/Siege_of_Baghdad_(1258)
 
-Overall an enjoy action romp.
+Overall an enjoyable action romp.
