@@ -1,10 +1,10 @@
 ---
-date: 2023-11-22
+date: 2023-11-25
 title: Ymir
 author: Scott Warren
 series: War Horses
 book_number: 2
-rating: null
+rating: 4
 image: /books/covers/ymir.jpg
 ---
 
