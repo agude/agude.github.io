@@ -20,10 +20,12 @@ befriends the other new pilots and is thrust into combat prematurely out of
 necessity, triumphing over the rival mercenaries in an unexpected way.
 
 The setting is an alternate history where [Baghdad was never sacked in
-1258][sack]. This led to space flight during the crusades, cementing Spain and
-the Ottomans as major powers. But the story focuses tightly on Vandal and
-those around him, so the wider setting remains under-explored. Hopefully more
-background comes in the sequel, {% include book_link.html title="Ymir" %}.
+1258][sack]. This led to space flight during the crusades, cementing the
+nobles from the Spain, Portugal, and France as one major power, with
+descendants of the Saracen as the other. But the story focuses tightly on
+Vandal and those around him, so the wider setting remains under-explored.
+Hopefully more background comes in the sequel, {% include book_link.html
+title="Ymir" %}.
 
 [sack]: https://en.wikipedia.org/wiki/Siege_of_Baghdad_(1258)
 
