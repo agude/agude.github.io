@@ -18,7 +18,7 @@ send a coded message while still escaping the blast, a truly galactic scale
 war, and giant trains used as underground command centers. But the story
 itself feels small compared to those idea. It is the story of one man, Horza.
 
-Horza bumbles his was from situation to situation, each one worse than the
+Horza bumbles his way from situation to situation, each one worse than the
 last. He is unlikable, unskilled, and has little impact on the world.[^banks]
 His vignettes are nasty, brutish, and short. Banks's uses violence and
 gruesome imagery---something [he is infamous for][wasp]---is off putting.
