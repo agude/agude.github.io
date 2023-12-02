@@ -11,8 +11,7 @@ image: /books/covers/the_evolutionary_void.jpg
 The final book in Hamilton's Void Trilogy, <span class="book-title">The
 Evolutionary Void</span>, wraps up the series well, but a little too quickly.
 All the characters and storylines arrive where they're needed and then the
-story is over. It felt a little rushed about more than 2000 pages across three
-books.
+story is over.
 
 At the end of {% include book_link.html title="The Temporal Void" %}, Edeard
 learns that he can rewind his world to a point of his choosing to get a second
@@ -28,7 +27,7 @@ family, and leads to him become the same despot he overthrew earlier. These
 chapters are tough to read because, after two books, I had grown attached to
 Edeard, the hero who never faltered.
 
-Of course, true to his role as the perfect Hero, Edeard realizes his mistakes
+Of course, true to his role as the perfect hero, Edeard realizes his mistakes
 and undoes them, living a final, flawless life.
 
 Outside the void is a little more chaotic, but the various storylines start to
@@ -36,7 +35,7 @@ weave together until, suddenly, they are all in the right places and save the
 universe. I did not predict the ending this time, unlike for {% include
 book_link.html title="Judas Unchained" %}, but in a way that is why it felt
 abrupt: it was foreshadowed but more subtlety. Still, there are some
-satisfying moments, like when Qutax gets revenge against The Cat[^adama], and
+satisfying moments, like when Qutax gets revenge against The Cat[^adama], and when
 all the mysteries of Edeard's city are revealed.
 
 All and all, the series does not quite meet the expectations set by {% include
