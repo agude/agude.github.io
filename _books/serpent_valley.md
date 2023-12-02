@@ -20,7 +20,8 @@ The story is split into two parts:
   slower, with lots of time for character development.
 
 - The second, after landing, is nonstop action. Vandal leads a ragtag rebel
-  team battling the planetary government.
+  team battling the planetary government using the mechs he and his team fixed
+  up in the first part.
 
 Throughout the book, Vandal repairs and pilots one mech, gaining intimate
 knowledge of its strengths and weaknesses. In a clever twist, he must leverage
