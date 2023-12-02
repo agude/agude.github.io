@@ -8,26 +8,28 @@ rating: 5
 image: /books/covers/serpent_valley.jpg
 ---
 
-<span class="book-title">Serpent Valley</span> is the third book in the War
-Horses series. Like the previous two, it's a quick read with a lot of action,
-but without any of the defects that held the other two back! It is my favorite
-book of the series by far!
+<span class="book-title">Serpent Valley</span>, the third book in the War
+Horses series, is another quick, action-packed read---but without the flaws
+holding back its predecessors. Easily my favorite of the series so far!
 
 The story is split into two parts:
 
-- The first part follows Vandal as he and the maintenance techs travel on a
-  civilian freighter with a selection of ancient mechs that they need to get
-  into fighting condition before they land. They soon realize their is an
-  enemy saboteur onboard.
-- The second part takes place after they land, and is full of action. Vandal
-  leads a rag-tag group of rebels into battle against the planetary government.
+- The first, Vandal and the techs travel on a freighter carrying antique mechs
+  that they must get ready for battle before they land. They soon realize
+  there's a saboteur aboard and they try uncovering the spy. The pacing is
+  slower, with lots of time for character development.
 
-The plotting is tight and the pacing is perfect, and unlike {% include
-book_link.html title="Ymir" %} the transition between the different parts of
-the plot flows perfectly. The first part of the book is a little
-slower, with time for character development, and a mystery as they
-protagonists try to find the spy. They second part is all action.
+- The second, after landing, is nonstop action. Vandal leads a ragtag rebel
+  team battling the planetary government.
 
-Warren is clearly figuring out the characters, the world, and the writing
-style. I can't wait for the next book: {% include book_link.html title="Dog
-Solider" %}.
+Throughout the book, Vandal repairs and pilots one mech, gaining intimate
+knowledge of its strengths and weaknesses. In a clever twist, he must leverage
+this understanding not to push the machine to its limits against the
+rebellion's enemies, but to destroy it when a traitor steals the mech and
+deserts.
+
+The plotting is tight, the pacing perfect. Unlike {% include book_link.html
+title="Ymir" %}, transitions between plot lines flow seamlessly. The balanced
+mix of mystery, intrigue, and action show that the author has really figured
+out his characters, worldbuilding, and style. I can't wait for the next book:
+{% include book_link.html title="Dog Solider" %}.
