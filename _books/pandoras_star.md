@@ -4,7 +4,7 @@ title: Pandora's Star
 author: Peter F. Hamilton
 series: Commonwealth Saga
 book_number: 1
-rating: 4
+rating: 5
 image: /books/covers/pandoras_star.jpg
 ---
 
