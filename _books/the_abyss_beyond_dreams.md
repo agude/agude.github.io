@@ -14,10 +14,10 @@ Though billed as space opera, it often reads more as urban fantasy since most
 of the story occurs on the planet Bienvenido inside the Void where steam
 engines are their most advanced technology.
 
-Initially, the story parallels Edeard's from the Void Trilogy (started in {%
-include book_link.html title="The Dreaming Void" %}), feeling derivative.
-Young psychic Slvasta joins the army, leaves his rural home for the capital,
-and realizes the seemingly benevolent rulers are corrupt, resolving to
+The story feels derivative at first because it parallels Edeard's from the
+Void Trilogy (started in {% include book_link.html title="The Dreaming Void"
+%}). Young psychic Slvasta joins the army, leaves his rural home for the
+capital, realizes the seemingly benevolent rulers are corrupt, and decides to
 overthrow them.
 
 The core difference lies with the Fallers---an alien terraforming weapon that
