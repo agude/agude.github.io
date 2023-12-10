@@ -38,14 +38,15 @@ There are two interwoven storylines:
    Fallers.
 
 The revolution sections are tense, but still drag. I could not wait to get
-back to the Sheldon sections
+back to the Sheldon sections.
 
 Surprisingly, the book contains a complete story arc, whereas Hamilton
 normally splits the story across the entire series. But this did make the
 story feel a little too quick. Several challenges I expected would build to
 climatic confrontations were resolved in under a page.
 
-Still a book I couldn't put down!
+But these complaints are minor. The writing is great and the pacing kept me on
+the edge of my seat. A book I could not put down!
 
 [^excession]:
     Coined by Banks in {% include book_link.html title="Excession" %}:
