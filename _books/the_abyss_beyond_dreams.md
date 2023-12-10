@@ -39,6 +39,16 @@ There are two story-lines:
    that he can steal advanced weapons from the king's palace to fight the
    Fallers.
 
+The revolution parts are tense, but still drag. I was expecting sci fi and
+these sections barely qualify. But the Sheldon parts make up for it.
+
+One surprising fact was that the book contains a complete story. Normally
+Hamilton splits the story across all the books in the series so each one feels
+incomplete. However, that meant that it all had to fit and as such the story
+felt a little fast.
+
+Still a really fun book I couldn't put down.
+
 [^excession]:
     Coined by Banks in {% include book_link.html title="Excession" %}:
 
