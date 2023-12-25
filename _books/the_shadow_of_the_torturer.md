@@ -1,10 +1,10 @@
 ---
-date: 2023-12-22
+date: 2023-12-25
 title: The Shadow of the Torturer
 author: Gene Wolfe
 series: The Book of the New Sun
 book_number: 1
-rating: null
+rating: 4
 image: /books/covers/the_shadow_of_the_torturer.jpg
 ---
 
