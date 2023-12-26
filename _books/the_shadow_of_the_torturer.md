@@ -20,3 +20,12 @@ context. In this way, the experience is similar to reading {% include
 book_link.html title="The Quantum Thief" %}, which uses foreign words for a
 similar effect. I think Wolfe's prose is more successful, because the prosody
 of archaic English matches the rest of the text better.
+
+<span class="book-title">The Shadow of the Torturer</span> is similar to
+Rajaniemi's {% include book_link.html title="The Quantum Thief" %} in another
+way: they both have very deep worldbuilding at their heart. Again I think
+Wolfe's is more successful than Rajaniemi's because {% include book_link.html
+title="The Quantum Thief" %} feels like it dumps the worldbuilding over you in
+a torrent, while <span class="book-title">The Shadow of the Torturer</span>
+leaves it hidden in the nooks and crannies of the story for you to slowly
+uncover, making it feel more organic.
