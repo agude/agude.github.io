@@ -29,12 +29,12 @@ a torrent, while <span class="book-title">The Shadow of the Torturer</span>
 leaves it hidden in the nooks and crannies of the story for you to slowly
 uncover, making it feel more organic.
 
-The book is narrated by Severian, a torturer thrown out of his guild for
-showing mercy by assisting a victim in committing suicide, and chronicles his
-life as he raises to become the Autarch of his civilization. Like {% inclue
-book_link.html link="Hyperion" %}---and the opposite of {% include
-book_link.html title="Consider Phlebas"%}---<span class="book-title">The
-Shadow of the Torturer</span> is a seemingly small-scale story with much
-larger happenings going on under the surface. The reader only gets hints at
-these, and I suspect part of the payoff of the series will be uncovering what
-those happening are. I can't wait to find out.
+The book is narrated by Severian, a torturer exiled from his guild for showing
+mercy by helping a victim commit suicide. It chronicles his life as he rises
+to become the Autarch of his civilization. Like {% include book_link.html
+title="Hyperion" %}---and the opposite of {% include book_link.html
+title="Consider Phlebas"%}---<span class="book-title">The Shadow of the
+Torturer</span> tells a seemingly small, personal story that hints at larger
+forces and events happening just out of sight. The reader only gets glimpses
+of these looming mysteries, and I suspect part of the payoff of the series
+will be uncovering what they are. I can't wait to find out.
