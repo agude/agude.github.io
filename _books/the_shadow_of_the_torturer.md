@@ -8,8 +8,10 @@ rating: 4
 image: /books/covers/the_shadow_of_the_torturer.jpg
 ---
 
-<span class="book-title">The Shadow of the Torturer</span> is the first part
-of The Book of the New Sun.
+<span class="book-title">The Shadow of the Torturer</span> is the first
+installment in Gene Wolfe's The Book of the New Sun tetralogy. The pacing may
+be slow, but Wolfe's worldbuilding is fantastic, crafting a setting that pulls
+the reader in.
 
 Wolfe uses archaic English, mixed with some Latin, to give the world an old
 and alien feeling. I frequently looked up unfamiliar words, although you can
@@ -37,4 +39,9 @@ title="Consider Phlebas"%}---<span class="book-title">The Shadow of the
 Torturer</span> tells a seemingly small, personal story that hints at larger
 forces and events happening just out of sight. The reader only gets glimpses
 of these looming mysteries, and I suspect part of the payoff of the series
-will be uncovering what they are. I can't wait to find out.
+will be uncovering what they are.
+
+There are a several motifs, the most obvious of which is the fragile boundary
+between life and death. Severian almost dies several times. He is a torturer
+and an executioner. He lives amongst the graves and mausoleums surrounding his
+guild.
