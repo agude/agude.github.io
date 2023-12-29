@@ -14,7 +14,7 @@ futuristic solar system to reclaim his lost memories and pull off an
 impossible heist.
 
 Jean le Flambeur, an _exceptional_ thief, is broken out of prison by a
-god-like, uploaded-intelligence to steal sometime highly valuable. But there
+god-like, uploaded-intelligence to steal something highly valuable. But there
 is a problem: le Flambeur wiped his own mind and hid his memories before
 capture. To pull off the heist, he must get them back.
 
@@ -24,9 +24,10 @@ Oubliette---a walking city where all memories are encrypted and stored online,
 allowing precise control over what others can remember about you.
 
 The world building is exceptional, with many new and exciting
-ideas,[^overly_cute] like: 
+ideas,[^overly_cute] like:
+
 - The walking city that must keep moving to avoid the
-  machines trying to destroy it. 
+  machines trying to destroy it.
 - The life cycle of the citizens who spend part
   of the time living normally and part of the time enslaved to maintain the
   city.

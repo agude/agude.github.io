@@ -15,8 +15,8 @@ two-thirds of the way through I was solidly at three stars, and by the end I
 was up to four. It was not the all-time great I was promised, but it was very
 good.
 
-It is told as the tale of six different pilgrims visiting the planet Hyperion
-to visit the Shrike, a cruel, death-god-like figure. <span
+It is told as the tale of six different pilgrims traveling to the planet
+Hyperion to visit the Shrike, a cruel, death-god-like figure. <span
 class="book-title">Hyperion</span> is very much <span class="book-title">[The
 Canterbury Tales][tales]</span> in space. At first the stories seem
 unconnected, but as the pilgrims travel and tell their tales we realize they
