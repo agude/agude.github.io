@@ -9,9 +9,26 @@ image: /books/covers/the_shadow_of_the_torturer.jpg
 ---
 
 <span class="book-title">The Shadow of the Torturer</span> is the first
-installment in Gene Wolfe's The Book of the New Sun tetralogy. The pacing may
+installment in Gene Wolfe's The Book of the New Sun tetralogy. It follows the
+life of Severian, a torturer and executioner on a dying Earth. The pacing may
 be slow, but Wolfe's worldbuilding is fantastic, crafting a setting that pulls
 the reader in.
+
+The book is narrated by Severian, a torturer exiled from his guild for showing
+mercy by helping a victim commit suicide. It chronicles his life as he rises
+to become the Autarch of his civilization. Like {% include book_link.html
+title="Hyperion" %}---and the opposite of {% include book_link.html
+title="Consider Phlebas"%}---<span class="book-title">The Shadow of the
+Torturer</span> tells a seemingly small, personal story that hints at larger
+forces and events happening just out of sight. The reader only gets glimpses
+of these looming mysteries, and I suspect part of the payoff of the series
+will be uncovering what they are.
+
+There are a several motifs, the most obvious of which is the fragile boundary
+between life and death. Severian cheats death several times---once at the
+beginning of the book when he almost drowns (water is another motif) and again
+later when he loses the flower duel. He is a torturer and an executioner. He
+lives amongst the graves and mausoleums surrounding his guild.
 
 Wolfe uses archaic English, mixed with some Latin, to give the world an old
 and alien feeling. I frequently looked up unfamiliar words, although you can
@@ -30,18 +47,3 @@ title="The Quantum Thief" %} feels like it dumps the worldbuilding over you in
 a torrent, while <span class="book-title">The Shadow of the Torturer</span>
 leaves it hidden in the nooks and crannies of the story for you to slowly
 uncover, making it feel more organic.
-
-The book is narrated by Severian, a torturer exiled from his guild for showing
-mercy by helping a victim commit suicide. It chronicles his life as he rises
-to become the Autarch of his civilization. Like {% include book_link.html
-title="Hyperion" %}---and the opposite of {% include book_link.html
-title="Consider Phlebas"%}---<span class="book-title">The Shadow of the
-Torturer</span> tells a seemingly small, personal story that hints at larger
-forces and events happening just out of sight. The reader only gets glimpses
-of these looming mysteries, and I suspect part of the payoff of the series
-will be uncovering what they are.
-
-There are a several motifs, the most obvious of which is the fragile boundary
-between life and death. Severian almost dies several times. He is a torturer
-and an executioner. He lives amongst the graves and mausoleums surrounding his
-guild.
