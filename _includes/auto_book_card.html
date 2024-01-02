@@ -1,0 +1,26 @@
+{% comment %} Add a Book Card based only on the book title, making it easier
+to add them by hand to articles (for example in the yearly review post).{% endcomment %}
+
+{% assign target_title = include.title %}
+
+{% for book in site.books %}
+    {% if book.title != target_title %}
+        {% comment %}No match, so keep looking{% endcomment %}
+        {% continue %}
+    {% else %}
+
+        {% comment %}Match, so insert a Book Card then end.{% endcomment %}
+
+{% include book_card.html
+url=book.url
+image=book.image
+title=book.title
+author=book.author
+rating=book.rating
+description=book.excerpt
+%}
+
+        {% comment %}Done!{% endcomment %}
+        {% break %}
+    {% endif %}
+{% endfor %}
