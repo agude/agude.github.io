@@ -44,12 +44,12 @@ of the year!
 
 ## The Chronicle of the Fallers by <span clas="author-name">Peter F. Hamilton</span>
 
-Hamilton is known for his space opera, but <span class="book">The Abyss Beyond
-Dreams</span> is more urban fantasy set during the Russian Revolution and <span
-class="book">Night Without Stars</span> is a thriller set during the Cold War.
-a Cold War thriller. Both feature Commonwealth citizens with special knowledge
-as _"Outside Context Problems"_, pulling the stories into science fiction
-territory.
+Hamilton is known for his space opera, but <span class="book-title">The Abyss
+Beyond Dreams</span> is more urban fantasy set during the Russian Revolution
+(in space) and <span class="book-title">Night Without Stars</span> is a
+thriller set during the Cold War (again, in space). Both feature Commonwealth
+citizens with special knowledge as _"Outside Context Problems"_, pulling the
+stories into science fiction territory.
 
 <div class="card-grid">
     {% include auto_book_card.html title="The Abyss Beyond Dreams" %}
@@ -83,7 +83,7 @@ Epic space opera with a massive cast of characters and incredible pacing.
 1980s mech sci-fi re-imagined for the 21st century. Warren's self-published
 series takes a few books to really find its feet, but once it does, it's a
 quick, fun, nostalgic read. The third book, <span class="book-title">Serpent
-Valley</span>, exemplifies what Warren is going for.
+Valley</span>, exemplifies the series.
 
 <div class="card-grid">
     {% include auto_book_card.html title="Serpent Valley" %}
