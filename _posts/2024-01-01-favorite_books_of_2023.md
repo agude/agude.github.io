@@ -69,7 +69,7 @@ scheming AI who either want to eradicate the humans or uplift them.
     {% include auto_book_card.html title="The Fall of Hyperion" %}
 </div>
 
-## The Commonwealth Series by <span clas="author-name">Peter F. Hamilton</span>
+## The Commonwealth Saga by <span clas="author-name">Peter F. Hamilton</span>
 
 Epic space opera with a massive cast of characters and incredible pacing.
 
