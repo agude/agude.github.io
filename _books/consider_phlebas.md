@@ -4,7 +4,7 @@ title: Consider Phlebas
 author: Iain M. Banks
 series: Culture
 book_number: 1
-rating: 2
+rating: 1
 image: /books/covers/consider_phlebas.jpg
 ---
 
