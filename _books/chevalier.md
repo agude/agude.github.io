@@ -4,7 +4,7 @@ title: Chevalier
 author: Scott Warren
 series: War Horses
 book_number: 1
-rating: 4
+rating: 3
 image: /books/covers/chevalier.jpg
 ---
 
