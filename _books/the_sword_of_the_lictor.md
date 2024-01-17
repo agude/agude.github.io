@@ -1,10 +1,10 @@
 ---
-date: 2024-01-12
+date: 2024-01-16
 title: The Sword of the Lictor
 author: Gene Wolfe
 series: The Book of the New Sun
 book_number: 3
-rating: null
+rating: 4
 image: /books/covers/the_sword_of_the_lictor.jpg
 ---
 
