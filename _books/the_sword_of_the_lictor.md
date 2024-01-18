@@ -21,8 +21,9 @@ situations.
 
 Some of my favorite scenes were:
 
-- The haunting confrontation with the Alzabo at the mountain cottage.
+- The haunting confrontation with the Alzabo and Agia at the mountain cottage.
 - The mountain carved as a statue and Typhon.
+- The village of the sorcerers and the "magic" duel.
 - Lake Diurna with the lake-dwelers living on floating islands.
 - The castle of Baldanders, his human abominations, and his and Severians
 fight.
