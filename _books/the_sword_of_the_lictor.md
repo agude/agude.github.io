@@ -9,28 +9,28 @@ image: /books/covers/the_sword_of_the_lictor.jpg
 ---
 
 <span class="book-title">The Sword of the Lictor</span> is the third book in
-Gene Wolfe's The Book of the New Sun tetralogy. It starts with Severian
-finally reaching Thrax and follows his adventures after his second exile.
+Gene Wolfe's The Book of the New Sun tetralogy. It follows Severian after he
+reaches Thrax and is exiled for a second time.
 
-{% include book_link.html title="The Shadow of the Torturer" %} felt
-overwhelming as I got my head around the setting, got used to the writing
-style, and picked up new words from context. {% include book_link.html title="The Claw of the Conciliator" %} felt slow as Severian traveled from
-place to place and encounter to encounter. <span class="book-title">The Sword
-of the Lictor</span> moved quickly and introduced interesting characters and
-situations.
+{% include book_link.html title="The Shadow of the Torturer" %} was
+overwhelming as I immersed myself in the rich setting and complex writing
+style. {% include book_link.html title="The Claw of the Conciliator" %} felt
+slower paced as Severian traveled from place to place. In contrast, <span
+class="book-title">The Sword of the Lictor</span> moved briskly and introduced
+fascinating new characters and situations.
 
 Some of my favorite scenes were:
 
 - The haunting confrontation with the Alzabo and Agia at the mountain cottage.
-- The mountain carved as a statue and Typhon.
+- The mountain carved into a giant statue of Typhon.
 - The village of the sorcerers and the "magic" duel.
-- Lake Diurna with the lake-dwelers living on floating islands.
-- The castle of Baldanders, his human abominations, and his and Severians
-fight.
+- Lake Diurna and its lake-dwellers who live on floating islands.
+- The castle of Baldanders, his disturbing human experiments, and his fight
+  with Severian.
 
-Although the structure of the story is very similar to {% include
+Although the structure of the story resembles {% include
 book_link.html title="The Claw of the Conciliator" %}, with Severian traveling
-from adventure to adventure, I thought each part was more engaging.
+from adventure to adventure, I felt each part was more engaging.
 
-With this book wrapped up, I feel energized and ready to fly through the forth
-book, {% include book_link.html title="The Citadel of the Autarch" %}.
+With this book wrapped up, I am eager to dive into the forth book, {% include
+book_link.html title="The Citadel of the Autarch" %}.
