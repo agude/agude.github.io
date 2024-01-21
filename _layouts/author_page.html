@@ -3,21 +3,24 @@ layout: default
 ---
 <div class="author-page">
   <h1 class="author-title">
-    Topic:&nbsp;{{ page.author_name }}
+    {{ page.author_name }}
   </h1>
 
   {{ content }}
 
 {% comment %}This sorted list is used to put the books in series order in each
 <h2> heading.{% endcomment %}
-{% assign sorted_books = site.books | where: "author", page.author | sort: 'book_number' %}
+{% assign sorted_books = site.books | sort: 'book_number' %}
 
 {% comment %}This sorted list is used to put the <h2> sections in the right
 order.{% endcomment %}
 {% assign sorted_series = "" %}
 
 {% for book in site.books %}
-  {% assign sorted_series = sorted_series | append: book.series | append: "|" %}
+  {% comment %}Keep only the correct author.{% endcomment %}
+  {% if book.author == page.author_name %}
+    {% assign sorted_series = sorted_series | append: book.series | append: "|" %}
+  {% endif %}
 {% endfor %}
 
 {% assign sorted_series = sorted_series | split: "|" | uniq | sort %}
@@ -27,7 +30,7 @@ headlines, but not before the first headline.{% endcomment %}
 {% assign first_place = true %}
 
 {% for sort_series in sorted_series %}
-  {% if sort_series == null or sort_series == '' or %}
+  {% if sort_series == null or sort_series == '' %}
     {% continue %}
   {% endif %}
 
