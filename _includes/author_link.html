@@ -1,0 +1,26 @@
+{%- comment %}
+The HTML is *VERY* sensitive to new lines, so we fill with {{- null -}} which
+does nothing _except_ consume a new line on eitherside.
+
+Otherwise it doens't work inside footnotes.
+
+See:
+https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-include-external-content-inside-footnotes
+{% endcomment -%}
+{%- assign url = null -%}
+
+{%- comment %}Try to find the book and set a URL{% endcomment -%}
+{%- for page in site.pages -%}
+  {%- if page.author_name == include.name and page.layout == "author_page" -%}
+    {%- assign url = page.url -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<span class="author-name">{{- null -}}
+{%- if url and page.url != url %}
+  <a href="{{ url }}">{{ include.name }}</a>
+{%- else -%}
+  {{ include.name }}
+{%- endif -%}
+</span>{{- null -}}

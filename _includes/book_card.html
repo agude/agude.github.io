@@ -1,7 +1,7 @@
 <div class="book-card">
   <div class="card-element card-book-cover">
     <a href="{{ include.url }}">
-      <img 
+      <img
         src="{{ include.image }}"
         alt="Book cover of {{ include.title }}."
       >
@@ -15,10 +15,7 @@
     {% if include.author %}
       <br>
       <span clas="by-author">
-        by
-        <span clas="author-name">
-          {{ include.author }}
-        </span>
+        by {% include author_link.html name=include.author %}
       </span>
     {% endif %}
     {% if include.rating %}
