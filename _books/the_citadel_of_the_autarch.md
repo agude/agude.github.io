@@ -1,10 +1,10 @@
 ---
-date: 2024-01-17
+date: 2024-01-26
 title: The Citadel of the Autarch
 author: Gene Wolfe
 series: The Book of the New Sun
 book_number: 4
-rating: null
+rating: 5
 image: /books/covers/the_citadel_of_the_autarch.jpg
 ---
 
