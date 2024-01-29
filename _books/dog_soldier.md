@@ -1,5 +1,5 @@
 ---
-date: 2024-03-15
+date: 2024-01-28
 title: Dog Soldier
 author: Scott Warren
 series: War Horses
@@ -8,5 +8,5 @@ rating: null
 image: /books/covers/dog_soldier.jpg
 ---
 
-<span class="book-title">Dog Solider</span> is the forth in the War Horses
+<span class="book-title">Dog Soldier</span> is the forth in the War Horses
 series.
