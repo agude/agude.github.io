@@ -1,10 +1,10 @@
 ---
-date: 2024-01-27
+date: 2024-02-09
 title: The Urth of the New Sun
 author: Gene Wolfe
 series: The Book of the New Sun
 book_number: 5
-rating: null
+rating: 3
 image: /books/covers/the_urth_of_the_new_sun.jpg
 ---
 
