@@ -1,10 +1,10 @@
 ---
-date: 2024-01-27
+date: 2024-02-18
 title: Redwall
 author: Brian Jacques
 series: Redwall
 book_number: 1
-rating: null
+rating: 5
 image: /books/covers/redwall.jpg
 ---
 
