@@ -8,7 +8,7 @@ rating: 5
 image: /books/covers/redwall.jpg
 ---
 
-<span class="book-title">Redwall</span> is the first book in Brian Jacques'
+<span class="book-title">Redwall</span> is the first book in Brian Jacques's
 Redwall series. It tells the story of Mathias, a mouse who follows his destiny
 to become the warrior of Redwall Abbey and defeat the evil rat Cluny the
 Scourge.
