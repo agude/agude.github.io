@@ -15,15 +15,14 @@ that serves as the basis for the Empire of Azad's entire government.
 
 <span class="book-title">The Player of Games</span> is set in the same
 universe as {% include book_link.html title="Consider Phlebas" %}, but is
-otherwise unconnected. In fact, the two books could not be more different. <span
-class="book-title">The Player of Games</span> is in key ways the opposite of
-{% include book_link.html title="Consider Phlebas" %}:
-
-While <span class="book-title">Phlebas</span>focuses on the futility of
-individual action, <span class="book-title">Games</span> explores how one
-person can have an outsized impact. <span class="book-title">Phlebas</span> is
-told from the perspective of a "barbarian" encountering the Culture, whereas
-<span class="book-title">Games</span> presents the Culture's viewpoint as it
+otherwise unconnected. In fact, the two books could not be more different.
+<span class="book-title">The Player of Games</span> is in key ways the
+opposite of {% include book_link.html title="Consider Phlebas" %}: While <span
+class="book-title">Phlebas</span> focuses on the futility of individual
+action, <span class="book-title">Games</span> explores how one person can have
+an outsized impact. <span class="book-title">Phlebas</span> is told from the
+perspective of a "barbarian" encountering the Culture, whereas <span
+class="book-title">Games</span> presents the Culture's viewpoint as it
 encounters a more primitive civilization.
 
 I appreciated how Gurgeh's Azad play improved as he internalized the Empire's
