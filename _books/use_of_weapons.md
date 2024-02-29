@@ -9,7 +9,7 @@ image: /books/covers/use_of_weapons.jpg
 ---
 
 <span class="book-title">Use of Weapons</span> is the third novel in the
-Culture series by Iain M. Banks. It tells the story of a man known as
+Culture series by Iain M. Banks. It tells the story of a man called
 Cheradenine Zakalwe, who works for the Culture's Special Circumstances
 division.
 
