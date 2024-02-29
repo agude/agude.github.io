@@ -9,8 +9,8 @@ image: /books/covers/use_of_weapons.jpg
 ---
 
 <span class="book-title">Use of Weapons</span> is the third novel in the
-Culture series by Iain M. Banks. It is the story told in two of a man called
-Cheradenine Zakalwe as he works for the Culture's Special Circumstances
+Culture series by Iain M. Banks. It tells the story of a man known as
+Cheradenine Zakalwe, who works for the Culture's Special Circumstances
 division.
 
 The structure of the story is clever. There is the main story, the _numbered
@@ -22,20 +22,26 @@ with each one one. And there is a prologue and epilogue which cover another
 mission that takes place after the main story, but the reader can't figure
 that out until they read the epilogue half.
 
-This works really well because the narrative is slightly mirrored. Events that
-happen in the past are mirrored in the neighboring future chapters. And the
-man's story both starts with and ends with surprise reveals, and so the only
-way to have them both at the end of the book was to tell one of the stories
-backwards.
+The narrative structure is cleverly done. The main story is told in the
+_numbered chapters_, which cover the man's most recent mission and proceed
+chronologically. Interspersed are the _Roman numeral chapters_, which detail
+the operative's backstory in reverse order, starting with an earlier mission
+and going further back in time with each chapter. There is also a prologue and
+epilogue focused on another mission that takes place after the main events,
+though the reader doesn't realize this until the epilogue.
 
-I wish I could say I saw the twists coming. I sort of predicted the Chair
-twist, although I was also thrown off by some of Banks's red herrings. I
-realized the identity twist---that the man is not Zakalwe---only a page or two
-before it was revealed. That too was foreshadowed, as Banks never used the
-author's voice to give the man a name, simply using pronouns or describing him
-as "the man".
+This mirrored structure works well, as events in the past often parallel those
+in neighboring future chapters. Placing one storyline in reverse order also
+allows Banks to save the major reveals at the beginning and end of the man's
+story for the end of the book. If the story was entirely chronological, one of
+the mysteries would be revealed on the first page.
 
-I also appreciated how the title, <span class="book-title">Use of
-Weapons</span>, hints at both the wet-work the operative does, and the fact
-that everything---a man, a sister, a chair, a spacecraft---is a weapon if used
-as one.
+I did not quite predict the twists. I guessed the chair twist, although I was
+thrown off by red herrings. The identity twist---that the operative is not
+really Zakalwe---I realized just a page or two before it was revealed. Banks
+foreshadowed this by never using the authorial voice to name the man, only
+referring to him with pronouns or as "the man".
+
+The title, <span class="book-title">Use of Weapons</span>, cleverly alludes to
+both the wet-work Zakalwe does and how everything---a man, a sister, a chair,
+a ship---can become a weapon when used as one.
