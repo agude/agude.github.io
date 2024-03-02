@@ -38,7 +38,7 @@ the wet-work Zakalwe does and how everything---a man, a sister, a chair, a
 ship---can become a weapon when used as one.
 
 I really enjoyed the book and couldn't put it down, as I wanted to understand
-Zakalwe's backstory and motivations. I liked it a bit more than {% include
-book_link.title="The Player of Games"%}, though both are fantastic. Next up
-for me is {% include book_link.title="State of the Art"%}, Banks's collection
-of Culture short stories.
+the man's backstory and motivations. I liked it a bit more than {% include
+book_link.html title="The Player of Games"%}, though both are fantastic. Next
+up for me is {% include book_link.html title="State of the Art"%}, Banks's
+collection of Culture short stories.
