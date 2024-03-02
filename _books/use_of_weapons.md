@@ -13,15 +13,6 @@ Culture series by Iain M. Banks. It tells the story of a man called
 Cheradenine Zakalwe, who works for the Culture's Special Circumstances
 division.
 
-The structure of the story is clever. There is the main story, the _numbered
-chapters_, which covers the most recent mission by the man as he works for the
-culture. These chapters proceed in order as you would expect. There is the
-operative's backstory told in the _roman numeral chapters_, which start with
-his previous mission and are in reverse order, going further back in time to
-with each one one. And there is a prologue and epilogue which cover another
-mission that takes place after the main story, but the reader can't figure
-that out until they read the epilogue half.
-
 The narrative structure is cleverly done. The main story is told in the
 _numbered chapters_, which cover the man's most recent mission and proceed
 chronologically. Interspersed are the _Roman numeral chapters_, which detail
@@ -42,6 +33,12 @@ really Zakalwe---I realized just a page or two before it was revealed. Banks
 foreshadowed this by never using the authorial voice to name the man, only
 referring to him with pronouns or as "the man".
 
-The title, <span class="book-title">Use of Weapons</span>, cleverly alludes to
-both the wet-work Zakalwe does and how everything---a man, a sister, a chair,
-a ship---can become a weapon when used as one.
+The title, <span class="book-title">Use of Weapons</span>,  alludes to both
+the wet-work Zakalwe does and how everything---a man, a sister, a chair, a
+ship---can become a weapon when used as one.
+
+I really enjoyed the book and couldn't put it down, as I wanted to understand
+Zakalwe's backstory and motivations. I liked it a bit more than {% include
+book_link.title="The Player of Games"%}, though both are fantastic. Next up
+for me is {% include book_link.title="State of the Art"%}, Banks's collection
+of Culture short stories.
