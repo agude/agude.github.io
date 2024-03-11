@@ -5,7 +5,7 @@ author: Iain M. Banks
 series: Culture
 book_number: 4
 rating: 3
-image: /books/covers/state_of_the_art.jpg
+image: /books/covers/the_state_of_the_art.jpg
 ---
 
 <span class="book-title">The State of the Art</span> is a collection of short
