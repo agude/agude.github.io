@@ -4,7 +4,7 @@ title: Redwall
 author: Brian Jacques
 series: Redwall
 book_number: 1
-rating: 5
+rating: 4
 image: /books/covers/redwall.jpg
 ---
 
