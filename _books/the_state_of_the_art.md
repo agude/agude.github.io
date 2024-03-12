@@ -62,7 +62,7 @@ junk into the nearest star) instead sent it to Earth, who interpret it as
 gifts. Good fun if a little over-the-top
 
 ### Piece
-{% include book_rating.html rating=4 %}
+{% include book_rating.html rating=3 %}
 
 A reflection on the extreme lengths religions drive people to, written by a
 man on the [Lockerbie flight][lockerbie] just before it explodes.
@@ -78,11 +78,11 @@ from {% include book_link.html title="Use of Weapons" %} as they visit 1977's
 Earth and have to decide to contact it or not.
 
 <span class="book-title">The State of the Art</span> once again asks the
-question---as was asked in
-
-{% include book_link.html title="Consider Phlebas" %},
+question---as was asked in {% include book_link.html title="Consider Phlebas" %},
 {% include book_link.html title="The Player of Games" %}, and
-{% include book_link.html title="User of Weapons" %}.
+{% include book_link.html title="User of Weapons" %}---if the Culture's
+intervention is good, and if the Culture itself lacks life because of the lack
+of challenge.
 
 ### Scratch
 {% include book_rating.html rating=1 %}
