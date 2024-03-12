@@ -77,6 +77,13 @@ Art</span> is a novella featuring Diziet Sma and the drone Skaffen-Amtiskaw
 from {% include book_link.html title="Use of Weapons" %} as they visit 1977's
 Earth and have to decide to contact it or not.
 
+<span class="book-title">The State of the Art</span> once again asks the
+question---as was asked in
+
+{% include book_link.html title="Consider Phlebas" %},
+{% include book_link.html title="The Player of Games" %}, and
+{% include book_link.html title="User of Weapons" %}.
+
 ### Scratch
 {% include book_rating.html rating=1 %}
 
