@@ -1,5 +1,5 @@
 ---
-date: 2024-02-29
+date: 2024-03-08
 title: The State of the Art
 author: Iain M. Banks
 series: Culture
