@@ -9,8 +9,9 @@ image: /books/covers/the_state_of_the_art.jpg
 ---
 
 <span class="book-title">The State of the Art</span> is a collection of short
-stories by Iain M. Banks. It
-
+stories by Iain M. Banks. It has some stories related to the Culture and some
+other just general scifi. Although it has been considered utopian fiction it
+comes off pretty bleak to me.
 
 ### Road of Skulls
 {% include book_rating.html rating=2 %}
@@ -86,8 +87,19 @@ in 1977 and have to decide whether to contact it or not.
 question---as was asked in {% include book_link.html title="Consider Phlebas"
 %}, {% include book_link.html title="The Player of Games" %}, and {% include
 book_link.html title="Use of Weapons" %}---of whether the Culture's
-intervention is beneficial to those they intervene on behalf of, and if the
-Culture itself lacks vitality.
+homogenizing influence is ultimately beneficial or if it robs people of the
+elements that give life meaning.
+
+I was worried that the vignettes where the Culture people visit various places
+on Earth would be
+
+Unfortunately Banks decides to tell not show by making some characters
+mouthpieces who lecture at each other (and the reader), which really throws
+off the stories flow. Flow is particularly important in short writing!
+
+The ending was predictable and heavy-handed: Banks decided to start showing
+again by having the charter how defended Earth's liveliness mugged and murder
+in an alley of New York.
 
 ### Scratch
 {% include book_rating.html rating=1 %}
