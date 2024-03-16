@@ -9,9 +9,9 @@ image: /books/covers/the_state_of_the_art.jpg
 ---
 
 <span class="book-title">The State of the Art</span> is a collection of short
-stories by Iain M. Banks. It has some stories related to the Culture and some
-other just general scifi. Although it has been considered utopian fiction it
-comes off pretty bleak to me.
+stories by Iain M. Banks. It contains some stories related to the Culture
+universe and some general science fiction tales. Although it has been
+considered utopian fiction, it comes across as rather bleak to the reader.
 
 ### Road of Skulls
 {% include book_rating.html rating=2 %}
@@ -54,18 +54,19 @@ to reach rescue. Although not explicitly stated, this is probably a Culture
 tale.
 
 Banks does an excellent job of making the story seem bleak and claustrophobic.
-We---and the man---are not sure if the suit is really on his side. When the
-man dies, the suit keeps him around out of sentimentality, answering our
-question. The "Descendant" refers to the suit (and a drone at the end) that
-are, in some ways, the mankind's descendants.
+The man---and the reader---are not sure if the suit is really on his side.
+When the man dies, the suit keeps him around out of sentimentality, answering
+our question. The "Descendant" refers to the suit (and a drone at the end)
+that are, in some ways, the mankind's descendants.
 
 ### Cleaning Up
 {% include book_rating.html rating=4 %}
 
 This story is a parody of the military-industrial complex during the Cold War,
-written in a golden-age sci-fi style. Aliens discover that their trash system,
-which should send junk into the nearest star, instead sent it to Earth, where
-humans interpreted it as gifts. It's good fun, albeit a little over-the-top.
+written in a golden-age of sci-fi style. Aliens discover that their trash
+system, which should send junk into the nearest star, instead sent it to
+Earth, where humans interpreted it as gifts. It's good fun, albeit a little
+over-the-top.
 
 ### Piece
 {% include book_rating.html rating=3 %}
@@ -91,15 +92,16 @@ homogenizing influence is ultimately beneficial or if it robs people of the
 elements that give life meaning.
 
 I was worried that the vignettes where the Culture people visit various places
-on Earth would be
+on Earth would be kitschy, but I actually enjoyed them. Unfortunately, Banks
+decides to ["tell, not show"][sdt] by making some characters mouthpieces who
+lecture at each other (and the reader), which really throws off the story's
+flow. Flow is particularly important in short writing!
 
-Unfortunately Banks decides to tell not show by making some characters
-mouthpieces who lecture at each other (and the reader), which really throws
-off the stories flow. Flow is particularly important in short writing!
+[sdt]: https://en.wikipedia.org/wiki/Show,_don%27t_tell
 
 The ending was predictable and heavy-handed: Banks decided to start showing
-again by having the charter how defended Earth's liveliness mugged and murder
-in an alley of New York.
+again by having the character who defended Earth's liveliness mugged and
+murdered in an alley in New York.
 
 ### Scratch
 {% include book_rating.html rating=1 %}
