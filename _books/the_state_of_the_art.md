@@ -11,7 +11,7 @@ image: /books/covers/the_state_of_the_art.jpg
 <span class="book-title">The State of the Art</span> is a collection of short
 stories by Iain M. Banks. It contains some stories related to the Culture
 universe and some general science fiction tales. Although it has been
-considered utopian fiction, it comes across as rather bleak to the reader.
+considered utopian fiction, it comes across as rather bleak.
 
 ### Road of Skulls
 {% include book_rating.html rating=2 %}
@@ -24,8 +24,8 @@ road behind it as it moves. Nothing happens in this story.
 
 A Culture-woman living in a lower-tech civilization is pressured into
 committing an assassination with a gun that will only fire for a Culture
-human. Banks packs a lot of depth into this short story, making the reader
-care about the protagonist in just a few pages.
+human. Banks packs a lot of depth into this short story, making me care about
+the protagonist in just a few pages.
 
 The protagonist is queer---a woman who chose to become a man because she knew
 she'd be safer in the backward society that way. Despite her gender change,
