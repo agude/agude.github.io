@@ -1,10 +1,10 @@
 ---
-date: 2024-03-09
+date: 2024-03-25
 title: Excession
 author: Iain M. Banks
 series: Culture
 book_number: 5
-rating: null
+rating: 4
 image: /books/covers/excession.jpg
 ---
 
