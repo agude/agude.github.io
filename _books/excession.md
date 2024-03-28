@@ -14,18 +14,18 @@ civilizations to an "excession": an _"Outside Context Problem"_ that is
 mysterious and enormously powerful.
 
 The best part of the novel was getting to see how the Culture _works_: how the
-minds think, communicate with each other, make decisions, and retreat to
-"infinite fun space", and interacts with and uses an _"Outside Context
-Problem"_[^ocp]. The worst part of the book was the human characters, who were
-shallow and uninteresting. Ulver Seich---the airhead socialite---is a slightly
-more interesting and better-written take on the "hot girl who fucks
-her way through the narrative" trope that {% include author_link.html
-name="Peter F. Hamilton" %} loves to write, such as Mellanie Rescorai in {%
-include book_link.html title="Pandora's Star" %}, or to a lesser extent,
-Kysandra Blair in {% include book_link.html title="The Abyss Beyond Dreams"
-%}. Nonetheless, I dreaded the human chapters. Culture books are carried by
-their human characters, who bring scale, emotion, and stakes to the drama, and
-<span class="book-title">Excession</span>'s humans fall short.
+minds think, communicate with each other, make decisions, retreat to "infinite
+fun space", and interact with an _"Outside Context Problem"_[^ocp]. The worst
+part of the book was the human characters, who were shallow and uninteresting.
+Ulver Seich---the airhead socialite---is a slightly more interesting and
+better-written take on the "hot girl who fucks her way through the narrative"
+trope that {% include author_link.html name="Peter F. Hamilton" %} loves to
+write, such as Mellanie Rescorai in {% include book_link.html title="Pandora's Star" %},
+or to a lesser extent, Kysandra Blair in
+{% include book_link.html title="The Abyss Beyond Dreams" %}. Nonetheless, I
+dreaded the human chapters. Culture books are carried by their human
+characters, who bring scale, emotion, and stakes to the drama, and <span
+class="book-title">Excession</span>'s humans fall short.
 
 The story wasn't what I expected. I anticipated a book about how the Culture
 deals with something---the excession---over which they have no control, but
