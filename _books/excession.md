@@ -10,14 +10,15 @@ image: /books/covers/excession.jpg
 
 <span class="book-title">Excession</span> is the fourth novel and fifth book
 in the Culture series. It follows the reaction of the Culture and other
-civilizations to an "excession": an _"Outside Context Problem"_[^ocp] that
-is mysterious and enormously powerful.
+civilizations to an "excession": an _"Outside Context Problem"_ that is
+mysterious and enormously powerful.
 
 The best part of the novel was getting to see how the Culture _works_: how the
 minds think, communicate with each other, make decisions, and retreat to
-"infinite fun space". The worst part of the book was the human characters, who
-were shallow and uninteresting. Ulver Seich---the airhead socialite---is a
-slightly more interesting and better-written take on the "hot girl who fucks
+"infinite fun space", and interacts with and uses an _"Outside Context
+Problem"_[^ocp]. The worst part of the book was the human characters, who were
+shallow and uninteresting. Ulver Seich---the airhead socialite---is a slightly
+more interesting and better-written take on the "hot girl who fucks
 her way through the narrative" trope that {% include author_link.html
 name="Peter F. Hamilton" %} loves to write, such as Mellanie Rescorai in {%
 include book_link.html title="Pandora's Star" %}, or to a lesser extent,
