@@ -8,52 +8,53 @@ rating: 4
 image: /books/covers/excession.jpg
 ---
 
-<span class="book-title">Excession</span> is the forth novel and fifth book in
-the Culture series. It follows the reaction of the Culture and other
-civilizations to an "excession": an _"Outside Context Problem"_[^ocp] that is
-mysterious and enormously powerful.
+<span class="book-title">Excession</span> is the fourth novel and fifth book
+in the Culture series. It follows the reaction of the Culture and other
+civilizations to an "excession": an _"Outside Context Problem"_[^ocp] that
+is mysterious and enormously powerful.
 
 The best part of the novel was getting to see how the Culture _works_: how the
-minds think, how they talk to each other, how they make decisions, how they
-retreat to "infinite fun space". The worst part of the book was the human
-characters, who were shallow and uninteresting. Ulver Seich---the airhead
-socialite---is at least a slightly more interesting and well written take on
-the "hot girl who fucks her way through the narrative" that {% include
-author_link.html name="Peter F. Hamilton" %} loves to write: see Mellanie
-Rescorai in {% include book_link.html title="Pandora's Star" %}, or less
-egregiously Kysandra Blair in
-{% include book_link.html title="The Abyss Beyond Dreams" %}; but even so I
-dreaded the human chapters. Culture books are carried by their human
-characters. They are what bring scale, emotion, and stakes to the drama, and
-<span class="book-title">Excession</span>'s humans disappointed.
+minds think, communicate with each other, make decisions, and retreat to
+"infinite fun space". The worst part of the book was the human characters, who
+were shallow and uninteresting. Ulver Seich---the airhead socialite---is a
+slightly more interesting and better-written take on the "hot girl who fucks
+her way through the narrative" trope that {% include author_link.html
+name="Peter F. Hamilton" %} loves to write, such as Mellanie Rescorai in {%
+include book_link.html title="Pandora's Star" %}, or to a lesser extent,
+Kysandra Blair in {% include book_link.html title="The Abyss Beyond Dreams"
+%}. Nonetheless, I dreaded the human chapters. Culture books are carried by
+their human characters, who bring scale, emotion, and stakes to the drama, and
+<span class="book-title">Excession</span>'s humans fall short.
 
-The story was not what I expected. I expected a book about how the Culture
-deals with something---the excession---that they have no power over, but the
-plot was actually about how they would use it in their schemes. And schemes
-there are aplenty in the book. There is a scheme to disguise the nature of the
-_Sleeper Service_; a second to set up a false-flag operation to build support
-for a Culture war against the Nazi-jellyfish, the Affront; a third to bring
-Dajeil Gelian and Byr Genar-Hofoen back together to reconcile their
-relationship; and a forth to intercept Genar-Hofoen with Siech and prevent him
-from rendezvousing with the _Sleeper Service_.
+The story wasn't what I expected. I anticipated a book about how the Culture
+deals with something---the excession---over which they have no control, but
+the plot was actually about how they would exploit it for their schemes. The
+book is rife with schemes: one to disguise the nature of the _Sleeper
+Service_; another to set up a false-flag operation to build support for a
+Culture war against the Nazi-like jellyfish race, the Affront; a third to
+reunite Dajeil Gelian and Byr Genar-Hofoen and reconcile their relationship;
+and a fourth to intercept Genar-Hofoen with Siech and prevent him from
+rendezvousing with the _Sleeper Service_.
 
-Even after reading such "tricky" books as {% include book_link.html title="The Quantum Thief" %} and
-{% include book_link.html title="The Shadow of the Torturer" %}, I found
-<span class="book-title">Excession</span> a little tough just because there
-are so many ships to keep track of while also trying to figure out which are
-the conspirators.
+Even after reading such "tricky" books as
+{% include book_link.html title="The Quantum Thief" %} and {% include
+book_link.html title="The Shadow of the Torturer" %}, I found <span
+class="book-title">Excession</span> a little challenging, mainly because of
+the numerous ships to keep track of while also trying to discern which ones
+were the conspirators.
 
-Some parts I loved:
+Some aspects I loved:
 
-- The mind IRC chats.
+- The Mind IRC chats.
 - The glacial genocide uncovered by the _Grey Area_.
-- The Affront, a race of jellyfish modeled after the British Colonial Empire
+- The Affront, a jellyfish-like race modeled after the British Colonial Empire
   and the Nazis.
-- The drone that uses blast craters to embed an SOS message onto an enemy ship.
+- The drone that embeds an SOS message onto an enemy ship using blast craters.
 - The human-body BIOS that allows the brain to control everything from muscle
   density to gender.
 
-Overall still a good book, but weak compared to {% include book_link.html title="The Player of Games" %}
+Overall, <span class="book-title">Excession</span> is still a good book, but
+weaker compared to {% include book_link.html title="The Player of Games" %}
 and {% include book_link.html title="Use of Weapons" %}.
 
 [^ocp]:
