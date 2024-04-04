@@ -1,10 +1,10 @@
 ---
-date: 2024-01-28
+date: 2024-04-04
 title: Dog Soldier
 author: Scott Warren
 series: War Horses
 book_number: 4
-rating: null
+rating: 4
 image: /books/covers/dog_soldier.jpg
 ---
 
