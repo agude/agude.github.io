@@ -1,6 +1,6 @@
 {% assign homeurl = site.baseurl | append: "/" %}
 
-<aside role="complementary" class="sidebar">
+<aside class="sidebar">
   <div class="sidebar-portrait">
     <img src="/files/headshot-small.jpg" alt="Headshot of Alexander Gude"/>
   </div>
@@ -12,7 +12,7 @@
       <p class="lead">{{ site.description }}</p>
     </div>
 
-    <nav role="navigation" class="sidebar-nav">
+    <nav class="sidebar-nav">
       <a class="sidebar-nav-item{% if page.url == homeurl %} active{% endif %}" href="{{ homeurl }}">Home</a>
 
       {% comment %}

@@ -1,5 +1,5 @@
-<aside role="complementary" class="book-topbar">
-  <nav role="navigation" class="book-nav">
+<aside class="book-topbar">
+  <nav class="book-nav">
     {% comment %}
       The code below dynamically generates a topbar nav of pages in /books/
     {% endcomment %}
@@ -7,8 +7,8 @@
     {% assign sorted_nodes = site.pages | sort: "title" %}
 
     {% for node in sorted_nodes %}
-      {% if node.short_title != null 
-        and node.book_topbar_include == true 
+      {% if node.short_title != null
+        and node.book_topbar_include == true
       %}
         <a class="book-nav-item {% if page.url == node.url %} active{% endif %}" href="{{site.baseurl}}{{ node.url }}">{{ node.short_title }}</a>
       {% endif %}
