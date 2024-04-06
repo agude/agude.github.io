@@ -31,7 +31,7 @@ favorites that I read in 2023:
 
 [book_reviews]: {{ site.baseurl }}{% link books/index.md %}
 
-## <cite class="book-title">Blindsight</cite> by <span clas="author-name">Peter Watts</span>
+## <cite class="book-title">Blindsight</cite> by <span class="author-name">Peter Watts</span>
 
 <cite class="book-title">Blindsight</cite> does a great job of exploring the
 nature of consciousness and intelligence. Watts keeps the tension high and the
@@ -42,7 +42,7 @@ of the year!
     {% include auto_book_card.html title="Blindsight" %}
 </div>
 
-## The Chronicle of the Fallers by <span clas="author-name">Peter F. Hamilton</span>
+## The Chronicle of the Fallers by <span class="author-name">Peter F. Hamilton</span>
 
 Hamilton is known for his space opera, but <cite class="book-title">The Abyss
 Beyond Dreams</cite> is more urban fantasy set during the Russian Revolution
@@ -69,7 +69,7 @@ scheming AI who either want to eradicate the humans or uplift them.
     {% include auto_book_card.html title="The Fall of Hyperion" %}
 </div>
 
-## The Commonwealth Saga by <span clas="author-name">Peter F. Hamilton</span>
+## The Commonwealth Saga by <span class="author-name">Peter F. Hamilton</span>
 
 Epic space opera with a massive cast of characters and incredible pacing.
 
