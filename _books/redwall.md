@@ -1,7 +1,7 @@
 ---
 date: 2024-02-18
 title: Redwall
-author: Brian Jacques
+book_author: Brian Jacques
 series: Redwall
 book_number: 1
 rating: 4

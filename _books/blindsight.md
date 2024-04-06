@@ -1,7 +1,7 @@
 ---
 date: 2023-11-01
 title: Blindsight
-author: Peter Watts
+book_author: Peter Watts
 series: Firefall
 book_number: 1
 rating: 5

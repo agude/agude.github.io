@@ -1,7 +1,7 @@
 ---
 date: 2023-08-23
 title: Pandora's Star
-author: Peter F. Hamilton
+book_author: Peter F. Hamilton
 series: Commonwealth Saga
 book_number: 1
 rating: 5

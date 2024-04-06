@@ -1,7 +1,7 @@
 ---
 date: 2024-03-08
 title: The State of the Art
-author: Iain M. Banks
+book_author: Iain M. Banks
 series: Culture
 book_number: 4
 rating: 3

@@ -1,7 +1,7 @@
 ---
 date: 2023-10-27
 title: The Fall of Hyperion
-author: Dan Simmons
+book_author: Dan Simmons
 series: Hyperion Cantos
 book_number: 2
 rating: 5

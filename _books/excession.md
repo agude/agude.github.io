@@ -1,7 +1,7 @@
 ---
 date: 2024-03-25
 title: Excession
-author: Iain M. Banks
+book_author: Iain M. Banks
 series: Culture
 book_number: 5
 rating: 4

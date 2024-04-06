@@ -1,7 +1,7 @@
 ---
 date: 2023-11-07
 title: The Quantum Thief
-author: Hannu Rajaniemi
+book_author: Hannu Rajaniemi
 series: Jean le Flambeur
 book_number: 1
 rating: 2

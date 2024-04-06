@@ -1,7 +1,7 @@
 ---
 date: 2024-02-28
 title: Use of Weapons
-author: Iain M. Banks
+book_author: Iain M. Banks
 series: Culture
 book_number: 3
 rating: 5

@@ -1,7 +1,7 @@
 ---
 date: 2023-04-01
 title: The Three-Body Problem
-author: Liu Cixin
+book_author: Liu Cixin
 series: Remembrance of Earth's Past
 book_number: 1
 rating: 1

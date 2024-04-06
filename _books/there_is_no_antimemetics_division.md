@@ -1,7 +1,7 @@
 ---
 date: 2023-10-29
 title: There Is No Antimemetics Division
-author: qntm
+book_author: qntm
 series: null
 book_number: 2
 rating: 3

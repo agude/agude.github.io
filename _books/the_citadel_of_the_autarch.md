@@ -1,7 +1,7 @@
 ---
 date: 2024-01-26
 title: The Citadel of the Autarch
-author: Gene Wolfe
+book_author: Gene Wolfe
 series: The Book of the New Sun
 book_number: 4
 rating: 5

@@ -1,7 +1,7 @@
 ---
 date: 2023-09-03
 title: Judas Unchained
-author: Peter F. Hamilton
+book_author: Peter F. Hamilton
 series: Commonwealth Saga
 book_number: 2
 rating: 5

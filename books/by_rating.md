@@ -67,7 +67,7 @@ headlines, but not before the first headline.{% endcomment %}
           url=book.url
           image=book.image
           title=book.title
-          author=book.author
+          author=book.book_author
           rating=book.rating
           description=book.excerpt
         %}

@@ -1,7 +1,7 @@
 ---
 date: 2023-10-12
 title: The Evolutionary Void
-author: Peter F. Hamilton
+book_author: Peter F. Hamilton
 series: The Void Trilogy
 book_number: 3
 rating: 4

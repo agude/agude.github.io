@@ -34,7 +34,7 @@ their null to '' below).{% endcomment %}
 order.{% endcomment %}
 {% assign sorted_authors = "" %}
 {% for book in site.books %}
-  {% assign sorted_authors = sorted_authors | append: book.author | append: "|" %}
+  {% assign sorted_authors = sorted_authors | append: book.book_author | append: "|" %}
 {% endfor %}
 {% assign sorted_authors = sorted_authors | split: "|" | uniq | sort %}
 
@@ -68,7 +68,7 @@ headlines, but not before the first headline.{% endcomment %}
         {% capture test_number %}'{{sort_number}}'{% endcapture %}
         {% capture book_number %}'{{book.book_number}}'{% endcapture %}
 
-        {% if sort_author == book.author %}
+        {% if sort_author == book.book_author %}
           {% comment %}Books without series will have null, which we convert
           to '' to match the '' we inserted in the series list above.{% endcomment %}
           {% if book.series == null %}
@@ -83,7 +83,7 @@ headlines, but not before the first headline.{% endcomment %}
                 url=book.url
                 image=book.image
                 title=book.title
-                author=book.author
+                author=book.book_author
                 rating=book.rating
                 description=book.excerpt
               %}

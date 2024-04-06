@@ -1,7 +1,7 @@
 ---
 date: 2024-01-07
 title: The Claw of the Conciliator
-author: Gene Wolfe
+book_author: Gene Wolfe
 series: The Book of the New Sun
 book_number: 2
 rating: 3

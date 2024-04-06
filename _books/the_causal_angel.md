@@ -1,7 +1,7 @@
 ---
 date: 2023-11-18
 title: The Causal Angel
-author: Hannu Rajaniemi
+book_author: Hannu Rajaniemi
 series: Jean le Flambeur
 book_number: 3
 rating: 3

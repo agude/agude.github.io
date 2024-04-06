@@ -1,7 +1,7 @@
 ---
 date: 2024-02-19
 title: The Player of Games
-author: Iain M. Banks
+book_author: Iain M. Banks
 series: Culture
 book_number: 2
 rating: 5

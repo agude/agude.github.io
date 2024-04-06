@@ -1,7 +1,7 @@
 ---
 date: 2023-10-03
 title: The Temporal Void
-author: Peter F. Hamilton
+book_author: Peter F. Hamilton
 series: The Void Trilogy
 book_number: 2
 rating: 4

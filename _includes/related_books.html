@@ -52,7 +52,7 @@ category or not.
               url=book.url
               image=book.image
               title=book.title
-              author=book.author
+              author=book.book_author
               rating=book.rating
               description=book.excerpt
             %}
@@ -69,12 +69,12 @@ category or not.
 {% endif %}
 
 {% comment %} Then books by the same author {% endcomment %}
-{% if page.author != empty %}
+{% if page.book_author != empty %}
   {% for book in reversed_chronological_books %}
     {% if book.url != page.url %}
       {% if placed_books.size < 3 %}
         {% comment %}Pick same author{% endcomment %}
-        {% if book.author == page.author %}
+        {% if book.book_author == page.book_author %}
           {% unless placed_books contains book.url %}
             {% comment %} Place the h2 if we haven't already {% endcomment %}
             {% if placed_h2 == false %}
@@ -88,7 +88,7 @@ category or not.
               url=book.url
               image=book.image
               title=book.title
-              author=book.author
+              author=book.book_author
               rating=book.rating
               description=book.excerpt
             %}
@@ -123,7 +123,7 @@ category or not.
             url=book.url
             image=book.image
             title=book.title
-            author=book.author
+            author=book.book_author
             rating=book.rating
             description=book.excerpt
           %}

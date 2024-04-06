@@ -22,7 +22,7 @@ authors = []
 for file in markdown_files:
     with open(file, "r") as opened_file:
         for line in opened_file.readlines():
-            if line.startswith("author: "):
+            if line.startswith("book_author: "):
                 author = line.split(": ")[1].strip()
                 authors.append(author)
 

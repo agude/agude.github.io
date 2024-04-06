@@ -1,7 +1,7 @@
 ---
 date: 2023-11-30
 title: Serpent Valley
-author: Scott Warren
+book_author: Scott Warren
 series: War Horses
 book_number: 3
 rating: 5
