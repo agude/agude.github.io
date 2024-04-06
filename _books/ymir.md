@@ -38,5 +38,5 @@ writing weaknesses:
   mounts.
 
 Despite writing flaws, the richer story and characters outperform the first
-book. I look forward to the next, {% include book_link.html title="Serpent
-Valley" %}.
+book. I look forward to the next,
+{% include book_link.html title="Serpent Valley" %}.
