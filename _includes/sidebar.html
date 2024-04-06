@@ -32,32 +32,41 @@
     {% comment %} Social links {% endcomment %}
     <div class="sidebar-social-links">
       Follow me on:
+
       <div class="sidebar-social-links-buttons">
-        {% comment %} Twitter Button {% endcomment %}
-        <a rel="me" class="sidebar-button twitter-button" href="https://twitter.com/{{ site.author.twitter }}">
-          {% include icon-twitter.svg %}
-        </a>
+
         {% comment %} BlueSky Button {% endcomment %}
         <a rel="me" class="sidebar-button bluesky-button" href="https://bsky.app/profile/{{ site.author.bluesky }}">
           {% include icon-bluesky.svg %}
         </a>
+
         {% comment %} Mastodon Button {% endcomment %}
         <a rel="me" class="sidebar-button mastodon-button" href="https://{{ site.author.mastodon_instance }}/@{{ site.author.mastodon }}">
           {% include icon-mastodon.svg %}
         </a>
+
+        {% comment %} Twitter Button {% endcomment %}
+        <a rel="me" class="sidebar-button twitter-button" href="https://twitter.com/{{ site.author.twitter }}">
+          {% include icon-twitter.svg %}
+        </a>
+
         {% comment %} Github Button {% endcomment %}
         <a rel="me" class="sidebar-button github-button" href="https://www.github.com/{{ site.author.github}}/">
           {% include icon-github.svg %}
         </a>
+
         {% comment %} LinkedIn Button {% endcomment %}
         <a rel="me" class="sidebar-button linkedin-button" href="https://www.linkedin.com/in/{{ site.author.linkedin}}/">
           {% include icon-linkedin.svg %}
         </a>
+
         {% comment %} RSS Button {% endcomment %}
         <a class="sidebar-button rss-button" href="/feed.xml">
           {% include icon-rss.svg %}
         </a>
+
       </div>
+
     </div>
 
     {% comment %} Legal text {% endcomment %}
