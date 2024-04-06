@@ -10,10 +10,11 @@
   <div class="card-element card-text">
     {% comment %} The text blurb. {% endcomment %}
     <a href="{{ include.url }}">
-      <cite class="book-title">{{ include.title }}</cite>
+      <strong>
+        <cite class="book-title">{{ include.title }}</cite>
+      </strong>
     </a>
     {% if include.author %}
-      <br>
       <span class="by-author">
         by {% include author_link.html name=include.author %}
       </span>
@@ -21,8 +22,8 @@
     {% if include.rating %}
       {% include book_rating.html rating=include.rating %}
     {% endif %}
-  </div>
-  <div class="card-element card-text">
-    {{ include.description }}
+    <div class="card-element card-text">
+      {{ include.description }}
+    </div>
   </div>
 </div>
