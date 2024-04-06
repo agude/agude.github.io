@@ -39,7 +39,9 @@ requests welcome!
 
 ## Recent Writings
 
-Below you can find my most recent articles and projects; older ones can be
-found [here][blog]:
+Below you can find my most recent articles and book reviews; older articles
+and be found [here][blog] and older book reviews can be found [here][books]:
+
+[books]: {% link books/index.md %}
 
 {% include front_page_feed.html %}
