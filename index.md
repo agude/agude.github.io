@@ -39,9 +39,11 @@ requests welcome!
 
 ## Recent Writings
 
-Below you can find my most recent articles and book reviews; older articles
-and be found [here][blog] and older book reviews can be found [here][books]:
+I write <strong>[articles][blog]</strong> about machine learning, data
+science, and technology, and also <strong>[book reviews][books]</strong>.
 
 [books]: {% link books/index.md %}
+
+Below you can find a sample of my most recent writings:
 
 {% include front_page_feed.html %}
