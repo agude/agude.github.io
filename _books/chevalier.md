@@ -8,7 +8,7 @@ rating: 3
 image: /books/covers/chevalier.jpg
 ---
 
-<span class="book-title">Chevalier</span> is a modern reimagining of 1980's
+<cite class="book-title">Chevalier</cite> is a modern reimagining of 1980's
 mech sci-fi like Battletech, Gundam, and Macross. It's a quick, action-packed
 read---not very deep but highly entertaining---that focuses on making mechs
 feel like realistic battlefield tech, not magic.

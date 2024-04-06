@@ -8,7 +8,7 @@ rating: 5
 image: /books/covers/night_without_stars.jpg
 ---
 
-<span class="book-title">Night Without Stars</span> is the second book in the
+<cite class="book-title">Night Without Stars</cite> is the second book in the
 Chronicle of the Fallers. It is action packed, with great pacing, and complex
 characters. It is my new favorite Hamilton book.
 
@@ -35,7 +35,7 @@ The Fallers are also much more interesting in this book. They are organized,
 and they have used the fact that the humans are only on one continent to take
 over the rest of the planet.
 
-Unlike {% include book_link.html title="The Abyss Beyond Dreams" %}, <span
-class="book-title">Night Without Stars</span> keeps a perfect pace, never
+Unlike {% include book_link.html title="The Abyss Beyond Dreams" %}, <cite
+class="book-title">Night Without Stars</cite> keeps a perfect pace, never
 feeling too fast or too slow. It has a vast cast of interesting characters and
 a satisfying resolution.

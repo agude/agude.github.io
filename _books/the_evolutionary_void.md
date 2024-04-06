@@ -8,15 +8,15 @@ rating: 4
 image: /books/covers/the_evolutionary_void.jpg
 ---
 
-The final book in Hamilton's Void Trilogy, <span class="book-title">The
-Evolutionary Void</span>, wraps up the series well, but a little too quickly.
+The final book in Hamilton's Void Trilogy, <cite class="book-title">The
+Evolutionary Void</cite>, wraps up the series well, but a little too quickly.
 All the characters and storylines arrive where they're needed and then the
 story is over.
 
 At the end of {% include book_link.html title="The Temporal Void" %}, Edeard
 learns that he can rewind his world to a point of his choosing to get a second
-(or third, or forth, ...) chance to do things right. In <span
-class="book-title">The Evolutionary Void</span>, Edeard uses this power to try
+(or third, or forth, ...) chance to do things right. In <cite
+class="book-title">The Evolutionary Void</cite>, Edeard uses this power to try
 to make his world perfect.
 
 Edeard brings peace to his city, for a time. Soon he runs into other psychics

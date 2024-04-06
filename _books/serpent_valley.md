@@ -8,7 +8,7 @@ rating: 5
 image: /books/covers/serpent_valley.jpg
 ---
 
-<span class="book-title">Serpent Valley</span>, the third book in the War
+<cite class="book-title">Serpent Valley</cite>, the third book in the War
 Horses series, is another quick, action-packed read---but without the flaws
 holding back its predecessors. Easily my favorite of the series so far!
 

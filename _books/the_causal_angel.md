@@ -8,7 +8,7 @@ rating: 3
 image: /books/covers/the_causal_angel.jpg
 ---
 
-<span class="book-title">The Causal Angel</span> is the last book in the Jean
+<cite class="book-title">The Causal Angel</cite> is the last book in the Jean
 le Flambeur trilogy. We finally learn le Flambeur was hired to steal the
 Kaminari Jewel, a Zoku gem with the power to alter reality.
 
@@ -35,5 +35,5 @@ the book does a good job of wrapping up storylines and the ending is
 satisfying.
 
 While I enjoyed {% include book_link.html title="The Fractal Prince" %}
-slightly more, <span class="book-title">The Causal Angel</span> was a good
+slightly more, <cite class="book-title">The Causal Angel</cite> was a good
 ending to a good trilogy.

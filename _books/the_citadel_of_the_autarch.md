@@ -8,12 +8,12 @@ rating: 5
 image: /books/covers/the_citadel_of_the_autarch.jpg
 ---
 
-<span class="book-title">The Citadel of the Autarch</span> is the forth book
+<cite class="book-title">The Citadel of the Autarch</cite> is the forth book
 in Gene Wolfe's The Book of the New Sun tetralogy. It follows Severian as he
 reaches the front in the war against the Ascians and assumes the role of
 Autarch.
 
-<span class="book-title">The Citadel of the Autarch</span> is the final book
+<cite class="book-title">The Citadel of the Autarch</cite> is the final book
 in the original series, and halfway through I was worried Wolfe wouldn't be
 able to wrap it up successfully. By the end, I thought he had done a marvelous
 job tying up almost all the loose ends while leaving just enough of the

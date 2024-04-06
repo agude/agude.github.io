@@ -8,7 +8,7 @@ rating: 4
 image: /books/covers/ymir.jpg
 ---
 
-<span class="book-title">Ymir</span> is the second book in the War Horses
+<cite class="book-title">Ymir</cite> is the second book in the War Horses
 series, keeping <span class="nowrap">{% include book_link.html
 title="Chevalier" %}'s</span> action and quick pacing while adding more
 backstory, character development, and a more complex plot.
@@ -17,8 +17,8 @@ The story follows Vandal as he goes through training on his homeworld, saves a
 classmate from assassination, and defends an ice-world from a space-Viking
 raids.
 
-Like {% include book_link.html title="Consider Phlebas" %}, <span
-class="book-title">Ymir</span> explores people being small in an uncaring,
+Like {% include book_link.html title="Consider Phlebas" %}, <cite
+class="book-title">Ymir</cite> explores people being small in an uncaring,
 vast universe. The Autumn Chevaliers fail to protect the civilians, sustaining
 horrifying losses in their escape. Lifelong friendships break. Yet unlike {%
 include book_link.html title="Consider Phlebas" %}, I enjoyed reading every

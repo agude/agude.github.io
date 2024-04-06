@@ -8,13 +8,13 @@ rating: 5
 image: /books/covers/the_dreaming_void.jpg
 ---
 
-<span class="book-title">The Dreaming Void</span> is set in the same universe
+<cite class="book-title">The Dreaming Void</cite> is set in the same universe
 as to Hamilton's Commonwealth Saga, but saying that isn't quite strong enough:
 it is really a sequel. You pretty much must read the Commonwealth Saga first
 because half of the characters return, and every major plot point from the
 earlier books is spoiled in this one.
 
-<span class="book-title">The Dreaming Void</span> takes place 1200 years after
+<cite class="book-title">The Dreaming Void</cite> takes place 1200 years after
 {% include book_link.html title="Judas Unchained" %}, but because characters
 live forever in the Commonwealth, that's not as long as it seems. The
 technology has changed drastically---wormholes and trains are sidelined for

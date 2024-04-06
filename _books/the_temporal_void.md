@@ -8,8 +8,8 @@ rating: 4
 image: /books/covers/the_temporal_void.jpg
 ---
 
-The second book in Hamilton's Void Trilogy, <span class="book-title">The
-Temporal Void</span>, continues to advance the story, but like many middle
+The second book in Hamilton's Void Trilogy, <cite class="book-title">The
+Temporal Void</cite>, continues to advance the story, but like many middle
 books in a trilogy, it does so slowly. Much of this slowness is due to
 multiple, massive, 200-page chapters following Edeard in the Void.
 

@@ -8,7 +8,7 @@ rating: 4
 image: /books/covers/hyperion.jpg
 ---
 
-<span class="book-title">Hyperion</span>, was not at all the book I expected.
+<cite class="book-title">Hyperion</cite>, was not at all the book I expected.
 To give you an idea of how much I misjudged it, about a third of the way
 through I would have rated it two stars and almost put it down, about
 two-thirds of the way through I was solidly at three stars, and by the end I
@@ -16,19 +16,19 @@ was up to four. It was not the all-time great I was promised, but it was very
 good.
 
 It is told as the tale of six different pilgrims traveling to the planet
-Hyperion to visit the Shrike, a cruel, death-god-like figure. <span
-class="book-title">Hyperion</span> is very much <span class="book-title">[The
-Canterbury Tales][tales]</span> in space. At first the stories seem
+Hyperion to visit the Shrike, a cruel, death-god-like figure. <cite
+class="book-title">Hyperion</cite> is very much <cite class="book-title">[The
+Canterbury Tales][tales]</cite> in space. At first the stories seem
 unconnected, but as the pilgrims travel and tell their tales we realize they
 are all connected, and they reveal a hint at the wider universe that the book
 takes place in. The book ends "suddenly" but the sequel, {% include
-book_link.html title="The Fall of Hyperion"%}, picks up right where <span
-class="book-title">Hyperion</span> leaves off.
+book_link.html title="The Fall of Hyperion"%}, picks up right where <cite
+class="book-title">Hyperion</cite> leaves off.
 
 [tales]: https://en.wikipedia.org/wiki/The_Canterbury_Tales
 
 A theme that runs through the book is "the old gods replaced by the new",
-based on Keat's <span class="book-title">[Hyperion][hyperion]</span> poem
+based on Keat's <cite class="book-title">[Hyperion][hyperion]</cite> poem
 about the [Greek Titans falling to the new Gods of Olympus][titanomachy]. We
 see this with the Humans and the AI TechnoCore, the humans and the Ousters (a
 breakaway post-human faction), the Scholar and the Old Testament God, and

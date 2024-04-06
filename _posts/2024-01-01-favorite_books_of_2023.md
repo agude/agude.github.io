@@ -31,9 +31,9 @@ favorites that I read in 2023:
 
 [book_reviews]: {{ site.baseurl }}{% link books/index.md %}
 
-## <span class="book-title">Blindsight</span> by <span clas="author-name">Peter Watts</span>
+## <cite class="book-title">Blindsight</cite> by <span clas="author-name">Peter Watts</span>
 
-<span class="book-title">Blindsight</span> does a great job of exploring the
+<cite class="book-title">Blindsight</cite> does a great job of exploring the
 nature of consciousness and intelligence. Watts keeps the tension high and the
 plot moving quickly in this thought-provoking sci-fi novel. My favorite book
 of the year!
@@ -44,9 +44,9 @@ of the year!
 
 ## The Chronicle of the Fallers by <span clas="author-name">Peter F. Hamilton</span>
 
-Hamilton is known for his space opera, but <span class="book-title">The Abyss
-Beyond Dreams</span> is more urban fantasy set during the Russian Revolution
-(in space) and <span class="book-title">Night Without Stars</span> is a
+Hamilton is known for his space opera, but <cite class="book-title">The Abyss
+Beyond Dreams</cite> is more urban fantasy set during the Russian Revolution
+(in space) and <cite class="book-title">Night Without Stars</cite> is a
 thriller set during the Cold War (again, in space). Both feature Commonwealth
 citizens with special knowledge as _"Outside Context Problems"_, pulling the
 stories into science fiction territory.
@@ -56,7 +56,7 @@ stories into science fiction territory.
     {% include auto_book_card.html title="Night Without Stars" %}
 </div>
 
-## <span class="book-title">The Fall of Hyperion</span> by <span class="author-name">Dan Simmons</span>
+## <cite class="book-title">The Fall of Hyperion</cite> by <span class="author-name">Dan Simmons</span>
 
 I enjoyed the sequel to {% include book_link.html title="Hyperion" %} the most
 of the two books because it tied the personal story of the pilgrims to a much
@@ -78,12 +78,12 @@ Epic space opera with a massive cast of characters and incredible pacing.
     {% include auto_book_card.html title="Judas Unchained" %}
 </div>
 
-## <span class="book-title">Serpent Valley</span> by <span class="author-name">Scott Warren</span>
+## <cite class="book-title">Serpent Valley</cite> by <span class="author-name">Scott Warren</span>
 
 1980s mech sci-fi re-imagined for the 21st century. Warren's self-published
 series takes a few books to really find its feet, but once it does, it's a
-quick, fun, nostalgic read. The third book, <span class="book-title">Serpent
-Valley</span>, exemplifies the series.
+quick, fun, nostalgic read. The third book, <cite class="book-title">Serpent
+Valley</cite>, exemplifies the series.
 
 <div class="card-grid">
     {% include auto_book_card.html title="Serpent Valley" %}

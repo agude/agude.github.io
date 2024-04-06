@@ -8,8 +8,8 @@ rating: 5
 image: /books/covers/judas_unchained.jpg
 ---
 
-The sequel to {% include book_link.html title="Pandora's Star" %}, <span
-class="book-title">Judas Unchained</span> continues right where the last one
+The sequel to {% include book_link.html title="Pandora's Star" %}, <cite
+class="book-title">Judas Unchained</cite> continues right where the last one
 left off, but with the action ramped up to 11. The various storylines and
 loose threads come together one by one until it's the good guys racing against
 the bad guys for the fate of the universe.

@@ -8,7 +8,7 @@ rating: 5
 image: /books/covers/the_abyss_beyond_dreams.jpg
 ---
 
-<span class="book-title">The Abyss Beyond Dreams</span> starts off The
+<cite class="book-title">The Abyss Beyond Dreams</cite> starts off The
 Chronicle of the Fallers, another series in Hamilton's Commonwealth universe.
 Though billed as space opera, it often reads more as urban fantasy since most
 of the story occurs on the planet Bienvenido inside the Void where steam

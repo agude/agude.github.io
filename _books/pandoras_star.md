@@ -8,7 +8,7 @@ rating: 5
 image: /books/covers/pandoras_star.jpg
 ---
 
-I couldn't put <span class="book-title">Pandora's Star</span> down! It is a
+I couldn't put <cite class="book-title">Pandora's Star</cite> down! It is a
 sci-fi book that reads more like a thriller. There were always new mysteries
 that just a few more pages promised the answers to.
 
@@ -38,6 +38,6 @@ The book is **LONG** but the story keeps moving. The cast is huge which makes
 the universe feel big, but also means that sometimes it's hundreds and
 hundreds of pages before you return to a story thread that ended on a
 cliffhanger. The various plot lines all feel related although you can't see
-exactly how yet. The ending is abrupt, but that's because <span
-class="book-title">Pandora's Star</span> is the first half of the series,
+exactly how yet. The ending is abrupt, but that's because <cite
+class="book-title">Pandora's Star</cite> is the first half of the series,
 which is concludes in {% include book_link.html title="Judas Unchained" %}.

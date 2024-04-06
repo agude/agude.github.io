@@ -8,7 +8,7 @@ rating: 3
 image: /books/covers/there_is_no_antimemetics_division.jpg
 ---
 
-<span class="book-title">There Is No Antimemetics Division</span> is a book
+<cite class="book-title">There Is No Antimemetics Division</cite> is a book
 based in the [SCP][scp] universe. It explores the idea of anti-memes---ideas
 that either can't be thought, quickly drop out of your memory when you stop
 focusing on them, or are dangerous to think---and how you might contain a

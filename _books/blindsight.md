@@ -8,7 +8,7 @@ rating: 5
 image: /books/covers/blindsight.jpg
 ---
 
-<span class="book-title">Blindsight</span> is a hard sci-fi novel about first
+<cite class="book-title">Blindsight</cite> is a hard sci-fi novel about first
 contact with aliens in the near future. A crew of four transhumans and a
 vampire are sent on a spaceship to investigate an anomaly in the solar system
 after a swarm of alien probes scan Earth.
@@ -42,5 +42,5 @@ plan farther ahead.
 
 The worldbuilding is fantastic and haunting. The mysteries are compelling and
 their answers are satisfying. The characters feel alive, even the vampire.
-<span class="book-title">Blindsight</span> is not hopeful but is one of the
+<cite class="book-title">Blindsight</cite> is not hopeful but is one of the
 best sci-fi books I've read.

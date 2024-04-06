@@ -8,7 +8,7 @@ rating: 5
 image: /books/covers/use_of_weapons.jpg
 ---
 
-<span class="book-title">Use of Weapons</span> is the third novel in the
+<cite class="book-title">Use of Weapons</cite> is the third novel in the
 Culture series by Iain M. Banks. It tells the story of a man called
 Cheradenine Zakalwe, who works for the Culture's Special Circumstances
 division.
@@ -33,7 +33,7 @@ really Zakalwe---I realized just a page or two before it was revealed. Banks
 foreshadowed this by never using the authorial voice to name the man, only
 referring to him with pronouns or as "the man".
 
-The title, <span class="book-title">Use of Weapons</span>,  alludes to both
+The title, <cite class="book-title">Use of Weapons</cite>,  alludes to both
 the wet-work Zakalwe does and how everything---a man, a sister, a chair, a
 ship---can become a weapon when used as one.
 

@@ -8,7 +8,7 @@ rating: 1
 image: /books/covers/the_three_body_problem.jpg
 ---
 
-<span class="book-title">The Three-Body Problem</span> was recommended as a
+<cite class="book-title">The Three-Body Problem</cite> was recommended as a
 exciting, hard-scifi book full of new ideas. I was eager to read it, having
 just gotten back into fiction. I bought it for my flight from Melbourne to San
 Francisco and I threw it in the airport trash as I got off the plane.
@@ -26,5 +26,5 @@ bad.
 I kept reading because I wanted unravel the mystery, but the explanation was
 anticlimactic: aliens did it with a magic computer.
 
-<span class="book-title">The Three-Body Problem</span> is the last book I'll
+<cite class="book-title">The Three-Body Problem</cite> is the last book I'll
 read by Liu Cixin.

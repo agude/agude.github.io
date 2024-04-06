@@ -8,12 +8,12 @@ rating: 4
 image: /books/covers/dog_soldier.jpg
 ---
 
-<span class="book-title">Dog Soldier</span> is the fourth book in the War
+<cite class="book-title">Dog Soldier</cite> is the fourth book in the War
 Horses series. In it, Warren concludes the Cinto DaSelva campaign and further
 develops the setting's backstory.
 
-Although roughly the same length as the previous books in the series, <span
-class="book-title">Dog Soldier</span> feels much shorter or, at least, quicker
+Although roughly the same length as the previous books in the series, <cite
+class="book-title">Dog Soldier</cite> feels much shorter or, at least, quicker
 to get through. The book is divided into three main sections:
 
 - The first part takes place on Cinto DaSelva, where the rebellion and

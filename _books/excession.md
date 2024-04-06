@@ -8,7 +8,7 @@ rating: 4
 image: /books/covers/excession.jpg
 ---
 
-<span class="book-title">Excession</span> is the fourth novel and fifth book
+<cite class="book-title">Excession</cite> is the fourth novel and fifth book
 in the Culture series. It follows the reaction of the Culture and other
 civilizations to an "excession": an _"Outside Context Problem"_ that is
 mysterious and enormously powerful.
@@ -24,8 +24,8 @@ write, such as Mellanie Rescorai in {% include book_link.html title="Pandora's S
 or to a lesser extent, Kysandra Blair in
 {% include book_link.html title="The Abyss Beyond Dreams" %}. Nonetheless, I
 dreaded the human chapters. Culture books are carried by their human
-characters, who bring scale, emotion, and stakes to the drama, and <span
-class="book-title">Excession</span>'s humans fall short.
+characters, who bring scale, emotion, and stakes to the drama, and <cite
+class="book-title">Excession</cite>'s humans fall short.
 
 The story wasn't what I expected. I anticipated a book about how the Culture
 deals with something---the excession---over which they have no control, but
@@ -39,8 +39,8 @@ rendezvousing with the _Sleeper Service_.
 
 Even after reading such "tricky" books as
 {% include book_link.html title="The Quantum Thief" %} and {% include
-book_link.html title="The Shadow of the Torturer" %}, I found <span
-class="book-title">Excession</span> a little challenging, mainly because of
+book_link.html title="The Shadow of the Torturer" %}, I found <cite
+class="book-title">Excession</cite> a little challenging, mainly because of
 the numerous ships to keep track of while also trying to discern which ones
 were the conspirators.
 
@@ -54,7 +54,7 @@ Some aspects I loved:
 - The human-body BIOS that allows the brain to control everything from muscle
   density to gender.
 
-Overall, <span class="book-title">Excession</span> is still a good book, but
+Overall, <cite class="book-title">Excession</cite> is still a good book, but
 weaker compared to {% include book_link.html title="The Player of Games" %}
 and {% include book_link.html title="Use of Weapons" %}.
 

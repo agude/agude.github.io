@@ -9,8 +9,8 @@ image: /books/covers/consider_phlebas.jpg
 ---
 
 I've been meaning to read Banks's Culture series for more than two decades, so
-I was excited to finally get started. Unfortunately, <span class="book-title">
-Consider Phlebas</span> was not a great introduction.
+I was excited to finally get started. Unfortunately, <cite class="book-title">
+Consider Phlebas</cite> was not a great introduction.
 
 The book is considered a "space opera", and there are some hints at
 interesting, grand ideas: a ship that can set off every warhead on board to
@@ -36,8 +36,8 @@ gruesome imagery---something [he is infamous for][wasp]---is off putting.
     >  and get involved in all sorts of mayhem and catastrophe and it doesn't
     >  make that much difference in the end.
     >
-    > That was one of the idea behind <span class="book-title">Consider
-    > Phlebas</span>.
+    > That was one of the idea behind <cite class="book-title">Consider
+    > Phlebas</cite>.
     >
     > --- [Interview with Iain M. Banks][int]
 

@@ -8,7 +8,7 @@ rating: 3
 image: /books/covers/the_claw_of_the_conciliator.jpg
 ---
 
-<span class="book-title">The Claw of the Conciliator</span> is the second book
+<cite class="book-title">The Claw of the Conciliator</cite> is the second book
 in Gene Wolfe's The Book of the New Sun tetralogy. It picks up right where {%
 include book_link.html title="The Shadow of the Torturer" %} leaves off,
 following Severian as he makes his way towards Thrax.

@@ -8,7 +8,7 @@ rating: 3
 image: /books/covers/the_urth_of_the_new_sun.jpg
 ---
 
-<span class="book-title">The Urth of the New Sun</span> is the fifth and final
+<cite class="book-title">The Urth of the New Sun</cite> is the fifth and final
 book in Gene Wolfe's The Book of the New Sun tetralogy. It follows Severian as
 he leaves Urth to save mankind and returns to witness its destruction and
 rebirth.

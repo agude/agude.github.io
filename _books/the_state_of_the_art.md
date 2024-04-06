@@ -8,7 +8,7 @@ rating: 3
 image: /books/covers/the_state_of_the_art.jpg
 ---
 
-<span class="book-title">The State of the Art</span> is a collection of short
+<cite class="book-title">The State of the Art</cite> is a collection of short
 stories by Iain M. Banks. It contains some stories related to the Culture
 universe and some general science fiction tales. Although it has been
 considered utopian fiction, it comes across as rather bleak.
@@ -79,12 +79,12 @@ man on the [Lockerbie flight][lockerbie] just before it explodes.
 ### The State of the Art
 {% include book_rating.html rating=3 %}
 
-The largest part of the book, <span class="book-title">The State of the
-Art</span> is a novella featuring Diziet Sma and the drone Skaffen-Amtiskaw
+The largest part of the book, <cite class="book-title">The State of the
+Art</cite> is a novella featuring Diziet Sma and the drone Skaffen-Amtiskaw
 from {% include book_link.html title="Use of Weapons" %} as they visit Earth
 in 1977 and have to decide whether to contact it or not.
 
-<span class="book-title">The State of the Art</span> once again raises the
+<cite class="book-title">The State of the Art</cite> once again raises the
 question---as was asked in {% include book_link.html title="Consider Phlebas"
 %}, {% include book_link.html title="The Player of Games" %}, and {% include
 book_link.html title="Use of Weapons" %}---of whether the Culture's

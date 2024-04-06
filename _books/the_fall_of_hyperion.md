@@ -8,7 +8,7 @@ rating: 5
 image: /books/covers/the_fall_of_hyperion.jpg
 ---
 
-<span class="book-title">The Fall of Hyperion</span> is a sequel that
+<cite class="book-title">The Fall of Hyperion</cite> is a sequel that
 outshines it's predecessor. It is everything I was expecting from {% include
 book_link.html title="Hyperion" %} and more! A true masterpiece.
 
@@ -17,7 +17,7 @@ left off with the pilgrims arriving at the Time Tombs. But the book also
 follows several characters out in the wider Hegemony, which gives the story a
 much broader feel: we aren't confined to one planet anymore.
 
-<span class="book-title">The Fall of Hyperion</span> is a more straightforward
+<cite class="book-title">The Fall of Hyperion</cite> is a more straightforward
 story than {% include book_link.html title="Hyperion" %}. It's one storyline,
 not six, and it progresses linearly starting at the beginning and finishing at
 the end.
