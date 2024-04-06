@@ -31,7 +31,7 @@
 
     {% comment %} Social links {% endcomment %}
     <div class="sidebar-social-links">
-      Follow me on: 
+      Follow me on:
       <div class="sidebar-social-links-buttons">
         {% comment %} Twitter Button {% endcomment %}
         <a rel="me" class="sidebar-button twitter-button" href="https://twitter.com/{{ site.author.twitter }}">
@@ -59,12 +59,13 @@
         </a>
       </div>
     </div>
-    <br>
 
     {% comment %} Legal text {% endcomment %}
-    <small>
+    <div>
+      <small>
       &copy;&nbsp;<time datetime="{{ '2016-01-01T00:00:00Z' | date_to_xmlschema }}">2016</time>–<time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time> by {{ site.author.name }}
-    </small>
+      </small>
+    </div>
 
   </div>
 </aside>
