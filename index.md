@@ -42,15 +42,4 @@ requests welcome!
 Below you can find my most recent articles and projects; older ones can be
 found [here][blog]:
 
-<div class="card-grid">
-{% for post in site.posts limit:5 %}
-  {% comment %} Article cards with an image and description. {% endcomment %}
-  {% include article_card.html
-    url=post.url
-    image=post.image
-    image_alt=post.image_alt
-    title=post.title
-    description=post.description
-  %}
-{% endfor %}
-</div>
+{% include front_page_feed.html %}
