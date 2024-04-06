@@ -9,7 +9,8 @@ image: /books/covers/dog_soldier.jpg
 ---
 
 <span class="book-title">Dog Soldier</span> is the forth book in the War
-Horses series.
+Horses series. In it Warren concludes of the Cinto DeSelva campaign and
+develops more of the setting's backstory.
 
 Although roughly the same length as the previous books in the series
 <span class="book-title">Dog Soldier</span> feels much shorter, or at least
