@@ -1,12 +1,30 @@
+{% comment %} Combine books and blog posts together and sort so the newest are
+at the top. {% endcomment %}
+{% assign all_posts = site.posts | concat: site.books | sort: 'date' | reverse %}
+
 <div class="card-grid">
-{% for post in site.posts limit:5 %}
-  {% comment %} Article cards with an image and description. {% endcomment %}
-  {% include article_card.html
-    url=post.url
-    image=post.image
-    image_alt=post.image_alt
-    title=post.title
-    description=post.description
-  %}
+{% for post in all_posts limit:5 %}
+  {% comment %} Books and blog posts have different card types, so separate
+  them now.{% endcomment %}
+  {% if post.layout == 'book' %}
+    {% comment %} Book card. {% endcomment %}
+    {% include book_card.html
+      url=post.url
+      image=post.image
+      title=post.title
+      author=post.book_author
+      rating=post.rating
+      description=post.excerpt
+    %}
+  {% elsif post.layout == 'post' %}
+    {% comment %} Article cards. {% endcomment %}
+    {% include article_card.html
+      url=post.url
+      image=post.image
+      image_alt=post.image_alt
+      title=post.title
+      description=post.description
+    %}
+  {% endif %}
 {% endfor %}
 </div>
