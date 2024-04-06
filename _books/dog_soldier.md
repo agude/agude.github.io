@@ -9,14 +9,14 @@ image: /books/covers/dog_soldier.jpg
 ---
 
 <span class="book-title">Dog Soldier</span> is the fourth book in the War
-Horses series. In it, Warren concludes the Cinto DeSelva campaign and further
+Horses series. In it, Warren concludes the Cinto DaSelva campaign and further
 develops the setting's backstory.
 
 Although roughly the same length as the previous books in the series, <span
 class="book-title">Dog Soldier</span> feels much shorter or, at least, quicker
 to get through. The book is divided into three main sections:
 
-- The first part takes place on Cinto DeSelva, where the rebellion and
+- The first part takes place on Cinto DaSelva, where the rebellion and
   Chevaliers make an ill-advised attack at the command of the union-leader
   Helene DeChile. The advance stretches their supply lines and ends
   disastrously, as the mercenaries had warned.
@@ -25,7 +25,7 @@ to get through. The book is divided into three main sections:
   plot with their employer to remove the power-hungry and crazed Helene from
   command.
 
-- The third part takes place back on Cinto DeSelva, as the Chevaliers put the
+- The third part takes place back on Cinto DaSelva, as the Chevaliers put the
   assassination plot into motion. They assault the capital using wormholes to
   bypass the front line and end up in a knock-down-drag-out fight with the
   increasingly paranoid Helene and the last of her loyalists.
@@ -45,5 +45,5 @@ Romans are introduced as a super-advanced but disappeared faction; and the
 Paladin Devils from {% include book_link.html title="Chevalier" %} are
 fleshed-out, with old grudges renewed.
 
-With the Cinto DeSelva plot-line wrapped up, I'm excited to see where the next
+With the Cinto DaSelva plot-line wrapped up, I'm excited to see where the next
 book, {% include book_link.html title="Grand Melee" %}, will take us.
