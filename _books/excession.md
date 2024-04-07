@@ -18,7 +18,7 @@ minds think, communicate with each other, make decisions, retreat to "infinite
 fun space", and interact with an _"Outside Context Problem"_[^ocp]. The worst
 part of the book was the human characters, who were shallow and uninteresting.
 Ulver Seich---the airhead socialite---is a slightly more interesting and
-better-written take on the "hot girl who fucks her way through the narrative"
+better-written take on the "hot girl who sleeps her way through the narrative"
 trope that {% include author_link.html name="Peter F. Hamilton" %} loves to
 write, such as Mellanie Rescorai in {% include book_link.html title="Pandora's
 Star" %}, or to a lesser extent, Kysandra Blair in {% include book_link.html
