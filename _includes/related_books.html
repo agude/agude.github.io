@@ -33,7 +33,7 @@ category or not.
 {% assign series_order_books = site.books | sort: "book_number" %}
 
 {% comment %} Start by trying to find other books in the series. {% endcomment %}
-{% if page.series != empty %}
+{% if page.series != null and page.series != empty %}
   {% for book in series_order_books %}
     {% if book.url != page.url %}
       {% if placed_books.size < 3 %}
