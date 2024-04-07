@@ -4,27 +4,56 @@ layout: default
 
 <article class="page">
   <h1 class="page-title">{{ page.title }}</h1>
+
   {% if page.image %}
   <div class="floating-book-cover">
     <img class="book-cover-lead"
       src="{{ page.image }}"
       alt="Book cover of {{ page.title }}."
-    />
+    >
   </div>
   {% endif %}
 
   <div class="written-by">By {% include author_link.html name=page.book_author%}</div>
 
-  {% if page.series %}
-  <div class="book-series">Book {{page.book_number}} of the '{{ page.series }}'</div>
+  {% if page.series and page.book_number %}
+    {% assign normalized_series = page.series | downcase | strip %}
+
+    {% comment %}Some series have "The" in them in which case we don't want to
+    write "the The".{% endcomment %} 
+    {% if normalized_series contains 'the'%}
+      {% assign the_placeholder = ' ' %}
+    {% else %}
+      {% assign the_placeholder = ' the ' %}
+    {% endif %}
+
+    {% comment %}Some series have a "series-like" noun in them, like "Saga",
+    "Trilogy", etc. in them in which case we don't want to write "Saga series".{% endcomment %} 
+    {% assign series_words = 'saga,trilogy,cantos,chronicle,book' | split: ',' %}
+    {% assign found_series_word = false %}
+    {% for series_word in series_words %}
+      {% if normalized_series contains series_word %} 
+        {% assign found_series_word = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% if found_series_word == false %}
+      {% assign series_placeholder = ' series' %}
+    {% else %}
+      {% assign series_placeholder = '' %}
+    {% endif %}
+
+    {% comment %}Now place the actual div.{% endcomment %}
+    <div class="book-series">
+      Book {{page.book_number}} of{{ the_placeholder }}'{{ page.series }}'{{ series_placeholder}}
+    </div>
   {% endif %}
 
   <h2 class="book-review-headline">Review</h2>
   {% comment %}Add star rating, if one exists in the metadata{% endcomment %}
   {% if page.rating %}
-  {% include book_rating.html rating=page.rating %}
+    {% include book_rating.html rating=page.rating %}
   {% endif %}
-
 
   {{ content }}
 
