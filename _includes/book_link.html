@@ -7,12 +7,23 @@ Otherwise it doens't work inside footnotes.
 See:
 https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-include-external-content-inside-footnotes
 {% endcomment -%}
-{%- assign url = null -%}
+{%- comment %}
+If the include is broken across multiple lines, sometimes the title has \n
+charters in it and we need to remove them. But the only way to get a newline
+in liquid is to capture it (it doesn't understand \n).
+{% endcomment -%}
+
+{%- capture newline %}
+{% endcapture -%}
+
+{%- assign target_title = include.title | replace: newline,' ' | strip -%}
 
 {%- comment %}Try to find the book and set a URL{% endcomment -%}
+{%- assign url = null -%}
 {%- assign books = site.books -%}
 {%- for book in books -%}
-  {%- if book.title == include.title -%}
+  {%- assign potential_title = book.title | replace: newline,' ' | strip -%}
+  {%- if potential_title == target_title -%}
     {%- assign url = book.url -%}
     {%- break -%}
   {%- endif -%}
@@ -20,8 +31,10 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
 
 <cite class="book-title">{{- null -}}
 {%- if url and page.url != url %}
-  <a href="{{ url }}">{{ include.title }}</a>
+  {%- comment %}Use the {{ target_title }} because it's been cleaned up
+  already.{% endcomment -%}
+  <a href="{{ url }}">{{ target_title }}</a>
 {%- else -%}
-  {{ include.title }}
+  {{ target_title }}
 {%- endif -%}
 </cite>{{- null -}}
