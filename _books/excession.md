@@ -20,12 +20,12 @@ part of the book was the human characters, who were shallow and uninteresting.
 Ulver Seich---the airhead socialite---is a slightly more interesting and
 better-written take on the "hot girl who fucks her way through the narrative"
 trope that {% include author_link.html name="Peter F. Hamilton" %} loves to
-write, such as Mellanie Rescorai in {% include book_link.html title="Pandora's Star" %},
-or to a lesser extent, Kysandra Blair in
-{% include book_link.html title="The Abyss Beyond Dreams" %}. Nonetheless, I
-dreaded the human chapters. Culture books are carried by their human
-characters, who bring scale, emotion, and stakes to the drama, and <cite
-class="book-title">Excession</cite>'s humans fall short.
+write, such as Mellanie Rescorai in {% include book_link.html title="Pandora's
+Star" %}, or to a lesser extent, Kysandra Blair in {% include book_link.html
+title="The Abyss Beyond Dreams" %}. Nonetheless, I dreaded the human chapters.
+Culture books are carried by their human characters, who bring scale, emotion,
+and stakes to the drama, and <cite class="book-title">Excession</cite>'s
+humans fall short.
 
 The story wasn't what I expected. I anticipated a book about how the Culture
 deals with something---the excession---over which they have no control, but
@@ -37,12 +37,11 @@ reunite Dajeil Gelian and Byr Genar-Hofoen and reconcile their relationship;
 and a fourth to intercept Genar-Hofoen with Siech and prevent him from
 rendezvousing with the _Sleeper Service_.
 
-Even after reading such "tricky" books as
-{% include book_link.html title="The Quantum Thief" %} and {% include
-book_link.html title="The Shadow of the Torturer" %}, I found <cite
-class="book-title">Excession</cite> a little challenging, mainly because of
-the numerous ships to keep track of while also trying to discern which ones
-were the conspirators.
+Even after reading such "tricky" books as {% include book_link.html title="The
+Quantum Thief" %} and {% include book_link.html title="The Shadow of the
+Torturer" %}, I found <cite class="book-title">Excession</cite> a little
+challenging, mainly because of the numerous ships to keep track of while also
+trying to discern which ones were the conspirators.
 
 Some aspects I loved:
 

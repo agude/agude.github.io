@@ -26,11 +26,10 @@ For example, Paula Myo, the obsessive detective from the previous books,
 returns but spends most of the series isolated in her spaceship, interacting
 with the storyline only by calling other characters.
 
-The plot is similar to the one from 
-{% include book_link.html title="Pandora's Star" %} and {% include
-book_link.html title="Judas Unchained" %}. A large cast of characters race to
-save the galaxy from the Void at its center, a Void that is expanding and
-consuming everything in its path.
+The plot is similar to the one from {% include book_link.html title="Pandora's
+Star" %} and {% include book_link.html title="Judas Unchained" %}. A large
+cast of characters race to save the galaxy from the Void at its center, a Void
+that is expanding and consuming everything in its path.
 
 The book takes place in two locations: in the Commonwealth and in the Void.
 The Void chapters follow Edeard, a young boy on a low-tech planet where

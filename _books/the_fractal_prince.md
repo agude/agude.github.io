@@ -16,11 +16,10 @@ lived up to the hype.
 In {% include book_link.html title="The Quantum Thief" %}, le Flambeur went to
 Mars to recover his memories. In <cite class="book-title">The Fractal
 Prince</cite>, he heads to Earth to gather tools for his heist. Earth has its
-own unique culture, technology, and characters, just like Mars.
-And again, Rajaniemi throws the reader into the deep end to figure things out,
-but this time he gives us a little help. Some characters ask questions the
-reader likely has, providing small bits of exposition missing from the first
-book.
+own unique culture, technology, and characters, just like Mars. And again,
+Rajaniemi throws the reader into the deep end to figure things out, but this
+time he gives us a little help. Some characters ask questions the reader
+likely has, providing small bits of exposition missing from the first book.
 
 Earth's culture is loosely based on <cite class="book-title">One Thousand and
 One Nights</cite>---tales within tales have power, minds without bodies are

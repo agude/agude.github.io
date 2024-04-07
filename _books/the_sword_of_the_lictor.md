@@ -22,15 +22,19 @@ fascinating new characters and situations.
 Some of my favorite scenes were:
 
 - The haunting confrontation with the Alzabo and Agia at the mountain cottage.
+
 - The mountain carved into a giant statue of Typhon.
+
 - The village of the sorcerers and the "magic" duel.
+
 - Lake Diurna and its lake-dwellers who live on floating islands.
+
 - The castle of Baldanders, his disturbing human experiments, and his fight
   with Severian.
 
-Although the structure of the story resembles {% include
-book_link.html title="The Claw of the Conciliator" %}, with Severian traveling
-from adventure to adventure, I felt each part was more engaging.
+Although the structure of the story resembles {% include book_link.html
+title="The Claw of the Conciliator" %}, with Severian traveling from adventure
+to adventure, I felt each part was more engaging.
 
 With this book wrapped up, I am eager to dive into the forth book, {% include
 book_link.html title="The Citadel of the Autarch" %}.

@@ -15,11 +15,14 @@ that just a few more pages promised the answers to.
 The book takes place in a universe where trains running through interstellar
 wormholes are the main form of transportation. It deals with themes of:
 
-- _Inequality_, which is rampant, with the richest families (called dynasties) owning entire planets.
+- _Inequality_, which is rampant, with the richest families (called dynasties)
+  owning entire planets.
+
 - _Life, death, and the self_, since Humans can't really die because everyone
   has a memory backups that can be loaded into a new clone. Some of the
-  characters struggle with the idea that the clone is not really them (something
-  I agree with) but this is sort of glossed over in the book.
+  characters struggle with the idea that the clone is not really them
+  (something I agree with) but this is sort of glossed over in the book.
+
 - _Family_, since people don't die, families are huge but less tightly-bound.
   Marriages last a few decades and people know they'll end before they begin.
   And of course the largest companies are the dynasties themselves.

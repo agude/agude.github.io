@@ -35,8 +35,8 @@ weave together until, suddenly, they are all in the right places and save the
 universe. I did not predict the ending this time, unlike for {% include
 book_link.html title="Judas Unchained" %}, but in a way that is why it felt
 abrupt: it was foreshadowed but more subtlety. Still, there are some
-satisfying moments, like when Qutax gets revenge against The Cat[^adama], and when
-all the mysteries of Edeard's city are revealed.
+satisfying moments, like when Qutax gets revenge against The Cat[^adama], and
+when all the mysteries of Edeard's city are revealed.
 
 All and all, the series does not quite meet the expectations set by {% include
 book_link.html title="The Dreaming Void" %}, but is still good fun.

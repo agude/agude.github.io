@@ -24,8 +24,10 @@ Layers of scheming are revealed:
 
 - Le Flambeur sent himself to prison to evolve a new personality the Jewel
   would accept.
+
 - The All-Defector sets up Jean to disrupt the Zoku so the Sobornost he
   controls can take over.
+
 - Barbicane set up Jean to disrupt the Zoku's quantum entanglement, allowing
   him to attempt to destroy the Kaminari Jewel.
 

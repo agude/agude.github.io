@@ -30,11 +30,11 @@ culture, but it was seeing the cracks in the Empire, and finally fully
 rejecting their philosophy and embracing his Culture roots that allowed him to
 dominate.
 
-[Banks's sadism][wasp], as seen in
-{% include book_link.html title="Consider Phlebas" %}, reappears in <cite
-class="book-title">The Player of Games</cite> but in a more controlled manner.
-Rather than gratuitous, it serves to shape the reader's (and Gurgeh's) view of
-the Azadian Empire and pushes Gurgeh to reject their influence.
+[Banks's sadism][wasp], as seen in {% include book_link.html title="Consider
+Phlebas" %}, reappears in <cite class="book-title">The Player of Games</cite>
+but in a more controlled manner. Rather than gratuitous, it serves to shape
+the reader's (and Gurgeh's) view of the Azadian Empire and pushes Gurgeh to
+reject their influence.
 
 [wasp]: https://en.wikipedia.org/wiki/The_Wasp_Factory
 

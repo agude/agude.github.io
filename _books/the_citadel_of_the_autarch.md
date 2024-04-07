@@ -45,9 +45,10 @@ different style. I look forward to reading it.
 
 [^best]:
     "Years later, Michael [Dirda][dirda] of the Washington Post would call it
-    [referring to {% include book_link.html title="The Shadow of the Torturer" -%}] "The greatest fantasy novel written by an American," and he
-    would be right." -- Neil Gaiman, [_Gene Wolfe by Neil Gaiman_][guardian],
-    The Guardian, 2011-05-13
+    [referring to {% include book_link.html title="The Shadow of the Torturer"
+    -%}] "The greatest fantasy novel written by an American," and he would be
+    right." -- Neil Gaiman, [_Gene Wolfe by Neil Gaiman_][guardian], The
+    Guardian, <time datetime="2011-05-13">2011-05-13</time>
 
 [dirda]: https://en.wikipedia.org/wiki/Michael_Dirda
 [guardian]: https://www.theguardian.com/books/2011/may/13/gene-wolfe-hero-neil-gaiman-sf

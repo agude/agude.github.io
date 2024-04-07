@@ -23,22 +23,24 @@ not six, and it progresses linearly starting at the beginning and finishing at
 the end.
 
 The story is simple: the Ousters---a barbarian group of humans who travel the
-outreaches of space looking for systems to pillage---are invading the
-Hyperion system and the Hegemony must stop them. What initially seems like a
-military campaign to boost the CEO's election chances quickly becomes a
-disaster as the Ousters are more numerous and more capable than anticipated.
+outreaches of space looking for systems to pillage---are invading the Hyperion
+system and the Hegemony must stop them. What initially seems like a military
+campaign to boost the CEO's election chances quickly becomes a disaster as the
+Ousters are more numerous and more capable than anticipated.
 
 The stakes of the action shift multiple times:
 
 - When we learn of an Ouster counter attack against multiple different
   worlds---attacks that had to have been launched a century early because of
   the vast distances they had to travel.
+
 - When we discover that the Ousters are not the barbarians we'd been
   led to believe them to be, but are enlightened humanists, possibly even more
   worthy of the mantel of humanity than the Hegemony.
-- When we discover the other attackers are not the Ousters, but
-  TechnoCore fleets launched far in the past in anticipation of manipulating
-  the Hegemony into an unwinnable war.
+
+- When we discover the other attackers are not the Ousters, but TechnoCore
+  fleets launched far in the past in anticipation of manipulating the Hegemony
+  into an unwinnable war.
 
 The book answers all of the questions opened in the first, and the ending is
 satisfying.
