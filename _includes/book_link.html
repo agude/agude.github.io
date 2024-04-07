@@ -29,12 +29,13 @@ in liquid is to capture it (it doesn't understand \n).
   {%- endif -%}
 {%- endfor -%}
 
-<cite class="book-title">{{- null -}}
-{%- if url and page.url != url %}
-  {%- comment %}Use the {{ target_title }} because it's been cleaned up
-  already.{% endcomment -%}
-  <a href="{{ url }}">{{ target_title }}</a>
-{%- else -%}
-  {{ target_title }}
+{%- comment %}Wrap the {{ target_title }} in <cite> tags.
+We use target_title because it's been cleaned up already.{% endcomment -%}
+{%- capture wrapped_title -%}<cite class="book-title">{{ target_title }}</cite>{%- endcapture -%}
+
+{%- comment %}Wrap again with a link if we find one.{% endcomment -%}
+{%- if url and page.url != url -%}
+  {%- capture wrapped_title -%}<a href="{{ url }}">{{- wrapped_title -}}</a>{%- endcapture -%}
 {%- endif -%}
-</cite>{{- null -}}
+
+{{- wrapped_title -}}
