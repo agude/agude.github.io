@@ -31,7 +31,7 @@ have to test if they exist though first to make our header logic easier.{% endco
 {% assign placed_no_series_header = false %}
 {% for book in sorted_books_by_title %}
   {% if book.book_author == page.author_name %}
-    {% if book.series == '' or book.series == null %}
+    {% if book.series == empty or book.series == null %}
       {% if placed_no_series_header == false %}
         {% assign placed_no_series_header = true %}
 
@@ -63,7 +63,7 @@ headlines, but not before the first headline.{% endcomment %}
 {% assign first_place = true %}
 
 {% for sort_series in sorted_series %}
-  {% if sort_series == null or sort_series == '' %}
+  {% if sort_series == null or sort_series == empty %}
     {% continue %}
   {% endif %}
 
@@ -95,4 +95,5 @@ headlines, but not before the first headline.{% endcomment %}
 {% comment %}Close the final card-grid{% endcomment %}
 </div>
 
+{% comment %}Close the author-page.{% endcomment %}
 </div>
