@@ -16,8 +16,8 @@ world who, as the title suggests, is hired by a dragon.
 
 One of my favorite niche sub-genres of fantasy[^fate] explores the question:
 What if a dragon used their intellect, riches, and magic to subtly shape the
-world instead of charging in and breathing fire. {{ this_book }} falls
-squarely into this sub-genre.
+world instead of charging in and breathing fire. I thought {{ this_book }}
+fell squarely into this sub-genre.
 
 [^fate]:
     My longest running tabletop roleplaying game was based on this premise, so
@@ -33,24 +33,23 @@ a banker to help put his hoard to work.
 [fiat]: https://en.wikipedia.org/wiki/Fiat_money
 
 I think this would have been an really interesting story, and it is the story
-I thought I was reading in the first part of the book. out, what {{ this_book
-}} is about. However, that is not what {{ this_book }} is about.
-
-Kelstern sets up multiple enterprises to earn the dragon money, but they all
-fail. He discovers that the dragon's second son is apparently working against
-the interests of his father and causing much of the misfortune befalling their
-ventures.
+I thought I was reading in the first part of the book. However, that is not
+what {{ this_book }} is about.
 
 At the end, it is revealed in a note from Arkelai that they chose Kelstern
 because they thought he was as greedy as a dragon, and assumed he would wage
-economic war against the other banks and merchants when they bankrolled him.
-But Kelstern was honorable: taking care of his employees, treating people with
-respect, and paying taxes on his ventures. So they set the other merchants
-against him, but when his failed to provoke him into conflict, Arkelai
-realized she couldn't continue to betray the banker. Luckily, she had learned
+economic war against the other banks and merchants when they bankrolled him,
+allowing the dragons to swoop in and pick up the pieces. But Kelstern is too
+honorable: taking care of his employees, treating people with respect, and
+paying taxes on his ventures.
+
+So the dragons try to provoke him into conflict. The Alkarzarian's son
+intervenes and turns the other merchants against Kelstern, ensuring all his
+enterprises fail. Yet Kelstern persists, causing Arkelai to realized she
+couldn't continue to betray the honorable banker. Luckily, she had learned
 about [short-selling][short] from Kelstern, and so the dragons changed their
-plan. They took a large short position in many different companies, and then
-burned them to the ground.
+plan. They take a large short position in many different companies, and then
+burn them to the ground.
 
 [short]: https://en.wikipedia.org/wiki/Short_(finance)
 
