@@ -37,19 +37,18 @@ I thought I was reading in the first part of the book. However, that is not
 what {{ this_book }} is about.
 
 At the end, it is revealed in a note from Arkelai that they chose Kelstern
-because they thought he was as greedy as a dragon, and assumed he would wage
+because they thought he was as greedy as a dragon. They assumed he would wage
 economic war against the other banks and merchants when they bankrolled him,
-allowing the dragons to swoop in and pick up the pieces. But Kelstern is too
+allowing the dragons to swoop in and pick up the pieces. But Kelstern was too
 honorable: taking care of his employees, treating people with respect, and
 paying taxes on his ventures.
 
-So the dragons try to provoke him into conflict. The Alkarzarian's son
-intervenes and turns the other merchants against Kelstern, ensuring all his
-enterprises fail. Yet Kelstern persists, causing Arkelai to realized she
-couldn't continue to betray the honorable banker. Luckily, she had learned
-about [short-selling][short] from Kelstern, and so the dragons changed their
-plan. They take a large short position in many different companies, and then
-burn them to the ground.
+So the dragons try to provoke him into conflict. Alkarzarian's son turns the
+other merchants against Kelstern, ensuring the failure of all his enterprises.
+Yet Kelstern persists, causing Arkelai to realized she couldn't continue to
+betray the honorable banker. Luckily, she had learned about
+[short-selling][short] from Kelstern, which leads to a new plan: take a large
+short positions in many different companies, and burn them to the ground.
 
 [short]: https://en.wikipedia.org/wiki/Short_(finance)
 
@@ -57,10 +56,9 @@ I enjoyed the parallels between Kelstern and the dragons. Kelstern is the
 narrator, and his descriptions of people always focus on their precious
 metals: gold teeth, silver embroidery, copper spectacles, platinum necklace.
 
-Overall, I was hoping Kelstern would "win" by coming up with a clever,
-heist-like plan, or that the dragons would use their superior intellect to do
-so. Instead, the dragon's plan became too simple: make money by shorting
-things before burning them down with dragon fire.
+I was hoping Kelstern would "win" by coming up with a clever, heist-like plan,
+or that the dragons would use their superior intellect to do so. Instead, the
+dragon's plan became too simple: burn things.
 
 There is also a slight inconsistency: the dragons's plan was to profit off the
 human economic system, but they also transferred several pieces of technology
