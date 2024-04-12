@@ -39,15 +39,20 @@ out, what {{ this_book }} is about.
 Kelstern sets up multiple different enterprises to earn the dragon money, and
 they all fail. Kelstern discovers that the Dragon's second son is apparently
 working against the interests of his father and causing much of the misfortune
-befalling their company.
+befalling their company. Every endevour Kelstern embarks on comes to ruin.
 
-At the end, we learn the dragon and his brood were not in fact interested in
-earning money, but rather wanted to use Kelstern to learn the human's economic
-systems so that it could be manipulated and destroyed. But because Kelstern
-was such a good person---helping the poor, looking out for his friends---the
-dragon's daughter decides to give humans a shot. Unfortunately this is
-revealed in the last few pages in a note explaining the whole plot, so it sort
-of blunts the impact.
+At the end it is revealed (in a note from Arkelai, the dragon's daughter and
+Kelstern's handler) that they picked Kelstern because they thought he was as
+greedy as a dragon, and assumed he would wage economic war against the other
+banks and merchants when they bankrolled him. But Kelstern was
+honorable---taking care of his employees, treating people with respect, paying
+taxes---and so they tried to provoke him into conflict. When this also failed,
+Arkelai realized she couldn't continue to betray the banker. Luckily, she had
+learned about [short-selling][short] from Kelstern, and so the dragons changed
+their plan to taking a large short position in many different companies, and
+then burning them to the ground.
+
+[short]: https://en.wikipedia.org/wiki/Short_(finance)
 
 I enjoyed the parallels between Kelstern and the dragons. Kelstern is the
 narrator and his descriptions of people always focuses on their precious
@@ -55,16 +60,13 @@ metals: gold teeth, silver embroidery, copper spectacles, platinum necklace.
 
 Overall I was hoping Kelstern would "win" by coming up with a clever,
 heist-like plan, or that the dragons would use their superior intellect to do
-so, but no. In the end Kelstern wins by being upstanding, and the dragon's
-plan is too simple: watch humans, and make money shorting thinks before
-burning them down with dragon fire.
+so, but no. In the end the dragon's plan becomes too simple: make money by
+shorting things before burning them down with dragon fire.
 
 There is also a little bit of a weird inconstancy: the dragons' plan was to
-destroy the human economic system, but they also transferred several pieces of
-technology that moved the whole empire forward. I'm not sure why. Perhaps they
-had a change of heart (although the plan with the dragon-eyes and water-proof
-chemical, that when combined create refridgeration, was in play well before
-Kelstern showed he was a good person).
+profit off the human economic system, but they also transferred several pieces of
+technology that moved the whole empire forward, like fuel free heat, new ship
+designs, and refrigeration. I'm not sure why.
 
-In my ideal dragon story, the fact that the dragon can breath fire would make
-no difference.
+A fun read, but far from perfect. In my ideal dragon story, the fact that the
+dragon can breath fire would make no difference.
