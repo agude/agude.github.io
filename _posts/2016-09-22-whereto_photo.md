@@ -35,7 +35,7 @@ at Insight. The ideas were mostly based on my hobbies: cycling, running, and
 photography. But I knew that one of the hardest things about making a project
 was finding public data to use, so before settling on any idea I checked to
 see what data was available. There was not much data on running or
-cycling--Strava keeps their site locked down pretty tight--but there were a
+cycling---Strava keeps their site locked down pretty tight---but there were a
 lot of photos available from Instagram and Flickr, so I decided to do a photo
 project.
 
@@ -186,7 +186,7 @@ Gate" query:
 
 [![A preview of one of the photos from the query "Golden Gate"][preview]][preview]
 
-[preview]: {{ file_dir }}/Goldengate_with_pic.png 
+[preview]: {{ file_dir }}/Goldengate_with_pic.png
 
 Sometimes though, the algorithm failed, as in this case for the search term
 "Cars":
