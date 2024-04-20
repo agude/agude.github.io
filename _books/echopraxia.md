@@ -1,10 +1,10 @@
 ---
-date: 2024-04-12
+date: 2024-04-19
 title: Echopraxia
 book_author: Peter Watts
 series: Firefall
 book_number: 2
-rating: null
+rating: 5
 image: /books/covers/echopraxia.jpg
 ---
 
