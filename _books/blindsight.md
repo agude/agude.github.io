@@ -8,10 +8,12 @@ rating: 5
 image: /books/covers/blindsight.jpg
 ---
 
-<cite class="book-title">Blindsight</cite> is a hard sci-fi novel about first
-contact with aliens in the near future. A crew of four transhumans and a
+<cite class="book-title">{{ page.title }}</cite> is a hard sci-fi novel about
+first contact with aliens in the near future. A crew of four transhumans and a
 vampire are sent on a spaceship to investigate an anomaly in the solar system
 after a swarm of alien probes scan Earth.
+
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
 The main theme is consciousness and what it means to be human. The characters
 on the spaceship _Theseus_ have been altered mentally:
