@@ -12,17 +12,17 @@ image: /books/covers/echopraxia.jpg
 Watts's Firefall series, although it takes place at roughly the same time as
 {% include book_link.html title="Blindsight" %}. It fallows parasitologist
 Daniel Brüks as he gets dragged into a conflict between multiple trans-human
-factions.
+factions, travels to the Icarus station orbiting the sun, and back to Earth.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
 
-The world Watts build in {{ blindsight }} was captivating, and the scientific
+The world Watts build in {{ blindsight }} was enthralling, and the scientific
 and philosophical arguments about consciousness were fascinating. I **loved**
-it. {{ this_book }} expands on the exceptional worldbuild of its predecessor
-while focusing on the ideas of god, godhood, freewill, and the place of humans
-in a trans-human world. It is a fantastic sequel, possibly even better than
-the first.
+it. {{ this_book }} expands on the exceptional worldbuilding of its
+predecessor while focusing on the ideas of god, godhood, freewill, and the
+place of humans in a trans-human world. It is a fantastic sequel, possibly
+even better than the first.
 
 The Major characters are:
 
@@ -32,11 +32,11 @@ The Major characters are:
 - Jim Keaton, Siri Keaton's father and human solider.
 
 - The Bicamerals, a hivemind composed of people who have edited their brains
-and who discover scientific advancements through apparently religious means.
-Their interpreter is a slightly modified human, Lianna Lutterodt.
+  and who discover scientific advancements through apparently religious means.
+  Their interpreter is a slightly modified human, Lianna Lutterodt.
 
 - Valerie, a vampire escaped from an academic lab on a mission to free her
-  people. Along for the ride are four zombie soldiers.
+  people. Along for the ride are her four zombie soldiers.
 
 - Portia, an alien computer--slime-mold sent by _Rorschach_ to Icarus.
 
@@ -54,9 +54,20 @@ transcendentalism and digital theology:
 
 - Heaven "exists", as a virtual reality world people retreat to.
 
+- Resurrection---or at least the continuation of life after death---with the
+snake Brüks samples in the desert, the Zombies, and Brüks himself after he is
+infected by Portia.
+
 Parasites and biology also is a central theme. Brüks studies parasites, but in
 someways he is one as the weakest member of the group and one forced to hide
 for his own safety. Humans too are like a parasites, trying to survive among
 much more powerful trans-humans. And Portia, the alien smart matter sent by
 _Rorschach_ to Icarus, traps and studies the other characters in the book just
 like Brüks does to the animals he studies in Oregon.
+
+{{ this_book }} received mixed reviews from others compared to the universally
+rave reviews for {{ blindsight }}, primarily because people thought it was
+even more confusing. While it's true that the narrator, Brüks, is the person
+with the least idea of what is going on, I found the plot not too hard to
+follow. All the mysteries are eventually revealed and explained if you pay
+attention. So far {{ this_book }} is my favorite read of the year.
