@@ -8,28 +8,32 @@ rating: 5
 image: /books/covers/echopraxia.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the second book in Pater
-Watts's Firefall series, although it takes place at roughly the same time as
-{% include book_link.html title="Blindsight" %}. It fallows parasitologist
-Daniel Brüks as he gets dragged into a conflict between multiple trans-human
+<cite class="book-title">{{ page.title }}</cite> is the second book in Peter
+Watts's Firefall series, although it takes place roughly at the same time as
+{% include book_link.html title="Blindsight" %}. It follows parasitologist
+Daniel Brüks as he gets dragged into a conflict between multiple transhuman
 factions, travels to the Icarus station orbiting the sun, and back to Earth.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
 
-The world Watts build in {{ blindsight }} was enthralling, and the scientific
+The world Watts built in {{ blindsight }} was enthralling, and the scientific
 and philosophical arguments about consciousness were fascinating. I **loved**
 it. {{ this_book }} expands on the exceptional worldbuilding of its
-predecessor while focusing on the ideas of god, godhood, freewill, and the
-place of humans in a trans-human world. It is a fantastic sequel, possibly
-even better than the first.
+predecessor while focusing on the ideas of god, godhood, free will, and the
+place of humans in a transhuman world. It is a fantastic sequel, possibly even
+better than the first.
 
 The Major characters are:
 
 - Daniel Brüks, a parasitologist and baseline human who has decided against
-  getting absolutely any enhancements.
+  getting any enhancements.
 
-- Jim Keaton, Siri Keaton's father and human solider.
+- Jim Keaton, Siri Keaton's (from {{ blindsight }}) father and a human
+  soldier.
+
+- Rakshi Sengupta, an augmented human who servers as a backup pilot for the
+  ship.
 
 - The Bicamerals, a hivemind composed of people who have edited their brains
   and who discover scientific advancements through apparently religious means.
@@ -40,28 +44,28 @@ The Major characters are:
 
 - Portia, an alien computer--slime-mold sent by _Rorschach_ to Icarus.
 
-The novel is full of Christian imagery, to augment its theme of
+The novel is full of Christian imagery, augmenting its theme of
 transcendentalism and digital theology:
 
 - Valerie is a Moses figure: she is trying to free her people from slavery,
-  she first appears in the desert under a pillar of flame (the Bicamerals's
-  tornado seen through night-vision goggles).
+  and she first appears in the desert under a pillar of flame (the
+  Bicamerals's tornado seen through night-vision goggles).
 
 - Vampires have a "crucifix glitch" used to keep them controlled.
 
 - The ship used by the Bicamerals is the Crown of Thorns. _Rorschach_ from {{
   blindsight }} is in the shape of a crown of thorns.
 
-- Heaven "exists", as a virtual reality world people retreat to.
+- Heaven "exists" as a virtual reality world people retreat to.
 
 - Resurrection---or at least the continuation of life after death---with the
-snake Brüks samples in the desert, the Zombies, and Brüks himself after he is
-infected by Portia.
+  snake Brüks samples in the desert, the Zombies, and Brüks himself after he
+  is infected by Portia.
 
-Parasites and biology also is a central theme. Brüks studies parasites, but in
-someways he is one as the weakest member of the group and one forced to hide
-for his own safety. Humans too are like a parasites, trying to survive among
-much more powerful trans-humans. And Portia, the alien smart matter sent by
+Parasites and biology are also central themes. Brüks studies parasites, but in
+some ways, he is one as the weakest member of the group and one forced to hide
+for his safety. Humans, too, are like parasites, trying to survive among much
+more powerful transhumans. And Portia, the alien smart matter sent by
 _Rorschach_ to Icarus, traps and studies the other characters in the book just
 like Brüks does to the animals he studies in Oregon.
 
@@ -70,4 +74,4 @@ rave reviews for {{ blindsight }}, primarily because people thought it was
 even more confusing. While it's true that the narrator, Brüks, is the person
 with the least idea of what is going on, I found the plot not too hard to
 follow. All the mysteries are eventually revealed and explained if you pay
-attention. So far {{ this_book }} is my favorite read of the year.
+attention. So far, {{ this_book }} is my favorite read of the year.
