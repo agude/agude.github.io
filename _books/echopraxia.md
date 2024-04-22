@@ -69,10 +69,10 @@ more powerful transhumans. And Portia, the alien smart matter sent by
 _Rorschach_ to Icarus, traps and studies the other characters in the book just
 like Brüks does to the animals he studies in Oregon.
 
-Loss is yet another theme. Brüks lost his wife to heaven; Keaton lost his wife
-in the same way, and his son Siri on the mission from {{ blindsight }}; and
-Sengupta lost her wife to the virus Brüks simulations failed to catch before
-it infected thousands.
+Loss is yet another theme. Brüks lost his wife to the virtual reality world of
+"heaven"; Keaton lost his wife in the same way, and his son Siri on the
+mission from {{ blindsight }}; and Sengupta lost her wife to the virus that
+Brüks's simulations failed to catch before it infected thousands.
 
 {{ this_book }} received mixed reviews from others compared to the universally
 rave reviews for {{ blindsight }}, primarily because people thought it was
