@@ -72,7 +72,9 @@ like Brüks does to the animals he studies in Oregon.
 Loss is yet another theme. Brüks lost his wife to the virtual reality world of
 "heaven"; Keaton lost his wife in the same way, and his son Siri on the
 mission from {{ blindsight }}; and Sengupta lost her wife to the virus that
-Brüks's simulations failed to catch before it infected thousands.
+Brüks's simulations failed to catch before it infected thousands. Each
+character is shaped and eventually brought down by what their profound sense
+of loss drives them to do.
 
 {{ this_book }} received mixed reviews from others compared to the universally
 rave reviews for {{ blindsight }}, primarily because people thought it was
