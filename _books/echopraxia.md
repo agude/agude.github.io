@@ -56,6 +56,9 @@ transcendentalism and digital theology:
 - The ship used by the Bicamerals is the Crown of Thorns. _Rorschach_ from {{
   blindsight }} is in the shape of a crown of thorns.
 
+- Siri suffers a stigmata-like wound in his palm, inflicted by the vampire
+  Jukka Sarasti.
+
 - Heaven "exists" as a virtual reality world people retreat to.
 
 - Resurrection---or at least the continuation of life after death---with the
