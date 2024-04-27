@@ -4,7 +4,7 @@ title: The Dragon's Banker
 book_author: Scott Warren
 series: null
 book_number: 1
-rating: 4
+rating: 3
 image: /books/covers/the_dragons_banker.jpg
 ---
 
@@ -64,7 +64,7 @@ There is also a slight inconsistency: the dragons's plan was to profit off the
 human economic system, but they also transferred several pieces of technology
 that moved the whole empire forward, like fuel-free heat, new ship designs,
 and refrigeration. Perhaps the dragons's real motivation was to move humanity
-forward? But if so their other behavior seems to misanthropic for that.
+forward? But if so their other behavior seems too misanthropic for that.
 
 While a fun read, the story is far from perfect. In my ideal dragon story, the
 fact that the dragon can breathe fire would make no difference and in this one

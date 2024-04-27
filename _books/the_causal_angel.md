@@ -37,5 +37,5 @@ the book does a good job of wrapping up storylines and the ending is
 satisfying.
 
 While I enjoyed {% include book_link.html title="The Fractal Prince" %}
-slightly more, <cite class="book-title">The Causal Angel</cite> was a good
-ending to a good trilogy.
+slightly more, <cite class="book-title">The Causal Angel</cite> was an ok
+ending to a ok trilogy.

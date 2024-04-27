@@ -37,4 +37,5 @@ pattern of missing ideas and memories, but the execution feels a little
 clumsy. To tell a story in the negative space of the narrative takes careful
 planning that is absent.
 
-Overall a fun read, it just wish there was a little more.
+Overall fun ideas with a weak execution. I wish it had lived up to its
+excellent concept.
