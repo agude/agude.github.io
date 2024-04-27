@@ -21,11 +21,14 @@ style to convey the gradual improvement in his intellect, and he does an
 equally remarkable job towards the end: it is an emotional moment when the
 typos reappear after a hundred pages, indicating Charlie's cognitive decline.
 
-But, the storyline itself felt predictable: I knew that Charlie would
-experience cognitive enhancement, realize his friends were not really friends,
-misunderstand women while seeking love, and ultimately deteriorate as the
-effects wore off. It was heart-breaking to witness Charlie's realization of
-how his family and friends had mistreated him.
+But, the storyline itself felt flat: I knew it was going to be a story of
+Charlie finding out his world was more complicated than it seemed: that his
+friends were not really his friends, that his family was not really the
+defenders he hoped. Several times while reading, I felt like I knew what was
+coming, and so I just needed to grit my teeth and push through to get to the
+next part of the story. At other points I debated putting it down and not
+picking it back up, especially during the parts where Charlie is abused by his
+mother.
 
 There are some interesting parallels between {{ this_book }} and {% include
 book_link.html title="Blindsight" %} and {% include book_link.html
