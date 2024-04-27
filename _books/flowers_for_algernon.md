@@ -24,11 +24,10 @@ typos reappear after a hundred pages, indicating Charlie's cognitive decline.
 But, the storyline itself felt predictable: I anticipated that it would depict
 Charlie's realization of the complexities in his world---that his friends were
 not truly his friends, and that his family was not the protective support
-system he had hoped for. Several times while reading, I could foresee the
-upcoming events, leaving me to grit my teeth through the narrative to reach
-the next plot point. At other moments, I contemplated abandoning the book
-altogether, especially during the segments where Charlie endures abuse from
-his mother.
+system he had hoped for. Several times while reading, I could see what must be
+coming in the next few pages, which left me to grit my teeth and push through
+to the next plot point. At other times, especially when Charlie was enduring
+the abuse of his mother, I contemplated abandoning the book altogether.
 
 There are some interesting parallels between {{ this_book }} and {% include
 book_link.html title="Blindsight" %} and {% include book_link.html
