@@ -4,7 +4,7 @@ title: The Fractal Prince
 book_author: Hannu Rajaniemi
 series: Jean le Flambeur
 book_number: 2
-rating: 4
+rating: 3
 image: /books/covers/the_fractal_prince.jpg
 ---
 

@@ -4,7 +4,7 @@ title: The Citadel of the Autarch
 book_author: Gene Wolfe
 series: The Book of the New Sun
 book_number: 4
-rating: 5
+rating: 4
 image: /books/covers/the_citadel_of_the_autarch.jpg
 ---
 
