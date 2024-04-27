@@ -27,16 +27,9 @@ misunderstand women while seeking love, and ultimately deteriorate as the
 effects wore off. It was heart-breaking to witness Charlie's realization of
 how his family and friends had mistreated him.
 
-There are some interesting ideas in common between {{ this_book }} and {%
-include book_link.html title="Blindsight" %} and {% include book_link.html
-title="Exchopraxia" %}: specifically about how changing the mind changes who
-you are, and if you change it enough you are a different person. I think {{
-this_book }} making the "other person" someone Charlie literally sees was an
-interesting way to demonstrate the point.
-
 There are some interesting parallels between {{ this_book }} and {% include
 book_link.html title="Blindsight" %} and {% include book_link.html
-title="Exchopraxia" %}: specifically regarding how altering the mind changes
+title="Echopraxia" %}: specifically regarding how altering the mind changes
 one's identity, and if the change is significant enough, it creates a
 different person altogether. {{ this_book }}'s depiction of Charlie literally
 seeing the "other person" out in the world was an interesting approach to
