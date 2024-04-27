@@ -1,10 +1,10 @@
 ---
-date: 2024-04-20
+date: 2024-04-26
 title: Flowers for Algernon
 book_author: Daniel Keyes
 series: null
 book_number: 1
-rating: null
+rating: 3
 image: /books/covers/flowers_for_algernon.jpg
 ---
 
