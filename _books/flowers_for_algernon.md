@@ -32,7 +32,7 @@ book_link.html title="Blindsight" %} and {% include book_link.html
 title="Echopraxia" %}: specifically regarding how altering the mind changes
 one's identity, and if the change is significant enough, it creates a
 different person altogether. {{ this_book }}'s depiction of Charlie literally
-seeing the "other person" out in the world was an interesting approach to
+seeing the "other person" out in the world was an clever approach to
 illustrate this concept.
 
 In the end thought, a book that has some great components, but doesn't come
