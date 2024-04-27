@@ -1,12 +1,13 @@
 ---
 title: "Book Reviews: Ranked"
-short_title: By Author
 layout: page
 permalink: /books/ranked/
 book_topbar_include: false
 description: >
   Alexander Gude's (short) book reviews.
 ---
+
+{% include books_topbar.html %}
 
 <h2 class="book-list-headline">Ranked List of Books</h2>
 
