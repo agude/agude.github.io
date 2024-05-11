@@ -52,7 +52,9 @@ def append_value_by_key(items: list, key: str, line: str) -> list:
     return items
 
 
-def write_pages_to_dir(items: list, output_dir: str, template: str, markdown_extension: str="md") -> None:
+def write_pages_to_dir(
+    items: list, output_dir: str, template: str, markdown_extension: str = "md"
+) -> None:
     """Writes content from a list of items to Markdown files in a directory.
 
     This function takes a list of items (`items`), an output directory path
@@ -110,15 +112,25 @@ markdown_files = glob.glob(BOOK_FILE_GLOB)
 authors = []
 series = []
 for file in markdown_files:
-  with open(file, "r") as opened_file:
-    for line in opened_file.readlines():
-      authors = append_value_by_key(authors, "book_author: ", line)
-      series = append_value_by_key(series, "series: ", line)
+    with open(file, "r") as opened_file:
+        for line in opened_file.readlines():
+            authors = append_value_by_key(authors, "book_author: ", line)
+            series = append_value_by_key(series, "series: ", line)
 
 # Write authors to separate Markdown files
 authors = sorted(set(authors))
-write_pages_to_dir(items=authors, output_dir="../books/authors/", template=AUTHOR_TEMPLATE, markdown_extension=MARKDOWN_EXTENSION)
+write_pages_to_dir(
+    items=authors,
+    output_dir="../books/authors/",
+    template=AUTHOR_TEMPLATE,
+    markdown_extension=MARKDOWN_EXTENSION,
+)
 
 # Similar process for series data
 series = sorted(set(series))
-write_pages_to_dir(items=series, output_dir="../books/series/", template=SERIES_TEMPLATE, markdown_extension=MARKDOWN_EXTENSION)
+write_pages_to_dir(
+    items=series,
+    output_dir="../books/series/",
+    template=SERIES_TEMPLATE,
+    markdown_extension=MARKDOWN_EXTENSION,
+)
