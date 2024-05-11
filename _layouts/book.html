@@ -46,9 +46,7 @@ layout: default
     {% comment %}Now place the actual div.{% endcomment %}
     <div class="book-series-line">
       Book {{page.book_number}} of{{ the_placeholder }}
-      <span class="book-series">
-        {{ page.series }}
-      </span>
+      {% include series_link.html series=page.series %}
       {{ series_placeholder}}
     </div>
   {% endif %}
