@@ -1,0 +1,33 @@
+---
+layout: default
+---
+<div class="series-page">
+  <h1 class="series-title">
+    {{ page.series_name }}
+  </h1>
+
+  {{ content }}
+
+<div class="card-grid">
+
+{% assign sorted_books = site.books | sort: 'book_number' %}
+{% for book in sorted_books %}
+  {% if book.series == page.series_name %}
+
+    {% include book_card.html
+      url=book.url
+      image=book.image
+      title=book.title
+      author=book.book_author
+      rating=book.rating
+      description=book.excerpt
+    %}
+
+  {% endif %}
+{% endfor %}
+
+{% comment %}Close the card-grid.{% endcomment %}
+</div>
+
+{% comment %}Close the series-page.{% endcomment %}
+</div>
