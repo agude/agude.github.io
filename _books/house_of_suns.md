@@ -15,7 +15,7 @@ what happened.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture quantum %}{% include book_link.html title="The Quantum Thief"%}{% endcapture %}
-{% capture shadow %}{% include book_link.html title="The Shadow of the Torturer"%}{% endcapture %}
+{% capture botns %}{% include series_link.html series="The Book of the New Sun" %}{% endcapture %}
 {% capture wolfe %}{% include author_link.html name="Gene Wolfe" possessive=true %}{% endcapture %}
 
 A chapter into {{ this_book }}, it reminded me of {{ quantum }}, and not in a
@@ -41,7 +41,6 @@ Actuarial estimates are used to predict if the place your going will even be
 there in 50 thousand years. I thought this was a great concept to explore, but
 {{ this_book }} squandered it.
 
-
 Because the story is a simple [whodunit][who] that takes place mostly on one
 planet, it didn't need the universe. It didn't need to and did not explore the
 implications of deep time. Instead all the time that passed as the ships flew
@@ -53,13 +52,13 @@ the crew of the ship?"_ Who cares!
 [who]: https://en.wikipedia.org/wiki/Whodunit
 
 Like much of modern sci fi, {{ this_book }} pays homage to {{ wolfe }} series
-_The Book of the New Sun_, which starts with {{ shadow }}. The Curators are a
-direct homage to the Megatherians: the achieve immortality through growth,
-must live in fluid because of their size, and have vast knowledge. The planet
-Neume has a giant skull mountain reminiscent of Typhon's statue mountain. The
-main city is Ymir, sharing a name with another of character from _The Book of
-the New Sun_ (and also referencing the giant whose body became the world in
-Norse mythology, just like the city is built on a giant stone hand).
+{{ botns }}. The Curators are a direct homage to the Megatherians: they
+achieve immortality through constant physical growth, must live in fluid
+because of their size, and have vast knowledge. The planet Neume has a giant
+skull mountain reminiscent of Typhon's mountain. The main city is Ymir,
+sharing a name with another of character from {{ botns }}---also referencing
+the giant whose body became the world in Norse mythology, just like the city
+is built on a giant stone hand.
 
 In all, a disappointing start, but if Reynolds can fix his writing, I may
 enjoy his next books.
