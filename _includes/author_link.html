@@ -1,13 +1,14 @@
 {%- comment %}
 The HTML is *VERY* sensitive to new lines, so we fill with {{- null -}} which
-does nothing _except_ consume a new line on eitherside.
+does nothing _except_ consume a new line on either side.
 
-Otherwise it doens't work inside footnotes.
+Otherwise it doesn't work inside footnotes.
 
 See:
 https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-include-external-content-inside-footnotes
 {% endcomment -%}
 {%- assign url = null -%}
+{%- assign possessive = include.possessive | default: false -%}
 
 {%- comment %}Try to find the book and set a URL{% endcomment -%}
 {%- for page in site.pages -%}
@@ -19,6 +20,11 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
 
 {%- comment %}Wrap the name in <span> tags.{% endcomment -%}
 {%- capture wrapped_name -%}<span class="author-name">{{ include.name }}</span>{%- endcapture -%}
+
+{%- comment %}Add 's if possessive{% endcomment -%}
+{%- if possessive == true -%}
+  {%- capture wrapped_name -%}{{- include.name -}}'s{%- endcapture -%}
+{%- endif -%}
 
 {%- comment %}Wrap again with a link if we find one.{% endcomment -%}
 {%- if url and page.url != url -%}
