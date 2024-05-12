@@ -28,10 +28,11 @@ particularly bad paragraph or stretch of dialogue. The pacing is also uneven,
 with long, boring stretches. A skilled editor could have salvaged the story by
 cutting around 200 pages.
 
-And that wasn't the author's intent. Flat doesn't do justice to their lack of
-dimension. They are mere points, not even one-dimensional. The two main
-characters---Campion and Purslane---alternate narration, but they are so
-similar that I could only tell whose chapter it was when the other one
+The characters might as well all be the same person; despite them being clones
+it wasn't the author's intent to make them identical. Flat doesn't do justice
+to their lack of dimension; they are mere points, not even one-dimensional.
+The two main characters---Campion and Purslane---alternate narration, but they
+are so similar that I could only tell whose chapter it was when the other one
 appeared.
 
 The most interesting thing the book attempts is setting up a sci-fi universe
@@ -42,8 +43,10 @@ Actuarial estimates are used to predict if the destination will even exist in
 this_book }} squandered it.
 
 [^c]:
-    At the very end of the book, faster-than-light travel is possible, but
-    Reynolds ivnets a clever soltuion to preserve causality.
+    At the very end of the book, faster-than-light travel is becomes possible,
+    but Reynolds ivnets a clever soltuion to preserve causality. That is one
+    thing I can't fault: the science is impecible, as you would expect form
+    and astronomer.
 
 Because the story is a simple [whodunit][who] that takes place mostly on one
 planet, it didn't need the vast universe. It didn't need to and did not
