@@ -61,6 +61,7 @@ description: >
   {% comment %} 1 Stars {% endcomment %}
 
   {% include auto_book_card.html title="Consider Phlebas" %}
+  {% include auto_book_card.html title="House of Suns" %}
   {% include auto_book_card.html title="The Three-Body Problem" %}
 
 </div>
