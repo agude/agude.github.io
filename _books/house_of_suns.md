@@ -16,7 +16,7 @@ happened.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture quantum %}{% include book_link.html title="The Quantum Thief"%}{% endcapture %}
 {% capture botns %}{% include series_link.html series="The Book of the New Sun" %}{% endcapture %}
-{% capture wolfe %}{% include author_link.html name="Gene Wolfe" possessive=true %}{% endcapture %}
+{% capture wolfes %}{% include author_link.html name="Gene Wolfe" possessive=true %}{% endcapture %}
 
 A chapter into {{ this_book }}, it reminded me of {{ quantum }}, and not in a
 good way: a fantastically well-designed world filled with flat characters. It
@@ -28,12 +28,12 @@ particularly bad paragraph or stretch of dialogue. The pacing is also uneven,
 with long, boring stretches. A skilled editor could have salvaged the story by
 cutting around 200 pages.
 
-The characters might as well all be the same person; despite them being clones
-it wasn't the author's intent to make them identical. Flat doesn't do justice
-to their lack of dimension; they are mere points, not even one-dimensional.
-The two main characters---Campion and Purslane---alternate narration, but they
-are so similar that I could only tell whose chapter it was when the other one
-appeared.
+The characters were flat, and although they were mostly clones, I don't
+believe it was the author's intent to make them identical. But flat doesn't do
+justice to their lack of dimension; they are mere points, not even
+one-dimensional. The two main characters---Campion and Purslane---alternate
+narration, but they are so similar that I could only tell whose chapter it was
+when the other one appeared.
 
 The most interesting thing the book attempts is setting up a sci-fi universe
 where the speed of light is (almost) absolute.[^c] Travel and communication
@@ -58,21 +58,12 @@ an outside observer, and b) the crew of the ship?"_ Who cares!
 
 [who]: https://en.wikipedia.org/wiki/Whodunit
 
-Like much of modern sci-fi, {{ this_book }} pays homage to {{ wolfe }} series
-{{ botns }}. The Curators are a direct homage to the Megatherians: they
-achieve immortality through constant physical growth, must live in fluid
-because of their size, and have vast knowledge. The planet Neume has a giant
-skull mountain reminiscent of Typhon's mountain. The main city is Ymir,
-sharing a name with another of character from {{ botns }}---also referencing
-the giant whose body became the world in Norse mythology, just like the city
-is built on a giant stone hand.
-
-Like much of modern sci-fi, {{ this_book }} pays homage to {{ wolfe }} {{
+Like much of modern sci-fi, {{ this_book }} pays homage to {{ wolfes }} {{
 botns }}. The Curators are a direct homage to the Megatherians: they achieve
 immortality through constant physical growth, must live in fluid due to their
 size, and have vast knowledge. The planet Neume has a giant skull mountain
 reminiscent of Typhon's mountain. The main city is Ymir, sharing a name with
-another character from {{ botns }}---also referencing the giant whose body
+another character from {{ botns }}, and also referencing the giant whose body
 became the world in Norse mythology, just like the city is built on a giant
 stone hand.
 
