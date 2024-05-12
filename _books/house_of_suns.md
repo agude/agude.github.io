@@ -8,7 +8,7 @@ rating: 1
 image: /books/covers/house_of_suns.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a stand-alone hard sci fi
+<cite class="book-title">{{ page.title }}</cite> is a stand-alone hard sci-fi
 book by {{ page.book_author }}. It tells the story of the Gentian Line, a
 family of clones who are betrayed, nearly wiped out, and must piece together
 what happened.
@@ -34,7 +34,7 @@ They are points, not even 1D. The two main characters---Campion and
 Purslane---alternate narration but are so similar I could only tell whose
 chapter it was when the other one walked into view.
 
-The most interesting thing the book attempts is setting up a sci fi universe
+The most interesting thing the book attempts is setting up a sci-fi universe
 where the speed of light is (almost) absolute. Travel and communication takes
 a long time. Civilizations rise and fall while people are in transit.
 Actuarial estimates are used to predict if the place your going will even be
@@ -51,7 +51,7 @@ the crew of the ship?"_ Who cares!
 
 [who]: https://en.wikipedia.org/wiki/Whodunit
 
-Like much of modern sci fi, {{ this_book }} pays homage to {{ wolfe }} series
+Like much of modern sci-fi, {{ this_book }} pays homage to {{ wolfe }} series
 {{ botns }}. The Curators are a direct homage to the Megatherians: they
 achieve immortality through constant physical growth, must live in fluid
 because of their size, and have vast knowledge. The planet Neume has a giant
