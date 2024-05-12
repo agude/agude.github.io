@@ -22,11 +22,11 @@ A chapter into {{ this_book }}, it reminded me of {{ quantum }}, and not in a
 good way: a fantastically well-designed world filled with flat characters. It
 only got worse from there.
 
-The writing is bad. At several points, I put the book down, stared at the
-ceiling, and thought "An award-winning author wrote that..." after reading a
-particularly bad paragraph or stretch of dialogue. The pacing is also uneven,
-with long, boring stretches. A skilled editor could have salvaged the story by
-cutting around 200 pages.
+The writing is weak. Several times, after particularly bad paragraphs or
+stretches of dialogue, I put the book down, stared at the ceiling, and thought
+"An award-winning author wrote that..." The pacing is also uneven, with long,
+boring stretches. A skilled editor could have salvaged the story by cutting
+around 200 pages.
 
 The characters were flat, and although they were mostly clones, I don't
 believe it was the author's intent to make them identical. But flat doesn't do
