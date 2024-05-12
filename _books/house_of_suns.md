@@ -51,8 +51,8 @@ this_book }} squandered it.
 Because the story is a simple [whodunit][who] that takes place mostly on one
 planet, it didn't need the vast universe. It didn't need to and did not
 explore the implications of deep time. Instead, all the time that passed as
-the ships flew around felt like a diligent physics student answering a
-question on a final exam: _"If a ship accelerates smoothly to 0.9c and then
+the ships flew around felt like a diligent physics student answering questions
+for a final exam: _"If a ship accelerates smoothly to 0.9c and then
 decelerates back to 0 over a 10,000ly trip, what amount of time passes for a)
 an outside observer, and b) the crew of the ship?"_ Who cares!
 
