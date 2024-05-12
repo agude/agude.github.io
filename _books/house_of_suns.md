@@ -43,10 +43,10 @@ Actuarial estimates are used to predict if the destination will even exist in
 this_book }} squandered it.
 
 [^c]:
-    At the very end of the book, faster-than-light travel is becomes possible,
-    but Reynolds ivnets a clever soltuion to preserve causality. That is one
-    thing I can't fault: the science is impecible, as you would expect form
-    and astronomer.
+    At the very end of the book, faster-than-light travel becomes possible,
+    but Reynolds invents a clever solution to preserve causality. That is one
+    thing I can't fault: the science is impeccable, as you would expect from
+    an astronomer.
 
 Because the story is a simple [whodunit][who] that takes place mostly on one
 planet, it didn't need the vast universe. It didn't need to and did not
