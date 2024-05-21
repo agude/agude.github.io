@@ -11,7 +11,7 @@ image: /books/covers/the_tainted_cup.jpg
 <cite class="book-title">{{ page.title }}</cite> is a fantasy detective novel
 in a world where humanity is on the break of destruction from giant Kaiju. It
 follows investigators Dinios Kol and Ana Dolabra as they try to solve the
-murder of an engineer.
+murder of an engineer, and discover a conspiracy the runs far deeper.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture house %}{% include book_link.html title="House of Suns"%}{% endcapture %}
