@@ -15,7 +15,7 @@ description: >
 A highly accomplished machine learning engineer with {{ "now" | date: "%Y" |
 minus: 2015 }} years of experience driving innovation in fraud detection,
 anti-money laundering, and financial modeling at leading technology companies
-like Cash App and Intuit. Demonstrated success in spearheading high-impact
+Cash App and Intuit. Demonstrated success in spearheading high-impact
 initiatives, such as enabling instant bank account opening at Cash App that
 increased paycheck deposits by 90%, as well as developing cutting-edge fraud
 monitoring systems that reduced fraud volumes by 12x in 18 months. A strategic
