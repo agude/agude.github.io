@@ -8,7 +8,7 @@ description: >
 
 # Alexander Gude
 
-<div class="subtitle">Senior Data Scientist / Machine Learning Engineer</div>
+<div class="subtitle">Staff Machine Learning Engineer</div>
 
 ## Statement
 
