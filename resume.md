@@ -12,12 +12,16 @@ description: >
 
 ## Statement
 
-Machine Learning Engineer with {{ "now" | date: "%Y" | minus: 2015 }} years of
-experience in direct, customer-facing engagements and shipping data science
-and machine learning products. Led teams in adopting engineering best
-practices for code review and CI/CD pipelines and drove transition to
-enterprise technologies to save in operation costs, reduce production bugs,
-and accelerate feature processing.
+A highly accomplished machine learning engineer with {{ "now" | date: "%Y" |
+minus: 2015 }} years of experience driving innovation in fraud detection,
+anti-money laundering, and financial modeling at leading technology companies
+like Cash App and Intuit. Demonstrated success in spearheading high-impact
+initiatives, such as enabling instant bank account opening at Cash App that
+increased paycheck deposits by 90%, as well as developing cutting-edge fraud
+monitoring systems that reduced fraud volumes by 12x in 18 months. A strategic
+leader adept at building and managing high-performing data science teams,
+implementing engineering best practices, and deploying machine learning models
+that delivered tangible business value.
 
 ## Experience
 
