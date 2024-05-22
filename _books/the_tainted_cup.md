@@ -20,7 +20,7 @@ murder of an engineer and uncover a conspiracy that runs far deeper.
 {% capture torturer %}{% include book_link.html title="The Shadow of the Torturer"%}{% endcapture %}
 
 {{ this_book }} is (and this is going to sound crazy) a Holmesian detective
-story set in a bio-punk fantasy world inspired by imperial China, where Kaiju
+story set in a bio-punk fantasy world based on imperial China, where Kaiju
 monsters leave the ocean every year to attack the empire's walls. It draws
 inspiration from Sherlock Holmes, <cite>Attack on Titan</cite>, <cite>Pacific
 Rim</cite>, {{ botns }}, and surprisingly, local zoning boards.[^zoning]
