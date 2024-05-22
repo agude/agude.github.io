@@ -33,7 +33,8 @@ Rim</cite>, {{ botns }}, and surprisingly, local zoning boards.[^zoning]
 The main characters are Dinios Kol, a new investigator, and his superior, Ana
 Dolabra. Kol is a dyslexic Watson with eidetic memory, while Dolabra is an
 over-stimulated, foul-mouthed Sherlock Holmes. They are called to solve the
-murder of an imperial engineer, leading them to uncover a deeper conspiracy.
+murder of an imperial engineer, leading them to uncover a conspiracy involving
+the landed gentry.
 
 {{ this_book }}'s worldbuilding is fantastic! Most technology is plant-based,
 and many people have had their bodies enhanced in various ways to better suit
