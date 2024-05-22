@@ -54,7 +54,7 @@ in {{ this_book }}, we learn that there are immortal Conzulates who, just like
 {{ wolfes }} Megatherians, achieve immortality through constant growth.
 Moreover, the idea of "giant underwater monsters trying to destroy the Empire"
 applies to both the Megatherians and the Kaiju, although the Kaiju are more
-direct in their destructive actions.
+direct.
 
 [^botns]:
     I feel like I'm in danger of succumbing to the traditional ailment of {{
