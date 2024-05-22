@@ -22,20 +22,18 @@ murder of an engineer and uncover a conspiracy that runs far deeper.
 {{ this_book }} is (and this is going to sound crazy) a Holmesian detective
 story set in a bio-punk fantasy world inspired by imperial China, where Kaiju
 monsters leave the ocean every year to attack the empire's walls. It draws
-inspiration from stories like Sherlock Holmes, <cite>Attack on Titan</cite>,
-<cite>Pacific Rim</cite>, {{ botns }}, and surprisingly, local zoning
-boards.[^zoning]
+inspiration from Sherlock Holmes, <cite>Attack on Titan</cite>, <cite>Pacific
+Rim</cite>, {{ botns }}, and surprisingly, local zoning boards.[^zoning]
 
 [^zoning]:
     Not joking! The author, Bennett, specifically mentions this in his
     afterwards, but it is also pretty obvious from the text itself, in which
     preservation boards act as an enabler of the larger conspiracy.
 
-The main characters are Dinios Kol, a new investigator, and his superior and
-partner, Ana Dolabra. Kol is a dyslexic Watson with eidetic memory, while
-Dolabra is an over-stimulated, foul-mouthed Sherlock Holmes. They are called
-to solve the murder of an imperial engineer, leading them to uncover a deep
-conspiracy involving the landed gentry.
+The main characters are Dinios Kol, a new investigator, and his superior, Ana
+Dolabra. Kol is a dyslexic Watson with eidetic memory, while Dolabra is an
+over-stimulated, foul-mouthed Sherlock Holmes. They are called to solve the
+murder of an imperial engineer, leading them to uncover a deeper conspiracy.
 
 {{ this_book }}'s worldbuilding is fantastic, and unlike the last book I read,
 {{ house }}, it exists in service of the story. The world feels organic
@@ -49,9 +47,9 @@ at the citadel in the opening chapter of {{ torturer }}: an officer of the law
 with perfect memory arrives at a wall in the mist and finds his way barred by
 a gate; he is reluctantly let through and finds a body inside. Later in {{
 this_book }}, we learn that there are immortal Conzulates who, just like {{
-wolfes }} Megatharians, achieve immortality through constant growth. Moreover,
+wolfes }} Megatherians, achieve immortality through constant growth. Moreover,
 the idea of "giant underwater monsters trying to destroy the Empire" applies
-to both the Megatharians and the Kaiju, although the Kaiju are more direct in
+to both the Megatherians and the Kaiju, although the Kaiju are more direct in
 their destructive actions.
 
 [^botns]:
