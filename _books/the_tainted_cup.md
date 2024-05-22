@@ -35,11 +35,14 @@ Dolabra. Kol is a dyslexic Watson with eidetic memory, while Dolabra is an
 over-stimulated, foul-mouthed Sherlock Holmes. They are called to solve the
 murder of an imperial engineer, leading them to uncover a deeper conspiracy.
 
-{{ this_book }}'s worldbuilding is fantastic, and unlike the last book I read,
-{{ house }}, it exists in service of the story. The world feels organic
-because it isn't built through lore dumps but through the characters living in
-it. Half the excitement comes from unraveling the mystery, and the other half
-from unraveling the setting and discovering how it works.
+{{ this_book }}'s worldbuilding is fantastic! Most technology is plant-based,
+and many people have had their bodies enhanced in various ways to better suit
+their jobs---like Dinios's eidetic memory. Unlike {{ house }}, the last book I
+read, the worldbuilding exists in service of the story. The world feels
+organic because it isn't built through lore dumps but through the characters
+living in it. Half the excitement of reading {{ this_book }} comes from
+unraveling the central mystery, while the other half comes from gradually
+uncovering and understanding the intricacies of the setting.
 
 {{ this_book }} pays homage to {{ wolfes }} {{ botns }}.[^botns] The first
 chapter, with Dinios's arrival at the Haza manor, mirrors Severian's arrival
