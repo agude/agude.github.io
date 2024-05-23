@@ -34,7 +34,7 @@ of Ibry][schedule_image]][schedule_image]
 
 [ejm]: https://en.wikipedia.org/wiki/%C3%89tienne-Jules_Marey
 [original_graphique]: https://archive.org/details/lamthodegraphiq00maregoog
-[schedule_image]: {{ file_dir }}/ibry-trainschedule.png
+[schedule_image]: {{ file_dir }}/ibry-trainschedule.jpg
 [tufte]: https://en.wikipedia.org/wiki/Edward_Tufte
 
 While Ibry's schedule is the most famous example, it was not the first: [an
