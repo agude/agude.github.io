@@ -33,6 +33,7 @@ description: >
   {% include auto_book_card.html title="Excession" %}
   {% include auto_book_card.html title="Redwall" %}
   {% include auto_book_card.html title="Hyperion" %}
+  {% include auto_book_card.html title="The Tainted Cup" %}
   {% include auto_book_card.html title="The Temporal Void" %}
   {% include auto_book_card.html title="The Evolutionary Void" %}
   {% include auto_book_card.html title="The Citadel of the Autarch" %}
