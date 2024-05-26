@@ -1,10 +1,10 @@
 ---
-date: 2024-05-20
+date: 2024-05-26
 title: Childhood's End
 book_author: Arthur C. Clarke
 series: null
 book_number: null
-rating: null
+rating: 5
 image: /books/covers/childhoods_end.jpg
 ---
 
