@@ -55,14 +55,18 @@ occasional shifts to an omniscient narrator perspective to depict broad
 changes. While this approach can feel lazy with other authors---telling
 instead of showing---{{ clarke }} employs it skillfully.
 
-{{ the_book }} is highly influential. At one point, the children use
-clairvoyance to witness various places in the galaxy. One scene directly
-references {{ flatland }}, depicting 2D life crushed flat by gravity.
-Another---with six stars[^six_stars], a chaotically orbiting planet, and life
-that survives extreme freeze-thaw cycles---clearly inspired {{ liu_cixin }}
-Trisolarians in {{ three_body }}. The group mind made up of people who have
-lost their individuality is also explored by {{ peter_watts }} in {{
-echopraxia }}.
+{{ this_book }} is a significant influence on other works of science fiction.
+The concept of a group mind, formed by individuals shedding their
+individuality, is explored by {{ peter_watts }} in {{ echopraxia }}.
+Additionally, the vivid depiction of a world with six suns, a chaotically
+orbiting planet, and life that survives extreme freeze-thaw cycles[^six_stars]
+clearly served as inspiration for the Trisolarians' home world in {{ liu_cixin
+}} {{ three_body }}.
+
+{{ clarke }} himself referenced earlier works in {{ this_book }}. The one I
+caught was when the children use their clairvoyant abilities to witness
+various places in the galaxy. One scene directly references {{ flatland }},
+depicting two-dimensional life forms crushed flat by the force of gravity.
 
 [^six_stars]: 
     > It was a world that could never know the meaning of night and day, of
