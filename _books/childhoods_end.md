@@ -57,7 +57,7 @@ beautifully.
 At one point the children view various places in the galaxy through
 clairvoyance. One of these scenes is a direct reference to {{ flatland }},
 with 2D life crushed flat by gravity. Another---with six stars[^six_stars], a
-chaotically orbiting plant, and life they has to survive extreme freeze-thaw
+chaotically orbiting plant, and life that has to survive extreme freeze-thaw
 cycles---is a clear inspiration for {{ liu_cixin }} Trisolarians in {{
 three_body }}.
 
