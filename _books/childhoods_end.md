@@ -19,6 +19,8 @@ race.
 {% capture flatland %}{% include book_link.html title="Flatland: A Romance of Many Dimensions" link_text="Flatland"%}{% endcapture %}
 {% capture liu_cixin %}{% include author_link.html name="Liu Cixin" possessive=true %}{% endcapture %}
 {% capture three_body %}{% include book_link.html title="The Three-Body Problem" %}{% endcapture %}
+{% capture peter_watts %}{% include author_link.html name="Peter Watts" %}{% endcapture %}
+{% capture echopraxia %}{% include book_link.html title="Echopraxia" %}{% endcapture %}
 
 {{ this_book }} was one of the first sci-fi books I discovered in my middle
 school library. I don't recall how I stumbled upon it, but I'm lucky that I
@@ -53,11 +55,14 @@ occasional shifts to an omniscient narrator perspective to depict broad
 changes. While this approach can feel lazy with other authors---telling
 instead of showing---{{ clarke }} employs it skillfully.
 
-At one point, the children use clairvoyance to witness various places in the
-galaxy. One scene directly references {{ flatland }}, depicting 2D life
-crushed flat by gravity. Another---with six stars[^six_stars], a chaotically
-orbiting planet, and life that survives extreme freeze-thaw cycles---clearly
-inspired {{ liu_cixin }}'s Trisolarians in {{ three_body }}.
+{{ the_book }} is highly influential. At one point, the children use
+clairvoyance to witness various places in the galaxy. One scene directly
+references {{ flatland }}, depicting 2D life crushed flat by gravity.
+Another---with six stars[^six_stars], a chaotically orbiting planet, and life
+that survives extreme freeze-thaw cycles---clearly inspired {{ liu_cixin }}
+Trisolarians in {{ three_body }}. The group mind made up of people who have
+lost their individuality is also explored by {{ peter_watts }} in {{
+echopraxia }}.
 
 [^six_stars]: 
     > It was a world that could never know the meaning of night and day, of
