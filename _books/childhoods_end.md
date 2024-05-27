@@ -68,18 +68,18 @@ caught was when the children use their clairvoyant abilities to witness
 various places in the galaxy. One scene directly references {{ flatland }},
 depicting two-dimensional life forms crushed flat by the force of gravity.
 
-[^six_stars]: 
+[^six_stars]:
     > It was a world that could never know the meaning of night and day, of
     > years or seasons. Six colored suns shared its sky, so that there came
-    > only a change of light, never darkness. Through the clash and tug of the
+    > only a change of light, never darkness. Through the clash and tug of
     > conflicting gravitational fields, the planet traveled along the loops
-    > and curves of its inconceivably complex orbit, never tracing the same
+    > and curves of its inconceivably complex orbit, never retracing the same
     > path. Every moment was unique: the configuration which the six suns now
     > held in the heavens would not repeat itself this side of eternity.
     >
     > And even here there was life. Though the planet might be scorched by the
-    > central fires of one age, and frozen in the outer reach in another, it
+    > central fires in one age, and frozen in the outer reaches in another, it
     > was yet the home of intelligence. The great, many-faceted crystals stood
     > grouped in intricate geometrical patterns, motionless in the eras of
-    > cold, growing slowing along the veins of mineral when the world was warm
+    > cold, growing slowly along the veins of mineral when the world was warm
     > again.
