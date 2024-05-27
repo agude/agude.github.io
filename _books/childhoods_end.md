@@ -20,46 +20,44 @@ race.
 {% capture liu_cixin %}{% include author_link.html name="Liu Cixin" possessive=true %}{% endcapture %}
 {% capture three_body %}{% include book_link.html title="The Three-Body Problem" %}{% endcapture %}
 
-{{ this_book }} was one of---if not the---first sci-fi books I pulled off the
-shelf of my middle school library. I don't know how I found it, but I'm lucky
-I did. That was the start of my love of {{ book_author }}, of my love of
-sci-fi, and my love of reading.
+{{ this_book }} was one of the first sci-fi books I discovered in my middle
+school library. I don't recall how I stumbled upon it, but I'm lucky that I
+did. It sparked my love for {{ book_author }}, sci-fi, and reading in general.
 
-The book's primary theme is spiritual, but through a paranormal and sci-fi
-lens. It is {{ clarke }}'s version of the evangelical [rapture][rapture]: God
-sends angels to Earth to shepherd humanity into heaven, leaving behind those
-who are unworthy. The angels themselves are fallen---they are forbidden from
-entering heaven themselves---and hence demonic in appearance.
+The book's primary theme is spiritual, but explored through a paranormal and
+sci-fi lens. It presents {{ clarke }}'s version of the evangelical
+[rapture][rapture]: God sends angels to Earth to shepherd humanity into
+heaven, leaving behind those deemed unworthy. The angels themselves are
+fallen---forbidden from entering heaven---and thus have a demonic appearance.
 
 [rapture]: https://en.wikipedia.org/wiki/Rapture
 
-The actual story is that aliens appear over Earth. After [6 days][sixth_day]
-they contact humanity, informing us that they are "the Overlords". They usher
-in a golden age of peace and prosperity at the cost of creativity, all the
-while keeping themselves hidden. The Overlords eventually show themselves,
-revealing their demonic appearance: horns, wings, cloven hooves, barbed tails.
+The actual story is that aliens appear over Earth. After [6 days][sixth_day],
+they contact humanity, identifying themselves as "the Overlords". They usher
+in a golden age of peace and prosperity, but at the cost of stifling
+creativity, while keeping their true nature hidden. Eventually, the Overlords
+reveal their demonic appearance: horns, wings, cloven hooves, and barbed
+tails.
 
 [sixth_day]: https://en.wikipedia.org/wiki/Genesis_creation_narrative
 
-Roughly a hundred years after the arrival of the Overlords, human children
-develop psychic powers, transcend into a group mind, and leave the adults
-behind to join the Overmind. The Overlords, due to some biological quirk, are
+Roughly a century after the Overlords' arrival, human children develop psychic
+powers, transcend into a collective consciousness, and leave the adults behind
+to join the Overmind. The Overlords, due to some biological limitation, are
 unable to transcend themselves and instead travel the galaxy helping other
-species do so.
+species achieve transcendence.
 
-{{ book_author }}'s writing is crisp and clear, allowing him to fit multiple
-stories in only 200 pages through efficient sentences and pulling back to an
-omniscient narrator view at times to tell us big picture changes. This writing
-_can_ feel lazy with other authors---why tell us what humanity is feeling
-instead of giving us characters to show it?---but {{ clarke }} makes it work
-beautifully.
+{{ book_author }}'s writing style is crisp and clear, allowing him to convey
+multiple storylines within only 200 pages through efficient sentences and
+occasional shifts to an omniscient narrator perspective to depict broad
+changes. While this approach can feel lazy with other authors---telling
+instead of showing---{{ clarke }} employs it skillfully.
 
-At one point the children view various places in the galaxy through
-clairvoyance. One of these scenes is a direct reference to {{ flatland }},
-with 2D life crushed flat by gravity. Another---with six stars[^six_stars], a
-chaotically orbiting plant, and life that has to survive extreme freeze-thaw
-cycles---is a clear inspiration for {{ liu_cixin }} Trisolarians in {{
-three_body }}.
+At one point, the children use clairvoyance to witness various places in the
+galaxy. One scene directly references {{ flatland }}, depicting 2D life
+crushed flat by gravity. Another---with six stars[^six_stars], a chaotically
+orbiting planet, and life that survives extreme freeze-thaw cycles---clearly
+inspired {{ liu_cixin }}'s Trisolarians in {{ three_body }}.
 
 [^six_stars]: 
     > It was a world that could never know the meaning of night and day, of
