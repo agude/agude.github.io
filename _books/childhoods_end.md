@@ -63,11 +63,6 @@ orbiting planet, and life that survives extreme freeze-thaw cycles[^six_stars]
 clearly served as inspiration for the Trisolarians' home world in {{ liu_cixin
 }} {{ three_body }}.
 
-{{ clarke }} himself referenced earlier works in {{ this_book }}. The one I
-caught was when the children use their clairvoyant abilities to witness
-various places in the galaxy. One scene directly references {{ flatland }},
-depicting two-dimensional life forms crushed flat by the force of gravity.
-
 [^six_stars]:
     > It was a world that could never know the meaning of night and day, of
     > years or seasons. Six colored suns shared its sky, so that there came
@@ -83,3 +78,8 @@ depicting two-dimensional life forms crushed flat by the force of gravity.
     > grouped in intricate geometrical patterns, motionless in the eras of
     > cold, growing slowly along the veins of mineral when the world was warm
     > again.
+
+{{ clarke }} himself referenced earlier works in {{ this_book }}. The one I
+caught was when the children use their clairvoyant abilities to witness
+various places in the galaxy, there is a planet with two-dimension life forms
+crushed flat by gravity, a reference to {{ flatland }}.
