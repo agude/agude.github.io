@@ -29,6 +29,12 @@ in liquid is to capture it (it doesn't understand \n).
   {%- endif -%}
 {%- endfor -%}
 
+{%- comment %}Set {{ target_title }} depending on if we have a link_text or
+not.{% endcomment -%}
+{%- if include.link_text != '' and include.link_text != null -%}
+  {%- assign target_title = include.link_text | replace: newline,' ' | strip -%}
+{%- endif -%}
+
 {%- comment %}Wrap the {{ target_title }} in <cite> tags.
 We use target_title because it's been cleaned up already.{% endcomment -%}
 {%- capture wrapped_title -%}<cite class="book-title">{{ target_title }}</cite>{%- endcapture -%}
