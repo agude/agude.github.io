@@ -27,12 +27,10 @@ sci-fi, and my love of reading.
 
 The book's primary theme is spiritual, but through a paranormal and sci-fi
 lens. It is {{ clarke }}'s version of the evangelical [rapture][rapture]: God
-(the Overmind) sends fallen angels (the Overlords) to Earth to shepherd
-humanity into heaven (transcend and joined with the Overmind) while leaving
-some behind (those who are too old for their minds to transcend). The angles
-themselves are forbidden from heaven (their own race does not have the psychic
-ability to). Of course, as fallen angels barred from heaven, the Overlords
-look exactly like biblical demons.
+sends angels to Earth to shepherd humanity into heaven, leaving behind those
+who aren't worthy. The angels themselves are fallen---they are forbidden from
+entering heaven themselves---hence their physical appearance exactly matches
+biblical demons.
 
 [rapture]: https://en.wikipedia.org/wiki/Rapture
 
