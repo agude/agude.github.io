@@ -30,7 +30,8 @@ The book's primary theme is spiritual, but explored through a paranormal and
 sci-fi lens. It presents {{ clarke }}'s version of the evangelical
 [rapture][rapture]: God sends angels to Earth to shepherd humanity into
 heaven, leaving behind those deemed unworthy. The angels themselves are
-fallen---forbidden from entering heaven---and thus have a demonic appearance.
+fallen---forbidden from entering heaven---and as such have a demonic
+appearance.
 
 [rapture]: https://en.wikipedia.org/wiki/Rapture
 
@@ -38,8 +39,8 @@ The actual story is that aliens appear over Earth. After [6 days][sixth_day],
 they contact humanity, identifying themselves as "the Overlords". They usher
 in a golden age of peace and prosperity, but at the cost of stifling
 creativity, while keeping their true nature hidden. Eventually, the Overlords
-reveal their demonic appearance: horns, wings, cloven hooves, and barbed
-tails.
+reveal themselves and their demonic appearance: horns, wings, cloven hooves,
+and barbed tails.
 
 [sixth_day]: https://en.wikipedia.org/wiki/Genesis_creation_narrative
 
@@ -57,11 +58,11 @@ instead of showing---{{ clarke }} employs it skillfully.
 
 {{ this_book }} is a significant influence on other works of science fiction.
 The concept of a group mind, formed by individuals shedding their
-individuality, is explored by {{ peter_watts }} in {{ echopraxia }}.
-Additionally, the vivid depiction of a world with six suns, a chaotically
-orbiting planet, and life that survives extreme freeze-thaw cycles[^six_stars]
-clearly served as inspiration for the Trisolarians' home world in {{ liu_cixin
-}} {{ three_body }}.
+individuality, is explored further by {{ peter_watts }} in {{ echopraxia }}.
+The vivid depiction of a world with six suns, a chaotically orbiting planet,
+and life that survives extreme freeze-thaw cycles[^six_stars] clearly served
+as inspiration for the Trisolarians' home world in {{ liu_cixin }} {{
+three_body }}.
 
 [^six_stars]:
     > It was a world that could never know the meaning of night and day, of
@@ -79,8 +80,8 @@ clearly served as inspiration for the Trisolarians' home world in {{ liu_cixin
     > cold, growing slowly along the veins of mineral when the world was warm
     > again.
 
-{{ clarke }} incorporated references to earlier works in {{ this_book }}. One
-example is when the children use their clairvoyant abilities to witness
+{{ clarke }} also incorporated references to earlier works in {{ this_book }}.
+One example is when the children use their clairvoyant abilities to witness
 various places in the galaxy. Among the visions is a depiction of a planet
 with two-dimensional life forms that are crushed flat by the force of gravity,
 a reference to {{ flatland }}.
