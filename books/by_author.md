@@ -12,16 +12,16 @@ Below you'll find short reviews of the books I've read, sorted by author.
 
 {% include books_topbar.html %}
 
-{% comment %} These two sorting are so that books under and author headline
-are ordered by series, and then book order within the series. Yes it is
-horrible. {% endcomment %}
+{% comment %} These two sorting are so that books under an author headline are
+ordered by series, and then book order within the series. Yes it is horrible.
+{% endcomment %}
 {% assign sorted_series = "" %}
 {% for book in site.books %}
   {% assign sorted_series = sorted_series | append: book.series | append: "|" %}
 {% endfor %}
 {% comment %}Add a blank series to cover books without series (we convert
 their null to '' below).{% endcomment %}
-{% assign sorted_series = sorted_series | append: '' | append: "|" %}
+{% assign sorted_series = sorted_series | append: "" | append: "|" %}
 {% assign sorted_series = sorted_series | split: "|" | uniq | sort %}
 
 {% assign sorted_book_number = "" %}
@@ -43,7 +43,7 @@ headlines, but not before the first headline.{% endcomment %}
 {% assign first_place = true %}
 
 {% for sort_author in sorted_authors %}
-  {% if sort_author == null or sort_author == ''%}
+  {% if sort_author == null or sort_author == ""%}
     {% continue %}
   {% endif %}
 
