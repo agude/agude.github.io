@@ -37,7 +37,7 @@ horns, barbed tails, and cloven hooves.
 
 [rapture]: https://en.wikipedia.org/wiki/Rapture
 
-The story begins when aliens appear over every major city on Earth. After [6
+The story begins when aliens appear over every major city on Earth. After [six
 days][sixth_day], they contact humanity, identifying themselves as "the
 Overlords". They usher in a golden age of peace and prosperity, but at the
 cost of stifling creativity, while keeping their true nature hidden.
