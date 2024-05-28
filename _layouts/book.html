@@ -2,6 +2,18 @@
 layout: default
 ---
 
+{% comment %}Here we test for required variables and throw an error if we
+don't find them.{% endcomment %}
+{% if page.title == null or page.title == "" %}
+    {% link throw_value_error_missing_page_title %}
+{% endif %}
+{% if page.book_author == null or page.book_author == "" %}
+    {% link throw_value_error_missing_author %}
+{% endif %}
+{% if page.book_number == null or page.book_number == "" %}
+    {% link throw_value_error_missing_book_number %}
+{% endif %}
+
 <article class="page">
   <h1 class="page-title"><cite class="book-title">{{ page.title }}</cite></h1>
 
@@ -20,7 +32,7 @@ layout: default
     {% assign normalized_series = page.series | downcase | strip %}
 
     {% comment %}Some series have "The" in them in which case we don't want to
-    write "the The".{% endcomment %} 
+    write "the The".{% endcomment %}
     {% if normalized_series contains 'the'%}
       {% assign the_placeholder = ' ' %}
     {% else %}
@@ -28,11 +40,11 @@ layout: default
     {% endif %}
 
     {% comment %}Some series have a "series-like" noun in them, like "Saga",
-    "Trilogy", etc. in them in which case we don't want to write "Saga series".{% endcomment %} 
+    "Trilogy", etc. in them in which case we don't want to write "Saga series".{% endcomment %}
     {% assign series_words = 'saga,trilogy,cantos,chronicle,book' | split: ',' %}
     {% assign found_series_word = false %}
     {% for series_word in series_words %}
-      {% if normalized_series contains series_word %} 
+      {% if normalized_series contains series_word %}
         {% assign found_series_word = true %}
         {% break %}
       {% endif %}

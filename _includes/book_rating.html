@@ -1,24 +1,26 @@
-{% assign star = "<span class='book_star full_star'>★</span>" %}
-{% assign empty_star = "<span class='book_start empty_star'>☆</span>" %}
+{%- assign star = '<span class="book_star full_star">★</span>' -%}
+{%- assign empty_star = '<span class="book_star empty_star">☆</span>' -%}
 
-{% assign rating = include.rating %}
+{%- comment -%}Convert to int if it's a string by adding 0.{%- endcomment -%}
+{%- assign rating = include.rating | plus: 0 -%}
 
-{% if  rating == 1 or rating == "1"
-    or rating == 2 or rating == "2"
-    or rating == 3 or rating == "3"
-    or rating == 4 or rating == "4"
-    or rating == 5 or rating == "5" %}
-<div class="book-rating">
-    {% if rating == "1" or rating == 1%}
-        {{star}}{{empty_star}}{{empty_star}}{{empty_star}}{{empty_star}}
-    {% elsif rating == "2" or rating == 2 %}
-        {{star}}{{star}}{{empty_star}}{{empty_star}}{{empty_star}}
-    {% elsif rating == "3" or rating == 3 %}
-        {{star}}{{star}}{{star}}{{empty_star}}{{empty_star}}
-    {% elsif rating == "4" or rating == 4 %}
-        {{star}}{{star}}{{star}}{{star}}{{empty_star}}
-    {% elsif rating == "5" or rating == 5 %}
-        {{star}}{{star}}{{star}}{{star}}{{star}}
-    {% endif %}
-</div>
-{% endif %}
+{%- capture rating_block -%}
+  {%- if rating == 1 -%}
+    {{star}}{{empty_star}}{{empty_star}}{{empty_star}}{{empty_star}}
+  {%- elsif rating == 2 -%}
+    {{star}}{{star}}{{empty_star}}{{empty_star}}{{empty_star}}
+  {%- elsif rating == 3 -%}
+    {{star}}{{star}}{{star}}{{empty_star}}{{empty_star}}
+  {%- elsif rating == 4 -%}
+    {{star}}{{star}}{{star}}{{star}}{{empty_star}}
+  {%- elsif rating == 5 -%}
+    {{star}}{{star}}{{star}}{{star}}{{star}}
+  {% else %}
+    {%- comment -%}Throw error if we have a bad rating value.{%- endcomment -%}
+    {% link throw_value_error %}
+  {%- endif -%}
+{% endcapture %}
+
+{%- if rating_block != '' -%}
+    <div class="book-rating star-rating-{{ rating }}">{{ rating_block }}</div>
+{%- endif -%}
