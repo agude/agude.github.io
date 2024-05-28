@@ -79,7 +79,8 @@ clearly served as inspiration for the Trisolarians' home world in {{ liu_cixin
     > cold, growing slowly along the veins of mineral when the world was warm
     > again.
 
-{{ clarke }} himself referenced earlier works in {{ this_book }}. The one I
-caught was when the children use their clairvoyant abilities to witness
-various places in the galaxy, there is a planet with two-dimension life forms
-crushed flat by gravity, a reference to {{ flatland }}.
+{{ clarke }} incorporated references to earlier works in {{ this_book }}. One
+example is when the children use their clairvoyant abilities to witness
+various places in the galaxy. Among the visions is a depiction of a planet
+with two-dimensional life forms that are crushed flat by the force of gravity,
+a reference to {{ flatland }}.
