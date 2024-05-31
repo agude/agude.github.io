@@ -26,10 +26,10 @@ The social commentary is a heavy-handed satire, so much so that even someone
 with only a passing familiarity with Victorian life can see what they're
 satirizing. The primary fact of Flatland society is that your shape, which is
 determined at birth, dictates your entire life, just as the social hierarchy
-in Victorian England was largely based on your birth circumstances. I believe
-{{ the_author }} references {{ swifts }} ironic essay {{ a_modest_proposal }}
-when he suggests "that the Irregular offspring be painlessly and mercifully
-consumed."
+in Victorian England was largely based on your birth circumstances. In this
+section, {{ the_author }} acknowledges one of his inspirations---{{ swifts }}
+ironic essay {{ a_modest_proposal }}---by suggesting "that the Irregular
+offspring be painlessly and mercifully consumed."
 
 The geometry part of the book---where Square visits Lineland (1D), Spaceland
 (3D), and Pointland (0D)---is thought-provoking in how it makes you think
