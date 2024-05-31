@@ -48,6 +48,7 @@ description: >
   {% comment %} 3 Stars {% endcomment %}
 
   {% include auto_book_card.html title="The State of the Art" %}
+  {% include auto_book_card.html title="Flatland: A Romance of Many Dimensions" %}
   {% include auto_book_card.html title="The Fractal Prince" %}
   {% include auto_book_card.html title="Flowers for Algernon" %}
   {% include auto_book_card.html title="Chevalier" %}
