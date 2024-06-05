@@ -1,10 +1,10 @@
 ---
-date: 2024-05-30
+date: 2024-06-05
 title: Eater
 book_author: Gregory Benford
 series: null
 book_number: 1
-rating: null
+rating: 4
 image: /books/covers/eater.jpg
 ---
 
