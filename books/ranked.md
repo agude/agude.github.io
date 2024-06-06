@@ -35,9 +35,9 @@ description: >
   {% include auto_book_card.html title="Redwall" %}
   {% include auto_book_card.html title="Hyperion" %}
   {% include auto_book_card.html title="The Tainted Cup" %}
+  {% include auto_book_card.html title="The Citadel of the Autarch" %}
   {% include auto_book_card.html title="The Temporal Void" %}
   {% include auto_book_card.html title="The Evolutionary Void" %}
-  {% include auto_book_card.html title="The Citadel of the Autarch" %}
   {% include auto_book_card.html title="The Sword of the Lictor" %}
   {% include auto_book_card.html title="Mossflower" %}
   {% include auto_book_card.html title="Dog Soldier" %}
