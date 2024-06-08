@@ -15,6 +15,10 @@ Earth.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_authors %}<span class="author-name">{{ page.book_author }}'s</span>{% endcapture %}
+{% capture timescape %}{% include book_link.html title="Timescape"%}{% endcapture %}
+{% capture cosm %}{% include book_link.html title="Cosm"%}{% endcapture %}
+
 
 I did not expect to enjoy {{ this_book }} as much as I did! The book has a
 poor rating on Goodreads[^goodread] and almost no presence in online
@@ -109,3 +113,8 @@ crises.
     slips up once and mentions "Since the Gulf War 32 years ago...".
 
 [alto]: https://en.wikipedia.org/wiki/Air-launch-to-orbit
+
+The blend of very hard sci-fi and thriller-like pacing makes {{ this_book }}
+an engaging read; I could hardly put it down! I'm looking forward to exploring
+more of {{ the_author }}'s work, particularly {{ timescape }} or {{ cosm }},
+in the near future.
