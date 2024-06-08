@@ -35,6 +35,7 @@ description: >
   {% include auto_book_card.html title="Redwall" %}
   {% include auto_book_card.html title="Hyperion" %}
   {% include auto_book_card.html title="The Tainted Cup" %}
+  {% include auto_book_card.html title="Eater" %}
   {% include auto_book_card.html title="The Citadel of the Autarch" %}
   {% include auto_book_card.html title="The Temporal Void" %}
   {% include auto_book_card.html title="The Evolutionary Void" %}
@@ -43,10 +44,10 @@ description: >
   {% include auto_book_card.html title="Dog Soldier" %}
   {% include auto_book_card.html title="Ymir" %}
   {% include auto_book_card.html title="The Shadow of the Torturer" %}
-  {% include auto_book_card.html title="The Dragon's Banker" %}
 
   {% comment %} 3 Stars {% endcomment %}
 
+  {% include auto_book_card.html title="The Dragon's Banker" %}
   {% include auto_book_card.html title="The State of the Art" %}
   {% include auto_book_card.html title="Flatland: A Romance of Many Dimensions" %}
   {% include auto_book_card.html title="The Fractal Prince" %}
