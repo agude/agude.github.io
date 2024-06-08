@@ -10,8 +10,8 @@ image: /books/covers/eater.jpg
 
 <cite class="book-title">{{ page.title }}</cite> is a hard sci-fi novel by
 <span class="author-name">{{ page.book_author }}</span>. It follows a group of
-astrophysicists who discover a black hole that is headed straight towards
-Earth.
+astrophysicists who discover a sentient black hole that is headed straight
+towards Earth.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -19,11 +19,10 @@ Earth.
 {% capture timescape %}{% include book_link.html title="Timescape"%}{% endcapture %}
 {% capture cosm %}{% include book_link.html title="Cosm"%}{% endcapture %}
 
-
 I did not expect to enjoy {{ this_book }} as much as I did! The book has a
 poor rating on Goodreads[^goodread] and almost no presence in online
-communities like Reddit. In fact, I only started reading it because I hit
-the "random book" button on my ebook reader and it came up. I'm glad I did!
+communities like Reddit. In fact, I only started reading it because I hit the
+"random" button on my ebook reader and it came up. I'm glad I did!
 
 [^goodread]: A score of 3.50 with only 735 ratings.
 
@@ -61,7 +60,7 @@ can store data and perform computations, so it's plausible that an
 intelligence could exist within them.
 
 The characters are probably the weakest part of the book, but they're
-adequate. The three main characters are:
+adequate. The main characters are:
 
 - Channing Knowlton, a terminally-ill astronaut and the most well-developed
   character. I figured out why {{ the_author }} made her terminally ill about
@@ -81,6 +80,12 @@ adequate. The three main characters are:
   and even throws a secret agent off the roof. His relationship with Channing
   feels authentic, possibly because the author found it easier to write for a
   self-insert. Like the best Gary Stus, he dies at the end.[^gary]
+
+- Eater, a sentient black hole that collects consciousnesses to study and
+  entertain itself during its million-year journeys between stars. Eater
+  communicates solely through text messages, and the contrast between its
+  ominous actions and pedantic messages gives it an enigmatic, almost
+  paradoxical personality: perfect for an alien being.
 
 [gary]: https://en.wikipedia.org/wiki/Mary_Sue
 [^gary]:
