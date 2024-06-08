@@ -103,8 +103,10 @@ phones; phones are still attached to the wall. Computing power feels lower
 than we have now, and the internet exists (it of course existed when the
 author was writing) but feels like it's structured much differently, with more
 small nodes instead of massive companies. Self driving cars have completely
-replaced taxis.
+replaced taxis. The US government has formed a new all-powerful agency that
+runs the show during crisis.
 
 [^gulf]: At several points the author intentionally hides the date, but at one
     point slips up and mentions "Since the Gulf War 32 years ago...".
+
 [alto]: https://en.wikipedia.org/wiki/Air-launch-to-orbit
