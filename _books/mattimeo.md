@@ -1,10 +1,10 @@
 ---
-date: 2024-06-07
+date: 2024-06-11
 title: Mattimeo
 book_author: Brian Jacques
 series: Redwall
 book_number: 3
-rating: null
+rating: 5
 image: /books/covers/mattimeo.jpg
 ---
 
