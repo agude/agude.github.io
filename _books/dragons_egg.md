@@ -1,10 +1,10 @@
 ---
-date: 2024-06-08
+date: 2024-06-12
 title: Dragon's Egg
 book_author: Robert L. Forward
 series: Cheela
 book_number: 1
-rating: null
+rating: 5
 image: /books/covers/dragons_egg.jpg
 ---
 
