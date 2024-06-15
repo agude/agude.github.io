@@ -33,6 +33,6 @@ Cheela are _nearly_ two-dimensional, since the gravitational gradient on their
 star is so high. They are also similar to the beings mentioned
 briefly as living on a star in {{ clarkes }} {{ childhoods_end }}. But the
 book {{ this_book }} most reminds me of is {{ deepness }}. In both books there
-are humans orbiting the alien world, and the aliens---although extremely
+are humans orbiting an alien world, and the aliens---although extremely
 different than humans---are anthropomorphized so that they seem incredibly
 human. The aliens develop technologically and eventually make contact.
