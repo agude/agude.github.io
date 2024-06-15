@@ -48,8 +48,8 @@ Pink-Eye, the Cheela Jesus, to be funny and a bit tragic; I was cheering for
 Swift-Killer, the astronomer-soldier who first conquered the East Pole; and I
 felt a pang of schadenfreude when Soother's Machiavellian empire collapsed.
 
-A fun entry in the hard sci-fi genre[^text_book], I look forward to reading
+A fun entry in the hard sci-fi genre,[^text_book] I look forward to reading
 the sequel {{ starquake }} next.
 
 [^text_book]:
-{{ the_author }} describes <!-- TODO -->
+    {{ the_author }} describes <!-- TODO -->
