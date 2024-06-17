@@ -15,6 +15,8 @@ star.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture clements %}{% include author_link.html name="Hal Clement" possessive=true %}{% endcapture %}
+{% capture gravity %}{% include book_link.html title="Mission of Gravity " %}{% endcapture %}
 {% capture clarkes %}{% include author_link.html name="Arthur C. Clarke" possessive=true %}{% endcapture %}
 {% capture childhoods_end %}{% include book_link.html title="Childhood's End" %}{% endcapture %}
 {% capture deepness %}{% include book_link.html title="A Deepness in the Sky" %}{% endcapture %}
@@ -31,15 +33,16 @@ humans, etc. Because of this format the book is plot-light---there is no
 over-arching conflict other than the advancement of the Cheela civilization.
 But that's enough.
 
-{{ this_book }} reminds me of {{ flatland }}. Like the shapes, the Cheela are
-_nearly_ two-dimensional, since the gravitational gradient on their star is so
-high. And like {{ flatland }} much of the book is about the civilization the
-Cheela have built. The Cheela are also similar to the beings mentioned briefly
-as living on a high-gravity world in {{ clarkes }} {{ childhoods_end }}. But
-what {{ this_book }} most reminds me of is {{ deepness }}. In both books there
-are humans orbiting an alien world, with aliens that are extremely different
-from humans but narrated in an anthropomorphized manner, and the alien's
-technology eventually advances far enough to make contact with the humans.
+{{ this_book }} was inspired in part by {{ clements }} {{ gravity }}, but it
+also reminded me of {{ flatland }}. Like the shapes, the Cheela are _nearly_
+two-dimensional, since the gravitational gradient on their star is so high.
+And like {{ flatland }} much of the book is about the civilization the Cheela
+have built. The Cheela are also similar to the beings mentioned briefly as
+living on a high-gravity world in {{ clarkes }} {{ childhoods_end }}. But what
+{{ this_book }} most reminds me of is {{ deepness }}. In both books there are
+humans orbiting an alien world, with aliens that are extremely different from
+humans but narrated in an anthropomorphized manner, and the alien's technology
+eventually advances far enough to make contact with the humans.
 
 Normally I don't love books that rely heavily on world building---like {{
 suns}} or {{ quantum }}---but the Cheela characters in each vignette have
@@ -52,4 +55,5 @@ A fun entry in the hard sci-fi genre,[^text_book] I look forward to reading
 the sequel {{ starquake }} next.
 
 [^text_book]:
-    {{ the_author }} describes <!-- TODO -->
+    {{ the_author }} describes {{ this_book }} as: "a textbook on neutron star
+    physics disguised as a novel."
