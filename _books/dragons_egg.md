@@ -25,13 +25,13 @@ star.
 {% capture quantum %}{% include book_link.html title="The Quantum Thief" %}{% endcapture %}
 {% capture starquake %}{% include book_link.html title="Starquake" %}{% endcapture %}
 
-{{ this_book }} is structured as a series of vignettes, each focusing on a
-significant moment in the Cheela's history, such as their development of
-agriculture, religion, migration to the southern hemisphere, first observation
-of the human orbiter, detection of the scanning laser, and initial
-communication with humans. This format means the book is light on plot, with
-no overarching conflict beyond the advancement of the Cheela civilization, but
-that is enough.
+{{ this_book }} is told through a series of vignettes, each one capturing a
+pivotal moment in the Cheela's civilization: the invention of farming and
+religion, their migration to the southern hemisphere, their first observation
+of the human orbiter, their detection of the scanning laser and their first
+contact with the humans, and so on. Rather than following a single overarching
+narrative, the book chronicles the gradual progression of the Cheela's
+society, which is a compelling enough premise in itself.
 
 {{ this_book }} was partially inspired by {{ clements }} {{ gravity }}, but it
 also reminded me of {{ flatland }}. Like the shapes in that book, the Cheela
@@ -42,16 +42,16 @@ beings briefly mentioned as living on a high-gravity world in {{ clarkes }} {{
 childhoods_end }}. However, what {{ this_book }} most reminds me of is {{
 deepness }}. Both novels feature humans orbiting an alien world, with aliens
 vastly different from humans but narrated in an anthropomorphized manner, and
-with the aliens' technology eventually advancing enough to establish contact with
-the humans.
+with the aliens' technology eventually advancing enough to establish contact
+with the humans.
 
-While I typically don't enjoy books that heavily rely on world-building, like
-{{ suns }} or {{ quantum }}, the Cheela characters in each vignette possess
-enough personality and "humanity" to keep me interested. I found Pink-Eye,
-the Cheela equivalent of Jesus, to be both humorous and somewhat tragic. I
-cheered for Swift-Killer, the astronomer-soldier who first conquered the East
-Pole, and felt a sense of schadenfreude when Soother's Machiavellian empire
-collapsed.
+While I typically don't enjoy books that rely almost entirely on
+world-building, like {{ suns }} or {{ quantum }}, the Cheela characters in
+each vignette possess enough personality and "humanity" to keep me invested. I
+found Pink-Eye, the Cheela equivalent of Jesus, to be both humorous and
+somewhat tragic. I cheered for Swift-Killer, the astronomer-soldier who first
+conquered the East Pole, and felt a sense of schadenfreude when Soother's
+Machiavellian empire collapsed.
 
 A fun addition to the hard science-fiction genre,[^text_book] I look forward
 to reading the sequel, {{ starquake }}, next.
