@@ -25,34 +25,36 @@ star.
 {% capture quantum %}{% include book_link.html title="The Quantum Thief" %}{% endcapture %}
 {% capture starquake %}{% include book_link.html title="Starquake" %}{% endcapture %}
 
-{{ this_book }} is told in vignettes, each one focusing on a moment in the
-Cheela's history when they made some breakthrough: invented farming and
-religion, migrated to the southern hemisphere, first observed the human
-orbiter, detected the human's scanning laser, started communicating with the
-humans, etc. Because of this format the book is plot-light---there is no
-over-arching conflict other than the advancement of the Cheela civilization.
-But that's enough.
+{{ this_book }} is structured as a series of vignettes, each focusing on a
+significant moment in the Cheela's history, such as their development of
+agriculture, religion, migration to the southern hemisphere, first observation
+of the human orbiter, detection of the scanning laser, and initial
+communication with humans. This format means the book is light on plot, with
+no overarching conflict beyond the advancement of the Cheela civilization, but
+that is enough.
 
-{{ this_book }} was inspired in part by {{ clements }} {{ gravity }}, but it
-also reminded me of {{ flatland }}. Like the shapes, the Cheela are _nearly_
-two-dimensional, since the gravitational gradient on their star is so high.
-And like {{ flatland }} much of the book is about the civilization the Cheela
-have built. The Cheela are also similar to the beings mentioned briefly as
-living on a high-gravity world in {{ clarkes }} {{ childhoods_end }}. But what
-{{ this_book }} most reminds me of is {{ deepness }}. In both books there are
-humans orbiting an alien world, with aliens that are extremely different from
-humans but narrated in an anthropomorphized manner, and the alien's technology
-eventually advances far enough to make contact with the humans.
+{{ this_book }} was partially inspired by {{ clements }} {{ gravity }}, but it
+also reminded me of {{ flatland }}. Like the shapes in that book, the Cheela
+are nearly two-dimensional due to the extreme gravitational gradient on their
+neutron star. Similar to {{ flatland }}, much of the book explores the
+civilization the Cheela have built. The Cheela are also reminiscent of the
+beings briefly mentioned as living on a high-gravity world in {{ clarkes }} {{
+childhoods_end }}. However, what {{ this_book }} most reminds me of is {{
+deepness }}. Both novels feature humans orbiting an alien world, with aliens
+vastly different from humans but narrated in an anthropomorphized manner, and
+with the aliens' technology eventually advancing enough to establish contact with
+the humans.
 
-Normally I don't love books that rely heavily on world building---like {{
-suns}} or {{ quantum }}---but the Cheela characters in each vignette have
-enough personality, enough "humanity", to keep me interested. I found
-Pink-Eye, the Cheela Jesus, to be funny and a bit tragic; I was cheering for
-Swift-Killer, the astronomer-soldier who first conquered the East Pole; and I
-felt a pang of schadenfreude when Soother's Machiavellian empire collapsed.
+While I typically don't enjoy books that heavily rely on world-building, like
+{{ suns }} or {{ quantum }}, the Cheela characters in each vignette possess
+enough personality and "humanity" to keep me interested. I found Pink-Eye,
+the Cheela equivalent of Jesus, to be both humorous and somewhat tragic. I
+cheered for Swift-Killer, the astronomer-soldier who first conquered the East
+Pole, and felt a sense of schadenfreude when Soother's Machiavellian empire
+collapsed.
 
-A fun entry in the hard sci-fi genre,[^text_book] I look forward to reading
-the sequel {{ starquake }} next.
+A fun addition to the hard science-fiction genre,[^text_book] I look forward
+to reading the sequel, {{ starquake }}, next.
 
 [^text_book]:
     {{ the_author }} describes {{ this_book }} as: "a textbook on neutron star
