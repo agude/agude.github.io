@@ -1,10 +1,10 @@
 ---
-date: 2024-06-13
+date: 2024-06-20
 title: Starquake
 book_author: Robert L. Forward
 series: Cheela
 book_number: 2
-rating: null
+rating: 5
 image: /books/covers/starquake.jpg
 ---
 
