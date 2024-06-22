@@ -25,6 +25,7 @@ description: >
   {% include auto_book_card.html title="The Colonel" %}
   {% include auto_book_card.html title="The Fall of Hyperion" %}
   {% include auto_book_card.html title="Childhood's End" %}
+  {% include auto_book_card.html title="Dragon's Egg" %}
   {% include auto_book_card.html title="Mattimeo" %}
   {% include auto_book_card.html title="The Abyss Beyond Dreams" %}
   {% include auto_book_card.html title="Serpent Valley" %}
