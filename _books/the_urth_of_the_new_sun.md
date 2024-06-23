@@ -20,11 +20,12 @@ the Conciliator. However, the trial on Yesod and some of the later sections
 during the deluge feel simultaneously too philosophical and over-explain some
 of the mysteries from earlier books.
 
-For example, I had thought the time gaps in the original four books were due
-to time travel or resurrection, as Severian was in danger and then the
-narrative jumped forward without recollection. But in {% include
-book_link.html title="The Urth of the New Sun" %} Severian wakes up next to
-his corpse and the aliens explain everything, which felt heavy-handed.
+For example, I had assumed the time gaps in the original four books were due
+to time travel or resurrection, as in each case Severian was in danger and
+then the narrative jumped forward without Severian able to remember what
+happened. But in {% include book_link.html title="The Urth of the New Sun" %}
+Severian wakes up next to his corpse and the aliens explain everything, which
+felt heavy-handed.
 
 The Christian allegory was also less subtle in {% include book_link.html
 title="The Urth of the New Sun" %} which made the biblical parallels and
