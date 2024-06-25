@@ -50,19 +50,19 @@ barbarian Cheela who rise to take control of the star, and work to restore
 their technological capabilities, allowing them to rescue the humans again. In
 a not-so-surprising turn of events, the humans play a crucial role in the
 battle against the barbarians by using their LIDAR to blind the horde. This
-was foreshadowed earlier with a reference to {{ lion }} by one of the original
-Cheela rescuers, who recognized that even the technologically inferior humans
-might one day be able to help the Cheela.
+was foreshadowed earlier with a reference to {{ lion }}, suggesting that t
+even the technologically inferior humans might one day again be able to help
+the Cheela.
 
 The large cast of characters who persist across hundreds of generations
 reminds me of {{ hamiltons }} works, like the {{ commonwealth }}, {{ void }},
-and {{ fallers }}. While the plot's rising tension and climax provide the
-novel with clear direction, it limits the amount of detail {{ the_author }}
-can include, which was the highlight of {{ dragons_egg }}. Still, it's
-impressive that he was able to echo the structure of the first book, once
-again depicting the Cheela building their civilization from scratch. In the
-end, these factors mostly balance out, resulting in a book about as good as
-the first.
+and {{ fallers }}; which is reinforced by the theme of building super-advanced
+technology. While the plot's rising tension and climax provide the novel with
+clear direction, it limits the amount of detail {{ the_author }} can include,
+which was the highlight of {{ dragons_egg }}. Still, it's impressive that he
+was able to echo the structure of the first book, once again depicting the
+Cheela building their civilization from scratch. In the end, these factors
+mostly balance out, resulting in a book about as good as the first.
 
 {{ the_author }} was inspired by {{ clements }} {{ gravity }} when writing
 this series, so that is the next book I plan to read.
