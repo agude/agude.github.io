@@ -9,19 +9,20 @@ image: /books/covers/starquake.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the second book in the
-Cheela series by <span class="author-name">{{ page.book_author }}</span>.
-Unlike the first book, {% include book_link.html title="Dragon's Egg" %}, this
-one features a more traditional plot centered around a devastating starquake.
+Cheela series by <span class="author-name">{{ page.book_author }}</span>. It
+follows the Cheela as they rescue the humans and rebuild after a devastating
+starquake.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture dragons_egg %}{% include book_link.html title="Dragon's Egg" %}{% endcapture %}
-{% capture clements %}{% include author_link.html name="Hal Clement" possessive=true %}{% endcapture %}
-{% capture gravity %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
+{% capture lion %}{% include book_link.html title="The Lion and the Mouse" %}{% endcapture %}
 {% capture hamiltons %}{% include author_link.html name="Peter F. Hamilton" possessive=true %}{% endcapture %}
 {% capture commonwealth %}{% include series_link.html series="Commonwealth Saga" %}{% endcapture %}
 {% capture fallers %}{% include series_link.html series="The Chronicle of the Fallers" %}{% endcapture %}
 {% capture void %}{% include series_link.html series="The Void Trilogy" %}{% endcapture %}
+{% capture clements %}{% include author_link.html name="Hal Clement" possessive=true %}{% endcapture %}
+{% capture gravity %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
 
 {{ this_book }} begins just moments after the ending of {{ dragons_egg }}.
 Unlike its predecessor, {{ this_book }} presents a more straightforward
@@ -41,20 +42,27 @@ challenges with issues such as [climate change][gw].
 
 [gw]: https://en.wikipedia.org/wiki/Climate_change
 
-The book's main conflict unfolds shortly after the humans are rescued when a
+The book's main conflict unfolds shortly after the humans are rescued, when a
 massive starquake decimates the Cheela civilization, leaving only four
 survivors on the star and a few hundred in orbit. The remainder of the novel
-follows the Cheela---and humans---as they rebuild society, confront the
-barbarian Cheela who have taken control of the star, and work to restore their
-technological capabilities, allowing them to once again rescue the humans by
-the book's conclusion.
+follows the Cheela---and humans---as they rebuild their society, confront the
+barbarian Cheela who rise to take control of the star, and work to restore
+their technological capabilities, allowing them to rescue the humans again. In
+a not-so-surprising turn of events, the humans play a crucial role in the
+battle against the barbarians by using their LIDAR to blind the horde. This
+was foreshadowed earlier with a reference to {{ lion }} by one of the original
+Cheela rescuers, who recognized that even the technologically inferior humans
+might one day be able to help the Cheela.
 
 The large cast of characters who persist across hundreds of generations
-reminds me of {{ hamlitons }} works, like the {{ commonwealth }}, {{ void }},
+reminds me of {{ hamiltons }} works, like the {{ commonwealth }}, {{ void }},
 and {{ fallers }}. While the plot's rising tension and climax provide the
 novel with clear direction, it limits the amount of detail {{ the_author }}
-can include, which was the highlight of {{ dragons_egg }}. These factors
-mostly balance out, resulting in a book about as good as the first.
+can include, which was the highlight of {{ dragons_egg }}. Still, it's
+impressive that he was able to echo the structure of the first book, once
+again depicting the Cheela building their civilization from scratch. In the
+end, these factors mostly balance out, resulting in a book about as good as
+the first.
 
 {{ the_author }} was inspired by {{ clements }} {{ gravity }} when writing
 this series, so that is the next book I plan to read.
