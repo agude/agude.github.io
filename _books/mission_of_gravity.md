@@ -18,9 +18,10 @@ class="author-name">{{ page.book_author }}</span> is in progress!
 Seeing what technology an author mispredicts is part of the fun of reading old
 sci-fi; I pointed out a few cases before, for example in my review of {{
 eater }}. But {{ this_book }} does a particularly bad job. The central
-conflict is only a conflict because wireless data transmission is nearly
-impossible. The characters can travel the stars but use slide rules---the
-electric calculator was invented only 8 years after the book was published!
-They can't create a map on a computer, they have to do it by pasting together
-photographs taken from orbit. In general, the world is strictly analog while
-the real future is digital.
+conflict is only exists because wireless data transmission is nearly
+impossible in the story's setting. The characters can travel the stars but use
+slide rules for calculation---the electric calculator was invented only 8
+years after the book was published! They can't create digital maps, instead
+relying on manually pasting together hard-copy photographs from orbit.
+In essence, the novel's world is stubbornly analog while our actual future is
+digital.
