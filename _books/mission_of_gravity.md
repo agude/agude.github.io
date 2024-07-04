@@ -8,12 +8,22 @@ rating: 3
 image: /books/covers/mission_of_gravity.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> by <span
-class="author-name">{{ page.book_author }}</span> is in progress!
+<cite class="book-title">{{ page.title }}</cite> is a sci-fi adventure story
+that takes place on the planet Mesklin---a gigantic, quickly rotating planet
+with gravity much higher than Earth. It follows the Mesklinite named Barlennan
+as he sails the _Bree_ across the planet searching for a lost human rocket
+ship.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture eater %}{% include book_link.html title="Eater" %}{% endcapture %}
+
+The story is basically an adventure. Barlennan and his crew travel to unknown
+parts of Mesklin and encounter strange inhabitants.
+
+The gigantic
+The primartive
+The island-dweling glider builders.
 
 Seeing what technology an author mispredicts is part of the fun of reading old
 sci-fi; I pointed out a few cases before, for example in my review of {{
