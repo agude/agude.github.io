@@ -18,12 +18,14 @@ ship.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture eater %}{% include book_link.html title="Eater" %}{% endcapture %}
 
-The story is basically an adventure. Barlennan and his crew travel to unknown
-parts of Mesklin and encounter strange inhabitants.
-
-The gigantic
-The primartive
-The island-dweling glider builders.
+The book is story-driven. Barlennan---a centipede like alien---and his crew
+travel to unknown parts of Mesklin on their ship the _Bree_ and encounter
+strange inhabitants. The encounter the gigantic builders, who make their
+entire city into a trap to kill the local, even-larger predators. Later they
+run into primative canoe-building Mesklinite who capture the crew but grant
+them their freedom after being fooled into thinking the radio is a god. And
+finally they encounter the island-dwelling Mesklinites who developed gliders
+in the lower gravity region near the equator.
 
 Seeing what technology an author mispredicts is part of the fun of reading old
 sci-fi; I pointed out a few cases before, for example in my review of {{
