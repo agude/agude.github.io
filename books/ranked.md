@@ -50,6 +50,7 @@ description: >
 
   {% comment %} 3 Stars {% endcomment %}
 
+  {% include auto_book_card.html title="Mission of Gravity" %}
   {% include auto_book_card.html title="The Dragon's Banker" %}
   {% include auto_book_card.html title="The State of the Art" %}
   {% include auto_book_card.html title="Flatland: A Romance of Many Dimensions" %}
