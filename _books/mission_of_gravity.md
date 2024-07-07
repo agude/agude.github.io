@@ -17,7 +17,7 @@ _Bree_ across the planet in search of a lost human rocket ship.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture forwards %}{% include author_link.html name="Robert L. Forward" possessive=true %}{% endcapture %}
 {% capture forward %}{% include author_link.html name="Robert L. Forward" %}{% endcapture %}
-{% capture cheela %}{% include series_link.html name="Cheela"%}{% endcapture %}
+{% capture cheela %}{% include series_link.html series="Cheela"%}{% endcapture %}
 {% capture dragon %}{% include book_link.html title="Dragon's Egg" %}{% endcapture %}
 {% capture starquake %}{% include book_link.html title="Starquake" %}{% endcapture %}
 {% capture flatland %}{% include book_link.html title="Flatland: A Romance of Many Dimensions" link_text="Flatland" %}{% endcapture %}
@@ -27,10 +27,11 @@ _Bree_ across the planet in search of a lost human rocket ship.
 
 {{ this_book }} is primarily story-driven. Barlennan, a centipede-like alien,
 and his crew journey to unknown parts of Mesklin on their ship, the _Bree_,
-encountering strange inhabitants as they seek to rescue the humans' rocket
-stranded at the pole. The main attraction of the book lies in observing the
-Mesklinites meet new tribes and survive their encounters through a combination
-of human knowledge and Mesklinite cunning. Some memorable encounters include:
+coming across strange inhabitants as they seek to rescue the humans' rocket
+stranded at the pole. The main appeal of the book lies in observing how the
+Mesklinites interact with new tribes and navigate these situations through a
+combination of human knowledge and Mesklinite cunning. Some memorable
+encounters include:
 
 - Gigantic builders who construct cities as traps to snare even larger
   predators.
@@ -44,35 +45,27 @@ of human knowledge and Mesklinite cunning. Some memorable encounters include:
 
 The adventures are fun, but don't really come together into a greater whole.
 {{ this_book }} never really builds any tension because you know Barlennan is
-going to succeed, so each conflict feels more like a delay from the real
-story. There is a hint that Barlennan has a secret motive for helping the
-humans, but at the end it is exactly what it seemed: he wants to bootstrap
-Mesklinite technology by investigating the human rocket, but through his
-journey realizes that:
-
-While these adventures are fun, they don't come together into a great whole.
-{{ this_book }} lacks tension because Barlennan's ultimate success seems
-inevitable, making each conflict feel more like a delay than a significant
-plot development. There's a hint that Barlennan has a secret motive for
-helping the humans, but it turns out to be exactly what it appeared: he wants
-to advance Mesklinite technology by studying the human rocket. However,
-through his journey, he realizes that:
+going to succeed, so each conflict feels more like a delay than a significant
+plot development. There is a hint that Barlennan has a secret motive for
+helping the humans, but at the end it is exactly what it appeared to be: he
+wants to advance Mesklinite technology by studying the human rocket. But the
+impact of this reveal is blunted because, through his journey, Barlennan
+realizes that:
 
 1. He won't be able to understand the technology.
 
 2. The humans would willingly share anyway.
 
-So even this subplot doesn't build tension.
-
 {{ this_book }} is said to have inspired {{ forwards }} {{ cheela }} series:
 {{ dragon }} and {{ starquake }}. While both explore life under immense
-gravity, {{ forward }} takes the concept further than {{ the_author }}. He
-introduces much stronger gravity, essentially creating a 2D civilization;
+gravity, {{ forward }} takes the concept further.
+
+He introduces much stronger gravity, essentially creating a 2D civilization;
 incorporates strong magnetic fields that significantly impact the Cheela's
 evolution and experience; and covers a broader narrative, from the discovery
-of agriculture to space travel. The Cheela's accelerated time experience---one
-million times faster than humans---is the key that allows the story to surpass
-{{ this_book }}.
+of agriculture to space travel, due to the fact that the Cheela experience the
+universe one million times faster than humans. While {{ this_book }} felt like
+Earth with a twist, the {{ cheela }} series transported me to an alien world.
 
 One part of the fun of reading old sci-fi is seeing what technology an author
 mispredicts; I pointed out a few cases before, for example in my review of {{
@@ -91,6 +84,6 @@ predictions, but its broader focus on humanity's fate makes these easier to
 overlook.
 
 {{ this_book }} was good but not great. Perhaps I would have found it more
-groundbreaking had I read it before the {{ cheela }} series, but in
-comparison, it felt underwhelming. I plan to read {{ star_light }}, the next
-book in the series, but I don't expect much of it.
+groundbreaking had I read it before the {{ dragon }} and {{ starquake }}, but
+in comparison, it felt underwhelming. I plan to read {{ star_light }}, the
+next book in the series, but I don't expect much of it.
