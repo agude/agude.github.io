@@ -23,6 +23,8 @@ ship.
 {% capture starquake %}{% include book_link.html title="Starquake" %}{% endcapture %}
 {% capture flatland %}{% include book_link.html title="Flatland: A Romance of Many Dimensions" link_text="Flatland" %}{% endcapture %}
 {% capture eater %}{% include book_link.html title="Eater" %}{% endcapture %}
+{% capture childhood %}{% include book_link.html title="Childhood's End" %}{% endcapture %}
+{% capture star_light %}{% include book_link.html title="Star Light" %}{% endcapture %}
 
 {{ this_book }} is story-driven. Barlennan---a centipede like alien---and his crew
 travel to unknown parts of Mesklin on their ship the _Bree_ and discover
@@ -55,24 +57,33 @@ journey realizes that:
 
 So even that doesn't really build tension.
 
-{{ this_book }} is said to have inspired {{ forwards }} {{ cheela }} series: {{
-dragon }} and {{ starquake }}.
-
-But {{ forward }} takes it a leap beyond {{ the_author }}: he adds much
-stronger gravity which makes his civilization essentially 2D; he adds strong
-magnetic fields that significantly impact how the Cheela evolve and experience
-the world; and he covers a much larger story, from the discovery of farming to
-space travel. The fact that the Cheela experience time one million times
-faster than humans is a key twist that allows the story to surpass {{
-this_book }}.
+{{ this_book }} is said to have inspired {{ forwards }} {{ cheela }} series:
+{{ dragon }} and {{ starquake }} Clearly it did, both ask "what would live be
+like under immense gravity". But {{ forward }} takes it a leap beyond {{
+the_author }}: he adds much stronger gravity which makes his civilization
+essentially 2D; he adds strong magnetic fields that significantly impact how
+the Cheela evolve and experience the world; and he covers a much larger story,
+from the discovery of farming to space travel. The fact that the Cheela
+experience time one million times faster than humans is a key twist that
+allows the story to surpass {{ this_book }}.
 
 One part of the fun of reading old sci-fi is seeing what technology an author
 mispredicts; I pointed out a few cases before, for example in my review of {{
 eater }}. But {{ this_book }} does a particularly bad job. The central
-conflict is only exists because wireless data transmission is nearly
-impossible in the story's setting. The characters can travel the stars but use
-slide rules for calculation---the electric calculator was invented only 8
-years after the book was published! They can't create digital maps, instead
-relying on manually pasting together hard-copy photographs from orbit. In
-essence, the novel's world is stubbornly analog while our actual future is
-digital.
+conflict only exists because wireless data transmission is nearly impossible
+in the story's setting. The characters can travel the stars but use slide
+rules for calculation---the electric calculator was invented only 8 years
+after the book was published! They can't create digital maps, instead relying
+on manually pasting together hard-copy photographs from orbit. The novel's
+world is analog while our actual future is digital.
+
+I think the wrong technology really stands out in {{ this_book }} because it
+is so narrowly focused on the day-to-day life of Barlennan and his crew. {{
+childhood }} was written at about the same time and also makes several wrong
+predictions, but because the story is broadly focused on the fate of humanity
+it's easy to look past them.
+
+{{ this_book }} was good but not great. Perhaps I would have found it more
+groundbreaking if I read it before the {{ cheela }} series, but in comparison
+it felt bland. I'm going on to {{ star_light }}, the next book in the series,
+but I don't expect much of it.
