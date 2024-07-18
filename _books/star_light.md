@@ -1,10 +1,10 @@
 ---
-date: 2024-07-07
+date: 2024-07-17
 title: Star Light
 book_author: Hal Clement
 series: Mesklin
-book_number: 2
-rating: null
+book_number: 3
+rating: 3
 image: /books/covers/star_light.jpg
 ---
 
