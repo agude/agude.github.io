@@ -55,16 +55,13 @@ style, in which following the self-imposed rules is the important part of hard
 sci-fi.[^game]
 
 [^game]:
-    > Writing a science fiction story is fun, not work. [...] the fun [...]
-    > lies in treating the whole thing as a game. [...] The rules must be
-    > quite simple. They are; for the reader of a science-fiction story, they
-    > consist of finding as many as possible of the author's statements or
-    > implications which conflict with the facts as science currently
+    > Writing a science fiction story is fun, not work. [... ] The fun, and
+    > the material for this article, lies in treating the whole thing as a
+    > game. I've been playing the game since I was a child, so the rules must
+    > be quite simple. They are; for the reader of a science-fiction story,
+    > they consist of finding as many as possible of the author's statements
+    > or implications which conflict with the facts as science currently
     > understands them. For the author, the rule is to make as few such slips
-    > as he possibly can. [...] Certain exceptions are made, but fair play
-    > demands that all such matters be mentioned as early as possible in the
-    > story.
+    > as he possibly can.
 
     Clement in Wirlygig World.
-
-
