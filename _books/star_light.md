@@ -42,25 +42,27 @@ is quickly resolved through dialogue in just a few pages in the last chapter.
 
 One of {{ clements }} weaknesses in these two books is that he likes his
 characters too much. He wants them to be good people, and he wants good things
-to happen to them, so the potential backstabbing and betrayals that _would add
+to happen to them, so the potential backstabbing and betrayals _that would add
 tension_ are always defused in a few paragraphs.
 
-{{ the_author }} attempted to address the critique of {{ mission }} that his
-Mesklinite characters were too human by adding several digressions where he
-explains that they think differently, and additionally adds some non-human
-behaviors like not getting anxious or second guessing themselves. They still
-feel completely human. Similarly, and just like {{ mission }}, the world
-didn't feel alien, especially when compared to the neutron star in the {{
-cheela_series }}. This may be partly due to {{ clements }} philosophy of
-science fiction, in which it is important to establish and stick to scientific
-rules rather than immersing the reader.[^game]
+{{ the_author }} attempted to address the critique of {{ mission }}---that his
+Mesklinite characters were too human---by having several digressions where he
+explains that Mesklinites think differently than humans do. He also added some
+non-human behaviors like not getting anxious or second guessing themselves.
+They still feel completely human.
+
+Similarly, and just like {{ mission }}, the world didn't feel alien,
+especially when compared to the neutron star in the {{ cheela_series }}. This
+may be partly due to {{ clements }} philosophy of science fiction, in which it
+is important to establish and stick to scientific rules rather than immersing
+the reader.[^game]
 
 In the end the book was fine, but slow going. With more tension and tighter
 editing I think it could have surpassed {{ mission }}, but as it stands it's
 slightly worse.
 
 [^game]:
-    > Writing a science fiction story is fun, not work. [... ] The fun, and
+    > Writing a science fiction story is fun, not work. [...] The fun, and
     > the material for this article, lies in treating the whole thing as a
     > game. I've been playing the game since I was a child, so the rules must
     > be quite simple. They are; for the reader of a science-fiction story,
