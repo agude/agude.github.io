@@ -8,7 +8,9 @@ rating: 3
 image: /books/covers/star_light.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a hard sci-fi story.
+<cite class="book-title">{{ page.title }}</cite> is the sequel to {% include
+book_link.html title="Mission of Gravity" %}, and tells the story of a
+Human--Mesklinites exploration of a large star-like planet.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
