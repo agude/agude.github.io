@@ -9,8 +9,8 @@ image: /books/covers/star_light.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the sequel to {% include
-book_link.html title="Mission of Gravity" %}, and tells the story of a
-Human--Mesklinites exploration of a large star-like planet.
+book_link.html title="Mission of Gravity" %}, and continues the theme of
+Human--Mesklinite exploration, this time focusing on a large star-like planet.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -21,42 +21,41 @@ Human--Mesklinites exploration of a large star-like planet.
 {% capture dragons_egg %}{% include book_link.html title="Dragon's Egg" %}{% endcapture %}
 {% capture cheela_series %}{% include series_link.html series="Cheela" %} series{% endcapture %}
 
-{{ this_book }} is actually the third book in the {{ series }}, but I read it
-second. The second book, {{ critical }}, has no connection to the first book,
-{{ mission }}, and only connects to {{ this_book }} through the character Easy
+{{ this_book }} is actually the third book in the {{ series }}, although I
+read it second. The second book, {{ critical }}, has no direct connection to
+{{ mission }}, and only links to {{ this_book }} through the character Easy
 Hoffman and the concept of exploring a high-gravity planet.
 
-In {{ this_book }}, the humans and the Mesklinites have once again teamed up,
-this time to explore the planet Dhrawn, with the humans in space and the
-Mesklinites on the planet in landships called cruisers. The cruiser
-_Kwembly_---captained by the Dondragmer from {{ mission }}---gets stuck on an
-outcropping and the humans and Mesklinites have to figure out how to rescue
-it. This is made tougher by the fact that the Mesklinites, once again, have
-their own, hidden motive.
+In {{ this_book }}, humans and Mesklinites have once again joined forces, this
+time to explore the planet Dhrawn. The humans remain in space while the
+Mesklinites traverse the planet's surface in landships called cruisers. The
+story centers on the cruiser _Kwembly_---captained by Dondragmer from {{
+mission }}---which becomes stuck on an outcropping. Both humans and
+Mesklinites must work together to rescue it, a task complicated by the
+Mesklinites's hidden agenda.
 
-The plot moves too slowly. The _Kwembly_ is stuck on the rock for
-the entire book (well it gets down and is immediately re-stuck in ice). Like
-{{ mission }}, {{ the_author }} intends to build tension not with the ship but
-with the fact that the Mesklinites are working at cross purposes to the
-humans. Again it fails to build tension and is resolved in a couple of pages
-with the two sides talking it out.
+The plot progresses slowly. The _Kwembly_ remains stuck for most of the book
+(it briefly gets free only to become trapped in ice). Similar to {{ mission
+}}, {{ the_author }} attempts to build tension through the conflicting motives
+of the Mesklinites and humans. However, this tension never really builds and
+is quickly resolved through dialogue in just a few pages in the last chapter.
 
 One of {{ clements }} weaknesses in these two books is that he likes his
 characters too much. He wants them to be good people, and he wants good things
-to happen to them, so the potential backstabbing and betrayals are always
-defused in a few paragraphs.
+to happen to them, so the potential backstabbing and betrayals that _would add
+tension_ are always defused in a few paragraphs.
 
-{{ the_author }} clearly heard the critique of {{ mission }} that his
-characters were too human and added several digressions where he explains that
-they think differently, and additionally adds some non-human behaviors like
-not getting anxious or second guessing themselves. They still feel completely
-human. Similarly, and just like {{ mission }}, the world didn't feel alien, in
-the way that the neutron star did in the {{ cheela_series }}. I think this is
-partially due to {{ clements }} philosophy of science fiction, that the main
-fun is to come up with rules and try to stick with them, not necessarily to
-immerse the reader.[^game]
+{{ the_author }} attempted to address the critique of {{ mission }} that his
+Mesklinite characters were too human by adding several digressions where he
+explains that they think differently, and additionally adds some non-human
+behaviors like not getting anxious or second guessing themselves. They still
+feel completely human. Similarly, and just like {{ mission }}, the world
+didn't feel alien, especially when compared to the neutron star in the {{
+cheela_series }}. This may be partly due to {{ clements }} philosophy of
+science fiction, in which it is important to establish and stick to scientific
+rules rather than immersing the reader.[^game]
 
-In the end the book was fine, but slow going. I with more tension and tighter
+In the end the book was fine, but slow going. With more tension and tighter
 editing I think it could have surpassed {{ mission }}, but as it stands it's
 slightly worse.
 
@@ -70,4 +69,6 @@ slightly worse.
     > understands them. For the author, the rule is to make as few such slips
     > as he possibly can.
 
-    Clement in Wirlygig World.
+    Clement, Hal (June 1953). Campbell, John W., Jr. (ed.). "Whirligig World".
+    _Astounding Science Fiction_. Vol. 51, no. 4. Street & Smith Publications.
+    pp. 102--114.
