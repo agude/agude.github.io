@@ -14,16 +14,17 @@ Human--Mesklinites exploration of a large star-like planet.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
+{% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
 {% capture clements %}{% include author_link.html name="Hal Clement" possessive=true %}{% endcapture %}
 {% capture mission %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
 {% capture critical %}{% include book_link.html title="Close to Critical" %}{% endcapture %}
+{% capture dragons_egg %}{% include book_link.html title="Dragon's Egg" %}{% endcapture %}
+{% capture cheela_series %}{% include series_link.html series="Cheela" %} series{% endcapture %}
 
-{{ this_book }} is the sequel to {{ mission }} and the third book in the {{
-series }} series, although I read it second. The second book, {{ critical }},
-does not share any characters with {{ mission }} and is only loosely connected
-to the series, mainly by the character Easy Hoffman and the concept of
-exploring a high-gravity planet.
+{{ this_book }} is actually the third book in the {{ series }}, but I read it
+second. The second book, {{ critical }}, has no connection to the first book,
+{{ mission }}, and only connects to {{ this_book }} through the character Easy
+Hoffman and the concept of exploring a high-gravity planet.
 
 In {{ this_book }}, the humans and the Mesklinites have once again teamed up,
 this time to explore the planet Dhrawn, with the humans in space and the
@@ -31,30 +32,33 @@ Mesklinites on the planet in landships called cruisers. The cruiser
 _Kwembly_---captained by the Dondragmer from {{ mission }}---gets stuck on an
 outcropping and the humans and Mesklinites have to figure out how to rescue
 it. This is made tougher by the fact that the Mesklinites, once again, have
-their own motive.
+their own, hidden motive.
 
-In general the plot moves too slowly. The _Kwembly_ is stuck on the rock for
+The plot moves too slowly. The _Kwembly_ is stuck on the rock for
 the entire book (well it gets down and is immediately re-stuck in ice). Like
 {{ mission }}, {{ the_author }} intends to build tension not with the ship but
 with the fact that the Mesklinites are working at cross purposes to the
-humans, but again it fails to build tension and is resolved in a couple of
-pages with the two sides talking it out.
+humans. Again it fails to build tension and is resolved in a couple of pages
+with the two sides talking it out.
 
 One of {{ clements }} weaknesses in these two books is that he likes his
 characters too much. He wants them to be good people, and he wants good things
 to happen to them, so the potential backstabbing and betrayals are always
 defused in a few paragraphs.
 
-{{ the_author }} clearly heard the critique that his characters were too
-human and added several digressions where he explains that they are not, and
-additionally adds some non-human behavior like patience.
+{{ the_author }} clearly heard the critique of {{ mission }} that his
+characters were too human and added several digressions where he explains that
+they think differently, and additionally adds some non-human behaviors like
+not getting anxious or second guessing themselves. They still feel completely
+human. Similarly, and just like {{ mission }}, the world didn't feel alien, in
+the way that the neutron star did in the {{ cheela_series }}. I think this is
+partially due to {{ clements }} philosophy of science fiction, that the main
+fun is to come up with rules and try to stick with them, not necessarily to
+immerse the reader.[^game]
 
-Like {{ mission }} I didn't really feel like the story took place on an alien
-world. Yeah it's weird that water-ammonia mixtures freeze and thaw at weird
-pressures and temperatures, but that wasn't really any different than if the
-book had taken place in the snow. I think this comes down to {{ clements }}
-style, in which following the self-imposed rules is the important part of hard
-sci-fi.[^game]
+In the end the book was fine, but slow going. I with more tension and tighter
+editing I think it could have surpassed {{ mission }}, but as it stands it's
+slightly worse.
 
 [^game]:
     > Writing a science fiction story is fun, not work. [... ] The fun, and
