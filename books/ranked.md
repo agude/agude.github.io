@@ -58,6 +58,7 @@ description: >
   {% include auto_book_card.html title="Flowers for Algernon" %}
   {% include auto_book_card.html title="Chevalier" %}
   {% include auto_book_card.html title="The Claw of the Conciliator" %}
+  {% include auto_book_card.html title="Close to Critical" %}
   {% include auto_book_card.html title="Star Light" %}
   {% include auto_book_card.html title="The Causal Angel" %}
   {% include auto_book_card.html title="There Is No Antimemetics Division" %}
