@@ -17,7 +17,6 @@ humans have to work with the native, primitive aliens to rescue them.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
 {% capture clement %}{% include author_link.html name="Hal Clement" %}{% endcapture %}
-{% capture clements %}{% include author_link.html name="Hal Clement" possessive=true %}{% endcapture %}
 {% capture mission %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
 {% capture star %}{% include book_link.html title="Star Light" %}{% endcapture %}
 
@@ -37,3 +36,5 @@ series }}: {{ mission }} and {{ star }}. In {{ this_book }} he does better by
 creating an antagonist on the planet opposed to the humans and their allies.
 But like his other novels, the tension evaporates quickly near the end of the
 book.
+
+Overall an average book.
