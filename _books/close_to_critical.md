@@ -14,7 +14,7 @@ of a spaceship carrying the children of two ambassadors that crashes on an
 inhospitable planet, forcing humans to collaborate with the primitive native
 aliens to rescue them.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}{% endcapture %}
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
 {% capture clement %}{% include author_link.html name="Hal Clement" %}{% endcapture %}
@@ -25,11 +25,11 @@ Easy Rich,[^easy] the 12-year-old daughter of a human diplomat, and 'Mina, the
 7-year-old son of a Drommian diplomat, crash-land on the planet Tenebra
 following an almost immersion-breakingly improbable series of events that
 starts with them playing in a spaceship and ends with them under an ocean of
-sulfuric acid. With the planet to inhospitable for humans, the only people who
-can help are the natives that the humans kidnapped 16 years before and raised
-under the guidance of Fagin, the robotic lander. Complicating matters are the
-(justifiably) strained relations between the humans and the Drommians, caused
-by the humans' failure to keep the children safe in the first place.
+sulfuric acid. With the planet too inhospitable for humans, the only people
+who can help are the natives that the humans kidnapped 16 years before and
+raised under the guidance of Fagin, the robotic lander. Complicating matters
+are the (justifiably) strained relations between the humans and the Drommians,
+caused by the humans' failure to keep the children safe in the first place.
 
 [^easy]:
     Easy Rich has grown up and changed her name to Easy Hoffman in {{ star }};
