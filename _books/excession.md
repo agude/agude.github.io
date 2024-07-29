@@ -15,7 +15,7 @@ mysterious and enormously powerful.
 
 The best part of the novel was getting to see how the Culture _works_: how the
 minds think, communicate with each other, make decisions, retreat to "infinite
-fun space", and interact with an _"Outside Context Problem"_[^ocp]. The worst
+fun space", and interact with an _"Outside Context Problem"_.[^ocp] The worst
 part of the book was the human characters, who were shallow and uninteresting.
 Ulver Seich---the airhead socialite---is a slightly more interesting and
 better-written take on the "hot girl who sleeps her way through the narrative"

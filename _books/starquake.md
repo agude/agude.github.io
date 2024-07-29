@@ -42,17 +42,17 @@ challenges with issues such as [climate change][gw].
 
 [gw]: https://en.wikipedia.org/wiki/Climate_change
 
-The book's main conflict unfolds shortly after the humans are rescued, when a
-massive starquake decimates the Cheela civilization, leaving only four
+The book's central conflict unfolds shortly after the humans are rescued, when
+a massive starquake decimates the Cheela civilization, leaving only four
 survivors on the star and a few hundred in orbit. The remainder of the novel
 follows the Cheela---and humans---as they rebuild their society, confront the
 barbarian Cheela who rise to take control of the star, and work to restore
 their technological capabilities, allowing them to rescue the humans again. In
 a not-so-surprising turn of events, the humans play a crucial role in the
 battle against the barbarians by using their LIDAR to blind the horde. This
-was foreshadowed earlier with a reference to {{ lion }}, suggesting that t
-even the technologically inferior humans might one day again be able to help
-the Cheela.
+was foreshadowed earlier with a reference to {{ lion }}, suggesting that even
+the technologically inferior humans might one day again be able to help the
+Cheela.
 
 The large cast of characters who persist across hundreds of generations
 reminds me of {{ hamiltons }} works, like the {{ commonwealth }}, {{ void }},

@@ -1,0 +1,35 @@
+{% comment %}
+The HTML is *VERY* sensitive to new lines, so we fill with {{- null -}} which
+does nothing _except_ consume a new line on either side.
+
+Otherwise it doesn't work inside footnotes.
+
+See:
+https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-include-external-content-inside-footnotes
+{% endcomment -%}
+{% comment %}Currently set for MLA formatting.{% endcomment -%}
+
+{%- assign author_last = include.author_last | replace: ' ', '&nbsp;' -%}
+{%- assign author_first = include.author_first | replace: ' ', '&nbsp;' -%}
+{%- assign title = include.title | replace: ' ', '&nbsp;' -%}
+{%- assign publication_title = include.publication_title | replace: ' ', '&nbsp;'  if include.publication_title -%}
+{%- assign editor = include.editor | replace: ' ', '&nbsp;'  if include.editor -%}
+{%- assign volume = include.volume | replace: ' ', '&nbsp;'  if include.volume -%}
+{%- assign number = include.number | replace: ' ', '&nbsp;'  if include.number -%}
+{%- assign first_page = include.first_page -%}
+{%- assign last_page = include.last_page -%}
+{%- assign date = include.date -%}
+{%- assign url = include.url -%}
+
+<span class="citation">
+  <span class="author_name">{{ author_last }}, {{ author_first }}</span>.
+  "<cite>{{ title }}</cite>."&nbsp;
+  {%- if include.publication_title %}<cite>{{ publication_title }}</cite>, {% endif %}
+  {%- if include.editor %}edited by {{ editor }},{% endif %}
+  {%- if include.volume %}vol.&nbsp;{{ volume }}, {% endif %}
+  {%- if include.number %}no.&nbsp;{{ number }}, {% endif %}
+  {%- if include.date %}{{ date }}. {% endif %}
+  {%- if include.first_page and include.last_page %}pp.&nbsp;{{ first_page }}--{{ last_page }}
+  {%- elsif include.first_page %}p.&nbsp;{{ first_page }}. {% endif %}
+  {% if include.url %}[{{ url }}]({{ url }}){% endif -%}
+</span>

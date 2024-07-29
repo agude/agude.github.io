@@ -9,7 +9,7 @@ image: /books/covers/dragons_egg.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a hard sci-fi novel by
-<span class="author-name">{{ page.book_author }}</span>. It tells the story of
+<span class="author-name">{{ page.book_author }}</span>. It is the story of
 first contact between humans and the Cheela: beings who live on a neutron
 star.
 

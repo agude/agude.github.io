@@ -17,7 +17,7 @@ world who, as the title suggests, is hired by a dragon.
 One of my favorite niche sub-genres of fantasy[^fate] explores the question:
 What if a dragon used their intellect, riches, and magic to subtly shape the
 world instead of charging in and breathing fire. I thought {{ this_book }}
-fell squarely into this sub-genre.
+fell squarely into this sub-genre; unfortunately I was wrong.
 
 [^fate]:
     My longest running tabletop roleplaying game was based on this premise, so
@@ -62,8 +62,8 @@ dragon's plan became too simple: burn things.
 
 There is also a slight inconsistency: the dragons's plan was to profit off the
 human economic system, but they also transferred several pieces of technology
-that moved the whole empire forward, like fuel-free heat, new ship designs,
-and refrigeration. Perhaps the dragons's real motivation was to move humanity
+that revolutionized the empire, like fuel-free heat, new ship designs, and
+refrigeration. Perhaps the dragons's real motivation was to move humanity
 forward? But if so their other behavior seems too misanthropic for that.
 
 While a fun read, the story is far from perfect. In my ideal dragon story, the
