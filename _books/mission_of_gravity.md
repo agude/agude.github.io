@@ -65,9 +65,10 @@ incorporates strong magnetic fields that significantly impact the Cheela's
 evolution and experience; and covers a broader narrative, from the discovery
 of agriculture to space travel, due to the fact that the Cheela experience the
 universe one million times faster than humans. While {{ this_book }} felt like
-Earth with a twist, the {{ cheela }} series transported me to an alien world.
+Earth with a twist, the {{ cheela }} series transported me to a completely
+alien world.
 
-One part of the fun of reading old sci-fi is seeing what technology an author
+Part of the fun of reading old sci-fi is seeing what technology an author
 mispredicts; I pointed out a few cases before, for example in my review of {{
 eater }}. But {{ this_book }} does a particularly bad job. The central
 conflict only exists because wireless data transmission is nearly impossible

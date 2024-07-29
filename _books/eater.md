@@ -52,11 +52,11 @@ reception this book received. It feels like being thrown into a graduate
 physics class, which---as a physicist---is part of what made me enjoy it so
 much.
 
-The realism made me worry that the introduction of the Eater---a sentient
-black hole---would completely break the immersion. But {{ the_author }}
-provided a convincing explanation: the black hole isn't alive; the
-intelligence is encoded in the magnetic fields surrounding it. Magnetic fields
-can store data and perform computations, so it's plausible that an
+I worried the introduction of the Eater---a sentient black hole---would
+completely break the immersion, since the book otherwise felt so real. But {{
+the_author }} provided a convincing explanation: the black hole isn't alive;
+the intelligence is encoded in the magnetic fields surrounding it. Magnetic
+fields can store data and perform computations, so it's plausible that an
 intelligence could exist within them.
 
 The characters are probably the weakest part of the book, but they're
@@ -100,6 +100,19 @@ adequate. The main characters are:
     > one of the Big Three [Kirk, Spock, and McCoy], if not all three at once.
     > She saves the day by her wit and ability, and, if we are lucky, **has
     > the good grace to die at the end**, being grieved by the entire ship.
+
+    {% include cite.html
+      author_first="Patricia"
+      author_last="Byrd"
+      title="Star Trek Lives: Trekker Slang"
+      publication_title="American Speech"
+      volume="53"
+      number="1"
+      date="Spring 1978"
+      first_page="52"
+      last_page="58"
+      url="https://doi.org/10.2307/455340"
+    %}
 
 [doi]: https://doi.org/10.2307/455340
 

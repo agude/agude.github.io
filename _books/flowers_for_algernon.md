@@ -11,7 +11,7 @@ image: /books/covers/flowers_for_algernon.jpg
 <cite class="book-title">{{ page.title }}</cite> is a Hugo and Nebula
 award-winning novel about Charlie Gordon, a man with intellectual disabilities
 who undergoes surgery to enhance his cognitive abilities. While it is a
-beautifully crafted narrative, it failed to captivate me.
+beautifully crafted narrative, it failed to hold my attention.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 

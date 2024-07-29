@@ -28,7 +28,7 @@ Hoffman and the concept of exploring a high-gravity planet.
 
 In {{ this_book }}, humans and Mesklinites have once again joined forces, this
 time to explore the planet Dhrawn. The humans remain in space while the
-Mesklinites traverse the planet's surface in landships called cruisers. The
+Mesklinites travel the planet's surface in landships called cruisers. The
 story centers on the cruiser _Kwembly_---captained by Dondragmer from {{
 mission }}---which becomes stuck on an outcropping. Both humans and
 Mesklinites must work together to rescue it, a task complicated by the
@@ -71,6 +71,15 @@ slightly worse.
     > understands them. For the author, the rule is to make as few such slips
     > as he possibly can.
 
-    Clement, Hal (June 1953). Campbell, John W., Jr. (ed.). "Whirligig World".
-    _Astounding Science Fiction_. Vol. 51, no. 4. Street & Smith Publications.
-    pp. 102--114.
+    {% include cite.html
+      author_first="Hal"
+      author_last="Clement"
+      title="Whirligig World"
+      publication_title="Astounding Science Fiction"
+      editor="John W. Campbell, Jr."
+      volume="51"
+      number="4"
+      date="June 1953"
+      first_page="102"
+      last_page="114"
+    %}

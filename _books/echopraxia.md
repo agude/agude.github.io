@@ -12,7 +12,7 @@ image: /books/covers/echopraxia.jpg
 Watts's Firefall series, although it takes place roughly at the same time as
 {% include book_link.html title="Blindsight" %}. It follows parasitologist
 Daniel Brüks as he gets dragged into a conflict between multiple transhuman
-factions, travels to the Icarus station orbiting the sun, and back to Earth.
+factions, travels to the _Icarus_ station orbiting the sun, and back to Earth.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
@@ -42,7 +42,7 @@ The Major characters are:
 - Valerie, a vampire escaped from an academic lab on a mission to free her
   people. Along for the ride are her four zombie soldiers.
 
-- Portia, an alien computer--slime-mold sent by _Rorschach_ to Icarus.
+- Portia, an alien computer--slime-mold sent by _Rorschach_ to _Icarus_.
 
 The novel is full of Christian imagery, augmenting its theme of
 transcendentalism and digital theology:
@@ -53,8 +53,8 @@ transcendentalism and digital theology:
 
 - Vampires have a "crucifix glitch" used to keep them controlled.
 
-- The ship used by the Bicamerals is the Crown of Thorns. _Rorschach_ from {{
-  blindsight }} is in the shape of a crown of thorns.
+- The ship used by the Bicamerals is the _Crown of Thorns_. _Rorschach_ from
+  {{ blindsight }} is in the shape of a crown of thorns.
 
 - Siri suffers a stigmata-like wound in his palm, inflicted by the vampire
   Jukka Sarasti.
@@ -66,11 +66,13 @@ transcendentalism and digital theology:
   is infected by Portia.
 
 Parasites and biology are also central themes. Brüks studies parasites, but in
-some ways, he is one as the weakest member of the group and one forced to hide
+some ways, he is a parasite as the weakest member of the group, forced to hide
 for his safety. Humans, too, are like parasites, trying to survive among much
 more powerful transhumans. And Portia, the alien smart matter sent by
-_Rorschach_ to Icarus, traps and studies the other characters in the book just
-like Brüks does to the animals he studies in Oregon.
+_Rorschach_ to _Icarus_, traps and studies the other characters in the book
+just like Brüks does to the animals he studies in Oregon. It is itself a
+parasite in that it can only survive within a host like _Icarus_ or the _Crown
+of Thorns_.
 
 Loss is yet another theme. Brüks lost his wife to the virtual reality world of
 "heaven"; Keaton lost his wife in the same way, and his son Siri on the
