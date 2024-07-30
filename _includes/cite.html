@@ -25,11 +25,11 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
   <span class="author_name">{{ author_last }}, {{ author_first }}</span>.
   "<cite>{{ title }}</cite>."&nbsp;
   {%- if include.publication_title %}<cite>{{ publication_title }}</cite>, {% endif %}
-  {%- if include.editor %}edited by {{ editor }},{% endif %}
+  {%- if include.editor %}edited by {{ editor }}, {% endif %}
   {%- if include.volume %}vol.&nbsp;{{ volume }}, {% endif %}
   {%- if include.number %}no.&nbsp;{{ number }}, {% endif %}
   {%- if include.date %}{{ date }}. {% endif %}
-  {%- if include.first_page and include.last_page %}pp.&nbsp;{{ first_page }}--{{ last_page }}
+  {%- if include.first_page and include.last_page %}pp.&nbsp;{{ first_page }}--{{ last_page }}. 
   {%- elsif include.first_page %}p.&nbsp;{{ first_page }}. {% endif %}
   {% if include.url %}[{{ url }}]({{ url }}){% endif -%}
 </span>
