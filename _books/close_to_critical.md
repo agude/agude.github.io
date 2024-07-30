@@ -64,6 +64,7 @@ fine but not great book.
       editor="John W. Campbell, Jr."
       volume="51"
       number="4"
+      publisher="Street & Smith Publications"
       date="June 1953"
       first_page="102"
       last_page="114"

@@ -16,6 +16,7 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
 {%- assign editor = include.editor | replace: ' ', '&nbsp;'  if include.editor -%}
 {%- assign volume = include.volume | replace: ' ', '&nbsp;'  if include.volume -%}
 {%- assign number = include.number | replace: ' ', '&nbsp;'  if include.number -%}
+{%- assign publisher = include.publisher | replace: ' ', '&nbsp;'  if include.publisher -%}
 {%- assign first_page = include.first_page -%}
 {%- assign last_page = include.last_page -%}
 {%- assign date = include.date -%}
@@ -28,6 +29,7 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
   {%- if include.editor %}edited by {{ editor }}, {% endif %}
   {%- if include.volume %}vol.&nbsp;{{ volume }}, {% endif %}
   {%- if include.number %}no.&nbsp;{{ number }}, {% endif %}
+  {%- if include.publisher %}{{ publisher }}, {% endif %}
   {%- if include.date %}{{ date }}. {% endif %}
   {%- if include.first_page and include.last_page %}pp.&nbsp;{{ first_page }}--{{ last_page }}. 
   {%- elsif include.first_page %}p.&nbsp;{{ first_page }}. {% endif %}
