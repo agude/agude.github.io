@@ -56,6 +56,15 @@ fine but not great book.
     > understands them. For the author, the rule is to make as few such slips
     > as he possibly can.
 
-    Clement, Hal (June 1953). Campbell, John W., Jr. (ed.). "Whirligig World".
-    _Astounding Science Fiction_. Vol. 51, no. 4. Street & Smith Publications.
-    pp. 102--114.
+    {% include cite.html
+      author_first="Hal"
+      author_last="Clement"
+      title="Whirligig World"
+      publication_title="Astounding Science Fiction"
+      editor="John W. Campbell, Jr."
+      volume="51"
+      number="4"
+      date="June 1953"
+      first_page="102"
+      last_page="114"
+    %}
