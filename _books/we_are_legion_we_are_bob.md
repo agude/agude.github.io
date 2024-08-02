@@ -1,10 +1,10 @@
 ---
-date: 2024-07-26
+date: 2024-08-02
 title: We Are Legion (We Are Bob)
 book_author: Dennis E. Taylor
 series: Bobiverse
 book_number: 1
-rating: null
+rating: 4
 image: /books/covers/we_are_legion_we_are_bob.jpg
 ---
 
