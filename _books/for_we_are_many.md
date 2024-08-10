@@ -8,13 +8,32 @@ rating: 4
 image: /books/covers/for_we_are_many.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a pop sci-fi book, the
-first in the <span class="book-series">{{ page.series }}</span> series. It
-follows Bob Johansson, who dies, gets his brain frozen, and awakens to find
-himself press-ganged into piloting a von Neumann probe.
+<cite class="book-title">{{ page.title }}</cite> the second book in the
+<span class="book-series">{{ page.series }}</span> series. It centers The
+Others storyline while also continuing many of the side stories begun in {%
+include series_link.html series="We Are Legion (We Are Bob)" %}.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 {% capture bob1 %}{% include series_link.html series="We Are Legion (We Are Bob)" %}{% endcapture %}
 {% capture bob3 %}{% include series_link.html series="All These Worlds" %}{% endcapture %}
+{% capture pandora %}{% include series_link.html series="Pandora's Star" %}{% endcapture %}
+
+{{ this_book }} picks up right where {{ bob1 }} leaves off.
+
+In {{ this_book }} the Bobs make backups of themselves, but they realize that
+these backups aren't them, just an entity with the same memories. This is
+different from the view taken in {{ pandora }} which never really grapples
+with the idea of whether or not your backup is you; but neither book dives
+deep on the idea. The point of view of the Bob makes sense because they have
+to be "different people" since backing up is the same process they use to make new
+clones, which **are** clearly "different "people".
+
+- The continued advancement of the Deltans and the banishment of _Bawbe_.
+- Further battles with the now upgrade Brazilian probes.
+- Colonizing the first non-Earth worlds.
+- The reveal of the Others, and the first crushing defeat of the Bobs.
+
+I love the continued fast pace and the higher stakes of {{ this_book }}. I
+can't wait to start {{ bob3 }}.
