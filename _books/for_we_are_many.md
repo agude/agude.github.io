@@ -18,9 +18,18 @@ include series_link.html series="We Are Legion (We Are Bob)" %}.
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 {% capture bob1 %}{% include series_link.html series="We Are Legion (We Are Bob)" %}{% endcapture %}
 {% capture bob3 %}{% include series_link.html series="All These Worlds" %}{% endcapture %}
+{% capture algernon %}{% include series_link.html series="Flowers for Algernon" %}{% endcapture %}
 {% capture pandora %}{% include series_link.html series="Pandora's Star" %}{% endcapture %}
 
 {{ this_book }} picks up right where {{ bob1 }} leaves off.
+
+One thing that annoys me when reading a book is if after 50 pages I can tell
+you how the entire arc of the story is going to go. Reading these books feels
+like slogging through words, and it is one of the things I didn't like about
+{{ algernon }}, for example. The {{ series }} books _should_ have the same
+problem---each storyline is only 15 pages and generally pretty cliche---but
+because there are so many of them I don't really notice; the pace keeps it
+from being a slog.
 
 In {{ this_book }} the Bobs make backups of themselves, but they realize that
 these backups aren't them, just an entity with the same memories. This is
@@ -30,7 +39,10 @@ deep on the idea. The point of view of the Bob makes sense because they have
 to be "different people" since backing up is the same process they use to make new
 clones, which **are** clearly "different "people".
 
-- The continued advancement of the Deltans and the banishment of _Bawbe_.
+- The continued advancement of the Deltans, the discovery of a new predator,
+  and the banishment of _Bawbe_.
+- The death of Homer and the destruction of VEHEMENT.
+- Henry the Australian probe.
 - Further battles with the now upgrade Brazilian probes.
 - Colonizing the first non-Earth worlds.
 - The reveal of the Others, and the first crushing defeat of the Bobs.
