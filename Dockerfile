@@ -1,4 +1,4 @@
-FROM ruby:2
+FROM ruby:3
 
 # Avoid prompt for time zone info.
 ENV DEBIAN_FRONTEND=noninteractive
