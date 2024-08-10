@@ -21,7 +21,16 @@ include series_link.html series="We Are Legion (We Are Bob)" %}.
 {% capture algernon %}{% include series_link.html series="Flowers for Algernon" %}{% endcapture %}
 {% capture pandora %}{% include series_link.html series="Pandora's Star" %}{% endcapture %}
 
-{{ this_book }} picks up right where {{ bob1 }} leaves off.
+{{ this_book }} just continues {{ bob1 }}, continuing the existing storylines
+and adding some more. Some of the ones I liked:
+
+- The continued advancement of the Deltans, the discovery of a new predator,
+  and the banishment of _Bawbe_.
+- The death of Homer and the destruction of VEHEMENT.
+- Henry the Australian probe.
+- Further battles with the now upgrade Brazilian probes.
+- Colonizing the first non-Earth worlds.
+- The reveal of the Others, and the first crushing defeat of the Bobs.
 
 One thing that annoys me when reading a book is if after 50 pages I can tell
 you how the entire arc of the story is going to go. Reading these books feels
@@ -38,14 +47,6 @@ with the idea of whether or not your backup is you; but neither book dives
 deep on the idea. The point of view of the Bob makes sense because they have
 to be "different people" since backing up is the same process they use to make new
 clones, which **are** clearly "different "people".
-
-- The continued advancement of the Deltans, the discovery of a new predator,
-  and the banishment of _Bawbe_.
-- The death of Homer and the destruction of VEHEMENT.
-- Henry the Australian probe.
-- Further battles with the now upgrade Brazilian probes.
-- Colonizing the first non-Earth worlds.
-- The reveal of the Others, and the first crushing defeat of the Bobs.
 
 I love the continued fast pace and the higher stakes of {{ this_book }}. I
 can't wait to start {{ bob3 }}.
