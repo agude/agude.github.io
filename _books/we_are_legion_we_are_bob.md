@@ -19,7 +19,7 @@ himself press-ganged into piloting a von Neumann probe.
 {% capture player_one %}{% include book_link.html title="Ready Player One" %}{% endcapture %}
 {% capture martian %}{% include book_link.html title="The Martian" %}{% endcapture %}
 {% capture murderbot %}{% include series_link.html series="The Murderbot Diaries" %}{% endcapture %}
-{% capture many %}{% include series_link.html series="For We Are Many" %}{% endcapture %}
+{% capture many %}{% include book_link.html title="For We Are Many" %}{% endcapture %}
 
 {{ this_book }} fits squarely in the 2010s "pop sci-fi" movement: it includes
 countless nostalgic references to geek culture like {{ player_one }}; follows

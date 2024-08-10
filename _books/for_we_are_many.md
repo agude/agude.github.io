@@ -11,15 +11,15 @@ image: /books/covers/for_we_are_many.jpg
 <cite class="book-title">{{ page.title }}</cite> the second book in the
 <span class="book-series">{{ page.series }}</span> series. It centers The
 Others storyline while also continuing many of the side stories begun in {%
-include series_link.html series="We Are Legion (We Are Bob)" %}.
+include book_link.html title="We Are Legion (We Are Bob)" %}.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture bob1 %}{% include series_link.html series="We Are Legion (We Are Bob)" %}{% endcapture %}
-{% capture bob3 %}{% include series_link.html series="All These Worlds" %}{% endcapture %}
-{% capture algernon %}{% include series_link.html series="Flowers for Algernon" %}{% endcapture %}
-{% capture pandora %}{% include series_link.html series="Pandora's Star" %}{% endcapture %}
+{% capture bob1 %}{% include book_link.html title="We Are Legion (We Are Bob)" %}{% endcapture %}
+{% capture bob3 %}{% include book_link.html title="All These Worlds" %}{% endcapture %}
+{% capture algernon %}{% include book_link.html title="Flowers for Algernon" %}{% endcapture %}
+{% capture pandora %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
 
 {{ this_book }} just continues {{ bob1 }}, continuing the existing storylines
 and adding some more. Some of the ones I liked:
