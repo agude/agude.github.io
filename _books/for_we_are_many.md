@@ -44,13 +44,14 @@ moves so fast and has so many stories, I couldn't predict the path of the
 narrative even though I could for each piece. In that way, it felt like a
 (much less complicated) {{ pandora }}.
 
-Speaking of which, both the {{ bobiverse }} and the {{ commonwealth_saga }}
-make heavy use of memory backups to cheat death, but take different views of
-what it means: in the Commonwealth universe, a backup is as good as you (even
-if multiple of them can run around at the same time, as in {{ night }}),
-whereas Bob does not consider a backup to be himself, but a new being that
-shares the same memories. Bob's point of view makes sense because backups are
-how he makes new probes, and those **are clearly** "different people".
+There is another way in which the {{ bobiverse }} and the {{ commonwealth_saga
+}} are similar: both make heavy use of memory backups to cheat death. However,
+each takes a different views of what it means. In the Commonwealth universe, a
+backup is as good as the original you (even if multiple of them can run around
+at the same time, as in {{ night }}). Bob, on the other hand, does not
+consider a backup to be himself, but a new being that shares the same
+memories. Bob's point of view makes sense because backups are how he makes new
+probes, and those **are clearly** "different people".
 
 I love the continued fast pace and the higher stakes the Others bring to {{
 this_book }}. I can't wait to start {{ bob3 }}.
