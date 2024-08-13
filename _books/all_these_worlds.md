@@ -1,10 +1,10 @@
 ---
-date: 2024-08-08
+date: 2024-08-12
 title: All These Worlds
 book_author: Dennis E. Taylor
 series: Bobiverse
 book_number: 3
-rating: null
+rating: 4
 image: /books/covers/all_these_worlds.jpg
 ---
 
