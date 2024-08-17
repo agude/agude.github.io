@@ -45,10 +45,11 @@ description: >
   {% include auto_book_card.html title="The Sword of the Lictor" %}
   {% include auto_book_card.html title="Dog Soldier" %}
   {% include auto_book_card.html title="We Are Legion (We Are Bob)" %}
-  {% include auto_book_card.html title="For We Are Many" %}
   {% include auto_book_card.html title="Mossflower" %}
+  {% include auto_book_card.html title="For We Are Many" %}
   {% include auto_book_card.html title="Ymir" %}
   {% include auto_book_card.html title="The Shadow of the Torturer" %}
+  {% include auto_book_card.html title="All These Worlds" %}
 
   {% comment %} 3 Stars {% endcomment %}
 
