@@ -9,13 +9,15 @@ image: /books/covers/mossflower.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the second book in the
-Redwall series. It chronicles the arrival of Martin the Warrior in Mossflower
-Woods and how he saves the woodlanders from the evil wildcat queen, Tsarmina.
+<span class="book-series">{{ page.series }}</span> series. It chronicles the
+arrival of Martin the Warrior in Mossflower Woods and how he saves the
+woodlanders from the evil wildcat queen, Tsarmina.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture redwall %}{% include book_link.html title="Redwall"%}{% endcapture %}
+{% capture mattimeo %}{% include book_link.html title="Mattimeo"%}{% endcapture %}
 
-The structure of the story mirrors {% include book_link.html title="Redwall"
-%} in several ways:
+The structure of the story mirrors {{ redwall }} in several ways:
 
 - Like Mathias, Martin has to go on a quest to get his sword.
 
@@ -34,4 +36,4 @@ meeting with Boar the Fighter and his hares. The badger lords and their Long
 Patrol were always a favorite part of the series for me when I was younger.
 
 My children also enjoyed {{ this_book }}, and we moved straight on to the next
-book in the series, {% include book_link.html title="Mattimeo" %}.
+book in the series, {{ mattimeo }}.
