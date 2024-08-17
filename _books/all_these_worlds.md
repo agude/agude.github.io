@@ -19,7 +19,7 @@ book_link.html title="For We Are Many" %}.
 {% capture bobiverse %}{% include series_link.html series="Bobiverse" %}{% endcapture %}
 {% capture bob1 %}{% include book_link.html title="We Are Legion (We Are Bob)" %}{% endcapture %}
 {% capture bob2 %}{% include book_link.html title="For We Are Many" %}{% endcapture %}
-{% capture bob3 %}{% include book_link.html title="Heaven's River" %}{% endcapture %}
+{% capture bob4 %}{% include book_link.html title="Heaven's River" %}{% endcapture %}
 {% capture commonwealth_saga %}{% include series_link.html series="Commonwealth Saga" %}{% endcapture %}
 {% capture pandora %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
 {% capture fire %}{% include book_link.html title="A Fire Upon The Deep" %}{% endcapture %}
@@ -32,7 +32,7 @@ resonated with me most were:
   Others' homeworld.
 - Life as an android, exploring the legal rights and the ethical implications
   of deciding what happens to one's mind after death.
-- The revolution on Poseidon.
+- The revolution on Poseidon against the authoritarian council.
 
 My main critique of the {{ bobiverse }} is that storylines are always wrapped
 up too neatly and in favor of the Bobs. There are occasional
