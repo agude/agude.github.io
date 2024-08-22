@@ -1,0 +1,65 @@
+{% comment %}
+Back link to other books that mention this book.
+{% endcomment %}
+
+{% comment %} Store the two h2 snippets to variables {% endcomment %}
+
+{% capture h2 %}
+<!-- Related Books -->
+<aside class="book-backlinks">
+  <h2 class="book-backlink-section">Books that mention this one</h2>
+{% endcapture %}
+
+{% capture endh2 %}
+  </div>
+</aside>
+{% endcapture %}
+
+{% comment %}This sorted list will be used in a double for loop to insure that
+books are sorted in their sections{% endcomment %}
+{% assign sorted_titles = "" %}
+
+{% for book in site.books %}
+  {% assign title = book.title | remove: "The " %}
+  {% assign sorted_titles = sorted_titles | append: title | append: "|" %}
+{% endfor %}
+
+{% assign sorted_titles = sorted_titles | split: "|" | sort %}
+
+{% assign this_url = page.url %}
+{% assign placed_books = '' | split: '' %}
+
+{% for sort_title in sorted_titles %}
+  {% for book in site.books %}
+    {% comment %}Check that our book is the right one to stay in alphabetical
+    order.{% endcomment %}
+    {% assign mod_title = book.title | remove: "The " %}
+    {% if mod_title != sort_title %}
+      {% continue %}
+    {% endif %}
+
+    {% comment %}Don't link to yourself{% endcomment %}
+    {% if book.url == this_url %}
+      {% continue %}
+    {% endif %}
+
+    {% comment %}This doesn't always work...{% endcomment %}
+    {% if book.content contains page.title or book.content contains this_url %}
+      {% assign placed_books = placed_books | push: book.title %}
+    {% endif %}
+
+  {% endfor %}
+{% endfor %}
+
+{% comment %}Only place the section if we find backlinks{% endcomment %}
+{% if placed_books.size > 0 %}
+  {{ h2 }}
+
+  <ul class="book-backlink-list">
+  {% for book_title in placed_books %}
+    <li class="book-backlink-item">{% include book_link.html title=book_title %}</li>
+  {% endfor %}
+  </ul>
+
+  {{ endh2 }}
+{% endif %}
