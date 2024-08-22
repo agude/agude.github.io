@@ -7,12 +7,16 @@ Back link to other books that mention this book.
 {% capture h2 %}
 <!-- Related Books -->
 <aside class="book-backlinks">
-  <h2 class="book-backlink-section">Books that mention this one</h2>
+  <h2 class="book-backlink-section">Reviews that mention <span
+      class="book-title">{{ page.title }}</span></h2>
 {% endcapture %}
 
 {% capture endh2 %}
   </div>
 </aside>
+{% endcapture %}
+
+{% capture newline %}
 {% endcapture %}
 
 {% comment %}This sorted list will be used in a double for loop to insure that
@@ -43,8 +47,11 @@ books are sorted in their sections{% endcomment %}
       {% continue %}
     {% endif %}
 
-    {% comment %}This doesn't always work...{% endcomment %}
-    {% if book.content contains page.title or book.content contains this_url %}
+    {% comment %}Check if the title of this page is contained in the other
+    book's review. We have to used the normalized article text because if the
+    title is across a newline then it won't be found.{% endcomment %}
+    {% assign normalized_content = book.content | replace: newline, " " %}
+    {% if normalized_content contains page.title %}
       {% assign placed_books = placed_books | push: book.title %}
     {% endif %}
 
@@ -53,6 +60,7 @@ books are sorted in their sections{% endcomment %}
 
 {% comment %}Only place the section if we find backlinks{% endcomment %}
 {% if placed_books.size > 0 %}
+
   {{ h2 }}
 
   <ul class="book-backlink-list">
