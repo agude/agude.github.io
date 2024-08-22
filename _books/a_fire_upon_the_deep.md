@@ -1,10 +1,10 @@
 ---
-date: 2024-08-13
+date: 2024-08-22
 title: A Fire Upon The Deep
 book_author: Vernor Vinge
 series: Zones of Thought
 book_number: 1
-rating: null
+rating: 5
 image: /books/covers/a_fire_upon_the_deep.jpg
 ---
 
