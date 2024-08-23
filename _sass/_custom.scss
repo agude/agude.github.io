@@ -200,3 +200,15 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
 .book-series {
   font-style: italic;
 }
+
+// Book Backlinks
+.book-backlink-section {
+  font-size: $h456-font-size;
+}
+
+.book-backlinks > ul {
+  list-style-type: "";
+  font-size: $footnote-font-size;
+  column-count: 2;
+  padding: 0;
+}
