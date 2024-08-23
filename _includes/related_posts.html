@@ -24,7 +24,7 @@ category or not.
   <div class="card-grid">
 {% endcapture %}
 
-{% capture close_h2 %}
+{% capture endh2 %}
   </div>
 </aside>
 {% endcapture %}
@@ -95,5 +95,5 @@ category or not.
 {% comment %} Close the h2 divs if they were placed {% endcomment %}
 
 {% if placed_h2 == true %}
-  {{ close_h2 }}
+  {{ endh2 }}
 {% endif %}
