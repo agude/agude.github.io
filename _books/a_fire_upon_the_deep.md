@@ -28,6 +28,8 @@ it.
 {% capture echopraxia %}{% include book_link.html title="Echopraxia" %}{% endcapture %}
 {% capture wattss %}{% include author_link.html name="Peter Watts" possessive=true %}{% endcapture %}
 {% capture gravity %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
+{% capture eater %}{% include book_link.html title="Eater" %}{% endcapture %}
+{% capture river %}{% include book_link.html title="Heaven's River" %}{% endcapture %}
 
 ### Zones of Thought
 
@@ -108,4 +110,7 @@ wattss }} book and the Powers in {{ the_authors }} work.
 
 But despite their alienness, the Tines suffer from being too human in
 motivation. This is a common problems, seen with the Mesklinite in {{ gravity
-}}, the Cheela in {{ dragons_egg }}, and the spiders in {{ deepness }}.
+}}, the Cheela in {{ dragons_egg }}, and the spiders in {{ deepness }}. Only
+really {{ eater }} succeeded in making something that did not feel human,
+although other books---like {{ river }}---excuse their human aliens by arguing
+that evolution forces those traits.
