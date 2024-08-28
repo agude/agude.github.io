@@ -75,7 +75,7 @@ trillions die or are enslaved and solar systems are destroyed. One of the
 posts even berates the other posters for their obsession with a local event
 that just isn't that important to the rest of the galaxy.
 
-[^ender]: 
+[^ender]:
     Like the newsgroups {{ ender }}, it feels a little dated that the
     exact same communication paradime that happened to be popular when the
     book was written persist billions of years into the future.
@@ -100,8 +100,8 @@ The Tines are a race of of dog-like creatures. The individual members are not
 particularly smart, but they form sentient hivemind packs by connecting
 multiple members together through high-frequency sound. This is similar to the
 Bicamerals in {{ echopraxia }}, in which we see that a mind is not limited to
-a physical structure, but to any system connected together with high enough
-bandwidth.
+a physical structure, but can be any system connected together with high
+enough bandwidth.
 
 In fact, both {{ echopraxia }} and {{ this_book }} operate under a similar
 rule: that intelligence is the ultimate advantage. Smarter adversary will
@@ -114,3 +114,31 @@ motivation. This is a common problems, seen with the Mesklinite in {{ gravity
 really {{ eater }} succeeded in making something that did not feel human,
 although other books---like {{ river }}---excuse their human aliens by arguing
 that evolution forces those traits.
+
+The Tines, specifically Flenser and Steeel, are the "street-level badguys".
+They obviously pale in comparison to the Blight, but when they slaughter
+Johanna and Jefri's parents and schoolmates, it feels worse than when the
+Blight kills billions in the background because of how close and personal it
+is.
+
+### The Out of Band II
+
+The main storyline follows the _Out of Band II_, or the _OOB_ as it races away
+from the Blight towards the Tines' homeworld, trying to retrieve a
+countermeasure that could save the galaxy from the Blight. On the ship are:
+
+- Pham Nuwen: a human constructed by the Power "Old One" to serve as his
+  presence in the Beyond, and who now suffers moments of insight even though
+  Old One was destroyed.
+- Ravna Bergsndot: a human librarian and applied theologist.
+- Blueshell and Greenstalk: Sentient aquatic plants that ride around in
+  "Skrodes" that also enhances their limited short term memory.
+
+They barely escape the attack on Relay by the Blight and begin their desperate
+attempt to reach the Tineworld. On the way they attract the attention of
+genocidal butterflies who blame the humans for the Blight, as well as the
+blight itself. They are also betrayed by the Skroderiders, who it turns out
+were created by the Blight 5 billion years prior to act as a [fifth
+column][5th_column].
+
+[5th_column]: https://en.wikipedia.org/wiki/Fifth_column
