@@ -32,6 +32,11 @@ it.
 {% capture river %}{% include book_link.html title="Heaven's River" %}{% endcapture %}
 {% capture bobiverse %}{% include series_link.html series="Bobiverse" %}{% endcapture %}
 
+I first read {{ this_book }} and the prequel {{ deepness }} about 20 years
+ago. I loved them. But they were also one of the last books I read before
+college and grad school took away all my reading time. Now that I'm reading
+again, I was excited to re-read them.
+
 ### Zones of Thought
 
 The core idea in {{ this_book }} is that the galaxy is divided into "zones of
