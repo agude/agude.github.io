@@ -30,6 +30,7 @@ it.
 {% capture gravity %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
 {% capture eater %}{% include book_link.html title="Eater" %}{% endcapture %}
 {% capture river %}{% include book_link.html title="Heaven's River" %}{% endcapture %}
+{% capture bobiverse %}{% include series_link.html series="Bobiverse" %}{% endcapture %}
 
 ### Zones of Thought
 
@@ -151,3 +152,10 @@ Greenstalk being used to try to assassinate Pham. Similarly each Tine is a
 amalgamation of multiple "individuals" each controlled by the whole, but also
 controlled by the personalities that make up the whole. And even Steel and
 Flensers machinations can be seen as a primitive form of control.
+
+{{ this_book }} does such an excellent job of introducing fascinating
+ideas---the zones, the Tines, the Powers---with really well written
+characters where everyone feels unique, with a different personality and
+motivation.
+
+{{ this_book }} is one of my favorite books.
