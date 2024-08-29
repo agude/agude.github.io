@@ -9,6 +9,7 @@ ranked_list:
   # 5 Stars
   - Echopraxia
   - Blindsight
+  - A Fire Upon the Deep
   - Use of Weapons
   - The Player of Games
   - Pandora's Star
