@@ -142,3 +142,12 @@ were created by the Blight 5 billion years prior to act as a [fifth
 column][5th_column].
 
 [5th_column]: https://en.wikipedia.org/wiki/Fifth_column
+
+One of the themes of {{ this_book }} is being in control of yourself. <!--
+TODO: Control feels like the wrong word --> Pham is puppeted by a Power, and
+even after the Power is destroyed the "god shatter" controls his actions some
+of the time. The Skroderiders likewise are taken over by the Blight, with
+Greenstalk being used to try to assassinate Pham. Similarly each Tine is a
+amalgamation of multiple "individuals" each controlled by the whole, but also
+controlled by the personalities that make up the whole. And even Steel and
+Flensers machinations can be seen as a primitive form of control.
