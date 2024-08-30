@@ -34,6 +34,7 @@ ranked_list:
   - The Evolutionary Void
   - The Sword of the Lictor
   - Dog Soldier
+  - Mariel of Redwall
   - We Are Legion (We Are Bob)
   - Mossflower
   - For We Are Many
