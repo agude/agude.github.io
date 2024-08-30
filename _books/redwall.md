@@ -8,14 +8,18 @@ rating: 4
 image: /books/covers/redwall.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the first book in Brian
-Jacques's Redwall series. It tells the story of Mathias, a mouse who follows
-his destiny to become the warrior of Redwall Abbey and defeat the evil rat
-Cluny the Scourge.
+<cite class="book-title">{{ page.title }}</cite> is the first book in <span
+class="author-name">{{ page.book_author }}</span>'s <span
+class="book-series">{{ page.series }}</span> series. It tells the story of
+Mathias, a mouse who follows his destiny to become the warrior of Redwall
+Abbey and defeat the evil rat Cluny the Scourge.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
+{% capture mossflower %}{% include book_link.html title="Mossflower"%}{% endcapture %}
 
-I loved the Redwall series as a child, and I'm now enjoying reading them to my
+I loved the {{ series }} as a child, and I'm now enjoying reading them to my
 own children, ages 6 and 7. Although aimed at children, not adults or even
 young-adults, I didn't find {{ this_book }} annoying to read. The themes are
 simple, the plot is uncomplicated, and it follows a typical hero's quest

@@ -9,8 +9,9 @@ image: /books/covers/mattimeo.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the third book in the
-Redwall series. It begins with the kidnapping of the abbey children by Slagar
-the cruel and follows Mathias as he tries to save them.
+<span class="book-series">{{ page.series }}</span> series. It begins with the
+kidnapping of the abbey children by Slagar the cruel and follows Mathias as he
+tries to save them.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
