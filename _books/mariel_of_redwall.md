@@ -1,10 +1,10 @@
 ---
-date: 2024-08-16
+date: 2024-08-26
 title: Mariel of Redwall
 book_author: Brian Jacques
 series: Redwall
 book_number: 4
-rating: null
+rating: 4
 image: /books/covers/mariel_of_redwall.jpg
 ---
 
