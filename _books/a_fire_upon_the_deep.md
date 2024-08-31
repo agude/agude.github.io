@@ -19,23 +19,29 @@ it.
 {% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
 
 {% capture deepness %}{% include book_link.html title="A Deepness in the Sky" %}{% endcapture %}
-{% capture dragons_egg %}{% include book_link.html title="Dragon's Egg" %}{% endcapture %}
 {% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
-{% capture suns %}{% include book_link.html title="House of Suns" %}{% endcapture %}
+{% capture echopraxia %}{% include book_link.html title="Echopraxia" %}{% endcapture %}
 {% capture ender %}{% include book_link.html title="Ender's Game" %}{% endcapture %}
 {% capture torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
 {% capture phlebas %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
-{% capture echopraxia %}{% include book_link.html title="Echopraxia" %}{% endcapture %}
-{% capture wattss %}{% include author_link.html name="Peter Watts" possessive=true %}{% endcapture %}
+{% capture suns %}{% include book_link.html title="House of Suns" %}{% endcapture %}
 {% capture gravity %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
+{% capture dragons_egg %}{% include book_link.html title="Dragon's Egg" %}{% endcapture %}
 {% capture eater %}{% include book_link.html title="Eater" %}{% endcapture %}
 {% capture river %}{% include book_link.html title="Heaven's River" %}{% endcapture %}
-{% capture bobiverse %}{% include series_link.html series="Bobiverse" %}{% endcapture %}
 
-I first read {{ this_book }} and the prequel {{ deepness }} about 20 years
-ago. I loved them. But they were also one of the last books I read before
-college and grad school took away all my reading time. Now that I'm reading
-again, I was excited to re-read them.
+{% capture wattss %}{% include author_link.html name="Peter Watts" possessive=true %}{% endcapture %}
+
+I first read {{ this_book }} (and the prequel {{ deepness }}) about 20 years
+ago. I loved it then. {{ this_book }} was one of the last books I read before
+college and grad school caused me to stop reading fiction. So I was excited to
+pick this book up again when my book club voted to read it to see how it
+compared to my memory of it.
+
+In short, I still love it. The ideas are so mind-expanding <!-- TODO: Better
+word -->, the characters all have unique personalities, and the story keeps
+moving without slow spots. One of the best books I've read, behind only {{
+blindsight }} and {{ echopraxia }} so far in my list.
 
 ### Zones of Thought
 
@@ -161,6 +167,4 @@ Flensers machinations can be seen as a primitive form of control.
 {{ this_book }} does such an excellent job of introducing fascinating
 ideas---the zones, the Tines, the Powers---with really well written
 characters where everyone feels unique, with a different personality and
-motivation.
-
-{{ this_book }} is one of my favorite books.
+motivation. It is one of my favorite books!
