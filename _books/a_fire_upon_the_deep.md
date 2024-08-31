@@ -30,6 +30,8 @@ it.
 {% capture eater %}{% include book_link.html title="Eater" %}{% endcapture %}
 {% capture river %}{% include book_link.html title="Heaven's River" %}{% endcapture %}
 
+{% capture firefall %}{% include series_link.html series="Firefall" %}{% endcapture %}
+
 {% capture wattss %}{% include author_link.html name="Peter Watts" possessive=true %}{% endcapture %}
 
 I first read {{ this_book }}, and the prequel {{ deepness }}, about 20 years
@@ -62,19 +64,19 @@ and working their way outward:
   place where civilizations that transcend to become Powers move to. The
   Blight and the Old One are from here.
 
-Some characters in the book believe that although the zones seem detrimental,
-they actually allow civilizations to be born and flourish, protected from more
-powerful entities by the zone boundaries---like fish protected from predators
-by the crushing depth of the ocean.
+Some characters in the book believe that although the zones seem detrimental
+to life, they actually allow civilizations to be born and flourish, protected
+from more powerful entities by the zone boundaries---like fish protected from
+predators by the crushing depth of the ocean.
 
-{{ this_book }} shows this theory to be overstated, as the Blight freely crosses
-from the Transcend into the Beyond, and is still able to destroy multiple
-Powers and hundreds of civilizations. The main protagonists, humans attempting
-to stop the Blight, travel from the high Beyond to the low Beyond and into the
-Slow Zone, where even their limited technology gives them a decisive
-advantage. In fact, the theme of more powerful entities crossing the zone
-boundaries is one of the main ones in the book.<!--TODO REWORD AND make other
-parts below not redundant -->
+{{ this_book }} shows this theory to be overstated, as the Blight freely
+crosses from the Transcend into the Beyond, and is still able to destroy
+multiple Powers and hundreds of civilizations. The main protagonists, humans
+attempting to stop the Blight, travel from the high Beyond to the low Beyond
+and into the Slow Zone, where even their limited technology gives them a
+decisive advantage. This theme of more powerful entities crossing zone
+boundaries and influencing less advanced realms is central to the book's plot
+and conflicts.
 
 ### The Blight
 
@@ -101,11 +103,11 @@ with the protagonists literally on the beach, and ends with the death of a
 Power, the destruction of the system, and a mad escape in a half-ready ship.
 There is real tension because you know how strong the Blight is.
 
-By putting the war in the background, the story feels small and personal, but with
-high stakes and a huge impact---just like {{ torturer }}. This is the opposite
-effect that putting the war front-and-center {{ phlebas }} has, as that
-instead shows how trivial heroes are in galactic conflict. <!-- TODO reword
--->
+By putting the war in the background, the story feels close and personal,
+while still conveying high stakes and huge impact---just like {{ torturer }}.
+This contrasts with novels like {{ phlebas }}, where the war is put
+front-and-center to emphasize the insignificance of individuals in the face of
+galactic conflicts.
 
 {{ this_book }} makes the universe feel old, with forgotten history and
 ancient evils, in a way {{ suns }} failed to do.
@@ -119,10 +121,10 @@ Bicamerals in {{ echopraxia }}, in which we see that a mind is not limited to
 a physical structure, but can be any system connected together with high
 enough bandwidth.
 
-In fact, both {{ echopraxia }} and {{ this_book }} operate under a similar
-rule: that intelligence is the ultimate advantage. A smarter adversary will
-almost certainly come out on top, as seen with the various transhumans in {{
-wattss }} book and the Powers in {{ the_authors }} work.
+In fact, both the {{ firefall }} series and {{ this_book }} operate under a
+similar rule: that intelligence is the ultimate advantage. A smarter adversary
+will almost certainly come out on top, as seen with the various transhumans in
+{{ wattss }} book and the Powers in {{ the_authors }} work.
 
 But despite their alienness, the Tines suffer from being too human in
 motivation. This is a common problem, seen with the Mesklinite in {{ gravity
@@ -137,11 +139,21 @@ they slaughter Johanna and Jefri's parents and schoolmates, it feels worse
 than when the Blight kills billions in the background because of how close and
 personal it is.
 
-### The Out of Band II
+Half of the main story takes place on the Tines' world. It focuses on the
+human children Johanna and Jefri Olsndot, who are separated after their ship
+crashes on the planet. Each child is taken in by rival Tine packs: Johanna by
+Woodcarver's more benevolent group, and Jefri by the ruthless Steel. This
+parallel storyline provides a close-up view of Tine society and politics,
+while also exploring how the arrival of advanced human technology impacts
+their medieval-level civilization. It grounds the novel by providing simple,
+human-scale consequences to an otherwise incomprehensibly vast war.
 
-The main storyline follows the _Out of Band II_, or the _OOB_ as it races away
-from the Blight towards the Tines' homeworld, trying to retrieve a
-countermeasure that could save the galaxy from the Blight. On the ship are:
+### The _Out of Band II_
+
+The other half of the main storyline follows the _Out of Band II_, or the
+_OOB_, as it races away from the Blight towards the Tines' homeworld, trying
+to retrieve a countermeasure that could save the galaxy from the Blight. On
+the ship are:
 
 - Pham Nuwen: a human constructed by the Power "Old One" to serve as his
   presence in the Beyond, and who now suffers moments of insight even though
