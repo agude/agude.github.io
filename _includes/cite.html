@@ -11,7 +11,7 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
 
 {%- assign author_last = include.author_last | replace: ' ', '&nbsp;' -%}
 {%- assign author_first = include.author_first | replace: ' ', '&nbsp;' -%}
-{%- assign title = include.title | replace: ' ', '&nbsp;' -%}
+{%- assign title = include.title -%}
 {%- assign publication_title = include.publication_title | replace: ' ', '&nbsp;'  if include.publication_title -%}
 {%- assign editor = include.editor | replace: ' ', '&nbsp;'  if include.editor -%}
 {%- assign volume = include.volume | replace: ' ', '&nbsp;'  if include.volume -%}
@@ -23,7 +23,13 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
 {%- assign url = include.url -%}
 
 <span class="citation">
-  <span class="author_name">{{ author_last }}, {{ author_first }}</span>.
+  {%- if include.author_last and include.author_first -%}
+    <span class="author_name">{{ author_last }}, {{ author_first }}</span>. 
+  {%- else if include.author_last -%}
+    <span class="author_name">{{ author_last }}</span>. 
+  {%- else if include.author_first -%} 
+    <span class="author_name">{{ author_first }}</span>. 
+  {%- endif %}
   "<cite>{{ title }}</cite>."&nbsp;
   {%- if include.publication_title %}<cite>{{ publication_title }}</cite>, {% endif %}
   {%- if include.editor %}edited by {{ editor }}, {% endif %}
