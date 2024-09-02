@@ -18,6 +18,7 @@ her and her father, Joseph the Bellmaker.
 {% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
 {% capture bellmaker %}{% include book_link.html title="Bellmaker"%}{% endcapture %}
 {% capture salamandstron %}{% include book_link.html title="Salamandastron"%}{% endcapture %}
+{% capture redwall %}{% include book_link.html title="Redwall"%}{% endcapture %}
 {% capture redwall_series %}{% include series_link.html series="Redwall" %}{% endcapture %}
 
 {{ this_book }} is the first {{ redwall_series }} book with a female lead. In
@@ -35,6 +36,13 @@ them into the sea, he doesn't interact directly with the woodlanders, instead
 directing his searats from the safety of his island fortress. Still, we
 develop a hatred for him due to how he mistreats all the creatures---friends
 and foes alike---that he encounters.
+
+The forest of Mossflower is also different in this book. {{ the_author }} takes liberties with
+the setting depending on the needs of the story: the Abbey changes shape and the location
+of things shifts. In {{ this_book }}, Mossflower feels dark and dangerous---the hermit 
+Pakatugg is deceitful, herons and pike wait around every corner, and parts are dark and 
+swampy where stepping off the path means death---whereas in {{ redwall }} the woods felt
+safe and bright.
 
 {{ this_book }} also features the first scenes of the Long Patrol hares and the
 Badger lord in combat, which is satisfying after their reputations as warriors
