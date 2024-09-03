@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "A Review of Steelcase's Gesture Chair"
+title: "Steelcase Gesture Review: A Disappointing Upgrade"
 description: >
-  I bought a Steelcase Gesture and sat on it for 8 months. Here is how I liked
-  it.
-image: /files/nookdesk/nookdesk.jpg
+  I spent eight months with the highly-rated Steelcase Gesture, only to be
+  disappointed. In this review, I break down why this expensive ergonomic
+  chair didn't work for me.
+image: /files/steelcase/steelcase_gesture_with_headrest_360_arms_in_lizard.jpg
 image_alt: >
-  The Nookdesk in my office, raised to standing height.
+  The Steelcase Gesture in my office against a wall. The chair has green
+  upholstry and a headrest. The arms are black. The base is silver-grey.
 categories:
   - opinions
 ---
@@ -14,9 +16,9 @@ categories:
 {% capture file_dir %}/files/steelcase/{% endcapture %}
 
 Although I have a [standing desk][desk_review], I still spend more than half
-of my day sitting. The secondhand office chair my brother-in-law gave me
-during the pandemic was falling apart even before I got it, so after four
-years, I decided to upgrade.
+of my day sitting. For four years, I used the secondhand office chair my
+brother-in-law gave me during the pandemic, but it was falling apart even
+before I got it. So I decided it was time to upgrade.
 
 [desk_review]: {% post_url 2020-05-27-nookdesk_review %}
 
@@ -32,7 +34,7 @@ their height or size." After eight months, I've decided they were wrong.
 
 Overall, I am disappointed with the chair, which has an uncomfortable back,
 poor recline, and arms that just don't get out of the way enough to get close
-to my desk. I have replaced it with an Aeron Size C (which I love).
+to my desk. I have replaced it with an Aeron Remastered Size C.
 
 ## My Chair
 
@@ -66,11 +68,12 @@ don't adjust them for each new position or task as Steelcase assumes.
 
 Additionally, the arms aren't as nice as the Aeron's. The Gesture's arms don't
 go as low, about 6 1/2 inches off the seat compared to 5 1/2 for the Aeron.
-This is extremely important to me because I have very long arms. The Gesture's
-arms also stick out further when pushed all the way back (10 inches from the
-back of the chair, compared to 8 for the Aeron). This makes it harder to pull
-the chair under a desk to get close to your keyboard. The pads are a little
-thinner on the Gesture, making it slightly less comfortable.
+This is extremely important to me because I have very long arms compared to my
+torso; the Gesture's arms force my shoulders up. The Gesture's arms also stick
+out further when pushed all the way back (10 inches from the back of the
+chair, compared to 8 for the Aeron). This makes it harder to pull the chair
+under a desk to get close to the keyboard. The pads are a little thinner on
+the Gesture, making it slightly less comfortable.
 
 ## The Back
 
@@ -92,16 +95,10 @@ the problem. I had no problem before using the Gesture.
 The Gesture's back can be locked into 4 different positions, and the spring
 tension can be adjusted from "you can't push this back if you tried" to
 "absolutely no resistance". Unfortunately, the recline just doesn't feel very
-good on my chair. It is either too stiff, or too loose. There is no middle
-ground that feels supportive. I think my spring is broken, because the
-Gestures we have at my office have more better tension.
-
-The Gesture's back can be locked into 4 different positions, and the spring
-tension can be adjusted from "you can't push this back if you tried" to
-"absolutely no resistance". Unfortunately, the recline just doesn't feel very
 good on my chair. It is either too stiff or too loose. There is no middle
 ground that feels supportive. I think my spring is broken because the Gestures
-we have at my office have better tension.
+we have at my company's office have better tension control and a more
+comfortable recline.
 
 The back moves separate from the seat, which feels OK. On the Aeron, the seat
 slides a bit when you recline which feels more natural. Overall, the recline
@@ -113,9 +110,9 @@ The lumbar support is **TERRIBLE**. It pokes me in the back and feels like
 it's trying to push me out of the chair. The curve of the backrest is already
 aggressive, and the lumbar support makes it more so. There is an [entire
 thread on Reddit][reddit][^reddit] about how the lumbar support ruins the
-chair. I followed [Steelcase's guide to removing the lumbar support][pdf] and
-it helped a lot (but I still didn't find it comfortable). I would not buy the
-lumbar support again.
+chair. I followed [Steelcase's guide to removing the backrest pad][pdf] to
+take out the lumbar support and it helped a lot (but I still didn't find it
+comfortable). I would not buy the lumbar support again.
 
 [reddit]: https://www.reddit.com/r/OfficeChairs/comments/rixars/psa_remove_lumbar_support_from_your_steelcase/
 [pdf]: {{ file_dir }}/steelcase_gesture_back_replacement_guide-939544221revA.pdf
@@ -182,6 +179,7 @@ office.
 
 ## Final Thoughts
 
-I don't like my Steelcase Gesture. In the past, when I walked into my office
-in the morning, I'd get a sinking feeling knowing I'd have to sit in it. After
-about eight months, I've replaced it with an Aeron and couldn't be happier.
+I don't like my Steelcase Gesture. For eight months, walking into my home
+office each morning came with a sinking feeling, knowing I'd have to sit in
+this chair. I replaced it with an Aeron, and the difference is night and
+day---I couldn't be happier with the switch.
