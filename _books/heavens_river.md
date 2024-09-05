@@ -1,10 +1,10 @@
 ---
-date: 2024-08-13
+date: 2024-09-05
 title: Heaven's River
 book_author: Dennis E. Taylor
 series: Bobiverse
 book_number: 4
-rating: null
+rating: 4
 image: /books/covers/heavens_river.jpg
 ---
 
