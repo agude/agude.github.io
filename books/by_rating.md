@@ -15,7 +15,7 @@ Below you'll find short reviews of the books I've read, sorted by rating.
 {% assign sorted_titles = "" %}
 
 {% for book in site.books %}
-  {% assign title = book.title | remove: "The " %}
+  {% assign title = book.title | remove: "The " | remove: "A " %}
   {% assign sorted_titles = sorted_titles | append: title | append: "|" %}
 {% endfor %}
 {% assign sorted_titles = sorted_titles | split: "|" | sort %}
@@ -53,7 +53,7 @@ headlines, but not before the first headline.{% endcomment %}
   if we weren't dropping "The " from the title.{% endcomment %}
   {% for sort_title in sorted_titles %}
     {% for book in site.books %}
-      {% assign mod_title = book.title | remove: "The " %}
+      {% assign mod_title = book.title | remove: "The " | remove: "A " %}
 
       {% comment %}Convert both ratings to quoted strings so they are the same
       type, otherwise the `book.rating` is an int, and the `sort_rating` is an

@@ -17,7 +17,7 @@ books are sorted in their sections{% endcomment %}
 {% assign sorted_titles = "" %}
 
 {% for book in site.books %}
-  {% assign title = book.title | remove: "The " %}
+  {% assign title = book.title | remove: "The " | remove: "A " %}
   {% assign sorted_titles = sorted_titles | append: title | append: "|" %}
 {% endfor %}
 
@@ -29,7 +29,7 @@ headlines, but not before the first headline.{% endcomment %}
 
 {% for sort_title in sorted_titles %}
   {% for book in site.books %}
-    {% assign mod_title = book.title | remove: "The " %}
+    {% assign mod_title = book.title | remove: "The " | remove: "A " %}
     {% if mod_title == sort_title %}
 
       {% assign title = book.title %}
