@@ -46,7 +46,7 @@ At first it seems there are several stories:
     Not quite as "overly cute" as the MMORPG-guilds-turned-mercenary Zokus
     from {{ quantum }}, but close.
 
-The first two storylines are actually the same story: the fracturing is
+But the first two storylines are actually the same story: the fracturing is
 accelerated by the contact with the Quinlans in the Topopolis. And the third
 storyline doesn't really take off, obviously being saved for later books.
 
