@@ -54,9 +54,10 @@ the Quinlan topopolis to rescue Bender, which accelerates the fracturing of
 the Bobiverse. The actual investigation of the megastructure and the escape
 from the various groups trying to capture Bob was exciting to read, and
 several of the new characters introduced in those chapters are interesting,
-like Anek-23 and Theresa. But the Bobiverse factions part of the story did
-not interest me. It makes me worried about how I'll like {{ bob5 }}, which I
-think will explore the splintering more.
+like Anek-23 and Theresa. I even missed seeing two twists coming! But the
+Bobiverse factions part of the story did not interest me. It makes me worried
+about how I'll like {{ bob5 }}, which I think will explore the splintering
+more.
 
 Overall, the speed and multiple storylines are what I like most about {{
 bobiverse }}, and this book does away with both. Still fun, but less so.
