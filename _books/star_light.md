@@ -4,7 +4,7 @@ title: Star Light
 book_author: Hal Clement
 series: Mesklin
 book_number: 3
-rating: 3
+rating: 2
 image: /books/covers/star_light.jpg
 ---
 

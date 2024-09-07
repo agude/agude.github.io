@@ -34,6 +34,7 @@ ranked_list:
   - The Temporal Void
   - The Evolutionary Void
   - The Sword of the Lictor
+  - Valuable Humans in Transit and Other Stories
   - Dog Soldier
   - Mariel of Redwall
   - We Are Legion (We Are Bob)
@@ -52,11 +53,11 @@ ranked_list:
   - Flowers for Algernon
   - Chevalier
   - The Claw of the Conciliator
-  - Close to Critical
-  - Star Light
   - The Causal Angel
   - There Is No Antimemetics Division
   # 2 Stars
+  - Close to Critical
+  - Star Light
   - The Quantum Thief
   - The Urth of the New Sun
   # 1 Stars

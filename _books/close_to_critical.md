@@ -4,7 +4,7 @@ title: Close to Critical
 book_author: Hal Clement
 series: Mesklin
 book_number: 2
-rating: 3
+rating: 2
 image: /books/covers/close_to_critical.jpg
 ---
 
