@@ -16,7 +16,7 @@ her and her father, Joseph the Bellmaker.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
-{% capture bellmaker %}{% include book_link.html title="Bellmaker"%}{% endcapture %}
+{% capture bellmaker %}{% include book_link.html title="The Bellmaker"%}{% endcapture %}
 {% capture salamandstron %}{% include book_link.html title="Salamandastron"%}{% endcapture %}
 {% capture redwall %}{% include book_link.html title="Redwall"%}{% endcapture %}
 {% capture redwall_series %}{% include series_link.html series="Redwall" %}{% endcapture %}
@@ -39,8 +39,8 @@ and foes alike---that he encounters.
 
 The forest of Mossflower is also different in this book. {{ the_author }} takes liberties with
 the setting depending on the needs of the story: the Abbey changes shape and the location
-of things shifts. In {{ this_book }}, Mossflower feels dark and dangerous---the hermit 
-Pakatugg is deceitful, herons and pike wait around every corner, and parts are dark and 
+of things shifts. In {{ this_book }}, Mossflower feels dark and dangerous---the hermit
+Pakatugg is deceitful, herons and pike wait around every corner, and parts are dark and
 swampy where stepping off the path means death---whereas in {{ redwall }} the woods felt
 safe and bright.
 
