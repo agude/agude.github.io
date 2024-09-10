@@ -1,5 +1,5 @@
 ---
-date: 2024-09-07
+date: 2024-09-10
 title: Gun, with Occasional Music
 book_author: Jonathan Lethem
 series: null
