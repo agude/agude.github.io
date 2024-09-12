@@ -44,6 +44,7 @@ ranked_list:
   - All These Worlds
   # 3 Stars
   - Mission of Gravity
+  - Gun, With Occasional Music
   - Heaven's River
   - The Dragon's Banker
   - The State of the Art
