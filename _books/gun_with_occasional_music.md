@@ -33,11 +33,11 @@ eye---and Phoneblum---the gangster---and too many "dames" and "broads" to
 count. From {{ pkd }} it borrows a focus on dystopian and surreal technology, drug use,
 cryogenic prisons, karma as a real currency, and uplifted animals.
 
-The world in {{ this_book }} is bleak. It's obviously bad, with murder,
-techno-slaves, engineered babies, drug use for control of the citizenry,
-overbearing police, and curtailed rights. But it is even worse in the hinted
-details: organized rapes by the police, a prison-to-slavery system, and an
-entire class of people that have no rights. And because it is a hardboild
-novel, we see it at street level through Metcalf's eyes, with all the grime
-and violence washing up against him. It makes it feel much more visceral than
-if it were written in another genre.
+The world in {{ this_book }} is bleak. The explicit parts are bad: murder,
+gangsters, techno-slaves, engineered babies, drug use for control of the
+citizenry, overbearing police, and curtailed rights. But it is even worse in
+the more subtle, blink-and-you'll-miss-them details: organized rapes by the
+police, a prison-to-slavery system, an entire class of people that have no
+rights. And because it is a hardboild novel, we see it at street level through
+Metcalf's eyes, with all the grime and violence washing up against him. It
+makes it feel much more visceral than if it were written in another genre.
