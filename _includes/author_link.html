@@ -7,23 +7,36 @@ Otherwise it doesn't work inside footnotes.
 See:
 https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-include-external-content-inside-footnotes
 {% endcomment -%}
+{%- capture newline %}
+{% endcapture -%}
+
+{%- assign target_name = include.name | replace: newline,' ' | strip -%}
+
 {%- assign url = null -%}
 {%- assign possessive = include.possessive | default: false -%}
+{%- assign link_text = include.link_text | default: '' -%}
+{%- assign link_text = link_text | replace: newline,' ' | strip -%}
 
 {%- comment %}Try to find the book and set a URL{% endcomment -%}
 {%- for page in site.pages -%}
-  {%- if page.author_name == include.name and page.layout == "author_page" -%}
+  {%- if page.author_name == target_name and page.layout == "author_page" -%}
     {%- assign url = page.url -%}
     {%- break -%}
   {%- endif -%}
 {%- endfor -%}
 
 {%- comment %}Wrap the name in <span> tags.{% endcomment -%}
-{%- capture wrapped_name -%}<span class="author-name">{{ include.name }}</span>{%- endcapture -%}
+{%- capture wrapped_name -%}<span class="author-name">{{- target_name -}}</span>{%- endcapture -%}
+
+{%- comment %}Set {{ target_title }} depending on if we have a link_text or
+not.{% endcomment -%}
+{%- if include.link_text != '' and include.link_text != null -%}
+  {%- capture wrapped_name -%}<span class="author-name">{{- link_text -}}</span>{%- endcapture -%}
+{%- endif -%}
 
 {%- comment %}Add 's if possessive{% endcomment -%}
 {%- if possessive == true -%}
-  {%- capture wrapped_name -%}{{- include.name -}}'s{%- endcapture -%}
+  {%- capture wrapped_name -%}{{- wrapped_name -}}'s{%- endcapture -%}
 {%- endif -%}
 
 {%- comment %}Wrap again with a link if we find one.{% endcomment -%}
