@@ -2,7 +2,7 @@
 date: 2024-09-13
 title: The Last Policeman
 book_author: Ben H. Winters
-series: Last Policeman
+series: The Last Policeman
 book_number: 1
 rating: 4
 image: /books/covers/the_last_policeman.jpg
