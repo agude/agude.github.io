@@ -4,7 +4,7 @@ title: The Last Policeman
 book_author: Ben H. Winters
 series: Last Policeman
 book_number: 1
-rating: null
+rating: 4
 image: /books/covers/the_last_policeman.jpg
 ---
 
