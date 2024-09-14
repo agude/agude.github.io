@@ -40,6 +40,7 @@ ranked_list:
   - We Are Legion (We Are Bob)
   - Mossflower
   - For We Are Many
+  - The Last Policeman
   - Ymir
   - The Shadow of the Torturer
   - All These Worlds
