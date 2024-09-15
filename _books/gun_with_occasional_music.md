@@ -31,9 +31,10 @@ The cover sports a quote from a Newsweek review: "Marries {{ chandlers }}
 style and {{ pkds }} vision." I've read none of {{ r_chandler }}, and little
 {{ full_pkd }}, but this quote sums up {{ this_book }}'s genre perfectly. From
 {{ chandler }} it brings in Metcalf---the hardboiled, down-on-his-luck private
-eye---and Phoneblum---the gangster---and too many "dames" and "broads" to
-count. From {{ pkd }} it borrows a focus on dystopian and surreal technology,
-drug use, cryogenic prisons, karma as a real currency, and uplifted animals.
+eye---and Phoneblum---the gangster---too many "dames" and "broads" to
+count, and the prose. From {{ pkd }} it borrows a focus on dystopian and
+surreal technology, drug use, cryogenic prisons, karma as a real currency, and
+uplifted animals.
 
 The world in {{ this_book }} is bleak. The parts made explicit in the novel
 are bad: murder, gangsters, techno-slaves, engineered babies, drug use for
