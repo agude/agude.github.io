@@ -25,9 +25,9 @@ out civilization.
 I'm the kind of person who, when I watch a movie, wants to peek around the
 frame. Not to see what the cast and crew are doing on the set, but to see more
 of the world and figure out how it got the way it is. {{ this_book }} offers
-that opportunity. The book takes place just before the apocalypse, the world
-and civilization is falling apart, and it lets us explore how it got to be
-that way.
+that. This book takes place just before the apocalypse, the world and
+civilization is falling apart, and it lets us explore how it got to be that
+way.
 
 The primary plot is a simple whodunit murder. A man is found hanged in a
 McDonald's and only detective Palace believe it is a murder; suicides,
@@ -39,7 +39,10 @@ My favorite parts of {{ this_book }} is the flashbacks and snippets of the
 outsides world we get to see: the day the asteroid was first announced, the
 news conference when the impact probability hit 100%, the brewing war with
 Pakistan to prevent them from nuking the asteroid, the refugees and runaways.
-It made me think about how I would handle the end of the world.
+It made me think about how I would handle the end of the world. It's similar
+to {{ gun }}, the last book I read, in that the world is the main attraction.
+And like {{ gun }}, {{ this_book }} does not quite give me another about the
+world.
 
 The mystery itself was fine, and I was misled by several of the red herrings,
 so much so that at one point I thought the main mystery was over and the rest
