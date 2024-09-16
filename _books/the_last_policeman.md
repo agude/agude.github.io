@@ -29,11 +29,10 @@ that. This book takes place just before the apocalypse, the world and
 civilization is falling apart, and it lets us explore how it got to be that
 way.
 
-The primary plot is a simple whodunit murder. A man is found hanged in a
-McDonald's and only detective Palace believe it is a murder; suicides,
-especially by hanging, are common in Concord, New Hampshire now that the world
-is ending. The secondary plot follows Nico, Palace's younger sister, whose
-husband has gone missing.
+The primary plot is a simple whodunit. A man is found hanged in a McDonald's
+and only detective Palace believe it is a murder; suicides, especially by
+hanging, are common in Concord now that the world is ending. The secondary
+plot follows Palace's younger sister, Nico, whose husband has gone missing.
 
 My favorite parts of {{ this_book }} is the flashbacks and snippets of the
 outsides world we get to see: the day the asteroid was first announced, the
@@ -41,17 +40,18 @@ news conference when the impact probability hit 100%, the brewing war with
 Pakistan to prevent them from nuking the asteroid, the refugees and runaways.
 It made me think about how I would handle the end of the world. It's similar
 to {{ gun }}, the last book I read, in that the world is the main attraction.
-And like {{ gun }}, {{ this_book }} does not quite give me another about the
+And like {{ gun }}, {{ this_book }} does not quite give me enough about the
 world.
 
-The mystery itself was fine, and I was misled by several of the red herrings,
-so much so that at one point I thought the main mystery was over and the rest
+The mystery itself was fine. I was misled by several of the red herrings, so
+much so that at one point I thought the main mystery was solved and the rest
 of the story would focus on the secondary Nico plot. In the end, the Nico plot
-drags down the book: we discover she's calculating psychopath who marries her
-husband only to send him to die in order to find out more about the
+drags down the book: we discover she's a calculating psychopath who marries
+her husband only to send him to die in order to find out more about the
 government's secret plan to save to world. It comes out of nowhere and is
-clearly setting up the underlying thread that ties all three novels together.
-I hope its another red herring, the hopelessness of the book is so compelling,
-I would hate to have it rendered pointless.
+clearly setting up the thread that ties all three novels together. I hope it's
+another red herring, because the hopelessness of the book is so compelling, I
+would hate to have it rendered pointless.
 
-Next up is {{ lpm2 }}.
+{{ this_book }} is a fast and fun read, and I look forward to seeing how the
+world changes as the asteroid gets closer in {{ lpm2 }}.
