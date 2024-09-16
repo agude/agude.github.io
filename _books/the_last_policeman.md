@@ -24,10 +24,9 @@ out civilization.
 
 I'm the kind of person who, when I watch a movie, wants to peek around the
 frame. Not to see what the cast and crew are doing on the set, but to see more
-of the world and figure out how it got the way it is. {{ this_book }} offers
-that. This book takes place just before the apocalypse, the world and
-civilization is falling apart, and it lets us explore how it got to be that
-way.
+of the world and figure out how it got the way it is. That was what drew me to
+{{ this_book }}, the opportunity to explore the world just before the
+apocalypse, and to understand how it got to be the way it is.
 
 The primary plot is a simple whodunit. A man is found hanged in a McDonald's
 and only detective Palace believe it is a murder; suicides, especially by
