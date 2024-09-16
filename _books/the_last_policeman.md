@@ -38,19 +38,19 @@ outsides world we get to see: the day the asteroid was first announced, the
 news conference when the impact probability hit 100%, the brewing war with
 Pakistan to prevent them from nuking the asteroid, the refugees and runaways.
 It made me think about how I would handle the end of the world. It's similar
-to {{ gun }}, the last book I read, in that the world is the main attraction.
-And like {{ gun }}, {{ this_book }} does not quite give me enough about the
-world.
+to {{ gun }}, the last book I read, in that the world is the main attraction,
+the detective story is secondary. And like {{ gun }}, {{ this_book }} does not
+quite give me enough of the world.
 
 The mystery itself was fine. I was misled by several of the red herrings, so
 much so that at one point I thought the main mystery was solved and the rest
-of the story would focus on the secondary Nico plot. In the end, the Nico plot
-drags down the book: we discover she's a calculating psychopath who marries
-her husband only to send him to die in order to find out more about the
-government's secret plan to save to world. It comes out of nowhere and is
-clearly setting up the thread that ties all three novels together. I hope it's
-another red herring, because the hopelessness of the book is so compelling, I
-would hate to have it rendered pointless.
+of the story would focus on the Nico plot. In the end, the Nico plot drags the
+book down: we discover she's a calculating psychopath who married her husband
+in order to send him to die to find out about the government's secret plan to
+save to world. It comes out of nowhere and is clearly setting up the thread
+that ties all three novels together. I hope it's another red herring, because
+the hopelessness of the book is so compelling, I would hate to have it
+rendered pointless.
 
 {{ this_book }} is a fast and fun read, and I look forward to seeing how the
 world changes as the asteroid gets closer in {{ lpm2 }}.
