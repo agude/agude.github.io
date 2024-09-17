@@ -36,13 +36,14 @@ secondary plot follows Palace's younger sister, Nico, whose husband has gone
 missing.
 
 My favorite parts of {{ this_book }} are the flashbacks and glimpses of the
-outside world: the day the asteroid was first announced, the
-news conference when the impact probability hit 100%, the brewing war with
-Pakistan to prevent them from nuking the asteroid, and the refugees and runaways.
-It made me think about how I would handle the end of the world. The book is similar
-to {{ gun }}, in that the world is the main attraction and the detective story
-is secondary. And like {{ gun }}, {{ this_book }} doesn't quite give me enough
-of the world.
+outside world: the day the asteroid was first announced, the news conference
+when the impact probability hit 100%, the brewing war with Pakistan to prevent
+them from nuking the asteroid, and slow breakdown of society as people run off
+to live as they've always wanted now that they can see the end. It made me
+think about how I would handle the end of the world. The book is similar to {{
+gun }}, in that the world is the main attraction and the detective story is
+secondary. And like {{ gun }}, {{ this_book }} doesn't quite give me enough of
+the world.
 
 The mystery itself was fine. I was misled by several red herrings, so much so
 that at one point I thought the main mystery was solved and the rest of the
