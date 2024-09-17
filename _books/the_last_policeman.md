@@ -11,8 +11,8 @@ image: /books/covers/the_last_policeman.jpg
 <cite class="book-title">{{ page.title }}</cite> by <span
 class="author-name">{{ page.book_author }}</span> is an apocalyptic detective
 novel set in Concord, New Hampshire. It follows Detective Palace as he tries
-to solve a murder six months before a K-T impact level asteroid is set to wipe
-out civilization.
+to solve a murder six months before an asteroid is set to wipe out
+civilization.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -27,7 +27,7 @@ When I watch a movie, I always want to peek around the frame. Not to see what
 the cast and crew are doing on set, but to see more of the world and figure
 out how it got to be the way it is. That's what drew me to {{ this_book
 }}---the opportunity to explore the world just before the apocalypse and
-understand how it reached this point.
+understand how it reached that point.
 
 The primary plot is a straightforward whodunit. A man is found hanged in a
 McDonald's, and only Detective Palace believes it's murder; suicides,
