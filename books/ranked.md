@@ -47,6 +47,7 @@ ranked_list:
   # 3 Stars
   - Mission of Gravity
   - Gun, with Occasional Music
+  - Countdown City
   - Heaven's River
   - The Dragon's Banker
   - The State of the Art
