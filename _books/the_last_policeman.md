@@ -22,7 +22,6 @@ civilization.
 {% capture gun %}{% include book_link.html title="Gun, with Occasional Music" %}{% endcapture %}
 {% capture lpm2 %}{% include book_link.html title="Countdown City" %}{% endcapture %}
 
-
 When I watch a movie, I always want to peek around the frame. Not to see what
 the cast and crew are doing on set, but to see more of the world and figure
 out how it got to be the way it is. That's what drew me to {{ this_book
