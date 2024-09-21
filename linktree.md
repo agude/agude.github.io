@@ -12,15 +12,15 @@ sidebar_include: false
 
 <div class="linktree-container">
 
-  {% comment %} Twitter {% endcomment %}
-  {% capture twitter_url %}https://twitter.com/{{ site.author.twitter }}{% endcapture %}
-  {% capture twitter_text %}Twitter: @{{ site.author.twitter }}{% endcapture %}
-  {% capture twitter_icon %}{% include icon-twitter.svg %}{% endcapture %}
+  {% comment %} Bluesky {% endcomment %}
+  {% capture bluesky_url %}https://bsky.app/profile/{{ site.author.bluesky }}{% endcapture %}
+  {% capture bluesky_text %}Bluesky: @{{ site.author.bluesky }}{% endcapture %}
+  {% capture bluesky_icon %}{% include icon-bluesky.svg %}{% endcapture %}
   {% include linktree_item.html
-    link=twitter_url
-    text=twitter_text
-    icon=twitter_icon
-    button_class="twitter-button"
+    link=bluesky_url
+    text=bluesky_text
+    icon=bluesky_icon
+    button_class="bluesky-button"
   %}
 
   {% comment %} Mastodon {% endcomment %}
@@ -32,6 +32,17 @@ sidebar_include: false
     text=mastodon_text
     icon=mastodon_icon
     button_class="mastodon-button"
+  %}
+
+  {% comment %} Twitter {% endcomment %}
+  {% capture twitter_url %}https://twitter.com/{{ site.author.twitter }}{% endcapture %}
+  {% capture twitter_text %}Twitter: @{{ site.author.twitter }}{% endcapture %}
+  {% capture twitter_icon %}{% include icon-twitter.svg %}{% endcapture %}
+  {% include linktree_item.html
+    link=twitter_url
+    text=twitter_text
+    icon=twitter_icon
+    button_class="twitter-button"
   %}
 
   {% comment %} Github {% endcomment %}
