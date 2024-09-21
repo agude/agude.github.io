@@ -30,8 +30,8 @@ resolution---that Martha has run away with her father---is a letdown. I
 expected something cleverer, and it felt disappointingly simple.
 
 The Nico-saves-the-world storyline continues, with her appearing in a
-helicopter, a literal [machina][dem], to rescue Palace after he and
-Bret are shot. At this point in the story, there isn't even running water or
+helicopter, a literal [_machina_][dem], to rescue Palace after he and Bret are
+shot. At this point in the story, there isn't even running water or
 electricity, so a helicopter seems fantastical. It makes me even more
 concerned that Nico and her group are actually going to save the world, which
 would undermine the feeling of hopelessness these books have carefully built.
@@ -44,7 +44,8 @@ children on refugee ships, the police are barely more than a gang, and power
 and water have been cut off, leading former neighbors to kill each other over
 supplies. I also loved the snippets about the Mayfair Commission, where
 Congress was pointlessly hauling former NASA directors in for questioning
-about how they could have missed the asteroid.
+about how they could have missed the asteroid. Even with the world ending, the
+bureaucracy continues.
 
 However, the flashbacks, my favorite parts of the first book, are mostly gone.
 We see the world as it is but lose out on learning how it got to be that way.
