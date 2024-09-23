@@ -1,10 +1,10 @@
 ---
-date: 2024-09-18
+date: 2024-09-23
 title: World of Trouble
 book_author: Ben H. Winters
 series: The Last Policeman
 book_number: 3
-rating: null
+rating: 3
 image: /books/covers/world_of_trouble.jpg
 ---
 
