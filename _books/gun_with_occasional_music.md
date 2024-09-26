@@ -47,8 +47,7 @@ against him. This makes it feel much more visceral than if it were written in
 another genre.
 
 The mystery is a standard whodunit, with Metcalf trying to solve the murder of
-Dr. Stanhunt. Metcalf discovers an underworld where the gangster Phoneblum---
-and his enforcer, an uplifted kangaroo---sell illegal drugs, run slavery
+Dr. Stanhunt. Metcalf discovers an underworld where the gangster Phoneblum---and his enforcer, an uplifted kangaroo---sell illegal drugs, run slavery
 prostitution rings, and kill freely. Wanting to put all the pieces together is
 enough to keep the reader going, but the mystery isn't itself the focus.
 Instead, what intrigued me the most was the world, but it was unfortunately
