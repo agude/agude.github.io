@@ -42,5 +42,5 @@ and the secret documents.
 While the book has some engaging scenes, such as the encounter with the Amish
 community and the couple raising chickens in their camper, the mystery and
 world-building aspects fall short. The series, which began with such promise
-in {{ lpm1 }}, ultimately fails to deliver on its potential. As a reader, I'm
-ready to move on.
+in {{ lpm1 }}, ultimately fails to deliver on its potential. I'm glad to move
+on.
