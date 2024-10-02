@@ -1,10 +1,10 @@
 ---
-date: 2024-09-25
+date: 2024-10-02
 title: Inversions
 book_author: Iain M. Banks
 series: Culture
 book_number: 6
-rating: null
+rating: 4
 image: /books/covers/inversions.jpg
 ---
 
