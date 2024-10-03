@@ -4,7 +4,7 @@ title: Inversions
 book_author: Iain M. Banks
 series: Culture
 book_number: 6
-rating: 4
+rating: 5
 image: /books/covers/inversions.jpg
 ---
 
