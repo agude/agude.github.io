@@ -12,6 +12,7 @@ ranked_list:
   - A Fire Upon the Deep
   - Use of Weapons
   - The Player of Games
+  - Inversions
   - Pandora's Star
   - Judas Unchained
   - Night Without Stars
