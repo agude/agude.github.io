@@ -31,9 +31,9 @@ manipulate a medieval society.
 
 {{ this_book }} is polarizing: on [goodreads][gr] it has a reader score of
 3.95---lower than any other Culture novel except {{ c1 }}. I understand why:
-the {{ this_series }} is generally "space opera", and {{ this_book }} has not
-a single spaceship, ray gun, or Mind. It reads like standard fantasy with only
-hints of technology. And I loved it.
+the {{ this_series }} is generally "space opera", and {{ this_book }} doesn't
+have a single spaceship, ray gun, or Mind. It reads like standard fantasy with
+only hints of technology. And I loved it.
 
 [gr]: https://www.goodreads.com/book/show/12017.Inversions
 
@@ -71,8 +71,11 @@ murdered her family, while Vosill faces an attempted rape before her knife
 missile intervenes. This reliance on sexual assault to threaten the characters
 feels exploitative.
 
-I appreciate how {{ the_author }}} changes his style in each book in {{
-this_series }}: from the point of view of the other side in {{ c1 }}, telling
-the story backward and forward in {{ c3 }}, with a heavy focus on the Minds in
-{{ c5 }}, and from a low-tech perspective in {{ this_book }}. I can't wait to
-see what he does in {{ c7 }}.
+I appreciate how {{ the_author }} changes his style in each book in {{
+this_series }}: from the point of view of the Culture's enemies in {{ c1 }};
+through the lens of a reluctant game player in {{ c2 }}; telling the story
+backward and forward simultaneously in {{ c3 }}; with a heavy focus on the
+Minds in {{ c5 }}; and now from a low-tech perspective with intertwined
+narratives in {{ this_book }}. Each novel brings something fresh to the series
+while expanding our understanding of the Culture. I can't wait to see what he
+does in {{ c7 }}.
