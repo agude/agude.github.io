@@ -45,13 +45,13 @@ The title, {{ this_book }}, refers to several different things:
   perspective of the manipulated civilization.
 
 - DeWar and Vosill's ideas of how best to do good _invert_ in the story. In
-  DeWar's stories of their past, he thought sometimes evil was necessary for
-  the greater good while Vosill believed it wasn't. In the present, DeWar is a
+  DeWar's tales of their past, he thought sometimes evil was necessary for the
+  greater good while Vosill believed it wasn't. In the present, DeWar is a
   bodyguard who kills only in defense, while Vosill steers the course of the
   world through manipulation and assassination.
 
 - There are many role _inversions_ as well:  DeWar is an assassin who
-  protects, Vosill is a doctor who kills. The UrLeyn is an oppressive
+  protects, Vosill is a doctor who kills. UrLeyn is an oppressive
   anti-monarchist, Quience is a democratizing monarch.
 
 {{ this_book }} is similar to {{ torture }}. Both are sci-fi novels that take
@@ -71,12 +71,11 @@ murdered her family, while Vosill faces an attempted rape before her knife
 missile intervenes. This reliance on sexual assault to threaten the characters
 feels exploitative.
 
-I appreciate how {{ the_author }} changes his style in each book in {{ series
-}}: from the point of view of the Culture's enemies in {{ c1 }}; through the
-lens of a reluctant game player in {{ c2 }}; telling the story backward and
-forward simultaneously in {{ c3 }}; with a heavy focus on the Minds in {{ c5
-}}; and now from a low-tech perspective with intertwined narratives in {{
-this_book }}. Each novel brings something fresh to the series while expanding
-our understanding of the Culture. {{ the_authors }} ability to reinvent his
-approach while maintaining the quality of his storytelling makes him one of my
-favorite authors. I can't wait to see what he does in {{ c7 }}.
+With this book, {{ the_author }} has become one of my favorite authors. He is
+able to reinvent his style with each book in {{ the_series }}: telling the
+story from the point of view of the Culture's enemies in {{ c1 }}; through the
+lens of a reluctant game player in {{ c2 }}; backwards and forward
+simultaneously in {{ c3 }}; with a heavy focus on the Minds in {{ c5 }}; and
+now from a low-tech perspective with intertwined narratives in {{ this_book
+}}. Each novel brings something fresh to the series while expanding our
+understanding of the Culture. I can't wait to see what he does in {{ c7 }}.
