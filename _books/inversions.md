@@ -71,11 +71,11 @@ murdered her family, while Vosill faces an attempted rape before her knife
 missile intervenes. This reliance on sexual assault to threaten the characters
 feels exploitative.
 
-With this book, {{ the_author }} has become one of my favorite authors. He is
-able to reinvent his style with each book in {{ the_series }}: telling the
-story from the point of view of the Culture's enemies in {{ c1 }}; through the
-lens of a reluctant game player in {{ c2 }}; backwards and forward
-simultaneously in {{ c3 }}; with a heavy focus on the Minds in {{ c5 }}; and
-now from a low-tech perspective with intertwined narratives in {{ this_book
-}}. Each novel brings something fresh to the series while expanding our
-understanding of the Culture. I can't wait to see what he does in {{ c7 }}.
+With {{ this_book }}, {{ the_author }} has become one of my favorite authors.
+He reinvents his style with each book in {{ series }}: telling the story from
+the point of view of the Culture's enemies in {{ c1 }}; through the lens of a
+reluctant game player in {{ c2 }}; backwards and forwards simultaneously in {{
+c3 }}; with a heavy focus on the Minds in {{ c5 }}; and now from a low-tech
+perspective with intertwined narratives in {{ this_book }}. Each novel brings
+something fresh to the series while expanding our understanding of the
+Culture. I can't wait to see what he does in {{ c7 }}.
