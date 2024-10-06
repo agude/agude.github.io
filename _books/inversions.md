@@ -19,8 +19,7 @@ manipulate a medieval society.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 {% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-<!-- TODO FIX THIS LINK -->
-{% capture this_series %}{% include series_link.html series_name="Culture" %} series{% endcapture %}
+{% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
 
 {% capture c1 %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
 {% capture c2 %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
