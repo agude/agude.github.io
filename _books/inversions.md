@@ -76,6 +76,7 @@ this_series }}: from the point of view of the Culture's enemies in {{ c1 }};
 through the lens of a reluctant game player in {{ c2 }}; telling the story
 backward and forward simultaneously in {{ c3 }}; with a heavy focus on the
 Minds in {{ c5 }}; and now from a low-tech perspective with intertwined
-narratives in {{ this_book }}. Each novel brings something fresh to the series
-while expanding our understanding of the Culture. I can't wait to see what he
-does in {{ c7 }}.
+narratives in {{ this_book }}. With the way each novel brings something fresh
+to the series while expanding our understanding of the Culture, {{ the_author
+}} is quickly becoming my favorite. I can't wait to see what he does in {{ c7
+}}.
