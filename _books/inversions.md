@@ -24,6 +24,7 @@ manipulate a medieval society.
 {% capture c1 %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
 {% capture c2 %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
 {% capture c3 %}{% include book_link.html title="Use of Weapons" %}{% endcapture %}
+{% capture c5 %}{% include book_link.html title="Excession" %}{% endcapture %}
 {% capture c7 %}{% include book_link.html title="Look to Windward" %}{% endcapture %}
 
 {% capture torture %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
@@ -70,6 +71,8 @@ murdered her family, while Vosill faces an attempted rape before her knife
 missile intervenes. This reliance on sexual assault to threaten the characters
 feels exploitative.
 
-{{ this_book }} is another great entry in the {{ this_series }}. I appreciate
-how {{ the_author }} changes his style for each book. I can't wait to see what
-he does in {{ c7 }}.
+I appreciate how {{ the_author }}} changes his style in each book in {{
+this_series }}: from the point of view of the other side in {{ c1 }}, telling
+the story backward and forward in {{ c3 }}, with a heavy focus on the Minds in
+{{ c5 }}, and from a low-tech perspective in {{ this_book }}. I can't wait to
+see what he does in {{ c7 }}.
