@@ -16,28 +16,42 @@ in liquid is to capture it (it doesn't understand \n).
 {%- capture newline %}
 {% endcapture -%}
 
-{%- assign target_title = include.title | replace: newline,' ' | strip -%}
+{%- assign target_title = include.title | replace: newline,' ' | downcase | strip -%}
+
+{%- comment -%}Assign link_text here incase we don't find a link.
+{%- endcomment -%}
+{%- if include.link_text != '' and include.link_text != null -%}
+  {%- assign link_text = include.link_text | replace: newline,' ' | strip -%}
+{%- else -%}
+  {%- assign link_text = include.title | replace: newline, ' ' | strip -%}
+{%- endif -%}
 
 {%- comment %}Try to find the book and set a URL{% endcomment -%}
 {%- assign url = null -%}
 {%- assign books = site.books -%}
 {%- for book in books -%}
-  {%- assign potential_title = book.title | replace: newline,' ' | strip -%}
+  {%- assign potential_title = book.title | replace: newline,' ' | downcase | strip -%}
   {%- if potential_title == target_title -%}
+
     {%- assign url = book.url -%}
+
+    {%- comment %}Set the text for the link depending on if we have a
+    link_text or not. Default to the page name so that link text is
+    standardized across articles.{% endcomment -%}
+    {%- if include.link_text != '' and include.link_text != null -%}
+      {%- assign link_text = include.link_text | replace: newline,' ' | strip -%}
+    {%- else -%}
+      {%- assign link_text = book.title | replace: newline, ' ' | strip -%}
+    {%- endif -%}
+
     {%- break -%}
+
   {%- endif -%}
 {%- endfor -%}
 
-{%- comment %}Set {{ target_title }} depending on if we have a link_text or
-not.{% endcomment -%}
-{%- if include.link_text != '' and include.link_text != null -%}
-  {%- assign target_title = include.link_text | replace: newline,' ' | strip -%}
-{%- endif -%}
-
 {%- comment %}Wrap the {{ target_title }} in <cite> tags.
 We use target_title because it's been cleaned up already.{% endcomment -%}
-{%- capture wrapped_title -%}<cite class="book-title">{{ target_title }}</cite>{%- endcapture -%}
+{%- capture wrapped_title -%}<cite class="book-title">{{ link_text }}</cite>{%- endcapture -%}
 
 {%- comment %}Wrap again with a link if we find one.{% endcomment -%}
 {%- if url and page.url != url -%}

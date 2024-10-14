@@ -10,29 +10,42 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
 {%- capture newline %}
 {% endcapture -%}
 
-{%- assign target_name = include.name | replace: newline,' ' | strip -%}
+{%- assign target_name = include.name | replace: newline,' ' | downcase | strip -%}
 
-{%- assign url = null -%}
+{%- comment -%}Assign link_text here incase we don't find a link.
+{%- endcomment -%}
+{%- if include.link_text != '' and include.link_text != null -%}
+  {%- assign link_text = include.link_text | replace: newline,' ' | strip -%}
+{%- else -%}
+  {%- assign link_text = include.name | replace: newline, ' ' | strip -%}
+{%- endif -%}
+
 {%- assign possessive = include.possessive | default: false -%}
-{%- assign link_text = include.link_text | default: '' -%}
-{%- assign link_text = link_text | replace: newline,' ' | strip -%}
 
 {%- comment %}Try to find the book and set a URL{% endcomment -%}
+{%- assign url = null -%}
 {%- for page in site.pages -%}
-  {%- if page.author_name == target_name and page.layout == "author_page" -%}
+  {%- assign test_name = page.author_name | downcase | strip -%}
+  {%- if test_name == target_name and page.layout == "author_page" -%}
+
     {%- assign url = page.url -%}
+
+    {%- comment %}Set the text for the link depending on if we have a
+    link_text or not. Default to the page name so that link text is
+    standardized across articles.{% endcomment -%}
+    {%- if include.link_text != '' and include.link_text != null -%}
+      {%- assign link_text = include.link_text | replace: newline,' ' | strip -%}
+    {%- else -%}
+      {%- assign link_text = page.author_name | replace: newline, ' ' | strip -%}
+    {%- endif -%}
+
     {%- break -%}
+
   {%- endif -%}
 {%- endfor -%}
 
 {%- comment %}Wrap the name in <span> tags.{% endcomment -%}
-{%- capture wrapped_name -%}<span class="author-name">{{- target_name -}}</span>{%- endcapture -%}
-
-{%- comment %}Set {{ target_title }} depending on if we have a link_text or
-not.{% endcomment -%}
-{%- if include.link_text != '' and include.link_text != null -%}
-  {%- capture wrapped_name -%}<span class="author-name">{{- link_text -}}</span>{%- endcapture -%}
-{%- endif -%}
+{%- capture wrapped_name -%}<span class="author-name">{{- link_text -}}</span>{%- endcapture -%}
 
 {%- comment %}Add 's if possessive{% endcomment -%}
 {%- if possessive == true -%}
