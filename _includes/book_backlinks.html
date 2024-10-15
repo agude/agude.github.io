@@ -24,7 +24,7 @@ books are sorted in their sections{% endcomment %}
 {% assign sorted_titles = "" %}
 
 {% for book in site.books %}
-  {% assign title = book.title | remove: "The " %}
+  {% assign title = book.title | remove: "The " | downcase | strip %}
   {% assign sorted_titles = sorted_titles | append: title | append: "|" %}
 {% endfor %}
 
@@ -37,7 +37,7 @@ books are sorted in their sections{% endcomment %}
   {% for book in site.books %}
     {% comment %}Check that our book is the right one to stay in alphabetical
     order.{% endcomment %}
-    {% assign mod_title = book.title | remove: "The " %}
+    {% assign mod_title = book.title | remove: "The " | downcase | strip %}
     {% if mod_title != sort_title %}
       {% continue %}
     {% endif %}
