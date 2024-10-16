@@ -1,10 +1,10 @@
 ---
-date: 2024-10-15
+date: 2024-10-16
 title: Look To Windward
 book_author: Iain M. Banks
 series: Culture
 book_number: 7
-rating: null
+rating: 5
 image: /books/covers/look_to_windward.jpg
 ---
 
