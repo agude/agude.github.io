@@ -11,6 +11,7 @@ ranked_list:
   - Blindsight
   - A Fire Upon the Deep
   - Use of Weapons
+  - Look to Windward
   - The Player of Games
   - Inversions
   - Pandora's Star
