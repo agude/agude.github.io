@@ -10,7 +10,8 @@ image: /books/covers/look_to_windward.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is the seventh <span
-class="book-series">{{ page.series }}</span> book.
+class="book-series">{{ page.series }}</span> book. It explores the aftermath
+of the Idiran–Culture War and Chelgrian civil war.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -34,13 +35,14 @@ class="book-series">{{ page.series }}</span> book.
 {% capture pandora %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
 {% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
 {% capture river %}{% include book_link.html title="Heaven's River" %}{% endcapture %}
+{% capture valuable %}{% include book_link.html title="Valuable Humans in Transit and Other Stories" %}{% endcapture %}
 
 The story takes place mostly on the Masaq' Orbital as the light from the last
 battle of the Idiran--Culture war reaches the habitat and the people reflect
 on the conflict. The primary characters are:
 
 - The composer Mahrai Ziller, a cat-like Chelgrian in self-imposed exile
-  from his people, hired to compose a symphony in commemorating the end of the
+  from his people, hired to compose a symphony commemorating the end of the
   war.
 - Major Quilan, a Chelgrian operative nominally visiting Masaq' to convince
   Ziller to return to his home world, but is really on a mission of revenge.
@@ -104,11 +106,30 @@ completely erase themselves from the universe.
 ## Thoughts
 
 Although nothing really happens in {{ this_book }}, I loved it as a tour of a
-Culture Orbital, and for the deep characters.
+Culture Orbital, and for the deep characters: Quilan and the Hub are great
+representations of veterans suffering from PTSD.[^gulf_war]
 
-The memory backups in case of death (and the Culture Citizen's love for
-extreme, deadly sports because of it) remind me of the Commonwealth humans in
-{{ pandora }}. The fact that the sublimed Chelgrian created their own
-literally heaven is reminiscent of the virtual heaven in {{ blindsight }}.
-Masaq' Orbital's Great River the circles the entire mega-structure probably
-influenced {{ river }}.
+[^gulf_war]: The book is dedicated "For the Gulf War Veterans".
+
+I also loved the red herring of Zlepe's story, rushing to try to warn the
+Culture of the pending attack, only for it to result in his death and the
+revelation that the Culture knew all along. It's a fresher take on the "people
+are small point" that is more effective than {{ c1 }} because it subverts the
+expectation of having a hero save the day more clearly.
+
+I enjoyed the discussion between Ziller and the Hub about art, and why Ziller
+should write music if any Culture Mind could perfectly mimic his style and do
+it better. It feels applicable to a lot of the questions we see now about [AI's
+place in art][art].
+
+[art]: {% post_url 2023-01-30-ai_artists_and_technology %}
+
+{{ this_book }} reminded me of other books I've read recently: the memory
+backups in case of death (and the Culture Citizen's love for extreme, deadly
+sports because of it) remind me of the Commonwealth humans in {{ pandora }}.
+The fact that the sublimed Chelgrian created their own literally heaven is
+reminiscent of the virtual heaven in {{ blindsight }}. Masaq' Orbital's Great
+River the circles the entire mega-structure probably influenced {{ river }}.
+The admission that sometimes Minds will scan peoples' brains without
+permission in order to save them from death reminded me of the titular short
+story from {{ valuable }}.
