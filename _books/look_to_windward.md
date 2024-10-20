@@ -31,6 +31,10 @@ class="book-series">{{ page.series }}</span> book.
 {% capture the_wasteland %}{% include book_link.html title="The Waste Land" %}{% endcapture %}
 {% capture the_wasteland_nolink %}<cite class="book-title">The Waste Land</cite>{% endcapture %}
 
+{% capture pandora %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
+{% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
+{% capture river %}{% include book_link.html title="Heaven's River" %}{% endcapture %}
+
 The story takes place mostly on the Masaq' Orbital as the light from the last
 battle of the Idiran--Culture war reaches the habitat and the people reflect
 on the conflict. The primary characters are:
@@ -101,3 +105,10 @@ completely erase themselves from the universe.
 
 Although nothing really happens in {{ this_book }}, I loved it as a tour of a
 Culture Orbital, and for the deep characters.
+
+The memory backups in case of death (and the Culture Citizen's love for
+extreme, deadly sports because of it) remind me of the Commonwealth humans in
+{{ pandora }}. The fact that the sublimed Chelgrian created their own
+literally heaven is reminiscent of the virtual heaven in {{ blindsight }}.
+Masaq' Orbital's Great River the circles the entire mega-structure probably
+influenced {{ river }}.
