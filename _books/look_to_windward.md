@@ -35,7 +35,7 @@ of the Idiran--Culture War and Chelgrian civil war.
 {% capture pandora %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
 {% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
 {% capture river %}{% include book_link.html title="Heaven's River" %}{% endcapture %}
-{% capture valuable %}{% include book_link.html title="Valuable Humans in Transit and Other Stories" %}{% endcapture %}
+{% capture valuable %}{% include book_link.html title="Valuable Humans in Transit and Other Stories" link_text="Valuable Humans in Transit" %}{% endcapture %}
 
 The story takes place on the Masaq' Orbital as the light from the last battle
 of the Idiran--Culture war reaches the habitat, prompting its inhabitants to
@@ -62,33 +62,36 @@ rewrite. Both books share core themes, especially the idea that individuals rare
 influence larger events. In {{ c1 }}, this plays out through the death of
 almost every character in a mission to capture or recover a Mind that proves
 meaningless to the war effort. In {{ this_book }}, it's shown through Zlepe's
-seemingly urgent mission to warn of the genocidal plot---a plot that was
+seemingly urgent mission to warn of Quilan's genocidal plot---a plot that was
 doomed from the start. In both cases, the characters' actions have no impact
 on the wider galaxy.
 
 Both books examine the Culture through their enemies' eyes---enemies who lost
 wars that the Culture initiated---and explore the moral ambiguities of the
-Culture's military interventions made in the name of improvement.
+Culture's military interventions to reshape other societies.
 
 ## {{ the_wasteland_nolink }}
 
 The connection between these books is reinforced by their titles: both {{
 this_book }} and {{ c1 }} are drawn from {{ elliots }} {{ the_wasteland }}. {{
-this_book }} weaves the poem's imagery throughout: Masaq' Hub literally "_turn[s]
-the wheel and look[s] to windward_"; Zlepe's fate mirrors Phlebas, who died on
-a voyage and whose remains are caught circling the galaxy like a whirlpool;
-and the eDust assassin embodies "_fear in a handful of dust_."
+this_book }} weaves the poem's imagery throughout: Masaq' Hub literally
+"_turn[s] the wheel and look[s] to windward_"; Zlepe's fate mirrors that of
+Phlebas, who died during a voyage and is trapped forever in a whirlpool, just
+as Zlepe dies in space with his body doomed to orbit the galaxy; and the eDust
+assassin embodies "_fear in a handful of dust_."
 
 {{ this_book }} shares {{ the_wasteland }}'s focus on death and rebirth. These
 themes are emphasized[^lampshade] through parallel events: Ibm Dolince's
 death, where he chooses to let his physical body die and upload his mind,
-paired with Nisil Tchasole's rebirth into a new body. Both the Chelgrians and the Culture back up
-their minds to allow them to be reborn; into a heaven for the Chelgrians or a
-new body for the Culture. Admiral Huyler is just such a mind.
-Quilan's suicidal mission is driven by his wife's total death, which prevented
-her rebirth. The Hub itself has experienced death, rebirth from backup,
-another death, and was then transfer to its current form on Masaq'. Both the
-Hub and Quilan ultimately choose suicide and complete erasure from existence.
+paired with Nisil Tchasole's rebirth into a new body. Both the Chelgrians and
+the Culture back up their minds to allow them to be reborn; into a heaven for
+the Chelgrians or a new body for the Culture. Admiral Huyler is just such a
+mind. Quilan's suicidal mission is driven by his wife's total death, which
+prevented her rebirth. The mission itself is targetting "dead" Culture
+citizens whose minds are stored in the Hub. The Hub itself has experienced
+death, rebirth from backup, another death, and was then transfer to its
+current form on Masaq'. Both the Hub and Quilan ultimately choose suicide and
+complete erasure from existence.
 
 [^lampshade]: 
     {{ the_author }} [lampshades][lampshade] this:
