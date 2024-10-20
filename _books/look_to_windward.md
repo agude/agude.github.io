@@ -81,17 +81,15 @@ as Zlepe dies in space with his body doomed to orbit the galaxy; and the eDust
 assassin embodies "_fear in a handful of dust_."
 
 {{ this_book }} shares {{ the_wasteland }}'s focus on death and rebirth. These
-themes are emphasized[^lampshade] through parallel events: Ibm Dolince's
-death, where he chooses to let his physical body die and upload his mind,
-paired with Nisil Tchasole's rebirth into a new body. Both the Chelgrians and
-the Culture back up their minds to allow them to be reborn; into a heaven for
-the Chelgrians or a new body for the Culture. Admiral Huyler is just such a
-mind. Quilan's suicidal mission is driven by his wife's total death, which
-prevented her rebirth. The mission itself is targetting "dead" Culture
-citizens whose minds are stored in the Hub. The Hub itself has experienced
-death, rebirth from backup, another death, and was then transfer to its
-current form on Masaq'. Both the Hub and Quilan ultimately choose suicide and
-complete erasure from existence.
+themes are hammered home[^lampshade] through parallel stories: Ibm Dolince
+choosing to let his physical body die and upload his mind, paired with Nisil
+Tchasole's rebirth into a new body. The Chelgrians back up their minds for
+heaven or rebirth, as we see with Admiral Huyler, while the Culture does it to
+preserve their citizens, which are stored in the Hub until rebirth. Quilan's
+wife's total death---with no backup for rebirth---drives his suicidal mission.
+The Hub itself has died twice, been restored from backup once, and transferred
+to its current body on Masaq'. In the end, both the Hub and Quilan choose
+complete erasure---true death with no chance of rebirth.
 
 [^lampshade]: 
     {{ the_author }} [lampshades][lampshade] this:
@@ -104,7 +102,8 @@ complete erasure from existence.
 
 ## Thoughts
 
-While nothing really happens in {{ this_book }}, I loved it as a tour of a
+At the end of {{ this_book }} we learn that the stakes we thought were in play
+never were. While this might put some off, but I loved the book as a tour of a
 Culture Orbital, and for the deep characters: Quilan and the Hub are great
 portrayals of veterans suffering from PTSD.[^gulf_war]
 
@@ -128,7 +127,7 @@ c5 }}, while still showing glimpses of the kind of Mind-vs-Mind plotting we
 saw there. We've seen the Culture's interventions work out before---the
 careful scheming in {{ c2 }}, the covert ops in {{ c3 }}, and the subtle
 manipulation in {{ c6 }}---but here we see what happens when their
-calculations fail, leading to war and catastrophe.
+calculations fail, leading to catastrophe.
 
 {{ this_book }} reminds me of several recent reads: the memory backups and
 artificial afterlife echo both the Commonwealth humans in {{ pandora }} and the
