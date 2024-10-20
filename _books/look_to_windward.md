@@ -114,12 +114,18 @@ individual insignificance than {{ c1 }}, particularly because of how it
 subverts the traditional "hero saves the day" narrative.
 
 The dialogue between Ziller and the Hub about artistic
-creation---specifically, why Ziller should compose when any Culture Mind could
-perfectly replicate and improve upon his style---resonates strongly with
-current debates about [AI's role in art][art].
+creation---specifically, why Ziller should compose at all when any Culture
+Mind could perfectly replicate and improve upon his style---resonates strongly
+with current debates about [AI's role in art][art].
 
 [art]: {% post_url 2023-01-30-ai_artists_and_technology %}
 
+{{ this_book }} gives us a more personal look into how Minds operate than {{
+c5 }}, while still showing glimpses of the kind of Mind-vs-Mind plotting we
+saw there. We've seen the Culture's interventions work out before---the
+careful scheming in {{ c2 }}, the covert ops in {{ c3 }}, and the subtle
+manipulation in {{ c6 }}---but here we see what happens when their
+calculations fail, leading to war and catastrophe.
 
 {{ this_book }} reminds me of several recent reads: the memory backups and
 artificial afterlife echo both the Commonwealth humans in {{ pandora }} and the
