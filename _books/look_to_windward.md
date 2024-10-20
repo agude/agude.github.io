@@ -19,6 +19,8 @@ class="book-series">{{ page.series }}</span> book.
 {% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
 
 {% capture c1 %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
+{% capture c1_nolink %}<cite class="book-title">Consider Phlebas</cite>{% endcapture %}
+
 {% capture c2 %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
 {% capture c3 %}{% include book_link.html title="Use of Weapons" %}{% endcapture %}
 {% capture c5 %}{% include book_link.html title="Excession" %}{% endcapture %}
@@ -27,10 +29,11 @@ class="book-series">{{ page.series }}</span> book.
 
 {% capture elliots %}{% include author_link.html name="T. S. Eliot" possessive=true %}{% endcapture %}
 {% capture the_wasteland %}{% include book_link.html title="The Waste Land" %}{% endcapture %}
+{% capture the_wasteland_nolink %}<cite class="book-title">The Waste Land</cite>{% endcapture %}
 
 The story takes place mostly on the Masaq' Orbital as the light from the last
-battle of the Idiran--Culture war reaches the habitat. The primary characters
-are:
+battle of the Idiran--Culture war reaches the habitat and the people reflect
+on the conflict. The primary characters are:
 
 - The composer Mahrai Ziller, a cat-like Chelgrian in self-imposed exile
   from his people, hired to compose a symphony in commemorating the end of the
@@ -41,11 +44,13 @@ are:
 - Masaq' Hub, the Culture Mind who tends the Orbital, and was once a warship
   that committed atrocities.
 - Uagen Zlepe, a Culture academic who is studying gigantic beings far from the
-  Oribital, but gets sucked into Quilan's plot.
+  Orbital, but gets sucked into Quilan's plot.
 
 The Chelgrians are plotting to destrog Masaq' Hub and kill billions in revenge
 for the Chelgrian civil war the Culture accidentally started when trying to
 reform the Chelgrian's brutal caste system.
+
+## {{ c1_nolink }}
 
 {{ this_book }} is a sequel to {{ c1 }}, but in many respects I actually think
 it is a rewrite. Both books share common themes, foremost among them that
@@ -59,8 +64,10 @@ wider galaxy at all.
 
 Both books also looks at the Culture from the point of view of their
 enemies---enemies who are on the losing end of a war the Culture started---and
-explores the moral ambiquities of the Culture's militar intervention in an
+explores the moral ambiguities of the Culture's military intervention in an
 attempt to make things better.
+
+## {{ the_wasteland_nolink }}
 
 The connection between the books is reinforced by their names: {{ this_book }}
 and {{ c1 }} are both from {{ elliots }} poem {{ the_wasteland }}. {{
@@ -71,4 +78,26 @@ in the whirlpool of the galaxy; the eDust assassin is _"[...]fear in a handful
 of dust."_
 
 {{ this_book }} and {{  the_wasteland }} share as focus on death and rebirth.
+The themes are hammered home[^lampshade] with the pairing of Ibm Dolince's
+death---where he decides to let his physical body die and upload his
+mind---and Nisil Tchasole's rebirth---where her mind is loaded into a new
+body. Chelgrians backup their minds so they can be sent to heaven or reborn
+into a new body. Admiral Huyler is one such example. Quilan is driven on his
+suicidal mission by the death total death of his wife, preventing rebirth. The
+Hub has died, been restored from backup, died again, and was transfered to its
+current body on Masaq'. Both the Hub and Quilan choose to commit suicide and
+completely erase themselves from the universe.
 
+[^lampshade]: 
+    {{ the_author }} [lampshades][lampshade] this:
+
+    > The pairing of this [Misil Tchasole's] rebirth with Ibm Dolince's death
+    > was supposed to take some of the sadness out of the man's departure, but
+    > Ziller found the very neatness of the pairing trite and contrived.
+
+[lampshade]: https://en.wiktionary.org/wiki/lampshade#Verb
+
+## Thoughts
+
+Although nothing really happens in {{ this_book }}, I loved it as a tour of a
+Culture Orbital, and for the deep characters.
