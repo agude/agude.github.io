@@ -1,6 +1,6 @@
 ---
 date: 2024-10-16
-title: Look To Windward
+title: Look to Windward
 book_author: Iain M. Banks
 series: Culture
 book_number: 7
@@ -28,15 +28,47 @@ class="book-series">{{ page.series }}</span> book.
 {% capture elliots %}{% include author_link.html name="T. S. Eliot" possessive=true %}{% endcapture %}
 {% capture the_wasteland %}{% include book_link.html title="The Waste Land" %}{% endcapture %}
 
-{{ this_book }}'s title---like {{ c1 }}---is a reference to {{ elliots }} poem
-{{ the_wasteland }}. The poem's theme of death and rebirth are reflected in {{
-this_book }}, and many of the lines from the poem are the inspiration for
-characters in {{ the_authors }} novel: Masaq' Hub literally _"turn[s] the
-wheel and look[s] to windward"_; Uagen Zlepe's fate mirrors that of Phlebas in
-the poem, died on a voyage in trapped in the whirlpool of the galaxy; and the
-eDust assassin is _"[...]fear in a handful of dust."_
+The story takes place mostly on the Masaq' Orbital as the light from the last
+battle of the Idiran--Culture war reaches the habitat. The primary characters
+are:
 
-{{ this_book }} is considered a sequel to {{ c1 }}, but in many respects I
-actually think it is a rewrite. Both books deal with the smallness of man
-against the galaxy and the culture at war with an alien empire. Of course the
-characters in {{ this_book }} are far better.
+- The composer Mahrai Ziller, a cat-like Chelgrian in self-imposed exile
+  from his people, hired to compose a symphony in commemorating the end of the
+  war.
+- Major Quilan, a Chelgrian operative nominally visiting Masaq' to convince
+  Ziller to return to his home world, but is really on a mission of revenge.
+- Admiral Huyler, an preserved mind who rides copilot in Quilan's body.
+- Masaq' Hub, the Culture Mind who tends the Orbital, and was once a warship
+  that committed atrocities.
+- Uagen Zlepe, a Culture academic who is studying gigantic beings far from the
+  Oribital, but gets sucked into Quilan's plot.
+
+The Chelgrians are plotting to destrog Masaq' Hub and kill billions in revenge
+for the Chelgrian civil war the Culture accidentally started when trying to
+reform the Chelgrian's brutal caste system.
+
+{{ this_book }} is a sequel to {{ c1 }}, but in many respects I actually think
+it is a rewrite. Both books share common themes, foremost among them that
+people are small and they mostly don't make a difference in larger events. In
+{{ c1 }} this is demonstrated by all the death and destruction in an effort to
+capture a mind that has no importance to the greater war effort. In {{
+this_book }} it is exemplified by Zlepe's seeming urgent mission to warn the
+Culture of the genocidal plot, and the plots complete failure from the very
+moment it was conceived. In both books, nothing the characters do changes the
+wider galaxy at all.
+
+Both books also looks at the Culture from the point of view of their
+enemies---enemies who are on the losing end of a war the Culture started---and
+explores the moral ambiquities of the Culture's militar intervention in an
+attempt to make things better.
+
+The connection between the books is reinforced by their names: {{ this_book }}
+and {{ c1 }} are both from {{ elliots }} poem {{ the_wasteland }}. {{
+this_book }} draws heavily from the poem for its characters as well: Masaq'
+Hub literally _"turn[s] the wheel and look[s] to windward"_; Uagen Zlepe's
+fate mirrors that of Phlebas in the poem, who died on a voyage and is trapped
+in the whirlpool of the galaxy; the eDust assassin is _"[...]fear in a handful
+of dust."_
+
+{{ this_book }} and {{  the_wasteland }} share as focus on death and rebirth.
+
