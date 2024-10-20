@@ -8,9 +8,16 @@ rating: 1
 image: /books/covers/consider_phlebas.jpg
 ---
 
-I've been meaning to read Banks's Culture series for more than two decades, so
-I was excited to finally get started. Unfortunately, <cite class="book-title">
-Consider Phlebas</cite> was not a great introduction.
+I've been meaning to read <span class="author-name">Banks</span>'s <span
+class="book-series">{{ page.series }}</span> series for more than two decades,
+so I was excited to finally get started. Unfortunately, <cite
+class="book-title">{{ page.title }}</cite> was not a great introduction.
+
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
+
+{% capture c2 %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
 
 The book is considered a "space opera", and there are some hints at
 interesting, grand ideas: a ship that can set off every warhead on board to
@@ -48,5 +55,4 @@ that his side of the war is the more enlightened one, but it was just
 unpleasant to read about him _drowning in literal shit_ and _having his
 fingers chewed off_.
 
-I hope that {% include book_link.html title="The Player of Games" %} is
-better.
+I hope that {{ c2 }} better.
