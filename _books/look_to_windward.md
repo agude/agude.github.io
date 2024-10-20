@@ -133,3 +133,7 @@ virtual heaven in {{ blindsight }}. Masaq' Orbital's Great River seems to have
 influenced {{ river }}. The Culture Minds' practice of unauthorized brain
 scans to prevent deaths parallels the central premise of {{ valuable }}'s
 title story.
+
+{{ this_book }} is another great entry in the {{ this_series }}. I'm looking
+forward to seeing how {{ c8 }}'s story, about another Culture intervention,
+compares.
