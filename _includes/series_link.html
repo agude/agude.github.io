@@ -8,6 +8,9 @@ See:
 https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-include-external-content-inside-footnotes
 {% endcomment -%}
 
+{%- capture newline %}
+{% endcapture -%}
+
 {%- assign target_series = include.series | replace: newline,' ' | downcase | strip -%}
 
 {%- comment -%}Assign link_text here incase we don't find a link.
