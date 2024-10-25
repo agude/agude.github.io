@@ -186,7 +186,7 @@ above the footnotes automatically like this:
 
 Using layouts gives us the full power of [Liquid] to update our web pages
 after the HTML is compiled, and it works natively on Github pages! I hope you
-use this to build awesome web pages and if you do let me know on Twitter: [@{{
-site.author.twitter }}][twitter]
+use this to build awesome web pages and if you do let me know on BlueSky: [@{{
+site.author.bluesky }}][bluesky]
 
-[twitter]: https://twitter.com/{{ site.author.twitter }}
+[bluesky]: https://bsky.app/profile/{{ site.author.bluesky }}

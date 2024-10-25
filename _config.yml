@@ -15,7 +15,6 @@ author:
     name: "Alexander Gude"
     first: "Alexander"
     last: "Gude"
-    twitter: "alex_gude"
     bluesky: "alexgude.com"
     mastodon: "alex_gude"
     mastodon_instance: "fediscience.org"
@@ -38,16 +37,13 @@ paginate_path: "/blog/page:num/"
 permalink: /blog/:slug/
 
 # Social for jekyll-seo-tag
-twitter:
-    username: "alex_gude"
-
 social:
     name: "Alexander Gude"
     links:
-        - https://twitter.com/alex_gude
+        - https://bsky.app/profile/alexgude.com
+        - https://fediscience.org/@alex_gude
         - https://github.com/agude
         - https://linkedin.com/in/AlexanderGude
-        - https://fediscience.org/@alex_gude
 
 # Collections
 collections:

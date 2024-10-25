@@ -164,7 +164,7 @@ on Github][rendered]). This will produce the following plot:
 [plot]: {{ file_dir }}/2001-2020_california_traffic_collisions_map.png
 
 I hope this [hosted dataset][db_link] makes working with the data fast and
-easy. If you make something, I'd love to see it! Send it to me on Twitter:
-[@{{ site.author.twitter }}][twitter]
+easy. If you make something, I'd love to see it! Send it to me on BlueSky:
+[@{{ site.author.bluesky }}][bluesky]
 
-[twitter]: https://twitter.com/{{ site.author.twitter }}
+[bluesky]: https://bsky.app/profile/{{ site.author.bluesky }}

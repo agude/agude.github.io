@@ -29,9 +29,8 @@ at [Gab41][gab41] and [rehosted on this page][lab41_posts].
 
 If you're interested in my thoughts in real time (as well as sneak peaks at
 what I'm writing), follow me on <a rel="me" href="https://bsky.app/profile/{{
-site.author.bluesky }}">BlueSky</a>, <a rel="me" href="https://{{
-site.author.mastodon_instance }}/@{{ site.author.mastodon }}">Mastodon</a>, or
-<a rel="me" href="https://twitter.com/{{ site.author.twitter }}">Twitter</a>.
+site.author.bluesky }}">BlueSky</a> or <a rel="me" href="https://{{
+site.author.mastodon_instance }}/@{{ site.author.mastodon }}">Mastodon</a>.
 
 The code that I write lives on my <a rel="me" href="https://github.com/{{
 site.author.github }}">Github page</a>. Bug reports and pull requests are

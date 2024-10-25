@@ -34,17 +34,6 @@ sidebar_include: false
     button_class="mastodon-button"
   %}
 
-  {% comment %} Twitter {% endcomment %}
-  {% capture twitter_url %}https://twitter.com/{{ site.author.twitter }}{% endcapture %}
-  {% capture twitter_text %}Twitter: @{{ site.author.twitter }}{% endcapture %}
-  {% capture twitter_icon %}{% include icon-twitter.svg %}{% endcapture %}
-  {% include linktree_item.html
-    link=twitter_url
-    text=twitter_text
-    icon=twitter_icon
-    button_class="twitter-button"
-  %}
-
   {% comment %} Github {% endcomment %}
   {% capture github_url %}https://github.com/{{ site.author.github }}{% endcapture %}
   {% capture github_text %}Github: {{ site.author.github }}{% endcapture %}

@@ -265,8 +265,8 @@ favorable, the model should be promoted to action mode.
 
 ## Let Me Know!
 
-I hope this exercise has been helpful! Please reach out and let me know at
-[@{{ site.author.twitter }}][twitter] if you have any comments or
+I hope this exercise has been helpful! Please reach out and let me know on
+BlueSky at [@{{ site.author.bluesky }}][bluesky] if you have any comments or
 improvements!
 
-[twitter]: https://twitter.com/{{ site.author.twitter }}
+[bluesky]: https://bsky.app/profile/{{ site.author.bluesky }}

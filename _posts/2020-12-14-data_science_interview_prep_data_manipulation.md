@@ -71,9 +71,9 @@ arrow to show them.
 [python_start_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ python_start_notebook_uri }}
 
 Good luck, and if you have any questions or suggestions please reach out to me
-on Twitter: [@{{ site.author.twitter }}][twitter]
+on BlueSky: [@{{ site.author.bluesky }}][bluesky]
 
-[twitter]: https://twitter.com/{{ site.author.twitter }}
+[bluesky]: https://bsky.app/profile/{{ site.author.bluesky }}
 
 ## Questions
 
