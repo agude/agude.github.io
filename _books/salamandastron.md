@@ -4,7 +4,7 @@ title: Salamandastron
 book_author: Brian Jacques
 series: Redwall
 book_number: 5
-rating: null
+rating: 5
 image: /books/covers/salamandastron.jpg
 ---
 

@@ -22,6 +22,7 @@ ranked_list:
   - Childhood's End
   - Dragon's Egg
   - Starquake
+  - Salamandastron
   - Mattimeo
   - The Abyss Beyond Dreams
   - Serpent Valley
