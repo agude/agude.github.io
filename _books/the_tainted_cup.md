@@ -52,9 +52,9 @@ the law with perfect memory arrives at a wall in the mist and finds his way
 barred by a gate; he is reluctantly let through and finds a body inside. Later
 in {{ this_book }}, we learn that there are immortal Conzulates who, just like
 {{ wolfes }} Megatherians, achieve immortality through constant growth.
-Moreover, the idea of "giant underwater monsters trying to destroy the Empire
+Moreover, the theme of "giant underwater monsters trying to destroy the Empire"
 applies to both the Megatherians and the Kaiju, although the Kaiju are more
-direct.
+direct in their actions.
 
 [^botns]:
     I feel like I'm in danger of succumbing to the traditional ailment of {{
