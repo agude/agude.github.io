@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: Daniel Keyes
+title: Daniel Keyes
 description: >
     Alex Gude's reviews of books written by Daniel Keyes.
 ---

@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: Robert L. Forward
+title: Robert L. Forward
 description: >
     Alex Gude's reviews of books written by Robert L. Forward.
 ---

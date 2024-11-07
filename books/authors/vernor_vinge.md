@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: Vernor Vinge
+title: Vernor Vinge
 description: >
     Alex Gude's reviews of books written by Vernor Vinge.
 ---

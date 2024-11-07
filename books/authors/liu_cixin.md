@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: Liu Cixin
+title: Liu Cixin
 description: >
     Alex Gude's reviews of books written by Liu Cixin.
 ---

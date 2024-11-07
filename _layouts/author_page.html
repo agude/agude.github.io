@@ -2,9 +2,7 @@
 layout: default
 ---
 <div class="author-page">
-  <h1 class="author-title">
-    {{ page.author_name }}
-  </h1>
+  <h1 class="author-title">{{ page.title }}</h1>
 
   {{ content }}
 
@@ -19,7 +17,7 @@ order.{% endcomment %}
 
 {% for book in site.books %}
   {% comment %}Keep only the correct author.{% endcomment %}
-  {% if book.book_author == page.author_name %}
+  {% if book.book_author == page.title %}
     {% assign sorted_series = sorted_series | append: book.series | append: "|" %}
   {% endif %}
 {% endfor %}
@@ -30,7 +28,7 @@ order.{% endcomment %}
 have to test if they exist though first to make our header logic easier.{% endcomment %}
 {% assign placed_no_series_header = false %}
 {% for book in sorted_books_by_title %}
-  {% if book.book_author == page.author_name %}
+  {% if book.book_author == page.title %}
     {% if book.series == empty or book.series == null %}
       {% if placed_no_series_header == false %}
         {% assign placed_no_series_header = true %}

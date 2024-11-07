@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: Brian Jacques
+title: Brian Jacques
 description: >
     Alex Gude's reviews of books written by Brian Jacques.
 ---

@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: Edwin A. Abbott
+title: Edwin A. Abbott
 description: >
     Alex Gude's reviews of books written by Edwin A. Abbott.
 ---

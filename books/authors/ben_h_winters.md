@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: Ben H. Winters
+title: Ben H. Winters
 description: >
     Alex Gude's reviews of books written by Ben H. Winters.
 ---

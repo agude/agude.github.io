@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: Dennis E. Taylor
+title: Dennis E. Taylor
 description: >
     Alex Gude's reviews of books written by Dennis E. Taylor.
 ---

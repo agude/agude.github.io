@@ -2,9 +2,7 @@
 layout: default
 ---
 <div class="series-page">
-  <h1 class="series-title">
-    {{ page.series_name }}
-  </h1>
+  <h1 class="series-title">{{ page.title }}</h1>
 
   {{ content }}
 
@@ -12,7 +10,7 @@ layout: default
 
 {% assign sorted_books = site.books | sort: 'book_number' %}
 {% for book in sorted_books %}
-  {% if book.series == page.series_name %}
+  {% if book.series == page.title %}
 
     {% include book_card.html
       url=book.url

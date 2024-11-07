@@ -25,7 +25,7 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
 {%- comment %}Try to find the book and set a URL{% endcomment -%}
 {%- assign url = null -%}
 {%- for page in site.pages -%}
-  {%- assign test_name = page.author_name | downcase | strip -%}
+  {%- assign test_name = page.title | downcase | strip -%}
   {%- if test_name == target_name and page.layout == "author_page" -%}
 
     {%- assign url = page.url -%}
@@ -36,7 +36,7 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
     {%- if include.link_text != '' and include.link_text != null -%}
       {%- assign link_text = include.link_text | replace: newline,' ' | strip -%}
     {%- else -%}
-      {%- assign link_text = page.author_name | replace: newline, ' ' | strip -%}
+      {%- assign link_text = page.title | replace: newline, ' ' | strip -%}
     {%- endif -%}
 
     {%- break -%}

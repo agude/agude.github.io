@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: Arthur C. Clarke
+title: Arthur C. Clarke
 description: >
     Alex Gude's reviews of books written by Arthur C. Clarke.
 ---

@@ -21,9 +21,9 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
 
 {%- comment %}Try to find the series and set a URL{% endcomment -%}
 {%- for page in site.pages -%}
-  {%- if page.series_name == include.series and page.layout == "series_page" -%}
+  {%- if page.title == include.series and page.layout == "series_page" -%}
     {%- assign url = page.url -%}
-    {%- assign link_text = page.series_name | replace: newline, ' ' | strip -%}
+    {%- assign link_text = page.title | replace: newline, ' ' | strip -%}
     {%- break -%}
   {%- endif -%}
 {%- endfor -%}

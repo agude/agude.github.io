@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: qntm
+title: qntm
 description: >
     Alex Gude's reviews of books written by qntm.
 ---

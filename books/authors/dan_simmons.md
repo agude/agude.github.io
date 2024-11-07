@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: Dan Simmons
+title: Dan Simmons
 description: >
     Alex Gude's reviews of books written by Dan Simmons.
 ---

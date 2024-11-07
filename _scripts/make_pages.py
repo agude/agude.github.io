@@ -7,7 +7,7 @@ MARKDOWN_EXTENSION = ".md"
 
 AUTHOR_TEMPLATE = """---
 layout: author_page
-author_name: {item}
+title: {item}
 description: >
     Alex Gude's reviews of books written by {item}.
 ---
@@ -16,7 +16,7 @@ Below you'll find short reviews of {item}'s books:"""
 
 SERIES_TEMPLATE = """---
 layout: series_page
-series_name: {item}
+title: {item}
 description: >
     Alex Gude's reviews of books written in the {item} series.
 ---

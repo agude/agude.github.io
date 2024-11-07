@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: Jonathan Lethem
+title: Jonathan Lethem
 description: >
     Alex Gude's reviews of books written by Jonathan Lethem.
 ---

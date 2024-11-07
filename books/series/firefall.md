@@ -1,6 +1,6 @@
 ---
 layout: series_page
-series_name: Firefall
+title: Firefall
 description: >
     Alex Gude's reviews of books written in the Firefall series.
 ---

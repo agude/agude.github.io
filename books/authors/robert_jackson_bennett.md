@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: Robert Jackson Bennett
+title: Robert Jackson Bennett
 description: >
     Alex Gude's reviews of books written by Robert Jackson Bennett.
 ---

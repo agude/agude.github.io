@@ -1,6 +1,6 @@
 ---
 layout: author_page
-author_name: Peter F. Hamilton
+title: Peter F. Hamilton
 description: >
     Alex Gude's reviews of books written by Peter F. Hamilton.
 ---
