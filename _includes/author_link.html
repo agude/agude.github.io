@@ -12,7 +12,7 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
 
 {%- assign possessive = include.possessive | default: false -%}
 
-{%- comment %}Try to find the book and set a URL{% endcomment -%}
+{%- comment %}Try to find the page and set a URL{% endcomment -%}
 {%- capture url -%}{% include get_url_from_title.html title=include.name layout="author_page"%}{%- endcapture -%}
 
 {%- comment %}Set the text for the link depending on if we have a
