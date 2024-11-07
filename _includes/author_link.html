@@ -10,39 +10,25 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
 {%- capture newline %}
 {% endcapture -%}
 
-{%- assign target_name = include.name | replace: newline,' ' | downcase | strip -%}
-
-{%- comment -%}Assign link_text here incase we don't find a link.
-{%- endcomment -%}
-{%- if include.link_text != '' and include.link_text != null -%}
-  {%- assign link_text = include.link_text | replace: newline,' ' | strip -%}
-{%- else -%}
-  {%- assign link_text = include.name | replace: newline, ' ' | strip -%}
-{%- endif -%}
-
 {%- assign possessive = include.possessive | default: false -%}
 
 {%- comment %}Try to find the book and set a URL{% endcomment -%}
-{%- assign url = null -%}
-{%- for page in site.pages -%}
-  {%- assign test_name = page.title | downcase | strip -%}
-  {%- if test_name == target_name and page.layout == "author_page" -%}
+{%- capture url -%}{% include get_url_from_title.html title=include.name layout="author_page"%}{%- endcapture -%}
 
-    {%- assign url = page.url -%}
+{%- comment %}Set the text for the link depending on if we have a
+link_text or not. Default to the page name so that link text is
+standardized across articles.{% endcomment -%}
+{%- if include.link_text != "" and include.link_text != null -%}
+  {%- assign link_text = include.link_text | replace: newline," " | strip -%}
 
-    {%- comment %}Set the text for the link depending on if we have a
-    link_text or not. Default to the page name so that link text is
-    standardized across articles.{% endcomment -%}
-    {%- if include.link_text != '' and include.link_text != null -%}
-      {%- assign link_text = include.link_text | replace: newline,' ' | strip -%}
-    {%- else -%}
-      {%- assign link_text = page.title | replace: newline, ' ' | strip -%}
-    {%- endif -%}
+{%- comment %}Otherwise try to get the title of the found page{% endcomment -%}
+{%- elsif url != null and url != "" -%}
+  {%- capture link_text -%}{% include get_title_from_url.html url=url %}{%- endcapture -%}
 
-    {%- break -%}
-
-  {%- endif -%}
-{%- endfor -%}
+{%- comment %}Otherwise just use the entered name{% endcomment -%}
+{%- else -%}
+  {%- assign link_text = include.name | replace: newline," " | strip -%}
+{%- endif -%}
 
 {%- comment %}Wrap the name in <span> tags.{% endcomment -%}
 {%- capture wrapped_name -%}<span class="author-name">{{- link_text -}}</span>{%- endcapture -%}
@@ -53,7 +39,7 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
 {%- endif -%}
 
 {%- comment %}Wrap again with a link if we find one.{% endcomment -%}
-{%- if url and page.url != url -%}
+{%- if url != null and url != "" and page.url != url -%}
   {%- capture wrapped_name -%}<a href="{{ url }}">{{- wrapped_name -}}</a>{%- endcapture -%}
 {%- endif -%}
 
