@@ -11,28 +11,23 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
 {%- capture newline %}
 {% endcapture -%}
 
-{%- assign target_series = include.series | replace: newline,' ' | downcase | strip -%}
+{%- comment %}Try to find the page and set a URL{% endcomment -%}
+{%- capture url -%}{% include get_url_from_title.html title=include.series layout="series_page"%}{%- endcapture -%}
 
-{%- comment -%}Assign link_text here incase we don't find a link.
-{%- endcomment -%}
-{%- assign link_text = include.seires | replace: newline, ' ' | strip -%}
+{%- comment %}Try to get the title of the found page for the link text{% endcomment -%}
+{%- if url != null and url != "" -%}
+  {%- capture link_text -%}{% include get_title_from_url.html url=url %}{%- endcapture -%}
 
-{%- assign url = null -%}
-
-{%- comment %}Try to find the series and set a URL{% endcomment -%}
-{%- for page in site.pages -%}
-  {%- if page.title == include.series and page.layout == "series_page" -%}
-    {%- assign url = page.url -%}
-    {%- assign link_text = page.title | replace: newline, ' ' | strip -%}
-    {%- break -%}
-  {%- endif -%}
-{%- endfor -%}
+{%- comment %}Otherwise just use the entered title{% endcomment -%}
+{%- else -%}
+  {%- assign link_text = include.series | replace: newline," " | strip -%}
+{%- endif -%}
 
 {%- comment %}Wrap the name in <span> tags.{% endcomment -%}
 {%- capture wrapped_name -%}<span class="book-series">{{ link_text }}</span>{%- endcapture -%}
 
 {%- comment %}Wrap again with a link if we find one.{% endcomment -%}
-{%- if url and page.url != url -%}
+{%- if url != null and url != "" and page.url != url -%}
   {%- capture wrapped_name -%}<a href="{{ url }}">{{- wrapped_name -}}</a>{%- endcapture -%}
 {%- endif -%}
 
