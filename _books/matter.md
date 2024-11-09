@@ -1,10 +1,10 @@
 ---
-date: 2024-10-18
+date: 2024-11-05
 title: Matter
 book_author: Iain M. Banks
 series: Culture
 book_number: 8
-rating: null
+rating: 4
 image: /books/covers/matter.jpg
 ---
 

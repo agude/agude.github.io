@@ -42,6 +42,7 @@ ranked_list:
   - Mariel of Redwall
   - We Are Legion (We Are Bob)
   - Mossflower
+  - Matter
   - For We Are Many
   - The Last Policeman
   - Ymir
