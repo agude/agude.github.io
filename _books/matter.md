@@ -26,6 +26,7 @@ with the unleashing of a cosmic horror.
 {% capture c3 %}{% include book_link.html title="Use of Weapons" %}{% endcapture %}
 {% capture c5 %}{% include book_link.html title="Excession" %}{% endcapture %}
 {% capture c7 %}{% include book_link.html title="Look to Windward" %}{% endcapture %}
+{% capture c8 %}{% include book_link.html title="Inversions" %}{% endcapture %}
 {% capture c9 %}{% include book_link.html title="Surface Detail" %}{% endcapture %}
 
 {% capture thrones %}{% include book_link.html title="A Game of Thrones" %}{% endcapture %}
@@ -44,7 +45,7 @@ Seriy Anaplian---as they deal with their father's betrayal and death.
 
 One of the strongest aspects of {{ the_authors }} writing is the sense of
 place he brings to his stories. His books feature unique locations that feel
-real and which I remember long after putting the book down: the mile-long
+real and which I remember long after putting the book down: the colossal
 megaships in {{ c1 }}, the fiery fortress in {{ c2 }}, the landlocked
 battleship in {{ c3 }}, the glacial mass-grave in {{ c5 }}, and the
 wind-powered cable cars and airsphere in {{ c7 }}. {{ this_book }} continues
@@ -84,7 +85,10 @@ focus. Although the Culture versus a super-advanced power sounds exciting, it
 feels both too rushed and at the same time too drawn out. A large part of this
 section is describing Djan and Ferbin walking down passageways and opening
 doors as they traverse the shellworld heading towards its core. The final
-confrontation ends (intentionally) very suddenly.
+confrontation ends (intentionally) very suddenly. I had expected something
+quite different: a story of Djan using her advanced training and technology to
+guide the development of Sarl, but the narrative takes a sharp turn away from
+that.
 
 Still an enjoyable book with some unforgettable places. Next up is {{ left }}
 for my book club, before I continue the {{ this_series }} with {{ c9 }}.
