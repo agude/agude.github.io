@@ -25,7 +25,6 @@ cosmic horror being unleashed.
 {% capture c2 %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
 {% capture c3 %}{% include book_link.html title="Use of Weapons" %}{% endcapture %}
 {% capture c5 %}{% include book_link.html title="Excession" %}{% endcapture %}
-{% capture c6 %}{% include book_link.html title="Inversions" %}{% endcapture %}
 {% capture c7 %}{% include book_link.html title="Look to Windward" %}{% endcapture %}
 {% capture c9 %}{% include book_link.html title="Surface Detail" %}{% endcapture %}
 
@@ -35,46 +34,54 @@ cosmic horror being unleashed.
 {% capture nameless %}{% include book_link.html title="The Nameless City" %}{% endcapture %}
 {% capture lovecrafts %}{% include author_link.html name="H. P. Lovecraft" possessive=true %}{% endcapture %}
 
+{% capture left %}{% include book_link.html title="The Left Hand of Darkness" %}{% endcapture %}
+
 {{ this_book }} starts with the murder of the king of Sarl by his
 right-hand-man, Mertis tyl Loesp, just as the king's force defeat the invading
 Deldeyn army. The book follows the king's three children---the playboy Prince
 Ferbin, the young scholar Prince Oramen, and the Princess-turned-culture-agent
-Djan Seriy Anaplian---as they navigate the betrayal of their father.
+Djan Seriy Anaplian---as they navigate the betrayal and death of their father.
 
 One of the things I love about {{ the_authors }} writing is the sense of place
 he brings to his stories. They contain unique locations that feel so real and
 which I remember long after putting the book down: the mile-long megaships in
 {{ c1 }}, the fiery fortress in {{ c2 }}, landlocked battleship in {{ c3 }},
-the glacial mass-grave in {{ c5 }}, the cable cars and airsphere in {{ c7 }}.
-{{ this_book }} does not disappoint on that front.
+the glacial mass-grave in {{ c5 }}, the wind-powered cable cars and airsphere
+in {{ c7 }}. {{ this_book }} does not disappoint on that front.
 
 Most of the story takes place on the shellworld Sursamen, a megastructure
 formed of concentric spherical shells. Sarl is on the eighth level down from
 the surface, and their enemies the Deldeyn, are on the ninth. The shell world
 is jointly (and contentiously) controlled by the advanced civilizations the
-Oct and the Aultridia.
+Oct and the Aultridia, who are both manipulating the inhabitants for their own
+ends. The Oct believe themselves to be the descendants of the builders of the
+shellworlds, the Involucra, and are trying to find proof within Sursamen.
 
-The Oct believe themselves to be the descendants of the builders of the
-shellworlds, the Involucra. The Oct and Aultridia are in turn monitored by the
-more powerful Nariscene, who are monitored by the still more powerful
-Morthanveld, who the Culture have taken an interest in as the species is about
-to become "Culture-like". And so we see one of the themes of {{ this_book }}:
-hierarchy. Their are multiple hierarchies in the book: the ladder of species in
-the galaxy, the levels of the shellworld, and the organizations of the various
-governments.
+The Oct and Aultridia are in turn monitored by the more powerful Nariscene,
+who are monitored by the still more powerful Morthanveld, who the Culture have
+taken an interest in as the species is about to become "Culture-like". And so
+we see one of the themes of {{ this_book }}: hierarchy. Their are multiple
+hierarchies in the book: the ladder of species in the galaxy, the levels of
+the shellworld, the organizations of the various governments, and the levels
+of manipulation and scheme the various species apply to each other.
 
 The first part of the book superficially resembles {{ martins }} {{ thrones
-}}, with its intrigue and ruthless quest for power set in a chivalrous
-society, but all of that is in fact a distraction. After the backstabbing is
-done, the main story is closer to {{ lovecrafts }} {{ nameless }}: a nameless
-city is being revealed by the massive Hyeng-zhar waterfall (another of {{
-the_authors }} wonderful places), full of ancient and advanced artifacts, and
-one in particular that is conscious and has laid sleeping for eons waiting to
-be awakened.
+}}, with its intrigue, betrayal, and ruthless quest for power set in a
+chivalrous society, but all of that is in fact a distraction. After the
+backstabbing is done, the main story is closer to {{ lovecrafts }} {{ nameless
+}}: a nameless city is being revealed by the massive Hyeng-zhar waterfall
+(another of {{ the_authors }} wonderful places), full of ancient and advanced
+artifacts, and one in particular that is conscious and has lain sleeping for
+eons waiting to be awakened.
 
-Unfortunately the cosmic horror---revealed to be Iln, a race that destroyed
-many shellworlds in the past before vanishing---is underwhelming. It appears
-in the last tenth of the book, and the whole novel pivots to dealing with it.
-Although that sounds exciting---the Culture versus a super-advanced power---it
-feels too rushed, and at the same time too long. So many of the paragraphs in
-this section describe Djan and Ferbin walking through passageways and doors.
+Unfortunately the cosmic horror---revealed to be created by the Iln, a race
+that destroyed many shellworlds in the past before vanishing---is
+underwhelming. It appears in the last tenth of the book, and the whole novel
+pivots to dealing with it. Although that sounds exciting---the Culture versus
+a super-advanced power---it feels too rushed, and at the same time too long.
+Many of the paragraphs in this section describe Djan and Ferbin walking
+through passageways and doors as they navigate the sheelworld's levels. And
+the ending is (intentionally) very sudden.
+
+Still an enjoyable book with some unfortable places. Next up is {{ left }} for
+my book club, before I continue the {{ this_series }} with {{ c9 }}.
