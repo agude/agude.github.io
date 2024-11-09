@@ -23,7 +23,7 @@ title: {item}
 description: >
     Alex Gude's reviews of books written in the {item} series.
 ---
-"""
+""",
 }
 
 
@@ -43,10 +43,7 @@ def normalize_filename(name: str) -> str:
 
 
 def write_pages_to_dir(
-    items: List[str],
-    output_dir: str,
-    template: str,
-    markdown_extension: str = ".md"
+    items: List[str], output_dir: str, template: str, markdown_extension: str = ".md"
 ) -> None:
     """
     Write content from a list of items to Markdown files in a directory.
@@ -65,15 +62,17 @@ def write_pages_to_dir(
             write_file.write(template.format(item=item))
 
 
-def extract_yaml_header_from_markdown(file_object: TextIO) -> Dict[str, Union[str, int, float, list, dict, None]]:
+def extract_yaml_header_from_markdown(
+    file_object: TextIO,
+) -> Dict[str, Union[str, int, float, list, dict, None]]:
     """Extract YAML frontmatter from a markdown file."""
     content = file_object.read()
 
-    if not content.startswith('---\n'):
+    if not content.startswith("---\n"):
         return {}
 
     try:
-        end_delimiter_index = content.index('\n---\n', 4)
+        end_delimiter_index = content.index("\n---\n", 4)
         yaml_content = content[4:end_delimiter_index]
         header_dict = yaml.safe_load(yaml_content)
         return header_dict if isinstance(header_dict, dict) else {}
@@ -116,7 +115,7 @@ def main():
         items=authors,
         output_dir="../books/authors/",
         template=TEMPLATES["author"],
-        markdown_extension=MARKDOWN_EXTENSION
+        markdown_extension=MARKDOWN_EXTENSION,
     )
 
     # Write series pages
@@ -124,7 +123,7 @@ def main():
         items=series,
         output_dir="../books/series/",
         template=TEMPLATES["series"],
-        markdown_extension=MARKDOWN_EXTENSION
+        markdown_extension=MARKDOWN_EXTENSION,
     )
 
 
