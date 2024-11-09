@@ -6,10 +6,10 @@ in liquid is to capture it (it doesn't understand \n).
 {%- capture newline %}
 {% endcapture -%}
 
-{%- assign target_title = include.title | replace: newline,' ' | downcase | strip -%}
+{%- assign target_title = include.title | replace: newline," " | downcase | strip -%}
 
-{%- if include.layout != null and include.layout != '' -%}
-    {%- assign target_layout = include.layout | replace: newline,' ' | strip -%}
+{%- if include.layout != null and include.layout != "" -%}
+    {%- assign target_layout = include.layout | replace: newline," " | strip -%}
 {%- else -%}
     {%- assign target_layout = null -%}
 {%- endif -%}
@@ -19,15 +19,25 @@ in liquid is to capture it (it doesn't understand \n).
 {%- comment %}Try to find the page and set a URL.
 
 We have to combine a lot of different collections to get all the pages on the
-site.{% endcomment -%}
-{%- assign pages = site.pages | where_exp: "item", "item.title" -%}
-{%- assign books = site.books -%}
-{%- assign posts = site.posts -%}
+site.
 
-{%- assign all_pages = pages | concat: books | concat: posts -%}
+But we can optimize if we know the target is in a collection.{% endcomment -%}
+{%- if target_layout == "book" -%}
+    {%- assign all_pages = site.books -%}
+{%- elsif target_layout == "post" -%}
+    {%- assign all_pages = site.posts -%}
+{%- elsif target_layout == "series_page" or target_layout == "author_page" -%}
+    {%- assign all_pages = site.pages | where_exp: "item", "item.title" -%}
+{%- else %}
+    {%- assign pages = site.pages | where_exp: "item", "item.title" -%}
+    {%- assign books = site.books -%}
+    {%- assign posts = site.posts -%}
+
+    {%- assign all_pages = pages | concat: books | concat: posts -%}
+{%- endif -%}
 
 {%- for p in all_pages -%}
-    {%- if p.title == null or p.title == '' -%}
+    {%- if p.title == null or p.title == "" -%}
         {%- continue -%}
     {%- endif -%}
 
