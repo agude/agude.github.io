@@ -49,9 +49,9 @@ heroic, selfless, and willing to fight to the death in service of their
 mission.
 
 Ferahgo and his son are fine villains, and their strained relationship adds
-some depth, but they don't really feel new, instead feeling like a second take
-on Slagar from {{ mattimeo }}: tricksters in charge of an army. But they
-fulfill their role as hateable antagonists who meet satisfying ends.
+some depth, but they come across as a second take on Slagar from {{ mattimeo
+}}: tricksters in charge of an army. Still, they fulfill their role as
+hateable antagonists who meet satisfying ends.
 
 My favorite characters were the falcons and eagles of the north with their
 outrageous Scottish accents. Reading their dialogue aloud was particularly
@@ -61,7 +61,8 @@ entertaining for my kids.
 largely independent, with most characters appearing only in this volume. The
 combat is grittier and the stakes feel higher. After the final battle, the
 hares and heroes look around at the carnage and realize with horror what
-they've done, something brand new in a series that treats battles as something
-that causes deaths but is otherwise relatively clean.
+they've done, something brand new in a series that typically treats battles as
+relatively clean affairs where characters may die but the violence itself is
+glossed over.
 
 The kids once again loved it, and are looking forward to {{ martin }}.
