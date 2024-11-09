@@ -2,13 +2,16 @@
 layout: default
 ---
 <div class="series-page">
-  <h1 class="series-title">{{ page.title }}</h1>
+  <h1 class="series-title"><span class="book-series">{{ page.title }}</span></h1>
 
   {{ content }}
 
+  Below you'll find short reviews of books from <span class="book-series">{{
+    page.title }}</span>:
+
 <div class="card-grid">
 
-{% assign sorted_books = site.books | sort: 'book_number' %}
+{% assign sorted_books = site.books | sort: "book_number" %}
 {% for book in sorted_books %}
   {% if book.series == page.title %}
 

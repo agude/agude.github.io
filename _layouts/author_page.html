@@ -2,14 +2,17 @@
 layout: default
 ---
 <div class="author-page">
-  <h1 class="author-title">{{ page.title }}</h1>
+  <h1 class="author-title"><span class="author-name">{{ page.title }}</span></h1>
 
   {{ content }}
 
+  Below you'll find short reviews of <span class="author-name">{{ page.title
+    }}</span>'s books:
+
 {% comment %}This sorted list is used to put the books in series order in each
 <h2> heading.{% endcomment %}
-{% assign sorted_books = site.books | sort: 'book_number' %}
-{% assign sorted_books_by_title = site.books | sort: 'title' %}
+{% assign sorted_books = site.books | sort: "book_number" %}
+{% assign sorted_books_by_title = site.books | sort: "title" %}
 
 {% comment %}This sorted list is used to put the <h2> sections in the right
 order.{% endcomment %}

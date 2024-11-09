@@ -1,6 +1,8 @@
+from typing import Dict, Union, TextIO
 import glob
-import re
 import os.path as path
+import re
+import yaml
 
 
 MARKDOWN_EXTENSION = ".md"
@@ -11,8 +13,7 @@ title: {item}
 description: >
     Alex Gude's reviews of books written by {item}.
 ---
-
-Below you'll find short reviews of {item}'s books:"""
+"""
 
 SERIES_TEMPLATE = """---
 layout: series_page
@@ -21,35 +22,6 @@ description: >
     Alex Gude's reviews of books written in the {item} series.
 ---
 """
-
-
-def append_value_by_key(items: list, key: str, line: str) -> list:
-    """Appends a value from a line to a list based on a specified key.
-
-    This function takes a list of strings (items), a key (key), and a line of
-    text (line) as input.
-
-    It checks if the line starts with the provided key (key:). If it does, it
-    extracts the value after the colon (':'), removes any leading or trailing
-    whitespace using strip(), and only appends the value to the items list if
-    it's not "null".
-
-    The function then returns the modified items list.
-
-    Args:
-        items: A list of strings to which values will be appended.
-        key: The key to look for at the beginning of the line.
-        line: The line of text to extract the value from.
-
-    Returns:
-        The list items potentially with the appended value.
-    """
-    if line.startswith(key):
-        item = line.split(": ")[1].strip()
-        if item != "null":
-            items.append(item)
-
-    return items
 
 
 def write_pages_to_dir(
@@ -105,6 +77,56 @@ def write_pages_to_dir(
             write_file.write(contents)
 
 
+def extract_yaml_header_from_markdown(file_object: TextIO) -> Dict[str, Union[str, int, float, list, dict, None]]:
+    """
+    Extracts YAML frontmatter from a markdown file.
+
+    Args:
+        file_object: A file object (opened markdown file) to read from
+
+    Returns:
+        A dictionary containing the parsed YAML header data.
+        Returns empty dict if no valid YAML header is found.
+
+    Example:
+        Given markdown content:
+        ---
+        title: My Post
+        date: 2024-01-01
+        tags: [python, markdown]
+        ---
+        # Content here
+
+        Would return:
+        {
+            'title': 'My Post',
+            'date': '2024-01-01',
+            'tags': ['python', 'markdown']
+        }
+    """
+    content = file_object.read()
+
+    # Check if the file starts with YAML delimiter
+    if not content.startswith('---\n'):
+        return {}
+
+    # Find the closing delimiter
+    try:
+        end_delimiter_index = content.index('\n---\n', 4)  # Start search after first delimiter
+    except ValueError:
+        return {}  # No closing delimiter found
+
+    # Extract the YAML content between delimiters
+    yaml_content = content[4:end_delimiter_index]
+
+    try:
+        # Parse YAML content into a dictionary
+        header_dict = yaml.safe_load(yaml_content)
+        return header_dict if isinstance(header_dict, dict) else {}
+    except yaml.YAMLError:
+        return {}  # Return empty dict if YAML parsing fails
+
+
 # Define pattern to match markdown files in book directory
 BOOK_FILE_GLOB = f"../_books/*{MARKDOWN_EXTENSION}"
 markdown_files = glob.glob(BOOK_FILE_GLOB)
@@ -113,9 +135,15 @@ authors = []
 series = []
 for file in markdown_files:
     with open(file, "r") as opened_file:
-        for line in opened_file.readlines():
-            authors = append_value_by_key(authors, "book_author: ", line)
-            series = append_value_by_key(series, "series: ", line)
+        front_matter_yaml = extract_yaml_header_from_markdown(opened_file)
+
+        author = front_matter_yaml.get("book_author")
+        book_series = front_matter_yaml.get("series")
+
+        if author:
+            authors.append(author)
+        if book_series:
+            series.append(book_series)
 
 # Write authors to separate Markdown files
 authors = sorted(set(authors))
