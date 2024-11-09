@@ -33,15 +33,17 @@ several ways:
   external enemies.
 
 - The story follows three parallel quests: Mara and Pikkle's mission to save
-  Salamandastron, Arula and Samkim's search for Martin's sword, and Thrugg
-  and Dumble's race to find a cure for the fever.
+  Salamandastron, Arula and Samkim's search for Martin's sword, and Thrugg and
+  Dumble's race to find a cure for the fever.
 
-{{ this_book }} features the first true _war_ in the {{ redwall_series }}
+- The battles feel weighty and damaging, even to the victors.
+
+{{ this_book }} features the first true *war* in the {{ redwall_series }}
 series: we witness warrior hares defending their mountain fortress against
 thousands of vermin in a full-scale conflict. In the previous Redwall sieges,
-the death of a defender was a major, book defining moment; in the siege of
-Salamandastron hares die with only half a sentence spared to mention it. It
-makes the war feel cruel and impersonal. The long patrol fought in {{ mariel
+the death of a defender was a major, book-defining moment; in the siege of
+Salamandastron, hares die with only half a sentence spared to mention it. It
+makes the war feel cruel and impersonal. The Long Patrol fought in {{ mariel
 }}, but this appearance highlights their mythical, Spartan-like qualities:
 heroic, selfless, and willing to fight to the death in service of their
 mission.
@@ -49,7 +51,7 @@ mission.
 Ferahgo and his son are fine villains, and their strained relationship adds
 some depth, but they don't really feel new, instead feeling like a second take
 on Slagar from {{ mattimeo }}: tricksters in charge of an army. But they
-fulfill their role: as hateable antagonists who meet satisfying ends.
+fulfill their role as hateable antagonists who meet satisfying ends.
 
 My favorite characters were the falcons and eagles of the north with their
 outrageous Scottish accents. Reading their dialogue aloud was particularly
@@ -59,7 +61,7 @@ entertaining for my kids.
 largely independent, with most characters appearing only in this volume. The
 combat is grittier and the stakes feel higher. After the final battle, the
 hares and heroes look around at the carnage and realize with horror what
-carnage they've caused, something brand new in a series that treats battles as
-something that causes deaths but is otherwise relatively clean.
+they've done, something brand new in a series that treats battles as something
+that causes deaths but is otherwise relatively clean.
 
 The kids once again loved it, and are looking forward to {{ martin }}.
