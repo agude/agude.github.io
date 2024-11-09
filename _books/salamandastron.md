@@ -32,9 +32,9 @@ several ways:
 - The Abbey faces an internal threat---a plague---rather than the usual
   external enemies.
 
-- The story follows three parallel quests: Mara and Pikkle's mission to save
-  Salamandastron, Arula and Samkim's search for Martin's sword, and Thrugg and
-  Dumble's race to find a cure for the fever.
+- The story follows three parallel quests instead of one: Mara and Pikkle's
+  mission to save Salamandastron, Arula and Samkim's search for Martin's sword,
+  and Thrugg and Dumble's race to find a cure for the fever.
 
 - The battles feel weighty and damaging, even to the victors.
 
