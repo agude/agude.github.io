@@ -37,18 +37,18 @@ several ways:
   and Dumble's race to find a cure for the fever.
 
 {{ this_book }} features the first true _war_ in the {{ redwall_series }}
-series. While previous books had battles, here we witness warrior hares
-defending their mountain fortress against thousands of vermin in a full-scale
-conflict. In the previous Redwall sieges, the death of a defender is a major,
-book defining moment; in the siege of Salamandastron hares die with only half
-a sentence spared to mention it. It makes the war feel more impersonal. This
-second appearance of the Long Patrol hares---after {{ mariel }}---highlights
-their mythical, Spartan-like qualities: heroic, selfless, and willing to fight
-to the death in service of their mission.
+series: we witness warrior hares defending their mountain fortress against
+thousands of vermin in a full-scale conflict. In the previous Redwall sieges,
+the death of a defender was a major, book defining moment; in the siege of
+Salamandastron hares die with only half a sentence spared to mention it. It
+makes the war feel cruel and impersonal. The long patrol fought in {{ mariel
+}}, but this appearance highlights their mythical, Spartan-like qualities:
+heroic, selfless, and willing to fight to the death in service of their
+mission.
 
 Ferahgo and his son are fine villains, and their strained relationship adds
-some depth, but they don't really feel new, instead feeling more like a scaled
-up Slagar from {{ mattimeo }}: tricksters in charge of an army. But they
+some depth, but they don't really feel new, instead feeling like a second take
+on Slagar from {{ mattimeo }}: tricksters in charge of an army. But they
 fulfill their role: as hateable antagonists who meet satisfying ends.
 
 My favorite characters were the falcons and eagles of the north with their
@@ -58,8 +58,8 @@ entertaining for my kids.
 {{ this_book }} marks a departure from earlier books in the series. It stands
 largely independent, with most characters appearing only in this volume. The
 combat is grittier and the stakes feel higher. After the final battle, the
-hares and heroes look around at the carnage and realize the have to get away
-from the battlefield for their mental health. Rather than following a single
-hero, the story brings together multiple protagonists working as a team.
+hares and heroes look around at the carnage and realize with horror what
+carnage they've caused, something brand new in a series that treats battles as
+something that causes deaths but is otherwise relatively clean.
 
 The kids once again loved it, and are looking forward to {{ martin }}.
