@@ -6,8 +6,8 @@ layout: default
 
   {{ content }}
 
-  Below you'll find short reviews of books from <span class="book-series">{{
-    page.title }}</span>:
+  Below you'll find short reviews of the books from
+  {% include get_series_text.html series=page.title %}:
 
 <div class="card-grid">
 
