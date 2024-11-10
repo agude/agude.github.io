@@ -29,37 +29,10 @@ don't find them.{% endcomment %}
   <div class="written-by">By {% include author_link.html name=page.book_author%}</div>
 
   {% if page.series and page.book_number %}
-    {% assign normalized_series = page.series | downcase | strip %}
-
-    {% comment %}Some series have "The" in them in which case we don't want to
-    write "the The".{% endcomment %}
-    {% if normalized_series contains 'the'%}
-      {% assign the_placeholder = ' ' %}
-    {% else %}
-      {% assign the_placeholder = ' the ' %}
-    {% endif %}
-
-    {% comment %}Some series have a "series-like" noun in them, like "Saga",
-    "Trilogy", etc. in them in which case we don't want to write "Saga series".{% endcomment %}
-    {% assign series_words = 'saga,trilogy,cantos,chronicle,book' | split: ',' %}
-    {% assign found_series_word = false %}
-    {% for series_word in series_words %}
-      {% if normalized_series contains series_word %}
-        {% assign found_series_word = true %}
-        {% break %}
-      {% endif %}
-    {% endfor %}
-    {% if found_series_word == false %}
-      {% assign series_placeholder = ' series' %}
-    {% else %}
-      {% assign series_placeholder = '' %}
-    {% endif %}
 
     {% comment %}Now place the actual div.{% endcomment %}
     <div class="book-series-line">
-      Book {{page.book_number}} of{{ the_placeholder }}
-      {% include series_link.html series=page.series %}
-      {{ series_placeholder}}
+      Book {{page.book_number}} of {% include get_series_text.html series=page.series %}
     </div>
   {% endif %}
 

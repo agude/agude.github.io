@@ -1,0 +1,30 @@
+{%- assign normalized_series = include.series | downcase | strip -%}
+
+{%- comment -%}Some series have "The" in them in which case we don't want to
+write "the The".{%- endcomment -%}
+{%- if normalized_series contains "the"-%}
+  {%- assign the_placeholder = " " -%}
+{%- else -%}
+  {%- assign the_placeholder = " the " -%}
+{%- endif -%}
+
+{%- comment -%}Some series have a "series-like" noun in them, like "Saga",
+"Trilogy", etc. in them in which case we don't want to write "Saga series".{%- endcomment -%}
+{%- assign series_words = "saga|trilogy|cantos|chronicle|book" | split: "|" -%}
+{%- assign found_series_word = false -%}
+{%- for series_word in series_words -%}
+  {%- if normalized_series contains series_word -%}
+    {%- assign found_series_word = true -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if found_series_word == false -%}
+  {%- assign series_placeholder = " series" -%}
+{%- else -%}
+  {%- assign series_placeholder = "" -%}
+{%- endif -%}
+
+{%- capture output -%}{{ the_placeholder }}{% include series_link.html series=include.series %}{{ series_placeholder }}{% endcapture %}
+
+{{- output -}}
