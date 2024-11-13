@@ -1,10 +1,10 @@
 ---
-date: 2024-11-14
+date: 2024-11-12
 title: The Left Hand of Darkness
 book_author: Ursula K. Le Guin
 series: Hainish Cycle
 book_number: 4
-rating: 5
+rating: 4
 image: /books/covers/the_left_hand_of_darkness.jpg
 ---
 
