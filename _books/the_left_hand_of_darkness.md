@@ -48,12 +48,13 @@ civilization. The story is broken in three distinct parts:
 
 The narrative is primarily from Genly's perspective, interwoven with Gethenian
 myths, reports from earlier observers of Winter, and excerpts from Estraven's
-journal. Genly's point of view is that of a male in a society with far
-different gender norms. He constantly forces his gender binary onto people,
-describing them as masculine or feminine despite their androgyny. The
-inclusion of Estraven's journal is a wonderful way to flip this point of view,
-because often it will describe the same scenes and conversations but from a
-Gethenian point of view.
+journal. Through Genly's eyes, we see someone struggling to understand a
+society that defies his rigid gender expectations---he constantly
+characterizes the androgynous Gethenians as either masculine or feminine,
+unable to escape his own cultural framework. The inclusion of Estraven's
+journal provides a wonderful counterpoint, often describing the same scenes
+from a Gethenian perspective, highlighting just how much Genly's bias shapes
+his understanding of their world.
 
 {{ this_book }} is my first experience with {{ the_authors }} work, and it
 wasn't what I expected. Having just read much of {{ banks }} {{
