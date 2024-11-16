@@ -44,12 +44,13 @@ ranked_list:
   - Mossflower
   - Matter
   - For We Are Many
-  - The Last Policeman
   - Ymir
   - The Shadow of the Torturer
+  - The Last Policeman
   - All These Worlds
   # 3 Stars
   - Mission of Gravity
+  - The Left Hand of Darkness
   - Gun, with Occasional Music
   - Countdown City
   - Heaven's River

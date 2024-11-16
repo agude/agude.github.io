@@ -10,7 +10,7 @@ write "the The".{%- endcomment -%}
 
 {%- comment -%}Some series have a "series-like" noun in them, like "Saga",
 "Trilogy", etc. in them in which case we don't want to write "Saga series".{%- endcomment -%}
-{%- assign series_words = "saga|trilogy|cantos|chronicle|book" | split: "|" -%}
+{%- assign series_words = "saga|trilogy|cantos|chronicle|book|cycle" | split: "|" -%}
 {%- assign found_series_word = false -%}
 {%- for series_word in series_words -%}
   {%- if normalized_series contains series_word -%}
