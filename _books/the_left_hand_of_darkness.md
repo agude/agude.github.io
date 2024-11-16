@@ -11,8 +11,8 @@ image: /books/covers/the_left_hand_of_darkness.jpg
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is her Hugo and Nebula
 award-winning novel about the planet of Winter. It follows Genly Ai, an envoy
-from the Ekumen, as he attempts to bring this androgynous world into the
-galactic civilization.
+from the Ekumen, as he attempts to bring this androgynous world into galactic
+civilization.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -30,10 +30,9 @@ galactic civilization.
 {% capture clarkes %}{% include author_link.html name="Arthur C. Clarke" possessive=true %}{% endcapture %}
 {% capture childhood %}{% include book_link.html title="Childhood's End" %}{% endcapture %}
 
-Genly Ai is a human envoy sent from the Ekumen to the world of Winter to bring
-the Gethenian people into galactic society. The Gethenians are human but
+Genly Ai is a human envoy sent from the Ekumen. The Gethenians are human but
 modified to be hermaphroditic, a characteristic that shapes their entire
-civilization. The story broken in three distinct parts:
+civilization. The story is broken in three distinct parts:
 
 - In the first part, Genly lives in Karhide where he---under the advisement of
   the vizier Estraven---tries to convince the King to join the Ekumen. This
@@ -57,7 +56,7 @@ because often it will describe the same scenes and conversations but from a
 Gethenian point of view.
 
 {{ this_book }} is my first experience with {{ the_authors }} work, and it
-defied my expectations. Having just finished from reading {{ banks }} {{
+wasn't what I expected. Having just read much of {{ banks }} {{
 the_culture_series }}, I was misled by Genly's role as Envoy and his
 interactions with political leaders into thinking the main conflict would
 center on the territorial dispute between Karhide and Orgoreyn over a fertile
@@ -73,8 +72,8 @@ the treatment of the mentally handicapped, while {{ this_book }} examines
 gender roles. And like {{ algernon_short }}, {{ this_book }} didn't affect me
 as deeply as I'd anticipated.
 
-There are also a lot of parallels with {{ clarkes }} {{ childhood }}. Both
-books examine first contact with a peaceful, patient "alien". Both weave
+There are also a lot of parallels with {{ clarkes }} {{ childhood }} as well.
+Both books examine first contact with a peaceful, patient "alien". Both weave
 together telepathy and mysticism with scientific elements. And both explore
 how societies respond to major, fundamental changes: {{ the_authors }} work
 looks at how a civilization reacts to moving beyond the gender binary, while
