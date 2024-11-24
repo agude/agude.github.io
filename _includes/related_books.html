@@ -6,6 +6,8 @@ category or not.
 {% assign max_books = 3 %}
 {% assign placed_books = '' | split: '' %}
 
+{%- capture now_unix %}{{'now' | date: '%s'}}{% endcapture -%}
+
 {% comment %} Store the two h2 snippets to variables {% endcomment %}
 
 {% assign placed_h2 = false %}
@@ -39,7 +41,15 @@ category or not.
       {% if placed_books.size < 3 %}
         {% comment %}Pick same series{% endcomment %}
         {% if book.series == page.series %}
+
+          {% comment %}Don't place posts from the future.{% endcomment %}
+          {% capture post_time %}{{ book.date | date: '%s'}}{% endcapture %}
+          {% if post_time > now_unix %}
+            {% continue %}
+          {% endif %}
+
           {% unless placed_books contains book.url %}
+
             {% comment %} Place the h2 if we haven't already {% endcomment %}
             {% if placed_h2 == false %}
               {{ related_snippet }}
@@ -73,9 +83,18 @@ category or not.
   {% for book in reversed_chronological_books %}
     {% if book.url != page.url %}
       {% if placed_books.size < 3 %}
+
         {% comment %}Pick same author{% endcomment %}
         {% if book.book_author == page.book_author %}
+
+          {% comment %}Don't place posts from the future.{% endcomment %}
+          {% capture post_time %}{{ book.date | date: '%s'}}{% endcapture %}
+          {% if post_time > now_unix %}
+            {% continue %}
+          {% endif %}
+
           {% unless placed_books contains book.url %}
+
             {% comment %} Place the h2 if we haven't already {% endcomment %}
             {% if placed_h2 == false %}
               {{ related_snippet }}
@@ -117,6 +136,13 @@ category or not.
         {% continue %}
       {% endif %}
       {% if placed_books.size < max_books %}
+
+        {% comment %}Don't place posts from the future.{% endcomment %}
+        {% capture post_time %}{{ book.date | date: '%s'}}{% endcapture %}
+        {% if post_time > now_unix %}
+          {% continue %}
+        {% endif %}
+
         {% unless placed_books contains book.url %}
           {% include book_card.html
             url=book.url
