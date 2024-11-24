@@ -8,14 +8,7 @@ at the top. {% endcomment %}
   them now.{% endcomment %}
   {% if post.layout == 'book' %}
     {% comment %} Book card. {% endcomment %}
-    {% include book_card.html
-      url=post.url
-      image=post.image
-      title=post.title
-      author=post.book_author
-      rating=post.rating
-      description=post.excerpt
-    %}
+    {% include auto_book_card.html title=post.title %}
   {% elsif post.layout == 'post' %}
     {% comment %} Article cards. {% endcomment %}
     {% include article_card.html
