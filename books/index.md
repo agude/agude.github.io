@@ -44,14 +44,7 @@ headlines, but not before the first headline.{% endcomment %}
 
   {% endif %}
 
-  {% include book_card.html
-    url=book.url
-    image=book.image
-    title=book.title
-    author=book.book_author
-    rating=book.rating
-    description=book.excerpt
-  %}
+  {% include auto_book_card.html title=book.title %}
 
 {% endfor %}
 {% comment %}Close the final card-grid{% endcomment %}
