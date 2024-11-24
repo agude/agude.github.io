@@ -48,14 +48,7 @@ headlines, but not before the first headline.{% endcomment %}
       {% assign prev_letter = first_letter %}
       {% endif %}
 
-        {% include book_card.html
-          url=book.url
-          image=book.image
-          title=book.title
-          author=book.book_author
-          rating=book.rating
-          description=book.excerpt
-        %}
+      {% include auto_book_card.html title=book.title %}
 
     {% endif %}
   {% endfor %}
