@@ -4,12 +4,19 @@ to add them by hand to articles (for example in the yearly review post).{% endco
 {%- capture newline %}
 {% endcapture -%}
 
+{%- capture now_unix %}{{'now' | date: '%s'}}{% endcapture -%}
+
 {% assign target_title = include.title | replace: newline,' ' | downcase | strip %}
 
 {% for book in site.books %}
   {% assign potential_title = book.title | replace: newline,' ' | downcase | strip %}
+  {% capture post_time %}{{ book.date | date: '%s'}}{% endcapture %}
+
   {% if potential_title != target_title %}
     {% comment %}No match, so keep looking{% endcomment %}
+    {% continue %}
+  {% elsif posttime > now_unix %}
+    {% comment %}Don't get unpublished posts from the future{% endcomment %}
     {% continue %}
   {% else %}
 
