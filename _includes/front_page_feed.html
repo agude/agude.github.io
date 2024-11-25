@@ -8,7 +8,7 @@ at the top. {% endcomment %}
   them now.{% endcomment %}
   {% if post.layout == 'book' %}
     {% comment %} Book card. {% endcomment %}
-    {% include auto_book_card.html title=post.title %}
+    {% include auto_book_card_from_object.html book=post %}
   {% elsif post.layout == 'post' %}
     {% comment %} Article cards. {% endcomment %}
     {% include article_card.html

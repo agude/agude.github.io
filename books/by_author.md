@@ -79,7 +79,7 @@ headlines, but not before the first headline.{% endcomment %}
           {% if sort_series == book_series %}
             {% if test_number == book_number %}
 
-              {% include auto_book_card.html title=book.title %}
+              {% include auto_book_card_from_object.html book=book %}
 
             {% endif %}
           {% endif %}

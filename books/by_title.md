@@ -48,7 +48,7 @@ headlines, but not before the first headline.{% endcomment %}
       {% assign prev_letter = first_letter %}
       {% endif %}
 
-      {% include auto_book_card.html title=book.title %}
+      {% include auto_book_card_from_object.html book=book %}
 
     {% endif %}
   {% endfor %}

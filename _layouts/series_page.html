@@ -15,7 +15,7 @@ layout: default
 {% for book in sorted_books %}
   {% if book.series == page.title %}
 
-    {% include auto_book_card.html title=book.title %}
+    {% include auto_book_card_from_object.html book=book %}
 
   {% endif %}
 {% endfor %}

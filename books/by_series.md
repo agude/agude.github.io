@@ -42,7 +42,7 @@ headlines, but not before the first headline.{% endcomment %}
 
     {% endif %}
 
-    {% include auto_book_card.html title=book.title %}
+    {% include auto_book_card_from_object.html book=book %}
 
   {% endif %}
 {% endfor %}
@@ -65,7 +65,7 @@ headlines, but not before the first headline.{% endcomment %}
     {% assign series = book.series %}
     {% if sort_series == series %}
 
-      {% include auto_book_card.html title=book.title %}
+      {% include auto_book_card_from_object.html book=book %}
 
     {% endif %}
   {% endfor %}
