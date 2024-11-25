@@ -6,6 +6,8 @@ in liquid is to capture it (it doesn't understand \n).
 {%- capture newline %}
 {% endcapture -%}
 
+{%- assign now_unix = 'now' | date: '%s' | plus: 0 -%}
+
 {%- assign target_title = include.title | replace: newline," " | downcase | strip -%}
 
 {%- if include.layout != null and include.layout != "" -%}
@@ -37,7 +39,10 @@ But we can optimize if we know the target is in a collection.{% endcomment -%}
 {%- endif -%}
 
 {%- for p in all_pages -%}
+    {% assign post_time = p.date | date: '%s' | plus: 0 %}
     {%- if p.title == null or p.title == "" -%}
+        {%- continue -%}
+    {%- elsif post_time != null and post_time > now_unix -%}
         {%- continue -%}
     {%- endif -%}
 
