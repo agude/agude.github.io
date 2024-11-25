@@ -19,6 +19,8 @@ Back link to other books that mention this book.
 {% capture newline %}
 {% endcapture %}
 
+{%- assign now_unix = 'now' | date: '%s' | plus: 0 -%}
+
 {% comment %}To avoid picking up words in the text that match a book title, we
 instead look for the template we use to link to books, which should be
 unique.{% endcomment %}
@@ -45,6 +47,12 @@ books are sorted in their sections{% endcomment %}
     order.{% endcomment %}
     {% assign mod_title = book.title | remove: "The " | downcase | strip %}
     {% if mod_title != sort_title %}
+      {% continue %}
+    {% endif %}
+    
+    {% comment %}Don't link to unpublished posts from the future{% endcomment %}
+    {% assign post_time = book.date | date: '%s' | plus: 0 %}
+    {% if post_time > now_unix %}
       {% continue %}
     {% endif %}
 
