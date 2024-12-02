@@ -1,10 +1,10 @@
 ---
-date: 2024-11-29
+date: 2024-12-02
 title: Surface Detail
 book_author: Iain M. Banks
 series: Culture
 book_number: 9
-rating: null
+rating: 5
 image: /books/covers/surface_detail.jpg
 ---
 
