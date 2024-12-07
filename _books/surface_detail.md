@@ -70,9 +70,8 @@ war into the real world.
 - Yime Nsokyi: A Culture contact agent in the Quietus branch, who deal with
   the dead, reincarnated, and virtual mind-states.
 
-- The _Falling Outside The Normal Moral Constraints_: An _Abominator_-class,
-  the _FOTNMC_ is a Culture warship who is brings Y'breq back to her home
-  planet.
+- The _Falling Outside The Normal Moral Constraints_: An _Abominator_-class
+  Culture warship, the _FOTNMC_ brings Y'breq back to her home planet.
 
 {{ this_book }} is my favorite {{ culture }} novel so far, just edging out {{
 c3 }}. The multiple storylines, each carefully directed to meet at the end of
@@ -90,14 +89,20 @@ minds copied from real people, and in the case of Chay, resulting in multiple
 copies as her real self wakes up while her virtual self remains in hell.
 _FOTNMC_ is, of course, a completely constructed Mind. _FOTNMC_'s original
 avatar is a human whose mind is suppressed so the ship can control them.
-<!-- Other examples? -->
+Unlike {{ commonwealth }}, {{ this_book }} grapples with the fact that a
+backup isn't really you.
 
-There are multiple twists.
+There are several twists. Veppers is clearly evil, but we learn that he is
+also (for his own benefit) on the anti-hell side. It is unclear which side the
+Culture is on, as they want to end the hells but also pledged to be neutral.
+The largest and most important twist is delivered in the epilogue: that
+Vatueil is the man called Cheradenine Zakalwe from {{ c3 }}. This indicates
+that Special Circumstances has been involved in the _War in Heaven_ since the
+beginning, and makes the reader reevaluate what parts of the book were
+actually part of the Culture's scheme. It's interesting to note that the
+Culture often deploys Zakalwe on the side they want to lose, in this case as a
+pro-hell mole on the anti-hell side.
 
-{{ this_book }} is {{ the_author }} honing his craft. The themes are explored
-through multiple differ, interacting storylines. Despite there being more
-
-
-
-storylines than in any of his previous {{ culture }} novels, but {{ banks
-}} keeps the story moving quickly.
+In the previous {{ this_series }} books, I felt a slight sense of distance
+from the characters and setting. For reasons I can't explain, {{ this_book }}
+pulled me in and made me feel completely immersed in the world.
