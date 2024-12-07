@@ -56,10 +56,10 @@ war into the real world.
   man in the pan-human Sichultian Enablement, and the owner of the companies
   running most of the hells.
 
-- Lededje Y'breq: Veppers's slace, who he murders in the first chapter, but
+- Lededje Y'breq: Veppers's slave, who he murders in the first chapter, but
   whose mind-state is copied and used to reincarnate her in the Culture.
 
-- Gyorni Vatueil: A virtual soilder in the _War in Heaven_ on the anti-hell
+- Gyorni Vatueil: A virtual solider in the _War in Heaven_ on the anti-hell
   side, who moves up the ranks and is responsible for the war moving into the
   real.
 
@@ -74,11 +74,25 @@ war into the real world.
   the _FOTNMC_ is a Culture warship who is brings Y'breq back to her home
   planet.
 
-Despite having multiple, overlapping plotlines, {{ the_author }} really nailed
-the pace and plot in this book. I couldn't put it down. _FOTNMC_ is not only a
-great character as a demented warship, but their excitement towards the coming
-real-space battle mirrors the reader's
+{{ this_book }} is my favorite {{ culture }} novel so far, just edging out {{
+c3 }}. The multiple storylines, each carefully directed to meet at the end of
+the book, <!-- TODO -->. {{ the_author }} keeps the perfect pace by shifting
+between plots in the same chapter, developing them and the world piece by
+piece and often ending on a cliff hanger to keep the reader in anticipation.
+The pacing and sense of anticipation are reinforced by the _FOTNMC_, who like
+the reader, is excited by the prospect of getting to finally fire it's weapons
+in anger.
 
+The mind, and what it means to be "alive" <!-- TODO: Better wording than
+alive. Sentient? --> are a core theme of the novel. Y'breq's mind is copied on
+her death and used to reincarnate her. Chay, Prin, and Vatueil are simulated
+minds copied from real people, and in the case of Chay, resulting in multiple
+copies as her real self wakes up while her virtual self remains in hell.
+_FOTNMC_ is, of course, a completely constructed Mind. _FOTNMC_'s original
+avatar is a human whose mind is suppressed so the ship can control them.
+<!-- Other examples? -->
+
+There are multiple twists.
 
 {{ this_book }} is {{ the_author }} honing his craft. The themes are explored
 through multiple differ, interacting storylines. Despite there being more
