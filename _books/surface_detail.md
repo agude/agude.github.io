@@ -12,7 +12,7 @@ image: /books/covers/surface_detail.jpg
 class="author-name">{{ page.book_author }}</span>, is the ninth <span
 class="book-series">{{ page.series }}</span> book. It explores themes of the
 mind, what it means to be alive, and punishment through the Culture's attempt
-to stop other civilizations from running virtual Hells to torture their
+to stop other civilizations from running virtual hells to torture their own
 citizens.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
@@ -79,7 +79,7 @@ the book, <!-- TODO -->. {{ the_author }} keeps the perfect pace by shifting
 between plots in the same chapter, developing them and the world piece by
 piece and often ending on a cliff hanger to keep the reader in anticipation.
 The pacing and sense of anticipation are reinforced by the _FOTNMC_, who like
-the reader, is excited by the prospect of getting to finally fire it's weapons
+the reader, is excited by the prospect of getting to finally fire its weapons
 in anger.
 
 The mind, and what it means to be "alive" <!-- TODO: Better wording than
@@ -90,7 +90,9 @@ copies as her real self wakes up while her virtual self remains in hell.
 _FOTNMC_ is, of course, a completely constructed Mind. _FOTNMC_'s original
 avatar is a human whose mind is suppressed so the ship can control them.
 Unlike {{ commonwealth }}, {{ this_book }} grapples with the fact that a
-backup isn't really you.
+backup isn't really you, first by having Chay's body wake up while her virtual
+copy continues in hell, and later explicitly when a Culture pilot is thinking
+about her imminent death.
 
 There are several twists. Veppers is clearly evil, but we learn that he is
 also (for his own benefit) on the anti-hell side. It is unclear which side the
@@ -106,3 +108,19 @@ pro-hell mole on the anti-hell side.
 In the previous {{ this_series }} books, I felt a slight sense of distance
 from the characters and setting. For reasons I can't explain, {{ this_book }}
 pulled me in and made me feel completely immersed in the world.
+
+{{ this_book }} reminds me of several books I've read: the hacking-as-battle
+scenes echo The Detective's Tail in {{ hyperion }}, the virtual hells remind
+me of the Shrike and the tree of pain, and the many battles of Vatueil
+reminded me of the solider traveling through time and fighting the Shrike. The
+mind copies and especially Y'breq's quantum entanglement transfer reminded me
+of the way Bobs create new versions in {{ bob1 }}. {{ banks }} mentions that
+the dead in the galaxy outnumber the living, which harkens back to {{ so2001
+}}'s line "Behind every man now alive stand thirty ghosts, for that is the
+ratio by which the dead outnumber the living." The virtual hells themselves
+recall the Star Trek: Deep Space Nine episode <cite class="show-title">Hard
+time</cite> in which Chief O'Brien surfers from PTSD after being given
+memories of having spent twenty years in prison.
+
+It is bittersweet to move on to {{ c10 }}, the final Culture book. Before I do
+I'm reading {{ grand_melee }}, which was just released.
