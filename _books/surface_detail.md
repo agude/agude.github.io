@@ -89,8 +89,8 @@ multiple independent copies that are merged together upon "death" and even
 allows one version to be turned off, confident that his larger "self"
 persists.
 
-There are several twists. Veppers, clearly evil, is revealed to be (for his
-own benefit) on the anti-hell side. The Culture's neutrality is
+There are several twists. Veppers, the primary antagonist, is revealed to be
+(for his own benefit) on the anti-hell side. The Culture's neutrality is
 ambiguous---they want to end the hells but have pledged not to interfere. The
 most significant twist comes in the epilogue: Vatueil is revealed to be
 Cheradenine Zakalwe from {{ c3 }}. This implies that Special Circumstances has
@@ -100,21 +100,22 @@ Culture often deploys Zakalwe on the side they want to lose---in this case, as
 a pro-hell mole on the anti-hell side.
 
 In previous {{ this_series }} books, I sometimes felt a slight detachment from
-the characters and settings. For reasons I can't fully explain, {{ this_book
-}} pulled me in completely, immersing me in its world.
+the characters and settings, like I'm watching them from a distance. For
+reasons I can't fully explain, {{ this_book }} pulled me in completely.
 
 {{ this_book }} reminded me of several other books: the hacking-as-battle
-scenes echo The Detective's Tale in {{ hyperion }}; the virtual hells recall
-the Shrike and its tree of pain; and the many battles involving Vatueil are
-like the soldier traveling through time to fight the Shrike over and over.
+scenes echo The Detective's Tale in {{ hyperion }}, the virtual hells recall
+the Shrike and its tree of pain, and the many battles involving Vatueil are
+similar the soldier traveling through time to fight the Shrike over and over.
 Y'breq's quantum entanglement transfer brought to mind how the Bobs create new
 versions in {{ bob1 }}. {{ banks }} notes that the galaxy's dead outnumber the
 living, which parallels {{ so2001 }}'s line: "Behind every man now alive stand
 thirty ghosts, for that is the ratio by which the dead outnumber the living."
 The virtual hells themselves are reminiscent of the Star Trek: Deep Space Nine
 episode <cite class="tv-show-title">Hard Time</cite>, where Chief O'Brien
-suffers PTSD after receiving memories of a 20-year imprisonment, and also the
-virtual heavens from {{ blindsight }}.
+suffers PTSD after receiving memories of a 20-year imprisonment. {{ blindsight
+}} has both a virtual afterlife and also explores the themes of minds and
+consciousness.
 
 It's bittersweet to move on to {{ c10 }}, the final Culture book. Before I do,
 I'm reading {{ grand_melee }}, the fifth book in the {{ war_horses }} series,
