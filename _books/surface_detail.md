@@ -10,9 +10,9 @@ image: /books/covers/surface_detail.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is the ninth <span
-class="book-series">{{ page.series }}</span> book. It explores themes of the
-mind, consciousness, and punishment through the Culture's attempt to stop
-other civilizations from running virtual hells to torture their own citizens.
+class="book-series">{{ page.series }}</span> book. It explores themes of mind,
+consciousness, and punishment through the Culture's attempt to stop other
+civilizations from running virtual hells to torture their own citizens.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -36,17 +36,16 @@ other civilizations from running virtual hells to torture their own citizens.
 {% capture grand_melee %}{% include book_link.html title="Grand Melee" %}{% endcapture %}
 {% capture war_horses %}{% include series_link.html series="War Horses" %}{% endcapture %}
 
-In {{ c7 }}, the Chelgrians use soulkeepers to copy their mind-state when they
-die so that they can be brought into a heaven created by their sublimed
-ancestors. {{ this_book }} expands on that idea, and explores the morality of
-uploading minds to virtual hells, where they will be tortured forever, instead
-of heaven. Many of the galactic civilizations run hells for their people, and
-many more---including the Culture---oppose the practice. Both sides agree to
-settle the issue in a virtual war called the _War in Heaven_. The Culture
-voluntarily declines to participate in the war in order to keep up the
-appearance of fairness. We learn of the war early in the book, and at the same
-time learn that the anti-hell side is losing and thinking of escalating the
-war into the real world.
+In {{ c7 }}, the Chelgrians use soulkeepers to copy their mind-states at death
+so they can be brought into a heaven created by their sublimed ancestors. {{
+this_book }} expands on that idea and explores the morality of uploading minds
+to virtual hells, where they are tortured forever instead of reaching heaven.
+Many galactic civilizations run hells for their people, and others---including
+the Culture---oppose the practice. Both sides agree to settle the issue
+through a virtual conflict called the _War in Heaven_. The Culture declines to
+participate to maintain the appearance of neutrality. Early on, we learn that
+the anti-hell side is losing and is considering escalating the conflict into
+the real world.
 
 {{ this_book }} has a fantastic set of characters:
 
@@ -54,71 +53,69 @@ war into the real world.
   man in the pan-human Sichultian Enablement, and the owner of the companies
   running most of the hells.
 
-- Lededje Y'breq: Veppers's slave, who he murders in the first chapter, but
-  whose mind-state is copied and used to reincarnate her in the Culture.
+- Lededje Y'breq: Veppers's slave, murdered by him in the first chapter but
+  reincarnated in the Culture after her mind-state is copied.
 
-- Gyorni Vatueil: A virtual soldier in the _War in Heaven_ on the anti-hell
-  side, who moves up the ranks and is responsible for the war moving into the
-  real world.
+- Gyorni Vatueil: A virtual soldier in the _War in Heaven_, who rises through
+  the ranks and is pivotal in escalating the war into the real world.
 
-- Prin and Chay: Pavuleans who infiltrate their species' hell to expose the
-  horror. Prin is able to escape but Chay's mind is too broken and she remains
-  trapped.
+- Prin and Chay: Pavuleans who infiltrate their species' hell to expose its
+  horrors. Prin escapes, but Chay's mind is too broken, leaving her trapped.
 
-- Yime Nsokyi: A Culture contact agent in the Quietus branch, who deal with
-  the dead, reincarnated, and virtual mind-states.
+- Yime Nsokyi: A Culture Contact agent in the Quietus branch, dealing with the
+  dead, reincarnated, and virtual mind-states.
 
-- The _Falling Outside The Normal Moral Constraints_: An _Abominator_-class
-  Culture warship, the _FOTNMC_ brings Y'breq back to her home planet.
+- The _Falling Outside The Normal Moral Constraints_ (_FOTNMC_): An
+  _Abominator_-class Culture warship that brings Y'breq back to her home planet.
 
-{{ this_book }} is my favorite {{ culture }} novel so far, just edging out {{
-c3 }}. The multiple storylines are carefully directed to converge at the end
-of the book, creating a complex and engaging narrative. {{ the_author }}
-maintains the perfect pace by shifting between plots in the same chapter,
-developing them and the world piece by piece and often ending on a cliffhanger
-to keep the reader in anticipation. The pacing and sense of anticipation are
-reinforced by the _FOTNMC_, who like the reader, is excited by the prospect of
-finally firing its weapons in anger.
+{{ this_book }} is my favorite {{ culture }} novel so far, narrowly beating
+out {{ c3 }}. Its multiple storylines are expertly woven together to converge
+at the end, creating a complex and engaging narrative. {{ the_author }}
+maintains a perfect pace by shifting between plots in the same chapter,
+developing the characters and world piece by piece while ending on
+cliffhangers to maintain suspense. This sense of anticipation is mirrored by
+the _FOTNMC_, who---like the reader---is thrilled by the prospect of finally
+unleashing its full destructive power.
 
 Consciousness and what it means to be sentient are core themes of the novel.
-Y'breq's mind is copied on her death and used to reincarnate her. Chay, Prin,
-and Vatueil are simulated minds copied from real people, and in the case of
-Chay, resulting in multiple copies as her real self wakes up while her virtual
-self remains in hell. _FOTNMC_ is, of course, a completely constructed Mind.
-_FOTNMC_'s original avatar is a human whose mind is suppressed so the ship can
-control them. Unlike {{ commonwealth }}, {{ this_book }} grapples with the
-fact that a backup isn't really you, first by having Chay's body wake up while
-her virtual copy continues in hell, and later explicitly when a Culture pilot
-is thinking about her imminent death.
+Y'breq's mind is copied upon her death to reincarnate her. Chay, Prin, and
+Vatueil are all simulated minds copied from real people, with Chay's situation
+emphasizing this: her real body wakes up while her virtual self remains in
+hell. _FOTNMC_ is a completely constructed Mind, and its original avatar is a
+human whose consciousness is suppressed so the ship can control their body.
+Unlike {{ commonwealth }}, {{ this_book }} grapples with the idea that a
+backup isn't truly **you**. This is shown when Chay's body and virtual copy
+coexist, again when a Culture pilot contemplates her own imminent death
+even though her mind is backed up, and when a copy of Vatueil allows itself to
+be shut off because it knows the original continues on.
 
-There are several twists. The clearly evil Veppers is revealed to be (for his
-own benefit) on the anti-hell side. It is unclear which side the Culture is
-on, as they want to end the hells but also pledged to be neutral. The largest
-and most important twist is delivered in the epilogue: that Vatueil is the man
-called Cheradenine Zakalwe from {{ c3 }}. This indicates that Special
-Circumstances has been involved in the _War in Heaven_ since the beginning,
-and makes the reader reevaluate what parts of the book were actually part of
-the Culture's scheme. It's interesting to note that the Culture often deploys
-Zakalwe on the side they want to lose, in this case as a pro-hell mole on the
-anti-hell side.
+There are several twists. Veppers, clearly evil, is revealed to be (for his
+own benefit) on the anti-hell side. The Culture's neutrality is
+ambiguous---they want to end the hells but have pledged not to interfere. The
+most significant twist comes in the epilogue: Vatueil is revealed to be
+Cheradenine Zakalwe from {{ c3 }}. This implies that Special Circumstances has
+been involved in the _War in Heaven_ all along, making the reader reevaluate
+what parts of the book were part of their scheme. It's worth noting that the
+Culture often deploys Zakalwe on the side they want to lose---in this case, as
+a pro-hell mole on the anti-hell side.
 
-In the previous {{ this_series }} books, I felt a slight sense of distance
-from the characters and setting. For reasons I can't explain, {{ this_book }}
-pulled me in and made me feel completely immersed in the world.
+In previous {{ this_series }} books, I sometimes felt a slight detachment from
+the characters and settings. For reasons I can't fully explain, {{ this_book
+}} pulled me in completely, immersing me in its world.
 
-{{ this_book }} reminds me of several books I've read: the hacking-as-battle
-scenes echo The Detective's Tail in {{ hyperion }}, the virtual hells remind
-me of the Shrike and the tree of pain, and the many battles of Vatueil
-reminded me of the soldier traveling through time and fighting the Shrike. The
-mind copies and especially Y'breq's quantum entanglement transfer reminded me
-of the way Bobs create new versions in {{ bob1 }}. {{ banks }} mentions that
-the dead in the galaxy outnumber the living, which harkens back to {{ so2001
-}}'s line "Behind every man now alive stand thirty ghosts, for that is the
-ratio by which the dead outnumber the living." The virtual hells themselves
-recall the Star Trek: Deep Space Nine episode <cite class="show-title">Hard
-time</cite> in which Chief O'Brien suffers from PTSD after being given
-memories of having spent twenty years in prison.
+{{ this_book }} reminded me of several other books: the hacking-as-battle
+scenes echo The Detective's Tale in {{ hyperion }}; the virtual hells recall
+the Shrike and its tree of pain; and the many battles involving Vatueil are
+like the soldier traveling through time to fight the Shrike over and over.
+Y'breq's quantum entanglement transfer brought to mind how the Bobs create new
+versions in {{ bob1 }}. {{ banks }} notes that the galaxy's dead outnumber the
+living, which parallels {{ so2001 }}'s line: "Behind every man now alive stand
+thirty ghosts, for that is the ratio by which the dead outnumber the living."
+The virtual hells themselves are reminiscent of the Star Trek: Deep Space Nine
+episode <cite class="tv-show-title">Hard Time</cite>, where Chief O'Brien
+suffers PTSD after receiving memories of a 20-year imprisonment, and also the
+virtual heavens from {{ blindsight }}.
 
-It is bittersweet to move on to {{ c10 }}, the final Culture book. Before I do
-I'm reading {{ grand_melee }}, fifth book in the {{ war_horses }} series,
-which was just released.
+It's bittersweet to move on to {{ c10 }}, the final Culture book. Before I do,
+I'm reading {{ grand_melee }}, the fifth book in the {{ war_horses }} series,
+which was just released. 
