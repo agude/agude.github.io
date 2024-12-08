@@ -41,12 +41,12 @@ so they can be brought into a heaven created by their sublimed ancestors. {{
 this_book }} expands on that idea and explores the morality of uploading minds
 to virtual hells, where they are tortured forever instead of reaching heaven.
 
-Many galactic civilizations run hells for their people, and others---including
-the Culture---oppose the practice. Both sides agree to settle the issue
-through a virtual conflict called the _War in Heaven_. The Culture declines to
-participate to maintain the appearance of fairness. Early on, we learn that
-the anti-hell side is losing and is considering escalating the conflict into
-the real world.
+Many galactic civilizations run hells for their people, while
+others---including the Culture---oppose the practice. Both sides agree to
+settle the issue through a virtual conflict called the _War in Heaven_. The
+Culture declines to participate to maintain the appearance of fairness. Early
+on, we learn that the anti-hell side is losing and is considering escalating
+the conflict into the real world.
 
 {{ this_book }} has a fantastic set of characters:
 
@@ -71,11 +71,12 @@ the real world.
 
 {{ this_book }} is my favorite {{ culture }} novel so far, narrowly beating
 out {{ c3 }}. The multiple, convergent storylines give the reader a broad view
-of the conflict and keep the pace high. {{ the_author }} maintains the pace
-by shifting between plots in the same chapter, developing the characters and
-world piece by piece while ending on cliffhangers to maintain suspense. This
-sense of anticipation is mirrored by the _FOTNMC_, who---like the reader---is
-excited by the prospect of finally unleashing its full destructive power.
+of the conflict and keep the pace high. {{ the_author }} maintains the
+momentum by shifting between plots in the same chapter, developing the
+characters and world piece by piece while ending on cliffhangers to maintain
+suspense. This sense of anticipation is mirrored by the _FOTNMC_, who---like
+the reader---is excited by the prospect of finally unleashing its full
+destructive power.
 
 This novel, unlike {{ commonwealth }}, explores different beliefs about
 whether a copy of your mind is still you. Some characters, like Y'breq,
@@ -100,23 +101,23 @@ Culture often deploys Zakalwe on the side they want to lose---in this case, as
 a pro-hell mole on the anti-hell side.
 
 In previous {{ this_series }} books, I sometimes felt a slight detachment from
-the characters and settings, like I'm watching them from a distance. For
+the characters and settings, like I was watching them from a distance. For
 reasons I can't fully explain, {{ this_book }} pulled me in completely.
 
 {{ this_book }} reminded me of several other books: the hacking-as-battle
 scenes echo The Detective's Tale in {{ hyperion }}, the virtual hells recall
 the Shrike and its tree of pain, and the many battles involving Vatueil are
-similar the soldier traveling through time to fight the Shrike over and over.
-Y'breq's quantum entanglement transfer brought to mind how the Bobs create new
-versions in {{ bob1 }}. {{ banks }} notes that the galaxy's dead outnumber the
-living, which parallels {{ so2001 }}'s line: "Behind every man now alive stand
-thirty ghosts, for that is the ratio by which the dead outnumber the living."
-The virtual hells themselves are reminiscent of the Star Trek: Deep Space Nine
-episode <cite class="tv-show-title">Hard Time</cite>, where Chief O'Brien
-suffers PTSD after receiving memories of a 20-year imprisonment. {{ blindsight
-}} has both a virtual afterlife and also explores the themes of minds and
-consciousness.
+similar to the soldier traveling through time to fight the Shrike over and
+over. Y'breq's quantum entanglement transfer brought to mind how the Bobs
+create new versions in {{ bob1 }}. {{ banks }} notes that the galaxy's dead
+outnumber the living, which parallels {{ so2001 }}'s line: "Behind every man
+now alive stand thirty ghosts, for that is the ratio by which the dead
+outnumber the living." The virtual hells themselves are reminiscent of the
+Star Trek: Deep Space Nine episode <cite class="tv-show-title">Hard
+Time</cite>, where Chief O'Brien suffers PTSD after receiving memories of a
+20-year imprisonment. {{ blindsight }} has both a virtual afterlife and also
+explores the themes of minds and consciousness.
 
 It's bittersweet to move on to {{ c10 }}, the final Culture book. Before I do,
 I'm reading {{ grand_melee }}, the fifth book in the {{ war_horses }} series,
-which was just released. 
+which was just released.
