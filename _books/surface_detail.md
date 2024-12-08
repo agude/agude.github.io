@@ -40,6 +40,7 @@ In {{ c7 }}, the Chelgrians use soulkeepers to copy their mind-states at death
 so they can be brought into a heaven created by their sublimed ancestors. {{
 this_book }} expands on that idea and explores the morality of uploading minds
 to virtual hells, where they are tortured forever instead of reaching heaven.
+
 Many galactic civilizations run hells for their people, and others---including
 the Culture---oppose the practice. Both sides agree to settle the issue
 through a virtual conflict called the _War in Heaven_. The Culture declines to
@@ -69,13 +70,12 @@ the real world.
   _Abominator_-class Culture warship that brings Y'breq back to her home planet.
 
 {{ this_book }} is my favorite {{ culture }} novel so far, narrowly beating
-out {{ c3 }}. Its multiple storylines are expertly woven together to converge
-at the end, giving the reader a broad view of the narrative while keeping a
-fast pace. {{ the_author }} maintains this momentum by shifting between plots
-in the same chapter, developing the characters and world piece by piece while
-ending on cliffhangers to maintain suspense. This sense of anticipation is
-mirrored by the _FOTNMC_, who---like the reader---is excited by the prospect
-of finally unleashing its full destructive power.
+out {{ c3 }}. The multiple, convergent storylines give the reader a broad view
+of the conflict and keep the pace high. {{ the_author }} maintains the pace
+by shifting between plots in the same chapter, developing the characters and
+world piece by piece while ending on cliffhangers to maintain suspense. This
+sense of anticipation is mirrored by the _FOTNMC_, who---like the reader---is
+excited by the prospect of finally unleashing its full destructive power.
 
 This novel, unlike {{ commonwealth }}, explores different beliefs about
 whether a copy of your mind is still you. Some characters, like Y'breq,
