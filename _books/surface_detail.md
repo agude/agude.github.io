@@ -11,9 +11,8 @@ image: /books/covers/surface_detail.jpg
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is the ninth <span
 class="book-series">{{ page.series }}</span> book. It explores themes of the
-mind, what it means to be alive, and punishment through the Culture's attempt
-to stop other civilizations from running virtual hells to torture their own
-citizens.
+mind, consciousness, and punishment through the Culture's attempt to stop
+other civilizations from running virtual hells to torture their own citizens.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -23,13 +22,9 @@ citizens.
 {% capture culture %}{% include series_link.html series=page.series %}{% endcapture %}
 {% capture banks %}<span class="author-name">Banks</span>{% endcapture %}
 
-{% capture c1 %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
-{% capture c2 %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
 {% capture c3 %}{% include book_link.html title="Use of Weapons" %}{% endcapture %}
-{% capture c5 %}{% include book_link.html title="Excession" %}{% endcapture %}
-{% capture c6 %}{% include book_link.html title="Inversions" %}{% endcapture %}
 {% capture c7 %}{% include book_link.html title="Look to Windward" %}{% endcapture %}
-{% capture c8 %}{% include book_link.html title="Matter" %}{% endcapture %}
+{% capture c10 %}{% include book_link.html title="The Hydrogen Sonata" %}{% endcapture %}
 
 {% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
 {% capture bob1 %}{% include book_link.html title="We Are Legion (We Are Bob)" %}{% endcapture %}
@@ -37,6 +32,9 @@ citizens.
 {% capture so2001 %}{% include book_link.html title="2001: A Space Odyssey" %}{% endcapture %}
 {% capture hyperion %}{% include book_link.html title="Hyperion" %}{% endcapture %}
 {% capture commonwealth %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
+
+{% capture grand_melee %}{% include book_link.html title="Grand Melee" %}{% endcapture %}
+{% capture war_horses %}{% include series_link.html series="War Horses" %}{% endcapture %}
 
 In {{ c7 }}, the Chelgrians use soulkeepers to copy their mind-state when they
 die so that they can be brought into a heaven created by their sublimed
@@ -52,18 +50,18 @@ war into the real world.
 
 {{ this_book }} has a fantastic set of characters:
 
-- Joiler Veppers: A deceitful business magnet and playboy, the most powerful
+- Joiler Veppers: A deceitful business magnate and playboy, the most powerful
   man in the pan-human Sichultian Enablement, and the owner of the companies
   running most of the hells.
 
 - Lededje Y'breq: Veppers's slave, who he murders in the first chapter, but
   whose mind-state is copied and used to reincarnate her in the Culture.
 
-- Gyorni Vatueil: A virtual solider in the _War in Heaven_ on the anti-hell
+- Gyorni Vatueil: A virtual soldier in the _War in Heaven_ on the anti-hell
   side, who moves up the ranks and is responsible for the war moving into the
-  real.
+  real world.
 
-- Prin and Chay: Pavulean who infiltrate their specie's hell to expose the
+- Prin and Chay: Pavuleans who infiltrate their species' hell to expose the
   horror. Prin is able to escape but Chay's mind is too broken and she remains
   trapped.
 
@@ -74,36 +72,35 @@ war into the real world.
   Culture warship, the _FOTNMC_ brings Y'breq back to her home planet.
 
 {{ this_book }} is my favorite {{ culture }} novel so far, just edging out {{
-c3 }}. The multiple storylines, each carefully directed to meet at the end of
-the book, <!-- TODO -->. {{ the_author }} keeps the perfect pace by shifting
-between plots in the same chapter, developing them and the world piece by
-piece and often ending on a cliff hanger to keep the reader in anticipation.
-The pacing and sense of anticipation are reinforced by the _FOTNMC_, who like
-the reader, is excited by the prospect of getting to finally fire its weapons
-in anger.
+c3 }}. The multiple storylines are carefully directed to converge at the end
+of the book, creating a complex and engaging narrative. {{ the_author }}
+maintains the perfect pace by shifting between plots in the same chapter,
+developing them and the world piece by piece and often ending on a cliffhanger
+to keep the reader in anticipation. The pacing and sense of anticipation are
+reinforced by the _FOTNMC_, who like the reader, is excited by the prospect of
+finally firing its weapons in anger.
 
-The mind, and what it means to be "alive" <!-- TODO: Better wording than
-alive. Sentient? --> are a core theme of the novel. Y'breq's mind is copied on
-her death and used to reincarnate her. Chay, Prin, and Vatueil are simulated
-minds copied from real people, and in the case of Chay, resulting in multiple
-copies as her real self wakes up while her virtual self remains in hell.
-_FOTNMC_ is, of course, a completely constructed Mind. _FOTNMC_'s original
-avatar is a human whose mind is suppressed so the ship can control them.
-Unlike {{ commonwealth }}, {{ this_book }} grapples with the fact that a
-backup isn't really you, first by having Chay's body wake up while her virtual
-copy continues in hell, and later explicitly when a Culture pilot is thinking
-about her imminent death.
+Consciousness and what it means to be sentient are core themes of the novel.
+Y'breq's mind is copied on her death and used to reincarnate her. Chay, Prin,
+and Vatueil are simulated minds copied from real people, and in the case of
+Chay, resulting in multiple copies as her real self wakes up while her virtual
+self remains in hell. _FOTNMC_ is, of course, a completely constructed Mind.
+_FOTNMC_'s original avatar is a human whose mind is suppressed so the ship can
+control them. Unlike {{ commonwealth }}, {{ this_book }} grapples with the
+fact that a backup isn't really you, first by having Chay's body wake up while
+her virtual copy continues in hell, and later explicitly when a Culture pilot
+is thinking about her imminent death.
 
-There are several twists. Veppers is clearly evil, but we learn that he is
-also (for his own benefit) on the anti-hell side. It is unclear which side the
-Culture is on, as they want to end the hells but also pledged to be neutral.
-The largest and most important twist is delivered in the epilogue: that
-Vatueil is the man called Cheradenine Zakalwe from {{ c3 }}. This indicates
-that Special Circumstances has been involved in the _War in Heaven_ since the
-beginning, and makes the reader reevaluate what parts of the book were
-actually part of the Culture's scheme. It's interesting to note that the
-Culture often deploys Zakalwe on the side they want to lose, in this case as a
-pro-hell mole on the anti-hell side.
+There are several twists. The clearly evil Veppers is revealed to be (for his
+own benefit) on the anti-hell side. It is unclear which side the Culture is
+on, as they want to end the hells but also pledged to be neutral. The largest
+and most important twist is delivered in the epilogue: that Vatueil is the man
+called Cheradenine Zakalwe from {{ c3 }}. This indicates that Special
+Circumstances has been involved in the _War in Heaven_ since the beginning,
+and makes the reader reevaluate what parts of the book were actually part of
+the Culture's scheme. It's interesting to note that the Culture often deploys
+Zakalwe on the side they want to lose, in this case as a pro-hell mole on the
+anti-hell side.
 
 In the previous {{ this_series }} books, I felt a slight sense of distance
 from the characters and setting. For reasons I can't explain, {{ this_book }}
@@ -112,15 +109,16 @@ pulled me in and made me feel completely immersed in the world.
 {{ this_book }} reminds me of several books I've read: the hacking-as-battle
 scenes echo The Detective's Tail in {{ hyperion }}, the virtual hells remind
 me of the Shrike and the tree of pain, and the many battles of Vatueil
-reminded me of the solider traveling through time and fighting the Shrike. The
+reminded me of the soldier traveling through time and fighting the Shrike. The
 mind copies and especially Y'breq's quantum entanglement transfer reminded me
 of the way Bobs create new versions in {{ bob1 }}. {{ banks }} mentions that
 the dead in the galaxy outnumber the living, which harkens back to {{ so2001
 }}'s line "Behind every man now alive stand thirty ghosts, for that is the
 ratio by which the dead outnumber the living." The virtual hells themselves
 recall the Star Trek: Deep Space Nine episode <cite class="show-title">Hard
-time</cite> in which Chief O'Brien surfers from PTSD after being given
+time</cite> in which Chief O'Brien suffers from PTSD after being given
 memories of having spent twenty years in prison.
 
 It is bittersweet to move on to {{ c10 }}, the final Culture book. Before I do
-I'm reading {{ grand_melee }}, which was just released.
+I'm reading {{ grand_melee }}, fifth book in the {{ war_horses }} series,
+which was just released.
