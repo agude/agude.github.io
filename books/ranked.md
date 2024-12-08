@@ -10,6 +10,7 @@ ranked_list:
   - Echopraxia
   - Blindsight
   - A Fire Upon the Deep
+  - Surface Detail
   - Use of Weapons
   - Look to Windward
   - The Player of Games
