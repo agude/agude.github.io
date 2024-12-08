@@ -43,7 +43,7 @@ to virtual hells, where they are tortured forever instead of reaching heaven.
 Many galactic civilizations run hells for their people, and others---including
 the Culture---oppose the practice. Both sides agree to settle the issue
 through a virtual conflict called the _War in Heaven_. The Culture declines to
-participate to maintain the appearance of neutrality. Early on, we learn that
+participate to maintain the appearance of fairness. Early on, we learn that
 the anti-hell side is losing and is considering escalating the conflict into
 the real world.
 
@@ -70,12 +70,12 @@ the real world.
 
 {{ this_book }} is my favorite {{ culture }} novel so far, narrowly beating
 out {{ c3 }}. Its multiple storylines are expertly woven together to converge
-at the end, creating a complex and engaging narrative. {{ the_author }}
-maintains a perfect pace by shifting between plots in the same chapter,
-developing the characters and world piece by piece while ending on
-cliffhangers to maintain suspense. This sense of anticipation is mirrored by
-the _FOTNMC_, who---like the reader---is thrilled by the prospect of finally
-unleashing its full destructive power.
+at the end, giving the reader a broad view of the narrative while keeping a
+fast pace. {{ the_author }} maintains this momentum by shifting between plots
+in the same chapter, developing the characters and world piece by piece while
+ending on cliffhangers to maintain suspense. This sense of anticipation is
+mirrored by the _FOTNMC_, who---like the reader---is excited by the prospect
+of finally unleashing its full destructive power.
 
 Consciousness and what it means to be sentient are core themes of the novel.
 Y'breq's mind is copied upon her death to reincarnate her. Chay, Prin, and
@@ -84,10 +84,10 @@ emphasizing this: her real body wakes up while her virtual self remains in
 hell. _FOTNMC_ is a completely constructed Mind, and its original avatar is a
 human whose consciousness is suppressed so the ship can control their body.
 Unlike {{ commonwealth }}, {{ this_book }} grapples with the idea that a
-backup isn't truly **you**. This is shown when Chay's body and virtual copy
-coexist, again when a Culture pilot contemplates her own imminent death
-even though her mind is backed up, and when a copy of Vatueil allows itself to
-be shut off because it knows the original continues on.
+backup isn't truly **you**. This is explored with Chay's dual existence, again
+when a Culture pilot contemplates her own imminent death even though her mind
+is backed up, and when a copy of Vatueil allows itself to be shut off because
+it knows the original continues on.
 
 There are several twists. Veppers, clearly evil, is revealed to be (for his
 own benefit) on the anti-hell side. The Culture's neutrality is
