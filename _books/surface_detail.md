@@ -77,17 +77,17 @@ ending on cliffhangers to maintain suspense. This sense of anticipation is
 mirrored by the _FOTNMC_, who---like the reader---is excited by the prospect
 of finally unleashing its full destructive power.
 
-Consciousness and what it means to be sentient are core themes of the novel.
-Y'breq's mind is copied upon her death to reincarnate her. Chay, Prin, and
-Vatueil are all simulated minds copied from real people, with Chay's situation
-emphasizing this: her real body wakes up while her virtual self remains in
-hell. _FOTNMC_ is a completely constructed Mind, and its original avatar is a
-human whose consciousness is suppressed so the ship can control their body.
-Unlike {{ commonwealth }}, {{ this_book }} grapples with the idea that a
-backup isn't truly **you**. This is explored with Chay's dual existence, again
-when a Culture pilot contemplates her own imminent death even though her mind
-is backed up, and when a copy of Vatueil allows itself to be shut off because
-it knows the original continues on.
+This novel, unlike {{ commonwealth }}, explores different beliefs about
+whether a copy of your mind is still you. Some characters, like Y'breq,
+consider their backup to be a continuation of their original self. Others,
+like Chay and Prin, try to limit themselves to a single active mind that can
+be merged back into them to preserve their sense of self. Chay fails at this,
+as her body wakes up, leaving two distinct versions of her. For others,
+multiple concurrent minds are a natural part of their existence: _FOTNMC_ is a
+distributed consciousness across its multiple hulls and avatars. Vatueil has
+multiple independent copies that are merged together upon "death" and even
+allows one version to be turned off, confident that his larger "self"
+persists.
 
 There are several twists. Veppers, clearly evil, is revealed to be (for his
 own benefit) on the anti-hell side. The Culture's neutrality is
