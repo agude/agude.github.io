@@ -11,8 +11,8 @@ image: /books/covers/surface_detail.jpg
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is the ninth <span
 class="book-series">{{ page.series }}</span> book. It follows Lededje Y'breq
-as she seeks revenge for her own murder, set against the backdrop of a galactic
-conflict over virtual hells.
+as she seeks revenge for her own murder, set against the backdrop of a
+galactic conflict over virtual hells.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -108,7 +108,7 @@ start. It forced me to reconsider what serendipitous events---like _FOTNMC_'s
 arrival to pick up Y'breq---were actually Special Circumstances controlling
 things in the background.
 
-[^loser]: 
+[^loser]:
     An interesting pattern emerges when you look at Zakalwe's role in both {{
     c3 }} and {{ this_book }}: he's often placed on the side the Culture wants
     to lose. In this book, he is planted as a pro-hell mole on the anti-hell
