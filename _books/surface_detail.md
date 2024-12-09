@@ -11,7 +11,7 @@ image: /books/covers/surface_detail.jpg
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is the ninth <span
 class="book-series">{{ page.series }}</span> book. It follows Lededje Y'breq
-as she plots revenge for her own murder against the background of a galactic
+as she seeks revenge for her own murder, set against the backdrop of a galactic
 conflict over virtual hells.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
@@ -38,19 +38,19 @@ conflict over virtual hells.
 {% capture war_horses %}{% include series_link.html series="War Horses" %}{% endcapture %}
 
 {{ this_book }} continues the exploration of themes raised in {{ c7 }}---death
-and rebirth---while expanding to cover the mind, consciousness, punishment,
-and religion. In {{ c7 }}, the Chelgrians use soulkeepers to copy their
-mind-states at death so they can be brought into a heaven created by their
-sublimed ancestors. In this book, other civilizations are using similar
-technology to trap the unworthy dead into virtual hells to be tortured for
-eternity.
+and rebirth---while diving deeper into questions of mind, consciousness,
+punishment, and religion. In {{ c7 }}, the Chelgrians use soulkeepers to copy
+their mind-states at death, allowing them to enter a heaven created by their
+sublimed ancestors. Here, other civilizations use similar technology to trap
+the unworthy dead in virtual hells, where they're tortured for eternity.
 
 ## The Plot
 
-The large-scale plot involves the Culture's opposition to these virtual hells
-and the simulated war---called the _War in Heaven_---being fought over the
-fate of the hells. The Culture's position is complicated by the fact that they
-pledged to stay out of the war in order for the result to be fair.
+The large-scale plot revolves around the Culture's opposition to these virtual
+hells and the simulated war---called the _War in Heaven---_over their fate.
+The Culture pledged to stay out of the war to ensure fairness, but their
+position grows increasingly complicated as they realize the anti-hell side is
+losing.
 
 There are multiple, intertwining small-scale plots that help keep the story
 moving while giving us a broad view of the conflict. The first is the murder
@@ -60,29 +60,28 @@ revenge, eventually joining the _Abominator_-class Culture warship, _Falling
 Outside The Normal Moral Constraints_ (_FOTNMC_).
 
 The second is Veppers's involvement in the war. At first, he seems to be a
-minor player, but we quickly learn that he is crucial. Initially, he plots
-with both sides before revealing he supports the anti-hell side, which is
-unexpected due to how evil he is. We learn that his company provides the
-hardware on which most of the hells run.
+minor player, but we quickly learn that he is crucial. He plots with both
+sides before revealing he supports the anti-hell side, which is unexpected due
+to how evil he is. We learn that his company provides the hardware on which
+most of the hells run.
 
 The third is the war story of virtual soldier Gyorni Vatueil as he rises
-through the ranks on the anti-hell side of the _War in Heaven_. He realizes
-that his side is losing and is pivotal in escalating the war into the real
-world by conspiring with the Geseptian-Fardesile Cultural Federacy (GFCF) to
-build a war fleet to attack the servers running the hells.
+through the ranks on the anti-hell side of the _War in Heaven_. Realizing his
+side is losing, he escalates the war into the real world by conspiring with
+the Geseptian-Fardesile Cultural Federacy (GFCF) to launch an attack on the
+hell servers.
 
 The fourth plotline follows Prin and Chay, two Pavuleans who infiltrate their
-species' hell to expose its horrors. Prin successfully escapes, but Chay's
-mind is too far gone, and she remains trapped in the hell. Through Chay's
-eyes, the reader is shown exactly how terrible these simulated hells are. {{
-the_authors }} infamous ability to write gruesome violence brings the horror
-to life.
+species' hell to expose its horrors. Prin escapes, but Chay's mind is too far
+gone, and she remains trapped in the hell. Through Chay's eyes, the reader is
+shown exactly how terrible these simulated hells are. {{ the_authors }}
+infamous ability to write gruesome violence brings the horror to life.
 
 The final plotline involves Contact agent Yime Nsokyi, part of Quietus---the
 branch of Contact that deals with the dead, the reincarnated, and the
-simulated. She tries to catch Y'breq but repeatedly fails to intercept her.
-Nsokyi's role in the narrative is mainly as an observer, offering the reader
-different perspectives on the conflict.
+simulated. She tries to intercept Y'breq but repeatedly fails. Nsokyi's role
+in the narrative is mainly as an observer, offering the reader different
+perspectives on the conflict.
 
 ## Thoughts
 
@@ -107,19 +106,21 @@ things in the background.
 
 [^loser]: 
     An interesting pattern emerges when you look at Zakalwe's role in both {{
-    c3 }} and {{ this_book }}: he is often placed on the side the Culture
-    wants to lose. In this book, he is planted as a pro-hell mole on the
-    anti-hell side before eventually switching sides.
+    c3 }} and {{ this_book }}: he's often placed on the side the Culture wants
+    to lose. In this book, he is planted as a pro-hell mole on the anti-hell
+    side before eventually switching sides.
 
-{{ this_book }} reminded me of several other books:
+{{ this_book }} reminded me of several other works:
 
-- The hacking-as-battle scenes echo The Detective's Tale in {{ hyperion }};
-  the virtual hells recall the Shrike and its tree of pain, and the many
-  battles involving Vatueil are similar to the soldier traveling through time
-  to fight the Shrike repeatedly.
+- The hacking-as-battle sequences echo The Detective's Tale in {{ hyperion }}; the
+  virtual hells evoke the Shrike and its tree of pain. Vatueil's battles parallel the
+  soldier's fight through time against the Shrike.
 
-- Y'breq's quantum entanglement transfer brought to mind how the Bobs create
-  new versions in {{ bob1 }}.
+- Y'breq's quantum entanglement transfer recalls how the Bobs create copies in
+  {{ bob1 }}.
+
+- The mind backups are similar to the technology in {{ commonwealth }}, but
+  this book explores the idea that "the backup isn't you".
 
 - {{ banks }} notes that the galaxy's dead outnumber the living, paralleling
   {{ so2001 }}'s line: "Behind every man now alive stand thirty ghosts, for
@@ -135,11 +136,10 @@ things in the background.
 - The mention of high-gravity species afraid of a centimeter drop recalls {{
   mission }} and {{ dragon }}.
 
-- Although not a book, the concept of eternal punishment for your mind-state
+- Although not a book, the concept of eternal punishment for mind-states
   reminds me of [Roko's basilisk][roko] and the AI safety movement.
 
 [roko]: https://en.wikipedia.org/wiki/Roko%27s_basilisk
 
 It's bittersweet to move on to {{ c10 }}, the final Culture book. Before I do,
-I'm reading {{ grand_melee }}, the fifth book in the {{ war_horses }} series,
-which was just released.
+I'm reading {{ grand_melee }}, the latest book in the {{ war_horses }} series.
