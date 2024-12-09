@@ -10,9 +10,9 @@ image: /books/covers/surface_detail.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is the ninth <span
-class="book-series">{{ page.series }}</span> book. It explores themes of mind,
-consciousness, and punishment through the Culture's attempt to stop other
-civilizations from running virtual hells to torture their own citizens.
+class="book-series">{{ page.series }}</span> book. It follows Lededje Y'breq
+as she plots revenge for her own murder, against the background of galactic
+conflict over virtual hells.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -29,6 +29,7 @@ civilizations from running virtual hells to torture their own citizens.
 {% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
 {% capture bob1 %}{% include book_link.html title="We Are Legion (We Are Bob)" %}{% endcapture %}
 {% capture dragon %}{% include book_link.html title="Dragon's Egg" %}{% endcapture %}
+{% capture mission %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
 {% capture so2001 %}{% include book_link.html title="2001: A Space Odyssey" %}{% endcapture %}
 {% capture hyperion %}{% include book_link.html title="Hyperion" %}{% endcapture %}
 {% capture commonwealth %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
@@ -36,87 +37,109 @@ civilizations from running virtual hells to torture their own citizens.
 {% capture grand_melee %}{% include book_link.html title="Grand Melee" %}{% endcapture %}
 {% capture war_horses %}{% include series_link.html series="War Horses" %}{% endcapture %}
 
-In {{ c7 }}, the Chelgrians use soulkeepers to copy their mind-states at death
-so they can be brought into a heaven created by their sublimed ancestors. {{
-this_book }} expands on that idea and explores the morality of uploading minds
-to virtual hells, where they are tortured forever instead of reaching heaven.
+{{ this_book }} continues the exploration of the themes raised in {{ c7 }},
+death and rebirth, while expanding to cover the mind, consciousness,
+punishment, and religion. In {{ c7 }}, the Chelgrians use soulkeepers to copy
+their mind-states at death so they can be brought into a heaven created by
+their sublimed ancestors. In this book, other civilizations are using similar
+technology to trap the unworthy dead into virtual hells to be tortured for an
+eternity.
 
-Many galactic civilizations run hells for their people, while
-others---including the Culture---oppose the practice. Both sides agree to
-settle the issue through a virtual conflict called the _War in Heaven_. The
-Culture declines to participate to maintain the appearance of fairness. Early
-on, we learn that the anti-hell side is losing and is considering escalating
-the conflict into the real world.
+## The Plot
 
-{{ this_book }} has a fantastic set of characters:
+The large-scale plot involves the Culture's opposition to these virtual hells,
+and the simulated war---called the _War in Heaven_---being fought over the
+fate of the hells. The Culture's position is complicated by the fact that they
+pledged to stay out of the war in order for the result to be fair.
 
-- Joiler Veppers: A deceitful business magnate and playboy, the most powerful
-  man in the pan-human Sichultian Enablement, and the owner of the companies
-  running most of the hells.
+There are multiple, intertwining small-scale plots that help keep the story
+moving while giving us a broad view of the conflict. The first is the murder
+of the slave Lededje Y'breq by her owner Joiler Veppers. Y'breq is
+reincarnated in the Culture from a copy of her mind-state, and she sets off
+for revenge, eventually joining the _Abominator_-class Culture warship,
+_Falling Outside The Normal Moral Constraints_ (_FOTNMC_).
 
-- Lededje Y'breq: Veppers's slave, murdered by him in the first chapter but
-  reincarnated in the Culture after her mind-state is copied.
+The second is Veppers's involvement in the war. At first he seems to be a
+minor player, but we quickly learn that he is crucial. Initially he plots with
+both sides before revealing he supports the anti-hell side, which is
+unexpected due to how evil he is. We learn that his company provides the
+hardware on which most of the hells run.
 
-- Gyorni Vatueil: A virtual soldier in the _War in Heaven_, who rises through
-  the ranks and is pivotal in escalating the war into the real world.
+The third is the war story of virtual soldier Gyorni Vatueil as he rises up
+the ranks on the anti-hell side of the _War in Heaven_. He realizes that his
+side is losing and is pivotal in escalating the war into the real world by
+conspiring with the Geseptian-Fardesile Cultural Federacy (GFCF) to build a
+warfleet to attack the servers running the hells.
 
-- Prin and Chay: Pavuleans who infiltrate their species' hell to expose its
-  horrors. Prin escapes, but Chay's mind is too broken, leaving her trapped.
+The forth plot line follows Prin and Chay, two Pavuleans who infiltrate their
+species' hell in order to expose its horrors. Prin successfully escapes but
+Chay's mind is too far gone and she is trapped in the hell. Through Chay's
+eyes, the reader is shown exactly how terrible these simulated hells are. {{
+the_authors }} infamous ability to write gruesome violence brings the horror
+to life.
 
-- Yime Nsokyi: A Culture Contact agent in the Quietus branch, dealing with the
-  dead, reincarnated, and virtual mind-states.
+The final is investigation of Contact agent Yime Nsokyi. She is part of
+Quietus, the branch of Contact that deals with the dead, the reincarnated, and
+the simulated. She is trying to catch Y'breq, but keeps failing to intercept
+her. Nsokyi's role in the narrative is mainly as an observer to show the
+reader different parts of the conflict.
 
-- The _Falling Outside The Normal Moral Constraints_ (_FOTNMC_): An
-  _Abominator_-class Culture warship that brings Y'breq back to her home planet.
+## Thoughts
 
 {{ this_book }} is my favorite {{ culture }} novel so far, narrowly beating
-out {{ c3 }}. The multiple, convergent storylines give the reader a broad view
-of the conflict and keep the pace high. {{ the_author }} maintains the
-momentum by shifting between plots in the same chapter, developing the
-characters and world piece by piece while ending on cliffhangers to maintain
-suspense. This sense of anticipation is mirrored by the _FOTNMC_, who---like
-the reader---is excited by the prospect of finally unleashing its full
-destructive power.
+out {{ c3 }}. This is partly because the plot is so interesting, which great
+action sequences, cliff hangers, and the anticipation---shared by _FOTNMC_ in
+the narrative---of getting to see the Culture join in a full-scale war. But it
+is also because the characters are so compelling. I wanted to see Veppers
+ruined and Y'breq take her revenge. I loved the bumbling GFCF who were just
+trying to get the Culture to notice them. And the psychotic but loveable
+_FOTNMC_ really showed how even ships can have personality. In previous {{
+this_series }} books, I sometimes felt a slight detachment from the characters
+and settings, like I was watching them from a distance. For reasons I can't
+fully explain, {{ this_book }} pulled me in completely.
 
-This novel, unlike {{ commonwealth }}, explores different beliefs about
-whether a copy of your mind is still you. Some characters, like Y'breq,
-consider their backup to be a continuation of their original self. Others,
-like Chay and Prin, try to limit themselves to a single active mind that can
-be merged back into them to preserve their sense of self. Chay fails at this,
-as her body wakes up, leaving two distinct versions of her. For others,
-multiple concurrent minds are a natural part of their existence: _FOTNMC_ is a
-distributed consciousness across its multiple hulls and avatars. Vatueil has
-multiple independent copies that are merged together upon "death" and even
-allows one version to be turned off, confident that his larger "self"
-persists.
+A significant twist comes in the epilogue: Vatueil is revealed to be the
+Special Circumstances agent Cheradenine Zakalwe[^loser] from {{ c3 }}, which implies
+that the Culture has been involved in the _War in Heaven_ from the start. It
+forced me to reconsider what serendipitous events---like _FOTNMC_'s arrival to
+pick up Y'breq---were actually Special Circumstances controlling things in the
+background.
 
-There are several twists. Veppers, the primary antagonist, is revealed to be
-(for his own benefit) on the anti-hell side. The Culture's neutrality is
-ambiguous---they want to end the hells but have pledged not to interfere. The
-most significant twist comes in the epilogue: Vatueil is revealed to be
-Cheradenine Zakalwe from {{ c3 }}. This implies that Special Circumstances has
-been involved in the _War in Heaven_ all along, making the reader reevaluate
-what parts of the book were part of their scheme. It's worth noting that the
-Culture often deploys Zakalwe on the side they want to lose---in this case, as
-a pro-hell mole on the anti-hell side.
+[^loser]: 
+    An interesting pattern emerges when you look at Zakalwe's role in both {{
+    c3 }} and {{ this_book }}: he is often placed on the side the Culture
+    wants to lose. In this book he is planted as a pro-hell mole on the
+    anti-hell side before eventually switching sides.
 
-In previous {{ this_series }} books, I sometimes felt a slight detachment from
-the characters and settings, like I was watching them from a distance. For
-reasons I can't fully explain, {{ this_book }} pulled me in completely.
+{{ this_book }} reminded me of several other books:
 
-{{ this_book }} reminded me of several other books: the hacking-as-battle
-scenes echo The Detective's Tale in {{ hyperion }}, the virtual hells recall
-the Shrike and its tree of pain, and the many battles involving Vatueil are
-similar to the soldier traveling through time to fight the Shrike over and
-over. Y'breq's quantum entanglement transfer brought to mind how the Bobs
-create new versions in {{ bob1 }}. {{ banks }} notes that the galaxy's dead
-outnumber the living, which parallels {{ so2001 }}'s line: "Behind every man
-now alive stand thirty ghosts, for that is the ratio by which the dead
-outnumber the living." The virtual hells themselves are reminiscent of the
-Star Trek: Deep Space Nine episode <cite class="tv-show-title">Hard
-Time</cite>, where Chief O'Brien suffers PTSD after receiving memories of a
-20-year imprisonment. {{ blindsight }} has both a virtual afterlife and also
-explores the themes of minds and consciousness.
+- The hacking-as-battle scenes echo The Detective's Tale in {{ hyperion }},
+  the virtual hells recall the Shrike and its tree of pain, and the many
+  battles involving Vatueil are similar to the soldier traveling through time
+  to fight the Shrike over and over.
+
+- Y'breq's quantum entanglement transfer brought to mind how the Bobs create
+  new versions in {{ bob1 }}.
+
+- {{ banks }} notes that the galaxy's dead outnumber the living, which
+  parallels {{ so2001 }}'s line: "Behind every man now alive stand thirty
+  ghosts, for that is the ratio by which the dead outnumber the living."
+
+- The virtual hells themselves are reminiscent of the Star Trek: Deep Space
+  Nine episode <cite class="tv-show-title">Hard Time</cite>, where Chief
+  O'Brien suffers PTSD after receiving memories of a 20-year imprisonment.
+
+- {{ blindsight }} has both a virtual afterlife and also explores the themes
+  of minds and consciousness.
+
+- The mention of high gravity species afraid of a centimeter drop recalls {{
+  mission }} and {{ dragon }}.
+
+- And although not a book, the concept of eternal punishment of your
+  mind-state reminds me of [Roko's basilisk][roko], and the AI safety
+  movement.
+
+[roko]: https://en.wikipedia.org/wiki/Roko%27s_basilisk
 
 It's bittersweet to move on to {{ c10 }}, the final Culture book. Before I do,
 I'm reading {{ grand_melee }}, the fifth book in the {{ war_horses }} series,
