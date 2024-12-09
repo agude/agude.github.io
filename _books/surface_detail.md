@@ -47,7 +47,7 @@ the unworthy dead in virtual hells, where they're tortured for eternity.
 ## The Plot
 
 The large-scale plot revolves around the Culture's opposition to these virtual
-hells and the simulated war---called the _War in Heaven---_over their fate.
+hells and the simulated war---called the _War in Heaven_---over their fate.
 The Culture pledged to stay out of the war to ensure fairness, but their
 position grows increasingly complicated as they realize the anti-hell side is
 losing.
@@ -59,11 +59,13 @@ reincarnated in the Culture from a copy of her mind-state and sets off for
 revenge, eventually joining the _Abominator_-class Culture warship, _Falling
 Outside The Normal Moral Constraints_ (_FOTNMC_).
 
-The second is Veppers's involvement in the war. At first, he seems to be a
-minor player, but we quickly learn that he is crucial. He plots with both
-sides before revealing he supports the anti-hell side, which is unexpected due
-to how evil he is. We learn that his company provides the hardware on which
-most of the hells run.
+The second is Veppers's involvement in the war. Initially, he appears to be a
+minor player, but it quickly becomes clear that he is pivotal. He manipulates
+both sides before ultimately revealing his support for the anti-hell
+faction---an unexpected stance for the story's main antagonist. It's revealed
+that his company supplies the hardware running most of the hells, and his
+allegiance is entirely self-serving, allowing him to escape
+soon-to-be-worthless contracts.
 
 The third is the war story of virtual soldier Gyorni Vatueil as he rises
 through the ranks on the anti-hell side of the _War in Heaven_. Realizing his
@@ -75,13 +77,15 @@ The fourth plotline follows Prin and Chay, two Pavuleans who infiltrate their
 species' hell to expose its horrors. Prin escapes, but Chay's mind is too far
 gone, and she remains trapped in the hell. Through Chay's eyes, the reader is
 shown exactly how terrible these simulated hells are. {{ the_authors }}
-infamous ability to write gruesome violence brings the horror to life.
+[infamous ability to write gruesome violence][wasp] brings the horror to life.
+
+[wasp]: https://en.wikipedia.org/wiki/The_Wasp_Factory
 
 The final plotline involves Contact agent Yime Nsokyi, part of Quietus---the
 branch of Contact that deals with the dead, the reincarnated, and the
 simulated. She tries to intercept Y'breq but repeatedly fails. Nsokyi's role
-in the narrative is mainly as an observer, offering the reader different
-perspectives on the conflict.
+in the narrative is mainly as an observer, offering the reader different views
+of the conflict.
 
 ## Thoughts
 
@@ -91,11 +95,11 @@ action sequences, cliffhangers, and the anticipation---shared by _FOTNMC_ in
 the narrative---of seeing the Culture join in a full-scale war. But it is also
 because the characters are so compelling. I wanted to see Veppers ruined and
 Y'breq take her revenge. I loved the bumbling GFCF, who were just trying to
-get the Culture to notice them. And the psychotic but lovable _FOTNMC_ showed
-how even ships can have personality. In previous {{ this_series }} books, I
-sometimes felt a slight detachment from the characters and settings, like I
-was watching them from a distance. For reasons I can't fully explain, {{
-this_book }} pulled me in completely.
+get the Culture to notice them. The psychotic but lovable _FOTNMC_ showed how
+even ships can have personality. In previous Culture books, I sometimes felt a
+slight detachment from the characters and settings, like I was watching them
+from a distance. For reasons I can't fully explain, {{ this_book }} pulled me
+in completely.
 
 A significant twist comes in the epilogue: Vatueil is revealed to be the
 Special Circumstances agent Cheradenine Zakalwe[^loser] from {{ c3 }},
@@ -112,9 +116,9 @@ things in the background.
 
 {{ this_book }} reminded me of several other works:
 
-- The hacking-as-battle sequences echo The Detective's Tale in {{ hyperion }}; the
-  virtual hells evoke the Shrike and its tree of pain. Vatueil's battles parallel the
-  soldier's fight through time against the Shrike.
+- The hacking-as-battle sequences echo The Detective's Tale in {{ hyperion }}.
+  The virtual hells evoke the Shrike and its tree of pain. Vatueil's battles
+  parallel the soldier's fight through time against the Shrike.
 
 - Y'breq's quantum entanglement transfer recalls how the Bobs create copies in
   {{ bob1 }}.
@@ -130,10 +134,10 @@ things in the background.
   episode <cite class="tv-show-title">Hard Time</cite>, where Chief O'Brien
   suffers PTSD after receiving memories of a 20-year imprisonment.
 
-- {{ blindsight }} features both a virtual afterlife and explores themes of
-  minds and consciousness.
+- Virtual afterlife and themes of mind and consciousness both feature
+  prominently in {{ blindsight }}.
 
-- The mention of high-gravity species afraid of a centimeter drop recalls {{
+- The mention of high-gravity species afraid of a millimeter drop recalls {{
   mission }} and {{ dragon }}.
 
 - Although not a book, the concept of eternal punishment for mind-states
