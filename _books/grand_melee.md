@@ -1,10 +1,10 @@
 ---
-date: 2024-12-08
+date: 2024-12-09
 title: Grand Melee
 book_author: Scott Warren
 series: War Horses
 book_number: 5
-rating: null
+rating: 4
 image: /books/covers/grand_melee.jpg
 ---
 
