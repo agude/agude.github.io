@@ -22,6 +22,7 @@ mech tournament.
 {% capture w2 %}{% include book_link.html title="Ymir" %}{% endcapture %}
 {% capture w3 %}{% include book_link.html title="Serpent Valley" %}{% endcapture %}
 {% capture w4 %}{% include book_link.html title="Dog Soldier" %}{% endcapture %}
+{% capture w6 %}{% include book_link.html title="Sunstone Imperative" %}{% endcapture %}
 
 {% capture battle_royale %}{% include book_link.html title="Battle Royale" %}{% endcapture %}
 {% capture takami %}{% include author_link.html name="Kōshun Takami" %}{% endcapture %}
@@ -63,3 +64,6 @@ recapped earlier books; it felt like a crutch for readers jumping into the
 middle of a series instead of starting from the beginning. But reading the {{
 series }} series as it's released has changed my mind. A bit of a reminder
 would help me when its is months or years since I read the previous books.
+
+Once I finished, I found myself wishing there was more to read. I'm already
+looking forward to {{ the_author }}'s next book in the series, {{ w6 }}.
