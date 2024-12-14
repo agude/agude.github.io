@@ -158,3 +158,39 @@ I has been {{ "now" | date: "%Y" | minus: 1999 }} years since 1999.
 </div> <!-- Close the resume div -->
 
 ---
+
+## Custom Book Review Test Section
+
+### Book Metadata Test
+
+<div class="book-page">
+  <h1 class="page-title"><cite class="book-title">Test Book Title</cite></h1>
+
+  <div class="written-by">
+    By {% include author_link.html name="Vernor Vinge" %}
+  </div>
+
+  <div class="book-series-line">
+    Book 2 of {% include get_series_text.html series="Test Series" %}
+  </div>
+</div>
+
+### Book Cover Test
+
+<div class="floating-book-cover">
+  <img class="book-cover-lead"
+    src="/books/covers/a_fire_upon_the_deep.jpg"
+    alt="Book cover of Test Book Title."
+  >
+</div>
+
+### Book Review Test
+
+<article class="page">
+  <h2 class="book-review-headline">Review</h2>
+  {% include book_rating.html rating=5 %}
+
+  This is a sample review of the book, demonstrating the inclusion of
+  custom metadata, images, and dynamic content. The story revolves around a
+  fascinating premise and is exceptionally well-written.
+</article>
