@@ -44,18 +44,18 @@ chatting with their audiences than fighting.
 I was genuinely surprised by how the Chevaliers' run in the tournament ended.
 I expected that, even though Vandal was ordered to prioritize making the
 company look good over winning, the author would find a way for him to do
-both. Instead, Vandal negotiates contracts to put other teams ahead of his own
-and ultimately disqualifies his own Chevaliers squad for a quick payday. He is
+both. Instead, Vandal negotiates contracts to put other teams ahead and
+ultimately disqualifies his own Chevaliers squad for a quick payday. He is
 becoming a true mercenary.
 
-{{ this_book }} starts to hint at a broader universe with the introduction of
-new factions. There's an English mercenary company led by Captain Tanith
-(possibly a nod to {{ abnetts }} {{ tanith }} or sci-fi author {{ tanith_lee
-}}), Gundam-style Japanese mechs, and French AI-driven mechs. Several
-characters also have their cultural heritages highlighted for the first time.
-It feels like {{ the_author }} is laying the groundwork for a major expansion
-of the universe in the next few books. The author also drops not-so-subtle
-hints about a coming major conflict.
+{{ this_book }} starts to hint at an even broader universe with the
+introduction of new factions. There's an English mercenary company led by
+Captain Tanith (possibly a nod to {{ abnetts }} {{ tanith }} or sci-fi author
+{{ tanith_lee }}), Gundam-style Japanese mechs, and French AI-driven mechs.
+Several characters also have their cultural heritages highlighted for the
+first time. It feels like {{ the_author }} is laying the groundwork for a
+major expansion of the universe in the next few books. The author also drops
+not-so-subtle hints about a coming major conflict.
 
 One critique I have is that the author frequently references events from
 earlier books---the Paladin Devils from {{ w1 }}, Vandal's bond with his mech
