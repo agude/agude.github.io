@@ -35,6 +35,7 @@ ranked_list:
   - The Tainted Cup
   - Eater
   - The Citadel of the Autarch
+  - Grand Melee
   - The Temporal Void
   - The Evolutionary Void
   - The Sword of the Lictor
