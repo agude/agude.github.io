@@ -122,3 +122,39 @@ You can include raw HTML in Markdown:
 <div style="color: blue; font-weight: bold;">This is raw HTML in Markdown</div>
 
 ---
+
+## Custom Resume Markup Test Section
+
+<div class="resume" markdown="1">
+
+### Resume Subtitle
+
+<div class="subtitle">Blogger, Balloon enthusiast</div>
+
+### Resume Include Test
+
+{% include resume_experience.html
+company="Test Company"
+location="Anywhere, USA"
+position="Test Position"
+dates="2022--Present"
+position_2="Another Position"
+dates_2="2020--2022"
+%}
+
+### Resume Skills Test
+
+{% include resume_skills.html
+languages='Python, Ruby, JavaScript'
+tools="Docker, Kubernetes, Jenkins, Terraform"
+%}
+
+### Dynamic Date Test
+
+This statement includes a dynamic year calculation:
+
+I has been {{ "now" | date: "%Y" | minus: 1999 }} years since 1999.
+
+</div> <!-- Close the resume div -->
+
+---
