@@ -42,7 +42,7 @@ nature. In many ways, {{ this_book }} is their love story.[^enemies]
 
 {{ this_authors }} settings are incredibly sparse, giving the book the feel of
 a stage play with rough-painted backdrops that are just enough to suggest a
-location: "a ship," "a village in New York," or "a plantation". Often, her
+location: "a ship", "a village in New York", or "a plantation". Often, her
 settings aren't described at all. This is in stark contrast to {{ banks }},
 whose {{ culture_series }} I read just before this. He builds richly detailed
 places, like the ancient city and waterfall in {{ c7 }} for his stories. The
