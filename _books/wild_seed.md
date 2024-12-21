@@ -4,7 +4,7 @@ title: Wild Seed
 book_author: Octavia E. Butler
 series: Patternist
 book_number: 1
-rating: 5
+rating: 4
 image: /books/covers/wild_seed.jpg
 ---
 
