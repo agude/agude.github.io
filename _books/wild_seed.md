@@ -19,9 +19,6 @@ spirit---and Anyanwu---an immortal woman.
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture p2 %}{% include book_link.html title="Mind of My Mind" %}{% endcapture %}
-{% capture p3 %}{% include book_link.html title="Clay's Ark" %}{% endcapture %}
-{% capture p4 %}{% include book_link.html title="Patternmaster" %}{% endcapture %}
-{% capture survivor %}{% include book_link.html title="Survivor" %}{% endcapture %}
 
 {% capture this_authors %}{% include author_link.html name=page.book_author link_text="Butler" possessive=true %}{% endcapture %}
 
@@ -73,8 +70,16 @@ is Isaac. The section titles of the book reference:
 [lot]: https://en.wikipedia.org/wiki/Lot_(biblical_person)
 [canaan]: https://en.wikipedia.org/wiki/Canaan
 
-{{ this_book }} is also an Atlantic Slave Trade story. Doro captures Anyanwu
-in Africa and traffics her across the ocean to his colonies in America. Many
-of Doro's people are literally African slaves he buys for their powers. Doro
-treats his people---regardless of their background---as slaves, coercing them
-to follow him through violence and breeding them for his own profit.
+{{ this_book }} is also an [Atlantic slave trade][slave] story. Doro captures
+Anyanwu in Africa and traffics her across the ocean to his colonies in
+America. Many of Doro's people are literally African slaves he buys for their
+powers. Doro treats his people---regardless of their background---as slaves,
+coercing them to follow him through violence and breeding them for his own
+profit.
+
+[slave]: https://en.wikipedia.org/wiki/Atlantic_slave_trade
+
+{{ this_authors }} characters really stuck with me. I **hated** Doro, and
+didn't understand what Anyanwu saw in him, but by the end of the book I felt
+sorry for Doro as he feared losing Anyanwu forever. I'm looking forward to see
+how he changes in the next book, {{ p2 }}.
