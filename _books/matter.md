@@ -26,7 +26,6 @@ with the unleashing of a cosmic horror.
 {% capture c3 %}{% include book_link.html title="Use of Weapons" %}{% endcapture %}
 {% capture c5 %}{% include book_link.html title="Excession" %}{% endcapture %}
 {% capture c7 %}{% include book_link.html title="Look to Windward" %}{% endcapture %}
-{% capture c8 %}{% include book_link.html title="Inversions" %}{% endcapture %}
 {% capture c9 %}{% include book_link.html title="Surface Detail" %}{% endcapture %}
 
 {% capture thrones %}{% include book_link.html title="A Game of Thrones" %}{% endcapture %}

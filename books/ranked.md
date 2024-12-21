@@ -33,6 +33,7 @@ ranked_list:
   - Redwall
   - Hyperion
   - The Tainted Cup
+  - Wild Seed
   - Eater
   - The Citadel of the Autarch
   - Grand Melee
