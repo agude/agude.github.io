@@ -192,6 +192,11 @@ a[href^="#fnref:"] {
   font-weight: bold;
 }
 
+/* Put commas between multiple footnotes */
+sup[id^="fnref:"] + sup[id^="fnref:"]::before {
+  content: ",\202f";
+}
+
 /* List of footnotes */
 .footnotes {
   margin-top: 1em;

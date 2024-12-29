@@ -113,6 +113,12 @@ This is a sentence with a footnote.[^1]
 
 [^1]: This is the footnote text.
 
+This is a sentence with **two footnotes**, one of which is reused!![^1][^long]
+
+[^long]:
+    This is a long long long footnote that wraps across multiple lines in both
+    the HTML and Markdown.
+
 ---
 
 ## HTML in Markdown
