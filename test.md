@@ -52,7 +52,21 @@ This is another paragraph with **bold text**, *italic text*, and ***bold italic 
 
 ## Links
 
-[Home](/)
+[Link](/)
+
+[_Italic Link_](/)
+
+[**Bold Link**](/)
+
+[**_Bold and Italic Link_**](/)
+
+[~~Strikethrough Link~~](/)
+
+[~~_Italic Strikethrough Link_~~](/)
+
+[~~**Bold Strikethrough Link**~~](/)
+
+[~~**_Bold and Italic Strikethrough Link_**~~](/)
 
 ---
 
@@ -129,11 +143,9 @@ This is a sentence with **two footnotes**, one of which is reused!![^1][^long]
 
 ---
 
-## HTML in Markdown
+## Front Page Feed
 
-You can include raw HTML in Markdown:
-
-<div style="color: blue; font-weight: bold;">This is raw HTML in Markdown</div>
+{% include front_page_feed.html %}
 
 ---
 
@@ -148,19 +160,19 @@ You can include raw HTML in Markdown:
 ### Resume Include Test
 
 {% include resume_experience.html
-company="Test Company"
-location="Anywhere, USA"
-position="Test Position"
-dates="2022--Present"
-position_2="Another Position"
-dates_2="2020--2022"
+  company="Test Company"
+  location="Anywhere, USA"
+  position="Test Position"
+  dates="2022--Present"
+  position_2="Another Position"
+  dates_2="2020--2022"
 %}
 
 ### Resume Skills Test
 
 {% include resume_skills.html
-languages='Python, Ruby, JavaScript'
-tools="Docker, Kubernetes, Jenkins, Terraform"
+  languages='Python, Ruby, JavaScript'
+  tools="Docker, Kubernetes, Jenkins, Terraform"
 %}
 
 ### Dynamic Date Test
