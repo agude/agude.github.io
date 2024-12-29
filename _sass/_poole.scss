@@ -231,6 +231,12 @@ ol > li::marker {
   font-weight: bold;
 }
 
+/* Remove bottom margin for nested lists */
+li > ul,
+li > ol {
+  margin-bottom: 0;
+}
+
 .highlight .hll { background-color: #ffffcc; }
 .highlight .c { color: #999999; } /* Comment */
 .highlight .err { color: #aa0000; background-color: #ffaaaa; } /* Error */
