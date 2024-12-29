@@ -67,19 +67,24 @@ This is another paragraph with **bold text**, *italic text*, and ***bold italic 
 > This is a blockquote.
 > It can span multiple lines.
 
+> They can be really really really really really really really really really
+> really really really really really long.
+
 ---
 
 ## Tables
 
-| Column 1 | Column 2 | Column 3 |
-|----------|----------|----------|
-| Data 1   | Data 2   | Data 3   |
-| Data 4   | Data 5   | Data 6   |
-| Data 7   | Data 8   | Data 9   |
+| Left Justified | Centered | Right Justified |
+|:---------------|:--------:|----------------:|
+| Data 1         | Data 2   | Data 3          |
+| Data 4         | Data 5   | Data 6          |
+| Data 7         | Data 8   | Data 9          |
 
 ---
 
 ## Horizontal Rule
+
+---
 
 ---
 
@@ -93,10 +98,13 @@ This is another paragraph with **bold text**, *italic text*, and ***bold italic 
 
 ## Emphasis
 
+- _Italic_
 - **Bold**
-- *Italic*
-- ***Bold and Italic***
+- **_Bold and Italic_**
 - ~~Strikethrough~~
+- ~~_Italic Strikethrough_~~
+- ~~**Bold Strikethrough**~~
+- ~~**_Bold and Italic Strikethrough_**~~
 
 ---
 
