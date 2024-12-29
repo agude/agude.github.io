@@ -153,14 +153,19 @@ This is a sentence with **two footnotes**, one of which is reused!![^1][^long]
 
 <div class="resume" markdown="1">
 
-### Resume Subtitle
+# Resume Person's Name
 
-<div class="subtitle">Blogger, Balloon enthusiast</div>
+<div class="subtitle">Subtitle for Resume</div>
 
-### Resume Include Test
+## Statement
+
+I am highly accomplished, I can use templates to calculate dates: {{ "now" |
+date: "%Y" | minus: 2015 }}.
+
+## Experience Test
 
 {% include resume_experience.html
-  company="Test Company"
+  company="Company with Two Positions"
   location="Anywhere, USA"
   position="Test Position"
   dates="2022--Present"
@@ -168,18 +173,45 @@ This is a sentence with **two footnotes**, one of which is reused!![^1][^long]
   dates_2="2020--2022"
 %}
 
-### Resume Skills Test
+- Things that were done
+- More things
+
+{% include resume_experience.html
+  company="Company with One Positions"
+  location="Anywhere, USA"
+  position="Test Position"
+  dates="2015--2020"
+%}
+
+{% include resume_experience.html
+  company="Company with Dateless Positions"
+  location="Anywhere, USA"
+  position="Test Position"
+  dates="2015--2020"
+  position_2="Another Position"
+%}
+
+## Resume Skills Test
 
 {% include resume_skills.html
   languages='Python, Ruby, JavaScript'
   tools="Docker, Kubernetes, Jenkins, Terraform"
 %}
 
-### Dynamic Date Test
+## Education Test
 
-This statement includes a dynamic year calculation:
+{% include resume_experience.html
+  company="University with Date"
+  location="Anywhere, USA"
+  position="PhD, Website Testing"
+  dates="2010--2015"
+%}
 
-I has been {{ "now" | date: "%Y" | minus: 1999 }} years since 1999.
+{% include resume_experience.html
+  company="University without Date"
+  location="Anywhere, USA"
+  position="PhD, Website Testing"
+%}
 
 </div> <!-- Close the resume div -->
 
