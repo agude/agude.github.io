@@ -6,6 +6,9 @@ description: >
 sidebar_include: false
 ---
 
+{% if jekyll.environment != "production" %}
+{% comment %}Only generate this page when in dev.{% endcomment %}
+
 # Markdown Test Page
 
 This is a test page to demonstrate all standard Markdown elements.
@@ -141,6 +144,13 @@ This is a sentence with **two footnotes**, one of which is reused!![^1][^long]
     This is a long long long footnote that wraps across multiple lines in both
     the HTML and Markdown.
 
+This is a footnote within a footnote.[^2]
+
+
+[^2]: First footnote.[^3]
+
+[^3]: Nested footnote.
+
 ---
 
 ## Front Page Feed
@@ -217,9 +227,51 @@ date: "%Y" | minus: 2015 }}.
 
 ---
 
-## Custom Book Review Test Section
+## Author Link
 
-### Book Metadata Test
+### Author That Exists
+
+- {% include author_link.html name="Arthur C. Clarke" %}
+- {% include author_link.html name="Arthur C. Clarke" possessive=true %}
+- {% include author_link.html name="Arthur C. Clarke" link_text="Clarke" %}
+- {% include author_link.html name="Arthur C. Clarke" possessive=true link_text="Clarke" %}
+
+### Author That Doesn't Exists
+
+- {% include author_link.html name="Nonexistent Author" %}
+- {% include author_link.html name="Nonexistent Author" possessive=true %}
+- {% include author_link.html name="Nonexistent Author" link_text="N. Author" %}
+- {% include author_link.html name="Nonexistent Author" possessive=true link_text="N. Author" %}
+
+---
+
+## Book Link
+
+### Book That Exists
+
+- {% include book_link.html title="Childhood's End" %}
+- {% include book_link.html title="Childhood's End" link_text="End" %}
+
+### Book That Doesn't Exists
+
+- {% include book_link.html title="Nonexistent Book" %}
+- {% include book_link.html title="Nonexistent Book" link_text="This Book Doesn't Exist" %}
+
+---
+
+## Series Link
+
+### Series That Exists
+
+- {% include series_link.html series="Culture" %}
+
+### Series That Doesn't Exist
+
+- {% include series_link.html series="Nonexistent Series" %}
+
+---
+
+## Custom Book Review Test Section
 
 <div class="book-page">
   <h1 class="page-title"><cite class="book-title">Test Book Title</cite></h1>
@@ -233,16 +285,12 @@ date: "%Y" | minus: 2015 }}.
   </div>
 </div>
 
-### Book Cover Test
-
 <div class="floating-book-cover">
   <img class="book-cover-lead"
     src="/books/covers/a_fire_upon_the_deep.jpg"
     alt="Book cover of Test Book Title."
   >
 </div>
-
-### Book Review Test
 
 <article class="page">
   <h2 class="book-review-headline">Review</h2>
@@ -252,3 +300,5 @@ date: "%Y" | minus: 2015 }}.
   custom metadata, images, and dynamic content. The story revolves around a
   fascinating premise and is exceptionally well-written.
 </article>
+
+{% endif %}
