@@ -3,26 +3,25 @@ layout: post
 title: My Favorite Books of 2024
 description: >
   These are my favorite books that I read in 2024.
-image: /files/book-reviews/00253-610392424-a_simple_color_pencil_drawing_of_an_adorable_robot_reading_a_books_white_background.png
+image: /files/book-reviews/a_simple_charming_color_pencil_drawing_of_an_adorable_robot_reading_a_book_on_a_white_background.jpg
 hide_lead_image: False
 image_alt: >
-    A pencil drawing of two robots reading books. Prompte:#58; A simple color
-    pencil drawing of an adorable robot,  reading a books, white background.
-    Negative prompte:#58; (text), multiple people, group. Stepse:#58; 20,
-    Samplere:#58; DPM++ SDE Karras, CFG scalee:#58; 6, Seede:#58; 610392424,
-    Sizee:#58; 1200x624, Model hashe:#58; d8691b4d16, Modele:#58;
-    deliberate_v11, Versione:#58; v1.5.1
+    A pencil drawing of a cute robot reading a book. Prompte:A simple,
+    charming color pencil drawing of an adorable robot reading a book, on a
+    white background. The robot has a rounded, friendly design with
+    expression.
 categories:
   - opinions
 ---
 
 {% capture file_dir %}/files/book-reviews{% endcapture %}
 
-In 2024, I finished 46 books and joined a sci-fi book club. The book club has
-been a great way to branch out from the types of books I normally read while
-making me focus more on the writing, connections between books, and the
-author's intent so I have things to discuss when we meet. Just like [last
-year][last_year], here are my favorite books from 2024:
+In 2024, I finished 46 books and joined a sci-fi book club. The club has been
+a fantastic way to explore books outside my usual reading habits and has
+encouraged me to think more critically about writing, thematic connections,
+and the author's intent---so I have plenty to share during discussions.
+Following the tradition of [last year's post][last_year], here are my favorite
+reads from 2024:
 
 [last_year]: {% post_url 2024-01-01-favorite_books_of_2023 %}#blindsight-by-peter-watts
 
