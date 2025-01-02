@@ -39,10 +39,10 @@ plot moving quickly in this thought-provoking sci-fi novel. My favorite book
 of the year!
 
 <div class="card-grid">
-    {% include auto_book_card.html title="Blindsight" %}
+  {% include auto_book_card.html title="Blindsight" %}
 </div>
 
-## The Chronicle of the Fallers by <span class="author-name">Peter F. Hamilton</span>
+## <span class="book-series">The Chronicle of the Fallers</span> by <span class="author-name">Peter F. Hamilton</span>
 
 Hamilton is known for his space opera, but <cite class="book-title">The Abyss
 Beyond Dreams</cite> is more urban fantasy set during the Russian Revolution
@@ -52,8 +52,8 @@ citizens with special knowledge as _"Outside Context Problems"_, pulling the
 stories into science fiction territory.
 
 <div class="card-grid">
-    {% include auto_book_card.html title="The Abyss Beyond Dreams" %}
-    {% include auto_book_card.html title="Night Without Stars" %}
+  {% include auto_book_card.html title="The Abyss Beyond Dreams" %}
+  {% include auto_book_card.html title="Night Without Stars" %}
 </div>
 
 ## <cite class="book-title">The Fall of Hyperion</cite> by <span class="author-name">Dan Simmons</span>
@@ -66,16 +66,16 @@ wormholes, a breakaway-but-helpful AI, and different factions of
 scheming AI who either want to eradicate the humans or uplift them.
 
 <div class="card-grid">
-    {% include auto_book_card.html title="The Fall of Hyperion" %}
+  {% include auto_book_card.html title="The Fall of Hyperion" %}
 </div>
 
-## The Commonwealth Saga by <span class="author-name">Peter F. Hamilton</span>
+## <span class="book-series">The Commonwealth Saga</span> by <span class="author-name">Peter F. Hamilton</span>
 
 Epic space opera with a massive cast of characters and incredible pacing.
 
 <div class="card-grid">
-    {% include auto_book_card.html title="Pandora's Star" %}
-    {% include auto_book_card.html title="Judas Unchained" %}
+  {% include auto_book_card.html title="Pandora's Star" %}
+  {% include auto_book_card.html title="Judas Unchained" %}
 </div>
 
 ## <cite class="book-title">Serpent Valley</cite> by <span class="author-name">Scott Warren</span>
@@ -86,5 +86,5 @@ quick, fun, nostalgic read. The third book, <cite class="book-title">Serpent
 Valley</cite>, exemplifies the series.
 
 <div class="card-grid">
-    {% include auto_book_card.html title="Serpent Valley" %}
+  {% include auto_book_card.html title="Serpent Valley" %}
 </div>
