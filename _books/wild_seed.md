@@ -35,7 +35,7 @@ Doro alone, and she may be the only one capable of tempering his monstrous
 nature. In many ways, {{ this_book }} is their love story.[^enemies]
 
 [^enemies]:
-    [Emily Fox][fox] joking referred to {{ this_book }} as "[...]the worst
+    [Emily Fox][fox] jokingly referred to {{ this_book }} as "[...]the worst
     enemies to lovers I've read in a while..." which is not inaccurate!
 
 [fox]: https://www.goodreads.com/review/show/5305542831
