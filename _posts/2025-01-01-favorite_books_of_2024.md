@@ -2,7 +2,8 @@
 layout: post
 title: My Favorite Books of 2024
 description: >
-  These are my favorite books that I read in 2024.
+    In 2024, I read 46 books and joined a sci-fi book club. From sequels to
+    classics, here are my favorite reads of the year.
 image: /files/book-reviews/a_simple_charming_color_pencil_drawing_of_an_adorable_robot_reading_a_book_on_a_white_background.jpg
 hide_lead_image: False
 image_alt: >
