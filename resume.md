@@ -107,11 +107,8 @@ that delivered tangible business value.
 
 ## Skills
 
-{% capture latex %}
-{% endcapture %}
-
 {% include resume_skills.html
-languages='Python, Scala, SQL, shell script, C++, <span class="latex">L<sup>a</sup>T<sub>e</sub>X</span>'
+  languages='Python, Scala, SQL, shell script, C++, <span class="latex">L<sup>a</sup>T<sub>e</sub>X</span>'
   tools="Sagemaker, NumPy, SciPy, Matplotlib, Tensorflow, Pandas, Spark, git, Linux, vim"
 %}
 
