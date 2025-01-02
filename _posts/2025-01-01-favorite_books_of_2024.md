@@ -18,9 +18,11 @@ categories:
 
 {% capture file_dir %}/files/book-reviews{% endcapture %}
 
-In 2024 I finished 46 books and joined a sci-fi book club. The book club has
-been a great way to branch out from the types of books I normally read. Just
-like [last year][last_year], here are my favorite books from 2024:
+In 2024, I finished 46 books and joined a sci-fi book club. The book club has
+been a great way to branch out from the types of books I normally read while
+making me focus more on the writing, connections between books, and the
+author's intent so I have things to discuss when we meet. Just like [last
+year][last_year], here are my favorite books from 2024:
 
 [last_year]: {% post_url 2024-01-01-favorite_books_of_2023 %}#blindsight-by-peter-watts
 
@@ -32,10 +34,10 @@ like [last year][last_year], here are my favorite books from 2024:
 {% capture watts %}{% include author_link.html name="Petter Watts" link_text="Watts" %}{% endcapture %}
 
 {{ ff2 }} is the sequel to {{ ff1 }}, one of my [favorite books from last
-year][last_year]. Although it wasn't as well received by readers, it was my
-favorite read of the year, and in fact I liked it _more_ than {{ blindsight }}
-because of it's complicated storyline, interesting characters, and wider view
-of the world it gives.
+year][last_year]. Although it wasn't as well received by readers as {{ ff1 }},
+it was my favorite read of the year. In fact, I liked it _more_ than {{ ff1 }}
+because of its complex storyline, intriguing characters, and the broader
+perspective it offers on the world.
 
 <div class="card-grid">
   {% include auto_book_card.html title="Echopraxia" %}
@@ -57,11 +59,11 @@ of the world it gives.
 
 I **hated** {{ c1 }} when I read it in 2023, but I gave the {{ culture }}
 series another chance because I had spent the better part of two decades
-waiting to get my hands on the books. I'm glad I did because I read {{ c2 }}
-with my book club and loved it! My favorite from the series was {{ c9 }}
-followed closely by {{ c3 }}. I even loved {{ c6 }}, one of the least well
-reviewed of {{ bankss }}. It will be bittersweet when I finish the series with
-{{ c10 }} in 2025.
+waiting to get my hands on the books. I'm glad I did, because I read {{ c2 }}
+with my book club and loved it! My favorite from the series was {{ c9 }},
+closely followed by {{ c3 }}. I even enjoyed {{ c6 }}, one of the least
+well-reviewed of {{ bankss }} books. It will be bittersweet to finish the
+series with {{ c10 }} in 2025.
 
 <div class="card-grid">
   {% include auto_book_card.html title="The Player of Games" %} 
@@ -72,12 +74,12 @@ reviewed of {{ bankss }}. It will be bittersweet when I finish the series with
 
 ## <cite class="book-title">A Fire Upon The Deep</cite> by <span class="author-name">Vernor Vinge</span>
 
-{%include book_link.html title="A Fire Upon The Deep" %} is a nostalgic
-favorite that I first read about 20 years ago, and just reread this year for
-my book club. It does a fantastic job of a telling a story that is small and
-personal while at the same time having galaxy spanning implications. The zones
-of thought are also a unique idea about how the galaxy is structured and how
-it would impact what civilizations can develop.
+{% include book_link.html title="A Fire Upon The Deep" %} is a nostalgic
+favorite that I first read about 20 years ago and reread this year for my book
+club. It does a fantastic job of telling a story that feels small and personal
+while having galaxy-spanning implications. The Zones of Thought concept is
+also a unique way to structure the galaxy and explore how it shapes
+civilizations.
 
 <div class="card-grid">
   {% include auto_book_card.html title="A Fire Upon The Deep" %}
@@ -92,12 +94,11 @@ it would impact what civilizations can develop.
 
 {% capture forward %}{% include author_link.html name="Robert L. Forward" link_text="Forward" %}{% endcapture %}
 
-The {{ cheela }} series is composed of two hard sci-fi novels by {{ forward
-}}: {{ ch1 }} and {{ ch2 }}. Even though the Cheela are _extremely_
-alien---living on the surface of a neutron star, experience time a million
-times faster than humans---the characters still pulled me in. It was exciting
-watching them build their civilization up from hunter-gatherer to space
-faring.
+The {{ cheela }} series consists of two hard sci-fi novels by {{ forward }}:
+{{ ch1 }} and {{ ch2 }}. Even though the Cheela are _extremely_ alien---living
+on the surface of a neutron star and experiencing time a million times faster
+than humans---their characters still pulled me in. It was exciting to watch
+them build their civilization from hunter-gatherers to a spacefaring society.
 
 <div class="card-grid">
   {% include auto_book_card.html title="Dragon's Egg" %}
@@ -111,9 +112,9 @@ faring.
 {% capture clarkes %}{% include author_link.html name="Arthur C. Clarke" link_text="Clarke" possessive=true %}{% endcapture %}
 
 Another nostalgic read, {{ clarkes }} {{ end }} was one of the first sci-fi
-books I read, it was a treat to revisit it years later and see that it held
-up. The focus on humans' psychic ability feels a little dated, but {{ clarkes
-}} crisp writing kept me engaged.
+books I ever read. Revisiting it years later was a treat, and I'm happy to say
+it holds up. The focus on humans' psychic abilities feels a little dated, but
+{{ clarkes }} crisp writing kept me engaged.
 
 <div class="card-grid">
   {% include auto_book_card.html title="Childhood's End" %}
