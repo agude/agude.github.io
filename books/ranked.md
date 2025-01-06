@@ -69,6 +69,7 @@ ranked_list:
   - The Causal Angel
   - There Is No Antimemetics Division
   # 2 Stars
+  - Mind of My Mind
   - Close to Critical
   - Star Light
   - The Quantum Thief
