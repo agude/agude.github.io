@@ -19,29 +19,30 @@ story of the Patternists.
 
 {% capture p1 %}{% include book_link.html title="Wild Seed" %}{% endcapture %}
 {% capture p3 %}{% include book_link.html title="Clay's Ark" %}{% endcapture %}
-{% capture this_authors %}{% include author_link.html name=page.book_author link_text="Butler" possessive=true %}{% endcapture %}
 
-{{ this_book }} takes place in a fictional suburb of 1970s Los Angeles. The LA
-of the book is a violent place with gangs, murders, fatal traffic collisions,
-and other accidental deaths. It is made deadlier by the presence of Doro and
-his telepathic children, who react violently to each other. The story is told
-by Doro, Emma, Mary, Karl, Seth, Rachael, Jesse, Ada, and Jan. Seth is Clay
-Dana's brother, the eponymous Clay from {{ p3 }}. Mary goes through her
-transition and discovers she can control and shield other telepaths, and
-creates a gigantic community call the Patternists.
+{{ this_book }} is set in a fictional suburb of 1970s Los Angeles. The LA of
+the book is a violent and dangerous place, filled with gangs, murders, fatal
+traffic collisions, and other accidental deaths. The danger is amplified by
+the presence of Doro and his telepathic children, who react violently to one
+another. The story is told from multiple perspectives, including Doro, Emma,
+Mary, Karl, Seth, Rachael, Jesse, Ada, and Jan. Seth is the brother of Clay
+Dana, the titular character from {{ p3 }}. In the book, Mary undergoes her
+transition, discovers her ability to control and shield other telepaths, and
+establishes a massive community called the Patternists.
 
-I did not like {{ this_book }} very much. Like {{ p1 }}, it is mainly a book
-about the characters and their relationships, but there were too many
-characters and I didn't care for any of them. This made the book feel empty
-because there was little plot to fill in the void.
+I didn't enjoy {{ this_book }} very much. Like {{ p1 }}, it focuses mainly on
+the characters and their relationships, but this time there were too many
+characters, none of whom I cared about. As a result, the book felt hollow,
+with little plot to fill the gaps.
 
-I think the biggest problem was that {{ p1 }} did such a good job building up
-Doro and Anyanwu---who goes by Emma in this book---that I cared a lot about
-them, and they are all but absent from this book.
+The biggest issue for me was that {{ p1 }} did such a great job building up
+Doro and Anyanwu---who goes by Emma in this book---that I became invested in
+them, only for them to be nearly absent here. None of the new characters have
+their same force of personality.
 
 The themes of othering and slavery are still present, but muted. The
-Patternists enslave normal humans, and even have a slur for them. They're
-clearly evil, which made it hard to root for any of them.
+Patternists enslave normal humans and even have a slur for them. The
+Patternists are clearly evil, which made it hard to root for any of them.
 
-I would have stopped halfway through the book if it wasn't part of my book
-club. I will give {{ p3 }} a go, but might not make it through.
+If it weren't for my book club, I would have stopped reading halfway through.
+I'll give {{ p3 }} a try, but I'm not optimistic about finishing it.
