@@ -30,12 +30,14 @@ Dana's brother, the eponymous Clay from {{ p3 }}. Mary goes through her
 transition and discovers she can control and shield other telepaths, and
 creates a gigantic community call the Patternists.
 
-I did not like {{ this_book }} very much. It has too many characters, few of
-which I cared about. I think part of the problem was that {{ p1 }} is so
-tightly written and focused on Doro and Anyanwu. It was their rivalry and
-relationship that I cared about. They are all but missing from this book.
-Anyanwu especially, who now goes by Emma, plays a bit part that feels
-artificially small after how much of a force she was previously.
+I did not like {{ this_book }} very much. Like {{ p1 }}, it is mainly a book
+about the characters and their relationships, but there were too many
+characters and I didn't care for any of them. This made the book feel empty
+because there was little plot to fill in the void.
+
+I think the biggest problem was that {{ p1 }} did such a good job building up
+Doro and Anyanwu---who goes by Emma in this book---that I cared a lot about
+them, and they are all but absent from this book.
 
 The themes of othering and slavery are still present, but muted. The
 Patternists enslave normal humans, and even have a slur for them. They're
