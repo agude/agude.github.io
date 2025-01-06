@@ -1,10 +1,10 @@
 ---
-date: 2024-12-21
+date: 2025-01-05
 title: Mind of My Mind
 book_author: Octavia E. Butler
 series: Patternist
 book_number: 2
-rating: null
+rating: 2
 image: /books/covers/mind_of_my_mind.jpg
 ---
 
