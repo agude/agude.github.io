@@ -25,33 +25,32 @@ and tries to contain it.
 {% capture andromeda %}{% include book_link.html title="The Andromeda Strain" %}{% endcapture %}
 {% capture crichtons %}{% include author_link.html name="Michael Crichton" possessive=true %}{% endcapture %}
 
-
 Like the previous books in the {{ series }} series, {{ this_book }} focuses on
 a loosely-defined "family" trying to survive in a world hostile to their
-differences. In {{ p1 }} is was Doro and his children, in {{ p2 }} is was Mary
+differences. In {{ p1 }} it was Doro and his children, in {{ p2 }} it was Mary
 and the Patternists, and in this book it is Eli and his ranch of people
 infected with the alien parasite brought back from Proxima Centauri.[^strain]
-All three of those characters---Doro, Mary, Eli---are forced to perform evil
-acts because of their biology, and the stories are built around how they
-decide to act.
+All three of those characters---Doro, Mary, and Eli---are forced to perform
+evil acts because of their biology, and the stories are built around how they
+choose to act.
 
 [^strain]: Which reminds me a bit of {{ crichtons }} {{ andromeda }}.
 
 {{ this_book }} is also a slave story, except the master is a parasite instead
-of a being. Those infected slowly lose their freewill and are forced to try to
-spread the infection. Eli and his people struggle to retain their humanity by
-spreading the parasite slowly and in a controlled manner, attempting to
-prevent the extinction of the human race, while still being forced by it to
-kidnap new victims.
+of a person. Those infected slowly lose their free will and are forced to try
+to spread the infection. Eli and his people struggle to retain their humanity
+by spreading the parasite slowly and in a controlled manner, attempting to
+prevent the extinction of the human race, while still being forced by the
+parasite to kidnap new victims.
 
-The plotting was a lot better than {{ p2 }}, but my conclusion from this
+The plotting was a lot better than in {{ p2 }}, but my conclusion from this
 series is that {{ the_author }} is more interested in writing characters than
 plots. The characters are more interesting than the ones in {{ p2 }}, but far
 weaker than Doro and Anyanwu in {{ p1 }}.
 
 It feels like {{ the_author }} fell into the worldbuilder's trap, where she
 wrote {{ p4 }} and then thought "Hmm, I wonder how this came to be" and wrote
-{{ p2 }} and {{ p3 }} to answer it. Both books  fill in holes in history, but
+{{ p2 }} and this book to answer it. Both books fill in holes in history, but
 don't tell a compelling story.
 
 I'll be moving on to {{ p4 }} next, and am looking forward to putting the {{
