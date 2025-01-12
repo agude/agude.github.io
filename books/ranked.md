@@ -59,6 +59,7 @@ ranked_list:
   - Heaven's River
   - The Dragon's Banker
   - The State of the Art
+  - Clay's Ark
   - The Nameless City
   - World of Trouble
   - "Flatland: A Romance of Many Dimensions"
