@@ -12,7 +12,7 @@ image: /books/covers/clays_ark.jpg
 class="author-name">{{ page.book_author }}</span>, is the third book in the
 <span class="book-series">{{ page.series }}</span> series. It follows Eli
 Doyle, an astronaut, after he has returned to earth with an alien infection
-and tries to contain it.
+and attempts to contain it.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -27,31 +27,31 @@ and tries to contain it.
 
 Like the previous books in the {{ series }} series, {{ this_book }} focuses on
 a loosely-defined "family" trying to survive in a world hostile to their
-differences. In {{ p1 }} it was Doro and his children, in {{ p2 }} it was Mary
-and the Patternists, and in this book it is Eli and his ranch of people
+differences. In {{ p1 }}, it was Doro and his children; in {{ p2 }}, it was
+Mary and the Patternists; and in this book, it is Eli and his ranch of people
 infected with the alien parasite brought back from Proxima Centauri.[^strain]
 All three of those characters---Doro, Mary, and Eli---are forced to perform
-evil acts because of their biology, and the stories are built around how they
-choose to act.
+questionable, even evil, acts because of their biology, and the stories
+revolve around how they choose to act despite those constraints.
 
 [^strain]: Which reminds me a bit of {{ crichtons }} {{ andromeda }}.
 
-{{ this_book }} is also a slave story, except the master is a parasite instead
-of a person. Those infected slowly lose their free will and are forced to try
-to spread the infection. Eli and his people struggle to retain their humanity
-by spreading the parasite slowly and in a controlled manner, attempting to
-prevent the extinction of the human race, while still being forced by the
-parasite to kidnap new victims.
+{{ this_book }} is also a slave story, but here the master is a parasite
+rather than a person. Those infected slowly lose their free will, compelled to
+spread the infection. Eli and his people struggle to retain their humanity by
+spreading the parasite slowly and in a controlled manner. They aim to prevent
+the extinction of the human race while still being forced by the parasite to
+kidnap new victims.
 
-The plotting was a lot better than in {{ p2 }}, but my conclusion from this
-series is that {{ the_author }} is more interested in writing characters than
-plots. The characters are more interesting than the ones in {{ p2 }}, but far
-weaker than Doro and Anyanwu in {{ p1 }}.
+The plotting was a lot better than in {{ p2 }}, but overall, this series has
+convinced me that {{ the_author }} is more focused on characters than plots.
+The characters are more interesting than the ones in {{ p2 }}, but far weaker
+than Doro and Anyanwu in {{ p1 }}.
 
-It feels like {{ the_author }} fell into the worldbuilder's trap, where she
-wrote {{ p4 }} and then thought "Hmm, I wonder how this came to be" and wrote
-{{ p2 }} and this book to answer it. Both books fill in holes in history, but
-don't tell a compelling story.
+It feels like {{ the_author }} fell into the worldbuilder's trap. She wrote {{
+p4 }} and then seemed to think "Hmm, I wonder how this came to be", leading
+her to write {{ p2 }} and this book. Both books fill in gaps in the history,
+but don't tell compelling stories.
 
-I'll be moving on to {{ p4 }} next, and am looking forward to putting the {{
-series }} series behind me.
+I'll be moving on to {{ p4 }} next, and I'm looking forward to finally
+wrapping up the {{ series }} series.
