@@ -1,10 +1,10 @@
 ---
-date: 2025-01-13
+date: 2025-01-16
 title: Patternmaster
 book_author: Octavia E. Butler
 series: Patternist
 book_number: 4
-rating: null
+rating: 4
 image: /books/covers/patternmaster.jpg
 ---
 
