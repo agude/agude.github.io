@@ -46,10 +46,11 @@ most powerful Patternists controlling those below them. Children and people
 not part of a house are fair game to abuse and enslave. Might makes right.
 
 Weirdly enough, {{ this_book }} reminds me of the anime <cite
-class="tv-show-title">Attack On Titan</cite>: Both feature medevial-ish
-civilizations with genetic powers besieged by human-like monsters and a
-civilization with better technology. I also couldn't help but picture the
-quadrupedal Clayarks as the Cart Titan.
+class="tv-show-title">Attack On Titan</cite>. Both civilzation---the
+Patternists and the Eldians---based on genetic superpowers that they use to
+oppress humans. Both are under siege by human-monsters---the Clayarks and the
+Titans. Both works deal with themes of hierachy and power. I also couldn't
+help but picture the quadrupedal Clayarks as the Cart Titan.
 
 {{ this_book }} was a fun way to finish a very uneven series. I'm glad I made
 it through, but I wish the middle books were better.
