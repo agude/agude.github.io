@@ -23,7 +23,7 @@ spirit---and Anyanwu---an immortal woman.
 
 {% capture banks %}{% include author_link.html name="Iain M. Banks" %}{% endcapture %}
 {% capture culture_series %}{% include series_link.html series="Culture" %} series{% endcapture %}
-{% capture c7 %}{% include book_link.html title="Patternmaster" %}{% endcapture %}
+{% capture c7 %}{% include book_link.html title="Matter" %}{% endcapture %}
 
 Doro and Anyanwu are almost opposites. Despite his ability to change bodies
 and her ability to change shape, Doro is male, while Anyanwu is female. He
