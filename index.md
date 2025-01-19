@@ -15,7 +15,7 @@ as well as cycling and photography. I got my start in the tech industry at
 working as a high energy particle physicist at CERN and a
 [cosmologist][scp] at Lawrence Berkeley Labs.
 
-[insight]: https://www.insightdatascience.com
+[insight]: https://web.archive.org/web/20200508104948/https://insightfellows.com/data-science
 [scp]: http://supernova.lbl.gov
 
 I write about whatever catches my attention [here on this site][blog]; mostly
