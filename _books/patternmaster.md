@@ -40,7 +40,16 @@ world is excitingly different and if I didn't know from the previous books I'd
 want to understand how it got to be that way. But it didn't change my opinion
 of those books; I don't think they were compelling stories.
 
-Weirdly enough, {{ this_book }} reminds me a bit of the anime <cite
+Like the other books in the series, {{ this_book }} deals with slavery and the
+abuse that comes from it. The entire civilization is hierarchical, with the
+most powerful Patternists controlling those below them. Children and people
+not part of a house are fair game to abuse and enslave. Might makes right.
+
+Weirdly enough, {{ this_book }} reminds me of the anime <cite
 class="tv-show-title">Attack On Titan</cite>: Both feature medevial-ish
-civilizations with genetic powers besieged by human-like monsters. The
-Clayarks are even quadrupedal like the Cart Titan.
+civilizations with genetic powers besieged by human-like monsters and a
+civilization with better technology. I also couldn't help but picture the
+quadrupedal Clayarks as the Cart Titan.
+
+{{ this_book }} was a fun way to finish a very uneven series. I'm glad I made
+it through, but I wish the middle books were better.
