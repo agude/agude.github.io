@@ -227,6 +227,20 @@ date: "%Y" | minus: 2015 }}.
 
 ---
 
+## TV Show and Movie Titles
+
+### TV
+
+- <cite class="tv-show-title">Hard Time</cite>
+- <cite class="tv-show-title">The Wire</cite>
+
+### Movie
+
+- <cite class="movie-title">Batman Begins</cite>
+- <cite class="movie-title">Pacific Rim</cite>
+
+---
+
 ## Author Link
 
 ### Author That Exists

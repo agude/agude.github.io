@@ -33,6 +33,7 @@ ranked_list:
   - Redwall
   - Hyperion
   - The Tainted Cup
+  - Patternmaster 
   - Wild Seed
   - Eater
   - The Citadel of the Autarch
