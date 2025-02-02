@@ -17,9 +17,9 @@ categories:
 
 {% capture file_dir %}/files/chatgpt{% endcapture %}
 
-ChatGPT 3.5 came out just over 2 years ago and kicked off a Large Language
-Model (LLM) renaissance. Dozens of companies released the own models and the
-state of the art advanced by the hour.
+ChatGPT 3.5 came out just over 2 years ago and kicked off a storm of Large
+Language Model (LLM) development. Dozens of companies released the own models
+and the state of the art advanced by the hour.
 
 At the time, [I wrote about how I used ChatGPT to write][previous_post]. My
 method was primitive. With years of experience and model advancements, I have
@@ -29,22 +29,22 @@ refined how I use LLMs for editing text. Here is my new method.
 
 ## Drafting
 
-I still write the first draft entirely by hand. I find this helps preserve my
-voice and keep the writing from being pulled too much by the LLM. It also
-achieves the main goal of why I write: to help clarify my thinking. But
-whereas I used to write, edit, write, edit, write, edit, etc. until I was
-close to 100% happy with my text, I now stop this cycle earlier and add in an
-LLM editing pass.
-
-I find that the thing I like least about my early drafts---the flow between
-ideas is clunky---is one of the things LLMs are best at fixing, since they
-excel at making writing closer to the average, smoothing out rough edges.
+I write the first draft entirely by hand. I find this helps preserve my voice
+and keep the writing from being pulled too much by the LLM. It also achieves
+the main goal of why I write: to help clarify my thinking. But whereas I used
+to write, edit, write, edit, write, edit, etc. until I was close to 100% happy
+with my work, I now stop earlier and add in an LLM editing pass, because the
+thing I like the least about my early drafts---generally how my paragraphs
+flow from one to the next---is something LLMs are quite good at fixing. They
+are also great at fixing spelling and grammatical errors that less
+sophisticated programs miss.
 
 ## The Prompt
 
-The prompt is important. It is what keeps the LLM from completely filling my
-prose with ["delve", "showcasing", and "underscores"][ars]. The prompt I
-currently use is this:
+The prompt you use with the LLM is important, as it defines how the model will
+edit your writing. The promp is what keeps the machine from completely filling
+my writing with ["delve", "showcasing", and "underscores"][ars]. I use slight
+variations of this prompt currently:
 
 > Help me edit this blog post I'm writing. Fix errors, make it clearer. Reword
 > to make the arguments and sentences more coherent. Use the same sort of
@@ -55,12 +55,14 @@ currently use is this:
 
 ## Editing
 
-I then put both versions---mine and the machine's---side-by-side and compare.
-In some cases, the edited version is great and I'll take a paragraph wholesale.
+Once I have the LLM's version, I put it side-by-side with mine to compare. In
+some cases, the edited version is great and I'll take a paragraph wholesale.
 In others, I'll take some ideas about how to structure a paragraph or a
 transition but rewrite it. Other times the LLM tries to fix what isn't broken
 and I ignore it.
 
-The oddest failure mode though is that sometimes that LLM doesn't do enough. I
-know when my writing is really really bad, and sometimes those parts won't get
-touched.
+After that I go through and do another human editing pass, just to make sure
+my voice comes through in each sentence. Sometimes I'll go through another
+full pass with the LLM, but more often I'll have it focus on specific
+sentences or paragraphs that I still don't like. Once I'm happy, I commit my
+changes and publish.
