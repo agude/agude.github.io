@@ -12,12 +12,23 @@ image_alt: >
     typewriter infront of the robot. Generated with stable diffusion. Prompt:
     watercolor illustration, adorable robot, desk lamp, sitting at a
     typewriter, chair, desk, clear, straight lines'
-categories: 
+categories:
   - generative-ai
   - machine-learning
 ---
 
 {% capture file_dir %}/files/chatgpt{% endcapture %}
+
+**Note: This article describes my early experiences using ChatGPT for writing.
+Since then, my methods have evolved significantly with improvements in LLMs.
+For my updated approach, check out my latest post:**
+
+{% capture url %}{% post_url 2025-02-02-how_i_write_with_llms_revised %}{% endcapture %}
+<div class="card-grid">
+  {% include auto_article_card.html url=url %}
+</div>
+
+<hr>
 
 [ChatGPT][chatgpt], the new chatbot from [OpenAI][oai], has received
 widespread attention for its versatility in conversation, information
@@ -33,7 +44,7 @@ to rapidly iterate through alternative phrasings for ideas, sentences, and
 paragraphs. In this cases, the model's habit of generating false information
 is not a concern because I wrote the original input so I know what it should
 say, and I can easily edit out any inaccuracies introduced by the
-model.[^edit_2]<sup>, </sup>[^edit_3]
+model.[^edit_2][^edit_3]
 
 Let me illustrate how I use ChatGPT to write and copyedit my work.[^edit_4]
 
@@ -47,7 +58,7 @@ a detailed set of paragraphs. Next, I give it to ChatGPT for refinement.
 <div class="chatgpt-prompt">
 <strong>Prompt</strong>
 <div class="chatgpt-prompt-only" markdown="1">
-> Give me three versions of this paragraph: 
+> Give me three versions of this paragraph:
 >
 > I start by writing a rough draft. This draft could be a just a few bullet
 > points or completely fleshed out paragraphs. I then feed it into ChatGPT:

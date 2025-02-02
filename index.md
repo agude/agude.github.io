@@ -11,9 +11,8 @@ description: >
 
 I'm **Alex Gude**, a data scientist with a passion for plots and algorithms,
 as well as cycling and photography. I got my start in the tech industry at
-[Insight Data Science][insight], after previously
-working as a high energy particle physicist at CERN and a
-[cosmologist][scp] at Lawrence Berkeley Labs.
+[Insight Data Science][insight], after previously working as a high energy
+particle physicist at CERN and a [cosmologist][scp] at Lawrence Berkeley Labs.
 
 [insight]: https://web.archive.org/web/20200508104948/https://insightfellows.com/data-science
 [scp]: http://supernova.lbl.gov
