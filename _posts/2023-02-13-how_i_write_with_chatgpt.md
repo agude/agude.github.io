@@ -19,6 +19,17 @@ categories:
 
 {% capture file_dir %}/files/chatgpt{% endcapture %}
 
+**Note: This article describes my early experiences using ChatGPT for writing.
+Since then, my methods have evolved significantly with improvements in LLMs.
+For my updated approach, check out my latest post:**
+
+{% capture url %}{% post_url 2025-02-02-how_i_write_with_llms_revised %}{% endcapture %}
+<div class="card-grid">
+  {% include auto_article_card.html url=url %}
+</div>
+
+<hr>
+
 [ChatGPT][chatgpt], the new chatbot from [OpenAI][oai], has received
 widespread attention for its versatility in conversation, information
 retrieval, and even song writing. However, it's tendency to generate false but
