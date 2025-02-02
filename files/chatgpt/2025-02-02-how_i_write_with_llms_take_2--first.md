@@ -6,7 +6,7 @@ description: >
   up facts. But I find it incredibly valuable for writing. Here is how I use
   it.
 image: /files/chatgpt/202502001-robot.jpg
-hide_lead_image: False
+hide_lead_image: True
 image_alt: >
   A colorful watercolor illustration on a white background of a robot sitting
   at a desk writing with a pen. He has a desklamp and a cup with pens in it.

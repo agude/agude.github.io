@@ -21,8 +21,8 @@ _This is the final version of the post, refined through the editing process I
 describe below. You can see my starting point by [reading my first
 draft][first_draft] and comparing it with the [LLM-edited draft][llm_draft]._
 
-[first_draft]: {% link files/chatgpt/hand_draft.md %}
-[llm_draft]: {% link files/chatgpt/chatgpt.md %}
+[first_draft]: {% link files/chatgpt/2025-02-02-how_i_write_with_llms_take_2--first.md %}
+[llm_draft]: {% link files/chatgpt/2025-02-02-how_i_write_with_llms_take_2--llm.md %}
 
 ChatGPT 3.5 came out just over two years ago and sparked an explosion in Large
 Language Model (LLM) development. Dozens of companies released their own
