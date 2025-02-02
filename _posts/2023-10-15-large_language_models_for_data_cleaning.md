@@ -86,7 +86,7 @@ expected return value, and a few examples of input and correct outputs. Here
 is a shortened version, the full one is [here][prompt], starting with the
 instructions:
 
-[prompt]: /blog/llm-data/prompt/
+[prompt]: {% link files/llm-data/prompt.md %}
 
 <div class="chatgpt-edit-block"> 
 <div class="chatgpt-prompt-only" markdown="1"> 

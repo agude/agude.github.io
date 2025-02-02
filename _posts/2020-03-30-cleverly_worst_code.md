@@ -86,7 +86,7 @@ My code was actually even worse; if you are morbidly curious I [archived it
 here][code]. I did not assign nice readable variables like `NORTH` but just
 used the numbers, so it looked like `case 2 * 11: do_north_bike_stuff()`.
 
-[code]: /blog/cleverly-worst-code/the-code-itself/
+[code]: {% link files/worst-code/plotPerf_alex.md %}
 
 This code is **way** too clever; needing number theory to understand
 control flow is a _huge_ warning sign. With ten years more experience, I

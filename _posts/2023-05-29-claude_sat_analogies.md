@@ -225,4 +225,4 @@ then picks the opposite relation, someone is despondent **lacks** glee.
 
 All of Claude's answers are [here][answers].
 
-[answers]: /blog/sat2vec/claude_results/
+[answers]: {% link files/sat2vec/claude_results.md %}
