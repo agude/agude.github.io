@@ -17,6 +17,13 @@ categories:
 
 {% capture file_dir %}/files/chatgpt{% endcapture %}
 
+_This is the final version of the post, refined through the editing process I
+describe below. You can see my starting point by [reading my first
+draft][first_draft] and comparing it with the [LLM-edited draft][llm_draft]._
+
+[first_draft]: {% link files/chatgpt/hand_draft.md %}
+[llm_draft]: {% link files/chatgpt/chatgpt.md %}
+
 ChatGPT 3.5 came out just over two years ago and sparked an explosion in Large
 Language Model (LLM) development. Dozens of companies released their own
 models, and the state of the art advanced by the hour.
@@ -37,7 +44,7 @@ I used to write, edit, write, edit, and so on until I was nearly 100% happy
 with my work, but now I stop earlier and let the LLM handle an editing pass.
 Using the LLM early saves me multiple rounds of edits because they've become
 so good at fixing spelling and grammatical errors and slightly tweaking my
-writing without overpowering it
+writing without overpowering it.
 
 ## The Prompt
 
