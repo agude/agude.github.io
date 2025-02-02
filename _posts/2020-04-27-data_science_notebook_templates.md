@@ -7,7 +7,7 @@ description: >
 image: /files/jupyter-library/jupiter_cassini_20001229.jpg
 image_alt: >
   A photo of the Library of Congress in 1902.
-categories: 
+categories:
   - data-science
   - jupyter
   - my-projects
@@ -19,7 +19,7 @@ I love Jupyter notebooks (even if [I have strong opinions about their
 misuse][nb_post]) and so I use them constantly, both at work and here in my
 articles. They are the best way to explore a dataset and make visualizations.
 
-But my workflow with notebooks is not very efficient; it is made up of the 
+But my workflow with notebooks is not very efficient; it is made up of the
 following steps:
 
 [nb_post]: {% post_url 2016-10-17-jupyter_not_for_development %}
@@ -87,15 +87,9 @@ and a focused legend:
 You can read more about the plotting notebook in detail here:
 
 <!-- A grid of hand-selected related posts. -->
+{% capture plotting_url %}{% post_url 2020-07-27-data_science_plotting_notebook_template %}{% endcapture %}
 <div class="card-grid">
-{% assign plotting_post = site.posts | where:"title", 'Jupyter Notebook Templates for Data Science: Plotting' | first %}
-{% include article_card.html
-  url=plotting_post.url
-  image=plotting_post.image
-  image_alt=plotting_post.image_alt
-  title=plotting_post.title
-  description=plotting_post.description
-%}
+  {% include auto_article_card.html url=plotting_url %}
 </div>
 
 ### The Time Series Plotting Template
@@ -132,15 +126,9 @@ To make this plot:
 
 You can read more about it here:
 
+{% capture time_url %}{% post_url 2021-03-14-data_science_timeseries_plotting_notebook_template %}{% endcapture %}
 <div class="card-grid">
-{% assign plotting_post = site.posts | where:"title", 'Jupyter Notebook Templates for Data Science: Plotting Time Series' | first %}
-{% include article_card.html
-  url=plotting_post.url
-  image=plotting_post.image
-  image_alt=plotting_post.image_alt
-  title=plotting_post.title
-  description=plotting_post.description
-%}
+  {% include auto_article_card.html url=time_url %}
 </div>
 
 ## Conclusion

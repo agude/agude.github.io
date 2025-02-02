@@ -83,13 +83,7 @@ spectrum. The roles cover everything from setting up the underlying
 infrastructure, to improving specialized tooling, to building models, to
 reporting out the results. I discuss five of these roles in my next post:
 
+{% capture url %}{% post_url 2021-06-01-data_science_job_spectrum %}{% endcapture %}
 <div class="card-grid">
-{% assign post = site.posts | where:"title", "The Data Science Spectrum: <br>From Analyst to Machine Learning" | first %}
-{% include article_card.html
-  url=post.url
-  image=post.image
-  image_alt=post.image_alt
-  title=post.title
-  description=post.description
-%}
+  {% include auto_article_card.html url=url %}
 </div>
