@@ -7,6 +7,8 @@ description: >
   it.
 image: /files/chatgpt/202502001-robot.jpg
 hide_lead_image: True
+permalink: /blog/how-i-write-with-llms-revised/first-draft/
+redirect_from: /files/chatgpt/2025-02-02-how_i_write_with_llms_take_2--first/
 image_alt: >
   A colorful watercolor illustration on a white background of a robot sitting
   at a desk writing with a pen. He has a desklamp and a cup with pens in it.
