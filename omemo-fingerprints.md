@@ -10,7 +10,7 @@ omemo_fingerprints:
     fingerprint: 7d417976 4886dae0 f784fe0f a40cf355 8ed5a040 2dc08dfd ff75a232 a29d9848
     qr_code: /files/omemo/android-omemo-qr.png
   - device_name: Linux Desktop Gajim
-    fingerprint: 3937481A 47924F9F 70BEBDC8 D7668596 C5AB7DE1 E1E75D18 7CC10999 F57F895C
+    fingerprint: 3937481a 47924f9f 70bebdc8 d7668596 c5ab7de1 e1e75d18 7cc10999 f57f895c
     qr_code: /files/omemo/linux-omemo-qr.png
 ---
 
