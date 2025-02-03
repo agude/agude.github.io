@@ -15,6 +15,9 @@ omemo_fingerprints:
   - device_name: MacOS Laptop BeagleIM
     fingerprint: fdac370e 471001d9 73d7cb48 5b742a32 2a693ab4 bd41f076 2a905b3e a813cf4b
     qr_code: null
+  - device_name: Windows Desktop Gajim
+    fingerprint: D80474D0 FBE7CF2E 25E87B1B 1E2CF7B5 6FC9BE8D EB3BD07A 91B8B92D E5CC4536
+    qr_code: null
 ---
 
 # {{ page.title }}
