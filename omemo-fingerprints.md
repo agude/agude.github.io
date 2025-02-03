@@ -4,10 +4,10 @@ title: OMEMO Fingerprints
 description: >
   Alex Gude's OMEMO fingerprints and QR codes for secure messaging.
 sidebar_include: false
-date: 2025-02-02
+date: 2025-02-03
 omemo_fingerprints:
   - device_name: Android Conversations
-    fingerprint: 7d417976 4886dae0 f784fe0f a40cf355 8ed5a040 2dc08dfd ff75a232 a29d9848
+    fingerprint: f784fe0f a40cf355 7d417976 8ed5a040 2dc08dfd 4886dae0 ff75a232 a29d9848
     qr_code: /files/omemo/android-omemo-qr.png
   - device_name: Linux Desktop Gajim
     fingerprint: 3937481a 47924f9f 70bebdc8 d7668596 c5ab7de1 e1e75d18 7cc10999 f57f895c
