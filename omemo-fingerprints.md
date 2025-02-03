@@ -7,7 +7,7 @@ sidebar_include: false
 date: 2025-02-02
 omemo_fingerprints:
   - device_name: Android Conversations
-    fingerprint: null
+    fingerprint: 7d417976 4886dae0 f784fe0f a40cf355 8ed5a040 2dc08dfd ff75a232 a29d9848
     qr_code: /files/omemo/android-omemo-qr.png
   - device_name: Linux Desktop Gajim
     fingerprint: 3937481A 47924F9F 70BEBDC8 D7668596 C5AB7DE1 E1E75D18 7CC10999 F57F895C
