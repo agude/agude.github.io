@@ -6,9 +6,12 @@ description: >
 sidebar_include: false
 date: 2025-02-02
 omemo_fingerprints:
-  - device_name: "Linux Desktop"
-    fingerprint: "3937481A 47924F9F 70BEBDC8 D7668596 C5AB7DE1 E1E75D18 7CC10999 F57F895C"
-    qr_code: "/files/omemo/linux-omemo-qr.png"
+  - device_name: Android Conversations
+    fingerprint: null
+    qr_code: /files/omemo/android-omemo-qr.png
+  - device_name: Linux Desktop Gajim
+    fingerprint: 3937481A 47924F9F 70BEBDC8 D7668596 C5AB7DE1 E1E75D18 7CC10999 F57F895C
+    qr_code: /files/omemo/linux-omemo-qr.png
 ---
 
 # {{ page.title }}
