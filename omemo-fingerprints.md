@@ -17,7 +17,7 @@ omemo_fingerprints:
     qr_code: null
   - device_name: Windows Desktop Gajim
     fingerprint: D80474D0 FBE7CF2E 25E87B1B 1E2CF7B5 6FC9BE8D EB3BD07A 91B8B92D E5CC4536
-    qr_code: null
+    qr_code: /files/omemo/windows-omemo-qr.png
 ---
 
 # {{ page.title }}
