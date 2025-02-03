@@ -12,6 +12,9 @@ omemo_fingerprints:
   - device_name: Linux Desktop Gajim
     fingerprint: 3937481a 47924f9f 70bebdc8 d7668596 c5ab7de1 e1e75d18 7cc10999 f57f895c
     qr_code: /files/omemo/linux-omemo-qr.png
+  - device_name: MacOS Laptop BeagleIM
+    fingerprint: fdac370e 471001d9 73d7cb48 5b742a32 2a693ab4 bd41f076 2a905b3e a813cf4b
+    qr_code: null
 ---
 
 # {{ page.title }}
@@ -34,4 +37,3 @@ encrypted communication.
   {% endif %}
 
 {% endfor %}
-
