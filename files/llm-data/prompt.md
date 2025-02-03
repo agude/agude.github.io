@@ -1,6 +1,6 @@
 ---
 layout: page-not-on-sidebar
-title: Claude SAT Analogy Results
+title: LLM Data Cleaning Prompt 
 description: >
   The prompt for my SWITRS Make mapping.
 image: /files/llm-data/00045-1994538970-a_simple_color_pencil_drawing_a_robot,_inspecting_a_car,_holding_a_clipboard,_white_background.png
