@@ -17,6 +17,7 @@ ranked_list:
   - Inversions
   - Pandora's Star
   - Judas Unchained
+  - The Hydrogen Sonata
   - Night Without Stars
   - The Colonel
   - The Fall of Hyperion
