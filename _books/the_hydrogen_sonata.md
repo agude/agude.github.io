@@ -4,7 +4,7 @@ title: The Hydrogen Sonata
 book_author: Iain M. Banks
 series: Culture
 book_number: 10
-rating: null
+rating: 5
 image: /books/covers/the_hydrogen_sonata.jpg
 ---
 
