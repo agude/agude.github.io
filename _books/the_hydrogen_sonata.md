@@ -15,10 +15,8 @@ of the Glitz people as they prepare to Sublime.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 {% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
 {% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
-{% capture culture %}{% include series_link.html series=page.series %}{% endcapture %}
 {% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
 
 {% capture the_quarry %}{% include book_link.html title="The Quarry" %}{% endcapture %}
@@ -31,7 +29,6 @@ of the Glitz people as they prepare to Sublime.
 {% capture c5 %}{% include book_link.html title="Excession" %}{% endcapture %}
 {% capture c6 %}{% include book_link.html title="Inversions" %}{% endcapture %}
 {% capture c7 %}{% include book_link.html title="Look to Windward" %}{% endcapture %}
-{% capture c8 %}{% include book_link.html title="Matter" %}{% endcapture %}
 {% capture c9 %}{% include book_link.html title="Surface Detail" %}{% endcapture %}
 
 {{ this_book }} is a fitting end to the {{ this_series }}. It pairs with {{ c1
