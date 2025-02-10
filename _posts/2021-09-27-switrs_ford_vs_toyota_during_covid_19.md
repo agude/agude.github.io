@@ -74,7 +74,7 @@ changed behavior, but I didn't want to go too far back because [collision
 rates vary drastically year-to-year][collision_rates]. I cut off the data in
 November because the reporting is not yet complete for December.
 
-[collision_rates]: {% post_url 2016-12-02-switrs_crashes_by_date %}/#crashes-per-week
+[collision_rates]: {% post_url 2016-12-02-switrs_crashes_by_date %}#crashes-per-week
 
 ## Normalized Collision Rate
 
