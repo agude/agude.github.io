@@ -6,6 +6,9 @@ series: Hainish Cycle
 book_number: 4
 rating: 3
 image: /books/covers/the_left_hand_of_darkness.jpg
+awards:
+  - hugo
+  - nebula
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span

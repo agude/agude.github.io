@@ -6,6 +6,8 @@ series: null
 book_number: 1
 rating: 2
 image: /books/covers/stand_on_zanzibar.jpg
+awards:
+  - hugo
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span

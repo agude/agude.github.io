@@ -6,6 +6,8 @@ series: The Book of the New Sun
 book_number: 2
 rating: 3
 image: /books/covers/the_claw_of_the_conciliator.jpg
+awards:
+  - nebula
 ---
 
 <cite class="book-title">The Claw of the Conciliator</cite> is the second book

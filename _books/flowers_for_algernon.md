@@ -6,6 +6,9 @@ series: null
 book_number: 1
 rating: 3
 image: /books/covers/flowers_for_algernon.jpg
+awards:
+  - hugo
+  - nebula
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a Hugo and Nebula

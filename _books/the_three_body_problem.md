@@ -6,6 +6,8 @@ series: Remembrance of Earth's Past
 book_number: 1
 rating: 1
 image: /books/covers/the_three_body_problem.jpg
+awards:
+  - hugo
 ---
 
 <cite class="book-title">The Three-Body Problem</cite> was recommended as a

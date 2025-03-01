@@ -6,6 +6,8 @@ series: Zones of Thought
 book_number: 1
 rating: 5
 image: /books/covers/a_fire_upon_the_deep.jpg
+awards:
+  - hugo
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a sci-fi novel by <span
