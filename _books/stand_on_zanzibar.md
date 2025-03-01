@@ -47,8 +47,8 @@ societal collapse.
 The plot, what little there is, follows Norman Niblock House---VP at the GT
 mega-corporation[^scale]---and Donald Hogan---a US spy---who share an
 apartment in New York. House's storyline involves a friendly takeover of the
-African country of Beninia by GT, while Hogan's takes him into infiltrating
-the southeast Asian nation of Yatakang. The book moves slowly, with these
+African country of Beninia by GT, while Hogan's involves him infiltrating the
+southeast Asian nation of Yatakang. The book moves slowly, with these
 plotlines only starting about two-thirds of the way through. They end abruptly
 and in an almost too-cute, cynical manner: the solution to the world's
 problems is discovered in Beninia, yet the only man capable of implementing it
