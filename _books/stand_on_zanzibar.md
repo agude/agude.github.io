@@ -23,7 +23,7 @@ societal collapse.
 {% capture harry_harrisons %}{% include author_link.html name="Harry Harrison" possessive=true %}{% endcapture %}
 {% capture the_population_bomb %}{% include book_link.html title="The Population Bomb" %}{% endcapture %}
 {% capture paul_ehrlich %}{% include author_link.html name="Paul R. Ehrlich" %}{% endcapture %}
-{% capture anne_ehrlichs %}{% include author_link.html name="Anne Howland Ehrlich" possessive=true %}{% endcapture %}
+{% capture anne_ehrlich %}{% include author_link.html name="Anne Howland Ehrlich" %}{% endcapture %}
 {% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
 {% capture peter_watts %}{% include author_link.html name="Peter Watts" %}{% endcapture %}
 {% capture mission_of_gravity %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
@@ -45,49 +45,45 @@ societal collapse.
 {% capture greg_bear %}{% include author_link.html name="Greg Bear" %}{% endcapture %}
 
 The plot, what little there is, follows Norman Niblock House---VP at the GT
-mega-corporation[^scale]---and Donald Hogan---US spy---who share an apartment
-in New York. House's side of the story involves a friendly take-over of the
-African country of Beninia by GT, while Hogan's eventually involves
-infiltrating the southeast Asian country of Yatakang. The book moves slowly,
-with these plots only really starting 2/3s of the way in. They end abruptly
-and in an almost too-cute cynical way: the solution to the world's problems
-are found in Beninia, but the only man who could have implemented them was
-killed just weeks before in Yatakang by Hogan.
+mega-corporation[^scale]---and Donald Hogan---a US spy---who share an
+apartment in New York. House's storyline involves a friendly takeover of the
+African country of Beninia by GT, while Hogan's takes him into infiltrating
+the southeast Asian nation of Yatakang. The book moves slowly, with these
+plotlines only starting about two-thirds of the way through. They end abruptly
+and in an almost too-cute, cynical manner: the solution to the world's
+problems is discovered in Beninia, yet the only man capable of implementing it
+was killed just weeks earlier in Yatakang by Hogan.
 
-{{ this_book }} feels incredibly dated. The main problem of overpopulation is
-right out of the {{ paul_ehrlich }} and {{ anne_ehrlichs }} discredited {{
-the_population_bomb }} and echos {{ harry_harrisons }} earlier {{
+{{ this_book }} feels incredibly dated. The issue of overpopulation is lifted
+straight from the discredited {{ the_population_bomb }} by {{ paul_ehrlich }}
+and {{ anne_ehrlich }}, and it echoes {{ harry_harrisons }} earlier {{
 make_room_make_room }}. The decolonization of Africa in the 50s and 60s
-clearly influenced the de- and recolonization storyline that take place in the
-book. The war with Yatakang is the contemporary Vietnam War writ large.
-Chad C. Mulligan, the reflexive contrarian cynic, doesn't feel like a wise
-counter-culture observer, but instead like our current contrarian social media
-grifters. With the second rise of fascism we're experiencing, {{
-nineteen_eighty_four }}, written by {{ george_orwell }} in the shadow of the
-Second World War, is the more relevant dystopia.
+clearly influenced the book's de- and recolonization storyline. The war with
+Yatakang is a broad-stroke reflection of the Vietnam War. Chad C. Mulligan,
+the reflexive contrarian cynic, doesn't seem like a wise counter-culture
+observer but rather resembles today's contrarian social media grifters. With
+the second rise of fascism we're experiencing in the world, {{
+nineteen_eighty_four }}, written by {{ george_orwell }} in the shadow of World
+War II, is the more relevant dystopia.
 
 [^scale]:
-    The scale of the company is hilariously wrong, with House and his
-    coworkers panicking about a $40 million market cap drop, when today we
-    have trillion dollar companies with far less power and influence than GT.
+    The scale of the company is hilariously off, with House and his coworkers
+    panicking over a $40 million market cap drop, when today we see
+    trillion-dollar companies with far less power and influence than GT.
 
 {{ this_book }} also suffers from the "Codder/Shiggy Problem".[^codder] {{
-the_author }} invented a bunch of new slang for the novel, but it doesn't
-sound natural. {{ gene_wolfe }} was able to insert hundreds of new words in {{
-botns}} and all of them felt natural in part because he drew them from archaic
-English instead of inventing them wholesale. {{ the_authors }} new words are
-just jarring.
+the_author }} invented a bunch of new slang for the novel, but it never sounds
+natural. {{ gene_wolfe }} was able to insert hundreds of new words in {{ botns
+}}, and they all felt natural---partly because he drew them from archaic
+English instead of inventing them from scratch. The new words coined by {{
+the_author }} are just jarring.
 
-{{ this_book }} was _clearly_ influential among authors that came after.
+{{ this_book }} was _clearly_ influential among the authors that followed.
 
-- The use of monomolecular wire to slice a boat in half was later used by {{
-  liu_cixin }} in {{ the_three_body_problem }}.
-- The corporation buying an aircraft carrier to use as a floating city
-  reminded me of {{ neal_stephensons }} {{ snow_crash }}.
-- The insertion of in-universe stories about Begi remind me of the stories {{
-  gene_wolfe }} tells into {{ the_claw_of_the_conciliator }}.
-- The increasingly violent world remind me of {{ octavia_butlers }} {{
-  mind_of_my_mind }}.
+- The use of monomolecular wire to slice a boat in half was later adopted by {{ liu_cixin }} in {{ the_three_body_problem }}.
+- The idea of a corporation buying an aircraft carrier to use as a floating city reminded me of {{ neal_stephensons }} {{ snow_crash }}.
+- The insertion of in-universe stories about Begi reminds me of the narratives {{ gene_wolfe }} weaves into {{ the_claw_of_the_conciliator }}.
+- The increasingly violent world reminds me of {{ octavia_butlers }} {{ mind_of_my_mind }}.
 
 [^codder]:
     From egypturnash on Reddit, who said this while reviewing {{ this_book }}:
