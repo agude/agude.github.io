@@ -73,9 +73,9 @@ ranked_list:
   - There Is No Antimemetics Division
   # 2 Stars
   - Stand on Zanzibar
-  - Mind of My Mind
   - Close to Critical
   - Star Light
+  - Mind of My Mind
   - The Quantum Thief
   - The Urth of the New Sun
   # 1 Stars
