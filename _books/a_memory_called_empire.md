@@ -6,6 +6,8 @@ series: Teixcalaan
 book_number: 1
 rating: null
 image: /books/covers/a_memory_called_empire.jpg
+awards:
+  - hugo
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
