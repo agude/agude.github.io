@@ -72,9 +72,10 @@ ranked_list:
   - The Causal Angel
   - There Is No Antimemetics Division
   # 2 Stars
-  - Mind of My Mind
   - Close to Critical
   - Star Light
+  - Stand on Zanzibar
+  - Mind of My Mind
   - The Quantum Thief
   - The Urth of the New Sun
   # 1 Stars
