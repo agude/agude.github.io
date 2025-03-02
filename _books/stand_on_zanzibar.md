@@ -87,7 +87,8 @@ because the main narrative is sparse and slow-moving, these extra chapters
 only serve to drag down the pace even further. Getting through {{ this_book }}
 was a slog.
 
-{{ this_book }} was _clearly_ influential among the authors that followed.
+{{ this_book }} was _clearly_ influential among the authors and media that
+followed it:
 
 - The use of monomolecular wire to slice a boat in half was later adopted by
   {{ liu_cixin }} in {{ the_three_body_problem }}.
@@ -105,6 +106,10 @@ was a slog.
   reprogramming and the supercomputer Shalmaneser are further developed in {{
   blindsight }} by {{ peter_watts }}. Both works feature a "synthesist" who
   pieces together and interprets disjointed facts.
+
+- The riot and sweep-trucks equipped with plows appear in the movie <cite
+  class="movie-title">Soylent Green</cite>---which are absent from {{
+  make_room_make_room }}.
 
 [^codder]:
     From egypturnash on Reddit, who said this while reviewing {{ this_book }}:
