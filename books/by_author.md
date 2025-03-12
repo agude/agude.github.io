@@ -12,42 +12,57 @@ Below you'll find short reviews of the books I've read, sorted by author.
 
 {% include books_topbar.html %}
 
-{% comment %} These two sorting are so that books under an author headline are
-ordered by series, and then book order within the series. Yes it is horrible.
+{% comment %}
+We need to organize books under each author, first by series, and then by book number within the series.
+We use three primary lists to handle the sorting: series, book numbers, and authors.
+{% endcomment %}
+
+{% comment %}
+Create a list of unique series names. Books without a series will be represented as an empty string.
 {% endcomment %}
 {% assign sorted_series = "" %}
 {% for book in site.books %}
   {% assign sorted_series = sorted_series | append: book.series | append: "|" %}
 {% endfor %}
-{% comment %}Add a blank series to cover books without series (we convert
-their null to '' below).{% endcomment %}
 {% assign sorted_series = sorted_series | append: "" | append: "|" %}
 {% assign sorted_series = sorted_series | split: "|" | uniq | sort %}
 
+{% comment %}
+Create a list of unique book numbers for proper sorting within a series.
+{% endcomment %}
 {% assign sorted_book_number = "" %}
 {% for book in site.books %}
   {% assign sorted_book_number = sorted_book_number | append: book.book_number | append: "|" %}
 {% endfor %}
 {% assign sorted_book_number = sorted_book_number | split: "|" | uniq | sort %}
 
-{% comment %}This sorted list is used to put the <h2> sections in the right
-order.{% endcomment %}
+{% comment %}
+Create a list of unique authors to display them in alphabetical order.
+{% endcomment %}
 {% assign sorted_authors = "" %}
 {% for book in site.books %}
   {% assign sorted_authors = sorted_authors | append: book.book_author | append: "|" %}
 {% endfor %}
 {% assign sorted_authors = sorted_authors | split: "|" | uniq | sort %}
 
-{% comment %} We have to place a <div></div> pair between all the <h2>
-headlines, but not before the first headline.{% endcomment %}
+{% comment %}
+Use the `first_place` flag to track if we are placing the first author heading.
+We will manage the opening/closing of card grids based on this flag.
+{% endcomment %}
 {% assign first_place = true %}
 
+{% comment %}
+Iterate through the sorted authors to display them along with their books,
+sorted by series and book number.
+{% endcomment %}
 {% for sort_author in sorted_authors %}
-  {% if sort_author == null or sort_author == ""%}
+  {% if sort_author == null or sort_author == "" %}
     {% continue %}
   {% endif %}
 
-  {% comment %}Close the card-grid{% endcomment %}
+  {% comment %}
+  Close the previous card-grid if it's not the first author section.
+  {% endcomment %}
   {% if first_place == false %}
 </div>
   {% endif %}
@@ -56,31 +71,38 @@ headlines, but not before the first headline.{% endcomment %}
 <h2 class="book-list-headline">{{ sort_author }}</h2>
 <div class="card-grid">
 
-  {% comment %}To get each section to show up in alphabetical order, we have
-  to do a double for loop. We could probably get away with sorting site.books
-  if we weren't dropping "The " from the title.{% endcomment %}
+  {% comment %}
+  To display the books under the author's name, we loop through each series
+  and each book number. The double-loop ensures books are shown in the correct order
+  according to their series and number.
+  {% endcomment %}
   {% for sort_series in sorted_series %}
     {% for sort_number in sorted_book_number %}
       {% for book in site.books %}
 
-        {% comment %}Convert both to quoted strings so they are the same
-        type.{% endcomment %}
+        {% comment %}
+        Compare the series and book number to correctly order the books.
+        Convert both series and book numbers to quoted strings to ensure consistent comparison.
+        {% endcomment %}
         {% capture test_number %}'{{sort_number}}'{% endcapture %}
         {% capture book_number %}'{{book.book_number}}'{% endcapture %}
 
         {% if sort_author == book.book_author %}
-          {% comment %}Books without series will have null, which we convert
-          to '' to match the '' we inserted in the series list above.{% endcomment %}
+          {% comment %}
+          Handle books with no series. If the series is null, treat it as an empty string for comparison.
+          {% endcomment %}
           {% if book.series == null %}
             {% assign book_series = '' %}
           {% else %}
             {% assign book_series = book.series %}
           {% endif %}
+
+          {% comment %}
+          If the current book matches the series and book number, include its card in the grid.
+          {% endcomment %}
           {% if sort_series == book_series %}
             {% if test_number == book_number %}
-
               {% include auto_book_card_from_object.html book=book %}
-
             {% endif %}
           {% endif %}
         {% endif %}
@@ -88,5 +110,8 @@ headlines, but not before the first headline.{% endcomment %}
     {% endfor %}
   {% endfor %}
 {% endfor %}
-{% comment %}Close the final card-grid{% endcomment %}
+
+{% comment %}
+Close the final card-grid after all authors and their books are displayed.
+{% endcomment %}
 </div>
