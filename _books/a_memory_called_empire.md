@@ -1,10 +1,10 @@
 ---
-date: 2025-03-02
+date: 2025-03-16
 title: A Memory Called Empire
 book_author: Arkady Martine
 series: Teixcalaan
 book_number: 1
-rating: null
+rating: 5
 image: /books/covers/a_memory_called_empire.jpg
 awards:
   - hugo
