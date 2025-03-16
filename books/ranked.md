@@ -18,6 +18,7 @@ ranked_list:
   - Pandora's Star
   - Judas Unchained
   - The Hydrogen Sonata
+  - A Memory Called Empire
   - Night Without Stars
   - The Colonel
   - The Fall of Hyperion
