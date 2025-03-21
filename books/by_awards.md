@@ -1,6 +1,6 @@
 ---
 title: "Book Reviews: By Award"
-short_title: By Award
+short_title: Award
 layout: page
 permalink: /books/by-award/
 book_topbar_include: true

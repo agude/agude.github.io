@@ -1,6 +1,6 @@
 ---
 title: "Book Reviews: By Series"
-short_title: By Series
+short_title: Series
 layout: page
 permalink: /books/by-series/
 book_topbar_include: true

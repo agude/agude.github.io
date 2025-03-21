@@ -191,6 +191,7 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: baseline;
+  gap: 0.5em;
 }
 .book-nav-item.active {
   font-weight: bold;
@@ -211,7 +212,7 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
   font-size: $footnote-font-size;
   column-count: 2;
   padding: 0;
-  
+
   li {
     // Don't allow long entries to be split across columns
     break-inside: avoid-column;

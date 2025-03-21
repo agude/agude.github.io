@@ -1,6 +1,6 @@
 ---
 title: "Book Reviews: By Title"
-short_title: By Title
+short_title: Title
 layout: page
 permalink: /books/by-title/
 book_topbar_include: true

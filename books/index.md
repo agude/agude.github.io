@@ -1,6 +1,6 @@
 ---
 title: "Book Reviews"
-short_title: "By Date"
+short_title: "Date"
 layout: page
 permalink: /books/
 sidebar_include: true

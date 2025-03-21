@@ -1,6 +1,6 @@
 ---
 title: "Book Reviews: By Author"
-short_title: By Author
+short_title: Author
 layout: page
 permalink: /books/by-author/
 book_topbar_include: true
