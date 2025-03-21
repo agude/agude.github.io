@@ -29,46 +29,37 @@ Build sorted list of unique ratings, highest to lowest.
   {% endif %}
 
   {% comment %}
-  Get books that match this rating.
+  Collect and sort book titles for this rating.
   {% endcomment %}
-  {% assign rating_books = "" | split: "" %}
-  {% assign title_keys = "" | split: "" %}
-
+  {% assign rating_titles = "" | split: "" %}
   {% for book in site.books %}
-    {% capture book_rating %}{{ book.rating }}{% endcapture %}
-    {% capture expected_rating %}{{ sort_rating }}{% endcapture %}
-    {% if book_rating == expected_rating %}
-      {% assign rating_books = rating_books | push: book %}
+    {% capture r1 %}{{ book.rating }}{% endcapture %}
+    {% capture r2 %}{{ sort_rating }}{% endcapture %}
+    {% if r1 == r2 %}
       {% assign normalized = book.title | remove: "The " | remove: "A " %}
       {% assign key = normalized | append: "||" | append: book.title %}
-      {% assign title_keys = title_keys | push: key %}
+      {% assign rating_titles = rating_titles | push: key %}
     {% endif %}
   {% endfor %}
 
-  {% if rating_books == empty %}
+  {% if rating_titles == empty %}
     {% continue %}
   {% endif %}
 
-  {% assign sorted_keys = title_keys | sort %}
+  {% assign sorted_keys = rating_titles | sort %}
 
   {% unless first_place %}
-  </div>
+</div>
   {% endunless %}
   {% assign first_place = false %}
 
-  <h2 class="book-list-headline">{% include book_rating.html rating=sort_rating %}</h2>
-  <div class="card-grid">
+<h2 class="book-list-headline">{% include book_rating.html rating=sort_rating %}</h2>
+<div class="card-grid">
 
   {% for key in sorted_keys %}
     {% assign parts = key | split: "||" %}
     {% assign original_title = parts[1] %}
-
-    {% for book in rating_books %}
-      {% if book.title == original_title %}
-        {% include auto_book_card_from_object.html book=book %}
-        {% break %}
-      {% endif %}
-    {% endfor %}
+    {% include auto_book_card.html title=original_title %}
   {% endfor %}
 {% endfor %}
 </div>
