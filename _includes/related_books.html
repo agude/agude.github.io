@@ -1,168 +1,138 @@
 {% comment %}
-Related posts or recent posts, depending on if the article is part of a
-category or not.
+Maximum number of related books to display.
 {% endcomment %}
-
 {% assign max_books = 3 %}
+
+{% comment %}
+List of book URLs that have already been added, to avoid duplicates.
+{% endcomment %}
 {% assign placed_books = '' | split: '' %}
 
-{%- assign now_unix = 'now' | date: '%s' | plus: 0 -%}
-
-{% comment %} Store the two h2 snippets to variables {% endcomment %}
-
+{% comment %}
+Tracks whether the section heading has already been inserted.
+{% endcomment %}
 {% assign placed_h2 = false %}
 
-{% capture related_snippet %}
+{% comment %}
+Current time as a Unix timestamp, used to filter out future posts.
+{% endcomment %}
+{% assign now_unix = 'now' | date: '%s' | plus: 0 %}
+
+{% comment %}
+Books sorted by date (descending) and by series number (ascending).
+{% endcomment %}
+{% assign books_by_date = site.books | sort: "date" | reverse %}
+{% assign books_by_series = site.books | sort: "book_number" %}
+
+{% comment %}
+Predefined markup snippets for section header and footer.
+Header will differ depending on whether matches are from the same series/author or recent.
+{% endcomment %}
+{% capture related_header %}
 <!-- Related Books -->
 <aside class="related">
   <h2>Related Books</h2>
   <div class="card-grid">
 {% endcapture %}
 
-{% capture recent_snippet %}
+{% capture recent_header %}
 <!-- Recent Books -->
 <aside class="related">
   <h2>Recent Books</h2>
   <div class="card-grid">
 {% endcapture %}
 
-{% capture endh2 %}
+{% capture related_footer %}
   </div>
 </aside>
 {% endcapture %}
 
-{% assign reversed_chronological_books = site.books | sort: "date" | reverse %}
-{% assign series_order_books = site.books | sort: "book_number" %}
+{% comment %}
+Counter to track how many books are still needed.
+{% endcomment %}
+{% assign remaining_slots = max_books %}
 
-{% comment %} Start by trying to find other books in the series. {% endcomment %}
-{% if page.series != null and page.series != empty %}
-  {% for book in series_order_books %}
-    {% if book.url != page.url %}
-      {% if placed_books.size < 3 %}
-        {% comment %}Pick same series{% endcomment %}
-        {% if book.series == page.series %}
-
-          {% comment %}Don't place posts from the future.{% endcomment %}
-          {% assign post_time = book.date | date: '%s' | plus: 0 %}
-          {% if post_time > now_unix %}
-            {% continue %}
-          {% endif %}
-
-          {% unless placed_books contains book.url %}
-
-            {% comment %} Place the h2 if we haven't already {% endcomment %}
-            {% if placed_h2 == false %}
-              {{ related_snippet }}
-              {% assign placed_h2 = true %}
-            {% endif %}
-
-            {% comment %} Place a related article {% endcomment %}
-
-            {% include book_card.html
-              url=book.url
-              image=book.image
-              title=book.title
-              author=book.book_author
-              rating=book.rating
-              description=book.excerpt
-            %}
-            {% assign placed_books = placed_books | push: book.url %}
-            {% continue %}
-          {% endunless %}
-        {% endif %}
-      {% comment %}Too many books already{% endcomment %}
-      {% else %}
-        {% break %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-{% endif %}
-
-{% comment %} Then books by the same author {% endcomment %}
-{% if page.book_author != empty %}
-  {% for book in reversed_chronological_books %}
-    {% if book.url != page.url %}
-      {% if placed_books.size < 3 %}
-
-        {% comment %}Pick same author{% endcomment %}
-        {% if book.book_author == page.book_author %}
-
-          {% comment %}Don't place posts from the future.{% endcomment %}
-          {% assign post_time = book.date | date: '%s' | plus: 0 %}
-          {% if post_time > now_unix %}
-            {% continue %}
-          {% endif %}
-
-          {% unless placed_books contains book.url %}
-
-            {% comment %} Place the h2 if we haven't already {% endcomment %}
-            {% if placed_h2 == false %}
-              {{ related_snippet }}
-              {% assign placed_h2 = true %}
-            {% endif %}
-
-            {% comment %} Place a related article {% endcomment %}
-
-            {% include book_card.html
-              url=book.url
-              image=book.image
-              title=book.title
-              author=book.book_author
-              rating=book.rating
-              description=book.excerpt
-            %}
-            {% assign placed_books = placed_books | push: book.url %}
-            {% continue %}
-          {% endunless %}
-        {% endif %}
-      {% comment %}Too many books already{% endcomment %}
-      {% else %}
-        {% break %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-{% endif %}
-
-{% comment %} Fill in the remaining posts with recent ones {% endcomment %}
-
-{% if site.related_posts != empty %}
-  {% if placed_books.size < max_books %}
-    {% if placed_h2 == false %}
-      {{ recent_snippet }}
-      {% assign placed_h2 = true %}
-    {% endif %}
-    {% for book in reversed_chronological_books %}
-      {% if book.url == page.url %}
-        {% continue %}
-      {% endif %}
-      {% if placed_books.size < max_books %}
-
-        {% comment %}Don't place posts from the future.{% endcomment %}
-        {% assign post_time = book.date | date: '%s' | plus: 0 %}
-        {% if post_time > now_unix %}
-          {% continue %}
-        {% endif %}
-
-        {% unless placed_books contains book.url %}
-          {% include book_card.html
-            url=book.url
-            image=book.image
-            title=book.title
-            author=book.book_author
-            rating=book.rating
-            description=book.excerpt
-          %}
-          {% assign placed_books = placed_books | push: book.url %}
+{% comment %}
+Step 1: Add books from the same series as the current book.
+Only include if:
+- Not the current page
+- Not scheduled for the future
+- Not already included
+{% endcomment %}
+{% if page.series %}
+  {% for book in books_by_series %}
+    {% assign post_time = book.date | date: '%s' | plus: 0 %}
+    {% if book.url != page.url and book.series == page.series and post_time <= now_unix %}
+      {% unless placed_books contains book.url %}
+        {% unless placed_h2 %}
+          {{ related_header }}
+          {% assign placed_h2 = true %}
         {% endunless %}
-      {% else %}
-        {% break %}
-      {% endif %}
-    {% endfor %}
-  {% endif %}
+        {% include auto_book_card_from_object.html book=book %}
+        {% assign placed_books = placed_books | push: book.url %}
+        {% assign remaining_slots = remaining_slots | minus: 1 %}
+        {% if remaining_slots <= 0 %}
+          {% break %}
+        {% endif %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
 {% endif %}
 
-{% comment %} Close the h2 divs if they were placed {% endcomment %}
+{% comment %}
+Step 2: Add books by the same author, if there are remaining slots.
+Same filtering rules apply.
+{% endcomment %}
+{% if remaining_slots > 0 and page.book_author %}
+  {% for book in books_by_date %}
+    {% assign post_time = book.date | date: '%s' | plus: 0 %}
+    {% if book.url != page.url and book.book_author == page.book_author and post_time <= now_unix %}
+      {% unless placed_books contains book.url %}
+        {% unless placed_h2 %}
+          {{ related_header }}
+          {% assign placed_h2 = true %}
+        {% endunless %}
+        {% include auto_book_card_from_object.html book=book %}
+        {% assign placed_books = placed_books | push: book.url %}
+        {% assign remaining_slots = remaining_slots | minus: 1 %}
+        {% if remaining_slots <= 0 %}
+          {% break %}
+        {% endif %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
 
-{% if placed_h2 == true %}
-  {{ endh2 }}
+{% comment %}
+Step 3: Add most recent books as a fallback if not enough related books found.
+Only include if:
+- Not the current page
+- Not scheduled for the future
+- Not already included
+{% endcomment %}
+{% if remaining_slots > 0 %}
+  {% unless placed_h2 %}
+    {{ recent_header }}
+    {% assign placed_h2 = true %}
+  {% endunless %}
+  {% for book in books_by_date %}
+    {% assign post_time = book.date | date: '%s' | plus: 0 %}
+    {% if book.url != page.url and post_time <= now_unix %}
+      {% unless placed_books contains book.url %}
+        {% include auto_book_card_from_object.html book=book %}
+        {% assign placed_books = placed_books | push: book.url %}
+        {% assign remaining_slots = remaining_slots | minus: 1 %}
+        {% if remaining_slots <= 0 %}
+          {% break %}
+        {% endif %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% comment %}
+Only insert the footer if the section header was added.
+{% endcomment %}
+{% if placed_h2 %}
+  {{ related_footer }}
 {% endif %}
