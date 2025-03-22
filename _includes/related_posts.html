@@ -1,99 +1,72 @@
 {% comment %}
-Related posts or recent posts, depending on if the article is part of a
-category or not.
+Show up to `max_posts` related posts:
+- Prefer posts sharing categories with the current page
+- Fallback to recent posts
 {% endcomment %}
 
 {% assign max_posts = 3 %}
-{% assign placed_posts = '' | split: '' %}
+{% assign candidate_posts = '' | split: '' %}
+{% assign final_header = '' %}
 
-{% comment %} Store the two h2 snippets to variables {% endcomment %}
-
-{% assign placed_h2 = false %}
-
-{% capture related_snippet %}
+{% capture related_header %}
 <!-- Related Posts -->
 <aside class="related">
   <h2>Related Posts</h2>
   <div class="card-grid">
 {% endcapture %}
 
-{% capture recent_snippet %}
+{% capture recent_header %}
 <!-- Recent Posts -->
 <aside class="related">
   <h2>Recent Posts</h2>
   <div class="card-grid">
 {% endcapture %}
 
-{% capture endh2 %}
+{% capture footer %}
   </div>
 </aside>
 {% endcapture %}
 
-{% comment %} Try to get up to max_posts related posts {% endcomment %}
-
+{%- comment -%}
+1. Posts that match a shared category
+{%- endcomment -%}
 {% if page.categories != empty %}
   {% for post in site.posts %}
     {% if post.url != page.url %}
-      {% if placed_posts.size < 3 %}
-        {% for category in page.categories %}
-          {% if post.categories contains category %}
-            {% unless placed_posts contains post.url %}
-              {% comment %} Place the h2 if we haven't already {% endcomment %}
-              {% if placed_h2 == false %}
-                {{ related_snippet }}
-                {% assign placed_h2 = true %}
-              {% endif %}
-              {% comment %} Place a related article {% endcomment %}
-              {% include article_card.html
-                url=post.url
-                image=post.image
-                image_alt=post.image_alt
-                title=post.title
-                description=post.description
-              %}
-              {% assign placed_posts = placed_posts | push: post.url %}
-              {% continue %}
-            {% endunless %}
+      {% for category in page.categories %}
+        {% if post.categories contains category %}
+          {% assign candidate_posts = candidate_posts | push: post %}
+          {% if final_header == '' %}
+            {% assign final_header = related_header %}
           {% endif %}
-        {% endfor %}
-      {% else %}
-        {% break %}
-      {% endif %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
     {% endif %}
   {% endfor %}
 {% endif %}
 
-{% comment %} Fill in the remaining posts with recent ones {% endcomment %}
-
-{% if site.related_posts != empty %}
-  {% if placed_posts.size < max_posts %}
-    {% comment %} Place the h2 if we haven't already {% endcomment %}
-    {% if placed_h2 == false %}
-      {{ recent_snippet }}
-      {% assign placed_h2 = true %}
-    {% endif %}
-    {% comment %} Place a recent article {% endcomment %}
-    {% for post in site.related_posts %}
-      {% if placed_posts.size < max_posts %}
-        {% unless placed_posts contains post.url %}
-          {% include article_card.html
-            url=post.url
-            image=post.image
-            image_alt=post.image_alt
-            title=post.title
-            description=post.description
-          %}
-          {% assign placed_posts = placed_posts | push: post.url %}
-        {% endunless %}
-      {% else %}
-        {% break %}
-      {% endif %}
-    {% endfor %}
+{%- comment -%}
+2. Fallback: recent posts
+{%- endcomment -%}
+{% for post in site.related_posts %}
+  {% if post.url != page.url %}
+    {% assign candidate_posts = candidate_posts | push: post %}
   {% endif %}
-{% endif %}
+{% endfor %}
 
-{% comment %} Close the h2 divs if they were placed {% endcomment %}
+{% assign final_posts = candidate_posts | uniq | slice: 0, max_posts %}
 
-{% if placed_h2 == true %}
-  {{ endh2 }}
+{% if final_posts.size > 0 %}
+  {% if final_header == '' %}
+    {% assign final_header = recent_header %}
+  {% endif %}
+
+  {{ final_header }}
+
+  {% for post in final_posts %}
+    {% include auto_article_card_from_object.html post=post %}
+  {% endfor %}
+
+  {{ footer }}
 {% endif %}

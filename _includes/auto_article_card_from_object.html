@@ -1,0 +1,13 @@
+{% comment %}
+Auto-generated article card from a full post object.
+Simplifies includes: just pass the post itself.
+Usage: {% include auto_article_card_from_object.html post=post %}
+{% endcomment %}
+
+{% include article_card.html
+  url=include.post.url
+  image=include.post.image
+  image_alt=include.post.image_alt
+  title=include.post.title
+  description=include.post.description
+%}
