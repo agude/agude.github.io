@@ -11,13 +11,7 @@ at the top. {% endcomment %}
     {% include auto_book_card_from_object.html book=post %}
   {% elsif post.layout == 'post' %}
     {% comment %} Article cards. {% endcomment %}
-    {% include article_card.html
-      url=post.url
-      image=post.image
-      image_alt=post.image_alt
-      title=post.title
-      description=post.description
-    %}
+    {% include auto_article_card_from_object.html post=post %}
   {% endif %}
 {% endfor %}
 </div>
