@@ -44,34 +44,39 @@ homes from being annexed by the Teixcalaanli empire.
 
 {{ this_book }} is a story of courtly intrigue in a science fiction empire.
 Mahit is summoned suddenly to Teixcalaan to replace her predecessor---Yskander
-Aghavn. When she arrives she finds the capital in a state of 
+Aghavn. She soon discovers he has been murdered, and that the empire is
+lurching towards a succession crisis. Mahit and he liaison, Three Seagrass,
+try to navigate the unknown allegiances and politics of the imperial court
+while defending Lsel station and trying to uncover the murderer.
 
-One of the primary themes of {{ this_book }} is identity. It is most obvious
-with Mahit and her Imago---a machine that stores previous mind-states and
-incorporates them into your own. Is she the same person once another's
-memories and personality are mixed with her own? The book questions how much
-of a person is their mind, how much is their body and endocrine system, and
-how much is the culture they live in.
+A primary theme of {{ this_book }}is of memory, and how civilizations remember
+themselves and their history, and how that shapes their behavior. Lsel
+remembers through Imago lines, literally preserving the minds of the people
+who came before, while the Teixcalaanli do it through a cultural narrative
+preserved in poetry.
+
+Another theme is identity. It is most obvious with Mahit and her Imago---a
+machine that stores previous mind-states and incorporates them into your own.
+Is she the same person once another's memories and personality are mixed with
+her own? The book questions how much of a person is their mind, how much is
+their body and endocrine system, and how much is the culture they live in.
 
 A subtler version of this theme revolves around the question of who is part of
 the Empire, and who is not, and who is on Mahit's side and who is against her.
 The question of "What is _'we'_?" comes up several times in regards to both
 Mahit and her Imago of Yskander, and of her and her allies.
 
-There is a related motif is around star charts. They help you identify what is
-and is not part of the Empire, and they also look like a map of neurons in the
-brain. Star charts appear in poems, above Mahit's bed, and in the name of
-characters.
-
-Another theme is of memory, and how civilizations remember themselves and
-their history. Lsel does it through Imago lines, literally preserving the
-minds of the people who came before, while the Teixcalaanli do it through a
-cultural narrative preserved in poetry.
+There is motif around star charts that is related to these themes. Star charts
+help you identify what is and is not part of the Empire, and they also look
+like a map of neurons in the brain. Star charts appear in poems, above Mahit's
+bed, and in the name of characters.
 
 As a book about an ambassador and an orator, the dialog and characters in {{
 this_book }} are what carry it. The poetry feels a little forced at times, but
 each character is rich and has their own agenda. Figuring out what characters
-can be trusted, and when, is one of the joys of the narrative.
+can be trusted, and when, is one of the joys of the narrative. The end is
+fitting, with poetry, symbolism, and grand gestures winning the day, as is
+only approriate for an Empire that views itself as an ongoing story.
 
 This book reminded me of several others:
 
@@ -100,6 +105,10 @@ This book reminded me of several others:
   part where Mahit is waking up during and after her surgery, her mind
   confused and scrambling for a foothold, is like when Harry wakes to dialog
   from his Ancient Reptilian Brain and the Limbic System.
+
+- The way I noticed the writing style reminded me of {{ wolfes }} {{
+  shadow_of_the_torturer }}, with its archaic prose and intentionally vague
+  descriptions.
 
 I read {{ this_book }} for my book club, and I'm jumping right into the sequel
 {{ teix2 }}.
