@@ -11,14 +11,24 @@ awards:
   - locus
 ---
 
-<cite class="book-title">The Claw of the Conciliator</cite> is the second book
-in Gene Wolfe's The Book of the New Sun tetralogy. It picks up right where {%
+<cite class="book-title">{{ page.title }}</cite> is the second book
+in <span class="author-name">{{ page.book_author }}</span>'s <span
+class="book-series">{{ page.series }}</span> tetralogy. It picks up right where {%
 include book_link.html title="The Shadow of the Torturer" %} leaves off,
 following Severian as he makes his way towards Thrax.
 
-The book is very similar to {% include book_link.html title="The Shadow of the
-Torturer" %}: Florid writing, slow pace, lots of themes and allegories, and
-mysteries that are exposed only to be replaced by new ones.
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
+{% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
+{% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
+
+{% capture shadow_torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
+{% capture sword_lictor %}{% include book_link.html title="The Sword of the Lictor" %}{% endcapture %}
+
+The book is very similar to {{ shadow_torturer }}: Florid writing, slow pace,
+lots of themes and allegories, and mysteries that are exposed only to be
+replaced by new ones.
 
 There are many scenes that I loved:
 
@@ -36,6 +46,6 @@ There are many scenes that I loved:
   man who would overthrow him---Vodalus.
 
 But the book begins to drag in the second half and the story seems to wander.
-Knowing there are three more installments ahead of me in the series, I'm
-worried it will grind to a halt. I hope that {% include book_link.html
-title="The Sword of the Lictor" %} will pick up the pace.
+Knowing there are three more installments ahead of me in the {{ this_series }}
+series, I'm worried it will grind to a halt. I hope that {{ sword_lictor }}
+will pick up the pace.
