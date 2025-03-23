@@ -114,5 +114,5 @@ This book reminded me of several others:
   shadow_of_the_torturer }}, with its slightly archaic prose and intentionally
   unclear descriptions.
 
-I read {{ this_book }} for my book club, and I'm jumping right into the sequel,
-{{ teix2 }}.
+{{ this_book }} hooked me with its characters and world, and I can't wait to
+see where the author takes them in {{ teix2 }}.
