@@ -1,26 +1,26 @@
-{%- comment %}
-If the include is broken across multiple lines, sometimes the title has \n
-charters in it and we need to remove them. But the only way to get a newline
-in liquid is to capture it (it doesn't understand \n).
-{% endcomment -%}
+{%- comment -%}
+Sometimes the `include.url` has been broken over lines or contains newlines.
+Liquid doesn't support `\n` literals, so we capture a real newline and remove it.
+{%- endcomment -%}
 {%- capture newline %}
 {% endcapture -%}
 
+{%- assign target_url = include.url | replace: newline, " " | strip -%}
 {%- assign title = null -%}
 
-{%- comment %}Try to find the page and set a URL.
-
-We have to combine a lot of different collections to get all the pages on the
-site.{% endcomment -%}
+{%- comment -%}
+Search all pages (from all major collections) to find the page
+with a matching URL, and return its title.
+{%- endcomment -%}
 {%- assign pages = site.pages | where_exp: "item", "item.title" -%}
 {%- assign books = site.books -%}
 {%- assign posts = site.posts -%}
-
 {%- assign all_pages = pages | concat: books | concat: posts -%}
 
 {%- for p in all_pages -%}
-  {%- if p.url == include.url -%}
+  {%- if p.url == target_url -%}
     {%- assign title = p.title -%}
+    {%- break -%}
   {%- endif -%}
 {%- endfor -%}
 
