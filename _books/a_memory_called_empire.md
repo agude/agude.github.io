@@ -28,7 +28,7 @@ home from being annexed by the Teixcalaanli empire.
 {% capture culture %}{% include series_link.html series="Culture" %}{% endcapture %}
 
 {% capture wolfes %}{% include author_link.html name="Gene Wolfe" possessive=true %}{% endcapture %}
-{% capture shadow_of_the_torturer %}{% include book_link.html title="Shadow of the Torturer" %}{% endcapture %}
+{% capture shadow_of_the_torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
 
 {% capture brunners %}{% include author_link.html name="John Brunner" possessive=true %}{% endcapture %}
 {% capture stand_on_zanzibar %}{% include book_link.html title="Stand on Zanzibar" %}{% endcapture %}
@@ -105,7 +105,7 @@ This book reminded me of several others:
   stabilize, echoed Harry waking to dialogue from his Ancient Reptilian Brain
   and Limbic System.
 
-- The way I noticed the writing made me think of {{ wolfes }} {{
+- The way I noticed the writing style made me think of {{ wolfes }} {{
   shadow_of_the_torturer }}, with its slightly archaic prose and intentionally
   unclear descriptions.
 
