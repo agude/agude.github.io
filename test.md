@@ -6,9 +6,6 @@ description: >
 sidebar_include: false
 ---
 
-{% if jekyll.environment != "production" %}
-{% comment %}Only generate this page when in dev.{% endcomment %}
-
 # Markdown Test Page
 
 This is a test page to demonstrate all standard Markdown elements.
@@ -314,5 +311,3 @@ date: "%Y" | minus: 2015 }}.
   custom metadata, images, and dynamic content. The story revolves around a
   fascinating premise and is exceptionally well-written.
 </article>
-
-{% endif %}
