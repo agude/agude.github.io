@@ -1,34 +1,48 @@
 {%- comment %}
-The HTML is *VERY* sensitive to new lines, so we fill with {{- null -}} which
-does nothing _except_ consume a new line on eitherside.
-
-Otherwise it doens't work inside footnotes.
-
-See:
-https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-include-external-content-inside-footnotes
+If the include is broken across multiple lines, sometimes the series has \n
+characters in it and we need to remove them. Liquid doesn't understand \n,
+so we capture an actual newline and replace it.
 {% endcomment -%}
-
 {%- capture newline %}
 {% endcapture -%}
 
-{%- comment %}Try to find the page and set a URL{% endcomment -%}
-{%- capture url -%}{% include get_url_from_title.html title=include.series layout="series_page"%}{%- endcapture -%}
+{%- comment %}
+Try to find the URL using the series name and known layout.
+{% endcomment -%}
+{%- capture url -%}
+  {% include get_url_from_title.html title=include.series layout="series_page" %}
+{%- endcapture -%}
 
-{%- comment %}Try to get the title of the found page for the link text{% endcomment -%}
-{%- if url != null and url != "" -%}
-  {%- capture link_text -%}{% include get_title_from_url.html url=url %}{%- endcapture -%}
+{%- comment %}
+Resolve the text to display in the link.
+Prefer `link_text`, fallback to the raw series name.
+{% endcomment -%}
+{%- assign raw_text = include.link_text | default: include.series -%}
+{%- assign link_text = raw_text | replace: newline, " " | strip -%}
 
-{%- comment %}Otherwise just use the entered title{% endcomment -%}
-{%- else -%}
-  {%- assign link_text = include.series | replace: newline," " | strip -%}
+{%- comment %}
+If no custom text was passed, try to use the title from the page.
+{% endcomment -%}
+{%- if include.link_text == null and url != "" -%}
+  {%- capture link_text -%}
+    {% include get_title_from_url.html url=url %}
+  {%- endcapture -%}
 {%- endif -%}
 
-{%- comment %}Wrap the name in <span> tags.{% endcomment -%}
-{%- capture wrapped_name -%}<span class="book-series">{{ link_text }}</span>{%- endcapture -%}
+{%- comment %}
+Wrap the link text in a <span> for styling.
+{% endcomment -%}
+{%- capture wrapped -%}
+  <span class="book-series">{{ link_text }}</span>
+{%- endcapture -%}
 
-{%- comment %}Wrap again with a link if we find one.{% endcomment -%}
-{%- if url != null and url != "" and page.url != url -%}
-  {%- capture wrapped_name -%}<a href="{{ url }}">{{- wrapped_name -}}</a>{%- endcapture -%}
+{%- comment %}
+Only add a link if the resolved URL isn't the current page.
+{% endcomment -%}
+{%- if url != "" and page.url != url -%}
+  {%- capture wrapped -%}
+    <a href="{{ url }}">{{- wrapped -}}</a>
+  {%- endcapture -%}
 {%- endif -%}
 
-{{- wrapped_name -}}
+{{- wrapped -}}

@@ -1,46 +1,54 @@
 {%- comment %}
-The HTML is *VERY* sensitive to new lines, so we fill with {{- null -}} which
-does nothing _except_ consume a new line on either side.
-
-Otherwise it doesn't work inside footnotes.
-
-See:
-https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-include-external-content-inside-footnotes
+If the include is broken across multiple lines, sometimes the name has \n
+characters in it and we need to remove them. Liquid doesn't understand \n,
+so we capture an actual newline and replace it.
 {% endcomment -%}
 {%- capture newline %}
 {% endcapture -%}
 
 {%- assign possessive = include.possessive | default: false -%}
 
-{%- comment %}Try to find the page and set a URL{% endcomment -%}
-{%- capture url -%}{% include get_url_from_title.html title=include.name layout="author_page"%}{%- endcapture -%}
+{%- comment %}
+Try to find the URL using the name and known layout.
+{% endcomment -%}
+{%- capture url -%}
+  {% include get_url_from_title.html title=include.name layout="author_page" %}
+{%- endcapture -%}
 
-{%- comment %}Set the text for the link depending on if we have a
-link_text or not. Default to the page name so that link text is
-standardized across articles.{% endcomment -%}
-{%- if include.link_text != "" and include.link_text != null -%}
-  {%- assign link_text = include.link_text | replace: newline," " | strip -%}
+{%- comment %}
+Resolve the text to display in the link.
+Prefer `link_text`, fallback to the raw name.
+{% endcomment -%}
+{%- assign raw_text = include.link_text | default: include.name -%}
+{%- assign link_text = raw_text | replace: newline, " " | strip -%}
 
-{%- comment %}Otherwise try to get the title of the found page{% endcomment -%}
-{%- elsif url != null and url != "" -%}
-  {%- capture link_text -%}{% include get_title_from_url.html url=url %}{%- endcapture -%}
-
-{%- comment %}Otherwise just use the entered name{% endcomment -%}
-{%- else -%}
-  {%- assign link_text = include.name | replace: newline," " | strip -%}
+{%- comment %}
+If no custom text was passed, try to use the title from the page.
+{% endcomment -%}
+{%- if include.link_text == null and url != "" -%}
+  {%- capture link_text -%}
+    {% include get_title_from_url.html url=url %}
+  {%- endcapture -%}
 {%- endif -%}
 
-{%- comment %}Wrap the name in <span> tags.{% endcomment -%}
-{%- capture wrapped_name -%}<span class="author-name">{{- link_text -}}</span>{%- endcapture -%}
+{%- comment %}
+Wrap the text in a span and add `'s` if needed.
+{% endcomment -%}
+{%- capture wrapped -%}
+  <span class="author-name">{{- link_text -}}</span>
+{%- endcapture -%}
 
-{%- comment %}Add 's if possessive{% endcomment -%}
-{%- if possessive == true -%}
-  {%- capture wrapped_name -%}{{- wrapped_name -}}'s{%- endcapture -%}
+{%- if possessive -%}
+  {%- capture wrapped -%}{{ wrapped }}'s{%- endcapture -%}
 {%- endif -%}
 
-{%- comment %}Wrap again with a link if we find one.{% endcomment -%}
-{%- if url != null and url != "" and page.url != url -%}
-  {%- capture wrapped_name -%}<a href="{{ url }}">{{- wrapped_name -}}</a>{%- endcapture -%}
+{%- comment %}
+Only add a link if the resolved URL isn't the current page.
+{% endcomment -%}
+{%- if url != "" and page.url != url -%}
+  {%- capture wrapped -%}
+    <a href="{{ url }}">{{- wrapped -}}</a>
+  {%- endcapture -%}
 {%- endif -%}
 
-{{- wrapped_name -}}
+{{- wrapped -}}
