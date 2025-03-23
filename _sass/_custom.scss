@@ -93,12 +93,16 @@ input[type="checkbox"]:checked.task-list-item-checkbox {
   font-size: 1.2rem;
 }
 
-a.post-tag {
-  margin-right: 0.8em;
-  margin-bottom: 0.8em;
+.post-tag {
   font-family: $code-font-family;
   font-weight: bold;
   white-space: nowrap;
+}
+
+a.post-tag {
+  @extend .post-tag;  // Inherit all styles from .post-tag
+  margin-right: 0.8em;
+  margin-bottom: 0.8em;
 }
 
 // Details with markdown="1"
