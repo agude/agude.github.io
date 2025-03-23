@@ -6,6 +6,8 @@ series: Cheela
 book_number: 1
 rating: 5
 image: /books/covers/dragons_egg.jpg
+awards:
+  - locus
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a hard sci-fi novel by

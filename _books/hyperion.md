@@ -8,6 +8,7 @@ rating: 4
 image: /books/covers/hyperion.jpg
 awards:
   - hugo
+  - locus
 ---
 
 <cite class="book-title">Hyperion</cite>, was not at all the book I expected.

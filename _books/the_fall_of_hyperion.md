@@ -6,6 +6,8 @@ series: Hyperion Cantos
 book_number: 2
 rating: 5
 image: /books/covers/the_fall_of_hyperion.jpg
+awards:
+  - locus
 ---
 
 <cite class="book-title">The Fall of Hyperion</cite> is a sequel that

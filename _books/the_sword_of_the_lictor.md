@@ -6,6 +6,8 @@ series: The Book of the New Sun
 book_number: 3
 rating: 4
 image: /books/covers/the_sword_of_the_lictor.jpg
+awards:
+  - locus
 ---
 
 <cite class="book-title">The Sword of the Lictor</cite> is the third book in

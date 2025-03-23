@@ -8,6 +8,7 @@ rating: 3
 image: /books/covers/the_claw_of_the_conciliator.jpg
 awards:
   - nebula
+  - locus
 ---
 
 <cite class="book-title">The Claw of the Conciliator</cite> is the second book

@@ -6,6 +6,8 @@ series: null
 book_number: 1
 rating: 3
 image: /books/covers/gun_with_occasional_music.jpg
+awards:
+  - locus
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a sci-fi, hardboiled
