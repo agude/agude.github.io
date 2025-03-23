@@ -14,7 +14,7 @@ awards:
 class="author-name">{{ page.book_author }}</span>, is the first book in the
 <span class="book-series">{{ page.series }}</span> series. It follows Mahit
 Dzmare, an ambassador from the space station Lsel, as she tries to save her
-homes from being annexed by the Teixcalaanli empire.
+home from being annexed by the Teixcalaanli empire.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -43,72 +43,71 @@ homes from being annexed by the Teixcalaanli empire.
 {% capture enders_game %}{% include book_link.html title="Ender's Game" %}{% endcapture %}
 
 {{ this_book }} is a story of courtly intrigue in a science fiction empire.
-Mahit is summoned suddenly to Teixcalaan to replace her predecessor---Yskander
+Mahit is summoned suddenly to Teixcalaan to replace her predecessor, Yskander
 Aghavn. She soon discovers he has been murdered, and that the empire is
-lurching towards a succession crisis. Mahit and he liaison, Three Seagrass,
-try to navigate the unknown allegiances and politics of the imperial court
-while defending Lsel station and trying to uncover the murderer.
+lurching toward a succession crisis. Mahit and her liaison, Three Seagrass,
+have to navigate the shifting allegiances and politics of the imperial court
+while defending Lsel Station and trying to uncover the murderer.
 
-A primary theme of {{ this_book }}is of memory, and how civilizations remember
+A primary theme of {{ this_book }} is memory---how civilizations remember
 themselves and their history, and how that shapes their behavior. Lsel
-remembers through Imago lines, literally preserving the minds of the people
-who came before, while the Teixcalaanli do it through a cultural narrative
-preserved in poetry.
+remembers through Imago lines, literally preserving the minds of those who
+came before, while the Teixcalaanli do it through a cultural narrative carried
+in poetry.
 
-Another theme is identity. It is most obvious with Mahit and her Imago---a
-machine that stores previous mind-states and incorporates them into your own.
-Is she the same person once another's memories and personality are mixed with
-her own? The book questions how much of a person is their mind, how much is
-their body and endocrine system, and how much is the culture they live in.
+Another major theme is identity. It's clearest in Mahit and her Imago---a machine
+that stores a previous mind-state and integrates it into your own. Is she still
+herself once another's memories and personality are mixed into hers? The book
+asks how much of a person is their mind, how much is their body and biology,
+and how much is the culture they live in.
 
-A subtler version of this theme revolves around the question of who is part of
-the Empire, and who is not, and who is on Mahit's side and who is against her.
-The question of "What is _'we'_?" comes up several times in regards to both
-Mahit and her Imago of Yskander, and of her and her allies.
+A subtler version of this theme plays out in the question of who belongs to the
+Empire, and who doesn't. Who's on Mahit's side, and who's not? The question
+"What is _we_?" comes up more than once, both in the context of Mahit and her
+Imago of Yskander, and in her relationships with others.
 
-There is motif around star charts that is related to these themes. Star charts
-help you identify what is and is not part of the Empire, and they also look
-like a map of neurons in the brain. Star charts appear in poems, above Mahit's
-bed, and in the name of characters.
+There's a motif around star charts that ties into these themes. Star charts
+define what's part of the Empire and what isn't, and they also resemble maps of
+neurons in the brain. They show up in poems, above Mahit's bed, and even in the
+names of characters.
 
-As a book about an ambassador and an orator, the dialog and characters in {{
-this_book }} are what carry it. The poetry feels a little forced at times, but
-each character is rich and has their own agenda. Figuring out what characters
-can be trusted, and when, is one of the joys of the narrative. The end is
-fitting, with poetry, symbolism, and grand gestures winning the day, as is
-only approriate for an Empire that views itself as an ongoing story.
+As a book about an ambassador and an orator, it's the dialogue and the
+characters that carry {{ this_book }}. The poetry feels a little forced at
+times, but each character is rich and has their own agenda. Figuring out who
+can be trusted---and when---is one of the joys of the story. The ending is
+fitting, full of poetry, symbolism, and dramatic gestures, which feels right
+for an Empire that sees itself as a living story.
 
 This book reminded me of several others:
 
-- The Stationers, with their Imago mind-backup devices are like the Chelgrians
-  with their Soulkeepers in {{ bankss }} {{ look_to_windward }}; Mahit, a
-  diplomat with a second personality in her head, reminds me of Major Quilan
-  and the personality of Admiral Huyler he carries. The ubiquitous cloudhooks
-  are like {{ culture }} terminals.
+- The Stationers, with their Imago mind-backup devices, are like the
+  Chelgrians and their Soulkeepers in {{ bankss }} {{ look_to_windward }}.
+  Mahit, a diplomat with a second personality in her head, reminded me of
+  Major Quilan and the personality of Admiral Huyler he carries. The
+  ever-present cloudhooks are like {{ culture }} terminals.
 
 - An empire with aptitude tests for imperial office---similar to Imperial
   China---reminds me of {{ bennetts }} {{ the_tainted_cup }}.
 
-- The different types of minds---single minds, second personalities within a
-  mind, group minds like the Sunlit and shard pilots---is like {{ wattss }} {{
-  blindsight }}.
+- The variety of minds---single minds, second personalities, group minds like the
+  Sunlit and the shard pilots---felt like {{ wattss }} {{ blindsight }}.
 
-- The poem posted on the internet that spreads like wildfire reminds me of the
-  impact Peter and Valentine Wiggin have posting as Locke and Demosthenes in
-  {{ cards }} {{ enders_game }}.
+- The poem posted on the network that spreads like wildfire reminded me of the
+  way Peter and Valentine Wiggin influenced public discourse as Locke and
+  Demosthenes in {{ cards }} {{ enders_game }}.
 
-- The snippets of in-universe texts at the start of each chapter is like {{
+- The snippets of in-universe texts at the start of each chapter are like {{
   brunners }} {{ stand_on_zanzibar }}.
 
-- The way Mahit's mind interjects in the middle of the narrative reminds me of
-  Harrier Du Bois in <cite class="video-game-title">Disco Elysium</cite>. The
-  part where Mahit is waking up during and after her surgery, her mind
-  confused and scrambling for a foothold, is like when Harry wakes to dialog
-  from his Ancient Reptilian Brain and the Limbic System.
+- The way Mahit's thoughts interrupt the narration reminded me of Harrier Du
+  Bois in <cite class="video-game-title">Disco Elysium</cite>. The part where
+  Mahit is waking up during and after surgery, her mind scrambled and trying to
+  stabilize, echoed Harry waking to dialogue from his Ancient Reptilian Brain
+  and Limbic System.
 
-- The way I noticed the writing style reminded me of {{ wolfes }} {{
-  shadow_of_the_torturer }}, with its archaic prose and intentionally vague
-  descriptions.
+- The way I noticed the writing made me think of {{ wolfes }} {{
+  shadow_of_the_torturer }}, with its slightly archaic prose and intentionally
+  unclear descriptions.
 
-I read {{ this_book }} for my book club, and I'm jumping right into the sequel
+I read {{ this_book }} for my book club, and I'm jumping right into the sequel,
 {{ teix2 }}.
