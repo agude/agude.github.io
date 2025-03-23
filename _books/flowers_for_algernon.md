@@ -17,28 +17,37 @@ who undergoes surgery to enhance his cognitive abilities. While it is a
 beautifully crafted narrative, it failed to hold my attention.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
+{% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
+{% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
+
+{% capture keyess %}<span class="author-name">Keyes</span>'s{% endcapture %}
+{% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
+{% capture echopraxia %}{% include book_link.html title="Echopraxia" %}{% endcapture %}
 
 {{ this_book }} is written as a series of progress reports by Charlie, both
-before and after his surgery. Keyes skillfully utilizes Charlie's writing
-style to convey the gradual improvement in his intellect, and he does an
-equally remarkable job towards the end: it is an emotional moment when the
-typos reappear after a hundred pages, indicating Charlie's cognitive decline.
+before and after his surgery. <span class="author-name">Keyes</span>
+skillfully utilizes Charlie's writing style to convey the gradual improvement
+in his intellect, and he does an equally remarkable job towards the end: it is
+an emotional moment when the typos reappear after a hundred pages, indicating
+Charlie's cognitive decline.
 
 But, the storyline itself felt predictable: I anticipated that it would depict
-Charlie's realization of the complexities in his world---that his friends were
-not truly his friends, and that his family was not the protective support
-system he had hoped for. Several times while reading, I could see what must be
-coming in the next few pages, which left me to grit my teeth and push through
-to the next plot point. At other times, especially when Charlie was enduring
-the abuse of his mother, I contemplated abandoning the book altogether.
+Charlie's realization that his seemingly simple world had unknown
+complexities---that his friends were not truly his friends, and that his
+family was not the protective support system he had hoped for. Several times
+while reading, I could see what must be coming in the next few pages, which
+left me to grit my teeth and push through to the next plot point. At other
+times, especially when Charlie was enduring the abuse of his mother, I
+contemplated abandoning the book altogether.
 
-There are some interesting parallels between {{ this_book }} and {% include
-book_link.html title="Blindsight" %} and {% include book_link.html
-title="Echopraxia" %}: specifically regarding how altering the mind changes
+There are some interesting parallels between {{ this_book }} and {{ blindsight
+}} and {{ echopraxia }}: specifically regarding how altering the mind changes
 one's identity, and if the change is significant enough, it creates a
 different person altogether. {{ this_book }}'s depiction of Charlie literally
-seeing the "other person" out in the world was an clever approach to
-illustrate this concept.
+seeing the "other person" out in the world was a clever approach to illustrate
+this concept.
 
-In the end thought, a book that has some great components, but doesn't come
+In the end though, a book that has some great components, but doesn't come
 together for me.
