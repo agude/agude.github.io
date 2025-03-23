@@ -1,48 +1,7 @@
-{%- comment %}
-If the include is broken across multiple lines, sometimes the series has \n
-characters in it and we need to remove them. Liquid doesn't understand \n,
-so we capture an actual newline and replace it.
-{% endcomment -%}
-{%- capture newline %}
-{% endcapture -%}
-
-{%- comment %}
-Try to find the URL using the series name and known layout.
-{% endcomment -%}
-{%- capture url -%}
-  {% include get_url_from_title.html title=include.series layout="series_page" %}
-{%- endcapture -%}
-
-{%- comment %}
-Resolve the text to display in the link.
-Prefer `link_text`, fallback to the raw series name.
-{% endcomment -%}
-{%- assign raw_text = include.link_text | default: include.series -%}
-{%- assign link_text = raw_text | replace: newline, " " | strip -%}
-
-{%- comment %}
-If no custom text was passed, try to use the title from the page.
-{% endcomment -%}
-{%- if include.link_text == null and url != "" -%}
-  {%- capture link_text -%}
-    {% include get_title_from_url.html url=url %}
-  {%- endcapture -%}
-{%- endif -%}
-
-{%- comment %}
-Wrap the link text in a <span> for styling.
-{% endcomment -%}
-{%- capture wrapped -%}
-  <span class="book-series">{{ link_text }}</span>
-{%- endcapture -%}
-
-{%- comment %}
-Only add a link if the resolved URL isn't the current page.
-{% endcomment -%}
-{%- if url != "" and page.url != url -%}
-  {%- capture wrapped -%}
-    <a href="{{ url }}">{{- wrapped -}}</a>
-  {%- endcapture -%}
-{%- endif -%}
-
-{{- wrapped -}}
+{%- include link_from_title.html
+  title=include.series
+  layout="series_page"
+  wrapper="span"
+  class="book-series"
+  link_text=include.link_text
+-%}

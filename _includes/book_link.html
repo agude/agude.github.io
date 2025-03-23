@@ -1,48 +1,7 @@
-{%- comment %}
-If the include is broken across multiple lines, sometimes the title has \n
-characters in it and we need to remove them. Liquid doesn't understand \n,
-so we capture an actual newline and replace it.
-{% endcomment -%}
-{%- capture newline %}
-{% endcapture -%}
-
-{%- comment %}
-Try to find the URL using the title and known layout.
-{% endcomment -%}
-{%- capture url -%}
-  {% include get_url_from_title.html title=include.title layout="book" %}
-{%- endcapture -%}
-
-{%- comment %}
-Resolve the text to display in the link.
-Prefer `link_text`, fallback to the raw title.
-{% endcomment -%}
-{%- assign raw_text = include.link_text | default: include.title -%}
-{%- assign link_text = raw_text | replace: newline, " " | strip -%}
-
-{%- comment %}
-If no custom text was passed, try to use the title from the page.
-{% endcomment -%}
-{%- if include.link_text == null and url != "" -%}
-  {%- capture link_text -%}
-    {% include get_title_from_url.html url=url %}
-  {%- endcapture -%}
-{%- endif -%}
-
-{%- comment %}
-Wrap the link text in a <cite> for book styling.
-{% endcomment -%}
-{%- capture wrapped -%}
-  <cite class="book-title">{{ link_text }}</cite>
-{%- endcapture -%}
-
-{%- comment %}
-Only add a link if the resolved URL isn't the current page.
-{% endcomment -%}
-{%- if url != "" and page.url != url -%}
-  {%- capture wrapped -%}
-    <a href="{{ url }}">{{- wrapped -}}</a>
-  {%- endcapture -%}
-{%- endif -%}
-
-{{- wrapped -}}
+{%- include link_from_title.html
+  title=include.title
+  layout="book"
+  wrapper="cite"
+  class="book-title"
+  link_text=include.link_text
+-%}

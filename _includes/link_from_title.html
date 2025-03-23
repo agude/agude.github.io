@@ -1,0 +1,50 @@
+{%- comment %}
+Generic include for building a link to a page (author, book, series, etc.)
+Parameters:
+- title: string to match
+- layout: layout to search against (book, author_page, etc.)
+- wrapper: HTML element (span, cite, etc.)
+- class: CSS class for styling
+- link_text: optional override for display text
+- possessive: append "'s" (optional, for author names)
+{% endcomment -%}
+
+{%- capture newline %}
+{% endcapture -%}
+{%- assign now_unix = 'now' | date: '%s' | plus: 0 -%}
+
+{%- assign raw_title = include.title | replace: newline, " " | strip -%}
+{%- assign wrapper = include.wrapper | default: "span" -%}
+{%- assign css_class = include.class | default: "" -%}
+{%- assign possessive = include.possessive | default: false -%}
+
+{%- comment %} Try to find the URL {% endcomment -%}
+{%- capture url -%}
+  {% include get_url_from_title.html title=raw_title layout=include.layout %}
+{%- endcapture -%}
+
+{%- comment %} Determine visible text {% endcomment -%}
+{%- assign raw_text = include.link_text | default: raw_title -%}
+{%- assign link_text = raw_text | replace: newline, " " | strip -%}
+
+{%- if include.link_text == null and url != "" -%}
+  {%- capture link_text -%}
+    {% include get_title_from_url.html url=url %}
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- capture wrapped -%}
+  <{{ wrapper }}{% if css_class != "" %} class="{{ css_class }}"{% endif %}>{{ link_text }}</{{ wrapper }}>
+{%- endcapture -%}
+
+{%- if possessive -%}
+  {%- capture wrapped -%}{{ wrapped }}'s{%- endcapture -%}
+{%- endif -%}
+
+{%- if url != "" and page.url != url -%}
+  {%- capture wrapped -%}
+    <a href="{{ url }}">{{- wrapped -}}</a>
+  {%- endcapture -%}
+{%- endif -%}
+
+{{- wrapped -}}
