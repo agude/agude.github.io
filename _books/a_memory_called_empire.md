@@ -78,6 +78,11 @@ can be trusted---and when---is one of the joys of the story. The ending is
 fitting, full of poetry, symbolism, and dramatic gestures, which feels right
 for an Empire that sees itself as a living story.
 
+The worldbuilding in this book was subtle. {{ the_author }} leaves a lot of
+mysteries---how the Sunlit work, who built the jumpgates, what exactly the
+aliens beyond Lsel Station are---that I hope get explored in the sequel, {{
+teix2 }}.
+
 This book reminded me of several others:
 
 - The Stationers, with their Imago mind-backup devices, are like the
