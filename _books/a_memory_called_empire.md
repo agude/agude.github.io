@@ -63,6 +63,16 @@ and is not part of the Empire, and they also look like a map of neurons in the
 brain. Star charts appear in poems, above Mahit's bed, and in the name of
 characters.
 
+Another theme is of memory, and how civilizations remember themselves and
+their history. Lsel does it through Imago lines, literally preserving the
+minds of the people who came before, while the Teixcalaanli do it through a
+cultural narrative preserved in poetry.
+
+As a book about an ambassador and an orator, the dialog and characters in {{
+this_book }} are what carry it. The poetry feels a little forced at times, but
+each character is rich and has their own agenda. Figuring out what characters
+can be trusted, and when, is one of the joys of the narrative.
+
 This book reminded me of several others:
 
 - The Stationers, with their Imago mind-backup devices are like the Chelgrians
@@ -82,12 +92,14 @@ This book reminded me of several others:
   impact Peter and Valentine Wiggin have posting as Locke and Demosthenes in
   {{ cards }} {{ enders_game }}.
 
-- The voices in Mahit's head, especially as she is coming to during and after
-  brain surgery, very roughly remind me of Harrier Du Bois waking up to the
-  voices of his Ancient Reptilian Brain and the Limbic System beginning of
-  <cite class="video-game-title">Disco Elysium</cite>.
-
-- The snippets of in-universe text at the start of each chapter were like {{
+- The snippets of in-universe texts at the start of each chapter is like {{
   brunners }} {{ stand_on_zanzibar }}.
 
+- The way Mahit's mind interjects in the middle of the narrative reminds me of
+  Harrier Du Bois in <cite class="video-game-title">Disco Elysium</cite>. The
+  part where Mahit is waking up during and after her surgery, her mind
+  confused and scrambling for a foothold, is like when Harry wakes to dialog
+  from his Ancient Reptilian Brain and the Limbic System.
 
+I read {{ this_book }} for my book club, and I'm jumping right into the sequel
+{{ teix2 }}.
