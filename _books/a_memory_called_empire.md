@@ -63,13 +63,18 @@ and how much is the culture they live in.
 
 A subtler version of this theme plays out in the question of who belongs to the
 Empire, and who doesn't. Who's on Mahit's side, and who's not? The question
-"What is _we_?" comes up more than once, both in the context of Mahit and her
-Imago of Yskander, and in her relationships with others.
+"What is the definition of _we_?" comes up more than once, both in the context
+of Mahit and her Imago of Yskander, and in her relationships with others.
 
 There's a motif around star charts that ties into these themes. Star charts
 define what's part of the Empire and what isn't, and they also resemble maps of
 neurons in the brain. They show up in poems, above Mahit's bed, and even in the
 names of characters.
+
+The worldbuilding in this book was subtle. {{ the_author }} leaves a lot of
+mysteries---how the Sunlit work, who built the jumpgates, what exactly the
+aliens beyond Lsel Station are---that I hope get explored in the sequel, {{
+teix2 }}.
 
 As a book about an ambassador and an orator, it's the dialogue and the
 characters that carry {{ this_book }}. The poetry feels a little forced at
@@ -77,11 +82,6 @@ times, but each character is rich and has their own agenda. Figuring out who
 can be trusted---and when---is one of the joys of the story. The ending is
 fitting, full of poetry, symbolism, and dramatic gestures, which feels right
 for an Empire that sees itself as a living story.
-
-The worldbuilding in this book was subtle. {{ the_author }} leaves a lot of
-mysteries---how the Sunlit work, who built the jumpgates, what exactly the
-aliens beyond Lsel Station are---that I hope get explored in the sequel, {{
-teix2 }}.
 
 This book reminded me of several others:
 
