@@ -1,58 +1,56 @@
-{%- comment %}
-If the include is broken across multiple lines, sometimes the title has \n
-charters in it and we need to remove them. But the only way to get a newline
-in liquid is to capture it (it doesn't understand \n).
-{% endcomment -%}
+{%- comment -%}
+Normalize the `title` input by removing accidental newlines.
+Liquid doesn't support `\n`, so we capture an actual newline and replace it.
+{%- endcomment -%}
 {%- capture newline %}
 {% endcapture -%}
+{%- assign target_title = include.title | replace: newline, " " | downcase | strip -%}
 
 {%- assign now_unix = 'now' | date: '%s' | plus: 0 -%}
 
-{%- assign target_title = include.title | replace: newline," " | downcase | strip -%}
+{%- comment -%}
+If a layout is provided, use it to narrow the collection search.
+Otherwise, check all relevant collections.
+{%- endcomment -%}
+{%- assign target_layout = include.layout | replace: newline, " " | strip | default: null -%}
 
-{%- if include.layout != null and include.layout != "" -%}
-    {%- assign target_layout = include.layout | replace: newline," " | strip -%}
+{%- assign all_pages = null -%}
+
+{%- if target_layout == "book" -%}
+  {%- assign all_pages = site.books -%}
+{%- elsif target_layout == "post" -%}
+  {%- assign all_pages = site.posts -%}
+{%- elsif target_layout == "series_page" or target_layout == "author_page" -%}
+  {%- assign all_pages = site.pages | where_exp: "item", "item.title" -%}
 {%- else -%}
-    {%- assign target_layout = null -%}
+  {%- assign pages = site.pages | where_exp: "item", "item.title" -%}
+  {%- assign books = site.books -%}
+  {%- assign posts = site.posts -%}
+  {%- assign all_pages = pages | concat: books | concat: posts -%}
 {%- endif -%}
 
 {%- assign url = null -%}
 
-{%- comment %}Try to find the page and set a URL.
-
-We have to combine a lot of different collections to get all the pages on the
-site.
-
-But we can optimize if we know the target is in a collection.{% endcomment -%}
-{%- if target_layout == "book" -%}
-    {%- assign all_pages = site.books -%}
-{%- elsif target_layout == "post" -%}
-    {%- assign all_pages = site.posts -%}
-{%- elsif target_layout == "series_page" or target_layout == "author_page" -%}
-    {%- assign all_pages = site.pages | where_exp: "item", "item.title" -%}
-{%- else %}
-    {%- assign pages = site.pages | where_exp: "item", "item.title" -%}
-    {%- assign books = site.books -%}
-    {%- assign posts = site.posts -%}
-
-    {%- assign all_pages = pages | concat: books | concat: posts -%}
-{%- endif -%}
-
+{%- comment -%}
+Scan for a matching title and layout. Skip empty or future-dated entries.
+{%- endcomment -%}
 {%- for p in all_pages -%}
-    {% assign post_time = p.date | date: '%s' | plus: 0 %}
-    {%- if p.title == null or p.title == "" -%}
-        {%- continue -%}
-    {%- elsif post_time != null and post_time > now_unix -%}
-        {%- continue -%}
-    {%- endif -%}
+  {%- if p.title == null or p.title == "" -%}
+    {%- continue -%}
+  {%- endif -%}
 
-    {%- if p.layout == target_layout or target_layout == null -%}
-        {% assign normalized_title = p.title | downcase | strip %}
-        {%- if normalized_title == target_title -%}
-            {%- assign url = p.url -%}
-            {%- break -%}
-        {%- endif -%}
+  {%- assign post_time = p.date | date: '%s' | plus: 0 -%}
+  {%- if post_time != null and post_time > now_unix -%}
+    {%- continue -%}
+  {%- endif -%}
+
+  {%- if p.layout == target_layout or target_layout == null -%}
+    {%- assign normalized_title = p.title | downcase | strip -%}
+    {%- if normalized_title == target_title -%}
+      {%- assign url = p.url -%}
+      {%- break -%}
     {%- endif -%}
+  {%- endif -%}
 {%- endfor -%}
 
 {{- url -}}
