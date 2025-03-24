@@ -11,30 +11,35 @@ awards:
   - locus
 ---
 
-<cite class="book-title">Hyperion</cite>, was not at all the book I expected.
-To give you an idea of how much I misjudged it, about a third of the way
-through I would have rated it two stars and almost put it down, about
+<cite class="book-title">{{ page.title }}</cite> was not at all the book I
+expected. To give you an idea of how much I misjudged it, about a third of the
+way through I would have rated it two stars and almost put it down, about
 two-thirds of the way through I was solidly at three stars, and by the end I
 was up to four. It was not the all-time great I was promised, but it was very
 good.
 
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+
+{% capture fall_hyperion %}{% include book_link.html title="The Fall of Hyperion" %}{% endcapture %}
+
+{% capture keatss %}{% include author_link.html name="John Keats" possessive=true %}{% endcapture %}
+
 It is told as the tale of six different pilgrims traveling to the planet
-Hyperion to visit the Shrike, a cruel, death-god-like figure. <cite
-class="book-title">Hyperion</cite> is very much <cite class="book-title">[The
-Canterbury Tales][tales]</cite> in space. At first the stories seem
-unconnected, but as the pilgrims travel and tell their tales we realize they
-are all connected, and they reveal a hint at the wider universe that the book
-takes place in. The book ends "suddenly" but the sequel, {% include
-book_link.html title="The Fall of Hyperion"%}, picks up right where <cite
-class="book-title">Hyperion</cite> leaves off.
+Hyperion to visit the Shrike, a cruel, death-god-like figure. {{ this_book }}
+is very much <cite class="book-title">[The Canterbury Tales][tales]</cite> in
+space. At first the stories seem unconnected, but as the pilgrims travel and
+tell their tales we realize they are all connected, and they reveal a hint at
+the wider universe that the book takes place in. The book ends "suddenly" but
+the sequel, {{ fall_hyperion }}, picks up right where {{ this_book }} leaves
+off.
 
 [tales]: https://en.wikipedia.org/wiki/The_Canterbury_Tales
 
 A theme that runs through the book is "the old gods replaced by the new",
-based on Keat's <cite class="book-title">[Hyperion][hyperion]</cite> poem
-about the [Greek Titans falling to the new Gods of Olympus][titanomachy]. We
-see this with the Humans and the AI TechnoCore, the humans and the Ousters (a
-breakaway post-human faction), the Scholar and the Old Testament God, and
+based on {{ keatss }} <cite class="book-title">[Hyperion][hyperion]</cite>
+poem about the [Greek Titans falling to the new Gods of Olympus][titanomachy].
+We see this with the Humans and the AI TechnoCore, the humans and the Ousters
+(a breakaway post-human faction), the Scholar and the Old Testament God, and
 Catholicism and the new religions.
 
 [hyperion]: https://en.wikipedia.org/wiki/Hyperion_(poem)
@@ -70,7 +75,7 @@ pilgrimage.
 ### The Detective's Tale
 {% include book_rating.html rating=5 %}
 
-This story gives us a great look at he TechnoCore: the artificial
+This story gives us a great look at the TechnoCore: the artificial
 intelligences that seceded from humanity but are still tightly involved in our
 affairs. The story hints that the TechnoCore's three factions---the stables,
 the volatiles, and the ultimates---are engineering the coming war over

@@ -20,10 +20,14 @@ on the spaceship _Theseus_ have been altered mentally:
 
 - Siri Keeton had half his brain removed, losing empathy and emotion. He tries
   to emulate them by following learned rules.
+  
 - Amanda Bates's brain is connected to an army of robot soldiers.
+
 - Susan James has three added personalities in her mind.
+
 - Isaac Szpindel replaced so much of his body with tech that his mind can live
   outside it in the ship itself.
+
 - Jukka Sarasti---a resurrected vampire---is far smarter and faster than a
   human but likely not conscious.
 
@@ -43,6 +47,5 @@ consciousness completely, allowing them to react faster, think deeper, and
 plan farther ahead.
 
 The worldbuilding is fantastic and haunting. The mysteries are compelling and
-their answers are satisfying. The characters feel alive, even the vampire.
-<cite class="book-title">Blindsight</cite> is not hopeful but is one of the
-best sci-fi books I've read.
+their answers are satisfying. The characters feel alive, even the vampire. {{
+this_book }} is not hopeful but is one of the best sci-fi books I've read.

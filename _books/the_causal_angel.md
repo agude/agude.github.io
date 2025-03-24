@@ -8,17 +8,22 @@ rating: 3
 image: /books/covers/the_causal_angel.jpg
 ---
 
-<cite class="book-title">The Causal Angel</cite> is the last book in the Jean
-le Flambeur trilogy. We finally learn le Flambeur was hired to steal the
-Kaminari Jewel, a Zoku gem with the power to alter reality.
+<cite class="book-title">{{ page.title }}</cite> is the last book in the <span
+class="book-series">{{ page.series }}</span> trilogy. We finally learn le
+Flambeur was hired to steal the Kaminari Jewel, a Zoku gem with the power to
+alter reality.
+
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+
+{% capture fractal_prince %}{% include book_link.html title="The Fractal Prince" %}{% endcapture %}
 
 We discover that the Pellegrini extracted two people from the prison: Le
-Flamebeur and his corrupted copy, the All-Defector, who can predict and
-counter anyone's actions. The Pellegrini intended to use the All-Defector as a
-backup plan if le Flambeur failed, but it betrays her. The All-Defector starts
-taking over the Sobornost and leads them into war against the Zoku to capture
-the Jewel. It wants to create a new universe before anyone else can---the
-ultimate defection.
+Flambeur and his corrupted copy, the All-Defector, who can predict and counter
+anyone's actions. The Pellegrini intended to use the All-Defector as a backup
+plan if le Flambeur failed, but it betrays her. The All-Defector starts taking
+over the Sobornost and leads them into war against the Zoku to capture the
+Jewel. It wants to create a new universe before anyone else can---the ultimate
+defection.
 
 Layers of scheming are revealed:
 
@@ -32,10 +37,9 @@ Layers of scheming are revealed:
   him to attempt to destroy the Kaminari Jewel.
 
 The book fleshes out the characters more, and for the first time I actually
-care bout Mieli, but they're still the weakest part of the series. However,
+care about Mieli, but they're still the weakest part of the series. However,
 the book does a good job of wrapping up storylines and the ending is
 satisfying.
 
-While I enjoyed {% include book_link.html title="The Fractal Prince" %}
-slightly more, <cite class="book-title">The Causal Angel</cite> was an ok
-ending to a ok trilogy.
+While I enjoyed {{ fractal_prince }} slightly more, {{ this_book }} was an ok
+ending to an ok trilogy.

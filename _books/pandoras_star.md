@@ -8,9 +8,14 @@ rating: 5
 image: /books/covers/pandoras_star.jpg
 ---
 
-I couldn't put <cite class="book-title">Pandora's Star</cite> down! It is a
+I couldn't put <cite class="book-title">{{ page.title }}</cite> down! It is a
 sci-fi book that reads more like a thriller. There were always new mysteries
 that just a few more pages promised the answers to.
+
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
+
+{% capture judas_unchained %}{% include book_link.html title="Judas Unchained" %}{% endcapture %}
 
 The book takes place in a universe where trains running through interstellar
 wormholes are the main form of transportation. It deals with themes of:
@@ -41,6 +46,6 @@ The book is **LONG** but the story keeps moving. The cast is huge which makes
 the universe feel big, but also means that sometimes it's hundreds and
 hundreds of pages before you return to a story thread that ended on a
 cliffhanger. The various plot lines all feel related although you can't see
-exactly how yet. The ending is abrupt, but that's because <cite
-class="book-title">Pandora's Star</cite> is the first half of the series,
-which is concludes in {% include book_link.html title="Judas Unchained" %}.
+exactly how yet. The ending is abrupt, but that's because {{ this_book }} is
+the first half of the {{ this_series }}, which concludes in {{ judas_unchained
+}}.

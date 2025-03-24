@@ -10,10 +10,13 @@ awards:
   - hugo
 ---
 
-<cite class="book-title">The Three-Body Problem</cite> was recommended as a
+<cite class="book-title">{{ page.title }}</cite> was recommended as a
 exciting, hard-scifi book full of new ideas. I was eager to read it, having
 just gotten back into fiction. I bought it for my flight from Melbourne to San
 Francisco and I threw it in the airport trash as I got off the plane.
+
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 
 Or that's what I wish I had done. Instead, I had 50 pages to go when I landed
 and I finished it during the ride home, where I threw it in the trash (after
@@ -28,5 +31,4 @@ bad.
 I kept reading because I wanted unravel the mystery, but the explanation was
 anticlimactic: aliens did it with a magic computer.
 
-<cite class="book-title">The Three-Body Problem</cite> is the last book I'll
-read by Liu Cixin.
+{{ this_book }} is the last book I'll read by {{ the_author }}.
