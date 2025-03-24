@@ -9,10 +9,18 @@ image: /books/covers/judas_unchained.jpg
 ---
 
 The sequel to {% include book_link.html title="Pandora's Star" %}, <cite
-class="book-title">Judas Unchained</cite> continues right where the last one
+class="book-title">{{ page.title }}</cite> continues right where the last one
 left off, but with the action ramped up to 11. The various storylines and
 loose threads come together one by one until it's the good guys racing against
 the bad guys for the fate of the universe.
+
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
+{% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
+
+{% capture pandoras_star %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
+{% capture hamiltons %}<span class="author-name">Hamilton</span>'s{% endcapture %}
 
 But the story isn't perfect. One part that falls flat is the fact that
 multiple characters begin worrying about humanity's plan to genocide the Prime
@@ -23,7 +31,7 @@ billions die.
 
 With a little knowledge of [Chekhov's Gun][gun], I could see how the ending
 had to unfold with a few hundred pages to go, but I still found it thrilling.
-The strong conclusion makes this the slightly better of the two books in the
-Commonwealth Saga.
+The strong conclusion makes up for the other failings, making this book an
+equally entertaining part of {{ this_series }}.
 
 [gun]: https://en.wikipedia.org/wiki/Chekhov's_Gun
