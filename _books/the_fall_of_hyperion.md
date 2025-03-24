@@ -10,19 +10,22 @@ awards:
   - locus
 ---
 
-<cite class="book-title">The Fall of Hyperion</cite> is a sequel that
-outshines it's predecessor. It is everything I was expecting from {% include
+<cite class="book-title">{{ page.title }}</cite> is a sequel that outshines
+its predecessor. It is everything I was expecting from {% include
 book_link.html title="Hyperion" %} and more! A true masterpiece.
 
-The book picks up right where {% include book_link.html title="Hyperion" %}
-left off with the pilgrims arriving at the Time Tombs. But the book also
-follows several characters out in the wider Hegemony, which gives the story a
-much broader feel: we aren't confined to one planet anymore.
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
-<cite class="book-title">The Fall of Hyperion</cite> is a more straightforward
-story than {% include book_link.html title="Hyperion" %}. It's one storyline,
-not six, and it progresses linearly starting at the beginning and finishing at
-the end.
+{% capture hyperion %}{% include book_link.html title="Hyperion" %}{% endcapture %}
+
+The book picks up right where {{ hyperion }} left off with the pilgrims
+arriving at the Time Tombs. But the book also follows several characters out
+in the wider Hegemony, which gives the story a much broader feel: we aren't
+confined to one planet anymore.
+
+{{ this_book }} is a more straightforward story than {{ hyperion }}. It's one
+storyline, not six, and it progresses linearly starting at the beginning and
+finishing at the end.
 
 The story is simple: the Ousters---a barbarian group of humans who travel the
 outreaches of space looking for systems to pillage---are invading the Hyperion
@@ -32,13 +35,13 @@ Ousters are more numerous and more capable than anticipated.
 
 The stakes of the action shift multiple times:
 
-- When we learn of an Ouster counter attack against multiple different
+- When we learn of an Ouster counterattack against multiple different
   worlds---attacks that had to have been launched a century early because of
   the vast distances they had to travel.
 
-- When we discover that the Ousters are not the barbarians we'd been
-  led to believe them to be, but are enlightened humanists, possibly even more
-  worthy of the mantel of humanity than the Hegemony.
+- When we discover that the Ousters are not the barbarians we'd been led to
+  believe them to be, but are enlightened humanists, possibly even more worthy
+  of the mantle of humanity than the Hegemony.
 
 - When we discover the other attackers are not the Ousters, but TechnoCore
   fleets launched far in the past in anticipation of manipulating the Hegemony
