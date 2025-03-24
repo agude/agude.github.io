@@ -16,10 +16,7 @@ multiple, massive, 200-page chapters following Edeard in the Void.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
 
-{% capture hamiltons %}<span class="author-name">Hamilton</span>'s{% endcapture %}
 {% capture dreaming_void %}{% include book_link.html title="The Dreaming Void" %}{% endcapture %}
 
 At the climax of {{ dreaming_void }}, Edeard earned his nickname of
@@ -33,7 +30,7 @@ ended on a high note because the Edeard tale is the ultimate wish fulfillment:
 the good guy triumphs every time. This is in fact the point of his character,
 and why there is a religion outside the Void based on Edeard's life.
 
-{{ the_author }} does a clever writing trick in this book: since the
+{{ the_author }} does a clever writing trick in {{ this_book }}: since the
 Commonwealth chapters take place in Edeard's future, the characters will
 foreshadow events in Edeard's life that you'll read about later. More
 cleverly, {{ the_author }} does this a few times in good faith, and then uses

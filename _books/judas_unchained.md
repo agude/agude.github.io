@@ -15,12 +15,7 @@ loose threads come together one by one until it's the good guys racing against
 the bad guys for the fate of the universe.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
 {% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
-
-{% capture pandoras_star %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
-{% capture hamiltons %}<span class="author-name">Hamilton</span>'s{% endcapture %}
 
 But the story isn't perfect. One part that falls flat is the fact that
 multiple characters begin worrying about humanity's plan to genocide the Prime

@@ -13,11 +13,8 @@ sci-fi book that reads more like a thriller. There were always new mysteries
 that just a few more pages promised the answers to.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
 {% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
 
-{% capture hamiltons %}<span class="author-name">Hamilton</span>'s{% endcapture %}
 {% capture judas_unchained %}{% include book_link.html title="Judas Unchained" %}{% endcapture %}
 
 The book takes place in a universe where trains running through interstellar

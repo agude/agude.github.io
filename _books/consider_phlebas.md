@@ -14,9 +14,6 @@ so I was excited to finally get started. Unfortunately, <cite
 class="book-title">{{ page.title }}</cite> was not a great introduction.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
 
 {% capture bankss %}<span class="author-name">Banks</span>'s{% endcapture %}
 {% capture c2 %}{% include book_link.html title="The Player of Games" %}{% endcapture %}

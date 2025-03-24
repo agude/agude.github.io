@@ -15,11 +15,7 @@ the characters and storylines arrive where they're needed and then the story
 is over.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
 
-{% capture hamiltons %}<span class="author-name">Hamilton</span>'s{% endcapture %}
 {% capture temporal_void %}{% include book_link.html title="The Temporal Void" %}{% endcapture %}
 {% capture judas_unchained %}{% include book_link.html title="Judas Unchained" %}{% endcapture %}
 {% capture dreaming_void %}{% include book_link.html title="The Dreaming Void" %}{% endcapture %}

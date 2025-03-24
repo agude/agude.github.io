@@ -19,11 +19,7 @@ was up to four. It was not the all-time great I was promised, but it was very
 good.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
 
-{% capture simmonss %}<span class="author-name">Simmons</span>'s{% endcapture %}
 {% capture fall_hyperion %}{% include book_link.html title="The Fall of Hyperion" %}{% endcapture %}
 
 {% capture keatss %}{% include author_link.html name="John Keats" possessive=true %}{% endcapture %}
