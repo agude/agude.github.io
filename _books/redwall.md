@@ -15,9 +15,8 @@ Mathias, a mouse who follows his destiny to become the warrior of Redwall
 Abbey and defeat the evil rat Cluny the Scourge.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
-{% capture mossflower %}{% include book_link.html title="Mossflower"%}{% endcapture %}
+{% capture mossflower %}{% include book_link.html title="Mossflower" %}{% endcapture %}
 
 I loved the {{ series }} as a child, and I'm now enjoying reading them to my
 own children, ages 6 and 7. Although aimed at children, not adults or even
@@ -31,11 +30,10 @@ this_book }} does not shy away from some more mature themes. Death is a
 constant part of the narrative. The bad guys come to gruesome ends and even
 the hero's friends aren't safe. I think we parents can find this uneasy,
 wanting to shelter our children a bit, but my kids handled it well. I know as
-a child I would have love the inclusion of topics adults were hesitant to
+a child I would have loved the inclusion of topics adults were hesitant to
 discuss.
 
 I highly recommend {{ this_book }} for new readers and parents looking to get
 their kids hooked on books. My kids loved it so much they begged me to read
 constantly, and I didn't mind doing so. When we finished, we immediately
-picked up the sequel {% include book_link.html title="Mossflower" %} and dove
-right in.
+picked up the sequel {{ mossflower }} and dove right in.

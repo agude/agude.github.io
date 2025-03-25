@@ -8,11 +8,18 @@ rating: 5
 image: /books/covers/serpent_valley.jpg
 ---
 
-<cite class="book-title">Serpent Valley</cite>, the third book in the War
-Horses series, is another quick, action-packed read---but without the flaws
-holding back its predecessors. Easily my favorite of the series so far!
+<cite class="book-title">{{ page.title }}</cite>, the third book in the <span
+class="book-series">{{ page.series }}</span> series, is another quick,
+action-packed read---but without the flaws holding back its predecessors.
+Easily my favorite of the series so far!
 
-The story is split into two parts:
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+
+{% capture ymir %}{% include book_link.html title="Ymir" %}{% endcapture %}
+{% capture dog_soldier %}{% include book_link.html title="Dog Soldier" %}{% endcapture %}
+
+The story of {{ this_book }} is split into two parts:
 
 - The first, where Vandal and the techs travel on a freighter carrying antique
   mechs that they must get ready for battle before they land. They soon
@@ -29,8 +36,7 @@ this understanding not to push the machine to its limits against the
 rebellion's enemies, but to destroy it when a traitor steals the mech and
 deserts.
 
-The plotting is tight, the pacing perfect. Unlike {% include book_link.html
-title="Ymir" %}, transitions between plot lines flow seamlessly. The balanced
-mix of mystery, intrigue, and action show that the author has really figured
-out his characters, worldbuilding, and style. I can't wait for the next book:
-{% include book_link.html title="Dog Soldier" %}.
+The plotting is tight, the pacing perfect. Unlike {{ ymir }}, transitions
+between plot lines flow seamlessly. The balanced mix of mystery, intrigue, and
+action show that {{ the_author }} has really figured out his characters,
+worldbuilding, and style. I can't wait for the next book: {{ dog_soldier }}.
