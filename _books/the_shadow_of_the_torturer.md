@@ -17,13 +17,9 @@ in.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
 
 {% capture wolfes %}<span class="author-name">Wolfe</span>'s{% endcapture %}
 
-{% capture simmonss %}{% include author_link.html name="Dan Simmons" possessive=true %}{% endcapture %}
 {% capture hyperion %}{% include book_link.html title="Hyperion" %}{% endcapture %}
 
 {% capture consider_phlebas %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
