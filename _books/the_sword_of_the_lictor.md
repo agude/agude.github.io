@@ -10,16 +10,21 @@ awards:
   - locus
 ---
 
-<cite class="book-title">The Sword of the Lictor</cite> is the third book in
-Gene Wolfe's The Book of the New Sun tetralogy. It follows Severian after he
-reaches Thrax and is exiled for a second time.
+<cite class="book-title">{{ page.title }}</cite> is the third book in <span
+class="author-name">{{ page.book_author }}</span>'s <span
+class="book-series">{{ page.series }}</span> tetralogy. It follows Severian
+after he reaches Thrax and is exiled for a second time.
 
-{% include book_link.html title="The Shadow of the Torturer" %} was
-overwhelming as I immersed myself in the rich setting and complex writing
-style. {% include book_link.html title="The Claw of the Conciliator" %} felt
-slower paced as Severian traveled from place to place. In contrast, <cite
-class="book-title">The Sword of the Lictor</cite> moved briskly and introduced
-fascinating new characters and situations.
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+
+{% capture shadow_torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
+{% capture claw_conciliator %}{% include book_link.html title="The Claw of the Conciliator" %}{% endcapture %}
+{% capture citadel_autarch %}{% include book_link.html title="The Citadel of the Autarch" %}{% endcapture %}
+
+{{ shadow_torturer }} was overwhelming as I immersed myself in the rich
+setting and complex writing style. {{ claw_conciliator }} felt slower paced as
+Severian traveled from place to place. In contrast, {{ this_book }} moved
+briskly and introduced fascinating new characters and situations.
 
 Some of my favorite scenes were:
 
@@ -34,9 +39,9 @@ Some of my favorite scenes were:
 - The castle of Baldanders, his disturbing human experiments, and his fight
   with Severian.
 
-Although the structure of the story resembles {% include book_link.html
-title="The Claw of the Conciliator" %}, with Severian traveling from adventure
-to adventure, I felt each part was more engaging.
+Although the structure of the story resembles {{ claw_conciliator }}, with
+Severian traveling from adventure to adventure, I felt each part was more
+engaging.
 
-With this book wrapped up, I am eager to dive into the forth book, {% include
-book_link.html title="The Citadel of the Autarch" %}.
+With this book wrapped up, I am eager to dive into the fourth book, {{
+citadel_autarch }}.
