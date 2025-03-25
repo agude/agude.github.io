@@ -8,24 +8,29 @@ rating: 4
 image: /books/covers/ymir.jpg
 ---
 
-<cite class="book-title">Ymir</cite> is the second book in the War Horses
-series, keeping <span class="nowrap">{% include book_link.html
-title="Chevalier" %}'s</span> action and quick pacing while adding more
-backstory, character development, and a more complex plot.
+<cite class="book-title">{{ page.title }}</cite> is the second book in the
+<span class="book-series">{{ page.series }}</span> series, keeping <span
+class="nowrap">{% include book_link.html title="Chevalier" %}'s</span> action
+and quick pacing while adding more backstory, character development, and a
+more complex plot.
+
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+
+{% capture chevalier %}{% include book_link.html title="Chevalier" %}{% endcapture %}
+{% capture consider_phlebas %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
+{% capture serpent_valley %}{% include book_link.html title="Serpent Valley" %}{% endcapture %}
 
 The story follows Vandal as he goes through training on his homeworld, saves a
-classmate from assassination, and defends an ice-world from a space-Viking
+classmate from assassination, and defends an ice-world from space-Viking
 raids.
 
-Like {% include book_link.html title="Consider Phlebas" %}, <cite
-class="book-title">Ymir</cite> explores people being small in an uncaring,
-vast universe. The Autumn Chevaliers fail to protect the civilians, sustaining
-horrifying losses in their escape. Lifelong friendships break. Yet unlike {%
-include book_link.html title="Consider Phlebas" %}, I enjoyed reading every
-page.
+Like {{ consider_phlebas }}, {{ this_book }} explores people being small in an
+uncaring, vast universe. The Autumn Chevaliers fail to protect the civilians,
+sustaining horrifying losses in their escape. Lifelong friendships break. Yet
+unlike {{ consider_phlebas }}, I enjoyed reading every page.
 
-The plot develops beyond Chevalier's linearity but exposes some pacing and
-writing weaknesses:
+The plot develops beyond {{ chevalier }}'s linearity but exposes some pacing
+and writing weaknesses:
 
 - _Subplots end abruptly._ Vandal discovering his classmate is an oligarch's
   daughter. He saves her from assassins and just as intrigue builds, she
@@ -38,5 +43,4 @@ writing weaknesses:
   mounts.
 
 Despite writing flaws, the richer story and characters outperform the first
-book. I look forward to the next, {% include book_link.html title="Serpent
-Valley" %}.
+book. I look forward to the next, {{ serpent_valley }}.
