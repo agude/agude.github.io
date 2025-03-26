@@ -36,6 +36,15 @@ don't find them.{% endcomment %}
     </div>
   {% endif %}
 
+  {% if page.awards %}
+    <div class="book-awards">
+      Awards:
+      {% for award in page.awards %}
+        <a class="book-award" href="/books/by-award/#{{ award | slugify }}-award">{{ award | capitalize }}</a>{% unless forloop.last %}, {% endunless %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
   <h2 class="book-review-headline">Review</h2>
   {% comment %}Add star rating, if one exists in the metadata{% endcomment %}
   {% if page.rating %}

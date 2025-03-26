@@ -18,20 +18,15 @@ beautifully crafted narrative, it failed to hold my attention.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
 
-{% capture keyess %}<span class="author-name">Keyes</span>'s{% endcapture %}
 {% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
 {% capture echopraxia %}{% include book_link.html title="Echopraxia" %}{% endcapture %}
 
 {{ this_book }} is written as a series of progress reports by Charlie, both
-before and after his surgery. <span class="author-name">Keyes</span>
-skillfully utilizes Charlie's writing style to convey the gradual improvement
-in his intellect, and he does an equally remarkable job towards the end: it is
-an emotional moment when the typos reappear after a hundred pages, indicating
-Charlie's cognitive decline.
+before and after his surgery. {{ the_author }} skillfully utilizes Charlie's
+writing style to convey the gradual improvement in his intellect, and does an
+equally remarkable job towards the end: it is an emotional moment when the
+typos reappear after a hundred pages, indicating Charlie's cognitive decline.
 
 But, the storyline itself felt predictable: I anticipated that it would depict
 Charlie's realization that his seemingly simple world had unknown

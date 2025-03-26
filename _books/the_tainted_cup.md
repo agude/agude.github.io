@@ -14,10 +14,11 @@ It follows investigators Dinios Kol and Ana Dolabra as they try to solve the
 murder of an engineer and uncover a conspiracy that runs far deeper.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture house %}{% include book_link.html title="House of Suns"%}{% endcapture %}
+
+{% capture house %}{% include book_link.html title="House of Suns" %}{% endcapture %}
 {% capture botns %}{% include series_link.html series="The Book of the New Sun" %}{% endcapture %}
 {% capture wolfes %}{% include author_link.html name="Gene Wolfe" possessive=true %}{% endcapture %}
-{% capture torturer %}{% include book_link.html title="The Shadow of the Torturer"%}{% endcapture %}
+{% capture torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
 
 {{ this_book }} is (and this is going to sound crazy) a Holmesian detective
 story set in a bio-punk fantasy world based on imperial China, where Kaiju
@@ -53,9 +54,9 @@ the law with perfect memory arrives at a wall in the mist and finds his way
 barred by a gate; he is reluctantly let through and finds a body inside. Later
 in {{ this_book }}, we learn that there are immortal Conzulates who, just like
 {{ wolfes }} Megatherians, achieve immortality through constant growth.
-Moreover, the theme of "giant underwater monsters trying to destroy the Empire"
-applies to both the Megatherians and the Kaiju, although the Kaiju are more
-direct in their actions.
+Moreover, the theme of "giant underwater monsters trying to destroy the
+Empire" applies to both the Megatherians and the Kaiju, although the Kaiju are
+more direct in their actions.
 
 [^botns]:
     I feel like I'm in danger of succumbing to the traditional ailment of {{

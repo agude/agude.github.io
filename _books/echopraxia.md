@@ -8,82 +8,71 @@ rating: 5
 image: /books/covers/echopraxia.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the second book in Peter
-Watts's Firefall series, although it takes place roughly at the same time as
-{% include book_link.html title="Blindsight" %}. It follows parasitologist
-Daniel Brüks as he gets dragged into a conflict between multiple transhuman
-factions, travels to the _Icarus_ station orbiting the sun, and back to Earth.
+<cite class="book-title">{{ page.title }}</cite> is the second book in <span
+class="author-name">{{ page.book_author }}</span>'s <span
+class="book-series">{{ page.series }}</span> series, unfolding at roughly the
+same time as {% include book_link.html title="Blindsight" %}. It follows
+parasitologist Daniel Brüks, who gets unwillingly dragged into a conflict
+between multiple transhuman factions, travels to the _Icarus_ station orbiting
+the sun, and eventually back to Earth
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
 
-The world Watts built in {{ blindsight }} was enthralling, and the scientific
-and philosophical arguments about consciousness were fascinating. I **loved**
-it. {{ this_book }} expands on the exceptional worldbuilding of its
-predecessor while focusing on the ideas of god, godhood, free will, and the
-place of humans in a transhuman world. It is a fantastic sequel, possibly even
-better than the first.
+The world Watts built in {{ blindsight }} was enthralling, packed with
+scientific and philosophical arguments about consciousness. I **loved** it. {{
+this_book }} expands on that exceptional worldbuilding while shifting its
+focus to themes of god, godhood, free will, and humanity's place in a
+transhuman world. It's a fantastic sequel---possibly even better than the
+first.
 
-The Major characters are:
+The major characters are:
 
-- Daniel Brüks, a parasitologist and baseline human who has decided against
-  getting any enhancements.
+- Daniel Brüks, a parasitologist and baseline human who has chosen not to get
+  any enhancements.
+- Jim Keaton, a human soldier and the father of Siri Keaton from {{ blindsight }}.
+- Rakshi Sengupta, an augmented human serving as a backup pilot for the ship.
+- The Bicamerals, a hivemind of people who have modified their brains to
+  discover scientific advancements through seemingly religious means. Their
+  interpreter is a slightly modified human, Lianna Lutterodt.
+- Valerie, a vampire who escaped from an academic lab, on a mission to free
+  her people. She travels with her four zombie soldiers.
+- Portia, an alien computer-slime mold sent by _Rorschach_ to _Icarus_.
 
-- Jim Keaton, Siri Keaton's (from {{ blindsight }}) father and a human
-  soldier.
+The novel is full of with Christian imagery, reinforcing its themes of
+transcendence and digital theology:
 
-- Rakshi Sengupta, an augmented human who servers as a backup pilot for the
-  ship.
-
-- The Bicamerals, a hivemind composed of people who have edited their brains
-  and who discover scientific advancements through apparently religious means.
-  Their interpreter is a slightly modified human, Lianna Lutterodt.
-
-- Valerie, a vampire escaped from an academic lab on a mission to free her
-  people. Along for the ride are her four zombie soldiers.
-
-- Portia, an alien computer--slime-mold sent by _Rorschach_ to _Icarus_.
-
-The novel is full of Christian imagery, augmenting its theme of
-transcendentalism and digital theology:
-
-- Valerie is a Moses figure: she is trying to free her people from slavery,
-  and she first appears in the desert under a pillar of flame (the
-  Bicamerals's tornado seen through night-vision goggles).
-
-- Vampires have a "crucifix glitch" used to keep them controlled.
-
-- The ship used by the Bicamerals is the _Crown of Thorns_. _Rorschach_ from
-  {{ blindsight }} is in the shape of a crown of thorns.
-
+- Valerie is a Moses figure, trying to free her people from slavery. Her first
+  appearance is in the desert, under a pillar of flame (the Bicamerals'
+  tornado seen through night-vision goggles).
+- Vampires have a "crucifix glitch" that is used to control them.
+- The Bicamerals' ship is named the _Crown of Thorns_. The _Rorschach_ from {{
+  blindsight }} is shaped like a crown of thorns.
 - Siri suffers a stigmata-like wound in his palm, inflicted by the vampire
   Jukka Sarasti.
+- "Heaven" exists as a virtual reality world that people can retreat to.
+- The idea of resurrection---or at least some form of life continuing after
+  death---appears repeatedly, from the snake Brüks samples in the desert to the
+  zombies, and even Brüks himself after he is infected by Portia.
 
-- Heaven "exists" as a virtual reality world people retreat to.
+Parasites and biology are also central themes. Brüks studies parasites, yet in
+many ways, he is one himself---the weakest member of the group, surviving by
+staying out of the way. Humans, too, are like parasites, struggling to exist
+in a world dominated by transhumans. Portia, the alien intelligence sent by
+_Rorschach_, traps and studies the crew just as Brüks studies animals back in
+Oregon. Portia is a parasite in its own right, surviving only within hosts
+like _Icarus_ or the _Crown of Thorns_.
 
-- Resurrection---or at least the continuation of life after death---with the
-  snake Brüks samples in the desert, the Zombies, and Brüks himself after he
-  is infected by Portia.
+Loss is another major theme. Brüks lost his wife to the virtual world of
+"heaven." Keaton lost his wife the same way---and his son Siri to the mission
+in {{ blindsight }}. Sengupta lost her wife to a virus that Brüks's
+simulations failed to catch before it killed thousands. Each character is
+shaped by their losses and, in the end, undone by what they do in response to
+them.
 
-Parasites and biology are also central themes. Brüks studies parasites, but in
-some ways, he is a parasite as the weakest member of the group, forced to hide
-for his safety. Humans, too, are like parasites, trying to survive among much
-more powerful transhumans. And Portia, the alien smart matter sent by
-_Rorschach_ to _Icarus_, traps and studies the other characters in the book
-just like Brüks does to the animals he studies in Oregon. It is itself a
-parasite in that it can only survive within a host like _Icarus_ or the _Crown
-of Thorns_.
-
-Loss is yet another theme. Brüks lost his wife to the virtual reality world of
-"heaven"; Keaton lost his wife in the same way, and his son Siri on the
-mission from {{ blindsight }}; and Sengupta lost her wife to the virus that
-Brüks's simulations failed to catch before it infected thousands. Each
-character is shaped and eventually brought down by what their profound sense
-of loss drives them to do.
-
-{{ this_book }} received mixed reviews from others compared to the universally
-rave reviews for {{ blindsight }}, primarily because people thought it was
-even more confusing. While it's true that the narrator, Brüks, is the person
-with the least idea of what is going on, I found the plot not too hard to
-follow. All the mysteries are eventually revealed and explained if you pay
+{{ this_book }} received mixed reviews compared to {{ blindsight }}, which was
+almost universally praised. Many found it even more confusing, largely because
+the narrator, Brüks, is the character who understands the least about what's
+going on. But while his perspective is limited, I didn't find the plot
+difficult to follow---everything is revealed and explained if you pay
 attention. So far, {{ this_book }} is my favorite read of the year.

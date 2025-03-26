@@ -8,11 +8,12 @@ rating: 3
 image: /books/covers/the_dragons_banker.jpg
 ---
 
-<cite class="book-title">The Dragon's Banker</cite> is a standalone novel by
-Scott Warren. It tells the story of Sailor Kelstern, a banker in a fantasy
-world who, as the title suggests, is hired by a dragon.
+<cite class="book-title">{{ page.title }}</cite> is a standalone novel by
+<span class="author-name">{{ page.book_author }}</span>. It tells the story of
+Sailor Kelstern, a banker in a fantasy world who, as the title suggests, is
+hired by a dragon.
 
-{% capture this_book %}<cite class="book-title">The Dragon's Banker</cite>{% endcapture %}
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
 One of my favorite niche sub-genres of fantasy[^fate] explores the question:
 What if a dragon used their intellect, riches, and magic to subtly shape the
@@ -32,9 +33,9 @@ a banker to help put his hoard to work.
 [cm]: https://en.wikipedia.org/wiki/Commodity_money
 [fiat]: https://en.wikipedia.org/wiki/Fiat_money
 
-I think this would have been an really interesting story, and it is the story
-I thought I was reading in the first part of the book. However, that is not
-what {{ this_book }} is about.
+I think this would have been a really interesting story, and it is the story I
+thought I was reading in the first part of the book. However, that is not what
+{{ this_book }} is about.
 
 At the end, it is revealed in a note from Arkelai that they chose Kelstern
 because they thought he was as greedy as a dragon. They assumed he would wage
@@ -45,9 +46,9 @@ paying taxes on his ventures.
 
 So the dragons try to provoke him into conflict. Alkarzarian's son turns the
 other merchants against Kelstern, ensuring the failure of all his enterprises.
-Yet Kelstern persists, causing Arkelai to realized she couldn't continue to
+Yet Kelstern persists, causing Arkelai to realize she couldn't continue to
 betray the honorable banker. Luckily, she had learned about
-[short-selling][short] from Kelstern, which leads to a new plan: take a large
+[short-selling][short] from Kelstern, which leads to a new plan: take large
 short positions in many different companies, and burn them to the ground.
 
 [short]: https://en.wikipedia.org/wiki/Short_(finance)
