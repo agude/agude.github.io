@@ -14,20 +14,19 @@ arrival of Martin the Warrior in Mossflower Woods and how he saves the
 woodlanders from the evil wildcat queen, Tsarmina.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture redwall %}{% include book_link.html title="Redwall"%}{% endcapture %}
-{% capture mattimeo %}{% include book_link.html title="Mattimeo"%}{% endcapture %}
+{% capture redwall %}{% include book_link.html title="Redwall" %}{% endcapture %}
+{% capture mattimeo %}{% include book_link.html title="Mattimeo" %}{% endcapture %}
 
 The structure of the story mirrors {{ redwall }} in several ways:
 
 - Like Mathias, Martin has to go on a quest to get his sword.
-
 - The woodlanders are threatened by an evil leader and their army. In {{
   this_book }}, Tsarmina has her own castle, Kotir, which the woodlanders
   besiege, whereas Cluny and his army attack Redwall.
 
-The plot is is simple: Tsarmina is oppressing the woodlanders, and Martin can
+The plot is simple: Tsarmina is oppressing the woodlanders, and Martin can
 save them if he finds Boar the fighter. The characters are mostly black and
-white, with two exceptions: snakefish, a predator who nonetheless helps
+white, with two exceptions: Snakefish, a predator who nonetheless helps
 Martin; and Ashleg, an advisor to Tsarmina who has a change of heart and runs
 off to start a new life.
 
