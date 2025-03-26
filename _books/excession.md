@@ -8,10 +8,20 @@ rating: 4
 image: /books/covers/excession.jpg
 ---
 
-<cite class="book-title">Excession</cite> is the fourth novel and fifth book
-in the Culture series. It follows the reaction of the Culture and other
-civilizations to an "excession": an _"Outside Context Problem"_ that is
-mysterious and enormously powerful.
+<cite class="book-title">{{ page.title }}</cite> is the fourth novel and fifth
+book in the <span class="book-series">{{ page.series }}</span> series. It
+follows the reaction of the Culture and other civilizations to an "excession":
+an _"Outside Context Problem"_ that is mysterious and enormously powerful.
+
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+
+{% capture hamiltons %}{% include author_link.html name="Peter F. Hamilton" %}{% endcapture %}
+{% capture pandoras_star %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
+{% capture abyss_dreams %}{% include book_link.html title="The Abyss Beyond Dreams" %}{% endcapture %}
+{% capture quantum_thief %}{% include book_link.html title="The Quantum Thief" %}{% endcapture %}
+{% capture shadow_torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
+{% capture player_games %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
+{% capture use_weapons %}{% include book_link.html title="Use of Weapons" %}{% endcapture %}
 
 The best part of the novel was getting to see how the Culture _works_: how the
 minds think, communicate with each other, make decisions, retreat to "infinite
@@ -19,13 +29,11 @@ fun space", and interact with an _"Outside Context Problem"_.[^ocp] The worst
 part of the book was the human characters, who were shallow and uninteresting.
 Ulver Seich---the airhead socialite---is a slightly more interesting and
 better-written take on the "hot girl who sleeps her way through the narrative"
-trope that {% include author_link.html name="Peter F. Hamilton" %} loves to
-write, such as Mellanie Rescorai in {% include book_link.html title="Pandora's
-Star" %}, or to a lesser extent, Kysandra Blair in {% include book_link.html
-title="The Abyss Beyond Dreams" %}. Nonetheless, I dreaded the human chapters.
-Culture books are carried by their human characters, who bring scale, emotion,
-and stakes to the drama, and <cite class="book-title">Excession</cite>'s
-humans fall short.
+trope that {{ hamiltons }} loves to write, such as Mellanie Rescorai in {{
+pandoras_star }}, or to a lesser extent, Kysandra Blair in {{ abyss_dreams }}.
+Nonetheless, I dreaded the human chapters. Culture books are carried by their
+human characters, who bring scale, emotion, and stakes to the drama, and {{
+this_book }}'s humans fall short.
 
 The story wasn't what I expected. I anticipated a book about how the Culture
 deals with something---the excession---over which they have no control, but
@@ -37,11 +45,10 @@ reunite Dajeil Gelian and Byr Genar-Hofoen and reconcile their relationship;
 and a fourth to intercept Genar-Hofoen with Siech and prevent him from
 rendezvousing with the _Sleeper Service_.
 
-Even after reading such "tricky" books as {% include book_link.html title="The
-Quantum Thief" %} and {% include book_link.html title="The Shadow of the
-Torturer" %}, I found <cite class="book-title">Excession</cite> a little
-challenging, mainly because of the numerous ships to keep track of while also
-trying to discern which ones were the conspirators.
+Even after reading such "tricky" books as {{ quantum_thief }} and {{
+shadow_torturer }}, I found {{ this_book }} a little challenging, mainly
+because of the numerous ships to keep track of while also trying to discern
+which ones were the conspirators.
 
 Some aspects I loved:
 
@@ -53,9 +60,8 @@ Some aspects I loved:
 - The human-body BIOS that allows the brain to control everything from muscle
   density to gender.
 
-Overall, <cite class="book-title">Excession</cite> is still a good book, but
-weaker compared to {% include book_link.html title="The Player of Games" %}
-and {% include book_link.html title="Use of Weapons" %}.
+Overall, {{ this_book }} is still a good book, but weaker compared to {{
+player_games }} and {{ use_weapons }}.
 
 [^ocp]:
     >  An Outside Context Problem was the sort of thing most civilizations
