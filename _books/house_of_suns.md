@@ -9,12 +9,13 @@ image: /books/covers/house_of_suns.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a standalone hard sci-fi
-book by {{ page.book_author }}. It tells the story of the Gentian Line, a
-family of clones who are betrayed, nearly wiped out, and must unravel what
-happened.
+book by <span class="author-name">{{ page.book_author }}</span>. It tells the
+story of the Gentian Line, a family of clones who are betrayed, nearly wiped
+out, and must unravel what happened.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture quantum %}{% include book_link.html title="The Quantum Thief"%}{% endcapture %}
+
+{% capture quantum %}{% include book_link.html title="The Quantum Thief" %}{% endcapture %}
 {% capture botns %}{% include series_link.html series="The Book of the New Sun" %}{% endcapture %}
 {% capture wolfes %}{% include author_link.html name="Gene Wolfe" possessive=true %}{% endcapture %}
 
