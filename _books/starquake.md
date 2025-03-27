@@ -9,9 +9,9 @@ image: /books/covers/starquake.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the second book in the
-Cheela series by <span class="author-name">{{ page.book_author }}</span>. It
-follows the Cheela as they rescue the humans and rebuild after a devastating
-starquake.
+<span class="book-series">{{ page.series }}</span> series by <span
+class="author-name">{{ page.book_author }}</span>. It follows the Cheela as
+they rescue the humans and rebuild after a devastating starquake.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
