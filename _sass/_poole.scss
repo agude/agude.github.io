@@ -231,9 +231,10 @@ ol > li::marker {
   font-weight: bold;
 }
 
-/* Remove bottom margin for nested lists */
+/* Remove bottom margin for nested lists, and for paragraphs within lists */
 li > ul,
-li > ol {
+li > ol,
+li > p {
   margin-bottom: 0;
 }
 
