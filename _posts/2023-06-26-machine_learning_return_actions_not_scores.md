@@ -48,8 +48,10 @@ A better way is for the API to return **a set of actions**. For example, the
 ATO model API might return the following actions:
 
 - _Allow_: The login looks fine, allow it.
+
 - _Step-up_: The login looks odd, require the user to provide a second factor
 of authentication, such as a code sent to their email.
+
 - _Lock_: The login looks clearly fraudulent, deny the login and lock the
 account until the user recovers it.
 

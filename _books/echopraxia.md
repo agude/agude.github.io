@@ -30,13 +30,18 @@ The major characters are:
 
 - Daniel Brüks, a parasitologist and baseline human who has chosen not to get
   any enhancements.
+
 - Jim Keaton, a human soldier and the father of Siri Keaton from {{ blindsight }}.
+
 - Rakshi Sengupta, an augmented human serving as a backup pilot for the ship.
+
 - The Bicamerals, a hivemind of people who have modified their brains to
   discover scientific advancements through seemingly religious means. Their
   interpreter is a slightly modified human, Lianna Lutterodt.
+
 - Valerie, a vampire who escaped from an academic lab, on a mission to free
   her people. She travels with her four zombie soldiers.
+
 - Portia, an alien computer-slime mold sent by _Rorschach_ to _Icarus_.
 
 The novel is full of with Christian imagery, reinforcing its themes of
@@ -45,12 +50,17 @@ transcendence and digital theology:
 - Valerie is a Moses figure, trying to free her people from slavery. Her first
   appearance is in the desert, under a pillar of flame (the Bicamerals'
   tornado seen through night-vision goggles).
+
 - Vampires have a "crucifix glitch" that is used to control them.
+
 - The Bicamerals' ship is named the _Crown of Thorns_. The _Rorschach_ from {{
   blindsight }} is shaped like a crown of thorns.
+
 - Siri suffers a stigmata-like wound in his palm, inflicted by the vampire
   Jukka Sarasti.
+
 - "Heaven" exists as a virtual reality world that people can retreat to.
+
 - The idea of resurrection---or at least some form of life continuing after
   death---appears repeatedly, from the snake Brüks samples in the desert to the
   zombies, and even Brüks himself after he is infected by Portia.

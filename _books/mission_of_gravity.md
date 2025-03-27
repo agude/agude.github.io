@@ -17,7 +17,7 @@ _Bree_ across the planet in search of a lost human rocket ship.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture forwards %}{% include author_link.html name="Robert L. Forward" possessive=true %}{% endcapture %}
 {% capture forward %}{% include author_link.html name="Robert L. Forward" %}{% endcapture %}
-{% capture cheela %}{% include series_link.html series="Cheela"%}{% endcapture %}
+{% capture cheela %}{% include series_link.html series="Cheela" %}{% endcapture %}
 {% capture dragon %}{% include book_link.html title="Dragon's Egg" %}{% endcapture %}
 {% capture starquake %}{% include book_link.html title="Starquake" %}{% endcapture %}
 {% capture flatland %}{% include book_link.html title="Flatland: A Romance of Many Dimensions" link_text="Flatland" %}{% endcapture %}

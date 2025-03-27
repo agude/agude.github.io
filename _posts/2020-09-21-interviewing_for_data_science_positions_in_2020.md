@@ -33,8 +33,10 @@ that structure is:
 [interviews]: {% post_url 2017-09-18-interviews-respect-time %}
 
 - **Prescreen**: A resume or recruiter screen of the candidate, often offline.
+
 - **Technical Screen**: Either a call with a team member or a take-home 
   assignment to assess the candidate's technical skills.
+
 - **On-site Interview Loop**: An all-day interview with multiple team members
   and the hiring manager.
 

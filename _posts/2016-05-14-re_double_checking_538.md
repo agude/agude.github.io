@@ -24,6 +24,7 @@ presidential primary predictions][primary], I was asked by a friend if I could
 do two additional things:
 
 1. Separate out the candidates in the plots
+
 2. Look at how badly FiveThirtyEight's predictions missed on average for each
    candidate
 

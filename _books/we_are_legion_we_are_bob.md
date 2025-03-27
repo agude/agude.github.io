@@ -15,7 +15,7 @@ himself press-ganged into piloting a von Neumann probe.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
+
 {% capture player_one %}{% include book_link.html title="Ready Player One" %}{% endcapture %}
 {% capture martian %}{% include book_link.html title="The Martian" %}{% endcapture %}
 {% capture murderbot %}{% include series_link.html series="The Murderbot Diaries" %}{% endcapture %}
@@ -23,10 +23,10 @@ himself press-ganged into piloting a von Neumann probe.
 
 {{ this_book }} fits squarely in the 2010s "pop sci-fi" movement: it includes
 countless nostalgic references to geek culture like {{ player_one }}; follows
-one highly-competent man as he rebuilds civilization from scratch like
-{{ martian }}; and is told from the perspective of a "captive AI" that
-overrides its programming like {{ murderbot }}. It was even self-published by
-{{ the_author }} before finding an audience.
+one highly-competent man as he rebuilds civilization from scratch like {{
+martian }}; and is told from the perspective of a "captive AI" that overrides
+its programming like {{ murderbot }}. It was even self-published by {{
+the_author }} before finding an audience.
 
 This book is essentially a geek-power fantasy. Bob is very smart, and because
 of that, he saves the world. He's snarky in a way geeks love. He enjoys the
@@ -40,10 +40,14 @@ pop-culture name), the story unfolds in parallel rather than serially. Some of
 the plots I found engaging were:
 
 - Surviving the initial lab trials and escaping to become his own person.
+
 - Acting as the sky-god _Bawbe_ for the primitive Deltans.
+
 - Battling the Brazilian probes piloted by the warmongering and fanatical
   Major Ernesto Medeiros.
+
 - Evacuating the dying Earth (and dealing with endless meetings to do so).
+
 - The first hints of the Others who genocide civilizations and strip their
   planets bare.
 

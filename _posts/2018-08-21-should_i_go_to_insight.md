@@ -82,7 +82,9 @@ these projects looks like, I wrote about mine in detail:
 The program is structured as follows:
 
 - 4 weeks of building a data project
+
 - 3 weeks of demoing the project at various companies
+
 - 3+ weeks of interviewing with companies you demoed at
 
 During the first few weeks, companies come by to present what they do and why
@@ -109,10 +111,13 @@ Throughout the program you receive guidance from a range of people:
 
 - _Insight staff_, who are often outstanding Fellows from previous sessions
 hired to lead the program.
+
 - _Industry mentors_, who have worked in data science for some time, such as
 myself.
+
 - _Previous Fellows_ who come back to help teach the next generation, also
 such as myself.
+
 - _The other Fellows_ who make up your session.
 
 This last group **shouldn't be underestimated**: you learn a lot from your

@@ -102,6 +102,7 @@ It shows features similar to both cars and motorcycles:
 
 - The number of crashes increases after 2008, and then begins decreasing after
   2013, almost exactly the **opposite** of the car pattern.
+
 - Crashes are highly seasonal, just like motorcycles. Apparently neither
   cyclists nor bikers like riding in the rain.
 

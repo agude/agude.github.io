@@ -78,7 +78,9 @@ The function accepts a few optional parameters:
 
 - `resample_frequency`: controls the timescale over which the data is
 aggregated.
+
 - `aggfunc` which controls how the data is aggregated.
+
 - `linewidth` which can be used to make the lines larger if there are only a
 few of them, or thinner if there is lots of data.
 

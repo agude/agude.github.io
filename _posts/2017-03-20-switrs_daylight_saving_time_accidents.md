@@ -54,6 +54,7 @@ normalization because:
 
 - The weeks after the time change have similar daylight hours to the week of
   the time change.
+
 - The crashes rate is still slightly elevated a week later, so normalizing by
   the very next week hides some of the increase that is due to the start of
   DST.[^back_to_normal]

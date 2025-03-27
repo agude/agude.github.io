@@ -40,8 +40,10 @@ when the race was not held. But the plot also has a few problems:
 
 - The X-axis is wrong; the race did not start before 1900 and the two gaps are
 from the World Wars which did not happen in 1898 and 1921.
+
 - The text is too small to read easily at Wikipedia's default 200px image
 size.
+
 - The axis labels are redundant and tick labels have a lot of zeroes.
 
 I decided to fix it up using [data from Bike Race Info][bikeraceinfo], like I

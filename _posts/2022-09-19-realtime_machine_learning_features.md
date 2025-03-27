@@ -19,7 +19,9 @@ Machine learning models are excellent at automating simple, high frequency
 decision, like:
 
 - Should I allow this transaction?
+
 - Should I allow this login?
+
 - What items should I show this customer?
 
 To make these decisions they need information about the event that they are
@@ -100,7 +102,9 @@ event).
 To use this system to calculate real-time features, we make three changes:
 
 - Add "proto-features" to the feature store.
+
 - Send more data from the target event to the model host.
+
 - Do additional processing in the data handling code to combine the
   proto-features and data from the target event into a real-time feature.
 
@@ -116,6 +120,8 @@ from the target event.][rt_model_pic]][rt_model_pic]
 Here is how that would work for our example login feature:
 
 - Add a proto-feature that is a list of previous login locations.
+
 - Add the current location to the data passed in from the target event.
+
 - Update the data handling code to check if the current location is in the
   list of previous login locations from the proto-feature.

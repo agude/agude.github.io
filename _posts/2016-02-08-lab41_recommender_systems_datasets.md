@@ -46,8 +46,10 @@ the datasets:
 
 - **Item**: A thing that is recommended, whether it be a product, movie,
   webpage, or piece of information.
+
 - **User**: A person who rates items and receives recommendations for new
   items.
+
 - **Rating**: An expression of preference by a user in regards to items.
   Ratings can be binary (like/dislike), integer (1 to 5 stars), or continuous
   (any value on some interval). Additionally, there are implicit ratings which

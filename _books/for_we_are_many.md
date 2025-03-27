@@ -29,10 +29,15 @@ stories while also continuing some of the old ones. Here are a few I liked:
 
 - The advancement of the Deltans, the discovery of a new predator, and the
   banishment of _Bawbe_.
+
 - The suicide of Homer and the destruction of VEHEMENT.
+
 - Henry, the Australian probe who'd rather be sailing.
+
 - Further battles with the now upgraded Brazilian probes.
+
 - Colonizing the first non-Earth worlds.
+
 - The reveal of the Others, and the first crushing defeat of the Bobs.
 
 {{ this_book }} held my interest even though each storyline is simple and

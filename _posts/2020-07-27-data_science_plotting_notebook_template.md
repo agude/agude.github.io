@@ -60,7 +60,9 @@ which is especially useful when plotting a time series. I use them often. Here
 are some examples:
 
 - [**Discussing my sons' language development**][language_post] to highlight each month.
+
 - [**Plotting the progression of the cycling hour record**][hour_post] to show each decade.  
+
 - [**Exploring when cyclists are involved in traffic accidents**][bike_post] to highlight the seasonality.
 
 [language_post]: {% post_url 2020-02-10-my_sons_language_development_comparison %}#development
@@ -81,7 +83,9 @@ a legend like on this plot:
 This legend style can be seen in these posts:
 
 - [**Plotting my son's language development**][son_post] to label each language.
+
 - [**Plotting Tour de France Prize Money**][tdf_post] to label the winner's prize compared to the total.
+
 - [**Comparing Data Science Salaries by Gender**][salary_post] to differentiate the points for men and women.
 
 [son_post]: {% post_url 2020-01-30-my_second_sons_words %}#the-words

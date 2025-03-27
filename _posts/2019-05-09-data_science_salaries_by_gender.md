@@ -37,8 +37,11 @@ My data is much smaller, but better curated. However, it has some biases in
 that it is collected from Insight alumni who are mostly:
 
 - PhDs
+
 - Early career
+
 - In high-demand markets
+
 - Coached on salary negotiation
 
 Asking the respondent's gender was added to the survey late, so around a third

@@ -162,6 +162,7 @@ _cuts_, to select the events we want. This selection happens in two stages:
    times a second), a fast data processing system called the trigger applies
    very simple cuts to select interesting events out of the huge number of
    uninteresting ones.
+
 2. After the data has been saved to disk, I apply a more precise set of cuts
    to select just the events that I think are likely to come from the $$Z \to
    ee$$ decay.

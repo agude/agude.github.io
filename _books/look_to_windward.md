@@ -43,11 +43,15 @@ reflect on the conflict. The main characters are:
 
 - Mahrai Ziller, a cat-like Chelgrian composer living in self-imposed exile
   from his people, commissioned to write a symphony commemorating the war's end.
+
 - Major Quilan, a Chelgrian operative supposedly visiting Masaq' to persuade
   Ziller to return home, but actually on a mission of revenge.
+
 - Admiral Huyler, a preserved mind sharing Quilan's body as a copilot.
+
 - Masaq' Hub, the Culture Mind managing the Orbital, formerly a warship that
   committed atrocities during the war.
+
 - Uagen Zlepe, a Culture academic studying gigantic beings far from the
   Orbital who becomes entangled in Quilan's plot.
 

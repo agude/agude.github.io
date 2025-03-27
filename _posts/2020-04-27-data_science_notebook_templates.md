@@ -25,12 +25,18 @@ following steps:
 [nb_post]: {% post_url 2016-10-17-jupyter_not_for_development %}
 
 1. Start a brand new, _completely empty_ notebook.
+
 2. Load the data and start cleaning it.
+
 3. Begin making plots.
+
 4. Realize I already have some code from a different project to make nice plots.
+
 5. Dig through my repositories looking for the code.
+
 6. Copy and paste the first code I find that sort of does what I need (and
    which probably is not the most recent or nicest version).
+
 7. Hack the code up and make it even uglier.
 
 After five years, I am ready for something better. And so I present the [**Jupyter
@@ -53,7 +59,9 @@ The first notebook in the library is the [**Plotting Template**][plotting].
 Its goal is to change the above workflow to this:
 
 1. Download the right template.
+
 2. Load data and start cleaning it.
+
 3. Make **beautiful** plots.
 
 [plotting]: https://github.com/agude/Jupyter-Notebook-Template-Library/blob/8c13dc10c4dbcf724357857692ab7ac64fb83e09/notebooks/basic-plotting-template.ipynb

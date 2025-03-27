@@ -25,8 +25,10 @@ We broke the project down into three parts:
 
 - **Chipping**: localizing vehicles within an image or frame from a video and
   extract and image (chip) containing the vehicle
+
 - **Feature extraction**: producing a compact representation of a vehicle's
   chip suitable for machine learning
+
 - **Matching**: grouping chips of the same vehicle based on their feature
   representations
 
@@ -52,6 +54,7 @@ don't use deep learning, for two reasons:
 
 1. An "off-the-shelf" network, [Single Shot MultiBox Detector (SSD)][ssd],
    performed poorly.
+
 2. We did not have much labeled data, so retraining wasn't an option.
 
 [ssd]: https://arxiv.org/abs/1512.02325
@@ -239,8 +242,10 @@ MOG2 algorithm:
 
 - Shadows still present a major problem, as seen in the image from the camera
   positioned at IH-37 at Jones Ave.
+
 - Getting the correct size for the bounding box is tough, as seen in the
   Louisiana frame.
+
 - Nearby vehicles are often merged together.
 
 Despite these issues, background subtraction based localization is good enough

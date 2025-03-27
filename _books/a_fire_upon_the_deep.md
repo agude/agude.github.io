@@ -55,13 +55,16 @@ and working their way outward:
 
 - The **Unthinking Depths**: The area around the galactic core where basic
   intelligence is not possible.
+
 - The **Slow Zone**: A place where biological intelligence is possible, but
   not true artificial intelligence. Faster than light communication and travel
   are impossible, but some civilizations travel the stars using cryogenic
   sleep and Bussard ramjets. Advanced technology generally stops working after
   a time.
+
 - The **Beyond**: The location of the most advanced civilizations, where AI,
   FTL travel, and anti-gravity technology allow miracles of science.
+
 - The **Transcend**: The zone where super-intelligences are possible, and the
   place where civilizations that transcend to become Powers move to. The
   Blight and the Old One are from here.
@@ -160,7 +163,9 @@ the ship are:
 - Pham Nuwen: a human constructed by the Power "Old One" to serve as his
   presence in the Beyond, and who now suffers moments of insight even though
   Old One was destroyed.
+
 - Ravna Bergsndot: a human librarian and applied theologist.
+
 - Blueshell and Greenstalk: Sentient aquatic plants that ride around in
   "Skrodes" that also enhance their limited short-term memory.
 

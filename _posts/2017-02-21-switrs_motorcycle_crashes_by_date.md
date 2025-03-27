@@ -125,6 +125,7 @@ Winter holidays, by contrast, show both peaks and valleys. I would interpret
 this as due to the seasonal weather:
 
 - In summer, any day is a good day to ride.
+
 - In the winter, the weather keeps riders off the road, except when a holiday
   gives them the extra motivation they need.
 

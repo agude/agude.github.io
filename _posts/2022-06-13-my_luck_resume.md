@@ -71,10 +71,12 @@ this page in the form of a too-honest resume.
   eventually found its way to the [Supernova Cosmology Project][scp] under
   Nobel prize winner [Saul Perlmutter][saul]. Saul's post doc, Nao Suzuki,
   wanted a research assistant and invited me up to the lab.
+
 - Weirdly, and lucky for me, Nao had decided not to use [IDL][idl_is_bad], the
   standard language for astrophysics software, and instead wanted to work with
   Python. We used Numarray and Numeric (which would later become Numpy),
   giving me a head start in the skills I'd need later for machine learning.
+
 - Nao also thought I should learn a text editor and introduced me to the one
   he used: [Vim][vim]. It is my primary text editor to this day (I'm writing
   this post on it).
@@ -98,6 +100,7 @@ this page in the form of a too-honest resume.
   Astronomer to Data Scientist_][jess_post].[^jk_post] Inside was a link to
   Insight Data Science. There were just two days until applications to Insight
   were due so I threw one together and was accepted.
+
 - My advisor told me there was no way I would graduate by January, 2015 (he
   was right). I emailed Insight and asked if I could delay starting until the
   next session. They said yes. I have since learned their policy is not to do

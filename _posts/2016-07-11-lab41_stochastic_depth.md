@@ -38,10 +38,12 @@ when training very deep networks:
   multiplication is repeated several times with small weights and so the
   information that reaches the earliest layers is often too little to
   effectively train the network.
+
 - **Diminishing Feature Reuse**: This is the same problem as the vanishing
   gradient, but in the forward direction. Features computed by early layers
   are washed out by the time they reach the final layers by the many weight
   multiplications in between.
+
 - **Long Training Times**: Deeper networks require a longer time to train than
   shallow networks. Training time scales linearly with the size of the network.
 

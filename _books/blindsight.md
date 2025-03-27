@@ -21,6 +21,7 @@ on the spaceship _Theseus_ have been altered mentally:
 - Siri Keeton had half his brain removed, losing empathy and emotion. He tries
   to emulate them by following learned rules.
   
+
 - Amanda Bates's brain is connected to an army of robot soldiers.
 
 - Susan James has three added personalities in her mind.

@@ -125,6 +125,7 @@ This has a few nice advantages:
 - It delegates the complexity of handling the direction to each travel mode.
   This is logical because it's likely the way a car handles East and West are
   very similar, and very different from how a plane would.
+
 - By using `enum` the compiler can check that we handle every case. If we
   forget `case BIKE` or `case EAST`, the compiler can warn us.
 

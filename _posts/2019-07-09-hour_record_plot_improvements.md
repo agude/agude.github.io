@@ -42,9 +42,12 @@ amount of time---but could be much more effective. Here are some
 problems:
 
 - It is missing a legend and title, which are both necessary to understand it.[^plot]
+
 - It has too much precision in the date labels, which are down to the day but do
   not align with when the records were set.
+
 - The label text is too small to read easily.
+
 - It has a lot of unused space.
 
 [^plot]: Plots do not need a title or axis labels if the subject is clear without them. In this case though, you would never figure out it was the "Men's Hour Record Progression" unless someone told you.

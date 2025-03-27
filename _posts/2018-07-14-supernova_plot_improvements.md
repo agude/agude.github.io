@@ -35,8 +35,11 @@ It is not a bad plot---it conveys the information it is required to---but it has
 a lot of room for improvement! This shouldn't come as a surprise since it was one of the
 earliest plots I made in my scientific career. Some of the shortcomings of the plot include:
 - The spectra overlap a bit.
+
 - Poor utilization of available space due to the need for large margins to accomodate the legend.
+
 - The axes titles are wrong and do not include the units they measure.
+
 - The tick labels collide at the corner.
 
 The code that generated this plot can be found [here][old_plot_code]

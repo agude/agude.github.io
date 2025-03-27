@@ -45,24 +45,30 @@ approaching it in this order:
 1. **Problem**: Dive in with the interviewer and explore what the problem is.
    Look for edge cases or simple and high-impact parts of the problem that you
    might be able to close out quickly.
+
 2. **Metrics**: Once you have determined the scope and parameters of the
    problem you're trying to solve, figure out how you will measure success.
    Focus on what is important to the business and not just what is easy to
    measure.
+
 3. **Data**: Figure out what data is available to solve the problem. The
    interviewer might give you a couple of examples, but ask about additional
    information sources. If you know of some public data that might be useful,
    bring it up here too.
+
 4. **Labels and Features**: Using the data sources you discussed, what
    features would you build? If you are attacking a supervised classification
    problem, how would you generate labels? How would you see if they were
    useful?
+
 5. **Model**: Now that you have a metric, data, features, and labels, what
    model is a good fit? Why? How would you train it? What do you need to watch
    out for?
+
 6. **Validation**: How would you make sure your model works offline? What data
    would you hold out to test your model works as expected? What metrics would
    you measure?
+
 7. **Deployment and Monitoring**: Having developed a model you are comfortable
    with, how would you deploy it? Does it need to be real-time or is it
    sufficient to batch inputs and periodically run the model? How would you
@@ -84,8 +90,10 @@ problem, which is often open ended. My goal with this part of the interview is
 to:
 
 - Understand the problem and all the edges cases.
+
 - Come to an agreement with the interviewer on the scope---narrower is
   better!---of the problem to solve.
+
 - Demonstrate any knowledge I have on the subject, especially from researching
   the company previously.
 
@@ -137,6 +145,7 @@ Our online metrics are more business focused:
 
 - **Ops time saved**: Ops is currently spending some amount of time reviewing
   spam; how much can we cut that down?
+
 - **Spam fraction**: What percent of Tweets are spam? Can we reduce this?
 
 It is often useful to normalize metrics, like the spam fraction metric, so
@@ -152,12 +161,17 @@ that information. Here are what I think they contain:
 
 - **Tweets database**: Sending account, mentioned accounts, parent Tweet,
   Tweet text.
+
 - **Interactions database**: Account, Tweet, action (retweet, favorite, etc.).
+
 - **Accounts database**: Account name, handle, creation date, creation
   device, creation IP address.
+
 - **Following database**: Account, followed account.
+
 - **Login database**: Account, date, login device, login IP address, success
   or fail reason.
+
 - **Ops database**: Account, restriction, human reasoning.
 
 And a lot more. From these we can find out a lot about an account and the
@@ -200,10 +214,12 @@ example:
 - **Bots can't write truly unique messages**; they must use a template or
   language generator. This should lead to similar messages, so looking at how
   repetitive an account's Tweets are is a good feature.
+
 - **Bots are used because they scale.** They can run all the time and send
   messages to hundreds or thousands (or millions) or users. Number of unique
   Tweet recipients and number of minutes per day with a Tweet sent are likely
   good features.
+
 - **Bots have a controller.** Someone is benefiting from the spam, and they
   have to control their bots. Features around logins might help here like
   number of accounts seen from this IP address or device, similarity of login

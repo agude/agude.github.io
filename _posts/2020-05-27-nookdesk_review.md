@@ -154,15 +154,19 @@ few problems:
 
 - The hardware---screws, bolts, guides, and whatnot---was packed in unlabeled
 bags and the instructions reused the same icons to indicate different screws.
+
 - The bill of materials listed both items that came in the bags and those that
 came preinstalled in the same count. When it said "10 screws of type X" it
 might mean there were 4 in the bag and 6 already attached to the frame.
+
 - Hardware was included that is only used for optional accessories. I had
 screws leftover that I had not used at all. This made me worry that I had
 completely forgotten some critical step.
+
 - Two hex keys are included, but one of them had such poor tolerance that it
 would not drive the bolts. I ended up using a set of hex keys that I already
 owned.
+
 - The shelf is connected to the frame with four screws, but the contact area
 is so small it kept coming apart. I needed to add washers that I had lying
 around to make a solid connection. See my photo below:

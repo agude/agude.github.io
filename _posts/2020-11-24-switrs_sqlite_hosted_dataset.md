@@ -23,6 +23,7 @@ extensive use of the data, including:
 
 - Finding out when [automobiles][car], [motorcycles][moto], and
   [bicycles][bike] crash.
+
 - Quantifying the dangers of [daylight saving time][dst] and the [end of
   daylight saving time][dst_end].
 
@@ -80,6 +81,7 @@ There were two main challenges:
 1. Each dataset contains three tables: collision records, party records, and
    victim records; but _only_ the collision records table contains a
    [**primary key**][primary_key]. That key is the `case_id`.
+
 2. The records are occasionally updated after the fact, but again only the
    collision records table has a column (`process_date`) indicating when the
    record was last modified.
@@ -90,6 +92,7 @@ I made the following assumptions when merging the datasets:
 
 - The collision records table from the more recent dataset was correct when
   there was a conflict.
+
 - The party records and victim records corresponding to that collision record
   were also the most correct.
 

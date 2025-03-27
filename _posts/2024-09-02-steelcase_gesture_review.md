@@ -41,12 +41,19 @@ to my desk. I have replaced it with an Aeron Remastered Size C.
 I bought a Steelcase Gesture with:
 
 - Headrest
+
 - Upholstered Wrap Back
+
 - Cogent Lizard Upholstery (5S94)
+
 - Platinum Metallic Frame
+
 - Matching Base
+
 - 360° Arms
+
 - Lumbar Support
+
 - Wheels for Carpet
 
 The retail price for this chair is $1679, but I got it through my work's

@@ -58,9 +58,11 @@ harmful][harmful]; they are great for:
   something, make a tweak, and check again. The caching of variables means
   that expensive operations can often be called once and the results used for
   plot after plot.
+
 - **Testing out new libraries:** Notebooks really shorten the time between
   hitting an error, editing, and rerunning code, making them ideal for
   trying out new libraries, classes, and functions.
+
 - **Providing a final deliverable:** Notebooks can include runnable code,
   text, and images so they make an excellent way to document an analysis and
   provide a way for others to interface with it.

@@ -41,8 +41,10 @@ soldiers. The special die no longer modifies the number of points awarded but
 instead damages the dragon. The player's turn can end in one of three ways:
 
 1. The player **wins** the game if dragon takes a total of three damage.
+
 2. The player's turn ends if they roll a farkle *and* roll a 0 on the special
    die. If they roll damage and a farkle they can continue rolling.
+
 3. The player's turn ends if they run out of soldiers.
 
 ## How Many Soldiers?

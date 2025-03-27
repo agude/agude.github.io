@@ -20,6 +20,7 @@ price estimate from Zillow and Redfin. But there were some problems:
 [previous_post]: {% post_url 2022-04-25-online_realtor_estimate_timeseries %}
 
 - I only collected dense data starting right before the property went pending.
+
 - I collected data by hand so I often missed days.
 
 When another nearby house put a sign out saying "coming soon", I wrote a
@@ -134,15 +135,18 @@ With the denser data and all three sites to compare, I conclude the following:
 - Zillow and Redfin both use separate models for the time pre/post-listing
   and the time when the house is listed. It's likely Realtor.com does as well
   which is why it stopped updating as soon as the house was listed.
+
 - The on-the-market model, used during the listing period, are updated more
   frequently, this is probably due to the fact that they have more
   high-frequency data (views, time on market, etc.) and the possibility of
   making a commission on the property increases the amount of money they're
   willing to spend running the models.
+
 - Zillow and Redfin are both using the same data source to determine when to
   switch their models, and it appears to be different than the source they use
   to display if a home is actually listed or not. I don't know why that would
   be. Possibly their models require data that is not immediately available?
+
 - Zillow and Realtor.com require the same data for their model during the
   listing period and fail if that source is unavailable. Redfin continues
   estimating, but does so poorly.

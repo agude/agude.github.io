@@ -16,8 +16,8 @@ aliens to rescue them.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
-{% capture clement %}{% include author_link.html name="Hal Clement" %}{% endcapture %}
+{% capture series %}{% include series_link.html series=page.series %} series{% endcapture %}
+{% capture clement %}{% include author_link.html name=page.book_author %}{% endcapture %}
 {% capture mission %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
 {% capture star %}{% include book_link.html title="Star Light" %}{% endcapture %}
 
@@ -47,12 +47,12 @@ maintaining consistency over crafting a compelling narrative. The result is a
 fine but not great book.
 
 [^game]:
-    > Writing a science fiction story is fun, not work. [...] The fun, and
-    > the material for this article, lies in treating the whole thing as a
-    > game. I've been playing the game since I was a child, so the rules must
-    > be quite simple. They are; for the reader of a science-fiction story,
-    > they consist of finding as many as possible of the author's statements
-    > or implications which conflict with the facts as science currently
+    > Writing a science fiction story is fun, not work. [...] The fun, and the
+    > material for this article, lies in treating the whole thing as a game.
+    > I've been playing the game since I was a child, so the rules must be
+    > quite simple. They are; for the reader of a science-fiction story, they
+    > consist of finding as many as possible of the author's statements or
+    > implications which conflict with the facts as science currently
     > understands them. For the author, the rule is to make as few such slips
     > as he possibly can.
 
