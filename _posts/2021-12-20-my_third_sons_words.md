@@ -37,6 +37,7 @@ own data rather than have my wife text me when Ash said a new word.
 The main difficulties in data collection were the same though: 
 
 - Deciding when Ash had associated a sound with a concept as opposed to just babbling.
+
 - Deciding if Ash "knew" a word or was just repeating a sound he had just
 heard.
 
@@ -83,6 +84,7 @@ This had two effects:
 
 - Ash got a lot more exposure to my wife and other sons speaking to me in
   English, and more time listening to me talk to him.
+
 - I was able to record new English words he was speaking, but since my
   Cantonese is bad (really bad) I could not do the same for it and so relied
   on my wife. This made it more likely that I would write down a new English
@@ -117,15 +119,19 @@ Here is a selection of fun words Ash learned:
   their concept of Google evolves over time. To me it is the search engine
   company, to them it is the little black speaker that sits on the shelf and
   has a personality.
+
 - **Gondola** (English): All three boys love the gondolas at the Oakland Zoo.
   Ash learned to say "ganda" very quickly to indicate that he wanted to ride.
+
 - **Cookie** (Spanish): All three boys learned to say cookie in Spanish very
   quickly because my parents give them cookies when they visit. Ash actually
   tells us that "cookie" in English is wrong and still only calls them
   "gagas".
+
 - **Hulk** (Animal Sounds): Cory loves Hulk and has a large action figure he
   plays with. Ash learned from Cory that Hulk makes a roaring sound while
   smashing things and would mimic it while playing with the toy.
+
 - **Little Brother** and **Big Brother** (Chinese): Ash learned how to
   identify his brothers very quickly, mainly to complain to us when they took
   his toys!

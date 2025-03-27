@@ -108,6 +108,7 @@ pipe = Pipeline(
 And it works! There are two tricks; we have to:
 
 1. Make the output of each step a dataframe with `set_output(transform="pandas")`.
+
 2. Adjust the columns names of the downstream steps because they get prepended
    with the name of the previous steps they've gone through.
 

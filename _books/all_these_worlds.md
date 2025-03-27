@@ -30,8 +30,10 @@ resonated with me most were:
 
 - The war with the Others, the defense of Earth, and the destruction of the
   Others' homeworld.
+
 - Life as an android, exploring the legal rights and the ethical implications
   of deciding what happens to one's mind after death.
+
 - The revolution on Poseidon against the authoritarian council.
 
 My main critique of the {{ bobiverse }} is that storylines are always wrapped

@@ -410,6 +410,7 @@ Here are my notebooks with the solutions:
 
 - The [SQL solution notebook][sql_answers] ([Rendered on
 Github][sql_rendered])
+
 - The [Python/Pandas solution notebook][pandas_answers] ([Rendered on
 Github][python_rendered])
 

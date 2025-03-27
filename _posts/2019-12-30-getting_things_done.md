@@ -48,11 +48,16 @@ I set up six columns named as follows (yes, with the emoji):
 
 - **🗃️ Backlog**: Tasks which are not urgent or not ready to start; a lot of
 "someday" tasks end up here.
+
 - **📥 Inbox**: The landing place for new tasks where I focus on quick entry,
 not on correctness.
+
 - **☀️ Do This Week**: Tasks to do this week.
+
 - **📅 Do Today**: Tasks to do today.
+
 - **✅ Done**: Finished tasks.
+
 - **🎓 Learning**: Books, articles, and papers that I want to read, classes I
 want to take, etc.
 
@@ -61,6 +66,7 @@ want to take, etc.
 Every morning I triage my tasks by taking one of two actions:
 
 1. If the task can be done in 5 minutes, I do it immediately.
+
 2. If the task can't be completed quickly, I move it to the correct column and
    make sure all the meta data like title are descriptive.
 
@@ -88,10 +94,12 @@ There are three places where I capture tasks:
 
 - **My Computer**: Here I often write out a long task and put it directly into
 the correct column because the computer makes data entry easy.
+
 - **In My Email**: I use an Outlook plugin that takes an email and turns it
 directly into a task in Trello. These tasks end up in the _Inbox_ and I triage
 them later. This lets me go through the dozens (or hundreds) of emails and
 quickly get the ones that require action turned into a task.
+
 - **On The Go**: I use the Trello app on my phone, and I have a widget that
 lets me add a card with the press of a button. Just like email, this puts it
 into the _Inbox_ column for later triage. I find using the dictation feature
@@ -108,6 +116,7 @@ weekly team meeting" and "fill out the project status update". I _also_ used
 it for things I wanted to get in the habit of doing, like "ask for feedback".
 To this end I set three "ask for feedback" tasks appear on my board every
 Monday so I could get in the habit of asking.
+
 - **Card Aging**: This power-up faded cards that hadn't been touched for a
 while. This let me see what tasks where being ignored and let me re-evaluate
 if they were still worth doing.

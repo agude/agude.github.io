@@ -40,10 +40,14 @@ pop-culture name), the story unfolds in parallel rather than serially. Some of
 the plots I found engaging were:
 
 - Surviving the initial lab trials and escaping to become his own person.
+
 - Acting as the sky-god _Bawbe_ for the primitive Deltans.
+
 - Battling the Brazilian probes piloted by the warmongering and fanatical
   Major Ernesto Medeiros.
+
 - Evacuating the dying Earth (and dealing with endless meetings to do so).
+
 - The first hints of the Others who genocide civilizations and strip their
   planets bare.
 

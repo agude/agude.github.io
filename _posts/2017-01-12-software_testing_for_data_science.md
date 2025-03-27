@@ -26,8 +26,10 @@ do but extremely useful, is [**testing**][testing_wiki].
 Working tests provide several benefits for your data science projects:
 
 - They give you confidence that your code works as intended.
+
 - They allow rapid development because breaks introduced by new code are
   caught sooner.
+
 - They encode the assumptions you have about how your code works in a standard
   form.
 
@@ -79,7 +81,9 @@ for three reasons:
 
 - It has to deal with high number of edge cases because data is never as clean
   as we would like it to be.
+
 - It often has the most bespoke code because everyone's data is different.
+
 - It must change when the raw data format changes, which is more likely than
   not to be outside of your control.
 
@@ -172,6 +176,7 @@ of your input data! When you find a new value in your data that your code
 doesn't handle correctly, add it to the tests! This does two things for you:
 
 - You'll know your code is fixed when the test starts passing.
+
 - You will never mishandle that value again, regardless of what happens in the
   future.
 

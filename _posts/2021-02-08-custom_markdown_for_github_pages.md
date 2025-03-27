@@ -51,9 +51,13 @@ The [order of interpretation][ooi] to build a page in Jekyll is:
 [ooi]: https://jekyllrb.com/tutorials/orderofinterpretation/
 
 1. Substitute site and page variables.
+
 2. Run Liquid functions.
+
 3. Compile Markdown to HTML.
+
 4. Push the compiled HTML into its layout template, if there is one.
+
 5. Write to file.
 
 The problem is that Liquid runs before compiling, so we can't use Liquid code
@@ -138,6 +142,7 @@ This method has two limitations:
 
 - We have to use characters that the Markdown parser won't
   interpret.[^reserved]
+
 - We must define unique opening and closing syntax to match the opening and
   closing HTML elements.
 

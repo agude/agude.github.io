@@ -118,8 +118,10 @@ work and hence not commuting. But right after, the series diverge:
   constant until the order. This suggests that Toyota drivers made a decision
   to stay home by themselves while Ford drivers waited until the state
   mandated it.
+
 - Toyota collisions drop much more the week of the order, likely indicating
   that more Toyota drivers stayed at home when told to do so.
+
 - Ford collisions recovered towards their pre-pandemic level faster than
   Toyota collisions, indicating that Ford drivers were quicker to get back on
   the road when allowed to.

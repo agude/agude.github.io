@@ -23,7 +23,9 @@ fives which come before Kings.
 There are many ways to represent members from these sets in Python:
 
 - Unique string: `"CA"`, `"WA"`, `"MN"`
+
 - Classes: `class Pokemon: ... `
+
 - Tuples (or [namedtuples][namedtuples]): `("Clubs", "J")`, `("Hearts", 5)`
 
 [namedtuples]: {% post_url 2018-12-18-python_patterns_namedtuple %}
@@ -98,6 +100,7 @@ and order based on value, without writing a lot of extra code.
 An enum has exactly the properties we want:
 
 - We can test membership, so only real suits and ranks are allowed.
+
 - We can order them, so we know that King > Jack > Ten.
 
 First, we define the suits:

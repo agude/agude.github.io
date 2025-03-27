@@ -81,7 +81,9 @@ requires us to write three functions:
 [artists]: https://matplotlib.org/users/artists.html
 
 - [`init_fig()`][init_fig]: draws the static background
+
 - [`frame_iter()`][frame_iter]: yields the `frame_data` needed to draw each update
+
 - [`update_artists(frame_data)`][update_artists]: takes `frame_data` and
 updates the artists
 
@@ -167,6 +169,7 @@ Once we have [`frame_iter()`][frame_iter] to generate the data for each frame,
 `update_artists()` is really simple. All it has to do is:
 
 1. Unpack the `frames_data`.
+
 2. Update the plot line and the text.
 
 For the plot line we call `.set_data()` to insert the new values; for the text
@@ -192,10 +195,14 @@ Once we've written the three functions, it is pretty simple to make our
 animation:
 
 1. Create the figure (`fig`) and axes (`ax`).
+
 2. Create the list of artists, in this case a line (`plt.plot`) and some text
    (`ax.text`).
+
 3. Partially apply the functions by binding inputs to them with `partial`.
+
 4. Create the animation object (`animation.FuncAnimation`).
+
 5. Save the animation as an `.mp4` (`anim.save`).
 
 Here are those steps in code:

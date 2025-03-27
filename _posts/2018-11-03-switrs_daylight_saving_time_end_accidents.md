@@ -96,6 +96,7 @@ the number of deadly crashes on the Sunday that DST ends, but I do not (_p_
 Our methods are different in a few key ways: 
 
 - They look only at fatal crashes while I look at all.
+
 - They compare to the mean of the week before and after while I use only the week after.
 
 If I reproduce their methods with my dataset, I still do not find a

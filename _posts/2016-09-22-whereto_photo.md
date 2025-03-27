@@ -50,7 +50,9 @@ Answering this question would require me to determine three things about the
 photos that made up my data:
 
 1. Location
+
 2. Subject
+
 3. Quality
 
 ## Dataset

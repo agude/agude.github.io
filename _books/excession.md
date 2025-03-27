@@ -52,10 +52,14 @@ were part of the conspiracy.
 Some aspects I loved:
 
 - The Mind IRC-style chats.
+
 - The glacial genocide uncovered by the _Grey Area_.
+
 - The Affront, a jellyfish-like race modeled after the British Empire and the
   Nazis.
+
 - The drone that embeds an SOS message onto an enemy ship using blast craters.
+
 - The human-body BIOS that lets people control everything from muscle density
   to gender.
 

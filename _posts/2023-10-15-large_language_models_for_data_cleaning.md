@@ -187,7 +187,9 @@ infer the right mapping.
 I obtained the following performance on my 902 hand-mapped entries:
 
 - The model correctly fixed 2 entries that I had gotten wrong.
+
 - It matched 682 (75.6%) of my hand-labeled mappings. 
+
 - It missed 218 (24.1%) of the mappings, frequently using made-up enum values.
 
 This is reasonably good performance, as finding wrong entries is pretty quick

@@ -38,7 +38,9 @@ A few companies I have interviewed with have had labyrinthine processes such
 as:
 
 - multiple phone screens
+
 - multiple days of on-site interview loops
+
 - phone screens as well as take-home projects
 
 Instead of utilizing such protracted methods, ask what you hope to learn with
@@ -49,8 +51,11 @@ information in just one round.
 I think the following steps are enough:
 
 - Resume screen (performed without the candidate)
+
 - Casual chat with the candidate about the position
+
 - Technical screen
+
 - On-site interview loop
 
 ## Communicate: Often

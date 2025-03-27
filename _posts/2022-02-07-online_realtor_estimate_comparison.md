@@ -86,8 +86,10 @@ The three price estimates are:
 
 - **Pre-listing**: Before the listing was picked up by the brokers,
    represented with a circle: {{circle}}
+
 - **Post-listing**: After the listing was posted but before the sale,
    represented with a triangle: {{triangle}}
+
 - **Post-sale**: After the sale was made public, represented with a square:
    {{square}}
 

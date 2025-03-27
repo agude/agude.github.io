@@ -20,6 +20,7 @@ woodlanders from the evil wildcat queen, Tsarmina.
 The structure of the story mirrors {{ redwall }} in several ways:
 
 - Like Mathias, Martin has to go on a quest to get his sword.
+
 - The woodlanders are threatened by an evil leader and their army. In {{
   this_book }}, Tsarmina has her own castle, Kotir, which the woodlanders
   besiege, whereas Cluny and his army attack Redwall.

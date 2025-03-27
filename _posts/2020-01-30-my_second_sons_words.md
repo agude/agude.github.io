@@ -113,19 +113,24 @@ A few fun words:
 - **Grandpa** (Spanish): As the only person who speaks Spanish full-time to
 him, it makes sense that Grandpa would be Cory's first Spanish word. Cory has
 always had a special affinity for my father, so it is appropriate as well.
+
 - **Cow** (English and Spanish) and **Lola** (Spanish): Cory started hearing
 _La Vaca Lola_ (Lola the cow) and quickly learned most of the words. He still
 loves cows, and it is still one of his favorite songs.
+
 - **Older Brother** (Cantonese): Theo is one of the defining features of
 Cory's life as both Cory's best friend and primary antagonizer. Cory learned
 to identify him quickly (and often would just point and say "big brother" when
 Theo had pushed him over).
+
 - **Older Sister** (Cantonese): Cory doesn't have a sister, but there were two
 girls who lived next door to our apartment with whom he would play and call
 "older sister".
+
 - **Lion Dancer** (Cantonese): Theo became obsessed with lion dancers during
 Lunar New Year last year. Cory has picked up on this obsession as well and
 often does a solo lion dance.
+
 - **Google** and **Deebot** (English): We have a lot of technology in our
 house and Cory has learned all about it. We talk to our Google Home devices
 several times a day trying to get them to play music or animal sounds, and

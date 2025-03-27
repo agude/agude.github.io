@@ -72,6 +72,7 @@ obvious:
 
 1. The total number of crashes has been decreasing over the past few years,
    with a big drop in 2008, but is now rising sharply in 2015.
+
 2. Each year is similar, with a mid-year lull and wildly varying
    increases and decrease right before the end of the year.
 

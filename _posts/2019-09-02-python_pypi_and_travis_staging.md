@@ -26,7 +26,9 @@ I needed my build system to:
 [pypy]: https://pypy.org/
 
 - Install the software for each supported Python version.
+
 - Run tests against each Python version.
+
 - Publish **_exactly once_** to [Pypi][wbma_pypi] when all the tests in all
 the Python versions had passed.
 

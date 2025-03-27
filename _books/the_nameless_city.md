@@ -56,38 +56,67 @@ better understand his impact on the field.
 
 {%- comment -%}
 1. Dagon
+
 2. The Nameless City
+
 3. The Call of Cthulhu
+
 4. The Dunwich Horror
+
 5. The Colour Out of Space
+
 6. The Whisperer in Darkness
+
 7. The Shadow over Innsmouth
+
 8. At the Mountains of Madness
+
 9. The Dreams in the Witch House
+
 10. The Shadow out of Time
+
 11. The Haunter of the Dark
 
 OR
 
 1. "Dagon" (1919)
+
 2. "The Temple" (1920)
+
 3. "The Nameless City" (1921)
+
 4. "The Tomb" (1922)
+
 5. "The Festival" (1923)
+
 6. "The Hound" (1924)
+
 7. "The Unnamable" (1925)
+
 8. "The Call of Cthulhu" (1926)
+
 9. "Cool Air" (1926)
+
 10. "The Colour Out of Space" (1927)
+
 11. "Pickman's Model" (1927)
+
 12. "The Dunwich Horror" (1928)
+
 13. "The Whisperer in Darkness" (1930)
+
 14. "The Strange High House in the Mist" (1931)
+
 15. "The Dreams in the Witch House" (1932)
+
 16. "The Shadow over Innsmouth" (1934)
+
 17. "At the Mountains of Madness" (1935)
+
 18. "The Shadow Out of Time" (1936)
+
 19. "The Haunter of the Dark" (1936)
+
 20. "The Thing on the Doorstep" (1937)
 
 {%- endcomment -%}
