@@ -1,0 +1,8 @@
+{% assign sorted_books = site.books | sort: "book_number" %}
+<div class="card-grid">
+  {% for book in sorted_books %}
+    {% if book.series == include.series %}
+      {% include auto_book_card_from_object.html book=book %}
+    {% endif %}
+  {% endfor %}
+</div>

@@ -1,0 +1,17 @@
+{% for series in include.sorted_series %}
+  {% if series == null or series == empty %}{% continue %}{% endif %}
+
+  <h2 class="series-title">
+    <span class="book-series">{{ series }}</span>
+  </h2>
+  <div class="card-grid">
+    {% for book in include.books %}
+      {% if include.author %}
+        {% unless book.book_author == include.author %}{% continue %}{% endunless %}
+      {% endif %}
+      {% if book.series == series %}
+        {% include auto_book_card_from_object.html book=book %}
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endfor %}
