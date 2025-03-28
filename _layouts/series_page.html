@@ -9,8 +9,7 @@ layout: default
 
   {{ content }}
 
-  Below you'll find short reviews of the books from series: {{ page.title }}
+  Below you'll find short reviews of the books from the series: {{ page.title }}
 
-  {% assign sorted_books = site.books | sort: "book_number" %}
-  {% include book_listing.html books=sorted_books series=page.title %}
+  {% include book_listing.html series=page.title %}
 </div>

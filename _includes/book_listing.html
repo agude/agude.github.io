@@ -1,80 +1,61 @@
 {% comment %}
   book_listing.html
   Parameters:
-    - books: the collection of books to work with.
-    - books_by_title (optional): if you need a differently sorted list for standalones.
     - author (optional): filter books for a specific author.
     - series (optional): if provided, display only books from this series.
 {% endcomment %}
 
-{% assign relevant_books = include.books %}
+{% comment %}
+Sort all books by number so that when we pull out series, they are already
+ordered first to last within the series.
+{% endcomment %}
+{% assign relevant_books = site.books | sort: "book_number" %}
+
+{% comment %} Filter books by author if provided {% endcomment %}
 {% if include.author %}
   {% assign relevant_books = relevant_books | where: "book_author", include.author %}
 {% endif %}
 
 {% if include.series %}
-  {%- comment -%}
-    For a dedicated series page, simply filter by the series.
-  {%- endcomment -%}
+
+  {% comment %} Display books from a specific series {% endcomment %}
   {% assign series_books = relevant_books | where: "series", include.series %}
   {% if series_books.size > 0 %}
-<div class="card-grid">
+  <div class="card-grid">
       {% for book in series_books %}
         {% include auto_book_card_from_object.html book=book %}
       {% endfor %}
-</div>
-{% else %}
+  </div>
+  {% else %}
     {% link no_books_found_error %}
   {% endif %}
+
 {% else %}
-  {%- comment -%}
-    When no specific series is provided, display standalone books and then grouped series.
-  {%- endcomment -%}
-  {%- comment -%}
-    Standalone Books: Books with an empty or null series.
-  {%- endcomment -%}
-  {% assign has_standalone = false %}
-  {% for book in relevant_books %}
-    {% if book.series == empty or book.series == null %}
-      {% assign has_standalone = true %}
-      {% break %}
-    {% endif %}
-  {% endfor %}
-  {% if has_standalone %}
-<h2 class="book-list-headline">Standalone Books</h2>
-<div class="card-grid">
-      {% for book in relevant_books %}
-        {% if book.series == empty or book.series == null %}
-          {% include auto_book_card_from_object.html book=book %}
-        {% endif %}
+
+  {% comment %} TODO: Sort these by title {% endcomment %}
+  {% comment %} Collect standalone books (books without a series) {% endcomment %}
+  {% assign standalone_books = relevant_books | where_exp: "book", "book.series == null" %}
+
+  {% if standalone_books.size > 0 %}
+  <h2 class="book-list-headline">Standalone Books</h2>
+  <div class="card-grid">
+      {% for book in standalone_books %}
+        {% include auto_book_card_from_object.html book=book %}
       {% endfor %}
-</div>
+  </div>
   {% endif %}
 
-  {%- comment -%}
-    Series Sections: Generate a unique, sorted list of series names.
-  {%- endcomment -%}
-  {% assign series_list = "" %}
-  {% for book in relevant_books %}
-    {% if book.series and book.series != "" %}
-      {% assign series_list = series_list | append: book.series | append: "|" %}
-    {% endif %}
-  {% endfor %}
-  {% assign series_list = series_list | split: "|" | uniq | sort %}
-
+  {% comment %} Generate a sorted list of unique series names {% endcomment %}
+  {% assign series_list = relevant_books | map: "series" | compact | uniq | sort %}
   {% for series in series_list %}
-    {% if series == empty or series == null %}
-      {% continue %}
-    {% endif %}
-<h2 class="series-title">
-  <span class="book-series">{{ series }}</span>
-</h2>
-<div class="card-grid">
-      {% for book in relevant_books %}
-        {% if book.series == series %}
-          {% include auto_book_card_from_object.html book=book %}
-        {% endif %}
+  <h2 class="series-title">
+    <span class="book-series">{{ series }}</span>
+  </h2>
+  <div class="card-grid">
+      {% assign series_books = relevant_books | where: "series", series %}
+      {% for book in series_books %}
+        {% include auto_book_card_from_object.html book=book %}
       {% endfor %}
-</div>
+  </div>
   {% endfor %}
 {% endif %}

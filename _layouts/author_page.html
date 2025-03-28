@@ -12,6 +12,5 @@ layout: default
   Below you'll find short reviews of <span class="author-name">{{ page.title
     }}</span>'s books:
 
-  {% assign sorted_books = site.books | sort: "book_number" %}
-  {% include book_listing.html books=sorted_books author=page.title %}
+  {% include book_listing.html author=page.title %}
 </div>
