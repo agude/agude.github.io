@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+
 <div class="author-page">
   <h1 class="author-title">
     <span class="author-name">{{ page.title }}</span>
@@ -12,17 +13,5 @@ layout: default
     }}</span>'s books:
 
   {% assign sorted_books = site.books | sort: "book_number" %}
-  {% assign sorted_books_by_title = site.books | sort: "title" %}
-
-  {% comment %} Generate series list for this author {% endcomment %}
-  {% assign sorted_series = "" %}
-  {% for book in site.books %}
-    {% if book.book_author == page.title %}
-      {% assign sorted_series = sorted_series | append: book.series | append: "|" %}
-    {% endif %}
-  {% endfor %}
-  {% assign sorted_series = sorted_series | split: "|" | uniq | sort %}
-
-  {% include standalone_books.html books=sorted_books_by_title author=page.title %}
-  {% include series_sections.html sorted_series=sorted_series books=sorted_books author=page.title %}
+  {% include book_listing.html books=sorted_books author=page.title %}
 </div>
