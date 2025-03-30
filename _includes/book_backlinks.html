@@ -18,7 +18,7 @@
   both the markdown include tag and the potential final HTML link. Escape the
   title for the markdown check in case it contains quotes.
 {% endcomment %}
-{%- capture target_markdown %}book_link.html title="{{ this_title_downcased | escape_once }}"{% endcapture -%}
+{%- capture target_markdown %}book_link.html title="{{ this_title_downcased }}"{% endcapture -%}
 {%- capture target_url %}{{ this_url }}{% endcapture -%}
 
 {% comment %}
