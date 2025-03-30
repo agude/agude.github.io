@@ -1,56 +1,54 @@
 {%- comment -%}
-Normalize the `title` input by removing accidental newlines.
-Liquid doesn't support `\n`, so we capture an actual newline and replace it.
+Finds the URL for a page/document based on its title and layout.
+Performs case-insensitive title matching.
 {%- endcomment -%}
+
 {%- capture newline %}
 {% endcapture -%}
 {%- assign target_title = include.title | replace: newline, " " | downcase | strip -%}
-
+{%- assign target_layout = include.layout | replace: newline, " " | strip | default: null -%}
 {%- assign now_unix = 'now' | date: '%s' | plus: 0 -%}
 
-{%- comment -%}
-If a layout is provided, use it to narrow the collection search.
-Otherwise, check all relevant collections.
-{%- endcomment -%}
-{%- assign target_layout = include.layout | replace: newline, " " | strip | default: null -%}
+{%- assign source_collection = null -%}
 
-{%- assign all_pages = null -%}
-
+{%- comment -%} Select the appropriate source collection(s) {% endcomment -%}
 {%- if target_layout == "book" -%}
-  {%- assign all_pages = site.books -%}
+  {%- assign source_collection = site.books -%}
 {%- elsif target_layout == "post" -%}
-  {%- assign all_pages = site.posts -%}
-{%- elsif target_layout == "series_page" or target_layout == "author_page" -%}
-  {%- assign all_pages = site.pages | where_exp: "item", "item.title" -%}
+  {%- assign source_collection = site.posts -%}
+{%- elsif target_layout == "author_page" or target_layout == "series_page" -%}
+  {%- comment %} Filter pages by the specific layout {% endcomment -%}
+  {%- assign source_collection = site.pages | where_exp: "item", "item.layout == target_layout" -%}
 {%- else -%}
-  {%- assign pages = site.pages | where_exp: "item", "item.title" -%}
-  {%- assign books = site.books -%}
-  {%- assign posts = site.posts -%}
-  {%- assign all_pages = pages | concat: books | concat: posts -%}
+  {%- comment %} Search across pages, books, and posts if layout is unknown/generic {% endcomment -%}
+  {%- assign pages_with_titles = site.pages | where_exp: "item", "item.title" -%}
+  {%- assign source_collection = pages_with_titles | concat: site.books | concat: site.posts -%}
 {%- endif -%}
 
-{%- assign url = null -%}
+{%- assign found_url = null -%}
 
-{%- comment -%}
-Scan for a matching title and layout. Skip empty or future-dated entries.
-{%- endcomment -%}
-{%- for p in all_pages -%}
-  {%- if p.title == null or p.title == "" -%}
-    {%- continue -%}
-  {%- endif -%}
+{%- comment -%} Scan the selected collection(s) {% endcomment -%}
+{%- for p in source_collection -%}
+  {%- comment %} Skip if title is missing {% endcomment -%}
+  {%- unless p.title %}{% continue %}{% endunless -%}
 
-  {%- assign post_time = p.date | date: '%s' | plus: 0 -%}
-  {%- if post_time != null and post_time > now_unix -%}
-    {%- continue -%}
-  {%- endif -%}
+  {%- assign current_title_down = p.title | downcase | strip -%}
 
-  {%- if p.layout == target_layout or target_layout == null -%}
-    {%- assign normalized_title = p.title | downcase | strip -%}
-    {%- if normalized_title == target_title -%}
-      {%- assign url = p.url -%}
-      {%- break -%}
+  {%- comment %} Check for title match {% endcomment -%}
+  {%- if current_title_down == target_title -%}
+    {%- comment %} Check for future posts only if relevant (book/post layouts) {% endcomment -%}
+    {%- assign is_dated_layout = false -%}
+    {%- if p.layout == "book" or p.layout == "post" %}{% assign is_dated_layout = true %}{% endif -%}
+
+    {%- if is_dated_layout -%}
+      {%- assign post_time = p.date | date: '%s' | plus: 0 -%}
+      {%- if post_time > now_unix %}{% continue %}{% endif -%}
     {%- endif -%}
+
+    {%- comment %} Match found! Assign URL and exit loop {% endcomment -%}
+    {%- assign found_url = p.url -%}
+    {%- break -%}
   {%- endif -%}
 {%- endfor -%}
 
-{{- url -}}
+{{- found_url -}}
