@@ -6,8 +6,8 @@
 {% endcomment %}
 
 {% comment %}
-Sort all books by number so that when we pull out series, they are already
-ordered first to last within the series.
+Sort all books by number initially. This ensures that when we later group
+by series, the books within each series are already ordered correctly.
 {% endcomment %}
 {% assign relevant_books = site.books | sort: "book_number" %}
 
@@ -32,26 +32,67 @@ ordered first to last within the series.
 
 {% else %}
 
-  {% comment %} TODO: Sort these by title {% endcomment %}
-  {% comment %} Collect standalone books (books without a series) {% endcomment %}
-  {% assign standalone_books = relevant_books | where_exp: "book", "book.series == null" %}
+  {% comment %}
+  Handle Standalone Books (books without a series)
+  We need to sort these alphabetically by title, ignoring leading articles.
+  {% endcomment %}
+  {% assign standalone_books_raw = relevant_books | where_exp: "book", "book.series == null" %}
 
-  {% if standalone_books.size > 0 %}
+  {% if standalone_books_raw.size > 0 %}
+    {% comment %}
+    Create a sortable map:
+    1. Iterate through standalone books.
+    2. Create a stripped title (removing "The ", "A ", "An ").
+    3. Create a key: "stripped_title||original_title".
+    4. Store keys in an array.
+    {% endcomment %}
+    {% assign standalone_title_map = "" | split: "" %}
+    {% for book in standalone_books_raw %}
+      {% assign stripped_title = book.title | remove: "The " | remove: "A " | remove: "An " %}
+      {% assign key = stripped_title | append: "||" | append: book.title %}
+      {% assign standalone_title_map = standalone_title_map | push: key %}
+    {% endfor %}
+
+    {% comment %} Sort the keys alphabetically {% endcomment %}
+    {% assign sorted_standalone_keys = standalone_title_map | sort %}
+
   <h2 class="book-list-headline">Standalone Books</h2>
   <div class="card-grid">
-      {% for book in standalone_books %}
-        {% include auto_book_card_from_object.html book=book %}
+      {% comment %}
+      Iterate through sorted keys:
+      1. Split the key back into stripped and original title.
+      2. Find the corresponding book object using the original title.
+      3. Include the book card.
+      {% endcomment %}
+      {% for key in sorted_standalone_keys %}
+        {% assign parts = key | split: "||" %}
+        {% assign original_title = parts[1] %}
+
+        {% comment %} Find the book object matching the original title {% endcomment %}
+        {% for book in standalone_books_raw %}
+          {% if book.title == original_title %}
+            {% include auto_book_card_from_object.html book=book %}
+            {% break %} {% comment %} Found the book, exit inner loop {% endcomment %}
+          {% endif %}
+        {% endfor %}
       {% endfor %}
   </div>
   {% endif %}
 
-  {% comment %} Generate a sorted list of unique series names {% endcomment %}
+  {% comment %}
+  Handle Books in Series
+  Generate a sorted list of unique series names.
+  {% endcomment %}
   {% assign series_list = relevant_books | map: "series" | compact | uniq | sort %}
   {% for series in series_list %}
   <h2 class="series-title">
     <span class="book-series">{{ series }}</span>
   </h2>
   <div class="card-grid">
+      {% comment %}
+      Get books for the current series. They are already sorted by book_number
+      due to the initial sort at the top of the file.
+      {% endcomment %}
       {% assign series_books = relevant_books | where: "series", series %}
       {% for book in series_books %}
         {% include auto_book_card_from_object.html book=book %}
