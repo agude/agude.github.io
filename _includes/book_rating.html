@@ -1,15 +1,19 @@
 {% comment %}
-  _includes/book_rating.html (Example Structure)
+  _includes/book_rating.html
+  Displays star rating with accessibility features.
   Parameters:
   - rating: The rating number (e.g., 4)
+  - wrapper_tag: HTML tag for the main container (default: "div")
 {% endcomment %}
 
 {% comment %} Convert to number {% endcomment %}
 {% assign rating_value = include.rating | default: 0 | plus: 0 %}
 {% assign max_rating = 5 %}
+{% comment %} Get wrapper tag, default to div {% endcomment %}
+{% assign wrapper_tag = include.wrapper_tag | default: "div" %}
 
 {% if rating_value > 0 %}
-  <div class="book-rating star-rating-{{ rating_value }}"
+  <{{ wrapper_tag }} class="book-rating star-rating-{{ rating_value }}"
        {% comment %} Treat the group of stars as a single image/graphic {% endcomment %}
        role="img"
        {% comment %} Provide clear text alternative {% endcomment %}
@@ -27,5 +31,5 @@
         <span class="book_star empty_star" aria-hidden="true">☆</span>
       {%- endfor -%}
     {%- endif -%}
-  </div>
+  </{{ wrapper_tag }}>
 {% endif %}

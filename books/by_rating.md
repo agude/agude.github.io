@@ -53,7 +53,7 @@ Build sorted list of unique ratings, highest to lowest.
   {% endunless %}
   {% assign first_place = false %}
 
-<h2 class="book-list-headline">{% include book_rating.html rating=sort_rating %}</h2>
+<h2 class="book-list-headline">{% include book_rating.html rating=sort_rating wrapper_tag="span" %}</h2>
 <div class="card-grid">
 
   {% for key in sorted_keys %}
