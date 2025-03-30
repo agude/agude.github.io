@@ -20,7 +20,7 @@ This allows us to sort by normalized title, but still use the original title to 
 {% assign title_keys = "" | split: "" %}
 
 {% for book in site.books %}
-  {% assign normalized_title = book.title | remove: "The " | remove: "A " %}
+  {% assign normalized_title = book.title | remove: "The " | remove: "A " | remove: "An " %}
   {% assign key = normalized_title | append: "||" | append: book.title %}
   {% assign title_keys = title_keys | push: key %}
 {% endfor %}

@@ -36,7 +36,7 @@ Build sorted list of unique ratings, highest to lowest.
     {% capture r1 %}{{ book.rating }}{% endcapture %}
     {% capture r2 %}{{ sort_rating }}{% endcapture %}
     {% if r1 == r2 %}
-      {% assign normalized = book.title | remove: "The " | remove: "A " %}
+      {% assign normalized = book.title | remove: "The " | remove: "A " | remove: "An " %}
       {% assign key = normalized | append: "||" | append: book.title %}
       {% assign rating_titles = rating_titles | push: key %}
     {% endif %}

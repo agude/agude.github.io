@@ -37,7 +37,7 @@ they've received.
 
   {% for book in site.books %}
     {% if book.awards contains award %}
-      {% assign stripped_title = book.title | remove: "The " | remove: "A " %}
+      {% assign stripped_title = book.title | remove: "The " | remove: "A " | remove: "An " %}
       {% assign key = stripped_title | append: "||" | append: book.title %}
       {% assign title_map = title_map | push: key %}
       {% assign award_books = award_books | push: book %}
