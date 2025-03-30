@@ -18,21 +18,35 @@ Parameters:
 {%- assign css_class = include.class | default: "" -%}
 {%- assign possessive = include.possessive | default: false -%}
 
-{%- comment %} Try to find the URL {% endcomment -%}
+{%- comment %} Try to find the URL using the helper {% endcomment -%}
 {%- capture url -%}
   {% include get_url_from_title.html title=raw_title layout=include.layout %}
 {%- endcapture -%}
+{%- assign url = url | strip -%}
 
 {%- comment %} Determine visible text {% endcomment -%}
-{%- assign raw_text = include.link_text | default: raw_title -%}
-{%- assign link_text = raw_text | replace: newline, " " | strip -%}
+{%- assign link_text = include.link_text | default: raw_title -%}
+{%- assign link_text = link_text | replace: newline, " " | strip -%}
 
+{%- comment %}
+If link_text wasn't provided AND we found a URL,
+try to get the canonical title from the target page using the URL.
+Only overwrite the default link_text if the lookup is successful.
+{%- endcomment -%}
 {%- if include.link_text == null and url != "" -%}
-  {%- capture link_text -%}
+  {%- capture captured_title -%}
     {% include get_title_from_url.html url=url %}
   {%- endcapture -%}
+  {%- assign fetched_title = captured_title | strip -%}
+  {%- if fetched_title != "" -%}
+     {%- comment %} Lookup succeeded, use the fetched canonical title {% endcomment -%}
+     {%- assign link_text = fetched_title -%}
+  {%- else -%}
+     {%- comment %} Lookup failed, keep the default link_text (raw_title) {% endcomment -%}
+  {%- endif -%}
 {%- endif -%}
 
+{%- comment %} Build the wrapped link text element {% endcomment -%}
 {%- capture wrapped -%}
   <{{ wrapper }}{% if css_class != "" %} class="{{ css_class }}"{% endif %}>{{ link_text }}</{{ wrapper }}>
 {%- endcapture -%}
@@ -41,6 +55,7 @@ Parameters:
   {%- capture wrapped -%}{{ wrapped }}'s{%- endcapture -%}
 {%- endif -%}
 
+{%- comment %} Add the <a> tag if a URL was found and it's not the current page {% endcomment -%}
 {%- if url != "" and page.url != url -%}
   {%- capture wrapped -%}
     <a href="{{ url }}">{{- wrapped -}}</a>

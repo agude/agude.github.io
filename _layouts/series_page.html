@@ -1,27 +1,15 @@
 ---
 layout: default
 ---
+
 <div class="series-page">
-  <h1 class="series-title"><span class="book-series">{{ page.title }}</span></h1>
+  <h1 class="series-title">
+    <span class="book-series">{{ page.title }}</span>
+  </h1>
 
   {{ content }}
 
-  Below you'll find short reviews of the books from
-  {% include get_series_text.html series=page.title %}:
+  Below you'll find short reviews of the books from the series: {{ page.title }}
 
-<div class="card-grid">
-
-{% assign sorted_books = site.books | sort: "book_number" %}
-{% for book in sorted_books %}
-  {% if book.series == page.title %}
-
-    {% include auto_book_card_from_object.html book=book %}
-
-  {% endif %}
-{% endfor %}
-
-{% comment %}Close the card-grid.{% endcomment %}
-</div>
-
-{% comment %}Close the series-page.{% endcomment %}
+  {% include list_books_by_series.html series=page.title %}
 </div>
