@@ -1,94 +1,84 @@
 {% comment %}
-Back link to other books that mention this book.
+  book_backlinks.html
+  Displays a list of other book reviews that link back to the current page.
+  Links are sorted alphabetically by the linking book's title (ignoring articles).
 {% endcomment %}
 
-{% comment %} Store the two h2 snippets to variables {% endcomment %}
-{% capture h2 %}
-<!-- Related Books -->
-<aside class="book-backlinks">
-  <h2 class="book-backlink-section">Reviews that mention <span
-      class="book-title">{{ page.title }}</span></h2>
-{% endcapture %}
+{% comment %} Capture a newline character for use in replace filter {% endcomment %}
+{%- capture newline %}
+{% endcapture -%}
 
-{% capture endh2 %}
-  </div>
-</aside>
-{% endcapture %}
-
-{% capture newline %}
-{% endcapture %}
-
+{% comment %} Pre-calculate values needed multiple times {% endcomment %}
 {%- assign now_unix = 'now' | date: '%s' | plus: 0 -%}
-
-{% comment %}To avoid picking up words in the text that match a book title, we
-instead look for the template we use to link to books, which should be
-unique.{% endcomment %}
-{% capture target_markdown %}book_link.html title="{{ page.title | downcase }}"{% endcapture %}
-{% capture target_url %}{{ page.url | downcase }}{% endcapture %}
-
-{% assign this_url = page.url %}
+{%- assign this_url = page.url | downcase -%}
+{%- assign this_title_downcased = page.title | downcase -%}
 
 {% comment %}
-Collect books that link back to this page and create a sortable map.
+  Define the patterns to search for within other book contents. We check for
+  both the markdown include tag and the potential final HTML link. Escape the
+  title for the markdown check in case it contains quotes.
 {% endcomment %}
-{% assign backlinking_books_raw = "" | split: "" %}
-{% assign backlink_title_map = "" | split: "" %}
+{%- capture target_markdown %}book_link.html title="{{ this_title_downcased | escape_once }}"{% endcapture -%}
+{%- capture target_url %}{{ this_url }}{% endcapture -%}
 
-{% for book in site.books %}
-  {% comment %}Don't link to unpublished posts from the future{% endcomment %}
-  {% assign post_time = book.date | date: '%s' | plus: 0 %}
-  {% if post_time > now_unix %}
+{% comment %}
+  Iterate through all books to find those linking back to this page.
+  Simultaneously, build a map for sorting them by title later.
+{% endcomment %}
+{%- assign backlink_title_map = "" | split: "" -%}
+
+{%- for book in site.books -%}
+  {% comment %} Skip unpublished posts {% endcomment %}
+  {%- assign post_time = book.date | date: '%s' | plus: 0 -%}
+  {%- if post_time > now_unix %}
     {% continue %}
-  {% endif %}
+  {% endif -%}
 
-  {% comment %}Don't link to yourself{% endcomment %}
-  {% if book.url == this_url %}
+  {% comment %} Skip self-references {% endcomment %}
+  {%- assign book_url_downcased = book.url | downcase -%}
+  {%- if book_url_downcased == this_url %}
     {% continue %}
-  {% endif %}
+  {% endif -%}
 
-  {% comment %}Check if the title of this page is contained in the other
-  book's review. We check both markdown and potential HTML output.{% endcomment %}
-  {% assign normalized_content = book.content | replace: newline, " " | downcase %}
-
-  {% assign found_link = false %}
-  {% if normalized_content contains target_markdown %}
-    {% assign found_link = true %}
-  {% elsif normalized_content contains target_url %}
-    {% assign found_link = true %}
-  {% endif %}
-
-  {% if found_link %}
-    {% comment %} Add book to raw list {% endcomment %}
-    {% assign backlinking_books_raw = backlinking_books_raw | push: book %}
-
-    {% comment %} Create sort key and add to map {% endcomment %}
-    {% assign stripped_title = book.title | remove: "The " | remove: "A " | remove: "An " | strip %}
-    {% assign key = stripped_title | append: "||" | append: book.title %}
-    {% assign backlink_title_map = backlink_title_map | push: key %}
-  {% endif %}
-{% endfor %}
-
-{% comment %}Only place the section if we find backlinks{% endcomment %}
-{% if backlinking_books_raw.size > 0 %}
-
-  {{ h2 }}
-
-  {% comment %} Sort the keys alphabetically {% endcomment %}
-  {% assign sorted_backlink_keys = backlink_title_map | sort %}
-
-  <ul class="book-backlink-list">
   {% comment %}
-  Iterate through sorted keys:
-  1. Split the key back into stripped and original title.
-  2. Use the original title to include the book link.
-     (We don't need to find the book object again as we only need the title here)
+    Check the normalized content for links. Normalizing involves replacing
+    newlines with spaces (using captured newline) and lowercasing for
+    case-insensitive matching. This is the most expensive part, so we do it
+    only after basic checks pass.
   {% endcomment %}
-  {% for key in sorted_backlink_keys %}
-    {% assign parts = key | split: "||" %}
-    {% assign original_title = parts[1] %}
-    <li class="book-backlink-item">{% include book_link.html title=original_title %}</li>
-  {% endfor %}
-  </ul>
+  {%- assign normalized_content = book.content | replace: newline, " " | downcase -%}
 
-  {{ endh2 }}
-{% endif %}
+  {%- if normalized_content contains target_markdown or normalized_content contains target_url -%}
+    {% comment %}
+      Found a link. Create a sort key by lowercasing the title,
+      removing leading articles ("the ", "a ", "an "), and stripping whitespace.
+      Store the key as "sortable_title||original_title".
+    {% endcomment %}
+    {%- assign original_title = book.title -%}
+    {%- assign stripped_title = original_title | downcase | remove: "the " | remove: "a " | remove: "an " | strip -%}
+    {%- assign key = stripped_title | append: "||" | append: original_title -%}
+    {%- assign backlink_title_map = backlink_title_map | push: key -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{% comment %} Only render the section if backlinks were found {% endcomment %}
+{%- if backlink_title_map.size > 0 -%}
+  {% comment %} Sort the collected keys alphabetically {% endcomment %}
+  {%- assign sorted_backlink_keys = backlink_title_map | sort -%}
+
+  <!-- Related Books -->
+  <aside class="book-backlinks">
+    <h2 class="book-backlink-section">Reviews that mention <span
+        class="book-title">{{ page.title }}</span></h2>
+
+    <ul class="book-backlink-list">
+      {%- for key in sorted_backlink_keys -%}
+        {%- assign parts = key | split: "||" -%}
+        {%- assign backlink_original_title = parts[1] -%}
+        <li class="book-backlink-item">
+          {%- include book_link.html title=backlink_original_title -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </aside>
+{%- endif -%}
