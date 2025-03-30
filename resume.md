@@ -3,7 +3,7 @@ layout: resume
 sidebar_include: true
 title: "Resume"
 description: >
-  Alexander Gude's Resume. Alex is a Machine Learning engineer.
+  Alexander Gude's Resume. Alex is a machine learning engineer.
 ---
 
 # Alexander Gude
@@ -41,17 +41,21 @@ that delivered tangible business value.
   green-lit by our external banking partners. Instant bank accounts delivered
   a 90% increase in paycheck deposits by our customers and a 55% increase in
   dollar inflows from paychecks.
+
 - Developed high-recall metrics for monitoring fraud across all ACH transfers
   giving high visibility into developing problem areas. Built automated alerts
   based on these metrics so bad activity did not slip through any gaps.
+
 - Using the fraud metrics, targeted high precision rules and machine learning
   models to curtail the worst fraud. Lowered fraud volumes by 12x in 18
   months.
+
 - Monitored the fraud metrics for tax returns deposited to customer accounts.
   Briefed the IRS and state tax administrators on Cash App Tax's anti-fraud
   program, including my monitoring, alerting, models, and rules. My work gave
   them enough confidence to not redirect tax refund deposits from our
   customer's bank accounts, which were 18% of all inflows in 2022.
+
 - Deployed first ACH categorization model for Cash App Banking, reducing
   uncategorized transactions by 50% and increasing tracked payroll deposit
   volume by 30%. The improved income categorization has allowed us to make
@@ -68,18 +72,22 @@ that delivered tangible business value.
 
 - Led 8 data scientists in building machine learning models to detect and stop
   fraud.
+
 - Drove adoption of engineering best practices by the team, including
   implementation of peer review for code changes and automated correctness
   checking, building of CI/CD pipelines for code and model deployment, and
   added metrics around test coverage and code health, reducing number of P0
   production bugs from 2 in the first year to 0.
+
 - Deployed the first in-product, real-time account takeover prevention model
   at Intuit---launched in production in TurboTax and alerted security to a
   possible breach within the first week of running. Back-testing showed it
   would have detected 95% of last year's stolen tax return downloads.
+
 - Drove migration of machine learning models from Intuit's on-prem data center
   to AWS platform without interruption of services, saving $1.5M per year in
   operation costs.
+
 - Improved the TurboTax Online account takeover model leading to a 90%
   reduction in wrongly challenged users, stopping 10X as many fraudsters, and
   shortening feature processing time from 2 hours to under a second.
@@ -96,11 +104,13 @@ that delivered tangible business value.
   system within 6 months that enabled clients to automatically detect the same
   vehicle across multiple videos from security cameras. Handed over the new
   system to customer's internal development team and provided training.
+
 - Worked as part of a team of 3 scientists to develop an embedding technique
   to train a convolutional neural network on unlabeled, open-source image
   data. Built a system using TensorFlow that learned to embed images and text
   into a joint vector space, allowing customers to perform content-based image
   retrieval on a corpus of 100M untagged images.
+
 - Designed and implemented a recommender system evaluation framework in Python
   and Spark and leveraged it to develop a Python-snippet recommender using
   word embeddings.
