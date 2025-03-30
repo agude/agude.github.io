@@ -1,18 +1,31 @@
-{%- assign star = '<span class="book_star full_star">★</span>' -%}
-{%- assign empty_star = '<span class="book_star empty_star">☆</span>' -%}
+{% comment %}
+  _includes/book_rating.html (Example Structure)
+  Parameters:
+  - rating: The rating number (e.g., 4)
+{% endcomment %}
 
-{%- assign rating = include.rating | plus: 0 -%} {%- comment -%} Convert to int if it's a string {%- endcomment -%}
+{% comment %} Convert to number {% endcomment %}
+{% assign rating_value = include.rating | default: 0 | plus: 0 %}
+{% assign max_rating = 5 %}
 
-{%- if rating < 1 or rating > 5 -%}
-  {% link throw_value_error %}
-{%- else -%}
-  <div class="book-rating star-rating-{{ rating }}">
-    {%- for i in (1..5) -%}
-      {%- if i <= rating -%}
-        {{ star }}
-      {%- else -%}
-        {{ empty_star }}
-      {%- endif -%}
+{% if rating_value > 0 %}
+  <div class="book-rating star-rating-{{ rating_value }}"
+       {% comment %} Treat the group of stars as a single image/graphic {% endcomment %}
+       role="img"
+       {% comment %} Provide clear text alternative {% endcomment %}
+       aria-label="Rating: {{ rating_value }} out of {{ max_rating }} stars">
+
+    {%- for i in (1..rating_value) -%}
+      {%- comment %} Hide visual star from screen reader {% endcomment -%}
+      <span class="book_star full_star" aria-hidden="true">★</span>
     {%- endfor -%}
+
+    {%- assign remaining_stars = max_rating | minus: rating_value -%}
+    {%- if remaining_stars > 0 -%}
+      {%- for i in (1..remaining_stars) -%}
+        {%- comment %} Hide visual star from screen reader {% endcomment -%}
+        <span class="book_star empty_star" aria-hidden="true">☆</span>
+      {%- endfor -%}
+    {%- endif -%}
   </div>
-{%- endif -%}
+{% endif %}
