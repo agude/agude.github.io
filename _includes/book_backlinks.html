@@ -10,16 +10,37 @@
 
 {% comment %} Pre-calculate values needed multiple times {% endcomment %}
 {%- assign now_unix = 'now' | date: '%s' | plus: 0 -%}
-{%- assign this_url = page.url | downcase -%}
-{%- assign this_title_downcased = page.title | downcase -%}
+{%- assign this_url = page.url | downcase | strip -%}
+{%- assign this_title_downcased = page.title | downcase | strip -%}
 
 {% comment %}
-  Define the patterns to search for within other book contents. We check for
-  both the markdown include tag and the potential final HTML link. Escape the
-  title for the markdown check in case it contains quotes.
+  Define patterns to search for within other book contents.
+
+  IMPORTANT: Jekyll's rendering order means that when this include runs
+  for a specific page (e.g., Page A), the `book.content` of another page
+  (e.g., Page B) might be EITHER raw Markdown OR rendered HTML.
+  - If Page B renders *after* Page A, `book.content` for Page B will likely be Markdown.
+  - If Page B renders *before* Page A, `book.content` for Page B will likely be HTML.
+
+  Therefore, we must check for BOTH the raw Markdown include tag pattern
+  AND the final rendered HTML link URL pattern.
 {% endcomment %}
-{%- capture target_markdown %}book_link.html title="{{ this_title_downcased }}"{% endcapture -%}
-{%- capture target_url %}{{ this_url }}{% endcapture -%}
+
+{%- comment %} Pattern 1: Rendered HTML URL {% endcomment -%}
+{%- assign target_url_pattern = this_url -%}
+
+{%- comment %}
+  Patterns 2 & 3: Raw Markdown include tag.
+  Check for both double and single quotes around the title parameter,
+  as either might be used in the source Markdown files.
+  We use the downcased title for case-insensitive matching.
+{% endcomment -%}
+{%- assign title_dq = '"' | append: this_title_downcased | append: '"' -%}
+{%- assign title_sq = "'" | append: this_title_downcased | append: "'" -%}
+{%- assign target_markdown_pattern_base = "book_link.html title=" -%}
+{%- assign target_markdown_pattern_dq = target_markdown_pattern_base | append: title_dq -%}
+{%- assign target_markdown_pattern_sq = target_markdown_pattern_base | append: title_sq -%}
+
 
 {% comment %}
   Iterate through all books to find those linking back to this page.
@@ -30,25 +51,31 @@
 {%- for book in site.books -%}
   {% comment %} Skip unpublished posts {% endcomment %}
   {%- assign post_time = book.date | date: '%s' | plus: 0 -%}
-  {%- if post_time > now_unix %}
-    {% continue %}
-  {% endif -%}
+  {%- if post_time > now_unix %}{% continue %}{% endif -%}
 
   {% comment %} Skip self-references {% endcomment %}
-  {%- assign book_url_downcased = book.url | downcase -%}
-  {%- if book_url_downcased == this_url %}
-    {% continue %}
-  {% endif -%}
+  {%- assign book_url_downcased = book.url | downcase | strip -%}
+  {%- if book_url_downcased == this_url %}{% continue %}{% endif -%}
 
   {% comment %}
-    Check the normalized content for links. Normalizing involves replacing
-    newlines with spaces (using captured newline) and lowercasing for
-    case-insensitive matching. This is the most expensive part, so we do it
-    only after basic checks pass.
+    Normalize the content (which could be Markdown OR HTML).
+    Replace newlines, downcase for case-insensitive matching.
   {% endcomment %}
   {%- assign normalized_content = book.content | replace: newline, " " | downcase -%}
 
-  {%- if normalized_content contains target_markdown or normalized_content contains target_url -%}
+  {%- assign found_link = false -%}
+  {%- comment %} Check 1: Does it contain the raw Markdown include tag (double quotes)? {% endcomment -%}
+  {%- if normalized_content contains target_markdown_pattern_dq -%}
+    {%- assign found_link = true -%}
+  {%- comment %} Check 2: Does it contain the raw Markdown include tag (single quotes)? {% endcomment -%}
+  {%- elsif normalized_content contains target_markdown_pattern_sq -%}
+    {%- assign found_link = true -%}
+  {%- comment %} Check 3: Does it contain the rendered HTML link URL? {% endcomment -%}
+  {%- elsif normalized_content contains target_url_pattern -%}
+    {%- assign found_link = true -%}
+  {%- endif -%}
+
+  {%- if found_link -%}
     {% comment %}
       Found a link. Create a sort key by lowercasing the title,
       removing leading articles ("the ", "a ", "an "), and stripping whitespace.
