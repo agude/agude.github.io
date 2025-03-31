@@ -1,6 +1,6 @@
 ---
 layout: author_page
-title: "Alastair Reynolds"
+title: Alastair Reynolds
 description: >
     Alex Gude's reviews of books written by Alastair Reynolds.
 wikidata_url: https://www.wikidata.org/wiki/Q380869

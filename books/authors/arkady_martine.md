@@ -1,6 +1,6 @@
 ---
 layout: author_page
-title: "Arkady Martine"
+title: Arkady Martine
 description: >
     Alex Gude's reviews of books written by Arkady Martine.
 wikidata_url: https://www.wikidata.org/wiki/Q58640138
