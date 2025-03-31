@@ -32,20 +32,5 @@
   ,"description": {{ page.description | strip_html | strip_newlines | replace: '  ', ' ' | strip | truncatewords: 50, "..." | jsonify }}
   {% endif -%}
 
-  {% comment %} Optional: Works Authored (Generated from site.books) {% endcomment %}
-  {% assign author_name = page.title %}
-  {% assign authored_books_json_fragments = "" | split: "" %}
-  {% for book in site.books %}
-    {% if book.book_author == author_name %}
-      {% capture book_json %}{"@type": "Book", "name": {{ book.title | jsonify }}, "url": {{ book.url | absolute_url | jsonify }} }{% endcapture %}
-      {% assign authored_books_json_fragments = authored_books_json_fragments | push: book_json %}
-    {% endif %}
-  {% endfor %}
-  {% if authored_books_json_fragments.size > 0 -%}
-  ,"worksAuthored": [
-    {{ authored_books_json_fragments | join: "," }}
-  ]
-  {% endif -%}
-
 }
 </script>
