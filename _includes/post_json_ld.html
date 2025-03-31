@@ -1,0 +1,82 @@
+{% comment %}
+ _includes/post_json_ld.html
+ Generates Structured Data (JSON-LD) for Blog Posts
+ Based on Schema.org vocabulary (BlogPosting, Person)
+ Assumes it's included from a page object with relevant front matter.
+{% endcomment %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+
+  {% comment %} Headline (Post Title) {% endcomment %}
+  "headline": {{ page.title | jsonify }},
+
+  {% comment %} Author (Person running the site - From _config.yml) {% endcomment %}
+  {% if site.author.name -%}
+  "author": {
+    "@type": "Person",
+    "name": {{ site.author.name | jsonify }}
+  },
+  {% endif -%}
+
+  {% comment %} Publisher (Person running the site - From _config.yml) {% endcomment %}
+  {% if site.author.name and site.url -%}
+  "publisher": {
+    "@type": "Person",
+    "name": {{ site.author.name | jsonify }},
+    "url": {{ site.url | append: site.baseurl | jsonify }}
+    {% if site.logo -%}
+    ,"logo": {
+        "@type": "ImageObject",
+        "url": {{ site.logo | absolute_url | jsonify }}
+    }
+    {% endif -%}
+  },
+  {% endif -%}
+
+  {% comment %} Dates (Published and Modified) {% endcomment %}
+  {% if page.date -%}
+  "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+  {% comment %} Use last_modified_at if available (plugin needed), else fallback to page date {% endcomment %}
+  "dateModified": {{ page.last_modified_at | default: page.date | date_to_xmlschema | jsonify }},
+  {% endif -%}
+
+  {% comment %} Image (Featured image for the post) {% endcomment %}
+  {% if page.image -%}
+  "image": {
+    "@type": "ImageObject",
+    "url": {{ page.image | absolute_url | jsonify }}
+    {% comment %} You could add height/width here if known {% endcomment %}
+  },
+  {% endif -%}
+
+  {% comment %} URL (Canonical URL of the post) {% endcomment %}
+  "url": {{ page.url | absolute_url | jsonify }},
+
+  {% comment %} Link back to the WebPage entity {% endcomment %}
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ page.url | absolute_url | jsonify }}
+  },
+
+  {% comment %} Description (Use page.description first, then excerpt) {% endcomment %}
+  {% assign description_text = page.description | default: page.excerpt | strip_html | strip_newlines | replace: '  ', ' ' | strip -%}
+  {% if description_text != "" -%}
+  {% comment %} Keep description short {% endcomment %}
+  "description": {{ description_text | truncatewords: 50, "..." | jsonify }},
+  {% endif -%}
+
+  {% comment %} Article Body (Full content, cleaned) {% endcomment %}
+  {% assign article_body_cleaned = page.content | strip_html | strip_newlines | replace: '  ', ' ' | strip -%}
+  {% if article_body_cleaned != "" -%}
+  "articleBody": {{ article_body_cleaned | jsonify }},
+  {% endif -%}
+
+  {% comment %} Keywords (From categories/tags) {% endcomment %}
+  {% assign keywords_array = page.categories | default: page.tags | default: "" -%}
+  {% if keywords_array != "" and keywords_array.size > 0 -%}
+    "keywords": {{ keywords_array | join: ", " | jsonify }}
+  {% endif -%}
+}
+</script>

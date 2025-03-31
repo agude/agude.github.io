@@ -53,7 +53,8 @@ don't find them.{% endcomment %}
 
   {{ content }}
 
-  {% comment %}Links to other reviews.{% endcomment %}
+{% comment %} Include Structured Data (JSON-LD) {% endcomment %}
+{% include book_json_ld.html %}
 
 </article>
 
