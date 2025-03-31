@@ -1,0 +1,103 @@
+{% comment %}
+ _includes/book_json_ld.html
+ Generates Structured Data (JSON-LD) for Book Reviews
+ Based on Schema.org vocabulary (Review, Book, Person)
+ Assumes it's included from a page object with relevant front matter.
+{% endcomment %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Review",
+
+  {% comment %} Review Author (Person running the site - From _config.yml) {% endcomment %}
+  {% if site.author.name -%}
+  "author": {
+    "@type": "Person",
+    "name": {{ site.author.name | jsonify }}
+  },
+  {% endif -%}
+
+  {% comment %} Review Publication Date (From Front Matter) {% endcomment %}
+  {% if page.date -%}
+  "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+  {% endif -%}
+
+  {% comment %} Review Publisher (Person running the site - From _config.yml) {% endcomment %}
+  {% if site.author.name and site.url -%}
+  "publisher": {
+    "@type": "Person", {% comment %} Changed from Organization {% endcomment %}
+    "name": {{ site.author.name | jsonify }},
+    "url": {{ site.url | append: site.baseurl | jsonify }}
+  },
+  {% endif -%}
+
+  {% comment %} Review Rating (From Front Matter, assumes 1-5 scale) {% endcomment %}
+  {% assign rating_value = page.rating | default: 0 | plus: 0 %}
+  {% if rating_value > 0 -%}
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": {{ rating_value | jsonify }},
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  {% endif -%}
+
+  {% comment %} Review Body (Use description first, else use full content, cleaned) {% endcomment %}
+  {% assign review_body_source = page.description | default: page.content -%}
+  {% assign review_body_cleaned = review_body_source | strip_html | strip_newlines | replace: '  ', ' ' | strip -%}
+  {% if review_body_cleaned != "" -%}
+  "reviewBody": {{ review_body_cleaned | jsonify }}, {% comment %} Use full, cleaned text {% endcomment %}
+  {% endif -%}
+
+  {% comment %} Review URL (This Page) {% endcomment %}
+  "url": {{ page.url | absolute_url | jsonify }},
+
+  {% comment %} Item Reviewed (The Book) {% endcomment %}
+  "itemReviewed": {
+    "@type": "Book",
+    "name": {{ page.title | jsonify }},
+
+    {% comment %} Book Author (From Front Matter) {% endcomment %}
+    {% if page.book_author -%}
+    "author": {
+      "@type": "Person",
+      "name": {{ page.book_author | jsonify }}
+    },
+    {% endif -%}
+
+    {% comment %} Book Image (From Front Matter) {% endcomment %}
+    {% if page.image -%}
+    "image": {{ page.image | absolute_url | jsonify }},
+    {% endif -%}
+
+    {% comment %} Add 'isbn' to your book front matter if possible (Highly Recommended!) {% endcomment %}
+    {% if page.isbn -%}
+    "isbn": {{ page.isbn | jsonify }},
+    {% endif -%}
+
+    {% comment %} Book Awards (From Front Matter) {% endcomment %}
+    {% if page.awards -%}
+      {% assign awards_array = page.awards | default: "" | split: "~~~" %}
+      {% if page.awards.size %} {% assign awards_array = page.awards %} {% endif %}
+      {% if awards_array.size > 0 and awards_array[0] != "" -%}
+        "award": {{ awards_array | jsonify }},
+      {% endif -%}
+    {% endif -%}
+
+    {% comment %} Book Series Info (From Front Matter) {% endcomment %}
+    {% if page.series -%}
+    "isPartOf": {
+      "@type": "BookSeries",
+      "name": {{ page.series | jsonify }}
+      {% assign book_num = page.book_number | default: 0 | plus: 0 %}
+      {% if book_num > 0 -%}
+      ,"position": {{ book_num | jsonify }}
+      {% endif -%}
+    },
+    {% endif -%}
+
+    {% comment %} URL for this specific review page about the book {% endcomment %}
+    "url": {{ page.url | absolute_url | jsonify }}
+  }
+}
+</script>
