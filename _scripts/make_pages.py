@@ -15,6 +15,10 @@ layout: author_page
 title: {item}
 description: >
     Alex Gude's reviews of books written by {item}.
+wikidata_url: null
+wikipedia_url: null
+goodreads_author_url: null
+official_website: null
 ---
 """,
     "series": """---
