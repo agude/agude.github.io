@@ -1,0 +1,51 @@
+{% comment %}
+ _includes/author_json_ld.html
+ Generates Structured Data (JSON-LD) for Author pages.
+ Based on Schema.org vocabulary (Person, Book).
+ Assumes it's included from an author page where page.title is the author's name.
+ Optional fields require corresponding front matter variables.
+{% endcomment %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+
+  {% comment %} Essential: Author Name (from page title) {% endcomment %}
+  "name": {{ page.title | jsonify }},
+
+  {% comment %} Essential: URL of this author page {% endcomment %}
+  "url": {{ page.url | absolute_url | jsonify }}
+
+  {% comment %} Recommended: sameAs links (Requires front matter) {% endcomment %}
+  {% assign same_as_links = "" | split: "" %}
+  {% if page.wikidata_url %}{% assign same_as_links = same_as_links | push: page.wikidata_url %}{% endif %}
+  {% if page.wikipedia_url %}{% assign same_as_links = same_as_links | push: page.wikipedia_url %}{% endif %}
+  {% if page.goodreads_author_url %}{% assign same_as_links = same_as_links | push: page.goodreads_author_url %}{% endif %}
+  {% if page.official_website %}{% assign same_as_links = same_as_links | push: page.official_website %}{% endif %}
+  {% comment %} Add checks for other relevant URLs if you add them to front matter {% endcomment %}
+  {% if same_as_links.size > 0 -%}
+  ,"sameAs": {{ same_as_links | jsonify }}
+  {% endif -%}
+
+  {% comment %} Optional: Description (Requires 'description' in front matter) {% endcomment %}
+  {% if page.description -%}
+  ,"description": {{ page.description | strip_html | strip_newlines | replace: '  ', ' ' | strip | truncatewords: 50, "..." | jsonify }}
+  {% endif -%}
+
+  {% comment %} Optional: Works Authored (Generated from site.books) {% endcomment %}
+  {% assign author_name = page.title %}
+  {% assign authored_books_json_fragments = "" | split: "" %}
+  {% for book in site.books %}
+    {% if book.book_author == author_name %}
+      {% capture book_json %}{"@type": "Book", "name": {{ book.title | jsonify }}, "url": {{ book.url | absolute_url | jsonify }} }{% endcapture %}
+      {% assign authored_books_json_fragments = authored_books_json_fragments | push: book_json %}
+    {% endif %}
+  {% endfor %}
+  {% if authored_books_json_fragments.size > 0 -%}
+  ,"worksAuthored": [
+    {{ authored_books_json_fragments | join: "," }}
+  ]
+  {% endif -%}
+
+}
+</script>
