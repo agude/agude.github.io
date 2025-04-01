@@ -1,22 +1,40 @@
 {%- comment -%}
 A citation formatter that builds the citation string step by step.
-Non-breaking spaces are only used for specific cases where line breaks would
-be problematic, like between "vol." and the volume number.
+Supports author names (first/last) and author handle.
+Non-breaking spaces are used for specific cases, and nowrap class is used for volume/page info.
 {%- endcomment -%}
 
 {%- assign citation_string = "" -%}
 
 {%- comment -%}
-Handle author information
+Handle author information (name and handle)
 {%- endcomment -%}
 {%- if include.author_last and include.author_first -%}
-  {%- assign author_formatted = include.author_last | append: ", " | append: include.author_first | append: ". " -%}
+  {%- assign author_formatted = include.author_last | append: ", " | append: include.author_first -%}
+  {%- if include.author_handle -%}
+    {%- assign author_formatted = author_formatted | append: " (" | append: include.author_handle | append: ")" -%}
+  {%- endif -%}
+  {%- assign author_formatted = author_formatted | append: ". " -%}
   {%- assign citation_string = citation_string | append: author_formatted -%}
 {%- elsif include.author_last -%}
-  {%- assign citation_string = citation_string | append: include.author_last | append: ". " -%}
+  {%- assign author_formatted = include.author_last -%}
+  {%- if include.author_handle -%}
+    {%- assign author_formatted = author_formatted | append: " (" | append: include.author_handle | append: ")" -%}
+  {%- endif -%}
+  {%- assign author_formatted = author_formatted | append: ". " -%}
+  {%- assign citation_string = citation_string | append: author_formatted -%}
 {%- elsif include.author_first -%}
-  {%- assign citation_string = citation_string | append: include.author_first | append: ". " -%}
+  {%- assign author_formatted = include.author_first -%}
+  {%- if include.author_handle -%}
+    {%- assign author_formatted = author_formatted | append: " (" | append: include.author_handle | append: ")" -%}
+  {%- endif -%}
+  {%- assign author_formatted = author_formatted | append: ". " -%}
+  {%- assign citation_string = citation_string | append: author_formatted -%}
+{%- elsif include.author_handle -%}
+  {%- assign author_formatted = include.author_handle | append: ". " -%}
+  {%- assign citation_string = citation_string | append: author_formatted -%}
 {%- endif -%}
+
 
 {%- comment -%}
 Add the title with quotation marks
