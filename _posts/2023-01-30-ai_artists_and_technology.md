@@ -12,7 +12,7 @@ image_alt: >
   with img2img to make it look more like an oil painting. It shows yellow
   flowers, with a forest behind them. The Jura Mountains loom behind the
   forest, and the sky is bright blue with some large white clouds.
-categories: 
+categories:
   - generative-ai
   - machine-learning
   - opinions
@@ -41,10 +41,15 @@ human.
     > love and dedication to have their work soullessly stolen and used by
     > selfish people for profit without the slightest concept of ethics.
 
-    [Alexander Nanitchkov (@Artofinca)][stolen], Twitter, 2022-12-05
+    {% include cite.html
+      author_first="Alexander"
+      author_last="Nanitchkov"
+      author_handle="@Artofinca"
+      date="2022-12-05"
+      url="https://twitter.com/Artofinca/status/1599730391698485248"
+    %}
 
 [^not_art_quote]:
-
     >"I believe art is something inherently and intrinsically human, even
     >corporate art made-for-hire is meticulously crafted by experts in their
     >fields," [Nicholas] Kole said. "When we sit down to draw, design, sculpt
@@ -57,10 +62,14 @@ human.
     >AI does none of this, he explained, and he sees "a world filling up with
     >meaningless, regurgitative cardboard cutouts that remind us of real art."
 
-    [Xiang, Chloe][chloe]. [_Artists Are Revolting Against AI Art on
-    ArtStation._][not_art] Vice, 2022-12-14
-
-[chloe]: https://twitter.com/chloexiang
+    {% include cite.html
+      author_first="Chloe"
+      author_last="Xiang"
+      title="Artist Are Revolting Against AI Art on ArtStation"
+      publication_title="Vice"
+      date="2022-12-14"
+      url="https://www.vice.com/en/article/artists-are-revolt-against-ai-art-on-artstation/"
+    %}
 
 ## AI and Photography as Art
 
@@ -84,7 +93,7 @@ an art in its own right.[^brush_and_pencil]<sup>, </sup>[^the_new_path]
 
 [as]: https://en.wikipedia.org/wiki/Alfred_Stieglitz
 
-[^brush_and_pencil]: 
+[^brush_and_pencil]:
     > The fear has sometimes been expressed that photography would in time
     > entirely supersede the art of painting. Some people seem to think that
     > when the process of taking photographs in colors has been perfected and
@@ -93,31 +102,45 @@ an art in its own right.[^brush_and_pencil]<sup>, </sup>[^the_new_path]
     > time of all the poor work done in color. The work of the artist,
     > however, in which is seen his own individuality, his own perception of
     > the beautiful, his own creation in fact, can no more perish than the
-    > soul which inspired it.  
+    > soul which inspired it.
 
-    Henrietta Clopath. _Genuine Art versus Mechanism_, in [_Brush and Pencil_
-    Vol. 7, No. 6 (1901-03-01)][bap], pp. 331-333
-
-[bap]: https://doi.org/10.2307/25505621
+    {% include cite.html
+      author_first="Henrietta"
+      author_last="Clopath"
+      title="Genuine Art versus Mechanism"
+      publication_title="Brush and Pencil"
+      volume=7
+      number=6
+      date="1901-03-01"
+      first_page=331
+      last_page=333
+      url="https://doi.org/10.2307/25505621"
+    %}
 
 [^the_new_path]:
-    > Photography is an infinitely valuable mechanism by which to obtain records
-    > of limited abstract truth, and as such, may be of great service to the
-    > artist. Much may be learned about drawing by reference to a good photograph,
-    > that even a man of quick natural perception would be slow to learn without
-    > such help. But, unless the real shortcomings of the photograph are
-    > understood, it must certainly mislead if followed.
+    > Photography is an infinitely valuable mechanism by which to obtain
+    > records of limited abstract truth, and as such, may be of great service
+    > to the artist. Much may be learned about drawing by reference to a good
+    > photograph, that even a man of quick natural perception would be slow to
+    > learn without such help. But, unless the real shortcomings of the
+    > photograph are understood, it must certainly mislead if followed.
     >
     > But beyond these merely technical matters, art differs from any
     > mechanical process in being "the expression of man's delight in God's
     > work", and thus it appeals to, and awakens all noble sympathy and right
-    > feeling. All labor of love must have something beyond mere mechanism at the
-    > bottom of it.
+    > feeling. All labor of love must have something beyond mere mechanism at
+    > the bottom of it.
 
-    _Art and Photography_, in [_The New Path_ Vol. 2, No. 12
-    (1865-12-01)][tnp], pp. 198-199
-
-[tnp]: https://www.jstor.org/stable/20542505
+    {% include cite.html
+      title="Art and Photography"
+      publication_title="The New Path"
+      volume=2
+      number=12
+      date="1865-12-01"
+      first_page=198
+      last_page=199
+      url="https://www.jstor.org/stable/20542505"
+    %}
 
 The concerns and criticisms currently being directed towards AI-generated art
 are the same as those leveled against photography in the past. And just as

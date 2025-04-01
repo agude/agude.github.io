@@ -120,7 +120,7 @@ followed it:
     > it.
 
     {% include cite.html
-      author_last="egypturnash"
+      author_handle="egypturnash"
       title="Comment on 'Stand on Zanzibar'"
       publication_title="Reddit, r/PrintSF"
       date="2019-02-24"

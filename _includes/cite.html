@@ -1,43 +1,101 @@
-{% comment %}
-The HTML is *VERY* sensitive to new lines, so we fill with {{- null -}} which
-does nothing _except_ consume a new line on either side.
+{%- comment -%}
+A citation formatter that builds the citation string step by step.
+Supports author names (first/last) and author handle.
+Non-breaking spaces are used for specific cases, and nowrap class is used for volume/page info.
+{%- endcomment -%}
 
-Otherwise it doesn't work inside footnotes.
+{%- assign citation_string = "" -%}
 
-See:
-https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-include-external-content-inside-footnotes
-{% endcomment -%}
-{% comment %}Currently set for MLA formatting.{% endcomment -%}
+{%- comment -%}
+Handle author information (name and handle)
+{%- endcomment -%}
+{%- if include.author_last and include.author_first -%}
+  {%- assign author_formatted = include.author_last | append: ", " | append: include.author_first -%}
+  {%- if include.author_handle -%}
+    {%- assign author_formatted = author_formatted | append: " (" | append: include.author_handle | append: ")" -%}
+  {%- endif -%}
+  {%- assign author_formatted = author_formatted | append: ". " -%}
+  {%- assign citation_string = citation_string | append: author_formatted -%}
+{%- elsif include.author_last -%}
+  {%- assign author_formatted = include.author_last -%}
+  {%- if include.author_handle -%}
+    {%- assign author_formatted = author_formatted | append: " (" | append: include.author_handle | append: ")" -%}
+  {%- endif -%}
+  {%- assign author_formatted = author_formatted | append: ". " -%}
+  {%- assign citation_string = citation_string | append: author_formatted -%}
+{%- elsif include.author_first -%}
+  {%- assign author_formatted = include.author_first -%}
+  {%- if include.author_handle -%}
+    {%- assign author_formatted = author_formatted | append: " (" | append: include.author_handle | append: ")" -%}
+  {%- endif -%}
+  {%- assign author_formatted = author_formatted | append: ". " -%}
+  {%- assign citation_string = citation_string | append: author_formatted -%}
+{%- elsif include.author_handle -%}
+  {%- assign author_formatted = include.author_handle | append: ". " -%}
+  {%- assign citation_string = citation_string | append: author_formatted -%}
+{%- endif -%}
 
-{%- assign author_last = include.author_last | replace: ' ', '&nbsp;' -%}
-{%- assign author_first = include.author_first | replace: ' ', '&nbsp;' -%}
-{%- assign title = include.title -%}
-{%- assign publication_title = include.publication_title | replace: ' ', '&nbsp;'  if include.publication_title -%}
-{%- assign editor = include.editor | replace: ' ', '&nbsp;'  if include.editor -%}
-{%- assign volume = include.volume | replace: ' ', '&nbsp;'  if include.volume -%}
-{%- assign number = include.number | replace: ' ', '&nbsp;'  if include.number -%}
-{%- assign publisher = include.publisher | replace: ' ', '&nbsp;'  if include.publisher -%}
-{%- assign first_page = include.first_page -%}
-{%- assign last_page = include.last_page -%}
-{%- assign date = include.date -%}
-{%- assign url = include.url -%}
 
-<span class="citation">
-  {%- if include.author_last and include.author_first -%}
-    <span class="author_name">{{ author_last }}, {{ author_first }}</span>. 
-  {%- else if include.author_last -%}
-    <span class="author_name">{{ author_last }}</span>. 
-  {%- else if include.author_first -%} 
-    <span class="author_name">{{ author_first }}</span>. 
-  {%- endif %}
-  "<cite>{{ title }}</cite>."&nbsp;
-  {%- if include.publication_title %}<cite>{{ publication_title }}</cite>, {% endif %}
-  {%- if include.editor %}edited by {{ editor }}, {% endif %}
-  {%- if include.volume %}vol.&nbsp;{{ volume }}, {% endif %}
-  {%- if include.number %}no.&nbsp;{{ number }}, {% endif %}
-  {%- if include.publisher %}{{ publisher }}, {% endif %}
-  {%- if include.date %}{{ date }}. {% endif %}
-  {%- if include.first_page and include.last_page %}pp.&nbsp;{{ first_page }}--{{ last_page }}. 
-  {%- elsif include.first_page %}p.&nbsp;{{ first_page }}. {% endif %}
-  {% if include.url %}[{{ url }}]({{ url }}){% endif -%}
-</span>
+{%- comment -%}
+Add the title with quotation marks
+{%- endcomment -%}
+{%- if include.title %}
+  {%- assign title_formatted = '"' | append: include.title | append: '." ' -%}
+  {%- assign citation_string = citation_string | append: title_formatted -%}
+{%- endif -%}
+
+{%- comment -%}
+Add publication details if available
+{%- endcomment -%}
+{%- if include.publication_title -%}
+  {%- assign publication_formatted = '<cite>' | append: include.publication_title | append: '</cite>, ' -%}
+  {%- assign citation_string = citation_string | append: publication_formatted -%}
+{%- endif -%}
+
+{%- if include.editor -%}
+  {%- assign editor_formatted = 'edited by ' | append: include.editor | append: ', ' -%}
+  {%- assign citation_string = citation_string | append: editor_formatted -%}
+{%- endif -%}
+
+{%- comment -%}
+Use non-breaking spaces and nowrap class for volume and number abbreviations
+{%- endcomment -%}
+{%- if include.volume -%}
+  {%- assign volume_formatted = '<span class="nowrap">vol. ' | append: include.volume | append: '</span>, ' -%}
+  {%- assign citation_string = citation_string | append: volume_formatted -%}
+{%- endif -%}
+
+{%- if include.number -%}
+  {%- assign number_formatted = '<span class="nowrap">no. ' | append: include.number | append: '</span>, ' -%}
+  {%- assign citation_string = citation_string | append: number_formatted -%}
+{%- endif -%}
+
+{%- if include.publisher -%}
+  {%- assign publisher_formatted = include.publisher | append: ', ' -%}
+  {%- assign citation_string = citation_string | append: publisher_formatted -%}
+{%- endif -%}
+
+{%- if include.date -%}
+  {%- assign date_formatted = include.date | append: '. ' -%}
+  {%- assign citation_string = citation_string | append: date_formatted -%}
+{%- endif -%}
+
+{%- comment -%}
+Handle page numbers with non-breaking space and nowrap class
+{%- endcomment -%}
+{%- if include.first_page and include.last_page -%}
+  {%- assign pages_formatted = '<span class="nowrap">pp. ' | append: include.first_page | append: '--' | append: include.last_page | append: '</span>. ' -%}
+  {%- assign citation_string = citation_string | append: pages_formatted -%}
+{%- elsif include.first_page -%}
+  {%- assign page_formatted = '<span class="nowrap">p. ' | append: include.first_page | append: '</span>. ' -%}
+  {%- assign citation_string = citation_string | append: page_formatted -%}
+{%- endif -%}
+
+{%- comment -%}
+Add URL if available
+{%- endcomment -%}
+{%- if include.url -%}
+  {%- assign url_formatted = '[' | append: include.url | append: '](' | append: include.url | append: ')' -%}
+  {%- assign citation_string = citation_string | append: url_formatted -%}
+{%- endif -%}
+<span class="citation">{{ citation_string }}</span>
