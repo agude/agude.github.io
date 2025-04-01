@@ -44,7 +44,7 @@ their mind-states at death, allowing them to enter a heaven created by their
 sublimed ancestors. Here, other civilizations use similar technology to trap
 the unworthy dead in virtual hells, where they're tortured for eternity.
 
-## The Plot
+### The Plot
 
 The large-scale plot revolves around the Culture's opposition to these virtual
 hells and the simulated war---called the _War in Heaven_---over their fate.
@@ -87,7 +87,7 @@ simulated. She tries to intercept Y'breq but repeatedly fails. Nsokyi's role
 in the narrative is mainly as an observer, offering the reader different views
 of the conflict.
 
-## Thoughts
+### Thoughts
 
 {{ this_book }} is my favorite {{ culture }} novel so far, narrowly beating
 out {{ c3 }}. This is partly because the plot is so engaging, with great

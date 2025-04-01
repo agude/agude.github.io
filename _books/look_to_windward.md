@@ -59,7 +59,7 @@ The Chelgrians plan to destroy Masaq' Hub and kill billions in revenge for the
 Chelgrian civil war, which the Culture accidentally triggered while trying to
 reform the Chelgrians' brutal caste system.
 
-## {{ c1_nolink }}
+### {{ c1_nolink }}
 
 {{ this_book }} is a sequel to {{ c1 }}, but in many ways it feels more like a
 rewrite. Both books share core themes, especially the idea that individuals rarely
@@ -74,7 +74,7 @@ Both books examine the Culture through their enemies' eyes---enemies who lost
 wars that the Culture initiated---and explore the moral ambiguities of the
 Culture's military interventions to reshape other societies.
 
-## {{ the_wasteland_nolink }}
+### {{ the_wasteland_nolink }}
 
 The connection between these books is reinforced by their titles: both {{
 this_book }} and {{ c1 }} are drawn from {{ elliots }} {{ the_wasteland }}. {{
@@ -104,7 +104,7 @@ complete erasure---true death with no chance of rebirth.
 
 [lampshade]: https://en.wiktionary.org/wiki/lampshade#Verb
 
-## Thoughts
+### Thoughts
 
 At the end of {{ this_book }} we learn that the stakes we thought were in play
 never were. While this might put some off, but I loved the book as a tour of a
