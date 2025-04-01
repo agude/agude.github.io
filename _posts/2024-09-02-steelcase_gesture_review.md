@@ -124,26 +124,26 @@ comfortable). I would not buy the lumbar support again.
 [reddit]: https://www.reddit.com/r/OfficeChairs/comments/rixars/psa_remove_lumbar_support_from_your_steelcase/
 [pdf]: {{ file_dir }}/steelcase_gesture_back_replacement_guide-939544221revA.pdf
 
-[^reddit]: 
+[^reddit]:
     > So I got a new Steelcase Gesture and for about a week couldn't
     > understand why does this cost $1k+ and how someone can possibly prefer
     > it to Aeron. I even started to get the back pain in the middle of the
     > spine - something that has never happened to me in my seating life ever.
-    > 
+    >
     > Then I read here about Lumbar support being in the way of their flexible
     > back. I could not really find the right position for the lubmar so I
     > figured ok I will just remove it, if it doesn't help I will sell the
     > damn thing at loss asap.
-    > 
+    >
     > So without the Lumbar Support Gesture is **amazing**. The back flexes
     > instead of cutting into your spine, you can lean on the chair and if you
     > touch it behind the backrest you would notice that the design has the
     > ribs that are supposed to have some give.
-    > 
+    >
     > The lumbar support itself is fairly rigid piece of plastic that,
     > frankly, feels alien inside the chair. Once I took it out, I felt a bit
     > like I did some life-savingv surgery on the poor thing.
-    > 
+    >
     > I have no idea who would prefer to have the lumbar support in it,
     > especially compared to how good it is without it. I'd say with lumbar
     > support it's a 6.5 chair (and, considering the price for the new one,
@@ -151,21 +151,21 @@ comfortable). I would not buy the lumbar support again.
     > it's on the hot side, I wish it had a mesh seat, but I think I can
     > survive, the adjustable arms and the overall smoothness of the
     > experience without the lumbar plate is worth it.
-    > 
+    >
     > I had a headrest version, and the removal procedure isn't exactly
     > trivial and takes some force, but took me about 30 minutes. If you have
     > the wrapped back be prepared to take some risks, inserting the lever
     > underneath it to pop it off.
-    > 
+    >
     > After that you screw off 4 screws (torx) and slide up the front seating
     > pad. Then you'd need to carefully slide out the lumbar plate (I did not
     > have to disconnect anything there, just the textile in a couple of
     > places).
-    > 
+    >
     > That's it.
 
     {% include cite.html
-      author_last='myreptilianbrain'
+      author_handle='myreptilianbrain'
       title='PSA: Remove lumbar support from your Steelcase Gesture'
       publication_title='Reddit, r/OfficeChairs'
       date='2021-12-18'
@@ -181,7 +181,7 @@ to fit me.
 
 Some people complain that the woven and padded seat retains heat and isn't
 comfortable on hot days. I used the chair during the summer and didn't notice
-heat problems, even when it was 110 °F outside and a little over 80 °F in my
+heat problems, even when it was 110 °F outside and a little over 80 °F in my
 office.
 
 ## Final Thoughts
