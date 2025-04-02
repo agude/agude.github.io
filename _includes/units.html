@@ -1,52 +1,52 @@
 {%- comment -%}
   Include to format a number with a unit, displaying nicely with symbol and abbr.
-  Uses thin non-breaking space and nowrap class.
+  Uses a thin non-breaking space and nowrap class.
+  Unit definitions are sourced from _data/units.yml.
 
   Input parameters:
     - number: The numerical value (required)
-    - unit: The unit abbreviation (required)
+    - unit: The unit abbreviation key (must exist in _data/units.yml) (required)
 
   Example usage:
     {%- include formatted_unit.html number="3.8" unit="g" -%}
     {%- include formatted_unit.html number="110" unit="F" -%}
+
+  Requires:
+    _data/units.yml file with unit definitions.
 {%- endcomment -%}
 
 {%- assign number = include.number -%}
-{%- assign unit = include.unit -%}
+{%- assign unit_key = include.unit | strip -%}
 
-{%- capture unit_symbol -%}
-  {%- case unit -%}
-    {%- when 'F' -%}°F
-    {%- when 'C' -%}°C
-    {%- when 'g' -%}g
-    {%- when 'kg' -%}kg
-    {%- when 'm' -%}m
-    {%- when 'cm' -%}cm
-    {%- when 'mm' -%}mm
-    {%- when 'in' -%}in
-    {%- when 'ft' -%}ft
-    {%- else -%}{{ unit }}  {%- comment -%} Fallback: display unit as is if not in mapping {%- endcomment -%}
-  {%- endcase -%}
-{%- endcapture -%}
+{%- comment -%} Capture the thin non-breaking space for clarity {%- endcomment -%}
+{%- capture thin_nbsp -%} {%- endcapture -%}
 
-{%- capture unit_abbr_title -%}
-  {%- case unit -%}
-    {%- when 'F' -%}Degrees Fahrenheit
-    {%- when 'C' -%}Degress Celsius
-    {%- when 'g' -%}Grams
-    {%- when 'kg' -%}Kilograms
-    {%- when 'm' -%}Meters
-    {%- when 'cm' -%}Centimeters
-    {%- when 'mm' -%}Millimeters
-    {%- when 'in' -%}Inches
-    {%- when 'ft' -%}Feet
-    {%- else -%}{{ unit }}  {%- comment -%} Fallback: use unit as title if not in mapping {%- endcomment -%}
-  {%- endcase -%}
-{%- endcapture -%}
+{%- comment -%} Validate required inputs {%- endcomment -%}
+{%- unless number -%}
+  {%- link formatted_unit_error_missing_number_parameter -%}
+{%- endunless -%}
+{%- unless unit_key and unit_key != "" -%}
+  {%- link formatted_unit_error_missing_unit_parameter -%}
+{%- endunless -%}
 
-{%- comment -%} Output the formatted unit, using nowrap, thin space, and abbr {%- endcomment -%}
-{%- if number and unit -%}
-  <span class="nowrap unit">
-    {{ number }}&#x202F;<abbr class="unit-abbr" title="{{ unit_abbr_title }}">{{ unit_symbol }}</abbr>
-  </span>
+{%- comment -%} Look up unit data from _data/units.yml {%- endcomment -%}
+{%- assign unit_data = site.data.units[unit_key] -%}
+
+{%- if unit_data -%}
+  {%- assign unit_symbol = unit_data.symbol -%}
+  {%- assign unit_name = unit_data.name -%}
+{%- else -%}
+  {%- comment -%} Fallback if unit key is not found in data file {%- endcomment -%}
+  {%- assign unit_symbol = unit_key -%}
+  {%- assign unit_name = unit_key -%}
+  {%- if jekyll.environment != "production" -%}
+    <!-- FORMATTED_UNIT_WARNING: Reason=' Unit key not found in _data/units.yml ' UnitKey=' {{ unit_key | escape }} ' Number=' {{ number | escape }} ' -->
+  {%- endif -%}
 {%- endif -%}
+
+{%- comment -%} Output the formatted unit {%- endcomment -%}
+<span class="nowrap unit">
+  {{- number -}}
+  {{- thin_nbsp -}}
+  <abbr class="unit-abbr" title="{{ unit_name | escape }}">{{ unit_symbol | escape }}</abbr>
+</span>{%- null -%}
