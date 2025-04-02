@@ -1,57 +1,71 @@
 {%- comment %}
   series_link.html
-  Generates a link to the specific series section on the corresponding
-  author's page.
+  Generates a link to the specific series section on the corresponding author's page.
+  If the link cannot be constructed, it outputs the series name as plain text
+  wrapped in a span. In non-production environments, it also adds a
+  diagnostic HTML comment.
 
   Parameters:
     - series: The title of the series (required).
-    - link_text: Optional override for display text. Defaults to the series
-      title.
+    - link_text: Optional override for display text. Defaults to the series title.
 {% endcomment -%}
 
 {%- assign series_title = include.series | strip -%}
 {%- assign link_text = include.link_text | default: series_title | strip -%}
 {%- assign final_url = "" -%}
 {%- assign author_name = "" -%}
+{%- assign author_page_url = "" -%}
+{%- assign series_slug = "" -%}
+{%- assign failure_reason = "unknown" -%} {%- comment %} Default failure reason {% endcomment -%}
 
 {%- if series_title != "" -%}
 
   {%- comment %}
     Find *a* book belonging to this series to determine the author.
     We assume all books in a series have the same author listed consistently
-    in the 'book_author' front matter variable, and that this name matches the
-    'title' of the author's page.
+    in the 'book_author' front matter variable, and that this name matches
+    the 'title' of the author's page.
   {% endcomment -%}
   {%- assign books_in_series = site.books | where: "series", series_title -%}
+
   {%- if books_in_series.size > 0 -%}
     {%- assign book = books_in_series | first -%}
-    {%- assign author_name = book.book_author -%}
-  {%- endif -%}
+    {%- assign author_name = book.book_author | strip -%}
 
-  {%- if author_name != "" -%}
-    {%- comment %} Found an author, now find the URL for that author's page {% endcomment -%}
-    {%- capture author_url_capture -%}
-      {% include get_url_from_title.html title=author_name layout="author_page" %}
-    {%- endcapture -%}
-    {%- assign author_page_url = author_url_capture | strip -%}
+    {%- if author_name != "" -%}
+      {%- comment %} Found an author, now find the URL for that author's page {% endcomment -%}
+      {%- capture author_url_capture -%}
+        {% include get_url_from_title.html title=author_name layout="author_page" %}
+      {%- endcapture -%}
+      {%- assign author_page_url = author_url_capture | strip -%}
 
-    {%- if author_page_url != "" -%}
-      {%- comment %} Successfully found the author page URL. Generate the anchor slug. {% endcomment -%}
-      {%- assign series_slug = series_title | slugify -%}
-      {%- comment %} Construct the final URL: author_page_url#series_slug {% endcomment -%}
-      {%- assign final_url = author_page_url | append: "#" | append: series_slug -%}
+      {%- if author_page_url != "" -%}
+        {%- comment %} Successfully found the author page URL. Generate the anchor slug. {% endcomment -%}
+        {%- assign series_slug = series_title | slugify -%}
+        {%- comment %} Construct the final URL: author_page_url#series_slug {% endcomment -%}
+        {%- assign final_url = author_page_url | append: "#" | append: series_slug -%}
+      {%- else -%}
+        {%- assign failure_reason = "author_page_not_found" -%}
+      {%- endif -%}
+    {%- else -%}
+      {%- assign failure_reason = "book_author_missing" -%}
     {%- endif -%}
+  {%- else -%}
+    {%- assign failure_reason = "no_books_found_for_series" -%}
   {%- endif -%}
 
+{%- else -%}
+  {%- assign failure_reason = "series_title_missing" -%}
 {%- endif -%}
 
-{%- comment %} Output the link if we constructed a valid URL, otherwise just display the text. {% endcomment -%}
+{%- comment %} Output the link if we constructed a valid URL, otherwise output plain text. {% endcomment -%}
 {%- if final_url != "" -%}
   <a href="{{ final_url }}"><span class="book-series">{{ link_text }}</span></a>
 {%- else -%}
-  {%- comment %} Fallback: Show text if series, author, or author page wasn't found {% endcomment -%}
+  {%- comment %} Fallback: Show text only. {% endcomment -%}
   <span class="book-series">{{ link_text }}</span>
-  {%- comment %} Optional: Add HTML comment for debugging build failures
-  <!-- Series link generation failed for '{{ include.series }}': Could not determine author page URL -->
-  {% endcomment %}
+  {%- comment %} Add diagnostic comment ONLY if NOT in production environment {% endcomment -%}
+  {%- if jekyll.environment != "production" -%}
+  <!-- SERIES_LINK_FAILURE: Reason=' {{ failure_reason }} ' Series=' {{ series_title | escape }} ' AttemptedAuthor=' {{ author_name | escape }} ' -->
+  {%- endif -%}
 {%- endif -%}
