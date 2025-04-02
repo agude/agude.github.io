@@ -1,0 +1,52 @@
+{%- comment -%}
+  Include to format a number with a unit, displaying nicely with symbol and abbr.
+  Uses thin non-breaking space and nowrap class.
+
+  Input parameters:
+    - number: The numerical value (required)
+    - unit: The unit abbreviation (required)
+
+  Example usage:
+    {%- include formatted_unit.html number="3.8" unit="g" -%}
+    {%- include formatted_unit.html number="110" unit="F" -%}
+{%- endcomment -%}
+
+{%- assign number = include.number -%}
+{%- assign unit = include.unit -%}
+
+{%- capture unit_symbol -%}
+  {%- case unit -%}
+    {%- when 'F' -%}°F
+    {%- when 'C' -%}°C
+    {%- when 'g' -%}g
+    {%- when 'kg' -%}kg
+    {%- when 'm' -%}m
+    {%- when 'cm' -%}cm
+    {%- when 'mm' -%}mm
+    {%- when 'in' -%}in
+    {%- when 'ft' -%}ft
+    {%- else -%}{{ unit }}  {%- comment -%} Fallback: display unit as is if not in mapping {%- endcomment -%}
+  {%- endcase -%}
+{%- endcapture -%}
+
+{%- capture unit_abbr_title -%}
+  {%- case unit -%}
+    {%- when 'F' -%}Degrees Fahrenheit
+    {%- when 'C' -%}Degress Celsius
+    {%- when 'g' -%}Grams
+    {%- when 'kg' -%}Kilograms
+    {%- when 'm' -%}Meters
+    {%- when 'cm' -%}Centimeters
+    {%- when 'mm' -%}Millimeters
+    {%- when 'in' -%}Inches
+    {%- when 'ft' -%}Feet
+    {%- else -%}{{ unit }}  {%- comment -%} Fallback: use unit as title if not in mapping {%- endcomment -%}
+  {%- endcase -%}
+{%- endcapture -%}
+
+{%- comment -%} Output the formatted unit, using nowrap, thin space, and abbr {%- endcomment -%}
+{%- if number and unit -%}
+  <span class="nowrap unit">
+    {{ number }}&#x202F;<abbr class="unit-abbr" title="{{ unit_abbr_title }}">{{ unit_symbol }}</abbr>
+  </span>
+{%- endif -%}
