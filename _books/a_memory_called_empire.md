@@ -63,7 +63,7 @@ and how much is the culture they live in.
 
 A subtler version of this theme plays out in the question of who belongs to the
 Empire, and who doesn't. Who's on Mahit's side, and who's not? The question
-"What is the definition of _we_?" comes up more than once, both in the context
+"What is the definition of _you_?" comes up more than once, both in the context
 of Mahit and her Imago of Yskander, and in her relationships with others.
 
 There's a motif around star charts that ties into these themes. Star charts
