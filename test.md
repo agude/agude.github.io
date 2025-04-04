@@ -143,10 +143,16 @@ This is a sentence with **two footnotes**, one of which is reused!![^1][^long]
 
 This is a footnote within a footnote.[^2]
 
+Two footnotes, but[^4] on different words.[^5]
+
 
 [^2]: First footnote.[^3]
 
 [^3]: Nested footnote.
+
+[^4]: First word.
+
+[^5]: second word.
 
 ---
 

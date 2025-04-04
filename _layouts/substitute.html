@@ -10,7 +10,7 @@ This replaces pieces of rendered page with new pieces, all at compile time.
   | replace: '<div class="footnotes" role="doc-endnotes">', '<hr><div class="footnotes" role="doc-endnotes">'
   | replace: '=[', '<span class="book-title">'
   | replace: ']=', '</span>'
+  | replace: '</a></sup><sup id="fnref', '</a></sup><sup class="fn-separator">,&#x202F;</sup><sup id="fnref'
 %}
 
 {{output}}
-
