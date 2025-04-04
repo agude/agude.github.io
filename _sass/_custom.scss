@@ -230,3 +230,18 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
     max-width: 100%;
     border: None;
 }
+
+// Units
+abbr.unit-abbr {
+  border: none;
+  cursor: inherit;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  font-size: inherit;
+  text-decoration: none;
+
+  &[title] {
+    cursor: help;
+  }
+}
