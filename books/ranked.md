@@ -22,6 +22,7 @@ ranked_list:
   - Night Without Stars
   - The Colonel
   - The Fall of Hyperion
+  - A Desolation Called Peace
   - Childhood's End
   - Dragon's Egg
   - Starquake
