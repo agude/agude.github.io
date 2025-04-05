@@ -22,6 +22,11 @@ class="author-name">{{ page.book_author }}</span>, is the second book in the
 
 {% capture teix1 %}{% include book_link.html title="A Memory Called Empire" %}{% endcapture %}
 
+{% capture wattss %}{% include author_link.html name="Peter Watts" possessive=true %}{% endcapture %}
+{% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
+{% capture echopraxia %}{% include book_link.html title="Echopraxia" %}{% endcapture %}
+{% capture firefall %}{% include series_link.html series="Firefall" %}{% endcapture %}
+
 {% capture hamiltons %}{% include author_link.html name="Peter F. Hamilton" possessive=true %}{% endcapture %}
 {% capture pandoras_star %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
 {% capture jusdas_unchained %}{% include book_link.html title="Judas Unchained" %}{% endcapture %}
@@ -34,8 +39,36 @@ class="author-name">{{ page.book_author }}</span>, is the second book in the
 {% capture sagans %}{% include author_link.html name="Carl Sagan" possessive=true %}{% endcapture %}
 {% capture contact %}{% include book_link.html title="Contact" %}{% endcapture %}
 
-{{ this_book }} continues right where {{ teix1 }} left off:
+{{ this_book }} continues right where {{ teix1 }} left off: it takes place a
+few months later, it follows the same characters, and continues the same
+themes and motifs.
 
+The theme of "What is the definition of _you_?" continues from {{ teix1 }}. In
+the first book, _"you"_ was expanded to Mahit with her chain of memories from
+the Imago machine, the group-mind of the Sunlit, and even the culture of the
+Teixcalaanli Empire. In this book, {{ the_author }} adds the hive-mind of the
+aliens---connected together through a parasitic fungus---and the shard
+pilots---forming a group-mind with each other through their ships---as further
+examples of different types of _"you"_. In this way, the {{ this_series }}
+reminded me most of {{ wattss }} {{ firefall }}: there is the common theme of
+what is a "mind" that is explored in {{ blindsight }}, and the way {{
+echopraxia }} builds on and expands the themes from {{ blindsight }} is
+similar as well.
+
+{{ this_book }} also continues the starchart motif, but expands it to more
+tightly focus on the similarities to neural networks in the brain. We see the
+captain described as the brain of their ship, there are the fractal tattoos of
+Twenty Cicada, and the branching patterns of the mycelium of the parasitic
+fungus.
+
+Although I enjoyed the first contact with hostile aliens plot line more than
+the courtly intrigue of {{ teix1 }}, the relationship between Mahit and Three
+Seagrass wasn't as well developed. {{ the_author }} threw a standard romance
+trick into the book to break them apart with a misunderstanding before having
+them reconcile later, but {{ this_book }} isn't _really_ a romance novel, and
+so pulling in the worn-out trope felt out of place.
+
+<!-- TODO: I love how I hated Lsel -->
 
 {{ this_book }} reminded me of others pieces of science fiction:
 
