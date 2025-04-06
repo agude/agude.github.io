@@ -9,7 +9,8 @@ layout: default
 
   {{ content }}
 
-  Below you'll find short reviews of the books from the series: {{ page.title }}
+  Below you'll find short reviews of the books from the series:
+  <span class="book-series">{{ page.title }}</span>
 
   {% include list_books_by_series.html series=page.title %}
 </div>
