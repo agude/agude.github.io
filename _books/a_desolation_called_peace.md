@@ -12,7 +12,9 @@ awards:
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is the second book in the
-<span class="book-series">{{ page.series }}</span> series.
+<span class="book-series">{{ page.series }}</span> series. It tells the story
+of the Teixcalaanli war with an alien race, and how Mahit and Three Seagrass
+try to stop it.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -40,16 +42,16 @@ class="author-name">{{ page.book_author }}</span>, is the second book in the
 {% capture contact %}{% include book_link.html title="Contact" %}{% endcapture %}
 
 {{ this_book }} continues right where {{ teix1 }} left off: it takes place a
-few months later, it follows the same characters, and continues the same
-themes and motifs.
+few months after the end of the first book, it follows the same characters,
+and continues and expands the same themes and motifs.
 
 The theme of "What is the definition of _you_?" continues from {{ teix1 }}. In
-the first book, _"you"_ was expanded to Mahit with her chain of memories from
+the first book, "_you_" was expanded to Mahit with her chain of memories from
 the Imago machine, the group-mind of the Sunlit, and even the culture of the
 Teixcalaanli Empire. In this book, {{ the_author }} adds the hive-mind of the
 aliens---connected together through a parasitic fungus---and the shard
 pilots---forming a group-mind with each other through their ships---as further
-examples of different types of _"you"_. In this way, the {{ this_series }}
+examples of different types of "_you_". In this way, the {{ this_series }}
 reminded me most of {{ wattss }} {{ firefall }}: there is the common theme of
 what is a "mind" that is explored in {{ blindsight }}, and the way {{
 echopraxia }} builds on and expands the themes from {{ blindsight }} is
@@ -63,12 +65,15 @@ fungus.
 
 Although I enjoyed the first contact with hostile aliens plot line more than
 the courtly intrigue of {{ teix1 }}, the relationship between Mahit and Three
-Seagrass wasn't as well developed. {{ the_author }} threw a standard romance
-trick into the book to break them apart with a misunderstanding before having
-them reconcile later, but {{ this_book }} isn't _really_ a romance novel, and
-so pulling in the worn-out trope felt out of place.
+Seagrass wasn't as well developed. {{ the_author }} used a standard romance
+trick---breaking the characters apart with a misunderstanding before having
+them reconcile later---that felt out of place because {{ this_book }} isn't
+_really_ a romance novel.
 
-<!-- TODO: I love how I hated Lsel -->
+One thing I like was how much I hated the Lsel council but liked the
+Teixcalaanli Empire and its people. It mirrored the way Mahit felt in the
+novel, with a longing to join the Empire and Three Seagrass which made her an
+outcast at home.
 
 {{ this_book }} reminded me of others pieces of science fiction:
 
