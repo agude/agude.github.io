@@ -13,8 +13,8 @@ awards:
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is the second book in the
 <span class="book-series">{{ page.series }}</span> series. It tells the story
-of the Teixcalaanli war with an alien race, and how Mahit and Three Seagrass
-try to stop it.
+of Mahit and Three Seagrass trying to stop the war between the Teixcalaanli
+Empire and a mysterious alien race.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -44,62 +44,61 @@ try to stop it.
 {% capture sagans %}{% include author_link.html name="Carl Sagan" possessive=true %}{% endcapture %}
 {% capture contact %}{% include book_link.html title="Contact" %}{% endcapture %}
 
-{{ this_book }} continues right where {{ teix1 }} left off: it takes place a
-few months after the end of the first book, it follows the same characters,
-and continues and expands the same themes and motifs.
+{{ this_book }} picks up right where {{ teix1 }} left off: a few months after
+the events of the first book, following the same characters, and continuing to
+develop the same themes and motifs.
 
-The theme of "What is the definition of _you_?" continues from {{ teix1 }}. In
-the first book, "_you_" was expanded to Mahit with her chain of memories from
-the Imago machine, the group-mind of the Sunlit, and even the culture of the
-Teixcalaanli Empire. In this book, {{ the_author }} adds the hive-mind of the
-aliens---connected together through a parasitic fungus---and the shard
-pilots---forming a group-mind with each other through their ships---as further
-examples of different types of "_you_". In this way, the {{ this_series }}
-reminded me most of {{ wattss }} {{ firefall }}: there is the common theme of
-what is a "mind" that is explored in {{ blindsight }}, and the way {{
-echopraxia }} builds on and expands the themes from {{ blindsight }} is
-similar as well.
+The theme of "What is the definition of _you_?" carriers over from {{ teix1
+}}. In the first book, "_you_" was expanded to Mahit with her chain of
+memories from the Imago machine, the group-mind of the Sunlit, and even the
+culture of the Teixcalaanli Empire itself. In this book, {{ the_author }} adds
+new examples: the alien hive-mind connected together through a parasitic
+fungus, and the shard pilots who form a group-mind with each other through
+their ships. This exploration of "_you_" reminded my most of {{ wattss }} {{
+firefall }} series: both focus on what constitutes a "mind", and the way {{
+this_book }} expands on {{ teix1 }} feels similar to how {{ echopraxia }}
+builds on {{ blindsight }}.
 
-{{ this_book }} also continues the starchart motif, but expands it to more
-tightly focus on the similarities to neural networks in the brain. We see the
-captain described as the brain of their ship, there are the fractal tattoos of
-Twenty Cicada, and the branching patterns of the mycelium of the parasitic
-fungus.
+{{ this_book }} also continues the starchart motif, but focuses it more
+explicitly on neural networks and patterns in the brain. The captain is
+described as the brain of their ship, there are the fractal tattoos of Twenty
+Cicada, and the branching mycelium of the alien fungus.
 
-Although I enjoyed the first contact with hostile aliens plot line more than
+Although I enjoyed the first contact with hostile aliens plotline more than
 the courtly intrigue of {{ teix1 }}, the relationship between Mahit and Three
-Seagrass wasn't as well developed. {{ the_author }} used a standard romance
-trick---breaking the characters apart with a misunderstanding before having
-them reconcile later---that felt out of place because {{ this_book }} isn't
-_really_ a romance novel.
+Seagrass felt less well developed. {{ the_author }} uses a standard romance
+move here---breaking the characters apart with a misunderstanding before
+reconciling them later---but it felt out of place because {{ this_book }}
+isn't _really_ a romance novel.
 
-One thing I like was how much I hated the Lsel council but liked the
-Teixcalaanli Empire and its people. It mirrored the way Mahit felt in the
-novel, with a longing to join the Empire and Three Seagrass which made her an
-outcast at home.
+One thing I really appreciated was how much the author made me hate the Lsel
+council but like the Teixcalaanli Empire and its people. It mirrored Mahit's
+feelings in the novel: she longs to be part of the Empire and to be with Three
+Seagrass, which makes her an outcast in her own home.
 
-{{ this_book }} reminded me of others pieces of science fiction:
+{{ this_book }} reminded me of several other pieces of science fiction:
 
 - The aliens call their ships starflyers, like the alien in {{ hamiltons }} {{
-  pandoras_star }} and {{ jusdas_unchained }}. The aliens in both books are
-  hive minds, and in both the humans consider a genocide against the aliens
-  and are conflicted about it.
+  pandoras_star }} and {{ jusdas_unchained }}. Both books feature hive-mind
+  aliens, and in both, humans consider genocide as a possible solution but are
+  conflicted about it.
 
-- The hive mind aliens are like the buggers from {{ enders_game }}. Ender
-  commits genocide by destroying the buggers' homeworld and regrets it, while
-  in {{ this_book }} the genocide is averted.
+- The hive mind aliens are also like the Buggers from {{ enders_game }}. Ender
+  commits genocide by destroying the Buggers' homeworld and regrets it, while
+  in {{ this_book }} the genocide is narrowly averted.
 
 - Twenty Cicada's tattoos recall the patterned skin of Lededje Y'breq in {{
   bankss }} {{ surface_detail }}.
 
-- The throne of spear is a bit like the iron throne made of swords in {{ grrms
-  }} {{ game_of_thrones }}.
+- The Emperor's throne of spears is a bit like the iron throne made of swords
+  in {{ grrms }} {{ game_of_thrones }}.
 
-- The furry pets that have taken over the _Weight for the Wheel_'s air vents is a
-  homage to the Tribbles from <span class="tv-show-title">Star Trek</span>.
+- The furry pets that have overrun the _Weight for the Wheel_'s air vents are
+  an homage to the Tribbles from <span class="tv-show-title">Star Trek</span>.
 
-- The Teixcalaan empire sent a poet to establish first contact with the
-  Ebrektia and regretted it because the poet sent back no scientific
-  observations, leading to them saying: "We sent a poet where we ought to have
-  sent a team of _ixplanatl_ researchers", a reference to the movie <span
-  class="movie-title">Contact</span>, based on {{ sagans }} {{ contact }}.
+- The Teixcalaanli Empire sent a poet to establish first contact with the
+  Ebrektia and regretted it when the poet sent back no scientific
+  observations, leading to the line: "We sent a poet where we ought to have
+  sent a team of _ixplanatl_ researchers"---a reference to the movie <span
+  class="movie-title">Contact</span>, based on {{ sagans }} novel {{ contact
+  }}.
