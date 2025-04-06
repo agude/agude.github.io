@@ -103,3 +103,7 @@ exclude:
 
 redirect_from:
     json: false
+
+feed:
+  collections:
+    - books
