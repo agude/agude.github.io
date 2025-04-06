@@ -75,10 +75,10 @@ trick---breaking the characters apart with a misunderstanding before
 reconciling them later---but it felt out of place because {{ this_book }}
 isn't _really_ a romance novel.
 
-One thing I really appreciated was how much the author made me hate the Lsel
-council but like the Teixcalaanli Empire and its people. It mirrored Mahit's
-feelings in the novel: she longs to be part of the Empire and to be with Three
-Seagrass, which makes her an outcast in her own home.
+One thing I really appreciated was how effectively the author made me hate the
+Lsel council but sympathize with the Teixcalaanli Empire and its people. This
+mirrored Mahit's own feelings in the novel: her longing to join the Empire and
+be with Three Seagrass makes her an outcast from her home.
 
 {{ this_book }} reminded me of several other pieces of science fiction:
 
