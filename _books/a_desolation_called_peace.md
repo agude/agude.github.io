@@ -18,7 +18,7 @@ Empire and a mysterious alien race.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
+{% capture the_authors %}<span class="author-name">{{ page.book_author }}</span>'s{% endcapture %}
 {% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
 {% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
 
@@ -44,6 +44,10 @@ Empire and a mysterious alien race.
 {% capture sagans %}{% include author_link.html name="Carl Sagan" possessive=true %}{% endcapture %}
 {% capture contact %}{% include book_link.html title="Contact" %}{% endcapture %}
 
+{% capture rjbs %}{% include author_link.html name="Robert Jackson Bennett" possessive=true %}{% endcapture %}
+{% capture shadow %}{% include series_link.html series="Shadow of the Leviathan" %} series{% endcapture %}
+{% capture a_drop_of_corruption %}{% include book_link.html title="A Drop of Corruption" %}{% endcapture %}
+
 {{ this_book }} picks up right where {{ teix1 }} left off: a few months after
 the events of the first book, following the same characters, and continuing to
 develop the same themes and motifs.
@@ -67,7 +71,7 @@ Cicada, and the branching mycelium of the alien fungus.
 Although I enjoyed the first contact with hostile aliens plotline more than
 the courtly intrigue of {{ teix1 }}, the relationship between Mahit and Three
 Seagrass felt less well developed. {{ the_author }} uses a standard romance
-move here---breaking the characters apart with a misunderstanding before
+trick---breaking the characters apart with a misunderstanding before
 reconciling them later---but it felt out of place because {{ this_book }}
 isn't _really_ a romance novel.
 
@@ -102,3 +106,8 @@ Seagrass, which makes her an outcast in her own home.
   sent a team of _ixplanatl_ researchers"---a reference to the movie <span
   class="movie-title">Contact</span>, based on {{ sagans }} novel {{ contact
   }}.
+
+I enjoyed {{ the_authors }} mix of different genres---space opera, romance,
+political fiction---into a coherent whole. I will definitely read more of her
+writing! Next, I'm looking forward to getting back to {{ rjbs }} {{ shadow }}
+series with {{ a_drop_of_corruption }}.
