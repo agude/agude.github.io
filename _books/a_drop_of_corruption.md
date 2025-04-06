@@ -1,5 +1,5 @@
 ---
-date: 2025-04-01
+date: 2025-04-05
 title: A Drop of Corruption
 book_author: Robert Jackson Bennett
 series: Shadow of the Leviathan
