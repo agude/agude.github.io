@@ -107,7 +107,7 @@ Seagrass, which makes her an outcast in her own home.
   class="movie-title">Contact</span>, based on {{ sagans }} novel {{ contact
   }}.
 
-I enjoyed {{ the_authors }} mix of different genres---space opera, romance,
-political fiction---into a coherent whole. I will definitely read more of her
-writing! Next, I'm looking forward to getting back to {{ rjbs }} {{ shadow }}
-series with {{ a_drop_of_corruption }}.
+I enjoyed how {{ the_author }} mixed different genres---space opera, romance,
+and political fiction---into a cohesive whole. I will definitely read more of
+her writing! Next up, I'm looking forward to getting back to {{ rjbs }} {{
+shadow }} series with {{ a_drop_of_corruption }}.
