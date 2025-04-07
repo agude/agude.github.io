@@ -103,3 +103,9 @@ exclude:
 
 redirect_from:
     json: false
+
+feed:
+  disable_in_development: false
+  post_limit: 100
+  collections:
+    - books
