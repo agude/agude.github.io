@@ -58,7 +58,7 @@ memories from the Imago machine, the group-mind of the Sunlit, and even the
 culture of the Teixcalaanli Empire itself. In this book, {{ the_author }} adds
 new examples: the alien hive-mind connected together through a parasitic
 fungus, and the shard pilots who form a group-mind with each other through
-their ships. This exploration of "_you_" reminded my most of {{ wattss }} {{
+their ships. This exploration of "_you_" reminded me most of {{ wattss }} {{
 firefall }} series: both focus on what constitutes a "mind", and the way {{
 this_book }} expands on {{ teix1 }} feels similar to how {{ echopraxia }}
 builds on {{ blindsight }}.
