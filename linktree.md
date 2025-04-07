@@ -69,7 +69,16 @@ sidebar_include: false
   {% capture rss_icon %}{% include icon-rss.svg %}{% endcapture %}
   {% include linktree_item.html
     link="/feed.xml"
-    text="RSS Feed: alexgude.com/feed.xml"
+    text="RSS Feed: Posts"
+    icon=rss_icon
+    button_class="rss-button"
+  %}
+
+  {% comment %} RSS {% endcomment %}
+  {% capture rss_icon %}{% include icon-rss.svg %}{% endcapture %}
+  {% include linktree_item.html
+    link="/feed/books.xml"
+    text="RSS Feed: Book Reviews"
     icon=rss_icon
     button_class="rss-button"
   %}
