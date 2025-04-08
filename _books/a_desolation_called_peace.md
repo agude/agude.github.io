@@ -33,6 +33,7 @@ Empire and a mysterious alien race.
 {% capture pandoras_star %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
 {% capture jusdas_unchained %}{% include book_link.html title="Judas Unchained" %}{% endcapture %}
 
+{% capture cards %}{% include author_link.html name="Orson Scott Card" possessive=true %}{% endcapture %}
 {% capture enders_game %}{% include book_link.html title="Ender's Game" %}{% endcapture %}
 
 {% capture bankss %}{% include author_link.html name="Iain M. Banks" possessive=true %}{% endcapture %}
@@ -87,8 +88,8 @@ be with Three Seagrass makes her an outcast from her home.
   aliens, and in both, humans consider genocide as a possible solution but are
   conflicted about it.
 
-- The hive mind aliens are also like the Buggers from {{ enders_game }}. Ender
-  commits genocide by destroying the Buggers' homeworld and regrets it, while
+- The hive mind aliens are also like the Buggers from {{ cards }} {{ enders_game }}.
+  Ender commits genocide by destroying the Buggers' homeworld and regrets it, while
   in {{ this_book }} the genocide is narrowly averted.
 
 - Twenty Cicada's tattoos recall the patterned skin of Lededje Y'breq in {{
@@ -98,13 +99,13 @@ be with Three Seagrass makes her an outcast from her home.
   in {{ grrms }} {{ game_of_thrones }}.
 
 - The furry pets that have overrun the _Weight for the Wheel_'s air vents are
-  an homage to the Tribbles from <span class="tv-show-title">Star Trek</span>.
+  an homage to the Tribbles from <cite class="tv-show-title">Star Trek</cite>.
 
 - The Teixcalaanli Empire sent a poet to establish first contact with the
   Ebrektia and regretted it when the poet sent back no scientific
   observations, leading to the line: "We sent a poet where we ought to have
-  sent a team of _ixplanatl_ researchers"---a reference to the movie <span
-  class="movie-title">Contact</span>, based on {{ sagans }} novel {{ contact
+  sent a team of _ixplanatl_ researchers"---a reference to the movie <cite
+  class="movie-title">Contact</cite>, based on {{ sagans }} novel {{ contact
   }}.
 
 I enjoyed how {{ the_author }} mixed different genres---space opera, romance,
