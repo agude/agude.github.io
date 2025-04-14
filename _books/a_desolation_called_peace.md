@@ -8,6 +8,7 @@ rating: 5
 image: /books/covers/a_desolation_called_peace.jpg
 awards:
   - hugo
+  - locus
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
