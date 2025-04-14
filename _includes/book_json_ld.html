@@ -42,11 +42,24 @@
   },
   {% endif -%}
 
-  {% comment %} Review Body (Use description first, else use full content, cleaned) {% endcomment %}
-  {% assign review_body_source = page.description | default: page.content -%}
+  {% comment %}
+   Review Body
+   Prioritize page.excerpt as the review summary.
+   Fall back to page.description if excerpt is empty/missing.
+   Fall back further to page.content if description is also empty/missing.
+   Clean the chosen text.
+  {% endcomment %}
+  {% assign review_body_source = "" %}
+  {% if page.excerpt and page.excerpt != "" -%}
+    {% assign review_body_source = page.excerpt %}
+  {% elsif page.description and page.description != "" -%}
+    {% assign review_body_source = page.description %}
+  {% else -%}
+    {% assign review_body_source = page.content %}
+  {% endif -%}
   {% assign review_body_cleaned = review_body_source | strip_html | strip_newlines | replace: '  ', ' ' | strip -%}
   {% if review_body_cleaned != "" -%}
-  "reviewBody": {{ review_body_cleaned | jsonify }}, {% comment %} Use full, cleaned text {% endcomment %}
+  "reviewBody": {{ review_body_cleaned | jsonify }},
   {% endif -%}
 
   {% comment %} Review URL (This Page) {% endcomment %}
