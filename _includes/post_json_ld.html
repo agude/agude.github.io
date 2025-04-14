@@ -26,12 +26,6 @@
     "@type": "Person",
     "name": {{ site.author.name | jsonify }},
     "url": {{ site.url | append: site.baseurl | jsonify }}
-    {% if site.logo -%}
-    ,"logo": {
-        "@type": "ImageObject",
-        "url": {{ site.logo | absolute_url | jsonify }}
-    }
-    {% endif -%}
   },
   {% endif -%}
 
