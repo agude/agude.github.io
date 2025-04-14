@@ -1,0 +1,85 @@
+{% comment %}
+ _includes/review_json_ld.html
+ Generates Structured Data (JSON-LD) for generic Reviews (non-book)
+ Based on Schema.org vocabulary (Review, Thing/Product/Service etc.)
+ Assumes it's included from a page object with a 'review.item_name' front matter key.
+ Uses page.excerpt or page.description for the review body summary.
+{% endcomment %}
+
+{% comment %} Check if essential review item data is present {% endcomment %}
+{% unless page.review.item_name %}
+  {% if jekyll.environment != "production" %}
+    {% link _error_review_json_ld_missing_item_name %}
+  {% endif %}
+  {% assign skip_review_json = true %}
+{% endunless %}
+
+{% unless skip_review_json %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Review",
+
+  {% comment %} Review Author (Person running the site - From _config.yml) {% endcomment %}
+  {% if site.author.name -%}
+  "author": {
+    "@type": "Person",
+    "name": {{ site.author.name | jsonify }}
+  },
+  {% endif -%}
+
+  {% comment %} Review Publication Date (From page.date) {% endcomment %}
+  {% if page.date -%}
+  "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+  {% endif -%}
+
+  {% comment %} Review Publisher (Person running the site - From _config.yml) {% endcomment %}
+  {% if site.author.name and site.url -%}
+  "publisher": {
+    "@type": "Person",
+    "name": {{ site.author.name | jsonify }},
+    "url": {{ site.url | append: site.baseurl | jsonify }}
+  },
+  {% endif -%}
+
+  {% comment %}
+   Review Body (Summary)
+   Prioritize page.excerpt, fall back to page.description.
+   Clean the chosen text.
+  {% endcomment %}
+  {% assign review_body_source = "" %}
+  {% if page.description and page.description != "" -%}
+    {% assign review_body_source = page.description %}
+  {% endif -%}
+  {% assign review_body_cleaned = review_body_source | strip_html | strip_newlines | replace: '  ', ' ' | strip -%}
+  {% if review_body_cleaned != "" -%}
+  "reviewBody": {{ review_body_cleaned | jsonify }},
+  {% endif -%}
+
+  {% comment %} Review URL (This Page) {% endcomment %}
+  "url": {{ page.url | absolute_url | jsonify }},
+
+  {% comment %} Item Reviewed (Details from page.review.* variables) {% endcomment %}
+  "itemReviewed": {
+    {% comment %} Use specified type, default to "Product" {% endcomment %}
+    "@type": {{ page.review.item_type | default: "Product" | jsonify }},
+    "name": {{ page.review.item_name | jsonify }}
+
+    {% comment %} Item Image (Use page.image if available) {% endcomment %}
+    {% if page.image -%}
+    ,"image": {{ page.image | absolute_url | jsonify }}
+    {% endif -%}
+
+    {% comment %} Item URL (From front matter if provided) {% endcomment %}
+    {% if page.review.item_url -%}
+    ,"url": {{ page.review.item_url | absolute_url | jsonify }}
+    {% endif -%}
+
+    {% comment %} Item Description (From front matter if provided) {% endcomment %}
+    {% if page.review.item_description -%}
+    ,"description": {{ page.review.item_description | strip_html | strip_newlines | replace: '  ', ' ' | strip | jsonify }}
+    {% endif -%}
+  }
+}
+</script>
+{% endunless %}
