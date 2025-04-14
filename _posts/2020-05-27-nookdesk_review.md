@@ -7,8 +7,13 @@ description: >
 image: /files/nookdesk/nookdesk.jpg
 image_alt: >
   The Nookdesk in my office, raised to standing height.
-categories: 
+categories:
   - opinions
+
+review:
+  item_name: "Nookdesk Standing Desk"
+  item_url: "https://www.nookdesk.com/"
+  item_description: "A customizable electric standing desk with various accessory options."
 ---
 
 {% capture file_dir %}/files/nookdesk/{% endcapture %}

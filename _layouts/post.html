@@ -33,10 +33,15 @@ layout: default
 
   {{ content }}
 
-{% comment %} Include Structured Data (JSON-LD) for Blog Post {% endcomment %}
-{% include post_json_ld.html %}
-
 </article>
+
+{% if page.review %}
+  <!-- JSON-LD for Review -->
+  {% include review_json_ld.html %}
+{% else %}
+  <!-- JSON-LD for Blog Post -->
+  {% include post_json_ld.html %}
+{% endif %}
 
 <hr>
 

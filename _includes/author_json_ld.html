@@ -1,7 +1,7 @@
 {% comment %}
  _includes/author_json_ld.html
  Generates Structured Data (JSON-LD) for Author pages.
- Based on Schema.org vocabulary (Person, Book).
+ Based on Schema.org vocabulary (Person).
  Assumes it's included from an author page where page.title is the author's name.
  Optional fields require corresponding front matter variables.
 {% endcomment %}
@@ -27,9 +27,21 @@
   ,"sameAs": {{ same_as_links | jsonify }}
   {% endif -%}
 
-  {% comment %} Optional: Description (Requires 'description' in front matter) {% endcomment %}
-  {% if page.description -%}
-  ,"description": {{ page.description | strip_html | strip_newlines | replace: '  ', ' ' | strip | truncatewords: 50, "..." | jsonify }}
+  {% comment %}
+   Optional: Description
+   Prioritize page.excerpt if available (often auto-generated for collections).
+   Fall back to page.description if excerpt is empty or not present.
+   Clean the text before output.
+  {% endcomment %}
+  {% assign author_description_source = "" %}
+  {% if page.excerpt and page.excerpt != "" -%}
+    {% assign author_description_source = page.excerpt %}
+  {% elsif page.description and page.description != "" -%}
+    {% assign author_description_source = page.description %}
+  {% endif -%}
+  {% assign author_description_cleaned = author_description_source | strip_html | strip_newlines | replace: '  ', ' ' | strip -%}
+  {% if author_description_cleaned != "" -%}
+  ,"description": {{ author_description_cleaned | jsonify }}
   {% endif -%}
 
 }

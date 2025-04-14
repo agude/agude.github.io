@@ -26,12 +26,6 @@
     "@type": "Person",
     "name": {{ site.author.name | jsonify }},
     "url": {{ site.url | append: site.baseurl | jsonify }}
-    {% if site.logo -%}
-    ,"logo": {
-        "@type": "ImageObject",
-        "url": {{ site.logo | absolute_url | jsonify }}
-    }
-    {% endif -%}
   },
   {% endif -%}
 
@@ -60,14 +54,28 @@
     "@id": {{ page.url | absolute_url | jsonify }}
   },
 
-  {% comment %} Description (Use page.description first, then excerpt) {% endcomment %}
-  {% assign description_text = page.description | default: page.excerpt | strip_html | strip_newlines | replace: '  ', ' ' | strip -%}
-  {% if description_text != "" -%}
-  {% comment %} Keep description short {% endcomment %}
-  "description": {{ description_text | truncatewords: 50, "..." | jsonify }},
+  {% comment %}
+   Description (Summary of the post)
+   Prioritize page.excerpt (auto-generated summary).
+   Fall back to page.description if excerpt is empty/missing.
+   Clean and truncate the chosen text.
+  {% endcomment %}
+  {% assign description_source = "" %}
+  {% if page.excerpt and page.excerpt != "" -%}
+    {% assign description_source = page.excerpt %}
+  {% elsif page.description and page.description != "" -%}
+    {% assign description_source = page.description %}
+  {% endif -%}
+  {% assign description_cleaned = description_source | strip_html | strip_newlines | replace: '  ', ' ' | strip -%}
+  {% if description_cleaned != "" -%}
+  "description": {{ description_cleaned | truncatewords: 50, "..." | jsonify }},
   {% endif -%}
 
-  {% comment %} Article Body (Full content, cleaned) {% endcomment %}
+  {% comment %}
+   Article Body (Full content)
+   Use the full page.content, cleaned.
+   This should remain the full content, not the excerpt.
+  {% endcomment %}
   {% assign article_body_cleaned = page.content | strip_html | strip_newlines | replace: '  ', ' ' | strip -%}
   {% if article_body_cleaned != "" -%}
   "articleBody": {{ article_body_cleaned | jsonify }},

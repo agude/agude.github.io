@@ -11,6 +11,11 @@ image_alt: >
   upholstry and a headrest. The arms are black. The base is silver-grey.
 categories:
   - opinions
+
+review:
+  item_name: "Steelcase Gesture"
+  item_url: "https://store.steelcase.com/gesture"
+  item_description: "An ergonomic office chair with highly adjustable features."
 ---
 
 {% capture file_dir %}/files/steelcase/{% endcapture %}
