@@ -53,6 +53,7 @@ ranked_list:
   - For We Are Many
   - Ymir
   - The Shadow of the Torturer
+  - Martin The Warrior
   - The Last Policeman
   - All These Worlds
   # 3 Stars
