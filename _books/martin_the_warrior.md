@@ -44,12 +44,12 @@ realize he's written himself into a corner, and has Martin proclaim, "I will
 never mention Noonvale, or any of you," as a way to explain why Martin's story
 in {{ this_book }} differs from the one told in {{ redwall }} or {{ mossflower
 }}. Until that moment, it hadn't felt odd that Martin---more legend than
-living being in the series---had a vague past, but calling attention to it
+living creature in the series---had a vague past, but calling attention to it
 made the gap feel unnatural.
 
 Overall, it's a little disappointing after the fantastic {{ salamandastron }}.
-I'm not sure how much further we'll get in the series---my kids are starting to
-want to read their own books instead of listening to Dad. I'm proud of the
+I'm not sure how much further we'll get in the series as my kids are starting
+to want to read their own books instead of listening to Dad. I'm proud of the
 readers they're becoming, but a little sad that it means story time is near
 its end.
 
