@@ -57,6 +57,7 @@ ranked_list:
   - All These Worlds
   # 3 Stars
   - Mission of Gravity
+  - Martin The Warrior
   - The Left Hand of Darkness
   - Gun, with Occasional Music
   - Countdown City
