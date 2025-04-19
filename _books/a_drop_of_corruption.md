@@ -16,3 +16,6 @@ image: /books/covers/a_drop_of_corruption.jpg
 {% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
 
 {% capture book1 %}{% include book_link.html title="The Tainted Cup"%}{% endcapture %}
+
+{% capture nero_wolfe_series %}{% include series_link.html title="Nero Wolfe"%} series{% endcapture %}
+{% capture rex_stout %}{% include author_link.html name="Rex Stout" %}{% endcapture %}
