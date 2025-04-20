@@ -100,6 +100,10 @@ ranked within each group.
  Ensures books are sorted correctly by rating (descending).
  Breaks build in non-production environments if order is violated.
 {% endcomment %}
+
+{%- capture newline %}
+{% endcapture -%}
+
 {% if jekyll.environment != "production" %}
   {% assign previous_rating = 6 %} {% comment %} Initialize higher than max possible rating (5) {% endcomment %}
   {% assign previous_title = "START_OF_LIST" %}
@@ -121,7 +125,7 @@ ranked within each group.
     {% comment %} Check 1: Did we find the book listed in ranked_list? {% endcomment %}
     {% if current_book_object == null %}
       {% link ranked_list_book_not_found_in_site %}
-      {% break %} {% comment %} Stop checking if data is missing {% endcomment %}
+      {% break %}
     {% endif %}
 
     {% assign current_rating = current_book_object.rating | plus: 0 %} {% comment %} Ensure numeric comparison {% endcomment %}
@@ -129,7 +133,7 @@ ranked within each group.
     {% comment %} Check 2: Is the current rating higher than the previous one? (Violation) {% endcomment %}
     {% if current_rating > previous_rating %}
        {% link monotonic_rating_violation %}
-       {% break %} {% comment %} Stop checking after first violation {% endcomment %}
+       {% break %}
     {% endif %}
 
     {% comment %} Update previous values for the next iteration {% endcomment %}
@@ -146,37 +150,31 @@ from the ranked_list that match each rating.
 {% endcomment %}
 {% assign ratings_to_process = "5|4|3|2|1" | split: "|" %}
 {% assign ranked_titles = page.ranked_list %}
-{%- capture newline %}
-{% endcapture -%}
 
-{% for current_rating in ratings_to_process %}
+{% for current_rating_str in ratings_to_process %}
+
+  {% comment %} Convert the rating string to an integer for filtering {% endcomment %}
+  {% assign current_rating_int = current_rating_str | plus: 0 %}
+
+  {% comment %} OPTIMIZATION: Pre-filter site.books using the INTEGER rating {% endcomment %}
+  {% assign books_with_current_rating = site.books | where_exp: "item", "item.rating == current_rating_int" %}
 
   {% comment %} Find book OBJECTS from the ranked list matching the current rating {% endcomment %}
-  {% assign books_in_rating_group = "" | split: "" %} {% comment %} Array to hold book OBJECTS {% endcomment %}
+  {% assign books_in_rating_group = "" | split: "" %}
   {% for ranked_title in ranked_titles %}
-    {% assign found_book_object = false %} {% comment %} Store the found object for this rating loop {% endcomment %}
+    {% assign found_book_object = false %}
 
     {% comment %} Prepare the target title from the ranked list (robust matching) {% endcomment %}
     {% assign target_title_processed = ranked_title | replace: newline, " " | downcase | strip %}
 
-    {% comment %} Loop through site.books to find the matching object with the correct rating {% endcomment %}
-    {% for book in site.books %}
-      {% comment %} Skip if book has no title {% endcomment %}
+    {% comment %} Loop ONLY through the pre-filtered books {% endcomment %}
+    {% for book in books_with_current_rating %}
       {% unless book.title %}{% continue %}{% endunless %}
-
-      {% comment %} Prepare the current book's title (robust matching) {% endcomment %}
       {% assign current_title_processed = book.title | replace: newline, " " | downcase | strip %}
 
-      {% comment %} Perform robust title comparison {% endcomment %}
       {% if current_title_processed == target_title_processed %}
-        {% comment %} Title matches, now check the rating {% endcomment %}
-        {% capture book_rating_str %}{{ book.rating }}{% endcapture %}
-        {% capture current_rating_str %}{{ current_rating }}{% endcapture %}
-        {% if book_rating_str == current_rating_str %}
-          {% comment %} Rating also matches, store the object and stop searching for this ranked_title {% endcomment %}
-          {% assign found_book_object = book %}
-          {% break %}
-        {% endif %}
+        {% assign found_book_object = book %}
+        {% break %}
       {% endif %}
     {% endfor %}
 
@@ -200,7 +198,6 @@ from the ranked_list that match each rating.
        {% unless title_exists_in_site %}
 <!-- WARNING: RANKED_LIST_TITLE_NOT_FOUND_IN_SITE: Title='{{ ranked_title | escape }}' -->
        {% endunless %}
-       {% comment %} We don't need to log when a book exists but its rating doesn't match the current loop iteration. {% endcomment %}
     {% endif %}
   {% endfor %}
 
