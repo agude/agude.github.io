@@ -120,8 +120,7 @@ ranked within each group.
 
     {% comment %} Check 1: Did we find the book listed in ranked_list? {% endcomment %}
     {% if current_book_object == null %}
-      {% capture error_msg %}ranked_list_book_not_found_in_site_{{ current_ranked_title | slugify }}{% endcapture %}
-      {% link {{ error_msg }} %}
+      {% link ranked_list_book_not_found_in_site %}
       {% break %} {% comment %} Stop checking if data is missing {% endcomment %}
     {% endif %}
 
@@ -129,8 +128,7 @@ ranked within each group.
 
     {% comment %} Check 2: Is the current rating higher than the previous one? (Violation) {% endcomment %}
     {% if current_rating > previous_rating %}
-       {% capture error_msg %}monotonic_rating_violation_{{ current_ranked_title | slugify }}_rating_{{ current_rating }}_found_after_{{ previous_title | slugify }}_rating_{{ previous_rating }}{% endcapture %}
-       {% link {{ error_msg }} %}
+       {% link monotonic_rating_violation %}
        {% break %} {% comment %} Stop checking after first violation {% endcomment %}
     {% endif %}
 
