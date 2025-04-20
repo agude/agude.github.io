@@ -1,0 +1,65 @@
+{%- comment -%}
+ Include: check_monotonic_rating.html
+ Purpose: Checks if a provided list of book titles is monotonically sorted
+          by rating (descending) based on data in site.books.
+          Outputs error details and breaks the build in non-production
+          environments if the list contains titles not found in site.books
+          or if the rating order is violated.
+
+ Parameters:
+ - ranked_list: The array/list of book titles to check (e.g., page.ranked_list)
+{%- endcomment -%}
+
+{%- capture newline %}
+{% endcapture -%}
+
+{%- comment -%} Only perform the check in non-production environments {%- endcomment -%}
+{% if jekyll.environment != "production" %}
+
+  {%- comment -%} Ensure the ranked_list parameter was passed {%- endcomment -%}
+  {% unless include.ranked_list %}
+    ERROR: check_monotonic_rating.html - Missing 'ranked_list' parameter.
+    {% link check_monotonic_rating_include_missing_ranked_list_parameter %}
+  {% endunless %}
+
+  {% assign list_to_check = include.ranked_list %}
+  {% assign previous_rating = 6 %} {% comment %} Initialize higher than max possible rating (5) {% endcomment %}
+  {% assign previous_title = "START_OF_LIST" %}
+
+  {% for current_ranked_title in list_to_check %}
+    {% assign current_book_object = null %}
+    {% assign target_title_processed = current_ranked_title | replace: newline, " " | downcase | strip %}
+
+    {% comment %} Find the book object using robust matching {% endcomment %}
+    {% for book in site.books %}
+      {% unless book.title %}{% continue %}{% endunless %}
+      {% assign current_title_processed = book.title | replace: newline, " " | downcase | strip %}
+      {% if current_title_processed == target_title_processed %}
+        {% assign current_book_object = book %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+
+    {% comment %} Check 1: Did we find the book listed in ranked_list? {% endcomment %}
+    {% if current_book_object == null %}
+      ERROR: Book title "{{ current_ranked_title | escape }}" from ranked_list not found in site.books.
+      {% link ranked_list_book_not_found %} {% comment %} Static link target {% endcomment %}
+      {% break %} {% comment %} Stop checking if data is missing {% endcomment %}
+    {% endif %}
+
+    {% assign current_rating = current_book_object.rating | plus: 0 %} {% comment %} Ensure numeric comparison {% endcomment %}
+
+    {% comment %} Check 2: Is the current rating higher than the previous one? (Violation) {% endcomment %}
+    {% if current_rating > previous_rating %}
+       ERROR: Monotonic rating violation. Book "{{ current_ranked_title | escape }}" (Rating: {{ current_rating }}) found after "{{ previous_title | escape }}" (Rating: {{ previous_rating }}).
+       {% link monotonic_rating_violation %} {% comment %} Static link target {% endcomment %}
+       {% break %} {% comment %} Stop checking after first violation {% endcomment %}
+    {% endif %}
+
+    {% comment %} Update previous values for the next iteration {% endcomment %}
+    {% assign previous_rating = current_rating %}
+    {% assign previous_title = current_ranked_title %}
+
+  {% endfor %}
+{% endif %}
+{%- comment -%} This include outputs nothing if successful {%- endcomment -%}
