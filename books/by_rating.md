@@ -7,6 +7,7 @@ book_topbar_include: true
 description: >
   Alexander Gude's (short) book reviews, grouped by rating and ranked within
   each group.
+redirect_from: /books/ranked/
 ranked_list:
   # 5 Stars
   - Echopraxia
