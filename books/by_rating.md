@@ -95,6 +95,53 @@ ranked within each group.
 {% include books_topbar.html %}
 
 {% comment %}
+ Monotonic Rating Check for page.ranked_list
+ Ensures books are sorted correctly by rating (descending).
+ Breaks build in non-production environments if order is violated.
+{% endcomment %}
+{% if jekyll.environment != "production" %}
+  {% assign previous_rating = 6 %} {% comment %} Initialize higher than max possible rating (5) {% endcomment %}
+  {% assign previous_title = "START_OF_LIST" %}
+
+  {% for current_ranked_title in page.ranked_list %}
+    {% assign current_book_object = null %}
+    {% assign target_title_processed = current_ranked_title | replace: newline, " " | downcase | strip %}
+
+    {% comment %} Find the book object using robust matching {% endcomment %}
+    {% for book in site.books %}
+      {% unless book.title %}{% continue %}{% endunless %}
+      {% assign current_title_processed = book.title | replace: newline, " " | downcase | strip %}
+      {% if current_title_processed == target_title_processed %}
+        {% assign current_book_object = book %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+
+    {% comment %} Check 1: Did we find the book listed in ranked_list? {% endcomment %}
+    {% if current_book_object == null %}
+      {% capture error_msg %}ranked_list_book_not_found_in_site_{{ current_ranked_title | slugify }}{% endcapture %}
+      {% link {{ error_msg }} %}
+      {% break %} {% comment %} Stop checking if data is missing {% endcomment %}
+    {% endif %}
+
+    {% assign current_rating = current_book_object.rating | plus: 0 %} {% comment %} Ensure numeric comparison {% endcomment %}
+
+    {% comment %} Check 2: Is the current rating higher than the previous one? (Violation) {% endcomment %}
+    {% if current_rating > previous_rating %}
+       {% capture error_msg %}monotonic_rating_violation_{{ current_ranked_title | slugify }}_rating_{{ current_rating }}_found_after_{{ previous_title | slugify }}_rating_{{ previous_rating }}{% endcapture %}
+       {% link {{ error_msg }} %}
+       {% break %} {% comment %} Stop checking after first violation {% endcomment %}
+    {% endif %}
+
+    {% comment %} Update previous values for the next iteration {% endcomment %}
+    {% assign previous_rating = current_rating %}
+    {% assign previous_title = current_ranked_title %}
+
+  {% endfor %}
+{% endif %}
+{% comment %} END MONOTONIC CHECK {% endcomment %}
+
+{% comment %}
 Iterate through ratings (high to low) and display books
 from the ranked_list that match each rating.
 {% endcomment %}
