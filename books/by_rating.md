@@ -5,61 +5,215 @@ layout: page
 permalink: /books/by-rating/
 book_topbar_include: true
 description: >
-  Alexander Gude's (short) book reviews.
+  Alexander Gude's (short) book reviews, grouped by rating and ranked within
+  each group.
+redirect_from: /books/ranked/
+ranked_list:
+  # 5 Stars
+  - Echopraxia
+  - Blindsight
+  - A Fire Upon the Deep
+  - Surface Detail
+  - Use of Weapons
+  - Look to Windward
+  - The Player of Games
+  - Inversions
+  - Pandora's Star
+  - Judas Unchained
+  - The Hydrogen Sonata
+  - A Memory Called Empire
+  - Night Without Stars
+  - The Colonel
+  - The Fall of Hyperion
+  - A Desolation Called Peace
+  - Childhood's End
+  - Dragon's Egg
+  - Starquake
+  - Salamandastron
+  - Mattimeo
+  - The Abyss Beyond Dreams
+  - Serpent Valley
+  - The Dreaming Void
+  # 4 Stars
+  - Excession
+  - Redwall
+  - Hyperion
+  - The Tainted Cup
+  - Patternmaster
+  - Wild Seed
+  - Eater
+  - The Citadel of the Autarch
+  - Grand Melee
+  - The Temporal Void
+  - The Evolutionary Void
+  - The Sword of the Lictor
+  - Valuable Humans in Transit and Other Stories
+  - Dog Soldier
+  - Mariel of Redwall
+  - We Are Legion (We Are Bob)
+  - Mossflower
+  - Matter
+  - For We Are Many
+  - Ymir
+  - The Shadow of the Torturer
+  - The Last Policeman
+  - All These Worlds
+  # 3 Stars
+  - Mission of Gravity
+  - Martin The Warrior
+  - The Left Hand of Darkness
+  - Gun, with Occasional Music
+  - Countdown City
+  - Heaven's River
+  - The Dragon's Banker
+  - The State of the Art
+  - Clay's Ark
+  - The Nameless City
+  - World of Trouble
+  - "Flatland: A Romance of Many Dimensions"
+  - The Fractal Prince
+  - Flowers for Algernon
+  - Chevalier
+  - The Claw of the Conciliator
+  - The Causal Angel
+  - There Is No Antimemetics Division
+  # 2 Stars
+  - Close to Critical
+  - Star Light
+  - Stand on Zanzibar
+  - Mind of My Mind
+  - The Quantum Thief
+  - The Urth of the New Sun
+  # 1 Stars
+  - Consider Phlebas
+  - House of Suns
+  - The Three-Body Problem
 ---
 
-Below you'll find short reviews of the books I've read, sorted by rating.
+Below you'll find short reviews of the books I've read, grouped by rating and
+ranked within each group.
 
 {% include books_topbar.html %}
 
 {% comment %}
-Build sorted list of unique ratings, highest to lowest.
+ Monotonic Rating Check for page.ranked_list
+ Ensures books are sorted correctly by rating (descending).
+ Breaks build in non-production environments if order is violated.
 {% endcomment %}
-{% assign all_ratings = "" %}
-{% for book in site.books %}
-  {% assign all_ratings = all_ratings | append: book.rating | append: "|" %}
-{% endfor %}
-{% assign sorted_ratings = all_ratings | split: "|" | uniq | sort | reverse %}
+{% if jekyll.environment != "production" %}
+  {% assign previous_rating = 6 %} {% comment %} Initialize higher than max possible rating (5) {% endcomment %}
+  {% assign previous_title = "START_OF_LIST" %}
 
-{% assign first_place = true %}
+  {% for current_ranked_title in page.ranked_list %}
+    {% assign current_book_object = null %}
+    {% assign target_title_processed = current_ranked_title | replace: newline, " " | downcase | strip %}
 
-{% for sort_rating in sorted_ratings %}
-  {% if sort_rating == null or sort_rating == "" %}
-    {% continue %}
-  {% endif %}
+    {% comment %} Find the book object using robust matching {% endcomment %}
+    {% for book in site.books %}
+      {% unless book.title %}{% continue %}{% endunless %}
+      {% assign current_title_processed = book.title | replace: newline, " " | downcase | strip %}
+      {% if current_title_processed == target_title_processed %}
+        {% assign current_book_object = book %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
 
-  {% comment %}
-  Collect and sort book titles for this rating.
-  {% endcomment %}
-  {% assign rating_titles = "" | split: "" %}
-  {% for book in site.books %}
-    {% capture r1 %}{{ book.rating }}{% endcapture %}
-    {% capture r2 %}{{ sort_rating }}{% endcapture %}
-    {% if r1 == r2 %}
-      {% assign normalized = book.title | remove: "The " | remove: "A " | remove: "An " %}
-      {% assign key = normalized | append: "||" | append: book.title %}
-      {% assign rating_titles = rating_titles | push: key %}
+    {% comment %} Check 1: Did we find the book listed in ranked_list? {% endcomment %}
+    {% if current_book_object == null %}
+      {% capture error_msg %}ranked_list_book_not_found_in_site_{{ current_ranked_title | slugify }}{% endcapture %}
+      {% link {{ error_msg }} %}
+      {% break %} {% comment %} Stop checking if data is missing {% endcomment %}
+    {% endif %}
+
+    {% assign current_rating = current_book_object.rating | plus: 0 %} {% comment %} Ensure numeric comparison {% endcomment %}
+
+    {% comment %} Check 2: Is the current rating higher than the previous one? (Violation) {% endcomment %}
+    {% if current_rating > previous_rating %}
+       {% capture error_msg %}monotonic_rating_violation_{{ current_ranked_title | slugify }}_rating_{{ current_rating }}_found_after_{{ previous_title | slugify }}_rating_{{ previous_rating }}{% endcapture %}
+       {% link {{ error_msg }} %}
+       {% break %} {% comment %} Stop checking after first violation {% endcomment %}
+    {% endif %}
+
+    {% comment %} Update previous values for the next iteration {% endcomment %}
+    {% assign previous_rating = current_rating %}
+    {% assign previous_title = current_ranked_title %}
+
+  {% endfor %}
+{% endif %}
+{% comment %} END MONOTONIC CHECK {% endcomment %}
+
+{% comment %}
+Iterate through ratings (high to low) and display books
+from the ranked_list that match each rating.
+{% endcomment %}
+{% assign ratings_to_process = "5|4|3|2|1" | split: "|" %}
+{% assign ranked_titles = page.ranked_list %}
+{%- capture newline %}
+{% endcapture -%}
+
+{% for current_rating in ratings_to_process %}
+
+  {% comment %} Find book OBJECTS from the ranked list matching the current rating {% endcomment %}
+  {% assign books_in_rating_group = "" | split: "" %} {% comment %} Array to hold book OBJECTS {% endcomment %}
+  {% for ranked_title in ranked_titles %}
+    {% assign found_book_object = false %} {% comment %} Store the found object for this rating loop {% endcomment %}
+
+    {% comment %} Prepare the target title from the ranked list (robust matching) {% endcomment %}
+    {% assign target_title_processed = ranked_title | replace: newline, " " | downcase | strip %}
+
+    {% comment %} Loop through site.books to find the matching object with the correct rating {% endcomment %}
+    {% for book in site.books %}
+      {% comment %} Skip if book has no title {% endcomment %}
+      {% unless book.title %}{% continue %}{% endunless %}
+
+      {% comment %} Prepare the current book's title (robust matching) {% endcomment %}
+      {% assign current_title_processed = book.title | replace: newline, " " | downcase | strip %}
+
+      {% comment %} Perform robust title comparison {% endcomment %}
+      {% if current_title_processed == target_title_processed %}
+        {% comment %} Title matches, now check the rating {% endcomment %}
+        {% capture book_rating_str %}{{ book.rating }}{% endcapture %}
+        {% capture current_rating_str %}{{ current_rating }}{% endcapture %}
+        {% if book_rating_str == current_rating_str %}
+          {% comment %} Rating also matches, store the object and stop searching for this ranked_title {% endcomment %}
+          {% assign found_book_object = book %}
+          {% break %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% comment %} Add the book if found with the correct rating {% endcomment %}
+    {% if found_book_object %}
+       {% assign books_in_rating_group = books_in_rating_group | push: found_book_object %}
+    {% elsif jekyll.environment != "production" %}
+       {% comment %} If not found for THIS rating, check if the title exists AT ALL in site.books.
+           Log only if the title from ranked_list is completely missing from the site data. {% endcomment %}
+       {% assign title_exists_in_site = false %}
+       {% for book_check in site.books %}
+         {% unless book_check.title %}{% continue %}{% endunless %}
+         {% assign check_title_processed = book_check.title | replace: newline, " " | downcase | strip %}
+         {% if check_title_processed == target_title_processed %}
+           {% assign title_exists_in_site = true %}
+           {% break %}
+         {% endif %}
+       {% endfor %}
+
+       {% comment %} Only log an error if the title from the ranked list was never found in site.books {% endcomment %}
+       {% unless title_exists_in_site %}
+<!-- WARNING: RANKED_LIST_TITLE_NOT_FOUND_IN_SITE: Title='{{ ranked_title | escape }}' -->
+       {% endunless %}
+       {% comment %} We don't need to log when a book exists but its rating doesn't match the current loop iteration. {% endcomment %}
     {% endif %}
   {% endfor %}
 
-  {% if rating_titles == empty %}
-    {% continue %}
+  {% comment %} Display the section if books were found for this rating {% endcomment %}
+  {% if books_in_rating_group.size > 0 %}
+<h2 class="book-list-headline">{% include book_rating.html rating=current_rating wrapper_tag="span" %}</h2>
+<div class="card-grid">
+      {% for book_object_to_display in books_in_rating_group %}
+        {% include auto_book_card_from_object.html book=book_object_to_display %}
+      {% endfor %}
+</div>
   {% endif %}
 
-  {% assign sorted_keys = rating_titles | sort %}
-
-  {% unless first_place %}
-</div>
-  {% endunless %}
-  {% assign first_place = false %}
-
-<h2 class="book-list-headline">{% include book_rating.html rating=sort_rating wrapper_tag="span" %}</h2>
-<div class="card-grid">
-
-  {% for key in sorted_keys %}
-    {% assign parts = key | split: "||" %}
-    {% assign original_title = parts[1] %}
-    {% include auto_book_card.html title=original_title %}
-  {% endfor %}
 {% endfor %}
-</div>
