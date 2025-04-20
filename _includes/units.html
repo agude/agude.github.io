@@ -67,7 +67,7 @@
     {%- assign unit_symbol = unit_key -%}
     {%- assign unit_name = unit_key -%}
     {%- if jekyll.environment != "production" -%}
-    <!-- units_WARNING: Reason=' Unit key not found in internal definitions ' UnitKey=' {{ unit_key | escape }} ' Number=' {{ number | escape }} ' -->
+<!-- WARNING: units: Reason=' Unit key not found in internal definitions ' UnitKey=' {{ unit_key | escape }} ' Number=' {{ number | escape }} ' -->
     {%- endif -%}
 {%- endcase -%}
 

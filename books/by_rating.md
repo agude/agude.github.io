@@ -199,7 +199,7 @@ from the ranked_list that match each rating.
 
        {% comment %} Only log an error if the title from the ranked list was never found in site.books {% endcomment %}
        {% unless title_exists_in_site %}
-<!-- RANKED_LIST_TITLE_NOT_FOUND_IN_SITE: Title='{{ ranked_title | escape }}' -->
+<!-- WARNING: RANKED_LIST_TITLE_NOT_FOUND_IN_SITE: Title='{{ ranked_title | escape }}' -->
        {% endunless %}
        {% comment %} We don't need to log when a book exists but its rating doesn't match the current loop iteration. {% endcomment %}
     {% endif %}
