@@ -16,6 +16,7 @@ match for Ana's own.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_authors_lastname %}<span class="author-name">{{ page.book_author | split: " " | last }}</span>{% endcapture %}
 {% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
 {% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
 
@@ -34,55 +35,71 @@ match for Ana's own.
 {% capture wolfes %}{% include author_link.html name="Gene Wolfe" possessive=true %}{% endcapture %}
 {% capture claw %}{% include book_link.html title="The Claw of the Conciliator"%}{% endcapture %}
 
-In {{ this_book }}, Din and Ana travel to the northern Kingdom of Yarrow to
-solve the murder of a treasury officer. At first it looks like the officer was
-abducted from his heavily guarded and locked room, but Din and Ana quickly
-figure out that the man everyone thought was the official was actually the
-murderer. They realize out that he has been planning to stop the flow of
-reagents into the Empire by disrupting the Shroud, a special containment
-structure in which leviathans are butchered.
+{% capture wattss %}{% include author_link.html name="Peter Watts" possessive=true %}{% endcapture %}
+{% capture echopraxia %}{% include book_link.html title="Echopraxia"%}{% endcapture %}
 
-I really enjoyed the mystery and the introduction of a villain who can
-challenge Ana's mind. But I was disappointed by the setting. {{ the_author }}
-made Yarrow much closer to high fantasy as a critique of the genre's obsession
-with autocratic rulers, and this meant it lost some of the biopunk weirdness
-that made {{ book1 }} so engaging. Ana and Din's relationship also feels
-subdued, perhaps because they have reached a stable equilibrium. This book
-referenced some events from the first one, but without enough context for me
-to remember exactly what happened. It is tough to balance between reminding
-the reader and over describing the last narrative, but it made my wonder if
-things were being retconned, or if I had just forgotten.
+In {{ this_book }}, Din and Ana travel to the northern Kingdom of Yarrow to
+solve the murder of a treasury officer. At first, it looks like the officer
+was abducted from his heavily guarded and locked room, but Din and Ana quickly
+figure out that the man everyone thought was the official was actually the
+murderer in disguise. They realize he's been planning to stop the flow of
+reagents into the Empire by sabotaging the Shroud---a special containment
+structure used to butcher leviathans.
+
+I really enjoyed the mystery and the introduction of a villain who could
+challenge Ana's mind. The slow reveal of the scope of the murderer's
+plot---from murder, to theft, to terrorism to destabilize negotiations between
+Yarrow and the Empire---kept me frantically turning pages to find out what
+came next. The fertilizer bomb built by the murderer was an eerie reference to
+similar weapons used by real domestic terrorists. The Shroud, and the augurs
+who bore through titan corpses safely using their pattern recognizing brains,
+were fantastic additions to the world.
+
+But I was disappointed by the setting. {{ the_author }} made Yarrow feel much
+closer to high fantasy as a critique of the genre's obsession with autocratic
+rulers. That shift made it lose some of the biopunk weirdness that made {{
+book1 }} so engaging. The book referenced events from the first one, but
+without enough context for me to recall them clearly. It's tough to balance
+reminding the reader without over-explaining the last book, but it left me
+wondering if things were being retconned or if I'd just forgotten.
 
 The major theme of {{ book1 }} was that a state is made up of its people, and
 each has a responsibility to put in the work to maintain it. {{ this_book }}
-continues that theme, but also focuses on the danger of authoritarian rulers.
-The King of Yarrow is a slaver whose failures lead to the destruction of his
-kingdom and people; the murderer---the pale king---is motivated not by high
-minded ideals but common greed; and Thelenai, the ranking imperial in the
-area, lets pride lead her to taking risks with her people that create the
-murderer in the first place.
+continues that theme, but also adds a focus on the danger of authoritarian
+rulers. The King of Yarrow is a slaver whose failures lead to the destruction
+of his kingdom and people; the murderer---the pale king---isn't driven by
+high-minded ideals but by ordinary greed; and Thelenai, the ranking imperial
+in the area, lets her pride push her into reckless decisions that end up
+creating the murderer in the first place.
 
-In my review of {{ book1 }}, I said that it was a "Homesian detective story",
-which isn't quite right: {{ the_author }} has clarified that he was inspired
-by {{ stouts }} {{ nero_wolfe_series }}. Although I haven't read that series,
-it is a close fit. Both Nero and Ana are armchair detectives whose
-memory-enhanced partners do all the investigation. Clearly Ana isn't modeled
-on Holmes, who traipsed about all over England and Europe investigating for
-himself.[^mycroft] I may give the first {{ nero_wolfe_series }} book, {{ fdr
-}}, a try soon.
+In my review of {{ book1 }}, I said it was a "Homesian detective story," which
+isn't quite right: {{ the_authors_lastname }} has clarified that he was
+inspired by {{ stouts }} {{ nero_wolfe_series }}. I haven't read that series,
+but it seems like a better fit.[^nero] Both Nero and Ana are armchair
+detectives whose memory-enhanced partners do all the investigating. Clearly,
+Ana isn't modeled on Holmes, who traipsed about all over England and Europe
+doing the legwork himself.[^mycroft]
+
+[^nero]:
+    I loved Sherklock Holmes as a teen, so I may give the first {{
+    nero_wolfe_series }} book, {{ fdr }}, a try soon.
 
 [^mycroft]: Sherlock's older brother, Mycroft, _is_ an armchair detective.
 
 I was reminded of a few previous reads:
 
-- The court intrigue and an ancient monarch reminded my of {{ martines }} {{ empire
+- The court intrigue and dying monarch are similar to {{ martines }} {{ empire
   }}.
 
-- The three augurs reminded me a bit of the three witches in {{ shakespeares
-  }}{{ macbeth }}, who in turn are inspired by the three fates.
+- The three augurs are like the witches in {{ shakespeares }}{{ macbeth }},
+  who themselves draw from the three fates.
 
-- Ana eating her grim feast to gain knowledge reminds me of Severian eating
+- Ana eating her grim feast to gain knowledge parallels Severian consuming
   Thecla's flesh to gain her memories in {{ wolfes }} {{ claw }}.
 
-Although not as good as {{ book1 }}, I still had fun reading {{ this_book
-  }}. I look forward to the forthcoming third book.
+- The trumivate of augurs forming a single mind and being unable to
+  communicate with normal humans are like the Bicamerals in {{ wattss }} {{
+  echopraxia }}.
+
+Although not as good as {{ book1 }}, I still had fun reading {{ this_book }}.
+I'm looking forward to the third book.
