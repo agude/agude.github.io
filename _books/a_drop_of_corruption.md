@@ -26,6 +26,8 @@ match for Ana's own.
 {% capture nero_wolfe_series %}{% include series_link.html series="Nero Wolfe"%} series{% endcapture %}
 {% capture stouts %}{% include author_link.html name="Rex Stout" possessive=true %}{% endcapture %}
 
+{% capture sherlock_series %}{% include series_link.html series="Shakespeare Holmes"%} series{% endcapture %}
+
 {% capture martines %}{% include author_link.html name="Arkady Martine" possessive=true %}{% endcapture %}
 {% capture empire %}{% include book_link.html title="A Memory Called Empire"%}{% endcapture %}
 
@@ -47,21 +49,21 @@ reagents into the Empire by sabotaging the Shroud---a special containment
 structure used to butcher leviathans.
 
 I really enjoyed the mystery and the introduction of a villain who could
-challenge Ana's mind. The slow reveal of the scope of the murderer's
-plot---from murder, to theft, to terrorism to destabilize negotiations between
-Yarrow and the Empire---kept me frantically turning pages to find out what
-came next. The fertilizer bomb built by the murderer was an eerie reference to
-similar weapons used by real domestic terrorists. The Shroud, and the augurs
-who bore through titan corpses safely using their pattern recognizing brains,
-were fantastic additions to the world.
+challenge Ana's mind. The slow reveal of the murderer's plot---from a single
+killing, to theft, to terrorism meant to destabilize negotiations between
+Yarrow and the Empire---kept me frantically turning pages to see what came
+next. The fertilizer bomb was an eerie nod to real-world domestic terrorism.
+The Shroud, and the augurs who bore through titan corpses using their
+pattern-recognizing brains, were fantastic additions to the world.
 
-But I was disappointed by the setting. {{ the_author }} made Yarrow feel much
-closer to high fantasy as a critique of the genre's obsession with autocratic
-rulers. That shift made it lose some of the biopunk weirdness that made {{
-book1 }} so engaging. The book referenced events from the first one, but
-without enough context for me to recall them clearly. It's tough to balance
-reminding the reader without over-explaining the last book, but it left me
-wondering if things were being retconned or if I'd just forgotten.
+But I was disappointed by the setting. {{ the_authors_lastname }} made Yarrow
+feel much closer to high fantasy as a critique of the genre's obsession with
+autocratic rulers. That shift made it lose some of the biopunk weirdness that
+made {{ book1 }} so engaging. The book referenced events from the first one,
+but without enough context for me to recall them clearly. It's tough to
+balance reminding the reader without over-explaining the last book, but it
+left me wondering if the author was changing the story or if I'd just
+forgotten the details.
 
 The major theme of {{ book1 }} was that a state is made up of its people, and
 each has a responsibility to put in the work to maintain it. {{ this_book }}
@@ -81,8 +83,8 @@ Ana isn't modeled on Holmes, who traipsed about all over England and Europe
 doing the legwork himself.[^mycroft]
 
 [^nero]:
-    I loved Sherklock Holmes as a teen, so I may give the first {{
-    nero_wolfe_series }} book, {{ fdr }}, a try soon.
+    I loved the {{ sherlock_series }} as a teen, so I might give the first {{
+    nero_wolfe_series }} book, {{ fdr }}, a try sometime soon.
 
 [^mycroft]: Sherlock's older brother, Mycroft, _is_ an armchair detective.
 
