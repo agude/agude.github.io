@@ -11,8 +11,8 @@ image: /books/covers/a_drop_of_corruption.jpg
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is the second <span
 class="book-series">{{ page.series }}</span> book. In it, Din and Ana track
-down a murder in the northern Kingdom of Yarrow, the home of the Shroud where
-leviathans are butchered for reagents.
+down a murderer in the northern Kingdom of Yarrow whose brilliance is almost a
+match for Ana's own.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -34,42 +34,44 @@ leviathans are butchered for reagents.
 {% capture wolfes %}{% include author_link.html name="Gene Wolfe" possessive=true %}{% endcapture %}
 {% capture claw %}{% include book_link.html title="The Claw of the Conciliator"%}{% endcapture %}
 
-I said that {{ book1 }} was a "Homesian detective story", which isn't quite
-right: {{ the_author }} has clarified that he was inspired by {{ stouts }} {{
-nero_wolfe_series }}. Although I haven't read that series, the fit does seem
-to be better. Both Nero and Ana are armchair detectives who listen to reports
-from their partners with enhanced memory about the case to solve it rather
-than investigate, while Holmes traipsed about all over England.[^mycroft]
-Perhaps I'll have to pick up the first book, {{ fdr }}, soon.
-
-[^mycroft]: Sherlock's older brother, Mycroft, _is_ an armchair detective.
-
 In {{ this_book }}, Din and Ana travel to the northern Kingdom of Yarrow to
-solve the murder of a treasury officer. The officer was thought to have been
-abducted from his locked room, but Din and Ana quickly realize that the man
-everyone thought was the official was actually the murder, and that he has
-been planning to disrupt the flow of reagents into the Empire by disruption
-the Shroud, a special containment structure in which leviathans are butchered.
+solve the murder of a treasury officer. At first it looks like the officer was
+abducted from his heavily guarded and locked room, but Din and Ana quickly
+figure out that the man everyone thought was the official was actually the
+murderer. They realize out that he has been planning to stop the flow of
+reagents into the Empire by disrupting the Shroud, a special containment
+structure in which leviathans are butchered.
 
 I really enjoyed the mystery and the introduction of a villain who can
-challenge Ana's brilliance. But I was disappointed by the setting. {{
-the_author }} made Yarrow much closer to high fantasy as a critique of the
-genre's obsession with autocratic rulers, and this meant it lost some of the
-biopunk weirdness that made {{ book1 }} so engaging. Ana and Din's
-relationship also feels subdued, perhaps because they have reached a
-equilibrium. This book also referenced some events from the first one, but
-without enough context for me to remember what happened. It is tough to
-balance reminding the reader, and over describing the last narrative, but I
-would appreciated a little more hand-holding.
+challenge Ana's mind. But I was disappointed by the setting. {{ the_author }}
+made Yarrow much closer to high fantasy as a critique of the genre's obsession
+with autocratic rulers, and this meant it lost some of the biopunk weirdness
+that made {{ book1 }} so engaging. Ana and Din's relationship also feels
+subdued, perhaps because they have reached a stable equilibrium. This book
+referenced some events from the first one, but without enough context for me
+to remember exactly what happened. It is tough to balance between reminding
+the reader and over describing the last narrative, but it made my wonder if
+things were being retconned, or if I had just forgotten.
 
 The major theme of {{ book1 }} was that a state is made up of its people, and
 each has a responsibility to put in the work to maintain it. {{ this_book }}
 continues that theme, but also focuses on the danger of authoritarian rulers.
 The King of Yarrow is a slaver whose failures lead to the destruction of his
-kingdom and people; the murderer---the pale king---is motivated not by
-high minded ideals but common greed; and Thelenai, the ranking imperial, lets
-pride lead her to taking risks with her people that create the murderer in the
-first place.
+kingdom and people; the murderer---the pale king---is motivated not by high
+minded ideals but common greed; and Thelenai, the ranking imperial in the
+area, lets pride lead her to taking risks with her people that create the
+murderer in the first place.
+
+In my review of {{ book1 }}, I said that it was a "Homesian detective story",
+which isn't quite right: {{ the_author }} has clarified that he was inspired
+by {{ stouts }} {{ nero_wolfe_series }}. Although I haven't read that series,
+it is a close fit. Both Nero and Ana are armchair detectives whose
+memory-enhanced partners do all the investigation. Clearly Ana isn't modeled
+on Holmes, who traipsed about all over England and Europe investigating for
+himself.[^mycroft] I may give the first {{ nero_wolfe_series }} book, {{ fdr
+}}, a try soon.
+
+[^mycroft]: Sherlock's older brother, Mycroft, _is_ an armchair detective.
 
 I was reminded of a few previous reads:
 
