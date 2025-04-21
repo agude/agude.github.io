@@ -51,6 +51,7 @@ ranked_list:
   - Dog Soldier
   - Mariel of Redwall
   - We Are Legion (We Are Bob)
+  - A Drop of Corruption
   - Mossflower
   - Matter
   - For We Are Many
