@@ -30,7 +30,7 @@ almost a match for Ana's own.
 {% capture nero_wolfe_series %}{% include series_link.html series="Nero Wolfe"%} series{% endcapture %}
 {% capture stouts %}{% include author_link.html name="Rex Stout" possessive=true %}{% endcapture %}
 
-{% capture sherlock_series %}{% include series_link.html series="Shakespeare Holmes"%} series{% endcapture %}
+{% capture sherlock_series %}{% include series_link.html series="Sherlock Holmes"%} series{% endcapture %}
 
 {% capture martines %}{% include author_link.html name="Arkady Martine" possessive=true %}{% endcapture %}
 {% capture empire %}{% include book_link.html title="A Memory Called Empire"%}{% endcapture %}
@@ -48,17 +48,17 @@ In {{ this_book }}, Din and Ana travel to Yarrow to solve the murder of a
 treasury officer. At first, it looks like the officer was abducted from his
 heavily guarded and locked room, but Din and Ana quickly figure out that the
 man everyone thought was the official was actually the murderer in disguise.
-They realize he's been planning to stop the flow of reagents into the Empire
-by sabotaging the Shroud---a special containment structure used to butcher
-leviathans. <!-- TODO: Not really -->
+They realize he's been planning to sabotage the negotiations between the
+Empire and Yarrow.
 
 I really enjoyed the mystery and the introduction of a villain who could
 challenge Ana's mind.[^moriarty] The slow reveal of the murderer's plot---from
 a single killing, to theft, to terrorism meant to destabilize negotiations
 between Yarrow and the Empire---kept me frantically turning pages to see what
 came next. The fertilizer bomb was an eerie nod to real-world domestic
-terrorism. The Shroud, and the augurs who bore through titan corpses using
-their pattern-recognizing brains, were fantastic additions to the world.
+terrorism. The Shroud---a special containment structure used to
+butcher leviathans---and the augurs who bore through the corpses using their
+pattern-recognizing brains, were fantastic additions to the world.
 
 [^moriarty]:
     Although not quite her Moriarty---Holmes's archenemy from {{
@@ -89,11 +89,12 @@ inspired by {{ stouts }} {{ nero_wolfe_series }}. I haven't read that series,
 but it seems like a better fit.[^nero] Both Nero and Ana are armchair
 detectives whose memory-enhanced partners do all the investigating. Clearly,
 Ana isn't modeled on Holmes, who traipsed about all over England and Europe
-doing the legwork himself.[^mycroft]
+doing much of the legwork himself.[^mycroft]
 
 [^nero]:
-    I loved the {{ sherlock_series }} as a teen, so I might give the first {{
-    nero_wolfe_series }} book, {{ fdr }}, a try sometime soon.
+    I'm a fan of mystery---I loved the {{ sherlock_series }} as a teen---so I
+    might give the first {{ nero_wolfe_series }} book, {{ fdr }}, a try
+    sometime soon.
 
 [^mycroft]: Sherlock's older brother, Mycroft, _is_ an armchair detective.
 
