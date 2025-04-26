@@ -14,6 +14,9 @@ It follows investigators Dinios Kol and Ana Dolabra as they try to solve the
 murder of an engineer and uncover a conspiracy that runs far deeper.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
+
+{% capture corruption %}{% include book_link.html title="A Drop of Corruption" %}{% endcapture %}
 
 {% capture house %}{% include book_link.html title="House of Suns" %}{% endcapture %}
 {% capture botns %}{% include series_link.html series="The Book of the New Sun" %}{% endcapture %}
@@ -62,7 +65,7 @@ more direct in their actions.
     I feel like I'm in danger of succumbing to the traditional ailment of {{
     botns }} fans: seeing connections where there are none.
 
-I really enjoyed the characters in {{ this_book }} and its unique setting. The
-book is the first part in an as-of-yet unwritten series, and it left enough
-questions about the world unanswered for the next few books to explore. I look
-forward to reading them!
+I really enjoyed the characters in {{ this_book }} and its unique setting.
+It's the first part of the {{ this_series }}, and it leaves just the right
+number of questions about the world unanswered for the next books to explore.
+I can't wait to keep going in {{ corruption }}.

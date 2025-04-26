@@ -51,6 +51,7 @@ ranked_list:
   - Dog Soldier
   - Mariel of Redwall
   - We Are Legion (We Are Bob)
+  - A Drop of Corruption
   - Mossflower
   - Matter
   - For We Are Many
@@ -96,58 +97,18 @@ ranked within each group.
 {% include books_topbar.html %}
 
 {% comment %}
- Monotonic Rating Check for page.ranked_list
- Ensures books are sorted correctly by rating (descending).
- Breaks build in non-production environments if order is violated.
+Ensure that the ranking is monotonically decreasing in star rating
 {% endcomment %}
-
-{%- capture newline %}
-{% endcapture -%}
-
-{% if jekyll.environment != "production" %}
-  {% assign previous_rating = 6 %} {% comment %} Initialize higher than max possible rating (5) {% endcomment %}
-  {% assign previous_title = "START_OF_LIST" %}
-
-  {% for current_ranked_title in page.ranked_list %}
-    {% assign current_book_object = null %}
-    {% assign target_title_processed = current_ranked_title | replace: newline, " " | downcase | strip %}
-
-    {% comment %} Find the book object using robust matching {% endcomment %}
-    {% for book in site.books %}
-      {% unless book.title %}{% continue %}{% endunless %}
-      {% assign current_title_processed = book.title | replace: newline, " " | downcase | strip %}
-      {% if current_title_processed == target_title_processed %}
-        {% assign current_book_object = book %}
-        {% break %}
-      {% endif %}
-    {% endfor %}
-
-    {% comment %} Check 1: Did we find the book listed in ranked_list? {% endcomment %}
-    {% if current_book_object == null %}
-      {% link ranked_list_book_not_found_in_site %}
-      {% break %}
-    {% endif %}
-
-    {% assign current_rating = current_book_object.rating | plus: 0 %} {% comment %} Ensure numeric comparison {% endcomment %}
-
-    {% comment %} Check 2: Is the current rating higher than the previous one? (Violation) {% endcomment %}
-    {% if current_rating > previous_rating %}
-       {% link monotonic_rating_violation %}
-       {% break %}
-    {% endif %}
-
-    {% comment %} Update previous values for the next iteration {% endcomment %}
-    {% assign previous_rating = current_rating %}
-    {% assign previous_title = current_ranked_title %}
-
-  {% endfor %}
-{% endif %}
-{% comment %} END MONOTONIC CHECK {% endcomment %}
+{% include check_monotonic_rating.html ranked_list=page.ranked_list %}
 
 {% comment %}
 Iterate through ratings (high to low) and display books
 from the ranked_list that match each rating.
 {% endcomment %}
+
+{%- capture newline %}
+{% endcapture -%}
+
 {% assign ratings_to_process = "5|4|3|2|1" | split: "|" %}
 {% assign ranked_titles = page.ranked_list %}
 
