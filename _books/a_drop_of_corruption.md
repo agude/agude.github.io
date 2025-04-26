@@ -14,7 +14,6 @@ class="book-series">{{ page.series }}</span> book. This time, Din and Ana
 track down a murderer in the northern Kingdom of Yarrow whose brilliance is
 almost a match for Ana's own.
 
-
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_author | split: " " | last }}</span>{% endcapture %}
@@ -56,14 +55,13 @@ challenge Ana's mind.[^moriarty] The slow reveal of the murderer's plot---from
 a single killing, to theft, to terrorism meant to destabilize negotiations
 between Yarrow and the Empire---kept me frantically turning pages to see what
 came next. The fertilizer bomb was an eerie nod to real-world domestic
-terrorism. The Shroud---a special containment structure used to
-butcher leviathans---and the augurs who bore through the corpses using their
-pattern-recognizing brains, were fantastic additions to the world.
+terrorism. The Shroud---a special containment structure used to butcher
+leviathans---and the augurs who bore through the corpses using their
+pattern-recognizing brains were fantastic additions to the world.
 
 [^moriarty]:
-    Although not quite her Moriarty---Holmes's archenemy from {{
-    doyles }} {{ final_problem }}---as the murderer dies at the end of the
-    book.
+    Although not quite her Moriarty---Holmes's archenemy from {{ doyles }} {{
+    final_problem }}---as the murderer dies at the end of the book.
 
 But I was disappointed by the setting. {{ the_authors_lastname }} made Yarrow
 feel much closer to high fantasy as a critique of the genre's obsession with
@@ -76,15 +74,15 @@ forgotten the details.
 
 The major theme of {{ book1 }} was that a state is made up of its people, and
 each has a responsibility to put in the work to maintain it. {{ this_book }}
-continues that theme, but also adds a focus on the danger of authoritarian
+continues that theme but also adds a focus on the danger of authoritarian
 rulers. The King of Yarrow is a slaver whose failures lead to the destruction
 of his kingdom and people; the murderer---the pale king---isn't driven by
 high-minded ideals but by ordinary greed; and Thelenai, the ranking imperial
 in the area, lets her pride push her into reckless decisions that end up
 creating the murderer in the first place.
 
-In my review of {{ book1 }}, I said it was a "Homesian detective story," which
-isn't quite right: {{ the_authors_lastname }} has clarified that he was
+In my review of {{ book1 }}, I said it was a "Holmesian detective story,"
+which isn't quite right: {{ the_authors_lastname }} has clarified that he was
 inspired by {{ stouts }} {{ nero_wolfe_series }}. I haven't read that series,
 but it seems like a better fit.[^nero] Both Nero and Ana are armchair
 detectives whose memory-enhanced partners do all the investigating. Clearly,
@@ -103,14 +101,14 @@ I was reminded of a few previous reads:
 - The court intrigue and dying monarch are similar to {{ martines }} {{ empire
   }}.
 
-- The three augurs are like the witches in {{ shakespeares }}{{ macbeth }},
-  who themselves draw from the three fates.
-
 - Ana eating her grim feast to gain knowledge parallels Severian consuming
   Thecla's flesh to gain her memories in {{ wolfes }} {{ claw }}.
 
-- The trumivate of augurs forming a single mind and being unable to
-  communicate with normal humans are like the Bicamerals in {{ wattss }} {{
+- The three augurs are like the witches in {{ shakespeares }} {{ macbeth }},
+  who themselves draw from the three Fates.
+
+- The triumvirate of augurs forming a single mind and being unable to
+  communicate with normal humans is like the Bicamerals in {{ wattss }} {{
   echopraxia }}.
 
 Although not as good as {{ book1 }}, I still had fun reading {{ this_book }}.
