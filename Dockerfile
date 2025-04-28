@@ -1,3 +1,4 @@
+# Dockerfile
 FROM ruby:3
 
 # Avoid prompt for time zone info.
@@ -9,12 +10,28 @@ ENV LC_ALL=C.UTF-8
 ENV LANG=$US_UTF
 ENV LANGUAGE=$US_UTF
 
-# Install required gems via bundle
-RUN gem install bundler -v 2.4.22
+# Install required bundler version for consistency
+RUN gem install bundler -v 2.4.22 --no-document
 
-ENV BUNDLE_GEMFILE=/tmp/Gemfile
-COPY Gemfile $BUNDLE_GEMFILE
+# Set working directory
+WORKDIR /workspace
 
-RUN bundle install -j 4
+# Copy *only* the Gemfile first to leverage Docker cache
+# Gemfile.lock from the host should be excluded via .dockerignore
+# so the build always reflects the Gemfile.
+COPY Gemfile Gemfile
 
-CMD ["/bin/bash"]
+# REMOVED: Configure Bundler local path - we want global gems now
+# RUN bundle config set --local path 'vendor/bundle'
+
+# Install gems based on Gemfile.
+# This will install gems globally in the image's default gem path
+# and generate Gemfile.lock inside the image build context (/workspace/Gemfile.lock).
+RUN bundle install --jobs 4
+
+# Now copy the rest of the application code.
+# This includes _config.yml, posts, includes, layouts, assets, etc.
+# Files listed in .dockerignore will be excluded.
+COPY . .
+
+# No CMD needed, will be provided by docker run

@@ -1,3 +1,4 @@
+# Makefile (No changes needed from your last version)
 IMAGE := jekyll-image-agude
 MOUNT := /workspace
 
@@ -5,35 +6,32 @@ MOUNT := /workspace
 
 all: serve
 
-# Clean out _site and other caches
-clean: image
-	docker run --rm -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll clean
+image: Dockerfile Gemfile # Gemfile.lock is generated inside image, not needed as dependency here
+	@echo "Building Docker image $(IMAGE) using '.' as context..."
+	@if [ ! -f .dockerignore ]; then \
+		echo "Warning: .dockerignore file not found. Build context might be large or include unwanted files."; \
+	fi
+	@docker build . -f Dockerfile -t $(IMAGE)
 
-# Serve the site as it will appear when published.
-serve: image clean
-	docker run --rm -p 4000:4000 -p 35729:35729 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll serve --watch --safe --incremental --livereload
-
-# Serve the site but also publish drafts.
-drafts: image clean
-	docker run --rm -p 4000:4000 -p 35729:35729 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll serve --drafts --future --watch --safe --incremental --livereload
-
-# Interactive session within the image so you can poke around.
-debug: image
-	docker run -it --rm -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE)
-
-# Don't send the whole repo to Docker. All we need is the Gemfile.
-BUILDDIR := /tmp/jekyll-docker-agude
-
-image: Dockerfile Gemfile
-	rm -rf $(BUILDDIR)
-	mkdir -p $(BUILDDIR)
-	cp Gemfile $(BUILDDIR)
-	docker build $(BUILDDIR) -f Dockerfile -t $(IMAGE)
-
-# Rebuilding from halfway using a cached image can sometimes cause
-# problems. Use `make refresh` to rebuild the image from the ground up.
 refresh: Dockerfile Gemfile
-	rm -rf $(BUILDDIR)
-	mkdir -p $(BUILDDIR)
-	cp Gemfile $(BUILDDIR)
-	docker build $(BUILDDIR) -f Dockerfile -t $(IMAGE) --no-cache
+	@echo "Rebuilding Docker image $(IMAGE) with --no-cache..."
+	@if [ ! -f .dockerignore ]; then \
+		echo "Warning: .dockerignore file not found. Build context might be large or include unwanted files."; \
+	fi
+	@docker build . -f Dockerfile -t $(IMAGE) --no-cache
+
+clean: image
+	@echo "Cleaning Jekyll build artifacts..."
+	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll clean
+
+serve: image clean
+	@echo "Serving site at http://localhost:4000 (or http://<docker_ip>:4000)..."
+	@docker run --rm -p 4000:4000 -p 35729:35729 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll serve --host 0.0.0.0 --watch --incremental --livereload
+
+drafts: image clean
+	@echo "Serving site with drafts at http://localhost:4000 (or http://<docker_ip>:4000)..."
+	@docker run --rm -p 4000:4000 -p 35729:35729 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll serve --host 0.0.0.0 --drafts --future --watch --incremental --livereload
+
+debug: image
+	@echo "Starting interactive debug session in container..."
+	@docker run -it --rm -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) /bin/bash
