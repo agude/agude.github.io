@@ -164,7 +164,7 @@ from the ranked_list that match each rating.
 
   {% comment %} Display the section if books were found for this rating {% endcomment %}
   {% if books_in_rating_group.size > 0 %}
-<h2 class="book-list-headline">{% include book_rating.html rating=current_rating_int wrapper_tag="span" %}</h2>
+<h2 class="book-list-headline" id="rating-{{ current_rating_str }}">{% include book_rating.html rating=current_rating_int wrapper_tag="span" %}</h2>
 <div class="card-grid">
       {% for book_object_to_display in books_in_rating_group %}
         {% include auto_book_card_from_object.html book=book_object_to_display %}
