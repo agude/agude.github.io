@@ -1,32 +1,63 @@
 # _plugins/series_link_tag.rb
 require 'jekyll'
 require 'liquid'
-require_relative 'liquid_utils' # Use require_relative
+require 'cgi' # For HTML escaping
+require 'strscan' # For flexible argument parsing
+require_relative 'liquid_utils' # Use require_relative for local utils
 
 module Jekyll
   # Liquid Tag for creating a link to a series page, wrapped in <span>.
   # Handles optional display text override.
+  # Arguments can be in flexible order after the title.
   # Usage: {% series_link "Title" [link_text="Display Text"] %}
   #        {% series_link variable [link_text=var2] %}
   class SeriesLinkTag < Liquid::Tag
-    # Regex to capture: Title (quoted or variable), optional link_text=...
-    SYNTAX = /^(#{Liquid::QuotedFragment})(?:\s+link_text\s*=\s*(#{Liquid::QuotedFragment}))?/o
+    # Keep QuotedFragment handy for parsing values
+    QuotedFragment = Liquid::QuotedFragment
 
     def initialize(tag_name, markup, tokens)
       super
-      # Parse the markup string according to the syntax regex
-      if markup =~ SYNTAX
-        @title_markup = $1 # The part representing the title
-        @link_text_markup = $2 # The part representing link_text, might be nil
-      else
-        # Basic fallback
-        @title_markup = markup.strip
-        @link_text_markup = nil
-        # Consider raising SyntaxError
-        # raise Liquid::SyntaxError, "Syntax Error in 'series_link': Bad syntax. Expected {% series_link \"Title\" [link_text=\"Text\"] %}"
-      end
-    end
+      @raw_markup = markup # Store original for potential error messages
 
+      # --- Improved Argument Parsing using StringScanner ---
+      @title_markup = nil
+      @link_text_markup = nil
+
+      # Use a scanner to step through the markup
+      scanner = StringScanner.new(markup.strip)
+
+      # 1. Extract the Title (first argument, must be quoted or a variable)
+      if scanner.scan(QuotedFragment)
+        @title_markup = scanner.matched
+      else
+        # If not quoted, try matching a sequence of non-whitespace characters (potential variable)
+        if scanner.scan(/\S+/)
+           @title_markup = scanner.matched
+        else
+           # If nothing is found, it's a syntax error
+           raise Liquid::SyntaxError, "Syntax Error in 'series_link': Could not find series title in '#{@raw_markup}'"
+        end
+      end
+
+      # 2. Scan the rest of the string for optional arguments (link_text)
+      until scanner.eos?
+        scanner.skip(/\s+/) # Consume leading whitespace
+        break if scanner.eos?
+
+        # Check for link_text=... argument
+        if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
+          @link_text_markup ||= scanner[1] # Take the first one found
+        else
+          # Found an unrecognized argument
+          unknown_arg = scanner.scan(/\S+/)
+          raise Liquid::SyntaxError, "Syntax Error in 'series_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
+        end
+      end
+      # --- End Improved Argument Parsing ---
+
+    end # End initialize
+
+    # Renders the series link HTML
     def render(context)
       # Resolve the potentially variable markup into actual strings
       series_title = LiquidUtils.resolve_value(@title_markup, context).to_s.gsub(/\s+/, ' ').strip
@@ -38,7 +69,7 @@ module Jekyll
           context: context,
           tag_type: "SERIES_LINK",
           reason: "Input title markup resolved to empty",
-          identifiers: { Markup: @title_markup }
+          identifiers: { Markup: @title_markup || @raw_markup }
         )
         return ""
       end
@@ -96,8 +127,10 @@ module Jekyll
         span_element
       end
       # --- End Link Generation ---
-    end
-  end
-end
+    end # End render
 
+  end # End class SeriesLinkTag
+end # End module Jekyll
+
+# Register the tag with Liquid so Jekyll recognizes {% series_link ... %}
 Liquid::Template.register_tag('series_link', Jekyll::SeriesLinkTag)
