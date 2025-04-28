@@ -18,16 +18,16 @@ manipulate a medieval society.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture this_series %}{% series_link page.series %} series{% endcapture %}
 
-{% capture c1 %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
-{% capture c2 %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
-{% capture c3 %}{% include book_link.html title="Use of Weapons" %}{% endcapture %}
-{% capture c5 %}{% include book_link.html title="Excession" %}{% endcapture %}
-{% capture c7 %}{% include book_link.html title="Look to Windward" %}{% endcapture %}
+{% capture c1 %}{% book_link "Consider Phlebas" %}{% endcapture %}
+{% capture c2 %}{% book_link "The Player of Games" %}{% endcapture %}
+{% capture c3 %}{% book_link "Use of Weapons" %}{% endcapture %}
+{% capture c5 %}{% book_link "Excession" %}{% endcapture %}
+{% capture c7 %}{% book_link "Look to Windward" %}{% endcapture %}
 
-{% capture torture %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
+{% capture torture %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
 
 {{ this_book }} is polarizing: on [goodreads][gr] it has a reader score of
 3.95---lower than any other Culture novel except {{ c1 }}. I understand why:

@@ -15,7 +15,7 @@ alter reality.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
-{% capture fractal_prince %}{% include book_link.html title="The Fractal Prince" %}{% endcapture %}
+{% capture fractal_prince %}{% book_link "The Fractal Prince" %}{% endcapture %}
 
 We discover that the Pellegrini extracted two people from the prison: Le
 Flambeur and his corrupted copy, the All-Defector, who can predict and counter

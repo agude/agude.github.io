@@ -14,14 +14,14 @@ awards:
 <cite class="book-title">{{ page.title }}</cite> is the second book in <span
 class="author-name">{{ page.book_author }}</span>'s <span
 class="book-series">{{ page.series }}</span> tetralogy. It picks up right
-where {% include book_link.html title="The Shadow of the Torturer" %} leaves
+where {% book_link "The Shadow of the Torturer" %} leaves
 off, following Severian as he makes his way towards Thrax.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
+{% capture this_series %}{% series_link page.series %}{% endcapture %}
 
-{% capture shadow_torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
-{% capture sword_lictor %}{% include book_link.html title="The Sword of the Lictor" %}{% endcapture %}
+{% capture shadow_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+{% capture sword_lictor %}{% book_link "The Sword of the Lictor" %}{% endcapture %}
 
 The book is very similar to {{ shadow_torturer }}: Florid writing, slow pace,
 lots of themes and allegories, and mysteries that are exposed only to be

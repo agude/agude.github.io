@@ -17,10 +17,10 @@ entire government.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
+{% capture this_series %}{% series_link page.series %} series{% endcapture %}
 {% capture bankss %}<span class="author-name">Banks</span>'s{% endcapture %}
 
-{% capture consider_phlebas %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
+{% capture consider_phlebas %}{% book_link "Consider Phlebas" %}{% endcapture %}
 
 {% capture short_games %}<cite class="book-title">Games</cite>{% endcapture %}
 {% capture short_phlebas %}<cite class="book-title">Phlebas</cite>{% endcapture %}

@@ -15,21 +15,21 @@ days of the Glitz people as they prepare to Sublime.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
-{% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture this_series %}{% series_link page.series %} series{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
 
-{% capture the_quarry %}{% include book_link.html title="The Quarry" %}{% endcapture %}
+{% capture the_quarry %}{% book_link "The Quarry" %}{% endcapture %}
 {% capture iain_banks %}<span class="author-name">Iain Banks</span>{% endcapture %}
 
-{% capture c1 %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
-{% capture c2 %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
-{% capture c3 %}{% include book_link.html title="Use of Weapons" %}{% endcapture %}
-{% capture c4 %}{% include book_link.html title="The State of the Art" %}{% endcapture %}
-{% capture c5 %}{% include book_link.html title="Excession" %}{% endcapture %}
-{% capture c6 %}{% include book_link.html title="Inversions" %}{% endcapture %}
-{% capture c7 %}{% include book_link.html title="Look to Windward" %}{% endcapture %}
-{% capture c9 %}{% include book_link.html title="Surface Detail" %}{% endcapture %}
+{% capture c1 %}{% book_link "Consider Phlebas" %}{% endcapture %}
+{% capture c2 %}{% book_link "The Player of Games" %}{% endcapture %}
+{% capture c3 %}{% book_link "Use of Weapons" %}{% endcapture %}
+{% capture c4 %}{% book_link "The State of the Art" %}{% endcapture %}
+{% capture c5 %}{% book_link "Excession" %}{% endcapture %}
+{% capture c6 %}{% book_link "Inversions" %}{% endcapture %}
+{% capture c7 %}{% book_link "Look to Windward" %}{% endcapture %}
+{% capture c9 %}{% book_link "Surface Detail" %}{% endcapture %}
 
 {{ this_book }} is a fitting end to the {{ this_series }}. It pairs perfectly
 with {{ c1 }}, as both explore the insignificance of a single being in the

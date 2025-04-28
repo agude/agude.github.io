@@ -19,8 +19,8 @@ beautifully crafted narrative, it failed to hold my attention.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 
-{% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
-{% capture echopraxia %}{% include book_link.html title="Echopraxia" %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
 {{ this_book }} is written as a series of progress reports by Charlie, both
 before and after his surgery. {{ the_author }} skillfully utilizes Charlie's

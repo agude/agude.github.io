@@ -17,15 +17,15 @@ who discovers a mysterious ancient city and ventures deep beneath its surface.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture the_authors_short %}{% include author_link.html name=page.book_author possessive=true link_text="Lovecraft" %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture the_authors_short %}{% author_link page.book_author possessive link_text="Lovecraft" %}{% endcapture %}
 
-{% capture torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
-{% capture wolfe %}{% include author_link.html name="Gene Wolfe" %}{% endcapture %}
+{% capture torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+{% capture wolfe %}{% author_link "Gene Wolfe" %}{% endcapture %}
 
-{% capture matter %}{% include book_link.html title="Matter" %}{% endcapture %}
-{% capture banks %}{% include author_link.html name="Iain M. Banks" %}{% endcapture %}
-{% capture banks_short %}{% include author_link.html name="Iain M. Banks" possessive=true link_text="Banks" %}{% endcapture %}
+{% capture matter %}{% book_link "Matter" %}{% endcapture %}
+{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
+{% capture banks_short %}{% author_link "Iain M. Banks" possessive link_text="Banks" %}{% endcapture %}
 
 {% capture this_city %}{{ the_authors_short }} city{% endcapture %}
 {% capture that_city %}{{ banks_short }} city{% endcapture %}

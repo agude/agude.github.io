@@ -28,10 +28,10 @@ reads from 2024:
 
 ## <cite class="book-title">Echopraxia</cite> by <span class="author-name">Peter Watts</span>
 
-{% capture ff1 %}{% include book_link.html title="Blindsight" %}{% endcapture %} 
-{% capture ff2 %}{% include book_link.html title="Echopraxia" %}{% endcapture %} 
+{% capture ff1 %}{% book_link "Blindsight" %}{% endcapture %} 
+{% capture ff2 %}{% book_link "Echopraxia" %}{% endcapture %} 
 
-{% capture watts %}{% include author_link.html name="Petter Watts" link_text="Watts" %}{% endcapture %}
+{% capture watts %}{% author_link "Peter Watts" link_text="Watts" %}{% endcapture %}
 
 {{ ff2 }} is the sequel to {{ ff1 }}, one of my [favorite books from last
 year][last_year]. Although it wasn't as well received by readers as {{ ff1 }},
@@ -45,17 +45,17 @@ perspective it offers on the world.
 
 ## The <span class="book-series">Culture</span> Series by <span class="author-name">Iain M. Banks</span>
 
-{% capture c1 %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %} 
-{% capture c2 %}{% include book_link.html title="The Player of Games" %}{% endcapture %} 
-{% capture c3 %}{% include book_link.html title="Use of Weapons" %}{% endcapture %} 
-{% capture c6 %}{% include book_link.html title="Inversions" %}{% endcapture %} 
-{% capture c9 %}{% include book_link.html title="Surface Detail" %}{% endcapture %} 
-{% capture c10 %}{% include book_link.html title="The Hydrogen Sonata" %}{% endcapture %}
+{% capture c1 %}{% book_link "Consider Phlebas" %}{% endcapture %} 
+{% capture c2 %}{% book_link "The Player of Games" %}{% endcapture %} 
+{% capture c3 %}{% book_link "Use of Weapons" %}{% endcapture %} 
+{% capture c6 %}{% book_link "Inversions" %}{% endcapture %} 
+{% capture c9 %}{% book_link "Surface Detail" %}{% endcapture %} 
+{% capture c10 %}{% book_link "The Hydrogen Sonata" %}{% endcapture %}
 
-{% capture culture %}{% include series_link.html series="Culture" %}{% endcapture %}
+{% capture culture %}{% series_link "Culture" %}{% endcapture %}
 
-{% capture banks %}{% include author_link.html name="Iain M. Banks" link_text="Banks" %}{% endcapture %}
-{% capture bankss %}{% include author_link.html name="Iain M. Banks" link_text="Banks" possessive=true %}{% endcapture %}
+{% capture banks %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
+{% capture bankss %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
 
 I **hated** {{ c1 }} when I read it in 2023, but I gave the {{ culture }}
 series another chance because I had spent the better part of two decades
@@ -74,7 +74,7 @@ series with {{ c10 }} in 2025.
 
 ## <cite class="book-title">A Fire Upon The Deep</cite> by <span class="author-name">Vernor Vinge</span>
 
-{% include book_link.html title="A Fire Upon The Deep" %} is a nostalgic
+{% book_link "A Fire Upon The Deep" %} is a nostalgic
 favorite that I first read about 20 years ago and reread this year for my book
 club. It does a fantastic job of telling a story that feels small and personal
 while having galaxy-spanning implications. The Zones of Thought concept is
@@ -87,12 +87,12 @@ civilizations.
 
 ## The <span class="book-series">Cheela</span> Series by <span class="author-name">Robert L. Forward</span>
 
-{% capture ch1 %}{% include book_link.html title="Dragon's Egg" %}{% endcapture %} 
-{% capture ch2 %}{% include book_link.html title="Starquake" %}{% endcapture %} 
+{% capture ch1 %}{% book_link "Dragon's Egg" %}{% endcapture %} 
+{% capture ch2 %}{% book_link "Starquake" %}{% endcapture %} 
 
-{% capture cheela %}{% include series_link.html series="Cheela" %}{% endcapture %}
+{% capture cheela %}{% series_link "Cheela" %}{% endcapture %}
 
-{% capture forward %}{% include author_link.html name="Robert L. Forward" link_text="Forward" %}{% endcapture %}
+{% capture forward %}{% author_link "Robert L. Forward" link_text="Forward" %}{% endcapture %}
 
 The {{ cheela }} series consists of two hard sci-fi novels by {{ forward }}:
 {{ ch1 }} and {{ ch2 }}. Even though the Cheela are _extremely_ alien---living
@@ -107,9 +107,9 @@ them build their civilization from hunter-gatherers to a spacefaring society.
 
 ## <cite class="book-title">Childhood's End</cite> by <span class="author-name">Arthur C. Clarke</span>
 
-{% capture end %}{% include book_link.html title="Childhood's End" %}{% endcapture %} 
+{% capture end %}{% book_link "Childhood's End" %}{% endcapture %} 
 
-{% capture clarkes %}{% include author_link.html name="Arthur C. Clarke" link_text="Clarke" possessive=true %}{% endcapture %}
+{% capture clarkes %}{% author_link "Arthur C. Clarke" link_text="Clarke" possessive %}{% endcapture %}
 
 Another nostalgic read, {{ clarkes }} {{ end }} was one of the first sci-fi
 books I ever read. Revisiting it years later was a treat, and I'm happy to say

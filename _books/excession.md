@@ -17,13 +17,13 @@ unpredictable, and enormously powerful.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
-{% capture hamiltons %}{% include author_link.html name="Peter F. Hamilton" %}{% endcapture %}
-{% capture pandoras_star %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
-{% capture abyss_dreams %}{% include book_link.html title="The Abyss Beyond Dreams" %}{% endcapture %}
-{% capture quantum_thief %}{% include book_link.html title="The Quantum Thief" %}{% endcapture %}
-{% capture shadow_torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
-{% capture player_games %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
-{% capture use_weapons %}{% include book_link.html title="Use of Weapons" %}{% endcapture %}
+{% capture hamiltons %}{% author_link "Peter F. Hamilton" %}{% endcapture %}
+{% capture pandoras_star %}{% book_link "Pandora's Star" %}{% endcapture %}
+{% capture abyss_dreams %}{% book_link "The Abyss Beyond Dreams" %}{% endcapture %}
+{% capture quantum_thief %}{% book_link "The Quantum Thief" %}{% endcapture %}
+{% capture shadow_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+{% capture player_games %}{% book_link "The Player of Games" %}{% endcapture %}
+{% capture use_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
 
 The best part of the novel is getting to see how the Culture _works_: how the
 Minds think, communicate, make decisions, retreat to "Infinite Fun Space," and

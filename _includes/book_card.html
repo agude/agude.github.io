@@ -16,7 +16,7 @@
     </a>
     {% if include.author %}
       <span class="by-author">
-        by {% include author_link.html name=include.author %}
+        by {% author_link include.author %}
       </span>
     {% endif %}
     {% if include.rating %}

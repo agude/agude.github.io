@@ -18,12 +18,12 @@ and attempts to contain it.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
-{% capture p1 %}{% include book_link.html title="Wild Seed" %}{% endcapture %}
-{% capture p2 %}{% include book_link.html title="Mind of My Mind" %}{% endcapture %}
-{% capture p4 %}{% include book_link.html title="Patternmaster" %}{% endcapture %}
+{% capture p1 %}{% book_link "Wild Seed" %}{% endcapture %}
+{% capture p2 %}{% book_link "Mind of My Mind" %}{% endcapture %}
+{% capture p4 %}{% book_link "Patternmaster" %}{% endcapture %}
 
-{% capture andromeda %}{% include book_link.html title="The Andromeda Strain" %}{% endcapture %}
-{% capture crichtons %}{% include author_link.html name="Michael Crichton" possessive=true %}{% endcapture %}
+{% capture andromeda %}{% book_link "The Andromeda Strain" %}{% endcapture %}
+{% capture crichtons %}{% author_link "Michael Crichton" possessive %}{% endcapture %}
 
 Like the previous books in the {{ series }} series, {{ this_book }} focuses on
 a loosely-defined "family" trying to survive in a world hostile to their

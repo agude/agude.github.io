@@ -17,7 +17,7 @@ rebirth.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture wolfe %}<span class="author-name">Wolfe</span>{% endcapture %}
 
-{% capture citadel_autarch %}{% include book_link.html title="The Citadel of the Autarch" %}{% endcapture %}
+{% capture citadel_autarch %}{% book_link "The Citadel of the Autarch" %}{% endcapture %}
 
 I was impressed with how {{ wolfe }} was able to maintain the quest narrative
 structure even while Severian was trapped on a spaceship for a quarter of the

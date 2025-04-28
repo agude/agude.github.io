@@ -16,10 +16,10 @@ her and her father, Joseph the Bellmaker.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
-{% capture bellmaker %}{% include book_link.html title="The Bellmaker"%}{% endcapture %}
-{% capture salamandstron %}{% include book_link.html title="Salamandastron"%}{% endcapture %}
-{% capture redwall %}{% include book_link.html title="Redwall"%}{% endcapture %}
-{% capture redwall_series %}{% include series_link.html series="Redwall" %}{% endcapture %}
+{% capture bellmaker %}{% book_link "The Bellmaker" %}{% endcapture %}
+{% capture salamandstron %}{% book_link "Salamandastron" %}{% endcapture %}
+{% capture redwall %}{% book_link "Redwall" %}{% endcapture %}
+{% capture redwall_series %}{% series_link "Redwall" %}{% endcapture %}
 
 {{ this_book }} is the first {{ redwall_series }} book with a female lead. In
 general, the series is quite inclusive in terms of gender roles, with female

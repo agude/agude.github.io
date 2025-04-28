@@ -17,10 +17,10 @@ mysterious plot just days before the world's end.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
 
-{% capture lpm1 %}{% include book_link.html title="The Last Policeman" %}{% endcapture %}
-{% capture lpm2 %}{% include book_link.html title="Countdown City" %}{% endcapture %}
+{% capture lpm1 %}{% book_link "The Last Policeman" %}{% endcapture %}
+{% capture lpm2 %}{% book_link "Countdown City" %}{% endcapture %}
 
 {{ this_book }} shares the same weakness as {{ lpm2 }}: it focuses too heavily
 on the present at the expense of the past. Even within the present-day

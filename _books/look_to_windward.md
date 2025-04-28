@@ -16,26 +16,26 @@ of the Idiran--Culture War and Chelgrian civil war.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture this_series %}{% series_link page.series %} series{% endcapture %}
 
-{% capture c1 %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
+{% capture c1 %}{% book_link "Consider Phlebas" %}{% endcapture %}
 {% capture c1_nolink %}<cite class="book-title">Consider Phlebas</cite>{% endcapture %}
 
-{% capture c2 %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
-{% capture c3 %}{% include book_link.html title="Use of Weapons" %}{% endcapture %}
-{% capture c5 %}{% include book_link.html title="Excession" %}{% endcapture %}
-{% capture c6 %}{% include book_link.html title="Inversions" %}{% endcapture %}
-{% capture c8 %}{% include book_link.html title="Matter" %}{% endcapture %}
+{% capture c2 %}{% book_link "The Player of Games" %}{% endcapture %}
+{% capture c3 %}{% book_link "Use of Weapons" %}{% endcapture %}
+{% capture c5 %}{% book_link "Excession" %}{% endcapture %}
+{% capture c6 %}{% book_link "Inversions" %}{% endcapture %}
+{% capture c8 %}{% book_link "Matter" %}{% endcapture %}
 
-{% capture elliots %}{% include author_link.html name="T. S. Eliot" possessive=true %}{% endcapture %}
-{% capture the_wasteland %}{% include book_link.html title="The Waste Land" %}{% endcapture %}
+{% capture elliots %}{% author_link "T. S. Eliot" possessive %}{% endcapture %}
+{% capture the_wasteland %}{% book_link "The Waste Land" %}{% endcapture %}
 {% capture the_wasteland_nolink %}<cite class="book-title">The Waste Land</cite>{% endcapture %}
 
-{% capture pandora %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
-{% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
-{% capture river %}{% include book_link.html title="Heaven's River" %}{% endcapture %}
-{% capture valuable %}{% include book_link.html title="Valuable Humans in Transit and Other Stories" link_text="Valuable Humans in Transit" %}{% endcapture %}
+{% capture pandora %}{% book_link "Pandora's Star" %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture river %}{% book_link "Heaven's River" %}{% endcapture %}
+{% capture valuable %}{% book_link "Valuable Humans in Transit and Other Stories" link_text="Valuable Humans in Transit" %}{% endcapture %}
 
 The story takes place on the Masaq' Orbital as the light from the last battle
 of the Idiran--Culture war reaches the habitat, prompting its inhabitants to

@@ -18,12 +18,12 @@ to become the new Patternmaster.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
-{% capture p1 %}{% include book_link.html title="Wild Seed" %}{% endcapture %}
-{% capture p2 %}{% include book_link.html title="Mind of My Mind" %}{% endcapture %}
-{% capture p3 %}{% include book_link.html title="Clay's Ark" %}{% endcapture %}
+{% capture p1 %}{% book_link "Wild Seed" %}{% endcapture %}
+{% capture p2 %}{% book_link "Mind of My Mind" %}{% endcapture %}
+{% capture p3 %}{% book_link "Clay's Ark" %}{% endcapture %}
 
-{% capture butlers %}{% include author_link.html name="Octavia E. Butler" possessive=true link_text="Butler" %}{% endcapture %}
-{% capture pots %}{% include book_link.html title="Parable of the Sower" %}{% endcapture %}
+{% capture butlers %}{% author_link "Octavia E. Butler" possessive link_text="Butler" %}{% endcapture %}
+{% capture pots %}{% book_link "Parable of the Sower" %}{% endcapture %}
 
 The setting and style of {{ this_book }} are completely different from the
 other three books in the series. {{ p1 }} reads like historical fiction with

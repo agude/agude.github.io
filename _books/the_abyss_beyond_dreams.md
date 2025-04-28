@@ -17,8 +17,8 @@ engines are their most advanced technology.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
-{% capture dreaming_void %}{% include book_link.html title="The Dreaming Void" %}{% endcapture %}
-{% capture excession %}{% include book_link.html title="Excession" %}{% endcapture %}
+{% capture dreaming_void %}{% book_link "The Dreaming Void" %}{% endcapture %}
+{% capture excession %}{% book_link "Excession" %}{% endcapture %}
 
 The story of {{ this_book }} feels derivative at first because it parallels
 Edeard's from the Void Trilogy (started in {{ dreaming_void }}). Young psychic

@@ -18,23 +18,23 @@ with the unleashing of a cosmic horror.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture this_series %}{% series_link page.series %} series{% endcapture %}
 
-{% capture c1 %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
-{% capture c2 %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
-{% capture c3 %}{% include book_link.html title="Use of Weapons" %}{% endcapture %}
-{% capture c5 %}{% include book_link.html title="Excession" %}{% endcapture %}
-{% capture c7 %}{% include book_link.html title="Look to Windward" %}{% endcapture %}
-{% capture c9 %}{% include book_link.html title="Surface Detail" %}{% endcapture %}
+{% capture c1 %}{% book_link "Consider Phlebas" %}{% endcapture %}
+{% capture c2 %}{% book_link "The Player of Games" %}{% endcapture %}
+{% capture c3 %}{% book_link "Use of Weapons" %}{% endcapture %}
+{% capture c5 %}{% book_link "Excession" %}{% endcapture %}
+{% capture c7 %}{% book_link "Look to Windward" %}{% endcapture %}
+{% capture c9 %}{% book_link "Surface Detail" %}{% endcapture %}
 
-{% capture thrones %}{% include book_link.html title="A Game of Thrones" %}{% endcapture %}
-{% capture martins %}{% include author_link.html name="George R. R. Martin" possessive=true %}{% endcapture %}
+{% capture thrones %}{% book_link "A Game of Thrones" %}{% endcapture %}
+{% capture martins %}{% author_link "George R. R. Martin" possessive %}{% endcapture %}
 
-{% capture nameless %}{% include book_link.html title="The Nameless City" %}{% endcapture %}
-{% capture lovecrafts %}{% include author_link.html name="H. P. Lovecraft" possessive=true %}{% endcapture %}
+{% capture nameless %}{% book_link "The Nameless City" %}{% endcapture %}
+{% capture lovecrafts %}{% author_link "H. P. Lovecraft" possessive %}{% endcapture %}
 
-{% capture left %}{% include book_link.html title="The Left Hand of Darkness" %}{% endcapture %}
+{% capture left %}{% book_link "The Left Hand of Darkness" %}{% endcapture %}
 
 {{ this_book }} opens with the murder of the king of Sarl by his right-hand
 man, Mertis tyl Loesp, just as the king's forces defeat an invading Deldeyn

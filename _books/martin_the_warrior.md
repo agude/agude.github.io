@@ -17,14 +17,14 @@ uprising against---the tyrant Badrang.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
 
-{% capture redwall %}{% include book_link.html title="Redwall"%}{% endcapture %}
-{% capture mossflower %}{% include book_link.html title="Mossflower"%}{% endcapture %}
-{% capture mattimeo %}{% include book_link.html title="Mattimeo"%}{% endcapture %}
-{% capture mariel %}{% include book_link.html title="Mariel of Redwall"%}{% endcapture %}
-{% capture salamandastron %}{% include book_link.html title="Salamandastron"%}{% endcapture %}
-{% capture bellmaker %}{% include book_link.html title="The Bellmaker"%}{% endcapture %}
+{% capture redwall %}{% book_link "Redwall" %}{% endcapture %}
+{% capture mossflower %}{% book_link "Mossflower" %}{% endcapture %}
+{% capture mattimeo %}{% book_link "Mattimeo" %}{% endcapture %}
+{% capture mariel %}{% book_link "Mariel of Redwall" %}{% endcapture %}
+{% capture salamandastron %}{% book_link "Salamandastron" %}{% endcapture %}
+{% capture bellmaker %}{% book_link "The Bellmaker" %}{% endcapture %}
 
-{% capture redwall_series %}{% include series_link.html series="Redwall" %}{% endcapture %}
+{% capture redwall_series %}{% series_link "Redwall" %}{% endcapture %}
 
 {{ this_book }} has two villains: Badrang the Tyrant and the corsair Tramun
 Clogg. For much of the story, they have an on-again, off-again rivalry, with

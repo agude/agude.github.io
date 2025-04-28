@@ -15,14 +15,14 @@ they rescue the humans and rebuild after a devastating starquake.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture dragons_egg %}{% include book_link.html title="Dragon's Egg" %}{% endcapture %}
-{% capture lion %}{% include book_link.html title="The Lion and the Mouse" %}{% endcapture %}
-{% capture hamiltons %}{% include author_link.html name="Peter F. Hamilton" possessive=true %}{% endcapture %}
-{% capture commonwealth %}{% include series_link.html series="Commonwealth Saga" %}{% endcapture %}
-{% capture fallers %}{% include series_link.html series="The Chronicle of the Fallers" %}{% endcapture %}
-{% capture void %}{% include series_link.html series="The Void Trilogy" %}{% endcapture %}
-{% capture clements %}{% include author_link.html name="Hal Clement" possessive=true %}{% endcapture %}
-{% capture gravity %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
+{% capture dragons_egg %}{% book_link "Dragon's Egg" %}{% endcapture %}
+{% capture lion %}{% book_link "The Lion and the Mouse" %}{% endcapture %}
+{% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}
+{% capture commonwealth %}{% series_link "Commonwealth Saga" %}{% endcapture %}
+{% capture fallers %}{% series_link "The Chronicle of the Fallers" %}{% endcapture %}
+{% capture void %}{% series_link "The Void Trilogy" %}{% endcapture %}
+{% capture clements %}{% author_link "Hal Clement" possessive %}{% endcapture %}
+{% capture gravity %}{% book_link "Mission of Gravity" %}{% endcapture %}
 
 {{ this_book }} begins just moments after the ending of {{ dragons_egg }}.
 Unlike its predecessor, {{ this_book }} presents a more straightforward

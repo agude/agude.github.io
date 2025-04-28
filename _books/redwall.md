@@ -16,7 +16,7 @@ Abbey and defeat the evil rat Cluny the Scourge.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
-{% capture mossflower %}{% include book_link.html title="Mossflower" %}{% endcapture %}
+{% capture mossflower %}{% book_link "Mossflower" %}{% endcapture %}
 
 I loved the {{ series }} as a child, and I'm now enjoying reading them to my
 own children, ages 6 and 7. Although aimed at children, not adults or even

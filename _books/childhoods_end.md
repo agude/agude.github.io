@@ -16,13 +16,13 @@ race.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture clarke %}<span class="author-name">Clarke</span>{% endcapture %}
-{% capture flatland %}{% include book_link.html title="Flatland: A Romance of Many Dimensions" link_text="Flatland"%}{% endcapture %}
-{% capture liu_cixin %}{% include author_link.html name="Liu Cixin" possessive=true %}{% endcapture %}
-{% capture three_body %}{% include book_link.html title="The Three-Body Problem" %}{% endcapture %}
-{% capture peter_watts %}{% include author_link.html name="Peter Watts" %}{% endcapture %}
-{% capture echopraxia %}{% include book_link.html title="Echopraxia" %}{% endcapture %}
-{% capture rama %}{% include book_link.html title="Rendezvous with Rama" %}{% endcapture %}
-{% capture odyssey %}{% include book_link.html title="2001: A Space Odyssey" %}{% endcapture %}
+{% capture flatland %}{% book_link "Flatland: A Romance of Many Dimensions" link_text="Flatland" %}{% endcapture %}
+{% capture liu_cixin %}{% author_link "Liu Cixin" possessive %}{% endcapture %}
+{% capture three_body %}{% book_link "The Three-Body Problem" %}{% endcapture %}
+{% capture peter_watts %}{% author_link "Peter Watts" %}{% endcapture %}
+{% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
+{% capture rama %}{% book_link "Rendezvous with Rama" %}{% endcapture %}
+{% capture odyssey %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 
 {{ this_book }} was one of the first sci-fi books I discovered in my middle
 school library. I don't recall how I stumbled upon it, but I'm lucky that I

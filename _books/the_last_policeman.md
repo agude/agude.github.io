@@ -17,10 +17,10 @@ civilization.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
 
-{% capture gun %}{% include book_link.html title="Gun, with Occasional Music" %}{% endcapture %}
-{% capture lpm2 %}{% include book_link.html title="Countdown City" %}{% endcapture %}
+{% capture gun %}{% book_link "Gun, with Occasional Music" %}{% endcapture %}
+{% capture lpm2 %}{% book_link "Countdown City" %}{% endcapture %}
 
 When I watch a movie, I always want to peek around the frame. Not to see what
 the cast and crew are doing on set, but to see more of the world and figure

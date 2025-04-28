@@ -13,9 +13,9 @@ sci-fi book that reads more like a thriller. There were always new mysteries
 that just a few more pages promised the answers to.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %}{% endcapture %}
+{% capture this_series %}{% series_link page.series %}{% endcapture %}
 
-{% capture judas_unchained %}{% include book_link.html title="Judas Unchained" %}{% endcapture %}
+{% capture judas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}
 
 The book takes place in a universe where trains running through interstellar
 wormholes are the main form of transportation. It deals with themes of:

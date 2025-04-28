@@ -16,9 +16,9 @@ is over.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
-{% capture temporal_void %}{% include book_link.html title="The Temporal Void" %}{% endcapture %}
-{% capture judas_unchained %}{% include book_link.html title="Judas Unchained" %}{% endcapture %}
-{% capture dreaming_void %}{% include book_link.html title="The Dreaming Void" %}{% endcapture %}
+{% capture temporal_void %}{% book_link "The Temporal Void" %}{% endcapture %}
+{% capture judas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}
+{% capture dreaming_void %}{% book_link "The Dreaming Void" %}{% endcapture %}
 
 At the end of {{ temporal_void }}, Edeard learns that he can rewind his world
 to a point of his choosing to get a second (or third, or fourth, ...) chance

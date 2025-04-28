@@ -16,10 +16,10 @@ aliens to rescue them.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture series %}{% include series_link.html series=page.series %} series{% endcapture %}
-{% capture clement %}{% include author_link.html name=page.book_author %}{% endcapture %}
-{% capture mission %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
-{% capture star %}{% include book_link.html title="Star Light" %}{% endcapture %}
+{% capture series %}{% series_link page.series %} series{% endcapture %}
+{% capture clement %}{% author_link page.book_author %}{% endcapture %}
+{% capture mission %}{% book_link "Mission of Gravity" %}{% endcapture %}
+{% capture star %}{% book_link "Star Light" %}{% endcapture %}
 
 Easy Rich,[^easy] the 12-year-old daughter of a human diplomat, and 'Mina, the
 7-year-old son of a Drommian diplomat, crash-land on the planet Tenebra

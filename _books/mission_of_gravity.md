@@ -15,15 +15,15 @@ _Bree_ across the planet in search of a lost human rocket ship.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture forwards %}{% include author_link.html name="Robert L. Forward" possessive=true %}{% endcapture %}
-{% capture forward %}{% include author_link.html name="Robert L. Forward" %}{% endcapture %}
-{% capture cheela %}{% include series_link.html series="Cheela" %}{% endcapture %}
-{% capture dragon %}{% include book_link.html title="Dragon's Egg" %}{% endcapture %}
-{% capture starquake %}{% include book_link.html title="Starquake" %}{% endcapture %}
-{% capture flatland %}{% include book_link.html title="Flatland: A Romance of Many Dimensions" link_text="Flatland" %}{% endcapture %}
-{% capture eater %}{% include book_link.html title="Eater" %}{% endcapture %}
-{% capture childhood %}{% include book_link.html title="Childhood's End" %}{% endcapture %}
-{% capture star_light %}{% include book_link.html title="Star Light" %}{% endcapture %}
+{% capture forwards %}{% author_link "Robert L. Forward" possessive %}{% endcapture %}
+{% capture forward %}{% author_link "Robert L. Forward" %}{% endcapture %}
+{% capture cheela %}{% series_link "Cheela" %}{% endcapture %}
+{% capture dragon %}{% book_link "Dragon's Egg" %}{% endcapture %}
+{% capture starquake %}{% book_link "Starquake" %}{% endcapture %}
+{% capture flatland %}{% book_link "Flatland: A Romance of Many Dimensions" link_text="Flatland" %}{% endcapture %}
+{% capture eater %}{% book_link "Eater" %}{% endcapture %}
+{% capture childhood %}{% book_link "Childhood's End" %}{% endcapture %}
+{% capture star_light %}{% book_link "Star Light" %}{% endcapture %}
 
 {{ this_book }} is primarily story-driven. Barlennan, a centipede-like alien,
 and his crew journey to unknown parts of Mesklin on their ship, the _Bree_,
