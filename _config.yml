@@ -32,6 +32,7 @@ baseurl: ""
 name: "AlexGude.com"
 
 # Blog
+# Note: jekyll-paginate is deprecated in Jekyll 4. Consider migrating to jekyll-paginate-v2.
 paginate: 10
 paginate_path: "/blog/page:num/"
 permalink: /blog/:slug/
@@ -99,8 +100,12 @@ exclude:
     - LICENSE.md
     - CNAME
     - Gemfile
+    - Gemfile.lock # Often excluded, good practice to add
     - redirects.json
     - vendor
+    - Makefile # Often excluded
+    - Dockerfile # Often excluded
+    - README.md # Often excluded
 
 redirect_from:
     json: false

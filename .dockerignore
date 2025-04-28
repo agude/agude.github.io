@@ -1,0 +1,35 @@
+# Ignore Git files
+.git
+.gitignore
+
+# Ignore GitHub Actions workflow
+.github
+
+# Ignore Jekyll build output
+_site
+
+# Ignore Bundler vendor directory (if installing locally)
+vendor/bundle
+
+# IMPORTANT: Ignore the lock file from the host context
+Gemfile.lock
+
+# Ignore Bundler config and cache
+.bundle
+*.gem
+
+# Ignore SASS cache
+.sass-cache/
+
+# Ignore development/build artifacts
+Makefile
+Dockerfile
+README.md
+LICENSE.md
+redirects.json
+node_modules
+
+# Ignore temporary build directory if used previously
+/tmp/jekyll-docker-agude*
+
+# Add any other files/directories not needed in the final image
