@@ -17,9 +17,9 @@ after he reaches Thrax and is exiled for a second time.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
-{% capture shadow_torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
-{% capture claw_conciliator %}{% include book_link.html title="The Claw of the Conciliator" %}{% endcapture %}
-{% capture citadel_autarch %}{% include book_link.html title="The Citadel of the Autarch" %}{% endcapture %}
+{% capture shadow_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+{% capture claw_conciliator %}{% book_link "The Claw of the Conciliator" %}{% endcapture %}
+{% capture citadel_autarch %}{% book_link "The Citadel of the Autarch" %}{% endcapture %}
 
 {{ shadow_torturer }} was overwhelming as I immersed myself in the rich
 setting and complex writing style. {{ claw_conciliator }} felt slower paced as

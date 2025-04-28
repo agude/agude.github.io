@@ -17,34 +17,34 @@ societal collapse.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
 
-{% capture botns %}{% include series_link.html series="The Book of the New Sun" %}{% endcapture %}
-{% capture make_room_make_room %}{% include book_link.html title="Make Room! Make Room!" %}{% endcapture %}
-{% capture harry_harrisons %}{% include author_link.html name="Harry Harrison" possessive=true %}{% endcapture %}
-{% capture the_population_bomb %}{% include book_link.html title="The Population Bomb" %}{% endcapture %}
-{% capture paul_ehrlich %}{% include author_link.html name="Paul R. Ehrlich" %}{% endcapture %}
-{% capture anne_ehrlich %}{% include author_link.html name="Anne Howland Ehrlich" %}{% endcapture %}
-{% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
-{% capture peter_watts %}{% include author_link.html name="Peter Watts" %}{% endcapture %}
-{% capture mission_of_gravity %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
-{% capture hal_clement %}{% include author_link.html name="Hal Clement" %}{% endcapture %}
-{% capture gun_with_occasional_music %}{% include book_link.html title="Gun, with Occasional Music" %}{% endcapture %}
-{% capture jonathan_lethem %}{% include author_link.html name="Jonathan Lethem" %}{% endcapture %}
-{% capture nineteen_eighty_four %}{% include book_link.html title="1984" %}{% endcapture %}
-{% capture george_orwell %}{% include author_link.html name="George Orwell" %}{% endcapture %}
-{% capture brave_new_world %}{% include book_link.html title="Brave New World" %}{% endcapture %}
-{% capture aldous_huxley %}{% include author_link.html name="Aldous Huxley" %}{% endcapture %}
-{% capture mind_of_my_mind %}{% include book_link.html title="Mind of My Mind" %}{% endcapture %}
-{% capture octavia_butlers %}{% include author_link.html name="Octavia E. Butler" possessive=true %}{% endcapture %}
-{% capture the_claw_of_the_conciliator %}{% include book_link.html title="The Claw of the Conciliator" %}{% endcapture %}
-{% capture gene_wolfe %}{% include author_link.html name="Gene Wolfe" %}{% endcapture %}
-{% capture the_three_body_problem %}{% include book_link.html title="The Three-Body Problem" %}{% endcapture %}
-{% capture liu_cixin %}{% include author_link.html name="Liu Cixin" %}{% endcapture %}
-{% capture snow_crash %}{% include book_link.html title="Snow Crash" %}{% endcapture %}
-{% capture neal_stephensons %}{% include author_link.html name="Neal Stephenson" possessive=true %}{% endcapture %}
-{% capture greg_bear %}{% include author_link.html name="Greg Bear" %}{% endcapture %}
+{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
+{% capture make_room_make_room %}{% book_link "Make Room! Make Room!" %}{% endcapture %}
+{% capture harry_harrisons %}{% author_link "Harry Harrison" possessive %}{% endcapture %}
+{% capture the_population_bomb %}{% book_link "The Population Bomb" %}{% endcapture %}
+{% capture paul_ehrlich %}{% author_link "Paul R. Ehrlich" %}{% endcapture %}
+{% capture anne_ehrlich %}{% author_link "Anne Howland Ehrlich" %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture peter_watts %}{% author_link "Peter Watts" %}{% endcapture %}
+{% capture mission_of_gravity %}{% book_link "Mission of Gravity" %}{% endcapture %}
+{% capture hal_clement %}{% author_link "Hal Clement" %}{% endcapture %}
+{% capture gun_with_occasional_music %}{% book_link "Gun, with Occasional Music" %}{% endcapture %}
+{% capture jonathan_lethem %}{% author_link "Jonathan Lethem" %}{% endcapture %}
+{% capture nineteen_eighty_four %}{% book_link "1984" %}{% endcapture %}
+{% capture george_orwell %}{% author_link "George Orwell" %}{% endcapture %}
+{% capture brave_new_world %}{% book_link "Brave New World" %}{% endcapture %}
+{% capture aldous_huxley %}{% author_link "Aldous Huxley" %}{% endcapture %}
+{% capture mind_of_my_mind %}{% book_link "Mind of My Mind" %}{% endcapture %}
+{% capture octavia_butlers %}{% author_link "Octavia E. Butler" possessive %}{% endcapture %}
+{% capture the_claw_of_the_conciliator %}{% book_link "The Claw of the Conciliator" %}{% endcapture %}
+{% capture gene_wolfe %}{% author_link "Gene Wolfe" %}{% endcapture %}
+{% capture the_three_body_problem %}{% book_link "The Three-Body Problem" %}{% endcapture %}
+{% capture liu_cixin %}{% author_link "Liu Cixin" %}{% endcapture %}
+{% capture snow_crash %}{% book_link "Snow Crash" %}{% endcapture %}
+{% capture neal_stephensons %}{% author_link "Neal Stephenson" possessive %}{% endcapture %}
+{% capture greg_bear %}{% author_link "Greg Bear" %}{% endcapture %}
 
 The plot, what little there is, follows Norman Niblock House---VP at the GT
 mega-corporation[^scale]---and Donald Hogan---a US spy---who share an

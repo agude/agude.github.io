@@ -17,25 +17,25 @@ galactic conflict over virtual hells.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
-{% capture culture %}{% include series_link.html series=page.series %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture this_series %}{% series_link page.series %} series{% endcapture %}
+{% capture culture %}{% series_link page.series %}{% endcapture %}
 {% capture banks %}<span class="author-name">Banks</span>{% endcapture %}
 
-{% capture c3 %}{% include book_link.html title="Use of Weapons" %}{% endcapture %}
-{% capture c7 %}{% include book_link.html title="Look to Windward" %}{% endcapture %}
-{% capture c10 %}{% include book_link.html title="The Hydrogen Sonata" %}{% endcapture %}
+{% capture c3 %}{% book_link "Use of Weapons" %}{% endcapture %}
+{% capture c7 %}{% book_link "Look to Windward" %}{% endcapture %}
+{% capture c10 %}{% book_link "The Hydrogen Sonata" %}{% endcapture %}
 
-{% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
-{% capture bob1 %}{% include book_link.html title="We Are Legion (We Are Bob)" %}{% endcapture %}
-{% capture dragon %}{% include book_link.html title="Dragon's Egg" %}{% endcapture %}
-{% capture mission %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
-{% capture so2001 %}{% include book_link.html title="2001: A Space Odyssey" %}{% endcapture %}
-{% capture hyperion %}{% include book_link.html title="Hyperion" %}{% endcapture %}
-{% capture commonwealth %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
+{% capture dragon %}{% book_link "Dragon's Egg" %}{% endcapture %}
+{% capture mission %}{% book_link "Mission of Gravity" %}{% endcapture %}
+{% capture so2001 %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
+{% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
+{% capture commonwealth %}{% book_link "Pandora's Star" %}{% endcapture %}
 
-{% capture grand_melee %}{% include book_link.html title="Grand Melee" %}{% endcapture %}
-{% capture war_horses %}{% include series_link.html series="War Horses" %}{% endcapture %}
+{% capture grand_melee %}{% book_link "Grand Melee" %}{% endcapture %}
+{% capture war_horses %}{% series_link "War Horses" %}{% endcapture %}
 
 {{ this_book }} continues the exploration of themes raised in {{ c7 }}---death
 and rebirth---while diving deeper into questions of mind, consciousness,

@@ -8,21 +8,20 @@ rating: 4
 image: /books/covers/the_citadel_of_the_autarch.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the fourth book in {%
-include author_link.html name=page.book_author %}'s <span
+<cite class="book-title">{{ page.title }}</cite> is the fourth book in {% author_link page.book_author %}'s <span
 class="book-series">{{ page.series }}</span> tetralogy. It follows Severian as
 he reaches the front in the war against the Ascians and assumes the role of
 Autarch.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture urth_new_sun %}{% include book_link.html title="The Urth of the New Sun" %}{% endcapture %}
-{% capture shadow_torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
+{% capture urth_new_sun %}{% book_link "The Urth of the New Sun" %}{% endcapture %}
+{% capture shadow_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
 
 {% capture wolfe %}<span class="author-name">Wolfe</span>{% endcapture %}
 
-{% capture ursula %}{% include author_link.html name="Ursula K. Le Guin" %}{% endcapture %}
-{% capture neil %}{% include author_link.html name="Neil Gaiman" %}{% endcapture %}
-{% capture melville %}{% include author_link.html name="Herman Melville" %}{% endcapture %}
+{% capture ursula %}{% author_link "Ursula K. Le Guin" %}{% endcapture %}
+{% capture neil %}{% author_link "Neil Gaiman" %}{% endcapture %}
+{% capture melville %}{% author_link "Herman Melville" %}{% endcapture %}
 
 {{ this_book }} is the final book in the original series, and halfway through
 I was worried {{ wolfe }} wouldn't be able to wrap it up successfully. By the

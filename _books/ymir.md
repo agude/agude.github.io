@@ -10,15 +10,15 @@ image: /books/covers/ymir.jpg
 
 <cite class="book-title">{{ page.title }}</cite> is the second book in the
 <span class="book-series">{{ page.series }}</span> series, keeping <span
-class="nowrap">{% include book_link.html title="Chevalier" %}'s</span> action
+class="nowrap">{% book_link "Chevalier" %}'s</span> action
 and quick pacing while adding more backstory, character development, and a
 more complex plot.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
-{% capture chevalier %}{% include book_link.html title="Chevalier" %}{% endcapture %}
-{% capture consider_phlebas %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
-{% capture serpent_valley %}{% include book_link.html title="Serpent Valley" %}{% endcapture %}
+{% capture chevalier %}{% book_link "Chevalier" %}{% endcapture %}
+{% capture consider_phlebas %}{% book_link "Consider Phlebas" %}{% endcapture %}
+{% capture serpent_valley %}{% book_link "Serpent Valley" %}{% endcapture %}
 
 The story follows Vandal as he goes through training on his homeworld, saves a
 classmate from assassination, and defends an ice-world from space-Viking

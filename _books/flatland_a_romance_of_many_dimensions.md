@@ -14,8 +14,8 @@ class hierarchy of Victorian England through the lens of geometry.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture swifts %}{% include author_link.html name="Jonathan Swift" possessive=true %}{% endcapture %}
-{% capture a_modest_proposal %}{% include book_link.html title="A Modest Proposal" %}{% endcapture %}
+{% capture swifts %}{% author_link "Jonathan Swift" possessive %}{% endcapture %}
+{% capture a_modest_proposal %}{% book_link "A Modest Proposal" %}{% endcapture %}
 
 {{ this_book }} tells the story of A Square, who is a square living in a
 two-dimensional world. The first part of the book explains how Square's world

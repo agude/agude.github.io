@@ -18,29 +18,29 @@ home from being annexed by the Teixcalaanli empire.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
-{% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
-{% capture teix2 %}{% include book_link.html title="A Desolation Called Peace" %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture this_series %}{% series_link page.series %} series{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
+{% capture teix2 %}{% book_link "A Desolation Called Peace" %}{% endcapture %}
 
-{% capture bankss %}{% include author_link.html name="Iain M. Banks" possessive=true %}{% endcapture %}
-{% capture look_to_windward %}{% include book_link.html title="Look to Windward" %}{% endcapture %}
-{% capture culture %}{% include series_link.html series="Culture" %}{% endcapture %}
+{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture look_to_windward %}{% book_link "Look to Windward" %}{% endcapture %}
+{% capture culture %}{% series_link "Culture" %}{% endcapture %}
 
-{% capture wolfes %}{% include author_link.html name="Gene Wolfe" possessive=true %}{% endcapture %}
-{% capture shadow_of_the_torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
+{% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
+{% capture shadow_of_the_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
 
-{% capture brunners %}{% include author_link.html name="John Brunner" possessive=true %}{% endcapture %}
-{% capture stand_on_zanzibar %}{% include book_link.html title="Stand on Zanzibar" %}{% endcapture %}
+{% capture brunners %}{% author_link "John Brunner" possessive %}{% endcapture %}
+{% capture stand_on_zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
 
-{% capture wattss %}{% include author_link.html name="Peter Watts" possessive=true %}{% endcapture %}
-{% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
+{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 
-{% capture bennetts %}{% include author_link.html name="Robert Jackson Bennett" possessive=true %}{% endcapture %}
-{% capture the_tainted_cup %}{% include book_link.html title="The Tainted Cup" %}{% endcapture %}
+{% capture bennetts %}{% author_link "Robert Jackson Bennett" possessive %}{% endcapture %}
+{% capture the_tainted_cup %}{% book_link "The Tainted Cup" %}{% endcapture %}
 
-{% capture cards %}{% include author_link.html name="Orson Scott Card" possessive=true %}{% endcapture %}
-{% capture enders_game %}{% include book_link.html title="Ender's Game" %}{% endcapture %}
+{% capture cards %}{% author_link "Orson Scott Card" possessive %}{% endcapture %}
+{% capture enders_game %}{% book_link "Ender's Game" %}{% endcapture %}
 
 {{ this_book }} is a story of courtly intrigue in a science fiction empire.
 Mahit is summoned suddenly to Teixcalaan to replace her predecessor, Yskander

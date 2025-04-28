@@ -37,7 +37,7 @@
 {% endcomment -%}
 {%- assign title_dq = '"' | append: this_title_downcased | append: '"' -%}
 {%- assign title_sq = "'" | append: this_title_downcased | append: "'" -%}
-{%- assign target_markdown_pattern_base = "book_link.html title=" -%}
+{%- assign target_markdown_pattern_base = "book_link" -%}
 {%- assign target_markdown_pattern_dq = target_markdown_pattern_base | append: title_dq -%}
 {%- assign target_markdown_pattern_sq = target_markdown_pattern_base | append: title_sq -%}
 
@@ -103,7 +103,7 @@
         {%- assign parts = key | split: "||" -%}
         {%- assign backlink_original_title = parts[1] -%}
         <li class="book-backlink-item">
-          {%- include book_link.html title=backlink_original_title -%}
+          {%- book_link backlink_original_title -%}
         </li>
       {%- endfor -%}
     </ul>

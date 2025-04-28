@@ -55,7 +55,7 @@
 {%- comment %} Construct the final output with the linked series name {% endcomment -%}
 {%- capture output -%}
   {{- the_prefix -}}
-  {%- include series_link.html series=raw_series_name -%}
+  {%- series_link raw_series_name -%}
   {{- series_suffix -}}
 {%- endcapture -%}
 

@@ -11,12 +11,11 @@ awards:
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a sequel that outshines
-its predecessor. It is everything I was expecting from {% include
-book_link.html title="Hyperion" %} and more! A true masterpiece.
+its predecessor. It is everything I was expecting from {% book_link "Hyperion" %} and more! A true masterpiece.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
-{% capture hyperion %}{% include book_link.html title="Hyperion" %}{% endcapture %}
+{% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 
 The book picks up right where {{ hyperion }} left off with the pilgrims
 arriving at the Time Tombs. But the book also follows several characters out

@@ -26,7 +26,7 @@ don't find them.{% endcomment %}
   </div>
   {% endif %}
 
-  <div class="written-by">By {% include author_link.html name=page.book_author%}</div>
+  <div class="written-by">By {% author_link page.book_author %}</div>
 
   {% if page.series and page.book_number %}
 

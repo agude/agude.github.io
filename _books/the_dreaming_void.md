@@ -17,8 +17,8 @@ plot point from the earlier books is spoiled in this one.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
-{% capture judas_unchained %}{% include book_link.html title="Judas Unchained" %}{% endcapture %}
-{% capture pandoras_star %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
+{% capture judas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}
+{% capture pandoras_star %}{% book_link "Pandora's Star" %}{% endcapture %}
 
 {{ this_book }} takes place 1200 years after {{ judas_unchained }}, but
 because characters live forever in the Commonwealth, that's not as long as it

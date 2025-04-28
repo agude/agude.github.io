@@ -10,19 +10,18 @@ image: /books/covers/for_we_are_many.jpg
 
 <cite class="book-title">{{ page.title }}</cite> is the second book in the
 <span class="book-series">{{ page.series }}</span> series. It focuses on the
-Others storyline while also continuing many of the side stories begun in {%
-include book_link.html title="We Are Legion (We Are Bob)" %}.
+Others storyline while also continuing many of the side stories begun in {% book_link "We Are Legion (We Are Bob)" %}.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture bobiverse %}{% include series_link.html series="Bobiverse" %}{% endcapture %}
-{% capture bob1 %}{% include book_link.html title="We Are Legion (We Are Bob)" %}{% endcapture %}
-{% capture bob3 %}{% include book_link.html title="All These Worlds" %}{% endcapture %}
-{% capture algernon %}{% include book_link.html title="Flowers for Algernon" %}{% endcapture %}
-{% capture pandora %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
-{% capture commonwealth_saga %}{% include series_link.html series="Commonwealth Saga" %}{% endcapture %}
-{% capture night  %}{% include book_link.html title="Night Without Stars" %}{% endcapture %}
+{% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
+{% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
+{% capture bob3 %}{% book_link "All These Worlds" %}{% endcapture %}
+{% capture algernon %}{% book_link "Flowers for Algernon" %}{% endcapture %}
+{% capture pandora %}{% book_link "Pandora's Star" %}{% endcapture %}
+{% capture commonwealth_saga %}{% series_link "Commonwealth Saga" %}{% endcapture %}
+{% capture night  %}{% book_link "Night Without Stars" %}{% endcapture %}
 
 {{ this_book }} picks up right where {{ bob1 }} left off. It adds a few new
 stories while also continuing some of the old ones. Here are a few I liked:

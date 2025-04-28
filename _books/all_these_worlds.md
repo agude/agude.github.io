@@ -10,19 +10,18 @@ image: /books/covers/all_these_worlds.jpg
 
 <cite class="book-title">{{ page.title }}</cite> is the third book in the
 <span class="book-series">{{ page.series }}</span> series. It continues the
-story of the war with the genocidal Others started in {% include
-book_link.html title="For We Are Many" %}.
+story of the war with the genocidal Others started in {% book_link "For We Are Many" %}.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture bobiverse %}{% include series_link.html series="Bobiverse" %}{% endcapture %}
-{% capture bob1 %}{% include book_link.html title="We Are Legion (We Are Bob)" %}{% endcapture %}
-{% capture bob2 %}{% include book_link.html title="For We Are Many" %}{% endcapture %}
-{% capture bob4 %}{% include book_link.html title="Heaven's River" %}{% endcapture %}
-{% capture commonwealth_saga %}{% include series_link.html series="Commonwealth Saga" %}{% endcapture %}
-{% capture pandora %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
-{% capture fire %}{% include book_link.html title="A Fire Upon The Deep" %}{% endcapture %}
+{% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
+{% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
+{% capture bob2 %}{% book_link "For We Are Many" %}{% endcapture %}
+{% capture bob4 %}{% book_link "Heaven's River" %}{% endcapture %}
+{% capture commonwealth_saga %}{% series_link "Commonwealth Saga" %}{% endcapture %}
+{% capture pandora %}{% book_link "Pandora's Star" %}{% endcapture %}
+{% capture fire %}{% book_link "A Fire Upon The Deep" %}{% endcapture %}
 
 Once again, {{ this_book }} features multiple, independent storylines, some
 new and some continuing from {{ bob2 }} and even {{ bob1 }}. The ones that

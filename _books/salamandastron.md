@@ -17,11 +17,11 @@ and a devastating plague at Redwall Abbey.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
 
-{% capture mattimeo %}{% include book_link.html title="Mattimeo"%}{% endcapture %}
-{% capture mariel %}{% include book_link.html title="Mariel of Redwall"%}{% endcapture %}
-{% capture martin %}{% include book_link.html title="Martin the Warrior"%}{% endcapture %}
+{% capture mattimeo %}{% book_link "Mattimeo" %}{% endcapture %}
+{% capture mariel %}{% book_link "Mariel of Redwall" %}{% endcapture %}
+{% capture martin %}{% book_link "Martin the Warrior" %}{% endcapture %}
 
-{% capture redwall_series %}{% include series_link.html series="Redwall" %}{% endcapture %}
+{% capture redwall_series %}{% series_link "Redwall" %}{% endcapture %}
 
 {{ this_book }} breaks new ground in the {{ redwall_series }} series in
 several ways:

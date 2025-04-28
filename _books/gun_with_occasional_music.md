@@ -19,15 +19,15 @@ Stanhunt.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
-{% capture chandlers %}{% include author_link.html name="Raymond Chandler" link_text="Chandler" possessive=true %}{% endcapture %}
-{% capture r_chandler %}{% include author_link.html name="Raymond Chandler" %}{% endcapture %}
-{% capture chandler %}{% include author_link.html name="Raymond Chandler" link_text="Chandler" %}{% endcapture %}
+{% capture chandlers %}{% author_link "Raymond Chandler" link_text="Chandler" possessive %}{% endcapture %}
+{% capture r_chandler %}{% author_link "Raymond Chandler" %}{% endcapture %}
+{% capture chandler %}{% author_link "Raymond Chandler" link_text="Chandler" %}{% endcapture %}
 
-{% capture pkds %}{% include author_link.html name="Philip K. Dick" possessive=true %}{% endcapture %}
-{% capture full_pkd %}{% include author_link.html name="Philip K. Dick" %}{% endcapture %}
-{% capture pkd %}{% include author_link.html name="Philip K. Dick" link_text="PKD" %}{% endcapture %}
+{% capture pkds %}{% author_link "Philip K. Dick" possessive %}{% endcapture %}
+{% capture full_pkd %}{% author_link "Philip K. Dick" %}{% endcapture %}
+{% capture pkd %}{% author_link "Philip K. Dick" link_text="PKD" %}{% endcapture %}
 
-{% capture lpm1 %}{% include book_link.html title="The Last Policeman" %}{% endcapture %}
+{% capture lpm1 %}{% book_link "The Last Policeman" %}{% endcapture %}
 
 The cover sports a quote from a Newsweek review: "Marries {{ chandlers }}
 style and {{ pkds }} vision." I've read none of {{ r_chandler }}, and little

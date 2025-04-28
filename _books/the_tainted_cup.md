@@ -14,14 +14,14 @@ It follows investigators Dinios Kol and Ana Dolabra as they try to solve the
 murder of an engineer and uncover a conspiracy that runs far deeper.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
+{% capture this_series %}{% series_link page.series %} series{% endcapture %}
 
-{% capture corruption %}{% include book_link.html title="A Drop of Corruption" %}{% endcapture %}
+{% capture corruption %}{% book_link "A Drop of Corruption" %}{% endcapture %}
 
-{% capture house %}{% include book_link.html title="House of Suns" %}{% endcapture %}
-{% capture botns %}{% include series_link.html series="The Book of the New Sun" %}{% endcapture %}
-{% capture wolfes %}{% include author_link.html name="Gene Wolfe" possessive=true %}{% endcapture %}
-{% capture torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
+{% capture house %}{% book_link "House of Suns" %}{% endcapture %}
+{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
+{% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
+{% capture torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
 
 {{ this_book }} is (and this is going to sound crazy) a Holmesian detective
 story set in a bio-punk fantasy world based on imperial China, where Kaiju

@@ -15,7 +15,7 @@ class="author-name">{{ page.book_author }}</span> book.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
-{% capture abyss %}{% include book_link.html title="The Abyss Beyond Dreams" %}{% endcapture %}
+{% capture abyss %}{% book_link "The Abyss Beyond Dreams" %}{% endcapture %}
 
 The plot continues 250 years after {{ abyss }}. Planet Bienvenido escaped the
 Void but is now stranded in intergalactic space. The promised Commonwealth

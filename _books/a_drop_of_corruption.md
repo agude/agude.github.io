@@ -17,31 +17,32 @@ almost a match for Ana's own.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_author | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
 
-{% capture book1 %}{% include book_link.html title="The Tainted Cup"%}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
 
-{% capture doyles %}{% include author_link.html name="Arthur Conan Doyle" possessive=true %}{% endcapture %}
-{% capture final_problem %}{% include book_link.html title="The Final Problem"%}{% endcapture %}
+{% capture book1 %}{% book_link "The Tainted Cup" %}{% endcapture %}
 
-{% capture fdr %}{% include book_link.html title="Fer-de-Lance"%}{% endcapture %}
-{% capture nero_wolfe_series %}{% include series_link.html series="Nero Wolfe"%} series{% endcapture %}
-{% capture stouts %}{% include author_link.html name="Rex Stout" possessive=true %}{% endcapture %}
+{% capture doyles %}{% author_link "Arthur Conan Doyle" possessive %}{% endcapture %}
+{% capture final_problem %}{% book_link "The Final Problem" %}{% endcapture %}
 
-{% capture sherlock_series %}{% include series_link.html series="Sherlock Holmes"%} series{% endcapture %}
+{% capture fdr %}{% book_link "Fer-de-Lance" %}{% endcapture %}
+{% capture nero_wolfe_series %}{% series_link "Nero Wolfe" %} series{% endcapture %}
+{% capture stouts %}{% author_link "Rex Stout" possessive %}{% endcapture %}
 
-{% capture martines %}{% include author_link.html name="Arkady Martine" possessive=true %}{% endcapture %}
-{% capture empire %}{% include book_link.html title="A Memory Called Empire"%}{% endcapture %}
+{% capture sherlock_series %}{% series_link "Sherlock Holmes" %} series{% endcapture %}
 
-{% capture shakespeares %}{% include author_link.html name="William Shakespeare" possessive=true %}{% endcapture %}
-{% capture macbeth %}{% include book_link.html title="Macbeth"%}{% endcapture %}
+{% capture martines %}{% author_link "Arkady Martine" possessive %}{% endcapture %}
+{% capture empire %}{% book_link "A Memory Called Empire" %}{% endcapture %}
 
-{% capture wolfes %}{% include author_link.html name="Gene Wolfe" possessive=true %}{% endcapture %}
-{% capture claw %}{% include book_link.html title="The Claw of the Conciliator"%}{% endcapture %}
+{% capture shakespeares %}{% author_link "William Shakespeare" possessive %}{% endcapture %}
+{% capture macbeth %}{% book_link "Macbeth" %}{% endcapture %}
 
-{% capture wattss %}{% include author_link.html name="Peter Watts" possessive=true %}{% endcapture %}
-{% capture echopraxia %}{% include book_link.html title="Echopraxia"%}{% endcapture %}
+{% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
+{% capture claw %}{% book_link "The Claw of the Conciliator" %}{% endcapture %}
+
+{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
+{% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
 In {{ this_book }}, Din and Ana travel to Yarrow to solve the murder of a
 treasury officer. At first, it looks like the officer was abducted from his

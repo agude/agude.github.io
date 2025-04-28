@@ -14,13 +14,13 @@ stories by <span class="author-name">{{ page.book_author }}</span>.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
 
-{% capture bob1 %}{% include book_link.html title="We Are Legion (We Are Bob)" %}{% endcapture %}
-{% capture bobiverse %}{% include series_link.html series="Bobiverse" %}{% endcapture %}
+{% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
+{% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
 {% capture cleaning_up %}[<cite class="short-story-title">Cleaning Up</cite>]({% link _books/the_state_of_the_art.md %}#cleaning-up){% endcapture %}
-{% capture bankss %}{% include author_link.html name="Iain M. Banks" possessive=true %}{% endcapture %}
-{% capture art %}{% include book_link.html title="The State of the Art" %}{% endcapture %}
+{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture art %}{% book_link "The State of the Art" %}{% endcapture %}
 
 ### Lena
 {% include book_rating.html rating=5 %}

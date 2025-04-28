@@ -15,10 +15,10 @@ tries to save them.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture redwall %}{% include book_link.html title="Redwall" %}{% endcapture %}
-{% capture mossflower %}{% include book_link.html title="Mossflower" %}{% endcapture %}
-{% capture mariel %}{% include book_link.html title="Mariel of Redwall" %}{% endcapture %}
-{% capture redwall_series %}{% include series_link.html series=page.series %}{% endcapture %}
+{% capture redwall %}{% book_link "Redwall" %}{% endcapture %}
+{% capture mossflower %}{% book_link "Mossflower" %}{% endcapture %}
+{% capture mariel %}{% book_link "Mariel of Redwall" %}{% endcapture %}
+{% capture redwall_series %}{% series_link page.series %}{% endcapture %}
 
 The previous two books, {{ redwall }} and {{ mossflower }}, followed a similar
 structure: a warrior mouse embarks on a quest, finds a sword, returns, and

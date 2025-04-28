@@ -20,9 +20,9 @@ good.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
-{% capture fall_hyperion %}{% include book_link.html title="The Fall of Hyperion" %}{% endcapture %}
+{% capture fall_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
 
-{% capture keatss %}{% include author_link.html name="John Keats" possessive=true %}{% endcapture %}
+{% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
 
 It is told as the tale of six different pilgrims traveling to the planet
 Hyperion to visit the Shrike, a cruel, death-god-like figure. {{ this_book }}

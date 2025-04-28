@@ -299,17 +299,17 @@ date: "%Y" | minus: 2015 }}.
 
 ### Author That Exists
 
-- {% include author_link.html name="Arthur C. Clarke" %}
-- {% include author_link.html name="Arthur C. Clarke" possessive=true %}
-- {% include author_link.html name="Arthur C. Clarke" link_text="Clarke" %}
-- {% include author_link.html name="Arthur C. Clarke" possessive=true link_text="Clarke" %}
+- {% author_link "Arthur C. Clarke" %}
+- {% author_link "Arthur C. Clarke" possessive %}
+- {% author_link "Arthur C. Clarke" link_text="Clarke" %}
+- {% author_link "Arthur C. Clarke" possessive link_text="Clarke" %}
 
 ### Author That Doesn't Exists
 
-- {% include author_link.html name="Nonexistent Author" %}
-- {% include author_link.html name="Nonexistent Author" possessive=true %}
-- {% include author_link.html name="Nonexistent Author" link_text="N. Author" %}
-- {% include author_link.html name="Nonexistent Author" possessive=true link_text="N. Author" %}
+- {% author_link "Nonexistent Author" %}
+- {% author_link "Nonexistent Author" possessive %}
+- {% author_link "Nonexistent Author" link_text="N. Author" %}
+- {% author_link "Nonexistent Author" possessive link_text="N. Author" %}
 
 ---
 
@@ -317,13 +317,13 @@ date: "%Y" | minus: 2015 }}.
 
 ### Book That Exists
 
-- {% include book_link.html title="Childhood's End" %}
-- {% include book_link.html title="Childhood's End" link_text="End" %}
+- {% book_link "Childhood's End" %}
+- {% book_link "Childhood's End" link_text="End" %}
 
 ### Book That Doesn't Exists
 
-- {% include book_link.html title="Nonexistent Book" %}
-- {% include book_link.html title="Nonexistent Book" link_text="This Book Doesn't Exist" %}
+- {% book_link "Nonexistent Book" %}
+- {% book_link "Nonexistent Book" link_text="This Book Doesn't Exist" %}
 
 ---
 
@@ -331,11 +331,11 @@ date: "%Y" | minus: 2015 }}.
 
 ### Series That Exists
 
-- {% include series_link.html series="Culture" %}
+- {% series_link "Culture" %}
 
 ### Series That Doesn't Exist
 
-- {% include series_link.html series="Nonexistent Series" %}
+- {% series_link "Nonexistent Series" %}
 
 ---
 
@@ -345,7 +345,7 @@ date: "%Y" | minus: 2015 }}.
   <h1 class="page-title"><cite class="book-title">Test Book Title</cite></h1>
 
   <div class="written-by">
-    By {% include author_link.html name="Vernor Vinge" %}
+    By {% author_link "Vernor Vinge" %}
   </div>
 
   <div class="book-series-line">

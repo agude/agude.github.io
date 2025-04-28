@@ -17,7 +17,7 @@ multiple, massive, 200-page chapters following Edeard in the Void.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 
-{% capture dreaming_void %}{% include book_link.html title="The Dreaming Void" %}{% endcapture %}
+{% capture dreaming_void %}{% book_link "The Dreaming Void" %}{% endcapture %}
 
 At the climax of {{ dreaming_void }}, Edeard earned his nickname of
 "Waterwalker" when he unlocked his true psychic ability. In this book we
