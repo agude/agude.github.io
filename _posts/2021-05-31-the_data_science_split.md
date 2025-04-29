@@ -85,5 +85,5 @@ reporting out the results. I discuss five of these roles in my next post:
 
 {% capture url %}{% post_url 2021-06-01-data_science_job_spectrum %}{% endcapture %}
 <div class="card-grid">
-  {% include auto_article_card.html url=url %}
+  {% article_card_lookup url=url %}
 </div>

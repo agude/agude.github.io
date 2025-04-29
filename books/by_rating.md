@@ -167,8 +167,15 @@ from the ranked_list that match each rating.
   {% if books_in_rating_group.size > 0 %}
 <h2 class="book-list-headline" id="rating-{{ current_rating_str }}">{% include book_rating.html rating=current_rating_int wrapper_tag="span" %}</h2>
 <div class="card-grid">
-      {% for book_object_to_display in books_in_rating_group %}
-        {% include auto_book_card_from_object.html book=book_object_to_display %}
+      {% for book in books_in_rating_group %}
+        {% include book_card.html
+          url=book.url
+          image=book.image
+          title=book.title
+          author=book.book_author
+          rating=book.rating
+          description=book.excerpt
+        %}
       {% endfor %}
 </div>
   {% endif %}

@@ -8,10 +8,23 @@ at the top. {% endcomment %}
   them now.{% endcomment %}
   {% if post.layout == 'book' %}
     {% comment %} Book card. {% endcomment %}
-    {% include auto_book_card_from_object.html book=post %}
+    {% include book_card.html
+      url=post.url
+      image=post.image
+      title=post.title
+      author=post.book_author
+      rating=post.rating
+      description=post.excerpt
+    %}
   {% elsif post.layout == 'post' %}
     {% comment %} Article cards. {% endcomment %}
-    {% include auto_article_card_from_object.html post=post %}
+    {% include article_card.html
+      url=post.url
+      image=post.image
+      image_alt=post.image_alt
+      title=post.title
+      description=post.description
+    %}
   {% endif %}
 {% endfor %}
 </div>

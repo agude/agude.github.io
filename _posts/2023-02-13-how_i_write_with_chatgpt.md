@@ -25,7 +25,7 @@ For my updated approach, check out my latest post:**
 
 {% capture url %}{% post_url 2025-02-02-how_i_write_with_llms_revised %}{% endcapture %}
 <div class="card-grid">
-  {% include auto_article_card.html url=url %}
+  {% article_card_lookup url=url %}
 </div>
 
 <hr>

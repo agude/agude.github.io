@@ -71,7 +71,14 @@ We find each title's object again via site.books.
     {% for title in top_titles %}
       {% for book in site.books %}
         {% if book.title == title %}
-          {% include auto_book_card_from_object.html book=book %}
+          {% include book_card.html
+            url=book.url
+            image=book.image
+            title=book.title
+            author=book.book_author
+            rating=book.rating
+            description=book.excerpt
+          %}
           {% break %}
         {% endif %}
       {% endfor %}

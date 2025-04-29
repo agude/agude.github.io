@@ -28,8 +28,8 @@ reads from 2024:
 
 ## <cite class="book-title">Echopraxia</cite> by <span class="author-name">Peter Watts</span>
 
-{% capture ff1 %}{% book_link "Blindsight" %}{% endcapture %} 
-{% capture ff2 %}{% book_link "Echopraxia" %}{% endcapture %} 
+{% capture ff1 %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture ff2 %}{% book_link "Echopraxia" %}{% endcapture %}
 
 {% capture watts %}{% author_link "Peter Watts" link_text="Watts" %}{% endcapture %}
 
@@ -40,16 +40,16 @@ because of its complex storyline, intriguing characters, and the broader
 perspective it offers on the world.
 
 <div class="card-grid">
-  {% include auto_book_card.html title="Echopraxia" %}
+  {% book_card_lookup title="Echopraxia" %}
 </div>
 
 ## The <span class="book-series">Culture</span> Series by <span class="author-name">Iain M. Banks</span>
 
-{% capture c1 %}{% book_link "Consider Phlebas" %}{% endcapture %} 
-{% capture c2 %}{% book_link "The Player of Games" %}{% endcapture %} 
-{% capture c3 %}{% book_link "Use of Weapons" %}{% endcapture %} 
-{% capture c6 %}{% book_link "Inversions" %}{% endcapture %} 
-{% capture c9 %}{% book_link "Surface Detail" %}{% endcapture %} 
+{% capture c1 %}{% book_link "Consider Phlebas" %}{% endcapture %}
+{% capture c2 %}{% book_link "The Player of Games" %}{% endcapture %}
+{% capture c3 %}{% book_link "Use of Weapons" %}{% endcapture %}
+{% capture c6 %}{% book_link "Inversions" %}{% endcapture %}
+{% capture c9 %}{% book_link "Surface Detail" %}{% endcapture %}
 {% capture c10 %}{% book_link "The Hydrogen Sonata" %}{% endcapture %}
 
 {% capture culture %}{% series_link "Culture" %}{% endcapture %}
@@ -66,10 +66,10 @@ well-reviewed of {{ bankss }} books. It will be bittersweet to finish the
 series with {{ c10 }} in 2025.
 
 <div class="card-grid">
-  {% include auto_book_card.html title="The Player of Games" %} 
-  {% include auto_book_card.html title="Inversions" %} 
-  {% include auto_book_card.html title="Look to Windward" %} 
-  {% include auto_book_card.html title="Surface Detail" %} 
+  {% book_card_lookup title="The Player of Games" %}
+  {% book_card_lookup title="Inversions" %}
+  {% book_card_lookup title="Look to Windward" %}
+  {% book_card_lookup title="Surface Detail" %}
 </div>
 
 ## <cite class="book-title">A Fire Upon The Deep</cite> by <span class="author-name">Vernor Vinge</span>
@@ -82,13 +82,13 @@ also a unique way to structure the galaxy and explore how it shapes
 civilizations.
 
 <div class="card-grid">
-  {% include auto_book_card.html title="A Fire Upon The Deep" %}
+  {% book_card_lookup title="A Fire Upon The Deep" %}
 </div>
 
 ## The <span class="book-series">Cheela</span> Series by <span class="author-name">Robert L. Forward</span>
 
-{% capture ch1 %}{% book_link "Dragon's Egg" %}{% endcapture %} 
-{% capture ch2 %}{% book_link "Starquake" %}{% endcapture %} 
+{% capture ch1 %}{% book_link "Dragon's Egg" %}{% endcapture %}
+{% capture ch2 %}{% book_link "Starquake" %}{% endcapture %}
 
 {% capture cheela %}{% series_link "Cheela" %}{% endcapture %}
 
@@ -101,13 +101,13 @@ than humans---their characters still pulled me in. It was exciting to watch
 them build their civilization from hunter-gatherers to a spacefaring society.
 
 <div class="card-grid">
-  {% include auto_book_card.html title="Dragon's Egg" %}
-  {% include auto_book_card.html title="Starquake" %}
+  {% book_card_lookup title="Dragon's Egg" %}
+  {% book_card_lookup title="Starquake" %}
 </div>
 
 ## <cite class="book-title">Childhood's End</cite> by <span class="author-name">Arthur C. Clarke</span>
 
-{% capture end %}{% book_link "Childhood's End" %}{% endcapture %} 
+{% capture end %}{% book_link "Childhood's End" %}{% endcapture %}
 
 {% capture clarkes %}{% author_link "Arthur C. Clarke" link_text="Clarke" possessive %}{% endcapture %}
 
@@ -117,5 +117,5 @@ it holds up. The focus on humans' psychic abilities feels a little dated, but
 {{ clarkes }} crisp writing kept me engaged.
 
 <div class="card-grid">
-  {% include auto_book_card.html title="Childhood's End" %}
+  {% book_card_lookup title="Childhood's End" %}
 </div>
