@@ -4,7 +4,6 @@ host: 0.0.0.0
 # Dependencies
 plugins:
     - jekyll-feed
-    - jekyll-gist
     - jekyll-paginate
     - jekyll-redirect-from
     - jekyll-seo-tag
