@@ -1,10 +1,10 @@
 ---
-date: 2025-04-26
+date: 2025-04-28
 title: Metropolitan
 book_author: Walter Jon Williams
 series: Metropolitan
 book_number: 1
-rating: null
+rating: 4
 image: /books/covers/metropolitan.jpg
 ---
 
