@@ -1,83 +1,106 @@
 # _plugins/article_card_lookup_tag.rb
 require 'jekyll'
 require 'liquid'
-require 'uri' # For joining URL parts
+require 'uri'
+require 'cgi'
+require 'strscan'
 require_relative 'liquid_utils'
 
 module Jekyll
-  # Liquid Tag to look up an article by URL and render its card.
-  # Usage: {% article_card_lookup url="/path/to/article/" %}
-  #        {% article_card_lookup url=variable_with_url %}
   class ArticleCardLookupTag < Liquid::Tag
+    QuotedFragment = Liquid::QuotedFragment
+
     def initialize(tag_name, markup, tokens)
       super
-      # Simple parsing: expect 'url=/path/...' or 'url=variable'
-      if markup.strip =~ /^url\s*=\s*(.*)$/i
-        @url_markup = $1.strip
+      @raw_markup = markup
+      @include_template_path = '_includes/article_card.html'
+
+      @url_markup = nil
+      scanner = StringScanner.new(markup.strip)
+      if scanner.scan(/url\s*=\s*(#{QuotedFragment}|\S+)/)
+          @url_markup = scanner[1]
       else
-        raise Liquid::SyntaxError, "Syntax Error in 'article_card_lookup': Expected {% article_card_lookup url=... %}"
+          if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
+             @url_markup = scanner.matched
+          end
       end
-      @include_template_path = '_includes/article_card.html' # Path to the presentation include
+      scanner.skip(/\s+/)
+      unless scanner.eos?
+        raise Liquid::SyntaxError, "Syntax Error in 'article_card_lookup': Unknown argument(s) '#{scanner.rest}' in '#{@raw_markup}'"
+      end
+      unless @url_markup && !@url_markup.strip.empty?
+         raise Liquid::SyntaxError, "Syntax Error in 'article_card_lookup': Could not find URL value in '#{@raw_markup}'"
+      end
     end
 
     # Helper to safely get data from post, providing defaults
     def get_post_data(post)
+      return {} unless post && post.respond_to?(:url) && post.respond_to?(:data)
+      description = post.data['description'] || ''
+      if description.empty? && post.respond_to?(:data) && post.data['excerpt'] # Check data hash for excerpt
+          description = post.data['excerpt'] || ''
+      end
       {
-        'url' => post.url,
-        'image' => post.data['image'] || '', # Add default/placeholder?
+        'url' => post.url || '',
+        'image' => post.data['image'] || '',
         'image_alt' => post.data['image_alt'] || "Article header image, used for decoration.",
         'title' => post.data['title'] || 'Untitled Post',
-        'description' => post.data['description'] || post.excerpt || '' # Fallback to excerpt
+        'description' => description
       }
     end
 
+    # Renders the article card by looking up the post and including the template
     def render(context)
       site = context.registers[:site]
-
-      # Resolve the URL value
       target_url_raw = LiquidUtils.resolve_value(@url_markup, context).to_s.strip
       unless target_url_raw && !target_url_raw.empty?
-        LiquidUtils.log_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "URL markup resolved to empty", identifiers: { Markup: @url_markup })
+        LiquidUtils.log_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "URL markup resolved to empty", identifiers: { Markup: @url_markup || @raw_markup })
         return ""
       end
-
-      # Ensure the target URL starts with a slash and handles baseurl correctly for comparison
       target_url = target_url_raw.start_with?('/') ? target_url_raw : "/#{target_url_raw}"
-      # Note: site.posts[].url usually includes baseurl if set, so direct comparison should work.
 
-      # --- Post Lookup ---
-      found_post = site.posts.docs.find { |post| post.url == target_url }
+      # --- Post Lookup (Using defensive access) ---
+      posts_iterable = site.posts
+      found_post = nil
+      if posts_iterable.respond_to?(:docs)
+        found_post = posts_iterable.docs.find { |post| post.url == target_url }
+      elsif posts_iterable.is_a?(Array)
+        found_post = posts_iterable.find { |post| post.respond_to?(:url) && post.url == target_url }
+      else
+        LiquidUtils.log_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Cannot iterate site.posts", identifiers: { URL: target_url, Type: posts_iterable.class.name })
+        return ""
+      end
       # --- End Post Lookup ---
 
       unless found_post
         LiquidUtils.log_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Could not find post", identifiers: { URL: target_url })
-        return "" # Or render a placeholder?
-      end
-
-      # --- Render the Include ---
-      # Load the include file's content
-      begin
-        source = site.liquid_renderer.file("(include)") # Use dummy filename
-                       .parse(File.read(site.in_source_dir(@include_template_path)))
-      rescue => e
-        LiquidUtils.log_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Failed to load include file '#{@include_template_path}'", identifiers: { Error: e.message })
         return ""
       end
 
-      # Prepare the context for the include, passing post data under 'include' variable
-      include_context = Liquid::Context.new(context.environments, context.registers, context.scopes)
-      include_context['include'] = get_post_data(found_post)
-
-      # Render the include content with the prepared context
+      # --- Render the Include (Context Fix) ---
       begin
-        source.render!(include_context)
+        include_path = site.in_source_dir(@include_template_path)
+        raise IOError, "Include file '#{@include_template_path}' not found" unless File.exist?(include_path)
+        source = site.liquid_renderer.file("(include)").parse(File.read(include_path))
+
+        # Use context.stack for rendering includes from tags
+        context.stack do
+          context['include'] = get_post_data(found_post)
+          source.render!(context)
+        end # context.stack automatically pops the scope
+
       rescue => e
-        LiquidUtils.log_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Error rendering include '#{@include_template_path}'", identifiers: { URL: target_url, Error: e.message })
-        "" # Return empty on rendering error
+        LiquidUtils.log_failure(
+            context: context,
+            tag_type: "ARTICLE_CARD_LOOKUP",
+            reason: "Error loading or rendering include '#{@include_template_path}'",
+            identifiers: { URL: target_url, Error: e.message }
+        )
+        "" # Return empty on error
       end
       # --- End Render Include ---
-    end
-  end
-end
+    end # End render
+  end # End class
+end # End module
 
 Liquid::Template.register_tag('article_card_lookup', Jekyll::ArticleCardLookupTag)

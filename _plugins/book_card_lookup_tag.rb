@@ -1,87 +1,106 @@
 # _plugins/book_card_lookup_tag.rb
 require 'jekyll'
 require 'liquid'
+require 'cgi'       # For HTML escaping
+require 'strscan'   # For flexible argument parsing
 require_relative 'liquid_utils'
 
 module Jekyll
-  # Liquid Tag to look up a book by title and render its card.
-  # Usage: {% book_card_lookup title="Book Title" %}
-  #        {% book_card_lookup title=variable_with_title %}
   class BookCardLookupTag < Liquid::Tag
+    QuotedFragment = Liquid::QuotedFragment
+
     def initialize(tag_name, markup, tokens)
       super
-      # Simple parsing: expect 'title="..."' or 'title=variable'
-      if markup.strip =~ /^title\s*=\s*(.*)$/i
-        @title_markup = $1.strip
+      @raw_markup = markup
+      @include_template_path = '_includes/book_card.html'
+
+      @title_markup = nil
+      scanner = StringScanner.new(markup.strip)
+      if scanner.scan(/title\s*=\s*(#{QuotedFragment}|\S+)/)
+        @title_markup = scanner[1]
       else
-        raise Liquid::SyntaxError, "Syntax Error in 'book_card_lookup': Expected {% book_card_lookup title=... %}"
+        if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
+           @title_markup = scanner.matched
+        end
       end
-      @include_template_path = '_includes/book_card.html' # Path to the presentation include
+      scanner.skip(/\s+/)
+      unless scanner.eos?
+        raise Liquid::SyntaxError, "Syntax Error in 'book_card_lookup': Unknown argument(s) '#{scanner.rest}' in '#{@raw_markup}'"
+      end
+      unless @title_markup && !@title_markup.strip.empty?
+         raise Liquid::SyntaxError, "Syntax Error in 'book_card_lookup': Could not find title value in '#{@raw_markup}'"
+      end
     end
 
     # Helper to safely get data from book, providing defaults
     def get_book_data(book)
+      return {} unless book && book.respond_to?(:url) && book.respond_to?(:data)
+
+      # --- Fix for Excerpt Deprecation ---
+      # Use book.data['excerpt'] instead of book.excerpt
+      description = book.data['excerpt'] || ''
+      # --- End Fix ---
+
       {
-        'url' => book.url,
-        'image' => book.data['image'] || nil,
-        'title' => book.data['title'] || nill,
+        'url' => book.url || '',
+        'image' => book.data['image'] || '',
+        'title' => book.data['title'] || 'Untitled Book',
         'author' => book.data['book_author'] || nil,
         'rating' => book.data['rating'] || nil,
-        'description' => book.excerpt || nil
+        'description' => description
       }
     end
 
+    # Renders the book card by looking up the book and including the template
     def render(context)
       site = context.registers[:site]
-
-      # Resolve the title value
       target_title = LiquidUtils.resolve_value(@title_markup, context).to_s.gsub(/\s+/, ' ').strip
       unless target_title && !target_title.empty?
-        LiquidUtils.log_failure(context: context, tag_type: "BOOK_CARD_LOOKUP", reason: "Title markup resolved to empty", identifiers: { Markup: @title_markup })
+        LiquidUtils.log_failure(context: context, tag_type: "BOOK_CARD_LOOKUP", reason: "Title markup resolved to empty", identifiers: { Markup: @title_markup || @raw_markup })
         return ""
       end
       target_title_downcased = target_title.downcase
 
-      # --- Book Lookup ---
       found_book = nil
       if site.collections.key?('books')
         found_book = site.collections['books'].docs.find do |book|
-          # Skip unpublished
           next if book.data['published'] == false
-          # Compare downcased, stripped titles
           book.data['title']&.gsub(/\s+/, ' ')&.strip&.downcase == target_title_downcased
         end
       end
-      # --- End Book Lookup ---
 
       unless found_book
         LiquidUtils.log_failure(context: context, tag_type: "BOOK_CARD_LOOKUP", reason: "Could not find book", identifiers: { Title: target_title })
-        return "" # Or render a placeholder?
-      end
-
-      # --- Render the Include ---
-      begin
-        source = site.liquid_renderer.file("(include)")
-                       .parse(File.read(site.in_source_dir(@include_template_path)))
-      rescue => e
-        LiquidUtils.log_failure(context: context, tag_type: "BOOK_CARD_LOOKUP", reason: "Failed to load include file '#{@include_template_path}'", identifiers: { Error: e.message })
         return ""
       end
 
-      # Prepare the context for the include
-      include_context = Liquid::Context.new(context.environments, context.registers, context.scopes)
-      include_context['include'] = get_book_data(found_book)
-
-      # Render the include content
+      # --- Render the Include (Context Fix) ---
       begin
-        source.render!(include_context)
+        include_path = site.in_source_dir(@include_template_path)
+        raise IOError, "Include file '#{@include_template_path}' not found" unless File.exist?(include_path)
+        source = site.liquid_renderer.file("(include)").parse(File.read(include_path))
+
+        # Use context.stack to create a new scope for the include variables
+        # This preserves registers like :site and :page better than Liquid::Context.new
+        context.stack do
+          # Assign the extracted book data to the 'include' variable within the new scope
+          context['include'] = get_book_data(found_book)
+          # Render the include content within this stacked context
+          source.render!(context)
+        end # context.stack automatically pops the scope
+
       rescue => e
-        LiquidUtils.log_failure(context: context, tag_type: "BOOK_CARD_LOOKUP", reason: "Error rendering include '#{@include_template_path}'", identifiers: { Title: target_title, Error: e.message })
-        ""
+        LiquidUtils.log_failure(
+            context: context,
+            tag_type: "BOOK_CARD_LOOKUP",
+            reason: "Error loading or rendering include '#{@include_template_path}'",
+            identifiers: { Title: target_title, Error: e.message }
+        )
+        "" # Return empty on error
       end
       # --- End Render Include ---
-    end
-  end
-end
+    end # End render
+  end # End class
+end # End module
 
 Liquid::Template.register_tag('book_card_lookup', Jekyll::BookCardLookupTag)
