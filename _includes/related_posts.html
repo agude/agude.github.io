@@ -65,7 +65,13 @@ Show up to `max_posts` related posts:
   {{ final_header }}
 
   {% for post in final_posts %}
-    {% include auto_article_card_from_object.html post=post %}
+    {% include article_card.html
+      url=post.url
+      image=post.image
+      image_alt=post.image_alt
+      title=post.title
+      description=post.description
+    %}
   {% endfor %}
 
   {{ footer }}
