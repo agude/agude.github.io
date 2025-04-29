@@ -44,6 +44,7 @@ ranked_list:
   - Eater
   - The Citadel of the Autarch
   - Grand Melee
+  - Metropolitan
   - The Temporal Void
   - The Evolutionary Void
   - The Sword of the Lictor
