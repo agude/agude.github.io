@@ -61,6 +61,7 @@ GEM
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    logger (1.7.0)
     mercenary (0.4.0)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
@@ -89,6 +90,7 @@ DEPENDENCIES
   jekyll-redirect-from (~> 0.16.0)
   jekyll-seo-tag (~> 2.8.0)
   jekyll-sitemap (~> 1.4.0)
+  logger (~> 1.6)
   webrick (~> 1.8)
 
 BUNDLED WITH
