@@ -9,10 +9,10 @@
 _site
 
 # Ignore Bundler vendor directory (if installing locally)
-vendor/bundle
+# vendor/bundle
 
-# IMPORTANT: Ignore the lock file from the host context
-Gemfile.lock
+# IMPORTANT: Gemfile.lock is NO LONGER ignored so it's used in the build
+# Gemfile.lock
 
 # Ignore Bundler config and cache
 .bundle
@@ -28,8 +28,3 @@ README.md
 LICENSE.md
 redirects.json
 node_modules
-
-# Ignore temporary build directory if used previously
-/tmp/jekyll-docker-agude*
-
-# Add any other files/directories not needed in the final image
