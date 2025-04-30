@@ -18,6 +18,7 @@ plugin_logging:
     BOOK_BACKLINKS: true
     RENDER_BOOK_LINK: true
     SERIES_LINK: true
+    UNITS_WARNING: true
 
 # Dependencies
 plugins:
