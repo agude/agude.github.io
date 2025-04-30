@@ -64,7 +64,6 @@ module Jekyll
       # --- Iterate and Collect Backlinks ---
       # Store as [sort_key, original_title] pairs
       backlinks_data = []
-      now_unix = Time.now.to_i
 
       site.collections['books'].docs.each do |book|
         book_url = book.url&.downcase&.strip
@@ -73,9 +72,8 @@ module Jekyll
         # Skip self-references
         next if book_url == current_url
 
-        # Skip unpublished posts (using date check)
-        post_time = book.date&.to_time&.to_i || 0
-        next if post_time > now_unix
+        # Skip documents explicitly marked as unpublished in front matter
+        next if book.data['published'] == false
 
         # Skip if the book has no title (can't be linked to by title)
         next if original_title.nil? || original_title.strip.empty?
