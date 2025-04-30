@@ -98,8 +98,9 @@ ranked within each group.
 
 {% comment %}
 Ensure that the ranking is monotonically decreasing in star rating
+(non-production only)
 {% endcomment %}
-{% include check_monotonic_rating.html ranked_list=page.ranked_list %}
+{% check_monotonic_rating page.ranked_list %}
 
 {% comment %}
 Iterate through ratings (high to low) and display books
