@@ -1,6 +1,24 @@
 # This fixes an error when serving from inside Docker
 host: 0.0.0.0
 
+# Plugin Logging Configuration
+# Controls logging behavior for custom plugin failures.
+# Set specific tag types to 'false' to disable ALL logging (Console & HTML)
+# for failures originating from that tag type.
+# Defaults to 'true' (enabled) if a tag type is not listed here.
+#
+# Environment Behavior:
+#   - Non-Production: Logs to Console AND HTML Comments (if enabled below).
+#   - Production: Logs ONLY to Console (if enabled below). HTML comments are always disabled.
+#
+plugin_logging:
+    ARTICLE_CARD_LOOKUP: true
+    AUTHOR_LINK: true
+    BOOK_CARD_LOOKUP: true
+    BOOK_BACKLINKS: true
+    RENDER_BOOK_LINK: true
+    SERIES_LINK: true
+
 # Dependencies
 plugins:
     - jekyll-feed
