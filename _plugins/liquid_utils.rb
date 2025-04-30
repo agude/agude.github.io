@@ -1,8 +1,7 @@
 # _plugins/liquid_utils.rb
 require 'cgi'
-require 'jekyll' # Needed for site config access in logger
+require 'jekyll'
 
-# Utility methods for custom Liquid tags
 module LiquidUtils
 
   # Resolves a Liquid markup string that might be a quoted literal or a variable name.
@@ -28,30 +27,72 @@ module LiquidUtils
     end
   end
 
-  # Logs a failure message as an HTML comment in non-production environments.
-  # Returns the comment string or an empty string if in production.
+  # Logs a failure message based on environment defaults and specific tag type configuration.
+  # Environment Defaults:
+  #   - Non-Production: Console=true, HTML=true
+  #   - Production:     Console=true, HTML=false
+  # Configuration (_config.yml -> plugin_logging -> TAG_TYPE: false) can disable
+  # all logging for a specific tag type.
   #
   # @param context [Liquid::Context] The current Liquid context.
-  # @param tag_type [String] The type of tag reporting the failure (e.g., "BOOK_LINK", "AUTHOR_LINK").
+  # @param tag_type [String] The type of tag reporting the failure (e.g., "BOOK_LINK").
   # @param reason [String] The reason for the failure.
-  # @param identifiers [Hash] A hash of key-value pairs identifying the item (e.g., { Title: "Some Title" }).
-  # @return [String] HTML comment string or empty string.
+  # @param identifiers [Hash] A hash of key-value pairs identifying the item.
+  # @return [String] HTML comment string (if HTML logging is active) or empty string.
   def self.log_failure(context:, tag_type:, reason:, identifiers: {})
-    site = context.registers[:site]
-    # Use site.config['environment'] which Jekyll sets based on JEKYLL_ENV or command-line flag
-    # Default to 'development' if not set
-    jekyll_env = site.config['environment'] || 'development'
+    # Ensure context and site are available
+    unless context && (site = context.registers[:site])
+      puts "[PLUGIN LOG ERROR] Context or Site unavailable for logging."
+      return "" # Cannot proceed
+    end
 
-    # Only log in non-production environments
-    return "" if jekyll_env == "production" # Return empty string if production
+    environment = site.config['environment'] || 'development'
 
-    page_path = context.registers[:page] ? context.registers[:page]['path'] : 'unknown'
-    identifier_string = identifiers.map { |key, value| "#{key}='#{CGI.escapeHTML(value.to_s)}'" }.join(' ')
+    # --- Determine if logging is enabled for this specific tag type ---
+    # Default to enabled (true) unless explicitly set to false in config.
+    # Use .to_s on tag_type just in case something non-stringy gets passed.
+    log_setting_for_tag = site.config.dig('plugin_logging', tag_type.to_s)
+    logging_enabled_for_tag = (log_setting_for_tag != false) # Enabled if true, nil, or missing key
 
-    # Return the HTML comment string
-    "<!-- #{tag_type}_FAILURE: Reason='#{reason}' #{identifier_string} SourcePage='#{page_path}' -->"
+    # --- Determine base logging destinations based on environment ---
+    is_production = (environment == 'production')
+    base_log_console = true # Console logging is on by default in all environments
+    base_log_html = !is_production # HTML logging is on by default ONLY if not production
+
+    # --- Determine final logging actions ---
+    # Logging happens only if enabled for the tag AND enabled by environment default
+    do_console_log = logging_enabled_for_tag && base_log_console
+    do_html_log = logging_enabled_for_tag && base_log_html
+
+    # --- Perform Logging ---
+    html_output = "" # Initialize HTML output
+
+    # Only proceed if any logging destination is active
+    if do_console_log || do_html_log
+      # Prepare message content (only once if needed)
+      page_path = context.registers[:page] ? context.registers[:page]['path'] : 'unknown'
+      identifier_string = identifiers.map { |key, value| "#{key}='#{CGI.escapeHTML(value.to_s)}'" }.join(' ')
+      log_message_base = "#{tag_type}_FAILURE: Reason='#{reason}' #{identifier_string} SourcePage='#{page_path}'"
+
+      # Log to Console if enabled
+      if do_console_log
+        # Use Jekyll's logger for better integration if available, otherwise puts
+        if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:warn)
+           Jekyll.logger.warn("[Plugin]", log_message_base)
+        else
+           puts "[PLUGIN LOG] #{log_message_base}" # Fallback
+        end
+      end
+
+      # Prepare HTML Comment if enabled
+      if do_html_log
+        html_output = "<!-- #{log_message_base} -->"
+      end
+    end
+    # --- End Logging ---
+
+    return html_output # Return the HTML comment (or empty string)
   end
-
 
   # Finds a book by title (case-insensitive) and renders its link/cite HTML.
   # Replicates the core logic of BookLinkTag.
@@ -61,18 +102,23 @@ module LiquidUtils
   # @param link_text_override_raw [String, nil] Optional text to display instead of the title.
   # @return [String] The generated HTML (<a href=...><cite>...</cite></a> or <cite>...</cite>).
   def self.render_book_link(book_title_raw, context, link_text_override_raw = nil)
-    site = context.registers[:site]
+    # Ensure context and site are available
+    unless context && (site = context.registers[:site])
+      puts "[PLUGIN RENDER_BOOK_LINK ERROR] Context or Site unavailable."
+      # Return minimal fallback or raise error depending on desired strictness
+      return book_title_raw.to_s # Minimal fallback
+    end
     page = context.registers[:page]
 
     # --- Input Validation & Resolution ---
-    # Ensure inputs are strings before processing
     book_title = book_title_raw.to_s.gsub(/\s+/, ' ').strip
     link_text_override = link_text_override_raw.to_s.strip if link_text_override_raw && !link_text_override_raw.to_s.empty?
 
     if book_title.empty?
+      # Log failure and return the log message (which might be empty)
       return log_failure(
         context: context,
-        tag_type: "RENDER_BOOK_LINK",
+        tag_type: "RENDER_BOOK_LINK", # Specific type for this utility function's errors
         reason: "Input title resolved to empty",
         identifiers: { TitleInput: book_title_raw || 'nil' }
       )
@@ -93,7 +139,7 @@ module LiquidUtils
         doc.data['title']&.gsub(/\s+/, ' ')&.strip&.downcase == book_title_downcased
       end
     else
-      # Log if the collection itself is missing, this is a config issue
+      # Log if the collection itself is missing
       return log_failure(
         context: context,
         tag_type: "RENDER_BOOK_LINK",
@@ -127,8 +173,8 @@ module LiquidUtils
       if target_url && current_page_url && target_url != current_page_url
         # Use site.baseurl for correct link generation in subdirectories
         baseurl = site.config['baseurl'] || ''
-        # Ensure target_url starts with a slash if baseurl is present
-        target_url = "/#{target_url}" if !baseurl.empty? && !target_url.start_with?('/')
+        # Ensure target_url starts with a slash if baseurl is present and url doesn't already have it
+        target_url = "/#{target_url}" if !baseurl.empty? && !target_url.start_with?('/') && !target_url.start_with?(baseurl)
         "<a href=\"#{baseurl}#{target_url}\">#{cite_element}</a>"
       else
         cite_element # It's the current page or context is missing/invalid
@@ -137,8 +183,8 @@ module LiquidUtils
       # Log failure but still return the unlinked cite element for graceful degradation
       log_output = log_failure(
         context: context,
-        tag_type: "RENDER_BOOK_LINK",
-        reason: "Could not find book page",
+        tag_type: "RENDER_BOOK_LINK", # Use specific type
+        reason: "Could not find book page during link rendering",
         identifiers: { Title: book_title }
       )
       # Return the log comment (if any) prepended to the cite element
