@@ -2,6 +2,14 @@
 require 'cgi'
 require 'jekyll'
 
+# Ensure Kramdown is loaded (Jekyll usually handles this, but belt-and-suspenders)
+begin
+  require 'kramdown'
+rescue LoadError
+  STDERR.puts "Error: Kramdown gem not found. Please ensure it's in your Gemfile and installed."
+  exit(1) # Or handle more gracefully depending on desired robustness
+end
+
 module LiquidUtils
 
   # Normalizes a title string for consistent comparison or key generation.
@@ -200,8 +208,45 @@ module LiquidUtils
   end
 
 
+  # --- Internal Helper for Preparing Display Titles ---
+  # Applies smart quote/typographic transformations using Kramdown's
+  # 'SmartyPants' input mode and minimal HTML escaping (&, <, >).
+  # @param title [String, nil] The title string to prepare.
+  # @return [String] The prepared title string, safe for HTML content.
+  private
+  def self._prepare_display_title(title)
+    return "" if title.nil?
+    text = title.to_s
+
+    # 1. Apply smart quotes/typographics using Kramdown
+    # We create a Kramdown document with the title as source and use the
+    # special 'SmartyPants' input mode, which only applies typographic rules.
+    # Note: This assumes Kramdown version supports 'SmartyPants' input.
+    # It avoids full markdown processing.
+    begin
+      # Use a minimal config to avoid unexpected side effects
+      kramdown_config = { input: 'SmartyPants' }
+      smart_text = Kramdown::Document.new(text, kramdown_config).to_html.chomp
+    rescue => e
+      # Fallback or log error if Kramdown processing fails
+      puts "[PLUGIN LIQUID_UTILS WARNING] Kramdown SmartyPants conversion failed for title: '#{text}'. Error: #{e.message}"
+      smart_text = text # Fallback to original text
+    end
+
+
+    # 2. Apply minimal HTML escaping needed for content
+    # Escape only &, <, >. Leave all quote/typographic chars from Kramdown alone.
+    escaped_text = smart_text.gsub('&', '&amp;')
+                             .gsub('<', '&lt;')
+                             .gsub('>', '&gt;')
+                             # DO NOT escape quotes (", ', ‘, ’, “,”) etc.
+
+    escaped_text
+  end
+
+
   # Finds a book by title (case-insensitive) and renders its link/cite HTML.
-  # Replicates the core logic of BookLinkTag.
+  # Uses _prepare_display_title for correct quoting and escaping.
   #
   # @param book_title_raw [String] The title of the book to link to.
   # @param context [Liquid::Context] The current Liquid context.
@@ -267,8 +312,9 @@ module LiquidUtils
     end
     # --- End Display Text ---
 
-    escaped_display_text = CGI.escapeHTML(display_text)
-    cite_element = "<cite class=\"book-title\">#{escaped_display_text}</cite>"
+    # --- Use helper to prepare the title for display ---
+    prepared_display_text = _prepare_display_title(display_text)
+    cite_element = "<cite class=\"book-title\">#{prepared_display_text}</cite>"
 
     # --- Link Generation ---
     if found_book_doc
@@ -408,6 +454,7 @@ module LiquidUtils
 
 
   # --- Render Book Card Utility ---
+  # Uses _prepare_display_title for correct quoting and escaping.
   def self.render_book_card(book_object, context)
     unless book_object && book_object.respond_to?(:data) && book_object.respond_to?(:url) && context && (site = context.registers[:site])
       # Cannot render card without valid object and context
@@ -421,11 +468,12 @@ module LiquidUtils
     author = data['book_author'] # Optional
     rating = data['rating'] # Optional
     image_path = data['image'] # Optional
-    # Get the Excerpt object if available
-    description_obj = data['excerpt'] # This will be a Jekyll::Excerpt object or nil
+    description_obj = data['excerpt']
 
-    # Prepare values for HTML
-    escaped_title = CGI.escapeHTML(title)
+    # --- Use helper to prepare the title for display ---
+    prepared_title = _prepare_display_title(title) # <-- USE HELPER
+
+    # Prepare other values for HTML
     baseurl = site.config['baseurl'] || ''
     # Ensure book_object.url is treated as string before checking start_with?
     book_url_path = book_object.url.to_s
@@ -440,35 +488,36 @@ module LiquidUtils
     end
 
 
-    # Build HTML structure (based on example output, adjust classes/structure as needed)
+    # Build HTML structure
     card_html = "<div class=\"book-card\">\n"
 
     # Image section
     if image_url
       card_html << "  <div class=\"card-element card-book-cover\">\n"
       card_html << "    <a href=\"#{book_url}\">\n"
-      card_html << "      <img src=\"#{image_url}\" alt=\"Book cover of #{escaped_title}.\" />\n"
+      # Alt text: Use original title, fully escaped for attribute safety
+      card_html << "      <img src=\"#{image_url}\" alt=\"Book cover of #{CGI.escapeHTML(title)}.\" />\n"
       card_html << "    </a>\n"
       card_html << "  </div>\n"
     end
 
     # Text section
     card_html << "  <div class=\"card-element card-text\">\n"
-    # Title link
+    # Title link - uses the prepared title
     card_html << "    <a href=\"#{book_url}\">\n"
-    card_html << "      <strong><cite class=\"book-title\">#{escaped_title}</cite></strong>\n"
+    card_html << "      <strong><cite class=\"book-title\">#{prepared_title}</cite></strong>\n"
     card_html << "    </a>\n"
 
     # Author (optional) - Use the helper function
     if author && !author.empty?
       # Call the new utility function to generate the author link/span
-      author_html = render_author_link(author, context) # <-- Use the helper
+      author_html = render_author_link(author, context)
       card_html << "    <span class=\"by-author\"> by #{author_html}</span>\n"
     end
 
     # Rating (optional) - Use the helper function
     if rating
-      card_html << "    " << render_rating_stars(rating, 'div') << "\n" # Use div wrapper for rating inside card
+      card_html << "    " << render_rating_stars(rating, 'div') << "\n"
     end
 
     # Description (optional)
@@ -478,12 +527,9 @@ module LiquidUtils
 
       # Check if the *string* is non-empty after stripping whitespace
       unless description_str.strip.empty?
-        # The description from excerpt might already contain HTML (like <p>), handle appropriately.
-        # Jekyll's default excerpt processing often adds <p> tags already.
-        # Outputting directly is usually correct.
-        # The extra wrapping div might be specific to your card layout needs.
+        # Description from excerpt likely already has smart quotes from Kramdown
         card_html << "    <div class=\"card-element card-text\">\n"
-        card_html << "      #{description_str}\n" # Output the string content
+        card_html << "      #{description_str}\n"
         card_html << "    </div>\n"
       end
     end
