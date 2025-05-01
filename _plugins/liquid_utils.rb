@@ -114,6 +114,88 @@ module LiquidUtils
     return html_output # Return the HTML comment (or empty string)
   end
 
+
+  # Finds an author page and renders the link/span HTML.
+  #
+  # @param author_name_raw [String] The name of the author.
+  # @param context [Liquid::Context] The current Liquid context.
+  # @param link_text_override_raw [String, nil] Optional display text.
+  # @param possessive [Boolean] If true, append 's to the output.
+  # @return [String] The generated HTML (e.g., <a><span>...</span></a> or <span>...</span>).
+  def self.render_author_link(author_name_raw, context, link_text_override_raw = nil, possessive = false)
+    unless context && (site = context.registers[:site])
+      puts "[PLUGIN RENDER_AUTHOR_LINK ERROR] Context or Site unavailable."
+      return author_name_raw.to_s # Minimal fallback
+    end
+    page = context.registers[:page]
+
+    # --- Input Validation & Resolution ---
+    author_name = author_name_raw.to_s.gsub(/\s+/, ' ').strip
+    link_text_override = link_text_override_raw.to_s.strip if link_text_override_raw && !link_text_override_raw.to_s.empty?
+
+    if author_name.empty?
+      return log_failure(
+        context: context, tag_type: "RENDER_AUTHOR_LINK",
+        reason: "Input author name resolved to empty", identifiers: { NameInput: author_name_raw || 'nil' }
+      )
+    end
+    # --- End Input Validation ---
+
+    found_author_doc = nil
+    target_url = nil
+
+    # --- Author Lookup Logic ---
+    # Search site pages for layout 'author_page' and matching title (case-sensitive match).
+    # Adjust if authors are stored differently (e.g., collection).
+    found_author_doc = site.pages.find do |p|
+      p.data['layout'] == 'author_page' && p.data['title']&.strip == author_name
+    end
+    # --- End Author Lookup ---
+
+    # --- Determine Display Text ---
+    display_text = author_name # Default
+    if link_text_override && !link_text_override.empty?
+      display_text = link_text_override
+    elsif found_author_doc && found_author_doc.data['title']
+      canonical_title = found_author_doc.data['title'].strip
+      display_text = canonical_title unless canonical_title.empty?
+    end
+    # --- End Display Text ---
+
+    escaped_display_text = CGI.escapeHTML(display_text)
+    span_element = "<span class=\"author-name\">#{escaped_display_text}</span>"
+
+    # --- Link Generation ---
+    linked_element = span_element # Default to unlinked span
+    log_output = ""
+
+    if found_author_doc
+      target_url = found_author_doc.url
+      current_page_url = page ? page['url'] : nil
+
+      if target_url && current_page_url && target_url != current_page_url
+        baseurl = site.config['baseurl'] || ''
+        target_url = "/#{target_url}" if !baseurl.empty? && !target_url.start_with?('/') && !target_url.start_with?(baseurl)
+        linked_element = "<a href=\"#{baseurl}#{target_url}\">#{span_element}</a>"
+      end
+    else
+      # Log failure if author page wasn't found
+      log_output = log_failure(
+        context: context, tag_type: "RENDER_AUTHOR_LINK",
+        reason: "Could not find author page", identifiers: { Name: author_name }
+      )
+    end
+    # --- End Link Generation ---
+
+    # Prepend log message (if any) and append possessive suffix if needed
+    final_output = log_output + linked_element
+    if possessive
+      final_output << "'s"
+    end
+    final_output
+  end
+
+
   # Finds a book by title (case-insensitive) and renders its link/cite HTML.
   # Replicates the core logic of BookLinkTag.
   #
@@ -252,17 +334,11 @@ module LiquidUtils
   end
 
 
-  # Generates HTML for a book card using data from a book object.
-  #
-  # @param book_object [Jekyll::Document] The book document object.
-  # @param context [Liquid::Context] The current Liquid context (needed for baseurl).
-  # @return [String] HTML string for the book card.
+  # --- Render Book Card Utility ---
   def self.render_book_card(book_object, context)
     unless book_object && book_object.respond_to?(:data) && book_object.respond_to?(:url) && context && (site = context.registers[:site])
       # Cannot render card without valid object and context
       puts "[PLUGIN RENDER_BOOK_CARD ERROR] Invalid book_object or context."
-      # Example logging (if context were available even if book_object was bad):
-      # return log_failure(context: context, tag_type: "RENDER_BOOK_CARD", reason: "Invalid book object or context provided", identifiers: { BookPath: book_object&.path || 'N/A' })
       return ""
     end
 
@@ -298,7 +374,6 @@ module LiquidUtils
     if image_url
       card_html << "  <div class=\"card-element card-book-cover\">\n"
       card_html << "    <a href=\"#{book_url}\">\n"
-      # Alt text could be improved, maybe add 'image_alt' field?
       card_html << "      <img src=\"#{image_url}\" alt=\"Book cover of #{escaped_title}.\" />\n"
       card_html << "    </a>\n"
       card_html << "  </div>\n"
@@ -310,11 +385,14 @@ module LiquidUtils
     card_html << "    <a href=\"#{book_url}\">\n"
     card_html << "      <strong><cite class=\"book-title\">#{escaped_title}</cite></strong>\n"
     card_html << "    </a>\n"
-    # Author (optional) - Assuming simple span for now, could use author_link logic if needed
+
+    # Author (optional) - Use the helper function
     if author && !author.empty?
-      # TODO: Optionally integrate author_link logic here if desired
-      card_html << "    <span class=\"by-author\"> by <span class=\"author-name\">#{CGI.escapeHTML(author)}</span></span>\n"
+      # Call the new utility function to generate the author link/span
+      author_html = render_author_link(author, context) # <-- Use the helper
+      card_html << "    <span class=\"by-author\"> by #{author_html}</span>\n"
     end
+
     # Rating (optional) - Use the helper function
     if rating
       card_html << "    " << render_rating_stars(rating, 'div') << "\n" # Use div wrapper for rating inside card
@@ -336,11 +414,8 @@ module LiquidUtils
         card_html << "    </div>\n"
       end
     end
-
     card_html << "  </div>\n" # Close card-text
-
     card_html << "</div>" # Close book-card
-
     card_html
   end
 

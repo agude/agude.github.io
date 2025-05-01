@@ -97,14 +97,9 @@ ranked within each group.
 {% include books_topbar.html %}
 
 {% comment %}
-Ensure that the ranking is monotonically decreasing in star rating
-(non-production only)
-{% endcomment %}
-{% check_monotonic_rating page.ranked_list %}
-
-{% comment %}
-Iterate through ratings (high to low) and display books
-from the ranked_list that match each rating.
+Display books grouped by rating, using the order defined in page.ranked_list.
+The tag also validates the list's monotonicity and book existence in
+non-production environments, halting the build on error.
 {% endcomment %}
 
-{% render_ranked_books page.ranked_list %}
+{% display_ranked_books page.ranked_list %}
