@@ -4,7 +4,6 @@ require 'jekyll'
 
 module LiquidUtils
 
-  # --- NEW: Title Normalization Utility ---
   # Normalizes a title string for consistent comparison or key generation.
   # Options include lowercasing, stripping whitespace, handling newlines,
   # and optionally removing leading articles.
@@ -23,6 +22,7 @@ module LiquidUtils
     end
     normalized
   end
+
 
   # Resolves a Liquid markup string that might be a quoted literal or a variable name.
   # Handles single or double quotes for literals.
@@ -46,6 +46,7 @@ module LiquidUtils
       context[stripped_markup] || stripped_markup
     end
   end
+
 
   # Logs a failure message based on environment defaults and specific tag type configuration.
   # Environment Defaults:
@@ -331,6 +332,75 @@ module LiquidUtils
     safe_wrapper_tag = %w[div span].include?(wrapper_tag.to_s.downcase) ? wrapper_tag : 'div'
 
     "<#{safe_wrapper_tag} class=\"#{css_class}\" role=\"img\" aria-label=\"#{aria_label}\">#{stars_html}</#{safe_wrapper_tag}>"
+  end
+
+
+  # --- Render Article Card Utility ---
+  def self.render_article_card(post_object, context)
+    unless post_object && post_object.respond_to?(:data) && post_object.respond_to?(:url) && context && (site = context.registers[:site])
+      puts "[PLUGIN RENDER_ARTICLE_CARD ERROR] Invalid post_object or context."
+      return ""
+    end
+
+    # Extract data with defaults
+    data = post_object.data
+    title = data['title'] || 'Untitled Post'
+    image_path = data['image'] # Optional
+    image_alt = data['image_alt'] || "Article header image, used for decoration." # Default alt text
+
+    # --- Description Logic (Prioritize 'description', fallback to 'excerpt') ---
+    # Jekyll 4: post.data['excerpt'] holds the Excerpt object.
+    # We need its string representation.
+    description = data['description'] # Check front matter first
+    if description.nil? || description.to_s.strip.empty?
+      excerpt_obj = data['excerpt']
+      description = excerpt_obj.to_s if excerpt_obj # Convert Excerpt object to string
+    end
+    description_str = description.to_s.strip
+    # --- End Description Logic ---
+
+
+    # Prepare values for HTML
+    escaped_title = CGI.escapeHTML(title)
+    escaped_alt = CGI.escapeHTML(image_alt)
+    baseurl = site.config['baseurl'] || ''
+    post_url_path = post_object.url.to_s
+    post_url = post_url_path.empty? ? '#' : "#{baseurl}#{post_url_path}" # Handle missing URL
+
+    image_url = nil
+    if image_path && !image_path.empty?
+        image_path_str = image_path.to_s
+        image_path_str = "/#{image_path_str}" if !baseurl.empty? && !image_path_str.start_with?('/')
+        image_url = "#{baseurl}#{image_path_str}"
+    end
+
+    # Build HTML structure
+    card_html = "<div class=\"article-card\">\n"
+
+    # Image section (optional)
+    if image_url
+      card_html << "  <div class=\"card-element card-image\">\n"
+      card_html << "    <a href=\"#{post_url}\">\n"
+      card_html << "      <img src=\"#{image_url}\" alt=\"#{escaped_alt}\" />\n"
+      card_html << "    </a>\n"
+      card_html << "  </div>\n"
+    end
+
+    # Text section
+    card_html << "  <div class=\"card-element card-text\">\n"
+    card_html << "    <a href=\"#{post_url}\">\n"
+    card_html << "      <strong>#{escaped_title}</strong>\n"
+    card_html << "    </a>\n"
+
+    # Description (optional)
+    if !description_str.empty?
+      card_html << "    <br>\n"
+      card_html << "    #{description_str}\n"
+    end
+
+    card_html << "  </div>\n" # Close card-text
+    card_html << "</div>" # Close article-card
+    card_html
   end
 
 
