@@ -1,7 +1,7 @@
 # _plugins/check_monotonic_rating_tag.rb
 require 'jekyll'
 require 'liquid'
-require_relative 'liquid_utils' # May not be needed directly, but good practice
+require_relative 'liquid_utils'
 
 module Jekyll
   # Liquid Tag to validate the monotonicity (descending order) of book ratings
@@ -28,11 +28,6 @@ module Jekyll
       end
     end
 
-    # Helper to normalize titles consistently (lowercase, strip, handle newlines)
-    private def normalize_title(title)
-      title.to_s.gsub("\n", " ").gsub(/\s+/, ' ').downcase.strip
-    end
-
     def render(context)
       site = context.registers[:site]
       environment = site.config['environment'] || 'development'
@@ -56,13 +51,16 @@ module Jekyll
 
       rating_map = {}
       site.collections['books'].docs.each do |book|
+        # Skip unpublished books
+        next if book.data['published'] == false
         title = book.data['title']
         rating = book.data['rating']
 
         # Skip books without a title or rating, as they can't be validated
         next unless title && !title.to_s.strip.empty? && rating
 
-        normalized = normalize_title(title)
+        # Use the utility for normalization (basic: lowercase, strip space/newlines)
+        normalized = LiquidUtils.normalize_title(title, strip_articles: false)
         begin
           rating_int = Integer(rating) # Ensure rating is an integer
           rating_map[normalized] = rating_int
@@ -79,7 +77,8 @@ module Jekyll
       previous_title = nil
 
       ranked_list.each_with_index do |current_title_raw, index|
-        current_title_normalized = normalize_title(current_title_raw)
+        # Use the utility for normalization (basic: lowercase, strip space/newlines)
+        current_title_normalized = LiquidUtils.normalize_title(current_title_raw, strip_articles: false)
 
         # Check 1: Does the title exist in our map?
         unless rating_map.key?(current_title_normalized)
