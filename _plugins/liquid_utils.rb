@@ -385,6 +385,7 @@ module LiquidUtils
 
 
   # --- Render Article Card Utility ---
+  # Applies typographic transformations and handles <br> tags safely.
   def self.render_article_card(post_object, context)
     unless post_object && post_object.respond_to?(:data) && post_object.respond_to?(:url) && context && (site = context.registers[:site])
       puts "[PLUGIN RENDER_ARTICLE_CARD ERROR] Invalid post_object or context."
@@ -393,7 +394,7 @@ module LiquidUtils
 
     # Extract data with defaults
     data = post_object.data
-    title = data['title'] || 'Untitled Post'
+    raw_title = data['title'] || 'Untitled Post' # Get the raw title
     image_path = data['image'] # Optional
     image_alt = data['image_alt'] || "Article header image, used for decoration." # Default alt text
 
@@ -409,9 +410,24 @@ module LiquidUtils
     # --- End Description Logic ---
 
 
-    # Prepare values for HTML
-    escaped_title = CGI.escapeHTML(title)
-    escaped_alt = CGI.escapeHTML(image_alt)
+    # --- Prepare Title for Display ---
+    # 1. Apply smart quotes/typographics using the helper
+    prepared_title = _prepare_display_title(raw_title)
+
+    # 2. Escape the prepared title for HTML safety
+    escaped_title = CGI.escapeHTML(prepared_title)
+
+    # 3. Selectively allow <br> tags by replacing the escaped version back
+    # Note: We check the *escaped* version for the escaped <br> tag.
+    # Kramdown's SmartyPants mode shouldn't generate <br> itself,
+    # so we're looking for <br> tags that were in the *original* raw_title
+    # and survived the _prepare_display_title step (which they should).
+    escaped_title.gsub!('&lt;br&gt;', '<br>')
+    # --- End Title Preparation ---
+
+
+    # Prepare other values for HTML
+    escaped_alt = CGI.escapeHTML(image_alt) # Still escape alt text for attribute safety
     baseurl = site.config['baseurl'] || ''
     post_url_path = post_object.url.to_s
     post_url = post_url_path.empty? ? '#' : "#{baseurl}#{post_url_path}" # Handle missing URL
@@ -437,6 +453,7 @@ module LiquidUtils
 
     # Text section
     card_html << "  <div class=\"card-element card-text\">\n"
+    # Title link - uses the fully prepared title
     card_html << "    <a href=\"#{post_url}\">\n"
     card_html << "      <strong>#{escaped_title}</strong>\n"
     card_html << "    </a>\n"
@@ -444,6 +461,7 @@ module LiquidUtils
     # Description (optional)
     if !description_str.empty?
       card_html << "    <br>\n"
+      # Description likely already processed by Kramdown during page render
       card_html << "    #{description_str}\n"
     end
 
