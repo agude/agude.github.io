@@ -209,8 +209,8 @@ module LiquidUtils
 
 
   # --- Internal Helper for Preparing Display Titles ---
-  # Applies smart quote/typographic transformations using Kramdown's
-  # 'SmartyPants' input mode and minimal HTML escaping (&, <, >).
+  # Applies smart quote/typographic transformations using Kramdown,
+  # performs minimal HTML escaping (&, <, >), and then allows <br> tags through.
   # @param title [String, nil] The title string to prepare.
   # @return [String] The prepared title string, safe for HTML content.
   private
@@ -219,10 +219,7 @@ module LiquidUtils
     text = title.to_s
 
     # 1. Apply smart quotes/typographics using Kramdown
-    # We create a Kramdown document with the title as source and use the
-    # special 'SmartyPants' input mode, which only applies typographic rules.
-    # Note: This assumes Kramdown version supports 'SmartyPants' input.
-    # It avoids full markdown processing.
+    smart_text = text # Initialize fallback
     begin
       # Use a minimal config to avoid unexpected side effects
       kramdown_config = { input: 'SmartyPants' }
@@ -230,17 +227,23 @@ module LiquidUtils
     rescue => e
       # Fallback or log error if Kramdown processing fails
       puts "[PLUGIN LIQUID_UTILS WARNING] Kramdown SmartyPants conversion failed for title: '#{text}'. Error: #{e.message}"
-      smart_text = text # Fallback to original text
+      # smart_text remains the original text in case of error
     end
 
-
-    # 2. Apply minimal HTML escaping needed for content
-    # Escape only &, <, >. Leave all quote/typographic chars from Kramdown alone.
+    # 2. Apply minimal HTML escaping needed for content FIRST
+    # Escape only &, <, >. This will turn literal <br /> from step 1 into <br />.
     escaped_text = smart_text.gsub('&', '&amp;')
                              .gsub('<', '&lt;')
                              .gsub('>', '&gt;')
-                             # DO NOT escape quotes (", ', ‘, ’, “,”) etc.
+                             # Leave all quote types alone.
 
+    # 3. NOW, specifically un-escape the <br> tag variants using direct replacement
+    # Replace the exact patterns produced by step 1 + step 2.
+    # Handle both self-closing and non-self-closing variants just in case.
+    escaped_text.gsub!('&lt;br /&gt;', '<br>') # Handle self-closing variant first
+    escaped_text.gsub!('&lt;br&gt;', '<br>')   # Handle non-self-closing variant
+
+    # Return the final text
     escaped_text
   end
 
@@ -384,8 +387,8 @@ module LiquidUtils
   end
 
 
-  # --- Render Article Card Utility ---
-  # Applies typographic transformations and handles <br> tags safely.
+ # --- Render Article Card Utility ---
+  # Applies typographic transformations and handles <br> tags safely via helper.
   def self.render_article_card(post_object, context)
     unless post_object && post_object.respond_to?(:data) && post_object.respond_to?(:url) && context && (site = context.registers[:site])
       puts "[PLUGIN RENDER_ARTICLE_CARD ERROR] Invalid post_object or context."
@@ -410,24 +413,12 @@ module LiquidUtils
     # --- End Description Logic ---
 
 
-    # --- Prepare Title for Display ---
-    # 1. Apply smart quotes/typographics using the helper
+    # --- Prepare Title for Display using the updated helper ---
+    # This single call now handles Kramdown, minimal escaping, AND restoring <br>
     prepared_title = _prepare_display_title(raw_title)
 
-    # 2. Escape the prepared title for HTML safety
-    escaped_title = CGI.escapeHTML(prepared_title)
-
-    # 3. Selectively allow <br> tags by replacing the escaped version back
-    # Note: We check the *escaped* version for the escaped <br> tag.
-    # Kramdown's SmartyPants mode shouldn't generate <br> itself,
-    # so we're looking for <br> tags that were in the *original* raw_title
-    # and survived the _prepare_display_title step (which they should).
-    escaped_title.gsub!('&lt;br&gt;', '<br>')
-    # --- End Title Preparation ---
-
-
     # Prepare other values for HTML
-    escaped_alt = CGI.escapeHTML(image_alt) # Still escape alt text for attribute safety
+    escaped_alt = CGI.escapeHTML(image_alt) # Still escape alt text fully
     baseurl = site.config['baseurl'] || ''
     post_url_path = post_object.url.to_s
     post_url = post_url_path.empty? ? '#' : "#{baseurl}#{post_url_path}" # Handle missing URL
@@ -453,9 +444,9 @@ module LiquidUtils
 
     # Text section
     card_html << "  <div class=\"card-element card-text\">\n"
-    # Title link - uses the fully prepared title
+    # Title link - uses the fully prepared title directly from the helper
     card_html << "    <a href=\"#{post_url}\">\n"
-    card_html << "      <strong>#{escaped_title}</strong>\n"
+    card_html << "      <strong>#{prepared_title}</strong>\n"
     card_html << "    </a>\n"
 
     # Description (optional)
@@ -489,7 +480,7 @@ module LiquidUtils
     description_obj = data['excerpt']
 
     # --- Use helper to prepare the title for display ---
-    prepared_title = _prepare_display_title(title) # <-- USE HELPER
+    prepared_title = _prepare_display_title(title)
 
     # Prepare other values for HTML
     baseurl = site.config['baseurl'] || ''
