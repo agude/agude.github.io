@@ -121,8 +121,8 @@ module LiquidUtils
   # @param author_name_raw [String] The name of the author.
   # @param context [Liquid::Context] The current Liquid context.
   # @param link_text_override_raw [String, nil] Optional display text.
-  # @param possessive [Boolean] If true, append 's to the output.
-  # @return [String] The generated HTML (e.g., <a><span>...</span></a> or <span>...</span>).
+  # @param possessive [Boolean] If true, append ’s to the output.
+  # @return [String] The generated HTML (e.g., <a><span>...</span>’s</a> or <span>...</span>’s).
   def self.render_author_link(author_name_raw, context, link_text_override_raw = nil, possessive = false)
     unless context && (site = context.registers[:site])
       puts "[PLUGIN RENDER_AUTHOR_LINK ERROR] Context or Site unavailable."
@@ -146,8 +146,6 @@ module LiquidUtils
     target_url = nil
 
     # --- Author Lookup Logic ---
-    # Search site pages for layout 'author_page' and matching title (case-sensitive match).
-    # Adjust if authors are stored differently (e.g., collection).
     found_author_doc = site.pages.find do |p|
       p.data['layout'] == 'author_page' && p.data['title']&.strip == author_name
     end
@@ -165,9 +163,11 @@ module LiquidUtils
 
     escaped_display_text = CGI.escapeHTML(display_text)
     span_element = "<span class=\"author-name\">#{escaped_display_text}</span>"
+    # Use the correct right single quotation mark (U+2019)
+    possessive_suffix = possessive ? "’s" : ""
 
     # --- Link Generation ---
-    linked_element = span_element # Default to unlinked span
+    linked_element = nil # Initialize
     log_output = ""
 
     if found_author_doc
@@ -177,22 +177,25 @@ module LiquidUtils
       if target_url && current_page_url && target_url != current_page_url
         baseurl = site.config['baseurl'] || ''
         target_url = "/#{target_url}" if !baseurl.empty? && !target_url.start_with?('/') && !target_url.start_with?(baseurl)
-        linked_element = "<a href=\"#{baseurl}#{target_url}\">#{span_element}</a>"
+        # Append suffix INSIDE the link tag
+        linked_element = "<a href=\"#{baseurl}#{target_url}\">#{span_element}#{possessive_suffix}</a>"
+      else
+        # Not linking (current page or invalid context), append suffix AFTER span
+        linked_element = "#{span_element}#{possessive_suffix}"
       end
     else
-      # Log failure if author page wasn't found
+      # Author not found, log failure and append suffix AFTER span
       log_output = log_failure(
         context: context, tag_type: "RENDER_AUTHOR_LINK",
         reason: "Could not find author page", identifiers: { Name: author_name }
       )
+      linked_element = "#{span_element}#{possessive_suffix}"
     end
     # --- End Link Generation ---
 
-    # Prepend log message (if any) and append possessive suffix if needed
+    # Prepend log message (if any) to the generated element
     final_output = log_output + linked_element
-    if possessive
-      final_output << "'s"
-    end
+
     final_output
   end
 
