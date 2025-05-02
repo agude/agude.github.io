@@ -15,5 +15,5 @@ class="book-series">{{ page.series }}</span> book.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_author | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
+{% capture the_authors %}{% author_link name=page.book_author possessive %}{% endcapture %}
+{% capture the_author_link %}{% author_link name=page.book_author %}{% endcapture %}
