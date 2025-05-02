@@ -16,10 +16,10 @@ Palace searches for a missing person as the world continues to deteriorate.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
 
-{% capture lpm1 %}{% include book_link.html title="The Last Policeman" %}{% endcapture %}
-{% capture lpm3 %}{% include book_link.html title="World of Trouble" %}{% endcapture %}
+{% capture lpm1 %}{% book_link "The Last Policeman" %}{% endcapture %}
+{% capture lpm3 %}{% book_link "World of Trouble" %}{% endcapture %}
 
 Bret has run away from his wife Martha on a crusade to stop atrocities the US
 government is committing against refugees. Detective Palace pursues and finds

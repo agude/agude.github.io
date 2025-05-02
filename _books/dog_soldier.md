@@ -17,10 +17,10 @@ Cinto DaSelva campaign and further develops the setting's backstory.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
-{% capture w1 %}{% include book_link.html title="Chevalier" %}{% endcapture %}
-{% capture w2 %}{% include book_link.html title="Ymir" %}{% endcapture %}
-{% capture w3 %}{% include book_link.html title="Serpent Valley" %}{% endcapture %}
-{% capture w5 %}{% include book_link.html title="Grand Melee" %}{% endcapture %}
+{% capture w1 %}{% book_link "Chevalier" %}{% endcapture %}
+{% capture w2 %}{% book_link "Ymir" %}{% endcapture %}
+{% capture w3 %}{% book_link "Serpent Valley" %}{% endcapture %}
+{% capture w5 %}{% book_link "Grand Melee" %}{% endcapture %}
 
 While similar in length to previous books in the series, {{ this_book }} feels
 much faster-paced. The story is divided into three main sections:

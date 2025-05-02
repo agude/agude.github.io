@@ -17,15 +17,15 @@ star.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture clements %}{% include author_link.html name="Hal Clement" possessive=true %}{% endcapture %}
-{% capture gravity %}{% include book_link.html title="Mission of Gravity " %}{% endcapture %}
-{% capture clarkes %}{% include author_link.html name="Arthur C. Clarke" possessive=true %}{% endcapture %}
-{% capture childhoods_end %}{% include book_link.html title="Childhood's End" %}{% endcapture %}
-{% capture deepness %}{% include book_link.html title="A Deepness in the Sky" %}{% endcapture %}
-{% capture flatland %}{% include book_link.html title="Flatland: A Romance of Many Dimensions" link_text="Flatland" %}{% endcapture %}
-{% capture suns %}{% include book_link.html title="House of Suns" %}{% endcapture %}
-{% capture quantum %}{% include book_link.html title="The Quantum Thief" %}{% endcapture %}
-{% capture starquake %}{% include book_link.html title="Starquake" %}{% endcapture %}
+{% capture clements %}{% author_link "Hal Clement" possessive %}{% endcapture %}
+{% capture gravity %}{% book_link "Mission of Gravity " %}{% endcapture %}
+{% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}
+{% capture childhoods_end %}{% book_link "Childhood's End" %}{% endcapture %}
+{% capture deepness %}{% book_link "A Deepness in the Sky" %}{% endcapture %}
+{% capture flatland %}{% book_link "Flatland: A Romance of Many Dimensions" link_text="Flatland" %}{% endcapture %}
+{% capture suns %}{% book_link "House of Suns" %}{% endcapture %}
+{% capture quantum %}{% book_link "The Quantum Thief" %}{% endcapture %}
+{% capture starquake %}{% book_link "Starquake" %}{% endcapture %}
 
 {{ this_book }} is told through a series of vignettes, each one capturing a
 pivotal moment in the Cheela's civilization: the invention of farming and

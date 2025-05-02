@@ -18,18 +18,18 @@ mech tournament.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
-{% capture w1 %}{% include book_link.html title="Chevalier" %}{% endcapture %}
-{% capture w2 %}{% include book_link.html title="Ymir" %}{% endcapture %}
-{% capture w3 %}{% include book_link.html title="Serpent Valley" %}{% endcapture %}
-{% capture w4 %}{% include book_link.html title="Dog Soldier" %}{% endcapture %}
-{% capture w6 %}{% include book_link.html title="Sunstone Imperative" %}{% endcapture %}
+{% capture w1 %}{% book_link "Chevalier" %}{% endcapture %}
+{% capture w2 %}{% book_link "Ymir" %}{% endcapture %}
+{% capture w3 %}{% book_link "Serpent Valley" %}{% endcapture %}
+{% capture w4 %}{% book_link "Dog Soldier" %}{% endcapture %}
+{% capture w6 %}{% book_link "Sunstone Imperative" %}{% endcapture %}
 
-{% capture battle_royale %}{% include book_link.html title="Battle Royale" %}{% endcapture %}
-{% capture takami %}{% include author_link.html name="Kōshun Takami" %}{% endcapture %}
+{% capture battle_royale %}{% book_link "Battle Royale" %}{% endcapture %}
+{% capture takami %}{% author_link "Kōshun Takami" %}{% endcapture %}
 
-{% capture tanith %}{% include book_link.html title="First and Only" %}{% endcapture %}
-{% capture abnetts %}{% include author_link.html name="Dan Abnett" possessive=true %}{% endcapture %}
-{% capture tanith_lee %}{% include author_link.html name="Tanith Lee" %}{% endcapture %}
+{% capture tanith %}{% book_link "First and Only" %}{% endcapture %}
+{% capture abnetts %}{% author_link "Dan Abnett" possessive %}{% endcapture %}
+{% capture tanith_lee %}{% author_link "Tanith Lee" %}{% endcapture %}
 
 After wrapping up the Cinto DaSelva campaign in {{ w4 }}, the Chevaliers enter
 the Grand Melee, a gigantic mech-tournament held every two years. The

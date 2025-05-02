@@ -1,3 +1,6 @@
+// _poole.scss
+@use "variables" as *; // Added for @use migration
+
 /* Body resets
  *
  * Update the foundational and global aspects of the page.
@@ -17,6 +20,8 @@ html {
 html {
   font-family: $root-font-family;
   line-height: $root-line-height;
+  margin: 0;
+  padding: 0;
 
   @media (min-width: $sidebar-appear-breakpoint) {
     font-size: $small-screen-root-font-size;
@@ -28,8 +33,6 @@ html {
     font-size: $root-font-size;
   }
 
-  margin: 0;
-  padding: 0;
 }
 
 body {

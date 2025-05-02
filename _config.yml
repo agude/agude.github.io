@@ -1,10 +1,29 @@
 # This fixes an error when serving from inside Docker
 host: 0.0.0.0
 
+# Plugin Logging Configuration
+# Controls logging behavior for custom plugin failures.
+# Set specific tag types to 'false' to disable ALL logging (Console & HTML)
+# for failures originating from that tag type.
+# Defaults to 'true' (enabled) if a tag type is not listed here.
+#
+# Environment Behavior:
+#   - Non-Production: Logs to Console AND HTML Comments (if enabled below).
+#   - Production: Logs ONLY to Console (if enabled below). HTML comments are always disabled.
+#
+plugin_logging:
+    ARTICLE_CARD_LOOKUP: true
+    AUTHOR_LINK: true
+    BOOK_CARD_LOOKUP: true
+    BOOK_BACKLINKS: true
+    RENDER_BOOK_LINK: true
+    RENDER_AUTHOR_LINK: true
+    SERIES_LINK: true
+    UNITS_WARNING: true
+
 # Dependencies
 plugins:
     - jekyll-feed
-    - jekyll-gist
     - jekyll-paginate
     - jekyll-redirect-from
     - jekyll-seo-tag
@@ -32,6 +51,7 @@ baseurl: ""
 name: "AlexGude.com"
 
 # Blog
+# Note: jekyll-paginate is deprecated in Jekyll 4. Consider migrating to jekyll-paginate-v2.
 paginate: 10
 paginate_path: "/blog/page:num/"
 permalink: /blog/:slug/
@@ -99,8 +119,12 @@ exclude:
     - LICENSE.md
     - CNAME
     - Gemfile
+    - Gemfile.lock # Often excluded, good practice to add
     - redirects.json
     - vendor
+    - Makefile # Often excluded
+    - Dockerfile # Often excluded
+    - README.md # Often excluded
 
 redirect_from:
     json: false

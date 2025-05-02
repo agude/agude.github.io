@@ -39,7 +39,7 @@ plot moving quickly in this thought-provoking sci-fi novel. My favorite book
 of the year!
 
 <div class="card-grid">
-  {% include auto_book_card.html title="Blindsight" %}
+  {% book_card_lookup title="Blindsight" %}
 </div>
 
 ## <span class="book-series">The Chronicle of the Fallers</span> by <span class="author-name">Peter F. Hamilton</span>
@@ -52,13 +52,13 @@ citizens with special knowledge as _"Outside Context Problems"_, pulling the
 stories into science fiction territory.
 
 <div class="card-grid">
-  {% include auto_book_card.html title="The Abyss Beyond Dreams" %}
-  {% include auto_book_card.html title="Night Without Stars" %}
+  {% book_card_lookup title="The Abyss Beyond Dreams" %}
+  {% book_card_lookup title="Night Without Stars" %}
 </div>
 
 ## <cite class="book-title">The Fall of Hyperion</cite> by <span class="author-name">Dan Simmons</span>
 
-I enjoyed the sequel to {% include book_link.html title="Hyperion" %} the most
+I enjoyed the sequel to {% book_link "Hyperion" %} the most
 of the two books because it tied the personal story of the pilgrims to a much
 broader galactic conflict. Interestingly, you can see a lot of ideas in the
 Hyperion Cantos that Hamilton later adopted in his Commonwealth Saga including
@@ -66,7 +66,7 @@ wormholes, a breakaway-but-helpful AI, and different factions of
 scheming AI who either want to eradicate the humans or uplift them.
 
 <div class="card-grid">
-  {% include auto_book_card.html title="The Fall of Hyperion" %}
+  {% book_card_lookup title="The Fall of Hyperion" %}
 </div>
 
 ## <span class="book-series">The Commonwealth Saga</span> by <span class="author-name">Peter F. Hamilton</span>
@@ -74,8 +74,8 @@ scheming AI who either want to eradicate the humans or uplift them.
 Epic space opera with a massive cast of characters and incredible pacing.
 
 <div class="card-grid">
-  {% include auto_book_card.html title="Pandora's Star" %}
-  {% include auto_book_card.html title="Judas Unchained" %}
+  {% book_card_lookup title="Pandora's Star" %}
+  {% book_card_lookup title="Judas Unchained" %}
 </div>
 
 ## <cite class="book-title">Serpent Valley</cite> by <span class="author-name">Scott Warren</span>
@@ -86,5 +86,5 @@ quick, fun, nostalgic read. The third book, <cite class="book-title">Serpent
 Valley</cite>, exemplifies the series.
 
 <div class="card-grid">
-  {% include auto_book_card.html title="Serpent Valley" %}
+  {% book_card_lookup title="Serpent Valley" %}
 </div>

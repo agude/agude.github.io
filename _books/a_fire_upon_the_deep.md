@@ -18,23 +18,23 @@ it.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
 
-{% capture deepness %}{% include book_link.html title="A Deepness in the Sky" %}{% endcapture %}
-{% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
-{% capture echopraxia %}{% include book_link.html title="Echopraxia" %}{% endcapture %}
-{% capture ender %}{% include book_link.html title="Ender's Game" %}{% endcapture %}
-{% capture torturer %}{% include book_link.html title="The Shadow of the Torturer" %}{% endcapture %}
-{% capture phlebas %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
-{% capture suns %}{% include book_link.html title="House of Suns" %}{% endcapture %}
-{% capture gravity %}{% include book_link.html title="Mission of Gravity" %}{% endcapture %}
-{% capture dragons_egg %}{% include book_link.html title="Dragon's Egg" %}{% endcapture %}
-{% capture eater %}{% include book_link.html title="Eater" %}{% endcapture %}
-{% capture river %}{% include book_link.html title="Heaven's River" %}{% endcapture %}
+{% capture deepness %}{% book_link "A Deepness in the Sky" %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
+{% capture ender %}{% book_link "Ender's Game" %}{% endcapture %}
+{% capture torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+{% capture phlebas %}{% book_link "Consider Phlebas" %}{% endcapture %}
+{% capture suns %}{% book_link "House of Suns" %}{% endcapture %}
+{% capture gravity %}{% book_link "Mission of Gravity" %}{% endcapture %}
+{% capture dragons_egg %}{% book_link "Dragon's Egg" %}{% endcapture %}
+{% capture eater %}{% book_link "Eater" %}{% endcapture %}
+{% capture river %}{% book_link "Heaven's River" %}{% endcapture %}
 
-{% capture firefall %}{% include series_link.html series="Firefall" %}{% endcapture %}
+{% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
 
-{% capture wattss %}{% include author_link.html name="Peter Watts" possessive=true %}{% endcapture %}
+{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
 
 I first read {{ this_book }}, and the prequel {{ deepness }}, about 20 years
 ago and loved it. {{ this_book }} was one of the last books I read before

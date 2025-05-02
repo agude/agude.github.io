@@ -15,14 +15,14 @@ storyline and changes the way the stories are told.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture bobiverse %}{% include series_link.html series=page.series %}{% endcapture %}
+{% capture bobiverse %}{% series_link page.series %}{% endcapture %}
 
-{% capture bob1 %}{% include book_link.html title="We Are Legion (We Are Bob)" %}{% endcapture %}
-{% capture bob2 %}{% include book_link.html title="For We Are Many" %}{% endcapture %}
-{% capture bob3 %}{% include book_link.html title="All These Worlds" %}{% endcapture %}
-{% capture bob5 %}{% include book_link.html title="Not Till We Are Lost" %}{% endcapture %}
+{% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
+{% capture bob2 %}{% book_link "For We Are Many" %}{% endcapture %}
+{% capture bob3 %}{% book_link "All These Worlds" %}{% endcapture %}
+{% capture bob5 %}{% book_link "Not Till We Are Lost" %}{% endcapture %}
 
-{% capture quantum %}{% include book_link.html title="The Quantum Thief" %}{% endcapture %}
+{% capture quantum %}{% book_link "The Quantum Thief" %}{% endcapture %}
 
 What I loved about the previous three {{ bobiverse }} books---{{ bob1 }},
 {{ bob2 }}, and {{ bob3 }}---was how many interweaving stories they told. The

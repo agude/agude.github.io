@@ -11,13 +11,13 @@ image: /books/covers/echopraxia.jpg
 <cite class="book-title">{{ page.title }}</cite> is the second book in <span
 class="author-name">{{ page.book_author }}</span>'s <span
 class="book-series">{{ page.series }}</span> series, unfolding at roughly the
-same time as {% include book_link.html title="Blindsight" %}. It follows
+same time as {% book_link "Blindsight" %}. It follows
 parasitologist Daniel Brüks, who gets unwillingly dragged into a conflict
 between multiple transhuman factions, travels to the _Icarus_ station orbiting
 the sun, and eventually back to Earth
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 
 The world Watts built in {{ blindsight }} was enthralling, packed with
 scientific and philosophical arguments about consciousness. I **loved** it. {{

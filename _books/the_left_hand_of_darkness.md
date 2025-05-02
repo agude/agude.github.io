@@ -21,17 +21,17 @@ civilization.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
-{% capture the_authors %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
+{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture this_series %}{% series_link page.series %} series{% endcapture %}
 
-{% capture algernon %}{% include book_link.html title="Flowers for Algernon" %}{% endcapture %}
-{% capture algernon_short %}{% include book_link.html title="Flowers for Algernon" link_text="Algernon" %}{% endcapture %}
+{% capture algernon %}{% book_link "Flowers for Algernon" %}{% endcapture %}
+{% capture algernon_short %}{% book_link "Flowers for Algernon" link_text="Algernon" %}{% endcapture %}
 
-{% capture banks %}{% include author_link.html name="Iain M. Banks" possessive=true %}{% endcapture %}
-{% capture the_culture_series %}the {% include series_link.html series="Culture" %} series{% endcapture %}
+{% capture banks %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture the_culture_series %}the {% series_link "Culture" %} series{% endcapture %}
 
-{% capture clarkes %}{% include author_link.html name="Arthur C. Clarke" possessive=true %}{% endcapture %}
-{% capture childhood %}{% include book_link.html title="Childhood's End" %}{% endcapture %}
+{% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}
+{% capture childhood %}{% book_link "Childhood's End" %}{% endcapture %}
 
 Genly Ai is a human envoy sent from the Ekumen. The Gethenians are human but
 modified to be hermaphroditic, a characteristic that shapes their entire

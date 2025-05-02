@@ -16,7 +16,7 @@ class="book-title">{{ page.title }}</cite> was not a great introduction.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
 {% capture bankss %}<span class="author-name">Banks</span>'s{% endcapture %}
-{% capture c2 %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
+{% capture c2 %}{% book_link "The Player of Games" %}{% endcapture %}
 
 The book is considered a "space opera", and there are some hints at
 interesting, grand ideas: a ship that can set off every warhead on board to

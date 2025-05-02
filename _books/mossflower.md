@@ -14,8 +14,8 @@ arrival of Martin the Warrior in Mossflower Woods and how he saves the
 woodlanders from the evil wildcat queen, Tsarmina.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture redwall %}{% include book_link.html title="Redwall" %}{% endcapture %}
-{% capture mattimeo %}{% include book_link.html title="Mattimeo" %}{% endcapture %}
+{% capture redwall %}{% book_link "Redwall" %}{% endcapture %}
+{% capture mattimeo %}{% book_link "Mattimeo" %}{% endcapture %}
 
 The structure of the story mirrors {{ redwall }} in several ways:
 

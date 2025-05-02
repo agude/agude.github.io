@@ -17,8 +17,8 @@ story of the Patternists.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
-{% capture p1 %}{% include book_link.html title="Wild Seed" %}{% endcapture %}
-{% capture p3 %}{% include book_link.html title="Clay's Ark" %}{% endcapture %}
+{% capture p1 %}{% book_link "Wild Seed" %}{% endcapture %}
+{% capture p3 %}{% book_link "Clay's Ark" %}{% endcapture %}
 
 {{ this_book }} is set in a fictional suburb of 1970s Los Angeles. The LA of
 the book is a violent and dangerous place, filled with gangs, murders, fatal

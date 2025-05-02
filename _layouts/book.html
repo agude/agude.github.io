@@ -26,7 +26,7 @@ don't find them.{% endcomment %}
   </div>
   {% endif %}
 
-  <div class="written-by">By {% include author_link.html name=page.book_author%}</div>
+  <div class="written-by">By {% author_link page.book_author %}</div>
 
   {% if page.series and page.book_number %}
 
@@ -61,7 +61,7 @@ don't find them.{% endcomment %}
 <hr>
 
 <!-- Backlinks -->
-{% include book_backlinks.html %}
+{% book_backlinks %}
 
 <!-- Related and Recent Books -->
-{% include related_books.html %}
+{% related_books %}

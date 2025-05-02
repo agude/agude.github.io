@@ -15,9 +15,9 @@ out, and must unravel what happened.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
-{% capture quantum %}{% include book_link.html title="The Quantum Thief" %}{% endcapture %}
-{% capture botns %}{% include series_link.html series="The Book of the New Sun" %}{% endcapture %}
-{% capture wolfes %}{% include author_link.html name="Gene Wolfe" possessive=true %}{% endcapture %}
+{% capture quantum %}{% book_link "The Quantum Thief" %}{% endcapture %}
+{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
+{% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
 
 A chapter into {{ this_book }}, it reminded me of {{ quantum }}, and not in a
 good way: a fantastically well-designed world filled with flat characters. It

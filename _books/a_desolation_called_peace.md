@@ -20,35 +20,35 @@ Empire and a mysterious alien race.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture the_authors %}<span class="author-name">{{ page.book_author }}</span>'s{% endcapture %}
-{% capture this_series %}{% include series_link.html series=page.series %} series{% endcapture %}
-{% capture the_author_link %}{% include author_link.html name=page.book_author %}{% endcapture %}
+{% capture this_series %}{% series_link page.series %} series{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
 
-{% capture teix1 %}{% include book_link.html title="A Memory Called Empire" %}{% endcapture %}
+{% capture teix1 %}{% book_link "A Memory Called Empire" %}{% endcapture %}
 
-{% capture wattss %}{% include author_link.html name="Peter Watts" possessive=true %}{% endcapture %}
-{% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
-{% capture echopraxia %}{% include book_link.html title="Echopraxia" %}{% endcapture %}
-{% capture firefall %}{% include series_link.html series="Firefall" %}{% endcapture %}
+{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
+{% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
 
-{% capture hamiltons %}{% include author_link.html name="Peter F. Hamilton" possessive=true %}{% endcapture %}
-{% capture pandoras_star %}{% include book_link.html title="Pandora's Star" %}{% endcapture %}
-{% capture jusdas_unchained %}{% include book_link.html title="Judas Unchained" %}{% endcapture %}
+{% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}
+{% capture pandoras_star %}{% book_link "Pandora's Star" %}{% endcapture %}
+{% capture jusdas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}
 
-{% capture cards %}{% include author_link.html name="Orson Scott Card" possessive=true %}{% endcapture %}
-{% capture enders_game %}{% include book_link.html title="Ender's Game" %}{% endcapture %}
+{% capture cards %}{% author_link "Orson Scott Card" possessive %}{% endcapture %}
+{% capture enders_game %}{% book_link "Ender's Game" %}{% endcapture %}
 
-{% capture bankss %}{% include author_link.html name="Iain M. Banks" possessive=true %}{% endcapture %}
-{% capture surface_detail %}{% include book_link.html title="Surface Detail" %}{% endcapture %}
+{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
 
-{% capture grrms %}{% include author_link.html name="George R. R. Martin" possessive=true %}{% endcapture %}
-{% capture game_of_thrones %}{% include book_link.html title="A Game of Thrones" %}{% endcapture %}
+{% capture grrms %}{% author_link "George R. R. Martin" possessive %}{% endcapture %}
+{% capture game_of_thrones %}{% book_link "A Game of Thrones" %}{% endcapture %}
 
-{% capture sagans %}{% include author_link.html name="Carl Sagan" possessive=true %}{% endcapture %}
-{% capture contact %}{% include book_link.html title="Contact" %}{% endcapture %}
+{% capture sagans %}{% author_link "Carl Sagan" possessive %}{% endcapture %}
+{% capture contact %}{% book_link "Contact" %}{% endcapture %}
 
-{% capture rjbs %}{% include author_link.html name="Robert Jackson Bennett" possessive=true %}{% endcapture %}
-{% capture shadow %}{% include series_link.html series="Shadow of the Leviathan" %} series{% endcapture %}
-{% capture a_drop_of_corruption %}{% include book_link.html title="A Drop of Corruption" %}{% endcapture %}
+{% capture rjbs %}{% author_link "Robert Jackson Bennett" possessive %}{% endcapture %}
+{% capture shadow %}{% series_link "Shadow of the Leviathan" %} series{% endcapture %}
+{% capture a_drop_of_corruption %}{% book_link "A Drop of Corruption" %}{% endcapture %}
 
 {{ this_book }} picks up right where {{ teix1 }} left off: a few months after
 the events of the first book, following the same characters, and continuing to

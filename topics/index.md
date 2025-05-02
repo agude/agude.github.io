@@ -30,7 +30,13 @@ all my articles on it.
     {% assign pages_list = tag[1] %}
     {% for post in pages_list %}
       {% comment %} Article cards with an image and description. {% endcomment %}
-      {% include auto_article_card_from_object.html post=post %}
+      {% include article_card.html
+        url=post.url
+        image=post.image
+        image_alt=post.image_alt
+        title=post.title
+        description=post.description
+      %}
     {% endfor %}
   </div>
   {% assign pages_list = nil %}

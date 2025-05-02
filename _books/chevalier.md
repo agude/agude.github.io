@@ -14,7 +14,7 @@ read---not very deep but highly entertaining---that focuses on making mechs
 feel like realistic battlefield tech, not magic.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture ymir %}{% include book_link.html title="Ymir" %}{% endcapture %}
+{% capture ymir %}{% book_link "Ymir" %}{% endcapture %}
 
 The plot of {{this_book }}is a classic: Vandal is a mech (called upright
 tanks) mechanic in a mercenary company. When mysterious, badass mercenaries

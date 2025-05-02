@@ -16,10 +16,10 @@ himself press-ganged into piloting a von Neumann probe.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 
-{% capture player_one %}{% include book_link.html title="Ready Player One" %}{% endcapture %}
-{% capture martian %}{% include book_link.html title="The Martian" %}{% endcapture %}
-{% capture murderbot %}{% include series_link.html series="The Murderbot Diaries" %}{% endcapture %}
-{% capture many %}{% include book_link.html title="For We Are Many" %}{% endcapture %}
+{% capture player_one %}{% book_link "Ready Player One" %}{% endcapture %}
+{% capture martian %}{% book_link "The Martian" %}{% endcapture %}
+{% capture murderbot %}{% series_link "The Murderbot Diaries" %}{% endcapture %}
+{% capture many %}{% book_link "For We Are Many" %}{% endcapture %}
 
 {{ this_book }} fits squarely in the 2010s "pop sci-fi" movement: it includes
 countless nostalgic references to geek culture like {{ player_one }}; follows

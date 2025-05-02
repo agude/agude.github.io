@@ -17,8 +17,8 @@ division.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture banks %}<span class="author-name">Banks</span>{% endcapture %}
 
-{% capture player_of_games %}{% include book_link.html title="The Player of Games" %}{% endcapture %}
-{% capture state_of_the_art %}{% include book_link.html title="The State of the Art" %}{% endcapture %}
+{% capture player_of_games %}{% book_link "The Player of Games" %}{% endcapture %}
+{% capture state_of_the_art %}{% book_link "The State of the Art" %}{% endcapture %}
 
 The narrative structure is cleverly done. The main story is told in the
 _numbered chapters_, which cover the man's most recent mission and proceed

@@ -1,3 +1,6 @@
+// Use 'variables' and make its members available globally in this file
+@use "variables" as *;
+
 // Card Grid
 .card-grid {
   display: flex;

@@ -1,0 +1,30 @@
+# Ignore Git files
+.git
+.gitignore
+
+# Ignore GitHub Actions workflow
+.github
+
+# Ignore Jekyll build output
+_site
+
+# Ignore Bundler vendor directory (if installing locally)
+# vendor/bundle
+
+# IMPORTANT: Gemfile.lock is NO LONGER ignored so it's used in the build
+# Gemfile.lock
+
+# Ignore Bundler config and cache
+.bundle
+*.gem
+
+# Ignore SASS cache
+.sass-cache/
+
+# Ignore development/build artifacts
+Makefile
+Dockerfile
+README.md
+LICENSE.md
+redirects.json
+node_modules

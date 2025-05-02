@@ -66,9 +66,7 @@
     {%- comment -%} Fallback if unit key is not found in internal definitions {%- endcomment -%}
     {%- assign unit_symbol = unit_key -%}
     {%- assign unit_name = unit_key -%}
-    {%- if jekyll.environment != "production" -%}
-<!-- WARNING: units: Reason=' Unit key not found in internal definitions ' UnitKey=' {{ unit_key | escape }} ' Number=' {{ number | escape }} ' -->
-    {%- endif -%}
+    {% log_failure type="UNITS_WARNING" reason="Unit key not found in internal definitions" UnitKey=unit_key Number=number %}
 {%- endcase -%}
 
 {%- comment -%} Output the formatted unit {%- endcomment -%}

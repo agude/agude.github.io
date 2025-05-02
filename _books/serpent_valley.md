@@ -16,8 +16,8 @@ Easily my favorite of the series so far!
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 
-{% capture ymir %}{% include book_link.html title="Ymir" %}{% endcapture %}
-{% capture dog_soldier %}{% include book_link.html title="Dog Soldier" %}{% endcapture %}
+{% capture ymir %}{% book_link "Ymir" %}{% endcapture %}
+{% capture dog_soldier %}{% book_link "Dog Soldier" %}{% endcapture %}
 
 The story of {{ this_book }} is split into two parts:
 

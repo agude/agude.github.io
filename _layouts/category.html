@@ -9,7 +9,13 @@ layout: default
   <div class="card-grid">
     {% for post in site.categories[page.category-name] %}
       {% comment %} Article cards with an image and description. {% endcomment %}
-      {% include auto_article_card_from_object.html post=post %}
+      {% include article_card.html
+        url=post.url
+        image=post.image
+        image_alt=post.image_alt
+        title=post.title
+        description=post.description
+      %}
     {% endfor %}
   </div>
 </div>

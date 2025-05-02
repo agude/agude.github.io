@@ -9,15 +9,14 @@ image: /books/covers/the_colonel.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a short story that serves
-as a bridge between {% include book_link.html title="Blindsight" %} and {%
-include book_link.html title="Echopraxia" %}. It follows Colonel Keaton---the
+as a bridge between {% book_link "Blindsight" %} and {% book_link "Echopraxia" %}. It follows Colonel Keaton---the
 father of Siri Keaton---as he investigates whether the Bicameral hivemind
 poses a threat to baseline humans.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture blindsight %}{% include book_link.html title="Blindsight" %}{% endcapture %}
-{% capture echopraxia %}{% include book_link.html title="Echopraxia" %}{% endcapture %}
-{% capture wattss %}{% include author_link.html name=page.book_author possessive=true %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
+{% capture wattss %}{% author_link page.book_author possessive %}{% endcapture %}
 
 The story is very short, less than 40 pages, and acts more like a prologue to
 {{ echopraxia }}. It begins with a hivemind attack on a remote geoengineering

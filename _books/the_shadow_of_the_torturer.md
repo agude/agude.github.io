@@ -20,12 +20,12 @@ in.
 
 {% capture wolfes %}<span class="author-name">Wolfe</span>'s{% endcapture %}
 
-{% capture hyperion %}{% include book_link.html title="Hyperion" %}{% endcapture %}
+{% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 
-{% capture consider_phlebas %}{% include book_link.html title="Consider Phlebas" %}{% endcapture %}
+{% capture consider_phlebas %}{% book_link "Consider Phlebas" %}{% endcapture %}
 
-{% capture rajaniemis %}{% include author_link.html name="Hannu Rajaniemi" link_text="Rajaniemi" possessive=true %}{% endcapture %}
-{% capture quantum_thief %}{% include book_link.html title="The Quantum Thief" %}{% endcapture %}
+{% capture rajaniemis %}{% author_link "Hannu Rajaniemi" link_text="Rajaniemi" possessive %}{% endcapture %}
+{% capture quantum_thief %}{% book_link "The Quantum Thief" %}{% endcapture %}
 
 The book is narrated by Severian, a torturer exiled from his guild for showing
 mercy by helping a victim commit suicide. It chronicles his life as he rises

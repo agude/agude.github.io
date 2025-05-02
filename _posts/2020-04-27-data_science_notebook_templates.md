@@ -97,7 +97,7 @@ You can read more about the plotting notebook in detail here:
 <!-- A grid of hand-selected related posts. -->
 {% capture plotting_url %}{% post_url 2020-07-27-data_science_plotting_notebook_template %}{% endcapture %}
 <div class="card-grid">
-  {% include auto_article_card.html url=plotting_url %}
+  {% article_card_lookup url=plotting_url %}
 </div>
 
 ### The Time Series Plotting Template
@@ -136,7 +136,7 @@ You can read more about it here:
 
 {% capture time_url %}{% post_url 2021-03-14-data_science_timeseries_plotting_notebook_template %}{% endcapture %}
 <div class="card-grid">
-  {% include auto_article_card.html url=time_url %}
+  {% article_card_lookup url=time_url %}
 </div>
 
 ## Conclusion

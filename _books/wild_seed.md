@@ -18,12 +18,12 @@ spirit---and Anyanwu---an immortal woman.
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
-{% capture p2 %}{% include book_link.html title="Mind of My Mind" %}{% endcapture %}
-{% capture this_authors %}{% include author_link.html name=page.book_author link_text="Butler" possessive=true %}{% endcapture %}
+{% capture p2 %}{% book_link "Mind of My Mind" %}{% endcapture %}
+{% capture this_authors %}{% author_link page.book_author link_text="Butler" possessive %}{% endcapture %}
 
-{% capture banks %}{% include author_link.html name="Iain M. Banks" %}{% endcapture %}
-{% capture culture_series %}{% include series_link.html series="Culture" %} series{% endcapture %}
-{% capture c7 %}{% include book_link.html title="Matter" %}{% endcapture %}
+{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
+{% capture culture_series %}{% series_link "Culture" %} series{% endcapture %}
+{% capture c7 %}{% book_link "Matter" %}{% endcapture %}
 
 Doro and Anyanwu are almost opposites. Despite his ability to change bodies
 and her ability to change shape, Doro is male, while Anyanwu is female. He
