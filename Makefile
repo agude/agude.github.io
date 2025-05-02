@@ -1,60 +1,60 @@
 # Makefile
 IMAGE := jekyll-image-agude
 MOUNT := /workspace
-# Define Ruby and Bundler versions, ideally matching Dockerfile FROM and ARG lines
-# Extract Ruby version automatically (adjust grep/cut if FROM line changes format)
-RUBY_VERSION := $(shell grep '^FROM ruby:' Dockerfile | cut -d: -f2)
-# Use the Bundler version specified as ARG in Dockerfile/Makefile
-BUNDLER_VERSION := 2.6.7 # <-- Keep this updated
+
+# Define Ruby version by reading .ruby-version file, ignoring comments/whitespace
+RUBY_VERSION := $(shell grep -v '^\#' .ruby-version)
+
+# Define Bundler version directly in the Makefile
+BUNDLER_VERSION := 2.6.8
+
+# Define base image using the determined Ruby version
 BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 
-.PHONY: all clean serve drafts debug image refresh lock # <-- Added lock
+.PHONY: all clean serve drafts debug image refresh lock
 
 all: serve
 
-# --- NEW TARGET ---
-# Manual target to update Gemfile.lock using the base Docker image.
-# Run this after changing Gemfile, then commit the updated Gemfile.lock.
-lock:
-	@echo "Updating Gemfile.lock using Docker ($(BASE_RUBY_IMAGE) with Bundler $(BUNDLER_VERSION))..."
-	@# Run a temporary container using the base Ruby image
-	@# Mount the current directory to /workspace
-	@# Set working directory to /workspace
-	@# Inside the container: install the correct bundler version, then run bundle install
+# Manual target to update Gemfile.lock using the correct base Docker image and Bundler version.
+# Uses 'bundle lock --update --normalize-platforms' to regenerate the lockfile.
+lock: .ruby-version # Dependency on .ruby-version
+	@echo "Updating and normalizing Gemfile.lock using Docker ($(BASE_RUBY_IMAGE) with Bundler $(BUNDLER_VERSION))..."
+	@echo "Running 'bundle lock --update --normalize-platforms' inside container..." # Updated echo
 	@docker run --rm \
 		-v $(PWD):$(MOUNT) \
 		-w $(MOUNT) \
 		$(BASE_RUBY_IMAGE) \
-		/bin/bash -c "echo 'Installing Bundler ${BUNDLER_VERSION}...' && \
+		/bin/bash -c "echo 'Installing Bundler $(BUNDLER_VERSION)...' && \
 		              gem install bundler -v $(BUNDLER_VERSION) --no-document && \
-		              echo 'Running bundle install...' && \
-		              bundle install"
-	@# Check the exit status of the docker command
+		              echo 'Running bundle lock --update --normalize-platforms...' && \
+		              bundle lock --update --normalize-platforms" # <-- CORRECTED COMMAND
 	@if [ $$? -ne 0 ]; then \
-		echo "Error: bundle install failed inside Docker." && exit 1; \
+		echo "Error: bundle lock failed inside Docker." && exit 1; \
 	fi
-	@echo "Gemfile.lock updated successfully. Please commit Gemfile and Gemfile.lock."
-# --- END NEW TARGET ---
+	@echo "Gemfile.lock updated and normalized successfully. Please commit Gemfile, Gemfile.lock, and .ruby-version."
 
 # Build the Docker image using '.' as build context.
-# Depends on Gemfile.lock existing (created/updated via 'make lock').
-# Dockerfile uses 'bundle config set deployment' based on the copied Gemfile.lock.
-image: Dockerfile Gemfile Gemfile.lock # <-- Depends on Gemfile.lock
-	@echo "Building Docker image $(IMAGE) using '.' as context..."
+# Pass the Ruby and Bundler versions as build arguments.
+image: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version dependency
+	@echo "Building Docker image $(IMAGE) using Ruby $(RUBY_VERSION) and Bundler $(BUNDLER_VERSION)..."
 	@if [ ! -f .dockerignore ]; then \
 		echo "Warning: .dockerignore file not found. Build context might be large or include unwanted files."; \
 	fi
-	@# Pass bundler version as build argument
-	@docker build --build-arg BUNDLER_VERSION=$(BUNDLER_VERSION) . -f Dockerfile -t $(IMAGE)
+	@docker build \
+	    --build-arg RUBY_VERSION=$(RUBY_VERSION) \
+	    --build-arg BUNDLER_VERSION=$(BUNDLER_VERSION) \
+	    . -f Dockerfile -t $(IMAGE)
 
 # Rebuild the Docker image without cache.
-refresh: Dockerfile Gemfile Gemfile.lock # <-- Depends on Gemfile.lock
-	@echo "Rebuilding Docker image $(IMAGE) with --no-cache..."
+refresh: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version dependency
+	@echo "Rebuilding Docker image $(IMAGE) with --no-cache using Ruby $(RUBY_VERSION) and Bundler $(BUNDLER_VERSION)..."
 	@if [ ! -f .dockerignore ]; then \
 		echo "Warning: .dockerignore file not found. Build context might be large or include unwanted files."; \
 	fi
-	@# Pass bundler version as build argument
-	@docker build --build-arg BUNDLER_VERSION=$(BUNDLER_VERSION) --no-cache . -f Dockerfile -t $(IMAGE)
+	@docker build \
+	    --build-arg RUBY_VERSION=$(RUBY_VERSION) \
+	    --build-arg BUNDLER_VERSION=$(BUNDLER_VERSION) \
+	    --no-cache . -f Dockerfile -t $(IMAGE)
 
 # Clean out _site and other caches. Requires the image to exist.
 clean: image
