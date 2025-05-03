@@ -37,70 +37,68 @@ class="book-series">{{ page.series }}</span> book.
 {% capture brins %}{% author_link "David Brin" possessive %}{% endcapture %}
 {% capture startide %}{% book_link "Startide Rising" %}{% endcapture %}
 
-{{ this_book }} is an urban fantasy book, set in a city that covers the Earth.
-The structure, mass, and geometric layout of the city naturally generates
-plasm, an electricity-like substance that mages need to cast spells. It is set
-in the far far future, like {{ wolfes }} {{ torturer }}, although unlike {{
-wolfes_short }} work the world still has modern-ish technology like
-skyscrapers, subways, computers, and cars and magic is not mystical but
-systematized like a technology.
+{{ this_book }} is an urban fantasy novel set in a city that covers the Earth.
+Its structure, mass, and geometric layout generates plasm---a electricity‑like
+substance mages need to power their spells. Though the setting is the far
+future, like {{ wolfes }} {{ torturer }}, this world still has modern
+technology---skyscrapers, subways, computers, cars---and magic feels
+systematic, almost technological.
 
-The story is a familiar one: Aiah, her family, and her people are refugees
-from the destruction of their own metropolis. They are people of color living
-as second class citizens in a white world. They are preyed upon of by both the
-government and organized crime. Aiah was able to escape poverty and
-precariously climb into the middle class, but this leaves her resented by both
-society as an minority risen too high above her station and by her family that
-feels abandoned.
+The story follows Aiah, her family, and her people who are refugees from their
+destroyed metropolis. As people of color living as second‑class citizens in a
+white‑run world, they're preyed upon by both the government and organized
+crime. Aiah has climbed her way precariously into the middle class, which
 
-It's a story that would fit right in in 1980s New York; and that's what it
-feels like, a story set in am immigrant neighborhood in Brooklyn. Except Aiah
-is a mage. A ten story tall flaming woman destroys Wall Street. Ghosts live in
-the power lines. A glowing shield encompassed the Earth trapping humanity.
+It feels like a tale set in an immigrant neighborhood in 1980s
+Brooklyn---until you remember Aiah is a mage. That a ten‑story‑tall flaming
+woman leveled Wall Street. That ghosts haunt the power lines. That a glowing
+shield encases Earth, imprisoning all humanity.
 
-The best thing about {{ this_book }} is the subtle world building scattered
-throughout the story, much like {{ jacksons }} {{ tainted }}. The plot itself
-builds steadily, with Aiah first figuring out how to profit off a illegal
-plasm well while hiding it from the authorities, and is soon dragged into
-a revolution to reshape the order of the world.
+The best thing about {{ this_book }} is the subtle world‑building scattered
+throughout, much like {{ jacksons }} {{ tainted }}. The plot builds steadily:
+first Aiah figures out how to profit from an illegal plasm well while hiding
+it from the authorities, then she's swept into a revolution that could reshape
+the world order.
 
-The characters were the weakest part, although they're still well written.
-Aiah makes a bunch of selfish decisions, which is consistent With her
-character, but made it so I didn't not enjoy spending a lot of time with her.
-There is a wide cast of supporting characters, some of whom are a little
-cliched, but most of whom are interesting and engaging.
+The characters are the weakest part, though still well written. Aiah makes
+selfish choices---true to her character---but that kept me from fully enjoying
+reading about her. The supporting cast is large; a few feel clichéd, but most
+are engaging and memorable. The most exciting character is Taikoen, the hanged
+man human-turned-ghost from over exposure to plasm, who is the terrible secret
+behind the revolution's success.
 
-One of the themes of the book is freedom and what you're willing to do to
-achieve it. Aiah feels trapped in her dead-end job that doesn't quite pay the
-bills and is willing to steal palsm to escape. Constantine rebels against the
-oppressive governments of the city. Humanity is trapped on Earth by the
-shield. There is a peregrine falcon and flying motif that accompanies the
-theme of freedom.
+One of the themes of the book is freedom and its cost. Aiah feels trapped in
+her dead-end job that doesn't quite pay the bills and is willing to steal
+palsm to escape. Constantine rebels against the oppressive governments of the
+city. Taikoen is trapped as a ghost and posses and kill others to temporarily
+be human again. Humanity itself is trapped on Earth by the shield. There is a
+peregrine falcon and flying motif that accompanies the theme of freedom.
 
-{{ this_book }} reminded me of some books I've read recently:
+{{ this_book }} reminded me of:
 
-- The separation of the books subsections with in-world advertisements is
-  like the various in-world chapters that separated the narrative chapters in
-  {{ brunners }} {{ stand_on_zanzibar }}.
+- The in‑world ads separating sections are like the narrative breaks in {{
+  brunners }} {{ stand_on_zanzibar }}.
 
-- Aiah's work uses pneumatic tubes to physically send messages, like the
-  infofiches in {{ martines }} {{ empire }}.
+- Aiah's employer's pneumatic tube messaging system, similar to the infofiches in {{
+  martines }} {{ empire }}.
 
-- The uplifted dolphins fighting in the revolution---although probably
-  actually modified humans---reminds me of the uplifted dolphins in {{ brins
-  }} {{ startide }}.
+- The uplifted dolphins fighting for freedom (though here they seem modified
+  humans), which brought to mind the uplifted dolphins in {{ brins }} {{
+  startide }}.
 
 - The mix of magic, tech, and revolution reminded me of <cite
   class="video-game-title">Final Fantasy VI</cite>.
 
-- The phone with ghostly voices in the background reminded me of the intercom
-  in <cite class="video-game-title">Disco Elysium</cite> with entroponetic
-  interference.
+- The mash‑up of magic, tech, and revolution, which felt a bit like <cite
+  class="video-game-title">Final Fantasy VI</cite> and <cite
+  class="video-game-title">Final Fantasy VII</cite>.
 
-- The final battle, with both attack helicopters and mages, reminded me of
-  roleplaying game <cite class="table-top-game-title">Shadowrun</cite>.
+- Ghostly voices in the background of Aiah's calls echo the entroponetic
+  interference in <cite class="video-game-title">Disco Elysium</cite>.
 
-{{ the_author }} left a lot of open questions---like what is the shield and
-why was it put in place?---and there are interesting characters yet to explore
-like the hanged man and <!-- TODO: Who is the old researcher at the paslm
-authority? -->, which I hope are explored in {{ city }}.
+- The final battle, mixing attack helicopters and mages, like a session of
+  <cite class="table-top-game-title">Shadowrun</cite>.
+
+{{ the_author }} leaves many questions unanswered: What is the shield, and why
+was it erected? How will Aiah and Constantine control Taikoen? I hope I find
+out in {{ city }}.
