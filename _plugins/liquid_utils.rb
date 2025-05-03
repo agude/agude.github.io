@@ -42,6 +42,7 @@ module LiquidUtils
   def self.resolve_value(markup, context)
     return nil if markup.nil? || markup.empty?
     stripped_markup = markup.strip
+    return nil if stripped_markup.empty?
     # Check if it's a quoted string (single or double)
     if (stripped_markup.start_with?('"') && stripped_markup.end_with?('"')) || \
        (stripped_markup.start_with?("'") && stripped_markup.end_with?("'"))
