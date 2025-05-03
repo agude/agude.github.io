@@ -30,9 +30,18 @@ class TestLiquidUtils < Minitest::Test
   def test_prepare_display_title_dashes_ellipsis
      assert_equal "One–Two—Three…", LiquidUtils._prepare_display_title("One--Two---Three...")
   end
+
+  def test_prepare_display_title_escaping
+     assert_equal "Safe &amp; &lt;Tags&gt;", LiquidUtils._prepare_display_title("Safe & <Tags>")
+  end
+
   def test_prepare_display_title_with_br
      assert_equal "Line 1<br>Line 2", LiquidUtils._prepare_display_title("Line 1<br>Line 2")
      assert_equal "Line 1<br>Line 2", LiquidUtils._prepare_display_title("Line 1<br />Line 2")
+  end
+
+  def test_prepare_display_title_mixed
+     assert_equal "It’s &lt;OK&gt; – “Sure…”", LiquidUtils._prepare_display_title("It's <OK> -- \"Sure...\"")
   end
 
   # --- resolve_value ---
