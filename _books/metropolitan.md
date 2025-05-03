@@ -11,7 +11,7 @@ image: /books/covers/metropolitan.jpg
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is the first book in the
 <span class="book-series">{{ page.series }}</span> series. It is the story of
-Aiah, a young woman who discovers a illegal source of magical plasm, and how
+Aiah, a young woman who discovers an illegal source of magical plasm, and how
 it draws her into conflict with the world.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
@@ -39,15 +39,15 @@ it draws her into conflict with the world.
 {% capture startide %}{% book_link "Startide Rising" %}{% endcapture %}
 
 {{ this_book }} is an urban fantasy novel set in a city that covers the Earth.
-Its structure, mass, and geometric layout generates plasm---an
-electricity‑like substance mages need to power their spells. The setting is
-the far future, like {{ wolfes }} {{ torturer }}, but unlike {{ wolfes_short
-}} work this world still has modern technology---skyscrapers, subways,
-computers, cars---and magic that feels systematic, almost technological.
+Its structure, mass, and geometric layout generate plasm---an electricity‑like
+substance mages need to power their spells. The setting is the far future,
+like {{ wolfes }} {{ torturer }}, but unlike {{ wolfes_short }} work, this
+world still has modern technology---skyscrapers, subways, computers,
+cars---and magic that feels systematic, almost technological.
 
-The story follows Aiah, her family, and her people who are refugees from their
-destroyed metropolis. They're people of color, living as second-class citizens
-in a white-run metropolis, preyed upon by both the government and organized
+The story follows Aiah, her family, and her people, who are refugees from
+their destroyed metropolis. They're people of color, living as second-class
+citizens in a white-run city, preyed upon by both the government and organized
 crime. Aiah has climbed precariously into the middle class, a position that
 earns her resentment from society for rising too far, and from her family for
 leaving them behind. It feels like a tale set in an immigrant neighborhood in
@@ -70,10 +70,10 @@ terrible secret behind the revolution's success.
 
 One of the central themes of the book is freedom and its cost. Aiah feels
 stuck in her dead-end job that doesn't quite pay the bills, and she is willing
-to steal palsm to escape. Constantine rebels against the oppressive
-governments of the city. Taikoen is bound to his ghost-form; he posses and
-kill others to temporarily be human again. Humanity itself is trapped on Earth
-by the shield. There is a motif of flight---especially the peregrine
+to steal plasm to escape. Constantine rebels against the oppressive
+governments of the city. Taikoen is bound to his ghost-form; he possesses and
+kills others to temporarily be human again. Humanity itself is trapped on
+Earth by the shield. There is a motif of flight---especially the peregrine
 falcon---that reinforces the theme of freedom.
 
 {{ this_book }} reminded me of several other works:
@@ -90,14 +90,15 @@ falcon---that reinforces the theme of freedom.
 - The blend of magic, technology, and revolution echoes <cite
   class="video-game-title">Final Fantasy VI</cite> and <cite
   class="video-game-title">Final Fantasy VII</cite>. Mako is similar to plasm,
-  although Makos' extraction destroys the planet while plasms' is more benign.
+  although Mako's extraction destroys the planet while plasm's is more benign.
 
 - The ghostly voices in the background of Aiah's calls are like the
   entroponetic interference on the intercom in <cite
   class="video-game-title">Disco Elysium</cite>.
 
 - The final battle, where mages and attack helicopters share the battlefield,
-  reminded me of a <cite class="table-top-game-title">Shadowrun</cite> session.
+  reminded me of a <cite class="table-top-game-title">Shadowrun</cite>
+  session.
 
 {{ the_author }} leaves many questions unanswered: What is the shield, and why
 was it erected? How will Aiah and Constantine control Taikoen? Will the
