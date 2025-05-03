@@ -295,6 +295,21 @@ date: "%Y" | minus: 2015 }}.
 
 ---
 
+## Games
+
+### Video Games
+
+- <cite class="video-game-title">Chrono Trigger</cite>
+- <cite class="video-game-title">Disco Elysium</cite>
+- <cite class="video-game-title">Final Fantasy VI</cite>
+
+### Tabletop Games
+
+- <cite class="table-top-game-title">Shadowrun</cite>
+- <cite class="table-top-game-title">Warhammer 40,000</cite>
+
+---
+
 ## Author Link
 
 ### Author That Exists
