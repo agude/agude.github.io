@@ -107,8 +107,7 @@ class TestLiquidUtils < Minitest::Test
     ctx = create_context({}, { site: site, page: page })
 
     expected = "<cite class=\"book-title\">Missing Book</cite>"
-    output = LiquidUtils.render_book_link("Missing Book", ctx)
-    assert output.include?(expected)
+    assert_equal expected, LiquidUtils.render_book_link("Missing Book", ctx)
   end
 
   def test_render_book_link_with_link_text
@@ -158,8 +157,7 @@ class TestLiquidUtils < Minitest::Test
     ctx = create_context({}, { site: site, page: page })
 
     expected = "<span class=\"author-name\">Jane Doe</span>’s" # Possessive outside span
-    output = LiquidUtils.render_author_link("Jane Doe", ctx, nil, true)
-    assert output.include?(expected)
+    assert_equal expected, LiquidUtils.render_author_link("Jane Doe", ctx, nil, true)
   end
 
   # Add tests for render_article_card, render_book_card, log_failure...

@@ -14,10 +14,12 @@ host: 0.0.0.0
 plugin_logging:
     ARTICLE_CARD_LOOKUP: true
     AUTHOR_LINK: true
-    BOOK_CARD_LOOKUP: true
     BOOK_BACKLINKS: true
-    RENDER_BOOK_LINK: true
+    BOOK_CARD_LOOKUP: true
+    RELATED_BOOKS: true
+    RELATED_POSTS: true
     RENDER_AUTHOR_LINK: true
+    RENDER_BOOK_LINK: true
     SERIES_LINK: true
     UNITS_WARNING: true
 

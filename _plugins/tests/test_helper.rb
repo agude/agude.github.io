@@ -4,6 +4,7 @@ require 'jekyll'
 require 'time' # Needed for Time.parse if mocking dates
 
 # Add the parent _plugins directory to the load path
+# Since this file is IN _plugins/tests, '../' goes up to _plugins
 $LOAD_PATH.unshift(File.expand_path('..', __dir__))
 
 # Require the utility file we want to test
@@ -58,14 +59,36 @@ def create_context(scopes = {}, registers = {})
 end
 
 # Creates a mock site object with default and override configurations
+# Disables plugin logging by default for tests.
 def create_site(config_overrides = {}, collections_data = {}, pages_data = [], posts_data = [])
+
+  # --- Configuration to disable logging for known tags ---
+  # List all tag_type strings used in log_failure calls across your plugins/utils
+  test_plugin_logging_config = {
+    'ARTICLE_CARD_LOOKUP' => false,
+    'AUTHOR_LINK' => false,
+    'BOOK_BACKLINKS' => false,
+    'BOOK_CARD_LOOKUP' => false,
+    'DISPLAY_RANKED_BOOKS' => false,
+    'RELATED_BOOKS' => false,
+    'RELATED_POSTS' => false,
+    'RENDER_AUTHOR_LINK' => false,
+    'RENDER_BOOK_LINK' => false,
+    'SERIES_LINK' => false,
+    'UNITS_WARNING' => false,
+    # Add any other tag types used by {% log_failure %} here if needed
+  }
+  # --- END ADDED ---
+
+
   # Base config including defaults our utils might check
   base_config = {
-    'environment' => 'test',
+    'environment' => 'test', # Keep environment as test for other potential checks
     'baseurl' => '',
     'source' => '.', # Assume source is current dir for tests
-    'plugin_logging' => {} # Default logging config
-  }.merge(config_overrides)
+    # --- Use the disabling config ---
+    'plugin_logging' => test_plugin_logging_config
+  }.merge(config_overrides) # Allow test-specific overrides if needed
 
   # Mock collections
   collections = {}
@@ -100,4 +123,4 @@ def create_doc(data_overrides = {}, url = '/test-doc.html', content = 'Test cont
 end
 
 
-puts "Expanded test helper loaded."
+puts "Expanded test helper loaded (with improved MockDocument and logging disabled)."
