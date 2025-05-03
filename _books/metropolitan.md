@@ -65,10 +65,17 @@ plasm well while hiding it from the authorities, and is soon dragged into
 a revolution to reshape the order of the world.
 
 The characters were the weakest part, although they're still well written.
-Aiah makes a bunch of selfish decisions, which is inline with her character,
-but made it so I didn't not enjoy spending time with her. Their is a wide cast
-of supporting characters, some of whom are a little cliched, but most of whom
-are interesting and engaging.
+Aiah makes a bunch of selfish decisions, which is consistent With her
+character, but made it so I didn't not enjoy spending a lot of time with her.
+There is a wide cast of supporting characters, some of whom are a little
+cliched, but most of whom are interesting and engaging.
+
+One of the themes of the book is freedom and what you're willing to do to
+achieve it. Aiah feels trapped in her dead-end job that doesn't quite pay the
+bills and is willing to steal palsm to escape. Constantine rebels against the
+oppressive governments of the city. Humanity is trapped on Earth by the
+shield. There is a peregrine falcon and flying motif that accompanies the
+theme of freedom.
 
 {{ this_book }} reminded me of some books I've read recently:
 
@@ -92,3 +99,8 @@ are interesting and engaging.
 
 - The final battle, with both attack helicopters and mages, reminded me of
   roleplaying game <cite class="table-top-game-title">Shadowrun</cite>.
+
+{{ the_author }} left a lot of open questions---like what is the shield and
+why was it put in place?---and there are interesting characters yet to explore
+like the hanged man and <!-- TODO: Who is the old researcher at the paslm
+authority? -->, which I hope are explored in {{ city }}.
