@@ -11,7 +11,7 @@ BUNDLER_VERSION := 2.6.8
 # Define base image using the determined Ruby version
 BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 
-.PHONY: all clean serve drafts debug image refresh lock
+.PHONY: all clean serve drafts debug image refresh lock test
 
 all: serve
 
@@ -75,3 +75,19 @@ drafts: image clean
 debug: image
 	@echo "Starting interactive debug session in container..."
 	@docker run -it --rm -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) /bin/bash
+
+# Run Ruby tests
+test: image
+	@echo "Running tests inside Docker container..."
+	@# Run ruby directly, adding _plugins to the load path (-I)
+	@# The shell inside the container will expand the test_*.rb glob
+	@docker run --rm \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		$(IMAGE) \
+		bundle exec ruby -I _plugins _plugins/tests/test_liquid_utils.rb
+	@# Check the exit status of the docker command (and thus the tests)
+	@if [ $$? -ne 0 ]; then \
+		echo "Error: Tests failed." && exit 1; \
+	fi
+	@echo "Tests finished successfully."
