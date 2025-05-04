@@ -20,6 +20,7 @@ plugin_logging:
     RELATED_POSTS: true
     RENDER_AUTHOR_LINK: true
     RENDER_BOOK_LINK: true
+    RENDER_SERIES_LINK: true
     SERIES_LINK: true
     UNITS_WARNING: true
 

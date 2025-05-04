@@ -209,6 +209,105 @@ module LiquidUtils
   end
 
 
+  # Finds a series page by title (case-insensitive) and renders its link/span HTML.
+  #
+  # @param series_title_raw [String] The title of the series to link to.
+  # @param context [Liquid::Context] The current Liquid context.
+  # @param link_text_override_raw [String, nil] Optional text to display instead of the title.
+  # @return [String] The generated HTML (<a href=...><span>...</span></a> or <span>...</span>).
+  def self.render_series_link(series_title_raw, context, link_text_override_raw = nil)
+    # Ensure context and site are available
+    unless context && (site = context.registers[:site])
+      puts "[PLUGIN RENDER_SERIES_LINK ERROR] Context or Site unavailable."
+      return series_title_raw.to_s # Minimal fallback
+    end
+    page = context.registers[:page]
+
+    # --- Input Validation & Resolution ---
+    # Keep the original raw title for normalization lookup and potential display fallback
+    series_title_input = series_title_raw.to_s
+    link_text_override = link_text_override_raw.to_s.strip if link_text_override_raw && !link_text_override_raw.to_s.empty?
+
+    # Normalize the input title *once* for lookup comparison
+    normalized_lookup_title = normalize_title(series_title_input) # Use normalize_title
+
+    if normalized_lookup_title.empty? # Check normalized version for emptiness
+      return log_failure(
+        context: context,
+        tag_type: "RENDER_SERIES_LINK",
+        reason: "Input title resolved to empty after normalization",
+        identifiers: { TitleInput: series_title_raw || 'nil' }
+      )
+    end
+    # --- End Input Validation ---
+
+    found_series_doc = nil
+    target_url = nil
+
+    # --- Series Lookup Logic (Case-Insensitive) ---
+    # Search site pages for a matching title and layout 'series_page'
+    found_series_doc = site.pages.find do |p|
+      # Check layout AND compare normalized titles
+      p.data['layout'] == 'series_page' && normalize_title(p.data['title']) == normalized_lookup_title
+    end
+    # --- End Series Lookup ---
+
+    # --- Determine Display Text ---
+    # Default to the original input title string (stripped)
+    display_text = series_title_input.strip
+
+    if link_text_override && !link_text_override.empty?
+      # 1. Use link_text override if provided and not empty
+      display_text = link_text_override
+    elsif found_series_doc && found_series_doc.data['title']
+      # 2. Use canonical title from found document if available and not empty
+      canonical_title = found_series_doc.data['title'].strip
+      display_text = canonical_title unless canonical_title.empty?
+    end
+    # 3. Fallback is the stripped original input title (already set)
+    # --- End Display Text ---
+
+    # Escape the display text and create the core element
+    # Using basic CGI escape here, as series titles usually don't need complex typography.
+    escaped_display_text = CGI.escapeHTML(display_text)
+    span_element = "<span class=\"book-series\">#{escaped_display_text}</span>"
+
+    # --- Link Generation ---
+    linked_element = nil
+    log_output = ""
+
+    if found_series_doc
+      target_url = found_series_doc.url
+      current_page_url = page ? page['url'] : nil
+
+      # Link if target URL exists AND it's not the current page
+      if target_url && current_page_url && target_url != current_page_url
+        baseurl = site.config['baseurl'] || ''
+        # Ensure target_url starts with a slash if baseurl is present and url doesn't already have it
+        target_url = "/#{target_url}" if !baseurl.empty? && !target_url.start_with?('/') && !target_url.start_with?(baseurl)
+        linked_element = "<a href=\"#{baseurl}#{target_url}\">#{span_element}</a>"
+      else
+        linked_element = span_element # It's the current page or context is missing/invalid
+      end
+    else
+      # Log failure but still return the unlinked span element
+      log_output = log_failure(
+        context: context,
+        tag_type: "RENDER_SERIES_LINK", # Use utility type
+        reason: "Could not find series page during link rendering",
+        identifiers: { Series: series_title_input.strip } # Log the stripped input title
+      )
+      linked_element = span_element
+    end
+    # --- End Link Generation ---
+
+    # Prepend log message (if any) to the generated element
+    final_output = log_output + linked_element
+
+    final_output
+  end
+
+
   # --- Internal Helper for Preparing Display Titles ---
   # Applies manual "SmartyPants"-like transformations, minimal HTML escaping,
   # and allows <br> tags through. NO Kramdown involved.
@@ -553,5 +652,7 @@ module LiquidUtils
     card_html << "</div>" # Close book-card
     card_html
   end
+
+
 
 end
