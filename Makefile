@@ -11,6 +11,9 @@ BUNDLER_VERSION := 2.6.8
 # Define base image using the determined Ruby version
 BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 
+# Use find to locate all test_*.rb files within the _tests/plugins/ directory
+TEST_FILES := $(shell find _tests/plugins/ -type f -name 'test_*.rb')
+
 .PHONY: all clean serve drafts debug image refresh lock test
 
 all: serve
@@ -76,17 +79,22 @@ debug: image
 	@echo "Starting interactive debug session in container..."
 	@docker run -it --rm -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) /bin/bash
 
-# Run Ruby tests
-test: image
+# Run Minitest tests located in _tests/ inside the Docker container.
+test: image # Depends on the Docker image being built/up-to-date
 	@echo "Running tests inside Docker container..."
-	@# Run ruby directly, adding _plugins to the load path (-I)
-	@# The shell inside the container will expand the test_*.rb glob
+	@# Check if any test files were found
+	@if [ -z "$(TEST_FILES)" ]; then \
+		echo "Warning: No test files found matching '_tests/**/test_*.rb'."; \
+		exit 0; \
+	fi
+	@echo "Found test files: $(TEST_FILES)"
+	@# Run ruby directly, adding _plugins and _tests to the load path (-I)
+	@# Pass the list of found test files to the ruby command
 	@docker run --rm \
 		-v $(PWD):$(MOUNT) \
 		-w $(MOUNT) \
 		$(IMAGE) \
-		bundle exec ruby -I _plugins _tests/test_liquid_utils.rb
-	@# Check the exit status of the docker command (and thus the tests)
+		bundle exec ruby -I _plugins $(TEST_FILES)
 	@if [ $$? -ne 0 ]; then \
 		echo "Error: Tests failed." && exit 1; \
 	fi
