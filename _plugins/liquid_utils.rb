@@ -125,7 +125,8 @@ module LiquidUtils
   end
 
 
-  # Finds an author page and renders the link/span HTML.
+  # Finds an author page by name (case-insensitive, whitespace-normalized)
+  # and renders the link/span HTML.
   #
   # @param author_name_raw [String] The name of the author.
   # @param context [Liquid::Context] The current Liquid context.
@@ -140,13 +141,17 @@ module LiquidUtils
     page = context.registers[:page]
 
     # --- Input Validation & Resolution ---
-    author_name = author_name_raw.to_s.gsub(/\s+/, ' ').strip
+    author_name_input = author_name_raw.to_s # Keep original form for potential display fallback
     link_text_override = link_text_override_raw.to_s.strip if link_text_override_raw && !link_text_override_raw.to_s.empty?
 
-    if author_name.empty?
+    # Normalize the input name *once* for lookup comparison
+    normalized_lookup_name = normalize_title(author_name_input) # Use normalize_title
+
+    if normalized_lookup_name.empty? # Check normalized version for emptiness
       return log_failure(
         context: context, tag_type: "RENDER_AUTHOR_LINK",
-        reason: "Input author name resolved to empty", identifiers: { NameInput: author_name_raw || 'nil' }
+        reason: "Input author name resolved to empty after normalization",
+        identifiers: { NameInput: author_name_raw || 'nil' }
       )
     end
     # --- End Input Validation ---
@@ -154,22 +159,29 @@ module LiquidUtils
     found_author_doc = nil
     target_url = nil
 
-    # --- Author Lookup Logic ---
+    # --- Author Lookup Logic (Case-insensitive, whitespace-normalized) ---
     found_author_doc = site.pages.find do |p|
-      p.data['layout'] == 'author_page' && p.data['title']&.strip == author_name
+      # Check layout AND compare normalized titles/names
+      p.data['layout'] == 'author_page' && normalize_title(p.data['title']) == normalized_lookup_name
     end
     # --- End Author Lookup ---
 
     # --- Determine Display Text ---
-    display_text = author_name # Default
+    # Default to the original input name string (stripped)
+    display_text = author_name_input.strip
+
     if link_text_override && !link_text_override.empty?
+      # 1. Use override if provided
       display_text = link_text_override
     elsif found_author_doc && found_author_doc.data['title']
+      # 2. Use canonical title (stripped) from found document
       canonical_title = found_author_doc.data['title'].strip
       display_text = canonical_title unless canonical_title.empty?
     end
+    # 3. Fallback is the stripped original input name (already set)
     # --- End Display Text ---
 
+    # Escape display text and prepare span
     escaped_display_text = CGI.escapeHTML(display_text)
     span_element = "<span class=\"author-name\">#{escaped_display_text}</span>"
     # Use the correct right single quotation mark (U+2019)
@@ -183,6 +195,7 @@ module LiquidUtils
       target_url = found_author_doc.url
       current_page_url = page ? page['url'] : nil
 
+      # Link if target URL exists AND it's not the current page
       if target_url && current_page_url && target_url != current_page_url
         baseurl = site.config['baseurl'] || ''
         target_url = "/#{target_url}" if !baseurl.empty? && !target_url.start_with?('/') && !target_url.start_with?(baseurl)
@@ -196,7 +209,7 @@ module LiquidUtils
       # Author not found, log failure and append suffix AFTER span
       log_output = log_failure(
         context: context, tag_type: "RENDER_AUTHOR_LINK",
-        reason: "Could not find author page", identifiers: { Name: author_name }
+        reason: "Could not find author page", identifiers: { Name: author_name_input.strip } # Log the stripped input name
       )
       linked_element = "#{span_element}#{possessive_suffix}"
     end
