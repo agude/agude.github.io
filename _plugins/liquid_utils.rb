@@ -369,30 +369,35 @@ module LiquidUtils
 
   # Finds a book by title (case-insensitive) and renders its link/cite HTML.
   # Uses _prepare_display_title for correct quoting and escaping.
+  # Prepends log failure comment (if applicable) when book/collection not found.
   #
   # @param book_title_raw [String] The title of the book to link to.
   # @param context [Liquid::Context] The current Liquid context.
   # @param link_text_override_raw [String, nil] Optional text to display instead of the title.
-  # @return [String] The generated HTML (<a href=...><cite>...</cite></a> or <cite>...</cite>).
+  # @return [String] The generated HTML (<a href=...><cite>...</cite></a> or <cite>...</cite>), potentially prepended with an HTML comment.
   def self.render_book_link(book_title_raw, context, link_text_override_raw = nil)
     # Ensure context and site are available
     unless context && (site = context.registers[:site])
       puts "[PLUGIN RENDER_BOOK_LINK ERROR] Context or Site unavailable."
       # Return minimal fallback or raise error depending on desired strictness
-      return book_title_raw.to_s # Minimal fallback
+      return book_title_raw.to_s
     end
     page = context.registers[:page]
 
     # --- Input Validation & Resolution ---
-    book_title = book_title_raw.to_s.gsub(/\s+/, ' ').strip
+    book_title_input = book_title_raw.to_s # Keep original form for display fallback
     link_text_override = link_text_override_raw.to_s.strip if link_text_override_raw && !link_text_override_raw.to_s.empty?
 
-    if book_title.empty?
+    # Normalize the input title *once* for lookup comparison
+    normalized_lookup_title = normalize_title(book_title_input)
+
+    if normalized_lookup_title.empty?
       # Log failure and return the log message (which might be empty)
+      # This case returns immediately as there's nothing valid to link or display.
       return log_failure(
         context: context,
         tag_type: "RENDER_BOOK_LINK",
-        reason: "Input title resolved to empty",
+        reason: "Input title resolved to empty after normalization",
         identifiers: { TitleInput: book_title_raw || 'nil' }
       )
     end
@@ -400,31 +405,29 @@ module LiquidUtils
 
     found_book_doc = nil
     target_url = nil
+    log_output = "" # Initialize log output string
 
     # --- Book Lookup Logic (Case-Insensitive) ---
     if site.collections.key?('books')
-
-      book_title_normalized = normalize_title(book_title)
       found_book_doc = site.collections['books'].docs.find do |doc|
-        # Skip unpublished explicitly if front matter exists
         next if doc.data['published'] == false
-
-        # Compare normalized title
-        normalize_title(doc.data['title']) == book_title_normalized
+        normalize_title(doc.data['title']) == normalized_lookup_title
       end
     else
-      # Log if the collection itself is missing
-      return log_failure(
+      # Log if the collection itself is missing AND capture the output
+      log_output = log_failure(
         context: context,
         tag_type: "RENDER_BOOK_LINK",
         reason: "Books collection not found in site configuration",
-        identifiers: { Title: book_title }
+        identifiers: { Title: book_title_input.strip }
       )
+      # found_book_doc remains nil
     end
     # --- End Book Lookup ---
 
     # --- Determine Display Text ---
-    display_text = book_title # Default
+    # Default to the original input title string (stripped)
+    display_text = book_title_input.strip
     if link_text_override && !link_text_override.empty?
       display_text = link_text_override
     elsif found_book_doc && found_book_doc.data['title']
@@ -434,7 +437,7 @@ module LiquidUtils
     end
     # --- End Display Text ---
 
-    # --- Use helper to prepare the title for display ---
+    # --- Prepare Cite Element ---
     prepared_display_text = _prepare_display_title(display_text)
     cite_element = "<cite class=\"book-title\">#{prepared_display_text}</cite>"
 
@@ -450,19 +453,26 @@ module LiquidUtils
         baseurl = site.config['baseurl'] || ''
         # Ensure target_url starts with a slash if baseurl is present and url doesn't already have it
         target_url = "/#{target_url}" if !baseurl.empty? && !target_url.start_with?('/') && !target_url.start_with?(baseurl)
+        # Return linked element (no log output prepended if book was found)
         "<a href=\"#{baseurl}#{target_url}\">#{cite_element}</a>"
       else
-        cite_element # It's the current page or context is missing/invalid
+        # Return unlinked cite (current page or missing URL)
+        # No log output prepended if book was found.
+        cite_element
       end
     else
-      # Log failure but still return the unlinked cite element for graceful degradation
-      log_output = log_failure(
-        context: context,
-        tag_type: "RENDER_BOOK_LINK",
-        reason: "Could not find book page during link rendering",
-        identifiers: { Title: book_title }
-      )
-      # Return the log comment (if any) prepended to the cite element
+      # Book not found OR collection was missing.
+      # If collection was missing, log_output already contains the message.
+      # If book wasn't found (and collection existed), log that now.
+      if log_output.empty? # Only log if we haven't already logged missing collection
+          log_output = log_failure(
+            context: context,
+            tag_type: "RENDER_BOOK_LINK",
+            reason: "Could not find book page during link rendering",
+            identifiers: { Title: book_title_input.strip }
+          )
+      end
+      # Return the log comment (if any) prepended to the unlinked cite element
       log_output + cite_element
     end
     # --- End Link Generation ---
