@@ -4,8 +4,7 @@ require 'jekyll'
 require 'time' # Needed for Time.parse if mocking dates
 
 # Add the parent _plugins directory to the load path
-# Since this file is IN _plugins/tests, '../' goes up to _plugins
-$LOAD_PATH.unshift(File.expand_path('..', __dir__))
+$LOAD_PATH.unshift(File.expand_path('../_plugins', __dir__))
 
 # Require the utility file we want to test
 require 'liquid_utils'

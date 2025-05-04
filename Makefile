@@ -85,7 +85,7 @@ test: image
 		-v $(PWD):$(MOUNT) \
 		-w $(MOUNT) \
 		$(IMAGE) \
-		bundle exec ruby -I _plugins _plugins/tests/test_liquid_utils.rb
+		bundle exec ruby -I _plugins _tests/test_liquid_utils.rb
 	@# Check the exit status of the docker command (and thus the tests)
 	@if [ $$? -ne 0 ]; then \
 		echo "Error: Tests failed." && exit 1; \

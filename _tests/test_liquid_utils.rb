@@ -1,4 +1,3 @@
-#a_plugins/tests/test_liquid_utils.rb
 require_relative 'test_helper'
 
 class TestLiquidUtils < Minitest::Test
