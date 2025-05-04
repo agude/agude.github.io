@@ -73,6 +73,7 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
     'RELATED_POSTS' => false,
     'RENDER_AUTHOR_LINK' => false,
     'RENDER_BOOK_LINK' => false,
+    'RENDER_SERIES_LINK' => false,
     'SERIES_LINK' => false,
     'UNITS_WARNING' => false,
     # Add any other tag types used by {% log_failure %} here if needed
