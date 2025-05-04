@@ -24,7 +24,7 @@ MockDocument = Struct.new(:data, :url, :content, :date) do
       content
     elsif key_s == 'date'
       date
-    elsif key_s == 'title' # Add other common direct lookups if needed
+    elsif key_s == 'title'
        data['title'] || data[:title] rescue nil
     else
       # Fallback to data hash (check string/symbol)
@@ -77,8 +77,9 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
     'SERIES_LINK' => false,
     'UNITS_WARNING' => false,
     # Add any other tag types used by {% log_failure %} here if needed
+    # Used in the tests only:
+    'ANY_TAG' => false,
   }
-  # --- END ADDED ---
 
 
   # Base config including defaults our utils might check
@@ -114,7 +115,8 @@ def create_doc(data_overrides = {}, url = '/test-doc.html', content = 'Test cont
   base_data = {
     'layout' => 'test_layout',
     'title' => 'Test Document',
-    'published' => true # Assume published unless overridden
+    'published' => true,
+    'path' => url.sub(%r{^/}, '')
   }.merge(data_overrides)
 
   date_obj = date_str ? Time.parse(date_str) : Time.now

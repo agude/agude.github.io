@@ -233,6 +233,153 @@ class TestLiquidUtils < Minitest::Test
     assert_equal expected, LiquidUtils.render_author_link("Jane Doe", ctx, nil, true)
   end
 
-  # Add tests for render_article_card, render_book_card, log_failure...
+  # --- render_article_card ---
+  def test_render_article_card_basic
+    post = create_doc({ 'title' => "Basic Post" }, '/blog/basic.html')
+    site = create_site
+    ctx = create_context({}, { site: site, page: create_doc({}, '/current.html') }) # Need page for context
+
+    output = LiquidUtils.render_article_card(post, ctx)
+
+    assert_match(/<div class="article-card">/, output)
+    assert_match(/<a href="\/blog\/basic.html">/, output)
+    assert_match(/<strong>Basic Post<\/strong>/, output)
+    # Check it DOESN'T have image or description sections
+    refute_match(/<div class="card-element card-image">/, output)
+    refute_match(/<br>/, output) # No description means no <br> before it
+  end
+
+  def test_render_article_card_with_image_and_alt
+    post = create_doc({ 'title' => "Post with Image", 'image' => '/img.png', 'image_alt' => 'My Alt Text' }, '/blog/img.html')
+    site = create_site
+    ctx = create_context({}, { site: site, page: create_doc({}, '/current.html') })
+
+    output = LiquidUtils.render_article_card(post, ctx)
+
+    assert_match(/<div class="card-element card-image">/, output)
+    assert_match(/<img src="\/img.png" alt="My Alt Text" \/>/, output)
+    assert_match(/<strong>Post with Image<\/strong>/, output)
+  end
+
+  def test_render_article_card_with_description
+    post = create_doc({ 'title' => "Post with Desc", 'description' => 'Desc text.' }, '/blog/desc.html')
+    site = create_site
+    ctx = create_context({}, { site: site, page: create_doc({}, '/current.html') })
+
+    output = LiquidUtils.render_article_card(post, ctx)
+
+    assert_match(/<strong>Post with Desc<\/strong>/, output)
+    assert_match(/<br>\s*Desc text./, output) # Check for <br> and description
+  end
+
+  def test_render_article_card_with_excerpt_fallback
+    # Mock excerpt object (Jekyll 4 uses data['excerpt'])
+    excerpt_obj = Struct.new(:string) { def to_s; string; end }.new("Excerpt text.")
+    post = create_doc({ 'title' => "Post with Excerpt", 'excerpt' => excerpt_obj }, '/blog/ex.html')
+    # Note: No 'description' field in data
+    site = create_site
+    ctx = create_context({}, { site: site, page: create_doc({}, '/current.html') })
+
+    output = LiquidUtils.render_article_card(post, ctx)
+
+    assert_match(/<strong>Post with Excerpt<\/strong>/, output)
+    assert_match(/<br>\s*Excerpt text./, output)
+  end
+
+  def test_render_article_card_title_typography_and_br
+    post = create_doc({ 'title' => "It's a <br> \"Test\" -- Title" }, '/blog/smart.html')
+    site = create_site
+    ctx = create_context({}, { site: site, page: create_doc({}, '/current.html') })
+
+    output = LiquidUtils.render_article_card(post, ctx)
+
+    # Check that _prepare_display_title was effectively used
+    assert_match(/<strong>It’s a <br> “Test” – Title<\/strong>/, output)
+  end
+
+  # --- render_book_card ---
+  def test_render_book_card_basic
+    book = create_doc({ 'title' => "Basic Book" }, '/books/basic.html')
+    site = create_site
+    ctx = create_context({}, { site: site, page: create_doc({}, '/current.html') })
+
+    output = LiquidUtils.render_book_card(book, ctx)
+    # Basic structure checks
+    assert_match(/<div class="book-card">/, output)
+    assert_match(/<a href="\/books\/basic.html">/, output)
+    assert_match(/<strong><cite class="book-title">Basic Book<\/cite><\/strong>/, output)
+    # Check things that shouldn't be there
+    refute_match(/<div class="card-element card-book-cover">/, output) # No image
+    refute_match(/<span class="by-author">/, output) # No author
+    refute_match(/class="book-rating star-rating-/, output) # No rating
+    refute_match(/<div class="card-element card-text">.*<\/div>/m, output[/<a href=.*<\/a>\s*(.*)/m]) # No description block after title link
+  end
+
+  def test_render_book_card_all_fields
+    author_page = create_doc({ 'title' => 'Jane Doe', 'layout' => 'author_page' }, '/authors/jane-doe.html')
+    excerpt_obj = Struct.new(:string) { def to_s; string; end }.new("Book desc.")
+    book = create_doc({
+      'title' => "It's \"Great\"!",
+      'book_author' => 'Jane Doe',
+      'rating' => 4,
+      'image' => '/covers/great.jpg',
+      'excerpt' => excerpt_obj
+    }, '/books/great.html')
+    site = create_site({}, {}, [author_page]) # Need author page for link
+    ctx = create_context({}, { site: site, page: create_doc({}, '/current.html') })
+
+    output = LiquidUtils.render_book_card(book, ctx)
+
+    # Check title (processed)
+    assert_match(/<cite class="book-title">It’s “Great”!<\/cite>/, output)
+    # Check image
+    assert_match(/<div class="card-element card-book-cover">/, output)
+    assert_match(/<img src="\/covers\/great.jpg" alt="Book cover of It&#39;s &quot;Great&quot;!." \/>/, output) # Alt text uses original title, escaped
+    # Check author (linked)
+    assert_match(/<span class="by-author"> by <a href="\/authors\/jane-doe.html"><span class="author-name">Jane Doe<\/span><\/a><\/span>/, output)
+    # Check rating
+    assert_match(/class="book-rating star-rating-4"/, output)
+    assert_match(/★.*★.*★.*★.*☆/, output) # 4 full, 1 empty star
+    # Check description
+    assert_match(/<div class="card-element card-text">\s*Book desc.\s*<\/div>/m, output)
+  end
+
+  # --- log_failure ---
+  def test_log_failure_test_env_enabled
+    site = create_site({ 'plugin_logging' => { 'TEST_TAG' => true } }) # Explicitly enable
+    ctx = create_context({}, { site: site, page: create_doc({}, '/page.html') })
+    output = LiquidUtils.log_failure(context: ctx, tag_type: "TEST_TAG", reason: "It broke", identifiers: { Key: "Val<>" })
+
+    expected_comment = "<!-- TEST_TAG_FAILURE: Reason='It broke' Key='Val&lt;&gt;' SourcePage='page.html' -->"
+    assert_equal expected_comment, output
+    # We cannot easily test console output here
+  end
+
+  def test_log_failure_test_env_disabled_via_config
+    site = create_site({ 'plugin_logging' => { 'TEST_TAG' => false } }) # Explicitly disable
+    ctx = create_context({}, { site: site, page: create_doc({}, '/page.html') })
+    output = LiquidUtils.log_failure(context: ctx, tag_type: "TEST_TAG", reason: "It broke", identifiers: {})
+
+    assert_equal "", output # Should return empty string
+  end
+
+  def test_log_failure_test_env_disabled_by_default
+    # Logging is disabled by default in helper, no need to override config
+    site = create_site
+    ctx = create_context({}, { site: site, page: create_doc({}, '/page.html') })
+    output = LiquidUtils.log_failure(context: ctx, tag_type: "ANY_TAG", reason: "It broke", identifiers: {})
+
+    assert_equal "", output # Should return empty string because helper disables it
+  end
+
+  def test_log_failure_production_env
+    # Override helper default to enable logging, but set production env
+    site = create_site({ 'environment' => 'production', 'plugin_logging' => { 'PROD_TAG' => true } })
+    ctx = create_context({}, { site: site, page: create_doc({}, '/page.html') })
+    output = LiquidUtils.log_failure(context: ctx, tag_type: "PROD_TAG", reason: "Prod issue", identifiers: {})
+
+    assert_equal "", output # HTML comment should be disabled in production
+    # We assume console logging still happens but can't easily test it here
+  end
 
 end
