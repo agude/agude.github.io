@@ -223,9 +223,9 @@ module LiquidUtils
     # Do this before typography to avoid escaping entities we create.
     # This will turn literal <br> into <br> and <Tags> into <Tags>
     escaped_text = text.gsub('&', '&amp;')
-                             .gsub('<', '&lt;')
-                             .gsub('>', '&gt;')
-                             # Leave all quote types alone.
+                       .gsub('<', '&lt;')
+                       .gsub('>', '&gt;')
+                       # Leave all quote types alone.
 
     # 2. Manual Typographic Transformations (Order matters for quotes)
     escaped_text.gsub!(/---/, '—')    # Em dash
