@@ -228,23 +228,26 @@ module LiquidUtils
                              # Leave all quote types alone.
 
     # 2. Manual Typographic Transformations (Order matters for quotes)
-    # Apply these to the already escaped text.
-    escaped_text.gsub!(/---/, '—')    # Em dash U+2014
-    escaped_text.gsub!(/--/, '–')     # En dash U+2013
-    escaped_text.gsub!(/\.\.\./, '…') # Ellipsis U+2026
-    # Double quotes: “ ” (U+201C, U+201D)
-    escaped_text.gsub!(/(^|\s|\[|\()"(?=\S)/, '\1“') # Opening "" (using lookahead)
-    escaped_text.gsub!(/"/, '”') # Closing ""
-    # Single quotes: ‘ ’ (U+2018, U+2019) - Apostrophes first
+    escaped_text.gsub!(/---/, '—')    # Em dash
+    escaped_text.gsub!(/--/, '–')     # En dash
+    escaped_text.gsub!(/\.\.\./, '…') # Ellipsis
+
+    # Double quotes: “ ”
+    # Match " preceded by space/start/(/[ or followed by word char
+    escaped_text.gsub!(/(?<=\s|^|\[|\()"|"(?=\w)/, '“') # Opening "" (using lookbehind/lookahead)
+    escaped_text.gsub!(/"/, '”') # Closing "" (remaining)
+
+    # Single quotes: ‘ ’ - Apostrophes first
     escaped_text.gsub!(/(\w)'(\w)/, '\1’\2') # Apostrophe within word
-    escaped_text.gsub!(/'(\d{2}s)/, '’\1') # Year abbreviations like '90s
-    escaped_text.gsub!(/(\w)'(?=\s|$|,|\.|;|\?|!)/, '\1’') # Possessive at end (using lookahead)
-    escaped_text.gsub!(/(^|\s|\[|\()'(\S)/, '\1‘') # Opening ''
+    escaped_text.gsub!(/'(\d{2}s)/, '’\1') # Year abbreviations
+    escaped_text.gsub!(/(\w)'(?=\s|$|,|\.|;|\?|!)/, '\1’') # Possessive at end
+    # Match ' preceded by space/start/(/[ or followed by word char
+    escaped_text.gsub!(/(?<=\s|^|\[|\()'|'(?=\w)/, '‘') # Opening ''
     escaped_text.gsub!(/'/, '’') # Closing '' / Remaining apostrophes
 
-    # 3. Restore literal <br> tags by replacing the escaped version
-    # This looks for <br...> which resulted from step 1.
+    # 3. Restore literal <br> tags
     escaped_text.gsub!('&lt;br /&gt;', '<br>')
+    escaped_text.gsub!('&lt;br/&gt;', '<br>')
     escaped_text.gsub!('&lt;br&gt;', '<br>')
 
     # Return the final text
