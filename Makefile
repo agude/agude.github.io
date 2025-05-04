@@ -11,7 +11,10 @@ BUNDLER_VERSION := 2.6.8
 # Define base image using the determined Ruby version
 BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 
-.PHONY: all clean serve drafts debug image refresh lock
+# Use find to locate all test_*.rb files within the _tests/plugins/ directory
+TEST_FILES := $(shell find _tests/plugins/ -type f -name 'test_*.rb')
+
+.PHONY: all clean serve drafts debug image refresh lock test
 
 all: serve
 
@@ -75,3 +78,25 @@ drafts: image clean
 debug: image
 	@echo "Starting interactive debug session in container..."
 	@docker run -it --rm -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) /bin/bash
+
+# Run Minitest tests located in _tests/ inside the Docker container.
+test: image # Depends on the Docker image being built/up-to-date
+	@echo "Running tests inside Docker container..."
+	@if [ -z "$(TEST_FILES)" ]; then \
+		echo "Warning: No test files found matching '_tests/**/test_*.rb'."; \
+		exit 0; \
+	fi
+	@echo "Found test files: $(TEST_FILES)"
+	@# Use ruby -e to require the helper, then pass test files as arguments (ARGV).
+	@# The script uses 'load' to execute each test file listed in ARGV.
+	@docker run --rm \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		$(IMAGE) \
+		bundle exec ruby -I _plugins -I _tests \
+		  -e "require 'test_helper'; ARGV.each { |f| load f }" \
+		  $(TEST_FILES) # <-- Pass TEST_FILES as separate arguments
+	@if [ $$? -ne 0 ]; then \
+		echo "Error: Tests failed." && exit 1; \
+	fi
+	@echo "Tests finished successfully."

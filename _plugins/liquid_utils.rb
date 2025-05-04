@@ -42,6 +42,7 @@ module LiquidUtils
   def self.resolve_value(markup, context)
     return nil if markup.nil? || markup.empty?
     stripped_markup = markup.strip
+    return nil if stripped_markup.empty?
     # Check if it's a quoted string (single or double)
     if (stripped_markup.start_with?('"') && stripped_markup.end_with?('"')) || \
        (stripped_markup.start_with?("'") && stripped_markup.end_with?("'"))
@@ -209,8 +210,8 @@ module LiquidUtils
 
 
   # --- Internal Helper for Preparing Display Titles ---
-  # Applies smart quote/typographic transformations using Kramdown,
-  # performs minimal HTML escaping (&, <, >), and then allows <br> tags through.
+  # Applies manual "SmartyPants"-like transformations, minimal HTML escaping,
+  # and allows <br> tags through. NO Kramdown involved.
   # @param title [String, nil] The title string to prepare.
   # @return [String] The prepared title string, safe for HTML content.
   private
@@ -218,30 +219,36 @@ module LiquidUtils
     return "" if title.nil?
     text = title.to_s
 
-    # 1. Apply smart quotes/typographics using Kramdown
-    smart_text = text # Initialize fallback
-    begin
-      # Use a minimal config to avoid unexpected side effects
-      kramdown_config = { input: 'SmartyPants' }
-      smart_text = Kramdown::Document.new(text, kramdown_config).to_html.chomp
-    rescue => e
-      # Fallback or log error if Kramdown processing fails
-      puts "[PLUGIN LIQUID_UTILS WARNING] Kramdown SmartyPants conversion failed for title: '#{text}'. Error: #{e.message}"
-      # smart_text remains the original text in case of error
-    end
-
-    # 2. Apply minimal HTML escaping needed for content FIRST
-    # Escape only &, <, >. This will turn literal <br /> from step 1 into <br />.
-    escaped_text = smart_text.gsub('&', '&amp;')
+    # 1. Minimal HTML Escape FIRST (Only &, <, >)
+    # Do this before typography to avoid escaping entities we create.
+    # This will turn literal <br> into <br> and <Tags> into <Tags>
+    escaped_text = text.gsub('&', '&amp;')
                              .gsub('<', '&lt;')
                              .gsub('>', '&gt;')
                              # Leave all quote types alone.
 
-    # 3. NOW, specifically un-escape the <br> tag variants using direct replacement
-    # Replace the exact patterns produced by step 1 + step 2.
-    # Handle both self-closing and non-self-closing variants just in case.
-    escaped_text.gsub!('&lt;br /&gt;', '<br>') # Handle self-closing variant first
-    escaped_text.gsub!('&lt;br&gt;', '<br>')   # Handle non-self-closing variant
+    # 2. Manual Typographic Transformations (Order matters for quotes)
+    escaped_text.gsub!(/---/, '—')    # Em dash
+    escaped_text.gsub!(/--/, '–')     # En dash
+    escaped_text.gsub!(/\.\.\./, '…') # Ellipsis
+
+    # Double quotes: “ ”
+    # Match " preceded by space/start/(/[ or followed by word char
+    escaped_text.gsub!(/(?<=\s|^|\[|\()"|"(?=\w)/, '“') # Opening "" (using lookbehind/lookahead)
+    escaped_text.gsub!(/"/, '”') # Closing "" (remaining)
+
+    # Single quotes: ‘ ’ - Apostrophes first
+    escaped_text.gsub!(/(\w)'(\w)/, '\1’\2') # Apostrophe within word
+    escaped_text.gsub!(/'(\d{2}s)/, '’\1') # Year abbreviations
+    escaped_text.gsub!(/(\w)'(?=\s|$|,|\.|;|\?|!)/, '\1’') # Possessive at end
+    # Match ' preceded by space/start/(/[ or followed by word char
+    escaped_text.gsub!(/(?<=\s|^|\[|\()'|'(?=\w)/, '‘') # Opening ''
+    escaped_text.gsub!(/'/, '’') # Closing '' / Remaining apostrophes
+
+    # 3. Restore literal <br> tags
+    escaped_text.gsub!('&lt;br /&gt;', '<br>')
+    escaped_text.gsub!('&lt;br/&gt;', '<br>')
+    escaped_text.gsub!('&lt;br&gt;', '<br>')
 
     # Return the final text
     escaped_text
