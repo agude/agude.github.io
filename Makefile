@@ -82,19 +82,20 @@ debug: image
 # Run Minitest tests located in _tests/ inside the Docker container.
 test: image # Depends on the Docker image being built/up-to-date
 	@echo "Running tests inside Docker container..."
-	@# Check if any test files were found
 	@if [ -z "$(TEST_FILES)" ]; then \
 		echo "Warning: No test files found matching '_tests/**/test_*.rb'."; \
 		exit 0; \
 	fi
 	@echo "Found test files: $(TEST_FILES)"
-	@# Run ruby directly, adding _plugins and _tests to the load path (-I)
-	@# Pass the list of found test files to the ruby command
+	@# Use ruby -e to require the helper, then pass test files as arguments (ARGV).
+	@# The script uses 'load' to execute each test file listed in ARGV.
 	@docker run --rm \
 		-v $(PWD):$(MOUNT) \
 		-w $(MOUNT) \
 		$(IMAGE) \
-		bundle exec ruby -I _plugins $(TEST_FILES)
+		bundle exec ruby -I _plugins -I _tests \
+		  -e "require 'test_helper'; ARGV.each { |f| load f }" \
+		  $(TEST_FILES) # <-- Pass TEST_FILES as separate arguments
 	@if [ $$? -ne 0 ]; then \
 		echo "Error: Tests failed." && exit 1; \
 	fi
