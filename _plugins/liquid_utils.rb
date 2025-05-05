@@ -260,12 +260,22 @@ module LiquidUtils
 
     found_series_doc = nil
     target_url = nil
+    log_output = "" # Initialize log output
 
     # --- Series Lookup Logic (Case-Insensitive) ---
     # Search site pages for a matching title and layout 'series_page'
-    found_series_doc = site.pages.find do |p|
-      # Check layout AND compare normalized titles
-      p.data['layout'] == 'series_page' && normalize_title(p.data['title']) == normalized_lookup_title
+    if site.pages
+      found_series_doc = site.pages.find do |p|
+        # Check layout AND compare normalized titles
+        p.data['layout'] == 'series_page' && normalize_title(p.data['title']) == normalized_lookup_title
+      end
+    else
+       log_output = log_failure(
+         context: context,
+         tag_type: "RENDER_SERIES_LINK",
+         reason: "Site pages not available for series lookup",
+         identifiers: { Title: series_title_input.strip }
+       )
     end
     # --- End Series Lookup ---
 
@@ -291,7 +301,6 @@ module LiquidUtils
 
     # --- Link Generation ---
     linked_element = nil
-    log_output = ""
 
     if found_series_doc
       target_url = found_series_doc.url
@@ -307,14 +316,18 @@ module LiquidUtils
         linked_element = span_element # It's the current page or context is missing/invalid
       end
     else
-      # Log failure but still return the unlinked span element
-      log_output = log_failure(
-        context: context,
-        tag_type: "RENDER_SERIES_LINK", # Use utility type
-        reason: "Could not find series page during link rendering",
-        identifiers: { Series: series_title_input.strip } # Log the stripped input title
-      )
-      linked_element = span_element
+      # Series not found or site.pages was nil.
+      # If site.pages was nil, log_output already contains the message.
+      # If series wasn't found (and site.pages existed), log that now.
+      if log_output.empty? # Only log if we haven't already logged missing site.pages
+          log_output = log_failure(
+            context: context,
+            tag_type: "RENDER_SERIES_LINK", # Use utility type
+            reason: "Could not find series page during link rendering",
+            identifiers: { Series: series_title_input.strip } # Log the stripped input title
+          )
+      end
+      linked_element = span_element # Use unlinked span
     end
     # --- End Link Generation ---
 
@@ -679,7 +692,6 @@ module LiquidUtils
     card_html << "</div>" # Close book-card
     card_html
   end
-
 
 
 end

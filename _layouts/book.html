@@ -32,7 +32,7 @@ don't find them.{% endcomment %}
 
     {% comment %}Now place the actual div.{% endcomment %}
     <div class="book-series-line">
-      Book {{page.book_number}} of {% include get_series_text.html series=page.series %}
+      Book {{page.book_number}} of {% series_text page.series %}
     </div>
   {% endif %}
 

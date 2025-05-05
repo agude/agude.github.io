@@ -364,7 +364,7 @@ date: "%Y" | minus: 2015 }}.
   </div>
 
   <div class="book-series-line">
-    Book 2 of {% include get_series_text.html series="Test Series" %}
+    Book 2 of {% series_text "Test Series" %}
   </div>
 </div>
 
