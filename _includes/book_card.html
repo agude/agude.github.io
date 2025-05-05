@@ -20,7 +20,7 @@
       </span>
     {% endif %}
     {% if include.rating %}
-      {% include book_rating.html rating=include.rating %}
+      {% rating_stars include.rating %}
     {% endif %}
     <div class="card-element card-text">
       {{ include.description }}

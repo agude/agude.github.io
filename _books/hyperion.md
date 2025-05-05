@@ -46,34 +46,34 @@ Catholicism and the new religions.
 [titanomachy]: https://en.wikipedia.org/wiki/Titanomachy
 
 ### The Priest's Tale
-{% include book_rating.html rating=2 %}
+{% rating_stars 2 %}
 
 I think this story is supposed to be carried by the mystery, but it didn't
 hook me. Not as much a horror story as I assumed halfway through, it's still a
 little too far into the genre for me.
 
 ### The Soldier's Tale
-{% include book_rating.html rating=5 %}
+{% rating_stars 5 %}
 
 A story with action, mystery, and our first really good look at both the
 Ousters and the Shrike.
 
 ### The Poet's Tale
-{% include book_rating.html rating=3 %}
+{% rating_stars 3 %}
 
 Starts off slow, but the payoff is good. Silenus, the poet, is a spoiled
 annoying character, but the way he comes to believe that he has set the Shrike
 loose with his writing is exciting.
 
 ### The Scholar's Tale
-{% include book_rating.html rating=5 %}
+{% rating_stars 5 %}
 
 Emotional, heartbreaking. In the Scholar's Tale we learn why Sol Weintraub
 brought a two-week old baby---one getting younger all the time---on the deadly
 pilgrimage.
 
 ### The Detective's Tale
-{% include book_rating.html rating=5 %}
+{% rating_stars 5 %}
 
 This story gives us a great look at the TechnoCore: the artificial
 intelligences that seceded from humanity but are still tightly involved in our
@@ -83,7 +83,7 @@ Hyperion. The end is a bit too 1980s cyberpunk (dodging code phages in the
 neon cyberweb!), but the characters and history are compelling.
 
 ### The Consul's Tale
-{% include book_rating.html rating=4 %}
+{% rating_stars 4 %}
 
 The final tale starts off as a love story between a planet-bound woman and a
 space-faring man who, because of relativity, ages much slower. But at the very

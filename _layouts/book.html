@@ -48,7 +48,7 @@ don't find them.{% endcomment %}
   <h2 class="book-review-headline">Review</h2>
   {% comment %}Add star rating, if one exists in the metadata{% endcomment %}
   {% if page.rating %}
-    {% include book_rating.html rating=page.rating %}
+    {% rating_stars page.rating %}
   {% endif %}
 
   {{ content }}

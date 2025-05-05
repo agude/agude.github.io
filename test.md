@@ -373,6 +373,18 @@ date: "%Y" | minus: 2015 }}.
 
 ---
 
+## Star Ratings
+
+{% assign four=4 %}
+{% assign five="5" %}
+- {% rating_stars 1 %}
+- {% rating_stars '2' %}
+- {% rating_stars "3" %}
+- {% rating_stars four %}
+- {% rating_stars five %}
+
+---
+
 ## Custom Book Review Test Section
 
 <div class="book-page">
@@ -396,7 +408,7 @@ date: "%Y" | minus: 2015 }}.
 
 <article class="page">
   <h2 class="book-review-headline">Review</h2>
-  {% include book_rating.html rating=5 %}
+  {% rating_stars 5 %}
 
   This is a sample review of the book, demonstrating the inclusion of
   custom metadata, images, and dynamic content. The story revolves around a
