@@ -2,7 +2,8 @@
 require 'jekyll'
 require 'liquid'
 require 'cgi'
-require_relative 'liquid_utils'
+require_relative 'liquid_utils' # Still need for log_failure
+require_relative 'utils/book_link_util' # Require the specific book link util
 
 module Jekyll
   class BookBacklinksTag < Liquid::Tag
@@ -129,7 +130,7 @@ module Jekyll
 
         sorted_titles.each do |backlink_title|
           # Call the utility function to generate the link HTML for each backlink
-          link_html = LiquidUtils.render_book_link(backlink_title, context)
+          link_html = BookLinkUtils.render_book_link(backlink_title, context)
           output << "<li class=\"book-backlink-item\">#{link_html}</li>"
         end
 

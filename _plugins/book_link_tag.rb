@@ -1,9 +1,10 @@
 # _plugins/book_link_tag.rb
 require 'jekyll'
 require 'liquid'
-require 'cgi' # For HTML escaping (used within LiquidUtils)
-require 'strscan' # For flexible argument parsing
-require_relative 'liquid_utils' # Use require_relative for local utils
+require 'cgi' # Keep for QuotedFragment
+require 'strscan'
+require_relative 'liquid_utils' # Need for resolve_value
+require_relative 'utils/book_link_util' # Require the specific book link util
 
 module Jekyll
   # Liquid Tag for creating a link to a book page, wrapped in <cite>.
@@ -19,7 +20,7 @@ module Jekyll
       super
       @raw_markup = markup # Store original for potential error messages
 
-      # --- Improved Argument Parsing using StringScanner ---
+      # --- Argument Parsing using StringScanner ---
       @title_markup = nil
       @link_text_markup = nil
 
@@ -53,7 +54,7 @@ module Jekyll
           raise Liquid::SyntaxError, "Syntax Error in 'book_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
         end
       end
-      # --- End Improved Argument Parsing ---
+      # --- End Argument Parsing ---
 
       # Ensure title markup was actually found
       unless @title_markup && !@title_markup.strip.empty?
@@ -65,13 +66,12 @@ module Jekyll
     # Renders the book link HTML by calling the utility function
     def render(context)
       # Resolve the potentially variable markup into actual strings
-      # Pass the raw markup to resolve_value
+      # Use resolve_value from LiquidUtils
       book_title = LiquidUtils.resolve_value(@title_markup, context)
       link_text_override = @link_text_markup ? LiquidUtils.resolve_value(@link_text_markup, context) : nil
 
-      # Call the centralized utility function from LiquidUtils
-      # Pass the resolved values
-      LiquidUtils.render_book_link(book_title, context, link_text_override)
+      # Call the centralized utility function from BookLinkUtils
+      BookLinkUtils.render_book_link(book_title, context, link_text_override)
     end # End render
 
   end # End class BookLinkTag
