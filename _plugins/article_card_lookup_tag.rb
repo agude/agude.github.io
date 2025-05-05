@@ -13,7 +13,6 @@ module Jekyll
     def initialize(tag_name, markup, tokens)
       super
       @raw_markup = markup
-      @include_template_path = '_includes/article_card.html'
 
       @url_markup = nil
       scanner = StringScanner.new(markup.strip)
@@ -33,38 +32,26 @@ module Jekyll
       end
     end
 
-    # Helper to safely get data from post, providing defaults
-    def get_post_data(post)
-      return {} unless post && post.respond_to?(:url) && post.respond_to?(:data)
-      description = post.data['description'] || ''
-      if description.empty? && post.respond_to?(:data) && post.data['excerpt'] # Check data hash for excerpt
-          description = post.data['excerpt'] || ''
-      end
-      {
-        'url' => post.url || '',
-        'image' => post.data['image'] || '',
-        'image_alt' => post.data['image_alt'] || "Article header image, used for decoration.",
-        'title' => post.data['title'] || 'Untitled Post',
-        'description' => description
-      }
-    end
-
-    # Renders the article card by looking up the post and including the template
+    # Renders the article card by looking up the post and calling the utility function
     def render(context)
       site = context.registers[:site]
       target_url_raw = LiquidUtils.resolve_value(@url_markup, context).to_s.strip
       unless target_url_raw && !target_url_raw.empty?
+        # Log failure but return empty string, consistent with previous behavior
         LiquidUtils.log_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "URL markup resolved to empty", identifiers: { Markup: @url_markup || @raw_markup })
         return ""
       end
+      # Ensure URL starts with a slash for consistent lookup
       target_url = target_url_raw.start_with?('/') ? target_url_raw : "/#{target_url_raw}"
 
       # --- Post Lookup (Using defensive access) ---
       posts_iterable = site.posts
       found_post = nil
       if posts_iterable.respond_to?(:docs)
+        # Standard Jekyll 4+ lookup
         found_post = posts_iterable.docs.find { |post| post.url == target_url }
       elsif posts_iterable.is_a?(Array)
+        # Fallback for potential older structures or custom setups
         found_post = posts_iterable.find { |post| post.respond_to?(:url) && post.url == target_url }
       else
         LiquidUtils.log_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Cannot iterate site.posts", identifiers: { URL: target_url, Type: posts_iterable.class.name })
@@ -77,28 +64,22 @@ module Jekyll
         return ""
       end
 
-      # --- Render the Include (Context Fix) ---
+      # --- Call Utility to Render Card ---
+      # The render_article_card utility handles extracting data and generating HTML
       begin
-        include_path = site.in_source_dir(@include_template_path)
-        raise IOError, "Include file '#{@include_template_path}' not found" unless File.exist?(include_path)
-        source = site.liquid_renderer.file("(include)").parse(File.read(include_path))
-
-        # Use context.stack for rendering includes from tags
-        context.stack do
-          context['include'] = get_post_data(found_post)
-          source.render!(context)
-        end # context.stack automatically pops the scope
-
+        LiquidUtils.render_article_card(found_post, context)
       rescue => e
+        # Catch potential errors within the utility function itself
         LiquidUtils.log_failure(
             context: context,
             tag_type: "ARTICLE_CARD_LOOKUP",
-            reason: "Error loading or rendering include '#{@include_template_path}'",
+            reason: "Error calling render_article_card utility",
             identifiers: { URL: target_url, Error: e.message }
         )
         "" # Return empty on error
       end
-      # --- End Render Include ---
+      # --- End Render Card ---
+
     end # End render
   end # End class
 end # End module
