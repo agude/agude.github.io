@@ -11,6 +11,9 @@ require 'liquid_utils'
 # Explicitly require utils files
 require 'utils/link_helper_utils' # Load shared helpers first
 require 'utils/book_link_util'
+require 'utils/author_link_util'
+# Add requires for other future util files here...
+
 
 # --- Mock Objects ---
 

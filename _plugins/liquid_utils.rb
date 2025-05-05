@@ -129,103 +129,6 @@ module LiquidUtils
   end
 
 
-  # Finds an author page by name (case-insensitive, whitespace-normalized)
-  # and renders the link/span HTML.
-  #
-  # @param author_name_raw [String] The name of the author.
-  # @param context [Liquid::Context] The current Liquid context.
-  # @param link_text_override_raw [String, nil] Optional display text.
-  # @param possessive [Boolean] If true, append ’s to the output.
-  # @return [String] The generated HTML (e.g., <a><span>...</span>’s</a> or <span>...</span>’s).
-  def self.render_author_link(author_name_raw, context, link_text_override_raw = nil, possessive = false)
-    unless context && (site = context.registers[:site])
-      puts "[PLUGIN RENDER_AUTHOR_LINK ERROR] Context or Site unavailable."
-      return author_name_raw.to_s # Minimal fallback
-    end
-    page = context.registers[:page]
-
-    # --- Input Validation & Resolution ---
-    author_name_input = author_name_raw.to_s # Keep original form for potential display fallback
-    link_text_override = link_text_override_raw.to_s.strip if link_text_override_raw && !link_text_override_raw.to_s.empty?
-
-    # Normalize the input name *once* for lookup comparison
-    normalized_lookup_name = normalize_title(author_name_input) # Use normalize_title
-
-    if normalized_lookup_name.empty? # Check normalized version for emptiness
-      return log_failure(
-        context: context, tag_type: "RENDER_AUTHOR_LINK",
-        reason: "Input author name resolved to empty after normalization",
-        identifiers: { NameInput: author_name_raw || 'nil' }
-      )
-    end
-    # --- End Input Validation ---
-
-    found_author_doc = nil
-    target_url = nil
-
-    # --- Author Lookup Logic (Case-insensitive, whitespace-normalized) ---
-    found_author_doc = site.pages.find do |p|
-      # Check layout AND compare normalized titles/names
-      p.data['layout'] == 'author_page' && normalize_title(p.data['title']) == normalized_lookup_name
-    end
-    # --- End Author Lookup ---
-
-    # --- Determine Display Text ---
-    # Default to the original input name string (stripped)
-    display_text = author_name_input.strip
-
-    if link_text_override && !link_text_override.empty?
-      # 1. Use override if provided
-      display_text = link_text_override
-    elsif found_author_doc && found_author_doc.data['title']
-      # 2. Use canonical title (stripped) from found document
-      canonical_title = found_author_doc.data['title'].strip
-      display_text = canonical_title unless canonical_title.empty?
-    end
-    # 3. Fallback is the stripped original input name (already set)
-    # --- End Display Text ---
-
-    # Escape display text and prepare span
-    escaped_display_text = CGI.escapeHTML(display_text)
-    span_element = "<span class=\"author-name\">#{escaped_display_text}</span>"
-    # Use the correct right single quotation mark (U+2019)
-    possessive_suffix = possessive ? "’s" : ""
-
-    # --- Link Generation ---
-    linked_element = nil # Initialize
-    log_output = ""
-
-    if found_author_doc
-      target_url = found_author_doc.url
-      current_page_url = page ? page['url'] : nil
-
-      # Link if target URL exists AND it's not the current page
-      if target_url && current_page_url && target_url != current_page_url
-        baseurl = site.config['baseurl'] || ''
-        target_url = "/#{target_url}" if !baseurl.empty? && !target_url.start_with?('/') && !target_url.start_with?(baseurl)
-        # Append suffix INSIDE the link tag
-        linked_element = "<a href=\"#{baseurl}#{target_url}\">#{span_element}#{possessive_suffix}</a>"
-      else
-        # Not linking (current page or invalid context), append suffix AFTER span
-        linked_element = "#{span_element}#{possessive_suffix}"
-      end
-    else
-      # Author not found, log failure and append suffix AFTER span
-      log_output = log_failure(
-        context: context, tag_type: "RENDER_AUTHOR_LINK",
-        reason: "Could not find author page", identifiers: { Name: author_name_input.strip } # Log the stripped input name
-      )
-      linked_element = "#{span_element}#{possessive_suffix}"
-    end
-    # --- End Link Generation ---
-
-    # Prepend log message (if any) to the generated element
-    final_output = log_output + linked_element
-
-    final_output
-  end
-
-
   # Finds a series page by title (case-insensitive) and renders its link/span HTML.
   #
   # @param series_title_raw [String] The title of the series to link to.
@@ -576,7 +479,7 @@ module LiquidUtils
     # Author (optional) - Use the helper function
     if author && !author.empty?
       # Call the new utility function to generate the author link/span
-      author_html = render_author_link(author, context)
+      author_html = AuthorLinkUtils.render_author_link(author, context)
       card_html << "    <span class=\"by-author\"> by #{author_html}</span>\n"
     end
 

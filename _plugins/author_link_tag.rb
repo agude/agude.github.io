@@ -75,8 +75,8 @@ module Jekyll
       author_name = LiquidUtils.resolve_value(@name_markup, context)
       link_text_override = @link_text_markup ? LiquidUtils.resolve_value(@link_text_markup, context) : nil
 
-      # Call the centralized utility function from LiquidUtils
-      LiquidUtils.render_author_link(
+      # Call the centralized utility function from AuthorLinkUtils
+      AuthorLinkUtils.render_author_link(
         author_name,
         context,
         link_text_override,
