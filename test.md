@@ -354,6 +354,25 @@ date: "%Y" | minus: 2015 }}.
 
 ---
 
+## Series Text Tag
+
+### Add 'the' and 'series'
+
+- {% series_text "Culture" %}
+- {% series_text "Nonexistent" %}
+
+### Add 'series'
+
+- {% series_text "The Last Policeman" %}
+- {% series_text "The Nonexistent" %}
+
+### Add 'the'
+
+- {% series_text "Hyperion Cantos" %}
+- {% series_text "Nonexistent Series" %}
+
+---
+
 ## Custom Book Review Test Section
 
 <div class="book-page">
