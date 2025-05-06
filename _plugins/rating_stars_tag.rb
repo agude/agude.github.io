@@ -3,6 +3,7 @@ require 'jekyll'
 require 'liquid'
 require 'strscan'
 require_relative 'liquid_utils'
+require_relative 'utils/rating_utils' # Add this
 
 module Jekyll
   # Liquid Tag to render rating stars using the LiquidUtils helper.
@@ -42,14 +43,14 @@ module Jekyll
         value_markup = scanner[2]
         if key == 'wrapper_tag'
           # Ensure it's quoted 'div' or 'span' for safety, although util validates
-           if value_markup == "'div'" || value_markup == '"div"' || value_markup == "'span'" || value_markup == '"span"'
-             @wrapper_tag_markup = value_markup
-           else
-             # Optional: Raise error for invalid literal tag, or let util handle it
-             # raise Liquid::SyntaxError, "Syntax Error in 'rating_stars': wrapper_tag must be 'div' or 'span' (quoted) in '#{@raw_markup}'"
-             # Let's allow any quoted string and let the util default for invalid ones
-             @wrapper_tag_markup = value_markup
-           end
+          if value_markup == "'div'" || value_markup == '"div"' || value_markup == "'span'" || value_markup == '"span"'
+            @wrapper_tag_markup = value_markup
+          else
+            # Optional: Raise error for invalid literal tag, or let util handle it
+            # raise Liquid::SyntaxError, "Syntax Error in 'rating_stars': wrapper_tag must be 'div' or 'span' (quoted) in '#{@raw_markup}'"
+            # Let's allow any quoted string and let the util default for invalid ones
+            @wrapper_tag_markup = value_markup
+          end
         else
           raise Liquid::SyntaxError, "Syntax Error in 'rating_stars': Unknown argument '#{key}' in '#{@raw_markup}'"
         end
@@ -64,19 +65,19 @@ module Jekyll
 
     def render(context)
       # Resolve rating value
-      rating_value = LiquidUtils.resolve_value(@rating_markup, context)
+    rating_value = LiquidUtils.resolve_value(@rating_markup, context) # This will change later
 
       # Resolve wrapper tag (defaulting to 'div' is handled by the utility)
       wrapper_tag_value = 'div' # Default
       if @wrapper_tag_markup
         # resolve_value removes the quotes
-        resolved_tag = LiquidUtils.resolve_value(@wrapper_tag_markup, context)
+      resolved_tag = LiquidUtils.resolve_value(@wrapper_tag_markup, context) # This will change later
         # Pass the resolved string (e.g., "span") to the utility
         wrapper_tag_value = resolved_tag if resolved_tag
       end
 
       # Call the utility function. It handles nil, validation, errors.
-      LiquidUtils.render_rating_stars(rating_value, wrapper_tag_value)
+    RatingUtils.render_rating_stars(rating_value, wrapper_tag_value)
     end
   end
 end

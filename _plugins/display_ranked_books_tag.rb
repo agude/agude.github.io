@@ -3,6 +3,7 @@ require 'jekyll'
 require 'liquid'
 require 'cgi'
 require_relative 'liquid_utils'
+require_relative 'utils/rating_utils' # Add this
 
 module Jekyll
   # Liquid Tag to validate (in non-prod) and render a list of books
@@ -52,8 +53,8 @@ module Jekyll
 
       # --- Step 2: Build the Title -> Book Object Lookup Map ---
       unless site.collections.key?('books')
-         # Log or raise? Raise, as the collection is essential.
-         raise "DisplayRankedBooks Error: Collection 'books' not found in site configuration."
+        # Log or raise? Raise, as the collection is essential.
+        raise "DisplayRankedBooks Error: Collection 'books' not found in site configuration."
       end
 
       book_map = {}
@@ -91,15 +92,15 @@ module Jekyll
           begin
             book_rating = Integer(book_rating_raw)
           rescue ArgumentError, TypeError
-             raise "DisplayRankedBooks Validation Error: Title '#{current_title_raw}' (position #{index + 1} in '#{@list_variable_markup}') has invalid non-integer rating: '#{book_rating_raw.inspect}'."
+            raise "DisplayRankedBooks Validation Error: Title '#{current_title_raw}' (position #{index + 1} in '#{@list_variable_markup}') has invalid non-integer rating: '#{book_rating_raw.inspect}'."
           end
 
           # Check 3: Monotonicity
           if book_rating > previous_rating
             raise "DisplayRankedBooks Validation Error: Monotonicity violation in '#{@list_variable_markup}'. \n" \
-                  "  Title '#{current_title_raw}' (Rating: #{book_rating}) at position #{index + 1} \n" \
-                  "  cannot appear after \n" \
-                  "  Title '#{previous_title}' (Rating: #{previous_rating}) at position #{index}."
+              "  Title '#{current_title_raw}' (Rating: #{book_rating}) at position #{index + 1} \n" \
+              "  cannot appear after \n" \
+              "  Title '#{previous_title}' (Rating: #{previous_rating}) at position #{index}."
           end
 
           # Update validation state for next iteration
@@ -111,28 +112,28 @@ module Jekyll
         # --- Rendering Step ---
         # Ensure we have the book object for rendering (even in production)
         unless book_object
-           # This should only happen in production if validation is skipped and list is bad
-           output << LiquidUtils.log_failure(
-             context: context, tag_type: "DISPLAY_RANKED_BOOKS",
-             reason: "Book title from ranked list not found in lookup map (Production Mode)",
-             identifiers: { Title: current_title_raw }
-           )
-           next # Skip rendering this item
+          # This should only happen in production if validation is skipped and list is bad
+          output << LiquidUtils.log_failure(
+            context: context, tag_type: "DISPLAY_RANKED_BOOKS",
+            reason: "Book title from ranked list not found in lookup map (Production Mode)",
+            identifiers: { Title: current_title_raw }
+          )
+          next # Skip rendering this item
         end
 
         # Get rating for rendering (re-calculate if in production)
         if is_production
-            book_rating_raw = book_object.data['rating']
-            begin
-              book_rating = Integer(book_rating_raw)
-            rescue ArgumentError, TypeError
-              output << LiquidUtils.log_failure(
-                context: context, tag_type: "DISPLAY_RANKED_BOOKS",
-                reason: "Book has invalid non-integer rating (Production Mode)",
-                identifiers: { Title: current_title_raw, Rating: book_rating_raw.inspect }
-              )
-              next # Skip rendering this item
-            end
+          book_rating_raw = book_object.data['rating']
+          begin
+            book_rating = Integer(book_rating_raw)
+          rescue ArgumentError, TypeError
+            output << LiquidUtils.log_failure(
+              context: context, tag_type: "DISPLAY_RANKED_BOOKS",
+              reason: "Book has invalid non-integer rating (Production Mode)",
+              identifiers: { Title: current_title_raw, Rating: book_rating_raw.inspect }
+            )
+            next # Skip rendering this item
+          end
         end
 
         # If book_rating is still nil here, something went wrong (e.g., skipped in prod)
@@ -148,7 +149,7 @@ module Jekyll
           # Add the id attribute back to the H2 tag
           h2_id = "rating-#{book_rating}"
           output << "<h2 class=\"book-list-headline\" id=\"#{h2_id}\">"
-          output << LiquidUtils.render_rating_stars(book_rating, 'span')
+          output << RatingUtils.render_rating_stars(book_rating, 'span')
           output << "</h2>\n"
           output << "<div class=\"card-grid\">\n"
           is_div_open = true
