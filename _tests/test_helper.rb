@@ -13,6 +13,7 @@ require 'utils/link_helper_utils' # Load shared helpers first
 require 'utils/author_link_util'
 require 'utils/book_link_util'
 require 'utils/series_link_util'
+require 'utils/backlink_utils'
 # Add requires for other future util files here...
 
 
@@ -73,6 +74,7 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
   test_plugin_logging_config = {
     'ARTICLE_CARD_LOOKUP' => false,
     'AUTHOR_LINK' => false,
+    'BACKLINK_UTIL' => false,
     'BOOK_BACKLINKS' => false,
     'BOOK_CARD_LOOKUP' => false,
     'DISPLAY_RANKED_BOOKS' => false,
