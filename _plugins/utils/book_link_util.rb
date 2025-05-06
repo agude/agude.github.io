@@ -7,8 +7,28 @@ module BookLinkUtils
 
   # --- Public Method ---
 
+  # Renders the book link/cite HTML directly from title and URL data.
+  # Used when the book data is already known (e.g., from backlinks).
+  #
+  # @param title [String] The canonical title to display (will be processed).
+  # @param url [String] The URL of the book page.
+  # @param context [Liquid::Context] The current Liquid context.
+  # @return [String] The generated HTML (<a href=...><cite>...</cite></a> or <cite>...</cite>).
+  def self.render_book_link_from_data(title, url, context)
+    # 1. Prepare Display Text & Build Cite Element
+    cite_element = _build_book_cite_element(title) # Uses canonical title directly
+
+    # 2. Generate Final HTML (Link or Span) using shared helper
+    # Pass the known URL to the helper
+    final_html_element = LinkHelperUtils._generate_link_html(context, url, cite_element)
+
+    # 3. Return HTML Element
+    final_html_element
+  end
+
+
   # Finds a book by title (case-insensitive) and renders its link/cite HTML.
-  # Uses shared helpers and LiquidUtils where appropriate.
+  # Uses shared helpers and LiquidUtils where appropriate. Now calls render_book_link_from_data internally.
   #
   # @param book_title_raw [String] The title of the book to link to.
   # @param context [Liquid::Context] The current Liquid context.
@@ -40,24 +60,32 @@ module BookLinkUtils
 
     unless site.collections.key?('books')
       log_output = _log_book_collection_missing(context, book_title_input)
+      # If collection missing, we can't find the book, proceed to render unlinked
     else
       found_book_doc = _find_book_by_title(site, normalized_lookup_title)
-      if found_book_doc.nil? && log_output.empty? # Avoid double logging
+      if found_book_doc.nil? && log_output.empty? # Avoid double logging if collection was missing
         log_output = _log_book_not_found(context, book_title_input)
       end
     end
 
-    # 3. Determine Display Text & Build Cite Element
-    # Use shared helper for display text
+    # 3. Determine Display Text & Generate HTML
+    final_html = ""
+    # Determine display text regardless of whether book was found
     display_text = LinkHelperUtils._get_link_display_text(book_title_input, link_text_override, found_book_doc)
-    # Use book-specific helper for cite element
-    cite_element = _build_book_cite_element(display_text)
 
-    # 4. Generate Final HTML (Link or Span) using shared helper
-    final_html_element = LinkHelperUtils._generate_link_html(context, found_book_doc, cite_element)
+    if found_book_doc
+      # Book found: Call the new helper with found data
+      book_url = found_book_doc.url
+      # Pass the determined display_text and the found URL
+      final_html = render_book_link_from_data(display_text, book_url, context)
+    else
+      # Book not found (or collection missing): Render unlinked cite
+      # Use the determined display_text (input or override)
+      final_html = _build_book_cite_element(display_text)
+    end
 
-    # 5. Combine Log Output (if any) and HTML Element
-    log_output + final_html_element
+    # 4. Combine Log Output (if any) and HTML Element
+    log_output + final_html
   end
 
   # --- Private Helper Methods ---
@@ -73,7 +101,7 @@ module BookLinkUtils
 
   # Prepares display text and wraps it in a <cite> tag.
   def self._build_book_cite_element(display_text)
-    # Use _prepare_display_title from LiquidUtils (must be public)
+    # Use _prepare_display_title from LiquidUtils
     prepared_display_text = LiquidUtils._prepare_display_title(display_text)
     "<cite class=\"book-title\">#{prepared_display_text}</cite>"
   end

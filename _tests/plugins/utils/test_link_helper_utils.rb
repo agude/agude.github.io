@@ -59,6 +59,7 @@ class TestLinkHelperUtils < Minitest::Test
     assert_equal "Override", LinkHelperUtils._get_link_display_text("", " Override ", doc)
   end
 
+
   # --- Tests for _generate_link_html ---
 
   def test_generate_link_doc_found_different_page
@@ -69,7 +70,7 @@ class TestLinkHelperUtils < Minitest::Test
     inner_html = "<cite>Found Doc</cite>"
 
     expected = "<a href=\"/found.html\">#{inner_html}</a>"
-    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc, inner_html)
+    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc.url, inner_html)
   end
 
   def test_generate_link_doc_found_same_page
@@ -80,7 +81,7 @@ class TestLinkHelperUtils < Minitest::Test
     inner_html = "<cite>Found Doc</cite>"
 
     expected = inner_html # No link
-    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc, inner_html)
+    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc.url, inner_html)
   end
 
   def test_generate_link_doc_not_found
@@ -90,19 +91,19 @@ class TestLinkHelperUtils < Minitest::Test
     inner_html = "<cite>Not Found</cite>"
 
     expected = inner_html # No link
-    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, nil, inner_html)
+    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, nil, inner_html) # Pass nil URL
   end
 
   def test_generate_link_doc_found_no_url
     site = create_site
     # Test helper now handles nil URL correctly
-    found_doc = create_doc({ 'title' => 'Found Doc' }, nil)
+    found_doc = create_doc({ 'title' => 'Found Doc' }, nil) # URL is nil
     current_page = create_doc({}, '/current.html')
     ctx = create_context({}, { site: site, page: current_page })
     inner_html = "<cite>Found Doc</cite>"
 
     expected = inner_html # No link
-    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc, inner_html)
+    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc.url, inner_html) # Pass nil URL
   end
 
   def test_generate_link_doc_found_empty_url
@@ -114,18 +115,18 @@ class TestLinkHelperUtils < Minitest::Test
 
     # Helper now checks for empty URL string
     expected = inner_html # No link
-    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc, inner_html)
+    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc.url, inner_html)
   end
 
   def test_generate_link_with_baseurl
-    site = create_site({ 'baseurl' => '/blog' }) # Site with baseurl
+    site = create_site({ 'baseurl' => '/blog' })
     found_doc = create_doc({ 'title' => 'Found Doc' }, '/found.html')
     current_page = create_doc({}, '/current.html')
     ctx = create_context({}, { site: site, page: current_page })
     inner_html = "<cite>Found Doc</cite>"
 
     expected = "<a href=\"/blog/found.html\">#{inner_html}</a>" # Expect baseurl prepended
-    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc, inner_html)
+    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc.url, inner_html)
   end
 
   def test_generate_link_with_baseurl_and_relative_url
@@ -138,7 +139,7 @@ class TestLinkHelperUtils < Minitest::Test
 
     # Expect baseurl and a slash prepended
     expected = "<a href=\"/blog/found.html\">#{inner_html}</a>"
-    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc, inner_html)
+    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc.url, inner_html)
   end
 
   def test_generate_link_no_current_page_in_context
@@ -150,7 +151,7 @@ class TestLinkHelperUtils < Minitest::Test
 
     # Should not link if current page URL can't be determined
     expected = inner_html
-    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc, inner_html)
+    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc.url, inner_html)
   end
 
 end

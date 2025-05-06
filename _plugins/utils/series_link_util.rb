@@ -51,7 +51,8 @@ module SeriesLinkUtils
     span_element = _build_series_span_element(display_text)
 
     # 4. Generate Final HTML (Link or Span) using shared helper
-    final_html_element = LinkHelperUtils._generate_link_html(context, found_series_doc, span_element)
+    target_url = found_series_doc ? found_series_doc.url : nil
+    final_html_element = LinkHelperUtils._generate_link_html(context, target_url, span_element)
 
     # 5. Combine Log Output (if any) and HTML Element
     log_output + final_html_element
@@ -73,7 +74,6 @@ module SeriesLinkUtils
 
   # Builds the inner <span> element for the series name.
   def self._build_series_span_element(display_text)
-    # Series names typically don't need complex typography, use basic escape.
     escaped_display_text = CGI.escapeHTML(display_text)
     "<span class=\"book-series\">#{escaped_display_text}</span>"
   end
@@ -89,3 +89,4 @@ module SeriesLinkUtils
   end
 
 end # End Module SeriesLinkUtils
+    # Series names typically don't need complex typography, use basic escape.

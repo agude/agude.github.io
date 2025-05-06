@@ -4,7 +4,7 @@ require 'liquid'
 require 'cgi'
 require_relative 'liquid_utils'       # Still need for log_failure (initial checks)
 require_relative 'utils/book_link_util' # Need for rendering the links
-require_relative 'utils/backlink_utils' # Require the new backlink util
+require_relative 'utils/backlink_utils' # Require the backlink util
 
 module Jekyll
   class BookBacklinksTag < Liquid::Tag
@@ -14,22 +14,20 @@ module Jekyll
       # No arguments needed for this tag
     end
 
-    # Removed private create_sort_key method
-
     # Renders the list of books linking back to the current page.
     def render(context)
       site = context.registers[:site]
       page = context.registers[:page]
 
-      # --- Basic Sanity Checks (Keep initial checks in the tag) ---
+      # --- Basic Sanity Checks ---
       unless site && page && site.collections.key?('books') && page['url'] && page['title']
-         # Use LiquidUtils to log failure (returns HTML comment or empty string)
-         return LiquidUtils.log_failure(
-           context: context,
-           tag_type: "BOOK_BACKLINKS", # Log source is the tag itself here
-           reason: "Tag prerequisites missing: context, collection, URL, or title",
-           identifiers: { URL: page ? page['url'] : 'N/A', Title: page ? page['title'] : 'N/A' }
-         )
+        # Use LiquidUtils to log failure (returns HTML comment or empty string)
+        return LiquidUtils.log_failure(
+          context: context,
+          tag_type: "BOOK_BACKLINKS",
+          reason: "Tag prerequisites missing: context, collection, URL, or title",
+          identifiers: { URL: page ? page['url'] : 'N/A', Title: page ? page['title'] : 'N/A' }
+        )
       end
       # Keep original title for H2 display
       current_title_original = page['title']
@@ -37,14 +35,14 @@ module Jekyll
 
 
       # --- Call Utility to Find Backlinks ---
-      # Pass current page, site, and context (for util's internal logging)
-      sorted_backlink_titles = BacklinkUtils.find_book_backlinks(page, site, context)
+      # Utility now returns sorted [title, url] pairs
+      sorted_backlink_pairs = BacklinkUtils.find_book_backlinks(page, site, context)
       # --- End Call Utility ---
 
 
       # --- Render Final HTML ---
-      if sorted_backlink_titles.empty?
-        return "" # Render nothing if no backlinks found by the utility
+      if sorted_backlink_pairs.empty?
+        return "" # Render nothing if no backlinks found
       else
         # Build the HTML output string
         output = "<aside class=\"book-backlinks\">"
@@ -56,10 +54,10 @@ module Jekyll
 
         output << "<ul class=\"book-backlink-list\">"
 
-        # Iterate through the sorted titles returned by the utility
-        sorted_backlink_titles.each do |backlink_title|
-          # Call the BookLinkUtils utility to generate the link HTML for each backlink
-          link_html = BookLinkUtils.render_book_link(backlink_title, context)
+        # Iterate through the sorted [title, url] pairs returned by the utility
+        sorted_backlink_pairs.each do |backlink_title, backlink_url|
+          # Call the NEW BookLinkUtils utility with the title and URL
+          link_html = BookLinkUtils.render_book_link_from_data(backlink_title, backlink_url, context)
           output << "<li class=\"book-backlink-item\">#{link_html}</li>"
         end
 
