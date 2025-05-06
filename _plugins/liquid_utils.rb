@@ -75,8 +75,14 @@ module LiquidUtils
   # @return [String] HTML comment string (if HTML logging is active) or empty string.
   def self.log_failure(context:, tag_type:, reason:, identifiers: {})
     # Ensure context and site are available
-    unless context && (site = context.registers[:site])
-      puts "[PLUGIN LOG ERROR] Context or Site unavailable for logging."
+    unless context && (site = context.registers[:site]) # <--- Check fails
+      # Use Jekyll logger if available, otherwise puts
+      log_msg = "[PLUGIN LOG ERROR] Context or Site unavailable for logging."
+      if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:warn)
+        Jekyll.logger.warn(log_msg)
+      else
+        puts log_msg # Uses puts ONLY if logger/warn isn't available
+      end
       return "" # Cannot proceed
     end
 

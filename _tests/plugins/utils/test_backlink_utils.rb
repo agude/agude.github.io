@@ -55,6 +55,11 @@ class TestBacklinkUtils < Minitest::Test
       '/books/no-content.html',
       nil # Content is nil
     )
+    @book_no_url = create_doc(
+      { 'title' => 'No URL Book' },
+      nil, # URL is nil
+      "<a href=\"#{@target_page.url}\">no url</a>"
+    )
     # Books for sorting test
     @book_apple = create_doc({ 'title' => 'The Apple Book' }, '/books/apple.html', "<a href=\"#{@target_page.url}\">apple</a>")
     @book_banana = create_doc({ 'title' => 'Banana Book' }, '/books/banana.html', "<a href=\"#{@target_page.url}\">banana</a>")
@@ -65,7 +70,7 @@ class TestBacklinkUtils < Minitest::Test
     @all_mock_books = [
       @book_html_link, @book_liquid_dq_link, @book_liquid_sq_link,
       @book_liquid_base_link, @book_multi_link, @book_no_link,
-      @book_unpublished, @book_no_title, @book_no_content,
+      @book_unpublished, @book_no_title, @book_no_content, @book_no_url,
       @book_apple, @book_banana, @book_orange, @book_pear
     ]
     @site = create_site({}, { 'books' => @all_mock_books })
@@ -77,49 +82,63 @@ class TestBacklinkUtils < Minitest::Test
     BacklinkUtils.find_book_backlinks(page, site, context)
   end
 
+  # --- Helper to check if a title exists in the results (array of pairs) ---
+  def assert_result_includes_title(result, title)
+    assert result.any? { |pair| pair[0] == title }, "Expected result to include title '#{title}'"
+  end
+
+  def refute_result_includes_title(result, title)
+    refute result.any? { |pair| pair[0] == title }, "Expected result NOT to include title '#{title}'"
+  end
+
   # --- Test Cases ---
 
   def test_finds_link_via_html_href
     result = find_backlinks
-    assert_includes result, @book_html_link.data['title']
+    assert_result_includes_title(result, @book_html_link.data['title'])
   end
 
   def test_finds_link_via_liquid_double_quotes
     result = find_backlinks
-    assert_includes result, @book_liquid_dq_link.data['title']
+    assert_result_includes_title(result, @book_liquid_dq_link.data['title'])
   end
 
   def test_finds_link_via_liquid_single_quotes_case_insensitive
     result = find_backlinks
-    assert_includes result, @book_liquid_sq_link.data['title']
+    assert_result_includes_title(result, @book_liquid_sq_link.data['title'])
   end
 
   def test_finds_link_via_liquid_base_tag_match
     result = find_backlinks
-    assert_includes result, @book_liquid_base_link.data['title']
+    assert_result_includes_title(result, @book_liquid_base_link.data['title'])
   end
 
   def test_does_not_find_link_when_none_exists
     result = find_backlinks
-    refute_includes result, @book_no_link.data['title']
+    refute_result_includes_title(result, @book_no_link.data['title'])
   end
 
   def test_ignores_unpublished_books
     result = find_backlinks
-    refute_includes result, @book_unpublished.data['title']
+    refute_result_includes_title(result, @book_unpublished.data['title'])
   end
 
   def test_ignores_books_without_title
     # This is implicitly tested as @book_no_title has no title to include
     result = find_backlinks
-    # Check that *none* of the results are nil or empty string
-    assert result.none?(&:nil?), "Result should not contain nil titles"
-    assert result.none? { |title| title.strip.empty? }, "Result should not contain empty titles"
+    # Check that no pair has a nil or empty title
+    assert result.none? { |pair| pair[0].nil? }, "Result should not contain nil titles"
+    assert result.none? { |pair| pair[0].strip.empty? }, "Result should not contain empty titles"
   end
 
   def test_ignores_books_without_content
     result = find_backlinks
-    refute_includes result, @book_no_content.data['title']
+    refute_result_includes_title(result, @book_no_content.data['title'])
+  end
+
+  def test_ignores_books_without_url
+    result = find_backlinks
+    refute_result_includes_title(result, @book_no_url.data['title'])
   end
 
   def test_ignores_self_reference
@@ -129,13 +148,13 @@ class TestBacklinkUtils < Minitest::Test
     context_with_self = create_context({}, { site: site_with_self, page: @target_page })
 
     result = find_backlinks(@target_page, site_with_self, context_with_self)
-    refute_includes result, @target_page.data['title']
+    refute_result_includes_title(result, @target_page.data['title'])
   end
 
   def test_deduplicates_titles_from_multiple_link_types
     result = find_backlinks
-    # Count occurrences of the multi-linker title
-    count = result.count(@book_multi_link.data['title'])
+    # Count occurrences of pairs where the title matches the multi-linker title
+    count = result.count { |pair| pair[0] == @book_multi_link.data['title'] }
     assert_equal 1, count, "Title '#{@book_multi_link.data['title']}' should appear only once"
   end
 
@@ -147,18 +166,19 @@ class TestBacklinkUtils < Minitest::Test
 
     result = find_backlinks(@target_page, sorting_site, sorting_context)
 
+    # Expected order of pairs [title, url]
     expected_order = [
-      "The Apple Book",   # Apple
-      "Banana Book",      # Banana
-      "An Orange Story",  # Orange
-      "A Pear Chronicle"  # Pear
+      [@book_apple.data['title'], @book_apple.url],     # The Apple Book
+      [@book_banana.data['title'], @book_banana.url],   # Banana Book
+      [@book_orange.data['title'], @book_orange.url],   # An Orange Story
+      [@book_pear.data['title'], @book_pear.url]        # A Pear Chronicle
     ]
     assert_equal expected_order, result
   end
 
   def test_returns_empty_array_when_no_links_found
     # Filter site to only include non-linking books
-    non_linking_books = [@book_no_link, @book_unpublished, @book_no_title, @book_no_content]
+    non_linking_books = [@book_no_link, @book_unpublished, @book_no_title, @book_no_content, @book_no_url]
     non_linking_site = create_site({}, { 'books' => non_linking_books })
     non_linking_context = create_context({}, { site: non_linking_site, page: @target_page })
 
@@ -216,7 +236,7 @@ class TestBacklinkUtils < Minitest::Test
     context_tricky = create_context({}, { site: site_tricky, page: target_page_tricky_url })
 
     result = find_backlinks(target_page_tricky_url, site_tricky, context_tricky)
-    assert_includes result, 'Tricky Linker'
+    assert_result_includes_title(result, 'Tricky Linker')
   end
 
 end

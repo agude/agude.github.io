@@ -58,10 +58,11 @@ module AuthorLinkUtils
     inner_html_without_suffix = span_element
 
     # 5. Generate Final HTML (Link or Span) using shared helper
+    target_url = found_author_doc ? found_author_doc.url : nil
     # Pass the span *with* the suffix if we intend to link it.
     final_html_element = LinkHelperUtils._generate_link_html(
       context,
-      found_author_doc,
+      target_url,
       inner_html_with_suffix_if_linked # Pass span+suffix to helper
     )
 
