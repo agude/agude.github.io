@@ -4,6 +4,7 @@ require 'liquid'
 require 'cgi' # Keep for QuotedFragment, though CGI itself is now in LiquidUtils
 require 'strscan'
 require_relative 'liquid_utils'
+require_relative 'utils/series_link_util'
 
 module Jekyll
   class SeriesLinkTag < Liquid::Tag
@@ -52,8 +53,8 @@ module Jekyll
       series_title = LiquidUtils.resolve_value(@title_markup, context)
       link_text_override = @link_text_markup ? LiquidUtils.resolve_value(@link_text_markup, context) : nil
 
-      # Call the centralized utility function from LiquidUtils
-      LiquidUtils.render_series_link(
+      # Call the centralized utility function from SeriesLinkUtils
+      SeriesLinkUtils.render_series_link(
         series_title,
         context,
         link_text_override

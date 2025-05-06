@@ -4,6 +4,7 @@ require 'liquid'
 require 'cgi'
 require 'strscan'
 require_relative 'liquid_utils'
+require_relative 'utils/series_link_util'
 
 module Jekyll
   # Liquid Tag to generate grammatically correct text around a linked series name.
@@ -103,7 +104,7 @@ module Jekyll
 
       # --- Generate Linked Series Name ---
       # Use the utility function, passing the original *stripped* name
-      linked_series_html = LiquidUtils.render_series_link(stripped_series_name, context)
+      linked_series_html = SeriesLinkUtils.render_series_link(stripped_series_name, context)
       # --- End Generate Linked Series Name ---
 
 
