@@ -18,6 +18,9 @@ gem 'webrick', '~> 1.8'
 # Required by Jekyll/deps, will be default gem later
 gem 'logger', '~> 1.6'
 
+# For parsing HTML in custom plugins
+gem 'nokogiri', '~> 1.18'
+
 # Tests
 group :development, :test do
   gem 'minitest', '~> 5.25'
