@@ -16,6 +16,7 @@ require 'utils/book_link_util'
 require 'utils/rating_utils'
 require 'utils/series_link_util'
 require 'utils/text_processing_utils'
+require 'utils/url_utils'
 # Add requires for other future util files here...
 
 
