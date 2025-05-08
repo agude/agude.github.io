@@ -12,13 +12,15 @@ $LOAD_PATH.unshift(File.expand_path('../_plugins', __dir__))
 # Explicitly require utils files
 require 'utils/link_helper_utils' # Load shared helpers first
 require 'utils/author_link_util'
-require 'utils/book_link_util'
-require 'utils/series_link_util'
 require 'utils/backlink_utils'
+require 'utils/book_link_util'
+require 'utils/json_ld_generators/author_profile_generator'
+require 'utils/json_ld_utils'
 require 'utils/rating_utils'
+require 'utils/series_link_util'
 require 'utils/text_processing_utils'
 require 'utils/url_utils'
-require 'utils/json_ld_utils'
+
 # Add requires for other future util files here...
 
 
@@ -43,6 +45,27 @@ MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection) do
     # Add '[]' to the list of methods it responds to
     return true if %i[data url content date title site collection []].include?(method_name.to_sym)
     super
+  end
+
+  # Override is_a? to pretend to be a Jekyll::Document for checks
+  # This allows testing code that uses `is_a?(Jekyll::Document)`
+  define_method(:is_a?) do |klass|
+    # Note: This is a simplification. A real Page is not a Document.
+    # If your injector logic needs to differentiate Page vs Document beyond layout/collection,
+    # this mock might need further refinement. For the current injector logic,
+    # pretending all mocks are Documents might suffice where collection checks are needed.
+    # However, the injector *also* checks `is_a?(Jekyll::Page)`.
+    # Let's make it specific:
+    if klass == Jekyll::Document
+      # Pretend to be a Document *if* it has a collection assigned
+      # This helps distinguish it from a Page mock which wouldn't have one.
+      !collection.nil?
+    elsif klass == Jekyll::Page
+      # Pretend to be a Page *if* it does NOT have a collection assigned
+      collection.nil?
+    else
+      super(klass) # Use standard is_a? for other types
+    end
   end
 
   # generate_excerpt method is not strictly needed here if we directly mock data['excerpt']

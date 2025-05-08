@@ -75,22 +75,22 @@ module JsonLdInjector
   # --- Private Helper Methods for Type Checking ---
 
   def self._is_book_review?(doc)
-    # Check collection label first for efficiency
-    doc.collection&.label == 'books' && doc.data['layout'] == 'book'
+    # Check if it's a Document first, then check collection/layout
+    doc.is_a?(Jekyll::Document) && doc.collection&.label == 'books' && doc.data['layout'] == 'book'
   end
 
   def self._is_generic_review_post?(doc)
-    # Must be a post with the 'review' key present
-    doc.collection&.label == 'posts' && doc.data['layout'] == 'post' && doc.data.key?('review')
+    # Check if it's a Document first, then check collection/layout/data
+    doc.is_a?(Jekyll::Document) && doc.collection&.label == 'posts' && doc.data['layout'] == 'post' && doc.data.key?('review')
   end
 
   def self._is_blog_post?(doc)
-    # Must be a post, but *not* have the 'review' key
-    doc.collection&.label == 'posts' && doc.data['layout'] == 'post' && !doc.data.key?('review')
+    # Check if it's a Document first, then check collection/layout/data
+    doc.is_a?(Jekyll::Document) && doc.collection&.label == 'posts' && doc.data['layout'] == 'post' && !doc.data.key?('review')
   end
 
   def self._is_author_page?(doc)
-    # Identified solely by layout, can be Page or Document
+    # This check is safe for both Page and Document as it only uses data
     doc.data['layout'] == 'author_page'
   end
 
