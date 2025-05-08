@@ -117,7 +117,7 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
   )
 end
 
-def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = 'Test content attribute.', date_str = nil)
+def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = 'Test content attribute.', date_str = nil, collection = nil)
   base_data = {
     'layout' => 'test_layout', 'title' => 'Test Document', 'published' => true,
     'path' => url ? url.sub(%r{^/}, '') : nil
@@ -126,7 +126,7 @@ def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = '
   date_obj = date_str ? Time.parse(date_str) : Time.now
 
   # The `content_attr_val` is for the `document.content` attribute (post-conversion HTML body)
-  doc = MockDocument.new(base_data, url, content_attr_val, date_obj, nil, nil)
+  doc = MockDocument.new(base_data, url, content_attr_val, date_obj, nil, collection)
 
   # Simpler excerpt mocking - just needs an 'output' attribute
   # Uses duck typing check `respond_to?(:output)` in JsonLdUtils now.
