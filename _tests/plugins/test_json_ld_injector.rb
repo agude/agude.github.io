@@ -4,16 +4,24 @@ require_relative '../../_plugins/json_ld_injector' # Load the injector class/mod
 require 'json' # For parsing JSON results
 require 'minitest/mock' # For mocking logger
 
+# Ensure the real generators are loaded via test_helper.rb's requires:
+require 'utils/json_ld_generators/blog_posting_generator'
+require 'utils/json_ld_generators/book_review_generator'
+require 'utils/json_ld_generators/generic_review_generator'
+require 'utils/json_ld_generators/author_profile_generator'
+
 class TestJsonLdInjector < Minitest::Test
 
   def setup
-    @site = create_site # Basic site config is usually enough
+    # Create a site instance for each test to ensure clean site.data
+    @site = create_site
 
     # Mock Collections
     @posts_collection = MockCollection.new([], 'posts')
     @books_collection = MockCollection.new([], 'books')
 
     # --- Mock Documents ---
+    # Pass the relevant collection to create_doc
     @blog_post_doc = create_doc(
       { 'layout' => 'post', 'title' => 'Standard Post' },
       '/blog/standard.html', 'Blog content', nil, @posts_collection
@@ -30,35 +38,57 @@ class TestJsonLdInjector < Minitest::Test
       { 'layout' => 'post', 'title' => 'Generic Review Missing', 'review' => {} }, # Missing item_name
       '/blog/generic-missing.html', 'Generic review missing content', nil, @posts_collection
     )
-    @author_page_doc = create_doc( # Assuming author pages are regular pages (no collection needed here)
-                                  { 'layout' => 'author_page', 'title' => 'Author Name' },
-                                  '/authors/author.html', 'Author bio', nil, nil # Pass nil for collection
-                                 )
+    # Author pages are regular pages, pass nil for collection
+    @author_page_doc = create_doc(
+      { 'layout' => 'author_page', 'title' => 'Author Name' },
+      '/authors/author.html', 'Author bio', nil, nil
+    )
     @other_page_doc = create_doc( # An unhandled page
                                  { 'layout' => 'default', 'title' => 'Other Page' },
                                  '/other.html', 'Other content', nil, nil
                                 )
 
-    # --- Expected Hashes (Simple examples) ---
-    @blog_posting_hash = { "@type" => "BlogPosting", "headline" => "Standard Post" }
-    @book_review_hash = { "@type" => "Review", "itemReviewed" => { "@type" => "Book" } }
-    @generic_review_hash = { "@type" => "Review", "itemReviewed" => { "@type" => "Product", "name" => "Gadget V1" } }
-    @author_profile_hash = { "@type" => "Person", "name" => "Author Name" }
+    # --- Expected Hashes (Simple examples used by stubs) ---
+    @blog_posting_hash = { "@type" => "BlogPosting", "headline" => "Standard Post", "test_marker" => "blog" }
+    @book_review_hash = { "@type" => "Review", "itemReviewed" => { "@type" => "Book" }, "test_marker" => "book" }
+    @generic_review_hash = { "@type" => "Review", "itemReviewed" => { "@type" => "Product", "name" => "Gadget V1" }, "test_marker" => "generic" }
+    @author_profile_hash = { "@type" => "Person", "name" => "Author Name", "test_marker" => "author" }
   end
 
-  # Helper to assert JSON script content
-  def assert_json_script(document, expected_hash)
-    script_tag = document.data['json_ld_script']
-    refute_nil script_tag, "Expected json_ld_script to be set, but was nil"
-    assert_match %r{<script type="application/ld\+json">}, script_tag
+  # Helper to assert JSON script content stored in site.data
+  def assert_json_script(document, site, expected_hash)
+    lookup_url = document.url
+    refute_nil lookup_url, "Document URL is nil, cannot look up script."
+
+    script_storage = site.data['generated_json_ld_scripts']
+    refute_nil script_storage, "site.data['generated_json_ld_scripts'] hash does not exist."
+
+    script_tag = script_storage[lookup_url]
+    refute_nil script_tag, "Expected json_ld_script to be set for URL '#{lookup_url}', but was nil in site.data"
+
+    assert_match %r{<script type="application/ld\+json">}, script_tag, "Script tag opening not found"
+    assert_match %r{</script>}, script_tag, "Script tag closing not found"
+
     # Extract JSON part - handle potential newlines carefully
-    json_content = script_tag.match(%r{<script type="application/ld\+json">\s*(.*)\s*</script>}m)[1]
-    assert_equal expected_hash, JSON.parse(json_content)
+    match_data = script_tag.match(%r{<script type="application/ld\+json">\s*(.*)\s*</script>}m)
+    refute_nil match_data, "Could not extract JSON content from script tag: #{script_tag.inspect}"
+    json_content = match_data[1]
+
+    begin
+      parsed_json = JSON.parse(json_content)
+      assert_equal expected_hash, parsed_json
+    rescue JSON::ParserError => e
+      flunk "Failed to parse JSON content: #{e.message}\nContent was:\n#{json_content}"
+    end
   end
 
-  # Helper to assert no script was injected
-  def assert_no_json_script(document)
-    assert_nil document.data['json_ld_script'], "Expected json_ld_script to be nil, but it was set"
+  # Helper to assert no script was injected into site.data
+  def assert_no_json_script(document, site)
+    lookup_url = document.url
+    script_storage = site.data['generated_json_ld_scripts']
+    # It's okay if script_storage is nil or doesn't contain the key
+    script_present = script_storage && lookup_url && script_storage.key?(lookup_url)
+    refute script_present, "Expected no json_ld_script for URL '#{lookup_url}', but found one in site.data"
   end
 
   # --- Test Cases ---
@@ -74,7 +104,7 @@ class TestJsonLdInjector < Minitest::Test
         end
       end
     end
-    assert_json_script(@blog_post_doc, @blog_posting_hash)
+    assert_json_script(@blog_post_doc, @site, @blog_posting_hash)
   end
 
   def test_injects_for_book_review
@@ -87,7 +117,7 @@ class TestJsonLdInjector < Minitest::Test
         end
       end
     end
-    assert_json_script(@book_review_doc, @book_review_hash)
+    assert_json_script(@book_review_doc, @site, @book_review_hash)
   end
 
   def test_injects_for_generic_review_post
@@ -100,7 +130,7 @@ class TestJsonLdInjector < Minitest::Test
         end
       end
     end
-    assert_json_script(@generic_review_post_doc, @generic_review_hash)
+    assert_json_script(@generic_review_post_doc, @site, @generic_review_hash)
   end
 
   def test_injects_for_author_page
@@ -113,7 +143,7 @@ class TestJsonLdInjector < Minitest::Test
         end
       end
     end
-    assert_json_script(@author_page_doc, @author_profile_hash)
+    assert_json_script(@author_page_doc, @site, @author_profile_hash)
   end
 
   def test_skips_injection_for_generic_review_missing_item_name
@@ -140,8 +170,8 @@ class TestJsonLdInjector < Minitest::Test
     end
 
     # Verify no script was injected and logger was called
-    assert_no_json_script(@generic_review_missing_item_doc)
-    mock_logger.verify # Check that logger.warn was called as expected
+    assert_no_json_script(@generic_review_missing_item_doc, @site)
+    mock_logger.verify
   end
 
   def test_skips_injection_for_unhandled_layout
@@ -155,7 +185,7 @@ class TestJsonLdInjector < Minitest::Test
         end
       end
     end
-    assert_no_json_script(@other_page_doc)
+    assert_no_json_script(@other_page_doc, @site)
   end
 
   def test_skips_injection_if_generator_returns_nil
@@ -164,7 +194,7 @@ class TestJsonLdInjector < Minitest::Test
       # No need to stub others to flunk here, as we expect BlogPosting to be called
       JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
     end
-    assert_no_json_script(@blog_post_doc)
+    assert_no_json_script(@blog_post_doc, @site)
   end
 
   def test_skips_injection_if_generator_returns_empty_hash
@@ -172,7 +202,7 @@ class TestJsonLdInjector < Minitest::Test
     BlogPostingLdGenerator.stub :generate_hash, {} do # Return empty hash
       JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
     end
-    assert_no_json_script(@blog_post_doc)
+    assert_no_json_script(@blog_post_doc, @site)
   end
 
 end

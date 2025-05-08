@@ -33,6 +33,14 @@
   {% comment %} From jekyll/jekyll-seo-tag {% endcomment %}
   {% seo %}
 
+  <!-- JSON-LD Structured Data -->
+  {%- comment -%} Look up generated script in site data hash {%- endcomment -%}
+  {%- assign generated_script = site.data.generated_json_ld_scripts[page.url] -%}
+  {%- if generated_script -%}
+    {{ generated_script }}
+  {%- endif -%}
+  <!-- End JSON-LD Structured Data -->
+
   {% if page.use_latex %}
     <!-- MathJax -->
     {% include mathjax.html %}

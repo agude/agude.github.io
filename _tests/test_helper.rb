@@ -79,7 +79,7 @@ end
 MockCollection = Struct.new(:docs, :label)
 
 # Mock for site object
-MockSite = Struct.new(:config, :collections, :pages, :posts, :baseurl, :source, :converters) do
+MockSite = Struct.new(:config, :collections, :pages, :posts, :baseurl, :source, :converters, :data) do
   def in_source_dir(path)
     File.join(source || '.', path)
   end
@@ -136,7 +136,8 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
     posts_collection, # Use the correctly initialized posts_collection
     base_config['baseurl'],
     base_config['source'],
-    [mock_markdown_converter]
+    [mock_markdown_converter],
+    {},
   )
 end
 
