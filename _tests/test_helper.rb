@@ -10,21 +10,19 @@ $LOAD_PATH.unshift(File.expand_path('../_plugins', __dir__))
 # require 'liquid_utils' # Comment out or remove as LiquidUtils gets emptied
 
 # Explicitly require utils files
-require 'utils/link_helper_utils' # Load shared helpers first
 require 'utils/author_link_util'
 require 'utils/backlink_utils'
 require 'utils/book_link_util'
 require 'utils/json_ld_generators/author_profile_generator'
 require 'utils/json_ld_generators/blog_posting_generator'
+require 'utils/json_ld_generators/book_review_generator'
 require 'utils/json_ld_generators/generic_review_generator'
 require 'utils/json_ld_utils'
+require 'utils/link_helper_utils'
 require 'utils/rating_utils'
 require 'utils/series_link_util'
 require 'utils/text_processing_utils'
 require 'utils/url_utils'
-
-# Add requires for other future util files here...
-
 
 # --- Mock Objects ---
 
