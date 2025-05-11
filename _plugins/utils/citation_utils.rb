@@ -130,9 +130,56 @@ module CitationUtils
     nil
   end
 
+  # Generates the DOI part of a citation, linking it if possible.
+  # Handles three cases:
+  # 1. Input is a DOI slug (e.g., "10.1234/abc.123").
+  # 2. Input is a full DOI URL (e.g., "https://doi.org/10.1234/abc.123").
+  # 3. Input is other text (fallback, not linked as a DOI).
+  #
+  # @param doi [String, nil] The raw DOI string or DOI URL from parameters.
+  # @return [String, nil] The formatted DOI string (possibly linked), or nil if input is blank.
   def self._generate_doi_part(doi:)
+    # Use _present? to check if the input 'doi' has meaningful content.
     return nil unless _present?(doi)
-    "doi:#{NBSP}#{_escapeHTML(doi)}"
+
+    # Convert to string and strip, as _present? already confirmed it's not just whitespace.
+    doi_input_str = doi.to_s.strip
+
+    doi_slug_to_link = nil
+    doi_url_prefix = "https://doi.org/"
+
+    # Case 1: Input is likely a DOI slug (starts with "10.")
+    # We also need to ensure it's not part of a common non-DOI string that happens to start with "10."
+    # A simple check for a slash is a good heuristic for DOI slugs.
+    if doi_input_str.start_with?("10.") && doi_input_str.include?('/')
+      doi_slug_to_link = doi_input_str
+    # Case 2: Input is likely a full DOI URL
+    elsif doi_input_str.downcase.include?("doi.org/")
+      # Regex: case insensitive, matches "doi.org/" followed by (capturing group for "10." followed by anything non-empty up to a space or end)
+      match = doi_input_str.match(%r{doi\.org/(10\.[^\s]+)$}i)
+      if match && _present?(match[1]) # Check if the captured group is present and not empty
+        doi_slug_to_link = match[1] # This is the extracted slug, e.g., "10.1234/whatever"
+      end
+    end
+
+    # If a valid-looking DOI slug was identified (either directly or extracted)
+    if _present?(doi_slug_to_link)
+      # Validate the slug further if needed (e.g., more complex regex for DOI structure)
+      # For now, we assume if it starts with "10." and contains '/', it's a candidate.
+      
+      # Text to display for the link (the slug itself, HTML escaped)
+      escaped_slug_for_display = _escapeHTML(doi_slug_to_link)
+      
+      # URL for the href attribute (raw, unescaped slug)
+      # Ensure no double escaping if the slug itself had % encoding, though doi.org handles this well.
+      full_doi_url_for_href = "#{doi_url_prefix}#{doi_slug_to_link}"
+
+      return "doi:#{NBSP}<a href=\"#{full_doi_url_for_href}\">#{escaped_slug_for_display}</a>"
+    else
+      # Case 3: Fallback - input is not a recognized DOI slug or linkable DOI URL.
+      # Output the original input (HTML escaped), prefixed with "doi: ".
+      return "doi:#{NBSP}#{_escapeHTML(doi_input_str)}"
+    end
   end
 
   def self._generate_access_date_part(access_date:)

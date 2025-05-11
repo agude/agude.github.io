@@ -54,6 +54,64 @@ class TestCitationUtils < Minitest::Test
     assert_equal expected, format_citation(params)
   end
 
+  # --- DOI Linking Tests ---
+  def test_doi_slug_is_linked
+    params = { doi: "10.1234/xyz.567" }
+    expected_doi_part = "doi:#{NBSP}<a href=\"https://doi.org/10.1234/xyz.567\">10.1234/xyz.567</a>"
+    expected = "<span class=\"citation\">#{expected_doi_part}.</span>"
+    assert_equal expected, format_citation(params)
+  end
+
+  def test_doi_full_url_is_extracted_and_linked
+    params = { doi: "https://doi.org/10.5678/abc.123" }
+    expected_doi_part = "doi:#{NBSP}<a href=\"https://doi.org/10.5678/abc.123\">10.5678/abc.123</a>"
+    expected = "<span class=\"citation\">#{expected_doi_part}.</span>"
+    assert_equal expected, format_citation(params)
+  end
+
+  def test_doi_full_url_http_is_extracted_and_linked
+    params = { doi: "http://doi.org/10.5678/abc.123" }
+    expected_doi_part = "doi:#{NBSP}<a href=\"https://doi.org/10.5678/abc.123\">10.5678/abc.123</a>"
+    expected = "<span class=\"citation\">#{expected_doi_part}.</span>"
+    assert_equal expected, format_citation(params)
+  end
+
+  def test_doi_full_url_with_www_is_extracted_and_linked
+    params = { doi: "https://www.doi.org/10.5678/abc.123" }
+    expected_doi_part = "doi:#{NBSP}<a href=\"https://doi.org/10.5678/abc.123\">10.5678/abc.123</a>"
+    expected = "<span class=\"citation\">#{expected_doi_part}.</span>"
+    assert_equal expected, format_citation(params)
+  end
+
+  def test_non_doi_string_is_not_linked
+    params = { doi: "arXiv:1234.5678" }
+    expected_doi_part = "doi:#{NBSP}arXiv:1234.5678"
+    expected = "<span class=\"citation\">#{expected_doi_part}.</span>"
+    assert_equal expected, format_citation(params)
+  end
+
+  def test_malformed_doi_string_is_not_linked
+    params = { doi: "not_a_doi_10.123" }
+    expected_doi_part = "doi:#{NBSP}not_a_doi_10.123"
+    expected = "<span class=\"citation\">#{expected_doi_part}.</span>"
+    assert_equal expected, format_citation(params)
+  end
+
+  def test_doi_slug_with_complex_chars_is_linked_and_escaped_for_display
+    # Example from CrossRef: 10.1007/s00253-007-1079-x(test)
+    # Our current slug detection is simple, so we'll test a more typical complex one.
+    # Let's assume the slug itself doesn't need URL encoding for the href, but needs HTML escaping for display.
+    complex_slug = "10.1007/s00253-007-1079-x(<>&)"
+    escaped_complex_slug = "10.1007/s00253-007-1079-x(&lt;&gt;&amp;)" # How _escapeHTML would handle it
+    params = { doi: complex_slug }
+    expected_doi_part = "doi:#{NBSP}<a href=\"https://doi.org/#{complex_slug}\">#{escaped_complex_slug}</a>"
+    expected = "<span class=\"citation\">#{expected_doi_part}.</span>"
+    assert_equal expected, format_citation(params)
+  end
+
+
+  # --- Full Citation Style Examples (Adjusted for new DOI linking) ---
+
   def test_full_article_in_journal
     params = {
       author_last: "Doe", author_first: "Jane",
@@ -65,7 +123,7 @@ class TestCitationUtils < Minitest::Test
       first_page: "101", last_page: "115",
       doi: "10.1234/jid.2023.15.3.101"
     }
-    expected_inner = "Doe, Jane. <a href=\"http://example.com/article_url\">\"My Research Findings\"</a> <cite>Journal of Important Discoveries</cite>. vol.#{NBSP}15, no.#{NBSP}3. 2023. pp.#{NBSP}101--115. doi:#{NBSP}10.1234/jid.2023.15.3.101."
+    expected_inner = "Doe, Jane. <a href=\"http://example.com/article_url\">\"My Research Findings\"</a> <cite>Journal of Important Discoveries</cite>. vol.#{NBSP}15, no.#{NBSP}3. 2023. pp.#{NBSP}101--115. doi:#{NBSP}<a href=\"https://doi.org/10.1234/jid.2023.15.3.101\">10.1234/jid.2023.15.3.101</a>."
     expected = "<span class=\"citation\">#{expected_inner}</span>"
     assert_equal expected, format_citation(params)
   end
@@ -125,7 +183,7 @@ class TestCitationUtils < Minitest::Test
     assert_equal expected, format_citation(params)
   end
 
-  def test_journal_article_no_url_only_doi
+  def test_journal_article_no_url_only_doi_linked
     params = {
       author_first: "Henrietta", author_last: "Clopath",
       work_title: "Genuine Art versus Mechanism",
@@ -135,12 +193,12 @@ class TestCitationUtils < Minitest::Test
       first_page: "331", last_page: "333",
       doi: "10.2307/25505621"
     }
-    expected_inner = "Clopath, Henrietta. \"Genuine Art versus Mechanism\" <cite>Brush and Pencil</cite>. vol.#{NBSP}7, no.#{NBSP}6. March 1, 1901. pp.#{NBSP}331--333. doi:#{NBSP}10.2307/25505621."
+    expected_inner = "Clopath, Henrietta. \"Genuine Art versus Mechanism\" <cite>Brush and Pencil</cite>. vol.#{NBSP}7, no.#{NBSP}6. March 1, 1901. pp.#{NBSP}331--333. doi:#{NBSP}<a href=\"https://doi.org/10.2307/25505621\">10.2307/25505621</a>."
     expected = "<span class=\"citation\">#{expected_inner}</span>"
     assert_equal expected, format_citation(params)
   end
 
-  def test_all_possible_parts_present
+  def test_all_possible_parts_present_with_linked_doi
     params = {
       author_last: "Maximus", author_first: "A.",
       work_title: "The Component Piece",
@@ -155,14 +213,14 @@ class TestCitationUtils < Minitest::Test
       doi: "10.9999/max.123",
       access_date: "Feb 29, 2028"
     }
-    expected_inner = "Maximus, A. <a href=\"http://example.com/max\">\"The Component Piece\"</a> <cite>The Grand Collection</cite>. Edited by Ed Itor. 3rd Revised ed. vol.#{NBSP}X, no.#{NBSP}1. OmniPress. 2025. pp.#{NBSP}10--20. doi:#{NBSP}10.9999/max.123. Retrieved Feb 29, 2028."
+    expected_inner = "Maximus, A. <a href=\"http://example.com/max\">\"The Component Piece\"</a> <cite>The Grand Collection</cite>. Edited by Ed Itor. 3rd Revised ed. vol.#{NBSP}X, no.#{NBSP}1. OmniPress. 2025. pp.#{NBSP}10--20. doi:#{NBSP}<a href=\"https://doi.org/10.9999/max.123\">10.9999/max.123</a>. Retrieved Feb 29, 2028."
     expected = "<span class=\"citation\">#{expected_inner}</span>"
     assert_equal expected, format_citation(params)
   end
 
   def test_only_doi_present
     params = { doi: "10.555/testdoi" }
-    expected = "<span class=\"citation\">doi:#{NBSP}10.555/testdoi.</span>"
+    expected = "<span class=\"citation\">doi: <a href=\"https://doi.org/10.555/testdoi\">10.555/testdoi</a>.</span>"
     assert_equal expected, format_citation(params)
   end
 
