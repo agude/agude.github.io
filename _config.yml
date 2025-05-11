@@ -17,6 +17,7 @@ plugin_logging:
     BACKLINK_UTIL: true
     BOOK_BACKLINKS: true
     BOOK_CARD_LOOKUP: true
+    BOOK_LIST_SERIES_DISPLAY: true
     RELATED_BOOKS: true
     RELATED_POSTS: true
     RENDER_AUTHOR_LINK: true
