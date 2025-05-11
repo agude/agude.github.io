@@ -13,6 +13,7 @@ $LOAD_PATH.unshift(File.expand_path('../_plugins', __dir__))
 require 'utils/author_link_util'
 require 'utils/backlink_utils'
 require 'utils/book_link_util'
+require 'utils/citation_utils.rb'
 require 'utils/json_ld_generators/author_profile_generator'
 require 'utils/json_ld_generators/blog_posting_generator'
 require 'utils/json_ld_generators/book_review_generator'

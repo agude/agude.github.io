@@ -23,7 +23,19 @@ but [Varughese & Allen][varughese] found that there was still a "significant
 increase in number of crashes on the Sunday of the fall shift from
 DST".[^varughese_cite]
 
-[^varughese_cite]: Varughese, J. and Allen, R., _Fatal accidents following changes in daylight savings time: the American experience_, Sleep Medicine, Volume 2, Issue 1, p. 31 - 36, doi: [https://doi.org/10.1016/S1389-9457(00)00032-0][varughese]
+[^varughese_cite]:
+    {% citation
+      author_last="J. Varughese and R. Allen"
+      work_title="Fatal accidents following changes in daylight savings time: the American experience"
+      container_title="Sleep Medicine"
+      volume="2"
+      number="1"
+      first_page="31"
+      last_page="36"
+      date="2000"
+      doi="10.1016/S1389-9457(00)00032-0"
+      url="https://doi.org/10.1016/S1389-9457(00)00032-0"
+    %}
 
 [dst]: https://en.wikipedia.org/wiki/Daylight_saving_time
 [dst_article]: {% post_url 2017-03-20-switrs_daylight_saving_time_accidents %}

@@ -19,15 +19,45 @@ seo:
 
 The [daylight saving time][dst] (DST) change is awful---we get less sleep and
 it [might not even save energy][energy] as was intended! Worse, studies by
-[Varughese & Allen][varughese] and [Smith][smith] have shown that the time
-change increases the number of automobile crashes! Let's look for a similar
-trend in the [SWITRS data][s2s_post] that I've collected.
+[Varughese & Allen][varughese][^varughese_cite] and
+[Smith][smith][^smith_cite] have shown that the time change increases the
+number of automobile crashes! Let's look for a similar trend in the [SWITRS
+data][s2s_post] that I've collected.
 
 [dst]: https://en.wikipedia.org/wiki/Daylight_saving_time
 [energy]: https://www.scientificamerican.com/article/does-daylight-saving-times-save-energy/
 [varughese]: https://doi.org/10.1016/S1389-9457(00)00032-0
 [smith]: https://doi.org/10.1257/app.20140100
 [s2s_post]: {% post_url 2016-11-01-switrs_to_sqlite %}
+
+[^varughese_cite]:
+    {% citation
+      author_last="Varughese, J. and Allen, R."
+      work_title="Fatal accidents following changes in daylight savings time: the American experience"
+      container_title="Sleep Medicine"
+      volume="2"
+      number="1"
+      first_page="31"
+      last_page="36"
+      date="2000"
+      doi="10.1016/S1389-9457(00)00032-0"
+      url="https://doi.org/10.1016/S1389-9457(00)00032-0"
+    %}
+
+[^smith_cite]:
+    {% citation
+      author_last="Smith"
+      author_first="Austin C."
+      date="2016"
+      work_title="Spring Forward at Your Own Risk: Daylight Saving Time and Fatal Vehicle Crashes"
+      container_title="American Economic Journal: Applied Economics"
+      volume="8"
+      number="2"
+      first_page="65"
+      last_page="91"
+      doi="10.1257/app.20140100"
+      url="https://doi.org/10.1257/app.20140100"
+    %}
 
 The Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).

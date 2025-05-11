@@ -74,8 +74,15 @@ look at when in the day crashes happen:
     > compared to weekend days. The worst day? Friday. Since 1994, the three
     > deadliest Halloween nights for kids have all been Friday nights.
 
-    From: Walker, Alissa (October 25, 2019). [_The most terrifying part of
-    Halloween for kids is our deadly streets_][aw_curbed]. _Curbed_ Vox Media.
+    {% citation
+      author_last="Walker"
+      author_first="Alissa"
+      work_title="The most terrifying part of Halloween for kids is our deadly streets"
+      container_title="Curbed"
+      publisher="Vox Media"
+      date="October 25, 2019"
+      url="https://archive.curbed.com/2019/10/25/20927701/halloween-safety-pedestrian-deaths-kids"
+    %}
 
 [![Average number of incidents involving pedestrians per hour on Halloween
 from 2001 to 2020, separated by weekend and

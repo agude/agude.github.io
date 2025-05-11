@@ -9,8 +9,8 @@ image: /files/switrs-covid/auto_accident_on_bloor_street_west_in_1918.jpg
 image_alt: >
   A black and white photo of an old car slid up against the curb, its front
   wheels completely buckled. A crowed stands on the sidewalk looking on.
-categories: 
-  - california-traffic-data 
+categories:
+  - california-traffic-data
   - data-science
 ---
 
@@ -34,7 +34,7 @@ drove more recklessly and wore their seatbelt less often.[^nhtsa]
 
 [fatal]: https://www.nhtsa.gov/press-releases/2020-fatality-data-show-increased-traffic-fatalities-during-pandemic
 
-[^nhtsa]: Specifically: 
+[^nhtsa]: Specifically:
     > NHTSA's research suggests that throughout the national public health
     > emergency and associated lockdowns, driving patterns and behaviors
     > changed significantly, and that drivers who remained on the roads
@@ -44,8 +44,12 @@ drove more recklessly and wore their seatbelt less often.[^nhtsa]
     > examples of extreme speeds became more common, while the evidence also
     > shows that fewer people involved in crashes used their seat belts.
 
-    National Highway Traffic Safety Administration. (June 3rd, 2021). [_2020
-    Fatality Data Show Increased Traffic Fatalities During Pandemic_][fatal]. 
+    {% citation
+      author_last="National Highway Traffic Safety Administration"
+      work_title="2020 Fatality Data Show Increased Traffic Fatalities During Pandemic"
+      date="June 3, 2021"
+      url="https://www.nhtsa.gov/press-releases/2020-fatality-data-show-increased-traffic-fatalities-during-pandemic"
+    %}
 
 I can't test that hypothesis with my [SWITRS data][hosted_dataset_post]---it
 does not include much information about driving behavior, only about
@@ -58,7 +62,7 @@ Github][rendered]). The data is available on [Kaggle][db_link] or
 [Zenodo][zen_link]. There is a [hosted Kaggle Notebook][kn] version of this
 post as well to help you dive right in.
 
-{% capture notebook_uri %}{{ "SWITRS Fatalities During COVID Lockdown.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "SWITRS Fatalities During COVID Lockdown.ipynb" | uri_escape }}{% endcapture %}
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
@@ -76,8 +80,8 @@ collision, with this query:
 SELECT collision_date
     , 1 AS crashes
     , IIF(collision_severity='fatal', 1, 0) AS fatalities
-FROM collisions 
-WHERE collision_date IS NOT NULL 
+FROM collisions
+WHERE collision_date IS NOT NULL
 AND collision_date BETWEEN '2019-01-01' AND '2020-11-30'
 ```
 

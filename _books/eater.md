@@ -101,17 +101,18 @@ adequate. The main characters are:
     > She saves the day by her wit and ability, and, if we are lucky, **has
     > the good grace to die at the end**, being grieved by the entire ship.
 
-    {% include cite.html
+    {% citation
       author_first="Patricia"
       author_last="Byrd"
-      title="Star Trek Lives: Trekker Slang"
-      publication_title="American Speech"
+      work_title="Star Trek Lives: Trekker Slang"
+      container_title="American Speech"
       volume="53"
       number="1"
       date="Spring 1978"
       first_page="52"
       last_page="58"
       url="https://doi.org/10.2307/455340"
+      doi="10.2307/455340"
     %}
 
 [doi]: https://doi.org/10.2307/455340

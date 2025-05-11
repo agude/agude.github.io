@@ -169,12 +169,12 @@ comfortable). I would not buy the lumbar support again.
     >
     > That's it.
 
-    {% include cite.html
-      author_handle='myreptilianbrain'
-      title='PSA: Remove lumbar support from your Steelcase Gesture'
-      publication_title='Reddit, r/OfficeChairs'
-      date='2021-12-18'
-      url='https://www.reddit.com/r/OfficeChairs/comments/rixars/psa_remove_lumbar_support_from_your_steelcase/'
+    {% citation
+      author_handle="myreptilianbrain"
+      work_title="PSA: Remove lumbar support from your Steelcase Gesture"
+      container_title="Reddit, r/OfficeChairs"
+      date="2021-12-18"
+      url="https://www.reddit.com/r/OfficeChairs/comments/rixars/psa_remove_lumbar_support_from_your_steelcase/"
     %}
 
 ## The Seat

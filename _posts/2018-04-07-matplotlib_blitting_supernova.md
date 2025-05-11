@@ -44,10 +44,30 @@ us how the explosion is evolving.
 [nsf]: https://snfactory.lbl.gov
 [sn2011fe]: https://en.wikipedia.org/wiki/SN_2011fe
 [pereira]: https://doi.org/10.1051/0004-6361/201221008
-[^pereira_cite]: Pereira et al., *Spectrophotometric time series of SN 2011fe from the Nearby Supernova Factory*, A&A 554, A27 (2013), doi: [10.1051/0004-6361/201221008][pereira]
-[^aldering_cite]: Aldering et al., *Overview of the Nearby Supernova Factory*, Proceedings Volume 4836, Survey and Other Telescope Technologies and Discoveries; (2002); doi: [10.1117/12.458107][aldering_2002]
 [aldering_2002]: https://doi.org/10.1117/12.458107
 [spectrum]: https://en.wikipedia.org/wiki/Astronomical_spectroscopy
+
+[^pereira_cite]:
+    {% citation
+      author_last="Pereira et al."
+      work_title="Spectrophotometric time series of SN 2011fe from the Nearby Supernova Factory"
+      container_title="Astronomy & Astrophysics"
+      volume="554"
+      first_page="A27"
+      date="2013"
+      doi="10.1051/0004-6361/201221008"
+      url="https://doi.org/10.1051/0004-6361/201221008"
+    %}
+
+[^aldering_cite]:
+    {% citation
+      author_last="Aldering et al."
+      work_title="Overview of the Nearby Supernova Factory"
+      container_title="Proceedings Volume 4836, Survey and Other Telescope Technologies and Discoveries"
+      date="2002"
+      doi="10.1117/12.458107"
+      url="https://doi.org/10.1117/12.458107"
+    %}
 
 The data is available [here][data]. The notebook with all the code is
 [here][notebook] ([rendered on Github][rendered]). The code in the notebooks
