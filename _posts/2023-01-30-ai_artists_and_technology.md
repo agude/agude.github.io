@@ -41,10 +41,12 @@ human.
     > love and dedication to have their work soullessly stolen and used by
     > selfish people for profit without the slightest concept of ethics.
 
-    {% include cite.html
+    {% citation
       author_first="Alexander"
       author_last="Nanitchkov"
       author_handle="@Artofinca"
+      work_title="Tweet"
+      container_title="Twitter"
       date="2022-12-05"
       url="https://twitter.com/Artofinca/status/1599730391698485248"
     %}
@@ -56,17 +58,17 @@ human.
     >or paint, each mark is made with an intention. Each step of the process
     >is an opportunity to ask new questions, tune the piece to the precise
     >context it's intended for, to add expressiveness and even a point of
-    >view. The result—movies, shows, games—are intended to connect that
+    >view. The result---movies, shows, games---are intended to connect that
     >intricate craft with an audience who appreciates and enjoys it." 
     >
     >AI does none of this, he explained, and he sees "a world filling up with
     >meaningless, regurgitative cardboard cutouts that remind us of real art."
 
-    {% include cite.html
+    {% citation
       author_first="Chloe"
       author_last="Xiang"
-      title="Artist Are Revolting Against AI Art on ArtStation"
-      publication_title="Vice"
+      work_title="Artist Are Revolting Against AI Art on ArtStation"
+      container_title="Vice"
       date="2022-12-14"
       url="https://www.vice.com/en/article/artists-are-revolt-against-ai-art-on-artstation/"
     %}
@@ -104,17 +106,18 @@ an art in its own right.[^brush_and_pencil]<sup>, </sup>[^the_new_path]
     > the beautiful, his own creation in fact, can no more perish than the
     > soul which inspired it.
 
-    {% include cite.html
+    {% citation
       author_first="Henrietta"
       author_last="Clopath"
-      title="Genuine Art versus Mechanism"
-      publication_title="Brush and Pencil"
-      volume=7
-      number=6
+      work_title="Genuine Art versus Mechanism"
+      container_title="Brush and Pencil"
+      volume="7"
+      number="6"
       date="1901-03-01"
-      first_page=331
-      last_page=333
+      first_page="331"
+      last_page="333"
       url="https://doi.org/10.2307/25505621"
+      doi="10.2307/25505621"
     %}
 
 [^the_new_path]:
@@ -131,14 +134,14 @@ an art in its own right.[^brush_and_pencil]<sup>, </sup>[^the_new_path]
     > feeling. All labor of love must have something beyond mere mechanism at
     > the bottom of it.
 
-    {% include cite.html
-      title="Art and Photography"
-      publication_title="The New Path"
-      volume=2
-      number=12
+    {% citation
+      work_title="Art and Photography"
+      container_title="The New Path"
+      volume="2"
+      number="12"
       date="1865-12-01"
-      first_page=198
-      last_page=199
+      first_page="198"
+      last_page="199"
       url="https://www.jstor.org/stable/20542505"
     %}
 

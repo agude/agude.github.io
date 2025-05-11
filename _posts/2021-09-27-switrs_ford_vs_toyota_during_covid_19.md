@@ -9,8 +9,8 @@ hide_lead_image: True
 image_alt: >
   A black and white photo from 1927 of an old USPS truck crashed into a tree at the side
   of the road.
-categories: 
-  - california-traffic-data 
+categories:
+  - california-traffic-data
   - data-science
 ---
 
@@ -43,7 +43,7 @@ Github][rendered]). The data is available on [Kaggle][db_link] or
 [Zenodo][zen_link]. There is a [hosted Kaggle Notebook][kn] version of this
 post as well to help you dive right in.
 
-{% capture notebook_uri %}{{ "SWITRS Ford vs Toyota During Lockdown.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "SWITRS Ford vs Toyota During Lockdown.ipynb" | uri_escape }}{% endcapture %}
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
@@ -63,7 +63,7 @@ SELECT c.collision_date
 FROM collisions AS c
 LEFT JOIN parties as p
 ON p.case_id = c.case_id
-WHERE c.collision_date IS NOT NULL 
+WHERE c.collision_date IS NOT NULL
 AND c.collision_date BETWEEN '2019-01-01' AND '2020-11-30'
 AND p.vehicle_make IN ('ford', 'toyota')
 GROUP BY 1, 2;
@@ -85,7 +85,7 @@ through June of 2019. This gives me a baseline to compare against. Here is the
 normalized plot:
 
 [vmt]: https://en.wikipedia.org/wiki/Units_of_transportation_measurement#Fatalities_by_VMT
-[^mn_pub_safety]: 
+[^mn_pub_safety]:
 
     From the Minnesota Department of Public Safety:
 
@@ -95,8 +95,13 @@ normalized plot:
     > point, increasing congestion leads to reduced speeds, changing the
     > proportion of crashes that occur at different severity levels.
 
-    Minnesota Department of Public Safety, Office of Traffic Safety (2014).
-    [_Minnesota Traffic Crashes in 2014_][mn_report], Page 2
+    {% citation
+      author_last="Minnesota Department of Public Safety, Office of Traffic Safety"
+      work_title="Minnesota Traffic Crashes in 2014"
+      date="2014"
+      first_page="2"
+      url="https://web.archive.org/web/20151004145329/https://dps.mn.gov/divisions/ots/reports-statistics/Documents/2014-crash-facts.pdf"
+    %}
 
 [mn_report]: https://dps.mn.gov/divisions/ots/reports-statistics/Documents/2014-crash-facts.pdf
 
@@ -137,7 +142,7 @@ Fords.[^political_cars]
 [white_collar]: https://en.wikipedia.org/wiki/White-collar_worker
 [blue_collar]: https://en.wikipedia.org/wiki/Blue-collar_worker
 
-[^political_cars]: 
+[^political_cars]:
 
     The type of car and brand both are driven by political leaning:
 
@@ -147,8 +152,14 @@ Fords.[^political_cars]
     > was led by another Toyota, but a midsize SUV, the Toyota 4Runner
     > (86-14), followed by the Ford Expedition (76-24) and Ford F-150 (75-25).
 
-    Tierney, John. (April 1, 2005). [_Your Car: Politics on Wheels_][nyt_car],
-    The New York Times.
+    {% citation
+      author_last="Tierney"
+      author_first="John"
+      work_title="Your Car: Politics on Wheels"
+      container_title="The New York Times"
+      date="April 1, 2005"
+      url="https://www.nytimes.com/2005/04/01/automobiles/your-car-politics-on-wheels.html"
+    %}
 
 [nyt_car]: https://www.nytimes.com/2005/04/01/automobiles/your-car-politics-on-wheels.html
 
@@ -197,7 +208,7 @@ COVID-19 stay at home order in California.][age_dist]][age_dist]
 
 But that alone doesn't account for the pattern:
 
-[![The collision rate for Fords compared to Toyotas for drivers aged 30 to 50 
+[![The collision rate for Fords compared to Toyotas for drivers aged 30 to 50
 before and after the COVID-19 stay at home order in California, with mean
 normalized from January 2019 through June
 2019.][f_vs_t_norm_age]][f_vs_t_norm_age]

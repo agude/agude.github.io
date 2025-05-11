@@ -70,8 +70,33 @@ words at about the same age. The advantage is small though; the average
 difference in time to first 50 words between the first and second child is
 only 1 month.
 
-[^pine]: Pine, J. M., _Variation in vocabulary development as a function of birth order._ Child Development, 66(1), 272–281. (1995). doi:[10.2307/1131205](https://doi.org/10.2307/1131205)
-[^berglund]: Berglund, E., Eriksson, M., and Westerlund, M. _Communicative skills in relation to gender, birth order, childcare and socioeconomic status in 18‐month‐old children._ Scandinavian Journal of Psychology, 46: 485-491. (2005). doi:[10.1111/j.1467-9450.2005.00480.x](https://doi.org/10.1111/j.1467-9450.2005.00480.x)
+[^pine]:
+    {% citation
+      author_last="Pine"
+      author_first="J. M."
+      work_title="Variation in vocabulary development as a function of birth order"
+      container_title="Child Development"
+      volume="66"
+      number="1"
+      first_page="272"
+      last_page="281"
+      date="1995"
+      doi="10.2307/1131205"
+      url="https://doi.org/10.2307/1131205"
+    %}
+
+[^berglund]:
+    {% citation
+      author_last="E. Berglund, M. Eriksson, and M. Westerlund"
+      work_title="Communicative skills in relation to gender, birth order, childcare and socioeconomic status in 18‐month‐old children"
+      container_title="Scandinavian Journal of Psychology"
+      volume="46"
+      first_page="485"
+      last_page="491"
+      date="2005"
+      doi="10.1111/j.1467-9450.2005.00480.x"
+      url="https://doi.org/10.1111/j.1467-9450.2005.00480.x"
+    %}
 
 Theo and Cory do not follow this trend. Cory was 3 to 4 months faster than
 Theo to hit language development milestones in Cantonese, English, and

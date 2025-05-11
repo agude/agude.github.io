@@ -56,11 +56,11 @@ fine but not great book.
     > understands them. For the author, the rule is to make as few such slips
     > as he possibly can.
 
-    {% include cite.html
+    {% citation
       author_first="Hal"
       author_last="Clement"
-      title="Whirligig World"
-      publication_title="Astounding Science Fiction"
+      work_title="Whirligig World"
+      container_title="Astounding Science Fiction"
       editor="John W. Campbell, Jr."
       volume="51"
       number="4"

@@ -119,10 +119,10 @@ followed it:
     > with awkward future slang that makes you cringe every time someone says
     > it.
 
-    {% include cite.html
+    {% citation
       author_handle="egypturnash"
-      title="Comment on 'Stand on Zanzibar'"
-      publication_title="Reddit, r/PrintSF"
+      work_title="Comment on 'Stand on Zanzibar'"
+      container_title="Reddit, r/PrintSF"
       date="2019-02-24"
       url="https://www.reddit.com/r/printSF/comments/au154p/stand_on_zanzibar/eh52zha/"
     %}
