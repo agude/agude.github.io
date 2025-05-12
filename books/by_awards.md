@@ -64,14 +64,7 @@ they've received.
 
     {% for book in award_books %}
       {% if book.title == original_title %}
-        {% include book_card.html
-          url=book.url
-          image=book.image
-          title=book.title
-          author=book.book_author
-          rating=book.rating
-          description=book.excerpt
-        %}
+        {% render_book_card book %}
         {% break %}
       {% endif %}
     {% endfor %}

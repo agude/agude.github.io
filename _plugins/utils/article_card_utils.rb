@@ -20,18 +20,17 @@ module ArticleCardUtils
     return base_data[:log_output] if base_data[:log_output] && !base_data[:log_output].empty? && base_data[:site].nil?
     # If item_object was invalid, but site was found, log_output will contain the message.
     # We might still want to return that log_output if data is nil.
-    return base_data[:log_output] if base_data[:data].nil?
+    return base_data[:log_output] if base_data[:data_source_for_keys].nil?
 
-
-    # --- Prepare Article-Specific Data ---
-    item_data_hash = base_data[:data] # This is post_object.data
+    data_accessor = base_data[:data_source_for_keys] # This is the post_object (Drop or Document)
 
     prepared_title = LiquidUtils._prepare_display_title(base_data[:raw_title])
     title_html = "<strong>#{prepared_title}</strong>"
 
-    image_alt = item_data_hash['image_alt'] || "Article header image, used for decoration."
+    image_alt = data_accessor['image_alt'] || "Article header image, used for decoration."
 
-    description_html = CardDataExtractorUtils.extract_description_html(item_data_hash, type: :article)
+    # Pass the same data_accessor (which is the item_object/Drop) to extract_description_html
+    description_html = CardDataExtractorUtils.extract_description_html(data_accessor, type: :article)
 
     # --- Assemble card_data for the generic renderer ---
     card_data_hash = {

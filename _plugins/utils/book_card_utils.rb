@@ -6,7 +6,6 @@ require_relative './card_data_extractor_utils'
 require_relative './card_renderer_utils'
 require_relative './author_link_util'
 require_relative './rating_utils'
-# UrlUtils is used by CardDataExtractorUtils
 
 module BookCardUtils
   def self.render(book_object, context)
@@ -19,30 +18,45 @@ module BookCardUtils
     )
 
     return base_data[:log_output] if base_data[:log_output] && !base_data[:log_output].empty? && base_data[:site].nil?
-    return base_data[:log_output] if base_data[:data].nil?
+    return base_data[:log_output] if base_data[:data_source_for_keys].nil?
 
-    # --- Prepare Book-Specific Data ---
-    item_data_hash = base_data[:data] # This is book_object.data
+    data_accessor = base_data[:data_source_for_keys] # This is the book_object (Drop or Document)
 
     prepared_title = LiquidUtils._prepare_display_title(base_data[:raw_title])
     title_html = "<strong><cite class=\"book-title\">#{prepared_title}</cite></strong>"
-
-    # Alt text for book covers is specific, using the raw (un-typographied) title
     image_alt = "Book cover of #{base_data[:raw_title]}."
 
-    description_html = CardDataExtractorUtils.extract_description_html(item_data_hash, type: :book)
+    # Pass the same data_accessor to extract_description_html
+    description_html = CardDataExtractorUtils.extract_description_html(data_accessor, type: :book)
 
-    # Extra elements for book card
     extra_elements = []
-    if item_data_hash['book_author'] && !item_data_hash['book_author'].to_s.strip.empty?
-      author_html = AuthorLinkUtils.render_author_link(item_data_hash['book_author'], context)
-      # Ensure proper spacing and newlines for clean HTML output when joined by CardRendererUtils
+    if data_accessor['book_author'] && !data_accessor['book_author'].to_s.strip.empty?
+      author_html = AuthorLinkUtils.render_author_link(data_accessor['book_author'], context)
       extra_elements << "    <span class=\"by-author\"> by #{author_html}</span>\n"
     end
-    if item_data_hash['rating']
-      # Assuming RatingUtils.render_rating_stars returns a self-contained HTML block
-      rating_html = RatingUtils.render_rating_stars(item_data_hash['rating'], 'div')
-      extra_elements << "    #{rating_html}\n"
+    if data_accessor['rating'] # rating can be nil, 0, or a valid number
+      rating_value = data_accessor['rating']
+      # RatingUtils.render_rating_stars handles nil and invalid ratings (throws error for invalid, returns "" for nil)
+      # We should catch potential ArgumentError from render_rating_stars if rating is invalid format/range
+      begin
+        rating_html = RatingUtils.render_rating_stars(rating_value, 'div')
+        extra_elements << "    #{rating_html}\n" if rating_html && !rating_html.empty?
+      rescue ArgumentError => e
+        # Log this specific error if rating is bad, but don't stop card rendering
+        log_msg = PluginLoggerUtils.log_liquid_failure(
+          context: context,
+          tag_type: "BOOK_CARD_RATING_ERROR",
+          reason: "Invalid rating value for book: #{e.message}",
+          identifiers: { title: base_data[:raw_title], rating_input: rating_value.inspect }
+        )
+        # How to best incorporate this log_msg? Prepend to output or add to extra_elements?
+        # For now, let's assume it's logged to console/HTML comment by PluginLoggerUtils
+        # and we don't add a broken rating to the card.
+        # The `log_prefix` below will catch logs from extract_base_data.
+        # This is a new log source.
+        # Let's prepend it to the output if it occurs.
+        (base_data[:log_output] ||= "") << log_msg
+      end
     end
 
     # --- Assemble card_data for the generic renderer ---
