@@ -5,6 +5,7 @@ require 'uri'
 require 'cgi'
 require 'strscan'
 require_relative 'liquid_utils'
+require_relative 'utils/plugin_logger_utils'
 
 module Jekyll
   class ArticleCardLookupTag < Liquid::Tag
@@ -38,7 +39,7 @@ module Jekyll
       target_url_raw = LiquidUtils.resolve_value(@url_markup, context).to_s.strip
       unless target_url_raw && !target_url_raw.empty?
         # Log failure but return empty string, consistent with previous behavior
-        LiquidUtils.log_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "URL markup resolved to empty", identifiers: { Markup: @url_markup || @raw_markup })
+        PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "URL markup resolved to empty", identifiers: { Markup: @url_markup || @raw_markup })
         return ""
       end
       # Ensure URL starts with a slash for consistent lookup
@@ -54,13 +55,13 @@ module Jekyll
         # Fallback for potential older structures or custom setups
         found_post = posts_iterable.find { |post| post.respond_to?(:url) && post.url == target_url }
       else
-        LiquidUtils.log_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Cannot iterate site.posts", identifiers: { URL: target_url, Type: posts_iterable.class.name })
+        PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Cannot iterate site.posts", identifiers: { URL: target_url, Type: posts_iterable.class.name })
         return ""
       end
       # --- End Post Lookup ---
 
       unless found_post
-        LiquidUtils.log_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Could not find post", identifiers: { URL: target_url })
+        PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Could not find post", identifiers: { URL: target_url })
         return ""
       end
 
@@ -70,7 +71,7 @@ module Jekyll
         LiquidUtils.render_article_card(found_post, context)
       rescue => e
         # Catch potential errors within the utility function itself
-        LiquidUtils.log_failure(
+        PluginLoggerUtils.log_liquid_failure(
             context: context,
             tag_type: "ARTICLE_CARD_LOOKUP",
             reason: "Error calling render_article_card utility",

@@ -286,7 +286,7 @@ class TestBookListUtils < Minitest::Test
     log_msg_html = ""
     # Stub logger for the call to LiquidUtils.log_failure
     Jekyll.stub :logger, @silent_logger_stub do
-      log_msg_html = LiquidUtils.log_failure(context: @context, tag_type: "BOOK_LIST_TEST_LOG", reason: "Test log", identifiers: {})
+      log_msg_html = PluginLoggerUtils.log_liquid_failure(context: @context, tag_type: "BOOK_LIST_TEST_LOG", reason: "Test log", identifiers: {})
     end
 
     data = {

@@ -4,6 +4,7 @@ require 'liquid'
 require 'cgi'       # For HTML escaping
 require 'strscan'   # For flexible argument parsing
 require_relative 'liquid_utils'
+require_relative 'utils/plugin_logger_utils'
 
 module Jekyll
   class BookCardLookupTag < Liquid::Tag
@@ -56,7 +57,7 @@ module Jekyll
       site = context.registers[:site]
       target_title = LiquidUtils.resolve_value(@title_markup, context).to_s.gsub(/\s+/, ' ').strip
       unless target_title && !target_title.empty?
-        LiquidUtils.log_failure(context: context, tag_type: "BOOK_CARD_LOOKUP", reason: "Title markup resolved to empty", identifiers: { Markup: @title_markup || @raw_markup })
+        PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "BOOK_CARD_LOOKUP", reason: "Title markup resolved to empty", identifiers: { Markup: @title_markup || @raw_markup })
         return ""
       end
       target_title_downcased = target_title.downcase
@@ -70,7 +71,7 @@ module Jekyll
       end
 
       unless found_book
-        LiquidUtils.log_failure(context: context, tag_type: "BOOK_CARD_LOOKUP", reason: "Could not find book", identifiers: { Title: target_title })
+        PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "BOOK_CARD_LOOKUP", reason: "Could not find book", identifiers: { Title: target_title })
         return ""
       end
 
@@ -90,7 +91,7 @@ module Jekyll
         end # context.stack automatically pops the scope
 
       rescue => e
-        LiquidUtils.log_failure(
+        PluginLoggerUtils.log_liquid_failure(
             context: context,
             tag_type: "BOOK_CARD_LOOKUP",
             reason: "Error loading or rendering include '#{@include_template_path}'",

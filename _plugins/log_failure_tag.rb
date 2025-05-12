@@ -3,6 +3,7 @@ require 'jekyll'
 require 'liquid'
 require 'strscan'
 require_relative 'liquid_utils'
+require_relative 'utils/plugin_logger_utils'
 
 module Jekyll
   # Liquid Tag to call the centralized LiquidUtils.log_failure method.
@@ -63,7 +64,7 @@ module Jekyll
       end
 
       # Call the central logging utility
-      LiquidUtils.log_failure(
+      PluginLoggerUtils.log_liquid_failure(
         context: context,
         tag_type: log_type,
         reason: log_reason,

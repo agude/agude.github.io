@@ -50,7 +50,7 @@ module LiquidUtils
 
     # Check if it's a quoted string (single or double)
     if (stripped_markup.start_with?('"') && stripped_markup.end_with?('"')) || \
-       (stripped_markup.start_with?("'") && stripped_markup.end_with?("'"))
+        (stripped_markup.start_with?("'") && stripped_markup.end_with?("'"))
       # It's a quoted literal. Return the content inside the quotes.
       stripped_markup[1..-2]
     else
@@ -59,80 +59,6 @@ module LiquidUtils
       # for failed lookups or if the variable's actual value is nil.
       context[stripped_markup]
     end
-  end
-
-
-  # Logs a failure message based on environment defaults and specific tag type configuration.
-  # Environment Defaults:
-  #   - Non-Production: Console=true, HTML=true
-  #   - Production:     Console=true, HTML=false
-  # Configuration (_config.yml -> plugin_logging -> TAG_TYPE: false) can disable
-  # all logging for a specific tag type.
-  #
-  # @param context [Liquid::Context] The current Liquid context.
-  # @param tag_type [String] The type of tag reporting the failure (e.g., "BOOK_LINK").
-  # @param reason [String] The reason for the failure.
-  # @param identifiers [Hash] A hash of key-value pairs identifying the item.
-  # @return [String] HTML comment string (if HTML logging is active) or empty string.
-  def self.log_failure(context:, tag_type:, reason:, identifiers: {})
-    # Ensure context and site are available
-    unless context && (site = context.registers[:site]) # <--- Check fails
-      # Use Jekyll logger if available, otherwise puts
-      log_msg = "[PLUGIN LOG ERROR] Context or Site unavailable for logging."
-      if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:warn)
-        Jekyll.logger.warn(log_msg)
-      else
-        puts log_msg # Uses puts ONLY if logger/warn isn't available
-      end
-      return "" # Cannot proceed
-    end
-
-    environment = site.config['environment'] || 'development'
-
-    # --- Determine if logging is enabled for this specific tag type ---
-    # Default to enabled (true) unless explicitly set to false in config.
-    # Use .to_s on tag_type just in case something non-stringy gets passed.
-    log_setting_for_tag = site.config.dig('plugin_logging', tag_type.to_s)
-    logging_enabled_for_tag = (log_setting_for_tag != false) # Enabled if true, nil, or missing key
-
-    # --- Determine base logging destinations based on environment ---
-    is_production = (environment == 'production')
-    base_log_console = true # Console logging is on by default in all environments
-    base_log_html = !is_production # HTML logging is on by default ONLY if not production
-
-    # --- Determine final logging actions ---
-    # Logging happens only if enabled for the tag AND enabled by environment default
-    do_console_log = logging_enabled_for_tag && base_log_console
-    do_html_log = logging_enabled_for_tag && base_log_html
-
-    # --- Perform Logging ---
-    html_output = "" # Initialize HTML output
-
-    # Only proceed if any logging destination is active
-    if do_console_log || do_html_log
-      # Prepare message content (only once if needed)
-      page_path = context.registers[:page] ? context.registers[:page]['path'] : 'unknown'
-      identifier_string = identifiers.map { |key, value| "#{key}='#{CGI.escapeHTML(value.to_s)}'" }.join(' ')
-      log_message_base = "#{tag_type}_FAILURE: Reason='#{reason}' #{identifier_string} SourcePage='#{page_path}'"
-
-      # Log to Console if enabled
-      if do_console_log
-        # Use Jekyll's logger for better integration if available, otherwise puts
-        if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:warn)
-           Jekyll.logger.warn("[Plugin]", log_message_base)
-        else
-           puts "[PLUGIN LOG] #{log_message_base}" # Fallback
-        end
-      end
-
-      # Prepare HTML Comment if enabled
-      if do_html_log
-        html_output = "<!-- #{log_message_base} -->"
-      end
-    end
-    # --- End Logging ---
-
-    return html_output # Return the HTML comment (or empty string)
   end
 
 
@@ -149,9 +75,8 @@ module LiquidUtils
     # Do this before typography to avoid escaping entities we create.
     # This will turn literal <br> into <br> and <Tags> into <Tags>
     escaped_text = text.gsub('&', '&amp;')
-                       .gsub('<', '&lt;')
-                       .gsub('>', '&gt;')
-                       # Leave all quote types alone.
+      .gsub('<', '&lt;')
+      .gsub('>', '&gt;')
 
     # 2. Manual Typographic Transformations (Order matters for quotes)
     escaped_text.gsub!(/---/, '—')    # Em dash
@@ -181,7 +106,7 @@ module LiquidUtils
   end
 
 
- # --- Render Article Card Utility ---
+  # --- Render Article Card Utility ---
   # Applies typographic transformations and handles <br> tags safely via helper.
   def self.render_article_card(post_object, context)
     unless post_object && post_object.respond_to?(:data) && post_object.respond_to?(:url) && context && (site = context.registers[:site])
@@ -219,9 +144,9 @@ module LiquidUtils
 
     image_url = nil
     if image_path && !image_path.empty?
-        image_path_str = image_path.to_s
-        image_path_str = "/#{image_path_str}" if !baseurl.empty? && !image_path_str.start_with?('/')
-        image_url = "#{baseurl}#{image_path_str}"
+      image_path_str = image_path.to_s
+      image_path_str = "/#{image_path_str}" if !baseurl.empty? && !image_path_str.start_with?('/')
+      image_url = "#{baseurl}#{image_path_str}"
     end
 
     # Build HTML structure
@@ -284,10 +209,10 @@ module LiquidUtils
 
     image_url = nil
     if image_path && !image_path.empty?
-        # Ensure image_path starts with a slash if baseurl is present and path doesn't already have it
-        image_path_str = image_path.to_s
-        image_path_str = "/#{image_path_str}" if !baseurl.empty? && !image_path_str.start_with?('/')
-        image_url = "#{baseurl}#{image_path_str}"
+      # Ensure image_path starts with a slash if baseurl is present and path doesn't already have it
+      image_path_str = image_path.to_s
+      image_path_str = "/#{image_path_str}" if !baseurl.empty? && !image_path_str.start_with?('/')
+      image_url = "#{baseurl}#{image_path_str}"
     end
 
 
@@ -320,7 +245,7 @@ module LiquidUtils
 
     # Rating (optional) - Use the helper function
     if rating
-       card_html << "    " << RatingUtils.render_rating_stars(rating, 'div') << "\n"
+      card_html << "    " << RatingUtils.render_rating_stars(rating, 'div') << "\n"
     end
 
     # Description (optional)

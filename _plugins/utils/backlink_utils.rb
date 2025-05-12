@@ -2,6 +2,7 @@
 require 'jekyll'
 require 'cgi'
 require_relative '../liquid_utils' # For normalize_title, log_failure
+require_relative 'plugin_logger_utils'
 
 module BacklinkUtils
 
@@ -15,7 +16,7 @@ module BacklinkUtils
   def self.find_book_backlinks(current_page, site, context)
     # --- Basic Sanity Checks ---
     unless site && current_page && site.collections.key?('books') && current_page['url'] && current_page['title']
-      LiquidUtils.log_failure(
+      PluginLoggerUtils.log_liquid_failure(
         context: context,
         tag_type: "BACKLINK_UTIL",
         reason: "Missing site, current_page, books collection, URL, or title for backlink search",

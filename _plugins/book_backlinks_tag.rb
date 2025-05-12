@@ -5,6 +5,7 @@ require 'cgi'
 require_relative 'liquid_utils'       # Still need for log_failure (initial checks)
 require_relative 'utils/book_link_util' # Need for rendering the links
 require_relative 'utils/backlink_utils' # Require the backlink util
+require_relative 'utils/plugin_logger_utils'
 
 module Jekyll
   class BookBacklinksTag < Liquid::Tag
@@ -22,7 +23,7 @@ module Jekyll
       # --- Basic Sanity Checks ---
       unless site && page && site.collections.key?('books') && page['url'] && page['title']
         # Use LiquidUtils to log failure (returns HTML comment or empty string)
-        return LiquidUtils.log_failure(
+        return PluginLoggerUtils.log_liquid_failure(
           context: context,
           tag_type: "BOOK_BACKLINKS",
           reason: "Tag prerequisites missing: context, collection, URL, or title",

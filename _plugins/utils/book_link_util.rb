@@ -2,6 +2,7 @@
 require 'jekyll'
 require_relative '../liquid_utils' # For normalize_title, log_failure, _prepare_display_title
 require_relative './link_helper_utils' # For shared helpers
+require_relative 'plugin_logger_utils'
 
 module BookLinkUtils
 
@@ -38,7 +39,7 @@ module BookLinkUtils
     # 1. Initial Setup & Validation
     unless context && (site = context.registers[:site])
       log_msg = "[PLUGIN BOOK_LINK_UTIL ERROR] Context or Site unavailable."
-      defined?(LiquidUtils) ? LiquidUtils.log_failure(context: nil, tag_type: "BOOK_LINK_UTIL_ERROR", reason: log_msg, identifiers: {}) : puts(log_msg)
+      defined?(LiquidUtils) ? PluginLoggerUtils.log_liquid_failure(context: nil, tag_type: "BOOK_LINK_UTIL_ERROR", reason: log_msg, identifiers: {}) : puts(log_msg)
       return book_title_raw.to_s # Minimal fallback
     end
 
@@ -47,7 +48,7 @@ module BookLinkUtils
     normalized_lookup_title = LiquidUtils.normalize_title(book_title_input)
 
     if normalized_lookup_title.empty?
-      return LiquidUtils.log_failure(
+      return PluginLoggerUtils.log_liquid_failure(
         context: context, tag_type: "RENDER_BOOK_LINK",
         reason: "Input title resolved to empty after normalization",
         identifiers: { TitleInput: book_title_raw || 'nil' }
@@ -108,7 +109,7 @@ module BookLinkUtils
 
   # Logs the failure when the 'books' collection is missing.
   def self._log_book_collection_missing(context, input_title)
-    LiquidUtils.log_failure(
+    PluginLoggerUtils.log_liquid_failure(
       context: context, tag_type: "RENDER_BOOK_LINK",
       reason: "Books collection not found in site configuration",
       identifiers: { Title: input_title.strip }
@@ -117,7 +118,7 @@ module BookLinkUtils
 
   # Logs the failure when the book is not found within the collection.
   def self._log_book_not_found(context, input_title)
-    LiquidUtils.log_failure(
+    PluginLoggerUtils.log_liquid_failure(
       context: context, tag_type: "RENDER_BOOK_LINK",
       reason: "Could not find book page during link rendering",
       identifiers: { Title: input_title.strip }
