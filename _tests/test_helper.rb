@@ -13,6 +13,7 @@ $LOAD_PATH.unshift(File.expand_path('../_plugins', __dir__))
 require 'utils/author_link_util'
 require 'utils/backlink_utils'
 require 'utils/book_link_util'
+require 'utils/book_list_utils'
 require 'utils/citation_utils.rb'
 require 'utils/json_ld_generators/author_profile_generator'
 require 'utils/json_ld_generators/blog_posting_generator'
@@ -24,6 +25,7 @@ require 'utils/rating_utils'
 require 'utils/series_link_util'
 require 'utils/text_processing_utils'
 require 'utils/url_utils'
+
 
 # --- Mock Objects ---
 
@@ -100,12 +102,22 @@ end
 
 def create_site(config_overrides = {}, collections_data = {}, pages_data = [], posts_data = [])
   test_plugin_logging_config = {
-    'ARTICLE_CARD_LOOKUP' => false, 'AUTHOR_LINK' => false, 'BACKLINK_UTIL' => false,
-    'BOOK_BACKLINKS' => false, 'BOOK_CARD_LOOKUP' => false, 'DISPLAY_RANKED_BOOKS' => false,
-    'RELATED_BOOKS' => false, 'RELATED_POSTS' => false, 'RENDER_AUTHOR_LINK' => false,
-    'RENDER_BOOK_LINK' => false, 'RENDER_SERIES_LINK' => false, 'SERIES_LINK' => false,
-    'UNITS_WARNING' => false, 'ANY_TAG' => false, 'JSON_LD_REVIEW' => false,
-    # Add other JSON_LD types if they use logging
+    'ANY_TAG' => false,
+    'ARTICLE_CARD_LOOKUP' => false,
+    'AUTHOR_LINK' => false,
+    'BACKLINK_UTIL' => false,
+    'BOOK_BACKLINKS' => false,
+    'BOOK_CARD_LOOKUP' => false,
+    'BOOK_LIST_SERIES_DISPLAY' => false,
+    'DISPLAY_RANKED_BOOKS' => false,
+    'JSON_LD_REVIEW' => false,
+    'RELATED_BOOKS' => false,
+    'RELATED_POSTS' => false,
+    'RENDER_AUTHOR_LINK' => false,
+    'RENDER_BOOK_LINK' => false,
+    'RENDER_SERIES_LINK' => false,
+    'SERIES_LINK' => false,
+    'UNITS_WARNING' => false,
   }
 
   base_config = {
