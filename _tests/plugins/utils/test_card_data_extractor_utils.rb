@@ -1,6 +1,5 @@
 # _tests/plugins/utils/test_card_data_extractor_utils.rb
 require_relative '../../test_helper'
-# CardDataExtractorUtils will be loaded by test_helper.
 
 class TestCardDataExtractorUtils < Minitest::Test
   def setup
@@ -31,7 +30,9 @@ class TestCardDataExtractorUtils < Minitest::Test
 
     assert_equal "", result[:log_output], "Expected no log output for valid item"
     assert_equal @site_no_baseurl, result[:site]
-    assert_equal doc.data, result[:data]
+    # If item is Jekyll::Document, data_source_for_keys is doc.data
+    assert_equal doc.data, result[:data_source_for_keys], "data_source_for_keys should be doc.data"
+    assert_equal doc.data, result[:data_for_description], "data_for_description should be doc.data"
     assert_equal 'Test Post', result[:raw_title]
     assert_equal 'http://example.com/test-post.html', result[:absolute_url]
     assert_equal 'http://example.com/images/test.jpg', result[:absolute_image_url]
@@ -52,6 +53,8 @@ class TestCardDataExtractorUtils < Minitest::Test
     assert_equal 'Blog Post', result[:raw_title]
     assert_equal 'http://example.com/blog/my-article/', result[:absolute_url]
     assert_equal 'http://example.com/blog/assets/image.png', result[:absolute_image_url]
+    assert_equal doc.data, result[:data_source_for_keys]
+    assert_equal doc.data, result[:data_for_description]
   end
 
   def test_extract_base_data_item_no_title_uses_default
@@ -117,17 +120,19 @@ class TestCardDataExtractorUtils < Minitest::Test
 
     # PluginLoggerUtils called by extract_base_data will get a valid context, so it produces an HTML comment
     refute_empty result[:log_output], "Expected HTML log comment from extract_base_data"
-    assert_match %r{<!-- BAD_ITEM_CARD_FAILURE: Reason='Invalid item_object provided.*\(must respond to :data and :url\).*'.* -->}, result[:log_output]
-    assert_nil result[:data]
+    # Corrected Regex to match the more specific error message from the revised CardDataExtractorUtils
+    assert_match %r{<!-- BAD_ITEM_CARD_FAILURE: Reason='Invalid item_object: Expected a Jekyll Document/Page or Drop with \.url and data access capabilities\.' item_class='String'.* -->}, result[:log_output]
+    assert_nil result[:data_source_for_keys]
     assert_nil result[:raw_title]
     # Site object IS available from the context and returned by extract_base_data in this case
-    assert_equal @site_no_baseurl, result[:site] # Site object IS available from the context
+    assert_equal @site_no_baseurl, result[:site]
     assert_empty stderr_str # No STDERR from PluginLoggerUtils because context was valid for it
   end
 
   def test_extract_base_data_invalid_item_object_does_not_respond_to_url
     @site_no_baseurl.config['plugin_logging']['BAD_ITEM_CARD_NO_URL'] = true
-    item_no_url = Struct.new(:data).new({'title' => 'Some Title'}) # Responds to data, not url
+    # This mock Struct responds to :data (returning a hash) but not to :url
+    item_no_url = Struct.new(:data).new({'title' => 'Some Title'})
     result = nil
     _stdout_str, stderr_str = capture_io do
       Jekyll.stub :logger, @silent_logger_stub do
@@ -136,8 +141,8 @@ class TestCardDataExtractorUtils < Minitest::Test
     end
 
     refute_empty result[:log_output]
-    assert_match %r{<!-- BAD_ITEM_CARD_NO_URL_FAILURE: Reason='Invalid item_object provided.*\(must respond to :data and :url\).*'.* -->}, result[:log_output]
-    assert_equal @site_no_baseurl, result[:site] # Site is still passed through
+    assert_match %r{<!-- BAD_ITEM_CARD_NO_URL_FAILURE: Reason='Invalid item_object: Expected a Jekyll Document/Page or Drop with \.url and data access capabilities\.' item_class=''.* -->}, result[:log_output]
+    assert_equal @site_no_baseurl, result[:site]
     assert_empty stderr_str
   end
 
@@ -151,8 +156,8 @@ class TestCardDataExtractorUtils < Minitest::Test
       end
     end
     refute_empty result[:log_output]
-    assert_match %r{<!-- NIL_ITEM_CARD_FAILURE: Reason='Invalid item_object provided.*'.* -->}, result[:log_output]
-    assert_equal @site_no_baseurl, result[:site] # Site is still passed through
+    assert_match %r{<!-- NIL_ITEM_CARD_FAILURE: Reason='Invalid item_object: Expected a Jekyll Document/Page or Drop with \.url and data access capabilities\.' item_class='NilClass'.* -->}, result[:log_output]
+    assert_equal @site_no_baseurl, result[:site]
     assert_empty stderr_str
   end
 
@@ -204,7 +209,7 @@ class TestCardDataExtractorUtils < Minitest::Test
     # extract_base_data's log_output_accumulator gets this "".
     assert_equal "", result_nil_context[:log_output]
     assert_nil result_nil_context[:site]
-    assert_nil result_nil_context[:data]
+    assert_nil result_nil_context[:data_source_for_keys]
     # Check STDERR for PluginLoggerUtils's own error message
     assert_match(/\[PLUGIN LOGGER ERROR\] Context or Site unavailable for logging. Original Call: CTX_TEST/, stderr_str)
   end
@@ -251,7 +256,7 @@ class TestCardDataExtractorUtils < Minitest::Test
 
   def test_extract_description_html_article_priority
     data_desc_only = { 'description' => 'Article Description.' }
-    data_excerpt_only = { 'excerpt' => Struct.new(:output).new('<p>Article Excerpt Output</p>') } # Corrected mock
+    data_excerpt_only = { 'excerpt' => Struct.new(:output).new('<p>Article Excerpt Output</p>') }
     data_both = { 'description' => 'Article Description Wins.', 'excerpt' => Struct.new(:output).new('<p>Excerpt Ignored</p>') }
     data_desc_empty_fallback_excerpt = { 'description' => '  ', 'excerpt' => Struct.new(:output).new('Fallback Excerpt.') }
     data_neither = {}
