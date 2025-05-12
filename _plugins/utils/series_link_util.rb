@@ -3,6 +3,7 @@ require 'jekyll'
 require 'cgi'
 require_relative '../liquid_utils' # For normalize_title, log_failure, _prepare_display_title (if needed)
 require_relative './link_helper_utils' # For shared helpers
+require_relative 'plugin_logger_utils'
 
 module SeriesLinkUtils
 
@@ -19,7 +20,7 @@ module SeriesLinkUtils
     # 1. Initial Setup & Validation
     unless context && (site = context.registers[:site])
       log_msg = "[PLUGIN SERIES_LINK_UTIL ERROR] Context or Site unavailable."
-      defined?(LiquidUtils) ? LiquidUtils.log_failure(context: nil, tag_type: "SERIES_LINK_UTIL_ERROR", reason: log_msg, identifiers: {}) : puts(log_msg)
+      defined?(LiquidUtils) ? PluginLoggerUtils.log_liquid_failure(context: nil, tag_type: "SERIES_LINK_UTIL_ERROR", reason: log_msg, identifiers: {}) : puts(log_msg)
       return series_title_raw.to_s # Minimal fallback
     end
 
@@ -29,7 +30,7 @@ module SeriesLinkUtils
     normalized_lookup_title = LiquidUtils.normalize_title(series_title_input)
 
     if normalized_lookup_title.empty?
-      return LiquidUtils.log_failure(
+      return PluginLoggerUtils.log_liquid_failure(
         context: context, tag_type: "RENDER_SERIES_LINK",
         reason: "Input title resolved to empty after normalization",
         identifiers: { TitleInput: series_title_raw || 'nil' }
@@ -80,7 +81,7 @@ module SeriesLinkUtils
 
   # Logs the failure when the series page is not found.
   def self._log_series_not_found(context, input_title)
-    LiquidUtils.log_failure(
+    PluginLoggerUtils.log_liquid_failure(
       context: context,
       tag_type: "RENDER_SERIES_LINK",
       reason: "Could not find series page during link rendering",

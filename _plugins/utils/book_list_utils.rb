@@ -2,6 +2,7 @@
 require_relative '../liquid_utils' # For normalize_title, log_failure, render_book_card
 require_relative './series_link_util' # For rendering series links in HTML helper
 require_relative './url_utils' # Dependency for render_book_card (via LiquidUtils)
+require_relative 'plugin_logger_utils'
 
 module BookListUtils
 
@@ -19,7 +20,7 @@ module BookListUtils
     end
 
     if books_in_series.empty?
-      log_output_accumulator << LiquidUtils.log_failure(
+      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
                                                         context: context,
                                                         tag_type: "BOOK_LIST_SERIES_DISPLAY", # Specific to this operation
                                                         reason: "No books found for series or series name was empty/nil",
@@ -39,7 +40,7 @@ module BookListUtils
       normalized_author_filter = author_name_filter.strip.downcase
       author_books = all_published.select { |book| book.data['book_author']&.strip&.downcase == normalized_author_filter }
     else
-      log_output_accumulator << LiquidUtils.log_failure(
+      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
         tag_type: "BOOK_LIST_AUTHOR_DISPLAY",
         reason: "Author name filter was empty or nil when fetching data.",

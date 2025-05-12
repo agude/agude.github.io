@@ -3,7 +3,8 @@ require 'jekyll'
 require 'liquid'
 require 'cgi'
 require_relative 'liquid_utils'
-require_relative 'utils/rating_utils' # Add this
+require_relative 'utils/rating_utils'
+require_relative 'utils/plugin_logger_utils'
 
 module Jekyll
   # Liquid Tag to validate (in non-prod) and render a list of books
@@ -113,7 +114,7 @@ module Jekyll
         # Ensure we have the book object for rendering (even in production)
         unless book_object
           # This should only happen in production if validation is skipped and list is bad
-          output << LiquidUtils.log_failure(
+          output << PluginLoggerUtils.log_liquid_failure(
             context: context, tag_type: "DISPLAY_RANKED_BOOKS",
             reason: "Book title from ranked list not found in lookup map (Production Mode)",
             identifiers: { Title: current_title_raw }
@@ -127,7 +128,7 @@ module Jekyll
           begin
             book_rating = Integer(book_rating_raw)
           rescue ArgumentError, TypeError
-            output << LiquidUtils.log_failure(
+            output << PluginLoggerUtils.log_liquid_failure(
               context: context, tag_type: "DISPLAY_RANKED_BOOKS",
               reason: "Book has invalid non-integer rating (Production Mode)",
               identifiers: { Title: current_title_raw, Rating: book_rating_raw.inspect }

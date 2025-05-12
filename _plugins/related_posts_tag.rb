@@ -3,6 +3,7 @@ require 'jekyll'
 require 'liquid'
 require 'cgi'
 require_relative 'liquid_utils'
+require_relative 'utils/plugin_logger_utils'
 
 module Jekyll
   class RelatedPostsTag < Liquid::Tag
@@ -19,7 +20,7 @@ module Jekyll
 
       # --- Basic Sanity Checks ---
       unless site && page && site.posts && page['url']
-        return LiquidUtils.log_failure(
+        return PluginLoggerUtils.log_liquid_failure(
           context: context, tag_type: "RELATED_POSTS",
           reason: "Missing context, site.posts, or page URL",
           identifiers: { PageURL: page ? page['url'] : 'N/A' }
