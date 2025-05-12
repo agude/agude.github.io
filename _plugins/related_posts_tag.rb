@@ -4,6 +4,7 @@ require 'liquid'
 require 'cgi'
 require_relative 'liquid_utils'
 require_relative 'utils/plugin_logger_utils'
+require_relative 'utils/article_card_utils'
 
 module Jekyll
   class RelatedPostsTag < Liquid::Tag
@@ -86,7 +87,7 @@ module Jekyll
 
       final_posts.each do |post|
         # Use the new utility function to render the article card
-        output << LiquidUtils.render_article_card(post, context) << "\n"
+        output << ArticleCardUtils.render(post, context) << "\n"
       end
 
       output << "  </div>\n"

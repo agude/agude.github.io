@@ -5,6 +5,7 @@ require 'cgi'
 require_relative 'liquid_utils'
 require_relative 'utils/rating_utils'
 require_relative 'utils/plugin_logger_utils'
+require_relative 'utils/book_card_utils'
 
 module Jekyll
   # Liquid Tag to validate (in non-prod) and render a list of books
@@ -158,7 +159,7 @@ module Jekyll
         end
 
         # Render Book Card
-        output << LiquidUtils.render_book_card(book_object, context) << "\n"
+        output << BookCardUtils.render(book_object, context) << "\n"
         # --- End Rendering Step ---
 
       end # End loop through ranked_list

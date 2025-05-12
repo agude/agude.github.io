@@ -3,6 +3,7 @@ require 'jekyll'
 require 'liquid'
 require_relative 'liquid_utils'
 require_relative 'utils/book_list_utils'
+require_relative 'utils/book_card_utils'
 
 module Jekyll
   class DisplayBooksForSeriesTag < Liquid::Tag
@@ -50,7 +51,7 @@ module Jekyll
       # If books are present, render them
       output << "<div class=\"card-grid\">\n"
       data[:books].each do |book|
-        output << LiquidUtils.render_book_card(book, context) << "\n"
+        output << BookCardUtils.render(book, context) << "\n"
       end
       output << "</div>\n"
       output

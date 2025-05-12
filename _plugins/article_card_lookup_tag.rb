@@ -6,6 +6,7 @@ require 'cgi'
 require 'strscan'
 require_relative 'liquid_utils'
 require_relative 'utils/plugin_logger_utils'
+require_relative 'utils/article_card_utils'
 
 module Jekyll
   class ArticleCardLookupTag < Liquid::Tag
@@ -20,16 +21,16 @@ module Jekyll
       if scanner.scan(/url\s*=\s*(#{QuotedFragment}|\S+)/)
           @url_markup = scanner[1]
       else
-          if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
-             @url_markup = scanner.matched
-          end
+        if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
+          @url_markup = scanner.matched
+        end
       end
       scanner.skip(/\s+/)
       unless scanner.eos?
         raise Liquid::SyntaxError, "Syntax Error in 'article_card_lookup': Unknown argument(s) '#{scanner.rest}' in '#{@raw_markup}'"
       end
       unless @url_markup && !@url_markup.strip.empty?
-         raise Liquid::SyntaxError, "Syntax Error in 'article_card_lookup': Could not find URL value in '#{@raw_markup}'"
+        raise Liquid::SyntaxError, "Syntax Error in 'article_card_lookup': Could not find URL value in '#{@raw_markup}'"
       end
     end
 
@@ -38,9 +39,8 @@ module Jekyll
       site = context.registers[:site]
       target_url_raw = LiquidUtils.resolve_value(@url_markup, context).to_s.strip
       unless target_url_raw && !target_url_raw.empty?
-        # Log failure but return empty string, consistent with previous behavior
-        PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "URL markup resolved to empty", identifiers: { Markup: @url_markup || @raw_markup })
-        return ""
+        # Return the HTML comment (or empty string if logging is off)
+        return PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "URL markup resolved to empty", identifiers: { Markup: @url_markup || @raw_markup })
       end
       # Ensure URL starts with a slash for consistent lookup
       target_url = target_url_raw.start_with?('/') ? target_url_raw : "/#{target_url_raw}"
@@ -55,29 +55,28 @@ module Jekyll
         # Fallback for potential older structures or custom setups
         found_post = posts_iterable.find { |post| post.respond_to?(:url) && post.url == target_url }
       else
-        PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Cannot iterate site.posts", identifiers: { URL: target_url, Type: posts_iterable.class.name })
-        return ""
+        return PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Cannot iterate site.posts", identifiers: { URL: target_url, Type: posts_iterable.class.name })
       end
       # --- End Post Lookup ---
 
       unless found_post
-        PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Could not find post", identifiers: { URL: target_url })
-        return ""
+        return PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Could not find post", identifiers: { URL: target_url })
       end
 
       # --- Call Utility to Render Card ---
       # The render_article_card utility handles extracting data and generating HTML
       begin
-        LiquidUtils.render_article_card(found_post, context)
+        ArticleCardUtils.render(found_post, context)
       rescue => e
-        # Catch potential errors within the utility function itself
-        PluginLoggerUtils.log_liquid_failure(
-            context: context,
-            tag_type: "ARTICLE_CARD_LOOKUP",
-            reason: "Error calling render_article_card utility",
-            identifiers: { URL: target_url, Error: e.message }
-        )
-        "" # Return empty on error
+        PluginLoggerUtils.log_liquid_failure( # Return the log from this error too
+                                             context: context,
+                                             tag_type: "ARTICLE_CARD_LOOKUP",
+                                             reason: "Error calling ArticleCardUtils.render utility",
+                                             identifiers: { URL: target_url, Error: e.message }
+                                            )
+        # The above call to PluginLoggerUtils returns the string, so we don't need an explicit "" here
+        # unless we want to guarantee "" on an exception *within* PluginLoggerUtils itself (which is unlikely).
+        # For clarity and consistency, let the return of PluginLoggerUtils be the return of this block.
       end
       # --- End Render Card ---
 
