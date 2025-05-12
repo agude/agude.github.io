@@ -10,8 +10,10 @@ $LOAD_PATH.unshift(File.expand_path('../_plugins', __dir__))
 # require 'liquid_utils' # Comment out or remove as LiquidUtils gets emptied
 
 # Explicitly require utils files
+require 'utils/article_card_utils'
 require 'utils/author_link_util'
 require 'utils/backlink_utils'
+require 'utils/book_card_utils'
 require 'utils/book_link_util'
 require 'utils/book_list_utils'
 require 'utils/card_data_extractor_utils'
