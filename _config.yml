@@ -1,29 +1,40 @@
 # This fixes an error when serving from inside Docker
 host: 0.0.0.0
 
-# Plugin Logging Configuration
-# Controls logging behavior for custom plugin failures.
-# Set specific tag types to 'false' to disable ALL logging (Console & HTML)
-# for failures originating from that tag type.
-# Defaults to 'true' (enabled) if a tag type is not listed here.
-#
-# Environment Behavior:
-#   - Non-Production: Logs to Console AND HTML Comments (if enabled below).
-#   - Production: Logs ONLY to Console (if enabled below). HTML comments are always disabled.
-#
+
+# Global minimum log level for plugin messages appearing on the console.
+# Options: "debug", "info", "warn", "error"
+# If a message's own level is lower than this, it won't show on console.
+plugin_log_level: "info"
+
+plugin_logging:
+# Individual Plugin/Tag Type Switches (true = on, false = off)
+# If 'false', no logging (console or HTML) will occur for this tag_type,
+# regardless of plugin_log_level or message-specific level.
 plugin_logging:
     ARTICLE_CARD_LOOKUP: true
+    ARTICLE_CARD_UTIL: true
     AUTHOR_LINK: true
+    AUTHOR_LINK_UTIL_ERROR: true
     BACKLINK_UTIL: true
     BOOK_BACKLINKS: true
     BOOK_CARD_LOOKUP: true
+    BOOK_CARD_RATING_ERROR: true
+    BOOK_CARD_UTIL: true
+    BOOK_LINK_UTIL_ERROR: true
+    BOOK_LIST_AUTHOR_DISPLAY: true
     BOOK_LIST_SERIES_DISPLAY: true
+    CARD_DATA_EXTRACTION: true
+    DISPLAY_RANKED_BOOKS: true
     RELATED_BOOKS: true
     RELATED_POSTS: true
+    RENDER_ARTICLE_CARD_TAG: true
     RENDER_AUTHOR_LINK: true
+    RENDER_BOOK_CARD_TAG: true
     RENDER_BOOK_LINK: true
     RENDER_SERIES_LINK: true
     SERIES_LINK: true
+    SERIES_LINK_UTIL_ERROR: true
     UNITS_WARNING: true
 
 # Dependencies

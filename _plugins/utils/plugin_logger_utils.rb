@@ -3,69 +3,66 @@ require 'cgi'
 require 'jekyll'
 
 module PluginLoggerUtils
+  LOG_LEVEL_MAP = {
+    debug: 0,
+    info:  1,
+    warn:  2,
+    error: 3,
+  }.freeze
+  # Ensure DEFAULT_LOG_LEVEL_SYMBOL is a key in LOG_LEVEL_MAP
+  DEFAULT_MESSAGE_LEVEL_SYMBOL = :warn
+  DEFAULT_SITE_CONSOLE_LEVEL_STRING = "warn".freeze
 
-  # Logs a failure message from a Liquid context (Tags/Filters).
-  # Behavior depends on environment and _config.yml settings.
-  # - Console logging: Uses Jekyll.logger.warn if available, otherwise falls back to puts.
-  #   Enabled by default unless 'plugin_logging'.'TAG_TYPE' is false.
-  # - HTML comment: Output into the rendered page.
-  #   Enabled by default in non-production environments, disabled in production,
-  #   unless 'plugin_logging'.'TAG_TYPE' is false.
-  #
-  # @param context [Liquid::Context] The current Liquid context.
-  # @param tag_type [String] A string identifying the source/type of the log (e.g., "MY_TAG_ERROR").
-  # @param reason [String] A description of the failure.
-  # @param identifiers [Hash] Optional key-value pairs for additional context in the log.
-  # @return [String] An HTML comment string if HTML logging is active, otherwise an empty string.
-  def self.log_liquid_failure(context:, tag_type:, reason:, identifiers: {})
-    # Ensure context and site are available
+
+  def self.log_liquid_failure(context:, tag_type:, reason:, identifiers: {}, level: DEFAULT_MESSAGE_LEVEL_SYMBOL)
+    # 1. Initial validation for context and site
     unless context && (site = context.registers[:site])
-      log_msg = "[PLUGIN LOGGER ERROR] Context or Site unavailable for logging. Original Call: #{tag_type} - #{reason}"
+      log_msg = "[PLUGIN LOGGER ERROR] Context or Site unavailable. Original Call: #{tag_type} - #{level}: #{reason}"
       if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:error)
-        Jekyll.logger.error("PluginLogger:", log_msg) # Use a distinct prefix for internal logger errors
+        Jekyll.logger.error("PluginLogger:", log_msg)
       else
-        STDERR.puts log_msg # Use STDERR for logger internal errors
+        STDERR.puts log_msg
       end
-      return "" # Cannot proceed with normal logging
+      return "" # Return empty string as no HTML comment can be formed
     end
 
+    # 2. Check if logging is enabled for this specific tag_type
+    plugin_logging_config = site.config['plugin_logging'] || {}
+    tag_logging_enabled = (plugin_logging_config[tag_type.to_s] == true) # Explicitly true
+
+    return "" unless tag_logging_enabled # Do nothing if this tag_type is disabled
+
+    # 3. Prepare message content (done once, used by both console and HTML)
+    message_level_symbol = LOG_LEVEL_MAP.key?(level) ? level : DEFAULT_MESSAGE_LEVEL_SYMBOL
+    page_path = context.registers[:page] ? context.registers[:page]['path'] : 'unknown_page'
+    identifier_string = identifiers.map { |key, value| "#{key}='#{CGI.escapeHTML(value.to_s)}'" }.join(' ')
+    safe_tag_type = CGI.escapeHTML(tag_type.to_s)
+    safe_reason = CGI.escapeHTML(reason.to_s)
+    log_message_base = "[#{message_level_symbol.to_s.upcase}] #{safe_tag_type}_FAILURE: Reason='#{safe_reason}' #{identifier_string} SourcePage='#{page_path}'".strip
+
+    # 4. Console Logging (respects global plugin_log_level)
+    site_console_log_level_str = site.config['plugin_log_level']&.downcase || DEFAULT_SITE_CONSOLE_LEVEL_STRING
+    site_console_log_level_val = LOG_LEVEL_MAP[site_console_log_level_str.to_sym] || LOG_LEVEL_MAP[DEFAULT_MESSAGE_LEVEL_SYMBOL]
+    message_log_level_val = LOG_LEVEL_MAP[message_level_symbol]
+
+    if message_log_level_val >= site_console_log_level_val
+      if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(message_level_symbol)
+        Jekyll.logger.public_send(message_level_symbol, "PluginLiquid:", log_message_base)
+      else
+        # Fallback puts includes the level from the message itself
+        puts "[PLUGIN_LIQUID_LOG] #{log_message_base}"
+      end
+    end
+
+    # 5. HTML Comment Logging (based on environment, not global plugin_log_level)
+    html_output_comment = ""
     environment = site.config['environment'] || 'development'
     is_production = (environment == 'production')
 
-    log_setting_for_tag = site.config.dig('plugin_logging', tag_type.to_s)
-    logging_enabled_for_tag = (log_setting_for_tag != false)
-
-    base_log_console = true
-    base_log_html = !is_production
-
-    do_console_log = logging_enabled_for_tag && base_log_console
-    do_html_log = logging_enabled_for_tag && base_log_html
-
-    html_output_comment = ""
-
-    if do_console_log || do_html_log
-      page_path = context.registers[:page] ? context.registers[:page]['path'] : 'unknown_page'
-      identifier_string = identifiers.map { |key, value| "#{key}='#{CGI.escapeHTML(value.to_s)}'" }.join(' ')
-
-      safe_tag_type = CGI.escapeHTML(tag_type.to_s)
-      safe_reason = CGI.escapeHTML(reason.to_s)
-
-      log_message_base = "#{safe_tag_type}_FAILURE: Reason='#{safe_reason}' #{identifier_string} SourcePage='#{page_path}'".strip
-
-      if do_console_log
-        if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:warn)
-          Jekyll.logger.warn("PluginLiquid:", log_message_base) # Prefix for Liquid context logs
-        else
-          puts "[PLUGIN_LIQUID_LOG] #{log_message_base}" # Fallback
-        end
-      end
-
-      if do_html_log
-        html_output_comment = "<!-- #{log_message_base} -->"
-      end
+    unless is_production
+      html_output_comment = "<!-- #{log_message_base} -->"
     end
 
-    html_output_comment
+    html_output_comment # Return HTML comment (or "" if in production)
   end
-
 end
