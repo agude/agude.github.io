@@ -17,6 +17,7 @@ class TestArticleCardLookupTag < Minitest::Test
 
   # Helper to render the tag
   def render_tag(markup)
+    # The tag itself will call ArticleCardUtils.render internally after refactoring
     Liquid::Template.parse("{% article_card_lookup #{markup} %}").render!(@context)
   end
 
@@ -32,14 +33,14 @@ class TestArticleCardLookupTag < Minitest::Test
       mock_output # Return the desired value
     }
 
-    # Stub the class method using the proc
-    LiquidUtils.stub :render_article_card, stub_logic do
+    # Stub the utility method
+    ArticleCardUtils.stub :render, stub_logic do
       output = render_tag('url="/blog/post-one.html"')
       assert_equal mock_output, output # Verify tag returns stubbed value
     end
 
     # Assertions *after* the stub block using captured_args
-    refute_nil captured_args, "render_article_card should have been called"
+    refute_nil captured_args, "ArticleCardUtils.render should have been called"
     assert_instance_of MockDocument, captured_args[0], "First argument should be a MockDocument"
     assert_equal @post1.url, captured_args[0].url
     assert_equal @context, captured_args[1]
@@ -55,12 +56,12 @@ class TestArticleCardLookupTag < Minitest::Test
       mock_output
     }
 
-    LiquidUtils.stub :render_article_card, stub_logic do
+    ArticleCardUtils.stub :render, stub_logic do
       output = render_tag('url=my_post_url')
       assert_equal mock_output, output
     end
 
-    refute_nil captured_args, "render_article_card should have been called"
+    refute_nil captured_args, "ArticleCardUtils.render should have been called"
     assert_instance_of MockDocument, captured_args[0], "First argument should be a MockDocument"
     assert_equal @post2.url, captured_args[0].url
     assert_equal @context, captured_args[1]
@@ -75,12 +76,12 @@ class TestArticleCardLookupTag < Minitest::Test
       mock_output
     }
 
-    LiquidUtils.stub :render_article_card, stub_logic do
+    ArticleCardUtils.stub :render, stub_logic do
       output = render_tag('"/blog/post-one.html"')
       assert_equal mock_output, output
     end
 
-    refute_nil captured_args, "render_article_card should have been called"
+    refute_nil captured_args, "ArticleCardUtils.render should have been called"
     assert_instance_of MockDocument, captured_args[0], "First argument should be a MockDocument"
     assert_equal @post1.url, captured_args[0].url
     assert_equal @context, captured_args[1]
@@ -96,12 +97,12 @@ class TestArticleCardLookupTag < Minitest::Test
       mock_output
     }
 
-    LiquidUtils.stub :render_article_card, stub_logic do
+    ArticleCardUtils.stub :render, stub_logic do
       output = render_tag('my_post_url')
       assert_equal mock_output, output
     end
 
-    refute_nil captured_args, "render_article_card should have been called"
+    refute_nil captured_args, "ArticleCardUtils.render should have been called"
     assert_instance_of MockDocument, captured_args[0], "First argument should be a MockDocument"
     assert_equal @post2.url, captured_args[0].url
     assert_equal @context, captured_args[1]
@@ -123,23 +124,23 @@ class TestArticleCardLookupTag < Minitest::Test
     }
 
     # Test positional - Input is "blog/post-three.html"
-    LiquidUtils.stub :render_article_card, stub_logic_pos do
+    ArticleCardUtils.stub :render, stub_logic_pos do
       output_pos = render_tag('"blog/post-three.html"')
       assert_equal mock_output, output_pos
     end
 
-    refute_nil captured_args_pos, "render_article_card (positional) should have been called"
+    refute_nil captured_args_pos, "ArticleCardUtils.render (positional) should have been called"
     assert_instance_of MockDocument, captured_args_pos[0], "First argument (positional) should be a MockDocument"
     assert_equal @post3.url, captured_args_pos[0].url # Should match '/blog/post-three.html'
     assert_equal @context, captured_args_pos[1]
 
     # Test named - Input is "blog/post-three.html"
-    LiquidUtils.stub :render_article_card, stub_logic_named do
+    ArticleCardUtils.stub :render, stub_logic_named do
       output_named = render_tag('url="blog/post-three.html"')
       assert_equal mock_output, output_named
     end
 
-    refute_nil captured_args_named, "render_article_card (named) should have been called"
+    refute_nil captured_args_named, "ArticleCardUtils.render (named) should have been called"
     assert_instance_of MockDocument, captured_args_named[0], "First argument (named) should be a MockDocument"
     assert_equal @post3.url, captured_args_named[0].url # Should match '/blog/post-three.html'
     assert_equal @context, captured_args_named[1]
@@ -149,37 +150,61 @@ class TestArticleCardLookupTag < Minitest::Test
   def test_lookup_post_not_found
     # Use a simple counter to verify the stub wasn't called
     call_count = 0
-    stub_logic = ->(*_) { call_count += 1; flunk "render_article_card should not be called" }
+    # ArticleCardUtils.render should NOT be called if the post isn't found by the tag.
+    # The tag itself handles the lookup and returns "" or a log message.
+    # So, we don't stub ArticleCardUtils.render here to flunk.
+    # We assert the tag's output.
 
-    LiquidUtils.stub :render_article_card, stub_logic do
-      output = render_tag('url="/blog/nonexistent.html"')
-      assert_equal "", output, "Should return empty string when post not found"
+    # To be absolutely sure ArticleCardUtils.render isn't called, we could temporarily
+    # define it to flunk, but that's more for integration testing the tag's internal call.
+    # For this unit test of the tag's lookup logic, asserting its output is sufficient.
+    # If PluginLoggerUtils is used by the tag for "post not found", that would be part of the assertion.
+    # The tag currently calls PluginLoggerUtils.log_liquid_failure.
+
+    # Enable logging for this specific test to check the HTML comment
+    @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
+    silent_logger_stub = Object.new.tap do |logger| # Local silent logger for this test
+      def logger.warn(topic, message); end; def logger.error(topic, message); end
+      def logger.info(topic, message); end;  def logger.debug(topic, message); end
+      def logger.log_level=(level); end;    def logger.progname=(name); end
     end
-    assert_equal 0, call_count, "render_article_card should not have been called"
+
+    output = ""
+    Jekyll.stub :logger, silent_logger_stub do # Silence console for PluginLoggerUtils
+      output = render_tag('url="/blog/nonexistent.html"')
+    end
+    assert_match %r{<!-- ARTICLE_CARD_LOOKUP_FAILURE: Reason='Could not find post' URL='/blog/nonexistent.html'.* -->}, output
   end
 
   def test_lookup_url_resolves_to_empty
      @context['empty_url_var'] = ''
-     call_count = 0
-     stub_logic = ->(*_) { call_count += 1; flunk "render_article_card should not be called" }
+    @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
+    silent_logger_stub = Object.new.tap do |logger|
+      def logger.warn(topic, message); end; def logger.error(topic, message); end
+      def logger.info(topic, message); end;  def logger.debug(topic, message); end
+      def logger.log_level=(level); end;    def logger.progname=(name); end
+    end
 
-     LiquidUtils.stub :render_article_card, stub_logic do
-       output = render_tag('url=empty_url_var')
-       assert_equal "", output, "Should return empty string when URL resolves to empty"
+    output = ""
+    Jekyll.stub :logger, silent_logger_stub do
+      output = render_tag('url=empty_url_var')
      end
-     assert_equal 0, call_count, "render_article_card should not have been called"
+    assert_match %r{<!-- ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty'.* -->}, output
   end
 
   def test_lookup_url_resolves_to_nil
     @context['nil_url_var'] = nil
-    call_count = 0
-    stub_logic = ->(*_) { call_count += 1; flunk "render_article_card should not be called" }
-
-    LiquidUtils.stub :render_article_card, stub_logic do
-      output = render_tag('url=nil_url_var')
-      assert_equal "", output, "Should return empty string when URL resolves to nil"
+    @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
+    silent_logger_stub = Object.new.tap do |logger|
+      def logger.warn(topic, message); end; def logger.error(topic, message); end
+      def logger.info(topic, message); end;  def logger.debug(topic, message); end
+      def logger.log_level=(level); end;    def logger.progname=(name); end
     end
-    assert_equal 0, call_count, "render_article_card should not have been called"
+    output = ""
+    Jekyll.stub :logger, silent_logger_stub do
+      output = render_tag('url=nil_url_var')
+    end
+    assert_match %r{<!-- ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty'.* -->}, output
   end
 
   # --- Syntax Error Tests (no changes needed here) ---

@@ -3,6 +3,7 @@ require_relative '../liquid_utils' # For normalize_title, log_failure, render_bo
 require_relative './series_link_util' # For rendering series links in HTML helper
 require_relative './url_utils' # Dependency for render_book_card (via LiquidUtils)
 require_relative 'plugin_logger_utils'
+require_relative 'book_card_utils'
 
 module BookListUtils
 
@@ -70,7 +71,7 @@ module BookListUtils
       output << "<h2 class=\"book-list-headline\">Standalone Books</h2>\n"
       output << "<div class=\"card-grid\">\n"
       data[:standalone_books].each do |book|
-        output << LiquidUtils.render_book_card(book, context) << "\n"
+        output << BookCardUtils.render(book, context) << "\n"
       end
       output << "</div>\n"
     end
@@ -80,7 +81,7 @@ module BookListUtils
       output << "<h2 class=\"series-title\">#{series_title_html}</h2>\n"
       output << "<div class=\"card-grid\">\n"
       series_group[:books].each do |book|
-        output << LiquidUtils.render_book_card(book, context) << "\n"
+        output << BookCardUtils.render(book, context) << "\n"
       end
       output << "</div>\n"
     end

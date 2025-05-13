@@ -65,14 +65,7 @@ first_place helps us avoid rendering a </div> before the first card group.
   {% endcomment %}
   {% for book in site.books %}
     {% if book.title == original_title %}
-      {% include book_card.html
-        url=book.url
-        image=book.image
-        title=book.title
-        author=book.book_author
-        rating=book.rating
-        description=book.excerpt
-      %}
+      {% render_book_card book %}
       {% break %}
     {% endif %}
   {% endfor %}

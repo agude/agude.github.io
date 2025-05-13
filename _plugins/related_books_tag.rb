@@ -4,6 +4,7 @@ require 'liquid'
 require 'cgi'
 require_relative 'liquid_utils'
 require_relative 'utils/plugin_logger_utils'
+require_relative 'utils/book_card_utils'
 
 module Jekyll
   class RelatedBooksTag < Liquid::Tag
@@ -76,7 +77,7 @@ module Jekyll
 
       final_books.each do |book|
         # Use the utility function to render the card
-        output << LiquidUtils.render_book_card(book, context) << "\n"
+        output << BookCardUtils.render(book, context) << "\n"
       end
 
       output << "  </div>\n"
