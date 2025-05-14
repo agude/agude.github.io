@@ -12,8 +12,9 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
     @authB_standalone = create_doc({ 'title' => 'Author B Standalone', 'book_author' => 'Author B' }, '/b_sb.html')
 
     @all_books = [@authA_book_s1_n1, @authA_book_s1_n2, @authA_standalone, @authB_book_s2_n1, @authB_standalone]
-    @site = create_site({}, { 'books' => @all_books })
-    @context = create_context({ 'page_author_var' => 'Author A' }, { site: @site, page: create_doc({}, '/current.html') })
+    # Ensure site has a URL for UrlUtils called by BookCardUtils->CardDataExtractorUtils
+    @site = create_site({ 'url' => 'http://example.com' }, { 'books' => @all_books })
+    @context = create_context({ 'page_author_var' => 'Author A' }, { site: @site, page: create_doc({ 'path' => 'current.html'}, '/current.html') }) # Added path for SourcePage
 
     @silent_logger_stub = Object.new.tap do |logger|
       def logger.warn(topic, message); end; def logger.error(topic, message); end
@@ -33,18 +34,18 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
   def test_render_books_for_author_A
     output = render_tag("'Author A'")
     assert_match %r{<h2 class="book-list-headline">Standalone Books</h2>}, output
-    assert_match %r{<cite class="book-title">The Author A Standalone</cite>}, output # Sorted: "author a standalone"
+    assert_match %r{<cite class="book-title">The Author A Standalone</cite>}, output
 
     assert_match %r{<h2 class="series-title">.*<span class="book-series">Series One</span>.*</h2>}, output
     assert_match %r{<cite class="book-title">Author A Series One Book 1</cite>}, output
     assert_match %r{<cite class="book-title">Author A Series One Book 2</cite>}, output
 
-    refute_match %r{Author B}, output # Should not include Author B's books
+    refute_match %r{Author B}, output
     refute_match %r{<!--.*BOOK_LIST_AUTHOR_DISPLAY_FAILURE.*-->}, output
   end
 
   def test_render_books_for_author_B_variable
-    @context['page_author_var'] = 'Author B' # Change context variable
+    @context['page_author_var'] = 'Author B'
     output = render_tag("page_author_var")
     assert_match %r{<h2 class="book-list-headline">Standalone Books</h2>}, output
     assert_match %r{<cite class="book-title">Author B Standalone</cite>}, output
@@ -56,26 +57,27 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
     refute_match %r{<!--.*BOOK_LIST_AUTHOR_DISPLAY_FAILURE.*-->}, output
   end
 
-  def test_render_empty_for_non_existent_author
-    # Util doesn't log for "author not found but filter was valid", just returns empty data.
-    # So, no HTML comment expected here from the util itself.
+  def test_render_empty_for_non_existent_author_logs_info
+    @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true # Enable logging
     output = render_tag("'NonExistent Author'")
-    assert_equal "", output.strip # Expect empty output as no books will match
+    # Expect an INFO log because the filter was valid but no books were found
+    assert_match %r{<!-- \[INFO\] BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='No books found for the specified author\.'\s*AuthorFilter='NonExistent Author'\s*SourcePage='current\.html' -->}, output
+    refute_match %r{<h2 class="book-list-headline">Standalone Books</h2>}, output # No books, so no headers
   end
 
   def test_render_logs_for_nil_author_name_variable
     @context['nil_author_var'] = nil
-    @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true # Enable logging
+    @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true
     output = render_tag("nil_author_var")
-    assert_match %r{<!-- \[WARN\] BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='Author name filter was empty or nil when fetching data\.'\s*AuthorFilter='N/A'\s*SourcePage='current\.html' -->}, output
+    assert_match %r{<!-- \[WARN\] BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='Author name filter was empty or nil when fetching data\.'\s*AuthorFilterInput='N/A'\s*SourcePage='current\.html' -->}, output
     refute_match %r{<h2 class="book-list-headline">Standalone Books</h2>}, output
     refute_match %r{<h2 class="series-title">}, output
   end
 
   def test_render_logs_for_empty_author_name_literal
-    @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true # Enable logging
+    @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true
     output = render_tag("''")
-    assert_match %r{<!-- \[WARN\] BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='Author name filter was empty or nil when fetching data\.'\s*AuthorFilter=''\s*SourcePage='current\.html' -->}, output
+    assert_match %r{<!-- \[WARN\] BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='Author name filter was empty or nil when fetching data\.'\s*AuthorFilterInput=''\s*SourcePage='current\.html' -->}, output
     refute_match %r{<h2 class="book-list-headline">Standalone Books</h2>}, output
   end
 
