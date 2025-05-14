@@ -1,7 +1,7 @@
 # _plugins/utils/book_list_utils.rb
-require_relative '../liquid_utils' # For normalize_title, log_failure, render_book_card
-require_relative './series_link_util' # For rendering series links in HTML helper
-require_relative './url_utils' # Dependency for render_book_card (via LiquidUtils)
+require_relative '../liquid_utils'
+require_relative './series_link_util'
+require_relative './url_utils'
 require_relative 'plugin_logger_utils'
 require_relative 'book_card_utils'
 
@@ -12,21 +12,35 @@ module BookListUtils
   def self.get_data_for_series_display(site:, series_name_filter:, context:)
     all_books = _get_all_published_books(site, context) # Pass context for logging
     books_in_series = []
-    log_output_accumulator = "" # To accumulate log messages
+    log_output_accumulator = ""
 
-    if series_name_filter && !series_name_filter.strip.empty?
-      normalized_filter = series_name_filter.strip.downcase
+    series_name_provided_and_valid = series_name_filter && !series_name_filter.to_s.strip.empty?
+
+    if series_name_provided_and_valid
+      normalized_filter = series_name_filter.to_s.strip.downcase # Ensure string before strip/downcase
       books_in_series = all_books.select { |book| book.data['series']&.strip&.downcase == normalized_filter }
         .sort_by { |book| [book.data['book_number'] || Float::INFINITY, book.data['title'].to_s.downcase] }
-    end
 
-    if books_in_series.empty?
+      if books_in_series.empty?
+        # Valid series name was provided, but no books matched it. This is informational.
+        log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
+          context: context,
+          tag_type: "BOOK_LIST_SERIES_DISPLAY",
+          reason: "No books found for the specified series.", # More specific reason
+          identifiers: { SeriesFilter: series_name_filter }, # series_name_filter is valid here
+          level: :info
+        )
+      end
+    else
+      # Series name filter itself was nil, empty, or whitespace. This is a warning.
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
-                                                        context: context,
-                                                        tag_type: "BOOK_LIST_SERIES_DISPLAY", # Specific to this operation
-                                                        reason: "No books found for series or series name was empty/nil",
-                                                        identifiers: { SeriesFilter: series_name_filter || "N/A" }
-                                                       )
+        context: context,
+        tag_type: "BOOK_LIST_SERIES_DISPLAY",
+        reason: "Series name filter was empty or nil.", # More specific reason
+        identifiers: { SeriesFilterInput: series_name_filter || "N/A" }, # Log what was passed
+        level: :warn
+      )
+      # books_in_series remains empty
     end
     # Return data structure for the tag, including any accumulated log messages
     { books: books_in_series, series_name: series_name_filter, log_messages: log_output_accumulator }
@@ -37,15 +51,16 @@ module BookListUtils
     author_books = []
     log_output_accumulator = ""
 
-    if author_name_filter && !author_name_filter.strip.empty?
-      normalized_author_filter = author_name_filter.strip.downcase
+    if author_name_filter && !author_name_filter.to_s.strip.empty?
+      normalized_author_filter = author_name_filter.to_s.strip.downcase
       author_books = all_published.select { |book| book.data['book_author']&.strip&.downcase == normalized_author_filter }
     else
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
         tag_type: "BOOK_LIST_AUTHOR_DISPLAY",
         reason: "Author name filter was empty or nil when fetching data.",
-        identifiers: { AuthorFilter: author_name_filter || "N/A" }
+        identifiers: { AuthorFilter: author_name_filter || "N/A" },
+        level: :warn # This is a warning about bad input
       )
     end
 

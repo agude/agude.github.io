@@ -31,15 +31,9 @@ class TestBookListUtils < Minitest::Test
     # This mock will define 'warn' (and other levels) as no-op methods.
     # It also needs to respond to methods Jekyll's logger= might call, like log_level=
     @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-      def logger.error(topic, message); end
-      def logger.info(topic, message); end
-      def logger.debug(topic, message); end
-      def logger.log_level=(level); end # Methods Jekyll might call on its logger
-      def logger.progname=(name); end
-      # Add any other methods that Jekyll.logger might be expected to have by the system
-      # For instance, if Jekyll.logger.writer is accessed:
-      # def logger.writer; Object.new.tap { |w| def w.add(level, msg); end }; end
+      def logger.warn(topic, message); end; def logger.error(topic, message); end
+      def logger.info(topic, message); end;  def logger.debug(topic, message); end
+      def logger.log_level=(level); end;    def logger.progname=(name); end
     end
   end
 
@@ -77,7 +71,7 @@ class TestBookListUtils < Minitest::Test
     end
     assert_equal 'NonExistent Series', data[:series_name]
     assert_empty data[:books]
-    assert_match(/BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='No books found for series or series name was empty\/nil' SeriesFilter='NonExistent Series'/, data[:log_messages])
+    assert_match %r{<!-- \[INFO\] BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='No books found for the specified series\.'\s*SeriesFilter='NonExistent Series'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
   end
 
   def test_get_data_for_series_display_nil_filter
@@ -88,7 +82,7 @@ class TestBookListUtils < Minitest::Test
     end
     assert_nil data[:series_name]
     assert_empty data[:books]
-    assert_match(/SeriesFilter='N\/A'/, data[:log_messages])
+    assert_match %r{<!-- \[WARN\] BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='Series name filter was empty or nil\.'\s*SeriesFilterInput='N/A'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
   end
 
   def test_get_data_for_series_display_empty_filter
@@ -99,7 +93,7 @@ class TestBookListUtils < Minitest::Test
     end
     assert_equal '  ', data[:series_name]
     assert_empty data[:books]
-    assert_match(/SeriesFilter='  '/, data[:log_messages])
+    assert_match %r{<!-- \[WARN\] BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='Series name filter was empty or nil\.'\s*SeriesFilterInput='  '\s*SourcePage='current_page\.html' -->}, data[:log_messages]
   end
 
   def test_get_data_for_series_display_ignores_unpublished
@@ -172,7 +166,7 @@ class TestBookListUtils < Minitest::Test
     end
     assert_empty data[:standalone_books]
     assert_empty data[:series_groups]
-    assert_match(/Author name filter was empty or nil/, data[:log_messages])
+    assert_match %r{<!-- \[WARN\] BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='Author name filter was empty or nil when fetching data\.'\s*AuthorFilter='N/A'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
   end
 
 
@@ -185,10 +179,10 @@ class TestBookListUtils < Minitest::Test
     end
 
     # Standalone books sort order:
-    # 1. "An Earlier Standalone" 
-    # 2. "Generic Book" 
-    # 3. "The Standalone Alpha" 
-    # 4. "Standalone Beta" 
+    # 1. "An Earlier Standalone"
+    # 2. "Generic Book"
+    # 3. "The Standalone Alpha"
+    # 4. "Standalone Beta"
     assert_equal 4, data[:standalone_books].size
     assert_equal @book_standalone3_authA_late_alpha.data['title'], data[:standalone_books][0].data['title']
     assert_equal @book_no_series_no_author.data['title'], data[:standalone_books][1].data['title']
@@ -299,7 +293,7 @@ class TestBookListUtils < Minitest::Test
     Jekyll.stub :logger, @silent_logger_stub do
       html = BookListUtils.render_book_groups_html(data, @context)
     end
-    assert_match %r{<!-- BOOK_LIST_TEST_LOG_FAILURE: Reason='Test log' .* -->}, html
+    assert_match %r{<!-- \[WARN\] BOOK_LIST_TEST_LOG_FAILURE: Reason='Test log'\s*SourcePage='current_page\.html'.* -->}, html
     assert_match %r{<h2 class="book-list-headline">Standalone Books</h2>}, html
   end
 
