@@ -1,8 +1,8 @@
 # _plugins/utils/series_link_util.rb
 require 'jekyll'
 require 'cgi'
-require_relative '../liquid_utils' # For normalize_title, log_failure, _prepare_display_title (if needed)
-require_relative './link_helper_utils' # For shared helpers
+require_relative '../liquid_utils'
+require_relative './link_helper_utils'
 require_relative 'plugin_logger_utils'
 
 module SeriesLinkUtils
@@ -20,8 +20,13 @@ module SeriesLinkUtils
     # 1. Initial Setup & Validation
     unless context && (site = context.registers[:site])
       log_msg = "[PLUGIN SERIES_LINK_UTIL ERROR] Context or Site unavailable."
-      defined?(LiquidUtils) ? PluginLoggerUtils.log_liquid_failure(context: nil, tag_type: "SERIES_LINK_UTIL_ERROR", reason: log_msg, identifiers: {}) : puts(log_msg)
-      return series_title_raw.to_s # Minimal fallback
+      if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:error)
+        Jekyll.logger.error("SeriesLinkUtil:", log_msg)
+      else
+        STDERR.puts log_msg
+      end
+      # Fallback to simple escaped string within a span if critical context is missing.
+      return "<span class=\"book-series\">#{CGI.escapeHTML(series_title_raw.to_s)}</span>"
     end
 
     series_title_input = series_title_raw.to_s
@@ -32,8 +37,9 @@ module SeriesLinkUtils
     if normalized_lookup_title.empty?
       return PluginLoggerUtils.log_liquid_failure(
         context: context, tag_type: "RENDER_SERIES_LINK",
-        reason: "Input title resolved to empty after normalization",
-        identifiers: { TitleInput: series_title_raw || 'nil' }
+        reason: "Input title resolved to empty after normalization.",
+        identifiers: { TitleInput: series_title_raw || 'nil' },
+        level: :warn,
       )
     end
 
@@ -75,6 +81,7 @@ module SeriesLinkUtils
 
   # Builds the inner <span> element for the series name.
   def self._build_series_span_element(display_text)
+    # Series names typically don't need complex typography, use basic escape.
     escaped_display_text = CGI.escapeHTML(display_text)
     "<span class=\"book-series\">#{escaped_display_text}</span>"
   end
@@ -84,10 +91,10 @@ module SeriesLinkUtils
     PluginLoggerUtils.log_liquid_failure(
       context: context,
       tag_type: "RENDER_SERIES_LINK",
-      reason: "Could not find series page during link rendering",
-      identifiers: { Series: input_title.strip }
+      reason: "Could not find series page during link rendering.",
+      identifiers: { Series: input_title.strip },
+      level: :info,
     )
   end
 
 end # End Module SeriesLinkUtils
-    # Series names typically don't need complex typography, use basic escape.

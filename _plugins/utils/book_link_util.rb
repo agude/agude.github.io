@@ -1,7 +1,7 @@
 # _plugins/utils/book_link_util.rb
 require 'jekyll'
-require_relative '../liquid_utils' # For normalize_title, log_failure, _prepare_display_title
-require_relative './link_helper_utils' # For shared helpers
+require_relative '../liquid_utils'
+require_relative './link_helper_utils'
 require_relative 'plugin_logger_utils'
 
 module BookLinkUtils
@@ -39,8 +39,15 @@ module BookLinkUtils
     # 1. Initial Setup & Validation
     unless context && (site = context.registers[:site])
       log_msg = "[PLUGIN BOOK_LINK_UTIL ERROR] Context or Site unavailable."
-      defined?(LiquidUtils) ? PluginLoggerUtils.log_liquid_failure(context: nil, tag_type: "BOOK_LINK_UTIL_ERROR", reason: log_msg, identifiers: {}) : puts(log_msg)
-      return book_title_raw.to_s # Minimal fallback
+      if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:error)
+        Jekyll.logger.error("BookLinkUtil:", log_msg)
+      else
+        STDERR.puts log_msg
+      end
+      # Fallback to simple string if critical context is missing.
+      # Use _prepare_display_title for consistency if possible, else basic escape.
+      prepared_fallback_title = defined?(LiquidUtils) ? LiquidUtils._prepare_display_title(book_title_raw.to_s) : CGI.escapeHTML(book_title_raw.to_s)
+      return "<cite class=\"book-title\">#{prepared_fallback_title}</cite>" # Return unlinked cite
     end
 
     book_title_input = book_title_raw.to_s
@@ -50,8 +57,9 @@ module BookLinkUtils
     if normalized_lookup_title.empty?
       return PluginLoggerUtils.log_liquid_failure(
         context: context, tag_type: "RENDER_BOOK_LINK",
-        reason: "Input title resolved to empty after normalization",
-        identifiers: { TitleInput: book_title_raw || 'nil' }
+        reason: "Input title resolved to empty after normalization.",
+        identifiers: { TitleInput: book_title_raw || 'nil' },
+        level: :warn,
       )
     end
 
@@ -111,8 +119,9 @@ module BookLinkUtils
   def self._log_book_collection_missing(context, input_title)
     PluginLoggerUtils.log_liquid_failure(
       context: context, tag_type: "RENDER_BOOK_LINK",
-      reason: "Books collection not found in site configuration",
-      identifiers: { Title: input_title.strip }
+      reason: "Books collection not found in site configuration.",
+      identifiers: { Title: input_title.strip },
+      level: :error,
     )
   end
 
@@ -120,8 +129,9 @@ module BookLinkUtils
   def self._log_book_not_found(context, input_title)
     PluginLoggerUtils.log_liquid_failure(
       context: context, tag_type: "RENDER_BOOK_LINK",
-      reason: "Could not find book page during link rendering",
-      identifiers: { Title: input_title.strip }
+      reason: "Could not find book page during link rendering.",
+      identifiers: { Title: input_title.strip },
+      level: :info,
     )
   end
 
