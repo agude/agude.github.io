@@ -11,8 +11,11 @@ class TestArticleCardLookupTag < Minitest::Test
     @post3 = create_doc({ 'title' => 'Post Three With Slash' }, '/blog/post-three.html')
 
     # Mock site with posts
-    @site = create_site({}, {}, [], [@post1, @post2, @post3])
-    @context = create_context({ 'page' => { 'url' => '/current.html' } }, { site: @site, page: create_doc({}, '/current.html') })
+    # Ensure site has a URL for UrlUtils called by ArticleCardUtils->CardDataExtractorUtils
+    @site = create_site({ 'url' => 'http://example.com' }, {}, [], [@post1, @post2, @post3])
+    # Ensure page has a path for SourcePage identifier
+    @context = create_context({ 'page' => { 'url' => '/current.html', 'path' => 'current.html' } }, { site: @site, page: create_doc({ 'path' => 'current.html'}, '/current.html') })
+
 
     @silent_logger_stub = Object.new.tap do |logger|
       def logger.warn(topic, message); end; def logger.error(topic, message); end
@@ -158,28 +161,48 @@ class TestArticleCardLookupTag < Minitest::Test
   # --- Tests where stub should NOT be called ---
   def test_lookup_post_not_found
     @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
-    output = render_tag('url="/blog/nonexistent.html"') # render_tag now handles Jekyll.stub
-    # Corrected Regex to include [WARN] and allow for flexible spacing
-    assert_match %r{<!-- \[WARN\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Could not find post'\s+URL='/blog/nonexistent.html'.* -->}, output
+    output = render_tag('url="/blog/nonexistent.html"')
+    assert_match %r{<!-- \[WARN\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Could not find post\.'\s*URL='/blog/nonexistent.html'\s*SourcePage='current\.html' -->}, output
   end
 
   def test_lookup_url_resolves_to_empty
-     @context['empty_url_var'] = ''
+    @context['empty_url_var'] = ''
     @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
     output = render_tag('url=empty_url_var')
-    # Corrected Regex
-    assert_match %r{<!-- \[WARN\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty'.* -->}, output
+    assert_match %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty or nil\.'\s*Markup='empty_url_var'\s*SourcePage='current\.html' -->}, output
   end
 
   def test_lookup_url_resolves_to_nil
     @context['nil_url_var'] = nil
     @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
     output = render_tag('url=nil_url_var')
-    # Corrected Regex
-    assert_match %r{<!-- \[WARN\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty'.* -->}, output
+    assert_match %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty or nil\.'\s*Markup='nil_url_var'\s*SourcePage='current\.html' -->}, output
   end
 
-  # --- Syntax Error Tests (no changes needed here) ---
+  def test_lookup_cannot_iterate_site_posts
+    # In create_site, posts_data is used to initialize MockCollection.new(posts_data, 'posts')
+    # So, site.posts will be a MockCollection. site.posts.docs will be the string.
+    bad_site = create_site({ 'url' => 'http://example.com' }, {}, [], "not_an_array_or_collection_docs")
+    bad_context = create_context({ 'page' => { 'path' => 'current.html' } }, { site: bad_site, page: create_doc({ 'path' => 'current.html'}, '/current.html') })
+    bad_site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
+
+    output = ""
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse("{% article_card_lookup url='/blog/post-one.html' %}").render!(bad_context)
+    end
+    assert_match %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Cannot iterate site\.posts\.docs\. It is missing, not an Array, or site\.posts is invalid\.'\s*URL='/blog/post-one\.html'\s*PostsDocsType='String'\s*SourcePage='current\.html' -->}, output
+  end
+
+  def test_lookup_article_card_utils_render_error
+    @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
+    # Stub ArticleCardUtils.render to raise an error
+    ArticleCardUtils.stub :render, ->(_post, _ctx) { raise StandardError, "Card render failed!" } do
+      output = render_tag('url="/blog/post-one.html"')
+      assert_match %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Error calling ArticleCardUtils\.render utility: Card render failed!'\s*URL='/blog/post-one\.html'\s*ErrorClass='StandardError'\s*ErrorMessage='Card render failed!'\s*SourcePage='current\.html' -->}, output
+    end
+  end
+
+  # --- Syntax Error Tests ---
   def test_syntax_error_missing_url
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% article_card_lookup %}")
