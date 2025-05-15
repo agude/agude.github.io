@@ -12,18 +12,26 @@ plugin_logging:
 # If 'false', no logging (console or HTML) will occur for this tag_type,
 # regardless of plugin_log_level or message-specific level.
 plugin_logging:
+    ARTICLE_CARD_ALT_MISSING: true
     ARTICLE_CARD_LOOKUP: true
     ARTICLE_CARD_UTIL: true
     AUTHOR_LINK: true
     AUTHOR_LINK_UTIL_ERROR: true
     BACKLINK_UTIL: true
     BOOK_BACKLINKS: true
+    BOOK_BACKLINKS_TAG: true
+    BOOK_CARD_GENERIC_ALT: true
     BOOK_CARD_LOOKUP: true
+    BOOK_CARD_MISSING_EXCERPT: true
+    BOOK_CARD_MISSING_IMAGE_PATH: true
+    BOOK_CARD_MISSING_TITLE: true
     BOOK_CARD_RATING_ERROR: true
+    BOOK_CARD_USER_ALT_MISSING: true
     BOOK_CARD_UTIL: true
     BOOK_LINK_UTIL_ERROR: true
     BOOK_LIST_AUTHOR_DISPLAY: true
     BOOK_LIST_SERIES_DISPLAY: true
+    BOOK_LIST_UTIL: true
     CARD_DATA_EXTRACTION: true
     DISPLAY_RANKED_BOOKS: true
     RELATED_BOOKS: true

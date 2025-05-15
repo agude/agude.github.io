@@ -2,9 +2,8 @@
 require 'jekyll'
 require 'liquid'
 require 'cgi'
-require_relative 'liquid_utils'       # Still need for log_failure (initial checks)
-require_relative 'utils/book_link_util' # Need for rendering the links
-require_relative 'utils/backlink_utils' # Require the backlink util
+require_relative 'utils/book_link_util'
+require_relative 'utils/backlink_utils'
 require_relative 'utils/plugin_logger_utils'
 
 module Jekyll
@@ -20,30 +19,43 @@ module Jekyll
       site = context.registers[:site]
       page = context.registers[:page]
 
-      # --- Basic Sanity Checks ---
-      unless site && page && site.collections.key?('books') && page['url'] && page['title']
-        # Use LiquidUtils to log failure (returns HTML comment or empty string)
+      # --- Basic Sanity Checks (Tag Level) ---
+      unless site && page && \
+             site.collections.key?('books') && \
+             page['url'] && !page['url'].to_s.strip.empty? && \
+             page['title'] && !page['title'].to_s.strip.empty?
+
+        missing_parts = []
+        missing_parts << "site object" unless site
+        missing_parts << "page object" unless page
+        missing_parts << "site.collections['books']" unless site&.collections&.key?('books')
+        missing_parts << "page['url'] (present and not empty)" unless page && page['url'] && !page['url'].to_s.strip.empty?
+        missing_parts << "page['title'] (present and not empty)" unless page && page['title'] && !page['title'].to_s.strip.empty?
+
         return PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "BOOK_BACKLINKS",
-          reason: "Tag prerequisites missing: context, collection, URL, or title",
-          identifiers: { URL: page ? page['url'] : 'N/A', Title: page ? page['title'] : 'N/A' }
+          tag_type: "BOOK_BACKLINKS_TAG", # More specific tag type for the tag's own check
+          reason: "Tag prerequisites missing: #{missing_parts.join(', ')}.",
+          identifiers: {
+            PageURL: page ? (page['url'] || 'N/A') : 'N/A',
+            PageTitle: page ? (page['title'] || 'N/A') : 'N/A'
+          },
+          level: :error,
         )
       end
-      # Keep original title for H2 display
-      current_title_original = page['title']
       # --- End Sanity Checks ---
 
+      current_title_original = page['title'] # Keep original title for H2 display
 
       # --- Call Utility to Find Backlinks ---
-      # Utility now returns sorted [title, url] pairs
+      # BacklinkUtils now handles its own prerequisite logging and returns [] on failure.
       sorted_backlink_pairs = BacklinkUtils.find_book_backlinks(page, site, context)
       # --- End Call Utility ---
 
 
       # --- Render Final HTML ---
       if sorted_backlink_pairs.empty?
-        return "" # Render nothing if no backlinks found
+        return "" # Render nothing if no backlinks found (or if util logged an error and returned [])
       else
         # Build the HTML output string
         output = "<aside class=\"book-backlinks\">"
@@ -64,8 +76,7 @@ module Jekyll
 
         output << "</ul>"
         output << "</aside>"
-
-        return output # Return the complete HTML string
+        return output
       end
     end # End render
 
