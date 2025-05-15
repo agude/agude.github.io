@@ -10,6 +10,11 @@ sidebar_include: false
 
 This is a test page to demonstrate all standard Markdown elements.
 
+## Environment
+
+**Current Jekyll Environment:**
+`{{ site.config.environment | default: "Not Set (defaults to development)" }}`
+
 ---
 
 ## Headings
