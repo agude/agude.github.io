@@ -115,10 +115,12 @@ module Jekyll
         # Ensure we have the book object for rendering (even in production)
         unless book_object
           # This should only happen in production if validation is skipped and list is bad
+          # or if a book was unpublished after the list was generated.
           output << PluginLoggerUtils.log_liquid_failure(
             context: context, tag_type: "DISPLAY_RANKED_BOOKS",
-            reason: "Book title from ranked list not found in lookup map (Production Mode)",
-            identifiers: { Title: current_title_raw }
+            reason: "Book title from ranked list not found in lookup map (Production Mode).",
+            identifiers: { Title: current_title_raw, ListVariable: @list_variable_markup },
+            level: :error,
           )
           next # Skip rendering this item
         end
@@ -131,14 +133,16 @@ module Jekyll
           rescue ArgumentError, TypeError
             output << PluginLoggerUtils.log_liquid_failure(
               context: context, tag_type: "DISPLAY_RANKED_BOOKS",
-              reason: "Book has invalid non-integer rating (Production Mode)",
-              identifiers: { Title: current_title_raw, Rating: book_rating_raw.inspect }
+              reason: "Book has invalid non-integer rating (Production Mode).",
+              identifiers: { Title: current_title_raw, Rating: book_rating_raw.inspect, ListVariable: @list_variable_markup },
+              level: :error,
             )
             next # Skip rendering this item
           end
         end
 
-        # If book_rating is still nil here, something went wrong (e.g., skipped in prod)
+        # If book_rating is still nil here (e.g. validation failed in non-prod, or parsing failed in prod and was skipped),
+        # or if it became nil for any other reason, skip this item.
         next unless book_rating
 
         # Check for Rating Group Change
@@ -165,6 +169,7 @@ module Jekyll
       end # End loop through ranked_list
 
       # --- Step 5: Final Cleanup ---
+      # This 'if' statement and its content must be within the 'render' method's scope.
       if is_div_open
         output << "</div>\n" # Close the last card-grid div
       end
@@ -172,12 +177,13 @@ module Jekyll
       # --- Step 6: Return Rendered HTML ---
       output
 
-    rescue => e # Catch potential errors during processing
-      # Re-raise standard errors or provide more context
-      raise "DisplayRankedBooks Error processing '#{@list_variable_markup}': #{e.message}"
-    end # End render
-
-  end # End class
-end # End module
+    rescue => e # This rescue is for the entire render method
+      # Re-raise standard errors or provide more context for Liquid syntax or fundamental errors.
+      # Errors caught by PluginLoggerUtils above will return an HTML comment and continue if possible.
+      # This catch is for unexpected errors in the tag's own logic or unhandled exceptions from utils.
+      raise "DisplayRankedBooks Error processing '#{@list_variable_markup}': #{e.message} \n #{e.backtrace.join("\n  ")}"
+    end # End render method
+  end # End class DisplayRankedBooksTag
+end # End module Jekyll
 
 Liquid::Template.register_tag('display_ranked_books', Jekyll::DisplayRankedBooksTag)
