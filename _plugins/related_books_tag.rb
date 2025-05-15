@@ -2,7 +2,6 @@
 require 'jekyll'
 require 'liquid'
 require 'cgi'
-require_relative 'liquid_utils'
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/book_card_utils'
 
@@ -12,6 +11,7 @@ module Jekyll
 
     def initialize(tag_name, markup, tokens)
       super
+      # No arguments to parse for this tag, but could add max_books from markup later if needed.
       @max_books = DEFAULT_MAX_BOOKS
     end
 
@@ -21,10 +21,18 @@ module Jekyll
 
       # --- Basic Sanity Checks ---
       unless site && page && site.collections.key?('books') && page['url']
+        missing_parts = []
+        missing_parts << "site object" unless site
+        missing_parts << "page object" unless page
+        missing_parts << "site.collections['books']" unless site&.collections&.key?('books')
+        missing_parts << "page['url']" unless page && page['url']
+
         return PluginLoggerUtils.log_liquid_failure(
-          context: context, tag_type: "RELATED_BOOKS",
-          reason: "Missing context, collection, or page URL",
-          identifiers: { PageURL: page ? page['url'] : 'N/A' }
+          context: context,
+          tag_type: "RELATED_BOOKS",
+          reason: "Missing prerequisites: #{missing_parts.join(', ')}.",
+          identifiers: { PageURL: page ? page['url'] : 'N/A' },
+          level: :error,
         )
       end
 
@@ -48,31 +56,32 @@ module Jekyll
       candidate_books = []
 
       # 1. Same Series (if current page has a series)
-      if current_series && !current_series.empty?
-        # Sort by book_number within the series for potential ordering consistency
+      if current_series && !current_series.to_s.strip.empty?
         series_books = all_books.select { |book| book.data['series'] == current_series }
-                                .sort_by { |book| book.data['book_number'] || Float::INFINITY } # Handle nil book_number
+          .sort_by { |book| book.data['book_number'] || Float::INFINITY }
         candidate_books.concat(series_books)
       end
 
-      # 2. Same Author (if current page has an author)
-      if current_author && !current_author.empty?
+      # 2. Same Author (if current page has an author and not enough books from series)
+      if candidate_books.length < @max_books && current_author && !current_author.to_s.strip.empty?
         author_books = books_by_date_desc.select { |book| book.data['book_author'] == current_author }
         candidate_books.concat(author_books)
       end
 
-      # 3. Fallback to Recent Books
-      candidate_books.concat(books_by_date_desc)
+      # 3. Fallback to Recent Books (if still not enough books)
+      if candidate_books.length < @max_books
+        candidate_books.concat(books_by_date_desc)
+      end
 
       # --- Deduplicate and Limit ---
       # Use uniq based on book object's identity, then slice
       final_books = candidate_books.uniq { |book| book.url }.slice(0, @max_books)
 
       # --- Render Output ---
-      return "" if final_books.empty?
+      return "" if final_books.empty? # Expected empty state, no log needed here
 
       output = "<aside class=\"related\">\n"
-      output << "  <h2>Related Books</h2>\n"
+      output << "  <h2>Related Books</h2>\n" # Header is always "Related Books" for this tag
       output << "  <div class=\"card-grid\">\n"
 
       final_books.each do |book|

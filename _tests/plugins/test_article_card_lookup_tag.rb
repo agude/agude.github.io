@@ -1,6 +1,6 @@
 # _tests/plugins/test_article_card_lookup_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/article_card_lookup_tag' # Load the tag class
+require_relative '../../_plugins/article_card_lookup_tag'
 
 class TestArticleCardLookupTag < Minitest::Test
 
@@ -11,14 +11,26 @@ class TestArticleCardLookupTag < Minitest::Test
     @post3 = create_doc({ 'title' => 'Post Three With Slash' }, '/blog/post-three.html')
 
     # Mock site with posts
-    @site = create_site({}, {}, [], [@post1, @post2, @post3])
-    @context = create_context({ 'page' => { 'url' => '/current.html' } }, { site: @site })
+    # Ensure site has a URL for UrlUtils called by ArticleCardUtils->CardDataExtractorUtils
+    @site = create_site({ 'url' => 'http://example.com' }, {}, [], [@post1, @post2, @post3])
+    # Ensure page has a path for SourcePage identifier
+    @context = create_context({ 'page' => { 'url' => '/current.html', 'path' => 'current.html' } }, { site: @site, page: create_doc({ 'path' => 'current.html'}, '/current.html') })
+
+
+    @silent_logger_stub = Object.new.tap do |logger|
+      def logger.warn(topic, message); end; def logger.error(topic, message); end
+      def logger.info(topic, message); end;  def logger.debug(topic, message); end
+      def logger.log_level=(level); end;    def logger.progname=(name); end
+    end
   end
 
   # Helper to render the tag
   def render_tag(markup)
-    # The tag itself will call ArticleCardUtils.render internally after refactoring
-    Liquid::Template.parse("{% article_card_lookup #{markup} %}").render!(@context)
+    output = "" # Initialize to prevent NameError if stubbing fails early
+    Jekyll.stub :logger, @silent_logger_stub do # Silence console output from PluginLoggerUtils
+      output = Liquid::Template.parse("{% article_card_lookup #{markup} %}").render!(@context)
+    end
+    output
   end
 
   # --- Test Cases ---
@@ -146,68 +158,51 @@ class TestArticleCardLookupTag < Minitest::Test
     assert_equal @context, captured_args_named[1]
   end
 
-  # --- Tests where stub should NOT be called (no changes needed here) ---
+  # --- Tests where stub should NOT be called ---
   def test_lookup_post_not_found
-    # Use a simple counter to verify the stub wasn't called
-    call_count = 0
-    # ArticleCardUtils.render should NOT be called if the post isn't found by the tag.
-    # The tag itself handles the lookup and returns "" or a log message.
-    # So, we don't stub ArticleCardUtils.render here to flunk.
-    # We assert the tag's output.
-
-    # To be absolutely sure ArticleCardUtils.render isn't called, we could temporarily
-    # define it to flunk, but that's more for integration testing the tag's internal call.
-    # For this unit test of the tag's lookup logic, asserting its output is sufficient.
-    # If PluginLoggerUtils is used by the tag for "post not found", that would be part of the assertion.
-    # The tag currently calls PluginLoggerUtils.log_liquid_failure.
-
-    # Enable logging for this specific test to check the HTML comment
     @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
-    silent_logger_stub = Object.new.tap do |logger| # Local silent logger for this test
-      def logger.warn(topic, message); end; def logger.error(topic, message); end
-      def logger.info(topic, message); end;  def logger.debug(topic, message); end
-      def logger.log_level=(level); end;    def logger.progname=(name); end
-    end
-
-    output = ""
-    Jekyll.stub :logger, silent_logger_stub do # Silence console for PluginLoggerUtils
-      output = render_tag('url="/blog/nonexistent.html"')
-    end
-    assert_match %r{<!-- ARTICLE_CARD_LOOKUP_FAILURE: Reason='Could not find post' URL='/blog/nonexistent.html'.* -->}, output
+    output = render_tag('url="/blog/nonexistent.html"')
+    assert_match %r{<!-- \[WARN\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Could not find post\.'\s*URL='/blog/nonexistent.html'\s*SourcePage='current\.html' -->}, output
   end
 
   def test_lookup_url_resolves_to_empty
-     @context['empty_url_var'] = ''
+    @context['empty_url_var'] = ''
     @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
-    silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end; def logger.error(topic, message); end
-      def logger.info(topic, message); end;  def logger.debug(topic, message); end
-      def logger.log_level=(level); end;    def logger.progname=(name); end
-    end
-
-    output = ""
-    Jekyll.stub :logger, silent_logger_stub do
-      output = render_tag('url=empty_url_var')
-     end
-    assert_match %r{<!-- ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty'.* -->}, output
+    output = render_tag('url=empty_url_var')
+    assert_match %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty or nil\.'\s*Markup='empty_url_var'\s*SourcePage='current\.html' -->}, output
   end
 
   def test_lookup_url_resolves_to_nil
     @context['nil_url_var'] = nil
     @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
-    silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end; def logger.error(topic, message); end
-      def logger.info(topic, message); end;  def logger.debug(topic, message); end
-      def logger.log_level=(level); end;    def logger.progname=(name); end
-    end
-    output = ""
-    Jekyll.stub :logger, silent_logger_stub do
-      output = render_tag('url=nil_url_var')
-    end
-    assert_match %r{<!-- ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty'.* -->}, output
+    output = render_tag('url=nil_url_var')
+    assert_match %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty or nil\.'\s*Markup='nil_url_var'\s*SourcePage='current\.html' -->}, output
   end
 
-  # --- Syntax Error Tests (no changes needed here) ---
+  def test_lookup_cannot_iterate_site_posts
+    # In create_site, posts_data is used to initialize MockCollection.new(posts_data, 'posts')
+    # So, site.posts will be a MockCollection. site.posts.docs will be the string.
+    bad_site = create_site({ 'url' => 'http://example.com' }, {}, [], "not_an_array_or_collection_docs")
+    bad_context = create_context({ 'page' => { 'path' => 'current.html' } }, { site: bad_site, page: create_doc({ 'path' => 'current.html'}, '/current.html') })
+    bad_site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
+
+    output = ""
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse("{% article_card_lookup url='/blog/post-one.html' %}").render!(bad_context)
+    end
+    assert_match %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Cannot iterate site\.posts\.docs\. It is missing, not an Array, or site\.posts is invalid\.'\s*URL='/blog/post-one\.html'\s*PostsDocsType='String'\s*SourcePage='current\.html' -->}, output
+  end
+
+  def test_lookup_article_card_utils_render_error
+    @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
+    # Stub ArticleCardUtils.render to raise an error
+    ArticleCardUtils.stub :render, ->(_post, _ctx) { raise StandardError, "Card render failed!" } do
+      output = render_tag('url="/blog/post-one.html"')
+      assert_match %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Error calling ArticleCardUtils\.render utility: Card render failed!'\s*URL='/blog/post-one\.html'\s*ErrorClass='StandardError'\s*ErrorMessage='Card render failed!'\s*SourcePage='current\.html' -->}, output
+    end
+  end
+
+  # --- Syntax Error Tests ---
   def test_syntax_error_missing_url
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% article_card_lookup %}")

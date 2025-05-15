@@ -24,18 +24,22 @@ module Jekyll
           context: context,
           tag_type: "RENDER_ARTICLE_CARD_TAG",
           reason: "Post object variable '#{@post_object_markup}' resolved to nil.",
-          identifiers: { markup: @post_object_markup }
+          identifiers: { markup: @post_object_markup },
+          level: :error,
         )
       end
 
       # ArticleCardUtils.render handles more specific validation of the post_object
       ArticleCardUtils.render(post_object, context)
     rescue StandardError => e
+      # Catching StandardError is broad; consider if more specific errors from ArticleCardUtils are expected.
+      # For now, any error from the utility is treated as an error for the tag.
       PluginLoggerUtils.log_liquid_failure(
         context: context,
         tag_type: "RENDER_ARTICLE_CARD_TAG",
-        reason: "Error rendering article card: #{e.message}",
-        identifiers: { post_markup: @post_object_markup, error_class: e.class.name }
+        reason: "Error rendering article card via ArticleCardUtils: #{e.message}",
+        identifiers: { post_markup: @post_object_markup, error_class: e.class.name, error_message: e.message.lines.first.chomp.slice(0,100) },
+        level: :error,
       )
       # Return value of log_liquid_failure (HTML comment or empty string)
     end

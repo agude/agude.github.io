@@ -21,6 +21,7 @@ module Jekyll
       if scanner.scan(/url\s*=\s*(#{QuotedFragment}|\S+)/)
           @url_markup = scanner[1]
       else
+        # Positional argument attempt
         if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
           @url_markup = scanner.matched
         end
@@ -38,48 +39,74 @@ module Jekyll
     def render(context)
       site = context.registers[:site]
       target_url_raw = LiquidUtils.resolve_value(@url_markup, context).to_s.strip
+
       unless target_url_raw && !target_url_raw.empty?
-        # Return the HTML comment (or empty string if logging is off)
-        return PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "URL markup resolved to empty", identifiers: { Markup: @url_markup || @raw_markup })
+        return PluginLoggerUtils.log_liquid_failure(
+          context: context,
+          tag_type: "ARTICLE_CARD_LOOKUP",
+          reason: "URL markup resolved to empty or nil.",
+          identifiers: { Markup: @url_markup || @raw_markup },
+          level: :error,
+        )
       end
       # Ensure URL starts with a slash for consistent lookup
       target_url = target_url_raw.start_with?('/') ? target_url_raw : "/#{target_url_raw}"
 
-      # --- Post Lookup (Using defensive access) ---
-      posts_iterable = site.posts
+      posts_collection_proxy = site.posts
       found_post = nil
-      if posts_iterable.respond_to?(:docs)
-        # Standard Jekyll 4+ lookup
-        found_post = posts_iterable.docs.find { |post| post.url == target_url }
-      elsif posts_iterable.is_a?(Array)
-        # Fallback for potential older structures or custom setups
-        found_post = posts_iterable.find { |post| post.respond_to?(:url) && post.url == target_url }
+
+      # Check the validity of posts_collection_proxy.docs
+      can_iterate_posts_docs = false
+      actual_docs_type = "unknown"
+
+      if posts_collection_proxy && posts_collection_proxy.respond_to?(:docs)
+        if posts_collection_proxy.docs.is_a?(Array)
+          can_iterate_posts_docs = true
+        else
+          actual_docs_type = posts_collection_proxy.docs.class.name # Type of .docs
+        end
+      elsif posts_collection_proxy
+        actual_docs_type = posts_collection_proxy.class.name # Type of the proxy itself
       else
-        return PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Cannot iterate site.posts", identifiers: { URL: target_url, Type: posts_iterable.class.name })
+        actual_docs_type = "nil" # site.posts was nil
       end
-      # --- End Post Lookup ---
+
+      unless can_iterate_posts_docs
+        return PluginLoggerUtils.log_liquid_failure(
+          context: context,
+          tag_type: "ARTICLE_CARD_LOOKUP",
+          reason: "Cannot iterate site.posts.docs. It is missing, not an Array, or site.posts is invalid.",
+          identifiers: { URL: target_url, PostsDocsType: actual_docs_type },
+          level: :error,
+        )
+      end
+
+      # If we reach here, posts_collection_proxy.docs is an Array
+      found_post = posts_collection_proxy.docs.find { |post| post.url == target_url }
 
       unless found_post
-        return PluginLoggerUtils.log_liquid_failure(context: context, tag_type: "ARTICLE_CARD_LOOKUP", reason: "Could not find post", identifiers: { URL: target_url })
+        return PluginLoggerUtils.log_liquid_failure(
+          context: context,
+          tag_type: "ARTICLE_CARD_LOOKUP",
+          reason: "Could not find post.",
+          identifiers: { URL: target_url },
+          level: :warn,
+        )
       end
 
       # --- Call Utility to Render Card ---
-      # The render_article_card utility handles extracting data and generating HTML
       begin
         ArticleCardUtils.render(found_post, context)
       rescue => e
-        PluginLoggerUtils.log_liquid_failure( # Return the log from this error too
-                                             context: context,
-                                             tag_type: "ARTICLE_CARD_LOOKUP",
-                                             reason: "Error calling ArticleCardUtils.render utility",
-                                             identifiers: { URL: target_url, Error: e.message }
-                                            )
-        # The above call to PluginLoggerUtils returns the string, so we don't need an explicit "" here
-        # unless we want to guarantee "" on an exception *within* PluginLoggerUtils itself (which is unlikely).
-        # For clarity and consistency, let the return of PluginLoggerUtils be the return of this block.
+        PluginLoggerUtils.log_liquid_failure(
+          context: context,
+          tag_type: "ARTICLE_CARD_LOOKUP",
+          reason: "Error calling ArticleCardUtils.render utility: #{e.message}",
+          identifiers: { URL: target_url, ErrorClass: e.class.name, ErrorMessage: e.message.lines.first.chomp.slice(0, 100) },
+          level: :error,
+        )
       end
       # --- End Render Card ---
-
     end # End render
   end # End class
 end # End module

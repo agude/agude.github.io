@@ -1,8 +1,8 @@
 # _plugins/utils/author_link_util.rb
 require 'jekyll'
 require 'cgi'
-require_relative '../liquid_utils' # For log_failure, _prepare_display_title (if needed, though basic CGI escape is used here)
-require_relative './link_helper_utils' # For shared helpers
+require_relative '../liquid_utils'
+require_relative './link_helper_utils'
 require_relative 'plugin_logger_utils'
 
 module AuthorLinkUtils
@@ -21,8 +21,17 @@ module AuthorLinkUtils
     # 1. Initial Setup & Validation
     unless context && (site = context.registers[:site])
       log_msg = "[PLUGIN AUTHOR_LINK_UTIL ERROR] Context or Site unavailable."
-      defined?(LiquidUtils) ? PluginLoggerUtils.log_liquid_failure(context: nil, tag_type: "AUTHOR_LINK_UTIL_ERROR", reason: log_msg, identifiers: {}) : puts(log_msg)
-      return author_name_raw.to_s # Minimal fallback
+      # Use PluginLoggerUtils if available, otherwise puts.
+      # Since this is a util, direct context for PluginLoggerUtils might be tricky if context itself is bad.
+      # For now, this critical failure path uses puts/Jekyll.logger.error if PluginLoggerUtils isn't suitable.
+      # This specific error is more of a development/setup issue.
+      if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:error)
+        Jekyll.logger.error("AuthorLinkUtil:", log_msg)
+      else
+        STDERR.puts log_msg
+      end
+      # Fallback to simple string if critical context is missing.
+      return CGI.escapeHTML(author_name_raw.to_s)
     end
 
     author_name_input = author_name_raw.to_s
@@ -33,8 +42,9 @@ module AuthorLinkUtils
     if normalized_lookup_name.empty?
       return PluginLoggerUtils.log_liquid_failure(
         context: context, tag_type: "RENDER_AUTHOR_LINK",
-        reason: "Input author name resolved to empty after normalization",
-        identifiers: { NameInput: author_name_raw || 'nil' }
+        reason: "Input author name resolved to empty after normalization.",
+        identifiers: { NameInput: author_name_raw || 'nil' },
+        level: :warn,
       )
     end
 
@@ -99,8 +109,9 @@ module AuthorLinkUtils
   def self._log_author_not_found(context, input_name)
     PluginLoggerUtils.log_liquid_failure(
       context: context, tag_type: "RENDER_AUTHOR_LINK",
-      reason: "Could not find author page",
-      identifiers: { Name: input_name.strip }
+      reason: "Could not find author page.",
+      identifiers: { Name: input_name.strip },
+      level: :info,
     )
   end
 

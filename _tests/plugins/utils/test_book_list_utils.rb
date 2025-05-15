@@ -25,21 +25,14 @@ class TestBookListUtils < Minitest::Test
     ]
 
     @site = create_site({}, { 'books' => @all_books })
-    @context = create_context({}, { site: @site, page: create_doc({}, '/current_page.html') })
+    # Ensure page has a path for SourcePage identifier
+    @context = create_context({}, { site: @site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
 
-    # Create a generally silent logger mock for use with Jekyll.stub
-    # This mock will define 'warn' (and other levels) as no-op methods.
-    # It also needs to respond to methods Jekyll's logger= might call, like log_level=
+
     @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-      def logger.error(topic, message); end
-      def logger.info(topic, message); end
-      def logger.debug(topic, message); end
-      def logger.log_level=(level); end # Methods Jekyll might call on its logger
-      def logger.progname=(name); end
-      # Add any other methods that Jekyll.logger might be expected to have by the system
-      # For instance, if Jekyll.logger.writer is accessed:
-      # def logger.writer; Object.new.tap { |w| def w.add(level, msg); end }; end
+      def logger.warn(topic, message); end; def logger.error(topic, message); end
+      def logger.info(topic, message); end;  def logger.debug(topic, message); end
+      def logger.log_level=(level); end;    def logger.progname=(name); end
     end
   end
 
@@ -77,7 +70,7 @@ class TestBookListUtils < Minitest::Test
     end
     assert_equal 'NonExistent Series', data[:series_name]
     assert_empty data[:books]
-    assert_match(/BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='No books found for series or series name was empty\/nil' SeriesFilter='NonExistent Series'/, data[:log_messages])
+    assert_match %r{<!-- \[INFO\] BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='No books found for the specified series\.'\s*SeriesFilter='NonExistent Series'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
   end
 
   def test_get_data_for_series_display_nil_filter
@@ -88,7 +81,7 @@ class TestBookListUtils < Minitest::Test
     end
     assert_nil data[:series_name]
     assert_empty data[:books]
-    assert_match(/SeriesFilter='N\/A'/, data[:log_messages])
+    assert_match %r{<!-- \[WARN\] BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='Series name filter was empty or nil\.'\s*SeriesFilterInput='N/A'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
   end
 
   def test_get_data_for_series_display_empty_filter
@@ -99,7 +92,7 @@ class TestBookListUtils < Minitest::Test
     end
     assert_equal '  ', data[:series_name]
     assert_empty data[:books]
-    assert_match(/SeriesFilter='  '/, data[:log_messages])
+    assert_match %r{<!-- \[WARN\] BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='Series name filter was empty or nil\.'\s*SeriesFilterInput='  '\s*SourcePage='current_page\.html' -->}, data[:log_messages]
   end
 
   def test_get_data_for_series_display_ignores_unpublished
@@ -115,6 +108,19 @@ class TestBookListUtils < Minitest::Test
     assert_empty data[:log_messages].to_s
   end
 
+  def test_get_data_for_series_display_books_collection_missing
+    site_no_books = create_site({}, {}) # No 'books' collection
+    # Enable logging on this specific site instance
+    site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true
+    context_no_books_collection = create_context({}, { site: site_no_books, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = BookListUtils.get_data_for_series_display(site: site_no_books, series_name_filter: 'Any Series', context: context_no_books_collection)
+    end
+    assert_empty data[:books]
+    assert_match %r{<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='series'\s*series_name='Any Series'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
+  end
+
 
   # --- Tests for get_data_for_author_display ---
 
@@ -124,8 +130,8 @@ class TestBookListUtils < Minitest::Test
       data = BookListUtils.get_data_for_author_display(site: @site, author_name_filter: 'Author A', context: @context)
     end
     assert_equal 2, data[:standalone_books].size
-    assert_equal @book_standalone3_authA_late_alpha.data['title'], data[:standalone_books][0].data['title'] # "An Earlier..."
-    assert_equal @book_standalone1_authA.data['title'], data[:standalone_books][1].data['title']         # "The Standalone..."
+    assert_equal @book_standalone3_authA_late_alpha.data['title'], data[:standalone_books][0].data['title']
+    assert_equal @book_standalone1_authA.data['title'], data[:standalone_books][1].data['title']
 
     # Series for Author A (only "Series One")
     assert_equal 1, data[:series_groups].size
@@ -144,7 +150,7 @@ class TestBookListUtils < Minitest::Test
       data = BookListUtils.get_data_for_author_display(site: @site, author_name_filter: 'Author B', context: @context)
     end
     assert_equal 1, data[:standalone_books].size
-    assert_equal @book_standalone2_authB.data['title'], data[:standalone_books][0].data['title'] # "Standalone Beta"
+    assert_equal @book_standalone2_authB.data['title'], data[:standalone_books][0].data['title']
 
     assert_equal 1, data[:series_groups].size
     series_two_group = data[:series_groups].find { |g| g[:name] == 'Series Two' }
@@ -154,14 +160,15 @@ class TestBookListUtils < Minitest::Test
     assert_empty data[:log_messages].to_s
   end
 
-  def test_get_data_for_author_display_author_not_found
+  def test_get_data_for_author_display_author_not_found_logs_info
+    @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true
     data = nil
     Jekyll.stub :logger, @silent_logger_stub do
       data = BookListUtils.get_data_for_author_display(site: @site, author_name_filter: 'NonExistent Author', context: @context)
     end
     assert_empty data[:standalone_books]
     assert_empty data[:series_groups]
-    assert_empty data[:log_messages].to_s
+    assert_match %r{<!-- \[INFO\] BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='No books found for the specified author\.'\s*AuthorFilter='NonExistent Author'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
   end
 
   def test_get_data_for_author_display_nil_filter
@@ -172,7 +179,20 @@ class TestBookListUtils < Minitest::Test
     end
     assert_empty data[:standalone_books]
     assert_empty data[:series_groups]
-    assert_match(/Author name filter was empty or nil/, data[:log_messages])
+    assert_match %r{<!-- \[WARN\] BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='Author name filter was empty or nil when fetching data\.'\s*AuthorFilterInput='N/A'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
+  end
+
+  def test_get_data_for_author_display_books_collection_missing
+    site_no_books = create_site({}, {})
+    site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true # Enable on this specific site
+    context_no_books_collection = create_context({}, { site: site_no_books, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = BookListUtils.get_data_for_author_display(site: site_no_books, author_name_filter: 'Any Author', context: context_no_books_collection)
+    end
+    assert_empty data[:standalone_books]
+    assert_empty data[:series_groups]
+    assert_match %r{<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='author'\s*author_name='Any Author'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
   end
 
 
@@ -185,10 +205,10 @@ class TestBookListUtils < Minitest::Test
     end
 
     # Standalone books sort order:
-    # 1. "An Earlier Standalone" 
-    # 2. "Generic Book" 
-    # 3. "The Standalone Alpha" 
-    # 4. "Standalone Beta" 
+    # 1. "An Earlier Standalone"
+    # 2. "Generic Book"
+    # 3. "The Standalone Alpha"
+    # 4. "Standalone Beta"
     assert_equal 4, data[:standalone_books].size
     assert_equal @book_standalone3_authA_late_alpha.data['title'], data[:standalone_books][0].data['title']
     assert_equal @book_no_series_no_author.data['title'], data[:standalone_books][1].data['title']
@@ -209,15 +229,17 @@ class TestBookListUtils < Minitest::Test
     assert_empty data[:log_messages].to_s
   end
 
-  def test_get_data_for_all_books_display_no_books_collection
+  def test_get_data_for_all_books_display_books_collection_missing
     empty_site = create_site({}, {})
+    empty_site.config['plugin_logging']['BOOK_LIST_UTIL'] = true # Enable on this specific site
+    context_no_books_collection = create_context({}, { site: empty_site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
     data = nil
     Jekyll.stub :logger, @silent_logger_stub do
-      data = BookListUtils.get_data_for_all_books_display(site: empty_site, context: @context)
+      data = BookListUtils.get_data_for_all_books_display(site: empty_site, context: context_no_books_collection)
     end
     assert_empty data[:standalone_books]
     assert_empty data[:series_groups]
-    assert_empty data[:log_messages].to_s
+    assert_match %r{<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
   end
 
 
@@ -282,10 +304,12 @@ class TestBookListUtils < Minitest::Test
   end
 
   def test_render_book_groups_html_with_log_messages
+    # Use the main @site and @context for this, and enable logging on @site
     @site.config['plugin_logging']['BOOK_LIST_TEST_LOG'] = true
     log_msg_html = ""
     # Stub logger for the call to LiquidUtils.log_failure
     Jekyll.stub :logger, @silent_logger_stub do
+      # Pass the main @context here so PluginLoggerUtils finds the config on @site
       log_msg_html = PluginLoggerUtils.log_liquid_failure(context: @context, tag_type: "BOOK_LIST_TEST_LOG", reason: "Test log", identifiers: {})
     end
 
@@ -297,9 +321,10 @@ class TestBookListUtils < Minitest::Test
     html = ""
     # Stub logger for the call to render_book_groups_html (which might call render_book_card, etc.)
     Jekyll.stub :logger, @silent_logger_stub do
+      # Pass the main @context here as well for consistency
       html = BookListUtils.render_book_groups_html(data, @context)
     end
-    assert_match %r{<!-- BOOK_LIST_TEST_LOG_FAILURE: Reason='Test log' .* -->}, html
+    assert_match %r{<!-- \[WARN\] BOOK_LIST_TEST_LOG_FAILURE: Reason='Test log'\s*SourcePage='current_page\.html'.* -->}, html
     assert_match %r{<h2 class="book-list-headline">Standalone Books</h2>}, html
   end
 
@@ -318,7 +343,7 @@ class TestBookListUtils < Minitest::Test
     # However, its primary path doesn't log directly for valid empty inputs.
     # Stubbing here for consistency if any sub-calls within it were to log via Jekyll.logger.
     Jekyll.stub :logger, @silent_logger_stub do
-      structured_data = BookListUtils.__send__(:_structure_books_for_display, books_for_structuring, @context)
+      structured_data = BookListUtils.__send__(:_structure_books_for_display, books_for_structuring)
     end
 
     assert_equal 2, structured_data[:standalone_books].size
