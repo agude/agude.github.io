@@ -105,7 +105,9 @@ our test set.
 {% include figure.html
   url=image_1
   image_alt="A cartoon drawing of our Siamese network."
-  caption="A cartoon of our Siamese network architecture. The two convolutional blocks (CNN) output vectors which are joined together and then passed through a set of fully connected (FC) layers for classification."
+  caption="A cartoon of our Siamese network architecture. The two
+  convolutional blocks (CNN) output vectors which are joined together and then
+  passed through a set of fully connected (FC) layers for classification."
 %}
 
 ## Results
@@ -113,12 +115,37 @@ our test set.
 ### Dataset
 
 In order to determine how well our various feature extraction and matching
-algorithms did, we needed a labeled dataset. We used the [VeRi dataset][veri],
-which contains pictures of 776 uniquely identified vehicles. There are
-multiple pictures of each vehicle taken from 20 different traffic cameras in
-China. An example of two VeRi images is show below.
+algorithms did, we needed a labeled dataset. We used the [VeRi
+dataset][veri][^veri], which contains pictures of 776 uniquely identified
+vehicles. There are multiple pictures of each vehicle taken from 20 different
+traffic cameras in China. An example of two VeRi images from Liu et al.[^liu]
+is show below.
 
 [veri]: https://ieeexplore.ieee.org/document/7553002/
+[^veri]:
+    {% citation
+      author_first="Liu, Xinchen and Liu, Wu and Ma, Huadong and Fu, Huiyuan"
+      author_last=""
+      work_title="Large-scale vehicle re-identification in urban surveillance videos"
+      container_title="2016 IEEE International Conference on Multimedia and Expo (ICME)"
+      date="2016"
+      first_page="1"
+      last_page="6"
+      doi="10.1109/ICME.2016.7553002"
+    %}
+
+[^liu]:
+    {% citation
+      author_last="Liu, Xinchen and Liu, Wu and Mei, Tao and Ma, Huadong"
+      work_title="A Deep Learning-Based Approach to Progressive Vehicle Re-identification for Urban Surveillance"
+      container_title="European Conference on Computer Vision"
+      editor="Leibe, Bastian and Matas, Jiri and Sebe, Nicu and Welling, Max"
+      date="2016"
+      publisher="Springer International Publishing"
+      first_page="869"
+      last_page="884"
+      doi="10.1007/978-3-319-46475-6_53"
+    %}
 
 {% capture image_2 %} {{ file_dir }}/trucks.jpg {% endcapture %}
 {% include figure.html
@@ -126,10 +153,7 @@ China. An example of two VeRi images is show below.
   image_alt="Two images from the dataset showing a front and read view of the
   same truck."
   caption="Two example images from VeRi showing the same truck passing two
-  different cameras. From Liu X., Liu W., Mei T., Ma H. A Deep Learning-Based
-  Approach to Progressive Vehicle Re-identification for Urban Surveillance.
-  In: European Conference on Computer Vision. Springer International
-  Publishing, 2016: 869–884."
+  different cameras."
 %}
 
 
