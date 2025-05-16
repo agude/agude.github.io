@@ -162,31 +162,31 @@ Testing the `units.html` include with various units defined in `_data/units.yml`
 
 ### Standard Units
 
-- Temperature (Fahrenheit): {% include units.html number="98.6" unit="F" %}
+- Temperature (Fahrenheit): {% units number="98.6" unit="F" %}
 
-- Temperature (Celsius): {% include units.html number="37" unit="C" %}
+- Temperature (Celsius): {% units number="37" unit="C" %}
 
-- Mass (Grams): {% include units.html number="500" unit="g" %}
+- Mass (Grams): {% units number="500" unit="g" %}
 
-- Mass (Kilograms): {% include units.html number="2.5" unit="kg" %}
+- Mass (Kilograms): {% units number="2.5" unit="kg" %}
 
-- Length (Meters): {% include units.html number="10" unit="m" %}
+- Length (Meters): {% units number="10" unit="m" %}
 
-- Length (Centimeters): {% include units.html number="175" unit="cm" %}
+- Length (Centimeters): {% units number="175" unit="cm" %}
 
-- Length (Millimeters): {% include units.html number="35" unit="mm" %}
+- Length (Millimeters): {% units number="35" unit="mm" %}
 
-- Length (Inches): {% include units.html number="6" unit="in" %}
+- Length (Inches): {% units number="6" unit="in" %}
 
-- Length (Feet): {% include units.html number="5.9" unit="ft" %}
+- Length (Feet): {% units number="5.9" unit="ft" %}
 
 ### Different Numbers
 
-- Zero: {% include units.html number="0" unit="C" %}
+- Zero: {% units number="0" unit="C" %}
 
-- Negative: {% include units.html number="-10" unit="C" %}
+- Negative: {% units number="-10" unit="C" %}
 
-- Large Number: {% include units.html number="1234567.89" unit="m" %}
+- Large Number: {% units number="1234567.89" unit="m" %}
 
 ### Fallback Test (Unit Not in Data File)
 
@@ -194,15 +194,15 @@ This unit 'XYZ' is not defined in `_data/units.yml`. In development mode, a
 warning comment should appear in the HTML source. The output should fallback
 to using 'XYZ' as both symbol and title.
 
-- Undefined Unit: {% include units.html number="42" unit="XYZ" %}
+- Undefined Unit: {% units number="42" unit="XYZ" %}
 
 ### In Footnotes
 
 This sentence tests units within a footnote definition.[^unit_test]
 
 [^unit_test]:
-    The footnote definition contains a temperature: {% include units.html
-    number="22" unit="C" %} and a length: {% include units.html number="1.8"
+    The footnote definition contains a temperature: {% units
+    number="22" unit="C" %} and a length: {% units number="1.8"
     unit="m" %}. It should render correctly within the footnote list.
 
 ---
