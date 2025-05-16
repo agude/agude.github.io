@@ -8,7 +8,7 @@ description: >
 image: /files/object-localization/header.jpg
 image_alt: >
   Cars crossing the Golden Gate Bridge as seen from Marin.
-categories: 
+categories:
   - lab41
   - pelops
 ---
@@ -82,15 +82,29 @@ frames. This gives a crude estimation of what objects are "permanent" and
 which are transient.
 
 The second method was based on [a paper by Zivkovic and van der
-Heijden][zivkovic]. It uses a Gaussian mixture model to estimate the
-distribution of background pixels in RGB space. It learns the distributions
-based on the previous frames and updates as new frames are processed. We used
-the implementation in OpenCV called MOG2,
+Heijden][zivkovic].[^zivkovic] It uses a Gaussian mixture model to estimate
+the distribution of background pixels in RGB space. It learns the
+distributions based on the previous frames and updates as new frames are
+processed. We used the implementation in OpenCV called MOG2,
 [`cv::BackgroundSubtractorMOG2`][mog2], which also includes a model for shadow
 rejection. Shadows are otherwise a tough problem to solve because shadows are
 real changes in the image, but are generally not ones that are interesting.
 
-[zivkovic]: http://www.zoranz.net/Publications/zivkovicPRL2006.pdf
+[^zivkovic]:
+    {% citation
+      author_first="Zivkovic, Z. and van der Heijden, F."
+      author_last=""
+      work_title="Efficient adaptive density estimation per image pixel for the task of background subtraction"
+      container_title="Pattern Recognition Letters"
+      volume="27"
+      date="January 6, 2006"
+      publisher="Elsevier B.V."
+      first_page="773"
+      last_page="780"
+      doi="10.1016/j.patrec.2005.11.005"
+    %}
+
+[zivkovic]: https://doi.org/10.1016/j.patrec.2005.11.005
 [mog2]: http://docs.opencv.org/3.1.0/d7/d7b/classcv_1_1BackgroundSubtractorMOG2.html
 
 After the background models are computed, the two algorithms perform the same
@@ -189,7 +203,7 @@ and the predicted boxes are in red.
 The results for the three best chipping methods for the Texas IH-37 at 9th
 Street camera:
 
-| Method | Kernel Size | Threshold | F1 Score |   IOU | 
+| Method | Kernel Size | Threshold | F1 Score |   IOU |
 |:-------|------------:|----------:|---------:|------:|
 | OpenCV |     11 x 11 |         8 |    0.623 | 0.273 |
 | OpenCV |     13 x 13 |        10 |    0.622 | 0.280 |
@@ -209,7 +223,7 @@ Street camera:
 The results for the three best chipping methods for the Texas IH-37 at Jones
 Avenue camera:
 
-| Method | Kernel Size | Threshold | F1 Score |   IOU | 
+| Method | Kernel Size | Threshold | F1 Score |   IOU |
 |:-------|------------:|----------:|---------:|------:|
 | OpenCV |       5 x 5 |         4 |    0.698 | 0.261 |
 | OpenCV |     15 x 15 |        10 |    0.681 | 0.277 |
@@ -228,7 +242,7 @@ Avenue camera:
 The results for the three best chipping methods for the Louisiana traffic
 camera:
 
-| Method | Kernel Size | Threshold | F1 Score |   IOU | 
+| Method | Kernel Size | Threshold | F1 Score |   IOU |
 |:-------|------------:|----------:|---------:|------:|
 | OpenCV |     99 x 99 |        50 |    0.783 | 0.419 |
 | OpenCV |   101 x 101 |        50 |    0.783 | 0.419 |
