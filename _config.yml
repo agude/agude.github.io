@@ -43,7 +43,8 @@ plugin_logging:
     RENDER_SERIES_LINK: true
     SERIES_LINK: true
     SERIES_LINK_UTIL_ERROR: true
-    UNITS_WARNING: true
+    UNITS_TAG_ERROR: true
+    UNITS_TAG_WARNING: true
 
 # Dependencies
 plugins:

@@ -186,8 +186,8 @@ to fit me.
 
 Some people complain that the woven and padded seat retains heat and isn't
 comfortable on hot days. I used the chair during the summer and didn't notice
-heat problems, even when it was {% include units.html number=110 unit="F" %} outside
-and a little over {% include units.html number=80 unit="F" %} in my office.
+heat problems, even when it was {% units number=110 unit="F" %} outside and a
+little over {% units number=80 unit="F" %} in my office.
 
 ## Final Thoughts
 

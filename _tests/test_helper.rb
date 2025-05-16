@@ -140,7 +140,8 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
     'RENDER_SERIES_LINK' => false,
     'SERIES_LINK' => false,
     'SERIES_LINK_UTIL_ERROR' => false,
-    'UNITS_WARNING' => false,
+    'UNITS_TAG_ERROR' => false,
+    'UNITS_TAG_WARNING' => false,
   }
 
   base_config = {
