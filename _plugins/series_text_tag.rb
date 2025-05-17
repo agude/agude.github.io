@@ -23,21 +23,30 @@ module Jekyll
     # Check for whole words by padding with spaces during comparison.
     # Using standard array literal syntax.
     SERIES_TYPE_WORDS = [
+      'anthologies',
       'anthology',
       'arc',
       'book',
+      'books',
       'cantos',
       'chronicle',
+      'chronicles',
       'collection',
+      'collections',
       'cycle',
+      'cycles',
       'diaries',
       'mythos',
       'saga',
-      'series',
+      'sagas',
       'sequence',
+      'sequences',
+      'series',
+      'trilogies',
       'trilogy',
       'universe',
-    ].sort.freeze
+      'universes',
+    ].freeze
 
     def initialize(tag_name, markup, tokens)
       super
@@ -64,7 +73,7 @@ module Jekyll
 
       # Ensure series name markup was actually found
       unless @series_name_markup && !@series_name_markup.strip.empty?
-         raise Liquid::SyntaxError, "Syntax Error in 'series_text': Series name value is missing or empty in '#{@raw_markup}'"
+        raise Liquid::SyntaxError, "Syntax Error in 'series_text': Series name value is missing or empty in '#{@raw_markup}'"
       end
       # --- End Argument Parsing ---
     end # End initialize
@@ -91,10 +100,13 @@ module Jekyll
 
       # --- Determine Suffix ---
       contains_series_type_word = false
-      padded_normalized_series = " #{normalized_series_name} "
-      SERIES_TYPE_WORDS.each do |word|
-        padded_word_to_check = " #{word} "
-        if padded_normalized_series.include?(padded_word_to_check)
+      # Check against the normalized series name directly for more flexibility
+      # Split the normalized series name into words to check each one.
+      series_title_words = normalized_series_name.split(/\s+/)
+
+      SERIES_TYPE_WORDS.each do |type_word|
+        # Check if any word in the title (when normalized) exactly matches a type_word
+        if series_title_words.any? { |title_word| title_word.gsub(/[[:punct:]]$/, '') == type_word }
           contains_series_type_word = true
           break
         end
