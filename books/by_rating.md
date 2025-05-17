@@ -58,6 +58,7 @@ ranked_list:
   - For We Are Many
   - Ymir
   - The Shadow of the Torturer
+  - City on Fire
   - The Last Policeman
   - All These Worlds
   # 3 Stars

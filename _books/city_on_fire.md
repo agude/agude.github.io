@@ -4,7 +4,7 @@ title: City on Fire
 book_author: Walter Jon Williams
 series: Metropolitan
 book_number: 2
-rating: null
+rating: 4
 image: /books/covers/city_on_fire.jpg
 ---
 
