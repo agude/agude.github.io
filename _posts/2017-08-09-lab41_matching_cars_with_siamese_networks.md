@@ -124,8 +124,7 @@ is show below.
 [veri]: https://ieeexplore.ieee.org/document/7553002/
 [^veri]:
     {% citation
-      author_first="Liu, Xinchen and Liu, Wu and Ma, Huadong and Fu, Huiyuan"
-      author_last=""
+      author_last="Liu, Xinchen and Liu, Wu and Ma, Huadong and Fu, Huiyuan"
       work_title="Large-scale vehicle re-identification in urban surveillance videos"
       container_title="2016 IEEE International Conference on Multimedia and Expo (ICME)"
       date="2016"

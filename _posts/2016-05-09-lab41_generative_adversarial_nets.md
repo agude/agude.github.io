@@ -25,9 +25,24 @@ interesting and useful could show up. We thought you might find these papers
 interesting, so we plan to start posting about our findings on Gab41.
 
 [This week's paper][paper] is by Ian Goodfellow and introduces the concept of
-Generative Adversarial Nets (GANs).
+Generative Adversarial Nets (GANs).[^goodfellow]
 
 [paper]: https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf
+[^goodfellow]:
+    {% citation
+      author_last="Goodfellow"
+      author_first="Ian, et al."
+      work_title="Generative adversarial networks"
+      container_title="Communications of the ACM"
+      volume="63"
+      number="11"
+      publisher="Association for Computing Machinery"
+      date="November 2020"
+      first_page="139"
+      last_page="144"
+      doi="10.1145/3422622"
+      url="https://doi.org/10.1145/3422622"
+    %}
 
 Many of the problems tackled by machine learning can be broken down into one
 of two types: discriminative and generative. A discriminative task seeks to
@@ -72,8 +87,8 @@ trained would perform as shown in the image below.
 {% include figure.html
   url=image_2
   image_alt="The real cat is scored as 1, the cartoon as 0."
-  caption="The discriminative network determines if images are real—scoring
-  them a 1—or faked—scoring them a 0."
+  caption="The discriminative network determines if images are
+  real&mdash;scoring them a 1&mdash;or faked&mdash;scoring them a 0."
 %}
 
 The two networks are trained using different optimization functions. The

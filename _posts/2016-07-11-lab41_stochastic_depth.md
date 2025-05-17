@@ -16,14 +16,27 @@ categories:
 
 {% capture file_dir %}/files/stochastic-depth/{% endcapture %}
 
-[Today's paper][arxiv] is by Gao Huang, Yu Sun, _et al._ It introduces a new
-way to perturb networks during training in order to improve their performance.
-Before I continue, let me first state that this paper is a **real pleasure to
-read**; it is concise and extremely well written. It gives an excellent
-overview of the motivating problems, previous solutions, and Huang and Sun's
-new approach. I highly recommended giving it a read!
+[Today's paper][arxiv] is by Gao Huang, Yu Sun, _et al._[^huang] It introduces
+a new way to perturb networks during training in order to improve their
+performance. Before I continue, let me first state that this paper is a **real
+pleasure to read**; it is concise and extremely well written. It gives an
+excellent overview of the motivating problems, previous solutions, and Huang
+and Sun's new approach. I highly recommended giving it a read!
 
 [arxiv]: https://arxiv.org/abs/1603.09382
+
+[^huang]:
+    {% citation
+      author_last="Huang, Gao and Sun, Yu and Liu, Zhuang and Sedra, Daniel and Weinberger, Kilian Q."
+      work_title="Deep Networks with Stochastic Depth"
+      container_title="Computer Vision -- ECCV 2016"
+      editor="Leibe, Bastian and Matas, Jiri and Sebe, Nicu and Welling, Max"
+      date="2016"
+      publisher="Springer International Publishing"
+      first_page="646"
+      last_page="661"
+      doi="10.1007/978-3-319-46493-0_39"
+    %}
 
 The authors begin by pointing out that deep neural networks have greater
 expressive power as compared to shallow networks, that is they can learn more

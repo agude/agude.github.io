@@ -92,8 +92,7 @@ real changes in the image, but are generally not ones that are interesting.
 
 [^zivkovic]:
     {% citation
-      author_first="Zivkovic, Z. and van der Heijden, F."
-      author_last=""
+      author_last="Zivkovic, Z. and van der Heijden, F."
       work_title="Efficient adaptive density estimation per image pixel for the task of background subtraction"
       container_title="Pattern Recognition Letters"
       volume="27"
