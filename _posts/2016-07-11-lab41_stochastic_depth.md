@@ -12,6 +12,7 @@ image_alt: >
 categories: 
   - reading-group
   - lab41
+use_latex: true
 ---
 
 {% capture file_dir %}/files/stochastic-depth/{% endcapture %}
@@ -25,8 +26,8 @@ and Sun's new approach. I highly recommended giving it a read!
 
 [arxiv]: https://arxiv.org/abs/1603.09382
 
-[^huang]:
-    {% citation
+{% capture huang_cite -%}
+  {% citation
       author_last="Huang, Gao and Sun, Yu and Liu, Zhuang and Sedra, Daniel and Weinberger, Kilian Q."
       work_title="Deep Networks with Stochastic Depth"
       container_title="Computer Vision -- ECCV 2016"
@@ -37,6 +38,9 @@ and Sun's new approach. I highly recommended giving it a read!
       last_page="661"
       doi="10.1007/978-3-319-46493-0_39"
     %}
+{%- endcapture %}
+
+[^huang]: {{ huang_cite }}
 
 The authors begin by pointing out that deep neural networks have greater
 expressive power as compared to shallow networks, that is they can learn more
@@ -80,17 +84,17 @@ dropped!
   url=image_1
   image_alt="A diagram of a ResNet block, or ResBlock."
   caption="A ResBlock. The top path is a convolution layer, while the bottom
-  path is a pass through. From Gao Huang, Yu Sun, et al."
+  path is a pass through."
 %}
 
-Stochastic depth adds a new hyper-parameter, `p(l)`, the probability of dropping
-a layer as a function of its depth. They take `p(l)` to be linear with it equal
-to 0.0 for the first layer and 0.5 for the last, although other functions
-(include a constant) are possible. With this model the expected depth of a
-network is effectively reduced by 25% with corresponding reductions in
-training time. The authors also show that it reduces the problems associated
-with vanishing gradients and diminishing feature use, as expected for a
-shallower network.
+Stochastic depth adds a new hyper-parameter, $$p(l)$$, the probability of
+dropping a layer as a function of its depth. They take $$p(l)$$ to be linear
+with it equal to 0.0 for the first layer and 0.5 for the last, although other
+functions (include a constant) are possible. With this model the expected
+depth of a network is effectively reduced by 25% with corresponding reductions
+in training time. The authors also show that it reduces the problems
+associated with vanishing gradients and diminishing feature use, as expected
+for a shallower network.
 
 {% capture image_2 %} {{ file_dir }}/training.png {% endcapture %}
 {% include figure.html
@@ -99,10 +103,8 @@ shallower network.
   chance of each layer."
   caption="An example training run on a network with stochastic depth. The red
   and blue bars indicate the probability of dropping a layer, p(l). In this
-  example layer 3 and layer 5 have been dropped. From Gao Huang, Yu Sun, et
-  al."
+  example layer 3 and layer 5 have been dropped."
 %}
-
 
 In addition to aiding in training, the trained networks actually **perform
 better** than networks trained without stochastic depth! This is because
