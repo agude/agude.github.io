@@ -30,6 +30,7 @@ module Jekyll
       'chronicle',
       'collection',
       'cycle',
+      'diaries',
       'mythos',
       'saga',
       'series',
