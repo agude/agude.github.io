@@ -4,7 +4,7 @@ title: All Systems Red
 book_author: Martha Wells
 series: The Murderbot Diaries
 book_number: 1
-rating: null
+rating: 4
 image: /books/covers/all_systems_red.jpg
 awards:
   - hugo
