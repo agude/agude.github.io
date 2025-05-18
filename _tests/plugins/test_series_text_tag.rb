@@ -102,6 +102,13 @@ class TestSeriesTextTag < Minitest::Test
     assert_equal expected_output, render_tag(markup)
   end
 
+  def test_series_not_found_middle_word_unlinked
+    markup = '"The Chronicles of Narnia"'
+    expected_span = "<span class=\"book-series\">The Chronicles of Narnia</span>"
+    expected_output = "#{expected_span}"
+    assert_equal expected_output, render_tag(markup)
+  end
+
   def test_series_with_variable
     @context['my_series_var'] = 'Foundation'
     markup = 'my_series_var'
