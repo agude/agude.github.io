@@ -10,7 +10,9 @@ image: /books/covers/city_on_fire.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is the second book in the
-<span class="book-series">{{ page.series }}</span> series.
+<span class="book-series">{{ page.series }}</span> series. It takes place
+right as the smoke clears in Caraqui after the revolution, leaving Aiah and
+Constantine to figure out how to govern.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -22,28 +24,58 @@ class="author-name">{{ page.book_author }}</span>, is the second book in the
 {% capture m1 %}{% book_link "Metropolitan" %}{% endcapture %}
 {% capture m3 %}{% book_link "Heaven in Flames" %}{% endcapture %}
 
+{% capture sotl %}{% series_text "Shadow of the Leviathan" %}{% endcapture %}
+{% capture tainted %}{% book_link "The Tainted Cup" %}{% endcapture %}
 {% capture drop %}{% book_link "A Drop of Corruption" %}{% endcapture %}
 
-{{ this_book }} is the middle-book in an as-of-yet unwritten trilogy.
+The first book, {{ m1 }}, was a standard fantasy story---the hero discovers
+their inner talent and uses it to overthrow an evil ruler---with a unique
+world. {{ this_book }}'s story is more unique. It focuses on what happens
+after the revolution: when the heroes need to govern; form a coalition with
+multiple, opposed interest groups; and compromise their morals to avoid
+complete destruction. In this way, the book is similar to {{ sotl }}, which
+focuses more on the process of actually keeping an empire running.
 
-The strongest part of {{ this_series }} is the world building, the giant city,
-the tech-like-magic. And so like {{ drop }}, this book suffers a bit compared
-the first book in the series because you can only step into a brand-new world
-once.
+This should have been a more interesting story---it's one more rarely
+explored!---but
 
-In someways this book and {{ m1 }} before it---written almost 30 years
-ago---feel very modern: the main charters are people of color, there are gay
-characters who are, and there are women in roles
-normally reserved for men. The focus of the books, on how systems---the
-companies, governments, and the shield itself---
+Aiah is a more complex character in this book, and one I enjoyed reading about
+more. Her major flaw, that she is blinded by her devotion to Constantine, is
+counterbalanced by her other "flaw", that she won't compromise her ideals for
+power. Still, I found her romantic relationship with Constantine more annoying
+than exciting. In some ways this book reminded me of a romance novel: the
+young, inexperienced woman attracts the attention of a powerful and dangerous
+man, who teachers her there is more to life than she imagined. And there are a
+lot of sex scenes.
 
-The halfworlds.
-...
+This book and {{ m1 }} before it---written almost thirty years ago---feel very
+modern: the main characters are people of color, there are gay relationships
+that are treated as perfectly normal, and there are women in male-dominated
+roles. The theme of having to compromise you ideals to actually govern is
+darkly appropriate in this time where the far right is ascendant.
 
+But in other ways {{ this_series }} is solidly rooted in 90's [Third
+Way][third_way] politics: the first thing Constantine does in Caraqui is sell
+off the government industries to private parties to increase efficiency, lower
+barriers to trade, and simplify the tax code. The entire revolution and the
+mess that comes after echoes the waves of [humanitarian
+intervention][human_intervention] during the same period. There is even a
+scene about eating grapefruit to stay thin right out of the 90's.
 
-But in other ways they {{ this_series }} is solidly rooted in a 90's
-neoliberalism and interventionism. The first reform Constantine applies in
-Caraqui is selling off the government run industries to make them more
-efficient, lowering barriers to trade, and simplifying the tax code as if he
-had just taken over a former soviet state in Eastern Europe. The way to
-achieve freedom and keep it is violence and making hard-choices.
+[third_way]: https://en.wikipedia.org/wiki/Third_Way
+[human_intervention]: https://en.wikipedia.org/wiki/Humanitarian_intervention
+
+{{ this_book }} is the middle-book in an as-of-yet unwritten trilogy, with the
+third book tenatively titled {{ m3 }}. As a middle book, it only resolves some
+of the threads left open in {{ m1 }} while adding more. Taikoen is revealed
+to, in some perverse way, be a friend and advisor to Constantine, and Aiah's
+destruction of the hanged man is used to drive a wedge between herself and
+Constantine. I wish the book had explored the Constantine--Taikoen
+relationship more, but that's hard to do in a book told from Aiah's point of
+view.
+
+Sorya's backstab was a fantastic twist, but the resolution was left for the
+next book.
+
+I hope {{ m3 }} gets finished and ties up the loose ends, but after three
+decades I'm not holding my breath.
