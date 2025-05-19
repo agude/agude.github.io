@@ -28,16 +28,25 @@ Constantine to figure out how to govern.
 {% capture tainted %}{% book_link "The Tainted Cup" %}{% endcapture %}
 {% capture drop %}{% book_link "A Drop of Corruption" %}{% endcapture %}
 
+{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
+
+{% capture asoif %}{% series_text "A Song of Ice and Fire" %}{% endcapture %}
+{% capture martins %}{% author_link "George R. R. Martin" possessive %}{% endcapture %}
+{% capture crows %}{% book_link "A Feast for Crows" %}{% endcapture %}
+
+{% capture martines %}{% author_link "Arkady Martine" possessive %}{% endcapture %}
+{% capture empire %}{% book_link "A Memory Called Empire" %}{% endcapture %}
+
 The first book, {{ m1 }}, was a standard fantasy story---the hero discovers
 their inner talent and uses it to overthrow an evil ruler---with a unique
 world. {{ this_book }}'s story is more unique. It focuses on what happens
 after the revolution: when the heroes need to govern; form a coalition with
 multiple, opposed interest groups; and compromise their morals to avoid
 complete destruction. In this way, the book is similar to {{ sotl }}, which
-focuses more on the process of actually keeping an empire running.
-
-This should have been a more interesting story---it's one more rarely
-explored!---but
+focuses more on the process of actually keeping an empire running. How to go
+from revolution to government should have been a more interesting story---it's
+one more rarely explored!---but I just didn't enjoy following Aiah very much.
 
 Aiah is a more complex character in this book, and one I enjoyed reading about
 more. Her major flaw, that she is blinded by her devotion to Constantine, is
@@ -66,16 +75,33 @@ scene about eating grapefruit to stay thin right out of the 90's.
 [human_intervention]: https://en.wikipedia.org/wiki/Humanitarian_intervention
 
 {{ this_book }} is the middle-book in an as-of-yet unwritten trilogy, with the
-third book tenatively titled {{ m3 }}. As a middle book, it only resolves some
+third book tentatively titled {{ m3 }}. As a middle book, it only resolves some
 of the threads left open in {{ m1 }} while adding more. Taikoen is revealed
 to, in some perverse way, be a friend and advisor to Constantine, and Aiah's
 destruction of the hanged man is used to drive a wedge between herself and
 Constantine. I wish the book had explored the Constantine--Taikoen
 relationship more, but that's hard to do in a book told from Aiah's point of
-view.
+view. The book did a good job of turning Sorya into an antagonist, but left
+the resolution for the next book. A little was revealed about the shield, as
+Aiah was able to briefly pierce it, but that too is clearly being left for
+next time.
 
-Sorya's backstab was a fantastic twist, but the resolution was left for the
-next book.
+The book reminded me of a few other works:
 
-I hope {{ m3 }} gets finished and ties up the loose ends, but after three
-decades I'm not holding my breath.
+- The way there are little shrines with devotion candles dedicated to the gods
+  in the plasm stations was like <cite class="table-top-game-title">Warhammer
+  40,000</cite>'s mix of technology and religion.
+- The way large-scale military actions were sometimes described in a single
+  sentence was like the end of {{ bankss }} {{ weapons }}.
+- The way the narrative kept expanding without tying up all the loose ends
+  reminded me of the later books in {{ martins }} {{ asoif }}, particularly {{
+  crows }}.
+- The Dreaming Sisters contemplate tarot-like archetypes called "Imagoes",
+  the same word for the memory recording devices in {{ martines }} {{ empire
+  }}, which is how I learned that it is a real word which means: "An idealised
+  concept of a loved one, formed in childhood and retained unconsciously into
+  adult life, the basis for the psychological formation of personality
+  archetypes."
+
+I hope {{ the_author }} finishes {{ m3 }} and ties up the loose ends, but
+after three decades I'm not holding my breath.
