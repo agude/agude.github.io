@@ -51,22 +51,25 @@ Aiah very much.
 
 Aiah is more complex character in this book, and I enjoyed reading about her
 more than in {{ m1 }}, though that's still not saying much. Her main flaw,
-that she's blinded by her devotion to Constantine, is balanced by her other
-"flaw": she refuses to compromise her ideals for power. I found her romantic
-relationship with Constantine more frustrating than compelling. In some ways,
-the book reminded me of a romance novel: the young, inexperienced woman
-catches the attention of a powerful and dangerous man, who shows her that
-there's more to life than she imagined. And there are a **lot** of sex scenes.
+that she's blinded by her devotion to Constantine, is somewhat counterbalanced
+by her other "flaw": she refuses to compromise her ideals for power. This
+plays out most clearly in her affair with Constantine, but the relationship
+just did not interest me. I did not care if they stayed together, nor how it
+changed them. In some ways, the book reminded me of a romance novel: the
+young, inexperienced woman catches the attention of a powerful and dangerous
+man, who shows her that there's more to life than she imagined. And there are
+a **lot** of sex scenes.
 
 This book and {{ m1 }}---written nearly thirty years ago---feel very modern:
 the main characters are people of color, there are gay relationships treated as
 completely normal, and women occupy roles usually reserved for men. The theme of
 having to compromise your ideals in order to govern hits especially hard in a
-time when the far right is ascendant.
+time when the far right is ascendant as the opposition parties fail to
+overcome their differences and rally together.
 
 But in other ways, {{ this_series }} is rooted in 90s [Third Way][third_way]
 politics: the first thing Constantine does in Caraqui is sell off government
-industries to private buyers, lower trade barriers, and a simplify the tax
+industries to private buyers, lower trade barriers, and simplifies the tax
 code. The entire revolution and its messy aftermath echo the waves of
 [humanitarian intervention][human_intervention] from the same period. There's
 even a scene about eating grapefruit to stay thin, which feels straight out of
@@ -80,21 +83,21 @@ third book tentatively titled {{ m3 }}. As a middle book, it resolves some of
 {{ m1 }}'s open threads while introducing more. Taikoen is revealed to be, in
 some perverse way, a friend and advisor to Constantine, and Aiah's destruction
 of the hanged man becomes a wedge between her and Constantine. I wish the book
-had spent more time on the Constantine--Taikoen relationship, but that's hard
-to do when everything is seen from Aiah's point of view. Sorya becomes a clear
-antagonist, but the resolution is left for the next book. We get a bit more
-about the shield, as Aiah briefly pierces it, but that too is being saved for
-later.
+had spent more time on the Constantine--Taikoen relationship because it is not
+well foreshadowed, but that's hard to do when everything is seen from Aiah's
+point of view. Sorya becomes a clear antagonist, but the resolution is left
+for the next book. We get a bit more about the shield, as Aiah briefly pierces
+it, but that too is being saved for later.
 
 The book reminded me of a few other works:
 
-- The little shrines with devotion candles in the plasm stations reminded me of
-  <cite class="table-top-game-title">Warhammer 40,000</cite>'s mix of
-  technology and religion.
+- The little shrines with devotion candles in the plasm stations felt straight
+  out of <cite class="table-top-game-title">Warhammer 40,000</cite>, with its
+  mix of technology and religion.
 - The way major military actions are sometimes covered in just a sentence felt
   like the end of {{ bankss }} {{ weapons }}.
-- The ever-expanding narrative, with loose ends left hanging, reminded me of
-  the later books in {{ martins }} {{ asoif }}, especially {{ crows }}.
+- The ever-expanding narrative, full of unresolved threads, recalled the later
+  books in {{ martins }} {{ asoif }}, especially {{ crows }}.
 - The Dreaming Sisters' tarot-like archetypes called "Imagoes" share a name
   with the memory devices in {{ martines }} {{ empire }}---which is how I
   learned it's a real word meaning: "An idealized concept of a loved one,
