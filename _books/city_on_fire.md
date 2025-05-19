@@ -10,8 +10,8 @@ image: /books/covers/city_on_fire.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is the second book in the
-<span class="book-series">{{ page.series }}</span> series. It takes place
-right as the smoke clears in Caraqui after the revolution, leaving Aiah and
+<span class="book-series">{{ page.series }}</span> series. It picks up right
+as the smoke clears in Caraqui after the revolution, leaving Aiah and
 Constantine to figure out how to govern.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
@@ -39,69 +39,66 @@ Constantine to figure out how to govern.
 {% capture empire %}{% book_link "A Memory Called Empire" %}{% endcapture %}
 
 The first book, {{ m1 }}, was a standard fantasy story---the hero discovers
-their inner talent and uses it to overthrow an evil ruler---with a unique
-world. {{ this_book }}'s story is more unique. It focuses on what happens
-after the revolution: when the heroes need to govern; form a coalition with
-multiple, opposed interest groups; and compromise their morals to avoid
-complete destruction. In this way, the book is similar to {{ sotl }}, which
-focuses more on the process of actually keeping an empire running. How to go
-from revolution to government should have been a more interesting story---it's
-one more rarely explored!---but I just didn't enjoy following Aiah very much.
+their inner talent and uses it to overthrow an evil ruler---set in a unique
+world. {{ this_book }}'s story is more original. It focuses on what happens
+after the revolution: when the heroes have to govern, form a coalition among
+opposing factions, and compromise their morals to avoid collapse. In this way,
+it's similar to {{ sotl }}, which is also more concerned with keeping an
+empire running than toppling one. The transition from revolution to government
+_should_ have been more interesting---it's a rarely explored part of these
+kinds of stories---but I just didn't enjoy following Aiah very much.
 
-Aiah is a more complex character in this book, and one I enjoyed reading about
-more. Her major flaw, that she is blinded by her devotion to Constantine, is
-counterbalanced by her other "flaw", that she won't compromise her ideals for
-power. Still, I found her romantic relationship with Constantine more annoying
-than exciting. In some ways this book reminded me of a romance novel: the
-young, inexperienced woman attracts the attention of a powerful and dangerous
-man, who teachers her there is more to life than she imagined. And there are a
-lot of sex scenes.
+Aiah is more complex character in this book, and I enjoyed reading about her
+more than in {{ m1 }}, but still not a lot. Her main flaw, that she's blinded
+by her devotion to Constantine, is balanced by her other "flaw": she refuses
+to compromise her ideals for power. Still, I found her romantic relationship
+with Constantine more frustrating than compelling. In some ways, the book
+reminded me of a romance novel: the young, inexperienced woman catches the
+attention of a powerful and dangerous man, who shows her that there's more to
+life than she imagined. And there are a **lot** of sex scenes.
 
-This book and {{ m1 }} before it---written almost thirty years ago---feel very
-modern: the main characters are people of color, there are gay relationships
-that are treated as perfectly normal, and there are women in male-dominated
-roles. The theme of having to compromise you ideals to actually govern is
-darkly appropriate in this time where the far right is ascendant.
+This book and {{ m1 }}---written nearly thirty years ago---feel very modern:
+the main characters are people of color, there are gay relationships treated as
+completely normal, and women occupy roles usually reserved for men. The theme of
+having to compromise your ideals in order to govern hits especially hard in a
+time when the far right is ascendant.
 
-But in other ways {{ this_series }} is solidly rooted in 90's [Third
-Way][third_way] politics: the first thing Constantine does in Caraqui is sell
-off the government industries to private parties to increase efficiency, lower
-barriers to trade, and simplify the tax code. The entire revolution and the
-mess that comes after echoes the waves of [humanitarian
-intervention][human_intervention] during the same period. There is even a
-scene about eating grapefruit to stay thin right out of the 90's.
+But in other ways, {{ this_series }} is rooted in 90s [Third Way][third_way]
+politics: the first thing Constantine does in Caraqui is sell off government
+industries to private buyers, lower trade barriers, and a simplify the tax
+code. The entire revolution and its messy aftermath echo the waves of
+[humanitarian intervention][human_intervention] from the same period. There's
+even a scene about eating grapefruit to stay thin, which feels straight out of
+the 90s anorexia panic.
 
 [third_way]: https://en.wikipedia.org/wiki/Third_Way
 [human_intervention]: https://en.wikipedia.org/wiki/Humanitarian_intervention
 
-{{ this_book }} is the middle-book in an as-of-yet unwritten trilogy, with the
-third book tentatively titled {{ m3 }}. As a middle book, it only resolves some
-of the threads left open in {{ m1 }} while adding more. Taikoen is revealed
-to, in some perverse way, be a friend and advisor to Constantine, and Aiah's
-destruction of the hanged man is used to drive a wedge between herself and
-Constantine. I wish the book had explored the Constantine--Taikoen
-relationship more, but that's hard to do in a book told from Aiah's point of
-view. The book did a good job of turning Sorya into an antagonist, but left
-the resolution for the next book. A little was revealed about the shield, as
-Aiah was able to briefly pierce it, but that too is clearly being left for
-next time.
+{{ this_book }} is the middle volume of a still-unfinished trilogy, with the
+third book tentatively titled {{ m3 }}. As a middle book, it resolves some of
+{{ m1 }}'s open threads while introducing more. Taikoen is revealed to be, in
+some perverse way, a friend and advisor to Constantine, and Aiah's destruction
+of the hanged man becomes a wedge between her and Constantine. I wish the book
+had spent more time on the Constantine--Taikoen relationship, but that's hard
+to do when everything is seen from Aiah's point of view. Sorya becomes a clear
+antagonist, but the resolution is left for the next book. We get a bit more
+about the shield, as Aiah briefly pierces it, but that too is being saved for
+later.
 
 The book reminded me of a few other works:
 
-- The way there are little shrines with devotion candles dedicated to the gods
-  in the plasm stations was like <cite class="table-top-game-title">Warhammer
-  40,000</cite>'s mix of technology and religion.
-- The way large-scale military actions were sometimes described in a single
-  sentence was like the end of {{ bankss }} {{ weapons }}.
-- The way the narrative kept expanding without tying up all the loose ends
-  reminded me of the later books in {{ martins }} {{ asoif }}, particularly {{
-  crows }}.
-- The Dreaming Sisters contemplate tarot-like archetypes called "Imagoes",
-  the same word for the memory recording devices in {{ martines }} {{ empire
-  }}, which is how I learned that it is a real word which means: "An idealised
-  concept of a loved one, formed in childhood and retained unconsciously into
-  adult life, the basis for the psychological formation of personality
-  archetypes."
+- The little shrines with devotion candles in the plasm stations reminded me of
+  <cite class="table-top-game-title">Warhammer 40,000</cite>'s mix of
+  technology and religion.
+- The way major military actions are sometimes covered in just a sentence felt
+  like the end of {{ bankss }} {{ weapons }}.
+- The ever-expanding narrative, with loose ends left hanging, reminded me of
+  the later books in {{ martins }} {{ asoif }}, especially {{ crows }}.
+- The Dreaming Sisters' tarot-like archetypes called "Imagoes" share a name
+  with the memory devices in {{ martines }} {{ empire }}---which is how I
+  learned it's a real word meaning: "An idealized concept of a loved one,
+  formed in childhood and retained unconsciously into adult life, the basis
+  for the psychological formation of personality archetypes."
 
 I hope {{ the_author }} finishes {{ m3 }} and ties up the loose ends, but
-after three decades I'm not holding my breath.
+after three decades, I'm not holding my breath.
