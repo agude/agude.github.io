@@ -102,6 +102,20 @@ class TestSeriesTextTag < Minitest::Test
     assert_equal expected_output, render_tag(markup)
   end
 
+  def test_series_not_found_middle_word_unlinked
+    markup = '"The Chronicles of Narnia"'
+    expected_span = "<span class=\"book-series\">The Chronicles of Narnia</span>"
+    expected_output = "#{expected_span}"
+    assert_equal expected_output, render_tag(markup)
+  end
+
+  def test_series_not_found_starts_with_a
+    markup = '"A Song of Ice and Fire"'
+    expected_span = "<span class=\"book-series\">A Song of Ice and Fire</span>"
+    expected_output = "#{expected_span}"
+    assert_equal expected_output, render_tag(markup)
+  end
+
   def test_series_with_variable
     @context['my_series_var'] = 'Foundation'
     markup = 'my_series_var'
@@ -128,8 +142,8 @@ class TestSeriesTextTag < Minitest::Test
   end
 
   def test_whitespace_input_string
-     markup = '"   "'
-     assert_equal "", render_tag(markup)
+    markup = '"   "'
+    assert_equal "", render_tag(markup)
   end
 
   def test_keyword_as_substring_does_not_prevent_suffix
