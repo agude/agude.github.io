@@ -42,6 +42,8 @@ module Jekyll
       'sequence',
       'sequences',
       'series',
+      'song',
+      'songs',
       'trilogies',
       'trilogy',
       'universe',
@@ -92,9 +94,15 @@ module Jekyll
       normalized_series_name = stripped_series_name.downcase
       # --- End Resolve Input ---
 
-
       # --- Determine Prefix ---
-      the_prefix = normalized_series_name.start_with?("the ") ? "" : "the "
+      # Omit "the " prefix if series starts with "the ", "a ", or "an "
+      if normalized_series_name.start_with?("the ") || \
+          normalized_series_name.start_with?("a ") || \
+          normalized_series_name.start_with?("an ")
+        the_prefix = ""
+      else
+        the_prefix = "the "
+      end
       # --- End Determine Prefix ---
 
 
