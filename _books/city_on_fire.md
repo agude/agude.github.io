@@ -43,19 +43,20 @@ their inner talent and uses it to overthrow an evil ruler---set in a unique
 world. {{ this_book }}'s story is more original. It focuses on what happens
 after the revolution: when the heroes have to govern, form a coalition among
 opposing factions, and compromise their morals to avoid collapse. In this way,
-it's similar to {{ sotl }}, which is also more concerned with keeping an
-empire running than toppling one. The transition from revolution to government
-_should_ have been more interesting---it's a rarely explored part of these
-kinds of stories---but I just didn't enjoy following Aiah very much.
+it's similar to {{ tainted }} from {{ sotl }}, which is also more concerned
+about what is required to keep an empire running. The transition from
+revolution to government _should_ have been more interesting---it's a rarely
+explored part of these kinds of stories---but I just didn't enjoy following
+Aiah very much.
 
 Aiah is more complex character in this book, and I enjoyed reading about her
-more than in {{ m1 }}, but still not a lot. Her main flaw, that she's blinded
-by her devotion to Constantine, is balanced by her other "flaw": she refuses
-to compromise her ideals for power. Still, I found her romantic relationship
-with Constantine more frustrating than compelling. In some ways, the book
-reminded me of a romance novel: the young, inexperienced woman catches the
-attention of a powerful and dangerous man, who shows her that there's more to
-life than she imagined. And there are a **lot** of sex scenes.
+more than in {{ m1 }}, though that's still not saying much. Her main flaw,
+that she's blinded by her devotion to Constantine, is balanced by her other
+"flaw": she refuses to compromise her ideals for power. I found her romantic
+relationship with Constantine more frustrating than compelling. In some ways,
+the book reminded me of a romance novel: the young, inexperienced woman
+catches the attention of a powerful and dangerous man, who shows her that
+there's more to life than she imagined. And there are a **lot** of sex scenes.
 
 This book and {{ m1 }}---written nearly thirty years ago---feel very modern:
 the main characters are people of color, there are gay relationships treated as
