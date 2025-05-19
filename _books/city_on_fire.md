@@ -26,7 +26,6 @@ Constantine to figure out how to govern.
 
 {% capture sotl %}{% series_text "Shadow of the Leviathan" %}{% endcapture %}
 {% capture tainted %}{% book_link "The Tainted Cup" %}{% endcapture %}
-{% capture drop %}{% book_link "A Drop of Corruption" %}{% endcapture %}
 
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
@@ -44,12 +43,12 @@ world. {{ this_book }}'s story is more original. It focuses on what happens
 after the revolution: when the heroes have to govern, form a coalition among
 opposing factions, and compromise their morals to avoid collapse. In this way,
 it's similar to {{ tainted }} from {{ sotl }}, which is also more concerned
-about what is required to keep an empire running. The transition from
+with what is required to keep an empire running. The transition from
 revolution to government _should_ have been more interesting---it's a rarely
 explored part of these kinds of stories---but I just didn't enjoy following
 Aiah very much.
 
-Aiah is more complex character in this book, and I enjoyed reading about her
+Aiah is a more complex character in this book, and I enjoyed reading about her
 more than in {{ m1 }}, though that's still not saying much. Her main flaw,
 that she's blinded by her devotion to Constantine, is somewhat counterbalanced
 by her other "flaw": she refuses to compromise her ideals for power. This
@@ -61,22 +60,22 @@ man, who shows her that there's more to life than she imagined. And there are
 a **lot** of sex scenes.
 
 This book and {{ m1 }}---written nearly thirty years ago---feel very modern:
-the main characters are people of color, there are gay relationships treated as
-completely normal, and women occupy roles usually reserved for men. The theme of
-having to compromise your ideals in order to govern hits especially hard in a
-time when the far right is ascendant as the opposition parties fail to
-overcome their differences and rally together.
+the main characters are people of color, there are gay relationships treated
+as completely normal, and women occupy roles usually reserved for men. The
+theme of having to compromise your ideals in order to govern hits especially
+hard in a time when the far right is ascendant as the opposition parties fail
+to overcome their differences and rally together.
 
 But in other ways, {{ this_series }} is rooted in 90s [Third Way][third_way]
 politics: the first thing Constantine does in Caraqui is sell off government
-industries to private buyers, lower trade barriers, and simplifies the tax
-code. The entire revolution and its messy aftermath echo the waves of
-[humanitarian intervention][human_intervention] from the same period. There's
-even a scene about eating grapefruit to stay thin, which feels straight out of
-the 90s anorexia panic.
+industries to private buyers, lower trade barriers, and simplify the tax code.
+The entire revolution and its messy aftermath echo the waves of [humanitarian
+intervention][human_intervention] from the same period. There's even a scene
+about eating grapefruit to stay thin, which feels straight out of the 90s
+anorexia panic.
 
-[third_way]: https://en.wikipedia.org/wiki/Third_Way
-[human_intervention]: https://en.wikipedia.org/wiki/Humanitarian_intervention
+[third_way]: https://en.wikipedia.org/wiki/Third_Way [human_intervention]:
+https://en.wikipedia.org/wiki/Humanitarian_intervention
 
 {{ this_book }} is the middle volume of a still-unfinished trilogy, with the
 third book tentatively titled {{ m3 }}. As a middle book, it resolves some of
