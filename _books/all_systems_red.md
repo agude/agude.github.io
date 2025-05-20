@@ -53,14 +53,13 @@ first. It doesn't like being around people, is kind of horrified when they're
 nice to it, but still feels compelled to protect them.
 
 {{ this_book }} reminded me of {{ laumers }} {{ bolo_series }}.[^bolo] Both
-feature intelligent weapon systems that are, in some ways, more human than the
-people around them. Murderbot and the tanks of the Dinochrome Brigade share a
-sense of duty toward their humans---but a key difference is that Murderbot has
-a choice, while the Bolos are programmed to be loyal. The book also echoes {{
-heinleins }} works---like {{ stranger }} and {{ moon }}---in depicting people
-forming group marriages and communes. {{ this_book }} is also similar to {{
-taylors }} {{ bob1 }} in that both Bob and Murderbot are artificial
-intelligences that override their programming.
+feature intelligent weapon systems that often seem more human than the people
+around them. Murderbot and the tanks of the Dinochrome Brigade share a sense
+of duty to their humans---but while Bolos are hardwired for loyalty, Murderbot
+chooses to care. The book also echoes {{ heinleins }} works---like {{ stranger
+}} and {{ moon }}---in its depiction of group marriages and communal living.
+And like {{ taylors }} {{ bob1 }}, {{ this_book }} follows an AI that breaks
+free from its programming to gain freedom.
 
 [^bolo]: {{ bolo1 }}, {{ bolo2 }}, etc.
 
