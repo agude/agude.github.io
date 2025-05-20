@@ -26,23 +26,32 @@ Murderbot as it saves a team of scientists.
 
 {% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
 {% capture mb2 %}{% book_link "Artificial Condition" %}{% endcapture %}
-{% capture mb3 %}{% book_link "Rogue Protocol" %}{% endcapture %}
-{% capture mb4 %}{% book_link "Exit Strategy" %}{% endcapture %}
-{% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}
-{% capture mb6 %}{% book_link "Fugitive Telemetry" %}{% endcapture %}
-{% capture mb7 %}{% book_link "System Collapse" %}{% endcapture %}
 
 {% capture laumers %}{% author_link "Keith Laumer" possessive %}{% endcapture %}
 {% capture bolo_series %}{% series_link "Bolo" %} series{% endcapture %}
 
-{{ this_book }} is a fun, quick read. Murderbot is relatable: it is depressed,
-anxious, and just wants to binge-watch TV but has a (boring) job it has to do
-first. It doesn't like being around people, but it also feels a need to
-protect them.
+{% capture heinleins %}{% author_link "Robert A. Heinlein" possessive %}{% endcapture %}
+{% capture moon %}{% book_link "The Moon Is a Harsh Mistress" %}{% endcapture %}
+{% capture stranger %}{% book_link "Stranger in a Strange Land" %}{% endcapture %}
 
-{{ this_book }} reminded me the most of {{ laumers }} {{ bolo_series }}. Both
-star intelligent weapon systems that are in some ways more human than their
-human companions. Both deal with themes of duty and purpose. Murderbot is
-different from the Dinochrome bridgade tanks in one clear manner: it chooses
-to be loyal and honorable, whereas Bolos have that enforced through their
-programing.
+In {{ this_book }} we're introduced to Murderbot as it protects a group of
+scientists on an alien planet. They soon realize that another
+group---GrayCris---is trying to kill them to cover up the fact that there are
+alien ruins on the planet. Murderbot has to figure out how to save its people
+and escape the planet.
+
+{{ this_book }} is a fun, quick read. There is a good mix of humor and action,
+and Murderbot is very relatable despite being a... murderbot. It is depressed,
+anxious, and just wants to binge-watch TV but has a (boring) job it has to do
+first. It doesn't like being around people, is sort of horrifed when they're
+nice to it, but it also feels a need to protect them.
+
+{{ this_book }} reminded me of {{ laumers }} {{ bolo_series }}. Both feature
+intelligent weapon systems that are in some ways more human than their human
+companions. Both Murderbot and the tanks of the Dinochrome Brigade feel a
+sense of duty to their humans, but a key diference is that Murderbot has a
+choice whereas Bolos' programing determines their loyalties. The book is also
+similar to {{ heinleins }} works---like {{ stranger }} and {{ moon }}---in
+depecting people mostly living in group marriages.
+
+I finished the book in a day and jumped right into {{ mb2 }}.
