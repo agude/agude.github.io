@@ -74,8 +74,8 @@ intervention][human_intervention] from the same period. There's even a scene
 about eating grapefruit to stay thin, which feels straight out of the 90s
 anorexia panic.
 
-[third_way]: https://en.wikipedia.org/wiki/Third_Way [human_intervention]:
-https://en.wikipedia.org/wiki/Humanitarian_intervention
+[third_way]: https://en.wikipedia.org/wiki/Third_Way
+[human_intervention]: https://en.wikipedia.org/wiki/Humanitarian_intervention
 
 {{ this_book }} is the middle volume of a still-unfinished trilogy, with the
 third book tentatively titled {{ m3 }}. As a middle book, it resolves some of
