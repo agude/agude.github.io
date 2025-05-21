@@ -25,6 +25,7 @@ ranked_list:
   - Night Without Stars
   - The Colonel
   - The Fall of Hyperion
+  - Artificial Condition
   - A Desolation Called Peace
   - Childhood's End
   - Dragon's Egg
