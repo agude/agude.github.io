@@ -24,31 +24,49 @@ digs into its past and, once again, saves some scientists.
 {% capture mb3 %}{% book_link "Rogue Protocol" %}{% endcapture %}
 
 {% capture drop %}{% book_link "A Drop of Corruption" %}{% endcapture %}
-
 {% capture city %}{% book_link "City on Fire" %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
+{% capture memory %}{% book_link "A Memory Called Empire" %}{% endcapture %}
+{% capture peace %}{% book_link "A Desolation Called Peace" %}{% endcapture %}
+{% capture weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
+{% capture windward %}{% book_link "Look to Windward" %}{% endcapture %}
+{% capture surface %}{% book_link "Surface Detail" %}{% endcapture %}
+{% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
 
-{% capture ludlums %}{% author_link "Robert Ludlum" %}{% endcapture %}
+{% capture ludlums %}{% author_link "Robert Ludlum" possessive %}{% endcapture %}
 {% capture bourne %}{% book_link "The Bourne Identity" %}{% endcapture %}
 
 {{ this_book }} moves faster than {{ mb1 }}, with a smoother blend of action
 and exposition. Murderbot arrives at a mining station, gets hired as a
-security consultant by a group of researchers looking to get their stolen work
-back, saves their lives twice, investigates the massacre it thinks it might
-have caused, saves the researchers again, and kills the bad guy. Along the way
+security consultant by a group of researchers trying to recover their stolen
+work, saves their lives twice, investigates the massacre it thinks it might
+have caused, saves the researchers again, and kills the bad guy. Along the way,
 it makes friends with a super-intelligent, super-bored, asshole research
 transport (ART).
 
 I like how {{ the_authors_lastname }} is slowly expanding the universe of {{
-this_series }}. It lets her balance worldbuilding with plot, and avoids the
-problem where exploring the setting is what drives the excitement in book one
-but is all played out by the sequel---a trap that both {{ drop }} and {{ city
-}} fell into.
+this_series }}. It lets her balance worldbuilding with plot and avoids the
+problem where exploring the setting is what drives the excitement in book one,
+but feels played out by the sequel---a trap that both {{ drop }} and {{ city }}
+fell into.
 
-One of the things I loved about this book was how Murderbot was extremely
-competent. He beat the bad guys because he was just better at security and
-violence then they were. It's the same enjoyment I get reading {{ ludlums }}
-{{ bourne }}. The other thing I loved was ART, who was both hyper competent
-and a little naive; a perfect friendly foil for Murderbot.
+A theme of {{ this_series }} is identify and purpose. Murderbot is slowly
+realizing its need to protect people isn't leftover programming but a core
+part of who it is. There was a scene where ART proposes surgically modifying
+Murderbot to help it stay hidden and Murderbot instinctively rejects it. To
+it, changing itself feels like losing part of what makes it *it*. In the end
+thought, Murderbot accepts the alteration as necessary to remain free.
+This exploration of the what makes the self is a common theme in sci-fi, one
+we've seen in explored in {{ blindsight }} and {{ echopraxia }}; {{ memory }}
+and {{ peace }}; {{ weapons }}, {{ windward }}, and {{ surface }}; {{ bob1 }};
+etc. etc. etc.
 
-I really loved {{ this_book }}, even more than {{ mb1 }}, because of the
-pacing, the character dynamics, and ART. I'm starting {{ mb3 }} right away!
+One of the things I enjoyed about this book was how competent Murderbot is. He
+beats the bad guys because he's just better at security and violence than they
+are, it was never a fair fight. It gives me the same thrill as {{ ludlums }}
+{{ bourne }}. The other thing I loved was ART, who's both hyper-competent and
+a little naive---a perfect, friendly foil for Murderbot.
+
+{{ this_book }} was great, even better than {{ mb1 }}, because of the pacing,
+the character dynamics, and ART. I'm starting {{ mb3 }} right away!
