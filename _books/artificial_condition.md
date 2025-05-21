@@ -25,6 +25,7 @@ digs into its past and, once again, saves some scientists.
 
 {% capture drop %}{% book_link "A Drop of Corruption" %}{% endcapture %}
 {% capture city %}{% book_link "City on Fire" %}{% endcapture %}
+
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 {% capture memory %}{% book_link "A Memory Called Empire" %}{% endcapture %}
@@ -41,32 +42,34 @@ digs into its past and, once again, saves some scientists.
 and exposition. Murderbot arrives at a mining station, gets hired as a
 security consultant by a group of researchers trying to recover their stolen
 work, saves their lives twice, investigates the massacre it thinks it might
-have caused, saves the researchers again, and kills the bad guy. Along the way,
-it makes friends with a super-intelligent, super-bored, asshole research
+have caused, saves the researchers again, and kills the bad guy. Along the
+way, it makes friends with a super-intelligent, super-bored, asshole research
 transport (ART).
 
 I like how {{ the_authors_lastname }} is slowly expanding the universe of {{
 this_series }}. It lets her balance worldbuilding with plot and avoids the
-problem where exploring the setting is what drives the excitement in book one,
-but feels played out by the sequel---a trap that both {{ drop }} and {{ city }}
+problem where exploring the setting drives the excitement in book one but
+feels played out by the sequel---a trap that both {{ drop }} and {{ city }}
 fell into.
 
-A theme of {{ this_series }} is identify and purpose. Murderbot is slowly
-realizing its need to protect people isn't leftover programming but a core
-part of who it is. There was a scene where ART proposes surgically modifying
-Murderbot to help it stay hidden and Murderbot instinctively rejects it. To
-it, changing itself feels like losing part of what makes it *it*. In the end
-thought, Murderbot accepts the alteration as necessary to remain free.
-This exploration of the what makes the self is a common theme in sci-fi, one
-we've seen in explored in {{ blindsight }} and {{ echopraxia }}; {{ memory }}
-and {{ peace }}; {{ weapons }}, {{ windward }}, and {{ surface }}; {{ bob1 }};
-etc. etc. etc.
+A theme of {{ this_series }} is identity and purpose. Murderbot is slowly
+realizing that its need to protect people isn't leftover programming but a
+core part of who it is. There's a scene where ART proposes surgically
+modifying Murderbot to help it stay hidden, and Murderbot instinctively
+rejects it. To it, changing itself feels like losing part of what makes it
+*it*. In the end, though, Murderbot accepts the alteration as necessary to
+remain free.
+
+This question of "what makes the self" is a common theme in sci-fi, one we've
+seen explored in {{ blindsight }} and {{ echopraxia }}, in {{ memory }} and {{
+peace }}, again in {{ weapons }}, {{ windward }}, and {{ surface }}, and of
+course in {{ bob1 }}.
 
 One of the things I enjoyed about this book was how competent Murderbot is. He
 beats the bad guys because he's just better at security and violence than they
-are, it was never a fair fight. It gives me the same thrill as {{ ludlums }}
-{{ bourne }}. The other thing I loved was ART, who's both hyper-competent and
-a little naive---a perfect, friendly foil for Murderbot.
+are. It was never a fair fight. It gives me the same thrill as {{ ludlums }}
+{{ bourne }}. The other standout is ART, who's both hyper-competent and a
+little naive---a perfect, friendly foil for Murderbot.
 
 {{ this_book }} was great, even better than {{ mb1 }}, because of the pacing,
 the character dynamics, and ART. I'm starting {{ mb3 }} right away!
