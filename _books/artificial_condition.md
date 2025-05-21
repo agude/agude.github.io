@@ -25,3 +25,23 @@ class="author-name">{{ page.book_author }}</span>, is the second book in the
 {% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}
 {% capture mb6 %}{% book_link "Fugitive Telemetry" %}{% endcapture %}
 {% capture mb7 %}{% book_link "System Collapse" %}{% endcapture %}
+
+{% capture ludlums %}{% author_link "Robert Ludlum" %}{% endcapture %}
+{% capture bourne %}{% book_link "The Bourne Identity" %}{% endcapture %}
+
+{{ this_book }} felt a lot faster, with a better blending of the action and
+exposition. Murderbot arrives at a mining station, gets hired as a security
+consultant by some researchers, saves their lives twice, investigates the
+massacre it supposedly caused, saves the researchers again, and kills the bad
+guys. And it makes friends with really smart and really bored asshole research
+transport (ART).
+
+goes to explore its past, meets some out-of-their-depth
+researchers, and murders some badguys while saving the good guys. The slow
+expansion of the setting, of Murderbot's history, and the introduction of new
+characters helps keep the stories fresh.
+
+One of the things I love in stories is watching competent characters operate
+in their area of expertise, and {{ this_book }} excels there: Murderbot keeps
+beating the bad guys because it is just better at security and violence than
+they are. It's the same excitement I get from {{ ludlums }} {{ bourne }}.
