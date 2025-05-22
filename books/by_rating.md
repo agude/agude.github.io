@@ -26,6 +26,7 @@ ranked_list:
   - The Colonel
   - The Fall of Hyperion
   - Artificial Condition
+  - Rogue Protocol
   - A Desolation Called Peace
   - Childhood's End
   - Dragon's Egg
