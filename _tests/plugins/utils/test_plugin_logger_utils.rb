@@ -93,7 +93,13 @@ class TestPluginLoggerUtils < Minitest::Test
   end
 
   def test_console_log_uses_default_global_level_if_not_set
-    ctx = create_test_context({ 'plugin_logging' => { 'MY_TAG' => true } })
+    # Test with plugin_log_level not explicitly set in site_config_overrides,
+    # so it should use PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING ('warn').
+    # Message level is :warn, so it should log.
+    ctx = create_test_context({
+      'plugin_logging' => { 'MY_TAG' => true }
+      # 'plugin_log_level' is implicitly 'warn' due to create_test_context defaults merging with PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING
+    })
 
     mock_logger = Minitest::Mock.new
     expected_console_msg = "[WARN] MY_TAG_FAILURE: Reason='Test'  SourcePage='path/page.html'"
@@ -107,6 +113,7 @@ class TestPluginLoggerUtils < Minitest::Test
 
   def test_console_log_uses_default_message_level_if_not_passed
     # Default message level is :warn (PluginLoggerUtils::DEFAULT_MESSAGE_LEVEL_SYMBOL)
+    # Global console level is permissive ('debug')
     ctx = create_test_context({
       'plugin_log_level' => 'debug', # Global console level is permissive
       'plugin_logging' => { 'MY_TAG' => true }
@@ -134,7 +141,7 @@ class TestPluginLoggerUtils < Minitest::Test
       'plugin_logging' => { 'MY_TAG' => true }
     })
     html_output = ""
-    # Use a mock that responds to :debug to prevent puts fallback
+    # Use a mock that responds to :debug for console output
     logger_responds_to_debug = Minitest::Mock.new
     logger_responds_to_debug.expect(:debug, nil, [String, String]) # Allow any two string args
 
@@ -175,7 +182,7 @@ class TestPluginLoggerUtils < Minitest::Test
       'plugin_logging' => { 'MY_TAG' => true }
     })
     html_output = ""
-    # Use a mock that responds to :debug to prevent puts fallback, even though HTML is off
+    # Console output should still happen if level is met
     logger_responds_to_debug = Minitest::Mock.new
     logger_responds_to_debug.expect(:debug, nil, [String, String])
 
@@ -183,7 +190,7 @@ class TestPluginLoggerUtils < Minitest::Test
       html_output = PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: "MY_TAG", reason: "Prod Test", level: :debug)
     end
     logger_responds_to_debug.verify
-    assert_equal "", html_output
+    assert_equal "", html_output, "HTML output should be empty in production"
   end
 
   def test_no_html_comment_if_tag_disabled
@@ -197,7 +204,7 @@ class TestPluginLoggerUtils < Minitest::Test
     Jekyll.stub :logger, Minitest::Mock.new do # Stub to silence potential console output
       html_output = PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: "MY_TAG", reason: "Disabled Test")
     end
-    assert_equal "", html_output
+    assert_equal "", html_output, "HTML output should be empty when tag logging is disabled"
   end
 
   def test_puts_fallback_used_when_jekyll_logger_cannot_handle_level
@@ -217,6 +224,8 @@ class TestPluginLoggerUtils < Minitest::Test
   end
 
   # --- Test for internal logger error when context/site is bad ---
+  # These tests verify the STDERR fallback when site.config is inaccessible.
+
   def test_internal_logger_error_if_context_is_nil
     _stdout_str, stderr_str = capture_io do
       # This call passes level: :error
@@ -224,7 +233,7 @@ class TestPluginLoggerUtils < Minitest::Test
     end
     cleaned_stderr = strip_ansi(stderr_str).strip
     # Define the exact expected string after cleaning
-    expected_text = "PluginLogger: [PLUGIN LOGGER ERROR] Context or Site unavailable. Original Call: CTX_NIL - error: Bad context"
+    expected_text = "PluginLogger: [PLUGIN LOGGER ERROR] Context, Site, or Site Config unavailable for logging. Original Call: CTX_NIL - error: Bad context"
     assert_equal expected_text, cleaned_stderr
   end
 
@@ -235,7 +244,7 @@ class TestPluginLoggerUtils < Minitest::Test
     end
     cleaned_stderr = strip_ansi(stderr_str).strip
     # Define the exact expected string after cleaning
-    expected_text = "PluginLogger: [PLUGIN LOGGER ERROR] Context or Site unavailable. Original Call: CTX_NO_SITE - error: Bad context"
+    expected_text = "PluginLogger: [PLUGIN LOGGER ERROR] Context, Site, or Site Config unavailable for logging. Original Call: CTX_NO_SITE - error: Bad context"
     assert_equal expected_text, cleaned_stderr
   end
 end
