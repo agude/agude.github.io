@@ -1,10 +1,10 @@
 ---
-date: 2025-05-18
+date: 2025-05-21
 title: Rogue Protocol
 book_author: Martha Wells
 series: The Murderbot Diaries
 book_number: 3
-rating: null
+rating: 5
 image: /books/covers/rogue_protocol.jpg
 ---
 
