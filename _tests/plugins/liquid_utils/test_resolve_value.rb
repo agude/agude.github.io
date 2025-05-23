@@ -31,7 +31,7 @@ class TestLiquidUtilsResolveValue < Minitest::Test
     assert_nil LiquidUtils.resolve_value('nil_var', ctx)
   end
 
-   def test_resolve_value_variable_holds_false
+  def test_resolve_value_variable_holds_false
     ctx = create_context({ 'false_var' => false })
     # Should return actual false
     assert_equal false, LiquidUtils.resolve_value('false_var', ctx)

@@ -65,19 +65,19 @@ module Jekyll
 
     def render(context)
       # Resolve rating value
-    rating_value = LiquidUtils.resolve_value(@rating_markup, context) # This will change later
+      rating_value = LiquidUtils.resolve_value(@rating_markup, context) # This will change later
 
       # Resolve wrapper tag (defaulting to 'div' is handled by the utility)
       wrapper_tag_value = 'div' # Default
       if @wrapper_tag_markup
         # resolve_value removes the quotes
-      resolved_tag = LiquidUtils.resolve_value(@wrapper_tag_markup, context) # This will change later
+        resolved_tag = LiquidUtils.resolve_value(@wrapper_tag_markup, context) # This will change later
         # Pass the resolved string (e.g., "span") to the utility
         wrapper_tag_value = resolved_tag if resolved_tag
       end
 
       # Call the utility function. It handles nil, validation, errors.
-    RatingUtils.render_rating_stars(rating_value, wrapper_tag_value)
+      RatingUtils.render_rating_stars(rating_value, wrapper_tag_value)
     end
   end
 end

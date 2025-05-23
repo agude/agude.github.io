@@ -213,7 +213,7 @@ class TestCardDataExtractorUtils < Minitest::Test
     assert_nil result_nil_context[:data_source_for_keys]
     cleaned_stderr = strip_ansi(stderr_str).strip
     # CardDataExtractorUtils calls PluginLoggerUtils with default level :warn for its own message part
-    expected_text = "PluginLogger: [PLUGIN LOGGER ERROR] Context or Site unavailable. Original Call: CTX_TEST - warn: Context or Site object unavailable for card data extraction."
+    expected_text = "PluginLogger: [PLUGIN LOGGER ERROR] Context, Site, or Site Config unavailable for logging. Original Call: CTX_TEST - warn: Context or Site object unavailable for card data extraction."
     assert_equal expected_text, cleaned_stderr
   end
 
@@ -252,7 +252,7 @@ class TestCardDataExtractorUtils < Minitest::Test
     assert_nil result_no_site_reg[:site]
     cleaned_stderr = strip_ansi(stderr_str).strip
     # CardDataExtractorUtils calls PluginLoggerUtils with default level :warn
-    expected_text = "PluginLogger: [PLUGIN LOGGER ERROR] Context or Site unavailable. Original Call: CTX_NO_SITE - warn: Context or Site object unavailable for card data extraction."
+    expected_text = "PluginLogger: [PLUGIN LOGGER ERROR] Context, Site, or Site Config unavailable for logging. Original Call: CTX_NO_SITE - warn: Context or Site object unavailable for card data extraction."
     assert_equal expected_text, cleaned_stderr
   end
 

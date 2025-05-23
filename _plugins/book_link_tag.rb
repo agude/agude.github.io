@@ -33,10 +33,10 @@ module Jekyll
       else
         # If not quoted, try matching a sequence of non-whitespace characters (potential variable)
         if scanner.scan(/\S+/)
-           @title_markup = scanner.matched
+          @title_markup = scanner.matched
         else
-           # If nothing is found, it's a syntax error
-           raise Liquid::SyntaxError, "Syntax Error in 'book_link': Could not find book title in '#{@raw_markup}'"
+          # If nothing is found, it's a syntax error
+          raise Liquid::SyntaxError, "Syntax Error in 'book_link': Could not find book title in '#{@raw_markup}'"
         end
       end
 
@@ -47,7 +47,7 @@ module Jekyll
 
         # Check for link_text=... argument
         if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
-          @link_text_markup ||= scanner[1] # Take the first one found
+            @link_text_markup ||= scanner[1] # Take the first one found
         else
           # Found an unrecognized argument
           unknown_arg = scanner.scan(/\S+/)
@@ -58,7 +58,7 @@ module Jekyll
 
       # Ensure title markup was actually found
       unless @title_markup && !@title_markup.strip.empty?
-         raise Liquid::SyntaxError, "Syntax Error in 'book_link': Title value is missing or empty in '#{@raw_markup}'"
+        raise Liquid::SyntaxError, "Syntax Error in 'book_link': Title value is missing or empty in '#{@raw_markup}'"
       end
 
     end # End initialize

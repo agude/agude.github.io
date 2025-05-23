@@ -29,9 +29,9 @@ module Jekyll
       scanner = StringScanner.new(markup.strip)
       while scanner.scan(SYNTAX)
         key = scanner[1]
-        value_markup = scanner[2] # This is the raw value markup (quoted string or variable name)
+        value_markup = scanner[2]
         @attributes[key] = value_markup
-        scanner.skip(/\s*/) # Skip whitespace before next argument
+        scanner.skip(/\s*/)
       end
 
       # Check if there's any unparsed text left
@@ -58,22 +58,18 @@ module Jekyll
       @attributes.each do |key, value_markup|
         # Skip the required args we already handled
         next if key == 'type' || key == 'reason'
-        # Resolve the value and add to identifiers hash
-        identifiers[key.capitalize] = LiquidUtils.resolve_value(value_markup, context) # Capitalize key for consistency? Or keep as-is? Let's keep as-is for now.
-        # identifiers[key] = LiquidUtils.resolve_value(value_markup, context)
+        # Use the key as-is (it's already a string from the scanner)
+        identifiers[key] = LiquidUtils.resolve_value(value_markup, context)
       end
 
-      # Call the central logging utility
       PluginLoggerUtils.log_liquid_failure(
         context: context,
         tag_type: log_type,
         reason: log_reason,
         identifiers: identifiers
       )
-      # The utility function returns the HTML comment string or ""
-    end # End render
-
-  end # End class
-end # End module
+    end
+  end
+end
 
 Liquid::Template.register_tag('log_failure', Jekyll::LogFailureTag)

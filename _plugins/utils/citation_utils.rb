@@ -153,7 +153,7 @@ module CitationUtils
     # A simple check for a slash is a good heuristic for DOI slugs.
     if doi_input_str.start_with?("10.") && doi_input_str.include?('/')
       doi_slug_to_link = doi_input_str
-    # Case 2: Input is likely a full DOI URL
+      # Case 2: Input is likely a full DOI URL
     elsif doi_input_str.downcase.include?("doi.org/")
       # Regex: case insensitive, matches "doi.org/" followed by (capturing group for "10." followed by anything non-empty up to a space or end)
       match = doi_input_str.match(%r{doi\.org/(10\.[^\s]+)$}i)
@@ -166,10 +166,10 @@ module CitationUtils
     if _present?(doi_slug_to_link)
       # Validate the slug further if needed (e.g., more complex regex for DOI structure)
       # For now, we assume if it starts with "10." and contains '/', it's a candidate.
-      
+
       # Text to display for the link (the slug itself, HTML escaped)
       escaped_slug_for_display = _escapeHTML(doi_slug_to_link)
-      
+
       # URL for the href attribute (raw, unescaped slug)
       # Ensure no double escaping if the slug itself had % encoding, though doi.org handles this well.
       full_doi_url_for_href = "#{doi_url_prefix}#{doi_slug_to_link}"
