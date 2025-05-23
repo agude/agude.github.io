@@ -48,7 +48,7 @@ MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection) do
 
   def respond_to?(method_name, include_private = false)
     # Ensure common document attributes and '[]' are reported as available.
-    return true if %i[data url content date title site collection []].include?(method_name.to_sym)
+    return true if %i[data url content date title site collection [] to_liquid].include?(method_name.to_sym) # Added to_liquid
     super
   end
 
@@ -78,6 +78,11 @@ MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection) do
   def generate_excerpt(separator)
     # This is a very basic mock. Real excerpt generation is more complex.
     # For testing, usually data['excerpt'] (as a Struct with :output) is set directly.
+  end
+
+  # Allow MockDocument to be treated as a Liquid Drop by responding to to_liquid
+  def to_liquid
+    self # A common simple implementation for drops that just expose their methods/attributes
   end
 end
 
