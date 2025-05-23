@@ -1,10 +1,10 @@
 ---
-date: 2025-05-19
+date: 2025-05-23
 title: Exit Strategy
 book_author: Martha Wells
 series: The Murderbot Diaries
 book_number: 4
-rating: null
+rating: 5
 image: /books/covers/exit_strategy.jpg
 ---
 
