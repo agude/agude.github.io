@@ -4,6 +4,7 @@ require 'liquid'
 require_relative 'liquid_utils' # For resolve_value
 require_relative 'utils/article_card_utils'
 require_relative 'utils/plugin_logger_utils'
+require_relative 'utils/tag_argument_utils'
 
 module Jekyll
   class RenderArticleCardTag < Liquid::Tag
@@ -16,7 +17,7 @@ module Jekyll
     end
 
     def render(context)
-      post_object = LiquidUtils.resolve_value(@post_object_markup, context)
+      post_object = TagArgumentUtils.resolve_value(@post_object_markup, context)
 
       unless post_object
         # Log if the resolved object is nil (variable not found or was nil)

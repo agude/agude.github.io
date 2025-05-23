@@ -7,6 +7,7 @@ require 'strscan'
 require_relative 'liquid_utils'
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/article_card_utils'
+require_relative 'utils/tag_argument_utils'
 
 module Jekyll
   class ArticleCardLookupTag < Liquid::Tag
@@ -38,7 +39,7 @@ module Jekyll
     # Renders the article card by looking up the post and calling the utility function
     def render(context)
       site = context.registers[:site]
-      target_url_raw = LiquidUtils.resolve_value(@url_markup, context).to_s.strip
+      target_url_raw = TagArgumentUtils.resolve_value(@url_markup, context).to_s.strip
 
       unless target_url_raw && !target_url_raw.empty?
         return PluginLoggerUtils.log_liquid_failure(

@@ -4,6 +4,7 @@ require 'liquid'
 require 'strscan'
 require_relative 'liquid_utils'
 require_relative 'utils/rating_utils' # Add this
+require_relative 'utils/tag_argument_utils'
 
 module Jekyll
   # Liquid Tag to render rating stars using the LiquidUtils helper.
@@ -65,13 +66,13 @@ module Jekyll
 
     def render(context)
       # Resolve rating value
-      rating_value = LiquidUtils.resolve_value(@rating_markup, context) # This will change later
+      rating_value = TagArgumentUtils.resolve_value(@rating_markup, context) # This will change later
 
       # Resolve wrapper tag (defaulting to 'div' is handled by the utility)
       wrapper_tag_value = 'div' # Default
       if @wrapper_tag_markup
         # resolve_value removes the quotes
-        resolved_tag = LiquidUtils.resolve_value(@wrapper_tag_markup, context) # This will change later
+        resolved_tag = TagArgumentUtils.resolve_value(@wrapper_tag_markup, context) # This will change later
         # Pass the resolved string (e.g., "span") to the utility
         wrapper_tag_value = resolved_tag if resolved_tag
       end

@@ -4,6 +4,7 @@ require 'liquid'
 require 'strscan'
 require_relative 'liquid_utils'
 require_relative 'utils/plugin_logger_utils'
+require_relative 'utils/tag_argument_utils'
 
 module Jekyll
   # Liquid Tag to call the centralized LiquidUtils.log_failure method.
@@ -50,8 +51,8 @@ module Jekyll
 
     def render(context)
       # Resolve required arguments
-      log_type = LiquidUtils.resolve_value(@attributes['type'], context).to_s
-      log_reason = LiquidUtils.resolve_value(@attributes['reason'], context).to_s
+      log_type = TagArgumentUtils.resolve_value(@attributes['type'], context).to_s
+      log_reason = TagArgumentUtils.resolve_value(@attributes['reason'], context).to_s
 
       # Resolve optional identifier arguments
       identifiers = {}
@@ -59,7 +60,7 @@ module Jekyll
         # Skip the required args we already handled
         next if key == 'type' || key == 'reason'
         # Use the key as-is (it's already a string from the scanner)
-        identifiers[key] = LiquidUtils.resolve_value(value_markup, context)
+        identifiers[key] = TagArgumentUtils.resolve_value(value_markup, context)
       end
 
       PluginLoggerUtils.log_liquid_failure(

@@ -5,6 +5,7 @@ require 'cgi' # For HTML escaping
 require 'strscan' # For flexible argument parsing
 require_relative 'liquid_utils' # Use require_relative for local utils
 
+require_relative 'utils/tag_argument_utils'
 module Jekyll
   # Liquid Tag for creating a link to an author page, wrapped in <span>.
   # Handles optional display text override and possessive ('s) suffix.
@@ -72,8 +73,8 @@ module Jekyll
     # Renders the author link HTML by calling the utility function
     def render(context)
       # Resolve the potentially variable markup into actual strings
-      author_name = LiquidUtils.resolve_value(@name_markup, context)
-      link_text_override = @link_text_markup ? LiquidUtils.resolve_value(@link_text_markup, context) : nil
+      author_name = TagArgumentUtils.resolve_value(@name_markup, context)
+      link_text_override = @link_text_markup ? TagArgumentUtils.resolve_value(@link_text_markup, context) : nil
 
       # Call the centralized utility function from AuthorLinkUtils
       AuthorLinkUtils.render_author_link(

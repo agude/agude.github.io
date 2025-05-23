@@ -3,6 +3,7 @@ require 'jekyll'
 require 'liquid'
 require 'strscan' # For parsing arguments
 require_relative 'utils/plugin_logger_utils' # For logging
+require_relative 'utils/tag_argument_utils'
 require_relative 'liquid_utils' # For resolve_value
 
 module Jekyll
@@ -65,8 +66,8 @@ module Jekyll
       log_output = "" # Accumulator for any log messages
 
       # Resolve arguments
-      number_input = LiquidUtils.resolve_value(@attributes['number'], context)
-      unit_key_input = LiquidUtils.resolve_value(@attributes['unit'], context)
+      number_input = TagArgumentUtils.resolve_value(@attributes['number'], context)
+      unit_key_input = TagArgumentUtils.resolve_value(@attributes['unit'], context)
 
       # Validate resolved number
       if number_input.nil? || number_input.to_s.strip.empty?

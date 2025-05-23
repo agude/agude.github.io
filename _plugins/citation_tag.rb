@@ -34,6 +34,7 @@ require 'jekyll'
 require 'liquid'
 require 'strscan' # StringScanner is appropriate for this parsing task
 require_relative 'utils/citation_utils'
+require_relative 'utils/tag_argument_utils'
 require_relative 'liquid_utils' # Using LiquidUtils for resolve_value for now
 
 # Module for Jekyll specific plugins
@@ -91,7 +92,7 @@ module Jekyll
 
       # Iterate over the stored attribute markups and resolve their actual values
       @attributes_markup.each do |key, value_markup|
-        resolved_params[key] = LiquidUtils.resolve_value(value_markup, context)
+        resolved_params[key] = TagArgumentUtils.resolve_value(value_markup, context)
       end
 
       # Delegate the HTML formatting to the CitationUtils module

@@ -5,6 +5,7 @@ require 'strscan'
 require_relative 'liquid_utils'
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/book_card_utils'
+require_relative 'utils/tag_argument_utils'
 
 module Jekyll
   class BookCardLookupTag < Liquid::Tag
@@ -42,7 +43,7 @@ module Jekyll
     # Renders the book card by looking up the book and calling the utility
     def render(context)
       site = context.registers[:site]
-      target_title_input = LiquidUtils.resolve_value(@title_markup, context)
+      target_title_input = TagArgumentUtils.resolve_value(@title_markup, context)
 
       unless target_title_input && !target_title_input.to_s.strip.empty?
         return PluginLoggerUtils.log_liquid_failure(

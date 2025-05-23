@@ -5,6 +5,7 @@ require 'cgi'
 require 'strscan'
 require_relative 'liquid_utils'
 require_relative 'utils/series_link_util'
+require_relative 'utils/tag_argument_utils'
 
 module Jekyll
   # Liquid Tag to generate grammatically correct text around a linked series name.
@@ -83,7 +84,7 @@ module Jekyll
     # Renders the text with the linked series name
     def render(context)
       # --- Resolve Input ---
-      raw_series_name = LiquidUtils.resolve_value(@series_name_markup, context)
+      raw_series_name = TagArgumentUtils.resolve_value(@series_name_markup, context)
       # Handle nil or empty resolved value gracefully
       return "" if raw_series_name.nil? || raw_series_name.to_s.strip.empty?
 
