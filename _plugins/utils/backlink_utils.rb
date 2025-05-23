@@ -43,7 +43,6 @@ module BacklinkUtils
     end
     # --- End Sanity Checks ---
 
-    current_url_downcased = current_page['url'].downcase.strip # Use downcased URL for HTML pattern matching only
     current_title_downcased = current_page['title'].downcase.strip # Use downcased title for Liquid tag matching
 
     # --- Prepare Search Patterns ---
