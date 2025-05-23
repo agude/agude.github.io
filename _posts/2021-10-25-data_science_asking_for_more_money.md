@@ -21,25 +21,25 @@ categories:
 
 _This post was meant to be a chapter in a book where data scientists who had
 transitioned from academia to industry shared their experience and advice.
-Unfortunately the 2020 pandemic seems to have killed the project, so I am
+Unfortunately, the 2020 pandemic seems to have killed the project, so I am
 sharing my chapter here. Enjoy!_
 
 ---
 
-I didn't become a physicist for money, quite the opposite in fact. I remember
-walking across UC Berkeley's Sproul Plaza with my father on our way to our
-favorite lunch place when I told him "I love that [Cosmology][Cosmology] has
-so few practical applications! It's amazing that someone will pay me just to
-expand human knowledge!" Perhaps that should have been my first hint that
-Physics did not have great long-term prospects, but I don't think that would
-have changed my decision to pursue it.
+I didn't become a physicist for money---quite the opposite, in fact. I
+remember walking across UC Berkeley's Sproul Plaza with my father on our way
+to our favorite lunch spot when I told him, "I love that
+[Cosmology][Cosmology] has so few practical applications! It's amazing that
+someone will pay me just to expand human knowledge!" Perhaps that should have
+been my first hint that Physics did not have great long-term prospects, but I
+don't think that would have changed my decision to pursue it.
 
 [cosmology]: https://en.wikipedia.org/wiki/Cosmology
 
 The first time I visited [CERN][cern] during [my PhD][phd], I got an ascetic
 feeling from looking at the dilapidated buildings and missing storm shutters.
 Its exterior reflected the same feeling I had expressed to my father a few
-years earlier—that pursuing science was worth more than dollars. I felt
+years earlier---that pursuing science was worth more than dollars. I felt
 instantly at home.
 
 [cern]: https://en.wikipedia.org/wiki/CERN
@@ -154,7 +154,7 @@ I'm just excited to close on a candidate that is going to help my team
 complete our goals.
 
 I wrote an email asking for a lot and got a reply back asking for a phone
-call. I laid out my rationale—that my friends with similar experience were
+call. I laid out my rationale---that my friends with similar experience were
 getting those kinds of offers. They kept me sweating for a few days, but
 finally returned an offer with a $5,000 higher base salary and $50,000 more in
 RSUs. It was a lot more stressful than my first negotiating experience because
