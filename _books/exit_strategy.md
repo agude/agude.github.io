@@ -1,5 +1,5 @@
 ---
-date: 2025-05-23
+date: 2025-05-23 14:56:00 -0700
 title: Exit Strategy
 book_author: Martha Wells
 series: The Murderbot Diaries
