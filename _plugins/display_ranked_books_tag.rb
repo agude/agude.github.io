@@ -6,6 +6,7 @@ require_relative 'liquid_utils'
 require_relative 'utils/rating_utils'
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/book_card_utils'
+require_relative 'utils/text_processing_utils'
 
 module Jekyll
   # Liquid Tag to validate (in non-prod) and render a list of books
@@ -64,7 +65,7 @@ module Jekyll
         next if book.data['published'] == false
         title = book.data['title']
         next unless title && !title.to_s.strip.empty?
-        normalized = LiquidUtils.normalize_title(title, strip_articles: false)
+        normalized = TextProcessingUtils.normalize_title(title, strip_articles: false)
         book_map[normalized] = book
       end
 
@@ -78,7 +79,7 @@ module Jekyll
 
       # --- Step 4: Single Pass through Ranked List for Validation & Rendering ---
       ranked_list.each_with_index do |current_title_raw, index|
-        current_title_normalized = LiquidUtils.normalize_title(current_title_raw, strip_articles: false)
+        current_title_normalized = TextProcessingUtils.normalize_title(current_title_raw, strip_articles: false)
         book_object = book_map[current_title_normalized]
         book_rating = nil # Initialize rating for this iteration
 

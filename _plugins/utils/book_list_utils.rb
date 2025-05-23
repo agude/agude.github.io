@@ -5,6 +5,7 @@ require_relative './url_utils'
 require_relative 'plugin_logger_utils'
 require_relative 'book_card_utils'
 
+require_relative 'text_processing_utils'
 module BookListUtils
 
   # --- Public Methods for Tags ---
@@ -174,7 +175,7 @@ module BookListUtils
     end
 
     sorted_standalone = standalone_books.sort_by do |book|
-      LiquidUtils.normalize_title(book.data['title'].to_s, strip_articles: true)
+      TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true)
     end
 
     books_with_series_sorted_for_grouping = books_with_series.sort_by do |book|

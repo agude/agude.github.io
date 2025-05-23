@@ -5,6 +5,7 @@ require_relative '../liquid_utils'
 require_relative './link_helper_utils'
 require_relative 'plugin_logger_utils'
 
+require_relative 'text_processing_utils'
 module SeriesLinkUtils
 
   # --- Public Method ---
@@ -32,7 +33,7 @@ module SeriesLinkUtils
     series_title_input = series_title_raw.to_s
     link_text_override = link_text_override_raw.to_s.strip if link_text_override_raw && !link_text_override_raw.to_s.empty?
     # Use normalize_title from LiquidUtils for lookup comparison
-    normalized_lookup_title = LiquidUtils.normalize_title(series_title_input)
+    normalized_lookup_title = TextProcessingUtils.normalize_title(series_title_input)
 
     if normalized_lookup_title.empty?
       return PluginLoggerUtils.log_liquid_failure(
@@ -75,7 +76,7 @@ module SeriesLinkUtils
     return nil unless site.pages
 
     site.pages.find do |p|
-      p.data['layout'] == 'series_page' && LiquidUtils.normalize_title(p.data['title']) == normalized_title
+      p.data['layout'] == 'series_page' && TextProcessingUtils.normalize_title(p.data['title']) == normalized_title
     end
   end
 

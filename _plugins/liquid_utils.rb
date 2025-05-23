@@ -13,26 +13,6 @@ end
 
 module LiquidUtils
 
-  # Normalizes a title string for consistent comparison or key generation.
-  # Options include lowercasing, stripping whitespace, handling newlines,
-  # and optionally removing leading articles.
-  #
-  # @param title [String, nil] The title string to normalize.
-  # @param strip_articles [Boolean] If true, remove leading "a", "an", "the".
-  # @return [String] The normalized title string.
-  def self.normalize_title(title, strip_articles: false)
-    return "" if title.nil?
-    # Convert to string, handle newlines, multiple spaces, downcase, strip ends
-    normalized = title.to_s.gsub("\n", " ").gsub(/\s+/, ' ').downcase.strip
-    if strip_articles
-      normalized = normalized.sub(/^the\s+/, '')
-      normalized = normalized.sub(/^an?\s+/, '') # Handles 'a' or 'an'
-      normalized.strip! # Strip again in case article removal left leading space
-    end
-    normalized
-  end
-
-
   # Resolves a Liquid markup string.
   # - If the markup is quoted (single or double), returns the literal string content.
   # - If the markup is NOT quoted, assumes it's a variable name (simple or dot notation)

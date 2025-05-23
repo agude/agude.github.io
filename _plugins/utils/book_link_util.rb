@@ -4,6 +4,7 @@ require_relative '../liquid_utils'
 require_relative './link_helper_utils'
 require_relative 'plugin_logger_utils'
 
+require_relative 'text_processing_utils'
 module BookLinkUtils
 
   # --- Public Method ---
@@ -52,7 +53,7 @@ module BookLinkUtils
 
     book_title_input = book_title_raw.to_s
     link_text_override = link_text_override_raw.to_s.strip if link_text_override_raw && !link_text_override_raw.to_s.empty?
-    normalized_lookup_title = LiquidUtils.normalize_title(book_title_input)
+    normalized_lookup_title = TextProcessingUtils.normalize_title(book_title_input)
 
     if normalized_lookup_title.empty?
       return PluginLoggerUtils.log_liquid_failure(
@@ -104,7 +105,7 @@ module BookLinkUtils
   def self._find_book_by_title(site, normalized_title)
     site.collections['books'].docs.find do |doc|
       next if doc.data['published'] == false
-      LiquidUtils.normalize_title(doc.data['title']) == normalized_title
+      TextProcessingUtils.normalize_title(doc.data['title']) == normalized_title
     end
   end
 
