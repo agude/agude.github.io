@@ -25,7 +25,7 @@ class TestSeriesLinkTag < Minitest::Test
       "<!-- SeriesLinkUtils called with title: #{title}, link_text: #{link_text_override} -->"
     } do
       template = Liquid::Template.parse("{% series_link #{markup} %}")
-      output = template.render!(context) 
+      output = template.render!(context)
       return output, captured_args
     end
   end

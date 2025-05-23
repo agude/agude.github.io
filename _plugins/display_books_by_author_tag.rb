@@ -1,9 +1,9 @@
 # _plugins/display_books_by_author_tag.rb
 require 'jekyll'
 require 'liquid'
-require_relative 'liquid_utils'
 require_relative 'utils/book_list_utils'
 require_relative 'utils/series_link_util'
+require_relative 'utils/tag_argument_utils'
 
 module Jekyll
   class DisplayBooksByAuthorTag < Liquid::Tag
@@ -17,7 +17,7 @@ module Jekyll
 
     def render(context)
       site = context.registers[:site]
-      author_name_input = LiquidUtils.resolve_value(@author_name_markup, context)
+      author_name_input = TagArgumentUtils.resolve_value(@author_name_markup, context)
 
       unless author_name_input && !author_name_input.to_s.strip.empty?
         # Let BookListUtils handle logging for nil/empty author filter

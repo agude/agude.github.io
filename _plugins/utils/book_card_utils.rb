@@ -1,12 +1,12 @@
 # _plugins/utils/book_card_utils.rb
 require 'cgi'
-require_relative '../liquid_utils' # For _prepare_display_title
 require_relative './plugin_logger_utils'
 require_relative './card_data_extractor_utils'
 require_relative './card_renderer_utils'
 require_relative './author_link_util'
 require_relative './rating_utils'
 
+require_relative 'typography_utils'
 module BookCardUtils
   DEFAULT_TITLE_FOR_BOOK_CARD = "Untitled Book".freeze
 
@@ -35,7 +35,7 @@ module BookCardUtils
         level: :error,
       )
     end
-    prepared_title = LiquidUtils._prepare_display_title(base_data[:raw_title])
+    prepared_title = TypographyUtils.prepare_display_title(base_data[:raw_title])
     title_html = "<strong><cite class=\"book-title\">#{prepared_title}</cite></strong>"
 
     # --- Image Path and Alt Text Handling ---

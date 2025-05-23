@@ -1,6 +1,6 @@
 # _tests/plugins/utils/test_article_card_utils.rb
 require_relative '../../test_helper'
-# ArticleCardUtils is loaded by test_helper
+# ArticleCardUtils, TypographyUtils, etc., are loaded by test_helper
 
 class TestArticleCardUtils < Minitest::Test
   def setup
@@ -55,7 +55,7 @@ class TestArticleCardUtils < Minitest::Test
     captured_card_data = nil
 
     CardDataExtractorUtils.stub :extract_base_data, mock_base_data_from_extractor do
-      LiquidUtils.stub :_prepare_display_title, mock_prepared_title do
+      TypographyUtils.stub :prepare_display_title, mock_prepared_title do
         CardDataExtractorUtils.stub :extract_description_html, mock_description_html_from_desc_extractor do
           CardRendererUtils.stub :render_card, ->(context:, card_data:) { captured_card_data = card_data; "mocked_card_html" } do
             Jekyll.stub :logger, @silent_logger_stub do # For PluginLoggerUtils if called
@@ -93,7 +93,7 @@ class TestArticleCardUtils < Minitest::Test
 
     captured_card_data = nil
     CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
-      LiquidUtils.stub :_prepare_display_title, mock_prepared_title do
+      TypographyUtils.stub :prepare_display_title, mock_prepared_title do
         CardDataExtractorUtils.stub :extract_description_html, mock_description_html do
           CardRendererUtils.stub :render_card, ->(context:, card_data:) { captured_card_data = card_data; "card_no_image" } do
             Jekyll.stub :logger, @silent_logger_stub do
@@ -133,8 +133,7 @@ class TestArticleCardUtils < Minitest::Test
     args_to_desc_extractor = nil
 
     CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
-      LiquidUtils.stub :_prepare_display_title, mock_prepared_title do
-        # Stub extract_description_html to simulate its behavior and capture args
+      TypographyUtils.stub :prepare_display_title, mock_prepared_title do
         CardDataExtractorUtils.stub :extract_description_html, ->(source, type:) {
           args_to_desc_extractor = { source: source, type: type }
           mock_description_html_from_extractor

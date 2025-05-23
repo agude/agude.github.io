@@ -1,9 +1,9 @@
 # _plugins/display_books_for_series_tag.rb
 require 'jekyll'
 require 'liquid'
-require_relative 'liquid_utils'
 require_relative 'utils/book_list_utils'
 require_relative 'utils/book_card_utils'
+require_relative 'utils/tag_argument_utils'
 
 module Jekyll
   class DisplayBooksForSeriesTag < Liquid::Tag
@@ -18,7 +18,7 @@ module Jekyll
     def render(context)
       site = context.registers[:site]
       # Resolve the series name from the markup
-      series_name_input = LiquidUtils.resolve_value(@series_name_markup, context)
+      series_name_input = TagArgumentUtils.resolve_value(@series_name_markup, context)
 
       # Validate resolved series name
       unless series_name_input && !series_name_input.to_s.strip.empty?

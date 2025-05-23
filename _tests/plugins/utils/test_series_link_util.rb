@@ -1,6 +1,5 @@
-# _tests/plugins/liquid_utils/test_render_series_link.rb
+# _tests/plugins/utils/test_series_link_util.rb
 require_relative '../../test_helper'
-# No longer need 'stringio' or the logger stubbing helper
 
 class TestSeriesLinkUtils < Minitest::Test
 

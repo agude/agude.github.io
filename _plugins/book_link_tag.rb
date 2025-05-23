@@ -3,8 +3,8 @@ require 'jekyll'
 require 'liquid'
 require 'cgi' # Keep for QuotedFragment
 require 'strscan'
-require_relative 'liquid_utils' # Need for resolve_value
 require_relative 'utils/book_link_util' # Require the specific book link util
+require_relative 'utils/tag_argument_utils'
 
 module Jekyll
   # Liquid Tag for creating a link to a book page, wrapped in <cite>.
@@ -67,8 +67,8 @@ module Jekyll
     def render(context)
       # Resolve the potentially variable markup into actual strings
       # Use resolve_value from LiquidUtils
-      book_title = LiquidUtils.resolve_value(@title_markup, context)
-      link_text_override = @link_text_markup ? LiquidUtils.resolve_value(@link_text_markup, context) : nil
+      book_title = TagArgumentUtils.resolve_value(@title_markup, context)
+      link_text_override = @link_text_markup ? TagArgumentUtils.resolve_value(@link_text_markup, context) : nil
 
       # Call the centralized utility function from BookLinkUtils
       BookLinkUtils.render_book_link(book_title, context, link_text_override)

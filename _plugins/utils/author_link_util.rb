@@ -1,10 +1,10 @@
 # _plugins/utils/author_link_util.rb
 require 'jekyll'
 require 'cgi'
-require_relative '../liquid_utils'
 require_relative './link_helper_utils'
 require_relative 'plugin_logger_utils'
 
+require_relative 'text_processing_utils'
 module AuthorLinkUtils
 
   # --- Public Method ---
@@ -37,7 +37,7 @@ module AuthorLinkUtils
     author_name_input = author_name_raw.to_s
     link_text_override = link_text_override_raw.to_s.strip if link_text_override_raw && !link_text_override_raw.to_s.empty?
     # Use normalize_title from LiquidUtils for lookup comparison
-    normalized_lookup_name = LiquidUtils.normalize_title(author_name_input)
+    normalized_lookup_name = TextProcessingUtils.normalize_title(author_name_input)
 
     if normalized_lookup_name.empty?
       return PluginLoggerUtils.log_liquid_failure(
@@ -94,7 +94,7 @@ module AuthorLinkUtils
   # Finds the author page document.
   def self._find_author_page(site, normalized_name)
     site.pages.find do |p|
-      p.data['layout'] == 'author_page' && LiquidUtils.normalize_title(p.data['title']) == normalized_name
+      p.data['layout'] == 'author_page' && TextProcessingUtils.normalize_title(p.data['title']) == normalized_name
     end
   end
 

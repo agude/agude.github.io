@@ -1,4 +1,4 @@
-# _tests/plugins/liquid_utils/test_render_rating_stars.rb
+# _tests/plugins/utils/test_rating_utils.rb
 require_relative '../../test_helper'
 
 class TestRatingUtils < Minitest::Test

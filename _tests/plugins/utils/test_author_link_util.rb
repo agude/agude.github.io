@@ -1,4 +1,4 @@
-# _tests/plugins/liquid_utils/test_render_author_link.rb
+# _tests/plugins/utils/test_author_link_util.rb
 require_relative '../../test_helper'
 
 class TestAuthorLinkUtils < Minitest::Test
