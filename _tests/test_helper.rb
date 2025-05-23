@@ -26,6 +26,7 @@ require 'utils/plugin_logger_utils'
 require 'utils/rating_utils'
 require 'utils/series_link_util'
 require 'utils/text_processing_utils'
+require 'utils/typography_utils'
 require 'utils/url_utils'
 
 

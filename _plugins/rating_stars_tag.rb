@@ -2,7 +2,6 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require_relative 'liquid_utils'
 require_relative 'utils/rating_utils' # Add this
 require_relative 'utils/tag_argument_utils'
 

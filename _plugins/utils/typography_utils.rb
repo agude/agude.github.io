@@ -1,24 +1,13 @@
-# _plugins/liquid_utils.rb
-require 'cgi'
-require 'jekyll'
-require_relative 'utils/rating_utils'
+# _plugins/utils/typography_utils.rb
+require 'cgi' # Still needed for the initial minimal escape, though not for full CGI.escapeHTML
 
-# Ensure Kramdown is loaded (Jekyll usually handles this, but belt-and-suspenders)
-begin
-  require 'kramdown'
-rescue LoadError
-  STDERR.puts "Error: Kramdown gem not found. Please ensure it's in your Gemfile and installed."
-  exit(1) # Or handle more gracefully depending on desired robustness
-end
+module TypographyUtils
 
-module LiquidUtils
-
-  # --- Internal Helper for Preparing Display Titles ---
   # Applies manual "SmartyPants"-like transformations, minimal HTML escaping,
   # and allows <br> tags through. NO Kramdown involved.
   # @param title [String, nil] The title string to prepare.
   # @return [String] The prepared title string, safe for HTML content.
-  def self._prepare_display_title(title)
+  def self.prepare_display_title(title) # Renamed from _prepare_display_title
     return "" if title.nil?
     text = title.to_s
 
@@ -47,14 +36,14 @@ module LiquidUtils
     escaped_text.gsub!(/(?<=\s|^|\[|\()'|'(?=\w)/, '‘') # Opening ''
     escaped_text.gsub!(/'/, '’') # Closing '' / Remaining apostrophes
 
-    # 3. Restore literal <br> tags
-    escaped_text.gsub!('&lt;br /&gt;', '<br>')
-    escaped_text.gsub!('&lt;br/&gt;', '<br>')
+    # 3. Restore literal <br> tags that were escaped in step 1
+    # Ensure we match various forms of <br> that might have been escaped.
     escaped_text.gsub!('&lt;br&gt;', '<br>')
+    escaped_text.gsub!('&lt;br/&gt;', '<br>')
+    escaped_text.gsub!('&lt;br /&gt;', '<br>') # With space
 
     # Return the final text
     escaped_text
   end
-
 
 end

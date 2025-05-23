@@ -1,7 +1,6 @@
 # _plugins/render_book_card_tag.rb
 require 'jekyll'
 require 'liquid'
-require_relative 'liquid_utils' # For resolve_value
 require_relative 'utils/book_card_utils'
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/tag_argument_utils'

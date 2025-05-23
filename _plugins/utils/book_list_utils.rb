@@ -1,5 +1,4 @@
 # _plugins/utils/book_list_utils.rb
-require_relative '../liquid_utils'
 require_relative './series_link_util'
 require_relative './url_utils'
 require_relative 'plugin_logger_utils'

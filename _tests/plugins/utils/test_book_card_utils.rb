@@ -1,6 +1,6 @@
 # _tests/plugins/utils/test_book_card_utils.rb
 require_relative '../../test_helper'
-# BookCardUtils is loaded by test_helper
+# BookCardUtils, TypographyUtils, etc., are loaded by test_helper
 
 class TestBookCardUtils < Minitest::Test
   def setup
@@ -35,9 +35,7 @@ class TestBookCardUtils < Minitest::Test
       raw_title: "My Book Title", # From @book_object.data['title']
       log_output: ""
     }
-    # This is what LiquidUtils._prepare_display_title is stubbed to return
-    mock_prepared_title = "My Prepared Book Title"
-    # This is what CardDataExtractorUtils.extract_description_html is stubbed to return
+    mock_prepared_title = "My Prepared Book Title" # This is what TypographyUtils.prepare_display_title will be stubbed to return
     mock_description_html_from_desc_extractor = "<p>Book excerpt.</p>"
 
     mock_author_link_content_html = "<a href=\"/authors/test-author\"><span class=\"author-name\">Test Author</span></a>"
@@ -62,8 +60,7 @@ class TestBookCardUtils < Minitest::Test
     captured_card_data = nil
 
     CardDataExtractorUtils.stub :extract_base_data, mock_base_data_from_extractor do
-      LiquidUtils.stub :_prepare_display_title, mock_prepared_title do
-        # Stub extract_description_html to return the pre-calculated description
+      TypographyUtils.stub :prepare_display_title, mock_prepared_title do
         CardDataExtractorUtils.stub :extract_description_html, mock_description_html_from_desc_extractor do
           AuthorLinkUtils.stub :render_author_link, mock_author_link_content_html do
             RatingUtils.stub :render_rating_stars, mock_rating_stars_content_html do
@@ -103,8 +100,7 @@ class TestBookCardUtils < Minitest::Test
     args_to_desc_extractor = nil # To capture args
 
     CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
-      LiquidUtils.stub :_prepare_display_title, mock_prepared_title do
-        # Stub extract_description_html to simulate its behavior and capture args
+      TypographyUtils.stub :prepare_display_title, mock_prepared_title do
         CardDataExtractorUtils.stub :extract_description_html, ->(source, type:) {
           args_to_desc_extractor = { source: source, type: type }
           mock_description_html # Return the empty string

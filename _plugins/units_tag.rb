@@ -4,7 +4,6 @@ require 'liquid'
 require 'strscan' # For parsing arguments
 require_relative 'utils/plugin_logger_utils' # For logging
 require_relative 'utils/tag_argument_utils'
-require_relative 'liquid_utils' # For resolve_value
 
 module Jekyll
   class UnitsTag < Liquid::Tag

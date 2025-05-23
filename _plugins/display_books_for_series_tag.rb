@@ -1,7 +1,6 @@
 # _plugins/display_books_for_series_tag.rb
 require 'jekyll'
 require 'liquid'
-require_relative 'liquid_utils'
 require_relative 'utils/book_list_utils'
 require_relative 'utils/book_card_utils'
 require_relative 'utils/tag_argument_utils'

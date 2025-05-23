@@ -3,7 +3,6 @@ require 'jekyll'
 require 'liquid'
 require 'cgi'
 require 'strscan'
-require_relative 'liquid_utils'
 require_relative 'utils/series_link_util'
 require_relative 'utils/tag_argument_utils'
 

@@ -2,7 +2,6 @@
 require 'jekyll'
 require 'liquid'
 require 'cgi'
-require_relative 'liquid_utils'
 require_relative 'utils/rating_utils'
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/book_card_utils'

@@ -1,10 +1,10 @@
 # _plugins/utils/book_link_util.rb
 require 'jekyll'
-require_relative '../liquid_utils'
 require_relative './link_helper_utils'
 require_relative 'plugin_logger_utils'
 
 require_relative 'text_processing_utils'
+require_relative 'typography_utils'
 module BookLinkUtils
 
   # --- Public Method ---
@@ -47,7 +47,7 @@ module BookLinkUtils
       end
       # Fallback to simple string if critical context is missing.
       # Use _prepare_display_title for consistency if possible, else basic escape.
-      prepared_fallback_title = defined?(LiquidUtils) ? LiquidUtils._prepare_display_title(book_title_raw.to_s) : CGI.escapeHTML(book_title_raw.to_s)
+      prepared_fallback_title = defined?(LiquidUtils) ? TypographyUtils.prepare_display_title(book_title_raw.to_s) : CGI.escapeHTML(book_title_raw.to_s)
       return "<cite class=\"book-title\">#{prepared_fallback_title}</cite>" # Return unlinked cite
     end
 
@@ -112,7 +112,7 @@ module BookLinkUtils
   # Prepares display text and wraps it in a <cite> tag.
   def self._build_book_cite_element(display_text)
     # Use _prepare_display_title from LiquidUtils
-    prepared_display_text = LiquidUtils._prepare_display_title(display_text)
+    prepared_display_text = TypographyUtils.prepare_display_title(display_text)
     "<cite class=\"book-title\">#{prepared_display_text}</cite>"
   end
 

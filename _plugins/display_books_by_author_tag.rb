@@ -1,7 +1,6 @@
 # _plugins/display_books_by_author_tag.rb
 require 'jekyll'
 require 'liquid'
-require_relative 'liquid_utils'
 require_relative 'utils/book_list_utils'
 require_relative 'utils/series_link_util'
 require_relative 'utils/tag_argument_utils'

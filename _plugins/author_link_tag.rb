@@ -3,7 +3,6 @@ require 'jekyll'
 require 'liquid'
 require 'cgi' # For HTML escaping
 require 'strscan' # For flexible argument parsing
-require_relative 'liquid_utils' # Use require_relative for local utils
 
 require_relative 'utils/tag_argument_utils'
 module Jekyll

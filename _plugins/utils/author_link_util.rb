@@ -1,7 +1,6 @@
 # _plugins/utils/author_link_util.rb
 require 'jekyll'
 require 'cgi'
-require_relative '../liquid_utils'
 require_relative './link_helper_utils'
 require_relative 'plugin_logger_utils'
 

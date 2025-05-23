@@ -3,7 +3,6 @@ require 'jekyll'
 require 'liquid'
 require 'cgi' # Keep for QuotedFragment
 require 'strscan'
-require_relative 'liquid_utils' # Need for resolve_value
 require_relative 'utils/book_link_util' # Require the specific book link util
 require_relative 'utils/tag_argument_utils'
 
