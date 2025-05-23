@@ -45,8 +45,8 @@ module Jekyll
       all_books = site.collections['books'].docs.select do |book|
         # Filter out unpublished books and the current page itself
         book.data['published'] != false &&
-        book.url != current_url &&
-        book.date && book.date.to_time.to_i <= now_unix
+          book.url != current_url &&
+          book.date && book.date.to_time.to_i <= now_unix
       end
 
       # Sort once by date descending for author/recent fallback

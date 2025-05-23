@@ -21,9 +21,9 @@ module Jekyll
 
       # --- Basic Sanity Checks (Tag Level) ---
       unless site && page && \
-             site.collections.key?('books') && \
-             page['url'] && !page['url'].to_s.strip.empty? && \
-             page['title'] && !page['title'].to_s.strip.empty?
+          site.collections.key?('books') && \
+          page['url'] && !page['url'].to_s.strip.empty? && \
+          page['title'] && !page['title'].to_s.strip.empty?
 
         missing_parts = []
         missing_parts << "site object" unless site

@@ -43,7 +43,7 @@ module LinkHelperUtils
       # Ensure target_url starts with a slash if baseurl is present and url doesn't already have it
       # Check against baseurl itself too, in case the URL already includes it somehow
       if !baseurl.empty? && !target_url_str.start_with?('/') && !target_url_str.start_with?(baseurl)
-         target_url_str = "/#{target_url_str}"
+        target_url_str = "/#{target_url_str}"
       end
       # Prepend baseurl if it's not already part of the target_url_str
       href = target_url_str.start_with?(baseurl) ? target_url_str : "#{baseurl}#{target_url_str}"

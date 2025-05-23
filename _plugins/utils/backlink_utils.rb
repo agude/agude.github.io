@@ -17,9 +17,9 @@ module BacklinkUtils
     # Simplified check: focus on what's directly used.
     # page['url'] and page['title'] access implies page.data is being used.
     unless site && current_page && \
-           site.collections.key?('books') && \
-           current_page['url'] && !current_page['url'].to_s.strip.empty? && \
-           current_page['title'] && !current_page['title'].to_s.strip.empty?
+        site.collections.key?('books') && \
+        current_page['url'] && !current_page['url'].to_s.strip.empty? && \
+        current_page['title'] && !current_page['title'].to_s.strip.empty?
 
       missing_parts = []
       missing_parts << "site object" unless site
@@ -28,7 +28,8 @@ module BacklinkUtils
       missing_parts << "current_page['url'] (present and not empty)" unless current_page && current_page['url'] && !current_page['url'].to_s.strip.empty?
       missing_parts << "current_page['title'] (present and not empty)" unless current_page && current_page['title'] && !current_page['title'].to_s.strip.empty?
 
-      PluginLoggerUtils.log_liquid_failure( # This returns an HTML comment or "", but the main effect is logging.
+      PluginLoggerUtils.log_liquid_failure(
+        # This returns an HTML comment or "", but the main effect is logging.
         context: context, # Util is called from a tag, so context should be valid here.
         tag_type: "BACKLINK_UTIL",
         reason: "Missing prerequisites for backlink search: #{missing_parts.join(', ')}.",

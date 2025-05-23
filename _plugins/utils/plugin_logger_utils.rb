@@ -81,7 +81,7 @@ module PluginLoggerUtils
       # Attempt to use Jekyll.logger if available and responsive
       if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(message_level_symbol)
         Jekyll.logger.public_send(message_level_symbol, "PluginLiquid:", log_message_base)
-      # Fallback to puts if Jekyll.logger is not available or not responsive to the specific level
+        # Fallback to puts if Jekyll.logger is not available or not responsive to the specific level
       else
         puts "[PLUGIN_LIQUID_LOG] #{log_message_base}"
       end
