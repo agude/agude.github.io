@@ -36,11 +36,11 @@ adjusting to their new situation after the GrayCris storyline.
 {{ this_book }}[^note] takes place immediately after {{ mb4 }}, and is told
 from the perspective of Dr. Ayda Mensah as she gets back to life on
 Preservation Station. She's grappling with her own PTSD---stemming from her
-near-murder by GrayCris in {{ mb1 }} and kidnapping in {{ mb4 }}---while trying
-to navigate politics, deal with pestering reporters, and support Murderbot and
-her team.
+near-murder by GrayCris in {{ mb1 }} and kidnapping in {{ mb4 }}---while
+trying to navigate politics, deal with pestering reporters, and support
+Murderbot and her team.
 
-[^note]: Available for free on Tor's Website: [<cite class="book-title">{{ page.title }}</cite>][home]
+[^note]: Available for free on Tor's website: [<cite class="book-title">{{ page.title }}</cite>][home]
 
 [home]: https://reactormag.com/home-habitat-range-niche-territory-martha-wells/
 
@@ -61,7 +61,7 @@ What I love about {{ this_series }} is the perfect mix of action and
 emotional, thought-provoking insight. But {{ the_authors_lastname }} doesn't
 quite manage to balance those elements in {{ this_book }}'s 14 pages as well
 as in the longer installments. Still, I appreciated seeing the world from a
-different angle. 
+different angle.
 
 Next up is {{ tchaikovskys }} {{ shards }} for my book club---then I'm heading
 back into {{ mb5 }}.
