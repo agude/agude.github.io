@@ -91,8 +91,11 @@ This is another paragraph with **bold text**, *italic text*, and ***bold italic 
 | Left Justified | Centered | Right Justified |
 |:---------------|:--------:|----------------:|
 | Data 1         | Data 2   | Data 3          |
-| Data 4         | Data 5   | Data 6          |
-| Data 7         | Data 8   | Data 9          |
+| _Data 4_       | Data 5   | Data 6          |
+| **Data 7**     | Data 8   | Data 9          |
+|================|==========|=================|
+| Footer row     | Data 10  | Data 11         |
+|----------------|----------|-----------------|
 
 ---
 
