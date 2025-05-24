@@ -35,14 +35,14 @@ the station is actually an illegal alien-relic mining site.
 
 The primary theme of this story is Murderbot's evolving relationship with
 humans, and what it actually wants from those interactions. This plays out
-through Miki---the "pet" robot that accompanies the group---and Murderbot's
-mix of horror and jealousy at how the humans treat Miki as a friend and
-colleague. It also comes through in how Murderbot has to work with the human
-security consultants, who are less competent at basically everything.
+through Miki---the "pet" robot that accompanies the group---and Murderbot's mix of
+horror and jealousy at how the humans treat Miki as a friend and colleague. It
+also comes through in how Murderbot has to work with the human security
+consultants, who are less competent at basically everything.
 
-{{ this_book }} feels like a pop-version of {{ wattss }} {{ blindsight }}. The
+{{ this_book }} feels like a pop version of {{ wattss }} {{ blindsight }}. The
 floating, abandoned station in the clouds is like Rorschach above Big Ben:
-both apparently empty but full of non-sentient threats. Both stories tackle
+both apparently empty, but full of non-sentient threats. Both stories tackle
 themes around the self and the mind. But {{ blindsight }} is much darker and
 digs much deeper into consciousness, while this book keeps things light and
 packed with action.
