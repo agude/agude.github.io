@@ -34,10 +34,11 @@ adjusting to their new situation after the GrayCris storyline.
 {% capture shards %}{% book_link "Shards of Earth" %}{% endcapture %}
 
 {{ this_book }}[^note] takes place immediately after {{ mb4 }}, and is told
-from the perspective of Dr. Ayda Mensah as she grapples with her own PTSD---stemming
-from her near-murder by GrayCris in {{ mb1 }} and kidnapping in {{ mb4
-}}---while trying to get through life now that she's back on Preservation
-Station.
+from the perspective of Dr. Ayda Mensah as she gets back to life on
+Preservation Station. She is grappling with her own PTSD---stemming from her
+near-murder by GrayCris in {{ mb1 }} and kidnapping in {{ mb4 }}---while
+trying to navigate politics, pestering reporters, and support Murderbot and
+her team.
 
 [^note]: Available for free on Tor's Website: [<cite class="book-title">{{ page.title }}</cite>][home]
 
