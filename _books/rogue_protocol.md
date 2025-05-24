@@ -27,25 +27,25 @@ saving a group of humans.
 {% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 
-{{ this_book }} keeps up the pace and the balance of action and exposition
-from {{ mb2 }}. Murderbot stows away aboard a ship carrying a salvage team to
-the GrayCris station, only to find out they've brought along their own human
+Like {{ mb2 }}, {{ this_book }} strikes a great balance between action and
+exposition. Murderbot stows away aboard a ship carrying a salvage team to the
+GrayCris station, only to find out they've brought along their own human
 security. The SecUnit has to hide from them while trying to dig up proof that
-the station is actually being used for illegal alien-relic mining.
+the station is actually an illegal alien-relic mining site.
 
 The primary theme of this story is Murderbot's evolving relationship with
 humans, and what it actually wants from those interactions. This plays out
 through Miki---the "pet" robot that accompanies the group---and Murderbot's
-mix of horror and jealousy at how the humans treat Miki as a friend. It also
-comes through in the comparison between Murderbot and the human security
-consultants, who are less competent at basically everything.
+mix of horror and jealousy at how the humans treat Miki as a friend and
+colleague. It also comes through in how Murderbot has to work with the human
+security consultants, who are less competent at basically everything.
 
 {{ this_book }} feels like a pop-version of {{ wattss }} {{ blindsight }}. The
 floating, abandoned station in the clouds is like Rorschach above Big Ben:
-both are remote outposts explored by humans and full of non-sentient threats.
-Both stories tackle themes around the self and the mind. But {{ blindsight }}
-is much darker and digs much deeper into consciousness, while {{ this_book }}
-keeps things light and packed with action.
+both apparently empty but full of non-sentient threats. Both stories tackle
+themes around the self and the mind. But {{ blindsight }} is much darker and
+digs much deeper into consciousness, while this book keeps things light and
+packed with action.
 
 I once again enjoyed watching the hyper-competent Murderbot navigate danger
 and save the humans. Onward to {{ mb4 }}.
