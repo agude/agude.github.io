@@ -1,10 +1,10 @@
 ---
-date: 2025-05-23 14:57:00 -0700
+date: 2025-05-23 18:57:00 -0700
 title: "Home: Habitat, Range, Niche, Territory"
 book_author: Martha Wells
 series: The Murderbot Diaries
 book_number: 4.5
-rating: null
+rating: 3
 image: /books/covers/home_habitat_range_niche_territory.jpg
 ---
 
