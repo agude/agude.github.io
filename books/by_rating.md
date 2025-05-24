@@ -65,6 +65,7 @@ ranked_list:
   - All These Worlds
   # 3 Stars
   - Mission of Gravity
+  - "Home: Habitat, Range, Niche, Territory"
   - Martin The Warrior
   - The Left Hand of Darkness
   - Gun, with Occasional Music
