@@ -26,7 +26,6 @@ adjusting to their new situation after the GrayCris storyline.
 
 {% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
 {% capture mb4 %}{% book_link "Exit Strategy" %}{% endcapture %}
-{% capture mb4_5 %}{% book_link "Home: Habitat, Range, Niche, Territory" %}{% endcapture %}
 {% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}
 
 {% capture tchaikovskys %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
