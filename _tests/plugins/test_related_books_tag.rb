@@ -293,4 +293,42 @@ class TestRelatedBooksTag < Minitest::Test
     assert_match %r{</div>\s*</aside>}m, output, "Closing tags for card-grid or aside missing/incorrect"
   end
 
+  def test_renders_fewer_than_max_books_if_insufficient_candidates
+    # Current page is in a series with only one other book. No other books by the same author.
+    # Only one other recent book available in the entire site.
+    series_sparse_name = "Sparse Series"
+    author_sparse_name = "Sparse Author"
+
+    current_page_sparse = create_book_obj('Current Sparse Book', series_sparse_name, 1, author_sparse_name, 0, 'curr_sparse')
+    other_series_book_sparse = create_book_obj('Other Sparse Series Book', series_sparse_name, 2, author_sparse_name, 10, 'other_sparse')
+    recent_unrelated_sparse = create_book_obj('Recent Unrelated Sparse', nil, nil, 'Another Author', 5, 'rec_unrel_sparse')
+
+    # Site contains only these three books (current, one series mate, one recent unrelated)
+    # plus the standard unpublished/future books to ensure they are still filtered.
+    books_for_sparse_test = [
+      current_page_sparse, other_series_book_sparse, recent_unrelated_sparse,
+      @unpublished_book, @future_dated_book # Ensure these are filtered
+    ]
+
+    site_sparse = create_site(@site_config_base.dup, { 'books' => books_for_sparse_test })
+    context_sparse = create_context({}, { site: site_sparse, page: current_page_sparse })
+
+    output = render_tag(context_sparse)
+    rendered_titles = extract_rendered_titles(output)
+
+    # Expected: The other series book, then the recent unrelated book. Total 2.
+    expected_titles = [other_series_book_sparse.data['title'], recent_unrelated_sparse.data['title']]
+
+    assert_equal 2, rendered_titles.count, "Should render only 2 books when fewer than max are available"
+    assert_equal expected_titles, rendered_titles, "Books not correctly selected or ordered in sparse scenario"
+
+    # Also check HTML structure for this case
+    refute_empty output.strip, "Output should not be empty"
+    assert_match %r{<aside class="related">}, output
+    assert_match %r{<h2>Related Books</h2>}, output # Header should still be "Related Books" due to series match
+    assert_match %r{<div class="card-grid">}, output
+    assert_equal 2, output.scan(/<!-- Card for:/).count, "Incorrect number of book card stubs rendered"
+    assert_match %r{</div>\s*</aside>}m, output
+  end
+
 end
