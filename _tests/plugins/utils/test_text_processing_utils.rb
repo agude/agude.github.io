@@ -95,4 +95,37 @@ class TestTextProcessingUtils < Minitest::Test
     assert_equal expected_trunc, TextProcessingUtils.truncate_words(text, 3)
   end
 
+  # --- Tests for normalize_title (moved from LiquidUtils tests) ---
+  def test_normalize_title_basic
+    assert_equal "hello world", TextProcessingUtils.normalize_title("  Hello \n World  ")
+  end
+
+  def test_normalize_title_with_articles
+    assert_equal "test title", TextProcessingUtils.normalize_title("The Test Title", strip_articles: true)
+    assert_equal "example", TextProcessingUtils.normalize_title("an Example", strip_articles: true)
+    assert_equal "test", TextProcessingUtils.normalize_title("A Test", strip_articles: true)
+  end
+
+  def test_normalize_title_no_articles_to_strip
+    assert_equal "test title", TextProcessingUtils.normalize_title("Test Title", strip_articles: true)
+  end
+
+  def test_normalize_title_articles_not_stripped_by_default
+    assert_equal "the test title", TextProcessingUtils.normalize_title("The Test Title")
+    assert_equal "an example", TextProcessingUtils.normalize_title("An Example")
+  end
+
+  def test_normalize_title_nil
+    assert_equal "", TextProcessingUtils.normalize_title(nil)
+  end
+
+  def test_normalize_title_empty_string
+    assert_equal "", TextProcessingUtils.normalize_title("")
+    assert_equal "", TextProcessingUtils.normalize_title("   ")
+  end
+
+  def test_normalize_title_multiple_spaces_and_newlines
+    assert_equal "complex title with spaces", TextProcessingUtils.normalize_title("  Complex\nTitle   with\n\nSpaces  ")
+  end
+
 end
