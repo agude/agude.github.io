@@ -23,6 +23,7 @@ ranked_list:
   - The Hydrogen Sonata
   - A Memory Called Empire
   - Night Without Stars
+  - Exit Strategy
   - The Colonel
   - The Fall of Hyperion
   - Artificial Condition
