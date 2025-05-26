@@ -11,4 +11,5 @@ same_as_urls:
   - https://wandering.shop/@marthawells
   - https://www.goodreads.com/author/show/87305
   - https://www.isfdb.org/cgi-bin/ea.cgi?2625
+  - https://en.wikipedia.org/wiki/Martha_Wells
 ---
