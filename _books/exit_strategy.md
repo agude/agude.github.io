@@ -37,23 +37,24 @@ storyline as Murderbot returns to save its friends.
 
 {{ this_book }} is the high-stakes climax of the first four books in {{
 this_series }}. Murderbot has more to lose, and the non-stop action reflects
-that. It concludes the GrayCris storyline that began in {{ mb1 }}, when Dr.
-Ayda Mensah and her team were saved by Murderbot and then set it free.
+that. It concludes the GrayCris storyline that began in {{ mb1 }}, where
+Murderbot saved Dr. Ayda Mensah and her team and was set free.
 
 Murderbot learns that Mensah has been kidnapped and imprisoned by GrayCris at
 their corporate headquarters. It quickly realizes that its exploration of the
-alien-artifact mining station spooked GrayCris and pushed them to take
-desperate action, Murderbot returns to the Corporation Rim to get her out.
-Along the way it rescues its old team, and extracts with Mensah. Along the
-way, it confronts its own deathwish while fighting a combat SecUnit, and
-learns that sometimes you have to run. There's a lot of satisfying action as
-Murderbot saves its friends again and again.
+alien-artifact mining station spooked the company and forced them into
+desperate action. Determined to fix it, Murderbot returns to the Corporation
+Rim to break her out. Along the way, it rescues its old team, confronts a
+combat SecUnit, and grapples with its own deathwish---learning that sometimes
+survival means running. There's a lot of satisfying action as Murderbot saves
+its friends again and again.
 
 The theme of Murderbot's relationship with humans and humanity continues from
 {{ mb3 }}. It has conflicted emotions after learning that SecUnits used to be
-more human and had closer relationships with their clients. And it's finally
-starting to accept that its need to protect people is a core part of who it is
----not just leftover programming.
+more human and had closer relationships with their clients. It once again
+starts to run away, but at the last minute decides to stay. And it's finally
+starting to accept that its need to protect people is a core part of who it
+is---not just leftover programming.
 
 The detailed view of the "libertarian paradise" that is the Corporation Rim
 reminded me of {{ smiths }} (horrible) {{ probability_broach }}, which paints
@@ -63,4 +64,4 @@ to reality. The hacking-as-combat parts, where code has a "physical" presence
 in the world, reminded me of similar scenes in {{ surface }} and {{ fall }}.
 
 Next up is the short story {{ mb4_5 }}, then I'm starting {{ tchaikovskys }}
-{{ architecture }} series with {{ shards }}.
+{{ architecture }} with {{ shards }}.
