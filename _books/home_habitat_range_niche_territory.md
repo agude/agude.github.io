@@ -10,10 +10,9 @@ image: /books/covers/home_habitat_range_niche_territory.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_author }}</span>, is a short story from <span
-class="book-series">{{ page.series }}</span>, set between {% comment %}TODO <a
-href="/books/exit_strategy/"><cite class="book-title">Exit
-Strategy</cite></a>{% endcomment %} <cite class="book-title">Exit
-Strategy</cite> and {% comment %}TODO <a href="/books/network_effect/"><cite
+class="book-series">{{ page.series }}</span>, set between <a
+href="/books/exit_strategy/"><cite class="book-title">Exit Strategy</cite></a>
+and {% comment %}TODO <a href="/books/network_effect/"><cite
 class="book-title">Network Effect</cite></a>.{% endcomment %} <cite
 class="book-title">Network Effect</cite>. It shows us Murderbot and Mensah
 adjusting to their new situation after the GrayCris storyline.
@@ -27,7 +26,6 @@ adjusting to their new situation after the GrayCris storyline.
 
 {% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
 {% capture mb4 %}{% book_link "Exit Strategy" %}{% endcapture %}
-{% capture mb4_5 %}{% book_link "Home: Habitat, Range, Niche, Territory" %}{% endcapture %}
 {% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}
 
 {% capture tchaikovskys %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
