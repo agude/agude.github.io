@@ -9,9 +9,9 @@ image: /books/covers/exit_strategy.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the forth book in the
-<span class="book-series">{{ page.series }}</span>. It closes out the GrayCris
-storyline as Murderbot returns to rescue its friends.
+class="author-name">{{ page.book_author }}</span>, is the fourth book in the
+<span class="book-series">{{ page.series }}</span>. It wraps up the GrayCris
+storyline as Murderbot returns to save its friends.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
@@ -35,19 +35,19 @@ storyline as Murderbot returns to rescue its friends.
 {% capture shards %}{% book_link "Shards of Earth" %}{% endcapture %}
 {% capture architecture %}{% series_text "The Final Architecture" %}{% endcapture %}
 
-{{ this_book }} is the climax of the first four books in {{ this_series }},
-where Murderbot has the most to lose. It concludes the GrayCris storyline that
-began in {{ mb1 }}, when Dr. Ayda Mensah and her team were saved by Murderbot
-and then set it free.
+{{ this_book }} is the high-stakes climax of the first four books in {{
+this_series }}. Murderbot has more to lose, and the non-stop action reflects
+that. It concludes the GrayCris storyline that began in {{ mb1 }}, when Dr.
+Ayda Mensah and her team were saved by Murderbot and then set it free.
 
-In this book, Murderbot learns that Mensah has been kidnapped by GrayCris and
-imprisoned at their corporate headquarters. It quickly realizes that its
-exploration of the alien-artifact mining station spooked GrayCris and pushed
-them to take desperate action. Murderbot returns to the Corporation Rim,
-rescues its old team, and extracts with Mensah. Along the way, it confronts
-its own deathwish while fighting a combat SecUnit, and learns that sometimes
-you have to run. There's a lot of satisfying action as Murderbot saves its
-friends again and again.
+Murderbot learns that Mensah has been kidnapped and imprisoned by GrayCris at
+their corporate headquarters. It quickly realizes that its exploration of the
+alien-artifact mining station spooked GrayCris and pushed them to take
+desperate action, Murderbot returns to the Corporation Rim to get her out.
+Along the way it rescues its old team, and extracts with Mensah. Along the
+way, it confronts its own deathwish while fighting a combat SecUnit, and
+learns that sometimes you have to run. There's a lot of satisfying action as
+Murderbot saves its friends again and again.
 
 The theme of Murderbot's relationship with humans and humanity continues from
 {{ mb3 }}. It has conflicted emotions after learning that SecUnits used to be
@@ -62,5 +62,5 @@ it almost reads as satire. {{ the_authors_lastname }}'s version feels closer
 to reality. The hacking-as-combat parts, where code has a "physical" presence
 in the world, reminded me of similar scenes in {{ surface }} and {{ fall }}.
 
-Next up is the short story {{ mb4_5 }} before starting {{ tchaikovskys }} {{
-architecture }} with {{ shards }}.
+Next up is the short story {{ mb4_5 }}, then I'm starting {{ tchaikovskys }}
+{{ architecture }} series with {{ shards }}.
