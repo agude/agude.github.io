@@ -5,8 +5,10 @@ require_relative './card_data_extractor_utils'
 require_relative './card_renderer_utils'
 require_relative './author_link_util'
 require_relative './rating_utils'
-
+require_relative './series_link_util'
+require_relative './series_text_utils'
 require_relative 'typography_utils'
+
 module BookCardUtils
   DEFAULT_TITLE_FOR_BOOK_CARD = "Untitled Book".freeze
 
@@ -82,13 +84,59 @@ module BookCardUtils
       )
     end
 
-    # --- Extra Elements (Author, Rating) ---
+    # --- Extra Elements (Author, Series, Rating) ---
     extra_elements = []
+
+    # Author Line
     if data_accessor['book_author'] && !data_accessor['book_author'].to_s.strip.empty?
       author_html = AuthorLinkUtils.render_author_link(data_accessor['book_author'], context)
       extra_elements << "    <span class=\"by-author\"> by #{author_html}</span>\n"
     end
 
+    # Series Line
+    series_name_raw = data_accessor['series']
+    if series_name_raw && !series_name_raw.to_s.strip.empty?
+      series_analysis = SeriesTextUtils.analyze_series_name(series_name_raw)
+      if series_analysis
+        # Get the linked HTML for the series name (analysis.name is the clean, stripped name)
+        linked_series_html = SeriesLinkUtils.render_series_link(series_analysis[:name], context)
+
+        unless linked_series_html.strip.empty?
+          series_line_intro = ""
+          book_number_raw = data_accessor['book_number']
+
+          valid_book_number_for_display = nil
+          if book_number_raw && !book_number_raw.to_s.strip.empty?
+            begin
+              # Try to convert to float, then check if it's positive
+              num = Float(book_number_raw.to_s)
+              if num > 0
+                # Preserve original string if it was like "2.5" or "2"
+                # If it was "2.0", convert to integer "2" for display, else use original.
+                # Or, more simply, just use the original string if it's a valid positive number.
+                # Let's use the original string if it represents a positive number.
+                # We can refine formatting (e.g. stripping trailing .0) if needed.
+                valid_book_number_for_display = book_number_raw.to_s
+              end
+            rescue ArgumentError
+              # Not a valid float, so valid_book_number_for_display remains nil
+            end
+          end
+
+          if valid_book_number_for_display
+            series_line_intro = "Book #{valid_book_number_for_display} of "
+          else
+            series_line_intro = "Part of "
+          end
+
+          # Combine intro, prefix from analysis, the link, and suffix from analysis
+          full_series_text = "#{series_line_intro}#{series_analysis[:prefix]}#{linked_series_html}#{series_analysis[:suffix]}"
+          extra_elements << "    <div class=\"book-series-line\">#{full_series_text.strip}</div>\n"
+        end
+      end
+    end
+
+    # Rating Line
     if data_accessor.key?('rating')
       rating_value = data_accessor['rating']
       begin
