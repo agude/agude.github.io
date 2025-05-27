@@ -3,12 +3,17 @@ require_relative './series_link_util'
 require_relative './url_utils'
 require_relative 'plugin_logger_utils'
 require_relative 'book_card_utils'
-
 require_relative 'text_processing_utils'
+
 module BookListUtils
 
   # --- Public Methods for Tags ---
 
+  # Fetches and sorts books for a specific series.
+  # @param site [Jekyll::Site] The Jekyll site object.
+  # @param series_name_filter [String] The name of the series to filter by.
+  # @param context [Liquid::Context] The Liquid context.
+  # @return [Hash] Contains :books (Array of Document), :series_name (String), :log_messages (String).
   def self.get_data_for_series_display(site:, series_name_filter:, context:)
     log_output_accumulator = ""
 
@@ -31,7 +36,12 @@ module BookListUtils
     if series_name_provided_and_valid
       normalized_filter = series_name_filter.to_s.strip.downcase
       books_in_series = all_books.select { |book| book.data['series']&.strip&.downcase == normalized_filter }
-        .sort_by { |book| [book.data['book_number'] || Float::INFINITY, book.data['title'].to_s.downcase] }
+        .sort_by do |book|
+        [
+          _parse_book_number(book.data['book_number']), # Use helper for numerical sort
+          TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true) # Secondary sort by title
+        ]
+      end
 
       if books_in_series.empty?
         log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
@@ -54,6 +64,11 @@ module BookListUtils
     { books: books_in_series, series_name: series_name_filter, log_messages: log_output_accumulator }
   end
 
+  # Fetches and structures books for a specific author.
+  # @param site [Jekyll::Site] The Jekyll site object.
+  # @param author_name_filter [String] The name of the author to filter by.
+  # @param context [Liquid::Context] The Liquid context.
+  # @return [Hash] Contains :standalone_books (Array), :series_groups (Array), :log_messages (String).
   def self.get_data_for_author_display(site:, author_name_filter:, context:)
     log_output_accumulator = ""
 
@@ -74,6 +89,7 @@ module BookListUtils
     if author_name_filter && !author_name_filter.to_s.strip.empty?
       normalized_author_filter = author_name_filter.to_s.strip.downcase
       author_books = all_published.select { |book| book.data['book_author']&.strip&.downcase == normalized_author_filter }
+
       # If author_books is empty here, it means the author exists but has no books, or the author doesn't exist.
       # This is an expected empty state for a valid filter.
       if author_books.empty?
@@ -101,6 +117,10 @@ module BookListUtils
     structured_data
   end
 
+  # Fetches and structures all books for display.
+  # @param site [Jekyll::Site] The Jekyll site object.
+  # @param context [Liquid::Context] The Liquid context.
+  # @return [Hash] Contains :standalone_books (Array), :series_groups (Array), :log_messages (String).
   def self.get_data_for_all_books_display(site:, context:)
     log_output_accumulator = ""
     unless site&.collections&.key?('books')
@@ -121,14 +141,85 @@ module BookListUtils
     structured_data
   end
 
+  # Fetches all books, groups them by author, then structures each author's books.
+  # @param site [Jekyll::Site] The Jekyll site object.
+  # @param context [Liquid::Context] The Liquid context.
+  # @return [Hash] Contains :authors_data (Array of Hashes), :log_messages (String).
+  #   Each hash in :authors_data has :author_name, :standalone_books, :series_groups.
+  def self.get_data_for_all_books_by_author_display(site:, context:)
+    log_output_accumulator = ""
+    unless site&.collections&.key?('books')
+      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: "BOOK_LIST_UTIL", # Generic util error for missing collection
+        reason: "Required 'books' collection not found in site configuration.",
+        identifiers: { filter_type: "all_books_by_author" }, # New filter type identifier
+        level: :error,
+      )
+      return { authors_data: [], log_messages: log_output_accumulator }
+    end
+
+    all_published_books = _get_all_published_books(site)
+
+    # Group books by author name (case-insensitive for grouping, but preserve original name for display)
+    # Filter out books with nil or empty author names before grouping.
+    books_by_author_name = all_published_books
+      .select { |book| book.data['book_author'] && !book.data['book_author'].to_s.strip.empty? }
+      .group_by { |book| book.data['book_author'].to_s.strip } # Group by original, stripped author name
+
+    authors_data_list = []
+    books_by_author_name.each do |author_name, books_for_this_author|
+      # Structure this author's books into standalone and series
+      structured_author_books = _structure_books_for_display(books_for_this_author)
+      authors_data_list << {
+        author_name: author_name, # Use the original (but stripped) author name from grouping
+        standalone_books: structured_author_books[:standalone_books],
+        series_groups: structured_author_books[:series_groups]
+        # log_messages from _structure_books_for_display are ignored here,
+        # as they are usually about empty results for a *specific filter*,
+        # which isn't the case when processing a sub-list for an author.
+      }
+    end
+
+    # Sort the final list of authors alphabetically by name (case-insensitive)
+    sorted_authors_data = authors_data_list.sort_by { |author_entry| author_entry[:author_name].downcase }
+
+    if sorted_authors_data.empty? && log_output_accumulator.empty?
+      # This means the books collection was present, but no books had valid author names,
+      # or there were no published books at all.
+      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: "ALL_BOOKS_BY_AUTHOR_DISPLAY", # Specific tag type for this scenario
+        reason: "No published books with valid author names found.",
+        identifiers: {}, # No specific filter here
+        level: :info, # This is an expected empty state if content is structured that way
+      )
+    end
+
+    { authors_data: sorted_authors_data, log_messages: log_output_accumulator }
+  end
+
+
   # --- Public HTML Rendering Helper ---
 
-  def self.render_book_groups_html(data, context)
+  # Renders HTML for book groups (standalone and series).
+  # @param data [Hash] Expected to have :standalone_books, :series_groups, and optionally :log_messages.
+  # @param context [Liquid::Context] The Liquid context.
+  # @param series_heading_level [Integer] The HTML heading level for series titles (e.g., 2 for <h2>, 3 for <h3>). Defaults to 2.
+  # @return [String] The rendered HTML.
+  def self.render_book_groups_html(data, context, series_heading_level: 2)
     output = ""
     output << data[:log_messages] if data[:log_messages] && !data[:log_messages].empty?
 
+    # Validate heading level to prevent invalid HTML, default to 2 if out of typical range (1-6)
+    series_hl = series_heading_level.to_i
+    series_hl = 2 unless (1..6).include?(series_hl)
+
+    # "Standalone Books" heading is kept as H2 here for general use by other tags.
+    # Specific tags (like DisplayBooksByAuthorThenSeriesTag) can choose to render
+    # their own "Standalone Books" section with a different heading level if needed.
     if data[:standalone_books]&.any?
-      output << "<h2 class=\"book-list-headline\">Standalone Books</h2>\n"
+      output << "<h2 class=\"book-list-headline\">Standalone Books</h2>\n" # This remains H2 for general use
       output << "<div class=\"card-grid\">\n"
       data[:standalone_books].each do |book|
         output << BookCardUtils.render(book, context) << "\n"
@@ -138,7 +229,8 @@ module BookListUtils
 
     data[:series_groups]&.each do |series_group|
       series_title_html = SeriesLinkUtils.render_series_link(series_group[:name], context)
-      output << "<h2 class=\"series-title\">#{series_title_html}</h2>\n"
+      # Use the dynamic series_hl for the heading tag
+      output << "<h#{series_hl} class=\"series-title\">#{series_title_html}</h#{series_hl}>\n" # Dynamic heading level
       output << "<div class=\"card-grid\">\n"
       series_group[:books].each do |book|
         output << BookCardUtils.render(book, context) << "\n"
@@ -152,13 +244,32 @@ module BookListUtils
 
   private
 
-  # This private method now assumes the 'books' collection exists,
-  # as the public methods should have checked for it.
+  # Retrieves all published books from the site's 'books' collection.
+  # Assumes the 'books' collection exists (checked by public methods).
+  # @param site [Jekyll::Site] The Jekyll site object.
+  # @return [Array<Jekyll::Document>] An array of published book documents.
   def self._get_all_published_books(site)
     site.collections['books'].docs.select { |book| book.data['published'] != false }
   end
 
-  # which is now handled by callers or not at all for this structuring step.
+  # Parses a raw book number into a Float for sorting, or Float::INFINITY for non-numeric/nil.
+  # @param book_number_raw [Object] The raw book number from front matter.
+  # @return [Float, Float::INFINITY] The parsed number or infinity.
+  def self._parse_book_number(book_number_raw)
+    return Float::INFINITY if book_number_raw.nil? || book_number_raw.to_s.strip.empty?
+    begin
+      # Use Float() to allow for decimal book numbers like 4.5
+      Float(book_number_raw.to_s)
+    rescue ArgumentError
+      Float::INFINITY # Non-numeric strings (e.g., "Part 1", "One")
+    end
+  end
+
+  # Structures a list of books into standalone books and series groups.
+  # Sorts standalone books by title (ignoring articles).
+  # Sorts series groups by series name, and books within series by numerical book_number then title.
+  # @param books_to_process [Array<Jekyll::Document>] The list of books to structure.
+  # @return [Hash] Contains :standalone_books (Array), :series_groups (Array), :log_messages (String - usually empty from this method).
   def self._structure_books_for_display(books_to_process)
     standalone_books = []
     books_with_series = []
@@ -177,19 +288,24 @@ module BookListUtils
       TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true)
     end
 
+    # Sort books with series by series name, then by parsed book number, then by title
     books_with_series_sorted_for_grouping = books_with_series.sort_by do |book|
       [
         book.data['series'].to_s.strip.downcase,
-        book.data['book_number'] || Float::INFINITY,
-        book.data['title'].to_s.downcase,
+        _parse_book_number(book.data['book_number']), # Use helper for numerical sort
+        TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true) # Secondary sort by title
       ]
     end
 
+    # Group the pre-sorted books by series name
     grouped_by_series_name = books_with_series_sorted_for_grouping.group_by { |book| book.data['series'].to_s.strip }
 
+    # Map to the desired series_groups structure. The books within each group are already sorted.
+    # The groups themselves are implicitly sorted by series name due to the sort before grouping,
+    # but an explicit sort on group[:name] ensures this if the grouping strategy changes.
     series_groups = grouped_by_series_name.map do |name, book_list|
-      { name: name, books: book_list }
-    end.sort_by { |group| group[:name].downcase }
+      { name: name, books: book_list } # Books are already sorted correctly
+    end.sort_by { |group| group[:name].downcase } # Sort series groups by name
 
     {
       standalone_books: sorted_standalone,
