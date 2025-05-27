@@ -35,19 +35,18 @@ storyline as Murderbot returns to save its friends.
 {% capture shards %}{% book_link "Shards of Earth" %}{% endcapture %}
 {% capture architecture %}{% series_text "The Final Architecture" %}{% endcapture %}
 
-{{ this_book }} is the high-stakes climax of the first four books in {{
-this_series }}. Murderbot has more to lose, and the non-stop action reflects
-that. It concludes the GrayCris storyline that began in {{ mb1 }}, where
-Murderbot saved Dr. Ayda Mensah and her team and was set free.
+{{ this_book }} is the climax of the first four books in {{ this_series }}. It
+concludes the GrayCris storyline that began in {{ mb1 }}, when Murderbot saved
+Dr. Ayda Mensah and her team and was set free.
 
 Murderbot learns that Mensah has been kidnapped and imprisoned by GrayCris at
 their corporate headquarters. It quickly realizes that its exploration of the
-alien-artifact mining station spooked the company and forced them into
-desperate action. Determined to fix it, Murderbot returns to the Corporation
-Rim to break her out. Along the way, it rescues its old team, confronts a
-combat SecUnit, and grapples with its own deathwish---learning that sometimes
-survival means running. There's a lot of satisfying action as Murderbot saves
-its friends again and again.
+alien-artifact mining station spooked the company and forced them to take
+desperate action. Murderbot returns to the Corporation Rim, determined to save
+its humans. Along the way, it reunites with and rescues its old team,
+confronts a combat SecUnit, and grapples with its own death wish---learning that
+sometimes survival means running. There's a lot of satisfying action as
+Murderbot saves its friends again and again.
 
 The theme of Murderbot's relationship with humans and humanity continues from
 {{ mb3 }}. It has conflicted emotions after learning that SecUnits used to be
@@ -58,10 +57,10 @@ is---not just leftover programming.
 
 The detailed view of the "libertarian paradise" that is the Corporation Rim
 reminded me of {{ smiths }} (horrible) {{ probability_broach }}, which paints
-an idealized version of what a libertarian world would look like---so extreme
-it almost reads as satire. {{ the_authors_lastname }}'s version feels closer
-to reality. The hacking-as-combat parts, where code has a "physical" presence
-in the world, reminded me of similar scenes in {{ surface }} and {{ fall }}.
+an idealized version of what a libertarian world would look like---so extreme it
+almost reads as satire. {{ the_authors_lastname }}'s version feels closer to
+reality. The hacking-as-combat parts, where code has a "physical" presence in
+the world, reminded me of similar scenes in {{ surface }} and {{ fall }}.
 
 Next up is the short story {{ mb4_5 }}, then I'm starting {{ tchaikovskys }}
 {{ architecture }} with {{ shards }}.
