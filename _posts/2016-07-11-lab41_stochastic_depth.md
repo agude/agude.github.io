@@ -124,8 +124,20 @@ The main idea behind stochastic depth is relatively simple, remove some layers
 when training to make the network train is if it were shallow, but the results
 are surprisingly good. The new networks not only train faster, but they
 perform better as well. Further, the idea is compatible with other methods of
-improving network training like [batch normalization][bn]. All in all,
+improving network training like [batch normalization][bn][^ioffe]. All in all,
 stochastic depth is an essentially free improvement when training a deep
 network. I look forward to giving it a shot in my next model!
 
 [bn]: https://gab41.lab41.org/batch-normalization-what-the-hey-d480039a9e3b
+
+[^ioffe]:
+    {% citation
+      author_last="Ioffe, Sergey and Szegedy, Christian"
+      work_title="Batch normalization: accelerating deep network training by reducing internal covariate shift"
+      container_title="Proceedings of the 32nd International Conference on International Conference on Machine Learning - Volume 37"
+      publisher="JMLR.org"
+      date="2015"
+      first_page="448"
+      last_page="456"
+      url="https://arxiv.org/abs/1502.03167"
+    %}
