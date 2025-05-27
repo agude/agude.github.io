@@ -140,12 +140,24 @@ linear classifiers trained on top of them.
 They find that their generic skip-thought representation performs very well
 for detecting the semantic relatedness of two sentences and for detecting
 where a sentence is paraphrasing another one. Skip-thought vectors perform
-relatively well for image retrieval and captioning (where they use [VGG][vgg]
-to extract image feature vectors). Skip-thought performs poorly for sentiment
-analysis, producing equivalent results to various bag of word models but at a
-much higher computational cost.
+relatively well for image retrieval and captioning (where they use
+[VGG][vgg][^simonyan] to extract image feature vectors). Skip-thought performs
+poorly for sentiment analysis, producing equivalent results to various bag of
+word models but at a much higher computational cost.
 
-[vgg]: https://arxiv.org/pdf/1409.1556.pdf
+[vgg]: https://arxiv.org/abs/1409.1556
+
+[^simonyan]:
+    {% citation
+      author_last="Simonyan, K and Zisserman, A"
+      work_title="Very deep convolutional networks for large-scale image recognition"
+      container_title="3rd International Conference on Learning Representations (ICLR 2015)"
+      publisher="Computational and Biological Learning Society"
+      date="2015"
+      first_page="1"
+      last_page="14"
+      url="https://arxiv.org/abs/1409.1556"
+    %}
 
 We have used skip-thought vectors a little bit at the Lab, most recently for
 the [Pythia challenge][pythia]. We found them to be useful for novelty
