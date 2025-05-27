@@ -52,12 +52,25 @@ to do ship and plane localization in satellite images.
 Deep learning seems like the best option for finding cars as well! But we
 don't use deep learning, for two reasons:
 
-1. An "off-the-shelf" network, [Single Shot MultiBox Detector (SSD)][ssd],
-   performed poorly.
+1. An "off-the-shelf" network, [Single Shot MultiBox Detector (SSD)][ssd]<span
+   class="nowrap">,[^liu]<span> performed poorly.
 
 2. We did not have much labeled data, so retraining wasn't an option.
 
 [ssd]: https://arxiv.org/abs/1512.02325
+
+[^liu]:
+    {% citation
+      author_last="Liu, Wei and Anguelov, Dragomir and Erhan, Dumitru and Szegedy, Christian and Reed, Scott and Fu, Cheng-Yang and Berg, Alexander C."
+      work_title="SSD: Single Shot MultiBox Detector"
+      container_title="Computer Vision -- ECCV 2016"
+      editor="Leibe, Bastian and Matas, Jiri and Sebe, Nicu and Welling, Max"
+      publisher="Springer International Publishing"
+      date="2016"
+      first_page="21"
+      last_page="37"
+      doi="doi.org/10.1007/978-3-319-46448-0_2"
+    %}
 
 We were able to hand label about 200 frames of the traffic camera data in
 order to test our algorithms, but did not have enough time (or, critically,
