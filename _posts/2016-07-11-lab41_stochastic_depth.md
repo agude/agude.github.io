@@ -26,8 +26,8 @@ and Sun's new approach. I highly recommended giving it a read!
 
 [arxiv]: https://arxiv.org/abs/1603.09382
 
-{% capture huang_cite -%}
-  {% citation
+[^huang]:
+    {% citation
       author_last="Huang, Gao and Sun, Yu and Liu, Zhuang and Sedra, Daniel and Weinberger, Kilian Q."
       work_title="Deep Networks with Stochastic Depth"
       container_title="Computer Vision -- ECCV 2016"
@@ -38,9 +38,6 @@ and Sun's new approach. I highly recommended giving it a read!
       last_page="661"
       doi="10.1007/978-3-319-46493-0_39"
     %}
-{%- endcapture %}
-
-[^huang]: {{ huang_cite }}
 
 The authors begin by pointing out that deep neural networks have greater
 expressive power as compared to shallow networks, that is they can learn more
@@ -84,7 +81,7 @@ dropped!
   url=image_1
   image_alt="A diagram of a ResNet block, or ResBlock."
   caption="A ResBlock. The top path is a convolution layer, while the bottom
-  path is a pass through."
+  path is a pass through. From Huang et al."
 %}
 
 Stochastic depth adds a new hyper-parameter, $$p(l)$$, the probability of
@@ -103,7 +100,7 @@ for a shallower network.
   chance of each layer."
   caption="An example training run on a network with stochastic depth. The red
   and blue bars indicate the probability of dropping a layer, p(l). In this
-  example layer 3 and layer 5 have been dropped."
+  example layer 3 and layer 5 have been dropped. From Huang et al."
 %}
 
 In addition to aiding in training, the trained networks actually **perform
