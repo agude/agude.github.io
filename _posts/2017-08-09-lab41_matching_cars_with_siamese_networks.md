@@ -50,18 +50,38 @@ output from HOG, we appended a histogram of each color channel.
 [boats]: https://medium.com/the-downlinq/histogram-of-oriented-gradients-hog-heading-classification-a92d1cf5b3cc
 
 Our second method of feature extraction was based on deep learning. We took
-[ResNet50][resnet] trained on [ImageNet][in], removed the fully connected
-layers, and treated the 2048-dimension output of the convolutional layers as
-our feature vector. [It is well known that networks trained on ImageNet,
-despite being exceptionally good at identifying dogs and cats, are also very
-good for general image problems][transfer]. It turns out the edges, shapes,
-and colors learned for dogs are also, in different configurations, useful for
-cars. For more details on the ResNet architecture, see my reading group blog
-post.
+[ResNet50][resnet][^he] trained on [ImageNet][in],[^deng] removed the fully
+connected layers, and treated the 2048-dimension output of the convolutional
+layers as our feature vector. [It is well known that networks trained on
+ImageNet, despite being exceptionally good at identifying dogs and cats, are
+also very good for general image problems][transfer]. It turns out the edges,
+shapes, and colors learned for dogs are also, in different configurations,
+useful for cars. For more details on the ResNet architecture, see my reading
+group blog post.
 
 [resnet]: https://arxiv.org/abs/1512.03385
 [in]: http://www.image-net.org/
 [transfer]: https://cs231n.github.io/transfer-learning/
+
+[^he]:
+    {% citation
+      author_last="He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian"
+      work_title="Deep Residual Learning for Image Recognition"
+      container_title="2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)"
+      date="2016"
+      first_page="770"
+      last_page="778"
+      doi="10.1109/CVPR.2016.90"
+    %}
+
+[^deng]:
+    {% citation
+      author_last="Deng, J. and Dong, W. and Socher, R. and Li, L.-J. and Li, K. and Fei-Fei, L."
+      work_title="ImageNet: A Large-Scale Hierarchical Image Database"
+      container_title="CVPR09"
+      date="2009"
+      url="http://www.image-net.org/papers/imagenet_cvpr09.pdf"
+    %}
 
 Our third method of feature extraction was a [fine-tuned][transfer] ResNet50.
 Pretrained networks are good at general image tasks, but they can be
@@ -105,7 +125,9 @@ our test set.
 {% include figure.html
   url=image_1
   image_alt="A cartoon drawing of our Siamese network."
-  caption="A cartoon of our Siamese network architecture. The two convolutional blocks (CNN) output vectors which are joined together and then passed through a set of fully connected (FC) layers for classification."
+  caption="A cartoon of our Siamese network architecture. The two
+  convolutional blocks (CNN) output vectors which are joined together and then
+  passed through a set of fully connected (FC) layers for classification."
 %}
 
 ## Results
@@ -113,12 +135,36 @@ our test set.
 ### Dataset
 
 In order to determine how well our various feature extraction and matching
-algorithms did, we needed a labeled dataset. We used the [VeRi dataset][veri],
-which contains pictures of 776 uniquely identified vehicles. There are
-multiple pictures of each vehicle taken from 20 different traffic cameras in
-China. An example of two VeRi images is show below.
+algorithms did, we needed a labeled dataset. We used the [VeRi
+dataset][veri],[^veri] which contains pictures of 776 uniquely identified
+vehicles. There are multiple pictures of each vehicle taken from 20 different
+traffic cameras in China. An example of two VeRi images from Liu _et
+al._[^liu] is show below.
 
 [veri]: https://ieeexplore.ieee.org/document/7553002/
+[^veri]:
+    {% citation
+      author_last="Liu, Xinchen and Liu, Wu and Ma, Huadong and Fu, Huiyuan"
+      work_title="Large-scale vehicle re-identification in urban surveillance videos"
+      container_title="2016 IEEE International Conference on Multimedia and Expo (ICME)"
+      date="2016"
+      first_page="1"
+      last_page="6"
+      doi="10.1109/ICME.2016.7553002"
+    %}
+
+[^liu]:
+    {% citation
+      author_last="Liu, Xinchen and Liu, Wu and Mei, Tao and Ma, Huadong"
+      work_title="A Deep Learning-Based Approach to Progressive Vehicle Re-identification for Urban Surveillance"
+      container_title="European Conference on Computer Vision"
+      editor="Leibe, Bastian and Matas, Jiri and Sebe, Nicu and Welling, Max"
+      date="2016"
+      publisher="Springer International Publishing"
+      first_page="869"
+      last_page="884"
+      doi="10.1007/978-3-319-46475-6_53"
+    %}
 
 {% capture image_2 %} {{ file_dir }}/trucks.jpg {% endcapture %}
 {% include figure.html
@@ -126,10 +172,7 @@ China. An example of two VeRi images is show below.
   image_alt="Two images from the dataset showing a front and read view of the
   same truck."
   caption="Two example images from VeRi showing the same truck passing two
-  different cameras. From Liu X., Liu W., Mei T., Ma H. A Deep Learning-Based
-  Approach to Progressive Vehicle Re-identification for Urban Surveillance.
-  In: European Conference on Computer Vision. Springer International
-  Publishing, 2016: 869–884."
+  different cameras."
 %}
 
 

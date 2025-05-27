@@ -12,18 +12,32 @@ image_alt: >
 categories: 
   - reading-group
   - lab41
+use_latex: true
 ---
 
 {% capture file_dir %}/files/stochastic-depth/{% endcapture %}
 
-[Today's paper][arxiv] is by Gao Huang, Yu Sun, _et al._ It introduces a new
-way to perturb networks during training in order to improve their performance.
-Before I continue, let me first state that this paper is a **real pleasure to
-read**; it is concise and extremely well written. It gives an excellent
-overview of the motivating problems, previous solutions, and Huang and Sun's
-new approach. I highly recommended giving it a read!
+[Today's paper][arxiv] is by Gao Huang, Yu Sun, _et al._[^huang] It introduces
+a new way to perturb networks during training in order to improve their
+performance. Before I continue, let me first state that this paper is a **real
+pleasure to read**; it is concise and extremely well written. It gives an
+excellent overview of the motivating problems, previous solutions, and Huang
+and Sun's new approach. I highly recommended giving it a read!
 
 [arxiv]: https://arxiv.org/abs/1603.09382
+
+[^huang]:
+    {% citation
+      author_last="Huang, Gao and Sun, Yu and Liu, Zhuang and Sedra, Daniel and Weinberger, Kilian Q."
+      work_title="Deep Networks with Stochastic Depth"
+      container_title="Computer Vision -- ECCV 2016"
+      editor="Leibe, Bastian and Matas, Jiri and Sebe, Nicu and Welling, Max"
+      date="2016"
+      publisher="Springer International Publishing"
+      first_page="646"
+      last_page="661"
+      doi="10.1007/978-3-319-46493-0_39"
+    %}
 
 The authors begin by pointing out that deep neural networks have greater
 expressive power as compared to shallow networks, that is they can learn more
@@ -67,17 +81,17 @@ dropped!
   url=image_1
   image_alt="A diagram of a ResNet block, or ResBlock."
   caption="A ResBlock. The top path is a convolution layer, while the bottom
-  path is a pass through. From Gao Huang, Yu Sun, et al."
+  path is a pass through. From Huang <em>et al.</em>"
 %}
 
-Stochastic depth adds a new hyper-parameter, `p(l)`, the probability of dropping
-a layer as a function of its depth. They take `p(l)` to be linear with it equal
-to 0.0 for the first layer and 0.5 for the last, although other functions
-(include a constant) are possible. With this model the expected depth of a
-network is effectively reduced by 25% with corresponding reductions in
-training time. The authors also show that it reduces the problems associated
-with vanishing gradients and diminishing feature use, as expected for a
-shallower network.
+Stochastic depth adds a new hyper-parameter, $$p(l)$$, the probability of
+dropping a layer as a function of its depth. They take $$p(l)$$ to be linear
+with it equal to 0.0 for the first layer and 0.5 for the last, although other
+functions (include a constant) are possible. With this model the expected
+depth of a network is effectively reduced by 25% with corresponding reductions
+in training time. The authors also show that it reduces the problems
+associated with vanishing gradients and diminishing feature use, as expected
+for a shallower network.
 
 {% capture image_2 %} {{ file_dir }}/training.png {% endcapture %}
 {% include figure.html
@@ -86,10 +100,8 @@ shallower network.
   chance of each layer."
   caption="An example training run on a network with stochastic depth. The red
   and blue bars indicate the probability of dropping a layer, p(l). In this
-  example layer 3 and layer 5 have been dropped. From Gao Huang, Yu Sun, et
-  al."
+  example layer 3 and layer 5 have been dropped. From Huang <em>et al.</em>"
 %}
-
 
 In addition to aiding in training, the trained networks actually **perform
 better** than networks trained without stochastic depth! This is because
@@ -112,8 +124,20 @@ The main idea behind stochastic depth is relatively simple, remove some layers
 when training to make the network train is if it were shallow, but the results
 are surprisingly good. The new networks not only train faster, but they
 perform better as well. Further, the idea is compatible with other methods of
-improving network training like [batch normalization][bn]. All in all,
+improving network training like [batch normalization][bn][^ioffe]. All in all,
 stochastic depth is an essentially free improvement when training a deep
 network. I look forward to giving it a shot in my next model!
 
 [bn]: https://gab41.lab41.org/batch-normalization-what-the-hey-d480039a9e3b
+
+[^ioffe]:
+    {% citation
+      author_last="Ioffe, Sergey and Szegedy, Christian"
+      work_title="Batch normalization: accelerating deep network training by reducing internal covariate shift"
+      container_title="Proceedings of the 32nd International Conference on International Conference on Machine Learning - Volume 37"
+      publisher="JMLR.org"
+      date="2015"
+      first_page="448"
+      last_page="456"
+      url="https://arxiv.org/abs/1502.03167"
+    %}

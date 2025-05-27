@@ -18,35 +18,68 @@ categories:
 {% capture file_dir %}/files/deep-compression/{% endcapture %}
 
 [The next paper from our reading group][arxiv] is by Song Han, Huizi Mao, and
-William J. Dally. It won the best paper award at ICLR 2016. It details three
-methods of compressing a neural network in order to reduce the size of the
-network on disk, improve performance, and decrease run time.
+William J. Dally.[^han] It won the best paper award at ICLR 2016. It details
+three methods of compressing a neural network in order to reduce the size of
+the network on disk, improve performance, and decrease run time.
 
 [arxiv]: https://arxiv.org/abs/1510.00149
 
+[^han]:
+    {% citation
+      author_last="Han, Song and Mao, Huizi and Dally, William J"
+      work_title="Deep compression: Compressing deep neural networks with pruning, trained quantization and huffman coding"
+      container_title="arXiv preprint"
+      date="Octobe 1, 2015"
+      url="https://arxiv.org/abs/1510.00149"
+    %}
+
 Pre-trained convolutional neural networks are too large for mobile devices:
-[AlexNet][an] is 240 MB and [VGG-16][vgg] is over 552 MB. This seems small
-when compared to a music library or large video, but the difference is that
-the networks reside in memory when running. On mobile devices SRAM is scarce
-and DRAM is expensive to access in terms of energy used. For reference, the
-authors estimate that a 1 billion node network running at 20 FPS on your phone
-would draw nearly 13 Watts from just the DRAM access alone. If these networks
-are going to run on a mobile device (where they could, for example,
-automatically tag pictures as they are taken) they must be compressed in some
-manner. In this paper the authors apply three compression methods to the
-weights of various networks and measure the results. A diagram of the three
-methods and their results are below; I'll walk you through them in more depth
-in the next few paragraphs.
+[AlexNet][an][^krizhevsky] is 240 MB and [VGG-16][vgg][^simonyan] is over 552
+MB. This seems small when compared to a music library or large video, but the
+difference is that the networks reside in memory when running. On mobile
+devices SRAM is scarce and DRAM is expensive to access in terms of energy
+used. For reference, the authors estimate that a 1 billion node network
+running at 20 FPS on your phone would draw nearly 13 Watts from just the DRAM
+access alone. If these networks are going to run on a mobile device (where
+they could, for example, automatically tag pictures as they are taken) they
+must be compressed in some manner. In this paper the authors apply three
+compression methods to the weights of various networks and measure the
+results. A diagram of the three methods and their results are below; I'll walk
+you through them in more depth in the next few paragraphs.
 
 [an]: http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks
 [vgg]: https://arxiv.org/abs/1409.1556
+
+[^krizhevsky]:
+    {% citation
+      author_last="Krizhevsky, Alex and Sutskever, Ilya and Hinton, Geoffrey E"
+      work_title="ImageNet Classification with Deep Convolutional Neural Networks"
+      container_title="Advances in Neural Information Processing Systems"
+      editor="F. Pereira and C.J. Burges and L. Bottou and K.Q. Weinberger"
+      volume="25"
+      publisher="Curran Associates, Inc."
+      date="2012"
+      url="https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf"
+    %}
+
+[^simonyan]:
+    {% citation
+      author_last="Simonyan, K and Zisserman, A"
+      work_title="Very deep convolutional networks for large-scale image recognition"
+      container_title="3rd International Conference on Learning Representations (ICLR 2015)"
+      publisher="Computational and Biological Learning Society"
+      date="2015"
+      first_page="1"
+      last_page="14"
+      url="https://arxiv.org/abs/1409.1556"
+    %}
 
 {% capture image_1 %} {{ file_dir }}/compression_stages.png {% endcapture %}
 {% include figure.html
   url=image_1
   image_alt="A chart sumarizing the stages of deep compression."
   caption="A summary of the three stages in the compression pipeline proposed
-  by Han, Mao, and Dally. Note that the size reduction is cumulative. Image
+  by Han <em>et al.</em> Note that the size reduction is cumulative. Image
   from their paper."
 %}
 
@@ -75,7 +108,7 @@ is shown below.
   caption="A toy example of trained quantization and weight sharing. On the
   top row, weights of the same color have been clustered and will be replaced
   by a centroid value. On the bottom row, gradients are calculated and used to
-  update the centroids. From Han, Mao, and Dally's paper."
+  update the centroids. From Han <em>et al.</em>"
 %}
 
 The third and final compression method is **Huffman Coding**. Huffman coding

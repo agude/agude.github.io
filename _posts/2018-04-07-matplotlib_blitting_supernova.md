@@ -49,7 +49,7 @@ us how the explosion is evolving.
 
 [^pereira_cite]:
     {% citation
-      author_last="Pereira et al."
+      author_last="Pereira _et al._"
       work_title="Spectrophotometric time series of SN 2011fe from the Nearby Supernova Factory"
       container_title="Astronomy & Astrophysics"
       volume="554"
@@ -61,7 +61,7 @@ us how the explosion is evolving.
 
 [^aldering_cite]:
     {% citation
-      author_last="Aldering et al."
+      author_last="Aldering _et al._"
       work_title="Overview of the Nearby Supernova Factory"
       container_title="Proceedings Volume 4836, Survey and Other Telescope Technologies and Discoveries"
       date="2002"
