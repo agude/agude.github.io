@@ -81,7 +81,7 @@ dropped!
   url=image_1
   image_alt="A diagram of a ResNet block, or ResBlock."
   caption="A ResBlock. The top path is a convolution layer, while the bottom
-  path is a pass through. From Huang et al."
+  path is a pass through. From Huang <em>et al.</em>"
 %}
 
 Stochastic depth adds a new hyper-parameter, $$p(l)$$, the probability of
@@ -100,7 +100,7 @@ for a shallower network.
   chance of each layer."
   caption="An example training run on a network with stochastic depth. The red
   and blue bars indicate the probability of dropping a layer, p(l). In this
-  example layer 3 and layer 5 have been dropped. From Huang et al."
+  example layer 3 and layer 5 have been dropped. From Huang <em>et al.</em>"
 %}
 
 In addition to aiding in training, the trained networks actually **perform

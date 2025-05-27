@@ -32,7 +32,7 @@ Generative Adversarial Nets (GANs).[^goodfellow]
 [^goodfellow]:
     {% citation
       author_last="Goodfellow"
-      author_first="Ian, et al."
+      author_first="Ian, _et al_"
       work_title="Generative adversarial networks"
       container_title="Communications of the ACM"
       volume="63"

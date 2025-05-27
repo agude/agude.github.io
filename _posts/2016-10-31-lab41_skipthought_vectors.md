@@ -32,7 +32,7 @@ sentences.
 [^kiros]:
     {% citation
       author_last="Kiros"
-      author_first="Ryan, et al."
+      author_first="Ryan, _et al._"
       work_title="Skip-thought vectors"
       container_title="Proceedings of the 29th International Conference on Neural Information Processing Systems - Volume 2 (NIPS'15)"
       date="2015"

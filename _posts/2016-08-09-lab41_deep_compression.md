@@ -79,8 +79,8 @@ you through them in more depth in the next few paragraphs.
   url=image_1
   image_alt="A chart sumarizing the stages of deep compression."
   caption="A summary of the three stages in the compression pipeline proposed
-  by Han et al. Note that the size reduction is cumulative. Image from their
-  paper."
+  by Han <em>et al.</em> Note that the size reduction is cumulative. Image
+  from their paper."
 %}
 
 The first compression method is **Network Pruning**. In this method a network
@@ -108,7 +108,7 @@ is shown below.
   caption="A toy example of trained quantization and weight sharing. On the
   top row, weights of the same color have been clustered and will be replaced
   by a centroid value. On the bottom row, gradients are calculated and used to
-  update the centroids. From Han et al."
+  update the centroids. From Han <em>et al.</em>"
 %}
 
 The third and final compression method is **Huffman Coding**. Huffman coding
