@@ -199,6 +199,100 @@ module BookListUtils
     { authors_data: sorted_authors_data, log_messages: log_output_accumulator }
   end
 
+  # Formats an award string into a display name (Title Case + " Award").
+  private_class_method def self._format_award_display_name(award_string_raw)
+    return "" if award_string_raw.nil? || award_string_raw.to_s.strip.empty?
+
+    award_str = award_string_raw.to_s.strip
+
+    # Titleize the raw award string and append " Award"
+    titleized_name = award_str.split.map do |word|
+      if word.length == 2 && word[1] == '.' && word[0].match?(/[a-z]/i) # e.g., "c." but not ".."
+        word[0].upcase + "."
+      else
+        word.capitalize # Standard capitalization for other words
+      end
+    end.join(' ')
+
+    "#{titleized_name} Award"
+  end
+
+  # Fetches all books, groups them by award.
+  def self.get_data_for_all_books_by_award_display(site:, context:)
+    log_output_accumulator = ""
+    unless site&.collections&.key?('books')
+      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: "BOOK_LIST_UTIL",
+        reason: "Required 'books' collection not found in site configuration.",
+        identifiers: { filter_type: "all_books_by_award" },
+        level: :error,
+      )
+      return { awards_data: [], log_messages: log_output_accumulator }
+    end
+
+    all_published_books = _get_all_published_books(site)
+    return { awards_data: [], log_messages: log_output_accumulator } if all_published_books.empty?
+
+    unique_raw_awards = {}
+    all_published_books.each do |book|
+      book_awards = book.data['awards']
+      if book_awards.is_a?(Array)
+        book_awards.each do |award_entry|
+          next if award_entry.nil? || award_entry.to_s.strip.empty?
+          award_str_stripped = award_entry.to_s.strip
+          award_str_downcased = award_str_stripped.downcase
+          unique_raw_awards[award_str_downcased] ||= award_str_stripped
+        end
+      end
+    end
+
+    sorted_unique_raw_awards = unique_raw_awards.sort_by { |downcased, _original| downcased }.map { |_downcased, original| original }
+
+    awards_data_list = []
+    if sorted_unique_raw_awards.empty?
+      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: "ALL_BOOKS_BY_AWARD_DISPLAY",
+        reason: "No books with awards found.",
+        identifiers: {},
+        level: :info,
+      )
+      return { awards_data: [], log_messages: log_output_accumulator }
+    end
+
+    sorted_unique_raw_awards.each do |current_raw_award|
+      books_for_this_award = all_published_books.select do |book|
+        book_awards_list = book.data['awards']
+        if book_awards_list.is_a?(Array)
+          book_awards_list.any? { |ba| ba.to_s.strip.casecmp(current_raw_award.strip).zero? }
+        else
+          false
+        end
+      end
+
+      next if books_for_this_award.empty?
+
+      sorted_books_for_award = books_for_this_award.sort_by do |book|
+        TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true)
+      end
+
+      display_award_name = _format_award_display_name(current_raw_award)
+      award_slug = TextProcessingUtils.normalize_title(display_award_name, strip_articles: false)
+        .gsub(/\s+/, '-')
+        .gsub(/[^\w-]+/, '')
+        .gsub(/--+/, '-')
+        .gsub(/^-+|-+$/, '')
+
+      awards_data_list << {
+        award_name: display_award_name,
+        award_slug: award_slug,
+        books: sorted_books_for_award
+      }
+    end
+
+    { awards_data: awards_data_list, log_messages: log_output_accumulator }
+  end
 
   # --- Public HTML Rendering Helper ---
 
