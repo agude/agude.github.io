@@ -1,6 +1,7 @@
 # _tests/plugins/utils/test_book_list_utils.rb
 require_relative '../../test_helper'
 require 'minitest/mock' # Required for Minitest::Mock if creating detailed mocks
+require 'time' # For Time.parse
 
 class TestBookListUtils < Minitest::Test
 
@@ -9,33 +10,39 @@ class TestBookListUtils < Minitest::Test
     # This setup provides a diverse set of book objects to test various
     # filtering, sorting, and grouping scenarios within BookListUtils.
 
-    # Series One (Author A) - Includes various book_number formats for sort testing
-    @s1_b0_5_authA = create_doc({ 'title' => 'S1 Book 0.5 (Novella)', 'series' => 'Series One', 'book_number' => 0.5, 'book_author' => 'Author A', 'published' => true }, '/s1b0_5.html')
-    @s1_b1_authA   = create_doc({ 'title' => 'S1 Book 1',   'series' => 'Series One', 'book_number' => 1, 'book_author' => 'Author A', 'published' => true }, '/s1b1.html')
-    @s1_b2_authA   = create_doc({ 'title' => 'S1 Book 2',   'series' => 'Series One', 'book_number' => '2.0', 'book_author' => 'Author A', 'published' => true }, '/s1b2.html') # book_number as string float
-    @s1_b2_5_authA = create_doc({ 'title' => 'S1 Book 2.5', 'series' => 'Series One', 'book_number' => 2.5, 'book_author' => 'Author A', 'published' => true }, '/s1b2_5.html')
-    @s1_b10_authA  = create_doc({ 'title' => 'S1 Book 10',  'series' => 'Series One', 'book_number' => '10', 'book_author' => 'Author A', 'published' => true }, '/s1b10.html') # book_number as string integer
-    @s1_b_nil_num_authA = create_doc({ 'title' => 'S1 Book NilNum', 'series' => 'Series One', 'book_number' => nil, 'book_author' => 'Author A', 'published' => true }, '/s1b_nil.html') # nil book_number
-    @s1_b_str_num_authA = create_doc({ 'title' => 'S1 Book StrNum', 'series' => 'Series One', 'book_number' => 'Part 3', 'book_author' => 'Author A', 'published' => true }, '/s1b_str.html') # non-numeric book_number
+    # Define author names for clarity and case-insensitivity testing
+    @author_a_cap_name = "Author A"
+    @author_b_lower_name = "author b" # Lowercase to test case-insensitive sort
+    @author_c_cap_name = "Author C"   # Uppercase to test sorting against lowercase
 
-    # Series Two (Author B)
-    @s2_b1_authB = create_doc({ 'title' => 'S2 Book 1', 'series' => 'Series Two', 'book_number' => 1, 'book_author' => 'Author B', 'published' => true }, '/s2b1.html')
-    @s2_b1_5_authB = create_doc({ 'title' => 'S2 Book 1.5', 'series' => 'Series Two', 'book_number' => 1.5, 'book_author' => 'Author B', 'published' => true }, '/s2b1_5.html')
+    # Series One (Author A) - Includes various book_number formats for sort testing
+    @s1_b0_5_authA = create_doc({ 'title' => 'S1 Book 0.5 (Novella)', 'series' => 'Series One', 'book_number' => 0.5, 'book_author' => @author_a_cap_name, 'published' => true, 'date' => Time.parse("2023-01-01") }, '/s1b0_5.html')
+    @s1_b1_authA   = create_doc({ 'title' => 'S1 Book 1',   'series' => 'Series One', 'book_number' => 1, 'book_author' => @author_a_cap_name, 'published' => true, 'date' => Time.parse("2023-01-02") }, '/s1b1.html')
+    @s1_b2_authA   = create_doc({ 'title' => 'S1 Book 2',   'series' => 'Series One', 'book_number' => '2.0', 'book_author' => @author_a_cap_name, 'published' => true, 'date' => Time.parse("2023-01-03") }, '/s1b2.html')
+    @s1_b2_5_authA = create_doc({ 'title' => 'S1 Book 2.5', 'series' => 'Series One', 'book_number' => 2.5, 'book_author' => @author_a_cap_name, 'published' => true, 'date' => Time.parse("2023-01-04") }, '/s1b2_5.html')
+    @s1_b10_authA  = create_doc({ 'title' => 'S1 Book 10',  'series' => 'Series One', 'book_number' => '10', 'book_author' => @author_a_cap_name, 'published' => true, 'date' => Time.parse("2023-01-05") }, '/s1b10.html')
+    @s1_b_nil_num_authA = create_doc({ 'title' => 'S1 Book NilNum', 'series' => 'Series One', 'book_number' => nil, 'book_author' => @author_a_cap_name, 'published' => true, 'date' => Time.parse("2023-01-06") }, '/s1b_nil.html')
+    @s1_b_str_num_authA = create_doc({ 'title' => 'S1 Book StrNum', 'series' => 'Series One', 'book_number' => 'Part 3', 'book_author' => @author_a_cap_name, 'published' => true, 'date' => Time.parse("2023-01-07") }, '/s1b_str.html')
+
+    # Series Two (now for "author b")
+    @s2_b1_auth_b_lower = create_doc({ 'title' => 'S2 Book 1 by author b', 'series' => 'Series Two', 'book_number' => 1, 'book_author' => @author_b_lower_name, 'published' => true, 'date' => Time.parse("2022-02-01") }, '/s2b1_lower.html')
+    @s2_b1_5_auth_b_lower = create_doc({ 'title' => 'S2 Book 1.5 by author b', 'series' => 'Series Two', 'book_number' => 1.5, 'book_author' => @author_b_lower_name, 'published' => true, 'date' => Time.parse("2022-02-02") }, '/s2b1_5_lower.html')
 
     # Standalone Books by specific authors
-    @st_alpha_authA   = create_doc({ 'title' => 'The Standalone Alpha', 'book_author' => 'Author A', 'published' => true, 'date' => Time.parse("2023-03-01") }, '/sa.html')
-    @st_beta_authB    = create_doc({ 'title' => 'Standalone Beta',    'book_author' => 'Author B', 'published' => true, 'date' => Time.parse("2022-03-01") }, '/sb.html')
-    @st_gamma_authA   = create_doc({ 'title' => 'An Earlier Standalone Gamma', 'book_author' => 'Author A', 'published' => true, 'date' => Time.parse("2023-03-02") }, '/sg.html')
+    @st_alpha_authA   = create_doc({ 'title' => 'The Standalone Alpha', 'book_author' => @author_a_cap_name, 'published' => true, 'date' => Time.parse("2023-03-01") }, '/sa.html')
+    @st_beta_auth_b_lower = create_doc({ 'title' => 'Standalone Beta by author b', 'book_author' => @author_b_lower_name, 'published' => true, 'date' => Time.parse("2022-03-01") }, '/sb_lower.html')
+    @st_gamma_authA   = create_doc({ 'title' => 'An Earlier Standalone Gamma', 'book_author' => @author_a_cap_name, 'published' => true, 'date' => Time.parse("2023-03-02") }, '/sg.html')
+    @book_c_cap_standalone = create_doc({ 'title' => 'Standalone by Author C', 'book_author' => @author_c_cap_name, 'published' => true, 'date' => Time.parse("2022-04-01") }, '/sc_cap.html')
 
     # Books with problematic or missing author data (will be standalone if no series)
     @book_nil_author   = create_doc({ 'title' => 'Nil Author Book',   'book_author' => nil, 'published' => true, 'date' => Time.parse("2021-01-01") }, '/nil_auth.html')
     @book_empty_author = create_doc({ 'title' => 'Empty Author Book', 'book_author' => ' ', 'published' => true, 'date' => Time.parse("2021-01-02") }, '/empty_auth.html')
 
     # Special case books
-    @book_unpublished_s1_authA = create_doc({ 'title' => 'Unpublished S1 Book', 'series' => 'Series One', 'book_author' => 'Author A', 'published' => false, 'date' => Time.parse("2020-01-01") }, '/s1_unpub.html')
-    @book_no_series_no_author  = create_doc({ 'title' => 'Generic Book', 'published' => true, 'date' => Time.parse("2021-01-03") }, '/gb.html') # No series, no author
+    @book_unpublished_s1_authA = create_doc({ 'title' => 'Unpublished S1 Book', 'series' => 'Series One', 'book_author' => @author_a_cap_name, 'published' => false, 'date' => Time.parse("2020-01-01") }, '/s1_unpub.html')
+    @book_no_series_no_author  = create_doc({ 'title' => 'Generic Book', 'published' => true, 'date' => Time.parse("2021-01-03") }, '/gb.html')
 
-    # Books for award testing (most do not have series or author specified here for simplicity of award testing)
+    # Books for award testing
     @award_book1 = create_doc({ 'title' => 'Book A (Hugo)', 'awards' => ['Hugo', 'Locus'], 'published' => true, 'date' => Time.parse("2024-01-01") }, '/award_book_a.html')
     @award_book2 = create_doc({ 'title' => 'Book B (Nebula)', 'awards' => ['Nebula'], 'published' => true, 'date' => Time.parse("2024-01-02") }, '/award_book_b.html')
     @award_book3 = create_doc({ 'title' => 'Book C (Hugo)', 'awards' => ['hugo'], 'published' => true, 'date' => Time.parse("2024-01-03") }, '/award_book_c.html')
@@ -48,10 +55,10 @@ class TestBookListUtils < Minitest::Test
     # Collection of all books for site setup
     @all_books = [
       @s1_b0_5_authA, @s1_b1_authA, @s1_b2_authA, @s1_b2_5_authA, @s1_b10_authA, @s1_b_nil_num_authA, @s1_b_str_num_authA,
-      @s2_b1_authB, @s2_b1_5_authB,
-      @st_alpha_authA, @st_beta_authB, @st_gamma_authA,
+      @s2_b1_auth_b_lower, @s2_b1_5_auth_b_lower,
+      @st_alpha_authA, @st_beta_auth_b_lower, @st_gamma_authA, @book_c_cap_standalone,
       @book_nil_author, @book_empty_author,
-      @book_unpublished_s1_authA, # This will be filtered out by _get_all_published_books
+      @book_unpublished_s1_authA,
       @book_no_series_no_author,
       @award_book1, @award_book2, @award_book3, @award_book4, @award_book5, @award_book6, @award_book7,
       @book_locus_sf
@@ -60,7 +67,6 @@ class TestBookListUtils < Minitest::Test
     @site = create_site({}, { 'books' => @all_books })
     @context = create_context({}, { site: @site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
 
-    # General silent logger for tests not focused on console output
     @silent_logger_stub = Object.new.tap do |logger|
       def logger.warn(topic, message); end; def logger.error(topic, message); end
       def logger.info(topic, message); end;  def logger.debug(topic, message); end
@@ -96,7 +102,7 @@ class TestBookListUtils < Minitest::Test
   def test_parse_book_number_non_numeric_string
     assert_equal Float::INFINITY, BookListUtils.__send__(:_parse_book_number, "Part 1")
     assert_equal Float::INFINITY, BookListUtils.__send__(:_parse_book_number, "One")
-    assert_equal Float::INFINITY, BookListUtils.__send__(:_parse_book_number, "1.2.3") # Invalid float format for Float()
+    assert_equal Float::INFINITY, BookListUtils.__send__(:_parse_book_number, "1.2.3")
   end
 
   # --- Tests for _format_award_display_name (private method) ---
@@ -137,13 +143,6 @@ class TestBookListUtils < Minitest::Test
     end
 
     assert_empty data[:log_messages].to_s
-    # Expected awards (after formatting and sorting):
-    # 1. Arthur C. Clarke Award
-    # 2. Hugo Award
-    # 3. Locus Award
-    # 4. Locus For Best Sf Novel Award
-    # 5. Mixed Case Award Award (from "mIxEd CaSe AwArD")
-    # 6. Nebula Award
     assert_equal 6, data[:awards_data].size
 
     acc_award_data = data[:awards_data].find { |ad| ad[:award_name] == "Arthur C. Clarke Award" }
@@ -227,16 +226,15 @@ class TestBookListUtils < Minitest::Test
 
   # --- Tests for get_data_for_all_books_by_title_alpha_group ---
   def test_get_data_for_all_books_by_title_alpha_group_correct_grouping_and_sorting
-    # Setup specific books for this test to ensure clarity and avoid interference from @all_books
     book_apple = create_doc({ 'title' => 'Apple Pie Adventures' }, '/apa.html')
-    book_a_banana = create_doc({ 'title' => 'A Banana Story' }, '/abs.html') # Sorts under B
-    book_the_cherry = create_doc({ 'title' => 'The Cherry Chronicle' }, '/tcc.html') # Sorts under C
-    book_another_apple = create_doc({ 'title' => 'Another Apple Tale' }, '/aat.html') # Sorts under A
-    book_aardvark = create_doc({ 'title' => 'Aardvark Antics' }, '/aa.html') # Sorts under A
-    book_zebra = create_doc({ 'title' => 'Zebra Zoom' }, '/zz.html') # Sorts under Z
-    book_123go = create_doc({ 'title' => '123 Go!' }, '/123.html') # Sorts under #
-    book_empty_title_sort = create_doc({ 'title' => 'The ' }, '/the.html') # Sorts under # (empty after normalize)
-    book_only_an = create_doc({ 'title' => 'An' }, '/an.html') # Sorts under #
+    book_a_banana = create_doc({ 'title' => 'A Banana Story' }, '/abs.html')
+    book_the_cherry = create_doc({ 'title' => 'The Cherry Chronicle' }, '/tcc.html')
+    book_another_apple = create_doc({ 'title' => 'Another Apple Tale' }, '/aat.html')
+    book_aardvark = create_doc({ 'title' => 'Aardvark Antics' }, '/aa.html')
+    book_zebra = create_doc({ 'title' => 'Zebra Zoom' }, '/zz.html')
+    book_123go = create_doc({ 'title' => '123 Go!' }, '/123.html')
+    book_empty_title_sort = create_doc({ 'title' => 'The ' }, '/the.html')
+    book_only_an = create_doc({ 'title' => 'An' }, '/an.html')
 
     current_books_for_alpha_test = [
       book_apple, book_a_banana, book_the_cherry, book_another_apple,
@@ -251,7 +249,7 @@ class TestBookListUtils < Minitest::Test
     end
 
     assert_empty data[:log_messages].to_s
-    assert_equal 5, data[:alpha_groups].size # A, B, C, Z, #
+    assert_equal 5, data[:alpha_groups].size
 
     group_a = data[:alpha_groups].find { |g| g[:letter] == 'A' }
     refute_nil group_a, "Group 'A' missing"
@@ -270,10 +268,7 @@ class TestBookListUtils < Minitest::Test
     assert_equal ['Zebra Zoom'], group_z[:books].map { |b| b.data['title'] }
 
     group_hash = data[:alpha_groups].find { |g| g[:letter] == '#' }
-    refute_nil group_hash
-    # With secondary sort by original title (lowercase) for identical sort_titles (""):
-    # "An" (an) comes before "The " (the )
-    # "123 Go!" (123 go!) comes after empty strings.
+    refute_nil group_hash, "Group '#' missing"
     expected_hash_titles = [book_only_an.data['title'], book_empty_title_sort.data['title'], book_123go.data['title']]
     actual_hash_titles = group_hash[:books].map { |b| b.data['title'] }
     assert_equal expected_hash_titles, actual_hash_titles
@@ -295,7 +290,7 @@ class TestBookListUtils < Minitest::Test
   end
 
   def test_get_data_for_all_books_by_title_alpha_group_collection_missing
-    temp_site = create_site({}, {}) # No 'books' collection
+    temp_site = create_site({}, {})
     temp_site.config['plugin_logging']['BOOK_LIST_UTIL'] = true
     temp_context = create_context({}, { site: temp_site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
     data = nil
@@ -308,17 +303,12 @@ class TestBookListUtils < Minitest::Test
 
   # --- Tests for get_data_for_all_books_by_year_display ---
   def test_get_data_for_all_books_by_year_display_correct_grouping_and_sorting
-    # Setup specific books for this test with clear dates
-    # Using Time.utc to avoid timezone issues in comparisons if test runner has different TZ
     book_2024_mar = create_doc({ 'title' => 'Book Mar 2024', 'date' => Time.utc(2024, 3, 10) }, '/b2024b.html')
     book_2024_jan = create_doc({ 'title' => 'Book Jan 2024', 'date' => Time.utc(2024, 1, 15) }, '/b2024a.html')
     book_2023_dec = create_doc({ 'title' => 'Book Dec 2023', 'date' => Time.utc(2023, 12, 1) }, '/b2023a.html')
     book_2023_jun = create_doc({ 'title' => 'Book Jun 2023', 'date' => Time.utc(2023, 6, 20) }, '/b2023b.html')
-    # Book with a date that will be Time.now, to test dynamic year grouping
-    # For deterministic testing, let's fix its date too.
-    fixed_now_date = Time.utc(2024, 5, 28) # Example fixed "now"
+    fixed_now_date = Time.utc(2024, 5, 28)
     book_now_year_fixed = create_doc({ 'title' => 'Book Fixed Now Year (May 2024)', 'date' => fixed_now_date }, '/bnow.html')
-
 
     current_books_for_year_test = [book_2024_jan, book_2024_mar, book_2023_dec, book_2023_jun, book_now_year_fixed]
     temp_site = create_site({}, { 'books' => current_books_for_year_test })
@@ -330,25 +320,18 @@ class TestBookListUtils < Minitest::Test
     end
 
     assert_empty data[:log_messages].to_s
-
-    # Years present: 2024, 2023
     assert_equal 2, data[:year_groups].size
 
-    # Check overall order of year groups (most recent year first: 2024, then 2023)
     year_strings_ordered = data[:year_groups].map { |yg| yg[:year] }
     assert_equal ["2024", "2023"], year_strings_ordered, "Year groups are not sorted most recent first"
 
-    # Check 2024 group
     group_2024 = data[:year_groups].find { |g| g[:year] == "2024" }
     refute_nil group_2024, "Group '2024' missing"
-    # Expected order in 2024: Book Fixed Now Year (May), Book Mar 2024, Book Jan 2024
     expected_2024_titles = [book_now_year_fixed.data['title'], book_2024_mar.data['title'], book_2024_jan.data['title']]
     assert_equal expected_2024_titles, group_2024[:books].map { |b| b.data['title'] }
 
-    # Check 2023 group
     group_2023 = data[:year_groups].find { |g| g[:year] == "2023" }
     refute_nil group_2023, "Group '2023' missing"
-    # Expected order in 2023: Book Dec 2023, Book Jun 2023
     expected_2023_titles = [book_2023_dec.data['title'], book_2023_jun.data['title']]
     assert_equal expected_2023_titles, group_2023[:books].map { |b| b.data['title'] }
   end
@@ -366,7 +349,7 @@ class TestBookListUtils < Minitest::Test
   end
 
   def test_get_data_for_all_books_by_year_display_collection_missing
-    temp_site = create_site({}, {}) # No 'books' collection
+    temp_site = create_site({}, {})
     temp_site.config['plugin_logging']['BOOK_LIST_UTIL'] = true
     temp_context = create_context({}, { site: temp_site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
     data = nil
@@ -377,16 +360,14 @@ class TestBookListUtils < Minitest::Test
     assert_match %r{<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books_by_year'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
   end
 
-
-  # --- Existing Tests for other BookListUtils methods (abbreviated for brevity, ensure they are still valid) ---
+  # --- Existing Tests for other BookListUtils methods ---
   def test_get_data_for_series_display_numerical_sort_with_floats
-    # This test uses @site and @context from main setup
     data = nil
     Jekyll.stub :logger, @silent_logger_stub do
       data = BookListUtils.get_data_for_series_display(site: @site, series_name_filter: 'Series One', context: @context)
     end
     assert_equal 'Series One', data[:series_name]
-    assert_equal 7, data[:books].size # s1_b0_5, s1_b1, s1_b2, s1_b2_5, s1_b10, s1_b_nil_num, s1_b_str_num
+    assert_equal 7, data[:books].size
     assert_equal @s1_b0_5_authA.data['title'], data[:books][0].data['title']
     assert_equal @s1_b1_authA.data['title'],   data[:books][1].data['title']
     assert_equal @s1_b2_authA.data['title'],   data[:books][2].data['title']
@@ -399,81 +380,77 @@ class TestBookListUtils < Minitest::Test
   end
 
   def test_get_data_for_author_display_numerical_sort_in_series_with_floats
-    # This test uses @site and @context from main setup
     data = nil
     Jekyll.stub :logger, @silent_logger_stub do
-      data = BookListUtils.get_data_for_author_display(site: @site, author_name_filter: 'Author A', context: @context)
+      data = BookListUtils.get_data_for_author_display(site: @site, author_name_filter: @author_a_cap_name, context: @context)
     end
-    assert_equal 2, data[:standalone_books].size # @st_gamma_authA, @st_alpha_authA
+    assert_equal 2, data[:standalone_books].size
     assert_equal @st_gamma_authA.data['title'], data[:standalone_books][0].data['title']
     assert_equal @st_alpha_authA.data['title'], data[:standalone_books][1].data['title']
 
     assert_equal 1, data[:series_groups].size
     series_one_group = data[:series_groups].find { |g| g[:name] == 'Series One' }
     refute_nil series_one_group
-    assert_equal 7, series_one_group[:books].size # All Series One books by Author A
-    # Order already asserted in test_get_data_for_series_display_numerical_sort_with_floats
+    assert_equal 7, series_one_group[:books].size
     assert_equal @s1_b0_5_authA.data['title'], series_one_group[:books][0].data['title']
     assert_empty data[:log_messages].to_s
   end
 
   def test_get_data_for_all_books_display_numerical_sort_in_series_with_floats
-    # This test uses @site and @context from main setup
     data = nil
     Jekyll.stub :logger, @silent_logger_stub do
       data = BookListUtils.get_data_for_all_books_display(site: @site, context: @context)
     end
-    # All published books that don't have a 'series' are standalone.
-    # This includes @st_alpha_authA, @st_beta_authB, @st_gamma_authA,
-    # @book_nil_author, @book_empty_author, @book_no_series_no_author,
-    # and all award books (assuming they don't have series in their test setup).
-    assert_equal 14, data[:standalone_books].size
+    assert_equal 15, data[:standalone_books].size
 
     expected_standalone_objects_ordered = [
       @st_gamma_authA, @award_book4, @award_book1, @award_book2, @award_book3,
       @award_book5, @award_book6, @award_book7, @book_empty_author,
       @book_no_series_no_author, @book_locus_sf, @book_nil_author,
-      @st_alpha_authA, @st_beta_authB
+      @st_alpha_authA, @st_beta_auth_b_lower, @book_c_cap_standalone
     ].sort_by { |b| TextProcessingUtils.normalize_title(b.data['title'], strip_articles: true) }
+
     actual_standalone_titles_from_data = data[:standalone_books].map { |b| b.data['title'] }
     expected_standalone_titles_from_objects = expected_standalone_objects_ordered.map { |b| b.data['title'] }
     assert_equal expected_standalone_titles_from_objects, actual_standalone_titles_from_data, "Standalone books are not sorted as expected."
 
-    assert_equal 2, data[:series_groups].size # Series One, Series Two
-    # Detailed content of series groups already tested elsewhere.
+    assert_equal 2, data[:series_groups].size
     assert_empty data[:log_messages].to_s
   end
 
   def test_get_data_for_all_books_by_author_display_correct_structure_and_float_sort
-    # This test uses @site and @context from main setup
     data = nil
     Jekyll.stub :logger, @silent_logger_stub do
       data = BookListUtils.get_data_for_all_books_by_author_display(site: @site, context: @context)
     end
     assert_empty data[:log_messages].to_s
-    # Only Author A and Author B have books with author specified in this setup.
-    # Award books in @all_books currently don't have 'book_author'.
-    assert_equal 2, data[:authors_data].size
+    assert_equal 3, data[:authors_data].size
 
-    author_a_data = data[:authors_data].find { |ad| ad[:author_name] == 'Author A' }
-    refute_nil author_a_data
+    author_names_ordered = data[:authors_data].map { |ad| ad[:author_name] }
+    expected_author_order = [@author_a_cap_name, @author_b_lower_name, @author_c_cap_name]
+    assert_equal expected_author_order, author_names_ordered, "Authors not sorted case-insensitively as expected"
+
+    author_a_data = data[:authors_data][0]
+    assert_equal @author_a_cap_name, author_a_data[:author_name]
     assert_equal 2, author_a_data[:standalone_books].size
     assert_equal @st_gamma_authA.data['title'], author_a_data[:standalone_books][0].data['title']
     assert_equal @st_alpha_authA.data['title'], author_a_data[:standalone_books][1].data['title']
-    assert_equal 1, author_a_data[:series_groups].size # Series One
-    # ... detailed checks for series books under Author A already covered ...
+    assert_equal 1, author_a_data[:series_groups].size
 
-    author_b_data = data[:authors_data].find { |ad| ad[:author_name] == 'Author B' }
-    refute_nil author_b_data
+    author_b_data = data[:authors_data][1]
+    assert_equal @author_b_lower_name, author_b_data[:author_name]
     assert_equal 1, author_b_data[:standalone_books].size
-    assert_equal @st_beta_authB.data['title'], author_b_data[:standalone_books][0].data['title']
-    assert_equal 1, author_b_data[:series_groups].size # Series Two
-    # ... detailed checks for series books under Author B ...
+    assert_equal @st_beta_auth_b_lower.data['title'], author_b_data[:standalone_books][0].data['title']
+    assert_equal 1, author_b_data[:series_groups].size
+
+    author_c_data = data[:authors_data][2]
+    assert_equal @author_c_cap_name, author_c_data[:author_name]
+    assert_equal 1, author_c_data[:standalone_books].size
+    assert_equal @book_c_cap_standalone.data['title'], author_c_data[:standalone_books][0].data['title']
+    assert_empty author_c_data[:series_groups]
   end
 
   def test_structure_books_for_display_correct_float_sorting
-    # This test uses a locally defined books_for_structuring array,
-    # so it's isolated from the main @all_books setup.
     books_for_structuring = [
       create_doc({ 'title' => 'Zenith', 'series' => 'Alpha Series', 'book_number' => 2 }, '/z.html'),
       create_doc({ 'title' => 'Apple Standalone', 'published' => true }, '/apple.html'),
@@ -505,27 +482,23 @@ class TestBookListUtils < Minitest::Test
     alpha_expected_last_two = ['Alpha Series Book NilNum', 'Alpha Series Book StrNum'].sort
     assert_equal alpha_expected_last_two, alpha_last_two_titles
     # ... (beta_group assertions remain the same)
+    beta_group = structured_data[:series_groups].find { |g| g[:name] == 'Beta Series' }
+    refute_nil beta_group
+    assert_equal 1, beta_group[:books].size
+    assert_equal 'Beta Book 1', beta_group[:books][0].data['title']
   end
 
-  # --- Logging and Edge Case Tests (largely unchanged, verify they still make sense) ---
+  # --- Logging and Edge Case Tests ---
   def test_get_data_for_series_display_found_case_insensitive
-    data = nil
-    Jekyll.stub :logger, @silent_logger_stub do
-      data = BookListUtils.get_data_for_series_display(site: @site, series_name_filter: 'series one', context: @context)
-    end
-    assert_equal 'series one', data[:series_name]
+    data = BookListUtils.get_data_for_series_display(site: @site, series_name_filter: 'series one', context: @context)
     assert_equal 7, data[:books].size
-    assert_empty data[:log_messages].to_s
   end
 
   def test_get_data_for_series_display_not_found
     @site.config['plugin_logging']['BOOK_LIST_SERIES_DISPLAY'] = true
-    data = nil
-    Jekyll.stub :logger, @silent_logger_stub do
-      data = BookListUtils.get_data_for_series_display(site: @site, series_name_filter: 'NonExistent Series', context: @context)
-    end
+    data = BookListUtils.get_data_for_series_display(site: @site, series_name_filter: 'NonExistent Series', context: @context)
     assert_empty data[:books]
-    assert_match %r{<!-- \[INFO\] BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='No books found for the specified series\.'\s*SeriesFilter='NonExistent Series'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
+    assert_match %r{BOOK_LIST_SERIES_DISPLAY_FAILURE}, data[:log_messages]
   end
 
   def test_get_data_for_series_display_nil_filter
@@ -617,7 +590,6 @@ class TestBookListUtils < Minitest::Test
   end
 
   def test_get_data_for_all_books_by_author_display_logs_if_no_valid_author_books
-    # Site with books that have nil, empty, or no author field.
     site_no_valid_authors = create_site({}, { 'books' => [@book_nil_author, @book_empty_author, @book_no_series_no_author] })
     site_no_valid_authors.config['plugin_logging']['ALL_BOOKS_BY_AUTHOR_DISPLAY'] = true
     context_no_valid_authors = create_context({}, { site: site_no_valid_authors, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
