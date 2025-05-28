@@ -48,9 +48,13 @@ module TextProcessingUtils
     # Convert to string, handle newlines, multiple spaces, downcase, strip ends
     normalized = title.to_s.gsub("\n", " ").gsub(/\s+/, ' ').downcase.strip
     if strip_articles
-      normalized = normalized.sub(/^the\s+/, '')
-      normalized = normalized.sub(/^an?\s+/, '') # Handles 'a' or 'an'
-      normalized.strip! # Strip again in case article removal left leading space
+      # Match "the", "an", or "a" if it's at the beginning of the string
+      # and followed by a space, OR if it's the entire string.
+      # Use \b for word boundary to avoid stripping "a" from "apple" if not followed by space.
+      # However, the original logic was /^the\s+/ etc., implying only at the start of the *normalized string*.
+      # Let's stick to initial word stripping.
+      normalized.sub!(/^(the|an|a)(\s+|$)/i, '')
+      normalized.strip! # Clean up any leading/trailing spaces after sub
     end
     normalized
   end

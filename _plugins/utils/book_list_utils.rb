@@ -294,6 +294,78 @@ module BookListUtils
     { awards_data: awards_data_list, log_messages: log_output_accumulator }
   end
 
+  # Fetches all books, sorts them by normalized title, then groups by first letter.
+  # @param site [Jekyll::Site] The Jekyll site object.
+  # @param context [Liquid::Context] The Liquid context.
+  # @return [Hash] Contains :alpha_groups (Array of Hashes), :log_messages (String).
+  #   Each hash in :alpha_groups has :letter (String) and :books (Array of Document).
+  def self.get_data_for_all_books_by_title_alpha_group(site:, context:)
+    log_output_accumulator = ""
+    unless site&.collections&.key?('books')
+      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: "BOOK_LIST_UTIL",
+        reason: "Required 'books' collection not found in site configuration.",
+        identifiers: { filter_type: "all_books_by_title_alpha_group" },
+        level: :error,
+      )
+      return { alpha_groups: [], log_messages: log_output_accumulator }
+    end
+
+    all_published_books = _get_all_published_books(site)
+
+    if all_published_books.empty?
+      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: "ALL_BOOKS_BY_TITLE_ALPHA_GROUP",
+        reason: "No published books found to group by title.",
+        identifiers: {},
+        level: :info, # Expected empty state if no books
+      )
+      return { alpha_groups: [], log_messages: log_output_accumulator }
+    end
+
+    # Create a temporary structure with sort_title for each book
+    books_with_sort_title = all_published_books.map do |book|
+      title = book.data['title'].to_s
+      sort_title = TextProcessingUtils.normalize_title(title, strip_articles: true)
+      # Handle cases where sort_title might be empty after normalization (e.g., title was just "A ")
+      first_letter = sort_title.empty? ? "#" : sort_title[0].upcase
+      first_letter = "#" unless first_letter.match?(/[A-Z]/) # Group non-alpha under "#"
+
+      { book: book, sort_title: sort_title, first_letter: first_letter }
+    end
+
+    # Sort books primarily by their sort_title, then by original title (lowercase) for stability
+    sorted_books_with_meta = books_with_sort_title.sort_by do |b_meta|
+      [b_meta[:sort_title], b_meta[:book].data['title'].to_s.downcase] # ADDED secondary sort
+    end
+
+    # Group sorted books by the determined first_letter
+    grouped_by_letter = sorted_books_with_meta.group_by { |b_meta| b_meta[:first_letter] }
+
+    alpha_groups_list = []
+    # Sort the groups by letter (A-Z, then #)
+    sorted_letters = grouped_by_letter.keys.sort do |a, b|
+      if a == "#" then 1 # '#' comes last
+      elsif b == "#" then -1
+      else a <=> b # Standard string comparison for A-Z
+      end
+    end
+
+    sorted_letters.each do |letter|
+      books_in_group = grouped_by_letter[letter].map { |b_meta| b_meta[:book] }
+      # Books within the group are already sorted by title due to the earlier sort
+      alpha_groups_list << {
+        letter: letter,
+        books: books_in_group
+      }
+    end
+
+    { alpha_groups: alpha_groups_list, log_messages: log_output_accumulator }
+  end
+
+
   # --- Public HTML Rendering Helper ---
 
   # Renders HTML for book groups (standalone and series).
