@@ -197,22 +197,39 @@ def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = '
     'path' => url ? url.sub(%r{^/}, '') : nil # Derive path from URL if URL is provided
   }.merge(string_keyed_data_overrides)
 
-  # Determine the canonical Time object for the document's date.
+
   # Priority:
-  # 1. If data_overrides['date'] is already a Time object.
-  # 2. Parse date_str_param if provided.
-  # 3. Default to Time.now.
+  # 1. data_overrides['date'] if it's already a Time object.
+  # 2. data_overrides['date'] if it's a String, try to parse it.
+  # 3. date_str_param (4th argument to create_doc) if provided and parseable.
+  # 4. Default to Time.now.
   final_date_obj_for_struct = nil
+
   if base_data['date'].is_a?(Time)
     final_date_obj_for_struct = base_data['date']
-  elsif date_str_param
+  elsif base_data['date'].is_a?(String) # Check if 'date' in data_overrides is a string
+    begin
+      final_date_obj_for_struct = Time.parse(base_data['date'])
+    rescue ArgumentError
+      # If parsing data_overrides['date'] string fails, then check date_str_param
+      if date_str_param
+        begin
+          final_date_obj_for_struct = Time.parse(date_str_param.to_s)
+        rescue ArgumentError
+          final_date_obj_for_struct = Time.now # Fallback if date_str_param also unparseable
+        end
+      else
+        final_date_obj_for_struct = Time.now # Fallback if no date_str_param
+      end
+    end
+  elsif date_str_param # 'date' was not in data_overrides or was not Time/String
     begin
       final_date_obj_for_struct = Time.parse(date_str_param.to_s)
     rescue ArgumentError
       final_date_obj_for_struct = Time.now # Fallback if date_str_param is unparseable
     end
-  else
-    final_date_obj_for_struct = Time.now # Default if no date information provided
+  else # No 'date' in data_overrides, no date_str_param
+    final_date_obj_for_struct = Time.now
   end
 
   # Ensure the 'date' in the data hash is this canonical Time object.
