@@ -365,6 +365,58 @@ module BookListUtils
     { alpha_groups: alpha_groups_list, log_messages: log_output_accumulator }
   end
 
+  # Fetches all books, groups them by year, sorted most recent year first.
+  # Books within each year are sorted by date, most recent first.
+  # @param site [Jekyll::Site] The Jekyll site object.
+  # @param context [Liquid::Context] The Liquid context.
+  # @return [Hash] Contains :year_groups (Array of Hashes), :log_messages (String).
+  #   Each hash in :year_groups has :year (String) and :books (Array of Document).
+  def self.get_data_for_all_books_by_year_display(site:, context:)
+    log_output_accumulator = ""
+    unless site&.collections&.key?('books')
+      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: "BOOK_LIST_UTIL",
+        reason: "Required 'books' collection not found in site configuration.",
+        identifiers: { filter_type: "all_books_by_year" },
+        level: :error,
+      )
+      return { year_groups: [], log_messages: log_output_accumulator }
+    end
+
+    all_published_books = _get_all_published_books(site)
+
+    if all_published_books.empty?
+      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: "ALL_BOOKS_BY_YEAR_DISPLAY",
+        reason: "No published books found to group by year.",
+        identifiers: {},
+        level: :info, # Expected empty state if no books
+      )
+      return { year_groups: [], log_messages: log_output_accumulator }
+    end
+
+    # Sort all books by date descending (most recent first)
+    # Ensure book.date is a Time object for comparison
+    books_sorted_by_date_desc = all_published_books.sort_by do |book|
+      book.date.is_a?(Time) ? book.date : Time.now # Fallback for invalid date, sorts them as "now"
+    end.reverse
+
+    # Group by year
+    grouped_by_year = books_sorted_by_date_desc.group_by { |book| book.date.year.to_s }
+
+    year_groups_list = []
+    # Sort year groups by year descending (most recent year first)
+    grouped_by_year.keys.sort.reverse.each do |year_str|
+      year_groups_list << {
+        year: year_str,
+        books: grouped_by_year[year_str] # Books are already sorted by date within this year group
+      }
+    end
+
+    { year_groups: year_groups_list, log_messages: log_output_accumulator }
+  end
 
   # --- Public HTML Rendering Helper ---
 

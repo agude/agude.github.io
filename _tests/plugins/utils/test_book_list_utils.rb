@@ -23,27 +23,27 @@ class TestBookListUtils < Minitest::Test
     @s2_b1_5_authB = create_doc({ 'title' => 'S2 Book 1.5', 'series' => 'Series Two', 'book_number' => 1.5, 'book_author' => 'Author B', 'published' => true }, '/s2b1_5.html')
 
     # Standalone Books by specific authors
-    @st_alpha_authA   = create_doc({ 'title' => 'The Standalone Alpha', 'book_author' => 'Author A', 'published' => true }, '/sa.html')
-    @st_beta_authB    = create_doc({ 'title' => 'Standalone Beta',    'book_author' => 'Author B', 'published' => true }, '/sb.html')
-    @st_gamma_authA   = create_doc({ 'title' => 'An Earlier Standalone Gamma', 'book_author' => 'Author A', 'published' => true }, '/sg.html')
+    @st_alpha_authA   = create_doc({ 'title' => 'The Standalone Alpha', 'book_author' => 'Author A', 'published' => true, 'date' => Time.parse("2023-03-01") }, '/sa.html')
+    @st_beta_authB    = create_doc({ 'title' => 'Standalone Beta',    'book_author' => 'Author B', 'published' => true, 'date' => Time.parse("2022-03-01") }, '/sb.html')
+    @st_gamma_authA   = create_doc({ 'title' => 'An Earlier Standalone Gamma', 'book_author' => 'Author A', 'published' => true, 'date' => Time.parse("2023-03-02") }, '/sg.html')
 
     # Books with problematic or missing author data (will be standalone if no series)
-    @book_nil_author   = create_doc({ 'title' => 'Nil Author Book',   'book_author' => nil, 'published' => true }, '/nil_auth.html')
-    @book_empty_author = create_doc({ 'title' => 'Empty Author Book', 'book_author' => ' ', 'published' => true }, '/empty_auth.html')
+    @book_nil_author   = create_doc({ 'title' => 'Nil Author Book',   'book_author' => nil, 'published' => true, 'date' => Time.parse("2021-01-01") }, '/nil_auth.html')
+    @book_empty_author = create_doc({ 'title' => 'Empty Author Book', 'book_author' => ' ', 'published' => true, 'date' => Time.parse("2021-01-02") }, '/empty_auth.html')
 
     # Special case books
-    @book_unpublished_s1_authA = create_doc({ 'title' => 'Unpublished S1 Book', 'series' => 'Series One', 'book_author' => 'Author A', 'published' => false }, '/s1_unpub.html')
-    @book_no_series_no_author  = create_doc({ 'title' => 'Generic Book', 'published' => true }, '/gb.html') # No series, no author
+    @book_unpublished_s1_authA = create_doc({ 'title' => 'Unpublished S1 Book', 'series' => 'Series One', 'book_author' => 'Author A', 'published' => false, 'date' => Time.parse("2020-01-01") }, '/s1_unpub.html')
+    @book_no_series_no_author  = create_doc({ 'title' => 'Generic Book', 'published' => true, 'date' => Time.parse("2021-01-03") }, '/gb.html') # No series, no author
 
     # Books for award testing (most do not have series or author specified here for simplicity of award testing)
-    @award_book1 = create_doc({ 'title' => 'Book A (Hugo)', 'awards' => ['Hugo', 'Locus'], 'published' => true }, '/award_book_a.html')
-    @award_book2 = create_doc({ 'title' => 'Book B (Nebula)', 'awards' => ['Nebula'], 'published' => true }, '/award_book_b.html')
-    @award_book3 = create_doc({ 'title' => 'Book C (Hugo)', 'awards' => ['hugo'], 'published' => true }, '/award_book_c.html')
-    @award_book4 = create_doc({ 'title' => 'Book D (Arthur C. Clarke)', 'awards' => ['arthur c. clarke'], 'published' => true }, '/award_book_d.html')
-    @award_book5 = create_doc({ 'title' => 'Book E (No Awards)', 'published' => true }, '/award_book_e.html')
-    @award_book6 = create_doc({ 'title' => 'Book F (Locus)', 'awards' => ['Locus'], 'published' => true }, '/award_book_f.html')
-    @award_book7 = create_doc({ 'title' => 'Book G (Mixed Case Award)', 'awards' => ['mIxEd CaSe AwArD'], 'published' => true }, '/award_book_g.html')
-    @book_locus_sf = create_doc({ 'title' => 'Locus SF Winner', 'awards' => ['Locus for Best SF Novel'], 'published' => true }, '/locus-sf.html')
+    @award_book1 = create_doc({ 'title' => 'Book A (Hugo)', 'awards' => ['Hugo', 'Locus'], 'published' => true, 'date' => Time.parse("2024-01-01") }, '/award_book_a.html')
+    @award_book2 = create_doc({ 'title' => 'Book B (Nebula)', 'awards' => ['Nebula'], 'published' => true, 'date' => Time.parse("2024-01-02") }, '/award_book_b.html')
+    @award_book3 = create_doc({ 'title' => 'Book C (Hugo)', 'awards' => ['hugo'], 'published' => true, 'date' => Time.parse("2024-01-03") }, '/award_book_c.html')
+    @award_book4 = create_doc({ 'title' => 'Book D (Arthur C. Clarke)', 'awards' => ['arthur c. clarke'], 'published' => true, 'date' => Time.parse("2024-01-04") }, '/award_book_d.html')
+    @award_book5 = create_doc({ 'title' => 'Book E (No Awards)', 'published' => true, 'date' => Time.parse("2024-01-05") }, '/award_book_e.html')
+    @award_book6 = create_doc({ 'title' => 'Book F (Locus)', 'awards' => ['Locus'], 'published' => true, 'date' => Time.parse("2024-01-06") }, '/award_book_f.html')
+    @award_book7 = create_doc({ 'title' => 'Book G (Mixed Case Award)', 'awards' => ['mIxEd CaSe AwArD'], 'published' => true, 'date' => Time.parse("2024-01-07") }, '/award_book_g.html')
+    @book_locus_sf = create_doc({ 'title' => 'Locus SF Winner', 'awards' => ['Locus for Best SF Novel'], 'published' => true, 'date' => Time.parse("2024-01-08") }, '/locus-sf.html')
 
     # Collection of all books for site setup
     @all_books = [
@@ -306,10 +306,81 @@ class TestBookListUtils < Minitest::Test
     assert_match %r{<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books_by_title_alpha_group'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
   end
 
-  # --- Existing Tests for other BookListUtils methods ---
-  # These tests use the comprehensive @all_books from setup.
+  # --- Tests for get_data_for_all_books_by_year_display ---
+  def test_get_data_for_all_books_by_year_display_correct_grouping_and_sorting
+    # Setup specific books for this test with clear dates
+    # Using Time.utc to avoid timezone issues in comparisons if test runner has different TZ
+    book_2024_mar = create_doc({ 'title' => 'Book Mar 2024', 'date' => Time.utc(2024, 3, 10) }, '/b2024b.html')
+    book_2024_jan = create_doc({ 'title' => 'Book Jan 2024', 'date' => Time.utc(2024, 1, 15) }, '/b2024a.html')
+    book_2023_dec = create_doc({ 'title' => 'Book Dec 2023', 'date' => Time.utc(2023, 12, 1) }, '/b2023a.html')
+    book_2023_jun = create_doc({ 'title' => 'Book Jun 2023', 'date' => Time.utc(2023, 6, 20) }, '/b2023b.html')
+    # Book with a date that will be Time.now, to test dynamic year grouping
+    # For deterministic testing, let's fix its date too.
+    fixed_now_date = Time.utc(2024, 5, 28) # Example fixed "now"
+    book_now_year_fixed = create_doc({ 'title' => 'Book Fixed Now Year (May 2024)', 'date' => fixed_now_date }, '/bnow.html')
 
+
+    current_books_for_year_test = [book_2024_jan, book_2024_mar, book_2023_dec, book_2023_jun, book_now_year_fixed]
+    temp_site = create_site({}, { 'books' => current_books_for_year_test })
+    temp_context = create_context({}, { site: temp_site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
+
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = BookListUtils.get_data_for_all_books_by_year_display(site: temp_site, context: temp_context)
+    end
+
+    assert_empty data[:log_messages].to_s
+
+    # Years present: 2024, 2023
+    assert_equal 2, data[:year_groups].size
+
+    # Check overall order of year groups (most recent year first: 2024, then 2023)
+    year_strings_ordered = data[:year_groups].map { |yg| yg[:year] }
+    assert_equal ["2024", "2023"], year_strings_ordered, "Year groups are not sorted most recent first"
+
+    # Check 2024 group
+    group_2024 = data[:year_groups].find { |g| g[:year] == "2024" }
+    refute_nil group_2024, "Group '2024' missing"
+    # Expected order in 2024: Book Fixed Now Year (May), Book Mar 2024, Book Jan 2024
+    expected_2024_titles = [book_now_year_fixed.data['title'], book_2024_mar.data['title'], book_2024_jan.data['title']]
+    assert_equal expected_2024_titles, group_2024[:books].map { |b| b.data['title'] }
+
+    # Check 2023 group
+    group_2023 = data[:year_groups].find { |g| g[:year] == "2023" }
+    refute_nil group_2023, "Group '2023' missing"
+    # Expected order in 2023: Book Dec 2023, Book Jun 2023
+    expected_2023_titles = [book_2023_dec.data['title'], book_2023_jun.data['title']]
+    assert_equal expected_2023_titles, group_2023[:books].map { |b| b.data['title'] }
+  end
+
+  def test_get_data_for_all_books_by_year_display_no_books
+    temp_site = create_site({}, { 'books' => [] })
+    temp_site.config['plugin_logging']['ALL_BOOKS_BY_YEAR_DISPLAY'] = true
+    temp_context = create_context({}, { site: temp_site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = BookListUtils.get_data_for_all_books_by_year_display(site: temp_site, context: temp_context)
+    end
+    assert_empty data[:year_groups]
+    assert_match %r{<!-- \[INFO\] ALL_BOOKS_BY_YEAR_DISPLAY_FAILURE: Reason='No published books found to group by year\.'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
+  end
+
+  def test_get_data_for_all_books_by_year_display_collection_missing
+    temp_site = create_site({}, {}) # No 'books' collection
+    temp_site.config['plugin_logging']['BOOK_LIST_UTIL'] = true
+    temp_context = create_context({}, { site: temp_site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = BookListUtils.get_data_for_all_books_by_year_display(site: temp_site, context: temp_context)
+    end
+    assert_empty data[:year_groups]
+    assert_match %r{<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books_by_year'\s*SourcePage='current_page\.html' -->}, data[:log_messages]
+  end
+
+
+  # --- Existing Tests for other BookListUtils methods (abbreviated for brevity, ensure they are still valid) ---
   def test_get_data_for_series_display_numerical_sort_with_floats
+    # This test uses @site and @context from main setup
     data = nil
     Jekyll.stub :logger, @silent_logger_stub do
       data = BookListUtils.get_data_for_series_display(site: @site, series_name_filter: 'Series One', context: @context)
@@ -328,6 +399,7 @@ class TestBookListUtils < Minitest::Test
   end
 
   def test_get_data_for_author_display_numerical_sort_in_series_with_floats
+    # This test uses @site and @context from main setup
     data = nil
     Jekyll.stub :logger, @silent_logger_stub do
       data = BookListUtils.get_data_for_author_display(site: @site, author_name_filter: 'Author A', context: @context)
@@ -346,6 +418,7 @@ class TestBookListUtils < Minitest::Test
   end
 
   def test_get_data_for_all_books_display_numerical_sort_in_series_with_floats
+    # This test uses @site and @context from main setup
     data = nil
     Jekyll.stub :logger, @silent_logger_stub do
       data = BookListUtils.get_data_for_all_books_display(site: @site, context: @context)
@@ -372,6 +445,7 @@ class TestBookListUtils < Minitest::Test
   end
 
   def test_get_data_for_all_books_by_author_display_correct_structure_and_float_sort
+    # This test uses @site and @context from main setup
     data = nil
     Jekyll.stub :logger, @silent_logger_stub do
       data = BookListUtils.get_data_for_all_books_by_author_display(site: @site, context: @context)
