@@ -43,4 +43,4 @@ most recent writings below:
 
 [books]: {% link books/index.md %}
 
-{% include front_page_feed.html %}
+{% front_page_feed limit=5 %}

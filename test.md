@@ -212,7 +212,7 @@ This sentence tests units within a footnote definition.[^unit_test]
 
 ## Front Page Feed
 
-{% include front_page_feed.html %}
+{% front_page_feed limit=5 %}
 
 ---
 
