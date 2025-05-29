@@ -16,6 +16,7 @@ require 'utils/book_list_utils'
 require 'utils/card_data_extractor_utils'
 require 'utils/card_renderer_utils'
 require 'utils/citation_utils'
+require 'utils/feed_utils'
 require 'utils/json_ld_generators/author_profile_generator'
 require 'utils/json_ld_generators/blog_posting_generator'
 require 'utils/json_ld_generators/book_review_generator'
@@ -23,9 +24,11 @@ require 'utils/json_ld_generators/generic_review_generator'
 require 'utils/json_ld_utils'
 require 'utils/link_helper_utils'
 require 'utils/plugin_logger_utils'
+require 'utils/post_list_utils'
 require 'utils/rating_utils'
 require 'utils/series_link_util'
 require 'utils/series_text_utils'
+require 'utils/tag_argument_utils'
 require 'utils/text_processing_utils'
 require 'utils/typography_utils'
 require 'utils/url_utils'
@@ -92,8 +95,7 @@ end
 MockCollection = Struct.new(:docs, :label)
 
 # Mock for the Jekyll site object
-MockSite = Struct.new(:config, :collections, :pages, :posts, :baseurl, :source, :converters, :data) do
-  # Mimics Jekyll's internal path joining for source files.
+MockSite = Struct.new(:config, :collections, :pages, :posts, :baseurl, :source, :converters, :data, :categories) do
   def in_source_dir(path)
     File.join(source || '.', path)
   end
@@ -114,10 +116,12 @@ def create_context(scopes = {}, registers = {})
   Liquid::Context.new(scopes, {}, registers)
 end
 
-# Creates a MockSite instance with specified configurations and data.
-def create_site(config_overrides = {}, collections_data = {}, pages_data = [], posts_data = [])
-  # Default plugin logging states (all off unless overridden for a specific test).
+def create_site(config_overrides = {}, collections_data = {}, pages_data = [], posts_data = [], categories_data = {})
   test_plugin_logging_config = {
+    'ALL_BOOKS_BY_AUTHOR_DISPLAY' => false,
+    'ALL_BOOKS_BY_AWARD_DISPLAY' => false,
+    'ALL_BOOKS_BY_TITLE_ALPHA_GROUP' => false,
+    'ALL_BOOKS_BY_YEAR_DISPLAY' => false,
     'ANY_TAG' => false,
     'ARTICLE_CARD_ALT_MISSING' => false,
     'ARTICLE_CARD_LOOKUP' => false,
@@ -139,8 +143,10 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
     'BOOK_LIST_SERIES_DISPLAY' => false,
     'BOOK_LIST_UTIL' => false,
     'CARD_DATA_EXTRACTION' => false,
+    'DISPLAY_CATEGORY_POSTS' => false,
     'DISPLAY_RANKED_BOOKS' => false,
     'JSON_LD_REVIEW' => false,
+    'POST_LIST_UTIL_CATEGORY' => false,
     'RELATED_BOOKS' => false,
     'RELATED_POSTS' => false,
     'RENDER_ARTICLE_CARD_TAG' => false,
@@ -157,7 +163,8 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
   base_config = {
     'environment' => 'test', 'baseurl' => '', 'source' => '.',
     'plugin_logging' => test_plugin_logging_config,
-    'excerpt_separator' => "<!--excerpt-->" # Default excerpt separator
+    'excerpt_separator' => "<!--excerpt-->",
+    'plugin_log_level' => PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING,
   }.merge(config_overrides)
 
   collections = {}
@@ -183,8 +190,9 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
     posts_collection, # Use the correctly initialized posts_collection
     base_config['baseurl'],
     base_config['source'],
-    [mock_markdown_converter], # List of converters
-    {}, # site.data, can be populated if needed
+    [mock_markdown_converter],
+    {},
+    categories_data,
   )
 end
 

@@ -122,6 +122,7 @@ If you enjoyed this article, here are all the other articles I wrote about
 
 [language_topic]: {% link topics/childhood-language.md %}
 
-{% include topic_posts_but_not_current.html
+{% display_category_posts
   topic="childhood-language"
+  exclude_current_page=true
 %}
