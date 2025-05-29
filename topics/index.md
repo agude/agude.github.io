@@ -9,29 +9,45 @@ description: >
 I write on a variety of topics, which can be found below. Click a topic to see
 all my articles on it.
 
-<ul>
 {% assign sorted_categories = site.categories | sort %}
-{% assign categories_list = sorted_categories %}
-  {% for category in categories_list %}
-    <li><a href="#{{ category[0] }}"><span class="post-tag">#{{category[0]}}</span> ({{ category[1].size }})</a></li>
-  {% endfor %}
-{% assign categories_list = nil %}
+
+<ul>
+{% for category_pair in sorted_categories %}
+  {% assign category_name = category_pair[0] %}
+  {% assign posts_in_category = category_pair[1] %}
+
+  {% comment %}
+    Only list category in TOC if it actually has posts.
+    `site.categories[category_name].size` should reflect published posts by default.
+  {% endcomment %}
+
+  {% if posts_in_category.size > 0 %}
+  <li><a href="#{{ category_name | slugify }}"><span class="post-tag">#{{ category_name }}</span> ({{ posts_in_category.size }})</a></li>
+  {% endif %}
+{% endfor %}
 </ul>
 
 ## Individual Topics
 
-{% for tag in sorted_categories %}
-  <h3 id="{{ tag[0] }}">
-    <a href="/topics/{{ tag[0] }}/">
-      <span class="post-tag">#{{ tag[0] }}</span>
+{% for category_pair in sorted_categories %}
+  {% assign category_name = category_pair[0] %}
+  {% assign posts_in_category = category_pair[1] %}
+
+  {% comment %}
+    Only display the category section if it has posts.
+    The display_category_posts tag will internally handle cases
+    where a category might exist but have no published posts after its own filtering.
+    However, it's good practice to only generate the H3 if there's a likelihood of content.
+    The `posts_in_category.size > 0` check here is based on Jekyll's default population
+    of site.categories, which should be published posts.
+  {% endcomment %}
+
+  {% if posts_in_category.size > 0 %}
+  <h3 id="{{ category_name | slugify }}">
+    <a href="/topics/{{ category_name | slugify }}/">
+      <span class="post-tag">#{{ category_name }}</span>
     </a>
   </h3>
-  <div class="card-grid">
-    {% assign pages_list = tag[1] %}
-    {% for post in pages_list %}
-      {% comment %} Article cards with an image and description. {% endcomment %}
-      {% render_article_card post %}
-    {% endfor %}
-  </div>
-  {% assign pages_list = nil %}
+  {% display_category_posts topic=category_name %}
+  {% endif %}
 {% endfor %}

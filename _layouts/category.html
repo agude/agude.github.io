@@ -6,10 +6,7 @@ layout: default
     Topic:&nbsp;{{ page.category-title }}
   </h1>
   {{ content }}
-  <div class="card-grid">
-    {% for post in site.categories[page.category-name] %}
-      {% comment %} Article cards with an image and description. {% endcomment %}
-      {% render_article_card post %}
-    {% endfor %}
-  </div>
+
+  {% display_category_posts topic=page.category-name %}
+
 </div>
