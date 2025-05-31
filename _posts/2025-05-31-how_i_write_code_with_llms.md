@@ -101,3 +101,10 @@ algorithms. The LLM often doesn't need a lot of direction---just saying
 "Couldn't we replace the double for loop with a single loop and a hash table?"
 is usually enough to get it on the right path. Only at the end, once the
 structure is solid, do I focus on nitpicky issues or edit the text directly.
+
+## The Future
+
+I'm still learning how to use LLMs for coding. The technology and tooling is
+evolving so fast that I'm sure what I'm doing today will look antiquated in
+six months. Still, I hope it gives others some ideas about how they can
+use this technology to speed up their development.
