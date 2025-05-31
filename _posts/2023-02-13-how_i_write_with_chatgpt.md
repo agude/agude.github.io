@@ -14,6 +14,7 @@ image_alt: >
     typewriter, chair, desk, clear, straight lines'
 categories:
   - generative-ai
+  - large-language-models
   - machine-learning
 ---
 

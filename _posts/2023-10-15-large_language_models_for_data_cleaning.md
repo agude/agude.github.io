@@ -12,6 +12,7 @@ image_alt: >
 redirect_from: blog/good-uses-for-large-language-mo-models/
 categories: 
   - generative-ai
+  - large-language-models
   - machine-learning
   - california-traffic-data
 ---
