@@ -73,20 +73,22 @@ I read through the unit tests and look for anything that doesn't match what I
 was expecting. Sometimes it's easy to just change the test to match the
 behavior I want. Other times, I try to understand why the LLM made the choice
 it did, then discuss the decision with it to come to an agreement. I often
-catch disagreements over when to throw errors, how handle invalid inputs, or
-other rare edgecases in this process.
+catch disagreements over when to throw errors, how to handle invalid inputs,
+or other rare edge cases in this process.
 
 Once the behavior is codified in the tests, I ask the model to fix the
 original code so the tests pass. In this way, it's sort of an inverse of
 [test-driven development][tdd]---I have the computer write the code and then
 the tests. I find that having some code to start with helps the LLM write
-broader, more useful tests. In some cases, I'll even throw away the code,
-restart the LLM, and give it just the tests as the spec for what it should
-write. This is particularly useful when the model gets stuck and either won't
-make a large enough change to the code, or loops back and forth between
-essential the same few versions of the code.
+broader, more useful tests.
 
 [tdd]: https://en.wikipedia.org/wiki/Test-driven_development
+
+In some cases, I'll even throw away the code, restart the LLM, and give it
+just the tests as the spec for what it should write. This is particularly
+useful when the model gets stuck and either won't make a large enough change
+to the code, or loops back and forth between essentially the same few
+versions.
 
 ## Iterate And Advise
 
