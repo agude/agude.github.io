@@ -22,9 +22,10 @@ I've been writing code professionally for 20 years. I started with Java, moved
 on to Python, then C++, Scala, and back to Python, with a smattering of shell
 scripting, PHP, and Rust in between. I've written code with a pen and paper,
 Vim, and a full IDE. Now, I'm exploring writing code with [large language
-models (LLMs)][llms].
+models (LLMs)][llms], similar to [how I use them for writing][writing_llms].
 
 [llms]: https://en.wikipedia.org/wiki/Large_language_model
+[writing_llms]: {% post_url 2025-02-02-how_i_write_with_llms_revised %}
 
 At work, I use [Codename Goose][goose], which can directly interact with my
 local machine and files, switch between multiple LLM APIs, and connect to our
@@ -77,12 +78,16 @@ catch disagreements over when to throw errors, how to handle invalid inputs,
 or other rare edge cases in this process.
 
 Once the behavior is codified in the tests, I ask the model to fix the
-original code so the tests pass. In this way, it's sort of an inverse of
-[test-driven development][tdd]---I have the computer write the code and then
-the tests. I find that having some code to start with helps the LLM write
-broader, more useful tests.
+original code so the tests pass. This iterative process of generation and
+verification is [where LLMs truly shine][good_llm_uses]. In this way, it's
+sort of an inverse of [test-driven development][tdd]---I have the computer
+write the code and then the tests. I find that having some code to start with
+helps the LLM write broader, more useful tests, a practice whose importance
+I've [previously discussed in the context of data science][testing_ds].
 
+[good_llm_uses]: {% post_url 2023-04-12-good_uses_for_large_language_models %}
 [tdd]: https://en.wikipedia.org/wiki/Test-driven_development
+[testing_ds]: {% post_url 2017-01-12-software_testing_for_data_science %}
 
 In some cases, I'll even throw away the code, restart the LLM, and give it
 just the tests as the spec for what it should write. This is particularly
