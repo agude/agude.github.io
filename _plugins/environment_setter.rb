@@ -14,6 +14,7 @@ module Jekyll
       # Store the original value for logging, if any
       original_config_env = site.config['environment']
       env_var_jekyll_env = ENV['JEKYLL_ENV']
+      puts "ENVIRONMENT_SETTER_PLUGIN: Current value of JEKYLL_ENV: '#{env_var_jekyll_env}'"
 
       if env_var_jekyll_env && !env_var_jekyll_env.empty?
         # If JEKYLL_ENV is set, make sure site.config['environment'] matches it.
