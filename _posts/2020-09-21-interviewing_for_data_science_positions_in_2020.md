@@ -84,9 +84,12 @@ In 2020, my experience was vastly different. Only one screen was even close to
 given the _software engineering_ technical screen by mistake.
 
 All of the other screens involved reasonable questions that would come up in a
-data scientist's daily work, like manipulating a dataset, calculating some
-features, or implementing really simple algorithms or metrics. With these more
-applied questions, I passed all of my technical screens!
+data scientist's daily work, like [manipulating a
+dataset][data_manip_interview], calculating some features, or implementing
+really simple algorithms or metrics. With these more applied questions, I
+passed all of my technical screens!
+
+[data_manip_interview]: {% post_url 2020-12-14-data_science_interview_prep_data_manipulation %}
 
 ### Virtual On-Sites
 
@@ -109,12 +112,15 @@ all directly applicable to the work I would be doing.
 #### Open-ended Problems and Behavioral Questions
 
 This time there were more open-ended interviews that dug into some problem the
-business had (for example "How would you help us filter spam?") or went really
-deep exploring a project I had worked on previously. Although I was asked some
-of these questions during my previous years of interviewing they felt much
-more effective in the virtual format, perhaps because the lack of a whiteboard
-made it so the interviewer and I had to have a conversation instead of me
-giving a lecture.
+business had (for example "How would you help us filter spam?"---similar to
+the [machine learning case studies I've written about for interview
+prep][ml_case_study]) or went really deep exploring a project I had worked on
+previously. Although I was asked some of these questions during my previous
+years of interviewing they felt much more effective in the virtual format,
+perhaps because the lack of a whiteboard made it so the interviewer and I had
+to have a conversation instead of me giving a lecture.
+
+[ml_case_study]: {% post_url 2021-01-18-data_science_interview_prep_case_study %}
 
 This round of interviews was the first time I was asked [behavioral
 questions][behave]. They were present in three of the five on-sites, including

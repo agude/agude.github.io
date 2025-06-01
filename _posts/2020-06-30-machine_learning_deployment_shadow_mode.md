@@ -57,7 +57,12 @@ you expect (for example, your model is not reporting just a single value for
 all input).
 
 - **Performance**: You can verify that the shadow model is producing results
-that are comparable to or better than those of the live model.
+that are comparable to or better than those of the live model. This involves
+choosing the right [machine learning metric based on the business use
+case][ml_metrics] to compare the model's outputs against ground truth or
+against each other.
+
+[ml_metrics]: {% post_url 2019-10-28-machine_learning_metrics_interview %}
 
 Shadow mode works well when the result of the model does not need a user
 action to validate it. Models where you try to influence the user---for

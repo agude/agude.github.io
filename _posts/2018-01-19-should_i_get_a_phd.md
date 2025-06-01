@@ -29,13 +29,19 @@ the next step in my journey.
 
 Seven years later, as a freshly minted PhD in particle physics, I went
 straight to [Insight Data Science][insight] to begin a career in Silicon
-Valley. The dream of becoming a physics professor had long since been
-abandoned. I never even applied for a [postdoc position][postdoc], which would
-have been the next step in the process.[^pd]
+Valley. (I've written more about [my Insight experience and advice for
+prospective fellows here][should_i_go_insight].) The dream of becoming a
+physics professor had long since been abandoned. I never even applied for a
+[postdoc position][postdoc], which would have been the next step in the
+process.[^pd]
 
 [insight]: https://www.insightdatascience.com
+[should_i_go_insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
 [postdoc]: https://en.wikipedia.org/wiki/Postdoctoral_researcher
-[^pd]: A postdoc is a position used to gain more experience before applying for professorships. Graduates often spend five to six years doing multiple postdocs, which are all but required to land a professorship.
+[^pd]:
+    A postdoc is a position used to gain more experience before applying for
+    professorships. Graduates often spend five to six years doing multiple
+    postdocs, which are all but required to land a professorship.
 
 So what caused me to redirect my ambitions and energy? What was it that,
 despite thoroughly enjoying my six years in Minnesota,[^year_off] has led me

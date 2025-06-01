@@ -12,6 +12,7 @@ image_alt: >
   at a desk writing with a pen. He has a desklamp and a cup with pens in it.
 categories:
   - generative-ai
+  - large-language-models
   - machine-learning
 ---
 
