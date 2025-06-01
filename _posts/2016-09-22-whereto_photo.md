@@ -18,12 +18,14 @@ categories:
 After graduating from the University of Minnesota, I moved back to California
 to attend [Insight Data Science][insight]. Insight is a seven week program
 that takes newly minted PhDs in quantitative fields and grooms them for
-careers in data science. The first four weeks of the program focus on building
-a data product using publicly available data. The project I built,
-**Whereto.photo**, tried to answer the question: _Where is the best place in
-this city to take a picture?_
+careers in data science (I later wrote about [my experience and whether you
+should attend Insight][should_i_go_insight]). The first four weeks of the
+program focus on building a data product using publicly available data. The
+project I built, **Whereto.photo**, tried to answer the question: _Where is
+the best place in this city to take a picture?_
 
 [insight]: https://www.insightdatascience.com/
+[should_i_go_insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
 
 In this post I'm going to walk through how I built my project from
 brainstorming and data processing to hosting.
@@ -145,7 +147,7 @@ algorithm now preferred areas with a surprisingly large amount of quality
 photos instead of areas with just a large number of photos.
 
 The maximum of this normalized KDE was computed by using the
-[Broyden–Fletcher–Goldfarb–Shanno algorithm][bfgs] from SciPy. The fitter
+[Broyden--Fletcher--Goldfarb--Shanno algorithm][bfgs] from SciPy. The fitter
 often wandered off the edge of the map and into the water, and so a penalty
 was applied to all points in the water (using the `basemap.isWater()` method).
 The starting locations of the minimizer were hand selected to cover the major
