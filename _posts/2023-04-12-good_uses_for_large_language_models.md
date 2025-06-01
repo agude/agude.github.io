@@ -15,6 +15,7 @@ image_alt: >
 redirect_from: blog/good-uses-for-large-language-mo-models/
 categories: 
   - generative-ai
+  - large-language-models
   - machine-learning
 ---
 
@@ -53,8 +54,12 @@ Editing a paragraph is a prime example of this kind of task since writing
 multiple versions is time-consuming, whereas verifying the quality of a single
 paragraph can be done quickly.
 
-Another good use case is writing code, especially if you have tests in place
-to verify the code's correctness.
+Other good use cases include [automating data cleaning
+tasks][llm_data_cleaning] or [writing code][llm_coding], especially if you
+have tests in place to verify the code's correctness.
+
+[llm_data_cleaning]: {% post_url 2023-10-15-large_language_models_for_data_cleaning %}
+[llm_coding]: {% post_url 2025-05-31-how_i_write_code_with_llms %}
 
 ## What Are They Bad For?
 
