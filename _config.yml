@@ -1,7 +1,3 @@
-# This fixes an error when serving from inside Docker
-host: 0.0.0.0
-
-
 # Global minimum log level for plugin messages appearing on the console.
 # Options: "debug", "info", "warn", "error"
 # If a message's own level is lower than this, it won't show on console.
