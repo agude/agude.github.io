@@ -14,11 +14,15 @@ layout: default
   </div>
   {% endif %}
 
-  <div class="written-by">By {% author_link page.book_authors %}</div>
+  {% assign authors_html = "" %} 
+  {% assign authors_html = page.book_authors | display_authors %}
+
+  {% if authors_html != "" %}
+    <div class="written-by">By {{ authors_html }}.</div>
+  {% endif %}
+
 
   {% if page.series and page.book_number %}
-
-    {% comment %}Now place the actual div.{% endcomment %}
     <div class="book-series-line">
       Book {{page.book_number}} of {% series_text page.series %}
     </div>
