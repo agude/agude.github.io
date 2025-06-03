@@ -2,18 +2,6 @@
 layout: default
 ---
 
-{% comment %}Here we test for required variables and throw an error if we
-don't find them.{% endcomment %}
-{% if page.title == null or page.title == "" %}
-    {% link throw_value_error_missing_page_title %}
-{% endif %}
-{% if page.book_author == null or page.book_author == "" %}
-    {% link throw_value_error_missing_author %}
-{% endif %}
-{% if page.book_number == null or page.book_number == "" %}
-    {% link throw_value_error_missing_book_number %}
-{% endif %}
-
 <article class="page">
   <h1 class="page-title"><cite class="book-title">{{ page.title }}</cite></h1>
 
@@ -26,7 +14,7 @@ don't find them.{% endcomment %}
   </div>
   {% endif %}
 
-  <div class="written-by">By {% author_link page.book_author %}</div>
+  <div class="written-by">By {% author_link page.book_authors %}</div>
 
   {% if page.series and page.book_number %}
 
