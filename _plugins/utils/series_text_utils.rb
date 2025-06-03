@@ -4,6 +4,7 @@ module SeriesTextUtils
   # Define common words that imply a series type.
   # These are checked as whole words against the normalized series name.
   SERIES_TYPE_WORDS = [
+    'adventures',
     'anthologies',
     'anthology',
     'arc',
