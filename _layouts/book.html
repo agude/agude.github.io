@@ -14,20 +14,25 @@ layout: default
   </div>
   {% endif %}
 
-  {% assign authors_html = "" %} 
-  {% assign authors_html = page.book_authors | display_authors %}
+  {% comment %} Authors {% endcomment %}
+  {% assign authors_html_output = "" %}
+  {% capture captured_authors_html %}
+    {% display_authors page.book_authors %}
+  {% endcapture %}
+  {% assign authors_html_output = captured_authors_html | strip %}
 
-  {% if authors_html != "" %}
-    <div class="written-by">By {{ authors_html }}.</div>
+  {% if authors_html_output != "" %}
+    <div class="written-by">by {{ authors_html_output }}</div>
   {% endif %}
 
-
+  {% comment %} Series {% endcomment %}
   {% if page.series and page.book_number %}
     <div class="book-series-line">
       Book {{page.book_number}} of {% series_text page.series %}
     </div>
   {% endif %}
 
+  {% comment %} Awards {% endcomment %}
   {% if page.awards %}
     <div class="book-awards">
       Awards:
