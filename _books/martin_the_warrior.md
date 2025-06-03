@@ -1,7 +1,7 @@
 ---
 date: 2025-04-18 19:24:44 -0700
 title: Martin the Warrior
-book_author: Brian Jacques
+book_authors: Brian Jacques
 series: Redwall
 book_number: 6
 rating: 3
@@ -14,7 +14,7 @@ origin story, following him as he's enslaved by---and eventually leads an
 uprising against---the tyrant Badrang.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
 
 {% capture redwall %}{% book_link "Redwall" %}{% endcapture %}

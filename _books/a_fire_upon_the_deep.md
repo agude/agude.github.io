@@ -1,7 +1,7 @@
 ---
 date: 2024-08-22
 title: A Fire Upon The Deep
-book_author: Vernor Vinge
+book_authors: Vernor Vinge
 series: Zones of Thought
 book_number: 1
 rating: 5
@@ -11,14 +11,14 @@ awards:
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a sci-fi novel by <span
-class="author-name">{{ page.book_author }}</span>. It tells the story of the
+class="author-name">{{ page.book_authors }}</span>. It tells the story of the
 Blight---a galactic-scale, transcendent evil---and the humans racing to stop
 it.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 
 {% capture deepness %}{% book_link "A Deepness in the Sky" %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}

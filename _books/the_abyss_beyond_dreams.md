@@ -1,7 +1,7 @@
 ---
 date: 2023-12-08
 title: The Abyss Beyond Dreams
-book_author: Peter F. Hamilton
+book_authors: Peter F. Hamilton
 series: The Chronicle of the Fallers
 book_number: 1
 rating: 5
@@ -10,7 +10,7 @@ image: /books/covers/the_abyss_beyond_dreams.jpg
 
 <cite class="book-title">{{ page.title }}</cite> starts off <span
 class="book-series">{{ page.series }}</span>, another series in <span
-class="author-name">{{ page.book_author }}</span>'s Commonwealth universe.
+class="author-name">{{ page.book_authors }}</span>'s Commonwealth universe.
 Though billed as space opera, it often reads more as urban fantasy since most
 of the story occurs on the planet Bienvenido inside the Void where steam
 engines are their most advanced technology.

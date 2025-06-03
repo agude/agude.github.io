@@ -1,7 +1,7 @@
 ---
 date: 2024-03-25
 title: Excession
-book_author: Iain M. Banks
+book_authors: Iain M. Banks
 series: Culture
 book_number: 5
 rating: 4
@@ -9,7 +9,7 @@ image: /books/covers/excession.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the fourth novel and
+class="author-name">{{ page.book_authors }}</span>, is the fourth novel and
 fifth book in the <span class="book-series">{{ page.series }}</span> series.
 It follows the reaction of the Culture and other civilizations to an
 "excession": an _"Outside Context Problem"_---something mysterious,

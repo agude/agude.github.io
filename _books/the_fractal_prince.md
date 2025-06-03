@@ -1,7 +1,7 @@
 ---
 date: 2023-11-13
 title: The Fractal Prince
-book_author: Hannu Rajaniemi
+book_authors: Hannu Rajaniemi
 series: Jean le Flambeur
 book_number: 2
 rating: 3
@@ -14,7 +14,7 @@ book, {% book_link "The Quantum Thief" %}, left me
 underwhelmed, the second book more than lived up to the hype.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 
 {% capture quantum_thief %}{% book_link "The Quantum Thief" %}{% endcapture %}
 {% capture causal_angel %}{% book_link "The Causal Angel" %}{% endcapture %}

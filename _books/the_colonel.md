@@ -1,7 +1,7 @@
 ---
 date: 2024-04-11
 title: The Colonel
-book_author: Peter Watts
+book_authors: Peter Watts
 series: Firefall
 book_number: 1.5
 rating: 5
@@ -16,7 +16,7 @@ poses a threat to baseline humans.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
-{% capture wattss %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture wattss %}{% author_link page.book_authors possessive %}{% endcapture %}
 
 The story is very short, less than 40 pages, and acts more like a prologue to
 {{ echopraxia }}. It begins with a hivemind attack on a remote geoengineering

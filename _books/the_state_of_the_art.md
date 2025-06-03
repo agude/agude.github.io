@@ -1,7 +1,7 @@
 ---
 date: 2024-03-08
 title: The State of the Art
-book_author: Iain M. Banks
+book_authors: Iain M. Banks
 series: Culture
 book_number: 4
 rating: 3
@@ -9,13 +9,13 @@ image: /books/covers/the_state_of_the_art.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a collection of short
-stories by <span class="author-name">{{ page.book_author }}</span>. It
+stories by <span class="author-name">{{ page.book_authors }}</span>. It
 contains some stories related to the <span class="book-series">{{ page.series
 }}</span> universe and some general science fiction tales. Although it has
 been considered utopian fiction, it comes across as rather bleak.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture this_series %}{% series_link page.series %}{% endcapture %}
 {% capture banks %}<span class="author-name">Banks</span>{% endcapture %}
 

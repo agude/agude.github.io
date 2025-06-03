@@ -1,7 +1,7 @@
 ---
 date: 2023-09-26
 title: The Dreaming Void
-book_author: Peter F. Hamilton
+book_authors: Peter F. Hamilton
 series: The Void Trilogy
 book_number: 1
 rating: 5

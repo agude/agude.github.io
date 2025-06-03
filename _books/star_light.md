@@ -1,7 +1,7 @@
 ---
 date: 2024-07-17
 title: Star Light
-book_author: Hal Clement
+book_authors: Hal Clement
 series: Mesklin
 book_number: 3
 rating: 2
@@ -12,9 +12,9 @@ image: /books/covers/star_light.jpg
 Human--Mesklinite exploration, this time focusing on a large star-like planet.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}{% series_link page.series %} series{% endcapture %}
-{% capture clements %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture clements %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture mission %}{% book_link "Mission of Gravity" %}{% endcapture %}
 {% capture critical %}{% book_link "Close to Critical" %}{% endcapture %}
 {% capture dragons_egg %}{% book_link "Dragon's Egg" %}{% endcapture %}

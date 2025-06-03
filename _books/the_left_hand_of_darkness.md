@@ -1,7 +1,7 @@
 ---
 date: 2024-11-12
 title: The Left Hand of Darkness
-book_author: Ursula K. Le Guin
+book_authors: Ursula K. Le Guin
 series: Hainish Cycle
 book_number: 4
 rating: 3
@@ -12,16 +12,16 @@ awards:
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is her Hugo and Nebula
+class="author-name">{{ page.book_authors }}</span>, is her Hugo and Nebula
 award-winning novel about the planet of Winter. It follows Genly Ai, an envoy
 from the Ekumen, as he attempts to bring this androgynous world into galactic
 civilization.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
 
 {% capture algernon %}{% book_link "Flowers for Algernon" %}{% endcapture %}

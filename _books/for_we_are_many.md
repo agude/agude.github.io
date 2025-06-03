@@ -1,7 +1,7 @@
 ---
 date: 2024-08-07
 title: For We Are Many
-book_author: Dennis E. Taylor
+book_authors: Dennis E. Taylor
 series: Bobiverse
 book_number: 2
 rating: 4
@@ -13,7 +13,7 @@ image: /books/covers/for_we_are_many.jpg
 Others storyline while also continuing many of the side stories begun in {% book_link "We Are Legion (We Are Bob)" %}.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 {% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
 {% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}

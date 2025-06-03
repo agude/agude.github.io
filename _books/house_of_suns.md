@@ -1,7 +1,7 @@
 ---
 date: 2024-05-10
 title: House of Suns
-book_author: Alastair Reynolds
+book_authors: Alastair Reynolds
 series: null
 book_number: 1
 rating: 1
@@ -9,7 +9,7 @@ image: /books/covers/house_of_suns.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a standalone hard sci-fi
-book by <span class="author-name">{{ page.book_author }}</span>. It tells the
+book by <span class="author-name">{{ page.book_authors }}</span>. It tells the
 story of the Gentian Line, a family of clones who are betrayed, nearly wiped
 out, and must unravel what happened.
 

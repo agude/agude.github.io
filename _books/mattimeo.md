@@ -1,7 +1,7 @@
 ---
 date: 2024-06-11
 title: Mattimeo
-book_author: Brian Jacques
+book_authors: Brian Jacques
 series: Redwall
 book_number: 3
 rating: 5
@@ -14,7 +14,7 @@ kidnapping of the abbey children by Slagar the cruel and follows Mathias as he
 tries to save them.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture redwall %}{% book_link "Redwall" %}{% endcapture %}
 {% capture mossflower %}{% book_link "Mossflower" %}{% endcapture %}
 {% capture mariel %}{% book_link "Mariel of Redwall" %}{% endcapture %}

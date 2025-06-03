@@ -1,7 +1,7 @@
 ---
 date: 2024-04-10
 title: Mossflower
-book_author: Brian Jacques
+book_authors: Brian Jacques
 series: Redwall
 book_number: 2
 rating: 4

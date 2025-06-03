@@ -1,7 +1,7 @@
 ---
 date: 2024-05-26
 title: Childhood's End
-book_author: Arthur C. Clarke
+book_authors: Arthur C. Clarke
 series: null
 book_number: 1
 rating: 5
@@ -9,12 +9,12 @@ image: /books/covers/childhoods_end.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a classic sci-fi novel by
-<span class="author-name">{{ page.book_author }}</span>. It is about first
+<span class="author-name">{{ page.book_authors }}</span>. It is about first
 contact between humans and the mysterious Overlords, and the end of the human
 race.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture clarke %}<span class="author-name">Clarke</span>{% endcapture %}
 {% capture flatland %}{% book_link "Flatland: A Romance of Many Dimensions" link_text="Flatland" %}{% endcapture %}
 {% capture liu_cixin %}{% author_link "Liu Cixin" possessive %}{% endcapture %}

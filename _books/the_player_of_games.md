@@ -1,7 +1,7 @@
 ---
 date: 2024-02-19
 title: The Player of Games
-book_author: Iain M. Banks
+book_authors: Iain M. Banks
 series: Culture
 book_number: 2
 rating: 5
@@ -9,14 +9,14 @@ image: /books/covers/the_player_of_games.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the second novel in <span
-class="author-name">{{ page.book_author }}</span>'s <span
+class="author-name">{{ page.book_authors }}</span>'s <span
 class="book-series">{{ page.series }}</span> series. It tells the story of
 Jernau Morat Gurgeh, a master game player who is recruited to play Azad, an
 incredibly complex game that serves as the basis for the Empire of Azad's
 entire government.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
 {% capture bankss %}<span class="author-name">Banks</span>'s{% endcapture %}
 

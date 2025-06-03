@@ -1,7 +1,7 @@
 ---
 date: 2024-08-12
 title: All These Worlds
-book_author: Dennis E. Taylor
+book_authors: Dennis E. Taylor
 series: Bobiverse
 book_number: 3
 rating: 4
@@ -13,7 +13,7 @@ image: /books/covers/all_these_worlds.jpg
 story of the war with the genocidal Others started in {% book_link "For We Are Many" %}.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 {% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
 {% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}

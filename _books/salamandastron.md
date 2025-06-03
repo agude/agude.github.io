@@ -1,7 +1,7 @@
 ---
 date: 2024-10-27
 title: Salamandastron
-book_author: Brian Jacques
+book_authors: Brian Jacques
 series: Redwall
 book_number: 5
 rating: 5
@@ -14,7 +14,7 @@ of two parallel conflicts: the siege of Salamandastron by Ferahgo the Assassin
 and a devastating plague at Redwall Abbey.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
 
 {% capture mattimeo %}{% book_link "Mattimeo" %}{% endcapture %}

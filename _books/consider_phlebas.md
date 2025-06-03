@@ -1,7 +1,7 @@
 ---
 date: 2023-09-10
 title: Consider Phlebas
-book_author: Iain M. Banks
+book_authors: Iain M. Banks
 series: Culture
 book_number: 1
 rating: 1

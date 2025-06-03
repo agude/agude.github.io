@@ -1,7 +1,7 @@
 ---
 date: 2025-05-23 18:57:00 -0700
 title: "Home: Habitat, Range, Niche, Territory"
-book_author: Martha Wells
+book_authors: Martha Wells
 series: The Murderbot Diaries
 book_number: 4.5
 rating: 3
@@ -9,7 +9,7 @@ image: /books/covers/home_habitat_range_niche_territory.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is a short story from <span
+class="author-name">{{ page.book_authors }}</span>, is a short story from <span
 class="book-series">{{ page.series }}</span>, set between <a
 href="/books/exit_strategy/"><cite class="book-title">Exit Strategy</cite></a>
 and {% comment %}TODO <a href="/books/network_effect/"><cite
@@ -18,10 +18,10 @@ class="book-title">Network Effect</cite>. It shows us Murderbot and Mensah
 adjusting to their new situation after the GrayCris storyline.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_author | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}

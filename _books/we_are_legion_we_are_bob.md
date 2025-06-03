@@ -1,7 +1,7 @@
 ---
 date: 2024-08-02
 title: We Are Legion (We Are Bob)
-book_author: Dennis E. Taylor
+book_authors: Dennis E. Taylor
 series: Bobiverse
 book_number: 1
 rating: 4
@@ -14,7 +14,7 @@ follows Bob Johansson, who dies, gets his brain frozen, and awakens to find
 himself press-ganged into piloting a von Neumann probe.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 
 {% capture player_one %}{% book_link "Ready Player One" %}{% endcapture %}
 {% capture martian %}{% book_link "The Martian" %}{% endcapture %}

@@ -1,7 +1,7 @@
 ---
 date: 2024-01-07
 title: The Claw of the Conciliator
-book_author: Gene Wolfe
+book_authors: Gene Wolfe
 series: The Book of the New Sun
 book_number: 2
 rating: 3
@@ -12,7 +12,7 @@ awards:
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the second book in <span
-class="author-name">{{ page.book_author }}</span>'s <span
+class="author-name">{{ page.book_authors }}</span>'s <span
 class="book-series">{{ page.series }}</span> tetralogy. It picks up right
 where {% book_link "The Shadow of the Torturer" %} leaves
 off, following Severian as he makes his way towards Thrax.

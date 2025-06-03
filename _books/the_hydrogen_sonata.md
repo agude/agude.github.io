@@ -1,7 +1,7 @@
 ---
 date: 2025-02-06
 title: The Hydrogen Sonata
-book_author: Iain M. Banks
+book_authors: Iain M. Banks
 series: Culture
 book_number: 10
 rating: 5
@@ -9,15 +9,15 @@ image: /books/covers/the_hydrogen_sonata.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the tenth and final
+class="author-name">{{ page.book_authors }}</span>, is the tenth and final
 <span class="book-series">{{ page.series }}</span> book. It explores the last
 days of the Glitz people as they prepare to Sublime.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 
 {% capture the_quarry %}{% book_link "The Quarry" %}{% endcapture %}
 {% capture iain_banks %}<span class="author-name">Iain Banks</span>{% endcapture %}

@@ -1,7 +1,7 @@
 ---
 date: 2024-06-12
 title: Dragon's Egg
-book_author: Robert L. Forward
+book_authors: Robert L. Forward
 series: Cheela
 book_number: 1
 rating: 5
@@ -11,12 +11,12 @@ awards:
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a hard sci-fi novel by
-<span class="author-name">{{ page.book_author }}</span>. It is the story of
+<span class="author-name">{{ page.book_authors }}</span>. It is the story of
 first contact between humans and the Cheela: beings who live on a neutron
 star.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture clements %}{% author_link "Hal Clement" possessive %}{% endcapture %}
 {% capture gravity %}{% book_link "Mission of Gravity " %}{% endcapture %}
 {% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}

@@ -1,7 +1,7 @@
 ---
 date: 2024-04-10
 title: The Dragon's Banker
-book_author: Scott Warren
+book_authors: Scott Warren
 series: null
 book_number: 1
 rating: 3
@@ -9,7 +9,7 @@ image: /books/covers/the_dragons_banker.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a standalone novel by
-<span class="author-name">{{ page.book_author }}</span>. It tells the story of
+<span class="author-name">{{ page.book_authors }}</span>. It tells the story of
 Sailor Kelstern, a banker in a fantasy world who, as the title suggests, is
 hired by a dragon.
 
