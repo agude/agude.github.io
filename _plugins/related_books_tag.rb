@@ -50,8 +50,10 @@ module Jekyll
 
       current_url = page['url']
       current_series = page['series']
-      current_author = page['book_author']
-      now_unix = Time.now.to_i # For filtering out future-dated books
+      # Get current page's authors as a list
+      current_page_authors = FrontMatterUtils.get_list_from_string_or_array(page['book_authors'])
+        .map(&:strip).map(&:downcase).reject(&:empty?)
+      now_unix = Time.now.to_i
 
       # --- Prepare Base Pool of All Potential Books ---
       # Filter out unpublished books, the current page itself, and future-dated books.
@@ -73,7 +75,7 @@ module Jekyll
       # Priority 1: Books from the same series as the current page.
       if current_series && !current_series.to_s.strip.empty?
         series_books = all_potential_books.select { |book| book.data['series'] == current_series }
-          .sort_by { |book| book.data['book_number'] || Float::INFINITY } # Sort by book number within the series
+          .sort_by { |book| BookListUtils.__send__(:_parse_book_number, book.data['book_number']) } # Use numerical sort
         candidate_books_accumulator.concat(series_books)
       end
 
@@ -82,12 +84,15 @@ module Jekyll
       current_unique_urls = Set.new(candidate_books_accumulator.map(&:url))
 
       # Priority 2: Books by the same author (if not enough unique books from series).
-      if current_unique_urls.length < @max_books && current_author && !current_author.to_s.strip.empty?
+      if current_unique_urls.length < @max_books && current_page_authors.any?
         # Select from the globally date-sorted list.
         # The final `uniq` will ensure that books already added from the series pool aren't duplicated
         # if they are also by the same author.
         author_books = books_by_date_desc.select do |book|
-          book.data['book_author'] == current_author
+          book_author_list = FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
+            .map(&:strip).map(&:downcase).reject(&:empty?)
+          # Check for any intersection between current page's authors and this book's authors
+          (current_page_authors & book_author_list).any?
         end
         candidate_books_accumulator.concat(author_books)
       end

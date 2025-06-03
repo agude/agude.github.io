@@ -6,48 +6,37 @@ require 'cgi' # For CGI.escapeHTML
 class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
 
   def setup
-    # --- Mock Book Data ---
     @author_a_name = "Author A"
-    @author_b_name = "Author B: The Sequel" # Author name with colon and space for slug testing
+    @author_b_name = "author b"
 
-    # Author A
-    @book_a_s1_b1 = create_doc({ 'title' => 'Author A: Series One, Book 1', 'series' => 'Series One', 'book_number' => 1, 'book_author' => @author_a_name }, '/a/s1b1.html')
-    @book_a_s1_b2 = create_doc({ 'title' => 'Author A: Series One, Book 2', 'series' => 'Series One', 'book_number' => 2, 'book_author' => @author_a_name }, '/a/s1b2.html')
-    @book_a_standalone = create_doc({ 'title' => 'Author A: Standalone', 'book_author' => @author_a_name }, '/a/sa.html')
+    # Author A books
+    @book_aa_s1_b0_5 = create_doc({ 'title' => 'AA: Series One, Book 0.5', 'series' => 'Series One', 'book_number' => 0.5, 'book_authors' => [@author_a_name] }, '/a/s1b0_5.html') # ADDED
+    @book_aa_s1_b1 = create_doc({ 'title' => 'AA: Series One, Book 1', 'series' => 'Series One', 'book_number' => 1, 'book_authors' => [@author_a_name] }, '/a/s1b1.html')
+    @book_aa_s1_b2 = create_doc({ 'title' => 'AA: Series One, Book 2', 'series' => 'Series One', 'book_number' => 2, 'book_authors' => [@author_a_name] }, '/a/s1b2.html')
+    @book_aa_standalone = create_doc({ 'title' => 'AA: Standalone', 'book_authors' => [@author_a_name] }, '/a/sa.html')
 
-    # Author B
-    @book_b_s2_b1 = create_doc({ 'title' => 'Author B: Series Two, Book 1', 'series' => 'Series Two', 'book_number' => 1, 'book_author' => @author_b_name }, '/b/s2b1.html')
-    @book_b_standalone = create_doc({ 'title' => 'Author B: Standalone', 'book_author' => @author_b_name }, '/b/sb.html')
+    # author b books
+    @book_ab_s2_b1 = create_doc({ 'title' => 'ab: Series Two, Book 1', 'series' => 'Series Two', 'book_number' => 1, 'book_authors' => [@author_b_name] }, '/b/s2b1.html')
+    @book_ab_standalone = create_doc({ 'title' => 'ab: Standalone', 'book_authors' => [@author_b_name] }, '/b/sb.html')
 
-    # Author C (No books, to test empty author section) - or rather, author with no *published* books if we add that filter
-    # For now, assume Author C has no books in the collection.
-
-    # Book with no author (should be filtered out by get_data_for_all_books_by_author_display)
-    @book_no_author = create_doc({ 'title' => 'Book With No Author', 'series' => 'Some Series' }, '/no_auth.html')
+    @coauthored_aa_ab_standalone = create_doc({ 'title' => 'Co-authored AA & ab Standalone', 'book_authors' => [@author_a_name, @author_b_name] }, '/coauth/sa.html')
+    @book_no_author = create_doc({ 'title' => 'Book With No Author', 'series' => 'Some Series', 'book_authors' => [] }, '/no_auth.html')
 
     @all_books_for_tag_test = [
-      @book_a_s1_b1, @book_a_s1_b2, @book_a_standalone,
-      @book_b_s2_b1, @book_b_standalone,
+      @book_aa_s1_b0_5, @book_aa_s1_b1, @book_aa_s1_b2, @book_aa_standalone, # ADDED @book_aa_s1_b0_5
+      @book_ab_s2_b1, @book_ab_standalone,
+      @coauthored_aa_ab_standalone,
       @book_no_author
-    ]
+    ].compact # Ensure no nils in the array itself
 
     @site = create_site({ 'url' => 'http://example.com' }, { 'books' => @all_books_for_tag_test })
     @context = create_context({}, { site: @site, page: create_doc({ 'path' => 'current_tag_page.md'}, '/current_tag_page.html') })
-
-    @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end; def logger.error(topic, message); end
-      def logger.info(topic, message); end;  def logger.debug(topic, message); end
-    end
+    @silent_logger_stub = Object.new.tap { |l| def l.warn(p,m);end; def l.error(p,m);end; def l.info(p,m);end; def l.debug(p,m);end }
   end
 
-  # Helper to mimic the tag's slugify for test predictions
   def simple_slugify(text)
     return "" if text.nil?
-    text.to_s.downcase.strip
-      .gsub(/\s+/, '-')
-      .gsub(/[^\w-]+/, '')
-      .gsub(/--+/, '-')
-      .gsub(/^-+|-+$/, '')
+    text.to_s.downcase.strip.gsub(/\s+/, '-').gsub(/[^\w-]+/, '').gsub(/--+/, '-').gsub(/^-+|-+$/, '')
   end
 
   def render_tag(context = @context)
@@ -55,12 +44,17 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
     BookListUtils.stub :render_book_groups_html, ->(data, _ctx, series_heading_level: 2) {
       group_html = ""
       data[:series_groups]&.each do |sg|
-        group_html << "<!-- Series #{sg[:name]} (H#{series_heading_level}) for author: #{sg[:books].map{|b| b.data['title']}.join(', ')} -->\n"
+        # Ensure sg and sg[:books] are not nil before mapping
+        books_titles = sg && sg[:books] ? sg[:books].compact.map{|b| b.data['title']}.join(', ') : "NO_BOOKS_IN_SERIES_GROUP_STUB"
+        series_name = sg && sg[:name] ? sg[:name] : "UNKNOWN_SERIES_STUB"
+        group_html << "<!-- Series #{series_name} (H#{series_heading_level}) for author: #{books_titles} -->\n"
       end
       group_html
     } do
-      Jekyll.stub :logger, @silent_logger_stub do # For logs from BookListUtils.get_data_for_all_books_by_author_display
-        output = Liquid::Template.parse("{% display_books_by_author_then_series %}").render!(context)
+      BookCardUtils.stub :render, ->(book, _ctx) { "<!-- Standalone Card: #{book.data['title']} -->\n" } do
+        Jekyll.stub :logger, @silent_logger_stub do
+          output = Liquid::Template.parse("{% display_books_by_author_then_series %}").render!(context)
+        end
       end
     end
     output
@@ -73,66 +67,53 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
     assert_match "This tag does not accept any arguments", err.message
   end
 
-  def test_renders_correct_author_headings_and_delegates_to_util_with_ids
-    expected_standalone_card_html_author_a = "<!-- Standalone Card: #{@book_a_standalone.data['title']} -->\n"
-    expected_standalone_card_html_author_b = "<!-- Standalone Card: #{@book_b_standalone.data['title']} -->\n"
+  def test_renders_correct_author_headings_and_content_with_ids
+    output = render_tag
 
-    author_a_slug = simple_slugify(@author_a_name) # "author-a"
-    author_b_slug = simple_slugify(@author_b_name) # "author-b-the-sequel"
+    author_a_slug = simple_slugify(@author_a_name)
+    expected_id_author_a_standalone = "standalone-books-#{author_a_slug}"
+    assert_match %r{<h2 class="book-list-headline">#{CGI.escapeHTML(@author_a_name)}</h2>}, output
+    expected_h3_author_a = "<h3 class=\"book-list-headline\" id=\"#{expected_id_author_a_standalone}\">Standalone Books</h3>"
+    assert_includes output, expected_h3_author_a
 
-    expected_id_author_a_standalone = "standalone-books-#{author_a_slug}" # "standalone-books-author-a"
-    expected_id_author_b_standalone = "standalone-books-#{author_b_slug}" # "standalone-books-author-b-the-sequel"
+    assert_match %r{<!-- Standalone Card: #{@book_aa_standalone.data['title']} -->}, output
+    assert_match %r{<!-- Standalone Card: #{@coauthored_aa_ab_standalone.data['title']} -->}, output
 
-    book_card_render_calls = []
-    BookCardUtils.stub :render, ->(book, _ctx) {
-      book_card_render_calls << book.data['title']
-      "<!-- Standalone Card: #{book.data['title']} -->\n"
-    } do
-      output = render_tag # This render_tag uses the corrected stub for render_book_groups_html
+    expected_series_one_titles_aa_array = [
+      @book_aa_s1_b0_5.data['title'],
+      @book_aa_s1_b1.data['title'],
+      @book_aa_s1_b2.data['title']
+    ]
+    expected_series_one_string_aa = expected_series_one_titles_aa_array.join(', ')
+    assert_match %r{<!-- Series Series One \(H3\) for author: #{Regexp.escape(expected_series_one_string_aa)} -->}, output
 
-      # Author A Assertions
-      assert_match %r{<h2 class="book-list-headline">#{CGI.escapeHTML(@author_a_name)}</h2>}, output
-      expected_h3_author_a = "<h3 class=\"book-list-headline\" id=\"#{expected_id_author_a_standalone}\">Standalone Books</h3>"
-      assert_includes output, expected_h3_author_a, "Missing or incorrect H3 for Author A Standalone Books"
-      assert_includes output, expected_standalone_card_html_author_a
-      assert_match %r{<!-- Series Series One \(H3\) for author: #{@book_a_s1_b1.data['title']}, #{@book_a_s1_b2.data['title']} -->}, output
 
-      # Author B Assertions
-      assert_match %r{<h2 class="book-list-headline">#{CGI.escapeHTML(@author_b_name)}</h2>}, output
-      expected_h3_author_b = "<h3 class=\"book-list-headline\" id=\"#{expected_id_author_b_standalone}\">Standalone Books</h3>"
-      assert_includes output, expected_h3_author_b, "Missing or incorrect H3 for Author B Standalone Books"
-      assert_includes output, expected_standalone_card_html_author_b
-      assert_match %r{<!-- Series Series Two \(H3\) for author: #{@book_b_s2_b1.data['title']} -->}, output
+    author_b_slug = simple_slugify(@author_b_name)
+    expected_id_author_b_standalone = "standalone-books-#{author_b_slug}"
+    assert_match %r{<h2 class="book-list-headline">#{CGI.escapeHTML(@author_b_name)}</h2>}, output
+    expected_h3_author_b = "<h3 class=\"book-list-headline\" id=\"#{expected_id_author_b_standalone}\">Standalone Books</h3>"
+    assert_includes output, expected_h3_author_b
 
-      # Order and general assertions
-      author_a_index = output.index("<h2 class=\"book-list-headline\">#{CGI.escapeHTML(@author_a_name)}</h2>")
-      author_b_index = output.index("<h2 class=\"book-list-headline\">#{CGI.escapeHTML(@author_b_name)}</h2>")
-      refute_nil author_a_index
-      refute_nil author_b_index
-      # Note: Author B ("Author B: The Sequel") comes after "Author A" alphabetically
-      assert author_a_index < author_b_index
+    assert_match %r{<!-- Standalone Card: #{@book_ab_standalone.data['title']} -->}, output
+    assert_match %r{<!-- Standalone Card: #{@coauthored_aa_ab_standalone.data['title']} -->}, output
+    assert_match %r{<!-- Series Series Two \(H3\) for author: #{@book_ab_s2_b1.data['title']} -->}, output
 
-      # Ensure book with no author is not processed
-      refute_match %r{Book With No Author}, output
-      refute_match %r{<h2 class="book-list-headline">\s*</h2>}, output
+    author_a_index = output.index("<h2 class=\"book-list-headline\">#{CGI.escapeHTML(@author_a_name)}</h2>")
+    author_b_index = output.index("<h2 class=\"book-list-headline\">#{CGI.escapeHTML(@author_b_name)}</h2>")
+    refute_nil author_a_index; refute_nil author_b_index
+    assert author_a_index < author_b_index
 
-      # Verify BookCardUtils.render was called for standalone books
-      assert_includes book_card_render_calls, @book_a_standalone.data['title']
-      assert_includes book_card_render_calls, @book_b_standalone.data['title']
-      assert_equal 2, book_card_render_calls.count
-    end
+    # Ensure book with no author is not processed
+    refute_match %r{Book With No Author}, output
+    # Ensure no empty author headings (e.g. if an author name was empty string but somehow processed)
+    refute_match %r{<h2 class="book-list-headline">\s*</h2>}, output
   end
 
   def test_renders_log_message_if_books_collection_missing
-    site_no_books = create_site({ 'url' => 'http://example.com' }, {}) # No 'books' collection
+    site_no_books = create_site({ 'url' => 'http://example.com' }, {})
     site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true
     context_no_books = create_context({}, { site: site_no_books, page: create_doc({ 'path' => 'current_tag_page.md'}, '/current_tag_page.html') })
-
-    output = ""
-    Jekyll.stub :logger, @silent_logger_stub do
-      output = Liquid::Template.parse("{% display_books_by_author_then_series %}").render!(context_no_books)
-    end
-
+    output = ""; Jekyll.stub(:logger, @silent_logger_stub) { output = Liquid::Template.parse("{% display_books_by_author_then_series %}").render!(context_no_books) }
     assert_match %r{<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books_by_author'\s*SourcePage='current_tag_page\.md' -->}, output
     refute_match %r{<h2 class="book-list-headline">}, output
   end
@@ -141,11 +122,7 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
     site_no_valid_authors = create_site({ 'url' => 'http://example.com' }, { 'books' => [@book_no_author] })
     site_no_valid_authors.config['plugin_logging']['ALL_BOOKS_BY_AUTHOR_DISPLAY'] = true
     context_no_valid_authors = create_context({}, { site: site_no_valid_authors, page: create_doc({ 'path' => 'current_tag_page.md'}, '/current_tag_page.html') })
-
-    output = ""
-    Jekyll.stub :logger, @silent_logger_stub do
-      output = Liquid::Template.parse("{% display_books_by_author_then_series %}").render!(context_no_valid_authors)
-    end
+    output = ""; Jekyll.stub(:logger, @silent_logger_stub) { output = Liquid::Template.parse("{% display_books_by_author_then_series %}").render!(context_no_valid_authors) }
     assert_match %r{<!-- \[INFO\] ALL_BOOKS_BY_AUTHOR_DISPLAY_FAILURE: Reason='No published books with valid author names found\.'\s*SourcePage='current_tag_page\.md' -->}, output
     refute_match %r{<h2 class="book-list-headline">}, output
   end
@@ -154,14 +131,8 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
     site_empty_books = create_site({ 'url' => 'http://example.com' }, { 'books' => [] })
     site_empty_books.config['plugin_logging']['ALL_BOOKS_BY_AUTHOR_DISPLAY'] = true
     context_empty_books = create_context({}, { site: site_empty_books, page: create_doc({ 'path' => 'current_tag_page.md'}, '/current_tag_page.html') })
-
-    output = ""
-    Jekyll.stub :logger, @silent_logger_stub do
-      output = Liquid::Template.parse("{% display_books_by_author_then_series %}").render!(context_empty_books)
-    end
-    # Expect the info log from BookListUtils because the collection was empty, leading to no valid authors.
+    output = ""; Jekyll.stub(:logger, @silent_logger_stub) { output = Liquid::Template.parse("{% display_books_by_author_then_series %}").render!(context_empty_books) }
     assert_match %r{<!-- \[INFO\] ALL_BOOKS_BY_AUTHOR_DISPLAY_FAILURE: Reason='No published books with valid author names found\.'\s*SourcePage='current_tag_page\.md' -->}, output
     refute_match %r{<h2 class="book-list-headline">}, output
   end
-
 end

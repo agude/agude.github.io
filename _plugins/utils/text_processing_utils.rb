@@ -59,4 +59,23 @@ module TextProcessingUtils
     normalized
   end
 
+  # Formats an array of strings into a grammatically correct sentence list.
+  # e.g., ["A"] -> "A"
+  #       ["A", "B"] -> "A and B"
+  #       ["A", "B", "C"] -> "A, B, and C"
+  # @param items [Array<String>] The array of strings to format.
+  # @return [String] The formatted string.
+  def self.format_list_as_sentence(items)
+    return "" if items.nil? || items.empty?
+    items = items.map(&:to_s) # Ensure all are strings
+    case items.length
+    when 1
+      items[0]
+    when 2
+      "#{items[0]} and #{items[1]}"
+    else
+      items[0..-2].join(', ') + ", and " + items[-1]
+    end
+  end
+
 end
