@@ -248,3 +248,15 @@ abbr.unit-abbr {
     cursor: help;
   }
 }
+
+// et al.
+abbr.etal {
+  border: none;
+  cursor: inherit;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: normal;
+  font-size: inherit;
+  text-decoration: none;
+  text-transform: none;
+}

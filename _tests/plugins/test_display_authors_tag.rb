@@ -10,7 +10,10 @@ class TestDisplayAuthorsTag < Minitest::Test
       {
         'page' => {
           'single_author_list' => ['Jane Doe'],
-          'multi_author_list' => ['John Smith', 'Jane Doe', 'Peter Pan'],
+          'two_author_list' => ['John Smith', 'Jane Doe'],
+          'three_author_list' => ['John Smith', 'Jane Doe', 'Peter Pan'],
+          'four_author_list' => ['John Smith', 'Jane Doe', 'Peter Pan', 'Alice Wonderland'],
+          'five_author_list' => ['John Smith', 'Jane Doe', 'Peter Pan', 'Alice Wonderland', 'Bob The Builder'],
           'single_author_string' => 'Richard Roe',
           'empty_author_list' => [],
           'nil_author_list' => nil,
@@ -27,13 +30,19 @@ class TestDisplayAuthorsTag < Minitest::Test
     @mock_link_jane = "<a href=\"/authors/jane-doe\"><span class=\"author-name\">Jane Doe</span></a>"
     @mock_link_john = "<a href=\"/authors/john-smith\"><span class=\"author-name\">John Smith</span></a>"
     @mock_link_peter = "<a href=\"/authors/peter-pan\"><span class=\"author-name\">Peter Pan</span></a>"
+    @mock_link_alice = "<a href=\"/authors/alice-wonderland\"><span class=\"author-name\">Alice Wonderland</span></a>"
+    @mock_link_bob = "<a href=\"/authors/bob-builder\"><span class=\"author-name\">Bob The Builder</span></a>"
     @mock_link_richard = "<a href=\"/authors/richard-roe\"><span class=\"author-name\">Richard Roe</span></a>"
 
     # Expected plain text span
     @plain_span_jane = "<span class=\"author-name\">Jane Doe</span>"
     @plain_span_john = "<span class=\"author-name\">John Smith</span>"
     @plain_span_peter = "<span class=\"author-name\">Peter Pan</span>"
+    @plain_span_alice = "<span class=\"author-name\">Alice Wonderland</span>"
+    @plain_span_bob = "<span class=\"author-name\">Bob The Builder</span>"
     @plain_span_richard = "<span class=\"author-name\">Richard Roe</span>"
+
+    @etal_abbr = "<abbr class=\"etal\">et al.</abbr>"
 
     @silent_logger_stub = Object.new.tap do |logger|
       def logger.warn(topic, message); end; def logger.error(topic, message); end
@@ -51,6 +60,8 @@ class TestDisplayAuthorsTag < Minitest::Test
       when 'Jane Doe' then @mock_link_jane
       when 'John Smith' then @mock_link_john
       when 'Peter Pan' then @mock_link_peter
+      when 'Alice Wonderland' then @mock_link_alice
+      when 'Bob The Builder' then @mock_link_bob
       when 'Richard Roe' then @mock_link_richard
       else "<a href=\"...\"><span class=\"author-name\">#{name}</span></a>" # Fallback
       end
@@ -108,20 +119,34 @@ class TestDisplayAuthorsTag < Minitest::Test
     assert_equal @mock_link_richard, output
   end
 
-  def test_render_multiple_authors_linked_default
-    # page.multi_author_list is ['John Smith', 'Jane Doe', 'Peter Pan']
-    # Expected: "John Smith link, Jane Doe link, and Peter Pan link"
-    expected_output = "#{@mock_link_john}, #{@mock_link_jane}, and #{@mock_link_peter}"
-    output = render_tag("page.multi_author_list")
+  def test_render_two_authors_linked_default
+    # page.two_author_list is ['John Smith', 'Jane Doe']
+    expected_output = "#{@mock_link_john} and #{@mock_link_jane}"
+    output = render_tag("page.two_author_list")
     assert_equal expected_output, output
   end
 
-  def test_render_two_authors_linked_default
-    @context['page']['two_authors'] = ['John Smith', 'Jane Doe']
-    expected_output = "#{@mock_link_john} and #{@mock_link_jane}"
-    output = render_tag("page.two_authors")
+  def test_render_three_authors_linked_default
+    # page.three_author_list is ['John Smith', 'Jane Doe', 'Peter Pan']
+    expected_output = "#{@mock_link_john}, #{@mock_link_jane}, and #{@mock_link_peter}"
+    output = render_tag("page.three_author_list")
     assert_equal expected_output, output
   end
+
+  def test_render_four_authors_linked_default
+    # page.four_author_list is ['John Smith', 'Jane Doe', 'Peter Pan', 'Alice Wonderland']
+    expected_output = "#{@mock_link_john} #{@etal_abbr}"
+    output = render_tag("page.four_author_list")
+    assert_equal expected_output, output
+  end
+
+  def test_render_five_authors_linked_default
+    # page.five_author_list is ['John Smith', 'Jane Doe', 'Peter Pan', 'Alice Wonderland', 'Bob The Builder']
+    expected_output = "#{@mock_link_john} #{@etal_abbr}"
+    output = render_tag("page.five_author_list")
+    assert_equal expected_output, output
+  end
+
 
   # --- Test 'linked' option ---
   def test_render_single_author_unlinked
@@ -134,21 +159,27 @@ class TestDisplayAuthorsTag < Minitest::Test
     assert_equal @plain_span_jane, output
   end
 
-  def test_render_multiple_authors_unlinked
+  def test_render_three_authors_unlinked
     expected_output = "#{@plain_span_john}, #{@plain_span_jane}, and #{@plain_span_peter}"
-    output = render_tag("page.multi_author_list linked='false'")
+    output = render_tag("page.three_author_list linked='false'")
     assert_equal expected_output, output
   end
 
-  def test_render_multiple_authors_linked_explicitly_true_string
-    expected_output = "#{@mock_link_john}, #{@mock_link_jane}, and #{@mock_link_peter}"
-    output = render_tag("page.multi_author_list linked='true'")
+  def test_render_four_authors_unlinked
+    expected_output = "#{@plain_span_john} #{@etal_abbr}"
+    output = render_tag("page.four_author_list linked='false'")
     assert_equal expected_output, output
   end
 
-  def test_render_multiple_authors_linked_explicitly_true_variable
+  def test_render_three_authors_linked_explicitly_true_string
     expected_output = "#{@mock_link_john}, #{@mock_link_jane}, and #{@mock_link_peter}"
-    output = render_tag("page.multi_author_list linked=page.linked_true_var")
+    output = render_tag("page.three_author_list linked='true'")
+    assert_equal expected_output, output
+  end
+
+  def test_render_four_authors_linked_explicitly_true_variable
+    expected_output = "#{@mock_link_john} #{@etal_abbr}"
+    output = render_tag("page.four_author_list linked=page.linked_true_var")
     assert_equal expected_output, output
   end
 

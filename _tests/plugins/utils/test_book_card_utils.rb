@@ -38,6 +38,16 @@ class TestBookCardUtils < Minitest::Test
     }
     @book_object_no_authors = create_doc(@book_data_no_authors, '/book_no_authors.html')
 
+    # Book data for four authors scenario
+    @book_data_four_authors = {
+      'title' => 'Four Author Book',
+      'image' => '/images/four.jpg',
+      'book_authors' => ['First Author', 'Second Author', 'Third Author', 'Fourth Author'],
+      'rating' => 4,
+      'excerpt' => Struct.new(:output).new("<p>Many authors.</p>")
+    }
+    @book_object_four_authors = create_doc(@book_data_four_authors, '/book_four.html')
+
 
     @silent_logger_stub = Object.new.tap do |logger|
       def logger.warn(topic, message); end; def logger.error(topic, message); end
@@ -82,7 +92,8 @@ class TestBookCardUtils < Minitest::Test
           # AuthorLinkUtils will be called once for 'Test Author'
           AuthorLinkUtils.stub :render_author_link, mock_author_link_html_single do
             # TextProcessingUtils.format_list_as_sentence will be called with the result
-            TextProcessingUtils.stub :format_list_as_sentence, expected_formatted_authors do
+            # For single author, it returns the single item.
+            TextProcessingUtils.stub :format_list_as_sentence, ->(list) { list.first } do
               RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
                 CardRendererUtils.stub :render_card, ->(context:, card_data:) { captured_card_data = card_data; "mocked_card" } do
                   Jekyll.stub :logger, @silent_logger_stub do
@@ -139,12 +150,12 @@ class TestBookCardUtils < Minitest::Test
             author_link_calls += 1
             name == 'Author One' ? mock_author1_link_html : mock_author2_link_html
           } do
-            TextProcessingUtils.stub :format_list_as_sentence, expected_formatted_authors do
-              RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
-                CardRendererUtils.stub :render_card, ->(context:, card_data:) { captured_card_data = card_data; "mocked_multi_author_card" } do
-                  Jekyll.stub :logger, @silent_logger_stub do
-                    BookCardUtils.render(book_to_test, @context)
-                  end
+            # Let TextProcessingUtils.format_list_as_sentence run its actual logic for 2 authors
+            # TextProcessingUtils.stub :format_list_as_sentence, expected_formatted_authors do
+            RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
+              CardRendererUtils.stub :render_card, ->(context:, card_data:) { captured_card_data = card_data; "mocked_multi_author_card" } do
+                Jekyll.stub :logger, @silent_logger_stub do
+                  BookCardUtils.render(book_to_test, @context)
                 end
               end
             end
@@ -156,6 +167,67 @@ class TestBookCardUtils < Minitest::Test
     refute_nil captured_card_data
     assert_equal expected_card_data, captured_card_data
   end
+
+  def test_render_book_card_four_plus_authors_uses_etal
+    book_to_test = @book_object_four_authors # Authors: ['First Author', 'Second Author', 'Third Author', 'Fourth Author']
+
+    mock_base_data = {
+      site: @site, data_source_for_keys: book_to_test.data, data_for_description: book_to_test.data,
+      absolute_url: "http://example.com/book_four.html",
+      absolute_image_url: "http://example.com/images/four.jpg",
+      raw_title: "Four Author Book", log_output: ""
+    }
+    mock_prepared_title = "Four Author Book Prepared"
+    mock_description_html = "<p>Many authors.</p>"
+    mock_first_author_link_html = "<a href=\"...\">First Author</a>"
+    # For "et al.", only the first author's link is used by TextProcessingUtils.format_list_as_sentence
+    expected_formatted_authors_with_etal = "#{mock_first_author_link_html} <abbr class=\"etal\">et al.</abbr>"
+    mock_rating_stars_html = "<div class=\"book-rating star-rating-4\">****</div>"
+
+    expected_author_element_html = "    <span class=\"by-author\"> by #{expected_formatted_authors_with_etal}</span>\n"
+    expected_rating_element_html = "    #{mock_rating_stars_html}\n"
+
+    expected_card_data = {
+      base_class: "book-card", url: mock_base_data[:absolute_url],
+      image_url: mock_base_data[:absolute_image_url], image_alt: "Book cover of Four Author Book.",
+      image_div_class: "card-book-cover", title_html: "<strong><cite class=\"book-title\">#{mock_prepared_title}</cite></strong>",
+      extra_elements_html: [expected_author_element_html, expected_rating_element_html],
+      description_html: mock_description_html,
+      description_wrapper_html_open: "    <div class=\"card-element card-text\">\n      ",
+      description_wrapper_html_close: "\n    </div>\n"
+    }
+    captured_card_data = nil
+    author_link_calls = 0 # To count how many times AuthorLinkUtils.render_author_link is called
+
+    CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      TypographyUtils.stub :prepare_display_title, mock_prepared_title do
+        CardDataExtractorUtils.stub :extract_description_html, mock_description_html do
+          # Stub AuthorLinkUtils.render_author_link. It will be called for each of the 4 authors.
+          AuthorLinkUtils.stub :render_author_link, ->(name, _ctx) {
+            author_link_calls += 1
+            # Return a simple link; TextProcessingUtils will only use the first one for "et al."
+            "<a href=\"...\">#{name}</a>"
+          } do
+            # Let TextProcessingUtils.format_list_as_sentence run its actual logic
+            RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
+              CardRendererUtils.stub :render_card, ->(context:, card_data:) { captured_card_data = card_data; "mocked_four_author_card" } do
+                Jekyll.stub :logger, @silent_logger_stub do
+                  BookCardUtils.render(book_to_test, @context)
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+
+    assert_equal 4, author_link_calls, "AuthorLinkUtils.render_author_link should be called for all four authors"
+    refute_nil captured_card_data
+    # The key assertion is that `expected_author_element_html` (which contains the "et al." formatting)
+    # is correctly assembled and passed to CardRendererUtils.
+    assert_equal expected_card_data, captured_card_data
+  end
+
 
   def test_render_book_card_no_authors_logs_warning
     @site.config['plugin_logging']['BOOK_CARD_MISSING_AUTHORS'] = true

@@ -59,11 +59,13 @@ module TextProcessingUtils
     normalized
   end
 
-  # Formats an array of strings into a grammatically correct sentence list.
-  # e.g., ["A"] -> "A"
-  #       ["A", "B"] -> "A and B"
-  #       ["A", "B", "C"] -> "A, B, and C"
-  # @param items [Array<String>] The array of strings to format.
+  # Formats an array of strings (expected to be pre-processed HTML elements like links or spans)
+  # into a grammatically correct sentence list.
+  # 1 author: Author1
+  # 2 authors: Author1 and Author2
+  # 3 authors: Author1, Author2, and Author3
+  # 4+ authors: Author1 <abbr class="etal">et al.</abbr>
+  # @param items [Array<String>] The array of pre-processed HTML strings to format.
   # @return [String] The formatted string.
   def self.format_list_as_sentence(items)
     return "" if items.nil? || items.empty?
@@ -73,8 +75,10 @@ module TextProcessingUtils
       items[0]
     when 2
       "#{items[0]} and #{items[1]}"
-    else
-      items[0..-2].join(', ') + ", and " + items[-1]
+    when 3
+      "#{items[0]}, #{items[1]}, and #{items[2]}"
+    else # 4 or more authors
+      "#{items[0]} <abbr class=\"etal\">et al.</abbr>"
     end
   end
 

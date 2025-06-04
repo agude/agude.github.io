@@ -128,4 +128,51 @@ class TestTextProcessingUtils < Minitest::Test
     assert_equal "complex title with spaces", TextProcessingUtils.normalize_title("  Complex\nTitle   with\n\nSpaces  ")
   end
 
+  # --- Tests for format_list_as_sentence ---
+  def test_format_list_as_sentence_nil_or_empty
+    assert_equal "", TextProcessingUtils.format_list_as_sentence(nil)
+    assert_equal "", TextProcessingUtils.format_list_as_sentence([])
+  end
+
+  def test_format_list_as_sentence_one_item
+    items = ["Author A"]
+    assert_equal "Author A", TextProcessingUtils.format_list_as_sentence(items)
+  end
+
+  def test_format_list_as_sentence_two_items
+    items = ["Author A", "Author B"]
+    assert_equal "Author A and Author B", TextProcessingUtils.format_list_as_sentence(items)
+  end
+
+  def test_format_list_as_sentence_three_items
+    items = ["Author A", "Author B", "Author C"]
+    assert_equal "Author A, Author B, and Author C", TextProcessingUtils.format_list_as_sentence(items)
+  end
+
+  def test_format_list_as_sentence_four_items
+    items = ["Author A", "Author B", "Author C", "Author D"]
+    expected = "Author A <abbr class=\"etal\">et al.</abbr>"
+    assert_equal expected, TextProcessingUtils.format_list_as_sentence(items)
+  end
+
+  def test_format_list_as_sentence_five_items
+    items = ["Author A", "Author B", "Author C", "Author D", "Author E"]
+    expected = "Author A <abbr class=\"etal\">et al.</abbr>"
+    assert_equal expected, TextProcessingUtils.format_list_as_sentence(items)
+  end
+
+  def test_format_list_as_sentence_items_are_html
+    # The items are expected to be pre-processed HTML (links or spans)
+    item1 = "<a href='/a'>Author A</a>"
+    item2 = "<span>Author B</span>"
+    item3 = "<a href='/c'>Author C</a>"
+    item4 = "<span>Author D</span>"
+
+    assert_equal item1, TextProcessingUtils.format_list_as_sentence([item1])
+    assert_equal "#{item1} and #{item2}", TextProcessingUtils.format_list_as_sentence([item1, item2])
+    assert_equal "#{item1}, #{item2}, and #{item3}", TextProcessingUtils.format_list_as_sentence([item1, item2, item3])
+    expected_four = "#{item1} <abbr class=\"etal\">et al.</abbr>"
+    assert_equal expected_four, TextProcessingUtils.format_list_as_sentence([item1, item2, item3, item4])
+  end
+
 end
