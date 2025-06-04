@@ -1,7 +1,7 @@
 ---
 date: 2024-09-06
 title: Valuable Humans in Transit and Other Stories
-book_author: qntm
+book_authors: qntm
 series: null
 book_number: 1
 rating: 4
@@ -9,12 +9,12 @@ image: /books/covers/valuable_humans_in_transit_and_other_stories.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a collection of short
-stories by <span class="author-name">{{ page.book_author }}</span>.
+stories by <span class="author-name">{{ page.book_authors }}</span>.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 
 {% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
 {% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}

@@ -1,7 +1,7 @@
 ---
 date: 2024-07-02
 title: Mission of Gravity
-book_author: Hal Clement
+book_authors: Hal Clement
 series: Mesklin
 book_number: 1
 rating: 3
@@ -14,7 +14,7 @@ much higher than Earth's. It follows Barlennan, a Mesklinite, as he sails the
 _Bree_ across the planet in search of a lost human rocket ship.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture forwards %}{% author_link "Robert L. Forward" possessive %}{% endcapture %}
 {% capture forward %}{% author_link "Robert L. Forward" %}{% endcapture %}
 {% capture cheela %}{% series_link "Cheela" %}{% endcapture %}

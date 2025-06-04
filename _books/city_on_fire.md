@@ -1,7 +1,7 @@
 ---
 date: 2025-05-16
 title: City on Fire
-book_author: Walter Jon Williams
+book_authors: Walter Jon Williams
 series: Metropolitan
 book_number: 2
 rating: 4
@@ -9,16 +9,16 @@ image: /books/covers/city_on_fire.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the second book in the
+class="author-name">{{ page.book_authors }}</span>, is the second book in the
 <span class="book-series">{{ page.series }}</span> series. It picks up right
 as the smoke clears in Caraqui after the revolution, leaving Aiah and
 Constantine to figure out how to govern.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_author | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture m1 %}{% book_link "Metropolitan" %}{% endcapture %}

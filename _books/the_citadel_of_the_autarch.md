@@ -1,14 +1,14 @@
 ---
 date: 2024-01-26
 title: The Citadel of the Autarch
-book_author: Gene Wolfe
+book_authors: Gene Wolfe
 series: The Book of the New Sun
 book_number: 4
 rating: 4
 image: /books/covers/the_citadel_of_the_autarch.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the fourth book in {% author_link page.book_author %}'s <span
+<cite class="book-title">{{ page.title }}</cite> is the fourth book in {% author_link page.book_authors %}'s <span
 class="book-series">{{ page.series }}</span> tetralogy. It follows Severian as
 he reaches the front in the war against the Ascians and assumes the role of
 Autarch.

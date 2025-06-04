@@ -1,7 +1,7 @@
 ---
 date: 2024-10-02
 title: Inversions
-book_author: Iain M. Banks
+book_authors: Iain M. Banks
 series: Culture
 book_number: 6
 rating: 5
@@ -9,16 +9,16 @@ image: /books/covers/inversions.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the sixth <span
+class="author-name">{{ page.book_authors }}</span>, is the sixth <span
 class="book-series">{{ page.series }}</span> book, but it is very different
 from typical Culture novels: there are no spaceships and almost no advanced
 technology. Instead, it follows Culture citizens DeWar and Vosill as they
 manipulate a medieval society.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
 
 {% capture c1 %}{% book_link "Consider Phlebas" %}{% endcapture %}

@@ -1,7 +1,7 @@
 ---
 date: 2025-03-16
 title: A Memory Called Empire
-book_author: Arkady Martine
+book_authors: Arkady Martine
 series: Teixcalaan
 book_number: 1
 rating: 5
@@ -11,16 +11,16 @@ awards:
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the first book in the
+class="author-name">{{ page.book_authors }}</span>, is the first book in the
 <span class="book-series">{{ page.series }}</span> series. It follows Mahit
 Dzmare, an ambassador from the space station Lsel, as she tries to save her
 home from being annexed by the Teixcalaanli empire.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 {% capture teix2 %}{% book_link "A Desolation Called Peace" %}{% endcapture %}
 
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}

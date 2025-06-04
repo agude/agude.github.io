@@ -1,7 +1,7 @@
 ---
 date: 2024-04-26
 title: Flowers for Algernon
-book_author: Daniel Keyes
+book_authors: Daniel Keyes
 series: null
 book_number: 1
 rating: 3
@@ -17,7 +17,7 @@ who undergoes surgery to enhance his cognitive abilities. While it is a
 beautifully crafted narrative, it failed to hold my attention.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}

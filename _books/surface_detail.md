@@ -1,7 +1,7 @@
 ---
 date: 2024-12-02
 title: Surface Detail
-book_author: Iain M. Banks
+book_authors: Iain M. Banks
 series: Culture
 book_number: 9
 rating: 5
@@ -9,15 +9,15 @@ image: /books/covers/surface_detail.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the ninth <span
+class="author-name">{{ page.book_authors }}</span>, is the ninth <span
 class="book-series">{{ page.series }}</span> book. It follows Lededje Y'breq
 as she seeks revenge for her own murder, set against the backdrop of a
 galactic conflict over virtual hells.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
 {% capture culture %}{% series_link page.series %}{% endcapture %}
 {% capture banks %}<span class="author-name">Banks</span>{% endcapture %}

@@ -1,7 +1,7 @@
 ---
 date: 2023-11-30
 title: Serpent Valley
-book_author: Scott Warren
+book_authors: Scott Warren
 series: War Horses
 book_number: 3
 rating: 5
@@ -14,7 +14,7 @@ action-packed read---but without the flaws holding back its predecessors.
 Easily my favorite of the series so far!
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 
 {% capture ymir %}{% book_link "Ymir" %}{% endcapture %}
 {% capture dog_soldier %}{% book_link "Dog Soldier" %}{% endcapture %}

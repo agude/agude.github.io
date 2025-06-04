@@ -1,7 +1,7 @@
 ---
 date: 2025-03-01
 title: Stand on Zanzibar
-book_author: John Brunner
+book_authors: John Brunner
 series: null
 book_number: 1
 rating: 2
@@ -11,14 +11,14 @@ awards:
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is a Hugo-winning, New Wave
+class="author-name">{{ page.book_authors }}</span>, is a Hugo-winning, New Wave
 science fiction novel that explores overpopulation, corporate power, and
 societal collapse.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 
 {% capture make_room_make_room %}{% book_link "Make Room! Make Room!" %}{% endcapture %}
 {% capture harry_harrisons %}{% author_link "Harry Harrison" possessive %}{% endcapture %}

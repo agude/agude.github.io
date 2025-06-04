@@ -1,7 +1,7 @@
 ---
 date: 2024-02-18
 title: Redwall
-book_author: Brian Jacques
+book_authors: Brian Jacques
 series: Redwall
 book_number: 1
 rating: 4
@@ -9,7 +9,7 @@ image: /books/covers/redwall.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the first book in <span
-class="author-name">{{ page.book_author }}</span>'s <span
+class="author-name">{{ page.book_authors }}</span>'s <span
 class="book-series">{{ page.series }}</span> series. It tells the story of
 Mathias, a mouse who follows his destiny to become the warrior of Redwall
 Abbey and defeat the evil rat Cluny the Scourge.

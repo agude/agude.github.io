@@ -1,7 +1,7 @@
 ---
 date: 2023-10-03
 title: The Temporal Void
-book_author: Peter F. Hamilton
+book_authors: Peter F. Hamilton
 series: The Void Trilogy
 book_number: 2
 rating: 4
@@ -15,7 +15,7 @@ books in a trilogy, it does so slowly. Much of this slowness is due to
 multiple, massive, 200-page chapters following Edeard in the Void.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 
 {% capture dreaming_void %}{% book_link "The Dreaming Void" %}{% endcapture %}
 

@@ -1,7 +1,7 @@
 ---
 date: 2025-01-12
 title: Clay's Ark
-book_author: Octavia E. Butler
+book_authors: Octavia E. Butler
 series: Patternist
 book_number: 3
 rating: 3
@@ -9,13 +9,13 @@ image: /books/covers/clays_ark.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the third book in the
+class="author-name">{{ page.book_authors }}</span>, is the third book in the
 <span class="book-series">{{ page.series }}</span> series. It follows Eli
 Doyle, an astronaut, after he has returned to earth with an alien infection
 and attempts to contain it.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture p1 %}{% book_link "Wild Seed" %}{% endcapture %}

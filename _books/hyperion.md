@@ -1,7 +1,7 @@
 ---
 date: 2023-10-17
 title: Hyperion
-book_author: Dan Simmons
+book_authors: Dan Simmons
 series: Hyperion Cantos
 book_number: 1
 rating: 4

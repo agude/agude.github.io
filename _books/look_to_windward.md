@@ -1,7 +1,7 @@
 ---
 date: 2024-10-16
 title: Look to Windward
-book_author: Iain M. Banks
+book_authors: Iain M. Banks
 series: Culture
 book_number: 7
 rating: 5
@@ -9,14 +9,14 @@ image: /books/covers/look_to_windward.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the seventh <span
+class="author-name">{{ page.book_authors }}</span>, is the seventh <span
 class="book-series">{{ page.series }}</span> book. It explores the aftermath
 of the Idiran--Culture War and Chelgrian civil war.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
 
 {% capture c1 %}{% book_link "Consider Phlebas" %}{% endcapture %}

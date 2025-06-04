@@ -1,7 +1,7 @@
 ---
 date: 2024-04-04
 title: Dog Soldier
-book_author: Scott Warren
+book_authors: Scott Warren
 series: War Horses
 book_number: 4
 rating: 4
@@ -9,12 +9,12 @@ image: /books/covers/dog_soldier.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the fourth book in the
+class="author-name">{{ page.book_authors }}</span>, is the fourth book in the
 <span class="book-series">{{ page.series }}</span> series. It concludes the
 Cinto DaSelva campaign and further develops the setting's backstory.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture w1 %}{% book_link "Chevalier" %}{% endcapture %}

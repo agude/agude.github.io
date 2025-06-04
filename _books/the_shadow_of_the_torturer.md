@@ -1,7 +1,7 @@
 ---
 date: 2023-12-25
 title: The Shadow of the Torturer
-book_author: Gene Wolfe
+book_authors: Gene Wolfe
 series: The Book of the New Sun
 book_number: 1
 rating: 4
@@ -9,14 +9,14 @@ image: /books/covers/the_shadow_of_the_torturer.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the first installment in
-<span class="author-name">{{ page.book_author }}</span>'s <span
+<span class="author-name">{{ page.book_authors }}</span>'s <span
 class="book-series">{{ page.series }}</span> tetralogy. It follows the life of
 Severian, a torturer and executioner on a dying Earth. The pacing is slow, but
 Wolfe's worldbuilding is fantastic, crafting a setting that pulls the reader
 in.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 
 {% capture wolfes %}<span class="author-name">Wolfe</span>'s{% endcapture %}
 

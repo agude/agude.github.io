@@ -1,7 +1,7 @@
 ---
 date: 2025-01-05
 title: Mind of My Mind
-book_author: Octavia E. Butler
+book_authors: Octavia E. Butler
 series: Patternist
 book_number: 2
 rating: 2
@@ -9,12 +9,12 @@ image: /books/covers/mind_of_my_mind.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the second book in the
+class="author-name">{{ page.book_authors }}</span>, is the second book in the
 <span class="book-series">{{ page.series }}</span> series. It tells the origin
 story of the Patternists.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture p1 %}{% book_link "Wild Seed" %}{% endcapture %}

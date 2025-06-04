@@ -1,7 +1,7 @@
 ---
 date: 2024-06-20
 title: Starquake
-book_author: Robert L. Forward
+book_authors: Robert L. Forward
 series: Cheela
 book_number: 2
 rating: 5
@@ -10,11 +10,11 @@ image: /books/covers/starquake.jpg
 
 <cite class="book-title">{{ page.title }}</cite> is the second book in the
 <span class="book-series">{{ page.series }}</span> series by <span
-class="author-name">{{ page.book_author }}</span>. It follows the Cheela as
+class="author-name">{{ page.book_authors }}</span>. It follows the Cheela as
 they rescue the humans and rebuild after a devastating starquake.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture dragons_egg %}{% book_link "Dragon's Egg" %}{% endcapture %}
 {% capture lion %}{% book_link "The Lion and the Mouse" %}{% endcapture %}
 {% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}

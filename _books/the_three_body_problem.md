@@ -1,7 +1,7 @@
 ---
 date: 2023-04-01
 title: The Three-Body Problem
-book_author: Liu Cixin
+book_authors: Liu Cixin
 series: Remembrance of Earth's Past
 book_number: 1
 rating: 1
@@ -16,7 +16,7 @@ just gotten back into fiction. I bought it for my flight from Melbourne to San
 Francisco and I threw it in the airport trash as I got off the plane.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 
 Or that's what I wish I had done. Instead, I had 50 pages to go when I landed
 and I finished it during the ride home, where I threw it in the trash (after

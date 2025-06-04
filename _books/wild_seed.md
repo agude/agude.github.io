@@ -1,7 +1,7 @@
 ---
 date: 2024-12-20
 title: Wild Seed
-book_author: Octavia E. Butler
+book_authors: Octavia E. Butler
 series: Patternist
 book_number: 1
 rating: 4
@@ -9,17 +9,17 @@ image: /books/covers/wild_seed.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the first book in the
+class="author-name">{{ page.book_authors }}</span>, is the first book in the
 <span class="book-series">{{ page.series }}</span> series, though it was the
 fourth to be published. It tells the origin story of Doro---a malevolent
 spirit---and Anyanwu---an immortal woman.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture p2 %}{% book_link "Mind of My Mind" %}{% endcapture %}
-{% capture this_authors %}{% author_link page.book_author link_text="Butler" possessive %}{% endcapture %}
+{% capture this_authors %}{% author_link page.book_authors link_text="Butler" possessive %}{% endcapture %}
 
 {% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
 {% capture culture_series %}{% series_link "Culture" %} series{% endcapture %}

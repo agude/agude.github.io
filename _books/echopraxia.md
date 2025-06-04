@@ -1,7 +1,7 @@
 ---
 date: 2024-04-19
 title: Echopraxia
-book_author: Peter Watts
+book_authors: Peter Watts
 series: Firefall
 book_number: 2
 rating: 5
@@ -9,7 +9,7 @@ image: /books/covers/echopraxia.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the second book in <span
-class="author-name">{{ page.book_author }}</span>'s <span
+class="author-name">{{ page.book_authors }}</span>'s <span
 class="book-series">{{ page.series }}</span> series, unfolding at roughly the
 same time as {% book_link "Blindsight" %}. It follows
 parasitologist Daniel Brüks, who gets unwillingly dragged into a conflict

@@ -1,7 +1,7 @@
 ---
 date: 2025-04-28
 title: Metropolitan
-book_author: Walter Jon Williams
+book_authors: Walter Jon Williams
 series: Metropolitan
 book_number: 1
 rating: 4
@@ -9,16 +9,16 @@ image: /books/covers/metropolitan.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the first book in the
+class="author-name">{{ page.book_authors }}</span>, is the first book in the
 <span class="book-series">{{ page.series }}</span> series. It is the story of
 Aiah, a young woman who discovers an illegal source of magical plasm, and how
 it draws her into conflict with the world.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_author | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 
 {% capture city %}{% book_link "City on Fire" %}{% endcapture %}
 

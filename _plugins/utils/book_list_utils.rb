@@ -88,7 +88,12 @@ module BookListUtils
 
     if author_name_filter && !author_name_filter.to_s.strip.empty?
       normalized_author_filter = author_name_filter.to_s.strip.downcase
-      author_books = all_published.select { |book| book.data['book_author']&.strip&.downcase == normalized_author_filter }
+      author_books = all_published.select do |book|
+        # Use FrontMatterUtils to get the list of authors for the current book
+        authors_list = FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
+        # Check if any author in the list matches the filter (case-insensitive)
+        authors_list.any? { |auth| auth.strip.downcase == normalized_author_filter }
+      end
 
       # If author_books is empty here, it means the author exists but has no books, or the author doesn't exist.
       # This is an expected empty state for a valid filter.
@@ -160,17 +165,27 @@ module BookListUtils
     end
 
     all_published_books = _get_all_published_books(site)
+    books_by_author_name = {} # Use a hash for easier accumulation
 
-    # Group books by author name (case-insensitive for grouping, but preserve original name for display)
-    # Filter out books with nil or empty author names before grouping.
-    books_by_author_name = all_published_books
-      .select { |book| book.data['book_author'] && !book.data['book_author'].to_s.strip.empty? }
-      .group_by { |book| book.data['book_author'].to_s.strip } # Group by original, stripped author name
+    all_published_books.each do |book|
+      # Use FrontMatterUtils to get the list of authors for the current book
+      author_names_for_book = FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
+
+      author_names_for_book.each do |author_name_str|
+        author_name = author_name_str.strip # Ensure stripped name for grouping key
+        next if author_name.empty?
+
+        books_by_author_name[author_name] ||= []
+        books_by_author_name[author_name] << book
+      end
+    end
 
     authors_data_list = []
     books_by_author_name.each do |author_name, books_for_this_author|
-      # Structure this author's books into standalone and series
-      structured_author_books = _structure_books_for_display(books_for_this_author)
+      # Deduplicate books for this author in case a book was added multiple times
+      # (e.g., if 'book_authors' had ["A", "A"] - though FrontMatterUtils.uniq handles this for the list itself)
+      # However, the grouping logic above should handle this correctly by adding the book object once per unique author.
+      structured_author_books = _structure_books_for_display(books_for_this_author.uniq) # .uniq on book objects
       authors_data_list << {
         author_name: author_name, # Use the original (but stripped) author name from grouping
         standalone_books: structured_author_books[:standalone_books],

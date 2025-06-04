@@ -1,7 +1,8 @@
 # _plugins/utils/json_ld_generators/book_review_generator.rb
 require_relative '../json_ld_utils'
 require_relative '../url_utils'
-require 'jekyll' # For logger
+require_relative '../front_matter_utils'
+require 'jekyll'
 
 module BookReviewLdGenerator
   def self.generate_hash(document, site)
@@ -46,12 +47,16 @@ module BookReviewLdGenerator
     # The URL for the Book item within the Review should be the review page itself
     item_reviewed["url"] = review_page_url if review_page_url
 
+    # Get author list using FrontMatterUtils
+    author_names = FrontMatterUtils.get_list_from_string_or_array(document.data['book_authors'])
+    if author_names.any?
+      if author_names.length == 1
+        item_reviewed["author"] = JsonLdUtils.build_document_person_entity(author_names.first)
+      else
+        item_reviewed["author"] = author_names.map { |name| JsonLdUtils.build_document_person_entity(name) }.compact
+      end
+    end
 
-    # Book Author (From page.book_author)
-    book_author_entity = JsonLdUtils.build_document_person_entity(document.data['book_author'])
-    item_reviewed["author"] = book_author_entity if book_author_entity
-
-    # Book Image (From page.image)
     book_image_entity = JsonLdUtils.build_image_object_entity(document.data['image'], site)
     item_reviewed["image"] = book_image_entity if book_image_entity # Assign the whole object
 
@@ -65,8 +70,8 @@ module BookReviewLdGenerator
       # Clean up array: convert to string, strip, remove nils/empty
       cleaned_awards = awards_input.map(&:to_s).map(&:strip).compact.reject(&:empty?)
       item_reviewed["award"] = cleaned_awards if cleaned_awards.any?
-    elsif awards_input # Log if awards is present but not an array
-      doc_identifier = document.url || document.path || document.relative_path
+    elsif awards_input
+      doc_identifier = document.url || document.data['path'] || document.relative_path
       Jekyll.logger.warn "JSON-LD (BookReviewGen):", "Front matter 'awards' for '#{doc_identifier}' is not an Array, skipping awards."
     end
 

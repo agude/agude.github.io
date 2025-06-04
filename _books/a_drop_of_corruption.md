@@ -1,7 +1,7 @@
 ---
 date: 2025-04-18 20:31:09 -0700
 title: A Drop of Corruption
-book_author: Robert Jackson Bennett
+book_authors: Robert Jackson Bennett
 series: Shadow of the Leviathan
 book_number: 2
 rating: 4
@@ -9,17 +9,17 @@ image: /books/covers/a_drop_of_corruption.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the second <span
+class="author-name">{{ page.book_authors }}</span>, is the second <span
 class="book-series">{{ page.series }}</span> book. This time, Din and Ana
 track down a murderer in the northern Kingdom of Yarrow whose brilliance is
 almost a match for Ana's own.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_author | split: " " | last }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 
 {% capture book1 %}{% book_link "The Tainted Cup" %}{% endcapture %}
 

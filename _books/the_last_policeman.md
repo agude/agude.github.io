@@ -1,7 +1,7 @@
 ---
 date: 2024-09-13
 title: The Last Policeman
-book_author: Ben H. Winters
+book_authors: Ben H. Winters
 series: The Last Policeman
 book_number: 1
 rating: 4
@@ -9,15 +9,15 @@ image: /books/covers/the_last_policeman.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> by <span
-class="author-name">{{ page.book_author }}</span> is an apocalyptic detective
+class="author-name">{{ page.book_authors }}</span> is an apocalyptic detective
 novel set in Concord, New Hampshire. It follows Detective Palace as he tries
 to solve a murder six months before an asteroid is set to wipe out
 civilization.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 
 {% capture gun %}{% book_link "Gun, with Occasional Music" %}{% endcapture %}
 {% capture lpm2 %}{% book_link "Countdown City" %}{% endcapture %}

@@ -1,7 +1,7 @@
 ---
 date: 2023-11-25
 title: Ymir
-book_author: Scott Warren
+book_authors: Scott Warren
 series: War Horses
 book_number: 2
 rating: 4

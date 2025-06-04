@@ -1,7 +1,7 @@
 ---
 date: 2025-05-21
 title: Rogue Protocol
-book_author: Martha Wells
+book_authors: Martha Wells
 series: The Murderbot Diaries
 book_number: 3
 rating: 5
@@ -9,16 +9,16 @@ image: /books/covers/rogue_protocol.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the third book in the
+class="author-name">{{ page.book_authors }}</span>, is the third book in the
 <span class="book-series">{{ page.series }}</span>. It follows Murderbot as it
 investigates a GrayCris terraforming station and, you guessed it, ends up
 saving a group of humans.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_author | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture mb2 %}{% book_link "Artificial Condition" %}{% endcapture %}

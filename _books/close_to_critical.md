@@ -1,7 +1,7 @@
 ---
 date: 2024-07-25
 title: Close to Critical
-book_author: Hal Clement
+book_authors: Hal Clement
 series: Mesklin
 book_number: 2
 rating: 2
@@ -15,9 +15,9 @@ inhospitable planet, forcing humans to collaborate with the primitive native
 aliens to rescue them.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}{% series_link page.series %} series{% endcapture %}
-{% capture clement %}{% author_link page.book_author %}{% endcapture %}
+{% capture clement %}{% author_link page.book_authors %}{% endcapture %}
 {% capture mission %}{% book_link "Mission of Gravity" %}{% endcapture %}
 {% capture star %}{% book_link "Star Light" %}{% endcapture %}
 

@@ -1,7 +1,7 @@
 ---
 date: 2024-01-16
 title: The Sword of the Lictor
-book_author: Gene Wolfe
+book_authors: Gene Wolfe
 series: The Book of the New Sun
 book_number: 3
 rating: 4
@@ -11,7 +11,7 @@ awards:
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the third book in <span
-class="author-name">{{ page.book_author }}</span>'s <span
+class="author-name">{{ page.book_authors }}</span>'s <span
 class="book-series">{{ page.series }}</span> tetralogy. It follows Severian
 after he reaches Thrax and is exiled for a second time.
 

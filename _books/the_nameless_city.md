@@ -1,7 +1,7 @@
 ---
 date: 2024-11-16
 title: The Nameless City
-book_author: H. P. Lovecraft
+book_authors: H. P. Lovecraft
 series: Cthulhu Mythos
 book_number: 2
 rating: 3
@@ -9,16 +9,16 @@ image: /books/covers/the_nameless_city.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a short story by <span
-class="author-name">{{ page.book_author }}</span> set in the <span
+class="author-name">{{ page.book_authors }}</span> set in the <span
 class="book-series">{{ page.series }}</span>. It follows an unnamed narrator
 who discovers a mysterious ancient city and ventures deep beneath its surface.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
-{% capture the_authors_short %}{% author_link page.book_author possessive link_text="Lovecraft" %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
+{% capture the_authors_short %}{% author_link page.book_authors possessive link_text="Lovecraft" %}{% endcapture %}
 
 {% capture torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
 {% capture wolfe %}{% author_link "Gene Wolfe" %}{% endcapture %}

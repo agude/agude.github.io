@@ -1,7 +1,7 @@
 ---
 date: 2025-05-18
 title: Artificial Condition
-book_author: Martha Wells
+book_authors: Martha Wells
 series: The Murderbot Diaries
 book_number: 2
 rating: 5
@@ -9,15 +9,15 @@ image: /books/covers/artificial_condition.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the second book in the
+class="author-name">{{ page.book_authors }}</span>, is the second book in the
 <span class="book-series">{{ page.series }}</span>. It follows Murderbot as it
 digs into its past and, once again, saves some scientists.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_author | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_author possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}

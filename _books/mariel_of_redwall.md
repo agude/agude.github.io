@@ -1,7 +1,7 @@
 ---
 date: 2024-08-26
 title: Mariel of Redwall
-book_author: Brian Jacques
+book_authors: Brian Jacques
 series: Redwall
 book_number: 4
 rating: 4
@@ -14,7 +14,7 @@ as she plots her revenge against the searat pirate Gabool, who attempted to kill
 her and her father, Joseph the Bellmaker.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
 {% capture bellmaker %}{% book_link "The Bellmaker" %}{% endcapture %}
 {% capture salamandstron %}{% book_link "Salamandastron" %}{% endcapture %}

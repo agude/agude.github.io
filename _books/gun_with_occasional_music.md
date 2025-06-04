@@ -1,7 +1,7 @@
 ---
 date: 2024-09-10
 title: Gun, with Occasional Music
-book_author: Jonathan Lethem
+book_authors: Jonathan Lethem
 series: null
 book_number: 1
 rating: 3
@@ -16,7 +16,7 @@ Metcalf, a private inquisitor, as he tries to solve the murder of Maynard
 Stanhunt.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture chandlers %}{% author_link "Raymond Chandler" link_text="Chandler" possessive %}{% endcapture %}

@@ -1,7 +1,7 @@
 ---
 date: 2024-05-19
 title: The Tainted Cup
-book_author: Robert Jackson Bennett
+book_authors: Robert Jackson Bennett
 series: Shadow of the Leviathan
 book_number: 1
 rating: 4

@@ -1,7 +1,7 @@
 ---
 date: 2024-09-05
 title: Heaven's River
-book_author: Dennis E. Taylor
+book_authors: Dennis E. Taylor
 series: Bobiverse
 book_number: 4
 rating: 3
@@ -13,7 +13,7 @@ image: /books/covers/heavens_river.jpg
 storyline and changes the way the stories are told.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 {% capture bobiverse %}{% series_link page.series %}{% endcapture %}
 

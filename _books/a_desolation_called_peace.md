@@ -1,7 +1,7 @@
 ---
 date: 2025-04-05
 title: A Desolation Called Peace
-book_author: Arkady Martine
+book_authors: Arkady Martine
 series: Teixcalaan
 book_number: 2
 rating: 5
@@ -12,16 +12,16 @@ awards:
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_author }}</span>, is the second book in the
+class="author-name">{{ page.book_authors }}</span>, is the second book in the
 <span class="book-series">{{ page.series }}</span> series. It tells the story
 of Mahit and Three Seagrass trying to stop the war between the Teixcalaanli
 Empire and a mysterious alien race.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_author }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_author }}</span>'s{% endcapture %}
+{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_author %}{% endcapture %}
+{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 
 {% capture teix1 %}{% book_link "A Memory Called Empire" %}{% endcapture %}
 

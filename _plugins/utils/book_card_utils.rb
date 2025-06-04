@@ -84,9 +84,21 @@ module BookCardUtils
 
     # --- Extra Elements (Author, Rating) ---
     extra_elements = []
-    if data_accessor['book_author'] && !data_accessor['book_author'].to_s.strip.empty?
-      author_html = AuthorLinkUtils.render_author_link(data_accessor['book_author'], context)
-      extra_elements << "    <span class=\"by-author\"> by #{author_html}</span>\n"
+    # Use FrontMatterUtils to get the list of authors
+    author_names = FrontMatterUtils.get_list_from_string_or_array(data_accessor['book_authors'])
+
+    if author_names.any?
+      author_links = author_names.map { |name| AuthorLinkUtils.render_author_link(name, context) }
+      # Use TextProcessingUtils to format the list of links
+      formatted_author_links = TextProcessingUtils.format_list_as_sentence(author_links)
+      extra_elements << "    <span class=\"by-author\"> by #{formatted_author_links}</span>\n"
+    else
+      # Optionally log if book_authors was expected but resolved to empty
+      # This might be caught by FrontMatterValidator if 'book_authors' is required
+      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
+        context: context, tag_type: "BOOK_CARD_MISSING_AUTHORS",
+        reason: "'book_authors' field resolved to an empty list.",
+        identifiers: { book_title: base_data[:raw_title] }, level: :warn ) # :warn as validator might catch it as :error
     end
 
     if data_accessor.key?('rating')
