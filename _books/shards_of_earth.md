@@ -1,10 +1,10 @@
 ---
-date: 2025-05-25
+date: 2025-06-04
 title: Shards of Earth
 book_authors: Adrian Tchaikovsky
 series: The Final Architecture
 book_number: 1
-rating: null
+rating: 3
 image: /books/covers/shards_of_earth.jpg
 ---
 
