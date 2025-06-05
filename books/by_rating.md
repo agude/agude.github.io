@@ -42,6 +42,7 @@ ranked_list:
   - Redwall
   - Hyperion
   - The Tainted Cup
+  - Destination Moon
   - Patternmaster
   - Wild Seed
   - Eater
