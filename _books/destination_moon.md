@@ -10,7 +10,9 @@ image: /books/covers/destination_moon.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the sixteenth book in
-the <span class="book-series">{{ page.series }}</span>.
+the <span class="book-series">{{ page.series }}</span>. It is the first book
+in a two-part series as Tintin, Haddock, and Calculus prepare to fly to the
+moon.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -26,10 +28,11 @@ kid, and he read them to me and my siblings when we were growing up. Now I'm
 reading them---the same stack of worn books that my father bought us---to my
 children. So far, they're enjoying it!
 
-The art in {{ this_book }} is beautiful. {{ the_authors }} [_ligne
-claire_][lc] style is put to good use in drawing highly detailed, accurate to
-life backgrounds---from sweeping mountain vistas, to scientific equipment like
-the atomic pile, to the iconic red and white rocket featured on the cover.
+The art in {{ this_book }} is beautiful. The precision of {{ the_authors }}
+[_ligne claire_][lc] style is put to good use in drawing highly detailed,
+accurate to life backgrounds---from sweeping mountain vistas, to scientific
+equipment like the atomic pile, to the iconic red and white rocket featured on
+the cover.
 
 [lc]: https://en.wikipedia.org/wiki/Ligne_claire
 
@@ -41,4 +44,5 @@ explain in detail how the rocket and all the associated science works. The
 antagonists are carefully developed, and feel like a real threat with their
 various successes in spying on---and sabotaging---the effort.
 
-We're moving right on to {{ tt17 }}.
+Just like my siblings, my children also loved it! We're moving right on to {{
+tt17 }}.
