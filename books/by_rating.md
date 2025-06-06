@@ -83,6 +83,7 @@ ranked_list:
   - The Fractal Prince
   - Flowers for Algernon
   - Chevalier
+  - Bolo
   - The Claw of the Conciliator
   - The Causal Angel
   - There Is No Antimemetics Division
