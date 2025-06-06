@@ -1,10 +1,10 @@
 ---
-date: 2025-06-03
+date: 2025-06-06
 title: Bolo
 book_authors: Keith Laumer
 series: Bolo
 book_number: 1
-rating: null
+rating: 3
 image: /books/covers/bolo.jpg
 ---
 
