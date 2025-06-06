@@ -23,8 +23,8 @@ to the moon.
 
 {% capture tt17 %}{% book_link "Explorers on the Moon" %}{% endcapture %}
 
-{{ this_series }} reminds me of my childhood. My dad read the series as a
-kid, and he read them to me and my siblings when we were growing up. Now I'm
+{{ this_series }} reminds me of my childhood. My dad read the series as a kid,
+and he read them to me and my siblings when we were growing up. Now I'm
 reading them---from the same stack of worn-out books that he bought us---to my
 kids. So far, they're loving it!
 
@@ -35,13 +35,13 @@ the atomic pile, to the iconic red-and-white rocket on the cover.
 
 [lc]: https://en.wikipedia.org/wiki/Ligne_claire
 
-The plot is a little slow. There's some great slapstick  with Captain Haddock
+The plot is a little slow. There's some great slapstick with Captain Haddock
 and Calculus, though Thomson and Thompson are more subdued (but the kids loved
 the skeleton gag!). And there is _a lot_ of text. {{ the_author }} wanted this
 story to feel realistic, and that meant having the characters explain in
 detail how the rocket and all the science behind it actually works. The
-antagonists are carefully developed, and feel like a real threat with their
-various successes in spying on---and sabotaging---the project.
+antagonists are carefully developed, and come across as a real threat with
+their various successes in spying on---and sabotaging---the project.
 
-Just like my siblings, my kids are hooked! We're moving right on to {{
-tt17 }}.
+Just like my siblings, my kids are hooked! We're moving right on to {{ tt17
+}}.
