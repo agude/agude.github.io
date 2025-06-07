@@ -10,7 +10,7 @@ image: /books/covers/bolo.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the first book in the
-<span class="book-series">{{ page.series }}</span> series. It is a series of
+<span class="book-series">{{ page.series }}</span> series. It is a collection of
 seven novellas and short stories, all featuring Bolos.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
@@ -29,7 +29,11 @@ seven novellas and short stories, all featuring Bolos.
 
 {% capture retief %}{% series_link "Retief" %}{% endcapture %}
 
+{% capture fire %}{% book_link "A Fire Upon The Deep" %}{% endcapture %}
+{% capture childhoods %}{% book_link "Childhoods End" %}{% endcapture %}
+{% capture so2001 %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 {% capture zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
+{% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
 
 {% capture history %}[<cite class="short-story-title">A Short History of the Bolo Fighting Machines</cite>](#a-short-history-of-the-bolo-fighting-machines){% endcapture %}
 {% capture trolls %}[<cite class="short-story-title">The Night of the Trolls</cite>](#the-night-of-the-trolls){% endcapture %}
@@ -40,21 +44,26 @@ seven novellas and short stories, all featuring Bolos.
 {% capture combat_unit %}[<cite class="short-story-title">Combat Unit</cite>](#combat-unit){% endcapture %}
 
 I read the Bolo anthologies---{{ bolo10 }}, {{ bolo11 }}, {{ bolo12}},
-etc.---about twenty-five years ago, and then read a bunch more of the books in
-the series, including {{ this_book }}.
+etc.---about twenty-five years ago, and then read every other Bolo book I
+could find at the used book store. Eventually I picked up {{ this_book }}.
+Now that I'm rereading it the stories are familiar in the same way that {{
+fire }} or {{ childhoods }} were: the details are fuzzy but the overall arc
+is clear.
 
-Major themes are duty and honor, of course death, but also what it means to be
-alive, to think, to be human.
+With two more decades of sci-fi in my head, this book doesn't rank as great.
+Some of the stories, like {{ last_command }} and {{ combat_unit }}, start to
+hit on the format that makes the later anthologies work: getting directly
+inside the Bolo's minds and seeing what and how they're thinking. But the
+other stories---{{ trolls }} and {{ courier }} especially---treat the Bolos as
+set pieces and are far the worse for it.
 
-This book isn't great, but some of the stories like {{ last_command }} and {{
-combat_unit }} start to hit on the format that makes the later anthologies
-work: getting directly inside the Bolo's minds and seeing what and how they're
-thinking. The stories that have this are far better than the ones---like {{
-trolls }} and {{ courier }}---that just treat the Bolos as set pieces.
-
-The best three stories: {{ last_command }}, {{ relic }}, and {{ combat_unit }}
-all take place well _after_ the war, the heroic and obedient Bolos forgotten by
-the people they served.
+Another thing the three best stories---{{ last_command }}, {{ relic }}, and {{
+combat_unit }}---get right all take place well _after_ the war. This lets them
+explore the theme of duty in more depth. It is easy to be honorable, to do
+ones duty, when the enemy is charging across the battlefield, it is harder
+when you've been forgotten and abandoned by those you saved. It allows {{
+the_authors_lastname }} to explore other themes as well, like loss and death,
+and what it means to be alive.
 
 ### <cite class="short-story-title">A Short History of the Bolo Fighting Machines</cite>
 {% rating_stars 3 %}
@@ -99,14 +108,16 @@ A Bolo wakes up after being decommissioned and buried, and assumes it's under
 attack. Only the timely arrival of its ancient commander saves a local city.
 There is a heart-strings tugging moment at the end where the dying Bolo asks
 how far until it reaches the maintenance bay, and it's dying command replies
-""It's a long way, Lenny... But I'm coming with you..."
+""It's a long way, Lenny... But I'm coming with you..." That connection
+between human and machine is a constant theme in the later Bolo books.
 
 ### <cite class="short-story-title">A Relic of War</cite>
 {% rating_stars 3 %}
 
 An abandoned Bolo is found by the government, who mean to shut it down---only
 to accidentally awaken the creatures the Bolo originally fought. In the end,
-the Bolo allows itself to be shut down to protect the town from itself.
+the Bolo allows itself to be shut down to protect the town from itself, which
+reminded me a little of shutting down HAL in {{ so2001 }}.
 
 ### <cite class="short-story-title">Combat Unit</cite>
 {% rating_stars 4 %}
@@ -117,3 +128,4 @@ and {{ last_command }}---both of which feature Bolos incorrectly assuming
 they're under attack---is that this time, it _really is_. A fun way of showing
 how dangerous Bolos are even when stripped of all "weapons." My favorite part
 was when the Bolo hacks the site's power plant and causes a nuclear meltdown.
+The story is a bit like when Bob escapes the research center in {{ bob1 }}.
