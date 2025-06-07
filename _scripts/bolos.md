@@ -1,4 +1,4 @@
-{% capture bolo1 %}{% book_link "Bolo" %}{% endcapture %}
+{% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
 {% capture bolo2 %}{% book_link "Rogue Bolo" %}{% endcapture %}
 {% capture bolo3 %}{% book_link "The Stars Must Wait" %}{% endcapture %}
 {% capture bolo4 %}{% book_link "Bolo Brigade" %}{% endcapture %}
