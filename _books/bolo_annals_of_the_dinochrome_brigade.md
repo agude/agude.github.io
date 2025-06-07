@@ -86,7 +86,7 @@ A {{ retief }} story that just happens to have a Bolo at the end. Retief
 punches his way onto a planet, discovers the locals can read minds, punches a
 Bolo (sort of), and skis off into the sunset with a dame. I can't really stand
 Retief, whose lack of subtlety is apparently balanced by his upper body
-strength and annoyingly accurate confidence. Feels like a <cite
+strength and annoyingly correct confidence. Feels like a <cite
 class="tv-show-title">Star Trek: The Original Series</cite> episode, but with
 Retief as a less intellectual (I know!) Kirk.
 
