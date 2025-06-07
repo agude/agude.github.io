@@ -73,6 +73,17 @@ other parties showing up out of nowhere!
 
 [influences]: #influences
 
+The worst part is the writing. {{ the_author }} doesn't trust the reader to
+pick up what's going on, so instead of subtle world building or motifs, he
+lore-dumps. It is the same complaint I have about {{ reynoldss }} {{ suns }},
+although that case is far worse. {{ the_authors_lastname }} repeats pieces of
+information over and over until I wondered if I had accidentally gone back a
+few pages. A particularly bad example is how {{ the_authors_lastname }} sets
+up a motif of spacer funerals, then uses the same motif for Idris before he
+heads out on a suicide mission, and _then_ has one of the characters explain
+that is what the
+author is doing.
+
 ### Influences
 
 {{ this_book }} was heavily influenced by the works that came before it:
