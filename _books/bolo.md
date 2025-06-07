@@ -29,11 +29,12 @@ seven novellas and short stories, all featuring Bolos.
 
 {% capture retief %}{% series_link "Retief" %}{% endcapture %}
 
+{% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
+{% capture childhoods %}{% book_link "Childhood's End" %}{% endcapture %}
 {% capture fire %}{% book_link "A Fire Upon The Deep" %}{% endcapture %}
-{% capture childhoods %}{% book_link "Childhoods End" %}{% endcapture %}
+{% capture mb4_5 %}{% book_link "Home: Habitat, Range, Niche, Territory" %}{% endcapture %}
 {% capture so2001 %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 {% capture zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
-{% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
 
 {% capture history %}[<cite class="short-story-title">A Short History of the Bolo Fighting Machines</cite>](#a-short-history-of-the-bolo-fighting-machines){% endcapture %}
 {% capture trolls %}[<cite class="short-story-title">The Night of the Trolls</cite>](#the-night-of-the-trolls){% endcapture %}
@@ -97,7 +98,9 @@ last-ditch effort to save a city. It "fails" by performing a suboptimal
 suicidal charge which nonetheless wins the day, driven by its sense of duty
 and honor. Told as a series of paragraph-length chapters, each a snippet of
 in-universe media---from letters to speeches to short
-conversations---reminiscent of how {{ zanzibar }} is structured.
+conversations---reminiscent of how {{ zanzibar }} is structured. There is a
+throwaway line in this story about how the Bolo's mind is still constrained by
+its programming, a theme that is explored more in {{ mb4_5 }}.
 
 ### <cite class="short-story-title">The Last Command</cite>
 {% rating_stars 4 %}
