@@ -96,6 +96,7 @@ ranked_list:
   # 1 Stars
   - Consider Phlebas
   - House of Suns
+  - Tintin in the Congo
   - The Three-Body Problem
 ---
 
