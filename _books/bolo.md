@@ -43,27 +43,25 @@ seven novellas and short stories, all featuring Bolos.
 {% capture relic %}[<cite class="short-story-title">A Relic of War</cite>](#a-relic-of-war){% endcapture %}
 {% capture combat_unit %}[<cite class="short-story-title">Combat Unit</cite>](#combat-unit){% endcapture %}
 
-I read the Bolo anthologies---{{ bolo10 }}, {{ bolo11 }}, {{ bolo12}},
-etc.---about twenty-five years ago, and then read every other Bolo book I
-could find at the used book store. Eventually I picked up {{ this_book }}.
-Now that I'm rereading it the stories are familiar in the same way that {{
-fire }} or {{ childhoods }} were: the details are fuzzy but the overall arc
-is clear.
+I read the Bolo anthologies---{{ bolo10 }}, {{ bolo11 }}, {{ bolo12 }},
+etc.---about twenty-five years ago, then tracked down every other Bolo book I
+could find at the used bookstore. Eventually I picked up {{ this_book }}.
+Now, rereading it, the stories feel familiar in the same way that {{
+fire }} or {{ childhoods }} did: the details are fuzzy, but the arc is clear.
 
-With two more decades of sci-fi in my head, this book doesn't rank as great.
-Some of the stories, like {{ last_command }} and {{ combat_unit }}, start to
-hit on the format that makes the later anthologies work: getting directly
-inside the Bolo's minds and seeing what and how they're thinking. But the
-other stories---{{ trolls }} and {{ courier }} especially---treat the Bolos as
-set pieces and are far the worse for it.
+With two more decades of sci-fi in my head, this book doesn't land as great.
+Some of the stories---like {{ last_command }} and {{ combat_unit }}---start to
+hint at the format that makes the later anthologies work: getting directly
+inside the Bolo's minds and seeing what and how it's thinking. But
+others---especially {{ trolls }} and {{ courier }}---treat the Bolos as set
+dressing, and those stories are far the worse for it.
 
-Another thing the three best stories---{{ last_command }}, {{ relic }}, and {{
-combat_unit }}---get right all take place well _after_ the war. This lets them
-explore the theme of duty in more depth. It is easy to be honorable, to do
-ones duty, when the enemy is charging across the battlefield, it is harder
-when you've been forgotten and abandoned by those you saved. It allows {{
-the_authors_lastname }} to explore other themes as well, like loss and death,
-and what it means to be alive.
+The three strongest stories---{{ last_command }}, {{ relic }}, and {{
+combat_unit }}---all take place well _after_ the war. This lets them explore
+the theme of duty in more depth. It's easy to be honorable when the enemy is
+charging across the battlefield. It's harder when you've been forgotten by the
+people you saved. This allows {{ the_authors_lastname }} to explore other
+themes as well: loss, death, and what it means to be alive.
 
 ### <cite class="short-story-title">A Short History of the Bolo Fighting Machines</cite>
 {% rating_stars 3 %}
@@ -94,22 +92,23 @@ Retief as a less intellectual (I know!) Kirk.
 ### <cite class="short-story-title">Field Test</cite>
 {% rating_stars 3 %}
 
-The first sentient Bolo---the Mark XX---is sent untested into combat as a
+The first sentient Bolo---the Mark XX---is thrown into combat untested in a
 last-ditch effort to save a city. It "fails" by performing a suboptimal
 suicidal charge which nonetheless wins the day, driven by its sense of duty
-and honor. Told in a series of paragraph-length chapters, each one a different
-piece of in-universe media---from letters to speeches to short
+and honor. Told as a series of paragraph-length chapters, each a snippet of
+in-universe media---from letters to speeches to short
 conversations---reminiscent of how {{ zanzibar }} is structured.
 
 ### <cite class="short-story-title">The Last Command</cite>
 {% rating_stars 4 %}
 
-A Bolo wakes up after being decommissioned and buried, and assumes it's under
-attack. Only the timely arrival of its ancient commander saves a local city.
-There is a heart-strings tugging moment at the end where the dying Bolo asks
-how far until it reaches the maintenance bay, and it's dying command replies
-""It's a long way, Lenny... But I'm coming with you..." That connection
-between human and machine is a constant theme in the later Bolo books.
+A Bolo wakes up after being decommissioned and buried, assumes it's under
+attack, and nearly destroys a city---only to be stopped by its long-retired
+commander. The ending is emotional: the dying Bolo asks how far to the
+maintenance bay, and the commander, dying of radiation poisoning from the
+still radioactive Bolo, replies, "It's a long way, Lenny... But I'm coming
+with you..." That connection between man and machine is a recurring theme in
+the later books.
 
 ### <cite class="short-story-title">A Relic of War</cite>
 {% rating_stars 3 %}
