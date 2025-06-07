@@ -62,13 +62,16 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 {% capture halo %}<cite class="video-game-title">Halo</cite>{% endcapture %}
 {% capture disco_elysium %}<cite class="video-game-title">Disco Elysium</cite>{% endcapture %}
 
+{% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
+{% capture bolo2 %}{% book_link "Rogue Bolo" %}{% endcapture %}
+
 {{ this_book }} follows the rag-tag crew of the _Vulture God_ as they get
 pulled into a galaxy-spanning conspiracy---similar Luke, Leia, Han, and Chewie
 in the _Millenium Falcon_ or Mal and the crew of the _Firefly_. The
 Architects---moon sized beings that rip worlds into geometric shapes---have
-returned and only psychic humans called Intermediaries, Ints, can stop them.
-The _Vulture_ is home to Idris, one of the last surviving Ints from the first
-was with the Architects.
+returned and only psychic humans called Intermediaries (Ints) can stop them.
+And the _Vulture_ just happens to have Idris, one of the last surviving Ints
+from the first way, so now everyone is after them.
 
 The best part of {{ this_book }} is the story, which kept me turning the pages
 to find out what happened next, just like {{ hamilton }} at his best in {{
@@ -89,8 +92,7 @@ information over and over until I wondered if I had accidentally gone back a
 few pages. A particularly bad example is how {{ the_authors_lastname }} sets
 up a motif of spacer funerals, then uses the same motif for Idris before he
 heads out on a suicide mission, and _then_ has one of the characters explain
-that is what the
-author is doing.
+that is what the author is doing.
 
 ### Influences
 
@@ -139,3 +141,9 @@ peace, and a repeat of the same war is like [WWI][wwi] and [WWII][wwii].
 [sitb]: https://en.wikipedia.org/wiki/Stab-in-the-back_myth
 [wwi]: https://en.wikipedia.org/wiki/World_War_I
 [wwii]: https://en.wikipedia.org/wiki/World_War_II
+
+### Book Club
+
+I read this book for my book club, and I liked it enough that I'm going to
+read {{ fa2 }} and {{ fa3 }}. But I'm going to take a break and read {{ bolo1
+}} and {{ bolo2 }} first, and maybe some more {{ mb_series }}.
