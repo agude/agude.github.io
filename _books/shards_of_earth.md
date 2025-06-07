@@ -62,6 +62,14 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 {% capture halo %}<cite class="video-game-title">Halo</cite>{% endcapture %}
 {% capture disco_elysium %}<cite class="video-game-title">Disco Elysium</cite>{% endcapture %}
 
+{{ this_book }} follows the rag-tag crew of the _Vulture God_ as they get
+pulled into a galaxy-spanning conspiracy---similar Luke, Leia, Han, and Chewie
+in the _Millenium Falcon_ or Mal and the crew of the _Firefly_. The
+Architects---moon sized beings that rip worlds into geometric shapes---have
+returned and only psychic humans called Intermediaries, Ints, can stop them.
+The _Vulture_ is home to Idris, one of the last surviving Ints from the first
+was with the Architects.
+
 The best part of {{ this_book }} is the story, which kept me turning the pages
 to find out what happened next, just like {{ hamilton }} at his best in {{
 pandora }}. The universe is relatively interesting, but feels [derivative of
