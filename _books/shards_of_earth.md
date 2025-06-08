@@ -67,10 +67,10 @@ genocide of humanity again.
 {% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
 {% capture bolo2 %}{% book_link "Rogue Bolo" %}{% endcapture %}
 
-{{ this_book }} follows the rag-tag crew of the _Vulture God_ as they get
-pulled into a galaxy-spanning conspiracy---similar Luke, Leia, Han, and Chewie
-in the _Millenium Falcon_ or Mal and the crew of the _Firefly_. The
-Architects---moon sized beings that rip worlds into geometric shapes---have
+{{ this_book }} follows the ragtag crew of the _Vulture God_ as they get
+pulled into a galaxy-spanning conspiracy---similar to Luke, Leia, Han, and
+Chewie in the _Millennium Falcon_ or Mal and the crew of the _Firefly_. The
+Architects---moon-sized beings that rip worlds into geometric shapes---have
 returned and only psychic humans called Intermediaries (Ints) can stop them.
 The _Vulture_ just happens to have Idris, one of the last surviving Ints from
 the first war, so everyone is after them.
@@ -80,21 +80,21 @@ to find out what happened next, just like {{ hamilton }} at his best in {{
 pandora }}. The universe is relatively interesting, but feels [derivative of
 earlier works][influences]. It also feels small, because the heroes jump from
 place to place, have a quick adventure (with twist after twist), before flying
-off. In fact the twists were so constant that they became predictable: The
-crew is in inescapable trouble? They're about to be baled out be one of the
+off. In fact, the twists were so constant that they became predictable: The
+crew is in inescapable trouble? They're about to be bailed out by one of the
 other parties showing up out of nowhere!
 
 [influences]: #influences
 
 The worst part is the writing. {{ the_author }} doesn't trust the reader to
-pick up what's going on, so instead of subtle world building or motifs, he
+pick up what's going on, so instead of subtle world-building or motifs, he
 lore-dumps. It is the same complaint I have about {{ reynoldss }} {{ suns }},
 although that case is far worse. {{ the_authors_lastname }} repeats pieces of
 information over and over until I wondered if I had accidentally gone back a
 few pages. A particularly bad example is how {{ the_authors_lastname }} sets
 up a motif of spacer funerals, then uses the same motif for Idris before he
 heads out on a suicide mission, and _then_ has one of the characters explain
-that is what the author is doing.
+that's what the author is doing.
 
 ### Influences
 
@@ -103,11 +103,11 @@ that is what the author is doing.
 Unspace is an alternate dimension that allows faster-than-light travel, but
 drives people insane, requires psychics to navigate, and is the home of some
 dark entity. This is essentially the Warp directly from {{ wh40k }}. The
-psychic Ints needed to navigate Unspace are modeled on the guild navigators
+psychic Ints needed to navigate Unspace are modeled on the Guild Navigators
 from {{ herberts }} {{ Dune }}---which in turn are the source for {{ fortyk }}
 psyker navigators. The Ogdru are whale-like navigators used by the Hegemony,
 which is similar to the description of navigators in {{ dune_messiah }} as
-"fish-like", swimming in their spice tanks. They way ships get "traction" on
+"fish-like," swimming in their spice tanks. The way ships get "traction" on
 the layer between space and unspace is similar to how {{ culture_series }}
 ships get traction on the grid. The fact that intelligence seems to warp
 Unspace---like mass does real space---feels akin to how thought creates the
@@ -116,24 +116,24 @@ Pale in {{ disco_elysium }}.
 The genetically modified, warrior women of the Parthenon are modeled on the
 Fish Speakers from {{ dune }}, the Adepta Sororitas from {{ fortyk }}, and the
 Clans with their tank-grown warriors from {{ battletech }}. Solace has a
-facial tattoo---a teardrop---like the Sororitas often have fleur-de-lis.
+facial tattoo---a teardrop---like the Sororitas often have a fleur-de-lis.
 
 The Architects---moon-sized creatures that destroy whole worlds to extinguish
 life---are based on the whale-probe from {{ star_trek_4 }} and the Reapers
 from {{ mass_effect }}. {{ the_authors_lastname }} makes the homage to the
-whale-probe clear by writing that the architects emit a signal "...solitary
+whale-probe clear by writing that the Architects emit a signal "...solitary
 and singular as a whale song...".
 
 The Essiel Hegemony is similar to the Covenant from {{ halo }}. Both are
-multi-species empires, technologically more advanced than the humans, and
-which use different species for very specific roles. The wide variety of
-aliens in {{ this_book }} felt a lot like {{ mass_effect }} as well.
+multi-species empires, technologically more advanced than the humans, and use
+different species for very specific roles. The wide variety of aliens in {{
+this_book }} felt a lot like {{ mass_effect }} as well.
 
-The book also draws from the early 20th century. The duel culture with
+The book also draws from the early 20th century. The dueling culture with
 honorable scars is right out of German and Austrian [academic fencing][ds].
 The Boyar from Magdan are [Eastern European nobility][boyars]. The anti-alien
 Nativists, and their extremist faction The Betrayed, are the [Nazis][nazis],
-complete with their ["stabbed in the back"][sitb] philosophy of why humanity
+complete with their ["stab-in-the-back"][sitb] philosophy of why humanity
 failed to defeat the Architects. The apocalyptic war, followed by uneasy
 peace, and a repeat of the same war is like [WWI][wwi] and [WWII][wwii].
 
