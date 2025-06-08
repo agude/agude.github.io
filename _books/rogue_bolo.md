@@ -1,10 +1,10 @@
 ---
-date: 2025-06-07
+date: 2025-06-08
 title: "Rogue Bolo"
 book_authors: Keith Laumer
 series: Bolo
 book_number: 2
-rating: null
+rating: 3
 image: /books/covers/rogue_bolo.jpg
 ---
 
