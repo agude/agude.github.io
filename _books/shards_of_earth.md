@@ -72,8 +72,8 @@ pulled into a galaxy-spanning conspiracy---similar Luke, Leia, Han, and Chewie
 in the _Millenium Falcon_ or Mal and the crew of the _Firefly_. The
 Architects---moon sized beings that rip worlds into geometric shapes---have
 returned and only psychic humans called Intermediaries (Ints) can stop them.
-And the _Vulture_ just happens to have Idris, one of the last surviving Ints
-from the first way, so now everyone is after them.
+The _Vulture_ just happens to have Idris, one of the last surviving Ints from
+the first war, so everyone is after them.
 
 The best part of {{ this_book }} is the story, which kept me turning the pages
 to find out what happened next, just like {{ hamilton }} at his best in {{
