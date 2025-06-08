@@ -115,7 +115,7 @@ me of the Pale in {{ disco_elysium }}, which is created by human thought.
 
 The genetically engineered warrior women of the Parthenon are a blend of {{
 dune }}'s Fish Speakers, the Adepta Sororitas from {{ fortyk }}, and the
-tank-born Clans {{ battletech }}. Solace's teardrop face tattoo mirrors the
+tank-born Clans from {{ battletech }}. Solace's teardrop face tattoo mirrors the
 Sororitas's fleur-de-lis.
 
 The Architects---moon-sized destroyers of life---are a mash-up of the whale probe
