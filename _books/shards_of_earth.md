@@ -21,7 +21,6 @@ their genocidal campaign against humanity.
 {% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
-{% capture fa1 %}{% book_link "Shards of Earth" %}{% endcapture %}
 {% capture fa2 %}{% book_link "Eyes of the Void" %}{% endcapture %}
 {% capture fa3 %}{% book_link "Lords of Uncreation" %}{% endcapture %}
 
@@ -29,34 +28,24 @@ their genocidal campaign against humanity.
 {% capture dune %}{% book_link "Dune" %}{% endcapture %}
 {% capture dune_messiah %}{% book_link "Dune Messiah" %}{% endcapture %}
 
-{% capture heinleins %}{% author_link "Robert A. Heinlein" possessive %}{% endcapture %}
-{% capture moon %}{% book_link "The Moon Is a Harsh Mistress" %}{% endcapture %}
-
 {% capture reynoldss %}{% author_link "Alastair Reynolds" possessive %}{% endcapture %}
 {% capture suns %}{% book_link "House of Suns" %}{% endcapture %}
 
 {% capture wellss %}{% author_link "H. G. Wells" possessive %}{% endcapture %}
 {% capture wotw %}{% book_link "The War of the Worlds" %}{% endcapture %}
 
-{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
-{% capture culture_series %}{% series_link "Culture" %} series{% endcapture %}
-{% capture use_of_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
-{% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
-{% capture matter %}{% book_link "Matter" %}{% endcapture %}
+{% capture culture_series %}{% series_link "Culture" %}{% endcapture %}
 
 {% capture pandora %}{% book_link "Pandora's Star" %}{% endcapture %}
 {% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}
 
-{% capture martha_wellss %}{% author_link "Martha Wells" possessive %}{% endcapture %}
 {% capture mb_series %}{% series_link "The Murderbot Diaries" %} series{% endcapture %}
 
 {% capture wh40k %}<cite class="table-top-game-title">Warhammer 40,000</cite>{% endcapture %}
 {% capture fortyk %}<cite class="table-top-game-title">40k</cite>{% endcapture %}
 {% capture battletech %}<cite class="table-top-game-title">BattleTech</cite>{% endcapture %}
 
-{% capture star_wars %}<cite class="movie-title">Star Wars</cite>{% endcapture %}
 {% capture star_trek_4 %}<cite class="movie-title">Star Trek IV: The Voyage Home</cite>{% endcapture %}
-{% capture firefly %}<cite class="tv-show-title">Firefly</cite>{% endcapture %}
 
 {% capture mass_effect %}<cite class="video-game-title">Mass Effect</cite>{% endcapture %}
 {% capture halo %}<cite class="video-game-title">Halo</cite>{% endcapture %}
@@ -65,14 +54,14 @@ their genocidal campaign against humanity.
 {% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
 {% capture bolo2 %}{% book_link "Rogue Bolo" %}{% endcapture %}
 
-{{ this_book }} follows the ragtag crew of the _Vulture God_ as they get
-pulled into a galaxy-spanning conspiracy. The Architects---moon-sized beings
-that reshape worlds into fractals---have returned, and only psychic humans
-called Intermediaries (Ints) can stop them. The _Vulture_ just happens to have
-Idris, one of the last surviving Ints from the first war, so naturally,
-everyone is after them. The ship and crew remind me a lot of Han and the crew
-of the _Millennium Falcon_ or Mal and the crew of the _Firefly_: simple people
-dragged into something much larger.
+The plot centers on the ragtag crew of the _Vulture God_ as they get pulled
+into a galaxy-spanning conspiracy. The Architects---moon-sized beings that
+reshape worlds into fractals---have returned, and only psychic humans called
+Intermediaries (Ints) can stop them. The _Vulture_ just happens to have Idris,
+one of the last surviving Ints from the first war, so everyone is after them.
+The ship and crew remind me a lot of Han and the crew of the _Millennium
+Falcon_ or Mal and the crew of the _Firefly_: simple people dragged into
+something much larger.
 
 The best part of {{ this_book }} is the story---it kept me turning pages to see
 what happened next, the same way {{ hamiltons }} writing did in {{ pandora }}.
@@ -102,26 +91,30 @@ one of the characters explain the motif.
 
 {{ this_book }} draws heavily from earlier sci-fi:
 
-Unspace is an alternate dimension for faster-than-light travel that drives
-people insane, requires psychics to navigate, and is the home of some dark
-entity. This is essentially the Warp from {{ wh40k }}. The Ints required to
-navigate Unspace are modeled on the Guild Navigators from {{ herberts }} {{
-dune }}, who also inspired the {{ fortyk }} Warp navigators. The
-Ogdru---whale-like navigators for the Hegemony---echo the "fish-like" navigators
-described in {{ dune_messiah }}. The way ships gain "traction" between space
-and Unspace is similar to how {{ culture_series }} ships grip the Grid. And
-Unspace warping around intelligence, like how space reacts to mass, reminded
-me of the Pale in {{ disco_elysium }}, which is created by human thought.
+Unspace is an alternate dimension for faster-than-light travel that is
+essentially the Warp from {{ wh40k }}: a dangerous realm that drives people
+insane, is home to a dark entity, and requires psychics to navigate. The Ints
+required to do so are modeled on the Guild Navigators from {{ herberts }} {{
+dune }}. The influence is even clearer with the Hegemony's whale-like Ogdru
+navigators, matching the "fish-like" Guild Navigators as described in {{
+dune_messiah }}.
+
+The space physics feels familiar as well, with the way ships gain traction
+against the boundary with Unspace similar to how {{ culture_series }} ships
+maneuver using the Grid. And the idea that intelligence warps Unspace, much
+like mass warps spacetime, suggests the Architects are destroying life to stop
+its mental "pollution"---similar to how human thought creates the
+all-consuming Pale in {{ disco_elysium }}.
 
 The genetically engineered warrior women of the Parthenon are a blend of {{
 dune }}'s Fish Speakers, the Adepta Sororitas from {{ fortyk }}, and the
 tank-born Clans from {{ battletech }}. Solace's teardrop face tattoo mirrors the
 Sororitas's fleur-de-lis.
 
-The Architects---moon-sized destroyers of life---are a mash-up of the whale probe
-from {{ star_trek_4 }} and the Reapers from {{ mass_effect }}. {{
-the_authors_lastname }} makes the homage clear with a line about the
-Architects's signal being "...solitary and singular as a whale song..."
+The Architects are a mash-up of the whale probe from {{ star_trek_4 }} and the
+Reapers from {{ mass_effect }}. {{ the_authors_lastname }} makes the homage
+clear with a line about the Architects's signal being "...solitary and
+singular as a whale song..."
 
 The Essiel Hegemony is a lot like the Covenant from {{ halo }}---both are
 multi-species empires, more advanced than humanity, with each species filling
@@ -135,12 +128,12 @@ are the [Nazis][nazis], complete with the ["stab-in-the-back" myth][sitb]. The
 apocalyptic war, followed by shaky peace and then another war, is basically
 [WWI][wwi] and [WWII][wwii].
 
-[ds]: https://en.wikipedia.org/wiki/Dueling_scar  
-[boyars]: https://en.wikipedia.org/wiki/Boyar  
-[nazis]: https://en.wikipedia.org/wiki/Nazism  
-[sitb]: https://en.wikipedia.org/wiki/Stab-in-the-back_myth  
-[wwi]: https://en.wikipedia.org/wiki/World_War_I  
-[wwii]: https://en.wikipedia.org/wiki/World_War_II  
+[ds]: https://en.wikipedia.org/wiki/Dueling_scar
+[boyars]: https://en.wikipedia.org/wiki/Boyar
+[nazis]: https://en.wikipedia.org/wiki/Nazism
+[sitb]: https://en.wikipedia.org/wiki/Stab-in-the-back_myth
+[wwi]: https://en.wikipedia.org/wiki/World_War_I
+[wwii]: https://en.wikipedia.org/wiki/World_War_II
 
 And possibly a hint for how the series will turn out: {{ the_author }} names
 one of the Parthenon ships the _Thunderchild_, a direct reference to the
