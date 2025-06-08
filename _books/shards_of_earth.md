@@ -77,11 +77,15 @@ dragged into something much larger.
 The best part of {{ this_book }} is the story---it kept me turning pages to
 see what happened next, the same way {{ hamiltons }} writing did in {{ pandora
 }}. The universe is interesting, but feels [derivative of earlier
-works][influences]. It also feels small. The crew hops from place to place,
-each stop just another short-lived adventure (with twist after twist), before
-flying off again. In fact, the twists became so routine they were predictable:
-the crew's in inescapable trouble? They're about to get bailed out---sometimes
-multiple times in a row!---by one of their pursuers.
+works][influences]. And despite the scale of destruction---whole planets
+annihilated by the Architects---the emotional impact is missing. Billions die,
+but since no one we know is threatened it doesn't have any weight. That shows
+up elsewhere too: although the story has galactic scale, the conflict and
+universe feel small. The crew hops from place to place, each stop just another
+short-lived adventure (with twist after twist), before flying off again. In
+fact, the twists became so routine they were predictable: the crew's in
+inescapable trouble? They're about to get bailed out---sometimes multiple
+times in a row!---by one of their pursuers.
 
 [influences]: #influences
 
