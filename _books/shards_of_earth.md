@@ -102,23 +102,23 @@ Unspace is an alternate dimension for faster-than-light travel that drives
 people insane, requires psychics to navigate, and is the home of some dark
 entity. This is essentially the Warp from {{ wh40k }}. The Ints required to
 navigate Unspace are modeled on the Guild Navigators from {{ herberts }} {{
-Dune }}, who also inspired the {{ fortyk }} Warp navigators. The
+dune }}, who also inspired the {{ fortyk }} Warp navigators. The
 Ogdru---whale-like navigators for the Hegemony---echo the "fish-like"
 navigators described in {{ dune_messiah }}. The way ships gain "traction"
 between space and Unspace is similar to how {{ culture_series }} ships grip
-the Grid. And Unspace reacting to intelligence, like how gravity reacts to
+the Grid. And Unspace warping around intelligence, like how space reacts to
 mass, reminded me of the Pale in {{ disco_elysium }} which is created by human
 thought.
 
 The genetically engineered warrior women of the Parthenon are a blend of {{
 dune }}'s Fish Speakers, the Adepta Sororitas from {{ fortyk }}, and the
-tank-born Clansm {{ battletech }}. Solace's teardrop face tattoo mirrors the
+tank-born Clans {{ battletech }}. Solace's teardrop face tattoo mirrors the
 Sororitas' fleur-de-lis.
 
-The Architects---moon-sized destroyers of life---are a mash-up of the whale probe
-from {{ star_trek_4 }} and the Reapers from {{ mass_effect }}. {{
+The Architects---moon-sized destroyers of life---are a mash-up of the whale
+probe from {{ star_trek_4 }} and the Reapers from {{ mass_effect }}. {{
 the_authors_lastname }} makes the homage clear with a line about the
-Architects' signal being "...solitary and singular as a whale song...".
+Architects's signal being "...solitary and singular as a whale song...".
 
 The Essiel Hegemony is a lot like the Covenant from {{ halo }}---both are
 multi-species empires, more advanced than humanity, with each species filling
@@ -138,6 +138,12 @@ apocalyptic war, followed by shaky peace and then another war, is basically
 [sitb]: https://en.wikipedia.org/wiki/Stab-in-the-back_myth
 [wwi]: https://en.wikipedia.org/wiki/World_War_I
 [wwii]: https://en.wikipedia.org/wiki/World_War_II
+
+And possibly a hint for how the series will turn out: {{ the_author }} names
+one of the Parthenon ships the _Thunderchild_, a direct reference to the
+battleship from {{ wellss }} {{ wotw }}, another story where a seemingly
+invincible alien force is ultimately defeated by something small and
+overlooked.
 
 ### Book Club
 
