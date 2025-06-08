@@ -150,6 +150,6 @@ overlooked.
 
 ### Book Club
 
-I read this for book club, and I liked it enough that I'm going to read {{ fa2
-}} and {{ fa3 }}. But I'm taking a break first to read {{ bolo1 }} and {{
+I read this for my book club, and I liked it enough that I'm going to read {{
+fa2 }} and {{ fa3 }}. But I'm taking a break first to read {{ bolo1 }} and {{
 bolo2 }}, and maybe a few more from the {{ mb_series }}.
