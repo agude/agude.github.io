@@ -71,27 +71,27 @@ that reshape worlds into fractals---have returned, and only psychic humans
 called Intermediaries (Ints) can stop them. The _Vulture_ just happens to have
 Idris, one of the last surviving Ints from the first war, so naturally,
 everyone is after them. The ship and crew remind me a lot of Han and the crew
-of the _Millennium Falcon_ or Mal and the crew of the _Firefly_, simple people
+of the _Millennium Falcon_ or Mal and the crew of the _Firefly_: simple people
 dragged into something much larger.
 
-The best part of {{ this_book }} is the story---it kept me turning pages to
-see what happened next, the same way {{ hamiltons }} writing did in {{ pandora
-}}. The universe is interesting, but feels [derivative of earlier
+The best part of {{ this_book }} is the story---it kept me turning pages to see
+what happened next, the same way {{ hamiltons }} writing did in {{ pandora }}.
+The universe is interesting, but feels [derivative of earlier
 works][influences]. And despite the scale of destruction---whole planets
 annihilated by the Architects---the emotional impact is missing. Billions die,
-but since no one we know is threatened it doesn't have any weight. That shows
+but since no one we know is threatened, it doesn't have any weight. That shows
 up elsewhere too: although the story has galactic scale, the conflict and
 universe feel small. The crew hops from place to place, each stop just another
 short-lived adventure (with twist after twist), before flying off again. In
 fact, the twists became so routine they were predictable: the crew's in
-inescapable trouble? They're about to get bailed out---sometimes multiple
-times in a row!---by one of their pursuers.
+inescapable trouble? They're about to get bailed out---sometimes multiple times
+in a row!---by one of their pursuers.
 
 [influences]: #influences
 
-The worst part is the writing. It's workman like, and similar to but not near
+The worst part is the writing. It's workmanlike, and similar to but not nearly
 as bad as {{ reynoldss }} {{ suns }}. The author just doesn't trust the reader
-to pick up on things. Instead of subtle world-building he lore-dumps. {{
+to pick up on things. Instead of subtle world-building, he lore-dumps. {{
 the_authors_lastname }} repeats information so much I started wondering if I'd
 accidentally flipped back a few pages. One especially bad example: {{
 the_authors_lastname }} sets up a motif around spacer funerals, uses it again
@@ -107,22 +107,21 @@ people insane, requires psychics to navigate, and is the home of some dark
 entity. This is essentially the Warp from {{ wh40k }}. The Ints required to
 navigate Unspace are modeled on the Guild Navigators from {{ herberts }} {{
 dune }}, who also inspired the {{ fortyk }} Warp navigators. The
-Ogdru---whale-like navigators for the Hegemony---echo the "fish-like"
-navigators described in {{ dune_messiah }}. The way ships gain "traction"
-between space and Unspace is similar to how {{ culture_series }} ships grip
-the Grid. And Unspace warping around intelligence, like how space reacts to
-mass, reminded me of the Pale in {{ disco_elysium }} which is created by human
-thought.
+Ogdru---whale-like navigators for the Hegemony---echo the "fish-like" navigators
+described in {{ dune_messiah }}. The way ships gain "traction" between space
+and Unspace is similar to how {{ culture_series }} ships grip the Grid. And
+Unspace warping around intelligence, like how space reacts to mass, reminded
+me of the Pale in {{ disco_elysium }}, which is created by human thought.
 
 The genetically engineered warrior women of the Parthenon are a blend of {{
 dune }}'s Fish Speakers, the Adepta Sororitas from {{ fortyk }}, and the
 tank-born Clans {{ battletech }}. Solace's teardrop face tattoo mirrors the
-Sororitas' fleur-de-lis.
+Sororitas's fleur-de-lis.
 
-The Architects---moon-sized destroyers of life---are a mash-up of the whale
-probe from {{ star_trek_4 }} and the Reapers from {{ mass_effect }}. {{
+The Architects---moon-sized destroyers of life---are a mash-up of the whale probe
+from {{ star_trek_4 }} and the Reapers from {{ mass_effect }}. {{
 the_authors_lastname }} makes the homage clear with a line about the
-Architects's signal being "...solitary and singular as a whale song...".
+Architects's signal being "...solitary and singular as a whale song..."
 
 The Essiel Hegemony is a lot like the Covenant from {{ halo }}---both are
 multi-species empires, more advanced than humanity, with each species filling
@@ -136,12 +135,12 @@ are the [Nazis][nazis], complete with the ["stab-in-the-back" myth][sitb]. The
 apocalyptic war, followed by shaky peace and then another war, is basically
 [WWI][wwi] and [WWII][wwii].
 
-[ds]: https://en.wikipedia.org/wiki/Dueling_scar
-[boyars]: https://en.wikipedia.org/wiki/Boyar
-[nazis]: https://en.wikipedia.org/wiki/Nazism
-[sitb]: https://en.wikipedia.org/wiki/Stab-in-the-back_myth
-[wwi]: https://en.wikipedia.org/wiki/World_War_I
-[wwii]: https://en.wikipedia.org/wiki/World_War_II
+[ds]: https://en.wikipedia.org/wiki/Dueling_scar  
+[boyars]: https://en.wikipedia.org/wiki/Boyar  
+[nazis]: https://en.wikipedia.org/wiki/Nazism  
+[sitb]: https://en.wikipedia.org/wiki/Stab-in-the-back_myth  
+[wwi]: https://en.wikipedia.org/wiki/World_War_I  
+[wwii]: https://en.wikipedia.org/wiki/World_War_II  
 
 And possibly a hint for how the series will turn out: {{ the_author }} names
 one of the Parthenon ships the _Thunderchild_, a direct reference to the
