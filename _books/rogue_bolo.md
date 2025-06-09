@@ -19,6 +19,13 @@ of two novellas featuring the sentient tanks.
 
 {% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
 {% capture bolo3 %}{% book_link "The Stars Must Wait" %}{% endcapture %}
+{% capture bolo4 %}{% book_link "Bolo Brigade" %}{% endcapture %}
+{% capture bolo5 %}{% book_link "Bolo Rising" %}{% endcapture %}
+{% capture bolo6 %}{% book_link "Bolo Strike" %}{% endcapture %}
+{% capture bolo8 %}{% book_link "Bolo!" %}{% endcapture %}
+{% capture bolo9 %}{% book_link "Old Soldiers" %}{% endcapture %}
+{% capture bolo10 %}{% book_link "Honor of the Regiment" %}{% endcapture %}
+{% capture bolo11 %}{% book_link "The Unconquerable" %}{% endcapture %}
 
 {% capture history_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#a-short-history-of-the-bolo-fighting-machines"><cite class="short-story-title">A Short History of the Bolo Fighting Machines</cite></a>{% endcapture %}
 {% capture field_test_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#field-test"><cite class="short-story-title">Field Test</cite></a>{% endcapture %}
@@ -26,18 +33,26 @@ of two novellas featuring the sentient tanks.
 {% capture relic_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#a-relic-of-war"><cite class="short-story-title">A Relic of War</cite></a>{% endcapture %}
 {% capture combat_unit_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#combat-unit"><cite class="short-story-title">Combat Unit</cite></a>{% endcapture %}
 
+{% capture weber %}{% author_link "David Weber" %}{% endcapture %}
+{% capture keith %}{% author_link "William H. Keith" %}{% endcapture %}
+{% capture stirling %}{% author_link "S.M. Stirling" %}{% endcapture %}
+
 {% capture dragons_banker %}{% book_link "The Dragon's Banker" %}{% endcapture %}
 {% capture warrens %}{% author_link "Scott Warren" possessive %}{% endcapture %}
 
 {% capture colossus %}{% book_link "Colossus" %}{% endcapture %}
 {% capture joness %}{% author_link "D. F. Jones" possessive %}{% endcapture %}
 
-{{ this_book }} actually has three stories, if you count the re-inclusion of
-{{ history_from_bolo1 }}, which I don't. Both novellas in the book are
-basically expansions of short stories from {{ bolo1 }}.
-
-After this book, there is one more {{ the_author }} Bolo book: {{ bolo3 }}.
-It, like {{ this_book }}, is an expansion of stories from {{ bolo1 }}.
+{{ this_book }} technically includes three stories, but one---{{
+history_from_bolo1 }}---is just an in-universe explanation of how Bolos came
+to be. Not really a story, and it's a reprint from {{ bolo1 }}, so I don't
+count it. The two actual novellas are both expansions of earlier short stories
+from that first book. {{ the_author }} wrote one more Bolo book after this: {{
+bolo3 }}, which, like {{ this_book }}, reworks material from {{ bolo1 }}.
+After that, it's all novels and anthologies written by other authors like
+{{ keith }} ({{ bolo4}}, {{ bolo5 }}, and {{ bolo6 }}),
+{{ weber }} ({{ bolo8 }} and {{ bolo9 }}),
+and {{ stirling }} <abbr class="etal">et al.</abbr> ({{ bolo10 }}, {{ bolo11 }}, etc.).
 
 ### <cite class="short-story-title">Rogue Bolo</cite>
 {% rating_stars 4 %}
