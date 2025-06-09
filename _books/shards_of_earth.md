@@ -103,8 +103,8 @@ The space physics feels familiar as well, with the way ships gain traction
 against the boundary with Unspace similar to how {{ culture_series }} ships
 maneuver using the Grid. And the idea that intelligence warps Unspace, much
 like mass warps spacetime, suggests the Architects are destroying life to stop
-its mental "pollution"---similar to how human thought creates the
-all-consuming Pale in {{ disco_elysium }}.
+its mental "pollution"; similar to how human thought creates the all-consuming
+Pale in {{ disco_elysium }}.
 
 The genetically engineered warrior women of the Parthenon are a blend of {{
 dune }}'s Fish Speakers, the Adepta Sororitas from {{ fortyk }}, and the

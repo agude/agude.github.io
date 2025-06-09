@@ -76,6 +76,7 @@ ranked_list:
   - Heaven's River
   - The Dragon's Banker
   - The State of the Art
+  - Rogue Bolo
   - Clay's Ark
   - The Nameless City
   - World of Trouble
