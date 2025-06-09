@@ -6,32 +6,23 @@ require 'set'
 
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/book_card_utils'
+require_relative 'utils/front_matter_utils' # For parsing book_authors
+require_relative 'utils/book_list_utils'    # For _parse_book_number
 
 module Jekyll
-  # Liquid Tag to display related books.
-  # It prioritizes books from the same series, then by the same author,
-  # and finally falls back to recent books to fill up to a defined maximum.
-  #
-  # Usage: {% related_books %}
-  #
-  # No arguments are currently accepted by this tag.
-  # The maximum number of books to display is controlled by DEFAULT_MAX_BOOKS.
   class RelatedBooksTag < Liquid::Tag
     DEFAULT_MAX_BOOKS = 3
 
     def initialize(tag_name, markup, tokens)
       super
-      # No arguments to parse for this tag.
-      # @max_books could be made configurable via markup in the future if needed.
       @max_books = DEFAULT_MAX_BOOKS
     end
 
     def render(context)
       site = context.registers[:site]
       page = context.registers[:page]
+      log_messages_html = "" # Initialize for collecting log messages
 
-      # --- Basic Sanity Checks ---
-      # Ensure essential Jekyll objects and data are available.
       unless site && page && site.collections.key?('books') && page['url']
         missing_parts = []
         missing_parts << "site object" unless site
@@ -39,97 +30,135 @@ module Jekyll
         missing_parts << "site.collections['books']" unless site&.collections&.key?('books')
         missing_parts << "page['url']" unless page && page['url']
 
+        # This log message is returned directly, halting further processing.
         return PluginLoggerUtils.log_liquid_failure(
           context: context,
           tag_type: "RELATED_BOOKS",
           reason: "Missing prerequisites: #{missing_parts.join(', ')}.",
           identifiers: { PageURL: page ? page['url'] : 'N/A' },
-          level: :error, # Critical prerequisite failure
+          level: :error,
         )
       end
 
       current_url = page['url']
       current_series = page['series']
-      # Get current page's authors as a list
       current_page_authors = FrontMatterUtils.get_list_from_string_or_array(page['book_authors'])
         .map(&:strip).map(&:downcase).reject(&:empty?)
       now_unix = Time.now.to_i
 
-      # --- Prepare Base Pool of All Potential Books ---
-      # Filter out unpublished books, the current page itself, and future-dated books.
       all_potential_books = site.collections['books'].docs.select do |book|
-        book.data['published'] != false &&
+        book && book.data && # Ensure book and book.data are not nil
+          book.data['published'] != false &&
           book.url != current_url &&
           book.date && book.date.to_time.to_i <= now_unix
-      end
+      end.compact # Ensure no nils from a faulty collection.docs
 
-      # Create a globally sorted list by date (most recent first).
-      # This list is used for the author and recent books fallbacks.
       books_by_date_desc = all_potential_books.sort_by { |book| book.date }.reverse
-
-      # --- Collect Candidate Books (Prioritized Accumulation) ---
-      # Books are added to this accumulator in order of priority.
-      # Duplicates are allowed at this stage; they will be handled by the final `uniq` call.
       candidate_books_accumulator = []
+      current_book_num_parsed = BookListUtils.__send__(:_parse_book_number, page['book_number'])
 
-      # Priority 1: Books from the same series as the current page.
       if current_series && !current_series.to_s.strip.empty?
-        series_books = all_potential_books.select { |book| book.data['series'] == current_series }
-          .sort_by { |book| BookListUtils.__send__(:_parse_book_number, book.data['book_number']) } # Use numerical sort
-        candidate_books_accumulator.concat(series_books)
+        if current_book_num_parsed != Float::INFINITY
+          series_books_all_others = all_potential_books.select do |book|
+            book.data['series'] == current_series
+          end
+
+          if series_books_all_others.any?
+            books_with_parsed_numbers = series_books_all_others.map do |book|
+              { doc: book, num: BookListUtils.__send__(:_parse_book_number, book.data['book_number']) }
+            end.reject { |b_info| b_info[:num] == Float::INFINITY }
+
+            preceding_books_raw = books_with_parsed_numbers
+              .select { |b_info| b_info[:num] < current_book_num_parsed }
+              .sort_by { |b_info| -b_info[:num] }
+              .map { |b_info| b_info[:doc] }
+
+            succeeding_books_raw = books_with_parsed_numbers
+              .select { |b_info| b_info[:num] > current_book_num_parsed }
+              .sort_by { |b_info| b_info[:num] }
+              .map { |b_info| b_info[:doc] }
+
+            selected_series_candidates = []
+            temp_selection_tracker = []
+            slots_to_fill_from_series = @max_books
+            idx_pre = 0
+            idx_succ = 0
+
+            while temp_selection_tracker.length < slots_to_fill_from_series && \
+                (idx_pre < preceding_books_raw.length || idx_succ < succeeding_books_raw.length)
+              if idx_pre < preceding_books_raw.length && temp_selection_tracker.length < slots_to_fill_from_series
+                book_to_add = preceding_books_raw[idx_pre]
+                unless selected_series_candidates.map(&:url).include?(book_to_add.url)
+                  selected_series_candidates << book_to_add
+                end
+                temp_selection_tracker << book_to_add
+                idx_pre += 1
+              end
+              if idx_succ < succeeding_books_raw.length && temp_selection_tracker.length < slots_to_fill_from_series
+                book_to_add = succeeding_books_raw[idx_succ]
+                unless selected_series_candidates.map(&:url).include?(book_to_add.url)
+                  selected_series_candidates << book_to_add
+                end
+                temp_selection_tracker << book_to_add
+                idx_succ += 1
+              end
+            end
+
+            final_series_books_to_add = selected_series_candidates.sort_by do |book|
+              BookListUtils.__send__(:_parse_book_number, book.data['book_number'])
+            end
+            candidate_books_accumulator.concat(final_series_books_to_add)
+          end
+        else
+          log_messages_html << PluginLoggerUtils.log_liquid_failure( # Append to log_messages_html
+                                                                    context: context,
+                                                                    tag_type: "RELATED_BOOKS_SERIES",
+                                                                    reason: "Current page has unparseable book_number ('#{page['book_number']}'). Using all series books sorted by number.",
+                                                                    identifiers: { PageURL: page['url'], Series: current_series },
+                                                                    level: :info
+                                                                   )
+          series_books_fallback = all_potential_books
+            .select { |book| book.data['series'] == current_series }
+            .sort_by { |book| BookListUtils.__send__(:_parse_book_number, book.data['book_number']) }
+          candidate_books_accumulator.concat(series_books_fallback)
+        end
       end
 
-      # Check the number of unique books found so far before proceeding to the next priority tier.
-      # This ensures that fallbacks are only triggered if we haven't met @max_books with unique items.
       current_unique_urls = Set.new(candidate_books_accumulator.map(&:url))
-
-      # Priority 2: Books by the same author (if not enough unique books from series).
       if current_unique_urls.length < @max_books && current_page_authors.any?
-        # Select from the globally date-sorted list.
-        # The final `uniq` will ensure that books already added from the series pool aren't duplicated
-        # if they are also by the same author.
         author_books = books_by_date_desc.select do |book|
+          next if current_unique_urls.include?(book.url)
           book_author_list = FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
             .map(&:strip).map(&:downcase).reject(&:empty?)
-          # Check for any intersection between current page's authors and this book's authors
           (current_page_authors & book_author_list).any?
         end
         candidate_books_accumulator.concat(author_books)
       end
 
-      # Re-check unique count before the final fallback.
       current_unique_urls = Set.new(candidate_books_accumulator.map(&:url))
-
-      # Priority 3: Recent books (if still not enough unique books).
       if current_unique_urls.length < @max_books
-        # Add all remaining date-sorted books. The final `uniq` and `slice` will pick the most relevant.
-        candidate_books_accumulator.concat(books_by_date_desc)
+        books_by_date_desc.each do |book|
+          break if Set.new(candidate_books_accumulator.map(&:url)).length >= @max_books
+          unless candidate_books_accumulator.map(&:url).include?(book.url)
+            candidate_books_accumulator << book
+          end
+        end
       end
 
-      # --- Deduplicate and Limit Final Selection ---
-      # `uniq` by book URL preserves the order of first appearance, respecting the prioritization
-      # of how books were added to `candidate_books_accumulator`.
-      # Then, slice to get the desired number of books.
       final_books = candidate_books_accumulator.uniq { |book| book.url }.slice(0, @max_books)
 
-      # --- Render Output ---
-      # If no related books are found after all filtering and prioritization, return an empty string.
-      return "" if final_books.empty? # Expected empty state, no specific log needed here.
+      return log_messages_html if final_books.empty? # Prepend logs if no books found
 
       output = "<aside class=\"related\">\n"
-      # The header is static for this tag.
       output << "  <h2>Related Books</h2>\n"
       output << "  <div class=\"card-grid\">\n"
-
       final_books.each do |book|
-        # Delegate rendering of individual book cards to the utility.
         output << BookCardUtils.render(book, context) << "\n"
       end
-
       output << "  </div>\n"
       output << "</aside>"
 
-      output
+      log_messages_html + output # Prepend any collected log messages
     end
   end
 end
