@@ -16,28 +16,11 @@ of two novellas featuring the sentient tanks.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
-
-{% capture bolo3 %}{% book_link "The Stars Must Wait" %}{% endcapture %}
-{% capture bolo4 %}{% book_link "Bolo Brigade" %}{% endcapture %}
-{% capture bolo5 %}{% book_link "Bolo Rising" %}{% endcapture %}
-{% capture bolo6 %}{% book_link "Bolo Strike" %}{% endcapture %}
-{% capture bolo7 %}{% book_link "The Road to Damascus" %}{% endcapture %}
-{% capture bolo8 %}{% book_link "Bolo!" %}{% endcapture %}
-{% capture bolo9 %}{% book_link "Old Soldiers" %}{% endcapture %}
-{% capture bolo10 %}{% book_link "Honor of the Regiment" %}{% endcapture %}
-{% capture bolo11 %}{% book_link "The Unconquerable" %}{% endcapture %}
-{% capture bolo12 %}{% book_link "The Triumphant" %}{% endcapture %}
-{% capture bolo13 %}{% book_link "Last Stand" %}{% endcapture %}
-{% capture bolo14 %}{% book_link "Old Guard" %}{% endcapture %}
-{% capture bolo15 %}{% book_link "Cold Steel" %}{% endcapture %}
 
 {% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
+{% capture bolo3 %}{% book_link "The Stars Must Wait" %}{% endcapture %}
+
 {% capture history_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#a-short-history-of-the-bolo-fighting-machines"><cite class="short-story-title">A Short History of the Bolo Fighting Machines</cite></a>{% endcapture %}
-{% capture trolls_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#the-night-of-the-trolls"><cite class="short-story-title">The Night of the Trolls</cite></a>{% endcapture %}
-{% capture courier_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#courier"><cite class="short-story-title">Courier</cite></a>{% endcapture %}
 {% capture field_test_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#field-test"><cite class="short-story-title">Field Test</cite></a>{% endcapture %}
 {% capture last_command_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#the-last-command"><cite class="short-story-title">The Last Command</cite></a>{% endcapture %}
 {% capture relic_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#a-relic-of-war"><cite class="short-story-title">A Relic of War</cite></a>{% endcapture %}
@@ -49,18 +32,15 @@ of two novellas featuring the sentient tanks.
 {% capture colossus %}{% book_link "Colossus" %}{% endcapture %}
 {% capture joness %}{% author_link "D. F. Jones" possessive %}{% endcapture %}
 
-{{ this_book }} actually has three stories, if you count the re-inclusion of {{
-history_from_bolo1 }}, which I don't. Both novellas in the book are basically
-expansions of short stories from {{ bolo1 }}.
+{{ this_book }} actually has three stories, if you count the re-inclusion of
+{{ history_from_bolo1 }}, which I don't. Both novellas in the book are
+basically expansions of short stories from {{ bolo1 }}.
+
+After this book, there is one more {{ the_author }} Bolo book: {{ bolo3 }}.
+It, like {{ this_book }}, is an expansion of stories from {{ bolo1 }}.
 
 ### <cite class="short-story-title">Rogue Bolo</cite>
 {% rating_stars 4 %}
-
-<cite class="short-story-title">Rogue Bolo</cite> expansion of the concept and
-structure used in {{ field_test_from_bolo1 }}. It uses the same
-paragraph-length chapters (200 of them!) to tell the story of the Bolo CSR,
-who was created on an authoritarian Earth, and given immense processing power
-and the freedom to take whatever action necessary to protect the empire.
 
 <cite class="short-story-title">Rogue Bolo</cite> is an expansion of the
 concept and structure used in {{ field_test_from_bolo1 }}. It uses the same
