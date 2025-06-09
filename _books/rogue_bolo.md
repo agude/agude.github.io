@@ -15,7 +15,6 @@ of two novellas featuring the sentient tanks.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 
 {% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
 {% capture bolo3 %}{% book_link "The Stars Must Wait" %}{% endcapture %}
@@ -49,10 +48,10 @@ to be. Not really a story, and it's a reprint from {{ bolo1 }}, so I don't
 count it. The two actual novellas are both expansions of earlier short stories
 from that first book. {{ the_author }} wrote one more Bolo book after this: {{
 bolo3 }}, which, like {{ this_book }}, reworks material from {{ bolo1 }}.
-After that, it's all novels and anthologies written by other authors like
-{{ keith }} ({{ bolo4}}, {{ bolo5 }}, and {{ bolo6 }}),
-{{ weber }} ({{ bolo8 }} and {{ bolo9 }}),
-and {{ stirling }} <abbr class="etal">et al.</abbr> ({{ bolo10 }}, {{ bolo11 }}, etc.).
+After that, it's all novels and anthologies written by other authors like {{
+keith }} ({{ bolo4 }}, {{ bolo5 }}, and {{ bolo6 }}), {{ weber }} ({{ bolo8 }}
+and {{ bolo9 }}), and {{ stirling }} <abbr class="etal">et al.</abbr> ({{
+bolo10 }}, {{ bolo11 }}, etc.).
 
 ### <cite class="short-story-title">Rogue Bolo</cite>
 {% rating_stars 4 %}
