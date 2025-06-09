@@ -10,17 +10,14 @@ image: /books/covers/bolo.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the first book in the
-<span class="book-series">{{ page.series }}</span> series. It is a collection of
-seven novellas and short stories, all featuring Bolos.
+<span class="book-series">{{ page.series }}</span> series. It is a collection
+of seven novellas and short stories, all featuring Bolos.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
 
-{% capture bolo1 %}{% book_link "Bolo" %}{% endcapture %}
 {% capture bolo2 %}{% book_link "Rogue Bolo" %}{% endcapture %}
 {% capture bolo3 %}{% book_link "The Stars Must Wait" %}{% endcapture %}
 {% capture bolo10 %}{% book_link "Honor of the Regiment" %}{% endcapture %}
@@ -36,7 +33,6 @@ seven novellas and short stories, all featuring Bolos.
 {% capture so2001 %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 {% capture zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
 
-{% capture history %}[<cite class="short-story-title">A Short History of the Bolo Fighting Machines</cite>](#a-short-history-of-the-bolo-fighting-machines){% endcapture %}
 {% capture trolls %}[<cite class="short-story-title">The Night of the Trolls</cite>](#the-night-of-the-trolls){% endcapture %}
 {% capture courier %}[<cite class="short-story-title">Courier</cite>](#courier){% endcapture %}
 {% capture field_test %}[<cite class="short-story-title">Field Test</cite>](#field-test){% endcapture %}
@@ -46,9 +42,9 @@ seven novellas and short stories, all featuring Bolos.
 
 I read the Bolo anthologies---{{ bolo10 }}, {{ bolo11 }}, {{ bolo12 }},
 etc.---about twenty-five years ago, then tracked down every other Bolo book I
-could find at the used bookstore. Eventually I picked up {{ this_book }}.
-Now, rereading it, the stories feel familiar in the same way that {{
-fire }} or {{ childhoods }} did: the details are fuzzy, but the arc is clear.
+could find at the used bookstore. Eventually I picked up {{ this_book }}. Now,
+rereading it, the stories feel familiar in the same way that {{ fire }} or {{
+childhoods }} did: the details are fuzzy, but the arc is clear.
 
 With two more decades of sci-fi in my head, this book doesn't land as great.
 Some of the stories---like {{ last_command }} and {{ combat_unit }}---start to
@@ -100,8 +96,8 @@ sense of duty and honor. A throwaway line notes that the Bolo's mind is still
 constrained by its programming, a theme that is explored more in {{ mb4_5 }}.
 The story is told as a series of paragraph-length chapters, each a snippet of
 in-universe media---from letters to speeches to short conversations. This
-structure is reminiscent of {{ zanzibar }}, and is a test run for {{ bolo2
-}}, where one of the novellas uses the same paragraph-length chapter format.
+structure is reminiscent of {{ zanzibar }}, and is a test run for {{ bolo2 }},
+where one of the novellas uses the same paragraph-length chapter format.
 
 ### <cite class="short-story-title">The Last Command</cite>
 {% rating_stars 4 %}
