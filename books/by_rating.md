@@ -70,6 +70,7 @@ ranked_list:
   - Mission of Gravity
   - "Home: Habitat, Range, Niche, Territory"
   - Martin The Warrior
+  - Shards of Earth
   - The Left Hand of Darkness
   - Gun, with Occasional Music
   - Countdown City
