@@ -176,6 +176,31 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
   font-family: $code-font-family;
 }
 
+// Mobile First Styles (No Float)
+.book-cover-float-container {
+  // On mobile, the container is centered and has no float.
+  float: none;
+  margin: 0 0 1.5rem 0;
+  max-width: 15em; // Set a sensible max size for the cover
+}
+
+// The book cover image itself
+.book-cover-lead {
+  display: block; // Removes potential extra space below image
+  width: 100%;    // Fill the container
+  height: auto;   // Maintain aspect ratio
+}
+
+// Desktop Styles (With Float)
+@media (min-width: $large-breakpoint) {
+  .book-cover-float-container {
+    // On desktop, float the container to the right
+    float: right;
+    // Add margin to the left and bottom to create space for the text to wrap around
+    margin: 0.5rem 0 1rem 2rem;
+  }
+}
+
 // Book titles in paragraphs
 .book-title, .short-story-title {
   font-style: italic;
@@ -184,21 +209,6 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
 .book-rating {
   font-size: 1.3em;
   margin-bottom: 0.5em;
-}
-
-// Book Cover Images at top of article
-.floating-book-cover {
-  float: right;
-}
-
-.book-cover-lead {
-  // If the image is smaller, use it's natural size
-  // otherwise restrict it
-  max-height: 20em;
-  height: auto;
-  width: auto;
-  padding: 1em;
-  margin: 0em;
 }
 
 // Book list navigation
