@@ -482,9 +482,12 @@ a.pagination-item:hover {
     bottom: 0;
     width: 18rem;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem; // Adjust padding as needed
+    padding-bottom: 1rem;
   }
 }
-
 
 /* Sidebar links */
 .sidebar a {
@@ -515,10 +518,7 @@ a.sidebar-nav-item:focus {
 
 @media (min-width: $sidebar-appear-breakpoint) {
   .sidebar-sticky {
-    position: absolute;
-    right:  1rem;
-    bottom: 1rem;
-    left:   1rem;
+    margin-top: auto;
   }
 }
 

@@ -45,3 +45,7 @@ $large-breakpoint: 38em;
 $sidebar-appear-breakpoint: 48em;
 $more-space-breakpoint: 64em;
 $font-size-increase-breakpoint: 58em;
+
+// The approximate viewport height below which the sidebar portrait
+// should be hidden to prevent overlapping with nav content.
+$sidebar-portrait-hide-height: 62rem;
