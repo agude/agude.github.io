@@ -3,21 +3,31 @@
 
 // Portraits
 .sidebar-portrait {
-    position: relative;
-    width: 250px;
-    height: 250px;
-    overflow: hidden;
-    border-radius: 50%;
-    margin: auto; // Center horizontally
+  position: relative;
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  flex-shrink: 0; // Prevent the portrait from shrinking
 
-    img {
-      width: 100%;
-      height: auto;
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  // Use the new, more robust hiding logic
+  @media (min-width: $sidebar-appear-breakpoint) {
+    // Center in the flex container on desktop
+    align-self: center;
+    margin-bottom: 2rem; // Give it more space on desktop
+
+    // Hide the image if the screen is too short
+    @media (max-height: $sidebar-portrait-hide-height) {
+      display: none;
     }
-
-  // Hide the image if the screen is too small and the sidebar is out
-  @media (min-width: $sidebar-appear-breakpoint) and (max-height: 62rem) {
-    display: none;
   }
 }
 
