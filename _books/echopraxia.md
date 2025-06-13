@@ -14,7 +14,7 @@ class="book-series">{{ page.series }}</span> series, unfolding at roughly the
 same time as {% book_link "Blindsight" %}. It follows
 parasitologist Daniel Brüks, who gets unwillingly dragged into a conflict
 between multiple transhuman factions, travels to the _Icarus_ station orbiting
-the sun, and eventually back to Earth
+the sun, and eventually back to Earth.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
