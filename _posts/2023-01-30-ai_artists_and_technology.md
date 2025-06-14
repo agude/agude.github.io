@@ -5,13 +5,13 @@ description: >
   AI generated art took off with the open-source release of Stable Diffusion,
   leaving some artists worried. As an artist and machine learning engineer,
   here is my take.
-image: /files/ai_artists_and_technology/field_of_yellow_by_alex_gude_painted_by_chatgpt_20250613_hans_gude.png
+image: /files/ai_artists_and_technology/field_of_yellow_by_alex_gude_painted_by_chatgpt_20250613_hans_gude.jpg
 hide_lead_image: False
 image_alt: >
-  An image generated from one of my landscape photos using Stable Diffusion
-  with img2img to make it look more like an oil painting. It shows yellow
-  flowers, with a forest behind them. The Jura Mountains loom behind the
-  forest, and the sky is bright blue with some large white clouds.
+  An image generated from one of my landscape photos using ChatGPT to make it
+  look more like an oil painting. It shows yellow flowers, with a forest
+  behind them. The Jura Mountains loom behind the forest, and the sky is
+  bright blue with some large white clouds.
 categories:
   - generative-ai
   - machine-learning
