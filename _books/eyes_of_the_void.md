@@ -1,10 +1,10 @@
 ---
-date: 2025-06-09
+date: 2025-06-22
 title: Eyes of the Void
 book_authors: Adrian Tchaikovsky
 series: The Final Architecture
 book_number: 2
-rating: null
+rating: 3
 image: /books/covers/eyes_of_the_void.jpg
 ---
 
