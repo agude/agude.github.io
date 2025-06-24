@@ -39,52 +39,51 @@ _Vulture God_ discover where the Architects come from.
 {% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}
 
 The plot focuses on the Parthenon Int program, the study of Originator ruins
-on a desert planet, and the rescue of Idris from a deathworld where he is able
-to explore Unspace with an Originator machine. The tight focus on the plot and
-smaller number of locations helps {{ this_book }} feel more coherent than {{
-fa1 }}, which often felt like we were bouncing around from adventure to
-adventure without clear connection. And the characters have more agency in
-this book, saving themselves instead of relying on _deus ex machima_ as in the
+on a desert planet, and the rescue of Idris from a deathworld where he's able
+to explore Unspace with an Originator machine. The tighter focus and smaller
+number of locations help {{ this_book }} feel more coherent than {{ fa1 }},
+which often felt like we were bouncing from adventure to adventure without a
+clear throughline. The characters also have more agency here--- saving
+themselves instead of relying on _deus ex machina_ like they did in the
 previous book.
 
-But the writing is still... workman-like at best, comparable to {{ tbp }} or
-{{ suns }}. {{ the_author }} repeats himself over and over and over, perhaps
-worried the reader wouldn't remember or pickup on what was said the first
-time. At one point I ran into this sentence: "They crossed to the docking
-field just as the planet was coming into view, a veiny gas giant like an
-infected testicle crawling up the horizon of Hismin's Moon and leaving
-previous little of the sky free of its malign radiance." I put the book down
-and stared into space for a few minutes thinking "This series won a Hugo
-award."
+But the writing is still... workmanlike at best, comparable to {{ tbp }} or {{
+suns }}. {{ the_author }} repeats himself over and over and over, maybe
+worried the reader won't remember or pick up on things the first time. At one
+point I ran into this sentence: "They crossed to the docking field just as the
+planet was coming into view, a veiny gas giant like an infected testicle
+crawling up the horizon of Hismin's Moon and leaving precious little of the
+sky free of its malign radiance." I put the book down and stared into space
+for a few minutes thinking, "This series won a Hugo award."
 
-So why do I like this book? The mystery is keeping me going. I want to know
-what the entity in Unspace is and what is its connection to the Architects. I
-wants to see how the war ends. Normally worldbuilding isn't enough to keep my
-going, but in this case it's keeping me interested.
+So why do I like this book? The universe's mysteries are keeping me going. I
+want to know what the entity in Unspace is, and what its connection to the
+Architects might be. I want to see how the war ends. Normally, worldbuilding
+alone isn't enough to hold my interest, but in this case it's doing the job.
 
-This book reminded me of a few others:
+This book reminded me of a few other works of fiction:
 
-- The Parthenon garden ships, with their mix of nature and buildings, are like
-  Culture ships, particularly _Sleeper Service_ from {{ c5 }}.
+- The Parthenon garden ships, with their blend of nature and structure, feel
+  like Culture ships, especially _Sleeper Service_ from {{ c5 }}.
 
-- Paying for anything---even for the police to look the otherway during a
-  murder---was just like the Corporation Rim in {{ mb4 }}.
+- The way everything has a price---even getting the police to ignore a
+  murder---is like the Corporation Rim in {{ mb4 }}.
 
-- Building a city in the Originator Ruins, and having to work around it weird
-  architecture, is similar to Makkathran in {{ void1 }}.
+- The settlement in the Originator ruins, with its awkward integration into
+  alien architecture, recalls Makkathran in {{ void1 }}.
 
-- The compound names of the Tothiat parasites and hosts (Emma and Neth become
-  Emmaneth) is like how the trill are named in <cite
-  class="tv-show-title">Deep Space 9</cite>.
+- Tothiat parasite-host naming (Emma and Neth becoming Emmaneth) works a lot
+  like how the Trill are named in <cite class="tv-show-title">Deep Space
+  9</cite>.
 
--  The world Matachin is an homage to the Matachin Tower in {{ torturer }}.
-
-- The entity in Unspace somehow being encoded into the fabric of Unspace is
-  like the mind encoded into the magnetic field of the blackhole in {{ eater
+- The planet Matachin is a clear homage to the Matachin Tower in {{ torturer
   }}.
 
-- Ahab, the Naeromathi who lets his quest for vengeance against the Architects
-  blind him, is of course based on Ahab from {{ moby }}.
+- An intelligence embedded in the fabric of Unspace parallels the mind stored
+  in the magnetic field of a black hole in {{ eater }}.
 
-Once again I'm going to take a break to read {{ ba1 }}, and probably {{ wow }}
-and {{ mb5 }}, before finishing the trilogy with {{ fa3 }}.
+- Ahab, the Naeromathi consumed by vengeance, is obviously modeled on his
+  namesake from {{ moby }}.
+
+Once again, I'm going to take a break to read {{ ba1 }}, and probably {{ wow
+}} and {{ mb5 }}, before finishing the trilogy with {{ fa3 }}.
