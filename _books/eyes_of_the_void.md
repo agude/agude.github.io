@@ -11,8 +11,8 @@ image: /books/covers/eyes_of_the_void.jpg
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the second book in the
 <span class="book-series">{{ page.series }}</span> series. It takes place
-during the second war with the Architects, as Idris and the crew of the
-_Vulture God_ discover where the Architects come from.
+during the new war with the Architects, as Idris and the crew of the _Vulture
+God_ discover where the Architects come from.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -50,11 +50,15 @@ previous book.
 But the writing is still... workmanlike at best, comparable to {{ tbp }} or {{
 suns }}. {{ the_author }} repeats himself over and over and over, maybe
 worried the reader won't remember or pick up on things the first time. At one
-point I ran into this sentence: "They crossed to the docking field just as the
-planet was coming into view, a veiny gas giant like an infected testicle
-crawling up the horizon of Hismin's Moon and leaving precious little of the
-sky free of its malign radiance." I put the book down and stared into space
-for a few minutes thinking, "This series won a Hugo award."
+point I ran into this sentence:
+
+> They crossed to the docking field just as the planet was coming into view, a
+> veiny gas giant like an infected testicle crawling up the horizon of
+> Hismin's Moon and leaving precious little of the sky free of its malign
+> radiance.
+
+I put the book down and stared into space for a few minutes thinking, "This
+series won a Hugo award."
 
 So why do I like this book? The universe's mysteries are keeping me going. I
 want to know what the entity in Unspace is, and what its connection to the
