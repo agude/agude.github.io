@@ -90,7 +90,18 @@ The planet of Camelot
 and rewrite of {{ field_test_from_bolo1 }} from {{ bolo1 }}; the author even
 mentions the story by name. In it, a regiment of Bolos is sent to the
 non-Concordinate planet of New Sierra to help them fend off an invasion by
-Christian religious fanatics.
+Christian religious fanatics.[^mormons]
+
+[^mormons]:
+    The fanatics are based on Mormons. Their state is named
+    [Deseret][deseret]. Their leader is named "Hyman Smith-Wentworth" after,
+    [Hyrum Smith][hyrum], [Joseph Smith][smith], and the [Wentworth
+    Letter][wentworth].
+
+[deseret]: https://en.wikipedia.org/wiki/State_of_Deseret
+[hyrum]: https://en.wikipedia.org/wiki/Hyrum_Smith
+[smith]: https://en.wikipedia.org/wiki/Joseph_Smith
+[wentworth]: https://en.wikipedia.org/wiki/Wentworth_letter
 
 But the coordinator of the army doesn't trust the Mk. XX Bolos, thinking that
 honor and grit are what win wars, not superior firepower. Unit JSN (Jason) is
