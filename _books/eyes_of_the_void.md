@@ -43,7 +43,7 @@ on a desert planet, and the rescue of Idris from a deathworld where he's able
 to explore Unspace with an Originator machine. The tighter focus and smaller
 number of locations help {{ this_book }} feel more coherent than {{ fa1 }},
 which often felt like we were bouncing from adventure to adventure without a
-clear throughline. The characters also have more agency here--- saving
+clear throughline. The characters also have more agency here---saving
 themselves instead of relying on _deus ex machina_ like they did in the
 previous book.
 
@@ -59,7 +59,7 @@ for a few minutes thinking, "This series won a Hugo award."
 So why do I like this book? The universe's mysteries are keeping me going. I
 want to know what the entity in Unspace is, and what its connection to the
 Architects might be. I want to see how the war ends. Normally, worldbuilding
-alone isn't enough to hold my interest, but in this case it's doing the job.
+alone isn't enough to hold my interest, but in this case, it's doing the job.
 
 This book reminded me of a few other works of fiction:
 
@@ -72,7 +72,7 @@ This book reminded me of a few other works of fiction:
 - The settlement in the Originator ruins, with its awkward integration into
   alien architecture, recalls Makkathran in {{ void1 }}.
 
-- Tothiat parasite-host naming (Emma and Neth becoming Emmaneth) works a lot
+- Tothiat parasite--host naming (Emma and Neth becoming Emmaneth) works a lot
   like how the Trill are named in <cite class="tv-show-title">Deep Space
   9</cite>.
 
