@@ -38,11 +38,14 @@ _Vulture God_ discover where the Architects come from.
 {% capture wow %}{% book_link "The War of the Worlds" %}{% endcapture %}
 {% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}
 
-{{ this_book }} is more focused than {{ fa1 }} and feels less derivative.
-There are two major story arcs instead of multiple small ones, which gives the
-narrative a clear structure and more impact. And the characters have more
-agency, saving themselves instead of relying on _deus ex machima_ as in the
-first book.
+The plot focuses on the Parthenon Int program, the study of Originator ruins
+on a desert planet, and the rescue of Idris from a deathworld where he is able
+to explore Unspace with an Originator machine. The tight focus on the plot and
+smaller number of locations helps {{ this_book }} feel more coherent than {{
+fa1 }}, which often felt like we were bouncing around from adventure to
+adventure without clear connection. And the characters have more agency in
+this book, saving themselves instead of relying on _deus ex machima_ as in the
+previous book.
 
 But the writing is still... workman-like at best, comparable to {{ tbp }} or
 {{ suns }}. {{ the_author }} repeats himself over and over and over, perhaps
@@ -83,5 +86,5 @@ This book reminded me of a few others:
 - Ahab, the Naeromathi who lets his quest for vengeance against the Architects
   blind him, is of course based on Ahab from {{ moby }}.
 
-Once again I'm going to take a break and read {{ ba1 }}, and probably {{ wow
-}} and {{ mb5 }}, before finishing the trilogy with {{ fa3 }}.
+Once again I'm going to take a break to read {{ ba1 }}, and probably {{ wow }}
+and {{ mb5 }}, before finishing the trilogy with {{ fa3 }}.
