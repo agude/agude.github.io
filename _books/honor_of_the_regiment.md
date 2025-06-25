@@ -63,6 +63,8 @@ Bolo stories written by ten different authors.
 {% capture rogue_bolo_from_bolo2 %}<a href="/books/rogue_bolo/#rogue-bolo"><cite class="short-story-title">Rogue Bolo</cite></a>{% endcapture %}
 {% capture final_mission_from_bolo2  %}<a href="/books/rogue_bolo/#final-mission"><cite class="short-story-title">Final Mission</cite></a>{% endcapture %}
 
+{% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
+
 ### <cite class="short-story-title">Lost Legion</cite>
 <div class="written-by">by {{ author_stirling }}</div>
 {% rating_stars 4 %}
@@ -118,7 +120,25 @@ his mistake.
 
 ### <cite class="short-story-title">Ploughshare</cite>
 <div class="written-by">by {{ author_johnson }}</div>
-{% rating_stars 3 %}
+{% rating_stars 5 %}
+
+Space Germans unearth a Mk XVI Bolo DAK (Das Afrika Korp) and plan to use it
+to invade Space Alsace-Lorraine and drive out the Space French. The Bolo
+though figures out that the war---and the famine 300 years earlier---was
+caused by hostile aliens that are trying to take over the planet for
+themselves. Using it's superior inteligence, the Bolo manipulates both human
+sides into preparing for the alien invasion.
+
+This story is a take on the same theme as {{ rogue_bolo_from_bolo2 }}, where
+the Bolo recognizes an undetected threat an prepares for it.
+
+The way the Bolo orchestrates an threat, itself, to unite the human factions
+reminds me of how Ozymandias sets up an alien threat to prevent a nuclear war
+in {{ watchmen }}. The way the humans come together to defeat the alien
+invaders reminds me of <cite class="movie-title">Independence Day</cite>. It
+is also similar to some previous short stories---like {{ relic_from_bolo1 }}
+and {{ final_mission_from_bolo2 }}---where a Bolo is woken up and has to
+defend humans from an unanticipated alien attack.
 
 ### <cite class="short-story-title">Ghosts</cite>
 <div class="written-by">by {{ author_resnick }} and {{ author_malzberg }}</div>
