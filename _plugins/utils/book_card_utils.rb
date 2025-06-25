@@ -90,7 +90,7 @@ module BookCardUtils
     if author_names.any?
       author_links = author_names.map { |name| AuthorLinkUtils.render_author_link(name, context) }
       # Use TextProcessingUtils to format the list of links
-      formatted_author_links = TextProcessingUtils.format_list_as_sentence(author_links)
+      formatted_author_links = TextProcessingUtils.format_list_as_sentence(author_links, etal_after: 3)
       extra_elements << "    <span class=\"by-author\"> by #{formatted_author_links}</span>\n"
     else
       # Optionally log if book_authors was expected but resolved to empty

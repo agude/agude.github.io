@@ -128,7 +128,9 @@ class TestTextProcessingUtils < Minitest::Test
     assert_equal "complex title with spaces", TextProcessingUtils.normalize_title("  Complex\nTitle   with\n\nSpaces  ")
   end
 
+
   # --- Tests for format_list_as_sentence ---
+
   def test_format_list_as_sentence_nil_or_empty
     assert_equal "", TextProcessingUtils.format_list_as_sentence(nil)
     assert_equal "", TextProcessingUtils.format_list_as_sentence([])
@@ -149,30 +151,50 @@ class TestTextProcessingUtils < Minitest::Test
     assert_equal "Author A, Author B, and Author C", TextProcessingUtils.format_list_as_sentence(items)
   end
 
-  def test_format_list_as_sentence_four_items
+  def test_format_list_as_sentence_four_items_default
+    items = ["Author A", "Author B", "Author C", "Author D"]
+    expected = "Author A, Author B, Author C, and Author D"
+    assert_equal expected, TextProcessingUtils.format_list_as_sentence(items)
+  end
+
+  def test_format_list_as_sentence_five_items_default
+    items = ["Author A", "Author B", "Author C", "Author D", "Author E"]
+    expected = "Author A, Author B, Author C, Author D, and Author E"
+    assert_equal expected, TextProcessingUtils.format_list_as_sentence(items)
+  end
+
+  # --- Tests for the etal_after parameter ---
+
+  def test_format_list_as_sentence_with_etal_after_triggers_etal
     items = ["Author A", "Author B", "Author C", "Author D"]
     expected = "Author A <abbr class=\"etal\">et al.</abbr>"
-    assert_equal expected, TextProcessingUtils.format_list_as_sentence(items)
+    assert_equal expected, TextProcessingUtils.format_list_as_sentence(items, etal_after: 3)
   end
 
-  def test_format_list_as_sentence_five_items
-    items = ["Author A", "Author B", "Author C", "Author D", "Author E"]
-    expected = "Author A <abbr class=\"etal\">et al.</abbr>"
-    assert_equal expected, TextProcessingUtils.format_list_as_sentence(items)
+  def test_format_list_as_sentence_with_etal_after_at_limit_does_not_trigger
+    # Length (3) is not > etal_after (3), so it should format the full list.
+    items = ["Author A", "Author B", "Author C"]
+    expected = "Author A, Author B, and Author C"
+    assert_equal expected, TextProcessingUtils.format_list_as_sentence(items, etal_after: 3)
   end
 
-  def test_format_list_as_sentence_items_are_html
-    # The items are expected to be pre-processed HTML (links or spans)
+  def test_format_list_as_sentence_with_etal_after_and_html_items
     item1 = "<a href='/a'>Author A</a>"
     item2 = "<span>Author B</span>"
     item3 = "<a href='/c'>Author C</a>"
     item4 = "<span>Author D</span>"
+    items = [item1, item2, item3, item4]
 
-    assert_equal item1, TextProcessingUtils.format_list_as_sentence([item1])
-    assert_equal "#{item1} and #{item2}", TextProcessingUtils.format_list_as_sentence([item1, item2])
-    assert_equal "#{item1}, #{item2}, and #{item3}", TextProcessingUtils.format_list_as_sentence([item1, item2, item3])
-    expected_four = "#{item1} <abbr class=\"etal\">et al.</abbr>"
-    assert_equal expected_four, TextProcessingUtils.format_list_as_sentence([item1, item2, item3, item4])
+    expected = "#{item1} <abbr class=\"etal\">et al.</abbr>"
+    assert_equal expected, TextProcessingUtils.format_list_as_sentence(items, etal_after: 3)
   end
 
+  def test_format_list_as_sentence_with_invalid_etal_after_defaults_to_full_list
+    items = ["Author A", "Author B", "Author C", "Author D"]
+    expected = "Author A, Author B, Author C, and Author D"
+    # Invalid values for etal_after should be ignored, defaulting to full list.
+    assert_equal expected, TextProcessingUtils.format_list_as_sentence(items, etal_after: 0)
+    assert_equal expected, TextProcessingUtils.format_list_as_sentence(items, etal_after: -1)
+    assert_equal expected, TextProcessingUtils.format_list_as_sentence(items, etal_after: "foo")
+  end
 end

@@ -20,7 +20,8 @@ class TestDisplayAuthorsTag < Minitest::Test
           'linked_true_var' => true,
           'linked_false_var' => false,
           'linked_string_true_var' => 'true',
-          'linked_string_false_var' => 'false'
+          'linked_string_false_var' => 'false',
+          'etal_limit_var' => 3,
         }
       },
       { site: @site } # No current page needed for these specific tests as AuthorLinkUtils handles it
@@ -98,6 +99,11 @@ class TestDisplayAuthorsTag < Minitest::Test
       Liquid::Template.parse("{% display_authors page.single_author_list linked=true linked=false %}")
     end
     assert_match "Duplicate argument 'linked'", err.message
+
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse("{% display_authors page.single_author_list etal_after=3 etal_after=4 %}")
+    end
+    assert_match "Duplicate argument 'etal_after'", err.message
   end
 
   def test_syntax_error_invalid_argument_syntax_after_authors_list
@@ -135,14 +141,14 @@ class TestDisplayAuthorsTag < Minitest::Test
 
   def test_render_four_authors_linked_default
     # page.four_author_list is ['John Smith', 'Jane Doe', 'Peter Pan', 'Alice Wonderland']
-    expected_output = "#{@mock_link_john} #{@etal_abbr}"
+    expected_output = "#{@mock_link_john}, #{@mock_link_jane}, #{@mock_link_peter}, and #{@mock_link_alice}"
     output = render_tag("page.four_author_list")
     assert_equal expected_output, output
   end
 
   def test_render_five_authors_linked_default
     # page.five_author_list is ['John Smith', 'Jane Doe', 'Peter Pan', 'Alice Wonderland', 'Bob The Builder']
-    expected_output = "#{@mock_link_john} #{@etal_abbr}"
+    expected_output = "#{@mock_link_john}, #{@mock_link_jane}, #{@mock_link_peter}, #{@mock_link_alice}, and #{@mock_link_bob}"
     output = render_tag("page.five_author_list")
     assert_equal expected_output, output
   end
@@ -166,7 +172,7 @@ class TestDisplayAuthorsTag < Minitest::Test
   end
 
   def test_render_four_authors_unlinked
-    expected_output = "#{@plain_span_john} #{@etal_abbr}"
+    expected_output = "#{@plain_span_john}, #{@plain_span_jane}, #{@plain_span_peter}, and #{@plain_span_alice}"
     output = render_tag("page.four_author_list linked='false'")
     assert_equal expected_output, output
   end
@@ -178,8 +184,48 @@ class TestDisplayAuthorsTag < Minitest::Test
   end
 
   def test_render_four_authors_linked_explicitly_true_variable
-    expected_output = "#{@mock_link_john} #{@etal_abbr}"
+    expected_output = "#{@mock_link_john}, #{@mock_link_jane}, #{@mock_link_peter}, and #{@mock_link_alice}"
     output = render_tag("page.four_author_list linked=page.linked_true_var")
+    assert_equal expected_output, output
+  end
+
+  # --- Test 'etal_after' option ---
+  def test_render_four_authors_with_etal_after_3_linked
+    expected_output = "#{@mock_link_john} #{@etal_abbr}"
+    output = render_tag("page.four_author_list etal_after=3")
+    assert_equal expected_output, output
+  end
+
+  def test_render_four_authors_with_etal_after_3_unlinked
+    expected_output = "#{@plain_span_john} #{@etal_abbr}"
+    output = render_tag("page.four_author_list etal_after=3 linked=false")
+    assert_equal expected_output, output
+  end
+
+  def test_render_four_authors_with_etal_after_variable
+    expected_output = "#{@mock_link_john} #{@etal_abbr}"
+    output = render_tag("page.four_author_list etal_after=page.etal_limit_var")
+    assert_equal expected_output, output
+  end
+
+  def test_render_three_authors_with_etal_after_3
+    # Length (3) is not > etal_after (3), so it should list all.
+    expected_output = "#{@mock_link_john}, #{@mock_link_jane}, and #{@mock_link_peter}"
+    output = render_tag("page.three_author_list etal_after=3")
+    assert_equal expected_output, output
+  end
+
+  def test_render_four_authors_with_etal_after_4
+    # Length (4) is not > etal_after (4), so it should list all.
+    expected_output = "#{@mock_link_john}, #{@mock_link_jane}, #{@mock_link_peter}, and #{@mock_link_alice}"
+    output = render_tag("page.four_author_list etal_after=4")
+    assert_equal expected_output, output
+  end
+
+  def test_render_four_authors_with_invalid_etal_after
+    # Invalid 'etal_after' value should be ignored, defaulting to full list.
+    expected_output = "#{@mock_link_john}, #{@mock_link_jane}, #{@mock_link_peter}, and #{@mock_link_alice}"
+    output = render_tag("page.four_author_list etal_after='not-a-number'")
     assert_equal expected_output, output
   end
 

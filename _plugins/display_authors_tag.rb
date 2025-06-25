@@ -2,7 +2,7 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require 'cgi' # For CGI.escapeHTML
+require 'cgi'
 
 require_relative 'utils/front_matter_utils'
 require_relative 'utils/author_link_util'
@@ -13,16 +13,16 @@ require_relative 'utils/plugin_logger_utils'
 module Jekyll
   class DisplayAuthorsTag < Liquid::Tag
     SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
-    ALLOWED_NAMED_KEYS = ['linked'].freeze
+    ALLOWED_NAMED_KEYS = ['linked', 'etal_after'].freeze
 
     def initialize(tag_name, markup, tokens)
       super
       @raw_markup = markup.strip
       @authors_list_markup = nil
-      @options_markup = {} # Store markup for options {linked_markup: "value_markup"}
+      @options_markup = {}
 
       scanner = StringScanner.new(@raw_markup)
-      scanner.skip(/\s*/) # Skip initial whitespace
+      scanner.skip(/\s*/)
 
       # Attempt to parse the first part as the authors_list_markup
       # It's a variable name or a quoted string that doesn't look like a key=value pair.
@@ -77,24 +77,25 @@ module Jekyll
 
       return "" if author_names.empty?
 
-      actual_linked = true # Default
+      actual_linked = true
       if @options_markup.key?(:linked)
         resolved_linked_val = TagArgumentUtils.resolve_value(@options_markup[:linked], context)
-        if resolved_linked_val != nil # Check if the option was actually provided and resolved
-          # True if resolved_linked_val is boolean true OR string "true" (case-insensitive)
-          # False if resolved_linked_val is boolean false OR string "false" (case-insensitive)
-          # Defaults to true if present but not "false"/false.
+        if resolved_linked_val != nil
           val_str = resolved_linked_val.to_s.downcase
-          if val_str == 'false'
+          if val_str == 'false' || resolved_linked_val == false
             actual_linked = false
-          elsif val_str == 'true'
-            actual_linked = true
-            # else keep default true if it's some other string
-          elsif resolved_linked_val == false # boolean false
-            actual_linked = false
-          elsif resolved_linked_val == true # boolean true
-            actual_linked = true
           end
+        end
+      end
+
+      # If 'etal_after' is not provided in the tag, resolved_etal_after will be nil.
+      resolved_etal_after = nil
+      if @options_markup.key?(:etal_after)
+        resolved_etal_val = TagArgumentUtils.resolve_value(@options_markup[:etal_after], context)
+        begin
+          resolved_etal_after = Integer(resolved_etal_val.to_s) if resolved_etal_val
+        rescue ArgumentError
+          resolved_etal_after = nil
         end
       end
 
@@ -106,7 +107,8 @@ module Jekyll
         end
       end
 
-      TextProcessingUtils.format_list_as_sentence(processed_authors)
+      # Pass the value (either the number or nil) to the utility.
+      TextProcessingUtils.format_list_as_sentence(processed_authors, etal_after: resolved_etal_after)
     end
   end
 end

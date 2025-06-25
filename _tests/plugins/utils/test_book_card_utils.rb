@@ -93,7 +93,7 @@ class TestBookCardUtils < Minitest::Test
           AuthorLinkUtils.stub :render_author_link, mock_author_link_html_single do
             # TextProcessingUtils.format_list_as_sentence will be called with the result
             # For single author, it returns the single item.
-            TextProcessingUtils.stub :format_list_as_sentence, ->(list) { list.first } do
+            TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
               RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
                 CardRendererUtils.stub :render_card, ->(context:, card_data:) { captured_card_data = card_data; "mocked_card" } do
                   Jekyll.stub :logger, @silent_logger_stub do
@@ -262,7 +262,7 @@ class TestBookCardUtils < Minitest::Test
         CardDataExtractorUtils.stub :extract_description_html, mock_description_html do
           # AuthorLinkUtils should not be called
           AuthorLinkUtils.stub :render_author_link, ->(name, _ctx) { flunk "AuthorLinkUtils should not be called for no authors" } do
-            TextProcessingUtils.stub :format_list_as_sentence, ->(list) { flunk "format_list_as_sentence should not be called if author list is empty" } do
+            TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { flunk "format_list_as_sentence should not be called if author list is empty" } do
               RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
                 CardRendererUtils.stub :render_card, ->(context:, card_data:) { captured_card_data = card_data; "card_html_no_author" } do
                   Jekyll.stub :logger, @silent_logger_stub do # Keep logger silent for this part
