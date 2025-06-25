@@ -26,7 +26,7 @@ unpredictable, and enormously powerful.
 {% capture use_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
 
 The best part of the novel is getting to see how the Culture _works_: how the
-Minds think, communicate, make decisions, retreat to "Infinite Fun Space," and
+Minds think, communicate, make decisions, retreat to "Infinite Fun Space", and
 interact with an _Outside Context Problem_.[^ocp] The worst part was the human
 characters---shallow and uninteresting. Ulver Seich, the airhead socialite, is
 a slightly more engaging and better-written take on the "hot girl who sleeps
@@ -37,21 +37,22 @@ Culture books rely on their human characters to bring scale, emotion, and
 stakes to the drama, and {{ this_book }}'s humans fall short.
 
 The story wasn't what I expected. I thought the book would explore how the
-Culture deals with something beyond its control. Instead, the book is about
-how the Culture tries to _exploit_ the Excession for its own schemes. The book
-is full of schemes: one to disguise the nature of the _Sleeper Service_;
-another to stage a false-flag operation to justify war against the Nazi-like
-Affront; a third to reunite Dajeil Gelian and Byr Genar-Hofoen; and a fourth
-to intercept Genar-Hofoen with Seich to keep him from reaching the _Sleeper
+Culture deals with something beyond their control. Instead, it's about how
+they try to _exploit_ the Excession for their own schemes. And the book is
+full of schemes: one to disguise the nature of the _Sleeper Service_; another
+to stage a false-flag operation to justify war against the Nazi-like Affront;
+a third to reunite Dajeil Gelian and Byr Genar-Hofoen; and a fourth to
+intercept Genar-Hofoen with Seich to keep him from reaching the _Sleeper
 Service_.
 
 One major theme is duality. The Affront's cartoonish cruelty is set against
-the Culture's carefully curated image of a peaceful and utopian existence. The
-interventionist _Grey Area_ is mirrored by the isolationist _Sleeper Service_.
-Genar-Hofoen engages wildly with the universe; Dajeil Gelian withdraws. Ulver
-Seich is a self-absorbed hedonist; Gestra Ishmethit is an ascetic hermit. The
-Excession itself has no counterpart, which drives home its alienness: it
-doesn't _fit_ into any context.
+the Culture's carefully curated image of peace and Utopian existence. behavior
+is paired with the peaceful, utopian Culture. The interventionist _Grey Area_
+is mirrored by  the isolationist _Sleeper Service_. Genar-Hofoen engages
+wildly with the universe; Dajeil Gelian withdraws. Ulver Seich is a
+self-absorbed hedonist; Gestra Ishmethit is an ascetic hermit. The Excession
+itself has no counterpart, which drives home its alienness: it doesn't _fit_
+into any context.
 
 Even after reading so-called "hard" books like {{ quantum_thief }} or {{
 shadow_torturer }}, I still found {{ this_book }} hard to track---mostly
@@ -72,8 +73,8 @@ Some aspects I loved:
 - The human-body BIOS that lets people control everything from muscle density
   to gender.
 
-Overall, {{ this_book }} is still a good book but weaker than {{ player_games
-}} and {{ use_weapons }}.
+Overall, {{ this_book }} is still a good book, but weaker than {{
+player_games }} and {{ use_weapons }}.
 
 [^ocp]:
     > An Outside Context Problem was the sort of thing most civilizations
