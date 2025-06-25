@@ -88,8 +88,8 @@ The planet of Camelot
 
 <cite class="short-story-title">The Legacy of Leonidas</cite> is an expansion
 and rewrite of {{ field_test_from_bolo1 }} from {{ bolo1 }}; the author even
-mentions the story by name. In it, a regiment of Bolos is sent to the
-non-Concordinate planet of New Sierra to help them fend off an invasion by
+mentions the story by name. In this version, a regiment of Bolos is sent to
+the non-Concordinate planet of New Sierra to help them fend off an invasion by
 Christian religious fanatics.[^mormons]
 
 [^mormons]:
