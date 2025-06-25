@@ -37,21 +37,30 @@ Culture books rely on their human characters to bring scale, emotion, and
 stakes to the drama, and {{ this_book }}'s humans fall short.
 
 The story wasn't what I expected. I thought the book would explore how the
-Culture deals with something beyond their control. Instead, it's about how
-they try to _exploit_ the excession for their own schemes. And the book is
-full of them: one to disguise the nature of the _Sleeper Service_; another to
-stage a false-flag operation to justify a war against the Nazi-like Affront; a
-third to reunite Dajeil Gelian and Byr Genar-Hofoen; and a fourth to intercept
-Genar-Hofoen with Seich to keep him from reaching the _Sleeper Service_.
+Culture deals with something beyond its control. Instead, the book is about
+how the Culture tries to _exploit_ the Excession for its own schemes. The book
+is full of schemes: one to disguise the nature of the _Sleeper Service_;
+another to stage a false-flag operation to justify war against the Nazi-like
+Affront; a third to reunite Dajeil Gelian and Byr Genar-Hofoen; and a fourth
+to intercept Genar-Hofoen with Seich to keep him from reaching the _Sleeper
+Service_.
 
-Even after reading "tricky" books like {{ quantum_thief }} and {{
-shadow_torturer }}, I found {{ this_book }} a challenge---mainly because of
-the sheer number of ships to track while also trying to figure out which ones
-were part of the conspiracy.
+One major theme is duality. The Affront's cartoonish cruelty is set against
+the Culture's carefully curated image of a peaceful and utopian existence. The
+interventionist _Grey Area_ is mirrored by the isolationist _Sleeper Service_.
+Genar-Hofoen engages wildly with the universe; Dajeil Gelian withdraws. Ulver
+Seich is a self-absorbed hedonist; Gestra Ishmethit is an ascetic hermit. The
+Excession itself has no counterpart, which drives home its alienness: it
+doesn't _fit_ into any context.
+
+Even after reading so-called "hard" books like {{ quantum_thief }} or {{
+shadow_torturer }}, I still found {{ this_book }} hard to track---mostly
+because of the flood of ship names and trying to figure out who was in on
+what.
 
 Some aspects I loved:
 
-- The Mind IRC-style chats.
+- The Minds' IRC-style chats.
 
 - The glacial genocide uncovered by the _Grey Area_.
 
@@ -63,23 +72,23 @@ Some aspects I loved:
 - The human-body BIOS that lets people control everything from muscle density
   to gender.
 
-Overall, {{ this_book }} is still a good book, but weaker than {{ player_games
+Overall, {{ this_book }} is still a good book but weaker than {{ player_games
 }} and {{ use_weapons }}.
 
 [^ocp]:
-    >  An Outside Context Problem was the sort of thing most civilizations
-    >  encountered just once, and which they tended to encounter rather in the
-    >  same way a sentence encountered a full stop. The usual example given to
-    >  illustrate an Outside Context Problem was imagining you were a tribe on
-    >  a largish, fertile island; you'd tamed the land, invented the wheel or
-    >  writing or whatever, the neighbors were cooperative or enslaved but at
-    >  any rate peaceful and you were busy raising temples to yourself with
-    >  all the excess productive capacity you had, you were in a position of
-    >  near-absolute power and control which your hallowed ancestors could
-    >  hardly have dreamed of and the whole situation was just running along
-    >  nicely like a canoe on wet grass... when suddenly this bristling lump
-    >  of iron appears sailless and trailing steam in the bay and these guys
-    >  carrying long funny-looking sticks come ashore and announce you've just
-    >  been discovered, you're all subjects of the Emperor now, he's keen on
-    >  presents called tax and these bright-eyed holy men would like a word
-    >  with your priests.
+    > An Outside Context Problem was the sort of thing most civilizations
+    > encountered just once, and which they tended to encounter rather in the
+    > same way a sentence encountered a full stop. The usual example given to
+    > illustrate an Outside Context Problem was imagining you were a tribe on
+    > a largish, fertile island; you'd tamed the land, invented the wheel or
+    > writing or whatever, the neighbors were cooperative or enslaved but at
+    > any rate peaceful and you were busy raising temples to yourself with all
+    > the excess productive capacity you had, you were in a position of
+    > near-absolute power and control which your hallowed ancestors could
+    > hardly have dreamed of and the whole situation was just running along
+    > nicely like a canoe on wet grass... when suddenly this bristling lump of
+    > iron appears sailless and trailing steam in the bay and these guys
+    > carrying long funny-looking sticks come ashore and announce you've just
+    > been discovered, you're all subjects of the Emperor now, he's keen on
+    > presents called tax and these bright-eyed holy men would like a word
+    > with your priests.
