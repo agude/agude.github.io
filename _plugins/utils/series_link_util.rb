@@ -3,14 +3,13 @@ require 'jekyll'
 require 'cgi'
 require_relative './link_helper_utils'
 require_relative 'plugin_logger_utils'
-
 require_relative 'text_processing_utils'
+
 module SeriesLinkUtils
 
   # --- Public Method ---
 
-  # Finds a series page by title (case-insensitive, whitespace-normalized)
-  # and renders its link/span HTML.
+  # Finds a series page by title from the link_cache and renders its link/span HTML.
   #
   # @param series_title_raw [String] The title of the series to link to.
   # @param context [Liquid::Context] The current Liquid context.
@@ -19,13 +18,7 @@ module SeriesLinkUtils
   def self.render_series_link(series_title_raw, context, link_text_override_raw = nil)
     # 1. Initial Setup & Validation
     unless context && (site = context.registers[:site])
-      log_msg = "[PLUGIN SERIES_LINK_UTIL ERROR] Context or Site unavailable."
-      if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:error)
-        Jekyll.logger.error("SeriesLinkUtil:", log_msg)
-      else
-        STDERR.puts log_msg
-      end
-      # Fallback to simple escaped string within a span if critical context is missing.
+      # Fallback for critical context failure
       return "<span class=\"book-series\">#{CGI.escapeHTML(series_title_raw.to_s)}</span>"
     end
 
@@ -43,22 +36,28 @@ module SeriesLinkUtils
       )
     end
 
-    # 2. Lookup & Logging
+    # 2. Lookup from Cache
     log_output = ""
-    found_series_doc = _find_series_page(site, normalized_lookup_title)
+    link_cache = site.data['link_cache'] || {}
+    series_cache = link_cache['series'] || {}
+    found_series_data = series_cache[normalized_lookup_title] # Direct hash lookup
 
-    if found_series_doc.nil?
+    if found_series_data.nil?
       log_output = _log_series_not_found(context, series_title_input)
     end
 
     # 3. Determine Display Text & Build Inner Span Element
-    # Use shared helper for display text
-    display_text = LinkHelperUtils._get_link_display_text(series_title_input, link_text_override, found_series_doc)
-    # Use series-specific helper for span element
+    display_text = series_title_input.strip
+    if link_text_override && !link_text_override.empty?
+      display_text = link_text_override
+    elsif found_series_data
+      # Use the canonical title from the cache for display
+      display_text = found_series_data['title']
+    end
     span_element = _build_series_span_element(display_text)
 
     # 4. Generate Final HTML (Link or Span) using shared helper
-    target_url = found_series_doc ? found_series_doc.url : nil
+    target_url = found_series_data ? found_series_data['url'] : nil
     final_html_element = LinkHelperUtils._generate_link_html(context, target_url, span_element)
 
     # 5. Combine Log Output (if any) and HTML Element
@@ -68,16 +67,6 @@ module SeriesLinkUtils
 
   # --- Private Helper Methods ---
   private
-
-  # Finds the series page document.
-  def self._find_series_page(site, normalized_title)
-    # Handle case where site.pages might be nil during early build stages or in tests
-    return nil unless site.pages
-
-    site.pages.find do |p|
-      p.data['layout'] == 'series_page' && TextProcessingUtils.normalize_title(p.data['title']) == normalized_title
-    end
-  end
 
   # Builds the inner <span> element for the series name.
   def self._build_series_span_element(display_text)
@@ -91,7 +80,7 @@ module SeriesLinkUtils
     PluginLoggerUtils.log_liquid_failure(
       context: context,
       tag_type: "RENDER_SERIES_LINK",
-      reason: "Could not find series page during link rendering.",
+      reason: "Could not find series page in cache.",
       identifiers: { Series: input_title.strip },
       level: :info,
     )

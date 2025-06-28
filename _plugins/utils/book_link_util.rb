@@ -29,8 +29,7 @@ module BookLinkUtils
   end
 
 
-  # Finds a book by title (case-insensitive) and renders its link/cite HTML.
-  # Uses shared helpers and LiquidUtils where appropriate. Now calls render_book_link_from_data internally.
+  # Finds a book by title from the link_cache and renders its link/cite HTML.
   #
   # @param book_title_raw [String] The title of the book to link to.
   # @param context [Liquid::Context] The current Liquid context.
@@ -39,16 +38,9 @@ module BookLinkUtils
   def self.render_book_link(book_title_raw, context, link_text_override_raw = nil)
     # 1. Initial Setup & Validation
     unless context && (site = context.registers[:site])
-      log_msg = "[PLUGIN BOOK_LINK_UTIL ERROR] Context or Site unavailable."
-      if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:error)
-        Jekyll.logger.error("BookLinkUtil:", log_msg)
-      else
-        STDERR.puts log_msg
-      end
-      # Fallback to simple string if critical context is missing.
-      # Use _prepare_display_title for consistency if possible, else basic escape.
-      prepared_fallback_title = defined?(LiquidUtils) ? TypographyUtils.prepare_display_title(book_title_raw.to_s) : CGI.escapeHTML(book_title_raw.to_s)
-      return "<cite class=\"book-title\">#{prepared_fallback_title}</cite>" # Return unlinked cite
+      # Fallback for critical context failure
+      prepared_fallback_title = TypographyUtils.prepare_display_title(book_title_raw.to_s)
+      return "<cite class=\"book-title\">#{prepared_fallback_title}</cite>"
     end
 
     book_title_input = book_title_raw.to_s
@@ -64,32 +56,32 @@ module BookLinkUtils
       )
     end
 
-    # 2. Lookup & Logging
+    # 2. Lookup from Cache
     log_output = ""
-    found_book_doc = nil
+    link_cache = site.data['link_cache'] || {}
+    book_cache = link_cache['books'] || {}
+    found_book_data = book_cache[normalized_lookup_title] # Direct hash lookup
 
-    unless site.collections.key?('books')
-      log_output = _log_book_collection_missing(context, book_title_input)
-      # If collection missing, we can't find the book, proceed to render unlinked
-    else
-      found_book_doc = _find_book_by_title(site, normalized_lookup_title)
-      if found_book_doc.nil? && log_output.empty? # Avoid double logging if collection was missing
-        log_output = _log_book_not_found(context, book_title_input)
-      end
+    if found_book_data.nil?
+      log_output = _log_book_not_found(context, book_title_input)
     end
 
     # 3. Determine Display Text & Generate HTML
     final_html = ""
     # Determine display text regardless of whether book was found
-    display_text = LinkHelperUtils._get_link_display_text(book_title_input, link_text_override, found_book_doc)
+    display_text = book_title_input.strip
+    if link_text_override && !link_text_override.empty?
+      display_text = link_text_override
+    elsif found_book_data
+      # Use the canonical title from the cache for display
+      display_text = found_book_data['title']
+    end
 
-    if found_book_doc
-      # Book found: Call the new helper with found data
-      book_url = found_book_doc.url
-      # Pass the determined display_text and the found URL
-      final_html = render_book_link_from_data(display_text, book_url, context)
+    if found_book_data
+      # Book found: Call the helper with found data and determined display text
+      final_html = render_book_link_from_data(display_text, found_book_data['url'], context)
     else
-      # Book not found (or collection missing): Render unlinked cite
+      # Book not found: Render unlinked cite with determined display text
       # Use the determined display_text (input or override)
       final_html = _build_book_cite_element(display_text)
     end
@@ -101,14 +93,6 @@ module BookLinkUtils
   # --- Private Helper Methods ---
   private
 
-  # Finds the book document in the 'books' collection.
-  def self._find_book_by_title(site, normalized_title)
-    site.collections['books'].docs.find do |doc|
-      next if doc.data['published'] == false
-      TextProcessingUtils.normalize_title(doc.data['title']) == normalized_title
-    end
-  end
-
   # Prepares display text and wraps it in a <cite> tag.
   def self._build_book_cite_element(display_text)
     # Use _prepare_display_title from LiquidUtils
@@ -116,21 +100,11 @@ module BookLinkUtils
     "<cite class=\"book-title\">#{prepared_display_text}</cite>"
   end
 
-  # Logs the failure when the 'books' collection is missing.
-  def self._log_book_collection_missing(context, input_title)
-    PluginLoggerUtils.log_liquid_failure(
-      context: context, tag_type: "RENDER_BOOK_LINK",
-      reason: "Books collection not found in site configuration.",
-      identifiers: { Title: input_title.strip },
-      level: :error,
-    )
-  end
-
   # Logs the failure when the book is not found within the collection.
   def self._log_book_not_found(context, input_title)
     PluginLoggerUtils.log_liquid_failure(
       context: context, tag_type: "RENDER_BOOK_LINK",
-      reason: "Could not find book page during link rendering.",
+      reason: "Could not find book page in cache.",
       identifiers: { Title: input_title.strip },
       level: :info,
     )

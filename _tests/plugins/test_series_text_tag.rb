@@ -11,9 +11,16 @@ class TestSeriesTextTag < Minitest::Test
     @series3_page = create_doc({ 'title' => 'Dune Saga', 'layout' => 'series_page' }, '/series/dune.html')
     @series4_page = create_doc({ 'title' => 'The Wheel of Time Saga', 'layout' => 'series_page' }, '/series/wot.html')
     @series5_page = create_doc({ 'title' => 'Saga', 'layout' => 'series_page' }, '/series/saga-comic.html') # Series named 'Saga'
+    # Add pages needed for the previously failing tests
+    @arcane_page = create_doc({ 'title' => 'Arcane', 'layout' => 'series_page' }, '/series/arcane.html')
+    @test_series_page = create_doc({ 'title' => 'Test Series', 'layout' => 'series_page' }, '/series/test.html')
 
-    # Create mock site and context
-    @site = create_site({}, {}, [@series1_page, @series2_page, @series3_page, @series4_page, @series5_page])
+
+    # Create mock site and context. create_site now runs the LinkCacheGenerator automatically.
+    @site = create_site({}, {}, [
+      @series1_page, @series2_page, @series3_page, @series4_page, @series5_page,
+      @arcane_page, @test_series_page
+    ])
     @current_page = create_doc({}, '/current-page.html')
     @context = create_context({}, { site: @site, page: @current_page })
   end
@@ -147,11 +154,6 @@ class TestSeriesTextTag < Minitest::Test
   end
 
   def test_keyword_as_substring_does_not_prevent_suffix
-    # Create a series page for "Arcane" to test linking
-    arcane_page = create_doc({ 'title' => 'Arcane', 'layout' => 'series_page' }, '/series/arcane.html')
-    @site.pages << arcane_page # Add to existing site pages for this test
-    @context.registers[:site] = @site # Update context register
-
     markup = '"Arcane"' # Contains "arc" but not " arc "
     expected_link = "<a href=\"/series/arcane.html\"><span class=\"book-series\">Arcane</span></a>"
     expected_output = "the #{expected_link} series" # Should still get " series" suffix
@@ -173,11 +175,6 @@ class TestSeriesTextTag < Minitest::Test
   end
 
   def test_series_ending_with_series_word
-    # Mock a page for it if you want it linked, otherwise test unlinked
-    test_series_page = create_doc({ 'title' => 'Test Series', 'layout' => 'series_page' }, '/series/test.html')
-    @site.pages << test_series_page
-    @context.registers[:site] = @site
-
     markup = '"Test Series"'
     expected_link = "<a href=\"/series/test.html\"><span class=\"book-series\">Test Series</span></a>"
     # Now expect NO " series" suffix because the input ends with it (after fix)

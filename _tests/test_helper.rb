@@ -6,9 +6,9 @@ require 'time' # Needed for Time.parse if mocking dates
 # Add the parent _plugins directory to the load path
 $LOAD_PATH.unshift(File.expand_path('../_plugins', __dir__))
 
-# Explicitly require utils files
+# Explicitly require plugins and utils
+require 'link_cache_generator'
 require 'utils/article_card_utils'
-require 'utils/author_finder_utils'
 require 'utils/author_link_util'
 require 'utils/backlink_utils'
 require 'utils/book_card_utils'
@@ -185,7 +185,7 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
     def convert(content); "<p>#{content.strip}</p>"; end # Simplified Markdown to HTML
   end.new(base_config)
 
-  MockSite.new(
+  site = MockSite.new(
     base_config,
     collections,
     pages_data,
@@ -196,6 +196,18 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
     {},
     categories_data,
   )
+
+  # Run the LinkCacheGenerator to populate site.data['link_cache']
+  # This makes the test environment more accurately reflect the real build process.
+  # Stub the logger during this call to prevent spamming the test console.
+  silent_logger = Minitest::Mock.new
+  silent_logger.expect :info, nil, [String, String]
+  silent_logger.expect :info, nil, [String, String]
+  Jekyll.stub :logger, silent_logger do
+    Jekyll::LinkCacheGenerator.new.generate(site)
+  end
+
+  site
 end
 
 def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = 'Test content attribute.', date_str_param = nil, collection = nil)
