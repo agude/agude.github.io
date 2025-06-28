@@ -18,11 +18,12 @@ module Jekyll
         'authors' => {},
         'books' => {},
         'series' => {},
+        'series_map' => {},
         'sidebar_nav' => [],
         'books_topbar_nav' => [],
       }
 
-      # --- Cache Author, Series, and Nav Pages ---
+      # --- Cache Author and Series Pages ---
       site.pages.each do |page|
         layout = page.data['layout']
         title = page.data['title']
@@ -48,7 +49,7 @@ module Jekyll
       link_cache['sidebar_nav'].sort_by! { |p| p.data['title'] }
       link_cache['books_topbar_nav'].sort_by! { |p| p.data['title'] }
 
-      # --- Cache Book Pages ---
+      # --- Cache Book Pages and Build Series Map ---
       if site.collections.key?('books')
         site.collections['books'].docs.each do |book|
           # Only cache published books with a title
@@ -56,6 +57,7 @@ module Jekyll
           title = book.data['title']
           next unless title && !title.strip.empty?
           cache_book_page(book, link_cache['books'])
+          cache_book_in_series_map(book, link_cache['series_map'])
         end
       end
 
@@ -95,6 +97,16 @@ module Jekyll
       title = book.data['title'].strip
       normalized_title = TextProcessingUtils.normalize_title(title)
       book_cache[normalized_title] = { 'url' => book.url, 'title' => title }
+    end
+
+    # Adds a book to the series map.
+    def cache_book_in_series_map(book, series_map)
+      series_name = book.data['series']
+      return unless series_name && !series_name.strip.empty?
+
+      normalized_series_name = TextProcessingUtils.normalize_title(series_name)
+      series_map[normalized_series_name] ||= []
+      series_map[normalized_series_name] << book
     end
   end
 end
