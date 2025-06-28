@@ -5,7 +5,7 @@ require_relative 'utils/front_matter_utils'
 
 module Jekyll
   # This generator builds a cache of linkable pages (authors, books, series)
-  # to avoid expensive page traversals in other plugins and tags.
+  # and navigation items to avoid expensive page traversals in other plugins and tags.
   # The cache is stored in site.data['link_cache'].
   class LinkCacheGenerator < Generator
     priority :normal
@@ -17,21 +17,36 @@ module Jekyll
       link_cache = {
         'authors' => {},
         'books' => {},
-        'series' => {}
+        'series' => {},
+        'sidebar_nav' => [],
+        'books_topbar_nav' => [],
       }
 
-      # --- Cache Author and Series Pages ---
+      # --- Cache Author, Series, and Nav Pages ---
       site.pages.each do |page|
         layout = page.data['layout']
         title = page.data['title']
-        next unless title && !title.strip.empty?
 
+        # Cache navigation items
+        if title && page.data['sidebar_include'] == true && !page.url.include?("page")
+          link_cache['sidebar_nav'] << page
+        end
+        if title && page.data['book_topbar_include'] == true
+          link_cache['books_topbar_nav'] << page
+        end
+
+        # Cache linkable pages
+        next unless title && !title.strip.empty?
         if layout == 'author_page'
           cache_author_page(page, link_cache['authors'])
         elsif layout == 'series_page'
           cache_series_page(page, link_cache['series'])
         end
       end
+
+      # Sort the navigation lists
+      link_cache['sidebar_nav'].sort_by! { |p| p.data['title'] }
+      link_cache['books_topbar_nav'].sort_by! { |p| p.data['title'] }
 
       # --- Cache Book Pages ---
       if site.collections.key?('books')
