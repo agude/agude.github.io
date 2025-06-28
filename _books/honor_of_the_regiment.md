@@ -1,5 +1,5 @@
 ---
-date: 2025-06-24
+date: 2025-06-28
 title: Honor of the Regiment
 book_authors:
   - S.M. Stirling
@@ -14,7 +14,7 @@ book_authors:
   - David Drake
 series: Bolo
 book_number: 10
-rating: null
+rating: 4
 image: /books/covers/honor_of_the_regiment.jpg
 ---
 
