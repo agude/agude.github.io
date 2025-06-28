@@ -7,5 +7,4 @@ same_as_urls:
   - https://www.wikidata.org/wiki/Q47087
   - https://en.wikipedia.org/wiki/Arthur_C._Clarke
   - https://www.goodreads.com/author/show/7779.Arthur_C_Clarke
-  - null
 ---
