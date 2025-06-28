@@ -1,6 +1,7 @@
 # _plugins/utils/json_ld_generators/author_profile_generator.rb
 require_relative '../json_ld_utils'
 require_relative '../url_utils'
+require_relative '../front_matter_utils'
 require 'jekyll' # For logger
 
 module AuthorProfileLdGenerator
@@ -36,6 +37,10 @@ module AuthorProfileLdGenerator
       field_priority: ['excerpt', 'description']
     )
     data["description"] = description if description
+
+    # Add pen names as alternateName
+    pen_names_list = FrontMatterUtils.get_list_from_string_or_array(document.data['pen_names'])
+    data["alternateName"] = pen_names_list if pen_names_list.any?
 
     # Clean final hash
     JsonLdUtils.cleanup_data_hash!(data)

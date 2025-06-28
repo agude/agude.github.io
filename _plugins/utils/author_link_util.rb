@@ -3,8 +3,10 @@ require 'jekyll'
 require 'cgi'
 require_relative './link_helper_utils'
 require_relative 'plugin_logger_utils'
-
 require_relative 'text_processing_utils'
+require_relative 'front_matter_utils'
+require_relative 'author_finder_utils'
+
 module AuthorLinkUtils
 
   # --- Public Method ---
@@ -50,16 +52,30 @@ module AuthorLinkUtils
 
     # 2. Lookup & Logging
     log_output = ""
-    found_author_doc = _find_author_page(site, normalized_lookup_name)
+    found_author_doc = AuthorFinderUtils.find_author_page_by_name(author_name_input, site)
 
     if found_author_doc.nil?
       log_output = _log_author_not_found(context, author_name_input)
     end
 
     # 3. Determine Display Text & Build Inner Span Element
-    # Use shared helper for display text
-    display_text = LinkHelperUtils._get_link_display_text(author_name_input, link_text_override, found_author_doc)
-    # Use author-specific helper for span element
+    display_text = author_name_input.strip # Default to the input name
+
+    if link_text_override && !link_text_override.empty?
+      # Priority 1: An explicit link_text override always wins.
+      display_text = link_text_override
+    elsif found_author_doc
+      # If a doc was found, check if we should "correct" the display text to the canonical title.
+      # We correct it ONLY if the input name was NOT a known pen name.
+      pen_names_on_page = FrontMatterUtils.get_list_from_string_or_array(found_author_doc.data['pen_names'])
+      normalized_pen_names = pen_names_on_page.map { |pn| TextProcessingUtils.normalize_title(pn) }
+
+      unless normalized_pen_names.include?(normalized_lookup_name)
+        # The input was not a pen name, so it's a fuzzy match for the title. Use the canonical title.
+        canonical_title = found_author_doc.data['title']&.strip
+        display_text = canonical_title unless canonical_title.nil? || canonical_title.empty?
+      end
+    end
     span_element = _build_author_span_element(display_text)
 
     # 4. Handle Possessive Suffix
@@ -90,13 +106,6 @@ module AuthorLinkUtils
 
   # --- Private Helper Methods ---
   private
-
-  # Finds the author page document.
-  def self._find_author_page(site, normalized_name)
-    site.pages.find do |p|
-      p.data['layout'] == 'author_page' && TextProcessingUtils.normalize_title(p.data['title']) == normalized_name
-    end
-  end
 
   # Builds the inner <span> element for the author name.
   def self._build_author_span_element(display_text)

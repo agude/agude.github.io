@@ -7,5 +7,4 @@ same_as_urls:
   - https://www.wikidata.org/wiki/Q607588
   - https://en.wikipedia.org/wiki/Liu_Cixin
   - https://www.goodreads.com/author/show/5780686.Liu_Cixin
-  - null
 ---

@@ -8,6 +8,7 @@ $LOAD_PATH.unshift(File.expand_path('../_plugins', __dir__))
 
 # Explicitly require utils files
 require 'utils/article_card_utils'
+require 'utils/author_finder_utils'
 require 'utils/author_link_util'
 require 'utils/backlink_utils'
 require 'utils/book_card_utils'
