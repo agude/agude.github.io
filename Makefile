@@ -14,7 +14,7 @@ BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 # Use find to locate all test_*.rb files within the _tests/plugins/ directory
 TEST_FILES := $(shell find _tests/plugins/ -type f -name 'test_*.rb')
 
-.PHONY: all clean serve drafts debug image refresh lock test
+.PHONY: all clean serve drafts debug image refresh lock test build profile
 
 all: serve
 
@@ -63,6 +63,17 @@ refresh: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-versio
 clean: image
 	@echo "Cleaning Jekyll build artifacts..."
 	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll clean
+
+# Build the site. Depends on image and clean.
+build: image clean
+	@echo "Building site..."
+	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll build
+
+# Profile the site build. Depends on image and clean.
+profile: image clean
+	@echo "Profiling Jekyll build..."
+	@echo "Output will be in '_site' and Liquid profiles in '_profile/'."
+	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll build --profile
 
 # Serve the site. Depends on image and clean.
 serve: image clean
