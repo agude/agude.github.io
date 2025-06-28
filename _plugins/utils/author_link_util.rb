@@ -4,35 +4,22 @@ require 'cgi'
 require_relative './link_helper_utils'
 require_relative 'plugin_logger_utils'
 require_relative 'text_processing_utils'
-require_relative 'front_matter_utils'
-require_relative 'author_finder_utils'
 
 module AuthorLinkUtils
 
   # --- Public Method ---
 
-  # Finds an author page by name (case-insensitive, whitespace-normalized)
-  # and renders the link/span HTML, handling possessive suffix.
+  # Finds an author page by name from the link_cache and renders the link/span HTML.
   #
   # @param author_name_raw [String] The name of the author.
   # @param context [Liquid::Context] The current Liquid context.
   # @param link_text_override_raw [String, nil] Optional display text.
   # @param possessive [Boolean] If true, append ’s to the output.
-  # @return [String] The generated HTML (e.g., <a><span>...</span>’s</a> or <span>...</span>’s).
+  # @return [String] The generated HTML (e.g., <a><span>...</span></a> or <span>...</span>’s).
   def self.render_author_link(author_name_raw, context, link_text_override_raw = nil, possessive = false)
     # 1. Initial Setup & Validation
     unless context && (site = context.registers[:site])
-      log_msg = "[PLUGIN AUTHOR_LINK_UTIL ERROR] Context or Site unavailable."
-      # Use PluginLoggerUtils if available, otherwise puts.
-      # Since this is a util, direct context for PluginLoggerUtils might be tricky if context itself is bad.
-      # For now, this critical failure path uses puts/Jekyll.logger.error if PluginLoggerUtils isn't suitable.
-      # This specific error is more of a development/setup issue.
-      if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:error)
-        Jekyll.logger.error("AuthorLinkUtil:", log_msg)
-      else
-        STDERR.puts log_msg
-      end
-      # Fallback to simple string if critical context is missing.
+      # Fallback for critical context failure
       return CGI.escapeHTML(author_name_raw.to_s)
     end
 
@@ -50,30 +37,33 @@ module AuthorLinkUtils
       )
     end
 
-    # 2. Lookup & Logging
+    # 2. Lookup from Cache
     log_output = ""
-    found_author_doc = AuthorFinderUtils.find_author_page_by_name(author_name_input, site)
+    link_cache = site.data['link_cache'] || {}
+    author_cache = link_cache['authors'] || {}
+    found_author_data = author_cache[normalized_lookup_name] # Direct hash lookup
 
-    if found_author_doc.nil?
+    if found_author_data.nil?
       log_output = _log_author_not_found(context, author_name_input)
     end
 
     # 3. Determine Display Text & Build Inner Span Element
-    display_text = author_name_input.strip # Default to the input name
+    display_text = author_name_input.strip # Default to the raw input name
 
     if link_text_override && !link_text_override.empty?
       # Priority 1: An explicit link_text override always wins.
       display_text = link_text_override
-    elsif found_author_doc
-      # If a doc was found, check if we should "correct" the display text to the canonical title.
-      # We correct it ONLY if the input name was NOT a known pen name.
-      pen_names_on_page = FrontMatterUtils.get_list_from_string_or_array(found_author_doc.data['pen_names'])
-      normalized_pen_names = pen_names_on_page.map { |pn| TextProcessingUtils.normalize_title(pn) }
+    elsif found_author_data
+      # If a page was found, check if we should "correct" the display text to the canonical title.
+      canonical_title_from_cache = found_author_data['title']
+      normalized_canonical_title = TextProcessingUtils.normalize_title(canonical_title_from_cache)
 
-      unless normalized_pen_names.include?(normalized_lookup_name)
-        # The input was not a pen name, so it's a fuzzy match for the title. Use the canonical title.
-        canonical_title = found_author_doc.data['title']&.strip
-        display_text = canonical_title unless canonical_title.nil? || canonical_title.empty?
+      if normalized_lookup_name != normalized_canonical_title
+        # The input was a pen name (or a fuzzy match of one). Keep the original input as display text.
+        display_text = author_name_input.strip
+      else
+        # The input was a fuzzy match for the canonical name. Use the canonical name for display.
+        display_text = canonical_title_from_cache
       end
     end
     span_element = _build_author_span_element(display_text)
@@ -84,9 +74,8 @@ module AuthorLinkUtils
     inner_html_with_suffix_if_linked = "#{span_element}#{possessive_suffix}"
     inner_html_without_suffix = span_element
 
-    # 5. Generate Final HTML (Link or Span) using shared helper
-    target_url = found_author_doc ? found_author_doc.url : nil
-    # Pass the span *with* the suffix if we intend to link it.
+    # 5. Generate Final HTML (Link or Span)
+    target_url = found_author_data ? found_author_data['url'] : nil
     final_html_element = LinkHelperUtils._generate_link_html(
       context,
       target_url,
@@ -118,7 +107,7 @@ module AuthorLinkUtils
   def self._log_author_not_found(context, input_name)
     PluginLoggerUtils.log_liquid_failure(
       context: context, tag_type: "RENDER_AUTHOR_LINK",
-      reason: "Could not find author page.",
+      reason: "Could not find author page in cache.",
       identifiers: { Name: input_name.strip },
       level: :info,
     )

@@ -5,7 +5,6 @@ require_relative 'plugin_logger_utils'
 require_relative 'book_card_utils'
 require_relative 'text_processing_utils'
 require_relative 'front_matter_utils'
-require_relative 'author_finder_utils'
 
 module BookListUtils
 
@@ -73,6 +72,8 @@ module BookListUtils
   # @return [Hash] Contains :standalone_books (Array), :series_groups (Array), :log_messages (String).
   def self.get_data_for_author_display(site:, author_name_filter:, context:)
     log_output_accumulator = ""
+    link_cache = site.data['link_cache'] || {}
+    author_cache = link_cache['authors'] || {}
 
     unless site&.collections&.key?('books')
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
@@ -89,19 +90,17 @@ module BookListUtils
     author_books = []
 
     if author_name_filter && !author_name_filter.to_s.strip.empty?
-      # Find the canonical page for the filter name to get the canonical name
-      canonical_author_page = AuthorFinderUtils.find_author_page_by_name(author_name_filter, site)
-      # If a page is found, use its title as the canonical name. Otherwise, fallback to the original filter.
-      # This ensures that even if an author doesn't have a page, their books are still found if the filter matches exactly.
-      canonical_filter_name = canonical_author_page ? canonical_author_page.data['title'] : author_name_filter
+      normalized_filter = TextProcessingUtils.normalize_title(author_name_filter)
+      canonical_author_data = author_cache[normalized_filter]
+      canonical_filter_name = canonical_author_data ? canonical_author_data['title'] : author_name_filter
 
       author_books = all_published.select do |book|
         # For each book, resolve its authors to their canonical names and check for a match.
         authors_list = FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
         authors_list.any? do |book_author_name|
-          book_author_page = AuthorFinderUtils.find_author_page_by_name(book_author_name, site)
-          book_canonical_name = book_author_page ? book_author_page.data['title'] : book_author_name
-          # Compare canonical names case-insensitively
+          normalized_book_author = TextProcessingUtils.normalize_title(book_author_name)
+          book_author_data = author_cache[normalized_book_author]
+          book_canonical_name = book_author_data ? book_author_data['title'] : book_author_name
           book_canonical_name.casecmp(canonical_filter_name).zero?
         end
       end
@@ -164,6 +163,9 @@ module BookListUtils
   #   Each hash in :authors_data has :author_name, :standalone_books, :series_groups.
   def self.get_data_for_all_books_by_author_display(site:, context:)
     log_output_accumulator = ""
+    link_cache = site.data['link_cache'] || {}
+    author_cache = link_cache['authors'] || {}
+
     unless site&.collections&.key?('books')
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
@@ -185,10 +187,9 @@ module BookListUtils
       author_names_for_book.each do |author_name_str|
         next if author_name_str.to_s.strip.empty?
 
-        # Find the canonical page for this author name
-        canonical_author_page = AuthorFinderUtils.find_author_page_by_name(author_name_str, site)
-        # Use the page title as the canonical name, or fall back to the original name if no page found
-        canonical_name = canonical_author_page ? canonical_author_page.data['title'] : author_name_str.strip
+        normalized_author_name = TextProcessingUtils.normalize_title(author_name_str)
+        author_data = author_cache[normalized_author_name]
+        canonical_name = author_data ? author_data['title'] : author_name_str.strip
 
         books_by_canonical_author[canonical_name] ||= []
         books_by_canonical_author[canonical_name] << book
