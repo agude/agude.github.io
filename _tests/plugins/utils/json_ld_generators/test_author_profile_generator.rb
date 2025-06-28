@@ -51,6 +51,46 @@ class TestAuthorProfileLdGenerator < Minitest::Test
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
+  def test_generate_hash_with_pen_names
+    doc = create_doc(
+      {
+        'layout' => 'author_page', 'title' => 'Canonical Name',
+        'pen_names' => ['Pen Name One', '  Pen Name Two  ', nil, '']
+      },
+      '/authors/canonical.html'
+    )
+    expected = {
+      "@context" => "https://schema.org",
+      "@type" => "Person",
+      "name" => "Canonical Name",
+      "url" => "https://mysite.dev/authors/canonical.html",
+      "alternateName" => ["Pen Name One", "Pen Name Two"] # Expect cleaned list
+    }
+    assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
+  end
+
+  def test_generate_hash_with_all_fields
+    doc = create_doc(
+      {
+        'layout' => 'author_page', 'title' => 'Jane Doe',
+        'description' => 'An author bio.',
+        'same_as_urls' => ['https://example.com/jane'],
+        'pen_names' => ['J.D.']
+      },
+      '/authors/jane-doe.html'
+    )
+    expected = {
+      "@context" => "https://schema.org",
+      "@type" => "Person",
+      "name" => "Jane Doe",
+      "url" => "https://mysite.dev/authors/jane-doe.html",
+      "description" => "An author bio.",
+      "sameAs" => ["https://example.com/jane"],
+      "alternateName" => ["J.D."]
+    }
+    assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
+  end
+
   def test_generate_hash_with_empty_same_as_urls
     doc = create_doc(
       { 'layout' => 'author_page', 'title' => 'Jane Doe', 'same_as_urls' => [] },
@@ -161,7 +201,7 @@ class TestAuthorProfileLdGenerator < Minitest::Test
 
   def test_generate_hash_omits_empty_fields
     doc = create_doc(
-      { 'layout' => 'author_page', 'title' => ' ', 'description' => '', 'same_as_urls' => [] },
+      { 'layout' => 'author_page', 'title' => ' ', 'description' => '', 'same_as_urls' => [], 'pen_names' => [] },
       '/authors/empty.html'
     )
     expected = { # Only context, type, and URL should remain

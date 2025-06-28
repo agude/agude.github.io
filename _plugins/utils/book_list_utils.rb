@@ -4,6 +4,8 @@ require_relative './url_utils'
 require_relative 'plugin_logger_utils'
 require_relative 'book_card_utils'
 require_relative 'text_processing_utils'
+require_relative 'front_matter_utils'
+require_relative 'author_finder_utils'
 
 module BookListUtils
 
@@ -87,12 +89,21 @@ module BookListUtils
     author_books = []
 
     if author_name_filter && !author_name_filter.to_s.strip.empty?
-      normalized_author_filter = author_name_filter.to_s.strip.downcase
+      # Find the canonical page for the filter name to get the canonical name
+      canonical_author_page = AuthorFinderUtils.find_author_page_by_name(author_name_filter, site)
+      # If a page is found, use its title as the canonical name. Otherwise, fallback to the original filter.
+      # This ensures that even if an author doesn't have a page, their books are still found if the filter matches exactly.
+      canonical_filter_name = canonical_author_page ? canonical_author_page.data['title'] : author_name_filter
+
       author_books = all_published.select do |book|
-        # Use FrontMatterUtils to get the list of authors for the current book
+        # For each book, resolve its authors to their canonical names and check for a match.
         authors_list = FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
-        # Check if any author in the list matches the filter (case-insensitive)
-        authors_list.any? { |auth| auth.strip.downcase == normalized_author_filter }
+        authors_list.any? do |book_author_name|
+          book_author_page = AuthorFinderUtils.find_author_page_by_name(book_author_name, site)
+          book_canonical_name = book_author_page ? book_author_page.data['title'] : book_author_name
+          # Compare canonical names case-insensitively
+          book_canonical_name.casecmp(canonical_filter_name).zero?
+        end
       end
 
       # If author_books is empty here, it means the author exists but has no books, or the author doesn't exist.
@@ -165,29 +176,33 @@ module BookListUtils
     end
 
     all_published_books = _get_all_published_books(site)
-    books_by_author_name = {} # Use a hash for easier accumulation
+    books_by_canonical_author = {} # Use a hash for easier accumulation
 
     all_published_books.each do |book|
       # Use FrontMatterUtils to get the list of authors for the current book
       author_names_for_book = FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
 
       author_names_for_book.each do |author_name_str|
-        author_name = author_name_str.strip # Ensure stripped name for grouping key
-        next if author_name.empty?
+        next if author_name_str.to_s.strip.empty?
 
-        books_by_author_name[author_name] ||= []
-        books_by_author_name[author_name] << book
+        # Find the canonical page for this author name
+        canonical_author_page = AuthorFinderUtils.find_author_page_by_name(author_name_str, site)
+        # Use the page title as the canonical name, or fall back to the original name if no page found
+        canonical_name = canonical_author_page ? canonical_author_page.data['title'] : author_name_str.strip
+
+        books_by_canonical_author[canonical_name] ||= []
+        books_by_canonical_author[canonical_name] << book
       end
     end
 
     authors_data_list = []
-    books_by_author_name.each do |author_name, books_for_this_author|
+    books_by_canonical_author.each do |canonical_name, books_for_this_author|
       # Deduplicate books for this author in case a book was added multiple times
       # (e.g., if 'book_authors' had ["A", "A"] - though FrontMatterUtils.uniq handles this for the list itself)
       # However, the grouping logic above should handle this correctly by adding the book object once per unique author.
-      structured_author_books = _structure_books_for_display(books_for_this_author.uniq) # .uniq on book objects
+      structured_author_books = _structure_books_for_display(books_for_this_author.uniq)
       authors_data_list << {
-        author_name: author_name, # Use the original (but stripped) author name from grouping
+        author_name: canonical_name,
         standalone_books: structured_author_books[:standalone_books],
         series_groups: structured_author_books[:series_groups]
         # log_messages from _structure_books_for_display are ignored here,
@@ -353,7 +368,7 @@ module BookListUtils
 
     # Sort books primarily by their sort_title, then by original title (lowercase) for stability
     sorted_books_with_meta = books_with_sort_title.sort_by do |b_meta|
-      [b_meta[:sort_title], b_meta[:book].data['title'].to_s.downcase] # ADDED secondary sort
+      [b_meta[:sort_title], b_meta[:book].data['title'].to_s.downcase]
     end
 
     # Group sorted books by the determined first_letter

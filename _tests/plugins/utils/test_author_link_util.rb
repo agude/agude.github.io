@@ -3,183 +3,145 @@ require_relative '../../test_helper'
 
 class TestAuthorLinkUtils < Minitest::Test
 
-  # --- Existing Tests (Keep, some may pass now without changes) ---
-  def test_render_author_link_found_and_linked
-    author_page = create_doc({ 'title' => 'Jane Doe', 'layout' => 'author_page' }, '/authors/jane-doe.html')
-    site = create_site({}, {}, [author_page]) # Add to pages
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
+  def setup
+    # --- Mock Author Pages ---
+    @canonical_author_page = create_doc(
+      { 'title' => 'Jane Doe', 'layout' => 'author_page' },
+      '/authors/jane-doe.html'
+    )
+    @pen_name_author_page = create_doc(
+      {
+        'title' => 'Canonical Author',
+        'layout' => 'author_page',
+        'pen_names' => ['Pen Name', 'Another Alias']
+      },
+      '/authors/canonical.html'
+    )
 
+    # --- Site and Context ---
+    @site = create_site({}, {}, [@canonical_author_page, @pen_name_author_page])
+    @page = create_doc({}, '/current.html')
+    @ctx = create_context({}, { site: @site, page: @page })
+  end
+
+  # --- New Alias-Specific Tests ---
+
+  def test_render_author_link_with_pen_name_input
+    # Input is "Pen Name", which is an alias for "Canonical Author"
+    # Expect link to canonical page, but display text to be the input "Pen Name"
+    expected = "<a href=\"/authors/canonical.html\"><span class=\"author-name\">Pen Name</span></a>"
+    assert_equal expected, AuthorLinkUtils.render_author_link("Pen Name", @ctx)
+  end
+
+  def test_render_author_link_with_fuzzy_canonical_name_input
+    # Input is a fuzzy match for "Canonical Author", not a pen name
+    # Expect link to canonical page, and display text to be corrected to "Canonical Author"
+    expected = "<a href=\"/authors/canonical.html\"><span class=\"author-name\">Canonical Author</span></a>"
+    assert_equal expected, AuthorLinkUtils.render_author_link("canonical author", @ctx)
+  end
+
+  def test_render_author_link_with_pen_name_and_link_text_override
+    # Input is "Pen Name", but link_text override is provided
+    # Expect link to canonical page, but display text to be the override
+    expected = "<a href=\"/authors/canonical.html\"><span class=\"author-name\">Display This</span></a>"
+    assert_equal expected, AuthorLinkUtils.render_author_link("Pen Name", @ctx, "Display This")
+  end
+
+  # --- Existing Tests (Adapted for new setup) ---
+  def test_render_author_link_found_and_linked
+    # Use the simple canonical author page for this test
     expected = "<a href=\"/authors/jane-doe.html\"><span class=\"author-name\">Jane Doe</span></a>"
-    # Use normalized input for lookup, but expect canonical display
-    assert_equal expected, AuthorLinkUtils.render_author_link("  jane DOE ", ctx)
+    assert_equal expected, AuthorLinkUtils.render_author_link("  jane DOE ", @ctx)
   end
 
   def test_render_author_link_possessive_linked
-    author_page = create_doc({ 'title' => 'Jane Doe', 'layout' => 'author_page' }, '/authors/jane-doe.html')
-    site = create_site({}, {}, [author_page])
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    expected = "<a href=\"/authors/jane-doe.html\"><span class=\"author-name\">Jane Doe</span>’s</a>" # Possessive inside link
-    assert_equal expected, AuthorLinkUtils.render_author_link("jane doe", ctx, nil, true)
+    expected = "<a href=\"/authors/jane-doe.html\"><span class=\"author-name\">Jane Doe</span>’s</a>"
+    assert_equal expected, AuthorLinkUtils.render_author_link("jane doe", @ctx, nil, true)
   end
 
   def test_render_author_link_possessive_unlinked
-    site = create_site({}, {}, []) # No author pages
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Expect unlinked span + possessive. log_failure returns ""
-    expected = "<span class=\"author-name\">Jane Doe</span>’s" # Possessive outside span
-    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", ctx, nil, true)
+    site_no_pages = create_site({}, {}, [])
+    ctx_no_pages = create_context({}, { site: site_no_pages, page: @page })
+    expected = "<span class=\"author-name\">Jane Doe</span>’s"
+    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", ctx_no_pages, nil, true)
   end
 
   def test_render_author_link_not_found
-    site = create_site({}, {}, []) # No author pages
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Expect unlinked span. log_failure returns ""
+    site_no_pages = create_site({}, {}, [])
+    ctx_no_pages = create_context({}, { site: site_no_pages, page: @page })
     expected = "<span class=\"author-name\">John Smith</span>"
-    assert_equal expected, AuthorLinkUtils.render_author_link("John Smith", ctx)
+    assert_equal expected, AuthorLinkUtils.render_author_link("John Smith", ctx_no_pages)
   end
 
   def test_render_author_link_found_but_current_page
-    author_page = create_doc({ 'title' => 'Jane Doe', 'layout' => 'author_page' }, '/authors/jane-doe.html')
-    site = create_site({}, {}, [author_page])
     # Current page IS the author page
-    page = create_doc({}, '/authors/jane-doe.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Expect unlinked span
+    ctx_current_is_author = create_context({}, { site: @site, page: @canonical_author_page })
     expected = "<span class=\"author-name\">Jane Doe</span>"
-    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", ctx)
+    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", ctx_current_is_author)
   end
 
   def test_render_author_link_with_link_text_override_found
-    author_page = create_doc({ 'title' => 'Jane Doe', 'layout' => 'author_page' }, '/authors/jane-doe.html')
-    site = create_site({}, {}, [author_page])
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
     expected = "<a href=\"/authors/jane-doe.html\"><span class=\"author-name\">JD</span></a>"
-    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", ctx, "JD")
+    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", @ctx, "JD")
   end
 
   def test_render_author_link_with_link_text_override_not_found
-    site = create_site({}, {}, [])
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Expect unlinked span with override text. log_failure returns ""
+    site_no_pages = create_site({}, {}, [])
+    ctx_no_pages = create_context({}, { site: site_no_pages, page: @page })
     expected = "<span class=\"author-name\">JD</span>"
-    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", ctx, "JD")
+    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", ctx_no_pages, "JD")
   end
 
   def test_render_author_link_possessive_with_override_linked
-    author_page = create_doc({ 'title' => 'Jane Doe', 'layout' => 'author_page' }, '/authors/jane-doe.html')
-    site = create_site({}, {}, [author_page])
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Possessive inside link, uses override text
     expected = "<a href=\"/authors/jane-doe.html\"><span class=\"author-name\">JD</span>’s</a>"
-    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", ctx, "JD", true)
+    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", @ctx, "JD", true)
   end
 
   def test_render_author_link_possessive_with_override_unlinked
-    site = create_site({}, {}, [])
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Possessive outside span, uses override text. log_failure returns ""
+    site_no_pages = create_site({}, {}, [])
+    ctx_no_pages = create_context({}, { site: site_no_pages, page: @page })
     expected = "<span class=\"author-name\">JD</span>’s"
-    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", ctx, "JD", true)
+    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", ctx_no_pages, "JD", true)
   end
 
   def test_render_author_link_empty_input_name
-    site = create_site
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # log_failure called internally, returns ""
-    assert_equal "", AuthorLinkUtils.render_author_link("", ctx)
-    assert_equal "", AuthorLinkUtils.render_author_link("   ", ctx)
-    assert_equal "", AuthorLinkUtils.render_author_link(nil, ctx)
+    assert_equal "", AuthorLinkUtils.render_author_link("", @ctx)
+    assert_equal "", AuthorLinkUtils.render_author_link("   ", @ctx)
+    assert_equal "", AuthorLinkUtils.render_author_link(nil, @ctx)
   end
 
   def test_render_author_link_with_baseurl
-    author_page = create_doc({ 'title' => 'Jane Doe', 'layout' => 'author_page' }, '/authors/jane-doe.html')
-    site = create_site({ 'baseurl' => '/myblog' }, {}, [author_page])
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
+    site_with_baseurl = create_site({ 'baseurl' => '/myblog' }, {}, [@canonical_author_page])
+    ctx_with_baseurl = create_context({}, { site: site_with_baseurl, page: @page })
     expected = "<a href=\"/myblog/authors/jane-doe.html\"><span class=\"author-name\">Jane Doe</span></a>"
-    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", ctx)
+    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", ctx_with_baseurl)
   end
 
   def test_render_author_link_escaping_name
-    # Author page title needs escaping
-    author_page = create_doc({ 'title' => 'A & B <Company>', 'layout' => 'author_page' }, '/authors/a-b.html')
-    site = create_site({}, {}, [author_page])
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Expect canonical title to be escaped
+    author_page_escaped = create_doc({ 'title' => 'A & B <Company>', 'layout' => 'author_page' }, '/authors/a-b.html')
+    site_escaped = create_site({}, {}, [author_page_escaped])
+    ctx_escaped = create_context({}, { site: site_escaped, page: @page })
     expected = "<a href=\"/authors/a-b.html\"><span class=\"author-name\">A &amp; B &lt;Company&gt;</span></a>"
-    # Use matching input name for lookup (normalization handles it)
-    assert_equal expected, AuthorLinkUtils.render_author_link("a & b <company>", ctx)
+    assert_equal expected, AuthorLinkUtils.render_author_link("a & b <company>", ctx_escaped)
   end
 
   def test_render_author_link_escaping_override
-    author_page = create_doc({ 'title' => 'Jane Doe', 'layout' => 'author_page' }, '/authors/jane-doe.html')
-    site = create_site({}, {}, [author_page])
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Expect override text to be escaped
     expected = "<a href=\"/authors/jane-doe.html\"><span class=\"author-name\">J &amp; D &lt;Inc&gt;</span></a>"
-    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", ctx, "J & D <Inc>")
+    assert_equal expected, AuthorLinkUtils.render_author_link("Jane Doe", @ctx, "J & D <Inc>")
   end
 
   def test_render_author_link_uses_canonical_title_from_page
-    # Page title has different whitespace/casing than input
-    author_page = create_doc({ 'title' => '  Jane   DOE ', 'layout' => 'author_page' }, '/authors/jane-doe.html')
-    site = create_site({}, {}, [author_page])
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Input name is different but should match via normalization
-    input_name = "jane doe"
-    # Expect the display text to use the canonical title from the page data (stripped)
+    author_page_fuzzy = create_doc({ 'title' => '  Jane   DOE ', 'layout' => 'author_page' }, '/authors/jane-doe.html')
+    site_fuzzy = create_site({}, {}, [author_page_fuzzy])
+    ctx_fuzzy = create_context({}, { site: site_fuzzy, page: @page })
     expected = "<a href=\"/authors/jane-doe.html\"><span class=\"author-name\">Jane   DOE</span></a>"
-    actual_html = AuthorLinkUtils.render_author_link(input_name, ctx)
-
-    assert_equal expected, actual_html
+    assert_equal expected, AuthorLinkUtils.render_author_link("jane doe", ctx_fuzzy)
   end
 
   def test_render_author_link_lookup_is_case_insensitive_and_whitespace_normalized
-    # Page title is 'Jane Doe'
-    author_page = create_doc({ 'title' => 'Jane Doe', 'layout' => 'author_page' }, '/authors/jane-doe.html')
-    site = create_site({}, {}, [author_page])
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Expected linked output using canonical title
-    expected_linked = "<a href=\"/authors/jane-doe.html\"><span class=\"author-name\">Jane Doe</span></a>"
-
-    # Test lowercase input - should match and link
-    input_name_lower = "jane doe"
-    assert_equal expected_linked, AuthorLinkUtils.render_author_link(input_name_lower, ctx)
-
-    # Test input with extra internal space - should match and link
-    input_name_space = "Jane  Doe"
-    assert_equal expected_linked, AuthorLinkUtils.render_author_link(input_name_space, ctx)
-
-    # Test input with leading/trailing space and different case - should match and link
-    input_name_mixed = "  jAnE dOe   "
-    assert_equal expected_linked, AuthorLinkUtils.render_author_link(input_name_mixed, ctx)
+    expected = "<a href=\"/authors/jane-doe.html\"><span class=\"author-name\">Jane Doe</span></a>"
+    assert_equal expected, AuthorLinkUtils.render_author_link("jane doe", @ctx)
+    assert_equal expected, AuthorLinkUtils.render_author_link("Jane  Doe", @ctx)
+    assert_equal expected, AuthorLinkUtils.render_author_link("  jAnE dOe   ", @ctx)
   end
-
 end
