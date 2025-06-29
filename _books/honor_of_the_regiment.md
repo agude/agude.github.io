@@ -99,7 +99,7 @@ technology. Their peaceful lifestyle is shattered when pirates land, kill,
 loot, and demand tribute before returning in a few months. So the people of
 Camelot buy a Bolo.
 
-The interesting question here is: is a Bolo, and the technological progress it
+There's an interesting question: is a Bolo, and the technological progress it
 represents, more destructive to their way of life than the pirates? I think
 the answer is clearly "no," but the story could have explored that tension
 more. Instead, it sidesteps it at the end by having the Bolo knighted and join
@@ -150,18 +150,17 @@ intelligence, the Bolo manipulates both sides into preparing for the alien
 invasion.
 
 This is a take on the same idea as {{ rogue_bolo_from_bolo2 }}, where the Bolo
-identifies a hidden threat and prepares for it.
-
-The way the Bolo orchestrates the threat of itself to unite the human factions
-reminds me of how Ozymandias sets up an alien threat to prevent nuclear war in
-{{ watchmen }}. The united human response to the alien invasion also feels a
-lot like <cite class="movie-title">Independence Day</cite>. It's thematically
+identifies a hidden threat and prepares for it. In this case, the Bolo
+orchestrates the threat of itself to unite the human factions, which reminds
+me of how Ozymandias sets up an fake-alien threat to prevent nuclear war in {{
+watchmen }}. The united human response to the alien invasion also feels a lot
+like <cite class="movie-title">Independence Day</cite>. It's thematically
 similar to {{ relic_from_bolo1 }} and {{ final_mission_from_bolo2 }}, where a
-Bolo awakens and defends humans from a surprise alien attack.
+Bolo is woken up and has to defend humans from an unanticipated alien attack.
 
 ### <cite class="short-story-title">Ghosts</cite>
 <div class="written-by">by {{ author_resnick }} and {{ author_malzberg }}</div>
-{% rating_stars 3 %}
+{% rating_stars 2 %}
 
 A Mk. LX Bolo's soul remembers moments from its past lives while fighting a
 shapeshifter. Not much happens, and the story leans into mysticism more than
@@ -175,22 +174,21 @@ which contradicts just about every other story in the series.
 {% rating_stars 3 %}
 
 This story is set on a frontier planet under constant attack by snake-like
-Xiala aliens. The Bolos disguised themselves as farm equipment to bait the
+Xiala aliens. The Bolos disguise themselves as farm equipment to bait the
 enemy into revealing themselves. There are a lot of interesting ideas here:
 the mutual duty between humans and Bolos, Bolos going insane, and how every
-Bolo has a base image of the first sentient Bolo---Resartus---embedded to
-prevent them from going rogue.
-
-But the story feels too short to really develop those ideas.
+Bolo has a base image of the first sentient Bolo---Resartus---embedded to keep
+them from going rogue. But the story is too short to really develop any of it.
 
 ### <cite class="short-story-title">Operation Desert Fox</cite>
 <div class="written-by">by {{ author_lackey }} and {{ author_dixon }}</div>
 {% rating_stars 3 %}
 
-This one has a lot of fun Bolo scenes. The Bolo and its commander play war
+This short story has a lot of fun scenes. The Bolo and its commander play war
 games, scout the planet, and run around saving people like an overgrown,
 Dinochrome [Lassie][lassie]. The enemy is a nameless corporation that decides
-to take over the planet, which feels very late-80s/early-90s cyberpunk.
+to take over the planet with mechs, which feels very late-80s/early-90s
+cyberpunk.
 
 [lassie]: https://en.wikipedia.org/wiki/Lassie
 
@@ -203,7 +201,7 @@ weird tone and subject matter drag the story down.
 
 [rm]: https://en.wikipedia.org/wiki/Rommel_myth
 
-In the end the whole thing is, like {{ bankss }} {{ odd }}, a setup for a
+In the end, like {{ bankss }} {{ odd }}, the whole thing is a setup for a
 joke.
 
 ### <cite class="short-story-title">As Our Strength Lessens</cite>
