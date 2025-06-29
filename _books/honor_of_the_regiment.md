@@ -68,6 +68,7 @@ Bolo stories written by ten different authors.
 
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
 
+{% capture excession %}{% book_link "Excession" %}{% endcapture %}
 {% capture odd %}<a href="/books/the_state_of_the_art/#odd-attachment"><cite class="short-story-title">Odd Attachment</cite></a>{% endcapture %}
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 
@@ -214,4 +215,13 @@ joke.
 <div class="written-by">by {{ author_drake }}</div>
 {% rating_stars 4 %}
 
-
+<cite class="short-story-title">As Our Strength Lessens</cite> is the most
+action- and technology-packed story of the bunch, as is only appropriate for
+the author of {{ slammers }}. In it, a Bolo is tasked with destroying a
+research facility that mirrors any attack sent against it. The facility
+reminds me of {{ excession }}---both are incomprehensible, spherical
+anomalies the resist any attack. {{ author_drake }} adds in a lot of cool
+tech---rotating shields for the infinite repeaters, ground-transmission
+communication, and details on how a Hellbore works---but also a lot of
+humanity with the drunken conversation between the tank and Major Peter Bowen,
+and of course the selfless sacrifice.
