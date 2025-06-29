@@ -15,6 +15,11 @@ class TestBacklinkUtils < Minitest::Test
       '/books/html.html',
       "Some text <a href=\"#{@target_page.url}\">link</a> more text."
     )
+    @book_html_link_with_fragment = create_doc(
+      { 'title' => 'HTML Linker With Fragment' },
+      '/books/html-fragment.html',
+      "Some text <a href=\"#{@target_page.url}#section-one\">link with fragment</a> more text."
+    )
     @book_liquid_dq_link = create_doc(
       { 'title' => 'Liquid DQ Linker' },
       '/books/liquid-dq.html',
@@ -68,7 +73,7 @@ class TestBacklinkUtils < Minitest::Test
 
     # --- Site & Context ---
     @all_mock_books = [
-      @book_html_link, @book_liquid_dq_link, @book_liquid_sq_link,
+      @book_html_link, @book_html_link_with_fragment, @book_liquid_dq_link, @book_liquid_sq_link,
       @book_liquid_base_link, @book_multi_link, @book_no_link,
       @book_unpublished, @book_no_title, @book_no_content, @book_no_url,
       @book_apple, @book_banana, @book_orange, @book_pear
@@ -96,6 +101,11 @@ class TestBacklinkUtils < Minitest::Test
   def test_finds_link_via_html_href
     result = find_backlinks
     assert_result_includes_title(result, @book_html_link.data['title'])
+  end
+
+  def test_finds_link_via_html_href_with_fragment
+    result = find_backlinks
+    assert_result_includes_title(result, @book_html_link_with_fragment.data['title'])
   end
 
   def test_finds_link_via_liquid_double_quotes

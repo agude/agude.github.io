@@ -54,6 +54,7 @@ ranked_list:
   - The Sword of the Lictor
   - Valuable Humans in Transit and Other Stories
   - Dog Soldier
+  - Honor of the Regiment
   - Mariel of Redwall
   - We Are Legion (We Are Bob)
   - All Systems Red
