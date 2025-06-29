@@ -25,8 +25,8 @@ Bolo stories written by ten different authors.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
-{% capture author_stirling %}{% author_link "S.M. Stirling" %}{% endcapture %}
-{% capture author_lewitt %}{% author_link "S.N. Lewitt" %}{% endcapture %}
+{% capture author_stirling %}{% author_link "S. M. Stirling" %}{% endcapture %}
+{% capture author_lewitt %}{% author_link "S. N. Lewitt" %}{% endcapture %}
 {% capture author_keith %}{% author_link "J. Andrew Keith" %}{% endcapture %}
 {% capture author_johnson %}{% author_link "Todd Johnson" %}{% endcapture %}
 {% capture author_resnick %}{% author_link "Mike Resnick" %}{% endcapture %}
@@ -91,7 +91,7 @@ The planet of Camelot
 <cite class="short-story-title">The Legacy of Leonidas</cite> is an expansion
 and rewrite of {{ field_test_from_bolo1 }} from {{ bolo1 }}; the author even
 mentions the story by name. In this version, a regiment of Bolos is sent to
-the non-Concordinate planet of New Sierra to help them fend off an invasion by
+the non-Concordiat planet of New Sierra to help them fend off an invasion by
 Christian religious fanatics.[^mormons]
 
 [^mormons]:
@@ -126,7 +126,7 @@ Space Germans unearth a Mk XVI Bolo DAK (Das Afrika Korp) and plan to use it
 to invade Space Alsace-Lorraine and drive out the Space French. The Bolo
 though figures out that the war---and the famine 300 years earlier---was
 caused by hostile aliens that are trying to take over the planet for
-themselves. Using it's superior inteligence, the Bolo manipulates both human
+themselves. Using it's superior intelligence, the Bolo manipulates both human
 sides into preparing for the alien invasion.
 
 This story is a take on the same theme as {{ rogue_bolo_from_bolo2 }}, where
@@ -154,4 +154,4 @@ defend humans from an unanticipated alien attack.
 
 ### <cite class="short-story-title">As Our Strength Lessens</cite>
 <div class="written-by">by {{ author_drake }}</div>
-{% rating_stars 3 %}
+{% rating_stars 4 %}
