@@ -46,8 +46,11 @@ module BacklinkUtils
     current_title_downcased = current_page['title'].downcase.strip # Use downcased title for Liquid tag matching
 
     # --- Prepare Search Patterns ---
-    # Use original case URL from page data for CGI.escapeHTML, then downcase for comparison
-    html_pattern = "href=\"#{CGI.escapeHTML(current_page['url'])}\"".downcase
+    # Regex to match href with optional fragment. It will be used against downcased content.
+    escaped_url_for_regex = Regexp.escape(CGI.escapeHTML(current_page['url'])).downcase
+    html_regex_pattern = /href\s*=\s*["']#{escaped_url_for_regex}(?:#[\w-]+)?["']/
+
+    # Patterns for Liquid tags
     title_dq = "\"#{current_title_downcased}\""
     title_sq = "'#{current_title_downcased}'"
     markdown_pattern_dq_base = "book_link #{title_dq}"
@@ -80,8 +83,8 @@ module BacklinkUtils
 
       # --- Perform Checks ---
       found_link = false
-      # Compare against downcased html_pattern
-      if normalized_content.include?(html_pattern)
+      # Check for HTML link using case-sensitive regex on downcased content
+      if normalized_content.match?(html_regex_pattern)
         found_link = true
       elsif normalized_content.include?(markdown_pattern_dq_base) || normalized_content.include?(markdown_pattern_dq_liquid)
         found_link = true
