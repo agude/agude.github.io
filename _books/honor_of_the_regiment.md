@@ -2,8 +2,8 @@
 date: 2025-06-28
 title: Honor of the Regiment
 book_authors:
-  - S.M. Stirling
-  - S.N. Lewitt
+  - S. M. Stirling
+  - S. N. Lewitt
   - J. Andrew Keith
   - Todd Johnson
   - Mike Resnick
