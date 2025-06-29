@@ -19,8 +19,8 @@ image: /books/covers/honor_of_the_regiment.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the tenth book in the
-<span class="book-series">{{ page.series }}</span>. It's an anthology of Bolo
-stories written by ten different authors.
+<span class="book-series">{{ page.series }}</span> series. It's an anthology
+of Bolo stories written by ten different authors.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
