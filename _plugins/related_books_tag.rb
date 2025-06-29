@@ -6,8 +6,9 @@ require 'set'
 
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/book_card_utils'
-require_relative 'utils/front_matter_utils' # For parsing book_authors
-require_relative 'utils/book_list_utils'    # For _parse_book_number
+require_relative 'utils/front_matter_utils'
+require_relative 'utils/book_list_utils'
+require_relative 'utils/text_processing_utils'
 
 module Jekyll
   class RelatedBooksTag < Liquid::Tag
@@ -40,6 +41,17 @@ module Jekyll
         )
       end
 
+      link_cache = site.data['link_cache']
+      unless link_cache && link_cache['series_map']
+        return PluginLoggerUtils.log_liquid_failure(
+          context: context,
+          tag_type: "RELATED_BOOKS",
+          reason: "Link cache is missing. Ensure LinkCacheGenerator is running.",
+          identifiers: { PageURL: page['url'] },
+          level: :error,
+        )
+      end
+
       current_url = page['url']
       current_series = page['series']
       current_page_authors = FrontMatterUtils.get_list_from_string_or_array(page['book_authors'])
@@ -58,11 +70,16 @@ module Jekyll
       current_book_num_parsed = BookListUtils.__send__(:_parse_book_number, page['book_number'])
 
       if current_series && !current_series.to_s.strip.empty?
-        if current_book_num_parsed != Float::INFINITY
-          series_books_all_others = all_potential_books.select do |book|
-            book.data['series'] == current_series
-          end
+        normalized_series_name = TextProcessingUtils.normalize_title(current_series)
+        series_books_from_cache = link_cache['series_map'][normalized_series_name] || []
 
+        # Use the cache to get series book URLs, then select from our already-filtered list
+        cached_series_urls = Set.new(series_books_from_cache.map(&:url))
+        series_books_all_others = all_potential_books.select do |book|
+          cached_series_urls.include?(book.url)
+        end
+
+        if current_book_num_parsed != Float::INFINITY
           if series_books_all_others.any?
             books_with_parsed_numbers = series_books_all_others.map do |book|
               { doc: book, num: BookListUtils.__send__(:_parse_book_number, book.data['book_number']) }
@@ -110,15 +127,14 @@ module Jekyll
             candidate_books_accumulator.concat(final_series_books_to_add)
           end
         else
-          log_messages_html << PluginLoggerUtils.log_liquid_failure( # Append to log_messages_html
-                                                                    context: context,
-                                                                    tag_type: "RELATED_BOOKS_SERIES",
-                                                                    reason: "Current page has unparseable book_number ('#{page['book_number']}'). Using all series books sorted by number.",
-                                                                    identifiers: { PageURL: page['url'], Series: current_series },
-                                                                    level: :info
-                                                                   )
-          series_books_fallback = all_potential_books
-            .select { |book| book.data['series'] == current_series }
+          log_messages_html << PluginLoggerUtils.log_liquid_failure(
+            context: context,
+            tag_type: "RELATED_BOOKS_SERIES",
+            reason: "Current page has unparseable book_number ('#{page['book_number']}'). Using all series books sorted by number.",
+            identifiers: { PageURL: page['url'], Series: current_series },
+            level: :info,
+          )
+          series_books_fallback = series_books_all_others
             .sort_by { |book| BookListUtils.__send__(:_parse_book_number, book.data['book_number']) }
           candidate_books_accumulator.concat(series_books_fallback)
         end

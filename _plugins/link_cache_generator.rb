@@ -5,7 +5,7 @@ require_relative 'utils/front_matter_utils'
 
 module Jekyll
   # This generator builds a cache of linkable pages (authors, books, series)
-  # to avoid expensive page traversals in other plugins and tags.
+  # and navigation items to avoid expensive page traversals in other plugins and tags.
   # The cache is stored in site.data['link_cache'].
   class LinkCacheGenerator < Generator
     priority :normal
@@ -17,15 +17,27 @@ module Jekyll
       link_cache = {
         'authors' => {},
         'books' => {},
-        'series' => {}
+        'series' => {},
+        'series_map' => {},
+        'sidebar_nav' => [],
+        'books_topbar_nav' => [],
       }
 
       # --- Cache Author and Series Pages ---
       site.pages.each do |page|
         layout = page.data['layout']
         title = page.data['title']
-        next unless title && !title.strip.empty?
 
+        # Cache navigation items
+        if title && page.data['sidebar_include'] == true && !page.url.include?("page")
+          link_cache['sidebar_nav'] << page
+        end
+        if title && page.data['book_topbar_include'] == true
+          link_cache['books_topbar_nav'] << page
+        end
+
+        # Cache linkable pages
+        next unless title && !title.strip.empty?
         if layout == 'author_page'
           cache_author_page(page, link_cache['authors'])
         elsif layout == 'series_page'
@@ -33,7 +45,11 @@ module Jekyll
         end
       end
 
-      # --- Cache Book Pages ---
+      # Sort the navigation lists
+      link_cache['sidebar_nav'].sort_by! { |p| p.data['title'] }
+      link_cache['books_topbar_nav'].sort_by! { |p| p.data['title'] }
+
+      # --- Cache Book Pages and Build Series Map ---
       if site.collections.key?('books')
         site.collections['books'].docs.each do |book|
           # Only cache published books with a title
@@ -41,6 +57,7 @@ module Jekyll
           title = book.data['title']
           next unless title && !title.strip.empty?
           cache_book_page(book, link_cache['books'])
+          cache_book_in_series_map(book, link_cache['series_map'])
         end
       end
 
@@ -80,6 +97,16 @@ module Jekyll
       title = book.data['title'].strip
       normalized_title = TextProcessingUtils.normalize_title(title)
       book_cache[normalized_title] = { 'url' => book.url, 'title' => title }
+    end
+
+    # Adds a book to the series map.
+    def cache_book_in_series_map(book, series_map)
+      series_name = book.data['series']
+      return unless series_name && !series_name.strip.empty?
+
+      normalized_series_name = TextProcessingUtils.normalize_title(series_name)
+      series_map[normalized_series_name] ||= []
+      series_map[normalized_series_name] << book
     end
   end
 end
