@@ -26,7 +26,7 @@ unpredictable, and enormously powerful.
 {% capture use_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
 
 The best part of the novel is getting to see how the Culture _works_: how the
-Minds think, communicate, make decisions, retreat to "Infinite Fun Space," and
+Minds think, communicate, make decisions, retreat to "Infinite Fun Space", and
 interact with an _Outside Context Problem_.[^ocp] The worst part was the human
 characters---shallow and uninteresting. Ulver Seich, the airhead socialite, is
 a slightly more engaging and better-written take on the "hot girl who sleeps
