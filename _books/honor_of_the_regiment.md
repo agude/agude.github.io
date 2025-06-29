@@ -19,8 +19,8 @@ image: /books/covers/honor_of_the_regiment.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the tenth book in the
-<span class="book-series">{{ page.series }}</span>. It is an anthology with
-Bolo stories written by ten different authors.
+<span class="book-series">{{ page.series }}</span>. It's an anthology of Bolo
+stories written by ten different authors.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
@@ -80,44 +80,44 @@ Bolo stories written by ten different authors.
 <div class="written-by">by {{ author_stirling }}</div>
 {% rating_stars 4 %}
 
-A story about a forgotten US army unit fighting guerrillas somewhere in South
-America, as the world is collapsing right before the nuclear war from {{
-night_of_the_trolls_from_bolo1 }} from {{ bolo1 }} and {{ bolo3 }}. The unit
-is sent a Bolo Mk. III instead of other much-needed supplies, but it soon
-proves its worth. The characters are a little flat and the story dodges any
-deeper exploration of American adventurism and colonialism by making the
-guerrillas comically evil. Still, there's some great action and a Bolo AI that
-brings that tank out of danger and saves the day after its pilot is killed.
+A story about a forgotten <span class="nowrap">U.S.</span> Army unit fighting
+guerrillas somewhere in South America as the world collapses, just before the
+nuclear war from {{ night_of_the_trolls_from_bolo1 }} in {{ bolo1 }} and {{
+bolo3 }}. The unit is sent a Bolo Mk. III instead of the desperately needed
+supplies, but it soon proves its worth. The characters are a little flat, and
+the story dodges any deeper exploration of American adventurism and
+colonialism by making the guerrillas comically evil. Still, there's great
+action and a Bolo AI that heroically pulls the tank out of danger and saves
+the day after its pilot is killed.
 
 ### <cite class="short-story-title">Camelot</cite>
 <div class="written-by">by {{ author_lewitt }}</div>
 {% rating_stars 4 %}
 
-A few veterans retire to the planet of Camelot, a world that foregos modern
-technology. Their bucolic lifestyle is shattered when pirates land, kill and
-steal, and demand tribute for when they return in a few months. So the people
-of Camelot by a Bolo.
+A few veterans retire to the planet Camelot, a world that forgoes modern
+technology. Their peaceful lifestyle is shattered when pirates land, kill,
+loot, and demand tribute before returning in a few months. So the people of
+Camelot buy a Bolo.
 
-The interesting question this story is asking is: is a Bolo, and the
-technological advancement it represents, more destructive to their lifestyle
-than the pirates? I think the answer is clearly "no", but I could see how the
-story could have explored that question. Instead they neatly side-step it at
-the end by the Bolo being Knighted and joining the people in their
-roleplaying.
+The interesting question here is: is a Bolo, and the technological progress it
+represents, more destructive to their way of life than the pirates? I think
+the answer is clearly "no," but the story could have explored that tension
+more. Instead, it sidesteps it at the end by having the Bolo knighted and join
+the locals in their roleplaying.
 
 ### <cite class="short-story-title">The Legacy of Leonidas</cite>
 <div class="written-by">by {{ author_keith }}</div>
 {% rating_stars 4 %}
 
-<cite class="short-story-title">The Legacy of Leonidas</cite> is an expansion
-and rewrite of {{ field_test_from_bolo1 }} from {{ bolo1 }}; the author even
-mentions the story by name. In this version, a regiment of Bolos is sent to
-the non-Concordiat planet of New Sierra to help them fend off an invasion by
-Christian religious fanatics.[^mormons]
+<cite class="short-story-title">The Legacy of Leonidas</cite> is an expanded
+and rewritten version of {{ field_test_from_bolo1 }} from {{ bolo1 }}; the
+author even references the original story by name. In this version, a regiment
+of Bolos is sent to the non-Concordiat planet New Sierra to help them fend off
+an invasion by Christian religious fanatics.[^mormons]
 
 [^mormons]:
     The fanatics are based on Mormons. Their state is named
-    [Deseret][deseret]. Their leader is named "Hyman Smith-Wentworth" after,
+    [Deseret][deseret]. Their leader is named "Hyman Smith-Wentworth," after
     [Hyrum Smith][hyrum], [Joseph Smith][smith], and the [Wentworth
     Letter][wentworth].
 
@@ -126,15 +126,14 @@ Christian religious fanatics.[^mormons]
 [smith]: https://en.wikipedia.org/wiki/Joseph_Smith
 [wentworth]: https://en.wikipedia.org/wiki/Wentworth_letter
 
-But the coordinator of the army doesn't trust the Mk. XX Bolos, thinking that
-honor and grit are what win wars, not superior firepower. Unit JSN (Jason) is
-the only Bolo operational when the fanatics make a push through the mountains
-to New Denver, and it is deployed as a last ditch gambit against the explicit
-orders of the coordinator. It rallies the troops after they're betrayed by
-their own colonel, charges into the enemy, and holds the pass until
-reinforcements can arrive. The Bolo's selflessness and honor---and quoting
-[Nelson's][nelson] [orders at Trafalgar][duty]---convinces the Coordinator of
-his mistake.
+But the army coordinator doesn't trust the Mk. XX Bolos, believing honor and
+grit win wars, not firepower. Unit JSN (Jason) is the only Bolo operational
+when the fanatics push through the mountains toward New Denver. It's deployed
+as a last-ditch effort against explicit orders. The Bolo rallies the troops
+after they're betrayed by their colonel, charges the enemy, and holds the pass
+until reinforcements arrive. Its selflessness and honor---and quoting
+[Nelson's][nelson] [orders at Trafalgar][duty]---finally convince the
+coordinator of his mistake.
 
 [nelson]: https://en.wikipedia.org/wiki/Horatio_Nelson,_1st_Viscount_Nelson
 [duty]: https://en.wikipedia.org/wiki/England_expects_that_every_man_will_do_his_duty
@@ -143,85 +142,82 @@ his mistake.
 <div class="written-by">by {{ author_johnson }}</div>
 {% rating_stars 5 %}
 
-Space Germans unearth a Mk. XVI Bolo DAK (Das Afrika Korp) and plan to use it
-to invade Space Alsace-Lorraine and drive out the Space French. The Bolo
-though figures out that the war---and the famine 300 years earlier---was
-caused by hostile aliens that are trying to take over the planet for
-themselves. Using it's superior intelligence, the Bolo manipulates both human
-sides into preparing for the alien invasion.
+Space Germans unearth a Mk. XVI Bolo DAK (Das Afrika Korps) and plan to use it
+to invade Space Alsace-Lorraine and drive out the Space French. But the Bolo
+figures out that the war---and a famine 300 years earlier---were caused by
+hostile aliens trying to take over the planet. Using its superior
+intelligence, the Bolo manipulates both sides into preparing for the alien
+invasion.
 
-This story is a take on the same theme as {{ rogue_bolo_from_bolo2 }}, where
-the Bolo recognizes an undetected threat an prepares for it.
+This is a take on the same idea as {{ rogue_bolo_from_bolo2 }}, where the Bolo
+identifies a hidden threat and prepares for it.
 
-The way the Bolo orchestrates an threat, itself, to unite the human factions
-reminds me of how Ozymandias sets up an alien threat to prevent a nuclear war
-in {{ watchmen }}. The way the humans come together to defeat the alien
-invaders reminds me of <cite class="movie-title">Independence Day</cite>. It
-is also similar to some previous short stories---like {{ relic_from_bolo1 }}
-and {{ final_mission_from_bolo2 }}---where a Bolo is woken up and has to
-defend humans from an unanticipated alien attack.
+The way the Bolo orchestrates the threat of itself to unite the human factions
+reminds me of how Ozymandias sets up an alien threat to prevent nuclear war in
+{{ watchmen }}. The united human response to the alien invasion also feels a
+lot like <cite class="movie-title">Independence Day</cite>. It's thematically
+similar to {{ relic_from_bolo1 }} and {{ final_mission_from_bolo2 }}, where a
+Bolo awakens and defends humans from a surprise alien attack.
 
 ### <cite class="short-story-title">Ghosts</cite>
 <div class="written-by">by {{ author_resnick }} and {{ author_malzberg }}</div>
 {% rating_stars 3 %}
 
-A Mk. LX Bolo's soul remembers moments from its previous lives while fighting
-a shape shifter. Not a lot happens and this story is a little more mystic than
-any other. Bolos have souls, they remember their past lives, even lives---like
-being a Panzer during WWII---they definitely did not live. Additionally, the
-story explains that Bolos have to have their personality forcibly wiped after
-combat, which contradicts just about every other story.
+A Mk. LX Bolo's soul remembers moments from its past lives while fighting a
+shapeshifter. Not much happens, and the story leans into mysticism more than
+any other in the anthology. Bolos have souls, they remember past lives---like
+being a Panzer in WWII---that they couldn't possibly have lived. It also
+introduces the idea that Bolo personalities are forcibly wiped after combat,
+which contradicts just about every other story in the series.
 
 ### <cite class="short-story-title">The Ghost of Resartus</cite>
 <div class="written-by">by {{ author_stasheff }}</div>
 {% rating_stars 3 %}
 
-This story takes place on a frontier planet under constant attack by
-snake-like Xiala aliens. Bolos work as farm instruments as a ruse to lure the
-enemy out of hiding. There are a lot of interesting ideas: how humans and
-Bolos feel a duty to each other, how Bolos can go crazy, and how Bolos have a
-base image of the first sentient Bolo---Resartus---build into them to prevent
-them going rogue.
+This story is set on a frontier planet under constant attack by snake-like
+Xiala aliens. The Bolos disguised themselves as farm equipment to bait the
+enemy into revealing themselves. There are a lot of interesting ideas here:
+the mutual duty between humans and Bolos, Bolos going insane, and how every
+Bolo has a base image of the first sentient Bolo---Resartus---embedded to
+prevent them from going rogue.
 
-But the story feels like it's too short for all the ideas.
+But the story feels too short to really develop those ideas.
 
 ### <cite class="short-story-title">Operation Desert Fox</cite>
 <div class="written-by">by {{ author_lackey }} and {{ author_dixon }}</div>
 {% rating_stars 3 %}
 
-This story has a lot of fun Bolo scenes, as the Bolo and its commander play
-war games, scout out the planet, and run around saving people like an
-over-grown, Dinochrome [Lassie][lassie]. The enemy is a nameless corporation
-that decides to take over the planet, which is right out of late 80s, early
-90s cyberpunk.
+This one has a lot of fun Bolo scenes. The Bolo and its commander play war
+games, scout the planet, and run around saving people like an overgrown,
+Dinochrome [Lassie][lassie]. The enemy is a nameless corporation that decides
+to take over the planet, which feels very late-80s/early-90s cyberpunk.
 
-But the story is also the third in the anthology---after {{ ploughshare }} and
-{{ ghosts }}---to reference the Nazis, which is a disconcerting trend. 
-<cite class="short-story-title">Operation Desert Fox</cite>'s main character
-is a black-man who is obsessed with Rommel, because the field marshal's
-soldiers once saved the mans ancestor. The story is a propagation of the
-[Rommel Myth][rm], and goes out of its way to excuse its infatuation with the
-man by defending how he wasn't really all that bad. The weird tone and subject
-matter really drags this story down.
+[lassie]: https://en.wikipedia.org/wiki/Lassie
+
+But this is the third story in the anthology---after {{ ploughshare }} and {{
+ghosts }}---to reference Nazis, which is a disconcerting trend. The main
+character is a Black man obsessed with Rommel, because Rommel's soldiers once
+saved his ancestor. The story leans into the [Rommel Myth][rm], going out of
+its way to excuse its admiration by arguing Rommel wasn't really that bad. The
+weird tone and subject matter drag the story down.
 
 [rm]: https://en.wikipedia.org/wiki/Rommel_myth
 
-In the end the entire story, like {{ bankss }} {{ odd }}, is a set up for a
+In the end the whole thing is, like {{ bankss }} {{ odd }}, a setup for a
 joke.
-
-[lassie]: https://en.wikipedia.org/wiki/Lassie
 
 ### <cite class="short-story-title">As Our Strength Lessens</cite>
 <div class="written-by">by {{ author_drake }}</div>
 {% rating_stars 4 %}
 
-<cite class="short-story-title">As Our Strength Lessens</cite> is the most
-action- and technology-packed story of the bunch, as is only appropriate for
-the author of {{ slammers }}. In it, a Bolo is tasked with destroying a
-research facility that mirrors any attack sent against it. The facility
-reminds me of {{ excession }}---both are incomprehensible, spherical
-anomalies the resist any attack. {{ author_drake }} adds in a lot of cool
-tech---rotating shields for the infinite repeaters, ground-transmission
-communication, and details on how a Hellbore works---but also a lot of
-humanity with the drunken conversation between the tank and Major Peter Bowen,
-and of course the selfless sacrifice.
+In <cite class="short-story-title">As Our Strength Lessens</cite>, a Bolo is
+tasked with destroying a research facility that mirrors any attack sent
+against it. This is the most action- and tech-heavy story in the anthology,
+which makes sense coming from the author of {{ slammers }}.
+
+The facility reminds me of {{ excession }}---both are incomprehensible,
+spherical anomalies that resist every assault. {{ author_drake }} brings in
+lots of cool tech: rotating shields for infinite repeaters,
+ground-transmission comms, and a deep dive on how a Hellbore works. But
+there's also a lot of humanity, especially in the drunken conversation between
+the tank and Major Peter Bowen, and of course the Bolo's selfless sacrifice.
