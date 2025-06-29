@@ -36,7 +36,10 @@ stories written by ten different authors.
 {% capture author_dixon %}{% author_link "Larry Dixon" %}{% endcapture %}
 {% capture author_drake %}{% author_link "David Drake" %}{% endcapture %}
 
+{% capture laumer %}{% author_link "Keith Laumer" %}{% endcapture %}
+
 {% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
+{% capture bolo1_short %}{% book_link "Bolo: Annals of the Dinochrome Brigade" link_text="Bolo" %}{% endcapture %}
 {% capture bolo2 %}{% book_link "Rogue Bolo" %}{% endcapture %}
 {% capture bolo3 %}{% book_link "The Stars Must Wait" %}{% endcapture %}
 {% capture bolo4 %}{% book_link "Bolo Brigade" %}{% endcapture %}
@@ -63,8 +66,14 @@ stories written by ten different authors.
 {% capture rogue_bolo_from_bolo2 %}<a href="/books/rogue_bolo/#rogue-bolo"><cite class="short-story-title">Rogue Bolo</cite></a>{% endcapture %}
 {% capture final_mission_from_bolo2  %}<a href="/books/rogue_bolo/#final-mission"><cite class="short-story-title">Final Mission</cite></a>{% endcapture %}
 
+{% capture lost_legion %}<a href="#lost-legion"><cite class="short-story-title">Lost Legion</cite></a>{% endcapture %}
+{% capture camelot %}<a href="#camelot"><cite class="short-story-title">Camelot</cite></a>{% endcapture %}
+{% capture legacy_of_leonidas %}<a href="#the-legacy-of-leonidas"><cite class="short-story-title">The Legacy of Leonidas</cite></a>{% endcapture %}
 {% capture ploughshare %}<a href="#ploughshare"><cite class="short-story-title">Ploughshare</cite></a>{% endcapture %}
 {% capture ghosts %}<a href="#ghosts"><cite class="short-story-title">Ghosts</cite></a>{% endcapture %}
+{% capture ghost_of_resartus %}<a href="#the-ghost-of-resartus"><cite class="short-story-title">The Ghost of Resartus</cite></a>{% endcapture %}
+{% capture desert_fox %}<a href="#operation-desert-fox"><cite class="short-story-title">Operation Desert Fox</cite></a>{% endcapture %}
+{% capture as_our_strength_lessens %}<a href="#as-our-strength-lessens"><cite class="short-story-title">As Our Strength Lessens</cite></a>{% endcapture %}
 
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
 
@@ -76,14 +85,26 @@ stories written by ten different authors.
 {% capture slammers_series %}{% series_link "Hammer's Slammers" %}{% endcapture %}
 {% capture slammers %}{% book_link "Hammer's Slammers" %}{% endcapture %}
 
+There is a lot of variety in this anthology: some stories---like {{
+ploughshare }} and {{ as_our_strength_lessens }}---have a ton of action and
+focus on the Bolos as fighting machines. Others---like {{ camelot }}, {{
+legacy_of_leonidas }}, and {{ ghost_of_resartus }}---focus more on how the
+Bolos fit into their society. The authors have all learned the lesson from {{
+bolo1 }} and {{ bolo2 }}: that Bolos are characters, not scenery, which
+significantly improves {{ this_book }} as compared to the {{ laumer }} books.
+
+I'm looking forward to reading the rest of the anthologies---{{ bolo11 }}, {{
+bolo12 }}, {{ bolo13 }}, {{ bolo14 }}, and {{ bolo15 }}---to see some new
+authors' take on Bolos.
+
 ### <cite class="short-story-title">Lost Legion</cite>
 <div class="written-by">by {{ author_stirling }}</div>
 {% rating_stars 4 %}
 
 A story about a forgotten <span class="nowrap">U.S.</span> Army unit fighting
 guerrillas somewhere in South America as the world collapses, just before the
-nuclear war from {{ night_of_the_trolls_from_bolo1 }} in {{ bolo1 }} and {{
-bolo3 }}. The unit is sent a Bolo Mk. III instead of the desperately needed
+nuclear war from {{ night_of_the_trolls_from_bolo1 }} in {{ bolo1_short }} and
+{{ bolo3 }}. The unit is sent a Bolo Mk. III instead of the desperately needed
 supplies, but it soon proves its worth. The characters are a little flat, and
 the story dodges any deeper exploration of American adventurism and
 colonialism by making the guerrillas comically evil. Still, there's great
@@ -110,10 +131,10 @@ the locals in their roleplaying.
 {% rating_stars 4 %}
 
 <cite class="short-story-title">The Legacy of Leonidas</cite> is an expanded
-and rewritten version of {{ field_test_from_bolo1 }} from {{ bolo1 }}; the
-author even references the original story by name. In this version, a regiment
-of Bolos is sent to the non-Concordiat planet New Sierra to help them fend off
-an invasion by Christian religious fanatics.[^mormons]
+and rewritten version of {{ field_test_from_bolo1 }} from {{ bolo1_short }};
+the author even references the original story by name. In this version, a
+regiment of Bolos is sent to the non-Concordiat planet New Sierra to help them
+fend off an invasion by Christian religious fanatics.[^mormons]
 
 [^mormons]:
     The fanatics are based on Mormons. Their state is named
