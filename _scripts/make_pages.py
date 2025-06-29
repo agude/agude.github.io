@@ -14,6 +14,7 @@ TEMPLATES = {
     "author": """---
 layout: author_page
 title: {item}
+pen_names:
 description: >
     Alex Gude's reviews of books written by {item}.
 same_as_urls:
@@ -150,45 +151,94 @@ def extract_metadata_from_files(files: List[str]) -> Tuple[List[str], List[str]]
     return sorted(list(authors_set)), sorted(list(series_set))
 
 
+def build_known_authors_map(author_page_dir: str) -> Dict[str, str]:
+    """
+    Scans existing author pages to build a map of all known names (canonical and pen names)
+    to their canonical filename.
+
+    Args:
+        author_page_dir: The directory containing author markdown files.
+
+    Returns:
+        A dictionary mapping normalized names to the canonical filename.
+    """
+    known_authors = {}
+    author_files = glob.glob(path.join(author_page_dir, f"*{MARKDOWN_EXTENSION}"))
+
+    for file_path in author_files:
+        try:
+            with open(file_path, "r", encoding="utf-8") as opened_file:
+                front_matter = extract_yaml_header_from_markdown(opened_file)
+                canonical_name = front_matter.get("title")
+
+                if canonical_name and isinstance(canonical_name, str):
+                    # Map the canonical name
+                    known_authors[normalize_filename(canonical_name)] = path.basename(
+                        file_path
+                    )
+
+                    # Map all pen names
+                    pen_names = front_matter.get("pen_names")
+                    if isinstance(pen_names, list):
+                        for pen_name in pen_names:
+                            if pen_name and isinstance(pen_name, str):
+                                known_authors[
+                                    normalize_filename(pen_name)
+                                ] = path.basename(file_path)
+        except Exception as e:
+            print(f"Error reading author page '{file_path}': {e}")
+
+    return known_authors
+
+
 def main():
     """Main execution function."""
-    # Adjust glob path if script is not in a direct subdirectory of project root
     script_dir = path.dirname(path.abspath(__file__))
-    project_root = path.abspath(
-        path.join(script_dir, "..")
-    )  # Assumes script is in a child dir of root
+    project_root = path.abspath(path.join(script_dir, ".."))
 
     book_file_glob_path = path.join(project_root, "_books", f"*{MARKDOWN_EXTENSION}")
     authors_output_dir = path.join(project_root, "books", "authors")
     series_output_dir = path.join(project_root, "books", "series")
 
+    # Step 1: Build a map of all existing authors and their aliases
+    print("Scanning existing author pages...")
+    known_authors_map = build_known_authors_map(authors_output_dir)
+    print(f"Found {len(known_authors_map)} known author names/aliases.")
+
+    # Step 2: Extract all unique author and series names from book files
     markdown_files = glob.glob(book_file_glob_path)
     if not markdown_files:
         print(f"No book files found at: {book_file_glob_path}")
         return
 
-    authors, series = extract_metadata_from_files(markdown_files)
+    all_book_authors, all_series = extract_metadata_from_files(markdown_files)
 
-    print(f"\nFound {len(authors)} unique authors.")
-    print(f"Found {len(series)} unique series titles.\n")
+    # Step 3: Determine which authors are new and need a page
+    new_authors_to_create = []
+    for author in all_book_authors:
+        if normalize_filename(author) not in known_authors_map:
+            new_authors_to_create.append(author)
 
-    # Write author pages
-    if authors:
-        print("Writing author pages...")
+    print(f"\nFound {len(all_book_authors)} unique authors in books.")
+    print(f"Found {len(all_series)} unique series titles.\n")
+
+    # Write author pages only for new, unknown authors
+    if new_authors_to_create:
+        print(f"Writing {len(new_authors_to_create)} new author pages...")
         write_pages_to_dir(
-            items=authors,
+            items=new_authors_to_create,
             output_dir=authors_output_dir,
             template=TEMPLATES["author"],
             markdown_extension=MARKDOWN_EXTENSION,
         )
     else:
-        print("No authors found to write pages for.")
+        print("No new authors found to write pages for.")
 
     # Write series pages
-    if series:
+    if all_series:
         print("\nWriting series pages...")
         write_pages_to_dir(
-            items=series,
+            items=all_series,
             output_dir=series_output_dir,
             template=TEMPLATES["series"],
             markdown_extension=MARKDOWN_EXTENSION,
