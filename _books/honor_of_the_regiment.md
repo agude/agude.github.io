@@ -23,7 +23,6 @@ image: /books/covers/honor_of_the_regiment.jpg
 stories written by ten different authors.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture author_stirling %}{% author_link "S. M. Stirling" %}{% endcapture %}
 {% capture author_lewitt %}{% author_link "S. N. Lewitt" %}{% endcapture %}
@@ -42,37 +41,24 @@ stories written by ten different authors.
 {% capture bolo1_short %}{% book_link "Bolo: Annals of the Dinochrome Brigade" link_text="Bolo" %}{% endcapture %}
 {% capture bolo2 %}{% book_link "Rogue Bolo" %}{% endcapture %}
 {% capture bolo3 %}{% book_link "The Stars Must Wait" %}{% endcapture %}
-{% capture bolo4 %}{% book_link "Bolo Brigade" %}{% endcapture %}
-{% capture bolo5 %}{% book_link "Bolo Rising" %}{% endcapture %}
-{% capture bolo6 %}{% book_link "Bolo Strike" %}{% endcapture %}
-{% capture bolo7 %}{% book_link "The Road to Damascus" %}{% endcapture %}
-{% capture bolo8 %}{% book_link "Bolo!" %}{% endcapture %}
-{% capture bolo9 %}{% book_link "Old Soldiers" %}{% endcapture %}
-{% capture bolo10 %}{% book_link "Honor of the Regiment" %}{% endcapture %}
 {% capture bolo11 %}{% book_link "The Unconquerable" %}{% endcapture %}
 {% capture bolo12 %}{% book_link "The Triumphant" %}{% endcapture %}
 {% capture bolo13 %}{% book_link "Last Stand" %}{% endcapture %}
 {% capture bolo14 %}{% book_link "Old Guard" %}{% endcapture %}
 {% capture bolo15 %}{% book_link "Cold Steel" %}{% endcapture %}
 
-{% capture history_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#a-short-history-of-the-bolo-fighting-machines"><cite class="short-story-title">A Short History of the Bolo Fighting Machines</cite></a>{% endcapture %}
 {% capture night_of_the_trolls_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#the-night-of-the-trolls"><cite class="short-story-title">The Night of the Trolls</cite></a>{% endcapture %}
-{% capture courier_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#courier"><cite class="short-story-title">Courier</cite></a>{% endcapture %}
 {% capture field_test_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#field-test"><cite class="short-story-title">Field Test</cite></a>{% endcapture %}
-{% capture last_command_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#the-last-command"><cite class="short-story-title">The Last Command</cite></a>{% endcapture %}
 {% capture relic_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#a-relic-of-war"><cite class="short-story-title">A Relic of War</cite></a>{% endcapture %}
-{% capture combat_unit_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#combat-unit"><cite class="short-story-title">Combat Unit</cite></a>{% endcapture %}
 
 {% capture rogue_bolo_from_bolo2 %}<a href="/books/rogue_bolo/#rogue-bolo"><cite class="short-story-title">Rogue Bolo</cite></a>{% endcapture %}
 {% capture final_mission_from_bolo2  %}<a href="/books/rogue_bolo/#final-mission"><cite class="short-story-title">Final Mission</cite></a>{% endcapture %}
 
-{% capture lost_legion %}<a href="#lost-legion"><cite class="short-story-title">Lost Legion</cite></a>{% endcapture %}
 {% capture camelot %}<a href="#camelot"><cite class="short-story-title">Camelot</cite></a>{% endcapture %}
 {% capture legacy_of_leonidas %}<a href="#the-legacy-of-leonidas"><cite class="short-story-title">The Legacy of Leonidas</cite></a>{% endcapture %}
 {% capture ploughshare %}<a href="#ploughshare"><cite class="short-story-title">Ploughshare</cite></a>{% endcapture %}
 {% capture ghosts %}<a href="#ghosts"><cite class="short-story-title">Ghosts</cite></a>{% endcapture %}
 {% capture ghost_of_resartus %}<a href="#the-ghost-of-resartus"><cite class="short-story-title">The Ghost of Resartus</cite></a>{% endcapture %}
-{% capture desert_fox %}<a href="#operation-desert-fox"><cite class="short-story-title">Operation Desert Fox</cite></a>{% endcapture %}
 {% capture as_our_strength_lessens %}<a href="#as-our-strength-lessens"><cite class="short-story-title">As Our Strength Lessens</cite></a>{% endcapture %}
 
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
@@ -81,8 +67,6 @@ stories written by ten different authors.
 {% capture odd %}<a href="/books/the_state_of_the_art/#odd-attachment"><cite class="short-story-title">Odd Attachment</cite></a>{% endcapture %}
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 
-{% capture drakes %}{% author_link "David Drake" possessive %}{% endcapture %}
-{% capture slammers_series %}{% series_link "Hammer's Slammers" %}{% endcapture %}
 {% capture slammers %}{% book_link "Hammer's Slammers" %}{% endcapture %}
 
 There's a lot of variety in this anthology. Some stories---like {{ ploughshare
@@ -102,15 +86,15 @@ authors do with the idea.
 <div class="written-by">by {{ author_stirling }}</div>
 {% rating_stars 4 %}
 
-A story about a forgotten <span class="nowrap">U.S.</span> Army unit fighting
-guerrillas somewhere in South America as the world collapses, just before the
-nuclear war from {{ night_of_the_trolls_from_bolo1 }} in {{ bolo1_short }} and
-{{ bolo3 }}. The unit is sent a Bolo Mk. III instead of the desperately needed
-supplies, but it soon proves its worth. The characters are a little flat, and
-the story dodges any deeper exploration of American adventurism and
-colonialism by making the guerrillas comically evil. Still, there's great
-action and a Bolo AI that heroically pulls the tank out of danger and saves
-the day after its pilot is killed.
+A story about a forgotten U.S. Army unit fighting guerrillas somewhere in
+South America as the world collapses, just before the nuclear war from {{
+night_of_the_trolls_from_bolo1 }} in {{ bolo1_short }} and {{ bolo3 }}. The
+unit is sent a Bolo Mk. III instead of the desperately needed supplies, but it
+soon proves its worth. The characters are a little flat, and the story dodges
+any deeper exploration of American adventurism and colonialism by making the
+guerrillas comically evil. Still, there's great action and a Bolo AI that
+heroically pulls the tank out of danger and saves the day after its pilot is
+killed.
 
 ### <cite class="short-story-title">Camelot</cite>
 <div class="written-by">by {{ author_lewitt }}</div>
@@ -121,7 +105,7 @@ technology. Their peaceful lifestyle is shattered when pirates land, kill,
 loot, and demand tribute before returning in a few months. So the people of
 Camelot buy a Bolo.
 
-There's an interesting question: is a Bolo, and the technological progress it
+There's an interesting question: Is a Bolo, and the technological progress it
 represents, more destructive to their way of life than the pirates? I think
 the answer is clearly "no," but the story could have explored that tension
 more. Instead, it sidesteps it at the end by having the Bolo knighted and join
@@ -174,7 +158,7 @@ invasion.
 This is a take on the same idea as {{ rogue_bolo_from_bolo2 }}, where the Bolo
 identifies a hidden threat and prepares for it. In this case, the Bolo
 orchestrates the threat of itself to unite the human factions, which reminds
-me of how Ozymandias sets up an fake-alien threat to prevent nuclear war in {{
+me of how Ozymandias sets up a fake-alien threat to prevent nuclear war in {{
 watchmen }}. The united human response to the alien invasion also feels a lot
 like <cite class="movie-title">Independence Day</cite>. It's thematically
 similar to {{ relic_from_bolo1 }} and {{ final_mission_from_bolo2 }}, where a
@@ -186,7 +170,7 @@ Bolo is woken up and has to defend humans from an unanticipated alien attack.
 
 A Mk. LX Bolo's soul remembers moments from its past lives while fighting a
 shapeshifter. Not much happens, and the story leans into mysticism more than
-any other in the anthology. Bolos have souls, they remember past lives---like
+any other in the anthology. Bolos have souls; they remember past lives---like
 being a Panzer in WWII---that they couldn't possibly have lived. It also
 introduces the idea that Bolo personalities are forcibly wiped after combat,
 which contradicts just about every other story in the series.
@@ -216,7 +200,7 @@ cyberpunk.
 
 But this is the third story in the anthology---after {{ ploughshare }} and {{
 ghosts }}---to reference Nazis, which is a disconcerting trend. The main
-character is a Black man obsessed with Rommel, because Rommel's soldiers once
+character is a Black man obsessed with Rommel because Rommel's soldiers once
 saved his ancestor. The story leans into the [Rommel Myth][rm], going out of
 its way to excuse its admiration by arguing Rommel wasn't really that bad. The
 weird tone and subject matter drag the story down.
@@ -240,4 +224,4 @@ spherical anomalies that resist every assault. {{ author_drake }} brings in
 lots of cool tech: rotating shields for infinite repeaters,
 ground-transmission comms, and a deep dive on how a Hellbore works. But
 there's also a lot of humanity, especially in the drunken conversation between
-the tank and Major Peter Bowen, and of course the Bolo's selfless sacrifice.
+the tank and Major Peter Bowen, and of course, the Bolo's selfless sacrifice.
