@@ -85,17 +85,18 @@ stories written by ten different authors.
 {% capture slammers_series %}{% series_link "Hammer's Slammers" %}{% endcapture %}
 {% capture slammers %}{% book_link "Hammer's Slammers" %}{% endcapture %}
 
-There is a lot of variety in this anthology: some stories---like {{
-ploughshare }} and {{ as_our_strength_lessens }}---have a ton of action and
-focus on the Bolos as fighting machines. Others---like {{ camelot }}, {{
-legacy_of_leonidas }}, and {{ ghost_of_resartus }}---focus more on how the
-Bolos fit into their society. The authors have all learned the lesson from {{
-bolo1 }} and {{ bolo2 }}: that Bolos are characters, not scenery, which
-significantly improves {{ this_book }} as compared to the {{ laumer }} books.
+There's a lot of variety in this anthology. Some stories---like {{ ploughshare
+}} and {{ as_our_strength_lessens }}---are packed with action and focus on
+Bolos as fighting machines. Others---like {{ camelot }}, {{ legacy_of_leonidas
+}}, and {{ ghost_of_resartus }}---look more at how Bolos fit into their
+societies. The authors have clearly taken the right lesson from {{ bolo1 }}
+and {{ bolo2 }}: Bolos work best as characters, not just background. That
+shift makes {{ this_book }} a big improvement over the older {{ laumer }}
+books.
 
 I'm looking forward to reading the rest of the anthologies---{{ bolo11 }}, {{
-bolo12 }}, {{ bolo13 }}, {{ bolo14 }}, and {{ bolo15 }}---to see some new
-authors' take on Bolos.
+bolo12 }}, {{ bolo13 }}, {{ bolo14 }}, and {{ bolo15 }}---to see what new
+authors do with the idea.
 
 ### <cite class="short-story-title">Lost Legion</cite>
 <div class="written-by">by {{ author_stirling }}</div>
