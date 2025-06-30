@@ -201,8 +201,9 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
   # This makes the test environment more accurately reflect the real build process.
   # Stub the logger during this call to prevent spamming the test console.
   silent_logger = Minitest::Mock.new
-  silent_logger.expect :info, nil, [String, String]
-  silent_logger.expect :info, nil, [String, String]
+  silent_logger.expect :info, nil, [String, String] # For "Building link cache..."
+  silent_logger.expect :info, nil, [String, String] # For "Building backlinks cache..."
+  silent_logger.expect :info, nil, [String, String] # For "Cache built successfully."
   Jekyll.stub :logger, silent_logger do
     Jekyll::LinkCacheGenerator.new.generate(site)
   end

@@ -2,6 +2,7 @@
 require 'jekyll'
 require 'cgi'
 require_relative 'plugin_logger_utils'
+require_relative 'text_processing_utils'
 
 module BacklinkUtils
 
@@ -14,114 +15,43 @@ module BacklinkUtils
   # @return [Array<Array(String, String)>] A sorted list of [canonical_title, url] pairs.
   def self.find_book_backlinks(current_page, site, context)
     # --- Basic Sanity Checks ---
-    # Simplified check: focus on what's directly used.
-    # page['url'] and page['title'] access implies page.data is being used.
-    unless site && current_page && \
-        site.collections.key?('books') && \
-        current_page['url'] && !current_page['url'].to_s.strip.empty? && \
-        current_page['title'] && !current_page['title'].to_s.strip.empty?
-
-      missing_parts = []
-      missing_parts << "site object" unless site
-      missing_parts << "current_page object" unless current_page
-      missing_parts << "site.collections['books']" unless site&.collections&.key?('books')
-      missing_parts << "current_page['url'] (present and not empty)" unless current_page && current_page['url'] && !current_page['url'].to_s.strip.empty?
-      missing_parts << "current_page['title'] (present and not empty)" unless current_page && current_page['title'] && !current_page['title'].to_s.strip.empty?
-
+    unless site && current_page && site.data['link_cache'] && site.data['link_cache']['backlinks'] && current_page['url']
       PluginLoggerUtils.log_liquid_failure(
-        # This returns an HTML comment or "", but the main effect is logging.
-        context: context, # Util is called from a tag, so context should be valid here.
+        context: context,
         tag_type: "BACKLINK_UTIL",
-        reason: "Missing prerequisites for backlink search: #{missing_parts.join(', ')}.",
-        identifiers: {
-          PageURL: current_page ? (current_page['url'] || 'N/A') : 'N/A',
-          PageTitle: current_page ? (current_page['title'] || 'N/A') : 'N/A'
-        },
+        reason: "Prerequisites missing: site, page, link_cache, or backlinks cache unavailable.",
+        identifiers: { PageURL: current_page ? (current_page['url'] || 'N/A') : 'N/A' },
         level: :error,
       )
       return [] # Return empty list if prerequisites fail
     end
     # --- End Sanity Checks ---
 
-    current_title_downcased = current_page['title'].downcase.strip # Use downcased title for Liquid tag matching
+    current_url = current_page['url']
+    backlinks_cache = site.data['link_cache']['backlinks']
 
-    # --- Prepare Search Patterns ---
-    # Regex to match href with optional fragment. It will be used against downcased content.
-    escaped_url_for_regex = Regexp.escape(CGI.escapeHTML(current_page['url'])).downcase
-    html_regex_pattern = /href\s*=\s*["']#{escaped_url_for_regex}(?:#[\w-]+)?["']/
-
-    # Patterns for Liquid tags
-    title_dq = "\"#{current_title_downcased}\""
-    title_sq = "'#{current_title_downcased}'"
-    markdown_pattern_dq_base = "book_link #{title_dq}"
-    markdown_pattern_sq_base = "book_link #{title_sq}"
-    markdown_pattern_dq_liquid = "{% book_link #{title_dq}"
-    markdown_pattern_sq_liquid = "{% book_link #{title_sq}"
-    # --- End Search Patterns ---
-
-    # --- Iterate and Collect Backlinks ---
-    # Store as [sort_key, canonical_title, url] triplets
-    backlinks_data = []
-
-    site.collections['books'].docs.each do |book|
-      book_url = book.url # Keep original case URL for output
-      canonical_title = book.data['title'] # Keep original case title for output
-
-      # Skip self-references (compare original case URLs)
-      next if book_url == current_page['url']
-      # Skip unpublished
-      next if book.data['published'] == false
-      # Skip if book has no title or URL (needed for output pair)
-      next if canonical_title.nil? || canonical_title.strip.empty?
-      next if book_url.nil? || book_url.strip.empty?
-      # Skip if book has no content
-      book_content = book.content
-      next if book_content.nil?
-
-      # Normalize content for searching
-      normalized_content = book_content.downcase.gsub("\n", " ")
-
-      # --- Perform Checks ---
-      found_link = false
-      # Check for HTML link using case-sensitive regex on downcased content
-      if normalized_content.match?(html_regex_pattern)
-        found_link = true
-      elsif normalized_content.include?(markdown_pattern_dq_base) || normalized_content.include?(markdown_pattern_dq_liquid)
-        found_link = true
-      elsif normalized_content.include?(markdown_pattern_sq_base) || normalized_content.include?(markdown_pattern_sq_liquid)
-        found_link = true
-      end
-      # --- End Checks ---
-
-      if found_link
-        sort_key = _create_sort_key(canonical_title)
-        # Store the triplet: sort_key, canonical_title, original_url
-        backlinks_data << [sort_key, canonical_title, book_url]
-      end
-    end
-    # --- End Iteration ---
+    # --- Retrieve Backlinks from Cache ---
+    backlinking_docs = backlinks_cache[current_url] || []
 
     # --- Sort and Return Title/URL Pairs ---
-    # Sort by sort_key, then map to [canonical_title, url] pairs, remove duplicates based on the pair
+    if backlinking_docs.empty?
+      return []
+    end
+
+    # Map to [sort_key, canonical_title, url] triplets for sorting
+    backlinks_data = backlinking_docs.map do |book_doc|
+      title = book_doc.data['title']
+      next if title.nil? || title.strip.empty? # Skip if backlinking doc has no title
+
+      sort_key = TextProcessingUtils.normalize_title(title, strip_articles: true)
+      [sort_key, title, book_doc.url]
+    end.compact # Remove any nils from skipped items
+
+    # Sort by sort_key, then map to [canonical_title, url] pairs
     sorted_pairs = backlinks_data.sort_by { |triplet| triplet[0] }
       .map { |triplet| [triplet[1], triplet[2]] } # Map to [title, url]
-      .uniq # Remove duplicate [title, url] pairs
 
     sorted_pairs
-  end
-
-  # --- Private Helper Methods ---
-  private
-
-  # Helper method to create a sortable key from a title
-  # Lowercases, removes leading articles, strips whitespace.
-  # (Identical to the one previously in the tag)
-  def self._create_sort_key(title)
-    return "" if title.nil?
-    key = title.downcase
-    key = key.sub(/^the\s+/, '')  # the
-    key = key.sub(/^an?\s+/, '')  # a and an
-    key.strip
   end
 
 end # End Module BacklinkUtils
