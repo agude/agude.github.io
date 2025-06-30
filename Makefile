@@ -11,8 +11,13 @@ BUNDLER_VERSION := 2.6.8
 # Define base image using the determined Ruby version
 BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 
-# Use find to locate all test_*.rb files within the _tests/plugins/ directory
-TEST_FILES := $(shell find _tests/plugins/ -type f -name 'test_*.rb')
+# Allow overriding the test file/pattern via command line.
+# Defaults to all test files if the TEST variable is not provided.
+# Example usage:
+#   make test
+#   make test TEST=_tests/plugins/test_link_cache_generator.rb
+#   make test TEST="_tests/plugins/test_link_*.rb"
+TEST ?= _tests/plugins/test_*.rb
 
 .PHONY: all clean serve drafts debug image refresh lock test build profile
 
@@ -92,21 +97,22 @@ debug: image
 
 # Run Minitest tests located in _tests/ inside the Docker container.
 test: image # Depends on the Docker image being built/up-to-date
-	@echo "Running tests inside Docker container..."
-	@if [ -z "$(TEST_FILES)" ]; then \
-		echo "Warning: No test files found matching '_tests/**/test_*.rb'."; \
+	@echo "Running tests matching pattern: $(TEST)..."
+	@# Use a subshell to check if any files match the pattern before running docker.
+	@if [ -z "$$(ls -d $(TEST) 2>/dev/null)" ]; then \
+		echo "Warning: No test files found matching pattern: '$(TEST)'."; \
 		exit 0; \
 	fi
-	@echo "Found test files: $(TEST_FILES)"
-	@# Use ruby -e to require the helper, then pass test files as arguments (ARGV).
-	@# The script uses 'load' to execute each test file listed in ARGV.
+	@echo "Found test files:"
+	@ls -d $(TEST)
+	@echo "---"
 	@docker run --rm \
 		-v $(PWD):$(MOUNT) \
 		-w $(MOUNT) \
 		$(IMAGE) \
 		bundle exec ruby -I _plugins -I _tests \
 		  -e "require 'test_helper'; ARGV.each { |f| load f }" \
-		  $(TEST_FILES) # <-- Pass TEST_FILES as separate arguments
+		  $(TEST)
 	@if [ $$? -ne 0 ]; then \
 		echo "Error: Tests failed." && exit 1; \
 	fi
