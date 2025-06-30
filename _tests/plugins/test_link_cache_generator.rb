@@ -89,6 +89,88 @@ class TestLinkCacheGenerator < Minitest::Test
     refute_nil books_topbar_nav
     assert_equal 1, books_topbar_nav.size, "Books topbar nav should have 1 item"
     assert_equal 'By Series', books_topbar_nav[0].data['title']
+
+    # --- Assert Backlinks Cache ---
+    refute_nil cache['backlinks']
+    assert_empty cache['backlinks'], "Backlinks should be empty for this simple setup"
+  end
+
+  def test_generator_builds_backlinks_cache
+    # Setup is specific to this test to keep it isolated
+    target_book = create_doc(
+      { 'title' => 'Target Book', 'published' => true },
+      '/books/target-book.html',
+      'I link to myself: <a href="/books/target-book.html">Self</a>'
+    )
+    source_book_liquid = create_doc(
+      { 'title' => 'Source Liquid', 'published' => true },
+      '/books/source-liquid.html',
+      'Link via liquid: {% book_link "Target Book" %}'
+    )
+    source_book_md = create_doc(
+      { 'title' => 'Source Markdown', 'published' => true },
+      '/books/source-md.html',
+      'Link via markdown: [MD Link](/books/target-book.html)'
+    )
+    source_book_html = create_doc(
+      { 'title' => 'Source HTML', 'published' => true },
+      '/books/source-html.html',
+      'Link via HTML: <a href="/books/target-book.html">HTML Link</a>'
+    )
+    source_book_html_fragment = create_doc(
+      { 'title' => 'Source HTML Fragment', 'published' => true },
+      '/books/source-html-fragment.html',
+      'Link via HTML with fragment: <a href="/books/target-book.html#section">HTML Link</a>'
+    )
+    source_book_multi_link = create_doc(
+      { 'title' => 'Source Multi', 'published' => true },
+      '/books/source-multi.html',
+      'Two links: {% book_link "Target Book" %} and <a href="/books/target-book.html">HTML Link</a>'
+    )
+    source_book_no_link = create_doc(
+      { 'title' => 'Source No Link', 'published' => true },
+      '/books/source-no-link.html',
+      'No links here.'
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [
+        target_book, source_book_liquid, source_book_md, source_book_html,
+        source_book_html_fragment, source_book_multi_link, source_book_no_link
+      ]
+      },
+      [] # No extra pages needed for this test
+    )
+
+    cache = site.data['link_cache']
+    refute_nil cache['backlinks'], "Backlinks cache should exist"
+    backlinks = cache['backlinks']
+
+    # Assertions for the target book
+    target_backlinks = backlinks[target_book.url]
+    refute_nil target_backlinks, "Backlinks for target book should exist"
+    assert_kind_of Array, target_backlinks
+
+    # Check the URLs of the documents that link back
+    backlinker_urls = target_backlinks.map(&:url).sort
+    expected_urls = [
+      source_book_liquid.url,
+      source_book_md.url,
+      source_book_html.url,
+      source_book_html_fragment.url,
+      source_book_multi_link.url
+    ].sort
+
+    assert_equal expected_urls, backlinker_urls, "Should find all books linking to the target"
+
+    # Check that the multi-link source only appears once
+    multi_link_count = target_backlinks.count { |doc| doc.url == source_book_multi_link.url }
+    assert_equal 1, multi_link_count, "Source with multiple links should only be listed once"
+
+    # Check that other books don't have backlinks (unless they are linked to)
+    assert_empty backlinks[source_book_liquid.url], "Source book should have no backlinks in this test"
+    assert_empty backlinks[source_book_no_link.url], "Book with no links should have no backlinks"
   end
 
   def test_generator_handles_empty_collections_and_pages
@@ -100,6 +182,7 @@ class TestLinkCacheGenerator < Minitest::Test
     assert_empty empty_site.data['link_cache']['books']
     assert_empty empty_site.data['link_cache']['sidebar_nav']
     assert_empty empty_site.data['link_cache']['books_topbar_nav']
+    assert_empty empty_site.data['link_cache']['backlinks']
   end
 
   def test_generator_handles_missing_books_collection
@@ -107,6 +190,7 @@ class TestLinkCacheGenerator < Minitest::Test
     # Generator is run by create_site, just assert the result
     refute_nil site_no_books.data['link_cache']
     assert_empty site_no_books.data['link_cache']['books']
+    assert_empty site_no_books.data['link_cache']['backlinks']
     # Authors should still be cached
     refute_empty site_no_books.data['link_cache']['authors']
     assert_equal({ 'url' => '/authors/jane-doe.html', 'title' => 'Jane Doe' }, site_no_books.data['link_cache']['authors']['jane doe'])

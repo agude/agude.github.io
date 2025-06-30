@@ -21,6 +21,7 @@ module Jekyll
         'series_map' => {},
         'sidebar_nav' => [],
         'books_topbar_nav' => [],
+        'backlinks' => {},
       }
 
       # --- Cache Author and Series Pages ---
@@ -60,6 +61,10 @@ module Jekyll
           cache_book_in_series_map(book, link_cache['series_map'])
         end
       end
+
+      # --- Build Backlinks Cache ---
+      # This must run after the 'books' cache is populated.
+      build_backlinks_cache(site, link_cache)
 
       # Store the completed cache in site.data for global access
       site.data['link_cache'] = link_cache
@@ -107,6 +112,67 @@ module Jekyll
       normalized_series_name = TextProcessingUtils.normalize_title(series_name)
       series_map[normalized_series_name] ||= []
       series_map[normalized_series_name] << book
+    end
+
+    # Scans all books for links to other books and builds a backlink map.
+    def build_backlinks_cache(site, link_cache)
+      Jekyll.logger.info "LinkCacheGenerator:", "Building backlinks cache..."
+      backlinks = Hash.new { |h, k| h[k] = [] }
+      books_cache = link_cache['books']
+      return unless books_cache && !books_cache.empty?
+
+      # Create a reverse map of URL -> book data for efficient markdown link checking
+      url_to_book_map = books_cache.values.to_h { |book_data| [book_data['url'], book_data] }
+
+      # Regex for {% book_link 'Title' %} or {% book_link "Title" %}
+      book_link_tag_regex = /\{%\s*book_link\s+(?:'([^']+)'|"([^"]+)")/
+      # Regex for [link text](url) - captures URL part
+      markdown_link_regex = /\[[^\]]+\]\(([^)\s]+)/
+      # Regex for <a href="url"> - captures URL part
+      html_link_regex = /<a\s+(?:[^>]*?\s+)?href="([^"]+)"/
+
+      site.collections['books'].docs.each do |source_doc|
+        content = source_doc.content
+        next if content.nil? || content.empty?
+
+        # 1. Find Liquid book_link tags with string literals
+        content.scan(book_link_tag_regex).each do |match|
+          target_title = match.compact.first
+          next unless target_title
+
+          normalized_target_title = TextProcessingUtils.normalize_title(target_title)
+          target_book_data = books_cache[normalized_target_title]
+
+          if target_book_data && (target_url = target_book_data['url'])
+            backlinks[target_url] << source_doc if source_doc.url != target_url
+          end
+        end
+
+        # 2. Find standard Markdown links
+        content.scan(markdown_link_regex).each do |match|
+          linked_url = match.first&.split('#')&.first
+          next if linked_url.nil? || linked_url.empty?
+
+          if url_to_book_map.key?(linked_url) && source_doc.url != linked_url
+            backlinks[linked_url] << source_doc
+          end
+        end
+
+        # 3. Find raw HTML links
+        content.scan(html_link_regex).each do |match|
+          linked_url = match.first&.split('#')&.first
+          next if linked_url.nil? || linked_url.empty?
+
+          if url_to_book_map.key?(linked_url) && source_doc.url != linked_url
+            backlinks[linked_url] << source_doc
+          end
+        end
+      end
+
+      # Deduplicate the lists of source documents
+      backlinks.each_value(&:uniq!)
+
+      link_cache['backlinks'] = backlinks
     end
   end
 end
