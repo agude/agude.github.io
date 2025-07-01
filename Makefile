@@ -12,12 +12,13 @@ BUNDLER_VERSION := 2.6.8
 BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 
 # Allow overriding the test file/pattern via command line.
-# Defaults to all test files if the TEST variable is not provided.
+# Defaults to finding all 'test_*.rb' files in the '_tests' directory,
+# excluding 'test_helper.rb' itself.
 # Example usage:
 #   make test
 #   make test TEST=_tests/plugins/test_link_cache_generator.rb
-#   make test TEST="_tests/plugins/test_link_*.rb"
-TEST ?= _tests/plugins/test_*.rb
+#   make test TEST=$$(find _tests/plugins/utils -name 'test_*.rb')
+TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb')
 
 .PHONY: all clean serve drafts debug image refresh lock test build profile
 
@@ -97,14 +98,14 @@ debug: image
 
 # Run Minitest tests located in _tests/ inside the Docker container.
 test: image # Depends on the Docker image being built/up-to-date
-	@echo "Running tests matching pattern: $(TEST)..."
-	@# Use a subshell to check if any files match the pattern before running docker.
-	@if [ -z "$$(ls -d $(TEST) 2>/dev/null)" ]; then \
-		echo "Warning: No test files found matching pattern: '$(TEST)'."; \
+	@echo "Running tests..."
+	@# Check if the TEST variable is empty.
+	@if [ -z "$(TEST)" ]; then \
+		echo "Warning: No test files found. Check the TEST variable or your file structure."; \
 		exit 0; \
 	fi
 	@echo "Found test files:"
-	@ls -d $(TEST)
+	@echo "$(TEST)" | tr ' ' '\n'
 	@echo "---"
 	@docker run --rm \
 		-v $(PWD):$(MOUNT) \
