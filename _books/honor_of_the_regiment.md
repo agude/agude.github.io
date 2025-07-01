@@ -54,6 +54,7 @@ of Bolo stories written by ten different authors.
 {% capture rogue_bolo_from_bolo2 %}<a href="/books/rogue_bolo/#rogue-bolo"><cite class="short-story-title">Rogue Bolo</cite></a>{% endcapture %}
 {% capture final_mission_from_bolo2  %}<a href="/books/rogue_bolo/#final-mission"><cite class="short-story-title">Final Mission</cite></a>{% endcapture %}
 
+{% capture lost_legion %}<a href="#lost-legion"><cite class="short-story-title">Lost Legion</cite></a>{% endcapture %}
 {% capture camelot %}<a href="#camelot"><cite class="short-story-title">Camelot</cite></a>{% endcapture %}
 {% capture legacy_of_leonidas %}<a href="#the-legacy-of-leonidas"><cite class="short-story-title">The Legacy of Leonidas</cite></a>{% endcapture %}
 {% capture ploughshare %}<a href="#ploughshare"><cite class="short-story-title">Ploughshare</cite></a>{% endcapture %}
@@ -69,14 +70,14 @@ of Bolo stories written by ten different authors.
 
 {% capture slammers %}{% book_link "Hammer's Slammers" %}{% endcapture %}
 
-There's a lot of variety in this anthology. Some stories---like {{ ploughshare
+There's a lot of variety in this anthology. Some stories---like {{ lost_legion
 }} and {{ as_our_strength_lessens }}---are packed with action and focus on
 Bolos as fighting machines. Others---like {{ camelot }}, {{ legacy_of_leonidas
-}}, and {{ ghost_of_resartus }}---look more at how Bolos fit into their
-societies. The authors have clearly taken the right lesson from {{ bolo1 }}
-and {{ bolo2 }}: Bolos work best as characters, not just background. That
-shift makes {{ this_book }} a big improvement over the older {{ laumer }}
-books.
+}}, {{ ploughshare }}, and {{ ghost_of_resartus }}---look more at how Bolos
+fit into their societies. The authors have clearly taken the right lesson from
+{{ bolo1 }} and {{ bolo2 }}: Bolos work best as characters, not just
+background. That shift makes {{ this_book }} a big improvement over the older
+{{ laumer }} books.
 
 I'm looking forward to reading the rest of the anthologies---{{ bolo11 }}, {{
 bolo12 }}, {{ bolo13 }}, {{ bolo14 }}, and {{ bolo15 }}---to see what new
@@ -122,7 +123,7 @@ regiment of Bolos is sent to the non-Concordiat planet New Sierra to help them
 fend off an invasion by Christian religious fanatics.[^mormons]
 
 [^mormons]:
-    The fanatics are based on Mormons. Their state is named
+    The fanatics are based on the Mormons. Their state is named
     [Deseret][deseret]. Their leader is named "Hyman Smith-Wentworth," after
     [Hyrum Smith][hyrum], [Joseph Smith][smith], and the [Wentworth
     Letter][wentworth].
