@@ -18,7 +18,7 @@ omemo_fingerprints:
   - device_name: Windows Desktop Gajim (Up to 2025)
     fingerprint: d80474d0 fbe7cf2e 25e87b1b 1e2cf7b5 6fc9be8d eb3bd07a 91b8b92d e5cc4536
     qr_code: /files/omemo/windows-omemo-qr.png
-  - device_name Windows Desktop Gajim (2025+)
+  - device_name: Windows Desktop Gajim (2025+)
     fingerprint: 76e76e2a c0d5362b f16b878d f1a02edb c34517ea 9c15ab7f fa6a3609 c13ce916
     qr_code: null
 ---
