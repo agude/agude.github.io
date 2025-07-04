@@ -10,6 +10,7 @@ description: >
 redirect_from: /books/ranked/
 ranked_list:
   # 5 Stars
+  - Disco Elysium
   - Echopraxia
   - Blindsight
   - A Fire Upon the Deep

@@ -38,6 +38,8 @@ it draws her into conflict with the world.
 {% capture brins %}{% author_link "David Brin" possessive %}{% endcapture %}
 {% capture startide %}{% book_link "Startide Rising" %}{% endcapture %}
 
+{% capture disco %}{% book_link "Disco Elysium" %}{% endcapture %}
+
 {{ this_book }} is an urban fantasy novel set in a city that covers the Earth.
 Its structure, mass, and geometric layout generate plasm---an electricity‑like
 substance mages need to power their spells. The setting is the far future,
@@ -93,8 +95,7 @@ falcon---that reinforces the theme of freedom.
   although Mako's extraction destroys the planet while plasm's is more benign.
 
 - The ghostly voices in the background of Aiah's calls are like the
-  entroponetic interference on the intercom in <cite
-  class="video-game-title">Disco Elysium</cite>.
+  entroponetic interference on the intercom in {{ disco }}.
 
 - The final battle, where mages and attack helicopters share the battlefield,
   reminded me of a <cite class="table-top-game-title">Shadowrun</cite>
