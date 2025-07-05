@@ -1,6 +1,7 @@
 # Generated files
-_scripts/book_ranking_tool.html
-_scripts/book_ranking_tool_mergesort.html
+book_ranking_tool.html
+book_ranking_tool_mergesort.html
+visual_book_ranker.html
 
 # Jekyll
 _site
