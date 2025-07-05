@@ -42,16 +42,17 @@ ranked_list:
   - Redwall
   - Hyperion
   - The Tainted Cup
+  - The Sword of the Lictor
+  - The Citadel of the Autarch
+  - The Shadow of the Torturer
   - Destination Moon
+  - Eater
   - Patternmaster
   - Wild Seed
-  - Eater
-  - The Citadel of the Autarch
   - Grand Melee
   - Metropolitan
   - The Temporal Void
   - The Evolutionary Void
-  - The Sword of the Lictor
   - Valuable Humans in Transit and Other Stories
   - Dog Soldier
   - Honor of the Regiment
@@ -63,37 +64,36 @@ ranked_list:
   - Matter
   - For We Are Many
   - Ymir
-  - The Shadow of the Torturer
   - City on Fire
-  - The Last Policeman
   - All These Worlds
   # 3 Stars
   - Mission of Gravity
   - "Home: Habitat, Range, Niche, Territory"
   - Martin The Warrior
-  - Eyes of the Void
-  - Shards of Earth
+  - Chevalier
   - The Left Hand of Darkness
+  - Rogue Bolo
+  - The Last Policeman
   - Gun, with Occasional Music
-  - Countdown City
   - Heaven's River
+  - The Claw of the Conciliator
   - The Dragon's Banker
   - The State of the Art
-  - Rogue Bolo
   - Clay's Ark
   - The Nameless City
-  - World of Trouble
   - "Flatland: A Romance of Many Dimensions"
   - The Fractal Prince
   - Flowers for Algernon
-  - Chevalier
   - "Bolo: Annals of the Dinochrome Brigade"
-  - The Claw of the Conciliator
+  - Countdown City
+  - Eyes of the Void
+  - Shards of Earth
   - The Causal Angel
   - There Is No Antimemetics Division
   # 2 Stars
   - Close to Critical
   - Star Light
+  - World of Trouble
   - Stand on Zanzibar
   - Mind of My Mind
   - The Quantum Thief

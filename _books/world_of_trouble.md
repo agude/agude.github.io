@@ -4,7 +4,7 @@ title: World of Trouble
 book_authors: Ben H. Winters
 series: The Last Policeman
 book_number: 3
-rating: 3
+rating: 2
 image: /books/covers/world_of_trouble.jpg
 ---
 
