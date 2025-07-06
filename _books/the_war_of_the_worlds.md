@@ -53,51 +53,64 @@ witnesses a terrifying invasion of Martians with advanced weaponry.
 
 {% capture tchaikovskys %}{% author_link "Adrian Tchaikovsky" possessive link_text="Tchaikovsky" %}{% endcapture %}
 
+{% capture clarke %}{% author_link "Arthur C. Clarke" %}{% endcapture %}
+{% capture heinlein %}{% author_link "Robert A. Heinlein" %}{% endcapture %}
+{% capture bradbury %}{% author_link "Ray Bradbury" %}{% endcapture %}
+{% capture verne %}{% author_link "Jules Verne" %}{% endcapture %}
+
 {{ the_authors }} {{ this_book }} is a sci-fi classic. It describes the
 invasion of Earth by Martians and their tripods, the destruction they unleash,
-and their defeat by bacteria. It is hugely influential, being adapted to radio
-and film multiple times, including [{{ orsons }} radio drama][radio], and both
-[{{ pals }} movie][pal], and [{{ spielbergs }}][spielberg].
+and their defeat by bacteria. It's hugely influential, having been adapted to
+radio and film multiple times, including [{{ orsons }} radio drama][radio], as
+well as the [{{ pals }} movie][pal], and [{{ spielbergs }}
+version][spielberg].
 
 [radio]: https://en.wikipedia.org/wiki/The_War_of_the_Worlds_(1938_radio_drama)
 [pal]: https://en.wikipedia.org/wiki/The_War_of_the_Worlds_(1953_film)
 [spielberg]: https://en.wikipedia.org/wiki/War_of_the_Worlds_(2005_film)
 
 This book is a version of the [invasion novel][invasion] that was popular at
-the time, except it substitutes the usuals other European powers for Martians.
-It's similar {{ chesneys }} {{ dorkink }}, which started the genre. Both
-feature surprise attacks on England by technologically superior foes and take
-place in Surrey. Woking, where the Martians first land, is under a dozen miles
-from Dorking, where the climatic battle and defeat of British Army by the
-German-speaking enemies.
+the time, except instead of European powers, the invaders are Martians. It's
+similar to {{ chesneys }} {{ dorkink }}, which kicked off the genre. Both
+feature surprise attacks on England by technologically superior enemies and
+are set in Surrey. Woking, where the Martians land, is under a dozen miles
+from Dorking, where the climactic battle and the British Army's defeat takes
+place.
 
 [invasion]: https://en.wikipedia.org/wiki/Invasion_literature
 
-{{ this_book }} is a political book through and through. It was inspired by
-the horrors of colonialism, and it shows the effects of these policies by
-flipping the power dynamic: suddenly the Englander is at the mercy of a
-greater, indifferent power bent on their extinction. It also expands on
-several ideas that still resonate. The Curate sees the Martians as divine
-retribution for humanity's sins, much as modern Christians see god's hand in
-hurricanes and earthquakes. He laments that he did use his position to speak
-up against inequality and the treatment of the poor. The artilleryman on the
-other hand believes the Martians will rid humanity of the weakness brought on
-by modern life, which matches well with many modern conservative movements.
+{{ this_book }} is political through and through. It was inspired by the
+horrors of colonialism, and flips the power dynamic: suddenly the English are
+at the mercy of a greater, indifferent force bent on wiping them out. It also
+develops several ideas that still resonate. The Curate sees the Martians as
+divine punishment for humanity's sins, much like some modern Christians see
+God's hand in natural disasters. He regrets not using his position to speak
+out against inequality and the treatment of the poor. The artilleryman, by
+contrast, sees the Martians as a necessary reckoning---cleansing humanity of
+the weakness brought on by modern life. That lines up well with a lot of
+contemporary conservative rhetoric.
  
-But the style of the book makes it hard to love. The prose are great---in a
-way that {{ suns }}, {{ shards }}, and {{ three }} are not---but the narrative
+But the style of the book makes it hard to love. The prose is great---in a way
+that {{ suns }}, {{ shards }}, and {{ three }} are not---but the narrative
 takes long digressions and slows the pacing as the author focuses on small
-details. It reminds me a bit of {{ moby }} and {{ leagues }}, although the
-digressions aren't as long or as far afield. The fact that the narrator has no
-agency and serves only to act as our camera also hurt the book.
+details. It reminds me a bit of {{ moby }} and {{ leagues }}, though the
+digressions are not quite as meandering. Still, those digressions---and the
+narrator's journalistic tone--- add a sense of realism and immediacy. At the
+same time, his total lack of agency reinforces the feeling of humanity's
+helplessness.
 
-{{ this_book }} influenced how science fiction authors viewed Mars for years.
-The idea that it is the home of ancient civilizations is seen in {{ burroughs
-}} {{ barsoom_series }} starting with {{ barsoom1 }}, and in {{ bradburys }}
-{{ chronicles }}. The tripods and aliens that don't need to eat or sleep
-are a direct influence of {{ christophers }} {{ tripod0 }} and his {{
-tripod_series }} starting with {{ tripod1 }}. Of my recent reads, the flotilla
-escaping the Martians reminded me of {{ winterss }} {{ tlpm_series }},
-specifically {{ tlpm2 }}, and of course the HMS _Thunder Child_ charging in to
-save the fleeing refugees reminded me of the ship of the same name confronting
-the Architects in {{ tchaikovskys }} {{ shards }}.
+{{ this_book }} deeply influenced how science fiction writers imagined Mars.
+The idea of ancient Martian civilizations appears in {{ burroughs }} {{
+barsoom_series }}, starting with {{ barsoom1 }}, and in {{ bradburys }} {{
+chronicles }}. The tripods and biologically strange aliens---who don't need to
+eat or sleep---clearly shaped {{ christophers }} {{ tripod_series }},
+beginning with {{ tripod1 }} and the series prequel in {{ tripod0 }}. Of my
+recent reads, the refugee flotilla fleeing the Martians reminded me of {{
+winterss }} {{ tlpm_series }}, especially {{ tlpm2 }}. And of course the HMS
+_Thunder Child_ charging in to defend the evacuees brought to mind the ship of
+the same name facing down the Architects in {{ tchaikovskys }} {{ shards }}.
+
+I first read {{ this_book }} when I was young, and it was nostalgic to re-read
+it. I makes me eager to revisit some of the other authors I read at the time,
+like {{ clarke }}, {{ bradbury }}, and {{ heinlein }}, as well as compatriots
+of {{ the_authors_lastname }} like {{ verne }}.
