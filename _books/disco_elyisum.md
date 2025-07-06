@@ -59,3 +59,8 @@ world will be born anew. "After
  How about Martinaise being destroyed and coming back. About the
 world being destroyed and coming back. 
 
+
+But despite the bleakness, there is so much beauty in {{ this_book }}. There  is humor and absurdity and friendship and sorrow.
+There is a man trying to rebuild his life, a life he forgot, and his stalwart guide and friend helping him along.
+The world is doomed. The Pale will distroy it. But despite that, despite knowing there is no future, there is hope. In a way that's the story of life. You are born knowing you'll die, and yet it is wonderful.
+
