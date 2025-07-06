@@ -72,6 +72,7 @@ ranked_list:
   - Martin The Warrior
   - Chevalier
   - The Left Hand of Darkness
+  - The War of the Worlds
   - Rogue Bolo
   - The Last Policeman
   - Gun, with Occasional Music

@@ -1,10 +1,10 @@
 ---
-date: 2025-06-29
+date: 2025-07-06
 title: The War of the Worlds
 book_authors: H. G. Wells
 series: null
 book_number: 1
-rating: null
+rating: 3
 image: /books/covers/the_war_of_the_worlds.jpg
 ---
 
