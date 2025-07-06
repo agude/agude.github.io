@@ -110,7 +110,7 @@ winterss }} {{ tlpm_series }}, especially {{ tlpm2 }}. And of course the HMS
 _Thunder Child_ charging in to defend the evacuees brought to mind the ship of
 the same name facing down the Architects in {{ tchaikovskys }} {{ shards }}.
 
-I first read {{ this_book }} when I was young, and it was nostalgic to re-read
-it. I makes me eager to revisit some of the other authors I read at the time,
-like {{ clarke }}, {{ bradbury }}, and {{ heinlein }}, as well as compatriots
-of {{ the_authors_lastname }} like {{ verne }}.
+I first read {{ this_book }} when I was young, and re-reading it now was a
+nostalgic experience. It makes me want to revisit some of the other authors I
+read back then, like {{ clarke }}, {{ bradbury }}, and {{ heinlein }}, as well
+as {{ the_authors_lastname }}'s contemporaries like {{ verne }}.
