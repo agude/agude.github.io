@@ -1,3 +1,8 @@
+# Generated files
+book_ranking_tool.html
+book_ranking_tool_mergesort.html
+visual_book_ranker.html
+
 # Jekyll
 _site
 .sass-cache
