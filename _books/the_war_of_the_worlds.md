@@ -96,7 +96,7 @@ that {{ suns }}, {{ shards }}, and {{ three }} are not---but the narrative
 takes long digressions and slows the pacing as the author focuses on small
 details. It reminds me a bit of {{ moby }} and {{ leagues }}, though the
 digressions are not quite as meandering. Still, those digressions---and the
-narrator's journalistic tone--- add a sense of realism and immediacy. At the
+narrator's journalistic tone---add a sense of realism and immediacy. At the
 same time, his total lack of agency reinforces the feeling of humanity's
 helplessness.
 
