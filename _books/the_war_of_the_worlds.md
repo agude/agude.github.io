@@ -60,10 +60,11 @@ witnesses a terrifying invasion of Martians with advanced weaponry.
 
 {{ the_authors }} {{ this_book }} is a sci-fi classic. It describes the
 invasion of Earth by Martians and their tripods, the destruction they unleash,
-and their defeat by bacteria. It's hugely influential, having been adapted to
-radio and film multiple times, including [{{ orsons }} radio drama][radio], as
-well as the [{{ pals }} movie][pal], and [{{ spielbergs }}
-version][spielberg].
+and their defeat by bacteria. It was one of the first science fiction books I
+read as a kid, and it helped shape the kind of stories I've loved ever since.
+It's hugely influential, having been adapted to radio and film multiple times,
+including [{{ orsons }} radio drama][radio], and [{{ pals }}][pal] and [{{
+spielbergs }} ][spielberg] films.
 
 [radio]: https://en.wikipedia.org/wiki/The_War_of_the_Worlds_(1938_radio_drama)
 [pal]: https://en.wikipedia.org/wiki/The_War_of_the_Worlds_(1953_film)
@@ -112,5 +113,7 @@ the same name facing down the Architects in {{ tchaikovskys }} {{ shards }}.
 
 I first read {{ this_book }} when I was young, and re-reading it now was a
 nostalgic experience. It makes me want to revisit some of the other authors I
-read back then, like {{ clarke }}, {{ bradbury }}, and {{ heinlein }}, as well
-as {{ the_authors_lastname }}'s contemporaries like {{ verne }}.
+loved back then, like {{ clarke }}, {{ bradbury }}, and {{ heinlein }}, as
+well as {{ the_authors_lastname }}'s contemporaries like {{ verne }}. I'm
+curious to see how thirty more years of reading and life will change the way I
+see their work.
