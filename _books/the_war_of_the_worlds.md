@@ -102,13 +102,13 @@ helplessness.
 {{ this_book }} deeply influenced how science fiction writers imagined Mars.
 The idea of ancient Martian civilizations appears in {{ burroughs }} {{
 barsoom_series }}, starting with {{ barsoom1 }}, and in {{ bradburys }} {{
-chronicles }}. The tripods and biologically strange aliens---who don't need to
-eat or sleep---clearly shaped {{ christophers }} {{ tripod_series }},
-beginning with {{ tripod1 }} and its series prequel, {{ tripod0 }}. Of my
-recent reads, the refugee flotilla fleeing the Martians reminded me of {{
-winterss }} {{ tlpm_series }}, especially {{ tlpm2 }}. And of course, the HMS
-_Thunder Child_ charging in to defend the evacuees brought to mind the ship of
-the same name facing down the Architects in {{ tchaikovskys }} {{ shards }}.
+chronicles }}. The tripods and aliens who don't need to eat or sleep clearly
+shaped {{ christophers }} {{ tripod_series }}, beginning with {{ tripod1 }}
+and its series prequel, {{ tripod0 }}. Of my recent reads, the refugee
+flotilla fleeing the Martians reminded me of {{ winterss }} {{ tlpm_series }},
+especially {{ tlpm2 }}. And of course, the HMS _Thunder Child_ charging in to
+defend the evacuees brought to mind the ship of the same name facing down the
+Architects in {{ tchaikovskys }} {{ shards }}.
 
 I first read {{ this_book }} when I was young, and re-reading it now was a
 nostalgic experience. It makes me want to revisit some of the other authors I
