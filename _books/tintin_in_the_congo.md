@@ -34,7 +34,7 @@ The book was first written in 1930, and {{ the_author }} rewrote and redrew it
 in 1946, taking the opportunity to sanitize it a bit by removing the more
 overt colonial elements. Even so, the revised version is still **incredibly
 racist**. The Congolese are drawn in [blackface][blackface], portrayed as
-lazy, easily fooled, and supercilious.
+lazy, easily fooled, and superstitious.
 
 [blackface]: https://en.wikipedia.org/wiki/Blackface
 
