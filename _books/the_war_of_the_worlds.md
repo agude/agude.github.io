@@ -11,7 +11,7 @@ image: /books/covers/the_war_of_the_worlds.jpg
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is a landmark science
 fiction novel. It takes place in late Victorian England as an unnamed narrator
-witnesses a terrifying invasion of Martians with advanced weaponry.
+witnesses a terrifying invasion by Martians with advanced weaponry.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -22,8 +22,8 @@ witnesses a terrifying invasion of Martians with advanced weaponry.
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture orsons %}{% author_link "Orson Welles" possessive %}{% endcapture %}
-{% capture pals %}{% author_link "George Pal" possessive %}{% endcapture %}
-{% capture spielbergs %}{% author_link "Steven Spielberg" possessive %}{% endcapture %}
+{% capture pal %}{% author_link "George Pal" %}{% endcapture %}
+{% capture spielberg %}{% author_link "Steven Spielberg" %}{% endcapture %}
 
 {% capture dorkink %}{% book_link "The Battle of Dorking: Reminiscences of a Volunteer" link_text="The Battle of Dorking" %}{% endcapture %}
 {% capture chesneys %}{% author_link "George Tomkyns Chesney" possessive %}{% endcapture %}
@@ -60,32 +60,31 @@ witnesses a terrifying invasion of Martians with advanced weaponry.
 
 {{ the_authors }} {{ this_book }} is a sci-fi classic. It describes the
 invasion of Earth by Martians and their tripods, the destruction they unleash,
-and their defeat by bacteria. It was one of the first science fiction books I
-read as a kid, and it helped shape the kind of stories I've loved ever since.
-It's hugely influential, having been adapted to radio and film multiple times,
-including [{{ orsons }} radio drama][radio], and [{{ pals }}][pal] and [{{
-spielbergs }} ][spielberg] films.
+and their eventual defeat by bacteria. It was one of the first science fiction
+books I read as a kid, and it helped shape the kind of stories I've loved ever
+since. It's hugely influential, having been adapted for radio and film
+multiple times, including [{{ orsons }} radio drama][radio] and films by [{{
+pal }}][pal] and [{{ spielberg }}][spielberg].
 
 [radio]: https://en.wikipedia.org/wiki/The_War_of_the_Worlds_(1938_radio_drama)
 [pal]: https://en.wikipedia.org/wiki/The_War_of_the_Worlds_(1953_film)
 [spielberg]: https://en.wikipedia.org/wiki/War_of_the_Worlds_(2005_film)
 
-This book is a version of the [invasion novel][invasion] that was popular at
-the time, except instead of European powers, the invaders are Martians. It's
-similar to {{ chesneys }} {{ dorkink }}, which kicked off the genre. Both
-feature surprise attacks on England by technologically superior enemies and
-are set in Surrey. Woking, where the Martians land, is under a dozen miles
-from Dorking, where the climactic battle and the British Army's defeat takes
-place.
+This book is a version of the [invasion novel][invasion] popular at the time,
+except that the invaders are Martians instead of European powers. It's similar
+to {{ chesneys }} {{ dorkink }}, which kicked off the genre. Both feature
+surprise attacks on England by technologically superior enemies and are set in
+Surrey. Woking, where the Martians land, is less than a dozen miles from
+Dorking, where the climactic battle and the British Army's defeat take place.
 
 [invasion]: https://en.wikipedia.org/wiki/Invasion_literature
 
 {{ this_book }} is political through and through. It was inspired by the
-horrors of colonialism, and flips the power dynamic: suddenly the English are
+horrors of colonialism and flips the power dynamic: suddenly the English are
 at the mercy of a greater, indifferent force bent on wiping them out. It also
-develops several ideas that still resonate. The Curate sees the Martians as
+develops several ideas that still resonate. The curate sees the Martians as
 divine punishment for humanity's sins, much like some modern Christians see
-God's hand in natural disasters. He regrets not using his position to speak
+god's hand in natural disasters. He regrets not using his position to speak
 out against inequality and the treatment of the poor. The artilleryman, by
 contrast, sees the Martians as a necessary reckoning---cleansing humanity of
 the weakness brought on by modern life. That lines up well with a lot of
@@ -105,9 +104,9 @@ The idea of ancient Martian civilizations appears in {{ burroughs }} {{
 barsoom_series }}, starting with {{ barsoom1 }}, and in {{ bradburys }} {{
 chronicles }}. The tripods and biologically strange aliens---who don't need to
 eat or sleep---clearly shaped {{ christophers }} {{ tripod_series }},
-beginning with {{ tripod1 }} and the series prequel in {{ tripod0 }}. Of my
+beginning with {{ tripod1 }} and its series prequel, {{ tripod0 }}. Of my
 recent reads, the refugee flotilla fleeing the Martians reminded me of {{
-winterss }} {{ tlpm_series }}, especially {{ tlpm2 }}. And of course the HMS
+winterss }} {{ tlpm_series }}, especially {{ tlpm2 }}. And of course, the HMS
 _Thunder Child_ charging in to defend the evacuees brought to mind the ship of
 the same name facing down the Architects in {{ tchaikovskys }} {{ shards }}.
 
@@ -115,5 +114,5 @@ I first read {{ this_book }} when I was young, and re-reading it now was a
 nostalgic experience. It makes me want to revisit some of the other authors I
 loved back then, like {{ clarke }}, {{ bradbury }}, and {{ heinlein }}, as
 well as {{ the_authors_lastname }}'s contemporaries like {{ verne }}. I'm
-curious to see how thirty more years of reading and life will change the way I
-see their work.
+curious to see how another thirty years of reading and life experience will
+change the way I see their work.
