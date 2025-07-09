@@ -19,6 +19,18 @@ produced by ZA/UM.
 {% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
+## Outline
+
+1. Disco Elysium is a literary game
+2. Plot etc.
+  2a. Harry as the perfect stand in
+  2b. The people?
+3. Themes
+4. Beauty
+  4a. Writing
+  4b. Voice acting
+  4c. Hope
+
 Disco Elysium probably needs no introduction but I'll do it anyway: it's
 probably the best video game ever made, and it's my favorite. But what it
 clearly isn't is a book. I don't care because this is my website and it's a
@@ -59,8 +71,10 @@ world will be born anew. "After
  How about Martinaise being destroyed and coming back. About the
 world being destroyed and coming back. 
 
-
-But despite the bleakness, there is so much beauty in {{ this_book }}. There  is humor and absurdity and friendship and sorrow.
-There is a man trying to rebuild his life, a life he forgot, and his stalwart guide and friend helping him along.
-The world is doomed. The Pale will distroy it. But despite that, despite knowing there is no future, there is hope. In a way that's the story of life. You are born knowing you'll die, and yet it is wonderful.
+But despite the bleakness, there is so much beauty in {{ this_book }}. There
+is humor and absurdity and friendship and sorrow. There is a man trying to
+rebuild his life, a life he forgot, and his stalwart guide and friend helping
+him along. The world is doomed. The Pale will destroy it. But despite that,
+despite knowing there is no future, there is hope. In a way that's the story
+of life. You are born knowing you'll die, and yet it is wonderful.
 
