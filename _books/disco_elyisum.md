@@ -31,25 +31,32 @@ produced by ZA/UM.
   4b. Voice acting
   4c. Hope
 
-Disco Elysium probably needs no introduction but I'll do it anyway: it's
-probably the best video game ever made, and it's my favorite. But what it
-clearly isn't is a book. I don't care because this is my website and it's a
-literary experience.
+{{ this_book }} is probably the best video game ever mad, and it's my favorite.
+It is not a book. But it is a literary masterpiece.
 
 ### Elysium
 
-Disco Elysium is almost an alternate history. You can map the game world of
-Elysium to the real world inspirations: Revachol and Martinaise are France;
-Graad is Russia; Oranje is the Netherlands; Seol is Japan and Korea; Mesque is
-Spain and Mexico. Even in-game events and people map to real ones: The
-Antecentennial Revolution and Kras Mazov are the October Revolution and Karl
-Marx; the Samara is Southeast Asia and the various war-crime ridden conflicts
-there are the Korean and Vietnam war, along with all the other Cold War proxy
-fights; the EPIS is the European Union.
+The player plays <!-- TODO: Play play is bad repetition. --> Harrier "Harry"
+Du Bois, a man who wakes up almost naked in a trashed hotel room with no
+memory and has to put his world back together. Over time he learns that he's a
+cop. A damn good one. He's in Martinaise. He's there to solve a murder. He was
+in love once. He blew his mind away with alcohol and drugs. Harry is the
+perfect window in Elysium because he knows nothing of himself or the world.
+This lets author slowly build the world for the player as Harry rediscovers
+it.
+
+The world of {{ this_book }} is almost an alternate history. You can map the
+game world of Elysium to the real world inspirations: Revachol and Martinaise
+are France; Graad is Russia; Oranje is the Netherlands; Seol is Japan and
+Korea; Mesque is Spain and Mexico. Even in-game events and people map to real
+ones: the Antecentennial Revolution and Kras Mazov are the October Revolution
+and Karl Marx; Samara is Southeast Asia and the various war-crime ridden
+conflicts there are the Korean and Vietnam war; the EPIS is the European
+Union.
  
-But this familiarity is used to distract the player, to make them feel like
-they understand the world. Then when the magical realism first shows up, the
-player is taken off guard.
+This familiarity is used to distract the player, to lull them into a false
+sense of security. Then when the magical realism first shows up, the player is
+taken off guard.
 
 ### After The World, The Pale; After The Pale---The World Again
 
