@@ -29,6 +29,7 @@ ranked_list:
   - Artificial Condition
   - Rogue Protocol
   - A Desolation Called Peace
+  - Explorers on the Moon
   - Childhood's End
   - Dragon's Egg
   - Starquake

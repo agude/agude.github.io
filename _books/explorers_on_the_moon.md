@@ -1,10 +1,10 @@
 ---
-date: 2025-06-05
+date: 2025-07-09
 title: Explorers on the Moon
 book_authors: Hergé
 series: The Adventures of Tintin
 book_number: 17
-rating: null
+rating: 5
 image: /books/covers/explorers_on_the_moon.jpg
 ---
 
