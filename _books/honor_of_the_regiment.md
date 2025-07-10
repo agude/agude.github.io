@@ -15,7 +15,7 @@ book_authors:
 series: Bolo
 book_number: 10
 rating: 4
-image: /books/covers/honor_of_the_regiment.jpg
+image: /books/covers/bolos_book_1_honor_of_the_regiment_2nd_edition.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the tenth book in the
