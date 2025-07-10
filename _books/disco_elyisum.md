@@ -23,42 +23,48 @@ produced by ZA/UM.
 
 1. Disco Elysium is a literary game
 2. Plot etc.
-  2a. Harry as the perfect stand in
-  2b. The people?
+    - Harry as the perfect stand in
+    - The people?
 3. Themes
 4. Beauty
-  4a. Writing
-  4b. Voice acting
-  4c. Hope
+    - Writing
+    - Voice acting
+    - Hope
 
 {{ this_book }} is probably the best video game ever mad, and it's my favorite.
 It is not a book. But it is a literary masterpiece.
 
-### Elysium
+### There Is Nothing. Only Warm, Primordial Blackness.
 
-The player plays <!-- TODO: Play play is bad repetition. --> Harrier "Harry"
-Du Bois, a man who wakes up almost naked in a trashed hotel room with no
-memory and has to put his world back together. Over time he learns that he's a
-cop. A damn good one. He's in Martinaise. He's there to solve a murder. He was
-in love once. He blew his mind away with alcohol and drugs. Harry is the
-perfect window in Elysium because he knows nothing of himself or the world.
-This lets author slowly build the world for the player as Harry rediscovers
-it.
+The player controls Harrier "Harry" Du Bois, a man who wakes up almost naked
+in a trashed hotel room with no memory and has to piece his life back
+together. Over time, he learns he's a cop. A damn good one. He's in
+Martinaise. He's there to solve a murder. He was in love once. He wrecked his
+mind with alcohol and drugs. Harry is the perfect window into Elysium because
+he knows nothing about himself or the world. That lets the author slowly build
+the world for the player as Harry rediscovers it.
 
 The world of {{ this_book }} is almost an alternate history. You can map the
-game world of Elysium to the real world inspirations: Revachol and Martinaise
-are France; Graad is Russia; Oranje is the Netherlands; Seol is Japan and
-Korea; Mesque is Spain and Mexico. Even in-game events and people map to real
-ones: the Antecentennial Revolution and Kras Mazov are the October Revolution
-and Karl Marx; Samara is Southeast Asia and the various war-crime ridden
-conflicts there are the Korean and Vietnam war; the EPIS is the European
+game world of Elysium to real-world inspirations: Revachol and Martinaise are
+France; Graad is Russia; Oranje is the Netherlands; Seol is Japan and Korea;
+Mesque is Spain and Mexico. Even in-game events and people have clear
+analogues: the Antecentennial Revolution and Kras Mazov are the October
+Revolution and Karl Marx; Samara is Southeast Asia, and the war-crime-ridden
+conflicts there echo the Korean and Vietnam wars; the EPIS is the European
 Union.
  
-This familiarity is used to distract the player, to lull them into a false
-sense of security. Then when the magical realism first shows up, the player is
-taken off guard.
+That familiarity is used to distract the player, to lull them into a false
+sense of security. So when the magical realism kicks in, it hits harder. It's
+disorienting. It makes you feel the way Harry must feel.
 
-### After The World, The Pale; After The Pale---The World Again
+I ignored a lot of the early hints that Elysium is not Earth. Harry's 24,
+seemingly sentient skills that talk to each other? The man is blasted out of
+his mind. The scientist obsessed with cryptids? Just some weirdos, we have
+them here too. A talking necktie? Again, Harry is crazy. The world is a bunch
+of shattered landmasses connected by physics-defying, all-consuming,
+ever-expanding Pale? Wait...
+
+### After The World, The Pale; After The Pale---The World Again.
 
 A major theme of {{ this_book }} is the cyclical nature of life; of failure
 and perseverance; of destroying yourself and coming back.
@@ -85,3 +91,22 @@ him along. The world is doomed. The Pale will destroy it. But despite that,
 despite knowing there is no future, there is hope. In a way that's the story
 of life. You are born knowing you'll die, and yet it is wonderful.
 
+### Something Beautiful is Going to Happen.
+
+{{ this_book }} is **beautiful**. The writing is wonderful,[^bow] with phrases
+and scenes the are still with me.
+
+[^bow]:
+    > Sparks fall like snow from the bow collector of streetcar no 42. Slowly down
+    > the slope from Voyager Road and then east on the B206, across the river, to
+    > where there are no closed factories or ruins. To study. At the academy.
+    > Electrical cables run overhead and the bow collector draws across them like
+    > a musical instrument. A flash. She's standing at the rear window, holding
+    > onto the rail. In a spring coat, waving at you...
+    >
+    > It's early in the morning. The world is dark blue. The sparks light her
+    > face. A delicate composition of triangles. The street seems to grow longer,
+    > like in a dolly zoom. And there's something in the air as you stand there
+    > and wave back at the shape growing smaller and smaller. Something that has
+    > *always* been there. A great see-through world. The tenderness you feel. The
+    > ghost of Revachol between you, carrying your signals. The holy messenger.
