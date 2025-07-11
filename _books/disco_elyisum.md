@@ -1,7 +1,13 @@
 ---
 date: 2025-07-03
 title: Disco Elysium
-book_authors: Robert Kurvitz
+book_authors:
+  - Robert Kurvitz
+  - Helen Hindpere
+  - Argo Tuulik
+  - Cash DeCuir
+  - Olga Moskvina
+  - Siim Sinamäe
 series: Elysium
 book_number: 2
 rating: 5
@@ -40,10 +46,10 @@ It is not a book. But it is a literary masterpiece.
 The player controls Harrier "Harry" Du Bois, a man who wakes up almost naked
 in a trashed hotel room with no memory and has to piece his life back
 together. Over time, he learns he's a cop. A damn good one. He's in
-Martinaise. He's there to solve a murder. He was in love once. He wrecked his
-mind with alcohol and drugs. Harry is the perfect window into Elysium because
-he knows nothing about himself or the world. That lets the author slowly build
-the world for the player as Harry rediscovers it.
+Martinaise. He's there to solve a murder. He was in love once. He blasted his
+mind apart with alcohol and drugs. Harry is the perfect window into Elysium
+because he knows nothing about himself or the world. That lets the author
+slowly build the world for the player as Harry rediscovers it.
 
 The world of {{ this_book }} is almost an alternate history. You can map the
 game world of Elysium to real-world inspirations: Revachol and Martinaise are
@@ -53,7 +59,7 @@ analogues: the Antecentennial Revolution and Kras Mazov are the October
 Revolution and Karl Marx; Samara is Southeast Asia, and the war-crime-ridden
 conflicts there echo the Korean and Vietnam wars; the EPIS is the European
 Union.
- 
+
 That familiarity is used to distract the player, to lull them into a false
 sense of security. So when the magical realism kicks in, it hits harder. It's
 disorienting. It makes you feel the way Harry must feel.
@@ -84,7 +90,7 @@ world will be born anew. "After the world, the Pale; after the Pale -- the
 world again."
 
 How about Martinaise being destroyed and coming back. About the world being
-destroyed and coming back. 
+destroyed and coming back.
 
 
 ### Something Beautiful is Going to Happen
