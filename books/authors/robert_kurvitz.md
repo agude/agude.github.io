@@ -10,4 +10,5 @@ same_as_urls:
   - https://www.google.com/search?kgmid=/m/010bst8r
   - https://www.goodreads.com/author/show/7263420.Robert_Kurvitz
   - https://www.isfdb.org/cgi-bin/title.cgi?3057248
+  - https://nebulas.sfwa.org/nominees/robert-kurvitz/
 ---
