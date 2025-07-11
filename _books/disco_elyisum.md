@@ -10,7 +10,8 @@ image: /books/covers/disco_elysium.jpg
 
 <cite class="video-game-title">{{ page.title }}</cite>, written by <span
 class="author-name">{{ page.book_authors }}</span>, is a role-playing game
-produced by ZA/UM.
+produced by ZA/UM. It's the story of Harrier "Harry" Du Bois, a man who wakes
+up with no memories, and has to solve a murder.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -34,7 +35,7 @@ produced by ZA/UM.
 {{ this_book }} is probably the best video game ever mad, and it's my favorite.
 It is not a book. But it is a literary masterpiece.
 
-### There Is Nothing. Only Warm, Primordial Blackness.
+### There Is Nothing; Only Warm, Primordial Blackness
 
 The player controls Harrier "Harry" Du Bois, a man who wakes up almost naked
 in a trashed hotel room with no memory and has to piece his life back
@@ -64,7 +65,7 @@ them here too. A talking necktie? Again, Harry is crazy. The world is a bunch
 of shattered landmasses connected by physics-defying, all-consuming,
 ever-expanding Pale? Wait...
 
-### After The World, The Pale; After The Pale---The World Again.
+### After The World, The Pale; After The Pale -- The World Again
 
 A major theme of {{ this_book }} is the cyclical nature of life; of failure
 and perseverance; of destroying yourself and coming back.
@@ -79,10 +80,14 @@ by the Coalition of Nations.
 
 This cyclic nature is built into the very fabric of reality. The Pale is
 slowly growing, enveloping and destroying Elysium. But once it's done, the
-world will be born anew. "After
+world will be born anew. "After the world, the Pale; after the Pale -- the
+world again."
 
- How about Martinaise being destroyed and coming back. About the
-world being destroyed and coming back. 
+How about Martinaise being destroyed and coming back. About the world being
+destroyed and coming back. 
+
+
+### Something Beautiful is Going to Happen
 
 But despite the bleakness, there is so much beauty in {{ this_book }}. There
 is humor and absurdity and friendship and sorrow. There is a man trying to
@@ -91,10 +96,7 @@ him along. The world is doomed. The Pale will destroy it. But despite that,
 despite knowing there is no future, there is hope. In a way that's the story
 of life. You are born knowing you'll die, and yet it is wonderful.
 
-### Something Beautiful is Going to Happen.
-
-{{ this_book }} is **beautiful**. The writing is wonderful,[^bow] with phrases
-and scenes the are still with me.
+The writing is haunting, its phrases still echo in my mind.[^bow]
 
 [^bow]:
     > Sparks fall like snow from the bow collector of streetcar no 42. Slowly down
@@ -110,3 +112,18 @@ and scenes the are still with me.
     > and wave back at the shape growing smaller and smaller. Something that has
     > *always* been there. A great see-through world. The tenderness you feel. The
     > ghost of Revachol between you, carrying your signals. The holy messenger.
+
+### This Man Would Hurl Himself in Death's Way to Save You
+
+Kim Kitsuragi. I do not know how to describe him in a way that will convey
+accurately all he is. He's your partner, the anchor that lets you drift but
+doesn't let you get lost. And you need that, because the game throws you
+straight into chaos---you don't know who you are or where you are---but the
+fact that you can trust Kim gives you something solid to hold onto.
+
+He is one of the best developed characters in any media. He is kind,
+dependable, utterly loyal. Harry's _Esprit de Corps_ skill puts it best when
+they first meet: "If an assault were launched on this building right now -- if
+the windows came crashing down and the whole world descended upon you -- this
+man would hurl himself in death's way to save you. You are sure of this -- but
+why?"
