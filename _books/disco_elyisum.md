@@ -15,31 +15,18 @@ image: /books/covers/disco_elysium.jpg
 ---
 
 <cite class="video-game-title">{{ page.title }}</cite>, written by <span
-class="author-name">{{ page.book_authors }}</span>, is a role-playing game
+class="author-name">{{ page.book_authors[0] }}</span> <abbr class="etal">et
+al.</abbr>, is a role-playing game
 produced by ZA/UM. It's the story of Harrier "Harry" Du Bois, a man who wakes
 up with no memories, and has to solve a murder.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
-## Outline
-
-1. Disco Elysium is a literary game
-2. Plot etc.
-    - Harry as the perfect stand in
-    - The people?
-3. Themes
-4. Beauty
-    - Writing
-    - Voice acting
-    - Hope
-
-{{ this_book }} is probably the best video game ever mad, and it's my favorite.
-It is not a book. But it is a literary masterpiece.
+{{ this_book }} is probably the best video game ever made, <!-- WHY --> and
+it's my favorite. It is not a book. But it is a literary masterpiece.
 
 ### There Is Nothing; Only Warm, Primordial Blackness
 
@@ -61,7 +48,7 @@ conflicts there echo the Korean and Vietnam wars; the EPIS is the European
 Union.
 
 That familiarity is used to distract the player, to lull them into a false
-sense of security. So when the magical realism kicks in, it hits harder. It's
+sense of security. When the magical realism kicks in, it hits harder. It's
 disorienting. It makes you feel the way Harry must feel.
 
 I ignored a lot of the early hints that Elysium is not Earth. Harry's 24,
@@ -74,24 +61,46 @@ ever-expanding Pale? Wait...
 ### After The World, The Pale; After The Pale -- The World Again
 
 A major theme of {{ this_book }} is the cyclical nature of life; of failure
-and perseverance; of destroying yourself and coming back.
-Harry is the most obvious example of this theme: he had a good job, a wife,
-purpose, a child on the way and he destroyed it all with drugs and alcohol,
-blasting his mind into fragments personalities and erasing his memories. But
-that isn't the end for Harry, that's where the story starts.
+and redemption; of how history repeats over and over. Harry is the most
+obvious example of this theme: he had a good job, a wife, purpose, a child on
+the way. He destroyed it all with drugs and alcohol, blasting his mind into
+fragments personalities and erasing his memories. But that isn't the end for
+Harry, that's where his story starts.
 
-Revachol itself also goes through cycles. Once a powerful, fascist empire, it
-was destroyed during a communist uprising. As it recovers, it again destroyed
-by the Coalition of Nations.
+Revachol itself also goes through cycles. Once the seat of a powerful, fascist
+empire, it went through a moral decline before being destroyed during a
+communist uprising. From the ashes rose the Commune, which in turn is
+destroyed by the Coalition of Nations. This cyclic nature is built into the
+very fabric of reality. The Pale is slowly growing, enveloping and destroying
+Elysium. But once it's done, the world will be born anew. "After the world,
+the Pale; after the Pale -- the world again."
 
-This cyclic nature is built into the very fabric of reality. The Pale is
-slowly growing, enveloping and destroying Elysium. But once it's done, the
-world will be born anew. "After the world, the Pale; after the Pale -- the
-world again."
+But the Pale is more than just a force of destruction, it is the "rarefied
+past". It is the accumulated weight of all the history and memory and failures
+of the world grown so large that it dissolves the present. This is mirrored by
+Harry's internal struggle, which is also caused by the weight of his past
+mistakes.
 
-How about Martinaise being destroyed and coming back. About the world being
-destroyed and coming back.
+<!-- Need to transition to this better -->
 
+Through out all this chaos, this cycle of failure, there is a constant: Kim
+Kitsuragi, your partner.
+
+### This Man Would Hurl Himself in Death's Way to Save You
+
+Kim Kitsuragi. I do not know how to describe him in a way that will convey
+accurately all he is. He's your partner, the anchor that lets you drift but
+doesn't let you get lost. And you need that, because the game throws you
+straight into chaos---you don't know who you are or where you are---but the
+fact that you can trust Kim gives you something solid to hold onto.
+
+He is one of the best developed characters in any media. He is kind,
+dependable, utterly loyal. Harry's _Esprit de Corps_ skill puts it best when
+they first meet: "If an assault were launched on this building right now -- if
+the windows came crashing down and the whole world descended upon you -- this
+man would hurl himself in death's way to save you. You are sure of this -- but
+why?" But he is more than that. He isn't a sycophant, he has his own deep
+history and goals.
 
 ### Something Beautiful is Going to Happen
 
@@ -119,17 +128,3 @@ The writing is haunting, its phrases still echo in my mind.[^bow]
     > *always* been there. A great see-through world. The tenderness you feel. The
     > ghost of Revachol between you, carrying your signals. The holy messenger.
 
-### This Man Would Hurl Himself in Death's Way to Save You
-
-Kim Kitsuragi. I do not know how to describe him in a way that will convey
-accurately all he is. He's your partner, the anchor that lets you drift but
-doesn't let you get lost. And you need that, because the game throws you
-straight into chaos---you don't know who you are or where you are---but the
-fact that you can trust Kim gives you something solid to hold onto.
-
-He is one of the best developed characters in any media. He is kind,
-dependable, utterly loyal. Harry's _Esprit de Corps_ skill puts it best when
-they first meet: "If an assault were launched on this building right now -- if
-the windows came crashing down and the whole world descended upon you -- this
-man would hurl himself in death's way to save you. You are sure of this -- but
-why?"
