@@ -100,8 +100,7 @@ why?" He is more than that. He isn't a sycophant. He has his own deep history
 and goals. Uncovering them, and building the rapport between you two, is what
 makes the game so powerful.
 
-<!-- Not really tears? -->
-There's one scene that almost had me in tears. We'd just discovered a car sunk
+There's one scene that had me enthralled. We'd just discovered a car sunk
 along the coast and covered by the tide. Kim knows immediately that it's
 yours, wrecked during your earlier bender. But he says nothing. He just sits
 on a swing set with you for hours, talking, whistling, waiting, until you're
