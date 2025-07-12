@@ -97,16 +97,15 @@ they first meet: "If an assault were launched on this building right now -- if
 the windows came crashing down and the whole world descended upon you -- this
 man would hurl himself in death's way to save you. You are sure of this -- but
 why?" He is more than that. He isn't a sycophant. He has his own deep history
-and goals and discovering them, and building the rapport between you two, is
-what really makes the game special.
+and goals. Uncovering them, and building the rapport between you two, is what
+makes the game so powerful.
 
-<!-- TODO: Improve the last bit there, and this next part -->
-
-There is one scene that almost had me in tears. We've just discovered a car
-sunk in the mud and covered by the tide. Kim knows instantly that it is yours,
-destroyed during your earlier bender, but he sits on a swing set with you for
-hours and talks with you, whistles with you, until you're ready to accept what
-you've done. That's who Kim is.
+<!-- Not really tears? -->
+There's one scene that almost had me in tears. We'd just discovered a car sunk
+along the coast and covered by the tide. Kim knows immediately that it's
+yours, wrecked during your earlier bender. But he says nothing. He just sits
+on a swing set with you for hours, talking, whistling, waiting, until you're
+ready to face what you've done. That's who Kim is.
 
 ### Something Beautiful is Going to Happen
 
