@@ -75,11 +75,11 @@ very fabric of reality. The Pale is slowly growing, enveloping and destroying
 Elysium. But once it's done, the world will be born anew. "After the world,
 the Pale; after the Pale -- the world again."
 
-But the Pale is more than just a force of destruction, it is the "rarefied
-past". It is the accumulated weight of all the history and memory and failures
-of the world grown so large that it dissolves the present. This is mirrored by
-Harry's internal struggle, which is also caused by the weight of his past
-mistakes.
+But the Pale is more than just a simple force of destruction, it is the
+"rarefied past". It is the accumulated weight of all the history and memory
+and failures of the world grown so large that it dissolves the present. This
+is mirrored by Harry's internal struggle, which is also caused by the weight
+of his past mistakes.
 
 <!-- Need to transition to this better -->
 
