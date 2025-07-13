@@ -50,20 +50,17 @@ Revolution and Karl Marx; Samara is Southeast Asia, and the war-crime-ridden
 conflicts there echo the Korean and Vietnam wars; the EPIS is the European
 Union.
 
-That familiarity is used to lull you into a false sense of security. So when
-the magical realism shows up it's disorienting. It makes you feel the same
-uncertainty and confusion that Harry must feel as your assumptions about the
-world collapse.
+That familiarity gives you a false sense of security. So when the magical
+realism shows up, it's easy to dismiss. Harry's 24 skills that have
+conversations in his head is just a symptom of his psychosis. The cryptid
+hunters are just local weirdos. The curse of the doomed commercial area is
+just bad luck.
 
-<!-- Combine above and below? Something like "That familiarity gives you a
-false sense of security that makes it easy to miss..." Then the examples, then
-the pale, then "It makes you feel..." -->
-
-This sense of false security makes it easy to ignore the signs of the
-supernatural. Harry's 24 skills that have conversations in his head is just a
-symptom of his psychosis. The cryptid hunters are just local weirdos. Then you
-learn about the Pale. That Elysium is set of shattered landmasses surrounded
-by a physics-defying, reality-dissolving mist.
+Then you learn about the Pale from Joyce Messier. That Elysium is a broken
+world: a shattered landmasses surrounded by a physics-defying,
+reality-dissolving mist. Suddenly, all your assumptions about the world
+collapse. It's disorienting. You feel the same uncertainty and confusion Harry
+must feel when awoke from his bout of self-destruction.
 
 ### After The World, The Pale; After The Pale -- The World Again
 
