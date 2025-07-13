@@ -11,8 +11,7 @@ image: /books/covers/explorers_on_the_moon.jpg
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the seventeenth book in
 the <span class="book-series">{{ page.series }}</span>. It's the second part
-of a two-book arc in which Tintin, Haddock, and Calculus finally land on the
-Moon.
+of a two-book arc in which Tintin, Haddock, and Calculus land on the Moon.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -35,21 +34,22 @@ wrapped up.
 The artwork remains the highlight, with stark, precise drawings of the lunar
 landscape. {{ the_author }} fills every panel with fascinating machines, from
 the bulky spacesuits to the lunar rover and, of course, the rocket. Overall a
-massive improvement from the sparse, sound-stage-like setting drawn in {{ tt2
+massive improvement from the sparse, sound-stage-like setting drawn for {{ tt2
 }}.
 
 The plot of {{ this_book }} moves a little faster, and there are a series of
 smaller challenges, culminating in the discovery of the stowaway Jorgen, who
 is aided by the traitor Wolff. Jorge first appeared in {{ tt8 }}, which
-suggests that the unnamed enemy from the previous book was working for the
+suggests that the unnamed enemies from the previous book was working for the
 nation of Borduria.
 
 Staying true to {{ the_authors }} focus on realism in this arc, the story ends
-in a darker way than most other Tintin stories: Jorge is killed during a
+in a darker way than most other Tintin comics: Jorge is killed during a
 struggle with the reformed Wolff, who later scarifies himself by exiting the
 airlock into space to give the rest of the crew enough oxygen to make it back
-to Earth. {{ the_author }} was compelled by the Church to soften the suicide
-by implying that Wolff might have survived.[^ref]
+to Earth. {{ the_author }} was compelled by the Church to soften this suicide
+by implying that Wolff might have survived,[^ref] although the reference is so
+weak that it barely registers.
 
 [^ref]:
     > When the story was first published Hergé was persuaded by the Church,
@@ -65,7 +65,7 @@ by implying that Wolff might have survived.[^ref]
       access_date="July 12, 2025"
     %}
 
-Together, {{ tt16 }} and {{ this_book }} are a pinnacle of {{ this_series }},
+Together, {{ tt16 }} and {{ this_book }} are a highlight of {{ this_series }},
 showcasing {{ the_authors }} skill at both storytelling and illustration. I've
 let the kids pick the next book to read, and they agreed on {{ tt4 }}; expect
 that review soon!
