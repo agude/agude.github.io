@@ -88,13 +88,13 @@ reality. The Pale is slowly growing, enveloping and dissolving Elysium. But
 once it's done, the world will be born anew. "After the world, the Pale;
 after the Pale -- the world again."
 
-But the Pale is more than just a force of destruction. It is the "rarefied
+The Pale is more than just a force of destruction. It is the "rarefied
 past"---the accumulated weight of all the history, memory, and failure of the
-world, grown so dense it dissolves the present. That same weight mirrors
-Harry's internal collapse: his past mistakes threatening to erase who he is.
+world, grown so dense it dissolves the present. That weight mirrors Harry's
+internal collapse: his past mistakes threaten to erase who he is.
 
-Through all this chaos, through the endless loop of collapse and recovery,
-there is one constant: Kim Kitsuragi, your partner.
+Through all this chaos, through the cycles of collapse and recovery, there is
+one constant: Kim Kitsuragi, your partner.
 
 ### This Man Would Hurl Himself in Death's Way to Save You
 
