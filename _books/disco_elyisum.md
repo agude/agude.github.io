@@ -38,8 +38,7 @@ together. Over time, he learns he's a cop. A damn good one. He's in
 Martinaise. He's there to solve a murder. He was in love once. He blasted his
 mind into pieces with alcohol and drugs. Harry is the perfect window into
 Elysium because he knows nothing about himself or the world. This lets the
-player slowly piece together the setting right alongside Harry as he
-rediscovers it.
+player slowly piece together the setting alongside Harry as he rediscovers it.
 
 The world of {{ this_book }} is almost an alternate history. You can map the
 game world of Elysium to real-world inspirations: Revachol and Martinaise are
@@ -52,15 +51,15 @@ Union.
 
 That familiarity gives you a false sense of security. So when the magical
 realism shows up, it's easy to dismiss. Harry's 24 skills that have
-conversations in his head is just a symptom of his psychosis. The cryptid
+conversations in his head are just a symptom of his psychosis. The cryptid
 hunters are just local weirdos. The curse of the doomed commercial area is
 just bad luck.
 
-Then you learn about the Pale from Joyce Messier. That Elysium is a broken
-world: a shattered landmasses surrounded by a physics-defying,
-reality-dissolving mist. Suddenly, all your assumptions about the world
-collapse. It's disorienting. You feel the same uncertainty and confusion Harry
-must feel when awoke from his bout of self-destruction.
+Then you learn about the Pale from Joyce Messier. That Elysium is a shattered
+landmasses surrounded by a physics-defying, reality-dissolving mist. Suddenly,
+all your assumptions about the world collapse. It's disorienting. You feel the
+same uncertainty and confusion Harry must have felt when he woke up from his
+bout of self-destruction.
 
 ### After The World, The Pale; After The Pale -- The World Again
 
@@ -73,7 +72,8 @@ and redemption; of how history repeats over and over. Harry is the most
 obvious example of this theme: he had a good job, a girlfriend, purpose, a
 child on the way. He destroyed it all with drugs and alcohol, blasting his
 mind into fragmented personalities and erasing his memories. But that isn't
-the end for Harry---that's where his story starts.
+the end for Harry---that's where his story starts. <!-- Well not really starts
+right? That's where the game's story starts -->
 
 <!-- I kind of want to expand on the history part in the Revachol section -->
 
@@ -96,12 +96,12 @@ one constant: Kim Kitsuragi, your partner.
 ### This Man Would Hurl Himself in Death's Way to Save You
 
 Kim Kitsuragi. I do not know how to describe him in a way that will fully
-convey what he is. He's your partner, the anchor that lets you drift, but
-doesn't let you get lost. And you need that, because the game throws you
-straight into chaos---you don't know who you are or where you are---but the
-fact that you can trust Kim gives you something solid to hold onto.
+convey who he is. He's your partner, the anchor that lets you drift, but
+doesn't let you get lost. You need that, because the game throws you straight
+into chaos---you don't know who you are or where you are---but the fact that
+you can trust Kim gives you something solid to hold onto.
 
-He is one of the best developed characters in any media. He is kind,
+Kim is one of the best developed characters in any media. He is kind,
 dependable, utterly loyal. Harry's _Esprit de Corps_ skill puts it best when
 they first meet: "If an assault were launched on this building right now -- if
 the windows came crashing down and the whole world descended upon you -- this
@@ -110,7 +110,7 @@ why?" He is more than that. He isn't a sycophant. He has his own deep history
 and goals. Uncovering them, and building the rapport between you two, is what
 makes the game so powerful.
 
-There's one scene that had me enthralled. We'd just discovered a car sunk
+There's one scene that <!-- What? -->. We'd just discovered a car sunk
 along the coast and covered by the tide. Kim knows immediately that it's
 yours, wrecked during your earlier bender. But he says nothing. He just sits
 on a swing set with you for hours, talking, whistling, waiting, until you're
@@ -124,6 +124,9 @@ rebuild a life he forgot, and his stalwart guide and friend helping him along.
 The world is doomed. The Pale will destroy it. But despite that, despite
 knowing there is no future, there is hope. In a way, that's the story of life.
 You are born knowing you'll die, and yet it is wonderful.
+
+There is a beauty in describing some deep truth about the world, even if that
+truth is bleak.
 
 The writing is haunting. Its phrases still echo in my mind.[^bow]
 
