@@ -89,9 +89,9 @@ once it's done, the world will be born anew. "After the world, the Pale;
 after the Pale -- the world again."
 
 The Pale is more than just a force of destruction. It is the "rarefied
-past"---the accumulated weight of all the history, memory, and failure of the
-world, grown so dense it dissolves the present. That weight mirrors Harry's
-internal collapse: his past mistakes threaten to erase who he is.
+past"---the accumulated weight of all history, memory, and failure, grown so
+dense it dissolves the present. That same weight mirrors Harry's collapse: his
+past threatens to erase who he is.
 
 Through all this chaos, through the cycles of collapse and recovery, there is
 one constant: Kim Kitsuragi, your partner.
