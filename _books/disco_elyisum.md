@@ -18,15 +18,17 @@ image: /books/covers/disco_elysium.jpg
 class="author-name">{{ page.book_authors[0] }}</span> <abbr class="etal">et
 al.</abbr>, is a role-playing game produced by ZA/UM. It's the story of
 Harrier "Harry" Du Bois, a man who wakes up with no memories, and has to solve
-a murder.
+a murder while learning who he is.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
-{{ this_book }} is probably the best video game ever made, <!-- WHY --> and
-it's my favorite. It is not a book. But it is a literary masterpiece.
+I went into {{ this_book }} knowing only that it was highly acclaimed and that
+you played a detective solving a murder. That didn't begin to do it justice.
+{{ this_book }} is one of the best video games ever made. The writing is
+incredible. The voice acting brings every character---and all 24 voices in
+Harry's head---to life. The world is exciting, strange, and alive. It's my
+favorite video game, and it's a literary masterpiece.
 
 ### There Is Nothing; Only Warm, Primordial Blackness
 
@@ -34,9 +36,10 @@ The player controls Harrier "Harry" Du Bois, a man who wakes up almost naked
 in a trashed hotel room with no memory and has to piece his life back
 together. Over time, he learns he's a cop. A damn good one. He's in
 Martinaise. He's there to solve a murder. He was in love once. He blasted his
-mind apart with alcohol and drugs. Harry is the perfect window into Elysium
-because he knows nothing about himself or the world. That lets the author
-slowly build the world for the player as Harry rediscovers it.
+mind into pieces with alcohol and drugs. Harry is the perfect window into
+Elysium because he knows nothing about himself or the world. This lets the
+player slowly piece together the setting right alongside Harry as he
+rediscovers it.
 
 The world of {{ this_book }} is almost an alternate history. You can map the
 game world of Elysium to real-world inspirations: Revachol and Martinaise are
@@ -47,25 +50,35 @@ Revolution and Karl Marx; Samara is Southeast Asia, and the war-crime-ridden
 conflicts there echo the Korean and Vietnam wars; the EPIS is the European
 Union.
 
-That familiarity is used to distract the player, to lull them into a false
-sense of security. So when the magical realism kicks in, it hits harder. It's
-disorienting. It makes you feel the way Harry must feel.
+That familiarity is used to lull you into a false sense of security. So when
+the magical realism shows up it's disorienting. It makes you feel the same
+uncertainty and confusion that Harry must feel as your assumptions about the
+world collapse.
 
-I ignored a lot of the early hints that Elysium is not Earth. Harry's 24,
-seemingly sentient skills that talk to each other? The man is blasted out of
-his mind. The scientist obsessed with cryptids? Just some weirdos --- we have
-them here too. A talking necktie? Again, Harry is crazy. The world is a bunch
-of shattered landmasses connected by physics-defying, all-consuming,
-ever-expanding Pale? Wait...
+<!-- Combine above and below? Something like "That familiarity gives you a
+false sense of security that makes it easy to miss..." Then the examples, then
+the pale, then "It makes you feel..." -->
+
+This sense of false security makes it easy to ignore the signs of the
+supernatural. Harry's 24 skills that have conversations in his head is just a
+symptom of his psychosis. The cryptid hunters are just local weirdos. Then you
+learn about the Pale. That Elysium is set of shattered landmasses surrounded
+by a physics-defying, reality-dissolving mist.
 
 ### After The World, The Pale; After The Pale -- The World Again
 
+<!-- Is it really cyclical? It's sort of... The past has a grasp of the
+future. Harry's past action... But maybe the Pale is what connects the
+cyclical nature to the past? It's rarified past... -->
+
 A major theme of {{ this_book }} is the cyclical nature of life; of failure
 and redemption; of how history repeats over and over. Harry is the most
-obvious example of this theme: he had a good job, a wife, purpose, a child on
-the way. He destroyed it all with drugs and alcohol, blasting his mind into
-fragmented personalities and erasing his memories. But that isn't the end for
-Harry---that's where his story starts.
+obvious example of this theme: he had a good job, a girlfriend, purpose, a
+child on the way. He destroyed it all with drugs and alcohol, blasting his
+mind into fragmented personalities and erasing his memories. But that isn't
+the end for Harry---that's where his story starts.
+
+<!-- I kind of want to expand on the history part in the Revachol section -->
 
 Revachol itself also goes through cycles. Once the seat of a powerful, fascist
 empire, it fell into moral decay before being torn apart by a communist
