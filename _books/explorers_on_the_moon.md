@@ -33,19 +33,19 @@ wrapped up.
 
 The artwork remains the highlight, with stark, precise drawings of the lunar
 landscape. {{ the_author }} fills every panel with fascinating machines, from
-the bulky spacesuits to the lunar rover and, of course, the rocket. Overall a
+the bulky spacesuits to the lunar rover and, of course, the rocket. Overall, a
 massive improvement from the sparse, sound-stage-like setting drawn for {{ tt2
 }}.
 
 The plot of {{ this_book }} moves a little faster, and there are a series of
 smaller challenges, culminating in the discovery of the stowaway Jorgen, who
-is aided by the traitor Wolff. Jorge first appeared in {{ tt8 }}, which
-suggests that the unnamed enemies from the previous book was working for the
+is aided by the traitor Wolff. Jorgen first appeared in {{ tt8 }}, which
+suggests that the unnamed enemies from the previous book were working for the
 nation of Borduria.
 
 Staying true to {{ the_authors }} focus on realism in this arc, the story ends
-in a darker way than most other Tintin comics: Jorge is killed during a
-struggle with the reformed Wolff, who later scarifies himself by exiting the
+in a darker way than most other Tintin comics: Jorgen is killed during a
+struggle with the reformed Wolff, who later sacrifices himself by exiting the
 airlock into space to give the rest of the crew enough oxygen to make it back
 to Earth. {{ the_author }} was compelled by the Church to soften this suicide
 by implying that Wolff might have survived,[^ref] although the reference is so
