@@ -52,10 +52,10 @@ by implying that Wolff might have survived,[^ref] although the reference is so
 weak that it barely registers.
 
 [^ref]:
-    > When the story was first published Hergé was persuaded by the Church,
-    > against his wishes, to modify this part of the narrative to allow for
-    > the possibility of a miracle. Wolff's letter refers to the possibility
-    > that he might escape death, which dampens the suicidal tone.
+    > When the story was first published {{ the_author }} was persuaded by the
+    > Church, against his wishes, to modify this part of the narrative to
+    > allow for the possibility of a miracle. Wolff's letter refers to the
+    > possibility that he might escape death, which dampens the suicidal tone.
 
     {% citation
       work_title="Explorers on the Moon"
