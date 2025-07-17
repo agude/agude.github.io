@@ -1,10 +1,10 @@
 ---
-date: 2025-05-25
+date: 2025-07-17
 title: Network Effect
 book_authors: Martha Wells
 series: The Murderbot Diaries
 book_number: 5
-rating: null
+rating: 5
 image: /books/covers/network_effect.jpg
 ---
 
