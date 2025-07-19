@@ -60,32 +60,23 @@ from his self-destruction.
 
 ### After The World, The Pale; After The Pale -- The World Again
 
-<!-- Is it really cyclical? It's sort of... The past has a grasp of the
-future. Harry's past action... But maybe the Pale is what connects the
-cyclical nature to the past? It's rarified past... -->
+A major theme of {{ this_book }} is how the past has an unshakable grip on the
+present. Harry is the clearest example: he had a good job, a partner, purpose,
+a child on the way. He destroyed it all with drugs and alcohol, shattering his
+mind into fragments. His entire existence is now spent trying to escape the
+fallout of a past he can't and doesn't want to remember.
 
-A major theme of {{ this_book }} is the cyclical nature of life; of failure
-and redemption, of history repeating itself. Harry is the clearest example: he
-had a good job, a partner, purpose, a child on the way. He destroyed it all
-with drugs and alcohol, shattering his mind into fragments and erasing his
-memory. But that isn't the end for Harry---that's where his story begins.
+Revachol is the same, haunted by it's history. It's buildings are pockmarked
+by the bullet holes from the failed communist revolution. The Coalition
+warships still float over the city ready to level it, a reminder that the
+city's autonomy is an illusion. This influence of the past is woven into
+reality itself. The Pale is the "rarefied past"---the weight of history,
+memory, and failure grown so dense that it erases the present.
 
-<!-- I kind of want to expand on the history part in the Revachol section -->
-
-Revachol itself is caught in cycles. Once the seat of a fascist empire, it
-collapsed into moral decay, then was torn apart by a communist uprising. From
-that, the Commune emerged, only to be crushed by the Coalition of Nations.
-This repeating pattern is woven into reality itself. The Pale slowly spreads,
-dissolving Elysium. But once it finishes, the world is reborn. "After the
-world, the Pale; after the Pale -- the world again." Just like Harry.
-
-The Pale is more than a force of destruction. It's the "rarefied past"---the
-weight of history, memory, and failure grown so dense that it erases the
-present. That same weight mirrors Harry's collapse: his past threatens to
-erase who he is now.
-
-Through all this, through collapse and recovery, one constant remains: Kim
-Kitsuragi, your partner.
+There are no easy answers in {{ this_book }}: Revachol doesn't get it's
+revolution; the Pale continues its advance. But, maybe, for Harry, there is
+hope. Something to get him back on his feet for good this time: his new
+partner, Kim Kitsuragi.
 
 ### This Man Would Hurl Himself in Death's Way to Save You
 
