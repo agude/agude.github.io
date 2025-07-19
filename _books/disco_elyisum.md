@@ -49,17 +49,17 @@ Revolution and Karl Marx; Samara is Southeast Asia, and the war-crime-ridden
 conflicts there echo the Korean and Vietnam wars; the EPIS is the European
 Union.
 
-That familiarity gives you a false sense of security. So when the magical
-realism shows up, it's easy to dismiss. Harry's 24 skills that have
+That familiarity gives you a false sense of security. That makes it easy to
+dismiss the magical realism shows up. Harry's 24 skills that have
 conversations in his head are just a symptom of his psychosis. The cryptid
 hunters are just local weirdos. The curse of the doomed commercial area is
 just bad luck.
 
 Then you learn about the Pale from Joyce Messier. That Elysium is a shattered
 landmasses surrounded by a physics-defying, reality-dissolving mist. Suddenly,
-all your assumptions about the world collapse. It's disorienting. You feel the
-same uncertainty and confusion Harry must have felt when he woke up from his
-bout of self-destruction.
+all your assumptions about the world collapse. You feel the same uncertainty
+and confusion Harry must have felt when he woke up from his bout of
+self-destruction.
 
 ### After The World, The Pale; After The Pale -- The World Again
 
