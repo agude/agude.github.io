@@ -17,7 +17,7 @@ image: /books/covers/disco_elysium.jpg
 <cite class="video-game-title">{{ page.title }}</cite>, written by <span
 class="author-name">{{ page.book_authors[0] }}</span> <abbr class="etal">et
 al.</abbr>, is a role-playing game produced by ZA/UM. It's the story of
-Harrier "Harry" Du Bois, a man who wakes up with no memories, and has to solve
+Harrier "Harry" Du Bois, a man who wakes up with no memories and has to solve
 a murder while learning who he is.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
@@ -38,28 +38,25 @@ together. Over time, he learns he's a cop. A damn good one. He's in
 Martinaise. He's there to solve a murder. He was in love once. He blasted his
 mind into pieces with alcohol and drugs. Harry is the perfect window into
 Elysium because he knows nothing about himself or the world. This lets the
-player slowly piece together the setting alongside Harry as he rediscovers it.
+player discover the setting alongside him.
 
-The world of {{ this_book }} is almost an alternate history. You can map the
-game world of Elysium to real-world inspirations: Revachol and Martinaise are
-France; Graad is Russia; Oranje is the Netherlands; Seol is Japan and Korea;
-Mesque is Spain and Mexico. Even in-game events and people have clear
-analogues: the Antecentennial Revolution and Kras Mazov are the October
-Revolution and Karl Marx; Samara is Southeast Asia, and the war-crime-ridden
-conflicts there echo the Korean and Vietnam wars; the EPIS is the European
-Union.
+The world of {{ this_book }} is almost an alternate history. You can map
+Elysium to real-world inspirations: Revachol and Martinaise are France; Graad
+is Russia; Oranje is the Netherlands; Seol is Japan and Korea; Mesque is Spain
+and Mexico. Even the events and figures in the game have clear analogues: the
+Antecentennial Revolution and Kras Mazov are the October Revolution and Karl
+Marx; Samara is Southeast Asia and the war-crime-ridden conflicts there recall
+Korea and Vietnam; the EPIS is the European Union.
 
-That familiarity gives you a false sense of security. That makes it easy to
-dismiss the magical realism shows up. Harry's 24 skills that have
-conversations in his head are just a symptom of his psychosis. The cryptid
-hunters are just local weirdos. The curse of the doomed commercial area is
-just bad luck.
+That familiarity gives you a false sense of security. It makes it easy to
+dismiss the game's magical realism. Harry's 24 talking skills seem like
+symptoms of psychosis. The cryptid hunters are just local eccentrics. The
+curse on the doomed commercial area is just bad luck.
 
-Then you learn about the Pale from Joyce Messier. That Elysium is a shattered
-landmasses surrounded by a physics-defying, reality-dissolving mist. Suddenly,
-all your assumptions about the world collapse. You feel the same uncertainty
-and confusion Harry must have felt when he woke up from his bout of
-self-destruction.
+Then Joyce Messier tells you about the Pale. That Elysium is a shattered world
+surrounded by a physics-defying, reality-dissolving mist. Suddenly all your
+assumptions collapse. You feel the same confusion Harry must have felt waking
+from his self-destruction.
 
 ### After The World, The Pale; After The Pale -- The World Again
 
@@ -68,53 +65,50 @@ future. Harry's past action... But maybe the Pale is what connects the
 cyclical nature to the past? It's rarified past... -->
 
 A major theme of {{ this_book }} is the cyclical nature of life; of failure
-and redemption; of how history repeats over and over. Harry is the most
-obvious example of this theme: he had a good job, a girlfriend, purpose, a
-child on the way. He destroyed it all with drugs and alcohol, blasting his
-mind into fragmented personalities and erasing his memories. But that isn't
-the end for Harry---that's where his story starts. <!-- Well not really starts
-right? That's where the game's story starts -->
+and redemption, of history repeating itself. Harry is the clearest example: he
+had a good job, a partner, purpose, a child on the way. He destroyed it all
+with drugs and alcohol, shattering his mind into fragments and erasing his
+memory. But that isn't the end for Harry---that's where his story begins.
 
 <!-- I kind of want to expand on the history part in the Revachol section -->
 
-Revachol itself also goes through cycles. Once the seat of a powerful, fascist
-empire, it fell into moral decay before being torn apart by a communist
-uprising. From the ashes rose the Commune, which was then crushed by the
-Coalition of Nations. This cyclical pattern is built into the very fabric of
-reality. The Pale is slowly growing, enveloping and dissolving Elysium. But
-once it's done, the world will be born anew. "After the world, the Pale;
-after the Pale -- the world again."
+Revachol itself is caught in cycles. Once the seat of a fascist empire, it
+collapsed into moral decay, then was torn apart by a communist uprising. From
+that, the Commune emerged, only to be crushed by the Coalition of Nations.
+This repeating pattern is woven into reality itself. The Pale slowly spreads,
+dissolving Elysium. But once it finishes, the world is reborn. "After the
+world, the Pale; after the Pale -- the world again." Just like Harry.
 
-The Pale is more than just a force of destruction. It is the "rarefied
-past"---the accumulated weight of all history, memory, and failure, grown so
-dense it dissolves the present. That same weight mirrors Harry's collapse: his
-past threatens to erase who he is.
+The Pale is more than a force of destruction. It's the "rarefied past"---the
+weight of history, memory, and failure grown so dense that it erases the
+present. That same weight mirrors Harry's collapse: his past threatens to
+erase who he is now.
 
-Through all this chaos, through the cycles of collapse and recovery, there is
-one constant: Kim Kitsuragi, your partner.
+Through all this, through collapse and recovery, one constant remains: Kim
+Kitsuragi, your partner.
 
 ### This Man Would Hurl Himself in Death's Way to Save You
 
-Kim Kitsuragi. I do not know how to describe him in a way that will fully
-convey who he is. He's your partner, the anchor that lets you drift, but
-doesn't let you get lost. You need that, because the game throws you straight
-into chaos---you don't know who you are or where you are---but the fact that
-you can trust Kim gives you something solid to hold onto.
+Kim Kitsuragi. I don't know how to describe him in a way that fully captures
+who he is. He's your partner, the anchor who lets you drift but never lets you
+get lost. You need that, because the game throws you straight into chaos---you
+don't know who you are or where you are---but knowing you can trust Kim gives
+you something solid to hold onto.
 
-Kim is one of the best developed characters in any media. He is kind,
+Kim is one of the best-developed characters in any medium. He is kind,
 dependable, utterly loyal. Harry's _Esprit de Corps_ skill puts it best when
 they first meet: "If an assault were launched on this building right now -- if
 the windows came crashing down and the whole world descended upon you -- this
 man would hurl himself in death's way to save you. You are sure of this -- but
-why?" He is more than that. He isn't a sycophant. He has his own deep history
-and goals. Uncovering them, and building the rapport between you two, is what
-makes the game so powerful.
+why?" And he's more than that. He isn't a sycophant. He has his own history,
+his own goals. Uncovering them, and building your relationship with him, is
+what makes the game so powerful.
 
-There's one scene that <!-- What? -->. We'd just discovered a car sunk
-along the coast and covered by the tide. Kim knows immediately that it's
-yours, wrecked during your earlier bender. But he says nothing. He just sits
-on a swing set with you for hours, talking, whistling, waiting, until you're
-ready to face what you've done. That's who Kim is.
+There's one scene that stayed with me. We'd just discovered a car sunken along
+the coast, hidden beneath the tide. Kim knows immediately that it's yours,
+wrecked during your earlier bender. But he says nothing. He just sits with you
+on a swing set for hours, talking, whistling, waiting, until you're ready to
+face what you've done. That's who Kim is.
 
 ### Something Beautiful is Going to Happen
 
@@ -125,8 +119,8 @@ The world is doomed. The Pale will destroy it. But despite that, despite
 knowing there is no future, there is hope. In a way, that's the story of life.
 You are born knowing you'll die, and yet it is wonderful.
 
-There is a beauty in describing some deep truth about the world, even if that
-truth is bleak.
+There is a beauty in speaking a deep truth about the world, even if that truth
+is bleak.
 
 The writing is haunting. Its phrases still echo in my mind.[^bow]
 
