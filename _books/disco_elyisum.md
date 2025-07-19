@@ -32,21 +32,21 @@ favorite video game, and it's a literary masterpiece.
 
 ### There Is Nothing; Only Warm, Primordial Blackness
 
-The player controls Harrier "Harry" Du Bois, a man who wakes up almost naked
-in a trashed hotel room with no memory and has to piece his life back
-together. Over time, he learns he's a cop. A damn good one. He's in
-Martinaise. He's there to solve a murder. He was in love once. He blasted his
-mind into pieces with alcohol and drugs. Harry is the perfect window into
-Elysium because he knows nothing about himself or the world. This lets the
-player discover the setting alongside him.
+The player controls Harry Du Bois, a man who wakes up almost naked in a
+trashed hotel room with no memory and has to piece his life back together.
+Over time, he learns he's a cop. A damn good one. He's in Martinaise. He's
+there to solve a murder. He was in love once. He blasted his mind into pieces
+with alcohol and drugs. Harry is the perfect window into Elysium because he
+knows nothing about himself or the world. This lets the player discover the
+setting alongside him.
 
 The world of {{ this_book }} is almost an alternate history. You can map
-Elysium to real-world inspirations: Revachol and Martinaise are France; Graad
+Elysium to real-world inspirations: Martinaise and Revachol are France; Graad
 is Russia; Oranje is the Netherlands; Seol is Japan and Korea; Mesque is Spain
 and Mexico. Even the events and figures in the game have clear analogues: the
 Antecentennial Revolution and Kras Mazov are the October Revolution and Karl
 Marx; Samara is Southeast Asia and the war-crime-ridden conflicts there recall
-Korea and Vietnam; the EPIS is the European Union.
+the Korean and Vietnam wars; the EPIS is the European Union.
 
 That familiarity gives you a false sense of security. It makes it easy to
 dismiss the game's magical realism. Harry's 24 talking skills seem like
@@ -70,13 +70,13 @@ Revachol is the same, haunted by its history. Its buildings are pockmarked
 with bullet holes from the failed communist revolution. The Coalition warships
 still float above the city, ready to level it, a reminder that Revachol's
 autonomy is an illusion. This influence of the past is woven into reality
-itself. The Pale is the "rarefied past"---the weight of history, memory, and
+itself. The Pale is the "rarefied past": the weight of history, memory, and
 failure grown so dense that it erases the present.
 
-There are no easy answers in {{ this_book }}. Revachol doesn't get its
-revolution. The Pale continues its advance. But maybe, for Harry, there is
-hope. Something to get him back on his feet for good this time: his new
-partner, Kim Kitsuragi.
+{{ this_book }} is a tragedy. Revachol doesn't get its revolution. The Pale
+continues its advance. But the story of Harry doesn't have to be. Maybe there
+is hope for him, something to get him back on his feet for good this time: his
+new partner, Kim Kitsuragi.
 
 ### This Man Would Hurl Himself in Death's Way to Save You
 
