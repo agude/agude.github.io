@@ -64,17 +64,17 @@ A major theme of {{ this_book }} is how the past has an unshakable grip on the
 present. Harry is the clearest example: he had a good job, a partner, purpose,
 a child on the way. He destroyed it all with drugs and alcohol, shattering his
 mind into fragments. His entire existence is now spent trying to escape the
-fallout of a past he can't and doesn't want to remember.
+fallout of a past he can't---and doesn't want to---remember.
 
-Revachol is the same, haunted by it's history. It's buildings are pockmarked
-by the bullet holes from the failed communist revolution. The Coalition
-warships still float over the city ready to level it, a reminder that the
-city's autonomy is an illusion. This influence of the past is woven into
-reality itself. The Pale is the "rarefied past"---the weight of history,
-memory, and failure grown so dense that it erases the present.
+Revachol is the same, haunted by its history. Its buildings are pockmarked
+with bullet holes from the failed communist revolution. The Coalition warships
+still float above the city, ready to level it, a reminder that Revachol's
+autonomy is an illusion. This influence of the past is woven into reality
+itself. The Pale is the "rarefied past"---the weight of history, memory, and
+failure grown so dense that it erases the present.
 
-There are no easy answers in {{ this_book }}: Revachol doesn't get it's
-revolution; the Pale continues its advance. But, maybe, for Harry, there is
+There are no easy answers in {{ this_book }}. Revachol doesn't get its
+revolution. The Pale continues its advance. But maybe, for Harry, there is
 hope. Something to get him back on his feet for good this time: his new
 partner, Kim Kitsuragi.
 
