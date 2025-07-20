@@ -119,16 +119,14 @@ ready to face what I'd done. That's who Kim is.
 
 ### Something Beautiful is Going to Happen
 
-But despite the bleakness, there is so much beauty in {{ this_book }}. There
-is humor and absurdity and friendship and sorrow. There is a man trying to
-rebuild a life he forgot, and his stalwart guide and friend helping him along.
-The world is doomed. The Pale will destroy it. But despite that---despite
-knowing there is no future---there is hope. In a way, that's the story of
-life. You are born knowing you'll die, and yet it is wonderful. There is a
-beauty in speaking a deep truth about the world, even if that truth is bleak.
+The world is doomed. The Pale will destroy it. The beauty of {{ this_book }}
+lies in the contradiction that there is no future, but there is hope. It's
+bleak, but so full of humor and absurdity and friendship and sorrow. In a way,
+that's the story of life. The ending is certain for all of us, but the journey
+there can be wonderful.
 
 The writing is haunting, with wonderfully crafted prose that reminds me of
-masterpieces like {{ faulkners }} {{ absalom }}.[^gothic] It finds beauty in
+masterpieces like {{ faulkners }} {{ absalom }}[^gothic] It finds beauty in
 the mundane and the decay that permeate Martinaise. This is never clearer than
 in the scene describing Harry watching his lost love as her streetcar recedes
 into the distance, which paints the picture perfectly in my mind:
