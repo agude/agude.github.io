@@ -102,20 +102,20 @@ get lost. You need that, because the game throws you straight into chaos---you
 don't know who you are or where you are---but knowing you can trust Kim gives
 you something solid to hold onto.
 
-Kim is one of the best-developed characters in any medium. He is kind,
-dependable, utterly loyal. Harry's _Esprit de Corps_ skill puts it best when
-they first meet: "If an assault were launched on this building right now -- if
-the windows came crashing down and the whole world descended upon you -- this
-man would hurl himself in death's way to save you. You are sure of this -- but
-why?" And he's more than that. He isn't a sycophant. He has his own history,
+Kim is kind, dependable, utterly loyal. Harry's _Esprit de Corps_ skill puts
+it best when they first meet: "If an assault were launched on this building
+right now -- if the windows came crashing down and the whole world descended
+upon you -- this man would hurl himself in death's way to save you. You are
+sure of this -- but why?" And he's more than that. He isn't a sycophant. He is
+one of the best-developed characters in any medium. He has his own history,
 his own goals. Uncovering them, and building your relationship with him, is
 what makes the game so powerful.
 
-There's one scene that stayed with me. We'd just discovered a car sunken along
-the coast, hidden beneath the tide. Kim knows immediately that it's yours,
-wrecked during your earlier bender. But he says nothing. He just sits with you
-on a swing set for hours, talking, whistling, waiting, until you're ready to
-face what you've done. That's who Kim is.
+There's one scene that stayed with me. Kim and I had just discovered a car
+sunken along the coast, hidden beneath the tide. Kim knew immediately that it
+was mine, wrecked during my earlier bender. But he said nothing. He just sat
+with me on a swing set for hours, talking, whistling, waiting, until I was
+ready to face what I'd done. That's who Kim is.
 
 ### Something Beautiful is Going to Happen
 
@@ -154,15 +154,15 @@ into the distance, which paints the picture perfectly in my mind:
 > *always* been there. A great see-through world. The tenderness you feel. The
 > ghost of Revachol between you, carrying your signals. The holy messenger.
 
-The prose is brought to life by the fantastic voice actors. Lenval Brown
-anchors the performance as the narrator and all 24 voices in Harry's head,
-each one with a slightly different personality. The more primal parts of
-Harry's brain are voiced by Mikee W. Goodman. The combination of two actors
-voicing Harry's thoughts makes the arguments in his head feel more real.
-Jullian Champenois makes Kim feel calm, collected, and so cool. You want to
-impress him, to show him that you're not the failure the world thinks you are.
-Honestly, it's the voices that pulled me in. As beautiful as the prose is,
-it's the voices that give it weight.
+The prose is brought to life by the fantastic cast of voice actors. Lenval
+Brown anchors the performance as the narrator and the voice of Harry's
+intellect, while the more primal parts of his brain are voiced by Mikee W.
+Goodman. The contrast between Brown's deep, measured voice against Goodman's
+more manic style perfectly illustrates the different states of mind Harry is
+in. Jullian Champenois makes Kim feel calm, collected, and so cool. You want
+to impress him, to show him that you're not the failure the world thinks you
+are. Honestly, it's the voices that pulled me in. As beautiful as the prose
+is, it's the voices that give it weight.
 
 The music by Sea Power matches the tone perfectly. The songs are ethereal and
 melancholic, but a bright punch of trumpet occasionally pulls you out of the
