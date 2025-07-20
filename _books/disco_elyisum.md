@@ -23,6 +23,10 @@ a murder while learning who he is.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
+{% capture faulkners %}{% author_link "William Faulkner" possessive %}{% endcapture %}
+{% capture faulkner %}{% author_link "William Faulkner" %}{% endcapture %}
+{% capture absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}
+
 I went into {{ this_book }} knowing only that it was highly acclaimed and that
 you played a detective solving a murder. That didn't begin to do it justice.
 {{ this_book }} is one of the best video games ever made. The writing is
@@ -108,25 +112,48 @@ is humor and absurdity and friendship and sorrow. There is a man trying to
 rebuild a life he forgot, and his stalwart guide and friend helping him along.
 The world is doomed. The Pale will destroy it. But despite that, despite
 knowing there is no future, there is hope. In a way, that's the story of life.
-You are born knowing you'll die, and yet it is wonderful.
+You are born knowing you'll die, and yet it is wonderful. There is a beauty in
+speaking a deep truth about the world, even if that truth is bleak.
 
-There is a beauty in speaking a deep truth about the world, even if that truth
-is bleak.
+The writing is haunting, with wonderfully crafted prose that reminds me of
+masterpieces like {{ faulkners }} {{ absalom }}[^gothic] It finds beauty in
+the mundane and the decay that permeate Martinaise. This is never clearer than
+in the scene describing Harry watching his lost-love as her streetcar recedes
+into the distance, which paints the picture perfectly in my mind:
 
-The writing is haunting. Its phrases still echo in my mind.[^bow]
+[^gothic]: {{ faulkners }} work and {{ this_book }} share more than fantastic
+    prose. Both follow the Gothic tradition, focusing on decaying settings
+    where the oppressive weight of a failed past suffocates the present.
+    Faulkner's post-Civil War South and the post-revolutionary city of
+    Martinaise are haunted by their histories and populated by characters
+    psychologically scarred by that trauma.
 
-[^bow]:
-    > Sparks fall like snow from the bow collector of streetcar no 42. Slowly down
-    > the slope from Voyager Road and then east on the B206, across the river, to
-    > where there are no closed factories or ruins. To study. At the academy.
-    > Electrical cables run overhead and the bow collector draws across them like
-    > a musical instrument. A flash. She's standing at the rear window, holding
-    > onto the rail. In a spring coat, waving at you...
-    >
-    > It's early in the morning. The world is dark blue. The sparks light her
-    > face. A delicate composition of triangles. The street seems to grow longer,
-    > like in a dolly zoom. And there's something in the air as you stand there
-    > and wave back at the shape growing smaller and smaller. Something that has
-    > *always* been there. A great see-through world. The tenderness you feel. The
-    > ghost of Revachol between you, carrying your signals. The holy messenger.
+> Sparks fall like snow from the bow collector of streetcar no 42. Slowly down
+> the slope from Voyager Road and then east on the B206, across the river, to
+> where there are no closed factories or ruins. To study. At the academy.
+> Electrical cables run overhead and the bow collector draws across them like
+> a musical instrument. A flash. She's standing at the rear window, holding
+> onto the rail. In a spring coat, waving at you...
+>
+> It's early in the morning. The world is dark blue. The sparks light her
+> face. A delicate composition of triangles. The street seems to grow longer,
+> like in a dolly zoom. And there's something in the air as you stand there
+> and wave back at the shape growing smaller and smaller. Something that has
+> *always* been there. A great see-through world. The tenderness you feel. The
+> ghost of Revachol between you, carrying your signals. The holy messenger.
 
+The prose is brought to life by the fantastic voice actors. Lenval Brown
+anchors the performance as the narrator and all 24 voices in Harry's head,
+each one with a slightly different personality. The more primal parts of
+Harry's brain are voiced by Mikee W. Goodman. The combination of two actors
+voicing Harry's thoughts make the arguments in his feel more real. Jullian
+Champenois makes Kim feel calm, collected, and so cool. You want to impress
+him, to show him that you're not the failure the world thinks you are.
+Honestly it's the voices that pulled me in; as beautiful as the prose is, it's
+the voices that give it weight.
+
+The music by Sea Power matches the theme and feeling perfectly. The songs are
+ethereal and melancholic, but a bright punch of trumpet occasionally pulls you
+out of the gloom. My biggest regret is that I can never play {{ this_book }}
+for the first time again, but listening to the soundtrack is the closest I can
+get, as it instantly takes me back to the moment I first heard each track.
