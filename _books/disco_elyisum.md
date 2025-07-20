@@ -74,7 +74,7 @@ surrounded by a physics-defying, reality-dissolving mist. Suddenly, all your
 assumptions collapse. You feel the same confusion Harry must have felt waking
 from his self-destruction.
 
-### After The World, The Pale; After The Pale -- The World Again
+### After the World, the Pale; After the Pale -- The World Again
 
 A major theme of {{ this_book }} is how the past has an unshakable grip on the
 present. Harry is the clearest example: he had a good job, a partner, purpose,
@@ -117,7 +117,7 @@ was mine, wrecked during my earlier bender. But he said nothing. He just sat
 with me on a swing set for hours, talking, whistling, waiting, until I was
 ready to face what I'd done. That's who Kim is.
 
-### Something Beautiful is Going to Happen
+### Something Beautiful Is Going to Happen
 
 The world is doomed. The Pale will destroy it. The beauty of {{ this_book }}
 lies in the contradiction that there is no future, but there is hope. It's
@@ -127,9 +127,9 @@ there can be wonderful.
 
 The writing is haunting, with wonderfully crafted prose that reminds me of
 masterpieces like {{ faulkners }} {{ absalom }}[^gothic] It finds beauty in
-the mundane and the decay that permeate Martinaise. This is never clearer than
-in the scene describing Harry watching his lost love as her streetcar recedes
-into the distance, which paints the picture perfectly in my mind:
+the mundane and the decay that permeates Martinaise. This is never clearer
+than in the scene describing Harry watching his lost love as her streetcar
+recedes into the distance, which paints the picture perfectly in my mind:
 
 [^gothic]: {{ faulkners }} work and {{ this_book }} share more than fantastic
     prose. Both follow the Gothic tradition, focusing on decaying settings
@@ -155,12 +155,12 @@ into the distance, which paints the picture perfectly in my mind:
 The prose is brought to life by the fantastic cast of voice actors. Lenval
 Brown anchors the performance as the narrator and the voice of Harry's
 intellect, while the more primal parts of his brain are voiced by Mikee W.
-Goodman. The contrast between Brown's deep, measured voice against Goodman's
-more manic style perfectly illustrates the different states of mind Harry is
-in. Jullian Champenois makes Kim feel calm, collected, and so cool. You want
-to impress him, to show him that you're not the failure the world thinks you
-are. Honestly, it's the voices that pulled me in. As beautiful as the prose
-is, it's the voices that give it weight.
+Goodman. The contrast between Brown's deep, measured voice and Goodman's more
+manic style perfectly illustrates the different states of mind Harry is in.
+Jullian Champenois makes Kim feel calm, collected, and so cool. You want to
+impress him, to show him that you're not the failure the world thinks you are.
+Honestly, it's the voices that pulled me in. As beautiful as the prose is,
+it's the voices that give it weight.
 
 The music by Sea Power matches the tone perfectly. The songs are ethereal and
 melancholic, but a bright punch of trumpet occasionally pulls you out of the
@@ -191,7 +191,7 @@ instantly takes me back to the moment I first heard each track.
 
 ### Cold and Heavy -- Like Truth
 
-{{ this_book }} is not just my favorite game, it is a testament to what the
+{{ this_book }} is not just my favorite game; it is a testament to what the
 medium can produce. It answers the question of "Can a video game be art?" so
 emphatically that the question itself seems obsolete. It shows that a game can
 be a literary work that rivals the greatest novels, and can be surprisingly
