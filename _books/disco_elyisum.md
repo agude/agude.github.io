@@ -157,3 +157,11 @@ ethereal and melancholic, but a bright punch of trumpet occasionally pulls you
 out of the gloom. My biggest regret is that I can never play {{ this_book }}
 for the first time again, but listening to the soundtrack is the closest I can
 get, as it instantly takes me back to the moment I first heard each track.
+
+### This Is Somewhere to Be; This Is All You Have, but It's Still Something
+
+{{ this_book }} is not just my favorite game, it is a testament to what the
+medium can produce. It answers the question of "Can a video game be art?" so
+emphatically that it makes the questioner seem quaint. It shows that a game
+can be a literary work that rivals the greatest novels, and can be damn fun
+while doing it.
