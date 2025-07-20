@@ -27,3 +27,14 @@ class="author-name">{{ page.book_authors }}</span>, is the fifth book in the
 {% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}
 {% capture mb6 %}{% book_link "Fugitive Telemetry" %}{% endcapture %}
 {% capture mb7 %}{% book_link "System Collapse" %}{% endcapture %}
+
+{% capture brunner %}{% author_link "John Brunner" %}{% endcapture %}
+{% capture zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
+
+{{ this_book }} brings back the best non-Murderbot character from the GrayCris
+story: ART, the asshole research transport, first seen in {{ mb2 }}. The power
+fantasy is toned-down a little---instead of being able to deal with anything,
+ART has been taken over and needs help.
+
+- The `HelpMe.file` used to tell a parallel story reminds me of how {{
+  brunner }} builds the world with various in-world media in {{ zanzibar }}.
