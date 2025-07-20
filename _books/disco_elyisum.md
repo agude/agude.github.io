@@ -177,8 +177,8 @@ instantly takes me back to the moment I first heard each track.
   wattss }} {{ blindsight }} and {{ echopraxia }}.
 
 - The trauma of Martinaise's failed revolution, casting a shadow over the city
-  and its people, echoes the lingering scars of the Idiran-Culture War and the
-  Chelgrian intervention in {{ bankss }} {{ look_to_windward }}.
+  and its people, echoes the lingering scars of the Idiran--Culture War and
+  the Chelgrian intervention in {{ bankss }} {{ look_to_windward }}.
 
 - The surreal detective noir elements evoke {{ lethems }} {{
   gun_with_occasional_music }}, with talking kangaroos replaced with talking
@@ -193,6 +193,6 @@ instantly takes me back to the moment I first heard each track.
 
 {{ this_book }} is not just my favorite game, it is a testament to what the
 medium can produce. It answers the question of "Can a video game be art?" so
-emphatically that the question itself seem obsolete. It shows that a game can
-be a literary work that rivals the greatest novels, and can be damn fun while
-doing it.
+emphatically that the question itself seems obsolete. It shows that a game can
+be a literary work that rivals the greatest novels, and can be surprisingly
+fun while doing it.
