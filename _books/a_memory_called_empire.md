@@ -42,6 +42,8 @@ home from being annexed by the Teixcalaanli empire.
 {% capture cards %}{% author_link "Orson Scott Card" possessive %}{% endcapture %}
 {% capture enders_game %}{% book_link "Ender's Game" %}{% endcapture %}
 
+{% capture disco %}{% book_link "Disco Elysium" %}{% endcapture %}
+
 {{ this_book }} is a story of courtly intrigue in a science fiction empire.
 Mahit is summoned suddenly to Teixcalaan to replace her predecessor, Yskander
 Aghavn. She soon discovers he has been murdered, and that the empire is
@@ -105,10 +107,9 @@ This book reminded me of several others:
   brunners }} {{ stand_on_zanzibar }}.
 
 - The way Mahit's thoughts interrupt the narration reminded me of Harrier Du
-  Bois in <cite class="video-game-title">Disco Elysium</cite>. The part where
-  Mahit is waking up during and after surgery, her mind scrambled and trying to
-  stabilize, echoed Harry waking to dialogue from his Ancient Reptilian Brain
-  and Limbic System.
+  Bois in {{ disco }}. The part where Mahit is waking up during and after
+  surgery, her mind scrambled and trying to stabilize, echoed Harry waking to
+  dialogue from his Ancient Reptilian Brain and Limbic System.
 
 - The way I noticed the writing style made me think of {{ wolfes }} {{
   shadow_of_the_torturer }}, with its slightly archaic prose and intentionally

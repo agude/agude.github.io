@@ -49,7 +49,7 @@ their genocidal campaign against humanity.
 
 {% capture mass_effect %}<cite class="video-game-title">Mass Effect</cite>{% endcapture %}
 {% capture halo %}<cite class="video-game-title">Halo</cite>{% endcapture %}
-{% capture disco_elysium %}<cite class="video-game-title">Disco Elysium</cite>{% endcapture %}
+{% capture disco_elysium %}{% book_link "Disco Elysium"%}{% endcapture %}
 
 {% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
 {% capture bolo2 %}{% book_link "Rogue Bolo" %}{% endcapture %}
