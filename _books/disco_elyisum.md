@@ -61,8 +61,8 @@ Elysium to real-world inspirations: Martinaise and Revachol are France; Graad
 is Russia; Oranje is the Netherlands; Seol is Japan and Korea; Mesque is Spain
 and Mexico. Even the events and figures in the game have clear analogues: the
 Antecentennial Revolution and Kras Mazov are the October Revolution and Karl
-Marx; Samara is Southeast Asia and the war-crime-ridden conflicts there recall
-the Korean and Vietnam wars; the EPIS is the European Union.
+Marx; Samara is Southeast Asia, and the war-crime-ridden conflicts there
+recall the Korean and Vietnam wars; the EPIS is the European Union.
 
 That familiarity gives you a false sense of security. It makes it easy to
 dismiss the game's magical realism. Harry's 24 talking skills seem like
@@ -70,7 +70,7 @@ symptoms of psychosis. The cryptid hunters are just local eccentrics. The
 curse on the doomed commercial area is just bad luck.
 
 Then Joyce Messier tells you about the Pale. That Elysium is a shattered world
-surrounded by a physics-defying, reality-dissolving mist. Suddenly all your
+surrounded by a physics-defying, reality-dissolving mist. Suddenly, all your
 assumptions collapse. You feel the same confusion Harry must have felt waking
 from his self-destruction.
 
@@ -84,14 +84,14 @@ fallout of a past he can't---and doesn't want to---remember.
 
 Revachol is the same, haunted by its history. Its buildings are pockmarked
 with bullet holes from the failed communist revolution. The Coalition warships
-still float above the city, ready to level it, a reminder that Revachol's
+still float above the city, ready to level it---a reminder that Revachol's
 autonomy is an illusion. This influence of the past is woven into reality
 itself. The Pale is the "rarefied past": the weight of history, memory, and
 failure grown so dense that it erases the present.
 
 {{ this_book }} is a tragedy. Revachol doesn't get its revolution. The Pale
 continues its advance. But the story of Harry doesn't have to be. Maybe there
-is hope for him, something to get him back on his feet for good this time: his
+is hope for him; something to get him back on his feet for good this time: his
 new partner, Kim Kitsuragi.
 
 ### This Man Would Hurl Himself in Death's Way to Save You
@@ -122,15 +122,15 @@ face what you've done. That's who Kim is.
 But despite the bleakness, there is so much beauty in {{ this_book }}. There
 is humor and absurdity and friendship and sorrow. There is a man trying to
 rebuild a life he forgot, and his stalwart guide and friend helping him along.
-The world is doomed. The Pale will destroy it. But despite that, despite
-knowing there is no future, there is hope. In a way, that's the story of life.
-You are born knowing you'll die, and yet it is wonderful. There is a beauty in
-speaking a deep truth about the world, even if that truth is bleak.
+The world is doomed. The Pale will destroy it. But despite that---despite
+knowing there is no future---there is hope. In a way, that's the story of
+life. You are born knowing you'll die, and yet it is wonderful. There is a
+beauty in speaking a deep truth about the world, even if that truth is bleak.
 
 The writing is haunting, with wonderfully crafted prose that reminds me of
-masterpieces like {{ faulkners }} {{ absalom }}[^gothic] It finds beauty in
+masterpieces like {{ faulkners }} {{ absalom }}.[^gothic] It finds beauty in
 the mundane and the decay that permeate Martinaise. This is never clearer than
-in the scene describing Harry watching his lost-love as her streetcar recedes
+in the scene describing Harry watching his lost love as her streetcar recedes
 into the distance, which paints the picture perfectly in my mind:
 
 [^gothic]: {{ faulkners }} work and {{ this_book }} share more than fantastic
@@ -158,32 +158,32 @@ The prose is brought to life by the fantastic voice actors. Lenval Brown
 anchors the performance as the narrator and all 24 voices in Harry's head,
 each one with a slightly different personality. The more primal parts of
 Harry's brain are voiced by Mikee W. Goodman. The combination of two actors
-voicing Harry's thoughts make the arguments in his feel more real. Jullian
-Champenois makes Kim feel calm, collected, and so cool. You want to impress
-him, to show him that you're not the failure the world thinks you are.
-Honestly it's the voices that pulled me in; as beautiful as the prose is, it's
-the voices that give it weight.
+voicing Harry's thoughts makes the arguments in his head feel more real.
+Jullian Champenois makes Kim feel calm, collected, and so cool. You want to
+impress him, to show him that you're not the failure the world thinks you are.
+Honestly, it's the voices that pulled me in. As beautiful as the prose is,
+it's the voices that give it weight.
 
-The music by Sea Power matches the theme and feeling perfectly. The songs are
-ethereal and melancholic, but a bright punch of trumpet occasionally pulls you
-out of the gloom. My biggest regret is that I can never play {{ this_book }}
-for the first time again, but listening to the soundtrack is the closest I can
-get, as it instantly takes me back to the moment I first heard each track.
+The music by Sea Power matches the tone perfectly. The songs are ethereal and
+melancholic, but a bright punch of trumpet occasionally pulls you out of the
+gloom. My biggest regret is that I can never play {{ this_book }} for the
+first time again, but listening to the soundtrack is the closest I can get. It
+instantly takes me back to the moment I first heard each track.
 
 ### No; This Is Somewhere to Be; This Is All You Have, but It's Still Something
 
 {{ this_book }} reminded me of some other works:
 
 - The voices in Harry's head, each a part of his overall consciousness,
-  were like the different types of minds found in {{ wattss }} {{ blindsight
-  }} and {{ echopraxia }}.
+  reminded me of the different types of minds found in {{ wattss }} {{
+  blindsight }} and {{ echopraxia }}.
 
 - The trauma of the revolution casting a shadow across everyone in Martinaise,
-  and the city itself, is similar to how the Idiran-Culture War and botched
-  intervention with the Chelgrian has traumatized both the Masaq' Orbital and
-  the Chelgrian civilization in {{ bankss }} {{ look_to_windward }}.
+  and the city itself, echoes how the Idiran-Culture War and botched
+  intervention with the Chelgrian traumatized both the Masaq' Orbital and the
+  Chelgrian civilization in {{ bankss }} {{ look_to_windward }}.
 
-- The surreal detective noir elements, was like {{ lethems }} {{
+- The surreal detective noir elements felt like {{ lethems }} {{
   gun_with_occasional_music }}.
 
 - The amnesiac narrator reminded me of Severian in {{ wolfes }} {{
