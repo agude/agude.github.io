@@ -1,5 +1,5 @@
 ---
-date: 2025-07-03
+date: 2025-07-19
 title: Disco Elysium
 book_authors:
   - Robert Kurvitz
@@ -24,8 +24,20 @@ a murder while learning who he is.
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture faulkners %}{% author_link "William Faulkner" possessive %}{% endcapture %}
-{% capture faulkner %}{% author_link "William Faulkner" %}{% endcapture %}
 {% capture absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}
+
+{% capture lethems %}{% author_link "Jonathan Lethem" possessive %}{% endcapture %}
+{% capture gun_with_occasional_music %}{% book_link "Gun, with Occasional Music" %}{% endcapture %}
+
+{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
+
+{% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
+{% capture the_shadow_of_the_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+
+{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture look_to_windward %}{% book_link "Look to Windward" %}{% endcapture %}
 
 I went into {{ this_book }} knowing only that it was highly acclaimed and that
 you played a detective solving a murder. That didn't begin to do it justice.
@@ -123,8 +135,8 @@ into the distance, which paints the picture perfectly in my mind:
 
 [^gothic]: {{ faulkners }} work and {{ this_book }} share more than fantastic
     prose. Both follow the Gothic tradition, focusing on decaying settings
-    where the oppressive weight of a failed past suffocates the present.
-    Faulkner's post-Civil War South and the post-revolutionary city of
+    where the oppressive weight of a failed past suffocates the present. {{
+    faulkners }} post-Civil War South and the post-revolutionary city of
     Martinaise are haunted by their histories and populated by characters
     psychologically scarred by that trauma.
 
@@ -158,10 +170,30 @@ out of the gloom. My biggest regret is that I can never play {{ this_book }}
 for the first time again, but listening to the soundtrack is the closest I can
 get, as it instantly takes me back to the moment I first heard each track.
 
-### This Is Somewhere to Be; This Is All You Have, but It's Still Something
+### No; This Is Somewhere to Be; This Is All You Have, but It's Still Something
+
+{{ this_book }} reminded me of some other works:
+
+- The voices in Harry's head, each a part of his overall consciousness,
+  were like the different types of minds found in {{ wattss }} {{ blindsight
+  }} and {{ echopraxia }}.
+
+- The trauma of the revolution casting a shadow across everyone in Martinaise,
+  and the city itself, is similar to how the Idiran-Culture War and botched
+  intervention with the Chelgrian has traumatized both the Masaq' Orbital and
+  the Chelgrian civilization in {{ bankss }} {{ look_to_windward }}.
+
+- The surreal detective noir elements, was like {{ lethems }} {{
+  gun_with_occasional_music }}.
+
+- The amnesiac narrator reminded me of Severian in {{ wolfes }} {{
+  the_shadow_of_the_torturer }}. Both inhabit a world haunted by its deep
+  history.
+
+### Cold and Heavy -- Like Truth
 
 {{ this_book }} is not just my favorite game, it is a testament to what the
 medium can produce. It answers the question of "Can a video game be art?" so
-emphatically that it makes the questioner seem quaint. It shows that a game
-can be a literary work that rivals the greatest novels, and can be damn fun
-while doing it.
+emphatically that the question itself seem obsolete. It shows that a game can
+be a literary work that rivals the greatest novels, and can be damn fun while
+doing it.
