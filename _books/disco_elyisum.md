@@ -170,23 +170,24 @@ instantly takes me back to the moment I first heard each track.
 
 ### No; This Is Somewhere to Be; This Is All You Have, but It's Still Something
 
-{{ this_book }} reminded me of some other works:
+{{ this_book }} reminded me of a few other works:
 
-- The voices in Harry's head, each a part of his overall consciousness,
-  reminded me of the different types of minds found in {{ wattss }} {{
-  blindsight }} and {{ echopraxia }}.
+- The voices in Harry's head, each representing a part of his overall
+  consciousness, reminded me of the different types of minds explored in {{
+  wattss }} {{ blindsight }} and {{ echopraxia }}.
 
-- The trauma of the revolution casting a shadow across everyone in Martinaise,
-  and the city itself, echoes how the Idiran-Culture War and botched
-  intervention with the Chelgrian traumatized both the Masaq' Orbital and the
-  Chelgrian civilization in {{ bankss }} {{ look_to_windward }}.
+- The trauma of Martinaise's failed revolution, casting a shadow over the city
+  and its people, echoes the lingering scars of the Idiran-Culture War and the
+  Chelgrian intervention in {{ bankss }} {{ look_to_windward }}.
 
-- The surreal detective noir elements felt like {{ lethems }} {{
-  gun_with_occasional_music }}.
+- The surreal detective noir elements evoke {{ lethems }} {{
+  gun_with_occasional_music }}, with talking kangaroos replaced with talking
+  neckties.
 
-- The amnesiac narrator reminded me of Severian in {{ wolfes }} {{
-  the_shadow_of_the_torturer }}. Both inhabit a world haunted by its deep
-  history.
+- The amnesiac narrator recalls Severian, with his unreliable "perfect"
+  memory, from {{ wolfes }} {{ the_shadow_of_the_torturer }}. Both live in
+  decaying worlds shaped by forgotten history, and both undergo a kind of
+  death and rebirth.
 
 ### Cold and Heavy -- Like Truth
 
