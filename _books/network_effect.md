@@ -41,6 +41,9 @@ its crew.
 {% capture clements %}{% author_link "Hal Clement" possessive %}{% endcapture %}
 {% capture close_to_critical %}{% book_link "Close to Critical" %}{% endcapture %}
 
+{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture matter %}{% book_link "Matter" %}{% endcapture %}
+
 {% capture soldier_movie %}[<cite class="movie-title">Soldier</cite>][soldier]{% endcapture %}
 
 [soldier]: https://en.wikipedia.org/wiki/Soldier_(1998_American_film)
@@ -49,6 +52,8 @@ its crew.
 storyline: ART, the asshole research transport first seen in {{ mb2 }}. The
 power fantasy is toned down a bit---ART has been taken over and needs help, so
 it kidnaps Murderbot to come bail it out.
+<!-- TODO: Power fantasty toned down because ART isn't all powerful anymore
+-->
 
 The book goes deeper into Murderbot's personality and feelings. It doesn't
 like logos because it's been branded. It hates pretending to be a SecUnit
@@ -99,6 +104,10 @@ it see how it behaved and felt right after it first gained freedom.
 - Murderbot's greatest fear---being abandoned on a planet---reminded me of {{
   soldier_movie }}, which also explores the theme of a former weapon
   developing emotions and finding community.
+
+- Murderbot and later Three sneaking into the space station and colony
+  reminded me of Djan Seriy Anaplian infiltrating the Shellworld at the end of
+  {{ bankss }} {{ matter }}.
 
 This book lives up to the rest of the series, with a great mix of emotion,
 action, and worldbuilding. I can't wait to read {{ mb6 }}.
