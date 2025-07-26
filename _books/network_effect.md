@@ -15,49 +15,35 @@ novel in the series, and features Murderbot getting kidnapped by ART to rescue
 its crew.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
-{% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
 {% capture mb2 %}{% book_link "Artificial Condition" %}{% endcapture %}
-{% capture mb3 %}{% book_link "Rogue Protocol" %}{% endcapture %}
 {% capture mb4 %}{% book_link "Exit Strategy" %}{% endcapture %}
-{% capture mb4_5 %}{% book_link "Home: Habitat, Range, Niche, Territory" %}{% endcapture %}
-{% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}
 {% capture mb6 %}{% book_link "Fugitive Telemetry" %}{% endcapture %}
-{% capture mb7 %}{% book_link "System Collapse" %}{% endcapture %}
 
-{% capture brunner %}{% author_link "John Brunner" %}{% endcapture %}
+{% capture pandora %}{% book_link "Pandora's Star" %}{% endcapture %}
+{% capture empire %}{% book_link "A Memory Called Empire" %}{% endcapture %}
+{% capture bobiverse_one %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
+
+{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
+
+{% capture brunners %}{% author_link "John Brunner" possessive %}{% endcapture %}
 {% capture zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
 
-{% capture hamilton %}{% author_link "Peter F. Hamilton" %}{% endcapture %}
-{% capture pandora %}{% book_link "Pandora's Star" %}{% endcapture %}
-
-{% capture martine %}{% author_link "Arkady Martine" %}{% endcapture %}
-{% capture empire %}{% book_link "A Memory Called Empire" %}{% endcapture %}
-
-{% capture forward %}{% author_link "Robert L. Forward" %}{% endcapture %}
+{% capture forwards %}{% author_link "Robert L. Forward" possessive %}{% endcapture %}
 {% capture dragons_egg %}{% book_link "Dragon's Egg" %}{% endcapture %}
 
-{% capture vinge %}{% author_link "Vernor Vinge" %}{% endcapture %}
+{% capture vinges %}{% author_link "Vernor Vinge" possessive %}{% endcapture %}
 {% capture fire_deep %}{% book_link "A Fire Upon the Deep" %}{% endcapture %}
 
+{% capture clements %}{% author_link "Hal Clement" possessive %}{% endcapture %}
 {% capture close_to_critical %}{% book_link "Close to Critical" %}{% endcapture %}
 
 {% capture soldier_movie %}[<cite class="movie-title">Soldier</cite>][soldier]{% endcapture %}
 
 [soldier]: https://en.wikipedia.org/wiki/Soldier_(1998_American_film)
-
-{% capture taylor %}{% author_link "Dennis E. Taylor" %}{% endcapture %}
-{% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
-{% capture bobiverse_one %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
-
-{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
-{% capture culture %}{% series_link "Culture" %}{% endcapture %}
-{% capture matter %}{% book_link "Matter" %}{% endcapture %}
 
 {{ this_book }} brings back the best non-Murderbot character from the GrayCris
 storyline: ART, the asshole research transport first seen in {{ mb2 }}. The
@@ -91,7 +77,7 @@ The humans are, of course. Murderbot is as well, and it has a brain augmented
 with computers. ART is clearly sentient and it only runs on computers.
 MurderBot 2.0 is as well, but it is even more abstract. It's code that lives
 within other systems. It made me think about how we define person hood, in the
-same way that {{ watts }} {{ blindsight }} and {{ echopraxia }} did, and
+same way that {{ wattss }} {{ blindsight }} and {{ echopraxia }} did, and
 whether any of the computer systems like LLMs today meet the definition.
 
 Another new character is SecUnit 3. It is a SecUnit that Murderbot convinces
@@ -101,13 +87,14 @@ it see how it behaved and felt right after it first gained freedom.
 {{ this_book }} reminded me of some other works:
 
 - The `HelpMe.file` used to tell a parallel story reminds me of how {{
-  brunner }} builds his world through in-universe media in {{ zanzibar }}.
+  brunners }} builds his world through in-universe media in {{ zanzibar }}.
 
 - The alien-infected humans fighting a war amongst themselves while taking
-  human hostages was similar to {{ close_to_critical }} and {{ dragons_egg }}.
+  human hostages was similar to {{ clements }} {{ close_to_critical }} and {{
+  forwards }} {{ dragons_egg }}.
 
 - The alien virus taking over people's minds was like the Blight from {{
-  fire_deep }}.
+  vinges }} {{ fire_deep }}.
 
 - Murderbot's greatest fear---being abandoned on a planet---reminded me of {{
   soldier_movie }}, which also explores the theme of a former weapon
