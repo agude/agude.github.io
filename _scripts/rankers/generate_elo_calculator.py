@@ -6,7 +6,7 @@ import yaml
 
 # --- Configuration ---
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))
+PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, "../.."))
 BOOKS_DIR = os.path.join(PROJECT_ROOT, "_books")
 OUTPUT_FILE = os.path.join(SCRIPT_DIR, "elo_calculator_tool.html")
 
@@ -145,7 +145,7 @@ HTML_TEMPLATE = """
                 item.dataset.elo = book.elo;
 
                 const bookData = BOOKS_DATA_MAP[book.title] || { image: '' };
-                const imageHtml = bookData.image ? `<img src="..${bookData.image}" alt="${book.title}">` : '';
+                const imageHtml = bookData.image ? `<img src="../../${bookData.image}" alt="${book.title}">` : '';
 
                 let actionsHtml = '';
                 if (type === 'source') {
