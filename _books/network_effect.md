@@ -11,7 +11,7 @@ image: /books/covers/network_effect.jpg
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the fifth book in the
 <span class="book-series">{{ page.series }}</span>. It's the first full-length
-novel in the series, and features Murderbot getting Kidnapped by ART to rescue
+novel in the series, and features Murderbot getting kidnapped by ART to rescue
 its crew.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
@@ -60,48 +60,49 @@ its crew.
 {% capture matter %}{% book_link "Matter" %}{% endcapture %}
 
 {{ this_book }} brings back the best non-Murderbot character from the GrayCris
-story: ART, the asshole research transport, first seen in {{ mb2 }}. The power
-fantasy is toned-down a little---instead of being able to deal with anything,
-ART has been taken over and needs help, so it kidnaps Murderbot to give it a
-hand.
+storyline: ART, the asshole research transport first seen in {{ mb2 }}. The
+power fantasy is toned down a bit---ART has been taken over and needs help, so
+it kidnaps Murderbot to come bail it out.
 
-The book expands on Murderbot's feelings and personality more. It doesn't like
-logos because it's been branded. It hates having to pretend to be a SecUnit
+The book goes deeper into Murderbot's personality and feelings. It doesn't
+like logos because it's been branded. It hates pretending to be a SecUnit
 because it reminds it of being enslaved. It likes being cared for. ART is its
-friend. We also get more of a view of the horrors of the Corporation Rim,
-where colonies and their people are abandoned if they're not turning a profit.
+friend. We also see more of the horrors of the Corporation Rim, where colonies
+and their people are left to die if they're not profitable.
 
-Control is a major theme of {{ this_book }}. Murderbot and SecUnits are
-controlled through their governors. The employees of the Corporation Rim are
-essentially to their employers. ART was taken over by a virus, and the people
-of the colony are mind controlled by an alien remnant. There is even a bit of
-"caring for someone exerts some control over them"
+Control is a major theme of {{ this_book }}. Murderbot and other SecUnits are
+controlled through their governor modules. The employees of the Corporation
+Rim are essentially owned by their employers. ART gets taken over by a virus,
+and the people of the colony are mind-controlled by an alien remnant. There's
+even a bit of "caring for someone gives you power over them" included when the
+humans risk their lives to rescue Murderbot.
 
 {{ this_book }} introduces some new characters. Murderbot 2.0 is a copy of
 Murderbot's mind used as a virus, a trick it learned in {{ mb4 }}. The book
-lightly touches on the debate of if the copy is still Murderbot---something
-discussed in a lot of science fiction including {{ pandora }} and {{
-bobiverse_one }}. {{ this_book }} reaches roughly the same conclusion as {{
-empire }}: the copy isn't really you because your nervous system is part of
-who you are an is not copied. SecUnit 3 is a SecUnit that Murderbot convinces
-to help Murderbot after sharing some memories. Three is essentially a mirror
-for Murderbot, allowing Murderbot to see how it behaved and felt right as it
-was newly freed.
+lightly touches on whether the copy is still Murderbot, a question that shows
+up in other sci-fi like {{ pandora }} and {{ bobiverse_one }}. {{ this_book }}
+reaches roughly the same conclusion as {{ empire }}: the copy isn't really
+you, because your nervous system is part of who you are, and that is not
+duplicated.
+
+SecUnit 3 is another unit that Murderbot convinces to help out by sharing
+memories. Three acts as a mirror for Murderbot, letting it see how it behaved
+and felt right after it first gained freedom.
 
 {{ this_book }} reminded me of some other works:
 
 - The `HelpMe.file` used to tell a parallel story reminds me of how {{
-  brunner }} builds the world with various in-world media in {{ zanzibar }}.
+  brunner }} builds his world through in-universe media in {{ zanzibar }}.
 
-- The alien-infected humans fighting a war between themselves while taking
-  human hostages reminded me of {{ close_to_critical }} and {{ dragons_egg }}.
+- The alien-infected humans fighting a war amongst themselves while taking
+  human hostages was similar to {{ close_to_critical }} and {{ dragons_egg }}.
 
-- An alien virus taking over people's mind reminded me of the Blight from {{
+- The alien virus taking over people's minds was like the Blight from {{
   fire_deep }}.
 
-- Murderbot's greatest fear being abandoned on a planet reminded me of {{
-  soldier_movie }}, which also explorers the theme of a former weapon
-  developing emotions and community.
+- Murderbot's greatest fear---being abandoned on a planet---reminded me of {{
+  soldier_movie }}, which also explores the theme of a former weapon
+  developing emotions and finding community.
 
-This book lived up to the series, with a great mix of emotion and feelings,
-action, and world building. I can't wait to read {{ mb6 }}.
+This book lives up to the rest of the series, with a great mix of emotion,
+action, and worldbuilding. I can't wait to read {{ mb6 }}.
