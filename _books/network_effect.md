@@ -75,13 +75,13 @@ reaches roughly the same conclusion as {{ empire }}: the copy isn't really
 you, because your nervous system is part of who you are, and that is not
 duplicated.
 
-It made me think about what makes a person in {{ this_series }} a _person_.
-The humans are, of course. Murderbot is as well, and it has a brain augmented
-with computers. ART is clearly sentient, and it only runs on computers.
-Murderbot 2.0 is as well, but it is even more abstract. It's code that lives
-within other systems. It made me think about how we define personhood, in the
-same way that {{ wattss }} {{ blindsight }} and {{ echopraxia }} did, and
-whether any of the computer systems like LLMs today meet the definition.
+It made me think about what defines a _person_ in {{ this_series }}. The
+humans are, of course. Murderbot is too, even though its brain is heavily
+augmented with computers. ART is clearly sentient, and it's entirely software.
+Murderbot 2.0 is even more abstract. It's code living inside other systems.
+The book, like {{ wattss }} {{ blindsight }} and {{ echopraxia }}, got me
+thinking about how we define personhood, and whether any of today's computer
+systems, like LLMs, might start to meet that definition.
 
 Another new character is SecUnit 3. It is a SecUnit that Murderbot convinces
 to help out by sharing memories. Three acts as a mirror for Murderbot, letting
