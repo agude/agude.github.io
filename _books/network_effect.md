@@ -66,21 +66,22 @@ it kidnaps Murderbot to come bail it out.
 
 The book goes deeper into Murderbot's personality and feelings. It doesn't
 like logos because it's been branded. It hates pretending to be a SecUnit
-because it reminds it of being enslaved. It likes being cared for. ART is its
-friend. We also see more of the horrors of the Corporation Rim, where colonies
-and their people are left to die if they're not profitable.
+because it reminds it of being enslaved. It likes being cared for. It doesn't
+like being used. ART is its friend. We also see more of the horrors of the
+Corporation Rim, where colonies and their people are left to die if they're
+not profitable.
 
-Control is a major theme of {{ this_book }}. Murderbot and other SecUnits are
-controlled through their governor modules. The employees of the Corporation
-Rim are essentially owned by their employers. ART gets taken over by a virus,
-and the people of the colony are mind-controlled by an alien remnant. There's
-even a bit of "caring for someone gives you power over them" included when the
-humans risk their lives to rescue Murderbot.
+Agency is a major theme of {{ this_book }}. Murderbot and other SecUnits are
+controlled by their governor modules. The Corporation Rim employees are
+essentially owned by their employers. ART is hijacked by a virus, and the
+people of the colony are mind-controlled by an alien remnant. Even the
+decision by ART and the humans to risk everything to save Murderbot raises
+questions about how loyalty and love can be controlling.
 
 {{ this_book }} introduces some new characters. Murderbot 2.0 is a copy of
 Murderbot's mind used as a virus, a trick it learned in {{ mb4 }}. The book
-lightly touches on whether the copy is still Murderbot, a question that shows
-up in other sci-fi like {{ pandora }} and {{ bobiverse_one }}. {{ this_book }}
+lightly explores whether the copy is still Murderbot, a question that shows up
+in other sci-fi like {{ pandora }} and {{ bobiverse_one }}. {{ this_book }}
 reaches roughly the same conclusion as {{ empire }}: the copy isn't really
 you, because your nervous system is part of who you are, and that is not
 duplicated.
