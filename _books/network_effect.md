@@ -50,10 +50,8 @@ its crew.
 
 {{ this_book }} brings back the best non-Murderbot character from the GrayCris
 storyline: ART, the asshole research transport first seen in {{ mb2 }}. The
-power fantasy is toned down a bit---ART has been taken over and needs help, so
-it kidnaps Murderbot to come bail it out.
-<!-- TODO: Power fantasty toned down because ART isn't all powerful anymore
--->
+power fantasy is toned down a bit---ART isn't the all-powerful anymore; it's
+been taken over and needs help, so it kidnaps Murderbot to come bail it out.
 
 The book goes deeper into Murderbot's personality and feelings. It doesn't
 like logos because it's been branded. It hates pretending to be a SecUnit
