@@ -11,7 +11,7 @@ image: /books/covers/network_effect.jpg
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the fifth book in the
 <span class="book-series">{{ page.series }}</span>. It's the first full-length
-novel in the series, and features Murderbot getting kidnapped by ART to rescue
+novel in the series and features Murderbot getting kidnapped by ART to rescue
 its crew.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
@@ -50,8 +50,8 @@ its crew.
 
 {{ this_book }} brings back the best non-Murderbot character from the GrayCris
 storyline: ART, the asshole research transport first seen in {{ mb2 }}. The
-power fantasy is toned down a bit---ART isn't the all-powerful anymore; it's
-been taken over and needs help, so it kidnaps Murderbot to come bail it out.
+power fantasy is toned down a bit---ART isn't all-powerful anymore; it's been
+taken over and needs help, so it kidnaps Murderbot to come bail it out.
 
 The book goes deeper into Murderbot's personality and feelings. It doesn't
 like logos because it's been branded. It hates pretending to be a SecUnit
@@ -77,9 +77,9 @@ duplicated.
 
 It made me think about what makes a person in {{ this_series }} a _person_.
 The humans are, of course. Murderbot is as well, and it has a brain augmented
-with computers. ART is clearly sentient and it only runs on computers.
-MurderBot 2.0 is as well, but it is even more abstract. It's code that lives
-within other systems. It made me think about how we define person hood, in the
+with computers. ART is clearly sentient, and it only runs on computers.
+Murderbot 2.0 is as well, but it is even more abstract. It's code that lives
+within other systems. It made me think about how we define personhood, in the
 same way that {{ wattss }} {{ blindsight }} and {{ echopraxia }} did, and
 whether any of the computer systems like LLMs today meet the definition.
 
