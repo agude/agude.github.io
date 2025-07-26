@@ -62,19 +62,39 @@ its crew.
 {{ this_book }} brings back the best non-Murderbot character from the GrayCris
 story: ART, the asshole research transport, first seen in {{ mb2 }}. The power
 fantasy is toned-down a little---instead of being able to deal with anything,
-ART has been taken over and needs help.
+ART has been taken over and needs help, so it kidnaps Murderbot to give it a
+hand.
+
+The book expands on Murderbot's feelings and personality more. It doesn't like
+logos because it's been branded. It hates having to pretend to be a SecUnit
+because it reminds it of being enslaved. It likes being cared for. ART is its
+friend. We also get more of a view of the horrors of the Corporation Rim,
+where colonies and their people are abandoned if they're not turning a profit.
+
+Control is a major theme of {{ this_book }}. Murderbot and SecUnits are
+controlled through their governors. The employees of the Corporation Rim are
+essentially to their employers. ART was taken over by a virus, and the people
+of the colony are mind controlled by an alien remnant. There is even a bit of
+"caring for someone exerts some control over them"
+
+{{ this_book }} introduces some new characters. Murderbot 2.0 is a copy of
+Murderbot's mind used as a virus, a trick it learned in {{ mb4 }}. The book
+lightly touches on the debate of if the copy is still Murderbot---something
+discussed in a lot of science fiction including {{ pandora }} and {{
+bobiverse_one }}. {{ this_book }} reaches roughly the same conclusion as {{
+empire }}: the copy isn't really you because your nervous system is part of
+who you are an is not copied. SecUnit 3 is a SecUnit that Murderbot convinces
+to help Murderbot after sharing some memories. Three is essentially a mirror
+for Murderbot, allowing Murderbot to see how it behaved and felt right as it
+was newly freed.
+
+{{ this_book }} reminded me of some other works:
 
 - The `HelpMe.file` used to tell a parallel story reminds me of how {{
   brunner }} builds the world with various in-world media in {{ zanzibar }}.
 
-- Discussions of whether a copy of your mind is "you" reminded me of the same
-  question being debated in {{ pandora }} and {{ bobiverse_one }}. The answer
-  "no" based on the fact that the copy has different memories and neural
-  pathways is the same answer as in {{ empire }}.
-
 - The alien-infected humans fighting a war between themselves while taking
-  human hostages reminded me of {{ close_to_critical }} and {{
-  dragons_egg }}.
+  human hostages reminded me of {{ close_to_critical }} and {{ dragons_egg }}.
 
 - An alien virus taking over people's mind reminded me of the Blight from {{
   fire_deep }}.
@@ -82,3 +102,6 @@ ART has been taken over and needs help.
 - Murderbot's greatest fear being abandoned on a planet reminded me of {{
   soldier_movie }}, which also explorers the theme of a former weapon
   developing emotions and community.
+
+This book lived up to the series, with a great mix of emotion and feelings,
+action, and world building. I can't wait to read {{ mb6 }}.
