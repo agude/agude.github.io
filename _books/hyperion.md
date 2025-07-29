@@ -22,27 +22,31 @@ good.
 
 {% capture fall_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
 
+{% capture canterbury %}{% book_link "The Canterbury Tales" %}{% endcapture %}
+
+{% capture hyperion_keats %}<cite class="book-title">[Hyperion][hyperion]</cite>{% endcapture %}
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
+[hyperion]: https://en.wikipedia.org/wiki/Hyperion_(poem)
+
+{% comment %}TODO: How do we link to Hyperion by Keats?{% endcomment %}
 
 It is told as the tale of six different pilgrims traveling to the planet
 Hyperion to visit the Shrike, a cruel, death-god-like figure. {{ this_book }}
-is very much <cite class="book-title">[The Canterbury Tales][tales]</cite> in
-space. At first the stories seem unconnected, but as the pilgrims travel and
-tell their tales we realize they are all connected, and they reveal a hint at
-the wider universe that the book takes place in. The book ends "suddenly" but
-the sequel, {{ fall_hyperion }}, picks up right where {{ this_book }} leaves
-off.
+is very much {{ canterbury }} in space. At first the stories seem unconnected,
+but as the pilgrims travel and tell their tales we realize they are all
+connected, and they reveal a hint at the wider universe that the book takes
+place in. The book ends "suddenly" but the sequel, {{ fall_hyperion }}, picks
+up right where {{ this_book }} leaves off.
 
 [tales]: https://en.wikipedia.org/wiki/The_Canterbury_Tales
 
 A theme that runs through the book is "the old gods replaced by the new",
-based on {{ keatss }} <cite class="book-title">[Hyperion][hyperion]</cite>
-poem about the [Greek Titans falling to the new Gods of Olympus][titanomachy].
-We see this with the Humans and the AI TechnoCore, the humans and the Ousters
-(a breakaway post-human faction), the Scholar and the Old Testament God, and
-Catholicism and the new religions.
+based on {{ keatss }} {{ hyperion_keats }} poem about the [Greek Titans
+falling to the new Gods of Olympus][titanomachy]. We see this with the Humans
+and the AI TechnoCore, the humans and the Ousters (a breakaway post-human
+faction), the Scholar and the Old Testament God, and Catholicism and the new
+religions.
 
-[hyperion]: https://en.wikipedia.org/wiki/Hyperion_(poem)
 [titanomachy]: https://en.wikipedia.org/wiki/Titanomachy
 
 ### The Priest's Tale
