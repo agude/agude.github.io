@@ -84,6 +84,7 @@ ranked_list:
   - The Dragon's Banker
   - The State of the Art
   - Clay's Ark
+  - Lords of Uncreation
   - The Nameless City
   - "Flatland: A Romance of Many Dimensions"
   - The Fractal Prince
