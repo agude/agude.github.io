@@ -44,14 +44,14 @@ book and continues into {{ tt5 }}, making it the series's first two-part
 story, like {{ tt11 }} and {{ tt12 }}, or {{ tt16 }} and {{ tt17 }}.
 
 The story meanders from adventure to adventure, and the dialogue is
-uninspired. The Thomson and Thompson characters don't have a big enough part,
-and the lack of Captain Haddock means Tintin doesn't have anyone to play off
-of. The art is still great, though, and with far more variety of setting than
-{{ tt2 }}. There are some beautiful panels, especially the half-page one of
-Tintin escaping the Middle Eastern city while the army chases him. The
-mountain car chase at the end reminds me of both the mountains {{ the_author
-}} drew in {{ tt16 }}, and also {{ doyles }} {{ final_problem }}, as the
-villain plunges to his apparent death.
+uninspired. Thomson and Thompson don't have a big enough part, and the lack of
+Captain Haddock means Tintin doesn't have anyone to play off of. The art is
+still great, though, and with far more variety of setting than {{ tt2 }}.
+There are some beautiful panels, especially the half-page one of Tintin
+escaping the Middle Eastern city while the army chases him. The mountain car
+chase at the end reminds me of both the mountains {{ the_author }} drew in {{
+tt16 }}, and also {{ doyles }} {{ final_problem }}, as the villain plunges to
+his apparent death.
 
 This book is mostly interesting as a glimpse of what the series would become.
 On to {{ tt5 }} next.
