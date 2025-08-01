@@ -280,3 +280,35 @@ abbr.etal {
   text-decoration: none;
   text-transform: none;
 }
+
+/* _sass/_custom.scss */
+
+/*
+ * Styles for the collapsible archived reviews section.
+ */
+.archived-reviews-toggle {
+  margin-top: 2rem; /* Adds space above the toggle */
+
+  summary {
+    cursor: pointer;      /* Shows a hand cursor on hover to indicate it's clickable */
+    font-size: 1.5rem;    /* Makes the text the same size as an h2 */
+    font-weight: bold;    /* Makes the text bold, like a heading */
+    padding-bottom: 1rem; /* Adds some space below the heading */
+
+    /* This is the magic to hide the default triangle/arrow marker */
+    &::-webkit-details-marker {
+      display: none; /* For Chrome, Safari, Edge */
+    }
+    list-style: none; /* For Firefox */
+  }
+
+  /* When the toggle is open, add a subtle visual indicator to the summary */
+  &[open] > summary {
+    color: #555; /* Slightly grays out the text when open */
+  }
+
+  /* The plugin already adds an <hr>. Let's remove it to avoid a double line. */
+  .review-instance.archived > hr {
+    display: none;
+  }
+}

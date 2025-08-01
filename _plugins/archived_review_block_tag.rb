@@ -25,8 +25,6 @@ module Jekyll
       @raw_markup = markup
 
       # Use a simple, direct regex to parse the 'date' argument.
-      # This is more robust for a single, required argument.
-      # It looks for `date=` followed by a quoted string, and nothing else.
       if match = markup.strip.match(/\Adate\s*=\s*(?<value>#{Liquid::QuotedFragment})\z/)
         @date_markup = match[:value]
       else

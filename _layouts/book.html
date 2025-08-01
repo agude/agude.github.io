@@ -43,7 +43,7 @@ layout: default
   {% endif %}
 
   <h2 class="book-review-headline">Review</h2>
-  {% comment %}Add star rating, if one exists in the metadata{% endcomment %}
+  {% comment %}This renders the rating for the CURRENT review.{% endcomment %}
   {% if page.rating %}
     {% rating_stars page.rating %}
   {% endif %}
