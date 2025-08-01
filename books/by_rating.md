@@ -87,6 +87,7 @@ ranked_list:
   - The Nameless City
   - "Flatland: A Romance of Many Dimensions"
   - The Fractal Prince
+  - Cigars of the Pharaoh
   - Flowers for Algernon
   - "Bolo: Annals of the Dinochrome Brigade"
   - Countdown City
