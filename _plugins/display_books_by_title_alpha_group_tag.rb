@@ -2,6 +2,7 @@
 require 'jekyll'
 require 'liquid'
 require 'cgi' # For CGI.escapeHTML
+require 'set'
 require_relative 'utils/book_list_utils'
 require_relative 'utils/book_card_utils'
 
@@ -34,6 +35,28 @@ module Jekyll
 
       return output if data_by_title_group[:alpha_groups].empty? && !output.empty?
       return "" if data_by_title_group[:alpha_groups].empty?
+
+      # --- Generate the alphabetical jump links navigation ---
+      existing_letters = Set.new(data_by_title_group[:alpha_groups].map { |g| g[:letter] })
+      all_chars_for_nav = ('A'..'Z').to_a + ['#']
+      nav_links = []
+
+      all_chars_for_nav.each do |char|
+        if existing_letters.include?(char)
+          # Letter exists, create a link.
+          id_letter = char == "#" ? "hash" : char.downcase
+          nav_links << "<a href=\"#letter-#{CGI.escapeHTML(id_letter)}\">#{CGI.escapeHTML(char)}</a>"
+        else
+          # Letter does not exist, create a non-linked span.
+          nav_links << "<span>#{CGI.escapeHTML(char)}</span>"
+        end
+      end
+
+      # Join the links with spaces for a compact horizontal layout
+      output << "<nav class=\"alpha-jump-links\">\n"
+      output << "  #{nav_links.join(' ')}\n"
+      output << "</nav>\n"
+      # --- End of jump links navigation ---
 
       data_by_title_group[:alpha_groups].each do |alpha_group|
         letter = alpha_group[:letter]

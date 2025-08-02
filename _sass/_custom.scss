@@ -280,3 +280,43 @@ abbr.etal {
   text-decoration: none;
   text-transform: none;
 }
+
+// Alphabetical jump links for book lists
+.alpha-jump-links {
+  display: flex; // Use Flexbox for centering rows
+  flex-wrap: wrap; // Allow items to wrap to the next line
+  justify-content: center; // Center items horizontally on each line
+  gap: 0.25em 0.5em; // Row and column gap
+  background-color: #f9f9f9;
+  border: 0.15em solid #e5e5e5;
+  border-radius: 5px;
+  padding: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 1.5em;
+
+  // Common styles for both links and spans
+  a, span {
+    font-family: $code-font-family;
+    font-weight: bold;
+    font-size: $h456-font-size;
+    padding: 0.1em 0.2em;
+    text-decoration: none;
+    border-radius: 3px;
+  }
+
+  // Specific style for active links
+  a {
+    color: $sidebar-color;
+
+    &:hover {
+      background-color: #e5e5e5;
+      text-decoration: underline;
+    }
+  }
+
+  // Specific style for inactive letters (spans)
+  span {
+    color: #cccccc;
+    cursor: default;
+  }
+}

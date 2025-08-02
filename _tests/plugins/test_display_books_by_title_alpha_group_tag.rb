@@ -64,6 +64,21 @@ class TestDisplayBooksByTitleAlphaGroupTag < Minitest::Test
   def test_renders_correct_letter_headings_and_book_order
     output = render_tag
 
+    # --- Assert Jump Links Navigation ---
+    assert_match %r{<nav class="alpha-jump-links">}, output
+    # Check for linked letters that should exist (A, B, C, Z, #)
+    assert_match %r{<a href="#letter-a">A</a>}, output
+    assert_match %r{<a href="#letter-b">B</a>}, output
+    assert_match %r{<a href="#letter-c">C</a>}, output
+    assert_match %r{<a href="#letter-z">Z</a>}, output
+    assert_match %r{<a href="#letter-hash">#</a>}, output
+    # Check for unlinked letters that should NOT exist (e.g., D, E, F)
+    assert_match %r{<span>D</span>}, output
+    assert_match %r{<span>E</span>}, output
+    assert_match %r{<span>F</span>}, output
+    # Ensure the links are joined by spaces
+    assert_match %r{</a> <span>D</span> <span>E</span>}, output
+
     # --- Assert Group A ---
     # Books: Aardvark Antics, Another Apple Tale, Apple Pie Adventures
     assert_match %r{<h2 class="book-list-headline" id="letter-a">A</h2>}, output
