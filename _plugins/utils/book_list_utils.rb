@@ -376,10 +376,10 @@ module BookListUtils
     grouped_by_letter = sorted_books_with_meta.group_by { |b_meta| b_meta[:first_letter] }
 
     alpha_groups_list = []
-    # Sort the groups by letter (A-Z, then #)
+    # Sort the groups by letter (#, then A-Z)
     sorted_letters = grouped_by_letter.keys.sort do |a, b|
-      if a == "#" then 1 # '#' comes last
-      elsif b == "#" then -1
+      if a == "#" then -1 # '#' comes FIRST
+      elsif b == "#" then 1  # Anything else is greater than '#'
       else a <=> b # Standard string comparison for A-Z
       end
     end
