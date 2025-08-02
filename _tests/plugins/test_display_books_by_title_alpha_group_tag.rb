@@ -66,67 +66,67 @@ class TestDisplayBooksByTitleAlphaGroupTag < Minitest::Test
 
     # --- Assert Jump Links Navigation ---
     assert_match %r{<nav class="alpha-jump-links">}, output
-    # Check for linked letters that should exist (A, B, C, Z, #)
+    # Check for linked letters that should exist (#, A, B, C, Z)
+    assert_match %r{<a href="#letter-hash">#</a>}, output
     assert_match %r{<a href="#letter-a">A</a>}, output
     assert_match %r{<a href="#letter-b">B</a>}, output
     assert_match %r{<a href="#letter-c">C</a>}, output
     assert_match %r{<a href="#letter-z">Z</a>}, output
-    assert_match %r{<a href="#letter-hash">#</a>}, output
     # Check for unlinked letters that should NOT exist (e.g., D, E, F)
     assert_match %r{<span>D</span>}, output
     assert_match %r{<span>E</span>}, output
     assert_match %r{<span>F</span>}, output
-    # Ensure the links are joined by spaces
-    assert_match %r{</a> <span>D</span> <span>E</span>}, output
+    # Ensure the links are joined by spaces and in the correct order
+    assert_match %r{<a href="#letter-hash">#</a> <a href="#letter-a">A</a>}, output
 
-    # --- Assert Group A ---
-    # Books: Aardvark Antics, Another Apple Tale, Apple Pie Adventures
-    assert_match %r{<h2 class="book-list-headline" id="letter-a">A</h2>}, output
-    expected_a_cards = "<!-- Card for: #{@book_aardvark.data['title']} -->\\s*" +
-      "<!-- Card for: #{@book_another_apple.data['title']} -->\\s*" +
-      "<!-- Card for: #{@book_apple.data['title']} -->"
-      assert_match %r{id="letter-a">A</h2>\s*<div class="card-grid">\s*#{expected_a_cards}\s*</div>}m, output
+    # --- Assert Group # (Hash) ---
+    # Books: An, The , 123 Go! (Order based on secondary sort by original title for empty normalized titles)
+    assert_match %r{<h2 class="book-list-headline" id="letter-hash">#</h2>}, output
+    expected_hash_cards = "<!-- Card for: #{Regexp.escape(@book_only_an.data['title'])} -->\\s*" + # Title "An"
+      "<!-- Card for: #{Regexp.escape(@book_empty_title_sort.data['title'])} -->\\s*" + # Title "The "
+      "<!-- Card for: #{Regexp.escape(@book_123go.data['title'])} -->" # Title "123 Go!"
+      assert_match Regexp.new("id=\"letter-hash\">#<\\/h2>\\s*<div class=\"card-grid\">\\s*#{expected_hash_cards}\\s*<\\/div>", Regexp::MULTILINE), output
 
-        # --- Assert Group B ---
-        # Book: A Banana Story
-        assert_match %r{<h2 class="book-list-headline" id="letter-b">B</h2>}, output
-      expected_b_cards = "<!-- Card for: #{@book_a_banana.data['title']} -->"
-      assert_match %r{id="letter-b">B</h2>\s*<div class="card-grid">\s*#{expected_b_cards}\s*</div>}m, output
+      # --- Assert Group A ---
+      # Books: Aardvark Antics, Another Apple Tale, Apple Pie Adventures
+      assert_match %r{<h2 class="book-list-headline" id="letter-a">A</h2>}, output
+      expected_a_cards = "<!-- Card for: #{@book_aardvark.data['title']} -->\\s*" +
+        "<!-- Card for: #{@book_another_apple.data['title']} -->\\s*" +
+        "<!-- Card for: #{@book_apple.data['title']} -->"
+        assert_match %r{id="letter-a">A</h2>\s*<div class="card-grid">\s*#{expected_a_cards}\s*</div>}m, output
 
-        # --- Assert Group C ---
-        # Book: The Cherry Chronicle
-        assert_match %r{<h2 class="book-list-headline" id="letter-c">C</h2>}, output
-      expected_c_cards = "<!-- Card for: #{@book_the_cherry.data['title']} -->"
-      assert_match %r{id="letter-c">C</h2>\s*<div class="card-grid">\s*#{expected_c_cards}\s*</div>}m, output
+          # --- Assert Group B ---
+          # Book: A Banana Story
+          assert_match %r{<h2 class="book-list-headline" id="letter-b">B</h2>}, output
+        expected_b_cards = "<!-- Card for: #{@book_a_banana.data['title']} -->"
+        assert_match %r{id="letter-b">B</h2>\s*<div class="card-grid">\s*#{expected_b_cards}\s*</div>}m, output
 
-        # --- Assert Group Z ---
-        # Book: Zebra Zoom
-        assert_match %r{<h2 class="book-list-headline" id="letter-z">Z</h2>}, output
-      expected_z_cards = "<!-- Card for: #{@book_zebra.data['title']} -->"
-      assert_match %r{id="letter-z">Z</h2>\s*<div class="card-grid">\s*#{expected_z_cards}\s*</div>}m, output
+          # --- Assert Group C ---
+          # Book: The Cherry Chronicle
+          assert_match %r{<h2 class="book-list-headline" id="letter-c">C</h2>}, output
+        expected_c_cards = "<!-- Card for: #{@book_the_cherry.data['title']} -->"
+        assert_match %r{id="letter-c">C</h2>\s*<div class="card-grid">\s*#{expected_c_cards}\s*</div>}m, output
 
-        # --- Assert Group # (Hash) ---
-        # Books: An, The , 123 Go! (Order based on secondary sort by original title for empty normalized titles)
-        assert_match %r{<h2 class="book-list-headline" id="letter-hash">#</h2>}, output
-      expected_hash_cards = "<!-- Card for: #{Regexp.escape(@book_only_an.data['title'])} -->\\s*" + # Title "An"
-        "<!-- Card for: #{Regexp.escape(@book_empty_title_sort.data['title'])} -->\\s*" + # Title "The "
-        "<!-- Card for: #{Regexp.escape(@book_123go.data['title'])} -->" # Title "123 Go!"
-        assert_match Regexp.new("id=\"letter-hash\">#<\\/h2>\\s*<div class=\"card-grid\">\\s*#{expected_hash_cards}\\s*<\\/div>", Regexp::MULTILINE), output
+          # --- Assert Group Z ---
+          # Book: Zebra Zoom
+          assert_match %r{<h2 class="book-list-headline" id="letter-z">Z</h2>}, output
+        expected_z_cards = "<!-- Card for: #{@book_zebra.data['title']} -->"
+        assert_match %r{id="letter-z">Z</h2>\s*<div class="card-grid">\s*#{expected_z_cards}\s*</div>}m, output
 
-        # --- Assert Overall Order of Letter Groups ---
+          # --- Assert Overall Order of Letter Groups ---
+          idx_hash = output.index('id="letter-hash"')
         idx_a = output.index('id="letter-a"')
         idx_b = output.index('id="letter-b"')
         idx_c = output.index('id="letter-c"')
         idx_z = output.index('id="letter-z"')
-        idx_hash = output.index('id="letter-hash"')
 
+        refute_nil idx_hash, "Group # heading missing"
         refute_nil idx_a, "Group A heading missing"
         refute_nil idx_b, "Group B heading missing"
         refute_nil idx_c, "Group C heading missing"
         refute_nil idx_z, "Group Z heading missing"
-        refute_nil idx_hash, "Group # heading missing"
 
-        assert (idx_a < idx_b && idx_b < idx_c && idx_c < idx_z && idx_z < idx_hash), "Letter groups are not in A-Z then # order"
+        assert (idx_hash < idx_a && idx_a < idx_b && idx_b < idx_c && idx_c < idx_z), "Letter groups are not in # then A-Z order"
   end
 
   # Tests logging if the 'books' collection is missing.

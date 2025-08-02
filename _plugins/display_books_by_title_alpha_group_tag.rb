@@ -38,7 +38,7 @@ module Jekyll
 
       # --- Generate the alphabetical jump links navigation ---
       existing_letters = Set.new(data_by_title_group[:alpha_groups].map { |g| g[:letter] })
-      all_chars_for_nav = ('A'..'Z').to_a + ['#']
+      all_chars_for_nav = ['#'] + ('A'..'Z').to_a
       nav_links = []
 
       all_chars_for_nav.each do |char|

@@ -44,8 +44,17 @@ class TestBookListUtilsAllBooksByTitleAlphaGroup < Minitest::Test # Renamed clas
     data = get_alpha_group_data
 
     assert_empty data[:log_messages].to_s
-    # Expected groups: A, B, C, Z, # (based on the published books in setup)
+    # Expected groups: #, A, B, C, Z (based on the published books in setup)
     assert_equal 5, data[:alpha_groups].size, "Incorrect number of alpha groups"
+
+    # --- Assert Group # (Hash) ---
+    # Books: "An" (norm: ""), "The " (norm: ""), "123 Go!" (norm: "123 go!")
+    # Order within #: empty sort_titles first (sorted by original title), then "123 go!"
+    group_hash = data[:alpha_groups].find { |g| g[:letter] == '#' }
+    refute_nil group_hash, "Group '#' missing"
+    expected_hash_titles = [@book_only_an.data['title'], @book_empty_title_sort.data['title'], @book_123go.data['title']]
+    actual_hash_titles = group_hash[:books].map { |b| b.data['title'] }
+    assert_equal expected_hash_titles, actual_hash_titles
 
     # --- Assert Group A ---
     # Books: Aardvark Antics, Another Apple Tale, Apple Pie Adventures (sorted by normalized title)
@@ -72,18 +81,9 @@ class TestBookListUtilsAllBooksByTitleAlphaGroup < Minitest::Test # Renamed clas
     refute_nil group_z, "Group 'Z' missing"
     assert_equal [@book_zebra.data['title']], group_z[:books].map { |b| b.data['title'] }
 
-    # --- Assert Group # (Hash) ---
-    # Books: "An" (norm: ""), "The " (norm: ""), "123 Go!" (norm: "123 go!")
-    # Order within #: empty sort_titles first (sorted by original title), then "123 go!"
-    group_hash = data[:alpha_groups].find { |g| g[:letter] == '#' }
-    refute_nil group_hash, "Group '#' missing"
-    expected_hash_titles = [@book_only_an.data['title'], @book_empty_title_sort.data['title'], @book_123go.data['title']]
-    actual_hash_titles = group_hash[:books].map { |b| b.data['title'] }
-    assert_equal expected_hash_titles, actual_hash_titles
-
     # --- Assert Overall Order of Letter Groups ---
     letters_ordered = data[:alpha_groups].map { |g| g[:letter] }
-    assert_equal ['A', 'B', 'C', 'Z', '#'], letters_ordered, "Letter groups are not in A-Z then # order"
+    assert_equal ['#', 'A', 'B', 'C', 'Z'], letters_ordered, "Letter groups are not in # then A-Z order"
   end
 
   def test_get_data_for_all_books_by_title_alpha_group_ignores_unpublished
