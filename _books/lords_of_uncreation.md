@@ -60,7 +60,8 @@ The story of the {{ this_series }} has always been its main draw. {{ this_book
 }} is my favorite of the series because it focuses the most on that story. The
 writing has improved a bit too---I didn't find myself sighing or writing down
 particularly bad sentences like I did with {{ fa1 }} and {{ fa2 }}---and even
-my least favorite characters get some redemption.
+my least favorite character, Olli, get some redemption when she becomes the
+new Aklu.
 
 But the book is far from perfect. It moves too slowly. A third of it is spent
 reigniting the human civil war, just when I was ready to finally face the
@@ -79,19 +80,19 @@ ring around a star is like the rings around Harmonious Repose in {{ vinges }}
 {{ fire }}. The human arks, where the rich plan to escape civilization with
 their underclass of servants, remind me of Rapture in {{ bioshock }}.
 Thinking-as-pollution that distorts space is like the Pale in {{ disco }}, and
-the Architects as "thought and complex distortions" in Unspace echo the Eater
-in {{ eater }}. The Host ship being a collection of loose scales reminded me
-of {{ culture_series }} ships.
+the Architects as "thought and complex distortions" in Unspace echo the
+sentient black hole in {{ eater }}. The Host ship being a collection of loose
+scales reminded me of {{ culture_series }} ships.
 
 The Originators themselves borrow from several sources. When they project into
-the Eye, they appear to each viewer as something terrifying, which reminded me
-of how the Overlords look like devils in {{ childhood }}. The fact that
-they're bluffing is similar to the eponymous wizards in {{ wizard }}. Their
-psychological attack on Solace, telling her how insignificant she is, felt
-like the Total Perspective Vortex in {{ hitchhikers }}; the fact that it's all
-in her mind recalls the virtual War in Heaven from {{ surface }}. And the idea
-that they're refugees from a previous universe reminds me of {{ last_question
-}}.
+the Eye, they appear as something uniquely terrifying to each viewer, which
+reminded me of how the Overlords look like devils in {{ childhood }}. The fact
+that they're bluffing is similar to the eponymous wizard in {{ wizard }}.
+Their psychological attack on Solace, telling her how insignificant she is,
+felt like the Total Perspective Vortex in {{ hitchhikers }}; the fact that
+it's all in her mind recalls the virtual War in Heaven from {{ surface }}. And
+the idea that they're refugees from a previous universe reminds me of {{
+last_question }}.
 
 I'm glad to be done with {{ this_series }}. It had some interesting ideas, but
 it should have been shorter, more focused, and had a few more polish passes on
