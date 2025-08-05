@@ -88,38 +88,26 @@ it's tiring now, just as it was in {{ judas }}. Not every book has to grapple
 with who the real bad guys are; sometimes it can just be the guys committing
 genocide against humanity.
 
-This book reminded me of a bunch of others:
+This book reminded me of a bunch of others. Like {{ martines }} {{ memory }},
+territories in {{ this_book }} are defined by contagious Throughway
+connections, not their actual location. Both the Parthenon and Teixcalaanli
+have a list they read off of all those who died in combat. The giant Hegemonic
+ring around a star is like the rings around Harmonious Repose in {{ vinges }}
+{{ fire }}. The human arks, where the rich plan to escape civilization with
+their underclass of servants, remind me of Rapture from {{ bioshock }}.
+Thinking as pollution that distorts space is like the Pale in {{ disco }}, and
+the Architects as "thought and complex distortions in Unspace" are like Eater
+from {{ eater }}.
 
-- Like {{ martines }} {{ memory }}, territories in {{ this_book }} are defined
-  by contagious Throughway connections, not their actual location. Both the
-  Parthenon and Teixcalaanli have a list they read off of all those who died
-  in combat.
-
-- The giant Hegemonic ring around a star is like the rings around Harmonious
-  Repose in {{ vinges }} {{ fire }}.
-
-- The human arks, where the rich plan to escape civilization with their
-  underclass of servants, remind me of Rapture from {{ bioshock }}.
-
-- Thinking as pollution that distorts space is like the Pale in {{ disco }}.
-
-- The Architects as "thought and complex distortions in Unspace" are like
-  Eater from {{ eater }}.
-
-- When the Originators project themselves into the Eye, they are seen by each
-  viewer as something they're terrified of, which reminded me of how the
-  Overlords look like devils in {{ childhood }}. And the fact that they're
-  bluffing reminds me of the eponymous wizards in {{ wizard }}.
-
-- That the Originators attack Solace by telling her how insignificant she is
-  reminds me of the Total Perspective Vortex in {{ hitchhikers }}.
-
-- Solace's fighting only in her mind reminded me of the virtual War in Heaven
-  from {{ surface }}. The Host being a ship loosely composed of scales
-  reminded me of Culture ships being mostly fields.
-
-- The Originators being refugees from a previous universe reminds me of {{
-  last_question }}.
+The Originators themselves borrow from several sources. When they project
+themselves into the Eye, they are seen by each viewer as something they're
+terrified of, which reminded me of of how the Overlords look like devils in {{
+childhood }}. The fact that they're bluffing reminds me of the eponymous
+wizards in {{ wizard }}. Their attacks on Solace by telling her how
+insignificant she is was similar to the Total Perspective Vortex in {{
+hitchhikers }}; the fact that it's all in her mind makes me think of the
+virtual War in Heave from {{ surface }}. Being refugees from a previous
+universe is similar to {{ last_question }}.
 
 I'm glad to be done with {{ this_series }}. They had some interesting ideas,
 but should have been shorter, more focused, and with a few more polish passes
