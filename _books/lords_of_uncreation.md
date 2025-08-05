@@ -56,21 +56,21 @@ Originator masters.
 {% capture bolo11 %}{% book_link "The Unconquerable" %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 
-The story of the {{ this_series }} has always been its main draw. {{ this_book
-}} is my favorite of the series because it focuses the most on that story. The
+The story of {{ this_series }} has always been its main draw. {{ this_book }}
+is my favorite of the series because it focuses the most on that story. The
 writing has improved a bit too---I didn't find myself sighing or writing down
-particularly bad sentences like I did with {{ fa1 }} and {{ fa2 }}---and even
-my least favorite character, Olli, get some redemption when she becomes the
-new Aklu.
+particularly bad sentences as I did with {{ fa1 }} and {{ fa2 }}---and even my
+least favorite character, Olli, gets some redemption when she becomes the new
+Aklu.
 
 But the book is far from perfect. It moves too slowly. A third of it is spent
 reigniting the human civil war, just when I was ready to finally face the
 Originators. Idris has been reduced to whining about destroying the
 Architects. His argument that humanity shouldn't fight back was more
 interesting the first time I saw it in things like {{ ender }}, {{ speaker }},
-and {{ borg }}, but it's tiring now, just like it was in {{ judas }}. Not
-every book needs to wrestle with who the real bad guys are. Sometimes, like in
-{{ war }}: its the ones committing genocide against humanity.
+and {{ borg }}, but it's tiring now, just as it was in {{ judas }}. Not every
+book needs to wrestle with who the real bad guys are. Sometimes, like in {{
+war }}, they're the ones committing genocide against humanity.
 
 This book reminded me of a bunch of others. Like {{ martines }} {{ memory }},
 territories in {{ this_book }} are defined by contagious Throughway
@@ -95,6 +95,6 @@ the idea that they're refugees from a previous universe reminds me of {{
 last_question }}.
 
 I'm glad to be done with {{ this_series }}. It had some interesting ideas, but
-it should have been shorter, more focused, and had a few more polish passes on
-the writing. On to {{ picnic }} and {{ bolo11 }} next, before picking up {{
+it should have been shorter, more focused, and had a few more polishing passes
+on the writing. On to {{ picnic }} and {{ bolo11 }} next, before picking up {{
 hyperion }} again for book club.
