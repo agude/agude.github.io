@@ -31,6 +31,7 @@ Originator masters.
 {% capture fire %}{% book_link "A Fire Upon the Deep" %}{% endcapture %}
 
 {% capture surface %}{% book_link "Surface Detail" %}{% endcapture %}
+{% capture culture_series %}{% series_link "Culture" %}{% endcapture %}
 
 {% capture bioshock %}<cite class="">BioShock</cite>{% endcapture %}
 
@@ -79,7 +80,8 @@ ring around a star is like the rings around Harmonious Repose in {{ vinges }}
 their underclass of servants, remind me of Rapture in {{ bioshock }}.
 Thinking-as-pollution that distorts space is like the Pale in {{ disco }}, and
 the Architects as "thought and complex distortions in Unspace" echo the Eater
-in {{ eater }}.
+in {{ eater }}. The Host ship being a collection of loose scales reminded me
+of {{ culture_series }} ships.
 
 The Originators themselves borrow from several sources. When they project into
 the Eye, they appear to each viewer as something terrifying, which reminded me
