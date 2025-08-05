@@ -79,7 +79,7 @@ ring around a star is like the rings around Harmonious Repose in {{ vinges }}
 {{ fire }}. The human arks, where the rich plan to escape civilization with
 their underclass of servants, remind me of Rapture in {{ bioshock }}.
 Thinking-as-pollution that distorts space is like the Pale in {{ disco }}, and
-the Architects as "thought and complex distortions in Unspace" echo the Eater
+the Architects as "thought and complex distortions" in Unspace echo the Eater
 in {{ eater }}. The Host ship being a collection of loose scales reminded me
 of {{ culture_series }} ships.
 
