@@ -69,26 +69,24 @@ class="author-name">{{ page.book_authors }}</span>, is the third book in the
 {% capture adamss %}{% author_link "Douglas Adams" possessive %}{% endcapture %}
 {% capture hitchhikers %}{% book_link "The Hitchhiker's Guide to the Galaxy" %}{% endcapture %}
 
-{{ this_series }} has always been carried by the story, and {{ this_book }} is
-no exception. In fact, it is my favorite of the three beating out {{ fa1 }}
-and {{ fa2 }}, because it focuses on the story. I've also become more
-accepting of the characters and their flaws---even Olli did not annoy me as
-much as she normally does. The writing has improved enough that it didn't keep
-dragging me out of the narrative, although the repetition is still there.
+{% capture picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
+{% capture bolo11 %}{% book_link "The Unconquerable" %}{% endcapture %}
+{% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 
-That said the book is far from perfect. It's slow: the first third focuses on
-inter-human conflicts, but at this point in the trilogy I'm ready for the
-minor villains to get their due and for the heroes to confront the
-Progenators; anything else feels like filler. Idris is much whinier. He spends
-the entire book arguing that the Architects should be spared because they are
-just slaves doing their masters bidding, but there is no alternative to stop
-the human genocide. This argument---that humanity shouldn't fight back---might
-have been interesting in early works like {{ ender }}, {{ speaker }}, and {{
-borg }}, but I've now seen it at least four times including in {{ judas }} and
-this book. It isn't compelling anymore. At least {{ wells }} had the good
-sense leave it out of {{ war }}, even as the Martians were a stand-in for
-colonial European powers. Overall I have the same criticism of the series:
-it's too long, too slow, too poorly written.
+The story of the {{ this_series }} has always been its main draw. {{ this_book
+}} is my favorite of the series because it focuses the most on the story. The
+writing has improved a little as well---I didn't find my self sigh or writing
+down particularly bad sentences as I did with {{ fa1 }} and {{ fa2 }}---and
+even my least favorite characters have some redemption.
+
+But the book is far from perfect. It moves too slowly. A third of the book is
+spent reigniting the human civil war when I was ready to instead face to
+Originators. Idris has been reduced to whining about destroying the
+Architects. His argument---that humanity shouldn't fight back---was more
+interesting when I first saw it in works like {{ ender }}, {{ speaker }}, and {{
+borg }}, but its is tiring now just as it was in {{ judas }}. Not every book
+has to grapple with who the real bad guys are, sometimes it can just be the
+guys committing genocide against humanity.
 
 This book reminded me of a bunch of others:
 
@@ -122,3 +120,8 @@ This book reminded me of a bunch of others:
 
 - The Originators being refugees from a previous universe reminds me of {{
   last_question }}.
+
+I'm glad to be done with {{ this_series }}. They had some interesting ideas,
+but should have been shorter, more focused, and with a few more polish passes
+on the writing. On next to {{ picnic }} and {{ bolo11 }}, before picking up {{
+hyperion }} again for book club.
