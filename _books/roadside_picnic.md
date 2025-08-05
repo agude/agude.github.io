@@ -1,12 +1,12 @@
 ---
-date: 2025-08-02
+date: 2025-08-04
 title: Roadside Picnic
 book_authors:
   - Arkady Strugatsky
   - Boris Strugatsky
 series: null
 book_number: 1
-rating: null
+rating: 5
 image: /books/covers/roadside_picnic.jpg
 ---
 
