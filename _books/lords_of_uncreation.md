@@ -75,41 +75,41 @@ class="author-name">{{ page.book_authors }}</span>, is the third book in the
 
 The story of the {{ this_series }} has always been its main draw. {{ this_book
 }} is my favorite of the series because it focuses the most on the story. The
-writing has improved a little as well---I didn't find my self sigh or writing
-down particularly bad sentences as I did with {{ fa1 }} and {{ fa2 }}---and
-even my least favorite characters have some redemption.
+writing has improved a little as well---I didn't find myself sighing or
+writing down particularly bad sentences as I did with {{ fa1 }} and {{ fa2
+}}---and even my least favorite characters get some redemption.
 
 But the book is far from perfect. It moves too slowly. A third of the book is
-spent reigniting the human civil war when I was ready to instead face to
-Originators. Idris has been reduced to whining about destroying the
-Architects. His argument---that humanity shouldn't fight back---was more
-interesting when I first saw it in works like {{ ender }}, {{ speaker }}, and {{
-borg }}, but its is tiring now just as it was in {{ judas }}. Not every book
-has to grapple with who the real bad guys are, sometimes it can just be the
-guys committing genocide against humanity.
+spent reigniting the human civil war when I was ready to face the Originators
+instead. Idris has been reduced to whining about destroying the Architects.
+His argument---that humanity shouldn't fight back---was more interesting when
+I first saw it in works like {{ ender }}, {{ speaker }}, and {{ borg }}, but
+it's tiring now, just as it was in {{ judas }}. Not every book has to grapple
+with who the real bad guys are; sometimes it can just be the guys committing
+genocide against humanity.
 
 This book reminded me of a bunch of others:
 
 - Like {{ martines }} {{ memory }}, territories in {{ this_book }} are defined
-  as contagious via Throughways connections, not their actual location.
-  Both the Parthenon and Teixcalaanli have a list they read off all those who
-  died in combat.
+  by contagious Throughway connections, not their actual location. Both the
+  Parthenon and Teixcalaanli have a list they read off of all those who died
+  in combat.
 
-- The giant Hegemonic ring around a star is like rings around Harmonious
+- The giant Hegemonic ring around a star is like the rings around Harmonious
   Repose in {{ vinges }} {{ fire }}.
 
 - The human arks, where the rich plan to escape civilization with their
-  underclass of servants, reminds me Rapture from {{ bioshock }}.
+  underclass of servants, remind me of Rapture from {{ bioshock }}.
 
-- Thinking as pollution that distorts space in like the Pale in {{ disco }}.
+- Thinking as pollution that distorts space is like the Pale in {{ disco }}.
 
 - The Architects as "thought and complex distortions in Unspace" are like
   Eater from {{ eater }}.
 
-- When the originators project themselves into the Eye, they are seen by each
-  viewer as something they're terrified of, which reminded my of how the
-  Overlords look like Devils in {{ childhood }}. And the fact that they're
-  bluffing reminds me of the euphonious wizards in {{ wizard }}.
+- When the Originators project themselves into the Eye, they are seen by each
+  viewer as something they're terrified of, which reminded me of how the
+  Overlords look like devils in {{ childhood }}. And the fact that they're
+  bluffing reminds me of the eponymous wizards in {{ wizard }}.
 
 - That the Originators attack Solace by telling her how insignificant she is
   reminds me of the Total Perspective Vortex in {{ hitchhikers }}.
@@ -123,5 +123,5 @@ This book reminded me of a bunch of others:
 
 I'm glad to be done with {{ this_series }}. They had some interesting ideas,
 but should have been shorter, more focused, and with a few more polish passes
-on the writing. On next to {{ picnic }} and {{ bolo11 }}, before picking up {{
+on the writing. On to {{ picnic }} and {{ bolo11 }} next, before picking up {{
 hyperion }} again for book club.
