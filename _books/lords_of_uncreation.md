@@ -15,15 +15,6 @@ humanity takes the war into Unspace to destroy the Architects and their
 Originator masters.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture fa1 %}{% book_link "Shards of Earth" %}{% endcapture %}
@@ -31,7 +22,6 @@ Originator masters.
 
 {% capture borg %}<cite class="tv-show-title">Star Trek</cite>'s <cite class="tv-show-title">I, Borg</cite>{% endcapture %}
 
-{% capture wells %}{% author_link "H. G. Wells" %}{% endcapture %}
 {% capture war %}{% book_link "The War of the Worlds" %}{% endcapture %}
 
 {% capture martines %}{% author_link "Arkady Martine" possessive %}{% endcapture %}
@@ -40,35 +30,25 @@ Originator masters.
 {% capture vinges %}{% author_link "Vernor Vinge" possessive %}{% endcapture %}
 {% capture fire %}{% book_link "A Fire Upon the Deep" %}{% endcapture %}
 
-{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
-{% capture culture %}{% book_link "The Culture series" %}{% endcapture %}
 {% capture surface %}{% book_link "Surface Detail" %}{% endcapture %}
 
 {% capture bioshock %}<cite class="">BioShock</cite>{% endcapture %}
 
-{% capture cards %}{% author_link "Orson Scott Card" possessive %}{% endcapture %}
 {% capture ender %}{% book_link "Ender's Game" %}{% endcapture %}
 {% capture speaker %}{% book_link "Speaker for the Dead" %}{% endcapture %}
 
-{% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}
 {% capture judas %}{% book_link "Judas Unchained" %}{% endcapture %}
 
-{% capture kurvitzs %}{% author_link "Robert Kurvitz" possessive %}{% endcapture %}
 {% capture disco %}{% book_link "Disco Elysium" %}{% endcapture %}
 
-{% capture benfords %}{% author_link "Gregory Benford" possessive %}{% endcapture %}
 {% capture eater %}{% book_link "Eater" %}{% endcapture %}
 
-{% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}
 {% capture childhood %}{% book_link "Childhood's End" %}{% endcapture %}
 
-{% capture baums %}{% author_link "L. Frank Baum" possessive %}{% endcapture %}
 {% capture wizard %}{% book_link "The Wizard of Oz" %}{% endcapture %}
 
-{% capture asimovs %}{% author_link "Isaac Asimov" possessive %}{% endcapture %}
 {% capture last_question %}{% book_link "The Last Question" %}{% endcapture %}
 
-{% capture adamss %}{% author_link "Douglas Adams" possessive %}{% endcapture %}
 {% capture hitchhikers %}{% book_link "The Hitchhiker's Guide to the Galaxy" %}{% endcapture %}
 
 {% capture picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
@@ -87,8 +67,8 @@ Originators. Idris has been reduced to whining about destroying the
 Architects. His argument that humanity shouldn't fight back was more
 interesting the first time I saw it in things like {{ ender }}, {{ speaker }},
 and {{ borg }}, but it's tiring now, just like it was in {{ judas }}. Not
-every book needs to wrestle with who the real bad guys are. Sometimes it's
-just the ones committing genocide against humanity.
+every book needs to wrestle with who the real bad guys are. Sometimes, like in
+{{ war }}: its the ones committing genocide against humanity.
 
 This book reminded me of a bunch of others. Like {{ martines }} {{ memory }},
 territories in {{ this_book }} are defined by contagious Throughway
