@@ -9,8 +9,10 @@ image: /books/covers/lords_of_uncreation.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the third book in the
-<span class="book-series">{{ page.series }}</span> series.
+class="author-name">{{ page.book_authors }}</span>, is the third and final
+book in the <span class="book-series">{{ page.series }}</span> series. In it,
+humanity takes the war into Unspace to destroy the Architects and their
+Originator masters.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -74,42 +76,42 @@ class="author-name">{{ page.book_authors }}</span>, is the third book in the
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 
 The story of the {{ this_series }} has always been its main draw. {{ this_book
-}} is my favorite of the series because it focuses the most on the story. The
-writing has improved a little as well---I didn't find myself sighing or
-writing down particularly bad sentences as I did with {{ fa1 }} and {{ fa2
-}}---and even my least favorite characters get some redemption.
+}} is my favorite of the series because it focuses the most on that story. The
+writing has improved a bit too---I didn't find myself sighing or writing down
+particularly bad sentences like I did with {{ fa1 }} and {{ fa2 }}---and even
+my least favorite characters get some redemption.
 
-But the book is far from perfect. It moves too slowly. A third of the book is
-spent reigniting the human civil war when I was ready to face the Originators
-instead. Idris has been reduced to whining about destroying the Architects.
-His argument---that humanity shouldn't fight back---was more interesting when
-I first saw it in works like {{ ender }}, {{ speaker }}, and {{ borg }}, but
-it's tiring now, just as it was in {{ judas }}. Not every book has to grapple
-with who the real bad guys are; sometimes it can just be the guys committing
-genocide against humanity.
+But the book is far from perfect. It moves too slowly. A third of it is spent
+reigniting the human civil war, just when I was ready to finally face the
+Originators. Idris has been reduced to whining about destroying the
+Architects. His argument that humanity shouldn't fight back was more
+interesting the first time I saw it in things like {{ ender }}, {{ speaker }},
+and {{ borg }}, but it's tiring now, just like it was in {{ judas }}. Not
+every book needs to wrestle with who the real bad guys are. Sometimes it's
+just the ones committing genocide against humanity.
 
 This book reminded me of a bunch of others. Like {{ martines }} {{ memory }},
 territories in {{ this_book }} are defined by contagious Throughway
-connections, not their actual location. Both the Parthenon and Teixcalaanli
-have a list they read off of all those who died in combat. The giant Hegemonic
+connections, not by physical space. Both the Parthenon and the Teixcalaanli
+have a ritual list they read of those who died in combat. The giant Hegemonic
 ring around a star is like the rings around Harmonious Repose in {{ vinges }}
 {{ fire }}. The human arks, where the rich plan to escape civilization with
-their underclass of servants, remind me of Rapture from {{ bioshock }}.
-Thinking as pollution that distorts space is like the Pale in {{ disco }}, and
-the Architects as "thought and complex distortions in Unspace" are like Eater
-from {{ eater }}.
+their underclass of servants, remind me of Rapture in {{ bioshock }}.
+Thinking-as-pollution that distorts space is like the Pale in {{ disco }}, and
+the Architects as "thought and complex distortions in Unspace" echo the Eater
+in {{ eater }}.
 
-The Originators themselves borrow from several sources. When they project
-themselves into the Eye, they are seen by each viewer as something they're
-terrified of, which reminded me of of how the Overlords look like devils in {{
-childhood }}. The fact that they're bluffing reminds me of the eponymous
-wizards in {{ wizard }}. Their attacks on Solace by telling her how
-insignificant she is was similar to the Total Perspective Vortex in {{
-hitchhikers }}; the fact that it's all in her mind makes me think of the
-virtual War in Heave from {{ surface }}. Being refugees from a previous
-universe is similar to {{ last_question }}.
+The Originators themselves borrow from several sources. When they project into
+the Eye, they appear to each viewer as something terrifying, which reminded me
+of how the Overlords look like devils in {{ childhood }}. The fact that
+they're bluffing is similar to the eponymous wizards in {{ wizard }}. Their
+psychological attack on Solace, telling her how insignificant she is, felt
+like the Total Perspective Vortex in {{ hitchhikers }}; the fact that it's all
+in her mind recalls the virtual War in Heaven from {{ surface }}. And the idea
+that they're refugees from a previous universe reminds me of {{ last_question
+}}.
 
-I'm glad to be done with {{ this_series }}. They had some interesting ideas,
-but should have been shorter, more focused, and with a few more polish passes
-on the writing. On to {{ picnic }} and {{ bolo11 }} next, before picking up {{
+I'm glad to be done with {{ this_series }}. It had some interesting ideas, but
+it should have been shorter, more focused, and had a few more polish passes on
+the writing. On to {{ picnic }} and {{ bolo11 }} next, before picking up {{
 hyperion }} again for book club.
