@@ -19,6 +19,7 @@ module Jekyll
         'books' => {},
         'series' => {},
         'series_map' => {},
+        'short_stories' => {},
         'sidebar_nav' => [],
         'books_topbar_nav' => [],
         'backlinks' => {},
@@ -62,8 +63,11 @@ module Jekyll
         end
       end
 
+      # Build the short story cache after books are processed.
+      build_short_story_cache(site, link_cache)
+
       # --- Build Backlinks Cache ---
-      # This must run after the 'books' cache is populated.
+      # This must run after the 'books' and 'short_stories' caches are populated.
       build_backlinks_cache(site, link_cache)
 
       # Store the completed cache in site.data for global access
@@ -112,6 +116,48 @@ module Jekyll
       normalized_series_name = TextProcessingUtils.normalize_title(series_name)
       series_map[normalized_series_name] ||= []
       series_map[normalized_series_name] << book
+    end
+
+    # Scans anthologies for short story titles and builds the cache.
+    def build_short_story_cache(site, link_cache)
+      return unless site.collections.key?('books')
+
+      short_stories_cache = link_cache['short_stories']
+      # Regex to find a markdown heading containing our specific Liquid tag.
+      # Use a negative lookahead `(?!\s+no_id)` to explicitly ignore tags with the no_id flag.
+      # It specifically looks for tags that do NOT include the `no_id` flag.
+      short_story_regex = /^#+\s*\{%\s*short_story_title\s+["'](.+?)["'](?!\s+no_id)\s*%\}/
+
+      site.collections['books'].docs.each do |book|
+        # Added this line to skip unpublished books
+        next if book.data['published'] == false
+        # Only scan books explicitly marked as anthologies.
+        next unless book.data['is_anthology'] == true
+
+        parent_title = book.data['title']
+        parent_url = book.url
+        next if parent_title.nil? || parent_url.nil? # Skip if parent book is invalid
+
+        book.content.scan(short_story_regex).each do |match|
+          story_title = match.first.strip
+          next if story_title.empty?
+
+          normalized_key = TextProcessingUtils.normalize_title(story_title)
+          slug = TextProcessingUtils.slugify(story_title)
+
+          location_data = {
+            'title' => story_title,
+            'parent_book_title' => parent_title,
+            'url' => parent_url,
+            'slug' => slug
+          }
+
+          # Initialize an array if this is the first time we see this story title.
+          short_stories_cache[normalized_key] ||= []
+          # Add the location data. This handles duplicate story titles across different books.
+          short_stories_cache[normalized_key] << location_data
+        end
+      end
     end
 
     # Scans all books for links to other books and builds a backlink map.
