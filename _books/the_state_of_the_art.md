@@ -4,6 +4,7 @@ title: The State of the Art
 book_authors: Iain M. Banks
 series: Culture
 book_number: 4
+is_anthology: true
 rating: 3
 image: /books/covers/the_state_of_the_art.jpg
 ---
@@ -23,13 +24,13 @@ been considered utopian fiction, it comes across as rather bleak.
 {% capture consider_phlebas %}{% book_link "Consider Phlebas" %}{% endcapture %}
 {% capture player_of_games %}{% book_link "The Player of Games" %}{% endcapture %}
 
-### Road of Skulls
+### {% short_story_title "Road of Skulls" %}
 {% rating_stars 2 %}
 
 A cart travels along a road paved with skulls, chasing a city that lays the
 road behind it as it moves. Nothing happens in this story.
 
-### A Gift from the Culture
+### {% short_story_title "A Gift from the Culture" %}
 {% rating_stars 4 %}
 
 A Culture-woman living in a lower-tech civilization is pressured into
@@ -46,7 +47,7 @@ It is unknown who orders the assassination, as it could be the mob, religious
 fanatics, or even the Culture itself. This ambiguity allowed me to ponder the
 motives behind the assassination.
 
-### Odd Attachment
+### {% short_story_title "Odd Attachment" %}
 {% rating_stars 3 %}
 
 A love-sick plant monster rends a spaceman limb-from-limb like a daisy in the
@@ -56,7 +57,7 @@ giving the monster 21 digits to rip off).
 
 [daisy]: https://en.wikipedia.org/wiki/He_loves_me..._he_loves_me_not
 
-### Descendant
+### {% short_story_title "Descendant" %}
 {% rating_stars 3 %}
 
 A man and his sentient spacesuit crash on a planet and have to walk for months
@@ -69,7 +70,7 @@ his side. When the man dies, the suit keeps him around out of sentimentality,
 answering our question. The "Descendant" refers to the suit (and a drone at
 the end) that are, in some ways, mankind's descendants.
 
-### Cleaning Up
+### {% short_story_title "Cleaning Up" %}
 {% rating_stars 4 %}
 
 This story is a parody of the military-industrial complex during the Cold War,
@@ -78,7 +79,7 @@ system, which should send junk into the nearest star, instead sent it to
 Earth, where humans interpreted it as gifts. It's good fun, albeit a little
 over-the-top.
 
-### Piece
+### {% short_story_title "Piece" %}
 {% rating_stars 3 %}
 
 A reflection on the extreme lengths religions drive people to, written by a
@@ -86,7 +87,7 @@ man on the [Lockerbie flight][lockerbie] just before it explodes.
 
 [lockerbie]: https://en.wikipedia.org/wiki/Pan_Am_Flight_103
 
-### The State of the Art
+### {% short_story_title "The State of the Art" %}
 {% rating_stars 3 %}
 
 The largest part of the book, {{ this_book }}, is a novella featuring Diziet
@@ -110,7 +111,7 @@ The ending was predictable and heavy-handed: {{ banks }} decided to start
 showing again by having the character who defended Earth's liveliness mugged
 and murdered in an alley in New York.
 
-### Scratch
+### {% short_story_title "Scratch" %}
 {% rating_stars 1 %}
 
 A stream-of-consciousness narrative in the form of [found art][found_art] text

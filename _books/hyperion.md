@@ -4,6 +4,7 @@ title: Hyperion
 book_authors: Dan Simmons
 series: Hyperion Cantos
 book_number: 1
+is_anthology: true
 rating: 4
 image: /books/covers/hyperion.jpg
 awards:
@@ -49,34 +50,34 @@ religions.
 
 [titanomachy]: https://en.wikipedia.org/wiki/Titanomachy
 
-### The Priest's Tale
+### {% short_story_title "The Priest's Tale" %}
 {% rating_stars 2 %}
 
 I think this story is supposed to be carried by the mystery, but it didn't
 hook me. Not as much a horror story as I assumed halfway through, it's still a
 little too far into the genre for me.
 
-### The Soldier's Tale
+### {% short_story_title "The Soldier's Tale" %}
 {% rating_stars 5 %}
 
 A story with action, mystery, and our first really good look at both the
 Ousters and the Shrike.
 
-### The Poet's Tale
+### {% short_story_title "The Poet's Tale" %}
 {% rating_stars 3 %}
 
 Starts off slow, but the payoff is good. Silenus, the poet, is a spoiled
 annoying character, but the way he comes to believe that he has set the Shrike
 loose with his writing is exciting.
 
-### The Scholar's Tale
+### {% short_story_title "The Scholar's Tale" %}
 {% rating_stars 5 %}
 
 Emotional, heartbreaking. In the Scholar's Tale we learn why Sol Weintraub
 brought a two-week old baby---one getting younger all the time---on the deadly
 pilgrimage.
 
-### The Detective's Tale
+### {% short_story_title "The Detective's Tale" %}
 {% rating_stars 5 %}
 
 This story gives us a great look at the TechnoCore: the artificial
@@ -86,7 +87,7 @@ the volatiles, and the ultimates---are engineering the coming war over
 Hyperion. The end is a bit too 1980s cyberpunk (dodging code phages in the
 neon cyberweb!), but the characters and history are compelling.
 
-### The Consul's Tale
+### {% short_story_title "The Consul's Tale" %}
 {% rating_stars 4 %}
 
 The final tale starts off as a love story between a planet-bound woman and a

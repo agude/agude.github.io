@@ -14,6 +14,7 @@ book_authors:
   - David Drake
 series: Bolo
 book_number: 10
+is_anthology: true
 rating: 4
 image: /books/covers/bolos_book_1_honor_of_the_regiment_2nd_edition.jpg
 ---
@@ -47,25 +48,25 @@ of Bolo stories written by ten different authors.
 {% capture bolo14 %}{% book_link "Old Guard" %}{% endcapture %}
 {% capture bolo15 %}{% book_link "Cold Steel" %}{% endcapture %}
 
-{% capture night_of_the_trolls_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#the-night-of-the-trolls"><cite class="short-story-title">The Night of the Trolls</cite></a>{% endcapture %}
-{% capture field_test_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#field-test"><cite class="short-story-title">Field Test</cite></a>{% endcapture %}
-{% capture relic_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#a-relic-of-war"><cite class="short-story-title">A Relic of War</cite></a>{% endcapture %}
+{% capture night_of_the_trolls_from_bolo1 %}{% short_story_link "The Night of the Trolls" %}{% endcapture %}
+{% capture field_test_from_bolo1 %}{% short_story_link "Field Test" %}{% endcapture %}
+{% capture relic_from_bolo1 %}{% short_story_link "A Relic of War" %}{% endcapture %}
 
-{% capture rogue_bolo_from_bolo2 %}<a href="/books/rogue_bolo/#rogue-bolo"><cite class="short-story-title">Rogue Bolo</cite></a>{% endcapture %}
-{% capture final_mission_from_bolo2  %}<a href="/books/rogue_bolo/#final-mission"><cite class="short-story-title">Final Mission</cite></a>{% endcapture %}
+{% capture rogue_bolo_from_bolo2 %}{% short_story_link "Rogue Bolo" %}{% endcapture %}
+{% capture final_mission_from_bolo2 %}{% short_story_link "Final Mission" %}{% endcapture %}
 
-{% capture lost_legion %}<a href="#lost-legion"><cite class="short-story-title">Lost Legion</cite></a>{% endcapture %}
-{% capture camelot %}<a href="#camelot"><cite class="short-story-title">Camelot</cite></a>{% endcapture %}
-{% capture legacy_of_leonidas %}<a href="#the-legacy-of-leonidas"><cite class="short-story-title">The Legacy of Leonidas</cite></a>{% endcapture %}
-{% capture ploughshare %}<a href="#ploughshare"><cite class="short-story-title">Ploughshare</cite></a>{% endcapture %}
-{% capture ghosts %}<a href="#ghosts"><cite class="short-story-title">Ghosts</cite></a>{% endcapture %}
-{% capture ghost_of_resartus %}<a href="#the-ghost-of-resartus"><cite class="short-story-title">The Ghost of Resartus</cite></a>{% endcapture %}
-{% capture as_our_strength_lessens %}<a href="#as-our-strength-lessens"><cite class="short-story-title">As Our Strength Lessens</cite></a>{% endcapture %}
+{% capture lost_legion %}{% short_story_link "Lost Legion" %}{% endcapture %}
+{% capture camelot %}{% short_story_link "Camelot" %}{% endcapture %}
+{% capture legacy_of_leonidas %}{% short_story_link "The Legacy of Leonidas" %}{% endcapture %}
+{% capture ploughshare %}{% short_story_link "Ploughshare" %}{% endcapture %}
+{% capture ghosts %}{% short_story_link "Ghosts" %}{% endcapture %}
+{% capture ghost_of_resartus %}{% short_story_link "The Ghost of Resartus" %}{% endcapture %}
+{% capture as_our_strength_lessens %}{% short_story_link "As Our Strength Lessens" %}{% endcapture %}
 
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
 
 {% capture excession %}{% book_link "Excession" %}{% endcapture %}
-{% capture odd %}<a href="/books/the_state_of_the_art/#odd-attachment"><cite class="short-story-title">Odd Attachment</cite></a>{% endcapture %}
+{% capture odd %}{% short_story_link "Odd Attachment" %}{% endcapture %}
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 
 {% capture slammers %}{% book_link "Hammer's Slammers" %}{% endcapture %}
@@ -83,7 +84,7 @@ I'm looking forward to reading the rest of the anthologies---{{ bolo11 }}, {{
 bolo12 }}, {{ bolo13 }}, {{ bolo14 }}, and {{ bolo15 }}---to see what new
 authors do with the idea.
 
-### <cite class="short-story-title">Lost Legion</cite>
+### {% short_story_title "Lost Legion" %}
 <div class="written-by">by {{ author_stirling }}</div>
 {% rating_stars 4 %}
 
@@ -97,7 +98,7 @@ guerrillas comically evil. Still, there's great action and a Bolo AI that
 heroically pulls the tank out of danger and saves the day after its pilot is
 killed.
 
-### <cite class="short-story-title">Camelot</cite>
+### {% short_story_title "Camelot" %}
 <div class="written-by">by {{ author_lewitt }}</div>
 {% rating_stars 4 %}
 
@@ -112,11 +113,11 @@ the answer is clearly "no," but the story could have explored that tension
 more. Instead, it sidesteps it at the end by having the Bolo knighted and join
 the locals in their roleplaying.
 
-### <cite class="short-story-title">The Legacy of Leonidas</cite>
+### {% short_story_title "The Legacy of Leonidas" %}
 <div class="written-by">by {{ author_keith }}</div>
 {% rating_stars 4 %}
 
-<cite class="short-story-title">The Legacy of Leonidas</cite> is an expanded
+{% short_story_title "The Legacy of Leonidas" no_id %} is an expanded
 and rewritten version of {{ field_test_from_bolo1 }} from {{ bolo1_short }};
 the author even references the original story by name. In this version, a
 regiment of Bolos is sent to the non-Concordiat planet New Sierra to help them
@@ -145,7 +146,7 @@ coordinator of his mistake.
 [nelson]: https://en.wikipedia.org/wiki/Horatio_Nelson,_1st_Viscount_Nelson
 [duty]: https://en.wikipedia.org/wiki/England_expects_that_every_man_will_do_his_duty
 
-### <cite class="short-story-title">Ploughshare</cite>
+### {% short_story_title "Ploughshare" %}
 <div class="written-by">by {{ author_johnson }}</div>
 {% rating_stars 5 %}
 
@@ -165,7 +166,7 @@ like <cite class="movie-title">Independence Day</cite>. It's thematically
 similar to {{ relic_from_bolo1 }} and {{ final_mission_from_bolo2 }}, where a
 Bolo is woken up and has to defend humans from an unanticipated alien attack.
 
-### <cite class="short-story-title">Ghosts</cite>
+### {% short_story_title "Ghosts" %}
 <div class="written-by">by {{ author_resnick }} and {{ author_malzberg }}</div>
 {% rating_stars 2 %}
 
@@ -176,7 +177,7 @@ being a Panzer in WWII---that they couldn't possibly have lived. It also
 introduces the idea that Bolo personalities are forcibly wiped after combat,
 which contradicts just about every other story in the series.
 
-### <cite class="short-story-title">The Ghost of Resartus</cite>
+### {% short_story_title "The Ghost of Resartus" %}
 <div class="written-by">by {{ author_stasheff }}</div>
 {% rating_stars 3 %}
 
@@ -187,7 +188,7 @@ the mutual duty between humans and Bolos, Bolos going insane, and how every
 Bolo has a base image of the first sentient Bolo---Resartus---embedded to keep
 them from going rogue. But the story is too short to really develop any of it.
 
-### <cite class="short-story-title">Operation Desert Fox</cite>
+### {% short_story_title "Operation Desert Fox" %}
 <div class="written-by">by {{ author_lackey }} and {{ author_dixon }}</div>
 {% rating_stars 3 %}
 
@@ -211,11 +212,11 @@ weird tone and subject matter drag the story down.
 In the end, like {{ bankss }} {{ odd }}, the whole thing is a setup for a
 joke.
 
-### <cite class="short-story-title">As Our Strength Lessens</cite>
+### {% short_story_title "As Our Strength Lessens" %}
 <div class="written-by">by {{ author_drake }}</div>
 {% rating_stars 4 %}
 
-In <cite class="short-story-title">As Our Strength Lessens</cite>, a Bolo is
+In {% short_story_title "As Our Strength Lessens" no_id %}, a Bolo is
 tasked with destroying a research facility that mirrors any attack sent
 against it. This is the most action- and tech-heavy story in the anthology,
 which makes sense coming from the author of {{ slammers }}.

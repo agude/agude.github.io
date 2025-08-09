@@ -4,6 +4,7 @@ title: "Bolo: Annals of the Dinochrome Brigade"
 book_authors: Keith Laumer
 series: Bolo
 book_number: 1
+is_anthology: true
 rating: 3
 image: /books/covers/bolo.jpg
 ---
@@ -33,12 +34,12 @@ of seven novellas and short stories, all featuring Bolos.
 {% capture so2001 %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 {% capture zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
 
-{% capture trolls %}[<cite class="short-story-title">The Night of the Trolls</cite>](#the-night-of-the-trolls){% endcapture %}
-{% capture courier %}[<cite class="short-story-title">Courier</cite>](#courier){% endcapture %}
-{% capture field_test %}[<cite class="short-story-title">Field Test</cite>](#field-test){% endcapture %}
-{% capture last_command %}[<cite class="short-story-title">The Last Command</cite>](#the-last-command){% endcapture %}
-{% capture relic %}[<cite class="short-story-title">A Relic of War</cite>](#a-relic-of-war){% endcapture %}
-{% capture combat_unit %}[<cite class="short-story-title">Combat Unit</cite>](#combat-unit){% endcapture %}
+{% capture trolls %}{% short_story_link "The Night of the Trolls" %}{% endcapture %}
+{% capture courier %}{% short_story_link "Courier" %}{% endcapture %}
+{% capture field_test %}{% short_story_link "Field Test" %}{% endcapture %}
+{% capture last_command %}{% short_story_link "The Last Command" %}{% endcapture %}
+{% capture relic %}{% short_story_link "A Relic of War" %}{% endcapture %}
+{% capture combat_unit %}{% short_story_link "Combat Unit" %}{% endcapture %}
 
 I read the Bolo anthologies---{{ bolo10 }}, {{ bolo11 }}, {{ bolo12 }},
 etc.---about twenty-five years ago, then tracked down every other Bolo book I
@@ -60,12 +61,12 @@ charging across the battlefield. It's harder when you've been forgotten by the
 people you saved. This allows {{ the_authors_lastname }} to explore other
 themes as well: loss, death, and what it means to be alive.
 
-### <cite class="short-story-title">A Short History of the Bolo Fighting Machines</cite>
+### {% short_story_title "A Short History of the Bolo Fighting Machines" %}
 {% rating_stars 3 %}
 
 An in-universe explanation of how Bolos came to be. Not really a story.
 
-### <cite class="short-story-title">The Night of the Trolls</cite>
+### {% short_story_title "The Night of the Trolls" %}
 {% rating_stars 3 %}
 
 A novella version of {{ the_authors }} later novel {{ bolo3 }}. The main
@@ -75,7 +76,7 @@ apocalypse---is predictable. The Bolos are the eponymous "trolls", and they're
 just an obstacle to overcome, not a character like in the more successful
 stories.
 
-### <cite class="short-story-title">Courier</cite>
+### {% short_story_title "Courier" %}
 {% rating_stars 2 %}
 
 A {{ retief }} story that just happens to have a Bolo at the end. Retief
@@ -86,7 +87,7 @@ strength and annoyingly correct confidence. Feels like a <cite
 class="tv-show-title">Star Trek: The Original Series</cite> episode, but with
 Retief as a less intellectual (I know!) Kirk.
 
-### <cite class="short-story-title">Field Test</cite>
+### {% short_story_title "Field Test" %}
 {% rating_stars 3 %}
 
 The first sentient Bolo---the Mark XX---is thrown into combat untested in a
@@ -99,7 +100,7 @@ in-universe media---from letters to speeches to short conversations. This
 structure is reminiscent of {{ zanzibar }}, and is a test run for {{ bolo2 }},
 where one of the novellas uses the same paragraph-length chapter format.
 
-### <cite class="short-story-title">The Last Command</cite>
+### {% short_story_title "The Last Command" %}
 {% rating_stars 4 %}
 
 A Bolo wakes up after being decommissioned and buried, assumes it's under
@@ -110,7 +111,7 @@ still radioactive Bolo, replies, "It's a long way, Lenny... But I'm coming
 with you..." That connection between man and machine is a recurring theme in
 the later books.
 
-### <cite class="short-story-title">A Relic of War</cite>
+### {% short_story_title "A Relic of War" %}
 {% rating_stars 3 %}
 
 An abandoned Bolo is found by the government, who mean to shut it down---only
@@ -118,7 +119,7 @@ to accidentally awaken the creatures the Bolo originally fought. In the end,
 the Bolo allows itself to be shut down to protect the town from itself, which
 reminded me a little of shutting down HAL in {{ so2001 }}.
 
-### <cite class="short-story-title">Combat Unit</cite>
+### {% short_story_title "Combat Unit" %}
 {% rating_stars 4 %}
 
 A damaged Bolo wakes up in a repair bay and suspects it's been captured and is

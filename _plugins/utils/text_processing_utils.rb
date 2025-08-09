@@ -92,4 +92,21 @@ module TextProcessingUtils
 
   end
 
+  # This logic is designed to be simple and consistent for generating anchor IDs.
+  # @param text [String] The string to convert.
+  # @return [String] The slugified string.
+  def self.slugify(text)
+    return "" if text.nil?
+    slug = text.to_s.downcase.strip
+    # Replace apostrophes and other non-word characters with a space first
+    slug.gsub!(/[^\w\s-]/, ' ')
+    # Replace whitespace with a single hyphen
+    slug.gsub!(/\s+/, '-')
+    # Consolidate multiple hyphens
+    slug.gsub!(/--+/, '-')
+    # Remove leading/trailing hyphens
+    slug.gsub!(/^-+|-+$/, '')
+    slug
+  end
+
 end

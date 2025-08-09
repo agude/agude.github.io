@@ -19,6 +19,7 @@ module Jekyll
         'books' => {},
         'series' => {},
         'series_map' => {},
+        'short_stories' => {},
         'sidebar_nav' => [],
         'books_topbar_nav' => [],
         'backlinks' => {},
@@ -62,8 +63,11 @@ module Jekyll
         end
       end
 
+      # Build the short story cache after books are processed.
+      build_short_story_cache(site, link_cache)
+
       # --- Build Backlinks Cache ---
-      # This must run after the 'books' cache is populated.
+      # This must run after the 'books' and 'short_stories' caches are populated.
       build_backlinks_cache(site, link_cache)
 
       # Store the completed cache in site.data for global access
@@ -114,11 +118,54 @@ module Jekyll
       series_map[normalized_series_name] << book
     end
 
+    # Scans anthologies for short story titles and builds the cache.
+    def build_short_story_cache(site, link_cache)
+      return unless site.collections.key?('books')
+
+      short_stories_cache = link_cache['short_stories']
+      # Regex to find a markdown heading containing our specific Liquid tag.
+      # Use a negative lookahead `(?!\s+no_id)` to explicitly ignore tags with the no_id flag.
+      # It specifically looks for tags that do NOT include the `no_id` flag.
+      short_story_regex = /^#+\s*\{%\s*short_story_title\s+["'](.+?)["'](?!\s+no_id)\s*%\}/
+
+      site.collections['books'].docs.each do |book|
+        # Added this line to skip unpublished books
+        next if book.data['published'] == false
+        # Only scan books explicitly marked as anthologies.
+        next unless book.data['is_anthology'] == true
+
+        parent_title = book.data['title']
+        parent_url = book.url
+        next if parent_title.nil? || parent_url.nil? # Skip if parent book is invalid
+
+        book.content.scan(short_story_regex).each do |match|
+          story_title = match.first.strip
+          next if story_title.empty?
+
+          normalized_key = TextProcessingUtils.normalize_title(story_title)
+          slug = TextProcessingUtils.slugify(story_title)
+
+          location_data = {
+            'title' => story_title,
+            'parent_book_title' => parent_title,
+            'url' => parent_url,
+            'slug' => slug
+          }
+
+          # Initialize an array if this is the first time we see this story title.
+          short_stories_cache[normalized_key] ||= []
+          # Add the location data. This handles duplicate story titles across different books.
+          short_stories_cache[normalized_key] << location_data
+        end
+      end
+    end
+
     # Scans all books for links to other books and builds a backlink map.
     def build_backlinks_cache(site, link_cache)
       Jekyll.logger.info "LinkCacheGenerator:", "Building backlinks cache..."
       backlinks = Hash.new { |h, k| h[k] = [] }
       books_cache = link_cache['books']
+      short_stories_cache = link_cache['short_stories'] # MODIFIED: Get the short story cache
       return unless books_cache && !books_cache.empty?
 
       # Create a reverse map of URL -> book data for efficient markdown link checking
@@ -126,6 +173,8 @@ module Jekyll
 
       # Regex for {% book_link 'Title' %} or {% book_link "Title" %}
       book_link_tag_regex = /\{%\s*book_link\s+(?:'([^']+)'|"([^"]+)")/
+      # Regex to find short story links
+      short_story_link_tag_regex = /\{%\s*short_story_link\s+["'](.+?)["'](?:\s+from_book=["'](.+?)["'])?\s*%\}/
       # Regex for [link text](url) - captures URL part
       markdown_link_regex = /\[[^\]]+\]\(([^)\s]+)/
       # Regex for <a href="url"> - captures URL part
@@ -148,7 +197,28 @@ module Jekyll
           end
         end
 
-        # 2. Find standard Markdown links
+        # 2. MODIFIED: Find Liquid short_story_link tags
+        content.scan(short_story_link_tag_regex).each do |match|
+          story_title = match[0]
+          from_book_title = match[1] # This will be nil if not provided
+
+          normalized_story_title = TextProcessingUtils.normalize_title(story_title)
+          story_locations = short_stories_cache[normalized_story_title]
+          next unless story_locations
+
+          target_location = nil
+          if story_locations.length == 1
+            target_location = story_locations.first
+          elsif from_book_title
+            target_location = story_locations.find { |loc| loc['parent_book_title'].casecmp(from_book_title).zero? }
+          end
+
+          if target_location && (target_url = target_location['url'])
+            backlinks[target_url] << source_doc if source_doc.url != target_url
+          end
+        end
+
+        # 3. Find standard Markdown links
         content.scan(markdown_link_regex).each do |match|
           linked_url = match.first&.split('#')&.first
           next if linked_url.nil? || linked_url.empty?
@@ -158,7 +228,7 @@ module Jekyll
           end
         end
 
-        # 3. Find raw HTML links
+        # 4. Find raw HTML links
         content.scan(html_link_regex).each do |match|
           linked_url = match.first&.split('#')&.first
           next if linked_url.nil? || linked_url.empty?

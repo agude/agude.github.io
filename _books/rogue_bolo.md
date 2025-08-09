@@ -4,6 +4,7 @@ title: "Rogue Bolo"
 book_authors: Keith Laumer
 series: Bolo
 book_number: 2
+is_anthology: true
 rating: 3
 image: /books/covers/rogue_bolo.jpg
 ---
@@ -26,11 +27,11 @@ of two novellas featuring the sentient tanks.
 {% capture bolo10 %}{% book_link "Honor of the Regiment" %}{% endcapture %}
 {% capture bolo11 %}{% book_link "The Unconquerable" %}{% endcapture %}
 
-{% capture history_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#a-short-history-of-the-bolo-fighting-machines"><cite class="short-story-title">A Short History of the Bolo Fighting Machines</cite></a>{% endcapture %}
-{% capture field_test_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#field-test"><cite class="short-story-title">Field Test</cite></a>{% endcapture %}
-{% capture last_command_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#the-last-command"><cite class="short-story-title">The Last Command</cite></a>{% endcapture %}
-{% capture relic_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#a-relic-of-war"><cite class="short-story-title">A Relic of War</cite></a>{% endcapture %}
-{% capture combat_unit_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#combat-unit"><cite class="short-story-title">Combat Unit</cite></a>{% endcapture %}
+{% capture history_from_bolo1 %}{% short_story_link "A Short History of the Bolo Fighting Machines" %}{% endcapture %}
+{% capture field_test_from_bolo1 %}{% short_story_link "Field Test" %}{% endcapture %}
+{% capture last_command_from_bolo1 %}{% short_story_link "The Last Command" %}{% endcapture %}
+{% capture relic_from_bolo1 %}{% short_story_link "A Relic of War" %}{% endcapture %}
+{% capture combat_unit_from_bolo1 %}{% short_story_link "Combat Unit" %}{% endcapture %}
 
 {% capture weber %}{% author_link "David Weber" %}{% endcapture %}
 {% capture keith %}{% author_link "William H. Keith" %}{% endcapture %}
@@ -53,11 +54,11 @@ keith }} ({{ bolo4 }}, {{ bolo5 }}, and {{ bolo6 }}), {{ weber }} ({{ bolo8 }}
 and {{ bolo9 }}), and {{ stirling }} <abbr class="etal">et al.</abbr> ({{
 bolo10 }}, {{ bolo11 }}, etc.).
 
-### <cite class="short-story-title">Rogue Bolo</cite>
+### {% short_story_title "Rogue Bolo" %}
 {% rating_stars 4 %}
 
-<cite class="short-story-title">Rogue Bolo</cite> is an expansion of the
-concept and structure used in {{ field_test_from_bolo1 }}. It uses the same
+{% short_story_title "Rogue Bolo" no_id %} is an expansion of the concept and
+structure used in {{ field_test_from_bolo1 }}. It uses the same
 paragraph-length chapters (200 of them!) to tell the story of the Bolo CSR,
 created on an authoritarian Earth and given immense processing power and the
 freedom to take whatever action it deems necessary to protect the empire.
@@ -71,15 +72,15 @@ manufacturing base needed to synthesize a rare element that's deadly to the
 crystal-based lifeforms. In the end, the Bolo wins the war through trickery
 and planning without needing to fire a single shot.
 
-<cite class="short-story-title">Rogue Bolo</cite> reminded me of {{ joness }}
-{{ colossus }}. In that book, the Americans and Soviets each build a
+{% short_story_title "Rogue Bolo" no_id %} reminded me of {{ joness }} {{
+colossus }}. In that book, the Americans and Soviets each build a
 supercomputer and put it in charge of their nuclear arsenal. _Colossus_, the
 American system, discovers the existence of the Soviet _Guardian_ and demands
 to be connected---just like CSR in <cite class="short-story-title">Rogue
 Bolo</cite>, constantly pushing for access to more databases and processing
 power.
 
-### <cite class="short-story-title">Final Mission</cite>
+### {% short_story_title "Final Mission" %}
 {% rating_stars 3 %}
 
 A deactivated Bolo sits in a museum in a town of 300 people on a backwater

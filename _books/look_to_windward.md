@@ -35,7 +35,7 @@ of the Idiran--Culture War and Chelgrian civil war.
 {% capture pandora %}{% book_link "Pandora's Star" %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 {% capture river %}{% book_link "Heaven's River" %}{% endcapture %}
-{% capture valuable %}{% book_link "Valuable Humans in Transit and Other Stories" link_text="Valuable Humans in Transit" %}{% endcapture %}
+{% capture valuable %}{% short_story_link "Valuable Humans in Transit" %}{% endcapture %}
 
 The story takes place on the Masaq' Orbital as the light from the last battle
 of the Idiran--Culture war reaches the habitat, prompting its inhabitants to
@@ -95,7 +95,7 @@ The Hub itself has died twice, been restored from backup once, and transferred
 to its current body on Masaq'. In the end, both the Hub and Quilan choose
 complete erasure---true death with no chance of rebirth.
 
-[^lampshade]: 
+[^lampshade]:
     {{ the_author }} [lampshades][lampshade] this:
 
     > The pairing of this [Misil Tchasole's] rebirth with Ibm Dolince's death
@@ -137,8 +137,7 @@ calculations fail, leading to catastrophe.
 artificial afterlife echo both the Commonwealth humans in {{ pandora }} and the
 virtual heaven in {{ blindsight }}. Masaq' Orbital's Great River seems to have
 influenced {{ river }}. The Culture Minds' practice of unauthorized brain
-scans to prevent deaths parallels the central premise of {{ valuable }}'s
-title story.
+scans to prevent deaths parallels the central premise of {{ valuable }}.
 
 {{ this_book }} is another great entry in the {{ this_series }}. I'm looking
 forward to seeing how {{ c8 }}'s story, about another Culture intervention,
