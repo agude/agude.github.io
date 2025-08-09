@@ -78,8 +78,8 @@ it's about to erupt from the pages.
 than just being a first-contact story. {{ wellss }} Martians travel to Earth
 using a giant cannon. Dr. Pillman describes the Visitors' arrival by saying,
 "all six Visit Zones are positioned on the surface of the planet like bullet
-holes made by a gun located somewhere between Earth and Deneb." And like {{
-wellss }} Martians, the Visitors also landed in multiple places.
+holes made by a gun located somewhere between Earth and Deneb." Like {{ wellss
+}} Martians, the Visitors landed in several places across the planet.
 
 {{ this_book }} reminded me of others. The institute trying to contain and
 study the Zone's artifacts recalls the SCP Foundation from {{ qntms }} {{
