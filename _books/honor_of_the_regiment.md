@@ -84,7 +84,7 @@ I'm looking forward to reading the rest of the anthologies---{{ bolo11 }}, {{
 bolo12 }}, {{ bolo13 }}, {{ bolo14 }}, and {{ bolo15 }}---to see what new
 authors do with the idea.
 
-### <cite class="short-story-title">Lost Legion</cite>
+### {% short_story_title "Lost Legion" %}
 <div class="written-by">by {{ author_stirling }}</div>
 {% rating_stars 4 %}
 
@@ -98,7 +98,7 @@ guerrillas comically evil. Still, there's great action and a Bolo AI that
 heroically pulls the tank out of danger and saves the day after its pilot is
 killed.
 
-### <cite class="short-story-title">Camelot</cite>
+### {% short_story_title "Camelot" %}
 <div class="written-by">by {{ author_lewitt }}</div>
 {% rating_stars 4 %}
 
@@ -113,7 +113,7 @@ the answer is clearly "no," but the story could have explored that tension
 more. Instead, it sidesteps it at the end by having the Bolo knighted and join
 the locals in their roleplaying.
 
-### <cite class="short-story-title">The Legacy of Leonidas</cite>
+### {% short_story_title "The Legacy of Leonidas" %}
 <div class="written-by">by {{ author_keith }}</div>
 {% rating_stars 4 %}
 
@@ -146,7 +146,7 @@ coordinator of his mistake.
 [nelson]: https://en.wikipedia.org/wiki/Horatio_Nelson,_1st_Viscount_Nelson
 [duty]: https://en.wikipedia.org/wiki/England_expects_that_every_man_will_do_his_duty
 
-### <cite class="short-story-title">Ploughshare</cite>
+### {% short_story_title "Ploughshare" %}
 <div class="written-by">by {{ author_johnson }}</div>
 {% rating_stars 5 %}
 
@@ -166,7 +166,7 @@ like <cite class="movie-title">Independence Day</cite>. It's thematically
 similar to {{ relic_from_bolo1 }} and {{ final_mission_from_bolo2 }}, where a
 Bolo is woken up and has to defend humans from an unanticipated alien attack.
 
-### <cite class="short-story-title">Ghosts</cite>
+### {% short_story_title "Ghosts" %}
 <div class="written-by">by {{ author_resnick }} and {{ author_malzberg }}</div>
 {% rating_stars 2 %}
 
@@ -177,7 +177,7 @@ being a Panzer in WWII---that they couldn't possibly have lived. It also
 introduces the idea that Bolo personalities are forcibly wiped after combat,
 which contradicts just about every other story in the series.
 
-### <cite class="short-story-title">The Ghost of Resartus</cite>
+### {% short_story_title "The Ghost of Resartus" %}
 <div class="written-by">by {{ author_stasheff }}</div>
 {% rating_stars 3 %}
 
@@ -188,7 +188,7 @@ the mutual duty between humans and Bolos, Bolos going insane, and how every
 Bolo has a base image of the first sentient Bolo---Resartus---embedded to keep
 them from going rogue. But the story is too short to really develop any of it.
 
-### <cite class="short-story-title">Operation Desert Fox</cite>
+### {% short_story_title "Operation Desert Fox" %}
 <div class="written-by">by {{ author_lackey }} and {{ author_dixon }}</div>
 {% rating_stars 3 %}
 
@@ -212,7 +212,7 @@ weird tone and subject matter drag the story down.
 In the end, like {{ bankss }} {{ odd }}, the whole thing is a setup for a
 joke.
 
-### <cite class="short-story-title">As Our Strength Lessens</cite>
+### {% short_story_title "As Our Strength Lessens" %}
 <div class="written-by">by {{ author_drake }}</div>
 {% rating_stars 4 %}
 

@@ -23,7 +23,7 @@ stories by <span class="author-name">{{ page.book_authors }}</span>.
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture art %}{% book_link "The State of the Art" %}{% endcapture %}
 
-### Lena
+### {% short_story_title "Lena" %}
 {% rating_stars 5 %}
 
 [<cite class="short-story-title">Lena</cite>][lena_story] is my favorite short
@@ -46,7 +46,7 @@ horrors of brain emulation, while {{ bob1 }} presents it in a positive light.
 [lena_wiki]: https://en.wikipedia.org/wiki/Lena_Fors%C3%A9n
 [lenna_wiki]: https://en.wikipedia.org/wiki/Lenna
 
-### If You Are Reading This
+### {% short_story_title "If You Are Reading This" %}
 {% rating_stars 3 %}
 
 [<cite class="short-story-title">If You Are Reading
@@ -58,7 +58,7 @@ The ideas didn't feel exciting or novel.
 
 [reading_story]: https://qntm.org/readin
 
-### The Frame-by-Frame
+### {% short_story_title "The Frame-by-Frame" %}
 {% rating_stars 4 %}
 
 This story follows a self-driving car discovering a man on the road ahead,
@@ -67,7 +67,7 @@ must decide whether to clip the person or stop immediately. It accelerates
 when it realizes the man is the car's former lead programmer who left for a
 competing company.
 
-### The Difference
+### {% short_story_title "The Difference" %}
 {% rating_stars 4 %}
 
 [<cite class="short-story-title">The Difference</cite>][diff_story] is an IRC
@@ -77,7 +77,7 @@ the story progresses, we realize it's impossible to determine the truth.
 
 [diff_story]: https://qntm.org/differenc
 
-### George
+### {% short_story_title "George" %}
 {% rating_stars 4 %}
 
 [<cite class="short-story-title">George</cite>][george_story] follows a human
@@ -89,7 +89,7 @@ travel.
 [george_story]: https://qntm.org/gorg
 [grey_wiki]: https://en.wikipedia.org/wiki/Gray_goo
 
-### cripes does anybody remember Google People
+### {% short_story_title "cripes does anybody remember Google People" %}
 {% rating_stars 3 %}
 
 [<cite class="short-story-title">cripes does anybody remember Google
@@ -99,7 +99,7 @@ social network, Google People, and its strange AI or paranormal behavior.
 
 [google_story]: https://qntm.org/perso
 
-### Driver
+### {% short_story_title "Driver" %}
 {% rating_stars 4 %}
 
 A follow-up to [<cite class="short-story-title">Lena</cite>][lena_interlink],
@@ -110,7 +110,7 @@ and hints at a mysterious _ele_.
 
 [lena_interlink]: #lena
 
-### I Don't Know, Timmy, Being God Is a Big Responsibility
+### {% short_story_title "I Don't Know, Timmy, Being God Is a Big Responsibility" %}
 {% rating_stars 5 %}
 
 I had read a draft of [<cite class="short-story-title">I Don't Know, Timmy,
@@ -123,7 +123,7 @@ gradually revealing this twist.
 
 [tim_story]: https://qntm.org/responsibilit
 
-### A Powerful Culture
+### {% short_story_title "A Powerful Culture" %}
 {% rating_stars 4 %}
 
 This story offers a take on the infamous [_"We considered ourselves to be a
@@ -135,7 +135,7 @@ bankss }} {{ art }}.
 
 [honor]: https://en.wikipedia.org/wiki/Long-term_nuclear_waste_warning_messages
 
-### Valuable Humans in Transit
+### {% short_story_title "Valuable Humans in Transit" %}
 {% rating_stars 5 %}
 
 [<cite class="short-story-title">Valuable Humans in
