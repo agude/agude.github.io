@@ -37,23 +37,31 @@ module LinkHelperUtils
     current_page_url = page['url']
     target_url_str = target_url.to_s # Ensure string
 
-    # Strip the fragment from the target URL before comparing.
-    target_base_url = target_url_str.split('#').first
+    # Handle invalid target URL
+    return inner_html_element if target_url_str.empty?
 
-    # Link if target URL exists AND is not empty AND its base path is not the current page
-    if !target_url_str.empty? && target_base_url != current_page_url
+    # --- Smarter link generation logic ---
+    target_parts = target_url_str.split('#', 2)
+    target_base_url = target_parts[0]
+    target_fragment = target_parts[1] # This will be nil if no '#'
+
+    # Case 1: The link is to a different page. Generate a full link.
+    if target_base_url != current_page_url
       baseurl = site.config['baseurl'] || ''
-      # Ensure target_url starts with a slash if baseurl is present and url doesn't already have it
-      # Check against baseurl itself too, in case the URL already includes it somehow
-      if !baseurl.empty? && !target_url_str.start_with?('/') && !target_url_str.start_with?(baseurl)
-        target_url_str = "/#{target_url_str}"
+      href = target_url_str
+      if !baseurl.empty? && !href.start_with?('/') && !href.start_with?(baseurl)
+        href = "/#{href}"
       end
-      # Prepend baseurl if it's not already part of the target_url_str
-      href = target_url_str.start_with?(baseurl) ? target_url_str : "#{baseurl}#{target_url_str}"
-
+      href = href.start_with?(baseurl) ? href : "#{baseurl}#{href}"
       "<a href=\"#{href}\">#{inner_html_element}</a>"
+
+      # Case 2: The link is to an anchor on the *same* page. Generate a relative anchor link.
+    elsif target_fragment
+      "<a href=\"##{target_fragment}\">#{inner_html_element}</a>"
+
+      # Case 3: The link is to the same page with no anchor (a true self-link). Suppress it.
     else
-      inner_html_element # It's the current page, context/URL is missing, or URL is empty/nil
+      inner_html_element
     end
   end
 

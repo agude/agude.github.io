@@ -22,7 +22,6 @@ class TestShortStoryLinkUtils < Minitest::Test
     @current_page = create_doc({ 'path' => 'current_page.md' }, '/current-page.html')
     @context = create_context({}, { site: @site, page: @current_page })
 
-    # Added the silent logger stub for use in the helper
     @silent_logger_stub = Object.new.tap do |logger|
       def logger.warn(topic, message); end; def logger.error(topic, message); end
       def logger.info(topic, message); end; def logger.debug(topic, message); end
@@ -31,7 +30,6 @@ class TestShortStoryLinkUtils < Minitest::Test
 
   # Helper to call the utility
   def render_util(story_title, from_book_title = nil, context = @context)
-    # Wrapped the call in Jekyll.stub to silence console output
     Jekyll.stub :logger, @silent_logger_stub do
       ShortStoryLinkUtils.render_short_story_link(story_title, context, from_book_title)
     end
@@ -76,13 +74,13 @@ class TestShortStoryLinkUtils < Minitest::Test
     assert_match %r{<!-- \[WARN\] RENDER_SHORT_STORY_LINK_FAILURE: Reason='Input story title resolved to an empty string\.' TitleInput='   ' .*? -->}, output_empty
   end
 
-  def test_render_link_is_not_created_for_current_page_url
+  def test_render_link_is_created_for_anchor_on_current_page
     # Simulate the story being on the current page
     @mock_story_cache['story on this page'] = [
       { 'title' => 'Story On This Page', 'parent_book_title' => 'Current Book', 'url' => '/current-page.html', 'slug' => 'story-on-this-page' }
     ]
     output = render_util("Story On This Page")
-    expected = "<cite class=\"short-story-title\">Story On This Page</cite>" # No <a> tag
+    expected = "<a href=\"#story-on-this-page\"><cite class=\"short-story-title\">Story On This Page</cite></a>" # Expect anchor link
     assert_equal expected, output
   end
 end

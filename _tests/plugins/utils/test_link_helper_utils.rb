@@ -73,15 +73,26 @@ class TestLinkHelperUtils < Minitest::Test
     assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc.url, inner_html)
   end
 
-  def test_generate_link_doc_found_same_page
+  def test_generate_link_to_anchor_on_same_page
     site = create_site
-    found_doc = create_doc({ 'title' => 'Found Doc' }, '/current.html')
+    target_url_with_fragment = '/current.html#section'
     current_page = create_doc({}, '/current.html')
     ctx = create_context({}, { site: site, page: current_page })
-    inner_html = "<cite>Found Doc</cite>"
+    inner_html = "<cite>Link to Section</cite>"
+
+    expected = "<a href=\"#section\">#{inner_html}</a>" # Expect a relative anchor link
+    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, target_url_with_fragment, inner_html)
+  end
+
+  def test_generate_link_to_same_page_no_anchor_is_suppressed
+    site = create_site
+    target_url_no_fragment = '/current.html'
+    current_page = create_doc({}, '/current.html')
+    ctx = create_context({}, { site: site, page: current_page })
+    inner_html = "<cite>Self Link</cite>"
 
     expected = inner_html # No link
-    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, found_doc.url, inner_html)
+    assert_equal expected, LinkHelperUtils._generate_link_html(ctx, target_url_no_fragment, inner_html)
   end
 
   def test_generate_link_doc_not_found
