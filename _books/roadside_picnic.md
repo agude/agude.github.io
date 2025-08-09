@@ -93,7 +93,7 @@ weaponized is the same theme as {{ bankss }} {{ cleaning }} from {{ art }}.
 Red, the red-headed, freckled, anti-authority figure, reminded me of Rorschach
 in {{ moore }} and {{ gibbonss }} {{ watchmen }}.
 
-I really enjoyed {{ this_book }}, and I'll be reading more of {{
-the_authors_possessive }} work. Their work has such a different feel from what
-I'm used to with American and British sci-fi that it provides a nice break.
-Next on to {{ bolo11 }}, {{ hyperion }}, and perhaps {{ lost }}.
+I really enjoyed {{ this_book }}, and I'll definitely be reading more of {{
+the_authors_possessive }} work. Their style feels so different from the
+American and British sci-fi I'm used to that it provides a nice change. Next
+up: {{ bolo11 }}, {{ hyperion }}, and perhaps {{ lost }}.
