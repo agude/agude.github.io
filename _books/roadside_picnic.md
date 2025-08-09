@@ -21,23 +21,18 @@ enters an alien-contaminated Zone to retrieve items for the black market.
 {% capture the_authors %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] }}</span>{% endcapture %}
 {% capture the_authors_first_only %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] | split: " " | first }}</span>{% endcapture %}
 {% capture the_authors_possessive %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] }}</span>'s{% endcapture %}
-{% capture strugatskys %}<span class="author-name">Strugatskys</span>'{% endcapture %}
 
-{% capture liu %}{% author_link "Cixin Liu" %}{% endcapture %}
 {% capture three_body %}{% book_link "The Three-Body Problem" %}{% endcapture %}
 
 {% capture wellss %}{% author_link "H. G. Wells" possessive %}{% endcapture %}
 {% capture war_of_the_worlds %}{% book_link "The War of the Worlds" %}{% endcapture %}
-{% capture war %}{% book_link "The War of the Worlds" link_text="War" %}{% endcapture %}
 
-{% capture watts %}{% author_link "Peter Watts" %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 {% capture antimemetics %}{% book_link "There Is No Antimemetics Division" %}{% endcapture %}
 
-{% capture kurvitzs %}{% author_link "Robert Kurvitz" possessive %}{% endcapture %}
 {% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
 
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
