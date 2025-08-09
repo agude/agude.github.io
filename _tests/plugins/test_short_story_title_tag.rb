@@ -28,43 +28,72 @@ class TestShortStoryTitleTag < Minitest::Test
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% short_story_title %}")
     end
-    assert_match "A title (string literal or variable) is required.", err.message
+    assert_match "Could not find title", err.message
   end
 
-  def test_syntax_error_if_markup_is_whitespace
+  def test_syntax_error_unknown_argument
     err = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse("{% short_story_title    %}")
+      Liquid::Template.parse("{% short_story_title 'My Story' bad_arg %}")
     end
-    assert_match "A title (string literal or variable) is required.", err.message
+    assert_match "Unknown argument 'bad_arg'", err.message
   end
 
   # --- Rendering Tests ---
 
-  def test_render_with_literal_string
+  def test_render_default_behavior_with_id
     output = render_tag("'My Simple Story'")
+    slug = TextProcessingUtils.slugify("My Simple Story")
+    expected = "<cite class=\"short-story-title\">My Simple Story</cite> {##{slug}}"
+    assert_equal expected, output
+  end
+
+  def test_render_with_variable_and_default_id
+    output = render_tag("page_story_title")
+    slug = TextProcessingUtils.slugify("A Story From a Variable")
+    expected = "<cite class=\"short-story-title\">A Story From a Variable</cite> {##{slug}}"
+    assert_equal expected, output
+  end
+
+  def test_render_with_no_id_flag
+    output = render_tag("'My Simple Story' no_id")
     expected = "<cite class=\"short-story-title\">My Simple Story</cite>"
     assert_equal expected, output
   end
 
-  def test_render_with_variable
-    output = render_tag("page_story_title")
+  def test_render_with_variable_and_no_id_flag
+    output = render_tag("page_story_title no_id")
     expected = "<cite class=\"short-story-title\">A Story From a Variable</cite>"
     assert_equal expected, output
   end
 
-  def test_render_applies_typography_utils
-    # Test smart quotes, ellipsis, and dashes by resolving a variable.
-    # CORRECTED: The expected output now matches the new, cleaner test string.
+  def test_render_applies_typography_utils_with_id
     expected_typography = "“Don’t say ‘hello’ like that,” she said."
+    slug = TextProcessingUtils.slugify("\"Don't say 'hello' like that,\" she said.")
     output = render_tag("complex_story_title")
+    expected_html = "<cite class=\"short-story-title\">#{expected_typography}</cite> {##{slug}}"
+    assert_equal expected_html, output
+  end
+
+  def test_render_applies_typography_utils_with_no_id
+    expected_typography = "“Don’t say ‘hello’ like that,” she said."
+    output = render_tag("complex_story_title no_id")
     expected_html = "<cite class=\"short-story-title\">#{expected_typography}</cite>"
     assert_equal expected_html, output
   end
 
-  def test_render_handles_html_escaping
+  def test_render_handles_html_escaping_with_id
     input_title = "A & B <C>"
     expected_escaped = "A &amp; B &lt;C&gt;"
+    slug = TextProcessingUtils.slugify(input_title)
     output = render_tag("'#{input_title}'")
+    expected_html = "<cite class=\"short-story-title\">#{expected_escaped}</cite> {##{slug}}"
+    assert_equal expected_html, output
+  end
+
+  def test_render_handles_html_escaping_with_no_id
+    input_title = "A & B <C>"
+    expected_escaped = "A &amp; B &lt;C&gt;"
+    output = render_tag("'#{input_title}' no_id")
     expected_html = "<cite class=\"short-story-title\">#{expected_escaped}</cite>"
     assert_equal expected_html, output
   end

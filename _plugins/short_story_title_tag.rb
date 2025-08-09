@@ -1,48 +1,77 @@
 # _plugins/short_story_title_tag.rb
 require 'jekyll'
 require 'liquid'
-require 'cgi' # For HTML escaping
+require 'cgi'
+require 'strscan'
 require_relative 'utils/tag_argument_utils'
 require_relative 'utils/typography_utils'
+require_relative 'utils/text_processing_utils'
 
 module Jekyll
-  # Liquid Tag to format a short story title.
+  # Liquid Tag to format a short story title and optionally suppress the Kramdown anchor ID.
   #
-  # This tag's primary purpose is to provide a consistent, machine-readable
-  # format for short story titles within markdown headings, which the
-  # LinkCacheGenerator can then easily parse.
+  # Takes a title string and an optional `no_id` flag.
+  # - Default: Outputs a formatted <cite> tag and a Kramdown ID block.
+  # - With `no_id`: Outputs only the <cite> tag.
   #
-  # It takes a single string argument (the title) and wraps it in a
-  # <cite> tag with a specific class. It also applies standard
-  # typographic processing to the title.
-  #
-  # Usage: {% short_story_title "The Story's Name" %}
+  # Usage:
+  #   ### {% short_story_title "The Story's Name" %}
+  #   <p>A simple mention: {% short_story_title "Another Story" no_id %}</p>
   #
   class ShortStoryTitleTag < Liquid::Tag
+    QuotedFragment = Liquid::QuotedFragment
+
     def initialize(tag_name, markup, tokens)
       super
-      @raw_markup = markup.strip
+      @raw_markup = markup
+      @title_markup = nil
+      @no_id_flag = false
 
-      # This tag expects a single argument, which can be a quoted string or a variable.
-      # We will use the existing utility to resolve it during the render phase.
-      if @raw_markup.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'short_story_title': A title (string literal or variable) is required."
+      # --- Use StringScanner for flexible argument parsing ---
+      scanner = StringScanner.new(markup.strip)
+
+      # 1. Extract the Title (first argument, must be quoted or a variable)
+      if scanner.scan(QuotedFragment)
+        @title_markup = scanner.matched
+      elsif scanner.scan(/\S+/) # Potential variable
+        @title_markup = scanner.matched
+      else
+        raise Liquid::SyntaxError, "Syntax Error in 'short_story_title': Could not find title in '#{@raw_markup}'"
+      end
+
+      # 2. Scan for the optional `no_id` flag
+      scanner.skip(/\s*/)
+      unless scanner.eos?
+        if scanner.scan(/no_id(?!\S)/) # Ensure 'no_id' is a whole word
+          @no_id_flag = true
+        else
+          unknown_arg = scanner.scan(/\S+/)
+          raise Liquid::SyntaxError, "Syntax Error in 'short_story_title': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
+        end
+      end
+
+      unless @title_markup && !@title_markup.strip.empty?
+        raise Liquid::SyntaxError, "Syntax Error in 'short_story_title': Title value is missing or empty in '#{@raw_markup}'"
       end
     end
 
     def render(context)
-      # Resolve the title using the utility, which handles both "literals" and variables.
-      story_title = TagArgumentUtils.resolve_value(@raw_markup, context)
-
-      # Return empty if the title resolves to nil or an empty string.
+      # Resolve the title
+      story_title = TagArgumentUtils.resolve_value(@title_markup, context)
       return "" if story_title.nil? || story_title.to_s.strip.empty?
 
-      # Use the existing typography utility to apply smart quotes, etc.
-      # This ensures display consistency with book titles.
+      # Generate the display title (always needed)
       prepared_title = TypographyUtils.prepare_display_title(story_title)
+      cite_element = "<cite class=\"short-story-title\">#{prepared_title}</cite>"
 
-      # Output the consistently formatted HTML.
-      "<cite class=\"short-story-title\">#{prepared_title}</cite>"
+      # --- Conditionally generate and append the ID based on the flag ---
+      if @no_id_flag
+        cite_element # Return only the <cite> tag
+      else
+        slug = TextProcessingUtils.slugify(story_title)
+        kramdown_id = "{##{slug}}"
+        "#{cite_element} #{kramdown_id}"
+      end
     end
   end
 end

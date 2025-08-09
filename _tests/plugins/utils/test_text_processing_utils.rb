@@ -197,4 +197,36 @@ class TestTextProcessingUtils < Minitest::Test
     assert_equal expected, TextProcessingUtils.format_list_as_sentence(items, etal_after: -1)
     assert_equal expected, TextProcessingUtils.format_list_as_sentence(items, etal_after: "foo")
   end
+
+  def test_slugify_basic
+    assert_equal "hello-world", TextProcessingUtils.slugify("Hello World")
+  end
+
+  def test_slugify_handles_case_and_whitespace
+    assert_equal "hello-world", TextProcessingUtils.slugify("  Hello   World  ")
+  end
+
+  def test_slugify_removes_punctuation
+    assert_equal "a-story-about-stuff", TextProcessingUtils.slugify("A Story About & Stuff!")
+  end
+
+  def test_slugify_preserves_hyphens_and_consolidates
+    assert_equal "a-b-test-for-c", TextProcessingUtils.slugify("A-B Test -- For C")
+  end
+
+  def test_slugify_removes_leading_and_trailing_hyphens
+    assert_equal "hello-world", TextProcessingUtils.slugify("-Hello-World-")
+  end
+
+  def test_slugify_nil_and_empty
+    assert_equal "", TextProcessingUtils.slugify(nil)
+    assert_equal "", TextProcessingUtils.slugify("")
+    assert_equal "", TextProcessingUtils.slugify("   ")
+  end
+
+  def test_slugify_complex_case
+    input = "  A & B's Test -- For #1!  "
+    expected = "a-b-s-test-for-1"
+    assert_equal expected, TextProcessingUtils.slugify(input)
+  end
 end
