@@ -37,6 +37,7 @@ ranked_list:
   - Starquake
   - Salamandastron
   - Mattimeo
+  - Roadside Picnic
   - The Abyss Beyond Dreams
   - Serpent Valley
   - The Dreaming Void
