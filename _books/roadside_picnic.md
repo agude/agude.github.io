@@ -53,22 +53,23 @@ enters an alien-contaminated Zone to retrieve items for the black market.
 {% capture lost %}{% book_link "Not Till We Are Lost Not Till We Are Lost" %}{% endcapture %}
 
 {{ this_book }} is a first-contact story like {{ war_of_the_worlds }} and {{
-three_body }}. Both those books treat aliens as hostile and bent on conquering
-humanity, but this book takes a different approach: the aliens are completely
-indifferent to our existence. One of its main themes is that humanity is not
-special. In that way, {{ this_book }} is closer to {{ blindsight }} and {{
-echopraxia }}, where we encounter intelligences---Rorschach, the Vampires, the
-Bicamerals---that are _completely_ alien, not even conscious in the human
-sense, yet operating on a level far beyond our understanding.
+three_body }}. While both of those books treat aliens as hostile and bent on
+conquering humanity, this book takes a different approach: the aliens are
+completely indifferent to our existence. One of its main themes is that
+humanity is not special. In that way, {{ this_book }} is closer to {{
+blindsight }} and {{ echopraxia }}, where we encounter
+intelligences---Rorschach, the Vampires, the Bicamerals---that are
+_completely_ alien, not even conscious in the human sense, yet operating on a
+level far beyond our understanding.
 
-Tied into this theme is our inability to understand, how some things are
-unknown and unknowable. {{ the_authors_first_only }} never give the reader
-anymore information than the characters have, and they never show us the
-aliens. They don't even hint at what the Visitors might be like, other than by
-showing us the incomprehensible items they left behind. Humans have no better
-chance of understanding an Empty or the Golden Sphere than an ant has of
+Tied into this theme is our inability to understand how some things are
+unknown and unknowable. {{ the_authors_first_only }} never give the reader any
+more information than the characters have, and they never show us the aliens.
+They don't even hint at what the Visitors might be like, other than by showing
+us the incomprehensible items they left behind. Humans have no better chance
+of understanding an Empty or the Golden Sphere than an ant has of
 understanding a nuclear reactor. Red's daughter, the Monkey, fits this theme
-too, becoming more and more alien as she grows old and losing the ability to
+too, becoming more and more alien as she grows older and losing the ability to
 understand her parents at all.
 
 {{ the_authors }} make the Zone feel dangerous and oppressive without
@@ -76,14 +77,14 @@ overdoing it. We only see the inside of the Zone twice: once at the very
 start, when Red takes Dr. Kirill Panov to collect a full Empty, and again at
 the end, when Red sacrifices Arthur to the grinder to make a wish at the
 Golden Sphere. But the Zone looms over the entire novel, always feeling like
-it's about to erupt onto the pages.
+it's about to erupt from the pages.
 
-{{ this_book }} pays homage {{ wellss }} {{ war_of_the_worlds }} in more than
-just being a first-contact story. {{ wellss }} Martians travel to Earth using
-a giant canon. Dr. Pillman describes the Visitors' arrival by saying, "all six
-Visit Zones are position on the surface of the planet like bullet holes made
-by a gun located somewhere between Earth and Deneb." And like {{ wellss }}
-Martians, the Visitors also landed in multiple places.
+{{ this_book }} pays homage to {{ wellss }} {{ war_of_the_worlds }} in more
+than just being a first-contact story. {{ wellss }} Martians travel to Earth
+using a giant cannon. Dr. Pillman describes the Visitors' arrival by saying,
+"all six Visit Zones are positioned on the surface of the planet like bullet
+holes made by a gun located somewhere between Earth and Deneb." And like {{
+wellss }} Martians, the Visitors also landed in multiple places.
 
 {{ this_book }} reminded me of others. The institute trying to contain and
 study the Zone's artifacts recalls the SCP Foundation from {{ qntms }} {{
@@ -95,5 +96,5 @@ in {{ moore }} and {{ gibbonss }} {{ watchmen }}.
 
 I really enjoyed {{ this_book }}, and I'll definitely be reading more of {{
 the_authors_possessive }} work. Their style feels so different from the
-American and British sci-fi I'm used to that it provides a nice change. Next
-up: {{ bolo11 }}, {{ hyperion }}, and perhaps {{ lost }}.
+American and British sci-fi I'm used to that it provides a nice change of
+pace. Next up: {{ bolo11 }}, {{ hyperion }}, and perhaps {{ lost }}.
