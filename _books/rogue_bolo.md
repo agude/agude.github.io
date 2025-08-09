@@ -4,6 +4,7 @@ title: "Rogue Bolo"
 book_authors: Keith Laumer
 series: Bolo
 book_number: 2
+is_anthology: true
 rating: 3
 image: /books/covers/rogue_bolo.jpg
 ---

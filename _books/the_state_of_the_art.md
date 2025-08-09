@@ -4,6 +4,7 @@ title: The State of the Art
 book_authors: Iain M. Banks
 series: Culture
 book_number: 4
+is_anthology: true
 rating: 3
 image: /books/covers/the_state_of_the_art.jpg
 ---

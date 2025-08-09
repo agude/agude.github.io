@@ -14,6 +14,7 @@ book_authors:
   - David Drake
 series: Bolo
 book_number: 10
+is_anthology: true
 rating: 4
 image: /books/covers/bolos_book_1_honor_of_the_regiment_2nd_edition.jpg
 ---

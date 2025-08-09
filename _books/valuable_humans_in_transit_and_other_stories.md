@@ -4,6 +4,7 @@ title: Valuable Humans in Transit and Other Stories
 book_authors: qntm
 series: null
 book_number: 1
+is_anthology: true
 rating: 4
 image: /books/covers/valuable_humans_in_transit_and_other_stories.jpg
 ---
@@ -126,7 +127,7 @@ gradually revealing this twist.
 {% rating_stars 4 %}
 
 This story offers a take on the infamous [_"We considered ourselves to be a
-powerful culture. This place is not a place of honor…"_][honor] warning
+powerful culture. This place is not a place of honor..."_][honor] warning
 message about nuclear waste storage. It imagines a scenario where Earth-1 has
 deadly waste to dispose of, how they might dump it on other multiverse Earths,
 and how those Earths would respond. It reminds me of {{ cleaning_up }} from {{

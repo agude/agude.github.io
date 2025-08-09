@@ -4,6 +4,7 @@ title: "Bolo: Annals of the Dinochrome Brigade"
 book_authors: Keith Laumer
 series: Bolo
 book_number: 1
+is_anthology: true
 rating: 3
 image: /books/covers/bolo.jpg
 ---
