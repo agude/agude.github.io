@@ -36,7 +36,7 @@ enters an alien-contaminated Zone to retrieve items for the black market.
 {% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
 
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
-{% capture cleaning %}<cite class="short-story-title">Cleaning Up</cite>{% endcapture %}
+{% capture cleaning %}{% short_story_link "Cleaning Up" %}{% endcapture %}
 {% capture art %}{% book_link "The State of the Art" %}{% endcapture %}
 
 {% capture moore %}{% author_link "Alan Moore" %}{% endcapture %}

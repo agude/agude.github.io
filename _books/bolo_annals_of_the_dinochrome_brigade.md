@@ -34,12 +34,12 @@ of seven novellas and short stories, all featuring Bolos.
 {% capture so2001 %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 {% capture zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
 
-{% capture trolls %}[<cite class="short-story-title">The Night of the Trolls</cite>](#the-night-of-the-trolls){% endcapture %}
-{% capture courier %}[<cite class="short-story-title">Courier</cite>](#courier){% endcapture %}
-{% capture field_test %}[<cite class="short-story-title">Field Test</cite>](#field-test){% endcapture %}
-{% capture last_command %}[<cite class="short-story-title">The Last Command</cite>](#the-last-command){% endcapture %}
-{% capture relic %}[<cite class="short-story-title">A Relic of War</cite>](#a-relic-of-war){% endcapture %}
-{% capture combat_unit %}[<cite class="short-story-title">Combat Unit</cite>](#combat-unit){% endcapture %}
+{% capture trolls %}{% short_story_link "The Night of the Trolls" %}{% endcapture %}
+{% capture courier %}{% short_story_link "Courier" %}{% endcapture %}
+{% capture field_test %}{% short_story_link "Field Test" %}{% endcapture %}
+{% capture last_command %}{% short_story_link "The Last Command" %}{% endcapture %}
+{% capture relic %}{% short_story_link "A Relic of War" %}{% endcapture %}
+{% capture combat_unit %}{% short_story_link "Combat Unit" %}{% endcapture %}
 
 I read the Bolo anthologies---{{ bolo10 }}, {{ bolo11 }}, {{ bolo12 }},
 etc.---about twenty-five years ago, then tracked down every other Bolo book I

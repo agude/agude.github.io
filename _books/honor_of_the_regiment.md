@@ -48,25 +48,25 @@ of Bolo stories written by ten different authors.
 {% capture bolo14 %}{% book_link "Old Guard" %}{% endcapture %}
 {% capture bolo15 %}{% book_link "Cold Steel" %}{% endcapture %}
 
-{% capture night_of_the_trolls_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#the-night-of-the-trolls"><cite class="short-story-title">The Night of the Trolls</cite></a>{% endcapture %}
-{% capture field_test_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#field-test"><cite class="short-story-title">Field Test</cite></a>{% endcapture %}
-{% capture relic_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#a-relic-of-war"><cite class="short-story-title">A Relic of War</cite></a>{% endcapture %}
+{% capture night_of_the_trolls_from_bolo1 %}{% short_story_link "The Night of the Trolls" %}{% endcapture %}
+{% capture field_test_from_bolo1 %}{% short_story_link "Field Test" %}{% endcapture %}
+{% capture relic_from_bolo1 %}{% short_story_link "A Relic of War" %}{% endcapture %}
 
-{% capture rogue_bolo_from_bolo2 %}<a href="/books/rogue_bolo/#rogue-bolo"><cite class="short-story-title">Rogue Bolo</cite></a>{% endcapture %}
-{% capture final_mission_from_bolo2  %}<a href="/books/rogue_bolo/#final-mission"><cite class="short-story-title">Final Mission</cite></a>{% endcapture %}
+{% capture rogue_bolo_from_bolo2 %}{% short_story_link "Rogue Bolo" %}{% endcapture %}
+{% capture final_mission_from_bolo2 %}{% short_story_link "Final Mission" %}{% endcapture %}
 
-{% capture lost_legion %}<a href="#lost-legion"><cite class="short-story-title">Lost Legion</cite></a>{% endcapture %}
-{% capture camelot %}<a href="#camelot"><cite class="short-story-title">Camelot</cite></a>{% endcapture %}
-{% capture legacy_of_leonidas %}<a href="#the-legacy-of-leonidas"><cite class="short-story-title">The Legacy of Leonidas</cite></a>{% endcapture %}
-{% capture ploughshare %}<a href="#ploughshare"><cite class="short-story-title">Ploughshare</cite></a>{% endcapture %}
-{% capture ghosts %}<a href="#ghosts"><cite class="short-story-title">Ghosts</cite></a>{% endcapture %}
-{% capture ghost_of_resartus %}<a href="#the-ghost-of-resartus"><cite class="short-story-title">The Ghost of Resartus</cite></a>{% endcapture %}
-{% capture as_our_strength_lessens %}<a href="#as-our-strength-lessens"><cite class="short-story-title">As Our Strength Lessens</cite></a>{% endcapture %}
+{% capture lost_legion %}{% short_story_link "Lost Legion" %}{% endcapture %}
+{% capture camelot %}{% short_story_link "Camelot" %}{% endcapture %}
+{% capture legacy_of_leonidas %}{% short_story_link "The Legacy of Leonidas" %}{% endcapture %}
+{% capture ploughshare %}{% short_story_link "Ploughshare" %}{% endcapture %}
+{% capture ghosts %}{% short_story_link "Ghosts" %}{% endcapture %}
+{% capture ghost_of_resartus %}{% short_story_link "The Ghost of Resartus" %}{% endcapture %}
+{% capture as_our_strength_lessens %}{% short_story_link "As Our Strength Lessens" %}{% endcapture %}
 
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
 
 {% capture excession %}{% book_link "Excession" %}{% endcapture %}
-{% capture odd %}<a href="/books/the_state_of_the_art/#odd-attachment"><cite class="short-story-title">Odd Attachment</cite></a>{% endcapture %}
+{% capture odd %}{% short_story_link "Odd Attachment" %}{% endcapture %}
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 
 {% capture slammers %}{% book_link "Hammer's Slammers" %}{% endcapture %}

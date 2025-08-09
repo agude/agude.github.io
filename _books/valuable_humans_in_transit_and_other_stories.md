@@ -19,7 +19,7 @@ stories by <span class="author-name">{{ page.book_authors }}</span>.
 
 {% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
 {% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
-{% capture cleaning_up %}[<cite class="short-story-title">Cleaning Up</cite>]({% link _books/the_state_of_the_art.md %}#cleaning-up){% endcapture %}
+{% capture cleaning_up %}{% short_story_link "Cleaning Up" %}{% endcapture %}
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture art %}{% book_link "The State of the Art" %}{% endcapture %}
 

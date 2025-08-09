@@ -27,11 +27,11 @@ of two novellas featuring the sentient tanks.
 {% capture bolo10 %}{% book_link "Honor of the Regiment" %}{% endcapture %}
 {% capture bolo11 %}{% book_link "The Unconquerable" %}{% endcapture %}
 
-{% capture history_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#a-short-history-of-the-bolo-fighting-machines"><cite class="short-story-title">A Short History of the Bolo Fighting Machines</cite></a>{% endcapture %}
-{% capture field_test_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#field-test"><cite class="short-story-title">Field Test</cite></a>{% endcapture %}
-{% capture last_command_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#the-last-command"><cite class="short-story-title">The Last Command</cite></a>{% endcapture %}
-{% capture relic_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#a-relic-of-war"><cite class="short-story-title">A Relic of War</cite></a>{% endcapture %}
-{% capture combat_unit_from_bolo1 %}<a href="/books/bolo_annals_of_the_dinochrome_brigade/#combat-unit"><cite class="short-story-title">Combat Unit</cite></a>{% endcapture %}
+{% capture history_from_bolo1 %}{% short_story_link "A Short History of the Bolo Fighting Machines" %}{% endcapture %}
+{% capture field_test_from_bolo1 %}{% short_story_link "Field Test" %}{% endcapture %}
+{% capture last_command_from_bolo1 %}{% short_story_link "The Last Command" %}{% endcapture %}
+{% capture relic_from_bolo1 %}{% short_story_link "A Relic of War" %}{% endcapture %}
+{% capture combat_unit_from_bolo1 %}{% short_story_link "Combat Unit" %}{% endcapture %}
 
 {% capture weber %}{% author_link "David Weber" %}{% endcapture %}
 {% capture keith %}{% author_link "William H. Keith" %}{% endcapture %}

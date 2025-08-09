@@ -37,8 +37,11 @@ module LinkHelperUtils
     current_page_url = page['url']
     target_url_str = target_url.to_s # Ensure string
 
-    # Link if target URL exists AND is not empty AND it's not the current page
-    if !target_url_str.empty? && target_url_str != current_page_url
+    # Strip the fragment from the target URL before comparing.
+    target_base_url = target_url_str.split('#').first
+
+    # Link if target URL exists AND is not empty AND its base path is not the current page
+    if !target_url_str.empty? && target_base_url != current_page_url
       baseurl = site.config['baseurl'] || ''
       # Ensure target_url starts with a slash if baseurl is present and url doesn't already have it
       # Check against baseurl itself too, in case the URL already includes it somehow
