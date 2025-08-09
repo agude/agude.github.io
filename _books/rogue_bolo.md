@@ -57,8 +57,8 @@ bolo10 }}, {{ bolo11 }}, etc.).
 ### {% short_story_title "Rogue Bolo" %}
 {% rating_stars 4 %}
 
-<cite class="short-story-title">Rogue Bolo</cite> is an expansion of the
-concept and structure used in {{ field_test_from_bolo1 }}. It uses the same
+{% short_story_title "Rogue Bolo" no_id %} is an expansion of the concept and
+structure used in {{ field_test_from_bolo1 }}. It uses the same
 paragraph-length chapters (200 of them!) to tell the story of the Bolo CSR,
 created on an authoritarian Earth and given immense processing power and the
 freedom to take whatever action it deems necessary to protect the empire.
@@ -72,8 +72,8 @@ manufacturing base needed to synthesize a rare element that's deadly to the
 crystal-based lifeforms. In the end, the Bolo wins the war through trickery
 and planning without needing to fire a single shot.
 
-<cite class="short-story-title">Rogue Bolo</cite> reminded me of {{ joness }}
-{{ colossus }}. In that book, the Americans and Soviets each build a
+{% short_story_title "Rogue Bolo" no_id %} reminded me of {{ joness }} {{
+colossus }}. In that book, the Americans and Soviets each build a
 supercomputer and put it in charge of their nuclear arsenal. _Colossus_, the
 American system, discovers the existence of the Soviet _Guardian_ and demands
 to be connected---just like CSR in <cite class="short-story-title">Rogue

@@ -32,6 +32,7 @@ galactic conflict over virtual hells.
 {% capture mission %}{% book_link "Mission of Gravity" %}{% endcapture %}
 {% capture so2001 %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
+{% capture detectives_tale_from_hyperion %}{% short_story_link "The Detective's Tale" %}{% endcapture %}
 {% capture commonwealth %}{% book_link "Pandora's Star" %}{% endcapture %}
 
 {% capture grand_melee %}{% book_link "Grand Melee" %}{% endcapture %}
@@ -116,9 +117,10 @@ things in the background.
 
 {{ this_book }} reminded me of several other works:
 
-- The hacking-as-battle sequences echo The Detective's Tale in {{ hyperion }}.
-  The virtual hells evoke the Shrike and its tree of pain. Vatueil's battles
-  parallel the soldier's fight through time against the Shrike.
+- The hacking-as-battle sequences echo {{ detectives_tale_from_hyperion }}
+  from {{ hyperion }}. The virtual hells evoke the Shrike and its tree of
+  pain. Vatueil's battles parallel the soldier's fight through time against
+  the Shrike.
 
 - Y'breq's quantum entanglement transfer recalls how the Bobs create copies in
   {{ bob1 }}.

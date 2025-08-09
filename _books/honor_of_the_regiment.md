@@ -117,7 +117,7 @@ the locals in their roleplaying.
 <div class="written-by">by {{ author_keith }}</div>
 {% rating_stars 4 %}
 
-<cite class="short-story-title">The Legacy of Leonidas</cite> is an expanded
+{% short_story_title "The Legacy of Leonidas" no_id %} is an expanded
 and rewritten version of {{ field_test_from_bolo1 }} from {{ bolo1_short }};
 the author even references the original story by name. In this version, a
 regiment of Bolos is sent to the non-Concordiat planet New Sierra to help them
@@ -216,7 +216,7 @@ joke.
 <div class="written-by">by {{ author_drake }}</div>
 {% rating_stars 4 %}
 
-In <cite class="short-story-title">As Our Strength Lessens</cite>, a Bolo is
+In {% short_story_title "As Our Strength Lessens" no_id %}, a Bolo is
 tasked with destroying a research facility that mirrors any attack sent
 against it. This is the most action- and tech-heavy story in the anthology,
 which makes sense coming from the author of {{ slammers }}.
