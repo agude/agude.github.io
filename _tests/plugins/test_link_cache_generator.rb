@@ -195,4 +195,49 @@ class TestLinkCacheGenerator < Minitest::Test
     refute_empty site_no_books.data['link_cache']['authors']
     assert_equal({ 'url' => '/authors/jane-doe.html', 'title' => 'Jane Doe' }, site_no_books.data['link_cache']['authors']['jane doe'])
   end
+
+  # Test for short story link backlink generation
+  def test_generator_builds_backlinks_from_short_story_links
+    anthology1 = create_doc(
+      { 'title' => 'Anthology One', 'is_anthology' => true, 'published' => true },
+      '/books/anthology-one.html',
+      '### {% short_story_title "Unique Story" %}'
+    )
+    anthology2 = create_doc(
+      { 'title' => 'Anthology Two', 'is_anthology' => true, 'published' => true },
+      '/books/anthology-two.html',
+      '### {% short_story_title "Duplicate Story" %}'
+    )
+    anthology3 = create_doc(
+      { 'title' => 'Anthology Three', 'is_anthology' => true, 'published' => true },
+      '/books/anthology-three.html',
+      '### {% short_story_title "Duplicate Story" %}'
+    )
+    source_book1 = create_doc(
+      { 'title' => 'Source 1', 'published' => true },
+      '/books/source1.html',
+      'I read {% short_story_link "Unique Story" %}.'
+    )
+    source_book2 = create_doc(
+      { 'title' => 'Source 2', 'published' => true },
+      '/books/source2.html',
+      'I also read {% short_story_link "Duplicate Story" from_book="Anthology Three" %}.'
+    )
+
+    site = create_site({}, { 'books' => [anthology1, anthology2, anthology3, source_book1, source_book2] })
+    backlinks = site.data['link_cache']['backlinks']
+
+    # Test backlink for the unique story
+    anthology1_backlinks = backlinks[anthology1.url]
+    refute_nil anthology1_backlinks
+    assert_equal [source_book1.url], anthology1_backlinks.map(&:url)
+
+    # Test backlink for the disambiguated duplicate story
+    anthology3_backlinks = backlinks[anthology3.url]
+    refute_nil anthology3_backlinks
+    assert_equal [source_book2.url], anthology3_backlinks.map(&:url)
+
+    # Test that the other anthology with the duplicate story has no backlinks
+    assert_empty backlinks[anthology2.url]
+  end
 end

@@ -165,6 +165,7 @@ module Jekyll
       Jekyll.logger.info "LinkCacheGenerator:", "Building backlinks cache..."
       backlinks = Hash.new { |h, k| h[k] = [] }
       books_cache = link_cache['books']
+      short_stories_cache = link_cache['short_stories'] # MODIFIED: Get the short story cache
       return unless books_cache && !books_cache.empty?
 
       # Create a reverse map of URL -> book data for efficient markdown link checking
@@ -172,6 +173,8 @@ module Jekyll
 
       # Regex for {% book_link 'Title' %} or {% book_link "Title" %}
       book_link_tag_regex = /\{%\s*book_link\s+(?:'([^']+)'|"([^"]+)")/
+      # Regex to find short story links
+      short_story_link_tag_regex = /\{%\s*short_story_link\s+["'](.+?)["'](?:\s+from_book=["'](.+?)["'])?\s*%\}/
       # Regex for [link text](url) - captures URL part
       markdown_link_regex = /\[[^\]]+\]\(([^)\s]+)/
       # Regex for <a href="url"> - captures URL part
@@ -194,7 +197,28 @@ module Jekyll
           end
         end
 
-        # 2. Find standard Markdown links
+        # 2. MODIFIED: Find Liquid short_story_link tags
+        content.scan(short_story_link_tag_regex).each do |match|
+          story_title = match[0]
+          from_book_title = match[1] # This will be nil if not provided
+
+          normalized_story_title = TextProcessingUtils.normalize_title(story_title)
+          story_locations = short_stories_cache[normalized_story_title]
+          next unless story_locations
+
+          target_location = nil
+          if story_locations.length == 1
+            target_location = story_locations.first
+          elsif from_book_title
+            target_location = story_locations.find { |loc| loc['parent_book_title'].casecmp(from_book_title).zero? }
+          end
+
+          if target_location && (target_url = target_location['url'])
+            backlinks[target_url] << source_doc if source_doc.url != target_url
+          end
+        end
+
+        # 3. Find standard Markdown links
         content.scan(markdown_link_regex).each do |match|
           linked_url = match.first&.split('#')&.first
           next if linked_url.nil? || linked_url.empty?
@@ -204,7 +228,7 @@ module Jekyll
           end
         end
 
-        # 3. Find raw HTML links
+        # 4. Find raw HTML links
         content.scan(html_link_regex).each do |match|
           linked_url = match.first&.split('#')&.first
           next if linked_url.nil? || linked_url.empty?
