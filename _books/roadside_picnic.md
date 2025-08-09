@@ -20,6 +20,7 @@ enters an alien-contaminated Zone to retrieve items for the black market.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_authors %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] }}</span>{% endcapture %}
 {% capture the_authors_first_only %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] | split: " " | first }}</span>{% endcapture %}
+{% capture the_authors_possessive %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] }}</span>'s{% endcapture %}
 {% capture strugatskys %}<span class="author-name">Strugatskys</span>'{% endcapture %}
 
 {% capture liu %}{% author_link "Cixin Liu" %}{% endcapture %}
@@ -43,9 +44,13 @@ enters an alien-contaminated Zone to retrieve items for the black market.
 {% capture cleaning %}<cite class="short-story-title">Cleaning Up</cite>{% endcapture %}
 {% capture art %}{% book_link "The State of the Art" %}{% endcapture %}
 
-{% capture moores %}{% author_link "Alan Moore" possessive %}{% endcapture %}
+{% capture moore %}{% author_link "Alan Moore" %}{% endcapture %}
 {% capture gibbonss %}{% author_link "Dave Gibbons" possessive %}{% endcapture %}
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
+
+{% capture bolo11 %}{% book_link "The Unconquerable" %}{% endcapture %}
+{% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
+{% capture lost %}{% book_link "Not Till We Are Lost Not Till We Are Lost" %}{% endcapture %}
 
 {{ this_book }} is a first-contact story like {{ war_of_the_worlds }} and {{
 three_body }}. Both those books treat aliens as hostile and bent on conquering
@@ -86,4 +91,9 @@ antimemetics }}. The rundown town with supernatural elements is like Revachol
 in {{ disco_elysium }}. Alien trash appearing on Earth and being studied or
 weaponized is the same theme as {{ bankss }} {{ cleaning }} from {{ art }}.
 Red, the red-headed, freckled, anti-authority figure, reminded me of Rorschach
-in {{ moores }} and {{ gibbonss }} {{ watchmen }}.
+in {{ moore }} and {{ gibbonss }} {{ watchmen }}.
+
+I really enjoyed {{ this_book }}, and I'll be reading more of {{
+the_authors_possessive }} work. Their work has such a different feel from what
+I'm used to with American and British sci-fi that it provides a nice break.
+Next on to {{ bolo11 }}, {{ hyperion }}, and perhaps {{ lost }}.
