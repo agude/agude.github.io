@@ -57,7 +57,7 @@ intelligences---Rorschach, the Vampires, the Bicamerals---that are
 _completely_ alien, not even conscious in the human sense, yet operating on a
 level far beyond our understanding.
 
-Tied into this theme is our inability to understand how some things are
+Tied into this theme is our inability to understand; that some things are
 unknown and unknowable. {{ the_authors_first_only }} never give the reader any
 more information than the characters have, and they never show us the aliens.
 They don't even hint at what the Visitors might be like, other than by showing
@@ -78,16 +78,15 @@ it's about to erupt from the pages.
 than just being a first-contact story. {{ wellss }} Martians travel to Earth
 using a giant cannon. Dr. Pillman describes the Visitors' arrival by saying,
 "all six Visit Zones are positioned on the surface of the planet like bullet
-holes made by a gun located somewhere between Earth and Deneb." Like {{ wellss
-}} Martians, the Visitors landed in several places across the planet.
+holes made by a gun located somewhere between Earth and Deneb."
 
-{{ this_book }} reminded me of others. The institute trying to contain and
-study the Zone's artifacts recalls the SCP Foundation from {{ qntms }} {{
-antimemetics }}. The rundown town with supernatural elements is like Revachol
-in {{ disco_elysium }}. Alien trash appearing on Earth and being studied or
-weaponized is the same theme as {{ bankss }} {{ cleaning }} from {{ art }}.
-Red, the red-headed, freckled, anti-authority figure, reminded me of Rorschach
-in {{ moore }} and {{ gibbonss }} {{ watchmen }}.
+{{ this_book }} reminded me of other works. The institute trying to contain
+and study the Zone's artifacts is similar to the SCP Foundation from {{ qntms
+}} {{ antimemetics }}. The rundown town with supernatural elements is like
+Revachol in {{ disco_elysium }}. Alien trash appearing on Earth and being
+studied or weaponized is the same idea as {{ bankss }} {{ cleaning }} from {{
+art }}. Red, the red-headed, freckled, anti-authority figure, reminded me of
+Rorschach in {{ moore }} and {{ gibbonss }} {{ watchmen }}.
 
 I really enjoyed {{ this_book }}, and I'll definitely be reading more of {{
 the_authors_possessive }} work. Their style feels so different from the
