@@ -63,3 +63,31 @@ of Bolo stories written by seven different authors.
 {% capture bolo13 %}{% book_link "Last Stand" %}{% endcapture %}
 {% capture bolo14 %}{% book_link "Old Guard" %}{% endcapture %}
 {% capture bolo15 %}{% book_link "Cold Steel" %}{% endcapture %}
+
+### {% short_story_title "Ancestral Voices" %}
+<div class="written-by">by {{ author_stirling }}</div>
+{% rating_stars 4 %}
+
+### {% short_story_title "Sir Kendrick's Lady" %}
+<div class="written-by">by {{ author_lewitt }}</div>
+{% rating_stars 4 %}
+
+### {% short_story_title "You're It" %}
+<div class="written-by">by {{ author_meier }}</div>
+{% rating_stars 5 %}
+
+### {% short_story_title "Shared Experience" %}
+<div class="written-by">by {{ author_stasheff }}</div>
+{% rating_stars 1 %}
+
+### {% short_story_title "The Murphosensor Bomb" %}
+<div class="written-by">by {{ author_wehrstein }}</div>
+{% rating_stars 5 %}
+
+### {% short_story_title "Legacy" %}
+<div class="written-by">by {{ author_johnson }}</div>
+{% rating_stars 4 %}
+
+### {% short_story_title "Endings" %}
+<div class="written-by">by {{ author_forstchen }}</div>
+{% rating_stars 5 %}
