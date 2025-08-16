@@ -10,10 +10,10 @@ book_authors:
   - Todd Johnson
   - William R. Forstchen
 series: Bolo
-book_number: 2
+book_number: 11
 is_anthology: true
 rating: 4
-image: /books/covers/bolos_book_2_the_unconquerable.jpg
+image: /books/covers/bolos_book_2_the_unconquerable_1st_edition.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the eleventh book in the
