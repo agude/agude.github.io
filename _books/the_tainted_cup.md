@@ -6,6 +6,8 @@ series: Shadow of the Leviathan
 book_number: 1
 rating: 4
 image: /books/covers/the_tainted_cup.jpg
+awards:
+  - hugo
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is a fantasy detective novel
