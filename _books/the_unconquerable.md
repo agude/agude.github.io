@@ -40,6 +40,17 @@ of Bolo stories written by seven different authors.
 {% capture author_johnson %}{% author_link "Todd Johnson" %}{% endcapture %}
 {% capture author_forstchen %}{% author_link "William R. Forstchen" %}{% endcapture %}
 
+{% comment %}From anthologies 1{% endcomment %}
+{% capture lost_legion %}{% short_story_link "Lost Legion" %}{% endcapture %}
+{% capture camelot %}{% short_story_link "Camelot" %}{% endcapture %}
+{% capture the_legacy_of_leonidas %}{% short_story_link "The Legacy of Leonidas" %}{% endcapture %}
+{% capture ploughshare %}{% short_story_link "Ploughshare" %}{% endcapture %}
+{% capture ghosts %}{% short_story_link "Ghosts" %}{% endcapture %}
+{% capture the_ghost_of_resartus %}{% short_story_link "The Ghost of Resartus" %}{% endcapture %}
+{% capture operation_desert_fox %}{% short_story_link "Operation Desert Fox" %}{% endcapture %}
+{% capture as_our_strength_lessens %}{% short_story_link "As Our Strength Lessens" %}{% endcapture %}
+
+{% comment %}From anthologies 2{% endcomment %}
 {% capture ancestral_voices %}{% short_story_link "Ancestral Voices" %}{% endcapture %}
 {% capture sir_kendricks_lady %}{% short_story_link "Sir Kendrick's Lady" %}{% endcapture %}
 {% capture youre_it %}{% short_story_link "You're It" %}{% endcapture %}
@@ -64,21 +75,94 @@ of Bolo stories written by seven different authors.
 {% capture bolo14 %}{% book_link "Old Guard" %}{% endcapture %}
 {% capture bolo15 %}{% book_link "Cold Steel" %}{% endcapture %}
 
+{% capture conrads %}{% author_link "Joseph Conrad" possessive %}{% endcapture %}
+{% capture heart %}{% book_link "Heart of Darkness" %}{% endcapture %}
+
+{% capture predator %}<cite class="movie-title">Predator</cite>{% endcapture %}
+{% capture empire %}<cite class="movie-title">The Empire Strikes Back</cite>{% endcapture %}
+
+{% capture asimovs %}{% author_link "Isaac Asimov" possessive %}{% endcapture %}
+{% capture heart %}{% short_story_link "Liar!" %}{% endcapture %}
+
 ### {% short_story_title "Ancestral Voices" %}
 <div class="written-by">by {{ author_stirling }}</div>
 {% rating_stars 4 %}
+
+A sequel to {{ lost_legion }} from {{ bolo10 }}, the U.S. Army unit is still
+trying to make it home. This time they run into a volcanologist who can
+control the local volcano with his scientific instruments. He uses this power
+to convince the locals that he is the sixth coming of Montezuma, and that the
+gods wants them to reinstate the Aztec Empire, complete with human sacrifices.
+
+This story is mostly just an action packed romp, but there is a little nuance
+with the "good" soldiers being forced to steal and extort local villages to
+survive, and the "bad" Aztecs living in an prosperous valley, safe from the
+chaos of the collapsing world.
+
+This story very vaguely reminds me of {{ conrads }} {{ heart }}, with the
+outside who convinces a native tribe that he is a demigod.
 
 ### {% short_story_title "Sir Kendrick's Lady" %}
 <div class="written-by">by {{ author_lewitt }}</div>
 {% rating_stars 4 %}
 
+A sequel to {{ camelot }}, this story follows Abigail, a teenaged girl growing
+up on Camelot. Like all young people there, she's bored and dreams of running
+away. It feels like it's going to be a standard "you don't appreciate what you
+have" story, but there are two twists:
+
+1. It turns out all the children running away are actually being traffic into
+   slavery by the spacers guild.
+2. The Bolo is almost completely unable to help.
+
+It's a fresh take on a standard story, and an interesting look into the types
+of horrible problems that you can't solve with a well aimed Hellbore blast.
+
 ### {% short_story_title "You're It" %}
 <div class="written-by">by {{ author_meier }}</div>
 {% rating_stars 5 %}
 
+A vaguely East-Asian human Empire has attacked the Concordinate and wiped out
+the planet's defenders except for one, damaged Bolo. A lone technician is
+trying to make it to the Bolo without getting caught and killed by the
+empire's knock-off tanks. Although the title is based on tag, it's much more
+hide and seek, with the technician camouflaging his heat signature using mud
+like Arnold in {{ predator }}, and later hiding in a giant snail carcass, a
+little like Luke in {{ empire }}.
+
+Like {{ sir_kendricks_lady }}, there is some darkness in the pulpy action:
+children suicide bombers and slave labor.
+
+{{ author_meier }} tries to make the imperial general sympathetic by giving
+him some scenes where... TODO
+
+It feels a little like rehabilitation of Rommel from {{ operation_desert_fox
+}} in that it portrays the imperial general as a "good" guy working in a "bad"
+system; he even has a [Luger][luger].
+
+[luger]: https://en.wikipedia.org/wiki/Luger_pistol
+
+{{ youre_it }} is just a really well written story, with the right blend of
+suspense, action, and the bad guys meeting fitting ends. I think this is also
+the first story with a Bolo named after a woman, although {{ lost_legion }}
+and {{ ancestral_voices }} has a Bolo with a woman's voice.
+
 ### {% short_story_title "Shared Experience" %}
 <div class="written-by">by {{ author_stasheff }}</div>
 {% rating_stars 1 %}
+
+A Bolo experiences the deaths of his comrades as they fight off Harpies and
+egg-shaped ships. Meanwhile, two humans flirt as they try to survive.
+
+{{ author_stasheff }} writes in the narrative style without any dialogue for
+the first half of the book: "The Bolo did this. The Harpies did that." It's
+boring. And it's too long. Bolos work best as characters, as we learned in
+from {{ bolo1 }}, and Titan and his fellow Bolos are scenery for most of this
+story.
+
+One fun fact: this is the first story where it explains that people enter a
+Bolo from the under-side between the treads; in all the previous stories
+people have had to climb up the Bolo.
 
 ### {% short_story_title "The Murphosensor Bomb" %}
 <div class="written-by">by {{ author_wehrstein }}</div>
