@@ -86,16 +86,15 @@ of Bolo stories written by seven different authors.
 {% capture asimovs %}{% author_link "Isaac Asimov" possessive %}{% endcapture %}
 {% capture liar %}{% short_story_link "Liar!" %}{% endcapture %}
 
-{{ this_book }} follows {{ bolo10 }}, and contains sequels to {{ lost_legion
-}} and {{ camelot }}. The authors are more comfortable with the setting, which
-shows up in a broader mix of story types, and inventing new facts about the
-universe not seen in {{ bolo1 }} or {{ bolo2 }}.
+{% capture wellss %}{% author_link "H. G. Wells" possessive %}{% endcapture %}
+{% capture war %}{% short_story_link "The War of the Worlds" %}{% endcapture %}
 
-As the second book in the anthology, the authors and editor are starting to
-get more comfortable with the setting. This gives them the confidence to tell
-different types of stories, like {{ sir_kendricks_lady }} where the Bolo is
-can't to solve the problem, and {{ endings }} where the Bolo does little more
-than talk.
+{{ this_book }} follows {{ bolo10 }}, and contains sequels to {{ lost_legion
+}} and {{ camelot }}. As the second book in the anthology, the authors and
+editor are starting to get more comfortable with the setting. This gives them
+the confidence to tell different types of stories, like {{ sir_kendricks_lady
+}} where the Bolo is can't to solve the problem, and {{ endings }} where the
+Bolo does little more than talk.
 
 It also gives them the freedom to invent things not seen in {{ laumers }}
 earlier works: {{ bolo1 }}, {{ bolo2 }}, and {{ bolo3 }}. We see new enemies
@@ -108,64 +107,64 @@ feel.
 <div class="written-by">by {{ author_stirling }}</div>
 {% rating_stars 4 %}
 
-A sequel to {{ lost_legion }} from {{ bolo10 }}, the U.S. Army unit is still
-trying to make it home. This time they run into a volcanologist who can
-control the local volcano with his scientific instruments. He uses this power
-to convince the locals that he is the sixth coming of Montezuma, and that the
-gods wants them to reinstate the Aztec Empire, complete with human sacrifices.
+A sequel to {{ lost_legion }} from {{ bolo10 }}, this story finds the U.S.
+Army unit is still trying to make its way home. This time they run into a
+volcanologist who uses his instruments to control a volcano. With this
+power, he has convinced the locals that he is the sixth coming of Montezuma,
+and that they need to restore the Aztec Empire, including the human
+sacrifices.
 
-This story is mostly just an action packed romp, but there is a little nuance
-with the "good" soldiers being forced to steal and extort local villages to
-survive, and the "bad" Aztecs living in an prosperous valley, safe from the
-chaos of the collapsing world.
+This story is mostly an action-packed romp, but there's nuance too: the "good"
+soldiers must steal and extort local villages to survive, and the "bad" Aztecs
+live in an prosperous valley, safe from the chaos of the collapsing world.
 
 This story very vaguely reminds me of {{ conrads }} {{ heart }}, with the
-outside who convinces a native tribe that he is a demigod.
+outside who convinces a native tribe that he is a demigod, complete with
+atrocities.
 
 ### {% short_story_title "Sir Kendrick's Lady" %}
 <div class="written-by">by {{ author_lewitt }}</div>
 {% rating_stars 4 %}
 
-A sequel to {{ camelot }}, this story follows Abigail, a teenaged girl growing
-up on Camelot. Like all young people there, she's bored and dreams of running
-away. It feels like it's going to be a standard "you don't appreciate what you
-have" story, but there are two twists:
+A sequel to {{ camelot }}, this story follows Abigail, a teenage girl growing
+up on Camelot. Like most kids, she's bored and dreams of running away. At
+first it feels like a typical "you don't appreciate what you have" story, but
+two twists change that:
 
-1. It turns out all the children running away are actually being traffic into
-   slavery by the spacers guild.
-2. The Bolo is almost completely unable to help.
+1. The children who run away are actually being trafficked into slavery by the
+   spacers guild.
+2. The Bolo is almost completely powerless to help.
 
-It's a fresh take on a standard story, and an interesting look into the types
-of horrible problems that you can't solve with a well aimed Hellbore blast.
+It's a fresh take on a standard story, and it highlights the kind of horror
+that you can't solve with a well aimed Hellbore blast.
 
 ### {% short_story_title "You're It" %}
 <div class="written-by">by {{ author_meier }}</div>
 {% rating_stars 5 %}
 
-A vaguely East-Asian human Empire has attacked the Concordiat and wiped out
-the planet's defenders except for one, damaged Bolo. A lone technician is
-trying to make it to the Bolo without getting caught and killed by the
-empire's knock-off tanks. Although the title is based on tag, it's much more
-hide and seek, with the technician camouflaging his heat signature using mud
-like Arnold in {{ predator }}, and later hiding in a giant snail carcass, a
-little like Luke in {{ empire }}.
+A vaguely East-Asian human Empire attacks the Concordiat and wiped out the
+planet's defenders, except for one damaged Bolo. A lone technician has to
+reach it without getting caught and killed by the empire's knock-off tanks.
+The story's title is based on tag, but it's much more hide and seek, with the
+technician masking his heat signature using mud, like Arnold in {{ predator
+}}, and later hiding in a giant snail carcass, a little like Luke in {{ empire
+}}.
 
-Like {{ sir_kendricks_lady }}, there is some darkness in the pulpy action:
-children suicide bombers and slave labor.
-
-{{ author_meier }} tries to make the imperial general sympathetic by giving
-him some scenes where... TODO
-
-It feels a little like rehabilitation of Rommel from {{ operation_desert_fox
-}} in that it portrays the imperial general as a "good" guy working in a "bad"
-system; he even has a [Luger][luger].
+{{ author_meier }} tries to make the imperial general some depth, portraying
+him as a "good" officer in a "bad" system, but it feels like the
+rehabilitation of Rommel from {{ operation_desert_fox }}. He even has a
+[Luger][luger].
 
 [luger]: https://en.wikipedia.org/wiki/Luger_pistol
 
-{{ youre_it }} is just a really well written story, with the right blend of
-suspense, action, and the bad guys meeting fitting ends. I think this is also
-the first story with a Bolo named after a woman, although {{ lost_legion }}
-and {{ ancestral_voices }} has a Bolo with a woman's voice.
+Like {{ sir_kendricks_lady }}, there is some darkness in the pulpy action:
+suicide-bomber children and slave labor camps.
+
+{{ youre_it }} is just a really well-written story: suspenseful, with
+satisfying action and bad guys who get the end they deserve.
+It might also be the first story with a Bolo named after a woman, although {{
+lost_legion }} and {{ ancestral_voices }} feature a female-voiced Bolo,
+although one too primitive to be a "person" like LRS "Laura" is.
 
 ### {% short_story_title "Shared Experience" %}
 <div class="written-by">by {{ author_stasheff }}</div>
@@ -174,15 +173,14 @@ and {{ ancestral_voices }} has a Bolo with a woman's voice.
 A Bolo experiences the deaths of his comrades as they fight off Harpies and
 egg-shaped ships. Meanwhile, two humans flirt as they try to survive.
 
-{{ author_stasheff }} writes in the narrative style without any dialogue for
-the first half of the book: "The Bolo did this. The Harpies did that." It's
-boring. And it's too long. Bolos work best as characters, as we learned in
-from {{ bolo1 }}, and Titan and his fellow Bolos are scenery for most of this
-story.
+{{ author_stasheff }} writes in a flat style: "The Bolo did this. The Harpies
+did that." It's boring, it's too long, and it misses what really makes Bolo
+stories work: treating them as characters. Here, Titan and the other Bolos
+feel more like scenery, just like in the worst stories in {{ bolo1 }}.
 
-One fun fact: this is the first story where it explains that people enter a
-Bolo from the under-side between the treads; in all the previous stories
-people have had to climb up the Bolo.
+One small detail: this is the first story to mention that people enter a Bolo
+from underneath, between the treads. Until now, crews have always had to climb
+up the outside.
 
 ### {% short_story_title "The Murphosensor Bomb" %}
 <div class="written-by">by {{ author_wehrstein }}</div>
@@ -193,28 +191,32 @@ just as the fighting reaches its peak. The Psychotronics Department is
 humanity's only hope to debug the problem, and they'll have to do it before
 the Djann invasion arrives.
 
-This story mixes action with mystery and some great characters. There is MAX,
-the empathetic Bolo---directly inspired by {{ asimovs }} {{ liar }}---that
-helps crack the case, and Benazir Ali, the brilliant young tech in slightly
-over here head. In the end, it's a computer virus planted with the help of a
-traitor, a bit like from {{ the_legacy_of_leonidas }}.
+This story blends action, mystery, and strong characters. There is MAX,
+the empathetic Bolo---directly inspired by {{ asimovs }} {{ liar }}---who
+helps crack the case. And there's Benazir Ali, the brilliant young tech in
+slightly over here head. In the end, the problem turns out to be a computer
+virus planted with the help of a traitor, a bit like {{ the_legacy_of_leonidas
+}}.
+
+The Octopods mechs the Djann use are a little like the tripods from {{ wellss
+}} {{ war }}, as is how they leave us helpless against their assault.
 
 ### {% short_story_title "Legacy" %}
 <div class="written-by">by {{ author_johnson }}</div>
 {% rating_stars 4 %}
 
-Set in the distant future, humanity has evolved beyond war and violence, and
-so the Hryxi are hunting them down planet by planet with no resistance. The
-last remaining humans take shelter in a cave on Earth, only to discover a
-mothballed Bolo. Not a lot happens, and we don't get a resolution, still the
-story is hopeful: as long as one Bolo exists, humanity has a chance, no matter
-the odds. We also get a glimpse at the new technology, like thought controlled
-nanobots, that is exciting.
+In the distant future, humanity has evolved beyond war and violence, making
+them an easy target for the Hryxi, who hunt them down planet by planet. The
+last humans take shelter in a cave on Earth and discover a mothballed Bolo.
+Not a lot happens, and we don't get a resolution, but the story is still
+hopeful: as long as a single Bolo exists, humanity has a chance, no matter the
+odds. We also get a glimpse at the new technology, like thought controlled
+nanobots, that are exciting.
 
 ### {% short_story_title "Endings" %}
 <div class="written-by">by {{ author_forstchen }}</div>
 {% rating_stars 5 %}
 
-The last Melconians have escaped their dying home world and founded an agraian
-colony far away. Their ship was tracked though, and one of the last surviving
-Bolos, the Mk. XXXIII Sherman, lands to eradicate them.
+The last Melconians escape their dying homeworld and found an agrarian colony
+far away. But they were tracked, and one of the last surviving Bolos, the Mk.
+XXXIII Sherman, arrives with a single mission: eradicate them.
