@@ -172,6 +172,14 @@ people have had to climb up the Bolo.
 <div class="written-by">by {{ author_johnson }}</div>
 {% rating_stars 4 %}
 
+Set in the distant future, humanity has evolved beyond war and violence, and
+so the Hryxi are hunting them down planet by planet with no resistance. The
+last remaining humans take shelter in a cave on Earth, only to discover a
+mothballed Bolo. Not a lot happens, and we don't get a resolution, still the
+story is hopeful: as long as one Bolo exists, humanity has a chance, no matter
+the odds. We also get a glimpse at the new technology, like thought controlled
+nanobots, that is exciting.
+
 ### {% short_story_title "Endings" %}
 <div class="written-by">by {{ author_forstchen }}</div>
 {% rating_stars 5 %}
