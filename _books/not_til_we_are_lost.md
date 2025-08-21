@@ -1,11 +1,11 @@
 ---
-date: 2025-08-16
+date: 2025-08-20
 title: Not Till We Are Lost
 book_authors: Dennis E. Taylor
 series: Bobiverse
 book_number: 5
 is_anthology: false
-rating: null
+rating: 4
 image: /books/covers/not_till_we_are_lost.jpg
 ---
 
