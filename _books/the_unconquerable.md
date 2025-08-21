@@ -59,6 +59,8 @@ of Bolo stories written by seven different authors.
 {% capture legacy %}{% short_story_link "Legacy" %}{% endcapture %}
 {% capture endings %}{% short_story_link "Endings" %}{% endcapture %}
 
+{% capture laumer %}{% author_link "Keith Laumer" %}{% endcapture %}
+{% capture laumers %}{% author_link "Keith Laumer" possessive %}{% endcapture %}
 {% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
 {% capture bolo2 %}{% book_link "Rogue Bolo" %}{% endcapture %}
 {% capture bolo3 %}{% book_link "The Stars Must Wait" %}{% endcapture %}
@@ -82,7 +84,25 @@ of Bolo stories written by seven different authors.
 {% capture empire %}<cite class="movie-title">The Empire Strikes Back</cite>{% endcapture %}
 
 {% capture asimovs %}{% author_link "Isaac Asimov" possessive %}{% endcapture %}
-{% capture heart %}{% short_story_link "Liar!" %}{% endcapture %}
+{% capture liar %}{% short_story_link "Liar!" %}{% endcapture %}
+
+{{ this_book }} follows {{ bolo10 }}, and contains sequels to {{ lost_legion
+}} and {{ camelot }}. The authors are more comfortable with the setting, which
+shows up in a broader mix of story types, and inventing new facts about the
+universe not seen in {{ bolo1 }} or {{ bolo2 }}.
+
+As the second book in the anthology, the authors and editor are starting to
+get more comfortable with the setting. This gives them the confidence to tell
+different types of stories, like {{ sir_kendricks_lady }} where the Bolo is
+can't to solve the problem, and {{ endings }} where the Bolo does little more
+than talk.
+
+It also gives them the freedom to invent things not seen in {{ laumers }}
+earlier works: {{ bolo1 }}, {{ bolo2 }}, and {{ bolo3 }}. We see new enemies
+and conflicts, including the first story with the apocalyptic Last War between
+the Concordiat and the Melconians that destroys both. We see new Bolos,
+including our first glimpse at Mk. XXXIII, and new ideas about Bolos that can
+feel.
 
 ### {% short_story_title "Ancestral Voices" %}
 <div class="written-by">by {{ author_stirling }}</div>
@@ -122,7 +142,7 @@ of horrible problems that you can't solve with a well aimed Hellbore blast.
 <div class="written-by">by {{ author_meier }}</div>
 {% rating_stars 5 %}
 
-A vaguely East-Asian human Empire has attacked the Concordinate and wiped out
+A vaguely East-Asian human Empire has attacked the Concordiat and wiped out
 the planet's defenders except for one, damaged Bolo. A lone technician is
 trying to make it to the Bolo without getting caught and killed by the
 empire's knock-off tanks. Although the title is based on tag, it's much more
@@ -168,6 +188,17 @@ people have had to climb up the Bolo.
 <div class="written-by">by {{ author_wehrstein }}</div>
 {% rating_stars 5 %}
 
+Bolos have started failing in the middle of combat, shutting themselves down
+just as the fighting reaches its peak. The Psychotronics Department is
+humanity's only hope to debug the problem, and they'll have to do it before
+the Djann invasion arrives.
+
+This story mixes action with mystery and some great characters. There is MAX,
+the empathetic Bolo---directly inspired by {{ asimovs }} {{ liar }}---that
+helps crack the case, and Benazir Ali, the brilliant young tech in slightly
+over here head. In the end, it's a computer virus planted with the help of a
+traitor, a bit like from {{ the_legacy_of_leonidas }}.
+
 ### {% short_story_title "Legacy" %}
 <div class="written-by">by {{ author_johnson }}</div>
 {% rating_stars 4 %}
@@ -183,3 +214,7 @@ nanobots, that is exciting.
 ### {% short_story_title "Endings" %}
 <div class="written-by">by {{ author_forstchen }}</div>
 {% rating_stars 5 %}
+
+The last Melconians have escaped their dying home world and founded an agraian
+colony far away. Their ship was tracked though, and one of the last surviving
+Bolos, the Mk. XXXIII Sherman, lands to eradicate them.
