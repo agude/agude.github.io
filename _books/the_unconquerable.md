@@ -93,12 +93,12 @@ of Bolo stories written by seven different authors.
 {% capture wellss %}{% author_link "H. G. Wells" possessive %}{% endcapture %}
 {% capture war %}{% short_story_link "The War of the Worlds" %}{% endcapture %}
 
-{{ this_book }} follows {{ bolo10 }}, and contains sequels to {{ lost_legion
-}} and {{ camelot }}. As the second book in the anthology, the authors and
-editor are starting to get more comfortable with the setting. This gives them
-the confidence to tell different types of stories, like {{ sir_kendricks_lady
-}} where the Bolo can't solve the problem, and {{ endings }} where the Bolo
-does little more than talk.
+{{ this_book }} follows {{ bolo10 }} and contains sequels to {{ lost_legion }}
+and {{ camelot }}. As the second book in the anthology, the authors and editor
+are starting to get more comfortable with the setting. This gives them the
+confidence to tell different types of stories, like {{ sir_kendricks_lady }}
+where the Bolo can't solve the problem, and {{ endings }} where the Bolo does
+little more than talk.
 
 It also gives them the freedom to invent things not seen in {{ laumers }}
 earlier works: {{ bolo1 }}, {{ bolo2 }}, and {{ bolo3 }}. We see new enemies
@@ -120,8 +120,8 @@ many-authors format and continues some of the stories started here.
 A sequel to {{ lost_legion }} from {{ bolo10 }}, this story finds the U.S.
 Army unit still trying to make its way home. This time they encounter a
 volcanologist who uses his instruments to control a volcano. With this power,
-he convinces the locals that he is the sixth coming of Montezuma, and that
-they need to restore the Aztec Empire, including human sacrifices.
+he convinces the locals that he is the sixth coming of Montezuma and that they
+need to restore the Aztec Empire, including human sacrifices.
 
 This story is mostly an action-packed romp, but there's nuance too: the "good"
 soldiers must steal and extort local villages to survive, while the "bad"
@@ -137,7 +137,7 @@ convinces a native tribe that he is a demigod, complete with atrocities.
 
 A sequel to {{ camelot }}, this story follows Abigail, a teenage girl growing
 up on Camelot. Like most kids, she's bored and dreams of running away. At
-first it feels like a typical "you don't appreciate what you have" story, but
+first, it feels like a typical "you don't appreciate what you have" story, but
 two twists change that:
 
 1. The children who run away are actually being trafficked into slavery by the
@@ -188,7 +188,7 @@ stories work: treating them as characters. Here, Titan and the other Bolos
 feel more like scenery, just like in the weakest stories in {{ bolo1 }}.
 
 One small detail: this is the first story to mention that people enter a Bolo
-from underneath, between the treads. Previously crews always had to climb up
+from underneath, between the treads. Previously, crews always had to climb up
 the outside.
 
 ### {% short_story_title "The Murphosensor Bomb" %}
