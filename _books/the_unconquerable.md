@@ -97,19 +97,20 @@ of Bolo stories written by seven different authors.
 }} and {{ camelot }}. As the second book in the anthology, the authors and
 editor are starting to get more comfortable with the setting. This gives them
 the confidence to tell different types of stories, like {{ sir_kendricks_lady
-}} where the Bolo is can't to solve the problem, and {{ endings }} where the
-Bolo does little more than talk.
+}} where the Bolo can't solve the problem, and {{ endings }} where the Bolo
+does little more than talk.
 
 It also gives them the freedom to invent things not seen in {{ laumers }}
 earlier works: {{ bolo1 }}, {{ bolo2 }}, and {{ bolo3 }}. We see new enemies
 and conflicts, including the first story with the apocalyptic Last War between
 the Concordiat and the Melconians that destroys both. We see new Bolos,
-including our first glimpse of a Mk. XXXIII, and new ideas about them like
+including our first glimpse of a Mk. XXXIII, and new ideas about them, like
 that some can read emotion.
 
 {{ bolo12 }} breaks the trend and has just a few authors---{{ evans }}, {{
 hollingsworth }}, and {{ weber }}---who write multiple stories each. {{ bolo13
-}} returns to the format of have many authors each writing one or two stories.
+}} returns to the format of having many authors each writing one or two
+stories.
 
 ### {% short_story_title "Ancestral Voices" %}
 <div class="written-by">by {{ author_stirling }}</div>
@@ -118,16 +119,16 @@ hollingsworth }}, and {{ weber }}---who write multiple stories each. {{ bolo13
 A sequel to {{ lost_legion }} from {{ bolo10 }}, this story finds the U.S.
 Army unit still trying to make its way home. This time they encounter a
 volcanologist who uses his instruments to control a volcano. With this power,
-he has convinced the locals that he is the sixth coming of Montezuma, and that
-they need to restore the Aztec Empire, including the human sacrifices.
+he convinces the locals that he is the sixth coming of Montezuma, and that
+they need to restore the Aztec Empire, including human sacrifices.
 
 This story is mostly an action-packed romp, but there's nuance too: the "good"
-soldiers must steal and extort local villages to survive, and the "bad" Aztecs
-live in an prosperous valley, safe from the chaos of the collapsing world.
+soldiers must steal and extort local villages to survive, while the "bad"
+Aztecs live in a prosperous valley, safe from the chaos of the collapsing
+world.
 
-This story very vaguely reminds me of {{ conrads }} {{ heart }}, with the
-outsider who convinces a native tribe that he is a demigod, complete with
-atrocities.
+It vaguely reminds me of {{ conrads }} {{ heart }}, with the outsider who
+convinces a native tribe that he is a demigod, complete with atrocities.
 
 ### {% short_story_title "Sir Kendrick's Lady" %}
 <div class="written-by">by {{ author_lewitt }}</div>
@@ -143,7 +144,7 @@ two twists change that:
 2. The Bolo is almost completely powerless to help.
 
 It's a fresh take on a standard story, and it highlights the kind of horror
-that you can't solve with a well aimed Hellbore blast.
+that you can't solve with a well-aimed Hellbore blast.
 
 ### {% short_story_title "You're It" %}
 <div class="written-by">by {{ author_meier }}</div>
@@ -152,12 +153,12 @@ that you can't solve with a well aimed Hellbore blast.
 A vaguely East-Asian human Empire attacks the Concordiat and wipes out the
 planet's defenders, except for one damaged Bolo. A lone technician has to
 reach it without getting caught and killed by the empire's knock-off Bolos.
-The story's title is based on tag, but it's much more hide and seek, with the
+The story's title is based on tag, but it's much more hide-and-seek, with the
 technician masking his heat signature using mud, like Arnold in {{ predator
 }}, and later hiding in a giant snail carcass, a little like Luke in {{ empire
 }}.
 
-{{ author_meier }} tries to make the imperial general some depth, portraying
+{{ author_meier }} tries to give the imperial general some depth, portraying
 him as a "good" officer in a "bad" system, but it feels like the
 rehabilitation of Rommel from {{ operation_desert_fox }}. He even has a
 [Luger][luger].
@@ -167,11 +168,11 @@ rehabilitation of Rommel from {{ operation_desert_fox }}. He even has a
 Like {{ sir_kendricks_lady }}, there is some darkness in the pulpy action:
 suicide-bomber children and slave labor camps.
 
-{{ youre_it }} is just a really well-written story: suspenseful, with
-satisfying action and bad guys who get the end they deserve. It might also be
-the first story with a Bolo named after a woman, although {{ lost_legion }}
-and {{ ancestral_voices }} feature a female-voiced Bolo, but one too primitive
-to be a "person" like LRS "Laura" is.
+{{ youre_it }} is a really well-written story: suspenseful, with satisfying
+action and villains who get the end they deserve. It might also be the first
+story with a Bolo named after a woman, although {{ lost_legion }} and {{
+ancestral_voices }} feature a female-voiced Bolo, but one too primitive to be
+a "person" like LRS "Laura" is.
 
 ### {% short_story_title "Shared Experience" %}
 <div class="written-by">by {{ author_stasheff }}</div>
@@ -183,11 +184,11 @@ egg-shaped ships. Meanwhile, two humans flirt as they try to survive.
 {{ author_stasheff }} writes in a flat style: "The Bolo did this. The Harpies
 did that." It's boring, it's too long, and it misses what really makes Bolo
 stories work: treating them as characters. Here, Titan and the other Bolos
-feel more like scenery, just like in the worst stories in {{ bolo1 }}.
+feel more like scenery, just like in the weakest stories in {{ bolo1 }}.
 
 One small detail: this is the first story to mention that people enter a Bolo
-from underneath, between the treads. Previously crews have always had to climb
-up the outside.
+from underneath, between the treads. Previously crews always had to climb up
+the outside.
 
 ### {% short_story_title "The Murphosensor Bomb" %}
 <div class="written-by">by {{ author_wehrstein }}</div>
@@ -200,12 +201,12 @@ the Djann invasion arrives.
 
 This story blends action, mystery, and strong characters. There is MAX, the
 empathetic Bolo---directly inspired by {{ asimovs }} {{ liar }}---who helps
-crack the case. And there's Benazir Ali, the brilliant young tech in slightly
-over here head. In the end, the problem turns out to be a computer virus
+crack the case. And there's Benazir Ali, the brilliant young tech slightly in
+over her head. In the end, the problem turns out to be a computer virus
 planted with the help of a traitor, a bit like {{ the_legacy_of_leonidas }}.
 
-The Octopods mechs the Djann use are a little like the tripods from {{ wellss
-}} {{ war }}, as is how we are helpless against their assault.
+The Octopod mechs the Djann use are a little like the tripods from {{ wellss
+}} {{ war }}, as is how humanity is helpless against their assault.
 
 ### {% short_story_title "Legacy" %}
 <div class="written-by">by {{ author_johnson }}</div>
@@ -216,7 +217,7 @@ them an easy target for the Hryxi, who hunt them down planet by planet. The
 last humans take shelter in a cave on Earth and discover a mothballed Bolo.
 Not a lot happens, and we don't get a resolution, but the story is still
 hopeful: as long as a single Bolo exists, humanity has a chance, no matter the
-odds. We also get a glimpse at the new technology, like thought controlled
+odds. We also get a glimpse at new technology, like thought-controlled
 nanobots, and a human merging their personality with that of the Bolo.
 
 ### {% short_story_title "Endings" %}
@@ -226,7 +227,7 @@ nanobots, and a human merging their personality with that of the Bolo.
 The last Melconians escape their dying homeworld and found an agrarian colony
 far away. But they were tracked, and one of the last surviving Bolos, the Mk.
 XXXIII Sherman, arrives with a single mission: eradicate them. Told mostly
-from the point of view of humanity's former enemies, this book does a good job
-of exploring the cost of war and vengeance. And it even managers to work in
+from the point of view of humanity's former enemies, this story does a good
+job of exploring the cost of war and vengeance. And it even manages to work in
 some great battles as the former Melconian warriors try to buy time for their
 people.
