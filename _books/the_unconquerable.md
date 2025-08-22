@@ -32,6 +32,10 @@ of Bolo stories written by seven different authors.
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
+{% capture evans %}{% author_link "Linda Evans" %}{% endcapture %}
+{% capture hollingsworth %}{% author_link "Robert R. Hollingsworth" %}{% endcapture %}
+{% capture weber %}{% author_link "David Weber" %}{% endcapture %}
+
 {% capture author_stirling %}{% author_link "S. M. Stirling" %}{% endcapture %}
 {% capture author_lewitt %}{% author_link "S. N. Lewitt" %}{% endcapture %}
 {% capture author_meier %}{% author_link "Shirley Meier" %}{% endcapture %}
@@ -100,26 +104,29 @@ It also gives them the freedom to invent things not seen in {{ laumers }}
 earlier works: {{ bolo1 }}, {{ bolo2 }}, and {{ bolo3 }}. We see new enemies
 and conflicts, including the first story with the apocalyptic Last War between
 the Concordiat and the Melconians that destroys both. We see new Bolos,
-including our first glimpse at Mk. XXXIII, and new ideas about Bolos that can
-feel.
+including our first glimpse of a Mk. XXXIII, and new ideas about them like
+that some can read emotion.
+
+{{ bolo12 }} breaks the trend and has just a few authors---{{ evans }}, {{
+hollingsworth }}, and {{ weber }}---who write multiple stories each. {{ bolo13
+}} returns to the format of have many authors each writing one or two stories.
 
 ### {% short_story_title "Ancestral Voices" %}
 <div class="written-by">by {{ author_stirling }}</div>
 {% rating_stars 4 %}
 
 A sequel to {{ lost_legion }} from {{ bolo10 }}, this story finds the U.S.
-Army unit is still trying to make its way home. This time they run into a
-volcanologist who uses his instruments to control a volcano. With this
-power, he has convinced the locals that he is the sixth coming of Montezuma,
-and that they need to restore the Aztec Empire, including the human
-sacrifices.
+Army unit still trying to make its way home. This time they encounter a
+volcanologist who uses his instruments to control a volcano. With this power,
+he has convinced the locals that he is the sixth coming of Montezuma, and that
+they need to restore the Aztec Empire, including the human sacrifices.
 
 This story is mostly an action-packed romp, but there's nuance too: the "good"
 soldiers must steal and extort local villages to survive, and the "bad" Aztecs
 live in an prosperous valley, safe from the chaos of the collapsing world.
 
 This story very vaguely reminds me of {{ conrads }} {{ heart }}, with the
-outside who convinces a native tribe that he is a demigod, complete with
+outsider who convinces a native tribe that he is a demigod, complete with
 atrocities.
 
 ### {% short_story_title "Sir Kendrick's Lady" %}
@@ -142,9 +149,9 @@ that you can't solve with a well aimed Hellbore blast.
 <div class="written-by">by {{ author_meier }}</div>
 {% rating_stars 5 %}
 
-A vaguely East-Asian human Empire attacks the Concordiat and wiped out the
+A vaguely East-Asian human Empire attacks the Concordiat and wipes out the
 planet's defenders, except for one damaged Bolo. A lone technician has to
-reach it without getting caught and killed by the empire's knock-off tanks.
+reach it without getting caught and killed by the empire's knock-off Bolos.
 The story's title is based on tag, but it's much more hide and seek, with the
 technician masking his heat signature using mud, like Arnold in {{ predator
 }}, and later hiding in a giant snail carcass, a little like Luke in {{ empire
@@ -161,10 +168,10 @@ Like {{ sir_kendricks_lady }}, there is some darkness in the pulpy action:
 suicide-bomber children and slave labor camps.
 
 {{ youre_it }} is just a really well-written story: suspenseful, with
-satisfying action and bad guys who get the end they deserve.
-It might also be the first story with a Bolo named after a woman, although {{
-lost_legion }} and {{ ancestral_voices }} feature a female-voiced Bolo,
-although one too primitive to be a "person" like LRS "Laura" is.
+satisfying action and bad guys who get the end they deserve. It might also be
+the first story with a Bolo named after a woman, although {{ lost_legion }}
+and {{ ancestral_voices }} feature a female-voiced Bolo, but one too primitive
+to be a "person" like LRS "Laura" is.
 
 ### {% short_story_title "Shared Experience" %}
 <div class="written-by">by {{ author_stasheff }}</div>
@@ -179,7 +186,7 @@ stories work: treating them as characters. Here, Titan and the other Bolos
 feel more like scenery, just like in the worst stories in {{ bolo1 }}.
 
 One small detail: this is the first story to mention that people enter a Bolo
-from underneath, between the treads. Until now, crews have always had to climb
+from underneath, between the treads. Previously crews have always had to climb
 up the outside.
 
 ### {% short_story_title "The Murphosensor Bomb" %}
@@ -191,15 +198,14 @@ just as the fighting reaches its peak. The Psychotronics Department is
 humanity's only hope to debug the problem, and they'll have to do it before
 the Djann invasion arrives.
 
-This story blends action, mystery, and strong characters. There is MAX,
-the empathetic Bolo---directly inspired by {{ asimovs }} {{ liar }}---who
-helps crack the case. And there's Benazir Ali, the brilliant young tech in
-slightly over here head. In the end, the problem turns out to be a computer
-virus planted with the help of a traitor, a bit like {{ the_legacy_of_leonidas
-}}.
+This story blends action, mystery, and strong characters. There is MAX, the
+empathetic Bolo---directly inspired by {{ asimovs }} {{ liar }}---who helps
+crack the case. And there's Benazir Ali, the brilliant young tech in slightly
+over here head. In the end, the problem turns out to be a computer virus
+planted with the help of a traitor, a bit like {{ the_legacy_of_leonidas }}.
 
 The Octopods mechs the Djann use are a little like the tripods from {{ wellss
-}} {{ war }}, as is how they leave us helpless against their assault.
+}} {{ war }}, as is how we are helpless against their assault.
 
 ### {% short_story_title "Legacy" %}
 <div class="written-by">by {{ author_johnson }}</div>
@@ -211,7 +217,7 @@ last humans take shelter in a cave on Earth and discover a mothballed Bolo.
 Not a lot happens, and we don't get a resolution, but the story is still
 hopeful: as long as a single Bolo exists, humanity has a chance, no matter the
 odds. We also get a glimpse at the new technology, like thought controlled
-nanobots, that are exciting.
+nanobots, and a human merging their personality with that of the Bolo.
 
 ### {% short_story_title "Endings" %}
 <div class="written-by">by {{ author_forstchen }}</div>
@@ -219,4 +225,8 @@ nanobots, that are exciting.
 
 The last Melconians escape their dying homeworld and found an agrarian colony
 far away. But they were tracked, and one of the last surviving Bolos, the Mk.
-XXXIII Sherman, arrives with a single mission: eradicate them.
+XXXIII Sherman, arrives with a single mission: eradicate them. Told mostly
+from the point of view of humanity's former enemies, this book does a good job
+of exploring the cost of war and vengeance. And it even managers to work in
+some great battles as the former Melconian warriors try to buy time for their
+people.
