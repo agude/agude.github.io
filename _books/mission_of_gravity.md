@@ -14,13 +14,11 @@ much higher than Earth's. It follows Barlennan, a Mesklinite, as he sails the
 _Bree_ across the planet in search of a lost human rocket ship.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture forwards %}{% author_link "Robert L. Forward" possessive %}{% endcapture %}
 {% capture forward %}{% author_link "Robert L. Forward" %}{% endcapture %}
 {% capture cheela %}{% series_link "Cheela" %}{% endcapture %}
 {% capture dragon %}{% book_link "Dragon's Egg" %}{% endcapture %}
 {% capture starquake %}{% book_link "Starquake" %}{% endcapture %}
-{% capture flatland %}{% book_link "Flatland: A Romance of Many Dimensions" link_text="Flatland" %}{% endcapture %}
 {% capture eater %}{% book_link "Eater" %}{% endcapture %}
 {% capture childhood %}{% book_link "Childhood's End" %}{% endcapture %}
 {% capture star_light %}{% book_link "Star Light" %}{% endcapture %}

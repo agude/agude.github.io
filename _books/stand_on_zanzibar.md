@@ -17,8 +17,6 @@ societal collapse.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 
 {% capture make_room_make_room %}{% book_link "Make Room! Make Room!" %}{% endcapture %}
 {% capture harry_harrisons %}{% author_link "Harry Harrison" possessive %}{% endcapture %}

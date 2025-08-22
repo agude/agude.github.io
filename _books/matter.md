@@ -15,8 +15,6 @@ betrayal in an early-industrial kingdom housed within a shellworld, and ends
 with the unleashing of a cosmic horror.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}

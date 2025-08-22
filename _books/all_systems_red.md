@@ -18,13 +18,7 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 Murderbot as it saves a team of scientists.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
 
-{% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
 {% capture mb2 %}{% book_link "Artificial Condition" %}{% endcapture %}
 
 {% capture laumers %}{% author_link "Keith Laumer" possessive %}{% endcapture %}
@@ -38,7 +32,6 @@ Murderbot as it saves a team of scientists.
 
 {% capture taylors %}{% author_link "Dennis E. Taylor" possessive %}{% endcapture %}
 {% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
-{% capture bobiverse %}{% series_link "Bobiverse" %} series{% endcapture %}
 
 In {{ this_book }} we're introduced to Murderbot as it protects a group of
 scientists on an alien planet. They soon realize that another

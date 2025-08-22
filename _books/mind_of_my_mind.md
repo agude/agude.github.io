@@ -14,8 +14,6 @@ class="author-name">{{ page.book_authors }}</span>, is the second book in the
 story of the Patternists.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture p1 %}{% book_link "Wild Seed" %}{% endcapture %}
 {% capture p3 %}{% book_link "Clay's Ark" %}{% endcapture %}

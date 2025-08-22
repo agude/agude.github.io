@@ -15,7 +15,6 @@ her and her father, Joseph the Bellmaker.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
 {% capture bellmaker %}{% book_link "The Bellmaker" %}{% endcapture %}
 {% capture salamandstron %}{% book_link "Salamandastron" %}{% endcapture %}
 {% capture redwall %}{% book_link "Redwall" %}{% endcapture %}

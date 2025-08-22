@@ -15,10 +15,7 @@ as she seeks revenge for her own murder, set against the backdrop of a
 galactic conflict over virtual hells.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture this_series %}{% series_link page.series %} series{% endcapture %}
 {% capture culture %}{% series_link page.series %}{% endcapture %}
 {% capture banks %}<span class="author-name">Banks</span>{% endcapture %}
 

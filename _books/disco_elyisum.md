@@ -21,7 +21,6 @@ Harrier "Harry" Du Bois, a man who wakes up with no memories and has to solve
 a murder while learning who he is.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture faulkners %}{% author_link "William Faulkner" possessive %}{% endcapture %}
 {% capture absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}

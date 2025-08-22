@@ -18,9 +18,6 @@ home from being annexed by the Teixcalaanli empire.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture this_series %}{% series_link page.series %} series{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 {% capture teix2 %}{% book_link "A Desolation Called Peace" %}{% endcapture %}
 
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}

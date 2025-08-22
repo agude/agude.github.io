@@ -15,9 +15,6 @@ follows Detective Palace as he uncovers his sister's involvement in a
 mysterious plot just days before the world's end.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 
 {% capture lpm1 %}{% book_link "The Last Policeman" %}{% endcapture %}
 {% capture lpm2 %}{% book_link "Countdown City" %}{% endcapture %}

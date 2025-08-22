@@ -14,7 +14,6 @@ left off, but with the action ramped up to 11. The various storylines and
 loose threads come together one by one until it's the good guys racing against
 the bad guys for the fate of the universe.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture this_series %}{% series_link page.series %}{% endcapture %}
 
 But the story isn't perfect. One part that falls flat is the fact that

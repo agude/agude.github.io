@@ -17,7 +17,6 @@ Human--Mesklinite exploration, this time focusing on a large star-like planet.
 {% capture clements %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture mission %}{% book_link "Mission of Gravity" %}{% endcapture %}
 {% capture critical %}{% book_link "Close to Critical" %}{% endcapture %}
-{% capture dragons_egg %}{% book_link "Dragon's Egg" %}{% endcapture %}
 {% capture cheela_series %}{% series_link "Cheela" %} series{% endcapture %}
 
 {{ this_book }} is actually the third book in the {{ series }}, although I

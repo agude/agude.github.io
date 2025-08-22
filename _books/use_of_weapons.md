@@ -14,7 +14,6 @@ called Cheradenine Zakalwe, who works for the Culture's Special Circumstances
 division.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture banks %}<span class="author-name">Banks</span>{% endcapture %}
 
 {% capture player_of_games %}{% book_link "The Player of Games" %}{% endcapture %}

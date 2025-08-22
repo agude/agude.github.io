@@ -15,11 +15,8 @@ track down a murderer in the northern Kingdom of Yarrow whose brilliance is
 almost a match for Ana's own.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 
-{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 
 {% capture book1 %}{% book_link "The Tainted Cup" %}{% endcapture %}
 

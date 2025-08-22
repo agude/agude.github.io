@@ -15,7 +15,6 @@ inhospitable planet, forcing humans to collaborate with the primitive native
 aliens to rescue them.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}{% series_link page.series %} series{% endcapture %}
 {% capture clement %}{% author_link page.book_authors %}{% endcapture %}
 {% capture mission %}{% book_link "Mission of Gravity" %}{% endcapture %}

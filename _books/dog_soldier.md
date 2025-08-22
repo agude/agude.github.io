@@ -15,7 +15,6 @@ Cinto DaSelva campaign and further develops the setting's backstory.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture w1 %}{% book_link "Chevalier" %}{% endcapture %}
 {% capture w2 %}{% book_link "Ymir" %}{% endcapture %}

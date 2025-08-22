@@ -19,9 +19,6 @@ Empire and a mysterious alien race.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture this_series %}{% series_link page.series %} series{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 
 {% capture teix1 %}{% book_link "A Memory Called Empire" %}{% endcapture %}
 

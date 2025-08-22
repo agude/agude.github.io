@@ -15,8 +15,6 @@ follows the Patternist brothers, Teray and Coransee, as they fight each other
 to become the new Patternmaster.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture p1 %}{% book_link "Wild Seed" %}{% endcapture %}
 {% capture p2 %}{% book_link "Mind of My Mind" %}{% endcapture %}

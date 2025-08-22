@@ -16,8 +16,6 @@ Blight---a galactic-scale, transcendent evil---and the humans racing to stop
 it.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 
 {% capture deepness %}{% book_link "A Deepness in the Sky" %}{% endcapture %}

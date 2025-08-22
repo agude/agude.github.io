@@ -17,7 +17,6 @@ class="book-series">{{ page.series }}</span> tetralogy. It picks up right
 where {% book_link "The Shadow of the Torturer" %} leaves
 off, following Severian as he makes his way towards Thrax.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture this_series %}{% series_link page.series %}{% endcapture %}
 
 {% capture shadow_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}

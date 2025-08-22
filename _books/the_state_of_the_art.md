@@ -16,7 +16,6 @@ contains some stories related to the <span class="book-series">{{ page.series
 been considered utopian fiction, it comes across as rather bleak.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture this_series %}{% series_link page.series %}{% endcapture %}
 {% capture banks %}<span class="author-name">Banks</span>{% endcapture %}
 

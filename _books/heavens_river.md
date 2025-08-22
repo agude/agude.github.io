@@ -13,8 +13,6 @@ image: /books/covers/heavens_river.jpg
 storyline and changes the way the stories are told.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 {% capture bobiverse %}{% series_link page.series %}{% endcapture %}
 
 {% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}

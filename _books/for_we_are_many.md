@@ -13,8 +13,6 @@ image: /books/covers/for_we_are_many.jpg
 Others storyline while also continuing many of the side stories begun in {% book_link "We Are Legion (We Are Bob)" %}.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 {% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
 {% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
 {% capture bob3 %}{% book_link "All These Worlds" %}{% endcapture %}

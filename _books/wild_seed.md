@@ -15,8 +15,6 @@ fourth to be published. It tells the origin story of Doro---a malevolent
 spirit---and Anyanwu---an immortal woman.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture p2 %}{% book_link "Mind of My Mind" %}{% endcapture %}
 {% capture this_authors %}{% author_link page.book_authors link_text="Butler" possessive %}{% endcapture %}

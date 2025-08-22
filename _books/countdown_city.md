@@ -14,10 +14,6 @@ class="author-name">{{ page.book_authors }}</span>, is the second novel in the
 Palace searches for a missing person as the world continues to deteriorate.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
-
 {% capture lpm1 %}{% book_link "The Last Policeman" %}{% endcapture %}
 {% capture lpm3 %}{% book_link "World of Trouble" %}{% endcapture %}
 
@@ -38,14 +34,14 @@ would undermine the feeling of hopelessness these books have carefully built.
 
 [dem]: https://en.wikipedia.org/wiki/Deus_ex_machina
 
-One thing I liked about the book is that we get to see more of the world and
-explore how far it has fallen since {{ lpm1 }}. The Coast Guard is machine-gunning
-children on refugee ships, the police are barely more than a gang, and power
-and water have been cut off, leading former neighbors to kill each other over
-supplies. I also loved the snippets about the Mayfair Commission, where
-Congress was pointlessly hauling former NASA directors in for questioning
-about how they could have missed the asteroid. Even with the world ending, the
-bureaucracy continues.
+One thing I liked about {{ this_book }} is that we get to see more of the
+world and explore how far it has fallen since {{ lpm1 }}. The Coast Guard is
+machine-gunning children on refugee ships, the police are barely more than a
+gang, and power and water have been cut off, leading former neighbors to kill
+each other over supplies. I also loved the snippets about the Mayfair
+Commission, where Congress was pointlessly hauling former NASA directors in
+for questioning about how they could have missed the asteroid. Even with the
+world ending, the bureaucracy continues.
 
 However, the flashbacks, my favorite parts of the first book, are mostly gone.
 We see the world as it is but lose out on learning how it got to be that way.

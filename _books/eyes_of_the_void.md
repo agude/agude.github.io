@@ -16,10 +16,6 @@ God_ discover where the Architects come from.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture fa1 %}{% book_link "Shards of Earth" %}{% endcapture %}
 {% capture fa3 %}{% book_link "Lords of Uncreation" %}{% endcapture %}

@@ -19,12 +19,9 @@ uprising against---the tyrant Badrang.
 
 {% capture redwall %}{% book_link "Redwall" %}{% endcapture %}
 {% capture mossflower %}{% book_link "Mossflower" %}{% endcapture %}
-{% capture mattimeo %}{% book_link "Mattimeo" %}{% endcapture %}
-{% capture mariel %}{% book_link "Mariel of Redwall" %}{% endcapture %}
 {% capture salamandastron %}{% book_link "Salamandastron" %}{% endcapture %}
 {% capture bellmaker %}{% book_link "The Bellmaker" %}{% endcapture %}
 
-{% capture redwall_series %}{% series_link "Redwall" %}{% endcapture %}
 
 {{ this_book }} has two villains: Badrang the Tyrant and the corsair Tramun
 Clogg. For much of the story, they have an on-again, off-again rivalry, with

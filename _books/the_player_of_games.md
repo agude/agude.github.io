@@ -16,7 +16,6 @@ incredibly complex game that serves as the basis for the Empire of Azad's
 entire government.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
 {% capture bankss %}<span class="author-name">Banks</span>'s{% endcapture %}
 

@@ -13,8 +13,6 @@ image: /books/covers/all_these_worlds.jpg
 story of the war with the genocidal Others started in {% book_link "For We Are Many" %}.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 {% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
 {% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
 {% capture bob2 %}{% book_link "For We Are Many" %}{% endcapture %}

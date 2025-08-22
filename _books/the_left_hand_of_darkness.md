@@ -18,11 +18,8 @@ from the Ekumen, as he attempts to bring this androgynous world into galactic
 civilization.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture this_series %}{% series_link page.series %} series{% endcapture %}
 
 {% capture algernon %}{% book_link "Flowers for Algernon" %}{% endcapture %}
 {% capture algernon_short %}{% book_link "Flowers for Algernon" link_text="Algernon" %}{% endcapture %}

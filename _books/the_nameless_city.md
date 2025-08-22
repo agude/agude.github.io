@@ -24,7 +24,6 @@ who discovers a mysterious ancient city and ventures deep beneath its surface.
 {% capture wolfe %}{% author_link "Gene Wolfe" %}{% endcapture %}
 
 {% capture matter %}{% book_link "Matter" %}{% endcapture %}
-{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
 {% capture banks_short %}{% author_link "Iain M. Banks" possessive link_text="Banks" %}{% endcapture %}
 
 {% capture this_city %}{{ the_authors_short }} city{% endcapture %}
