@@ -107,10 +107,11 @@ the Concordiat and the Melconians that destroys both. We see new Bolos,
 including our first glimpse of a Mk. XXXIII, and new ideas about them, like
 that some can read emotion.
 
-{{ bolo12 }} breaks the trend and has just a few authors---{{ evans }}, {{
-hollingsworth }}, and {{ weber }}---who write multiple stories each. {{ bolo13
-}} returns to the format of having many authors each writing one or two
-stories.
+{{ this_book }} reads like a tighter version of {{ bolo10 }}, with a bit more
+experimentation. The next volume, {{ bolo12 }}, changes the formula further by
+using just a few authors---{{ evans }}, {{ hollingsworth }}, and {{ weber
+}}---and giving each multiple stories, before {{ bolo13 }} returns to the
+many-authors format and continues some of the stories started here.
 
 ### {% short_story_title "Ancestral Voices" %}
 <div class="written-by">by {{ author_stirling }}</div>
@@ -165,14 +166,14 @@ rehabilitation of Rommel from {{ operation_desert_fox }}. He even has a
 
 [luger]: https://en.wikipedia.org/wiki/Luger_pistol
 
-Like {{ sir_kendricks_lady }}, there is some darkness in the pulpy action:
-suicide-bomber children and slave labor camps.
-
 {{ youre_it }} is a really well-written story: suspenseful, with satisfying
-action and villains who get the end they deserve. It might also be the first
-story with a Bolo named after a woman, although {{ lost_legion }} and {{
-ancestral_voices }} feature a female-voiced Bolo, but one too primitive to be
-a "person" like LRS "Laura" is.
+action and villains who get the end they deserve. Like {{ sir_kendricks_lady
+}}, there is some darkness in the pulpy action: suicide-bomber children and
+slave labor camps.
+
+It might also be the first story with a Bolo named after a woman, though {{
+lost_legion }} and {{ ancestral_voices }} had a female-voiced Bolo, but one
+too primitive to be "people" like LRS "Laura" is.
 
 ### {% short_story_title "Shared Experience" %}
 <div class="written-by">by {{ author_stasheff }}</div>
