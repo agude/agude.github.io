@@ -63,8 +63,8 @@ incorporates strong magnetic fields that significantly impact the Cheela's
 evolution and experience; and covers a broader narrative, from the discovery
 of agriculture to space travel, due to the fact that the Cheela experience the
 universe one million times faster than humans. While {{ this_book }} felt like
-Earth with a twist, the {{ cheela }} series transported me to a completely
-alien world.
+Earth with a twist, the neutron star in the {{ cheela }} series was a
+completely alien world.
 
 Part of the fun of reading old sci-fi is seeing what technology an author
 mispredicts; I pointed out a few cases before, for example in my review of {{
