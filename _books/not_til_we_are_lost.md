@@ -51,6 +51,8 @@ travel.
 {% capture surface %}{% book_link "Surface Detail" %}{% endcapture %}
 {% capture windward %}{% book_link "Look to Windward" %}{% endcapture %}
 
+{% capture algernon %}{% book_link "Flowers for Algernon" %}{% endcapture %}
+
 {{ this_book }} is a huge improvement over {{ bob4 }} because {{
 the_authors_lastname }} went back to the rapid-fire, multi-threaded
 storytelling style from {{ bob1 }}, {{ bob2 }}, and {{ bob3 }}. The shift away
@@ -60,17 +62,17 @@ return here.
 There were a lot of storylines. The most interesting to me were:
 
 - The creation of the Skippy AI, Thoth, and its desperate escape. Is it a
-  rogue AI bent on destruction, or just a prisoner escaping its jailers? It
+  rogue AI bent on destruction, or a prisoner breaking free of its jailers? It
   helped the Bobs discover wormholes, but it has also outsmarted them at every
   turn, much like the transhumans manipulating humans in {{ blindsight }} and
   {{ echopraxia }}.
 
 - The vanished Pan Galactic Federation and the tour of their abandoned worlds.
-  The antimatter fountain, the lifeless planets, and the annoying archivist AI
-  all stood out. <!-- So generic --> And I didn't see the end of the galaxy
-  coming, even though in hindsight it was foreshadowed. The wormholes
-  connecting the Federation reminded me of the Commonwealth in {{ pandora }}
-  and {{ judas }}, and to a lesser extent {{ empire }}.
+  Highlights for me were the antimatter fountain, the lifeless planets, and
+  the annoying archivist AI. And I didn't see the galaxy ending threat coming,
+  even though in hindsight it was foreshadowed. The wormholes connecting the
+  Federation reminded me of the Commonwealth in {{ pandora }} and {{ judas }},
+  and to a lesser extent {{ empire }}.
 
 - The rise of FAITH and other anti-Bob, authoritarian groups. With today's
   second wave of fascism, these parts of the story felt close to home. I'm
@@ -80,21 +82,22 @@ There were a lot of storylines. The most interesting to me were:
 - The blurring of physical and virtual humanity, with more humans (and
   Quinlans) entering virtual heavens, and the invention of remotely operated
   Hueys for physical bodies. The detail that some humans and Quinlans commit
-  suicide by turning themselves off---like Homer in {{ bob2 }}---raises
-  ethical questions about mind scanning, just as in {{ qntms }} {{ lena }} and
-  {{ driver }}. Similar ideas also show up in {{ bankss }} {{ surface }} and
-  {{ wattss }} {{ blindsight }} and {{ echopraxia }}, both of which also
-  feature virtual heavens.
+  suicide by turning themselves off---like Homer in {{ bob2 }}---made me think
+  about the ethics of mind scanning, just as in {{ qntms }} {{ lena }} and {{
+  driver }}. Similar ideas appear in {{ bankss }} {{ surface }} and {{ wattss
+  }} {{ blindsight }} and {{ echopraxia }}, both of which feature virtual
+  heavens.
 
 - The migration of the Dragons with Alexander. I was surprised that
   Alexander's true motive was saving his people instead of conquest. The
-  floaters reminded me of the Behemothaurs in the Oskendari Airsphere from {{
-  bankss }} {{ windward }}.
+  floaters are like the Behemothaurs in the Oskendari Airsphere from {{ bankss
+  }} {{ windward }}.
 
-I've said before that I like when I can't predict what's going to happen in a
-story. With {{ this_series }}, even when the stories are simple, it's hard to
-guess how all the threads will intertwine. Beyond that, {{ the_author }} _is_
-getting better at real unpredictability. I had no idea why the Federation
+I've said before that I dislike stories that are too predictable; see for
+example my review of {{ algernon }}. But with {{ this_series }}, the
+simplicity of each storyline doesn't bother me, because the unpredictability
+comes from how they tie together. And beyond that, {{ the_author }} _is_
+getting better at true surprises. I had no idea why the Federation
 disappeared, or what would happen with Thoth, other than that it would escape.
 
 I enjoyed this book a lot. As I said to a friend when recommending {{
