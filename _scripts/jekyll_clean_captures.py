@@ -23,7 +23,6 @@ def find_unused_captures(content):
     unused = []
 
     for i, match in enumerate(captures):
-        full_block = match.group(1)
         variable_name = match.group(2)
 
         # To check for usage, we search the entire document *except* for the
