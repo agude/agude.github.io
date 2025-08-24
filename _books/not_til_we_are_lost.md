@@ -11,7 +11,9 @@ image: /books/covers/not_till_we_are_lost.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the fifth book in the
-<span class="book-series">{{ page.series }}</span> series.
+<span class="book-series">{{ page.series }}</span> series. It focuses on
+setting up the Quiniverse, the creation of a Skippy AI, and the discovery of
+wormhole travel.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -58,6 +60,12 @@ There were a lot of storylines, most interesting to me were:
   modern, second rise of fascism these parts of the story feel much closer to
   home. I'm looking forward to seeing how the Bobs handle saving the humans
   from the Nemesis galaxy when they don't want to be saved.
+
+- The blurring between physical and virtual humanity, with the introduction of
+  more humans, and Quinlans, into virtual heavens, and the invention of remotely
+  operated Hueys for humans. The introduction of the fact that some humans and
+  Quinlans turn commit suicide by turning themselves off, just like Homer in
+  {{ bob2 }}, makes us think about the ethical implications of mind scanning.
 
 I've said before that I value not being able to predict the storyline before
 it happens, but that {{ this_series }} doesn't bother me even though the
