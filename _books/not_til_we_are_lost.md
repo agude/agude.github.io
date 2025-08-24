@@ -11,9 +11,9 @@ image: /books/covers/not_till_we_are_lost.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the fifth book in the
-<span class="book-series">{{ page.series }}</span> series. It focuses on
-setting up the Quiniverse, the creation of a Skippy AI, and the discovery of
-wormhole travel.
+<span class="book-series">{{ page.series }}</span> series. It sets up the
+Quiniverse, introduces a Skippy AI, and explores the discovery of wormhole
+travel.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -52,53 +52,52 @@ wormhole travel.
 {% capture windward %}{% book_link "Look to Windward" %}{% endcapture %}
 
 {{ this_book }} is a huge improvement over {{ bob4 }} because {{
-the_authors_lastname }} went back to the rapid-fire, multiple  interweaving
-storyline style he originated in {{ bob1 }}, {{ bob2 }}, and {{ bob3 }}. The
-change in style was my biggest complaint about the last book, so it is good to
-be back.
+the_authors_lastname }} went back to the rapid-fire, multi-threaded
+storytelling style from {{ bob1 }}, {{ bob2 }}, and {{ bob3 }}. The shift away
+from that style in {{ bob4 }} was my biggest complaint, so I'm glad to see it
+return here.
 
-There were a lot of storylines, most interesting to me were:
+There were a lot of storylines. The most interesting to me were:
 
-- The creation of the Skippy AI, Thoth, and it's desperate escape. Is it a
-  rogue AI bent on destruction, or just a prisoner escaping it's jailers? It
+- The creation of the Skippy AI, Thoth, and its desperate escape. Is it a
+  rogue AI bent on destruction, or just a prisoner escaping its jailers? It
   helped the Bobs discover wormholes, but it has also outsmarted them at every
-  turn like the transhumans manipulating the humans in {{ blindsight }} and {{
-  echopraxia }}.
+  turn, much like the transhumans manipulating humans in {{ blindsight }} and
+  {{ echopraxia }}.
 
-- The vanished Pan Galactic Federation and the tour of their worlds. It was
-  great to see fantastic natural events like the antimatter fountain, the
-  various abandoned worlds, and the annoying archivist AI. And I didn't see
-  the end of the galaxy coming, even though in hindsight it was foreshadowed.
-  The wormholes reminded me of the Commonwealth in {{ pandora }} and {{ judas
-  }}, and to a lesser extent {{ empire }}.
+- The vanished Pan Galactic Federation and the tour of their abandoned worlds.
+  The antimatter fountain, the lifeless planets, and the annoying archivist AI
+  all stood out. <!-- So generic --> And I didn't see the end of the galaxy
+  coming, even though in hindsight it was foreshadowed. The wormholes
+  connecting the Federation reminded me of the Commonwealth in {{ pandora }}
+  and {{ judas }}, and to a lesser extent {{ empire }}.
 
-- The rise of FAITH and other anti-Bob, authoritarian parties. With the
-  modern, second rise of fascism these parts of the story feel much closer to
-  home. I'm looking forward to seeing how the Bobs handle saving the humans
-  from the Nemesis galaxy when they don't want to be saved.
+- The rise of FAITH and other anti-Bob, authoritarian groups. With today's
+  second wave of fascism, these parts of the story felt close to home. I'm
+  looking forward to seeing how the Bobs handle saving humanity from the
+  Nemesis galaxy when humans don't want to be saved.
 
-- The blurring between physical and virtual humanity, with the introduction of
-  more humans, and Quinlans, into virtual heavens, and the invention of remotely
-  operated Hueys for humans. The introduction of the fact that some humans and
-  Quinlans turn commit suicide by turning themselves off, just like Homer in
-  {{ bob2 }}, makes us think about the ethical implications of mind scanning,
-  similarly {{ qntms }} {{ lena }} and {{ driver }}. Similar ideas were
-  explored in {{ bankss }} {{ surface }} and {{ wattss }} {{ blindsight }} and
-  {{ echopraxia }}, both of which have virtual heavens.
+- The blurring of physical and virtual humanity, with more humans (and
+  Quinlans) entering virtual heavens, and the invention of remotely operated
+  Hueys for physical bodies. The detail that some humans and Quinlans commit
+  suicide by turning themselves off---like Homer in {{ bob2 }}---raises
+  ethical questions about mind scanning, just as in {{ qntms }} {{ lena }} and
+  {{ driver }}. Similar ideas also show up in {{ bankss }} {{ surface }} and
+  {{ wattss }} {{ blindsight }} and {{ echopraxia }}, both of which also
+  feature virtual heavens.
 
-- The migration of the Dragons, with Alexander. I was surprised Alexander's
-  motive was to save his people rather than conquer. The floaters reminded me
-  of the Behemothaur in the Oskendari Airsphere	from {{ bankss }} {{ windward
-  }}.
+- The migration of the Dragons with Alexander. I was surprised that
+  Alexander's true motive was saving his people instead of conquest. The
+  floaters reminded me of the Behemothaurs in the Oskendari Airsphere from {{
+  bankss }} {{ windward }}.
 
-I've said before that I value not being able to predict the storyline before
-it happens, but that {{ this_series }} doesn't bother me even though the
-stories are simple, because it's still hard to predict how all the storylines
-will intertwine. But beyond that, {{ the_author }} _is_ getting better at
-making things hard to predict. I had no idea why the Federation disappeared,
-nor what would happen with Thoth except that it would escape.
+I've said before that I like when I can't predict what's going to happen in a
+story. With {{ this_series }}, even when the stories are simple, it's hard to
+guess how all the threads will intertwine. Beyond that, {{ the_author }} _is_
+getting better at real unpredictability. I had no idea why the Federation
+disappeared, or what would happen with Thoth, other than that it would escape.
 
 I enjoyed this book a lot. As I said to a friend when recommending {{
-this_series }} recently: "It's not {{ faulkner }}, but it's a lot of fun". Fun
-is what I come to this series for, and {{ this_book }} delivers. I'm waiting
-patiently for the forthcoming sixth book in the series.
+this_series }} recently: "It's not {{ faulkner }}, but it's a lot of fun." Fun
+is what I come to this series for, and {{ this_book }} delivers. I'll be
+waiting patiently for the forthcoming sixth book in the series.
