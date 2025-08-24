@@ -34,8 +34,21 @@ wormhole travel.
 
 {% capture faulkner %}{% author_link "William Faulkner" link_text="Faulkner" %}{% endcapture %}
 
+{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
+
+{% capture pandora %}{% book_link "Pandora's Star" %}{% endcapture %}
+{% capture judas %}{% book_link "Judas Unchained" %}{% endcapture %}
+
+{% capture empire %}{% book_link "A Memory Called Empire" %}{% endcapture %}
+
+{% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
+{% capture lena %}{% short_story_link "Lena" %}{% endcapture %}
+{% capture driver %}{% short_story_link "Driver" %}{% endcapture %}
+
+{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture surface %}{% book_link "Surface Detail" %}{% endcapture %}
 
 {{ this_book }} is a huge improvement over {{ bob4 }} because {{
 the_authors_lastname }} went back to the rapid-fire, multiple  interweaving
@@ -55,6 +68,8 @@ There were a lot of storylines, most interesting to me were:
   great to see fantastic natural events like the antimatter fountain, the
   various abandoned worlds, and the annoying archivist AI. And I didn't see
   the end of the galaxy coming, even though in hindsight it was foreshadowed.
+  The wormholes reminded me of the Commonwealth in {{ pandora }} and {{ judas
+  }}, and to a lesser extent {{ empire }}.
 
 - The rise of FAITH and other anti-Bob, authoritarian parties. With the
   modern, second rise of fascism these parts of the story feel much closer to
@@ -65,13 +80,17 @@ There were a lot of storylines, most interesting to me were:
   more humans, and Quinlans, into virtual heavens, and the invention of remotely
   operated Hueys for humans. The introduction of the fact that some humans and
   Quinlans turn commit suicide by turning themselves off, just like Homer in
-  {{ bob2 }}, makes us think about the ethical implications of mind scanning.
+  {{ bob2 }}, makes us think about the ethical implications of mind scanning,
+  similarly {{ qntms }} {{ lena }} and {{ driver }}. Similar ideas were
+  explored in {{ bankss }} {{ surface }} and {{ wattss }} {{ blindsight }} and
+  {{ echopraxia }}, both of which have virtual heavens.
 
 I've said before that I value not being able to predict the storyline before
 it happens, but that {{ this_series }} doesn't bother me even though the
-stories are simple. {{ the_author }} is getting a little better there.
-Although I could predict the rough shape of some of the stories---the Skippy AI is
-going to escape, the disappeared Federation
+stories are simple, because it's still hard to predict how all the storylines
+will intertwine. But beyond that, {{ the_author }} _is_ getting better at
+making things hard to predict. I had no idea why the Federation disappeared,
+nor what would happen with Thoth except that it would escape.
 
 I enjoyed this book a lot. As I said to a friend when recommending {{
 this_series }} recently: "It's not {{ faulkner }}, but it's a lot of fun". Fun
