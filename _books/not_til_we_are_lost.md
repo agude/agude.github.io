@@ -67,9 +67,9 @@ There were a lot of storylines. The most interesting to me were:
   turn, much like the transhumans manipulating humans in {{ blindsight }} and
   {{ echopraxia }}.
 
-- The vanished Pan Galactic Federation and the tour of their abandoned worlds.
+- The vanished Pan-Galactic Federation and the tour of their abandoned worlds.
   Highlights for me were the antimatter fountain, the lifeless planets, and
-  the annoying archivist AI. And I didn't see the galaxy ending threat coming,
+  the annoying archivist AI. And I didn't see the galaxy-ending threat coming,
   even though in hindsight it was foreshadowed. The wormholes connecting the
   Federation reminded me of the Commonwealth in {{ pandora }} and {{ judas }},
   and to a lesser extent {{ empire }}.
