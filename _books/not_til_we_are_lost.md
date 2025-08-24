@@ -49,6 +49,7 @@ wormhole travel.
 
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture surface %}{% book_link "Surface Detail" %}{% endcapture %}
+{% capture windward %}{% book_link "Look to Windward" %}{% endcapture %}
 
 {{ this_book }} is a huge improvement over {{ bob4 }} because {{
 the_authors_lastname }} went back to the rapid-fire, multiple  interweaving
@@ -84,6 +85,11 @@ There were a lot of storylines, most interesting to me were:
   similarly {{ qntms }} {{ lena }} and {{ driver }}. Similar ideas were
   explored in {{ bankss }} {{ surface }} and {{ wattss }} {{ blindsight }} and
   {{ echopraxia }}, both of which have virtual heavens.
+
+- The migration of the Dragons, with Alexander. I was surprised Alexander's
+  motive was to save his people rather than conquer. The floaters reminded me
+  of the Behemothaur in the Oskendari Airsphere	from {{ bankss }} {{ windward
+  }}.
 
 I've said before that I value not being able to predict the storyline before
 it happens, but that {{ this_series }} doesn't bother me even though the
