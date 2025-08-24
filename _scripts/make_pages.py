@@ -182,9 +182,9 @@ def build_known_authors_map(author_page_dir: str) -> Dict[str, str]:
                     if isinstance(pen_names, list):
                         for pen_name in pen_names:
                             if pen_name and isinstance(pen_name, str):
-                                known_authors[
-                                    normalize_filename(pen_name)
-                                ] = path.basename(file_path)
+                                known_authors[normalize_filename(pen_name)] = (
+                                    path.basename(file_path)
+                                )
         except Exception as e:
             print(f"Error reading author page '{file_path}': {e}")
 
