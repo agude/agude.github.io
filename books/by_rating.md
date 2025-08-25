@@ -67,6 +67,7 @@ ranked_list:
   - A Drop of Corruption
   - Mossflower
   - Matter
+  - Not Til We Are Lost
   - For We Are Many
   - Ymir
   - City on Fire
