@@ -7,6 +7,7 @@ book_number: 5
 is_anthology: false
 rating: 4
 image: /books/covers/not_till_we_are_lost.jpg
+redirect_from: /books/not_til_we_are_lost/
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
