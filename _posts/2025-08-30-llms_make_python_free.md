@@ -21,3 +21,10 @@ categories:
 ---
 
 {% capture file_dir %}/files/coding-llm{% endcapture %}
+
+Notes:
+
+- In 2005 I learned Python
+- Nao told me a computer's job was to work for me, and to keep it busy
+- Now LLMs make Python scripts free
+- I don't think the world has really realized this yet.
