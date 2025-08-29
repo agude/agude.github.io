@@ -1,0 +1,16 @@
+[project]
+name = "alexgude-blog-scripts"
+version = "0.1.0"
+description = "A collection of Python helper scripts for my Jekyll blog."
+requires-python = ">=3.8"
+
+# These are the libraries your scripts need to run.
+# `uv` will read this list to install them.
+dependencies = [
+    "pyyaml", # Used by make_pages.py and the ranker generators for reading .md front matter.
+    "beautifulsoup4", # Used by compare_backlinks.py for parsing HTML.
+]
+
+[tool.uv]
+# This section is for uv-specific configurations.
+# You can leave it empty for now, but it's good practice to have it.

@@ -113,3 +113,16 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Python virtual environment
+# This is the most important line to add!
+.venv/
+
+# Python cache files and compiled bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
