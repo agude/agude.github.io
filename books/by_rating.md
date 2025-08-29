@@ -86,6 +86,7 @@ ranked_list:
   - The Claw of the Conciliator
   - The Dragon's Banker
   - The State of the Art
+  - The Blue Lotus
   - Clay's Ark
   - Lords of Uncreation
   - The Nameless City
