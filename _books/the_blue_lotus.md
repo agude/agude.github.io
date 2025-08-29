@@ -28,7 +28,7 @@ an opium ring in China.
 {% capture tt17 %}{% book_link "Explorers on the Moon" %}{% endcapture %}
 
 {{ this_book }} is a departs from the earlier books in the series by placing
-Tintin in a real historical event: [the Japanese invasion of
+Tintin in an actual historical event: [the Japanese invasion of
 Manchuria][invasion]. The book follows history closely, with Tintin witnessing
 Japanese agents blowing up a rail line in a false-flag attack, just like what
 happened in the real war. The tone is more serious to fit the wartime setting:
