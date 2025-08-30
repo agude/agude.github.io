@@ -1,10 +1,10 @@
 ---
-date: 2025-08-21
+date: 2025-08-30
 title: A Mote in Shadow
 book_authors: A. N. Alex
 series: null
 book_number: 1
-rating: null
+rating: 5
 image: /books/covers/a_mote_in_shadow.jpg
 ---
 
