@@ -40,10 +40,10 @@ up my email, syncing files between my laptop and desktop, or converting
 Wikipedia pages into an archival format.
 
 Back then, each script took me hours to write. I had to find the right
-libraries, learn their APIs, or sometimes write code from scratch.
-Because they took a lot of work I saved every one, sometimes even sharing them
-with the opensource community, in case I ever needed them again. But all of
-that changed in the last two years when I [learned to use an LLM for
+libraries, learn their APIs, or sometimes write code from scratch. Because
+they took so much work I saved every one, sometimes even sharing them with the
+opensource community, just in case I ever needed them again. But all of that
+changed in the last two years when I [learned to use an LLM for
 coding][using_llms].
 
 [using_llms]: {% post_url 2025-05-31-how_i_write_code_with_llms %}
