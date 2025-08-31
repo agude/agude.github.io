@@ -40,6 +40,7 @@ ranked_list:
   - Roadside Picnic
   - The Abyss Beyond Dreams
   - Serpent Valley
+  - A Mote in Shadow
   - The Dreaming Void
   # 4 Stars
   - Excession
