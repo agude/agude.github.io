@@ -2,6 +2,9 @@
 layout: post
 title: LLMs Make Python Scripts Free
 description: >
+    I used to spend hours writing and saving little Python scripts. Now, with
+    LLMs, I can get the same code in under a minute. Python scripts, and small
+    programs in general, are effectively free.
 image: /files/llm-free-python/a_robot_sells_pythons_of_many_colors.png
 hide_lead_image: False
 image_alt: >
