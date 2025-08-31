@@ -36,6 +36,8 @@ permanent home for his daughter.
 
 {% capture shards %}{% book_link "Shards of Earth" %}{% endcapture %}
 
+{% capture sneakers %}<cite class="movie-title">Sneakers</cite>{% endcapture %}
+
 I think I would describe {{ this_book }} as a "hard sci-fi, techno-thriller".
 It feels like {{ clancys }} work, but seen not from the operator or spy-side,
 but from the point of view of the civilians dragged unwittingly into the
@@ -55,8 +57,8 @@ like either a sentence or two were left out, or sentence was rewritten and
 both versions made it in. Still, it never made me cringe the way {{ suns }} or
 {{ shards }} did.
 
-The worldbuilding is great. It feels unique, but it's not piled on for no
-reason. The way the society is structured so heavily on top of unbreakable
-quantum encryption makes sense, but also leaves them vulnerable to the alien
-technology they find: Closed timelike curve computers that can break any
-encryption.
+The worldbuilding is unique and deep, but it's not piled on for no reason. The
+way that society is structured so heavily on top of unbreakable quantum
+encryption makes sense, but also leaves them vulnerable to the alien
+technology they find in the book: Closed timelike curve computers that can
+break any encryption.
