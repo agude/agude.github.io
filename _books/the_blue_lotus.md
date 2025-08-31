@@ -16,9 +16,7 @@ an opium ring in China.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
 
-{% capture tt1 %}{% book_link "Tintin in the Land of the Soviets" %}{% endcapture %}
 {% capture tt2 %}{% book_link "Tintin in the Congo" %}{% endcapture %}
 {% capture tt3 %}{% book_link "Tintin in America" %}{% endcapture %}
 {% capture tt4 %}{% book_link "Cigars of the Pharaoh" %}{% endcapture %}
