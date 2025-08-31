@@ -47,7 +47,7 @@ what is happening, but they're the point of view the story is told from.
 
 The characters are great. I was hoping that Chaeyoung and Vis would make it
 through and be reunited. I wanted to see Frederik make it back to his
-daughter. And I **hated** the villians, Sato and Ninnya Blanca. They're so
+daughter. And I **hated** the villians, Sato and Ninya Blanca. They're so
 overpowering that they make you scared and tense whenever they're in the
 story; and the sense of relief you get when the "good guys" who can stand up
 to them arrive is...
