@@ -38,14 +38,14 @@ permanent home for his daughter.
 
 {% capture sneakers %}<cite class="movie-title">Sneakers</cite>{% endcapture %}
 
-I would describe {{ this_book }} as a "hard sci-fi, techno-thriller". It feels
-like {{ clancys }} work, but seen not from the operator or spy-side, but from
-the point of view of the civilians dragged unwittingly into the conflict. The
-story is hard to follow, but I think that's intentional: the main
-characters---Chaeyoung and Frederik---don't understand why multiple different
-governments and mercenary groups are hiring them, double-crossing them, and
-holding them hostage. They're a lot like Daniel Bruks in {{ echopraxia }} in
-that they know the least about what's going on.
+{{ this_book }} as a "hard sci-fi, techno-thriller". It feels like {{ clancys
+}} work, seen not from the operator or spy-side but from the point of view of
+the civilians dragged unwittingly into the conflict. The story is hard to
+follow, but I think that's intentional: the main characters---Chaeyoung and
+Frederik---don't understand why multiple different governments and mercenary
+groups are hiring them, double-crossing them, or holding them hostage. They're
+a lot like Daniel Brüks in {{ echopraxia }} in that they know the least about
+what's going on.
 
 ### Plot
 
