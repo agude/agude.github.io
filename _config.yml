@@ -140,12 +140,14 @@ exclude:
     - LICENSE.md
     - CNAME
     - Gemfile
-    - Gemfile.lock # Often excluded, good practice to add
+    - Gemfile.lock
     - redirects.json
     - vendor
-    - Makefile # Often excluded
-    - Dockerfile # Often excluded
-    - README.md # Often excluded
+    - Makefile
+    - Dockerfile
+    - README.md
+    - _scripts
+    - .venv/
 
 redirect_from:
     json: false
