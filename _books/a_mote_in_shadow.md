@@ -30,13 +30,40 @@ home.
 
 {% capture clancys %}{% author_link "Tom Clancy" possessive %}{% endcapture %}
 
+{% capture rajaniemi %}{% author_link "Hannu Rajaniemi" possessive %}{% endcapture %}
+{% capture quantum_thief %}{% book_link "The Quantum Thief" %}{% endcapture %}
+
+{% capture martine %}{% author_link "Arkady Martine" possessive %}{% endcapture %}
+{% capture memory_empire %}{% book_link "A Memory Called Empire" %}{% endcapture %}
+
+{% capture taylor %}{% author_link "Dennis E. Taylor" possessive %}{% endcapture %}
+{% capture lost %}{% book_link "Not Till We Are Lost" %}{% endcapture %}
+
+{% capture liu %}{% author_link "Liu Cixin" possessive %}{% endcapture %}
+{% capture three_body %}{% book_link "The Three-Body Problem" %}{% endcapture %}
+
+{% capture watts %}{% author_link "Peter Watts" possessive %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
-{% capture suns %}{% book_link "House of Suns" %}{% endcapture %}
+{% capture banks %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture use_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
 
+{% capture reynolds %}{% author_link "Alastair Reynolds" possessive %}{% endcapture %}
+{% capture house_suns %}{% book_link "House of Suns" %}{% endcapture %}
+
+{% capture tchaikovsky %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
 {% capture shards %}{% book_link "Shards of Earth" %}{% endcapture %}
 
+{% capture wolfe %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
+{% capture torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+
+{% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
+
+{% capture firefly %}<cite class="tv-title">Firefly</cite>{% endcapture %}
+{% capture aliens_movie %}<cite class="movie-title">Aliens</cite>{% endcapture %}
 {% capture sneakers %}<cite class="movie-title">Sneakers</cite>{% endcapture %}
+{% capture halo %}<cite class="game-title">Halo</cite>{% endcapture %}
 
 {{ this_book }} is a "hard sci-fi techno-thriller". It feels like {{ clancys
 }} work, but not from the operator or spy perspective, it's told from the view
@@ -92,16 +119,40 @@ showed up, imagining what atrocity they were about to commit.
 
 But there are signs of unfinished edits. Sometimes it felt like a sentence or
 two was missing, or that both an old and a new version of a sentence ended up
-in the draft. Still, it never made me cringe the way {{ suns }} or {{ shards
-}} did.
+in the draft. Still, it never made me cringe the way {{ house_suns }} or {{
+shards }} did.
 
 The worldbuilding is unique and deep, but not overdone. The way society is
 structured around unbreakable quantum encryption makes sense, but it also
 leaves them vulnerable to the alien tech they discover: Closed timelike curve
 computers that can break any encryption. That plot point reminded me of {{
-sneakers }}, with the black box that could hack anything.
-
-And {{ the_author }} includes a lot of interesting details: different waves to
-indicate your pronouns when meeting someone; robots that speak with
+sneakers }}, with the black box that could hack anything. And {{ the_author }}
+includes a lot of interesting details that flesh out the world: different
+waves to indicate your pronouns when meeting someone; robots that speak with
 fluctuating genders; automated systems that feel more like modern,
 hallucinating LLMs in their unpredictability than classic sci-fi AI.
+
+This book reminded me of a few others. The solving of the Fermi Paradox---with
+Oyxgen---reminds me of how {{ taylor }} solves it in {{ lost }} with an alien
+federation that annexed everyone and then escaped, and how {{ liu }} solves it
+with deadly aliens in {{ three_body }}. The conlang interjections remind me of
+{{ firefly }}. The cryptographic seals remind me of the seals and (weak)
+encryption used on infofeches in {{ martine }} {{ memory_empire }}, and maybe
+more so of the use of cryptographic systems to keep track of how much time you
+have left in {{ rajaniemi }} {{ quantum_thief }}. The spooky alien ruins, the
+ferrofluid plague, specially the multi-armed metal aliens in the end, reminded
+me of Rorschach and the Scramblers in {{ blindsight }}. The alien plague
+reminded me of the Flood from {{ halo }} or maybe the aliens in {{
+aliens_movie }}. I kept picturing the Gray Top and the rest of the Absolute
+Horizons commandos as Raul Kortenaer and the Krenel mercenaries from {{
+disco_elysium }}; Krenel, with its infamous roster of sadistic war criminals
+given free rein to rape and murder, would have fit right into this story's
+brutal disregard for human life. They way the book intertwines two stories
+happening at different times, in a way to preserves the surprise, reminded me
+of {{ banks }} {{ use_weapons }}. Earth having to govern its far-off colonies
+by predicting what issues will arise because of the relativistic time
+separation reminded me of how the Shardlings have to use actuarial estimates
+to predict if their destination would even still exist in 50,000 years. The
+"blacker than black" suits the Shades wear reminds me of Fuligin, the blacker
+than black worn by Severian in {{ wolfe }} {{ torturer }}.
+
