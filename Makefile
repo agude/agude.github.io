@@ -81,15 +81,48 @@ profile: image clean
 	@echo "Output will be in '_site' and Liquid profiles in '_profile/'."
 	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll build --profile
 
-# Serve the site. Depends on image and clean.
+# Serves the site for local development, with live reloading.
+# This target contains the solution to the '0.0.0.0' URL issue in browsers.
 serve: image clean
-	@echo "Serving site at http://localhost:4000 (or http://<docker_ip>:4000)..."
-	@docker run --rm -p 4000:4000 -p 35729:35729 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll serve --host 0.0.0.0 --watch --incremental --livereload
+	@echo "Serving site at http://localhost:4000..."
+	@docker run --rm \
+		-p 4000:4000 \
+		-p 35729:35729 \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		-e JEKYLL_ENV=docker \
+		$(IMAGE) \
+		bundle exec jekyll serve --config _config.yml,_config_docker.yml --watch --incremental --livereload
+#
+# WHY THIS COMMAND IS STRUCTURED THIS WAY:
+#
+# We DO NOT set `--host 0.0.0.0` here on the command line. The reason is
+# critical: the `--host` flag has the highest precedence and forces Jekyll to
+# automatically set `site.url` to "http://0.0.0.0:4000", which completely
+# ignores any `url` setting from our config files. Modern browsers block
+# 0.0.0.0 for security, and so this would prevent local builds from rendering
+# correctly.
+#
+# Instead, we delegate all configuration to the files loaded via `--config`.
+# The `_config_docker.yml` file is responsible for two things:
+#   1. `host: 0.0.0.0`: Makes the server accessible to Docker.
+#   2. `url: ""`:       Generates browser-friendly relative links.
+#
+# The `-e JEKYLL_ENV=docker` flag helps ensure this file-based configuration is
+# properly loaded and respected by the Jekyll `serve` command.
 
 # Serve the site with drafts. Depends on image and clean.
+# Uses same logic to avoid 0.0.0.0 bug as serve
 drafts: image clean
-	@echo "Serving site with drafts at http://localhost:4000 (or http://<docker_ip>:4000)..."
-	@docker run --rm -p 4000:4000 -p 35729:35729 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll serve --host 0.0.0.0 --drafts --future --watch --incremental --livereload
+	@echo "Serving site with drafts at http://localhost:4000..."
+	@docker run --rm \
+		-p 4000:4000 \
+		-p 35729:35729 \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		-e JEKYLL_ENV=docker \
+		$(IMAGE) \
+		bundle exec jekyll serve --config _config.yml,_config_docker.yml --drafts --future --watch --incremental --livereload
 
 # Interactive session within the image. Depends on image existing.
 debug: image
