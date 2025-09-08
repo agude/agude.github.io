@@ -100,3 +100,8 @@ structured around unbreakable quantum encryption makes sense, but it also
 leaves them vulnerable to the alien tech they discover: Closed timelike curve
 computers that can break any encryption. That plot point reminded me of {{
 sneakers }}, with the black box that could hack anything.
+
+And {{ the_author }} includes a lot of interesting details: different waves to
+indicate your pronouns when meeting someone; robots that speak with
+fluctuating genders; automated systems that feel more like modern,
+hallucinating LLMs in their unpredictability than classic sci-fi AI.
