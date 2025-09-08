@@ -43,54 +43,38 @@ permanent home for his daughter.
 the civilians dragged unwittingly into the conflict. The story is hard to
 follow, but I think that's intentional: the main characters---Chaeyoung and
 Frederik---don't understand why multiple different governments and mercenary
-groups are hiring them, double-crossing them, or holding them hostage. They're
-a lot like Daniel Brüks in {{ echopraxia }} in that they know the least about
-what's going on.
+groups are hiring them, double-crossing them, or holding them hostage.[^plot]
+They're a lot like Daniel Brüks in {{ echopraxia }} in that they know the
+least about what's going on.
 
-### Plot
+[^plot]:
+    Because the two main characters don't know what's going on, the plot can
+    be a bit hard to piece together. My best effort is:
 
-The plot, mostly so I can piece it together for myself is:
+    Chaeyoung is hired by Archeon Private Capital Group to investigate a solar
+    system and discovers aliens. They're ambushed and captured by mercenaries
+    from Grayson Service Group who use Vis---Chaeyoung's love interest---to
+    study improved FTL drives. Vis is rescued by special operatives, the
+    Shades, from the United Planets. Chaeyoung is left behind and Grayson
+    takes her to Tritonis Prime, where the same aliens as earlier had a base.
+    She and two physicist are forced to reverse engineer a Closed Time-like
+    Curve Computer (CTCC), probably built by a second alien species. In an
+    attempt to sabotage the effort, one of the physicist blows up the lab,
+    releasing an alien plague that turns people into Zombies. Chaeyoung
+    escapes to the surface with some Grayson personel and is rescued by the
+    Shades.
 
-Chaeyoung is hired by Archeon Private Capital Group, an arms manufacture, to
-explore a solar system that she believes is the origin of some alien life;
-APCG knows that there is an alien spaceship there. The team finds the ship,
-but is ambushed and captured by Grayson Service Group. Grayson wants the
-physicist Vis-viva to work on their secret improved FTL drive, but after
-undetected sabotage by the scientists moves them to a new project. Before the
-scientists can be moved, Vis is rescued by United Planet's intelligence
-division's deniable special forces, the Shades.
-
-Grayson takes the two remaining physicists and Chaeyoung to a small planet
-with alien ruins, including alien Closed Time-like Curve Computers. The
-scientists are forced to reverse engineer the CTCCs, and eventually do. Then
-there is a catestrophic explosion, probably planned by the scientists, that
-kills one of them and infects the other with some alien virus. The virus
-spreads and Grayson is soon fighting against alien zombies. The
-un-contamonated Grayson employees escape to the Surface with Chaeyoung. She
-wins some trust and uses it to send a distress call, which is answered by the
-UP Shades. She convinces them to go destroy the alien site, which they do at
-great cost. The leader of the Shades is infected, but doesn't become a zombie
-because Chaeyoung uses some other alien tech on her. When the Shades and
-Chaeyoung are picked up, they realize the UP is going to pin this disaster on
-the Shades' leader, and so Chaeyoung joins the Shades and they all escape.
-
-Meanwhile, the team that ex-filtrated Vis needs transport to a safehouse and
-hires Frederik and his crew. When they stop at a station to pickup supplies,
-Grayson commandos space-walk from the station and attach to the hull of the
-ship, where they later ambush the crew and take control, executing most of the
-UP team. As they approach the safehouse, Frederik gets off a warning message
-that alerts the Shades. A firefight between the shades on the safehouse and
-the Grayson forces on the ship commences, destroying the safehouse and
-damaging the ship. Two Shades make it across to the ship and are able to take
-it back from Grayson. But the crew is betrayed by one of their own who leaves
-them standard, where Grayson's warship can pick them up.
-
-The crew, one remaining Shade, one commando, and Vis are taken prisoner. But
-the Graysons warship is ambushed by an Alien ship and it's liquid metal crew.
-The aliens are winning, but Grayson is able to nuke their ship. Vis has a CTCC
-which she brought with here, and maybe was taken when she was rescued, which
-she uses to take over the Grayson warship. The good guys escape and the ship
-explodes, destroying the last aliens.
+    Meanwhile, the United Planets hire Frederik to take Vis to a safe house.
+    They're attacked by Grayson operatives who attach themselves to the ship
+    during a cargo pickup, but are able to fight back and warn the Shades at
+    the safe house. The Shades take back the ship, and bring a prototype CTCC
+    on board built by the physicists before they were captured by Grayson, but
+    they're all betrayed by Kirk, one of the crew. Grayson's warship captures
+    them, but is itself attacked by metalic aliens, probably a different type
+    of alien than the ones Chaeyoung found, maybe the same ones that made the
+    alien CTCC. Frederik, some of his crew, and some of the Shades escape.
+    Chaeyoung decides to join the shades, who go rogue after it's clear the
+    United Planets are going to blame their leader for the fiasco.
 
 ### Writing
 
