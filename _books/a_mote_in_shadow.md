@@ -48,47 +48,56 @@ They're a lot like Daniel Brüks in {{ echopraxia }} in that they know the
 least about what's going on.
 
 [^plot]:
-    Because the two main characters don't know what's going on, the plot can
-    be a bit hard to piece together. My best effort is:
+    ### Chaeyoung's Storyline:
 
-    Chaeyoung is hired by Archeon Private Capital Group to investigate a solar
-    system and discovers aliens. They're ambushed and captured by mercenaries
-    from Grayson Service Group who use Vis---Chaeyoung's love interest---to
-    study improved FTL drives. Vis is rescued by special operatives, the
-    Shades, from the United Planets. Chaeyoung is left behind and Grayson
-    takes her to Tritonis Prime, where the same aliens as earlier had a base.
-    She and two physicist are forced to reverse engineer a Closed Time-like
-    Curve Computer (CTCC), probably built by a second alien species. In an
-    attempt to sabotage the effort, one of the physicist blows up the lab,
-    releasing an alien plague that turns people into Zombies. Chaeyoung
-    escapes to the surface with some Grayson personel and is rescued by the
-    Shades.
+    Chaeyoung, an exobiologist, is hired by Acheron Private Capital Group to
+    investigate the Mu Herculis system. Her expedition discovers an alien
+    derelict but is ambushed by the rival mercenary outfit, Grayson Services
+    Group. Chaeyoung and her love interest, Vis, are captured together.
+    Grayson takes them to a secret base where they are forced to work on
+    advanced faster-than-light drives. Vis is recused by Uniter Planet Navy
+    Shades. Chaeyoung and the two other captive physicists (Mimo and Ali) are
+    moved to the planetoid **Tritonis Prime**, where they are forced to
+    reverse-engineering a powerful alien artifact: a Closed Time-like Curve
+    Computer (CTCC), likely built by a second, more advanced alien species.
 
-    Meanwhile, the United Planets hire Frederik to take Vis to a safe house.
-    They're attacked by Grayson operatives who attach themselves to the ship
-    during a cargo pickup, but are able to fight back and warn the Shades at
-    the safe house. The Shades take back the ship, and bring a prototype CTCC
-    on board built by the physicists before they were captured by Grayson, but
-    they're all betrayed by Kirk, one of the crew. Grayson's warship captures
-    them, but is itself attacked by metalic aliens, probably a different type
-    of alien than the ones Chaeyoung found, maybe the same ones that made the
-    alien CTCC. Frederik, some of his crew, and some of the Shades escape.
-    Chaeyoung decides to join the shades, who go rogue after it's clear the
-    United Planets are going to blame their leader for the fiasco.
+    In a desperate sabotage attempt, one of the physicists, Mimo, triggers an
+    explosion that unleashes a xenoform plague from the CTCC. The plague is a
+    self-replicating ferrofluid that transforms its victims into monstrous
+    creatures. Chaeyoung manages to escape the chaos and is eventually rescued
+    from the surface by the Shades, who she convinces to destroy the
+    instilation. The Shades go rogue after learning their leader is going to
+    be blamed for the mess and Chaeyoung joins them.
 
-### Writing
+    ### Frederik's Storyline:
 
-The characters are great. I was hoping that Chaeyoung and Vis would make it
-through and be reunited. I wanted to see Frederik make it back to his
-daughter. And I **hated** the villains, Sato and Ninya Blanca. They're so
-overpowering that they make you scared and tense whenever they're in the
-story; and the sense of relief you get when the "good guys" who can stand up
-to them arrive is...
+    Meanwhile, the covert United Planets special operations unit, the Shades,
+    use a front company to hire freighter captain Frederik Obialo. His initial
+    mission is to transport their operatives and a rescued VIP (Vis) to a safe
+    house. Frederik's ship, the _Ergo Infinitum_, is ambushed by Grayson
+    operatives who attach themselves to the vessel's hull during a cargo
+    pickup. The crew are able to warn the safe house and a fire fight kicks
+    off, destorying the safe house, but ending with a few Shades, including
+    Omolara, making it to the ship and taking it back. Omolara gives Vis a
+    prototype CTCC (built by the physicists before their capture).
 
-...but there are some signs of unfinished reworks. Occasionally it felt
-like either a sentence or two were left out, or sentence was rewritten and
-both versions made it in. Still, it never made me cringe the way {{ suns }} or
-{{ shards }} did.
+    The crew is then betrayed by one of their own, Kirk, who disables their
+    ship and hands them over to Grayson's warship, the _Delightful Death_. The
+    warship is then attacked by a different species of metallic, crystalline
+    aliens, possibly drawn to the CTCC technology. In the ensuing chaos,
+    Frederik, the surviving members of his crew, and the Shades manage to
+    escape in a small shuttle.
+
+The character writing is great. I was rooting for Chaeyoung and Vis, hoping
+they would make it through and be reunited. I wanted to see Frederik make it
+back to his daughter. And the villains, Sato and Ninya Blanca, were so evil; I
+**hated** them. Their presence was so overpowering that they made you scared
+and tense whenever they're in the story.
+
+But there are some signs of unfinished reworks. Occasionally it felt like
+either a sentence or two were left out, or sentence was rewritten and both the
+new and old versions made it in. Still, it never made me cringe the way {{
+suns }} or {{ shards }} did.
 
 The worldbuilding is unique and deep, but it's not piled on for no reason. The
 way that society is structured so heavily on top of unbreakable quantum
