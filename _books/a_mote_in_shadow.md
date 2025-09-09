@@ -30,16 +30,16 @@ home.
 
 {% capture clancys %}{% author_link "Tom Clancy" possessive %}{% endcapture %}
 
-{% capture rajaniemi %}{% author_link "Hannu Rajaniemi" possessive %}{% endcapture %}
+{% capture rajaniemis %}{% author_link "Hannu Rajaniemi" possessive %}{% endcapture %}
 {% capture quantum_thief %}{% book_link "The Quantum Thief" %}{% endcapture %}
 
-{% capture martine %}{% author_link "Arkady Martine" possessive %}{% endcapture %}
+{% capture martines %}{% author_link "Arkady Martine" possessive %}{% endcapture %}
 {% capture memory_empire %}{% book_link "A Memory Called Empire" %}{% endcapture %}
 
-{% capture taylor %}{% author_link "Dennis E. Taylor" possessive %}{% endcapture %}
+{% capture taylor %}{% author_link "Dennis E. Taylor" %}{% endcapture %}
 {% capture lost %}{% book_link "Not Till We Are Lost" %}{% endcapture %}
 
-{% capture liu %}{% author_link "Liu Cixin" possessive %}{% endcapture %}
+{% capture liu %}{% author_link "Liu Cixin" %}{% endcapture %}
 {% capture three_body %}{% book_link "The Three-Body Problem" %}{% endcapture %}
 
 {% capture watts %}{% author_link "Peter Watts" possessive %}{% endcapture %}
@@ -49,7 +49,7 @@ home.
 {% capture banks %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture use_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
 
-{% capture reynolds %}{% author_link "Alastair Reynolds" possessive %}{% endcapture %}
+{% capture reynoldss %}{% author_link "Alastair Reynolds" possessive %}{% endcapture %}
 {% capture house_suns %}{% book_link "House of Suns" %}{% endcapture %}
 
 {% capture tchaikovsky %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
@@ -123,36 +123,40 @@ in the draft. Still, it never made me cringe the way {{ house_suns }} or {{
 shards }} did.
 
 The worldbuilding is unique and deep, but not overdone. The way society is
-structured around unbreakable quantum encryption makes sense, but it also
-leaves them vulnerable to the alien tech they discover: Closed timelike curve
-computers that can break any encryption. That plot point reminded me of {{
-sneakers }}, with the black box that could hack anything. And {{ the_author }}
-includes a lot of interesting details that flesh out the world: different
-waves to indicate your pronouns when meeting someone; robots that speak with
-fluctuating genders; automated systems that feel more like modern,
-hallucinating LLMs in their unpredictability than classic sci-fi AI.
+structured around unbreakable quantum encryption makes sense, and it ties
+directly into the core conflict. At the same time, {{ the_author }} throws in
+all sorts of smaller details that make the setting feel alive: different waves
+to indicate your pronouns when meeting someone; robots that shift genders as
+they speak; automated systems that act less like clean, logical sci-fi AIs and
+more like modern, hallucinating LLMs. The closed timelike curve computers that
+can break any encryption made me think of {{ sneakers }} and its black box
+that could hack anything.
 
 This book reminded me of a few others. The solving of the Fermi Paradox---with
-Oyxgen---reminds me of how {{ taylor }} solves it in {{ lost }} with an alien
-federation that annexed everyone and then escaped, and how {{ liu }} solves it
-with deadly aliens in {{ three_body }}. The conlang interjections remind me of
-{{ firefly }}. The cryptographic seals remind me of the seals and (weak)
-encryption used on infofeches in {{ martine }} {{ memory_empire }}, and maybe
-more so of the use of cryptographic systems to keep track of how much time you
-have left in {{ rajaniemi }} {{ quantum_thief }}. The spooky alien ruins, the
-ferrofluid plague, specially the multi-armed metal aliens in the end, reminded
-me of Rorschach and the Scramblers in {{ blindsight }}. The alien plague
-reminded me of the Flood from {{ halo }} or maybe the aliens in {{
-aliens_movie }}. I kept picturing the Gray Top and the rest of the Absolute
-Horizons commandos as Raul Kortenaer and the Krenel mercenaries from {{
-disco_elysium }}; Krenel, with its infamous roster of sadistic war criminals
-given free rein to rape and murder, would have fit right into this story's
-brutal disregard for human life. They way the book intertwines two stories
-happening at different times, in a way to preserves the surprise, reminded me
-of {{ banks }} {{ use_weapons }}. Earth having to govern its far-off colonies
-by predicting what issues will arise because of the relativistic time
-separation reminded me of how the Shardlings have to use actuarial estimates
-to predict if their destination would even still exist in 50,000 years. The
-"blacker than black" suits the Shades wear reminds me of Fuligin, the blacker
-than black worn by Severian in {{ wolfe }} {{ torturer }}.
+Oyxgen---made me think of how {{ taylor }} handles it in {{ lost }} with an
+alien federation that annexed everyone and then escaped, and how {{ liu }}
+approaches it in {{ three_body }} with hostile aliens. Cryptographic seals
+brought me back to the seals and (weak) encryption on infofeches in {{
+martines }} {{ memory_empire }}, and even more so to the cryptographic
+memories in {{ rajaniemis }} {{ quantum_thief }}. And the way the narrative
+flips between two timelines to preserve its surprises is likes {{ banks }} {{
+use_weapons }}.
 
+The alien side of things reflected other works too. The spooky ruins, the
+ferrofluid plague, and especially the multi-armed metal aliens near the end
+reminded me of Rorschach and the Scramblers in {{ blindsight }}. The infected
+humans from the plague felt like the Flood from {{ halo }} or the xenomorph
+infection in {{ aliens_movie }}. Continuing the video game theme, I kept
+picturing the Gray Top and the Absolute Horizons commandos as Raul Kortenaer
+and the Krenel mercs from {{ disco_elysium }}; Krenel, with its roster of
+sadistic war criminals given free rein to rape and murder, would have fit
+right into this story's brutal disregard for human life. And the "blacker than
+black" Shade suits brought Fuligin to mind, the blacker-than-black worn by
+Severian in {{ wolfe }} {{ torturer }}.
+
+Finally, the politics of distance were fascinating. Earth failed to govern
+it's far off colonies because it had to predict what would happen months or
+years out due to the relativistic separation. That reminded me of how the
+Shardlings in {{ reynoldss }} {{ house_suns }} are forced to use actuarial
+estimates to guess whether their destinations would even exist 50,000 years
+later.
