@@ -11,10 +11,10 @@ image: /books/covers/echopraxia.jpg
 <cite class="book-title">{{ page.title }}</cite> is the second book in <span
 class="author-name">{{ page.book_authors }}</span>'s <span
 class="book-series">{{ page.series }}</span> series, unfolding at roughly the
-same time as {% book_link "Blindsight" %}. It follows
-parasitologist Daniel Brüks, who gets unwillingly dragged into a conflict
-between multiple transhuman factions, travels to the _Icarus_ station orbiting
-the sun, and eventually back to Earth.
+same time as {% book_link "Blindsight" %}. It follows parasitologist Daniel
+Brüks, who gets unwillingly dragged into a conflict between multiple
+transhuman factions, travels to the _Icarus_ station orbiting the sun, and
+eventually back to Earth.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
@@ -31,7 +31,8 @@ The major characters are:
 - Daniel Brüks, a parasitologist and baseline human who has chosen not to get
   any enhancements.
 
-- Jim Keaton, a human soldier and the father of Siri Keaton from {{ blindsight }}.
+- Jim Keaton, a human soldier and the father of Siri Keaton from {{ blindsight
+  }}.
 
 - Rakshi Sengupta, an augmented human serving as a backup pilot for the ship.
 
@@ -62,8 +63,8 @@ transcendence and digital theology:
 - "Heaven" exists as a virtual reality world that people can retreat to.
 
 - The idea of resurrection---or at least some form of life continuing after
-  death---appears repeatedly, from the snake Brüks samples in the desert to the
-  zombies, and even Brüks himself after he is infected by Portia.
+  death---appears repeatedly, from the snake Brüks samples in the desert to
+  the zombies, and even Brüks himself after he is infected by Portia.
 
 Parasites and biology are also central themes. Brüks studies parasites, yet in
 many ways, he is one himself---the weakest member of the group, surviving by
