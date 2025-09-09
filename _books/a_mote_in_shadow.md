@@ -19,14 +19,6 @@ home.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture clancys %}{% author_link "Tom Clancy" possessive %}{% endcapture %}
 
@@ -42,7 +34,6 @@ home.
 {% capture liu %}{% author_link "Liu Cixin" %}{% endcapture %}
 {% capture three_body %}{% book_link "The Three-Body Problem" %}{% endcapture %}
 
-{% capture watts %}{% author_link "Peter Watts" possessive %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
@@ -52,7 +43,6 @@ home.
 {% capture reynoldss %}{% author_link "Alastair Reynolds" possessive %}{% endcapture %}
 {% capture house_suns %}{% book_link "House of Suns" %}{% endcapture %}
 
-{% capture tchaikovsky %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
 {% capture shards %}{% book_link "Shards of Earth" %}{% endcapture %}
 
 {% capture wolfe %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
@@ -63,7 +53,6 @@ home.
 
 {% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
 
-{% capture firefly %}<cite class="tv-title">Firefly</cite>{% endcapture %}
 {% capture aliens_movie %}<cite class="movie-title">Aliens</cite>{% endcapture %}
 {% capture sneakers %}<cite class="movie-title">Sneakers</cite>{% endcapture %}
 {% capture halo %}<cite class="game-title">Halo</cite>{% endcapture %}
