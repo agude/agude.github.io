@@ -9,12 +9,13 @@ image: /books/covers/a_mote_in_shadow.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is <span
-class="author-name">{{ page.book_authors }}</span>'s debut novel. It's the
-story of two down-on-their-luck outsiders: exobiologist Chaeyoung No, who
-doesn't believe the academic consensus on why no extraterrestrial life has
-been found; and space hauler Frederik Obialo, who ignores every warning sign
-if it means getting closer to his dream of giving his daughter a permanent
-home.
+class="author-name">{{ page.book_authors }}</span>'s debut novel. It follows
+two down-on-their-luck outsiders dragged into a war between shadowy mercenary
+groups: exobiologist Chaeyoung No, whose disagreement with the scientific
+establishment leaves her in no position to question a too-good-to-be-true
+offer to fund her research expedition; and space hauler Frederik Obialo, who
+is more than willing to take a dangerous jobs if it brings him closer to his
+dream of giving his daughter a permanent home.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -62,8 +63,8 @@ home.
 of civilians dragged into the conflict. The plot is hard to follow, but I
 think that's the point: Chaeyoung and Frederik have no idea why governments
 and mercenary groups keep hiring them, double-crossing them, or holding them
-hostage.[^plot] They're a lot like Daniel Brüks in {{ echopraxia }}---the ones
-who understand the least about what's really going on.
+hostage.[^plot] They're a lot like Daniel Brüks in {{ echopraxia }}: they
+understand the least about what's really going on.
 
 [^plot]:
     ### Chaeyoung's Storyline:
@@ -120,13 +121,13 @@ directly into the core conflict. At the same time, {{ the_author }} throws in
 all sorts of smaller details that make the setting feel alive: different waves
 to indicate your pronouns when meeting someone; robots that shift genders as
 they speak; automated systems that act less like clean, logical sci-fi AIs and
-more like modern, hallucinating LLMs. The Closed Timelike Curve computers that
-can break any encryption made me think of {{ sneakers }} and its black box
-that could hack anything.
+more like modern, hallucinating LLMs.
 
-This book reminded me of a few others. The solving of the Fermi Paradox---with
-Oxygen---made me think of how {{ taylor }} handles it in {{ lost }} with an
-alien federation that annexed everyone and then escaped, and how {{ liu }}
+This book reminded me of a few works. The Closed Timelike Curve computers that
+can break any encryption made me think of {{ sneakers }} and its black box
+that could hack anything. The solving of the Fermi Paradox---with
+oxygen---made me think of how {{ taylor }} handles it in {{ lost }} with an
+alien federation that annexed everyone and then left, and how {{ liu }}
 approaches it in {{ three_body }} with hostile aliens. Cryptographic seals
 brought me back to the seals and (weak) encryption on infofeches in {{
 martines }} {{ memory_empire }}, and even more so to the cryptographic
@@ -146,14 +147,14 @@ right into this story's brutal disregard for human life. And the "blacker than
 black" Shade suits brought Fuligin to mind, the blacker-than-black worn by
 Severian in {{ wolfe }} {{ torturer }}.
 
-Finally, the politics of distance were fascinating. Earth failed to govern its
-far-off colonies because it had to predict what would happen months or years
-out due to the relativistic separation. That reminded me of how the Shardlings
-in {{ reynoldss }} {{ house_suns }} are forced to use actuarial estimates to
-guess whether their destinations would even exist 50,000 years later.
+Finally, the importance of time and distance---how Earth failed to govern its
+far-off colonies because it had to predict events months or years in
+advance---reminded me of the Shardlings in {{ reynoldss }} {{ house_suns }},
+forced to rely on actuarial estimates to guess whether their destinations
+would still exist 50,000 years later.
 
 I really enjoyed {{ the_authors }} debut novel. Sci-fi is my favorite genre,
-and technothrillers are probably my second, so combining the two was perfect
+and techno-thrillers are probably my second, so combining the two was perfect
 for me. I'm excited to see where he takes the universe next, and what happens
 to Chaeyoung and Vis now that they've joined the Shades.
 
