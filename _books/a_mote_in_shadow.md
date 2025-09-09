@@ -164,10 +164,11 @@ Shardlings in {{ reynoldss }} {{ house_suns }} are forced to use actuarial
 estimates to guess whether their destinations would even exist 50,000 years
 later.
 
-I really enjoyed {{ the_authors }} debut novel. Sci fi is my favorite genre,
-but technothrillers are probably my second, so combining them was perfect for
-me. I'm excited to see where he takes the universe, and what happens to
-Chaeyoung and Vis as they join the Shades. Up next is {{ simmonss }} {{
-hyperion }} for my book club; I'm excite to give it a second read since it's a
-complicated story with lots of references to other literary work and deep
-themes and motifs that I missed the first time through.
+I really enjoyed {{ the_authors }} debut novel. Sci-fi is my favorite genre,
+and technothrillers are probably my second, so combining the two was perfect
+for me. I'm excited to see where he takes the universe next, and what happens
+to Chaeyoung and Vis now that they've joined the Shades.
+
+Up next is {{ simmonss }} {{ hyperion }} for my book club. I'm looking forward
+to giving it a second read, as it's such a deep book, full of references to
+other literature and packed with themes and motifs I missed the first time.
