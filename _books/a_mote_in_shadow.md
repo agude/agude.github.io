@@ -58,6 +58,9 @@ home.
 {% capture wolfe %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
 {% capture torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
 
+{% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
+{% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
+
 {% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
 
 {% capture firefly %}<cite class="tv-title">Firefly</cite>{% endcapture %}
@@ -160,3 +163,11 @@ years out due to the relativistic separation. That reminded me of how the
 Shardlings in {{ reynoldss }} {{ house_suns }} are forced to use actuarial
 estimates to guess whether their destinations would even exist 50,000 years
 later.
+
+I really enjoyed {{ the_authors }} debut novel. Sci fi is my favorite genre,
+but technothrillers are probably my second, so combining them was perfect for
+me. I'm excited to see where he takes the universe, and what happens to
+Chaeyoung and Vis as they join the Shades. Up next is {{ simmonss }} {{
+hyperion }} for my book club; I'm excite to give it a second read since it's a
+complicated story with lots of references to other literary work and deep
+themes and motifs that I missed the first time through.
