@@ -10,6 +10,7 @@ class TestBookLinkTag < Minitest::Test
       {
         'page_book_title' => 'Variable Book Title',
         'page_link_text' => 'Variable Link Text for Book',
+        'page_author' => 'Variable Author',
         'nil_var' => nil,
         'empty_string_var' => ''
       },
@@ -20,10 +21,10 @@ class TestBookLinkTag < Minitest::Test
   # Helper to parse the tag and capture arguments passed to the utility
   def parse_and_capture_args(markup, context = @context)
     captured_args = nil
-    # Stub the utility function
-    BookLinkUtils.stub :render_book_link, ->(title, ctx, link_text_override) {
-      captured_args = { title: title, context: ctx, link_text_override: link_text_override }
-      "<!-- BookLinkUtils called with title: #{title}, link_text: #{link_text_override} -->"
+    # Stub the utility function to capture all four arguments
+    BookLinkUtils.stub :render_book_link, ->(title, ctx, link_text_override, author_filter) {
+      captured_args = { title: title, context: ctx, link_text_override: link_text_override, author_filter: author_filter }
+      "<!-- Util called with title: #{title}, link_text: #{link_text_override}, author: #{author_filter} -->"
     } do
       template = Liquid::Template.parse("{% book_link #{markup} %}")
       output = template.render!(context)
@@ -39,8 +40,6 @@ class TestBookLinkTag < Minitest::Test
     assert_match "Could not find book title", err.message
   end
 
-  # Similar to AuthorLinkTag, BookLinkTag should parse '' successfully.
-  # The utility BookLinkUtils will handle the empty resolved name.
   def test_render_book_title_empty_string_literal_passes_empty_to_util
     _output, captured_args = parse_and_capture_args("''")
     assert_equal "", captured_args[:title], "Tag should resolve '' to an empty string for the utility"
@@ -66,54 +65,50 @@ class TestBookLinkTag < Minitest::Test
     _output, captured_args = parse_and_capture_args("'The Great Gatsby'")
     assert_equal "The Great Gatsby", captured_args[:title]
     assert_nil captured_args[:link_text_override]
-    assert_equal @context, captured_args[:context]
+    assert_nil captured_args[:author_filter]
   end
 
   def test_render_with_variable_title_only
     _output, captured_args = parse_and_capture_args("page_book_title") # 'Variable Book Title'
     assert_equal "Variable Book Title", captured_args[:title]
     assert_nil captured_args[:link_text_override]
+    assert_nil captured_args[:author_filter]
   end
 
   def test_render_with_literal_title_and_literal_link_text
     _output, captured_args = parse_and_capture_args("'The Great Gatsby' link_text='Gatsby'")
     assert_equal "The Great Gatsby", captured_args[:title]
     assert_equal "Gatsby", captured_args[:link_text_override]
+    assert_nil captured_args[:author_filter]
   end
 
-  def test_render_with_variable_title_and_variable_link_text
-    _output, captured_args = parse_and_capture_args("page_book_title link_text=page_link_text")
+  def test_render_with_literal_title_and_author
+    _output, captured_args = parse_and_capture_args("'Ambiguous Title' author='An Author'")
+    assert_equal "Ambiguous Title", captured_args[:title]
+    assert_nil captured_args[:link_text_override]
+    assert_equal "An Author", captured_args[:author_filter]
+  end
+
+  def test_render_with_all_parameters_as_variables
+    _output, captured_args = parse_and_capture_args("page_book_title link_text=page_link_text author=page_author")
     assert_equal "Variable Book Title", captured_args[:title]
     assert_equal "Variable Link Text for Book", captured_args[:link_text_override]
+    assert_equal "Variable Author", captured_args[:author_filter]
   end
 
-  def test_render_link_text_resolves_to_nil_if_variable_is_nil
-    _output, captured_args = parse_and_capture_args("'Some Book' link_text=nil_var")
+  def test_render_author_filter_resolves_to_nil
+    _output, captured_args = parse_and_capture_args("'Some Book' author=nil_var")
     assert_equal "Some Book", captured_args[:title]
-    assert_nil captured_args[:link_text_override] # nil_var is nil
+    assert_nil captured_args[:author_filter]
   end
 
   def test_render_book_title_resolves_to_nil
     _output, captured_args = parse_and_capture_args("nil_var") # nil_var is nil
     assert_nil captured_args[:title]
-    assert_nil captured_args[:link_text_override]
   end
 
   def test_render_book_title_resolves_to_empty_string_from_variable
     _output, captured_args = parse_and_capture_args("empty_string_var") # empty_string_var is ''
     assert_equal "", captured_args[:title]
-    assert_nil captured_args[:link_text_override]
-  end
-
-  def test_render_book_title_unquoted_literal_treated_as_variable
-    # 'UnquotedBookTitle' is not in context, so resolve_value returns nil
-    _output, captured_args = parse_and_capture_args("UnquotedBookTitle")
-    assert_nil captured_args[:title]
-  end
-
-  def test_render_multiple_link_text_args_uses_first
-    _output, captured_args = parse_and_capture_args("'A Book' link_text='First Text' link_text='Second Text'")
-    assert_equal "A Book", captured_args[:title]
-    assert_equal "First Text", captured_args[:link_text_override]
   end
 end

@@ -13,7 +13,6 @@ class TestLinkCacheGenerator < Minitest::Test
       { 'title' => 'The Foundation', 'layout' => 'series_page' },
       '/series/foundation.html'
     )
-    # Nav-specific pages
     @sidebar_page = create_doc(
       { 'title' => 'About Page', 'sidebar_include' => true },
       '/about.html'
@@ -30,7 +29,7 @@ class TestLinkCacheGenerator < Minitest::Test
 
     # --- Mock Books ---
     @book1 = create_doc(
-      { 'title' => 'Book One', 'published' => true },
+      { 'title' => 'Book One', 'published' => true, 'book_authors' => ['Author A'] },
       '/books/book-one.html'
     )
     @book2_unpublished = create_doc(
@@ -42,11 +41,13 @@ class TestLinkCacheGenerator < Minitest::Test
       '/books/no-title.html'
     )
 
-    # create_site helper now runs the generator automatically, so we don't need to
-    # instantiate it here. The site object will be ready for assertions.
+    # Books with the same title for testing duplicate handling
+    @dup_book_a = create_doc({ 'title' => 'Duplicate Title', 'published' => true, 'book_authors' => ['Author A'] }, '/books/dup-a.html')
+    @dup_book_b = create_doc({ 'title' => 'Duplicate Title', 'published' => true, 'book_authors' => ['Author B'] }, '/books/dup-b.html')
+
     @site = create_site(
       {}, # config
-      { 'books' => [@book1, @book2_unpublished, @book3_no_title] }, # collections
+      { 'books' => [@book1, @book2_unpublished, @book3_no_title, @dup_book_a, @dup_book_b] }, # collections
       [@author_page, @series_page, @sidebar_page, @topbar_page, @paginated_page] # pages
     )
   end
@@ -73,7 +74,12 @@ class TestLinkCacheGenerator < Minitest::Test
     # --- Assert Book Cache ---
     book_cache = cache['books']
     refute_nil book_cache
-    assert_equal({ 'url' => '/books/book-one.html', 'title' => 'Book One' }, book_cache['book one'])
+
+    # Test single book entry (which is now an array of one)
+    assert_instance_of Array, book_cache['book one']
+    assert_equal 1, book_cache['book one'].length
+    assert_equal({ 'url' => '/books/book-one.html', 'title' => 'Book One', 'authors' => ['Author A'] }, book_cache['book one'].first)
+
     assert_nil book_cache['unpublished book']
 
     # --- Assert Sidebar Nav Cache ---
@@ -95,10 +101,28 @@ class TestLinkCacheGenerator < Minitest::Test
     assert_empty cache['backlinks'], "Backlinks should be empty for this simple setup"
   end
 
+  def test_generator_handles_duplicate_book_titles
+    book_cache = @site.data['link_cache']['books']
+    normalized_dup_title = 'duplicate title'
+
+    assert book_cache.key?(normalized_dup_title), "Cache should have key for duplicate title"
+    assert_instance_of Array, book_cache[normalized_dup_title], "Cache entry for duplicate title should be an array"
+    assert_equal 2, book_cache[normalized_dup_title].length, "Array for duplicate title should contain two entries"
+
+    # Verify content of the cached entries
+    urls = book_cache[normalized_dup_title].map { |b| b['url'] }
+    assert_includes urls, '/books/dup-a.html'
+    assert_includes urls, '/books/dup-b.html'
+
+    authors = book_cache[normalized_dup_title].map { |b| b['authors'] }
+    assert_includes authors, ['Author A']
+    assert_includes authors, ['Author B']
+  end
+
   def test_generator_builds_backlinks_cache
     # Setup is specific to this test to keep it isolated
     target_book = create_doc(
-      { 'title' => 'Target Book', 'published' => true },
+      { 'title' => 'Target Book', 'published' => true, 'book_authors' => ['Author C'] }, # Added authors for cache
       '/books/target-book.html',
       'I link to myself: <a href="/books/target-book.html">Self</a>'
     )

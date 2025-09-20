@@ -8,10 +8,10 @@ require_relative 'utils/tag_argument_utils'
 
 module Jekyll
   # Liquid Tag for creating a link to a book page, wrapped in <cite>.
-  # Handles optional display text override.
+  # Handles optional display text override and author disambiguation.
   # Arguments can be in flexible order after the title.
-  # Usage: {% book_link "Title" [link_text="Display Text"] %}
-  #        {% book_link variable [link_text=var2] %}
+  # Usage: {% book_link "Title" [link_text="Display Text"] [author="Author Name"] %}
+  #        {% book_link variable [link_text=var2] [author=var3] %}
   class BookLinkTag < Liquid::Tag
     # Keep QuotedFragment handy for parsing values
     QuotedFragment = Liquid::QuotedFragment
@@ -23,6 +23,7 @@ module Jekyll
       # --- Argument Parsing using StringScanner ---
       @title_markup = nil
       @link_text_markup = nil
+      @author_markup = nil
 
       # Use a scanner to step through the markup
       scanner = StringScanner.new(markup.strip)
@@ -40,7 +41,7 @@ module Jekyll
         end
       end
 
-      # 2. Scan the rest of the string for optional arguments (link_text)
+      # 2. Scan the rest of the string for optional arguments (link_text, author)
       until scanner.eos?
         scanner.skip(/\s+/) # Consume leading whitespace
         break if scanner.eos?
@@ -48,6 +49,9 @@ module Jekyll
         # Check for link_text=... argument
         if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
             @link_text_markup ||= scanner[1] # Take the first one found
+          # Check for author=... argument
+        elsif scanner.scan(/author\s*=\s*(#{QuotedFragment})/)
+          @author_markup ||= scanner[1] # Take the first one found
         else
           # Found an unrecognized argument
           unknown_arg = scanner.scan(/\S+/)
@@ -66,12 +70,12 @@ module Jekyll
     # Renders the book link HTML by calling the utility function
     def render(context)
       # Resolve the potentially variable markup into actual strings
-      # Use resolve_value from LiquidUtils
       book_title = TagArgumentUtils.resolve_value(@title_markup, context)
       link_text_override = @link_text_markup ? TagArgumentUtils.resolve_value(@link_text_markup, context) : nil
+      author_filter = @author_markup ? TagArgumentUtils.resolve_value(@author_markup, context) : nil
 
-      # Call the centralized utility function from BookLinkUtils
-      BookLinkUtils.render_book_link(book_title, context, link_text_override)
+      # Call the centralized utility function from BookLinkUtils with the new author argument
+      BookLinkUtils.render_book_link(book_title, context, link_text_override, author_filter)
     end # End render
 
   end # End class BookLinkTag

@@ -101,11 +101,24 @@ module Jekyll
       series_cache[normalized_title] = { 'url' => page.url, 'title' => title }
     end
 
-    # Caches a book page.
+    # Caches a book page. Now handles multiple books with the same title by storing an array.
     def cache_book_page(book, book_cache)
       title = book.data['title'].strip
       normalized_title = TextProcessingUtils.normalize_title(title)
-      book_cache[normalized_title] = { 'url' => book.url, 'title' => title }
+
+      # Get authors for this book entry to store them in the cache.
+      author_names = FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
+
+      book_data = {
+        'url' => book.url,
+        'title' => title,
+        'authors' => author_names # Store the authors for disambiguation
+      }
+
+      # If the key doesn't exist, initialize it with an array.
+      # Then, append the new book data to the array.
+      book_cache[normalized_title] ||= []
+      book_cache[normalized_title] << book_data
     end
 
     # Adds a book to the series map.
@@ -165,11 +178,14 @@ module Jekyll
       Jekyll.logger.info "LinkCacheGenerator:", "Building backlinks cache..."
       backlinks = Hash.new { |h, k| h[k] = [] }
       books_cache = link_cache['books']
-      short_stories_cache = link_cache['short_stories'] # MODIFIED: Get the short story cache
+      short_stories_cache = link_cache['short_stories']
       return unless books_cache && !books_cache.empty?
 
-      # Create a reverse map of URL -> book data for efficient markdown link checking
-      url_to_book_map = books_cache.values.to_h { |book_data| [book_data['url'], book_data] }
+      # Create a reverse map of URL -> book data by flattening the new cache structure
+      url_to_book_map = {}
+      books_cache.values.flatten.each do |book_data|
+        url_to_book_map[book_data['url']] = book_data
+      end
 
       # Regex for {% book_link 'Title' %} or {% book_link "Title" %}
       book_link_tag_regex = /\{%\s*book_link\s+(?:'([^']+)'|"([^"]+)")/
@@ -190,24 +206,26 @@ module Jekyll
           next unless target_title
 
           normalized_target_title = TextProcessingUtils.normalize_title(target_title)
-          target_book_data = books_cache[normalized_target_title]
-
-          if target_book_data && (target_url = target_book_data['url'])
+          # Since books_cache now has arrays, we can't directly look up a single book.
+          # This backlink logic might need refinement if it needs to be precise for ambiguous titles.
+          # For now, we'll link to the first one found, as the main goal is just to know *a* backlink exists.
+          target_book_locations = books_cache[normalized_target_title]
+          if target_book_locations && !target_book_locations.empty?
+            target_url = target_book_locations.first['url']
             backlinks[target_url] << source_doc if source_doc.url != target_url
           end
         end
 
-        # 2. MODIFIED: Find Liquid short_story_link tags
+        # 2. Find Liquid short_story_link tags
         content.scan(short_story_link_tag_regex).each do |match|
-          story_title = match[0]
-          from_book_title = match[1] # This will be nil if not provided
-
+          story_title, from_book_title = match
           normalized_story_title = TextProcessingUtils.normalize_title(story_title)
           story_locations = short_stories_cache[normalized_story_title]
           next unless story_locations
 
           target_location = nil
-          if story_locations.length == 1
+          unique_book_urls = story_locations.map { |loc| loc['url'] }.uniq
+          if unique_book_urls.length == 1
             target_location = story_locations.first
           elsif from_book_title
             target_location = story_locations.find { |loc| loc['parent_book_title'].casecmp(from_book_title).zero? }
@@ -221,9 +239,7 @@ module Jekyll
         # 3. Find standard Markdown links
         content.scan(markdown_link_regex).each do |match|
           linked_url = match.first&.split('#')&.first
-          next if linked_url.nil? || linked_url.empty?
-
-          if url_to_book_map.key?(linked_url) && source_doc.url != linked_url
+          if linked_url && url_to_book_map.key?(linked_url) && source_doc.url != linked_url
             backlinks[linked_url] << source_doc
           end
         end
@@ -231,9 +247,7 @@ module Jekyll
         # 4. Find raw HTML links
         content.scan(html_link_regex).each do |match|
           linked_url = match.first&.split('#')&.first
-          next if linked_url.nil? || linked_url.empty?
-
-          if url_to_book_map.key?(linked_url) && source_doc.url != linked_url
+          if linked_url && url_to_book_map.key?(linked_url) && source_doc.url != linked_url
             backlinks[linked_url] << source_doc
           end
         end
