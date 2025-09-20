@@ -246,5 +246,4 @@ The final tale starts off as a love story between a planet-bound woman and a
 space-faring man who, because of relativity, ages much slower. But at the very
 end the story twists and it becomes a tale of revolution. It explains why and
 how the Consul intentionally set the entire Hyperion crisis in motion.
-
 </details>
