@@ -138,12 +138,30 @@ petition the god-like Shrike.
 
 I didn't love {{ this_book }} when [I first read it][first_read] about two
 years ago. It is a book with deep intertextuality, influenced heavily by {{
-keatss }} {{ hyperion_poem }}, but also {{ chaucers }} {{ canterbury_tales }}.
+keatss }} {{ hyperion_keats }}, but also {{ chaucers }} {{ canterbury_tales }}.
 {{ simmons }} uses that classic pilgrimage structure as a frame to present six
 different stories, each one a pastiche of a different genre. I didn't get that
 the first time through.
 
 [first_read]: #previous-review
+
+{{ keatss }} {{ hyperion_keats }} has multiple themes:
+- The Inevitability of Change and the Fall of the Old Order
+- The Relationship Between Beauty, Truth, and Power
+- The Nature of Suffering and Knowledge
+- The Role and Identity of the Poet
+
+### {% short_story_title "The Priest's Tale" %}
+
+### {% short_story_title "The Soldier's Tale" %}
+
+### {% short_story_title "The Poet's Tale" %}
+
+### {% short_story_title "The Scholar's Tale" %}
+
+### {% short_story_title "The Detective's Tale" %}
+
+### {% short_story_title "The Consul's Tale" %}
 
 <details markdown="1">
   <summary>
