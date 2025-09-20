@@ -145,23 +145,29 @@ the first time through.
 
 [first_read]: #previous-review
 
-{{ keatss }} {{ hyperion_keats }} has multiple themes:
+### Themes
+
+{{ keatss }} {{ hyperion_keats }} has multiple themes which {{
+author_last_name_text }} uses in his book as well:
+
 - The Inevitability of Change and the Fall of the Old Order
 - The Relationship Between Beauty, Truth, and Power
 - The Nature of Suffering and Knowledge
 - The Role and Identity of the Poet
 
-### {% short_story_title "The Priest's Tale" %}
+### Tales
 
-### {% short_story_title "The Soldier's Tale" %}
+#### {% short_story_title "The Priest's Tale" %}
 
-### {% short_story_title "The Poet's Tale" %}
+#### {% short_story_title "The Soldier's Tale" %}
 
-### {% short_story_title "The Scholar's Tale" %}
+#### {% short_story_title "The Poet's Tale" %}
 
-### {% short_story_title "The Detective's Tale" %}
+#### {% short_story_title "The Scholar's Tale" %}
 
-### {% short_story_title "The Consul's Tale" %}
+#### {% short_story_title "The Detective's Tale" %}
+
+#### {% short_story_title "The Consul's Tale" %}
 
 <details markdown="1">
   <summary>
