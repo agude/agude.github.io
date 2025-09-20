@@ -145,7 +145,11 @@ the first time through.
 
 [first_read]: #previous-review
 
-## Previous Review
+<details markdown="1">
+  <summary>
+    <h2 class="book-review-headline">Previous Review</h2>
+  </summary>
+{% rating_stars 4 %}
 
 {% comment %}
 Previous rating and date
@@ -158,7 +162,6 @@ much I misjudged it, about a third of the way through I would have rated it
 two stars and almost put it down, about two-thirds of the way through I was
 solidly at three stars, and by the end I was up to four. It was not the
 all-time great I was promised, but it was very good.
-
 
 {% comment %}TODO: How do we link to Hyperion by Keats?{% endcomment %}
 
@@ -225,3 +228,5 @@ The final tale starts off as a love story between a planet-bound woman and a
 space-faring man who, because of relativity, ages much slower. But at the very
 end the story twists and it becomes a tale of revolution. It explains why and
 how the Consul intentionally set the entire Hyperion crisis in motion.
+
+</details>
