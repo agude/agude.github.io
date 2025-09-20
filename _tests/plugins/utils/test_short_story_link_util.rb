@@ -9,9 +9,15 @@ class TestShortStoryLinkUtils < Minitest::Test
       'unique story' => [
         { 'title' => 'Unique Story', 'parent_book_title' => 'Book One', 'url' => '/books/one.html', 'slug' => 'unique-story' }
       ],
+      # Same title in DIFFERENT books. This should still require disambiguation.
       'duplicate story' => [
         { 'title' => 'Duplicate Story', 'parent_book_title' => 'Book One', 'url' => '/books/one.html', 'slug' => 'duplicate-story' },
         { 'title' => 'Duplicate Story', 'parent_book_title' => 'Book Two', 'url' => '/books/two.html', 'slug' => 'duplicate-story' }
+      ],
+      # Same title mentioned multiple times in the SAME book. This is NOT ambiguous.
+      'story mentioned twice in one book' => [
+        { 'title' => 'Story Mentioned Twice', 'parent_book_title' => 'Book Three', 'url' => '/books/three.html', 'slug' => 'story-mentioned-twice' },
+        { 'title' => 'Story Mentioned Twice', 'parent_book_title' => 'Book Three', 'url' => '/books/three.html', 'slug' => 'story-mentioned-twice-2' }
       ]
     }
 
@@ -41,6 +47,16 @@ class TestShortStoryLinkUtils < Minitest::Test
     assert_equal expected, output
   end
 
+  def test_render_multiple_mentions_in_same_book_links_to_first
+    # This story is mentioned twice in "Book Three". The link should resolve to the first one
+    # without needing disambiguation, as it's not truly ambiguous (it's not in multiple books).
+    output = render_util("Story Mentioned Twice In One Book")
+    expected = "<a href=\"/books/three.html#story-mentioned-twice\"><cite class=\"short-story-title\">Story Mentioned Twice</cite></a>"
+    assert_equal expected, output
+    # Also assert that no error/warning log was generated for ambiguity
+    refute_match %r{<!--.*?RENDER_SHORT_STORY_LINK_FAILURE.*?-->}, output
+  end
+
   def test_render_story_not_found_returns_unlinked_cite_and_logs
     output = render_util("NonExistent Story")
     expected = "<cite class=\"short-story-title\">NonExistent Story</cite>"
@@ -58,6 +74,12 @@ class TestShortStoryLinkUtils < Minitest::Test
     output = render_util("Duplicate Story")
     expected = "<cite class=\"short-story-title\">Duplicate Story</cite>"
     assert_match %r{<!-- \[ERROR\] RENDER_SHORT_STORY_LINK_FAILURE: Reason='Ambiguous story title\. Use &#39;from_book&#39; to specify which book\.' StoryTitle='Duplicate Story' FoundIn='&#39;Book One&#39;, &#39;Book Two&#39;' .*? -->#{Regexp.escape(expected)}}, output
+  end
+
+  def test_render_duplicate_story_with_disambiguation_succeeds
+    output = render_util("Duplicate Story", "Book Two")
+    expected = "<a href=\"/books/two.html#duplicate-story\"><cite class=\"short-story-title\">Duplicate Story</cite></a>"
+    assert_equal expected, output
   end
 
   def test_render_duplicate_story_with_wrong_disambiguation_fails_and_logs

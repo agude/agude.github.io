@@ -42,18 +42,28 @@ module ShortStoryLinkUtils
 
     if found_locations.nil? || found_locations.empty?
       log_output = _log_story_not_found(context, story_title_input)
-    elsif found_locations.length == 1
-      target_location = found_locations.first
-    else # Multiple locations found, disambiguation needed
-      if from_book_title && !from_book_title.empty?
-        target_location = found_locations.find { |loc| loc['parent_book_title'].casecmp(from_book_title).zero? }
-        if target_location.nil?
-          log_output = _log_story_not_found_in_book(context, story_title_input, from_book_title)
-        end
+    else
+      # Check if all found locations are in the same book.
+      unique_book_urls = found_locations.map { |loc| loc['url'] }.uniq
+
+      if unique_book_urls.length == 1
+        # All mentions are in the same book. This is not ambiguous.
+        # We can safely link to the first instance found by the cache generator.
+        target_location = found_locations.first
       else
-        log_output = _log_story_ambiguous(context, story_title_input, found_locations)
+        # Ambiguous: The same story title exists in multiple different books.
+        # Disambiguation with `from_book` is required.
+        if from_book_title && !from_book_title.empty?
+          target_location = found_locations.find { |loc| loc['parent_book_title'].casecmp(from_book_title).zero? }
+          if target_location.nil?
+            log_output = _log_story_not_found_in_book(context, story_title_input, from_book_title)
+          end
+        else
+          log_output = _log_story_ambiguous(context, story_title_input, found_locations)
+        end
       end
     end
+    # --- END OF NEW LOGIC ---
 
     # 3. Generate HTML
     display_text = target_location ? target_location['title'] : story_title_input
