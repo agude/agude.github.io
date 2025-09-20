@@ -57,6 +57,14 @@ petition the god-like Shrike.
 {% capture clarke %}{% author_link "Arthur C. Clarke" %}{% endcapture %}
 {% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}
 
+{% capture conrad %}{% author_link "Joseph Conrad" %}{% endcapture %}
+{% capture conrads %}{% author_link "Joseph Conrad" possessive %}{% endcapture %}
+{% capture heart_of_darkness %}{% book_link "Heart of Darkness" %}{% endcapture %}
+
+{% capture haldeman %}{% author_link "Joe Haldeman" %}{% endcapture %}
+{% capture haldemans %}{% author_link "Joe Haldeman" possessive %}{% endcapture %}
+{% capture forever_war %}{% book_link "The Forever War" %}{% endcapture %}
+
 {% capture wells %}{% author_link "Martha Wells" %}{% endcapture %}
 {% capture wellss %}{% author_link "Martha Wells" possessive %}{% endcapture %}
 {% capture murderbot %}{% book_link "The Murderbot Diaries" %}{% endcapture %}
@@ -91,6 +99,7 @@ petition the god-like Shrike.
 {% capture gibson %}{% author_link "William Gibson" %}{% endcapture %}
 {% capture gibsons %}{% author_link "William Gibson" possessive %}{% endcapture %}
 {% capture johnny_mnemonic %}{% book_link "Johnny Mnemonic" %}{% endcapture %}
+{% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 
 {% capture orwell %}{% author_link "George Orwell" %}{% endcapture %}
 {% capture orwells %}{% author_link "George Orwell" possessive %}{% endcapture %}
@@ -112,7 +121,13 @@ petition the god-like Shrike.
 {% capture hg_wellss %}{% author_link "H. G. Wells" possessive %}{% endcapture %}
 {% capture time_machine %}{% book_link "The Time Machine" %}{% endcapture %}
 
+{% capture chandler %}{% author_link "Raymond Chandler" %}{% endcapture %}
+{% capture chandlers %}{% author_link "Raymond Chandler" possessive %}{% endcapture %}
+
 {% comment %} Classic & Literary Authors {% endcomment %}
+
+{% capture bible %}{% book_link "The Bible" %}{% endcapture %}
+{% capture genesis %}{% short_story_link "The Book of Genesis" %}{% endcapture %}
 
 {% capture twain %}{% author_link "Mark Twain" %}{% endcapture %}
 {% capture twains %}{% author_link "Mark Twain" possessive %}{% endcapture %}
@@ -128,6 +143,10 @@ petition the god-like Shrike.
 
 {% capture beowulf %}{% book_link "Beowulf" %}{% endcapture %}
 
+{% capture kierkegaard %}{% author_link "Søren Kierkegaard" %}{% endcapture %}
+{% capture kierkegaards %}{% author_link "Søren Kierkegaard" possessive %}{% endcapture %}
+{% capture fear_and_trembling %}{% book_link "Fear and Trembling" %}{% endcapture %}
+
 {% comment %} Games & Movies {% endcomment %}
 
 {% capture disco_elysium %}<cite class="game-title">Disco Elysium</cite>{% endcapture %}
@@ -138,21 +157,23 @@ petition the god-like Shrike.
 I didn't love {{ this_book }} when [I first read it][first_read] about two
 years ago. It is a book with deep intertextuality, influenced heavily by {{
 keatss }} {{ hyperion_keats }}, but also {{ chaucers }} {{ canterbury }}. {{
-simmons }} uses that classic pilgrimage structure as a frame to present six
-different stories, each one a pastiche of a different genre. I didn't get that
-the first time through.
+author_last_name_text }} uses that classic pilgrimage structure as a frame to
+present six different stories, each one a pastiche of a different genre. But I
+missed almost all of that the first time, instead distracted by lasers and
+barbarians and a god-like Shrike encrusted in blades.
 
 [first_read]: #previous-review
 
 ### Themes
 
-{{ keatss }} {{ hyperion_keats }} has multiple themes which {{
-author_last_name_text }} uses in his book as well:
+The key themes of {{ keatss }} {{ hyperion_keats }} are:
 
 - The Inevitability of Change and the Fall of the Old Order
 - The Relationship Between Beauty, Truth, and Power
 - The Nature of Suffering and Knowledge
 - The Role and Identity of the Poet
+
+{{ author_last_name_text }} uses these same themes.
 
 ### Tales
 
