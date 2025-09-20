@@ -36,8 +36,7 @@ petition the god-like Shrike.
 
 {% capture keats %}{% author_link "John Keats" %}{% endcapture %}
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
-{% capture hyperion_keats %}<cite class="book-title">[Hyperion][hyperion]</cite>{% endcapture %}
-[hyperion]: https://en.wikipedia.org/wiki/Hyperion_(poem)
+{% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" %}{% endcapture %}
 
 {% capture chaucer %}{% author_link "Geoffrey Chaucer" %}{% endcapture %}
 {% capture chaucers %}{% author_link "Geoffrey Chaucer" possessive %}{% endcapture %}
@@ -138,8 +137,8 @@ petition the god-like Shrike.
 
 I didn't love {{ this_book }} when [I first read it][first_read] about two
 years ago. It is a book with deep intertextuality, influenced heavily by {{
-keatss }} {{ hyperion_keats }}, but also {{ chaucers }} {{ canterbury_tales }}.
-{{ simmons }} uses that classic pilgrimage structure as a frame to present six
+keatss }} {{ hyperion_keats }}, but also {{ chaucers }} {{ canterbury }}. {{
+simmons }} uses that classic pilgrimage structure as a frame to present six
 different stories, each one a pastiche of a different genre. I didn't get that
 the first time through.
 
