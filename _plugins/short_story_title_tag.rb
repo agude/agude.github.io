@@ -56,20 +56,31 @@ module Jekyll
     end
 
     def render(context)
-      # Resolve the title
+      # Initialize a counter hash in the context if it doesn't exist
+      context.registers[:story_title_counts] ||= Hash.new(0)
+
       story_title = TagArgumentUtils.resolve_value(@title_markup, context)
       return "" if story_title.nil? || story_title.to_s.strip.empty?
 
-      # Generate the display title (always needed)
       prepared_title = TypographyUtils.prepare_display_title(story_title)
       cite_element = "<cite class=\"short-story-title\">#{prepared_title}</cite>"
 
-      # --- Conditionally generate and append the ID based on the flag ---
       if @no_id_flag
-        cite_element # Return only the <cite> tag
+        cite_element
       else
-        slug = TextProcessingUtils.slugify(story_title)
-        kramdown_id = "{##{slug}}"
+        base_slug = TextProcessingUtils.slugify(story_title)
+
+        # Increment the count for this specific slug
+        context.registers[:story_title_counts][base_slug] += 1
+        count = context.registers[:story_title_counts][base_slug]
+
+        final_slug = base_slug
+        # If this is the second or later time we've seen this slug, append the count
+        if count > 1
+          final_slug = "#{base_slug}-#{count}"
+        end
+
+        kramdown_id = "{##{final_slug}}"
         "#{cite_element} #{kramdown_id}"
       end
     end
