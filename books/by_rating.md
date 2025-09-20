@@ -19,6 +19,7 @@ ranked_list:
   - Look to Windward
   - The Player of Games
   - Inversions
+  - Hyperion
   - Pandora's Star
   - Judas Unchained
   - The Hydrogen Sonata
@@ -45,7 +46,6 @@ ranked_list:
   # 4 Stars
   - Excession
   - Redwall
-  - Hyperion
   - The Tainted Cup
   - The Sword of the Lictor
   - The Citadel of the Autarch

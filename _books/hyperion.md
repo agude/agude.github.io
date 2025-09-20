@@ -1,23 +1,28 @@
 ---
-date: 2023-10-17
+date: 2025-09-20
 title: Hyperion
 book_authors: Dan Simmons
 series: Hyperion Cantos
 book_number: 1
 is_anthology: true
-rating: 4
+rating: 5
 image: /books/covers/hyperion.jpg
 awards:
   - hugo
   - locus
 ---
 
-<cite class="book-title">{{ page.title }}</cite> was not at all the book I
-expected. To give you an idea of how much I misjudged it, about a third of the
-way through I would have rated it two stars and almost put it down, about
-two-thirds of the way through I was solidly at three stars, and by the end I
-was up to four. It was not the all-time great I was promised, but it was very
-good.
+{% comment %}
+Previous rating and date
+date: 2023-10-17
+rating: 4
+{% endcomment %}
+
+{{ this_book }} was not at all the book I expected. To give you an idea of how
+much I misjudged it, about a third of the way through I would have rated it
+two stars and almost put it down, about two-thirds of the way through I was
+solidly at three stars, and by the end I was up to four. It was not the
+all-time great I was promised, but it was very good.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
