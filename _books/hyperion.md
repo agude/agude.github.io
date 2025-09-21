@@ -154,6 +154,7 @@ petition the god-like Shrike.
 {% capture beowulf %}{% book_link "Beowulf" %}{% endcapture %}
 
 {% capture kierkegaard %}{% author_link "Søren Kierkegaard" %}{% endcapture %}
+{% capture kierkegaard_lastname %}{% author_link "Søren Kierkegaard" link_text="Kierkegaard" %}{% endcapture %}
 {% capture kierkegaards %}{% author_link "Søren Kierkegaard" possessive %}{% endcapture %}
 {% capture fear_and_trembling %}{% book_link "Fear and Trembling" %}{% endcapture %}
 
@@ -213,14 +214,25 @@ scales.
 #### {% short_story_title "The Scholar's Tale" %}
 
 {{ the_scholars_tale }} is a retelling of the {{ binding }} from {{ genesis
-}}. Sol Weintraub is a philosopher studying the work of {{ kierkegaard
-}}, whose daughter Rachael went to Hyperion to study the time tombs and
-contracts Merlin's disease which makes her age backwards, forgetting every
-morning what happened in her future. God or the Shrike eventually comes to Sol
-in his dreams and demands that he take Rachel to Hyperion to sacrifice her
-just as God asked Abraham to sacrifice Issac. The irony is that Sol's an
-expert in Kierkegaard, who wrote {{ fear_and_trembling }} which deals with the
-ethical dilemma of Abraham, and is the exact same one Sol is going through.
+}}. Sol Weintraub is a philosopher studying the work of {{ kierkegaard }},
+whose daughter Rachael went to Hyperion to study the time tombs and contracts
+Merlin's disease which makes her age backwards, forgetting every morning what
+happened in her future. God or the Shrike eventually comes to Sol in his
+dreams and demands that he take Rachel to Hyperion to sacrifice her just as
+God asked Abraham to sacrifice Issac. The irony is that Sol's an expert in {{
+kierkegaard_lastname }}, who wrote {{ fear_and_trembling }} which deals with
+the ethical dilemma of Abraham, and is the exact same one Sol is going
+through.
+
+In Sol's tale the fall is of the rational universe where God abides by his
+rainbow covenants, into one which defies logic and in which God has broken his
+covenant by destroying Earth and demanding the sacrifice of Rachel. Sol and
+his family suffer horribly as Rachael ages backwards and forgets who she will
+be; his knowledge is powerless to stop the progression, but he hopes to learn
+of a cure on Hyperion.
+
+This story one of my favorites. As a father it is hard to read, but it makes
+me appreciate my own children even more. I cried both times I read it.
 
 #### {% short_story_title "The Detective's Tale" %}
 
