@@ -266,7 +266,9 @@ loses her identity while his knowledge is powerless against the disease,
 though he still hopes Hyperion holds a cure.
 
 This is one of my favorite stories. As a father, it's hard to read, but it
-also makes me grateful for my own children. I cried both times I read it.
+also makes me more grateful for my own children. I cried both times I read it.
+It reminded me a little of {{ keyss }} {{ flowers_for_algernon }}, with the
+way it charts Rachel's mental decline, but this one hit me much harder.
 
 #### {% short_story_title "The Detective's Tale" %}
 
