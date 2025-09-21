@@ -218,15 +218,21 @@ scales.
 {{ the_detectives_tale }} is a hard-boiled, cyberpunk story that's like {{
 gibsons }} {{ neuromancer }} and {{ johnny_mnemonic }} if they were written by
 {{ chandler }}. Brawne Lamia is a Lususian detective, hired by a AI cybrid
-recreation of John Keats to solve his murder---the short disconnecting of the
-AI and its human-like cybrid body, which resulted in the loss of recent
-memories. She soon realizes that the TechnoCore has three factions---the
-Stables, the Volatiles, and the Ultimates---of which only one wants to keep
-humanity alive, and that all three have an obsession with Hyperion, which
-their advanced predictive routines can't account for.
+recreation of John "Johnny" Keats to solve his murder---the short
+disconnecting of the AI and its human-like cybrid body, which resulted in the
+loss of recent memories. She soon realizes that the TechnoCore has three
+factions---the Stables, the Volatiles, and the Ultimates---of which only one
+wants to keep humanity alive, and that all three have an obsession with
+Hyperion, which their advanced predictive routines can't account for.
 
 This tale explores the fall of the Hegemony and its impending replacement by
-the TechnoCore, led by the genocidal Volatiles.
+the TechnoCore, led by the genocidal Volatiles. The Keats cybrid is beautify
+in mind and body, and seeks the truth of his death; he is literally a poet
+created by the TechnoCore to understand humanity and Hyperion. Brawne suffers
+the loss of her father, then her lover Johnny, and shot to near pieces in
+firefight in front of the Shrike Temple, from which she gains the knowledge of
+the TechnoCore's plan, and even has Johnny's personality implanted in a Schrön
+loop in her head.
 
 #### {% short_story_title "The Consul's Tale" %}
 
@@ -254,6 +260,13 @@ We learn that the Hegemony and the TechnoCore plotted to destroy the Earth
 with the Great Mistake, and that the Hegemony has sense been committing
 genocide against any other species that might be sentient or able to compete
 with humanity, including the human Ousters.
+
+This story shows the fall of two different orders: first the destruction of
+Maui-Covenant by the Hegemony, and then, with the Consul's betrayal, by the
+Hegemony itself at the hands of the Ousters. The Consul inverts {{
+keats_lastname_possessive }} ideal that beauty and power go together, as he
+seeks to destroy the Hegemony because it is less beautiful than the thing it
+replaces.
 
 ### Other Works
 
@@ -342,4 +355,5 @@ The final tale starts off as a love story between a planet-bound woman and a
 space-faring man who, because of relativity, ages much slower. But at the very
 end the story twists and it becomes a tale of revolution. It explains why and
 how the Consul intentionally set the entire Hyperion crisis in motion.
+
 </details>
