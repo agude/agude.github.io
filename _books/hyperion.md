@@ -16,7 +16,7 @@ awards:
 class="author-name">{{ page.book_authors }}</span>'s masterpiece. It is the
 first book in his <span class="book-series">{{ page.series }}</span>. It
 follows seven pilgrims as they travel to the time tombs on Hyperion to
-petition the god-like Shrike.
+petition the Shrike.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -60,6 +60,7 @@ petition the god-like Shrike.
 {% capture consider_phlebas %}{% book_link "Consider Phlebas" %}{% endcapture %}
 {% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
 {% capture hydrogen_sonata %}{% book_link "The Hydrogen Sonata" %}{% endcapture %}
+{% capture gift_from_the_culture %}{% short_story_link "A Gift from the Culture" %}{% endcapture %}
 
 {% comment %} Other Science Fiction Authors & Works {% endcomment %}
 
@@ -122,6 +123,10 @@ petition the god-like Shrike.
 {% capture adams %}{% author_link "Douglas Adams" %}{% endcapture %}
 {% capture adamss %}{% author_link "Douglas Adams" possessive %}{% endcapture %}
 {% capture hitchhikers_guide %}{% book_link "The Hitchhiker's Guide to the Galaxy" %}{% endcapture %}
+
+{% capture brin %}{% author_link "David Brin" %}{% endcapture %}
+{% capture brins %}{% author_link "David Brin" possessive %}{% endcapture %}
+{% capture sundiver %}{% book_link "Sundiver" %}{% endcapture %}
 
 {% capture burroughs %}{% author_link "Edgar Rice Burroughs" %}{% endcapture %}
 {% capture burroughss %}{% author_link "Edgar Rice Burroughs" possessive %}{% endcapture %}
@@ -301,6 +306,11 @@ keats_lastname_possessive }} ideal that beauty and power go together, as he
 seeks to destroy the Hegemony because it is less beautiful than the thing it
 replaces. The consul suffers the slow loss of Siri, but from it learns of the
 Hegemony's true nature.
+
+{{ the_consuls_tale }} reminded me of other works. The talking dolphins are
+like {{ adamss }} {{ hitchhikers_guide }} or {{ brins }} {{ sundiver }}. The
+powerful gun left by Siri for Merin reminded me of {{ bankss }} {{
+gift_from_the_culture }}.
 
 ### Other Works
 
