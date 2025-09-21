@@ -61,6 +61,7 @@ petition the Shrike.
 {% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
 {% capture hydrogen_sonata %}{% book_link "The Hydrogen Sonata" %}{% endcapture %}
 {% capture gift_from_the_culture %}{% short_story_link "A Gift from the Culture" %}{% endcapture %}
+{% capture descendant %}{% short_story_link "Descendant" %}{% endcapture %}
 
 {% comment %} Other Science Fiction Authors & Works {% endcomment %}
 
@@ -119,7 +120,7 @@ petition the Shrike.
 
 {% capture orwell %}{% author_link "George Orwell" %}{% endcapture %}
 {% capture orwells %}{% author_link "George Orwell" possessive %}{% endcapture %}
-{% capture nineteen_eighty_four %}{% book_link "Nineteen Eighty-Four" %}{% endcapture %}
+{% capture nineteen_eighty_four %}{% book_link "1984" %}{% endcapture %}
 
 {% capture tchaikovsky %}{% author_link "Adrian Tchaikovsky" %}{% endcapture %}
 {% capture tchaikovskys %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
@@ -140,6 +141,10 @@ petition the Shrike.
 {% capture hg_wells %}{% author_link "H. G. Wells" %}{% endcapture %}
 {% capture hg_wellss %}{% author_link "H. G. Wells" possessive %}{% endcapture %}
 {% capture time_machine %}{% book_link "The Time Machine" %}{% endcapture %}
+
+{% capture tchaikovsky %}{% author_link "Adrian Tchaikovsky" %}{% endcapture %}
+{% capture tchaikovskys %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
+{% capture lords %}{% book_link "Lords of Uncreation" %}{% endcapture %}
 
 {% capture chandler %}{% author_link "Raymond Chandler" %}{% endcapture %}
 {% capture chandlers %}{% author_link "Raymond Chandler" possessive %}{% endcapture %}
@@ -196,7 +201,7 @@ The central theme of {{ keatss }} {{ hyperion_keats }} is the inevitability of
 change, especially the collapse of the old order. In his poem, this comes
 through in the [Titans being overthrown by the Olympians][titanomachy]. {{
 the_author }} carries this theme into his {{ this_book }}. We see it in the
-looming downfall of humanity, with their possible replacement by either the
+looming downfall of humanity, with their replacement by either the
 TechnoCore's AIs or the Ousters, but also in smaller ways throughout each
 pilgrim's story.
 
@@ -218,7 +223,7 @@ keats_lastname_possessive }} themes in new settings and scales.
 {{ the_priests_tale }} tells the story of the priest's mentor, Father Paul
 Duré, who is banished to Hyperion after faking evidence of a pre-human
 Christian civilization on Armaghast. On Hyperion, Duré ventures deep into the
-wilderness in search of the Bikura, descendants of settlers from a crashed
+wilderness in search of the Bikura: the descendants of settlers from a crashed
 ship. He finds them living by a twisted Christianity, one that promises
 eternal life not through faith, but through the cruciform parasite that
 revives its hosts in a grotesque parody of the resurrection.
@@ -240,7 +245,25 @@ star of Bethlehem was born from the destruction of an alien civilization, and
 
 #### {% short_story_title "The Soldier's Tale" %}
 
-{{ the_soldiers_tale }}
+{{ the_soldiers_tale }} is military sci-fi following Fedmahn Kassad as he is
+trained as a FORCE commando, is commissioned, puts down various uprisings, and
+finally fights the Ousters. During his story, he is visited by a woman,
+Moneta, when the fighting is hardest. She is named for the goddess of memory
+who also appears in {{ keats_lastname_possessive }} {{ hyperion_keats }}.
+Its the first hint that the Hegemony isn't quite what it seems, and that they
+perpetrate a lot of evil to maintain their position.
+
+The story shows the Hegemony as the old order successfully defending itself
+against the new several times, but then reveals the Ousters as the possible
+usurpers of the throne. Moneta links beauty and power, easily destroying the
+Ouster landing parties.
+
+{{ the_soldiers_tale }} references John Carter from {{ burroughss }} {{
+john_carter }}. The scene where Kassad programs the surgical robot to attack
+the ousters is mirrored in {{ tchaikovskys }} {{ lords }}. The mention of
+"rock and thighbone duels" reminds me of {{ space_odyssey }}. The virtual
+battles are like {{ surface_detail }}, and the semi-sentient suits are like {{
+descendant }}.
 
 #### {% short_story_title "The Poet's Tale" %}
 
@@ -254,32 +277,33 @@ contracts Merlin's disease while researching the time tombs on Hyperion. The
 disease makes her age backwards, forgetting each morning what happened in her
 future. God---or the Shrike---appears to Sol in dreams and demands that he
 bring Rachel to Hyperion to sacrifice her, just as Abraham was asked to
-sacrifice Isaac. The irony is heavy: Sol is an expert in {{
-kierkegaard_lastname }}, whose {{ fear_and_trembling }} is about that same
-ethical dilemma.
+sacrifice Isaac. The irony is heavy: <!-- TODO: Heavy? Eh... --> Sol is an
+expert in {{ kierkegaard_lastname }}, whose {{ fear_and_trembling }} is about
+that same ethical dilemma.
 
 In Sol's tale, the fall is of the rational universe---where God honors His
 covenants---into one that defies logic, where Earth has been destroyed and God
 demands Rachel's sacrifice. Suffering and knowledge are inverted in this
 story, with Sol and his family suffering terribly as Rachel ages backwards and
-loses her identity while his knowledge is powerless against the disease,
-though he still hopes Hyperion holds a cure.
+loses her identity while his knowledge is powerless against the disease. He
+hopes---irrationally as matches the new order---that Hyperion holds a cure.
 
-This is one of my favorite stories. As a father, it's hard to read, but it
-also makes me more grateful for my own children. I cried both times I read it.
-It reminded me a little of {{ keyss }} {{ flowers_for_algernon }}, with the
-way it charts Rachel's mental decline, but this one hit me much harder.
+This is one of my favorite stories. As a father, it's hard to read <!-- WHY?
+-->, but it also makes me more grateful for my own children. I cried both
+times I read it. It reminded me a little of {{ keyss }} {{
+flowers_for_algernon }}, with the way it charts Rachel's mental decline, but
+this one hit me much harder.
 
 #### {% short_story_title "The Detective's Tale" %}
 
-{{ the_detectives_tale }} is a hard-boiled cyberpunk story, like {{ gibsons }}
-{{ neuromancer }} and {{ johnny_mnemonic }}, but written by {{ chandler }}.
-Brawne Lamia, a Lususian detective, is hired by an AI cybrid recreation of
-John "Johnny" Keats to investigate his own murder---the sudden disconnect
-between AI and cybrid body that erased his recent memories. She soon learns
-the TechnoCore has three factions---the Stables, the Volatiles, and the
-Ultimates. Only one wants humanity to survive, yet all three are obsessed with
-Hyperion, a place their predictive routines can't explain.
+{{ the_detectives_tale }} is a hard-boiled cyberpunk story, like a {{ gibson
+}} story written by {{ chandler }}. Brawne Lamia, a Lususian detective, is
+hired by an AI cybrid recreation of John "Johnny" Keats to investigate his own
+murder---the sudden disconnect between AI and cybrid body that erased his
+recent memories. She soon learns the TechnoCore has three factions---the
+Stables, the Volatiles, and the Ultimates. Only one wants humanity to survive,
+yet all three are obsessed with Hyperion, a place their predictive routines
+can't explain.
 
 This tale shows the fall of the Hegemony and its possible replacement by the
 TechnoCore, led by the genocidal Volatiles. The Keats cybrid is beautiful in
@@ -289,16 +313,18 @@ father, then her lover Johnny, and is nearly killed in a firefight outside the
 Shrike Temple. From this suffering, she uncovers the TechnoCore's plans---and
 carries Johnny's personality preserved in a Schrön loop inside her head.
 
+<!-- TODO: Make this paragraph sounds less bad -->
 {{ the_detectives_tale }} references a wide range of works. The cowboys in
-cyberspace come straight from {{ neuromancer }}, lampshaded by naming one of
-them {{ gibson_lastname }}. There's a reference to {{ orwells }} Big Brother
-from {{ nineteen_eighty_four }}. Johnny's desire to be human is straight out
-of {{ collodis }} {{ pinocchio }}. The Shrike possibly being sent back in time
-by the TechnoCore or the Ousters change their future is directly from {{
-terminator }}. The hacking war with the TechnoCore foreshadows the virtual
-battles of {{ surface_detail }}. And the way the Keats cybrid was trained by
-compilling all of the author {{ keats_lastname_possessive }} writings was like
-a modern large language model.
+cyberspace are straight from {{ neuromancer }}, <!-- TODO: Don't love
+lampshaded --> lampshaded by naming one of them Gibson. Brawne has a Schrön
+loop to transport data like {{ johnny_mnemonic }}. There's a reference to {{
+orwells }} Big Brother from {{ nineteen_eighty_four }}. Johnny's desire to be
+human is straight out of {{ collodis }} {{ pinocchio }}. The Shrike possibly
+being sent back in time by the TechnoCore or the Ousters to change their
+future is directly from {{ terminator }}. The hacking as battle with the
+TechnoCore foreshadows the virtual battles of {{ surface_detail }}. And the
+way the Keats cybrid was trained by compiling all of the author {{
+keats_lastname_possessive }} writings was like a modern large language model.
 
 #### {% short_story_title "The Consul's Tale" %}
 
@@ -367,8 +393,6 @@ but as the pilgrims travel and tell their tales we realize they are all
 connected, and they reveal a hint at the wider universe that the book takes
 place in. The book ends "suddenly" but the sequel, {{ fall_hyperion }}, picks
 up right where {{ this_book }} leaves off.
-
-[tales]: https://en.wikipedia.org/wiki/The_Canterbury_Tales
 
 A theme that runs through the book is "the old gods replaced by the new",
 based on {{ keatss }} {{ hyperion_keats }} poem about the [Greek Titans
