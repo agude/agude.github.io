@@ -176,38 +176,37 @@ petition the Shrike.
 {% capture terminator %}<cite class="movie-title">The Terminator</cite>{% endcapture %}
 
 I didn't love {{ this_book }} when [I first read it][first_read] about two
-years ago. It is a book with deep intertextuality, influenced heavily by {{
-keatss }} {{ hyperion_keats }}, but also {{ chaucers }} {{ canterbury }}. {{
-author_last_name_text }} uses that classic pilgrimage structure as a frame to
-present six different stories, each one a pastiche of a different genre. But I
-missed almost all of that the first time, instead distracted by lasers and
-barbarians and a god-like Shrike encrusted in blades.
+years ago. It's a book full of deep intertextuality, influenced heavily by {{
+keatss }} {{ hyperion_keats }}, but also by {{ chaucers }} {{ canterbury }}.
+{{ author_last_name_text }} uses that classic pilgrimage structure as a frame
+to present six different stories, each one a pastiche of a different genre.
+But I missed almost all of that the first time. Instead, I was distracted by
+lasers, barbarians, and the god-like Shrike covered in blades.
 
 [first_read]: #previous-review
 
 ### Themes
 
-The primary theme of {{ keatss }} {{ hyperion_keats }} is the inevitability of
-change, particularly in the fall of old order. In his poem, this is
-exemplified by the [Titans being overthrown by the Olympians][titanomachy]. {{
-the_author }} repeats this theme in his {{ this_book }}, most obviously in the
-looming destruction of humanity and their replacement by either the AIs of the
-TechnoCore or the Ousters, but also in various other places in each pilgrim's
-story.
+The central theme of {{ keatss }} {{ hyperion_keats }} is the inevitability of
+change, especially the collapse of the old order. In his poem, this comes
+through in the [Titans being overthrown by the Olympians][titanomachy]. {{
+the_author }} carries this theme into his {{ this_book }}. We see it in the
+looming downfall of humanity, with their possible replacement by either the
+TechnoCore's AIs or the Ousters, but also in smaller ways throughout each
+pilgrim's story.
 
 [titanomachy]: https://en.wikipedia.org/wiki/Titanomachy
 
-{{ keats_lastname }} explores several other themes in his work as well: the
-relationship between beauty, truth, and power; the nature of knowledge and
-suffering; and the role of the poet. {{ author_last_name_text }} adopts these
-themes as well.
+{{ keats_lastname }} explores several other themes in his work: the
+relationship between beauty, truth, and power; the connection between
+knowledge and suffering; and the role of the poet. {{ author_last_name_text }}
+adopts these themes as well.
 
 ### Tales
 
 There are seven pilgrims, but only six live to tell their tales. {{ the_author
 }} uses each story to explore a different genre, but also to explore the {{
-keats_lastname_possessive }} themes in different settings and at different
-scales.
+keats_lastname_possessive }} themes in new settings and scales.
 
 #### {% short_story_title "The Priest's Tale" %}
 
@@ -223,94 +222,87 @@ scales.
 
 #### {% short_story_title "The Scholar's Tale" %}
 
-{{ the_scholars_tale }} is a retelling of the {{ binding }} from {{ genesis
-}}. Sol Weintraub is a philosopher studying the work of {{ kierkegaard }},
-whose daughter Rachael went to Hyperion to study the time tombs and contracts
-Merlin's disease which makes her age backwards, forgetting every morning what
-happened in her future. God or the Shrike eventually comes to Sol in his
-dreams and demands that he take Rachel to Hyperion to sacrifice her just as
-God asked Abraham to sacrifice Issac. The irony is that Sol's an expert in {{
-kierkegaard_lastname }}, who wrote {{ fear_and_trembling }} which deals with
-the ethical dilemma of Abraham, and is the exact same one Sol is going
-through.
+{{ the_scholars_tale }} retells the {{ binding }} from {{ genesis }}. Sol
+Weintraub is a philosopher studying {{ kierkegaard }}, whose daughter Rachel
+contracts Merlin's disease while researching the time tombs on Hyperion. The
+disease makes her age backwards, forgetting each morning what happened in her
+future. God---or the Shrike---appears to Sol in dreams and demands that he
+bring Rachel to Hyperion to sacrifice her, just as Abraham was asked to
+sacrifice Isaac. The irony is heavy: Sol is an expert in {{
+kierkegaard_lastname }}, whose {{ fear_and_trembling }} is about that same
+ethical dilemma.
 
-In Sol's tale the fall is of the rational universe where God abides by his
-rainbow covenants, into one which defies logic and in which God has broken his
-covenant by destroying Earth and demanding the sacrifice of Rachel. Sol and
-his family suffer horribly as Rachael ages backwards and forgets who she will
-be; his knowledge is powerless to stop the progression, but he hopes to learn
-of a cure on Hyperion.
+In Sol's tale, the fall is of the rational universe---where God honors His
+covenants---into one that defies logic, where Earth has been destroyed and God
+demands Rachel's sacrifice. Suffering and knowledge are inverted in this
+story, with Sol and his family suffering terribly as Rachel ages backwards and
+loses her identity while his knowledge is powerless against the disease,
+though he still hopes Hyperion holds a cure.
 
-This story one of my favorites. As a father it is hard to read, but it makes
-me appreciate my own children even more. I cried both times I read it.
+This is one of my favorite stories. As a father, it's hard to read, but it
+also makes me grateful for my own children. I cried both times I read it.
 
 #### {% short_story_title "The Detective's Tale" %}
 
-{{ the_detectives_tale }} is a hard-boiled, cyberpunk story that's like {{
-gibsons }} {{ neuromancer }} and {{ johnny_mnemonic }} if they were written by
-{{ chandler }}. Brawne Lamia is a Lususian detective, hired by a AI cybrid
-recreation of John "Johnny" Keats to solve his murder---the short
-disconnecting of the AI and its human-like cybrid body, which resulted in the
-loss of recent memories. She soon realizes that the TechnoCore has three
-factions---the Stables, the Volatiles, and the Ultimates---of which only one
-wants to keep humanity alive, and that all three have an obsession with
-Hyperion, which their advanced predictive routines can't account for.
+{{ the_detectives_tale }} is a hard-boiled cyberpunk story, like {{ gibsons }}
+{{ neuromancer }} and {{ johnny_mnemonic }}, but written by {{ chandler }}.
+Brawne Lamia, a Lususian detective, is hired by an AI cybrid recreation of
+John "Johnny" Keats to investigate his own murder---the sudden disconnect
+between AI and cybrid body that erased his recent memories. She soon learns
+the TechnoCore has three factions---the Stables, the Volatiles, and the
+Ultimates. Only one wants humanity to survive, yet all three are obsessed with
+Hyperion, a place their predictive routines can't explain.
 
-This tale explores the fall of the Hegemony and its impending replacement by
-the TechnoCore, led by the genocidal Volatiles. The Keats cybrid is beautify
-in mind and body, and seeks the truth of his death; he is literally a poet
-created by the TechnoCore to understand humanity and Hyperion. Brawne suffers
-the loss of her father, then her lover Johnny, and shot to near pieces in
-firefight in front of the Shrike Temple, from which she gains the knowledge of
-the TechnoCore's plan, and even has Johnny's personality implanted in a Schrön
-loop in her head.
+This tale shows the fall of the Hegemony and its possible replacement by the
+TechnoCore, led by the genocidal Volatiles. The Keats cybrid is beautiful in
+mind and body, seeking the truth of his death; he is literally a poet built by
+the TechnoCore to understand both humanity and Hyperion. Brawne loses her
+father, then her lover Johnny, and is nearly killed in a firefight outside the
+Shrike Temple. From this suffering, she uncovers the TechnoCore's plans---and
+carries Johnny's personality preserved in a Schrön loop inside her head.
 
-{{ the_detectives_tale }} references and influenced a lot of other works. The
-cowboys in cyberspace are directly from {{ neuromancer }}, a fact lampshaded
-by naming one of them {{ gibson_lastname }}. There is a reference to {{
-orwells }} Big Brother from {{ nineteen_eighty_four }}. Johnny wanting to
-become a real human is like {{ collodis }} {{ pinocchio }}. The theory that
-the Shrike was sent back in time---either by the TechnoCore or the
-Ousters---to change the outcome of a war is right our of {{ terminator }}. The
-hacking of the TechnoCore as a battle likely influenced the same sort of scene
-in {{ surface_detail }}.
+{{ the_detectives_tale }} references a wide range of works. The cowboys in
+cyberspace come straight from {{ neuromancer }}, lampshaded by naming one of
+them {{ gibson_lastname }}. There's a reference to {{ orwells }} Big Brother
+from {{ nineteen_eighty_four }}. Johnny's desire to be human is straight out
+of {{ collodis }} {{ pinocchio }}. The Shrike possibly being sent back in time
+by the TechnoCore or the Ousters change their future is directly from {{
+terminator }}. And the hacking war with the TechnoCore foreshadows the virtual
+battles of {{ surface_detail }}.
 
 #### {% short_story_title "The Consul's Tale" %}
 
 {{ the_consuls_tale }} is sci-fi romance based on {{ shakespeares }} {{
-romeo_and_juliet }}, but where the insurmountable force separating the couple
-is not their feuding families, but the laws of physics and time dilation.
+romeo_and_juliet }}, except the insurmountable force separating the couple
+isn't their feuding families, but the laws of physics and time dilation.
 
-The tale follows the Consul's grandfather, Merin, who, while on an
-unauthorized shore leave on the planet Maui-Covenant, has an illicit romance
-with a native named Siri. The affair is cut short when Merin's friend is
-killed by Siri's cousin in a scene that mirrors the murder of Mercutio by
-Tybalt in {{ romeo_and_juliet }}, forcing Merin to flee. Due to the time
-dilation of space travel, their romance plays out over a handful of meetings
-that span Siri's entire life but only cover a few years for Merin. Their story
-becomes a local legend, and Siri convinces Merin to fight the Hegemony's
-impending integration of her world. After she dies of old age, he honors her
-by sabotaging the project and starting a rebellion in her name.
+The tale follows the Consul's grandfather, Merin, who falls in love with a
+native woman named Siri while on unauthorized shore leave on the water-world
+Maui-Covenant. Their romance is cut short when Siri's cousin kills Merin's
+friend, echoing Tybalt killing Mercutio in {{ romeo_and_juliet }}. Forced to
+flee, Merin and Siri meet only a handful of times across her entire life,
+stretched by relativity into decades for her but only a few years for him.
+Their affair becomes legend, and Siri convinces Merin to resist the Hegemony's
+assimilation of her world. After her death, Merin honors her by sabotaging the
+project and sparking a rebellion in her name.
 
-From the story we learn that the Hegemony and the TechnoCore plotted to
-destroy the Earth with the Great Mistake, and that the Hegemony has since been
-committing genocide against any other species that might be sentient or able
-to compete with humanity, including the human Ousters. The Consul admits to
-betraying the Hegemony to the Ousters, and then double crossing the Ousters to
-free the Shrike and force a war.
+Here we also learn that the Hegemony and the TechnoCore conspired to destroy
+Earth with the Great Mistake, and that the Hegemony has been committing quiet
+genocide against other intelligent species, including the Human Ousters. The
+Consul confesses to betraying the Hegemony to the Ousters, then
+double-crossing the Ousters to unleash the Shrike and force a war.
 
-This story shows the fall of two different orders: first the destruction of
-Maui-Covenant by the Hegemony, and then, with the Consul's betrayal, of the
-Hegemony itself at the hands of the Ousters. The Consul inverts {{
-keats_lastname_possessive }} ideal that beauty and power go together, as he
-seeks to destroy the Hegemony because it is less beautiful than the thing it
-replaces. The consul suffers the slow loss of Siri, but from it learns of the
-Hegemony's true nature.
+This story shows the fall of two orders: first Maui-Covenant, destroyed by the
+Hegemony, and then the Hegemony itself, undone by the Ousters with the
+Consul's help. The Consul flips {{ keats_lastname_possessive }} idea that
+beauty and power go together. For him, the Hegemony is ugly, and destroying it
+is an act of beauty. He suffers the slow loss of Siri, but through it learns
+what the Hegemony truly is.
 
-{{ the_consuls_tale }} reminded me of other works. The talking dolphins are
-like {{ adamss }} {{ hitchhikers_guide }} or {{ brins }} {{ sundiver }}. The
-powerful gun left by Siri for Merin reminded me of {{ bankss }} {{
-gift_from_the_culture }}.
+{{ the_consuls_tale }} reminded me of other works: the talking dolphins are
+straight out of {{ adamss }} {{ hitchhikers_guide }} or {{ brins }} {{
+sundiver }}. Siri's gift of a powerful gun to Merin reminded me of {{ bankss
+}} {{ gift_from_the_culture }}.
 
 ### Other Works
 
