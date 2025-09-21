@@ -215,29 +215,28 @@ keats_lastname_possessive }} themes in new settings and scales.
 
 #### {% short_story_title "The Priest's Tale" %}
 
-{{ the_priests_tale }} is the story of the priest's mentor, Father Paul Duré,
-who was banished to Hyperion after faking evidence of a pre-human Christian
-civilization on Armaghast. On Hyperion, Duré decides to travel deep into the
-wilderness in search of the Bikura, the ruminants of settlers from a crashed
-ship. He finds the Bikura, who believe in eternal life provided to those who
-follow the cross, only to discover it is a perverted version of Christianity,
-one with a hideous parody of resurrection granted by the cruciform parasite.
+{{ the_priests_tale }} tells the story of the priest's mentor, Father Paul
+Duré, who is banished to Hyperion after faking evidence of a pre-human
+Christian civilization on Armaghast. On Hyperion, Duré ventures deep into the
+wilderness in search of the Bikura, descendants of settlers from a crashed
+ship. He finds them living by a twisted Christianity, one that promises
+eternal life not through faith, but through the cruciform parasite that
+revives its hosts in a grotesque parody of the resurrection.
 
-In this story, the Catholic Church is the old order being swept away by new
-religions. It inverts {{ keats_lastname_possessive }} idea that the new wins
-because it is beautiful with the horrible disfigured Bikura. Duré suffers both
-spiritually and physically, first with a crisis of his faith, and then by
-crucifying himself to a Tesla tree for seven years in order to best the
-parasite. His diary is what allows him to turn his suffering into
-understanding.
+Here, the Catholic Church represents the old order being swept away by new,
+distorted religions. This tale inverts {{ keats_lastname_possessive }} idea
+that the new triumphs because it is beautiful---the Bikura are hideously
+disfigured. Duré suffers spiritually and physically, enduring a crisis of
+faith and eventually crucifying himself on a Tesla tree for seven years to
+defeat the parasite. His diary becomes the means by which he turns that
+suffering into understanding.
 
 {{ the_priests_tale }} is thematically similar to {{ conrads }} {{
-heart_of_darkness }}, in that Duré travels deep into the wilderness and
-discovers a horrifying truth about faith and humanity. It also reminded me of
-{{ clarkes }} {{ the_star }}, in which a Jesuit astrophysicist's faith is
-shaken when he discovers an alien civilization that was destroyed by the
-supernova the created the star of Bethlehem, and also {{ bradburys }} {{
-the_man }}, in which Jesus travels from planet to planet.
+heart_of_darkness }}, with Duré journeying into the wilderness only to uncover
+a horrifying truth about faith and humanity. It also reminded me of {{ clarkes
+}} {{ the_star }}, where a Jesuit's faith is shaken after learning that the
+star of Bethlehem was born from the destruction of an alien civilization, and
+{{ bradburys }} {{ the_man }}, where Jesus wanders from planet to planet.
 
 #### {% short_story_title "The Soldier's Tale" %}
 
