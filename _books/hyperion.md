@@ -137,6 +137,7 @@ petition the god-like Shrike.
 
 {% capture bible %}{% book_link "The Bible" %}{% endcapture %}
 {% capture genesis %}{% short_story_link "The Book of Genesis" %}{% endcapture %}
+{% capture binding %}{% short_story_link "Binding of Isaac" %}{% endcapture %}
 
 {% capture twain %}{% author_link "Mark Twain" %}{% endcapture %}
 {% capture twains %}{% author_link "Mark Twain" possessive %}{% endcapture %}
@@ -211,7 +212,15 @@ scales.
 
 #### {% short_story_title "The Scholar's Tale" %}
 
-{{ the_scholars_tale }}
+{{ the_scholars_tale }} is a retelling of the {{ binding }} from {{ genesis
+}}. Sol Weintraub is a philosopher studying the work of {{ kierkegaard
+}}, whose daughter Rachael went to Hyperion to study the time tombs and
+contracts Merlin's disease which makes her age backwards, forgetting every
+morning what happened in her future. God or the Shrike eventually comes to Sol
+in his dreams and demands that he take Rachel to Hyperion to sacrifice her
+just as God asked Abraham to sacrifice Issac. The irony is that Sol's an
+expert in Kierkegaard, who wrote {{ fear_and_trembling }} which deals with the
+ethical dilemma of Abraham, and is the exact same one Sol is going through.
 
 #### {% short_story_title "The Detective's Tale" %}
 
@@ -240,33 +249,31 @@ loop in her head.
 romeo_and_juliet }}, but where the insurmountable force separating the couple
 is not their feuding families, but the laws of physics and time dilation.
 
-The tale follows Merin, the Consul's grandfather, a spacefarer extending the
-farcaster network to the world of Maui-Covenant. During his time there, he and
-his friend Mike Osho take an unauthorized shore leave to explore the planet,
-where Merin met Siri. Merin and Siri have an illicit romance which is
-interrupted when Mike is discovered and killed by Siri's cousin in a scene
-that exactly mirrors the murder of Mercutio by Tybalt in {{ romeo_and_juliet
-}}. Merin flees and returns to his ship.
+The tale follows the Consul's grandfather, Merin, who, while on an
+unauthorized shore leave on the planet Maui-Covenant, has an illicit romance
+with a native named Siri. The affair is cut short when Merin's friend is
+killed by Siri's cousin in a scene that mirrors the murder of Mercutio by
+Tybalt in {{ romeo_and_juliet }}, forcing Merin to flee. Due to the time
+dilation of space travel, their romance plays out over a handful of meetings
+that span Siri's entire life but only cover a few years for Merin. Their story
+becomes a local legend, and Siri convinces Merin to fight the Hegemony's
+impending integration of her world. After she dies of old age, he honors her
+by sabotaging the project and starting a rebellion in her name.
 
-Eleven years later the ship returns and Merin learns that his romance with
-Siri has become a local legend. Merin and Siri meet six times, each rendezvous
-taking place just a few months apart in Merin's frame, but separated by eleven
-years in Siri's. During their affair, Siri learns about how her world will
-change forever when the Hegemony brings it into the WorldWeb, and she
-convinces Merin to fight to prevent it. He sabotages project and starts a
-rebellion in her name.
-
-We learn that the Hegemony and the TechnoCore plotted to destroy the Earth
-with the Great Mistake, and that the Hegemony has sense been committing
-genocide against any other species that might be sentient or able to compete
-with humanity, including the human Ousters.
+From the story we learn that the Hegemony and the TechnoCore plotted to
+destroy the Earth with the Great Mistake, and that the Hegemony has since been
+committing genocide against any other species that might be sentient or able
+to compete with humanity, including the human Ousters. The Consul admits to
+betraying the Hegemony to the Ousters, and then double crossing the Ousters to
+free the Shrike and force a war.
 
 This story shows the fall of two different orders: first the destruction of
-Maui-Covenant by the Hegemony, and then, with the Consul's betrayal, by the
+Maui-Covenant by the Hegemony, and then, with the Consul's betrayal, of the
 Hegemony itself at the hands of the Ousters. The Consul inverts {{
 keats_lastname_possessive }} ideal that beauty and power go together, as he
 seeks to destroy the Hegemony because it is less beautiful than the thing it
-replaces.
+replaces. The consul suffers the slow loss of Siri, but from it learns of the
+Hegemony's true nature.
 
 ### Other Works
 
