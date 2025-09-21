@@ -106,6 +106,7 @@ petition the god-like Shrike.
 {% capture flowers_for_algernon %}{% book_link "Flowers for Algernon" %}{% endcapture %}
 
 {% capture gibson %}{% author_link "William Gibson" %}{% endcapture %}
+{% capture gibson_lastname %}{% author_link "William Gibson" link_text="Gibson" %}{% endcapture %}
 {% capture gibsons %}{% author_link "William Gibson" possessive %}{% endcapture %}
 {% capture johnny_mnemonic %}{% book_link "Johnny Mnemonic" %}{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
@@ -146,6 +147,10 @@ petition the god-like Shrike.
 {% capture doyle %}{% author_link "Arthur Conan Doyle" %}{% endcapture %}
 {% capture doyles %}{% author_link "Arthur Conan Doyle" possessive %}{% endcapture %}
 {% capture sherlock_holmes %}{% book_link "The Adventures of Sherlock Holmes" %}{% endcapture %}
+
+{% capture collodi %}{% author_link "Carlo Collodi" %}{% endcapture %}
+{% capture collodis %}{% author_link "Carlo Collodi" possessive %}{% endcapture %}
+{% capture pinocchio %}{% book_link "The Adventures of Pinocchio" %}{% endcapture %}
 
 {% capture shakespeare %}{% author_link "William Shakespeare" link_text="Shakespeare" %}{% endcapture %}
 {% capture shakespeares %}{% author_link "William Shakespeare" link_text="Shakespeare" possessive %}{% endcapture %}
@@ -254,6 +259,16 @@ the loss of her father, then her lover Johnny, and shot to near pieces in
 firefight in front of the Shrike Temple, from which she gains the knowledge of
 the TechnoCore's plan, and even has Johnny's personality implanted in a Schrön
 loop in her head.
+
+{{ the_detectives_tale }} references and influenced a lot of other works. The
+cowboys in cyberspace are directly from {{ neuromancer }}, a fact lampshaded
+by naming one of them {{ gibson_lastname }}. There is a reference to {{
+orwells }} Big Brother from {{ nineteen_eighty_four }}. Johnny wanting to
+become a real human is like {{ collodis }} {{ pinocchio }}. The theory that
+the Shrike was sent back in time---either by the TechnoCore or the
+Ousters---to change the outcome of a war is right our of {{ terminator }}. The
+hacking of the TechnoCore as a battle likely influenced the same sort of scene
+in {{ surface_detail }}.
 
 #### {% short_story_title "The Consul's Tale" %}
 
