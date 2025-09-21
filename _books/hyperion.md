@@ -36,6 +36,8 @@ petition the god-like Shrike.
 
 {% capture keats %}{% author_link "John Keats" %}{% endcapture %}
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
+{% capture keats_lastname %}{% author_link "John Keats" link_text="Keats" %}{% endcapture %}
+{% capture keats_lastname_possessive %}{% author_link "John Keats" link_text="Keats" possessive %}{% endcapture %}
 {% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" %}{% endcapture %}
 
 {% capture chaucer %}{% author_link "Geoffrey Chaucer" %}{% endcapture %}
@@ -166,16 +168,27 @@ barbarians and a god-like Shrike encrusted in blades.
 
 ### Themes
 
-The key themes of {{ keatss }} {{ hyperion_keats }} are:
+The primary theme of {{ keatss }} {{ hyperion_keats }} is the inevitability of
+change, particularly in the fall of old order. In his poem, this is
+exemplified by the [Titans being overthrown by the Olympians][titanomachy]. {{
+the_author }} repeats this theme in his {{ this_book }}, most obviously in the
+looming destruction of humanity and their replacement by either the AIs of the
+TechnoCore or the Ousters, but also in various other places in each Pilgram's
+story.
 
-- The Inevitability of Change and the Fall of the Old Order
-- The Relationship Between Beauty, Truth, and Power
-- The Nature of Suffering and Knowledge
-- The Role and Identity of the Poet
+[titanomachy]: https://en.wikipedia.org/wiki/Titanomachy
 
-{{ author_last_name_text }} uses these same themes.
+{{ keats_lastname }} explores several other themes in his work as well: the
+relationship between beauty, truth, and power; the nature of knowledge and
+suffering; and the role of the poet. {{ author_last_name_text }} adopts these
+themes as well.
 
 ### Tales
+
+There are seven pilgrims, but only six live to tell their tales. {{ the_author
+}} uses each to explore a different genre, but also to explore the {{
+keats_lastname_possessive }} themes in different settings and at different
+scales.
 
 #### {% short_story_title "The Priest's Tale" %}
 
@@ -189,25 +202,29 @@ The key themes of {{ keatss }} {{ hyperion_keats }} are:
 
 #### {% short_story_title "The Consul's Tale" %}
 
+
+{% comment %}
+
+==============
+The Old Review
+==============
+
+Previous rating and date
+date: 2023-10-17
+rating: 4
+
+{% endcomment %}
 <details markdown="1">
   <summary>
     <h2 class="book-review-headline">Previous Review</h2>
   </summary>
 {% rating_stars 4 %}
 
-{% comment %}
-Previous rating and date
-date: 2023-10-17
-rating: 4
-{% endcomment %}
-
 {{ this_book }} was not at all the book I expected. To give you an idea of how
 much I misjudged it, about a third of the way through I would have rated it
 two stars and almost put it down, about two-thirds of the way through I was
 solidly at three stars, and by the end I was up to four. It was not the
 all-time great I was promised, but it was very good.
-
-{% comment %}TODO: How do we link to Hyperion by Keats?{% endcomment %}
 
 It is told as the tale of six different pilgrims traveling to the planet
 Hyperion to visit the Shrike, a cruel, death-god-like figure. {{ this_book }}
@@ -225,8 +242,6 @@ falling to the new Gods of Olympus][titanomachy]. We see this with the Humans
 and the AI TechnoCore, the humans and the Ousters (a breakaway post-human
 faction), the Scholar and the Old Testament God, and Catholicism and the new
 religions.
-
-[titanomachy]: https://en.wikipedia.org/wiki/Titanomachy
 
 ### {% short_story_title "The Priest's Tale" %}
 {% rating_stars 2 %}
