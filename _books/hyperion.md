@@ -30,6 +30,13 @@ petition the god-like Shrike.
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
+{% capture the_priests_tale %}{% short_story_link "The Priest's Tale" %}{% endcapture %}
+{% capture the_soldiers_tale %}{% short_story_link "The Soldier's Tale" %}{% endcapture %}
+{% capture the_poets_tale %}{% short_story_link "The Poet's Tale" %}{% endcapture %}
+{% capture the_scholars_tale %}{% short_story_link "The Scholar's Tale" %}{% endcapture %}
+{% capture the_detectives_tale %}{% short_story_link "The Detective's Tale" %}{% endcapture %}
+{% capture the_consuls_tale %}{% short_story_link "The Consul's Tale" %}{% endcapture %}
+
 {% comment %} Foundational Works for the Review {% endcomment %}
 
 {% capture fall_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
@@ -139,8 +146,8 @@ petition the god-like Shrike.
 {% capture doyles %}{% author_link "Arthur Conan Doyle" possessive %}{% endcapture %}
 {% capture sherlock_holmes %}{% book_link "The Adventures of Sherlock Holmes" %}{% endcapture %}
 
-{% capture shakespeare %}{% author_link "William Shakespeare" %}{% endcapture %}
-{% capture shakespeares %}{% author_link "William Shakespeare" possessive %}{% endcapture %}
+{% capture shakespeare %}{% author_link "William Shakespeare" link_text="Shakespeare" %}{% endcapture %}
+{% capture shakespeares %}{% author_link "William Shakespeare" link_text="Shakespeare" possessive %}{% endcapture %}
 {% capture romeo_and_juliet %}{% book_link "Romeo and Juliet" %}{% endcapture %}
 
 {% capture beowulf %}{% book_link "Beowulf" %}{% endcapture %}
@@ -173,7 +180,7 @@ change, particularly in the fall of old order. In his poem, this is
 exemplified by the [Titans being overthrown by the Olympians][titanomachy]. {{
 the_author }} repeats this theme in his {{ this_book }}, most obviously in the
 looming destruction of humanity and their replacement by either the AIs of the
-TechnoCore or the Ousters, but also in various other places in each Pilgram's
+TechnoCore or the Ousters, but also in various other places in each pilgrim's
 story.
 
 [titanomachy]: https://en.wikipedia.org/wiki/Titanomachy
@@ -186,21 +193,69 @@ themes as well.
 ### Tales
 
 There are seven pilgrims, but only six live to tell their tales. {{ the_author
-}} uses each to explore a different genre, but also to explore the {{
+}} uses each story to explore a different genre, but also to explore the {{
 keats_lastname_possessive }} themes in different settings and at different
 scales.
 
 #### {% short_story_title "The Priest's Tale" %}
 
+{{ the_priests_tale }}
+
 #### {% short_story_title "The Soldier's Tale" %}
+
+{{ the_soldiers_tale }}
 
 #### {% short_story_title "The Poet's Tale" %}
 
+{{ the_poets_tale }}
+
 #### {% short_story_title "The Scholar's Tale" %}
+
+{{ the_scholars_tale }}
 
 #### {% short_story_title "The Detective's Tale" %}
 
+{{ the_detectives_tale }} is a hard-boiled, cyberpunk story that's like {{
+gibsons }} {{ neuromancer }} and {{ johnny_mnemonic }} if they were written by
+{{ chandler }}. Brawne Lamia is a Lususian detective, hired by a AI cybrid
+recreation of John Keats to solve his murder---the short disconnecting of the
+AI and its human-like cybrid body, which resulted in the loss of recent
+memories. She soon realizes that the TechnoCore has three factions---the
+Stables, the Volatiles, and the Ultimates---of which only one wants to keep
+humanity alive, and that all three have an obsession with Hyperion, which
+their advanced predictive routines can't account for.
+
+This tale explores the fall of the Hegemony and its impending replacement by
+the TechnoCore, led by the genocidal Volatiles.
+
 #### {% short_story_title "The Consul's Tale" %}
+
+{{ the_consuls_tale }} is sci-fi romance based on {{ shakespeares }} {{
+romeo_and_juliet }}, but where the insurmountable force separating the couple
+is not their feuding families, but the laws of physics and time dilation.
+
+The tale follows Merin, the Consul's grandfather, a spacefarer extending the
+farcaster network to the world of Maui-Covenant. During his time there, he and
+his friend Mike Osho take an unauthorized shore leave to explore the planet,
+where Merin met Siri. Merin and Siri have an illicit romance which is
+interrupted when Mike is discovered and killed by Siri's cousin in a scene
+that exactly mirrors the murder of Mercutio by Tybalt in {{ romeo_and_juliet
+}}. Merin flees and returns to his ship.
+
+Eleven years later the ship returns and Merin learns that his romance with
+Siri has become a local legend. Merin and Siri meet six times, each rendezvous
+taking place just a few months apart in Merin's frame, but separated by eleven
+years in Siri's. During their affair, Siri learns about how her world will
+change forever when the Hegemony brings it into the WorldWeb, and she
+convinces Merin to fight to prevent it. He sabotages project and starts a
+rebellion in her name.
+
+We learn that the Hegemony and the TechnoCore plotted to destroy the Earth
+with the Great Mistake, and that the Hegemony has sense been committing
+genocide against any other species that might be sentient or able to compete
+with humanity, including the human Ousters.
+
+### Other Works
 
 
 {% comment %}
