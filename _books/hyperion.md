@@ -267,8 +267,10 @@ them {{ gibson_lastname }}. There's a reference to {{ orwells }} Big Brother
 from {{ nineteen_eighty_four }}. Johnny's desire to be human is straight out
 of {{ collodis }} {{ pinocchio }}. The Shrike possibly being sent back in time
 by the TechnoCore or the Ousters change their future is directly from {{
-terminator }}. And the hacking war with the TechnoCore foreshadows the virtual
-battles of {{ surface_detail }}.
+terminator }}. The hacking war with the TechnoCore foreshadows the virtual
+battles of {{ surface_detail }}. And the way the Keats cybrid was trained by
+compilling all of the author {{ keats_lastname_possessive }} writings was like
+a modern large language model.
 
 #### {% short_story_title "The Consul's Tale" %}
 
