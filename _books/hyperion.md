@@ -66,6 +66,11 @@ petition the Shrike.
 
 {% capture clarke %}{% author_link "Arthur C. Clarke" %}{% endcapture %}
 {% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}
+{% capture the_star %}{% short_story_link "The Star" %}{% endcapture %}
+
+{% capture bradbury %}{% author_link "Ray Bradbury" %}{% endcapture %}
+{% capture bradburys %}{% author_link "Ray Bradbury" possessive %}{% endcapture %}
+{% capture the_man %}{% short_story_link "The Man" %}{% endcapture %}
 
 {% capture conrad %}{% author_link "Joseph Conrad" %}{% endcapture %}
 {% capture conrads %}{% author_link "Joseph Conrad" possessive %}{% endcapture %}
@@ -210,7 +215,29 @@ keats_lastname_possessive }} themes in new settings and scales.
 
 #### {% short_story_title "The Priest's Tale" %}
 
-{{ the_priests_tale }}
+{{ the_priests_tale }} is the story of the priest's mentor, Father Paul Duré,
+who was banished to Hyperion after faking evidence of a pre-human Christian
+civilization on Armaghast. On Hyperion, Duré decides to travel deep into the
+wilderness in search of the Bikura, the ruminants of settlers from a crashed
+ship. He finds the Bikura, who believe in eternal life provided to those who
+follow the cross, only to discover it is a perverted version of Christianity,
+one with a hideous parody of resurrection granted by the cruciform parasite.
+
+In this story, the Catholic Church is the old order being swept away by new
+religions. It inverts {{ keats_lastname_possessive }} idea that the new wins
+because it is beautiful with the horrible disfigured Bikura. Duré suffers both
+spiritually and physically, first with a crisis of his faith, and then by
+crucifying himself to a Tesla tree for seven years in order to best the
+parasite. His diary is what allows him to turn his suffering into
+understanding.
+
+{{ the_priests_tale }} is thematically similar to {{ conrads }} {{
+heart_of_darkness }}, in that Duré travels deep into the wilderness and
+discovers a horrifying truth about faith and humanity. It also reminded me of
+{{ clarkes }} {{ the_star }}, in which a Jesuit astrophysicist's faith is
+shaken when he discovers an alien civilization that was destroyed by the
+supernova the created the star of Bethlehem, and also {{ bradburys }} {{
+the_man }}, in which Jesus travels from planet to planet.
 
 #### {% short_story_title "The Soldier's Tale" %}
 
