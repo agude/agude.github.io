@@ -331,9 +331,9 @@ contracts Merlin's disease while researching the time tombs on Hyperion. The
 disease makes her age backwards, forgetting each morning what happened in her
 future. God---or the Shrike---appears to Sol in dreams and demands that he
 bring Rachel to Hyperion to sacrifice her, just as Abraham was asked to
-sacrifice Isaac. The irony is heavy: <!-- TODO: Heavy? Eh... --> Sol is an
-expert in {{ kierkegaard_lastname }}, whose {{ fear_and_trembling }} is about
-that same ethical dilemma.
+sacrifice Isaac. The irony is unavoidable: Sol is an expert in {{
+kierkegaard_lastname }}, whose {{ fear_and_trembling }} is about that same
+ethical dilemma he now faces.
 
 In Sol's tale, the fall is of the rational universe---where God honors His
 covenants---into one that defies logic, where Earth has been destroyed and God
@@ -342,11 +342,11 @@ story, with Sol and his family suffering terribly as Rachel ages backwards and
 loses her identity while his knowledge is powerless against the disease. He
 hopes---irrationally as matches the new order---that Hyperion holds a cure.
 
-This is one of my favorite stories. As a father, it's hard to read <!-- WHY?
--->, but it also makes me more grateful for my own children. I cried both
-times I read it. It reminded me a little of {{ keyss }} {{
-flowers_for_algernon }}, with the way it charts Rachel's mental decline, but
-this one hit me much harder.
+This is one of my favorite stories. As a father, it's hard to read because so
+much of Sol's struggle is about helplessly watching his child slip away, but
+it also makes me more grateful for my own children. I cried both times I read
+it. It reminded me a little of {{ keyss }} {{ flowers_for_algernon }}, with
+the way it charts Rachel's mental decline, but this one hit me much harder.
 
 {{ the_scholars_tale }} also makes a passing reference to {{ le_guins }}
 Ansible, seen in {{ rocannon}}, {{ left_hand_of_darkness }}, and throughout
@@ -377,18 +377,16 @@ father, then her lover Johnny, and is nearly killed in a firefight outside the
 Shrike Temple. From this suffering, she uncovers the TechnoCore's plans---and
 carries Johnny's personality preserved in a Schrön loop inside her head.
 
-<!-- TODO: Make this paragraph sounds less bad --> {{ the_detectives_tale }}
-references a wide range of works. The cowboys in cyberspace are straight from
-{{ neuromancer }}, <!-- TODO: Don't love lampshaded --> lampshaded by naming
-one of them Gibson. Brawne has a Schrön loop to transport data like {{
-johnny_mnemonic }}. There's a reference to {{ orwells }} Big Brother from {{
-nineteen_eighty_four }}. Johnny's desire to be human is straight out of {{
-collodis }} {{ pinocchio }}. The Shrike possibly being sent back in time by
-the TechnoCore or the Ousters to change their future is directly from {{
-terminator }}. The hacking as battle with the TechnoCore foreshadows the
-virtual battles of {{ surface_detail }}. And the way the Keats cybrid was
-trained by compiling all of the author {{ keats_lastname_possessive }}
-writings was like a modern large language model.
+{{ the_detectives_tale }} references a wide range of works. Its cyberspace
+cowboys recall {{ neuromancer }}; one is even named Gibson. Brawne uses a
+Schrön loop for data transport, right out of {{ johnny_mnemonic }}. There's a
+allusion to {{ orwells }} Big Brother from {{ nineteen_eighty_four }}.
+Johnny's yearning for humanity echoes {{ collodis }} {{ pinocchio }}. The
+possibility that the Shrike was sent back in time by the TechnoCore or the
+Ousters to change their future is directly from {{ terminator }}. The hacking
+as battle with the TechnoCore foreshadows the same scene in {{ surface_detail
+}}. The creation of the Keats cybrid, by compiling all his written works,
+reads today like how we train large language models.
 
 #### {% short_story_title "The Consul's Tale" %}
 
