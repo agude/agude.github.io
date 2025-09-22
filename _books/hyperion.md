@@ -110,6 +110,7 @@ petition the Shrike.
 {% capture le_guin %}{% author_link "Ursula K. Le Guin" %}{% endcapture %}
 {% capture le_guins %}{% author_link "Ursula K. Le Guin" possessive %}{% endcapture %}
 {% capture left_hand_of_darkness %}{% book_link "The Left Hand of Darkness" %}{% endcapture %}
+{% capture rocannon %}{% book_link "Rocannon's World" %}{% endcapture %}
 {% capture hainish_cycle %}{% series_link "Hainish Cycle" %}{% endcapture %}
 
 {% capture keyes %}{% author_link "Daniel Keyes" %}{% endcapture %}
@@ -346,21 +347,22 @@ times I read it. It reminded me a little of {{ keyss }} {{
 flowers_for_algernon }}, with the way it charts Rachel's mental decline, but
 this one hit me much harder.
 
-{{ the_scholars_tale }} also makes a passing references to {{ le_guins }}
-Ansible seen in {{ left_hand_of_darkness }} and other stories from her {{
-hainish_cycle }}. The need to sleep to survive faster-than-light travel
-without going insane is also seen in {{ tchaikovskys }} {{ shards_of_earth }}.
+{{ the_scholars_tale }} also makes a passing reference to {{ le_guins }}
+Ansible, seen in {{ rocannon}}, {{ left_hand_of_darkness }}, and throughout
+her {{ hainish_cycle }}. The requirement to sleep in order to survive
+faster-than-light travel without going insane also shows up in {{ tchaikovskys
+}} {{ shards_of_earth }}.
 
 #### {% short_story_title "The Detective's Tale" %}
 
 {{ the_detectives_tale }} is a hard-boiled cyberpunk story, like a {{ gibson
-}} story written by {{ chandler }}. Brawne Lamia[^fanny], a Lususian detective, is
-hired by an AI cybrid recreation of John "Johnny" Keats to investigate his own
-murder---the sudden disconnect between AI and cybrid body that erased his
-recent memories. She soon learns the TechnoCore has three factions---the
-Stables, the Volatiles, and the Ultimates. Only one wants humanity to survive,
-yet all three are obsessed with Hyperion, a place their predictive routines
-can't explain.
+}} story written by {{ chandler }}. Brawne Lamia,[^fanny] a Lususian
+detective, is hired by an AI cybrid recreation of John "Johnny" Keats to
+investigate his own murder---the sudden disconnect between AI and cybrid body
+that erased his recent memories. She soon learns the TechnoCore has three
+factions---the Stables, the Volatiles, and the Ultimates. Only one wants
+humanity to survive, yet all three are obsessed with Hyperion, a place their
+predictive routines can't explain.
 
 [^fanny]: Named after {{ keatss }} real-life lover [Fanny Brawne][fb].
 
@@ -374,18 +376,18 @@ father, then her lover Johnny, and is nearly killed in a firefight outside the
 Shrike Temple. From this suffering, she uncovers the TechnoCore's plans---and
 carries Johnny's personality preserved in a Schrön loop inside her head.
 
-<!-- TODO: Make this paragraph sounds less bad -->
-{{ the_detectives_tale }} references a wide range of works. The cowboys in
-cyberspace are straight from {{ neuromancer }}, <!-- TODO: Don't love
-lampshaded --> lampshaded by naming one of them Gibson. Brawne has a Schrön
-loop to transport data like {{ johnny_mnemonic }}. There's a reference to {{
-orwells }} Big Brother from {{ nineteen_eighty_four }}. Johnny's desire to be
-human is straight out of {{ collodis }} {{ pinocchio }}. The Shrike possibly
-being sent back in time by the TechnoCore or the Ousters to change their
-future is directly from {{ terminator }}. The hacking as battle with the
-TechnoCore foreshadows the virtual battles of {{ surface_detail }}. And the
-way the Keats cybrid was trained by compiling all of the author {{
-keats_lastname_possessive }} writings was like a modern large language model.
+<!-- TODO: Make this paragraph sounds less bad --> {{ the_detectives_tale }}
+references a wide range of works. The cowboys in cyberspace are straight from
+{{ neuromancer }}, <!-- TODO: Don't love lampshaded --> lampshaded by naming
+one of them Gibson. Brawne has a Schrön loop to transport data like {{
+johnny_mnemonic }}. There's a reference to {{ orwells }} Big Brother from {{
+nineteen_eighty_four }}. Johnny's desire to be human is straight out of {{
+collodis }} {{ pinocchio }}. The Shrike possibly being sent back in time by
+the TechnoCore or the Ousters to change their future is directly from {{
+terminator }}. The hacking as battle with the TechnoCore foreshadows the
+virtual battles of {{ surface_detail }}. And the way the Keats cybrid was
+trained by compiling all of the author {{ keats_lastname_possessive }}
+writings was like a modern large language model.
 
 #### {% short_story_title "The Consul's Tale" %}
 
