@@ -101,8 +101,7 @@ petition the Shrike.
 {% capture cards %}{% author_link "Orson Scott Card" possessive %}{% endcapture %}
 {% capture enders_game %}{% book_link "Ender's Game" %}{% endcapture %}
 
-{% capture strugatsky %}{% author_link "Arkady and Boris Strugatsky" %}{% endcapture %}
-{% capture strugatskys %}{% author_link "Arkady and Boris Strugatsky" possessive %}{% endcapture %}
+{% capture arkady_and_boris_strugatsky %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" %}{% endcapture %}
 
 {% capture le_guin %}{% author_link "Ursula K. Le Guin" %}{% endcapture %}
 {% capture le_guins %}{% author_link "Ursula K. Le Guin" possessive %}{% endcapture %}
@@ -161,7 +160,7 @@ petition the Shrike.
 
 {% capture doyle %}{% author_link "Arthur Conan Doyle" %}{% endcapture %}
 {% capture doyles %}{% author_link "Arthur Conan Doyle" possessive %}{% endcapture %}
-{% capture sherlock_holmes %}{% book_link "The Adventures of Sherlock Holmes" %}{% endcapture %}
+{% capture the_final_problem %}{% short_story_link "The Final Problem" %}{% endcapture %}
 
 {% capture collodi %}{% author_link "Carlo Collodi" %}{% endcapture %}
 {% capture collodis %}{% author_link "Carlo Collodi" possessive %}{% endcapture %}
@@ -262,12 +261,55 @@ Ouster landing parties.
 john_carter }}. The scene where Kassad programs the surgical robot to attack
 the ousters is mirrored in {{ tchaikovskys }} {{ lords }}. The mention of
 "rock and thighbone duels" reminds me of {{ space_odyssey }}. The virtual
-battles are like {{ surface_detail }}, and the semi-sentient suits are like {{
-descendant }}.
+battles are like {{ bankss }} {{ surface_detail }}, and the semi-sentient
+suits are like hist short story {{ descendant }}.
+
+The story also contains one of my favorite lines from the book:
+
+> Firing squads had been busy day and night settling ancient theological
+> disputes...
 
 #### {% short_story_title "The Poet's Tale" %}
 
-{{ the_poets_tale }}
+{{ the_poets_tale }} is the story of Martin Silenus, a man born on Old Earth
+before the Great Mistake destroyed it. He becomes an author, writing popular
+books and unpopular poetry, before traveling with Sad King Billy to Hyperion.
+On Hyperion, Silenus discovers his muse in the Shrike as it slowly kills off
+the rest of the artists, leaving only Silenus, who believes that his poetry is
+not just a reaction to the monster's killing, but summoned it in the first
+place.
+
+The poet witnesses the old order, Earth, falling so that the Hegemony can
+replace it. And Silenus writes his <cite class="book-title">Hyperion
+Cantos</cite> to say that man will be destroyed and replaced for dooming its
+homeworld. His belief is explicitly Keatsian: that great poetry has the power
+to shape the physical world, as he thinks his <cite
+class="book-title">Cantos</cite> is doing with the Shrike. Silenus is unable
+to write unless he or others are suffering, first on Heaven's Gate, and later
+on Hyperion when the Shrike is culling the other artists. His role is to
+witness the fall of humanity and transform that suffering into his greatest
+work of art.
+
+In {{ the_poets_tale }}, Silenus "writes" works based on real-world one. He
+writes <cite class="book-title">Dying Earth</cite>, based on {{ vances }} {{
+dying_earth }}, and also the <cite class="book-title">Hyperion Cantos</cite>,
+the very story we are reading. This reflects his role as a poet, creating
+reality with his words. King Billy tries to destroy Silenus's <cite
+class="book-title">Hyperion Cantos</cite> by burning it in a fountain
+containing a statue of [Laocoön][laocoon], and like the Greek priest Billy is
+killed for opposing divine power. The statue itself, with the man and his sons
+struggling against serpents, is a representation of suffering as art.
+
+[laocoon]: https://en.wikipedia.org/wiki/Laoco%C3%B6n
+
+As a tale about writing, {{ the_poets_tale }} makes the most references to
+other works. It directly references the Shrike as Grendel from {{ beowulf }};
+<!-- TODO: How to make this not sound like it's reference Huck as the Shrike?
+--> Huck and Jim from {{ twains }} {{ huckleberry_finn }}; Sherlock and
+Moriarty from {{ doyles }} {{ the_final_problem }}; the Eloi and Morlocks from
+{{ wellss }} {{ time_machine }}; as well as a made up book by <span
+class="author-name">Stukatsky</span>, probably a reference to {{
+arkady_and_boris_strugatsky }}.
 
 #### {% short_story_title "The Scholar's Tale" %}
 
@@ -297,13 +339,17 @@ this one hit me much harder.
 #### {% short_story_title "The Detective's Tale" %}
 
 {{ the_detectives_tale }} is a hard-boiled cyberpunk story, like a {{ gibson
-}} story written by {{ chandler }}. Brawne Lamia, a Lususian detective, is
+}} story written by {{ chandler }}. Brawne Lamia[^fanny], a Lususian detective, is
 hired by an AI cybrid recreation of John "Johnny" Keats to investigate his own
 murder---the sudden disconnect between AI and cybrid body that erased his
 recent memories. She soon learns the TechnoCore has three factions---the
 Stables, the Volatiles, and the Ultimates. Only one wants humanity to survive,
 yet all three are obsessed with Hyperion, a place their predictive routines
 can't explain.
+
+[^fanny]: Named after {{ keatss }} real-life lover [Fanny Brawne][fb].
+
+[fb]: https://en.wikipedia.org/wiki/Fanny_Brawne
 
 This tale shows the fall of the Hegemony and its possible replacement by the
 TechnoCore, led by the genocidal Volatiles. The Keats cybrid is beautiful in
