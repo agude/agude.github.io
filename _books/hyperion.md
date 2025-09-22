@@ -245,27 +245,28 @@ star of Bethlehem was born from the destruction of an alien civilization, and
 
 #### {% short_story_title "The Soldier's Tale" %}
 
-{{ the_soldiers_tale }} is military sci-fi following Fedmahn Kassad as he is
-trained as a FORCE commando, is commissioned, puts down various uprisings, and
-finally fights the Ousters. During his story, he is visited by a woman,
-Moneta, when the fighting is hardest. She is named for the goddess of memory
-who also appears in {{ keats_lastname_possessive }} {{ hyperion_keats }}.
-Its the first hint that the Hegemony isn't quite what it seems, and that they
-perpetrate a lot of evil to maintain their position.
+{{ the_soldiers_tale }} is military sci-fi that follows Fedmahn Kassad from
+his training as a FORCE commando, through his commission and suppression of
+various uprisings, and finally into battle against the Ousters. In the middle
+of these conflicts, he is visited by a mysterious woman named Moneta, who
+appears at the moments of greatest violence. Her name comes from the goddess
+of memory in {{ keats_lastname_possessive }} {{ hyperion_keats }}. This story
+is our first real hint that the Hegemony isn't what it seems---that its power
+rests on brutality and hidden evils.
 
-The story shows the Hegemony as the old order successfully defending itself
-against the new several times, but then reveals the Ousters as the possible
-usurpers of the throne. Moneta links beauty and power, easily destroying the
-Ouster landing parties.
+The story first shows the Hegemony as an old order able to hold off
+challengers again and again, but then reveals the Ousters as the possible
+heirs to the throne. Moneta herself ties beauty and power together,
+effortlessly destroying out Ouster landing parties.
 
 {{ the_soldiers_tale }} references John Carter from {{ burroughss }} {{
-john_carter }}. The scene where Kassad programs the surgical robot to attack
-the ousters is mirrored in {{ tchaikovskys }} {{ lords }}. The mention of
-"rock and thighbone duels" reminds me of {{ space_odyssey }}. The virtual
-battles are like {{ bankss }} {{ surface_detail }}, and the semi-sentient
-suits are like hist short story {{ descendant }}.
+john_carter }}. The scene where he programs a surgical robot to attack the
+Ousters is directly referenced in {{ tchaikovskys }} {{ lords }}. The
+reference to "rock and thighbone duels" reminds me of {{ space_odyssey }}. The
+virtual battles are seen again in {{ bankss }} {{ surface_detail }}, and the
+semi-sentient space suits call back to his short story {{ descendant }}.
 
-The story also contains one of my favorite lines from the book:
+The story also has one of my favorite lines from the whole book:
 
 > Firing squads had been busy day and night settling ancient theological
 > disputes...
