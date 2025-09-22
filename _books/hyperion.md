@@ -110,6 +110,7 @@ petition the Shrike.
 {% capture le_guin %}{% author_link "Ursula K. Le Guin" %}{% endcapture %}
 {% capture le_guins %}{% author_link "Ursula K. Le Guin" possessive %}{% endcapture %}
 {% capture left_hand_of_darkness %}{% book_link "The Left Hand of Darkness" %}{% endcapture %}
+{% capture hainish_cycle %}{% series_link "Hainish Cycle" %}{% endcapture %}
 
 {% capture keyes %}{% author_link "Daniel Keyes" %}{% endcapture %}
 {% capture keyess %}{% author_link "Daniel Keyes" possessive %}{% endcapture %}
@@ -344,6 +345,11 @@ This is one of my favorite stories. As a father, it's hard to read <!-- WHY?
 times I read it. It reminded me a little of {{ keyss }} {{
 flowers_for_algernon }}, with the way it charts Rachel's mental decline, but
 this one hit me much harder.
+
+{{ the_scholars_tale }} also makes a passing references to {{ le_guins }}
+Ansible seen in {{ left_hand_of_darkness }} and other stories from her {{
+hainish_cycle }}. The need to sleep to survive faster-than-light travel
+without going insane is also seen in {{ tchaikovskys }} {{ shards_of_earth }}.
 
 #### {% short_story_title "The Detective's Tale" %}
 
