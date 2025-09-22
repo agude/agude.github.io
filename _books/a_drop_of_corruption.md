@@ -21,7 +21,7 @@ almost a match for Ana's own.
 {% capture book1 %}{% book_link "The Tainted Cup" %}{% endcapture %}
 
 {% capture doyles %}{% author_link "Arthur Conan Doyle" possessive %}{% endcapture %}
-{% capture final_problem %}{% book_link "The Final Problem" %}{% endcapture %}
+{% capture final_problem %}{% short_story_link "The Final Problem" %}{% endcapture %}
 
 {% capture fdr %}{% book_link "Fer-de-Lance" %}{% endcapture %}
 {% capture nero_wolfe_series %}{% series_link "Nero Wolfe" %} series{% endcapture %}
