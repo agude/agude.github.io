@@ -273,54 +273,52 @@ The story also has one of my favorite lines from the whole book:
 
 #### {% short_story_title "The Poet's Tale" %}
 
-{{ the_poets_tale }} is the story of Martin Silenus, a man born on Old Earth
+{{ the_poets_tale }} tells the story of Martin Silenus, born on Old Earth
 before the Great Mistake destroyed it. He becomes an author, writing popular
 books and unpopular poetry, before traveling with Sad King Billy to Hyperion.
-On Hyperion, Silenus discovers his muse in the Shrike as it slowly kills off
-the rest of the artists, leaving only Silenus, who believes that his poetry is
-not just a reaction to the monster's killing, but summoned it in the first
+There, Silenus discovers his muse in the Shrike as it murders the other
+artists one by one. Left alone, Silenus becomes convinced that his poetry not
+only responds to the killings but may have summoned the Shrike in the first
 place.
 
-The poet witnesses the old order, Earth, falling so that the Hegemony can
-replace it. And Silenus writes his <cite class="book-title">Hyperion
-Cantos</cite> to say that man will be destroyed and replaced for dooming its
-homeworld. His belief is explicitly Keatsian: that great poetry has the power
-to shape the physical world, as he thinks his <cite
-class="book-title">Cantos</cite> is doing with the Shrike. Silenus is unable
-to write unless he or others are suffering, first on Heaven's Gate, and later
-on Hyperion when the Shrike is culling the other artists. His role is to
+Silenus watches the old order, Earth, fall, replaced by the Hegemony. He
+writes his <cite class="book-title">Hyperion Cantos</cite> as a lament,
+claiming that humanity doomed itself by destroying its homeworld and would in
+turn be destroyed and replaced. His belief is explicitly Keatsian: that great
+poetry can shape the physical world, just as he thinks his <cite
+class="book-title">Cantos</cite> summons the Shrike. Silenus is only able to
+write in the midst of pain, first during his exile on Heaven's Gate and later
+on Hyperion as the Shrike is cutting down the other artists. His role is to
 witness the fall of humanity and transform that suffering into his greatest
 work of art.
 
-In {{ the_poets_tale }}, Silenus "writes" works based on real-world one. He
-writes <cite class="book-title">Dying Earth</cite>, based on {{ vances }} {{
-dying_earth }}, and also the <cite class="book-title">Hyperion Cantos</cite>,
-the very story we are reading. This reflects his role as a poet, creating
-reality with his words. King Billy tries to destroy Silenus's <cite
-class="book-title">Hyperion Cantos</cite> by burning it in a fountain
-containing a statue of [Laocoön][laocoon], and like the Greek priest Billy is
-killed for opposing divine power. The statue itself, with the man and his sons
-struggling against serpents, is a representation of suffering as art.
+In {{ the_poets_tale }}, Silenus "writes" works based on real ones. His <cite
+class="book-title">Dying Earth</cite> borrows from {{ vances }} {{ dying_earth
+}}, and his <cite class="book-title">Hyperion Cantos</cite> is the very text
+we are reading, collapsing reality into art. King Billy tries to destroy the
+<cite class="book-title">Hyperion Cantos</cite> by burning it in a fountain
+with a statue of [Laocoön][laocoon]. Like the Greek priest, Billy is killed
+for opposing divine power. The statue itself---Laocoön and his sons writhing
+in the grip of serpents---embodies suffering turned into art.
 
 [laocoon]: https://en.wikipedia.org/wiki/Laoco%C3%B6n
 
-As a tale about writing, {{ the_poets_tale }} makes the most references to
-other works. It directly references the Shrike as Grendel from {{ beowulf }};
-<!-- TODO: How to make this not sound like it's reference Huck as the Shrike?
---> Huck and Jim from {{ twains }} {{ huckleberry_finn }}; Sherlock and
-Moriarty from {{ doyles }} {{ the_final_problem }}; the Eloi and Morlocks from
-{{ wellss }} {{ time_machine }}; as well as a made up book by <span
-class="author-name">Stukatsky</span>, probably a reference to {{
-arkady_and_boris_strugatsky }}.
+Because it is a story about writing, {{ the_poets_tale }} makes the most
+allusions to other works. The Shrike is directly compared to Grendel from {{
+beowulf }}. It mentions Huck and Jim from {{ twains }} {{ huckleberry_finn }},
+Sherlock and Moriarty from {{ doyles }} {{ the_final_problem }}, and the Eloi
+and Morlocks from {{ wellss }} {{ time_machine }}. Silenus even cites a fake
+book by <span class="author-name">Stukatsky</span>, almost certainly a
+reference to {{ arkady_and_boris_strugatsky }}.
 
-The super-rich staying behind to die on earth reminded me of the dynasties in
-{{ hamiltons }} {{ judas_unchained }}. The TechnoCore rebelling and leaving
-their creators was like the Hivers in {{ tchaikovskys }} {{ shards_of_earth
-}}. The bio-sculptors reminded me of Ximenyr in {{ hydrogen_sonata }}. The
-people debating politics on the All Thing was like Locke and Demosthenes
-posting to influence people in {{ cards }} {{ enders_game }}. The androids
-using the honorific "A." is like the Robots using "R." in {{ asimovs }} {{
-steel }}.
+{{ the_poets_tale }} also reminded me other other stories. The super-rich
+staying behind to die on Earth reminded me of the dynasties in {{ hamiltons }}
+{{ judas_unchained }}. The TechnoCore rebelling against its makers was like
+the Hivers in {{ tchaikovskys }} {{ shards_of_earth }}. The bio-sculptors
+brought to mind Ximenyr from {{ hydrogen_sonata }}. The debates in the All
+Thing recalled Locke and Demosthenes shaping public opinion in {{ cards }} {{
+enders_game }}. Even the android honorific "A." mirrors the "R." used by
+robots in {{ asimovs }} {{ steel }}.
 
 #### {% short_story_title "The Scholar's Tale" %}
 
