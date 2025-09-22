@@ -69,6 +69,10 @@ petition the Shrike.
 {% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}
 {% capture the_star %}{% short_story_link "The Star" %}{% endcapture %}
 
+{% capture asimov %}{% author_link "Isaac Asimov" %}{% endcapture %}
+{% capture asimovs %}{% author_link "Isaac Asimov" possessive %}{% endcapture %}
+{% capture steel %}{% short_story_link "The Caves of Steel" %}{% endcapture %}
+
 {% capture bradbury %}{% author_link "Ray Bradbury" %}{% endcapture %}
 {% capture bradburys %}{% author_link "Ray Bradbury" possessive %}{% endcapture %}
 {% capture the_man %}{% short_story_link "The Man" %}{% endcapture %}
@@ -124,6 +128,7 @@ petition the Shrike.
 {% capture tchaikovsky %}{% author_link "Adrian Tchaikovsky" %}{% endcapture %}
 {% capture tchaikovskys %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
 {% capture shards_of_earth %}{% book_link "Shards of Earth" %}{% endcapture %}
+{% capture lords %}{% book_link "Lords of Uncreation" %}{% endcapture %}
 
 {% capture adams %}{% author_link "Douglas Adams" %}{% endcapture %}
 {% capture adamss %}{% author_link "Douglas Adams" possessive %}{% endcapture %}
@@ -140,10 +145,6 @@ petition the Shrike.
 {% capture hg_wells %}{% author_link "H. G. Wells" %}{% endcapture %}
 {% capture hg_wellss %}{% author_link "H. G. Wells" possessive %}{% endcapture %}
 {% capture time_machine %}{% book_link "The Time Machine" %}{% endcapture %}
-
-{% capture tchaikovsky %}{% author_link "Adrian Tchaikovsky" %}{% endcapture %}
-{% capture tchaikovskys %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
-{% capture lords %}{% book_link "Lords of Uncreation" %}{% endcapture %}
 
 {% capture chandler %}{% author_link "Raymond Chandler" %}{% endcapture %}
 {% capture chandlers %}{% author_link "Raymond Chandler" possessive %}{% endcapture %}
@@ -310,6 +311,15 @@ Moriarty from {{ doyles }} {{ the_final_problem }}; the Eloi and Morlocks from
 {{ wellss }} {{ time_machine }}; as well as a made up book by <span
 class="author-name">Stukatsky</span>, probably a reference to {{
 arkady_and_boris_strugatsky }}.
+
+The super-rich staying behind to die on earth reminded me of the dynasties in
+{{ hamiltons }} {{ judas_unchained }}. The TechnoCore rebelling and leaving
+their creators was like the Hivers in {{ tchaikovskys }} {{ shards_of_earth
+}}. The bio-sculptors reminded me of Ximenyr in {{ hydrogen_sonata }}. The
+people debating politics on the All Thing was like Locke and Demosthenes
+posting to influence people in {{ cards }} {{ enders_game }}. The androids
+using the honorific "A." is like the Robots using "R." in {{ asimovs }} {{
+steel }}.
 
 #### {% short_story_title "The Scholar's Tale" %}
 
