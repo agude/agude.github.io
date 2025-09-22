@@ -193,5 +193,5 @@ instantly takes me back to the moment I first heard each track.
 {{ this_book }} is not just my favorite game; it is a testament to what the
 medium can produce. It answers the question of "Can a video game be art?" so
 emphatically that the question itself seems obsolete. It shows that a game can
-be a literary work that rivals the greatest novels, and can be surprisingly
-fun while doing it.
+be a literary work that rivals the greatest novels, and still be surprisingly
+fun to play.
