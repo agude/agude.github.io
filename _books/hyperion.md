@@ -86,10 +86,6 @@ together history, myth, and prophecy to tell of the impending downfall of man.
 {% capture haldemans %}{% author_link "Joe Haldeman" possessive %}{% endcapture %}
 {% capture forever_war %}{% book_link "The Forever War" %}{% endcapture %}
 
-{% capture wells %}{% author_link "Martha Wells" %}{% endcapture %}
-{% capture wellss %}{% author_link "Martha Wells" possessive %}{% endcapture %}
-{% capture murderbot %}{% book_link "The Murderbot Diaries" %}{% endcapture %}
-
 {% capture vance %}{% author_link "Jack Vance" %}{% endcapture %}
 {% capture vances %}{% author_link "Jack Vance" possessive %}{% endcapture %}
 {% capture dying_earth %}{% book_link "The Dying Earth" %}{% endcapture %}
@@ -260,14 +256,14 @@ rests on brutality and hidden evils.
 The story first shows the Hegemony as an old order able to hold off
 challengers again and again, but then reveals the Ousters as the possible
 heirs to the throne. Moneta herself ties beauty and power together,
-effortlessly destroying out Ouster landing parties.
+effortlessly destroying Ouster landing parties.
 
 {{ the_soldiers_tale }} references John Carter from {{ burroughss }} {{
 john_carter }}. The scene where he programs a surgical robot to attack the
 Ousters is directly referenced in {{ tchaikovskys }} {{ lords }}. The
 reference to "rock and thighbone duels" reminds me of {{ space_odyssey }}. The
 virtual battles are seen again in {{ bankss }} {{ surface_detail }}, and the
-semi-sentient space suits call back to his short story {{ descendant }}.
+semi-sentient spacesuits call back to his short story {{ descendant }}.
 
 The story also has one of my favorite lines from the whole book:
 
@@ -310,16 +306,16 @@ Because it is a story about writing, {{ the_poets_tale }} makes the most
 allusions to other works. The Shrike is directly compared to Grendel from {{
 beowulf }}. It mentions Huck and Jim from {{ twains }} {{ huckleberry_finn }},
 Sherlock and Moriarty from {{ doyles }} {{ the_final_problem }}, and the Eloi
-and Morlocks from {{ wellss }} {{ time_machine }}. Silenus even cites a fake
-book by <span class="author-name">Stukatsky</span>, almost certainly a
+and Morlocks from {{ hg_wellss }} {{ time_machine }}. Silenus even cites a
+fake book by <span class="author-name">Stukatsky</span>, almost certainly a
 reference to {{ arkady_and_boris_strugatsky }}.
 
-{{ the_poets_tale }} also reminded me other other stories. The super-rich
-staying behind to die on Earth reminded me of the dynasties in {{ hamiltons }}
-{{ judas_unchained }}. The TechnoCore rebelling against its makers was like
-the Hivers in {{ tchaikovskys }} {{ shards_of_earth }}. The bio-sculptors
-brought to mind Ximenyr from {{ hydrogen_sonata }}. The debates in the All
-Thing recalled Locke and Demosthenes shaping public opinion in {{ cards }} {{
+{{ the_poets_tale }} also reminded me of other stories. The super-rich staying
+behind to die on Earth reminded me of the dynasties in {{ hamiltons }} {{
+judas_unchained }}. The TechnoCore rebelling against its makers was like the
+Hivers in {{ tchaikovskys }} {{ shards_of_earth }}. The bio-sculptors brought
+to mind Ximenyr from {{ hydrogen_sonata }}. The debates in the All Thing
+recalled Locke and Demosthenes shaping public opinion in {{ cards }} {{
 enders_game }}. Even the android honorific "A." mirrors the "R." used by
 robots in {{ asimovs }} {{ steel }}.
 
@@ -328,39 +324,39 @@ robots in {{ asimovs }} {{ steel }}.
 {{ the_scholars_tale }} retells the {{ binding }} from {{ genesis }}. Sol
 Weintraub is a philosopher studying {{ kierkegaard }}, whose daughter Rachel
 contracts Merlin's disease while researching the time tombs on Hyperion. The
-disease makes her age backwards, forgetting each morning what happened in her
+disease makes her age backward, forgetting each morning what happened in her
 future. God---or the Shrike---appears to Sol in dreams and demands that he
 bring Rachel to Hyperion to sacrifice her, just as Abraham was asked to
 sacrifice Isaac. The irony is unavoidable: Sol is an expert in {{
-kierkegaard_lastname }}, whose {{ fear_and_trembling }} is about that same
+kierkegaard_lastname }}, whose {{ fear_and_trembling }} is about the same
 ethical dilemma he now faces.
 
 In Sol's tale, the fall is of the rational universe---where God honors His
 covenants---into one that defies logic, where Earth has been destroyed and God
 demands Rachel's sacrifice. Suffering and knowledge are inverted in this
-story, with Sol and his family suffering terribly as Rachel ages backwards and
+story, with Sol and his family suffering terribly as Rachel ages backward and
 loses her identity while his knowledge is powerless against the disease. He
 hopes---irrationally as matches the new order---that Hyperion holds a cure.
 
 This is one of my favorite stories. As a father, it's hard to read because so
 much of Sol's struggle is about helplessly watching his child slip away, but
 it also makes me more grateful for my own children. I cried both times I read
-it. It reminded me a little of {{ keyss }} {{ flowers_for_algernon }}, with
+it. It reminded me a little of {{ keyess }} {{ flowers_for_algernon }}, with
 the way it charts Rachel's mental decline, but this one hit me much harder.
 
 {{ the_scholars_tale }} also makes a passing reference to {{ le_guins }}
 Ansible, seen in {{ rocannon}}, {{ left_hand_of_darkness }}, and throughout
-her {{ hainish_cycle }}. The requirement to sleep in order to survive
-faster-than-light travel without going insane also shows up in {{ tchaikovskys
-}} {{ shards_of_earth }}.
+her {{ hainish_cycle }}. The requirement to sleep to survive faster-than-light
+travel without going insane also shows up in {{ tchaikovskys }} {{
+shards_of_earth }}.
 
 #### {% short_story_title "The Detective's Tale" %}
 
 {{ the_detectives_tale }} is a hard-boiled cyberpunk story, like a {{ gibson
 }} story written by {{ chandler }}. Brawne Lamia,[^fanny] a Lususian
 detective, is hired by an AI cybrid recreation of John "Johnny" Keats to
-investigate his own murder---the sudden disconnect between AI and cybrid body
-that erased his recent memories. She soon learns the TechnoCore has three
+investigate his own murder---the sudden disconnect between the AI and cybrid
+body that erased his recent memories. She soon learns the TechnoCore has three
 factions---the Stables, the Volatiles, and the Ultimates. Only one wants
 humanity to survive, yet all three are obsessed with Hyperion, a place their
 predictive routines can't explain.
@@ -379,18 +375,18 @@ carries Johnny's personality preserved in a Schrön loop inside her head.
 
 {{ the_detectives_tale }} references a wide range of works. Its cyberspace
 cowboys recall {{ neuromancer }}; one is even named Gibson. Brawne uses a
-Schrön loop for data transport, right out of {{ johnny_mnemonic }}. There's a
+Schrön loop for data transport, right out of {{ johnny_mnemonic }}. There's an
 allusion to {{ orwells }} Big Brother from {{ nineteen_eighty_four }}.
 Johnny's yearning for humanity echoes {{ collodis }} {{ pinocchio }}. The
 possibility that the Shrike was sent back in time by the TechnoCore or the
 Ousters to change their future is directly from {{ terminator }}. The hacking
-as battle with the TechnoCore foreshadows the same scene in {{ surface_detail
-}}. The creation of the Keats cybrid, by compiling all his written works,
-reads today like how we train large language models.
+as a battle with the TechnoCore foreshadows the same scene in {{
+surface_detail }}. The creation of the Keats cybrid, by compiling all his
+written works, reads today like how we train large language models.
 
 #### {% short_story_title "The Consul's Tale" %}
 
-{{ the_consuls_tale }} is sci-fi romance based on {{ shakespeares }} {{
+{{ the_consuls_tale }} is a sci-fi romance based on {{ shakespeares }} {{
 romeo_and_juliet }}, except the insurmountable force separating the couple
 isn't their feuding families, but the laws of physics and time dilation.
 
@@ -400,9 +396,9 @@ Maui-Covenant. Their romance is cut short when Siri's cousin kills Merin's
 friend, echoing Tybalt killing Mercutio in {{ romeo_and_juliet }}. Forced to
 flee, Merin and Siri meet only a handful of times across her entire life,
 stretched by relativity into decades for her but only a few years for him.
-Their affair becomes legend, and Siri convinces Merin to resist the Hegemony's
-assimilation of her world. After her death, Merin honors her by sabotaging the
-project and sparking a rebellion in her name.
+Their affair becomes a legend, and Siri convinces Merin to resist the
+Hegemony's assimilation of her world. After her death, Merin honors her by
+sabotaging the project and sparking a rebellion in her name.
 
 Here we also learn that the Hegemony and the TechnoCore conspired to destroy
 Earth with the Great Mistake, and that the Hegemony has been committing quiet
