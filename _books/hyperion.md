@@ -41,6 +41,8 @@ together history, myth, and prophecy to tell of the impending downfall of man.
 {% comment %} Foundational Works for the Review {% endcomment %}
 
 {% capture fall_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
+{% capture endymion %}{% book_link "Endymion" %}{% endcapture %}
+{% capture rise_of_endymion %}{% book_link "The Rise of Endymion" %}{% endcapture %}
 
 {% capture keats %}{% author_link "John Keats" %}{% endcapture %}
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
@@ -431,10 +433,11 @@ what makes {{ this_book }} a masterpiece: it's a great sci-fi story on its
 own, but with levels of meaning hidden below the lasers, barbarians, and
 god-like Shrike covered in blades.
 
-{{ this_book }} is just the first half of the story. To get the full effect
-you have to read {{ fall_hyperion }}, which I plan to do after a taking a
-quick break to read {{ bolo12 }}, and maybe {{ bolo13 }}, {{ titan }}, and {{
-mb6 }}.
+The only catch is that {{ this_book }} is just the first half of the story. To
+get the full effect you have to read {{ fall_hyperion }}, which I plan to do
+again after a taking a quick break to read {{ bolo12 }}, and maybe {{ bolo13
+}}, {{ titan }}, and {{ mb6 }}. I'm looking forward to it! And who knows,
+maybe this time I'll get to {{ endymion }} and {{ rise_of_endymion }} too.
 
 {% comment %}
 
