@@ -251,14 +251,14 @@ star of Bethlehem was born from the destruction of an alien civilization, and
 
 #### {% short_story_title "The Soldier's Tale" %}
 
-{{ the_soldiers_tale }} is military sci-fi that follows Fedmahn Kassad from
-his training as a FORCE commando, through his commission and suppression of
-various uprisings, and finally into battle against the Ousters. In the middle
-of these conflicts, he is visited by a mysterious woman named Moneta, who
-appears at the moments of greatest violence. Her name comes from the goddess
-of memory in {{ keats_lastname_possessive }} {{ hyperion_keats }}. This story
-is our first real hint that the Hegemony isn't what it seems---that its power
-rests on brutality and hidden evils.
+{{ the_soldiers_tale }} is military sci-fi that follows Colonel Fedmahn Kassad
+from his training as a FORCE commando, through his commission and suppression
+of various uprisings, and finally into battle against the Ousters. In the
+middle of these conflicts, he is visited by a mysterious woman named Moneta,
+who appears at the moments of greatest violence. Her name comes from the
+goddess of memory in {{ keats_lastname_possessive }} {{ hyperion_keats }}.
+This story is our first real hint that the Hegemony isn't what it seems---that
+its power rests on brutality and hidden evils.
 
 The story first shows the Hegemony as an old order able to hold off
 challengers again and again, but then reveals the Ousters as the possible
@@ -266,7 +266,7 @@ heirs to the throne. Moneta herself ties beauty and power together,
 effortlessly destroying Ouster landing parties.
 
 {{ the_soldiers_tale }} references John Carter from {{ burroughss }} {{
-john_carter }}. The scene where he programs a surgical robot to attack the
+john_carter }}. The scene where Kassad programs a surgical robot to attack the
 Ousters is directly referenced in {{ tchaikovskys }} {{ lords }}. The
 reference to "rock and thighbone duels" reminds me of {{ space_odyssey }}. The
 virtual battles are seen again in {{ bankss }} {{ surface_detail }}, and the
@@ -314,7 +314,7 @@ allusions to other works. The Shrike is directly compared to Grendel from {{
 beowulf }}. It mentions Huck and Jim from {{ twains }} {{ huckleberry_finn }},
 Sherlock and Moriarty from {{ doyles }} {{ the_final_problem }}, and the Eloi
 and Morlocks from {{ hg_wellss }} {{ time_machine }}. Silenus even cites a
-fake book by <span class="author-name">Stukatsky</span>, almost certainly a
+fake book by a <span class="author-name">Stukatsky</span>, almost certainly a
 reference to {{ arkady_and_boris_strugatsky }}.
 
 {{ the_poets_tale }} also reminded me of other stories. The super-rich staying
@@ -330,26 +330,28 @@ robots in {{ asimovs }} {{ steel }}.
 
 {{ the_scholars_tale }} retells the {{ binding }} from {{ genesis }}. Sol
 Weintraub is a philosopher studying {{ kierkegaard }}, whose daughter Rachel
-contracts Merlin's disease while researching the time tombs on Hyperion. The
+contracts Merlin's disease while researching the Time Tombs on Hyperion. The
 disease makes her age backward, forgetting each morning what happened in her
-future. God---or the Shrike---appears to Sol in dreams and demands that he
-bring Rachel to Hyperion to sacrifice her, just as Abraham was asked to
-sacrifice Isaac. The irony is unavoidable: Sol is an expert in {{
+future. God---or the Shrike---appears to Weintraub in dreams and demands that
+he bring Rachel to Hyperion to sacrifice her, just as Abraham was asked to
+sacrifice Isaac. The irony is unavoidable: Weintraub is an expert in {{
 kierkegaard_lastname }}, whose {{ fear_and_trembling }} is about the same
 ethical dilemma he now faces.
 
-In Sol's tale, the fall is of the rational universe---where God honors His
-covenants---into one that defies logic, where Earth has been destroyed and God
-demands Rachel's sacrifice. Suffering and knowledge are inverted in this
-story, with Sol and his family suffering terribly as Rachel ages backward and
-loses her identity while his knowledge is powerless against the disease. He
-hopes---irrationally as matches the new order---that Hyperion holds a cure.
+In Weintraub's tale, the fall is of the rational universe---where God honors
+His covenants---into one that defies logic, where Earth has been destroyed and
+God demands Rachel's sacrifice. Suffering and knowledge are inverted in this
+story, with Weintraub and his family suffering terribly as Rachel ages
+backward and loses her identity while his knowledge is powerless against the
+disease. He hopes---irrationally, as matches the new order---that Hyperion
+holds a cure.
 
 This is one of my favorite stories. As a father, it's hard to read because so
-much of Sol's struggle is about helplessly watching his child slip away, but
-it also makes me more grateful for my own children. I cried both times I read
-it. It reminded me a little of {{ keyess }} {{ flowers_for_algernon }}, with
-the way it charts Rachel's mental decline, but this one hit me much harder.
+much of Weintraub's struggle is about helplessly watching his child slip away,
+but it also makes me more grateful for my own children. I cried both times I
+read it. It reminded me a little of {{ keyess }} {{ flowers_for_algernon }},
+with the way it charts Rachel's mental decline, but this one hit me much
+harder.
 
 {{ the_scholars_tale }} also makes a passing reference to {{ le_guins }}
 Ansible, seen in {{ rocannon}}, {{ left_hand_of_darkness }}, and throughout
@@ -360,13 +362,13 @@ shards_of_earth }}.
 #### {% short_story_title "The Detective's Tale" %}
 
 {{ the_detectives_tale }} is a hard-boiled cyberpunk story, like a {{ gibson
-}} story written by {{ chandler }}. Brawne Lamia,[^fanny] a Lususian
-detective, is hired by an AI cybrid recreation of John "Johnny" Keats to
-investigate his own murder---the sudden disconnect between the AI and cybrid
-body that erased his recent memories. She soon learns the TechnoCore has three
-factions: the Stables, the Volatiles, and the Ultimates. Only one wants
-humanity to survive, yet all three are obsessed with Hyperion, a place their
-predictive routines can't explain.
+}} story written by {{ chandler }}. Brawne Lamia,[^fanny] a Lusian detective,
+is hired by an AI cybrid recreation of John "Johnny" Keats to investigate his
+own murder---the sudden disconnect between the AI and cybrid body that erased
+his recent memories. She soon learns the TechnoCore has three factions: the
+Stables, the Volatiles, and the Ultimates. Only one wants humanity to survive,
+yet all three are obsessed with Hyperion, a place their predictive routines
+can't explain.
 
 [^fanny]: Named after {{ keatss }} real-life lover [Fanny Brawne][fb].
 
@@ -375,13 +377,13 @@ predictive routines can't explain.
 This tale shows the fall of the Hegemony and its possible replacement by the
 TechnoCore, led by the genocidal Volatiles. The Keats cybrid is beautiful in
 mind and body, seeking the truth of his death; he is literally a poet built by
-the TechnoCore to understand both humanity and Hyperion. Brawne loses her
+the TechnoCore to understand both humanity and Hyperion. Lamia loses her
 father, then her lover Johnny, and is nearly killed in a firefight outside the
 Shrike Temple. From this suffering, she uncovers the TechnoCore's plans---and
 carries Johnny's personality preserved in a Schrön loop inside her head.
 
 {{ the_detectives_tale }} references a wide range of works. Its cyberspace
-cowboys recall {{ neuromancer }}; one is even named Gibson. Brawne uses a
+cowboys recall {{ neuromancer }}; one is even named Gibson. Lamia uses a
 Schrön loop for data transport, right out of {{ johnny_mnemonic }}. There's an
 allusion to {{ orwells }} Big Brother from {{ nineteen_eighty_four }}.
 Johnny's yearning for humanity echoes {{ collodis }} {{ pinocchio }}. The
@@ -397,14 +399,14 @@ written works, reads today like how we train large language models.
 romeo_and_juliet }}, except the insurmountable force separating the couple
 isn't their feuding families, but the laws of physics and time dilation.
 
-The tale follows the Consul's grandfather, Merin, who falls in love with a
-native woman named Siri while on unauthorized shore leave on the water-world
-Maui-Covenant. Their romance is cut short when Siri's cousin kills Merin's
+The tale follows the Consul's grandfather, Merin Aspic, who falls in love with
+a native woman named Siri while on unauthorized shore leave on the water-world
+Maui-Covenant. Their romance is cut short when Siri's cousin kills Aspic's
 friend, echoing Tybalt killing Mercutio in {{ romeo_and_juliet }}. Forced to
-flee, Merin and Siri meet only a handful of times across her entire life,
+flee, Aspic and Siri meet only a handful of times across her entire life,
 stretched by relativity into decades for her but only a few years for him.
-Their affair becomes a legend, and Siri convinces Merin to resist the
-Hegemony's assimilation of her world. After her death, Merin honors her by
+Their affair becomes a legend, and Siri convinces Aspic to resist the
+Hegemony's assimilation of her world. After her death, Aspic honors her by
 sabotaging the project and sparking a rebellion in her name.
 
 {% comment %}
@@ -415,7 +417,7 @@ Tomb ends the story -> tomb starts the story
 
 Here we also learn that the Hegemony and the TechnoCore conspired to destroy
 Earth with the Great Mistake, and that the Hegemony has been committing quiet
-genocide against other intelligent species, including the Human Ousters. The
+genocide against other intelligent species, including the human Ousters. The
 Consul confesses to betraying the Hegemony to the Ousters, then
 double-crossing the Ousters to unleash the Shrike and force a war.
 
@@ -428,7 +430,7 @@ what the Hegemony truly is.
 
 {{ the_consuls_tale }} reminded me of other works: the talking dolphins are
 straight out of {{ adamss }} {{ hitchhikers_guide }} or {{ brins }} {{
-sundiver }}. Siri's gift of a powerful gun to Merin reminded me of {{ bankss
+sundiver }}. Siri's gift of a powerful gun to Aspic reminded me of {{ bankss
 }} {{ gift_from_the_culture }}.
 
 ### Conclusion
