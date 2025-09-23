@@ -4,6 +4,7 @@ title: Title
 book_authors: Author
 series: null
 book_number: 1
+is_anthology: false
 rating: null
 image: /books/covers/title.jpg
 ---
