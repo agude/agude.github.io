@@ -418,7 +418,13 @@ straight out of {{ adamss }} {{ hitchhikers_guide }} or {{ brins }} {{
 sundiver }}. Siri's gift of a powerful gun to Merin reminded me of {{ bankss
 }} {{ gift_from_the_culture }}.
 
-### Other Works
+### Conclusion
+
+I'm sure it comes through clearly that I had a lot of fun in this second
+read-through trying to pin down all the themes and all the references. To me,
+that's what makes this book a masterpiece: it's great sci-fi story on its own,
+but with levels of meaning hidden below lasers, barbarians, and god-like
+Shrike covered in blades.
 
 
 {% comment %}
