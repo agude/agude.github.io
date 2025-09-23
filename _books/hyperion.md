@@ -221,7 +221,7 @@ adopts these themes as well.
 ### Tales
 
 There are seven pilgrims, but only six live to tell their tales. {{ the_author
-}} uses each story to explore a different genre, but also to explore the {{
+}} uses each story to explore a different genre, but also to explore {{
 keats_lastname_possessive }} themes in new settings and scales.
 
 #### {% short_story_title "The Priest's Tale" %}
