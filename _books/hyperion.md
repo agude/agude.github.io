@@ -364,7 +364,7 @@ shards_of_earth }}.
 detective, is hired by an AI cybrid recreation of John "Johnny" Keats to
 investigate his own murder---the sudden disconnect between the AI and cybrid
 body that erased his recent memories. She soon learns the TechnoCore has three
-factions---the Stables, the Volatiles, and the Ultimates. Only one wants
+factions: the Stables, the Volatiles, and the Ultimates. Only one wants
 humanity to survive, yet all three are obsessed with Hyperion, a place their
 predictive routines can't explain.
 
@@ -406,6 +406,12 @@ stretched by relativity into decades for her but only a few years for him.
 Their affair becomes a legend, and Siri convinces Merin to resist the
 Hegemony's assimilation of her world. After her death, Merin honors her by
 sabotaging the project and sparking a rebellion in her name.
+
+{% comment %}
+Should I comment on the reversal?
+Hot passion -> slow
+Tomb ends the story -> tomb starts the story
+{% endcomment %}
 
 Here we also learn that the Hegemony and the TechnoCore conspired to destroy
 Earth with the Great Mistake, and that the Hegemony has been committing quiet
