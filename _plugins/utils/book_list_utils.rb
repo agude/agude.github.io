@@ -38,11 +38,11 @@ module BookListUtils
       normalized_filter = series_name_filter.to_s.strip.downcase
       books_in_series = all_books.select { |book| book.data['series']&.strip&.downcase == normalized_filter }
         .sort_by do |book|
-        [
-          _parse_book_number(book.data['book_number']), # Use helper for numerical sort
-          TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true) # Secondary sort by title
-        ]
-      end
+          [
+            _parse_book_number(book.data['book_number']), # Use helper for numerical sort
+            TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true) # Secondary sort by title
+          ]
+        end
 
       if books_in_series.empty?
         log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
@@ -90,18 +90,15 @@ module BookListUtils
     author_books = []
 
     if author_name_filter && !author_name_filter.to_s.strip.empty?
-      normalized_filter = TextProcessingUtils.normalize_title(author_name_filter)
-      canonical_author_data = author_cache[normalized_filter]
-      canonical_filter_name = canonical_author_data ? canonical_author_data['title'] : author_name_filter
+      canonical_filter_name = _get_canonical_author(author_name_filter, author_cache)
 
       author_books = all_published.select do |book|
         # For each book, resolve its authors to their canonical names and check for a match.
         authors_list = FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
         authors_list.any? do |book_author_name|
-          normalized_book_author = TextProcessingUtils.normalize_title(book_author_name)
-          book_author_data = author_cache[normalized_book_author]
-          book_canonical_name = book_author_data ? book_author_data['title'] : book_author_name
-          book_canonical_name.casecmp(canonical_filter_name).zero?
+          book_canonical_name = _get_canonical_author(book_author_name, author_cache)
+          # Ensure both names are valid before comparing
+          book_canonical_name && canonical_filter_name && book_canonical_name.casecmp(canonical_filter_name).zero?
         end
       end
 
@@ -185,12 +182,8 @@ module BookListUtils
       author_names_for_book = FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
 
       author_names_for_book.each do |author_name_str|
-        next if author_name_str.to_s.strip.empty?
-
-        normalized_author_name = TextProcessingUtils.normalize_title(author_name_str)
-        author_data = author_cache[normalized_author_name]
-        canonical_name = author_data ? author_data['title'] : author_name_str.strip
-
+        canonical_name = _get_canonical_author(author_name_str, author_cache)
+        next if canonical_name.nil? # Skip if author name was blank
         books_by_canonical_author[canonical_name] ||= []
         books_by_canonical_author[canonical_name] << book
       end
@@ -492,6 +485,19 @@ module BookListUtils
   # --- Private Helper Methods ---
 
   private
+
+  # Helper to find the canonical author name from the cache.
+  # Falls back to the original name if not found in the cache.
+  # @param name [String, nil] The author name to look up.
+  # @param author_cache [Hash] The site's pre-built author cache.
+  # @return [String, nil] The canonical name, or nil if the input is blank.
+  def self._get_canonical_author(name, author_cache)
+    return nil if name.nil? || name.to_s.strip.empty?
+    stripped_name = name.to_s.strip
+    normalized_name = TextProcessingUtils.normalize_title(stripped_name)
+    author_data = author_cache[normalized_name]
+    author_data ? author_data['title'] : stripped_name
+  end
 
   # Retrieves all published books from the site's 'books' collection.
   # Assumes the 'books' collection exists (checked by public methods).

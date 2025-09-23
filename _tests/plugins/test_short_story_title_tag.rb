@@ -13,13 +13,17 @@ class TestShortStoryTitleTag < Minitest::Test
         'nil_var' => nil,
         'empty_string_var' => ''
       },
+      # The context needs a fresh :story_title_counts register for each render
       { site: @site }
     )
   end
 
   # Helper to render the tag
   def render_tag(markup, context = @context)
-    Liquid::Template.parse("{% short_story_title #{markup} %}").render!(context)
+    # Re-initialize the context for each single-tag render to ensure clean registers
+    fresh_context = create_context(context.environments.first, context.registers)
+    fresh_context.registers[:story_title_counts] ||= Hash.new(0)
+    Liquid::Template.parse("{% short_story_title #{markup} %}").render!(fresh_context)
   end
 
   # --- Syntax Error Tests (Initialize) ---
@@ -121,5 +125,27 @@ class TestShortStoryTitleTag < Minitest::Test
   def test_render_returns_empty_for_whitespace_literal
     output = render_tag("'   '")
     assert_equal "", output
+  end
+
+  def test_render_auto_increments_id_for_duplicate_titles
+    # To test the stateful nature of the tag, we must render a single template
+    # that contains multiple calls to the tag. This ensures they share the same context.
+    template_string = "{% short_story_title 'Duplicate Story' %} and again {% short_story_title 'Duplicate Story' %}"
+    template = Liquid::Template.parse(template_string)
+
+    # Initialize a fresh context for this specific render operation
+    fresh_context = create_context(@context.environments.first, @context.registers)
+
+    output = template.render!(fresh_context)
+
+    slug = TextProcessingUtils.slugify("Duplicate Story")
+
+    # The first instance should have a clean ID
+    first_expected_part = "<cite class=\"short-story-title\">Duplicate Story</cite> {##{slug}}"
+    assert_includes output, first_expected_part
+
+    # The second instance should have an incremented ID
+    second_expected_part = "<cite class=\"short-story-title\">Duplicate Story</cite> {##{slug}-2}"
+    assert_includes output, second_expected_part
   end
 end

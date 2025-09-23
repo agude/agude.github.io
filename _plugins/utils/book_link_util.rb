@@ -2,9 +2,10 @@
 require 'jekyll'
 require_relative './link_helper_utils'
 require_relative 'plugin_logger_utils'
-
 require_relative 'text_processing_utils'
 require_relative 'typography_utils'
+require_relative 'front_matter_utils'
+
 module BookLinkUtils
 
   # --- Public Method ---
@@ -30,12 +31,15 @@ module BookLinkUtils
 
 
   # Finds a book by title from the link_cache and renders its link/cite HTML.
+  # Handles disambiguation for titles shared by multiple authors.
   #
   # @param book_title_raw [String] The title of the book to link to.
   # @param context [Liquid::Context] The current Liquid context.
   # @param link_text_override_raw [String, nil] Optional text to display instead of the title.
-  # @return [String] The generated HTML (<a href=...><cite>...</cite></a> or <cite>...</cite>), potentially prepended with an HTML comment.
-  def self.render_book_link(book_title_raw, context, link_text_override_raw = nil)
+  # @param author_filter_raw [String, nil] Optional author name to disambiguate.
+  # @return [String] The generated HTML, potentially prepended with an HTML comment.
+  # @raise [Jekyll::Errors::FatalException] if the title is ambiguous and no author is provided.
+  def self.render_book_link(book_title_raw, context, link_text_override_raw = nil, author_filter_raw = nil)
     # 1. Initial Setup & Validation
     unless context && (site = context.registers[:site])
       # Fallback for critical context failure
@@ -44,6 +48,7 @@ module BookLinkUtils
     end
 
     book_title_input = book_title_raw.to_s
+    author_filter = author_filter_raw.to_s.strip if author_filter_raw
     link_text_override = link_text_override_raw.to_s.strip if link_text_override_raw && !link_text_override_raw.to_s.empty?
     normalized_lookup_title = TextProcessingUtils.normalize_title(book_title_input)
 
@@ -60,14 +65,49 @@ module BookLinkUtils
     log_output = ""
     link_cache = site.data['link_cache'] || {}
     book_cache = link_cache['books'] || {}
-    found_book_data = book_cache[normalized_lookup_title] # Direct hash lookup
+    found_book_locations = book_cache[normalized_lookup_title] # This is now an array
 
-    if found_book_data.nil?
+    found_book_data = nil # This will hold the single, correct book data
+
+    if found_book_locations.nil? || found_book_locations.empty?
       log_output = _log_book_not_found(context, book_title_input)
+    elsif found_book_locations.length == 1
+      # Only one book with this title, no ambiguity.
+      found_book_data = found_book_locations.first
+    else
+      # Multiple books with this title, disambiguation is required.
+      if author_filter && !author_filter.empty?
+        author_cache = link_cache['authors'] || {}
+        target_canonical_author = _get_canonical_author(author_filter, author_cache)
+
+        # Find the book in the array where one of its authors matches the filter.
+        found_book_data = found_book_locations.find do |book_data|
+          book_data['authors'].any? do |author|
+            book_canonical_author = _get_canonical_author(author, author_cache)
+            # Ensure both are non-nil before comparing
+            book_canonical_author && target_canonical_author && book_canonical_author.casecmp(target_canonical_author).zero?
+          end
+        end
+
+        # If still not found, log that the title exists but not by that author.
+        if found_book_data.nil?
+          log_output = _log_book_not_found_by_author(context, book_title_input, author_filter)
+        end
+      else
+        # Ambiguous and no author was provided. Halt the build.
+        author_names = found_book_locations.map { |loc| loc['authors'].join(', ') }.map { |name| "'#{name}'" }.join('; ')
+        page_path = context.registers[:page]['path']
+        raise Jekyll::Errors::FatalException, <<-MSG
+[FATAL] Ambiguous book title in `book_link` tag.
+Page: #{page_path}
+Tag: {% book_link "#{book_title_input}" %}
+Reason: The book title "#{book_title_input}" is used by multiple authors: #{author_names}.
+Fix: Add an author parameter to the tag, e.g., {% book_link "#{book_title_input}" author="Author Name" %}
+        MSG
+      end
     end
 
     # 3. Determine Display Text & Generate HTML
-    final_html = ""
     # Determine display text regardless of whether book was found
     display_text = book_title_input.strip
     if link_text_override && !link_text_override.empty?
@@ -77,6 +117,7 @@ module BookLinkUtils
       display_text = found_book_data['title']
     end
 
+    final_html = ""
     if found_book_data
       # Book found: Call the helper with found data and determined display text
       final_html = render_book_link_from_data(display_text, found_book_data['url'], context)
@@ -93,9 +134,22 @@ module BookLinkUtils
   # --- Private Helper Methods ---
   private
 
+  # Helper to find the canonical author name from the cache.
+  # Falls back to the original name if not found in the cache.
+  # @param name [String, nil] The author name to look up.
+  # @param author_cache [Hash] The site's pre-built author cache.
+  # @return [String, nil] The canonical name, or nil if the input is blank.
+  def self._get_canonical_author(name, author_cache)
+    return nil if name.nil? || name.to_s.strip.empty?
+    stripped_name = name.to_s.strip
+    normalized_name = TextProcessingUtils.normalize_title(stripped_name)
+    author_data = author_cache[normalized_name]
+    author_data ? author_data['title'] : stripped_name
+  end
+
   # Prepares display text and wraps it in a <cite> tag.
   def self._build_book_cite_element(display_text)
-    # Use _prepare_display_title from LiquidUtils
+    # Use _prepare_display_title from TypographyUtils
     prepared_display_text = TypographyUtils.prepare_display_title(display_text)
     "<cite class=\"book-title\">#{prepared_display_text}</cite>"
   end
@@ -107,6 +161,16 @@ module BookLinkUtils
       reason: "Could not find book page in cache.",
       identifiers: { Title: input_title.strip },
       level: :info,
+    )
+  end
+
+  # Logs the failure when the book title is found but not for the specified author.
+  def self._log_book_not_found_by_author(context, title, author_filter)
+    PluginLoggerUtils.log_liquid_failure(
+      context: context, tag_type: "RENDER_BOOK_LINK",
+      reason: "Book title exists, but not by the specified author.",
+      identifiers: { Title: title, AuthorFilter: author_filter },
+      level: :warn
     )
   end
 

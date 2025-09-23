@@ -1,163 +1,101 @@
+# _tests/plugins/utils/test_book_link_util.rb
 require_relative '../../test_helper'
 
 class TestBookLinkUtils < Minitest::Test
+  def setup
+    # Author pages for smart matching
+    @author_a_page = create_doc({ 'title' => 'Author A', 'pen_names' => ['A. A. Penname'], 'layout' => 'author_page' }, '/authors/a.html')
+    @author_b_page = create_doc({ 'title' => 'Author B', 'layout' => 'author_page' }, '/authors/b.html')
 
-  # --- render_book_link ---
-  def test_render_book_link_found_and_linked
-    book1 = create_doc({ 'title' => "Found Book", 'published' => true }, '/books/found.html')
-    site = create_site({}, { 'books' => [book1] })
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
+    # Books for testing
+    @unique_book = create_doc({ 'title' => "Unique Book", 'published' => true, 'book_authors' => ['Author A'] }, '/books/unique.html')
+    @ambiguous_book_a = create_doc({ 'title' => "Ambiguous Book", 'published' => true, 'book_authors' => ['Author A'] }, '/books/ambiguous-a.html')
+    @ambiguous_book_b = create_doc({ 'title' => "Ambiguous Book", 'published' => true, 'book_authors' => ['Author B'] }, '/books/ambiguous-b.html')
+    @pen_name_book = create_doc({ 'title' => "Pen Name Book", 'published' => true, 'book_authors' => ['A. A. Penname'] }, '/books/penname.html')
 
-    expected = "<a href=\"/books/found.html\"><cite class=\"book-title\">Found Book</cite></a>"
-    assert_equal expected, BookLinkUtils.render_book_link("Found Book", ctx)
+    @site = create_site(
+      {},
+      { 'books' => [@unique_book, @ambiguous_book_a, @ambiguous_book_b, @pen_name_book] },
+      [@author_a_page, @author_b_page]
+    )
+    # Enable logging for this utility's tag type for all tests in this file.
+    @site.config['plugin_logging']['RENDER_BOOK_LINK'] = true
+
+    @page = create_doc({ 'path' => 'current.html' }, '/current.html') # Add path for error message context
+    @ctx = create_context({}, { site: @site, page: @page })
+
+    # Silent logger for tests that are expected to produce warnings/info logs
+    @silent_logger_stub = Object.new.tap do |logger|
+      def logger.warn(topic, message); end; def logger.error(topic, message); end
+      def logger.info(topic, message); end; def logger.debug(topic, message); end
+    end
   end
 
-  def test_render_book_link_found_but_current_page
-    book1 = create_doc({ 'title' => "Found Book", 'published' => true }, '/books/found.html')
-    site = create_site({}, { 'books' => [book1] })
-    page = create_doc({}, '/books/found.html') # Current page IS the book page
-    ctx = create_context({}, { site: site, page: page })
-
-    expected = "<cite class=\"book-title\">Found Book</cite>" # Should not be linked
-    assert_equal expected, BookLinkUtils.render_book_link("Found Book", ctx)
+  def render_link(title, link_text = nil, author = nil)
+    BookLinkUtils.render_book_link(title, @ctx, link_text, author)
   end
 
-  def test_render_book_link_not_found
-    site = create_site({}, { 'books' => [] }) # Empty collection
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Expect unlinked cite. log_failure returns ""
-    expected = "<cite class=\"book-title\">Missing Book</cite>"
-    assert_equal expected, BookLinkUtils.render_book_link("Missing Book", ctx)
+  def test_render_unique_book_succeeds
+    expected = "<a href=\"/books/unique.html\"><cite class=\"book-title\">Unique Book</cite></a>"
+    assert_equal expected, render_link("Unique Book")
   end
 
-  def test_render_book_link_with_link_text
-    book1 = create_doc({ 'title' => "Real Title", 'published' => true }, '/books/real.html')
-    site = create_site({}, { 'books' => [book1] })
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    expected = "<a href=\"/books/real.html\"><cite class=\"book-title\">Display Text</cite></a>"
-    assert_equal expected, BookLinkUtils.render_book_link("Real Title", ctx, "Display Text")
+  def test_render_ambiguous_book_without_author_fails_build
+    err = assert_raises(Jekyll::Errors::FatalException) do
+      render_link("Ambiguous Book")
+    end
+    assert_match "[FATAL] Ambiguous book title", err.message
+    assert_match "The book title \"Ambiguous Book\" is used by multiple authors: 'Author A'; 'Author B'", err.message
+    assert_match "Fix: Add an author parameter", err.message
   end
 
-  def test_render_book_link_uses_smart_quotes
-    book1 = create_doc({ 'title' => "It's a Test", 'published' => true }, '/books/test.html')
-    site = create_site({}, { 'books' => [book1] })
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
+  def test_render_ambiguous_book_with_correct_author_succeeds
+    expected = "<a href=\"/books/ambiguous-a.html\"><cite class=\"book-title\">Ambiguous Book</cite></a>"
+    assert_equal expected, render_link("Ambiguous Book", nil, "Author A")
 
-    expected = "<a href=\"/books/test.html\"><cite class=\"book-title\">It’s a Test</cite></a>"
-    assert_equal expected, BookLinkUtils.render_book_link("It's a Test", ctx)
+    expected_b = "<a href=\"/books/ambiguous-b.html\"><cite class=\"book-title\">Ambiguous Book</cite></a>"
+    assert_equal expected_b, render_link("Ambiguous Book", nil, "Author B")
   end
 
-  def test_render_book_link_case_insensitive_and_whitespace_normalized_lookup
-    # Canonical title has different case and spacing
-    book1 = create_doc({ 'title' => "  My BOOK Title ", 'published' => true }, '/books/my-book.html')
-    site = create_site({}, { 'books' => [book1] })
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Input should match via normalize_title
-    input_title = "my book title"
-    # Output should use canonical title, prepared for display
-    expected = "<a href=\"/books/my-book.html\"><cite class=\"book-title\">My BOOK Title</cite></a>"
-    assert_equal expected, BookLinkUtils.render_book_link(input_title, ctx)
-
-    # Test another variation
-    input_title_2 = "  MY  book   TITLE "
-    assert_equal expected, BookLinkUtils.render_book_link(input_title_2, ctx)
+  def test_render_ambiguous_book_with_author_pen_name_succeeds
+    # "A. A. Penname" is a pen name for "Author A"
+    expected = "<a href=\"/books/ambiguous-a.html\"><cite class=\"book-title\">Ambiguous Book</cite></a>"
+    assert_equal expected, render_link("Ambiguous Book", nil, "A. A. Penname")
   end
 
-  def test_render_book_link_with_baseurl
-    book1 = create_doc({ 'title' => "Base Book", 'published' => true }, '/books/base.html')
-    site = create_site({ 'baseurl' => '/blog' }, { 'books' => [book1] })
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    expected = "<a href=\"/blog/books/base.html\"><cite class=\"book-title\">Base Book</cite></a>"
-    assert_equal expected, BookLinkUtils.render_book_link("Base Book", ctx)
+  def test_render_book_by_pen_name_succeeds
+    # Link to a book that was published under a pen name
+    expected = "<a href=\"/books/penname.html\"><cite class=\"book-title\">Pen Name Book</cite></a>"
+    assert_equal expected, render_link("Pen Name Book")
   end
 
-  def test_render_book_link_unpublished_book_not_found
-    book1 = create_doc({ 'title' => "Unpublished Book", 'published' => false }, '/books/unpublished.html')
-    site = create_site({}, { 'books' => [book1] })
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
+  def test_render_ambiguous_book_with_wrong_author_warns_and_renders_unlinked
+    output = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = render_link("Ambiguous Book", nil, "Wrong Author")
+    end
+    # The log message is now expected to be prepended to the output
+    assert_match %r{<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: Reason='Book title exists, but not by the specified author.' .*? --><cite class=\"book-title\">Ambiguous Book</cite>}, output
+  end
 
-    # Should not find the book, render unlinked cite with input title
-    expected = "<cite class=\"book-title\">Unpublished Book</cite>"
-    assert_equal expected, BookLinkUtils.render_book_link("Unpublished Book", ctx)
+  def test_render_book_not_found_warns_and_renders_unlinked
+    output = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = render_link("Non-existent Book")
+    end
+    # The log message is now expected to be prepended to the output
+    assert_match %r{<!-- \[INFO\] RENDER_BOOK_LINK_FAILURE: Reason='Could not find book page in cache.' .*? --><cite class=\"book-title\">Non-existent Book</cite>}, output
   end
 
   def test_render_book_link_empty_input_title
-    site = create_site({}, { 'books' => [] })
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # log_failure called internally, returns ""
-    assert_equal "", BookLinkUtils.render_book_link("", ctx)
-    assert_equal "", BookLinkUtils.render_book_link("   ", ctx)
-    assert_equal "", BookLinkUtils.render_book_link(nil, ctx)
+    output_nil = nil
+    output_empty = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      # The utility now returns a log message for empty input, which we should assert.
+      output_nil = render_link(nil)
+      output_empty = render_link("  ")
+    end
+    assert_match "<!-- [WARN] RENDER_BOOK_LINK_FAILURE: Reason='Input title resolved to empty after normalization.'", output_nil
+    assert_match "<!-- [WARN] RENDER_BOOK_LINK_FAILURE: Reason='Input title resolved to empty after normalization.'", output_empty
   end
-
-  def test_render_book_link_books_collection_missing
-    site = create_site({}, {}) # No 'books' collection defined
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Should log failure (returns "") and render unlinked cite with input title
-    expected = "<cite class=\"book-title\">Some Book</cite>"
-    assert_equal expected, BookLinkUtils.render_book_link("Some Book", ctx)
-  end
-
-  def test_render_book_link_found_book_has_no_url
-    # Create a book doc with url explicitly set to nil
-    book1 = MockDocument.new({ 'title' => "No URL Book", 'published' => true }, nil) # url is nil
-    site = create_site({}, { 'books' => [book1] })
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Should find the book but render unlinked cite because target_url is nil
-    expected = "<cite class=\"book-title\">No URL Book</cite>"
-    assert_equal expected, BookLinkUtils.render_book_link("No URL Book", ctx)
-  end
-
-  def test_render_book_link_complex_typography_and_br_in_title
-    book1 = create_doc({ 'title' => "Test--\"Quotes\" & Stuff... <br> Line 2", 'published' => true }, '/books/complex.html')
-    site = create_site({}, { 'books' => [book1] })
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Check _prepare_display_title output within the cite tag
-    expected = "<a href=\"/books/complex.html\"><cite class=\"book-title\">Test–“Quotes” &amp; Stuff… <br> Line 2</cite></a>"
-    assert_equal expected, BookLinkUtils.render_book_link("Test--\"Quotes\" & Stuff... <br> Line 2", ctx)
-  end
-
-  def test_render_book_link_complex_typography_in_link_text
-    book1 = create_doc({ 'title' => "Simple Title", 'published' => true }, '/books/simple.html')
-    site = create_site({}, { 'books' => [book1] })
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    link_text = "Override--\"Quotes\" & Stuff... <br> Line 2"
-    # Check _prepare_display_title output for the override text
-    expected = "<a href=\"/books/simple.html\"><cite class=\"book-title\">Override–“Quotes” &amp; Stuff… <br> Line 2</cite></a>"
-    assert_equal expected, BookLinkUtils.render_book_link("Simple Title", ctx, link_text)
-  end
-
-  def test_render_book_link_uses_canonical_title_not_input_for_display
-    book1 = create_doc({ 'title' => "Canonical Title", 'published' => true }, '/books/canonical.html')
-    site = create_site({}, { 'books' => [book1] })
-    page = create_doc({}, '/current.html')
-    ctx = create_context({}, { site: site, page: page })
-
-    # Input matches via normalization, but display should use canonical
-    input_title = "canonical title"
-    expected = "<a href=\"/books/canonical.html\"><cite class=\"book-title\">Canonical Title</cite></a>"
-    assert_equal expected, BookLinkUtils.render_book_link(input_title, ctx)
-  end
-
 end

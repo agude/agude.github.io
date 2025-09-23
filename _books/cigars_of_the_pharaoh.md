@@ -27,7 +27,7 @@ explores Egypt and India and uncovers an opium-smuggling ring.
 {% capture tt17 %}{% book_link "Explorers on the Moon" %}{% endcapture %}
 
 {% capture doyles %}{% author_link "Arthur Conan Doyle" possessive %}{% endcapture %}
-{% capture final_problem %}{% book_link "The Final Problem" %}{% endcapture %}
+{% capture final_problem %}{% short_story_link "The Final Problem" %}{% endcapture %}
 
 {{ this_book }} is a transitional work in {{ this_series }} in many ways. Like
 early entries---{{ tt1 }}, {{ tt2 }}, and even {{ tt3 }}---this book is
