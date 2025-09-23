@@ -436,8 +436,9 @@ god-like Shrike covered in blades.
 The only catch is that {{ this_book }} is just the first half of the story. To
 get the full effect you have to read {{ fall_hyperion }}, which I plan to do
 again after a taking a quick break to read {{ bolo12 }}, and maybe {{ bolo13
-}}, {{ titan }}, and {{ mb6 }}. I'm looking forward to it! And who knows,
-maybe this time I'll get to {{ endymion }} and {{ rise_of_endymion }} too.
+}}, {{ titan }}, and {{ mb6 }}. I'm looking forward to it! And who knows?
+Maybe this time I'll make it all the way through {{ endymion }} and {{
+rise_of_endymion }}.
 
 {% comment %}
 
