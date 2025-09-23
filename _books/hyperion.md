@@ -184,6 +184,11 @@ together history, myth, and prophecy to tell of the impending downfall of man.
 {% capture space_odyssey %}<cite class="movie-title">2001: A Space Odyssey</cite>{% endcapture %}
 {% capture terminator %}<cite class="movie-title">The Terminator</cite>{% endcapture %}
 
+{% capture bolo12 %}{% book_link "The Triumphant" %}{% endcapture %}
+{% capture bolo13 %}{% book_link "Last Stand" %}{% endcapture %}
+{% capture titan %}{% book_link "The Sirens of Titan" %}{% endcapture %}
+{% capture mb6 %}{% book_link "Fugitive Telemetry" %}{% endcapture %}
+
 I didn't love {{ this_book }} when [I first read it][first_read] about two
 years ago. It's a book full of deep intertextuality, influenced heavily by {{
 keatss }} {{ hyperion_keats }}, but also by {{ chaucers }} {{ canterbury }}.
@@ -420,12 +425,16 @@ sundiver }}. Siri's gift of a powerful gun to Merin reminded me of {{ bankss
 
 ### Conclusion
 
-I'm sure it comes through clearly that I had a lot of fun in this second
-read-through trying to pin down all the themes and all the references. To me,
-that's what makes this book a masterpiece: it's great sci-fi story on its own,
-but with levels of meaning hidden below lasers, barbarians, and god-like
-Shrike covered in blades.
+I'm sure it comes through clearly that I had a lot of fun on this second
+read-through, trying to pin down all the themes and references. To me, that's
+what makes {{ this_book }} a masterpiece: it's a great sci-fi story on its
+own, but with levels of meaning hidden below the lasers, barbarians, and
+god-like Shrike covered in blades.
 
+{{ this_book }} is just the first half of the story. To get the full effect
+you have to read {{ fall_hyperion }}, which I plan to do after a taking a
+quick break to read {{ bolo12 }}, and maybe {{ bolo13 }}, {{ titan }}, and {{
+mb6 }}.
 
 {% comment %}
 
