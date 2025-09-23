@@ -21,15 +21,7 @@ together history, myth, and prophecy to tell of the impending downfall of man.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture the_priests_tale %}{% short_story_link "The Priest's Tale" %}{% endcapture %}
 {% capture the_soldiers_tale %}{% short_story_link "The Soldier's Tale" %}{% endcapture %}
@@ -44,23 +36,17 @@ together history, myth, and prophecy to tell of the impending downfall of man.
 {% capture endymion %}{% book_link "Endymion" %}{% endcapture %}
 {% capture rise_of_endymion %}{% book_link "The Rise of Endymion" %}{% endcapture %}
 
-{% capture keats %}{% author_link "John Keats" %}{% endcapture %}
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
 {% capture keats_lastname %}{% author_link "John Keats" link_text="Keats" %}{% endcapture %}
 {% capture keats_lastname_possessive %}{% author_link "John Keats" link_text="Keats" possessive %}{% endcapture %}
 {% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" %}{% endcapture %}
 
-{% capture chaucer %}{% author_link "Geoffrey Chaucer" %}{% endcapture %}
 {% capture chaucers %}{% author_link "Geoffrey Chaucer" possessive %}{% endcapture %}
 {% capture canterbury %}{% book_link "The Canterbury Tales" %}{% endcapture %}
 
 {% comment %} Iain M. Banks (The Culture etc.) {% endcomment %}
 
-{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
-{% capture player_of_games %}{% book_link "The Player of Games" %}{% endcapture %}
-{% capture look_to_windward %}{% book_link "Look to Windward" %}{% endcapture %}
-{% capture consider_phlebas %}{% book_link "Consider Phlebas" %}{% endcapture %}
 {% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
 {% capture hydrogen_sonata %}{% book_link "The Hydrogen Sonata" %}{% endcapture %}
 {% capture gift_from_the_culture %}{% short_story_link "A Gift from the Culture" %}{% endcapture %}
@@ -68,107 +54,77 @@ together history, myth, and prophecy to tell of the impending downfall of man.
 
 {% comment %} Other Science Fiction Authors & Works {% endcomment %}
 
-{% capture clarke %}{% author_link "Arthur C. Clarke" %}{% endcapture %}
 {% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}
 {% capture the_star %}{% short_story_link "The Star" %}{% endcapture %}
+{% capture space_odyssey %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 
-{% capture asimov %}{% author_link "Isaac Asimov" %}{% endcapture %}
 {% capture asimovs %}{% author_link "Isaac Asimov" possessive %}{% endcapture %}
 {% capture steel %}{% short_story_link "The Caves of Steel" %}{% endcapture %}
 
-{% capture bradbury %}{% author_link "Ray Bradbury" %}{% endcapture %}
 {% capture bradburys %}{% author_link "Ray Bradbury" possessive %}{% endcapture %}
 {% capture the_man %}{% short_story_link "The Man" %}{% endcapture %}
 
-{% capture conrad %}{% author_link "Joseph Conrad" %}{% endcapture %}
 {% capture conrads %}{% author_link "Joseph Conrad" possessive %}{% endcapture %}
 {% capture heart_of_darkness %}{% book_link "Heart of Darkness" %}{% endcapture %}
 
-{% capture haldeman %}{% author_link "Joe Haldeman" %}{% endcapture %}
-{% capture haldemans %}{% author_link "Joe Haldeman" possessive %}{% endcapture %}
-{% capture forever_war %}{% book_link "The Forever War" %}{% endcapture %}
-
-{% capture vance %}{% author_link "Jack Vance" %}{% endcapture %}
 {% capture vances %}{% author_link "Jack Vance" possessive %}{% endcapture %}
 {% capture dying_earth %}{% book_link "The Dying Earth" %}{% endcapture %}
 
-{% capture hamilton %}{% author_link "Peter F. Hamilton" %}{% endcapture %}
 {% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}
 {% capture judas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}
 
-{% capture brunner %}{% author_link "John Brunner" %}{% endcapture %}
-{% capture brunners %}{% author_link "John Brunner" possessive %}{% endcapture %}
-{% capture stand_on_zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
-
-{% capture card %}{% author_link "Orson Scott Card" %}{% endcapture %}
 {% capture cards %}{% author_link "Orson Scott Card" possessive %}{% endcapture %}
 {% capture enders_game %}{% book_link "Ender's Game" %}{% endcapture %}
 
 {% capture arkady_and_boris_strugatsky %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" %}{% endcapture %}
 
-{% capture le_guin %}{% author_link "Ursula K. Le Guin" %}{% endcapture %}
 {% capture le_guins %}{% author_link "Ursula K. Le Guin" possessive %}{% endcapture %}
 {% capture left_hand_of_darkness %}{% book_link "The Left Hand of Darkness" %}{% endcapture %}
 {% capture rocannon %}{% book_link "Rocannon's World" %}{% endcapture %}
 {% capture hainish_cycle %}{% series_link "Hainish Cycle" %}{% endcapture %}
 
-{% capture keyes %}{% author_link "Daniel Keyes" %}{% endcapture %}
 {% capture keyess %}{% author_link "Daniel Keyes" possessive %}{% endcapture %}
 {% capture flowers_for_algernon %}{% book_link "Flowers for Algernon" %}{% endcapture %}
 
 {% capture gibson %}{% author_link "William Gibson" %}{% endcapture %}
-{% capture gibson_lastname %}{% author_link "William Gibson" link_text="Gibson" %}{% endcapture %}
-{% capture gibsons %}{% author_link "William Gibson" possessive %}{% endcapture %}
 {% capture johnny_mnemonic %}{% book_link "Johnny Mnemonic" %}{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 
-{% capture orwell %}{% author_link "George Orwell" %}{% endcapture %}
 {% capture orwells %}{% author_link "George Orwell" possessive %}{% endcapture %}
 {% capture nineteen_eighty_four %}{% book_link "1984" %}{% endcapture %}
 
-{% capture tchaikovsky %}{% author_link "Adrian Tchaikovsky" %}{% endcapture %}
 {% capture tchaikovskys %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
 {% capture shards_of_earth %}{% book_link "Shards of Earth" %}{% endcapture %}
 {% capture lords %}{% book_link "Lords of Uncreation" %}{% endcapture %}
 
-{% capture adams %}{% author_link "Douglas Adams" %}{% endcapture %}
 {% capture adamss %}{% author_link "Douglas Adams" possessive %}{% endcapture %}
 {% capture hitchhikers_guide %}{% book_link "The Hitchhiker's Guide to the Galaxy" %}{% endcapture %}
 
-{% capture brin %}{% author_link "David Brin" %}{% endcapture %}
 {% capture brins %}{% author_link "David Brin" possessive %}{% endcapture %}
 {% capture sundiver %}{% book_link "Sundiver" %}{% endcapture %}
 
-{% capture burroughs %}{% author_link "Edgar Rice Burroughs" %}{% endcapture %}
 {% capture burroughss %}{% author_link "Edgar Rice Burroughs" possessive %}{% endcapture %}
 {% capture john_carter %}{% book_link "A Princess of Mars" %}{% endcapture %}
 
-{% capture hg_wells %}{% author_link "H. G. Wells" %}{% endcapture %}
 {% capture hg_wellss %}{% author_link "H. G. Wells" possessive %}{% endcapture %}
 {% capture time_machine %}{% book_link "The Time Machine" %}{% endcapture %}
 
 {% capture chandler %}{% author_link "Raymond Chandler" %}{% endcapture %}
-{% capture chandlers %}{% author_link "Raymond Chandler" possessive %}{% endcapture %}
 
 {% comment %} Classic & Literary Authors {% endcomment %}
 
-{% capture bible %}{% book_link "The Bible" %}{% endcapture %}
 {% capture genesis %}{% short_story_link "The Book of Genesis" %}{% endcapture %}
 {% capture binding %}{% short_story_link "Binding of Isaac" %}{% endcapture %}
 
-{% capture twain %}{% author_link "Mark Twain" %}{% endcapture %}
 {% capture twains %}{% author_link "Mark Twain" possessive %}{% endcapture %}
 {% capture huckleberry_finn %}{% book_link "Adventures of Huckleberry Finn" %}{% endcapture %}
 
-{% capture doyle %}{% author_link "Arthur Conan Doyle" %}{% endcapture %}
 {% capture doyles %}{% author_link "Arthur Conan Doyle" possessive %}{% endcapture %}
 {% capture the_final_problem %}{% short_story_link "The Final Problem" %}{% endcapture %}
 
-{% capture collodi %}{% author_link "Carlo Collodi" %}{% endcapture %}
 {% capture collodis %}{% author_link "Carlo Collodi" possessive %}{% endcapture %}
 {% capture pinocchio %}{% book_link "The Adventures of Pinocchio" %}{% endcapture %}
 
-{% capture shakespeare %}{% author_link "William Shakespeare" link_text="Shakespeare" %}{% endcapture %}
 {% capture shakespeares %}{% author_link "William Shakespeare" link_text="Shakespeare" possessive %}{% endcapture %}
 {% capture romeo_and_juliet %}{% book_link "Romeo and Juliet" %}{% endcapture %}
 
@@ -176,14 +132,8 @@ together history, myth, and prophecy to tell of the impending downfall of man.
 
 {% capture kierkegaard %}{% author_link "Søren Kierkegaard" %}{% endcapture %}
 {% capture kierkegaard_lastname %}{% author_link "Søren Kierkegaard" link_text="Kierkegaard" %}{% endcapture %}
-{% capture kierkegaards %}{% author_link "Søren Kierkegaard" possessive %}{% endcapture %}
 {% capture fear_and_trembling %}{% book_link "Fear and Trembling" %}{% endcapture %}
 
-{% comment %} Games & Movies {% endcomment %}
-
-{% capture disco_elysium %}<cite class="game-title">Disco Elysium</cite>{% endcapture %}
-
-{% capture space_odyssey %}<cite class="movie-title">2001: A Space Odyssey</cite>{% endcapture %}
 {% capture terminator %}<cite class="movie-title">The Terminator</cite>{% endcapture %}
 
 {% capture bolo12 %}{% book_link "The Triumphant" %}{% endcapture %}
