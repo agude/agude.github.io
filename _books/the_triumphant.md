@@ -39,3 +39,20 @@ of Bolo stories written by three different authors.
 {% capture bolo13 %}{% book_link "Last Stand" %}{% endcapture %}
 {% capture bolo14 %}{% book_link "Old Guard" %}{% endcapture %}
 {% capture bolo15 %}{% book_link "Cold Steel" %}{% endcapture %}
+
+
+### {% short_story_title "The Farmer's Wife" %}
+<div class="written-by">by {{ author_evans }}</div>
+{% rating_stars 3 %}
+
+### {% short_story_title "Little Red Hen" %}
+<div class="written-by">by {{ author_evans }} and {{ author_hollingsworth }}</div>
+{% rating_stars 5 %}
+
+### {% short_story_title "Little Dog Gone" %}
+<div class="written-by">by {{ author_evans }}</div>
+{% rating_stars null %}
+
+### {% short_story_title "Miles to Go" %}
+<div class="written-by">by {{ author_weber }}</div>
+{% rating_stars null %}
