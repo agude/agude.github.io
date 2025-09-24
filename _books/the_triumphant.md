@@ -9,7 +9,7 @@ series: Bolo
 book_number: 12
 is_anthology: true
 rating: null
-image: /books/covers/bolos_book_2_the_unconquerable_1st_edition.jpg
+image: /books/covers/bolos_book_3_the_triumphant_1st_edition.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the twelfth book in the
