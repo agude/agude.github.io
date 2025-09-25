@@ -43,10 +43,21 @@ of Bolo stories written by three different authors.
 {% capture martian %}{% book_link "The Martian" %}{% endcapture %}
 {% capture robinson %}{% book_link "Robinson Crusoe" %}{% endcapture %}
 
+{% capture drakes %}{% author_link "David Drake" possessive %}{% endcapture %}
+{% capture as_our_strength_lessens %}{% short_story_link "As Our Strength Lessens" %}{% endcapture %}
+
+{% capture laumers %}{% author_link "Keith Laumer" possessive %}{% endcapture %}
+{% capture field_test %}{% short_story_link "Field Test" %}{% endcapture %}
+{% capture relic_of_war %}{% short_story_link "A Relic of War" %}{% endcapture %}
+{% capture rogue_bolo %}{% short_story_link "Rogue Bolo" %}{% endcapture %}
+
+{% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}
+{% capture space_odyssey %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
+
 
 ### {% short_story_title "The Farmer's Wife" %}
 <div class="written-by">by {{ author_evans }}</div>
-{% rating_stars 3 %}
+{% rating_stars 2 %}
 
 The Bolo Digger, long since converted into a tractor, is the only thing that
 stands between the blind, mouse-like Xykdap and the agricultural colony of
@@ -80,10 +91,42 @@ years and skip right to the end where they meet Digger on the planet.
 <div class="written-by">by {{ author_evans }} and {{ author_hollingsworth }}</div>
 {% rating_stars 5 %}
 
+The recon Bolo LRH "Red" and here crew of eight dismount troopers and three
+command staff are sent to scout a planet ahead of a Concordiat invasion. When
+the rest of the fleet arrives they find Red nearly destroyed and her crew
+dead. What happened to them, and is it Red's fault?
+
+A story with a great mix of action and a lot of technical details, like {{
+drakes }} {{ as_our_strength_lessens }}, but also a lot of humanity. Red is
+more like a mother figure to her "boys", and it's their deaths in service of
+the mission that drives her crazy. Her last act, after being recovered, is to
+commit suicide because the officer who is going to run her court martial was
+her former commander, and she knows he'll sacrifice his career rather than
+harm her.
+
+In a sense, this story is a _another_ rewrite of {{ laumers }} {{ field_test
+}}, just like {{ rogue_bolo }} was; it even directly references the previous
+stories[^rogue] and uses it to foreshadow that Red has a reason for her
+suicidal behavior. When red finally breaks at the end, it reminds me a bit of
+HAL 9000 in {{ clarkes }} {{ space_odyssey }}, because she does so due to the
+contradictory orders to both protect her crew but also to hide upload the
+intelligence they gathered. The deep connection between the Bolo and her crew
+is like {{ relic_of_war }}.
+
+[^rogue]:
+    > "They say the first Mark XX went and committed suicide on 'em; but,
+    > hell, at least it had a reason. Doing its duty, upholding the honor of
+    > the Brigade and all. That's what they said, anyway. But this little
+    > baby, she's just starkers, no explanation, nuthin'..."
+
 ### {% short_story_title "Little Dog Gone" %}
 <div class="written-by">by {{ author_evans }}</div>
-{% rating_stars null %}
+{% rating_stars 5 %}
+
+Like A Relic of War
 
 ### {% short_story_title "Miles to Go" %}
 <div class="written-by">by {{ author_weber }}</div>
 {% rating_stars null %}
+
+- Kind of like The Last Command, Combat Unit, Final Mission
