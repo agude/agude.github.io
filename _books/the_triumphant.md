@@ -123,6 +123,15 @@ is like {{ relic_of_war }}.
 <div class="written-by">by {{ author_evans }}</div>
 {% rating_stars 5 %}
 
+The Bolo GWN Gawain is destroyed by the Deng invasion and the planets it's
+guarding is overrun. Two-hundred years later, a girl becomes obsessed with the
+Bolo's ruin, discovers it is still functional, and begins slowly repairing it.
+She has to keep her work secret because an abandoned Bolo is dangerous and the
+Navy would come destroy it if they knew it was still alive.
+
+It is a bit a growing up story, taking place over five years as 'Lima and
+her bully-to-lover Brad
+
 Like A Relic of War
 
 ### {% short_story_title "Miles to Go" %}
@@ -130,3 +139,4 @@ Like A Relic of War
 {% rating_stars null %}
 
 - Kind of like The Last Command, Combat Unit, Final Mission
+- Also references field test
