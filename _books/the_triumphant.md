@@ -8,7 +8,7 @@ book_authors:
 series: Bolo
 book_number: 12
 is_anthology: true
-rating: null
+rating: 5
 image: /books/covers/bolos_book_3_the_triumphant_1st_edition.jpg
 ---
 
@@ -136,7 +136,7 @@ Like A Relic of War
 
 ### {% short_story_title "Miles to Go" %}
 <div class="written-by">by {{ author_weber }}</div>
-{% rating_stars null %}
+{% rating_stars 5 %}
 
 - Kind of like The Last Command, Combat Unit, Final Mission
 - Also references field test
