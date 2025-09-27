@@ -132,27 +132,27 @@ finally meet Digger on the planet.
 <div class="written-by">by {{ author_evans }} and {{ author_hollingsworth }}</div>
 {% rating_stars 5 %}
 
-The recon Bolo LRH "Red" and here crew of eight dismount troopers and three
+The recon Bolo LRH "Red" and her crew of eight dismount troopers and three
 command staff are sent to scout a planet ahead of a Concordiat invasion. When
-the rest of the fleet arrives they find Red nearly destroyed and her crew
-dead. What happened to them, and is it Red's fault?
+the rest of the fleet arrives, they find Red nearly destroyed and her entire
+crew dead. What happened to them? And is it Red's fault?
 
-A story with a great mix of action and a lot of technical details, like {{
-drakes }} {{ as_our_strength_lessens }}, but also a lot of humanity. Red is
-more like a mother figure to her "boys", and it's their deaths in service of
-the mission that drives her crazy. Her last act, after being recovered, is to
-commit suicide because the officer who is going to run her court martial was
-her former commander, and she knows he'll sacrifice his career rather than
-harm her.
+This story mixes heavy action with a lot of technical detail, like {{ drakes
+}} {{ as_our_strength_lessens }}, but also carries a strong human element. Red
+is a mother figure to her "boys," and it's their deaths in service of the
+mission that push her into madness. Her last act, after being recovered, is to
+commit suicide because the officer assigned to court-martial her is her former
+commander, and she knows he would destroy his own career rather than condemn
+her.
 
-In a sense, this story is a _another_ rewrite of {{ laumers }} {{ field_test
-}}, just like {{ rogue_bolo }} was; it even directly references the previous
-stories[^rogue] and uses it to foreshadow that Red has a reason for her
-suicidal behavior. When red finally breaks at the end, it reminds me a bit of
-HAL 9000 in {{ clarkes }} {{ space_odyssey }}, because she does so due to the
-contradictory orders to both protect her crew but also to hide upload the
-intelligence they gathered. The deep connection between the Bolo and her crew
-is like {{ relic_of_war }}.
+In a sense, this story is _another_ rewrite of {{ laumers }} {{ field_test }},
+just like {{ rogue_bolo }} was. It even directly references that earlier
+story[^rogue] and uses it to foreshadow Red's reasons for her suicidal
+behavior. When Red finally breaks at the end, it reminds me of HAL 9000 in {{
+clarkes }} {{ space_odyssey }}, because she's torn apart by contradictory
+orders: to protect her crew while also ensuring the intelligence they gathered
+is uploaded. The deep connection between Red and her crew is like {{
+the_last_command }}.
 
 [^rogue]:
     > "They say the first Mark XX went and committed suicide on 'em; but,
@@ -171,11 +171,16 @@ She has to keep her work secret because an abandoned Bolo is dangerous and the
 Navy would come destroy it if they knew it was still alive.
 
 It is a bit a growing up story, taking place over five years as 'Lima and
-her bully-to-lover Brad
+her bully-to-lover Brad repair the Bolo, fall in love, and fix the problems in
+their lives. When the Deng finally return, the Bolo still isn't fully
+functional and needs a brain from Brads mortally wounded, genetically altered
+dog to become battle-ready.
 
 This story is similar to {{ a_relic_of_war }}, with an old, abandoned Bolo
 that should be deactivated because it's deemed to be dangerous, but which
-instead is the only one who can save the town.
+instead is the only one who can save the town. Also like {{ final_mission }}
+in that the Bolo is woken up by children and then used to fight off a Deng
+invasion.
 
 ### {% short_story_title "Miles to Go" %}
 <div class="written-by">by {{ author_weber }}</div>
