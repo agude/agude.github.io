@@ -164,23 +164,22 @@ the_last_command }}.
 <div class="written-by">by {{ author_evans }}</div>
 {% rating_stars 5 %}
 
-The Bolo GWN Gawain is destroyed by the Deng invasion and the planets it's
-guarding is overrun. Two-hundred years later, a girl becomes obsessed with the
-Bolo's ruin, discovers it is still functional, and begins slowly repairing it.
-She has to keep her work secret because an abandoned Bolo is dangerous and the
-Navy would come destroy it if they knew it was still alive.
+The Bolo GWN Gawain is destroyed during a Deng invasion, and the planet it was
+defending is overrun. Two hundred years later, a girl becomes obsessed with
+the wreck, discovers it's still functional, and begins secretly repairing it.
+She has to keep her work hidden, because an abandoned Bolo is considered too
+dangerous. If the Navy found out it was still alive, they'd destroy it.
 
-It is a bit a growing up story, taking place over five years as 'Lima and
-her bully-to-lover Brad repair the Bolo, fall in love, and fix the problems in
-their lives. When the Deng finally return, the Bolo still isn't fully
-functional and needs a brain from Brads mortally wounded, genetically altered
-dog to become battle-ready.
+The story is partly a coming-of-age tale, following 'Lima over five years as
+she and her bully-turned-partner Brad repair the Bolo, fall in love, and work
+through their own problems. When the Deng finally return, the Bolo still isn't
+fully restored and needs a brain transplant from Brad's mortally wounded,
+genetically engineered dog to be battle-ready.
 
-This story is similar to {{ a_relic_of_war }}, with an old, abandoned Bolo
-that should be deactivated because it's deemed to be dangerous, but which
-instead is the only one who can save the town. Also like {{ final_mission }}
-in that the Bolo is woken up by children and then used to fight off a Deng
-invasion.
+This story is similar to {{ a_relic_of_war }}, with an old abandoned Bolo that
+should be shut down as a threat but instead becomes the only thing capable of
+saving the town. It's also reminiscent of {{ final_mission }}, where children
+awaken a forgotten Bolo that is then called on to repel a Deng invasion.
 
 ### {% short_story_title "Miles to Go" %}
 <div class="written-by">by {{ author_weber }}</div>
