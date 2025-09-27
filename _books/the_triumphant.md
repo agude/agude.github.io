@@ -83,6 +83,7 @@ of Bolo stories written by three different authors.
 {% capture space_odyssey %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 
 {% capture murderbot %}{% series_link "The Murderbot Diaries" link_text="Murderbot" %}{% endcapture %}
+{% capture all_systems %}{% book_link "All Systems Red" %}{% endcapture %}
 
 {{ this_book }} is different from the earlier anthologies---{{ bolo10 }} and
 {{ bolo11 }}---because it was written mainly by {{ author_evans }} and {{
@@ -94,7 +95,10 @@ feel much closer to {{ laumers }} original single-author works like {{ bolo1
 
 The best three stories---{{ little_red_hen }}, {{ little_dog_gone }}, and {{
 miles_to_go }}---explore the relationship between Bolos and their crews,
-especially how those bonds can turn unhealthy and lead to disaster.
+especially how those bonds can turn unhealthy and lead to disaster. The Bolos
+are a bit like {{ murderbot }} from {{ all_systems }}: they are developing
+emotional attachments that they worry will hurt them, while also using those
+feelings to justify putting themselves in harms way.
 
 ### {% short_story_title "The Farmer's Wife" %}
 <div class="written-by">by {{ author_evans }}</div>
@@ -203,7 +207,6 @@ righteous vengeance. One of the reasons I love Bolo books is, just like {{
 murderbot }}, they are incredibly competent. Nike is no exception.
 
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
-
 
 This book is a bit like {{ the_last_command }}, {{ combat_unit }}, and {{
 final_mission }}.
