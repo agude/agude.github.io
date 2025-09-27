@@ -84,49 +84,49 @@ of Bolo stories written by three different authors.
 
 {% capture murderbot %}{% series_link "The Murderbot Diaries" link_text="Murderbot" %}{% endcapture %}
 
-{{ this_book }} is different from the previous anthologies---{{ bolo10 }} and {{
-bolo11 }}---in that it was written primarily by two authors {{ author_evans }}
-and {{ author_weber }}, with some help from {{ author_hollingsworth }} on one
-of the stories. It's clear {{ author_evans_lastname }} and {{
-author_weber_lastname }} discussed ideas together, because their stories
-follow similar themes. This makes it much closer to {{ laumers }} original,
-single-author works: {{ bolo1 }} and {{ bolo2 }}.
+{{ this_book }} is different from the earlier anthologies---{{ bolo10 }} and
+{{ bolo11 }}---because it was written mainly by {{ author_evans }} and {{
+author_weber }}, with {{ author_hollingsworth }} contributing to one story.
+It's clear {{ author_evans_lastname }} and {{ author_weber_lastname }}
+collaborated, since their stories share common themes. That makes this book
+feel much closer to {{ laumers }} original single-author works like {{ bolo1
+}} and {{ bolo2 }}.
 
 The best three stories---{{ little_red_hen }}, {{ little_dog_gone }}, and {{
-miles_to_go }}---explore the relationship between Bolos and their crew,
-especially how those relationships can become unhealthy and lead disaster.
+miles_to_go }}---explore the relationship between Bolos and their crews,
+especially how those bonds can turn unhealthy and lead to disaster.
 
 ### {% short_story_title "The Farmer's Wife" %}
 <div class="written-by">by {{ author_evans }}</div>
 {% rating_stars 2 %}
 
-The Bolo Digger, long since converted into a tractor, is the only thing that
-stands between the blind, mouse-like Xykdap and the agricultural colony of
-Matson's World. Meanwhile, Tillie Matson is the transport director Aboard the
-_Star Cross_ bringing the remaining colonists and cattle to the colony when
-they come under Xykdap attack, which cripples the ship. She now has to take
-care of her people on a trip 20 years longer than they expected.
+The Bolo Digger, long since converted into a tractor, is the only thing
+standing between the blind, mouse-like Xykdap and the agricultural colony of
+Matson's World. Meanwhile, Tillie Matson is transport director aboard the
+_Star Cross_, which is carrying the last colonists and cattle to the planet
+when it's attacked by the Xykdap. The ship is crippled, and Tillie now has to
+care for her people on a journey 20 years longer than expected.
 
-I think for this story to be successful {{ author_evans }} had to do three
+For this story to really work, {{ author_evans }} needed to pull off three
 things:
 
-1. She has to give us some awesome Bolo scenes, because this is a Bolo book.
-2. She has to develop the characters on the _Star Cross_ enough that we care
-   about them and are worried the precarious position they find themselves in.
-3. She has to interleave the two storylines together; otherwise why have them
-   in the same story?
+1. Deliver some awesome Bolo action, because this is a Bolo book.
+2. Develop the characters on the _Star Cross_ enough that we care about them
+   and worry over their precarious situation.
+3. Weave the two storylines together so they feel connected, not just
+   coexisting.
 
 I don't think she really succeeds at any of these. It's fun that Digger has
-gone so far into his agricultural role that he thinks the Xykdap are some
-virulent pest, and it's neat to see him whip up some pesticides since we've
-never before seen Bolos use chemical weapons. But he only gets one or two real
-scenes; most of the story takes place on the _Star Cross_ as they try to
-survive.
+gone so deep into his farming role that he mistakes the Xykdap for pests and
+even whips up chemical weapon "pesticides", something we've never seen Bolos
+do before. But he only gets one or two real scenes, while most of the story
+stays on the _Star Cross_ as the crew struggles to survive.
 
-But even there, there just aren't enough pages. Things feel rushed. Seeing the
-colonists figure out how to survive like Mark Watney in {{ martian }} or the
-Crusoe in {{ robinson }} could have been fun, but instead they leap over 19
-years and skip right to the end where they meet Digger on the planet.
+Even there, the story doesn't give us enough. Everything feels rushed.
+Watching the colonists slowly figure out how to endure---like Watney in {{
+martian }} or Crusoe in {{ robinson }}---could have been fun. Instead, the
+narrative skips over 19 years and jumps straight to the ending where they
+finally meet Digger on the planet.
 
 ### {% short_story_title "Little Red Hen" %}
 <div class="written-by">by {{ author_evans }} and {{ author_hollingsworth }}</div>
