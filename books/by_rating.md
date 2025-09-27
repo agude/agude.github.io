@@ -39,6 +39,7 @@ ranked_list:
   - Salamandastron
   - Mattimeo
   - Roadside Picnic
+  - The Triumphant
   - The Abyss Beyond Dreams
   - Serpent Valley
   - A Mote in Shadow
