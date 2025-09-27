@@ -20,8 +20,15 @@ of Bolo stories written by three different authors.
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture author_evans %}{% author_link "Linda Evans" %}{% endcapture %}
+{% capture author_evans_lastname %}{% author_link "Linda Evans" link_text="Evans" %}{% endcapture %}
 {% capture author_hollingsworth %}{% author_link "Robert R. Hollingsworth" %}{% endcapture %}
 {% capture author_weber %}{% author_link "David Weber" %}{% endcapture %}
+{% capture author_weber_lastname %}{% author_link "David Weber" link_text="Weber" %}{% endcapture %}
+
+{% capture the_farmers_wife %}{% short_story_link "The Farmer's Wife" %}{% endcapture %}
+{% capture little_red_hen %}{% short_story_link "Little Red Hen" %}{% endcapture %}
+{% capture little_dog_gone %}{% short_story_link "Little Dog Gone" %}{% endcapture %}
+{% capture miles_to_go %}{% short_story_link "Miles to Go" %}{% endcapture %}
 
 {% comment %}Bolos{% endcomment %}
 {% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
@@ -47,13 +54,47 @@ of Bolo stories written by three different authors.
 {% capture as_our_strength_lessens %}{% short_story_link "As Our Strength Lessens" %}{% endcapture %}
 
 {% capture laumers %}{% author_link "Keith Laumer" possessive %}{% endcapture %}
+
+{% capture a_relic_of_war %}{% short_story_link "A Relic of War" %}{% endcapture %}
+{% capture combat_unit %}{% short_story_link "Combat Unit" %}{% endcapture %}
+{% capture courier %}{% short_story_link "Courier" %}{% endcapture %}
 {% capture field_test %}{% short_story_link "Field Test" %}{% endcapture %}
-{% capture relic_of_war %}{% short_story_link "A Relic of War" %}{% endcapture %}
+{% capture final_mission %}{% short_story_link "Final Mission" %}{% endcapture %}
+{% capture home %}{% short_story_link "Home" %}{% endcapture %}
+{% capture the_last_command %}{% short_story_link "The Last Command" %}{% endcapture %}
+{% capture the_night_of_the_trolls %}{% short_story_link "The Night of the Trolls" %}{% endcapture %}
 {% capture rogue_bolo %}{% short_story_link "Rogue Bolo" %}{% endcapture %}
+{% capture lost_legion %}{% short_story_link "Lost Legion" %}{% endcapture %}
+{% capture camelot %}{% short_story_link "Camelot" %}{% endcapture %}
+{% capture the_legacy_of_leonidas %}{% short_story_link "The Legacy of Leonidas" %}{% endcapture %}
+{% capture ploughshare %}{% short_story_link "Ploughshare" %}{% endcapture %}
+{% capture ghosts %}{% short_story_link "Ghosts" %}{% endcapture %}
+{% capture the_ghost_of_resartus %}{% short_story_link "The Ghost of Resartus" %}{% endcapture %}
+{% capture as_our_strength_lessens %}{% short_story_link "As Our Strength Lessens" %}{% endcapture %}
+{% capture ancestral_voices %}{% short_story_link "Ancestral Voices" %}{% endcapture %}
+{% capture sir_kendricks_lady %}{% short_story_link "Sir Kendrick's Lady" %}{% endcapture %}
+{% capture youre_it %}{% short_story_link "You're It" %}{% endcapture %}
+{% capture shared_experience %}{% short_story_link "Shared Experience" %}{% endcapture %}
+{% capture the_murphosensor_bomb %}{% short_story_link "The Murphosensor Bomb" %}{% endcapture %}
+{% capture legacy %}{% short_story_link "Legacy" %}{% endcapture %}
+{% capture endings %}{% short_story_link "Endings" %}{% endcapture %}
 
 {% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}
 {% capture space_odyssey %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 
+{% capture murderbot %}{% series_link "The Murderbot Diaries" link_text="Murderbot" %}{% endcapture %}
+
+{{ this_book }} is different from the previous anthologies---{{ bolo10 }} and {{
+bolo11 }}---in that it was written primarily by two authors {{ author_evans }}
+and {{ author_weber }}, with some help from {{ author_hollingsworth }} on one
+of the stories. It's clear {{ author_evans_lastname }} and {{
+author_weber_lastname }} discussed ideas together, because their stories
+follow similar themes. This makes it much closer to {{ laumers }} original,
+single-author works: {{ bolo1 }} and {{ bolo2 }}.
+
+The best three stories---{{ little_red_hen }}, {{ little_dog_gone }}, and {{
+miles_to_go }}---explore the relationship between Bolos and their crew,
+especially how those relationships can become unhealthy and lead disaster.
 
 ### {% short_story_title "The Farmer's Wife" %}
 <div class="written-by">by {{ author_evans }}</div>
@@ -132,11 +173,40 @@ Navy would come destroy it if they knew it was still alive.
 It is a bit a growing up story, taking place over five years as 'Lima and
 her bully-to-lover Brad
 
-Like A Relic of War
+This story is similar to {{ a_relic_of_war }}, with an old, abandoned Bolo
+that should be deactivated because it's deemed to be dangerous, but which
+instead is the only one who can save the town.
 
 ### {% short_story_title "Miles to Go" %}
 <div class="written-by">by {{ author_weber }}</div>
 {% rating_stars 5 %}
+
+Nike, a special Mk. XXIII Bolo, is a test-bed for advanced AI research and the
+first of her kind to develop emotions. Her new commander, Paul Merrit, has to
+hide her unique capabilities from Bolo Command to protect her.
+
+{{ author_weber }} writes in the [style his is famous for][pizza]. It is
+impossible to ignore once you know what to look for. But it's fine. Short
+stories need a lot of information conveyed quickly, and his style is effective
+at that at least. And {{ author_weber_lastname }} is an undisputed master at
+writing combat, which he uses to great effect in this story.
+
+The final few chapters, where Nike foils the bad guys, rallies the troops, and
+takes back the world even as she is dying, are the best Bolo action scenes in
+the series. They make you want to jump up and shout, they give you that
+satisfied feeling when the good guys get the upper hand and extract their
+righteous vengeance. One of the reasons I love Bolo books is, just like {{
+murderbot }}, they are incredibly competent. Nike is no exception.
+
+[pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
+
+
+This book is a bit like {{ the_last_command }}, {{ combat_unit }}, and {{
+final_mission }}.
+
+the first Bolo with emotions (although MAX in {{ murphosensor_bomb }} was
+written first, he comes later in the timeline), and for that reason her new
+commander Paul Merrit has to hide her capabilities from command.
 
 - Kind of like The Last Command, Combat Unit, Final Mission
 - Also references field test
