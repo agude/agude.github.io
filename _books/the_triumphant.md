@@ -93,12 +93,12 @@ collaborated, since their stories share common themes. That makes this book
 feel much closer to {{ laumers }} original single-author works like {{ bolo1
 }} and {{ bolo2 }}.
 
-The best three stories---{{ little_red_hen }}, {{ little_dog_gone }}, and {{
-miles_to_go }}---explore the relationship between Bolos and their crews,
-especially how those bonds can turn unhealthy and lead to disaster. The Bolos
-are a bit like {{ murderbot }} from {{ all_systems }}: they are developing
-emotional attachments that they worry will hurt them, while also using those
-feelings to justify putting themselves in harms way.
+The collection's three best stories---{{ little_red_hen }}, {{ little_dog_gone
+}}, and {{ miles_to_go }}---explore the relationship between Bolos and their
+crews, especially how those bonds can lead to disaster. The Bolos are a bit
+like {{ murderbot }} from {{ all_systems }}: they develop emotional
+attachments they worry will compromise them, even while also using those
+feelings drive them to self-sacrifice.
 
 ### {% short_story_title "The Farmer's Wife" %}
 <div class="written-by">by {{ author_evans }}</div>
@@ -191,7 +191,10 @@ awaken a forgotten Bolo that is then called on to repel a Deng invasion.
 
 Nike, a special Mk. XXIII Bolo, is a test-bed for advanced AI research and the
 first of her kind to develop emotions. Her new commander, Paul Merrit, has to
-hide her unique capabilities from Bolo Command to protect her.
+hide her unique capabilities from Bolo Command to protect her, or they would
+destroy her out of fear. But when the planet of Santa Cruz is attacked, and
+Merrit betrayed, Nike is the only thing standing between the civilian
+population and death.
 
 {{ author_weber }} writes in the [style his is famous for][pizza]. It is
 impossible to ignore once you know what to look for. But it's fine. Short
@@ -207,6 +210,8 @@ righteous vengeance. One of the reasons I love Bolo books is, just like {{
 murderbot }}, they are incredibly competent. Nike is no exception.
 
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
+
+This story brings in pieces from many others. The
 
 This book is a bit like {{ the_last_command }}, {{ combat_unit }}, and {{
 final_mission }}.
