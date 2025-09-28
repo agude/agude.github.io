@@ -40,6 +40,10 @@ of seven novellas and short stories, all featuring Bolos.
 {% capture relic %}{% short_story_link "A Relic of War" %}{% endcapture %}
 {% capture combat_unit %}{% short_story_link "Combat Unit" %}{% endcapture %}
 
+{% capture the_legacy_of_leonidas %}{% short_story_link "The Legacy of Leonidas" %}{% endcapture %}
+{% capture little_red_hen %}{% short_story_link "Little Red Hen" %}{% endcapture %}
+{% capture miles_to_go %}{% short_story_link "Miles to Go" %}{% endcapture %}
+
 I read the Bolo anthologies---{{ bolo10 }}, {{ bolo11 }}, {{ bolo12 }},
 etc.---about twenty-five years ago, then tracked down every other Bolo book I
 could find at the used bookstore. Eventually I picked up {{ this_book }}. Now,
@@ -98,6 +102,15 @@ The story is told as a series of paragraph-length chapters, each a snippet of
 in-universe media---from letters to speeches to short conversations. This
 structure is reminiscent of {{ zanzibar }}, and is a test run for {{ bolo2 }},
 where one of the novellas uses the same paragraph-length chapter format.
+
+This story is one of the most influential. {{ the_authors_lastname }} later
+expanded it into the novella {{ rogue_bolo }}. In {{ the_legacy_of_leonidas
+}}, it inspired both the refusal to deploy the Bolo and its suicidal charge.
+{{ little_red_hen }} picked up the theme of self-destructive behavior with a
+misunderstood purpose. And {{ miles_to_go }} borrowed the idea of command
+fearing Bolos when they begin showing new, unexpected intelligence. Both {{
+little_red_hen }} and {{ miles_to_go }} have their characters directly
+reference the story.
 
 ### {% short_story_title "The Last Command" %}
 {% rating_stars 4 %}
