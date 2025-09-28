@@ -2,14 +2,16 @@
 layout: post
 title: A Letter to my Alma Mater
 description: >
-image: /files/llm-free-python/a_robot_sells_pythons_of_many_colors.png
+    In a stunning failure of courage, UC Berkeley has turned over the personal
+    information of students and staff to the federal government. This decision
+    is a profound betrayal of the university's legacy, particularly the Free
+    Speech Movement. This is my letter to the administration.
+image: /files/berkeley/berkeley_wheeler.jpg
 hide_lead_image: False
 image_alt: >
 categories:
-  - opinion
+  - opinions
 ---
-
-{% capture file_dir %}/files/coding-llm{% endcapture %}
 
 It was with dismay this morning that I read the Daily Cal article: [<cite
 class="newspaper">UC Berkeley turns over personal information of more than 150
@@ -27,15 +29,11 @@ history if we simply repeat the same mistakes we made in the past?
 We tell ourselves myths about Mario Savio and the Free Speech Movement, about
 the little circle of freedom in front of Sproul Hall, about how that history
 determined who we are now. But it is clear now that you have chosen to betray
-that legacy, siding not with Savio, but with the machine he warned us about:
+that legacy, siding not with Savio, but with the machine he warned us about.
+You aren't willing to put your careers, never mind your bodies, upon the
+wheels and levers to make it stop.
 
-> There's a time when the operation of the machine becomes so odious, makes
-> you so sick at heart that you can't take part! You can't even passively take
-> part! And you've got to put your bodies upon the gears and upon the wheels,
-> upon the levers, upon all the apparatus---and you've got to make it stop!
-
-You believe you're saving the University by complying. But you have destroyed
-its soul.
+You believe you're saving the University. But you are destroying its soul.
 
 
-Alexander Gude ('08)
+**Alexander Gude** ('08)
