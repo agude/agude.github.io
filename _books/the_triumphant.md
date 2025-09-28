@@ -202,12 +202,17 @@ stories need a lot of information conveyed quickly, and his style is effective
 at that at least. And {{ author_weber_lastname }} is an undisputed master at
 writing combat, which he uses to great effect in this story.
 
-The final few chapters, where Nike foils the bad guys, rallies the troops, and
-takes back the world even as she is dying, are the best Bolo action scenes in
-the series. They make you want to jump up and shout, they give you that
-satisfied feeling when the good guys get the upper hand and extract their
-righteous vengeance. One of the reasons I love Bolo books is, just like {{
-murderbot }}, they are incredibly competent. Nike is no exception.
+This was my favorite Bolo story when I first read them 20 years ago, and it's
+still my favorite of the ones I've re-read. {{ author_weber_lastname }} is
+famous for his [overly verbose world-building][pizza], but he **knows** how to
+perfectly set up that moment where the good guys rally, that makes you want to
+jump up and shout with catharsis because you just know the bad guys have
+overstepped and are about to get what is righteously coming to them.
+
+{{ miles_to_go }} has the best action sequences in any Bolo book. The bad guys
+throw everything they have at her, but she comes through with brains and
+brawn. That's another way it's like {{ murderbot }}: Bolo are incredibly
+competent, and Nike is no exception.
 
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
