@@ -9,6 +9,10 @@ description: >
 image: /files/berkeley/berkeley_wheeler.jpg
 hide_lead_image: False
 image_alt: >
+    The grand, neoclassical facade of Wheeler Hall on the UC Berkeley campus,
+    viewed from a low angle in the late afternoon. The building's stone
+    columns and wide steps are highlighted by strong sunlight and shadow, with
+    the Campanile visible in the background against a clear blue sky.
 categories:
   - opinions
 ---
