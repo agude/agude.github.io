@@ -228,7 +228,7 @@ This story pulls in pieces from many others. From {{ field_test }}, it takes
 the distrust of smarter Bolos. From {{ the_last_command }}, the emotional bond
 between commander and tank. From {{ final_mission }}, the forgotten Bolo
 awakened at just the right time to fight off a new threat. From {{ youre_it
-}}, the knock-off Bolo, here called Golems. And from {{ the_murphosensor_bomb
+}}, the knock-off Bolos, here called Golems. And from {{ the_murphosensor_bomb
 }}, a machine with emotions and emotional intelligence (MAX was written first,
 but comes later in the timeline). The use of poetry throughout reminded me of
 {{ simmonss }} {{ hyperion }}.
