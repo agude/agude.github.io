@@ -106,7 +106,7 @@ The collection's three best stories---{{ little_red_hen }}, {{ little_dog_gone
 crews, especially how those bonds can lead to disaster. The Bolos are a bit
 like {{ murderbot }} from {{ all_systems }}: they develop emotional
 attachments they worry will compromise them, even while also using those
-feelings drive them to self-sacrifice.
+feelings to drive them to self-sacrifice.
 
 ### {% short_story_title "The Farmer's Wife" %}
 <div class="written-by">by {{ author_evans }}</div>
@@ -205,9 +205,9 @@ genetically enhanced dogs reminded me of the Tines in {{ vinges }} {{ fire }}.
 Nike, a special Mk. XXIII Bolo, is a test bed for advanced AI research and the
 first of her kind to develop emotions. Her new commander, Paul Merrit, has to
 hide her unique abilities from Bolo Command, since they would destroy her out
-of fear. But when the planet Santa Cruz is attacked buy an evil corporation
-and Merrit is betrayed, Nike becomes the only thing standing between the
-civilians and certain death.
+of fear. But when the planet Santa Cruz is attacked by an evil corporation and
+Merrit is betrayed, Nike becomes the only thing standing between the civilians
+and certain death.
 
 This was my favorite Bolo story when I first read it 20 years ago, and it's
 still my favorite on reread. {{ author_weber_lastname }} is known for his
@@ -230,5 +230,5 @@ between commander and tank. From {{ final_mission }}, the forgotten Bolo
 awakened at just the right time to fight off a new threat. From {{ youre_it
 }}, the knock-off Bolo, here called Golems. And from {{ the_murphosensor_bomb
 }}, a machine with emotions and emotional intelligence (MAX was written first,
-but comes later in the timeline). The use of poetry through-out reminded me of
+but comes later in the timeline). The use of poetry throughout reminded me of
 {{ simmonss }} {{ hyperion }}.
