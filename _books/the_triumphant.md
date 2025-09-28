@@ -47,11 +47,19 @@ of Bolo stories written by three different authors.
 {% capture bolo14 %}{% book_link "Old Guard" %}{% endcapture %}
 {% capture bolo15 %}{% book_link "Cold Steel" %}{% endcapture %}
 
+{% capture ringo %}{% author_link "John Ringo" %}{% endcapture %}
+
 {% capture martian %}{% book_link "The Martian" %}{% endcapture %}
 {% capture robinson %}{% book_link "Robinson Crusoe" %}{% endcapture %}
 
 {% capture drakes %}{% author_link "David Drake" possessive %}{% endcapture %}
 {% capture as_our_strength_lessens %}{% short_story_link "As Our Strength Lessens" %}{% endcapture %}
+
+{% capture vinges %}{% author_link "Vernor Vinge" possessive %}{% endcapture %}
+{% capture fire %}{% book_link "A Fire Upon the Deep" %}{% endcapture %}
+
+{% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
+{% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 
 {% capture laumers %}{% author_link "Keith Laumer" possessive %}{% endcapture %}
 
@@ -132,6 +140,10 @@ martian }} or Crusoe in {{ robinson }}---could have been fun. Instead, the
 narrative skips over 19 years and jumps straight to the ending where they
 finally meet Digger on the planet.
 
+You can also start to see the conservative seeds of the (horrible) {{ bolo7 }}
+which she wrote with {{ ringo }} in the salt-of-the-earth farmers just trying
+to make their way against a hostile world.
+
 ### {% short_story_title "Little Red Hen" %}
 <div class="written-by">by {{ author_evans }} and {{ author_hollingsworth }}</div>
 {% rating_stars 5 %}
@@ -183,7 +195,8 @@ genetically engineered dog to be battle-ready.
 This story is similar to {{ a_relic_of_war }}, with an old abandoned Bolo that
 should be shut down as a threat but instead becomes the only thing capable of
 saving the town. It's also reminiscent of {{ final_mission }}, where children
-awaken a forgotten Bolo that is then called on to repel a Deng invasion.
+awaken a forgotten Bolo that is then called on to repel a Deng invasion. The
+genetically enhanced dogs reminded me of the Tines in {{ vinges }} {{ fire }}.
 
 ### {% short_story_title "Miles to Go" %}
 <div class="written-by">by {{ author_weber }}</div>
@@ -211,10 +224,11 @@ incredibly competent, and Nike is no exception.
 
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
-This story brings in pieces from many others. From {{ field_test }} it borrows
-the distrust of smarter Bolos. From {{ the_last_command }} it takes the
-strong, emotional bond between commander and tank. From the {{ final_mission
-}} it uses the forgotten Bolo woken up at just the right time to fight off a
-new threat. From {{ the_murphosensor_bomb }}, it has a Bolo with emotions and
-emotional intelligence (MAX was written first, but takes place later in the
-timeline).
+This story pulls in pieces from many others. From {{ field_test }}, it takes
+the distrust of smarter Bolos. From {{ the_last_command }}, the emotional bond
+between commander and tank. From {{ final_mission }}, the forgotten Bolo
+awakened at just the right time to fight off a new threat. From {{ youre_it
+}}, the knock-off Bolo, here called Golems. And from {{ the_murphosensor_bomb
+}}, a machine with emotions and emotional intelligence (MAX was written first,
+but comes later in the timeline). The use of poetry through-out reminded me of
+{{ simmonss }} {{ hyperion }}.
