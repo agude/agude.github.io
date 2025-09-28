@@ -189,24 +189,25 @@ awaken a forgotten Bolo that is then called on to repel a Deng invasion.
 <div class="written-by">by {{ author_weber }}</div>
 {% rating_stars 5 %}
 
-Nike, a special Mk. XXIII Bolo, is a test-bed for advanced AI research and the
+Nike, a special Mk. XXIII Bolo, is a test bed for advanced AI research and the
 first of her kind to develop emotions. Her new commander, Paul Merrit, has to
-hide her unique capabilities from Bolo Command to protect her, or they would
-destroy her out of fear. But when the planet of Santa Cruz is attacked and
-Merrit betrayed, Nike is the only thing standing between the civilian
-population and certain death.
+hide her unique abilities from Bolo Command, since they would destroy her out
+of fear. But when the planet Santa Cruz is attacked buy an evil corporation
+and Merrit is betrayed, Nike becomes the only thing standing between the
+civilians and certain death.
 
-This was my favorite Bolo story when I first read them 20 years ago, and it's
-still my favorite of the ones I've re-read. {{ author_weber_lastname }} is
-famous for his [overly verbose world-building][pizza], but he **knows** how to
-perfectly set up that moment where the good guys rally, that makes you want to
-jump up and shout with catharsis because you just know the bad guys have
-overstepped and are about to get what is righteously coming to them.
+This was my favorite Bolo story when I first read it 20 years ago, and it's
+still my favorite on reread. {{ author_weber_lastname }} is known for his
+[overly verbose world-building][pizza], but he **absolutely** knows how to set
+up that moment where the good guys rally: the kind of scene that makes you
+want to jump up and cheer because you know the villains have finally
+overreached and are about to get what's coming to them. And he uses it to
+great effect here.
 
-{{ miles_to_go }} has the best action sequences in any Bolo book. The bad guys
-throw everything they have at her, but she comes through with brains and
-brawn. That's another way it's like {{ murderbot }}: Bolo are incredibly
-competent, and Nike is no exception.
+{{ miles_to_go }} has the best action sequences of any Bolo story. The bad
+guys throw everything they've got at Nike, but she wins through with both
+brains and brawn. In that way, it's a lot like {{ murderbot }}: Bolos are
+incredibly competent, and Nike is no exception.
 
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
