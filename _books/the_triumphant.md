@@ -211,14 +211,10 @@ incredibly competent, and Nike is no exception.
 
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
-This story brings in pieces from many others. The
-
-This book is a bit like {{ the_last_command }}, {{ combat_unit }}, and {{
-final_mission }}.
-
-the first Bolo with emotions (although MAX in {{ murphosensor_bomb }} was
-written first, he comes later in the timeline), and for that reason her new
-commander Paul Merrit has to hide her capabilities from command.
-
-- Kind of like The Last Command, Combat Unit, Final Mission
-- Also references field test
+This story brings in pieces from many others. From {{ field_test }} it borrows
+the distrust of smarter Bolos. From {{ the_last_command }} it takes the
+strong, emotional bond between commander and tank. From the {{ final_mission
+}} it uses the forgotten Bolo woken up at just the right time to fight off a
+new threat. From {{ the_murphosensor_bomb }}, it has a Bolo with emotions and
+emotional intelligence (MAX was written first, but takes place later in the
+timeline).
