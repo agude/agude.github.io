@@ -224,11 +224,17 @@ incredibly competent, and Nike is no exception.
 
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
-This story pulls in pieces from many others. From {{ field_test }}, it takes
-the distrust of smarter Bolos. From {{ the_last_command }}, the emotional bond
-between commander and tank. From {{ final_mission }}, the forgotten Bolo
-awakened at just the right time to fight off a new threat. From {{ youre_it
-}}, the knock-off Bolos, here called Golems. And from {{ the_murphosensor_bomb
-}}, a machine with emotions and emotional intelligence (MAX was written first,
-but comes later in the timeline). The use of poetry throughout reminded me of
-{{ simmonss }} {{ hyperion }}.
+This story pulls in pieces from many others. From {{ field_test }},[^test] it
+takes the distrust of smarter Bolos. From {{ the_last_command }}, the
+emotional bond between commander and tank. From {{ final_mission }}, the
+forgotten Bolo awakened at just the right time to fight off a new threat. From
+{{ youre_it }}, the knock-off Bolos, here called Golems. And from {{
+the_murphosensor_bomb }}, a machine with emotions and emotional intelligence
+(MAX was written first, but comes later in the timeline). The use of poetry
+throughout reminded me of {{ simmonss }} {{ hyperion }}.
+
+[^test]: Also directly referenced:
+    > _Yet my Main Memory contain ample documentation of the opposition Doctor
+    > Chin and General Bates faced before Unit DNE was permitted to
+    > demonstrate the feasibility of a self-directed Bolo against the People's
+    > Republic._
