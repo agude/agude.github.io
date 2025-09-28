@@ -192,15 +192,9 @@ awaken a forgotten Bolo that is then called on to repel a Deng invasion.
 Nike, a special Mk. XXIII Bolo, is a test-bed for advanced AI research and the
 first of her kind to develop emotions. Her new commander, Paul Merrit, has to
 hide her unique capabilities from Bolo Command to protect her, or they would
-destroy her out of fear. But when the planet of Santa Cruz is attacked, and
+destroy her out of fear. But when the planet of Santa Cruz is attacked and
 Merrit betrayed, Nike is the only thing standing between the civilian
-population and death.
-
-{{ author_weber }} writes in the [style his is famous for][pizza]. It is
-impossible to ignore once you know what to look for. But it's fine. Short
-stories need a lot of information conveyed quickly, and his style is effective
-at that at least. And {{ author_weber_lastname }} is an undisputed master at
-writing combat, which he uses to great effect in this story.
+population and certain death.
 
 This was my favorite Bolo story when I first read them 20 years ago, and it's
 still my favorite of the ones I've re-read. {{ author_weber_lastname }} is
