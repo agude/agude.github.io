@@ -17,7 +17,6 @@ image: /books/covers/bolos_book_3_the_triumphant_1st_edition.jpg
 of Bolo stories written by three different authors.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture author_evans %}{% author_link "Linda Evans" %}{% endcapture %}
 {% capture author_evans_lastname %}{% author_link "Linda Evans" link_text="Evans" %}{% endcapture %}
@@ -25,7 +24,6 @@ of Bolo stories written by three different authors.
 {% capture author_weber %}{% author_link "David Weber" %}{% endcapture %}
 {% capture author_weber_lastname %}{% author_link "David Weber" link_text="Weber" %}{% endcapture %}
 
-{% capture the_farmers_wife %}{% short_story_link "The Farmer's Wife" %}{% endcapture %}
 {% capture little_red_hen %}{% short_story_link "Little Red Hen" %}{% endcapture %}
 {% capture little_dog_gone %}{% short_story_link "Little Dog Gone" %}{% endcapture %}
 {% capture miles_to_go %}{% short_story_link "Miles to Go" %}{% endcapture %}
@@ -33,19 +31,9 @@ of Bolo stories written by three different authors.
 {% comment %}Bolos{% endcomment %}
 {% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
 {% capture bolo2 %}{% book_link "Rogue Bolo" %}{% endcapture %}
-{% capture bolo3 %}{% book_link "The Stars Must Wait" %}{% endcapture %}
-{% capture bolo4 %}{% book_link "Bolo Brigade" %}{% endcapture %}
-{% capture bolo5 %}{% book_link "Bolo Rising" %}{% endcapture %}
-{% capture bolo6 %}{% book_link "Bolo Strike" %}{% endcapture %}
 {% capture bolo7 %}{% book_link "The Road to Damascus" %}{% endcapture %}
-{% capture bolo8 %}{% book_link "Bolo!" %}{% endcapture %}
-{% capture bolo9 %}{% book_link "Old Soldiers" %}{% endcapture %}
 {% capture bolo10 %}{% book_link "Honor of the Regiment" %}{% endcapture %}
 {% capture bolo11 %}{% book_link "The Unconquerable" %}{% endcapture %}
-{% capture bolo12 %}{% book_link "The Triumphant" %}{% endcapture %}
-{% capture bolo13 %}{% book_link "Last Stand" %}{% endcapture %}
-{% capture bolo14 %}{% book_link "Old Guard" %}{% endcapture %}
-{% capture bolo15 %}{% book_link "Cold Steel" %}{% endcapture %}
 
 {% capture ringo %}{% author_link "John Ringo" %}{% endcapture %}
 
@@ -64,28 +52,13 @@ of Bolo stories written by three different authors.
 {% capture laumers %}{% author_link "Keith Laumer" possessive %}{% endcapture %}
 
 {% capture a_relic_of_war %}{% short_story_link "A Relic of War" %}{% endcapture %}
-{% capture combat_unit %}{% short_story_link "Combat Unit" %}{% endcapture %}
-{% capture courier %}{% short_story_link "Courier" %}{% endcapture %}
 {% capture field_test %}{% short_story_link "Field Test" %}{% endcapture %}
 {% capture final_mission %}{% short_story_link "Final Mission" %}{% endcapture %}
-{% capture home %}{% short_story_link "Home" %}{% endcapture %}
 {% capture the_last_command %}{% short_story_link "The Last Command" %}{% endcapture %}
-{% capture the_night_of_the_trolls %}{% short_story_link "The Night of the Trolls" %}{% endcapture %}
 {% capture rogue_bolo %}{% short_story_link "Rogue Bolo" %}{% endcapture %}
-{% capture lost_legion %}{% short_story_link "Lost Legion" %}{% endcapture %}
-{% capture camelot %}{% short_story_link "Camelot" %}{% endcapture %}
-{% capture the_legacy_of_leonidas %}{% short_story_link "The Legacy of Leonidas" %}{% endcapture %}
-{% capture ploughshare %}{% short_story_link "Ploughshare" %}{% endcapture %}
-{% capture ghosts %}{% short_story_link "Ghosts" %}{% endcapture %}
-{% capture the_ghost_of_resartus %}{% short_story_link "The Ghost of Resartus" %}{% endcapture %}
 {% capture as_our_strength_lessens %}{% short_story_link "As Our Strength Lessens" %}{% endcapture %}
-{% capture ancestral_voices %}{% short_story_link "Ancestral Voices" %}{% endcapture %}
-{% capture sir_kendricks_lady %}{% short_story_link "Sir Kendrick's Lady" %}{% endcapture %}
 {% capture youre_it %}{% short_story_link "You're It" %}{% endcapture %}
-{% capture shared_experience %}{% short_story_link "Shared Experience" %}{% endcapture %}
 {% capture the_murphosensor_bomb %}{% short_story_link "The Murphosensor Bomb" %}{% endcapture %}
-{% capture legacy %}{% short_story_link "Legacy" %}{% endcapture %}
-{% capture endings %}{% short_story_link "Endings" %}{% endcapture %}
 
 {% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}
 {% capture space_odyssey %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
