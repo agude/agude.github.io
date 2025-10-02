@@ -1,10 +1,10 @@
 ---
-date: 2025-09-27
+date: 2025-10-02
 title: The Sirens of Titan
 book_authors: Kurt Vonnegut
 series: null
 book_number: 1
-rating: null
+rating: 3
 image: /books/covers/the_sirens_of_titan.jpg
 ---
 
