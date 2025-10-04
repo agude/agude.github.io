@@ -25,6 +25,9 @@ class="author-name">{{ page.book_authors }}</span> is in progress!
 
 {% capture vonneguts %}{% author_link "Kurt Vonnegut" possessive %}{% endcapture %}
 {% capture harrison_bergeron %}{% short_story_link "Harrison Bergeron" %}{% endcapture %}
+{% capture cats_cradle %}{% book_link "Cat's Cradle" %}{% endcapture %}
+{% capture slaughterhouse_five %}{% book_link "Slaughterhouse-Five" %}{% endcapture %}
+{% capture breakfast_of_champions %}{% book_link "Breakfast of Champions" %}{% endcapture %}
 
 {% capture simmons %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
@@ -71,33 +74,31 @@ class="author-name">{{ page.book_authors }}</span> is in progress!
 {% capture hitchhikers_guide_short %}{% book_link "The Hitchhiker's Guide to the Galaxy" link_text="Hitchhiker's Guide" %}{% endcapture %}
 
 {{ this_book }} is a shaggy dog story about Malachi Constant, who stumbles
-through absurd adventures as he bounces back and forth from Earth to Mars to
-Venus, back to Earth, and finally to Titan. It asks big questions about what it
-means to have freewill, what is the purpose of life, and the role of religion.
-But I didn't particularly enjoy it.
+through absurd adventures as he bounces from Earth to Mars to Venus, back to
+Earth, and finally to Titan. It asks big questions about free will, the
+purpose of life, and the role of religion. But I didn't particularly enjoy it.
 
-After 319 pages, we learn that humanity, our entire history, is a just
-gigantic, Rube Goldberg--style process designed to deliver a small replacement
-part for a space ship stranded on Titan. There is no deeper meaning to life,
-there is only the meaning you make and the love you share with others. I agree
-with that message! But I didn't like the framing story around it, and I didn't
-like the characters. Reading it felt like I was just slogging through to get
-to the end.
+After 319 pages, we learn that humanity---our entire history---was just a
+giant, Rube Goldberg--style process designed to deliver a small replacement
+part for a spaceship stranded on Titan. There's no deeper meaning to life,
+only the meaning you make and the love you share with others. I agree with
+that message! But I didn't like the framing story around it, and I didn't like
+the characters. Reading it felt like slogging through just to reach the end.
 
-The theme is the same one that {{ banks }} explores over and over, first in {{
+The theme is the same one {{ banks }} explores again and again, first in {{
 consider_phlebas }}, then {{ look_to_windward }}, and finally {{ hydrogen }}.
-The difference is that I (mostly) enjoyed the characters and the meaningless
-story they were going through in those books. Here, I never did.
+The difference is that I (mostly) enjoyed the characters and the pointless
+stories they were caught up in. Here, I never did.
 
 I think {{ the_authors_lastname_possessive }} writing is just too
 straightforward for my tastes. I have a weakness for books that are a bit of a
-puzzle. I love {{ echopraxia }}, where the narrator has no idea what's going
-on; {{ absalom_absalom }}, with its page-long sentences and a story that
-repeats and reshapes itself each time you hear it; {{ sound_and_the_fury }},
-with its nonlinear chapters told by Benji. I had a lot of fun in {{ hyperion
-}}, chasing down different echoes of the key themes and motifs. By contrast,
-{{ the_authors_lastname }} lays out the whole story and his thesis right from
-the start, and then makes you read through it.
+puzzle. {{ echopraxia }}, where the narrator has no idea what's going on. {{
+absalom_absalom }}, with its page-long sentences and a story that repeats and
+reshapes itself each time you hear it. {{ sound_and_the_fury }}, with its
+nonlinear timeline and mentally disabled narrator. And I had a lot of fun in
+{{ hyperion }}, chasing down examples of the key themes and motifs. But {{
+the_authors_lastname }} lays out the whole story and his thesis from the
+start, and then you have to read through it anyway.
 
 {{ this_book }} clearly influenced {{ adamss }} {{ hitchhikers_guide
 }}. Marvin the depressed android is very similar to the depressed robot Salo.
@@ -107,3 +108,31 @@ help deliver a pointless message while {{ hitchhikers_guide_short }} has the
 pointless computation of the meaning of life. The difference is I found {{
 hitchhikers_guide_short }} to be **hilarious**, and I didn't laugh once at {{
 this_book }}.
+
+There are a few other works it reminded me of as well. The high-class breeding
+program reminded me of the Bene Gesserate in {{ dune }}. The rich people
+without style reminded me of {{ great_gatsby }}. The weird, mid-century
+religion and sci-fi reminded me of {{ stranger_in_a_strange_land }}. The
+writing style was a bit like {{ stand_on_zanzibar }}, and so was the
+unintentional absurdity of how small the world economy was. Constant writes
+letters to himself to remember what is happening when his mind is wiped is
+like {{ memento }}. Romfoord's plan to unite Earth by invading it from Mars is
+similar to Ozymandius's plan in {{ watchmen }}. And {{ the_authors_lastname }}
+used the idea of physical handicaps again in {{ harrison_bergeron }}.
+
+One thing I did love are the little bits of wisdom scatter through the book:
+
+> I was a victim of a series of accidents, as are we all
+
+> The big trouble with dumb bastards is that they are too dumb to believe
+> there is such a thing as being smart"
+
+> There is no reason why good cannot triumph as often as evil. The triumph of
+> anything is a matter of organization. If there are such things as angels, I
+> hope that they are organized along the lines of the Mafia.
+
+{{ the_authors_lastname_possessive }} writing is fantastic; I can see why
+people love him, but this book wasn't for me. He is a key part of the American
+canon, so I won't give up after just this. I'll probably work my way through
+{{ cats_cradle }}, {{ slaughterhouse_five }}, and {{ breakfast_of_champions
+}}. I hope I like them more.
