@@ -9,7 +9,11 @@ image: /books/covers/the_sirens_of_titan.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span> is in progress!
+class="author-name">{{ page.book_authors }}</span>,  is a satirical science
+fiction novel about the richest man in America, Malachi Constant. It follows
+his unwilling and absurd journey from Earth to Mars, Mercury, and finally
+Titan, exploring profound questions about free will, the purpose of human
+history, and the nature of religion along the way.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -76,17 +80,13 @@ class="author-name">{{ page.book_authors }}</span> is in progress!
 {% capture hitchhikers_guide %}{% book_link "The Hitchhiker's Guide to the Galaxy" %}{% endcapture %}
 {% capture hitchhikers_guide_short %}{% book_link "The Hitchhiker's Guide to the Galaxy" link_text="Hitchhiker's Guide" %}{% endcapture %}
 
-{{ this_book }} is a shaggy dog story about Malachi Constant, who stumbles
-through absurd adventures as he bounces from Earth to Mars to Venus, back to
-Earth, and finally to Titan. It asks big questions about free will, the
-purpose of life, and the role of religion. But I didn't particularly enjoy it.
-
-After 319 pages, we learn that humanity---our entire history---was just a
-giant, Rube Goldberg--style process designed to deliver a small replacement
-part for a spaceship stranded on Titan. There's no deeper meaning to life,
-only the meaning you make and the love you share with others. I agree with
-that message! But I didn't like the framing story around it, and I didn't like
-the characters. Reading it felt like slogging through just to reach the end.
+Ultimately, {{ this_book }} is a shaggy dog story. After 319 pages, we learn
+that humanity---our entire history---was just a giant, Rube Goldberg--style
+process designed to deliver a small replacement part for a spaceship stranded
+on Titan. There's no deeper meaning to life, only the meaning you make and the
+love you share with others. I agree with that message! But I didn't like the
+framing story around it, and I didn't like the characters. Reading it felt
+like slogging through just to reach the end.
 
 The theme is the same one {{ banks }} explores again and again, first in {{
 consider_phlebas }}, then {{ look_to_windward }}, and finally {{ hydrogen }}.
