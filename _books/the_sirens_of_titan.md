@@ -29,6 +29,9 @@ class="author-name">{{ page.book_authors }}</span> is in progress!
 {% capture slaughterhouse_five %}{% book_link "Slaughterhouse-Five" %}{% endcapture %}
 {% capture breakfast_of_champions %}{% book_link "Breakfast of Champions" %}{% endcapture %}
 
+{% capture hemingways %}{% author_link "Ernest Hemingway" possessive %}{% endcapture %}
+{% capture hemingway_lastname %}{% author_link "Ernest Hemingway" link_text="Hemingway" %}{% endcapture %}
+
 {% capture simmons %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 
@@ -120,19 +123,21 @@ like {{ memento }}. Romfoord's plan to unite Earth by invading it from Mars is
 similar to Ozymandius's plan in {{ watchmen }}. And {{ the_authors_lastname }}
 used the idea of physical handicaps again in {{ harrison_bergeron }}.
 
-One thing I did love are the little bits of wisdom scatter through the book:
+For all that I didn't like about {{ this_book }}, {{
+the_authors_lastname_possessive }} prose is wonderful: short and simple like
+{{ hemingways }}. And like {{ hemingway_lastname }}, it full of profound
+wisdom:
 
 > I was a victim of a series of accidents, as are we all
 
 > The big trouble with dumb bastards is that they are too dumb to believe
-> there is such a thing as being smart"
+> there is such a thing as being smart.
 
 > There is no reason why good cannot triumph as often as evil. The triumph of
 > anything is a matter of organization. If there are such things as angels, I
 > hope that they are organized along the lines of the Mafia.
 
-{{ the_authors_lastname_possessive }} writing is fantastic; I can see why
-people love him, but this book wasn't for me. He is a key part of the American
-canon, so I won't give up after just this. I'll probably work my way through
-{{ cats_cradle }}, {{ slaughterhouse_five }}, and {{ breakfast_of_champions
-}}. I hope I like them more.
+I can see why people love {{ the_authors_lastname }}, but this book wasn't for
+me. He is a key part of the American canon, so I won't give up just yet. I'll
+probably work my way through {{ cats_cradle }}, {{ slaughterhouse_five }}, and
+{{ breakfast_of_champions }} next. I hope I like them more.
