@@ -17,17 +17,9 @@ the nature of religion along the way.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 {% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
 
-{% capture vonneguts %}{% author_link "Kurt Vonnegut" possessive %}{% endcapture %}
 {% capture harrison_bergeron %}{% short_story_link "Harrison Bergeron" %}{% endcapture %}
 {% capture cats_cradle %}{% book_link "Cat's Cradle" %}{% endcapture %}
 {% capture slaughterhouse_five %}{% book_link "Slaughterhouse-Five" %}{% endcapture %}
@@ -36,42 +28,29 @@ the nature of religion along the way.
 {% capture hemingways %}{% author_link "Ernest Hemingway" possessive %}{% endcapture %}
 {% capture hemingway_lastname %}{% author_link "Ernest Hemingway" link_text="Hemingway" %}{% endcapture %}
 
-{% capture simmons %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 
-{% capture herberts %}{% author_link "Frank Herbert" possessive %}{% endcapture %}
 {% capture dune %}{% book_link "Dune" %}{% endcapture %}
 
-{% capture heinleins %}{% author_link "Robert A. Heinlein" possessive %}{% endcapture %}
 {% capture stranger_in_a_strange_land %}{% book_link "Stranger in a Strange Land" %}{% endcapture %}
 
-{% capture brunners %}{% author_link "John Brunner" possessive %}{% endcapture %}
 {% capture stand_on_zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
 
-{% capture moores %}{% author_link "Alan Moore" possessive %}{% endcapture %}
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
 
-{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
 {% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
-{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture consider_phlebas %}{% book_link "Consider Phlebas" %}{% endcapture %}
 {% capture look_to_windward %}{% book_link "Look to Windward" %}{% endcapture %}
 {% capture hydrogen %}{% book_link "The Hydrogen Sonata" %}{% endcapture %}
 
-{% capture fitzgeralds %}{% author_link "F. Scott Fitzgerald" possessive %}{% endcapture %}
 {% capture great_gatsby %}{% book_link "The Great Gatsby" %}{% endcapture %}
 
-{% capture carrolls %}{% author_link "Lewis Carroll" possessive %}{% endcapture %}
-{% capture alices_adventures %}{% book_link "Alice's Adventures in Wonderland" %}{% endcapture %}
 
-{% capture faulkners %}{% author_link "William Faulkner" possessive %}{% endcapture %}
 {% capture absalom_absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}
 {% capture sound_and_the_fury %}{% book_link "The Sound and the Fury" %}{% endcapture %}
 
-{% capture hugos %}{% author_link "Victor Hugo" possessive %}{% endcapture %}
-{% capture les_miserables %}{% book_link "Les Misérables" %}{% endcapture %}
 
 {% capture memento %}<cite class="movie-title">Memento</cite>{% endcapture %}
 {% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
