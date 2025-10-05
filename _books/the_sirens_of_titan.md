@@ -9,11 +9,11 @@ image: /books/covers/the_sirens_of_titan.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>,  is a satirical science
+class="author-name">{{ page.book_authors }}</span>, is a satirical science
 fiction novel about the richest man in America, Malachi Constant. It follows
 his unwilling and absurd journey from Earth to Mars, Mercury, and finally
-Titan, exploring profound questions about free will, the purpose of human
-history, and the nature of religion along the way.
+Titan, exploring questions about free will, the purpose of human history, and
+the nature of religion along the way.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -76,6 +76,7 @@ history, and the nature of religion along the way.
 {% capture memento %}<cite class="movie-title">Memento</cite>{% endcapture %}
 {% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
 
+{% capture adams %}{% author_link "Douglas Adams" %}{% endcapture %}
 {% capture adamss %}{% author_link "Douglas Adams" possessive %}{% endcapture %}
 {% capture hitchhikers_guide %}{% book_link "The Hitchhiker's Guide to the Galaxy" %}{% endcapture %}
 {% capture hitchhikers_guide_short %}{% book_link "The Hitchhiker's Guide to the Galaxy" link_text="Hitchhiker's Guide" %}{% endcapture %}
@@ -95,40 +96,67 @@ stories they were caught up in. Here, I never did.
 
 I think {{ the_authors_lastname_possessive }} writing is just too
 straightforward for my tastes. I have a weakness for books that are a bit of a
-puzzle. {{ echopraxia }}, where the narrator has no idea what's going on. {{
-absalom_absalom }}, with its page-long sentences and a story that repeats and
-reshapes itself each time you hear it. {{ sound_and_the_fury }}, with its
-nonlinear timeline and mentally disabled narrator. And I had a lot of fun in
-{{ hyperion }}, chasing down examples of the key themes and motifs. But {{
-the_authors_lastname }} lays out the whole story and his thesis from the
-start, and then you have to read through it anyway.
+puzzle. I love {{ echopraxia }}, where the narrator has no idea what's going
+on; {{ absalom_absalom }}, with its page-long sentences and a story that
+reshapes itself each time you hear it; {{ sound_and_the_fury }}, with its
+nonlinear timeline and Benji's fractured narration; {{ disco_elysium }}, where
+you have to piece together your identity and the world around you from
+fragments of memory and unreliable thoughts. And I had a lot of fun recently
+with {{ hyperion }}, chasing down examples of recurring themes and motifs. By
+contrast, {{ the_authors_lastname }} lays out the whole story and his thesis
+from the start---and then you still have to read through it.
 
 {{ this_book }} clearly influenced {{ adamss }} {{ hitchhikers_guide
-}}. Marvin the depressed android is very similar to the depressed robot Salo.
-Both books follow a character bumbling unwillingly through absurd adventures
-that turns out to be pointless. {{ this_book }} has all of humanity created to
-help deliver a pointless message while {{ hitchhikers_guide_short }} has the
-pointless computation of the meaning of life. The difference is I found {{
-hitchhikers_guide_short }} to be **hilarious**, and I didn't laugh once at {{
-this_book }}.
+}}.[^interview] Both books follow a character bumbling unwillingly through
+absurd, ultimately pointless adventures. Marvin the depressed android is very
+similar to the depressed robot Salo. In {{ this_book }}, all of humanity
+exists just to help deliver a simple message, while in {{
+hitchhikers_guide_short }} it's the computation of the meaningless meaning of
+life. The difference is I found {{ hitchhikers_guide_short }} to be
+**hilarious**, and I didn't laugh once at {{ this_book }}.
 
-There are a few other works it reminded me of as well. The high-class breeding
-program reminded me of the Bene Gesserate in {{ dune }}. The rich people
-without style reminded me of {{ great_gatsby }}. The weird, mid-century
-religion and sci-fi reminded me of {{ stranger_in_a_strange_land }}. The
-writing style was a bit like {{ stand_on_zanzibar }}, and so was the
-unintentional absurdity of how small the world economy was. Constant writes
-letters to himself to remember what is happening when his mind is wiped is
-like {{ memento }}. Romfoord's plan to unite Earth by invading it from Mars is
-similar to Ozymandius's plan in {{ watchmen }}. And {{ the_authors_lastname }}
-used the idea of physical handicaps again in {{ harrison_bergeron }}.
+[^interview]:
+    {{ adams }} said as much in an interview:
+
+    > {{ the_author }}, who I think is absolutely superb. I've read {{
+    > this_book }} six times now, and it gets better every time. He is an
+    > influence, I must own up. {{ this_book }} is just one of those books --
+    > you read it through the first time and you think it's very loosely,
+    > casually written. You think the fact that everything suddenly makes such
+    > good sense at the end is almost accidental. And then you read it a few
+    > more times, simultaneously finding out more about writing yourself, and
+    > you realise what an absolute tour de force it was, making something as
+    > beautifully honed as that appear so casual.
+
+    --- {% citation
+    author_first="Ian"
+    author_last="Shircore"
+    work_title="Douglas Adams: The First and Last Tapes"
+    container_title="Darker Matter"
+    number="1"
+    date="March 2007"
+    url="https://www.darkermatter.com/issue1/douglas_adams.php"
+    access_date="October 4, 2025"
+    %}
+
+There were other works it reminded me of as well. The high-class breeding
+program echoed the Bene Gesserit in {{ dune }}. The tasteless nouveau riche
+reminded me of {{ great_gatsby }}. The blend of mid-century religion and
+sci-fi is similar to {{ stranger_in_a_strange_land }}. The writing style was a
+bit like {{ stand_on_zanzibar }}, and so was the unintentional absurdity where
+any time an economic number was mentioned it was orders of magnitude too
+small. Constant writing letters to himself to remember things after his memory
+is wiped felt like {{ memento }}. Rumfoord's plan to unite Earth by invading
+it from Mars reminded me of Ozymandias's plan in {{ watchmen }}. And {{
+the_authors_lastname }} reused the idea of physical handicaps to achieve
+equality in {{ harrison_bergeron }}.
 
 For all that I didn't like about {{ this_book }}, {{
 the_authors_lastname_possessive }} prose is wonderful: short and simple like
-{{ hemingways }}. And like {{ hemingway_lastname }}, it full of profound
+{{ hemingways }}. And like {{ hemingway_lastname }}, it's full of quiet
 wisdom:
 
-> I was a victim of a series of accidents, as are we all
+> I was a victim of a series of accidents, as are we all.
 
 > The big trouble with dumb bastards is that they are too dumb to believe
 > there is such a thing as being smart.
@@ -138,6 +166,7 @@ wisdom:
 > hope that they are organized along the lines of the Mafia.
 
 I can see why people love {{ the_authors_lastname }}, but this book wasn't for
-me. He is a key part of the American canon, so I won't give up just yet. I'll
-probably work my way through {{ cats_cradle }}, {{ slaughterhouse_five }}, and
-{{ breakfast_of_champions }} next. I hope I like them more.
+me. He's a key part of the American canon, though, so I won't give up just
+yet. I'll probably work my way through {{ cats_cradle }}, {{
+slaughterhouse_five }}, and {{ breakfast_of_champions }} next. I hope I like
+them more.
