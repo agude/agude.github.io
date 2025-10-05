@@ -101,6 +101,7 @@ ranked_list:
   - Eyes of the Void
   - Shards of Earth
   - The Causal Angel
+  - The Sirens of Titan
   - There Is No Antimemetics Division
   # 2 Stars
   - Close to Critical
