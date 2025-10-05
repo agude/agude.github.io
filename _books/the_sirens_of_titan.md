@@ -73,20 +73,6 @@ consider_phlebas }}, then {{ look_to_windward }}, and finally {{ hydrogen }}.
 The difference is that I (mostly) enjoyed the characters and the pointless
 stories they were caught up in. Here, I never did.
 
-I think {{ the_authors_lastname_possessive }} writing is just too
-straightforward for my tastes. I have a weakness for books that are a bit of a
-puzzle. I love {{ echopraxia }}, where the narrator has no idea what's going
-on; {{ absalom_absalom }}, with its page-long sentences and a story that
-reshapes itself each time you hear it; {{ sound_and_the_fury }}, with its
-nonlinear timeline and Benji's fractured narration; and {{ disco_elysium }},
-where you have to piece together your identity and the world around you from
-fragments of memory and unreliable thoughts. And I had a lot of fun recently
-with {{ hyperion }}, chasing down examples of recurring themes and motifs. By
-contrast, {{ the_authors_lastname }} lays out the whole story and his thesis
-from the start---and then you still have to read through it. This was similar
-to the issue I had with {{ algernon }}, where the clever narrative device
-couldn't save a plot I found too predictable.
-
 {{ this_book }} clearly influenced {{ adamss }} {{ hitchhikers_guide
 }}.[^interview] Both books follow a character bumbling unwillingly through
 absurd, ultimately pointless adventures. Marvin the depressed android is very
@@ -118,6 +104,20 @@ life. The difference is I found {{ hitchhikers_guide_short }} to be
     url="https://www.darkermatter.com/issue1/douglas_adams.php"
     access_date="October 4, 2025"
     %}
+
+I think {{ the_authors_lastname_possessive }} writing is just too
+straightforward for my tastes. I have a weakness for books that are a bit of a
+puzzle. I love {{ echopraxia }}, where the narrator has no idea what's going
+on; {{ absalom_absalom }}, with its page-long sentences and a story that
+reshapes itself each time you hear it; {{ sound_and_the_fury }}, with its
+nonlinear timeline and Benji's fractured narration; and {{ disco_elysium }},
+where you have to piece together your identity and the world around you from
+fragments of memory and unreliable thoughts. And I had a lot of fun recently
+with {{ hyperion }}, chasing down examples of recurring themes and motifs. By
+contrast, {{ the_authors_lastname }} lays out the whole story and his thesis
+from the start---and then you still have to read through it. This was similar
+to the issue I had with {{ algernon }}, where the clever narrative device
+couldn't save a plot I found too predictable.
 
 There were other works it reminded me of as well. The high-class breeding
 program echoed the Bene Gesserit in {{ dune }}. The tasteless nouveau riche
