@@ -90,22 +90,22 @@ ranked_list:
   - The State of the Art
   - The Blue Lotus
   - Clay's Ark
-  - Lords of Uncreation
   - The Nameless City
   - "Flatland: A Romance of Many Dimensions"
   - The Fractal Prince
   - Cigars of the Pharaoh
   - Flowers for Algernon
   - "Bolo: Annals of the Dinochrome Brigade"
-  - Countdown City
-  - Eyes of the Void
-  - Shards of Earth
-  - The Causal Angel
   - The Sirens of Titan
+  - Countdown City
+  - The Causal Angel
   - There Is No Antimemetics Division
+  - Lords of Uncreation
   # 2 Stars
   - Close to Critical
   - Star Light
+  - Eyes of the Void
+  - Shards of Earth
   - World of Trouble
   - Stand on Zanzibar
   - Mind of My Mind

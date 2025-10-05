@@ -4,7 +4,7 @@ title: Eyes of the Void
 book_authors: Adrian Tchaikovsky
 series: The Final Architecture
 book_number: 2
-rating: 3
+rating: 2
 image: /books/covers/eyes_of_the_void.jpg
 ---
 
