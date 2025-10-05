@@ -47,10 +47,8 @@ the nature of religion along the way.
 
 {% capture great_gatsby %}{% book_link "The Great Gatsby" %}{% endcapture %}
 
-
 {% capture absalom_absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}
 {% capture sound_and_the_fury %}{% book_link "The Sound and the Fury" %}{% endcapture %}
-
 
 {% capture memento %}<cite class="movie-title">Memento</cite>{% endcapture %}
 {% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
@@ -61,7 +59,7 @@ the nature of religion along the way.
 {% capture hitchhikers_guide_short %}{% book_link "The Hitchhiker's Guide to the Galaxy" link_text="Hitchhiker's Guide" %}{% endcapture %}
 
 Ultimately, {{ this_book }} is a shaggy dog story. After 319 pages, we learn
-that humanity---our entire history---was just a giant, Rube Goldberg--style
+that humanity---our entire history---was just a giant, Rube Goldberg-style
 process designed to deliver a small replacement part for a spaceship stranded
 on Titan. There's no deeper meaning to life, only the meaning you make and the
 love you share with others. I agree with that message! But I didn't like the
@@ -78,8 +76,8 @@ straightforward for my tastes. I have a weakness for books that are a bit of a
 puzzle. I love {{ echopraxia }}, where the narrator has no idea what's going
 on; {{ absalom_absalom }}, with its page-long sentences and a story that
 reshapes itself each time you hear it; {{ sound_and_the_fury }}, with its
-nonlinear timeline and Benji's fractured narration; {{ disco_elysium }}, where
-you have to piece together your identity and the world around you from
+nonlinear timeline and Benji's fractured narration; and {{ disco_elysium }},
+where you have to piece together your identity and the world around you from
 fragments of memory and unreliable thoughts. And I had a lot of fun recently
 with {{ hyperion }}, chasing down examples of recurring themes and motifs. By
 contrast, {{ the_authors_lastname }} lays out the whole story and his thesis
@@ -94,18 +92,17 @@ hitchhikers_guide_short }} it's the computation of the meaningless meaning of
 life. The difference is I found {{ hitchhikers_guide_short }} to be
 **hilarious**, and I didn't laugh once at {{ this_book }}.
 
-[^interview]:
-    {{ adams }} said as much in an interview:
+[^interview]: {{ adams }} said as much in an interview:
 
-    > {{ the_author }}, who I think is absolutely superb. I've read {{
-    > this_book }} six times now, and it gets better every time. He is an
-    > influence, I must own up. {{ this_book }} is just one of those books --
-    > you read it through the first time and you think it's very loosely,
-    > casually written. You think the fact that everything suddenly makes such
-    > good sense at the end is almost accidental. And then you read it a few
-    > more times, simultaneously finding out more about writing yourself, and
-    > you realise what an absolute tour de force it was, making something as
-    > beautifully honed as that appear so casual.
+    > {{ the_author }}, who I think is absolutely superb. I've read
+    > {{ this_book }} six times now, and it gets better every time. He is an
+    > influence, I must own up. {{ this_book }} is just one of those
+    > books---you read it through the first time and you think it's very
+    > loosely, casually written. You think the fact that everything suddenly
+    > makes such good sense at the end is almost accidental. And then you read
+    > it a few more times, simultaneously finding out more about writing
+    > yourself, and you realize what an absolute tour de force it was, making
+    > something as beautifully honed as that appear so casual.
 
     --- {% citation
     author_first="Ian"
@@ -124,10 +121,10 @@ reminded me of {{ great_gatsby }}. The blend of mid-century religion and
 sci-fi is similar to {{ stranger_in_a_strange_land }}. The writing style was a
 bit like {{ stand_on_zanzibar }}, and so was the unintentional absurdity where
 any time an economic number was mentioned it was orders of magnitude too
-small. Constant writing letters to himself to remember things after his memory
-is wiped felt like {{ memento }}. Rumfoord's plan to unite Earth by invading
-it from Mars reminded me of Ozymandias's plan in {{ watchmen }}. And {{
-the_authors_lastname }} reused the idea of physical handicaps to achieve
+small. Constant's writing letters to himself to remember things after his
+memory is wiped felt like {{ memento }}. Rumfoord's plan to unite Earth by
+invading it from Mars reminded me of Ozymandias's plan in {{ watchmen }}. And
+{{ the_authors_lastname }} reused the idea of physical handicaps to achieve
 equality in {{ harrison_bergeron }}.
 
 For all that I didn't like about {{ this_book }}, {{
