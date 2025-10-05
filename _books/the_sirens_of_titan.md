@@ -38,6 +38,8 @@ the nature of religion along the way.
 
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
 
+{% capture algernon %}{% book_link "Flowers for Algernon" %}{% endcapture %}
+
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
 {% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
@@ -81,7 +83,9 @@ where you have to piece together your identity and the world around you from
 fragments of memory and unreliable thoughts. And I had a lot of fun recently
 with {{ hyperion }}, chasing down examples of recurring themes and motifs. By
 contrast, {{ the_authors_lastname }} lays out the whole story and his thesis
-from the start---and then you still have to read through it.
+from the start---and then you still have to read through it. This was similar
+to the issue I had with {{ algernon }}, where the clever narrative device
+couldn't save a plot I found too predictable.
 
 {{ this_book }} clearly influenced {{ adamss }} {{ hitchhikers_guide
 }}.[^interview] Both books follow a character bumbling unwillingly through
