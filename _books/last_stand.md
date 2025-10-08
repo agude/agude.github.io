@@ -86,29 +86,29 @@ image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 <div class="written-by">by {{ author_stirling }}</div>
 {% rating_stars 4 %}
 
-This story is the final part of the story started in {{ lost_legion }} and {{
+This story wraps up the arc started in {{ lost_legion }} and {{
 ancestral_voices }}. The main characters are the children and grandchildren of
-the soldiers from the first two, and their enemy is the remnants of the Aztec
-Empire from {{ ancestral_voices }}. It's mostly a story about people, but at
-the end the Bolo comes in and saves the day in a most satisfying manner.
+the soldiers from those earlier stories, and their enemies are the remnants of
+the Aztec Empire from {{ ancestral_voices }}. It's mostly a story about
+people, but at the end the Bolo saves the day in a very satisfying manner.
 
-It's interesting that these stories feel bright and most hopefully while
-actually being some of the darker Bolo stories. In this one, the Aztecs are
-constantly cutting people's hearts out, and murder hundreds of their slaves so
-they won't be able to revolt during the attack. There are also some references
-to the American fiefdoms from {{ trolls }} and {{ bolo3 }}.
+It's interesting how these stories manage to feel bright and even hopeful,
+while actually being some of the darker Bolo tales. In this one, the Aztecs are
+constantly cutting out hearts and slaughtering hundreds of their own slaves to
+prevent revolt during the attack. There are also nods to the American fiefdoms
+with their constant atrocities from {{ trolls }} and {{ bolo3 }}.
 
 ### {% short_story_title "The Traitor" %}
 <div class="written-by">by {{ author_weber }}</div>
 {% rating_stars 5 %}
 
-The Bolo LNC Lance has seemingly gone rogue, and it's up to ART Arthur to hunt
-him down. {{ author_weber_lastname }} is very good at writing Bolo combat
-scenes and this is no exception, with great details about how they fight and
-the technology they use. It is similar to {{ field_test }} in its focus on the
-fear of Bolos going rogue, and the revelation that it actually has a
-motive---in this case getting a group of children to safety. Other stories
-with similar ideas are {{ rogue_bolo }}, {{ the_legacy_of_leonidas }}, {{
+The Bolo LNC Lance appears to have gone rogue, and it's up to Bolo ART Arthur
+to hunt him down. {{ author_weber_lastname }} is great at writing Bolo combat
+scenes, and this story is no exception. It is packed with detail about how
+Bolos fight and the technology they use. It's similar to {{ field_test }} in
+its exploration of the fear of Bolos turning rogue, with a reveal that Lance
+actually has a motive: saving a group of children. Other stories that explore
+similar ideas include {{ rogue_bolo }}, {{ the_legacy_of_leonidas }}, {{
 little_red_hen }}, and {{ author_weber_lastname_possessive }} own {{
 miles_to_go }}.
 
@@ -128,26 +128,36 @@ character lamenting not being able to have sex anymore because he is marooned
 on the planet, and then later with the fixation on how hot the multiple women
 he marries are.
 
+I really liked {{ author_forstchen_lastname_possessive }} {{ endings }}, which
+invented the Last War, explored the cost of vengeance, **and** delivered some
+awesome Bolo combat. This one didn't land as well for me. The plot is fine: a
+bomber pilot is shot down, tries to survive, and encounters the descendants of
+humans on a bug-infested planet. The concept of the survivors using religion
+to pass down knowledge about their Bolo could have been fascinating, like {{
+foundation }} or {{ leibowitz }}. But the story leans too much into the
+juvenile and salacious, with the main character obsessing over sex, and how
+attractive all the women are, which undercuts the more interesting ideas.
+
 ### {% short_story_title "Memories of Erin" %}
 <div class="written-by">by {{ author_greenberger }}</div>
 {% rating_stars 2 %}
 
-This doesn't feel like a Bolo story. That's good in that it is unique in that
-the Bolo and their commander struggle but fail to achieve their goal. That's
-new, that's an interesting idea! The bad part is the story takes too much
-liberty with the setting. It invents a new Galactic Empire to replace the
-Concordiat. It makes the universe feel small by tying almost everything back
-to Earth and the Solar system. And then it make up new facts about Bolos that
-don't make sense, like their computer core is more than a dozen stories tall
-(How does that fit inside the Bolo!?), that they can travel at {% units
-number="800" unit="kph" %}, or that Bolos have a back-channel radio they set
-up to chat without humans knowing.
+This one doesn't really feel like a Bolo story. That's not all bad---it's unique
+in that the Bolo and its commander struggle but ultimately fail to achieve
+their goal. That's new, and it's an interesting idea. The problem is that it
+takes too many liberties with the setting. It invents a new Galactic Empire to
+replace the Concordiat, and it makes the universe feel smaller by tying almost
+everything back to Earth and the Solar System. It also adds new "facts" about
+Bolos that don't make sense, like their computer core being over a dozen
+stories tall (how does that fit inside a Bolo?), that they can travel at {%
+units number="800" unit="kph" %}, or that they have a secret radio channel
+the humans don't know about for private conversations.
 
-The story follows Erin as she tries to stop the virus that has corrupted her
-Bolo, similar to {{ murphosensor }}. It consists of flashbacks about her life
-and the battle that led up to the infection, as she contemplates her impending
-death. But {{ author_greenberger }} did not make me care enough for Erin to
-make her death meaningful.
+The story follows Erin as she tries to stop the virus that's corrupted her
+Bolo, similar to {{ murphosensor }}. It alternates between flashbacks about
+her life and the battle that led to the infection as she faces her impending
+death. But {{ author_greenberger }} doesn't make Erin compelling enough for
+her death to have real emotional weight.
 
 ### {% short_story_title "Hold Until Relieved" %}
 <div class="written-by">by {{ author_keith }}</div>
