@@ -263,6 +263,7 @@ abbr.unit-abbr {
   font-weight: normal;
   font-size: inherit;
   text-decoration: none;
+  text-transform: none;
 
   &[title] {
     cursor: help;
