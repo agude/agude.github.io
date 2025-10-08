@@ -77,9 +77,10 @@ image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 {% capture miles_to_go %}{% short_story_link "Miles to Go" %}{% endcapture %}
 
 {% capture endings %}{% short_story_link "Endings" %}{% endcapture %}
-
 {% capture foundation %}{% book_link "Foundation" %}{% endcapture %}
 {% capture leibowitz %}{% book_link "A Canticle for Leibowitz" %}{% endcapture %}
+
+{% capture murphosensor %}{% short_story_link "The Murphosensor Bomb" %}{% endcapture %}
 
 ### {% short_story_title "The Sixth Sun" %}
 <div class="written-by">by {{ author_stirling }}</div>
@@ -138,8 +139,15 @@ liberty with the setting. It invents a new Galactic Empire to replace the
 Concordiat. It makes the universe feel small by tying almost everything back
 to Earth and the Solar system. And then it make up new facts about Bolos that
 don't make sense, like their computer core is more than a dozen stories tall
-(How does that fit inside the Bolo!?) or that they can travel at {% units
-number="800" unit="kph" %}!
+(How does that fit inside the Bolo!?), that they can travel at {% units
+number="800" unit="kph" %}, or that Bolos have a back-channel radio they set
+up to chat without humans knowing.
+
+The story follows Erin as she tries to stop the virus that has corrupted her
+Bolo, similar to {{ murphosensor }}. It consists of flashbacks about her life
+and the battle that led up to the infection, as she contemplates her impending
+death. But {{ author_greenberger }} did not make me care enough for Erin to
+make her death meaningful.
 
 ### {% short_story_title "Hold Until Relieved" %}
 <div class="written-by">by {{ author_keith }}</div>
