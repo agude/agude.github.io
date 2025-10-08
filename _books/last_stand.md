@@ -93,10 +93,13 @@ the Aztec Empire from {{ ancestral_voices }}. It's mostly a story about
 people, but at the end the Bolo saves the day in a very satisfying manner.
 
 It's interesting how these stories manage to feel bright and even hopeful,
-while actually being some of the darker Bolo tales. In this one, the Aztecs are
-constantly cutting out hearts and slaughtering hundreds of their own slaves to
-prevent revolt during the attack. There are also nods to the American fiefdoms
-with their constant atrocities from {{ trolls }} and {{ bolo3 }}.
+while actually being some of the darker Bolo tales. In this one, the Aztecs
+are constantly cutting out hearts and slaughtering hundreds of their own
+slaves to prevent revolt during the attack. There are also nods to the
+American fiefdoms with their constant atrocities from {{ trolls }} and {{
+bolo3 }}. The inclusion of the dark content makes the village itself seem
+more idyllic by contrast; a small remnant of civilization that has managed to
+endure.
 
 ### {% short_story_title "The Traitor" %}
 <div class="written-by">by {{ author_weber }}</div>
