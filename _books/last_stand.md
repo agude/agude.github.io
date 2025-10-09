@@ -164,11 +164,17 @@ her death to have real emotional weight.
 
 ### {% short_story_title "Hold Until Relieved" %}
 <div class="written-by">by {{ author_keith }}</div>
-{% rating_stars null %}
+{% rating_stars 4 %}
 
 ### {% short_story_title "A Question of Valor" %}
 <div class="written-by">by {{ author_johnson }}</div>
-{% rating_stars null %}
+{% rating_stars 3 %}
+
+I love the concept of this story. A Bolo is ordered to "defend my people" and
+realizes that, even if they win the war, the mining colony is going to be
+economically devastated, unable to grow or import enough food, and eventually
+destroyed by earth quakes. So it flees, triggering an investigation into it
+cowardice and a large settlement payout from GM that will save the colony.
 
 ### {% short_story_title "In the Flesh" %}
 <div class="written-by">by {{ author_perry }} and {{ author_decamp }}</div>
