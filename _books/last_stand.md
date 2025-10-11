@@ -166,6 +166,10 @@ her death to have real emotional weight.
 <div class="written-by">by {{ author_keith }}</div>
 {% rating_stars 4 %}
 
+Four billion years in the future, a Bolo is excavated by some cyborg aliens
+and relives the moments before its "death" in the failed defense of the
+imperial palace near Geneva, Switzerland.
+
 ### {% short_story_title "A Question of Valor" %}
 <div class="written-by">by {{ author_johnson }}</div>
 {% rating_stars 3 %}
@@ -176,13 +180,28 @@ economically devastated, unable to grow or import enough food, and eventually
 destroyed by earth quakes. So it flees, triggering an investigation into it
 cowardice and a large settlement payout from GM that will save the colony.
 
+But the writing is a little rough, and it doesn't feel like there are enough
+clues for the reader to try to figure out the mystery along with the
+detective.
+
 ### {% short_story_title "In the Flesh" %}
 <div class="written-by">by {{ author_perry }} and {{ author_decamp }}</div>
-{% rating_stars null %}
+{% rating_stars 3 %}
+
+A Bolo's mind is resurrected and placed in a human body by energy beings in
+the far future, who need help fighting off some invading insect-like aliens.
+As a human, the Bolo realizes that it loved its previous commander. It dies
+willing during a suicide mission to protect the aliens, who it believes can
+create a new, more just universe.
 
 ### {% short_story_title "And Don't Come Back" %}
 <div class="written-by">by {{ author_thies }}</div>
-{% rating_stars null %}
+{% rating_stars 5 %}
+
+The Bolo DLS Dallas detects and hacks a armada full of slave soldiers before
+they can cross the Concordiat boarder. It then conspires with one of the
+slaves to turn the ships around and send them back to attack the slavers. At
+the same time, Dallas has a pleasant chat with some children on a beach.
 
 ### {% short_story_title "A Time to Kill" %}
 <div class="written-by">by {{ author_weber }}</div>
