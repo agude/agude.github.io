@@ -1,5 +1,5 @@
 ---
-date: 2025-10-04
+date: 2025-10-12
 title: Last Stand
 book_authors:
   - S. M. Stirling
@@ -16,7 +16,7 @@ book_authors:
 series: Bolo
 book_number: 13
 is_anthology: true
-rating: null
+rating: 4
 image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 ---
 
