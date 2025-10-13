@@ -66,6 +66,10 @@ of Bolo stories written by three different authors.
 {% capture murderbot %}{% series_link "The Murderbot Diaries" link_text="Murderbot" %}{% endcapture %}
 {% capture all_systems %}{% book_link "All Systems Red" %}{% endcapture %}
 
+{% capture sw_vehicles %}{% book_link "The Essential Guide to Vehicles and Vessels" %}{% endcapture %}
+{% capture sw_weapons %}{% book_link "The Essential Guide to Weapons and Technology" %}{% endcapture %}
+{% capture st_tech %}{% book_link "Star Trek: The Next Generation Technical Manual" %}{% endcapture %}
+
 {{ this_book }} is different from the earlier anthologies---{{ bolo10 }} and
 {{ bolo11 }}---because it was written mainly by {{ author_evans }} and {{
 author_weber }}, with {{ author_hollingsworth }} contributing to one story.
@@ -211,3 +215,16 @@ throughout reminded me of {{ simmonss }} {{ hyperion }}.
     > Chin and General Bates faced before Unit DNE was permitted to
     > demonstrate the feasibility of a self-directed Bolo against the People's
     > Republic._
+
+### {% short_story_title "A Brief Technical History of the Bolo" %}
+<div class="written-by">by {{ author_weber }}</div>
+{% rating_stars 5 %}
+
+An in universe technical paper "written" by Felix Hermes which details the
+history and workings of the various Bolos from Mark I to Mark XXXIII. I loved
+this kind of stuff as a kid. Some of my favorite books to pour over were {{
+sw_vehicles }}, {{ sw_weapons }}, and {{ st_tech }}, because I was (and still
+am) a huge nerd who loved trying to figure out how many Enterprises would be
+needed to destroy the Death Star, or how many Space Marines a Bolo could
+defeat. My only complaint is it isn't illustrated; I'd pay a fortune for that
+book if it existed!
