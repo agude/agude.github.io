@@ -220,11 +220,11 @@ throughout reminded me of {{ simmonss }} {{ hyperion }}.
 <div class="written-by">by {{ author_weber }}</div>
 {% rating_stars 5 %}
 
-An in universe technical paper "written" by Felix Hermes which details the
-history and workings of the various Bolos from Mark I to Mark XXXIII. I loved
-this kind of stuff as a kid. Some of my favorite books to pour over were {{
+An in-universe technical paper "written" by Felix Hermes, this story details
+the history and design of Bolos from the Mark I to the Mark XXXIII. I loved
+this kind of thing as a kid. Some of my favorite books to pore over were {{
 sw_vehicles }}, {{ sw_weapons }}, and {{ st_tech }}, because I was (and still
-am) a huge nerd who loved trying to figure out how many Enterprises would be
-needed to destroy the Death Star, or how many Space Marines a Bolo could
-defeat. My only complaint is it isn't illustrated; I'd pay a fortune for that
-book if it existed!
+am) a huge nerd who loved figuring out how many Enterprises it would take to
+destroy the Death Star or how many Space Marines a Bolo could defeat. My only
+complaint is that it isn't illustrated; I'd pay a fortune for that book if it
+existed!
