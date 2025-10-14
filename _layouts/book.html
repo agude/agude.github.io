@@ -36,8 +36,14 @@ layout: default
   {% if page.awards %}
     <div class="book-awards">
       Awards:
-      {% for award in page.awards %}
-        <a class="book-award" href="/books/by-award/#{{ award | slugify }}-award">{{ award | capitalize }}</a>{% unless forloop.last %}, {% endunless %}
+      {% assign sorted_awards = page.awards | sort %}
+      {% for award in sorted_awards %}
+        <a class="book-award" href="/books/by-award/#{{ award | slugify }}-award">
+          {%- assign words = award | split: ' ' -%}
+          {%- for word in words %}
+            {{ word | capitalize }}{%- unless forloop.last %} {% endunless -%}
+          {% endfor -%}
+        </a>{%- unless forloop.last -%}, {%- endunless -%}
       {% endfor %}
     </div>
   {% endif %}
