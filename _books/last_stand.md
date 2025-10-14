@@ -93,6 +93,8 @@ image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 
 {% capture world_breakers %}{% book_link "World Breakers" %}{% endcapture %}
 {% capture dfs %}{% short_story_link "Dyma Fi'n Sefyll" %}{% endcapture %}
+{% capture honorverse %}{% series_link "Honorverse" %}{% endcapture %}
+{% capture honor %}{% book_link "On Basilisk Station" %}{% endcapture %}
 
 {% capture technical_history %}{% short_story_link "A Brief Technical History of the Bolo" %}{% endcapture %}
 {% capture little_dog_gone %}{% short_story_link "Little Dog Gone" %}{% endcapture %}
@@ -176,55 +178,54 @@ The story follows Erin as she tries to stop the virus that's corrupted her
 Bolo, similar to {{ murphosensor }}. It alternates between flashbacks about
 her life and the battle that led to the infection as she faces her impending
 death. But {{ author_greenberger }} doesn't make Erin compelling enough for
-her death to have real emotional weight.
+her death to have real weight.
 
 ### {% short_story_title "Hold Until Relieved" %}
 <div class="written-by">by {{ author_keith }}</div>
 {% rating_stars 4 %}
 
-Four billion years in the future, a Bolo is excavated by some cyborg aliens
-and relives the moments before its "death" in the failed defense of the
-imperial palace near Geneva, Switzerland. This is the second story to mention
-an "Empire" after {{ memories_of_erin }}, so perhaps the editor and authors
-agreed on some general worldbuilding timelines for the universe. The new
-introduction in this story is "Cybolos" using human minds fused with machines,
-a theme we'll see in more detail in {{ a_time_to_kill }}. The Bolo's mind is
-finally transferred to a new, alien form, which we'll also see in {{
-in_the_flesh }}.
+Four billion years in the future, a Bolo is excavated by cyborg aliens and
+relives the moments before its "death" in the failed defense of the imperial
+palace near Geneva, Switzerland. This is the second story to mention an
+"Empire" after {{ memories_of_erin }}, so maybe the editor and authors agreed
+on a general shared timeline for the universe. The story introduces "Cybolos",
+human minds fused with machines, a theme we'll see more in {{ a_time_to_kill
+}}. The Bolo's mind is finally transferred into a new, alien form, which ties
+in with {{ in_the_flesh }}.
 
-This story is a little like {{ combat_unit }}, with a Bolo waking up while
-being probed by aliens it assumes are hostile.
-Digging up the Bolo because it was a large magnetic anomaly reminds me of the
-excavation of Tycho Magnetic Anomaly One---the monolith---in {{ odyssey }}.
+This one is a little like {{ combat_unit }}, with a Bolo waking up while being
+probed by aliens it assumes are hostile. Digging up the Bolo because it was a
+large magnetic anomaly reminds me of the excavation of Tycho Magnetic Anomaly
+One---the monolith---in {{ odyssey }}.
 
 ### {% short_story_title "A Question of Valor" %}
 <div class="written-by">by {{ author_johnson }}</div>
 {% rating_stars 3 %}
 
 I love the concept of this story. A Bolo is ordered to "defend my people" and
-realizes that, even if they win the war, the mining colony is going to be
+realizes that, even if they win the war, the mining colony will still be
 economically devastated, unable to grow or import enough food, and eventually
-destroyed by earth quakes. So it flees, triggering an investigation into it
-cowardice and a large settlement payout from GM that will save the colony.
-But the writing is a little rough, and it doesn't feel like there are enough
-clues for the reader to figure out the mystery along with the detective.
+destroyed by earthquakes. So it flees, triggering an investigation into its
+supposed cowardice and a large settlement payout from GM that ends up saving the
+colony. But the writing's a little rough, and it doesn't feel like there are
+enough clues for the reader to solve the mystery along with the detective.
 
-There are a couple of easter eggs: a character has a mustache like Hercule
-Poirot's from {{ christies }} {{ poirot }} and an aircar's call sign is a mix
-of {{ thx }} and {{ nineteen_eighty_four }}. This story is a little like {{
-rogue_bolo }} in that the Bolo deliberately misinterprets its orders to better
-fulfill it's mission, and also like {{ last_command }} in that the Bolo causes
-Earthquakes while underground.
+There are a couple of fun easter eggs: a character has a mustache like Hercule
+Poirot's from {{ christies }} {{ poirot }}, and an aircar's call sign mixes {{
+thx }} and {{ nineteen_eighty_four }}. This story is also a bit like {{
+rogue_bolo }}, where the Bolo deliberately bends its orders to better fulfill
+its mission, and like {{ last_command }}, where the Bolo causes earthquakes
+while operating underground.
 
 ### {% short_story_title "In the Flesh" %}
 <div class="written-by">by {{ author_perry }} and {{ author_decamp }}</div>
 {% rating_stars 3 %}
 
 A Bolo's mind is resurrected and placed in a human body by energy beings in
-the far future, who need help fighting off some invading insect-like aliens.
-As a human, the Bolo realizes that it loved its previous commander. It dies
-willing during a suicide mission to protect the aliens, who it believes can
-create a new, more just universe.
+the far future, who need help fighting off invading insect-like aliens. As a
+human, the Bolo realizes it loved its former commander. It dies willingly on a
+suicide mission to protect the aliens, who it believes can create a new, more
+just universe.
 
 The human--Bolo relationship is similar to {{ little_red_hen }} and {{
 miles_to_go }} from {{ bolo12 }}.
@@ -233,43 +234,44 @@ miles_to_go }} from {{ bolo12 }}.
 <div class="written-by">by {{ author_thies }}</div>
 {% rating_stars 5 %}
 
-The Bolo DLS Dallas detects and hacks a armada full of slave soldiers before
-they can cross the Concordiat boarder. It then conspires with one of the
-slaves to turn the ships around and send them back to attack the slavers. At
-the same time, Dallas has a pleasant chat with some children on a beach. A
-simple story, but it adds Kloude Chambers as new Bolo technology for subspace
-manipulation, a view of normal life in the Concordiat, and a satisfying "the
+The Bolo DLS Dallas detects and hacks an armada full of slave soldiers before
+they can cross the Concordiat border. It conspires with one of the slaves to
+turn the ships around and send them back to attack their masters. At the same
+time, Dallas has a pleasant chat with some children on a beach. A simple
+story, but it adds Kloude Chambers as new Bolo tech for subspace manipulation,
+shows a bit of normal life in the Concordiat, and ends with a satisfying "the
 bad guys messed with the wrong people" revenge plot.
 
 ### {% short_story_title "A Time to Kill" %}
 <div class="written-by">by {{ author_weber }}</div>
 {% rating_stars 5 %}
 
-The Mk. XXXIII Bolo Shiva is destroyed as it finishes up the genocidal
-Operation Ragnarok against the Melconians in the Final War. Years later both
-humans refugees the planet their home, when a fleet of Melconian refugees
-shows up in orbit with ships to battered to continue onwards. Both groups
-decide their only course of action is to annihilate the other, but when Shiva
-wakes up, he realizes he has already done too much killing. This story is
-similar to {{ endings }}, but with a twist: here Melconians land on a human
-world.
+The Mk. XXXIII Bolo Shiva is destroyed as it finishes Operation Ragnarok: a
+genocidal campaign against the Melconians during the Final War. Years later,
+human refugees settle on the planet, only to have a fleet of Melconian
+refugees arrive in orbit, their ships too battered to go on. Both groups
+decide the only option is to annihilate each other, but when Shiva wakes up
+and is commanded to take part, it realizes it's already done too much killing.
+This story is similar to {{ endings }}, but with a twist: here, the Melconians
+land on a human world.
 
 {{ author_weber }} is the undisputed master of Bolo stories. All three of his,
-{{ miles_to_go }}, {{ the_traitor }}, and this one are fantastic. He really
-understands that a good Bolo story centers on the Bolos and the moral and
-philosophical dilemmas they provoke, while adding enough cool technology and
-battle scenes to sugar coat it. It makes me excited to read his short story {{
-dfs }} in the Bolo-inspired {{ world_breakers }}.
+{{ miles_to_go }}, {{ the_traitor }}, and this one, are fantastic. He really
+understands that a good Bolo story centers on the Bolos themselves and the
+moral and philosophical dilemmas they raise, while adding enough cool tech and
+battle scenes to sugarcoat it. It makes me excited to read his short story {{
+dfs }} in the Bolo-inspired {{ world_breakers }}, and even his {{ honorverse
+}} series, starting with {{ honor }}.
 
 ### {% short_story_title "A Brief History of Human Expansion Beyond Concordiat Space" %}
 <div class="written-by">by {{ author_evans }}</div>
 {% rating_stars 5 %}
 
 An in-universe technical paper, similar to {{ technical_history }}, but about
-the various alien races. It has a tongue-firmly-in-cheek paragraph about
+the various alien races. It includes a tongue-firmly-in-cheek paragraph about
 the "challenge scholars face in gathering, reconciling, and validating
-information from existing and often contradictory sources" to explain how the
-various authors have inconsistent descriptions of Bolos. It also wave away the
-"abandoned Bolo is destroyed by the Concordiat" storyline we see in {{
-a_relic_of_war }} and {{ little_dog_gone }} as either apocryphal or the result
-of an overly-cautious policy.
+information from existing and often contradictory sources", a clever way to
+explain how the different authors have inconsistent descriptions of Bolos. It
+also waves away the "abandoned Bolo is destroyed by the Concordiat" storyline
+we see in {{ a_relic_of_war }} and {{ little_dog_gone }} as either apocryphal
+or the result of an overly cautious policy.
