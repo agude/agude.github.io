@@ -89,6 +89,7 @@ image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 {% capture nineteen_eighty_four %}{% book_link "1984" %}{% endcapture %}
 {% capture christies %}{% author_link "Agatha Christie" possessive %}{% endcapture %}
 {% capture poirot %}{% book_link "The Mysterious Affair at Styles" %}{% endcapture %}
+{% capture last_command %}{% short_story_link "The Last Command" %}{% endcapture %}
 
 {% capture world_breakers %}{% book_link "World Breakers" %}{% endcapture %}
 {% capture dfs %}{% short_story_link "Dyma Fi'n Sefyll" %}{% endcapture %}
@@ -210,7 +211,10 @@ clues for the reader to figure out the mystery along with the detective.
 
 There are a couple of easter eggs: a character has a mustache like Hercule
 Poirot's from {{ christies }} {{ poirot }} and an aircar's call sign is a mix
-of {{ thx }} and {{ nineteen_eighty_four }}.
+of {{ thx }} and {{ nineteen_eighty_four }}. This story is a little like {{
+rogue_bolo }} in that the Bolo deliberately misinterprets its orders to better
+fulfill it's mission, and also like {{ last_command }} in that the Bolo causes
+Earthquakes while underground.
 
 ### {% short_story_title "In the Flesh" %}
 <div class="written-by">by {{ author_perry }} and {{ author_decamp }}</div>
