@@ -82,6 +82,21 @@ image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 
 {% capture murphosensor %}{% short_story_link "The Murphosensor Bomb" %}{% endcapture %}
 
+{% capture combat_unit %}{% short_story_link "Combat Unit" %}{% endcapture %}
+{% capture odyssey %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
+
+{% capture thx %}<cite class="movie-title">THX-1138</cite>{% endcapture %}
+{% capture nineteen_eighty_four %}{% book_link "1984" %}{% endcapture %}
+{% capture christies %}{% author_link "Agatha Christie" possessive %}{% endcapture %}
+{% capture poirot %}{% book_link "The Mysterious Affair at Styles" %}{% endcapture %}
+
+{% capture world_breakers %}{% book_link "World Breakers" %}{% endcapture %}
+{% capture dfs %}{% short_story_link "Dyma Fi'n Sefyll" %}{% endcapture %}
+
+{% capture technical_history %}{% short_story_link "A Brief Technical History of the Bolo" %}{% endcapture %}
+{% capture little_dog_gone %}{% short_story_link "Little Dog Gone" %}{% endcapture %}
+{% capture a_relic_of_war %}{% short_story_link "A Relic of War" %}{% endcapture %}
+
 ### {% short_story_title "The Sixth Sun" %}
 <div class="written-by">by {{ author_stirling }}</div>
 {% rating_stars 4 %}
@@ -145,7 +160,7 @@ attractive all the women are, which undercuts the more interesting ideas.
 <div class="written-by">by {{ author_greenberger }}</div>
 {% rating_stars 2 %}
 
-This one doesn't really feel like a Bolo story. That's not all bad---it's unique
+This one doesn't really feel like a Bolo story. That could have been good
 in that the Bolo and its commander struggle but ultimately fail to achieve
 their goal. That's new, and it's an interesting idea. The problem is that it
 takes too many liberties with the setting. It invents a new Galactic Empire to
@@ -168,7 +183,18 @@ her death to have real emotional weight.
 
 Four billion years in the future, a Bolo is excavated by some cyborg aliens
 and relives the moments before its "death" in the failed defense of the
-imperial palace near Geneva, Switzerland.
+imperial palace near Geneva, Switzerland. This is the second story to mention
+an "Empire" after {{ memories_of_erin }}, so perhaps the editor and authors
+agreed on some general worldbuilding timelines for the universe. The new
+introduction in this story is "Cybolos" using human minds fused with machines,
+a theme we'll see in more detail in {{ a_time_to_kill }}. The Bolo's mind is
+finally transferred to a new, alien form, which we'll also see in {{
+in_the_flesh }}.
+
+This story is a little like {{ combat_unit }}, with a Bolo waking up while
+being probed by aliens it assumes are hostile.
+Digging up the Bolo because it was a large magnetic anomaly reminds me of the
+excavation of Tycho Magnetic Anomaly One---the monolith---in {{ odyssey }}.
 
 ### {% short_story_title "A Question of Valor" %}
 <div class="written-by">by {{ author_johnson }}</div>
@@ -179,10 +205,12 @@ realizes that, even if they win the war, the mining colony is going to be
 economically devastated, unable to grow or import enough food, and eventually
 destroyed by earth quakes. So it flees, triggering an investigation into it
 cowardice and a large settlement payout from GM that will save the colony.
-
 But the writing is a little rough, and it doesn't feel like there are enough
-clues for the reader to try to figure out the mystery along with the
-detective.
+clues for the reader to figure out the mystery along with the detective.
+
+There are a couple of easter eggs: a character has a mustache like Hercule
+Poirot's from {{ christies }} {{ poirot }} and an aircar's call sign is a mix
+of {{ thx }} and {{ nineteen_eighty_four }}.
 
 ### {% short_story_title "In the Flesh" %}
 <div class="written-by">by {{ author_perry }} and {{ author_decamp }}</div>
@@ -194,6 +222,9 @@ As a human, the Bolo realizes that it loved its previous commander. It dies
 willing during a suicide mission to protect the aliens, who it believes can
 create a new, more just universe.
 
+The human--Bolo relationship is similar to {{ little_red_hen }} and {{
+miles_to_go }} from {{ bolo12 }}.
+
 ### {% short_story_title "And Don't Come Back" %}
 <div class="written-by">by {{ author_thies }}</div>
 {% rating_stars 5 %}
@@ -201,12 +232,40 @@ create a new, more just universe.
 The Bolo DLS Dallas detects and hacks a armada full of slave soldiers before
 they can cross the Concordiat boarder. It then conspires with one of the
 slaves to turn the ships around and send them back to attack the slavers. At
-the same time, Dallas has a pleasant chat with some children on a beach.
+the same time, Dallas has a pleasant chat with some children on a beach. A
+simple story, but it adds Kloude Chambers as new Bolo technology for subspace
+manipulation, a view of normal life in the Concordiat, and a satisfying "the
+bad guys messed with the wrong people" revenge plot.
 
 ### {% short_story_title "A Time to Kill" %}
 <div class="written-by">by {{ author_weber }}</div>
-{% rating_stars null %}
+{% rating_stars 5 %}
+
+The Mk. XXXIII Bolo Shiva is destroyed as it finishes up the genocidal
+Operation Ragnarok against the Melconians in the Final War. Years later both
+humans refugees the planet their home, when a fleet of Melconian refugees
+shows up in orbit with ships to battered to continue onwards. Both groups
+decide their only course of action is to annihilate the other, but when Shiva
+wakes up, he realizes he has already done too much killing. This story is
+similar to {{ endings }}, but with a twist: here Melconians land on a human
+world.
+
+{{ author_weber }} is the undisputed master of Bolo stories. All three of his,
+{{ miles_to_go }}, {{ the_traitor }}, and this one are fantastic. He really
+understands that a good Bolo story centers on the Bolos and the moral and
+philosophical dilemmas they provoke, while adding enough cool technology and
+battle scenes to sugar coat it. It makes me excited to read his short story {{
+dfs }} in the Bolo-inspired {{ world_breakers }}.
 
 ### {% short_story_title "A Brief History of Human Expansion Beyond Concordiat Space" %}
 <div class="written-by">by {{ author_evans }}</div>
-{% rating_stars null %}
+{% rating_stars 5 %}
+
+An in-universe technical paper, similar to {{ technical_history }}, but about
+the various alien races. It has a tongue-firmly-in-cheek paragraph about
+the "challenge scholars face in gathering, reconciling, and validating
+information from existing and often contradictory sources" to explain how the
+various authors have inconsistent descriptions of Bolos. It also wave away the
+"abandoned Bolo is destroyed by the Concordiat" storyline we see in {{
+a_relic_of_war }} and {{ little_dog_gone }} as either apocryphal or the result
+of an overly-cautious policy.
