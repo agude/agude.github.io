@@ -22,7 +22,7 @@ image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 
 <cite class="book-title">{{ page.title }}</cite> is the thirteenth book in the
 <span class="book-series">{{ page.series }}</span> series. It features ten
-stories by eleven authors, many of whom are new. Their stories explores themes
+stories by eleven authors, many of whom are new. Their stories explore themes
 of Bolos going rogue, the distant future of the setting, and new details about
 the Final War with the Melconians.
 
@@ -140,8 +140,8 @@ while actually being some of the darker Bolo tales. In this one, the Aztecs
 are constantly cutting out hearts and slaughtering hundreds of their own
 slaves to prevent revolt during the attack. There are also nods to the
 American fiefdoms with their constant atrocities from {{ trolls }} and {{
-bolo3 }}. The inclusion of the dark content makes the village itself seem
-more idyllic by contrast; a small remnant of civilization that has managed to
+bolo3 }}. The inclusion of the dark content makes the village itself seem more
+idyllic by contrast: a small remnant of civilization that has managed to
 endure.
 
 ### {% short_story_title "The Traitor" %}
@@ -163,41 +163,29 @@ miles_to_go }}.
 {% rating_stars 3 %}
 
 I really enjoyed {{ author_forstchen_lastname_possessive }} {{ endings }},
-which invented the Last War, explored the cost of vengeance, **and** had some
-awesome Bolo combat. This story I didn't like as much. The plot is fine: a
-bomber pilot is shot down, tries to survive, and runs into the ancestors of
-humans on a bug-infested planet. And the idea that the survivors having been
-using religion to pass down knowledge about their Bolo could have been really
-interesting, similar to {{ foundation }} and {{ leibowitz }}. But there is an
-puerile and salacious aspect that drags it down, for example with the main
-character lamenting not being able to have sex anymore because he is marooned
-on the planet, and then later with the fixation on how hot the multiple women
-he marries are.
-
-I really liked {{ author_forstchen_lastname_possessive }} {{ endings }}, which
-invented the Last War, explored the cost of vengeance, **and** delivered some
-awesome Bolo combat. This one didn't land as well for me. The plot is fine: a
-bomber pilot is shot down, tries to survive, and encounters the descendants of
-humans on a bug-infested planet. The concept of the survivors using religion
-to pass down knowledge about their Bolo could have been fascinating, like {{
+which invented the Last War, explored the cost of vengeance, **and** delivered
+some awesome Bolo combat. I didn't like this one. The plot is fine: a bomber
+pilot is shot down, tries to survive, and encounters the descendants of humans
+on a bug-infested planet. The concept of the survivors using religion to pass
+down knowledge about their Bolo could have been fascinating, like {{
 foundation }} or {{ leibowitz }}. But the story leans too much into the
 juvenile and salacious, with the main character obsessing over sex, and how
-attractive all the women are, which undercuts the more interesting ideas.
+attractive all the women are, which distracts from the story.
 
 ### {% short_story_title "Memories of Erin" %}
 <div class="written-by">by {{ author_greenberger }}</div>
 {% rating_stars 2 %}
 
-This one doesn't really feel like a Bolo story. That could have been good
-in that the Bolo and its commander struggle but ultimately fail to achieve
-their goal. That's new, and it's an interesting idea. The problem is that it
-takes too many liberties with the setting. It invents a new Galactic Empire to
+This one doesn't really feel like a Bolo story. That could have been good in
+that the Bolo and its commander struggle but ultimately fail to achieve their
+goal. That's new, and it's an interesting idea. The problem is that it takes
+too many liberties with the setting. It invents a new Galactic Empire to
 replace the Concordiat, and it makes the universe feel smaller by tying almost
 everything back to Earth and the Solar System. It also adds new "facts" about
 Bolos that don't make sense, like their computer core being over a dozen
 stories tall (how does that fit inside a Bolo?), that they can travel at {%
-units number="800" unit="kph" %}, or that they have a secret radio channel
-the humans don't know about for private conversations.
+units number="800" unit="kph" %}, or that they have a secret radio channel the
+humans don't know about for private conversations.
 
 The story follows Erin as she tries to stop the virus that's corrupted her
 Bolo, similar to {{ murphosensor }}. It alternates between flashbacks about
@@ -231,9 +219,9 @@ I love the concept of this story. A Bolo is ordered to "defend my people" and
 realizes that, even if they win the war, the mining colony will still be
 economically devastated, unable to grow or import enough food, and eventually
 destroyed by earthquakes. So it flees, triggering an investigation into its
-supposed cowardice and a large settlement payout from GM that ends up saving the
-colony. But the writing's a little rough, and it doesn't feel like there are
-enough clues for the reader to solve the mystery along with the detective.
+supposed cowardice and a large settlement payout from GM that ends up saving
+the colony. But the writing's a little rough, and it doesn't feel like there
+are enough clues for the reader to solve the mystery along with the detective.
 
 There are a couple of fun easter eggs: a character has a mustache like Hercule
 Poirot's from {{ christies }} {{ poirot }}, and an aircar's call sign mixes {{
