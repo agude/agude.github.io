@@ -21,7 +21,10 @@ image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the thirteenth book in the
-<span class="book-series">{{ page.series }}</span> series.
+<span class="book-series">{{ page.series }}</span> series. It features ten
+stories by eleven authors, many of whom are new. Their stories explores themes
+of Bolos going rogue, the distant future of the setting, and new details about
+the Final War with the Melconians.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
@@ -107,31 +110,32 @@ image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 {% capture little_dog_gone %}{% short_story_link "Little Dog Gone" %}{% endcapture %}
 {% capture a_relic_of_war %}{% short_story_link "A Relic of War" %}{% endcapture %}
 
-{{ this_book }} goes back to the format used in {{ bolo10 }} and {{ bolo11 }}
-where many authors each write one or two short stories, instead of a few
-authors writing very long stories as in {{ bolo12 }} and {{ bolo14 }} and {{
-bolo15 }}. I like the short story format better because it allows a wider
-range of ideas, but it has a downside: some authors are going to write stories
-I don't like. That's what happened in this book.
+{{ this_book }} returns to the format used in {{ bolo10 }} and {{ bolo11 }},
+where multiple authors each contribute one or two short stories, instead of a
+few authors writing long novellas as in {{ bolo12 }}, {{ bolo14 }}, and {{
+bolo15 }}. I prefer the short story format because it allows for a wider range
+of ideas and tones, but it does have a downside: there will always be some
+stories I just don't like. That's what happened here.
 
-{{ author_weber }} does a good job with his two stories, and {{
-author_stirling }} wraps up his {{ lost_legion }} story perfectly. But several
-of the new authors stumble, writing stories that take a bit too much liberty
-with the setting, or just don't come together.
+{{ author_weber }} delivers two excellent stories, and {{ author_stirling }}
+wraps up his {{ lost_legion }} storyline perfectly. But several of the new
+authors stumble, either taking too many liberties with the setting or just
+failing to make their stories come together.
 
-Maybe because they were wrangling a bunch of new Bolo authors, I think the
-editor must have proposed some themes for the stories, because there are a few
-here that show up again and again: {{ hold_until_relieved }} and {{
-in_the_flesh }} both take place in the far, far future, and deal with Bolos
-taking on new forms. {{ the_traitor }}, {{ memories_of_erin }}, and {{
-a_question_of_valor }} deal with Bolos going rogue. {{ memories_of_erin }}, {{
-and_dont_come_back }}, and {{ a_time_to_kill }} are set during the Final War.
+I suspect the editor proposed a few shared themes to make the stories feel
+more connected to the universe, especially since this anthology includes so
+many new writers. There are definite patterns: {{ hold_until_relieved }} and
+{{ in_the_flesh }} both take place in the far, far future and have Bolo minds
+being placed in new bodies. {{ the_traitor }}, {{ memories_of_erin }}, and {{
+a_question_of_valor }} all deal with Bolos going rogue. And {{
+memories_of_erin }}, {{ and_dont_come_back }}, and {{ a_time_to_kill }} are
+set during the Final War.
 
-Overall, I didn't enjoy this book as much as some of the previous anthologies,
-and I think part of that might be I'm reading too many Bolo stories in a short
-time. I'm going to take a bit of a break to come back to {{ bolo14 }} fresh,
-maybe catch up on {{ mb }} with {{ mb6 }} and {{ mb7 }}, and definitely
-re-read {{ moon }}.
+Overall, I didn't enjoy this book as much as some of the earlier anthologies.
+Part of that might just be fatigue; I've been reading a lot of Bolo stories in
+a short time. I'm going to take a break before diving into {{ bolo14 }}, maybe
+catch up on {{ mb }} with {{ mb6 }} and {{ mb7 }}, and definitely re-read {{
+moon }}.
 
 ### {% short_story_title "The Sixth Sun" %}
 <div class="written-by">by {{ author_stirling }}</div>
