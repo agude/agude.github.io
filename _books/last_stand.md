@@ -43,31 +43,19 @@ the Final War with the Melconians.
 {% capture author_thies %}{% author_link "Mark Thies" %}{% endcapture %}
 {% capture author_evans %}{% author_link "Linda Evans" %}{% endcapture %}
 
-{% capture the_sixth_sun %}{% short_story_link "The Sixth Sun" %}{% endcapture %}
 {% capture the_traitor %}{% short_story_link "The Traitor" %}{% endcapture %}
-{% capture yesterdays_gods %}{% short_story_link "Yesterday's Gods" %}{% endcapture %}
 {% capture memories_of_erin %}{% short_story_link "Memories of Erin" %}{% endcapture %}
 {% capture hold_until_relieved %}{% short_story_link "Hold Until Relieved" %}{% endcapture %}
 {% capture a_question_of_valor %}{% short_story_link "A Question of Valor" %}{% endcapture %}
 {% capture in_the_flesh %}{% short_story_link "In the Flesh" %}{% endcapture %}
 {% capture and_dont_come_back %}{% short_story_link "And Don't Come Back" %}{% endcapture %}
 {% capture a_time_to_kill %}{% short_story_link "A Time to Kill" %}{% endcapture %}
-{% capture a_brief_history %}{% short_story_link "A Brief History of Human Expansion Beyond Concordiat Space" %}{% endcapture %}
 
 {% comment %}Bolo Books{% endcomment %}
-{% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
-{% capture bolo2 %}{% book_link "Rogue Bolo" %}{% endcapture %}
 {% capture bolo3 %}{% book_link "The Stars Must Wait" %}{% endcapture %}
-{% capture bolo4 %}{% book_link "Bolo Brigade" %}{% endcapture %}
-{% capture bolo5 %}{% book_link "Bolo Rising" %}{% endcapture %}
-{% capture bolo6 %}{% book_link "Bolo Strike" %}{% endcapture %}
-{% capture bolo7 %}{% book_link "The Road to Damascus" %}{% endcapture %}
-{% capture bolo8 %}{% book_link "Bolo!" %}{% endcapture %}
-{% capture bolo9 %}{% book_link "Old Soldiers" %}{% endcapture %}
 {% capture bolo10 %}{% book_link "Honor of the Regiment" %}{% endcapture %}
 {% capture bolo11 %}{% book_link "The Unconquerable" %}{% endcapture %}
 {% capture bolo12 %}{% book_link "The Triumphant" %}{% endcapture %}
-{% capture bolo13 %}{% book_link "Last Stand" %}{% endcapture %}
 {% capture bolo14 %}{% book_link "Old Guard" %}{% endcapture %}
 {% capture bolo15 %}{% book_link "Cold Steel" %}{% endcapture %}
 
