@@ -21,7 +21,9 @@ image: /books/covers/bolos_book_1_honor_of_the_regiment_2nd_edition.jpg
 
 <cite class="book-title">{{ page.title }}</cite> is the tenth book in the
 <span class="book-series">{{ page.series }}</span> series. It's an anthology
-of Bolo stories written by ten different authors.
+of Bolo stories written by ten different authors. The stories range from
+high-action military tales to more thoughtful pieces on the role of sentient
+war machines in society, all while treating the Bolos as central characters.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 

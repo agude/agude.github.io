@@ -17,8 +17,11 @@ image: /books/covers/bolos_book_2_the_unconquerable_1st_edition.jpg
 ---
 
 <cite class="book-title">{{ page.title }}</cite> is the eleventh book in the
-<span class="book-series">{{ page.series }}</span> series. It's an anthology
-of Bolo stories written by seven different authors.
+<span class="book-series">{{ page.series }}</span> series. As an anthology
+from seven different authors, it serves as a direct follow-up to the previous
+collection. The stories continue some established character arcs while also
+introducing new enemies, new ideas about Bolo capabilities, and the
+galaxy-altering conflict that would define the end of the Concordiat era.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
