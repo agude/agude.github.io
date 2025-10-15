@@ -112,12 +112,11 @@ failing to make their stories come together.
 
 I suspect the editor proposed a few shared themes to make the stories feel
 more connected to the universe, especially since this anthology includes so
-many new writers. There are definite patterns: {{ hold_until_relieved }} and
-{{ in_the_flesh }} both take place in the far, far future and have Bolo minds
-being placed in new bodies. {{ the_traitor }}, {{ memories_of_erin }}, and {{
-a_question_of_valor }} all deal with Bolos going rogue. And {{
-memories_of_erin }}, {{ and_dont_come_back }}, and {{ a_time_to_kill }} are
-set during the Final War.
+many new writers. {{ hold_until_relieved }} and {{ in_the_flesh }} both take
+place in the far, far future and have Bolo minds being placed in new bodies.
+{{ the_traitor }}, {{ memories_of_erin }}, and {{ a_question_of_valor }} all
+deal with Bolos going rogue. And {{ memories_of_erin }}, {{ and_dont_come_back
+}}, and {{ a_time_to_kill }} are set during the Final War.
 
 Overall, I didn't enjoy this book as much as some of the earlier anthologies.
 Part of that might just be fatigue; I've been reading a lot of Bolo stories in
@@ -163,11 +162,11 @@ miles_to_go }}.
 {% rating_stars 3 %}
 
 I really enjoyed {{ author_forstchen_lastname_possessive }} {{ endings }},
-which invented the Last War, explored the cost of vengeance, **and** delivered
-some awesome Bolo combat. I didn't like this one. The plot is fine: a bomber
-pilot is shot down, tries to survive, and encounters the descendants of humans
-on a bug-infested planet. The concept of the survivors using religion to pass
-down knowledge about their Bolo could have been fascinating, like {{
+which invented the Last War, explored the cost of vengeance, _and_ delivered
+some awesome Bolo combat. But I didn't like this one. The plot is fine: a
+bomber pilot is shot down, tries to survive, and encounters the descendants of
+humans on a bug-infested planet. The concept of the survivors using religion
+to pass down knowledge about their Bolo could have been fascinating, like {{
 foundation }} or {{ leibowitz }}. But the story leans too much into the
 juvenile and salacious, with the main character obsessing over sex, and how
 attractive all the women are, which distracts from the story.
@@ -176,16 +175,16 @@ attractive all the women are, which distracts from the story.
 <div class="written-by">by {{ author_greenberger }}</div>
 {% rating_stars 2 %}
 
-This one doesn't really feel like a Bolo story. That could have been good in
-that the Bolo and its commander struggle but ultimately fail to achieve their
-goal. That's new, and it's an interesting idea. The problem is that it takes
-too many liberties with the setting. It invents a new Galactic Empire to
-replace the Concordiat, and it makes the universe feel smaller by tying almost
-everything back to Earth and the Solar System. It also adds new "facts" about
-Bolos that don't make sense, like their computer core being over a dozen
-stories tall (how does that fit inside a Bolo?), that they can travel at {%
-units number="800" unit="kph" %}, or that they have a secret radio channel the
-humans don't know about for private conversations.
+This one doesn't really feel like a Bolo story. That isn't necessarily a bad
+thing; the idea of a Bolo and its commander struggling but ultimately failing
+to achieve their goal is new, and it's an interesting idea. But the problem is
+that this story takes too many liberties with the setting. It invents a new
+Galactic Empire to replace the Concordiat, and it makes the universe feel
+smaller by tying almost everything back to Earth and the Solar System. It also
+adds new "facts" about Bolos that don't make sense, like their computer core
+being over a dozen stories tall (how does that fit inside a Bolo?), that they
+can travel at {% units number="800" unit="kph" %}, or that they have a secret
+radio channel the humans don't know about for private conversations.
 
 The story follows Erin as she tries to stop the virus that's corrupted her
 Bolo, similar to {{ murphosensor }}. It alternates between flashbacks about
@@ -263,8 +262,8 @@ The Mk. XXXIII Bolo Shiva is destroyed as it finishes Operation Ragnarok: a
 genocidal campaign against the Melconians during the Final War. Years later,
 human refugees settle on the planet, only to have a fleet of Melconian
 refugees arrive in orbit, their ships too battered to go on. Both groups
-decide the only option is to annihilate each other, but when Shiva wakes up
-and is commanded to take part, it realizes it's already done too much killing.
+decide the only option is to annihilate the other, but when Shiva wakes up and
+is commanded to take part, it realizes it's already done too much killing.
 This story is similar to {{ endings }}, but with a twist: here, the Melconians
 land on a human world.
 
