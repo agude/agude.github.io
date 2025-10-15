@@ -75,6 +75,7 @@ ranked_list:
   - City on Fire
   - All These Worlds
   # 3 Stars
+  - Last Stand
   - Mission of Gravity
   - "Home: Habitat, Range, Niche, Territory"
   - Martin The Warrior

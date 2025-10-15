@@ -16,7 +16,7 @@ book_authors:
 series: Bolo
 book_number: 13
 is_anthology: true
-rating: 4
+rating: 3
 image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 ---
 
