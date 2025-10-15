@@ -23,6 +23,8 @@ image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 <cite class="book-title">{{ page.title }}</cite> is the thirteenth book in the
 <span class="book-series">{{ page.series }}</span> series.
 
+{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+
 {% capture author_stirling %}{% author_link "S. M. Stirling" %}{% endcapture %}
 {% capture author_weber %}{% author_link "David Weber" %}{% endcapture %}
 {% capture author_weber_lastname %}{% author_link "David Weber" link_text="Weber" %}{% endcapture %}
@@ -66,6 +68,11 @@ image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 {% capture bolo14 %}{% book_link "Old Guard" %}{% endcapture %}
 {% capture bolo15 %}{% book_link "Cold Steel" %}{% endcapture %}
 
+{% capture mb %}{% series_link "Murderbot" %}{% endcapture %}
+{% capture mb6 %}{% book_link "Fugitive Telemetry" %}{% endcapture %}
+{% capture mb7 %}{% book_link "System Collapse" %}{% endcapture %}
+{% capture moon %}{% book_link "The Moon is a Harsh Mistress" %}{% endcapture %}
+
 {% capture lost_legion %}{% short_story_link "Lost Legion" %}{% endcapture %}
 {% capture ancestral_voices %}{% short_story_link "Ancestral Voices" %}{% endcapture %}
 {% capture trolls %}{% short_story_link "The Night of the Trolls" %}{% endcapture %}
@@ -99,6 +106,32 @@ image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 {% capture technical_history %}{% short_story_link "A Brief Technical History of the Bolo" %}{% endcapture %}
 {% capture little_dog_gone %}{% short_story_link "Little Dog Gone" %}{% endcapture %}
 {% capture a_relic_of_war %}{% short_story_link "A Relic of War" %}{% endcapture %}
+
+{{ this_book }} goes back to the format used in {{ bolo10 }} and {{ bolo11 }}
+where many authors each write one or two short stories, instead of a few
+authors writing very long stories as in {{ bolo12 }} and {{ bolo14 }} and {{
+bolo15 }}. I like the short story format better because it allows a wider
+range of ideas, but it has a downside: some authors are going to write stories
+I don't like. That's what happened in this book.
+
+{{ author_weber }} does a good job with his two stories, and {{
+author_stirling }} wraps up his {{ lost_legion }} story perfectly. But several
+of the new authors stumble, writing stories that take a bit too much liberty
+with the setting, or just don't come together.
+
+Maybe because they were wrangling a bunch of new Bolo authors, I think the
+editor must have proposed some themes for the stories, because there are a few
+here that show up again and again: {{ hold_until_relieved }} and {{
+in_the_flesh }} both take place in the far, far future, and deal with Bolos
+taking on new forms. {{ the_traitor }}, {{ memories_of_erin }}, and {{
+a_question_of_valor }} deal with Bolos going rogue. {{ memories_of_erin }}, {{
+and_dont_come_back }}, and {{ a_time_to_kill }} are set during the Final War.
+
+Overall, I didn't enjoy this book as much as some of the previous anthologies,
+and I think part of that might be I'm reading too many Bolo stories in a short
+time. I'm going to take a bit of a break to come back to {{ bolo14 }} fresh,
+maybe catch up on {{ mb }} with {{ mb6 }} and {{ mb7 }}, and definitely
+re-read {{ moon }}.
 
 ### {% short_story_title "The Sixth Sun" %}
 <div class="written-by">by {{ author_stirling }}</div>
