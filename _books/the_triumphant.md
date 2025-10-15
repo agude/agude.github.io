@@ -14,7 +14,9 @@ image: /books/covers/bolos_book_3_the_triumphant_1st_edition.jpg
 
 <cite class="book-title">{{ page.title }}</cite> is the twelfth book in the
 <span class="book-series">{{ page.series }}</span> series. It's an anthology
-of Bolo stories written by three different authors.
+of Bolo stories written by three different authors. They explore the emotional
+bond between a Bolos and the people around them, and the dangers of caring too
+much about a machine built for war.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
@@ -65,6 +67,10 @@ of Bolo stories written by three different authors.
 
 {% capture murderbot %}{% series_link "The Murderbot Diaries" link_text="Murderbot" %}{% endcapture %}
 {% capture all_systems %}{% book_link "All Systems Red" %}{% endcapture %}
+
+{% capture sw_vehicles %}{% book_link "The Essential Guide to Vehicles and Vessels" %}{% endcapture %}
+{% capture sw_weapons %}{% book_link "The Essential Guide to Weapons and Technology" %}{% endcapture %}
+{% capture st_tech %}{% book_link "Star Trek: The Next Generation Technical Manual" %}{% endcapture %}
 
 {{ this_book }} is different from the earlier anthologies---{{ bolo10 }} and
 {{ bolo11 }}---because it was written mainly by {{ author_evans }} and {{
@@ -211,3 +217,16 @@ throughout reminded me of {{ simmonss }} {{ hyperion }}.
     > Chin and General Bates faced before Unit DNE was permitted to
     > demonstrate the feasibility of a self-directed Bolo against the People's
     > Republic._
+
+### {% short_story_title "A Brief Technical History of the Bolo" %}
+<div class="written-by">by {{ author_weber }}</div>
+{% rating_stars 5 %}
+
+An in-universe technical paper "written" by Felix Hermes, this story details
+the history and design of Bolos from the Mark I to the Mark XXXIII. I loved
+this kind of thing as a kid. Some of my favorite books to pore over were {{
+sw_vehicles }}, {{ sw_weapons }}, and {{ st_tech }}, because I was (and still
+am) a huge nerd who loved figuring out how many Enterprises it would take to
+destroy the Death Star or how many Space Marines a Bolo could defeat. My only
+complaint is that it isn't illustrated; I'd pay a fortune for that book if it
+existed!

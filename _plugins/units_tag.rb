@@ -20,8 +20,10 @@ module Jekyll
       'cm' => { symbol: "cm", name: "Centimeters" },
       'mm' => { symbol: "mm", name: "Millimeters" },
       'in' => { symbol: "in", name: "Inches" },
-      'ft' => { symbol: "ft", name: "Feet" }
-      # Add other units here: 'ABBR' => { symbol: "SYMBOL", name: "Full Name" }
+      'ft' => { symbol: "ft", name: "Feet" },
+      'kph' => { symbol: "kph", name: "Kilometres per hour" },
+      'mph' => { symbol: "mph", name: "Miles per hour" },
+      # Add other units here: 'ABBR' => { symbol: "SYMBOL", name: "Full Name" },
     }.freeze
 
     ALLOWED_KEYS = ['number', 'unit'].freeze

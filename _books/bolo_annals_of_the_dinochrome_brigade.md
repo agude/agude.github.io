@@ -40,9 +40,11 @@ of seven novellas and short stories, all featuring Bolos.
 {% capture relic %}{% short_story_link "A Relic of War" %}{% endcapture %}
 {% capture combat_unit %}{% short_story_link "Combat Unit" %}{% endcapture %}
 
+{% capture rogue_bolo %}{% short_story_link "Rogue Bolo" %}{% endcapture %}
 {% capture the_legacy_of_leonidas %}{% short_story_link "The Legacy of Leonidas" %}{% endcapture %}
 {% capture little_red_hen %}{% short_story_link "Little Red Hen" %}{% endcapture %}
 {% capture miles_to_go %}{% short_story_link "Miles to Go" %}{% endcapture %}
+{% capture traitor %}{% short_story_link "The Traitor" %}{% endcapture %}
 
 I read the Bolo anthologies---{{ bolo10 }}, {{ bolo11 }}, {{ bolo12 }},
 etc.---about twenty-five years ago, then tracked down every other Bolo book I
@@ -110,7 +112,8 @@ expanded it into the novella {{ rogue_bolo }}. In {{ the_legacy_of_leonidas
 misunderstood purpose. And {{ miles_to_go }} borrowed the idea of command
 fearing Bolos when they begin showing new, unexpected intelligence. Both {{
 little_red_hen }} and {{ miles_to_go }} have their characters directly
-reference the story.
+reference the story. {{ traitor }} explores the fear of self-directed Bolos
+going rogue, and the hidden reason for their behavior.
 
 ### {% short_story_title "The Last Command" %}
 {% rating_stars 4 %}
