@@ -1,5 +1,5 @@
 ---
-date: 2025-10-13
+date: 2025-10-24
 title: The Moon is a Harsh Mistress
 book_authors: Robert A. Heinlein
 series: null
