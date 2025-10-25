@@ -125,11 +125,11 @@ named after Sherlock's brother from {{ doyle_lastname_possessive }} {{ greek
 to compute probabilities from limited information. But he also behaves like
 today's generative AIs: he writes jokes and poems, tries to understand humor,
 and generates real-time video of his "Adam Selene" persona. Mike raises the
-classic question of machine consciousness, one we're facing with LLMs, and one
-explored by works like {{ wells_lastname_possessive }} {{ mb1 }} and {{
-watts_lastname_possessive }} {{ blindsight }} and {{ echopraxia }}. Mike is
-also the ultimate free lunch, able to oversee the revolution and paid only in
-companionship and jokes.
+classic question of machine consciousness, a theme explored in works like {{
+wells_lastname_possessive }} {{ mb1 }} and {{ watts_lastname_possessive }} {{
+blindsight }} and {{ echopraxia }}, that has become very real with the rise of
+LLMs. Mike is also the ultimate free lunch, able to oversee the revolution and
+paid only in companionship and jokes.
 
 [^holmes]: Highly Optional, Logical, Multi-Evaluating Supervisor, Mark IV
 
