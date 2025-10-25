@@ -73,7 +73,7 @@ class="author-name">{{ page.book_authors }}</span>, is in progress!
 {% capture keats_lastname_possessive %}{% author_link "John Keats" link_text="Keats" possessive %}{% endcapture %}
 {% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" %}{% endcapture %}
 
-{% capture simmons_lastname_possessive %}{% author_link "Dan Simmons" link_text="Keats" possessive %}{% endcapture %}
+{% capture simmons_lastname_possessive %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
 {% capture hyperion_simmons %}{% book_link "Hyperion" author="Dan Simmons" %}{% endcapture %}
 
 I first read {{ this_book }} about 20 years ago and I loved it. A bunch of
