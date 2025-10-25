@@ -5,7 +5,7 @@ book_authors: Robert A. Heinlein
 series: null
 book_number: 1
 is_anthology: false
-rating: null
+rating: 3
 image: /books/covers/the_moon_is_a_harsh_mistress.jpg
 awards:
   - hugo
