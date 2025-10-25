@@ -143,7 +143,7 @@ companionship and jokes.
 
 [^holmes]: Highly Optional, Logical, Multi-Evaluating Supervisor, Mark IV
 
-The pidgin Manny speaks mostly reads like the mixed English--Chinese from {{
+The pidgin Mannie speaks mostly reads like the mixed English--Chinese from {{
 firefly }}, but occasionally the slang sounds off, almost a "codder-shiggy"
 problem as in {{ zanzibar }}. Also like {{ zanzibar }}, {{ this_book }} deals
 with overpopulation and environmental collapse, themes that resonated in the
