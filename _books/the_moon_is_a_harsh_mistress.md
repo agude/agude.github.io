@@ -1,6 +1,6 @@
 ---
 date: 2025-10-24
-title: The Moon is a Harsh Mistress
+title: The Moon Is a Harsh Mistress
 book_authors: Robert A. Heinlein
 series: null
 book_number: 1
@@ -9,7 +9,7 @@ rating: 3
 image: /books/covers/the_moon_is_a_harsh_mistress.jpg
 awards:
   - hugo
-  - prometheas hall of fame
+  - prometheus hall of fame
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
@@ -33,7 +33,7 @@ small group of rebels and their self-aware computer.
 {% capture tolkein_lastname_possessive %}{% author_link "J. R. R. Tolkien" link_text="Tolkien" possessive %}{% endcapture %}
 {% capture lotr %}{% series_link "The Lord of the Rings" %}{% endcapture %}
 
-{% capture wells_lastname_possessive %}{% author_link "Marth Wells" link_text="Wells" possessive %}{% endcapture %}
+{% capture wells_lastname_possessive %}{% author_link "Martha Wells" link_text="Wells" possessive %}{% endcapture %}
 {% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
 {% capture mb4 %}{% book_link "Exit Strategy" %}{% endcapture %}
 
@@ -78,20 +78,20 @@ small group of rebels and their self-aware computer.
 {% capture snowcrash %}{% book_link "Snow Crash" %}{% endcapture %}
 
 I first read {{ this_book }} about 20 years ago and I loved it. A bunch of
-plucky rebels, having been pushed around by Earth too long and with their
+plucky rebels, having been pushed around by Earth for too long and with their
 backs against the wall, decide to declare independence and start dropping
 rocks down the gravity well until they get their way. And they have a sentient
 computer backing them up! It wasn't my first time reading {{
-the_authors_lastname }}, that was {{ sst }} and {{ stranger }}, but it became
-my favorite. I even went out and bought a hardcover copy to display on my
-shelf after finishing the paperback. The only other books I've done that for
-were {{ clarke_lastname_possessive }} {{ odyessy }}, {{
+the_authors_lastname }}---that was {{ sst }} and {{ stranger }}---but it
+became my favorite. I even went out and bought a hardcover copy to display on
+my shelf after finishing the paperback. The only other books I've done that
+for were {{ clarke_lastname_possessive }} {{ odyessy }}, {{
 tolkein_lastname_possessive }} {{ lotr }}, and {{ moore_and_gibbons_possessive
 }} {{ watchmen }}. I didn't like {{ this_book }} as much this read-through.
 
 The story is still engaging, but the long libertarian digressions are much
 harder to tolerate now. Maybe I was more libertarian-curious in my younger
-days, or maybe twenty more years of experience has made it clearer how selfish
+days, or maybe 20 more years of experience has made it clearer how selfish
 the ideology is. Or maybe the rise of greedy fascism in the modern political
 climate has soured me on the whole idea. Whatever the reason, I now prefer
 stories that celebrate community over individualism, like {{
@@ -117,7 +117,7 @@ theft is fine, apparently.
 
 The best character is Mycroft "Mike" HOLMES IV,[^holmes] the sentient computer
 named after Sherlock's brother from {{ doyle_lastname_possessive }} {{ greek
-}}. In some ways he's a standard sci-fi AI: logical, good with numbers, able
+}}. In some ways, he's a standard sci-fi AI: logical, good with numbers, able
 to compute probabilities from limited information. But he also behaves like
 today's generative AIs: he writes jokes and poems, tries to understand humor,
 and generates real-time video of his "Adam Selene" persona. His sentience
@@ -142,8 +142,8 @@ did in {{ simmons_lastname_possessive }} {{ hyperion_simmons }}.
 {{ this_book }} wasn't as great as I remembered, which makes me both excited
 and a little nervous to revisit {{ sst }}---which I loved---and {{ stranger
 }}---which I hated. I still plan to get back to the {{ hyperion_cantos }} with
-{{ fall_of_hyperion }}, and the {{ bolos_series }} with {{ old_guard }}, but
-for now I'm keeping my break from those going with {{ basilisk }}, maybe {{
+{{ fall_of_hyperion }} and the {{ bolos_series }} with {{ old_guard }}, but
+for now, I'm keeping my break from those going with {{ basilisk }}, maybe {{
 world_breakers }} and {{ snowcrash }}. And of course, I've got to fit in our
-next book club pick, {{ time_war }}, too. Hopefully I'll get plenty of time to
+next book club pick, {{ time_war }}, too. Hopefully, I'll get plenty of time to
 read over the holidays.
