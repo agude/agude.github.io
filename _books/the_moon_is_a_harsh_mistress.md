@@ -37,6 +37,9 @@ small group of rebels and their self-aware computer.
 {% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
 {% capture mb4 %}{% book_link "Exit Strategy" %}{% endcapture %}
 
+{% capture watts_lastname_possessive %}{% author_link "Peter Watts" link_text="Watts" possessive %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+
 {% capture smiths_lastname_possessive %}{% author_link "L. Neil Smith" link_text="Smith" possessive %}{% endcapture %}
 {% capture probability_broach %}{% book_link "The Probability Broach" %}{% endcapture %}
 
@@ -91,12 +94,12 @@ tolkein_lastname_possessive }} {{ lotr }}, and {{ moore_and_gibbons_possessive
 
 The story is still engaging, but the long libertarian digressions are much
 harder to tolerate now. Maybe I was more libertarian-curious in my younger
-days, or maybe 20 more years of experience has made it clearer how selfish
-the ideology is. Or maybe the rise of greedy fascism in the modern political
+days, or maybe 20 more years of experience has made it clearer how selfish the
+ideology is. Or maybe the rise of greedy fascism in the modern political
 climate has soured me on the whole idea. Whatever the reason, I now prefer
 stories that celebrate community over individualism, like {{
-wells_lastname_possessive }} {{ mb1 }} and {{ mb4 }}, to libertarian apologia
-in the vein of {{ smiths_lastname_possessive }} {{ probability_broach }} or {{
+wells_lastname_possessive }} {{ mb4 }}, to libertarian apologia in the vein of
+{{ smiths_lastname_possessive }} {{ probability_broach }} or {{
 rand_lastname_possessive }} {{ fountainhead }} and {{ atlas }}.[^orcs]
 
 [^orcs]: It's clear from the above paragraphs which side of [John
@@ -120,10 +123,12 @@ named after Sherlock's brother from {{ doyle_lastname_possessive }} {{ greek
 }}. In some ways, he's a standard sci-fi AI: logical, good with numbers, able
 to compute probabilities from limited information. But he also behaves like
 today's generative AIs: he writes jokes and poems, tries to understand humor,
-and generates real-time video of his "Adam Selene" persona. His sentience
-wasn't designed; it just emerged once the system grew complex enough. Mike is
-also the ultimate free lunch, able to oversee the revolution and paid only in
-companionship and jokes.
+and generates real-time video of his "Adam Selene" persona. Mike raises the
+classic question of machine consciouness, one we're facing with LLMs, and one
+explored by works like {{ wells_lastname_possessive }} {{ mb1 }} and {{
+watts_lastname_possessive }} {{ blindsight }}. Mike is also the ultimate free
+lunch, able to oversee the revolution and paid only in companionship and
+jokes.
 
 [^holmes]: Highly Optional, Logical, Multi-Evaluating Supervisor, Mark IV
 
