@@ -154,16 +154,16 @@ with overpopulation and environmental collapse, themes that resonated in the
 late '60s and were exemplified in {{ paul_and_anne }} {{ the_population_bomb
 }}. {{ this_book }} tells a revolution story much like {{
 williams_lastname_possessive }} {{ metropolitan }}, but unlike {{ fire }}, it
-doesn't really explore the aftermath. There's even a quick nod to the
-professor reading {{ keats_lastname }}, no doubt {{ hyperion_keats }}, with
-its theme of a new order overthrowing the old, fitting perfectly here, just as
-it did in {{ simmons_lastname_possessive }} {{ hyperion_simmons }}.
+doesn't really explore the aftermath. There's a quick reference to the
+professor reading {{ keats_lastname }}, almost certainly {{ hyperion_keats }}.
+Its theme of a new order overthrowing the old fits perfectly here, just as it
+did in {{ simmons_lastname_possessive }} {{ hyperion_simmons }}.
 
-{{ the_moon_is_a_harsh_mistress }} wasn't as great as I remembered, which
-makes me both excited and a little nervous to revisit {{ sst }}---which I
-loved---and {{ stranger }}---which I hated. I still plan to get back to the {{
-hyperion_cantos }} with {{ fall_of_hyperion }}, and the {{ bolos_series }}
-with {{ old_guard }}, but for now I'm keeping my break from those going with
-{{ basilisk }}, maybe {{ world_breakers }} and {{ snowcrash }}. And of course,
-I've got to fit in our next book club pick, {{ time_war }}, too. Hopefully
-I'll get plenty of time to read over the coming holidays.
+{{ this_book }} wasn't as great as I remembered, which makes me both excited
+and a little nervous to revisit {{ sst }}---which I loved---and {{ stranger
+}}---which I hated. I still plan to get back to the {{ hyperion_cantos }} with
+{{ fall_of_hyperion }}, and the {{ bolos_series }} series with {{ old_guard
+}}, but for now I'm keeping my break from those going with {{ basilisk }},
+maybe {{ world_breakers }} and {{ snowcrash }}. And of course, I've got to fit
+in our next book club pick, {{ time_war }}, too. Hopefully I'll get plenty of
+time to read over the coming holidays.
