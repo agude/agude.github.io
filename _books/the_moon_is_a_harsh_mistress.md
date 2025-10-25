@@ -36,9 +36,13 @@ small group of rebels and their self-aware computer.
 {% capture clarke_lastname_possessive %}{% author_link "Arthur C. Clarke" link_text="Clarke" possessive %}{% endcapture %}
 {% capture odyessy %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 
+{% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
+{% capture alan_moore %}{% author_link "Alan Moore" %}{% endcapture %}
+{% capture dave_gibbons %}{% author_link "Dave Gibbons" %}{% endcapture %}
+{% capture moore_and_gibbons_possessive %}{% author_link "Alan Moore" link_text="Moore" %} and {% author_link "Dave Gibbons" link_text="Gibbons" possessive %}{% endcapture %}
+
 {% capture tolkien %}{% author_link "J. R. R. Tolkien" %}{% endcapture %}
 {% capture tolkein_lastname_possessive %}{% author_link "J. R. R. Tolkien" link_text="Tolkien" possessive %}{% endcapture %}
-{% capture lotr1 %}{% book_link "The Fellowship of the Rings" %}{% endcapture %}
 {% capture lotr %}{% series_link "The Lord of the Rings" %}{% endcapture %}
 
 {% capture wells %}{% author_link "Marth Wells" %}{% endcapture %}
@@ -101,9 +105,9 @@ computer backing them up! It wasn't my first time reading {{
 the_authors_lastname }}, that was {{ sst }} and {{ stranger }}, but it became
 my favorite. I even went out and bought a hardcover copy to display on my
 shelf after finishing the paperback. The only other books I've done that for
-were {{ clarke_lastname_possessive }} {{ odyessy }} and {{
-tolkein_lastname_possessive }} {{ lotr1 }}. I didn't like it as much this read
-through.
+were {{ clarke_lastname_possessive }} {{ odyessy }}, {{
+tolkein_lastname_possessive }} {{ lotr }}, and {{ moore_and_gibbons_possessive
+}} {{ watchmen }}. I didn't like {{ this_book }} as much this read-through.
 
 The story is still engaging, but the long libertarian digressions are much
 harder to tolerate now. Maybe I was more libertarian-curious in my younger
