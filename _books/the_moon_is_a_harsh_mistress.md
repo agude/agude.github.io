@@ -86,7 +86,7 @@ small group of rebels and their self-aware computer.
 {% capture hyperion_cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
 
 {% capture old_guard %}{% book_link "Old Guard" %}{% endcapture %}
-{% capture bolos_series %}{% series_link "Bolo" %}{% endcapture %}
+{% capture bolos_series %}{% series_link "Bolo" %} series{% endcapture %}
 
 {% capture basilisk %}{% book_link "On Basilisk Station" %}{% endcapture %}
 {% capture weber %}{% author_link "David Weber" %}{% endcapture %}
@@ -162,8 +162,8 @@ did in {{ simmons_lastname_possessive }} {{ hyperion_simmons }}.
 {{ this_book }} wasn't as great as I remembered, which makes me both excited
 and a little nervous to revisit {{ sst }}---which I loved---and {{ stranger
 }}---which I hated. I still plan to get back to the {{ hyperion_cantos }} with
-{{ fall_of_hyperion }}, and the {{ bolos_series }} series with {{ old_guard
-}}, but for now I'm keeping my break from those going with {{ basilisk }},
-maybe {{ world_breakers }} and {{ snowcrash }}. And of course, I've got to fit
-in our next book club pick, {{ time_war }}, too. Hopefully I'll get plenty of
-time to read over the coming holidays.
+{{ fall_of_hyperion }}, and the {{ bolos_series }} with {{ old_guard }}, but
+for now I'm keeping my break from those going with {{ basilisk }}, maybe {{
+world_breakers }} and {{ snowcrash }}. And of course, I've got to fit in our
+next book club pick, {{ time_war }}, too. Hopefully I'll get plenty of time to
+read over the holidays.
