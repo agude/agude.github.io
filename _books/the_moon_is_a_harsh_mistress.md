@@ -19,33 +19,20 @@ penal colony against its terrestrial rulers, a revolution orchestrated by a
 small group of rebels and their self-aware computer.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture sst %}{% book_link "Starship Troopers" %}{% endcapture %}
 {% capture stranger %}{% book_link "Stranger in a Strange Land" %}{% endcapture %}
 
-{% capture clarke %}{% author_link "Arthur C. Clarke" %}{% endcapture %}
 {% capture clarke_lastname_possessive %}{% author_link "Arthur C. Clarke" link_text="Clarke" possessive %}{% endcapture %}
 {% capture odyessy %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
-{% capture alan_moore %}{% author_link "Alan Moore" %}{% endcapture %}
-{% capture dave_gibbons %}{% author_link "Dave Gibbons" %}{% endcapture %}
 {% capture moore_and_gibbons_possessive %}{% author_link "Alan Moore" link_text="Moore" %} and {% author_link "Dave Gibbons" link_text="Gibbons" possessive %}{% endcapture %}
 
-{% capture tolkien %}{% author_link "J. R. R. Tolkien" %}{% endcapture %}
 {% capture tolkein_lastname_possessive %}{% author_link "J. R. R. Tolkien" link_text="Tolkien" possessive %}{% endcapture %}
 {% capture lotr %}{% series_link "The Lord of the Rings" %}{% endcapture %}
 
-{% capture wells %}{% author_link "Marth Wells" %}{% endcapture %}
 {% capture wells_lastname_possessive %}{% author_link "Marth Wells" link_text="Wells" possessive %}{% endcapture %}
 {% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
 {% capture mb4 %}{% book_link "Exit Strategy" %}{% endcapture %}
@@ -58,10 +45,8 @@ small group of rebels and their self-aware computer.
 {% capture fountainhead %}{% book_link "The Fountainhead" %}{% endcapture %}
 
 {% capture doyle_lastname_possessive %}{% author_link "Arthur Conan Doyle" link_text="Doyle" possessive %}{% endcapture %}
-{% capture memoirs %}{% book_link "The Memoirs of Sherlock Holmes" %}{% endcapture %}
 {% capture greek %}{% short_story_link "The Adventure of the Greek Interpreter" %}{% endcapture %}
 
-{% capture brunner_lastname_possessive %}{% author_link "John Brunner" link_text="Brunner" possessive %}{% endcapture %}
 {% capture zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
 
 {% capture firefly %}<cite class="tv-show-title">Firefly</cite>{% endcapture %}
@@ -75,9 +60,7 @@ small group of rebels and their self-aware computer.
 {% capture metropolitan %}{% book_link "Metropolitan" %}{% endcapture %}
 {% capture fire %}{% book_link "City on Fire" %}{% endcapture %}
 
-{% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
 {% capture keats_lastname %}{% author_link "John Keats" link_text="Keats" %}{% endcapture %}
-{% capture keats_lastname_possessive %}{% author_link "John Keats" link_text="Keats" possessive %}{% endcapture %}
 {% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" %}{% endcapture %}
 
 {% capture simmons_lastname_possessive %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
@@ -89,9 +72,6 @@ small group of rebels and their self-aware computer.
 {% capture bolos_series %}{% series_link "Bolo" %} series{% endcapture %}
 
 {% capture basilisk %}{% book_link "On Basilisk Station" %}{% endcapture %}
-{% capture weber %}{% author_link "David Weber" %}{% endcapture %}
-{% capture weber_lastname_possessive %}{% author_link "David Weber" link_text="Weber" possessive %}{% endcapture %}
-{% capture honorverse %}{% series_link "Honor Harrington" %}{% endcapture %}
 
 {% capture world_breakers %}{% book_link "World Breakers" %}{% endcapture %}
 {% capture time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
