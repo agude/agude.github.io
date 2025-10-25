@@ -13,7 +13,10 @@ awards:
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is in progress!
+class="author-name">{{ page.book_authors }}</span>, is a Hugo Award-winning
+classic of libertarian science fiction. It chronicles the revolt of a lunar
+penal colony against its terrestrial rulers, a revolution orchestrated by a
+small group of rebels and their self-aware computer.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -75,31 +78,45 @@ class="author-name">{{ page.book_authors }}</span>, is in progress!
 
 {% capture simmons_lastname_possessive %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
 {% capture hyperion_simmons %}{% book_link "Hyperion" author="Dan Simmons" %}{% endcapture %}
+{% capture fall_of_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
+{% capture hyperion_cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
+
+{% capture old_guard %}{% book_link "Old Guard" %}{% endcapture %}
+{% capture bolos_series %}{% series_link "Bolo" %}{% endcapture %}
+
+{% capture basilisk %}{% book_link "On Basilisk Station" %}{% endcapture %}
+{% capture weber %}{% author_link "David Weber" %}{% endcapture %}
+{% capture weber_lastname_possessive %}{% author_link "David Weber" link_text="Weber" possessive %}{% endcapture %}
+{% capture honorverse %}{% series_link "Honor Harrington" %}{% endcapture %}
+
+{% capture world_breakers %}{% book_link "World Breakers" %}{% endcapture %}
+{% capture time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
+{% capture snowcrash %}{% book_link "Snow Crash" %}{% endcapture %}
 
 I first read {{ this_book }} about 20 years ago and I loved it. A bunch of
-plucky rebels, having been abused by Earth too long and with their backs
-against the wall, decide to declare their independence and start throwing
+plucky rebels, having been pushed around by Earth too long and with their
+backs against the wall, decide to declare independence and start dropping
 rocks down the gravity well until they get their way. And they have a sentient
 computer backing them up! It wasn't my first time reading {{
-the_authors_lastname }}, that would be {{ sst }} and {{ stranger }}, but it
-was my favorite. I even went out an bought a hardcover copy to display on my
-shelf after returning the paperback to the library. The only other books where
-I did that were {{ clarke_lastname_possessive }} {{ odyessy }} and {{
+the_authors_lastname }}, that was {{ sst }} and {{ stranger }}, but it became
+my favorite. I even went out and bought a hardcover copy to display on my
+shelf after finishing the paperback. The only other books I've done that for
+were {{ clarke_lastname_possessive }} {{ odyessy }} and {{
 tolkein_lastname_possessive }} {{ lotr1 }}. I didn't like it as much this read
 through.
 
-The story is still engaging, but the long digressions about libertarianism are
-much more annoying now. Maybe I was more libertarian curious in my younger age,
-or perhaps twenty more years of experience has helped me understand how
-selfish the ideology is, or perhaps the ascension of a greedy fascism in the
-modern political environment has soured me on the whole idea. Whatever it is,
-I now much prefer books that champion community over individualism like {{
-wells_lastname_possessive }} {{ mb1 }} and {{ mb4 }} to libertarian apologia
-in the vain of {{ smiths_lastname_possessive }} {{ probability_broach }} or {{
+The story is still engaging, but the long libertarian digressions are much
+harder to tolerate now. Maybe I was more libertarian-curious in my younger
+days, or maybe twenty more years of experience has made it clearer how selfish
+the ideology is. Or maybe the rise of greedy fascism in the modern political
+climate has soured me on the whole idea. Whatever the reason, I now prefer
+stories that celebrate community over individualism, like {{
+wells_lastname_possessive }} {{ mb1 }} and {{ mb4 }}, to libertarian apologia
+in the vein of {{ smiths_lastname_possessive }} {{ probability_broach }} or {{
 rand_lastname_possessive }} {{ fountainhead }} and {{ atlas }}.[^orcs]
 
 [^orcs]: It's clear from the above paragraphs which side of [John
-    Rogers's][orcs] line I fall:
+    Rogers's][orcs] line I fall on:
 
     > There are two novels that can change a bookish fourteen-year old's life:
     > {{ lotr }} and {{ atlas }}. One is a childish fantasy that often
@@ -109,31 +126,39 @@ rand_lastname_possessive }} {{ fountainhead }} and {{ atlas }}.[^orcs]
 
 [orcs]: https://kfmonkey.blogspot.com/2009/03/ephemera-2009-7.html
 
-For all its lectures, {{ this_book }} actually does show some of
-libertarianism warts: lynch mobs, lack of forced vaccinations killing
-thousands, the hypocrisy of the self-reliant relying on stealing from
-each other, taxes are theft but theft is fine.
+For all its lecturing, {{ this_book }} does show some of libertarianism's
+warts: lynch mobs, lack of vaccinations killing thousands, the hypocrisy of
+the "self-reliant" relying on theft from each other. Taxes are theft, but
+theft is fine, apparently.
 
 The best character is Mycroft "Mike" HOLMES IV,[^holmes] the sentient computer
 named after Sherlock's brother from {{ doyle_lastname_possessive }} {{ greek
-}}. In some ways he's a standard sci-fi AI: logical, good with numbers, can
-compute probabilities from limited information. But he shows hints of behavior
-like a modern generative AI system: he writes jokes and wants to understand
-humor, he generates real-time video of his "Adam Selene" identity. His
-sentience wasn't designed, it emerged when he got complex enough. Mike is also
-the ultimate free lunch, able to plan and oversee the revolution and paid only
-in companionship and jokes.
+}}. In some ways he's a standard sci-fi AI: logical, good with numbers, able
+to compute probabilities from limited information. But he also behaves like
+today's generative AIs: he writes jokes and poems, tries to understand humor,
+and generates real-time video of his "Adam Selene" persona. His sentience
+wasn't designed; it just emerged once the system grew complex enough. Mike is
+also the ultimate free lunch, able to oversee the revolution and paid only in
+companionship and jokes.
 
 [^holmes]: Highly Optional, Logical, Multi-Evaluating Supervisor, Mark IV
 
 The pidgin Manny speaks mostly reads like the mixed English--Chinese from {{
 firefly }}, but occasionally the slang sounds off, almost a "codder-shiggy"
-problem as in {{ zanzibar }}. Also similar to {{ zanzibar }}, {{ this_book
-}} also deals with over population and environmental collapse, themes that
-resonated in the late 60s, exemplified by {{ paul_and_anne }} {{
-the_population_bomb }}. {{ this_book }} deals with a revolution like {{
-williams_lastname_possessive }} {{ metropolitan }}, but doesn't really dig
-into aftermath like {{ fire }}. There is a brief reference to the professor
-reading {{ keats_lastname }}, no doubt {{ hyperion_keats }} whose theme of the
-new order overthrowing the old fits perfectly in this story, just as it did in
-{{ simmons_lastname_possessive }} {{ hyperion_simmons }}.
+problem as in {{ zanzibar }}. Also like {{ zanzibar }}, {{ this_book }} deals
+with overpopulation and environmental collapse, themes that resonated in the
+late '60s and were exemplified in {{ paul_and_anne }} {{ the_population_bomb
+}}. {{ this_book }} tells a revolution story much like {{
+williams_lastname_possessive }} {{ metropolitan }}, but unlike {{ fire }}, it
+doesn't really explore the aftermath. There's even a quick nod to the
+professor reading {{ keats_lastname }}, no doubt {{ hyperion_keats }}, with
+its theme of a new order overthrowing the old, fitting perfectly here, just as
+it did in {{ simmons_lastname_possessive }} {{ hyperion_simmons }}.
+
+{{ the_moon_is_a_harsh_mistress }} wasn't as great as I remembered it, which
+makes me both excited and anxious to revisit {{ sst }}---which I loved!---and
+{{ stranger }}---which I hated. I still mean to get back to the {{
+hyperion_cantos }} with {{ fall_of_hyperion }}, the {{ bolos_series }} with {{
+old_guard }}, but I'm going to continue my break from them with {{ basilisk }},
+maybe {{ world_breakers }} and {{ snowcrash }}, and I've got to fit our next
+book club book {{ time_war }} in too.
