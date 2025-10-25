@@ -155,10 +155,11 @@ professor reading {{ keats_lastname }}, no doubt {{ hyperion_keats }}, with
 its theme of a new order overthrowing the old, fitting perfectly here, just as
 it did in {{ simmons_lastname_possessive }} {{ hyperion_simmons }}.
 
-{{ the_moon_is_a_harsh_mistress }} wasn't as great as I remembered it, which
-makes me both excited and anxious to revisit {{ sst }}---which I loved!---and
-{{ stranger }}---which I hated. I still mean to get back to the {{
-hyperion_cantos }} with {{ fall_of_hyperion }}, the {{ bolos_series }} with {{
-old_guard }}, but I'm going to continue my break from them with {{ basilisk }},
-maybe {{ world_breakers }} and {{ snowcrash }}, and I've got to fit our next
-book club book {{ time_war }} in too.
+{{ the_moon_is_a_harsh_mistress }} wasn't as great as I remembered, which
+makes me both excited and a little nervous to revisit {{ sst }}---which I
+loved---and {{ stranger }}---which I hated. I still plan to get back to the {{
+hyperion_cantos }} with {{ fall_of_hyperion }}, and the {{ bolos_series }}
+with {{ old_guard }}, but for now I'm keeping my break from those going with
+{{ basilisk }}, maybe {{ world_breakers }} and {{ snowcrash }}. And of course,
+I've got to fit in our next book club pick, {{ time_war }}, too. Hopefully
+I'll get plenty of time to read over the coming holidays.
