@@ -39,6 +39,7 @@ small group of rebels and their self-aware computer.
 
 {% capture watts_lastname_possessive %}{% author_link "Peter Watts" link_text="Watts" possessive %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
 {% capture smiths_lastname_possessive %}{% author_link "L. Neil Smith" link_text="Smith" possessive %}{% endcapture %}
 {% capture probability_broach %}{% book_link "The Probability Broach" %}{% endcapture %}
@@ -124,11 +125,11 @@ named after Sherlock's brother from {{ doyle_lastname_possessive }} {{ greek
 to compute probabilities from limited information. But he also behaves like
 today's generative AIs: he writes jokes and poems, tries to understand humor,
 and generates real-time video of his "Adam Selene" persona. Mike raises the
-classic question of machine consciouness, one we're facing with LLMs, and one
+classic question of machine consciousness, one we're facing with LLMs, and one
 explored by works like {{ wells_lastname_possessive }} {{ mb1 }} and {{
-watts_lastname_possessive }} {{ blindsight }}. Mike is also the ultimate free
-lunch, able to oversee the revolution and paid only in companionship and
-jokes.
+watts_lastname_possessive }} {{ blindsight }} and {{ echopraxia }}. Mike is
+also the ultimate free lunch, able to oversee the revolution and paid only in
+companionship and jokes.
 
 [^holmes]: Highly Optional, Logical, Multi-Evaluating Supervisor, Mark IV
 
