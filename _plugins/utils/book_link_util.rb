@@ -71,16 +71,13 @@ module BookLinkUtils
 
     if found_book_locations.nil? || found_book_locations.empty?
       log_output = _log_book_not_found(context, book_title_input)
-    elsif found_book_locations.length == 1
-      # Only one book with this title, no ambiguity.
-      found_book_data = found_book_locations.first
     else
-      # Multiple books with this title, disambiguation is required.
+      # Always filter by author if the author_filter is provided.
       if author_filter && !author_filter.empty?
         author_cache = link_cache['authors'] || {}
         target_canonical_author = _get_canonical_author(author_filter, author_cache)
 
-        # Find the book in the array where one of its authors matches the filter.
+        # Find the book in the array where one of its authors matches the filter's canonical name.
         found_book_data = found_book_locations.find do |book_data|
           book_data['authors'].any? do |author|
             book_canonical_author = _get_canonical_author(author, author_cache)
@@ -89,21 +86,27 @@ module BookLinkUtils
           end
         end
 
-        # If still not found, log that the title exists but not by that author.
+        # If not found after filtering, log that the title exists but not by that author.
         if found_book_data.nil?
           log_output = _log_book_not_found_by_author(context, book_title_input, author_filter)
         end
       else
-        # Ambiguous and no author was provided. Halt the build.
-        author_names = found_book_locations.map { |loc| loc['authors'].join(', ') }.map { |name| "'#{name}'" }.join('; ')
-        page_path = context.registers[:page]['path']
-        raise Jekyll::Errors::FatalException, <<-MSG
+        # No author filter was provided, now we check for ambiguity.
+        if found_book_locations.length > 1
+          # Ambiguous and no author was provided. Halt the build.
+          author_names = found_book_locations.map { |loc| loc['authors'].join(', ') }.map { |name| "'#{name}'" }.join('; ')
+          page_path = context.registers[:page]['path']
+          raise Jekyll::Errors::FatalException, <<-MSG
 [FATAL] Ambiguous book title in `book_link` tag.
 Page: #{page_path}
 Tag: {% book_link "#{book_title_input}" %}
 Reason: The book title "#{book_title_input}" is used by multiple authors: #{author_names}.
 Fix: Add an author parameter to the tag, e.g., {% book_link "#{book_title_input}" author="Author Name" %}
-        MSG
+          MSG
+        else
+          # Not ambiguous and no author filter, so this is the one.
+          found_book_data = found_book_locations.first
+        end
       end
     end
 

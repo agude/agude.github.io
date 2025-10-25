@@ -98,4 +98,19 @@ class TestBookLinkUtils < Minitest::Test
     assert_match "<!-- [WARN] RENDER_BOOK_LINK_FAILURE: Reason='Input title resolved to empty after normalization.'", output_nil
     assert_match "<!-- [WARN] RENDER_BOOK_LINK_FAILURE: Reason='Input title resolved to empty after normalization.'", output_empty
   end
+
+  def test_unique_book_with_correct_author_param_succeeds
+    expected = "<a href=\"/books/unique.html\"><cite class=\"book-title\">Unique Book</cite></a>"
+    # This would have passed before, but it's good to have an explicit test.
+    assert_equal expected, render_link("Unique Book", nil, "Author A")
+  end
+
+  def test_unique_book_with_incorrect_author_param_renders_unlinked
+    output = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = render_link("Unique Book", nil, "Wrong Author")
+    end
+    # With the fix, this should now correctly fail to find a match and render an unlinked cite tag with a warning.
+    assert_match %r{<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: Reason='Book title exists, but not by the specified author.' .*? --><cite class=\"book-title\">Unique Book</cite>}, output
+  end
 end

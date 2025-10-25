@@ -5,8 +5,9 @@ require_relative '../../_plugins/book_link_tag' # Load the tag
 class TestBookLinkTag < Minitest::Test
 
   def setup
-    @site = create_site
-    @context = create_context(
+    # Setup for parsing tests
+    @parsing_site = create_site
+    @parsing_context = create_context(
       {
         'page_book_title' => 'Variable Book Title',
         'page_link_text' => 'Variable Link Text for Book',
@@ -14,12 +15,25 @@ class TestBookLinkTag < Minitest::Test
         'nil_var' => nil,
         'empty_string_var' => ''
       },
-      { site: @site, page: create_doc({}, '/current.html') }
+      { site: @parsing_site, page: create_doc({}, '/current.html') }
     )
+
+    # --- Setup for Integration Test ---
+    @integration_book = create_doc({ 'title' => "Hyperion", 'published' => true, 'book_authors' => ['Dan Simmons'] }, '/books/hyperion-simmons.html')
+    @integration_site = create_site(
+      {},
+      { 'books' => [@integration_book] },
+      [] # No author pages needed for this simple test
+    )
+    @integration_site.config['plugin_logging']['RENDER_BOOK_LINK'] = true
+    @integration_context = create_context({}, { site: @integration_site, page: create_doc({ 'path' => 'integration_test.md' }, '/integration.html') })
+    @silent_logger_stub = Object.new.tap do |l|
+      def l.warn(p,m);end; def l.error(p,m);end; def l.info(p,m);end; def l.debug(p,m);end
+    end
   end
 
   # Helper to parse the tag and capture arguments passed to the utility
-  def parse_and_capture_args(markup, context = @context)
+  def parse_and_capture_args(markup, context = @parsing_context)
     captured_args = nil
     # Stub the utility function to capture all four arguments
     BookLinkUtils.stub :render_book_link, ->(title, ctx, link_text_override, author_filter) {
@@ -110,5 +124,19 @@ class TestBookLinkTag < Minitest::Test
   def test_render_book_title_resolves_to_empty_string_from_variable
     _output, captured_args = parse_and_capture_args("empty_string_var") # empty_string_var is ''
     assert_equal "", captured_args[:title]
+  end
+
+  def test_integration_tag_and_util_work_together
+    Jekyll.stub :logger, @silent_logger_stub do
+      # Case 1: Correct author, should link
+      template_correct = Liquid::Template.parse("{% book_link 'Hyperion' author='Dan Simmons' %}")
+      output_correct = template_correct.render!(@integration_context)
+      assert_equal "<a href=\"/books/hyperion-simmons.html\"><cite class=\"book-title\">Hyperion</cite></a>", output_correct
+
+      # Case 2: Incorrect author, should NOT link and should log a warning
+      template_incorrect = Liquid::Template.parse("{% book_link 'Hyperion' author='John Keats' %}")
+      output_incorrect = template_incorrect.render!(@integration_context)
+      assert_match %r{<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: Reason='Book title exists, but not by the specified author.'.*?--><cite class=\"book-title\">Hyperion</cite>}, output_incorrect
+    end
   end
 end
