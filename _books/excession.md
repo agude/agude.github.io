@@ -21,7 +21,7 @@ unpredictable, and enormously powerful.
 {% capture pandoras_star %}{% book_link "Pandora's Star" %}{% endcapture %}
 {% capture abyss_dreams %}{% book_link "The Abyss Beyond Dreams" %}{% endcapture %}
 {% capture quantum_thief %}{% book_link "The Quantum Thief" %}{% endcapture %}
-{% capture shadow_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 {% capture player_games %}{% book_link "The Player of Games" %}{% endcapture %}
 {% capture use_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
 
@@ -53,10 +53,9 @@ Seich is a self-absorbed hedonist; Gestra Ishmethit is an ascetic hermit. The
 Excession itself has no counterpart, which drives home its alienness: it
 doesn't _fit_ into any context.
 
-Even after reading so-called "hard" books like {{ quantum_thief }} or {{
-shadow_torturer }}, I still found {{ this_book }} hard to track---mostly
-because of the flood of ship names and trying to figure out who was in on
-what.
+Even after reading so-called "hard" books like {{ quantum_thief }} or {{ botns
+}}, I still found {{ this_book }} hard to track---mostly because of the flood
+of ship names and trying to figure out who was in on what.
 
 Some aspects I loved:
 

@@ -22,7 +22,7 @@ it.
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 {% capture ender %}{% book_link "Ender's Game" %}{% endcapture %}
-{% capture torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 {% capture phlebas %}{% book_link "Consider Phlebas" %}{% endcapture %}
 {% capture suns %}{% book_link "House of Suns" %}{% endcapture %}
 {% capture gravity %}{% book_link "Mission of Gravity" %}{% endcapture %}
@@ -107,7 +107,7 @@ Power, the destruction of the system, and a mad escape in a half-ready ship.
 There is real tension because you know how strong the Blight is.
 
 By putting the war in the background, the story feels close and personal,
-while still conveying high stakes and huge impact---just like {{ torturer }}.
+while still conveying high stakes and huge impact---just like {{ botns }}.
 This contrasts with novels like {{ phlebas }}, where the war is put
 front-and-center to emphasize the insignificance of individuals in the face of
 galactic conflicts.

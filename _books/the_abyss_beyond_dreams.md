@@ -16,14 +16,17 @@ of the story occurs on the planet Bienvenido inside the Void where steam
 engines are their most advanced technology.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 
-{% capture dreaming_void %}{% book_link "The Dreaming Void" %}{% endcapture %}
+{% capture void %}{% series_link "The Void Trilogy" %}{% endcapture %}
+
+{% capture banks %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
 {% capture excession %}{% book_link "Excession" %}{% endcapture %}
 
 The story of {{ this_book }} feels derivative at first because it parallels
-Edeard's from the Void Trilogy (started in {{ dreaming_void }}). Young psychic
-Slvasta joins the army, leaves his rural home for the capital, realizes the
-seemingly benevolent rulers are corrupt, and decides to overthrow them.
+Edeard's from {{ void }}. Young psychic Slvasta joins the army, leaves his
+rural home for the capital, realizes the seemingly benevolent rulers are
+corrupt, and decides to overthrow them.
 
 The core difference lies with the Fallers---an alien terraforming weapon that
 consumes and replaces any person it touches.
@@ -45,16 +48,16 @@ There are two interwoven storylines:
 The revolution sections are tense, but still drag. I could not wait to get
 back to the Sheldon sections.
 
-Surprisingly, the book contains a complete story arc, whereas Hamilton
-normally splits the story across the entire series. But this did make the
-story feel a little too quick. Several challenges I expected would build to
-climatic confrontations were resolved in under a page.
+Surprisingly, the book contains a complete story arc, whereas {{
+author_last_name_text }} normally splits the story across the entire series.
+But this did make the story feel a little too quick. Several challenges that I
+expected would build to climatic confrontations were resolved in under a page.
 
 But these complaints are minor. The writing is great and the pacing kept me on
 the edge of my seat. A book I could not put down!
 
 [^excession]:
-    Coined by Banks in {{ excession }}:
+    Coined by {{ banks }} in {{ excession }}:
 
     > An Outside Context Problem was the sort of thing most civilizations
     > encountered just once, and which they tended to encounter rather in the

@@ -43,13 +43,13 @@ after finishing. I hear the sequel, {{ urth_new_sun }}, answers more questions
 in a different style. I look forward to reading it.
 
 [^melville]:
-    "{{ wolfe }} is our {{ melville }}." -- {{ ursula }}, on the Tor 1987
+    "{{ wolfe }} is our {{ melville }}." --- {{ ursula }}, on the Tor 1987
     Hardback of {{ urth_new_sun }}
 
 [^best]:
     "Years later, [Michael Dirda][dirda] of the Washington Post would call it
     [referring to {{ shadow_torturer }}] 'The greatest fantasy novel written
-    by an American,' and he would be right." -- {{ neil }}, [_Gene Wolfe by
+    by an American,' and he would be right." --- {{ neil }}, [_Gene Wolfe by
     Neil Gaiman_][guardian], The Guardian, <time
     datetime="2011-05-13">2011-05-13</time>
 

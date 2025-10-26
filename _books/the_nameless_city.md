@@ -20,7 +20,7 @@ who discovers a mysterious ancient city and ventures deep beneath its surface.
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture the_authors_short %}{% author_link page.book_authors possessive link_text="Lovecraft" %}{% endcapture %}
 
-{% capture torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 {% capture wolfe %}{% author_link "Gene Wolfe" %}{% endcapture %}
 
 {% capture matter %}{% book_link "Matter" %}{% endcapture %}
@@ -29,9 +29,9 @@ who discovers a mysterious ancient city and ventures deep beneath its surface.
 {% capture this_city %}{{ the_authors_short }} city{% endcapture %}
 {% capture that_city %}{{ banks_short }} city{% endcapture %}
 
-{{ this_book }} reminded me of {{ torturer }}. {{ the_author }} used a blend
-of real historical elements with fictional ones to build a convincing world,
-just as {{ wolfe }} does with his archaic English and real-world locations.
+{{ this_book }} reminded me of {{ botns }}. {{ the_author }} used a blend of
+real historical elements with fictional ones to build a convincing world, just
+as {{ wolfe }} does with his archaic English and real-world locations.
 
 When I reviewed {{ matter }}, I noted that its Nameless City was likely
 inspired by {{ this_book }}. The similarities are:
@@ -43,7 +43,7 @@ inspired by {{ this_book }}. The similarities are:
 - Both contain ancient sarcophagi housing primeval evils that lingers across
   uncountable eons.
 
-- Both stories emphasize humanity's insignificance when confronted with these 
+- Both stories emphasize humanity's insignificance when confronted with these
   ancient civilizations.
 
 [antediluvian_wiki]: https://en.wikipedia.org/wiki/Antediluvian

@@ -83,9 +83,9 @@ feel much closer to {{ laumers }} original single-author works like {{ bolo1
 The collection's three best stories---{{ little_red_hen }}, {{ little_dog_gone
 }}, and {{ miles_to_go }}---explore the relationship between Bolos and their
 crews, especially how those bonds can lead to disaster. The Bolos are a bit
-like {{ murderbot }} from {{ all_systems }}: they develop emotional
-attachments they worry will compromise them, even while also using those
-feelings to drive them to self-sacrifice.
+like {{ murderbot }}: they develop emotional attachments they worry will
+compromise them, even while also using those feelings to drive them to
+self-sacrifice.
 
 ### {% short_story_title "The Farmer's Wife" %}
 <div class="written-by">by {{ author_evans }}</div>
@@ -196,12 +196,12 @@ want to jump up and cheer because you know the villains have finally
 overreached and are about to get what's coming to them. And he uses it to
 great effect here.
 
+[pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
+
 {{ miles_to_go }} has the best action sequences of any Bolo story. The bad
 guys throw everything they've got at Nike, but she wins through with both
 brains and brawn. In that way, it's a lot like {{ murderbot }}: Bolos are
 incredibly competent, and Nike is no exception.
-
-[pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
 This story pulls in pieces from many others. From {{ field_test }},[^test] it
 takes the distrust of smarter Bolos. From {{ the_last_command }}, the

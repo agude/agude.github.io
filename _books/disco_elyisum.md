@@ -33,7 +33,7 @@ a murder while learning who he is.
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
 {% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
-{% capture the_shadow_of_the_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture look_to_windward %}{% book_link "Look to Windward" %}{% endcapture %}
@@ -184,9 +184,8 @@ instantly takes me back to the moment I first heard each track.
   neckties.
 
 - The amnesiac narrator recalls Severian, with his unreliable "perfect"
-  memory, from {{ wolfes }} {{ the_shadow_of_the_torturer }}. Both live in
-  decaying worlds shaped by forgotten history, and both undergo a kind of
-  death and rebirth.
+  memory, from {{ wolfes }} {{ botns }}. Both live in decaying worlds shaped
+  by forgotten history, and both undergo a kind of death and rebirth.
 
 ### Cold and Heavy -- Like Truth
 

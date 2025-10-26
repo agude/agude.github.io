@@ -34,7 +34,7 @@ man's story for the end of the book. If the story was entirely chronological,
 one of the mysteries would be revealed on the first page.
 
 I did not quite predict the twists. I guessed the chair twist, although I was
-thrown off by red herrings. The identity twist—that the operative is not
+thrown off by red herrings. The identity twist---that the operative is not
 really Zakalwe---I realized just a page or two before it was revealed. {{
 banks }} foreshadowed this by never using the authorial voice to name the man,
 only referring to him with pronouns or as "the man".
