@@ -255,8 +255,9 @@ module Jekyll
       # --- Run the raw link validator ---
       _validate_for_raw_links(site, url_to_book_map, url_to_author_map, url_to_series_map)
 
-      # The backlink generation logic only makes sense if there are books to be linked TO.
+      # The backlink generation logic only makes sense if there are books to be linked TO and FROM.
       return unless books_cache && !books_cache.empty?
+      return unless site.collections.key?('books')
 
       # Regex for {% book_link 'Title' %} or {% book_link "Title" %}
       book_link_tag_regex = /\{%\s*book_link\s+(?:'([^']+)'|"([^"]+)")/
@@ -265,7 +266,8 @@ module Jekyll
       # Regex to find short story links
       short_story_link_tag_regex = /\{%\s*short_story_link\s+["'](.+?)["'](?:\s+from_book=["'](.+?)["'])?\s*%\}/
 
-      (site.documents + site.pages).each do |source_doc|
+      # Only scan documents in the 'books' collection for backlinks.
+      site.collections['books'].docs.each do |source_doc|
         # Skip documents without content
         next unless source_doc.respond_to?(:content) && source_doc.content
 
