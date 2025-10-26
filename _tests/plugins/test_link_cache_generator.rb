@@ -165,4 +165,25 @@ class TestLinkCacheGenerator < Minitest::Test
 
     assert_equal 'book', target_backlinks.first[:type]
   end
+
+  def test_generator_ignores_backlinks_from_non_book_sources
+    target_book = create_doc({ 'title' => 'Target Book', 'published' => true }, '/books/target.html')
+    source_book = create_doc({ 'title' => 'Source Book', 'published' => true }, '/books/source-book.html', '{% book_link "Target Book" %}')
+    source_post = create_doc({ 'title' => 'Source Post', 'published' => true }, '/posts/source-post.html', '{% book_link "Target Book" %}')
+    source_page = create_doc({ 'title' => 'Source Page', 'published' => true }, '/source-page.html', '{% book_link "Target Book" %}')
+
+    site = create_site(
+      {},
+      { 'books' => [target_book, source_book] },
+      [source_page],
+      [source_post]
+    )
+
+    backlinks = site.data['link_cache']['backlinks']
+    target_backlinks = backlinks[target_book.url]
+
+    refute_nil target_backlinks, "Backlinks for target book should exist"
+    assert_equal 1, target_backlinks.length, "Should only be one backlink from the source book"
+    assert_equal source_book.url, target_backlinks.first[:source].url
+  end
 end
