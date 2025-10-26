@@ -51,24 +51,23 @@ module Jekyll
 
       return "" if backlink_entries.empty?
 
-      # --- MODIFIED LOGIC: Process the new data structure ---
-      # Map to [sort_key, canonical_title, url] tuples for sorting.
-      # The logic is now self-contained in the tag instead of a separate util.
+      # Map to [sort_key, canonical_title, url, type] tuples for sorting.
       backlinks_data = backlink_entries.map do |entry|
         book_doc = entry[:source]
+        link_type = entry[:type]
         title = book_doc.data['title']
-        next if title.nil? || title.strip.empty? # Skip if backlinking doc has no title
+        next if title.nil? || title.strip.empty?
 
         sort_key = TextProcessingUtils.normalize_title(title, strip_articles: true)
-        [sort_key, title, book_doc.url]
+        [sort_key, title, book_doc.url, link_type]
       end.compact
 
-      # Sort by sort_key, then map to [canonical_title, url] pairs
-      sorted_backlink_pairs = backlinks_data.sort_by { |tuple| tuple[0] }
-        .map { |tuple| [tuple[1], tuple[2]] }
+      # Sort by sort_key, then map to [canonical_title, url, type] tuples
+      sorted_backlinks = backlinks_data.sort_by { |tuple| tuple[0] }
+        .map { |tuple| [tuple[1], tuple[2], tuple[3]] }
 
       # --- Render Final HTML ---
-      if sorted_backlink_pairs.empty?
+      if sorted_backlinks.empty?
         return ""
       else
         output = "<aside class=\"book-backlinks\">"
@@ -77,13 +76,28 @@ module Jekyll
         output << "</h2>"
         output << "<ul class=\"book-backlink-list\">"
 
-        # Iterate through the sorted [title, url] pairs
-        sorted_backlink_pairs.each do |backlink_title, backlink_url|
+        has_series_link = false # Flag to track if we need to show the note
+
+        sorted_backlinks.each do |backlink_title, backlink_url, link_type|
           link_html = BookLinkUtils.render_book_link_from_data(backlink_title, backlink_url, context)
-          output << "<li class=\"book-backlink-item\">#{link_html}</li>"
+
+          indicator_html = ""
+          if link_type == 'series'
+            has_series_link = true # Set the flag
+            # Add the title attribute for the tooltip
+            indicator_html = "<sup class=\"series-mention-indicator\" role=\"img\" aria-label=\"Mentioned via series link\" title=\"Mentioned via series link\">†</sup>"
+          end
+
+          output << "<li class=\"book-backlink-item\" data-link-type=\"#{link_type}\">#{link_html}#{indicator_html}</li>"
         end
 
         output << "</ul>"
+
+        # Conditionally add the explanatory note at the end
+        if has_series_link
+          output << "<p class=\"backlink-explanation\"><sup>†</sup> <em>Mentioned via a link to the series.</em></p>"
+        end
+
         output << "</aside>"
         return output
       end

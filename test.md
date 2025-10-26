@@ -417,3 +417,11 @@ date: "%Y" | minus: 2015 }}.
   custom metadata, images, and dynamic content. The story revolves around a
   fascinating premise and is exceptionally well-written.
 </article>
+
+## Books Ranked by Backlinks
+
+{% display_ranked_by_backlinks %}
+
+## Unreviewed Books Ranked by Backlinks
+
+{% display_unreviewed_mentions %}

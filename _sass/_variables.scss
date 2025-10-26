@@ -1,4 +1,4 @@
-$root-font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif; 
+$root-font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 $code-font-family: "Ubuntu Mono", Menlo, Monaco, Consolas, "Lucida Console", monospace;
 $site-title-font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
 
@@ -37,6 +37,7 @@ $code-inline-font-size: 0.85em;  // em because we embed it in other things, like
 $footnote-font-size: 0.85rem;
 $lead-font-size: 1.25rem;
 $legal-font-size: 0.625rem;
+$small-font-size: 0.75rem;
 $table-font-size: 0.85rem;
 
 // Screen Widths for transformations
