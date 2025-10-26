@@ -80,6 +80,23 @@ class TestBookListUtilsAllBooksDisplay < Minitest::Test # Renamed class
     assert_empty data[:log_messages].to_s, "Expected no log messages for successful display"
   end
 
+  def test_get_data_for_all_books_display_sorts_series_ignoring_articles
+    book_expanse = create_doc({ 'title' => 'Book 1', 'series' => 'The Expanse', 'published' => true }, '/b1.html')
+    book_dune = create_doc({ 'title' => 'Book 2', 'series' => 'Dune', 'published' => true }, '/b2.html')
+    book_canticle = create_doc({ 'title' => 'Book 3', 'series' => 'A Canticle for Leibowitz', 'published' => true }, '/b3.html')
+
+    site_for_series_sort = create_site({}, { 'books' => [book_expanse, book_dune, book_canticle] })
+    context_for_series_sort = create_context({}, { site: site_for_series_sort, page: @context.registers[:page] })
+
+    data = get_all_books_data(site_for_series_sort, context_for_series_sort)
+
+    # Expected order: "A Canticle..." (sorts as C), "Dune" (D), "The Expanse" (E)
+    expected_series_order = ["A Canticle for Leibowitz", "Dune", "The Expanse"]
+    actual_series_order = data[:series_groups].map { |g| g[:name] }
+
+    assert_equal expected_series_order, actual_series_order, "Series groups were not sorted correctly ignoring articles"
+  end
+
   def test_get_data_for_all_books_display_ignores_unpublished
     data = get_all_books_data
     all_rendered_titles = data[:standalone_books].map { |b| b.data['title'] } +
