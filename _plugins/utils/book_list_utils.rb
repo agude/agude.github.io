@@ -522,7 +522,7 @@ module BookListUtils
 
   # Structures a list of books into standalone books and series groups.
   # Sorts standalone books by title (ignoring articles).
-  # Sorts series groups by series name, and books within series by numerical book_number then title.
+  # Sorts series groups by series name (ignoring articles), and books within series by numerical book_number then title.
   # @param books_to_process [Array<Jekyll::Document>] The list of books to structure.
   # @return [Hash] Contains :standalone_books (Array), :series_groups (Array), :log_messages (String - usually empty from this method).
   def self._structure_books_for_display(books_to_process)
@@ -543,10 +543,10 @@ module BookListUtils
       TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true)
     end
 
-    # Sort books with series by series name, then by parsed book number, then by title
+    # Sort books with series by series name (ignoring articles), then by parsed book number, then by title
     books_with_series_sorted_for_grouping = books_with_series.sort_by do |book|
       [
-        book.data['series'].to_s.strip.downcase,
+        TextProcessingUtils.normalize_title(book.data['series'].to_s, strip_articles: true),
         _parse_book_number(book.data['book_number']), # Use helper for numerical sort
         TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true) # Secondary sort by title
       ]
@@ -556,11 +556,9 @@ module BookListUtils
     grouped_by_series_name = books_with_series_sorted_for_grouping.group_by { |book| book.data['series'].to_s.strip }
 
     # Map to the desired series_groups structure. The books within each group are already sorted.
-    # The groups themselves are implicitly sorted by series name due to the sort before grouping,
-    # but an explicit sort on group[:name] ensures this if the grouping strategy changes.
     series_groups = grouped_by_series_name.map do |name, book_list|
       { name: name, books: book_list } # Books are already sorted correctly
-    end.sort_by { |group| group[:name].downcase } # Sort series groups by name
+    end.sort_by { |group| TextProcessingUtils.normalize_title(group[:name], strip_articles: true) } # Sort series groups by name
 
     {
       standalone_books: sorted_standalone,
