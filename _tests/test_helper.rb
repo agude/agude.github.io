@@ -39,7 +39,7 @@ require 'utils/url_utils'
 # --- Mock Objects ---
 
 # Simple mock for Jekyll documents (Posts, Pages, Collection Items)
-MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection) do
+MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection, :relative_path) do
   # Provides hash-like access to document attributes and front matter.
   def [](key)
     key_s = key.to_s
@@ -55,7 +55,7 @@ MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection) do
 
   def respond_to?(method_name, include_private = false)
     # Ensure common document attributes and '[]' are reported as available.
-    return true if %i[data url content date title site collection [] to_liquid].include?(method_name.to_sym) # Added to_liquid
+    return true if %i[data url content date title site collection [] to_liquid relative_path].include?(method_name.to_sym)
     super
   end
 
@@ -96,13 +96,37 @@ end
 # Mock for site.collections['some_collection'] or site.posts
 MockCollection = Struct.new(:docs, :label)
 
-# Mock for the Jekyll site object
-MockSite = Struct.new(:config, :collections, :pages, :posts, :baseurl, :source, :converters, :data, :categories) do
+# Mock for the Jekyll site object, now a full class for reliability.
+class MockSite
+  attr_accessor :config, :collections, :pages, :posts, :baseurl, :source, :converters, :data, :categories
+
+  def initialize(config, collections, pages, posts, baseurl, source, converters, data, categories)
+    @config = config
+    @collections = collections
+    @pages = pages
+    @posts = posts
+    @baseurl = baseurl
+    @source = source
+    @converters = converters
+    @data = data
+    @categories = categories
+  end
+
+  def documents
+    all_docs = []
+    # Add posts, ensuring posts.docs is an array before concatenating
+    all_docs.concat(posts.docs) if posts&.docs&.is_a?(Array)
+    # Add docs from other collections
+    collections&.each_value do |collection|
+      all_docs.concat(collection.docs) if collection&.docs&.is_a?(Array)
+    end
+    all_docs.uniq
+  end
+
   def in_source_dir(path)
     File.join(source || '.', path)
   end
 
-  # Mimics Jekyll's converter lookup.
   def find_converter_instance(klass_or_name)
     return nil unless converters
     converters.find do |c|
@@ -110,6 +134,7 @@ MockSite = Struct.new(:config, :collections, :pages, :posts, :baseurl, :source, 
     end
   end
 end
+
 
 # --- Helper Methods ---
 
@@ -258,8 +283,9 @@ def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = '
   # Ensure the 'date' in the data hash is this canonical Time object.
   base_data['date'] = final_date_obj_for_struct
 
-  # Create the mock document. The 4th argument to MockDocument.new is its direct .date attribute.
-  doc = MockDocument.new(base_data, url, content_attr_val, final_date_obj_for_struct, nil, collection)
+  # The path for relative_path should be what's in the data hash.
+  relative_path_for_mock = base_data['path']
+  doc = MockDocument.new(base_data, url, content_attr_val, final_date_obj_for_struct, nil, collection, relative_path_for_mock)
 
   # Mock excerpt handling:
   # If 'excerpt_output_override' is provided, use it directly for excerpt.output.
