@@ -25,7 +25,7 @@ home from being annexed by the Teixcalaanli empire.
 {% capture culture %}{% series_link "Culture" %}{% endcapture %}
 
 {% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
-{% capture shadow_of_the_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 
 {% capture brunners %}{% author_link "John Brunner" possessive %}{% endcapture %}
 {% capture stand_on_zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
@@ -108,9 +108,8 @@ This book reminded me of several others:
   surgery, her mind scrambled and trying to stabilize, echoed Harry waking to
   dialogue from his Ancient Reptilian Brain and Limbic System.
 
-- The way I noticed the writing style made me think of {{ wolfes }} {{
-  shadow_of_the_torturer }}, with its slightly archaic prose and intentionally
-  unclear descriptions.
+- The way I noticed the writing style made me think of {{ wolfes }} {{ botns
+  }}, with its slightly archaic prose and intentionally unclear descriptions.
 
 {{ this_book }} hooked me with its characters and world, and I can't wait to
 see where the author takes them in {{ teix2 }}.

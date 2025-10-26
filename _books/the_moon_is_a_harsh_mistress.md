@@ -34,7 +34,7 @@ small group of rebels and their self-aware computer.
 {% capture lotr %}{% series_link "The Lord of the Rings" %}{% endcapture %}
 
 {% capture wells_lastname_possessive %}{% author_link "Martha Wells" link_text="Wells" possessive %}{% endcapture %}
-{% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
+{% capture mb %}{% series_link "The Murderbot Diaries" %}{% endcapture %}
 {% capture mb4 %}{% book_link "Exit Strategy" %}{% endcapture %}
 
 {% capture watts_lastname_possessive %}{% author_link "Peter Watts" link_text="Watts" possessive %}{% endcapture %}
@@ -126,7 +126,7 @@ to compute probabilities from limited information. But he also behaves like
 today's generative AIs: he writes jokes and poems, tries to understand humor,
 and generates real-time video of his "Adam Selene" persona. Mike raises the
 classic question of machine consciousness, a theme explored in works like {{
-wells_lastname_possessive }} {{ mb1 }} and {{ watts_lastname_possessive }} {{
+wells_lastname_possessive }} {{ mb }} and {{ watts_lastname_possessive }} {{
 blindsight }} and {{ echopraxia }}, that has become very real with the rise of
 LLMs. Mike is also the ultimate free lunch, able to oversee the revolution and
 paid only in companionship and jokes.

@@ -24,7 +24,7 @@ it draws her into conflict with the world.
 
 {% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
 {% capture wolfes_short %}{% author_link "Gene Wolfe" possessive link_text="Wolfe" %}{% endcapture %}
-{% capture torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 
 {% capture brunners %}{% author_link "John Brunner" possessive %}{% endcapture %}
 {% capture stand_on_zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
@@ -40,9 +40,9 @@ it draws her into conflict with the world.
 {{ this_book }} is an urban fantasy novel set in a city that covers the Earth.
 Its structure, mass, and geometric layout generate plasm---an electricity‑like
 substance mages need to power their spells. The setting is the far future,
-like {{ wolfes }} {{ torturer }}, but unlike {{ wolfes_short }} work, this
-world still has modern technology---skyscrapers, subways, computers,
-cars---and magic that feels systematic, almost technological.
+like {{ wolfes }} {{ botns }}, but unlike {{ wolfes_short }} work, this world
+still has modern technology---skyscrapers, subways, computers, cars---and
+magic that feels systematic, almost technological.
 
 The story follows Aiah, her family, and her people, who are refugees from
 their destroyed metropolis. They're people of color, living as second-class

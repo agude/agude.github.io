@@ -47,7 +47,7 @@ dream of giving his daughter a permanent home.
 {% capture shards %}{% book_link "Shards of Earth" %}{% endcapture %}
 
 {% capture wolfe %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
-{% capture torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 
 {% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
@@ -145,7 +145,7 @@ and the Krenel mercs from {{ disco_elysium }}; Krenel, with its roster of
 sadistic war criminals given free rein to rape and murder, would have fit
 right into this story's brutal disregard for human life. And the "blacker than
 black" Shade suits brought Fuligin to mind, the blacker-than-black worn by
-Severian in {{ wolfe }} {{ torturer }}.
+Severian in {{ wolfe }} {{ botns }}.
 
 Finally, the importance of time and distance---how Earth failed to govern its
 far-off colonies because it had to predict events months or years in

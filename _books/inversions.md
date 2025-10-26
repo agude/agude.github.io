@@ -25,7 +25,7 @@ manipulate a medieval society.
 {% capture c5 %}{% book_link "Excession" %}{% endcapture %}
 {% capture c7 %}{% book_link "Look to Windward" %}{% endcapture %}
 
-{% capture torture %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
+{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 
 {{ this_book }} is polarizing: on [goodreads][gr] it has a reader score of
 3.95---lower than any other Culture novel except {{ c1 }}. I understand why:
@@ -52,7 +52,7 @@ The title, {{ this_book }}, refers to several different things:
   protects, Vosill is a doctor who kills. UrLeyn is an oppressive
   anti-monarchist, Quience is a democratizing monarch.
 
-{{ this_book }} is similar to {{ torture }}. Both are sci-fi novels that take
+{{ this_book }} is similar to {{ botns }}. Both are sci-fi novels that take
 place in a "fantasy world", with hints of but no explicit advanced technology.
 A torturer's apprentice is even one of the first characters to appear in {{
 this_book }} when he summons Vosill and Oelph to his master.
