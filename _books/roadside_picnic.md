@@ -45,7 +45,7 @@ enters an alien-contaminated Zone to retrieve items for the black market.
 
 {% capture bolo11 %}{% book_link "The Unconquerable" %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
-{% capture lost %}{% book_link "Not Till We Are Lost Not Till We Are Lost" %}{% endcapture %}
+{% capture lost %}{% book_link "Not Till We Are Lost" %}{% endcapture %}
 
 {{ this_book }} is a first-contact story like {{ war_of_the_worlds }} and {{
 three_body }}. While both of those books treat aliens as hostile and bent on

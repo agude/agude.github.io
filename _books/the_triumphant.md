@@ -196,12 +196,12 @@ want to jump up and cheer because you know the villains have finally
 overreached and are about to get what's coming to them. And he uses it to
 great effect here.
 
+[pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
+
 {{ miles_to_go }} has the best action sequences of any Bolo story. The bad
 guys throw everything they've got at Nike, but she wins through with both
 brains and brawn. In that way, it's a lot like {{ murderbot }}: Bolos are
 incredibly competent, and Nike is no exception.
-
-[pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
 This story pulls in pieces from many others. From {{ field_test }},[^test] it
 takes the distrust of smarter Bolos. From {{ the_last_command }}, the
