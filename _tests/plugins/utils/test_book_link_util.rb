@@ -113,4 +113,37 @@ class TestBookLinkUtils < Minitest::Test
     # With the fix, this should now correctly fail to find a match and render an unlinked cite tag with a warning.
     assert_match %r{<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: Reason='Book title exists, but not by the specified author.' .*? --><cite class=\"book-title\">Unique Book</cite>}, output
   end
+
+  def test_unreviewed_mention_is_tracked
+    # Ensure the tracker is empty before the test
+    @site.data['mention_tracker'].clear
+
+    unreviewed_title = "Unreviewed Masterpiece"
+    normalized_title = "unreviewed masterpiece"
+
+    # Call the render function, which will trigger the tracking on failure
+    Jekyll.stub :logger, @silent_logger_stub do
+      render_link(unreviewed_title)
+    end
+
+    # Assert that the tracker was populated correctly
+    tracker = @site.data['mention_tracker']
+    refute_nil tracker[normalized_title], "Tracker should have an entry for the normalized title"
+
+    mention_data = tracker[normalized_title]
+    assert_equal 1, mention_data[:original_titles][unreviewed_title], "Original title casing should be counted"
+    assert_includes mention_data[:sources], @page.url, "Source page URL should be in the set of sources"
+
+    # Call it again from a different page to ensure the count and set grow
+    another_page = create_doc({ 'path' => 'another.html' }, '/another.html')
+    another_ctx = create_context({}, { site: @site, page: another_page })
+    Jekyll.stub :logger, @silent_logger_stub do
+      BookLinkUtils.render_book_link(unreviewed_title, another_ctx)
+    end
+
+    mention_data = tracker[normalized_title]
+    assert_equal 2, mention_data[:original_titles][unreviewed_title]
+    assert_equal 2, mention_data[:sources].size
+    assert_includes mention_data[:sources], another_page.url
+  end
 end
