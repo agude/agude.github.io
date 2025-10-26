@@ -176,8 +176,8 @@ class TestLinkCacheGenerator < Minitest::Test
     refute_nil target_backlinks, "Backlinks for target book should exist"
     assert_kind_of Array, target_backlinks
 
-    # Check the URLs of the documents that link back
-    backlinker_urls = target_backlinks.map(&:url).sort
+    # Check the URLs of the source documents inside the new hash structure
+    backlinker_urls = target_backlinks.map { |entry| entry[:source].url }.sort
     expected_urls = [
       source_book_liquid.url,
       source_book_md.url,
@@ -189,7 +189,7 @@ class TestLinkCacheGenerator < Minitest::Test
     assert_equal expected_urls, backlinker_urls, "Should find all books linking to the target"
 
     # Check that the multi-link source only appears once
-    multi_link_count = target_backlinks.count { |doc| doc.url == source_book_multi_link.url }
+    multi_link_count = target_backlinks.count { |entry| entry[:source].url == source_book_multi_link.url }
     assert_equal 1, multi_link_count, "Source with multiple links should only be listed once"
 
     # Check that other books don't have backlinks (unless they are linked to)
@@ -254,14 +254,61 @@ class TestLinkCacheGenerator < Minitest::Test
     # Test backlink for the unique story
     anthology1_backlinks = backlinks[anthology1.url]
     refute_nil anthology1_backlinks
-    assert_equal [source_book1.url], anthology1_backlinks.map(&:url)
+    assert_equal [source_book1.url], anthology1_backlinks.map { |entry| entry[:source].url }
 
     # Test backlink for the disambiguated duplicate story
     anthology3_backlinks = backlinks[anthology3.url]
     refute_nil anthology3_backlinks
-    assert_equal [source_book2.url], anthology3_backlinks.map(&:url)
+    assert_equal [source_book2.url], anthology3_backlinks.map { |entry| entry[:source].url }
 
     # Test that the other anthology with the duplicate story has no backlinks
     assert_empty backlinks[anthology2.url]
+  end
+
+  def test_generator_builds_backlinks_from_series_links
+    # Setup books in a series
+    series_book1 = create_doc({ 'title' => 'Series Book 1', 'series' => 'Test Series', 'published' => true }, '/books/series1.html')
+    series_book2 = create_doc({ 'title' => 'Series Book 2', 'series' => 'Test Series', 'published' => true }, '/books/series2.html')
+
+    # Setup a source that links to the series
+    source_series_link = create_doc(
+      { 'title' => 'Source Series Link', 'published' => true },
+      '/books/source-series.html',
+      'A general mention of the series: {% series_link "Test Series" %}'
+    )
+    # Setup a source that links directly to one book
+    source_book_link = create_doc(
+      { 'title' => 'Source Book Link', 'published' => true },
+      '/books/source-book.html',
+      'A specific mention of one book: {% book_link "Series Book 1" %}'
+    )
+
+    site = create_site({}, { 'books' => [series_book1, series_book2, source_series_link, source_book_link] })
+    backlinks = site.data['link_cache']['backlinks']
+
+    # --- Assertions for Series Book 1 ---
+    book1_backlinks = backlinks[series_book1.url]
+    refute_nil book1_backlinks
+    assert_equal 2, book1_backlinks.length, "Series Book 1 should have two backlinks"
+
+    # Find the backlink from the series link
+    series_entry = book1_backlinks.find { |entry| entry[:source].url == source_series_link.url }
+    refute_nil series_entry, "Backlink from series link missing for Book 1"
+    assert_equal 'series', series_entry[:type]
+
+    # Find the backlink from the direct book link
+    book_entry = book1_backlinks.find { |entry| entry[:source].url == source_book_link.url }
+    refute_nil book_entry, "Backlink from book link missing for Book 1"
+    assert_equal 'book', book_entry[:type]
+
+    # --- Assertions for Series Book 2 ---
+    book2_backlinks = backlinks[series_book2.url]
+    refute_nil book2_backlinks
+    assert_equal 1, book2_backlinks.length, "Series Book 2 should have only one backlink"
+
+    # The only backlink should be from the series link
+    series_entry_2 = book2_backlinks.first
+    assert_equal source_series_link.url, series_entry_2[:source].url
+    assert_equal 'series', series_entry_2[:type]
   end
 end

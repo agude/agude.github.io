@@ -25,6 +25,9 @@ module Jekyll
         'backlinks' => {},
       }
 
+      # --- Initialize the mention tracker ---
+      site.data['mention_tracker'] ||= {}
+
       # --- Cache Author and Series Pages ---
       site.pages.each do |page|
         layout = page.data['layout']
@@ -189,6 +192,8 @@ module Jekyll
 
       # Regex for {% book_link 'Title' %} or {% book_link "Title" %}
       book_link_tag_regex = /\{%\s*book_link\s+(?:'([^']+)'|"([^"]+)")/
+      # --- Regex for {% series_link 'Title' %} ---
+      series_link_tag_regex = /\{%\s*series_link\s+(?:'([^']+)'|"([^"]+)")/
       # Regex to find short story links
       short_story_link_tag_regex = /\{%\s*short_story_link\s+["'](.+?)["'](?:\s+from_book=["'](.+?)["'])?\s*%\}/
       # Regex for [link text](url) - captures URL part
@@ -200,23 +205,37 @@ module Jekyll
         content = source_doc.content
         next if content.nil? || content.empty?
 
-        # 1. Find Liquid book_link tags with string literals
+        # 1. Find Liquid book_link tags (1-to-1)
         content.scan(book_link_tag_regex).each do |match|
           target_title = match.compact.first
           next unless target_title
 
           normalized_target_title = TextProcessingUtils.normalize_title(target_title)
-          # Since books_cache now has arrays, we can't directly look up a single book.
-          # This backlink logic might need refinement if it needs to be precise for ambiguous titles.
-          # For now, we'll link to the first one found, as the main goal is just to know *a* backlink exists.
           target_book_locations = books_cache[normalized_target_title]
           if target_book_locations && !target_book_locations.empty?
             target_url = target_book_locations.first['url']
-            backlinks[target_url] << source_doc if source_doc.url != target_url
+            # Push hash with type
+            backlinks[target_url] << { source: source_doc, type: 'book' } if source_doc.url != target_url
           end
         end
 
-        # 2. Find Liquid short_story_link tags
+        # 2. Find Liquid series_link tags (1-to-many)
+        content.scan(series_link_tag_regex).each do |match|
+          target_series_title = match.compact.first
+          next unless target_series_title
+
+          normalized_series_title = TextProcessingUtils.normalize_title(target_series_title)
+          books_in_series = link_cache['series_map'][normalized_series_title] || []
+          next if books_in_series.empty?
+
+          books_in_series.each do |target_book_doc|
+            target_url = target_book_doc.url
+            # Push hash with type
+            backlinks[target_url] << { source: source_doc, type: 'series' } if source_doc.url != target_url
+          end
+        end
+
+        # 3. Find Liquid short_story_link tags
         content.scan(short_story_link_tag_regex).each do |match|
           story_title, from_book_title = match
           normalized_story_title = TextProcessingUtils.normalize_title(story_title)
@@ -232,29 +251,32 @@ module Jekyll
           end
 
           if target_location && (target_url = target_location['url'])
-            backlinks[target_url] << source_doc if source_doc.url != target_url
+            # Push hash with type
+            backlinks[target_url] << { source: source_doc, type: 'short_story' } if source_doc.url != target_url
           end
         end
 
-        # 3. Find standard Markdown links
+        # 4. Find standard Markdown links
         content.scan(markdown_link_regex).each do |match|
           linked_url = match.first&.split('#')&.first
           if linked_url && url_to_book_map.key?(linked_url) && source_doc.url != linked_url
-            backlinks[linked_url] << source_doc
+            # Push hash with type
+            backlinks[linked_url] << { source: source_doc, type: 'direct' }
           end
         end
 
-        # 4. Find raw HTML links
+        # 5. Find raw HTML links
         content.scan(html_link_regex).each do |match|
           linked_url = match.first&.split('#')&.first
           if linked_url && url_to_book_map.key?(linked_url) && source_doc.url != linked_url
-            backlinks[linked_url] << source_doc
+            # Push hash with type
+            backlinks[linked_url] << { source: source_doc, type: 'direct' }
           end
         end
       end
 
-      # Deduplicate the lists of source documents
-      backlinks.each_value(&:uniq!)
+      # Deduplicate the lists of source documents based on the source object itself.
+      backlinks.each_value { |entries| entries.uniq! { |entry| entry[:source] } }
 
       link_cache['backlinks'] = backlinks
     end
