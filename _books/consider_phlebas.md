@@ -15,7 +15,8 @@ class="book-title">{{ page.title }}</cite> was not a great introduction.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 
-{% capture bankss %}<span class="author-name">Banks</span>'s{% endcapture %}
+{% capture banks %}<span class="author-name">Banks</span>{% endcapture %}
+{% capture bankss %}{{ banks }}'s{% endcapture %}
 {% capture c2 %}{% book_link "The Player of Games" %}{% endcapture %}
 
 The book is considered a "space opera", and there are some hints at
@@ -32,7 +33,7 @@ gruesome imagery---something [he is infamous for][wasp]---is off putting.
 [wasp]: https://en.wikipedia.org/wiki/The_Wasp_Factory
 
 [^banks]:
-    Banks says this is the point:
+    {{ banks }} says this is the point:
 
     > I've read so many SF books where the action is terribly, terribly
     > important to the fate of everyone and everything. That fate of a whole
