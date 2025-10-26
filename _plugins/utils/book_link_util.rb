@@ -137,6 +137,26 @@ Fix: Add an author parameter to the tag, e.g., {% book_link "#{book_title_input}
   # --- Private Helper Methods ---
   private
 
+  # Helper to track mentions of books that don't have a review page.
+  def self._track_unreviewed_mention(context, title)
+    site = context.registers[:site]
+    page = context.registers[:page]
+    # Ensure we have the necessary objects and a valid title to track.
+    return unless site && page && page['url'] && title && !title.strip.empty?
+
+    # Use a normalized title as the key for consistent grouping.
+    normalized_title = TextProcessingUtils.normalize_title(title)
+    return if normalized_title.empty?
+
+    tracker = site.data['mention_tracker']
+    # Initialize the entry for this normalized title if it's the first time we've seen it.
+    tracker[normalized_title] ||= { original_titles: Hash.new(0), sources: Set.new }
+
+    # Store the original casing to find the most common one later, and the source URL.
+    tracker[normalized_title][:original_titles][title.strip] += 1
+    tracker[normalized_title][:sources] << page['url']
+  end
+
   # Helper to find the canonical author name from the cache.
   # Falls back to the original name if not found in the cache.
   # @param name [String, nil] The author name to look up.
@@ -157,8 +177,12 @@ Fix: Add an author parameter to the tag, e.g., {% book_link "#{book_title_input}
     "<cite class=\"book-title\">#{prepared_display_text}</cite>"
   end
 
-  # Logs the failure when the book is not found within the collection.
+  # Logs the failure and now also tracks the mention.
   def self._log_book_not_found(context, input_title)
+    # Call the tracking method.
+    _track_unreviewed_mention(context, input_title)
+
+    # The original logging functionality remains.
     PluginLoggerUtils.log_liquid_failure(
       context: context, tag_type: "RENDER_BOOK_LINK",
       reason: "Could not find book page in cache.",
