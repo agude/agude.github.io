@@ -418,6 +418,10 @@ date: "%Y" | minus: 2015 }}.
   fascinating premise and is exceptionally well-written.
 </article>
 
-## Books Ranked By Backlinks
+## Books Ranked by Backlinks
 
 {% display_ranked_by_backlinks %}
+
+## Unreviewed Books Ranked by Backlinks
+
+{% display_unreviewed_mentions %}
