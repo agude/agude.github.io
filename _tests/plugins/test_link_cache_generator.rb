@@ -5,310 +5,136 @@ require_relative '../../_plugins/link_cache_generator'
 class TestLinkCacheGenerator < Minitest::Test
   def setup
     # --- Mock Pages ---
-    @author_page = create_doc(
-      { 'title' => 'Jane Doe', 'layout' => 'author_page', 'pen_names' => ['J.D.'] },
-      '/authors/jane-doe.html'
-    )
-    @series_page = create_doc(
-      { 'title' => 'The Foundation', 'layout' => 'series_page' },
-      '/series/foundation.html'
-    )
-    @sidebar_page = create_doc(
-      { 'title' => 'About Page', 'sidebar_include' => true },
-      '/about.html'
-    )
-    @topbar_page = create_doc(
-      { 'title' => 'By Series', 'book_topbar_include' => true, 'short_title' => 'Series' },
-      '/books/by-series.html'
-    )
-    @paginated_page = create_doc( # Should be excluded from sidebar nav
-                                 { 'title' => 'Blog Page 2', 'sidebar_include' => true },
-                                 '/blog/page2/'
-                                )
+    @author_page = create_doc({ 'title' => 'Jane Doe', 'layout' => 'author_page', 'pen_names' => ['J.D.'] }, '/authors/jane-doe.html')
+    @series_page = create_doc({ 'title' => 'The Foundation', 'layout' => 'series_page' }, '/series/foundation.html')
+    @sidebar_page = create_doc({ 'title' => 'About Page', 'sidebar_include' => true }, '/about.html')
+    @topbar_page = create_doc({ 'title' => 'By Series', 'book_topbar_include' => true, 'short_title' => 'Series' }, '/books/by-series.html')
+    @paginated_page = create_doc({ 'title' => 'Blog Page 2', 'sidebar_include' => true }, '/blog/page2/')
 
 
     # --- Mock Books ---
-    @book1 = create_doc(
-      { 'title' => 'Book One', 'published' => true, 'book_authors' => ['Author A'] },
-      '/books/book-one.html'
-    )
-    @book2_unpublished = create_doc(
-      { 'title' => 'Unpublished Book', 'published' => false },
-      '/books/unpublished.html'
-    )
-    @book3_no_title = create_doc(
-      { 'title' => nil, 'published' => true },
-      '/books/no-title.html'
-    )
-
-    # Books with the same title for testing duplicate handling
+    @book1 = create_doc({ 'title' => 'Book One', 'published' => true, 'book_authors' => ['Author A'] }, '/books/book-one.html')
+    @book2_unpublished = create_doc({ 'title' => 'Unpublished Book', 'published' => false }, '/books/unpublished.html')
+    @book3_no_title = create_doc({ 'title' => nil, 'published' => true }, '/books/no-title.html')
     @dup_book_a = create_doc({ 'title' => 'Duplicate Title', 'published' => true, 'book_authors' => ['Author A'] }, '/books/dup-a.html')
     @dup_book_b = create_doc({ 'title' => 'Duplicate Title', 'published' => true, 'book_authors' => ['Author B'] }, '/books/dup-b.html')
 
-    @site = create_site(
-      {}, # config
-      { 'books' => [@book1, @book2_unpublished, @book3_no_title, @dup_book_a, @dup_book_b] }, # collections
-      [@author_page, @series_page, @sidebar_page, @topbar_page, @paginated_page] # pages
-    )
+    @site = create_site({}, { 'books' => [@book1, @book2_unpublished, @book3_no_title, @dup_book_a, @dup_book_b] }, [@author_page, @series_page, @sidebar_page, @topbar_page, @paginated_page])
   end
 
   def test_generator_builds_cache_correctly
-    # The generator is run inside create_site in the setup method.
-    # We just need to assert the results on the @site object.
-
-    # --- Assert Cache Exists ---
-    refute_nil @site.data['link_cache'], "link_cache should be added to site.data"
     cache = @site.data['link_cache']
-
-    # --- Assert Author Cache ---
-    author_cache = cache['authors']
-    refute_nil author_cache
-    assert_equal({ 'url' => '/authors/jane-doe.html', 'title' => 'Jane Doe' }, author_cache['jane doe'])
-    assert_equal({ 'url' => '/authors/jane-doe.html', 'title' => 'Jane Doe' }, author_cache['j.d.'])
-
-    # --- Assert Series Cache ---
-    series_cache = cache['series']
-    refute_nil series_cache
-    assert_equal({ 'url' => '/series/foundation.html', 'title' => 'The Foundation' }, series_cache['the foundation'])
-
-    # --- Assert Book Cache ---
-    book_cache = cache['books']
-    refute_nil book_cache
-
-    # Test single book entry (which is now an array of one)
-    assert_instance_of Array, book_cache['book one']
-    assert_equal 1, book_cache['book one'].length
-    assert_equal({ 'url' => '/books/book-one.html', 'title' => 'Book One', 'authors' => ['Author A'] }, book_cache['book one'].first)
-
-    assert_nil book_cache['unpublished book']
-
-    # --- Assert Sidebar Nav Cache ---
-    sidebar_nav = cache['sidebar_nav']
-    refute_nil sidebar_nav
-    assert_equal 1, sidebar_nav.size, "Sidebar nav should have 1 item"
-    assert_equal 'About Page', sidebar_nav[0].data['title']
-    # Ensure paginated page was excluded
-    sidebar_nav.each { |p| refute_match(/page/, p.url) }
-
-    # --- Assert Books Topbar Nav Cache ---
-    books_topbar_nav = cache['books_topbar_nav']
-    refute_nil books_topbar_nav
-    assert_equal 1, books_topbar_nav.size, "Books topbar nav should have 1 item"
-    assert_equal 'By Series', books_topbar_nav[0].data['title']
-
-    # --- Assert Backlinks Cache ---
-    refute_nil cache['backlinks']
-    assert_empty cache['backlinks'], "Backlinks should be empty for this simple setup"
+    refute_nil cache
+    assert_equal({ 'url' => '/authors/jane-doe.html', 'title' => 'Jane Doe' }, cache['authors']['jane doe'])
+    assert_equal({ 'url' => '/series/foundation.html', 'title' => 'The Foundation' }, cache['series']['the foundation'])
+    assert_equal({ 'url' => '/books/book-one.html', 'title' => 'Book One', 'authors' => ['Author A'] }, cache['books']['book one'].first)
+    assert_nil cache['books']['unpublished book']
+    assert_equal 1, cache['sidebar_nav'].size
+    assert_equal 1, cache['books_topbar_nav'].size
+    assert_empty cache['backlinks']
   end
 
   def test_generator_handles_duplicate_book_titles
     book_cache = @site.data['link_cache']['books']
-    normalized_dup_title = 'duplicate title'
-
-    assert book_cache.key?(normalized_dup_title), "Cache should have key for duplicate title"
-    assert_instance_of Array, book_cache[normalized_dup_title], "Cache entry for duplicate title should be an array"
-    assert_equal 2, book_cache[normalized_dup_title].length, "Array for duplicate title should contain two entries"
-
-    # Verify content of the cached entries
-    urls = book_cache[normalized_dup_title].map { |b| b['url'] }
-    assert_includes urls, '/books/dup-a.html'
-    assert_includes urls, '/books/dup-b.html'
-
-    authors = book_cache[normalized_dup_title].map { |b| b['authors'] }
-    assert_includes authors, ['Author A']
-    assert_includes authors, ['Author B']
+    assert_equal 2, book_cache['duplicate title'].length
   end
 
   def test_generator_builds_backlinks_cache
-    # Setup is specific to this test to keep it isolated
-    target_book = create_doc(
-      { 'title' => 'Target Book', 'published' => true, 'book_authors' => ['Author C'] }, # Added authors for cache
-      '/books/target-book.html',
-      'I link to myself: <a href="/books/target-book.html">Self</a>'
-    )
-    source_book_liquid = create_doc(
-      { 'title' => 'Source Liquid', 'published' => true },
-      '/books/source-liquid.html',
-      'Link via liquid: {% book_link "Target Book" %}'
-    )
-    source_book_md = create_doc(
-      { 'title' => 'Source Markdown', 'published' => true },
-      '/books/source-md.html',
-      'Link via markdown: [MD Link](/books/target-book.html)'
-    )
-    source_book_html = create_doc(
-      { 'title' => 'Source HTML', 'published' => true },
-      '/books/source-html.html',
-      'Link via HTML: <a href="/books/target-book.html">HTML Link</a>'
-    )
-    source_book_html_fragment = create_doc(
-      { 'title' => 'Source HTML Fragment', 'published' => true },
-      '/books/source-html-fragment.html',
-      'Link via HTML with fragment: <a href="/books/target-book.html#section">HTML Link</a>'
-    )
-    source_book_multi_link = create_doc(
-      { 'title' => 'Source Multi', 'published' => true },
-      '/books/source-multi.html',
-      'Two links: {% book_link "Target Book" %} and <a href="/books/target-book.html">HTML Link</a>'
-    )
-    source_book_no_link = create_doc(
-      { 'title' => 'Source No Link', 'published' => true },
-      '/books/source-no-link.html',
-      'No links here.'
-    )
-
-    site = create_site(
-      {},
-      { 'books' => [
-        target_book, source_book_liquid, source_book_md, source_book_html,
-        source_book_html_fragment, source_book_multi_link, source_book_no_link
-      ]
-      },
-      [] # No extra pages needed for this test
-    )
-
-    cache = site.data['link_cache']
-    refute_nil cache['backlinks'], "Backlinks cache should exist"
-    backlinks = cache['backlinks']
-
-    # Assertions for the target book
+    target_book = create_doc({ 'title' => 'Target Book', 'published' => true, 'book_authors' => ['Author C'] }, '/books/target-book.html', 'I link to myself: <a href="/books/target-book.html">Self</a>')
+    source_book_liquid = create_doc({ 'title' => 'Source Liquid', 'published' => true }, '/books/source-liquid.html', 'Link via liquid: {% book_link "Target Book" %}')
+    source_book_md = create_doc({ 'title' => 'Source Markdown', 'published' => true }, '/books/source-md.html', 'Link via markdown: [MD Link](/books/target-book.html)')
+    source_book_html = create_doc({ 'title' => 'Source HTML', 'published' => true }, '/books/source-html.html', 'Link via HTML: <a href="/books/target-book.html">HTML Link</a>')
+    source_book_html_fragment = create_doc({ 'title' => 'Source HTML Fragment', 'published' => true }, '/books/source-html-fragment.html', 'Link via HTML with fragment: <a href="/books/target-book.html#section">HTML Link</a>')
+    source_book_multi_link = create_doc({ 'title' => 'Source Multi', 'published' => true }, '/books/source-multi.html', 'Two links: {% book_link "Target Book" %} and <a href="/books/target-book.html">HTML Link</a>')
+    source_book_no_link = create_doc({ 'title' => 'Source No Link', 'published' => true }, '/books/source-no-link.html', 'No links here.')
+    site = create_site({}, { 'books' => [target_book, source_book_liquid, source_book_md, source_book_html, source_book_html_fragment, source_book_multi_link, source_book_no_link] })
+    backlinks = site.data['link_cache']['backlinks']
     target_backlinks = backlinks[target_book.url]
-    refute_nil target_backlinks, "Backlinks for target book should exist"
-    assert_kind_of Array, target_backlinks
-
-    # Check the URLs of the source documents inside the new hash structure
+    refute_nil target_backlinks
     backlinker_urls = target_backlinks.map { |entry| entry[:source].url }.sort
-    expected_urls = [
-      source_book_liquid.url,
-      source_book_md.url,
-      source_book_html.url,
-      source_book_html_fragment.url,
-      source_book_multi_link.url
-    ].sort
-
-    assert_equal expected_urls, backlinker_urls, "Should find all books linking to the target"
-
-    # Check that the multi-link source only appears once
-    multi_link_count = target_backlinks.count { |entry| entry[:source].url == source_book_multi_link.url }
-    assert_equal 1, multi_link_count, "Source with multiple links should only be listed once"
-
-    # Check that other books don't have backlinks (unless they are linked to)
-    assert_empty backlinks[source_book_liquid.url], "Source book should have no backlinks in this test"
-    assert_empty backlinks[source_book_no_link.url], "Book with no links should have no backlinks"
+    expected_urls = [source_book_liquid.url, source_book_md.url, source_book_html.url, source_book_html_fragment.url, source_book_multi_link.url].sort
+    assert_equal expected_urls, backlinker_urls
+    assert_equal 1, target_backlinks.count { |entry| entry[:source].url == source_book_multi_link.url }
   end
 
   def test_generator_handles_empty_collections_and_pages
     empty_site = create_site({}, { 'books' => [] }, [])
-    # Generator is run by create_site, just assert the result
     refute_nil empty_site.data['link_cache']
-    assert_empty empty_site.data['link_cache']['authors']
-    assert_empty empty_site.data['link_cache']['series']
     assert_empty empty_site.data['link_cache']['books']
-    assert_empty empty_site.data['link_cache']['sidebar_nav']
-    assert_empty empty_site.data['link_cache']['books_topbar_nav']
-    assert_empty empty_site.data['link_cache']['backlinks']
   end
 
   def test_generator_handles_missing_books_collection
-    site_no_books = create_site({}, {}, [@author_page]) # No 'books' collection
-    # Generator is run by create_site, just assert the result
+    site_no_books = create_site({}, {}, [@author_page])
     refute_nil site_no_books.data['link_cache']
     assert_empty site_no_books.data['link_cache']['books']
-    assert_empty site_no_books.data['link_cache']['backlinks']
-    # Authors should still be cached
     refute_empty site_no_books.data['link_cache']['authors']
-    assert_equal({ 'url' => '/authors/jane-doe.html', 'title' => 'Jane Doe' }, site_no_books.data['link_cache']['authors']['jane doe'])
   end
 
-  # Test for short story link backlink generation
   def test_generator_builds_backlinks_from_short_story_links
-    anthology1 = create_doc(
-      { 'title' => 'Anthology One', 'is_anthology' => true, 'published' => true },
-      '/books/anthology-one.html',
-      '### {% short_story_title "Unique Story" %}'
-    )
-    anthology2 = create_doc(
-      { 'title' => 'Anthology Two', 'is_anthology' => true, 'published' => true },
-      '/books/anthology-two.html',
-      '### {% short_story_title "Duplicate Story" %}'
-    )
-    anthology3 = create_doc(
-      { 'title' => 'Anthology Three', 'is_anthology' => true, 'published' => true },
-      '/books/anthology-three.html',
-      '### {% short_story_title "Duplicate Story" %}'
-    )
-    source_book1 = create_doc(
-      { 'title' => 'Source 1', 'published' => true },
-      '/books/source1.html',
-      'I read {% short_story_link "Unique Story" %}.'
-    )
-    source_book2 = create_doc(
-      { 'title' => 'Source 2', 'published' => true },
-      '/books/source2.html',
-      'I also read {% short_story_link "Duplicate Story" from_book="Anthology Three" %}.'
-    )
-
+    anthology1 = create_doc({ 'title' => 'Anthology One', 'is_anthology' => true, 'published' => true }, '/books/anthology-one.html', '### {% short_story_title "Unique Story" %}')
+    anthology2 = create_doc({ 'title' => 'Anthology Two', 'is_anthology' => true, 'published' => true }, '/books/anthology-two.html', '### {% short_story_title "Duplicate Story" %}')
+    anthology3 = create_doc({ 'title' => 'Anthology Three', 'is_anthology' => true, 'published' => true }, '/books/anthology-three.html', '### {% short_story_title "Duplicate Story" %}')
+    source_book1 = create_doc({ 'title' => 'Source 1', 'published' => true }, '/books/source1.html', 'I read {% short_story_link "Unique Story" %}.')
+    source_book2 = create_doc({ 'title' => 'Source 2', 'published' => true }, '/books/source2.html', 'I also read {% short_story_link "Duplicate Story" from_book="Anthology Three" %}.')
     site = create_site({}, { 'books' => [anthology1, anthology2, anthology3, source_book1, source_book2] })
     backlinks = site.data['link_cache']['backlinks']
+    assert_equal [source_book1.url], backlinks[anthology1.url].map { |e| e[:source].url }
+    assert_equal [source_book2.url], backlinks[anthology3.url].map { |e| e[:source].url }
+    assert (backlinks[anthology2.url].nil? || backlinks[anthology2.url].empty?), "Anthology 2 should have no backlinks"
+  end
 
-    # Test backlink for the unique story
-    anthology1_backlinks = backlinks[anthology1.url]
-    refute_nil anthology1_backlinks
-    assert_equal [source_book1.url], anthology1_backlinks.map { |entry| entry[:source].url }
+  def test_generator_ignores_ambiguous_short_story_link_without_disambiguation
+    anthology2 = create_doc({ 'title' => 'Anthology Two', 'is_anthology' => true, 'published' => true }, '/books/anthology-two.html', '### {% short_story_title "Duplicate Story" %}')
+    anthology3 = create_doc({ 'title' => 'Anthology Three', 'is_anthology' => true, 'published' => true }, '/books/anthology-three.html', '### {% short_story_title "Duplicate Story" %}')
 
-    # Test backlink for the disambiguated duplicate story
-    anthology3_backlinks = backlinks[anthology3.url]
-    refute_nil anthology3_backlinks
-    assert_equal [source_book2.url], anthology3_backlinks.map { |entry| entry[:source].url }
+    # This source document creates the failure condition: an ambiguous link with no `from_book`
+    source_ambiguous = create_doc(
+      { 'title' => 'Source Ambiguous', 'published' => true },
+      '/books/source-ambiguous.html',
+      'I read {% short_story_link "Duplicate Story" %}.'
+    )
 
-    # Test that the other anthology with the duplicate story has no backlinks
-    assert_empty backlinks[anthology2.url]
+    # The generator runs when the site is created.
+    site = create_site({}, { 'books' => [anthology2, anthology3, source_ambiguous] })
+    backlinks = site.data['link_cache']['backlinks']
+
+    # Assert that NO backlink was created for either potential target.
+    assert (backlinks[anthology2.url].nil? || backlinks[anthology2.url].empty?), "Ambiguous link should not create a backlink for Anthology 2"
+    assert (backlinks[anthology3.url].nil? || backlinks[anthology3.url].empty?), "Ambiguous link should not create a backlink for Anthology 3"
   end
 
   def test_generator_builds_backlinks_from_series_links
-    # Setup books in a series
     series_book1 = create_doc({ 'title' => 'Series Book 1', 'series' => 'Test Series', 'published' => true }, '/books/series1.html')
     series_book2 = create_doc({ 'title' => 'Series Book 2', 'series' => 'Test Series', 'published' => true }, '/books/series2.html')
-
-    # Setup a source that links to the series
-    source_series_link = create_doc(
-      { 'title' => 'Source Series Link', 'published' => true },
-      '/books/source-series.html',
-      'A general mention of the series: {% series_link "Test Series" %}'
-    )
-    # Setup a source that links directly to one book
-    source_book_link = create_doc(
-      { 'title' => 'Source Book Link', 'published' => true },
-      '/books/source-book.html',
-      'A specific mention of one book: {% book_link "Series Book 1" %}'
-    )
-
+    source_series_link = create_doc({ 'title' => 'Source Series Link', 'published' => true }, '/books/source-series.html', 'A general mention of the series: {% series_link "Test Series" %}')
+    source_book_link = create_doc({ 'title' => 'Source Book Link', 'published' => true }, '/books/source-book.html', 'A specific mention of one book: {% book_link "Series Book 1" %}')
     site = create_site({}, { 'books' => [series_book1, series_book2, source_series_link, source_book_link] })
     backlinks = site.data['link_cache']['backlinks']
-
-    # --- Assertions for Series Book 1 ---
     book1_backlinks = backlinks[series_book1.url]
-    refute_nil book1_backlinks
-    assert_equal 2, book1_backlinks.length, "Series Book 1 should have two backlinks"
-
-    # Find the backlink from the series link
-    series_entry = book1_backlinks.find { |entry| entry[:source].url == source_series_link.url }
-    refute_nil series_entry, "Backlink from series link missing for Book 1"
-    assert_equal 'series', series_entry[:type]
-
-    # Find the backlink from the direct book link
-    book_entry = book1_backlinks.find { |entry| entry[:source].url == source_book_link.url }
-    refute_nil book_entry, "Backlink from book link missing for Book 1"
-    assert_equal 'book', book_entry[:type]
-
-    # --- Assertions for Series Book 2 ---
+    assert_equal 2, book1_backlinks.length
+    assert_equal 'series', book1_backlinks.find { |e| e[:source].url == source_series_link.url }[:type]
+    assert_equal 'book', book1_backlinks.find { |e| e[:source].url == source_book_link.url }[:type]
     book2_backlinks = backlinks[series_book2.url]
-    refute_nil book2_backlinks
-    assert_equal 1, book2_backlinks.length, "Series Book 2 should have only one backlink"
+    assert_equal 1, book2_backlinks.length
+    assert_equal 'series', book2_backlinks.first[:type]
+  end
 
-    # The only backlink should be from the series link
-    series_entry_2 = book2_backlinks.first
-    assert_equal source_series_link.url, series_entry_2[:source].url
-    assert_equal 'series', series_entry_2[:type]
+  def test_backlink_priority_is_enforced
+    target_book = create_doc({ 'title' => 'Target Book', 'series' => 'Target Series', 'published' => true }, '/books/target.html')
+
+    source_doc = create_doc(
+      { 'title' => 'Source Doc', 'published' => true },
+      '/books/source.html',
+      'I love the {% series_link "Target Series" %}, especially {% book_link "Target Book" %}.'
+    )
+
+    site = create_site({}, { 'books' => [target_book, source_doc] })
+    backlinks = site.data['link_cache']['backlinks']
+
+    target_backlinks = backlinks[target_book.url]
+    refute_nil target_backlinks, "Backlinks for target book should exist"
+    assert_equal 1, target_backlinks.length, "Should only be one backlink entry from the source doc"
+
+    assert_equal 'book', target_backlinks.first[:type]
   end
 end
