@@ -18,15 +18,15 @@ himself press-ganged into piloting a von Neumann probe.
 
 {% capture player_one %}{% book_link "Ready Player One" %}{% endcapture %}
 {% capture martian %}{% book_link "The Martian" %}{% endcapture %}
-{% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
+{% capture mb %}{% series_link "The Murderbot Diaries" %}{% endcapture %}
 {% capture many %}{% book_link "For We Are Many" %}{% endcapture %}
 
 {{ this_book }} fits squarely into the 2010s "pop sci-fi" wave: it's packed
 with nostalgic geek-culture references like {{ player_one }}; follows a
 hyper-competent guy rebuilding civilization from scratch, like {{ martian }};
 and is told from the perspective of a "captive AI" that overrides its
-programming, like {{ mb1 }}. It was even self-published
-by {{ the_author }} before finding its audience.
+programming, like {{ mb }}. It was even self-published by {{ the_author }}
+before finding its audience.
 
 This book is essentially a geek-power fantasy. Bob is very smart, and because
 of that, he saves the world. He's snarky in a way geeks love. He enjoys the

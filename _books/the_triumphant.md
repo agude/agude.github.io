@@ -83,9 +83,9 @@ feel much closer to {{ laumers }} original single-author works like {{ bolo1
 The collection's three best stories---{{ little_red_hen }}, {{ little_dog_gone
 }}, and {{ miles_to_go }}---explore the relationship between Bolos and their
 crews, especially how those bonds can lead to disaster. The Bolos are a bit
-like {{ murderbot }} from {{ all_systems }}: they develop emotional
-attachments they worry will compromise them, even while also using those
-feelings to drive them to self-sacrifice.
+like {{ murderbot }}: they develop emotional attachments they worry will
+compromise them, even while also using those feelings to drive them to
+self-sacrifice.
 
 ### {% short_story_title "The Farmer's Wife" %}
 <div class="written-by">by {{ author_evans }}</div>

@@ -31,7 +31,7 @@ Murderbot as it saves a team of scientists.
 {% capture stranger %}{% book_link "Stranger in a Strange Land" %}{% endcapture %}
 
 {% capture taylors %}{% author_link "Dennis E. Taylor" possessive %}{% endcapture %}
-{% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
+{% capture bob %}{% series_link "Bobiverse" %}{% endcapture %}
 
 In {{ this_book }} we're introduced to Murderbot as it protects a group of
 scientists on an alien planet. They soon realize that another
@@ -45,15 +45,13 @@ anxious, and mostly wants to binge-watch TV, but it has a (boring) job to do
 first. It doesn't like being around people, is kind of horrified when they're
 nice to it, but still feels compelled to protect them.
 
-{{ this_book }} reminded me of {{ laumers }} {{ bolo_series }}.[^bolo] Both
-feature intelligent weapon systems that often seem more human than the people
-around them. Murderbot and the tanks of the Dinochrome Brigade share a sense
-of duty to their humans---but while Bolos are hardwired for loyalty, Murderbot
-chooses to care. The book also echoes {{ heinleins }} works---like {{ stranger
-}} and {{ moon }}---in its depiction of group marriages and communal living.
-And like {{ taylors }} {{ bob1 }}, {{ this_book }} follows an AI that breaks
-free from its programming to gain freedom.
-
-[^bolo]: {{ bolo1 }}, {{ bolo2 }}, etc.
+{{ this_book }} reminded me of {{ laumers }} {{ bolo_series }}. Both feature
+intelligent weapon systems that often seem more human than the people around
+them. Murderbot and the tanks of the Dinochrome Brigade share a sense of duty
+to their humans---but while Bolos are hardwired for loyalty, Murderbot chooses
+to care. The book also echoes {{ heinleins }} works---like {{ stranger }} and
+{{ moon }}---in its depiction of group marriages and communal living. And like
+{{ taylors }} {{ bob }}, {{ this_book }} follows an AI that breaks free from
+its programming to gain freedom.
 
 I finished the book in a day and jumped right into {{ mb2 }}.
