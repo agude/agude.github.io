@@ -19,6 +19,7 @@ class TestLinkCacheGenerator < Minitest::Test
     @dup_book_a = create_doc({ 'title' => 'Duplicate Title', 'published' => true, 'book_authors' => ['Author A'] }, '/books/dup-a.html')
     @dup_book_b = create_doc({ 'title' => 'Duplicate Title', 'published' => true, 'book_authors' => ['Author B'] }, '/books/dup-b.html')
 
+    # This site is used for tests that DON'T expect a fatal error during generation.
     @site = create_site({}, { 'books' => [@book1, @book2_unpublished, @book3_no_title, @dup_book_a, @dup_book_b] }, [@author_page, @series_page, @sidebar_page, @topbar_page, @paginated_page])
   end
 
@@ -39,22 +40,49 @@ class TestLinkCacheGenerator < Minitest::Test
     assert_equal 2, book_cache['duplicate title'].length
   end
 
-  def test_generator_builds_backlinks_cache
-    target_book = create_doc({ 'title' => 'Target Book', 'published' => true, 'book_authors' => ['Author C'] }, '/books/target-book.html', 'I link to myself: <a href="/books/target-book.html">Self</a>')
-    source_book_liquid = create_doc({ 'title' => 'Source Liquid', 'published' => true }, '/books/source-liquid.html', 'Link via liquid: {% book_link "Target Book" %}')
-    source_book_md = create_doc({ 'title' => 'Source Markdown', 'published' => true }, '/books/source-md.html', 'Link via markdown: [MD Link](/books/target-book.html)')
-    source_book_html = create_doc({ 'title' => 'Source HTML', 'published' => true }, '/books/source-html.html', 'Link via HTML: <a href="/books/target-book.html">HTML Link</a>')
-    source_book_html_fragment = create_doc({ 'title' => 'Source HTML Fragment', 'published' => true }, '/books/source-html-fragment.html', 'Link via HTML with fragment: <a href="/books/target-book.html#section">HTML Link</a>')
-    source_book_multi_link = create_doc({ 'title' => 'Source Multi', 'published' => true }, '/books/source-multi.html', 'Two links: {% book_link "Target Book" %} and <a href="/books/target-book.html">HTML Link</a>')
-    source_book_no_link = create_doc({ 'title' => 'Source No Link', 'published' => true }, '/books/source-no-link.html', 'No links here.')
-    site = create_site({}, { 'books' => [target_book, source_book_liquid, source_book_md, source_book_html, source_book_html_fragment, source_book_multi_link, source_book_no_link] })
-    backlinks = site.data['link_cache']['backlinks']
-    target_backlinks = backlinks[target_book.url]
-    refute_nil target_backlinks
-    backlinker_urls = target_backlinks.map { |entry| entry[:source].url }.sort
-    expected_urls = [source_book_liquid.url, source_book_md.url, source_book_html.url, source_book_html_fragment.url, source_book_multi_link.url].sort
-    assert_equal expected_urls, backlinker_urls
-    assert_equal 1, target_backlinks.count { |entry| entry[:source].url == source_book_multi_link.url }
+  # REWRITTEN TEST: This now tests that the validator catches raw links and fails the build.
+  def test_validator_raises_fatal_for_raw_book_links
+    target_book = create_doc({ 'title' => 'Target Book', 'published' => true, 'book_authors' => ['Author C'], 'path' => '_books/target.md' }, '/books/target-book.html')
+    source_book_md = create_doc({ 'title' => 'Source Markdown', 'published' => true, 'path' => '_books/source-md.md' }, '/books/source-md.html', 'Link via markdown: [MD Link](/books/target-book.html)')
+    source_post_html = create_doc({ 'title' => 'Source HTML Post', 'published' => true, 'path' => '_posts/source-html.md' }, '/posts/source-html.html', 'Link via HTML: <a href="/books/target-book.html">HTML Link</a>')
+
+    err = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [target_book, source_book_md] }, [], [source_post_html])
+    end
+
+    assert_match "Found raw Markdown/HTML links", err.message
+    assert_match "In file '_books/source-md.md'", err.message
+    assert_match "Found: Markdown: /books/target-book.html", err.message
+    assert_match "In file '_posts/source-html.md'", err.message
+    assert_match "Found: HTML: /books/target-book.html", err.message
+  end
+
+  # NEW TEST: Validator catches raw links to author pages.
+  def test_validator_raises_fatal_for_raw_author_links
+    author_page_for_test = create_doc({ 'title' => 'Test Author', 'layout' => 'author_page', 'path' => 'authors/test.md' }, '/authors/test.html')
+    source_post = create_doc({ 'title' => 'Source Post', 'published' => true, 'path' => '_posts/linking-post.md' }, '/posts/linking-post.html', 'Link to an author: [Test Author](/authors/test.html)')
+
+    err = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, {}, [author_page_for_test], [source_post])
+    end
+
+    assert_match "Found raw Markdown/HTML links", err.message
+    assert_match "In file '_posts/linking-post.md'", err.message
+    assert_match "Found: Markdown: /authors/test.html", err.message
+  end
+
+  # NEW TEST: Validator catches raw links to series pages.
+  def test_validator_raises_fatal_for_raw_series_links
+    series_page_for_test = create_doc({ 'title' => 'Test Series', 'layout' => 'series_page', 'path' => 'series/test.md' }, '/series/test.html')
+    source_book = create_doc({ 'title' => 'Source Book', 'published' => true, 'path' => '_books/linking-book.md' }, '/books/linking-book.html', 'Link to a series: <a href="/series/test.html">Test Series</a>')
+
+    err = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [source_book] }, [series_page_for_test])
+    end
+
+    assert_match "Found raw Markdown/HTML links", err.message
+    assert_match "In file '_books/linking-book.md'", err.message
+    assert_match "Found: HTML: /series/test.html", err.message
   end
 
   def test_generator_handles_empty_collections_and_pages

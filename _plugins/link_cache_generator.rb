@@ -13,9 +13,8 @@ module Jekyll
     # --- Define the priority of link types ---
     # Higher number means higher priority.
     LINK_TYPE_PRIORITY = {
-      'book' => 4,
-      'short_story' => 3,
-      'direct' => 2, # For raw <a> and Markdown links
+      'book' => 3,
+      'short_story' => 2,
       'series' => 1
     }.freeze
 
@@ -188,18 +187,76 @@ module Jekyll
       end
     end
 
+    # --- Raw Link Validator ---
+    # This method scans content for raw Markdown or HTML links to pages that
+    # should be linked via custom tags, and halts the build if any are found.
+    def _validate_for_raw_links(site, url_to_book_map, url_to_author_map, url_to_series_map)
+      # Regex for [link text](url) - captures URL part
+      markdown_link_regex = /\[[^\]]+\]\(([^)\s]+)/
+      # Regex for <a href="url"> - captures URL part
+      html_link_regex = /<a\s+(?:[^>]*?\s+)?href="([^"]+)"/
+
+      found_raw_links = {}
+
+      (site.documents + site.pages).each do |source_doc|
+        # Skip documents without content (e.g., some data files if processed as docs)
+        next unless source_doc.respond_to?(:content) && source_doc.content
+
+        content = source_doc.content
+        next if content.nil? || content.empty?
+
+        # Find standard Markdown links
+        content.scan(markdown_link_regex).each do |match|
+          url = match.first&.split('#')&.first
+          if url && (url_to_book_map.key?(url) || url_to_author_map.key?(url) || url_to_series_map.key?(url))
+            found_raw_links[source_doc.relative_path] ||= []
+            found_raw_links[source_doc.relative_path] << "Markdown: #{match.first}"
+          end
+        end
+
+        # Find raw HTML links
+        content.scan(html_link_regex).each do |match|
+          url = match.first&.split('#')&.first
+          if url && (url_to_book_map.key?(url) || url_to_author_map.key?(url) || url_to_series_map.key?(url))
+            found_raw_links[source_doc.relative_path] ||= []
+            found_raw_links[source_doc.relative_path] << "HTML: #{match.first}"
+          end
+        end
+      end
+
+      if found_raw_links.any?
+        error_message = "Found raw Markdown/HTML links. Please convert them to use the appropriate custom tag ('book_link', 'author_link', 'series_link').\n"
+        found_raw_links.each do |path, links|
+          error_message << "  - In file '#{path}':\n"
+          links.uniq.each { |link| error_message << "    - Found: #{link}\n" }
+        end
+        raise Jekyll::Errors::FatalException, error_message
+      end
+    end
+
     # --- build_backlinks_cache now uses the priority system ---
     def build_backlinks_cache(site, link_cache)
       Jekyll.logger.info "LinkCacheGenerator:", "Building backlinks cache..."
       # Use a nested hash to enforce uniqueness per source document
       backlinks = Hash.new { |h, k| h[k] = {} }
       books_cache = link_cache['books']
+      authors_cache = link_cache['authors']
+      series_cache = link_cache['series']
       short_stories_cache = link_cache['short_stories']
-      return unless books_cache && !books_cache.empty?
 
-      # Create a reverse map of URL -> book data by flattening the new cache structure
+      # Create reverse maps of URL -> data object for validation
       url_to_book_map = {}
       books_cache.values.flatten.each { |book_data| url_to_book_map[book_data['url']] = book_data }
+      url_to_author_map = {}
+      authors_cache.values.each { |author_data| url_to_author_map[author_data['url']] = author_data }
+      url_to_series_map = {}
+      series_cache.values.each { |series_data| url_to_series_map[series_data['url']] = series_data }
+
+      # --- Run the raw link validator ---
+      _validate_for_raw_links(site, url_to_book_map, url_to_author_map, url_to_series_map)
+
+      # The backlink generation logic only makes sense if there are books to be linked TO.
+      return unless books_cache && !books_cache.empty?
 
       # Regex for {% book_link 'Title' %} or {% book_link "Title" %}
       book_link_tag_regex = /\{%\s*book_link\s+(?:'([^']+)'|"([^"]+)")/
@@ -207,12 +264,11 @@ module Jekyll
       series_link_tag_regex = /\{%\s*series_link\s+(?:'([^']+)'|"([^"]+)")/
       # Regex to find short story links
       short_story_link_tag_regex = /\{%\s*short_story_link\s+["'](.+?)["'](?:\s+from_book=["'](.+?)["'])?\s*%\}/
-      # Regex for [link text](url) - captures URL part
-      markdown_link_regex = /\[[^\]]+\]\(([^)\s]+)/
-      # Regex for <a href="url"> - captures URL part
-      html_link_regex = /<a\s+(?:[^>]*?\s+)?href="([^"]+)"/
 
-      site.collections['books'].docs.each do |source_doc|
+      (site.documents + site.pages).each do |source_doc|
+        # Skip documents without content
+        next unless source_doc.respond_to?(:content) && source_doc.content
+
         content = source_doc.content
         next if content.nil? || content.empty?
 
@@ -246,18 +302,6 @@ module Jekyll
             end
             add_backlink(backlinks, target['url'], source_doc, 'short_story') if target
           end
-        end
-
-        # 4. Find standard Markdown links
-        content.scan(markdown_link_regex).each do |match|
-          url = match.first&.split('#')&.first
-          add_backlink(backlinks, url, source_doc, 'direct') if url && url_to_book_map.key?(url)
-        end
-
-        # 5. Find raw HTML links
-        content.scan(html_link_regex).each do |match|
-          url = match.first&.split('#')&.first
-          add_backlink(backlinks, url, source_doc, 'direct') if url && url_to_book_map.key?(url)
         end
       end
 
