@@ -1,6 +1,7 @@
 ---
 layout: post
 title: My Favorite Books of 2023
+is_favorites_list: 2023
 description: >
     After abandoning social media in 2023, I read books instead. Read on for
     my favorites.

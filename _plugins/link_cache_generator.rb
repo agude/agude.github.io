@@ -31,6 +31,7 @@ module Jekyll
         'sidebar_nav' => [],
         'books_topbar_nav' => [],
         'backlinks' => {},
+        'favorites_mentions' => {},
       }
 
       # --- Initialize the mention tracker ---
@@ -80,6 +81,9 @@ module Jekyll
       # --- Build Backlinks Cache ---
       # This must run after the 'books' and 'short_stories' caches are populated.
       build_backlinks_cache(site, link_cache)
+
+      # --- Build Favorites Mentions Cache ---
+      build_favorites_mentions_cache(site, link_cache)
 
       # Store the completed cache in site.data for global access
       site.data['link_cache'] = link_cache
@@ -314,6 +318,36 @@ module Jekyll
       end
 
       link_cache['backlinks'] = final_backlinks
+    end
+
+    def build_favorites_mentions_cache(site, link_cache)
+      Jekyll.logger.info "LinkCacheGenerator:", "Building favorites mentions cache..."
+      favorites_mentions = link_cache['favorites_mentions']
+      books_cache = link_cache['books']
+      return unless site.posts&.docs&.is_a?(Array) && books_cache && !books_cache.empty?
+
+      book_link_regex = /\{%\s*(?:book_link|book_card_lookup)\s+(?:title=)?(?:'([^']+)'|"([^"]+)"|(\S+))\s*.*?%\}/
+
+      favorites_posts = site.posts.docs.select { |p| p.data.key?('is_favorites_list') }
+
+      favorites_posts.each do |post|
+        post.content.scan(book_link_regex).each do |match|
+          # The title can be in one of three capture groups depending on quotes/variable
+          title = match.compact.first
+          next unless title && !title.strip.empty?
+
+          normalized_title = TextProcessingUtils.normalize_title(title)
+          book_locations = books_cache[normalized_title]
+          next unless book_locations && !book_locations.empty?
+
+          # Assume the first match is correct for simplicity. Ambiguity is handled by book_link.
+          book_url = book_locations.first['url']
+          next unless book_url
+
+          favorites_mentions[book_url] ||= []
+          favorites_mentions[book_url] << post unless favorites_mentions[book_url].include?(post)
+        end
+      end
     end
   end
 end
