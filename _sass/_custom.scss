@@ -1,5 +1,6 @@
 // Use 'variables' and make its members available globally in this file
 @use "variables" as *;
+@use "sass:color";
 
 // Portraits
 .sidebar-portrait {
@@ -246,12 +247,25 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
   }
 }
 
+.backlink-explanation {
+  font-size: $small-font-size;
+  // Use a lighter shade of your body color for a muted, consistent look.
+  color: color.adjust($body-color, $lightness: 20%);
+  margin-top: 1em;
+}
+
 .series-mention-indicator {
   /* Add a little extra space before the dagger */
   margin-left: 0.05em;
 
   /* This helps prevent the line height from shifting slightly. */
   display: inline-block;
+
+  /* Change the cursor on hover to indicate it's informative. */
+  cursor: help;
+
+  /* Remove the underline that some browsers add to tooltipped items. */
+  text-decoration: none;
 }
 
 // OMEMO QR Code Images

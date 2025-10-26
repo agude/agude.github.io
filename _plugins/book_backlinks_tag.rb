@@ -76,20 +76,28 @@ module Jekyll
         output << "</h2>"
         output << "<ul class=\"book-backlink-list\">"
 
+        has_series_link = false # Flag to track if we need to show the note
+
         sorted_backlinks.each do |backlink_title, backlink_url, link_type|
           link_html = BookLinkUtils.render_book_link_from_data(backlink_title, backlink_url, context)
 
-          # Use a single <sup> tag with all attributes
           indicator_html = ""
           if link_type == 'series'
-            indicator_html = "<sup class=\"series-mention-indicator\" role=\"img\" aria-label=\"Mentioned via series link\">†</sup>"
+            has_series_link = true # Set the flag
+            # Add the title attribute for the tooltip
+            indicator_html = "<sup class=\"series-mention-indicator\" role=\"img\" aria-label=\"Mentioned via series link\" title=\"Mentioned via series link\">†</sup>"
           end
 
-          # The <li> now includes the data attribute and the conditional indicator
           output << "<li class=\"book-backlink-item\" data-link-type=\"#{link_type}\">#{link_html}#{indicator_html}</li>"
         end
 
         output << "</ul>"
+
+        # Conditionally add the explanatory note at the end
+        if has_series_link
+          output << "<p class=\"backlink-explanation\"><sup>†</sup> <em>Mentioned via a link to the series.</em></p>"
+        end
+
         output << "</aside>"
         return output
       end
