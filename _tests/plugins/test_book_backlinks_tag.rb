@@ -26,7 +26,7 @@ class TestBookBacklinksTag < Minitest::Test
 
   # --- Test Cases ---
 
-  def test_renders_correct_structure_with_backlinks
+  def test_renders_correct_structure_with_backlinks_and_dagger
     # Inject test data directly into the cache
     @site.data['link_cache']['backlinks'][@target_page.url] = [
       { source: @source_doc_gamma, type: 'book' },
@@ -55,10 +55,21 @@ class TestBookBacklinksTag < Minitest::Test
     assert_match(/<ul class="book-backlink-list">/, output)
     assert_match(/<\/ul>\s*<\/aside>$/, output)
 
-    # Check list items using the mock HTML. The tag should sort them alphabetically.
-    assert_match(/<li class="book-backlink-item">#{Regexp.escape(mock_link_html["Book Alpha"])}<\/li>/, output)
-    assert_match(/<li class="book-backlink-item">#{Regexp.escape(mock_link_html["Book Beta"])}<\/li>/, output)
-    assert_match(/<li class="book-backlink-item">#{Regexp.escape(mock_link_html["Book Gamma"])}<\/li>/, output)
+    # Check list items and dagger presence. The tag sorts them alphabetically.
+
+    # Book Alpha (series link) - should have sup dagger
+    expected_alpha_li = "<li class=\"book-backlink-item\" data-link-type=\"series\">#{Regexp.escape(mock_link_html["Book Alpha"])}<sup class=\"series-mention-indicator\" role=\"img\" aria-label=\"Mentioned via series link\">†</sup></li>"
+    assert_match(/#{expected_alpha_li}/, output)
+
+    # Book Beta (direct link) - should NOT have dagger
+    expected_beta_li = "<li class=\"book-backlink-item\" data-link-type=\"direct\">#{Regexp.escape(mock_link_html["Book Beta"])}</li>"
+    assert_match(/#{expected_beta_li}/, output)
+    refute_match(/#{Regexp.escape(mock_link_html["Book Beta"])}.*?†/, output, "Book Beta should not have a dagger")
+
+    # Book Gamma (book link) - should NOT have dagger
+    expected_gamma_li = "<li class=\"book-backlink-item\" data-link-type=\"book\">#{Regexp.escape(mock_link_html["Book Gamma"])}</li>"
+    assert_match(/#{expected_gamma_li}/, output)
+    refute_match(/#{Regexp.escape(mock_link_html["Book Gamma"])}.*?†/, output, "Book Gamma should not have a dagger")
 
     # Verify the order
     alpha_index = output.index("Alpha Link")
