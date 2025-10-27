@@ -442,6 +442,44 @@ module BookListUtils
     { year_groups: year_groups_list, log_messages: log_output_accumulator }
   end
 
+  def self.get_data_for_favorites_lists(site:, context:)
+    log_output_accumulator = ""
+    unless site&.posts&.docs&.is_a?(Array) && site.data.dig('link_cache', 'favorites_posts_to_books')
+      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: "BOOK_LIST_FAVORITES",
+        reason: "Prerequisites missing: site.posts or favorites_posts_to_books cache.",
+        level: :error
+      )
+      return { favorites_lists: [], log_messages: log_output_accumulator }
+    end
+
+    favorites_cache = site.data['link_cache']['favorites_posts_to_books']
+    favorites_posts = site.posts.docs
+      .select { |p| p.data.key?('is_favorites_list') }
+      .sort_by { |p| p.data['is_favorites_list'].to_i }
+      .reverse
+
+    favorites_lists_data = favorites_posts.map do |post|
+      books_for_post = favorites_cache[post.url] || []
+      sorted_books = books_for_post.sort_by do |book|
+        TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true)
+      end
+      { post: post, books: sorted_books }
+    end
+
+    if favorites_lists_data.empty?
+      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: "BOOK_LIST_FAVORITES",
+        reason: "No posts with 'is_favorites_list' front matter found.",
+        level: :info
+      )
+    end
+
+    { favorites_lists: favorites_lists_data, log_messages: log_output_accumulator }
+  end
+
   # --- Public HTML Rendering Helper ---
 
   # Renders HTML for book groups (standalone and series).

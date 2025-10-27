@@ -13,4 +13,10 @@ they've received.
 
 {% include books_topbar.html %}
 
+## My Favorite Books Lists
+
+{% display_favorite_books_lists %}
+
+## Major Awards
+
 {% display_books_by_award %}

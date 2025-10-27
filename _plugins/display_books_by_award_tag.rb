@@ -34,16 +34,16 @@ module Jekyll
       return "" if data_by_award[:awards_data].empty?
 
       data_by_award[:awards_data].each_with_index do |award_group, index|
-        # Award heading is H2, using the formatted name and slug from the util
+        # Award heading is H3, using the formatted name and slug from the util
         # Ensure award_slug and award_name are HTML escaped for safety in attributes/content
         escaped_slug = CGI.escapeHTML(award_group[:award_slug] || "")
         escaped_name = CGI.escapeHTML(award_group[:award_name] || "")
 
-        output << "<h2 class=\"book-list-headline\" id=\"#{escaped_slug}\">#{escaped_name}</h2>\n"
+        output << "<h3 class=\"book-list-headline\" id=\"#{escaped_slug}\">#{escaped_name}</h3>\n"
         output << "<div class=\"card-grid\">\n"
 
         award_group[:books].each do |book|
-          output << BookCardUtils.render(book, context) << "\n"
+          output << BookCardUtils.render(book, context)
         end
 
         output << "</div>\n"
