@@ -32,6 +32,7 @@ module Jekyll
         'books_topbar_nav' => [],
         'backlinks' => {},
         'favorites_mentions' => {},
+        'favorites_posts_to_books' => {},
       }
 
       # --- Initialize the mention tracker ---
@@ -64,8 +65,10 @@ module Jekyll
       link_cache['books_topbar_nav'].sort_by! { |p| p.data['title'] }
 
       # --- Cache Book Pages and Build Series Map ---
+      url_to_book_doc_map = {}
       if site.collections.key?('books')
         site.collections['books'].docs.each do |book|
+          url_to_book_doc_map[book.url] = book # Populate the reverse map
           # Only cache published books with a title
           next if book.data['published'] == false
           title = book.data['title']
@@ -83,7 +86,7 @@ module Jekyll
       build_backlinks_cache(site, link_cache)
 
       # --- Build Favorites Mentions Cache ---
-      build_favorites_mentions_cache(site, link_cache)
+      build_favorites_mentions_cache(site, link_cache, url_to_book_doc_map)
 
       # Store the completed cache in site.data for global access
       site.data['link_cache'] = link_cache
@@ -320,9 +323,10 @@ module Jekyll
       link_cache['backlinks'] = final_backlinks
     end
 
-    def build_favorites_mentions_cache(site, link_cache)
+    def build_favorites_mentions_cache(site, link_cache, url_to_book_doc_map)
       Jekyll.logger.info "LinkCacheGenerator:", "Building favorites mentions cache..."
       favorites_mentions = link_cache['favorites_mentions']
+      favorites_posts_to_books = link_cache['favorites_posts_to_books']
       books_cache = link_cache['books']
       return unless site.posts&.docs&.is_a?(Array) && books_cache && !books_cache.empty?
 
@@ -344,8 +348,16 @@ module Jekyll
           book_url = book_locations.first['url']
           next unless book_url
 
+          # Populate the original map: book_url => [post]
           favorites_mentions[book_url] ||= []
           favorites_mentions[book_url] << post unless favorites_mentions[book_url].include?(post)
+
+          # Populate the inverted map: post_url => [book_doc]
+          book_doc = url_to_book_doc_map[book_url]
+          if book_doc
+            favorites_posts_to_books[post.url] ||= []
+            favorites_posts_to_books[post.url] << book_doc unless favorites_posts_to_books[post.url].include?(book_doc)
+          end
         end
       end
     end

@@ -38,6 +38,7 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
       [@favorites_post_2023, @favorites_post_2024, @regular_post_with_link]
     )
     @favorites_cache = @site.data['link_cache']['favorites_mentions']
+    @favorites_posts_to_books_cache = @site.data['link_cache']['favorites_posts_to_books']
   end
 
   def test_favorites_mentions_cache_is_created
@@ -120,5 +121,26 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
     refute_nil mentions_for_a
     assert_equal 1, mentions_for_a.size, "Book A should only be listed once for the post that mentions it multiple times"
     assert_equal favorites_post_multi_mention.url, mentions_for_a.first.url
+  end
+
+  def test_inverted_favorites_cache_is_created_correctly
+    refute_nil @favorites_posts_to_books_cache, "The 'favorites_posts_to_books' cache should exist"
+    assert_equal 2, @favorites_posts_to_books_cache.keys.size, "Should have entries for two favorites posts"
+
+    # Check 2023 post
+    books_for_2023 = @favorites_posts_to_books_cache[@favorites_post_2023.url]
+    refute_nil books_for_2023
+    assert_equal 2, books_for_2023.size
+    book_urls_2023 = books_for_2023.map(&:url).sort
+    assert_equal [@book_a.url, @book_b.url].sort, book_urls_2023
+
+    # Check 2024 post
+    books_for_2024 = @favorites_posts_to_books_cache[@favorites_post_2024.url]
+    refute_nil books_for_2024
+    assert_equal 1, books_for_2024.size # Mentions one valid book
+    assert_equal @book_b.url, books_for_2024.first.url
+
+    # Check that regular post is not a key
+    refute @favorites_posts_to_books_cache.key?(@regular_post_with_link.url)
   end
 end
