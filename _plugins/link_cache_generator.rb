@@ -330,12 +330,12 @@ module Jekyll
       books_cache = link_cache['books']
       return unless site.posts&.docs&.is_a?(Array) && books_cache && !books_cache.empty?
 
-      book_link_regex = /\{%\s*(?:book_link|book_card_lookup)\s+(?:title=)?(?:'([^']+)'|"([^"]+)"|(\S+))\s*.*?%\}/
+      book_card_lookup_regex = /\{%\s*book_card_lookup\s+(?:title=)?(?:'([^']+)'|"([^"]+)"|(\S+))\s*.*?%\}/
 
       favorites_posts = site.posts.docs.select { |p| p.data.key?('is_favorites_list') }
 
       favorites_posts.each do |post|
-        post.content.scan(book_link_regex).each do |match|
+        post.content.scan(book_card_lookup_regex).each do |match|
           # The title can be in one of three capture groups depending on quotes/variable
           title = match.compact.first
           next unless title && !title.strip.empty?

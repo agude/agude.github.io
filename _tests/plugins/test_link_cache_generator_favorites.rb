@@ -9,25 +9,25 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
     @book_c = create_doc({ 'title' => 'Book C' }, '/books/c.html')
 
     # --- Mock Posts (Sources of the links) ---
-    # A favorites post linking to two books
+    # A favorites post linking to Book B via card, but Book A via link (which should be ignored)
     @favorites_post_2023 = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
       '{% book_link "Book A" %} and {% book_card_lookup title="Book B" %}'
     )
 
-    # Another favorites post linking to one existing and one non-existent book
+    # Another favorites post linking to one existing and one non-existent book via card
     @favorites_post_2024 = create_doc(
       { 'title' => 'Favorites 2024', 'is_favorites_list' => 2024 },
       '/posts/fav24.html',
-      '{% book_link "Book B" %} and {% book_link "Non-Existent Book" %}'
+      '{% book_card_lookup title="Book B" %} and {% book_card_lookup title="Non-Existent Book" %}'
     )
 
-    # A regular post that should be ignored
-    @regular_post_with_link = create_doc(
+    # A regular post that should be ignored, even with a book_card_lookup
+    @regular_post_with_card = create_doc(
       { 'title' => 'Regular Post' },
       '/posts/regular.html',
-      '{% book_link "Book C" %}'
+      '{% book_card_lookup title="Book C" %}'
     )
 
     # The create_site helper runs the LinkCacheGenerator automatically
@@ -35,7 +35,7 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
       {},
       { 'books' => [@book_a, @book_b, @book_c] },
       [],
-      [@favorites_post_2023, @favorites_post_2024, @regular_post_with_link]
+      [@favorites_post_2023, @favorites_post_2024, @regular_post_with_card]
     )
     @favorites_cache = @site.data['link_cache']['favorites_mentions']
     @favorites_posts_to_books_cache = @site.data['link_cache']['favorites_posts_to_books']
@@ -45,19 +45,20 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
     refute_nil @favorites_cache, "The 'favorites_mentions' cache should exist"
   end
 
-  def test_finds_mentions_from_favorites_post
+  def test_ignores_book_link_mentions_from_favorites_post
+    # Book A is mentioned in fav23.html via {% book_link %}, which should be ignored.
     mentions_for_a = @favorites_cache[@book_a.url]
-    refute_nil mentions_for_a, "Book A should be in the favorites cache"
-    assert_instance_of Array, mentions_for_a
-    assert_equal 1, mentions_for_a.size
-    assert_equal @favorites_post_2023.url, mentions_for_a.first.url
+    assert_nil mentions_for_a, "Book A should NOT be in the favorites cache as it was linked via book_link"
   end
 
   def test_ignores_mentions_from_regular_posts
+    # Book C is mentioned in a regular post via book_card_lookup, but should be ignored
+    # because the post is not a favorites list.
     assert_nil @favorites_cache[@book_c.url], "Book C, mentioned in a regular post, should not be in the cache"
   end
 
   def test_book_mentioned_in_multiple_lists_is_tracked_correctly
+    # Book B is mentioned via book_card_lookup in both favorites posts.
     mentions_for_b = @favorites_cache[@book_b.url]
     refute_nil mentions_for_b, "Book B should be in the favorites cache"
     assert_equal 2, mentions_for_b.size, "Book B should be mentioned by two posts"
@@ -69,10 +70,10 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
 
   def test_ignores_links_to_non_existent_books
     # The cache should only contain keys for books that actually exist.
-    # We expect keys for Book A and Book B.
-    assert_equal 2, @favorites_cache.keys.size
-    assert_includes @favorites_cache.keys, @book_a.url
+    # Only Book B is mentioned via book_card_lookup.
+    assert_equal 1, @favorites_cache.keys.size
     assert_includes @favorites_cache.keys, @book_b.url
+    refute_includes @favorites_cache.keys, @book_a.url
   end
 
   def test_handles_no_favorites_posts_gracefully
@@ -80,7 +81,7 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
       {},
       { 'books' => [@book_a, @book_c] },
       [],
-      [@regular_post_with_link] # Only a regular post
+      [@regular_post_with_card] # Only a regular post
     )
     cache = site_no_favs.data['link_cache']['favorites_mentions']
     assert_empty cache, "Favorites cache should be empty if no posts are flagged"
@@ -94,21 +95,21 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
     )
     site_with_empty_fav = create_site(
       {},
-      { 'books' => [@book_a] },
+      { 'books' => [@book_a, @book_b] },
       [],
       [favorites_post_no_links, @favorites_post_2023]
     )
     cache = site_with_empty_fav.data['link_cache']['favorites_mentions']
-    # The cache should still contain Book A from the 2023 post, but nothing new.
+    # The cache should still contain Book B from the 2023 post, but nothing new.
     assert_equal 1, cache.keys.size
-    assert_includes cache.keys, @book_a.url
+    assert_includes cache.keys, @book_b.url
   end
 
   def test_book_mentioned_multiple_times_in_one_post_is_added_once
     favorites_post_multi_mention = create_doc(
       { 'title' => 'Favorites Multi-Mention', 'is_favorites_list' => 2026 },
       '/posts/fav26.html',
-      '{% book_link "Book A" %} and again {% book_link "Book A" %}'
+      '{% book_card_lookup title="Book A" %} and again {% book_card_lookup title="Book A" %}'
     )
     site_with_multi_mention = create_site(
       {},
@@ -127,20 +128,19 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
     refute_nil @favorites_posts_to_books_cache, "The 'favorites_posts_to_books' cache should exist"
     assert_equal 2, @favorites_posts_to_books_cache.keys.size, "Should have entries for two favorites posts"
 
-    # Check 2023 post
+    # Check 2023 post (mentions Book B via card)
     books_for_2023 = @favorites_posts_to_books_cache[@favorites_post_2023.url]
     refute_nil books_for_2023
-    assert_equal 2, books_for_2023.size
-    book_urls_2023 = books_for_2023.map(&:url).sort
-    assert_equal [@book_a.url, @book_b.url].sort, book_urls_2023
+    assert_equal 1, books_for_2023.size
+    assert_equal @book_b.url, books_for_2023.first.url
 
-    # Check 2024 post
+    # Check 2024 post (mentions Book B via card)
     books_for_2024 = @favorites_posts_to_books_cache[@favorites_post_2024.url]
     refute_nil books_for_2024
     assert_equal 1, books_for_2024.size # Mentions one valid book
     assert_equal @book_b.url, books_for_2024.first.url
 
     # Check that regular post is not a key
-    refute @favorites_posts_to_books_cache.key?(@regular_post_with_link.url)
+    refute @favorites_posts_to_books_cache.key?(@regular_post_with_card.url)
   end
 end
