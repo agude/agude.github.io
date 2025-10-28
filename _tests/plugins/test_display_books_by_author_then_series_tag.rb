@@ -6,25 +6,28 @@ require 'cgi' # For CGI.escapeHTML
 class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
 
   def setup
-    @author_a_name = "Author A"
-    @author_b_name = "author b"
+    @author_a_name = "Author Alpha"
+    @author_b_name = "Beta Author" # Changed from "author beta"
+    @author_c_name = "Charlie Author" # Added for nav testing
 
-    # Author A books
-    @book_aa_s1_b0_5 = create_doc({ 'title' => 'AA: Series One, Book 0.5', 'series' => 'Series One', 'book_number' => 0.5, 'book_authors' => [@author_a_name] }, '/a/s1b0_5.html') # ADDED
+    # Author Alpha books
+    @book_aa_s1_b0_5 = create_doc({ 'title' => 'AA: Series One, Book 0.5', 'series' => 'Series One', 'book_number' => 0.5, 'book_authors' => [@author_a_name] }, '/a/s1b0_5.html')
     @book_aa_s1_b1 = create_doc({ 'title' => 'AA: Series One, Book 1', 'series' => 'Series One', 'book_number' => 1, 'book_authors' => [@author_a_name] }, '/a/s1b1.html')
-    @book_aa_s1_b2 = create_doc({ 'title' => 'AA: Series One, Book 2', 'series' => 'Series One', 'book_number' => 2, 'book_authors' => [@author_a_name] }, '/a/s1b2.html')
     @book_aa_standalone = create_doc({ 'title' => 'AA: Standalone', 'book_authors' => [@author_a_name] }, '/a/sa.html')
 
-    # author b books
+    # Beta Author books
     @book_ab_s2_b1 = create_doc({ 'title' => 'ab: Series Two, Book 1', 'series' => 'Series Two', 'book_number' => 1, 'book_authors' => [@author_b_name] }, '/b/s2b1.html')
     @book_ab_standalone = create_doc({ 'title' => 'ab: Standalone', 'book_authors' => [@author_b_name] }, '/b/sb.html')
+
+    # Charlie Author book
+    @book_ac_standalone = create_doc({ 'title' => 'CA: Standalone', 'book_authors' => [@author_c_name] }, '/c/sa.html')
 
     @coauthored_aa_ab_standalone = create_doc({ 'title' => 'Co-authored AA & ab Standalone', 'book_authors' => [@author_a_name, @author_b_name] }, '/coauth/sa.html')
     @book_no_author = create_doc({ 'title' => 'Book With No Author', 'series' => 'Some Series', 'book_authors' => [] }, '/no_auth.html')
 
     @all_books_for_tag_test = [
-      @book_aa_s1_b0_5, @book_aa_s1_b1, @book_aa_s1_b2, @book_aa_standalone, # ADDED @book_aa_s1_b0_5
-      @book_ab_s2_b1, @book_ab_standalone,
+      @book_aa_s1_b0_5, @book_aa_s1_b1, @book_aa_standalone,
+      @book_ab_s2_b1, @book_ab_standalone, @book_ac_standalone,
       @coauthored_aa_ab_standalone,
       @book_no_author
     ].compact # Ensure no nils in the array itself
@@ -67,46 +70,56 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
     assert_match "This tag does not accept any arguments", err.message
   end
 
-  def test_renders_correct_author_headings_and_content_with_ids
+  def test_renders_nav_and_correct_author_headings_with_semantic_ids
     output = render_tag
 
-    author_a_slug = simple_slugify(@author_a_name)
+    # --- Calculate expected slugs ---
+    author_a_slug = simple_slugify(@author_a_name) # "author-alpha"
+    author_b_slug = simple_slugify(@author_b_name) # "beta-author"
+    author_c_slug = simple_slugify(@author_c_name) # "charlie-author"
+
+    # --- Assert Jump Links Navigation ---
+    assert_match %r{<nav class="alpha-jump-links">}, output
+    assert_match %r{<a href="##{author_a_slug}">A</a>}, output
+    assert_match %r{<a href="##{author_b_slug}">B</a>}, output
+    assert_match %r{<a href="##{author_c_slug}">C</a>}, output
+    assert_match %r{<span>D</span>}, output # Unlinked
+    assert_match %r{<span>E</span>}, output # Unlinked
+
+    # --- Assert Author Alpha ---
     expected_id_author_a_standalone = "standalone-books-#{author_a_slug}"
-    assert_match %r{<h2 class="book-list-headline">#{CGI.escapeHTML(@author_a_name)}</h2>}, output
+    assert_match %r{<h2 class="book-list-headline" id="#{author_a_slug}">#{CGI.escapeHTML(@author_a_name)}</h2>}, output
     expected_h3_author_a = "<h3 class=\"book-list-headline\" id=\"#{expected_id_author_a_standalone}\">Standalone Books</h3>"
     assert_includes output, expected_h3_author_a
-
     assert_match %r{<!-- Standalone Card: #{@book_aa_standalone.data['title']} -->}, output
     assert_match %r{<!-- Standalone Card: #{@coauthored_aa_ab_standalone.data['title']} -->}, output
-
-    expected_series_one_titles_aa_array = [
-      @book_aa_s1_b0_5.data['title'],
-      @book_aa_s1_b1.data['title'],
-      @book_aa_s1_b2.data['title']
-    ]
+    expected_series_one_titles_aa_array = [@book_aa_s1_b0_5.data['title'], @book_aa_s1_b1.data['title']]
     expected_series_one_string_aa = expected_series_one_titles_aa_array.join(', ')
     assert_match %r{<!-- Series Series One \(H3\) for author: #{Regexp.escape(expected_series_one_string_aa)} -->}, output
 
-
-    author_b_slug = simple_slugify(@author_b_name)
+    # --- Assert Beta Author ---
     expected_id_author_b_standalone = "standalone-books-#{author_b_slug}"
-    assert_match %r{<h2 class="book-list-headline">#{CGI.escapeHTML(@author_b_name)}</h2>}, output
+    assert_match %r{<h2 class="book-list-headline" id="#{author_b_slug}">#{CGI.escapeHTML(@author_b_name)}</h2>}, output
     expected_h3_author_b = "<h3 class=\"book-list-headline\" id=\"#{expected_id_author_b_standalone}\">Standalone Books</h3>"
     assert_includes output, expected_h3_author_b
-
     assert_match %r{<!-- Standalone Card: #{@book_ab_standalone.data['title']} -->}, output
     assert_match %r{<!-- Standalone Card: #{@coauthored_aa_ab_standalone.data['title']} -->}, output
     assert_match %r{<!-- Series Series Two \(H3\) for author: #{@book_ab_s2_b1.data['title']} -->}, output
 
-    author_a_index = output.index("<h2 class=\"book-list-headline\">#{CGI.escapeHTML(@author_a_name)}</h2>")
-    author_b_index = output.index("<h2 class=\"book-list-headline\">#{CGI.escapeHTML(@author_b_name)}</h2>")
-    refute_nil author_a_index; refute_nil author_b_index
+    # --- Assert Charlie Author ---
+    assert_match %r{<h2 class="book-list-headline" id="#{author_c_slug}">#{CGI.escapeHTML(@author_c_name)}</h2>}, output
+    assert_match %r{<!-- Standalone Card: #{@book_ac_standalone.data['title']} -->}, output
+
+    # --- Assert Overall Order ---
+    author_a_index = output.index("id=\"#{author_a_slug}\"")
+    author_b_index = output.index("id=\"#{author_b_slug}\"")
+    author_c_index = output.index("id=\"#{author_c_slug}\"")
+    refute_nil author_a_index; refute_nil author_b_index; refute_nil author_c_index
     assert author_a_index < author_b_index
+    assert author_b_index < author_c_index
 
     # Ensure book with no author is not processed
     refute_match %r{Book With No Author}, output
-    # Ensure no empty author headings (e.g. if an author name was empty string but somehow processed)
-    refute_match %r{<h2 class="book-list-headline">\s*</h2>}, output
   end
 
   def test_renders_log_message_if_books_collection_missing

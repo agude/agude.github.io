@@ -2,6 +2,7 @@
 require 'jekyll'
 require 'liquid'
 require 'cgi'
+require 'set'
 require_relative 'utils/book_list_utils'
 require_relative 'utils/book_card_utils'
 
@@ -27,7 +28,7 @@ module Jekyll
     private def _slugify(text)
       return "" if text.nil?
       text.to_s.downcase.strip
-        .gsub(/\s+/, '-')           # Replace spaces with hyphens
+        .gsub(/\s+/, '-')          # Replace spaces with hyphens
         .gsub(/[^\w-]+/, '')       # Remove all non-word chars except hyphens
         .gsub(/--+/, '-')          # Replace multiple hyphens with a single one
         .gsub(/^-+|-+$/, '')       # Remove leading/trailing hyphens
@@ -36,62 +37,78 @@ module Jekyll
     def render(context)
       site = context.registers[:site]
 
-      # Get the structured data from BookListUtils
-      # This method handles its own logging for critical issues like missing 'books' collection
-      # or if no books with valid authors are found.
       data_by_author = BookListUtils.get_data_for_all_books_by_author_display(
         site: site,
         context: context,
       )
 
-      # Initialize output with any top-level log messages from the utility
-      # (e.g., "books collection not found" or "no books with valid authors found")
-      output = data_by_author[:log_messages] || ""
+      log_messages = data_by_author[:log_messages] || ""
 
-      # If there's no actual author data to display (e.g., collection was empty or no valid authors),
-      # and we already have a log message, just return that.
-      # If no log message and no data, it will correctly return an empty string.
-      return output if data_by_author[:authors_data].empty? && !output.empty?
-      return "" if data_by_author[:authors_data].empty? # No data and no logs, return empty
+      return log_messages if data_by_author[:authors_data].empty? && !log_messages.empty?
+      return "" if data_by_author[:authors_data].empty?
 
-      # Iterate over each author's data
+      # --- Pass 1: Build content buffer and collect first anchor for each letter ---
+      output_buffer = ""
+      first_anchor_for_letter = {}
+
       data_by_author[:authors_data].each do |author_data|
         author_name = author_data[:author_name]
         author_slug = self._slugify(author_name)
+        current_letter = author_name[0].upcase
 
-        # Author heading is H2
-        output << "<h2 class=\"book-list-headline\">#{CGI.escapeHTML(author_name)}</h2>\n"
+        # Store the first slug we encounter for this letter
+        first_anchor_for_letter[current_letter] ||= author_slug
+
+        # Author heading is H2 with a semantic ID
+        output_buffer << "<h2 class=\"book-list-headline\" id=\"#{author_slug}\">#{CGI.escapeHTML(author_name)}</h2>\n"
 
         # Handle Standalone Books for this author (as H3)
         if author_data[:standalone_books]&.any?
-          # Construct unique ID for the standalone books section
           standalone_id = "standalone-books-#{author_slug}"
-          output << "<h3 class=\"book-list-headline\" id=\"#{standalone_id}\">Standalone Books</h3>\n"
-          output << "<div class=\"card-grid\">\n"
+          output_buffer << "<h3 class=\"book-list-headline\" id=\"#{standalone_id}\">Standalone Books</h3>\n"
+          output_buffer << "<div class=\"card-grid\">\n"
           author_data[:standalone_books].each do |book|
-            output << BookCardUtils.render(book, context) << "\n"
+            output_buffer << BookCardUtils.render(book, context) << "\n"
           end
-          output << "</div>\n"
+          output_buffer << "</div>\n"
         end
 
         # Handle Series Groups for this author (Series titles will be H3)
-        # Create a temporary data hash for render_book_groups_html, excluding standalone books
         series_only_data = {
-          standalone_books: [], # Already handled
+          standalone_books: [],
           series_groups: author_data[:series_groups],
           log_messages: "",
         }
 
         if author_data[:series_groups]&.any?
-          output << BookListUtils.render_book_groups_html(
+          output_buffer << BookListUtils.render_book_groups_html(
             series_only_data,
             context,
-            series_heading_level: 3, # Specify H3 for series titles
+            series_heading_level: 3,
           )
         end
       end
 
-      output
+      # --- Pass 2: Build navigation using the collected anchors ---
+      existing_letters = Set.new(first_anchor_for_letter.keys)
+      all_chars_for_nav = ('A'..'Z').to_a
+      nav_links = []
+
+      all_chars_for_nav.each do |char|
+        if existing_letters.include?(char)
+          anchor_slug = first_anchor_for_letter[char]
+          nav_links << "<a href=\"##{anchor_slug}\">#{char}</a>"
+        else
+          nav_links << "<span>#{char}</span>"
+        end
+      end
+
+      nav_html = "<nav class=\"alpha-jump-links\">\n"
+      nav_html << "  #{nav_links.join(' ')}\n"
+      nav_html << "</nav>\n"
+
+      # --- Final Assembly ---
+      log_messages + nav_html + output_buffer
     end
   end
 end
