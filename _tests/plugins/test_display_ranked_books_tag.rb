@@ -10,16 +10,17 @@ class TestDisplayRankedBooksTag < Minitest::Test
     @book5a = create_doc({ 'title' => 'Book A (5 Stars)', 'rating' => 5, 'published' => true }, '/b5a.html')
     @book5b = create_doc({ 'title' => 'Book B (5 Stars)', 'rating' => '5', 'published' => true }, '/b5b.html') # Rating as string
     @book4a = create_doc({ 'title' => 'Book C (4 Stars)', 'rating' => 4, 'published' => true }, '/b4a.html')
+    @book1a = create_doc({ 'title' => 'Book D (1 Star)', 'rating' => 1, 'published' => true }, '/b1a.html') # For singular test
     @book_invalid_rating = create_doc({ 'title' => 'Book Invalid Rating', 'rating' => 'five_stars', 'published' => true }, '/bir.html')
     @book_unlisted = create_doc({ 'title' => 'Book Unlisted In Map', 'rating' => 3, 'published' => true }, '/bul.html') # Not in ranked_list
 
-    @all_books_for_map = [@book5a, @book5b, @book4a, @book_invalid_rating, @book_unlisted]
+    @all_books_for_map = [@book5a, @book5b, @book4a, @book1a, @book_invalid_rating, @book_unlisted]
     # Ensure collections are hashes for direct key assignment
     @site_dev.collections = { 'books' => MockCollection.new(@all_books_for_map, 'books') }
     @site_prod.collections = { 'books' => MockCollection.new(@all_books_for_map, 'books') }
 
 
-    @valid_ranked_list = ['Book A (5 Stars)', 'Book B (5 Stars)', 'Book C (4 Stars)']
+    @valid_ranked_list = ['Book A (5 Stars)', 'Book B (5 Stars)', 'Book C (4 Stars)', 'Book D (1 Star)']
     @non_existent_title_list = ['Book A (5 Stars)', 'Non Existent Book', 'Book C (4 Stars)']
     @invalid_rating_list = ['Book A (5 Stars)', 'Book Invalid Rating', 'Book C (4 Stars)']
     @monotonic_violation_list = ['Book C (4 Stars)', 'Book A (5 Stars)'] # 4 then 5
@@ -173,18 +174,26 @@ class TestDisplayRankedBooksTag < Minitest::Test
     @context_dev['page']['ranked_list'] = @valid_ranked_list.dup # Ensure it's using the valid list
     output = ""
     BookCardUtils.stub :render, ->(book_obj, _ctx) { "<div class='mock-book-card'>#{CGI.escapeHTML(book_obj.data['title'])}</div>\n" } do
-      RatingUtils.stub :render_rating_stars, ->(rating, _wrapper) { "<span>Rating #{rating} Stars</span>" } do
+      RatingUtils.stub :render_rating_stars, ->(rating, _wrapper) { "<span>Rating #{rating} #{rating == 1 ? 'Star' : 'Stars'}</span>" } do
         output = render_tag("page.ranked_list", @context_dev)
       end
     end
 
+    # Assert Navigation Bar
+    assert_match %r{<nav class="alpha-jump-links">}, output
+    expected_nav_links = "<a href=\"#rating-5\">5-Stars</a> <a href=\"#rating-4\">4-Stars</a> <a href=\"#rating-1\">1-Star</a>"
+    assert_match expected_nav_links, output
+
+    # Assert Headers
     assert_match %r{<h2 class="book-list-headline" id="rating-5"><span>Rating 5 Stars</span></h2>\s*<div class="card-grid">}, output
     assert_match %r{<h2 class="book-list-headline" id="rating-4"><span>Rating 4 Stars</span></h2>\s*<div class="card-grid">}, output
+    assert_match %r{<h2 class="book-list-headline" id="rating-1"><span>Rating 1 Star</span></h2>\s*<div class="card-grid">}, output
 
-    assert_equal 3, output.scan(/mock-book-card/).count
+    assert_equal 4, output.scan(/mock-book-card/).count
 
-    # Check content of cards within groups (titles are HTML escaped by the stub now)
+    # Check content of cards within groups
     assert_match %r{id="rating-5">.*?<div class='mock-book-card'>Book A \(5 Stars\)</div>.*?<div class='mock-book-card'>Book B \(5 Stars\)</div>.*?</div>}m, output
     assert_match %r{id="rating-4">.*?<div class='mock-book-card'>Book C \(4 Stars\)</div>.*?</div>}m, output
+    assert_match %r{id="rating-1">.*?<div class='mock-book-card'>Book D \(1 Star\)</div>.*?</div>}m, output
   end
 end

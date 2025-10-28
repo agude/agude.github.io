@@ -69,9 +69,10 @@ module Jekyll
       end
 
       # --- Step 3: Initialize State ---
-      output = ""
+      output_buffer = ""
       current_rating_group = nil
       is_div_open = false
+      found_ratings = [] # To collect unique ratings for the nav
       # Validation state (only used if not is_production)
       previous_rating = Float::INFINITY
       previous_title = nil
@@ -116,7 +117,7 @@ module Jekyll
         unless book_object
           # This should only happen in production if validation is skipped and list is bad
           # or if a book was unpublished after the list was generated.
-          output << PluginLoggerUtils.log_liquid_failure(
+          output_buffer << PluginLoggerUtils.log_liquid_failure(
             context: context, tag_type: "DISPLAY_RANKED_BOOKS",
             reason: "Book title from ranked list not found in lookup map (Production Mode).",
             identifiers: { Title: current_title_raw, ListVariable: @list_variable_markup },
@@ -131,7 +132,7 @@ module Jekyll
           begin
             book_rating = Integer(book_rating_raw)
           rescue ArgumentError, TypeError
-            output << PluginLoggerUtils.log_liquid_failure(
+            output_buffer << PluginLoggerUtils.log_liquid_failure(
               context: context, tag_type: "DISPLAY_RANKED_BOOKS",
               reason: "Book has invalid non-integer rating (Production Mode).",
               identifiers: { Title: current_title_raw, Rating: book_rating_raw.inspect, ListVariable: @list_variable_markup },
@@ -148,33 +149,47 @@ module Jekyll
         # Check for Rating Group Change
         if book_rating != current_rating_group
           if is_div_open
-            output << "</div>\n" # Close card-grid div
+            output_buffer << "</div>\n" # Close card-grid div
             is_div_open = false
           end
 
+          found_ratings << book_rating # Collect the rating for the nav
+
           # Add the id attribute back to the H2 tag
           h2_id = "rating-#{book_rating}"
-          output << "<h2 class=\"book-list-headline\" id=\"#{h2_id}\">"
-          output << RatingUtils.render_rating_stars(book_rating, 'span')
-          output << "</h2>\n"
-          output << "<div class=\"card-grid\">\n"
+          output_buffer << "<h2 class=\"book-list-headline\" id=\"#{h2_id}\">"
+          output_buffer << RatingUtils.render_rating_stars(book_rating, 'span')
+          output_buffer << "</h2>\n"
+          output_buffer << "<div class=\"card-grid\">\n"
           is_div_open = true
           current_rating_group = book_rating
         end
 
         # Render Book Card
-        output << BookCardUtils.render(book_object, context) << "\n"
+        output_buffer << BookCardUtils.render(book_object, context) << "\n"
         # --- End Rendering Step ---
 
       end # End loop through ranked_list
 
       # --- Step 5: Final Cleanup ---
-      # This 'if' statement and its content must be within the 'render' method's scope.
       if is_div_open
-        output << "</div>\n" # Close the last card-grid div
+        output_buffer << "</div>\n" # Close the last card-grid div
       end
 
-      # --- Step 6: Return Rendered HTML ---
+      # --- Step 6: Generate and Prepend Navigation ---
+      nav_html = ""
+      unless found_ratings.empty?
+        nav_links = found_ratings.map do |rating|
+          rating_text = rating == 1 ? "#{rating}-Star" : "#{rating}-Stars"
+          "<a href=\"#rating-#{rating}\">#{rating_text}</a>"
+        end
+        nav_html << "<nav class=\"alpha-jump-links\">\n"
+        nav_html << "  #{nav_links.join(' ')}\n"
+        nav_html << "</nav>\n"
+      end
+
+      # --- Step 7: Return Rendered HTML ---
+      output = nav_html + output_buffer
       output
 
     rescue => e # This rescue is for the entire render method
