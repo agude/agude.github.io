@@ -22,7 +22,7 @@ module Jekyll
 
       # BookListUtils.render_book_groups_html will prepend data[:log_messages] (if any)
       # and handle cases where no books are found.
-      BookListUtils.render_book_groups_html(data, context)
+      BookListUtils.render_book_groups_html(data, context, generate_nav: true)
     end
   end
   Liquid::Template.register_tag('display_all_books_grouped', DisplayAllBooksGroupedTag)

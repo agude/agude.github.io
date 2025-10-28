@@ -69,12 +69,12 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
     output = render_tag("'#{@author_a}'") # Use instance variable for author name
 
     # Check for Author A's standalone books
-    assert_match %r{<h2 class="book-list-headline">Standalone Books</h2>}, output
+    assert_match %r{<h2 class="book-list-headline" id="standalone-books">Standalone Books</h2>}, output
     assert_match %r{<cite class="book-title">The Author A Standalone</cite>}, output
     assert_match %r{<cite class="book-title">Co-authored Book</cite>}, output # Should appear here
 
     # Check for Author A's series books
-    assert_match %r{<h2 class="series-title">.*<span class="book-series">Series One</span>.*</h2>}, output
+    assert_match %r{<h2 class="series-title" id="series-one">.*<span class="book-series">Series One</span>.*</h2>}, output
     assert_match %r{<cite class="book-title">Author A Series One Book 1</cite>}, output
     assert_match %r{<cite class="book-title">Author A Series One Book 2</cite>}, output
 
@@ -89,12 +89,12 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
     output = render_tag("page_author_var")
 
     # Check for Author B's standalone books
-    assert_match %r{<h2 class="book-list-headline">Standalone Books</h2>}, output
+    assert_match %r{<h2 class="book-list-headline" id="standalone-books">Standalone Books</h2>}, output
     assert_match %r{<cite class="book-title">Author B Standalone</cite>}, output
     assert_match %r{<cite class="book-title">Co-authored Book</cite>}, output # Should also appear here
 
     # Check for Author B's series books
-    assert_match %r{<h2 class="series-title">.*<span class="book-series">Series Two</span>.*</h2>}, output
+    assert_match %r{<h2 class="series-title" id="series-two">.*<span class="book-series">Series Two</span>.*</h2>}, output
     assert_match %r{<cite class="book-title">Author B Series Two Book 1</cite>}, output
 
     # Ensure Author A's specific books (not co-authored) are not present

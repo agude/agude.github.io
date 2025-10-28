@@ -1,4 +1,6 @@
 # _plugins/utils/book_list_utils.rb
+require 'set'
+require 'cgi'
 require_relative './series_link_util'
 require_relative './url_utils'
 require_relative 'plugin_logger_utils'
@@ -486,38 +488,78 @@ module BookListUtils
   # @param data [Hash] Expected to have :standalone_books, :series_groups, and optionally :log_messages.
   # @param context [Liquid::Context] The Liquid context.
   # @param series_heading_level [Integer] The HTML heading level for series titles (e.g., 2 for <h2>, 3 for <h3>). Defaults to 2.
+  # @param generate_nav [Boolean] If true, generates and prepends an A-Z jump-link navigation.
   # @return [String] The rendered HTML.
-  def self.render_book_groups_html(data, context, series_heading_level: 2)
+  def self.render_book_groups_html(data, context, series_heading_level: 2, generate_nav: false)
     output = ""
     output << data[:log_messages] if data[:log_messages] && !data[:log_messages].empty?
+
+    standalone_books = data[:standalone_books] || []
+    series_groups = data[:series_groups] || []
+
+    return output if standalone_books.empty? && series_groups.empty?
 
     # Validate heading level to prevent invalid HTML, default to 2 if out of typical range (1-6)
     series_hl = series_heading_level.to_i
     series_hl = 2 unless (1..6).include?(series_hl)
 
-    # "Standalone Books" heading is kept as H2 here for general use by other tags.
-    # Specific tags (like DisplayBooksByAuthorThenSeriesTag) can choose to render
-    # their own "Standalone Books" section with a different heading level if needed.
-    if data[:standalone_books]&.any?
-      output << "<h2 class=\"book-list-headline\">Standalone Books</h2>\n" # This remains H2 for general use
-      output << "<div class=\"card-grid\">\n"
-      data[:standalone_books].each do |book|
-        output << BookCardUtils.render(book, context) << "\n"
+    # --- Pass 1: Build content buffer and collect first anchor for each letter ---
+    output_buffer = ""
+    first_anchor_for_letter = {}
+
+    if standalone_books.any?
+      anchor_slug = "standalone-books"
+      first_anchor_for_letter['#'] = anchor_slug if generate_nav
+      output_buffer << "<h2 class=\"book-list-headline\" id=\"#{anchor_slug}\">Standalone Books</h2>\n"
+      output_buffer << "<div class=\"card-grid\">\n"
+      standalone_books.each do |book|
+        output_buffer << BookCardUtils.render(book, context) << "\n"
       end
-      output << "</div>\n"
+      output_buffer << "</div>\n"
     end
 
-    data[:series_groups]&.each do |series_group|
-      series_title_html = SeriesLinkUtils.render_series_link(series_group[:name], context)
-      # Use the dynamic series_hl for the heading tag
-      output << "<h#{series_hl} class=\"series-title\">#{series_title_html}</h#{series_hl}>\n" # Dynamic heading level
-      output << "<div class=\"card-grid\">\n"
+    series_groups.each do |series_group|
+      series_name = series_group[:name]
+      series_slug = TextProcessingUtils.slugify(series_name)
+      sort_key = TextProcessingUtils.normalize_title(series_name, strip_articles: true)
+      # For the jump-nav, strip "series " from the start of the sort key to get a more intuitive letter.
+      jump_nav_sort_key = sort_key.sub(/^series\s+/, '').strip
+      current_letter = jump_nav_sort_key.empty? ? '#' : jump_nav_sort_key[0].upcase
+
+      first_anchor_for_letter[current_letter] ||= series_slug if generate_nav
+
+      series_title_html = SeriesLinkUtils.render_series_link(series_name, context)
+      output_buffer << "<h#{series_hl} class=\"series-title\" id=\"#{series_slug}\">#{series_title_html}</h#{series_hl}>\n"
+      output_buffer << "<div class=\"card-grid\">\n"
       series_group[:books].each do |book|
-        output << BookCardUtils.render(book, context) << "\n"
+        output_buffer << BookCardUtils.render(book, context) << "\n"
       end
-      output << "</div>\n"
+      output_buffer << "</div>\n"
     end
-    output
+
+    # If not generating a nav, we're done.
+    return output + output_buffer unless generate_nav
+
+    # --- Pass 2: Build navigation using the collected anchors ---
+    existing_letters = Set.new(first_anchor_for_letter.keys)
+    all_chars_for_nav = ['#'] + ('A'..'Z').to_a
+    nav_links = []
+
+    all_chars_for_nav.each do |char|
+      if existing_letters.include?(char)
+        anchor_slug = first_anchor_for_letter[char]
+        nav_links << "<a href=\"##{anchor_slug}\">#{CGI.escapeHTML(char)}</a>"
+      else
+        nav_links << "<span>#{CGI.escapeHTML(char)}</span>"
+      end
+    end
+
+    nav_html = "<nav class=\"alpha-jump-links\">\n"
+    nav_html << "  #{nav_links.join(' ')}\n"
+    nav_html << "</nav>\n"
+
+    # --- Final Assembly ---
+    output + nav_html + output_buffer
   end
 
   # --- Private Helper Methods ---
