@@ -33,6 +33,17 @@ module Jekyll
       return output if data_by_year[:year_groups].empty? && !output.empty?
       return "" if data_by_year[:year_groups].empty?
 
+      # --- Generate the year jump links navigation ---
+      years = data_by_year[:year_groups].map { |g| g[:year] }
+      nav_links = years.map do |year|
+        "<a href=\"#year-#{CGI.escapeHTML(year)}\">#{CGI.escapeHTML(year)}</a>"
+      end
+
+      output << "<nav class=\"alpha-jump-links\">\n"
+      output << "  #{nav_links.join(' ')}\n"
+      output << "</nav>\n"
+      # --- End of jump links navigation ---
+
       data_by_year[:year_groups].each do |year_group|
         year = year_group[:year]
         books_in_group = year_group[:books]

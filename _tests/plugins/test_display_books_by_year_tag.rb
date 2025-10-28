@@ -42,53 +42,42 @@ class TestDisplayBooksByYearTag < Minitest::Test
   end
 
   def test_renders_correct_year_headings_and_book_order
-    # Determine year of @book_no_date for assertion
-    year_of_no_date_book = @book_no_date.date.year.to_s
+    # This test now also checks for the navigation bar.
+    # Setup specific books for THIS test with clear dates for deterministic results.
+    book_2024_mar = create_doc({ 'title' => 'Book Mar 2024', 'date' => Time.parse("2024-03-10") }, '/b2024b.html')
+    book_2024_jan = create_doc({ 'title' => 'Book Jan 2024', 'date' => Time.parse("2024-01-15") }, '/b2024a.html')
+    book_2023_dec = create_doc({ 'title' => 'Book Dec 2023', 'date' => Time.parse("2023-12-01") }, '/b2023a.html')
 
-    output = render_tag
+    # Create a specific site and context for this test to avoid side effects.
+    test_site = create_site({ 'url' => 'http://example.com' }, { 'books' => [book_2024_jan, book_2024_mar, book_2023_dec] })
+    test_context = create_context({}, { site: test_site, page: @context.registers[:page] })
 
-    # --- Assert Group for current year (if @book_no_date is current year) or 2024 ---
-    # Order of year groups: Current Year (if @book_no_date is today), 2024, 2023
-    # The actual output order depends on Time.now when tests run for @book_no_date
+    output = render_tag(test_context)
 
-    # For simplicity, let's check for presence of year groups and internal order.
-    # The BookListUtils test will verify the exact order of year groups.
+    # --- Assert Jump Links Navigation ---
+    assert_match %r{<nav class="alpha-jump-links">}, output
+    # Check for links in the correct order (most recent year first)
+    expected_nav_links = "<a href=\"#year-2024\">2024</a> <a href=\"#year-2023\">2023</a>"
+    assert_match expected_nav_links, output
 
-    # Group for @book_no_date's year
-    assert_match %r{<h2 class="book-list-headline" id="year-#{year_of_no_date_book}">#{year_of_no_date_book}</h2>}, output
-    assert_match %r{id="year-#{year_of_no_date_book}">#{year_of_no_date_book}</h2>\s*<div class="card-grid">\s*<!-- Card for: #{@book_no_date.data['title']} \(Date: #{@book_no_date.date.strftime('%Y-%m-%d')}\) -->\s*</div>}m, output
-
-    # Group 2024
+    # --- Assert Group 2024 ---
     assert_match %r{<h2 class="book-list-headline" id="year-2024">2024</h2>}, output
     # Books within 2024: Mar (most recent), then Jan
-    expected_2024_cards = "<!-- Card for: #{@book_2024_mar.data['title']} \\(Date: 2024-03-10\\) -->\\s*" +
-      "<!-- Card for: #{@book_2024_jan.data['title']} \\(Date: 2024-01-15\\) -->"
+    expected_2024_cards = "<!-- Card for: #{book_2024_mar.data['title']} \\(Date: 2024-03-10\\) -->\\s*" +
+      "<!-- Card for: #{book_2024_jan.data['title']} \\(Date: 2024-01-15\\) -->"
       assert_match %r{id="year-2024">2024</h2>\s*<div class="card-grid">\s*#{expected_2024_cards}\s*</div>}m, output
 
-        # Group 2023
+        # --- Assert Group 2023 ---
         assert_match %r{<h2 class="book-list-headline" id="year-2023">2023</h2>}, output
-      # Books within 2023: Dec (most recent), then Jun
-      expected_2023_cards = "<!-- Card for: #{@book_2023_dec.data['title']} \\(Date: 2023-12-01\\) -->\\s*" +
-        "<!-- Card for: #{@book_2023_jun.data['title']} \\(Date: 2023-06-20\\) -->"
-        assert_match %r{id="year-2023">2023</h2>\s*<div class="card-grid">\s*#{expected_2023_cards}\s*</div>}m, output
+      expected_2023_cards = "<!-- Card for: #{book_2023_dec.data['title']} \\(Date: 2023-12-01\\) -->"
+      assert_match %r{id="year-2023">2023</h2>\s*<div class="card-grid">\s*#{expected_2023_cards}\s*</div>}m, output
 
-          # Check overall order of year groups (most recent year first)
-          # This depends on the year of @book_no_date.
-          # If year_of_no_date_book is > "2024", it comes first.
-          # If year_of_no_date_book is "2024", it's combined with other 2024 books.
-          # If year_of_no_date_book is < "2023", it comes last.
-          # The BookListUtils test is better for strict year group ordering.
-          # Here, we mainly check that all expected groups are present.
-          idx_2024 = output.index('id="year-2024"')
-        idx_2023 = output.index('id="year-2023"')
-        idx_no_date_year = output.index("id=\"year-#{year_of_no_date_book}\"")
-
-        refute_nil idx_2024
-        refute_nil idx_2023
-        refute_nil idx_no_date_year
-
-        # Simplified order check: 2024 should come before 2023
-        assert idx_2024 < idx_2023, "Year 2024 group should appear before 2023 group"
+        # --- Assert Overall Order of Year Groups ---
+        idx_2024 = output.index('id="year-2024"')
+      idx_2023 = output.index('id="year-2023"')
+      refute_nil idx_2024
+      refute_nil idx_2023
+      assert idx_2024 < idx_2023, "Year 2024 group should appear before 2023 group"
   end
 
   def test_renders_log_message_if_books_collection_missing
