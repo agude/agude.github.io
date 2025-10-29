@@ -181,7 +181,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
     # Assert Navigation Bar
     assert_match %r{<nav class="alpha-jump-links">}, output
-    expected_nav_links = "<a href=\"#rating-5\">5-Stars</a> <a href=\"#rating-4\">4-Stars</a> <a href=\"#rating-1\">1-Star</a>"
+    expected_nav_links = "<a href=\"#rating-5\">5&nbsp;Stars</a> &middot; <a href=\"#rating-4\">4&nbsp;Stars</a> &middot; <a href=\"#rating-1\">1&nbsp;Star</a>"
     assert_match expected_nav_links, output
 
     # Assert Headers

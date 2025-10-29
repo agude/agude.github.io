@@ -180,11 +180,11 @@ module Jekyll
       nav_html = ""
       unless found_ratings.empty?
         nav_links = found_ratings.map do |rating|
-          rating_text = rating == 1 ? "#{rating}-Star" : "#{rating}-Stars"
+          rating_text = rating == 1 ? "#{rating}&nbsp;Star" : "#{rating}&nbsp;Stars"
           "<a href=\"#rating-#{rating}\">#{rating_text}</a>"
         end
         nav_html << "<nav class=\"alpha-jump-links\">\n"
-        nav_html << "  #{nav_links.join(' ')}\n"
+        nav_html << "  #{nav_links.join(' &middot; ')}\n"
         nav_html << "</nav>\n"
       end
 

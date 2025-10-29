@@ -39,21 +39,27 @@ module Jekyll
       return output if awards_groups.empty? && favorites_lists.empty?
 
       # --- Step 2: Generate Unified Navigation Bar ---
-      nav_links = []
+      award_nav_links = []
       awards_groups.each do |award_group|
-        # For nav text, shorten "Hugo Award" to just "Hugo"
         link_text = CGI.escapeHTML(award_group[:award_name].sub(/ Award$/, ''))
-        nav_links << "<a href=\"##{award_group[:award_slug]}\">#{link_text}</a>"
+        award_nav_links << "<a href=\"##{award_group[:award_slug]}\">#{link_text}</a>"
       end
+
+      favorites_nav_links = []
       favorites_lists.each do |list_data|
         post_title = list_data[:post].data['title']
         slug = TextProcessingUtils.slugify(post_title)
-        nav_links << "<a href=\"##{slug}\">#{CGI.escapeHTML(post_title)}</a>"
+        favorites_nav_links << "<a href=\"##{slug}\">#{CGI.escapeHTML(post_title)}</a>"
       end
 
-      unless nav_links.empty?
+      if award_nav_links.any? || favorites_nav_links.any?
         output << "<nav class=\"alpha-jump-links\">\n"
-        output << "  #{nav_links.join(' ')}\n"
+        if award_nav_links.any?
+          output << "  <div class=\"nav-row\">#{award_nav_links.join(' &middot; ')}</div>\n"
+        end
+        if favorites_nav_links.any?
+          output << "  <div class=\"nav-row\">#{favorites_nav_links.join(' &middot; ')}</div>\n"
+        end
         output << "</nav>\n"
       end
 

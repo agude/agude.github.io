@@ -20,7 +20,7 @@ class TestDisplayBooksByYearTag < Minitest::Test
 
     @silent_logger_stub = Object.new.tap do |logger|
       def logger.warn(topic, message); end; def logger.error(topic, message); end
-      def logger.info(topic, message); end;  def logger.debug(topic, message); end
+      def logger.info(topic, message); end; def logger.debug(topic, message); end
     end
   end
 
@@ -56,8 +56,8 @@ class TestDisplayBooksByYearTag < Minitest::Test
 
     # --- Assert Jump Links Navigation ---
     assert_match %r{<nav class="alpha-jump-links">}, output
-    # Check for links in the correct order (most recent year first)
-    expected_nav_links = "<a href=\"#year-2024\">2024</a> <a href=\"#year-2023\">2023</a>"
+    # Check for links in the correct order (most recent year first) with separator
+    expected_nav_links = "<a href=\"#year-2024\">2024</a> &middot; <a href=\"#year-2023\">2023</a>"
     assert_match expected_nav_links, output
 
     # --- Assert Group 2024 ---

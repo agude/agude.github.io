@@ -55,12 +55,11 @@ class TestDisplayAwardsPageTag < Minitest::Test
 
     # --- Assert Unified Navigation Bar ---
     assert_match %r{<nav class="alpha-jump-links">}, output
-    # Award links (shortened)
-    assert_match %r{<a href="#hugo-award">Hugo</a>}, output
-    assert_match %r{<a href="#nebula-award">Nebula</a>}, output
-    # Favorites links (full title)
-    assert_match %r{<a href="#my-favorite-books-of-2024">My Favorite Books of 2024</a>}, output
-    assert_match %r{<a href="#my-favorite-books-of-2023">My Favorite Books of 2023</a>}, output
+    # Check for the full, structured nav rows
+    expected_awards_nav = '<div class="nav-row"><a href="#hugo-award">Hugo</a> &middot; <a href="#nebula-award">Nebula</a></div>'
+    assert_includes output, expected_awards_nav
+    expected_favorites_nav = '<div class="nav-row"><a href="#my-favorite-books-of-2024">My Favorite Books of 2024</a> &middot; <a href="#my-favorite-books-of-2023">My Favorite Books of 2023</a></div>'
+    assert_includes output, expected_favorites_nav
 
     # --- Assert "Major Awards" Section ---
     assert_match %r{<h2>Major Awards</h2>}, output
@@ -89,7 +88,8 @@ class TestDisplayAwardsPageTag < Minitest::Test
     output = render_tag(@context, @mock_awards_data_hash, empty_favorites)
 
     assert_match %r{<nav class="alpha-jump-links">}, output
-    assert_match %r{<a href="#hugo-award">Hugo</a>}, output
+    expected_awards_nav = '<div class="nav-row"><a href="#hugo-award">Hugo</a> &middot; <a href="#nebula-award">Nebula</a></div>'
+    assert_includes output, expected_awards_nav
     refute_match %r{My Favorite Books}, output # No favorites links or sections
 
     assert_match %r{<h2>Major Awards</h2>}, output
@@ -101,7 +101,8 @@ class TestDisplayAwardsPageTag < Minitest::Test
     output = render_tag(@context, empty_awards, @mock_favorites_data_hash)
 
     assert_match %r{<nav class="alpha-jump-links">}, output
-    assert_match %r{<a href="#my-favorite-books-of-2024">My Favorite Books of 2024</a>}, output
+    expected_favorites_nav = '<div class="nav-row"><a href="#my-favorite-books-of-2024">My Favorite Books of 2024</a> &middot; <a href="#my-favorite-books-of-2023">My Favorite Books of 2023</a></div>'
+    assert_includes output, expected_favorites_nav
     refute_match %r{<a href="#hugo-award">}, output # No award links
 
     refute_match %r{<h2>Major Awards</h2>}, output

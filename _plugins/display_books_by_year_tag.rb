@@ -40,7 +40,7 @@ module Jekyll
       end
 
       output << "<nav class=\"alpha-jump-links\">\n"
-      output << "  #{nav_links.join(' ')}\n"
+      output << "  #{nav_links.join(' &middot; ')}\n"
       output << "</nav>\n"
       # --- End of jump links navigation ---
 
