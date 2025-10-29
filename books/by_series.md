@@ -4,7 +4,8 @@ short_title: Series
 layout: page
 permalink: /books/by-series/
 book_topbar_include: true
-description: "Alexander Gude's (short) book reviews."
+description: >
+  Alexander Gude's (short) book reviews, sorted by series.
 ---
 
 Below you'll find short reviews of the books I've read, sorted by series.
