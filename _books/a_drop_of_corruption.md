@@ -35,6 +35,8 @@ almost a match for Ana's own.
 {% capture shakespeares %}{% author_link "William Shakespeare" possessive %}{% endcapture %}
 {% capture macbeth %}{% book_link "Macbeth" %}{% endcapture %}
 
+{% capture xenocide %}{% book_link "Xenocide" %}{% endcapture %}
+
 {% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
 {% capture claw %}{% book_link "The Claw of the Conciliator" %}{% endcapture %}
 
@@ -94,20 +96,15 @@ doing much of the legwork himself.[^mycroft]
 
 [^mycroft]: Sherlock's older brother, Mycroft, _is_ an armchair detective.
 
-I was reminded of a few previous reads:
-
-- The court intrigue and dying monarch are similar to {{ martines }} {{ empire
-  }}.
-
-- Ana eating her grim feast to gain knowledge parallels Severian consuming
-  Thecla's flesh to gain her memories in {{ wolfes }} {{ claw }}.
-
-- The three augurs are like the witches in {{ shakespeares }} {{ macbeth }},
-  who themselves draw from the three Fates.
-
-- The triumvirate of augurs forming a single mind and being unable to
-  communicate with normal humans is like the Bicamerals in {{ wattss }} {{
-  echopraxia }}.
+{{ this_book }} reminded me of several previous reads. The court intrigue and
+dying monarch are similar to {{ martines }} {{ empire }}. Ana's grim feast to
+gain knowledge parallels Severian consuming Thecla's flesh to gain her
+memories in {{ wolfes }} {{ claw }}. The three augurs were much like the
+witches in {{ shakespeares }} {{ macbeth }}, themselves drawn from the three
+Fates, and they also reminded me of the Godspoken in {{ xenocide }} with their
+great intelligence paired with compulsive behavior. The triumvirate of augurs
+forming a single mind and being unable to communicate with normal humans is
+like the Bicamerals in {{ wattss }} {{ echopraxia }}.
 
 Although not as good as {{ book1 }}, I still had fun reading {{ this_book }}.
 I'm looking forward to the third book.
