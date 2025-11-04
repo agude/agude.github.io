@@ -1,11 +1,11 @@
 ---
-date: 2025-10-24
+date: 2025-11-03
 title: On Basilisk Station
 book_authors: David Weber
 series: Honorverse
 book_number: 1
 is_anthology: false
-rating: null
+rating: 4
 image: /books/covers/on_basilisk_station.jpg
 ---
 
