@@ -18,16 +18,9 @@ a demoralized crew. There, she must enforce the law and uncover a smuggling
 plot that proves to be the opening move in an interstellar war.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 {% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
 {% capture this_series_link %}{% series_link page.series %}{% endcapture %}
 
 {% capture hh2 %}{% book_link "The Honor of the Queen" %}{% endcapture %}
@@ -50,7 +43,6 @@ plot that proves to be the opening move in an interstellar war.
 {% capture bolo12 %}{% book_link "The Triumphant" %}{% endcapture %}
 {% capture bolo13 %}{% book_link "Last Stand" %}{% endcapture %}
 
-{% capture last_exile %}<cite class="movie-title">Last Exile</cite>{% endcapture %}
 
 {% capture tng %}<cite class="movie-title">Star Trek: The Next Generation</cite>{% endcapture %}
 {% capture ds9 %}<cite class="movie-title">Deep Space Nine</cite>{% endcapture %}
@@ -65,12 +57,8 @@ plot that proves to be the opening move in an interstellar war.
 {% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}
 {% capture commonwealth_saga %}{% series_link "Commonwealth Saga" %}{% endcapture %}
 
-{% capture heinlein %}{% author_link "Robert A. Heinlein" %}{% endcapture %}
-{% capture heinleins %}{% author_link "Robert A. Heinlein" possessive %}{% endcapture %}
-{% capture moon_is_a_harsh_mistress %}{% book_link "The Moon Is a Harsh Mistress" %}{% endcapture %}
 {% capture starship_troopers %}{% book_link "Starship Troopers" %}{% endcapture %}
 
-{% capture williams %}{% author_link "Walter Jon Williams" %}{% endcapture %}
 {% capture williamss %}{% author_link "Walter Jon Williams" possessive %}{% endcapture %}
 {% capture city_on_fire %}{% book_link "City on Fire" %}{% endcapture %}
 
