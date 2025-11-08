@@ -66,7 +66,6 @@ much about a machine built for war.
 {% capture space_odyssey %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 
 {% capture murderbot %}{% series_link "The Murderbot Diaries" link_text="Murderbot" %}{% endcapture %}
-{% capture all_systems %}{% book_link "All Systems Red" %}{% endcapture %}
 
 {% capture sw_vehicles %}{% book_link "The Essential Guide to Vehicles and Vessels" %}{% endcapture %}
 {% capture sw_weapons %}{% book_link "The Essential Guide to Weapons and Technology" %}{% endcapture %}

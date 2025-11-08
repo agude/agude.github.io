@@ -23,8 +23,6 @@ Murderbot as it saves a team of scientists.
 
 {% capture laumers %}{% author_link "Keith Laumer" possessive %}{% endcapture %}
 {% capture bolo_series %}{% series_link "Bolo" %} series{% endcapture %}
-{% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
-{% capture bolo2 %}{% book_link "Rogue Bolo" %}{% endcapture %}
 
 {% capture heinleins %}{% author_link "Robert A. Heinlein" possessive %}{% endcapture %}
 {% capture moon %}{% book_link "The Moon Is a Harsh Mistress" %}{% endcapture %}
