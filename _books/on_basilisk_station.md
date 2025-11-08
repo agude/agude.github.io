@@ -2,7 +2,7 @@
 date: 2025-11-03
 title: On Basilisk Station
 book_authors: David Weber
-series: Honorverse
+series: Honor Harrington
 book_number: 1
 is_anthology: false
 rating: 4
