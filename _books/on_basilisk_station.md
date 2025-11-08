@@ -26,12 +26,10 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 {% capture this_series_link %}{% series_link page.series %}{% endcapture %}
 
-{% capture obrian %}{% author_link "Patrick O'Brian" %}{% endcapture %}
-{% capture obrians %}{% author_link "Patrick O'Brian" possessive %}{% endcapture %}
+{% capture obrians %}{% author_link "Patrick O'Brian" link_text="O'Brian"  possessive %}{% endcapture %}
 {% capture aubrey_maturin_series %}{% series_link "Aubrey--Maturin" %} series{% endcapture %}
 
-{% capture forester %}{% author_link "C. S. Forester" %}{% endcapture %}
-{% capture foresters %}{% author_link "C. S. Forester" possessive %}{% endcapture %}
+{% capture foresters %}{% author_link "C. S. Forester" link_text="Forester" possessive %}{% endcapture %}
 {% capture hornblower_saga %}{% series_link "Hornblower Saga" %}{% endcapture %}
 
 {% capture bolo12 %}{% book_link "The Triumphant" %}{% endcapture %}
@@ -63,10 +61,11 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 {% capture tchaikovskys %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
 {% capture final_architecture %}{% series_link "The Final Architecture" %}{% endcapture %}
 
-{{ the_authors }} {{ this_series_link }} reads a bit like {{ obrians }}  {{
-aubrey_maturin_series }} or {{ foresters }} {{ hornblower_saga }}. It follows
-Honor Harrington as she climbs the ranks of the Royal Manticoran Navy, which
-is essentially the Royal Navy with rocket-boosters attached.
+{{ the_authors }} {{ this_series_link }} is an age of sails adventure series
+like {{ obrians }}  {{ aubrey_maturin_series }} or {{ foresters }} {{
+hornblower_saga }}. It follows Honor Harrington as she climbs the ranks of the
+Royal Manticoran Navy, which is essentially the Royal Navy with gravity sails,
+plasma canons, and missiles.
 
 I loved the parts of {{ this_book }} where Honor and her crew had to work
 together to first figure out how to meet their impossible task, and then to
