@@ -30,6 +30,8 @@ plot that proves to be the opening move in an interstellar war.
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 {% capture this_series_link %}{% series_link page.series %}{% endcapture %}
 
+{% capture hh2 %}{% book_link "The Honor of the Queen" %}{% endcapture %}
+
 {% capture obrians %}{% author_link "Patrick O'Brian" link_text="O'Brian"  possessive %}{% endcapture %}
 {% capture aubrey_maturin_series %}{% series_link "Aubrey--Maturin" %} series{% endcapture %}
 
@@ -75,13 +77,32 @@ plot that proves to be the opening move in an interstellar war.
 {% capture tchaikovskys %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
 {% capture final_architecture %}{% series_link "The Final Architecture" %}{% endcapture %}
 
+{% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
+{% capture bolo %}{% series_link "Bolo" %}{% endcapture %}
+{% capture warhorses %}{% series_link "War Horses" %}{% endcapture %}
+
+{% capture canticle %}{% book_link "A Canticle for Leibowitz" %}{% endcapture %}
+{% capture hyperion2 %}{% book_link "Fall of Hyperion" %}{% endcapture %}
+
 {{ the_authors }} {{ this_series_link }} is an age of sails adventure series
 like {{ obrians }}  {{ aubrey_maturin_series }} or {{ foresters }} {{
 hornblower_saga }}. It follows Honor Harrington as she climbs the ranks of the
 Royal Manticoran Navy, which is essentially the Royal Navy with rocket
-boosters attached. Like Aubrey and Hornblower, Harrington has to lead her
-crew, negotiate politics in the Navy and the Empire, all while dealing with an
-impending war.
+boosters attached. {{ the_authors_lastname_possessive }} solution to "How do I
+get Napoleonic battle lines in space?" is part of what makes that translation
+work so well. Gravity sails that can't be shot through on the front of ships,
+forcing broadsides. Add in Wormholes to provide choke points,
+faster-than-light travel impacted by gravity to act like shallows and
+currents, and you have Lord Nelson, but in the void.
+
+The world building is similar to other works. The wormholes to connect Empires
+is something we've seen reused a lot, including in {{ martines }} {{
+teixcalaan }} series and {{ hamiltons }} {{ commonwealth_saga }}. The Marines,
+who can be dropped from orbit, and bounce around in their flying power armor
+remind me of the Mobile Infantry in {{ starship_troopers }}. The Regan
+Democrat politics {{ the_authors_lastname }} includes in {{ this_book }} age
+it in the same way that {{ williamss }} [Third Way][third_way] politics in {{
+city_on_fire }} do.
 
 {{ this_book }} is best when it focuses on process: Harrington forging her
 officers and ratings into a cohesive crew, methodically planning how to meet
@@ -111,19 +132,9 @@ blown half to hell. The emotional impact was supposed to come from the lose of
 ship and crew, but it felt more like Harrington had made a mistake. Not really
 the epitome of competence she is supposed to be.
 
-{{ the_authors_lastname_possessive }} solution to "How do I get Napoleonic
-battle lines in space?" is clever: gravity sails that can't be shot through on
-the front of ships, forcing broadsides. Add in wormholes to provide choke
-points, gravity effecting FTL to act like shallows and currents, and you have
-Lord Nelson, but in the void. The wormholes to connect Empires is something
-we've seen reused a lot, including in {{ martines }} {{ teixcalaan }} series
-and {{ hamiltons }} {{ commonwealth_saga }}.
-
-The Marines, who can be dropped from orbit, and bounce around in their flying
-power armor remind me of the Mobile Infantry in {{ starship_troopers }}.
-
-The Regan Democrat politics {{ the_authors_lastname }} includes in {{
-this_book }} age it in the same way that {{ williamss }} [Third
-Way][third_way] politics in {{ city_on_fire }} do.
-
 [third_way]: https://en.wikipedia.org/wiki/Third_Way
+
+This book was a fast, fun read that I breezed through, just like {{ bobiverse
+}} or {{ warhorses }}. I'm still trying to avoid reading long
+series back-to-back, so I'm going get through {{ canticle }} first, and probably
+back to {{ bolo }} and {{ hyperion2 }} before I read {{ hh2 }}.
