@@ -65,6 +65,7 @@ ranked_list:
   - Honor of the Regiment
   - Mariel of Redwall
   - We Are Legion (We Are Bob)
+  - On Basilisk Station
   - All Systems Red
   - A Drop of Corruption
   - Mossflower
