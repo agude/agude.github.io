@@ -46,6 +46,7 @@ plot that proves to be the opening move in an interstellar war.
 {% capture tng %}<cite class="tv-show-title">Star Trek: The Next Generation</cite>{% endcapture %}
 {% capture ds9 %}<cite class="tv-show-title">Deep Space Nine</cite>{% endcapture %}
 {% capture sw %}<cite class="movie-title">Star Wars</cite>{% endcapture %}
+{% capture zulu %}<cite class="movie-title">Zulu</cite>{% endcapture %}
 
 {% capture alexs %}{% author_link "A. N. Alex" link_text="Alex" possessive %}{% endcapture %}
 {% capture mote_in_shadow %}{% book_link "A Mote in Shadow" %}{% endcapture %}
@@ -86,9 +87,11 @@ The worldbuilding uses ideas I've seen in other series. Wormhole-connected
 empires show up again in {{ martines }} {{ teixcalaan }} books and {{
 hamiltons }} {{ commonwealth_saga }}. The Marines, who can drop from orbit and
 bounce around in powered armor, recall the Mobile Infantry from {{
-starship_troopers }}. The Reagan Democrat politics {{ the_authors_lastname }}
-weaves into {{ this_book }} date it a bit, the same way that {{ williamss }}
-[Third Way][third_way] politics do in {{ city_on_fire }}.
+starship_troopers }}. Their colonial policing role, where they massacre the
+technologically inferior natives, feels right out of {{ zulu }}. The Reagan
+Democrat politics {{ the_authors_lastname }} weaves into {{ this_book }} date
+it a bit, the same way that {{ williamss }} [Third Way][third_way] politics do
+in {{ city_on_fire }}.
 
 {{ this_book }} is at its best when it focuses on process: Harrington forging
 her officers and ratings into a cohesive crew, methodically planning how to
