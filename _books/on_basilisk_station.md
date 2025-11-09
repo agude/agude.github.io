@@ -15,7 +15,7 @@ long-running <span class="book-series">{{ page.series }}</span> series of
 military science fiction. It introduces Commander Honor Harrington, a
 brilliant naval officer exiled to a remote star system with an aging ship and
 a demoralized crew. There, she must enforce the law and uncover a smuggling
-plot that turns out to be the opening move in an interstellar war.
+plot that proves to be the opening move in an interstellar war.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
@@ -42,7 +42,6 @@ plot that turns out to be the opening move in an interstellar war.
 
 {% capture bolo12 %}{% book_link "The Triumphant" %}{% endcapture %}
 {% capture bolo13 %}{% book_link "Last Stand" %}{% endcapture %}
-
 
 {% capture tng %}<cite class="movie-title">Star Trek: The Next Generation</cite>{% endcapture %}
 {% capture ds9 %}<cite class="movie-title">Deep Space Nine</cite>{% endcapture %}
@@ -83,7 +82,7 @@ front, forcing broadside engagements. Add wormholes to create choke points and
 faster-than-light travel affected by gravity to act like shallows and
 currents, and you have Lord Nelson, but in the void.
 
-The worldbuilding uses ideas I've seen in other series. Wormhole-connected
+The world-building uses ideas I've seen in other series. Wormhole-connected
 empires show up again in {{ martines }} {{ teixcalaan }} books and {{
 hamiltons }} {{ commonwealth_saga }}. The Marines, who can drop from orbit and
 bounce around in powered armor, recall the Mobile Infantry from {{
