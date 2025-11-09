@@ -26,7 +26,7 @@ plot that proves to be the opening move in an interstellar war.
 {% capture hh2 %}{% book_link "The Honor of the Queen" %}{% endcapture %}
 
 {% capture obrians %}{% author_link "Patrick O'Brian" link_text="O'Brian"  possessive %}{% endcapture %}
-{% capture aubrey_maturin_series %}{% series_link "Aubrey--Maturin" %} series{% endcapture %}
+{% capture aubrey_maturin_series %}{% series_link "Aubrey--Maturin" %}{% endcapture %}
 
 {% capture foresters %}{% author_link "C. S. Forester" link_text="Forester" possessive %}{% endcapture %}
 {% capture hornblower_saga %}{% series_link "Hornblower Saga" %}{% endcapture %}
@@ -43,22 +43,22 @@ plot that proves to be the opening move in an interstellar war.
 {% capture bolo12 %}{% book_link "The Triumphant" %}{% endcapture %}
 {% capture bolo13 %}{% book_link "Last Stand" %}{% endcapture %}
 
-{% capture tng %}<cite class="movie-title">Star Trek: The Next Generation</cite>{% endcapture %}
-{% capture ds9 %}<cite class="movie-title">Deep Space Nine</cite>{% endcapture %}
+{% capture tng %}<cite class="tv-show-title">Star Trek: The Next Generation</cite>{% endcapture %}
+{% capture ds9 %}<cite class="tv-show-title">Deep Space Nine</cite>{% endcapture %}
 {% capture sw %}<cite class="movie-title">Star Wars</cite>{% endcapture %}
 
 {% capture alexs %}{% author_link "A. N. Alex" link_text="Alex" possessive %}{% endcapture %}
 {% capture mote_in_shadow %}{% book_link "A Mote in Shadow" %}{% endcapture %}
 
-{% capture martines %}{% author_link "Arkady Martine" possessive %}{% endcapture %}
+{% capture martines %}{% author_link "Arkady Martine" link_text="Martine" possessive %}{% endcapture %}
 {% capture teixcalaan %}{% series_link "Teixcalaan" %}{% endcapture %}
 
-{% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}
+{% capture hamiltons %}{% author_link "Peter F. Hamilton" link_text="Hamilton" possessive %}{% endcapture %}
 {% capture commonwealth_saga %}{% series_link "Commonwealth Saga" %}{% endcapture %}
 
 {% capture starship_troopers %}{% book_link "Starship Troopers" %}{% endcapture %}
 
-{% capture williamss %}{% author_link "Walter Jon Williams" possessive %}{% endcapture %}
+{% capture williamss %}{% author_link "Walter Jon Williams" link_text="Williams" possessive %}{% endcapture %}
 {% capture city_on_fire %}{% book_link "City on Fire" %}{% endcapture %}
 
 {% capture tchaikovskys %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
@@ -69,7 +69,7 @@ plot that proves to be the opening move in an interstellar war.
 {% capture warhorses %}{% series_link "War Horses" %}{% endcapture %}
 
 {% capture canticle %}{% book_link "A Canticle for Leibowitz" %}{% endcapture %}
-{% capture hyperion2 %}{% book_link "Fall of Hyperion" %}{% endcapture %}
+{% capture hyperion2 %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
 
 {{ the_authors }} {{ this_series_link }} is an age-of-sail adventure series
 like {{ obrians }} {{ aubrey_maturin_series }} or {{ foresters }} {{
@@ -95,11 +95,10 @@ her officers and ratings into a cohesive crew, methodically planning how to
 meet impossible demands, and following every lead to uncover the smugglers and
 their deeper conspiracy. It also made me realize that the lack of competence
 is part of why I didn't like {{ tchaikovskys }} similar {{ final_architecture
-}} series as much. In sci-fi, military crews are competent and duty-bound,
-while civilians are friendly and cozy but not particularly good at their
-jobs---in fact, that's often part of the charm. It's also part of the reason,
-I now realize, why I've always preferred {{ tng }} and {{ ds9 }} over {{ sw
-}}.
+}} as much. In sci-fi, military crews are competent and duty-bound, while
+civilians are friendly and cozy but not particularly good at their jobs---in
+fact, that's often part of the charm. It's also part of the reason, I now
+realize, why I've always preferred {{ tng }} and {{ ds9 }} to {{ sw }}.
 
 Competence---the fantasy that someone out there knows what to do and has the
 will to do it---has a strong appeal these days, especially with the rise of
