@@ -82,7 +82,7 @@ front, forcing broadside engagements. Add wormholes to create choke points and
 faster-than-light travel affected by gravity to act like shallows and
 currents, and you have Lord Nelson, but in the void.
 
-The world-building uses ideas I've seen in other series. Wormhole-connected
+The worldbuilding uses ideas I've seen in other series. Wormhole-connected
 empires show up again in {{ martines }} {{ teixcalaan }} books and {{
 hamiltons }} {{ commonwealth_saga }}. The Marines, who can drop from orbit and
 bounce around in powered armor, recall the Mobile Infantry from {{
@@ -95,10 +95,10 @@ her officers and ratings into a cohesive crew, methodically planning how to
 meet impossible demands, and following every lead to uncover the smugglers and
 their deeper conspiracy. It also made me realize that the lack of competence
 is part of why I didn't like {{ tchaikovskys }} similar {{ final_architecture
-}} as much. In sci-fi, military crews are competent and duty-bound, while
-civilians are friendly and cozy but not particularly good at their jobs---in
-fact, that's often part of the charm. It's also part of the reason, I now
-realize, why I've always preferred {{ tng }} and {{ ds9 }} to {{ sw }}.
+}} as much. In science fiction, military crews are competent and duty-bound,
+while civilians are friendly and cozy but not particularly good at their
+jobs---in fact, that's often part of the charm. It's also part of the reason,
+I now realize, why I've always preferred {{ tng }} and {{ ds9 }} to {{ sw }}.
 
 Competence---the fantasy that someone out there knows what to do and has the
 will to do it---has a strong appeal these days, especially with the rise of
@@ -112,9 +112,9 @@ fantastic, emotional action scenes, but he didn't quite pull it off in {{
 this_book }}. There's plenty of action, but it's either too short---like the
 initial fleet trials---or too long---like the final desperate chase. In the
 end, Honor predicts her enemy's exact plan but still gets her ship blown half
-to hell. The emotional impact was supposed to come from the loss of ship and
-crew, but it feels more like Harrington simply made a mistake. Not exactly the
-image of competence she's meant to embody.
+to hell. The emotional impact was supposed to come from the loss of her ship
+and crew, but it feels more like Harrington simply made a mistake---not
+exactly the image of competence she's meant to embody.
 
 [third_way]: https://en.wikipedia.org/wiki/Third_Way
 
