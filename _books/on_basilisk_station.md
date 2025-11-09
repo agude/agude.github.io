@@ -15,7 +15,7 @@ long-running <span class="book-series">{{ page.series }}</span> series of
 military science fiction. It introduces Commander Honor Harrington, a
 brilliant naval officer exiled to a remote star system with an aging ship and
 a demoralized crew. There, she must enforce the law and uncover a smuggling
-plot that proves to be the opening move in an interstellar war.
+plot that turns out to be the opening move in an interstellar war.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
@@ -72,57 +72,55 @@ plot that proves to be the opening move in an interstellar war.
 {% capture canticle %}{% book_link "A Canticle for Leibowitz" %}{% endcapture %}
 {% capture hyperion2 %}{% book_link "Fall of Hyperion" %}{% endcapture %}
 
-{{ the_authors }} {{ this_series_link }} is an age of sails adventure series
+{{ the_authors }} {{ this_series_link }} is an age-of-sail adventure series
 like {{ obrians }} {{ aubrey_maturin_series }} or {{ foresters }} {{
 hornblower_saga }}. It follows Honor Harrington as she climbs the ranks of the
 Royal Manticoran Navy, which is essentially the Royal Navy with rocket
-boosters attached. {{ the_authors_lastname_possessive }} solution to "How do I
+boosters attached. {{ the_authors_lastname_possessive }} answer to "How do I
 get Napoleonic battle lines in space?" is part of what makes that translation
-work so well. Gravity sails on the front of ships that can't be shot through,
-forcing broadsides. Add in wormholes to provide choke points,
-faster-than-light travel impacted by gravity to act like shallows and
+work so well. Ships have gravity sails that can't be fired through from the
+front, forcing broadside engagements. Add wormholes to create choke points and
+faster-than-light travel affected by gravity to act like shallows and
 currents, and you have Lord Nelson, but in the void.
 
-The world building uses familiar ideas I've seen in other works. The wormholes
-that connect Empires is something we've seen in {{ martines }} {{ teixcalaan
-}} series and {{ hamiltons }} {{ commonwealth_saga }}. The Marines, who can be
-dropped from orbit and bounce around in their flying power armor, remind me of
-the Mobile Infantry in {{ starship_troopers }}. The Reagan Democrat politics
-{{ the_authors_lastname }} includes in {{ this_book }} ages it in the same way
-that {{ williamss }} [Third Way][third_way] politics in {{ city_on_fire }}
-does.
+The worldbuilding uses ideas I've seen in other series. Wormhole-connected
+empires show up again in {{ martines }} {{ teixcalaan }} books and {{
+hamiltons }} {{ commonwealth_saga }}. The Marines, who can drop from orbit and
+bounce around in powered armor, recall the Mobile Infantry from {{
+starship_troopers }}. The Reagan Democrat politics {{ the_authors_lastname }}
+weaves into {{ this_book }} date it a bit, the same way that {{ williamss }}
+[Third Way][third_way] politics do in {{ city_on_fire }}.
 
-{{ this_book }} is best when it focuses on process: Harrington forging her
-officers and ratings into a cohesive crew, methodically planning how to meet
-their impossible demands, and pursuing every lead to uncover the smugglers and
-their deeper conspiracy. It made clear to me that the lack of competency in {{
-tchaikovskys }} similar {{ final_architecture }} was part of the reason I
-didn't like it very much. In sci-fi, military crews are competent and
-duty-bound while civilians are friendly and cosy, but not particularly good at
-their jobs---in fact, that's often part of the appeal. It's part of the
-reason, I now realize, why I've always liked {{ tng }} and {{ ds9 }} more than
-{{ sw }}.
+{{ this_book }} is at its best when it focuses on process: Harrington forging
+her officers and ratings into a cohesive crew, methodically planning how to
+meet impossible demands, and following every lead to uncover the smugglers and
+their deeper conspiracy. It also made me realize that the lack of competence
+is part of why I didn't like {{ tchaikovskys }} similar {{ final_architecture
+}} series as much. In sci-fi, military crews are competent and duty-bound,
+while civilians are friendly and cozy but not particularly good at their
+jobs---in fact, that's often part of the charm. It's also part of the reason,
+I now realize, why I've always preferred {{ tng }} and {{ ds9 }} over {{ sw
+}}.
 
-Competency---the fantasy that there is someone out there who knows what to do
-and has the will to get it done---has a strong appeal these days with the rise
-of the incompetent far right. It's why I love thrillers like {{ clancys }} {{
-ryanverse }} and {{ ludlums }} {{ bourne_identity }}, as well as sci-fi
-versions like {{ wellss }} {{ murderbot_diaries }} and {{ alexs }} {{
-mote_in_shadow }}.
+Competence---the fantasy that someone out there knows what to do and has the
+will to do it---has a strong appeal these days, especially with the rise of
+the incompetent far right. It's why I love thrillers like {{ clancys }} {{
+ryanverse }} and {{ ludlums }} {{ bourne_identity }}, and sci-fi versions like
+{{ wellss }} {{ murderbot_diaries }} and {{ alexs }} {{ mote_in_shadow }}.
 
-But it's clear {{ the_authors_lastname }} is still learning his craft in this
-book. I know from his short stories in {{ bolo12 }} and {{ bolo13 }} that he
-can write some fantastic, emotional action set pieces, but he didn't in {{
-this_book }}. There was action, of course, but it was either quite short---as
-in the initial fleet trials---or too long---as in the final desperate chase.
-In the end, Honor predicted her enemy's exact plan, but still got her ship
-blown half to hell. The emotional impact was supposed to come from the loss of
-ship and crew, but it felt more like Harrington had made a mistake. Not really
-the epitome of competence she is supposed to be.
+But it's clear {{ the_authors_lastname }} was still learning his craft here. I
+know from his short stories in {{ bolo12 }} and {{ bolo13 }} that he can write
+fantastic, emotional action scenes, but he didn't quite pull it off in {{
+this_book }}. There's plenty of action, but it's either too short---like the
+initial fleet trials---or too long---like the final desperate chase. In the
+end, Honor predicts her enemy's exact plan but still gets her ship blown half
+to hell. The emotional impact was supposed to come from the loss of ship and
+crew, but it feels more like Harrington simply made a mistake. Not exactly the
+image of competence she's meant to embody.
 
 [third_way]: https://en.wikipedia.org/wiki/Third_Way
 
-This book was a fast, fun read that I breezed through, just like {{ bobiverse
+This book was a fast, fun read that I breezed through, much like {{ bobiverse
 }} or {{ warhorses }}. I'm still trying to avoid reading long series
-back-to-back, so I'm going to get through {{ canticle }} first, and probably
-back to {{ bolo }} and {{ hyperion2 }} before I read {{ hh2 }}.
+back-to-back, so I'm going to read {{ canticle }} next, then circle back to {{
+bolo }} and {{ hyperion2 }} before diving into {{ hh2 }}.
