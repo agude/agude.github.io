@@ -64,6 +64,52 @@ layout: default
     </div>
   {% endif %}
 
+  {%- comment -%} On a CANONICAL page, link to its archives {%- endcomment -%}
+  {%- assign archived_review_docs = "" | split: "" -%}
+  {%- for book in site.books -%}
+    {%- if book.canonical_for == page.url -%}
+      {%- assign archived_review_docs = archived_review_docs | push: book -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if archived_review_docs.size > 0 -%}
+    <div class="archived-reviews">
+      <i>Previously reviewed on
+      {%- assign sorted_docs = archived_review_docs | sort: "date" | reverse -%}
+      {%- assign link_array = "" | split: "" -%}
+      {%- for doc in sorted_docs -%}
+        {%- capture link_html -%}
+          <a href="{{ doc.url | relative_url }}">{{ doc.date | date: '%B %d, %Y' }}</a>
+        {%- endcapture -%}
+        {%- assign link_array = link_array | push: link_html -%}
+      {%- endfor -%}
+
+      {%- capture formatted_links -%}
+        {%- assign num_links = link_array | size -%}
+        {%- if num_links == 1 -%}
+          {{ link_array[0] }}
+        {%- elsif num_links == 2 -%}
+          {{ link_array[0] }} and {{ link_array[1] }}
+        {%- else -%}
+          {%- assign all_but_last_index = num_links | minus: 1 -%}
+          {%- assign all_but_last = link_array | slice: 0, all_but_last_index -%}
+          {%- assign last_item = link_array | last -%}
+          {{ all_but_last | join: ', ' }}, and {{ last_item }}
+        {%- endif -%}
+      {%- endcapture -%}
+      {{ formatted_links | prepend: ' ' }}
+      </i>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} On an ARCHIVED page, link back to its canonical version {%- endcomment -%}
+  {%- if page.canonical_for and page.canonical_for != "" -%}
+    <div class="archived-notice">
+      <i>This is an archived review. Read the <a href="{{ page.canonical_for |
+      relative_url }}"><strong>current version</strong></a>.</i>
+    </div>
+  {%- endif -%}
+
   <h2 class="book-review-headline">Review</h2>
   {% comment %}Add star rating, if one exists in the metadata{% endcomment %}
   {% if page.rating %}
