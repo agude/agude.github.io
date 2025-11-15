@@ -11,13 +11,13 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     @archive_new = create_doc({
       'title' => 'Archived (New)',
       'date' => Time.parse('2023-01-01'),
-      'canonical_for' => '/books/canonical.html'
+      'canonical_url' => '/books/canonical.html'
     }, '/books/archive-new.html')
 
     @archive_old = create_doc({
       'title' => 'Archived (Old)',
       'date' => Time.parse('2022-01-01'),
-      'canonical_for' => '/books/canonical.html'
+      'canonical_url' => '/books/canonical.html'
     }, '/books/archive-old.html')
 
     # An unrelated book that should be ignored

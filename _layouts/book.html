@@ -65,10 +65,10 @@ layout: default
   {% endif %}
 
   {%- comment -%} On an ARCHIVED page, link back to its canonical version {%- endcomment -%}
-  {%- if page.canonical_for and page.canonical_for != "" -%}
+  {%- if page.canonical_url and page.canonical_url != "" -%}
     <div class="archived-notice">
       This is an archived review from {{ page.date | date: '%B %d, %Y' }}.
-      Read the <a href="{{ page.canonical_for | relative_url
+      Read the <a href="{{ page.canonical_url | relative_url
       }}"><strong>current review</strong></a>.
     </div>
   {%- endif -%}

@@ -28,7 +28,7 @@ class TestLinkCacheGenerator < Minitest::Test
     refute_nil cache
     assert_equal({ 'url' => '/authors/jane-doe.html', 'title' => 'Jane Doe' }, cache['authors']['jane doe'])
     assert_equal({ 'url' => '/series/foundation.html', 'title' => 'The Foundation' }, cache['series']['the foundation'])
-    assert_equal({ 'url' => '/books/book-one.html', 'title' => 'Book One', 'authors' => ['Author A'], 'canonical_for' => nil }, cache['books']['book one'].first)
+    assert_equal({ 'url' => '/books/book-one.html', 'title' => 'Book One', 'authors' => ['Author A'], 'canonical_url' => nil }, cache['books']['book one'].first)
     assert_nil cache['books']['unpublished book']
     assert_equal 1, cache['sidebar_nav'].size
     assert_equal 1, cache['books_topbar_nav'].size
@@ -42,7 +42,7 @@ class TestLinkCacheGenerator < Minitest::Test
 
   def test_generator_builds_canonical_and_family_maps
     canonical_book = create_doc({ 'title' => 'Canonical Book', 'published' => true }, '/books/canonical.html')
-    archived_book = create_doc({ 'title' => 'Canonical Book', 'published' => true, 'canonical_for' => '/books/canonical.html' }, '/books/canonical/2023.html')
+    archived_book = create_doc({ 'title' => 'Canonical Book', 'published' => true, 'canonical_url' => '/books/canonical.html' }, '/books/canonical/2023.html')
     standalone_book = create_doc({ 'title' => 'Standalone Book', 'published' => true }, '/books/standalone.html')
 
     site = create_site({}, { 'books' => [canonical_book, archived_book, standalone_book] })

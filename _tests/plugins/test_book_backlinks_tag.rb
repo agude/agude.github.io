@@ -186,7 +186,7 @@ class TestBookBacklinksTag < Minitest::Test
   def test_deduplicates_backlinks_from_multiple_versions_of_same_book
     target_book = create_doc({ 'title' => 'Target' }, '/target.html')
     source_canonical = create_doc({ 'title' => 'Source Book' }, '/source.html')
-    source_archived = create_doc({ 'title' => 'Source Book', 'canonical_for' => '/source.html' }, '/source-archived.html')
+    source_archived = create_doc({ 'title' => 'Source Book', 'canonical_url' => '/source.html' }, '/source-archived.html')
 
     # Create a fresh site so the generator populates all maps correctly
     site = create_site({}, { 'books' => [target_book, source_canonical, source_archived] })

@@ -325,7 +325,7 @@ class TestRelatedBooksTag < Minitest::Test
     books_collection = MockCollection.new([], 'books')
     current_page = create_book_obj('Current Book', 'Series A', 1, ['Auth'], 10, 'current', true, books_collection)
     related_canonical = create_book_obj('Related Canonical', 'Series A', 2, ['Auth'], 9, 'related_canon', true, books_collection)
-    related_archived = create_book_obj('Related Archived', 'Series A', 3, ['Auth'], 8, 'related_archive', true, books_collection, { 'canonical_for' => '/some/path' })
+    related_archived = create_book_obj('Related Archived', 'Series A', 3, ['Auth'], 8, 'related_archive', true, books_collection, { 'canonical_url' => '/some/path' })
     books_collection.docs = [current_page, related_canonical, related_archived].compact
     site = create_site(@site_config_base.dup, { 'books' => books_collection.docs })
     context = create_context({}, { site: site, page: current_page })
@@ -335,5 +335,19 @@ class TestRelatedBooksTag < Minitest::Test
 
     assert_includes rendered_titles, 'Related Canonical'
     refute_includes rendered_titles, 'Related Archived'
+  end
+
+  def test_includes_books_with_external_canonical_url
+    books_collection = MockCollection.new([], 'books')
+    current_page = create_book_obj('Current Book', 'Series A', 1, ['Auth'], 10, 'current', true, books_collection)
+    related_external = create_book_obj('Related External', 'Series A', 2, ['Auth'], 5, 'related_ext', true, books_collection, { 'canonical_url' => 'http://some.other.site/path' })
+    books_collection.docs = [current_page, related_external].compact
+    site = create_site(@site_config_base.dup, { 'books' => books_collection.docs })
+    context = create_context({}, { site: site, page: current_page })
+
+    output = render_tag(context)
+    rendered_titles = extract_rendered_titles(output)
+
+    assert_includes rendered_titles, 'Related External'
   end
 end

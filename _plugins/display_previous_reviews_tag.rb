@@ -28,7 +28,7 @@ module Jekyll
 
       # Find all books that are archived versions of the current page
       archived_docs = site.collections['books'].docs.select do |book|
-        book.data['canonical_for'] == page['url']
+        book.data['canonical_url'] == page['url']
       end
 
       return "" if archived_docs.empty?

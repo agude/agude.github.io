@@ -98,7 +98,7 @@ class TestBookListUtilsAllBooksByYearDisplay < Minitest::Test # Renamed class
 
   def test_includes_archived_reviews
     canonical_2023 = create_doc({ 'title' => 'Canonical 2023', 'date' => Time.utc(2023, 8, 1), 'published' => true }, '/c23.html')
-    archived_2023 = create_doc({ 'title' => 'Archived 2023', 'date' => Time.utc(2023, 4, 1), 'published' => true, 'canonical_for' => '/c23.html' }, '/a23.html')
+    archived_2023 = create_doc({ 'title' => 'Archived 2023', 'date' => Time.utc(2023, 4, 1), 'published' => true, 'canonical_url' => '/c23.html' }, '/a23.html')
     site = create_site({}, { 'books' => [canonical_2023, archived_2023] })
     context = create_context({}, { site: site, page: @context.registers[:page] })
 

@@ -588,9 +588,8 @@ module BookListUtils
     books = site.collections['books'].docs.select { |book| book.data['published'] != false }
     return books if include_archived
 
-    # Filter out archived reviews unless explicitly requested.
-    # An archived review is identified by the presence of the 'canonical_for' key.
-    books.select { |book| book.data['canonical_for'].nil? }
+    # Filter out archived reviews (where canonical_url starts with '/') unless explicitly requested.
+    books.select { |book| !book.data['canonical_url']&.start_with?('/') }
   end
 
   # Parses a raw book number into a Float for sorting, or Float::INFINITY for non-numeric/nil.

@@ -147,14 +147,14 @@ module Jekyll
         'url' => book.url,
         'title' => title,
         'authors' => author_names,
-        'canonical_for' => book.data['canonical_for'] # This will be nil for canonical books
+        'canonical_url' => book.data['canonical_url'] # This will be nil for canonical books
       }
 
       book_cache[normalized_title] ||= []
       book_cache[normalized_title] << book_data
 
       # --- Populate the new cache structures ---
-      canonical_url = book.data['canonical_for'] || book.url
+      canonical_url = book.data['canonical_url'] || book.url
       link_cache['url_to_canonical_map'][book.url] = canonical_url
       link_cache['book_families'][canonical_url] << book.url
     end
