@@ -3,7 +3,6 @@ require 'jekyll' # For potential future Jekyll context, though not directly used
 require 'cgi'    # For CGI.escapeHTML if it were needed (not in current stars logic)
 
 module RatingUtils
-
   # Generates HTML for star rating display.
   # Accepts Integer or integer-like String input for rating (1-5), or nil.
   # Returns empty string for nil input.
@@ -15,7 +14,7 @@ module RatingUtils
   # @raise [ArgumentError] if rating is not nil, Integer(1-5), or String("1"-"5").
   def self.render_rating_stars(rating, wrapper_tag = 'div')
     # Allow nil input to return empty string silently
-    return "" if rating.nil?
+    return '' if rating.nil?
 
     rating_int = nil
 
@@ -31,27 +30,27 @@ module RatingUtils
       end
     else
       # Invalid type (float, array, non-numeric string, negative string etc.)
-      raise ArgumentError, "Invalid rating input type: '#{rating.inspect}' (#{rating.class}). Expected Integer(1-5), String('1'-'5'), or nil."
+      raise ArgumentError,
+            "Invalid rating input type: '#{rating.inspect}' (#{rating.class}). Expected Integer(1-5), String('1'-'5'), or nil."
     end
     # --- End Input Type Validation ---
-
 
     # --- Range Validation ---
     unless (1..5).include?(rating_int)
       raise ArgumentError, "Invalid rating value: #{rating_int}. Rating must be between 1 and 5 (inclusive)."
     end
-    # --- End Range Validation ---
 
+    # --- End Range Validation ---
 
     # --- HTML Generation (only runs if input is valid 1-5) ---
     max_stars = 5
     aria_label = "Rating: #{rating_int} out of #{max_stars} stars"
     css_class = "book-rating star-rating-#{rating_int}"
 
-    stars_html = ""
+    stars_html = ''
     max_stars.times do |i|
-      star_type = (i < rating_int) ? "full_star" : "empty_star"
-      star_char = (i < rating_int) ? "★" : "☆"
+      star_type = i < rating_int ? 'full_star' : 'empty_star'
+      star_char = i < rating_int ? '★' : '☆'
       # aria-hidden is appropriate here as the wrapper has the aria-label
       stars_html << "<span class=\"book_star #{star_type}\" aria-hidden=\"true\">#{star_char}</span>"
     end
@@ -62,5 +61,4 @@ module RatingUtils
     "<#{safe_wrapper_tag} class=\"#{css_class}\" role=\"img\" aria-label=\"#{aria_label}\">#{stars_html}</#{safe_wrapper_tag}>"
     # --- End HTML Generation ---
   end
-
 end

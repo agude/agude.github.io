@@ -3,33 +3,33 @@
 module SeriesTextUtils
   # Define common words that imply a series type.
   # These are checked as whole words against the normalized series name.
-  SERIES_TYPE_WORDS = [
-    'adventures',
-    'anthologies',
-    'anthology',
-    'arc',
-    'book',
-    'books',
-    'cantos',
-    'chronicle',
-    'chronicles',
-    'collection',
-    'collections',
-    'cycle',
-    'cycles',
-    'diaries',
-    'mythos',
-    'saga',
-    'sagas',
-    'sequence',
-    'sequences',
-    'series',
-    'song',
-    'songs',
-    'trilogies',
-    'trilogy',
-    'universe',
-    'universes',
+  SERIES_TYPE_WORDS = %w[
+    adventures
+    anthologies
+    anthology
+    arc
+    book
+    books
+    cantos
+    chronicle
+    chronicles
+    collection
+    collections
+    cycle
+    cycles
+    diaries
+    mythos
+    saga
+    sagas
+    sequence
+    sequences
+    series
+    song
+    songs
+    trilogies
+    trilogy
+    universe
+    universes
   ].freeze
 
   # Analyzes a series name to determine grammatical prefix and suffix.
@@ -48,10 +48,10 @@ module SeriesTextUtils
     normalized_name_for_logic = stripped_name.downcase
 
     # Determine Prefix
-    prefix = if normalized_name_for_logic.start_with?("the ", "a ", "an ")
-               ""
+    prefix = if normalized_name_for_logic.start_with?('the ', 'a ', 'an ')
+               ''
              else
-               "the "
+               'the '
              end
 
     # Determine Suffix
@@ -63,7 +63,7 @@ module SeriesTextUtils
         break
       end
     end
-    suffix = contains_series_type_word ? "" : " series"
+    suffix = contains_series_type_word ? '' : ' series'
 
     {
       prefix: prefix,

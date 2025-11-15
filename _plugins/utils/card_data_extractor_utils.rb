@@ -1,9 +1,8 @@
 # _plugins/utils/card_data_extractor_utils.rb
-require_relative './url_utils'
-require_relative './plugin_logger_utils'
+require_relative 'url_utils'
+require_relative 'plugin_logger_utils'
 
 module CardDataExtractorUtils
-
   # Extracts common base data required for rendering any card.
   # Handles initial validation of the item_object and context.
   #
@@ -19,19 +18,20 @@ module CardDataExtractorUtils
   #   :absolute_image_url [String, nil] Absolute URL of the item's image.
   #   :raw_title [String, nil] The raw title of the item.
   #   :log_output [String] HTML log comment if initial validation fails, else an empty string.
-  def self.extract_base_data(item_object, context, default_title: "Untitled Item", log_tag_type: "CARD_DATA_EXTRACTION")
-    log_output_accumulator = ""
+  def self.extract_base_data(item_object, context, default_title: 'Untitled Item', log_tag_type: 'CARD_DATA_EXTRACTION')
+    log_output_accumulator = ''
 
     # 1. Validate Context and Site
     unless context && (site = context.registers[:site])
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
         tag_type: log_tag_type,
-        reason: "Context or Site object unavailable for card data extraction.",
+        reason: 'Context or Site object unavailable for card data extraction.',
         identifiers: { item_type: item_object.class.name }
       )
       # Return immediately with log if site context is missing, as further operations depend on it.
-      return { log_output: log_output_accumulator, site: nil, data_source_for_keys: nil, data_for_description: nil, absolute_url: nil, absolute_image_url: nil, raw_title: nil }
+      return { log_output: log_output_accumulator, site: nil, data_source_for_keys: nil, data_for_description: nil,
+               absolute_url: nil, absolute_image_url: nil, raw_title: nil }
     end
 
     # 2. Validate item_object and determine data_source
@@ -56,11 +56,12 @@ module CardDataExtractorUtils
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
         tag_type: log_tag_type,
-        reason: "Invalid item_object: Expected a Jekyll Document/Page or Drop with .url and data access capabilities.",
-        identifiers: { item_class: item_object.class.name, item_inspect: item_object.inspect.slice(0,100) }
+        reason: 'Invalid item_object: Expected a Jekyll Document/Page or Drop with .url and data access capabilities.',
+        identifiers: { item_class: item_object.class.name, item_inspect: item_object.inspect.slice(0, 100) }
       )
       # Return with log if item_object is fundamentally unusable.
-      return { log_output: log_output_accumulator, site: site, data_source_for_keys: nil, data_for_description: nil, absolute_url: nil, absolute_image_url: nil, raw_title: nil }
+      return { log_output: log_output_accumulator, site: site, data_source_for_keys: nil, data_for_description: nil,
+               absolute_url: nil, absolute_image_url: nil, raw_title: nil }
     end
 
     # 3. Extract common properties
@@ -71,16 +72,14 @@ module CardDataExtractorUtils
     # Use the determined data_source (Hash or Drop) for key-based access
     image_path = data_source['image']
     absolute_image_url = nil
-    if image_path && !image_path.to_s.strip.empty?
-      absolute_image_url = UrlUtils.absolute_url(image_path.to_s, site)
-    end
+    absolute_image_url = UrlUtils.absolute_url(image_path.to_s, site) if image_path && !image_path.to_s.strip.empty?
 
     current_title = data_source['title']
-    if current_title.nil? || current_title.to_s.strip.empty?
-      raw_title = default_title
-    else
-      raw_title = current_title.to_s # Use the title as a string
-    end
+    raw_title = if current_title.nil? || current_title.to_s.strip.empty?
+                  default_title
+                else
+                  current_title.to_s # Use the title as a string
+                end
 
     # 4. Return extracted data
     {
@@ -133,5 +132,4 @@ module CardDataExtractorUtils
     # Ensure we return a string, stripping whitespace. If description_content is nil, .to_s gives ""
     description_content.to_s.strip
   end
-
 end

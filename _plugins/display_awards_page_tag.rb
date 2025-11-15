@@ -19,9 +19,9 @@ module Jekyll
   class DisplayAwardsPageTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
       super
-      unless markup.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
-      end
+      return if markup.strip.empty?
+
+      raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
     end
 
     def render(context)
@@ -32,7 +32,7 @@ module Jekyll
       awards_data_hash = BookListUtils.get_data_for_all_books_by_award_display(site: site, context: context)
       favorites_data_hash = BookListUtils.get_data_for_favorites_lists(site: site, context: context)
 
-      output = (awards_data_hash[:log_messages] || "") + (favorites_data_hash[:log_messages] || "")
+      output = (awards_data_hash[:log_messages] || '') + (favorites_data_hash[:log_messages] || '')
       awards_groups = awards_data_hash[:awards_data] || []
       favorites_lists = favorites_data_hash[:favorites_lists] || []
 
@@ -54,9 +54,7 @@ module Jekyll
 
       if award_nav_links.any? || favorites_nav_links.any?
         output << "<nav class=\"alpha-jump-links\">\n"
-        if award_nav_links.any?
-          output << "  <div class=\"nav-row\">#{award_nav_links.join(' &middot; ')}</div>\n"
-        end
+        output << "  <div class=\"nav-row\">#{award_nav_links.join(' &middot; ')}</div>\n" if award_nav_links.any?
         if favorites_nav_links.any?
           output << "  <div class=\"nav-row\">#{favorites_nav_links.join(' &middot; ')}</div>\n"
         end
@@ -67,8 +65,8 @@ module Jekyll
       unless awards_groups.empty?
         output << "<h2>Major Awards</h2>\n"
         awards_groups.each do |award_group|
-          escaped_slug = CGI.escapeHTML(award_group[:award_slug] || "")
-          escaped_name = CGI.escapeHTML(award_group[:award_name] || "")
+          escaped_slug = CGI.escapeHTML(award_group[:award_slug] || '')
+          escaped_name = CGI.escapeHTML(award_group[:award_name] || '')
 
           output << "<h3 class=\"book-list-headline\" id=\"#{escaped_slug}\">#{escaped_name}</h3>\n"
           output << "<div class=\"card-grid\">\n"

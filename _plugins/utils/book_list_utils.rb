@@ -1,15 +1,13 @@
 # _plugins/utils/book_list_utils.rb
-require 'set'
 require 'cgi'
-require_relative './series_link_util'
-require_relative './url_utils'
+require_relative 'series_link_util'
+require_relative 'url_utils'
 require_relative 'plugin_logger_utils'
 require_relative 'book_card_utils'
 require_relative 'text_processing_utils'
 require_relative 'front_matter_utils'
 
 module BookListUtils
-
   # --- Public Methods for Tags ---
 
   # Fetches and sorts books for a specific series.
@@ -18,15 +16,15 @@ module BookListUtils
   # @param context [Liquid::Context] The Liquid context.
   # @return [Hash] Contains :books (Array of Document), :series_name (String), :log_messages (String).
   def self.get_data_for_series_display(site:, series_name_filter:, context:)
-    log_output_accumulator = ""
+    log_output_accumulator = ''
 
     unless site&.collections&.key?('books')
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "BOOK_LIST_UTIL",
+        tag_type: 'BOOK_LIST_UTIL',
         reason: "Required 'books' collection not found in site configuration.",
-        identifiers: { filter_type: "series", series_name: series_name_filter || "N/A" },
-        level: :error,
+        identifiers: { filter_type: 'series', series_name: series_name_filter || 'N/A' },
+        level: :error
       )
       return { books: [], series_name: series_name_filter, log_messages: log_output_accumulator }
     end
@@ -39,29 +37,29 @@ module BookListUtils
     if series_name_provided_and_valid
       normalized_filter = series_name_filter.to_s.strip.downcase
       books_in_series = all_books.select { |book| book.data['series']&.strip&.downcase == normalized_filter }
-        .sort_by do |book|
-          [
-            _parse_book_number(book.data['book_number']), # Use helper for numerical sort
-            TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true) # Secondary sort by title
-          ]
-        end
+                                 .sort_by do |book|
+        [
+          _parse_book_number(book.data['book_number']), # Use helper for numerical sort
+          TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true) # Secondary sort by title
+        ]
+      end
 
       if books_in_series.empty?
         log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "BOOK_LIST_SERIES_DISPLAY",
-          reason: "No books found for the specified series.",
+          tag_type: 'BOOK_LIST_SERIES_DISPLAY',
+          reason: 'No books found for the specified series.',
           identifiers: { SeriesFilter: series_name_filter },
-          level: :info,
+          level: :info
         )
       end
     else
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "BOOK_LIST_SERIES_DISPLAY",
-        reason: "Series name filter was empty or nil.",
-        identifiers: { SeriesFilterInput: series_name_filter || "N/A" },
-        level: :warn,
+        tag_type: 'BOOK_LIST_SERIES_DISPLAY',
+        reason: 'Series name filter was empty or nil.',
+        identifiers: { SeriesFilterInput: series_name_filter || 'N/A' },
+        level: :warn
       )
     end
     { books: books_in_series, series_name: series_name_filter, log_messages: log_output_accumulator }
@@ -73,17 +71,17 @@ module BookListUtils
   # @param context [Liquid::Context] The Liquid context.
   # @return [Hash] Contains :standalone_books (Array), :series_groups (Array), :log_messages (String).
   def self.get_data_for_author_display(site:, author_name_filter:, context:)
-    log_output_accumulator = ""
+    log_output_accumulator = ''
     link_cache = site.data['link_cache'] || {}
     author_cache = link_cache['authors'] || {}
 
     unless site&.collections&.key?('books')
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "BOOK_LIST_UTIL",
+        tag_type: 'BOOK_LIST_UTIL',
         reason: "Required 'books' collection not found in site configuration.",
-        identifiers: { filter_type: "author", author_name: author_name_filter || "N/A" },
-        level: :error,
+        identifiers: { filter_type: 'author', author_name: author_name_filter || 'N/A' },
+        level: :error
       )
       return { standalone_books: [], series_groups: [], log_messages: log_output_accumulator }
     end
@@ -109,25 +107,25 @@ module BookListUtils
       if author_books.empty?
         log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "BOOK_LIST_AUTHOR_DISPLAY",
-          reason: "No books found for the specified author.",
+          tag_type: 'BOOK_LIST_AUTHOR_DISPLAY',
+          reason: 'No books found for the specified author.',
           identifiers: { AuthorFilter: author_name_filter },
-          level: :info,
+          level: :info
         )
       end
     else
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "BOOK_LIST_AUTHOR_DISPLAY",
-        reason: "Author name filter was empty or nil when fetching data.",
-        identifiers: { AuthorFilterInput: author_name_filter || "N/A" },
-        level: :warn,
+        tag_type: 'BOOK_LIST_AUTHOR_DISPLAY',
+        reason: 'Author name filter was empty or nil when fetching data.',
+        identifiers: { AuthorFilterInput: author_name_filter || 'N/A' },
+        level: :warn
       )
     end
 
     structured_data = _structure_books_for_display(author_books)
     # Combine log messages
-    structured_data[:log_messages] = (structured_data[:log_messages] || "") + log_output_accumulator
+    structured_data[:log_messages] = (structured_data[:log_messages] || '') + log_output_accumulator
     structured_data
   end
 
@@ -136,14 +134,14 @@ module BookListUtils
   # @param context [Liquid::Context] The Liquid context.
   # @return [Hash] Contains :standalone_books (Array), :series_groups (Array), :log_messages (String).
   def self.get_data_for_all_books_display(site:, context:)
-    log_output_accumulator = ""
+    log_output_accumulator = ''
     unless site&.collections&.key?('books')
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "BOOK_LIST_UTIL",
+        tag_type: 'BOOK_LIST_UTIL',
         reason: "Required 'books' collection not found in site configuration.",
-        identifiers: { filter_type: "all_books" },
-        level: :error,
+        identifiers: { filter_type: 'all_books' },
+        level: :error
       )
       return { standalone_books: [], series_groups: [], log_messages: log_output_accumulator }
     end
@@ -151,7 +149,7 @@ module BookListUtils
     all_books = _get_all_published_books(site, include_archived: false)
     structured_data = _structure_books_for_display(all_books)
     # Prepend any initial log (like missing collection) to any logs from structuring (though structuring doesn't log currently)
-    structured_data[:log_messages] = log_output_accumulator + (structured_data[:log_messages] || "")
+    structured_data[:log_messages] = log_output_accumulator + (structured_data[:log_messages] || '')
     structured_data
   end
 
@@ -161,17 +159,17 @@ module BookListUtils
   # @return [Hash] Contains :authors_data (Array of Hashes), :log_messages (String).
   #   Each hash in :authors_data has :author_name, :standalone_books, :series_groups.
   def self.get_data_for_all_books_by_author_display(site:, context:)
-    log_output_accumulator = ""
+    log_output_accumulator = ''
     link_cache = site.data['link_cache'] || {}
     author_cache = link_cache['authors'] || {}
 
     unless site&.collections&.key?('books')
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "BOOK_LIST_UTIL", # Generic util error for missing collection
+        tag_type: 'BOOK_LIST_UTIL', # Generic util error for missing collection
         reason: "Required 'books' collection not found in site configuration.",
-        identifiers: { filter_type: "all_books_by_author" }, # New filter type identifier
-        level: :error,
+        identifiers: { filter_type: 'all_books_by_author' }, # New filter type identifier
+        level: :error
       )
       return { authors_data: [], log_messages: log_output_accumulator }
     end
@@ -186,6 +184,7 @@ module BookListUtils
       author_names_for_book.each do |author_name_str|
         canonical_name = _get_canonical_author(author_name_str, author_cache)
         next if canonical_name.nil? # Skip if author name was blank
+
         books_by_canonical_author[canonical_name] ||= []
         books_by_canonical_author[canonical_name] << book
       end
@@ -215,10 +214,10 @@ module BookListUtils
       # or there were no published books at all.
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "ALL_BOOKS_BY_AUTHOR_DISPLAY", # Specific tag type for this scenario
-        reason: "No published books with valid author names found.",
+        tag_type: 'ALL_BOOKS_BY_AUTHOR_DISPLAY', # Specific tag type for this scenario
+        reason: 'No published books with valid author names found.',
         identifiers: {}, # No specific filter here
-        level: :info, # This is an expected empty state if content is structured that way
+        level: :info # This is an expected empty state if content is structured that way
       )
     end
 
@@ -227,14 +226,14 @@ module BookListUtils
 
   # Formats an award string into a display name (Title Case + " Award").
   private_class_method def self._format_award_display_name(award_string_raw)
-    return "" if award_string_raw.nil? || award_string_raw.to_s.strip.empty?
+    return '' if award_string_raw.nil? || award_string_raw.to_s.strip.empty?
 
     award_str = award_string_raw.to_s.strip
 
     # Titleize the raw award string and append " Award"
     titleized_name = award_str.split.map do |word|
       if word.length == 2 && word[1] == '.' && word[0].match?(/[a-z]/i) # e.g., "c." but not ".."
-        word[0].upcase + "."
+        word[0].upcase + '.'
       else
         word.capitalize # Standard capitalization for other words
       end
@@ -245,14 +244,14 @@ module BookListUtils
 
   # Fetches all books, groups them by award.
   def self.get_data_for_all_books_by_award_display(site:, context:)
-    log_output_accumulator = ""
+    log_output_accumulator = ''
     unless site&.collections&.key?('books')
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "BOOK_LIST_UTIL",
+        tag_type: 'BOOK_LIST_UTIL',
         reason: "Required 'books' collection not found in site configuration.",
-        identifiers: { filter_type: "all_books_by_award" },
-        level: :error,
+        identifiers: { filter_type: 'all_books_by_award' },
+        level: :error
       )
       return { awards_data: [], log_messages: log_output_accumulator }
     end
@@ -263,26 +262,29 @@ module BookListUtils
     unique_raw_awards = {}
     all_published_books.each do |book|
       book_awards = book.data['awards']
-      if book_awards.is_a?(Array)
-        book_awards.each do |award_entry|
-          next if award_entry.nil? || award_entry.to_s.strip.empty?
-          award_str_stripped = award_entry.to_s.strip
-          award_str_downcased = award_str_stripped.downcase
-          unique_raw_awards[award_str_downcased] ||= award_str_stripped
-        end
+      next unless book_awards.is_a?(Array)
+
+      book_awards.each do |award_entry|
+        next if award_entry.nil? || award_entry.to_s.strip.empty?
+
+        award_str_stripped = award_entry.to_s.strip
+        award_str_downcased = award_str_stripped.downcase
+        unique_raw_awards[award_str_downcased] ||= award_str_stripped
       end
     end
 
-    sorted_unique_raw_awards = unique_raw_awards.sort_by { |downcased, _original| downcased }.map { |_downcased, original| original }
+    sorted_unique_raw_awards = unique_raw_awards.sort_by do |downcased, _original|
+      downcased
+    end.map { |_downcased, original| original }
 
     awards_data_list = []
     if sorted_unique_raw_awards.empty?
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "ALL_BOOKS_BY_AWARD_DISPLAY",
-        reason: "No books with awards found.",
+        tag_type: 'ALL_BOOKS_BY_AWARD_DISPLAY',
+        reason: 'No books with awards found.',
         identifiers: {},
-        level: :info,
+        level: :info
       )
       return { awards_data: [], log_messages: log_output_accumulator }
     end
@@ -305,10 +307,10 @@ module BookListUtils
 
       display_award_name = _format_award_display_name(current_raw_award)
       award_slug = TextProcessingUtils.normalize_title(display_award_name, strip_articles: false)
-        .gsub(/\s+/, '-')
-        .gsub(/[^\w-]+/, '')
-        .gsub(/--+/, '-')
-        .gsub(/^-+|-+$/, '')
+                                      .gsub(/\s+/, '-')
+                                      .gsub(/[^\w-]+/, '')
+                                      .gsub(/--+/, '-')
+                                      .gsub(/^-+|-+$/, '')
 
       awards_data_list << {
         award_name: display_award_name,
@@ -326,14 +328,14 @@ module BookListUtils
   # @return [Hash] Contains :alpha_groups (Array of Hashes), :log_messages (String).
   #   Each hash in :alpha_groups has :letter (String) and :books (Array of Document).
   def self.get_data_for_all_books_by_title_alpha_group(site:, context:)
-    log_output_accumulator = ""
+    log_output_accumulator = ''
     unless site&.collections&.key?('books')
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "BOOK_LIST_UTIL",
+        tag_type: 'BOOK_LIST_UTIL',
         reason: "Required 'books' collection not found in site configuration.",
-        identifiers: { filter_type: "all_books_by_title_alpha_group" },
-        level: :error,
+        identifiers: { filter_type: 'all_books_by_title_alpha_group' },
+        level: :error
       )
       return { alpha_groups: [], log_messages: log_output_accumulator }
     end
@@ -343,10 +345,10 @@ module BookListUtils
     if all_published_books.empty?
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "ALL_BOOKS_BY_TITLE_ALPHA_GROUP",
-        reason: "No published books found to group by title.",
+        tag_type: 'ALL_BOOKS_BY_TITLE_ALPHA_GROUP',
+        reason: 'No published books found to group by title.',
         identifiers: {},
-        level: :info, # Expected empty state if no books
+        level: :info # Expected empty state if no books
       )
       return { alpha_groups: [], log_messages: log_output_accumulator }
     end
@@ -356,8 +358,8 @@ module BookListUtils
       title = book.data['title'].to_s
       sort_title = TextProcessingUtils.normalize_title(title, strip_articles: true)
       # Handle cases where sort_title might be empty after normalization (e.g., title was just "A ")
-      first_letter = sort_title.empty? ? "#" : sort_title[0].upcase
-      first_letter = "#" unless first_letter.match?(/[A-Z]/) # Group non-alpha under "#"
+      first_letter = sort_title.empty? ? '#' : sort_title[0].upcase
+      first_letter = '#' unless first_letter.match?(/[A-Z]/) # Group non-alpha under "#"
 
       { book: book, sort_title: sort_title, first_letter: first_letter }
     end
@@ -373,9 +375,10 @@ module BookListUtils
     alpha_groups_list = []
     # Sort the groups by letter (#, then A-Z)
     sorted_letters = grouped_by_letter.keys.sort do |a, b|
-      if a == "#" then -1 # '#' comes FIRST
-      elsif b == "#" then 1  # Anything else is greater than '#'
-      else a <=> b # Standard string comparison for A-Z
+      if a == '#' then -1 # '#' comes FIRST
+      elsif b == '#' then 1 # Anything else is greater than '#'
+      else
+        a <=> b # Standard string comparison for A-Z
       end
     end
 
@@ -398,14 +401,14 @@ module BookListUtils
   # @return [Hash] Contains :year_groups (Array of Hashes), :log_messages (String).
   #   Each hash in :year_groups has :year (String) and :books (Array of Document).
   def self.get_data_for_all_books_by_year_display(site:, context:)
-    log_output_accumulator = ""
+    log_output_accumulator = ''
     unless site&.collections&.key?('books')
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "BOOK_LIST_UTIL",
+        tag_type: 'BOOK_LIST_UTIL',
         reason: "Required 'books' collection not found in site configuration.",
-        identifiers: { filter_type: "all_books_by_year" },
-        level: :error,
+        identifiers: { filter_type: 'all_books_by_year' },
+        level: :error
       )
       return { year_groups: [], log_messages: log_output_accumulator }
     end
@@ -415,10 +418,10 @@ module BookListUtils
     if all_published_books.empty?
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "ALL_BOOKS_BY_YEAR_DISPLAY",
-        reason: "No published books found to group by year.",
+        tag_type: 'ALL_BOOKS_BY_YEAR_DISPLAY',
+        reason: 'No published books found to group by year.',
         identifiers: {},
-        level: :info, # Expected empty state if no books
+        level: :info # Expected empty state if no books
       )
       return { year_groups: [], log_messages: log_output_accumulator }
     end
@@ -445,12 +448,12 @@ module BookListUtils
   end
 
   def self.get_data_for_favorites_lists(site:, context:)
-    log_output_accumulator = ""
+    log_output_accumulator = ''
     unless site&.posts&.docs&.is_a?(Array) && site.data.dig('link_cache', 'favorites_posts_to_books')
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "BOOK_LIST_FAVORITES",
-        reason: "Prerequisites missing: site.posts or favorites_posts_to_books cache.",
+        tag_type: 'BOOK_LIST_FAVORITES',
+        reason: 'Prerequisites missing: site.posts or favorites_posts_to_books cache.',
         level: :error
       )
       return { favorites_lists: [], log_messages: log_output_accumulator }
@@ -458,9 +461,9 @@ module BookListUtils
 
     favorites_cache = site.data['link_cache']['favorites_posts_to_books']
     favorites_posts = site.posts.docs
-      .select { |p| p.data.key?('is_favorites_list') }
-      .sort_by { |p| p.data['is_favorites_list'].to_i }
-      .reverse
+                          .select { |p| p.data.key?('is_favorites_list') }
+                          .sort_by { |p| p.data['is_favorites_list'].to_i }
+                          .reverse
 
     favorites_lists_data = favorites_posts.map do |post|
       books_for_post = favorites_cache[post.url] || []
@@ -473,7 +476,7 @@ module BookListUtils
     if favorites_lists_data.empty?
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "BOOK_LIST_FAVORITES",
+        tag_type: 'BOOK_LIST_FAVORITES',
         reason: "No posts with 'is_favorites_list' front matter found.",
         level: :info
       )
@@ -491,7 +494,7 @@ module BookListUtils
   # @param generate_nav [Boolean] If true, generates and prepends an A-Z jump-link navigation.
   # @return [String] The rendered HTML.
   def self.render_book_groups_html(data, context, series_heading_level: 2, generate_nav: false)
-    output = ""
+    output = ''
     output << data[:log_messages] if data[:log_messages] && !data[:log_messages].empty?
 
     standalone_books = data[:standalone_books] || []
@@ -504,11 +507,11 @@ module BookListUtils
     series_hl = 2 unless (1..6).include?(series_hl)
 
     # --- Pass 1: Build content buffer and collect first anchor for each letter ---
-    output_buffer = ""
+    output_buffer = ''
     first_anchor_for_letter = {}
 
     if standalone_books.any?
-      anchor_slug = "standalone-books"
+      anchor_slug = 'standalone-books'
       first_anchor_for_letter['#'] = anchor_slug if generate_nav
       output_buffer << "<h2 class=\"book-list-headline\" id=\"#{anchor_slug}\">Standalone Books</h2>\n"
       output_buffer << "<div class=\"card-grid\">\n"
@@ -564,8 +567,6 @@ module BookListUtils
 
   # --- Private Helper Methods ---
 
-  private
-
   # Helper to find the canonical author name from the cache.
   # Falls back to the original name if not found in the cache.
   # @param name [String, nil] The author name to look up.
@@ -573,6 +574,7 @@ module BookListUtils
   # @return [String, nil] The canonical name, or nil if the input is blank.
   def self._get_canonical_author(name, author_cache)
     return nil if name.nil? || name.to_s.strip.empty?
+
     stripped_name = name.to_s.strip
     normalized_name = TextProcessingUtils.normalize_title(stripped_name)
     author_data = author_cache[normalized_name]
@@ -597,6 +599,7 @@ module BookListUtils
   # @return [Float, Float::INFINITY] The parsed number or infinity.
   def self._parse_book_number(book_number_raw)
     return Float::INFINITY if book_number_raw.nil? || book_number_raw.to_s.strip.empty?
+
     begin
       # Use Float() to allow for decimal book numbers like 4.5
       Float(book_number_raw.to_s)
@@ -648,7 +651,7 @@ module BookListUtils
     {
       standalone_books: sorted_standalone,
       series_groups: series_groups,
-      log_messages: "", # Initialize empty, callers will prepend their own logs.
+      log_messages: '' # Initialize empty, callers will prepend their own logs.
     }
   end
 end

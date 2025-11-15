@@ -6,7 +6,7 @@ gem 'jekyll', '~> 4.3'
 
 # Add plugins explicitly since we are not using the github-pages gem
 gem 'jekyll-feed', '~> 0.17.0'
-# Note: jekyll-paginate is deprecated in Jekyll 4. Consider migrating to jekyll-paginate-v2.
+# NOTE: jekyll-paginate is deprecated in Jekyll 4. Consider migrating to jekyll-paginate-v2.
 gem 'jekyll-paginate', '~> 1.1.0'
 gem 'jekyll-redirect-from', '~> 0.16.0'
 gem 'jekyll-seo-tag', '~> 2.8.0'
@@ -23,7 +23,7 @@ gem 'nokogiri', '~> 1.18'
 
 # Tests
 group :development, :test do
-  gem 'minitest', '~> 5.25'
   gem 'html-proofer', '~> 4.0' # For checking broken links and HTML validity
+  gem 'minitest', '~> 5.25'
   gem 'rubocop', '~> 1.56'     # For Ruby linting
 end

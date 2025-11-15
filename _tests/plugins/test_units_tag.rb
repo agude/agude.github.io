@@ -3,26 +3,34 @@ require_relative '../test_helper'
 require_relative '../../_plugins/units_tag' # Load the tag
 
 class TestUnitsTag < Minitest::Test
-  THIN_NBSP = "&#x202F;"
+  THIN_NBSP = '&#x202F;'
 
   def setup
     # Site with default logging off, but specific tags can be enabled in tests
     @site = create_site({ 'url' => 'http://example.com' })
     @context = create_context(
-      { 'page_num' => "37.5", 'page_unit' => "C", 'nil_val' => nil, 'empty_val' => "" },
+      { 'page_num' => '37.5', 'page_unit' => 'C', 'nil_val' => nil, 'empty_val' => '' },
       { site: @site, page: create_doc({ 'path' => 'current_test_page.html' }, '/current.html') } # Page path for SourcePage
     )
 
     # Silent logger for tests not asserting specific console output
     @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end; def logger.error(topic, message); end
-      def logger.info(topic, message); end;  def logger.debug(topic, message); end
-      def logger.log_level=(level); end;    def logger.progname=(name); end
+      def logger.warn(topic, message); end
+
+      def logger.error(topic, message); end
+
+      def logger.info(topic, message); end
+
+      def logger.debug(topic, message); end
+
+      def logger.log_level=(level); end
+
+      def logger.progname=(name); end
     end
   end
 
   def render_tag(markup, context = @context)
-    output = ""
+    output = ''
     # Stub Jekyll.logger to silence console output from PluginLoggerUtils during tests
     # unless a specific test is designed to capture it.
     Jekyll.stub :logger, @silent_logger_stub do
@@ -63,10 +71,11 @@ class TestUnitsTag < Minitest::Test
     expected_html_part = "<span class=\"nowrap unit\">42#{THIN_NBSP}<abbr class=\"unit-abbr\" title=\"XYZ\">XYZ</abbr></span>"
 
     # Check for the warning comment
-    assert_match %r{<!-- \[WARN\] UNITS_TAG_WARNING_FAILURE: Reason='Unit key not found in internal definitions\. Using key as symbol/name\.'\s*UnitKey='XYZ'\s*Number='42'\s*SourcePage='current_test_page\.html' -->}, output
+    assert_match %r{<!-- \[WARN\] UNITS_TAG_WARNING_FAILURE: Reason='Unit key not found in internal definitions\. Using key as symbol/name\.'\s*UnitKey='XYZ'\s*Number='42'\s*SourcePage='current_test_page\.html' -->},
+                 output
 
     # Check for the rendered HTML span directly (without Regexp.escape)
-    assert_match expected_html_part, output, "Rendered HTML part mismatch"
+    assert_match expected_html_part, output, 'Rendered HTML part mismatch'
   end
 
   # --- Error Logging for Missing Resolved Values ---
@@ -101,14 +110,14 @@ class TestUnitsTag < Minitest::Test
   # --- Syntax Errors (Raised by initialize) ---
   def test_syntax_error_missing_number_argument
     err = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse("{% units unit=\"C\" %}")
+      Liquid::Template.parse('{% units unit="C" %}')
     end
     assert_match "Required argument 'number' is missing", err.message
   end
 
   def test_syntax_error_missing_unit_argument
     err = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse("{% units number=\"10\" %}")
+      Liquid::Template.parse('{% units number="10" %}')
     end
     assert_match "Required argument 'unit' is missing", err.message
   end
@@ -124,15 +133,14 @@ class TestUnitsTag < Minitest::Test
   def test_syntax_error_trailing_garbage_arguments
     err = assert_raises Liquid::SyntaxError do
       # This will be caught by the scanner.eos? check after valid args
-      Liquid::Template.parse("{% units number=\"10\" unit=\"C\" this is garbage %}")
+      Liquid::Template.parse('{% units number="10" unit="C" this is garbage %}')
     end
     assert_match "Invalid or unexpected trailing arguments near 'this is garbage'", err.message
   end
 
-
   def test_syntax_error_no_arguments
     err = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse("{% units %}")
+      Liquid::Template.parse('{% units %}')
     end
     # Will fail on 'number' first
     assert_match "Required argument 'number' is missing", err.message

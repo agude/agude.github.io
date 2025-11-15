@@ -32,19 +32,20 @@ module Jekyll
       until scanner.eos?
         scanner.skip(/\s+/)
         break if scanner.eos?
+
         if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
-            @link_text_markup ||= scanner[1]
+          @link_text_markup ||= scanner[1]
         else
           unknown_arg = scanner.scan(/\S+/)
-          raise Liquid::SyntaxError, "Syntax Error in 'series_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
+          raise Liquid::SyntaxError,
+                "Syntax Error in 'series_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
         end
       end
 
       # Ensure title markup was actually found
-      unless @title_markup && !@title_markup.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'series_link': Title value is missing or empty in '#{@raw_markup}'"
-      end
+      return if @title_markup && !@title_markup.strip.empty?
 
+      raise Liquid::SyntaxError, "Syntax Error in 'series_link': Title value is missing or empty in '#{@raw_markup}'"
     end # End initialize
 
     # Renders the series link HTML by calling the utility function
@@ -60,7 +61,6 @@ module Jekyll
         link_text_override
       )
     end # End render
-
   end # End class SeriesLinkTag
 end # End module Jekyll
 

@@ -4,14 +4,13 @@ require_relative '../../_plugins/front_matter_validator'
 require_relative '../../_plugins/utils/front_matter_utils' # Ensure this is loaded
 
 class TestFrontMatterValidator < Minitest::Test
-
   def setup
     @book_collection_label = 'books'
     @post_collection_label = 'posts'
 
     # Define base required fields for different types
-    @required_for_books = ['title', 'book_authors', 'book_number'] # Rating not required
-    @required_for_posts = ['title', 'date'] # 'date' is required for posts
+    @required_for_books = %w[title book_authors book_number] # Rating not required
+    @required_for_posts = %w[title date] # 'date' is required for posts
 
     @site = create_site
     # No need to store/restore original config directly from constant here
@@ -47,7 +46,7 @@ class TestFrontMatterValidator < Minitest::Test
         '/valid-book.html', 'content', nil, MockCollection.new(nil, @book_collection_label)
       )
       Jekyll.stub :logger, @silent_logger_stub do
-        assert_nil Jekyll::FrontMatterValidator.validate_document(doc), "Should pass with all required fields"
+        assert_nil Jekyll::FrontMatterValidator.validate_document(doc), 'Should pass with all required fields'
       end
     end
   end
@@ -68,7 +67,7 @@ class TestFrontMatterValidator < Minitest::Test
           Jekyll::FrontMatterValidator.validate_document(doc)
         end
       end
-      assert_match "missing or has empty required front matter fields: title", err.message
+      assert_match 'missing or has empty required front matter fields: title', err.message
       assert_match "Document in collection '#{@book_collection_label}'", err.message
       assert_match "'missing-title.html'", err.message
     end
@@ -87,24 +86,25 @@ class TestFrontMatterValidator < Minitest::Test
           Jekyll::FrontMatterValidator.validate_document(doc)
         end
       end
-      assert_match "missing or has empty required front matter fields: book_authors", err.message
+      assert_match 'missing or has empty required front matter fields: book_authors', err.message
     end
   end
 
   def test_book_collection_empty_book_authors_array_raises_error
     with_validator_config({ @book_collection_label => @required_for_books }) do
       doc_data = {
-        'title' => 'Test', 'book_authors' => ["", nil, "  "], 'book_number' => '1',
+        'title' => 'Test', 'book_authors' => ['', nil, '  '], 'book_number' => '1',
         'path' => 'empty-authors-array.html'
       }
-      doc = create_doc(doc_data, '/empty-authors-array.html', 'content', nil, MockCollection.new(nil, @book_collection_label))
+      doc = create_doc(doc_data, '/empty-authors-array.html', 'content', nil,
+                       MockCollection.new(nil, @book_collection_label))
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
           Jekyll::FrontMatterValidator.validate_document(doc)
         end
       end
-      assert_match "missing or has empty required front matter fields: book_authors", err.message
+      assert_match 'missing or has empty required front matter fields: book_authors', err.message
     end
   end
 
@@ -114,14 +114,15 @@ class TestFrontMatterValidator < Minitest::Test
         'title' => 'Test', 'book_authors' => ['Author'],
         'path' => 'missing-book-number.html'
       }
-      doc = create_doc(doc_data, '/missing-book-number.html', 'content', nil, MockCollection.new(nil, @book_collection_label))
+      doc = create_doc(doc_data, '/missing-book-number.html', 'content', nil,
+                       MockCollection.new(nil, @book_collection_label))
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
           Jekyll::FrontMatterValidator.validate_document(doc)
         end
       end
-      assert_match "missing or has empty required front matter fields: book_number", err.message
+      assert_match 'missing or has empty required front matter fields: book_number', err.message
     end
   end
 
@@ -131,16 +132,17 @@ class TestFrontMatterValidator < Minitest::Test
         'title' => 'Test', # Only title is present
         'path' => 'multiple-missing-books.html'
       }
-      doc = create_doc(doc_data, '/multiple-missing-books.html', 'content', nil, MockCollection.new(nil, @book_collection_label))
+      doc = create_doc(doc_data, '/multiple-missing-books.html', 'content', nil,
+                       MockCollection.new(nil, @book_collection_label))
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
           Jekyll::FrontMatterValidator.validate_document(doc)
         end
       end
-      assert_match "book_authors", err.message
-      assert_match "book_number", err.message
-      refute_match "rating", err.message # Ensure rating is NOT listed as missing
+      assert_match 'book_authors', err.message
+      assert_match 'book_number', err.message
+      refute_match 'rating', err.message # Ensure rating is NOT listed as missing
     end
   end
 
@@ -165,7 +167,7 @@ class TestFrontMatterValidator < Minitest::Test
       # create_doc will use the date_str_param to set doc.date and doc.data['date']
       doc = create_doc(
         doc_data,
-        '/2024/01/01/my-post.html', 'content', "2024-01-01", # This sets doc.date
+        '/2024/01/01/my-post.html', 'content', '2024-01-01', # This sets doc.date
         MockCollection.new(nil, @post_collection_label)
       )
       # Even if doc.data['date'] was nil, doc.date (attribute) would be valid.
@@ -194,7 +196,7 @@ class TestFrontMatterValidator < Minitest::Test
           Jekyll::FrontMatterValidator.validate_document(doc)
         end
       end
-      assert_match "missing or has empty required front matter fields: date", err.message
+      assert_match 'missing or has empty required front matter fields: date', err.message
       assert_match "'post-truly-missing-date.html'", err.message
     end
   end
@@ -202,9 +204,10 @@ class TestFrontMatterValidator < Minitest::Test
   def test_post_collection_date_is_not_time_object_raises_error
     with_validator_config({ @post_collection_label => @required_for_posts }) do
       doc_data = { 'title' => 'Post Bad Date Type', 'path' => 'post-bad-date-type.html' }
-      doc = create_doc(doc_data, '/post-bad-date-type.html', 'content', nil, MockCollection.new(nil, @post_collection_label))
+      doc = create_doc(doc_data, '/post-bad-date-type.html', 'content', nil,
+                       MockCollection.new(nil, @post_collection_label))
       # Override doc.date to return something that is not a Time object
-      doc.define_singleton_method(:date) { "This is not a Time object" }
+      doc.define_singleton_method(:date) { 'This is not a Time object' }
 
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
@@ -212,11 +215,10 @@ class TestFrontMatterValidator < Minitest::Test
           Jekyll::FrontMatterValidator.validate_document(doc)
         end
       end
-      assert_match "missing or has empty required front matter fields: date", err.message
+      assert_match 'missing or has empty required front matter fields: date', err.message
       assert_match "'post-bad-date-type.html'", err.message
     end
   end
-
 
   # --- Test for documents/pages not configured for validation ---
   def test_unconfigured_document_type_is_skipped
@@ -241,14 +243,17 @@ class TestFrontMatterValidator < Minitest::Test
 
   def test_logs_error_before_raising_exception
     with_validator_config({ @book_collection_label => ['title'] }) do
-      doc_data_for_log = {'path' => 'no-title-for-log-test.html', 'title' => nil } # Explicitly nil title
-      doc = create_doc(doc_data_for_log, '/no-title-for-log-test.html', 'c', nil, MockCollection.new(nil, @book_collection_label))
+      doc_data_for_log = { 'path' => 'no-title-for-log-test.html', 'title' => nil } # Explicitly nil title
+      doc = create_doc(doc_data_for_log, '/no-title-for-log-test.html', 'c', nil,
+                       MockCollection.new(nil, @book_collection_label))
       # doc.data.delete('title') # No longer needed if title is nil in data_overrides
 
       mock_logger = Minitest::Mock.new
       mock_logger.expect(
         :error, nil,
-        ["FrontMatter Error:", ->(msg){ msg.include?("'no-title-for-log-test.html'") && msg.include?("missing or has empty required front matter fields: title") }]
+        ['FrontMatter Error:', lambda { |msg|
+          msg.include?("'no-title-for-log-test.html'") && msg.include?('missing or has empty required front matter fields: title')
+        }]
       )
 
       Jekyll.stub :logger, mock_logger do

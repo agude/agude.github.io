@@ -34,7 +34,13 @@ class TestBookListUtilsFavoritesListsDisplay < Minitest::Test
     @context = create_context({}, { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') })
 
     @silent_logger_stub = Object.new.tap do |l|
-      def l.warn(p,m);end; def l.error(p,m);end; def l.info(p,m);end; def l.debug(p,m);end
+      def l.warn(p, m); end
+
+      def l.error(p, m); end
+
+      def l.info(p, m); end
+
+      def l.debug(p, m); end
     end
   end
 
@@ -48,7 +54,7 @@ class TestBookListUtilsFavoritesListsDisplay < Minitest::Test
     data = get_favorites_data
 
     assert_empty data[:log_messages].to_s
-    assert_equal 2, data[:favorites_lists].size, "Should find two favorites lists"
+    assert_equal 2, data[:favorites_lists].size, 'Should find two favorites lists'
 
     # --- Assert Overall List Order (by year descending) ---
     assert_equal @fav_post_2024.url, data[:favorites_lists][0][:post].url
@@ -74,7 +80,8 @@ class TestBookListUtilsFavoritesListsDisplay < Minitest::Test
 
     data = get_favorites_data(site_no_favs, context_no_favs)
     assert_empty data[:favorites_lists]
-    assert_match %r{<!-- \[INFO\] BOOK_LIST_FAVORITES_FAILURE: Reason='No posts with &#39;is_favorites_list&#39; front matter found\.' .*? -->}, data[:log_messages]
+    assert_match(/<!-- \[INFO\] BOOK_LIST_FAVORITES_FAILURE: Reason='No posts with &#39;is_favorites_list&#39; front matter found\.' .*? -->/,
+                 data[:log_messages])
   end
 
   def test_get_data_for_favorites_lists_prerequisites_missing_logs_error
@@ -85,6 +92,7 @@ class TestBookListUtilsFavoritesListsDisplay < Minitest::Test
 
     data = get_favorites_data(site_no_cache, context_no_cache)
     assert_empty data[:favorites_lists]
-    assert_match %r{<!-- \[ERROR\] BOOK_LIST_FAVORITES_FAILURE: Reason='Prerequisites missing: site\.posts or favorites_posts_to_books cache\.' .*? -->}, data[:log_messages]
+    assert_match(/<!-- \[ERROR\] BOOK_LIST_FAVORITES_FAILURE: Reason='Prerequisites missing: site\.posts or favorites_posts_to_books cache\.' .*? -->/,
+                 data[:log_messages])
   end
 end

@@ -8,9 +8,9 @@ module Jekyll
   class DisplayPreviousReviewsTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
       super
-      unless markup.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'display_previous_reviews': This tag does not accept any arguments."
-      end
+      return if markup.strip.empty?
+
+      raise Liquid::SyntaxError, "Syntax Error in 'display_previous_reviews': This tag does not accept any arguments."
     end
 
     def render(context)
@@ -20,8 +20,8 @@ module Jekyll
       unless site && page && page['url']
         return PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "PREVIOUS_REVIEWS",
-          reason: "Prerequisites missing: site, page, or page.url.",
+          tag_type: 'PREVIOUS_REVIEWS',
+          reason: 'Prerequisites missing: site, page, or page.url.',
           level: :error
         )
       end
@@ -31,7 +31,7 @@ module Jekyll
         book.data['canonical_url'] == page['url']
       end
 
-      return "" if archived_docs.empty?
+      return '' if archived_docs.empty?
 
       # Sort by date, most recent first
       sorted_docs = archived_docs.sort_by { |doc| doc.date }.reverse
@@ -47,7 +47,7 @@ module Jekyll
       end
 
       output << "  </div>\n"
-      output << "</aside>"
+      output << '</aside>'
 
       output
     end

@@ -3,13 +3,12 @@ require_relative '../test_helper'
 require_relative '../../_plugins/log_failure_tag' # Load the tag
 
 class TestLogFailureTag < Minitest::Test
-
   def setup
     @site = create_site
     @context = create_context(
       {
         'page_path_var' => 'path/from/variable.html',
-        'user_id_var' => 12345,
+        'user_id_var' => 12_345,
         'status_var' => 'pending'
       },
       { site: @site, page: create_doc({ 'path' => 'current_test_page.html' }, '/current.html') }
@@ -52,37 +51,43 @@ class TestLogFailureTag < Minitest::Test
 
   def test_render_basic_type_and_reason_delegates_correctly
     markup = "type='MY_CUSTOM_ERROR' reason='A basic failure occurred.'"
-    expected_log_type = "MY_CUSTOM_ERROR"
-    expected_reason = "A basic failure occurred."
+    expected_log_type = 'MY_CUSTOM_ERROR'
+    expected_reason = 'A basic failure occurred.'
     expected_identifiers = {}
-    mock_return_value = "<!-- MY_CUSTOM_ERROR LOGGED -->"
+    mock_return_value = '<!-- MY_CUSTOM_ERROR LOGGED -->'
 
     captured_args = nil
-    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args| captured_args = args; mock_return_value } do
+    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
+      captured_args = args
+      mock_return_value
+    } do
       output = render_tag(markup)
       assert_equal mock_return_value, output
     end
 
-    refute_nil captured_args, "PluginLoggerUtils.log_liquid_failure should have been called"
+    refute_nil captured_args, 'PluginLoggerUtils.log_liquid_failure should have been called'
     assert_equal @context, captured_args[:context]
     assert_equal expected_log_type, captured_args[:tag_type]
     assert_equal expected_reason, captured_args[:reason]
     assert_equal expected_identifiers, captured_args[:identifiers]
-    assert_nil captured_args[:level], "Level should be nil to use default, or explicitly :warn"
+    assert_nil captured_args[:level], 'Level should be nil to use default, or explicitly :warn'
   end
 
   def test_render_with_literal_identifiers
     # Removed unused variables, using markup_corrected and expected_identifiers_corrected directly
     markup_corrected = "type='MY_CUSTOM_ERROR' reason='Failure with details.' id='item123' status='failed' count='5'"
     expected_identifiers_corrected = {
-      "id" => "item123",
-      "status" => "failed",
-      "count" => "5" # LiquidUtils.resolve_value for "'5'" returns string "5"
+      'id' => 'item123',
+      'status' => 'failed',
+      'count' => '5' # LiquidUtils.resolve_value for "'5'" returns string "5"
     }
 
-    mock_return_value = "<!-- LOGGED WITH LITERALS -->"
+    mock_return_value = '<!-- LOGGED WITH LITERALS -->'
     captured_args = nil
-    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args| captured_args = args; mock_return_value } do
+    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
+      captured_args = args
+      mock_return_value
+    } do
       output = render_tag(markup_corrected)
       assert_equal mock_return_value, output
     end
@@ -95,14 +100,17 @@ class TestLogFailureTag < Minitest::Test
   def test_render_with_variable_identifiers
     markup = "type='TEMPLATE_INFO' reason='User action.' path=page_path_var user=user_id_var current_status=status_var"
     expected_identifiers = {
-      "path" => "path/from/variable.html",
-      "user" => 12345,
-      "current_status" => "pending"
+      'path' => 'path/from/variable.html',
+      'user' => 12_345,
+      'current_status' => 'pending'
     }
-    mock_return_value = "<!-- LOGGED WITH VARIABLES -->"
+    mock_return_value = '<!-- LOGGED WITH VARIABLES -->'
 
     captured_args = nil
-    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args| captured_args = args; mock_return_value } do
+    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
+      captured_args = args
+      mock_return_value
+    } do
       output = render_tag(markup)
       assert_equal mock_return_value, output
     end
@@ -115,13 +123,16 @@ class TestLogFailureTag < Minitest::Test
   def test_render_with_mixed_literal_and_variable_identifiers
     markup = "type='MY_CUSTOM_ERROR' reason='Mixed event' literal_id='abc' var_id=user_id_var"
     expected_identifiers = {
-      "literal_id" => "abc",
-      "var_id" => 12345
+      'literal_id' => 'abc',
+      'var_id' => 12_345
     }
-    mock_return_value = "<!-- LOGGED MIXED -->"
+    mock_return_value = '<!-- LOGGED MIXED -->'
 
     captured_args = nil
-    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args| captured_args = args; mock_return_value } do
+    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
+      captured_args = args
+      mock_return_value
+    } do
       output = render_tag(markup)
       assert_equal mock_return_value, output
     end
@@ -134,12 +145,15 @@ class TestLogFailureTag < Minitest::Test
   def test_render_identifier_key_capitalization_is_preserved_by_tag
     markup = "type='T' reason='R' myKey='val' another_Key='val2'"
     expected_identifiers_passed_to_util = {
-      "myKey" => "val",
-      "another_Key" => "val2"
+      'myKey' => 'val',
+      'another_Key' => 'val2'
     }
-    mock_return_value = "<!-- KEY TEST -->"
+    mock_return_value = '<!-- KEY TEST -->'
     captured_args = nil
-    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args| captured_args = args; mock_return_value } do
+    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
+      captured_args = args
+      mock_return_value
+    } do
       render_tag(markup)
     end
     # Assertion will now expect original casing
@@ -148,7 +162,7 @@ class TestLogFailureTag < Minitest::Test
 
   def test_render_handles_empty_markup_gracefully_but_fails_syntax
     err = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse("{% log_failure %}")
+      Liquid::Template.parse('{% log_failure %}')
     end
     assert_match "Required argument 'type' is missing", err.message
   end

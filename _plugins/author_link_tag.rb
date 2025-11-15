@@ -34,12 +34,14 @@ module Jekyll
         @name_markup = scanner.matched
       else
         # If not quoted, try matching a sequence of non-whitespace characters (potential variable)
-        if scanner.scan(/\S+/)
-          @name_markup = scanner.matched
-        else
-          # If nothing is found, it's a syntax error
+        unless scanner.scan(/\S+/)
           raise Liquid::SyntaxError, "Syntax Error in 'author_link': Could not find author name in '#{@raw_markup}'"
         end
+
+        @name_markup = scanner.matched
+
+        # If nothing is found, it's a syntax error
+
       end
 
       # 2. Scan the rest of the string for optional arguments (link_text, possessive)
@@ -50,9 +52,9 @@ module Jekyll
 
         # Check for link_text=... argument
         if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
-            # scanner[1] contains the captured quoted fragment (the value)
-            # Prevent overwriting if it appears multiple times (take the first one)
-            @link_text_markup ||= scanner[1]
+          # scanner[1] contains the captured quoted fragment (the value)
+          # Prevent overwriting if it appears multiple times (take the first one)
+          @link_text_markup ||= scanner[1]
           # Check for the standalone 'possessive' keyword
         elsif scanner.scan(/possessive(?!\S)/) # Ensure 'possessive' is a whole word
           @possessive_flag = true
@@ -60,12 +62,15 @@ module Jekyll
           # Found an unrecognized argument
           unknown_arg = scanner.scan(/\S+/) # Capture the unknown part
           # Raise an error to break the build
-          raise Liquid::SyntaxError, "Syntax Error in 'author_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
+          raise Liquid::SyntaxError,
+                "Syntax Error in 'author_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
         end
       end
-      unless @name_markup && !@name_markup.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'author_link': Author name value is missing or empty in '#{@raw_markup}'"
-      end
+      return if @name_markup && !@name_markup.strip.empty?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'author_link': Author name value is missing or empty in '#{@raw_markup}'"
+
       # --- End Argument Parsing ---
     end # End initialize
 
@@ -83,7 +88,6 @@ module Jekyll
         @possessive_flag # Pass the possessive flag
       )
     end # End render
-
   end # End class AuthorLinkTag
 end # End module Jekyll
 

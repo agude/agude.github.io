@@ -33,12 +33,14 @@ module Jekyll
         @title_markup = scanner.matched
       else
         # If not quoted, try matching a sequence of non-whitespace characters (potential variable)
-        if scanner.scan(/\S+/)
-          @title_markup = scanner.matched
-        else
-          # If nothing is found, it's a syntax error
+        unless scanner.scan(/\S+/)
           raise Liquid::SyntaxError, "Syntax Error in 'book_link': Could not find book title in '#{@raw_markup}'"
         end
+
+        @title_markup = scanner.matched
+
+        # If nothing is found, it's a syntax error
+
       end
 
       # 2. Scan the rest of the string for optional arguments (link_text, author)
@@ -48,23 +50,23 @@ module Jekyll
 
         # Check for link_text=... argument
         if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
-            @link_text_markup ||= scanner[1] # Take the first one found
+          @link_text_markup ||= scanner[1] # Take the first one found
           # Check for author=... argument
         elsif scanner.scan(/author\s*=\s*(#{QuotedFragment})/)
           @author_markup ||= scanner[1] # Take the first one found
         else
           # Found an unrecognized argument
           unknown_arg = scanner.scan(/\S+/)
-          raise Liquid::SyntaxError, "Syntax Error in 'book_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
+          raise Liquid::SyntaxError,
+                "Syntax Error in 'book_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
         end
       end
       # --- End Argument Parsing ---
 
       # Ensure title markup was actually found
-      unless @title_markup && !@title_markup.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'book_link': Title value is missing or empty in '#{@raw_markup}'"
-      end
+      return if @title_markup && !@title_markup.strip.empty?
 
+      raise Liquid::SyntaxError, "Syntax Error in 'book_link': Title value is missing or empty in '#{@raw_markup}'"
     end # End initialize
 
     # Renders the book link HTML by calling the utility function
@@ -77,7 +79,6 @@ module Jekyll
       # Call the centralized utility function from BookLinkUtils with the new author argument
       BookLinkUtils.render_book_link(book_title, context, link_text_override, author_filter)
     end # End render
-
   end # End class BookLinkTag
 end # End module Jekyll
 

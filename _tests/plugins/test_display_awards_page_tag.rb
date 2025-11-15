@@ -12,7 +12,7 @@ class TestDisplayAwardsPageTag < Minitest::Test
         { award_name: 'Hugo Award', award_slug: 'hugo-award', books: [@award_book_hugo] },
         { award_name: 'Nebula Award', award_slug: 'nebula-award', books: [@award_book_nebula] }
       ],
-      log_messages: ""
+      log_messages: ''
     }
 
     # --- Mock Data for Favorites Section ---
@@ -25,24 +25,30 @@ class TestDisplayAwardsPageTag < Minitest::Test
         { post: @fav_post_2024, books: [@fav_book_a] },
         { post: @fav_post_2023, books: [@fav_book_b] }
       ],
-      log_messages: ""
+      log_messages: ''
     }
 
     @site = create_site({ 'url' => 'http://example.com' })
     @context = create_context({}, { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') })
 
     @silent_logger_stub = Object.new.tap do |l|
-      def l.warn(p,m);end; def l.error(p,m);end; def l.info(p,m);end; def l.debug(p,m);end
+      def l.warn(p, m); end
+
+      def l.error(p, m); end
+
+      def l.info(p, m); end
+
+      def l.debug(p, m); end
     end
   end
 
   def render_tag(context = @context, awards_data = @mock_awards_data_hash, favorites_data = @mock_favorites_data_hash)
-    output = ""
-    BookListUtils.stub :get_data_for_all_books_by_award_display, ->(args) { awards_data } do
-      BookListUtils.stub :get_data_for_favorites_lists, ->(args) { favorites_data } do
+    output = ''
+    BookListUtils.stub :get_data_for_all_books_by_award_display, ->(_args) { awards_data } do
+      BookListUtils.stub :get_data_for_favorites_lists, ->(_args) { favorites_data } do
         BookCardUtils.stub :render, ->(book, _ctx) { "<!-- Card for: #{book.data['title']} -->\n" } do
           Jekyll.stub :logger, @silent_logger_stub do
-            output = Liquid::Template.parse("{% display_awards_page %}").render!(context)
+            output = Liquid::Template.parse('{% display_awards_page %}').render!(context)
           end
         end
       end
@@ -54,7 +60,7 @@ class TestDisplayAwardsPageTag < Minitest::Test
     output = render_tag
 
     # --- Assert Unified Navigation Bar ---
-    assert_match %r{<nav class="alpha-jump-links">}, output
+    assert_match(/<nav class="alpha-jump-links">/, output)
     # Check for the full, structured nav rows
     expected_awards_nav = '<div class="nav-row"><a href="#hugo-award">Hugo</a> &middot; <a href="#nebula-award">Nebula</a></div>'
     assert_includes output, expected_awards_nav
@@ -70,9 +76,11 @@ class TestDisplayAwardsPageTag < Minitest::Test
 
     # --- Assert "My Favorite Books Lists" Section ---
     assert_match %r{<h2>My Favorite Books Lists</h2>}, output
-    assert_match %r{<h3 class="book-list-headline" id="my-favorite-books-of-2024"><a href="/fav24.html">My Favorite Books of 2024</a></h3>}, output
+    assert_match %r{<h3 class="book-list-headline" id="my-favorite-books-of-2024"><a href="/fav24.html">My Favorite Books of 2024</a></h3>},
+                 output
     assert_match %r{<div class="card-grid">\s*<!-- Card for: Fav Book A -->\s*</div>}m, output
-    assert_match %r{<h3 class="book-list-headline" id="my-favorite-books-of-2023"><a href="/fav23.html">My Favorite Books of 2023</a></h3>}, output
+    assert_match %r{<h3 class="book-list-headline" id="my-favorite-books-of-2023"><a href="/fav23.html">My Favorite Books of 2023</a></h3>},
+                 output
     assert_match %r{<div class="card-grid">\s*<!-- Card for: Fav Book B -->\s*</div>}m, output
 
     # --- Assert Section Order ---
@@ -80,49 +88,49 @@ class TestDisplayAwardsPageTag < Minitest::Test
     idx_favorites = output.index('<h2>My Favorite Books Lists</h2>')
     refute_nil idx_major_awards
     refute_nil idx_favorites
-    assert idx_major_awards < idx_favorites, "Major Awards section should come before Favorites section"
+    assert idx_major_awards < idx_favorites, 'Major Awards section should come before Favorites section'
   end
 
   def test_renders_correctly_with_only_awards_data
-    empty_favorites = { favorites_lists: [], log_messages: "" }
+    empty_favorites = { favorites_lists: [], log_messages: '' }
     output = render_tag(@context, @mock_awards_data_hash, empty_favorites)
 
-    assert_match %r{<nav class="alpha-jump-links">}, output
+    assert_match(/<nav class="alpha-jump-links">/, output)
     expected_awards_nav = '<div class="nav-row"><a href="#hugo-award">Hugo</a> &middot; <a href="#nebula-award">Nebula</a></div>'
     assert_includes output, expected_awards_nav
-    refute_match %r{My Favorite Books}, output # No favorites links or sections
+    refute_match(/My Favorite Books/, output) # No favorites links or sections
 
     assert_match %r{<h2>Major Awards</h2>}, output
     refute_match %r{<h2>My Favorite Books Lists</h2>}, output
   end
 
   def test_renders_correctly_with_only_favorites_data
-    empty_awards = { awards_data: [], log_messages: "" }
+    empty_awards = { awards_data: [], log_messages: '' }
     output = render_tag(@context, empty_awards, @mock_favorites_data_hash)
 
-    assert_match %r{<nav class="alpha-jump-links">}, output
+    assert_match(/<nav class="alpha-jump-links">/, output)
     expected_favorites_nav = '<div class="nav-row"><a href="#my-favorite-books-of-2024">My Favorite Books of 2024</a> &middot; <a href="#my-favorite-books-of-2023">My Favorite Books of 2023</a></div>'
     assert_includes output, expected_favorites_nav
-    refute_match %r{<a href="#hugo-award">}, output # No award links
+    refute_match(/<a href="#hugo-award">/, output) # No award links
 
     refute_match %r{<h2>Major Awards</h2>}, output
     assert_match %r{<h2>My Favorite Books Lists</h2>}, output
   end
 
   def test_renders_only_logs_if_both_data_sources_are_empty
-    empty_awards = { awards_data: [], log_messages: "<!-- Awards Log -->" }
-    empty_favorites = { favorites_lists: [], log_messages: "<!-- Favorites Log -->" }
+    empty_awards = { awards_data: [], log_messages: '<!-- Awards Log -->' }
+    empty_favorites = { favorites_lists: [], log_messages: '<!-- Favorites Log -->' }
     output = render_tag(@context, empty_awards, empty_favorites)
 
-    assert_match "<!-- Awards Log --><!-- Favorites Log -->", output
-    refute_match %r{<nav class="alpha-jump-links">}, output
-    refute_match %r{<h2>}, output
+    assert_match '<!-- Awards Log --><!-- Favorites Log -->', output
+    refute_match(/<nav class="alpha-jump-links">/, output)
+    refute_match(/<h2>/, output)
   end
 
   def test_syntax_error_with_arguments
     err = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse("{% display_awards_page some_arg %}")
+      Liquid::Template.parse('{% display_awards_page some_arg %}')
     end
-    assert_match "This tag does not accept any arguments", err.message
+    assert_match 'This tag does not accept any arguments', err.message
   end
 end

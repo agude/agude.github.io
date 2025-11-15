@@ -8,9 +8,10 @@ module Jekyll
   class DisplayAllBooksGroupedTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
       super
-      unless markup.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'display_all_books_grouped': This tag does not accept any arguments."
-      end
+      return if markup.strip.empty?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'display_all_books_grouped': This tag does not accept any arguments."
     end
 
     def render(context)

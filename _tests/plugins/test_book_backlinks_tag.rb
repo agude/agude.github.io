@@ -4,7 +4,6 @@ require_relative '../../_plugins/book_backlinks_tag' # Load the tag class
 # Utils are loaded via test_helper
 
 class TestBookBacklinksTag < Minitest::Test
-
   def setup
     # --- Mock Documents ---
     @source_doc_alpha = create_doc({ 'title' => 'Book Alpha' }, '/a.html')
@@ -24,7 +23,7 @@ class TestBookBacklinksTag < Minitest::Test
 
   # Helper to render the tag
   def render_tag(context)
-    Liquid::Template.parse("{% book_backlinks %}").render!(context)
+    Liquid::Template.parse('{% book_backlinks %}').render!(context)
   end
 
   # --- Test Cases ---
@@ -39,18 +38,18 @@ class TestBookBacklinksTag < Minitest::Test
     context = create_context({}, { site: @site, page: @target_page })
 
     mock_link_html = {
-      "Book Alpha" => "<a href='/a'>Alpha Link</a>",
-      "Book Beta" => "<a href='/b'>Beta Link</a>",
-      "Book Gamma" => "<a href='/g'>Gamma Link</a>"
+      'Book Alpha' => "<a href='/a'>Alpha Link</a>",
+      'Book Beta' => "<a href='/b'>Beta Link</a>",
+      'Book Gamma' => "<a href='/g'>Gamma Link</a>"
     }
 
-    output = ""
-    BookLinkUtils.stub :render_book_link_from_data, ->(title, url, _ctx) { mock_link_html[title] } do
+    output = ''
+    BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { mock_link_html[title] } do
       output = render_tag(context)
     end
 
     # --- Assertions ---
-    refute_empty output, "Output should not be empty"
+    refute_empty output, 'Output should not be empty'
 
     # Check outer structure
     assert_match(/^<aside class="book-backlinks">/, output)
@@ -58,20 +57,22 @@ class TestBookBacklinksTag < Minitest::Test
     assert_match(/<ul class="book-backlink-list">/, output)
 
     # Book Alpha (series link) - should have sup dagger with title attribute
-    expected_alpha_li = "<li class=\"book-backlink-item\" data-link-type=\"series\">#{Regexp.escape(mock_link_html["Book Alpha"])}<sup class=\"series-mention-indicator\" role=\"img\" aria-label=\"Mentioned via series link\" title=\"Mentioned via series link\">†</sup></li>"
+    expected_alpha_li = "<li class=\"book-backlink-item\" data-link-type=\"series\">#{Regexp.escape(mock_link_html['Book Alpha'])}<sup class=\"series-mention-indicator\" role=\"img\" aria-label=\"Mentioned via series link\" title=\"Mentioned via series link\">†</sup></li>"
     assert_match(/#{expected_alpha_li}/, output)
 
     # Book Beta (direct link) - should NOT have dagger
-    expected_beta_li = "<li class=\"book-backlink-item\" data-link-type=\"direct\">#{Regexp.escape(mock_link_html["Book Beta"])}</li>"
+    expected_beta_li = "<li class=\"book-backlink-item\" data-link-type=\"direct\">#{Regexp.escape(mock_link_html['Book Beta'])}</li>"
     assert_match(/#{expected_beta_li}/, output)
 
     # Book Gamma (book link) - should NOT have dagger
-    expected_gamma_li = "<li class=\"book-backlink-item\" data-link-type=\"book\">#{Regexp.escape(mock_link_html["Book Gamma"])}</li>"
+    expected_gamma_li = "<li class=\"book-backlink-item\" data-link-type=\"book\">#{Regexp.escape(mock_link_html['Book Gamma'])}</li>"
     assert_match(/#{expected_gamma_li}/, output)
 
     # Assert that the explanatory paragraph IS present
-    assert_match %r{<p class="backlink-explanation"><sup>†</sup> <em>Mentioned via a link to the series.</em></p>}, output
-    assert_match(/<\/ul>.*?<p class="backlink-explanation">.*?<\/aside>$/m, output, "Explanation should be after the list and before the aside closes")
+    assert_match %r{<p class="backlink-explanation"><sup>†</sup> <em>Mentioned via a link to the series.</em></p>},
+                 output
+    assert_match(%r{</ul>.*?<p class="backlink-explanation">.*?</aside>$}m, output,
+                 'Explanation should be after the list and before the aside closes')
   end
 
   def test_does_not_render_explanation_when_no_series_links
@@ -83,12 +84,12 @@ class TestBookBacklinksTag < Minitest::Test
     context = create_context({}, { site: @site, page: @target_page })
 
     mock_link_html = {
-      "Book Beta" => "<a href='/b'>Beta Link</a>",
-      "Book Gamma" => "<a href='/g'>Gamma Link</a>"
+      'Book Beta' => "<a href='/b'>Beta Link</a>",
+      'Book Gamma' => "<a href='/g'>Gamma Link</a>"
     }
 
-    output = ""
-    BookLinkUtils.stub :render_book_link_from_data, ->(title, url, _ctx) { mock_link_html[title] } do
+    output = ''
+    BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { mock_link_html[title] } do
       output = render_tag(context)
     end
 
@@ -100,17 +101,18 @@ class TestBookBacklinksTag < Minitest::Test
     refute_match %r{<sup>†</sup>}, output
 
     # Assert that the explanatory paragraph IS ABSENT
-    refute_match %r{<p class="backlink-explanation">}, output
+    refute_match(/<p class="backlink-explanation">/, output)
   end
-
 
   def test_renders_empty_string_when_no_backlinks_found
     context = create_context({}, { site: @site, page: @target_page })
-    output = ""
-    BookLinkUtils.stub :render_book_link_from_data, ->(t, u, c) { flunk "render_book_link_from_data should not be called" } do
+    output = ''
+    BookLinkUtils.stub :render_book_link_from_data, lambda { |_t, _u, _c|
+      flunk 'render_book_link_from_data should not be called'
+    } do
       output = render_tag(context)
     end
-    assert_equal "", output.strip
+    assert_equal '', output.strip
   end
 
   def test_passes_correct_arguments_to_render_book_link_from_data
@@ -121,7 +123,7 @@ class TestBookBacklinksTag < Minitest::Test
     context = create_context({}, { site: @site, page: @target_page })
 
     captured_render_args = []
-    stub_render_logic = ->(title_arg, url_arg, context_arg) {
+    stub_render_logic = lambda { |title_arg, url_arg, context_arg|
       captured_render_args << { title: title_arg, url: url_arg, context: context_arg }
       "<cite>#{title_arg}</cite>"
     }
@@ -166,27 +168,28 @@ class TestBookBacklinksTag < Minitest::Test
 
     # 1. Test rendering on the canonical page
     context_canonical = create_context({}, { site: site, page: canonical_book })
-    output_canonical = ""
+    output_canonical = ''
     BookLinkUtils.stub :render_book_link_from_data, stub_render_logic do
       output_canonical = render_tag(context_canonical)
     end
-    assert_match(/<a>Source<\/a>/, output_canonical)
-    refute_match(/<a>(Canonical|Archived)<\/a>/, output_canonical)
+    assert_match(%r{<a>Source</a>}, output_canonical)
+    refute_match(%r{<a>(Canonical|Archived)</a>}, output_canonical)
 
     # 2. Test rendering on the archived page
     context_archived = create_context({}, { site: site, page: archived_book })
-    output_archived = ""
+    output_archived = ''
     BookLinkUtils.stub :render_book_link_from_data, stub_render_logic do
       output_archived = render_tag(context_archived)
     end
-    assert_match(/<a>Source<\/a>/, output_archived)
-    refute_match(/<a>(Canonical|Archived)<\/a>/, output_archived)
+    assert_match(%r{<a>Source</a>}, output_archived)
+    refute_match(%r{<a>(Canonical|Archived)</a>}, output_archived)
   end
 
   def test_deduplicates_backlinks_from_multiple_versions_of_same_book
     target_book = create_doc({ 'title' => 'Target' }, '/target.html')
     source_canonical = create_doc({ 'title' => 'Source Book' }, '/source.html')
-    source_archived = create_doc({ 'title' => 'Source Book', 'canonical_url' => '/source.html' }, '/source-archived.html')
+    source_archived = create_doc({ 'title' => 'Source Book', 'canonical_url' => '/source.html' },
+                                 '/source-archived.html')
 
     # Create a fresh site so the generator populates all maps correctly
     site = create_site({}, { 'books' => [target_book, source_canonical, source_archived] })
@@ -201,7 +204,7 @@ class TestBookBacklinksTag < Minitest::Test
     context = create_context({}, { site: site, page: target_book })
     output = render_tag(context)
 
-    assert_equal 1, output.scan(/Source Book/).count, "Should only list 'Source Book' once"
+    assert_equal 1, output.scan('Source Book').count, "Should only list 'Source Book' once"
   end
 
   def test_includes_backlinks_from_series_mentions_for_all_series_books
@@ -227,47 +230,46 @@ class TestBookBacklinksTag < Minitest::Test
     context_book2 = create_context({}, { site: site, page: series_book_2 })
     output_book2 = render_tag(context_book2)
 
-    assert_match(/Source for Series/, output_book2, "Book 2 should find backlink from series mention")
-    refute_match(/Source for Book 1/, output_book2, "Book 2 should not find backlink meant only for Book 1")
-    assert_match(/series-mention-indicator/, output_book2, "Should have the dagger for series mentions")
+    assert_match(/Source for Series/, output_book2, 'Book 2 should find backlink from series mention')
+    refute_match(/Source for Book 1/, output_book2, 'Book 2 should not find backlink meant only for Book 1')
+    assert_match(/series-mention-indicator/, output_book2, 'Should have the dagger for series mentions')
 
     # Test on Series Book 1, which has both
     context_book1 = create_context({}, { site: site, page: series_book_1 })
     output_book1 = render_tag(context_book1)
-    assert_match(/Source for Series/, output_book1, "Book 1 should also find backlink from series mention")
-    assert_match(/Source for Book 1/, output_book1, "Book 1 should find its direct backlink")
+    assert_match(/Source for Series/, output_book1, 'Book 1 should also find backlink from series mention')
+    assert_match(/Source for Book 1/, output_book1, 'Book 1 should find its direct backlink')
   end
 
   # --- Prerequisite Failure Tests (Unchanged) ---
 
   def test_returns_empty_and_logs_if_page_missing
     ctx_no_page = create_context({}, { site: @site })
-    assert_equal "", render_tag(ctx_no_page).strip
+    assert_equal '', render_tag(ctx_no_page).strip
   end
 
   def test_returns_empty_and_logs_if_site_missing
     ctx_no_site = create_context({}, { page: @target_page })
     output = nil
     capture_io { output = render_tag(ctx_no_site) }
-    assert_equal "", output.strip
+    assert_equal '', output.strip
   end
 
   def test_returns_empty_and_logs_if_books_collection_missing
     site_no_books = create_site({}, {})
     ctx_no_books = create_context({}, { site: site_no_books, page: @target_page })
-    assert_equal "", render_tag(ctx_no_books).strip
+    assert_equal '', render_tag(ctx_no_books).strip
   end
 
   def test_returns_empty_and_logs_if_page_url_missing
     page_no_url = create_doc({ 'title' => 'No URL Page' }, nil)
     ctx_no_url = create_context({}, { site: @site, page: page_no_url })
-    assert_equal "", render_tag(ctx_no_url).strip
+    assert_equal '', render_tag(ctx_no_url).strip
   end
 
   def test_returns_empty_and_logs_if_page_title_missing
     page_no_title = create_doc({ 'title' => nil, 'url' => '/no-title.html' })
     ctx_no_title = create_context({}, { site: @site, page: page_no_title })
-    assert_equal "", render_tag(ctx_no_title).strip
+    assert_equal '', render_tag(ctx_no_title).strip
   end
-
 end

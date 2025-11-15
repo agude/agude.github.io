@@ -2,7 +2,6 @@
 require 'jekyll'
 require 'liquid'
 require 'cgi'
-require 'set'
 require_relative 'utils/book_list_utils'
 require_relative 'utils/book_card_utils'
 
@@ -18,20 +17,21 @@ module Jekyll
     def initialize(tag_name, markup, tokens)
       super
       # No arguments to parse for this tag.
-      unless markup.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
-      end
+      return if markup.strip.empty?
+
+      raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
     end
 
     # Simple slugify: downcase, replace non-alphanumeric with hyphen, consolidate hyphens.
     # More robust slugification could be moved to TextProcessingUtils if needed elsewhere.
     private def _slugify(text)
-      return "" if text.nil?
+      return '' if text.nil?
+
       text.to_s.downcase.strip
-        .gsub(/\s+/, '-')          # Replace spaces with hyphens
-        .gsub(/[^\w-]+/, '')       # Remove all non-word chars except hyphens
-        .gsub(/--+/, '-')          # Replace multiple hyphens with a single one
-        .gsub(/^-+|-+$/, '')       # Remove leading/trailing hyphens
+          .gsub(/\s+/, '-')          # Replace spaces with hyphens
+          .gsub(/[^\w-]+/, '')       # Remove all non-word chars except hyphens
+          .gsub(/--+/, '-')          # Replace multiple hyphens with a single one
+          .gsub(/^-+|-+$/, '')       # Remove leading/trailing hyphens
     end
 
     def render(context)
@@ -39,21 +39,21 @@ module Jekyll
 
       data_by_author = BookListUtils.get_data_for_all_books_by_author_display(
         site: site,
-        context: context,
+        context: context
       )
 
-      log_messages = data_by_author[:log_messages] || ""
+      log_messages = data_by_author[:log_messages] || ''
 
       return log_messages if data_by_author[:authors_data].empty? && !log_messages.empty?
-      return "" if data_by_author[:authors_data].empty?
+      return '' if data_by_author[:authors_data].empty?
 
       # --- Pass 1: Build content buffer and collect first anchor for each letter ---
-      output_buffer = ""
+      output_buffer = ''
       first_anchor_for_letter = {}
 
       data_by_author[:authors_data].each do |author_data|
         author_name = author_data[:author_name]
-        author_slug = self._slugify(author_name)
+        author_slug = _slugify(author_name)
         current_letter = author_name[0].upcase
 
         # Store the first slug we encounter for this letter
@@ -77,16 +77,16 @@ module Jekyll
         series_only_data = {
           standalone_books: [],
           series_groups: author_data[:series_groups],
-          log_messages: "",
+          log_messages: ''
         }
 
-        if author_data[:series_groups]&.any?
-          output_buffer << BookListUtils.render_book_groups_html(
-            series_only_data,
-            context,
-            series_heading_level: 3,
-          )
-        end
+        next unless author_data[:series_groups]&.any?
+
+        output_buffer << BookListUtils.render_book_groups_html(
+          series_only_data,
+          context,
+          series_heading_level: 3
+        )
       end
 
       # --- Pass 2: Build navigation using the collected anchors ---

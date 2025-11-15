@@ -11,7 +11,6 @@ require 'utils/json_ld_generators/generic_review_generator'
 require 'utils/json_ld_generators/author_profile_generator'
 
 class TestJsonLdInjector < Minitest::Test
-
   def setup
     # Create a site instance for each test to ensure clean site.data
     @site = create_site
@@ -44,21 +43,22 @@ class TestJsonLdInjector < Minitest::Test
       '/authors/author.html', 'Author bio', nil, nil
     )
     @other_page_doc = create_doc( # An unhandled page
-                                 { 'layout' => 'default', 'title' => 'Other Page' },
-                                 '/other.html', 'Other content', nil, nil
-                                )
+      { 'layout' => 'default', 'title' => 'Other Page' },
+      '/other.html', 'Other content', nil, nil
+    )
 
     # --- Expected Hashes (Simple examples used by stubs) ---
-    @blog_posting_hash = { "@type" => "BlogPosting", "headline" => "Standard Post", "test_marker" => "blog" }
-    @book_review_hash = { "@type" => "Review", "itemReviewed" => { "@type" => "Book" }, "test_marker" => "book" }
-    @generic_review_hash = { "@type" => "Review", "itemReviewed" => { "@type" => "Product", "name" => "Gadget V1" }, "test_marker" => "generic" }
-    @author_profile_hash = { "@type" => "Person", "name" => "Author Name", "test_marker" => "author" }
+    @blog_posting_hash = { '@type' => 'BlogPosting', 'headline' => 'Standard Post', 'test_marker' => 'blog' }
+    @book_review_hash = { '@type' => 'Review', 'itemReviewed' => { '@type' => 'Book' }, 'test_marker' => 'book' }
+    @generic_review_hash = { '@type' => 'Review', 'itemReviewed' => { '@type' => 'Product', 'name' => 'Gadget V1' },
+                             'test_marker' => 'generic' }
+    @author_profile_hash = { '@type' => 'Person', 'name' => 'Author Name', 'test_marker' => 'author' }
   end
 
   # Helper to assert JSON script content stored in site.data
   def assert_json_script(document, site, expected_hash)
     lookup_url = document.url
-    refute_nil lookup_url, "Document URL is nil, cannot look up script."
+    refute_nil lookup_url, 'Document URL is nil, cannot look up script.'
 
     script_storage = site.data['generated_json_ld_scripts']
     refute_nil script_storage, "site.data['generated_json_ld_scripts'] hash does not exist."
@@ -66,8 +66,8 @@ class TestJsonLdInjector < Minitest::Test
     script_tag = script_storage[lookup_url]
     refute_nil script_tag, "Expected json_ld_script to be set for URL '#{lookup_url}', but was nil in site.data"
 
-    assert_match %r{<script type="application/ld\+json">}, script_tag, "Script tag opening not found"
-    assert_match %r{</script>}, script_tag, "Script tag closing not found"
+    assert_match %r{<script type="application/ld\+json">}, script_tag, 'Script tag opening not found'
+    assert_match %r{</script>}, script_tag, 'Script tag closing not found'
 
     # Extract JSON part - handle potential newlines carefully
     match_data = script_tag.match(%r{<script type="application/ld\+json">\s*(.*)\s*</script>}m)
@@ -96,9 +96,11 @@ class TestJsonLdInjector < Minitest::Test
   def test_injects_for_standard_blog_post
     # Stub the correct generator, flunk others
     BlogPostingLdGenerator.stub :generate_hash, @blog_posting_hash do
-      BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk "BookReview generator should not be called" } do
-        GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk "GenericReview generator should not be called" } do
-          AuthorProfileLdGenerator.stub :generate_hash, ->(*) { flunk "AuthorProfile generator should not be called" } do
+      BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
+        GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
+          AuthorProfileLdGenerator.stub :generate_hash, lambda { |*|
+            flunk 'AuthorProfile generator should not be called'
+          } do
             JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
           end
         end
@@ -109,9 +111,11 @@ class TestJsonLdInjector < Minitest::Test
 
   def test_injects_for_book_review
     BookReviewLdGenerator.stub :generate_hash, @book_review_hash do
-      BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk "BlogPosting generator should not be called" } do
-        GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk "GenericReview generator should not be called" } do
-          AuthorProfileLdGenerator.stub :generate_hash, ->(*) { flunk "AuthorProfile generator should not be called" } do
+      BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
+        GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
+          AuthorProfileLdGenerator.stub :generate_hash, lambda { |*|
+            flunk 'AuthorProfile generator should not be called'
+          } do
             JsonLdInjector.inject_json_ld(@book_review_doc, @site)
           end
         end
@@ -122,9 +126,11 @@ class TestJsonLdInjector < Minitest::Test
 
   def test_injects_for_generic_review_post
     GenericReviewLdGenerator.stub :generate_hash, @generic_review_hash do
-      BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk "BlogPosting generator should not be called" } do
-        BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk "BookReview generator should not be called" } do
-          AuthorProfileLdGenerator.stub :generate_hash, ->(*) { flunk "AuthorProfile generator should not be called" } do
+      BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
+        BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
+          AuthorProfileLdGenerator.stub :generate_hash, lambda { |*|
+            flunk 'AuthorProfile generator should not be called'
+          } do
             JsonLdInjector.inject_json_ld(@generic_review_post_doc, @site)
           end
         end
@@ -135,9 +141,11 @@ class TestJsonLdInjector < Minitest::Test
 
   def test_injects_for_author_page
     AuthorProfileLdGenerator.stub :generate_hash, @author_profile_hash do
-      BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk "BlogPosting generator should not be called" } do
-        BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk "BookReview generator should not be called" } do
-          GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk "GenericReview generator should not be called" } do
+      BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
+        BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
+          GenericReviewLdGenerator.stub :generate_hash, lambda { |*|
+            flunk 'GenericReview generator should not be called'
+          } do
             JsonLdInjector.inject_json_ld(@author_page_doc, @site)
           end
         end
@@ -152,14 +160,16 @@ class TestJsonLdInjector < Minitest::Test
     # Expect 'warn' to be called once with specific arguments (or use regex/matchers)
     # We expect 2 arguments: the prefix "JSON-LD:" and a message containing the identifier.
     mock_logger.expect(:warn, nil) do |prefix, message|
-      prefix == "JSON-LD:" && message.include?("Missing 'review.item_name'") && message.include?(@generic_review_missing_item_doc.url)
+      prefix == 'JSON-LD:' && message.include?("Missing 'review.item_name'") && message.include?(@generic_review_missing_item_doc.url)
     end
 
     # Stub all generators to flunk if called
-    BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk "BlogPosting generator should not be called" } do
-      BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk "BookReview generator should not be called" } do
-        GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk "GenericReview generator should not be called" } do
-          AuthorProfileLdGenerator.stub :generate_hash, ->(*) { flunk "AuthorProfile generator should not be called" } do
+    BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
+      BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
+        GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
+          AuthorProfileLdGenerator.stub :generate_hash, lambda { |*|
+            flunk 'AuthorProfile generator should not be called'
+          } do
             # Stub Jekyll.logger while calling the injector
             Jekyll.stub :logger, mock_logger do
               JsonLdInjector.inject_json_ld(@generic_review_missing_item_doc, @site)
@@ -176,10 +186,12 @@ class TestJsonLdInjector < Minitest::Test
 
   def test_skips_injection_for_unhandled_layout
     # Stub all generators to flunk if called
-    BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk "BlogPosting generator should not be called" } do
-      BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk "BookReview generator should not be called" } do
-        GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk "GenericReview generator should not be called" } do
-          AuthorProfileLdGenerator.stub :generate_hash, ->(*) { flunk "AuthorProfile generator should not be called" } do
+    BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
+      BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
+        GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
+          AuthorProfileLdGenerator.stub :generate_hash, lambda { |*|
+            flunk 'AuthorProfile generator should not be called'
+          } do
             JsonLdInjector.inject_json_ld(@other_page_doc, @site)
           end
         end
@@ -204,5 +216,4 @@ class TestJsonLdInjector < Minitest::Test
     end
     assert_no_json_script(@blog_post_doc, @site)
   end
-
 end

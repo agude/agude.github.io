@@ -3,7 +3,6 @@ require_relative '../../test_helper'
 require_relative '../../../_plugins/utils/backlink_utils' # Load the util
 
 class TestBacklinkUtils < Minitest::Test
-
   def setup
     # --- Mock Documents that will be the backlinks ---
     @book_apple = create_doc({ 'title' => 'The Apple Book' }, '/books/apple.html')
@@ -43,7 +42,8 @@ class TestBacklinkUtils < Minitest::Test
 
   def test_returns_empty_array_for_page_with_no_backlinks_in_cache
     # Use the page that has no entry in our manually created cache
-    result = find_backlinks(@page_with_no_backlinks, @site, create_context({}, { site: @site, page: @page_with_no_backlinks }))
+    result = find_backlinks(@page_with_no_backlinks, @site,
+                            create_context({}, { site: @site, page: @page_with_no_backlinks }))
     assert_equal [], result
   end
 
@@ -53,8 +53,8 @@ class TestBacklinkUtils < Minitest::Test
 
     result = find_backlinks
     # The util should just skip the doc with no title during the mapping phase
-    assert result.none? { |pair| pair[1] == '/books/no-title.html' }
-    assert_equal 3, result.size, "Should still have the original 3 valid backlinks"
+    assert(result.none? { |pair| pair[1] == '/books/no-title.html' })
+    assert_equal 3, result.size, 'Should still have the original 3 valid backlinks'
   end
 
   # --- Test Edge Cases for Utility Input ---

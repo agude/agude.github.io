@@ -25,8 +25,8 @@ module CardRendererUtils
     # Basic validation of card_data structure (optional, but good for robustness)
     unless card_data.is_a?(Hash) && card_data[:base_class] && card_data[:url] && card_data[:title_html]
       # In a real scenario, might log this failure using PluginLoggerUtils or raise error
-      puts "[CardRendererUtils ERROR] Invalid or incomplete card_data provided."
-      return ""
+      puts '[CardRendererUtils ERROR] Invalid or incomplete card_data provided.'
+      return ''
     end
 
     html = "<div class=\"#{card_data[:base_class]}\">\n"
@@ -64,7 +64,7 @@ module CardRendererUtils
     end
 
     html << "  </div>\n" # Close card-text
-    html << "</div>"   # Close base_class
+    html << '</div>' # Close base_class
     html
   end
 end

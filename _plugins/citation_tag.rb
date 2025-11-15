@@ -59,7 +59,7 @@ module Jekyll
     def initialize(tag_name, markup, tokens)
       super
       @raw_markup = markup.strip # Store the raw markup, stripped of leading/trailing whitespace
-      @attributes_markup = {}   # Hash to store the raw markup for each attribute's value
+      @attributes_markup = {} # Hash to store the raw markup for each attribute's value
 
       # Use StringScanner to parse the arguments
       scanner = StringScanner.new(@raw_markup)
@@ -77,9 +77,10 @@ module Jekyll
 
       # After the loop, if the scanner is not at the end of the string,
       # it means there was some unparseable text, indicating a syntax error.
-      unless scanner.eos?
-        raise Liquid::SyntaxError, "Syntax Error in 'citation' tag: Invalid arguments near '#{scanner.rest}' in '#{@raw_markup}'"
-      end
+      return if scanner.eos?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'citation' tag: Invalid arguments near '#{scanner.rest}' in '#{@raw_markup}'"
     end
 
     def render(context)

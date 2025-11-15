@@ -15,9 +15,9 @@ module Jekyll
   class DisplayBooksByYearTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
       super
-      unless markup.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
-      end
+      return if markup.strip.empty?
+
+      raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
     end
 
     def render(context)
@@ -28,10 +28,10 @@ module Jekyll
         context: context
       )
 
-      output = data_by_year[:log_messages] || ""
+      output = data_by_year[:log_messages] || ''
 
       return output if data_by_year[:year_groups].empty? && !output.empty?
-      return "" if data_by_year[:year_groups].empty?
+      return '' if data_by_year[:year_groups].empty?
 
       # --- Generate the year jump links navigation ---
       years = data_by_year[:year_groups].map { |g| g[:year] }

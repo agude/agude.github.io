@@ -10,9 +10,10 @@ module Jekyll
     def initialize(tag_name, markup, tokens)
       super
       @series_name_markup = markup.strip
-      if @series_name_markup.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'display_books_for_series': Series name (string literal or variable) is required."
-      end
+      return unless @series_name_markup.empty?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'display_books_for_series': Series name (string literal or variable) is required."
     end
 
     def render(context)
@@ -31,7 +32,7 @@ module Jekyll
           series_name_filter: series_name_input, # Pass potentially nil/empty to let util log
           context: context
         )
-        return data[:log_messages] || "" # Return only the log message (HTML comment or empty)
+        return data[:log_messages] || '' # Return only the log message (HTML comment or empty)
       end
 
       data = BookListUtils.get_data_for_series_display(
@@ -42,7 +43,7 @@ module Jekyll
 
       # data[:log_messages] will contain any HTML comment from log_failure if no books were found.
       # If books are found, data[:log_messages] should be empty or nil.
-      output = data[:log_messages] || ""
+      output = data[:log_messages] || ''
 
       if data[:books].empty?
         return output # Return only log message if no books (util already logged)

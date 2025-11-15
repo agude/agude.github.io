@@ -8,7 +8,6 @@ require_relative 'utils/text_processing_utils' # For sorting
 
 module Jekyll
   class BookBacklinksTag < Liquid::Tag
-
     def initialize(tag_name, markup, tokens)
       super
       # No arguments needed for this tag
@@ -20,27 +19,31 @@ module Jekyll
       page = context.registers[:page]
 
       # --- Basic Sanity Checks (Tag Level) ---
-      unless site && page && \
-          site.collections.key?('books') && \
-          page['url'] && !page['url'].to_s.strip.empty? && \
-          page['title'] && !page['title'].to_s.strip.empty?
+      unless site && page &&
+             site.collections.key?('books') &&
+             page['url'] && !page['url'].to_s.strip.empty? &&
+             page['title'] && !page['title'].to_s.strip.empty?
 
         missing_parts = []
-        missing_parts << "site object" unless site
-        missing_parts << "page object" unless page
+        missing_parts << 'site object' unless site
+        missing_parts << 'page object' unless page
         missing_parts << "site.collections['books']" unless site&.collections&.key?('books')
-        missing_parts << "page['url'] (present and not empty)" unless page && page['url'] && !page['url'].to_s.strip.empty?
-        missing_parts << "page['title'] (present and not empty)" unless page && page['title'] && !page['title'].to_s.strip.empty?
+        unless page && page['url'] && !page['url'].to_s.strip.empty?
+          missing_parts << "page['url'] (present and not empty)"
+        end
+        unless page && page['title'] && !page['title'].to_s.strip.empty?
+          missing_parts << "page['title'] (present and not empty)"
+        end
 
         return PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "BOOK_BACKLINKS_TAG",
+          tag_type: 'BOOK_BACKLINKS_TAG',
           reason: "Tag prerequisites missing: #{missing_parts.join(', ')}.",
           identifiers: {
             PageURL: page ? (page['url'] || 'N/A') : 'N/A',
             PageTitle: page ? (page['title'] || 'N/A') : 'N/A'
           },
-          level: :error,
+          level: :error
         )
       end
       # --- End Sanity Checks ---
@@ -54,7 +57,8 @@ module Jekyll
 
       # --- Identify all versions of this book using the new cache ---
       canonical_url = canonical_map[page['url']]
-      return "" unless canonical_url # Exit if the current page isn't in the map.
+      return '' unless canonical_url # Exit if the current page isn't in the map.
+
       all_version_urls = Set.new(book_families[canonical_url] || [])
 
       # --- Gather and merge backlinks for all versions ---
@@ -73,11 +77,11 @@ module Jekyll
         books_in_series = series_map[normalized_series] || []
         books_in_series.each do |book_in_series|
           (backlinks_cache[book_in_series.url] || []).each do |entry|
-            if entry[:type] == 'series'
-              source_url = entry[:source].url
-              # Don't overwrite a direct book link with a series link
-              merged_backlinks[source_url] ||= entry
-            end
+            next unless entry[:type] == 'series'
+
+            source_url = entry[:source].url
+            # Don't overwrite a direct book link with a series link
+            merged_backlinks[source_url] ||= entry
           end
         end
       end
@@ -100,7 +104,7 @@ module Jekyll
       end
       backlink_entries = unique_canonical_sources.values
 
-      return "" if backlink_entries.empty?
+      return '' if backlink_entries.empty?
 
       # Map to [sort_key, canonical_title, url, type] tuples for sorting.
       backlinks_data = backlink_entries.map do |entry|
@@ -118,45 +122,42 @@ module Jekyll
 
       # Sort by sort_key, then map to [canonical_title, url, type] tuples
       sorted_backlinks = backlinks_data.sort_by { |tuple| tuple[0] }
-        .map { |tuple| [tuple[1], tuple[2], tuple[3]] }
+                                       .map { |tuple| [tuple[1], tuple[2], tuple[3]] }
 
       # --- Render Final HTML ---
-      if sorted_backlinks.empty?
-        return ""
-      else
-        output = "<aside class=\"book-backlinks\">"
-        output << "<h2 class=\"book-backlink-section\">"
-        output << " Reviews that mention <span class=\"book-title\">#{CGI.escapeHTML(current_title_original)}</span>"
-        output << "</h2>"
-        output << "<ul class=\"book-backlink-list\">"
+      return '' if sorted_backlinks.empty?
 
-        has_series_link = false # Flag to track if we need to show the note
+      output = '<aside class="book-backlinks">'
+      output << '<h2 class="book-backlink-section">'
+      output << " Reviews that mention <span class=\"book-title\">#{CGI.escapeHTML(current_title_original)}</span>"
+      output << '</h2>'
+      output << '<ul class="book-backlink-list">'
 
-        sorted_backlinks.each do |backlink_title, backlink_url, link_type|
-          link_html = BookLinkUtils.render_book_link_from_data(backlink_title, backlink_url, context)
+      has_series_link = false # Flag to track if we need to show the note
 
-          indicator_html = ""
-          if link_type == 'series'
-            has_series_link = true # Set the flag
-            # Add the title attribute for the tooltip
-            indicator_html = "<sup class=\"series-mention-indicator\" role=\"img\" aria-label=\"Mentioned via series link\" title=\"Mentioned via series link\">†</sup>"
-          end
+      sorted_backlinks.each do |backlink_title, backlink_url, link_type|
+        link_html = BookLinkUtils.render_book_link_from_data(backlink_title, backlink_url, context)
 
-          output << "<li class=\"book-backlink-item\" data-link-type=\"#{link_type}\">#{link_html}#{indicator_html}</li>"
+        indicator_html = ''
+        if link_type == 'series'
+          has_series_link = true # Set the flag
+          # Add the title attribute for the tooltip
+          indicator_html = '<sup class="series-mention-indicator" role="img" aria-label="Mentioned via series link" title="Mentioned via series link">†</sup>'
         end
 
-        output << "</ul>"
-
-        # Conditionally add the explanatory note at the end
-        if has_series_link
-          output << "<p class=\"backlink-explanation\"><sup>†</sup> <em>Mentioned via a link to the series.</em></p>"
-        end
-
-        output << "</aside>"
-        return output
+        output << "<li class=\"book-backlink-item\" data-link-type=\"#{link_type}\">#{link_html}#{indicator_html}</li>"
       end
-    end # End render
 
+      output << '</ul>'
+
+      # Conditionally add the explanatory note at the end
+      if has_series_link
+        output << '<p class="backlink-explanation"><sup>†</sup> <em>Mentioned via a link to the series.</em></p>'
+      end
+
+      output << '</aside>'
+      output
+    end # End render
   end # End class
 end # End module
 

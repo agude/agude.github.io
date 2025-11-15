@@ -36,7 +36,6 @@ require 'utils/text_processing_utils'
 require 'utils/typography_utils'
 require 'utils/url_utils'
 
-
 # --- Mock Objects ---
 
 # Simple mock for Jekyll documents (Posts, Pages, Collection Items)
@@ -47,23 +46,30 @@ MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection, :rel
     if key_s == 'url' then url
     elsif key_s == 'content' then content # Direct attribute for post-conversion body
     elsif key_s == 'date' then data['date'] # Access the date from the data hash for consistency with real Jekyll behavior
-    elsif key_s == 'title' then data['title'] || data[:title] rescue nil # Allow symbol or string key for title
+    elsif key_s == 'title' then begin
+      data['title'] || data[:title]
+    rescue StandardError
+      nil
+    end # Allow symbol or string key for title
     elsif data&.key?(key_s) then data[key_s] # Check string key in data
     elsif data&.key?(key.to_sym) then data[key.to_sym] # Check symbol key in data
-    else nil
+    else
+      nil
     end
   end
 
   def respond_to?(method_name, include_private = false)
     # Ensure common document attributes and '[]' are reported as available.
-    return true if %i[data url content date title site collection [] to_liquid relative_path].include?(method_name.to_sym)
+    return true if %i[data url content date title site collection [] to_liquid
+                      relative_path].include?(method_name.to_sym)
+
     super
   end
 
   # Override is_a? to pretend to be a Jekyll::Document for checks
   # This allows testing code that uses `is_a?(Jekyll::Document)`
   define_method(:is_a?) do |klass|
-    # Note: This is a simplification. A real Page is not a Document.
+    # NOTE: This is a simplification. A real Page is not a Document.
     # If your injector logic needs to differentiate Page vs Document beyond layout/collection,
     # this mock might need further refinement. For the current injector logic,
     # pretending all mocks are Documents might suffice where collection checks are needed.
@@ -130,12 +136,12 @@ class MockSite
 
   def find_converter_instance(klass_or_name)
     return nil unless converters
+
     converters.find do |c|
       klass_or_name.is_a?(Class) ? c.is_a?(klass_or_name) : c.class.name.match?(klass_or_name.to_s)
     end
   end
 end
-
 
 # --- Helper Methods ---
 
@@ -186,14 +192,14 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
     'SERIES_LINK' => false,
     'SERIES_LINK_UTIL_ERROR' => false,
     'UNITS_TAG_ERROR' => false,
-    'UNITS_TAG_WARNING' => false,
+    'UNITS_TAG_WARNING' => false
   }
 
   base_config = {
     'environment' => 'test', 'baseurl' => '', 'source' => '.',
     'plugin_logging' => test_plugin_logging_config,
-    'excerpt_separator' => "<!--excerpt-->",
-    'plugin_log_level' => PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING,
+    'excerpt_separator' => '<!--excerpt-->',
+    'plugin_log_level' => PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING
   }.merge(config_overrides)
 
   collections = {}
@@ -206,10 +212,10 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
 
   # Mock a basic Markdown converter instance.
   mock_markdown_converter = Class.new(Jekyll::Converter) do
-    def initialize(config = {}) @config = config; end # Add initializer
-    def matches(ext); ext.casecmp('.md').zero?; end
-    def output_ext(ext); ".html"; end
-    def convert(content); "<p>#{content.strip}</p>"; end # Simplified Markdown to HTML
+    def initialize(config = {}) = @config = config # Add initializer
+    def matches(ext) = ext.casecmp('.md').zero?
+    def output_ext(_ext) = '.html'
+    def convert(content) = "<p>#{content.strip}</p>" # Simplified Markdown to HTML
   end.new(base_config)
 
   site = MockSite.new(
@@ -221,7 +227,7 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
     base_config['source'],
     [mock_markdown_converter],
     {},
-    categories_data,
+    categories_data
   )
 
   # Run the LinkCacheGenerator to populate site.data['link_cache']
@@ -239,7 +245,8 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
   site
 end
 
-def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = 'Test content attribute.', date_str_param = nil, collection = nil)
+def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = 'Test content attribute.',
+               date_str_param = nil, collection = nil)
   # Ensure all keys in data_overrides are strings for consistency.
   string_keyed_data_overrides = data_overrides.transform_keys(&:to_s)
 
@@ -247,7 +254,6 @@ def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = '
     'layout' => 'test_layout', 'title' => 'Test Document', 'published' => true,
     'path' => url ? url.sub(%r{^/}, '') : nil # Derive path from URL if URL is provided
   }.merge(string_keyed_data_overrides)
-
 
   # Priority:
   # 1. data_overrides['date'] if it's already a Time object.
@@ -288,7 +294,8 @@ def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = '
 
   # The path for relative_path should be what's in the data hash.
   relative_path_for_mock = base_data['path']
-  doc = MockDocument.new(base_data, url, content_attr_val, final_date_obj_for_struct, nil, collection, relative_path_for_mock)
+  doc = MockDocument.new(base_data, url, content_attr_val, final_date_obj_for_struct, nil, collection,
+                         relative_path_for_mock)
 
   # Mock excerpt handling:
   # If 'excerpt_output_override' is provided, use it directly for excerpt.output.
@@ -305,4 +312,4 @@ def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = '
   doc
 end
 
-puts "Expanded test helper loaded (with improved MockDocument and logging disabled)."
+puts 'Expanded test helper loaded (with improved MockDocument and logging disabled).'

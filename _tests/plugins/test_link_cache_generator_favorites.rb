@@ -48,20 +48,20 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
   def test_ignores_book_link_mentions_from_favorites_post
     # Book A is mentioned in fav23.html via {% book_link %}, which should be ignored.
     mentions_for_a = @favorites_cache[@book_a.url]
-    assert_nil mentions_for_a, "Book A should NOT be in the favorites cache as it was linked via book_link"
+    assert_nil mentions_for_a, 'Book A should NOT be in the favorites cache as it was linked via book_link'
   end
 
   def test_ignores_mentions_from_regular_posts
     # Book C is mentioned in a regular post via book_card_lookup, but should be ignored
     # because the post is not a favorites list.
-    assert_nil @favorites_cache[@book_c.url], "Book C, mentioned in a regular post, should not be in the cache"
+    assert_nil @favorites_cache[@book_c.url], 'Book C, mentioned in a regular post, should not be in the cache'
   end
 
   def test_book_mentioned_in_multiple_lists_is_tracked_correctly
     # Book B is mentioned via book_card_lookup in both favorites posts.
     mentions_for_b = @favorites_cache[@book_b.url]
-    refute_nil mentions_for_b, "Book B should be in the favorites cache"
-    assert_equal 2, mentions_for_b.size, "Book B should be mentioned by two posts"
+    refute_nil mentions_for_b, 'Book B should be in the favorites cache'
+    assert_equal 2, mentions_for_b.size, 'Book B should be mentioned by two posts'
 
     mentioning_post_urls = mentions_for_b.map(&:url).sort
     expected_urls = [@favorites_post_2023.url, @favorites_post_2024.url].sort
@@ -84,7 +84,7 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
       [@regular_post_with_card] # Only a regular post
     )
     cache = site_no_favs.data['link_cache']['favorites_mentions']
-    assert_empty cache, "Favorites cache should be empty if no posts are flagged"
+    assert_empty cache, 'Favorites cache should be empty if no posts are flagged'
   end
 
   def test_handles_favorites_post_with_no_links
@@ -120,13 +120,14 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
     cache = site_with_multi_mention.data['link_cache']['favorites_mentions']
     mentions_for_a = cache[@book_a.url]
     refute_nil mentions_for_a
-    assert_equal 1, mentions_for_a.size, "Book A should only be listed once for the post that mentions it multiple times"
+    assert_equal 1, mentions_for_a.size,
+                 'Book A should only be listed once for the post that mentions it multiple times'
     assert_equal favorites_post_multi_mention.url, mentions_for_a.first.url
   end
 
   def test_inverted_favorites_cache_is_created_correctly
     refute_nil @favorites_posts_to_books_cache, "The 'favorites_posts_to_books' cache should exist"
-    assert_equal 2, @favorites_posts_to_books_cache.keys.size, "Should have entries for two favorites posts"
+    assert_equal 2, @favorites_posts_to_books_cache.keys.size, 'Should have entries for two favorites posts'
 
     # Check 2023 post (mentions Book B via card)
     books_for_2023 = @favorites_posts_to_books_cache[@favorites_post_2023.url]

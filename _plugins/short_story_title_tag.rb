@@ -46,13 +46,15 @@ module Jekyll
           @no_id_flag = true
         else
           unknown_arg = scanner.scan(/\S+/)
-          raise Liquid::SyntaxError, "Syntax Error in 'short_story_title': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
+          raise Liquid::SyntaxError,
+                "Syntax Error in 'short_story_title': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
         end
       end
 
-      unless @title_markup && !@title_markup.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'short_story_title': Title value is missing or empty in '#{@raw_markup}'"
-      end
+      return if @title_markup && !@title_markup.strip.empty?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'short_story_title': Title value is missing or empty in '#{@raw_markup}'"
     end
 
     def render(context)
@@ -60,7 +62,7 @@ module Jekyll
       context.registers[:story_title_counts] ||= Hash.new(0)
 
       story_title = TagArgumentUtils.resolve_value(@title_markup, context)
-      return "" if story_title.nil? || story_title.to_s.strip.empty?
+      return '' if story_title.nil? || story_title.to_s.strip.empty?
 
       prepared_title = TypographyUtils.prepare_display_title(story_title)
       cite_element = "<cite class=\"short-story-title\">#{prepared_title}</cite>"
@@ -76,9 +78,7 @@ module Jekyll
 
         final_slug = base_slug
         # If this is the second or later time we've seen this slug, append the count
-        if count > 1
-          final_slug = "#{base_slug}-#{count}"
-        end
+        final_slug = "#{base_slug}-#{count}" if count > 1
 
         kramdown_id = "{##{final_slug}}"
         "#{cite_element} #{kramdown_id}"

@@ -19,7 +19,7 @@ module Jekyll
     }.freeze
 
     def generate(site)
-      Jekyll.logger.info "LinkCacheGenerator:", "Building link cache..."
+      Jekyll.logger.info 'LinkCacheGenerator:', 'Building link cache...'
 
       # Initialize the cache structure
       link_cache = {
@@ -46,15 +46,12 @@ module Jekyll
         title = page.data['title']
 
         # Cache navigation items
-        if title && page.data['sidebar_include'] == true && !page.url.include?("page")
-          link_cache['sidebar_nav'] << page
-        end
-        if title && page.data['book_topbar_include'] == true
-          link_cache['books_topbar_nav'] << page
-        end
+        link_cache['sidebar_nav'] << page if title && page.data['sidebar_include'] == true && !page.url.include?('page')
+        link_cache['books_topbar_nav'] << page if title && page.data['book_topbar_include'] == true
 
         # Cache linkable pages
         next unless title && !title.strip.empty?
+
         if layout == 'author_page'
           cache_author_page(page, link_cache['authors'])
         elsif layout == 'series_page'
@@ -73,8 +70,10 @@ module Jekyll
           url_to_book_doc_map[book.url] = book # Populate the reverse map
           # Only cache published books with a title
           next if book.data['published'] == false
+
           title = book.data['title']
           next unless title && !title.strip.empty?
+
           cache_book_page(book, link_cache) # Pass the whole cache
           cache_book_in_series_map(book, link_cache['series_map'])
         end
@@ -92,7 +91,7 @@ module Jekyll
 
       # Store the completed cache in site.data for global access
       site.data['link_cache'] = link_cache
-      Jekyll.logger.info "LinkCacheGenerator:", "Cache built successfully."
+      Jekyll.logger.info 'LinkCacheGenerator:', 'Cache built successfully.'
     end
 
     private
@@ -106,9 +105,9 @@ module Jekyll
 
       existing_entry = backlinks[target_url][source_url]
 
-      if existing_entry.nil? || new_priority > LINK_TYPE_PRIORITY[existing_entry[:type]]
-        backlinks[target_url][source_url] = { source: source_doc, type: type }
-      end
+      return unless existing_entry.nil? || new_priority > LINK_TYPE_PRIORITY[existing_entry[:type]]
+
+      backlinks[target_url][source_url] = { source: source_doc, type: type }
     end
 
     # Caches an author page, including its pen names.
@@ -195,7 +194,8 @@ module Jekyll
 
           normalized_key = TextProcessingUtils.normalize_title(story_title)
           slug = TextProcessingUtils.slugify(story_title)
-          location_data = { 'title' => story_title, 'parent_book_title' => parent_title, 'url' => parent_url, 'slug' => slug }
+          location_data = { 'title' => story_title, 'parent_book_title' => parent_title, 'url' => parent_url,
+                            'slug' => slug }
 
           # Initialize an array if this is the first time we see this story title.
           short_stories_cache[normalized_key] ||= []
@@ -242,19 +242,19 @@ module Jekyll
         end
       end
 
-      if found_raw_links.any?
-        error_message = "Found raw Markdown/HTML links. Please convert them to use the appropriate custom tag ('book_link', 'author_link', 'series_link').\n"
-        found_raw_links.each do |path, links|
-          error_message << "  - In file '#{path}':\n"
-          links.uniq.each { |link| error_message << "    - Found: #{link}\n" }
-        end
-        raise Jekyll::Errors::FatalException, error_message
+      return unless found_raw_links.any?
+
+      error_message = "Found raw Markdown/HTML links. Please convert them to use the appropriate custom tag ('book_link', 'author_link', 'series_link').\n"
+      found_raw_links.each do |path, links|
+        error_message << "  - In file '#{path}':\n"
+        links.uniq.each { |link| error_message << "    - Found: #{link}\n" }
       end
+      raise Jekyll::Errors::FatalException, error_message
     end
 
     # --- build_backlinks_cache now uses the priority system ---
     def build_backlinks_cache(site, link_cache)
-      Jekyll.logger.info "LinkCacheGenerator:", "Building backlinks cache..."
+      Jekyll.logger.info 'LinkCacheGenerator:', 'Building backlinks cache...'
       # Use a nested hash to enforce uniqueness per source document
       backlinks = Hash.new { |h, k| h[k] = {} }
       books_cache = link_cache['books']
@@ -312,16 +312,16 @@ module Jekyll
         content.scan(short_story_link_tag_regex).each do |match|
           story_title, from_book_title = match
           locations = short_stories_cache[TextProcessingUtils.normalize_title(story_title)]
-          if locations
-            target = nil
-            # Check if from_book_title is present before trying to use it
-            if from_book_title && !from_book_title.strip.empty?
-              target = locations.find { |loc| loc['parent_book_title'].casecmp(from_book_title).zero? }
-            elsif locations.map { |loc| loc['url'] }.uniq.length == 1
-              target = locations.first
-            end
-            add_backlink(backlinks, target['url'], source_doc, 'short_story') if target
+          next unless locations
+
+          target = nil
+          # Check if from_book_title is present before trying to use it
+          if from_book_title && !from_book_title.strip.empty?
+            target = locations.find { |loc| loc['parent_book_title'].casecmp(from_book_title).zero? }
+          elsif locations.map { |loc| loc['url'] }.uniq.length == 1
+            target = locations.first
           end
+          add_backlink(backlinks, target['url'], source_doc, 'short_story') if target
         end
       end
 
@@ -335,7 +335,7 @@ module Jekyll
     end
 
     def build_favorites_mentions_cache(site, link_cache, url_to_book_doc_map)
-      Jekyll.logger.info "LinkCacheGenerator:", "Building favorites mentions cache..."
+      Jekyll.logger.info 'LinkCacheGenerator:', 'Building favorites mentions cache...'
       favorites_mentions = link_cache['favorites_mentions']
       favorites_posts_to_books = link_cache['favorites_posts_to_books']
       books_cache = link_cache['books']

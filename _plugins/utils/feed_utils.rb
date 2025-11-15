@@ -3,7 +3,6 @@
 # but PluginLoggerUtils could be added if logging within the util becomes necessary.
 
 module FeedUtils
-
   # Combines posts and books, sorts them by date, and returns a limited number.
   #
   # @param site [Jekyll::Site] The Jekyll site object.
@@ -34,5 +33,4 @@ module FeedUtils
     # Return the limited number of items
     all_items.slice(0, limit)
   end
-
 end

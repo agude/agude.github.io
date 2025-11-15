@@ -5,18 +5,17 @@ require 'jekyll'
 module PluginLoggerUtils
   LOG_LEVEL_MAP = {
     debug: 0,
-    info:  1,
-    warn:  2,
-    error: 3,
+    info: 1,
+    warn: 2,
+    error: 3
   }.freeze
   DEFAULT_MESSAGE_LEVEL_SYMBOL = :warn
-  DEFAULT_SITE_CONSOLE_LEVEL_STRING = "warn".freeze
+  DEFAULT_SITE_CONSOLE_LEVEL_STRING = 'warn'.freeze
 
   # Centralized logging for Liquid tags/filters.
   # Handles console logging (respecting site.config['plugin_log_level'])
   # and HTML comment logging (for non-production environments).
   def self.log_liquid_failure(context:, tag_type:, reason:, identifiers: {}, level: DEFAULT_MESSAGE_LEVEL_SYMBOL)
-
     site_from_context = nil
     can_get_site_config = false
 
@@ -33,11 +32,11 @@ module PluginLoggerUtils
       # Fallback if essential context/site/config is broken. Log directly to STDERR if Jekyll.logger is unavailable.
       log_msg = "[PLUGIN LOGGER ERROR] Context, Site, or Site Config unavailable for logging. Original Call: #{tag_type} - #{level}: #{reason}"
       if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:error)
-        Jekyll.logger.error("PluginLogger:", log_msg)
+        Jekyll.logger.error('PluginLogger:', log_msg)
       else
-        STDERR.puts log_msg # Absolute fallback
+        warn log_msg # Absolute fallback
       end
-      return "" # Cannot generate HTML comment without site config.
+      return '' # Cannot generate HTML comment without site config.
     end
 
     site = site_from_context
@@ -51,7 +50,7 @@ module PluginLoggerUtils
     site_env = site_env_raw || 'development' # Default to development if not set
     is_prod = (site_env.to_s.downcase == 'production')
 
-    return "" unless tag_logging_enabled # Do nothing further if this tag_type's logging is disabled.
+    return '' unless tag_logging_enabled # Do nothing further if this tag_type's logging is disabled.
 
     # --- 3. Prepare Log Message Content ---
     # Standardize message level and gather page path for context.
@@ -80,7 +79,7 @@ module PluginLoggerUtils
     if message_log_level_val >= site_console_log_level_val
       # Attempt to use Jekyll.logger if available and responsive
       if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(message_level_symbol)
-        Jekyll.logger.public_send(message_level_symbol, "PluginLiquid:", log_message_base)
+        Jekyll.logger.public_send(message_level_symbol, 'PluginLiquid:', log_message_base)
         # Fallback to puts if Jekyll.logger is not available or not responsive to the specific level
       else
         puts "[PLUGIN_LIQUID_LOG] #{log_message_base}"
@@ -90,10 +89,8 @@ module PluginLoggerUtils
     # --- 5. HTML Comment Logging ---
     # Generate an HTML comment if not in production environment.
     # This is independent of the site_console_log_level_val.
-    html_output_comment = ""
-    unless is_prod
-      html_output_comment = "<!-- #{log_message_base} -->"
-    end
+    html_output_comment = ''
+    html_output_comment = "<!-- #{log_message_base} -->" unless is_prod
 
     html_output_comment # Return the HTML comment (or empty string).
   end

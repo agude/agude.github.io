@@ -2,7 +2,6 @@
 require 'jekyll'
 
 module LinkHelperUtils
-
   # Determines the correct text to display for a link/span.
   # Prioritizes override_text, then canonical_title from found_doc, then input_text.
   # @param input_text [String] The original text passed to the tag.
@@ -54,10 +53,8 @@ module LinkHelperUtils
     if current_canonical_url != target_canonical_url
       baseurl = site.config['baseurl'] || ''
       href = target_url_str
-      if !baseurl.empty? && !href.start_with?('/') && !href.start_with?(baseurl)
-        href = "/#{href}"
-      end
-      href = href.start_with?(baseurl) ? href : "#{baseurl}#{href}"
+      href = "/#{href}" if !baseurl.empty? && !href.start_with?('/') && !href.start_with?(baseurl)
+      href = "#{baseurl}#{href}" unless href.start_with?(baseurl)
       "<a href=\"#{href}\">#{inner_html_element}</a>"
 
       # Case 2: The link is to an anchor on the *same* conceptual page. Generate a relative anchor link.
@@ -69,5 +66,4 @@ module LinkHelperUtils
       inner_html_element
     end
   end
-
 end # End Module LinkHelperUtils

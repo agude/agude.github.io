@@ -2,7 +2,6 @@
 require 'jekyll'
 require 'liquid'
 require 'cgi'
-require 'set' # Explicitly require Set for clarity, though often available
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/article_card_utils'
 
@@ -29,27 +28,26 @@ module Jekyll
 
       unless site
         prereq_missing = true
-        missing_parts << "site object"
+        missing_parts << 'site object'
       end
       unless page
         prereq_missing = true
-        missing_parts << "page object"
+        missing_parts << 'page object'
       end
 
       if site && page
         # Check if site.posts.docs is a valid, iterable array
-        site_posts_valid = site.respond_to?(:posts) && site.posts && \
-          site.posts.respond_to?(:docs) && site.posts.docs.is_a?(Array)
+        site_posts_valid = site.respond_to?(:posts) && site.posts &&
+                           site.posts.respond_to?(:docs) && site.posts.docs.is_a?(Array)
         unless site_posts_valid
           prereq_missing = true
-          detail = "unknown issue"
-          if site.respond_to?(:posts) && site.posts && site.posts.respond_to?(:docs)
-            detail = "site.posts.docs is #{site.posts.docs.class.name}, not Array"
-          elsif site.respond_to?(:posts) && site.posts
-            detail = "site.posts does not have .docs"
-          else
-            detail = "site.posts object itself is problematic or nil"
-          end
+          detail = if site.respond_to?(:posts) && site.posts && site.posts.respond_to?(:docs)
+                     "site.posts.docs is #{site.posts.docs.class.name}, not Array"
+                   elsif site.respond_to?(:posts) && site.posts
+                     'site.posts does not have .docs'
+                   else
+                     'site.posts object itself is problematic or nil'
+                   end
           missing_parts << "site.posts.docs (#{detail})"
         end
 
@@ -62,16 +60,18 @@ module Jekyll
       else
         # If site or page is missing, page['url'] cannot be reliably checked or used.
         # This specific message is added if the more specific check for page['url'] within 'if site && page' was not performed.
-        missing_parts << "page['url'] (cannot check, site or page missing)" unless page && page['url'] && !page['url'].to_s.strip.empty?
+        unless page && page['url'] && !page['url'].to_s.strip.empty?
+          missing_parts << "page['url'] (cannot check, site or page missing)"
+        end
       end
 
       if prereq_missing
         return PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "RELATED_POSTS",
+          tag_type: 'RELATED_POSTS',
           reason: "Missing prerequisites: #{missing_parts.join(', ')}.",
           identifiers: { PageURL: page ? (page['url'] || 'N/A') : 'N/A' }, # Safely access page['url']
-          level: :error,
+          level: :error
         )
       end
 
@@ -84,9 +84,8 @@ module Jekyll
       all_site_posts_docs = site.posts.docs
       all_site_posts_filtered_and_sorted = all_site_posts_docs.select do |p|
         # Basic check for valid post structure
-        unless p.respond_to?(:data) && p.respond_to?(:url) && p.respond_to?(:date)
-          next false
-        end
+        next false unless p.respond_to?(:data) && p.respond_to?(:url) && p.respond_to?(:date)
+
         is_published = p.data['published'] != false
         is_not_current = p.url != current_url
         # Ensure post.date is valid and in the past or present
@@ -104,7 +103,7 @@ module Jekyll
       found_by_category = false
 
       # 1. Posts sharing a category (if current page has categories)
-      if !current_categories.empty?
+      unless current_categories.empty?
         category_matches = all_site_posts_filtered_and_sorted.select do |p|
           post_categories = Set.new(p.data['categories'] || [])
           !post_categories.intersection(current_categories).empty?
@@ -117,9 +116,8 @@ module Jekyll
       # These are manually specified related posts. They are also filtered for validity.
       if candidate_posts.length < @max_posts && site.config['related_posts'].is_a?(Array)
         related_posts_from_config = site.config['related_posts'].select do |p_obj|
-          unless p_obj.respond_to?(:url) && p_obj.respond_to?(:data) && p_obj.respond_to?(:date)
-            next false
-          end
+          next false unless p_obj.respond_to?(:url) && p_obj.respond_to?(:data) && p_obj.respond_to?(:date)
+
           is_pub = p_obj.data['published'] != false
           is_not_curr = p_obj.url != current_url
           is_not_fut = p_obj.date ? (p_obj.date.to_time.to_i <= now_unix) : false
@@ -129,9 +127,7 @@ module Jekyll
       end
 
       # 3. Absolute fallback: Use most recent posts if still not enough.
-      if candidate_posts.length < @max_posts
-        candidate_posts.concat(all_site_posts_filtered_and_sorted)
-      end
+      candidate_posts.concat(all_site_posts_filtered_and_sorted) if candidate_posts.length < @max_posts
 
       # --- Deduplicate and Limit ---
       # Ensure uniqueness by URL and limit to @max_posts.
@@ -139,9 +135,9 @@ module Jekyll
       final_posts = candidate_posts.uniq { |post| post.url }.slice(0, @max_posts)
 
       # --- Render Output ---
-      return "" if final_posts.empty? # Expected empty state, no log needed here.
+      return '' if final_posts.empty? # Expected empty state, no log needed here.
 
-      header_text = found_by_category ? "Related Posts" : "Recent Posts"
+      header_text = found_by_category ? 'Related Posts' : 'Recent Posts'
       output = "<aside class=\"related\">\n"
       output << "  <h2>#{header_text}</h2>\n"
       output << "  <div class=\"card-grid\">\n"
@@ -150,7 +146,7 @@ module Jekyll
         output << ArticleCardUtils.render(post, context) << "\n"
       end
       output << "  </div>\n"
-      output << "</aside>"
+      output << '</aside>'
       output
     end
   end

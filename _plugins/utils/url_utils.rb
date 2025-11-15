@@ -1,7 +1,6 @@
 # _plugins/utils/url_utils.rb
 
 module UrlUtils
-
   def self.absolute_url(path, site)
     return nil if path.nil?
 
@@ -20,18 +19,17 @@ module UrlUtils
     # Normalize path: remove leading slashes, then add a leading one if not empty
     # unless it's an empty string (which means we want the base or site URL)
     normalized_path = path_str.gsub(%r{^/+}, '')
-    if !normalized_path.empty? || path_str == "/" # if original path was "/" or non-empty after stripping
+    if !normalized_path.empty? || path_str == '/' # if original path was "/" or non-empty after stripping
       normalized_path = "/#{normalized_path}"
     elsif path_str.empty? && !normalized_baseurl.empty?
       # If path is empty but baseurl exists, we want the baseurl path, often ending in /
       # The join later will handle this. If baseurl is just "/", normalized_baseurl will be "/".
       # If path is empty, normalized_path should be empty so baseurl is the target.
-      normalized_path = "" # Ensure it's empty if original path was empty
+      normalized_path = '' # Ensure it's empty if original path was empty
     elsif path_str.empty? && normalized_baseurl.empty?
       # Path and baseurl are empty, target is site_url + "/"
       return "#{site_url}/"
     end
-
 
     # Combine parts, then clean up slashes
     full_path = "#{site_url}#{normalized_baseurl}#{normalized_path}"
@@ -43,13 +41,10 @@ module UrlUtils
 
     # Add trailing slash if the effective path component is empty or just baseurl
     # (i.e., original path was "" or "/")
-    if (path_str.empty? || path_str == "/") && !final_url.end_with?('/')
-      final_url += "/"
-    end
+    final_url += '/' if (path_str.empty? || path_str == '/') && !final_url.end_with?('/')
     # Special case: if the result is just the site_url (e.g. https://example.com), ensure it has a trailing slash
     final_url = "#{site_url}/" if final_url == site_url
 
     final_url
   end
-
 end

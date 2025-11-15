@@ -13,7 +13,7 @@ module Jekyll
     def generate(site)
       # Store the original value for logging, if any
       original_config_env = site.config['environment']
-      env_var_jekyll_env = ENV['JEKYLL_ENV']
+      env_var_jekyll_env = ENV.fetch('JEKYLL_ENV', nil)
       puts "ENVIRONMENT_SETTER_PLUGIN: Current value of JEKYLL_ENV: '#{env_var_jekyll_env}'"
 
       if env_var_jekyll_env && !env_var_jekyll_env.empty?
@@ -21,10 +21,10 @@ module Jekyll
         # This is useful because Jekyll might populate site.config['environment']
         # later than some plugins (like this generator) run.
         site.config['environment'] = env_var_jekyll_env
-        if original_config_env != site.config['environment']
-          puts "ENVIRONMENT_SETTER_PLUGIN: Updated site.config['environment'] from '#{original_config_env.inspect}' to '#{site.config['environment']}' (based on ENV['JEKYLL_ENV'])."
-        else
+        if original_config_env == site.config['environment']
           puts "ENVIRONMENT_SETTER_PLUGIN: site.config['environment'] already matched ENV['JEKYLL_ENV'] ('#{site.config['environment']}'). No change needed."
+        else
+          puts "ENVIRONMENT_SETTER_PLUGIN: Updated site.config['environment'] from '#{original_config_env.inspect}' to '#{site.config['environment']}' (based on ENV['JEKYLL_ENV'])."
         end
       else
         # If JEKYLL_ENV is not set or is empty, Jekyll will typically default

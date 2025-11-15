@@ -3,7 +3,6 @@ require_relative '../../../test_helper'
 require_relative '../../../../_plugins/utils/json_ld_generators/generic_review_generator'
 
 class TestGenericReviewLdGenerator < Minitest::Test
-
   def setup
     @site_config = {
       'url' => 'https://myreviews.com',
@@ -27,16 +26,16 @@ class TestGenericReviewLdGenerator < Minitest::Test
       '/reviews/my-gadget.html', 'Post content', '2024-05-01', @post_collection
     )
     expected = {
-      "@context" => "https://schema.org",
-      "@type" => "Review",
-      "author" => { "@type" => "Person", "name" => "Reviewer Name" },
-      "publisher" => { "@type" => "Person", "name" => "Reviewer Name", "url" => "https://myreviews.com/stuff/" },
-      "datePublished" => Time.parse('2024-05-01').xmlschema,
-      "reviewBody" => "This gadget is pretty cool and does things.",
-      "url" => "https://myreviews.com/stuff/reviews/my-gadget.html",
-      "itemReviewed" => {
-        "@type" => "Product",
-        "name" => "My Awesome Gadget"
+      '@context' => 'https://schema.org',
+      '@type' => 'Review',
+      'author' => { '@type' => 'Person', 'name' => 'Reviewer Name' },
+      'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', 'url' => 'https://myreviews.com/stuff/' },
+      'datePublished' => Time.parse('2024-05-01').xmlschema,
+      'reviewBody' => 'This gadget is pretty cool and does things.',
+      'url' => 'https://myreviews.com/stuff/reviews/my-gadget.html',
+      'itemReviewed' => {
+        '@type' => 'Product',
+        'name' => 'My Awesome Gadget'
       }
     }
     assert_equal expected, GenericReviewLdGenerator.generate_hash(doc, @site)
@@ -58,28 +57,28 @@ class TestGenericReviewLdGenerator < Minitest::Test
       '/reviews/service-x.html', 'Post content', '2024-05-02', @post_collection
     )
     expected = {
-      "@context" => "https://schema.org",
-      "@type" => "Review",
-      "author" => { "@type" => "Person", "name" => "Reviewer Name" },
-      "publisher" => { "@type" => "Person", "name" => "Reviewer Name", "url" => "https://myreviews.com/stuff/" },
-      "datePublished" => Time.parse('2024-05-02').xmlschema,
-      "reviewBody" => "My thoughts on Service X.",
-      "url" => "https://myreviews.com/stuff/reviews/service-x.html",
-      "itemReviewed" => {
-        "@type" => "Service",
-        "name" => "Service X",
-        "image" => "https://myreviews.com/stuff/images/service_x_logo.png",
-        "url" => "https://myreviews.com/stuff/servicex.com", # UrlUtils will add baseurl if path is relative
-        "description" => "A revolutionary new service for tasks."
+      '@context' => 'https://schema.org',
+      '@type' => 'Review',
+      'author' => { '@type' => 'Person', 'name' => 'Reviewer Name' },
+      'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', 'url' => 'https://myreviews.com/stuff/' },
+      'datePublished' => Time.parse('2024-05-02').xmlschema,
+      'reviewBody' => 'My thoughts on Service X.',
+      'url' => 'https://myreviews.com/stuff/reviews/service-x.html',
+      'itemReviewed' => {
+        '@type' => 'Service',
+        'name' => 'Service X',
+        'image' => 'https://myreviews.com/stuff/images/service_x_logo.png',
+        'url' => 'https://myreviews.com/stuff/servicex.com', # UrlUtils will add baseurl if path is relative
+        'description' => 'A revolutionary new service for tasks.'
       }
     }
     # Adjust itemReviewed.url if servicex.com was intended as absolute
     # For this test, assume item_url is a path relative to site if not absolute
-    if doc.data['review']['item_url'].start_with?('http')
-      expected["itemReviewed"]["url"] = doc.data['review']['item_url']
-    else
-      expected["itemReviewed"]["url"] = UrlUtils.absolute_url(doc.data['review']['item_url'], @site)
-    end
+    expected['itemReviewed']['url'] = if doc.data['review']['item_url'].start_with?('http')
+                                        doc.data['review']['item_url']
+                                      else
+                                        UrlUtils.absolute_url(doc.data['review']['item_url'], @site)
+                                      end
 
     assert_equal expected, GenericReviewLdGenerator.generate_hash(doc, @site)
   end
@@ -94,9 +93,9 @@ class TestGenericReviewLdGenerator < Minitest::Test
       '/reviews/thingy.html', 'Post content', '2024-05-03', @post_collection
     )
     result_hash = GenericReviewLdGenerator.generate_hash(doc, @site)
-    assert_equal "Product", result_hash.dig("itemReviewed", "@type")
-    assert_equal "A Thingamajig", result_hash.dig("itemReviewed", "name")
-    assert_equal "It is a thing.", result_hash["reviewBody"]
+    assert_equal 'Product', result_hash.dig('itemReviewed', '@type')
+    assert_equal 'A Thingamajig', result_hash.dig('itemReviewed', 'name')
+    assert_equal 'It is a thing.', result_hash['reviewBody']
   end
 
   def test_generate_hash_review_missing_optional_fields
@@ -109,15 +108,15 @@ class TestGenericReviewLdGenerator < Minitest::Test
       '/reviews/minimal.html', 'Post content', '2024-05-04', @post_collection
     )
     expected = {
-      "@context" => "https://schema.org",
-      "@type" => "Review",
-      "author" => { "@type" => "Person", "name" => "Reviewer Name" },
-      "publisher" => { "@type" => "Person", "name" => "Reviewer Name", "url" => "https://myreviews.com/stuff/" },
-      "datePublished" => Time.parse('2024-05-04').xmlschema,
-      "url" => "https://myreviews.com/stuff/reviews/minimal.html",
-      "itemReviewed" => {
-        "@type" => "Product", # Default
-        "name" => "Basic Item"
+      '@context' => 'https://schema.org',
+      '@type' => 'Review',
+      'author' => { '@type' => 'Person', 'name' => 'Reviewer Name' },
+      'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', 'url' => 'https://myreviews.com/stuff/' },
+      'datePublished' => Time.parse('2024-05-04').xmlschema,
+      'url' => 'https://myreviews.com/stuff/reviews/minimal.html',
+      'itemReviewed' => {
+        '@type' => 'Product', # Default
+        'name' => 'Basic Item'
       }
       # reviewBody will be missing
     }
@@ -137,7 +136,7 @@ class TestGenericReviewLdGenerator < Minitest::Test
     # Mock logger to ensure error is logged by the generator itself
     mock_logger = Minitest::Mock.new
     mock_logger.expect(:error, nil) do |prefix, message|
-      prefix == "JSON-LD (GenericReviewGen):" && message.include?("missing or empty")
+      prefix == 'JSON-LD (GenericReviewGen):' && message.include?('missing or empty')
     end
 
     actual_hash = nil
@@ -148,5 +147,4 @@ class TestGenericReviewLdGenerator < Minitest::Test
     assert_equal({}, actual_hash)
     mock_logger.verify
   end
-
 end

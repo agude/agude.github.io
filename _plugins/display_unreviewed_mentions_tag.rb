@@ -2,7 +2,6 @@
 require 'jekyll'
 require 'liquid'
 require 'cgi'
-require 'set'
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/text_processing_utils'
 
@@ -18,7 +17,7 @@ module Jekyll
       unless site && site.data['mention_tracker'] && site.data.dig('link_cache', 'books')
         return PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "UNREVIEWED_MENTIONS",
+          tag_type: 'UNREVIEWED_MENTIONS',
           reason: "Prerequisites missing: mention_tracker or link_cache['books'] not found.",
           level: :error
         )
@@ -43,16 +42,16 @@ module Jekyll
         }
       end.compact.sort_by { |item| -item[:count] } # Sort by count descending.
 
-      return "<p>No unreviewed works have been mentioned yet.</p>" if ranked_list.empty?
+      return '<p>No unreviewed works have been mentioned yet.</p>' if ranked_list.empty?
 
       # Render the final HTML as an ordered list.
       output = "<ol class=\"ranked-list\">\n"
       ranked_list.each do |item|
         # These are unlinked, so we just wrap them in <cite> and escape them.
-        mention_text = item[:count] == 1 ? "1 mention" : "#{item[:count]} mentions"
+        mention_text = item[:count] == 1 ? '1 mention' : "#{item[:count]} mentions"
         output << "  <li><cite>#{CGI.escapeHTML(item[:title])}</cite> <span class=\"mention-count\">(#{mention_text})</span></li>\n"
       end
-      output << "</ol>"
+      output << '</ol>'
 
       output
     end

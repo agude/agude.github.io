@@ -2,16 +2,16 @@
 require 'nokogiri'
 
 module TextProcessingUtils
-
   # Cleans HTML content to plain text, normalizes whitespace.
   # Removes script and style tag contents.
   # @param html_content [String] The HTML string to clean.
   # @return [String] The cleaned plain text.
   def self.clean_text_from_html(html_content)
-    return "" if html_content.nil? || html_content.strip.empty?
+    return '' if html_content.nil? || html_content.strip.empty?
+
     doc = Nokogiri::HTML(html_content.to_s)
     doc.xpath('//script | //style').remove # Remove script and style elements
-    doc.text.gsub(/\s+/, ' ').strip       # Get text from remaining, normalize whitespace
+    doc.text.gsub(/\s+/, ' ').strip # Get text from remaining, normalize whitespace
   end
 
   # Truncates a string to a specified number of words.
@@ -20,12 +20,13 @@ module TextProcessingUtils
   # @param num_words [Integer] The maximum number of words.
   # @param omission [String] The string to append if truncated.
   # @return [String] The truncated (or original) text.
-  def self.truncate_words(text, num_words, omission = "...")
-    return "" if text.nil?
+  def self.truncate_words(text, num_words, omission = '...')
+    return '' if text.nil?
+
     # Strip leading/trailing whitespace from the input first
     stripped_text = text.to_s.strip
     # If after stripping, the text is empty, return empty string
-    return "" if stripped_text.empty?
+    return '' if stripped_text.empty?
 
     words = stripped_text.split
     # If not enough words to truncate, return the already stripped text
@@ -33,7 +34,7 @@ module TextProcessingUtils
     # If truncating to 0 words, just return the omission
     return omission if num_words == 0 && words.any? # Ensure there were words to omit
 
-    words[0...num_words].join(" ") + omission
+    words[0...num_words].join(' ') + omission
   end
 
   # Normalizes a title string for consistent comparison or key generation.
@@ -44,9 +45,10 @@ module TextProcessingUtils
   # @param strip_articles [Boolean] If true, remove leading "a", "an", "the".
   # @return [String] The normalized title string.
   def self.normalize_title(title, strip_articles: false)
-    return "" if title.nil?
+    return '' if title.nil?
+
     # Convert to string, handle newlines, multiple spaces, downcase, strip ends
-    normalized = title.to_s.gsub("\n", " ").gsub(/\s+/, ' ').downcase.strip
+    normalized = title.to_s.gsub("\n", ' ').gsub(/\s+/, ' ').downcase.strip
     if strip_articles
       # Match "the", "an", or "a" if it's at the beginning of the string
       # and followed by a space, OR if it's the entire string.
@@ -69,7 +71,8 @@ module TextProcessingUtils
   # @param etal_after [Integer, nil] The number of authors after which to use "et al.".
   # @return [String] The formatted string.
   def self.format_list_as_sentence(items, etal_after: nil)
-    return "" if items.nil? || items.empty?
+    return '' if items.nil? || items.empty?
+
     items = items.map(&:to_s) # Ensure all are strings
     num_items = items.length
 
@@ -86,17 +89,17 @@ module TextProcessingUtils
     when 2
       "#{items[0]} and #{items[1]}"
     else # 3 or more items
-      all_but_last = items[0...-1].join(", ")
+      all_but_last = items[0...-1].join(', ')
       "#{all_but_last}, and #{items.last}"
     end
-
   end
 
   # This logic is designed to be simple and consistent for generating anchor IDs.
   # @param text [String] The string to convert.
   # @return [String] The slugified string.
   def self.slugify(text)
-    return "" if text.nil?
+    return '' if text.nil?
+
     slug = text.to_s.downcase.strip
     # Replace apostrophes and other non-word characters with a space first
     slug.gsub!(/[^\w\s-]/, ' ')
@@ -108,5 +111,4 @@ module TextProcessingUtils
     slug.gsub!(/^-+|-+$/, '')
     slug
   end
-
 end

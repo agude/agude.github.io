@@ -4,7 +4,6 @@ require_relative '../../../../_plugins/utils/json_ld_generators/author_profile_g
 require 'minitest/mock' # For mocking logger
 
 class TestAuthorProfileLdGenerator < Minitest::Test
-
   def setup
     @site = create_site({ 'url' => 'https://mysite.dev', 'baseurl' => '' })
   end
@@ -17,10 +16,10 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       '/authors/jane-doe.html'
     )
     expected = {
-      "@context" => "https://schema.org",
-      "@type" => "Person",
-      "name" => "Jane Doe",
-      "url" => "https://mysite.dev/authors/jane-doe.html"
+      '@context' => 'https://schema.org',
+      '@type' => 'Person',
+      'name' => 'Jane Doe',
+      'url' => 'https://mysite.dev/authors/jane-doe.html'
     }
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
@@ -30,22 +29,22 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       {
         'layout' => 'author_page', 'title' => 'Jane Doe',
         'same_as_urls' => [
-          "https://twitter.com/janedoe",
-          " https://linkedin.com/in/janedoe ", # With whitespace
+          'https://twitter.com/janedoe',
+          ' https://linkedin.com/in/janedoe ', # With whitespace
           nil, # Should be ignored
-          ""   # Should be ignored
+          ''   # Should be ignored
         ]
       },
       '/authors/jane-doe.html'
     )
     expected = {
-      "@context" => "https://schema.org",
-      "@type" => "Person",
-      "name" => "Jane Doe",
-      "url" => "https://mysite.dev/authors/jane-doe.html",
-      "sameAs" => [
-        "https://twitter.com/janedoe",
-        "https://linkedin.com/in/janedoe"
+      '@context' => 'https://schema.org',
+      '@type' => 'Person',
+      'name' => 'Jane Doe',
+      'url' => 'https://mysite.dev/authors/jane-doe.html',
+      'sameAs' => [
+        'https://twitter.com/janedoe',
+        'https://linkedin.com/in/janedoe'
       ]
     }
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
@@ -60,11 +59,11 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       '/authors/canonical.html'
     )
     expected = {
-      "@context" => "https://schema.org",
-      "@type" => "Person",
-      "name" => "Canonical Name",
-      "url" => "https://mysite.dev/authors/canonical.html",
-      "alternateName" => ["Pen Name One", "Pen Name Two"] # Expect cleaned list
+      '@context' => 'https://schema.org',
+      '@type' => 'Person',
+      'name' => 'Canonical Name',
+      'url' => 'https://mysite.dev/authors/canonical.html',
+      'alternateName' => ['Pen Name One', 'Pen Name Two'] # Expect cleaned list
     }
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
@@ -80,13 +79,13 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       '/authors/jane-doe.html'
     )
     expected = {
-      "@context" => "https://schema.org",
-      "@type" => "Person",
-      "name" => "Jane Doe",
-      "url" => "https://mysite.dev/authors/jane-doe.html",
-      "description" => "An author bio.",
-      "sameAs" => ["https://example.com/jane"],
-      "alternateName" => ["J.D."]
+      '@context' => 'https://schema.org',
+      '@type' => 'Person',
+      'name' => 'Jane Doe',
+      'url' => 'https://mysite.dev/authors/jane-doe.html',
+      'description' => 'An author bio.',
+      'sameAs' => ['https://example.com/jane'],
+      'alternateName' => ['J.D.']
     }
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
@@ -97,10 +96,10 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       '/authors/jane-doe.html'
     )
     expected = {
-      "@context" => "https://schema.org",
-      "@type" => "Person",
-      "name" => "Jane Doe",
-      "url" => "https://mysite.dev/authors/jane-doe.html"
+      '@context' => 'https://schema.org',
+      '@type' => 'Person',
+      'name' => 'Jane Doe',
+      'url' => 'https://mysite.dev/authors/jane-doe.html'
       # No sameAs key
     }
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
@@ -112,10 +111,10 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       '/authors/jane-doe.html'
     )
     expected = {
-      "@context" => "https://schema.org",
-      "@type" => "Person",
-      "name" => "Jane Doe",
-      "url" => "https://mysite.dev/authors/jane-doe.html"
+      '@context' => 'https://schema.org',
+      '@type' => 'Person',
+      'name' => 'Jane Doe',
+      'url' => 'https://mysite.dev/authors/jane-doe.html'
       # No sameAs key
     }
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
@@ -127,11 +126,11 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       '/authors/jane-doe.html'
     )
     expected = {
-      "@context" => "https://schema.org",
-      "@type" => "Person",
-      "name" => "Jane Doe",
-      "url" => "https://mysite.dev/authors/jane-doe.html",
-      "description" => "An author bio." # Cleaned by extract_descriptive_text
+      '@context' => 'https://schema.org',
+      '@type' => 'Person',
+      'name' => 'Jane Doe',
+      'url' => 'https://mysite.dev/authors/jane-doe.html',
+      'description' => 'An author bio.' # Cleaned by extract_descriptive_text
     }
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
@@ -143,11 +142,11 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       '/authors/jane-doe.html'
     )
     expected = {
-      "@context" => "https://schema.org",
-      "@type" => "Person",
-      "name" => "Jane Doe",
-      "url" => "https://mysite.dev/authors/jane-doe.html",
-      "description" => "Excerpt bio." # Cleaned from excerpt
+      '@context' => 'https://schema.org',
+      '@type' => 'Person',
+      'name' => 'Jane Doe',
+      'url' => 'https://mysite.dev/authors/jane-doe.html',
+      'description' => 'Excerpt bio.' # Cleaned from excerpt
     }
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
@@ -163,31 +162,31 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       '/authors/jane-doe.html'
     )
     expected = {
-      "@context" => "https://schema.org",
-      "@type" => "Person",
-      "name" => "Jane Doe",
-      "url" => "https://mysite.dev/authors/jane-doe.html",
-      "description" => "Excerpt bio." # Excerpt wins
+      '@context' => 'https://schema.org',
+      '@type' => 'Person',
+      'name' => 'Jane Doe',
+      'url' => 'https://mysite.dev/authors/jane-doe.html',
+      'description' => 'Excerpt bio.' # Excerpt wins
     }
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_skips_invalid_same_as_urls_type_and_logs
     doc = create_doc(
-      { 'layout' => 'author_page', 'title' => 'Jane Doe', 'same_as_urls' => "not-an-array" },
+      { 'layout' => 'author_page', 'title' => 'Jane Doe', 'same_as_urls' => 'not-an-array' },
       '/authors/jane-doe.html'
     )
     expected = { # sameAs should be omitted
-      "@context" => "https://schema.org",
-      "@type" => "Person",
-      "name" => "Jane Doe",
-      "url" => "https://mysite.dev/authors/jane-doe.html"
+      '@context' => 'https://schema.org',
+      '@type' => 'Person',
+      'name' => 'Jane Doe',
+      'url' => 'https://mysite.dev/authors/jane-doe.html'
     }
 
     # Mock logger
     mock_logger = Minitest::Mock.new
     mock_logger.expect(:warn, nil) do |prefix, message|
-      prefix == "JSON-LD:" && message.include?("not an Array") && message.include?(doc.url)
+      prefix == 'JSON-LD:' && message.include?('not an Array') && message.include?(doc.url)
     end
 
     actual_hash = nil
@@ -205,11 +204,10 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       '/authors/empty.html'
     )
     expected = { # Only context, type, and URL should remain
-      "@context" => "https://schema.org",
-      "@type" => "Person",
-      "url" => "https://mysite.dev/authors/empty.html"
+      '@context' => 'https://schema.org',
+      '@type' => 'Person',
+      'url' => 'https://mysite.dev/authors/empty.html'
     }
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
-
 end

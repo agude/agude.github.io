@@ -10,9 +10,9 @@ module Jekyll
     def initialize(tag_name, markup, tokens)
       super
       @post_object_markup = markup.strip
-      if @post_object_markup.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'render_article_card': A post object variable must be provided."
-      end
+      return unless @post_object_markup.empty?
+
+      raise Liquid::SyntaxError, "Syntax Error in 'render_article_card': A post object variable must be provided."
     end
 
     def render(context)
@@ -22,10 +22,10 @@ module Jekyll
         # Log if the resolved object is nil (variable not found or was nil)
         return PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "RENDER_ARTICLE_CARD_TAG",
+          tag_type: 'RENDER_ARTICLE_CARD_TAG',
           reason: "Post object variable '#{@post_object_markup}' resolved to nil.",
           identifiers: { markup: @post_object_markup },
-          level: :error,
+          level: :error
         )
       end
 
@@ -36,10 +36,11 @@ module Jekyll
       # For now, any error from the utility is treated as an error for the tag.
       PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "RENDER_ARTICLE_CARD_TAG",
+        tag_type: 'RENDER_ARTICLE_CARD_TAG',
         reason: "Error rendering article card via ArticleCardUtils: #{e.message}",
-        identifiers: { post_markup: @post_object_markup, error_class: e.class.name, error_message: e.message.lines.first.chomp.slice(0,100) },
-        level: :error,
+        identifiers: { post_markup: @post_object_markup, error_class: e.class.name,
+                       error_message: e.message.lines.first.chomp.slice(0, 100) },
+        level: :error
       )
       # Return value of log_liquid_failure (HTML comment or empty string)
     end

@@ -8,8 +8,8 @@ module Jekyll
   module FrontMatterValidator
     # Default configuration
     DEFAULT_REQUIRED_FIELDS_CONFIG = {
-      'books' => ['title', 'book_authors', 'book_number'], # As per your last update (rating not required)
-      'posts' => ['title', 'date'],
+      'books' => %w[title book_authors book_number], # As per your last update (rating not required)
+      'posts' => %w[title date]
       # Add other layouts or collection labels as needed:
       # 'my_layout' => ['field1', 'field2'],
       # 'my_collection' => ['fieldA', 'fieldB'],
@@ -41,7 +41,7 @@ module Jekyll
     def self.validate_document(doc)
       current_config = required_fields_config # Use the accessor method
       config_key = nil
-      doc_type_for_log = ""
+      doc_type_for_log = ''
       is_post_collection = false # Flag to identify if we are dealing with 'posts' collection
 
       # Determine the configuration key based on whether it's a Document in a Collection or a Page with a layout
@@ -77,17 +77,15 @@ module Jekyll
           is_field_blank = blank?(field_value)
         end
 
-        if is_field_blank
-          missing_or_empty_fields << field_name
-        end
+        missing_or_empty_fields << field_name if is_field_blank
       end
 
-      unless missing_or_empty_fields.empty?
-        doc_identifier = doc.data['path'] || doc.url || doc.relative_path || 'unknown path'
-        error_message = "#{doc_type_for_log} '#{doc_identifier}' is missing or has empty required front matter fields: #{missing_or_empty_fields.join(', ')}."
-        Jekyll.logger.error "FrontMatter Error:", error_message
-        raise Jekyll::Errors::FatalException, error_message
-      end
+      return if missing_or_empty_fields.empty?
+
+      doc_identifier = doc.data['path'] || doc.url || doc.relative_path || 'unknown path'
+      error_message = "#{doc_type_for_log} '#{doc_identifier}' is missing or has empty required front matter fields: #{missing_or_empty_fields.join(', ')}."
+      Jekyll.logger.error 'FrontMatter Error:', error_message
+      raise Jekyll::Errors::FatalException, error_message
     end
   end
 
@@ -111,7 +109,6 @@ module Jekyll
     next unless page.data.is_a?(Hash)
     # Further exclude common asset paths if they are processed as pages
     next if page.respond_to?(:dir) && page.dir.start_with?('/assets/', '/public/')
-
 
     Jekyll::FrontMatterValidator.validate_document(page)
   end

@@ -2,22 +2,42 @@
 require_relative '../../../test_helper'
 
 class TestBookListUtilsAuthorDisplay < Minitest::Test
-
   def setup
-    @author_alpha_name = "Author Alpha"
-    @author_beta_lower_name = "author beta"
-    @author_gamma_name = "Author Gamma"
+    @author_alpha_name = 'Author Alpha'
+    @author_beta_lower_name = 'author beta'
+    @author_gamma_name = 'Author Gamma'
 
-    @book_aa_s1_b1 = create_doc({ 'title' => 'AA Series1 Book1', 'series' => 'Alpha Series', 'book_number' => 1, 'book_authors' => [@author_alpha_name], 'published' => true, 'date' => Time.now }, '/aa_s1b1.html')
+    @book_aa_s1_b1 = create_doc(
+      { 'title' => 'AA Series1 Book1', 'series' => 'Alpha Series', 'book_number' => 1,
+        'book_authors' => [@author_alpha_name], 'published' => true, 'date' => Time.now }, '/aa_s1b1.html'
+    )
     @book_aa_s1_b0_5 = create_doc({ 'title' => 'AA Series1 Book0.5', 'series' => 'Alpha Series', 'book_number' => 0.5, 'book_authors' => [@author_alpha_name], 'published' => true, 'date' => Time.now }) # Added for completeness
-    @book_aa_standalone = create_doc({ 'title' => 'AA Standalone', 'book_authors' => [@author_alpha_name], 'published' => true, 'date' => Time.now }, '/aa_sa.html')
+    @book_aa_standalone = create_doc(
+      { 'title' => 'AA Standalone', 'book_authors' => [@author_alpha_name], 'published' => true,
+        'date' => Time.now }, '/aa_sa.html'
+    )
 
-    @book_ab_s2_b1 = create_doc({ 'title' => 'ab Series2 Book1', 'series' => 'Beta Series', 'book_number' => 1, 'book_authors' => [@author_beta_lower_name], 'published' => true, 'date' => Time.now }, '/ab_s2b1.html')
-    @book_ab_standalone = create_doc({ 'title' => 'Standalone by ab', 'book_authors' => [@author_beta_lower_name], 'published' => true, 'date' => Time.now }, '/ab_sa.html')
+    @book_ab_s2_b1 = create_doc(
+      { 'title' => 'ab Series2 Book1', 'series' => 'Beta Series', 'book_number' => 1,
+        'book_authors' => [@author_beta_lower_name], 'published' => true, 'date' => Time.now }, '/ab_s2b1.html'
+    )
+    @book_ab_standalone = create_doc(
+      { 'title' => 'Standalone by ab', 'book_authors' => [@author_beta_lower_name], 'published' => true,
+        'date' => Time.now }, '/ab_sa.html'
+    )
 
-    @coauthored_aa_ab = create_doc({ 'title' => 'Co-authored AA & ab', 'book_authors' => [@author_alpha_name, @author_beta_lower_name], 'published' => true, 'date' => Time.now }, '/coauth_aa_ab.html')
-    @book_gamma_standalone = create_doc({ 'title' => 'Gamma Standalone', 'book_authors' => [@author_gamma_name], 'published' => true, 'date' => Time.now }, '/gamma_sa.html')
-    @unpublished_book_by_aa = create_doc({ 'title' => 'Unpublished by AA', 'book_authors' => [@author_alpha_name], 'published' => false, 'date' => Time.now }, '/unpub_aa.html')
+    @coauthored_aa_ab = create_doc(
+      { 'title' => 'Co-authored AA & ab', 'book_authors' => [@author_alpha_name, @author_beta_lower_name],
+        'published' => true, 'date' => Time.now }, '/coauth_aa_ab.html'
+    )
+    @book_gamma_standalone = create_doc(
+      { 'title' => 'Gamma Standalone', 'book_authors' => [@author_gamma_name], 'published' => true,
+        'date' => Time.now }, '/gamma_sa.html'
+    )
+    @unpublished_book_by_aa = create_doc(
+      { 'title' => 'Unpublished by AA', 'book_authors' => [@author_alpha_name], 'published' => false,
+        'date' => Time.now }, '/unpub_aa.html'
+    )
 
     @books_for_author_tests = [
       @book_aa_s1_b1, @book_aa_s1_b0_5, @book_aa_standalone, # Added 0.5
@@ -26,8 +46,18 @@ class TestBookListUtilsAuthorDisplay < Minitest::Test
       @book_gamma_standalone, @unpublished_book_by_aa
     ].compact
     @site = create_site({}, { 'books' => @books_for_author_tests })
-    @context = create_context({}, { site: @site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
-    @silent_logger_stub = Object.new.tap { |l| def l.warn(p,m);end; def l.error(p,m);end; def l.info(p,m);end; def l.debug(p,m);end }
+    @context = create_context({},
+                              { site: @site,
+                                page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
+    @silent_logger_stub = Object.new.tap do |l|
+      def l.warn(p, m); end
+
+      def l.error(p, m); end
+
+      def l.info(p, m); end
+
+      def l.debug(p, m); end
+    end
   end
 
   def get_author_data(author_name_filter, site = @site, context = @context)
@@ -50,7 +80,7 @@ class TestBookListUtilsAuthorDisplay < Minitest::Test
   end
 
   def test_get_data_for_author_display_found_author_beta_case_insensitive
-    data = get_author_data("AUTHOR BETA")
+    data = get_author_data('AUTHOR BETA')
     assert_equal 2, data[:standalone_books].size
     # ... (assertions for standalone titles)
     assert_equal 1, data[:series_groups].size
@@ -75,7 +105,7 @@ class TestBookListUtilsAuthorDisplay < Minitest::Test
     # The co-authored book is standalone.
     assert_equal 2, data[:standalone_books].size # AA Standalone, Co-authored AA & ab
     assert_equal 1, data[:series_groups].size
-    refute_empty data[:series_groups], "Series groups for Author Alpha should not be empty"
+    refute_empty data[:series_groups], 'Series groups for Author Alpha should not be empty'
     assert_equal 2, data[:series_groups][0][:books].size # Books 0.5 and 1
   end
 
@@ -83,29 +113,38 @@ class TestBookListUtilsAuthorDisplay < Minitest::Test
   def test_get_data_for_author_display_author_not_found_logs_info
     @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true
     data = get_author_data('NonExistent Author')
-    assert_empty data[:standalone_books]; assert_empty data[:series_groups]
-    assert_match %r{BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='No books found for the specified author\.'}, data[:log_messages]
+    assert_empty data[:standalone_books]
+    assert_empty data[:series_groups]
+    assert_match(/BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='No books found for the specified author\.'/,
+                 data[:log_messages])
   end
 
   def test_get_data_for_author_display_nil_filter_logs_warn
     @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true
     data = get_author_data(nil)
-    assert_empty data[:standalone_books]; assert_empty data[:series_groups]
-    assert_match %r{BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='Author name filter was empty or nil when fetching data\.'}, data[:log_messages]
+    assert_empty data[:standalone_books]
+    assert_empty data[:series_groups]
+    assert_match(/BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='Author name filter was empty or nil when fetching data\.'/,
+                 data[:log_messages])
   end
 
   def test_get_data_for_author_display_empty_filter_logs_warn
     @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true
     data = get_author_data('   ')
-    assert_empty data[:standalone_books]; assert_empty data[:series_groups]
-    assert_match %r{BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='Author name filter was empty or nil when fetching data\.'}, data[:log_messages]
+    assert_empty data[:standalone_books]
+    assert_empty data[:series_groups]
+    assert_match(/BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='Author name filter was empty or nil when fetching data\.'/,
+                 data[:log_messages])
   end
 
   def test_get_data_for_author_display_books_collection_missing_logs_error
-    site_no_books = create_site({}, {}); site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true
+    site_no_books = create_site({}, {})
+    site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true
     context_no_books = create_context({}, { site: site_no_books, page: @context.registers[:page] })
     data = get_author_data('Any Author', site_no_books, context_no_books)
-    assert_empty data[:standalone_books]; assert_empty data[:series_groups]
-    assert_match %r{BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'}, data[:log_messages]
+    assert_empty data[:standalone_books]
+    assert_empty data[:series_groups]
+    assert_match(/BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'/,
+                 data[:log_messages])
   end
 end

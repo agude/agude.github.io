@@ -29,13 +29,13 @@ module Jekyll
   # Example: {% display_ranked_books page.ranked_list %}
   #
   class DisplayRankedBooksTag < Liquid::Tag
-
     def initialize(tag_name, markup, tokens)
       super
       @list_variable_markup = markup.strip
-      unless @list_variable_markup && !@list_variable_markup.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'display_ranked_books': A variable name holding the list must be provided."
-      end
+      return if @list_variable_markup && !@list_variable_markup.empty?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'display_ranked_books': A variable name holding the list must be provided."
     end
 
     def render(context)
@@ -51,7 +51,7 @@ module Jekyll
         raise "DisplayRankedBooks Error: Input '#{@list_variable_markup}' is not a valid list (Array). Found: #{ranked_list.class}"
       end
 
-      return "" if ranked_list.empty? # Nothing to render
+      return '' if ranked_list.empty? # Nothing to render
 
       # --- Step 2: Build the Title -> Book Object Lookup Map ---
       unless site.collections.key?('books')
@@ -62,14 +62,16 @@ module Jekyll
       book_map = {}
       site.collections['books'].docs.each do |book|
         next if book.data['published'] == false
+
         title = book.data['title']
         next unless title && !title.to_s.strip.empty?
+
         normalized = TextProcessingUtils.normalize_title(title, strip_articles: false)
         book_map[normalized] = book
       end
 
       # --- Step 3: Initialize State ---
-      output_buffer = ""
+      output_buffer = ''
       current_rating_group = nil
       is_div_open = false
       found_ratings = [] # To collect unique ratings for the nav
@@ -100,10 +102,10 @@ module Jekyll
 
           # Check 3: Monotonicity
           if book_rating > previous_rating
-            raise "DisplayRankedBooks Validation Error: Monotonicity violation in '#{@list_variable_markup}'. \n" \
-              "  Title '#{current_title_raw}' (Rating: #{book_rating}) at position #{index + 1} \n" \
-              "  cannot appear after \n" \
-              "  Title '#{previous_title}' (Rating: #{previous_rating}) at position #{index}."
+            raise "DisplayRankedBooks Validation Error: Monotonicity violation in '#{@list_variable_markup}'. \n  " \
+                  "Title '#{current_title_raw}' (Rating: #{book_rating}) at position #{index + 1} \n  " \
+                  "cannot appear after \n  " \
+                  "Title '#{previous_title}' (Rating: #{previous_rating}) at position #{index}."
           end
 
           # Update validation state for next iteration
@@ -118,10 +120,10 @@ module Jekyll
           # This should only happen in production if validation is skipped and list is bad
           # or if a book was unpublished after the list was generated.
           output_buffer << PluginLoggerUtils.log_liquid_failure(
-            context: context, tag_type: "DISPLAY_RANKED_BOOKS",
-            reason: "Book title from ranked list not found in lookup map (Production Mode).",
+            context: context, tag_type: 'DISPLAY_RANKED_BOOKS',
+            reason: 'Book title from ranked list not found in lookup map (Production Mode).',
             identifiers: { Title: current_title_raw, ListVariable: @list_variable_markup },
-            level: :error,
+            level: :error
           )
           next # Skip rendering this item
         end
@@ -133,10 +135,10 @@ module Jekyll
             book_rating = Integer(book_rating_raw)
           rescue ArgumentError, TypeError
             output_buffer << PluginLoggerUtils.log_liquid_failure(
-              context: context, tag_type: "DISPLAY_RANKED_BOOKS",
-              reason: "Book has invalid non-integer rating (Production Mode).",
+              context: context, tag_type: 'DISPLAY_RANKED_BOOKS',
+              reason: 'Book has invalid non-integer rating (Production Mode).',
               identifiers: { Title: current_title_raw, Rating: book_rating_raw.inspect, ListVariable: @list_variable_markup },
-              level: :error,
+              level: :error
             )
             next # Skip rendering this item
           end
@@ -168,7 +170,6 @@ module Jekyll
         # Render Book Card
         output_buffer << BookCardUtils.render(book_object, context) << "\n"
         # --- End Rendering Step ---
-
       end # End loop through ranked_list
 
       # --- Step 5: Final Cleanup ---
@@ -177,7 +178,7 @@ module Jekyll
       end
 
       # --- Step 6: Generate and Prepend Navigation ---
-      nav_html = ""
+      nav_html = ''
       unless found_ratings.empty?
         nav_links = found_ratings.map do |rating|
           rating_text = rating == 1 ? "#{rating}&nbsp;Star" : "#{rating}&nbsp;Stars"
@@ -189,10 +190,8 @@ module Jekyll
       end
 
       # --- Step 7: Return Rendered HTML ---
-      output = nav_html + output_buffer
-      output
-
-    rescue => e # This rescue is for the entire render method
+      nav_html + output_buffer
+    rescue StandardError => e # This rescue is for the entire render method
       # Re-raise standard errors or provide more context for Liquid syntax or fundamental errors.
       # Errors caught by PluginLoggerUtils above will return an HTML comment and continue if possible.
       # This catch is for unexpected errors in the tag's own logic or unhandled exceptions from utils.

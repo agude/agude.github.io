@@ -1,6 +1,6 @@
 # _plugins/utils/short_story_link_util.rb
 require 'jekyll'
-require_relative './link_helper_utils'
+require_relative 'link_helper_utils'
 require_relative 'plugin_logger_utils'
 require_relative 'text_processing_utils'
 require_relative 'typography_utils'
@@ -25,15 +25,15 @@ module ShortStoryLinkUtils
 
     if normalized_lookup_title.empty?
       return PluginLoggerUtils.log_liquid_failure(
-        context: context, tag_type: "RENDER_SHORT_STORY_LINK",
-        reason: "Input story title resolved to an empty string.",
+        context: context, tag_type: 'RENDER_SHORT_STORY_LINK',
+        reason: 'Input story title resolved to an empty string.',
         identifiers: { TitleInput: story_title_raw || 'nil' },
         level: :warn
       )
     end
 
     # 2. Lookup from Cache
-    log_output = ""
+    log_output = ''
     link_cache = site.data['link_cache'] || {}
     story_cache = link_cache['short_stories'] || {}
     canonical_map = link_cache['url_to_canonical_map'] || {}
@@ -60,16 +60,12 @@ module ShortStoryLinkUtils
         unique_book_urls = found_locations.map { |loc| loc['url'] }.uniq
         if unique_book_urls.length == 1
           target_location = found_locations.first
-        else
+        elsif from_book_title && !from_book_title.empty?
           # Genuinely ambiguous: The same story title exists in multiple different books.
-          if from_book_title && !from_book_title.empty?
-            target_location = found_locations.find { |loc| loc['parent_book_title'].casecmp(from_book_title).zero? }
-            if target_location.nil?
-              log_output = _log_story_not_found_in_book(context, story_title_input, from_book_title)
-            end
-          else
-            log_output = _log_story_ambiguous(context, story_title_input, found_locations)
-          end
+          target_location = found_locations.find { |loc| loc['parent_book_title'].casecmp(from_book_title).zero? }
+          log_output = _log_story_not_found_in_book(context, story_title_input, from_book_title) if target_location.nil?
+        else
+          log_output = _log_story_ambiguous(context, story_title_input, found_locations)
         end
       end
     end
@@ -77,7 +73,7 @@ module ShortStoryLinkUtils
     # 3. Generate HTML
     display_text = target_location ? target_location['title'] : story_title_input
     cite_element = _build_story_cite_element(display_text)
-    final_html = ""
+    final_html = ''
 
     if target_location
       # Construct the full URL with fragment
@@ -92,8 +88,6 @@ module ShortStoryLinkUtils
     log_output + final_html
   end
 
-  private
-
   def self._build_story_cite_element(display_text)
     prepared_display_text = TypographyUtils.prepare_display_title(display_text)
     "<cite class=\"short-story-title\">#{prepared_display_text}</cite>"
@@ -101,8 +95,8 @@ module ShortStoryLinkUtils
 
   def self._log_story_not_found(context, title)
     PluginLoggerUtils.log_liquid_failure(
-      context: context, tag_type: "RENDER_SHORT_STORY_LINK",
-      reason: "Could not find short story in cache.",
+      context: context, tag_type: 'RENDER_SHORT_STORY_LINK',
+      reason: 'Could not find short story in cache.',
       identifiers: { StoryTitle: title },
       level: :info
     )
@@ -110,8 +104,8 @@ module ShortStoryLinkUtils
 
   def self._log_story_not_found_in_book(context, title, book_title)
     PluginLoggerUtils.log_liquid_failure(
-      context: context, tag_type: "RENDER_SHORT_STORY_LINK",
-      reason: "Story found in cache but not in the specified book.",
+      context: context, tag_type: 'RENDER_SHORT_STORY_LINK',
+      reason: 'Story found in cache but not in the specified book.',
       identifiers: { StoryTitle: title, FromBook: book_title },
       level: :warn
     )
@@ -120,7 +114,7 @@ module ShortStoryLinkUtils
   def self._log_story_ambiguous(context, title, locations)
     book_titles = locations.map { |loc| "'#{loc['parent_book_title']}'" }.join(', ')
     PluginLoggerUtils.log_liquid_failure(
-      context: context, tag_type: "RENDER_SHORT_STORY_LINK",
+      context: context, tag_type: 'RENDER_SHORT_STORY_LINK',
       reason: "Ambiguous story title. Use 'from_book' to specify which book.",
       identifiers: { StoryTitle: title, FoundIn: book_titles },
       level: :error

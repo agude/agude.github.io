@@ -10,7 +10,7 @@ require_relative 'utils/plugin_logger_utils'
 module Jekyll
   class DisplayCategoryPostsTag < Liquid::Tag
     SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
-    ALLOWED_KEYS = ['topic', 'exclude_current_page'].freeze
+    ALLOWED_KEYS = %w[topic exclude_current_page].freeze
     REQUIRED_KEYS = ['topic'].freeze
 
     def initialize(tag_name, markup, tokens)
@@ -28,7 +28,8 @@ module Jekyll
         unless scanner.scan(SYNTAX_NAMED_ARG)
           # If we find something that's not a named argument, it's a syntax error
           # as this tag now only accepts named arguments.
-          raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Expected named arguments (e.g., key='value'). Found unexpected token near '#{scanner.rest.strip.split.first || ''}' in '#{@raw_markup}'"
+          raise Liquid::SyntaxError,
+                "Syntax Error in '#{tag_name}': Expected named arguments (e.g., key='value'). Found unexpected token near '#{scanner.rest.strip.split.first || ''}' in '#{@raw_markup}'"
         end
 
         key = scanner[1].to_s.strip
@@ -48,7 +49,8 @@ module Jekyll
       # Check for required arguments
       REQUIRED_KEYS.each do |req_key|
         unless @attributes_markup.key?(req_key)
-          raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Required argument '#{req_key}' is missing in '#{@raw_markup}'"
+          raise Liquid::SyntaxError,
+                "Syntax Error in '#{tag_name}': Required argument '#{req_key}' is missing in '#{@raw_markup}'"
         end
       end
     end
@@ -65,10 +67,10 @@ module Jekyll
         # This log happens if the resolved value of 'topic' is empty,
         # e.g., topic=empty_variable or topic="   "
         return PluginLoggerUtils.log_liquid_failure(
-          context: context, tag_type: "DISPLAY_CATEGORY_POSTS",
+          context: context, tag_type: 'DISPLAY_CATEGORY_POSTS',
           reason: "Argument 'topic' resolved to an empty string.",
           identifiers: { topic_markup: @attributes_markup['topic'] },
-          level: :error,
+          level: :error
         )
       end
 
@@ -77,7 +79,7 @@ module Jekyll
       if @attributes_markup.key?('exclude_current_page')
         resolved_exclude_flag = TagArgumentUtils.resolve_value(@attributes_markup['exclude_current_page'], context)
         # True if the resolved value is boolean true or string "true" (case-insensitive)
-        exclude_current = (resolved_exclude_flag == true || resolved_exclude_flag.to_s.downcase == 'true')
+        exclude_current = resolved_exclude_flag == true || resolved_exclude_flag.to_s.downcase == 'true'
       end
 
       url_to_exclude = exclude_current && page ? page['url'] : nil
@@ -89,7 +91,7 @@ module Jekyll
         exclude_url: url_to_exclude
       )
 
-      output = result[:log_messages] || ""
+      output = result[:log_messages] || ''
       posts_to_render = result[:posts]
 
       # If no posts found (e.g., category doesn't exist, or all posts filtered out),

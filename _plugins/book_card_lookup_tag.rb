@@ -18,26 +18,24 @@ module Jekyll
       scanner = StringScanner.new(markup.strip)
       # Try to match named argument first: title='...' or title=...
       if scanner.scan(/title\s*=\s*(#{QuotedFragment}|\S+)/)
-          @title_markup = scanner[1] # Value part of title=value
+        @title_markup = scanner[1] # Value part of title=value
       else
         # If not named, assume positional: '...' or ...
         # Reset scanner if it consumed part of a non-matching named arg pattern
         scanner.reset
         scanner.skip_until(/\A\s*/) # Go to start of content
-        if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
-          @title_markup = scanner.matched
-        end
+        @title_markup = scanner.matched if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
       end
 
       scanner.skip(/\s+/) # Skip trailing whitespace after the identified title markup
       unless scanner.eos?
-        raise Liquid::SyntaxError, "Syntax Error in 'book_card_lookup': Unknown argument(s) '#{scanner.rest}' in '#{@raw_markup}'"
+        raise Liquid::SyntaxError,
+              "Syntax Error in 'book_card_lookup': Unknown argument(s) '#{scanner.rest}' in '#{@raw_markup}'"
       end
-      unless @title_markup && !@title_markup.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'book_card_lookup': Could not find title value in '#{@raw_markup}'"
-      end
-    end
+      return if @title_markup && !@title_markup.strip.empty?
 
+      raise Liquid::SyntaxError, "Syntax Error in 'book_card_lookup': Could not find title value in '#{@raw_markup}'"
+    end
 
     # Renders the book card by looking up the book and calling the utility
     def render(context)
@@ -47,10 +45,10 @@ module Jekyll
       unless target_title_input && !target_title_input.to_s.strip.empty?
         return PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "BOOK_CARD_LOOKUP",
-          reason: "Title markup resolved to empty or nil.",
+          tag_type: 'BOOK_CARD_LOOKUP',
+          reason: 'Title markup resolved to empty or nil.',
           identifiers: { Markup: @title_markup || @raw_markup },
-          level: :error,
+          level: :error
         )
       end
       target_title_normalized = target_title_input.to_s.gsub(/\s+/, ' ').strip.downcase
@@ -59,7 +57,7 @@ module Jekyll
       unless site.collections.key?('books')
         return PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "BOOK_CARD_LOOKUP",
+          tag_type: 'BOOK_CARD_LOOKUP',
           reason: "Required 'books' collection not found in site configuration.",
           identifiers: { Title: target_title_input.to_s }, # Log the title we were trying to find
           level: :error # Prerequisite missing
@@ -68,30 +66,32 @@ module Jekyll
 
       found_book = site.collections['books'].docs.find do |book|
         next if book.data['published'] == false
+
         book.data['title']&.gsub(/\s+/, ' ')&.strip&.downcase == target_title_normalized
       end
 
       unless found_book
         return PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "BOOK_CARD_LOOKUP",
-          reason: "Could not find book.",
+          tag_type: 'BOOK_CARD_LOOKUP',
+          reason: 'Could not find book.',
           identifiers: { Title: target_title_input.to_s }, # Use original input for clarity in log
-          level: :warn,
+          level: :warn
         )
       end
 
       # --- Call Utility to Render Card ---
       begin
         BookCardUtils.render(found_book, context) # CHANGED: Call the new utility
-      rescue => e
+      rescue StandardError => e
         # Return the log message from PluginLoggerUtils
         PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "BOOK_CARD_LOOKUP",
+          tag_type: 'BOOK_CARD_LOOKUP',
           reason: "Error calling BookCardUtils.render utility: #{e.message}",
-          identifiers: { Title: target_title_input.to_s, ErrorClass: e.class.name, ErrorMessage: e.message.lines.first.chomp.slice(0,100) },
-          level: :error,
+          identifiers: { Title: target_title_input.to_s, ErrorClass: e.class.name,
+                         ErrorMessage: e.message.lines.first.chomp.slice(0, 100) },
+          level: :error
         )
       end
       # --- End Render Card ---

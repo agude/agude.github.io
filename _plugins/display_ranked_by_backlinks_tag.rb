@@ -16,8 +16,8 @@ module Jekyll
       unless site && site.data.dig('link_cache', 'backlinks') && site.data.dig('link_cache', 'books')
         return PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "RANKED_BY_BACKLINKS",
-          reason: "Prerequisites missing: link_cache, backlinks, or books cache.",
+          tag_type: 'RANKED_BY_BACKLINKS',
+          reason: 'Prerequisites missing: link_cache, backlinks, or books cache.',
           level: :error
         )
       end
@@ -44,17 +44,17 @@ module Jekyll
         }
       end.compact.sort_by { |item| -item[:count] } # Sort by count descending.
 
-      return "<p>No books have been mentioned yet.</p>" if ranked_list.empty?
+      return '<p>No books have been mentioned yet.</p>' if ranked_list.empty?
 
       # Render the final HTML as an ordered list.
       output = "<ol class=\"ranked-list\">\n"
       ranked_list.each do |item|
         # Use BookLinkUtils to create a consistent link to the book review.
         book_link_html = BookLinkUtils.render_book_link_from_data(item[:title], item[:url], context)
-        mention_text = item[:count] == 1 ? "1 mention" : "#{item[:count]} mentions"
+        mention_text = item[:count] == 1 ? '1 mention' : "#{item[:count]} mentions"
         output << "  <li>#{book_link_html} <span class=\"mention-count\">(#{mention_text})</span></li>\n"
       end
-      output << "</ol>"
+      output << '</ol>'
 
       output
     end

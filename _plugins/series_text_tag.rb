@@ -30,23 +30,24 @@ module Jekyll
 
       scanner.skip(/\s+/)
       unless scanner.eos?
-        raise Liquid::SyntaxError, "Syntax Error in 'series_text': Unexpected arguments '#{scanner.rest}' in '#{@raw_markup}'"
+        raise Liquid::SyntaxError,
+              "Syntax Error in 'series_text': Unexpected arguments '#{scanner.rest}' in '#{@raw_markup}'"
       end
-      unless @series_name_markup && !@series_name_markup.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'series_text': Series name value is missing or empty in '#{@raw_markup}'"
-      end
+      return if @series_name_markup && !@series_name_markup.strip.empty?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'series_text': Series name value is missing or empty in '#{@raw_markup}'"
     end
 
     def render(context)
       raw_series_name_input = TagArgumentUtils.resolve_value(@series_name_markup, context)
 
       analysis = SeriesTextUtils.analyze_series_name(raw_series_name_input)
-      return "" if analysis.nil? # Handles nil/empty input via the utility
+      return '' if analysis.nil? # Handles nil/empty input via the utility
 
       # Generate Linked Series Name using the original stripped name from analysis
       linked_series_html = SeriesLinkUtils.render_series_link(analysis[:name], context)
-      return "" if linked_series_html.strip.empty? && analysis[:prefix].empty? && analysis[:suffix].empty?
-
+      return '' if linked_series_html.strip.empty? && analysis[:prefix].empty? && analysis[:suffix].empty?
 
       # Combine and Output
       output = "#{analysis[:prefix]}#{linked_series_html}#{analysis[:suffix]}"

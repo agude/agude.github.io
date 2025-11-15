@@ -5,7 +5,6 @@ require_relative 'plugin_logger_utils'
 require_relative 'text_processing_utils'
 
 module BacklinkUtils
-
   # Finds books in the 'books' collection that link back to the current_page.
   # Returns a list of [canonical_title, url] pairs, sorted alphabetically by title (ignoring articles).
   #
@@ -18,10 +17,10 @@ module BacklinkUtils
     unless site && current_page && site.data['link_cache'] && site.data['link_cache']['backlinks'] && current_page['url']
       PluginLoggerUtils.log_liquid_failure(
         context: context,
-        tag_type: "BACKLINK_UTIL",
-        reason: "Prerequisites missing: site, page, link_cache, or backlinks cache unavailable.",
+        tag_type: 'BACKLINK_UTIL',
+        reason: 'Prerequisites missing: site, page, link_cache, or backlinks cache unavailable.',
         identifiers: { PageURL: current_page ? (current_page['url'] || 'N/A') : 'N/A' },
-        level: :error,
+        level: :error
       )
       return [] # Return empty list if prerequisites fail
     end
@@ -34,9 +33,7 @@ module BacklinkUtils
     backlinking_docs = backlinks_cache[current_url] || []
 
     # --- Sort and Return Title/URL Pairs ---
-    if backlinking_docs.empty?
-      return []
-    end
+    return [] if backlinking_docs.empty?
 
     # Map to [sort_key, canonical_title, url] triplets for sorting
     backlinks_data = backlinking_docs.map do |book_doc|
@@ -48,10 +45,7 @@ module BacklinkUtils
     end.compact # Remove any nils from skipped items
 
     # Sort by sort_key, then map to [canonical_title, url] pairs
-    sorted_pairs = backlinks_data.sort_by { |triplet| triplet[0] }
-      .map { |triplet| [triplet[1], triplet[2]] } # Map to [title, url]
-
-    sorted_pairs
+    backlinks_data.sort_by { |triplet| triplet[0] }
+                  .map { |triplet| [triplet[1], triplet[2]] } # Map to [title, url]
   end
-
 end # End Module BacklinkUtils

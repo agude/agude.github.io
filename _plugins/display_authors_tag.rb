@@ -13,7 +13,7 @@ require_relative 'utils/plugin_logger_utils'
 module Jekyll
   class DisplayAuthorsTag < Liquid::Tag
     SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
-    ALLOWED_NAMED_KEYS = ['linked', 'etal_after'].freeze
+    ALLOWED_NAMED_KEYS = %w[linked etal_after].freeze
 
     def initialize(tag_name, markup, tokens)
       super
@@ -34,24 +34,24 @@ module Jekyll
 
       # Peek at the first potential token to see if it's a named argument key
       is_first_token_a_key = false
-      if scanner.match?(/(#{ALLOWED_NAMED_KEYS.join('|')})\s*=\s*/)
-          is_first_token_a_key = true
-      end
+      is_first_token_a_key = true if scanner.match?(/(#{ALLOWED_NAMED_KEYS.join('|')})\s*=\s*/)
 
       if !is_first_token_a_key && scanner.scan(/(#{Liquid::QuotedFragment}|\S+)/)
-          # If the first token is not a key for a named argument, it's the authors_list_markup
-          @authors_list_markup = scanner[1].strip
+        # If the first token is not a key for a named argument, it's the authors_list_markup
+        @authors_list_markup = scanner[1].strip
         scanner.skip(/\s*/) # Consume space after it
       end
 
       # Now parse named arguments from the rest of the string
-      while !scanner.eos?
+      until scanner.eos?
         scanner.skip(/\s*/) # Skip whitespace before arg
         break if scanner.eos? # Break if only whitespace remained
 
         unless scanner.scan(SYNTAX_NAMED_ARG)
-          raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Invalid argument syntax near '#{scanner.rest}'. Expected key='value' or key=variable."
+          raise Liquid::SyntaxError,
+                "Syntax Error in '#{tag_name}': Invalid argument syntax near '#{scanner.rest}'. Expected key='value' or key=variable."
         end
+
         key = scanner[1].downcase
         value_markup = scanner[2]
 
@@ -66,25 +66,24 @@ module Jekyll
       end
 
       # Final check for the required authors_list_markup
-      if @authors_list_markup.nil? || @authors_list_markup.empty?
-        raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Missing required authors list (e.g., page.book_authors) as the first argument in '#{@raw_markup}'"
-      end
+      return unless @authors_list_markup.nil? || @authors_list_markup.empty?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in '#{tag_name}': Missing required authors list (e.g., page.book_authors) as the first argument in '#{@raw_markup}'"
     end
 
     def render(context)
       authors_input = TagArgumentUtils.resolve_value(@authors_list_markup, context)
       author_names = FrontMatterUtils.get_list_from_string_or_array(authors_input)
 
-      return "" if author_names.empty?
+      return '' if author_names.empty?
 
       actual_linked = true
       if @options_markup.key?(:linked)
         resolved_linked_val = TagArgumentUtils.resolve_value(@options_markup[:linked], context)
-        if resolved_linked_val != nil
+        unless resolved_linked_val.nil?
           val_str = resolved_linked_val.to_s.downcase
-          if val_str == 'false' || resolved_linked_val == false
-            actual_linked = false
-          end
+          actual_linked = false if val_str == 'false' || resolved_linked_val == false
         end
       end
 

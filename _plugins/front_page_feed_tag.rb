@@ -21,22 +21,25 @@ module Jekyll
       # Simple parser for an optional 'limit=N' argument
       if @raw_markup.match?(SYNTAX_NAMED_ARG)
         scanner = StringScanner.new(@raw_markup)
-        if scanner.scan(SYNTAX_NAMED_ARG)
-          key = scanner[1].to_s.strip
-          value_markup = scanner[2].to_s.strip
-          if key == 'limit'
-            @limit_markup = value_markup
-          else
-            raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Unknown argument '#{key}'. Only 'limit' is allowed."
-          end
-          scanner.skip(/\s*/)
-          unless scanner.eos?
-            raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Unexpected arguments after 'limit'."
-          end
-        else
-          # This case implies a malformed named argument if match? was true but scan failed.
+        unless scanner.scan(SYNTAX_NAMED_ARG)
           raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Malformed arguments '#{@raw_markup}'."
         end
+
+        key = scanner[1].to_s.strip
+        value_markup = scanner[2].to_s.strip
+        if key == 'limit'
+          @limit_markup = value_markup
+        else
+          raise Liquid::SyntaxError,
+                "Syntax Error in '#{tag_name}': Unknown argument '#{key}'. Only 'limit' is allowed."
+        end
+        scanner.skip(/\s*/)
+        unless scanner.eos?
+          raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Unexpected arguments after 'limit'."
+        end
+
+      # This case implies a malformed named argument if match? was true but scan failed.
+
       elsif !@raw_markup.empty?
         # If markup is not empty but doesn't match the named arg syntax (e.g., positional)
         raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Invalid arguments. Use 'limit=N' or no arguments."
@@ -45,8 +48,8 @@ module Jekyll
 
     def render(context)
       site = context.registers[:site]
-      page = context.registers[:page] # For PluginLoggerUtils context
-      output = "" # Initialize output string
+      context.registers[:page] # For PluginLoggerUtils context
+      output = '' # Initialize output string
 
       limit = DEFAULT_LIMIT
       if @limit_markup
@@ -65,10 +68,10 @@ module Jekyll
         # Append log message to output if feed is empty
         output << PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "FRONT_PAGE_FEED",
-          reason: "No items found for the front page feed.",
+          tag_type: 'FRONT_PAGE_FEED',
+          reason: 'No items found for the front page feed.',
           identifiers: { limit: limit },
-          level: :info,
+          level: :info
         )
         return output # Return the log message (or empty string if logging is off)
       end
@@ -84,10 +87,11 @@ module Jekyll
           # Append log message for unknown item type to output
           output << PluginLoggerUtils.log_liquid_failure(
             context: context,
-            tag_type: "FRONT_PAGE_FEED",
-            reason: "Unknown item type in feed.",
-            identifiers: { item_title: item.data['title'] || 'N/A', item_url: item.url || 'N/A', item_collection: item.collection&.label || 'N/A' },
-            level: :warn,
+            tag_type: 'FRONT_PAGE_FEED',
+            reason: 'Unknown item type in feed.',
+            identifiers: { item_title: item.data['title'] || 'N/A', item_url: item.url || 'N/A',
+                           item_collection: item.collection&.label || 'N/A' },
+            level: :warn
           )
           output << "\n" # Add a newline after the comment
         end

@@ -1,12 +1,11 @@
 # _plugins/utils/author_link_util.rb
 require 'jekyll'
 require 'cgi'
-require_relative './link_helper_utils'
+require_relative 'link_helper_utils'
 require_relative 'plugin_logger_utils'
 require_relative 'text_processing_utils'
 
 module AuthorLinkUtils
-
   # --- Public Method ---
 
   # Finds an author page by name from the link_cache and renders the link/span HTML.
@@ -24,28 +23,28 @@ module AuthorLinkUtils
     end
 
     author_name_input = author_name_raw.to_s
-    link_text_override = link_text_override_raw.to_s.strip if link_text_override_raw && !link_text_override_raw.to_s.empty?
+    if link_text_override_raw && !link_text_override_raw.to_s.empty?
+      link_text_override = link_text_override_raw.to_s.strip
+    end
     # Use normalize_title from LiquidUtils for lookup comparison
     normalized_lookup_name = TextProcessingUtils.normalize_title(author_name_input)
 
     if normalized_lookup_name.empty?
       return PluginLoggerUtils.log_liquid_failure(
-        context: context, tag_type: "RENDER_AUTHOR_LINK",
-        reason: "Input author name resolved to empty after normalization.",
+        context: context, tag_type: 'RENDER_AUTHOR_LINK',
+        reason: 'Input author name resolved to empty after normalization.',
         identifiers: { NameInput: author_name_raw || 'nil' },
-        level: :warn,
+        level: :warn
       )
     end
 
     # 2. Lookup from Cache
-    log_output = ""
+    log_output = ''
     link_cache = site.data['link_cache'] || {}
     author_cache = link_cache['authors'] || {}
     found_author_data = author_cache[normalized_lookup_name] # Direct hash lookup
 
-    if found_author_data.nil?
-      log_output = _log_author_not_found(context, author_name_input)
-    end
+    log_output = _log_author_not_found(context, author_name_input) if found_author_data.nil?
 
     # 3. Determine Display Text & Build Inner Span Element
     display_text = author_name_input.strip # Default to the raw input name
@@ -58,19 +57,19 @@ module AuthorLinkUtils
       canonical_title_from_cache = found_author_data['title']
       normalized_canonical_title = TextProcessingUtils.normalize_title(canonical_title_from_cache)
 
-      if normalized_lookup_name != normalized_canonical_title
-        # The input was a pen name (or a fuzzy match of one). Keep the original input as display text.
-        display_text = author_name_input.strip
-      else
-        # The input was a fuzzy match for the canonical name. Use the canonical name for display.
-        display_text = canonical_title_from_cache
-      end
+      display_text = if normalized_lookup_name == normalized_canonical_title
+                       # The input was a fuzzy match for the canonical name. Use the canonical name for display.
+                       canonical_title_from_cache
+                     else
+                       # The input was a pen name (or a fuzzy match of one). Keep the original input as display text.
+                       author_name_input.strip
+                     end
     end
     span_element = _build_author_span_element(display_text)
 
     # 4. Handle Possessive Suffix
     # Possessive suffix is added *inside* the link if linked, *outside* if not.
-    possessive_suffix = possessive ? "’s" : ""
+    possessive_suffix = possessive ? '’s' : ''
     inner_html_with_suffix_if_linked = "#{span_element}#{possessive_suffix}"
     inner_html_without_suffix = span_element
 
@@ -84,17 +83,13 @@ module AuthorLinkUtils
 
     # 6. Add Suffix if Not Linked
     # If the result is still just the span (meaning it wasn't linked), add the suffix now.
-    if final_html_element == inner_html_without_suffix && possessive
-      final_html_element << possessive_suffix
-    end
+    final_html_element << possessive_suffix if final_html_element == inner_html_without_suffix && possessive
 
     # 7. Combine Log Output (if any) and HTML Element
     log_output + final_html_element
   end
 
-
   # --- Private Helper Methods ---
-  private
 
   # Builds the inner <span> element for the author name.
   def self._build_author_span_element(display_text)
@@ -106,11 +101,10 @@ module AuthorLinkUtils
   # Logs the failure when the author page is not found.
   def self._log_author_not_found(context, input_name)
     PluginLoggerUtils.log_liquid_failure(
-      context: context, tag_type: "RENDER_AUTHOR_LINK",
-      reason: "Could not find author page in cache.",
+      context: context, tag_type: 'RENDER_AUTHOR_LINK',
+      reason: 'Could not find author page in cache.',
       identifiers: { Name: input_name.strip },
-      level: :info,
+      level: :info
     )
   end
-
 end # End Module AuthorLinkUtils

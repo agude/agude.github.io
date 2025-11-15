@@ -1,12 +1,11 @@
 # _plugins/utils/series_link_util.rb
 require 'jekyll'
 require 'cgi'
-require_relative './link_helper_utils'
+require_relative 'link_helper_utils'
 require_relative 'plugin_logger_utils'
 require_relative 'text_processing_utils'
 
 module SeriesLinkUtils
-
   # --- Public Method ---
 
   # Finds a series page by title from the link_cache and renders its link/span HTML.
@@ -23,28 +22,28 @@ module SeriesLinkUtils
     end
 
     series_title_input = series_title_raw.to_s
-    link_text_override = link_text_override_raw.to_s.strip if link_text_override_raw && !link_text_override_raw.to_s.empty?
+    if link_text_override_raw && !link_text_override_raw.to_s.empty?
+      link_text_override = link_text_override_raw.to_s.strip
+    end
     # Use normalize_title from LiquidUtils for lookup comparison
     normalized_lookup_title = TextProcessingUtils.normalize_title(series_title_input)
 
     if normalized_lookup_title.empty?
       return PluginLoggerUtils.log_liquid_failure(
-        context: context, tag_type: "RENDER_SERIES_LINK",
-        reason: "Input title resolved to empty after normalization.",
+        context: context, tag_type: 'RENDER_SERIES_LINK',
+        reason: 'Input title resolved to empty after normalization.',
         identifiers: { TitleInput: series_title_raw || 'nil' },
-        level: :warn,
+        level: :warn
       )
     end
 
     # 2. Lookup from Cache
-    log_output = ""
+    log_output = ''
     link_cache = site.data['link_cache'] || {}
     series_cache = link_cache['series'] || {}
     found_series_data = series_cache[normalized_lookup_title] # Direct hash lookup
 
-    if found_series_data.nil?
-      log_output = _log_series_not_found(context, series_title_input)
-    end
+    log_output = _log_series_not_found(context, series_title_input) if found_series_data.nil?
 
     # 3. Determine Display Text & Build Inner Span Element
     display_text = series_title_input.strip
@@ -64,9 +63,7 @@ module SeriesLinkUtils
     log_output + final_html_element
   end
 
-
   # --- Private Helper Methods ---
-  private
 
   # Builds the inner <span> element for the series name.
   def self._build_series_span_element(display_text)
@@ -79,11 +76,10 @@ module SeriesLinkUtils
   def self._log_series_not_found(context, input_title)
     PluginLoggerUtils.log_liquid_failure(
       context: context,
-      tag_type: "RENDER_SERIES_LINK",
-      reason: "Could not find series page in cache.",
+      tag_type: 'RENDER_SERIES_LINK',
+      reason: 'Could not find series page in cache.',
       identifiers: { Series: input_title.strip },
-      level: :info,
+      level: :info
     )
   end
-
 end # End Module SeriesLinkUtils

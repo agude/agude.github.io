@@ -7,16 +7,24 @@ module CitationUtils
   # --- Public API ---
   def self.format_citation_html(params, _site = nil)
     part_generators = [
-      lambda { _generate_author_part(last_name: params[:author_last], first_name: params[:author_first], handle: params[:author_handle]) },
-      lambda { _generate_work_and_container_part(work_title: params[:work_title], container_title: params[:container_title], url: params[:url]) },
-      lambda { _generate_editor_part(editor: params[:editor]) },
-      lambda { _generate_edition_part(edition: params[:edition]) },
-      lambda { _generate_volume_and_number_part(volume: params[:volume], number: params[:number]) },
-      lambda { _generate_publisher_part(publisher: params[:publisher]) },
-      lambda { _generate_date_part(date: params[:date]) },
-      lambda { _generate_pages_part(first_page: params[:first_page], last_page: params[:last_page], page: params[:page]) },
-      lambda { _generate_doi_part(doi: params[:doi]) },
-      lambda { _generate_access_date_part(access_date: params[:access_date]) }
+      lambda {
+        _generate_author_part(last_name: params[:author_last], first_name: params[:author_first],
+                              handle: params[:author_handle])
+      },
+      lambda {
+        _generate_work_and_container_part(work_title: params[:work_title], container_title: params[:container_title],
+                                          url: params[:url])
+      },
+      -> { _generate_editor_part(editor: params[:editor]) },
+      -> { _generate_edition_part(edition: params[:edition]) },
+      -> { _generate_volume_and_number_part(volume: params[:volume], number: params[:number]) },
+      -> { _generate_publisher_part(publisher: params[:publisher]) },
+      -> { _generate_date_part(date: params[:date]) },
+      lambda {
+        _generate_pages_part(first_page: params[:first_page], last_page: params[:last_page], page: params[:page])
+      },
+      -> { _generate_doi_part(doi: params[:doi]) },
+      -> { _generate_access_date_part(access_date: params[:access_date]) }
     ]
 
     # Generate all parts
@@ -24,18 +32,16 @@ module CitationUtils
 
     # Sanitize: Remove nils, then remove trailing periods from each part, then reject empty strings
     active_parts = generated_parts.compact.map do |part_str|
-      part_str.is_a?(String) ? part_str.chomp(".") : part_str
+      part_str.is_a?(String) ? part_str.chomp('.') : part_str
     end.reject { |p| !_present?(p) } # Use _present? to also catch strings that are just whitespace after chomp
 
-    return "" if active_parts.empty?
+    return '' if active_parts.empty?
 
     # Join active parts with ". " and add a single trailing period for the entire citation.
-    final_citation_string = active_parts.join(". ") + "."
+    final_citation_string = active_parts.join('. ') + '.'
 
     "<span class=\"citation\">#{final_citation_string}</span>"
   end
-
-  private
 
   def self._present?(obj)
     !obj.nil? && !obj.to_s.strip.empty?
@@ -43,6 +49,7 @@ module CitationUtils
 
   def self._escapeHTML(str)
     return nil unless _present?(str)
+
     CGI.escapeHTML(str.to_s)
   end
 
@@ -55,13 +62,9 @@ module CitationUtils
     author_str_parts = []
     if _present?(last_name)
       author_str_parts << _escapeHTML(last_name)
-      if _present?(first_name)
-        author_str_parts << _escapeHTML(first_name)
-      end
-      main_author_info = author_str_parts.join(", ")
-      if _present?(handle)
-        main_author_info += " (#{_escapeHTML(handle)})"
-      end
+      author_str_parts << _escapeHTML(first_name) if _present?(first_name)
+      main_author_info = author_str_parts.join(', ')
+      main_author_info += " (#{_escapeHTML(handle)})" if _present?(handle)
       return main_author_info if _present?(main_author_info)
     elsif _present?(handle)
       return _escapeHTML(handle)
@@ -72,32 +75,30 @@ module CitationUtils
   def self._generate_work_and_container_part(work_title:, container_title:, url:)
     output_elements = []
     if _present?(work_title)
-      work_formatted = ""
-      if _present?(container_title)
-        work_formatted = "\"#{_escapeHTML(work_title)}\""
-      else
-        work_formatted = "<cite>#{_escapeHTML(work_title)}</cite>"
-      end
-      if _present?(url)
-        work_formatted = "<a href=\"#{url}\">#{work_formatted}</a>"
-      end
+      work_formatted = if _present?(container_title)
+                         "\"#{_escapeHTML(work_title)}\""
+                       else
+                         "<cite>#{_escapeHTML(work_title)}</cite>"
+                       end
+      work_formatted = "<a href=\"#{url}\">#{work_formatted}</a>" if _present?(url)
       output_elements << work_formatted
     end
-    if _present?(container_title)
-      output_elements << "<cite>#{_escapeHTML(container_title)}</cite>"
-    end
+    output_elements << "<cite>#{_escapeHTML(container_title)}</cite>" if _present?(container_title)
     return nil if output_elements.empty?
-    output_elements.join(" ")
+
+    output_elements.join(' ')
   end
 
   def self._generate_editor_part(editor:)
     return nil unless _present?(editor)
+
     "Edited by #{_escapeHTML(editor)}"
   end
 
   # With chomp, this can safely be "ed." or "ed"
   def self._generate_edition_part(edition:)
     return nil unless _present?(edition)
+
     "#{_escapeHTML(edition)} ed." # Chomp will handle the period if it's problematic
   end
 
@@ -106,16 +107,19 @@ module CitationUtils
     vol_num_elements << "vol.#{NBSP}#{_escapeHTML(volume)}" if _present?(volume)
     vol_num_elements << "no.#{NBSP}#{_escapeHTML(number)}" if _present?(number)
     return nil if vol_num_elements.empty?
-    vol_num_elements.join(", ")
+
+    vol_num_elements.join(', ')
   end
 
   def self._generate_publisher_part(publisher:)
     return nil unless _present?(publisher)
+
     _escapeHTML(publisher)
   end
 
   def self._generate_date_part(date:)
     return nil unless _present?(date)
+
     _escapeHTML(date)
   end
 
@@ -146,15 +150,15 @@ module CitationUtils
     doi_input_str = doi.to_s.strip
 
     doi_slug_to_link = nil
-    doi_url_prefix = "https://doi.org/"
+    doi_url_prefix = 'https://doi.org/'
 
     # Case 1: Input is likely a DOI slug (starts with "10.")
     # We also need to ensure it's not part of a common non-DOI string that happens to start with "10."
     # A simple check for a slash is a good heuristic for DOI slugs.
-    if doi_input_str.start_with?("10.") && doi_input_str.include?('/')
+    if doi_input_str.start_with?('10.') && doi_input_str.include?('/')
       doi_slug_to_link = doi_input_str
       # Case 2: Input is likely a full DOI URL
-    elsif doi_input_str.downcase.include?("doi.org/")
+    elsif doi_input_str.downcase.include?('doi.org/')
       # Regex: case insensitive, matches "doi.org/" followed by (capturing group for "10." followed by anything non-empty up to a space or end)
       match = doi_input_str.match(%r{doi\.org/(10\.[^\s]+)$}i)
       if match && _present?(match[1]) # Check if the captured group is present and not empty
@@ -163,27 +167,27 @@ module CitationUtils
     end
 
     # If a valid-looking DOI slug was identified (either directly or extracted)
-    if _present?(doi_slug_to_link)
-      # Validate the slug further if needed (e.g., more complex regex for DOI structure)
-      # For now, we assume if it starts with "10." and contains '/', it's a candidate.
+    return "doi:#{NBSP}#{_escapeHTML(doi_input_str)}" unless _present?(doi_slug_to_link)
 
-      # Text to display for the link (the slug itself, HTML escaped)
-      escaped_slug_for_display = _escapeHTML(doi_slug_to_link)
+    # Validate the slug further if needed (e.g., more complex regex for DOI structure)
+    # For now, we assume if it starts with "10." and contains '/', it's a candidate.
 
-      # URL for the href attribute (raw, unescaped slug)
-      # Ensure no double escaping if the slug itself had % encoding, though doi.org handles this well.
-      full_doi_url_for_href = "#{doi_url_prefix}#{doi_slug_to_link}"
+    # Text to display for the link (the slug itself, HTML escaped)
+    escaped_slug_for_display = _escapeHTML(doi_slug_to_link)
 
-      return "doi:#{NBSP}<a href=\"#{full_doi_url_for_href}\">#{escaped_slug_for_display}</a>"
-    else
-      # Case 3: Fallback - input is not a recognized DOI slug or linkable DOI URL.
-      # Output the original input (HTML escaped), prefixed with "doi: ".
-      return "doi:#{NBSP}#{_escapeHTML(doi_input_str)}"
-    end
+    # URL for the href attribute (raw, unescaped slug)
+    # Ensure no double escaping if the slug itself had % encoding, though doi.org handles this well.
+    full_doi_url_for_href = "#{doi_url_prefix}#{doi_slug_to_link}"
+
+    "doi:#{NBSP}<a href=\"#{full_doi_url_for_href}\">#{escaped_slug_for_display}</a>"
+
+    # Case 3: Fallback - input is not a recognized DOI slug or linkable DOI URL.
+    # Output the original input (HTML escaped), prefixed with "doi: ".
   end
 
   def self._generate_access_date_part(access_date:)
     return nil unless _present?(access_date)
+
     "Retrieved #{_escapeHTML(access_date)}"
   end
 end

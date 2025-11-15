@@ -10,9 +10,10 @@ module Jekyll
     def initialize(tag_name, markup, tokens)
       super
       @author_name_markup = markup.strip
-      if @author_name_markup.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'display_books_by_author': Author name (string literal or variable) is required."
-      end
+      return unless @author_name_markup.empty?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'display_books_by_author': Author name (string literal or variable) is required."
     end
 
     def render(context)

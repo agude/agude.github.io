@@ -1,8 +1,8 @@
 # _plugins/utils/article_card_utils.rb
 require 'cgi'
-require_relative './plugin_logger_utils'
-require_relative './card_data_extractor_utils'
-require_relative './card_renderer_utils'
+require_relative 'plugin_logger_utils'
+require_relative 'card_data_extractor_utils'
+require_relative 'card_renderer_utils'
 
 require_relative 'typography_utils'
 module ArticleCardUtils
@@ -11,13 +11,13 @@ module ArticleCardUtils
     base_data = CardDataExtractorUtils.extract_base_data(
       post_object,
       context,
-      default_title: "Untitled Post",
-      log_tag_type: "ARTICLE_CARD_UTIL" # Specific log type for this util's errors
+      default_title: 'Untitled Post',
+      log_tag_type: 'ARTICLE_CARD_UTIL' # Specific log type for this util's errors
     )
 
     # Initialize log_output from base_data extraction.
     # This ensures any logs from the extractor are preserved.
-    log_output_accumulator = base_data[:log_output] || ""
+    log_output_accumulator = base_data[:log_output] || ''
 
     # If base_data extraction failed critically (e.g., no context/site), return the log message
     return log_output_accumulator if base_data[:site].nil?
@@ -33,7 +33,7 @@ module ArticleCardUtils
     # --- Image Alt Text Handling & Logging ---
     image_path_fm = data_accessor['image']
     image_alt_fm = data_accessor['image_alt']
-    final_image_alt = ""
+    final_image_alt = ''
 
     if image_path_fm && !image_path_fm.to_s.strip.empty?
       # Image is present
@@ -41,11 +41,11 @@ module ArticleCardUtils
         final_image_alt = image_alt_fm
       else
         # Image exists, but user did not provide alt text. This is a warning.
-        final_image_alt = "Article header image, used for decoration." # Provide a default
+        final_image_alt = 'Article header image, used for decoration.' # Provide a default
         # Prepend the warning to the accumulator
         log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
           context: context,
-          tag_type: "ARTICLE_CARD_ALT_MISSING", # Specific tag type for this warning
+          tag_type: 'ARTICLE_CARD_ALT_MISSING', # Specific tag type for this warning
           reason: "Missing 'image_alt' front matter for article image. Using default alt text.",
           identifiers: { article_title: base_data[:raw_title], image_path: image_path_fm },
           level: :warn
@@ -56,7 +56,7 @@ module ArticleCardUtils
       # If an image was desired but path is missing, extract_base_data would have image_url as nil.
       # CardRendererUtils will not render an <img> tag if image_url is nil.
       # We can set a generic alt here, but it won't be used if no image is rendered.
-      final_image_alt = "Article header image, used for decoration." # Default, may not be used
+      final_image_alt = 'Article header image, used for decoration.' # Default, may not be used
     end
 
     # Pass the same data_accessor (which is the item_object/Drop) to extract_description_html
@@ -64,15 +64,15 @@ module ArticleCardUtils
 
     # --- Assemble card_data for the generic renderer ---
     card_data_hash = {
-      base_class: "article-card",
+      base_class: 'article-card',
       url: base_data[:absolute_url],
       image_url: base_data[:absolute_image_url], # This comes from extract_base_data
       image_alt: final_image_alt, # Use the determined final_image_alt
-      image_div_class: "card-image",
+      image_div_class: 'card-image',
       title_html: title_html,
       description_html: description_html,
       description_wrapper_html_open: "<br>\n", # Article card specific
-      description_wrapper_html_close: "",      # Article card specific
+      description_wrapper_html_close: '',      # Article card specific
       extra_elements_html: [] # No extra elements for a basic article card
     }
 

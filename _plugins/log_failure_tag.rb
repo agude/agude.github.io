@@ -18,7 +18,7 @@ module Jekyll
   #   Other key-value pairs: Optional identifiers to include in the log message. Values can be literals or variables.
   #
   class LogFailureTag < Liquid::Tag
-    SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o.freeze
+    SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
 
     def initialize(tag_name, markup, tokens)
       super
@@ -36,16 +36,19 @@ module Jekyll
 
       # Check if there's any unparsed text left
       unless scanner.eos?
-        raise Liquid::SyntaxError, "Syntax Error in 'log_failure': Invalid arguments near '#{scanner.rest}' in '#{@raw_markup}'"
+        raise Liquid::SyntaxError,
+              "Syntax Error in 'log_failure': Invalid arguments near '#{scanner.rest}' in '#{@raw_markup}'"
       end
 
       # Validate required arguments
       unless @attributes['type']
-        raise Liquid::SyntaxError, "Syntax Error in 'log_failure': Required argument 'type' is missing in '#{@raw_markup}'"
+        raise Liquid::SyntaxError,
+              "Syntax Error in 'log_failure': Required argument 'type' is missing in '#{@raw_markup}'"
       end
-      unless @attributes['reason']
-        raise Liquid::SyntaxError, "Syntax Error in 'log_failure': Required argument 'reason' is missing in '#{@raw_markup}'"
-      end
+      return if @attributes['reason']
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'log_failure': Required argument 'reason' is missing in '#{@raw_markup}'"
     end
 
     def render(context)
@@ -57,7 +60,8 @@ module Jekyll
       identifiers = {}
       @attributes.each do |key, value_markup|
         # Skip the required args we already handled
-        next if key == 'type' || key == 'reason'
+        next if %w[type reason].include?(key)
+
         # Use the key as-is (it's already a string from the scanner)
         identifiers[key] = TagArgumentUtils.resolve_value(value_markup, context)
       end

@@ -1,9 +1,8 @@
 # _plugins/utils/json_ld_utils.rb
-require_relative './text_processing_utils' # For cleaning/truncating text
-require_relative './url_utils'           # For absolute URLs
+require_relative 'text_processing_utils' # For cleaning/truncating text
+require_relative 'url_utils' # For absolute URLs
 
 module JsonLdUtils
-
   # --- Person Schema Object Helpers ---
 
   # Generates a Schema.org Person object from site configuration.
@@ -16,13 +15,13 @@ module JsonLdUtils
     return nil if person_name.to_s.strip.empty?
 
     person_data = {
-      "@type" => "Person",
-      "name" => person_name
+      '@type' => 'Person',
+      'name' => person_name
     }
 
     if include_site_url
-      site_root_url = UrlUtils.absolute_url("", site)
-      person_data["url"] = site_root_url if site_root_url && !site_root_url.empty?
+      site_root_url = UrlUtils.absolute_url('', site)
+      person_data['url'] = site_root_url if site_root_url && !site_root_url.empty?
     end
     person_data
   end
@@ -33,9 +32,10 @@ module JsonLdUtils
   def self.build_document_person_entity(person_name_raw) # Renamed from get_document_person_object
     person_name = person_name_raw.to_s.strip
     return nil if person_name.empty?
+
     {
-      "@type" => "Person",
-      "name" => person_name
+      '@type' => 'Person',
+      'name' => person_name
     }
   end
 
@@ -48,9 +48,10 @@ module JsonLdUtils
   def self.build_image_object_entity(image_path_raw, site) # Renamed from get_image_object
     image_path = image_path_raw.to_s.strip
     return nil if image_path.empty?
+
     {
-      "@type" => "ImageObject",
-      "url" => UrlUtils.absolute_url(image_path, site)
+      '@type' => 'ImageObject',
+      'url' => UrlUtils.absolute_url(image_path, site)
       # "height" and "width" could be added if a mechanism to fetch them exists
     }
   end
@@ -64,7 +65,7 @@ module JsonLdUtils
   #                                     If nil, no truncation.
   # @return [String, nil] The cleaned (and optionally truncated) text, or nil if no suitable content found.
   def self.extract_descriptive_text(document, field_priority:, truncate_options: nil)
-    html_content = ""
+    html_content = ''
     field_priority.each do |field_key|
       source_content = nil
       # Use duck typing: check if it has an 'output' method we can call
@@ -90,7 +91,7 @@ module JsonLdUtils
     return nil if cleaned_text.empty?
 
     if truncate_options && truncate_options[:words]
-      TextProcessingUtils.truncate_words(cleaned_text, truncate_options[:words], truncate_options[:omission] || "...")
+      TextProcessingUtils.truncate_words(cleaned_text, truncate_options[:words], truncate_options[:omission] || '...')
     else
       cleaned_text
     end
@@ -101,15 +102,15 @@ module JsonLdUtils
   # Generates a Schema.org Rating object.
   # @param rating_value_raw The raw rating value.
   # @return [Hash, nil] The Ruby Hash representing the Rating object, or nil if rating is invalid.
-  def self.build_rating_entity(rating_value_raw, best_rating: "5", worst_rating: "1") # Renamed
+  def self.build_rating_entity(rating_value_raw, best_rating: '5', worst_rating: '1') # Renamed
     rating_value = rating_value_raw.to_i
     return nil if rating_value <= 0
 
     {
-      "@type" => "Rating",
-      "ratingValue" => rating_value.to_s,
-      "bestRating" => best_rating.to_s,
-      "worstRating" => worst_rating.to_s
+      '@type' => 'Rating',
+      'ratingValue' => rating_value.to_s,
+      'bestRating' => best_rating.to_s,
+      'worstRating' => worst_rating.to_s
     }
   end
 
@@ -124,15 +125,14 @@ module JsonLdUtils
     return nil if series_name.empty?
 
     series_data = {
-      "@type" => "BookSeries",
-      "name" => series_name
+      '@type' => 'BookSeries',
+      'name' => series_name
     }
     position = position_raw.to_i
-    series_data["position"] = position.to_s if position > 0
+    series_data['position'] = position.to_s if position > 0
 
     series_data
   end
-
 
   # --- Utility Helpers ---
 
@@ -152,5 +152,4 @@ module JsonLdUtils
     end
     data_hash
   end
-
 end

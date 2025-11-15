@@ -2,7 +2,6 @@
 require 'jekyll'
 require 'liquid'
 require 'cgi' # For CGI.escapeHTML
-require 'set'
 require_relative 'utils/book_list_utils'
 require_relative 'utils/book_card_utils'
 
@@ -17,9 +16,9 @@ module Jekyll
   class DisplayBooksByTitleAlphaGroupTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
       super
-      unless markup.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
-      end
+      return if markup.strip.empty?
+
+      raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
     end
 
     def render(context)
@@ -31,10 +30,10 @@ module Jekyll
         context: context
       )
 
-      output = data_by_title_group[:log_messages] || ""
+      output = data_by_title_group[:log_messages] || ''
 
       return output if data_by_title_group[:alpha_groups].empty? && !output.empty?
-      return "" if data_by_title_group[:alpha_groups].empty?
+      return '' if data_by_title_group[:alpha_groups].empty?
 
       # --- Generate the alphabetical jump links navigation ---
       existing_letters = Set.new(data_by_title_group[:alpha_groups].map { |g| g[:letter] })
@@ -44,7 +43,7 @@ module Jekyll
       all_chars_for_nav.each do |char|
         if existing_letters.include?(char)
           # Letter exists, create a link.
-          id_letter = char == "#" ? "hash" : char.downcase
+          id_letter = char == '#' ? 'hash' : char.downcase
           nav_links << "<a href=\"#letter-#{CGI.escapeHTML(id_letter)}\">#{CGI.escapeHTML(char)}</a>"
         else
           # Letter does not exist, create a non-linked span.
@@ -63,7 +62,7 @@ module Jekyll
         books_in_group = alpha_group[:books]
 
         # Letter heading is H2. ID is "letter-a", "letter-b", etc. or "letter-hash"
-        id_letter = letter == "#" ? "hash" : letter.downcase
+        id_letter = letter == '#' ? 'hash' : letter.downcase
         output << "<h2 class=\"book-list-headline\" id=\"letter-#{CGI.escapeHTML(id_letter)}\">#{CGI.escapeHTML(letter)}</h2>\n"
         output << "<div class=\"card-grid\">\n"
 
