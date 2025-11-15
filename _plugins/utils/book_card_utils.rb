@@ -10,7 +10,7 @@ require_relative 'typography_utils'
 module BookCardUtils
   DEFAULT_TITLE_FOR_BOOK_CARD = "Untitled Book".freeze
 
-  def self.render(book_object, context)
+  def self.render(book_object, context, display_title_override: nil)
     base_data = CardDataExtractorUtils.extract_base_data(
       book_object,
       context,
@@ -25,8 +25,11 @@ module BookCardUtils
 
     data_accessor = base_data[:data_source_for_keys]
 
-    # --- Title Check ---
-    if base_data[:raw_title] == DEFAULT_TITLE_FOR_BOOK_CARD
+    # --- Title Handling ---
+    # Use the override if it's provided and not blank, otherwise use the book's title.
+    title_to_render = display_title_override.to_s.strip.empty? ? base_data[:raw_title] : display_title_override
+
+    if title_to_render == DEFAULT_TITLE_FOR_BOOK_CARD
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
         tag_type: "BOOK_CARD_MISSING_TITLE",
@@ -35,7 +38,7 @@ module BookCardUtils
         level: :error,
       )
     end
-    prepared_title = TypographyUtils.prepare_display_title(base_data[:raw_title])
+    prepared_title = TypographyUtils.prepare_display_title(title_to_render)
     title_html = "<strong><cite class=\"book-title\">#{prepared_title}</cite></strong>"
 
     # --- Image Path and Alt Text Handling ---
@@ -56,7 +59,7 @@ module BookCardUtils
           identifiers: { book_title: base_data[:raw_title], image_path: image_path_fm },
           level: :debug,
         )
-        final_image_alt = "Book cover of #{base_data[:raw_title]}." # Construct default
+        final_image_alt = "Book cover of #{title_to_render}." # Construct default using the final title
       end
     else
       # Image path is NOT provided in front matter. This is an error for books.
@@ -67,7 +70,7 @@ module BookCardUtils
         identifiers: { book_title: base_data[:raw_title] },
         level: :error,
       )
-      final_image_alt = "Book cover of #{base_data[:raw_title]}." # Construct anyway, though image_url will be nil
+      final_image_alt = "Book cover of #{title_to_render}." # Construct anyway, though image_url will be nil
     end
 
     # --- Excerpt Check ---

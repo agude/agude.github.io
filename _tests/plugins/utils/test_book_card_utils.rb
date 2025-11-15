@@ -51,8 +51,38 @@ class TestBookCardUtils < Minitest::Test
 
     @silent_logger_stub = Object.new.tap do |logger|
       def logger.warn(topic, message); end; def logger.error(topic, message); end
-      def logger.info(topic, message); end;  def logger.debug(topic, message); end
+      def logger.info(topic, message); end; def logger.debug(topic, message); end
     end
+  end
+
+  def test_uses_display_title_override_when_provided
+    book = @book_object_single_author
+    override_title = "This is a Custom Title"
+
+    # 1. Test with the override
+    output_with_override = ""
+    Jekyll.stub :logger, @silent_logger_stub do
+      output_with_override = BookCardUtils.render(book, @context, display_title_override: override_title)
+    end
+
+    assert_match "<strong><cite class=\"book-title\">#{override_title}</cite></strong>", output_with_override
+    refute_match "My Book Title", output_with_override
+
+    # 2. Test without the override (should use default title)
+    output_without_override = ""
+    Jekyll.stub :logger, @silent_logger_stub do
+      output_without_override = BookCardUtils.render(book, @context)
+    end
+
+    assert_match "<strong><cite class=\"book-title\">My Book Title</cite></strong>", output_without_override
+    refute_match "This is a Custom Title", output_without_override
+
+    # 3. Test with a blank override (should use default title)
+    output_with_blank_override = ""
+    Jekyll.stub :logger, @silent_logger_stub do
+      output_with_blank_override = BookCardUtils.render(book, @context, display_title_override: "   ")
+    end
+    assert_match "<strong><cite class=\"book-title\">My Book Title</cite></strong>", output_with_blank_override
   end
 
   def test_render_book_card_single_author_success
