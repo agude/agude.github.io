@@ -28,7 +28,7 @@ class TestLinkCacheGenerator < Minitest::Test
     refute_nil cache
     assert_equal({ 'url' => '/authors/jane-doe.html', 'title' => 'Jane Doe' }, cache['authors']['jane doe'])
     assert_equal({ 'url' => '/series/foundation.html', 'title' => 'The Foundation' }, cache['series']['the foundation'])
-    assert_equal({ 'url' => '/books/book-one.html', 'title' => 'Book One', 'authors' => ['Author A'] }, cache['books']['book one'].first)
+    assert_equal({ 'url' => '/books/book-one.html', 'title' => 'Book One', 'authors' => ['Author A'], 'canonical_for' => nil }, cache['books']['book one'].first)
     assert_nil cache['books']['unpublished book']
     assert_equal 1, cache['sidebar_nav'].size
     assert_equal 1, cache['books_topbar_nav'].size
@@ -38,6 +38,30 @@ class TestLinkCacheGenerator < Minitest::Test
   def test_generator_handles_duplicate_book_titles
     book_cache = @site.data['link_cache']['books']
     assert_equal 2, book_cache['duplicate title'].length
+  end
+
+  def test_generator_builds_canonical_and_family_maps
+    canonical_book = create_doc({ 'title' => 'Canonical Book', 'published' => true }, '/books/canonical.html')
+    archived_book = create_doc({ 'title' => 'Canonical Book', 'published' => true, 'canonical_for' => '/books/canonical.html' }, '/books/canonical/2023.html')
+    standalone_book = create_doc({ 'title' => 'Standalone Book', 'published' => true }, '/books/standalone.html')
+
+    site = create_site({}, { 'books' => [canonical_book, archived_book, standalone_book] })
+    cache = site.data['link_cache']
+
+    # Test url_to_canonical_map
+    map = cache['url_to_canonical_map']
+    refute_nil map
+    assert_equal '/books/canonical.html', map['/books/canonical.html']
+    assert_equal '/books/canonical.html', map['/books/canonical/2023.html']
+    assert_equal '/books/standalone.html', map['/books/standalone.html']
+
+    # Test book_families
+    families = cache['book_families']
+    refute_nil families
+    assert_equal 2, families['/books/canonical.html'].length
+    assert_includes families['/books/canonical.html'], '/books/canonical.html'
+    assert_includes families['/books/canonical.html'], '/books/canonical/2023.html'
+    assert_equal ['/books/standalone.html'], families['/books/standalone.html']
   end
 
   # REWRITTEN TEST: This now tests that the validator catches raw links and fails the build.

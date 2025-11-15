@@ -33,6 +33,8 @@ module Jekyll
         'backlinks' => {},
         'favorites_mentions' => {},
         'favorites_posts_to_books' => {},
+        'url_to_canonical_map' => {},
+        'book_families' => Hash.new { |h, k| h[k] = [] }
       }
 
       # --- Initialize the mention tracker ---
@@ -73,7 +75,7 @@ module Jekyll
           next if book.data['published'] == false
           title = book.data['title']
           next unless title && !title.strip.empty?
-          cache_book_page(book, link_cache['books'])
+          cache_book_page(book, link_cache) # Pass the whole cache
           cache_book_in_series_map(book, link_cache['series_map'])
         end
       end
@@ -134,18 +136,27 @@ module Jekyll
     end
 
     # Caches a book page. Now handles multiple books with the same title by storing an array.
-    def cache_book_page(book, book_cache)
+    def cache_book_page(book, link_cache)
       title = book.data['title'].strip
       normalized_title = TextProcessingUtils.normalize_title(title)
+      book_cache = link_cache['books']
 
       # Get authors for this book entry to store them in the cache.
       author_names = FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
-      book_data = { 'url' => book.url, 'title' => title, 'authors' => author_names }
+      book_data = {
+        'url' => book.url,
+        'title' => title,
+        'authors' => author_names,
+        'canonical_for' => book.data['canonical_for'] # This will be nil for canonical books
+      }
 
-      # If the key doesn't exist, initialize it with an array.
-      # Then, append the new book data to the array.
       book_cache[normalized_title] ||= []
       book_cache[normalized_title] << book_data
+
+      # --- Populate the new cache structures ---
+      canonical_url = book.data['canonical_for'] || book.url
+      link_cache['url_to_canonical_map'][book.url] = canonical_url
+      link_cache['book_families'][canonical_url] << book.url
     end
 
     # Adds a book to the series map.
