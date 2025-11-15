@@ -85,26 +85,8 @@ layout: default
 
 <hr>
 
-{%- comment -%} On a CANONICAL page, list its archives using book cards {%- endcomment -%}
-{%- assign archived_review_docs = "" | split: "" -%}
-{%- for book in site.books -%}
-  {%- if book.canonical_for == page.url -%}
-    {%- assign archived_review_docs = archived_review_docs | push: book -%}
-  {%- endif -%}
-{%- endfor -%}
-
-{%- if archived_review_docs.size > 0 -%}
-  <aside class="previous-reviews">
-    <h2 class="book-review-headline">Previous Reviews</h2>
-    <div class="card-grid">
-      {%- assign sorted_docs = archived_review_docs | sort: "date" | reverse -%}
-      {%- for doc in sorted_docs -%}
-        {%- capture card_subtitle -%}Review from {{ doc.date | date: '%B %d, %Y' }}{%- endcapture -%}
-        {% render_book_card doc subtitle=card_subtitle %}
-      {%- endfor -%}
-    </div>
-  </aside>
-{%- endif -%}
+<!-- Previous Reviews (if any) -->
+{% display_previous_reviews %}
 
 <!-- Backlinks -->
 {% book_backlinks %}
