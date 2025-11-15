@@ -50,6 +50,7 @@ module Jekyll
       backlinks_cache = link_cache['backlinks'] || {}
       canonical_map = link_cache['url_to_canonical_map'] || {}
       book_families = link_cache['book_families'] || {}
+      series_map = link_cache['series_map'] || {}
 
       # --- Identify all versions of this book using the new cache ---
       canonical_url = canonical_map[page['url']]
@@ -61,19 +62,51 @@ module Jekyll
       all_version_urls.each do |url|
         (backlinks_cache[url] || []).each do |entry|
           source_url = entry[:source].url
-          # Use source_url as key to auto-deduplicate
           merged_backlinks[source_url] = entry
         end
       end
-      backlink_entries = merged_backlinks.values
+
+      # --- NEW: Gather backlinks from series mentions ---
+      current_series_name = page['series']
+      if current_series_name && !current_series_name.strip.empty?
+        normalized_series = TextProcessingUtils.normalize_title(current_series_name)
+        books_in_series = series_map[normalized_series] || []
+        books_in_series.each do |book_in_series|
+          (backlinks_cache[book_in_series.url] || []).each do |entry|
+            if entry[:type] == 'series'
+              source_url = entry[:source].url
+              # Don't overwrite a direct book link with a series link
+              merged_backlinks[source_url] ||= entry
+            end
+          end
+        end
+      end
+
+      # --- Deduplicate sources based on their canonical URL, respecting link priority ---
+      unique_canonical_sources = {}
+      merged_backlinks.values.each do |entry|
+        source_doc = entry[:source]
+        source_canonical_url = canonical_map[source_doc.url] || source_doc.url
+
+        existing_entry = unique_canonical_sources[source_canonical_url]
+
+        priority_map = defined?(Jekyll::LinkCacheGenerator::LINK_TYPE_PRIORITY) ? Jekyll::LinkCacheGenerator::LINK_TYPE_PRIORITY : {}
+        new_priority = priority_map[entry[:type]] || 0
+        existing_priority = existing_entry ? (priority_map[existing_entry[:type]] || 0) : -1
+
+        if new_priority >= existing_priority # Use >= to ensure at least one entry is kept
+          unique_canonical_sources[source_canonical_url] = entry
+        end
+      end
+      backlink_entries = unique_canonical_sources.values
 
       return "" if backlink_entries.empty?
 
       # Map to [sort_key, canonical_title, url, type] tuples for sorting.
-      # CRITICAL: Filter out any backlink that comes from another version of the same book.
       backlinks_data = backlink_entries.map do |entry|
         book_doc = entry[:source]
-        next if all_version_urls.include?(book_doc.url) # Exclude self-references
+        source_canonical_url = canonical_map[book_doc.url] || book_doc.url
+        next if source_canonical_url == canonical_url # Exclude self-references
 
         link_type = entry[:type]
         title = book_doc.data['title']

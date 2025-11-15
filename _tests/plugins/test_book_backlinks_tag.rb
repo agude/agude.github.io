@@ -183,6 +183,61 @@ class TestBookBacklinksTag < Minitest::Test
     refute_match(/<a>(Canonical|Archived)<\/a>/, output_archived)
   end
 
+  def test_deduplicates_backlinks_from_multiple_versions_of_same_book
+    target_book = create_doc({ 'title' => 'Target' }, '/target.html')
+    source_canonical = create_doc({ 'title' => 'Source Book' }, '/source.html')
+    source_archived = create_doc({ 'title' => 'Source Book', 'canonical_for' => '/source.html' }, '/source-archived.html')
+
+    # Create a fresh site so the generator populates all maps correctly
+    site = create_site({}, { 'books' => [target_book, source_canonical, source_archived] })
+    link_cache = site.data['link_cache']
+    link_cache['backlinks'] = {
+      '/target.html' => [
+        { source: source_canonical, type: 'book' },
+        { source: source_archived, type: 'book' }
+      ]
+    }
+
+    context = create_context({}, { site: site, page: target_book })
+    output = render_tag(context)
+
+    assert_equal 1, output.scan(/Source Book/).count, "Should only list 'Source Book' once"
+  end
+
+  def test_includes_backlinks_from_series_mentions_for_all_series_books
+    series_book_1 = create_doc({ 'title' => 'Series Book 1', 'series' => 'My Series' }, '/series-1.html')
+    series_book_2 = create_doc({ 'title' => 'Series Book 2', 'series' => 'My Series' }, '/series-2.html')
+    source_for_series = create_doc({ 'title' => 'Source for Series' }, '/source-series.html')
+    source_for_book1 = create_doc({ 'title' => 'Source for Book 1' }, '/source-book1.html')
+
+    # Create a fresh site so the generator populates all maps correctly
+    site = create_site({}, { 'books' => [series_book_1, series_book_2, source_for_series, source_for_book1] })
+    link_cache = site.data['link_cache']
+    link_cache['backlinks'] = {
+      '/series-1.html' => [
+        { source: source_for_series, type: 'series' },
+        { source: source_for_book1, type: 'book' }
+      ],
+      '/series-2.html' => [
+        { source: source_for_series, type: 'series' }
+      ]
+    }
+
+    # Test on Series Book 2, which only has an indirect series mention
+    context_book2 = create_context({}, { site: site, page: series_book_2 })
+    output_book2 = render_tag(context_book2)
+
+    assert_match(/Source for Series/, output_book2, "Book 2 should find backlink from series mention")
+    refute_match(/Source for Book 1/, output_book2, "Book 2 should not find backlink meant only for Book 1")
+    assert_match(/series-mention-indicator/, output_book2, "Should have the dagger for series mentions")
+
+    # Test on Series Book 1, which has both
+    context_book1 = create_context({}, { site: site, page: series_book_1 })
+    output_book1 = render_tag(context_book1)
+    assert_match(/Source for Series/, output_book1, "Book 1 should also find backlink from series mention")
+    assert_match(/Source for Book 1/, output_book1, "Book 1 should find its direct backlink")
+  end
+
   # --- Prerequisite Failure Tests (Unchanged) ---
 
   def test_returns_empty_and_logs_if_page_missing
