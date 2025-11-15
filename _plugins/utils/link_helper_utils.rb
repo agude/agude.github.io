@@ -45,8 +45,13 @@ module LinkHelperUtils
     target_base_url = target_parts[0]
     target_fragment = target_parts[1] # This will be nil if no '#'
 
-    # Case 1: The link is to a different page. Generate a full link.
-    if target_base_url != current_page_url
+    # Use the canonical map to check for self-links between related reviews
+    canonical_map = site.data.dig('link_cache', 'url_to_canonical_map') || {}
+    current_canonical_url = canonical_map[current_page_url] || current_page_url
+    target_canonical_url = canonical_map[target_base_url] || target_base_url
+
+    # Case 1: The link is to a different conceptual page. Generate a full link.
+    if current_canonical_url != target_canonical_url
       baseurl = site.config['baseurl'] || ''
       href = target_url_str
       if !baseurl.empty? && !href.start_with?('/') && !href.start_with?(baseurl)
@@ -55,11 +60,11 @@ module LinkHelperUtils
       href = href.start_with?(baseurl) ? href : "#{baseurl}#{href}"
       "<a href=\"#{href}\">#{inner_html_element}</a>"
 
-      # Case 2: The link is to an anchor on the *same* page. Generate a relative anchor link.
+      # Case 2: The link is to an anchor on the *same* conceptual page. Generate a relative anchor link.
     elsif target_fragment
       "<a href=\"##{target_fragment}\">#{inner_html_element}</a>"
 
-      # Case 3: The link is to the same page with no anchor (a true self-link). Suppress it.
+      # Case 3: The link is to the same conceptual page with no anchor (a true self-link). Suppress it.
     else
       inner_html_element
     end

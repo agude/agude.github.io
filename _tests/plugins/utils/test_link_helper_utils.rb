@@ -95,6 +95,27 @@ class TestLinkHelperUtils < Minitest::Test
     assert_equal expected, LinkHelperUtils._generate_link_html(ctx, target_url_no_fragment, inner_html)
   end
 
+  def test_generate_link_suppresses_links_between_canonical_and_archived
+    site = create_site
+    canonical_page = create_doc({}, '/books/canonical.html')
+    archived_page = create_doc({}, '/books/archived.html')
+    site.data['link_cache']['url_to_canonical_map'] = {
+      '/books/canonical.html' => '/books/canonical.html',
+      '/books/archived.html' => '/books/canonical.html'
+    }
+    inner_html = "<cite>Link</cite>"
+
+    # Test from archived page to canonical page
+    ctx_from_archived = create_context({}, { site: site, page: archived_page })
+    output_from_archived = LinkHelperUtils._generate_link_html(ctx_from_archived, canonical_page.url, inner_html)
+    assert_equal inner_html, output_from_archived, "Link from archived to canonical should be suppressed"
+
+    # Test from canonical page to archived page
+    ctx_from_canonical = create_context({}, { site: site, page: canonical_page })
+    output_from_canonical = LinkHelperUtils._generate_link_html(ctx_from_canonical, archived_page.url, inner_html)
+    assert_equal inner_html, output_from_canonical, "Link from canonical to archived should be suppressed"
+  end
+
   def test_generate_link_doc_not_found
     site = create_site
     current_page = create_doc({}, '/current.html')
