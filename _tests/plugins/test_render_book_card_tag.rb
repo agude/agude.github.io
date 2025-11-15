@@ -12,7 +12,8 @@ class TestRenderBookCardTag < Minitest::Test
         'my_book' => @book_obj,
         'nil_book_var' => nil,
         'title_var' => 'Title From Variable',
-        'nil_title_var' => nil
+        'nil_title_var' => nil,
+        'subtitle_var' => 'Subtitle From Variable'
       },
       { site: @site, page: create_doc({ 'path' => 'current_page.md' }, '/current-page.html') } # Page path for SourcePage
     )
@@ -61,8 +62,8 @@ class TestRenderBookCardTag < Minitest::Test
     expected_card_html = "<div class='book-card'>Rendered Test Book</div>"
     captured_args = nil
 
-    BookCardUtils.stub :render, ->(book_arg, context_arg, display_title_override: nil) {
-      captured_args = { book: book_arg, context: context_arg, display_title_override: display_title_override }
+    BookCardUtils.stub :render, ->(book_arg, context_arg, display_title_override: nil, subtitle: nil) {
+      captured_args = { book: book_arg, context: context_arg, display_title_override: display_title_override, subtitle: subtitle }
       expected_card_html
     } do
       output = render_tag(markup)
@@ -73,13 +74,14 @@ class TestRenderBookCardTag < Minitest::Test
     assert_equal @book_obj, captured_args[:book], "Incorrect book object passed to BookCardUtils"
     assert_equal @context, captured_args[:context], "Incorrect context passed to BookCardUtils"
     assert_nil captured_args[:display_title_override], "display_title_override should be nil by default"
+    assert_nil captured_args[:subtitle], "subtitle should be nil by default"
   end
 
   def test_render_with_display_title_override_from_string
     markup = "my_book display_title='My Custom Title'"
     captured_args = nil
 
-    BookCardUtils.stub :render, ->(book_arg, context_arg, display_title_override: nil) {
+    BookCardUtils.stub :render, ->(book_arg, context_arg, display_title_override: nil, subtitle: nil) {
       captured_args = { display_title_override: display_title_override }
       ""
     } do
@@ -90,11 +92,41 @@ class TestRenderBookCardTag < Minitest::Test
     assert_equal "My Custom Title", captured_args[:display_title_override]
   end
 
+  def test_render_with_subtitle_from_string
+    markup = "my_book subtitle='My Subtitle'"
+    captured_args = nil
+
+    BookCardUtils.stub :render, ->(book_arg, context_arg, display_title_override: nil, subtitle: nil) {
+      captured_args = { subtitle: subtitle }
+      ""
+    } do
+      render_tag(markup)
+    end
+
+    refute_nil captured_args
+    assert_equal "My Subtitle", captured_args[:subtitle]
+  end
+
+  def test_render_with_subtitle_from_variable
+    markup = "my_book subtitle=subtitle_var"
+    captured_args = nil
+
+    BookCardUtils.stub :render, ->(book_arg, context_arg, display_title_override: nil, subtitle: nil) {
+      captured_args = { subtitle: subtitle }
+      ""
+    } do
+      render_tag(markup)
+    end
+
+    refute_nil captured_args
+    assert_equal "Subtitle From Variable", captured_args[:subtitle]
+  end
+
   def test_render_with_display_title_override_from_variable
     markup = "my_book display_title=title_var" # title_var is 'Title From Variable'
     captured_args = nil
 
-    BookCardUtils.stub :render, ->(book_arg, context_arg, display_title_override: nil) {
+    BookCardUtils.stub :render, ->(book_arg, context_arg, display_title_override: nil, subtitle: nil) {
       captured_args = { display_title_override: display_title_override }
       ""
     } do
@@ -109,7 +141,7 @@ class TestRenderBookCardTag < Minitest::Test
     # Test with an empty string literal
     markup_empty = "my_book display_title=''"
     captured_args_empty = nil
-    BookCardUtils.stub :render, ->(b, c, display_title_override: nil) { captured_args_empty = { o: display_title_override }; "" } do
+    BookCardUtils.stub :render, ->(b, c, display_title_override: nil, subtitle: nil) { captured_args_empty = { o: display_title_override }; "" } do
       render_tag(markup_empty)
     end
     assert_equal "", captured_args_empty[:o]
@@ -117,7 +149,7 @@ class TestRenderBookCardTag < Minitest::Test
     # Test with a variable that resolves to nil
     markup_nil = "my_book display_title=nil_title_var"
     captured_args_nil = nil
-    BookCardUtils.stub :render, ->(b, c, display_title_override: nil) { captured_args_nil = { o: display_title_override }; "" } do
+    BookCardUtils.stub :render, ->(b, c, display_title_override: nil, subtitle: nil) { captured_args_nil = { o: display_title_override }; "" } do
       render_tag(markup_nil)
     end
     assert_nil captured_args_nil[:o]
@@ -175,7 +207,7 @@ class TestRenderBookCardTag < Minitest::Test
 
     @site.config['plugin_logging']['RENDER_BOOK_CARD_TAG'] = true
 
-    BookCardUtils.stub :render, ->(_book, _ctx, display_title_override: nil) { raise StandardError, error_message } do
+    BookCardUtils.stub :render, ->(_book, _ctx, display_title_override: nil, subtitle: nil) { raise StandardError, error_message } do
       PluginLoggerUtils.stub :log_liquid_failure, ->(args) {
         captured_log_args = args
         expected_log_html

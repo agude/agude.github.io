@@ -67,7 +67,9 @@ layout: default
   {%- comment -%} On an ARCHIVED page, link back to its canonical version {%- endcomment -%}
   {%- if page.canonical_for and page.canonical_for != "" -%}
     <div class="archived-notice">
-      This is an archived review from {{ page.date | date: '%B %d, %Y' }}. Read the <a href="{{ page.canonical_for | relative_url }}"><strong>current review</strong></a>.
+      This is an archived review from {{ page.date | date: '%B %d, %Y' }}.
+      Read the <a href="{{ page.canonical_for | relative_url
+      }}"><strong>current review</strong></a>.
     </div>
   {%- endif -%}
 
@@ -83,7 +85,7 @@ layout: default
 
 <hr>
 
-{%- comment -%} On a CANONICAL page, list its archives {%- endcomment -%}
+{%- comment -%} On a CANONICAL page, list its archives using book cards {%- endcomment -%}
 {%- assign archived_review_docs = "" | split: "" -%}
 {%- for book in site.books -%}
   {%- if book.canonical_for == page.url -%}
@@ -92,21 +94,15 @@ layout: default
 {%- endfor -%}
 
 {%- if archived_review_docs.size > 0 -%}
-  <!-- Previous Review -->
   <aside class="previous-reviews">
     <h2 class="book-review-headline">Previous Reviews</h2>
-
-    <ul class="previous-reviews-list">
+    <div class="card-grid">
       {%- assign sorted_docs = archived_review_docs | sort: "date" | reverse -%}
       {%- for doc in sorted_docs -%}
-        <li>
-          <a href="{{ doc.url | relative_url }}">Review from {{ doc.date | date: '%B %d, %Y' }}</a>
-          {%- if doc.rating -%}
-            &nbsp;{% rating_stars doc.rating wrapper_tag="span" %}
-          {%- endif -%}
-        </li>
+        {%- capture card_subtitle -%}Review from {{ doc.date | date: '%B %d, %Y' }}{%- endcapture -%}
+        {% render_book_card doc subtitle=card_subtitle %}
       {%- endfor -%}
-    </ul>
+    </div>
   </aside>
 {%- endif -%}
 

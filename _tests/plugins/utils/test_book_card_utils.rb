@@ -66,6 +66,7 @@ class TestBookCardUtils < Minitest::Test
     end
 
     assert_match "<strong><cite class=\"book-title\">#{override_title}</cite></strong>", output_with_override
+    assert_match "alt=\"Book cover of #{override_title}.\"", output_with_override
     refute_match "My Book Title", output_with_override
 
     # 2. Test without the override (should use default title)
@@ -83,6 +84,32 @@ class TestBookCardUtils < Minitest::Test
       output_with_blank_override = BookCardUtils.render(book, @context, display_title_override: "   ")
     end
     assert_match "<strong><cite class=\"book-title\">My Book Title</cite></strong>", output_with_blank_override
+  end
+
+  def test_renders_subtitle_when_provided
+    book = @book_object_single_author
+    subtitle_text = "A Special Subtitle"
+
+    # 1. Test with the subtitle
+    output_with_subtitle = ""
+    Jekyll.stub :logger, @silent_logger_stub do
+      output_with_subtitle = BookCardUtils.render(book, @context, subtitle: subtitle_text)
+    end
+    assert_match "<div class=\"card-subtitle\"><i>#{subtitle_text}</i></div>", output_with_subtitle
+
+    # 2. Test without the subtitle
+    output_without_subtitle = ""
+    Jekyll.stub :logger, @silent_logger_stub do
+      output_without_subtitle = BookCardUtils.render(book, @context)
+    end
+    refute_match "<div class=\"card-subtitle\">", output_without_subtitle
+
+    # 3. Test with a blank subtitle
+    output_with_blank_subtitle = ""
+    Jekyll.stub :logger, @silent_logger_stub do
+      output_with_blank_subtitle = BookCardUtils.render(book, @context, subtitle: "  ")
+    end
+    refute_match "<div class=\"card-subtitle\">", output_with_blank_subtitle
   end
 
   def test_render_book_card_single_author_success

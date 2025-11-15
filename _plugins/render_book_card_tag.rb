@@ -15,6 +15,7 @@ module Jekyll
       @raw_markup = markup.strip
       @book_object_markup = nil
       @display_title_markup = nil
+      @subtitle_markup = nil
 
       scanner = StringScanner.new(@raw_markup)
 
@@ -29,8 +30,11 @@ module Jekyll
         if scanner.scan(SYNTAX)
           key = scanner[1]
           value_markup = scanner[2]
-          if key == 'display_title'
+          case key
+          when 'display_title'
             @display_title_markup = value_markup
+          when 'subtitle'
+            @subtitle_markup = value_markup
           else
             raise Liquid::SyntaxError, "Syntax Error in 'render_book_card': Unknown argument '#{key}' in '#{@raw_markup}'"
           end
@@ -43,6 +47,7 @@ module Jekyll
     def render(context)
       book_object = TagArgumentUtils.resolve_value(@book_object_markup, context)
       display_title_override = @display_title_markup ? TagArgumentUtils.resolve_value(@display_title_markup, context) : nil
+      subtitle_text = @subtitle_markup ? TagArgumentUtils.resolve_value(@subtitle_markup, context) : nil
 
       unless book_object
         return PluginLoggerUtils.log_liquid_failure(
@@ -54,7 +59,7 @@ module Jekyll
       end
 
       # BookCardUtils.render handles more specific validation of the book_object
-      BookCardUtils.render(book_object, context, display_title_override: display_title_override)
+      BookCardUtils.render(book_object, context, display_title_override: display_title_override, subtitle: subtitle_text)
     rescue StandardError => e
       PluginLoggerUtils.log_liquid_failure(
         context: context,

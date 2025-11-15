@@ -10,7 +10,7 @@ require_relative 'typography_utils'
 module BookCardUtils
   DEFAULT_TITLE_FOR_BOOK_CARD = "Untitled Book".freeze
 
-  def self.render(book_object, context, display_title_override: nil)
+  def self.render(book_object, context, display_title_override: nil, subtitle: nil)
     base_data = CardDataExtractorUtils.extract_base_data(
       book_object,
       context,
@@ -85,7 +85,7 @@ module BookCardUtils
       )
     end
 
-    # --- Extra Elements (Author, Rating) ---
+    # --- Extra Elements (Author, Subtitle, Rating) ---
     extra_elements = []
     # Use FrontMatterUtils to get the list of authors
     author_names = FrontMatterUtils.get_list_from_string_or_array(data_accessor['book_authors'])
@@ -102,6 +102,11 @@ module BookCardUtils
         context: context, tag_type: "BOOK_CARD_MISSING_AUTHORS",
         reason: "'book_authors' field resolved to an empty list.",
         identifiers: { book_title: base_data[:raw_title] }, level: :warn ) # :warn as validator might catch it as :error
+    end
+
+    # Add subtitle if provided
+    if subtitle && !subtitle.to_s.strip.empty?
+      extra_elements << "    <div class=\"card-subtitle\"><i>#{CGI.escapeHTML(subtitle)}</i></div>\n"
     end
 
     if data_accessor.key?('rating')
