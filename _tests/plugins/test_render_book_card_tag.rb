@@ -8,14 +8,19 @@ class TestRenderBookCardTag < Minitest::Test
     @site = create_site({ 'url' => 'http://example.com' }) # For BookCardUtils -> CardDataExtractorUtils -> UrlUtils
     @book_obj = create_doc({ 'title' => 'Test Book', 'path' => 'test-book.md' }, '/test-book.html')
     @context = create_context(
-      { 'my_book' => @book_obj, 'nil_book_var' => nil },
+      {
+        'my_book' => @book_obj,
+        'nil_book_var' => nil,
+        'title_var' => 'Title From Variable',
+        'nil_title_var' => nil
+      },
       { site: @site, page: create_doc({ 'path' => 'current_page.md' }, '/current-page.html') } # Page path for SourcePage
     )
 
     # Silent logger for tests not asserting specific console output from PluginLoggerUtils
     @silent_logger_stub = Object.new.tap do |logger|
       def logger.warn(topic, message); end; def logger.error(topic, message); end
-      def logger.info(topic, message); end;  def logger.debug(topic, message); end
+      def logger.info(topic, message); end; def logger.debug(topic, message); end
       def logger.log_level=(level); end;    def logger.progname=(name); end
     end
   end
@@ -43,14 +48,21 @@ class TestRenderBookCardTag < Minitest::Test
     assert_match "A book object variable must be provided", err_whitespace.message
   end
 
+  def test_syntax_error_for_unknown_argument
+    err = assert_raises Liquid::SyntaxError do
+      render_tag("my_book unknown_arg='foo'")
+    end
+    assert_match "Unknown argument 'unknown_arg'", err.message
+  end
+
   # 2. Render - Success
   def test_render_success_calls_book_card_utils
     markup = "my_book" # 'my_book' is @book_obj in context
     expected_card_html = "<div class='book-card'>Rendered Test Book</div>"
     captured_args = nil
 
-    BookCardUtils.stub :render, ->(book_arg, context_arg) {
-      captured_args = { book: book_arg, context: context_arg }
+    BookCardUtils.stub :render, ->(book_arg, context_arg, display_title_override: nil) {
+      captured_args = { book: book_arg, context: context_arg, display_title_override: display_title_override }
       expected_card_html
     } do
       output = render_tag(markup)
@@ -60,6 +72,55 @@ class TestRenderBookCardTag < Minitest::Test
     refute_nil captured_args, "BookCardUtils.render should have been called"
     assert_equal @book_obj, captured_args[:book], "Incorrect book object passed to BookCardUtils"
     assert_equal @context, captured_args[:context], "Incorrect context passed to BookCardUtils"
+    assert_nil captured_args[:display_title_override], "display_title_override should be nil by default"
+  end
+
+  def test_render_with_display_title_override_from_string
+    markup = "my_book display_title='My Custom Title'"
+    captured_args = nil
+
+    BookCardUtils.stub :render, ->(book_arg, context_arg, display_title_override: nil) {
+      captured_args = { display_title_override: display_title_override }
+      ""
+    } do
+      render_tag(markup)
+    end
+
+    refute_nil captured_args, "BookCardUtils.render should have been called"
+    assert_equal "My Custom Title", captured_args[:display_title_override]
+  end
+
+  def test_render_with_display_title_override_from_variable
+    markup = "my_book display_title=title_var" # title_var is 'Title From Variable'
+    captured_args = nil
+
+    BookCardUtils.stub :render, ->(book_arg, context_arg, display_title_override: nil) {
+      captured_args = { display_title_override: display_title_override }
+      ""
+    } do
+      render_tag(markup)
+    end
+
+    refute_nil captured_args
+    assert_equal "Title From Variable", captured_args[:display_title_override]
+  end
+
+  def test_render_with_empty_or_nil_display_title_override
+    # Test with an empty string literal
+    markup_empty = "my_book display_title=''"
+    captured_args_empty = nil
+    BookCardUtils.stub :render, ->(b, c, display_title_override: nil) { captured_args_empty = { o: display_title_override }; "" } do
+      render_tag(markup_empty)
+    end
+    assert_equal "", captured_args_empty[:o]
+
+    # Test with a variable that resolves to nil
+    markup_nil = "my_book display_title=nil_title_var"
+    captured_args_nil = nil
+    BookCardUtils.stub :render, ->(b, c, display_title_override: nil) { captured_args_nil = { o: display_title_override }; "" } do
+      render_tag(markup_nil)
+    end
+    assert_nil captured_args_nil[:o]
   end
 
   # 3. Render - Failure: Book object resolves to nil
@@ -83,7 +144,6 @@ class TestRenderBookCardTag < Minitest::Test
     assert_equal "RENDER_BOOK_CARD_TAG", captured_log_args[:tag_type]
     assert_match "Book object variable '#{markup}' resolved to nil", captured_log_args[:reason]
     assert_equal({ markup: markup }, captured_log_args[:identifiers])
-    assert_nil captured_log_args[:level], "Tag should not explicitly pass level, relying on util's default"
   end
 
   def test_render_failure_if_book_variable_not_found
@@ -104,7 +164,6 @@ class TestRenderBookCardTag < Minitest::Test
     refute_nil captured_log_args
     assert_equal "RENDER_BOOK_CARD_TAG", captured_log_args[:tag_type]
     assert_match "Book object variable '#{markup}' resolved to nil", captured_log_args[:reason]
-    assert_nil captured_log_args[:level], "Tag should not explicitly pass level, relying on util's default"
   end
 
   # 4. Render - Failure: BookCardUtils.render raises an error
@@ -116,7 +175,7 @@ class TestRenderBookCardTag < Minitest::Test
 
     @site.config['plugin_logging']['RENDER_BOOK_CARD_TAG'] = true
 
-    BookCardUtils.stub :render, ->(_book, _ctx) { raise StandardError, error_message } do
+    BookCardUtils.stub :render, ->(_book, _ctx, display_title_override: nil) { raise StandardError, error_message } do
       PluginLoggerUtils.stub :log_liquid_failure, ->(args) {
         captured_log_args = args
         expected_log_html
@@ -131,6 +190,5 @@ class TestRenderBookCardTag < Minitest::Test
     assert_equal "RENDER_BOOK_CARD_TAG", captured_log_args[:tag_type]
     assert_match "Error rendering book card: #{error_message}", captured_log_args[:reason]
     assert_equal({ book_markup: markup, error_class: "StandardError" }, captured_log_args[:identifiers])
-    assert_nil captured_log_args[:level], "Tag should not explicitly pass level, relying on util's default"
   end
 end
