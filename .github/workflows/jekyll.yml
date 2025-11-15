@@ -1,10 +1,12 @@
+# .github/workflows/jekyll.yml
+#
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
 
 # Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Deploy Jekyll site to Pages
+name: Test and Deploy Jekyll site to Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -27,9 +29,29 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Test job
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          cache-version: 0
+
+      - name: Run linter
+        run: bundle exec rubocop
+
+      - name: Run tests
+        run: bundle exec ruby -I _plugins -I _tests -e "require 'test_helper'; Dir.glob('_tests/**/test_*.rb').each { |f| load f }"
+
   # Build job
   build:
     runs-on: ubuntu-latest
+    needs: test # This job only runs if the 'test' job succeeds
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -50,6 +72,13 @@ jobs:
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
+
+      - name: Check for broken links
+        run: |
+          bundle exec htmlproofer ./_site \
+            --disable-external \
+            --ignore-urls "/livereload.js/" \
+            --check-html
 
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default

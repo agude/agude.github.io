@@ -24,4 +24,6 @@ gem 'nokogiri', '~> 1.18'
 # Tests
 group :development, :test do
   gem 'minitest', '~> 5.25'
+  gem 'html-proofer', '~> 4.0' # For checking broken links and HTML validity
+  gem 'rubocop', '~> 1.56'     # For Ruby linting
 end

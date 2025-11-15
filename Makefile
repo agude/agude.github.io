@@ -20,7 +20,7 @@ BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 #   make test TEST=$$(find _tests/plugins/utils -name 'test_*.rb')
 TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb')
 
-.PHONY: all clean serve drafts debug image refresh lock test build profile
+.PHONY: all clean serve drafts debug image refresh lock test build profile lint check
 
 all: serve
 
@@ -70,10 +70,10 @@ clean: image
 	@echo "Cleaning Jekyll build artifacts..."
 	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll clean
 
-# Build the site. Depends on image and clean.
+# Build the site for production. Depends on image and clean.
 build: image clean
-	@echo "Building site..."
-	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll build
+	@echo "Building site for production..."
+	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) -e JEKYLL_ENV=production $(IMAGE) bundle exec jekyll build
 
 # Profile the site build. Depends on image and clean.
 profile: image clean
@@ -151,3 +151,24 @@ test: image # Depends on the Docker image being built/up-to-date
 		echo "Error: Tests failed." && exit 1; \
 	fi
 	@echo "Tests finished successfully."
+
+# Run RuboCop linter.
+lint: image
+	@echo "Running linter..."
+	@docker run --rm \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		$(IMAGE) \
+		bundle exec rubocop
+
+# Build the site and check for broken links/HTML issues.
+check: build
+	@echo "Checking generated site for broken links and HTML issues..."
+	@docker run --rm \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		$(IMAGE) \
+		bundle exec htmlproofer ./_site \
+		  --disable-external \
+		  --ignore-urls /livereload.js/ \
+		  --checks Links,HTML
