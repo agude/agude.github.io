@@ -7,6 +7,7 @@ require 'time' # Needed for Time.parse if mocking dates
 $LOAD_PATH.unshift(File.expand_path('../_plugins', __dir__))
 
 # Explicitly require plugins and utils
+require 'display_previous_reviews_tag'
 require 'link_cache_generator'
 require 'utils/article_card_utils'
 require 'utils/author_link_util'
@@ -174,6 +175,7 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
     'DISPLAY_RANKED_BOOKS' => false,
     'JSON_LD_REVIEW' => false,
     'POST_LIST_UTIL_CATEGORY' => false,
+    'PREVIOUS_REVIEWS' => false,
     'RELATED_BOOKS' => false,
     'RELATED_POSTS' => false,
     'RENDER_ARTICLE_CARD_TAG' => false,

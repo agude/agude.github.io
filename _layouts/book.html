@@ -64,6 +64,15 @@ layout: default
     </div>
   {% endif %}
 
+  {%- comment -%} On an ARCHIVED page, link back to its canonical version {%- endcomment -%}
+  {%- if page.canonical_url and page.canonical_url != "" -%}
+    <div class="archived-notice">
+      This is an archived review from {{ page.date | date: '%B %d, %Y' }}.
+      Read the <a href="{{ page.canonical_url | relative_url
+      }}"><strong>current review</strong></a>.
+    </div>
+  {%- endif -%}
+
   <h2 class="book-review-headline">Review</h2>
   {% comment %}Add star rating, if one exists in the metadata{% endcomment %}
   {% if page.rating %}
@@ -78,6 +87,9 @@ layout: default
 
 <!-- Backlinks -->
 {% book_backlinks %}
+
+<!-- Previous Reviews (if any) -->
+{% display_previous_reviews %}
 
 <!-- Related and Recent Books -->
 {% related_books %}

@@ -13,7 +13,7 @@ class TestRelatedBooksTag < Minitest::Test
     }
     @test_time_now = Time.parse("2024-03-15 10:00:00 EST")
 
-    def create_book_obj(title, series, book_num, authors_input, date_offset_days, url_suffix, published = true, collection_mock_for_doc_creation = nil)
+    def create_book_obj(title, series, book_num, authors_input, date_offset_days, url_suffix, published = true, collection_mock_for_doc_creation = nil, extra_fm = {})
       authors_data = if authors_input.is_a?(Array)
                        authors_input.map(&:to_s)
                      elsif authors_input.nil?
@@ -21,15 +21,16 @@ class TestRelatedBooksTag < Minitest::Test
                      else
                        [authors_input.to_s]
                      end
+      front_matter = {
+        'title' => title, 'series' => series, 'book_number' => book_num,
+        'book_authors' => authors_data,
+        'published' => published,
+        'date' => @test_time_now - (60 * 60 * 24 * date_offset_days), # Lower offset = more recent
+        'image' => "/images/book_#{url_suffix}.jpg",
+        'excerpt_output_override' => "#{title} excerpt."
+      }.merge(extra_fm)
       create_doc(
-        {
-          'title' => title, 'series' => series, 'book_number' => book_num,
-          'book_authors' => authors_data,
-          'published' => published,
-          'date' => @test_time_now - (60 * 60 * 24 * date_offset_days), # Lower offset = more recent
-          'image' => "/images/book_#{url_suffix}.jpg",
-          'excerpt_output_override' => "#{title} excerpt."
-        },
+        front_matter,
         "/books/#{url_suffix}.html", "Content for #{title}", nil, collection_mock_for_doc_creation
       )
     end
@@ -318,5 +319,35 @@ class TestRelatedBooksTag < Minitest::Test
     assert_match %r{<div class="card-grid">}, output
     assert_equal 1, output.scan(/<!-- Card for:/).count
     assert_match %r{</div>\s*</aside>}m, output
+  end
+
+  def test_excludes_archived_reviews_from_recommendations
+    books_collection = MockCollection.new([], 'books')
+    current_page = create_book_obj('Current Book', 'Series A', 1, ['Auth'], 10, 'current', true, books_collection)
+    related_canonical = create_book_obj('Related Canonical', 'Series A', 2, ['Auth'], 9, 'related_canon', true, books_collection)
+    related_archived = create_book_obj('Related Archived', 'Series A', 3, ['Auth'], 8, 'related_archive', true, books_collection, { 'canonical_url' => '/some/path' })
+    books_collection.docs = [current_page, related_canonical, related_archived].compact
+    site = create_site(@site_config_base.dup, { 'books' => books_collection.docs })
+    context = create_context({}, { site: site, page: current_page })
+
+    output = render_tag(context)
+    rendered_titles = extract_rendered_titles(output)
+
+    assert_includes rendered_titles, 'Related Canonical'
+    refute_includes rendered_titles, 'Related Archived'
+  end
+
+  def test_includes_books_with_external_canonical_url
+    books_collection = MockCollection.new([], 'books')
+    current_page = create_book_obj('Current Book', 'Series A', 1, ['Auth'], 10, 'current', true, books_collection)
+    related_external = create_book_obj('Related External', 'Series A', 2, ['Auth'], 5, 'related_ext', true, books_collection, { 'canonical_url' => 'http://some.other.site/path' })
+    books_collection.docs = [current_page, related_external].compact
+    site = create_site(@site_config_base.dup, { 'books' => books_collection.docs })
+    context = create_context({}, { site: site, page: current_page })
+
+    output = render_tag(context)
+    rendered_titles = extract_rendered_titles(output)
+
+    assert_includes rendered_titles, 'Related External'
   end
 end

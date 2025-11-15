@@ -57,6 +57,25 @@ class TestShortStoryLinkUtils < Minitest::Test
     refute_match %r{<!--.*?RENDER_SHORT_STORY_LINK_FAILURE.*?-->}, output
   end
 
+  def test_prefers_canonical_location_over_archived
+    canonical_url = '/books/canonical-anthology.html'
+    archived_url = '/books/canonical-anthology/2023.html'
+    @site.data['link_cache']['url_to_canonical_map'] = {
+      canonical_url => canonical_url,
+      archived_url => canonical_url
+    }
+    @site.data['link_cache']['short_stories']['story in archive'] = [
+      { 'title' => 'Story in Archive', 'parent_book_title' => 'Canonical Anthology', 'url' => canonical_url, 'slug' => 'story-slug' },
+      { 'title' => 'Story in Archive', 'parent_book_title' => 'Archived Anthology', 'url' => archived_url, 'slug' => 'story-slug' }
+    ]
+
+    # This would be ambiguous without the new logic
+    output = render_util("Story in Archive")
+    expected = "<a href=\"/books/canonical-anthology.html#story-slug\"><cite class=\"short-story-title\">Story in Archive</cite></a>"
+    assert_equal expected, output
+    refute_match %r{<!--.*?RENDER_SHORT_STORY_LINK_FAILURE.*?-->}, output, "Should not log an ambiguity error"
+  end
+
   def test_render_story_not_found_returns_unlinked_cite_and_logs
     output = render_util("NonExistent Story")
     expected = "<cite class=\"short-story-title\">NonExistent Story</cite>"

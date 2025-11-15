@@ -96,6 +96,24 @@ class TestBookListUtilsAllBooksByYearDisplay < Minitest::Test # Renamed class
     refute_includes all_rendered_titles, @unpublished_2023_setup.data['title']
   end
 
+  def test_includes_archived_reviews
+    canonical_2023 = create_doc({ 'title' => 'Canonical 2023', 'date' => Time.utc(2023, 8, 1), 'published' => true }, '/c23.html')
+    archived_2023 = create_doc({ 'title' => 'Archived 2023', 'date' => Time.utc(2023, 4, 1), 'published' => true, 'canonical_url' => '/c23.html' }, '/a23.html')
+    site = create_site({}, { 'books' => [canonical_2023, archived_2023] })
+    context = create_context({}, { site: site, page: @context.registers[:page] })
+
+    data = get_all_books_by_year_data(site, context)
+    assert_equal 1, data[:year_groups].size
+    group_2023 = data[:year_groups].first
+    assert_equal "2023", group_2023[:year]
+    assert_equal 2, group_2023[:books].size
+    assert_includes group_2023[:books].map { |b| b.data['title'] }, 'Canonical 2023'
+    assert_includes group_2023[:books].map { |b| b.data['title'] }, 'Archived 2023'
+    # Check sort order within the year
+    assert_equal 'Canonical 2023', group_2023[:books][0].data['title'] # August
+    assert_equal 'Archived 2023', group_2023[:books][1].data['title']  # April
+  end
+
   def test_get_data_for_all_books_by_year_display_handles_books_with_non_time_dates_gracefully
     # create_doc in test_helper converts string dates to Time or defaults to Time.now
     # The BookListUtils sort_by block has a fallback: book.date.is_a?(Time) ? book.date : Time.now

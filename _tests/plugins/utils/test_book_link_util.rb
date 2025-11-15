@@ -146,4 +146,67 @@ class TestBookLinkUtils < Minitest::Test
     assert_equal 2, mention_data[:sources].size
     assert_includes mention_data[:sources], another_page.url
   end
+
+  def test_prefers_canonical_review_over_archived
+    canonical_book = create_doc({ 'title' => "Same Title", 'published' => true, 'book_authors' => ['Author A'] }, '/books/canonical.html')
+    archived_book = create_doc({ 'title' => "Same Title", 'published' => true, 'book_authors' => ['Author A'], 'canonical_url' => '/books/canonical.html' }, '/books/archived.html')
+
+    site = create_site(
+      {},
+      { 'books' => [canonical_book, archived_book] },
+      [@author_a_page]
+    )
+    ctx = create_context({}, { site: site, page: @page })
+
+    # This call would be ambiguous without the filtering logic
+    output = BookLinkUtils.render_book_link("Same Title", ctx)
+
+    expected = "<a href=\"/books/canonical.html\"><cite class=\"book-title\">Same Title</cite></a>"
+    assert_equal expected, output
+  end
+
+  def test_handles_combined_ambiguity_of_author_and_archive
+    # Setup: "Ambiguous Book" exists for Author A (with an archive) and Author B.
+    canonical_a = create_doc({ 'title' => "Ambiguous Book", 'published' => true, 'book_authors' => ['Author A'] }, '/books/ambiguous-a.html')
+    archived_a = create_doc({ 'title' => "Ambiguous Book", 'published' => true, 'book_authors' => ['Author A'], 'canonical_url' => '/books/ambiguous-a.html' }, '/books/archived-a.html')
+    canonical_b = create_doc({ 'title' => "Ambiguous Book", 'published' => true, 'book_authors' => ['Author B'] }, '/books/ambiguous-b.html')
+
+    site = create_site(
+      {},
+      { 'books' => [canonical_a, archived_a, canonical_b] },
+      [@author_a_page, @author_b_page]
+    )
+    ctx = create_context({}, { site: site, page: @page })
+
+    # 1. Test that it's still ambiguous without an author filter
+    err = assert_raises(Jekyll::Errors::FatalException) do
+      BookLinkUtils.render_book_link("Ambiguous Book", ctx)
+    end
+    # The error message should only list the two canonical authors
+    assert_match "used by multiple authors: 'Author A'; 'Author B'", err.message
+
+    # 2. Test that it resolves correctly with an author filter
+    output_a = BookLinkUtils.render_book_link("Ambiguous Book", ctx, nil, "Author A")
+    expected_a = "<a href=\"/books/ambiguous-a.html\"><cite class=\"book-title\">Ambiguous Book</cite></a>"
+    assert_equal expected_a, output_a
+
+    output_b = BookLinkUtils.render_book_link("Ambiguous Book", ctx, nil, "Author B")
+    expected_b = "<a href=\"/books/ambiguous-b.html\"><cite class=\"book-title\">Ambiguous Book</cite></a>"
+    assert_equal expected_b, output_b
+  end
+
+  def test_does_not_filter_book_with_external_canonical_url
+    # Setup: Two books with the same title, one is a normal book, the other points to an external canonical URL.
+    # This should still be treated as an ambiguity between two distinct books on our site.
+    book_a = create_doc({ 'title' => "External Canon Test", 'published' => true, 'book_authors' => ['Author A'] }, '/books/ext-a.html')
+    book_b_external = create_doc({ 'title' => "External Canon Test", 'published' => true, 'book_authors' => ['Author B'], 'canonical_url' => 'http://some-other.site/original' }, '/books/ext-b.html')
+
+    site = create_site({}, { 'books' => [book_a, book_b_external] }, [@author_a_page, @author_b_page])
+    ctx = create_context({}, { site: site, page: @page })
+
+    err = assert_raises(Jekyll::Errors::FatalException) do
+      BookLinkUtils.render_book_link("External Canon Test", ctx)
+    end
+    assert_match "used by multiple authors: 'Author A'; 'Author B'", err.message
+  end
 end

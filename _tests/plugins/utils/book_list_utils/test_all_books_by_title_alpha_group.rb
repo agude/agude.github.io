@@ -16,12 +16,14 @@ class TestBookListUtilsAllBooksByTitleAlphaGroup < Minitest::Test # Renamed clas
     @book_empty_title_sort = create_doc({ 'title' => 'The ', 'published' => true, 'date' => Time.now }, '/the.html')           # Sorts under #
     @book_only_an = create_doc({ 'title' => 'An', 'published' => true, 'date' => Time.now }, '/an.html')                       # Sorts under #
     @unpublished_book = create_doc({ 'title' => 'Unpublished Alpha Book', 'published' => false, 'date' => Time.now }, '/unpub_alpha.html')
+    @archived_book = create_doc({ 'title' => 'Archived Book', 'published' => true, 'canonical_url' => '/some/path' }, '/archived.html')
+    @external_canonical_book = create_doc({ 'title' => 'External Canon Book', 'published' => true, 'canonical_url' => 'http://othersite.com' }, '/external.html')
 
 
     @books_for_alpha_tests = [
       @book_apple, @book_a_banana, @book_the_cherry, @book_another_apple,
       @book_aardvark, @book_zebra, @book_123go, @book_empty_title_sort, @book_only_an,
-      @unpublished_book
+      @unpublished_book, @archived_book, @external_canonical_book
     ]
 
     @site = create_site({}, { 'books' => @books_for_alpha_tests })
@@ -44,8 +46,8 @@ class TestBookListUtilsAllBooksByTitleAlphaGroup < Minitest::Test # Renamed clas
     data = get_alpha_group_data
 
     assert_empty data[:log_messages].to_s
-    # Expected groups: #, A, B, C, Z (based on the published books in setup)
-    assert_equal 5, data[:alpha_groups].size, "Incorrect number of alpha groups"
+    # Expected groups: #, A, B, C, E, Z (based on the published books in setup)
+    assert_equal 6, data[:alpha_groups].size, "Incorrect number of alpha groups"
 
     # --- Assert Group # (Hash) ---
     # Books: "An" (norm: ""), "The " (norm: ""), "123 Go!" (norm: "123 go!")
@@ -75,6 +77,11 @@ class TestBookListUtilsAllBooksByTitleAlphaGroup < Minitest::Test # Renamed clas
     refute_nil group_c, "Group 'C' missing"
     assert_equal [@book_the_cherry.data['title']], group_c[:books].map { |b| b.data['title'] }
 
+    # --- Assert Group E ---
+    group_e = data[:alpha_groups].find { |g| g[:letter] == 'E' }
+    refute_nil group_e, "Group 'E' missing"
+    assert_equal [@external_canonical_book.data['title']], group_e[:books].map { |b| b.data['title'] }
+
     # --- Assert Group Z ---
     # Book: Zebra Zoom
     group_z = data[:alpha_groups].find { |g| g[:letter] == 'Z' }
@@ -83,13 +90,19 @@ class TestBookListUtilsAllBooksByTitleAlphaGroup < Minitest::Test # Renamed clas
 
     # --- Assert Overall Order of Letter Groups ---
     letters_ordered = data[:alpha_groups].map { |g| g[:letter] }
-    assert_equal ['#', 'A', 'B', 'C', 'Z'], letters_ordered, "Letter groups are not in # then A-Z order"
+    assert_equal ['#', 'A', 'B', 'C', 'E', 'Z'], letters_ordered, "Letter groups are not in # then A-Z order"
   end
 
   def test_get_data_for_all_books_by_title_alpha_group_ignores_unpublished
     data = get_alpha_group_data
     all_rendered_titles = data[:alpha_groups].flat_map { |ag| ag[:books].map { |b| b.data['title'] } }
     refute_includes all_rendered_titles, @unpublished_book.data['title']
+  end
+
+  def test_excludes_archived_reviews
+    data = get_alpha_group_data
+    all_rendered_titles = data[:alpha_groups].flat_map { |ag| ag[:books].map { |b| b.data['title'] } }
+    refute_includes all_rendered_titles, @archived_book.data['title']
   end
 
   def test_get_data_for_all_books_by_title_alpha_group_no_books_logs_info

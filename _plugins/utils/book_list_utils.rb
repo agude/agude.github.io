@@ -31,7 +31,7 @@ module BookListUtils
       return { books: [], series_name: series_name_filter, log_messages: log_output_accumulator }
     end
 
-    all_books = _get_all_published_books(site) # No context needed here anymore
+    all_books = _get_all_published_books(site, include_archived: false)
     books_in_series = []
 
     series_name_provided_and_valid = series_name_filter && !series_name_filter.to_s.strip.empty?
@@ -88,7 +88,7 @@ module BookListUtils
       return { standalone_books: [], series_groups: [], log_messages: log_output_accumulator }
     end
 
-    all_published = _get_all_published_books(site)
+    all_published = _get_all_published_books(site, include_archived: false)
     author_books = []
 
     if author_name_filter && !author_name_filter.to_s.strip.empty?
@@ -148,7 +148,7 @@ module BookListUtils
       return { standalone_books: [], series_groups: [], log_messages: log_output_accumulator }
     end
 
-    all_books = _get_all_published_books(site)
+    all_books = _get_all_published_books(site, include_archived: false)
     structured_data = _structure_books_for_display(all_books)
     # Prepend any initial log (like missing collection) to any logs from structuring (though structuring doesn't log currently)
     structured_data[:log_messages] = log_output_accumulator + (structured_data[:log_messages] || "")
@@ -176,7 +176,7 @@ module BookListUtils
       return { authors_data: [], log_messages: log_output_accumulator }
     end
 
-    all_published_books = _get_all_published_books(site)
+    all_published_books = _get_all_published_books(site, include_archived: false)
     books_by_canonical_author = {} # Use a hash for easier accumulation
 
     all_published_books.each do |book|
@@ -257,7 +257,7 @@ module BookListUtils
       return { awards_data: [], log_messages: log_output_accumulator }
     end
 
-    all_published_books = _get_all_published_books(site)
+    all_published_books = _get_all_published_books(site, include_archived: false)
     return { awards_data: [], log_messages: log_output_accumulator } if all_published_books.empty?
 
     unique_raw_awards = {}
@@ -338,7 +338,7 @@ module BookListUtils
       return { alpha_groups: [], log_messages: log_output_accumulator }
     end
 
-    all_published_books = _get_all_published_books(site)
+    all_published_books = _get_all_published_books(site, include_archived: false)
 
     if all_published_books.empty?
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
@@ -410,7 +410,7 @@ module BookListUtils
       return { year_groups: [], log_messages: log_output_accumulator }
     end
 
-    all_published_books = _get_all_published_books(site)
+    all_published_books = _get_all_published_books(site, include_archived: true)
 
     if all_published_books.empty?
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
@@ -582,9 +582,14 @@ module BookListUtils
   # Retrieves all published books from the site's 'books' collection.
   # Assumes the 'books' collection exists (checked by public methods).
   # @param site [Jekyll::Site] The Jekyll site object.
+  # @param include_archived [Boolean] If true, includes archived reviews.
   # @return [Array<Jekyll::Document>] An array of published book documents.
-  def self._get_all_published_books(site)
-    site.collections['books'].docs.select { |book| book.data['published'] != false }
+  def self._get_all_published_books(site, include_archived: false)
+    books = site.collections['books'].docs.select { |book| book.data['published'] != false }
+    return books if include_archived
+
+    # Filter out archived reviews (where canonical_url starts with '/') unless explicitly requested.
+    books.select { |book| !book.data['canonical_url']&.start_with?('/') }
   end
 
   # Parses a raw book number into a Float for sorting, or Float::INFINITY for non-numeric/nil.

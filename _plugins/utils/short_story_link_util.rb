@@ -36,6 +36,7 @@ module ShortStoryLinkUtils
     log_output = ""
     link_cache = site.data['link_cache'] || {}
     story_cache = link_cache['short_stories'] || {}
+    canonical_map = link_cache['url_to_canonical_map'] || {}
     found_locations = story_cache[normalized_lookup_title]
 
     target_location = nil
@@ -43,27 +44,35 @@ module ShortStoryLinkUtils
     if found_locations.nil? || found_locations.empty?
       log_output = _log_story_not_found(context, story_title_input)
     else
-      # Check if all found locations are in the same book.
-      unique_book_urls = found_locations.map { |loc| loc['url'] }.uniq
+      # Filter for canonical locations first. A location is canonical if its parent book's URL
+      # maps to itself in the canonical_map.
+      canonical_locations = found_locations.select do |loc|
+        canonical_map[loc['url']] == loc['url']
+      end
 
-      if unique_book_urls.length == 1
-        # All mentions are in the same book. This is not ambiguous.
-        # We can safely link to the first instance found by the cache generator.
-        target_location = found_locations.first
+      # If we found exactly one canonical location, that's our target.
+      if canonical_locations.length == 1
+        target_location = canonical_locations.first
+        # If we found zero canonical locations (e.g., story only in archived reviews),
+        # or more than one (genuinely ambiguous), we proceed to disambiguation.
       else
-        # Ambiguous: The same story title exists in multiple different books.
-        # Disambiguation with `from_book` is required.
-        if from_book_title && !from_book_title.empty?
-          target_location = found_locations.find { |loc| loc['parent_book_title'].casecmp(from_book_title).zero? }
-          if target_location.nil?
-            log_output = _log_story_not_found_in_book(context, story_title_input, from_book_title)
-          end
+        # Check if all found locations are in the same book (covers multi-mention case).
+        unique_book_urls = found_locations.map { |loc| loc['url'] }.uniq
+        if unique_book_urls.length == 1
+          target_location = found_locations.first
         else
-          log_output = _log_story_ambiguous(context, story_title_input, found_locations)
+          # Genuinely ambiguous: The same story title exists in multiple different books.
+          if from_book_title && !from_book_title.empty?
+            target_location = found_locations.find { |loc| loc['parent_book_title'].casecmp(from_book_title).zero? }
+            if target_location.nil?
+              log_output = _log_story_not_found_in_book(context, story_title_input, from_book_title)
+            end
+          else
+            log_output = _log_story_ambiguous(context, story_title_input, found_locations)
+          end
         end
       end
     end
-    # --- END OF NEW LOGIC ---
 
     # 3. Generate HTML
     display_text = target_location ? target_location['title'] : story_title_input

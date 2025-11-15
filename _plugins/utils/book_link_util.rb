@@ -65,7 +65,11 @@ module BookLinkUtils
     log_output = ""
     link_cache = site.data['link_cache'] || {}
     book_cache = link_cache['books'] || {}
-    found_book_locations = book_cache[normalized_lookup_title] # This is now an array
+    found_book_locations_raw = book_cache[normalized_lookup_title]
+
+    # Filter out archived reviews to find the canonical one(s).
+    # An archived review has a canonical_url that starts with '/'.
+    found_book_locations = found_book_locations_raw&.select { |book_data| !book_data['canonical_url']&.start_with?('/') }
 
     found_book_data = nil # This will hold the single, correct book data
 
