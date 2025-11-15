@@ -46,14 +46,35 @@ module Jekyll
       # --- End Sanity Checks ---
 
       current_title_original = page['title']
-      backlinks_cache = site.data.dig('link_cache', 'backlinks') || {}
-      backlink_entries = backlinks_cache[page['url']] || []
+      link_cache = site.data.dig('link_cache') || {}
+      backlinks_cache = link_cache['backlinks'] || {}
+      canonical_map = link_cache['url_to_canonical_map'] || {}
+      book_families = link_cache['book_families'] || {}
+
+      # --- Identify all versions of this book using the new cache ---
+      canonical_url = canonical_map[page['url']]
+      return "" unless canonical_url # Exit if the current page isn't in the map.
+      all_version_urls = Set.new(book_families[canonical_url] || [])
+
+      # --- Gather and merge backlinks for all versions ---
+      merged_backlinks = {}
+      all_version_urls.each do |url|
+        (backlinks_cache[url] || []).each do |entry|
+          source_url = entry[:source].url
+          # Use source_url as key to auto-deduplicate
+          merged_backlinks[source_url] = entry
+        end
+      end
+      backlink_entries = merged_backlinks.values
 
       return "" if backlink_entries.empty?
 
       # Map to [sort_key, canonical_title, url, type] tuples for sorting.
+      # CRITICAL: Filter out any backlink that comes from another version of the same book.
       backlinks_data = backlink_entries.map do |entry|
         book_doc = entry[:source]
+        next if all_version_urls.include?(book_doc.url) # Exclude self-references
+
         link_type = entry[:type]
         title = book_doc.data['title']
         next if title.nil? || title.strip.empty?
