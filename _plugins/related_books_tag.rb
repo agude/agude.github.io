@@ -53,6 +53,11 @@ module Jekyll
       end
 
       current_url = page['url']
+      urls_to_exclude = Set.new([current_url])
+      if page['canonical_for'] && !page['canonical_for'].to_s.strip.empty?
+        urls_to_exclude.add(page['canonical_for'])
+      end
+
       current_series = page['series']
       current_page_authors = FrontMatterUtils.get_list_from_string_or_array(page['book_authors'])
         .map(&:strip).map(&:downcase).reject(&:empty?)
@@ -61,7 +66,8 @@ module Jekyll
       all_potential_books = site.collections['books'].docs.select do |book|
         book && book.data && # Ensure book and book.data are not nil
           book.data['published'] != false &&
-          book.url != current_url &&
+          book.data['canonical_for'].nil? && # Exclude archived reviews
+          !urls_to_exclude.include?(book.url) && # Exclude current page and its canonical version
           book.date && book.date.to_time.to_i <= now_unix
       end.compact # Ensure no nils from a faulty collection.docs
 
