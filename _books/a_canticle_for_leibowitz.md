@@ -5,7 +5,7 @@ book_authors: Walter M. Miller Jr.
 series: Saint Leibowitz
 book_number: 1
 is_anthology: false
-rating: 5
+rating: 4
 image: /books/covers/a_canticle_for_leibowitz.jpg
 ---
 
