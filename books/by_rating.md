@@ -103,7 +103,7 @@ ranked_list:
   - The Sirens of Titan
   - Countdown City
   - The Causal Angel
-  - There Is No Antimemetics Division
+  - There Is No Antimemetics Division (Original Edition)
   - Lords of Uncreation
   # 2 Stars
   - Close to Critical
