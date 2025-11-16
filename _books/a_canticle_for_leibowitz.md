@@ -1,11 +1,11 @@
 ---
-date: 2025-11-06
+date: 2025-11-16
 title: A Canticle for Leibowitz
 book_authors: Walter M. Miller Jr.
 series: Saint Leibowitz
 book_number: 1
 is_anthology: false
-rating: null
+rating: 5
 image: /books/covers/a_canticle_for_leibowitz.jpg
 ---
 
