@@ -19,12 +19,11 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">Miller</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
+{% capture the_authors_lastname_possessive %}<span class="author-name">Miller</span>'s{% endcapture %}
 {% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 {% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture the_authors_lastname_link %}{% author_link page.book_authors link_text="Miller" %}{% endcapture %}
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text="Miller" possessive %}{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture s1 %}{% short_story_link "Fiat Homo" %}{% endcapture %}
 {% capture s2 %}{% short_story_link "Fiat Lux" %}{% endcapture %}
@@ -36,7 +35,7 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 {% capture warhammer %}<cite class="table-top-game-title">Warhammer 40,000</cite>{% endcapture %}
 
 {% capture rur %}{% book_link "R.U.R." %}{% endcapture %}
-{% capture capek %}{% author_link "Karel Čapek" possessive link_text="Čapek" %}{% endcapture %}
+{% capture capeks %}{% author_link "Karel Čapek" possessive link_text="Čapek" %}{% endcapture %}
 
 {% capture anathem %}{% book_link "Anathem" %}{% endcapture %}
 {% capture stephensons %}{% author_link "Neal Stephenson" possessive link_text="Stephenson" %}{% endcapture %}
@@ -47,14 +46,43 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 {% capture simmons %}{% author_link "Dan Simmons" possessive link_text="Simmons" %}{% endcapture %}
 
-{% capture wolfe %}{% author_link "Gene Wolfe" possessive link_text="Wolfe" %}{% endcapture %}
+{% capture wolfes %}{% author_link "Gene Wolfe" possessive link_text="Wolfe" %}{% endcapture %}
 {% capture new_sun %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 
-{% capture john_christopher %}{% author_link "John Christopher" possessive link_text="Christopher" %}{% endcapture %}
+{% capture christophers %}{% author_link "John Christopher" possessive link_text="Christopher" %}{% endcapture %}
 {% capture tripods %}{% series_link "The Tripods" %}{% endcapture %}
 
-{% capture laumer %}{% author_link "Keith Laumer" possessive link_text="Laumer" %}{% endcapture %}
+{% capture laumers %}{% author_link "Keith Laumer" possessive link_text="Laumer" %}{% endcapture %}
 {% capture bolo %}{% book_link "Bolo" %}{% endcapture %}
+
+{{ this_book }} is a fix-up by {{ the_authors_lastname }} consisting of three
+parts: {{ s1 }}, {{ s2 }}, and {{ s3 }}. It follows the monks of Albertian
+Order of Leibowitz as the preserve the remains of mankind's knowledge after an
+atomic war.
+
+The major theme of the book is the cyclical nature of history, and the
+question of "Are we doomed to repeat it?" Other themes are the conflict between
+faith and reason, the double-edged sword of knowledge, and the nature of
+suffering and sin.
+
+It is an _explicitly_ Catholic book, if that wasn't clear from the fact that
+it is about monks. In that way, it reminds me a lot of Gene Wolfe's The Book
+of the New Sun and Dan Simmons' Hyperion. All three authors mix Catholic
+theology with science fiction, but it goes deeper than that, bringing in a
+shared Catholic worldview: the Church remains a central institution, pain and
+suffering are a core focus, and their far-future worlds feel ancient and
+burdened by the past.
+
+<!-- Answer the theme at the end -->
+
+{{ the_authors_lastname_possessive }}
+answer is "yes": humanities pride dooms it to be cast out of paradise. The
+first time was [the fall of man][fall], when the serpent promised Adam and
+Eve knowledge of good and evil. The second was the "Flame Deluge", the nuclear
+war, the scoured the earth right before the novel takes place. And the third
+time is 
+
+[fall]: https://en.wikipedia.org/wiki/Fall_of_man
 
 ### {% short_story_title "Fiat Homo" %}
 
