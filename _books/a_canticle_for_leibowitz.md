@@ -30,10 +30,13 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 {% capture s2 %}{% short_story_link "Fiat Lux" %}{% endcapture %}
 {% capture s3 %}{% short_story_link "Fiat Voluntas Tua" %}{% endcapture %}
 
-{% capture rur %}{% book_link "R.U.R." %}{% endcapture %}
+{% capture bible %}{% book_link "Bible" %}{% endcapture %}
 
 {% capture fallout %}<cite class="video-game-title">Fallout</cite>{% endcapture %}
 {% capture warhammer %}<cite class="table-top-game-title">Warhammer 40,000</cite>{% endcapture %}
+
+{% capture rur %}{% book_link "R.U.R." %}{% endcapture %}
+{% capture capek %}{% author_link "Karel Čapek" possessive link_text="Čapek" %}{% endcapture %}
 
 {% capture anathem %}{% book_link "Anathem" %}{% endcapture %}
 {% capture stephensons %}{% author_link "Neal Stephenson" possessive link_text="Stephenson" %}{% endcapture %}
