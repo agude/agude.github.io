@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/utils/text_processing_utils.rb
 require 'nokogiri'
 

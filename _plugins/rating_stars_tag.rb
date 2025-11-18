@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/rating_stars_tag.rb
 require 'jekyll'
 require 'liquid'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/display_books_by_year_tag.rb
 require 'jekyll'
 require 'liquid'

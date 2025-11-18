@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _tests/plugins/test_link_cache_generator_short_stories.rb
 require_relative '../test_helper'
 # LinkCacheGenerator is loaded by test_helper

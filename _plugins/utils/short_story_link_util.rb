@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/utils/short_story_link_util.rb
 require 'jekyll'
 require_relative 'link_helper_utils'

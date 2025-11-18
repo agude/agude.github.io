@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/utils/author_link_util.rb
 require 'jekyll'
 require 'cgi'

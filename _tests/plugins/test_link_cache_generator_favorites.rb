@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _tests/plugins/test_link_cache_generator_favorites.rb
 require_relative '../test_helper'
 

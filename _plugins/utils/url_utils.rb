@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/utils/url_utils.rb
 
 module UrlUtils

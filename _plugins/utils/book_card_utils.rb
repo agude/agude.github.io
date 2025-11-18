@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/utils/book_card_utils.rb
 require 'cgi'
 require_relative 'plugin_logger_utils'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/utils/citation_utils.rb
 require 'cgi'
 

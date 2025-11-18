@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _tests/plugins/test_display_all_books_grouped_tag.rb
 require_relative '../test_helper'
 require_relative '../../_plugins/display_all_books_grouped_tag'

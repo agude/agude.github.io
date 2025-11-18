@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/utils/typography_utils.rb
 require 'cgi' # Still needed for the initial minimal escape, though not for full CGI.escapeHTML
 

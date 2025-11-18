@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/book_card_lookup_tag.rb
 require 'jekyll'
 require 'liquid'

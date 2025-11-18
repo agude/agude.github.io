@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/utils/card_renderer_utils.rb
 require 'cgi' # For escaping image alt text if not already escaped
 

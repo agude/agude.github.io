@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/json_ld_injector.rb
 require 'json'
 require 'jekyll' # Required for Jekyll.logger and Hook classes

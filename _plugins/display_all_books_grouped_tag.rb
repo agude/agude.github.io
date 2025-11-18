@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/display_all_books_grouped_tag.rb
 require 'jekyll'
 require 'liquid'

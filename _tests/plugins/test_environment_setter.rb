@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _tests/plugins/test_environment_setter.rb
 require_relative '../test_helper'
 require_relative '../../_plugins/environment_setter' # Load the generator

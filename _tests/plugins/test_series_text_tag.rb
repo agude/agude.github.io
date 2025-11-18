@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _tests/plugins/test_series_text_tag.rb
 require_relative '../test_helper'
 require_relative '../../_plugins/series_text_tag' # Load the tag class

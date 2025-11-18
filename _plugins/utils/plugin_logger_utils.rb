@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/utils/plugin_logger_utils.rb
 require 'cgi'
 require 'jekyll'

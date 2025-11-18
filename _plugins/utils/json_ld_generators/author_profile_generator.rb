@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # _plugins/utils/json_ld_generators/author_profile_generator.rb
 require_relative '../json_ld_utils'
 require_relative '../url_utils'
