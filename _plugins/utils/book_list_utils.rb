@@ -449,7 +449,7 @@ module BookListUtils
 
   def self.get_data_for_favorites_lists(site:, context:)
     log_output_accumulator = ''
-    unless site&.posts&.docs&.is_a?(Array) && site.data.dig('link_cache', 'favorites_posts_to_books')
+    unless site&.posts&.docs.is_a?(Array) && site.data.dig('link_cache', 'favorites_posts_to_books')
       log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
         context: context,
         tag_type: 'BOOK_LIST_FAVORITES',

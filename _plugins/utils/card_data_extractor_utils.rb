@@ -114,7 +114,7 @@ module CardDataExtractorUtils
         # source_for_data['excerpt'] on a DocumentDrop returns an ExcerptDrop.
         # source_for_data['excerpt'] on a document.data Hash returns a Jekyll::Excerpt object.
         excerpt_obj_or_drop = source_for_data['excerpt']
-        if excerpt_obj_or_drop&.respond_to?(:output) # True for Jekyll::Excerpt
+        if excerpt_obj_or_drop.respond_to?(:output) # True for Jekyll::Excerpt
           description_content = excerpt_obj_or_drop.output
         elsif excerpt_obj_or_drop # It might be an ExcerptDrop, whose to_s is the output
           description_content = excerpt_obj_or_drop.to_s
@@ -123,7 +123,7 @@ module CardDataExtractorUtils
     elsif type == :book
       # Books primarily use the excerpt for the card description
       excerpt_obj_or_drop = source_for_data['excerpt']
-      if excerpt_obj_or_drop&.respond_to?(:output) # True for Jekyll::Excerpt
+      if excerpt_obj_or_drop.respond_to?(:output) # True for Jekyll::Excerpt
         description_content = excerpt_obj_or_drop.output
       elsif excerpt_obj_or_drop # Jekyll::Drops::ExcerptDrop
         description_content = excerpt_obj_or_drop.to_s

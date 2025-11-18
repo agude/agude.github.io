@@ -339,7 +339,7 @@ module Jekyll
       favorites_mentions = link_cache['favorites_mentions']
       favorites_posts_to_books = link_cache['favorites_posts_to_books']
       books_cache = link_cache['books']
-      return unless site.posts&.docs&.is_a?(Array) && books_cache && !books_cache.empty?
+      return unless site.posts&.docs.is_a?(Array) && books_cache && !books_cache.empty?
 
       book_card_lookup_regex = /\{%\s*book_card_lookup\s+(?:title=)?(?:'([^']+)'|"([^"]+)"|(\S+))\s*.*?%\}/
 

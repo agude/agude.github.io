@@ -122,10 +122,10 @@ class MockSite
   def documents
     all_docs = []
     # Add posts, ensuring posts.docs is an array before concatenating
-    all_docs.concat(posts.docs) if posts&.docs&.is_a?(Array)
+    all_docs.concat(posts.docs) if posts&.docs.is_a?(Array)
     # Add docs from other collections
     collections&.each_value do |collection|
-      all_docs.concat(collection.docs) if collection&.docs&.is_a?(Array)
+      all_docs.concat(collection.docs) if collection&.docs.is_a?(Array)
     end
     all_docs.uniq
   end

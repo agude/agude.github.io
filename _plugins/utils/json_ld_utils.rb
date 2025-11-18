@@ -69,7 +69,7 @@ module JsonLdUtils
     field_priority.each do |field_key|
       source_content = nil
       # Use duck typing: check if it has an 'output' method we can call
-      if field_key == 'excerpt' && document.data['excerpt']&.respond_to?(:output)
+      if field_key == 'excerpt' && document.data['excerpt'].respond_to?(:output)
         source_content = document.data['excerpt'].output
       elsif field_key == 'content' && document.data.key?('content') # Prioritize data hash for 'content'
         source_content = document.data['content'].to_s

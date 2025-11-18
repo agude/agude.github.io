@@ -12,7 +12,7 @@ module FeedUtils
     all_items = []
 
     # Process posts
-    if site.posts&.docs&.is_a?(Array)
+    if site.posts&.docs.is_a?(Array)
       posts = site.posts.docs.select do |post|
         post.data['published'] != false && post.date.is_a?(Time)
       end
@@ -20,7 +20,7 @@ module FeedUtils
     end
 
     # Process books
-    if site.collections['books']&.docs&.is_a?(Array)
+    if site.collections['books']&.docs.is_a?(Array)
       books = site.collections['books'].docs.select do |book|
         book.data['published'] != false && book.date.is_a?(Time)
       end
