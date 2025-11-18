@@ -2,7 +2,8 @@
 require_relative '../../test_helper'
 # TypographyUtils will be loaded by test_helper.rb after we add the require there.
 
-class TestTypographyUtils < Minitest::Test # Renamed class
+# Renamed class
+class TestTypographyUtils < Minitest::Test
   def test_prepare_display_title_empty_and_nil
     assert_equal '', TypographyUtils.prepare_display_title(nil)
     assert_equal '', TypographyUtils.prepare_display_title('')

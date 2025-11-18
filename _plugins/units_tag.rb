@@ -8,7 +8,7 @@ require_relative 'utils/tag_argument_utils'
 module Jekyll
   class UnitsTag < Liquid::Tag
     SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
-    THIN_NBSP = '&#x202F;' # U+202F NARROW NO-BREAK SPACE
+    THIN_NBSP = '&#x202F;'.freeze # U+202F NARROW NO-BREAK SPACE
 
     # Internal unit definitions (can be expanded)
     UNIT_DEFINITIONS = {
@@ -42,7 +42,7 @@ module Jekyll
       end
 
       # Check for unrecognized attribute keys that were successfully parsed
-      @attributes.keys.each do |parsed_key|
+      @attributes.each_key do |parsed_key|
         unless ALLOWED_KEYS.include?(parsed_key.to_s)
           raise Liquid::SyntaxError, "Syntax Error in 'units' tag: Unknown argument '#{parsed_key}' in '#{@raw_markup}'"
         end
@@ -129,8 +129,8 @@ module Jekyll
 
       # Output the formatted unit
       html_output = '<span class="nowrap unit">'
-      html_output << "#{escaped_number}"
-      html_output << "#{THIN_NBSP}"
+      html_output << escaped_number.to_s
+      html_output << (THIN_NBSP).to_s
       html_output << "<abbr class=\"unit-abbr\" title=\"#{escaped_unit_name}\">#{escaped_unit_symbol}</abbr>"
       html_output << '</span>'
 

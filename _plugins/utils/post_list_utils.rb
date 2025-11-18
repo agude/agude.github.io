@@ -60,7 +60,7 @@ module PostListUtils
     # Filter out unpublished posts and sort by date (most recent first)
     # site.categories already returns posts sorted by date descending.
     # We just need to ensure they are published and optionally filter by exclude_url.
-    processed_posts = category_posts.select { |post| post.data['published'] != false }
+    processed_posts = category_posts.reject { |post| post.data['published'] == false }
 
     processed_posts.reject! { |post| post.url == exclude_url } if exclude_url && !exclude_url.to_s.strip.empty?
 

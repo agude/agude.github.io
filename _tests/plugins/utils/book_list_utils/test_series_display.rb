@@ -2,7 +2,8 @@
 require_relative '../../../test_helper' # Adjusted path
 # BookListUtils is loaded by test_helper
 
-class TestBookListUtilsSeriesDisplay < Minitest::Test # Renamed class
+# Renamed class
+class TestBookListUtilsSeriesDisplay < Minitest::Test
   def setup
     # --- Minimal Book Data Setup for Series Display Tests ---
     # Only include books relevant to testing series filtering and sorting.

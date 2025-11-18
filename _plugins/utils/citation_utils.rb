@@ -2,7 +2,7 @@
 require 'cgi'
 
 module CitationUtils
-  NBSP = "\u00A0" # Non-breaking space
+  NBSP = "\u00A0".freeze # Non-breaking space
 
   # --- Public API ---
   def self.format_citation_html(params, _site = nil)
@@ -33,12 +33,12 @@ module CitationUtils
     # Sanitize: Remove nils, then remove trailing periods from each part, then reject empty strings
     active_parts = generated_parts.compact.map do |part_str|
       part_str.is_a?(String) ? part_str.chomp('.') : part_str
-    end.reject { |p| !_present?(p) } # Use _present? to also catch strings that are just whitespace after chomp
+    end.select { |p| _present?(p) } # Use _present? to also catch strings that are just whitespace after chomp
 
     return '' if active_parts.empty?
 
     # Join active parts with ". " and add a single trailing period for the entire citation.
-    final_citation_string = active_parts.join('. ') + '.'
+    final_citation_string = "#{active_parts.join('. ')}."
 
     "<span class=\"citation\">#{final_citation_string}</span>"
   end

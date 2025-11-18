@@ -170,7 +170,7 @@ module Jekyll
         # Render Book Card
         output_buffer << BookCardUtils.render(book_object, context) << "\n"
         # --- End Rendering Step ---
-      end # End loop through ranked_list
+      end
 
       # --- Step 5: Final Cleanup ---
       if is_div_open
@@ -196,8 +196,8 @@ module Jekyll
       # Errors caught by PluginLoggerUtils above will return an HTML comment and continue if possible.
       # This catch is for unexpected errors in the tag's own logic or unhandled exceptions from utils.
       raise "DisplayRankedBooks Error processing '#{@list_variable_markup}': #{e.message} \n #{e.backtrace.join("\n  ")}"
-    end # End render method
-  end # End class DisplayRankedBooksTag
-end # End module Jekyll
+    end
+  end
+end
 
 Liquid::Template.register_tag('display_ranked_books', Jekyll::DisplayRankedBooksTag)

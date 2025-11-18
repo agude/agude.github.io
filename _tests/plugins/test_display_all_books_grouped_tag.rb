@@ -38,7 +38,8 @@ class TestDisplayAllBooksGroupedTag < Minitest::Test
     end
   end
 
-  def render_tag(markup = '', context = @context) # Default empty markup
+# Default empty markup
+  def render_tag(markup = '', context = @context)
     output = ''
     Jekyll.stub :logger, @silent_logger_stub do
       output = Liquid::Template.parse("{% display_all_books_grouped #{markup} %}").render!(context)

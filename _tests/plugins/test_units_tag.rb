@@ -3,7 +3,7 @@ require_relative '../test_helper'
 require_relative '../../_plugins/units_tag' # Load the tag
 
 class TestUnitsTag < Minitest::Test
-  THIN_NBSP = '&#x202F;'
+  THIN_NBSP = '&#x202F;'.freeze
 
   def setup
     # Site with default logging off, but specific tags can be enabled in tests

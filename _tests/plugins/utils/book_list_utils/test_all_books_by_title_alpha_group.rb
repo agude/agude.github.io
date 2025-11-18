@@ -2,7 +2,8 @@
 require_relative '../../../test_helper'
 # BookListUtils is loaded by test_helper
 
-class TestBookListUtilsAllBooksByTitleAlphaGroup < Minitest::Test # Renamed class
+# Renamed class
+class TestBookListUtilsAllBooksByTitleAlphaGroup < Minitest::Test
   def setup
     # --- Book Data for Title Alpha Grouping Tests ---
     @book_apple = create_doc({ 'title' => 'Apple Pie Adventures', 'published' => true, 'date' => Time.now },

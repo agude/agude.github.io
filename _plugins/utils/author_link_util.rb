@@ -107,4 +107,4 @@ module AuthorLinkUtils
       level: :info
     )
   end
-end # End Module AuthorLinkUtils
+end

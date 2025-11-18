@@ -46,7 +46,7 @@ module Jekyll
       return if @title_markup && !@title_markup.strip.empty?
 
       raise Liquid::SyntaxError, "Syntax Error in 'series_link': Title value is missing or empty in '#{@raw_markup}'"
-    end # End initialize
+    end
 
     # Renders the series link HTML by calling the utility function
     def render(context)
@@ -60,8 +60,8 @@ module Jekyll
         context,
         link_text_override
       )
-    end # End render
-  end # End class SeriesLinkTag
-end # End module Jekyll
+    end
+  end
+end
 
 Liquid::Template.register_tag('series_link', Jekyll::SeriesLinkTag)

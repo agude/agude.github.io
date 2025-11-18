@@ -233,7 +233,7 @@ module BookListUtils
     # Titleize the raw award string and append " Award"
     titleized_name = award_str.split.map do |word|
       if word.length == 2 && word[1] == '.' && word[0].match?(/[a-z]/i) # e.g., "c." but not ".."
-        word[0].upcase + '.'
+        "#{word[0].upcase}."
       else
         word.capitalize # Standard capitalization for other words
       end
@@ -435,10 +435,9 @@ module BookListUtils
     # Group by year
     grouped_by_year = books_sorted_by_date_desc.group_by { |book| book.date.year.to_s }
 
-    year_groups_list = []
     # Sort year groups by year descending (most recent year first)
-    grouped_by_year.keys.sort.reverse.each do |year_str|
-      year_groups_list << {
+    year_groups_list = grouped_by_year.keys.sort.reverse.map do |year_str|
+      {
         year: year_str,
         books: grouped_by_year[year_str] # Books are already sorted by date within this year group
       }
@@ -587,11 +586,11 @@ module BookListUtils
   # @param include_archived [Boolean] If true, includes archived reviews.
   # @return [Array<Jekyll::Document>] An array of published book documents.
   def self._get_all_published_books(site, include_archived: false)
-    books = site.collections['books'].docs.select { |book| book.data['published'] != false }
+    books = site.collections['books'].docs.reject { |book| book.data['published'] == false }
     return books if include_archived
 
     # Filter out archived reviews (where canonical_url starts with '/') unless explicitly requested.
-    books.select { |book| !book.data['canonical_url']&.start_with?('/') }
+    books.reject { |book| book.data['canonical_url']&.start_with?('/') }
   end
 
   # Parses a raw book number into a Float for sorting, or Float::INFINITY for non-numeric/nil.

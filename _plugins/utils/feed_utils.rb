@@ -28,7 +28,7 @@ module FeedUtils
     end
 
     # Sort all collected items by date, most recent first
-    all_items.sort_by! { |item| item.date }.reverse!
+    all_items.sort_by!(&:date).reverse!
 
     # Return the limited number of items
     all_items.slice(0, limit)

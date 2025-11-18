@@ -57,7 +57,7 @@ module Jekyll
       can_iterate_posts_docs = false
       actual_docs_type = 'unknown'
 
-      if posts_collection_proxy && posts_collection_proxy.respond_to?(:docs)
+      if posts_collection_proxy&.respond_to?(:docs)
         if posts_collection_proxy.docs.is_a?(Array)
           can_iterate_posts_docs = true
         else
@@ -106,8 +106,8 @@ module Jekyll
         )
       end
       # --- End Render Card ---
-    end # End render
-  end # End class
-end # End module
+    end
+  end
+end
 
 Liquid::Template.register_tag('article_card_lookup', Jekyll::ArticleCardLookupTag)

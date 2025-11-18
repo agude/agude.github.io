@@ -68,8 +68,8 @@ module BookLinkUtils
 
     # Filter out archived reviews to find the canonical one(s).
     # An archived review has a canonical_url that starts with '/'.
-    found_book_locations = found_book_locations_raw&.select do |book_data|
-      !book_data['canonical_url']&.start_with?('/')
+    found_book_locations = found_book_locations_raw&.reject do |book_data|
+      book_data['canonical_url']&.start_with?('/')
     end
 
     found_book_data = nil # This will hold the single, correct book data
@@ -199,4 +199,4 @@ module BookLinkUtils
       level: :warn
     )
   end
-end # End Module BookLinkUtils
+end

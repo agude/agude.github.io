@@ -2,7 +2,8 @@
 require_relative '../../../test_helper'
 # BookListUtils is loaded by test_helper
 
-class TestBookListUtilsAllBooksByAwardDisplay < Minitest::Test # Renamed class
+# Renamed class
+class TestBookListUtilsAllBooksByAwardDisplay < Minitest::Test
   def setup
     # --- Book Data for Award Display Tests ---
     @award_book_hugo_locus = create_doc(

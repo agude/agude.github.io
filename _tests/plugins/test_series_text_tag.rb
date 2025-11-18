@@ -68,7 +68,7 @@ class TestSeriesTextTag < Minitest::Test
   def test_series_starting_with_the_and_containing_keyword_linked
     markup = '"The Wheel of Time Saga"'
     expected_link = '<a href="/series/wot.html"><span class="book-series">The Wheel of Time Saga</span></a>'
-    expected_output = "#{expected_link}" # No "the " prefix, no " series" suffix
+    expected_output = expected_link.to_s # No "the " prefix, no " series" suffix
     assert_equal expected_output, render_tag(markup)
   end
 
@@ -103,21 +103,21 @@ class TestSeriesTextTag < Minitest::Test
   def test_series_not_found_starting_with_the_and_containing_keyword
     markup = '"The Unknown Saga"'
     expected_span = '<span class="book-series">The Unknown Saga</span>'
-    expected_output = "#{expected_span}" # No prefix or suffix
+    expected_output = expected_span.to_s # No prefix or suffix
     assert_equal expected_output, render_tag(markup)
   end
 
   def test_series_not_found_middle_word_unlinked
     markup = '"The Chronicles of Narnia"'
     expected_span = '<span class="book-series">The Chronicles of Narnia</span>'
-    expected_output = "#{expected_span}"
+    expected_output = expected_span.to_s
     assert_equal expected_output, render_tag(markup)
   end
 
   def test_series_not_found_starts_with_a
     markup = '"A Song of Ice and Fire"'
     expected_span = '<span class="book-series">A Song of Ice and Fire</span>'
-    expected_output = "#{expected_span}"
+    expected_output = expected_span.to_s
     assert_equal expected_output, render_tag(markup)
   end
 

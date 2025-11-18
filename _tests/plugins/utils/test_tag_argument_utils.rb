@@ -2,7 +2,8 @@
 require_relative '../../test_helper'
 require 'utils/tag_argument_utils' # Require the new util module
 
-class TestTagArgumentUtils < Minitest::Test # Renamed class
+# Renamed class
+class TestTagArgumentUtils < Minitest::Test
   # --- resolve_value ---
   def test_resolve_value_quoted_string
     ctx = create_context

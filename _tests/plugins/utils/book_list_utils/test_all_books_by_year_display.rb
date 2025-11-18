@@ -3,7 +3,8 @@ require_relative '../../../test_helper'
 require 'time' # For Time.parse
 # BookListUtils is loaded by test_helper
 
-class TestBookListUtilsAllBooksByYearDisplay < Minitest::Test # Renamed class
+# Renamed class
+class TestBookListUtilsAllBooksByYearDisplay < Minitest::Test
   def setup
     # --- Book Data for Year Display Tests ---
     # Using Time.utc for dates to ensure consistency regardless of test runner's local timezone.

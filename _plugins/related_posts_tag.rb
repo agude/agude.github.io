@@ -37,11 +37,10 @@ module Jekyll
 
       if site && page
         # Check if site.posts.docs is a valid, iterable array
-        site_posts_valid = site.respond_to?(:posts) && site.posts &&
-                           site.posts.respond_to?(:docs) && site.posts.docs.is_a?(Array)
+        site_posts_valid = site.respond_to?(:posts) &&                            site.posts&.respond_to?(:docs) && site.posts.docs.is_a?(Array)
         unless site_posts_valid
           prereq_missing = true
-          detail = if site.respond_to?(:posts) && site.posts && site.posts.respond_to?(:docs)
+          detail = if site.respond_to?(:posts) && site.posts&.respond_to?(:docs)
                      "site.posts.docs is #{site.posts.docs.class.name}, not Array"
                    elsif site.respond_to?(:posts) && site.posts
                      'site.posts does not have .docs'
@@ -92,7 +91,7 @@ module Jekyll
         is_not_future = p.date ? (p.date.to_time.to_i <= now_unix) : false
 
         is_published && is_not_current && is_not_future
-      end.sort_by { |p| p.date }.reverse
+      end.sort_by(&:date).reverse
 
       # --- Collect Candidate Posts ---
       # Priority:
@@ -106,7 +105,7 @@ module Jekyll
       unless current_categories.empty?
         category_matches = all_site_posts_filtered_and_sorted.select do |p|
           post_categories = Set.new(p.data['categories'] || [])
-          !post_categories.intersection(current_categories).empty?
+          post_categories.intersect?(current_categories)
         end
         candidate_posts.concat(category_matches)
         found_by_category = !candidate_posts.empty?
@@ -122,7 +121,7 @@ module Jekyll
           is_not_curr = p_obj.url != current_url
           is_not_fut = p_obj.date ? (p_obj.date.to_time.to_i <= now_unix) : false
           is_pub && is_not_curr && is_not_fut
-        end.sort_by { |p| p.date }.reverse # Sort them by date as well
+        end.sort_by(&:date).reverse # Sort them by date as well
         candidate_posts.concat(related_posts_from_config)
       end
 
@@ -132,7 +131,7 @@ module Jekyll
       # --- Deduplicate and Limit ---
       # Ensure uniqueness by URL and limit to @max_posts.
       # .uniq preserves the order of first appearance, respecting the prioritization above.
-      final_posts = candidate_posts.uniq { |post| post.url }.slice(0, @max_posts)
+      final_posts = candidate_posts.uniq(&:url).slice(0, @max_posts)
 
       # --- Render Output ---
       return '' if final_posts.empty? # Expected empty state, no log needed here.

@@ -34,7 +34,7 @@ module Jekyll
       return '' if archived_docs.empty?
 
       # Sort by date, most recent first
-      sorted_docs = archived_docs.sort_by { |doc| doc.date }.reverse
+      sorted_docs = archived_docs.sort_by(&:date).reverse
 
       output = "<aside class=\"previous-reviews\">\n"
       output << "  <h2 class=\"book-review-headline\">Previous Reviews</h2>\n"

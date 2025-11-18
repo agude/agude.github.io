@@ -270,7 +270,7 @@ class TestRelatedPostsTag < Minitest::Test
     current_site_config = @site_config_base.dup
     # @post_tech1 is shared with category matches for @post_curr.
     # Order of related_posts_from_config: tech1 (1), uncat1 (2), gadgets1 (10)
-    current_site_config['related_posts'] = [@post_tech1, @post_uncat1, @post_gadgets1].sort_by { |p| p.date }.reverse
+    current_site_config['related_posts'] = [@post_tech1, @post_uncat1, @post_gadgets1].sort_by(&:date).reverse
 
     site_for_dedup_test = create_site(current_site_config, {}, [], @all_posts_for_site_default)
     context_for_dedup = create_context({}, { site: site_for_dedup_test, page: @post_curr })

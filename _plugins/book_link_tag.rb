@@ -30,18 +30,17 @@ module Jekyll
 
       # 1. Extract the Title (first argument, must be quoted or a variable)
       if scanner.scan(QuotedFragment)
-        @title_markup = scanner.matched
       else
         # If not quoted, try matching a sequence of non-whitespace characters (potential variable)
         unless scanner.scan(/\S+/)
           raise Liquid::SyntaxError, "Syntax Error in 'book_link': Could not find book title in '#{@raw_markup}'"
         end
 
-        @title_markup = scanner.matched
 
         # If nothing is found, it's a syntax error
 
       end
+@title_markup = scanner.matched
 
       # 2. Scan the rest of the string for optional arguments (link_text, author)
       until scanner.eos?
@@ -67,7 +66,7 @@ module Jekyll
       return if @title_markup && !@title_markup.strip.empty?
 
       raise Liquid::SyntaxError, "Syntax Error in 'book_link': Title value is missing or empty in '#{@raw_markup}'"
-    end # End initialize
+    end
 
     # Renders the book link HTML by calling the utility function
     def render(context)
@@ -78,9 +77,9 @@ module Jekyll
 
       # Call the centralized utility function from BookLinkUtils with the new author argument
       BookLinkUtils.render_book_link(book_title, context, link_text_override, author_filter)
-    end # End render
-  end # End class BookLinkTag
-end # End module Jekyll
+    end
+  end
+end
 
 # Register the tag with Liquid so Jekyll recognizes {% book_link ... %}
 Liquid::Template.register_tag('book_link', Jekyll::BookLinkTag)

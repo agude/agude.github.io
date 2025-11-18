@@ -73,7 +73,7 @@ class TestDisplayBooksByYearTag < Minitest::Test
     # --- Assert Group 2024 ---
     assert_match %r{<h2 class="book-list-headline" id="year-2024">2024</h2>}, output
     # Books within 2024: Mar (most recent), then Jan
-    expected_2024_cards = "<!-- Card for: #{book_2024_mar.data['title']} \\(Date: 2024-03-10\\) -->\\s*" +
+    expected_2024_cards = "<!-- Card for: #{book_2024_mar.data['title']} \\(Date: 2024-03-10\\) -->\\s*" \
                           "<!-- Card for: #{book_2024_jan.data['title']} \\(Date: 2024-01-15\\) -->"
     assert_match %r{id="year-2024">2024</h2>\s*<div class="card-grid">\s*#{expected_2024_cards}\s*</div>}m, output
 

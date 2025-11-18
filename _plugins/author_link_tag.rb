@@ -31,18 +31,17 @@ module Jekyll
       # 1. Extract the Name (first argument, must be quoted or a variable)
       # Try matching a quoted fragment first
       if scanner.scan(QuotedFragment)
-        @name_markup = scanner.matched
       else
         # If not quoted, try matching a sequence of non-whitespace characters (potential variable)
         unless scanner.scan(/\S+/)
           raise Liquid::SyntaxError, "Syntax Error in 'author_link': Could not find author name in '#{@raw_markup}'"
         end
 
-        @name_markup = scanner.matched
 
         # If nothing is found, it's a syntax error
 
       end
+@name_markup = scanner.matched
 
       # 2. Scan the rest of the string for optional arguments (link_text, possessive)
       # Loop while there's content left to scan
@@ -72,7 +71,7 @@ module Jekyll
             "Syntax Error in 'author_link': Author name value is missing or empty in '#{@raw_markup}'"
 
       # --- End Argument Parsing ---
-    end # End initialize
+    end
 
     # Renders the author link HTML by calling the utility function
     def render(context)
@@ -87,9 +86,9 @@ module Jekyll
         link_text_override,
         @possessive_flag # Pass the possessive flag
       )
-    end # End render
-  end # End class AuthorLinkTag
-end # End module Jekyll
+    end
+  end
+end
 
 # Register the tag with Liquid so Jekyll recognizes {% author_link ... %}
 Liquid::Template.register_tag('author_link', Jekyll::AuthorLinkTag)

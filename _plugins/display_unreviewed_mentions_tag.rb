@@ -7,10 +7,7 @@ require_relative 'utils/text_processing_utils'
 
 module Jekyll
   class DisplayUnreviewedMentionsTag < Liquid::Tag
-    def initialize(tag_name, markup, tokens)
-      super
-      # No arguments needed for this tag.
-    end
+    
 
     def render(context)
       site = context.registers[:site]

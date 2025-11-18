@@ -66,4 +66,4 @@ module LinkHelperUtils
       inner_html_element
     end
   end
-end # End Module LinkHelperUtils
+end

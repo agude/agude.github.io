@@ -266,9 +266,9 @@ module Jekyll
       url_to_book_map = {}
       books_cache.values.flatten.each { |book_data| url_to_book_map[book_data['url']] = book_data }
       url_to_author_map = {}
-      authors_cache.values.each { |author_data| url_to_author_map[author_data['url']] = author_data }
+      authors_cache.each_value { |author_data| url_to_author_map[author_data['url']] = author_data }
       url_to_series_map = {}
-      series_cache.values.each { |series_data| url_to_series_map[series_data['url']] = series_data }
+      series_cache.each_value { |series_data| url_to_series_map[series_data['url']] = series_data }
 
       # --- Run the raw link validator ---
       _validate_for_raw_links(site, url_to_book_map, url_to_author_map, url_to_series_map)

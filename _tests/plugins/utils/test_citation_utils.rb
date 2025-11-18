@@ -3,7 +3,7 @@ require_relative '../../test_helper'
 require_relative '../../../_plugins/utils/citation_utils' # Ensure the module is loaded
 
 class TestCitationUtils < Minitest::Test
-  NBSP = "\u00A0" # Non-breaking space
+  NBSP = "\u00A0".freeze # Non-breaking space
 
   # Helper to directly call the module's method.
   # The internal logic of CitationUtils.format_citation_html will now infer
@@ -127,7 +127,8 @@ class TestCitationUtils < Minitest::Test
     assert_equal expected, format_citation(params)
   end
 
-  def test_full_book_citation # work_title is present, container_title is not
+# work_title is present, container_title is not
+  def test_full_book_citation
     params = {
       author_last: 'Smith', author_first: 'John',
       work_title: 'A History of Everything',
@@ -170,7 +171,8 @@ class TestCitationUtils < Minitest::Test
     assert_equal expected, format_citation(params)
   end
 
-  def test_whole_website_citation # work_title is present, container_title is not
+# work_title is present, container_title is not
+  def test_whole_website_citation
     params = {
       work_title: 'Comprehensive News Site',
       url: 'http://comprehensivenews.com',

@@ -2,7 +2,8 @@
 require_relative '../../../test_helper'
 # BookListUtils is loaded by test_helper, making its private methods accessible for testing via __send__
 
-class TestBookListUtilsPrivateHelpers < Minitest::Test # Renamed class
+# Renamed class
+class TestBookListUtilsPrivateHelpers < Minitest::Test
   # No complex setup needed for these direct helper tests,
   # as they don't rely on site or context objects.
 

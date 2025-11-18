@@ -48,4 +48,4 @@ module BacklinkUtils
     backlinks_data.sort_by { |triplet| triplet[0] }
                   .map { |triplet| [triplet[1], triplet[2]] } # Map to [title, url]
   end
-end # End Module BacklinkUtils
+end

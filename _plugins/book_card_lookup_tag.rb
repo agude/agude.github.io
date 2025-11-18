@@ -95,8 +95,8 @@ module Jekyll
         )
       end
       # --- End Render Card ---
-    end # End render
-  end # End class
-end # End module
+    end
+  end
+end
 
 Liquid::Template.register_tag('book_card_lookup', Jekyll::BookCardLookupTag)

@@ -56,7 +56,7 @@ module Jekyll
         resolved_limit = TagArgumentUtils.resolve_value(@limit_markup, context)
         begin
           limit_int = Integer(resolved_limit.to_s) if resolved_limit # Ensure resolved_limit is not nil
-          limit = limit_int if limit_int && limit_int > 0
+          limit = limit_int if limit_int&.positive?
         rescue ArgumentError, TypeError
           # Silently use default limit if conversion fails or value is invalid
         end

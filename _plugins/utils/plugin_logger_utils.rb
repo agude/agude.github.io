@@ -21,9 +21,9 @@ module PluginLoggerUtils
 
     # --- 1. Validate Context and Site Configuration Access ---
     # Ensure that context, site, and site.config are accessible for logging configuration.
-    if context && context.respond_to?(:registers) && context.registers.is_a?(Hash)
+    if context&.respond_to?(:registers) && context.registers.is_a?(Hash)
       site_from_context = context.registers[:site]
-      if site_from_context && site_from_context.respond_to?(:config) && site_from_context.config.is_a?(Hash)
+      if site_from_context&.respond_to?(:config) && site_from_context.config.is_a?(Hash)
         can_get_site_config = true
       end
     end
@@ -58,7 +58,7 @@ module PluginLoggerUtils
 
     page_from_context = context.registers[:page]
     page_path = 'unknown_page' # Default if page or path is not available
-    if page_from_context && page_from_context.respond_to?(:[]) && page_from_context['path']
+    if page_from_context&.respond_to?(:[]) && page_from_context['path']
       page_path = page_from_context['path']
     elsif page_from_context # Page object exists but path might be missing or not a hash access
       page_path = "page_exists_no_path (class: #{page_from_context.class.name})"

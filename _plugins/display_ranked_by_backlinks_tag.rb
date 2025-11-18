@@ -6,14 +6,11 @@ require_relative 'utils/book_link_util'
 
 module Jekyll
   class DisplayRankedByBacklinksTag < Liquid::Tag
-    def initialize(tag_name, markup, tokens)
-      super
-      # No arguments needed for this tag.
-    end
+    
 
     def render(context)
       site = context.registers[:site]
-      unless site && site.data.dig('link_cache', 'backlinks') && site.data.dig('link_cache', 'books')
+      unless site&.data&.dig('link_cache', 'backlinks') && site.data.dig('link_cache', 'books')
         return PluginLoggerUtils.log_liquid_failure(
           context: context,
           tag_type: 'RANKED_BY_BACKLINKS',

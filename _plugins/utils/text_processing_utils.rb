@@ -32,7 +32,7 @@ module TextProcessingUtils
     # If not enough words to truncate, return the already stripped text
     return stripped_text if words.length <= num_words
     # If truncating to 0 words, just return the omission
-    return omission if num_words == 0 && words.any? # Ensure there were words to omit
+    return omission if num_words.zero? && words.any? # Ensure there were words to omit
 
     words[0...num_words].join(' ') + omission
   end
@@ -78,7 +78,7 @@ module TextProcessingUtils
 
     # This 'if' block only runs when a number is passed in.
     # If etal_after is nil, this condition is false, and it proceeds to the full list logic.
-    if etal_after.is_a?(Integer) && etal_after > 0 && num_items > etal_after
+    if etal_after.is_a?(Integer) && etal_after.positive? && num_items > etal_after
       return "#{items[0]} <abbr class=\"etal\">et al.</abbr>"
     end
 

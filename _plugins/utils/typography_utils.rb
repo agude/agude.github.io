@@ -6,7 +6,8 @@ module TypographyUtils
   # and allows <br> tags through. NO Kramdown involved.
   # @param title [String, nil] The title string to prepare.
   # @return [String] The prepared title string, safe for HTML content.
-  def self.prepare_display_title(title) # Renamed from _prepare_display_title
+# Renamed from _prepare_display_title
+  def self.prepare_display_title(title)
     return '' if title.nil?
 
     text = title.to_s

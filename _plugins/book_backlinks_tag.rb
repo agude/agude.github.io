@@ -8,10 +8,7 @@ require_relative 'utils/text_processing_utils' # For sorting
 
 module Jekyll
   class BookBacklinksTag < Liquid::Tag
-    def initialize(tag_name, markup, tokens)
-      super
-      # No arguments needed for this tag
-    end
+    
 
     # Renders the list of books linking back to the current page.
     def render(context)
@@ -49,7 +46,7 @@ module Jekyll
       # --- End Sanity Checks ---
 
       current_title_original = page['title']
-      link_cache = site.data.dig('link_cache') || {}
+      link_cache = site.data['link_cache'] || {}
       backlinks_cache = link_cache['backlinks'] || {}
       canonical_map = link_cache['url_to_canonical_map'] || {}
       book_families = link_cache['book_families'] || {}
@@ -88,7 +85,7 @@ module Jekyll
 
       # --- Deduplicate sources based on their canonical URL, respecting link priority ---
       unique_canonical_sources = {}
-      merged_backlinks.values.each do |entry|
+      merged_backlinks.each_value do |entry|
         source_doc = entry[:source]
         source_canonical_url = canonical_map[source_doc.url] || source_doc.url
 
@@ -157,8 +154,8 @@ module Jekyll
 
       output << '</aside>'
       output
-    end # End render
-  end # End class
-end # End module
+    end
+  end
+end
 
 Liquid::Template.register_tag('book_backlinks', Jekyll::BookBacklinksTag)

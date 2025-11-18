@@ -97,8 +97,8 @@ class TestDisplayBooksByTitleAlphaGroupTag < Minitest::Test
     # --- Assert Group A ---
     # Books: Aardvark Antics, Another Apple Tale, Apple Pie Adventures
     assert_match %r{<h2 class="book-list-headline" id="letter-a">A</h2>}, output
-    expected_a_cards = "<!-- Card for: #{@book_aardvark.data['title']} -->\\s*" +
-                       "<!-- Card for: #{@book_another_apple.data['title']} -->\\s*" +
+    expected_a_cards = "<!-- Card for: #{@book_aardvark.data['title']} -->\\s*" \
+                       "<!-- Card for: #{@book_another_apple.data['title']} -->\\s*" \
                        "<!-- Card for: #{@book_apple.data['title']} -->"
     assert_match %r{id="letter-a">A</h2>\s*<div class="card-grid">\s*#{expected_a_cards}\s*</div>}m, output
 

@@ -21,7 +21,7 @@ module Jekyll
       scanner = StringScanner.new(@raw_markup)
       parsed_keys = []
 
-      while true
+      loop do
         scanner.skip(/\s*/) # Skip leading whitespace before the next argument
         break if scanner.eos?
 

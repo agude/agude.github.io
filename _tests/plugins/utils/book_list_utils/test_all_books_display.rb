@@ -2,7 +2,8 @@
 require_relative '../../../test_helper'
 # BookListUtils is loaded by test_helper
 
-class TestBookListUtilsAllBooksDisplay < Minitest::Test # Renamed class
+# Renamed class
+class TestBookListUtilsAllBooksDisplay < Minitest::Test
   def setup
     # --- Book Data for All Books Display Tests ---
     # This setup should include a mix of series books and standalone books

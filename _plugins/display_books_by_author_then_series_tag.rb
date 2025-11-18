@@ -22,17 +22,6 @@ module Jekyll
       raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
     end
 
-    # Simple slugify: downcase, replace non-alphanumeric with hyphen, consolidate hyphens.
-    # More robust slugification could be moved to TextProcessingUtils if needed elsewhere.
-    private def _slugify(text)
-      return '' if text.nil?
-
-      text.to_s.downcase.strip
-          .gsub(/\s+/, '-')          # Replace spaces with hyphens
-          .gsub(/[^\w-]+/, '')       # Remove all non-word chars except hyphens
-          .gsub(/--+/, '-')          # Replace multiple hyphens with a single one
-          .gsub(/^-+|-+$/, '')       # Remove leading/trailing hyphens
-    end
 
     def render(context)
       site = context.registers[:site]
@@ -110,7 +99,20 @@ module Jekyll
       # --- Final Assembly ---
       log_messages + nav_html + output_buffer
     end
-  end
+  private
+
+# Simple slugify: downcase, replace non-alphanumeric with hyphen, consolidate hyphens.
+# More robust slugification could be moved to TextProcessingUtils if needed elsewhere.
+def _slugify(text)
+      return '' if text.nil?
+
+      text.to_s.downcase.strip
+          .gsub(/\s+/, '-')          # Replace spaces with hyphens
+          .gsub(/[^\w-]+/, '')       # Remove all non-word chars except hyphens
+          .gsub(/--+/, '-')          # Replace multiple hyphens with a single one
+          .gsub(/^-+|-+$/, '')       # Remove leading/trailing hyphens
+    end
+end
 end
 
 Liquid::Template.register_tag('display_books_by_author_then_series', Jekyll::DisplayBooksByAuthorThenSeriesTag)

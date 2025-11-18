@@ -50,7 +50,7 @@ MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection, :rel
       data['title'] || data[:title]
     rescue StandardError
       nil
-    end # Allow symbol or string key for title
+    end
     elsif data&.key?(key_s) then data[key_s] # Check string key in data
     elsif data&.key?(key.to_sym) then data[key.to_sym] # Check symbol key in data
     else
@@ -212,10 +212,12 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
 
   # Mock a basic Markdown converter instance.
   mock_markdown_converter = Class.new(Jekyll::Converter) do
-    def initialize(config = {}) = @config = config # Add initializer
+# Add initializer
+    def initialize(config = {}) = @config = config
     def matches(ext) = ext.casecmp('.md').zero?
     def output_ext(_ext) = '.html'
-    def convert(content) = "<p>#{content.strip}</p>" # Simplified Markdown to HTML
+# Simplified Markdown to HTML
+    def convert(content) = "<p>#{content.strip}</p>"
   end.new(base_config)
 
   site = MockSite.new(
@@ -252,7 +254,7 @@ def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = '
 
   base_data = {
     'layout' => 'test_layout', 'title' => 'Test Document', 'published' => true,
-    'path' => url ? url.sub(%r{^/}, '') : nil # Derive path from URL if URL is provided
+    'path' => url&.sub(%r{^/}, '') # Derive path from URL if URL is provided
   }.merge(string_keyed_data_overrides)
 
   # Priority:

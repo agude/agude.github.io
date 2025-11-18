@@ -62,14 +62,14 @@ module Jekyll
       now_unix = Time.now.to_i
 
       all_potential_books = site.collections['books'].docs.select do |book|
-        book && book.data && # Ensure book and book.data are not nil
+        book&.data && # Ensure book and book.data are not nil
           book.data['published'] != false &&
           !book.data['canonical_url']&.start_with?('/') && # Exclude archived reviews
           !urls_to_exclude.include?(book.url) && # Exclude current page and its canonical version
           book.date && book.date.to_time.to_i <= now_unix
       end.compact # Ensure no nils from a faulty collection.docs
 
-      books_by_date_desc = all_potential_books.sort_by { |book| book.date }.reverse
+      books_by_date_desc = all_potential_books.sort_by(&:date).reverse
       candidate_books_accumulator = []
       current_book_num_parsed = BookListUtils.__send__(:_parse_book_number, page['book_number'])
 
@@ -154,7 +154,7 @@ module Jekyll
 
           book_author_list = FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
                                              .map(&:strip).map(&:downcase).reject(&:empty?)
-          (current_page_authors & book_author_list).any?
+          current_page_authors.intersect?(book_author_list)
         end
         candidate_books_accumulator.concat(author_books)
       end
@@ -168,7 +168,7 @@ module Jekyll
         end
       end
 
-      final_books = candidate_books_accumulator.uniq { |book| book.url }.slice(0, @max_books)
+      final_books = candidate_books_accumulator.uniq(&:url).slice(0, @max_books)
 
       return log_messages_html if final_books.empty? # Prepend logs if no books found
 

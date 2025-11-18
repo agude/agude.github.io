@@ -136,7 +136,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
       '/test/long-desc.html',
       'Body', '2024-01-01', @post_collection
     )
-    expected_truncated_desc = (('Word ' * 49) + 'Word...') # 50th word replaced by ...
+    expected_truncated_desc = ("#{'Word ' * 49}Word...") # 50th word replaced by ...
 
     result_hash = BlogPostingLdGenerator.generate_hash(doc, @site)
     assert_equal expected_truncated_desc, result_hash['description']
