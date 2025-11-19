@@ -8,8 +8,8 @@
 # Ignore Jekyll build output
 _site
 
-# Ignore Bundler vendor directory (if installing locally)
-# vendor/bundle
+# Ignore Bundler vendor directory (to keep build context small)
+vendor
 
 # IMPORTANT: Gemfile.lock is NO LONGER ignored so it's used in the build
 # Gemfile.lock

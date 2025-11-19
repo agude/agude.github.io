@@ -28,13 +28,16 @@ WORKDIR /workspace
 # Copy Gemfile and the committed Gemfile.lock first.
 COPY Gemfile Gemfile.lock ./
 
-# Configure Bundler for deployment mode (replaces --deployment flag)
-RUN bundle config set --local deployment 'true'
+# Configure Bundler to respect the lockfile strictly (frozen)
+# We use --global so settings persist and paths aren't masked by the volume mount.
+RUN bundle config set --global frozen 1
 
 # Install gems based *strictly* on the committed Gemfile.lock
+# These will now go to the system path (e.g. /usr/local/bundle)
 RUN bundle install --jobs 4
 
-# Now copy the rest of the application code.
-COPY . .
+# No COPY . . command.
+# We do not copy source files. We mount them via Makefile at runtime.
+# This prevents rebuilding the image layer every time you change a test or post.
 
 # No CMD needed, will be provided by docker run
