@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _plugins/utils/card_data_extractor_utils.rb
 require_relative 'url_utils'
 require_relative 'plugin_logger_utils'
@@ -6,130 +8,140 @@ module CardDataExtractorUtils
   # Extracts common base data required for rendering any card.
   # Handles initial validation of the item_object and context.
   #
-  # @param item_object [Jekyll::Document, Jekyll::Page, MockDocument, Jekyll::Drops::Drop] The Jekyll item or its Liquid Drop.
+  # @param item_object [Jekyll::Document, Jekyll::Page, Drop] The Jekyll item or its Liquid Drop.
   # @param context [Liquid::Context] The current Liquid context.
   # @param default_title [String] Default title if item has no title.
   # @param log_tag_type [String] Tag type string for logging errors.
-  # @return [Hash] A hash containing:
-  #   :site [Jekyll::Site, MockSite, nil] Site object, or nil if context/site missing.
-  #   :data_source_for_keys [Hash, Jekyll::Drops::Drop, nil] The object to use for `['key']` access (item.data or the Drop itself).
-  #   :data_for_description [Hash, Jekyll::Drops::Drop, nil] The object to pass to extract_description_html.
-  #   :absolute_url [String, nil] Absolute URL of the item, or '#' if item_object.url is empty.
-  #   :absolute_image_url [String, nil] Absolute URL of the item's image.
-  #   :raw_title [String, nil] The raw title of the item.
-  #   :log_output [String] HTML log comment if initial validation fails, else an empty string.
+  # @return [Hash] A hash containing site, data sources, URLs, title, and logs.
   def self.extract_base_data(item_object, context, default_title: 'Untitled Item', log_tag_type: 'CARD_DATA_EXTRACTION')
-    log_output_accumulator = ''
-
-    # 1. Validate Context and Site
-    unless context && (site = context.registers[:site])
-      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
-        context: context,
-        tag_type: log_tag_type,
-        reason: 'Context or Site object unavailable for card data extraction.',
-        identifiers: { item_type: item_object.class.name }
-      )
-      # Return immediately with log if site context is missing, as further operations depend on it.
-      return { log_output: log_output_accumulator, site: nil, data_source_for_keys: nil, data_for_description: nil,
-               absolute_url: nil, absolute_image_url: nil, raw_title: nil }
-    end
-
-    # 2. Validate item_object and determine data_source
-    is_valid_item = false
-    data_source = nil
-
-    if item_object.is_a?(Jekyll::Document) || item_object.is_a?(Jekyll::Page)
-      # For full Jekyll objects, they must have a .url and .data (which is a Hash)
-      if item_object.respond_to?(:url) && item_object.respond_to?(:data) && item_object.data.is_a?(Hash)
-        is_valid_item = true
-        data_source = item_object.data # Use the .data hash for key access
-      end
-    elsif item_object.is_a?(Jekyll::Drops::Drop)
-      # For Liquid Drops, they must have a .url and support ['key'] and key?
-      if item_object.respond_to?(:url) && item_object.respond_to?(:[]) && item_object.respond_to?(:key?)
-        is_valid_item = true
-        data_source = item_object # The Drop itself handles ['key'] access
-      end
-    end
-
-    unless item_object && is_valid_item
-      log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
-        context: context,
-        tag_type: log_tag_type,
-        reason: 'Invalid item_object: Expected a Jekyll Document/Page or Drop with .url and data access capabilities.',
-        identifiers: { item_class: item_object.class.name, item_inspect: item_object.inspect.slice(0, 100) }
-      )
-      # Return with log if item_object is fundamentally unusable.
-      return { log_output: log_output_accumulator, site: site, data_source_for_keys: nil, data_for_description: nil,
-               absolute_url: nil, absolute_image_url: nil, raw_title: nil }
-    end
-
-    # 3. Extract common properties
-    # .url should work for both Jekyll::Document/Page and Jekyll::Drops::Drop (usually delegated)
-    item_url_val = item_object.url.to_s
-    absolute_url = item_url_val.empty? ? '#' : UrlUtils.absolute_url(item_url_val, site)
-
-    # Use the determined data_source (Hash or Drop) for key-based access
-    image_path = data_source['image']
-    absolute_image_url = nil
-    absolute_image_url = UrlUtils.absolute_url(image_path.to_s, site) if image_path && !image_path.to_s.strip.empty?
-
-    current_title = data_source['title']
-    raw_title = if current_title.nil? || current_title.to_s.strip.empty?
-                  default_title
-                else
-                  current_title.to_s # Use the title as a string
-                end
-
-    # 4. Return extracted data
-    {
-      site: site,
-      data_source_for_keys: data_source, # This is item_object.data (Hash) or item_object (the Drop)
-      data_for_description: data_source, # Pass this same source to extract_description_html
-      absolute_url: absolute_url,
-      absolute_image_url: absolute_image_url,
-      raw_title: raw_title,
-      log_output: log_output_accumulator # Will be empty if no errors from this stage
-    }
+    BaseDataExtractor.new(item_object, context, default_title, log_tag_type).extract
   end
 
   # Extracts and prepares the description string for a card.
   # Handles different logic for article vs. book cards based on `type`.
   #
-  # @param source_for_data [Hash, Jekyll::Drops::Drop] The object to query for description/excerpt (item.data or the Drop).
+  # @param source_for_data [Hash, Drop] The object to query (item.data or the Drop).
   # @param type [Symbol] :article or :book, to determine description source priority.
-  # @return [String] The processed HTML description string (stripped of leading/trailing whitespace).
-  #                  Returns an empty string if no suitable description content is found.
+  # @return [String] The processed HTML description string.
   def self.extract_description_html(source_for_data, type: :article)
-    description_content = nil
-    source_for_data ||= {} # Ensure it's not nil, default to empty hash-like behavior if it is
-
-    # source_for_data is expected to be a Hash (like document.data) or a Drop.
-    # Both respond to ['key_name'].
+    source = source_for_data || {}
+    content = nil
 
     if type == :article
-      description_content = source_for_data['description'] # Check front matter 'description' first
-      # Fallback to excerpt only if 'description' is nil or an empty string after stripping
-      if description_content.nil? || description_content.to_s.strip.empty?
-        # source_for_data['excerpt'] on a DocumentDrop returns an ExcerptDrop.
-        # source_for_data['excerpt'] on a document.data Hash returns a Jekyll::Excerpt object.
-        excerpt_obj_or_drop = source_for_data['excerpt']
-        if excerpt_obj_or_drop.respond_to?(:output) # True for Jekyll::Excerpt
-          description_content = excerpt_obj_or_drop.output
-        elsif excerpt_obj_or_drop # It might be an ExcerptDrop, whose to_s is the output
-          description_content = excerpt_obj_or_drop.to_s
-        end
-      end
+      content = source['description']
+      content = _extract_excerpt(source) if content.nil? || content.to_s.strip.empty?
     elsif type == :book
-      # Books primarily use the excerpt for the card description
-      excerpt_obj_or_drop = source_for_data['excerpt']
-      if excerpt_obj_or_drop.respond_to?(:output) # True for Jekyll::Excerpt
-        description_content = excerpt_obj_or_drop.output
-      elsif excerpt_obj_or_drop # Jekyll::Drops::ExcerptDrop
-        description_content = excerpt_obj_or_drop.to_s
-      end
+      content = _extract_excerpt(source)
     end
-    # Ensure we return a string, stripping whitespace. If description_content is nil, .to_s gives ""
-    description_content.to_s.strip
+
+    content.to_s.strip
+  end
+
+  def self._extract_excerpt(source)
+    excerpt = source['excerpt']
+    if excerpt.respond_to?(:output)
+      excerpt.output
+    elsif excerpt
+      excerpt.to_s
+    end
+  end
+
+  # Helper class to handle base data extraction logic
+  class BaseDataExtractor
+    def initialize(item, context, default_title, log_tag)
+      @item = item
+      @context = context
+      @default_title = default_title
+      @log_tag = log_tag
+      @log_out = +'' # Initialize as mutable string
+    end
+
+    def extract
+      return failure_result unless validate_context
+      return failure_result unless validate_item
+
+      success_result
+    end
+
+    private
+
+    def validate_context
+      return true if @context && (@site = @context.registers[:site])
+
+      log_failure('Context or Site object unavailable for card data extraction.', { item_type: @item.class.name })
+      false
+    end
+
+    def validate_item
+      if valid_jekyll_object?
+        @data_source = @item.data
+        return true
+      end
+
+      if valid_drop?
+        @data_source = @item
+        return true
+      end
+
+      log_invalid_item
+      false
+    end
+
+    def valid_jekyll_object?
+      (@item.is_a?(Jekyll::Document) || @item.is_a?(Jekyll::Page)) &&
+        @item.respond_to?(:url) && @item.respond_to?(:data) && @item.data.is_a?(Hash)
+    end
+
+    def valid_drop?
+      @item.is_a?(Jekyll::Drops::Drop) &&
+        @item.respond_to?(:url) && @item.respond_to?(:[]) && @item.respond_to?(:key?)
+    end
+
+    def log_invalid_item
+      log_failure(
+        'Invalid item_object: Expected a Jekyll Document/Page or Drop with .url and data access capabilities.',
+        { item_class: @item.class.name, item_inspect: @item.inspect.slice(0, 100) }
+      )
+    end
+
+    def success_result
+      {
+        site: @site,
+        data_source_for_keys: @data_source,
+        data_for_description: @data_source,
+        absolute_url: absolute_url,
+        absolute_image_url: absolute_image_url,
+        raw_title: raw_title,
+        log_output: @log_out
+      }
+    end
+
+    def failure_result
+      { log_output: @log_out, site: @site, data_source_for_keys: nil, data_for_description: nil,
+        absolute_url: nil, absolute_image_url: nil, raw_title: nil }
+    end
+
+    def absolute_url
+      url = @item.url.to_s
+      url.empty? ? '#' : UrlUtils.absolute_url(url, @site)
+    end
+
+    def absolute_image_url
+      path = @data_source['image']
+      return nil unless path && !path.to_s.strip.empty?
+
+      UrlUtils.absolute_url(path.to_s, @site)
+    end
+
+    def raw_title
+      t = @data_source['title']
+      (t.nil? || t.to_s.strip.empty?) ? @default_title : t.to_s
+    end
+
+    def log_failure(reason, identifiers)
+      @log_out << PluginLoggerUtils.log_liquid_failure(
+        context: @context, tag_type: @log_tag, reason: reason, identifiers: identifiers
+      )
+    end
   end
 end
