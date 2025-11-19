@@ -20,53 +20,13 @@ module Jekyll
 
     def initialize(tag_name, markup, tokens)
       super
+      @tag_name = tag_name
       @raw_markup = markup # Store original for potential error messages
-
-      # --- Argument Parsing using StringScanner ---
       @title_markup = nil
       @link_text_markup = nil
       @author_markup = nil
 
-      # Use a scanner to step through the markup
-      scanner = StringScanner.new(markup.strip)
-
-      # 1. Extract the Title (first argument, must be quoted or a variable)
-      if scanner.scan(QuotedFragment)
-      else
-        # If not quoted, try matching a sequence of non-whitespace characters (potential variable)
-        unless scanner.scan(/\S+/)
-          raise Liquid::SyntaxError, "Syntax Error in 'book_link': Could not find book title in '#{@raw_markup}'"
-        end
-
-        # If nothing is found, it's a syntax error
-
-      end
-      @title_markup = scanner.matched
-
-      # 2. Scan the rest of the string for optional arguments (link_text, author)
-      until scanner.eos?
-        scanner.skip(/\s+/) # Consume leading whitespace
-        break if scanner.eos?
-
-        # Check for link_text=... argument
-        if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
-          @link_text_markup ||= scanner[1] # Take the first one found
-          # Check for author=... argument
-        elsif scanner.scan(/author\s*=\s*(#{QuotedFragment})/)
-          @author_markup ||= scanner[1] # Take the first one found
-        else
-          # Found an unrecognized argument
-          unknown_arg = scanner.scan(/\S+/)
-          raise Liquid::SyntaxError,
-                "Syntax Error in 'book_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
-        end
-      end
-      # --- End Argument Parsing ---
-
-      # Ensure title markup was actually found
-      return if @title_markup && !@title_markup.strip.empty?
-
-      raise Liquid::SyntaxError, "Syntax Error in 'book_link': Title value is missing or empty in '#{@raw_markup}'"
+      parse_markup(markup)
     end
 
     # Renders the book link HTML by calling the utility function
@@ -78,6 +38,52 @@ module Jekyll
 
       # Call the centralized utility function from BookLinkUtils with the new author argument
       BookLinkUtils.render_book_link(book_title, context, link_text_override, author_filter)
+    end
+
+    private
+
+    def parse_markup(markup)
+      scanner = StringScanner.new(markup.strip)
+      parse_title(scanner)
+      parse_options(scanner)
+      validate_title
+    end
+
+    def parse_title(scanner)
+      # 1. Extract the Title (first argument, must be quoted or a variable)
+      if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
+        @title_markup = scanner.matched
+      else
+        raise Liquid::SyntaxError, "Syntax Error in 'book_link': Could not find book title in '#{@raw_markup}'"
+      end
+    end
+
+    def parse_options(scanner)
+      # 2. Scan the rest of the string for optional arguments (link_text, author)
+      until scanner.eos?
+        scanner.skip(/\s+/) # Consume leading whitespace
+        break if scanner.eos?
+
+        if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
+            @link_text_markup ||= scanner[1] # Take the first one found
+        elsif scanner.scan(/author\s*=\s*(#{QuotedFragment})/)
+          @author_markup ||= scanner[1] # Take the first one found
+        else
+          handle_unknown_argument(scanner)
+        end
+      end
+    end
+
+    def handle_unknown_argument(scanner)
+      unknown_arg = scanner.scan(/\S+/)
+      raise Liquid::SyntaxError,
+        "Syntax Error in 'book_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
+    end
+
+    def validate_title
+      return if @title_markup && !@title_markup.strip.empty?
+
+      raise Liquid::SyntaxError, "Syntax Error in 'book_link': Title value is missing or empty in '#{@raw_markup}'"
     end
   end
 end
