@@ -19,9 +19,7 @@ module TagArgumentUtils
     stripped_markup = markup.strip
     return nil if stripped_markup.empty?
 
-    # Check if it's a quoted string (single or double)
-    if (stripped_markup.start_with?('"') && stripped_markup.end_with?('"')) ||
-       (stripped_markup.start_with?("'") && stripped_markup.end_with?("'"))
+    if quoted?(stripped_markup)
       # It's a quoted literal. Return the content inside the quotes.
       stripped_markup[1..-2]
     else
@@ -31,4 +29,10 @@ module TagArgumentUtils
       context[stripped_markup]
     end
   end
+
+  def self.quoted?(markup)
+    (markup.start_with?('"') && markup.end_with?('"')) ||
+      (markup.start_with?("'") && markup.end_with?("'"))
+  end
+  private_class_method :quoted?
 end
