@@ -76,23 +76,11 @@ module TextProcessingUtils
     return '' if items.nil? || items.empty?
 
     items = items.map(&:to_s) # Ensure all are strings
-    num_items = items.length
 
-    # This 'if' block only runs when a number is passed in.
-    # If etal_after is nil, this condition is false, and it proceeds to the full list logic.
-    if etal_after.is_a?(Integer) && etal_after.positive? && num_items > etal_after
-      return "#{items[0]} <abbr class=\"etal\">et al.</abbr>"
-    end
-
-    # This is the default behavior: format as a full list with commas and "and".
-    case num_items
-    when 1
-      items[0]
-    when 2
-      "#{items[0]} and #{items[1]}"
-    else # 3 or more items
-      all_but_last = items[0...-1].join(', ')
-      "#{all_but_last}, and #{items.last}"
+    if _use_etal?(items.length, etal_after)
+      "#{items[0]} <abbr class=\"etal\">et al.</abbr>"
+    else
+      _format_full_sentence(items)
     end
   end
 
@@ -112,5 +100,23 @@ module TextProcessingUtils
     # Remove leading/trailing hyphens
     slug.gsub!(/^-+|-+$/, '')
     slug
+  end
+
+  # --- Private Helper Methods ---
+
+  def self._use_etal?(count, limit)
+    limit.is_a?(Integer) && limit.positive? && count > limit
+  end
+
+  def self._format_full_sentence(items)
+    case items.length
+    when 1
+      items[0]
+    when 2
+      "#{items[0]} and #{items[1]}"
+    else # 3 or more items
+      all_but_last = items[0...-1].join(', ')
+      "#{all_but_last}, and #{items.last}"
+    end
   end
 end
