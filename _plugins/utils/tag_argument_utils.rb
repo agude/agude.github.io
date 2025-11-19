@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/utils/tag_argument_utils.rb
 
 module TagArgumentUtils

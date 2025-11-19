@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/utils/feed_utils.rb
 # No specific requires needed from other utils for this basic version,
 # but PluginLoggerUtils could be added if logging within the util becomes necessary.

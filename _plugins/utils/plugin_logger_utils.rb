@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/utils/plugin_logger_utils.rb
 require 'cgi'
 require 'jekyll'
@@ -11,7 +12,7 @@ module PluginLoggerUtils
     error: 3
   }.freeze
   DEFAULT_MESSAGE_LEVEL_SYMBOL = :warn
-  DEFAULT_SITE_CONSOLE_LEVEL_STRING = 'warn'.freeze
+  DEFAULT_SITE_CONSOLE_LEVEL_STRING = 'warn'
 
   # Centralized logging for Liquid tags/filters.
   # Handles console logging (respecting site.config['plugin_log_level'])

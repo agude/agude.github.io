@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/utils/backlink_utils.rb
 require 'jekyll'
 require 'cgi'

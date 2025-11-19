@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/author_link_tag.rb
 require 'jekyll'
 require 'liquid'
@@ -38,11 +39,10 @@ module Jekyll
           raise Liquid::SyntaxError, "Syntax Error in 'author_link': Could not find author name in '#{@raw_markup}'"
         end
 
-
         # If nothing is found, it's a syntax error
 
       end
-@name_markup = scanner.matched
+      @name_markup = scanner.matched
 
       # 2. Scan the rest of the string for optional arguments (link_text, possessive)
       # Loop while there's content left to scan

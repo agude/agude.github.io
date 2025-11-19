@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/display_authors_tag.rb
 require 'jekyll'
 require 'liquid'

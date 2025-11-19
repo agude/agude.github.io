@@ -130,7 +130,7 @@ module Jekyll
       # Output the formatted unit
       html_output = '<span class="nowrap unit">'
       html_output << escaped_number.to_s
-      html_output << (THIN_NBSP).to_s
+      html_output << THIN_NBSP.to_s
       html_output << "<abbr class=\"unit-abbr\" title=\"#{escaped_unit_name}\">#{escaped_unit_symbol}</abbr>"
       html_output << '</span>'
 

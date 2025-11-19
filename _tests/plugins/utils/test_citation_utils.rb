@@ -127,7 +127,7 @@ class TestCitationUtils < Minitest::Test
     assert_equal expected, format_citation(params)
   end
 
-# work_title is present, container_title is not
+  # work_title is present, container_title is not
   def test_full_book_citation
     params = {
       author_last: 'Smith', author_first: 'John',
@@ -171,7 +171,7 @@ class TestCitationUtils < Minitest::Test
     assert_equal expected, format_citation(params)
   end
 
-# work_title is present, container_title is not
+  # work_title is present, container_title is not
   def test_whole_website_citation
     params = {
       work_title: 'Comprehensive News Site',

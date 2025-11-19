@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _tests/plugins/test_display_ranked_books_tag.rb
 require_relative '../test_helper'
 require_relative '../../_plugins/display_ranked_books_tag'

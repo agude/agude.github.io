@@ -6,8 +6,6 @@ require_relative 'utils/book_link_util'
 
 module Jekyll
   class DisplayRankedByBacklinksTag < Liquid::Tag
-    
-
     def render(context)
       site = context.registers[:site]
       unless site&.data&.dig('link_cache', 'backlinks') && site.data.dig('link_cache', 'books')

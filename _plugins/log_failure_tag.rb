@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/log_failure_tag.rb
 require 'jekyll'
 require 'liquid'

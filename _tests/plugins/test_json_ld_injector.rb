@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _tests/plugins/test_json_ld_injector.rb
 require_relative '../test_helper'
 require_relative '../../_plugins/json_ld_injector' # Load the injector class/module

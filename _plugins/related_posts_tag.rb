@@ -37,7 +37,7 @@ module Jekyll
 
       if site && page
         # Check if site.posts.docs is a valid, iterable array
-        site_posts_valid = site.respond_to?(:posts) &&                            site.posts&.respond_to?(:docs) && site.posts.docs.is_a?(Array)
+        site_posts_valid = site.respond_to?(:posts) && site.posts&.respond_to?(:docs) && site.posts.docs.is_a?(Array)
         unless site_posts_valid
           prereq_missing = true
           detail = if site.respond_to?(:posts) && site.posts&.respond_to?(:docs)

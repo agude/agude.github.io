@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/utils/article_card_utils.rb
 require 'cgi'
 require_relative 'plugin_logger_utils'

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/display_books_for_series_tag.rb
 require 'jekyll'
 require 'liquid'

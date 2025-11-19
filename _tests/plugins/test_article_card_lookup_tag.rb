@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _tests/plugins/test_article_card_lookup_tag.rb
 require_relative '../test_helper'
 require_relative '../../_plugins/article_card_lookup_tag'

@@ -8,8 +8,6 @@ require_relative 'utils/text_processing_utils' # For sorting
 
 module Jekyll
   class BookBacklinksTag < Liquid::Tag
-    
-
     # Renders the list of books linking back to the current page.
     def render(context)
       site = context.registers[:site]

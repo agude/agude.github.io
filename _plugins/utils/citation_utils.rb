@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 # _plugins/utils/citation_utils.rb
 require 'cgi'
 
 module CitationUtils
-  NBSP = "\u00A0".freeze # Non-breaking space
+  NBSP = "\u00A0" # Non-breaking space
 
   # --- Public API ---
   def self.format_citation_html(params, _site = nil)

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/utils/typography_utils.rb
 require 'cgi' # Still needed for the initial minimal escape, though not for full CGI.escapeHTML
 
@@ -7,7 +8,7 @@ module TypographyUtils
   # and allows <br> tags through. NO Kramdown involved.
   # @param title [String, nil] The title string to prepare.
   # @return [String] The prepared title string, safe for HTML content.
-# Renamed from _prepare_display_title
+  # Renamed from _prepare_display_title
   def self.prepare_display_title(title)
     return '' if title.nil?
 

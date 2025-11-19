@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/short_story_title_tag.rb
 require 'jekyll'
 require 'liquid'

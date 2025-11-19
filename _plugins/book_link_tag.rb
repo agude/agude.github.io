@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/book_link_tag.rb
 require 'jekyll'
 require 'liquid'
@@ -37,11 +38,10 @@ module Jekyll
           raise Liquid::SyntaxError, "Syntax Error in 'book_link': Could not find book title in '#{@raw_markup}'"
         end
 
-
         # If nothing is found, it's a syntax error
 
       end
-@title_markup = scanner.matched
+      @title_markup = scanner.matched
 
       # 2. Scan the rest of the string for optional arguments (link_text, author)
       until scanner.eos?

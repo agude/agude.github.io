@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/utils/book_card_utils.rb
 require 'cgi'
 require_relative 'plugin_logger_utils'
@@ -9,7 +10,7 @@ require_relative 'rating_utils'
 
 require_relative 'typography_utils'
 module BookCardUtils
-  DEFAULT_TITLE_FOR_BOOK_CARD = 'Untitled Book'.freeze
+  DEFAULT_TITLE_FOR_BOOK_CARD = 'Untitled Book'
 
   def self.render(book_object, context, display_title_override: nil, subtitle: nil)
     base_data = CardDataExtractorUtils.extract_base_data(

@@ -7,8 +7,6 @@ require_relative 'utils/text_processing_utils'
 
 module Jekyll
   class DisplayUnreviewedMentionsTag < Liquid::Tag
-    
-
     def render(context)
       site = context.registers[:site]
       unless site && site.data['mention_tracker'] && site.data.dig('link_cache', 'books')

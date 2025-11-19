@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/environment_setter.rb
 # Ensures that site.config['environment'] is set from ENV['JEKYLL_ENV']
 # if ENV['JEKYLL_ENV'] is present. This helps make the environment

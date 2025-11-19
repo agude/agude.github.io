@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _tests/plugins/test_front_page_feed_tag.rb
 require_relative '../test_helper'
 require_relative '../../_plugins/front_page_feed_tag'

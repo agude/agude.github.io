@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/utils/series_link_util.rb
 require 'jekyll'
 require 'cgi'

@@ -212,11 +212,11 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
 
   # Mock a basic Markdown converter instance.
   mock_markdown_converter = Class.new(Jekyll::Converter) do
-# Add initializer
+    # Add initializer
     def initialize(config = {}) = @config = config
     def matches(ext) = ext.casecmp('.md').zero?
     def output_ext(_ext) = '.html'
-# Simplified Markdown to HTML
+    # Simplified Markdown to HTML
     def convert(content) = "<p>#{content.strip}</p>"
   end.new(base_config)
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _tests/plugins/test_front_matter_validator.rb
 require_relative '../test_helper'
 require_relative '../../_plugins/front_matter_validator'

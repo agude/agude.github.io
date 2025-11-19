@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/render_article_card_tag.rb
 require 'jekyll'
 require 'liquid'

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # _plugins/utils/link_helper_utils.rb
 require 'jekyll'
 
