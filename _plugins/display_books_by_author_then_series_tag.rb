@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _plugins/display_books_by_author_then_series_tag.rb
 require 'jekyll'
 require 'liquid'
@@ -23,94 +25,103 @@ module Jekyll
     end
 
     def render(context)
-      site = context.registers[:site]
+      Renderer.new(context).render
+    end
 
-      data_by_author = BookListUtils.get_data_for_all_books_by_author_display(
-        site: site,
-        context: context
-      )
+    # Helper class to handle rendering logic
+    class Renderer
+      def initialize(context)
+        @context = context
+        @site = context.registers[:site]
+      end
 
-      log_messages = data_by_author[:log_messages] || ''
+      def render
+        data = fetch_data
+        log_msg = data[:log_messages] || ''
 
-      return log_messages if data_by_author[:authors_data].empty? && !log_messages.empty?
-      return '' if data_by_author[:authors_data].empty?
+        return log_msg if data[:authors_data].empty?
 
-      # --- Pass 1: Build content buffer and collect first anchor for each letter ---
-      output_buffer = ''
-      first_anchor_for_letter = {}
+        content, anchors = build_content(data[:authors_data])
+        nav = build_navigation(anchors)
 
-      data_by_author[:authors_data].each do |author_data|
-        author_name = author_data[:author_name]
-        author_slug = _slugify(author_name)
-        current_letter = author_name[0].upcase
+        log_msg + nav + content
+      end
 
-        # Store the first slug we encounter for this letter
-        first_anchor_for_letter[current_letter] ||= author_slug
+      private
 
-        # Author heading is H2 with a semantic ID
-        output_buffer << "<h2 class=\"book-list-headline\" id=\"#{author_slug}\">#{CGI.escapeHTML(author_name)}</h2>\n"
+      def fetch_data
+        BookListUtils.get_data_for_all_books_by_author_display(
+          site: @site,
+          context: @context
+        )
+      end
 
-        # Handle Standalone Books for this author (as H3)
-        if author_data[:standalone_books]&.any?
-          standalone_id = "standalone-books-#{author_slug}"
-          output_buffer << "<h3 class=\"book-list-headline\" id=\"#{standalone_id}\">Standalone Books</h3>\n"
-          output_buffer << "<div class=\"card-grid\">\n"
-          author_data[:standalone_books].each do |book|
-            output_buffer << BookCardUtils.render(book, context) << "\n"
-          end
-          output_buffer << "</div>\n"
+      def build_content(authors_data)
+        buffer = +'' # Initialize as mutable string
+        anchors = {}
+
+        authors_data.each do |author_data|
+          name = author_data[:author_name]
+          slug = _slugify(name)
+          anchors[name[0].upcase] ||= slug
+
+          buffer << render_author_section(author_data, slug)
         end
 
-        # Handle Series Groups for this author (Series titles will be H3)
-        series_only_data = {
+        [buffer, anchors]
+      end
+
+      def render_author_section(author_data, slug)
+        name = CGI.escapeHTML(author_data[:author_name])
+        html = "<h2 class=\"book-list-headline\" id=\"#{slug}\">#{name}</h2>\n"
+        html << render_standalone(author_data, slug)
+        html << render_series(author_data)
+        html
+      end
+
+      def render_standalone(author_data, slug)
+        books = author_data[:standalone_books]
+        return '' unless books&.any?
+
+        id = "standalone-books-#{slug}"
+        html = "<h3 class=\"book-list-headline\" id=\"#{id}\">Standalone Books</h3>\n"
+        html << "<div class=\"card-grid\">\n"
+        books.each { |book| html << BookCardUtils.render(book, @context) << "\n" }
+        html << "</div>\n"
+      end
+
+      def render_series(author_data)
+        return '' unless author_data[:series_groups]&.any?
+
+        data = {
           standalone_books: [],
           series_groups: author_data[:series_groups],
           log_messages: ''
         }
-
-        next unless author_data[:series_groups]&.any?
-
-        output_buffer << BookListUtils.render_book_groups_html(
-          series_only_data,
-          context,
-          series_heading_level: 3
-        )
+        BookListUtils.render_book_groups_html(data, @context, series_heading_level: 3)
       end
 
-      # --- Pass 2: Build navigation using the collected anchors ---
-      existing_letters = Set.new(first_anchor_for_letter.keys)
-      all_chars_for_nav = ('A'..'Z').to_a
-      nav_links = []
-
-      all_chars_for_nav.each do |char|
-        if existing_letters.include?(char)
-          anchor_slug = first_anchor_for_letter[char]
-          nav_links << "<a href=\"##{anchor_slug}\">#{char}</a>"
-        else
-          nav_links << "<span>#{char}</span>"
+      def build_navigation(anchors)
+        links = ('A'..'Z').map do |char|
+          if anchors.key?(char)
+            "<a href=\"##{anchors[char]}\">#{char}</a>"
+          else
+            "<span>#{char}</span>"
+          end
         end
+
+        "<nav class=\"alpha-jump-links\">\n  #{links.join(' ')}\n</nav>\n"
       end
 
-      nav_html = "<nav class=\"alpha-jump-links\">\n"
-      nav_html << "  #{nav_links.join(' ')}\n"
-      nav_html << "</nav>\n"
+      def _slugify(text)
+        return '' if text.nil?
 
-      # --- Final Assembly ---
-      log_messages + nav_html + output_buffer
-    end
-
-    private
-
-    # Simple slugify: downcase, replace non-alphanumeric with hyphen, consolidate hyphens.
-    # More robust slugification could be moved to TextProcessingUtils if needed elsewhere.
-    def _slugify(text)
-      return '' if text.nil?
-
-      text.to_s.downcase.strip
+        text.to_s.downcase.strip
           .gsub(/\s+/, '-')          # Replace spaces with hyphens
           .gsub(/[^\w-]+/, '')       # Remove all non-word chars except hyphens
           .gsub(/--+/, '-')          # Replace multiple hyphens with a single one
           .gsub(/^-+|-+$/, '')       # Remove leading/trailing hyphens
+      end
     end
   end
 end
