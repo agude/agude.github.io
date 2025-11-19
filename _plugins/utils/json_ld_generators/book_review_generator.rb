@@ -8,86 +8,130 @@ require 'jekyll'
 
 module BookReviewLdGenerator
   def self.generate_hash(document, site)
-    data = {
-      '@context' => 'https://schema.org',
-      '@type' => 'Review' # The page itself is a Review
-    }
+    Generator.new(document, site).generate
+  end
 
-    # Review Author (Site default)
-    author_entity = JsonLdUtils.build_site_person_entity(site)
-    data['author'] = author_entity if author_entity
-
-    # Review Publication Date (From page.date)
-    data['datePublished'] = document.date.to_time.xmlschema if document.date
-
-    # Review Publisher (Site default)
-    publisher_entity = JsonLdUtils.build_site_person_entity(site, include_site_url: true)
-    data['publisher'] = publisher_entity if publisher_entity
-
-    # Review Rating (From page.rating)
-    rating_entity = JsonLdUtils.build_rating_entity(document.data['rating'])
-    data['reviewRating'] = rating_entity if rating_entity
-
-    # Review Body (Priority: excerpt -> description -> content)
-    review_body = JsonLdUtils.extract_descriptive_text(
-      document,
-      field_priority: %w[excerpt description content]
-      # No truncation specified in original include for book review body
-    )
-    data['reviewBody'] = review_body if review_body
-
-    # Review URL (This Page)
-    review_page_url = UrlUtils.absolute_url(document.url, site)
-    data['url'] = review_page_url if review_page_url
-
-    # --- Item Reviewed (The Book) ---
-    item_reviewed = {
-      '@type' => 'Book',
-      # Book's name is the page title for book review pages
-      'name' => document.data['title']
-    }
-    # The URL for the Book item within the Review should be the review page itself
-    item_reviewed['url'] = review_page_url if review_page_url
-
-    # Get author list using FrontMatterUtils
-    author_names = FrontMatterUtils.get_list_from_string_or_array(document.data['book_authors'])
-    if author_names.any?
-      item_reviewed['author'] = if author_names.length == 1
-                                  JsonLdUtils.build_document_person_entity(author_names.first)
-                                else
-                                  author_names.map { |name| JsonLdUtils.build_document_person_entity(name) }.compact
-                                end
+  # Helper class to handle the generation logic
+  class Generator
+    def initialize(document, site)
+      @document = document
+      @site = site
     end
 
-    book_image_entity = JsonLdUtils.build_image_object_entity(document.data['image'], site)
-    item_reviewed['image'] = book_image_entity if book_image_entity # Assign the whole object
+    def generate
+      data = build_base_review_data
+      data['itemReviewed'] = build_item_reviewed
+      # Clean final hash
+      JsonLdUtils.cleanup_data_hash!(data)
+    end
 
-    # ISBN (From page.isbn)
-    isbn = document.data['isbn']
-    item_reviewed['isbn'] = isbn.to_s.strip if isbn && !isbn.to_s.strip.empty?
+    private
 
-    # Book Awards (From page.awards - assuming it's an array)
-    awards_input = document.data['awards']
-    if awards_input.is_a?(Array)
-      # Clean up array: convert to string, strip, remove nils/empty
-      cleaned_awards = awards_input.map(&:to_s).map(&:strip).compact.reject(&:empty?)
-      item_reviewed['award'] = cleaned_awards if cleaned_awards.any?
-    elsif awards_input
-      doc_identifier = document.url || document.data['path'] || document.relative_path
+    def build_base_review_data
+      data = {
+        '@context' => 'https://schema.org',
+        '@type' => 'Review' # The page itself is a Review
+      }
+      add_review_metadata(data)
+      data
+    end
+
+    def add_review_metadata(data)
+      # Review Author (Site default)
+      data['author'] = JsonLdUtils.build_site_person_entity(@site)
+
+      # Review Publication Date (From page.date)
+      data['datePublished'] = @document.date.to_time.xmlschema if @document.date
+
+      # Review Publisher (Site default)
+      data['publisher'] = JsonLdUtils.build_site_person_entity(@site, include_site_url: true)
+
+      # Review Rating (From page.rating)
+      data['reviewRating'] = JsonLdUtils.build_rating_entity(@document.data['rating'])
+
+      # Review Body (Priority: excerpt -> description -> content)
+      data['reviewBody'] = extract_review_body
+
+      # Review URL (This Page)
+      data['url'] = review_page_url
+    end
+
+    def extract_review_body
+      JsonLdUtils.extract_descriptive_text(
+        @document,
+        field_priority: %w[excerpt description content]
+        # No truncation specified in original include for book review body
+      )
+    end
+
+    def review_page_url
+      @review_page_url ||= UrlUtils.absolute_url(@document.url, @site)
+    end
+
+    def build_item_reviewed
+      item = {
+        '@type' => 'Book',
+        # Book's name is the page title for book review pages
+        'name' => @document.data['title'],
+        # The URL for the Book item within the Review should be the review page itself
+        'url' => review_page_url
+      }
+
+      add_book_details(item)
+      JsonLdUtils.cleanup_data_hash!(item) # Clean nested hash
+    end
+
+    def add_book_details(item)
+      add_book_authors(item)
+      item['image'] = JsonLdUtils.build_image_object_entity(@document.data['image'], @site)
+      add_isbn(item)
+      add_book_awards(item)
+      add_book_series(item)
+    end
+
+    def add_book_authors(item)
+      # Get author list using FrontMatterUtils
+      names = FrontMatterUtils.get_list_from_string_or_array(@document.data['book_authors'])
+      return if names.empty?
+
+      item['author'] = if names.length == 1
+                         JsonLdUtils.build_document_person_entity(names.first)
+                       else
+                         names.map { |name| JsonLdUtils.build_document_person_entity(name) }.compact
+                       end
+    end
+
+    def add_isbn(item)
+      # ISBN (From page.isbn)
+      isbn = @document.data['isbn']
+      item['isbn'] = isbn.to_s.strip if isbn && !isbn.to_s.strip.empty?
+    end
+
+    def add_book_awards(item)
+      # Book Awards (From page.awards - assuming it's an array)
+      awards_input = @document.data['awards']
+      if awards_input.is_a?(Array)
+        # Clean up array: convert to string, strip, remove nils/empty
+        cleaned = awards_input.map(&:to_s).map(&:strip).compact.reject(&:empty?)
+        item['award'] = cleaned if cleaned.any?
+      elsif awards_input
+        log_invalid_awards
+      end
+    end
+
+    def log_invalid_awards
+      id = @document.url || @document.data['path'] || @document.relative_path
       Jekyll.logger.warn 'JSON-LD (BookReviewGen):',
-                         "Front matter 'awards' for '#{doc_identifier}' is not an Array, skipping awards."
+        "Front matter 'awards' for '#{id}' is not an Array, skipping awards."
     end
 
-    # Book Series Info (From page.series and page.book_number)
-    series_entity = JsonLdUtils.build_book_series_entity(
-      document.data['series'],
-      document.data['book_number']
-    )
-    item_reviewed['isPartOf'] = series_entity if series_entity
-
-    data['itemReviewed'] = JsonLdUtils.cleanup_data_hash!(item_reviewed) # Clean nested hash
-
-    # Clean final hash
-    JsonLdUtils.cleanup_data_hash!(data)
+    def add_book_series(item)
+      # Book Series Info (From page.series and page.book_number)
+      series_entity = JsonLdUtils.build_book_series_entity(
+        @document.data['series'],
+        @document.data['book_number']
+      )
+      item['isPartOf'] = series_entity if series_entity
+    end
   end
 end
