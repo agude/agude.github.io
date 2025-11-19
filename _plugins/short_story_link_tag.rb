@@ -24,33 +24,7 @@ module Jekyll
       @title_markup = nil
       @from_book_markup = nil
 
-      scanner = StringScanner.new(markup.strip)
-
-      # 1. Extract the Title (first argument)
-      if scanner.scan(QuotedFragment)
-        @title_markup = scanner.matched
-      elsif scanner.scan(/\S+/)
-        @title_markup = scanner.matched
-      else
-        raise Liquid::SyntaxError, "Syntax Error in 'short_story_link': Could not find story title in '#{@raw_markup}'"
-      end
-
-      # 2. Scan for optional `from_book` argument
-      scanner.skip(/\s*/)
-      unless scanner.eos?
-        if scanner.scan(/from_book\s*=\s*(#{QuotedFragment})/)
-          @from_book_markup = scanner[1]
-        else
-          unknown_arg = scanner.scan(/\S+/)
-          raise Liquid::SyntaxError,
-                "Syntax Error in 'short_story_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
-        end
-      end
-
-      return if @title_markup && !@title_markup.strip.empty?
-
-      raise Liquid::SyntaxError,
-            "Syntax Error in 'short_story_link': Title value is missing or empty in '#{@raw_markup}'"
+      parse_markup(markup)
     end
 
     def render(context)
@@ -60,6 +34,45 @@ module Jekyll
 
       # Delegate all logic to the utility module
       ShortStoryLinkUtils.render_short_story_link(story_title, context, from_book_title)
+    end
+
+    private
+
+    def parse_markup(markup)
+      scanner = StringScanner.new(markup.strip)
+      scan_title(scanner)
+      scan_optional_arguments(scanner)
+      validate_title
+    end
+
+    def scan_title(scanner)
+      # 1. Extract the Title (first argument)
+      unless scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
+        raise Liquid::SyntaxError, "Syntax Error in 'short_story_link': Could not find story title in '#{@raw_markup}'"
+      end
+
+      @title_markup = scanner.matched
+    end
+
+    def scan_optional_arguments(scanner)
+      # 2. Scan for optional `from_book` argument
+      scanner.skip(/\s*/)
+      return if scanner.eos?
+
+      if scanner.scan(/from_book\s*=\s*(#{QuotedFragment})/)
+          @from_book_markup = scanner[1]
+      else
+        unknown_arg = scanner.scan(/\S+/)
+        raise Liquid::SyntaxError,
+          "Syntax Error in 'short_story_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
+      end
+    end
+
+    def validate_title
+      return if @title_markup && !@title_markup.strip.empty?
+
+      raise Liquid::SyntaxError,
+        "Syntax Error in 'short_story_link': Title value is missing or empty in '#{@raw_markup}'"
     end
   end
 end
