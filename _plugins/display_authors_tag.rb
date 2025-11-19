@@ -19,59 +19,12 @@ module Jekyll
 
     def initialize(tag_name, markup, tokens)
       super
+      @tag_name = tag_name
       @raw_markup = markup.strip
       @authors_list_markup = nil
       @options_markup = {}
 
-      scanner = StringScanner.new(@raw_markup)
-      scanner.skip(/\s*/)
-
-      # Attempt to parse the first part as the authors_list_markup
-      # It's a variable name or a quoted string that doesn't look like a key=value pair.
-      # Regex captures: 1=QuotedFragment, 2=UnquotedWordNotFollowedByEquals
-      # This needs to be careful not to consume a key if it's the first thing.
-
-      # More robust: scan for the first token. If it's not a recognized named arg key
-      # followed by an equals, then it's the authors_list_markup.
-
-      # Peek at the first potential token to see if it's a named argument key
-      is_first_token_a_key = false
-      is_first_token_a_key = true if scanner.match?(/(#{ALLOWED_NAMED_KEYS.join('|')})\s*=\s*/)
-
-      if !is_first_token_a_key && scanner.scan(/(#{Liquid::QuotedFragment}|\S+)/)
-        # If the first token is not a key for a named argument, it's the authors_list_markup
-        @authors_list_markup = scanner[1].strip
-        scanner.skip(/\s*/) # Consume space after it
-      end
-
-      # Now parse named arguments from the rest of the string
-      until scanner.eos?
-        scanner.skip(/\s*/) # Skip whitespace before arg
-        break if scanner.eos? # Break if only whitespace remained
-
-        unless scanner.scan(SYNTAX_NAMED_ARG)
-          raise Liquid::SyntaxError,
-                "Syntax Error in '#{tag_name}': Invalid argument syntax near '#{scanner.rest}'. Expected key='value' or key=variable."
-        end
-
-        key = scanner[1].downcase
-        value_markup = scanner[2]
-
-        unless ALLOWED_NAMED_KEYS.include?(key)
-          raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Unknown argument '#{key}' in '#{@raw_markup}'"
-        end
-        if @options_markup.key?(key.to_sym)
-          raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Duplicate argument '#{key}' in '#{@raw_markup}'"
-        end
-
-        @options_markup[key.to_sym] = value_markup # Store as :linked_markup
-      end
-
-      # Final check for the required authors_list_markup
-      return unless @authors_list_markup.nil? || @authors_list_markup.empty?
-
-      raise Liquid::SyntaxError,
-            "Syntax Error in '#{tag_name}': Missing required authors list (e.g., page.book_authors) as the first argument in '#{@raw_markup}'"
+      parse_markup
     end
 
     def render(context)
@@ -80,36 +33,103 @@ module Jekyll
 
       return '' if author_names.empty?
 
-      actual_linked = true
-      if @options_markup.key?(:linked)
-        resolved_linked_val = TagArgumentUtils.resolve_value(@options_markup[:linked], context)
-        unless resolved_linked_val.nil?
-          val_str = resolved_linked_val.to_s.downcase
-          actual_linked = false if val_str == 'false' || resolved_linked_val == false
+      linked = resolve_linked_option(context)
+      etal_after = resolve_etal_after_option(context)
+
+      processed_authors = process_authors(author_names, linked, context)
+
+      TextProcessingUtils.format_list_as_sentence(processed_authors, etal_after: etal_after)
+    end
+
+    private
+
+    def parse_markup
+      scanner = StringScanner.new(@raw_markup)
+      scanner.skip(/\s*/)
+
+      parse_authors_list(scanner)
+      parse_named_arguments(scanner)
+      validate_required_arguments
+    end
+
+    def parse_authors_list(scanner)
+      # Peek at the first potential token to see if it's a named argument key
+      is_key = scanner.match?(/(#{ALLOWED_NAMED_KEYS.join('|')})\s*=\s*/)
+
+      return if is_key
+
+      if scanner.scan(/(#{Liquid::QuotedFragment}|\S+)/)
+          @authors_list_markup = scanner[1].strip
+        scanner.skip(/\s*/)
+      end
+    end
+
+    def parse_named_arguments(scanner)
+      until scanner.eos?
+        scanner.skip(/\s*/)
+        break if scanner.eos?
+
+        unless scanner.scan(SYNTAX_NAMED_ARG)
+          raise Liquid::SyntaxError,
+            "Syntax Error in '#{@tag_name}': Invalid argument syntax near '#{scanner.rest}'. " \
+            "Expected key='value' or key=variable."
         end
+
+        key = scanner[1].downcase
+        value = scanner[2]
+
+        validate_named_argument(key)
+        @options_markup[key.to_sym] = value
+      end
+    end
+
+    def validate_named_argument(key)
+      unless ALLOWED_NAMED_KEYS.include?(key)
+        raise Liquid::SyntaxError, "Syntax Error in '#{@tag_name}': Unknown argument '#{key}' in '#{@raw_markup}'"
       end
 
-      # If 'etal_after' is not provided in the tag, resolved_etal_after will be nil.
-      resolved_etal_after = nil
-      if @options_markup.key?(:etal_after)
-        resolved_etal_val = TagArgumentUtils.resolve_value(@options_markup[:etal_after], context)
-        begin
-          resolved_etal_after = Integer(resolved_etal_val.to_s) if resolved_etal_val
-        rescue ArgumentError
-          resolved_etal_after = nil
-        end
-      end
+      return unless @options_markup.key?(key.to_sym)
 
-      processed_authors = author_names.map do |name|
-        if actual_linked
+      raise Liquid::SyntaxError, "Syntax Error in '#{@tag_name}': Duplicate argument '#{key}' in '#{@raw_markup}'"
+    end
+
+    def validate_required_arguments
+      return unless @authors_list_markup.nil? || @authors_list_markup.empty?
+
+      raise Liquid::SyntaxError,
+        "Syntax Error in '#{@tag_name}': Missing required authors list (e.g., page.book_authors) " \
+        "as the first argument in '#{@raw_markup}'"
+    end
+
+    def resolve_linked_option(context)
+      return true unless @options_markup.key?(:linked)
+
+      val = TagArgumentUtils.resolve_value(@options_markup[:linked], context)
+      return true if val.nil?
+
+      val_str = val.to_s.downcase
+      !(val_str == 'false' || val == false)
+    end
+
+    def resolve_etal_after_option(context)
+      return nil unless @options_markup.key?(:etal_after)
+
+      val = TagArgumentUtils.resolve_value(@options_markup[:etal_after], context)
+      return nil unless val
+
+      Integer(val.to_s)
+    rescue ArgumentError
+      nil
+    end
+
+    def process_authors(names, linked, context)
+      names.map do |name|
+        if linked
           AuthorLinkUtils.render_author_link(name, context)
         else
           "<span class=\"author-name\">#{CGI.escapeHTML(name)}</span>"
         end
       end
-
-      # Pass the value (either the number or nil) to the utility.
-      TextProcessingUtils.format_list_as_sentence(processed_authors, etal_after: resolved_etal_after)
     end
   end
 end
