@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Gemfile
 source 'https://rubygems.org'
 
@@ -26,5 +27,5 @@ gem 'nokogiri', '~> 1.18'
 group :development, :test do
   gem 'html-proofer', '~> 4.0' # For checking broken links and HTML validity
   gem 'minitest', '~> 5.25'
-  gem 'rubocop', '~> 1.56'     # For Ruby linting
+  gem 'rubocop', '~> 1.81'     # For Ruby linting
 end
