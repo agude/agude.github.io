@@ -10,7 +10,7 @@ module Jekyll
   module FrontMatterValidator
     # Default configuration
     DEFAULT_REQUIRED_FIELDS_CONFIG = {
-      'books' => %w[title book_authors book_number], # As per your last update (rating not required)
+      'books' => %w[title book_authors book_number],
       'posts' => %w[title date]
       # Add other layouts or collection labels as needed:
       # 'my_layout' => ['field1', 'field2'],
@@ -41,53 +41,54 @@ module Jekyll
 
     # The core validation logic for a document or page
     def self.validate_document(doc)
-      current_config = required_fields_config # Use the accessor method
-      config_key = nil
-      doc_type_for_log = ''
-      is_post_collection = false # Flag to identify if we are dealing with 'posts' collection
+      config = required_fields_config
+      config_key, doc_type_log, is_post_collection = determine_validation_context(doc, config)
 
-      # Determine the configuration key based on whether it's a Document in a Collection or a Page with a layout
-      if doc.is_a?(Jekyll::Document) && doc.collection && current_config.key?(doc.collection.label)
-        config_key = doc.collection.label
-        doc_type_for_log = "Document in collection '#{config_key}'"
-        is_post_collection = (doc.collection.label == 'posts')
-      elsif doc.is_a?(Jekyll::Page) && doc.data['layout'] && current_config.key?(doc.data['layout'])
-        # Ensure it's a Page before checking layout for config, to avoid matching Documents that also have layouts
-        config_key = doc.data['layout']
-        doc_type_for_log = "Page with layout '#{config_key}'"
-        # is_post_collection remains false for pages, as filename-derived dates are specific to collection Documents.
+      return unless config_key
+
+      missing_fields = config[config_key].select do |field_name|
+        field_missing?(doc, field_name, is_post_collection)
       end
 
-      return unless config_key # If no relevant config key, skip validation
+      report_missing_fields(doc, doc_type_log, missing_fields)
+    end
 
-      required_fields = current_config[config_key]
-      missing_or_empty_fields = []
+    # --- Private Helper Methods ---
 
-      required_fields.each do |field_name|
-        field_value = doc.data[field_name]
-        is_field_blank = false
-
-        if field_name == 'book_authors'
-          authors_list = FrontMatterUtils.get_list_from_string_or_array(field_value)
-          is_field_blank = authors_list.empty?
-        elsif field_name == 'date' && is_post_collection # Only apply special date logic for 'posts' collection
-          # For posts, Jekyll derives 'date' from filename if not in front matter.
-          # doc.date attribute is the canonical one.
-          is_field_blank = doc.date.nil? || !doc.date.is_a?(Time)
-        else
-          # Standard blank check for other fields or for 'date' in non-post collections/layouts
-          is_field_blank = blank?(field_value)
-        end
-
-        missing_or_empty_fields << field_name if is_field_blank
+    def self.determine_validation_context(doc, config)
+      if doc.is_a?(Jekyll::Document) && doc.collection && config.key?(doc.collection.label)
+        label = doc.collection.label
+        [label, "Document in collection '#{label}'", label == 'posts']
+      elsif doc.is_a?(Jekyll::Page) && doc.data['layout'] && config.key?(doc.data['layout'])
+        layout = doc.data['layout']
+        [layout, "Page with layout '#{layout}'", false]
+      else
+        [nil, nil, false]
       end
+    end
 
-      return if missing_or_empty_fields.empty?
+    def self.field_missing?(doc, field_name, is_post_collection)
+      value = doc.data[field_name]
 
-      doc_identifier = doc.data['path'] || doc.url || doc.relative_path || 'unknown path'
-      error_message = "#{doc_type_for_log} '#{doc_identifier}' is missing or has empty required front matter fields: #{missing_or_empty_fields.join(', ')}."
-      Jekyll.logger.error 'FrontMatter Error:', error_message
-      raise Jekyll::Errors::FatalException, error_message
+      if field_name == 'book_authors'
+        FrontMatterUtils.get_list_from_string_or_array(value).empty?
+      elsif field_name == 'date' && is_post_collection
+        # For posts, Jekyll derives 'date' from filename if not in front matter.
+        # doc.date attribute is the canonical one.
+        doc.date.nil? || !doc.date.is_a?(Time)
+      else
+        blank?(value)
+      end
+    end
+
+    def self.report_missing_fields(doc, doc_type_log, missing_fields)
+      return if missing_fields.empty?
+
+      id = doc.data['path'] || doc.url || doc.relative_path || 'unknown path'
+      msg = "#{doc_type_log} '#{id}' is missing or has empty required front matter fields: " \
+        "#{missing_fields.join(', ')}."
+      Jekyll.logger.error 'FrontMatter Error:', msg
+      raise Jekyll::Errors::FatalException, msg
     end
   end
 
