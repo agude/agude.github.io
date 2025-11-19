@@ -21,52 +21,81 @@ module CardRendererUtils
   #                                            (e.g., author line, rating stars for book cards).
   # @return [String] The rendered HTML for the card.
   def self.render_card(context:, card_data:)
-    # site = context.registers[:site] # Not strictly needed if URLs in card_data are absolute
-    # baseurl = site.config['baseurl'] || '' # Ditto
+    # Context is currently unused but kept in signature for API compatibility.
+    # Passing it to Renderer prevents Lint/UnusedMethodArgument if we use it there,
+    # or we prefix with underscore if truly unused.
+    Renderer.new(context, card_data).render
+  end
 
-    # Basic validation of card_data structure (optional, but good for robustness)
-    unless card_data.is_a?(Hash) && card_data[:base_class] && card_data[:url] && card_data[:title_html]
+  # Helper class to handle card rendering logic
+  class Renderer
+    def initialize(_context, card_data)
+      @card_data = card_data
+    end
+
+    def render
+      return '' unless valid_data?
+
+      html = "<div class=\"#{@card_data[:base_class]}\">\n"
+      html << render_image_section
+      html << render_text_section
+      html << '</div>'
+    end
+
+    private
+
+    def valid_data?
+      if @card_data.is_a?(Hash) && @card_data[:base_class] && @card_data[:url] && @card_data[:title_html]
+        return true
+      end
+
       # In a real scenario, might log this failure using PluginLoggerUtils or raise error
       puts '[CardRendererUtils ERROR] Invalid or incomplete card_data provided.'
-      return ''
+      false
     end
 
-    html = "<div class=\"#{card_data[:base_class]}\">\n"
+    def render_image_section
+      url = @card_data[:image_url]
+      return '' unless url && !url.empty?
 
-    # Image Section
-    if card_data[:image_url] && !card_data[:image_url].empty?
-      html << "  <div class=\"card-element #{card_data[:image_div_class]}\">\n"
-      html << "    <a href=\"#{card_data[:url]}\">\n"
-      # Assuming image_alt is already appropriately escaped by the caller if needed,
-      # but a final CGI.escapeHTML here is a safety net for direct attribute injection.
-      html << "      <img src=\"#{card_data[:image_url]}\" alt=\"#{CGI.escapeHTML(card_data[:image_alt] || '')}\" />\n"
+      alt = CGI.escapeHTML(@card_data[:image_alt] || '')
+      html = "  <div class=\"card-element #{@card_data[:image_div_class]}\">\n"
+      html << "    <a href=\"#{@card_data[:url]}\">\n"
+      html << "      <img src=\"#{url}\" alt=\"#{alt}\" />\n"
       html << "    </a>\n"
       html << "  </div>\n"
+      html
     end
 
-    # Text Section
-    html << "  <div class=\"card-element card-text\">\n"
-    html << "    <a href=\"#{card_data[:url]}\">\n"
-    html << "      #{card_data[:title_html]}\n"
-    html << "    </a>\n"
-
-    # Extra elements (e.g., for book card: author, rating)
-    if card_data[:extra_elements_html]&.any?
-      card_data[:extra_elements_html].each do |element_html|
-        # These are expected to be complete HTML strings including necessary spacing/newlines
-        html << element_html # Append directly, assuming it includes leading/trailing newlines or spaces as needed
-      end
+    def render_text_section
+      html = +'' # Initialize as mutable string
+      html << "  <div class=\"card-element card-text\">\n"
+      html << render_title
+      html << render_extras
+      html << render_description
+      html << "  </div>\n"
+      html
     end
 
-    # Description Section
-    if card_data[:description_html] && !card_data[:description_html].strip.empty?
-      html << (card_data[:description_wrapper_html_open] || '')
-      html << card_data[:description_html]
-      html << (card_data[:description_wrapper_html_close] || '')
+    def render_title
+      "    <a href=\"#{@card_data[:url]}\">\n" \
+        "      #{@card_data[:title_html]}\n" \
+        "    </a>\n"
     end
 
-    html << "  </div>\n" # Close card-text
-    html << '</div>' # Close base_class
-    html
+    def render_extras
+      return '' unless @card_data[:extra_elements_html]&.any?
+
+      @card_data[:extra_elements_html].join
+    end
+
+    def render_description
+      desc = @card_data[:description_html]
+      return '' unless desc && !desc.strip.empty?
+
+      open_tag = @card_data[:description_wrapper_html_open] || ''
+      close_tag = @card_data[:description_wrapper_html_close] || ''
+      "#{open_tag}#{desc}#{close_tag}"
+    end
   end
 end
