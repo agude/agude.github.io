@@ -17,52 +17,7 @@ module SeriesLinkUtils
   # @param link_text_override_raw [String, nil] Optional text to display instead of the title.
   # @return [String] The generated HTML (<a href=...><span>...</span></a> or <span>...</span>).
   def self.render_series_link(series_title_raw, context, link_text_override_raw = nil)
-    # 1. Initial Setup & Validation
-    unless context && (site = context.registers[:site])
-      # Fallback for critical context failure
-      return "<span class=\"book-series\">#{CGI.escapeHTML(series_title_raw.to_s)}</span>"
-    end
-
-    series_title_input = series_title_raw.to_s
-    if link_text_override_raw && !link_text_override_raw.to_s.empty?
-      link_text_override = link_text_override_raw.to_s.strip
-    end
-    # Use normalize_title from LiquidUtils for lookup comparison
-    normalized_lookup_title = TextProcessingUtils.normalize_title(series_title_input)
-
-    if normalized_lookup_title.empty?
-      return PluginLoggerUtils.log_liquid_failure(
-        context: context, tag_type: 'RENDER_SERIES_LINK',
-        reason: 'Input title resolved to empty after normalization.',
-        identifiers: { TitleInput: series_title_raw || 'nil' },
-        level: :warn
-      )
-    end
-
-    # 2. Lookup from Cache
-    log_output = ''
-    link_cache = site.data['link_cache'] || {}
-    series_cache = link_cache['series'] || {}
-    found_series_data = series_cache[normalized_lookup_title] # Direct hash lookup
-
-    log_output = _log_series_not_found(context, series_title_input) if found_series_data.nil?
-
-    # 3. Determine Display Text & Build Inner Span Element
-    display_text = series_title_input.strip
-    if link_text_override && !link_text_override.empty?
-      display_text = link_text_override
-    elsif found_series_data
-      # Use the canonical title from the cache for display
-      display_text = found_series_data['title']
-    end
-    span_element = _build_series_span_element(display_text)
-
-    # 4. Generate Final HTML (Link or Span) using shared helper
-    target_url = found_series_data ? found_series_data['url'] : nil
-    final_html_element = LinkHelperUtils._generate_link_html(context, target_url, span_element)
-
-    # 5. Combine Log Output (if any) and HTML Element
-    log_output + final_html_element
+    SeriesLinkResolver.new(context).resolve(series_title_raw, link_text_override_raw)
   end
 
   # --- Private Helper Methods ---
@@ -83,5 +38,71 @@ module SeriesLinkUtils
       identifiers: { Series: input_title.strip },
       level: :info
     )
+  end
+end
+
+# Helper class to handle series link resolution logic
+class SeriesLinkResolver
+  def initialize(context)
+    @context = context
+    @site = context&.registers&.[](:site)
+    @log_output = ''
+  end
+
+  def resolve(title_raw, override_raw)
+    return fallback(title_raw) unless @site
+
+    @title_input = title_raw.to_s
+    @override = override_raw.to_s.strip if override_raw && !override_raw.to_s.empty?
+
+    norm_title = TextProcessingUtils.normalize_title(@title_input)
+    return log_empty_title(title_raw) if norm_title.empty?
+
+    series_data = find_series(norm_title)
+    display_text = determine_display_text(series_data)
+
+    generate_html(display_text, series_data)
+  end
+
+  private
+
+  def fallback(title)
+    SeriesLinkUtils._build_series_span_element(title.to_s)
+  end
+
+  def log_empty_title(raw)
+    PluginLoggerUtils.log_liquid_failure(
+      context: @context, tag_type: 'RENDER_SERIES_LINK',
+      reason: 'Input title resolved to empty after normalization.',
+      identifiers: { TitleInput: raw || 'nil' },
+      level: :warn
+    )
+  end
+
+  def find_series(norm_title)
+    cache = @site.data['link_cache'] || {}
+    series_cache = cache['series'] || {}
+    data = series_cache[norm_title]
+
+    @log_output = SeriesLinkUtils._log_series_not_found(@context, @title_input) unless data
+    data
+  end
+
+  def determine_display_text(series_data)
+    if @override
+      @override
+    elsif series_data
+      series_data['title']
+    else
+      @title_input.strip
+    end
+  end
+
+  def generate_html(display_text, series_data)
+    span = SeriesLinkUtils._build_series_span_element(display_text)
+    url = series_data ? series_data['url'] : nil
+
+    html = LinkHelperUtils._generate_link_html(@context, url, span)
+    @log_output + html
   end
 end
