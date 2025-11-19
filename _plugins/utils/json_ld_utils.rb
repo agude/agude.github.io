@@ -70,35 +70,39 @@ module JsonLdUtils
   #                                     If nil, no truncation.
   # @return [String, nil] The cleaned (and optionally truncated) text, or nil if no suitable content found.
   def self.extract_descriptive_text(document, field_priority:, truncate_options: nil)
-    html_content = ''
-    field_priority.each do |field_key|
-      source_content = nil
-      # Use duck typing: check if it has an 'output' method we can call
-      if field_key == 'excerpt' && document.data['excerpt'].respond_to?(:output)
-        source_content = document.data['excerpt'].output
-      elsif field_key == 'content' && document.data.key?('content') # Prioritize data hash for 'content'
-        source_content = document.data['content'].to_s
-      elsif field_key == 'content' # Fallback to direct attribute
-        source_content = document.content
-      elsif document.data[field_key] # For other front matter fields like 'description'
-        source_content = document.data[field_key].to_s
-      end
-
-      if source_content && !source_content.strip.empty?
-        html_content = source_content
-        break
-      end
-    end
-
-    return nil if html_content.empty?
+    html_content = _find_first_content(document, field_priority)
+    return nil unless html_content
 
     cleaned_text = TextProcessingUtils.clean_text_from_html(html_content)
     return nil if cleaned_text.empty?
 
-    if truncate_options && truncate_options[:words]
-      TextProcessingUtils.truncate_words(cleaned_text, truncate_options[:words], truncate_options[:omission] || '...')
+    _apply_truncation(cleaned_text, truncate_options)
+  end
+
+  def self._find_first_content(document, field_priority)
+    field_priority.each do |field_key|
+      content = _extract_field_content(document, field_key)
+      return content if content && !content.strip.empty?
+    end
+    nil
+  end
+
+  def self._extract_field_content(document, field_key)
+    if field_key == 'excerpt' && document.data['excerpt'].respond_to?(:output)
+      document.data['excerpt'].output
+    elsif field_key == 'content'
+      # Prioritize data hash for 'content', fallback to direct attribute
+      document.data.key?('content') ? document.data['content'].to_s : document.content
+    elsif document.data[field_key]
+      document.data[field_key].to_s
+    end
+  end
+
+  def self._apply_truncation(text, options)
+    if options && options[:words]
+      TextProcessingUtils.truncate_words(text, options[:words], options[:omission] || '...')
     else
-      cleaned_text
+      text
     end
   end
 
