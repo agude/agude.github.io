@@ -5,80 +5,93 @@ require 'cgi'
 require_relative 'plugin_logger_utils'
 require_relative 'card_data_extractor_utils'
 require_relative 'card_renderer_utils'
-
 require_relative 'typography_utils'
+
 module ArticleCardUtils
   def self.render(post_object, context)
-    # Extract common base data using the new utility
-    base_data = CardDataExtractorUtils.extract_base_data(
-      post_object,
-      context,
-      default_title: 'Untitled Post',
-      log_tag_type: 'ARTICLE_CARD_UTIL' # Specific log type for this util's errors
-    )
+    Renderer.new(post_object, context).render
+  end
 
-    # Initialize log_output from base_data extraction.
-    # This ensures any logs from the extractor are preserved.
-    log_output_accumulator = base_data[:log_output] || ''
-
-    # If base_data extraction failed critically (e.g., no context/site), return the log message
-    return log_output_accumulator if base_data[:site].nil?
-    # If item_object was invalid, but site was found, log_output will contain the message.
-    # We should return that log_output if data_source_for_keys is nil.
-    return log_output_accumulator if base_data[:data_source_for_keys].nil?
-
-    data_accessor = base_data[:data_source_for_keys] # This is the post_object (Drop or Document)
-
-    prepared_title = TypographyUtils.prepare_display_title(base_data[:raw_title])
-    title_html = "<strong>#{prepared_title}</strong>"
-
-    # --- Image Alt Text Handling & Logging ---
-    image_path_fm = data_accessor['image']
-    image_alt_fm = data_accessor['image_alt']
-    final_image_alt = ''
-
-    if image_path_fm && !image_path_fm.to_s.strip.empty?
-      # Image is present
-      if image_alt_fm && !image_alt_fm.to_s.strip.empty?
-        final_image_alt = image_alt_fm
-      else
-        # Image exists, but user did not provide alt text. This is a warning.
-        final_image_alt = 'Article header image, used for decoration.' # Provide a default
-        # Prepend the warning to the accumulator
-        log_output_accumulator << PluginLoggerUtils.log_liquid_failure(
-          context: context,
-          tag_type: 'ARTICLE_CARD_ALT_MISSING', # Specific tag type for this warning
-          reason: "Missing 'image_alt' front matter for article image. Using default alt text.",
-          identifiers: { article_title: base_data[:raw_title], image_path: image_path_fm },
-          level: :warn
-        )
-      end
-    else
-      # No image path provided, so no alt text needed or expected from front matter.
-      # If an image was desired but path is missing, extract_base_data would have image_url as nil.
-      # CardRendererUtils will not render an <img> tag if image_url is nil.
-      # We can set a generic alt here, but it won't be used if no image is rendered.
-      final_image_alt = 'Article header image, used for decoration.' # Default, may not be used
+  # Helper class to handle article card rendering logic
+  class Renderer
+    def initialize(post_object, context)
+      @post_object = post_object
+      @context = context
+      @log_output = ''
     end
 
-    # Pass the same data_accessor (which is the item_object/Drop) to extract_description_html
-    description_html = CardDataExtractorUtils.extract_description_html(data_accessor, type: :article)
+    def render
+      @base_data = CardDataExtractorUtils.extract_base_data(
+        @post_object,
+        @context,
+        default_title: 'Untitled Post',
+        log_tag_type: 'ARTICLE_CARD_UTIL'
+      )
+      @log_output = @base_data[:log_output] || ''
 
-    # --- Assemble card_data for the generic renderer ---
-    card_data_hash = {
-      base_class: 'article-card',
-      url: base_data[:absolute_url],
-      image_url: base_data[:absolute_image_url], # This comes from extract_base_data
-      image_alt: final_image_alt, # Use the determined final_image_alt
-      image_div_class: 'card-image',
-      title_html: title_html,
-      description_html: description_html,
-      description_wrapper_html_open: "<br>\n", # Article card specific
-      description_wrapper_html_close: '',      # Article card specific
-      extra_elements_html: [] # No extra elements for a basic article card
-    }
+      return @log_output if invalid_base_data?
 
-    # Prepend accumulated log messages (from extractor and alt text check) to the rendered card
-    log_output_accumulator + CardRendererUtils.render_card(context: context, card_data: card_data_hash)
+      @data_accessor = @base_data[:data_source_for_keys]
+
+      card_data = assemble_card_data
+      @log_output + CardRendererUtils.render_card(context: @context, card_data: card_data)
+    end
+
+    private
+
+    def invalid_base_data?
+      @base_data[:site].nil? || @base_data[:data_source_for_keys].nil?
+    end
+
+    def assemble_card_data
+      {
+        base_class: 'article-card',
+        url: @base_data[:absolute_url],
+        image_url: @base_data[:absolute_image_url],
+        image_alt: resolve_image_alt,
+        image_div_class: 'card-image',
+        title_html: generate_title_html,
+        description_html: CardDataExtractorUtils.extract_description_html(@data_accessor, type: :article),
+        description_wrapper_html_open: "<br>\n",
+        description_wrapper_html_close: '',
+        extra_elements_html: []
+      }
+    end
+
+    def generate_title_html
+      prepared = TypographyUtils.prepare_display_title(@base_data[:raw_title])
+      "<strong>#{prepared}</strong>"
+    end
+
+    def resolve_image_alt
+      path = @data_accessor['image']
+      alt = @data_accessor['image_alt']
+      default_alt = 'Article header image, used for decoration.'
+
+      if present?(path)
+        if present?(alt)
+          alt
+        else
+          log_missing_alt(path)
+          default_alt
+        end
+      else
+        default_alt
+      end
+    end
+
+    def present?(value)
+      value && !value.to_s.strip.empty?
+    end
+
+    def log_missing_alt(path)
+      @log_output << PluginLoggerUtils.log_liquid_failure(
+        context: @context,
+        tag_type: 'ARTICLE_CARD_ALT_MISSING',
+        reason: "Missing 'image_alt' front matter for article image. Using default alt text.",
+        identifiers: { article_title: @base_data[:raw_title], image_path: path },
+        level: :warn
+      )
+    end
   end
 end
