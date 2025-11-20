@@ -169,18 +169,14 @@ Changes:
 ```
 Decouple BlogPostingLdGenerator logic into private helpers
 
-Refactored the `BlogPostingLdGenerator.generate_hash` method by
-extracting its data construction logic into dedicated private helper
-methods.
+Refactored the `BlogPostingLdGenerator.generate_hash` method by extracting its
+data construction logic into dedicated private helper methods.
 
-The changes include:
-*   Extracting the base data structure creation into `base_data_hash`.
-*   Isolating headline addition into `add_headline`.
-*   Moving author and publisher entity construction into
-    `add_author_and_publisher`.
-
-This improves the clarity and maintainability of the JSON-LD generation
-logic.
+Changes
+- Extracting the base data structure creation into `base_data_hash`.
+- Isolating headline addition into `add_headline`.
+- Moving author and publisher entity construction into
+  `add_author_and_publisher`.
 ```
 
 ## File Organization
