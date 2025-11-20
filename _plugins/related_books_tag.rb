@@ -56,12 +56,7 @@ module Jekyll
     end
 
     def log_missing_prerequisites
-      missing = []
-      missing << 'site object' unless @site
-      missing << 'page object' unless @page
-      missing << "site.collections['books']" unless @site&.collections&.key?('books')
-      missing << "page['url']" unless @page && @page['url']
-
+      missing = collect_missing_prerequisites
       @logs << PluginLoggerUtils.log_liquid_failure(
         context: @context,
         tag_type: 'RELATED_BOOKS',
@@ -69,6 +64,15 @@ module Jekyll
         identifiers: { PageURL: @page ? @page['url'] : 'N/A' },
         level: :error
       )
+    end
+
+    def collect_missing_prerequisites
+      missing = []
+      missing << 'site object' unless @site
+      missing << 'page object' unless @page
+      missing << "site.collections['books']" unless @site&.collections&.key?('books')
+      missing << "page['url']" unless @page && @page['url']
+      missing
     end
 
     def cache_valid?
@@ -127,13 +131,20 @@ module Jekyll
       series = @page['series']
       return if series.to_s.strip.empty?
 
+      series_books = find_series_books(all_books, series)
+      return unless series_books.any?
+
+      add_series_candidates(series_books, series)
+    end
+
+    def find_series_books(all_books, series)
       normalized = TextProcessingUtils.normalize_title(series)
       cache = @site.data['link_cache']['series_map']
       cached_urls = Set.new((cache[normalized] || []).map(&:url))
-      series_books = all_books.select { |b| cached_urls.include?(b.url) }
+      all_books.select { |b| cached_urls.include?(b.url) }
+    end
 
-      return unless series_books.any?
-
+    def add_series_candidates(series_books, series)
       current_num = parse_book_num(@page)
       if current_num == Float::INFINITY
         log_unparseable_number(series)
@@ -149,7 +160,7 @@ module Jekyll
         context: @context,
         tag_type: 'RELATED_BOOKS_SERIES',
         reason: "Current page has unparseable book_number ('#{@page['book_number']}'). " \
-        'Using all series books sorted by number.',
+                'Using all series books sorted by number.',
         identifiers: { PageURL: @page['url'], Series: series },
         level: :info
       )
@@ -163,13 +174,23 @@ module Jekyll
 
     def partition_series_books(series_books, current_num)
       parsed = series_books.map { |b| { doc: b, num: parse_book_num(b) } }
-        .reject { |b| b[:num] == Float::INFINITY }
+                           .reject { |b| b[:num] == Float::INFINITY }
 
-      preceding = parsed.select { |b| b[:num] < current_num }
-        .sort_by { |b| -b[:num] }.map { |b| b[:doc] }
-      succeeding = parsed.select { |b| b[:num] > current_num }
-        .sort_by { |b| b[:num] }.map { |b| b[:doc] }
+      preceding = extract_preceding_books(parsed, current_num)
+      succeeding = extract_succeeding_books(parsed, current_num)
       [preceding, succeeding]
+    end
+
+    def extract_preceding_books(parsed, current_num)
+      parsed.select { |b| b[:num] < current_num }
+            .sort_by { |b| -b[:num] }
+            .map { |b| b[:doc] }
+    end
+
+    def extract_succeeding_books(parsed, current_num)
+      parsed.select { |b| b[:num] > current_num }
+            .sort_by { |b| b[:num] }
+            .map { |b| b[:doc] }
     end
 
     def interleave_books(preceding, succeeding)
@@ -178,22 +199,27 @@ module Jekyll
       idx_succ = 0
 
       loop do
-        break if selected.length >= @max_books
-        break if idx_pre >= preceding.length && idx_succ >= succeeding.length
+        break if selected.length >= @max_books || exhausted_both_lists?(idx_pre, preceding, idx_succ, succeeding)
 
-        if idx_pre < preceding.length
-          selected << preceding[idx_pre]
-          idx_pre += 1
-        end
-
+        idx_pre = add_from_list(selected, preceding, idx_pre)
         break if selected.length >= @max_books
 
-        if idx_succ < succeeding.length
-          selected << succeeding[idx_succ]
-          idx_succ += 1
-        end
+        idx_succ = add_from_list(selected, succeeding, idx_succ)
       end
       selected
+    end
+
+    def exhausted_both_lists?(idx_pre, preceding, idx_succ, succeeding)
+      idx_pre >= preceding.length && idx_succ >= succeeding.length
+    end
+
+    def add_from_list(selected, list, index)
+      if index < list.length
+        selected << list[index]
+        index + 1
+      else
+        index
+      end
     end
 
     def process_authors(books_by_date)
@@ -202,14 +228,18 @@ module Jekyll
       current_authors = parse_authors(@page['book_authors'])
       return unless current_authors.any?
 
+      author_books = find_author_books(books_by_date, current_authors)
+      @candidate_books.concat(author_books)
+    end
+
+    def find_author_books(books_by_date, current_authors)
       current_urls = Set.new(@candidate_books.map(&:url))
-      author_books = books_by_date.select do |book|
+      books_by_date.select do |book|
         next if current_urls.include?(book.url)
 
         book_authors = parse_authors(book.data['book_authors'])
         current_authors.intersect?(book_authors)
       end
-      @candidate_books.concat(author_books)
     end
 
     def process_recent(books_by_date)
@@ -229,7 +259,9 @@ module Jekyll
 
     def parse_authors(field)
       FrontMatterUtils.get_list_from_string_or_array(field)
-        .map(&:strip).map(&:downcase).reject(&:empty?)
+                      .map(&:strip)
+                      .map(&:downcase)
+                      .reject(&:empty?)
     end
 
     def parse_book_num(obj)
@@ -241,15 +273,16 @@ module Jekyll
       final_books = @candidate_books.uniq(&:url).slice(0, @max_books)
       return @logs if final_books.empty?
 
+      @logs + build_related_books_html(final_books)
+    end
+
+    def build_related_books_html(final_books)
       output = String.new("<aside class=\"related\">\n")
       output << "  <h2>Related Books</h2>\n"
       output << "  <div class=\"card-grid\">\n"
-      final_books.each do |book|
-        output << BookCardUtils.render(book, @context) << "\n"
-      end
+      final_books.each { |book| output << BookCardUtils.render(book, @context) << "\n" }
       output << "  </div>\n"
       output << '</aside>'
-      @logs + output
     end
   end
 end
