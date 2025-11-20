@@ -1,0 +1,176 @@
+I need you to refactor the following Ruby file to fix RuboCop static analysis errors.
+
+FILE: _tests/plugins/utils/test_short_story_link_util.rb
+
+THE ERRORS TO FIX:
+- Line 1: [Style/FrozenStringLiteralComment] Missing frozen string literal comment.
+- Line 4: [Metrics/ClassLength] Class has too many lines. [109/100]
+- Line 5: [Metrics/AbcSize] Assignment Branch Condition size for `setup` is too high. [<16, 11, 0> 19.42/17]
+- Line 5: [Metrics/MethodLength] Method has too many lines. [29/10]
+- Line 63: [Layout/LineLength] Line is too long. [131/120]
+- Line 69: [Metrics/MethodLength] Method has too many lines. [16/10]
+- Line 85: [Layout/LineLength] Line is too long. [129/120]
+- Line 94: [Layout/LineLength] Line is too long. [178/120]
+- Line 107: [Layout/LineLength] Line is too long. [260/120]
+- Line 111: [Lint/DuplicateMethods] Method `TestShortStoryLinkUtils#test_render_duplicate_story_with_disambiguation_succeeds` is defined at both _tests/plugins/utils/test_short_story_link_util.rb:98 and _tests/plugins/utils/test_short_story_link_util.rb:111.
+- Line 120: [Layout/LineLength] Line is too long. [213/120]
+- Line 126: [Layout/LineLength] Line is too long. [148/120]
+- Line 130: [Layout/LineLength] Line is too long. [148/120]
+- Line 137: [Layout/LineLength] Line is too long. [143/120]
+- Line 140: [Layout/LineLength] Line is too long. [129/120]
+
+
+INSTRUCTIONS:
+1. Fix the specific errors listed above.
+2. If the error is "Metrics/MethodLength" or "Metrics/AbcSize", please extract logic into private helper methods.
+3. If the error is "Style/FrozenStringLiteralComment", add the comment to the top of the file.
+4. DO NOT change the external behavior of the code.
+5. DO NOT remove comments unless they are the specific "rubocop:disable" comments causing issues.
+6. Return the FULL content of the fixed file.
+
+SOURCE CODE:
+```ruby
+# _tests/plugins/utils/test_short_story_link_util.rb
+require_relative '../../test_helper'
+
+class TestShortStoryLinkUtils < Minitest::Test
+  def setup
+    # --- Mock Short Story Cache Data ---
+    @mock_story_cache = {
+      'unique story' => [
+        { 'title' => 'Unique Story', 'parent_book_title' => 'Book One', 'url' => '/books/one.html',
+          'slug' => 'unique-story' }
+      ],
+      # Same title in DIFFERENT books. This should still require disambiguation.
+      'duplicate story' => [
+        { 'title' => 'Duplicate Story', 'parent_book_title' => 'Book One', 'url' => '/books/one.html',
+          'slug' => 'duplicate-story' },
+        { 'title' => 'Duplicate Story', 'parent_book_title' => 'Book Two', 'url' => '/books/two.html',
+          'slug' => 'duplicate-story' }
+      ],
+      # Same title mentioned multiple times in the SAME book. This is NOT ambiguous.
+      'story mentioned twice in one book' => [
+        { 'title' => 'Story Mentioned Twice', 'parent_book_title' => 'Book Three', 'url' => '/books/three.html',
+          'slug' => 'story-mentioned-twice' },
+        { 'title' => 'Story Mentioned Twice', 'parent_book_title' => 'Book Three', 'url' => '/books/three.html',
+          'slug' => 'story-mentioned-twice-2' }
+      ]
+    }
+
+    @site = create_site
+    @site.data['link_cache']['short_stories'] = @mock_story_cache
+    @site.config['plugin_logging']['RENDER_SHORT_STORY_LINK'] = true # Enable logging for tests
+
+    @current_page = create_doc({ 'path' => 'current_page.md' }, '/current-page.html')
+    @context = create_context({}, { site: @site, page: @current_page })
+
+    @silent_logger_stub = Object.new.tap do |logger|
+      def logger.warn(topic, message); end
+
+      def logger.error(topic, message); end
+
+      def logger.info(topic, message); end
+
+      def logger.debug(topic, message); end
+    end
+  end
+
+  # Helper to call the utility
+  def render_util(story_title, from_book_title = nil, context = @context)
+    Jekyll.stub :logger, @silent_logger_stub do
+      ShortStoryLinkUtils.render_short_story_link(story_title, context, from_book_title)
+    end
+  end
+
+  def test_render_unique_story_found_and_linked
+    output = render_util('Unique Story')
+    expected = '<a href="/books/one.html#unique-story"><cite class="short-story-title">Unique Story</cite></a>'
+    assert_equal expected, output
+  end
+
+  def test_render_multiple_mentions_in_same_book_links_to_first
+    # This story is mentioned twice in "Book Three". The link should resolve to the first one
+    # without needing disambiguation, as it's not truly ambiguous (it's not in multiple books).
+    output = render_util('Story Mentioned Twice In One Book')
+    expected = '<a href="/books/three.html#story-mentioned-twice"><cite class="short-story-title">Story Mentioned Twice</cite></a>'
+    assert_equal expected, output
+    # Also assert that no error/warning log was generated for ambiguity
+    refute_match(/<!--.*?RENDER_SHORT_STORY_LINK_FAILURE.*?-->/, output)
+  end
+
+  def test_prefers_canonical_location_over_archived
+    canonical_url = '/books/canonical-anthology.html'
+    archived_url = '/books/canonical-anthology/2023.html'
+    @site.data['link_cache']['url_to_canonical_map'] = {
+      canonical_url => canonical_url,
+      archived_url => canonical_url
+    }
+    @site.data['link_cache']['short_stories']['story in archive'] = [
+      { 'title' => 'Story in Archive', 'parent_book_title' => 'Canonical Anthology', 'url' => canonical_url,
+        'slug' => 'story-slug' },
+      { 'title' => 'Story in Archive', 'parent_book_title' => 'Archived Anthology', 'url' => archived_url,
+        'slug' => 'story-slug' }
+    ]
+
+    # This would be ambiguous without the new logic
+    output = render_util('Story in Archive')
+    expected = '<a href="/books/canonical-anthology.html#story-slug"><cite class="short-story-title">Story in Archive</cite></a>'
+    assert_equal expected, output
+    refute_match(/<!--.*?RENDER_SHORT_STORY_LINK_FAILURE.*?-->/, output, 'Should not log an ambiguity error')
+  end
+
+  def test_render_story_not_found_returns_unlinked_cite_and_logs
+    output = render_util('NonExistent Story')
+    expected = '<cite class="short-story-title">NonExistent Story</cite>'
+    # The log is prepended to the output
+    assert_match(/<!-- \[INFO\] RENDER_SHORT_STORY_LINK_FAILURE: Reason='Could not find short story in cache\.' StoryTitle='NonExistent Story' .*? -->#{Regexp.escape(expected)}/,
+                 output)
+  end
+
+  def test_render_duplicate_story_with_disambiguation_succeeds
+    output = render_util('Duplicate Story', 'Book Two')
+    expected = '<a href="/books/two.html#duplicate-story"><cite class="short-story-title">Duplicate Story</cite></a>'
+    assert_equal expected, output
+  end
+
+  def test_render_duplicate_story_without_disambiguation_fails_and_logs
+    output = render_util('Duplicate Story')
+    expected = '<cite class="short-story-title">Duplicate Story</cite>'
+    assert_match(/<!-- \[ERROR\] RENDER_SHORT_STORY_LINK_FAILURE: Reason='Ambiguous story title\. Use &#39;from_book&#39; to specify which book\.' StoryTitle='Duplicate Story' FoundIn='&#39;Book One&#39;, &#39;Book Two&#39;' .*? -->#{Regexp.escape(expected)}/,
+                 output)
+  end
+
+  def test_render_duplicate_story_with_disambiguation_succeeds
+    output = render_util('Duplicate Story', 'Book Two')
+    expected = '<a href="/books/two.html#duplicate-story"><cite class="short-story-title">Duplicate Story</cite></a>'
+    assert_equal expected, output
+  end
+
+  def test_render_duplicate_story_with_wrong_disambiguation_fails_and_logs
+    output = render_util('Duplicate Story', 'Book Three') # Book Three does not contain this story
+    expected = '<cite class="short-story-title">Duplicate Story</cite>'
+    assert_match(/<!-- \[WARN\] RENDER_SHORT_STORY_LINK_FAILURE: Reason='Story found in cache but not in the specified book\.' StoryTitle='Duplicate Story' FromBook='Book Three' .*? -->#{Regexp.escape(expected)}/,
+                 output)
+  end
+
+  def test_render_empty_or_nil_title_returns_empty_and_logs
+    output = render_util(nil)
+    assert_match(/<!-- \[WARN\] RENDER_SHORT_STORY_LINK_FAILURE: Reason='Input story title resolved to an empty string\.' TitleInput='nil' .*? -->/,
+                 output)
+
+    output_empty = render_util('   ')
+    assert_match(/<!-- \[WARN\] RENDER_SHORT_STORY_LINK_FAILURE: Reason='Input story title resolved to an empty string\.' TitleInput='   ' .*? -->/,
+                 output_empty)
+  end
+
+  def test_render_link_is_created_for_anchor_on_current_page
+    # Simulate the story being on the current page
+    @mock_story_cache['story on this page'] = [
+      { 'title' => 'Story On This Page', 'parent_book_title' => 'Current Book', 'url' => '/current-page.html', 'slug' => 'story-on-this-page' }
+    ]
+    output = render_util('Story On This Page')
+    expected = '<a href="#story-on-this-page"><cite class="short-story-title">Story On This Page</cite></a>' # Expect anchor link
+    assert_equal expected, output
+  end
+end
+```

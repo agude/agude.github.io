@@ -1,0 +1,62 @@
+I need you to refactor the following Ruby file to fix RuboCop static analysis errors.
+
+FILE: _plugins/environment_setter.rb
+
+THE ERRORS TO FIX:
+- Line 15: [Metrics/AbcSize] Assignment Branch Condition size for `generate` is too high. [<3, 19, 6> 20.15/17]
+- Line 15: [Metrics/MethodLength] Method has too many lines. [13/10]
+- Line 27: [Layout/LineLength] Line is too long. [157/120]
+- Line 29: [Layout/LineLength] Line is too long. [181/120]
+- Line 35: [Layout/LineLength] Line is too long. [143/120]
+
+
+INSTRUCTIONS:
+1. Fix the specific errors listed above.
+2. If the error is "Metrics/MethodLength" or "Metrics/AbcSize", please extract logic into private helper methods.
+3. If the error is "Style/FrozenStringLiteralComment", add the comment to the top of the file.
+4. DO NOT change the external behavior of the code.
+5. DO NOT remove comments unless they are the specific "rubocop:disable" comments causing issues.
+6. Return the FULL content of the fixed file.
+
+SOURCE CODE:
+```ruby
+# frozen_string_literal: true
+
+# _plugins/environment_setter.rb
+# Ensures that site.config['environment'] is set from ENV['JEKYLL_ENV']
+# if ENV['JEKYLL_ENV'] is present. This helps make the environment
+# consistently available throughout the Jekyll build process.
+#
+# This *WORKS* for future plugins reading site.config['environment'] but does
+# not work for pages that try to read it in Liquid.
+
+module Jekyll
+  class EnvironmentSetterGenerator < Generator
+    priority :highest # Run this generator as early as possible
+
+    def generate(site)
+      # Store the original value for logging, if any
+      original_config_env = site.config['environment']
+      env_var_jekyll_env = ENV.fetch('JEKYLL_ENV', nil)
+      puts "ENVIRONMENT_SETTER_PLUGIN: Current value of JEKYLL_ENV: '#{env_var_jekyll_env}'"
+
+      if env_var_jekyll_env && !env_var_jekyll_env.empty?
+        # If JEKYLL_ENV is set, make sure site.config['environment'] matches it.
+        # This is useful because Jekyll might populate site.config['environment']
+        # later than some plugins (like this generator) run.
+        site.config['environment'] = env_var_jekyll_env
+        if original_config_env == site.config['environment']
+          puts "ENVIRONMENT_SETTER_PLUGIN: site.config['environment'] already matched ENV['JEKYLL_ENV'] ('#{site.config['environment']}'). No change needed."
+        else
+          puts "ENVIRONMENT_SETTER_PLUGIN: Updated site.config['environment'] from '#{original_config_env.inspect}' to '#{site.config['environment']}' (based on ENV['JEKYLL_ENV'])."
+        end
+      else
+        # If JEKYLL_ENV is not set or is empty, Jekyll will typically default
+        # site.config['environment'] to 'development'. We'll log what it is.
+        # If it's nil at this very early stage, PluginLoggerUtils will still default to 'development'.
+        puts "ENVIRONMENT_SETTER_PLUGIN: ENV['JEKYLL_ENV'] not found or empty. site.config['environment'] is '#{original_config_env.inspect}'."
+      end
+    end
+  end
+end
+```

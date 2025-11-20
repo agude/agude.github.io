@@ -1,0 +1,81 @@
+I need you to refactor the following Ruby file to fix RuboCop static analysis errors.
+
+FILE: _plugins/display_unreviewed_mentions_tag.rb
+
+THE ERRORS TO FIX:
+- Line 1: [Style/FrozenStringLiteralComment] Missing frozen string literal comment.
+- Line 10: [Metrics/AbcSize] Assignment Branch Condition size for `render` is too high. [<13, 33, 13> 37.78/17]
+- Line 10: [Metrics/CyclomaticComplexity] Cyclomatic complexity for `render` is too high. [13/7]
+- Line 10: [Metrics/MethodLength] Method has too many lines. [28/10]
+- Line 10: [Metrics/PerceivedComplexity] Perceived complexity for `render` is too high. [13/8]
+- Line 38: [Style/MultilineBlockChain] Avoid multi-line chains of blocks.
+- Line 47: [Layout/LineLength] Line is too long. [132/120]
+
+
+INSTRUCTIONS:
+1. Fix the specific errors listed above.
+2. If the error is "Metrics/MethodLength" or "Metrics/AbcSize", please extract logic into private helper methods.
+3. If the error is "Style/FrozenStringLiteralComment", add the comment to the top of the file.
+4. DO NOT change the external behavior of the code.
+5. DO NOT remove comments unless they are the specific "rubocop:disable" comments causing issues.
+6. Return the FULL content of the fixed file.
+
+SOURCE CODE:
+```ruby
+# _plugins/display_unreviewed_mentions_tag.rb
+require 'jekyll'
+require 'liquid'
+require 'cgi'
+require_relative 'utils/plugin_logger_utils'
+require_relative 'utils/text_processing_utils'
+
+module Jekyll
+  class DisplayUnreviewedMentionsTag < Liquid::Tag
+    def render(context)
+      site = context.registers[:site]
+      unless site && site.data['mention_tracker'] && site.data.dig('link_cache', 'books')
+        return PluginLoggerUtils.log_liquid_failure(
+          context: context,
+          tag_type: 'UNREVIEWED_MENTIONS',
+          reason: "Prerequisites missing: mention_tracker or link_cache['books'] not found.",
+          level: :error
+        )
+      end
+
+      tracker = site.data['mention_tracker']
+      books_cache = site.data['link_cache']['books']
+
+      # Create a set of all normalized titles of books that DO exist for efficient filtering.
+      existing_book_titles = Set.new(books_cache.keys)
+
+      ranked_list = tracker.map do |normalized_title, data|
+        # CRITICAL: Skip this entry if a book with this normalized title actually exists.
+        next if existing_book_titles.include?(normalized_title)
+
+        # Find the most frequently used original casing for the title to display it nicely.
+        display_title = data[:original_titles].max_by { |_, count| count }&.first || normalized_title
+
+        {
+          title: display_title,
+          count: data[:sources].size
+        }
+      end.compact.sort_by { |item| -item[:count] } # Sort by count descending.
+
+      return '<p>No unreviewed works have been mentioned yet.</p>' if ranked_list.empty?
+
+      # Render the final HTML as an ordered list.
+      output = "<ol class=\"ranked-list\">\n"
+      ranked_list.each do |item|
+        # These are unlinked, so we just wrap them in <cite> and escape them.
+        mention_text = item[:count] == 1 ? '1 mention' : "#{item[:count]} mentions"
+        output << "  <li><cite>#{CGI.escapeHTML(item[:title])}</cite> <span class=\"mention-count\">(#{mention_text})</span></li>\n"
+      end
+      output << '</ol>'
+
+      output
+    end
+  end
+end
+
+Liquid::Template.register_tag('display_unreviewed_mentions', Jekyll::DisplayUnreviewedMentionsTag)
+```

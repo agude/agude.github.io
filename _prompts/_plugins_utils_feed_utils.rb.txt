@@ -1,0 +1,60 @@
+I need you to refactor the following Ruby file to fix RuboCop static analysis errors.
+
+FILE: _plugins/utils/feed_utils.rb
+
+THE ERRORS TO FIX:
+- Line 13: [Metrics/AbcSize] Assignment Branch Condition size for `get_combined_feed_items` is too high. [<5, 27, 10> 29.22/17]
+- Line 13: [Metrics/CyclomaticComplexity] Cyclomatic complexity for `get_combined_feed_items` is too high. [9/7]
+- Line 13: [Metrics/MethodLength] Method has too many lines. [15/10]
+- Line 13: [Metrics/PerceivedComplexity] Perceived complexity for `get_combined_feed_items` is too high. [9/8]
+
+
+INSTRUCTIONS:
+1. Fix the specific errors listed above.
+2. If the error is "Metrics/MethodLength" or "Metrics/AbcSize", please extract logic into private helper methods.
+3. If the error is "Style/FrozenStringLiteralComment", add the comment to the top of the file.
+4. DO NOT change the external behavior of the code.
+5. DO NOT remove comments unless they are the specific "rubocop:disable" comments causing issues.
+6. Return the FULL content of the fixed file.
+
+SOURCE CODE:
+```ruby
+# frozen_string_literal: true
+
+# _plugins/utils/feed_utils.rb
+# No specific requires needed from other utils for this basic version,
+# but PluginLoggerUtils could be added if logging within the util becomes necessary.
+
+module FeedUtils
+  # Combines posts and books, sorts them by date, and returns a limited number.
+  #
+  # @param site [Jekyll::Site] The Jekyll site object.
+  # @param limit [Integer] The maximum number of items to return.
+  # @return [Array<Jekyll::Document>] An array of Jekyll documents (posts or books).
+  def self.get_combined_feed_items(site:, limit: 5)
+    all_items = []
+
+    # Process posts
+    if site.posts&.docs.is_a?(Array)
+      posts = site.posts.docs.select do |post|
+        post.data['published'] != false && post.date.is_a?(Time)
+      end
+      all_items.concat(posts)
+    end
+
+    # Process books
+    if site.collections['books']&.docs.is_a?(Array)
+      books = site.collections['books'].docs.select do |book|
+        book.data['published'] != false && book.date.is_a?(Time)
+      end
+      all_items.concat(books)
+    end
+
+    # Sort all collected items by date, most recent first
+    all_items.sort_by!(&:date).reverse!
+
+    # Return the limited number of items
+    all_items.slice(0, limit)
+  end
+end
+```
