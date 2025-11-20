@@ -56,15 +56,28 @@ module Jekyll
     # --- Private Helper Methods ---
 
     def self.determine_validation_context(doc, config)
-      if doc.is_a?(Jekyll::Document) && doc.collection && config.key?(doc.collection.label)
-        label = doc.collection.label
-        [label, "Document in collection '#{label}'", label == 'posts']
-      elsif doc.is_a?(Jekyll::Page) && doc.data['layout'] && config.key?(doc.data['layout'])
-        layout = doc.data['layout']
-        [layout, "Page with layout '#{layout}'", false]
-      else
-        [nil, nil, false]
-      end
+      return document_context(doc, config) if document_with_collection?(doc, config)
+      return page_context(doc, config) if page_with_layout?(doc, config)
+
+      [nil, nil, false]
+    end
+
+    def self.document_with_collection?(doc, config)
+      doc.is_a?(Jekyll::Document) && doc.collection && config.key?(doc.collection.label)
+    end
+
+    def self.page_with_layout?(doc, config)
+      doc.is_a?(Jekyll::Page) && doc.data['layout'] && config.key?(doc.data['layout'])
+    end
+
+    def self.document_context(doc, config)
+      label = doc.collection.label
+      [label, "Document in collection '#{label}'", label == 'posts']
+    end
+
+    def self.page_context(doc, config)
+      layout = doc.data['layout']
+      [layout, "Page with layout '#{layout}'", false]
     end
 
     def self.field_missing?(doc, field_name, is_post_collection)
@@ -86,7 +99,7 @@ module Jekyll
 
       id = doc.data['path'] || doc.url || doc.relative_path || 'unknown path'
       msg = "#{doc_type_log} '#{id}' is missing or has empty required front matter fields: " \
-        "#{missing_fields.join(', ')}."
+            "#{missing_fields.join(', ')}."
       Jekyll.logger.error 'FrontMatter Error:', msg
       raise Jekyll::Errors::FatalException, msg
     end
