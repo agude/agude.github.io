@@ -51,11 +51,11 @@ module Jekyll
 
     def parse_title(scanner)
       # 1. Extract the Title (first argument, must be quoted or a variable)
-      if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
-        @title_markup = scanner.matched
-      else
+      unless scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
         raise Liquid::SyntaxError, "Syntax Error in 'book_link': Could not find book title in '#{@raw_markup}'"
       end
+
+      @title_markup = scanner.matched
     end
 
     def parse_options(scanner)
@@ -65,7 +65,7 @@ module Jekyll
         break if scanner.eos?
 
         if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
-            @link_text_markup ||= scanner[1] # Take the first one found
+          @link_text_markup ||= scanner[1] # Take the first one found
         elsif scanner.scan(/author\s*=\s*(#{QuotedFragment})/)
           @author_markup ||= scanner[1] # Take the first one found
         else
@@ -77,7 +77,7 @@ module Jekyll
     def handle_unknown_argument(scanner)
       unknown_arg = scanner.scan(/\S+/)
       raise Liquid::SyntaxError,
-        "Syntax Error in 'book_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
+            "Syntax Error in 'book_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
     end
 
     def validate_title
