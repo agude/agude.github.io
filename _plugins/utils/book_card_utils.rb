@@ -53,16 +53,23 @@ module BookCardUtils
     def image_alt
       path = @data['image']
       alt = @data['image_alt']
-      if path.to_s.strip.empty?
-        log('BOOK_CARD_MISSING_IMAGE_PATH', "Required 'image' front matter (path to cover image) is missing for book.",
-            :error, { book_title: @base[:raw_title] })
-      elsif alt.to_s.strip.empty?
-        log('BOOK_CARD_USER_ALT_MISSING', "User-provided 'image_alt' front matter missing for book image. Constructing default.",
-            :debug, { book_title: @base[:raw_title], image_path: path })
-      else
-        return alt
-      end
+
+      return alt unless alt.to_s.strip.empty?
+
+      log_image_alt_issue(path)
       "Book cover of #{@final_title}."
+    end
+
+    def log_image_alt_issue(path)
+      if path.to_s.strip.empty?
+        log('BOOK_CARD_MISSING_IMAGE_PATH',
+            "Required 'image' front matter (path to cover image) is missing for book.",
+            :error, { book_title: @base[:raw_title] })
+      else
+        log('BOOK_CARD_USER_ALT_MISSING',
+            "User-provided 'image_alt' front matter missing for book image. Constructing default.",
+            :debug, { book_title: @base[:raw_title], image_path: path })
+      end
     end
 
     def description_html
@@ -98,7 +105,7 @@ module BookCardUtils
       return unless (val = @data['rating'])
 
       html = RatingUtils.render_rating_stars(val, 'div')
-      (html && !html.empty?) ? "    #{html}\n" : nil
+      html && !html.empty? ? "    #{html}\n" : nil
     rescue ArgumentError => e
       log('BOOK_CARD_RATING_ERROR', "Invalid or malformed 'rating' value for book: #{e.message}", :warn,
           { title: @base[:raw_title], rating_input: val.inspect })
