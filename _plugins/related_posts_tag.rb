@@ -55,18 +55,31 @@ module Jekyll
     end
 
     def log_missing_prerequisites
+      missing = collect_missing_items
+      PluginLoggerUtils.log_liquid_failure(
+        context: @context,
+        tag_type: 'RELATED_POSTS',
+        reason: "Missing prerequisites: #{missing.join(', ')}.",
+        identifiers: { PageURL: @page ? (@page['url'] || 'N/A') : 'N/A' },
+        level: :error
+      )
+    end
+
+    def collect_missing_items
       missing = []
       missing << 'site object' unless @site
       missing << 'page object' unless @page
       missing << "site.posts.docs (#{site_posts_detail})" unless site_posts_valid?
-      missing << "page['url'] (present and not empty)" if @site && @page && !page_url_valid?
-      missing << "page['url'] (cannot check, site or page missing)" unless @site && @page
+      add_page_url_errors(missing)
+      missing
+    end
 
-      PluginLoggerUtils.log_liquid_failure(
-        context: @context, tag_type: 'RELATED_POSTS',
-        reason: "Missing prerequisites: #{missing.join(', ')}.",
-        identifiers: { PageURL: @page ? (@page['url'] || 'N/A') : 'N/A' }, level: :error
-      )
+    def add_page_url_errors(missing)
+      if @site && @page && !page_url_valid?
+        missing << "page['url'] (present and not empty)"
+      elsif !@site || !@page
+        missing << "page['url'] (cannot check, site or page missing)"
+      end
     end
 
     def site_posts_detail
@@ -93,13 +106,18 @@ module Jekyll
     end
 
     def filter_and_sort_posts(posts)
-      posts.select do |p|
-        next false unless p.respond_to?(:data) && p.respond_to?(:url) && p.respond_to?(:date)
+      posts.select { |p| valid_post?(p) }
+           .sort_by(&:date)
+           .reverse
+    end
 
-        (p.data['published'] != false) &&
-          (p.url != @current_url) &&
-          (p.date ? (p.date.to_time.to_i <= @now_unix) : false)
-      end.sort_by(&:date).reverse
+    def valid_post?(post)
+      return false unless post.respond_to?(:data) && post.respond_to?(:url) && post.respond_to?(:date)
+      return false if post.data['published'] == false
+      return false if post.url == @current_url
+      return false unless post.date
+
+      post.date.to_time.to_i <= @now_unix
     end
 
     def find_by_category
