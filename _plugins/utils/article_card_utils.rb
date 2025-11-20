@@ -68,16 +68,16 @@ module ArticleCardUtils
       alt = @data_accessor['image_alt']
       default_alt = 'Article header image, used for decoration.'
 
-      if present?(path)
-        if present?(alt)
-          alt
-        else
-          log_missing_alt(path)
-          default_alt
-        end
-      else
-        default_alt
-      end
+      return default_alt unless present?(path)
+
+      resolve_alt_with_path(path, alt, default_alt)
+    end
+
+    def resolve_alt_with_path(path, alt, default_alt)
+      return alt if present?(alt)
+
+      log_missing_alt(path)
+      default_alt
     end
 
     def present?(value)
