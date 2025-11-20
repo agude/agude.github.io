@@ -39,9 +39,11 @@ module GenericReviewLdGenerator
 
     def log_missing_item_name
       id = @document.url || @document.path || @document.relative_path
-      Jekyll.logger.error 'JSON-LD (GenericReviewGen):',
+      Jekyll.logger.error(
+        'JSON-LD (GenericReviewGen):',
         "Called for '#{id}' but 'review.item_name' is missing or empty. " \
-        'This should have been caught by the injector.'
+          'This should have been caught by the injector.'
+      )
     end
 
     def build_base_data
