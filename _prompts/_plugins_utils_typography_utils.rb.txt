@@ -1,4 +1,4 @@
-I need you to refactor the following Ruby file to fix RuboCop static analysis errors.
+I need you to refactor the following Ruby file to fix RuboCop static analysis errors and improve general code quality.
 
 FILE: _plugins/utils/typography_utils.rb
 
@@ -7,11 +7,51 @@ THE ERRORS TO FIX:
 - Line 12: [Metrics/MethodLength] Method has too many lines. [19/10]
 
 
+STYLE GUIDE & REFACTORING PATTERNS:
+1. **Complex Logic Extraction (Tags/Classes):**
+   - If a method (like `render`) is too complex, extract the logic into a private helper class defined within the same module/class.
+   - **Pattern:**
+     ```ruby
+     def render(context)
+       MyTagRenderer.new(context).render
+     end
+
+     # Helper class to handle rendering logic
+     class MyTagRenderer
+       def initialize(context)
+         @context = context
+         @site = context.registers[:site]
+       end
+
+       def render
+         # logic here
+       end
+     end
+     ```
+
+2. **Stateless Utilities (Modules):**
+   - For utility modules, keep methods static (`def self.method`).
+   - Break complex logic into private class methods named with a leading underscore.
+   - **Pattern:**
+     ```ruby
+     def self.public_method(arg)
+       _private_helper(arg)
+     end
+
+     def self._private_helper(arg)
+       # logic
+     end
+     ```
+
+3. **General Quality:**
+   - Fix "bad code" or poor style even if RuboCop misses it (e.g., redundant logic, unclear variable names, deeply nested conditionals).
+   - Ensure `# frozen_string_literal: true` is at the top.
+
 INSTRUCTIONS:
-1. Fix the specific errors listed above.
-2. If the error is "Metrics/MethodLength" or "Metrics/AbcSize", please extract logic into private helper methods.
-3. If the error is "Style/FrozenStringLiteralComment", add the comment to the top of the file.
-4. DO NOT change the external behavior of the code.
+1. Fix the specific RuboCop errors listed above.
+2. Apply the Refactoring Patterns defined in the Style Guide.
+3. Improve readability and maintainability generally.
+4. **CRITICAL:** DO NOT change the external behavior or API of the code.
 5. DO NOT remove comments unless they are the specific "rubocop:disable" comments causing issues.
 6. Return the FULL content of the fixed file.
 
