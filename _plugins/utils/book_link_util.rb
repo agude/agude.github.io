@@ -71,20 +71,11 @@ class BookLinkResolver
     return log_empty_title if @norm_title.empty?
 
     candidates = find_candidates
-
-    # Determine display text for fallback scenarios (input title or override)
-    display_text = if text_override && !text_override.to_s.empty?
-                     text_override.to_s.strip
-                   else
-                     @title
-                   end
-
-    if candidates.empty?
-      return log_not_found + fallback(display_text)
-    end
+    display_text = determine_display_text(text_override)
+    return log_not_found + fallback(display_text) if candidates.empty?
 
     result = filter_candidates(candidates, author_filter)
-    return result + fallback(display_text) if result.is_a?(String) # Log output
+    return result + fallback(display_text) if result.is_a?(String)
 
     render_result(result, text_override)
   end
@@ -110,6 +101,14 @@ class BookLinkResolver
     )
   end
 
+  def determine_display_text(text_override)
+    if text_override && !text_override.to_s.empty?
+      text_override.to_s.strip
+    else
+      @title
+    end
+  end
+
   def find_candidates
     cache = @site.data['link_cache'] || {}
     (cache.dig('books', @norm_title) || []).reject { |b| b['canonical_url']&.start_with?('/') }
@@ -129,7 +128,15 @@ class BookLinkResolver
     return unless page && page['url'] && !@norm_title.empty?
 
     tracker = @site.data['mention_tracker']
+    initialize_tracker_entry(tracker)
+    update_tracker_entry(tracker, page)
+  end
+
+  def initialize_tracker_entry(tracker)
     tracker[@norm_title] ||= { original_titles: Hash.new(0), sources: Set.new }
+  end
+
+  def update_tracker_entry(tracker, page)
     tracker[@norm_title][:original_titles][@title.strip] += 1
     tracker[@norm_title][:sources] << page['url']
   end
