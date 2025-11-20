@@ -32,7 +32,7 @@ class TestRelatedBooksTag < Minitest::Test
 
     output = @helper.render_tag_with_mock_logger(context, mock)
     assert_match(
-      /<!-- \[ERROR\] RELATED_BOOKS_FAILURE: Reason='Missing prerequisites: page object.*PageURL='N\/A'.* -->/,
+      %r{<!-- \[ERROR\] RELATED_BOOKS_FAILURE: Reason='Missing prerequisites: page object.*PageURL='N/A'.* -->},
       output
     )
     mock.verify
@@ -43,7 +43,7 @@ class TestRelatedBooksTag < Minitest::Test
     page = create_doc({ 'title' => 'Test', 'url' => '/test.html', 'path' => 'test.md' }, '/test.html')
     context = create_context({}, { site: site, page: page })
     mock = Minitest::Mock.new
-    mock.expect(:error, nil) { |_p, m| m.include?("Missing prerequisites: site.collections[&#39;books&#39;]") }
+    mock.expect(:error, nil) { |_p, m| m.include?('Missing prerequisites: site.collections[&#39;books&#39;]') }
 
     output = @helper.render_tag_with_mock_logger(context, mock)
     expected_pattern = /<!-- \[ERROR\] RELATED_BOOKS_FAILURE: Reason='Missing prerequisites: site\.collections\[&#39;books&#39;\]\.' .*-->/
@@ -80,7 +80,7 @@ class TestRelatedBooksTag < Minitest::Test
   end
 
   def test_series_current_is_book5_of_10_shows_3_4_6_sorted
-    books_collection, series_books, site, context = @helper.setup_book5_of_10_scenario
+    _, series_books, _, context = @helper.setup_book5_of_10_scenario
     output = @helper.render_tag(context)
     expected = [
       series_books[2].data['title'],
@@ -91,7 +91,7 @@ class TestRelatedBooksTag < Minitest::Test
   end
 
   def test_series_current_book_number_unparseable_falls_back_to_all_series_sorted_numerically
-    coll, s1b1, s1b2, s1b3, bad_num, site, context = @helper.setup_unparseable_book_number_scenario
+    _, s1b1, s1b2, s1b3, _, _, context = @helper.setup_unparseable_book_number_scenario
     output = @helper.render_tag(context)
     assert_equal [s1b1.data['title'], s1b2.data['title'], s1b3.data['title']],
                  @helper.extract_rendered_titles(output)
@@ -101,7 +101,7 @@ class TestRelatedBooksTag < Minitest::Test
 
   # --- Tests for Series Providing < @max_books ---
   def test_series_provides_zero_books_author_and_recent_fill
-    coll, curr, site, context = @helper.setup_zero_series_books_scenario
+    _, _, _, context = @helper.setup_zero_series_books_scenario
     output = @helper.render_tag(context)
     expected = [
       @helper.author_x_book2_recent.data['title'],
@@ -112,7 +112,7 @@ class TestRelatedBooksTag < Minitest::Test
   end
 
   def test_series_provides_one_book_author_and_recent_fill_remaining_two
-    curr, s1b2, other_ay, site, context = @helper.setup_one_series_book_scenario
+    _, s1b2, other_ay, _, context = @helper.setup_one_series_book_scenario
     output = @helper.render_tag(context)
     expected = [
       s1b2.data['title'],
@@ -123,7 +123,7 @@ class TestRelatedBooksTag < Minitest::Test
   end
 
   def test_series_provides_two_books_author_and_recent_fill_remaining_one
-    curr, s1b2, s1b3, site, context = @helper.setup_two_series_books_scenario
+    _, s1b2, s1b3, _, context = @helper.setup_two_series_books_scenario
     output = @helper.render_tag(context)
     expected = [
       s1b2.data['title'],
@@ -135,14 +135,14 @@ class TestRelatedBooksTag < Minitest::Test
 
   # --- Author and Recent Fallback Tests ---
   def test_multi_author_current_page_uses_either_author_for_fallback
-    curr, auth_a, auth_b, recent_z, site, context = @helper.setup_multi_author_scenario
+    _, auth_a, auth_b, recent_z, _, context = @helper.setup_multi_author_scenario
     output = @helper.render_tag(context)
     expected = [auth_a.data['title'], auth_b.data['title'], recent_z.data['title']]
     assert_equal expected, @helper.extract_rendered_titles(output)
   end
 
   def test_recent_fallback_when_series_and_author_provide_less_than_max
-    coll, curr, site, context = @helper.setup_recent_fallback_scenario
+    _, _, _, context = @helper.setup_recent_fallback_scenario
     output = @helper.render_tag(context)
     expected = [
       @helper.recent_unrelated_book1.data['title'],
@@ -154,7 +154,7 @@ class TestRelatedBooksTag < Minitest::Test
 
   # --- General Behavior Tests ---
   def test_world_of_trouble_scenario_with_new_series_logic
-    wot, tlp, cc, fill, site, context = @helper.setup_world_of_trouble_scenario
+    _, tlp, cc, fill, _, context = @helper.setup_world_of_trouble_scenario
     output = @helper.render_tag(context)
     expected = [tlp.data['title'], cc.data['title'], fill.data['title']]
     assert_equal DEFAULT_MAX_BOOKS, @helper.extract_rendered_titles(output).count
@@ -176,18 +176,18 @@ class TestRelatedBooksTag < Minitest::Test
   end
 
   def test_html_structure_is_correct_when_books_found
-    coll, s1b1, s1b2, site, context = @helper.setup_html_structure_scenario
+    _, _, _, _, context = @helper.setup_html_structure_scenario
     output = @helper.render_tag(context)
     refute_empty output.strip, 'Output should not be empty'
     assert_match(/<aside class="related">/, output)
-    assert_match(/<h2>Related Books<\/h2>/, output)
+    assert_match(%r{<h2>Related Books</h2>}, output)
     assert_match(/<div class="card-grid">/, output)
     assert_equal 1, output.scan('<!-- Card for:').count
     assert_match(%r{</div>\s*</aside>}m, output)
   end
 
   def test_excludes_archived_reviews_from_recommendations
-    curr, canon, arch, site, context = @helper.setup_archived_reviews_scenario
+    _, _, _, _, context = @helper.setup_archived_reviews_scenario
     output = @helper.render_tag(context)
     titles = @helper.extract_rendered_titles(output)
 
@@ -196,17 +196,15 @@ class TestRelatedBooksTag < Minitest::Test
   end
 
   def test_includes_books_with_external_canonical_url
-    curr, ext, site, context = @helper.setup_external_canonical_scenario
+    _, _, _, context = @helper.setup_external_canonical_scenario
     output = @helper.render_tag(context)
     assert_includes @helper.extract_rendered_titles(output), 'Related External'
   end
 
   # Helper class for test setup and utilities
   class BookTestHelper
-    attr_reader :test_time_now, :site_config_base
-    attr_reader :author_x_book1_old, :author_x_book2_recent, :author_y_book1_recent
-    attr_reader :recent_unrelated_book1, :recent_unrelated_book2, :recent_unrelated_book3
-    attr_reader :unpublished_book_generic, :future_dated_book_generic
+    attr_reader :test_time_now, :site_config_base, :author_x_book1_old, :author_x_book2_recent, :author_y_book1_recent,
+                :recent_unrelated_book1, :recent_unrelated_book2, :recent_unrelated_book3, :unpublished_book_generic, :future_dated_book_generic
 
     def initialize(test_time_now, site_config_base)
       @test_time_now = test_time_now

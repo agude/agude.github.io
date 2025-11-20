@@ -70,10 +70,13 @@ module Jekyll
       def render
         target_url = resolve_target_url
         return log_url_error unless target_url
+
         posts = validate_posts_collection
         return log_collection_error(target_url) unless posts
+
         post = posts.find { |post| post.url == target_url }
         return log_post_not_found(target_url) unless post
+
         render_card(post, target_url)
       end
 

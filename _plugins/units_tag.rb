@@ -102,12 +102,12 @@ module Jekyll
       [number_str, unit_key_input.to_s.strip, nil]
     end
 
-    def validate_number_input(context, number_input)
+    def validate_number_input(context, _number_input)
       [nil, nil, log_error(context, "Argument 'number' resolved to nil or empty.",
                            { number_markup: @attributes['number'] })]
     end
 
-    def validate_unit_input(context, unit_key_input, number_str)
+    def validate_unit_input(context, _unit_key_input, number_str)
       [nil, nil, log_error(context, "Argument 'unit' resolved to nil or empty.",
                            { unit_markup: @attributes['unit'], number_val: number_str })]
     end

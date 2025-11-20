@@ -177,8 +177,8 @@ module Jekyll
 
     def build_container(list_items, has_series)
       title = CGI.escapeHTML(@page['title'])
-      out = '<aside class="book-backlinks"><h2 class="book-backlink-section">' \
-            " Reviews that mention <span class=\"book-title\">#{title}</span></h2>" \
+      out = '<aside class="book-backlinks"><h2 class="book-backlink-section"> ' \
+            "Reviews that mention <span class=\"book-title\">#{title}</span></h2>" \
             "<ul class=\"book-backlink-list\">#{list_items}</ul>"
       out << series_explanation if has_series
       out << '</aside>'

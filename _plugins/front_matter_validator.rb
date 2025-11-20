@@ -70,12 +70,12 @@ module Jekyll
       doc.is_a?(Jekyll::Page) && doc.data['layout'] && config.key?(doc.data['layout'])
     end
 
-    def self.document_context(doc, config)
+    def self.document_context(doc, _config)
       label = doc.collection.label
       [label, "Document in collection '#{label}'", label == 'posts']
     end
 
-    def self.page_context(doc, config)
+    def self.page_context(doc, _config)
       layout = doc.data['layout']
       [layout, "Page with layout '#{layout}'", false]
     end

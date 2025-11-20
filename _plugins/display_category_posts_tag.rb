@@ -55,9 +55,7 @@ module Jekyll
     end
 
     def parse_single_attribute(scanner)
-      unless scanner.scan(SYNTAX_NAMED_ARG)
-        raise Liquid::SyntaxError, syntax_error_message(scanner)
-      end
+      raise Liquid::SyntaxError, syntax_error_message(scanner) unless scanner.scan(SYNTAX_NAMED_ARG)
 
       key = scanner[1].to_s.strip
       value = scanner[2].to_s.strip

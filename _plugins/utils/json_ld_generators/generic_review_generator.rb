@@ -42,7 +42,7 @@ module GenericReviewLdGenerator
       Jekyll.logger.error(
         'JSON-LD (GenericReviewGen):',
         "Called for '#{id}' but 'review.item_name' is missing or empty. " \
-          'This should have been caught by the injector.'
+        'This should have been caught by the injector.'
       )
     end
 

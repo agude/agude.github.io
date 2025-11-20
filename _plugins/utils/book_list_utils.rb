@@ -178,7 +178,7 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
     log = log.dup
     return { standalone_books: [], series_groups: [], log_messages: log } if structure
 
-    { (key || :books) => [], log_messages: log }
+    { key || :books => [], log_messages: log }
   end
 
   def self._return_info(context, tag_type, reason, key:)
@@ -465,8 +465,8 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
 
   def self._get_sorted_favorites_posts(site)
     site.posts.docs.select { |p| p.data.key?('is_favorites_list') }
-                    .sort_by { |p| p.data['is_favorites_list'].to_i }
-                    .reverse
+        .sort_by { |p| p.data['is_favorites_list'].to_i }
+        .reverse
   end
 
   def self._create_favorites_list_entry(post, cache)
