@@ -23,45 +23,66 @@ module Jekyll
     end
 
     def render(context)
-      site = context.registers[:site]
+      BooksByYearRenderer.new(context).render
+    end
 
-      data_by_year = BookListUtils.get_data_for_all_books_by_year_display(
-        site: site,
-        context: context
-      )
-
-      output = data_by_year[:log_messages] || ''
-
-      return output if data_by_year[:year_groups].empty? && !output.empty?
-      return '' if data_by_year[:year_groups].empty?
-
-      # --- Generate the year jump links navigation ---
-      years = data_by_year[:year_groups].map { |g| g[:year] }
-      nav_links = years.map do |year|
-        "<a href=\"#year-#{CGI.escapeHTML(year)}\">#{CGI.escapeHTML(year)}</a>"
+    # Helper class to handle rendering logic
+    class BooksByYearRenderer
+      def initialize(context)
+        @context = context
+        @site = context.registers[:site]
       end
 
-      output << "<nav class=\"alpha-jump-links\">\n"
-      output << "  #{nav_links.join(' &middot; ')}\n"
-      output << "</nav>\n"
-      # --- End of jump links navigation ---
+      def render
+        data = BookListUtils.get_data_for_all_books_by_year_display(
+          site: @site,
+          context: @context
+        )
 
-      data_by_year[:year_groups].each do |year_group|
+        output = data[:log_messages] || ''
+        return output if data[:year_groups].empty? && !output.empty?
+        return '' if data[:year_groups].empty?
+
+        output << generate_navigation(data[:year_groups])
+        output << render_year_groups(data[:year_groups])
+        output
+      end
+
+      private
+
+      def generate_navigation(year_groups)
+        years = year_groups.map { |g| g[:year] }
+        nav_links = years.map do |year|
+          "<a href=\"#year-#{CGI.escapeHTML(year)}\">#{CGI.escapeHTML(year)}</a>"
+        end
+
+        "<nav class=\"alpha-jump-links\">\n  #{nav_links.join(' &middot; ')}\n</nav>\n"
+      end
+
+      def render_year_groups(year_groups)
+        output = +''
+        year_groups.each do |year_group|
+          output << render_single_year_group(year_group)
+        end
+        output
+      end
+
+      def render_single_year_group(year_group)
         year = year_group[:year]
         books_in_group = year_group[:books]
 
-        # Year heading is H2. ID is "year-YYYY".
-        output << "<h2 class=\"book-list-headline\" id=\"year-#{CGI.escapeHTML(year)}\">#{CGI.escapeHTML(year)}</h2>\n"
+        output = '<h2 class="book-list-headline" ' \
+                 "id=\"year-#{CGI.escapeHTML(year)}\">" \
+                 "#{CGI.escapeHTML(year)}</h2>\n"
         output << "<div class=\"card-grid\">\n"
 
         books_in_group.each do |book|
-          output << BookCardUtils.render(book, context) << "\n"
+          output << BookCardUtils.render(book, @context) << "\n"
         end
 
-        output << "</div>\n" # Close card-grid
+        output << "</div>\n"
+        output
       end
-
-      output
     end
   end
 end
