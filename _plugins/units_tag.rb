@@ -52,17 +52,24 @@ module Jekyll
     def parse_attributes(markup)
       attributes = {}
       scanner = StringScanner.new(markup.strip)
+      scan_attributes(scanner, attributes)
+      validate_no_trailing_args(scanner)
+      attributes
+    end
+
+    def scan_attributes(scanner, attributes)
       while scanner.scan(SYNTAX)
         attributes[scanner[1]] = scanner[2]
         scanner.skip(/\s*/)
       end
+    end
 
-      unless scanner.eos?
-        raise Liquid::SyntaxError,
-          "Syntax Error in 'units' tag: Invalid or unexpected trailing arguments near " \
-          "'#{scanner.rest}' in '#{@raw_markup}'"
-      end
-      attributes
+    def validate_no_trailing_args(scanner)
+      return if scanner.eos?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'units' tag: Invalid or unexpected trailing arguments near " \
+            "'#{scanner.rest}' in '#{@raw_markup}'"
     end
 
     def validate_attributes
@@ -80,40 +87,47 @@ module Jekyll
       return if @attributes[arg]
 
       raise Liquid::SyntaxError,
-        "Syntax Error in 'units' tag: Required argument '#{arg}' is missing in '#{@raw_markup}'"
+            "Syntax Error in 'units' tag: Required argument '#{arg}' is missing in '#{@raw_markup}'"
     end
 
     def resolve_and_validate_args(context)
       number_input = TagArgumentUtils.resolve_value(@attributes['number'], context)
       unit_key_input = TagArgumentUtils.resolve_value(@attributes['unit'], context)
 
-      if value_blank?(number_input)
-        return [nil, nil, log_error(context, "Argument 'number' resolved to nil or empty.",
-                                    { number_markup: @attributes['number'] })]
-      end
+      return validate_number_input(context, number_input) if value_blank?(number_input)
 
       number_str = number_input.to_s
-
-      if value_blank?(unit_key_input)
-        return [nil, nil, log_error(context, "Argument 'unit' resolved to nil or empty.",
-                                    { unit_markup: @attributes['unit'], number_val: number_str })]
-      end
+      return validate_unit_input(context, unit_key_input, number_str) if value_blank?(unit_key_input)
 
       [number_str, unit_key_input.to_s.strip, nil]
     end
 
+    def validate_number_input(context, number_input)
+      [nil, nil, log_error(context, "Argument 'number' resolved to nil or empty.",
+                           { number_markup: @attributes['number'] })]
+    end
+
+    def validate_unit_input(context, unit_key_input, number_str)
+      [nil, nil, log_error(context, "Argument 'unit' resolved to nil or empty.",
+                           { unit_markup: @attributes['unit'], number_val: number_str })]
+    end
+
     def lookup_unit_data(unit_key, number, context)
       unit_data = UNIT_DEFINITIONS[unit_key]
-      if unit_data
-        [unit_data[:symbol], unit_data[:name], '']
-      else
-        log = PluginLoggerUtils.log_liquid_failure(
-          context: context, tag_type: 'UNITS_TAG_WARNING',
-          reason: 'Unit key not found in internal definitions. Using key as symbol/name.',
-          identifiers: { UnitKey: unit_key, Number: number }, level: :warn
-        )
-        [unit_key, unit_key, log]
-      end
+      return [unit_data[:symbol], unit_data[:name], ''] if unit_data
+
+      log_unknown_unit(unit_key, number, context)
+    end
+
+    def log_unknown_unit(unit_key, number, context)
+      log = PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: 'UNITS_TAG_WARNING',
+        reason: 'Unit key not found in internal definitions. Using key as symbol/name.',
+        identifiers: { UnitKey: unit_key, Number: number },
+        level: :warn
+      )
+      [unit_key, unit_key, log]
     end
 
     def generate_html(number, symbol, name)
