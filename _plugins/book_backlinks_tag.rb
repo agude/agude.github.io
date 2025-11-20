@@ -63,15 +63,24 @@ module Jekyll
     end
 
     def validation_error
+      missing = collect_missing_prerequisites
+      log_validation_failure(missing)
+    end
+
+    def collect_missing_prerequisites
       missing = []
       missing << 'site object' unless @site
       missing << 'page object' unless @page
       missing << "site.collections['books']" unless @site&.collections&.key?('books')
       missing << "page['url'] (present and not empty)" unless present?(@page&.[]('url'))
       missing << "page['title'] (present and not empty)" unless present?(@page&.[]('title'))
+      missing
+    end
 
+    def log_validation_failure(missing)
       PluginLoggerUtils.log_liquid_failure(
-        context: @context, tag_type: 'BOOK_BACKLINKS_TAG',
+        context: @context,
+        tag_type: 'BOOK_BACKLINKS_TAG',
         reason: "Tag prerequisites missing: #{missing.join(', ')}.",
         identifiers: { PageURL: @page&.[]('url') || 'N/A', PageTitle: @page&.[]('title') || 'N/A' },
         level: :error
@@ -95,30 +104,49 @@ module Jekyll
       return unless present?(series)
 
       norm_series = TextProcessingUtils.normalize_title(series)
-      (@caches[:series_map][norm_series] || []).each do |book|
-        (@caches[:backlinks][book.url] || []).each do |e|
-          merged[e[:source].url] ||= e if e[:type] == 'series'
-        end
+      series_books = @caches[:series_map][norm_series] || []
+      series_books.each { |book| add_series_backlinks_for_book(book, merged) }
+    end
+
+    def add_series_backlinks_for_book(book, merged)
+      (@caches[:backlinks][book.url] || []).each do |e|
+        merged[e[:source].url] ||= e if e[:type] == 'series'
       end
     end
 
     def deduplicate(merged)
       unique = {}
-      prio_map = defined?(Jekyll::LinkCacheGenerator::LINK_TYPE_PRIORITY) ? Jekyll::LinkCacheGenerator::LINK_TYPE_PRIORITY : {}
-
-      merged.each_value do |entry|
-        canon = @caches[:canonical_map][entry[:source].url] || entry[:source].url
-        exist = unique[canon]
-
-        new_p = prio_map[entry[:type]] || 0
-        old_p = exist ? (prio_map[exist[:type]] || 0) : -1
-
-        unique[canon] = entry if new_p >= old_p
-      end
+      prio_map = link_type_priority_map
+      merged.each_value { |entry| update_unique_entry(unique, entry, prio_map) }
       unique.values
     end
 
+    def link_type_priority_map
+      defined?(Jekyll::LinkCacheGenerator::LINK_TYPE_PRIORITY) ? Jekyll::LinkCacheGenerator::LINK_TYPE_PRIORITY : {}
+    end
+
+    def update_unique_entry(unique, entry, prio_map)
+      canon = @caches[:canonical_map][entry[:source].url] || entry[:source].url
+      return if should_skip_entry?(unique[canon], entry, prio_map)
+
+      unique[canon] = entry
+    end
+
+    def should_skip_entry?(existing, new_entry, prio_map)
+      return false unless existing
+
+      new_priority = prio_map[new_entry[:type]] || 0
+      old_priority = prio_map[existing[:type]] || 0
+      new_priority < old_priority
+    end
+
     def sort_entries(entries, current_canon)
+      sortable = build_sortable_entries(entries, current_canon)
+      sorted = sortable.sort_by(&:first)
+      sorted.map { |t| t[1..3] }
+    end
+
+    def build_sortable_entries(entries, current_canon)
       entries.map do |e|
         src = e[:source]
         src_canon = @caches[:canonical_map][src.url] || src.url
@@ -128,7 +156,7 @@ module Jekyll
         next unless present?(title)
 
         [TextProcessingUtils.normalize_title(title, strip_articles: true), title, src.url, e[:type]]
-      end.compact.sort_by(&:first).map { |t| t[1..3] }
+      end.compact
     end
 
     def render_html(sorted)
@@ -150,10 +178,14 @@ module Jekyll
     def build_container(list_items, has_series)
       title = CGI.escapeHTML(@page['title'])
       out = '<aside class="book-backlinks"><h2 class="book-backlink-section">' \
-        " Reviews that mention <span class=\"book-title\">#{title}</span></h2>" \
-        "<ul class=\"book-backlink-list\">#{list_items}</ul>"
-      out << '<p class="backlink-explanation"><sup>†</sup> <em>Mentioned via a link to the series.</em></p>' if has_series
+            " Reviews that mention <span class=\"book-title\">#{title}</span></h2>" \
+            "<ul class=\"book-backlink-list\">#{list_items}</ul>"
+      out << series_explanation if has_series
       out << '</aside>'
+    end
+
+    def series_explanation
+      '<p class="backlink-explanation"><sup>†</sup> <em>Mentioned via a link to the series.</em></p>'
     end
 
     def series_indicator
