@@ -38,24 +38,29 @@ module Jekyll
     def parse_markup(markup)
       scanner = StringScanner.new(markup.strip)
       title = scan_title(scanner)
-
-      scanner.skip(/\s+/) # Skip trailing whitespace after the identified title markup
-      unless scanner.eos?
-        raise Liquid::SyntaxError,
-          "Syntax Error in 'book_card_lookup': Unknown argument(s) '#{scanner.rest}' in '#{@raw_markup}'"
-      end
-
-      if title.nil? || title.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'book_card_lookup': Could not find title value in '#{@raw_markup}'"
-      end
-
+      scanner.skip(/\s+/)
+      validate_scanner(scanner)
+      validate_title(title)
       title
+    end
+
+    def validate_scanner(scanner)
+      return if scanner.eos?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'book_card_lookup': Unknown argument(s) '#{scanner.rest}' in '#{@raw_markup}'"
+    end
+
+    def validate_title(title)
+      return unless title.nil? || title.strip.empty?
+
+      raise Liquid::SyntaxError, "Syntax Error in 'book_card_lookup': Could not find title value in '#{@raw_markup}'"
     end
 
     def scan_title(scanner)
       # Try to match named argument first: title='...' or title=...
       if scanner.scan(/title\s*=\s*(#{QuotedFragment}|\S+)/)
-          scanner[1] # Value part of title=value
+        scanner[1] # Value part of title=value
       else
         # If not named, assume positional: '...' or ...
         # Reset scanner if it consumed part of a non-matching named arg pattern
@@ -94,9 +99,10 @@ module Jekyll
         context: context,
         tag_type: 'BOOK_CARD_LOOKUP',
         reason: "Error calling BookCardUtils.render utility: #{e.message}",
-        identifiers: { Title: target_title_input.to_s, ErrorClass: e.class.name,
+        identifiers: { Title: target_title_input.to_s,
+                       ErrorClass: e.class.name,
                        ErrorMessage: e.message.lines.first.chomp.slice(0, 100) },
-      level: :error
+        level: :error
       )
     end
 
