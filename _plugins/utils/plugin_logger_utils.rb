@@ -20,10 +20,7 @@ module PluginLoggerUtils
   def self.log_liquid_failure(context:, tag_type:, reason:, identifiers: {}, level: DEFAULT_MESSAGE_LEVEL_SYMBOL)
     site = extract_site(context)
 
-    unless site_config_valid?(site)
-      return handle_missing_config(tag_type, level, reason)
-    end
-
+    return handle_missing_config(tag_type, level, reason) unless site_config_valid?(site)
     return '' unless logging_enabled?(site, tag_type)
 
     message = construct_log_message(context, tag_type, reason, identifiers, level)
@@ -45,8 +42,8 @@ module PluginLoggerUtils
     end
 
     def handle_missing_config(tag_type, level, reason)
-      msg = "[PLUGIN LOGGER ERROR] Context, Site, or Site Config unavailable for logging. " \
-        "Original Call: #{tag_type} - #{level}: #{reason}"
+      msg = '[PLUGIN LOGGER ERROR] Context, Site, or Site Config unavailable for logging. ' \
+            "Original Call: #{tag_type} - #{level}: #{reason}"
       if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(:error)
         Jekyll.logger.error('PluginLogger:', msg)
       else
@@ -83,14 +80,26 @@ module PluginLoggerUtils
     end
 
     def log_to_console(site, level, message)
-      site_level = site.config['plugin_log_level']&.downcase || DEFAULT_SITE_CONSOLE_LEVEL_STRING
-      site_val = LOG_LEVEL_MAP[site_level.to_sym] || LOG_LEVEL_MAP[DEFAULT_SITE_CONSOLE_LEVEL_STRING.to_sym]
-
-      msg_symbol = LOG_LEVEL_MAP.key?(level) ? level : DEFAULT_MESSAGE_LEVEL_SYMBOL
-      msg_val = LOG_LEVEL_MAP[msg_symbol]
+      site_val = _resolve_site_log_level(site)
+      msg_symbol, msg_val = _resolve_message_log_level(level)
 
       return unless msg_val >= site_val
 
+      _output_log_message(msg_symbol, message)
+    end
+
+    def _resolve_site_log_level(site)
+      site_level = site.config['plugin_log_level']&.downcase || DEFAULT_SITE_CONSOLE_LEVEL_STRING
+      LOG_LEVEL_MAP[site_level.to_sym] || LOG_LEVEL_MAP[DEFAULT_SITE_CONSOLE_LEVEL_STRING.to_sym]
+    end
+
+    def _resolve_message_log_level(level)
+      msg_symbol = LOG_LEVEL_MAP.key?(level) ? level : DEFAULT_MESSAGE_LEVEL_SYMBOL
+      msg_val = LOG_LEVEL_MAP[msg_symbol]
+      [msg_symbol, msg_val]
+    end
+
+    def _output_log_message(msg_symbol, message)
       if defined?(Jekyll.logger) && Jekyll.logger.respond_to?(msg_symbol)
         Jekyll.logger.public_send(msg_symbol, 'PluginLiquid:', message)
       else
