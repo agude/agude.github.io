@@ -60,10 +60,14 @@ module JsonLdInjector
     if item_name && !item_name.to_s.strip.empty?
       [GenericReviewLdGenerator, 'Generic Review Post']
     else
-      Jekyll.logger.warn 'JSON-LD:',
-        "Skipping Generic Review LD for '#{_doc_id(document)}'. Missing 'review.item_name'."
+      _log_missing_item_name(document)
       [nil, 'Generic Review Post (Invalid)']
     end
+  end
+
+  def self._log_missing_item_name(document)
+    Jekyll.logger.warn 'JSON-LD:',
+                       "Skipping Generic Review LD for '#{_doc_id(document)}'. Missing 'review.item_name'."
   end
 
   def self._generate_and_store(generator, document, site, doc_url)
@@ -131,6 +135,6 @@ Jekyll::Hooks.register :pages, :post_convert do |page|
     JsonLdInjector.inject_json_ld(page, site)
   else
     Jekyll.logger.error 'JSON-LD Hook:',
-      "Site object not available for page: #{page.relative_path || page.path || page.url}"
+                        "Site object not available for page: #{page.relative_path || page.path || page.url}"
   end
 end
