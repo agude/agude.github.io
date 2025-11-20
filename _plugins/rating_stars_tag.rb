@@ -63,7 +63,7 @@ module Jekyll
       # Let render_rating_stars handle the type check.
       unless scanner.scan(/\S+/)
         raise Liquid::SyntaxError,
-          "Syntax Error in 'rating_stars': Rating value/variable is missing in '#{@raw_markup}'"
+              "Syntax Error in 'rating_stars': Rating value/variable is missing in '#{@raw_markup}'"
       end
 
       @rating_markup = scanner.matched
@@ -93,7 +93,7 @@ module Jekyll
       return if scanner.eos?
 
       raise Liquid::SyntaxError,
-        "Syntax Error in 'rating_stars': Unexpected arguments '#{scanner.rest}' in '#{@raw_markup}'"
+            "Syntax Error in 'rating_stars': Unexpected arguments '#{scanner.rest}' in '#{@raw_markup}'"
     end
   end
 end
