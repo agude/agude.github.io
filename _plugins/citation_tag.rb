@@ -112,7 +112,7 @@ module Jekyll
       return if scanner.eos?
 
       raise Liquid::SyntaxError,
-        "Syntax Error in 'citation' tag: Invalid arguments near '#{scanner.rest}' in '#{markup}'"
+            "Syntax Error in 'citation' tag: Invalid arguments near '#{scanner.rest}' in '#{markup}'"
     end
   end
 end
