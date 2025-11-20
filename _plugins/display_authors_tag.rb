@@ -33,7 +33,7 @@ module Jekyll
 
       return '' if author_names.empty?
 
-      linked = resolve_linked_option(context)
+      linked = linked?(context)
       etal_after = resolve_etal_after_option(context)
 
       processed_authors = process_authors(author_names, linked, context)
@@ -57,11 +57,10 @@ module Jekyll
       is_key = scanner.match?(/(#{ALLOWED_NAMED_KEYS.join('|')})\s*=\s*/)
 
       return if is_key
+      return unless scanner.scan(/(#{Liquid::QuotedFragment}|\S+)/)
 
-      if scanner.scan(/(#{Liquid::QuotedFragment}|\S+)/)
-          @authors_list_markup = scanner[1].strip
-        scanner.skip(/\s*/)
-      end
+      @authors_list_markup = scanner[1].strip
+      scanner.skip(/\s*/)
     end
 
     def parse_named_arguments(scanner)
@@ -69,18 +68,22 @@ module Jekyll
         scanner.skip(/\s*/)
         break if scanner.eos?
 
-        unless scanner.scan(SYNTAX_NAMED_ARG)
-          raise Liquid::SyntaxError,
-            "Syntax Error in '#{@tag_name}': Invalid argument syntax near '#{scanner.rest}'. " \
-            "Expected key='value' or key=variable."
-        end
-
-        key = scanner[1].downcase
-        value = scanner[2]
-
-        validate_named_argument(key)
-        @options_markup[key.to_sym] = value
+        parse_single_named_argument(scanner)
       end
+    end
+
+    def parse_single_named_argument(scanner)
+      unless scanner.scan(SYNTAX_NAMED_ARG)
+        raise Liquid::SyntaxError,
+              "Syntax Error in '#{@tag_name}': Invalid argument syntax near '#{scanner.rest}'. " \
+              "Expected key='value' or key=variable."
+      end
+
+      key = scanner[1].downcase
+      value = scanner[2]
+
+      validate_named_argument(key)
+      @options_markup[key.to_sym] = value
     end
 
     def validate_named_argument(key)
@@ -97,11 +100,11 @@ module Jekyll
       return unless @authors_list_markup.nil? || @authors_list_markup.empty?
 
       raise Liquid::SyntaxError,
-        "Syntax Error in '#{@tag_name}': Missing required authors list (e.g., page.book_authors) " \
-        "as the first argument in '#{@raw_markup}'"
+            "Syntax Error in '#{@tag_name}': Missing required authors list (e.g., page.book_authors) " \
+            "as the first argument in '#{@raw_markup}'"
     end
 
-    def resolve_linked_option(context)
+    def linked?(context)
       return true unless @options_markup.key?(:linked)
 
       val = TagArgumentUtils.resolve_value(@options_markup[:linked], context)
