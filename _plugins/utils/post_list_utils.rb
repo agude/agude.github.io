@@ -68,9 +68,7 @@ module PostListUtils
 
     def filter_posts(posts)
       processed = posts.reject { |post| post.data['published'] == false }
-      if @exclude_url && !@exclude_url.to_s.strip.empty?
-        processed.reject! { |post| post.url == @exclude_url }
-      end
+      processed.reject! { |post| post.url == @exclude_url } if @exclude_url && !@exclude_url.to_s.strip.empty?
       processed
     end
 
