@@ -61,6 +61,11 @@ module BlogPostingLdGenerator
   end
 
   private_class_method def self.add_description_and_body(data, document)
+    add_description(data, document)
+    add_article_body(data, document)
+  end
+
+  private_class_method def self.add_description(data, document)
     # Description (Use helper: excerpt -> description, truncate)
     description = JsonLdUtils.extract_descriptive_text(
       document,
@@ -68,7 +73,9 @@ module BlogPostingLdGenerator
       truncate_options: { words: 50, omission: '...' }
     )
     data['description'] = description if description # Helper already returns nil if empty
+  end
 
+  private_class_method def self.add_article_body(data, document)
     # Article Body (Use helper: content, no truncation)
     article_body = JsonLdUtils.extract_descriptive_text(
       document,
