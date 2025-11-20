@@ -20,7 +20,7 @@ BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 #   make test TEST=$$(find _tests/plugins/utils -name 'test_*.rb')
 TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb')
 
-.PHONY: all clean serve drafts debug image refresh lock test build profile lint check
+.PHONY: all clean serve drafts debug image refresh lock test build profile lint check install-hook format-all
 
 all: serve
 
@@ -172,3 +172,25 @@ check: build
 		  --disable-external \
 		  --ignore-urls /livereload.js/ \
 		  --checks Links,HTML
+
+# Install the custom pre-commit hook that runs RuboCop inside Docker.
+# This target must be run on the HOST machine.
+install-hook: image _scripts/pre-commit.sh
+	@echo "Installing custom Docker-based pre-commit hook..."
+	@mkdir -p .git/hooks
+	@cp _scripts/pre-commit.sh .git/hooks/pre-commit
+	@chmod +x .git/hooks/pre-commit
+	@echo "Pre-commit hook installed at .git/hooks/pre-commit."
+	@echo "It will run 'rubocop --autocorrect' on staged Ruby files inside the Docker image."
+
+# Run RuboCop --autocorrect on all Ruby files to establish a clean formatting baseline.
+# This target modifies files on the host via the volume mount.
+format-all: image
+	@echo "Running RuboCop --autocorrect on ALL Ruby files to establish a clean baseline..."
+	@# Run RuboCop, ignore its non-zero exit code (1 or 123) with '|| true' to prevent 'make' from failing.
+	@docker run --rm \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		$(IMAGE) \
+		bundle exec rubocop --autocorrect --format quiet > /dev/null 2>&1 || true
+	@echo "All Ruby files have been safely auto-corrected. Please review and commit changes."
