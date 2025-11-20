@@ -37,21 +37,40 @@ module BookReviewLdGenerator
     end
 
     def add_review_metadata(data)
+      add_review_author(data)
+      add_review_date_published(data)
+      add_review_publisher(data)
+      add_review_rating(data)
+      add_review_body(data)
+      add_review_url(data)
+    end
+
+    def add_review_author(data)
       # Review Author (Site default)
       data['author'] = JsonLdUtils.build_site_person_entity(@site)
+    end
 
+    def add_review_date_published(data)
       # Review Publication Date (From page.date)
       data['datePublished'] = @document.date.to_time.xmlschema if @document.date
+    end
 
+    def add_review_publisher(data)
       # Review Publisher (Site default)
       data['publisher'] = JsonLdUtils.build_site_person_entity(@site, include_site_url: true)
+    end
 
+    def add_review_rating(data)
       # Review Rating (From page.rating)
       data['reviewRating'] = JsonLdUtils.build_rating_entity(@document.data['rating'])
+    end
 
+    def add_review_body(data)
       # Review Body (Priority: excerpt -> description -> content)
       data['reviewBody'] = extract_review_body
+    end
 
+    def add_review_url(data)
       # Review URL (This Page)
       data['url'] = review_page_url
     end
@@ -121,8 +140,10 @@ module BookReviewLdGenerator
 
     def log_invalid_awards
       id = @document.url || @document.data['path'] || @document.relative_path
-      Jekyll.logger.warn 'JSON-LD (BookReviewGen):',
+      Jekyll.logger.warn(
+        'JSON-LD (BookReviewGen):',
         "Front matter 'awards' for '#{id}' is not an Array, skipping awards."
+      )
     end
 
     def add_book_series(item)
