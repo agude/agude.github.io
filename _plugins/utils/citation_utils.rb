@@ -12,9 +12,10 @@ module CitationUtils
     generated_parts = _build_generators(params).map(&:call)
 
     # Sanitize: Remove nils, then remove trailing periods from each part, then reject empty strings
-    active_parts = generated_parts.compact.map do |part_str|
+    chomped_parts = generated_parts.compact.map do |part_str|
       part_str.is_a?(String) ? part_str.chomp('.') : part_str
-    end.select { |p| _present?(p) } # Use _present? to also catch strings that are just whitespace after chomp
+    end
+    active_parts = chomped_parts.select { |p| _present?(p) }
 
     return '' if active_parts.empty?
 
@@ -26,23 +27,86 @@ module CitationUtils
 
   def self._build_generators(params)
     [
-      -> { _generate_author_part(last: params[:author_last], first: params[:author_first], handle: params[:author_handle]) },
-      lambda {
-        _generate_work_and_container_part(work: params[:work_title], container: params[:container_title],
-                                          url: params[:url])
-      },
-      -> { _generate_editor_part(editor: params[:editor]) },
-      -> { _generate_edition_part(edition: params[:edition]) },
-      -> { _generate_volume_and_number_part(volume: params[:volume], number: params[:number]) },
-      -> { _generate_publisher_part(publisher: params[:publisher]) },
-      -> { _generate_date_part(date: params[:date]) },
-      lambda {
-        _generate_pages_part(first_page: params[:first_page], last_page: params[:last_page], page: params[:page])
-      },
-      -> { _generate_doi_part(doi: params[:doi]) },
-      -> { _generate_access_date_part(access_date: params[:access_date]) }
+      _author_generator(params),
+      _work_container_generator(params),
+      _editor_generator(params),
+      _edition_generator(params),
+      _volume_number_generator(params),
+      _publisher_generator(params),
+      _date_generator(params),
+      _pages_generator(params),
+      _doi_generator(params),
+      _access_date_generator(params)
     ]
   end
+
+  def self._author_generator(params)
+    lambda {
+      _generate_author_part(
+        last: params[:author_last],
+        first: params[:author_first],
+        handle: params[:author_handle]
+      )
+    }
+  end
+  private_class_method :_author_generator
+
+  def self._work_container_generator(params)
+    lambda {
+      _generate_work_and_container_part(
+        work: params[:work_title],
+        container: params[:container_title],
+        url: params[:url]
+      )
+    }
+  end
+  private_class_method :_work_container_generator
+
+  def self._editor_generator(params)
+    -> { _generate_editor_part(editor: params[:editor]) }
+  end
+  private_class_method :_editor_generator
+
+  def self._edition_generator(params)
+    -> { _generate_edition_part(edition: params[:edition]) }
+  end
+  private_class_method :_edition_generator
+
+  def self._volume_number_generator(params)
+    -> { _generate_volume_and_number_part(volume: params[:volume], number: params[:number]) }
+  end
+  private_class_method :_volume_number_generator
+
+  def self._publisher_generator(params)
+    -> { _generate_publisher_part(publisher: params[:publisher]) }
+  end
+  private_class_method :_publisher_generator
+
+  def self._date_generator(params)
+    -> { _generate_date_part(date: params[:date]) }
+  end
+  private_class_method :_date_generator
+
+  def self._pages_generator(params)
+    lambda {
+      _generate_pages_part(
+        first_page: params[:first_page],
+        last_page: params[:last_page],
+        page: params[:page]
+      )
+    }
+  end
+  private_class_method :_pages_generator
+
+  def self._doi_generator(params)
+    -> { _generate_doi_part(doi: params[:doi]) }
+  end
+  private_class_method :_doi_generator
+
+  def self._access_date_generator(params)
+    -> { _generate_access_date_part(access_date: params[:access_date]) }
+  end
+  private_class_method :_access_date_generator
 
   def self._present?(obj)
     !obj.nil? && !obj.to_s.strip.empty?
@@ -57,18 +121,21 @@ module CitationUtils
   # --- Independent Part Generators ---
 
   def self._generate_author_part(last:, first:, handle:)
-    parts = []
     if _present?(last)
-      parts << _escape_html(last)
-      parts << _escape_html(first) if _present?(first)
-      main = parts.join(', ')
-      main += " (#{_escape_html(handle)})" if _present?(handle)
-      return main if _present?(main)
+      _build_author_with_last_name(last, first, handle)
     elsif _present?(handle)
-      return _escape_html(handle)
+      _escape_html(handle)
     end
-    nil
   end
+
+  def self._build_author_with_last_name(last, first, handle)
+    parts = [_escape_html(last)]
+    parts << _escape_html(first) if _present?(first)
+    main = parts.join(', ')
+    main += " (#{_escape_html(handle)})" if _present?(handle)
+    _present?(main) ? main : nil
+  end
+  private_class_method :_build_author_with_last_name
 
   def self._generate_work_and_container_part(work:, container:, url:)
     elements = []
