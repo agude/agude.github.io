@@ -57,22 +57,22 @@ module CardDataExtractorUtils
     end
 
     def extract
-      return failure_result unless validate_context
-      return failure_result unless validate_item
+      return failure_result unless validate_context?
+      return failure_result unless validate_item?
 
       success_result
     end
 
     private
 
-    def validate_context
+    def validate_context?
       return true if @context && (@site = @context.registers[:site])
 
       log_failure('Context or Site object unavailable for card data extraction.', { item_type: @item.class.name })
       false
     end
 
-    def validate_item
+    def validate_item?
       if valid_jekyll_object?
         @data_source = @item.data
         return true
@@ -135,7 +135,7 @@ module CardDataExtractorUtils
 
     def raw_title
       t = @data_source['title']
-      (t.nil? || t.to_s.strip.empty?) ? @default_title : t.to_s
+      t.nil? || t.to_s.strip.empty? ? @default_title : t.to_s
     end
 
     def log_failure(reason, identifiers)
