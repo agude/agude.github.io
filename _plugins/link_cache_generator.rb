@@ -14,46 +14,52 @@ module Jekyll
 
     def generate(site)
       Jekyll.logger.info 'LinkCacheGenerator:', 'Building link cache...'
-      @link_cache = initialize_cache
+      link_cache = initialize_cache
       site.data['mention_tracker'] ||= {}
 
-      process_pages(site)
-      url_to_book_doc_map = process_books(site)
+      builder = CacheBuilder.new(link_cache)
+      url_to_book_doc_map = builder.build(site)
 
-      build_caches(site, url_to_book_doc_map)
+      build_secondary_caches(site, link_cache, url_to_book_doc_map)
 
-      site.data['link_cache'] = @link_cache
+      site.data['link_cache'] = link_cache
       Jekyll.logger.info 'LinkCacheGenerator:', 'Cache built successfully.'
     end
 
     private
 
-    def build_caches(site, url_to_book_doc_map)
-      ShortStoryBuilder.new(site, @link_cache).build
+    def build_secondary_caches(site, link_cache, url_to_book_doc_map)
+      ShortStoryBuilder.new(site, link_cache).build
 
-      maps = CacheMaps.new(@link_cache)
+      maps = CacheMaps.new(link_cache)
       LinkValidator.new(site, maps).validate
-      BacklinkBuilder.new(site, @link_cache, maps).build
+      BacklinkBuilder.new(site, link_cache, maps).build
 
-      FavoritesManager.new(site, @link_cache, url_to_book_doc_map).build
+      FavoritesManager.new(site, link_cache, url_to_book_doc_map).build
     end
 
     def initialize_cache
       {
-        'authors' => {},
-        'books' => {},
-        'series' => {},
-        'series_map' => {},
-        'short_stories' => {},
-        'sidebar_nav' => [],
-        'books_topbar_nav' => [],
-        'backlinks' => {},
-        'favorites_mentions' => {},
-        'favorites_posts_to_books' => {},
-        'url_to_canonical_map' => {},
-        'book_families' => Hash.new { |h, k| h[k] = [] }
+        'authors' => {}, 'books' => {}, 'series' => {}, 'series_map' => {},
+        'short_stories' => {}, 'sidebar_nav' => [], 'books_topbar_nav' => [],
+        'backlinks' => {}, 'favorites_mentions' => {}, 'favorites_posts_to_books' => {},
+        'url_to_canonical_map' => {}, 'book_families' => Hash.new { |h, k| h[k] = [] }
       }
     end
+  end
+
+  # Builds the primary page and book caches
+  class CacheBuilder
+    def initialize(link_cache)
+      @link_cache = link_cache
+    end
+
+    def build(site)
+      process_pages(site)
+      process_books(site)
+    end
+
+    private
 
     def process_pages(site)
       site.pages.each do |page|
@@ -68,21 +74,20 @@ module Jekyll
       title = page.data['title']
       return unless title
 
-      if page.data['sidebar_include'] == true && !page.url.include?('page')
-        @link_cache['sidebar_nav'] << page
-      end
+      @link_cache['sidebar_nav'] << page if include_in_sidebar?(page)
       @link_cache['books_topbar_nav'] << page if page.data['book_topbar_include'] == true
+    end
+
+    def include_in_sidebar?(page)
+      page.data['sidebar_include'] == true && !page.url.include?('page')
     end
 
     def cache_linkable_page(page)
       title = page.data['title']
       return unless title && !title.strip.empty?
 
-      if page.data['layout'] == 'author_page'
-        cache_author_page(page)
-      elsif page.data['layout'] == 'series_page'
-        cache_series_page(page)
-      end
+      cache_author_page(page) if page.data['layout'] == 'author_page'
+      cache_series_page(page) if page.data['layout'] == 'series_page'
     end
 
     def process_books(site)
@@ -130,17 +135,19 @@ module Jekyll
       title = book.data['title'].strip
       normalized = TextProcessingUtils.normalize_title(title)
 
-      book_data = {
+      @link_cache['books'][normalized] ||= []
+      @link_cache['books'][normalized] << build_book_data(book)
+
+      update_book_families(book)
+    end
+
+    def build_book_data(book)
+      {
         'url' => book.url,
-        'title' => title,
+        'title' => book.data['title'].strip,
         'authors' => FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors']),
         'canonical_url' => book.data['canonical_url']
       }
-
-      @link_cache['books'][normalized] ||= []
-      @link_cache['books'][normalized] << book_data
-
-      update_book_families(book)
     end
 
     def update_book_families(book)
@@ -260,7 +267,7 @@ module Jekyll
 
     def raise_error(found_raw_links)
       msg = 'Found raw Markdown/HTML links. Please convert them to use custom tags ' \
-        "('book_link', 'author_link', 'series_link').\n".dup
+            "('book_link', 'author_link', 'series_link').\n".dup
       found_raw_links.each do |path, links|
         msg << "  - In file '#{path}':\n"
         links.uniq.each { |link| msg << "    - Found: #{link}\n" }
