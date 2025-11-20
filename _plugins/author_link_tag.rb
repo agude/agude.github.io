@@ -56,11 +56,11 @@ module Jekyll
 
     def parse_name(scanner)
       # 1. Extract the Name (first argument, must be quoted or a variable)
-      if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
-        @name_markup = scanner.matched
-      else
+      unless scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
         raise Liquid::SyntaxError, "Syntax Error in 'author_link': Could not find author name in '#{@raw_markup}'"
       end
+
+      @name_markup = scanner.matched
     end
 
     def parse_options(scanner)
@@ -70,9 +70,9 @@ module Jekyll
         break if scanner.eos? # Stop if only whitespace remained
 
         if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
-            # scanner[1] contains the captured quoted fragment (the value)
-            # Prevent overwriting if it appears multiple times (take the first one)
-            @link_text_markup ||= scanner[1]
+          # scanner[1] contains the captured quoted fragment (the value)
+          # Prevent overwriting if it appears multiple times (take the first one)
+          @link_text_markup ||= scanner[1]
         elsif scanner.scan(/possessive(?!\S)/) # Ensure 'possessive' is a whole word
           @possessive_flag = true
         else
@@ -86,14 +86,14 @@ module Jekyll
       unknown_arg = scanner.scan(/\S+/) # Capture the unknown part
       # Raise an error to break the build
       raise Liquid::SyntaxError,
-        "Syntax Error in 'author_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
+            "Syntax Error in 'author_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
     end
 
     def validate_name
       return if @name_markup && !@name_markup.strip.empty?
 
       raise Liquid::SyntaxError,
-        "Syntax Error in 'author_link': Author name value is missing or empty in '#{@raw_markup}'"
+            "Syntax Error in 'author_link': Author name value is missing or empty in '#{@raw_markup}'"
     end
   end
 end
