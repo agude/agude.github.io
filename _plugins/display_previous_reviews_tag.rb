@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _plugins/display_previous_reviews_tag.rb
 require 'jekyll'
 require 'liquid'
@@ -14,42 +16,61 @@ module Jekyll
     end
 
     def render(context)
-      site = context.registers[:site]
-      page = context.registers[:page]
+      PreviousReviewsRenderer.new(context).render
+    end
 
-      unless site && page && page['url']
-        return PluginLoggerUtils.log_liquid_failure(
-          context: context,
+    # Helper class to handle rendering logic
+    class PreviousReviewsRenderer
+      def initialize(context)
+        @context = context
+        @site = context.registers[:site]
+        @page = context.registers[:page]
+      end
+
+      def render
+        return handle_missing_prerequisites unless valid_prerequisites?
+
+        archived_docs = find_archived_docs
+        return '' if archived_docs.empty?
+
+        render_reviews(archived_docs.sort_by(&:date).reverse)
+      end
+
+      private
+
+      def valid_prerequisites?
+        @site && @page && @page['url']
+      end
+
+      def handle_missing_prerequisites
+        PluginLoggerUtils.log_liquid_failure(
+          context: @context,
           tag_type: 'PREVIOUS_REVIEWS',
           reason: 'Prerequisites missing: site, page, or page.url.',
           level: :error
         )
       end
 
-      # Find all books that are archived versions of the current page
-      archived_docs = site.collections['books'].docs.select do |book|
-        book.data['canonical_url'] == page['url']
+      def find_archived_docs
+        @site.collections['books'].docs.select do |book|
+          book.data['canonical_url'] == @page['url']
+        end
       end
 
-      return '' if archived_docs.empty?
+      def render_reviews(sorted_docs)
+        output = +"<aside class=\"previous-reviews\">\n"
+        output << "  <h2 class=\"book-review-headline\">Previous Reviews</h2>\n"
+        output << "  <div class=\"card-grid\">\n"
 
-      # Sort by date, most recent first
-      sorted_docs = archived_docs.sort_by(&:date).reverse
+        sorted_docs.each do |doc|
+          subtitle = "Review from #{doc.date.strftime('%B %d, %Y')}"
+          output << BookCardUtils.render(doc, @context, subtitle: subtitle)
+        end
 
-      output = "<aside class=\"previous-reviews\">\n"
-      output << "  <h2 class=\"book-review-headline\">Previous Reviews</h2>\n"
-      output << "  <div class=\"card-grid\">\n"
-
-      sorted_docs.each do |doc|
-        subtitle = "Review from #{doc.date.strftime('%B %d, %Y')}"
-        # Call the utility directly, which is more efficient than rendering a tag
-        output << BookCardUtils.render(doc, context, subtitle: subtitle)
+        output << "  </div>\n"
+        output << '</aside>'
+        output
       end
-
-      output << "  </div>\n"
-      output << '</aside>'
-
-      output
     end
   end
 end
