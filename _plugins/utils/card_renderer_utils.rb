@@ -45,9 +45,7 @@ module CardRendererUtils
     private
 
     def valid_data?
-      if @card_data.is_a?(Hash) && @card_data[:base_class] && @card_data[:url] && @card_data[:title_html]
-        return true
-      end
+      return true if @card_data.is_a?(Hash) && @card_data[:base_class] && @card_data[:url] && @card_data[:title_html]
 
       # In a real scenario, might log this failure using PluginLoggerUtils or raise error
       puts '[CardRendererUtils ERROR] Invalid or incomplete card_data provided.'
@@ -78,9 +76,9 @@ module CardRendererUtils
     end
 
     def render_title
-      "    <a href=\"#{@card_data[:url]}\">\n" \
-        "      #{@card_data[:title_html]}\n" \
-        "    </a>\n"
+      "    <a href=\"#{@card_data[:url]}\">\n      " \
+        "#{@card_data[:title_html]}\n    " \
+        "</a>\n"
     end
 
     def render_extras
