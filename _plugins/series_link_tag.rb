@@ -15,53 +15,71 @@ module Jekyll
     def initialize(tag_name, markup, tokens)
       super
       @raw_markup = markup
-
       @title_markup = nil
       @link_text_markup = nil
 
-      scanner = StringScanner.new(markup.strip)
-
-      # 1. Extract the Title
-      if scanner.scan(QuotedFragment)
-        @title_markup = scanner.matched
-      elsif scanner.scan(/\S+/)
-        @title_markup = scanner.matched
-      else
-        raise Liquid::SyntaxError, "Syntax Error in 'series_link': Could not find series title in '#{@raw_markup}'"
-      end
-
-      # 2. Scan for optional link_text
-      until scanner.eos?
-        scanner.skip(/\s+/)
-        break if scanner.eos?
-
-        if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
-          @link_text_markup ||= scanner[1]
-        else
-          unknown_arg = scanner.scan(/\S+/)
-          raise Liquid::SyntaxError,
-                "Syntax Error in 'series_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
-        end
-      end
-
-      # Ensure title markup was actually found
-      return if @title_markup && !@title_markup.strip.empty?
-
-      raise Liquid::SyntaxError, "Syntax Error in 'series_link': Title value is missing or empty in '#{@raw_markup}'"
+      parse_arguments(markup)
     end
 
     # Renders the series link HTML by calling the utility function
     def render(context)
-      # Resolve the potentially variable markup into actual strings
       series_title = TagArgumentUtils.resolve_value(@title_markup, context)
-      link_text_override = @link_text_markup ? TagArgumentUtils.resolve_value(@link_text_markup, context) : nil
+      link_text_override = resolve_link_text(context)
 
-      # Call the centralized utility function from SeriesLinkUtils
-      SeriesLinkUtils.render_series_link(
-        series_title,
-        context,
-        link_text_override
-      )
+      SeriesLinkUtils.render_series_link(series_title, context, link_text_override)
+    end
+
+    private
+
+    def parse_arguments(markup)
+      scanner = StringScanner.new(markup.strip)
+      parse_title(scanner)
+      parse_optional_link_text(scanner)
+      validate_title
+    end
+
+    def parse_title(scanner)
+      if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
+        @title_markup = scanner.matched
+      else
+        raise Liquid::SyntaxError,
+              "Syntax Error in 'series_link': " \
+              "Could not find series title in '#{@raw_markup}'"
+      end
+    end
+
+    def parse_optional_link_text(scanner)
+      until scanner.eos?
+        scanner.skip(/\s+/)
+        break if scanner.eos?
+
+        parse_link_text_argument(scanner)
+      end
+    end
+
+    def parse_link_text_argument(scanner)
+      if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
+        @link_text_markup ||= scanner[1]
+      else
+        unknown_arg = scanner.scan(/\S+/)
+        raise Liquid::SyntaxError,
+              "Syntax Error in 'series_link': " \
+              "Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
+      end
+    end
+
+    def validate_title
+      return if @title_markup && !@title_markup.strip.empty?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'series_link': " \
+            "Title value is missing or empty in '#{@raw_markup}'"
+    end
+
+    def resolve_link_text(context)
+      return nil unless @link_text_markup
+
+      TagArgumentUtils.resolve_value(@link_text_markup, context)
     end
   end
 end
