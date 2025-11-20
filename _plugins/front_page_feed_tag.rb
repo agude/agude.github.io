@@ -54,12 +54,15 @@ module Jekyll
 
       key = scanner[1].to_s.strip
       value = scanner[2].to_s.strip
+      validate_and_store_argument(key, value)
+    end
 
+    def validate_and_store_argument(key, value)
       if key == 'limit'
         @limit_markup = value
       else
         raise Liquid::SyntaxError,
-          "Syntax Error in '#{@tag_name}': Unknown argument '#{key}'. Only 'limit' is allowed."
+              "Syntax Error in '#{@tag_name}': Unknown argument '#{key}'. Only 'limit' is allowed."
       end
     end
 
@@ -124,13 +127,17 @@ module Jekyll
         context: context,
         tag_type: 'FRONT_PAGE_FEED',
         reason: 'Unknown item type in feed.',
-        identifiers: {
-          item_title: item.data['title'] || 'N/A',
-          item_url: item.url || 'N/A',
-          item_collection: item.collection&.label || 'N/A'
-        },
+        identifiers: build_unknown_item_identifiers(item),
         level: :warn
       )
+    end
+
+    def build_unknown_item_identifiers(item)
+      {
+        item_title: item.data['title'] || 'N/A',
+        item_url: item.url || 'N/A',
+        item_collection: item.collection&.label || 'N/A'
+      }
     end
   end
 end
