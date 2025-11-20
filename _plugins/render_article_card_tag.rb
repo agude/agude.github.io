@@ -47,13 +47,17 @@ module Jekyll
         context: context,
         tag_type: 'RENDER_ARTICLE_CARD_TAG',
         reason: "Error rendering article card via ArticleCardUtils: #{error.message}",
-        identifiers: {
-          post_markup: @post_object_markup,
-          error_class: error.class.name,
-          error_message: error.message.lines.first.chomp.slice(0, 100)
-        },
+        identifiers: build_error_identifiers(error),
         level: :error
       )
+    end
+
+    def build_error_identifiers(error)
+      {
+        post_markup: @post_object_markup,
+        error_class: error.class.name,
+        error_message: error.message.lines.first.chomp.slice(0, 100)
+      }
     end
   end
   Liquid::Template.register_tag('render_article_card', RenderArticleCardTag)
