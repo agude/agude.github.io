@@ -125,13 +125,7 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
   end
 
   def self.get_data_for_favorites_lists(site:, context:)
-    unless _favorites_prerequisites_met?(site)
-      return _return_error(context,
-                           'Prerequisites missing: site.posts or favorites_posts_to_books cache.',
-                           identifiers: {},
-                           key: :favorites_lists,
-                           tag_type: 'BOOK_LIST_FAVORITES')
-    end
+    return _favorites_error_response(context) unless _favorites_prerequisites_met?(site)
 
     favorites_lists_data = _build_favorites_lists(site)
     log_msg = _generate_favorites_log(favorites_lists_data, context)
@@ -154,16 +148,8 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
 
     return output if standalone_books.empty? && series_groups.empty?
 
-    series_hl = (1..6).include?(series_heading_level.to_i) ? series_heading_level.to_i : 2
-    anchors = {}
-
-    options = { series_hl: series_hl, generate_nav: generate_nav, anchors: anchors }
-    content_buffer = _render_content_buffer(standalone_books, series_groups, context, options)
-
-    return output + content_buffer unless generate_nav
-
-    nav_html = _render_alpha_nav(anchors)
-    output + nav_html + content_buffer
+    renderer = BookGroupsRenderer.new(standalone_books, series_groups, context, series_heading_level, generate_nav)
+    output + renderer.render
   end
 
   # --- Private Helper Methods ---
@@ -171,7 +157,7 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
   def self._validate_collection(site, context, params)
     return nil if _books_collection_exists?(site)
 
-    identifiers = params.reject { |k, _| [:structure, :key].include?(k) }
+    identifiers = params.except(:structure, :key)
 
     _return_error(context,
                   "Required 'books' collection not found in site configuration.",
@@ -209,7 +195,7 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
 
     normalized = series_name.to_s.strip.downcase
     all_books.select { |book| book.data['series']&.strip&.downcase == normalized }
-      .sort_by { |book| _series_sort_key(book) }
+             .sort_by { |book| _series_sort_key(book) }
   end
 
   def self._series_sort_key(book)
@@ -220,19 +206,24 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
   end
 
   def self._generate_series_log(books, series_name, context)
-    if series_name.nil? || series_name.to_s.strip.empty?
-      PluginLoggerUtils.log_liquid_failure(
-        context: context, tag_type: 'BOOK_LIST_SERIES_DISPLAY', reason: 'Series name filter was empty or nil.',
-        identifiers: { SeriesFilterInput: series_name || 'N/A' }, level: :warn
-      ).dup
-    elsif books.empty?
-      PluginLoggerUtils.log_liquid_failure(
-        context: context, tag_type: 'BOOK_LIST_SERIES_DISPLAY', reason: 'No books found for the specified series.',
-        identifiers: { SeriesFilter: series_name }, level: :info
-      ).dup
-    else
-      String.new
-    end
+    return _log_empty_series_name(series_name, context) if series_name.nil? || series_name.to_s.strip.empty?
+    return _log_no_books_in_series(series_name, context) if books.empty?
+
+    String.new
+  end
+
+  def self._log_empty_series_name(series_name, context)
+    PluginLoggerUtils.log_liquid_failure(
+      context: context, tag_type: 'BOOK_LIST_SERIES_DISPLAY', reason: 'Series name filter was empty or nil.',
+      identifiers: { SeriesFilterInput: series_name || 'N/A' }, level: :warn
+    ).dup
+  end
+
+  def self._log_no_books_in_series(series_name, context)
+    PluginLoggerUtils.log_liquid_failure(
+      context: context, tag_type: 'BOOK_LIST_SERIES_DISPLAY', reason: 'No books found for the specified series.',
+      identifiers: { SeriesFilter: series_name }, level: :info
+    ).dup
   end
 
   # --- Author Helpers ---
@@ -259,20 +250,25 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
   end
 
   def self._generate_author_log(books, author_name, context)
-    if author_name.nil? || author_name.to_s.strip.empty?
-      PluginLoggerUtils.log_liquid_failure(
-        context: context, tag_type: 'BOOK_LIST_AUTHOR_DISPLAY',
-        reason: 'Author name filter was empty or nil when fetching data.',
-        identifiers: { AuthorFilterInput: author_name || 'N/A' }, level: :warn
-      ).dup
-    elsif books.empty?
-      PluginLoggerUtils.log_liquid_failure(
-        context: context, tag_type: 'BOOK_LIST_AUTHOR_DISPLAY', reason: 'No books found for the specified author.',
-        identifiers: { AuthorFilter: author_name }, level: :info
-      ).dup
-    else
-      String.new
-    end
+    return _log_empty_author_name(author_name, context) if author_name.nil? || author_name.to_s.strip.empty?
+    return _log_no_books_for_author(author_name, context) if books.empty?
+
+    String.new
+  end
+
+  def self._log_empty_author_name(author_name, context)
+    PluginLoggerUtils.log_liquid_failure(
+      context: context, tag_type: 'BOOK_LIST_AUTHOR_DISPLAY',
+      reason: 'Author name filter was empty or nil when fetching data.',
+      identifiers: { AuthorFilterInput: author_name || 'N/A' }, level: :warn
+    ).dup
+  end
+
+  def self._log_no_books_for_author(author_name, context)
+    PluginLoggerUtils.log_liquid_failure(
+      context: context, tag_type: 'BOOK_LIST_AUTHOR_DISPLAY', reason: 'No books found for the specified author.',
+      identifiers: { AuthorFilter: author_name }, level: :info
+    ).dup
   end
 
   # --- All Books By Author Helpers ---
@@ -283,15 +279,19 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
     books_map = {}
 
     _get_all_published_books(site, include_archived: false).each do |book|
-      FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors']).each do |name|
-        canonical = _get_canonical_author(name, author_cache)
-        next unless canonical
-
-        books_map[canonical] ||= []
-        books_map[canonical] << book
-      end
+      _add_book_to_author_map(book, author_cache, books_map)
     end
     books_map
+  end
+
+  def self._add_book_to_author_map(book, author_cache, books_map)
+    FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors']).each do |name|
+      canonical = _get_canonical_author(name, author_cache)
+      next unless canonical
+
+      books_map[canonical] ||= []
+      books_map[canonical] << book
+    end
   end
 
   def self._build_authors_data_list(books_map)
@@ -356,29 +356,35 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
       books = _find_books_for_award(all_books, raw_award)
       next if books.empty?
 
-      display_name = _format_award_display_name(raw_award)
-      {
-        award_name: display_name,
-        award_slug: _slugify_award(display_name),
-        books: books
-      }
+      _create_award_data_entry(raw_award, books)
     end
   end
 
+  def self._create_award_data_entry(raw_award, books)
+    display_name = _format_award_display_name(raw_award)
+    {
+      award_name: display_name,
+      award_slug: _slugify_award(display_name),
+      books: books
+    }
+  end
+
   def self._find_books_for_award(all_books, raw_award)
-    books = all_books.select do |book|
-      book.data['awards'].is_a?(Array) &&
-        book.data['awards'].any? { |ba| ba.to_s.strip.casecmp(raw_award.strip).zero? }
-    end
+    books = all_books.select { |book| _book_has_award?(book, raw_award) }
     books.sort_by { |b| TextProcessingUtils.normalize_title(b.data['title'].to_s, strip_articles: true) }
+  end
+
+  def self._book_has_award?(book, raw_award)
+    book.data['awards'].is_a?(Array) &&
+      book.data['awards'].any? { |ba| ba.to_s.strip.casecmp(raw_award.strip).zero? }
   end
 
   def self._slugify_award(name)
     TextProcessingUtils.normalize_title(name, strip_articles: false)
-      .gsub(/\s+/, '-')
-      .gsub(/[^\w-]+/, '')
-      .gsub(/--+/, '-')
-      .gsub(/^-+|-+$/, '')
+                       .gsub(/\s+/, '-')
+                       .gsub(/[^\w-]+/, '')
+                       .gsub(/--+/, '-')
+                       .gsub(/^-+|-+$/, '')
   end
 
   def self._generate_awards_log(data, context)
@@ -442,18 +448,33 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
     site&.posts&.docs.is_a?(Array) && site.data.dig('link_cache', 'favorites_posts_to_books')
   end
 
+  def self._favorites_error_response(context)
+    _return_error(context,
+                  'Prerequisites missing: site.posts or favorites_posts_to_books cache.',
+                  identifiers: {},
+                  key: :favorites_lists,
+                  tag_type: 'BOOK_LIST_FAVORITES')
+  end
+
   def self._build_favorites_lists(site)
     cache = site.data['link_cache']['favorites_posts_to_books']
-    posts = site.posts.docs.select { |p| p.data.key?('is_favorites_list') }
-      .sort_by { |p| p.data['is_favorites_list'].to_i }.reverse
+    posts = _get_sorted_favorites_posts(site)
 
-    posts.map do |post|
-      books = cache[post.url] || []
-      sorted = books.sort_by do |b|
-        TextProcessingUtils.normalize_title(b.data['title'].to_s, strip_articles: true)
-      end
-      { post: post, books: sorted }
+    posts.map { |post| _create_favorites_list_entry(post, cache) }
+  end
+
+  def self._get_sorted_favorites_posts(site)
+    site.posts.docs.select { |p| p.data.key?('is_favorites_list') }
+                    .sort_by { |p| p.data['is_favorites_list'].to_i }
+                    .reverse
+  end
+
+  def self._create_favorites_list_entry(post, cache)
+    books = cache[post.url] || []
+    sorted = books.sort_by do |b|
+      TextProcessingUtils.normalize_title(b.data['title'].to_s, strip_articles: true)
     end
+    { post: post, books: sorted }
   end
 
   def self._generate_favorites_log(data, context)
@@ -469,9 +490,7 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
 
   def self._render_content_buffer(standalone, series_groups, context, options)
     buffer = String.new
-    if standalone.any?
-      buffer << _render_standalone_section(standalone, context, options)
-    end
+    buffer << _render_standalone_section(standalone, context, options) if standalone.any?
 
     series_groups.each do |group|
       buffer << _render_series_section(group, context, options)
@@ -548,30 +567,65 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
   end
 
   def self._structure_books_for_display(books_to_process)
-    standalone, series_books = books_to_process.partition do |book|
-      book.data['series'].nil? || book.data['series'].to_s.strip.empty?
-    end
-
-    sorted_standalone = standalone.sort_by do |book|
-      TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true)
-    end
-
+    standalone, series_books = _partition_books(books_to_process)
+    sorted_standalone = _sort_books_by_title(standalone)
     series_groups = _group_and_sort_series_books(series_books)
 
     { standalone_books: sorted_standalone, series_groups: series_groups, log_messages: String.new }
   end
 
+  def self._partition_books(books)
+    books.partition do |book|
+      book.data['series'].nil? || book.data['series'].to_s.strip.empty?
+    end
+  end
+
+  def self._sort_books_by_title(books)
+    books.sort_by do |book|
+      TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true)
+    end
+  end
+
   def self._group_and_sort_series_books(books)
-    sorted = books.sort_by do |book|
+    sorted = _sort_series_books(books)
+    grouped = sorted.group_by { |book| book.data['series'].to_s.strip }
+    _map_and_sort_series_groups(grouped)
+  end
+
+  def self._sort_series_books(books)
+    books.sort_by do |book|
       [
         TextProcessingUtils.normalize_title(book.data['series'].to_s, strip_articles: true),
         _parse_book_number(book.data['book_number']),
         TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true)
       ]
     end
+  end
 
-    grouped = sorted.group_by { |book| book.data['series'].to_s.strip }
+  def self._map_and_sort_series_groups(grouped)
     grouped.map { |name, list| { name: name, books: list } }
-      .sort_by { |g| TextProcessingUtils.normalize_title(g[:name], strip_articles: true) }
+           .sort_by { |g| TextProcessingUtils.normalize_title(g[:name], strip_articles: true) }
+  end
+
+  # Helper class to render book groups HTML
+  class BookGroupsRenderer
+    def initialize(standalone_books, series_groups, context, series_heading_level, generate_nav)
+      @standalone_books = standalone_books
+      @series_groups = series_groups
+      @context = context
+      @series_hl = (1..6).include?(series_heading_level.to_i) ? series_heading_level.to_i : 2
+      @generate_nav = generate_nav
+      @anchors = {}
+    end
+
+    def render
+      options = { series_hl: @series_hl, generate_nav: @generate_nav, anchors: @anchors }
+      content = BookListUtils._render_content_buffer(@standalone_books, @series_groups, @context, options)
+
+      return content unless @generate_nav
+
+      nav_html = BookListUtils._render_alpha_nav(@anchors)
+      nav_html + content
+    end
   end
 end
