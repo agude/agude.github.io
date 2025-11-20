@@ -148,6 +148,7 @@ exclude:
     - Makefile
     - Dockerfile
     - README.md
+    - CLAUDE.md
     - _scripts
     - .venv/
 
