@@ -57,7 +57,7 @@ module Jekyll
       return if scanner.eos?
 
       raise Liquid::SyntaxError,
-        "Syntax Error in 'log_failure': Invalid arguments near '#{scanner.rest}' in '#{@raw_markup}'"
+            "Syntax Error in 'log_failure': Invalid arguments near '#{scanner.rest}' in '#{@raw_markup}'"
     end
 
     def validate_arguments
@@ -69,7 +69,7 @@ module Jekyll
       return if @attributes[arg]
 
       raise Liquid::SyntaxError,
-        "Syntax Error in 'log_failure': Required argument '#{arg}' is missing in '#{@raw_markup}'"
+            "Syntax Error in 'log_failure': Required argument '#{arg}' is missing in '#{@raw_markup}'"
     end
 
     def resolve_identifiers(context)
