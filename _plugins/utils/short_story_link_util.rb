@@ -69,23 +69,37 @@ module ShortStoryLinkUtils
 
     def resolve_ambiguity(locations, canonical_map)
       # 1. Prefer canonical locations
-      canon_locs = locations.select { |loc| canonical_map[loc['url']] == loc['url'] }
-      return canon_locs.first if canon_locs.length == 1
+      canonical_result = try_canonical_locations(locations, canonical_map)
+      return canonical_result if canonical_result
 
       # 2. Check if all locations point to the same book
-      return locations.first if locations.map { |l| l['url'] }.uniq.length == 1
+      return locations.first if all_same_book?(locations)
 
       # 3. Use book filter if provided
-      if @book_filter && !@book_filter.empty?
-        match = locations.find { |loc| loc['parent_book_title'].casecmp(@book_filter).zero? }
-        return log_not_found_in_book unless match
-
-        return match
-      end
+      book_filter_result = try_book_filter(locations)
+      return book_filter_result unless book_filter_result == :skip
 
       # 4. Ambiguous
       log_ambiguous(locations)
       nil
+    end
+
+    def try_canonical_locations(locations, canonical_map)
+      canon_locs = locations.select { |loc| canonical_map[loc['url']] == loc['url'] }
+      canon_locs.length == 1 ? canon_locs.first : nil
+    end
+
+    def all_same_book?(locations)
+      locations.map { |l| l['url'] }.uniq.length == 1
+    end
+
+    def try_book_filter(locations)
+      return :skip unless @book_filter && !@book_filter.empty?
+
+      match = locations.find { |loc| loc['parent_book_title'].casecmp(@book_filter).zero? }
+      return log_not_found_in_book unless match
+
+      match
     end
 
     def render_html(target)
