@@ -35,37 +35,87 @@ module LinkHelperUtils
       return inner_html_element # Cannot determine link validity without context
     end
 
-    current_page_url = page['url']
-    target_url_str = target_url.to_s # Ensure string
-
-    # Handle invalid target URL
+    target_url_str = target_url.to_s
     return inner_html_element if target_url_str.empty?
 
-    # --- Smarter link generation logic ---
-    target_parts = target_url_str.split('#', 2)
-    target_base_url = target_parts[0]
-    target_fragment = target_parts[1] # This will be nil if no '#'
+    current_page_url = page['url']
+    target_base_url, target_fragment = _parse_url_parts(target_url_str)
+    current_canonical_url, target_canonical_url = _resolve_canonical_urls(
+      site, current_page_url, target_base_url
+    )
 
-    # Use the canonical map to check for self-links between related reviews
+    _build_appropriate_link(
+      current_canonical_url,
+      target_canonical_url,
+      target_fragment,
+      target_url_str,
+      inner_html_element,
+      site
+    )
+  end
+
+  # Parses a URL into its base and fragment parts.
+  # @param url [String] The URL to parse.
+  # @return [Array<String, String|nil>] The base URL and fragment (or nil if no fragment).
+  def self._parse_url_parts(url)
+    parts = url.split('#', 2)
+    [parts[0], parts[1]]
+  end
+  private_class_method :_parse_url_parts
+
+  # Resolves canonical URLs for current and target pages using the link cache.
+  # @param site [Jekyll::Site] The Jekyll site object.
+  # @param current_page_url [String] The current page's URL.
+  # @param target_base_url [String] The target page's base URL.
+  # @return [Array<String, String>] The canonical URLs for current and target pages.
+  def self._resolve_canonical_urls(site, current_page_url, target_base_url)
     canonical_map = site.data.dig('link_cache', 'url_to_canonical_map') || {}
-    current_canonical_url = canonical_map[current_page_url] || current_page_url
-    target_canonical_url = canonical_map[target_base_url] || target_base_url
+    current_canonical = canonical_map[current_page_url] || current_page_url
+    target_canonical = canonical_map[target_base_url] || target_base_url
+    [current_canonical, target_canonical]
+  end
+  private_class_method :_resolve_canonical_urls
 
-    # Case 1: The link is to a different conceptual page. Generate a full link.
+  # Builds the appropriate link HTML based on the relationship between current and target pages.
+  # @param current_canonical_url [String] The canonical URL of the current page.
+  # @param target_canonical_url [String] The canonical URL of the target page.
+  # @param target_fragment [String, nil] The fragment (anchor) part of the target URL.
+  # @param target_url_str [String] The full target URL string.
+  # @param inner_html_element [String] The inner HTML element to wrap or return.
+  # @param site [Jekyll::Site] The Jekyll site object.
+  # @return [String] The final HTML string.
+  def self._build_appropriate_link(
+    current_canonical_url,
+    target_canonical_url,
+    target_fragment,
+    target_url_str,
+    inner_html_element,
+    site
+  )
+    # Case 1: Different conceptual page - generate full link
     if current_canonical_url != target_canonical_url
-      baseurl = site.config['baseurl'] || ''
-      href = target_url_str
-      href = "/#{href}" if !baseurl.empty? && !href.start_with?('/') && !href.start_with?(baseurl)
-      href = "#{baseurl}#{href}" unless href.start_with?(baseurl)
+      href = _normalize_href(target_url_str, site.config['baseurl'] || '')
       "<a href=\"#{href}\">#{inner_html_element}</a>"
-
-      # Case 2: The link is to an anchor on the *same* conceptual page. Generate a relative anchor link.
+    # Case 2: Same page with anchor - generate relative anchor link
     elsif target_fragment
       "<a href=\"##{target_fragment}\">#{inner_html_element}</a>"
-
-      # Case 3: The link is to the same conceptual page with no anchor (a true self-link). Suppress it.
+    # Case 3: Same page without anchor - suppress link
     else
       inner_html_element
     end
   end
+  private_class_method :_build_appropriate_link
+
+  # Normalizes an href with the site's baseurl.
+  # @param href [String] The href to normalize.
+  # @param baseurl [String] The site's baseurl.
+  # @return [String] The normalized href.
+  def self._normalize_href(href, baseurl)
+    return href if baseurl.empty?
+
+    href = "/#{href}" unless href.start_with?('/') || href.start_with?(baseurl)
+    href = "#{baseurl}#{href}" unless href.start_with?(baseurl)
+    href
+  end
+  private_class_method :_normalize_href
 end
