@@ -19,29 +19,38 @@ module Jekyll
     end
 
     def render(context)
-      site = context.registers[:site]
-      author_name_input = TagArgumentUtils.resolve_value(@author_name_markup, context)
+      BooksByAuthorRenderer.new(context, @author_name_markup).render
+    end
 
-      unless author_name_input && !author_name_input.to_s.strip.empty?
-        # Let BookListUtils handle logging for nil/empty author filter
-        data = BookListUtils.get_data_for_author_display(
-          site: site,
-          author_name_filter: author_name_input, # Pass potentially nil/empty
-          context: context
-        )
-        # render_book_groups_html will prepend data[:log_messages]
-        return BookListUtils.render_book_groups_html(data, context)
+    # Helper class to handle rendering logic
+    class BooksByAuthorRenderer
+      def initialize(context, author_name_markup)
+        @context = context
+        @site = context.registers[:site]
+        @author_name_markup = author_name_markup
       end
 
-      data = BookListUtils.get_data_for_author_display(
-        site: site,
-        author_name_filter: author_name_input.to_s, # Ensure string
-        context: context
-      )
+      def render
+        author_name_input = TagArgumentUtils.resolve_value(@author_name_markup, @context)
 
-      # BookListUtils.render_book_groups_html will prepend data[:log_messages]
-      # and handle cases where standalone_books or series_groups are empty.
-      BookListUtils.render_book_groups_html(data, context)
+        data = if author_name_input && !author_name_input.to_s.strip.empty?
+                 BookListUtils.get_data_for_author_display(
+                   site: @site,
+                   author_name_filter: author_name_input.to_s,
+                   context: @context
+                 )
+               else
+                 # Let BookListUtils handle logging for nil/empty author filter
+                 BookListUtils.get_data_for_author_display(
+                   site: @site,
+                   author_name_filter: author_name_input,
+                   context: @context
+                 )
+               end
+
+        # BookListUtils.render_book_groups_html will prepend data[:log_messages]
+        BookListUtils.render_book_groups_html(data, @context)
+      end
     end
   end
   Liquid::Template.register_tag('display_books_by_author', DisplayBooksByAuthorTag)
