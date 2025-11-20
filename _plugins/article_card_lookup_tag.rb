@@ -33,7 +33,7 @@ module Jekyll
       url = nil
 
       if scanner.scan(/url\s*=\s*(#{QuotedFragment}|\S+)/)
-          url = scanner[1]
+        url = scanner[1]
       elsif scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
         url = scanner.matched
       end
@@ -49,7 +49,7 @@ module Jekyll
       return if scanner.eos?
 
       raise Liquid::SyntaxError,
-        "Syntax Error in 'article_card_lookup': Unknown argument(s) '#{scanner.rest}' in '#{markup}'"
+            "Syntax Error in 'article_card_lookup': Unknown argument(s) '#{scanner.rest}' in '#{markup}'"
     end
 
     def validate_url(url, markup)
@@ -70,13 +70,10 @@ module Jekyll
       def render
         target_url = resolve_target_url
         return log_url_error unless target_url
-
-        posts = validate_posts_collection(target_url)
+        posts = validate_posts_collection
         return log_collection_error(target_url) unless posts
-
-        post = find_post(posts, target_url)
+        post = posts.find { |post| post.url == target_url }
         return log_post_not_found(target_url) unless post
-
         render_card(post, target_url)
       end
 
@@ -89,13 +86,11 @@ module Jekyll
         raw.start_with?('/') ? raw : "/#{raw}"
       end
 
-      def validate_posts_collection(target_url)
+      def validate_posts_collection
         proxy = @site.posts
 
         # Check validity of posts collection. nil.respond_to? is valid (returns false), so &. is not needed.
-        if proxy.respond_to?(:docs) && proxy.docs.is_a?(Array)
-          return proxy.docs
-        end
+        return proxy.docs if proxy.respond_to?(:docs) && proxy.docs.is_a?(Array)
 
         capture_collection_error(proxy)
         nil
@@ -109,10 +104,6 @@ module Jekyll
                                  else
                                    'nil'
                                  end
-      end
-
-      def find_post(posts, target_url)
-        posts.find { |post| post.url == target_url }
       end
 
       def render_card(post, target_url)
@@ -156,9 +147,10 @@ module Jekyll
           context: @context,
           tag_type: 'ARTICLE_CARD_LOOKUP',
           reason: "Error calling ArticleCardUtils.render utility: #{error.message}",
-          identifiers: { URL: target_url, ErrorClass: error.class.name,
+          identifiers: { URL: target_url,
+                         ErrorClass: error.class.name,
                          ErrorMessage: error.message.lines.first.chomp.slice(0, 100) },
-        level: :error
+          level: :error
         )
       end
     end
