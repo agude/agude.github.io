@@ -117,10 +117,10 @@ module Jekyll
         return '' if text.nil?
 
         text.to_s.downcase.strip
-          .gsub(/\s+/, '-')          # Replace spaces with hyphens
-          .gsub(/[^\w-]+/, '')       # Remove all non-word chars except hyphens
-          .gsub(/--+/, '-')          # Replace multiple hyphens with a single one
-          .gsub(/^-+|-+$/, '')       # Remove leading/trailing hyphens
+            .gsub(/\s+/, '-')          # Replace spaces with hyphens
+            .gsub(/[^\w-]+/, '')       # Remove all non-word chars except hyphens
+            .gsub(/--+/, '-')          # Replace multiple hyphens with a single one
+            .gsub(/^-+|-+$/, '')       # Remove leading/trailing hyphens
       end
     end
   end
