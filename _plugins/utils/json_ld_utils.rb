@@ -17,17 +17,24 @@ module JsonLdUtils
     person_name = site.config.dig('author', 'name')
     return nil if person_name.to_s.strip.empty?
 
-    person_data = {
+    person_data = _base_person_entity(person_name)
+    _add_site_url_to_person(person_data, site) if include_site_url
+    person_data
+  end
+
+  def self._base_person_entity(person_name)
+    {
       '@type' => 'Person',
       'name' => person_name
     }
-
-    if include_site_url
-      site_root_url = UrlUtils.absolute_url('', site)
-      person_data['url'] = site_root_url if site_root_url && !site_root_url.empty?
-    end
-    person_data
   end
+  private_class_method :_base_person_entity
+
+  def self._add_site_url_to_person(person_data, site)
+    site_root_url = UrlUtils.absolute_url('', site)
+    person_data['url'] = site_root_url if site_root_url && !site_root_url.empty?
+  end
+  private_class_method :_add_site_url_to_person
 
   # Generates a Schema.org Person object from a document field (e.g., book_author).
   # @param person_name_raw [String] The raw name of the person.
@@ -88,15 +95,32 @@ module JsonLdUtils
   end
 
   def self._extract_field_content(document, field_key)
-    if field_key == 'excerpt' && document.data['excerpt'].respond_to?(:output)
-      document.data['excerpt'].output
-    elsif field_key == 'content'
-      # Prioritize data hash for 'content', fallback to direct attribute
-      document.data.key?('content') ? document.data['content'].to_s : document.content
-    elsif document.data[field_key]
-      document.data[field_key].to_s
+    case field_key
+    when 'excerpt'
+      _extract_excerpt_content(document)
+    when 'content'
+      _extract_content_field(document)
+    else
+      _extract_data_field(document, field_key)
     end
   end
+
+  def self._extract_excerpt_content(document)
+    excerpt = document.data['excerpt']
+    excerpt.respond_to?(:output) ? excerpt.output : nil
+  end
+  private_class_method :_extract_excerpt_content
+
+  def self._extract_content_field(document)
+    # Prioritize data hash for 'content', fallback to direct attribute
+    document.data.key?('content') ? document.data['content'].to_s : document.content
+  end
+  private_class_method :_extract_content_field
+
+  def self._extract_data_field(document, field_key)
+    document.data[field_key]&.to_s
+  end
+  private_class_method :_extract_data_field
 
   def self._apply_truncation(text, options)
     if options && options[:words]
