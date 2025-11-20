@@ -154,6 +154,7 @@ Short imperative headline (50-60 chars)
 Detailed explanation paragraph describing what was refactored and why. Long
 lines are hard wrapped at 80 chars.
 
+Changes:
 - First specific change with `code elements` in backticks.
 - Second specific change.
 - Additional changes as needed.
@@ -162,8 +163,7 @@ lines are hard wrapped at 80 chars.
 **Guidelines:**
 - **Headline**: Use imperative mood (e.g., "Decouple", "Refactor", "Isolate"), be concise
 - **Body**: Start with "Refactored the `ClassName.method_name` method by..." or similar
-- **Changes list**: Use `*` bullets with backticks for method names, class names, and code elements
-- **Benefit**: End with a sentence explaining the improvement (clarity, maintainability, testability, etc.)
+- **Changes list**: Use `-` bullets with backticks for method names, class names, and code elements
 
 **Example:**
 ```

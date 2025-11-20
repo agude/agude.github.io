@@ -50,16 +50,20 @@ module Jekyll
         scanner.skip(/\s*/)
         break if scanner.eos?
 
-        unless scanner.scan(SYNTAX_NAMED_ARG)
-          raise Liquid::SyntaxError, syntax_error_message(scanner)
-        end
-
-        key = scanner[1].to_s.strip
-        value = scanner[2].to_s.strip
-
-        validate_key(key)
-        @attributes_markup[key] = value
+        parse_single_attribute(scanner)
       end
+    end
+
+    def parse_single_attribute(scanner)
+      unless scanner.scan(SYNTAX_NAMED_ARG)
+        raise Liquid::SyntaxError, syntax_error_message(scanner)
+      end
+
+      key = scanner[1].to_s.strip
+      value = scanner[2].to_s.strip
+
+      validate_key(key)
+      @attributes_markup[key] = value
     end
 
     def syntax_error_message(scanner)
@@ -83,7 +87,7 @@ module Jekyll
         next if @attributes_markup.key?(req_key)
 
         raise Liquid::SyntaxError,
-          "Syntax Error in '#{@tag_name}': Required argument '#{req_key}' is missing in '#{@raw_markup}'"
+              "Syntax Error in '#{@tag_name}': Required argument '#{req_key}' is missing in '#{@raw_markup}'"
       end
     end
 
@@ -91,17 +95,19 @@ module Jekyll
       input = TagArgumentUtils.resolve_value(@attributes_markup['topic'], context)
       name = input.to_s.strip
 
-      if name.empty?
-        log = PluginLoggerUtils.log_liquid_failure(
-          context: context, tag_type: 'DISPLAY_CATEGORY_POSTS',
-          reason: "Argument 'topic' resolved to an empty string.",
-          identifiers: { topic_markup: @attributes_markup['topic'] },
-          level: :error
-        )
-        return [nil, log]
-      end
+      return [name, nil] unless name.empty?
 
-      [name, nil]
+      log = log_empty_topic_error(context)
+      [nil, log]
+    end
+
+    def log_empty_topic_error(context)
+      PluginLoggerUtils.log_liquid_failure(
+        context: context, tag_type: 'DISPLAY_CATEGORY_POSTS',
+        reason: "Argument 'topic' resolved to an empty string.",
+        identifiers: { topic_markup: @attributes_markup['topic'] },
+        level: :error
+      )
     end
 
     def resolve_exclude_url(context)
