@@ -6,19 +6,30 @@ require_relative '../../_plugins/article_card_lookup_tag'
 
 class TestArticleCardLookupTag < Minitest::Test
   def setup
-    # Mock posts - Ensure URLs have leading slash for consistency
+    setup_mock_posts
+    setup_site_and_context
+    @silent_logger_stub = create_silent_logger
+  end
+
+  private
+
+  # Helper to set up mock posts
+  def setup_mock_posts
     @post1 = create_doc({ 'title' => 'Post One', 'image' => 'img1.jpg' }, '/blog/post-one.html')
     @post2 = create_doc({ 'title' => 'Post Two', 'description' => 'Desc Two' }, '/blog/post-two.html')
     @post3 = create_doc({ 'title' => 'Post Three With Slash' }, '/blog/post-three.html')
+  end
 
-    # Mock site with posts
-    # Ensure site has a URL for UrlUtils called by ArticleCardUtils->CardDataExtractorUtils
+  # Helper to set up site and context
+  def setup_site_and_context
     @site = create_site({ 'url' => 'http://example.com' }, {}, [], [@post1, @post2, @post3])
-    # Ensure page has a path for SourcePage identifier
     @context = create_context({ 'page' => { 'url' => '/current.html', 'path' => 'current.html' } },
                               { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') })
+  end
 
-    @silent_logger_stub = Object.new.tap do |logger|
+  # Helper to create a silent logger stub
+  def create_silent_logger
+    Object.new.tap do |logger|
       def logger.warn(topic, message); end
 
       def logger.error(topic, message); end
@@ -33,6 +44,28 @@ class TestArticleCardLookupTag < Minitest::Test
     end
   end
 
+  # Helper to create a stub that captures arguments (returns container and stub)
+  def create_capturing_stub(mock_output)
+    captured = { args: nil } # Use hash to allow mutation in lambda
+    stub_logic = lambda { |post_arg, context_arg|
+      captured[:args] = [post_arg, context_arg]
+      mock_output
+    }
+    [stub_logic, captured]
+  end
+
+  # Helper to assert captured arguments
+  def assert_captured_args(captured_container, expected_url, label = '')
+    captured_args = captured_container[:args]
+    label_suffix = label.empty? ? '' : " (#{label})"
+    refute_nil captured_args, "ArticleCardUtils.render#{label_suffix} should have been called"
+    assert_instance_of MockDocument, captured_args[0], "First argument#{label_suffix} should be a MockDocument"
+    assert_equal expected_url, captured_args[0].url
+    assert_equal @context, captured_args[1]
+  end
+
+  public
+
   # Helper to render the tag
   def render_tag(markup)
     output = '' # Initialize to prevent NameError if stubbing fails early
@@ -46,149 +79,97 @@ class TestArticleCardLookupTag < Minitest::Test
 
   def test_lookup_with_url_parameter_quoted
     mock_output = "<div class='mock-card'>Post One Card</div>"
-    captured_args = nil # Variable to store captured arguments
+    stub_logic, captured = create_capturing_stub(mock_output)
 
-    # Define a proc/lambda to capture arguments and return the mock value
-    stub_logic = lambda { |post_arg, context_arg|
-      captured_args = [post_arg, context_arg] # Capture arguments
-      mock_output # Return the desired value
-    }
-
-    # Stub the utility method
     ArticleCardUtils.stub :render, stub_logic do
       output = render_tag('url="/blog/post-one.html"')
-      assert_equal mock_output, output # Verify tag returns stubbed value
+      assert_equal mock_output, output
     end
 
-    # Assertions *after* the stub block using captured_args
-    refute_nil captured_args, 'ArticleCardUtils.render should have been called'
-    assert_instance_of MockDocument, captured_args[0], 'First argument should be a MockDocument'
-    assert_equal @post1.url, captured_args[0].url
-    assert_equal @context, captured_args[1]
+    assert_captured_args(captured, @post1.url)
   end
 
   def test_lookup_with_url_parameter_unquoted_variable
     @context['my_post_url'] = '/blog/post-two.html'
     mock_output = "<div class='mock-card'>Post Two Card</div>"
-    captured_args = nil
-
-    stub_logic = lambda { |post_arg, context_arg|
-      captured_args = [post_arg, context_arg]
-      mock_output
-    }
+    stub_logic, captured = create_capturing_stub(mock_output)
 
     ArticleCardUtils.stub :render, stub_logic do
       output = render_tag('url=my_post_url')
       assert_equal mock_output, output
     end
 
-    refute_nil captured_args, 'ArticleCardUtils.render should have been called'
-    assert_instance_of MockDocument, captured_args[0], 'First argument should be a MockDocument'
-    assert_equal @post2.url, captured_args[0].url
-    assert_equal @context, captured_args[1]
+    assert_captured_args(captured, @post2.url)
   end
 
   def test_lookup_with_positional_url_quoted
     mock_output = "<div class='mock-card'>Post One Card Positional</div>"
-    captured_args = nil
-
-    stub_logic = lambda { |post_arg, context_arg|
-      captured_args = [post_arg, context_arg]
-      mock_output
-    }
+    stub_logic, captured = create_capturing_stub(mock_output)
 
     ArticleCardUtils.stub :render, stub_logic do
       output = render_tag('"/blog/post-one.html"')
       assert_equal mock_output, output
     end
 
-    refute_nil captured_args, 'ArticleCardUtils.render should have been called'
-    assert_instance_of MockDocument, captured_args[0], 'First argument should be a MockDocument'
-    assert_equal @post1.url, captured_args[0].url
-    assert_equal @context, captured_args[1]
+    assert_captured_args(captured, @post1.url)
   end
 
   def test_lookup_with_positional_url_variable
     @context['my_post_url'] = '/blog/post-two.html'
     mock_output = "<div class='mock-card'>Post Two Card Positional Var</div>"
-    captured_args = nil
-
-    stub_logic = lambda { |post_arg, context_arg|
-      captured_args = [post_arg, context_arg]
-      mock_output
-    }
+    stub_logic, captured = create_capturing_stub(mock_output)
 
     ArticleCardUtils.stub :render, stub_logic do
       output = render_tag('my_post_url')
       assert_equal mock_output, output
     end
 
-    refute_nil captured_args, 'ArticleCardUtils.render should have been called'
-    assert_instance_of MockDocument, captured_args[0], 'First argument should be a MockDocument'
-    assert_equal @post2.url, captured_args[0].url
-    assert_equal @context, captured_args[1]
+    assert_captured_args(captured, @post2.url)
   end
 
   def test_lookup_url_without_leading_slash_input
     # Test input URL is 'blog/post-three.html', tag should add leading '/'
     mock_output = "<div class='mock-card'>Post Three Card</div>"
-    captured_args_pos = nil
-    captured_args_named = nil
-
-    stub_logic_pos = lambda { |post_arg, context_arg|
-      captured_args_pos = [post_arg, context_arg]
-      mock_output
-    }
-    stub_logic_named = lambda { |post_arg, context_arg|
-      captured_args_named = [post_arg, context_arg]
-      mock_output
-    }
 
     # Test positional - Input is "blog/post-three.html"
+    stub_logic_pos, captured_pos = create_capturing_stub(mock_output)
     ArticleCardUtils.stub :render, stub_logic_pos do
       output_pos = render_tag('"blog/post-three.html"')
       assert_equal mock_output, output_pos
     end
-
-    refute_nil captured_args_pos, 'ArticleCardUtils.render (positional) should have been called'
-    assert_instance_of MockDocument, captured_args_pos[0], 'First argument (positional) should be a MockDocument'
-    assert_equal @post3.url, captured_args_pos[0].url # Should match '/blog/post-three.html'
-    assert_equal @context, captured_args_pos[1]
+    assert_captured_args(captured_pos, @post3.url, 'positional')
 
     # Test named - Input is "blog/post-three.html"
+    stub_logic_named, captured_named = create_capturing_stub(mock_output)
     ArticleCardUtils.stub :render, stub_logic_named do
       output_named = render_tag('url="blog/post-three.html"')
       assert_equal mock_output, output_named
     end
-
-    refute_nil captured_args_named, 'ArticleCardUtils.render (named) should have been called'
-    assert_instance_of MockDocument, captured_args_named[0], 'First argument (named) should be a MockDocument'
-    assert_equal @post3.url, captured_args_named[0].url # Should match '/blog/post-three.html'
-    assert_equal @context, captured_args_named[1]
+    assert_captured_args(captured_named, @post3.url, 'named')
   end
 
   # --- Tests where stub should NOT be called ---
   def test_lookup_post_not_found
     @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
     output = render_tag('url="/blog/nonexistent.html"')
-    assert_match %r{<!-- \[WARN\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Could not find post\.'\s*URL='/blog/nonexistent.html'\s*SourcePage='current\.html' -->},
-                 output
+    expected_pattern = %r{<!-- \[WARN\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Could not find post\.'\s*URL='/blog/nonexistent.html'\s*SourcePage='current\.html' -->}
+    assert_match expected_pattern, output
   end
 
   def test_lookup_url_resolves_to_empty
     @context['empty_url_var'] = ''
     @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
     output = render_tag('url=empty_url_var')
-    assert_match(/<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty or nil\.'\s*Markup='empty_url_var'\s*SourcePage='current\.html' -->/,
-                 output)
+    expected_pattern = /<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty or nil\.'\s*Markup='empty_url_var'\s*SourcePage='current\.html' -->/
+    assert_match expected_pattern, output
   end
 
   def test_lookup_url_resolves_to_nil
     @context['nil_url_var'] = nil
     @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
     output = render_tag('url=nil_url_var')
-    assert_match(/<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty or nil\.'\s*Markup='nil_url_var'\s*SourcePage='current\.html' -->/,
-                 output)
+    expected_pattern = /<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty or nil\.'\s*Markup='nil_url_var'\s*SourcePage='current\.html' -->/
+    assert_match expected_pattern, output
   end
 
   def test_lookup_cannot_iterate_site_posts
@@ -203,8 +184,8 @@ class TestArticleCardLookupTag < Minitest::Test
     Jekyll.stub :logger, @silent_logger_stub do
       output = Liquid::Template.parse("{% article_card_lookup url='/blog/post-one.html' %}").render!(bad_context)
     end
-    assert_match %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Cannot iterate site\.posts\.docs\. It is missing, not an Array, or site\.posts is invalid\.'\s*URL='/blog/post-one\.html'\s*PostsDocsType='String'\s*SourcePage='current\.html' -->},
-                 output
+    expected_pattern = %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Cannot iterate site\.posts\.docs\. It is missing, not an Array, or site\.posts is invalid\.'\s*URL='/blog/post-one\.html'\s*PostsDocsType='String'\s*SourcePage='current\.html' -->}
+    assert_match expected_pattern, output
   end
 
   def test_lookup_article_card_utils_render_error
@@ -212,8 +193,8 @@ class TestArticleCardLookupTag < Minitest::Test
     # Stub ArticleCardUtils.render to raise an error
     ArticleCardUtils.stub :render, ->(_post, _ctx) { raise StandardError, 'Card render failed!' } do
       output = render_tag('url="/blog/post-one.html"')
-      assert_match %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Error calling ArticleCardUtils\.render utility: Card render failed!'\s*URL='/blog/post-one\.html'\s*ErrorClass='StandardError'\s*ErrorMessage='Card render failed!'\s*SourcePage='current\.html' -->},
-                   output
+      expected_pattern = %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Error calling ArticleCardUtils\.render utility: Card render failed!'\s*URL='/blog/post-one\.html'\s*ErrorClass='StandardError'\s*ErrorMessage='Card render failed!'\s*SourcePage='current\.html' -->}
+      assert_match expected_pattern, output
     end
   end
 
