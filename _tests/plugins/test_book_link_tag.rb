@@ -32,14 +32,14 @@ class TestBookLinkTag < Minitest::Test
                                           { site: @integration_site,
                                             page: create_doc({ 'path' => 'integration_test.md' },
                                                              '/integration.html') })
-    @silent_logger_stub = Object.new.tap do |l|
-      def l.warn(p, m); end
+    @silent_logger_stub = Object.new.tap do |logger|
+      def logger.warn(topic, message); end
 
-      def l.error(p, m); end
+      def logger.error(topic, message); end
 
-      def l.info(p, m); end
+      def logger.info(topic, message); end
 
-      def l.debug(p, m); end
+      def logger.debug(topic, message); end
     end
   end
 
@@ -142,14 +142,14 @@ class TestBookLinkTag < Minitest::Test
       # Case 1: Correct author, should link
       template_correct = Liquid::Template.parse("{% book_link 'Hyperion' author='Dan Simmons' %}")
       output_correct = template_correct.render!(@integration_context)
-      assert_equal '<a href="/books/hyperion-simmons.html"><cite class="book-title">Hyperion</cite></a>',
-                   output_correct
+      expected_output = '<a href="/books/hyperion-simmons.html"><cite class="book-title">Hyperion</cite></a>'
+      assert_equal expected_output, output_correct
 
       # Case 2: Incorrect author, should NOT link and should log a warning
       template_incorrect = Liquid::Template.parse("{% book_link 'Hyperion' author='John Keats' %}")
       output_incorrect = template_incorrect.render!(@integration_context)
-      assert_match %r{<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: Reason='Book title exists, but not by the specified author.'.*?--><cite class="book-title">Hyperion</cite>},
-                   output_incorrect
+      expected_pattern = %r{<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: Reason='Book title exists, but not by the specified author.'.*?--><cite class="book-title">Hyperion</cite>}
+      assert_match expected_pattern, output_incorrect
     end
   end
 end
