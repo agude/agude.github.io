@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 # _tests/plugins/test_units_tag.rb
 require_relative '../test_helper'
 require_relative '../../_plugins/units_tag' # Load the tag
 
 class TestUnitsTag < Minitest::Test
-  THIN_NBSP = '&#x202F;'.freeze
+  THIN_NBSP = '&#x202F;'
 
   def setup
     # Site with default logging off, but specific tags can be enabled in tests
@@ -68,11 +70,12 @@ class TestUnitsTag < Minitest::Test
   def test_render_unknown_unit_fallback_and_logs_warning
     @site.config['plugin_logging']['UNITS_TAG_WARNING'] = true
     output = render_tag('number="42" unit="XYZ"')
-    expected_html_part = "<span class=\"nowrap unit\">42#{THIN_NBSP}<abbr class=\"unit-abbr\" title=\"XYZ\">XYZ</abbr></span>"
+    expected_html_part = "<span class=\"nowrap unit\">42#{THIN_NBSP}" \
+                         '<abbr class="unit-abbr" title="XYZ">XYZ</abbr></span>'
 
     # Check for the warning comment
-    assert_match %r{<!-- \[WARN\] UNITS_TAG_WARNING_FAILURE: Reason='Unit key not found in internal definitions\. Using key as symbol/name\.'\s*UnitKey='XYZ'\s*Number='42'\s*SourcePage='current_test_page\.html' -->},
-                 output
+    expected_log_pattern = %r{<!-- \[WARN\] UNITS_TAG_WARNING_FAILURE: Reason='Unit key not found in internal definitions\. Using key as symbol/name\.'\s*UnitKey='XYZ'\s*Number='42'\s*SourcePage='current_test_page\.html' -->}
+    assert_match expected_log_pattern, output
 
     # Check for the rendered HTML span directly (without Regexp.escape)
     assert_match expected_html_part, output, 'Rendered HTML part mismatch'
@@ -82,28 +85,36 @@ class TestUnitsTag < Minitest::Test
   def test_logs_error_if_number_resolves_to_nil
     @site.config['plugin_logging']['UNITS_TAG_ERROR'] = true
     output = render_tag('number=nil_val unit="C"') # nil_val is nil
-    expected_log = "<!-- [ERROR] UNITS_TAG_ERROR_FAILURE: Reason='Argument &#39;number&#39; resolved to nil or empty.' number_markup='nil_val' SourcePage='current_test_page.html' -->"
+    expected_log = "<!-- [ERROR] UNITS_TAG_ERROR_FAILURE: Reason='Argument &#39;number&#39; " \
+                   "resolved to nil or empty.' number_markup='nil_val' " \
+                   "SourcePage='current_test_page.html' -->"
     assert_equal expected_log, output.strip
   end
 
   def test_logs_error_if_number_resolves_to_empty
     @site.config['plugin_logging']['UNITS_TAG_ERROR'] = true
     output = render_tag('number=empty_val unit="C"') # empty_val is ""
-    expected_log = "<!-- [ERROR] UNITS_TAG_ERROR_FAILURE: Reason='Argument &#39;number&#39; resolved to nil or empty.' number_markup='empty_val' SourcePage='current_test_page.html' -->"
+    expected_log = "<!-- [ERROR] UNITS_TAG_ERROR_FAILURE: Reason='Argument &#39;number&#39; " \
+                   "resolved to nil or empty.' number_markup='empty_val' " \
+                   "SourcePage='current_test_page.html' -->"
     assert_equal expected_log, output.strip
   end
 
   def test_logs_error_if_unit_resolves_to_nil
     @site.config['plugin_logging']['UNITS_TAG_ERROR'] = true
     output = render_tag('number="10" unit=nil_val')
-    expected_log = "<!-- [ERROR] UNITS_TAG_ERROR_FAILURE: Reason='Argument &#39;unit&#39; resolved to nil or empty.' unit_markup='nil_val' number_val='10' SourcePage='current_test_page.html' -->"
+    expected_log = "<!-- [ERROR] UNITS_TAG_ERROR_FAILURE: Reason='Argument &#39;unit&#39; " \
+                   "resolved to nil or empty.' unit_markup='nil_val' number_val='10' " \
+                   "SourcePage='current_test_page.html' -->"
     assert_equal expected_log, output.strip
   end
 
   def test_logs_error_if_unit_resolves_to_empty
     @site.config['plugin_logging']['UNITS_TAG_ERROR'] = true
     output = render_tag('number="10" unit=empty_val')
-    expected_log = "<!-- [ERROR] UNITS_TAG_ERROR_FAILURE: Reason='Argument &#39;unit&#39; resolved to nil or empty.' unit_markup='empty_val' number_val='10' SourcePage='current_test_page.html' -->"
+    expected_log = "<!-- [ERROR] UNITS_TAG_ERROR_FAILURE: Reason='Argument &#39;unit&#39; " \
+                   "resolved to nil or empty.' unit_markup='empty_val' number_val='10' " \
+                   "SourcePage='current_test_page.html' -->"
     assert_equal expected_log, output.strip
   end
 
