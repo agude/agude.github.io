@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_article_card_utils.rb
 require_relative '../../test_helper'
 # ArticleCardUtils, TypographyUtils, etc., are loaded by test_helper
@@ -6,17 +8,26 @@ class TestArticleCardUtils < Minitest::Test
   def setup
     @site = create_site({ 'url' => 'http://example.com' })
     @context = create_context({}, { site: @site, page: create_doc({}, '/current.html') })
+    setup_post_object
+    @silent_logger_stub = create_silent_logger
+  end
 
-    # Data for a typical post object
+  private
+
+  # Helper to set up post object
+  def setup_post_object
     @post_data_hash = {
       'title' => 'My Article Title',
       'image' => '/images/article.jpg',
       'image_alt' => 'Custom Alt',
-      'description' => 'Front matter description.' # Used by Article type
+      'description' => 'Front matter description.'
     }
     @post_object = create_doc(@post_data_hash, '/article.html')
+  end
 
-    @silent_logger_stub = Object.new.tap do |logger|
+  # Helper to create a silent logger stub
+  def create_silent_logger
+    Object.new.tap do |logger|
       def logger.warn(topic, message); end
 
       def logger.error(topic, message); end
@@ -30,6 +41,8 @@ class TestArticleCardUtils < Minitest::Test
       def logger.progname=(name); end
     end
   end
+
+  public
 
   def test_render_article_card_success
     # This is what CardDataExtractorUtils.extract_base_data is stubbed to return
@@ -66,6 +79,7 @@ class TestArticleCardUtils < Minitest::Test
       TypographyUtils.stub :prepare_display_title, mock_prepared_title do
         CardDataExtractorUtils.stub :extract_description_html, mock_description_html_from_desc_extractor do
           CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
+            _ = context # Explicitly ignore unused variable
             captured_card_data = card_data
             'mocked_card_html'
           } do
@@ -107,6 +121,7 @@ class TestArticleCardUtils < Minitest::Test
       TypographyUtils.stub :prepare_display_title, mock_prepared_title do
         CardDataExtractorUtils.stub :extract_description_html, mock_description_html do
           CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
+            _ = context # Explicitly ignore unused variable
             captured_card_data = card_data
             'card_no_image'
           } do
@@ -153,6 +168,7 @@ class TestArticleCardUtils < Minitest::Test
           mock_description_html_from_extractor
         } do
           CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
+            _ = context # Explicitly ignore unused variable
             captured_card_data = card_data
             'card_with_excerpt'
           } do
