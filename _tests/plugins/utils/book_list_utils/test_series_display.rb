@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/book_list_utils/test_series_display.rb
 require_relative '../../../test_helper' # Adjusted path
 # BookListUtils is loaded by test_helper
@@ -68,7 +70,11 @@ class TestBookListUtilsSeriesDisplay < Minitest::Test
   # Helper to call the utility method directly for these focused tests
   def get_series_data(series_name_filter, site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      BookListUtils.get_data_for_series_display(site: site, series_name_filter: series_name_filter, context: context)
+      BookListUtils.get_data_for_series_display(
+        site: site,
+        series_name_filter: series_name_filter,
+        context: context
+      )
     end
   end
 
@@ -99,12 +105,13 @@ class TestBookListUtilsSeriesDisplay < Minitest::Test
   end
 
   def test_get_data_for_series_display_not_found_logs_info
-    @site.config['plugin_logging']['BOOK_LIST_SERIES_DISPLAY'] = true # Enable logging for this test
+    # Enable logging for this test
+    @site.config['plugin_logging']['BOOK_LIST_SERIES_DISPLAY'] = true
     data = get_series_data('NonExistent Series')
     assert_equal 'NonExistent Series', data[:series_name]
     assert_empty data[:books]
-    assert_match(/<!-- \[INFO\] BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='No books found for the specified series\.'\s*SeriesFilter='NonExistent Series'\s*SourcePage='current_page\.html' -->/,
-                 data[:log_messages])
+    expected_log_pattern = /<!-- \[INFO\] BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='No books found for the specified series\.'\s*SeriesFilter='NonExistent Series'\s*SourcePage='current_page\.html' -->/
+    assert_match(expected_log_pattern, data[:log_messages])
   end
 
   def test_get_data_for_series_display_nil_filter_logs_warn
@@ -121,25 +128,28 @@ class TestBookListUtilsSeriesDisplay < Minitest::Test
     data = get_series_data('   ') # Filter with only whitespace
     assert_equal '   ', data[:series_name]
     assert_empty data[:books]
-    assert_match(/<!-- \[WARN\] BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='Series name filter was empty or nil\.'\s*SeriesFilterInput='   '\s*SourcePage='current_page\.html' -->/,
-                 data[:log_messages])
+    expected_log_pattern = /<!-- \[WARN\] BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='Series name filter was empty or nil\.'\s*SeriesFilterInput='   '\s*SourcePage='current_page\.html' -->/
+    assert_match(expected_log_pattern, data[:log_messages])
   end
 
   def test_get_data_for_series_display_ignores_unpublished
     data = get_series_data('Series One')
     assert_equal 6, data[:books].size # Should only find the 6 published ones
-    refute_includes data[:books].map { |b| b.data['title'] }, @unpublished_s1.data['title']
+    refute_includes data[:books].map { |book| book.data['title'] }, @unpublished_s1.data['title']
     assert_empty data[:log_messages].to_s
   end
 
   def test_get_data_for_series_display_books_collection_missing_logs_error
     site_no_books = create_site({}, {}) # No 'books' collection
     site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true # Enable general util logging
-    context_no_books = create_context({}, { site: site_no_books, page: @context.registers[:page] })
+    context_no_books = create_context(
+      {},
+      { site: site_no_books, page: @context.registers[:page] }
+    )
 
     data = get_series_data('Any Series', site_no_books, context_no_books)
     assert_empty data[:books]
-    assert_match(/<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='series'\s*series_name='Any Series'\s*SourcePage='current_page\.html' -->/,
-                 data[:log_messages])
+    expected_log_pattern = /<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='series'\s*series_name='Any Series'\s*SourcePage='current_page\.html' -->/
+    assert_match(expected_log_pattern, data[:log_messages])
   end
 end
