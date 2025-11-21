@@ -116,6 +116,7 @@ MockCollection = Struct.new(:docs, :label)
 class MockSite
   attr_accessor :config, :collections, :pages, :posts, :baseurl, :source, :converters, :data, :categories
 
+  # rubocop:disable Metrics/ParameterLists
   def initialize(config, collections, pages, posts, baseurl, source, converters, data, categories)
     @config = config
     @collections = collections
@@ -127,6 +128,7 @@ class MockSite
     @data = data
     @categories = categories
   end
+  # rubocop:enable Metrics/ParameterLists
 
   def documents
     collect_all_documents
