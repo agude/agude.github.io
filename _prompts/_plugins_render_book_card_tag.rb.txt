@@ -1,0 +1,182 @@
+You are a Senior Ruby Engineer specializing in Jekyll. I need you to fix RuboCop static analysis errors in the following file.
+
+FILE: _plugins/render_book_card_tag.rb
+CONTEXT: This is a Jekyll Plugin (Production Code). Documentation must be clear, explaining the purpose of the Tag/Generator and how it is used in Liquid.
+
+THE ERRORS TO FIX:
+- Line 11: [Style/Documentation] Missing top-level documentation comment for `module Jekyll`.
+- Line 12: [Style/Documentation] Missing top-level documentation comment for `class Jekyll::RenderBookCardTag`.
+
+
+--------------------------------------------------
+STYLE GUIDE & INSTRUCTIONS:
+
+1. **Documentation (Style/Documentation):**
+   - **Requirement:** Every Class and Module must have a top-level comment block.
+   - **Format:**
+     ```ruby
+     # Short summary of what this class does.
+     #
+     # (Optional) Detailed explanation or Liquid usage example:
+     # {% my_tag param="value" %}
+     class MyClass ...
+     ```
+   - **Quality:** Do not write "Class for X". Write "Generates X based on Y configuration."
+
+2. **Frozen String Literals:**
+   - Ensure `# frozen_string_literal: true` is the **very first line** of the file.
+
+3. **Naming & Variables:**
+   - Fix short variable names (e.g., change `l` to `logger`, `p` to `path`).
+   - Use snake_case for variables and methods.
+
+4. **Refactoring Strategy (Only if Metrics/* errors exist):**
+   - **If** the error is `Metrics/MethodLength` or `Complexity`:
+     - Extract logic into private helper methods (e.g., `def _helper_method`).
+     - Or, extract a private helper class if state management is complex.
+   - **If** there are NO metrics errors, **DO NOT** refactor the logic structure. Just fix the style/docs.
+
+5. **Safety:**
+   - **CRITICAL:** Do not change the external behavior or API of the code.
+   - Do not remove existing comments unless they are the specific "rubocop:disable" comments causing issues.
+
+--------------------------------------------------
+SOURCE CODE:
+```ruby
+# frozen_string_literal: true
+
+# _plugins/render_book_card_tag.rb
+require 'jekyll'
+require 'liquid'
+require 'strscan'
+require_relative 'utils/book_card_utils'
+require_relative 'utils/plugin_logger_utils'
+require_relative 'utils/tag_argument_utils'
+
+module Jekyll
+  class RenderBookCardTag < Liquid::Tag
+    SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
+
+    def initialize(tag_name, markup, tokens)
+      super
+      @raw_markup = markup.strip
+      @book_object_markup = nil
+      @display_title_markup = nil
+      @subtitle_markup = nil
+
+      parse_arguments
+    end
+
+    def render(context)
+      BookCardRenderer.new(context, @book_object_markup, @display_title_markup, @subtitle_markup).render
+    end
+
+    private
+
+    def parse_arguments
+      scanner = StringScanner.new(@raw_markup)
+      parse_book_object_argument(scanner)
+      parse_optional_arguments(scanner)
+    end
+
+    def parse_book_object_argument(scanner)
+      unless scanner.scan(/\S+/)
+        raise Liquid::SyntaxError,
+              "Syntax Error in 'render_book_card': " \
+              'A book object variable must be provided as the first argument.'
+      end
+      @book_object_markup = scanner.matched
+    end
+
+    def parse_optional_arguments(scanner)
+      parse_single_argument(scanner) while scanner.skip(/\s+/) && !scanner.eos?
+    end
+
+    def parse_single_argument(scanner)
+      unless scanner.scan(SYNTAX)
+        raise Liquid::SyntaxError,
+              "Syntax Error in 'render_book_card': " \
+              "Invalid arguments near '#{scanner.rest}' in '#{@raw_markup}'"
+      end
+
+      process_argument(scanner[1], scanner[2])
+    end
+
+    def process_argument(key, value_markup)
+      case key
+      when 'display_title'
+        @display_title_markup = value_markup
+      when 'subtitle'
+        @subtitle_markup = value_markup
+      else
+        raise Liquid::SyntaxError,
+              "Syntax Error in 'render_book_card': Unknown argument '#{key}' in '#{@raw_markup}'"
+      end
+    end
+
+    # Helper class to handle rendering logic
+    class BookCardRenderer
+      def initialize(context, book_object_markup, display_title_markup, subtitle_markup)
+        @context = context
+        @book_object_markup = book_object_markup
+        @display_title_markup = display_title_markup
+        @subtitle_markup = subtitle_markup
+      end
+
+      def render
+        book_object = resolve_book_object
+        return handle_nil_book_object unless book_object
+
+        display_title_override = resolve_display_title
+        subtitle_text = resolve_subtitle
+
+        BookCardUtils.render(book_object, @context,
+                             display_title_override: display_title_override,
+                             subtitle: subtitle_text)
+      rescue StandardError => e
+        handle_rendering_error(e)
+      end
+
+      private
+
+      def resolve_book_object
+        TagArgumentUtils.resolve_value(@book_object_markup, @context)
+      end
+
+      def resolve_display_title
+        return nil unless @display_title_markup
+
+        TagArgumentUtils.resolve_value(@display_title_markup, @context)
+      end
+
+      def resolve_subtitle
+        return nil unless @subtitle_markup
+
+        TagArgumentUtils.resolve_value(@subtitle_markup, @context)
+      end
+
+      def handle_nil_book_object
+        PluginLoggerUtils.log_liquid_failure(
+          context: @context,
+          tag_type: 'RENDER_BOOK_CARD_TAG',
+          reason: "Book object variable '#{@book_object_markup}' resolved to nil.",
+          identifiers: { markup: @book_object_markup }
+        )
+      end
+
+      def handle_rendering_error(error)
+        PluginLoggerUtils.log_liquid_failure(
+          context: @context,
+          tag_type: 'RENDER_BOOK_CARD_TAG',
+          reason: "Error rendering book card: #{error.message}",
+          identifiers: { book_markup: @book_object_markup, error_class: error.class.name }
+        )
+      end
+    end
+  end
+  Liquid::Template.register_tag('render_book_card', RenderBookCardTag)
+end
+```
+
+**OUTPUT:**
+Return ONLY the full, valid Ruby code for the file. No markdown wrappers, no conversational filler.

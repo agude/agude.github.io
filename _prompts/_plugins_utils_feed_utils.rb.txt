@@ -1,0 +1,105 @@
+You are a Senior Ruby Engineer specializing in Jekyll. I need you to fix RuboCop static analysis errors in the following file.
+
+FILE: _plugins/utils/feed_utils.rb
+CONTEXT: This is a Jekyll Plugin (Production Code). Documentation must be clear, explaining the purpose of the Tag/Generator and how it is used in Liquid.
+
+THE ERRORS TO FIX:
+- Line 7: [Style/Documentation] Missing top-level documentation comment for `module FeedUtils`.
+
+
+--------------------------------------------------
+STYLE GUIDE & INSTRUCTIONS:
+
+1. **Documentation (Style/Documentation):**
+   - **Requirement:** Every Class and Module must have a top-level comment block.
+   - **Format:**
+     ```ruby
+     # Short summary of what this class does.
+     #
+     # (Optional) Detailed explanation or Liquid usage example:
+     # {% my_tag param="value" %}
+     class MyClass ...
+     ```
+   - **Quality:** Do not write "Class for X". Write "Generates X based on Y configuration."
+
+2. **Frozen String Literals:**
+   - Ensure `# frozen_string_literal: true` is the **very first line** of the file.
+
+3. **Naming & Variables:**
+   - Fix short variable names (e.g., change `l` to `logger`, `p` to `path`).
+   - Use snake_case for variables and methods.
+
+4. **Refactoring Strategy (Only if Metrics/* errors exist):**
+   - **If** the error is `Metrics/MethodLength` or `Complexity`:
+     - Extract logic into private helper methods (e.g., `def _helper_method`).
+     - Or, extract a private helper class if state management is complex.
+   - **If** there are NO metrics errors, **DO NOT** refactor the logic structure. Just fix the style/docs.
+
+5. **Safety:**
+   - **CRITICAL:** Do not change the external behavior or API of the code.
+   - Do not remove existing comments unless they are the specific "rubocop:disable" comments causing issues.
+
+--------------------------------------------------
+SOURCE CODE:
+```ruby
+# frozen_string_literal: true
+
+# _plugins/utils/feed_utils.rb
+# No specific requires needed from other utils for this basic version,
+# but PluginLoggerUtils could be added if logging within the util becomes necessary.
+
+module FeedUtils
+  # Combines posts and books, sorts them by date, and returns a limited number.
+  #
+  # @param site [Jekyll::Site] The Jekyll site object.
+  # @param limit [Integer] The maximum number of items to return.
+  # @return [Array<Jekyll::Document>] An array of Jekyll documents (posts or books).
+  def self.get_combined_feed_items(site:, limit: 5)
+    all_items = []
+    all_items.concat(_collect_published_posts(site))
+    all_items.concat(_collect_published_books(site))
+    _sort_and_limit_items(all_items, limit)
+  end
+
+  # Collects published posts from the site.
+  #
+  # @param site [Jekyll::Site] The Jekyll site object.
+  # @return [Array<Jekyll::Document>] An array of published posts.
+  def self._collect_published_posts(site)
+    return [] unless site.posts&.docs.is_a?(Array)
+
+    site.posts.docs.select { |post| _is_published_item?(post) }
+  end
+
+  # Collects published books from the site.
+  #
+  # @param site [Jekyll::Site] The Jekyll site object.
+  # @return [Array<Jekyll::Document>] An array of published books.
+  def self._collect_published_books(site)
+    return [] unless site.collections['books']&.docs.is_a?(Array)
+
+    site.collections['books'].docs.select { |book| _is_published_item?(book) }
+  end
+
+  # Checks if an item is published and has a valid date.
+  #
+  # @param item [Jekyll::Document] The item to check.
+  # @return [Boolean] True if the item is published and has a valid date.
+  def self._is_published_item?(item)
+    item.data['published'] != false && item.date.is_a?(Time)
+  end
+
+  # Sorts items by date (most recent first) and returns the limited number.
+  #
+  # @param items [Array<Jekyll::Document>] The items to sort and limit.
+  # @param limit [Integer] The maximum number of items to return.
+  # @return [Array<Jekyll::Document>] The sorted and limited items.
+  def self._sort_and_limit_items(items, limit)
+    items.sort_by!(&:date).reverse!
+    items.slice(0, limit)
+  end
+end
+```
+
+**OUTPUT:**
+Return ONLY the full, valid Ruby code for the file. No markdown wrappers, no conversational filler.

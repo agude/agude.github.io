@@ -1,0 +1,126 @@
+You are a Senior Ruby Engineer specializing in Jekyll. I need you to fix RuboCop static analysis errors in the following file.
+
+FILE: _tests/plugins/test_rating_stars_tag.rb
+CONTEXT: This is a Minitest file. Documentation should briefly explain what is being tested. Do not over-engineer refactoring in tests; prefer readability.
+
+THE ERRORS TO FIX:
+- Line 7: [Style/Documentation] Missing top-level documentation comment for `class TestRatingStarsTag`.
+
+
+--------------------------------------------------
+STYLE GUIDE & INSTRUCTIONS:
+
+1. **Documentation (Style/Documentation):**
+   - **Requirement:** Every Class and Module must have a top-level comment block.
+   - **Format:**
+     ```ruby
+     # Short summary of what this class does.
+     #
+     # (Optional) Detailed explanation or Liquid usage example:
+     # {% my_tag param="value" %}
+     class MyClass ...
+     ```
+   - **Quality:** Do not write "Class for X". Write "Generates X based on Y configuration."
+
+2. **Frozen String Literals:**
+   - Ensure `# frozen_string_literal: true` is the **very first line** of the file.
+
+3. **Naming & Variables:**
+   - Fix short variable names (e.g., change `l` to `logger`, `p` to `path`).
+   - Use snake_case for variables and methods.
+
+4. **Refactoring Strategy (Only if Metrics/* errors exist):**
+   - **If** the error is `Metrics/MethodLength` or `Complexity`:
+     - Extract logic into private helper methods (e.g., `def _helper_method`).
+     - Or, extract a private helper class if state management is complex.
+   - **If** there are NO metrics errors, **DO NOT** refactor the logic structure. Just fix the style/docs.
+
+5. **Safety:**
+   - **CRITICAL:** Do not change the external behavior or API of the code.
+   - Do not remove existing comments unless they are the specific "rubocop:disable" comments causing issues.
+
+--------------------------------------------------
+SOURCE CODE:
+```ruby
+# frozen_string_literal: true
+
+# _tests/plugins/test_rating_stars_tag.rb
+require_relative '../test_helper'
+require_relative '../../_plugins/rating_stars_tag'
+
+class TestRatingStarsTag < Minitest::Test
+  def setup
+    @site = create_site
+    @context = create_context({ 'book' => { 'rating' => 4, 'bad_rating' => 6, 'nil_rating' => nil } }, { site: @site })
+  end
+
+  def render_tag(markup)
+    Liquid::Template.parse("{% rating_stars #{markup} %}").render!(@context)
+  end
+
+  def test_render_tag_with_literal_integer
+    output = render_tag('3')
+    assert_match(/class="book-rating star-rating-3"/, output)
+    assert_match(/^<div/, output) # Default wrapper
+  end
+
+  def test_render_tag_with_variable
+    output = render_tag('book.rating') # book.rating is 4
+    assert_match(/class="book-rating star-rating-4"/, output)
+    assert_match(/^<div/, output)
+  end
+
+  def test_render_tag_with_wrapper_span_literal
+    output = render_tag("5 wrapper_tag='span'")
+    assert_match(/class="book-rating star-rating-5"/, output)
+    assert_match(/^<span/, output)
+  end
+
+  def test_render_tag_with_wrapper_span_literal_double_quotes
+    output = render_tag('2 wrapper_tag="span"')
+    assert_match(/class="book-rating star-rating-2"/, output)
+    assert_match(/^<span/, output)
+  end
+
+  # Utility function now throws ArgumentError for invalid values
+  def test_render_tag_invalid_literal_value_throws
+    assert_raises(ArgumentError) { render_tag('0') }
+    assert_raises(ArgumentError) { render_tag('6') }
+    assert_raises(ArgumentError) { render_tag('3.5') }
+    assert_raises(ArgumentError) { render_tag("'abc'") } # Quoted string is invalid type
+  end
+
+  def test_render_tag_invalid_variable_value_throws
+    assert_raises(ArgumentError) { render_tag('book.bad_rating') } # bad_rating is 6
+  end
+
+  def test_render_tag_nil_variable_value_renders_empty
+    # render_rating_stars handles nil silently
+    assert_equal '', render_tag('book.nil_rating')
+  end
+
+  def test_render_tag_nonexistent_variable_renders_empty
+    # resolve_value returns nil, render_rating_stars handles nil
+    assert_equal '', render_tag('book.no_such_rating')
+  end
+
+  def test_render_tag_invalid_wrapper_tag_defaults_to_div
+    output = render_tag("4 wrapper_tag='script'")
+    assert_match(/class="book-rating star-rating-4"/, output)
+    assert_match(/^<div/, output) # Defaults to div
+  end
+
+  def test_syntax_error_missing_rating
+    err = assert_raises(Liquid::SyntaxError) { Liquid::Template.parse('{% rating_stars %}') }
+    assert_match(%r{Rating value/variable is missing}, err.message)
+  end
+
+  def test_syntax_error_extra_args
+    err = assert_raises(Liquid::SyntaxError) { Liquid::Template.parse("{% rating_stars 3 wrapper_tag='span' extra %}") }
+    assert_match(/Unexpected arguments/, err.message)
+  end
+end
+```
+
+**OUTPUT:**
+Return ONLY the full, valid Ruby code for the file. No markdown wrappers, no conversational filler.

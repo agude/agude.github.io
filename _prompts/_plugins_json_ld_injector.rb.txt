@@ -1,0 +1,188 @@
+You are a Senior Ruby Engineer specializing in Jekyll. I need you to fix RuboCop static analysis errors in the following file.
+
+FILE: _plugins/json_ld_injector.rb
+CONTEXT: This is a Jekyll Plugin (Production Code). Documentation must be clear, explaining the purpose of the Tag/Generator and how it is used in Liquid.
+
+THE ERRORS TO FIX:
+- Line 13: [Style/Documentation] Missing top-level documentation comment for `module JsonLdInjector`.
+
+
+--------------------------------------------------
+STYLE GUIDE & INSTRUCTIONS:
+
+1. **Documentation (Style/Documentation):**
+   - **Requirement:** Every Class and Module must have a top-level comment block.
+   - **Format:**
+     ```ruby
+     # Short summary of what this class does.
+     #
+     # (Optional) Detailed explanation or Liquid usage example:
+     # {% my_tag param="value" %}
+     class MyClass ...
+     ```
+   - **Quality:** Do not write "Class for X". Write "Generates X based on Y configuration."
+
+2. **Frozen String Literals:**
+   - Ensure `# frozen_string_literal: true` is the **very first line** of the file.
+
+3. **Naming & Variables:**
+   - Fix short variable names (e.g., change `l` to `logger`, `p` to `path`).
+   - Use snake_case for variables and methods.
+
+4. **Refactoring Strategy (Only if Metrics/* errors exist):**
+   - **If** the error is `Metrics/MethodLength` or `Complexity`:
+     - Extract logic into private helper methods (e.g., `def _helper_method`).
+     - Or, extract a private helper class if state management is complex.
+   - **If** there are NO metrics errors, **DO NOT** refactor the logic structure. Just fix the style/docs.
+
+5. **Safety:**
+   - **CRITICAL:** Do not change the external behavior or API of the code.
+   - Do not remove existing comments unless they are the specific "rubocop:disable" comments causing issues.
+
+--------------------------------------------------
+SOURCE CODE:
+```ruby
+# frozen_string_literal: true
+
+# _plugins/json_ld_injector.rb
+require 'json'
+require 'jekyll' # Required for Jekyll.logger and Hook classes
+
+# Require generator modules
+require_relative 'utils/json_ld_generators/blog_posting_generator'
+require_relative 'utils/json_ld_generators/book_review_generator'
+require_relative 'utils/json_ld_generators/generic_review_generator'
+require_relative 'utils/json_ld_generators/author_profile_generator'
+
+module JsonLdInjector
+  # Initialize storage within site.data
+  def self.initialize_script_storage(site)
+    # Use site.data for reliable persistence into Liquid payload
+    site.data['generated_json_ld_scripts'] ||= {}
+  end
+
+  # Central method to determine the type of document and generate JSON-LD
+  def self.inject_json_ld(document, site)
+    initialize_script_storage(site)
+
+    doc_url = document.url
+    unless doc_url && !doc_url.empty?
+      Jekyll.logger.warn 'JSON-LD:', "Skipping LD injection for document without URL: #{_doc_id(document)}"
+      return
+    end
+
+    generator, type_name = _determine_generator(document)
+    return unless generator
+
+    Jekyll.logger.debug 'JSON-LD Type:', "#{type_name} -> #{_doc_id(document)}"
+
+    _generate_and_store(generator, document, site, doc_url)
+  end
+
+  # --- Private Helper Methods ---
+
+  def self._doc_id(doc)
+    doc.url || doc.path || doc.relative_path
+  end
+
+  def self._determine_generator(document)
+    if _is_book_review?(document)
+      [BookReviewLdGenerator, 'Book Review']
+    elsif _is_generic_review_post?(document)
+      _handle_generic_review(document)
+    elsif _is_blog_post?(document)
+      [BlogPostingLdGenerator, 'Blog Posting']
+    elsif _is_author_page?(document)
+      [AuthorProfileLdGenerator, 'Author Page']
+    else
+      [nil, 'Unknown']
+    end
+  end
+
+  def self._handle_generic_review(document)
+    item_name = document.data.dig('review', 'item_name')
+    if item_name && !item_name.to_s.strip.empty?
+      [GenericReviewLdGenerator, 'Generic Review Post']
+    else
+      _log_missing_item_name(document)
+      [nil, 'Generic Review Post (Invalid)']
+    end
+  end
+
+  def self._log_missing_item_name(document)
+    Jekyll.logger.warn 'JSON-LD:',
+                       "Skipping Generic Review LD for '#{_doc_id(document)}'. Missing 'review.item_name'."
+  end
+
+  def self._generate_and_store(generator, document, site, doc_url)
+    json_ld_hash = generator.generate_hash(document, site)
+
+    if json_ld_hash && !json_ld_hash.empty?
+      _store_script(json_ld_hash, site, doc_url, document)
+    elsif json_ld_hash
+      Jekyll.logger.debug 'JSON-LD:', "Generated JSON-LD hash was empty for: #{_doc_id(document)}"
+    else
+      Jekyll.logger.debug 'JSON-LD:', "Generator returned nil hash for: #{_doc_id(document)}"
+    end
+  end
+
+  def self._store_script(hash, site, doc_url, document)
+    script_content = JSON.pretty_generate(hash)
+    script_tag = "<script type=\"application/ld+json\">\n#{script_content}\n</script>"
+    site.data['generated_json_ld_scripts'][doc_url] = script_tag
+  rescue JSON::GeneratorError => e
+    Jekyll.logger.error 'JSON-LD:', "Failed to generate JSON for '#{_doc_id(document)}': #{e.message}"
+  end
+
+  def self._is_book_review?(doc)
+    doc.is_a?(Jekyll::Document) && doc.collection&.label == 'books' && doc.data['layout'] == 'book'
+  end
+
+  def self._is_generic_review_post?(doc)
+    doc.is_a?(Jekyll::Document) && doc.collection&.label == 'posts' &&
+      doc.data['layout'] == 'post' && doc.data.key?('review')
+  end
+
+  def self._is_blog_post?(doc)
+    doc.is_a?(Jekyll::Document) && doc.collection&.label == 'posts' &&
+      doc.data['layout'] == 'post' && !doc.data.key?('review')
+  end
+
+  def self._is_author_page?(doc)
+    doc.data['layout'] == 'author_page'
+  end
+end
+
+# --- Register Hooks ---
+
+Jekyll::Hooks.register :site, :after_reset, priority: :high do |site|
+  JsonLdInjector.initialize_script_storage(site)
+end
+
+Jekyll::Hooks.register :documents, :post_convert do |document|
+  next if document.is_a?(Jekyll::StaticFile)
+  next if document.respond_to?(:draft?) && document.draft? && !document.site.show_drafts
+
+  site = document.site
+  if site
+    JsonLdInjector.inject_json_ld(document, site)
+  else
+    Jekyll.logger.error 'JSON-LD Hook:', "Site object not available for document: #{document.relative_path}"
+  end
+end
+
+Jekyll::Hooks.register :pages, :post_convert do |page|
+  next if page.is_a?(Jekyll::StaticFile)
+
+  site = page.site
+  if site
+    JsonLdInjector.inject_json_ld(page, site)
+  else
+    Jekyll.logger.error 'JSON-LD Hook:',
+                        "Site object not available for page: #{page.relative_path || page.path || page.url}"
+  end
+end
+```
+
+**OUTPUT:**
+Return ONLY the full, valid Ruby code for the file. No markdown wrappers, no conversational filler.

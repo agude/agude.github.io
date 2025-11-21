@@ -1,0 +1,140 @@
+You are a Senior Ruby Engineer specializing in Jekyll. I need you to fix RuboCop static analysis errors in the following file.
+
+FILE: _tests/plugins/utils/test_backlink_utils.rb
+CONTEXT: This is a Minitest file. Documentation should briefly explain what is being tested. Do not over-engineer refactoring in tests; prefer readability.
+
+THE ERRORS TO FIX:
+- Line 7: [Style/Documentation] Missing top-level documentation comment for `class TestBacklinkUtils`.
+
+
+--------------------------------------------------
+STYLE GUIDE & INSTRUCTIONS:
+
+1. **Documentation (Style/Documentation):**
+   - **Requirement:** Every Class and Module must have a top-level comment block.
+   - **Format:**
+     ```ruby
+     # Short summary of what this class does.
+     #
+     # (Optional) Detailed explanation or Liquid usage example:
+     # {% my_tag param="value" %}
+     class MyClass ...
+     ```
+   - **Quality:** Do not write "Class for X". Write "Generates X based on Y configuration."
+
+2. **Frozen String Literals:**
+   - Ensure `# frozen_string_literal: true` is the **very first line** of the file.
+
+3. **Naming & Variables:**
+   - Fix short variable names (e.g., change `l` to `logger`, `p` to `path`).
+   - Use snake_case for variables and methods.
+
+4. **Refactoring Strategy (Only if Metrics/* errors exist):**
+   - **If** the error is `Metrics/MethodLength` or `Complexity`:
+     - Extract logic into private helper methods (e.g., `def _helper_method`).
+     - Or, extract a private helper class if state management is complex.
+   - **If** there are NO metrics errors, **DO NOT** refactor the logic structure. Just fix the style/docs.
+
+5. **Safety:**
+   - **CRITICAL:** Do not change the external behavior or API of the code.
+   - Do not remove existing comments unless they are the specific "rubocop:disable" comments causing issues.
+
+--------------------------------------------------
+SOURCE CODE:
+```ruby
+# frozen_string_literal: true
+
+# _tests/plugins/utils/test_backlink_utils.rb
+require_relative '../../test_helper'
+require_relative '../../../_plugins/utils/backlink_utils' # Load the util
+
+class TestBacklinkUtils < Minitest::Test
+  def setup
+    # --- Mock Documents that will be the backlinks ---
+    @book_apple = create_doc({ 'title' => 'The Apple Book' }, '/books/apple.html')
+    @book_banana = create_doc({ 'title' => 'Banana Book' }, '/books/banana.html')
+    @book_orange = create_doc({ 'title' => 'An Orange Story' }, '/books/orange.html')
+
+    # --- Target Page ---
+    @target_page = create_doc({ 'title' => 'Target Page' }, '/target.html')
+    @page_with_no_backlinks = create_doc({ 'title' => 'Unlinked Page' }, '/unlinked.html')
+
+    # --- Site & Context ---
+    # The create_site helper runs the LinkCacheGenerator, but we will manually
+    # set the backlinks cache to isolate this test to the BacklinkUtils logic.
+    @site = create_site
+    @site.data['link_cache']['backlinks'] = {
+      @target_page.url => [@book_banana, @book_apple, @book_orange] # Intentionally unsorted
+    }
+    @context = create_context({}, { site: @site, page: @target_page })
+  end
+
+  # Helper to call the utility
+  def find_backlinks(page = @target_page, site = @site, context = @context)
+    BacklinkUtils.find_book_backlinks(page, site, context)
+  end
+
+  def test_finds_and_sorts_backlinks_from_cache
+    result = find_backlinks
+
+    # Expected order of pairs [title, url], sorted by title ignoring articles
+    expected_order = [
+      [@book_apple.data['title'], @book_apple.url],     # The Apple Book
+      [@book_banana.data['title'], @book_banana.url],   # Banana Book
+      [@book_orange.data['title'], @book_orange.url]    # An Orange Story
+    ]
+    assert_equal expected_order, result
+  end
+
+  def test_returns_empty_array_for_page_with_no_backlinks_in_cache
+    # Use the page that has no entry in our manually created cache
+    result = find_backlinks(@page_with_no_backlinks, @site,
+                            create_context({}, { site: @site, page: @page_with_no_backlinks }))
+    assert_equal [], result
+  end
+
+  def test_handles_backlinking_doc_with_no_title
+    book_no_title = create_doc({ 'title' => nil }, '/books/no-title.html')
+    @site.data['link_cache']['backlinks'][@target_page.url] << book_no_title
+
+    result = find_backlinks
+    # The util should just skip the doc with no title during the mapping phase
+    assert(result.none? { |pair| pair[1] == '/books/no-title.html' })
+    assert_equal 3, result.size, 'Should still have the original 3 valid backlinks'
+  end
+
+  # --- Test Edge Cases for Utility Input ---
+
+  def test_returns_empty_array_if_current_page_is_nil
+    result = find_backlinks(nil, @site, @context)
+    assert_equal [], result
+  end
+
+  def test_returns_empty_array_if_current_page_missing_url
+    @target_page.url = nil
+    @context.registers[:page] = @target_page
+    result = find_backlinks(@target_page, @site, @context)
+    assert_equal [], result
+  end
+
+  def test_returns_empty_array_if_site_is_nil
+    result = find_backlinks(@target_page, nil, @context)
+    assert_equal [], result
+  end
+
+  def test_returns_empty_array_if_link_cache_is_missing
+    @site.data['link_cache'] = nil
+    result = find_backlinks(@target_page, @site, @context)
+    assert_equal [], result
+  end
+
+  def test_returns_empty_array_if_backlinks_key_is_missing_from_cache
+    @site.data['link_cache'].delete('backlinks')
+    result = find_backlinks(@target_page, @site, @context)
+    assert_equal [], result
+  end
+end
+```
+
+**OUTPUT:**
+Return ONLY the full, valid Ruby code for the file. No markdown wrappers, no conversational filler.

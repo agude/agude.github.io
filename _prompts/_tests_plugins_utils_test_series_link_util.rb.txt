@@ -1,0 +1,171 @@
+You are a Senior Ruby Engineer specializing in Jekyll. I need you to fix RuboCop static analysis errors in the following file.
+
+FILE: _tests/plugins/utils/test_series_link_util.rb
+CONTEXT: This is a Minitest file. Documentation should briefly explain what is being tested. Do not over-engineer refactoring in tests; prefer readability.
+
+THE ERRORS TO FIX:
+- Line 6: [Style/Documentation] Missing top-level documentation comment for `class TestSeriesLinkUtils`.
+
+
+--------------------------------------------------
+STYLE GUIDE & INSTRUCTIONS:
+
+1. **Documentation (Style/Documentation):**
+   - **Requirement:** Every Class and Module must have a top-level comment block.
+   - **Format:**
+     ```ruby
+     # Short summary of what this class does.
+     #
+     # (Optional) Detailed explanation or Liquid usage example:
+     # {% my_tag param="value" %}
+     class MyClass ...
+     ```
+   - **Quality:** Do not write "Class for X". Write "Generates X based on Y configuration."
+
+2. **Frozen String Literals:**
+   - Ensure `# frozen_string_literal: true` is the **very first line** of the file.
+
+3. **Naming & Variables:**
+   - Fix short variable names (e.g., change `l` to `logger`, `p` to `path`).
+   - Use snake_case for variables and methods.
+
+4. **Refactoring Strategy (Only if Metrics/* errors exist):**
+   - **If** the error is `Metrics/MethodLength` or `Complexity`:
+     - Extract logic into private helper methods (e.g., `def _helper_method`).
+     - Or, extract a private helper class if state management is complex.
+   - **If** there are NO metrics errors, **DO NOT** refactor the logic structure. Just fix the style/docs.
+
+5. **Safety:**
+   - **CRITICAL:** Do not change the external behavior or API of the code.
+   - Do not remove existing comments unless they are the specific "rubocop:disable" comments causing issues.
+
+--------------------------------------------------
+SOURCE CODE:
+```ruby
+# frozen_string_literal: true
+
+# _tests/plugins/utils/test_series_link_util.rb
+require_relative '../../test_helper'
+
+class TestSeriesLinkUtils < Minitest::Test
+  def test_render_series_link_found_and_linked
+    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
+    site = create_site({}, {}, [series_page]) # Add series page to site.pages
+    current_page = create_doc({}, '/current-page.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    expected_html = '<a href="/series/awesome.html"><span class="book-series">My Awesome Series</span></a>'
+    actual_html = SeriesLinkUtils.render_series_link('My Awesome Series', ctx)
+
+    assert_equal expected_html, actual_html
+  end
+
+  def test_render_series_link_found_but_current_page
+    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
+    site = create_site({}, {}, [series_page])
+    # Current page IS the series page
+    current_page = create_doc({}, '/series/awesome.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    expected_html = '<span class="book-series">My Awesome Series</span>' # No link
+    actual_html = SeriesLinkUtils.render_series_link('My Awesome Series', ctx)
+
+    assert_equal expected_html, actual_html
+  end
+
+  def test_render_series_link_not_found
+    site = create_site({}, {}, []) # No pages defined
+    current_page = create_doc({}, '/current-page.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    # Expect the unlinked span. log_failure is called internally but returns ""
+    # because logging is off by default in tests.
+    expected_html = '<span class="book-series">NonExistent Series</span>'
+    actual_html = SeriesLinkUtils.render_series_link('NonExistent Series', ctx)
+
+    assert_equal expected_html, actual_html
+  end
+
+  def test_render_series_link_with_link_text_override_found
+    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
+    site = create_site({}, {}, [series_page])
+    current_page = create_doc({}, '/current-page.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    expected_html = '<a href="/series/awesome.html"><span class="book-series">Display This Instead</span></a>'
+    actual_html = SeriesLinkUtils.render_series_link('My Awesome Series', ctx, 'Display This Instead')
+
+    assert_equal expected_html, actual_html
+  end
+
+  def test_render_series_link_with_link_text_override_not_found
+    site = create_site({}, {}, [])
+    current_page = create_doc({}, '/current-page.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    # Expect the unlinked span with the override text. log_failure returns ""
+    expected_html = '<span class="book-series">Display This Instead</span>'
+    actual_html = SeriesLinkUtils.render_series_link('NonExistent Series', ctx, 'Display This Instead')
+
+    assert_equal expected_html, actual_html
+  end
+
+  def test_render_series_link_empty_input_title
+    site = create_site
+    current_page = create_doc({}, '/current-page.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    # log_failure is called internally and returns "", so the function returns ""
+    assert_equal '', SeriesLinkUtils.render_series_link('', ctx)
+    assert_equal '', SeriesLinkUtils.render_series_link('   ', ctx) # Whitespace only
+    assert_equal '', SeriesLinkUtils.render_series_link(nil, ctx)
+  end
+
+  def test_render_series_link_with_baseurl
+    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
+    # Site configured with a baseurl
+    site = create_site({ 'baseurl' => '/blog' }, {}, [series_page])
+    current_page = create_doc({}, '/current-page.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    # Expect href to include the baseurl
+    expected_html = '<a href="/blog/series/awesome.html"><span class="book-series">My Awesome Series</span></a>'
+    actual_html = SeriesLinkUtils.render_series_link('My Awesome Series', ctx)
+
+    assert_equal expected_html, actual_html
+  end
+
+  def test_render_series_link_escaping
+    series_page = create_doc({ 'title' => 'Series <Title> & Stuff', 'layout' => 'series_page' }, '/series/tricky.html')
+    site = create_site({}, {}, [series_page])
+    current_page = create_doc({}, '/current-page.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    # Expect basic HTML entities to be escaped in the display text
+    expected_html = '<a href="/series/tricky.html"><span class="book-series">Series &lt;Title&gt; &amp; Stuff</span></a>'
+    actual_html = SeriesLinkUtils.render_series_link('Series <Title> & Stuff', ctx)
+
+    assert_equal expected_html, actual_html
+  end
+
+  def test_render_series_link_uses_canonical_title_from_page
+    # Page title has different whitespace/casing than input
+    series_page = create_doc({ 'title' => '  My canonical   SERIES title ', 'layout' => 'series_page' },
+                             '/series/canonical.html')
+    site = create_site({}, {}, [series_page])
+    current_page = create_doc({}, '/current-page.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    # Input title is different but should match during lookup
+    input_title = 'my canonical series title'
+    # Expect the display text to use the canonical title from the page data (stripped)
+    expected_html = '<a href="/series/canonical.html"><span class="book-series">My canonical   SERIES title</span></a>'
+    actual_html = SeriesLinkUtils.render_series_link(input_title, ctx)
+
+    assert_equal expected_html, actual_html
+  end
+end
+```
+
+**OUTPUT:**
+Return ONLY the full, valid Ruby code for the file. No markdown wrappers, no conversational filler.

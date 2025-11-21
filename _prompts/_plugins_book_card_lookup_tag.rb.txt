@@ -1,0 +1,189 @@
+You are a Senior Ruby Engineer specializing in Jekyll. I need you to fix RuboCop static analysis errors in the following file.
+
+FILE: _plugins/book_card_lookup_tag.rb
+CONTEXT: This is a Jekyll Plugin (Production Code). Documentation must be clear, explaining the purpose of the Tag/Generator and how it is used in Liquid.
+
+THE ERRORS TO FIX:
+- Line 12: [Style/Documentation] Missing top-level documentation comment for `class Jekyll::BookCardLookupTag`.
+
+
+--------------------------------------------------
+STYLE GUIDE & INSTRUCTIONS:
+
+1. **Documentation (Style/Documentation):**
+   - **Requirement:** Every Class and Module must have a top-level comment block.
+   - **Format:**
+     ```ruby
+     # Short summary of what this class does.
+     #
+     # (Optional) Detailed explanation or Liquid usage example:
+     # {% my_tag param="value" %}
+     class MyClass ...
+     ```
+   - **Quality:** Do not write "Class for X". Write "Generates X based on Y configuration."
+
+2. **Frozen String Literals:**
+   - Ensure `# frozen_string_literal: true` is the **very first line** of the file.
+
+3. **Naming & Variables:**
+   - Fix short variable names (e.g., change `l` to `logger`, `p` to `path`).
+   - Use snake_case for variables and methods.
+
+4. **Refactoring Strategy (Only if Metrics/* errors exist):**
+   - **If** the error is `Metrics/MethodLength` or `Complexity`:
+     - Extract logic into private helper methods (e.g., `def _helper_method`).
+     - Or, extract a private helper class if state management is complex.
+   - **If** there are NO metrics errors, **DO NOT** refactor the logic structure. Just fix the style/docs.
+
+5. **Safety:**
+   - **CRITICAL:** Do not change the external behavior or API of the code.
+   - Do not remove existing comments unless they are the specific "rubocop:disable" comments causing issues.
+
+--------------------------------------------------
+SOURCE CODE:
+```ruby
+# frozen_string_literal: true
+
+# _plugins/book_card_lookup_tag.rb
+require 'jekyll'
+require 'liquid'
+require 'strscan'
+require_relative 'utils/plugin_logger_utils'
+require_relative 'utils/book_card_utils'
+require_relative 'utils/tag_argument_utils'
+
+module Jekyll
+  class BookCardLookupTag < Liquid::Tag
+    QuotedFragment = Liquid::QuotedFragment
+
+    def initialize(tag_name, markup, tokens)
+      super
+      @raw_markup = markup
+      @title_markup = parse_markup(markup)
+    end
+
+    # Renders the book card by looking up the book and calling the utility
+    def render(context)
+      target_title_input = TagArgumentUtils.resolve_value(@title_markup, context)
+
+      return log_empty_title(context) if title_empty?(target_title_input)
+
+      site = context.registers[:site]
+      return log_missing_collection(context, target_title_input) unless site.collections.key?('books')
+
+      found_book = find_book(site, target_title_input)
+      return log_book_not_found(context, target_title_input) unless found_book
+
+      render_book_card(found_book, context, target_title_input)
+    end
+
+    private
+
+    def parse_markup(markup)
+      scanner = StringScanner.new(markup.strip)
+      title = scan_title(scanner)
+      scanner.skip(/\s+/)
+      validate_scanner(scanner)
+      validate_title(title)
+      title
+    end
+
+    def validate_scanner(scanner)
+      return if scanner.eos?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'book_card_lookup': Unknown argument(s) '#{scanner.rest}' in '#{@raw_markup}'"
+    end
+
+    def validate_title(title)
+      return unless title.nil? || title.strip.empty?
+
+      raise Liquid::SyntaxError, "Syntax Error in 'book_card_lookup': Could not find title value in '#{@raw_markup}'"
+    end
+
+    def scan_title(scanner)
+      # Try to match named argument first: title='...' or title=...
+      if scanner.scan(/title\s*=\s*(#{QuotedFragment}|\S+)/)
+        scanner[1] # Value part of title=value
+      else
+        # If not named, assume positional: '...' or ...
+        # Reset scanner if it consumed part of a non-matching named arg pattern
+        scanner.reset
+        scanner.skip_until(/\A\s*/) # Go to start of content
+        scanner.matched if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
+      end
+    end
+
+    def title_empty?(title)
+      title.nil? || title.to_s.strip.empty?
+    end
+
+    def normalize_title(title)
+      return unless title
+
+      title.to_s.gsub(/\s+/, ' ').strip.downcase
+    end
+
+    def find_book(site, target_title_input)
+      target_title_normalized = normalize_title(target_title_input)
+
+      site.collections['books'].docs.find do |book|
+        next if book.data['published'] == false
+
+        normalize_title(book.data['title']) == target_title_normalized
+      end
+    end
+
+    def render_book_card(found_book, context, target_title_input)
+      # --- Call Utility to Render Card ---
+      BookCardUtils.render(found_book, context) # CHANGED: Call the new utility
+    rescue StandardError => e
+      # Return the log message from PluginLoggerUtils
+      PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: 'BOOK_CARD_LOOKUP',
+        reason: "Error calling BookCardUtils.render utility: #{e.message}",
+        identifiers: { Title: target_title_input.to_s,
+                       ErrorClass: e.class.name,
+                       ErrorMessage: e.message.lines.first.chomp.slice(0, 100) },
+        level: :error
+      )
+    end
+
+    def log_empty_title(context)
+      PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: 'BOOK_CARD_LOOKUP',
+        reason: 'Title markup resolved to empty or nil.',
+        identifiers: { Markup: @title_markup || @raw_markup },
+        level: :error
+      )
+    end
+
+    def log_missing_collection(context, target_title_input)
+      PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: 'BOOK_CARD_LOOKUP',
+        reason: "Required 'books' collection not found in site configuration.",
+        identifiers: { Title: target_title_input.to_s }, # Log the title we were trying to find
+        level: :error # Prerequisite missing
+      )
+    end
+
+    def log_book_not_found(context, target_title_input)
+      PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: 'BOOK_CARD_LOOKUP',
+        reason: 'Could not find book.',
+        identifiers: { Title: target_title_input.to_s }, # Use original input for clarity in log
+        level: :warn
+      )
+    end
+  end
+end
+
+Liquid::Template.register_tag('book_card_lookup', Jekyll::BookCardLookupTag)
+```
+
+**OUTPUT:**
+Return ONLY the full, valid Ruby code for the file. No markdown wrappers, no conversational filler.

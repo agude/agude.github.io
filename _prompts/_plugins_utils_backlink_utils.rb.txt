@@ -1,0 +1,106 @@
+You are a Senior Ruby Engineer specializing in Jekyll. I need you to fix RuboCop static analysis errors in the following file.
+
+FILE: _plugins/utils/backlink_utils.rb
+CONTEXT: This is a Jekyll Plugin (Production Code). Documentation must be clear, explaining the purpose of the Tag/Generator and how it is used in Liquid.
+
+THE ERRORS TO FIX:
+- Line 9: [Style/Documentation] Missing top-level documentation comment for `module BacklinkUtils`.
+
+
+--------------------------------------------------
+STYLE GUIDE & INSTRUCTIONS:
+
+1. **Documentation (Style/Documentation):**
+   - **Requirement:** Every Class and Module must have a top-level comment block.
+   - **Format:**
+     ```ruby
+     # Short summary of what this class does.
+     #
+     # (Optional) Detailed explanation or Liquid usage example:
+     # {% my_tag param="value" %}
+     class MyClass ...
+     ```
+   - **Quality:** Do not write "Class for X". Write "Generates X based on Y configuration."
+
+2. **Frozen String Literals:**
+   - Ensure `# frozen_string_literal: true` is the **very first line** of the file.
+
+3. **Naming & Variables:**
+   - Fix short variable names (e.g., change `l` to `logger`, `p` to `path`).
+   - Use snake_case for variables and methods.
+
+4. **Refactoring Strategy (Only if Metrics/* errors exist):**
+   - **If** the error is `Metrics/MethodLength` or `Complexity`:
+     - Extract logic into private helper methods (e.g., `def _helper_method`).
+     - Or, extract a private helper class if state management is complex.
+   - **If** there are NO metrics errors, **DO NOT** refactor the logic structure. Just fix the style/docs.
+
+5. **Safety:**
+   - **CRITICAL:** Do not change the external behavior or API of the code.
+   - Do not remove existing comments unless they are the specific "rubocop:disable" comments causing issues.
+
+--------------------------------------------------
+SOURCE CODE:
+```ruby
+# frozen_string_literal: true
+
+# _plugins/utils/backlink_utils.rb
+require 'jekyll'
+require 'cgi'
+require_relative 'plugin_logger_utils'
+require_relative 'text_processing_utils'
+
+module BacklinkUtils
+  # Finds books in the 'books' collection that link back to the current_page.
+  # Returns a list of [canonical_title, url] pairs, sorted alphabetically by title (ignoring articles).
+  #
+  # @param current_page [MockDocument, Jekyll::Page, Jekyll::Document] The page to find backlinks for.
+  # @param site [MockSite, Jekyll::Site] The Jekyll site object.
+  # @param context [Liquid::Context] The current Liquid context (needed for logging).
+  # @return [Array<Array(String, String)>] A sorted list of [canonical_title, url] pairs.
+  def self.find_book_backlinks(current_page, site, context)
+    return [] unless _valid_prerequisites?(current_page, site, context)
+
+    current_url = current_page['url']
+    backlinks_cache = site.data['link_cache']['backlinks']
+    backlinking_docs = backlinks_cache[current_url] || []
+    return [] if backlinking_docs.empty?
+
+    _process_and_sort_backlinks(backlinking_docs)
+  end
+
+  def self._valid_prerequisites?(current_page, site, context)
+    has_prerequisites = site && current_page && site.data['link_cache'] &&
+                        site.data['link_cache']['backlinks'] && current_page['url']
+    return true if has_prerequisites
+
+    _log_missing_prerequisites(current_page, context)
+    false
+  end
+
+  def self._log_missing_prerequisites(current_page, context)
+    PluginLoggerUtils.log_liquid_failure(
+      context: context,
+      tag_type: 'BACKLINK_UTIL',
+      reason: 'Prerequisites missing: site, page, link_cache, or backlinks cache unavailable.',
+      identifiers: { PageURL: current_page ? (current_page['url'] || 'N/A') : 'N/A' },
+      level: :error
+    )
+  end
+
+  def self._process_and_sort_backlinks(backlinking_docs)
+    backlinks_data = backlinking_docs.map do |book_doc|
+      title = book_doc.data['title']
+      next if title.nil? || title.strip.empty?
+
+      sort_key = TextProcessingUtils.normalize_title(title, strip_articles: true)
+      [sort_key, title, book_doc.url]
+    end.compact
+
+    backlinks_data.sort_by(&:first).map { |triplet| [triplet[1], triplet[2]] }
+  end
+end
+```
+
+**OUTPUT:**
+Return ONLY the full, valid Ruby code for the file. No markdown wrappers, no conversational filler.

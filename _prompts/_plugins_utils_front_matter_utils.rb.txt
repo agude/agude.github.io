@@ -1,0 +1,75 @@
+You are a Senior Ruby Engineer specializing in Jekyll. I need you to fix RuboCop static analysis errors in the following file.
+
+FILE: _plugins/utils/front_matter_utils.rb
+CONTEXT: This is a Jekyll Plugin (Production Code). Documentation must be clear, explaining the purpose of the Tag/Generator and how it is used in Liquid.
+
+THE ERRORS TO FIX:
+- Line 5: [Style/Documentation] Missing top-level documentation comment for `module FrontMatterUtils`.
+
+
+--------------------------------------------------
+STYLE GUIDE & INSTRUCTIONS:
+
+1. **Documentation (Style/Documentation):**
+   - **Requirement:** Every Class and Module must have a top-level comment block.
+   - **Format:**
+     ```ruby
+     # Short summary of what this class does.
+     #
+     # (Optional) Detailed explanation or Liquid usage example:
+     # {% my_tag param="value" %}
+     class MyClass ...
+     ```
+   - **Quality:** Do not write "Class for X". Write "Generates X based on Y configuration."
+
+2. **Frozen String Literals:**
+   - Ensure `# frozen_string_literal: true` is the **very first line** of the file.
+
+3. **Naming & Variables:**
+   - Fix short variable names (e.g., change `l` to `logger`, `p` to `path`).
+   - Use snake_case for variables and methods.
+
+4. **Refactoring Strategy (Only if Metrics/* errors exist):**
+   - **If** the error is `Metrics/MethodLength` or `Complexity`:
+     - Extract logic into private helper methods (e.g., `def _helper_method`).
+     - Or, extract a private helper class if state management is complex.
+   - **If** there are NO metrics errors, **DO NOT** refactor the logic structure. Just fix the style/docs.
+
+5. **Safety:**
+   - **CRITICAL:** Do not change the external behavior or API of the code.
+   - Do not remove existing comments unless they are the specific "rubocop:disable" comments causing issues.
+
+--------------------------------------------------
+SOURCE CODE:
+```ruby
+# frozen_string_literal: true
+
+# _plugins/utils/front_matter_utils.rb
+
+module FrontMatterUtils
+  # Helper to consistently return an array of unique strings from a front matter value
+  # that could be a single string or an array of strings.
+  # Strips whitespace from each string, removes any resulting empty strings,
+  # and ensures the final list contains only unique values.
+  # Returns an empty array if the input is nil, not a string/array, or results in no valid items.
+  #
+  # @param fm_value [String, Array<String>, nil] The front matter value.
+  # @return [Array<String>] An array of unique, processed, non-empty strings, or an empty array.
+  def self.get_list_from_string_or_array(fm_value)
+    items_list = []
+
+    if fm_value.is_a?(String)
+      stripped_item = fm_value.strip
+      items_list << stripped_item unless stripped_item.empty?
+    elsif fm_value.is_a?(Array)
+      items_list = fm_value.compact.map { |item| item.to_s.strip }.reject(&:empty?)
+    end
+    # If fm_value is nil or any other type, items_list remains empty.
+
+    items_list.uniq # Ensure uniqueness
+  end
+end
+```
+
+**OUTPUT:**
+Return ONLY the full, valid Ruby code for the file. No markdown wrappers, no conversational filler.
