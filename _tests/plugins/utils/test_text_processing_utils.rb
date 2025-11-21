@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_text_processing_utils.rb
 require_relative '../../test_helper'
 # TextProcessingUtils is loaded via test_helper's require 'utils/text_processing_utils'
