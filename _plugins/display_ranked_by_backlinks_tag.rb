@@ -7,6 +7,12 @@ require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/book_link_util'
 
 module Jekyll
+  # Displays books ranked by the number of backlinks from other reviews.
+  #
+  # Renders an ordered list of books sorted by mention count.
+  #
+  # Usage in Liquid templates:
+  #   {% display_ranked_by_backlinks %}
   class DisplayRankedByBacklinksTag < Liquid::Tag
     def render(context)
       RankedByBacklinksRenderer.new(context).render
