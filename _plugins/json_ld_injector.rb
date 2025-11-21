@@ -10,6 +10,10 @@ require_relative 'utils/json_ld_generators/book_review_generator'
 require_relative 'utils/json_ld_generators/generic_review_generator'
 require_relative 'utils/json_ld_generators/author_profile_generator'
 
+# Injects structured data (JSON-LD) into Jekyll documents and pages.
+#
+# Generates and embeds JSON-LD structured data for blog posts, book reviews,
+# and author pages to enhance SEO and search engine understanding.
 module JsonLdInjector
   # Initialize storage within site.data
   def self.initialize_script_storage(site)
