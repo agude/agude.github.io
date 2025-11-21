@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/render_book_card_tag' # Load the tag
 
+# Tests for RenderBookCardTag Liquid tag.
+#
+# Verifies that the tag correctly renders book cards from book objects.
 class TestRenderBookCardTag < Minitest::Test
   def setup
     @site = create_site({ 'url' => 'http://example.com' }) # For BookCardUtils -> CardDataExtractorUtils -> UrlUtils

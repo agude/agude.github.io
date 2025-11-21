@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/series_text_tag' # Load the tag class
 
+# Tests for SeriesTextTag Liquid tag.
+#
+# Verifies that the tag correctly generates formatted text for book series with proper prefixes and suffixes.
 class TestSeriesTextTag < Minitest::Test
   def setup
     # Create some mock series pages

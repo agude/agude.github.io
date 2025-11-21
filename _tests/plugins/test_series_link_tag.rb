@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/series_link_tag' # Load the tag
 
+# Tests for SeriesLinkTag Liquid tag.
+#
+# Verifies that the tag correctly creates links to book series pages.
 class TestSeriesLinkTag < Minitest::Test
   def setup
     @site = create_site

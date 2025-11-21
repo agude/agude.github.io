@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/short_story_title_tag'
 
+# Tests for ShortStoryTitleTag Liquid tag.
+#
+# Verifies that the tag correctly renders short story titles with optional fragment IDs.
 class TestShortStoryTitleTag < Minitest::Test
   def setup
     @site = create_site

@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/units_tag' # Load the tag
 
+# Tests for UnitsTag Liquid tag.
+#
+# Verifies that the tag correctly formats numbers with unit abbreviations.
 class TestUnitsTag < Minitest::Test
   THIN_NBSP = '&#x202F;'
 

@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/short_story_link_tag'
 
+# Tests for ShortStoryLinkTag Liquid tag.
+#
+# Verifies that the tag correctly creates links to short stories within anthology books.
 class TestShortStoryLinkTag < Minitest::Test
   def setup
     @site = create_site
