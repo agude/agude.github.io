@@ -48,7 +48,10 @@ module Jekyll
     end
   end
 
-  # Builds the primary page and book caches
+  # Builds the primary caches for authors, books, series, and navigation.
+  #
+  # Processes Jekyll pages and book documents to populate lookup caches
+  # for linking and navigation throughout the site.
   class CacheBuilder
     def initialize(link_cache)
       @link_cache = link_cache
@@ -168,6 +171,10 @@ module Jekyll
 
   # --- Helper Classes ---
 
+  # Provides convenient URL-to-data lookups for cached items.
+  #
+  # Creates indexed maps of books, authors, and series keyed by their URLs
+  # for efficient lookup during validation and backlink building.
   class CacheMaps
     attr_reader :books, :authors, :series
 
@@ -183,6 +190,10 @@ module Jekyll
     end
   end
 
+  # Builds a cache of short stories found in anthology books.
+  #
+  # Scans books marked as anthologies for short story titles mentioned in
+  # their content and caches them for linking.
   class ShortStoryBuilder
     def initialize(site, link_cache)
       @site = site
@@ -228,6 +239,10 @@ module Jekyll
     end
   end
 
+  # Validates that no raw Markdown or HTML links exist for cached items.
+  #
+  # Ensures all links to books, authors, and series use custom Liquid tags
+  # rather than raw links, raising fatal errors if violations are found.
   class LinkValidator
     def initialize(site, maps)
       @site = site
@@ -276,6 +291,10 @@ module Jekyll
     end
   end
 
+  # Builds backlink data showing which books reference other books.
+  #
+  # Scans book content for book_link, series_link, and short_story_link tags
+  # to track which books mention other books for display in backlink sections.
   class BacklinkBuilder
     LINK_TYPE_PRIORITY = { 'book' => 3, 'short_story' => 2, 'series' => 1 }.freeze
 
@@ -364,6 +383,10 @@ module Jekyll
     end
   end
 
+  # Manages caching for favorites lists and their book mentions.
+  #
+  # Scans posts marked as favorites lists for book_link tags and builds
+  # mappings between posts and the books they mention.
   class FavoritesManager
     def initialize(site, link_cache, url_map)
       @site = site
