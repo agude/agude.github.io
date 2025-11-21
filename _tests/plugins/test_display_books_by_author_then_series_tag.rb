@@ -5,6 +5,9 @@ require_relative '../test_helper'
 require_relative '../../_plugins/display_books_by_author_then_series_tag'
 require 'cgi' # For CGI.escapeHTML
 
+# Tests for DisplayBooksByAuthorThenSeriesTag Liquid tag.
+#
+# Verifies that the tag correctly displays all books grouped by author, then by series.
 class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
   def setup
     @author_a_name = 'Author Alpha'

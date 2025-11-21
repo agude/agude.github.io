@@ -5,6 +5,9 @@ require_relative '../test_helper'
 require_relative '../../_plugins/display_books_by_title_alpha_group_tag'
 require 'cgi'
 
+# Tests for DisplayBooksByTitleAlphaGroupTag Liquid tag.
+#
+# Verifies that the tag correctly displays books grouped alphabetically by title.
 class TestDisplayBooksByTitleAlphaGroupTag < Minitest::Test
   def setup
     create_test_books

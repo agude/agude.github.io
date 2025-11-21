@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/display_category_posts_tag'
 
+# Tests for DisplayCategoryPostsTag Liquid tag.
+#
+# Verifies that the tag correctly displays posts filtered by category.
 class TestDisplayCategoryPostsTag < Minitest::Test
   def setup
     @post1_tech = create_doc({ 'title' => 'Tech Post Alpha', 'categories' => ['Tech'] }, '/tech/alpha.html')

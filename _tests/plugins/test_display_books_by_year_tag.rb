@@ -6,6 +6,9 @@ require_relative '../../_plugins/display_books_by_year_tag'
 require 'cgi'
 require 'time' # For Time.parse
 
+# Tests for DisplayBooksByYearTag Liquid tag.
+#
+# Verifies that the tag correctly displays books grouped by publication year.
 class TestDisplayBooksByYearTag < Minitest::Test
   def setup
     @book_2024_jan = create_doc(

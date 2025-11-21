@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/display_books_for_series_tag'
 
+# Tests for DisplayBooksForSeriesTag Liquid tag.
+#
+# Verifies that the tag correctly displays book cards for a specified series.
 class TestDisplayBooksForSeriesTag < Minitest::Test
   def setup
     create_test_books
