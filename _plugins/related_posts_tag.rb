@@ -8,6 +8,13 @@ require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/article_card_utils'
 
 module Jekyll
+  # Displays related or recent blog posts based on category matching.
+  #
+  # Shows posts that share categories with the current page, falling back
+  # to recent posts if no category matches are found.
+  #
+  # Usage in Liquid templates:
+  #   {% related_posts %}
   class RelatedPostsTag < Liquid::Tag
     DEFAULT_MAX_POSTS = 3
 
