@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_feed_utils.rb
 require_relative '../../test_helper'
 # FeedUtils is loaded by test_helper
@@ -7,15 +9,27 @@ class TestFeedUtils < Minitest::Test
     @ref_time = Time.parse('2024-06-01 12:00:00 UTC')
 
     # Posts
-    @post1 = create_doc({ 'title' => 'Post 1 (Recent)', 'date' => @ref_time - (1 * 24 * 60 * 60), 'published' => true }, '/p1.html', 'content', nil, MockCollection.new(nil, 'posts')) # May 31
-    @post2 = create_doc({ 'title' => 'Post 2 (Old)', 'date' => @ref_time - (10 * 24 * 60 * 60), 'published' => true }, '/p2.html', 'content', nil, MockCollection.new(nil, 'posts')) # May 22
-    @post_unpub = create_doc({ 'title' => 'Post Unpublished', 'date' => @ref_time - (3 * 24 * 60 * 60), 'published' => false }, '/punpub.html', 'content', nil, MockCollection.new(nil, 'posts')) # May 29
+    post1_data = { 'title' => 'Post 1 (Recent)', 'date' => @ref_time - (1 * 24 * 60 * 60), 'published' => true }
+    post2_data = { 'title' => 'Post 2 (Old)', 'date' => @ref_time - (10 * 24 * 60 * 60), 'published' => true }
+    post_unpub_data = {
+      'title' => 'Post Unpublished', 'date' => @ref_time - (3 * 24 * 60 * 60), 'published' => false
+    }
+    posts_collection = MockCollection.new(nil, 'posts')
+    @post1 = create_doc(post1_data, '/p1.html', 'content', nil, posts_collection) # May 31
+    @post2 = create_doc(post2_data, '/p2.html', 'content', nil, posts_collection) # May 22
+    @post_unpub = create_doc(post_unpub_data, '/punpub.html', 'content', nil, posts_collection) # May 29
     @post_no_date_val_template = { 'title' => 'Post No Date Val', 'published' => true } # Date will be Time.now
 
     # Books
-    @book1 = create_doc({ 'title' => 'Book 1 (Mid)', 'date' => @ref_time - (2 * 24 * 60 * 60), 'published' => true }, '/b1.html', 'content', nil, MockCollection.new(nil, 'books')) # May 30
-    @book2 = create_doc({ 'title' => 'Book 2 (Oldest)', 'date' => @ref_time - (20 * 24 * 60 * 60), 'published' => true }, '/b2.html', 'content', nil, MockCollection.new(nil, 'books')) # May 12
-    @book_unpub = create_doc({ 'title' => 'Book Unpublished', 'date' => @ref_time - (5 * 24 * 60 * 60), 'published' => false }, '/bunpub.html', 'content', nil, MockCollection.new(nil, 'books')) # May 27
+    book1_data = { 'title' => 'Book 1 (Mid)', 'date' => @ref_time - (2 * 24 * 60 * 60), 'published' => true }
+    book2_data = { 'title' => 'Book 2 (Oldest)', 'date' => @ref_time - (20 * 24 * 60 * 60), 'published' => true }
+    book_unpub_data = {
+      'title' => 'Book Unpublished', 'date' => @ref_time - (5 * 24 * 60 * 60), 'published' => false
+    }
+    books_collection = MockCollection.new(nil, 'books')
+    @book1 = create_doc(book1_data, '/b1.html', 'content', nil, books_collection) # May 30
+    @book2 = create_doc(book2_data, '/b2.html', 'content', nil, books_collection) # May 12
+    @book_unpub = create_doc(book_unpub_data, '/bunpub.html', 'content', nil, books_collection) # May 27
     @book_no_date_val_template = { 'title' => 'Book No Date Val', 'published' => true } # Date will be Time.now
 
     # Initial collections for a generic site setup. Specific tests might override these.
@@ -54,18 +68,23 @@ class TestFeedUtils < Minitest::Test
       assert_equal 5, items.size, 'Should return default limit of 5 items'
       actual_titles = items.map { |item| item.data['title'] }
 
-      expected_first_two_titles_sorted = [post_no_date_current.data['title'], book_no_date_current.data['title']].sort
-      actual_first_two_titles_sorted = [actual_titles[0], actual_titles[1]].sort
-      assert_equal expected_first_two_titles_sorted, actual_first_two_titles_sorted,
-                   'The two most recent items (with identical dates) are not correct or not at the start'
+      expected_sorted = [post_no_date_current.data['title'], book_no_date_current.data['title']].sort
+      actual_sorted = [actual_titles[0], actual_titles[1]].sort
+      msg = 'The two most recent items (with identical dates) are not correct or not at the start'
+      assert_equal expected_sorted, actual_sorted, msg
 
       assert_equal @post1.data['title'], actual_titles[2]
       assert_equal @book1.data['title'], actual_titles[3]
       assert_equal @post2.data['title'], actual_titles[4]
 
       (items.size - 1).times do |i|
-        assert items[i].date >= items[i + 1].date,
-               "Items not sorted by date descending: #{items[i].data['title']} ( #{items[i].date} ) vs #{items[i + 1].data['title']} ( #{items[i + 1].date} )"
+        current_title = items[i].data['title']
+        current_date = items[i].date
+        next_title = items[i + 1].data['title']
+        next_date = items[i + 1].date
+        error_msg = "Items not sorted by date descending: #{current_title} " \
+                    "( #{current_date} ) vs #{next_title} ( #{next_date} )"
+        assert items[i].date >= items[i + 1].date, error_msg
       end
     end
   end
@@ -89,9 +108,9 @@ class TestFeedUtils < Minitest::Test
       assert_equal 3, items.size
       actual_titles = items.map { |item| item.data['title'] }
 
-      expected_first_two_titles_sorted = [post_no_date_current.data['title'], book_no_date_current.data['title']].sort
-      actual_first_two_titles_sorted = [actual_titles[0], actual_titles[1]].sort
-      assert_equal expected_first_two_titles_sorted, actual_first_two_titles_sorted
+      expected_sorted = [post_no_date_current.data['title'], book_no_date_current.data['title']].sort
+      actual_sorted = [actual_titles[0], actual_titles[1]].sort
+      assert_equal expected_sorted, actual_sorted
       assert_equal @post1.data['title'], actual_titles[2]
     end
   end
@@ -171,13 +190,13 @@ class TestFeedUtils < Minitest::Test
   end
 
   def test_get_combined_feed_items_handles_items_without_time_date_object
-    post_bad_date_obj = create_doc({ 'title' => 'Post Bad Date', 'published' => true }, '/pbad.html', 'c', nil,
-                                   MockCollection.new(nil, 'posts'))
+    bad_post_data = { 'title' => 'Post Bad Date', 'published' => true }
+    post_bad_date_obj = create_doc(bad_post_data, '/pbad.html', 'c', nil, MockCollection.new(nil, 'posts'))
     post_bad_date_obj.data['date'] = 'Not a Time object'
     post_bad_date_obj.define_singleton_method(:date) { data['date'] }
 
-    book_valid_date = create_doc({ 'title' => 'Valid Book', 'date' => Time.parse('2024-01-01'), 'published' => true },
-                                 '/bvalid.html', 'c', nil, MockCollection.new(nil, 'books'))
+    book_data = { 'title' => 'Valid Book', 'date' => Time.parse('2024-01-01'), 'published' => true }
+    book_valid_date = create_doc(book_data, '/bvalid.html', 'c', nil, MockCollection.new(nil, 'books'))
 
     site_with_bad_date = create_site(
       {},
