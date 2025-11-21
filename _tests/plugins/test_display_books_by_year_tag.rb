@@ -8,11 +8,25 @@ require 'time' # For Time.parse
 
 class TestDisplayBooksByYearTag < Minitest::Test
   def setup
-    @book_2024_jan = create_doc({ 'title' => 'Book Jan 2024', 'date' => Time.parse('2024-01-15') }, '/b2024a.html')
-    @book_2024_mar = create_doc({ 'title' => 'Book Mar 2024', 'date' => Time.parse('2024-03-10') }, '/b2024b.html') # Most recent in 2024
-    @book_2023_dec = create_doc({ 'title' => 'Book Dec 2023', 'date' => Time.parse('2023-12-01') }, '/b2023a.html')
-    @book_2023_jun = create_doc({ 'title' => 'Book Jun 2023', 'date' => Time.parse('2023-06-20') }, '/b2023b.html')
-    @book_no_date = create_doc({ 'title' => 'Book No Date' }, '/bnodate.html') # create_doc assigns Time.now if date is nil
+    @book_2024_jan = create_doc(
+      { 'title' => 'Book Jan 2024', 'date' => Time.parse('2024-01-15') },
+      '/b2024a.html'
+    )
+    # Most recent in 2024
+    @book_2024_mar = create_doc(
+      { 'title' => 'Book Mar 2024', 'date' => Time.parse('2024-03-10') },
+      '/b2024b.html'
+    )
+    @book_2023_dec = create_doc(
+      { 'title' => 'Book Dec 2023', 'date' => Time.parse('2023-12-01') },
+      '/b2023a.html'
+    )
+    @book_2023_jun = create_doc(
+      { 'title' => 'Book Jun 2023', 'date' => Time.parse('2023-06-20') },
+      '/b2023b.html'
+    )
+    # create_doc assigns Time.now if date is nil
+    @book_no_date = create_doc({ 'title' => 'Book No Date' }, '/bnodate.html')
 
     @all_books_for_tag = [
       @book_2024_jan, @book_2024_mar, @book_2023_dec, @book_2023_jun, @book_no_date
@@ -55,9 +69,18 @@ class TestDisplayBooksByYearTag < Minitest::Test
   def test_renders_correct_year_headings_and_book_order
     # This test now also checks for the navigation bar.
     # Setup specific books for THIS test with clear dates for deterministic results.
-    book_2024_mar = create_doc({ 'title' => 'Book Mar 2024', 'date' => Time.parse('2024-03-10') }, '/b2024b.html')
-    book_2024_jan = create_doc({ 'title' => 'Book Jan 2024', 'date' => Time.parse('2024-01-15') }, '/b2024a.html')
-    book_2023_dec = create_doc({ 'title' => 'Book Dec 2023', 'date' => Time.parse('2023-12-01') }, '/b2023a.html')
+    book_2024_mar = create_doc(
+      { 'title' => 'Book Mar 2024', 'date' => Time.parse('2024-03-10') },
+      '/b2024b.html'
+    )
+    book_2024_jan = create_doc(
+      { 'title' => 'Book Jan 2024', 'date' => Time.parse('2024-01-15') },
+      '/b2024a.html'
+    )
+    book_2023_dec = create_doc(
+      { 'title' => 'Book Dec 2023', 'date' => Time.parse('2023-12-01') },
+      '/b2023a.html'
+    )
 
     # Create a specific site and context for this test to avoid side effects.
     test_site = create_site({ 'url' => 'http://example.com' },
@@ -95,32 +118,38 @@ class TestDisplayBooksByYearTag < Minitest::Test
   def test_renders_log_message_if_books_collection_missing
     site_no_books = create_site({ 'url' => 'http://example.com' }, {})
     site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true
-    context_no_books = create_context({},
-                                      { site: site_no_books,
-                                        page: create_doc({ 'path' => 'current_year_page.md' },
-                                                         '/current_year_page.html') })
+    context_no_books = create_context(
+      {},
+      {
+        site: site_no_books,
+        page: create_doc({ 'path' => 'current_year_page.md' }, '/current_year_page.html')
+      }
+    )
     output = ''
     Jekyll.stub :logger, @silent_logger_stub do
       output = Liquid::Template.parse('{% display_books_by_year %}').render!(context_no_books)
     end
-    assert_match(/<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books_by_year'\s*SourcePage='current_year_page\.md' -->/,
-                 output)
+    expected_log_pattern = /<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books_by_year'\s*SourcePage='current_year_page\.md' -->/
+    assert_match(expected_log_pattern, output)
     refute_match(/<h2 class="book-list-headline">/, output)
   end
 
   def test_renders_log_message_if_no_published_books_found
     site_empty_books = create_site({ 'url' => 'http://example.com' }, { 'books' => [] })
     site_empty_books.config['plugin_logging']['ALL_BOOKS_BY_YEAR_DISPLAY'] = true
-    context_empty_books = create_context({},
-                                         { site: site_empty_books,
-                                           page: create_doc({ 'path' => 'current_year_page.md' },
-                                                            '/current_year_page.html') })
+    context_empty_books = create_context(
+      {},
+      {
+        site: site_empty_books,
+        page: create_doc({ 'path' => 'current_year_page.md' }, '/current_year_page.html')
+      }
+    )
     output = ''
     Jekyll.stub :logger, @silent_logger_stub do
       output = Liquid::Template.parse('{% display_books_by_year %}').render!(context_empty_books)
     end
-    assert_match(/<!-- \[INFO\] ALL_BOOKS_BY_YEAR_DISPLAY_FAILURE: Reason='No published books found to group by year\.'\s*SourcePage='current_year_page\.md' -->/,
-                 output)
+    expected_log_pattern = /<!-- \[INFO\] ALL_BOOKS_BY_YEAR_DISPLAY_FAILURE: Reason='No published books found to group by year\.'\s*SourcePage='current_year_page\.md' -->/
+    assert_match(expected_log_pattern, output)
     refute_match(/<h2 class="book-list-headline">/, output)
   end
 end
