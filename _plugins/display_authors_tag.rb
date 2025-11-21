@@ -13,6 +13,14 @@ require_relative 'utils/tag_argument_utils'
 require_relative 'utils/plugin_logger_utils'
 
 module Jekyll
+  # Formats and displays a list of author names as a sentence.
+  #
+  # Supports optional linking to author pages and "et al." truncation.
+  #
+  # Usage in Liquid templates:
+  #   {% display_authors page.book_authors %}
+  #   {% display_authors page.book_authors linked=true %}
+  #   {% display_authors page.book_authors etal_after=3 %}
   class DisplayAuthorsTag < Liquid::Tag
     SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
     ALLOWED_NAMED_KEYS = %w[linked etal_after].freeze
