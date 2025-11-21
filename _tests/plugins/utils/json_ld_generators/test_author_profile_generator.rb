@@ -5,6 +5,9 @@ require_relative '../../../test_helper'
 require_relative '../../../../_plugins/utils/json_ld_generators/author_profile_generator' # Load the specific generator
 require 'minitest/mock' # For mocking logger
 
+# Tests for AuthorProfileLdGenerator module.
+#
+# Verifies that the generator correctly creates JSON-LD structured data for author profile pages.
 class TestAuthorProfileLdGenerator < Minitest::Test
   def setup
     @site = create_site({ 'url' => 'https://mysite.dev', 'baseurl' => '' })

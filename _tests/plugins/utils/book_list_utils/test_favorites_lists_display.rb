@@ -3,6 +3,9 @@
 # _tests/plugins/utils/book_list_utils/test_favorites_lists_display.rb
 require_relative '../../../test_helper'
 
+# Tests for BookListUtils favorites lists display functionality.
+#
+# Verifies that the utility correctly displays books organized by favorites lists.
 class TestBookListUtilsFavoritesListsDisplay < Minitest::Test
   def setup
     setup_test_documents

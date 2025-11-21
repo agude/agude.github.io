@@ -4,6 +4,9 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/utils/json_ld_generators/blog_posting_generator'
 
+# Tests for BlogPostingLdGenerator module.
+#
+# Verifies that the generator correctly creates JSON-LD structured data for blog posts.
 class TestBlogPostingLdGenerator < Minitest::Test
   def setup
     @site_config = {

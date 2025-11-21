@@ -4,6 +4,9 @@
 require_relative '../../../test_helper'
 # BookListUtils, FrontMatterUtils are loaded by test_helper
 
+# Tests for BookListUtils all books by author display functionality.
+#
+# Verifies that the utility correctly groups and displays all books organized by author.
 class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
   def setup
     # --- Author Names ---

@@ -3,6 +3,9 @@
 # _tests/plugins/utils/book_list_utils/test_author_display.rb
 require_relative '../../../test_helper'
 
+# Tests for BookListUtils author-specific display functionality.
+#
+# Verifies that the utility correctly displays books for a specific author with series grouping.
 class TestBookListUtilsAuthorDisplay < Minitest::Test
   def setup
     setup_author_names
