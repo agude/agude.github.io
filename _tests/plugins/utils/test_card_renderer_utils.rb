@@ -140,33 +140,20 @@ class TestCardRendererUtils < Minitest::Test
     # Current implementation prints to STDOUT and returns empty string.
     # This test will capture STDOUT to verify the error message.
 
-    # Case 1: card_data is not a hash
-    stdout_str, = capture_io do
-      output = CardRendererUtils.render_card(context: @context, card_data: 'not a hash')
-      assert_equal '', output.strip
-    end
-    assert_match '[CardRendererUtils ERROR] Invalid or incomplete card_data provided.', stdout_str
+    invalid_inputs = [
+      'not a hash',
+      { url: '/foo', title_html: 'T' }, # Missing :base_class
+      { base_class: 'foo', title_html: 'T' }, # Missing :url
+      { base_class: 'foo', url: '/foo' } # Missing :title_html
+    ]
 
-    # Case 2: Missing :base_class
-    stdout_str, = capture_io do
-      output = CardRendererUtils.render_card(context: @context, card_data: { url: '/foo', title_html: 'T' })
-      assert_equal '', output.strip
+    invalid_inputs.each do |input|
+      stdout_str, = capture_io do
+        output = CardRendererUtils.render_card(context: @context, card_data: input)
+        assert_equal '', output.strip
+      end
+      assert_match '[CardRendererUtils ERROR] Invalid or incomplete card_data provided.', stdout_str
     end
-    assert_match '[CardRendererUtils ERROR] Invalid or incomplete card_data provided.', stdout_str
-
-    # Case 3: Missing :url
-    stdout_str, = capture_io do
-      output = CardRendererUtils.render_card(context: @context, card_data: { base_class: 'foo', title_html: 'T' })
-      assert_equal '', output.strip
-    end
-    assert_match '[CardRendererUtils ERROR] Invalid or incomplete card_data provided.', stdout_str
-
-    # Case 4: Missing :title_html
-    stdout_str, = capture_io do
-      output = CardRendererUtils.render_card(context: @context, card_data: { base_class: 'foo', url: '/foo' })
-      assert_equal '', output.strip
-    end
-    assert_match '[CardRendererUtils ERROR] Invalid or incomplete card_data provided.', stdout_str
   end
 
   def test_render_card_empty_description_is_skipped
