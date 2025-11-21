@@ -9,6 +9,10 @@
 # not work for pages that try to read it in Liquid.
 
 module Jekyll
+  # Sets site.config['environment'] from the JEKYLL_ENV environment variable.
+  #
+  # Ensures consistent environment configuration throughout the Jekyll build
+  # process by synchronizing ENV['JEKYLL_ENV'] with site.config['environment'].
   class EnvironmentSetterGenerator < Generator
     priority :highest # Run this generator as early as possible
 
