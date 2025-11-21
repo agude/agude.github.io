@@ -7,6 +7,17 @@ require_relative '../../_plugins/display_authors_tag'
 class TestDisplayAuthorsTag < Minitest::Test
   def setup
     @site = create_site
+    setup_page_context
+    setup_mock_links
+    setup_plain_spans
+    @etal_abbr = '<abbr class="etal">et al.</abbr>'
+    @silent_logger_stub = create_silent_logger
+  end
+
+  private
+
+  # Helper to set up page context with test data
+  def setup_page_context
     @context = create_context(
       {
         'page' => {
@@ -27,26 +38,31 @@ class TestDisplayAuthorsTag < Minitest::Test
       },
       { site: @site } # No current page needed for these specific tests as AuthorLinkUtils handles it
     )
+  end
 
-    # Expected HTML from AuthorLinkUtils.render_author_link (simplified for stubbing)
+  # Helper to set up mock links
+  def setup_mock_links
     @mock_link_jane = '<a href="/authors/jane-doe"><span class="author-name">Jane Doe</span></a>'
     @mock_link_john = '<a href="/authors/john-smith"><span class="author-name">John Smith</span></a>'
     @mock_link_peter = '<a href="/authors/peter-pan"><span class="author-name">Peter Pan</span></a>'
     @mock_link_alice = '<a href="/authors/alice-wonderland"><span class="author-name">Alice Wonderland</span></a>'
     @mock_link_bob = '<a href="/authors/bob-builder"><span class="author-name">Bob The Builder</span></a>'
     @mock_link_richard = '<a href="/authors/richard-roe"><span class="author-name">Richard Roe</span></a>'
+  end
 
-    # Expected plain text span
+  # Helper to set up plain spans
+  def setup_plain_spans
     @plain_span_jane = '<span class="author-name">Jane Doe</span>'
     @plain_span_john = '<span class="author-name">John Smith</span>'
     @plain_span_peter = '<span class="author-name">Peter Pan</span>'
     @plain_span_alice = '<span class="author-name">Alice Wonderland</span>'
     @plain_span_bob = '<span class="author-name">Bob The Builder</span>'
     @plain_span_richard = '<span class="author-name">Richard Roe</span>'
+  end
 
-    @etal_abbr = '<abbr class="etal">et al.</abbr>'
-
-    @silent_logger_stub = Object.new.tap do |logger|
+  # Helper to create a silent logger stub
+  def create_silent_logger
+    Object.new.tap do |logger|
       def logger.warn(topic, message); end
 
       def logger.error(topic, message); end
@@ -57,27 +73,30 @@ class TestDisplayAuthorsTag < Minitest::Test
     end
   end
 
+  public
+
   # Helper to render the tag, stubs underlying utils
   def render_tag(markup, context = @context)
     output = ''
-    # Stub AuthorLinkUtils.render_author_link
-    # The possessive flag is no longer passed from DisplayAuthorsTag
-    AuthorLinkUtils.stub :render_author_link, lambda { |name, _ctx, _link_text_override = nil, _possessive = false|
-      case name
-      when 'Jane Doe' then @mock_link_jane
-      when 'John Smith' then @mock_link_john
-      when 'Peter Pan' then @mock_link_peter
-      when 'Alice Wonderland' then @mock_link_alice
-      when 'Bob The Builder' then @mock_link_bob
-      when 'Richard Roe' then @mock_link_richard
-      else "<a href=\"...\"><span class=\"author-name\">#{name}</span></a>" # Fallback
-      end
-    } do
-      Jekyll.stub :logger, @silent_logger_stub do # For any logs from FrontMatterUtils if input is weird
+    AuthorLinkUtils.stub :render_author_link, method(:author_link_stub) do
+      Jekyll.stub :logger, @silent_logger_stub do
         output = Liquid::Template.parse("{% display_authors #{markup} %}").render!(context)
       end
     end
     output
+  end
+
+  # Stub for AuthorLinkUtils.render_author_link
+  def author_link_stub(name, _ctx, _link_text_override = nil, _possessive = false)
+    case name
+    when 'Jane Doe' then @mock_link_jane
+    when 'John Smith' then @mock_link_john
+    when 'Peter Pan' then @mock_link_peter
+    when 'Alice Wonderland' then @mock_link_alice
+    when 'Bob The Builder' then @mock_link_bob
+    when 'Richard Roe' then @mock_link_richard
+    else "<a href=\"...\"><span class=\"author-name\">#{name}</span></a>" # Fallback
+    end
   end
 
   # --- Syntax Error Tests (Initialize) ---
@@ -153,7 +172,8 @@ class TestDisplayAuthorsTag < Minitest::Test
 
   def test_render_five_authors_linked_default
     # page.five_author_list is ['John Smith', 'Jane Doe', 'Peter Pan', 'Alice Wonderland', 'Bob The Builder']
-    expected_output = "#{@mock_link_john}, #{@mock_link_jane}, #{@mock_link_peter}, #{@mock_link_alice}, and #{@mock_link_bob}"
+    expected_output = "#{@mock_link_john}, #{@mock_link_jane}, #{@mock_link_peter}, " \
+                      "#{@mock_link_alice}, and #{@mock_link_bob}"
     output = render_tag('page.five_author_list')
     assert_equal expected_output, output
   end
@@ -212,14 +232,14 @@ class TestDisplayAuthorsTag < Minitest::Test
     assert_equal expected_output, output
   end
 
-  def test_render_three_authors_with_etal_after_3
+  def test_render_three_authors_with_etal_after_three
     # Length (3) is not > etal_after (3), so it should list all.
     expected_output = "#{@mock_link_john}, #{@mock_link_jane}, and #{@mock_link_peter}"
     output = render_tag('page.three_author_list etal_after=3')
     assert_equal expected_output, output
   end
 
-  def test_render_four_authors_with_etal_after_4
+  def test_render_four_authors_with_etal_after_four
     # Length (4) is not > etal_after (4), so it should list all.
     expected_output = "#{@mock_link_john}, #{@mock_link_jane}, #{@mock_link_peter}, and #{@mock_link_alice}"
     output = render_tag('page.four_author_list etal_after=4')
