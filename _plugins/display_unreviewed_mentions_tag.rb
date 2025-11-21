@@ -8,6 +8,13 @@ require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/text_processing_utils'
 
 module Jekyll
+  # Displays a ranked list of unreviewed books mentioned in the site.
+  #
+  # Shows books that have been referenced but don't have review pages yet,
+  # ranked by mention count.
+  #
+  # Usage in Liquid templates:
+  #   {% display_unreviewed_mentions %}
   class DisplayUnreviewedMentionsTag < Liquid::Tag
     def render(context)
       UnreviewedMentionsRenderer.new(context).render
