@@ -8,6 +8,14 @@ require_relative 'utils/plugin_logger_utils' # For logging
 require_relative 'utils/tag_argument_utils'
 
 module Jekyll
+  # Renders numbers with proper unit formatting and abbreviations.
+  #
+  # Generates HTML with properly formatted unit abbreviations using
+  # narrow non-breaking spaces and abbr elements.
+  #
+  # Usage in Liquid templates:
+  #   {% units number=100 unit="F" %}
+  #   {% units number=50 unit="km/h" %}
   class UnitsTag < Liquid::Tag
     SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
     THIN_NBSP = '&#x202F;' # U+202F NARROW NO-BREAK SPACE

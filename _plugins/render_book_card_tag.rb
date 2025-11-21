@@ -8,7 +8,16 @@ require_relative 'utils/book_card_utils'
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/tag_argument_utils'
 
+# Jekyll namespace for custom plugins.
 module Jekyll
+  # Renders a book card from a book object variable.
+  #
+  # Supports optional display title and subtitle overrides.
+  #
+  # Usage in Liquid templates:
+  #   {% render_book_card book %}
+  #   {% render_book_card book display_title="Custom Title" %}
+  #   {% render_book_card book subtitle="Subtitle Text" %}
   class RenderBookCardTag < Liquid::Tag
     SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
 

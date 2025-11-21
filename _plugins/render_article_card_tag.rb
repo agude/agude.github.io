@@ -7,7 +7,13 @@ require_relative 'utils/article_card_utils'
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/tag_argument_utils'
 
+# Jekyll namespace for custom plugins.
 module Jekyll
+  # Renders an article card from a post object variable.
+  #
+  # Usage in Liquid templates:
+  #   {% render_article_card post %}
+  #   {% render_article_card my_post_variable %}
   class RenderArticleCardTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
       super

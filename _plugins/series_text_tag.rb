@@ -11,6 +11,14 @@ require_relative 'utils/tag_argument_utils'
 require_relative 'utils/series_text_utils' # Require the new utility
 
 module Jekyll
+  # Renders series text with appropriate context and linking.
+  #
+  # Analyzes series names to extract and render them with proper formatting
+  # and linking to series pages.
+  #
+  # Usage in Liquid templates:
+  #   {% series_text "The Lord of the Rings" %}
+  #   {% series_text page.series %}
   class SeriesTextTag < Liquid::Tag
     QuotedFragment = Liquid::QuotedFragment
 
