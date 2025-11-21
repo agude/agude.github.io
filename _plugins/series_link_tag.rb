@@ -9,6 +9,14 @@ require_relative 'utils/series_link_util'
 require_relative 'utils/tag_argument_utils'
 
 module Jekyll
+  # Renders a link to a book series page.
+  #
+  # Creates an HTML link to the series page if one exists, otherwise
+  # renders plain text.
+  #
+  # Usage in Liquid templates:
+  #   {% series_link "The Lord of the Rings" %}
+  #   {% series_link page.series link_text="the series" %}
   class SeriesLinkTag < Liquid::Tag
     QuotedFragment = Liquid::QuotedFragment
 
