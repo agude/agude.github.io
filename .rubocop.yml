@@ -1,11 +1,99 @@
-# .rubocop.yml
 AllCops:
   NewCops: enable
   Exclude:
     - 'vendor/**/*'
+    - 'Gemfile'
 
-Style/Documentation:
+# ------------------------------------------------------------------
+# 1. Global Relaxations (Apply to everything)
+# ------------------------------------------------------------------
+
+# Allow numbered variables (e.g., year_2024, book_1).
+# This is harmless and very common in your domain model.
+Naming/VariableNumber:
   Enabled: false
+
+# ------------------------------------------------------------------
+# 2. Metrics (Strict for Code, Relaxed for Tests)
+# ------------------------------------------------------------------
+
+# Method Length
+# Code: 30 lines (Jekyll render methods are naturally verbose)
+# Tests: Ignored (Setup blocks and HTML assertions need space)
+Metrics/MethodLength:
+  Max: 30
+  Exclude:
+    - '_tests/**/*'
+
+# Class Length
+# Code: 250 lines (Plugins often handle multiple related tags/logic)
+# Tests: Ignored (Test files grow with the number of scenarios)
+Metrics/ClassLength:
+  Max: 250
+  Exclude:
+    - '_tests/**/*'
+
+Metrics/ModuleLength:
+  Max: 250
+  Exclude:
+    - '_tests/**/*'
+
+# Complexity (AbcSize, Cyclomatic, Perceived)
+# We exclude tests because they have high "Assignment" scores (creating mocks)
+# but low "Logic" scores (branching), so the metric is a false positive.
+Metrics/AbcSize:
+  Max: 35
+  Exclude:
+    - '_tests/**/*'
+
+Metrics/CyclomaticComplexity:
+  Max: 12
+  Exclude:
+    - '_tests/**/*'
+
+Metrics/PerceivedComplexity:
+  Max: 12
+  Exclude:
+    - '_tests/**/*'
+
+# Allow methods with more arguments (useful for internal helper methods)
+Metrics/ParameterLists:
+  Max: 8
+  CountKeywordArgs: false
+  Exclude:
+    - '_tests/**/*'
+
+# ------------------------------------------------------------------
+# 3. Layout & Formatting
+# ------------------------------------------------------------------
 
 Layout/LineLength:
   Max: 120
+  # Tests are excluded because Regex patterns and HTML strings
+  # are often unreadable if forced to wrap.
+  Exclude:
+    - '_tests/**/*'
+
+# ------------------------------------------------------------------
+# 4. Test-Specific Naming & Style
+# ------------------------------------------------------------------
+
+# Allow test_render_author_A (Capital letters in method names)
+Naming/MethodName:
+  Exclude:
+    - '_tests/**/*'
+
+# Allow @authA_book (Capital letters in variable names)
+Naming/VariableName:
+  Exclude:
+    - '_tests/**/*'
+
+# Mocks often require arguments we don't use in the block
+Lint/UnusedBlockArgument:
+  Exclude:
+    - '_tests/**/*'
+
+# Allow boolean args in test helpers (e.g., create_doc(..., published: true))
+Style/OptionalBooleanParameter:
+  Exclude:
+    - '_tests/**/*'
