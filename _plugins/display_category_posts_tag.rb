@@ -119,7 +119,7 @@ module Jekyll
     end
 
     def generate_output(result, context)
-      output = result[:log_messages] || ''
+      output = result[:log_messages]&.dup || String.new
       posts = result[:posts]
 
       return output if posts.empty?

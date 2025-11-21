@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/test_display_category_posts_tag.rb
 require_relative '../test_helper'
 require_relative '../../_plugins/display_category_posts_tag'
@@ -56,8 +58,8 @@ class TestDisplayCategoryPostsTag < Minitest::Test
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% display_category_posts topic='Tech' some_bare_word %}")
     end
-    assert_match "Expected named arguments (e.g., key='value'). Found unexpected token near 'some_bare_word'",
-                 err.message
+    expected_message = "Expected named arguments (e.g., key='value'). Found unexpected token near 'some_bare_word'"
+    assert_match expected_message, err.message
   end
 
   def test_syntax_error_unknown_named_argument
@@ -72,15 +74,16 @@ class TestDisplayCategoryPostsTag < Minitest::Test
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% display_category_posts 'Tech' %}")
     end
-    assert_match "Expected named arguments (e.g., key='value'). Found unexpected token near ''Tech''", err.message
+    expected_message = "Expected named arguments (e.g., key='value'). Found unexpected token near ''Tech''"
+    assert_match expected_message, err.message
   end
 
   def test_syntax_error_for_positional_topic_variable
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse('{% display_category_posts page_category %}')
     end
-    assert_match "Expected named arguments (e.g., key='value'). Found unexpected token near 'page_category'",
-                 err.message
+    expected_message = "Expected named arguments (e.g., key='value'). Found unexpected token near 'page_category'"
+    assert_match expected_message, err.message
   end
   # --- End positional argument error tests ---
 
@@ -130,26 +133,24 @@ class TestDisplayCategoryPostsTag < Minitest::Test
   def test_logs_error_if_topic_resolves_to_empty_string_literal
     @site.config['plugin_logging']['DISPLAY_CATEGORY_POSTS'] = true
     output = render_tag("topic='   '") # Topic resolves to empty string after strip
-    # CORRECTED Regex for log message
-    assert_match(/<!-- \[ERROR\] DISPLAY_CATEGORY_POSTS_FAILURE: Reason='Argument &#39;topic&#39; resolved to an empty string\.'\s*topic_markup='&#39;   &#39;'\s*SourcePage='current\.md' -->/,
-                 output)
+    expected_log_pattern = /<!-- \[ERROR\] DISPLAY_CATEGORY_POSTS_FAILURE: Reason='Argument &#39;topic&#39; resolved to an empty string\.'\s*topic_markup='&#39;   &#39;'\s*SourcePage='current\.md' -->/
+    assert_match(expected_log_pattern, output)
     refute_match(/<div class="card-grid">/, output)
   end
 
   def test_logs_error_if_topic_resolves_to_empty_from_variable
     @site.config['plugin_logging']['DISPLAY_CATEGORY_POSTS'] = true
     output = render_tag('topic=empty_cat_var') # empty_cat_var is "   "
-    assert_match(/<!-- \[ERROR\] DISPLAY_CATEGORY_POSTS_FAILURE: Reason='Argument &#39;topic&#39; resolved to an empty string\.'\s*topic_markup='empty_cat_var'\s*SourcePage='current\.md' -->/,
-                 output)
+    expected_log_pattern = /<!-- \[ERROR\] DISPLAY_CATEGORY_POSTS_FAILURE: Reason='Argument &#39;topic&#39; resolved to an empty string\.'\s*topic_markup='empty_cat_var'\s*SourcePage='current\.md' -->/
+    assert_match(expected_log_pattern, output)
     refute_match(/<div class="card-grid">/, output)
   end
 
   def test_logs_error_if_topic_resolves_to_nil_from_variable
     @site.config['plugin_logging']['DISPLAY_CATEGORY_POSTS'] = true
     output = render_tag('topic=nil_cat')
-    # CORRECTED Regex for log message
-    assert_match(/<!-- \[ERROR\] DISPLAY_CATEGORY_POSTS_FAILURE: Reason='Argument &#39;topic&#39; resolved to an empty string\.'\s*topic_markup='nil_cat'\s*SourcePage='current\.md' -->/,
-                 output)
+    expected_log_pattern = /<!-- \[ERROR\] DISPLAY_CATEGORY_POSTS_FAILURE: Reason='Argument &#39;topic&#39; resolved to an empty string\.'\s*topic_markup='nil_cat'\s*SourcePage='current\.md' -->/
+    assert_match(expected_log_pattern, output)
     refute_match(/<div class="card-grid">/, output)
   end
 
