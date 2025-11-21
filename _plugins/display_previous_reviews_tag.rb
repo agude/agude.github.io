@@ -7,6 +7,13 @@ require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/book_card_utils'
 
 module Jekyll
+  # Displays previous reviews of the same book sorted by date.
+  #
+  # Finds all book reviews that share the same canonical URL and displays
+  # them chronologically.
+  #
+  # Usage in Liquid templates:
+  #   {% display_previous_reviews %}
   class DisplayPreviousReviewsTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
       super
