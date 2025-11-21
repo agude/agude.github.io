@@ -11,6 +11,14 @@ require_relative 'utils/tag_argument_utils'
 require_relative 'utils/plugin_logger_utils'
 
 module Jekyll
+  # Renders a feed combining recent posts and book reviews.
+  #
+  # Displays a card grid of the most recent content from both the posts
+  # and books collections, sorted by date.
+  #
+  # Usage in Liquid templates:
+  #   {% front_page_feed %}
+  #   {% front_page_feed limit=10 %}
   class FrontPageFeedTag < Liquid::Tag
     DEFAULT_LIMIT = 5
     SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
