@@ -1,25 +1,24 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_book_link_util.rb
 require_relative '../../test_helper'
 
 class TestBookLinkUtils < Minitest::Test
   def setup
     # Author pages for smart matching
-    @author_a_page = create_doc({ 'title' => 'Author A', 'pen_names' => ['A. A. Penname'], 'layout' => 'author_page' },
-                                '/authors/a.html')
+    author_a_data = { 'title' => 'Author A', 'pen_names' => ['A. A. Penname'], 'layout' => 'author_page' }
+    @author_a_page = create_doc(author_a_data, '/authors/a.html')
     @author_b_page = create_doc({ 'title' => 'Author B', 'layout' => 'author_page' }, '/authors/b.html')
 
     # Books for testing
-    @unique_book = create_doc({ 'title' => 'Unique Book', 'published' => true, 'book_authors' => ['Author A'] },
-                              '/books/unique.html')
-    @ambiguous_book_a = create_doc(
-      { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author A'] }, '/books/ambiguous-a.html'
-    )
-    @ambiguous_book_b = create_doc(
-      { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author B'] }, '/books/ambiguous-b.html'
-    )
-    @pen_name_book = create_doc(
-      { 'title' => 'Pen Name Book', 'published' => true, 'book_authors' => ['A. A. Penname'] }, '/books/penname.html'
-    )
+    unique_book_data = { 'title' => 'Unique Book', 'published' => true, 'book_authors' => ['Author A'] }
+    @unique_book = create_doc(unique_book_data, '/books/unique.html')
+    amb_a_data = { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author A'] }
+    @ambiguous_book_a = create_doc(amb_a_data, '/books/ambiguous-a.html')
+    amb_b_data = { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author B'] }
+    @ambiguous_book_b = create_doc(amb_b_data, '/books/ambiguous-b.html')
+    pen_data = { 'title' => 'Pen Name Book', 'published' => true, 'book_authors' => ['A. A. Penname'] }
+    @pen_name_book = create_doc(pen_data, '/books/penname.html')
 
     @site = create_site(
       {},
@@ -33,19 +32,21 @@ class TestBookLinkUtils < Minitest::Test
     @ctx = create_context({}, { site: @site, page: @page })
 
     # Silent logger for tests that are expected to produce warnings/info logs
-    @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-    end
+    @silent_logger_stub = create_silent_logger
   end
 
   def render_link(title, link_text = nil, author = nil)
     BookLinkUtils.render_book_link(title, @ctx, link_text, author)
+  end
+
+  # Helper to create a silent logger stub
+  def create_silent_logger
+    logger = Object.new
+    def logger.warn(_topic, _message); end
+    def logger.error(_topic, _message); end
+    def logger.info(_topic, _message); end
+    def logger.debug(_topic, _message); end
+    logger
   end
 
   def test_render_unique_book_succeeds
@@ -88,8 +89,10 @@ class TestBookLinkUtils < Minitest::Test
       output = render_link('Ambiguous Book', nil, 'Wrong Author')
     end
     # The log message is now expected to be prepended to the output
-    assert_match %r{<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: Reason='Book title exists, but not by the specified author.' .*? --><cite class="book-title">Ambiguous Book</cite>},
-                 output
+    expected_pattern = '<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: ' \
+                       "Reason='Book title exists, but not by the specified author.' .*? -->" \
+                       '<cite class="book-title">Ambiguous Book</cite>'
+    assert_match(/#{expected_pattern}/, output)
   end
 
   def test_render_book_not_found_warns_and_renders_unlinked
@@ -98,8 +101,10 @@ class TestBookLinkUtils < Minitest::Test
       output = render_link('Non-existent Book')
     end
     # The log message is now expected to be prepended to the output
-    assert_match %r{<!-- \[INFO\] RENDER_BOOK_LINK_FAILURE: Reason='Could not find book page in cache.' .*? --><cite class="book-title">Non-existent Book</cite>},
-                 output
+    expected_pattern = '<!-- \[INFO\] RENDER_BOOK_LINK_FAILURE: ' \
+                       "Reason='Could not find book page in cache.' .*? -->" \
+                       '<cite class="book-title">Non-existent Book</cite>'
+    assert_match(/#{expected_pattern}/, output)
   end
 
   def test_render_book_link_empty_input_title
@@ -110,10 +115,10 @@ class TestBookLinkUtils < Minitest::Test
       output_nil = render_link(nil)
       output_empty = render_link('  ')
     end
-    assert_match "<!-- [WARN] RENDER_BOOK_LINK_FAILURE: Reason='Input title resolved to empty after normalization.'",
-                 output_nil
-    assert_match "<!-- [WARN] RENDER_BOOK_LINK_FAILURE: Reason='Input title resolved to empty after normalization.'",
-                 output_empty
+    expected_msg = '<!-- [WARN] RENDER_BOOK_LINK_FAILURE: ' \
+                   "Reason='Input title resolved to empty after normalization.'"
+    assert_match expected_msg, output_nil
+    assert_match expected_msg, output_empty
   end
 
   def test_unique_book_with_correct_author_param_succeeds
@@ -127,9 +132,11 @@ class TestBookLinkUtils < Minitest::Test
     Jekyll.stub :logger, @silent_logger_stub do
       output = render_link('Unique Book', nil, 'Wrong Author')
     end
-    # With the fix, this should now correctly fail to find a match and render an unlinked cite tag with a warning.
-    assert_match %r{<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: Reason='Book title exists, but not by the specified author.' .*? --><cite class="book-title">Unique Book</cite>},
-                 output
+    # With the fix, this should correctly fail to find a match and render unlinked cite tag with warning.
+    expected_pattern = '<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: ' \
+                       "Reason='Book title exists, but not by the specified author.' .*? -->" \
+                       '<cite class="book-title">Unique Book</cite>'
+    assert_match(/#{expected_pattern}/, output)
   end
 
   def test_unreviewed_mention_is_tracked
@@ -149,8 +156,10 @@ class TestBookLinkUtils < Minitest::Test
     refute_nil tracker[normalized_title], 'Tracker should have an entry for the normalized title'
 
     mention_data = tracker[normalized_title]
-    assert_equal 1, mention_data[:original_titles][unreviewed_title], 'Original title casing should be counted'
-    assert_includes mention_data[:sources], @page.url, 'Source page URL should be in the set of sources'
+    msg_count = 'Original title casing should be counted'
+    assert_equal 1, mention_data[:original_titles][unreviewed_title], msg_count
+    msg_source = 'Source page URL should be in the set of sources'
+    assert_includes mention_data[:sources], @page.url, msg_source
 
     # Call it again from a different page to ensure the count and set grow
     another_page = create_doc({ 'path' => 'another.html' }, '/another.html')
@@ -166,12 +175,13 @@ class TestBookLinkUtils < Minitest::Test
   end
 
   def test_prefers_canonical_review_over_archived
-    canonical_book = create_doc({ 'title' => 'Same Title', 'published' => true, 'book_authors' => ['Author A'] },
-                                '/books/canonical.html')
-    archived_book = create_doc(
-      { 'title' => 'Same Title', 'published' => true, 'book_authors' => ['Author A'],
-        'canonical_url' => '/books/canonical.html' }, '/books/archived.html'
-    )
+    canonical_data = { 'title' => 'Same Title', 'published' => true, 'book_authors' => ['Author A'] }
+    canonical_book = create_doc(canonical_data, '/books/canonical.html')
+    archived_data = {
+      'title' => 'Same Title', 'published' => true, 'book_authors' => ['Author A'],
+      'canonical_url' => '/books/canonical.html'
+    }
+    archived_book = create_doc(archived_data, '/books/archived.html')
 
     site = create_site(
       {},
@@ -189,14 +199,15 @@ class TestBookLinkUtils < Minitest::Test
 
   def test_handles_combined_ambiguity_of_author_and_archive
     # Setup: "Ambiguous Book" exists for Author A (with an archive) and Author B.
-    canonical_a = create_doc({ 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author A'] },
-                             '/books/ambiguous-a.html')
-    archived_a = create_doc(
-      { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author A'],
-        'canonical_url' => '/books/ambiguous-a.html' }, '/books/archived-a.html'
-    )
-    canonical_b = create_doc({ 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author B'] },
-                             '/books/ambiguous-b.html')
+    canon_a_data = { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author A'] }
+    canonical_a = create_doc(canon_a_data, '/books/ambiguous-a.html')
+    archived_a_data = {
+      'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author A'],
+      'canonical_url' => '/books/ambiguous-a.html'
+    }
+    archived_a = create_doc(archived_a_data, '/books/archived-a.html')
+    canon_b_data = { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author B'] }
+    canonical_b = create_doc(canon_b_data, '/books/ambiguous-b.html')
 
     site = create_site(
       {},
@@ -223,14 +234,15 @@ class TestBookLinkUtils < Minitest::Test
   end
 
   def test_does_not_filter_book_with_external_canonical_url
-    # Setup: Two books with the same title, one is a normal book, the other points to an external canonical URL.
+    # Setup: Two books with the same title, one normal, other points to external canonical URL.
     # This should still be treated as an ambiguity between two distinct books on our site.
-    book_a = create_doc({ 'title' => 'External Canon Test', 'published' => true, 'book_authors' => ['Author A'] },
-                        '/books/ext-a.html')
-    book_b_external = create_doc(
-      { 'title' => 'External Canon Test', 'published' => true, 'book_authors' => ['Author B'],
-        'canonical_url' => 'http://some-other.site/original' }, '/books/ext-b.html'
-    )
+    book_a_data = { 'title' => 'External Canon Test', 'published' => true, 'book_authors' => ['Author A'] }
+    book_a = create_doc(book_a_data, '/books/ext-a.html')
+    book_b_data = {
+      'title' => 'External Canon Test', 'published' => true, 'book_authors' => ['Author B'],
+      'canonical_url' => 'http://some-other.site/original'
+    }
+    book_b_external = create_doc(book_b_data, '/books/ext-b.html')
 
     site = create_site({}, { 'books' => [book_a, book_b_external] }, [@author_a_page, @author_b_page])
     ctx = create_context({}, { site: site, page: @page })
