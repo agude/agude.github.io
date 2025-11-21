@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/book_list_utils/test_all_books_display.rb
 require_relative '../../../test_helper'
 # BookListUtils is loaded by test_helper
@@ -26,9 +28,19 @@ class TestBookListUtilsAllBooksDisplay < Minitest::Test
     )
 
     # Standalone Books
-    @st_apple = create_doc({ 'title' => 'Apple Standalone', 'published' => true, 'date' => Time.now }, '/apple.html')
-    @st_the_zebra = create_doc({ 'title' => 'The Zebra Standalone', 'published' => true, 'date' => Time.now }, '/zebra.html') # Starts with "The" for sort test
-    @st_banana = create_doc({ 'title' => 'Banana Standalone', 'published' => true, 'date' => Time.now }, '/banana.html')
+    @st_apple = create_doc(
+      { 'title' => 'Apple Standalone', 'published' => true, 'date' => Time.now },
+      '/apple.html'
+    )
+    # Starts with "The" for sort test
+    @st_the_zebra = create_doc(
+      { 'title' => 'The Zebra Standalone', 'published' => true, 'date' => Time.now },
+      '/zebra.html'
+    )
+    @st_banana = create_doc(
+      { 'title' => 'Banana Standalone', 'published' => true, 'date' => Time.now },
+      '/banana.html'
+    )
 
     # Unpublished Book (should be filtered out)
     @unpublished_book = create_doc(
@@ -100,27 +112,44 @@ class TestBookListUtilsAllBooksDisplay < Minitest::Test
   end
 
   def test_get_data_for_all_books_display_sorts_series_ignoring_articles
-    book_expanse = create_doc({ 'title' => 'Book 1', 'series' => 'The Expanse', 'published' => true }, '/b1.html')
-    book_dune = create_doc({ 'title' => 'Book 2', 'series' => 'Dune', 'published' => true }, '/b2.html')
-    book_canticle = create_doc({ 'title' => 'Book 3', 'series' => 'A Canticle for Leibowitz', 'published' => true },
-                               '/b3.html')
+    book_expanse = create_doc(
+      { 'title' => 'Book 1', 'series' => 'The Expanse', 'published' => true },
+      '/b1.html'
+    )
+    book_dune = create_doc(
+      { 'title' => 'Book 2', 'series' => 'Dune', 'published' => true },
+      '/b2.html'
+    )
+    book_canticle = create_doc(
+      { 'title' => 'Book 3', 'series' => 'A Canticle for Leibowitz', 'published' => true },
+      '/b3.html'
+    )
 
     site_for_series_sort = create_site({}, { 'books' => [book_expanse, book_dune, book_canticle] })
-    context_for_series_sort = create_context({}, { site: site_for_series_sort, page: @context.registers[:page] })
+    context_for_series_sort = create_context(
+      {},
+      { site: site_for_series_sort, page: @context.registers[:page] }
+    )
 
     data = get_all_books_data(site_for_series_sort, context_for_series_sort)
 
     # Expected order: "A Canticle..." (sorts as C), "Dune" (D), "The Expanse" (E)
     expected_series_order = ['A Canticle for Leibowitz', 'Dune', 'The Expanse']
-    actual_series_order = data[:series_groups].map { |g| g[:name] }
+    actual_series_order = data[:series_groups].map { |group| group[:name] }
 
-    assert_equal expected_series_order, actual_series_order, 'Series groups were not sorted correctly ignoring articles'
+    assert_equal(
+      expected_series_order,
+      actual_series_order,
+      'Series groups were not sorted correctly ignoring articles'
+    )
   end
 
   def test_get_data_for_all_books_display_ignores_unpublished
     data = get_all_books_data
-    all_rendered_titles = data[:standalone_books].map { |b| b.data['title'] } +
-                          data[:series_groups].flat_map { |sg| sg[:books].map { |b| b.data['title'] } }
+    all_rendered_titles = data[:standalone_books].map { |book| book.data['title'] } +
+                          data[:series_groups].flat_map do |series_group|
+                            series_group[:books].map { |book| book.data['title'] }
+                          end
     refute_includes all_rendered_titles, @unpublished_book.data['title']
   end
 
@@ -140,12 +169,15 @@ class TestBookListUtilsAllBooksDisplay < Minitest::Test
   def test_get_data_for_all_books_display_books_collection_missing_logs_error
     site_no_books = create_site({}, {}) # No 'books' collection
     site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true
-    context_no_books = create_context({}, { site: site_no_books, page: @context.registers[:page] })
+    context_no_books = create_context(
+      {},
+      { site: site_no_books, page: @context.registers[:page] }
+    )
 
     data = get_all_books_data(site_no_books, context_no_books)
     assert_empty data[:standalone_books]
     assert_empty data[:series_groups]
-    assert_match(/<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books'\s*SourcePage='current_page\.html' -->/,
-                 data[:log_messages])
+    expected_log_pattern = /<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books'\s*SourcePage='current_page\.html' -->/
+    assert_match(expected_log_pattern, data[:log_messages])
   end
 end
