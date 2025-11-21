@@ -21,7 +21,28 @@ class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
     # falls back to using their given names as canonical when no page is found.
 
     # --- Book Data ---
-    # By Author Alpha (with multiple series and standalone books for sorting tests)
+    setup_author_alpha_books
+    setup_author_beta_books
+    setup_author_charlie_books
+    setup_malformed_books
+
+    @all_books = [
+      @book_aa_s1_b1, @book_aa_s1_b0_5, @book_aa_standalone_zeta, @book_aa_standalone_apple,
+      @book_ab_standalone, @book_ac_canonical, @book_ac_pen_name, @coauthored_aa_ab,
+      @book_no_author, @book_nil_author, @book_empty_author, @book_array_empty_author,
+      @unpublished_book
+    ]
+    @all_pages = [@page_ac]
+
+    @site = create_site({}, { 'books' => @all_books }, @all_pages)
+    page_data = { 'path' => 'current_page.html' }
+    @context = create_context({}, { site: @site, page: create_doc(page_data, '/current_page.html') })
+
+    @silent_logger_stub = create_silent_logger
+  end
+
+  # Helper to set up Author Alpha's books
+  def setup_author_alpha_books
     @book_aa_s1_b1 = create_doc(
       { 'title' => 'AA: Series One, Book 1', 'series' => 'Series One', 'book_number' => 1,
         'book_authors' => [@author_a_cap_name], 'published' => true }, '/aa_s1b1.html'
@@ -38,13 +59,21 @@ class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
       { 'title' => 'Apple Standalone by AA', 'book_authors' => [@author_a_cap_name],
         'published' => true }, '/aa_sa_apple.html'
     )
+  end
 
-    # By author beta
+  # Helper to set up author beta's books
+  def setup_author_beta_books
     @book_ab_standalone = create_doc(
       { 'title' => 'Standalone by ab', 'book_authors' => [@author_b_lower_name], 'published' => true }, '/ab_sa.html'
     )
+    @coauthored_aa_ab = create_doc(
+      { 'title' => 'Co-authored AA & ab', 'book_authors' => [@author_a_cap_name, @author_b_lower_name],
+        'published' => true }, '/coauth_aa_ab.html'
+    )
+  end
 
-    # By Author Charlie (canonical and pen name)
+  # Helper to set up Author Charlie's books
+  def setup_author_charlie_books
     @book_ac_canonical = create_doc(
       { 'title' => 'Book by Author Charlie', 'book_authors' => [@author_c_canonical_name],
         'published' => true }, '/ac_canon.html'
@@ -53,14 +82,10 @@ class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
       { 'title' => 'Book by Charles Penotti', 'book_authors' => [@author_c_pen_name],
         'published' => true }, '/ac_pen.html'
     )
+  end
 
-    # Co-authored book by Author Alpha and author beta
-    @coauthored_aa_ab = create_doc(
-      { 'title' => 'Co-authored AA & ab', 'book_authors' => [@author_a_cap_name, @author_b_lower_name],
-        'published' => true }, '/coauth_aa_ab.html'
-    )
-
-    # Books with malformed or no valid author data
+  # Helper to set up books with malformed or invalid data
+  def setup_malformed_books
     @book_no_author = create_doc({ 'title' => 'No Author Book', 'book_authors' => [], 'published' => true },
                                  '/no_auth.html')
     @book_nil_author = create_doc({ 'title' => 'Nil Author Book', 'book_authors' => nil, 'published' => true },
@@ -75,20 +100,6 @@ class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
       { 'title' => 'Unpublished Book by AA', 'book_authors' => [@author_a_cap_name],
         'published' => false }, '/unpub_aa.html'
     )
-
-    @all_books = [
-      @book_aa_s1_b1, @book_aa_s1_b0_5, @book_aa_standalone_zeta, @book_aa_standalone_apple,
-      @book_ab_standalone, @book_ac_canonical, @book_ac_pen_name, @coauthored_aa_ab,
-      @book_no_author, @book_nil_author, @book_empty_author, @book_array_empty_author,
-      @unpublished_book
-    ]
-    @all_pages = [@page_ac]
-
-    @site = create_site({}, { 'books' => @all_books }, @all_pages)
-    page_data = { 'path' => 'current_page.html' }
-    @context = create_context({}, { site: @site, page: create_doc(page_data, '/current_page.html') })
-
-    @silent_logger_stub = create_silent_logger
   end
 
   # Helper to create a silent logger stub
@@ -120,8 +131,15 @@ class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
     assert_equal expected_author_names_ordered, actual_author_names_ordered,
                  'Authors not sorted correctly by canonical name'
 
-    # --- Assert Author Alpha's Data ---
-    author_a_data = data[:authors_data][0]
+    assert_author_alpha_data(data[:authors_data][0])
+    assert_author_beta_data(data[:authors_data][1])
+    assert_author_charlie_data(data[:authors_data][2])
+  end
+
+  private
+
+  # Helper to assert Author Alpha's data structure
+  def assert_author_alpha_data(author_a_data)
     assert_equal @author_a_cap_name, author_a_data[:author_name]
     # Standalone books should be sorted alphabetically
     assert_equal 3, author_a_data[:standalone_books].size, 'Incorrect standalone count for Author Alpha'
@@ -142,18 +160,20 @@ class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
                  'Series One books not sorted correctly by book_number'
     assert_equal @book_aa_s1_b1.data['title'], series_one_group[:books][1].data['title'],
                  'Series One books not sorted correctly by book_number'
+  end
 
-    # --- Assert author beta's Data ---
-    author_b_data = data[:authors_data][1]
+  # Helper to assert author beta's data structure
+  def assert_author_beta_data(author_b_data)
     assert_equal @author_b_lower_name, author_b_data[:author_name]
     assert_equal 2, author_b_data[:standalone_books].size, 'Incorrect standalone count for author beta'
     author_b_standalone_titles = author_b_data[:standalone_books].map { |b| b.data['title'] }
     assert_includes author_b_standalone_titles, @book_ab_standalone.data['title']
     assert_includes author_b_standalone_titles, @coauthored_aa_ab.data['title']
     assert_empty author_b_data[:series_groups], 'author beta should have no series groups'
+  end
 
-    # --- Assert Author Charlie's Data (includes pen name book) ---
-    author_c_data = data[:authors_data][2]
+  # Helper to assert Author Charlie's data structure
+  def assert_author_charlie_data(author_c_data)
     assert_equal @author_c_canonical_name, author_c_data[:author_name]
     assert_equal 2, author_c_data[:standalone_books].size, 'Incorrect standalone count for Author Charlie'
     author_c_standalone_titles = author_c_data[:standalone_books].map { |b| b.data['title'] }

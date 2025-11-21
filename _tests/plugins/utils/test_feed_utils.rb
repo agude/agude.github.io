@@ -50,25 +50,14 @@ class TestFeedUtils < Minitest::Test
     fixed_current_time = @ref_time + (1 * 24 * 60 * 60) # June 2nd, most recent
 
     Time.stub :now, fixed_current_time do
-      post_no_date_current = create_doc(@post_no_date_val_template, '/pnodate.html', 'content', nil,
-                                        MockCollection.new(nil, 'posts'))
-      book_no_date_current = create_doc(@book_no_date_val_template, '/bnodate.html', 'content', nil,
-                                        MockCollection.new(nil, 'books'))
-
-      current_test_posts = [@post1, @post2, post_no_date_current] # Only published posts with valid/defaulted dates
-      current_test_books = [@book1, @book2, book_no_date_current] # Only published books with valid/defaulted dates
-
-      temp_posts_collection = MockCollection.new(current_test_posts, 'posts')
-      temp_books_collection = MockCollection.new(current_test_books, 'books')
-      temp_site = create_site({}, { 'books' => temp_books_collection.docs }, [], temp_posts_collection.docs)
-      temp_site.posts = temp_posts_collection
+      post_no_date, book_no_date, temp_site = create_test_site_with_current_date_docs
 
       items = FeedUtils.get_combined_feed_items(site: temp_site)
 
       assert_equal 5, items.size, 'Should return default limit of 5 items'
       actual_titles = items.map { |item| item.data['title'] }
 
-      expected_sorted = [post_no_date_current.data['title'], book_no_date_current.data['title']].sort
+      expected_sorted = [post_no_date.data['title'], book_no_date.data['title']].sort
       actual_sorted = [actual_titles[0], actual_titles[1]].sort
       msg = 'The two most recent items (with identical dates) are not correct or not at the start'
       assert_equal expected_sorted, actual_sorted, msg
@@ -77,38 +66,53 @@ class TestFeedUtils < Minitest::Test
       assert_equal @book1.data['title'], actual_titles[3]
       assert_equal @post2.data['title'], actual_titles[4]
 
-      (items.size - 1).times do |i|
-        current_title = items[i].data['title']
-        current_date = items[i].date
-        next_title = items[i + 1].data['title']
-        next_date = items[i + 1].date
-        error_msg = "Items not sorted by date descending: #{current_title} " \
-                    "( #{current_date} ) vs #{next_title} ( #{next_date} )"
-        assert items[i].date >= items[i + 1].date, error_msg
-      end
+      assert_items_sorted_descending_by_date(items)
+    end
+  end
+
+  private
+
+  # Helper to create a site with documents that have current date
+  def create_test_site_with_current_date_docs
+    post_no_date_current = create_doc(@post_no_date_val_template, '/pnodate.html', 'content', nil,
+                                      MockCollection.new(nil, 'posts'))
+    book_no_date_current = create_doc(@book_no_date_val_template, '/bnodate.html', 'content', nil,
+                                      MockCollection.new(nil, 'books'))
+
+    current_test_posts = [@post1, @post2, post_no_date_current]
+    current_test_books = [@book1, @book2, book_no_date_current]
+
+    temp_posts_collection = MockCollection.new(current_test_posts, 'posts')
+    temp_books_collection = MockCollection.new(current_test_books, 'books')
+    temp_site = create_site({}, { 'books' => temp_books_collection.docs }, [], temp_posts_collection.docs)
+    temp_site.posts = temp_posts_collection
+
+    [post_no_date_current, book_no_date_current, temp_site]
+  end
+
+  # Helper to assert items are sorted in descending order by date
+  def assert_items_sorted_descending_by_date(items)
+    (items.size - 1).times do |i|
+      current_title = items[i].data['title']
+      current_date = items[i].date
+      next_title = items[i + 1].data['title']
+      next_date = items[i + 1].date
+      error_msg = "Items not sorted by date descending: #{current_title} " \
+                  "( #{current_date} ) vs #{next_title} ( #{next_date} )"
+      assert items[i].date >= items[i + 1].date, error_msg
     end
   end
 
   def test_get_combined_feed_items_custom_limit
     fixed_current_time = @ref_time + (1 * 24 * 60 * 60)
     Time.stub :now, fixed_current_time do
-      post_no_date_current = create_doc(@post_no_date_val_template, '/pnodate.html', 'content', nil,
-                                        MockCollection.new(nil, 'posts'))
-      book_no_date_current = create_doc(@book_no_date_val_template, '/bnodate.html', 'content', nil,
-                                        MockCollection.new(nil, 'books'))
-
-      current_test_posts = [@post1, @post2, post_no_date_current]
-      current_test_books = [@book1, @book2, book_no_date_current]
-      temp_posts_collection = MockCollection.new(current_test_posts, 'posts')
-      temp_books_collection = MockCollection.new(current_test_books, 'books')
-      temp_site = create_site({}, { 'books' => temp_books_collection.docs }, [], temp_posts_collection.docs)
-      temp_site.posts = temp_posts_collection
+      post_no_date, book_no_date, temp_site = create_test_site_with_current_date_docs
 
       items = FeedUtils.get_combined_feed_items(site: temp_site, limit: 3)
       assert_equal 3, items.size
       actual_titles = items.map { |item| item.data['title'] }
 
-      expected_sorted = [post_no_date_current.data['title'], book_no_date_current.data['title']].sort
+      expected_sorted = [post_no_date.data['title'], book_no_date.data['title']].sort
       actual_sorted = [actual_titles[0], actual_titles[1]].sort
       assert_equal expected_sorted, actual_sorted
       assert_equal @post1.data['title'], actual_titles[2]
@@ -118,19 +122,7 @@ class TestFeedUtils < Minitest::Test
   def test_get_combined_feed_items_filters_unpublished
     fixed_current_time = @ref_time + (1 * 24 * 60 * 60) # Ensure "now" is most recent
     Time.stub :now, fixed_current_time do
-      post_no_date_current = create_doc(@post_no_date_val_template, '/pnodate.html', 'content', nil,
-                                        MockCollection.new(nil, 'posts'))
-      book_no_date_current = create_doc(@book_no_date_val_template, '/bnodate.html', 'content', nil,
-                                        MockCollection.new(nil, 'books'))
-
-      # Include unpublished items in the source collections for this test
-      all_test_posts = [@post1, @post2, @post_unpub, post_no_date_current]
-      all_test_books = [@book1, @book2, @book_unpub, book_no_date_current]
-
-      temp_posts_collection = MockCollection.new(all_test_posts, 'posts')
-      temp_books_collection = MockCollection.new(all_test_books, 'books')
-      temp_site = create_site({}, { 'books' => temp_books_collection.docs }, [], temp_posts_collection.docs)
-      temp_site.posts = temp_posts_collection
+      _, book_no_date, temp_site = create_test_site_with_unpublished_docs
 
       items = FeedUtils.get_combined_feed_items(site: temp_site, limit: 10) # High limit
       titles = items.map { |item| item.data['title'] }
@@ -138,7 +130,7 @@ class TestFeedUtils < Minitest::Test
       refute_includes titles, @post_unpub.data['title']
       refute_includes titles, @book_unpub.data['title']
       assert_includes titles, @post1.data['title']
-      assert_includes titles, book_no_date_current.data['title']
+      assert_includes titles, book_no_date.data['title']
 
       # Published posts: post1, post2, post_no_date_current
       assert_equal 3, items.select { |item| item.collection.label == 'posts' }.count
@@ -146,6 +138,25 @@ class TestFeedUtils < Minitest::Test
       assert_equal 3, items.select { |item| item.collection.label == 'books' }.count
       assert_equal 6, items.size # Total published items
     end
+  end
+
+  # Helper to create a site with unpublished documents
+  def create_test_site_with_unpublished_docs
+    post_no_date_current = create_doc(@post_no_date_val_template, '/pnodate.html', 'content', nil,
+                                      MockCollection.new(nil, 'posts'))
+    book_no_date_current = create_doc(@book_no_date_val_template, '/bnodate.html', 'content', nil,
+                                      MockCollection.new(nil, 'books'))
+
+    # Include unpublished items in the source collections for this test
+    all_test_posts = [@post1, @post2, @post_unpub, post_no_date_current]
+    all_test_books = [@book1, @book2, @book_unpub, book_no_date_current]
+
+    temp_posts_collection = MockCollection.new(all_test_posts, 'posts')
+    temp_books_collection = MockCollection.new(all_test_books, 'books')
+    temp_site = create_site({}, { 'books' => temp_books_collection.docs }, [], temp_posts_collection.docs)
+    temp_site.posts = temp_posts_collection
+
+    [post_no_date_current, book_no_date_current, temp_site]
   end
 
   def test_get_combined_feed_items_handles_missing_posts_collection

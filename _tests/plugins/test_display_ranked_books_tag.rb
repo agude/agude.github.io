@@ -9,24 +9,8 @@ class TestDisplayRankedBooksTag < Minitest::Test
     @site_dev = create_site({ 'environment' => 'development', 'url' => 'http://example.com' })
     @site_prod = create_site({ 'environment' => 'production', 'url' => 'http://example.com' })
 
-    @book5a = create_doc({ 'title' => 'Book A (5 Stars)', 'rating' => 5, 'published' => true }, '/b5a.html')
-    @book5b = create_doc({ 'title' => 'Book B (5 Stars)', 'rating' => '5', 'published' => true }, '/b5b.html') # Rating as string
-    @book4a = create_doc({ 'title' => 'Book C (4 Stars)', 'rating' => 4, 'published' => true }, '/b4a.html')
-    @book1a = create_doc({ 'title' => 'Book D (1 Star)', 'rating' => 1, 'published' => true }, '/b1a.html') # For singular test
-    @book_invalid_rating = create_doc(
-      { 'title' => 'Book Invalid Rating', 'rating' => 'five_stars', 'published' => true }, '/bir.html'
-    )
-    @book_unlisted = create_doc({ 'title' => 'Book Unlisted In Map', 'rating' => 3, 'published' => true }, '/bul.html') # Not in ranked_list
-
-    @all_books_for_map = [@book5a, @book5b, @book4a, @book1a, @book_invalid_rating, @book_unlisted]
-    # Ensure collections are hashes for direct key assignment
-    @site_dev.collections = { 'books' => MockCollection.new(@all_books_for_map, 'books') }
-    @site_prod.collections = { 'books' => MockCollection.new(@all_books_for_map, 'books') }
-
-    @valid_ranked_list = ['Book A (5 Stars)', 'Book B (5 Stars)', 'Book C (4 Stars)', 'Book D (1 Star)']
-    @non_existent_title_list = ['Book A (5 Stars)', 'Non Existent Book', 'Book C (4 Stars)']
-    @invalid_rating_list = ['Book A (5 Stars)', 'Book Invalid Rating', 'Book C (4 Stars)']
-    @monotonic_violation_list = ['Book C (4 Stars)', 'Book A (5 Stars)'] # 4 then 5
+    setup_book_documents
+    setup_ranked_lists
 
     # Initial page data for context
     # Using .dup for lists to prevent modification across tests if context is reused (though we re-assign directly)
@@ -53,6 +37,31 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
     # General silent logger for tests NOT focused on Jekyll.logger output
     @silent_logger_stub = create_silent_logger
+  end
+
+  # Helper to set up book documents
+  def setup_book_documents
+    @book5a = create_doc({ 'title' => 'Book A (5 Stars)', 'rating' => 5, 'published' => true }, '/b5a.html')
+    @book5b = create_doc({ 'title' => 'Book B (5 Stars)', 'rating' => '5', 'published' => true }, '/b5b.html') # Rating as string
+    @book4a = create_doc({ 'title' => 'Book C (4 Stars)', 'rating' => 4, 'published' => true }, '/b4a.html')
+    @book1a = create_doc({ 'title' => 'Book D (1 Star)', 'rating' => 1, 'published' => true }, '/b1a.html') # For singular test
+    @book_invalid_rating = create_doc(
+      { 'title' => 'Book Invalid Rating', 'rating' => 'five_stars', 'published' => true }, '/bir.html'
+    )
+    @book_unlisted = create_doc({ 'title' => 'Book Unlisted In Map', 'rating' => 3, 'published' => true }, '/bul.html') # Not in ranked_list
+
+    @all_books_for_map = [@book5a, @book5b, @book4a, @book1a, @book_invalid_rating, @book_unlisted]
+    # Ensure collections are hashes for direct key assignment
+    @site_dev.collections = { 'books' => MockCollection.new(@all_books_for_map, 'books') }
+    @site_prod.collections = { 'books' => MockCollection.new(@all_books_for_map, 'books') }
+  end
+
+  # Helper to set up ranked lists
+  def setup_ranked_lists
+    @valid_ranked_list = ['Book A (5 Stars)', 'Book B (5 Stars)', 'Book C (4 Stars)', 'Book D (1 Star)']
+    @non_existent_title_list = ['Book A (5 Stars)', 'Non Existent Book', 'Book C (4 Stars)']
+    @invalid_rating_list = ['Book A (5 Stars)', 'Book Invalid Rating', 'Book C (4 Stars)']
+    @monotonic_violation_list = ['Book C (4 Stars)', 'Book A (5 Stars)'] # 4 then 5
   end
 
   # Helper to create a silent logger stub
@@ -194,25 +203,32 @@ class TestDisplayRankedBooksTag < Minitest::Test
       end
     end
 
-    # Assert Navigation Bar
+    assert_jump_links_navigation(output)
+    assert_rating_group(output, rating: 5, expected_titles: ['Book A (5 Stars)', 'Book B (5 Stars)'])
+    assert_rating_group(output, rating: 4, expected_titles: ['Book C (4 Stars)'])
+    assert_rating_group(output, rating: 1, expected_titles: ['Book D (1 Star)'])
+
+    assert_equal 4, output.scan('mock-book-card').count
+  end
+
+  private
+
+  # Helper to assert jump links navigation structure
+  def assert_jump_links_navigation(output)
     assert_match(/<nav class="alpha-jump-links">/, output)
     expected_nav_links = '<a href="#rating-5">5&nbsp;Stars</a> &middot; <a href="#rating-4">4&nbsp;Stars</a> &middot; <a href="#rating-1">1&nbsp;Star</a>'
     assert_match expected_nav_links, output
+  end
 
-    # Assert Headers
-    assert_match %r{<h2 class="book-list-headline" id="rating-5"><span>Rating 5 Stars</span></h2>\s*<div class="card-grid">},
-                 output
-    assert_match %r{<h2 class="book-list-headline" id="rating-4"><span>Rating 4 Stars</span></h2>\s*<div class="card-grid">},
-                 output
-    assert_match %r{<h2 class="book-list-headline" id="rating-1"><span>Rating 1 Star</span></h2>\s*<div class="card-grid">},
+  # Helper to assert a rating group's structure and content
+  def assert_rating_group(output, rating:, expected_titles:)
+    star_label = rating == 1 ? 'Star' : 'Stars'
+    # Assert header
+    assert_match %r{<h2 class="book-list-headline" id="rating-#{rating}"><span>Rating #{rating} #{star_label}</span></h2>\s*<div class="card-grid">},
                  output
 
-    assert_equal 4, output.scan('mock-book-card').count
-
-    # Check content of cards within groups
-    assert_match %r{id="rating-5">.*?<div class='mock-book-card'>Book A \(5 Stars\)</div>.*?<div class='mock-book-card'>Book B \(5 Stars\)</div>.*?</div>}m,
-                 output
-    assert_match %r{id="rating-4">.*?<div class='mock-book-card'>Book C \(4 Stars\)</div>.*?</div>}m, output
-    assert_match %r{id="rating-1">.*?<div class='mock-book-card'>Book D \(1 Star\)</div>.*?</div>}m, output
+    # Build regex to match all titles in the group
+    titles_pattern = expected_titles.map { |title| Regexp.escape(title) }.join('.*?')
+    assert_match %r{id="rating-#{rating}">.*?#{titles_pattern}.*?</div>}m, output
   end
 end
