@@ -2,7 +2,9 @@
 require_relative '../../test_helper'
 require 'utils/tag_argument_utils' # Require the new util module
 
-# Renamed class
+# Tests for TagArgumentUtils module.
+#
+# Verifies that the utility correctly resolves tag arguments from quoted strings and Liquid variables.
 class TestTagArgumentUtils < Minitest::Test
   # --- resolve_value ---
   def test_resolve_value_quoted_string

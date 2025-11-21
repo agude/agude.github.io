@@ -4,6 +4,9 @@
 require_relative '../../test_helper'
 # TextProcessingUtils is loaded via test_helper's require 'utils/text_processing_utils'
 
+# Tests for TextProcessingUtils module.
+#
+# Verifies that the utility correctly processes text, including HTML cleaning, slugification, and list formatting.
 class TestTextProcessingUtils < Minitest::Test
   # --- Tests for clean_text_from_html ---
 

@@ -2,6 +2,9 @@
 require_relative '../../test_helper'
 require_relative '../../../_plugins/utils/series_text_utils' # Load the util
 
+# Tests for SeriesTextUtils module.
+#
+# Verifies that the utility correctly analyzes and formats series names with appropriate prefixes and suffixes.
 class TestSeriesTextUtils < Minitest::Test
   def test_analyze_series_name_basic
     result = SeriesTextUtils.analyze_series_name('Foundation')

@@ -3,6 +3,9 @@
 # _tests/plugins/utils/test_series_link_util.rb
 require_relative '../../test_helper'
 
+# Tests for SeriesLinkUtils module.
+#
+# Verifies that the utility correctly creates links to book series pages.
 class TestSeriesLinkUtils < Minitest::Test
   def test_render_series_link_found_and_linked
     series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')

@@ -3,6 +3,9 @@
 # _tests/plugins/utils/test_short_story_link_util.rb
 require_relative '../../test_helper'
 
+# Tests for ShortStoryLinkUtils module.
+#
+# Verifies that the utility correctly creates links to short stories within anthology books.
 class TestShortStoryLinkUtils < Minitest::Test
   def setup
     create_mock_story_cache

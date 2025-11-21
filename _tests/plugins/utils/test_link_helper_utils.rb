@@ -4,6 +4,9 @@
 require_relative '../../test_helper'
 require_relative '../../../_plugins/utils/link_helper_utils' # Load the specific utils
 
+# Tests for LinkHelperUtils module.
+#
+# Verifies that the utility correctly handles link display text and formatting.
 class TestLinkHelperUtils < Minitest::Test
   # --- Tests for _get_link_display_text ---
 

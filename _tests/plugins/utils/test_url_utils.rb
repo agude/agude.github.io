@@ -2,6 +2,9 @@
 require_relative '../../test_helper'
 # UrlUtils is loaded via test_helper
 
+# Tests for UrlUtils module.
+#
+# Verifies that the utility correctly constructs absolute URLs with proper baseurl handling.
 class TestUrlUtils < Minitest::Test
   def test_absolute_url_with_baseurl
     site = create_site({ 'url' => 'https://example.com', 'baseurl' => '/blog' })

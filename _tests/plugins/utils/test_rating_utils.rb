@@ -3,6 +3,9 @@
 # _tests/plugins/utils/test_rating_utils.rb
 require_relative '../../test_helper'
 
+# Tests for RatingUtils module.
+#
+# Verifies that the utility correctly renders star ratings with proper HTML and validation.
 class TestRatingUtils < Minitest::Test
   # Helper to check star counts and the exact sequence of star characters.
   def assert_stars(html, full_count, empty_count)
