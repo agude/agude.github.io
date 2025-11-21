@@ -75,13 +75,14 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
     output = render_tag("'#{@author_a}'") # Use instance variable for author name
 
     # Check for Author A's standalone books
-    assert_match %r{<h2 class="book-list-headline" id="standalone-books">Standalone Books</h2>}, output
+    standalone_headline = %r{<h2 class="book-list-headline" id="standalone-books">Standalone Books</h2>}
+    assert_match standalone_headline, output
     assert_match %r{<cite class="book-title">The Author A Standalone</cite>}, output
     assert_match %r{<cite class="book-title">Co-authored Book</cite>}, output # Should appear here
 
     # Check for Author A's series books
-    assert_match %r{<h2 class="series-title" id="series-one">.*<span class="book-series">Series One</span>.*</h2>},
-                 output
+    series_headline = %r{<h2 class="series-title" id="series-one">.*<span class="book-series">Series One</span>.*</h2>}
+    assert_match series_headline, output
     assert_match %r{<cite class="book-title">Author A Series One Book 1</cite>}, output
     assert_match %r{<cite class="book-title">Author A Series One Book 2</cite>}, output
 
@@ -96,13 +97,14 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
     output = render_tag('page_author_var')
 
     # Check for Author B's standalone books
-    assert_match %r{<h2 class="book-list-headline" id="standalone-books">Standalone Books</h2>}, output
+    standalone_headline = %r{<h2 class="book-list-headline" id="standalone-books">Standalone Books</h2>}
+    assert_match standalone_headline, output
     assert_match %r{<cite class="book-title">Author B Standalone</cite>}, output
     assert_match %r{<cite class="book-title">Co-authored Book</cite>}, output # Should also appear here
 
     # Check for Author B's series books
-    assert_match %r{<h2 class="series-title" id="series-two">.*<span class="book-series">Series Two</span>.*</h2>},
-                 output
+    series_headline = %r{<h2 class="series-title" id="series-two">.*<span class="book-series">Series Two</span>.*</h2>}
+    assert_match series_headline, output
     assert_match %r{<cite class="book-title">Author B Series Two Book 1</cite>}, output
 
     # Ensure Author A's specific books (not co-authored) are not present
@@ -114,8 +116,8 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
   def test_render_empty_for_non_existent_author_logs_info
     @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true
     output = render_tag("'NonExistent Author'")
-    assert_match(/<!-- \[INFO\] BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='No books found for the specified author\.'\s*AuthorFilter='NonExistent Author'\s*SourcePage='current\.html' -->/,
-                 output)
+    expected_log_pattern = /<!-- \[INFO\] BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='No books found for the specified author\.'\s*AuthorFilter='NonExistent Author'\s*SourcePage='current\.html' -->/
+    assert_match(expected_log_pattern, output)
     refute_match(/<h2 class="book-list-headline">/, output)
   end
 
@@ -131,8 +133,8 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
   def test_render_logs_for_empty_author_name_literal
     @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true
     output = render_tag("''")
-    assert_match(/<!-- \[WARN\] BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='Author name filter was empty or nil when fetching data\.'\s*AuthorFilterInput=''\s*SourcePage='current\.html' -->/,
-                 output)
+    expected_log_pattern = /<!-- \[WARN\] BOOK_LIST_AUTHOR_DISPLAY_FAILURE: Reason='Author name filter was empty or nil when fetching data\.'\s*AuthorFilterInput=''\s*SourcePage='current\.html' -->/
+    assert_match(expected_log_pattern, output)
     refute_match(/<h2 class="book-list-headline">/, output)
   end
 
