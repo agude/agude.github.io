@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_series_link_util.rb
 require_relative '../../test_helper'
 

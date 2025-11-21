@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_typography_utils.rb
 require_relative '../../test_helper'
 # TypographyUtils will be loaded by test_helper.rb after we add the require there.
