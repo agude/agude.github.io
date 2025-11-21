@@ -7,7 +7,13 @@ require_relative 'utils/book_list_utils'
 require_relative 'utils/book_card_utils'
 require_relative 'utils/tag_argument_utils'
 
+# Jekyll namespace for custom plugins.
 module Jekyll
+  # Displays book cards for all books in a specific series.
+  #
+  # Usage in Liquid templates:
+  #   {% display_books_for_series "The Lord of the Rings" %}
+  #   {% display_books_for_series page.series %}
   class DisplayBooksForSeriesTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
       super
