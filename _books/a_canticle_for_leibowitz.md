@@ -44,9 +44,9 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 {% capture stross %}{% author_link "Charles Stross" possessive link_text="Stross" %}{% endcapture %}
 
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
-{% capture simmons %}{% author_link "Dan Simmons" possessive link_text="Simmons" %}{% endcapture %}
+{% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
 
-{% capture wolfes %}{% author_link "Gene Wolfe" possessive link_text="Wolfe" %}{% endcapture %}
+{% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
 {% capture new_sun %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 
 {% capture christophers %}{% author_link "John Christopher" possessive link_text="Christopher" %}{% endcapture %}
@@ -66,25 +66,18 @@ faith and reason, the double-edged sword of knowledge, and the nature of
 suffering and sin.
 
 It is an _explicitly_ Catholic book, if that wasn't clear from the fact that
-it is about monks. In that way, it reminds me a lot of Gene Wolfe's The Book
-of the New Sun and Dan Simmons' Hyperion. All three authors mix Catholic
-theology with science fiction, but it goes deeper than that, bringing in a
-shared Catholic worldview: the Church remains a central institution, pain and
+it is about monks. In that way, it reminds me a lot of {{ wolfes }} {{ new_sun
+}} and {{ simmonss }} {{ hyperion }}. All three authors mix Catholic theology
+with science fiction, but it goes deeper than that, bringing in a shared
+Catholic worldview: the Church remains a central institution, pain and
 suffering are a core focus, and their far-future worlds feel ancient and
 burdened by the past.
-
-<!-- Answer the theme at the end -->
-
-{{ the_authors_lastname_possessive }}
-answer is "yes": humanities pride dooms it to be cast out of paradise. The
-first time was [the fall of man][fall], when the serpent promised Adam and
-Eve knowledge of good and evil. The second was the "Flame Deluge", the nuclear
-war, the scoured the earth right before the novel takes place. And the third
-time is 
 
 [fall]: https://en.wikipedia.org/wiki/Fall_of_man
 
 ### {% short_story_title "Fiat Homo" %}
+
+
 
 
 
@@ -146,3 +139,12 @@ nuclear war. In the Adeptus Mechanicus from {{ warhammer }}, who use sacred
 rituals to preserve technology, and who like Abbot Zerchi, refer to AI as
 "abominable". A religious order preserving knowledge is also the key plot
 point in {{ stephensons }} {{ anathem }}.
+
+<!-- Answer the theme at the end -->
+
+{{ the_authors_lastname_possessive }}
+answer is "yes": humanities pride dooms it to be cast out of paradise. The
+first time was [the fall of man][fall], when the serpent promised Adam and
+Eve knowledge of good and evil. The second was the "Flame Deluge", the nuclear
+war, the scoured the earth right before the novel takes place. And the third
+time is 
