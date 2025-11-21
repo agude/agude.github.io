@@ -4,6 +4,9 @@
 require_relative '../../test_helper'
 # ArticleCardUtils, TypographyUtils, etc., are loaded by test_helper
 
+# Tests for ArticleCardUtils module.
+#
+# Verifies that the utility correctly renders article/post cards with proper data extraction and formatting.
 class TestArticleCardUtils < Minitest::Test
   def setup
     @site = create_site({ 'url' => 'http://example.com' })

@@ -3,6 +3,9 @@
 # _tests/plugins/utils/test_author_link_util.rb
 require_relative '../../test_helper'
 
+# Tests for AuthorLinkUtils module.
+#
+# Verifies that the utility correctly creates links to author pages with support for pen names and possessives.
 class TestAuthorLinkUtils < Minitest::Test
   def setup
     # --- Mock Author Pages ---

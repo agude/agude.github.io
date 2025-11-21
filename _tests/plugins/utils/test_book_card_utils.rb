@@ -4,6 +4,9 @@
 require_relative '../../test_helper'
 # BookCardUtils, FrontMatterUtils, TextProcessingUtils, etc., are loaded by test_helper
 
+# Tests for BookCardUtils module.
+#
+# Verifies that the utility correctly renders book cards with authors, ratings, and optional subtitles.
 class TestBookCardUtils < Minitest::Test
   def setup
     @site = create_site({ 'url' => 'http://example.com' })

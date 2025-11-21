@@ -3,6 +3,9 @@
 # _tests/plugins/utils/test_book_link_util.rb
 require_relative '../../test_helper'
 
+# Tests for BookLinkUtils module.
+#
+# Verifies that the utility correctly creates links to book reviews with ambiguity resolution and author filtering.
 class TestBookLinkUtils < Minitest::Test
   def setup
     # Author pages for smart matching

@@ -4,6 +4,9 @@
 require_relative '../../test_helper'
 require_relative '../../../_plugins/utils/backlink_utils' # Load the util
 
+# Tests for BacklinkUtils module.
+#
+# Verifies that the utility correctly finds and sorts book backlinks from the link cache.
 class TestBacklinkUtils < Minitest::Test
   def setup
     # --- Mock Documents that will be the backlinks ---
