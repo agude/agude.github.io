@@ -8,6 +8,10 @@ require_relative 'text_processing_utils'
 require_relative 'typography_utils'
 require_relative 'front_matter_utils'
 
+# Utility module for rendering book title links with citations.
+#
+# Generates HTML links to book review pages wrapped in cite elements,
+# with support for disambiguation by author.
 module BookLinkUtils
   # --- Public Method ---
 

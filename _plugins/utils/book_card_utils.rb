@@ -9,6 +9,10 @@ require_relative 'author_link_util'
 require_relative 'rating_utils'
 require_relative 'typography_utils'
 
+# Utility module for rendering book review cards in HTML.
+#
+# Generates card HTML for book reviews with cover images, titles, authors,
+# ratings, and descriptions.
 module BookCardUtils
   DEFAULT_TITLE_FOR_BOOK_CARD = 'Untitled Book'
 

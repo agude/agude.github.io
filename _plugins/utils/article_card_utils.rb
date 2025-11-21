@@ -7,6 +7,10 @@ require_relative 'card_data_extractor_utils'
 require_relative 'card_renderer_utils'
 require_relative 'typography_utils'
 
+# Utility module for rendering article/post cards in HTML.
+#
+# Provides methods to generate card HTML for blog posts with title,
+# description, image, and metadata.
 module ArticleCardUtils
   def self.render(post_object, context)
     Renderer.new(post_object, context).render

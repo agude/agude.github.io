@@ -9,6 +9,10 @@ require_relative 'book_card_utils'
 require_relative 'text_processing_utils'
 require_relative 'front_matter_utils'
 
+# Utility module for fetching, organizing, and rendering lists of books.
+#
+# Provides methods to filter, sort, and group books by various criteria
+# (series, author, title, awards, year) for display in various list formats.
 module BookListUtils # rubocop:disable Metrics/ModuleLength
   # --- Public Methods for Tags ---
 

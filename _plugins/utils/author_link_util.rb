@@ -7,6 +7,10 @@ require_relative 'link_helper_utils'
 require_relative 'plugin_logger_utils'
 require_relative 'text_processing_utils'
 
+# Utility module for rendering author name links.
+#
+# Generates HTML links to author pages or plain text spans if no author
+# page exists, with support for possessive forms.
 module AuthorLinkUtils
   # --- Public Method ---
 

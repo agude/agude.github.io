@@ -6,6 +6,10 @@ require 'cgi'
 require_relative 'plugin_logger_utils'
 require_relative 'text_processing_utils'
 
+# Utility module for finding and processing book backlinks.
+#
+# Identifies books that reference the current page and returns sorted lists
+# of backlinks for display.
 module BacklinkUtils
   # Finds books in the 'books' collection that link back to the current_page.
   # Returns a list of [canonical_title, url] pairs, sorted alphabetically by title (ignoring articles).

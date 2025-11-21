@@ -4,6 +4,10 @@
 require_relative 'url_utils'
 require_relative 'plugin_logger_utils'
 
+# Utility module for extracting data from Jekyll documents for card rendering.
+#
+# Handles validation and extraction of common data elements (titles, URLs,
+# images, descriptions) needed to render article and book cards.
 module CardDataExtractorUtils
   # Extracts common base data required for rendering any card.
   # Handles initial validation of the item_object and context.
