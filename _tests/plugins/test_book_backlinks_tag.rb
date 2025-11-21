@@ -28,6 +28,21 @@ class TestBookBacklinksTag < Minitest::Test
     Liquid::Template.parse('{% book_backlinks %}').render!(context)
   end
 
+  # Helper to build expected list item with dagger
+  def build_expected_li_with_dagger(link_html)
+    dagger_html = '<sup class="series-mention-indicator" role="img" ' \
+                  'aria-label="Mentioned via series link" ' \
+                  'title="Mentioned via series link">†</sup>'
+    '<li class="book-backlink-item" data-link-type="series">' \
+      "#{Regexp.escape(link_html)}#{Regexp.escape(dagger_html)}</li>"
+  end
+
+  # Helper to build expected list item without dagger
+  def build_expected_li(link_type, link_html)
+    "<li class=\"book-backlink-item\" data-link-type=\"#{link_type}\">" \
+      "#{Regexp.escape(link_html)}</li>"
+  end
+
   # --- Test Cases ---
 
   def test_renders_correct_structure_with_backlinks_and_dagger
@@ -46,7 +61,8 @@ class TestBookBacklinksTag < Minitest::Test
     }
 
     output = ''
-    BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { mock_link_html[title] } do
+    stub_logic = ->(title, _url, _ctx) { mock_link_html[title] }
+    BookLinkUtils.stub :render_book_link_from_data, stub_logic do
       output = render_tag(context)
     end
 
@@ -59,20 +75,21 @@ class TestBookBacklinksTag < Minitest::Test
     assert_match(/<ul class="book-backlink-list">/, output)
 
     # Book Alpha (series link) - should have sup dagger with title attribute
-    expected_alpha_li = "<li class=\"book-backlink-item\" data-link-type=\"series\">#{Regexp.escape(mock_link_html['Book Alpha'])}<sup class=\"series-mention-indicator\" role=\"img\" aria-label=\"Mentioned via series link\" title=\"Mentioned via series link\">†</sup></li>"
+    expected_alpha_li = build_expected_li_with_dagger(mock_link_html['Book Alpha'])
     assert_match(/#{expected_alpha_li}/, output)
 
     # Book Beta (direct link) - should NOT have dagger
-    expected_beta_li = "<li class=\"book-backlink-item\" data-link-type=\"direct\">#{Regexp.escape(mock_link_html['Book Beta'])}</li>"
+    expected_beta_li = build_expected_li('direct', mock_link_html['Book Beta'])
     assert_match(/#{expected_beta_li}/, output)
 
     # Book Gamma (book link) - should NOT have dagger
-    expected_gamma_li = "<li class=\"book-backlink-item\" data-link-type=\"book\">#{Regexp.escape(mock_link_html['Book Gamma'])}</li>"
+    expected_gamma_li = build_expected_li('book', mock_link_html['Book Gamma'])
     assert_match(/#{expected_gamma_li}/, output)
 
     # Assert that the explanatory paragraph IS present
-    assert_match %r{<p class="backlink-explanation"><sup>†</sup> <em>Mentioned via a link to the series.</em></p>},
-                 output
+    expected_explanation = '<p class="backlink-explanation"><sup>†</sup> ' \
+                           '<em>Mentioned via a link to the series.</em></p>'
+    assert_match(/#{Regexp.escape(expected_explanation)}/, output)
     assert_match(%r{</ul>.*?<p class="backlink-explanation">.*?</aside>$}m, output,
                  'Explanation should be after the list and before the aside closes')
   end
@@ -91,7 +108,8 @@ class TestBookBacklinksTag < Minitest::Test
     }
 
     output = ''
-    BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { mock_link_html[title] } do
+    stub_logic = ->(title, _url, _ctx) { mock_link_html[title] }
+    BookLinkUtils.stub :render_book_link_from_data, stub_logic do
       output = render_tag(context)
     end
 
@@ -190,8 +208,8 @@ class TestBookBacklinksTag < Minitest::Test
   def test_deduplicates_backlinks_from_multiple_versions_of_same_book
     target_book = create_doc({ 'title' => 'Target' }, '/target.html')
     source_canonical = create_doc({ 'title' => 'Source Book' }, '/source.html')
-    source_archived = create_doc({ 'title' => 'Source Book', 'canonical_url' => '/source.html' },
-                                 '/source-archived.html')
+    archived_data = { 'title' => 'Source Book', 'canonical_url' => '/source.html' }
+    source_archived = create_doc(archived_data, '/source-archived.html')
 
     # Create a fresh site so the generator populates all maps correctly
     site = create_site({}, { 'books' => [target_book, source_canonical, source_archived] })
@@ -210,13 +228,16 @@ class TestBookBacklinksTag < Minitest::Test
   end
 
   def test_includes_backlinks_from_series_mentions_for_all_series_books
-    series_book_1 = create_doc({ 'title' => 'Series Book 1', 'series' => 'My Series' }, '/series-1.html')
-    series_book_2 = create_doc({ 'title' => 'Series Book 2', 'series' => 'My Series' }, '/series-2.html')
+    series_data_1 = { 'title' => 'Series Book 1', 'series' => 'My Series' }
+    series_data_2 = { 'title' => 'Series Book 2', 'series' => 'My Series' }
+    series_book_1 = create_doc(series_data_1, '/series-1.html')
+    series_book_2 = create_doc(series_data_2, '/series-2.html')
     source_for_series = create_doc({ 'title' => 'Source for Series' }, '/source-series.html')
     source_for_book1 = create_doc({ 'title' => 'Source for Book 1' }, '/source-book1.html')
 
     # Create a fresh site so the generator populates all maps correctly
-    site = create_site({}, { 'books' => [series_book_1, series_book_2, source_for_series, source_for_book1] })
+    all_series_books = [series_book_1, series_book_2, source_for_series, source_for_book1]
+    site = create_site({}, { 'books' => all_series_books })
     link_cache = site.data['link_cache']
     link_cache['backlinks'] = {
       '/series-1.html' => [
@@ -232,15 +253,20 @@ class TestBookBacklinksTag < Minitest::Test
     context_book2 = create_context({}, { site: site, page: series_book_2 })
     output_book2 = render_tag(context_book2)
 
-    assert_match(/Source for Series/, output_book2, 'Book 2 should find backlink from series mention')
-    refute_match(/Source for Book 1/, output_book2, 'Book 2 should not find backlink meant only for Book 1')
-    assert_match(/series-mention-indicator/, output_book2, 'Should have the dagger for series mentions')
+    series_msg = 'Book 2 should find backlink from series mention'
+    assert_match(/Source for Series/, output_book2, series_msg)
+    book1_msg = 'Book 2 should not find backlink meant only for Book 1'
+    refute_match(/Source for Book 1/, output_book2, book1_msg)
+    dagger_msg = 'Should have the dagger for series mentions'
+    assert_match(/series-mention-indicator/, output_book2, dagger_msg)
 
     # Test on Series Book 1, which has both
     context_book1 = create_context({}, { site: site, page: series_book_1 })
     output_book1 = render_tag(context_book1)
-    assert_match(/Source for Series/, output_book1, 'Book 1 should also find backlink from series mention')
-    assert_match(/Source for Book 1/, output_book1, 'Book 1 should find its direct backlink')
+    series1_msg = 'Book 1 should also find backlink from series mention'
+    assert_match(/Source for Series/, output_book1, series1_msg)
+    direct_msg = 'Book 1 should find its direct backlink'
+    assert_match(/Source for Book 1/, output_book1, direct_msg)
   end
 
   # --- Prerequisite Failure Tests (Unchanged) ---
