@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/json_ld_generators/test_author_profile_generator.rb
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/utils/json_ld_generators/author_profile_generator' # Load the specific generator
@@ -8,19 +10,34 @@ class TestAuthorProfileLdGenerator < Minitest::Test
     @site = create_site({ 'url' => 'https://mysite.dev', 'baseurl' => '' })
   end
 
+  private
+
+  # Helper to create expected base hash
+  def expected_base_hash(name, url)
+    {
+      '@context' => 'https://schema.org',
+      '@type' => 'Person',
+      'name' => name,
+      'url' => url
+    }
+  end
+
+  # Helper to create expected hash with optional fields
+  def expected_hash_with_fields(name, url, description: nil, same_as: nil, alternate_name: nil)
+    hash = expected_base_hash(name, url)
+    hash['description'] = description if description
+    hash['sameAs'] = same_as if same_as
+    hash['alternateName'] = alternate_name if alternate_name
+    hash
+  end
+
+  public
+
   # --- Test Cases ---
 
   def test_generate_hash_basic
-    doc = create_doc(
-      { 'layout' => 'author_page', 'title' => 'Jane Doe' },
-      '/authors/jane-doe.html'
-    )
-    expected = {
-      '@context' => 'https://schema.org',
-      '@type' => 'Person',
-      'name' => 'Jane Doe',
-      'url' => 'https://mysite.dev/authors/jane-doe.html'
-    }
+    doc = create_doc({ 'layout' => 'author_page', 'title' => 'Jane Doe' }, '/authors/jane-doe.html')
+    expected = expected_base_hash('Jane Doe', 'https://mysite.dev/authors/jane-doe.html')
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
@@ -28,95 +45,49 @@ class TestAuthorProfileLdGenerator < Minitest::Test
     doc = create_doc(
       {
         'layout' => 'author_page', 'title' => 'Jane Doe',
-        'same_as_urls' => [
-          'https://twitter.com/janedoe',
-          ' https://linkedin.com/in/janedoe ', # With whitespace
-          nil, # Should be ignored
-          ''   # Should be ignored
-        ]
+        'same_as_urls' => ['https://twitter.com/janedoe', ' https://linkedin.com/in/janedoe ', nil, '']
       },
       '/authors/jane-doe.html'
     )
-    expected = {
-      '@context' => 'https://schema.org',
-      '@type' => 'Person',
-      'name' => 'Jane Doe',
-      'url' => 'https://mysite.dev/authors/jane-doe.html',
-      'sameAs' => [
-        'https://twitter.com/janedoe',
-        'https://linkedin.com/in/janedoe'
-      ]
-    }
+    expected = expected_hash_with_fields('Jane Doe', 'https://mysite.dev/authors/jane-doe.html',
+                                         same_as: ['https://twitter.com/janedoe', 'https://linkedin.com/in/janedoe'])
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_pen_names
     doc = create_doc(
-      {
-        'layout' => 'author_page', 'title' => 'Canonical Name',
-        'pen_names' => ['Pen Name One', '  Pen Name Two  ', nil, '']
-      },
+      { 'layout' => 'author_page', 'title' => 'Canonical Name',
+        'pen_names' => ['Pen Name One', '  Pen Name Two  ', nil, ''] },
       '/authors/canonical.html'
     )
-    expected = {
-      '@context' => 'https://schema.org',
-      '@type' => 'Person',
-      'name' => 'Canonical Name',
-      'url' => 'https://mysite.dev/authors/canonical.html',
-      'alternateName' => ['Pen Name One', 'Pen Name Two'] # Expect cleaned list
-    }
+    expected = expected_hash_with_fields('Canonical Name', 'https://mysite.dev/authors/canonical.html',
+                                         alternate_name: ['Pen Name One', 'Pen Name Two'])
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_all_fields
     doc = create_doc(
-      {
-        'layout' => 'author_page', 'title' => 'Jane Doe',
-        'description' => 'An author bio.',
-        'same_as_urls' => ['https://example.com/jane'],
-        'pen_names' => ['J.D.']
-      },
+      { 'layout' => 'author_page', 'title' => 'Jane Doe', 'description' => 'An author bio.',
+        'same_as_urls' => ['https://example.com/jane'], 'pen_names' => ['J.D.'] },
       '/authors/jane-doe.html'
     )
-    expected = {
-      '@context' => 'https://schema.org',
-      '@type' => 'Person',
-      'name' => 'Jane Doe',
-      'url' => 'https://mysite.dev/authors/jane-doe.html',
-      'description' => 'An author bio.',
-      'sameAs' => ['https://example.com/jane'],
-      'alternateName' => ['J.D.']
-    }
+    expected = expected_hash_with_fields('Jane Doe', 'https://mysite.dev/authors/jane-doe.html',
+                                         description: 'An author bio.', same_as: ['https://example.com/jane'],
+                                         alternate_name: ['J.D.'])
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_empty_same_as_urls
-    doc = create_doc(
-      { 'layout' => 'author_page', 'title' => 'Jane Doe', 'same_as_urls' => [] },
-      '/authors/jane-doe.html'
-    )
-    expected = {
-      '@context' => 'https://schema.org',
-      '@type' => 'Person',
-      'name' => 'Jane Doe',
-      'url' => 'https://mysite.dev/authors/jane-doe.html'
-      # No sameAs key
-    }
+    doc = create_doc({ 'layout' => 'author_page', 'title' => 'Jane Doe', 'same_as_urls' => [] },
+                     '/authors/jane-doe.html')
+    expected = expected_base_hash('Jane Doe', 'https://mysite.dev/authors/jane-doe.html')
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_nil_same_as_urls
-    doc = create_doc(
-      { 'layout' => 'author_page', 'title' => 'Jane Doe', 'same_as_urls' => nil },
-      '/authors/jane-doe.html'
-    )
-    expected = {
-      '@context' => 'https://schema.org',
-      '@type' => 'Person',
-      'name' => 'Jane Doe',
-      'url' => 'https://mysite.dev/authors/jane-doe.html'
-      # No sameAs key
-    }
+    doc = create_doc({ 'layout' => 'author_page', 'title' => 'Jane Doe', 'same_as_urls' => nil },
+                     '/authors/jane-doe.html')
+    expected = expected_base_hash('Jane Doe', 'https://mysite.dev/authors/jane-doe.html')
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
@@ -125,49 +96,29 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       { 'layout' => 'author_page', 'title' => 'Jane Doe', 'description' => ' An author bio. ' },
       '/authors/jane-doe.html'
     )
-    expected = {
-      '@context' => 'https://schema.org',
-      '@type' => 'Person',
-      'name' => 'Jane Doe',
-      'url' => 'https://mysite.dev/authors/jane-doe.html',
-      'description' => 'An author bio.' # Cleaned by extract_descriptive_text
-    }
+    expected = expected_hash_with_fields('Jane Doe', 'https://mysite.dev/authors/jane-doe.html',
+                                         description: 'An author bio.')
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_excerpt
-    # Use the override mechanism from test_helper
     doc = create_doc(
       { 'layout' => 'author_page', 'title' => 'Jane Doe', 'excerpt_output_override' => '<p>Excerpt bio.</p>' },
       '/authors/jane-doe.html'
     )
-    expected = {
-      '@context' => 'https://schema.org',
-      '@type' => 'Person',
-      'name' => 'Jane Doe',
-      'url' => 'https://mysite.dev/authors/jane-doe.html',
-      'description' => 'Excerpt bio.' # Cleaned from excerpt
-    }
+    expected = expected_hash_with_fields('Jane Doe', 'https://mysite.dev/authors/jane-doe.html',
+                                         description: 'Excerpt bio.')
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_excerpt_and_description_priority
-    # Excerpt should take priority
     doc = create_doc(
-      {
-        'layout' => 'author_page', 'title' => 'Jane Doe',
-        'excerpt_output_override' => '<p>Excerpt bio.</p>',
-        'description' => 'This should be ignored.'
-      },
+      { 'layout' => 'author_page', 'title' => 'Jane Doe', 'excerpt_output_override' => '<p>Excerpt bio.</p>',
+        'description' => 'This should be ignored.' },
       '/authors/jane-doe.html'
     )
-    expected = {
-      '@context' => 'https://schema.org',
-      '@type' => 'Person',
-      'name' => 'Jane Doe',
-      'url' => 'https://mysite.dev/authors/jane-doe.html',
-      'description' => 'Excerpt bio.' # Excerpt wins
-    }
+    expected = expected_hash_with_fields('Jane Doe', 'https://mysite.dev/authors/jane-doe.html',
+                                         description: 'Excerpt bio.')
     assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
@@ -176,12 +127,7 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       { 'layout' => 'author_page', 'title' => 'Jane Doe', 'same_as_urls' => 'not-an-array' },
       '/authors/jane-doe.html'
     )
-    expected = { # sameAs should be omitted
-      '@context' => 'https://schema.org',
-      '@type' => 'Person',
-      'name' => 'Jane Doe',
-      'url' => 'https://mysite.dev/authors/jane-doe.html'
-    }
+    expected = expected_base_hash('Jane Doe', 'https://mysite.dev/authors/jane-doe.html')
 
     # Mock logger
     mock_logger = Minitest::Mock.new
@@ -203,7 +149,8 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       { 'layout' => 'author_page', 'title' => ' ', 'description' => '', 'same_as_urls' => [], 'pen_names' => [] },
       '/authors/empty.html'
     )
-    expected = { # Only context, type, and URL should remain
+    # Only context, type, and URL should remain
+    expected = {
       '@context' => 'https://schema.org',
       '@type' => 'Person',
       'url' => 'https://mysite.dev/authors/empty.html'
