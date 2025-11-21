@@ -22,10 +22,17 @@ class TestAuthorLinkTag < Minitest::Test
   def parse_and_capture_args(markup, context = @context)
     captured_args = nil
     # Stub the utility function
-    AuthorLinkUtils.stub :render_author_link, lambda { |name, ctx, link_text_override, possessive|
-      captured_args = { name: name, context: ctx, link_text_override: link_text_override, possessive: possessive }
-      "<!-- AuthorLinkUtils called with name: #{name}, link_text: #{link_text_override}, possessive: #{possessive} -->"
-    } do
+    stub_render_author_link = lambda do |name, ctx, link_text_override, possessive|
+      captured_args = {
+        name: name,
+        context: ctx,
+        link_text_override: link_text_override,
+        possessive: possessive
+      }
+      "<!-- AuthorLinkUtils called with name: #{name}, link_text: #{link_text_override}, " \
+        "possessive: #{possessive} -->"
+    end
+    AuthorLinkUtils.stub :render_author_link, stub_render_author_link do
       template = Liquid::Template.parse("{% author_link #{markup} %}")
       output = template.render!(context)
       return output, captured_args
