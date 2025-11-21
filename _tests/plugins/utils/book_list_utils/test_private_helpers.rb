@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/book_list_utils/test_private_helpers.rb
 require_relative '../../../test_helper'
 # BookListUtils is loaded by test_helper, making its private methods accessible for testing via __send__
@@ -56,8 +58,10 @@ class TestBookListUtilsPrivateHelpers < Minitest::Test
 
   def test_format_award_display_name_already_contains_award_word_is_titleized_and_appended
     # Current logic always appends " Award" after titleizing the input.
-    assert_equal 'Locus Award For Best Sf Novel Award',
-                 BookListUtils.__send__(:_format_award_display_name, 'Locus Award for Best SF Novel')
+    assert_equal(
+      'Locus Award For Best Sf Novel Award',
+      BookListUtils.__send__(:_format_award_display_name, 'Locus Award for Best SF Novel')
+    )
     assert_equal 'Hugo Award Award', BookListUtils.__send__(:_format_award_display_name, 'hugo award')
   end
 

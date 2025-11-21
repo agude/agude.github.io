@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_front_matter_utils.rb
 require_relative '../../test_helper'
 # FrontMatterUtils is loaded by test_helper.rb
