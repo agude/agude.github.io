@@ -11,6 +11,11 @@ require_relative 'utils/article_card_utils'
 require_relative 'utils/tag_argument_utils'
 
 module Jekyll
+  # Renders an article card by looking up a post by URL.
+  #
+  # Usage in Liquid templates:
+  #   {% article_card_lookup "/blog/my-post" %}
+  #   {% article_card_lookup url="/blog/my-post" %}
   class ArticleCardLookupTag < Liquid::Tag
     QuotedFragment = Liquid::QuotedFragment
 
