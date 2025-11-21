@@ -10,8 +10,15 @@ class TestSeriesTextTag < Minitest::Test
     @series1_page = create_doc({ 'title' => 'Foundation', 'layout' => 'series_page' }, '/series/foundation.html')
     @series2_page = create_doc({ 'title' => 'The Expanse', 'layout' => 'series_page' }, '/series/expanse.html')
     @series3_page = create_doc({ 'title' => 'Dune Saga', 'layout' => 'series_page' }, '/series/dune.html')
-    @series4_page = create_doc({ 'title' => 'The Wheel of Time Saga', 'layout' => 'series_page' }, '/series/wot.html')
-    @series5_page = create_doc({ 'title' => 'Saga', 'layout' => 'series_page' }, '/series/saga-comic.html') # Series named 'Saga'
+    @series4_page = create_doc(
+      { 'title' => 'The Wheel of Time Saga', 'layout' => 'series_page' },
+      '/series/wot.html'
+    )
+    # Series named 'Saga'
+    @series5_page = create_doc(
+      { 'title' => 'Saga', 'layout' => 'series_page' },
+      '/series/saga-comic.html'
+    )
     # Add pages needed for the previously failing tests
     @arcane_page = create_doc({ 'title' => 'Arcane', 'layout' => 'series_page' }, '/series/arcane.html')
     @test_series_page = create_doc({ 'title' => 'Test Series', 'layout' => 'series_page' }, '/series/test.html')
@@ -48,7 +55,8 @@ class TestSeriesTextTag < Minitest::Test
 
   def test_series_starting_with_the_case_insensitive_linked
     markup = '"the expanse"' # Input is lowercase
-    expected_link = '<a href="/series/expanse.html"><span class="book-series">The Expanse</span></a>' # Output uses canonical title
+    # Output uses canonical title
+    expected_link = '<a href="/series/expanse.html"><span class="book-series">The Expanse</span></a>'
     expected_output = "#{expected_link} series" # No "the " prefix
     assert_equal expected_output, render_tag(markup)
   end
@@ -62,14 +70,16 @@ class TestSeriesTextTag < Minitest::Test
 
   def test_series_containing_keyword_case_insensitive_linked
     markup = '"dune saga"' # Input is lowercase
-    expected_link = '<a href="/series/dune.html"><span class="book-series">Dune Saga</span></a>' # Output uses canonical title
+    # Output uses canonical title
+    expected_link = '<a href="/series/dune.html"><span class="book-series">Dune Saga</span></a>'
     expected_output = "the #{expected_link}" # No " series" suffix
     assert_equal expected_output, render_tag(markup)
   end
 
   def test_series_starting_with_the_and_containing_keyword_linked
     markup = '"The Wheel of Time Saga"'
-    expected_link = '<a href="/series/wot.html"><span class="book-series">The Wheel of Time Saga</span></a>'
+    expected_link = '<a href="/series/wot.html">' \
+                    '<span class="book-series">The Wheel of Time Saga</span></a>'
     expected_output = expected_link.to_s # No "the " prefix, no " series" suffix
     assert_equal expected_output, render_tag(markup)
   end
@@ -105,21 +115,21 @@ class TestSeriesTextTag < Minitest::Test
   def test_series_not_found_starting_with_the_and_containing_keyword
     markup = '"The Unknown Saga"'
     expected_span = '<span class="book-series">The Unknown Saga</span>'
-    expected_output = expected_span.to_s # No prefix or suffix
+    expected_output = expected_span # No prefix or suffix
     assert_equal expected_output, render_tag(markup)
   end
 
   def test_series_not_found_middle_word_unlinked
     markup = '"The Chronicles of Narnia"'
     expected_span = '<span class="book-series">The Chronicles of Narnia</span>'
-    expected_output = expected_span.to_s
+    expected_output = expected_span
     assert_equal expected_output, render_tag(markup)
   end
 
   def test_series_not_found_starts_with_a
     markup = '"A Song of Ice and Fire"'
     expected_span = '<span class="book-series">A Song of Ice and Fire</span>'
-    expected_output = expected_span.to_s
+    expected_output = expected_span
     assert_equal expected_output, render_tag(markup)
   end
 
