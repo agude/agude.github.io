@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/display_previous_reviews_tag'
 
+# Tests for DisplayPreviousReviewsTag Liquid tag.
+#
+# Verifies that the tag correctly finds and displays previous reviews of the same book.
 class TestDisplayPreviousReviewsTag < Minitest::Test
   def setup
     setup_test_documents

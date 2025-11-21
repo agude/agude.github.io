@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/display_ranked_by_backlinks_tag'
 
+# Tests for DisplayRankedByBacklinksTag Liquid tag.
+#
+# Verifies that the tag correctly displays books ranked by backlink count.
 class TestDisplayRankedByBacklinksTag < Minitest::Test
   def setup
     # --- Mock Documents ---

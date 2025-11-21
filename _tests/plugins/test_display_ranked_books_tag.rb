@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/display_ranked_books_tag'
 
+# Tests for DisplayRankedBooksTag Liquid tag.
+#
+# Verifies that the tag correctly displays books ranked by rating.
 class TestDisplayRankedBooksTag < Minitest::Test
   def setup
     @site_dev = create_site({ 'environment' => 'development', 'url' => 'http://example.com' })

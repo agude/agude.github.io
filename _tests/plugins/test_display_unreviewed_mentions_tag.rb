@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/display_unreviewed_mentions_tag'
 
+# Tests for DisplayUnreviewedMentionsTag Liquid tag.
+#
+# Verifies that the tag correctly displays mentioned books that lack reviews.
 class TestDisplayUnreviewedMentionsTag < Minitest::Test
   def setup
     @site = create_site

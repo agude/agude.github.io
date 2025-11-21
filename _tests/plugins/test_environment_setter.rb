@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/environment_setter' # Load the generator
 
+# Tests for EnvironmentSetterGenerator.
+#
+# Verifies that the generator correctly sets site.config['environment'] from ENV.
 class TestEnvironmentSetterGenerator < Minitest::Test
   def setup
     @original_jekyll_env = ENV.fetch('JEKYLL_ENV', nil) # Store original ENV value
