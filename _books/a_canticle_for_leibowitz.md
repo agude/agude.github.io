@@ -35,7 +35,7 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 {% capture warhammer %}<cite class="table-top-game-title">Warhammer 40,000</cite>{% endcapture %}
 
 {% capture rur %}{% book_link "R.U.R." %}{% endcapture %}
-{% capture capeks %}{% author_link "Karel Čapek" possessive link_text="Čapek" %}{% endcapture %}
+{% capture capek %}{% author_link "Karel Čapek" %}{% endcapture %}
 
 {% capture anathem %}{% book_link "Anathem" %}{% endcapture %}
 {% capture stephensons %}{% author_link "Neal Stephenson" possessive link_text="Stephenson" %}{% endcapture %}
@@ -77,15 +77,44 @@ burdened by the past.
 
 ### {% short_story_title "Fiat Homo" %}
 
+Hundreds of years after the "Flame Deluge" destroyed civilization, a young
+novice named Brother Francis Gerard discovers a fallout shelters containing
+relics---a shopping list, a blueprint, etc.---from his order's founder: the
+Blessed Leibowitz. Abbot Arkos worries the serendipitous discovers timing will
+disrupt Leibowitz's canonization, but can't dissuade Gerard's obsession with
+the relics. Gerard spends 15 years creating an illuminated version of the
+blueprint, before having it stolen on his journey to New Rome to witness the
+beatification of Leibowitz. Gerard is killed by the mutants on the way home.
 
-
-
+In this section we see the start of the cycle of civilization again. We also
+see the smaller scale cycles {{ the_authors_lastname }} works into his
+stories: Gerard's repeated encounters with the Buzzards, who finally eat him,
+and the way the [Wandering Jew][wandering_jew] both starts and ends the
+chapter.
 
 ### {% short_story_title "Fiat Lux" %}
 
-The "humans are servants how overthrew their masters" is a direct reference to
-{{ rur }}
+In the far future, humanity has once again conquered the atom and is on the
+brink of way, taking us back full circle to the beginning of the book.
 
+Hundreds of years later, humans are starting to build empires again. Thon
+Taddeo, scientist and heir to the Texarkana kingdom, visits the Abbey to study
+the Memorabilia. Some monks are also studying the old texts, and use them to
+invent an arc lamp. Abbot Dom Paulo is caught between the rise of secular
+power and knowledge, and the mission his brotherhood has upheld for hundreds
+of years.
+
+The clearest theme is the tension between religion and science, with the
+Monks not full trusting the Thon, nor their own Brother Kornhoer who invents
+the lamp. The theme also shows up with the church preparing to physically
+defend itself from the state which looks to use it as a fort in their conquest
+of the planes.
+
+In this section, Taddeo wonders if humans are the servants of a higher race
+that created them, based on his reading a piece from the Memorabilia, a
+reference to the play {{ rur }} by {{ capek }}.[^robot]
+
+[^robot]: {{ rur }} is the origin of the word "Robot".
 
 ### {% short_story_title "Fiat Voluntas Tua" %}
 
