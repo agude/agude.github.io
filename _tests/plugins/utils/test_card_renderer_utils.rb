@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_card_renderer_utils.rb
 require_relative '../../test_helper'
 # CardRendererUtils will be loaded by test_helper once we add its require there.
