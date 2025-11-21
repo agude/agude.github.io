@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_author_link_util.rb
 require_relative '../../test_helper'
 
@@ -117,7 +119,10 @@ class TestAuthorLinkUtils < Minitest::Test
   end
 
   def test_render_author_link_escaping_name
-    author_page_escaped = create_doc({ 'title' => 'A & B <Company>', 'layout' => 'author_page' }, '/authors/a-b.html')
+    author_page_escaped = create_doc(
+      { 'title' => 'A & B <Company>', 'layout' => 'author_page' },
+      '/authors/a-b.html'
+    )
     site_escaped = create_site({}, {}, [author_page_escaped])
     ctx_escaped = create_context({}, { site: site_escaped, page: @page })
     expected = '<a href="/authors/a-b.html"><span class="author-name">A &amp; B &lt;Company&gt;</span></a>'
@@ -130,7 +135,10 @@ class TestAuthorLinkUtils < Minitest::Test
   end
 
   def test_render_author_link_uses_canonical_title_from_page
-    author_page_fuzzy = create_doc({ 'title' => '  Jane   DOE ', 'layout' => 'author_page' }, '/authors/jane-doe.html')
+    author_page_fuzzy = create_doc(
+      { 'title' => '  Jane   DOE ', 'layout' => 'author_page' },
+      '/authors/jane-doe.html'
+    )
     site_fuzzy = create_site({}, {}, [author_page_fuzzy])
     ctx_fuzzy = create_context({}, { site: site_fuzzy, page: @page })
     expected = '<a href="/authors/jane-doe.html"><span class="author-name">Jane   DOE</span></a>'
