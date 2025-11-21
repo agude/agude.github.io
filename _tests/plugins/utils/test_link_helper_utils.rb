@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_link_helper_utils.rb
 require_relative '../../test_helper'
 require_relative '../../../_plugins/utils/link_helper_utils' # Load the specific utils
