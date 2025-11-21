@@ -57,67 +57,64 @@ while IFS= read -r line; do
     # Read the actual source code
     source_code=$(cat "$current_file")
 
+    # Determine context (Plugin vs Test) for better instructions
+    context_instruction=""
+    if [[ "$current_file" == *"_tests"* ]]; then
+        context_instruction="CONTEXT: This is a Minitest file. Documentation should briefly explain what is being tested. Do not over-engineer refactoring in tests; prefer readability."
+    else
+        context_instruction="CONTEXT: This is a Jekyll Plugin (Production Code). Documentation must be clear, explaining the purpose of the Tag/Generator and how it is used in Liquid."
+    fi
+
     # WRITE THE PROMPT
     cat <<EOF > "$prompt_file"
-I need you to refactor the following Ruby file to fix RuboCop static analysis errors and improve general code quality.
+You are a Senior Ruby Engineer specializing in Jekyll. I need you to fix RuboCop static analysis errors in the following file.
 
 FILE: $current_file
+$context_instruction
 
 THE ERRORS TO FIX:
 $error_buffer
 
-STYLE GUIDE & REFACTORING PATTERNS:
-1. **Complex Logic Extraction (Tags/Classes):**
-   - If a method (like \`render\`) is too complex, extract the logic into a private helper class defined within the same module/class.
-   - **Pattern:**
+--------------------------------------------------
+STYLE GUIDE & INSTRUCTIONS:
+
+1. **Documentation (Style/Documentation):**
+   - **Requirement:** Every Class and Module must have a top-level comment block.
+   - **Format:**
      \`\`\`ruby
-     def render(context)
-       MyTagRenderer.new(context).render
-     end
-
-     # Helper class to handle rendering logic
-     class MyTagRenderer
-       def initialize(context)
-         @context = context
-         @site = context.registers[:site]
-       end
-
-       def render
-         # logic here
-       end
-     end
+     # Short summary of what this class does.
+     #
+     # (Optional) Detailed explanation or Liquid usage example:
+     # {% my_tag param="value" %}
+     class MyClass ...
      \`\`\`
+   - **Quality:** Do not write "Class for X". Write "Generates X based on Y configuration."
 
-2. **Stateless Utilities (Modules):**
-   - For utility modules, keep methods static (\`def self.method\`).
-   - Break complex logic into private class methods named with a leading underscore.
-   - **Pattern:**
-     \`\`\`ruby
-     def self.public_method(arg)
-       _private_helper(arg)
-     end
+2. **Frozen String Literals:**
+   - Ensure \`# frozen_string_literal: true\` is the **very first line** of the file.
 
-     def self._private_helper(arg)
-       # logic
-     end
-     \`\`\`
+3. **Naming & Variables:**
+   - Fix short variable names (e.g., change \`l\` to \`logger\`, \`p\` to \`path\`).
+   - Use snake_case for variables and methods.
 
-3. **General Quality:**
-   - Fix "bad code" or poor style even if RuboCop misses it (e.g., redundant logic, unclear variable names, deeply nested conditionals).
-   - Ensure \`# frozen_string_literal: true\` is at the top.
+4. **Refactoring Strategy (Only if Metrics/* errors exist):**
+   - **If** the error is \`Metrics/MethodLength\` or \`Complexity\`:
+     - Extract logic into private helper methods (e.g., \`def _helper_method\`).
+     - Or, extract a private helper class if state management is complex.
+   - **If** there are NO metrics errors, **DO NOT** refactor the logic structure. Just fix the style/docs.
 
-INSTRUCTIONS:
-1. Fix the specific RuboCop errors listed above.
-2. Apply the Refactoring Patterns defined in the Style Guide.
-3. Improve readability and maintainability generally.
-4. **CRITICAL:** DO NOT change the external behavior or API of the code.
-5. DO NOT remove comments unless they are the specific "rubocop:disable" comments causing issues.
-6. Return the FULL content of the fixed file.
+5. **Safety:**
+   - **CRITICAL:** Do not change the external behavior or API of the code.
+   - Do not remove existing comments unless they are the specific "rubocop:disable" comments causing issues.
 
+--------------------------------------------------
 SOURCE CODE:
 \`\`\`ruby
 $source_code
 \`\`\`
+
+**OUTPUT:**
+Return ONLY the full, valid Ruby code for the file. No markdown wrappers, no conversational filler.
 EOF
 
     echo "  📝 Generated: $prompt_file"
@@ -131,4 +128,4 @@ rm "$PROMPT_DIR/all_errors.txt"
 
 echo "--------------------------------------------------"
 echo "✅ Done! Open the '$PROMPT_DIR' folder."
-echo "Copy the content of a text file, paste it into your LLM, and copy the code back."
+echo "Process these files one by one."
