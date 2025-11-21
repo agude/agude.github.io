@@ -9,6 +9,11 @@ require_relative 'utils/book_card_utils'
 require_relative 'utils/tag_argument_utils'
 
 module Jekyll
+  # Renders a book card by looking up a book by its title.
+  #
+  # Usage in Liquid templates:
+  #   {% book_card_lookup "The Fellowship of the Ring" %}
+  #   {% book_card_lookup title="The Fellowship of the Ring" %}
   class BookCardLookupTag < Liquid::Tag
     QuotedFragment = Liquid::QuotedFragment
 
