@@ -7,6 +7,10 @@ require 'jekyll'
 # require_relative './utils/front_matter_utils'
 
 module Jekyll
+  # Validates required front matter fields for Jekyll documents and pages.
+  #
+  # Ensures that collections and layouts have all required front matter
+  # fields defined before rendering, raising fatal errors for missing fields.
   module FrontMatterValidator
     # Default configuration
     DEFAULT_REQUIRED_FIELDS_CONFIG = {
