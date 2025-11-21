@@ -3,6 +3,9 @@
 # _tests/plugins/test_link_cache_generator_favorites.rb
 require_relative '../test_helper'
 
+# Tests for LinkCacheGenerator favorites tracking functionality.
+#
+# Verifies that the generator correctly tracks book mentions in favorites posts.
 class TestLinkCacheGeneratorFavorites < Minitest::Test
   def setup
     # --- Mock Books (Targets of the links) ---

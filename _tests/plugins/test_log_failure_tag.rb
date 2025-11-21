@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/log_failure_tag' # Load the tag
 
+# Tests for LogFailureTag Liquid tag.
+#
+# Verifies that the tag correctly logs failures with custom types and identifiers.
 class TestLogFailureTag < Minitest::Test
   def setup
     @site = create_site

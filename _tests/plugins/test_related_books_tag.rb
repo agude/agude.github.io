@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/related_books_tag'
 
+# Tests for RelatedBooksTag Liquid tag.
+#
+# Verifies that the tag correctly finds and displays related books by series and author.
 class TestRelatedBooksTag < Minitest::Test
   DEFAULT_MAX_BOOKS = Jekyll::RelatedBooksTag::DEFAULT_MAX_BOOKS
 

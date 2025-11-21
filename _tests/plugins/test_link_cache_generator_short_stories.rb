@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 # LinkCacheGenerator is loaded by test_helper
 
+# Tests for LinkCacheGenerator short story caching functionality.
+#
+# Verifies that the generator correctly extracts and caches short stories from anthology books.
 class TestLinkCacheGeneratorShortStories < Minitest::Test
   def setup
     # --- Mock Books for Short Story Cache Testing ---
