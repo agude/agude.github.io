@@ -53,14 +53,14 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
     @context = create_context({},
                               { site: @site,
                                 page: create_doc({ 'path' => 'current_tag_page.md' }, '/current_tag_page.html') })
-    @silent_logger_stub = Object.new.tap do |l|
-      def l.warn(p, m); end
+    @silent_logger_stub = Object.new.tap do |logger|
+      def logger.warn(prefix, msg); end
 
-      def l.error(p, m); end
+      def logger.error(prefix, msg); end
 
-      def l.info(p, m); end
+      def logger.info(prefix, msg); end
 
-      def l.debug(p, m); end
+      def logger.debug(prefix, msg); end
     end
   end
 
@@ -72,7 +72,7 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
 
   def render_tag(context = @context)
     output = +''
-    BookListUtils.stub :render_book_groups_html, lambda { |data, _ctx, series_heading_level: 2|
+    book_groups_stub = lambda { |data, _ctx, series_heading_level: 2|
       group_html = +''
       data[:series_groups]&.each do |sg|
         # Ensure sg and sg[:books] are not nil before mapping
@@ -87,8 +87,11 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
         group_html << "<!-- Series #{series_name} (H#{series_heading_level}) for author: #{books_titles} -->\n"
       end
       group_html
-    } do
-      BookCardUtils.stub :render, ->(book, _ctx) { "<!-- Standalone Card: #{book.data['title']} -->\n" } do
+    }
+    card_stub = ->(book, _ctx) { "<!-- Standalone Card: #{book.data['title']} -->\n" }
+
+    BookListUtils.stub :render_book_groups_html, book_groups_stub do
+      BookCardUtils.stub :render, card_stub do
         Jekyll.stub :logger, @silent_logger_stub do
           output = Liquid::Template.parse('{% display_books_by_author_then_series %}').render!(context)
         end
