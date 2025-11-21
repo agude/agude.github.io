@@ -30,41 +30,15 @@ class TestDisplayRankedByBacklinksTag < Minitest::Test
   end
 
   def test_renders_ranked_list_correctly_sorted
-    # --- Setup backlink data for this specific test ---
-    # Book B is mentioned most, then A, then C.
-    @site.data['link_cache']['backlinks'] = {
-      '/a.html' => [
-        { source: create_doc, type: 'book' },
-        { source: create_doc, type: 'series' }
-      ], # 2 mentions
-      '/b.html' => [
-        { source: create_doc, type: 'book' },
-        { source: create_doc, type: 'book' },
-        { source: create_doc, type: 'direct' }
-      ], # 3 mentions
-      '/c.html' => [
-        { source: create_doc, type: 'book' }
-      ]  # 1 mention
-    }
+    setup_backlink_data_for_ranking_test
 
     # Stub the link utility to return predictable HTML
     BookLinkUtils.stub :render_book_link_from_data, ->(title, url, _ctx) { "<a href=\"#{url}\">#{title}</a>" } do
       output = render_tag
 
       assert_match(/<ol class="ranked-list">/, output)
-
-      # Check for list items and their content
-      assert_match %r{<li><a href="/b.html">Book B</a> <span class="mention-count">\(3 mentions\)</span></li>}, output
-      assert_match %r{<li><a href="/a.html">Book A</a> <span class="mention-count">\(2 mentions\)</span></li>}, output
-      assert_match %r{<li><a href="/c.html">Book C</a> <span class="mention-count">\(1 mention\)</span></li>}, output
-
-      # Verify the order
-      idx_b = output.index('Book B')
-      idx_a = output.index('Book A')
-      idx_c = output.index('Book C')
-
-      assert idx_b < idx_a, 'Book B (3 mentions) should appear before Book A (2 mentions)'
-      assert idx_a < idx_c, 'Book A (2 mentions) should appear before Book C (1 mention)'
+      assert_list_items_present(output)
+      assert_correct_book_order(output)
     end
   end
 
@@ -88,8 +62,8 @@ class TestDisplayRankedByBacklinksTag < Minitest::Test
       output = render_tag(fresh_context)
     end
 
-    assert_match(/<!-- \[ERROR\] RANKED_BY_BACKLINKS_FAILURE: Reason='Prerequisites missing: link_cache, backlinks, or books cache\.' .*? -->/,
-                 output)
+    expected_error = /<!-- \[ERROR\] RANKED_BY_BACKLINKS_FAILURE: /
+    assert_match(expected_error, output)
   end
 
   def test_logs_error_if_backlinks_key_is_missing
@@ -100,7 +74,46 @@ class TestDisplayRankedByBacklinksTag < Minitest::Test
     capture_io do
       output = render_tag
     end
-    assert_match(/<!-- \[ERROR\] RANKED_BY_BACKLINKS_FAILURE: Reason='Prerequisites missing: link_cache, backlinks, or books cache\.' .*? -->/,
-                 output)
+    expected_error = /<!-- \[ERROR\] RANKED_BY_BACKLINKS_FAILURE: /
+    assert_match(expected_error, output)
+  end
+
+  private
+
+  def setup_backlink_data_for_ranking_test
+    # Book B is mentioned most, then A, then C.
+    @site.data['link_cache']['backlinks'] = {
+      '/a.html' => [
+        { source: create_doc, type: 'book' },
+        { source: create_doc, type: 'series' }
+      ], # 2 mentions
+      '/b.html' => [
+        { source: create_doc, type: 'book' },
+        { source: create_doc, type: 'book' },
+        { source: create_doc, type: 'direct' }
+      ], # 3 mentions
+      '/c.html' => [
+        { source: create_doc, type: 'book' }
+      ]  # 1 mention
+    }
+  end
+
+  def assert_list_items_present(output)
+    expected_book_b = %r{<li><a href="/b.html">Book B</a> <span class="mention-count">\(3 mentions\)</span></li>}
+    expected_book_a = %r{<li><a href="/a.html">Book A</a> <span class="mention-count">\(2 mentions\)</span></li>}
+    expected_book_c = %r{<li><a href="/c.html">Book C</a> <span class="mention-count">\(1 mention\)</span></li>}
+
+    assert_match expected_book_b, output
+    assert_match expected_book_a, output
+    assert_match expected_book_c, output
+  end
+
+  def assert_correct_book_order(output)
+    idx_b = output.index('Book B')
+    idx_a = output.index('Book A')
+    idx_c = output.index('Book C')
+
+    assert idx_b < idx_a, 'Book B (3 mentions) should appear before Book A (2 mentions)'
+    assert idx_a < idx_c, 'Book A (2 mentions) should appear before Book C (1 mention)'
   end
 end

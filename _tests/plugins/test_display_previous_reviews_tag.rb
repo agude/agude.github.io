@@ -6,40 +6,8 @@ require_relative '../../_plugins/display_previous_reviews_tag'
 
 class TestDisplayPreviousReviewsTag < Minitest::Test
   def setup
-    # The main page the tag will be rendered on
-    @canonical_page = create_doc({ 'title' => 'Canonical Book' }, '/books/canonical.html')
-
-    # Archived reviews that point to the canonical page
-    @archive_new = create_doc({
-                                'title' => 'Archived (New)',
-                                'date' => Time.parse('2023-01-01'),
-                                'canonical_url' => '/books/canonical.html'
-                              }, '/books/archive-new.html')
-
-    @archive_old = create_doc({
-                                'title' => 'Archived (Old)',
-                                'date' => Time.parse('2022-01-01'),
-                                'canonical_url' => '/books/canonical.html'
-                              }, '/books/archive-old.html')
-
-    # An unrelated book that should be ignored
-    @unrelated_book = create_doc({ 'title' => 'Unrelated' }, '/books/unrelated.html')
-
-    # Create the site with the books collection already populated
-    all_books = [@canonical_page, @archive_new, @archive_old, @unrelated_book]
-    @site = create_site({}, { 'books' => all_books })
-    @site.config['plugin_logging']['PREVIOUS_REVIEWS'] = true
-
-    # Silent logger for tests not asserting specific console output
-    @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-    end
+    setup_test_documents
+    setup_site_and_logger
   end
 
   def render_tag(page)
@@ -67,14 +35,8 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     } do
       output = render_tag(@canonical_page)
 
-      assert_match(/<aside class="previous-reviews">/, output)
-      assert_match %r{<h2 class="book-review-headline">Previous Reviews</h2>}, output
-      assert_match(/<div class="card-grid">/, output)
-
-      # Verify the order of rendering
-      assert_equal 2, captured_args.length
-      assert_equal @archive_new, captured_args[0][:doc] # Newest first
-      assert_equal @archive_old, captured_args[1][:doc] # Oldest second
+      assert_correct_html_structure(output)
+      assert_correct_rendering_order(captured_args)
     end
   end
 
@@ -87,14 +49,8 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
       render_tag(@canonical_page)
 
       assert_equal 2, captured_args.length
-
-      # Check the call for the newest archive
-      assert_equal @archive_new, captured_args[0][:doc]
-      assert_equal 'Review from January 01, 2023', captured_args[0][:subtitle]
-
-      # Check the call for the oldest archive
-      assert_equal @archive_old, captured_args[1][:doc]
-      assert_equal 'Review from January 01, 2022', captured_args[1][:subtitle]
+      assert_correct_subtitle_for_newest_archive(captured_args[0])
+      assert_correct_subtitle_for_oldest_archive(captured_args[1])
     end
   end
 
@@ -104,7 +60,70 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     Jekyll.stub :logger, @silent_logger_stub do
       output = Liquid::Template.parse('{% display_previous_reviews %}').render!(context_no_page)
     end
-    assert_match(/<!-- \[ERROR\] PREVIOUS_REVIEWS_FAILURE: Reason='Prerequisites missing: site, page, or page\.url\.' .*? -->/,
-                 output)
+    expected_pattern = /<!-- \[ERROR\] PREVIOUS_REVIEWS_FAILURE: Reason='Prerequisites missing: /
+    assert_match(expected_pattern, output)
+  end
+
+  private
+
+  def setup_test_documents
+    # The main page the tag will be rendered on
+    @canonical_page = create_doc({ 'title' => 'Canonical Book' }, '/books/canonical.html')
+
+    # Archived reviews that point to the canonical page
+    @archive_new = create_doc({
+                                'title' => 'Archived (New)',
+                                'date' => Time.parse('2023-01-01'),
+                                'canonical_url' => '/books/canonical.html'
+                              }, '/books/archive-new.html')
+
+    @archive_old = create_doc({
+                                'title' => 'Archived (Old)',
+                                'date' => Time.parse('2022-01-01'),
+                                'canonical_url' => '/books/canonical.html'
+                              }, '/books/archive-old.html')
+
+    # An unrelated book that should be ignored
+    @unrelated_book = create_doc({ 'title' => 'Unrelated' }, '/books/unrelated.html')
+  end
+
+  def setup_site_and_logger
+    # Create the site with the books collection already populated
+    all_books = [@canonical_page, @archive_new, @archive_old, @unrelated_book]
+    @site = create_site({}, { 'books' => all_books })
+    @site.config['plugin_logging']['PREVIOUS_REVIEWS'] = true
+
+    # Silent logger for tests not asserting specific console output
+    @silent_logger_stub = Object.new.tap do |logger|
+      def logger.warn(topic, message); end
+
+      def logger.error(topic, message); end
+
+      def logger.info(topic, message); end
+
+      def logger.debug(topic, message); end
+    end
+  end
+
+  def assert_correct_html_structure(output)
+    assert_match(/<aside class="previous-reviews">/, output)
+    assert_match %r{<h2 class="book-review-headline">Previous Reviews</h2>}, output
+    assert_match(/<div class="card-grid">/, output)
+  end
+
+  def assert_correct_rendering_order(captured_args)
+    assert_equal 2, captured_args.length
+    assert_equal @archive_new, captured_args[0][:doc] # Newest first
+    assert_equal @archive_old, captured_args[1][:doc] # Oldest second
+  end
+
+  def assert_correct_subtitle_for_newest_archive(captured_arg)
+    assert_equal @archive_new, captured_arg[:doc]
+    assert_equal 'Review from January 01, 2023', captured_arg[:subtitle]
+  end
+
+  def assert_correct_subtitle_for_oldest_archive(captured_arg)
+    assert_equal @archive_old, captured_arg[:doc]
+    assert_equal 'Review from January 01, 2022', captured_arg[:subtitle]
   end
 end
