@@ -6,43 +6,16 @@ require_relative '../../_plugins/book_card_lookup_tag' # Load the tag
 
 class TestBookCardLookupTag < Minitest::Test
   def setup
-    @book1 = create_doc({ 'title' => 'The First Book', 'published' => true }, '/books/first.html')
-    @book2 = create_doc({ 'title' => 'The Second Book', 'published' => true }, '/books/second.html')
-    @unpublished_book = create_doc({ 'title' => 'Unpublished Title', 'published' => false }, '/books/unpublished.html')
-
-    @site = create_site(
-      { 'url' => 'http://example.com' }, # For BookCardUtils -> CardDataExtractorUtils -> UrlUtils
-      { 'books' => [@book1, @book2, @unpublished_book] }
-    )
-    @context = create_context(
-      {
-        'page_book_title_var' => 'The First Book',
-        'page_book_title_var_alt_case' => 'the second book',
-        'nil_title_var' => nil
-      },
-      # Page path for SourcePage identifier in PluginLoggerUtils
-      { site: @site, page: create_doc({ 'path' => 'current_lookup_page.md' }, '/current-lookup-page.html') }
-    )
-
-    @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-    end
+    create_test_books
+    @site = create_test_site
+    @context = create_test_context
+    @silent_logger_stub = create_silent_logger_stub
   end
 
   # Helper to render the tag, stubs BookCardUtils.render by default
-  def render_tag(markup, context = @context, &book_card_utils_stub_block)
+  def render_tag(markup, context = @context, &)
     output = ''
-    stub_logic = if block_given?
-                   book_card_utils_stub_block
-                 else
-                   ->(book_obj, _ctx) { "<!-- BookCardUtils.render called for #{book_obj.data['title']} -->" }
-                 end
+    stub_logic = determine_stub_logic(&)
 
     Jekyll.stub :logger, @silent_logger_stub do # Silence PluginLoggerUtils console output
       BookCardUtils.stub :render, stub_logic do
@@ -110,8 +83,9 @@ class TestBookCardLookupTag < Minitest::Test
     @site.config['plugin_logging']['BOOK_CARD_LOOKUP'] = true # Enable logging
     # 'Unpublished Title' exists but is unpublished.
     output = render_tag("'Unpublished Title'")
-    assert_match(/<!-- \[WARN\] BOOK_CARD_LOOKUP_FAILURE: Reason='Could not find book\.'\s*Title='Unpublished Title'\s*SourcePage='current_lookup_page\.md' -->/,
-                 output)
+    expected_log_pattern =
+      /<!-- \[WARN\] BOOK_CARD_LOOKUP_FAILURE: Reason='Could not find book\.'\s*Title='Unpublished Title'\s*SourcePage='current_lookup_page\.md' -->/
+    assert_match(expected_log_pattern, output)
     refute_match 'BookCardUtils.render called', output
   end
 
@@ -119,8 +93,9 @@ class TestBookCardLookupTag < Minitest::Test
   def test_logs_error_if_title_resolves_to_nil
     @site.config['plugin_logging']['BOOK_CARD_LOOKUP'] = true
     output = render_tag('nil_title_var') # nil_title_var is nil
-    assert_match(/<!-- \[ERROR\] BOOK_CARD_LOOKUP_FAILURE: Reason='Title markup resolved to empty or nil\.'\s*Markup='nil_title_var'\s*SourcePage='current_lookup_page\.md' -->/,
-                 output)
+    expected_log_pattern =
+      /<!-- \[ERROR\] BOOK_CARD_LOOKUP_FAILURE: Reason='Title markup resolved to empty or nil\.'\s*Markup='nil_title_var'\s*SourcePage='current_lookup_page\.md' -->/
+    assert_match(expected_log_pattern, output)
     refute_match 'BookCardUtils.render called', output
   end
 
@@ -128,30 +103,33 @@ class TestBookCardLookupTag < Minitest::Test
     @context['empty_title_var'] = '   '
     @site.config['plugin_logging']['BOOK_CARD_LOOKUP'] = true
     output = render_tag('empty_title_var')
-    assert_match(/<!-- \[ERROR\] BOOK_CARD_LOOKUP_FAILURE: Reason='Title markup resolved to empty or nil\.'\s*Markup='empty_title_var'\s*SourcePage='current_lookup_page\.md' -->/,
-                 output)
+    expected_log_pattern =
+      /<!-- \[ERROR\] BOOK_CARD_LOOKUP_FAILURE: Reason='Title markup resolved to empty or nil\.'\s*Markup='empty_title_var'\s*SourcePage='current_lookup_page\.md' -->/
+    assert_match(expected_log_pattern, output)
     refute_match 'BookCardUtils.render called', output
   end
 
   def test_logs_warn_if_book_not_found
     @site.config['plugin_logging']['BOOK_CARD_LOOKUP'] = true
     output = render_tag("'NonExistent Book Of Wonders'")
-    assert_match(/<!-- \[WARN\] BOOK_CARD_LOOKUP_FAILURE: Reason='Could not find book\.'\s*Title='NonExistent Book Of Wonders'\s*SourcePage='current_lookup_page\.md' -->/,
-                 output)
+    expected_log_pattern =
+      /<!-- \[WARN\] BOOK_CARD_LOOKUP_FAILURE: Reason='Could not find book\.'\s*Title='NonExistent Book Of Wonders'\s*SourcePage='current_lookup_page\.md' -->/
+    assert_match(expected_log_pattern, output)
     refute_match 'BookCardUtils.render called', output
   end
 
   def test_logs_error_if_books_collection_missing
     site_no_books = create_site({ 'url' => 'http://example.com' }, {}) # No 'books' collection
     site_no_books.config['plugin_logging']['BOOK_CARD_LOOKUP'] = true
-    context_no_books = create_context({},
-                                      { site: site_no_books,
-                                        page: create_doc({ 'path' => 'current_lookup_page.md' },
-                                                         '/current-lookup-page.html') })
+    context_no_books = create_context(
+      {},
+      { site: site_no_books, page: create_doc({ 'path' => 'current_lookup_page.md' }, '/current-lookup-page.html') }
+    )
 
     output = render_tag("'Any Book Title'", context_no_books)
-    assert_match(/<!-- \[ERROR\] BOOK_CARD_LOOKUP_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*Title='Any Book Title'\s*SourcePage='current_lookup_page\.md' -->/,
-                 output)
+    expected_log_pattern =
+      /<!-- \[ERROR\] BOOK_CARD_LOOKUP_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*Title='Any Book Title'\s*SourcePage='current_lookup_page\.md' -->/
+    assert_match(expected_log_pattern, output)
     refute_match 'BookCardUtils.render called', output
   end
 
@@ -164,7 +142,63 @@ class TestBookCardLookupTag < Minitest::Test
 
     output = render_tag("'The First Book'", @context, &failing_stub)
 
-    assert_match(/<!-- \[ERROR\] BOOK_CARD_LOOKUP_FAILURE: Reason='Error calling BookCardUtils\.render utility: #{error_message}'\s*Title='The First Book'\s*ErrorClass='StandardError'\s*ErrorMessage='#{error_message.slice(0, 100)}'\s*SourcePage='current_lookup_page\.md' -->/,
-                 output)
+    expected_log_pattern =
+      /<!-- \[ERROR\] BOOK_CARD_LOOKUP_FAILURE: Reason='Error calling BookCardUtils\.render utility: #{error_message}'\s*Title='The First Book'\s*ErrorClass='StandardError'\s*ErrorMessage='#{error_message.slice(
+        0, 100
+      )}'\s*SourcePage='current_lookup_page\.md' -->/
+    assert_match(expected_log_pattern, output)
+  end
+
+  private
+
+  # Creates test book documents
+  def create_test_books
+    @book1 = create_doc({ 'title' => 'The First Book', 'published' => true }, '/books/first.html')
+    @book2 = create_doc({ 'title' => 'The Second Book', 'published' => true }, '/books/second.html')
+    @unpublished_book = create_doc({ 'title' => 'Unpublished Title', 'published' => false },
+                                   '/books/unpublished.html')
+  end
+
+  # Creates test site with books collection
+  def create_test_site
+    create_site(
+      { 'url' => 'http://example.com' }, # For BookCardUtils -> CardDataExtractorUtils -> UrlUtils
+      { 'books' => [@book1, @book2, @unpublished_book] }
+    )
+  end
+
+  # Creates test context with variables
+  def create_test_context
+    create_context(
+      {
+        'page_book_title_var' => 'The First Book',
+        'page_book_title_var_alt_case' => 'the second book',
+        'nil_title_var' => nil
+      },
+      # Page path for SourcePage identifier in PluginLoggerUtils
+      { site: @site, page: create_doc({ 'path' => 'current_lookup_page.md' }, '/current-lookup-page.html') }
+    )
+  end
+
+  # Creates a silent logger stub
+  def create_silent_logger_stub
+    Object.new.tap do |logger|
+      def logger.warn(topic, message); end
+
+      def logger.error(topic, message); end
+
+      def logger.info(topic, message); end
+
+      def logger.debug(topic, message); end
+    end
+  end
+
+  # Determines the stub logic for BookCardUtils.render
+  def determine_stub_logic(&book_card_utils_stub_block)
+    if block_given?
+      book_card_utils_stub_block
+    else
+      ->(book_obj, _ctx) { "<!-- BookCardUtils.render called for #{book_obj.data['title']} -->" }
+    end
   end
 end
