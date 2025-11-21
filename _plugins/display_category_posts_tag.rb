@@ -10,6 +10,13 @@ require_relative 'utils/tag_argument_utils'
 require_relative 'utils/plugin_logger_utils'
 
 module Jekyll
+  # Displays article cards for posts in a specific category/topic.
+  #
+  # Supports optionally excluding the current page from the results.
+  #
+  # Usage in Liquid templates:
+  #   {% display_category_posts topic="data-science" %}
+  #   {% display_category_posts topic="data-science" exclude_current_page=true %}
   class DisplayCategoryPostsTag < Liquid::Tag
     SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
     ALLOWED_KEYS = %w[topic exclude_current_page].freeze
