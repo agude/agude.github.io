@@ -12,6 +12,13 @@ require_relative 'utils/book_list_utils'
 require_relative 'utils/text_processing_utils'
 
 module Jekyll
+  # Displays related book reviews based on series, author, and recency.
+  #
+  # Shows books from the same series, by the same authors, or recent reviews
+  # to provide contextual recommendations.
+  #
+  # Usage in Liquid templates:
+  #   {% related_books %}
   class RelatedBooksTag < Liquid::Tag
     DEFAULT_MAX_BOOKS = 3
 
@@ -26,6 +33,10 @@ module Jekyll
     end
   end
 
+  # Helper class that finds and ranks related books for display.
+  #
+  # Implements the logic for selecting related books based on series
+  # membership, shared authors, and publication date.
   class RelatedBooksFinder
     def initialize(context, max_books)
       @context = context
