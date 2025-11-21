@@ -1,9 +1,19 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_json_ld_utils.rb
 require_relative '../../test_helper'
 # JsonLdUtils is loaded via test_helper (assuming you'll add it there)
 
 class TestJsonLdUtils < Minitest::Test
   def setup
+    setup_site_configs
+    setup_mock_document
+  end
+
+  private
+
+  # Helper to set up site configurations
+  def setup_site_configs
     @site_config_full = {
       'url' => 'https://example.com',
       'baseurl' => '/blog',
@@ -15,8 +25,10 @@ class TestJsonLdUtils < Minitest::Test
     }
     @mock_site_full = create_site(@site_config_full)
     @mock_site_no_author = create_site(@site_config_no_author)
+  end
 
-    # Mock document for excerpt/content testing
+  # Helper to set up mock document
+  def setup_mock_document
     @mock_doc_data = {
       'title' => 'Test Doc',
       'description' => 'Front matter description.',
@@ -25,6 +37,8 @@ class TestJsonLdUtils < Minitest::Test
     }
     @mock_document = create_doc(@mock_doc_data)
   end
+
+  public
 
   # --- Tests for build_site_person_entity ---
   def test_build_site_person_entity_with_name
@@ -200,7 +214,15 @@ class TestJsonLdUtils < Minitest::Test
 
   # --- Tests for cleanup_data_hash! ---
   def test_cleanup_data_hash_removes_nil_and_empty
-    data = {
+    data = create_cleanup_test_data_with_nil_and_empty
+    expected = create_expected_cleanup_result
+
+    assert_equal expected, JsonLdUtils.cleanup_data_hash!(data)
+  end
+
+  # Helper to create test data with nil and empty values
+  def create_cleanup_test_data_with_nil_and_empty
+    {
       'name' => 'Test',
       'description' => '',
       'keywords' => [],
@@ -214,7 +236,11 @@ class TestJsonLdUtils < Minitest::Test
       'valid_empty_array_prop' => ['item'], # Should stay
       'empty_array_prop_to_remove' => [] # Should be removed
     }
-    expected = {
+  end
+
+  # Helper to create expected result after cleanup
+  def create_expected_cleanup_result
+    {
       'name' => 'Test',
       'image' => 'img.jpg',
       'nested' => {
@@ -222,7 +248,6 @@ class TestJsonLdUtils < Minitest::Test
       },
       'valid_empty_array_prop' => ['item']
     }
-    assert_equal expected, JsonLdUtils.cleanup_data_hash!(data)
   end
 
   def test_cleanup_data_hash_empty_hash
@@ -246,7 +271,15 @@ class TestJsonLdUtils < Minitest::Test
   end
 
   def test_cleanup_data_hash_deeply_nested
-    data = {
+    data = create_deeply_nested_test_data
+    expected = create_expected_deeply_nested_result
+
+    assert_equal expected, JsonLdUtils.cleanup_data_hash!(data)
+  end
+
+  # Helper to create deeply nested test data
+  def create_deeply_nested_test_data
+    {
       'level1' => {
         'name' => 'L1',
         'level2' => {
@@ -261,7 +294,11 @@ class TestJsonLdUtils < Minitest::Test
       },
       'notes' => ''
     }
-    expected = {
+  end
+
+  # Helper to create expected deeply nested result
+  def create_expected_deeply_nested_result
+    {
       'level1' => {
         'name' => 'L1',
         'level2' => {
@@ -272,6 +309,5 @@ class TestJsonLdUtils < Minitest::Test
         'arr' => ['a']
       }
     }
-    assert_equal expected, JsonLdUtils.cleanup_data_hash!(data)
   end
 end
