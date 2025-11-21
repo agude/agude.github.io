@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/book_list_utils/test_all_books_by_author_display.rb
 require_relative '../../../test_helper'
 # BookListUtils, FrontMatterUtils are loaded by test_helper
@@ -83,19 +85,20 @@ class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
     @all_pages = [@page_ac]
 
     @site = create_site({}, { 'books' => @all_books }, @all_pages)
-    @context = create_context({},
-                              { site: @site,
-                                page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
+    page_data = { 'path' => 'current_page.html' }
+    @context = create_context({}, { site: @site, page: create_doc(page_data, '/current_page.html') })
 
-    @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end
+    @silent_logger_stub = create_silent_logger
+  end
 
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-    end
+  # Helper to create a silent logger stub
+  def create_silent_logger
+    logger = Object.new
+    def logger.warn(_topic, _message); end
+    def logger.error(_topic, _message); end
+    def logger.info(_topic, _message); end
+    def logger.debug(_topic, _message); end
+    logger
   end
 
   def get_all_books_by_author_data(site = @site, context = @context)
@@ -184,33 +187,48 @@ class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
   def test_get_data_for_all_books_by_author_display_logs_if_no_valid_author_books
     site_no_valid_authors = create_site({}, { 'books' => [@book_no_author, @book_nil_author] })
     site_no_valid_authors.config['plugin_logging']['ALL_BOOKS_BY_AUTHOR_DISPLAY'] = true
-    context_no_valid_authors = create_context({}, { site: site_no_valid_authors, page: @context.registers[:page] })
+    ctx_page = @context.registers[:page]
+    context_no_valid_authors = create_context({}, { site: site_no_valid_authors, page: ctx_page })
 
     data = get_all_books_by_author_data(site_no_valid_authors, context_no_valid_authors)
     assert_empty data[:authors_data]
-    assert_match(/<!-- \[INFO\] ALL_BOOKS_BY_AUTHOR_DISPLAY_FAILURE: Reason='No published books with valid author names found\.'\s*SourcePage='current_page\.html' -->/,
-                 data[:log_messages])
+    expected_pattern = Regexp.new(
+      '<!-- \[INFO\] ALL_BOOKS_BY_AUTHOR_DISPLAY_FAILURE: ' \
+      "Reason='No published books with valid author names found\\.' " \
+      "\\s*SourcePage='current_page\\.html' -->"
+    )
+    assert_match expected_pattern, data[:log_messages]
   end
 
   def test_get_data_for_all_books_by_author_display_logs_if_books_collection_missing
     site_no_books = create_site({}, {})
     site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true
-    context_no_books = create_context({}, { site: site_no_books, page: @context.registers[:page] })
+    ctx_page = @context.registers[:page]
+    context_no_books = create_context({}, { site: site_no_books, page: ctx_page })
 
     data = get_all_books_by_author_data(site_no_books, context_no_books)
     assert_empty data[:authors_data]
-    assert_match(/<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books_by_author'\s*SourcePage='current_page\.html' -->/,
-                 data[:log_messages])
+    expected_pattern = Regexp.new(
+      '<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: ' \
+      "Reason='Required &#39;books&#39; collection not found in site configuration\\.' " \
+      "\\s*filter_type='all_books_by_author'\\s*SourcePage='current_page\\.html' -->"
+    )
+    assert_match expected_pattern, data[:log_messages]
   end
 
   def test_get_data_for_all_books_by_author_display_empty_books_collection
     site_empty_books = create_site({}, { 'books' => [] })
     site_empty_books.config['plugin_logging']['ALL_BOOKS_BY_AUTHOR_DISPLAY'] = true
-    context_empty_books = create_context({}, { site: site_empty_books, page: @context.registers[:page] })
+    ctx_page = @context.registers[:page]
+    context_empty_books = create_context({}, { site: site_empty_books, page: ctx_page })
 
     data = get_all_books_by_author_data(site_empty_books, context_empty_books)
     assert_empty data[:authors_data]
-    assert_match(/<!-- \[INFO\] ALL_BOOKS_BY_AUTHOR_DISPLAY_FAILURE: Reason='No published books with valid author names found\.'\s*SourcePage='current_page\.html' -->/,
-                 data[:log_messages])
+    expected_pattern = Regexp.new(
+      '<!-- \[INFO\] ALL_BOOKS_BY_AUTHOR_DISPLAY_FAILURE: ' \
+      "Reason='No published books with valid author names found\\.' " \
+      "\\s*SourcePage='current_page\\.html' -->"
+    )
+    assert_match expected_pattern, data[:log_messages]
   end
 end
