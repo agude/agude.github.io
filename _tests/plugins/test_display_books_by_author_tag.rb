@@ -5,6 +5,9 @@ require_relative '../test_helper'
 require_relative '../../_plugins/display_books_by_author_tag'
 # BookListUtils, FrontMatterUtils, etc., are loaded by test_helper
 
+# Tests for DisplayBooksByAuthorTag Liquid tag.
+#
+# Verifies that the tag correctly displays books filtered by author.
 class TestDisplayBooksByAuthorTag < Minitest::Test
   def setup
     # Define author names

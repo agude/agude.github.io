@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/display_awards_page_tag'
 
+# Tests for DisplayAwardsPageTag Liquid tag.
+#
+# Verifies that the tag correctly displays books grouped by award type.
 class TestDisplayAwardsPageTag < Minitest::Test
   def setup
     create_test_data

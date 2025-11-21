@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/display_authors_tag'
 
+# Tests for DisplayAuthorsTag Liquid tag.
+#
+# Verifies that the tag correctly formats and displays author name lists.
 class TestDisplayAuthorsTag < Minitest::Test
   def setup
     @site = create_site

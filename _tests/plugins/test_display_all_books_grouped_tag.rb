@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/display_all_books_grouped_tag'
 
+# Tests for DisplayAllBooksGroupedTag Liquid tag.
+#
+# Verifies that the tag correctly displays all books grouped by series.
 class TestDisplayAllBooksGroupedTag < Minitest::Test
   def setup
     create_test_books

@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/citation_tag' # Load the tag
 
+# Tests for CitationTag Liquid tag.
+#
+# Verifies that the tag correctly renders book citations with proper formatting.
 class TestCitationTag < Minitest::Test
   def setup
     @site = create_site
