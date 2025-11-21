@@ -7,7 +7,13 @@ require_relative 'utils/book_list_utils'
 require_relative 'utils/series_link_util'
 require_relative 'utils/tag_argument_utils'
 
+# Jekyll namespace for custom plugins.
 module Jekyll
+  # Displays books grouped by series for a specific author.
+  #
+  # Usage in Liquid templates:
+  #   {% display_books_by_author "Ursula K. Le Guin" %}
+  #   {% display_books_by_author page.author %}
   class DisplayBooksByAuthorTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
       super
