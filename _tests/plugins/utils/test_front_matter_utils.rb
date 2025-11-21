@@ -4,6 +4,9 @@
 require_relative '../../test_helper'
 # FrontMatterUtils is loaded by test_helper.rb
 
+# Tests for FrontMatterUtils module.
+#
+# Verifies that the utility correctly processes and validates front matter data.
 class TestFrontMatterUtils < Minitest::Test
   # --- Tests for get_list_from_string_or_array ---
 

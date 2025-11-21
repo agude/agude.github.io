@@ -6,6 +6,9 @@ require_relative '../../../../_plugins/utils/json_ld_generators/book_review_gene
 require_relative '../../../../_plugins/utils/front_matter_utils'
 require 'minitest/mock'
 
+# Tests for BookReviewLdGenerator module.
+#
+# Verifies that the generator correctly creates JSON-LD structured data for book reviews.
 class TestBookReviewLdGenerator < Minitest::Test
   def setup
     @site_config = {

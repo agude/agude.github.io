@@ -3,6 +3,9 @@
 # _tests/plugins/utils/test_card_data_extractor_utils.rb
 require_relative '../../test_helper'
 
+# Tests for CardDataExtractorUtils module.
+#
+# Verifies that the utility correctly extracts and validates card data from documents.
 class TestCardDataExtractorUtils < Minitest::Test
   def setup
     setup_sites_and_contexts

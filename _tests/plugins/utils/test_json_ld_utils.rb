@@ -4,6 +4,9 @@
 require_relative '../../test_helper'
 # JsonLdUtils is loaded via test_helper (assuming you'll add it there)
 
+# Tests for JsonLdUtils module.
+#
+# Verifies that the utility correctly generates JSON-LD base structures and handles site configuration.
 class TestJsonLdUtils < Minitest::Test
   def setup
     setup_site_configs

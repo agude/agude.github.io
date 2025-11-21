@@ -4,6 +4,9 @@
 require_relative '../../../test_helper'
 # PostListUtils is loaded by test_helper
 
+# Tests for PostListUtils module.
+#
+# Verifies that the utility correctly retrieves and filters posts by category.
 class TestPostListUtils < Minitest::Test
   def setup
     create_test_posts

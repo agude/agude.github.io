@@ -4,6 +4,9 @@
 require_relative '../../test_helper'
 # CardRendererUtils will be loaded by test_helper once we add its require there.
 
+# Tests for CardRendererUtils module.
+#
+# Verifies that the utility correctly renders HTML card components from card data.
 class TestCardRendererUtils < Minitest::Test
   def setup
     # Minimal context, primarily for completeness if render_card ever needs it.

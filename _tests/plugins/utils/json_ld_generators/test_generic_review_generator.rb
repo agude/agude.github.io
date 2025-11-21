@@ -4,6 +4,9 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/utils/json_ld_generators/generic_review_generator'
 
+# Tests for GenericReviewLdGenerator module.
+#
+# Verifies that the generator correctly creates JSON-LD structured data for generic product reviews.
 class TestGenericReviewLdGenerator < Minitest::Test
   def setup
     @site_config = {

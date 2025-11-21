@@ -4,6 +4,9 @@
 require_relative '../../test_helper'
 # FeedUtils is loaded by test_helper
 
+# Tests for FeedUtils module.
+#
+# Verifies that the utility correctly combines and sorts posts and books for feed display.
 class TestFeedUtils < Minitest::Test
   def setup
     @ref_time = Time.parse('2024-06-01 12:00:00 UTC')
