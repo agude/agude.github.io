@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/book_link_tag' # Load the tag
 
+# Tests for BookLinkTag Liquid tag.
+#
+# Verifies that the tag correctly renders book links with author disambiguation.
 class TestBookLinkTag < Minitest::Test
   def setup
     # Setup for parsing tests

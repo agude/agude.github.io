@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/author_link_tag' # Load the tag
 
+# Tests for AuthorLinkTag Liquid tag.
+#
+# Verifies that the tag correctly renders author links with optional possessive forms.
 class TestAuthorLinkTag < Minitest::Test
   def setup
     @site = create_site

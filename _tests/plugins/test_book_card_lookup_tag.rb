@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/book_card_lookup_tag' # Load the tag
 
+# Tests for BookCardLookupTag Liquid tag.
+#
+# Verifies that the tag correctly looks up books by title and renders book cards.
 class TestBookCardLookupTag < Minitest::Test
   def setup
     create_test_books

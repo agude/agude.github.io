@@ -4,6 +4,9 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/article_card_lookup_tag'
 
+# Tests for ArticleCardLookupTag Liquid tag.
+#
+# Verifies that the tag correctly looks up posts by URL and renders article cards.
 class TestArticleCardLookupTag < Minitest::Test
   def setup
     setup_mock_posts

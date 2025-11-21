@@ -5,6 +5,9 @@ require_relative '../test_helper'
 require_relative '../../_plugins/book_backlinks_tag' # Load the tag class
 # Utils are loaded via test_helper
 
+# Tests for BookBacklinksTag Liquid tag.
+#
+# Verifies that the tag correctly finds and renders backlinks from other books.
 class TestBookBacklinksTag < Minitest::Test
   def setup
     # --- Mock Documents ---
