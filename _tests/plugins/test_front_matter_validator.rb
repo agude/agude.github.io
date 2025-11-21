@@ -5,6 +5,9 @@ require_relative '../test_helper'
 require_relative '../../_plugins/front_matter_validator'
 require_relative '../../_plugins/utils/front_matter_utils' # Ensure this is loaded
 
+# Tests for FrontMatterValidator module.
+#
+# Verifies that the validator correctly checks required front matter fields.
 class TestFrontMatterValidator < Minitest::Test
   def setup
     @book_collection_label = 'books'

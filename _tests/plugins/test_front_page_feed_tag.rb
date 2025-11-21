@@ -5,6 +5,9 @@ require_relative '../test_helper'
 require_relative '../../_plugins/front_page_feed_tag'
 require 'time'
 
+# Tests for FrontPageFeedTag Liquid tag.
+#
+# Verifies that the tag correctly renders a combined feed of posts and books.
 class TestFrontPageFeedTag < Minitest::Test
   def setup
     @site = create_site({ 'url' => 'http://example.com' })

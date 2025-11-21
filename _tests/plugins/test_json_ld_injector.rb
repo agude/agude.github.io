@@ -11,7 +11,9 @@ require 'utils/json_ld_generators/book_review_generator'
 require 'utils/json_ld_generators/generic_review_generator'
 require 'utils/json_ld_generators/author_profile_generator'
 
-# Base test class with shared setup and helpers
+# Base test class with shared setup and helpers for JsonLdInjector tests.
+#
+# Provides common setup and helper methods for testing JSON-LD injection.
 class TestJsonLdInjectorBase < Minitest::Test
   def setup
     @site = create_site
@@ -127,7 +129,9 @@ class TestJsonLdInjectorBase < Minitest::Test
   end
 end
 
-# Tests for successful JSON-LD injection
+# Tests for successful JSON-LD injection into documents.
+#
+# Verifies that the injector correctly generates and stores JSON-LD scripts.
 class TestJsonLdInjectorInjection < TestJsonLdInjectorBase
   def test_injects_for_standard_blog_post
     stub_with_active_generator(BlogPostingLdGenerator, @blog_posting_hash) do
@@ -180,7 +184,9 @@ class TestJsonLdInjectorInjection < TestJsonLdInjectorBase
   end
 end
 
-# Tests for skipped injection scenarios
+# Tests for skipped injection scenarios where JSON-LD shouldn't be generated.
+#
+# Verifies that the injector correctly skips invalid or inappropriate documents.
 class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
   def test_skips_injection_for_generic_review_missing_item_name
     mock_logger = create_warning_logger_mock
