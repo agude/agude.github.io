@@ -52,15 +52,17 @@ class TestDisplayRankedBooksTag < Minitest::Test
     @mock_stars_html_generic = '<span>Mock Stars</span>'
 
     # General silent logger for tests NOT focused on Jekyll.logger output
-    @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end
+    @silent_logger_stub = create_silent_logger
+  end
 
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-    end
+  # Helper to create a silent logger stub
+  def create_silent_logger
+    logger = Object.new
+    def logger.warn(_topic, _message); end
+    def logger.error(_topic, _message); end
+    def logger.info(_topic, _message); end
+    def logger.debug(_topic, _message); end
+    logger
   end
 
   def render_tag(list_variable_name, context, logger_override = @silent_logger_stub)

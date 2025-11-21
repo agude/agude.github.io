@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/test_display_books_by_author_then_series_tag.rb
 require_relative '../test_helper'
 require_relative '../../_plugins/display_books_by_author_then_series_tag'
@@ -66,9 +68,9 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
   end
 
   def render_tag(context = @context)
-    output = ''
+    output = +''
     BookListUtils.stub :render_book_groups_html, lambda { |data, _ctx, series_heading_level: 2|
-      group_html = ''
+      group_html = +''
       data[:series_groups]&.each do |sg|
         # Ensure sg and sg[:books] are not nil before mapping
         books_titles = if sg && sg[:books]

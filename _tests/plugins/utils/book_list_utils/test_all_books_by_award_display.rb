@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/book_list_utils/test_all_books_by_award_display.rb
 require_relative '../../../test_helper'
 # BookListUtils is loaded by test_helper
@@ -59,15 +61,17 @@ class TestBookListUtilsAllBooksByAwardDisplay < Minitest::Test
                               { site: @site,
                                 page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
 
-    @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end
+    @silent_logger_stub = create_silent_logger
+  end
 
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-    end
+  # Helper to create a silent logger stub
+  def create_silent_logger
+    logger = Object.new
+    def logger.warn(_topic, _message); end
+    def logger.error(_topic, _message); end
+    def logger.info(_topic, _message); end
+    def logger.debug(_topic, _message); end
+    logger
   end
 
   # Helper to call the utility method directly
