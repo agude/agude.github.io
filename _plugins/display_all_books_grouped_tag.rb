@@ -6,7 +6,12 @@ require 'liquid'
 require_relative 'utils/book_list_utils'
 require_relative 'utils/series_link_util'
 
+# Jekyll namespace for custom plugins.
 module Jekyll
+  # Renders all books grouped by author and series.
+  #
+  # Usage in Liquid templates:
+  #   {% display_all_books_grouped %}
   class DisplayAllBooksGroupedTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
       super
