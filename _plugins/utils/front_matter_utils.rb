@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 # _plugins/utils/front_matter_utils.rb
 
+# Utility module for processing and normalizing front matter values.
 module FrontMatterUtils
-
   # Helper to consistently return an array of unique strings from a front matter value
   # that could be a single string or an array of strings.
   # Strips whitespace from each string, removes any resulting empty strings,
@@ -23,5 +25,4 @@ module FrontMatterUtils
 
     items_list.uniq # Ensure uniqueness
   end
-
 end

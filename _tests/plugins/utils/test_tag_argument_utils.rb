@@ -1,23 +1,27 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_tag_argument_utils.rb
 require_relative '../../test_helper'
 require 'utils/tag_argument_utils' # Require the new util module
 
-class TestTagArgumentUtils < Minitest::Test # Renamed class
-
+# Tests for TagArgumentUtils module.
+#
+# Verifies that the utility correctly resolves tag arguments from quoted strings and Liquid variables.
+class TestTagArgumentUtils < Minitest::Test
   # --- resolve_value ---
   def test_resolve_value_quoted_string
     ctx = create_context
-    assert_equal "hello", TagArgumentUtils.resolve_value('"hello"', ctx)
-    assert_equal "world", TagArgumentUtils.resolve_value("'world'", ctx)
-    assert_equal "with space", TagArgumentUtils.resolve_value("'with space'", ctx)
-    assert_equal "", TagArgumentUtils.resolve_value("''", ctx) # Empty quoted string
+    assert_equal 'hello', TagArgumentUtils.resolve_value('"hello"', ctx)
+    assert_equal 'world', TagArgumentUtils.resolve_value("'world'", ctx)
+    assert_equal 'with space', TagArgumentUtils.resolve_value("'with space'", ctx)
+    assert_equal '', TagArgumentUtils.resolve_value("''", ctx) # Empty quoted string
   end
 
   def test_resolve_value_variable_found_string
     ctx = create_context({ 'page' => { 'my_var' => 'found it' } })
     ctx['simple_var'] = 'top level'
-    assert_equal "found it", TagArgumentUtils.resolve_value('page.my_var', ctx)
-    assert_equal "top level", TagArgumentUtils.resolve_value('simple_var', ctx)
+    assert_equal 'found it', TagArgumentUtils.resolve_value('page.my_var', ctx)
+    assert_equal 'top level', TagArgumentUtils.resolve_value('simple_var', ctx)
   end
 
   def test_resolve_value_variable_found_non_string
@@ -69,5 +73,4 @@ class TestTagArgumentUtils < Minitest::Test # Renamed class
     assert_nil TagArgumentUtils.resolve_value('a.b.c.d', ctx)
     assert_nil TagArgumentUtils.resolve_value('a.x.c', ctx)
   end
-
 end

@@ -1,18 +1,18 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_plugin_logger_utils.rb
 require_relative '../../test_helper'
 require 'minitest/mock'
 
-class TestPluginLoggerUtils < Minitest::Test
-
+# Base test class with shared setup and helpers
+class TestPluginLoggerUtilsBase < Minitest::Test
   def setup
     @page_mock = create_doc({ 'path' => 'path/page.html' }, '/page.html')
-    # @silent_logger_stub is not needed here as we'll use Minitest::Mock for Jekyll.logger
   end
 
-  # Helper to create a context with a site having specific logging configs
+  private
+
   def create_test_context(site_config_overrides = {})
-    # Ensure default environment is 'test' unless overridden
-    # And ensure a default plugin_log_level for predictability if not overridden
     full_config_overrides = {
       'environment' => 'test',
       'plugin_log_level' => PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING
@@ -21,230 +21,213 @@ class TestPluginLoggerUtils < Minitest::Test
     create_context({}, { site: site, page: @page_mock })
   end
 
-  # Helper to strip ANSI escape codes
   def strip_ansi(str)
     str.gsub(/\e\[([;\d]+)?m/, '')
   end
 
-  # --- Test Cases ---
+  def call_log_liquid_failure(ctx, tag_type:, reason:, level: :warn)
+    PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: tag_type, reason: reason, level: level)
+  end
+end
 
-  # --- Testing Tag Enable/Disable (Master Switch) ---
+# Tests for tag enable/disable functionality
+class TestPluginLoggerUtilsTagEnable < TestPluginLoggerUtilsBase
   def test_logging_disabled_for_tag_type_overrides_level
-    # Site config: tag enabled=false, global level=debug
-    # Message level: warn
-    # Expected: No console, No HTML
-    ctx = create_test_context({
-      'plugin_log_level' => 'debug', # Global level is permissive
-      'plugin_logging' => { 'MY_TAG' => false } # But this tag is OFF
-    })
-    mock_logger = Minitest::Mock.new # Expect no calls
+    ctx = create_test_context(
+      'plugin_log_level' => 'debug',
+      'plugin_logging' => { 'MY_TAG' => false }
+    )
+    mock_logger = Minitest::Mock.new
 
-    html_output = ""
-    # No need to capture_io if we expect no console output and mock_logger verifies no calls
+    html_output = ''
     Jekyll.stub :logger, mock_logger do
-      html_output = PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: "MY_TAG", reason: "Test", level: :warn)
+      html_output = call_log_liquid_failure(ctx, tag_type: 'MY_TAG', reason: 'Test', level: :warn)
     end
-    assert_equal "", html_output, "HTML output should be empty when tag logging is false"
+    assert_equal '', html_output, 'HTML output should be empty when tag logging is false'
     mock_logger.verify
   end
+end
 
-  # --- Testing Console Output Based on Global Level vs. Message Level ---
+# Tests for console output based on global level vs message level
+class TestPluginLoggerUtilsConsoleOutput < TestPluginLoggerUtilsBase
   def test_console_log_when_message_level_meets_global_threshold
-    # Site config: tag enabled=true, global level=info
-    # Message level: warn (warn > info, so should log)
-    # Expected: Console log, HTML comment (if not prod)
-    ctx = create_test_context({
-      'plugin_log_level' => 'info', # Global threshold
-      'plugin_logging' => { 'MY_TAG' => true }
-    })
-
-    mock_logger = Minitest::Mock.new
-    # Expected message now includes the level prefix
-    expected_console_msg = "[WARN] MY_TAG_FAILURE: Reason='Test'  SourcePage='path/page.html'"
-    mock_logger.expect(:warn, nil, ["PluginLiquid:", expected_console_msg])
-
-    html_output = ""
-    Jekyll.stub :logger, mock_logger do
-      html_output = PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: "MY_TAG", reason: "Test", level: :warn)
-    end
+    ctx, mock_logger, = setup_console_log_test
+    html_output = run_log_with_mock(ctx, mock_logger, :warn)
 
     mock_logger.verify
-    assert_match %r{<!-- \[WARN\] MY_TAG_FAILURE: Reason='Test'\s*SourcePage='path/page\.html' -->}, html_output
+    assert_match expected_html_pattern, html_output
   end
 
   def test_console_log_suppressed_when_message_level_below_global_threshold
-    # Site config: tag enabled=true, global level=warn
-    # Message level: info (info < warn, so should NOT log to console)
-    # Expected: No console log, BUT HTML comment still generated (if not prod)
-    ctx = create_test_context({
-      'plugin_log_level' => 'warn', # Global threshold
-      'plugin_logging' => { 'MY_TAG' => true }
-    })
-    mock_logger = Minitest::Mock.new # Expect no calls to :info, :warn, etc.
+    ctx = create_test_context('plugin_log_level' => 'warn', 'plugin_logging' => { 'MY_TAG' => true })
+    mock_logger = Minitest::Mock.new
 
-    html_output = ""
-    Jekyll.stub :logger, mock_logger do
-      html_output = PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: "MY_TAG", reason: "Test", level: :info)
-    end
+    html_output = run_log_with_mock(ctx, mock_logger, :info)
 
-    mock_logger.verify # Verifies no methods were called on the mock
-    # HTML comment should still include the original message level
-    assert_match %r{<!-- \[INFO\] MY_TAG_FAILURE: Reason='Test'\s*SourcePage='path/page\.html' -->}, html_output, "HTML comment should still be generated"
+    mock_logger.verify
+    assert_match %r{<!-- \[INFO\] MY_TAG_FAILURE: Reason='Test'\s*SourcePage='path/page\.html' -->},
+                 html_output, 'HTML comment should still be generated'
   end
 
   def test_console_log_uses_default_global_level_if_not_set
-    # Test with plugin_log_level not explicitly set in site_config_overrides,
-    # so it should use PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING ('warn').
-    # Message level is :warn, so it should log.
-    ctx = create_test_context({
-      'plugin_logging' => { 'MY_TAG' => true }
-      # 'plugin_log_level' is implicitly 'warn' due to create_test_context defaults merging with PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING
-    })
+    ctx = create_test_context('plugin_logging' => { 'MY_TAG' => true })
 
-    mock_logger = Minitest::Mock.new
-    expected_console_msg = "[WARN] MY_TAG_FAILURE: Reason='Test'  SourcePage='path/page.html'"
-    mock_logger.expect(:warn, nil, ["PluginLiquid:", expected_console_msg])
+    mock_logger = create_mock_logger_expecting_warn
 
     Jekyll.stub :logger, mock_logger do
-      PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: "MY_TAG", reason: "Test", level: :warn)
+      call_log_liquid_failure(ctx, tag_type: 'MY_TAG', reason: 'Test', level: :warn)
     end
     mock_logger.verify
   end
 
   def test_console_log_uses_default_message_level_if_not_passed
-    # Default message level is :warn (PluginLoggerUtils::DEFAULT_MESSAGE_LEVEL_SYMBOL)
-    # Global console level is permissive ('debug')
-    ctx = create_test_context({
-      'plugin_log_level' => 'debug', # Global console level is permissive
-      'plugin_logging' => { 'MY_TAG' => true }
-    })
-
-    mock_logger = Minitest::Mock.new
-    # Default message level is :warn
-    expected_console_msg = "[WARN] MY_TAG_FAILURE: Reason='Test'  SourcePage='path/page.html'"
-    mock_logger.expect(:warn, nil, ["PluginLiquid:", expected_console_msg])
+    ctx = create_test_context('plugin_log_level' => 'debug', 'plugin_logging' => { 'MY_TAG' => true })
+    mock_logger = create_mock_logger_expecting_warn
 
     Jekyll.stub :logger, mock_logger do
-      PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: "MY_TAG", reason: "Test") # No level passed
+      PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: 'MY_TAG', reason: 'Test')
     end
     mock_logger.verify
   end
 
-  # --- Testing HTML Comment Generation ---
-  def test_html_comment_in_non_production_when_enabled_and_level_met
-    # Site config: tag enabled=true, global level=debug, env=test
-    # Message level: debug
-    # Expected: HTML comment
-    ctx = create_test_context({
-      'environment' => 'test',
-      'plugin_log_level' => 'debug', # Console level
-      'plugin_logging' => { 'MY_TAG' => true }
-    })
-    html_output = ""
-    # Use a mock that responds to :debug for console output
-    logger_responds_to_debug = Minitest::Mock.new
-    logger_responds_to_debug.expect(:debug, nil, [String, String]) # Allow any two string args
+  private
 
-    Jekyll.stub :logger, logger_responds_to_debug do
-      html_output = PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: "MY_TAG", reason: "Debug Test", level: :debug)
+  def setup_console_log_test
+    ctx = create_test_context('plugin_log_level' => 'info', 'plugin_logging' => { 'MY_TAG' => true })
+    mock_logger = create_mock_logger_expecting_warn
+    expected_msg = "[WARN] MY_TAG_FAILURE: Reason='Test'  SourcePage='path/page.html'"
+    [ctx, mock_logger, expected_msg]
+  end
+
+  def run_log_with_mock(ctx, mock_logger, level)
+    html_output = ''
+    Jekyll.stub :logger, mock_logger do
+      html_output = call_log_liquid_failure(ctx, tag_type: 'MY_TAG', reason: 'Test', level: level)
     end
-    logger_responds_to_debug.verify # Ensure it was called (or not, if level filtering suppressed it)
-    assert_match %r{<!-- \[DEBUG\] MY_TAG_FAILURE: Reason='Debug Test'\s*SourcePage='path/page\.html' -->}, html_output
+    html_output
+  end
+
+  def expected_html_pattern
+    %r{<!-- \[WARN\] MY_TAG_FAILURE: Reason='Test'\s*SourcePage='path/page\.html' -->}
+  end
+
+  def create_mock_logger_expecting_warn
+    mock = Minitest::Mock.new
+    expected_console_msg = "[WARN] MY_TAG_FAILURE: Reason='Test'  SourcePage='path/page.html'"
+    mock.expect(:warn, nil, ['PluginLiquid:', expected_console_msg])
+    mock
+  end
+end
+
+# Tests for HTML comment generation
+class TestPluginLoggerUtilsHtmlComments < TestPluginLoggerUtilsBase
+  def test_html_comment_in_non_production_when_enabled_and_level_met
+    ctx = create_test_context(
+      'environment' => 'test', 'plugin_log_level' => 'debug', 'plugin_logging' => { 'MY_TAG' => true }
+    )
+
+    html_output = run_with_debug_logger(ctx, 'Debug Test')
+
+    assert_match expected_debug_html_pattern, html_output
   end
 
   def test_html_comment_in_non_production_even_if_console_suppressed_by_level
-    # Site config: tag enabled=true, global level=error, env=test
-    # Message level: warn (warn < error, so console suppressed)
-    # Expected: HTML comment still generated
-    ctx = create_test_context({
-      'environment' => 'test',
-      'plugin_log_level' => 'error', # Console only shows errors
-      'plugin_logging' => { 'MY_TAG' => true }
-    })
-    html_output = ""
-    # We expect no console output for a :warn message because global level is :error.
-    # So, mock_logger should have no expectations for :warn.
-    mock_logger_for_html_test = Minitest::Mock.new
-    Jekyll.stub :logger, mock_logger_for_html_test do
-      html_output = PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: "MY_TAG", reason: "Warn Test", level: :warn)
-    end
-    mock_logger_for_html_test.verify # Verify no console methods were called
-    assert_match %r{<!-- \[WARN\] MY_TAG_FAILURE: Reason='Warn Test'\s*SourcePage='path/page\.html' -->}, html_output
+    ctx = create_test_context(
+      'environment' => 'test', 'plugin_log_level' => 'error', 'plugin_logging' => { 'MY_TAG' => true }
+    )
+
+    html_output = run_with_no_console(ctx, 'Warn Test', :warn)
+
+    assert_match expected_warn_html_pattern, html_output
   end
 
   def test_no_html_comment_in_production_even_if_enabled_and_level_met
-    # Site config: tag enabled=true, global level=debug, env=production
-    # Message level: debug
-    # Expected: NO HTML comment
-    ctx = create_test_context({
-      'environment' => 'production',
-      'plugin_log_level' => 'debug',
-      'plugin_logging' => { 'MY_TAG' => true }
-    })
-    html_output = ""
-    # Console output should still happen if level is met
-    logger_responds_to_debug = Minitest::Mock.new
-    logger_responds_to_debug.expect(:debug, nil, [String, String])
+    ctx = create_test_context(
+      'environment' => 'production', 'plugin_log_level' => 'debug', 'plugin_logging' => { 'MY_TAG' => true }
+    )
 
-    Jekyll.stub :logger, logger_responds_to_debug do
-      html_output = PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: "MY_TAG", reason: "Prod Test", level: :debug)
-    end
-    logger_responds_to_debug.verify
-    assert_equal "", html_output, "HTML output should be empty in production"
+    html_output = run_with_debug_logger(ctx, 'Prod Test')
+
+    assert_equal '', html_output, 'HTML output should be empty in production'
   end
 
   def test_no_html_comment_if_tag_disabled
-    # Site config: tag enabled=false, env=test
-    # Expected: No HTML comment
-    ctx = create_test_context({
-      'environment' => 'test',
-      'plugin_logging' => { 'MY_TAG' => false } # Logging for MY_TAG is off
-    })
-    html_output = ""
-    Jekyll.stub :logger, Minitest::Mock.new do # Stub to silence potential console output
-      html_output = PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: "MY_TAG", reason: "Disabled Test")
-    end
-    assert_equal "", html_output, "HTML output should be empty when tag logging is disabled"
+    ctx = create_test_context('environment' => 'test', 'plugin_logging' => { 'MY_TAG' => false })
+
+    html_output = run_with_no_console(ctx, 'Disabled Test')
+
+    assert_equal '', html_output, 'HTML output should be empty when tag logging is disabled'
   end
 
+  private
+
+  def run_with_debug_logger(ctx, reason)
+    logger_responds_to_debug = Minitest::Mock.new
+    logger_responds_to_debug.expect(:debug, nil, [String, String])
+
+    html_output = ''
+    Jekyll.stub :logger, logger_responds_to_debug do
+      html_output = call_log_liquid_failure(ctx, tag_type: 'MY_TAG', reason: reason, level: :debug)
+    end
+    logger_responds_to_debug.verify
+    html_output
+  end
+
+  def run_with_no_console(ctx, reason, level = :warn)
+    mock_logger = Minitest::Mock.new
+    html_output = ''
+    Jekyll.stub :logger, mock_logger do
+      html_output = call_log_liquid_failure(ctx, tag_type: 'MY_TAG', reason: reason, level: level)
+    end
+    mock_logger.verify
+    html_output
+  end
+
+  def expected_debug_html_pattern
+    %r{<!-- \[DEBUG\] MY_TAG_FAILURE: Reason='Debug Test'\s*SourcePage='path/page\.html' -->}
+  end
+
+  def expected_warn_html_pattern
+    %r{<!-- \[WARN\] MY_TAG_FAILURE: Reason='Warn Test'\s*SourcePage='path/page\.html' -->}
+  end
+end
+
+# Tests for internal logger errors and fallbacks
+class TestPluginLoggerUtilsInternalErrors < TestPluginLoggerUtilsBase
   def test_puts_fallback_used_when_jekyll_logger_cannot_handle_level
-    ctx = create_test_context({
-      'plugin_log_level' => 'debug', # Ensure console logging is attempted
-      'plugin_logging' => { 'MY_TAG' => true }
-    })
+    ctx = create_test_context('plugin_log_level' => 'debug', 'plugin_logging' => { 'MY_TAG' => true })
     simple_logger = Object.new
 
-    stdout_str, _ = capture_io do
+    stdout_str, = capture_io do
       Jekyll.stub :logger, simple_logger do
-        PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: "MY_TAG", reason: "Puts Test", level: :warn)
+        call_log_liquid_failure(ctx, tag_type: 'MY_TAG', reason: 'Puts Test', level: :warn)
       end
     end
-    # Puts fallback now includes the level in its output string
-    assert_match %r{\[PLUGIN_LIQUID_LOG\] \[WARN\] MY_TAG_FAILURE: Reason='Puts Test'\s*SourcePage='path/page\.html'}, stdout_str
+
+    expected_pattern = %r{\[PLUGIN_LIQUID_LOG\] \[WARN\] MY_TAG_FAILURE: Reason='Puts Test'\s*SourcePage='path/page\.html'}
+    assert_match expected_pattern, stdout_str
   end
 
-  # --- Test for internal logger error when context/site is bad ---
-  # These tests verify the STDERR fallback when site.config is inaccessible.
-
   def test_internal_logger_error_if_context_is_nil
-    _stdout_str, stderr_str = capture_io do
-      # This call passes level: :error
-      PluginLoggerUtils.log_liquid_failure(context: nil, tag_type: "CTX_NIL", reason: "Bad context", level: :error)
+    _, stderr_str = capture_io do
+      call_log_liquid_failure(nil, tag_type: 'CTX_NIL', reason: 'Bad context', level: :error)
     end
     cleaned_stderr = strip_ansi(stderr_str).strip
-    # Define the exact expected string after cleaning
-    expected_text = "PluginLogger: [PLUGIN LOGGER ERROR] Context, Site, or Site Config unavailable for logging. Original Call: CTX_NIL - error: Bad context"
+
+    expected_text = 'PluginLogger: [PLUGIN LOGGER ERROR] Context, Site, or Site Config unavailable for logging. ' \
+                    'Original Call: CTX_NIL - error: Bad context'
     assert_equal expected_text, cleaned_stderr
   end
 
   def test_internal_logger_error_if_context_has_no_site
-    context_no_site = create_context({}, {}) # No :site register
-    _stdout_str, stderr_str = capture_io do
-      PluginLoggerUtils.log_liquid_failure(context: context_no_site, tag_type: "CTX_NO_SITE", reason: "Bad context", level: :error)
+    context_no_site = create_context({}, {})
+    _, stderr_str = capture_io do
+      call_log_liquid_failure(context_no_site, tag_type: 'CTX_NO_SITE', reason: 'Bad context', level: :error)
     end
     cleaned_stderr = strip_ansi(stderr_str).strip
-    # Define the exact expected string after cleaning
-    expected_text = "PluginLogger: [PLUGIN LOGGER ERROR] Context, Site, or Site Config unavailable for logging. Original Call: CTX_NO_SITE - error: Bad context"
+
+    expected_text = 'PluginLogger: [PLUGIN LOGGER ERROR] Context, Site, or Site Config unavailable for logging. ' \
+                    'Original Call: CTX_NO_SITE - error: Bad context'
     assert_equal expected_text, cleaned_stderr
   end
 end

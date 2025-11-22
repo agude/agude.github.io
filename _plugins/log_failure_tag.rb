@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _plugins/log_failure_tag.rb
 require 'jekyll'
 require 'liquid'
@@ -18,49 +20,22 @@ module Jekyll
   #   Other key-value pairs: Optional identifiers to include in the log message. Values can be literals or variables.
   #
   class LogFailureTag < Liquid::Tag
-    SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o.freeze
+    SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
 
     def initialize(tag_name, markup, tokens)
       super
+      @tag_name = tag_name
       @raw_markup = markup
       @attributes = {}
 
-      # Use StringScanner for robust key=value parsing
-      scanner = StringScanner.new(markup.strip)
-      while scanner.scan(SYNTAX)
-        key = scanner[1]
-        value_markup = scanner[2]
-        @attributes[key] = value_markup
-        scanner.skip(/\s*/)
-      end
-
-      # Check if there's any unparsed text left
-      unless scanner.eos?
-        raise Liquid::SyntaxError, "Syntax Error in 'log_failure': Invalid arguments near '#{scanner.rest}' in '#{@raw_markup}'"
-      end
-
-      # Validate required arguments
-      unless @attributes['type']
-        raise Liquid::SyntaxError, "Syntax Error in 'log_failure': Required argument 'type' is missing in '#{@raw_markup}'"
-      end
-      unless @attributes['reason']
-        raise Liquid::SyntaxError, "Syntax Error in 'log_failure': Required argument 'reason' is missing in '#{@raw_markup}'"
-      end
+      parse_arguments
+      validate_arguments
     end
 
     def render(context)
-      # Resolve required arguments
       log_type = TagArgumentUtils.resolve_value(@attributes['type'], context).to_s
       log_reason = TagArgumentUtils.resolve_value(@attributes['reason'], context).to_s
-
-      # Resolve optional identifier arguments
-      identifiers = {}
-      @attributes.each do |key, value_markup|
-        # Skip the required args we already handled
-        next if key == 'type' || key == 'reason'
-        # Use the key as-is (it's already a string from the scanner)
-        identifiers[key] = TagArgumentUtils.resolve_value(value_markup, context)
-      end
+      identifiers = resolve_identifiers(context)
 
       PluginLoggerUtils.log_liquid_failure(
         context: context,
@@ -68,6 +43,43 @@ module Jekyll
         reason: log_reason,
         identifiers: identifiers
       )
+    end
+
+    private
+
+    def parse_arguments
+      scanner = StringScanner.new(@raw_markup.strip)
+      while scanner.scan(SYNTAX)
+        @attributes[scanner[1]] = scanner[2]
+        scanner.skip(/\s*/)
+      end
+
+      return if scanner.eos?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'log_failure': Invalid arguments near '#{scanner.rest}' in '#{@raw_markup}'"
+    end
+
+    def validate_arguments
+      validate_required_arg('type')
+      validate_required_arg('reason')
+    end
+
+    def validate_required_arg(arg)
+      return if @attributes[arg]
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'log_failure': Required argument '#{arg}' is missing in '#{@raw_markup}'"
+    end
+
+    def resolve_identifiers(context)
+      identifiers = {}
+      @attributes.each do |key, value_markup|
+        next if %w[type reason].include?(key)
+
+        identifiers[key] = TagArgumentUtils.resolve_value(value_markup, context)
+      end
+      identifiers
     end
   end
 end

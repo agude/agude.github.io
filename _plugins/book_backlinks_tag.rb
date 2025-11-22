@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _plugins/book_backlinks_tag.rb
 require 'jekyll'
 require 'liquid'
@@ -7,157 +9,197 @@ require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/text_processing_utils' # For sorting
 
 module Jekyll
+  # Renders a list of book reviews that mention the current book.
+  #
+  # Displays backlinks from other book reviews that reference this book either
+  # directly or via series mentions.
+  #
+  # Usage in Liquid templates:
+  #   {% book_backlinks %}
   class BookBacklinksTag < Liquid::Tag
-
-    def initialize(tag_name, markup, tokens)
-      super
-      # No arguments needed for this tag
-    end
-
     # Renders the list of books linking back to the current page.
     def render(context)
-      site = context.registers[:site]
-      page = context.registers[:page]
+      BacklinksProcessor.new(context).process
+    end
+  end
 
-      # --- Basic Sanity Checks (Tag Level) ---
-      unless site && page && \
-          site.collections.key?('books') && \
-          page['url'] && !page['url'].to_s.strip.empty? && \
-          page['title'] && !page['title'].to_s.strip.empty?
+  # Helper class to process and render backlinks
+  class BacklinksProcessor
+    def initialize(context)
+      @context = context
+      @site = context.registers[:site]
+      @page = context.registers[:page]
+      @caches = fetch_caches
+    end
 
-        missing_parts = []
-        missing_parts << "site object" unless site
-        missing_parts << "page object" unless page
-        missing_parts << "site.collections['books']" unless site&.collections&.key?('books')
-        missing_parts << "page['url'] (present and not empty)" unless page && page['url'] && !page['url'].to_s.strip.empty?
-        missing_parts << "page['title'] (present and not empty)" unless page && page['title'] && !page['title'].to_s.strip.empty?
+    def process
+      return validation_error if missing_prerequisites?
 
-        return PluginLoggerUtils.log_liquid_failure(
-          context: context,
-          tag_type: "BOOK_BACKLINKS_TAG",
-          reason: "Tag prerequisites missing: #{missing_parts.join(', ')}.",
-          identifiers: {
-            PageURL: page ? (page['url'] || 'N/A') : 'N/A',
-            PageTitle: page ? (page['title'] || 'N/A') : 'N/A'
-          },
-          level: :error,
-        )
+      canonical_url = @caches[:canonical_map][@page['url']]
+      return '' unless canonical_url
+
+      entries = gather_backlinks(canonical_url)
+      return '' if entries.empty?
+
+      sorted = sort_entries(entries, canonical_url)
+      return '' if sorted.empty?
+
+      render_html(sorted)
+    end
+
+    private
+
+    def fetch_caches
+      # Use safe navigation for site/data in case site is nil (handled in validation)
+      lc = @site&.data&.[]('link_cache') || {}
+      {
+        backlinks: lc['backlinks'] || {},
+        canonical_map: lc['url_to_canonical_map'] || {},
+        book_families: lc['book_families'] || {},
+        series_map: lc['series_map'] || {}
+      }
+    end
+
+    def missing_prerequisites?
+      !(@site && @page && @site.collections.key?('books') &&
+        present?(@page['url']) && present?(@page['title']))
+    end
+
+    def present?(val)
+      !val.to_s.strip.empty?
+    end
+
+    def validation_error
+      missing = collect_missing_prerequisites
+      log_validation_failure(missing)
+    end
+
+    def collect_missing_prerequisites
+      missing = []
+      missing << 'site object' unless @site
+      missing << 'page object' unless @page
+      missing << "site.collections['books']" unless @site&.collections&.key?('books')
+      missing << "page['url'] (present and not empty)" unless present?(@page&.[]('url'))
+      missing << "page['title'] (present and not empty)" unless present?(@page&.[]('title'))
+      missing
+    end
+
+    def log_validation_failure(missing)
+      PluginLoggerUtils.log_liquid_failure(
+        context: @context,
+        tag_type: 'BOOK_BACKLINKS_TAG',
+        reason: "Tag prerequisites missing: #{missing.join(', ')}.",
+        identifiers: { PageURL: @page&.[]('url') || 'N/A', PageTitle: @page&.[]('title') || 'N/A' },
+        level: :error
+      )
+    end
+
+    def gather_backlinks(canonical_url)
+      merged = {}
+      # Direct versions
+      (@caches[:book_families][canonical_url] || []).each do |url|
+        (@caches[:backlinks][url] || []).each { |e| merged[e[:source].url] = e }
       end
-      # --- End Sanity Checks ---
+      # Series mentions
+      add_series_links(merged)
+      # Deduplicate
+      deduplicate(merged)
+    end
 
-      current_title_original = page['title']
-      link_cache = site.data.dig('link_cache') || {}
-      backlinks_cache = link_cache['backlinks'] || {}
-      canonical_map = link_cache['url_to_canonical_map'] || {}
-      book_families = link_cache['book_families'] || {}
-      series_map = link_cache['series_map'] || {}
+    def add_series_links(merged)
+      series = @page['series']
+      return unless present?(series)
 
-      # --- Identify all versions of this book using the new cache ---
-      canonical_url = canonical_map[page['url']]
-      return "" unless canonical_url # Exit if the current page isn't in the map.
-      all_version_urls = Set.new(book_families[canonical_url] || [])
+      norm_series = TextProcessingUtils.normalize_title(series)
+      series_books = @caches[:series_map][norm_series] || []
+      series_books.each { |book| add_series_backlinks_for_book(book, merged) }
+    end
 
-      # --- Gather and merge backlinks for all versions ---
-      merged_backlinks = {}
-      all_version_urls.each do |url|
-        (backlinks_cache[url] || []).each do |entry|
-          source_url = entry[:source].url
-          merged_backlinks[source_url] = entry
-        end
+    def add_series_backlinks_for_book(book, merged)
+      (@caches[:backlinks][book.url] || []).each do |e|
+        merged[e[:source].url] ||= e if e[:type] == 'series'
       end
+    end
 
-      # --- NEW: Gather backlinks from series mentions ---
-      current_series_name = page['series']
-      if current_series_name && !current_series_name.strip.empty?
-        normalized_series = TextProcessingUtils.normalize_title(current_series_name)
-        books_in_series = series_map[normalized_series] || []
-        books_in_series.each do |book_in_series|
-          (backlinks_cache[book_in_series.url] || []).each do |entry|
-            if entry[:type] == 'series'
-              source_url = entry[:source].url
-              # Don't overwrite a direct book link with a series link
-              merged_backlinks[source_url] ||= entry
-            end
-          end
-        end
-      end
+    def deduplicate(merged)
+      unique = {}
+      prio_map = link_type_priority_map
+      merged.each_value { |entry| update_unique_entry(unique, entry, prio_map) }
+      unique.values
+    end
 
-      # --- Deduplicate sources based on their canonical URL, respecting link priority ---
-      unique_canonical_sources = {}
-      merged_backlinks.values.each do |entry|
-        source_doc = entry[:source]
-        source_canonical_url = canonical_map[source_doc.url] || source_doc.url
+    def link_type_priority_map
+      defined?(Jekyll::LinkCacheGenerator::LINK_TYPE_PRIORITY) ? Jekyll::LinkCacheGenerator::LINK_TYPE_PRIORITY : {}
+    end
 
-        existing_entry = unique_canonical_sources[source_canonical_url]
+    def update_unique_entry(unique, entry, prio_map)
+      canon = @caches[:canonical_map][entry[:source].url] || entry[:source].url
+      return if should_skip_entry?(unique[canon], entry, prio_map)
 
-        priority_map = defined?(Jekyll::LinkCacheGenerator::LINK_TYPE_PRIORITY) ? Jekyll::LinkCacheGenerator::LINK_TYPE_PRIORITY : {}
-        new_priority = priority_map[entry[:type]] || 0
-        existing_priority = existing_entry ? (priority_map[existing_entry[:type]] || 0) : -1
+      unique[canon] = entry
+    end
 
-        if new_priority >= existing_priority # Use >= to ensure at least one entry is kept
-          unique_canonical_sources[source_canonical_url] = entry
-        end
-      end
-      backlink_entries = unique_canonical_sources.values
+    def should_skip_entry?(existing, new_entry, prio_map)
+      return false unless existing
 
-      return "" if backlink_entries.empty?
+      new_priority = prio_map[new_entry[:type]] || 0
+      old_priority = prio_map[existing[:type]] || 0
+      new_priority < old_priority
+    end
 
-      # Map to [sort_key, canonical_title, url, type] tuples for sorting.
-      backlinks_data = backlink_entries.map do |entry|
-        book_doc = entry[:source]
-        source_canonical_url = canonical_map[book_doc.url] || book_doc.url
-        next if source_canonical_url == canonical_url # Exclude self-references
+    def sort_entries(entries, current_canon)
+      sortable = build_sortable_entries(entries, current_canon)
+      sorted = sortable.sort_by(&:first)
+      sorted.map { |t| t[1..3] }
+    end
 
-        link_type = entry[:type]
-        title = book_doc.data['title']
-        next if title.nil? || title.strip.empty?
+    def build_sortable_entries(entries, current_canon)
+      entries.map do |e|
+        src = e[:source]
+        src_canon = @caches[:canonical_map][src.url] || src.url
+        next if src_canon == current_canon
 
-        sort_key = TextProcessingUtils.normalize_title(title, strip_articles: true)
-        [sort_key, title, book_doc.url, link_type]
+        title = src.data['title']
+        next unless present?(title)
+
+        [TextProcessingUtils.normalize_title(title, strip_articles: true), title, src.url, e[:type]]
       end.compact
+    end
 
-      # Sort by sort_key, then map to [canonical_title, url, type] tuples
-      sorted_backlinks = backlinks_data.sort_by { |tuple| tuple[0] }
-        .map { |tuple| [tuple[1], tuple[2], tuple[3]] }
+    def render_html(sorted)
+      has_series = false
+      list_items = sorted.map do |title, url, type|
+        has_series = true if type == 'series'
+        render_item(title, url, type)
+      end.join
 
-      # --- Render Final HTML ---
-      if sorted_backlinks.empty?
-        return ""
-      else
-        output = "<aside class=\"book-backlinks\">"
-        output << "<h2 class=\"book-backlink-section\">"
-        output << " Reviews that mention <span class=\"book-title\">#{CGI.escapeHTML(current_title_original)}</span>"
-        output << "</h2>"
-        output << "<ul class=\"book-backlink-list\">"
+      build_container(list_items, has_series)
+    end
 
-        has_series_link = false # Flag to track if we need to show the note
+    def render_item(title, url, type)
+      link = BookLinkUtils.render_book_link_from_data(title, url, @context)
+      indicator = type == 'series' ? series_indicator : ''
+      "<li class=\"book-backlink-item\" data-link-type=\"#{type}\">#{link}#{indicator}</li>"
+    end
 
-        sorted_backlinks.each do |backlink_title, backlink_url, link_type|
-          link_html = BookLinkUtils.render_book_link_from_data(backlink_title, backlink_url, context)
+    def build_container(list_items, has_series)
+      title = CGI.escapeHTML(@page['title'])
+      out = '<aside class="book-backlinks"><h2 class="book-backlink-section"> ' \
+            "Reviews that mention <span class=\"book-title\">#{title}</span></h2>" \
+            "<ul class=\"book-backlink-list\">#{list_items}</ul>"
+      out << series_explanation if has_series
+      out << '</aside>'
+    end
 
-          indicator_html = ""
-          if link_type == 'series'
-            has_series_link = true # Set the flag
-            # Add the title attribute for the tooltip
-            indicator_html = "<sup class=\"series-mention-indicator\" role=\"img\" aria-label=\"Mentioned via series link\" title=\"Mentioned via series link\">†</sup>"
-          end
+    def series_explanation
+      '<p class="backlink-explanation"><sup>†</sup> <em>Mentioned via a link to the series.</em></p>'
+    end
 
-          output << "<li class=\"book-backlink-item\" data-link-type=\"#{link_type}\">#{link_html}#{indicator_html}</li>"
-        end
-
-        output << "</ul>"
-
-        # Conditionally add the explanatory note at the end
-        if has_series_link
-          output << "<p class=\"backlink-explanation\"><sup>†</sup> <em>Mentioned via a link to the series.</em></p>"
-        end
-
-        output << "</aside>"
-        return output
-      end
-    end # End render
-
-  end # End class
-end # End module
+    def series_indicator
+      '<sup class="series-mention-indicator" role="img" aria-label="Mentioned via series link" ' \
+        'title="Mentioned via series link">†</sup>'
+    end
+  end
+end
 
 Liquid::Template.register_tag('book_backlinks', Jekyll::BookBacklinksTag)

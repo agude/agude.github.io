@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _plugins/rating_stars_tag.rb
 require 'jekyll'
 require 'liquid'
@@ -17,7 +19,7 @@ module Jekyll
   #   {% rating_stars book.rating wrapper_tag='div' %}
   #
   class RatingStarsTag < Liquid::Tag
-    SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment})/o.freeze # For key=value args
+    SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment})/o # For key=value args
 
     def initialize(tag_name, markup, tokens)
       super
@@ -25,42 +27,7 @@ module Jekyll
       @rating_markup = nil
       @wrapper_tag_markup = nil # Default to nil -> util defaults to 'div'
 
-      scanner = StringScanner.new(markup.strip)
-
-      # 1. Extract the Rating (first argument, must be variable or number 1-5)
-      # It cannot be a quoted string like "4" because resolve_value would return "4" (String)
-      # and render_rating_stars expects Integer or integer-like String.
-      # Let render_rating_stars handle the type check.
-      unless scanner.scan(/\S+/)
-        raise Liquid::SyntaxError, "Syntax Error in 'rating_stars': Rating value/variable is missing in '#{@raw_markup}'"
-      end
-      @rating_markup = scanner.matched
-
-      # 2. Scan for optional wrapper_tag="tag"
-      scanner.skip(/\s*/)
-      if scanner.scan(SYNTAX)
-        key = scanner[1]
-        value_markup = scanner[2]
-        if key == 'wrapper_tag'
-          # Ensure it's quoted 'div' or 'span' for safety, although util validates
-          if value_markup == "'div'" || value_markup == '"div"' || value_markup == "'span'" || value_markup == '"span"'
-            @wrapper_tag_markup = value_markup
-          else
-            # Optional: Raise error for invalid literal tag, or let util handle it
-            # raise Liquid::SyntaxError, "Syntax Error in 'rating_stars': wrapper_tag must be 'div' or 'span' (quoted) in '#{@raw_markup}'"
-            # Let's allow any quoted string and let the util default for invalid ones
-            @wrapper_tag_markup = value_markup
-          end
-        else
-          raise Liquid::SyntaxError, "Syntax Error in 'rating_stars': Unknown argument '#{key}' in '#{@raw_markup}'"
-        end
-      end
-
-      # Ensure no other arguments are present
-      scanner.skip(/\s+/)
-      unless scanner.eos?
-        raise Liquid::SyntaxError, "Syntax Error in 'rating_stars': Unexpected arguments '#{scanner.rest}' in '#{@raw_markup}'"
-      end
+      parse_markup(markup)
     end
 
     def render(context)
@@ -78,6 +45,55 @@ module Jekyll
 
       # Call the utility function. It handles nil, validation, errors.
       RatingUtils.render_rating_stars(rating_value, wrapper_tag_value)
+    end
+
+    private
+
+    def parse_markup(markup)
+      scanner = StringScanner.new(markup.strip)
+      scan_rating(scanner)
+      scan_wrapper_tag(scanner)
+      validate_end_of_string(scanner)
+    end
+
+    def scan_rating(scanner)
+      # 1. Extract the Rating (first argument, must be variable or number 1-5)
+      # It cannot be a quoted string like "4" because resolve_value would return "4" (String)
+      # and render_rating_stars expects Integer or integer-like String.
+      # Let render_rating_stars handle the type check.
+      unless scanner.scan(/\S+/)
+        raise Liquid::SyntaxError,
+              "Syntax Error in 'rating_stars': Rating value/variable is missing in '#{@raw_markup}'"
+      end
+
+      @rating_markup = scanner.matched
+    end
+
+    def scan_wrapper_tag(scanner)
+      # 2. Scan for optional wrapper_tag="tag"
+      scanner.skip(/\s*/)
+      return unless scanner.scan(SYNTAX)
+
+      key = scanner[1]
+      value_markup = scanner[2]
+      unless key == 'wrapper_tag'
+        raise Liquid::SyntaxError, "Syntax Error in 'rating_stars': Unknown argument '#{key}' in '#{@raw_markup}'"
+      end
+
+      # Optional: Raise error for invalid literal tag, or let util handle it
+      # raise Liquid::SyntaxError, "Syntax Error in 'rating_stars': wrapper_tag must be 'div' or 'span' " \
+      #   "(quoted) in '#{@raw_markup}'"
+      # Let's allow any quoted string and let the util default for invalid ones
+      @wrapper_tag_markup = value_markup
+    end
+
+    def validate_end_of_string(scanner)
+      # Ensure no other arguments are present
+      scanner.skip(/\s+/)
+      return if scanner.eos?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'rating_stars': Unexpected arguments '#{scanner.rest}' in '#{@raw_markup}'"
     end
   end
 end

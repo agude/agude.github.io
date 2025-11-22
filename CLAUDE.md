@@ -143,6 +143,42 @@ Key settings:
 6. If Gemfile changes, run `make lock` and commit the updated Gemfile.lock
 7. If Dockerfile changes, run `make refresh` to rebuild image without cache
 
+## Commit Message Style
+
+This repository follows a structured commit message format for clarity and consistency:
+
+**Format:**
+```
+Short imperative headline (50-60 chars)
+
+Detailed explanation paragraph describing what was refactored and why. Long
+lines are hard wrapped at 80 chars.
+
+Changes:
+- First specific change with `code elements` in backticks.
+- Second specific change.
+- Additional changes as needed.
+```
+
+**Guidelines:**
+- **Headline**: Use imperative mood (e.g., "Decouple", "Refactor", "Isolate"), be concise
+- **Body**: Start with "Refactored the `ClassName.method_name` method by..." or similar
+- **Changes list**: Use `-` bullets with backticks for method names, class names, and code elements
+
+**Example:**
+```
+Decouple BlogPostingLdGenerator logic into private helpers
+
+Refactored the `BlogPostingLdGenerator.generate_hash` method by extracting its
+data construction logic into dedicated private helper methods.
+
+Changes
+- Extracting the base data structure creation into `base_data_hash`.
+- Isolating headline addition into `add_headline`.
+- Moving author and publisher entity construction into
+  `add_author_and_publisher`.
+```
+
 ## File Organization
 
 - `/files/` - Static assets (images, PDFs, data files)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _plugins/environment_setter.rb
 # Ensures that site.config['environment'] is set from ENV['JEKYLL_ENV']
 # if ENV['JEKYLL_ENV'] is present. This helps make the environment
@@ -7,31 +9,57 @@
 # not work for pages that try to read it in Liquid.
 
 module Jekyll
+  # Sets site.config['environment'] from the JEKYLL_ENV environment variable.
+  #
+  # Ensures consistent environment configuration throughout the Jekyll build
+  # process by synchronizing ENV['JEKYLL_ENV'] with site.config['environment'].
   class EnvironmentSetterGenerator < Generator
     priority :highest # Run this generator as early as possible
 
     def generate(site)
-      # Store the original value for logging, if any
       original_config_env = site.config['environment']
-      env_var_jekyll_env = ENV['JEKYLL_ENV']
-      puts "ENVIRONMENT_SETTER_PLUGIN: Current value of JEKYLL_ENV: '#{env_var_jekyll_env}'"
+      env_var_jekyll_env = ENV.fetch('JEKYLL_ENV', nil)
+
+      log_current_jekyll_env(env_var_jekyll_env)
 
       if env_var_jekyll_env && !env_var_jekyll_env.empty?
-        # If JEKYLL_ENV is set, make sure site.config['environment'] matches it.
-        # This is useful because Jekyll might populate site.config['environment']
-        # later than some plugins (like this generator) run.
-        site.config['environment'] = env_var_jekyll_env
-        if original_config_env != site.config['environment']
-          puts "ENVIRONMENT_SETTER_PLUGIN: Updated site.config['environment'] from '#{original_config_env.inspect}' to '#{site.config['environment']}' (based on ENV['JEKYLL_ENV'])."
-        else
-          puts "ENVIRONMENT_SETTER_PLUGIN: site.config['environment'] already matched ENV['JEKYLL_ENV'] ('#{site.config['environment']}'). No change needed."
-        end
+        update_environment(site, original_config_env, env_var_jekyll_env)
       else
-        # If JEKYLL_ENV is not set or is empty, Jekyll will typically default
-        # site.config['environment'] to 'development'. We'll log what it is.
-        # If it's nil at this very early stage, PluginLoggerUtils will still default to 'development'.
-        puts "ENVIRONMENT_SETTER_PLUGIN: ENV['JEKYLL_ENV'] not found or empty. site.config['environment'] is '#{original_config_env.inspect}'."
+        log_jekyll_env_not_set(original_config_env)
       end
+    end
+
+    private
+
+    def log_current_jekyll_env(env_var_jekyll_env)
+      puts 'ENVIRONMENT_SETTER_PLUGIN: Current value of JEKYLL_ENV: ' \
+           "'#{env_var_jekyll_env}'"
+    end
+
+    def update_environment(site, original_config_env, env_var_jekyll_env)
+      site.config['environment'] = env_var_jekyll_env
+
+      if original_config_env == site.config['environment']
+        log_no_change_needed(site.config['environment'])
+      else
+        log_environment_updated(original_config_env, site.config['environment'])
+      end
+    end
+
+    def log_no_change_needed(current_env)
+      puts "ENVIRONMENT_SETTER_PLUGIN: site.config['environment'] already " \
+           "matched ENV['JEKYLL_ENV'] ('#{current_env}'). No change needed."
+    end
+
+    def log_environment_updated(original_env, new_env)
+      puts "ENVIRONMENT_SETTER_PLUGIN: Updated site.config['environment'] " \
+           "from '#{original_env.inspect}' to '#{new_env}' " \
+           "(based on ENV['JEKYLL_ENV'])."
+    end
+
+    def log_jekyll_env_not_set(original_config_env)
+      puts "ENVIRONMENT_SETTER_PLUGIN: ENV['JEKYLL_ENV'] not found or empty. " \
+           "site.config['environment'] is '#{original_config_env.inspect}'."
     end
   end
 end

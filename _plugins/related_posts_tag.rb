@@ -1,158 +1,157 @@
+# frozen_string_literal: true
+
 # _plugins/related_posts_tag.rb
 require 'jekyll'
 require 'liquid'
 require 'cgi'
-require 'set' # Explicitly require Set for clarity, though often available
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/article_card_utils'
 
 module Jekyll
+  # Displays related or recent blog posts based on category matching.
+  #
+  # Shows posts that share categories with the current page, falling back
+  # to recent posts if no category matches are found.
+  #
+  # Usage in Liquid templates:
+  #   {% related_posts %}
   class RelatedPostsTag < Liquid::Tag
     DEFAULT_MAX_POSTS = 3
 
     def initialize(tag_name, markup, tokens)
       super
-      # No arguments to parse for this tag currently.
-      # @max_posts could be made configurable via markup if needed in the future.
       @max_posts = DEFAULT_MAX_POSTS
     end
 
     def render(context)
-      site = context.registers[:site]
-      page = context.registers[:page]
-      now_unix = Time.now.to_i
+      RelatedPostsRenderer.new(context, @max_posts).render
+    end
+  end
 
-      # --- Prerequisite Validation ---
-      # Ensure essential objects (site, page, site.posts.docs, page.url) are available and valid.
-      prereq_missing = false
-      missing_parts = []
+  # Helper class to handle related posts logic
+  class RelatedPostsRenderer
+    def initialize(context, max_posts)
+      @context = context
+      @max_posts = max_posts
+      @site = context.registers[:site]
+      @page = context.registers[:page]
+      @now_unix = Time.now.to_i
+    end
 
-      unless site
-        prereq_missing = true
-        missing_parts << "site object"
+    def render
+      return log_missing_prerequisites unless prerequisites_met?
+
+      final_posts = gather_posts
+      return '' if final_posts.empty?
+
+      render_html(final_posts)
+    end
+
+    private
+
+    def prerequisites_met?
+      @site && @page && site_posts_valid? && page_url_valid?
+    end
+
+    def site_posts_valid?
+      @site.respond_to?(:posts) && @site.posts.respond_to?(:docs) && @site.posts.docs.is_a?(Array)
+    end
+
+    def page_url_valid?
+      @page['url'] && !@page['url'].to_s.strip.empty?
+    end
+
+    def log_missing_prerequisites
+      missing = collect_missing_items
+      PluginLoggerUtils.log_liquid_failure(
+        context: @context,
+        tag_type: 'RELATED_POSTS',
+        reason: "Missing prerequisites: #{missing.join(', ')}.",
+        identifiers: { PageURL: @page ? (@page['url'] || 'N/A') : 'N/A' },
+        level: :error
+      )
+    end
+
+    def collect_missing_items
+      missing = []
+      missing << 'site object' unless @site
+      missing << 'page object' unless @page
+      missing << "site.posts.docs (#{site_posts_detail})" unless site_posts_valid?
+      add_page_url_errors(missing)
+      missing
+    end
+
+    def add_page_url_errors(missing)
+      if @site && @page && !page_url_valid?
+        missing << "page['url'] (present and not empty)"
+      elsif !@site || !@page
+        missing << "page['url'] (cannot check, site or page missing)"
       end
-      unless page
-        prereq_missing = true
-        missing_parts << "page object"
-      end
+    end
 
-      if site && page
-        # Check if site.posts.docs is a valid, iterable array
-        site_posts_valid = site.respond_to?(:posts) && site.posts && \
-          site.posts.respond_to?(:docs) && site.posts.docs.is_a?(Array)
-        unless site_posts_valid
-          prereq_missing = true
-          detail = "unknown issue"
-          if site.respond_to?(:posts) && site.posts && site.posts.respond_to?(:docs)
-            detail = "site.posts.docs is #{site.posts.docs.class.name}, not Array"
-          elsif site.respond_to?(:posts) && site.posts
-            detail = "site.posts does not have .docs"
-          else
-            detail = "site.posts object itself is problematic or nil"
-          end
-          missing_parts << "site.posts.docs (#{detail})"
-        end
-
-        # Check if page['url'] is present and not empty
-        page_url_valid = page['url'] && !page['url'].to_s.strip.empty?
-        unless page_url_valid
-          prereq_missing = true
-          missing_parts << "page['url'] (present and not empty)"
-        end
+    def site_posts_detail
+      if @site.respond_to?(:posts) && @site.posts.respond_to?(:docs)
+        "site.posts.docs is #{@site.posts.docs.class.name}, not Array"
+      elsif @site.respond_to?(:posts) && @site.posts
+        'site.posts does not have .docs'
       else
-        # If site or page is missing, page['url'] cannot be reliably checked or used.
-        # This specific message is added if the more specific check for page['url'] within 'if site && page' was not performed.
-        missing_parts << "page['url'] (cannot check, site or page missing)" unless page && page['url'] && !page['url'].to_s.strip.empty?
+        'site.posts object itself is problematic or nil'
       end
+    end
 
-      if prereq_missing
-        return PluginLoggerUtils.log_liquid_failure(
-          context: context,
-          tag_type: "RELATED_POSTS",
-          reason: "Missing prerequisites: #{missing_parts.join(', ')}.",
-          identifiers: { PageURL: page ? (page['url'] || 'N/A') : 'N/A' }, # Safely access page['url']
-          level: :error,
-        )
+    def gather_posts
+      @current_url = @page['url']
+      @all_posts = filter_and_sort_posts(@site.posts.docs)
+      @found_by_category = false
+
+      candidates = []
+      candidates.concat(find_by_category)
+      candidates.concat(find_from_config) if candidates.length < @max_posts
+      candidates.concat(@all_posts) if candidates.length < @max_posts
+
+      candidates.uniq(&:url).slice(0, @max_posts)
+    end
+
+    def filter_and_sort_posts(posts)
+      posts.select { |p| valid_post?(p) }
+           .sort_by(&:date)
+           .reverse
+    end
+
+    def valid_post?(post)
+      return false unless post.respond_to?(:data) && post.respond_to?(:url) && post.respond_to?(:date)
+      return false if post.data['published'] == false
+      return false if post.url == @current_url
+      return false unless post.date
+
+      post.date.to_time.to_i <= @now_unix
+    end
+
+    def find_by_category
+      cats = Set.new(@page['categories'] || [])
+      return [] if cats.empty?
+
+      matches = @all_posts.select do |p|
+        Set.new(p.data['categories'] || []).intersect?(cats)
       end
+      @found_by_category = !matches.empty?
+      matches
+    end
 
-      current_url = page['url']
-      current_categories = Set.new(page['categories'] || [])
+    def find_from_config
+      config_posts = @site.config['related_posts']
+      return [] unless config_posts.is_a?(Array)
 
-      # --- Prepare Filtered and Sorted List of All Potential Posts ---
-      # Selects posts that are published, not the current page, and not future-dated.
-      # Sorted by date descending (most recent first).
-      all_site_posts_docs = site.posts.docs
-      all_site_posts_filtered_and_sorted = all_site_posts_docs.select do |p|
-        # Basic check for valid post structure
-        unless p.respond_to?(:data) && p.respond_to?(:url) && p.respond_to?(:date)
-          next false
-        end
-        is_published = p.data['published'] != false
-        is_not_current = p.url != current_url
-        # Ensure post.date is valid and in the past or present
-        is_not_future = p.date ? (p.date.to_time.to_i <= now_unix) : false
+      filter_and_sort_posts(config_posts)
+    end
 
-        is_published && is_not_current && is_not_future
-      end.sort_by { |p| p.date }.reverse
-
-      # --- Collect Candidate Posts ---
-      # Priority:
-      # 1. Posts sharing categories with the current page.
-      # 2. Posts listed in site.config['related_posts'] (manual override).
-      # 3. Most recent posts from the filtered list.
-      candidate_posts = []
-      found_by_category = false
-
-      # 1. Posts sharing a category (if current page has categories)
-      if !current_categories.empty?
-        category_matches = all_site_posts_filtered_and_sorted.select do |p|
-          post_categories = Set.new(p.data['categories'] || [])
-          !post_categories.intersection(current_categories).empty?
-        end
-        candidate_posts.concat(category_matches)
-        found_by_category = !candidate_posts.empty?
-      end
-
-      # 2. Fallback: Use posts from site.config['related_posts'] if available and not enough posts yet.
-      # These are manually specified related posts. They are also filtered for validity.
-      if candidate_posts.length < @max_posts && site.config['related_posts'].is_a?(Array)
-        related_posts_from_config = site.config['related_posts'].select do |p_obj|
-          unless p_obj.respond_to?(:url) && p_obj.respond_to?(:data) && p_obj.respond_to?(:date)
-            next false
-          end
-          is_pub = p_obj.data['published'] != false
-          is_not_curr = p_obj.url != current_url
-          is_not_fut = p_obj.date ? (p_obj.date.to_time.to_i <= now_unix) : false
-          is_pub && is_not_curr && is_not_fut
-        end.sort_by { |p| p.date }.reverse # Sort them by date as well
-        candidate_posts.concat(related_posts_from_config)
-      end
-
-      # 3. Absolute fallback: Use most recent posts if still not enough.
-      if candidate_posts.length < @max_posts
-        candidate_posts.concat(all_site_posts_filtered_and_sorted)
-      end
-
-      # --- Deduplicate and Limit ---
-      # Ensure uniqueness by URL and limit to @max_posts.
-      # .uniq preserves the order of first appearance, respecting the prioritization above.
-      final_posts = candidate_posts.uniq { |post| post.url }.slice(0, @max_posts)
-
-      # --- Render Output ---
-      return "" if final_posts.empty? # Expected empty state, no log needed here.
-
-      header_text = found_by_category ? "Related Posts" : "Recent Posts"
-      output = "<aside class=\"related\">\n"
-      output << "  <h2>#{header_text}</h2>\n"
-      output << "  <div class=\"card-grid\">\n"
-      final_posts.each do |post|
-        # Delegate rendering of individual post cards to ArticleCardUtils
-        output << ArticleCardUtils.render(post, context) << "\n"
-      end
-      output << "  </div>\n"
-      output << "</aside>"
-      output
+    def render_html(posts)
+      header = @found_by_category ? 'Related Posts' : 'Recent Posts'
+      out = "<aside class=\"related\">\n  <h2>#{header}</h2>\n  <div class=\"card-grid\">\n"
+      posts.each { |p| out << ArticleCardUtils.render(p, @context) << "\n" }
+      out << "  </div>\n</aside>"
     end
   end
 end
+
 Liquid::Template.register_tag('related_posts', Jekyll::RelatedPostsTag)

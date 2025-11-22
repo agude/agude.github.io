@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _plugins/display_books_for_series_tag.rb
 require 'jekyll'
 require 'liquid'
@@ -5,56 +7,68 @@ require_relative 'utils/book_list_utils'
 require_relative 'utils/book_card_utils'
 require_relative 'utils/tag_argument_utils'
 
+# Jekyll namespace for custom plugins.
 module Jekyll
+  # Displays book cards for all books in a specific series.
+  #
+  # Usage in Liquid templates:
+  #   {% display_books_for_series "The Lord of the Rings" %}
+  #   {% display_books_for_series page.series %}
   class DisplayBooksForSeriesTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
       super
       @series_name_markup = markup.strip
-      if @series_name_markup.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'display_books_for_series': Series name (string literal or variable) is required."
-      end
+      return unless @series_name_markup.empty?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'display_books_for_series': Series name (string literal or variable) is required."
     end
 
     def render(context)
-      site = context.registers[:site]
-      # Resolve the series name from the markup
-      series_name_input = TagArgumentUtils.resolve_value(@series_name_markup, context)
+      BooksForSeriesRenderer.new(context, @series_name_markup).render
+    end
 
-      # Validate resolved series name
-      unless series_name_input && !series_name_input.to_s.strip.empty?
-        # If series name resolves to nil or empty, log it via BookListUtils by passing it as is.
-        # BookListUtils.get_data_for_series_display will handle logging this specific case.
-        # Or, we can log directly here if preferred for tag-level input validation.
-        # For consistency with how BookListUtils handles it:
-        data = BookListUtils.get_data_for_series_display(
-          site: site,
-          series_name_filter: series_name_input, # Pass potentially nil/empty to let util log
-          context: context
+    # Helper class to handle rendering logic
+    class BooksForSeriesRenderer
+      def initialize(context, series_name_markup)
+        @context = context
+        @site = context.registers[:site]
+        @series_name_markup = series_name_markup
+      end
+
+      def render
+        series_name_input = TagArgumentUtils.resolve_value(@series_name_markup, @context)
+
+        data = if series_name_input && !series_name_input.to_s.strip.empty?
+                 get_series_data(series_name_input.to_s)
+               else
+                 get_series_data(series_name_input)
+               end
+
+        render_output(data)
+      end
+
+      private
+
+      def get_series_data(series_name_filter)
+        BookListUtils.get_data_for_series_display(
+          site: @site,
+          series_name_filter: series_name_filter,
+          context: @context
         )
-        return data[:log_messages] || "" # Return only the log message (HTML comment or empty)
       end
 
-      data = BookListUtils.get_data_for_series_display(
-        site: site,
-        series_name_filter: series_name_input.to_s, # Ensure string
-        context: context
-      )
+      def render_output(data)
+        output = data[:log_messages] || ''
+        return output if data[:books].empty?
 
-      # data[:log_messages] will contain any HTML comment from log_failure if no books were found.
-      # If books are found, data[:log_messages] should be empty or nil.
-      output = data[:log_messages] || ""
-
-      if data[:books].empty?
-        return output # Return only log message if no books (util already logged)
+        output << "<div class=\"card-grid\">\n"
+        data[:books].each do |book|
+          output << BookCardUtils.render(book, @context) << "\n"
+        end
+        output << "</div>\n"
+        output
       end
-
-      # If books are present, render them
-      output << "<div class=\"card-grid\">\n"
-      data[:books].each do |book|
-        output << BookCardUtils.render(book, context) << "\n"
-      end
-      output << "</div>\n"
-      output
     end
   end
   Liquid::Template.register_tag('display_books_for_series', DisplayBooksForSeriesTag)

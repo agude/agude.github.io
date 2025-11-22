@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _plugins/front_page_feed_tag.rb
 require 'jekyll'
 require 'liquid'
@@ -9,92 +11,141 @@ require_relative 'utils/tag_argument_utils'
 require_relative 'utils/plugin_logger_utils'
 
 module Jekyll
+  # Renders a feed combining recent posts and book reviews.
+  #
+  # Displays a card grid of the most recent content from both the posts
+  # and books collections, sorted by date.
+  #
+  # Usage in Liquid templates:
+  #   {% front_page_feed %}
+  #   {% front_page_feed limit=10 %}
   class FrontPageFeedTag < Liquid::Tag
     DEFAULT_LIMIT = 5
     SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
 
     def initialize(tag_name, markup, tokens)
       super
+      @tag_name = tag_name
       @raw_markup = markup.strip
       @limit_markup = nil
 
-      # Simple parser for an optional 'limit=N' argument
-      if @raw_markup.match?(SYNTAX_NAMED_ARG)
-        scanner = StringScanner.new(@raw_markup)
-        if scanner.scan(SYNTAX_NAMED_ARG)
-          key = scanner[1].to_s.strip
-          value_markup = scanner[2].to_s.strip
-          if key == 'limit'
-            @limit_markup = value_markup
-          else
-            raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Unknown argument '#{key}'. Only 'limit' is allowed."
-          end
-          scanner.skip(/\s*/)
-          unless scanner.eos?
-            raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Unexpected arguments after 'limit'."
-          end
-        else
-          # This case implies a malformed named argument if match? was true but scan failed.
-          raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Malformed arguments '#{@raw_markup}'."
-        end
-      elsif !@raw_markup.empty?
-        # If markup is not empty but doesn't match the named arg syntax (e.g., positional)
-        raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Invalid arguments. Use 'limit=N' or no arguments."
-      end
+      parse_arguments
     end
 
     def render(context)
-      site = context.registers[:site]
-      page = context.registers[:page] # For PluginLoggerUtils context
-      output = "" # Initialize output string
+      limit = resolve_limit(context)
+      feed_items = FeedUtils.get_combined_feed_items(site: context.registers[:site], limit: limit)
 
-      limit = DEFAULT_LIMIT
-      if @limit_markup
-        resolved_limit = TagArgumentUtils.resolve_value(@limit_markup, context)
-        begin
-          limit_int = Integer(resolved_limit.to_s) if resolved_limit # Ensure resolved_limit is not nil
-          limit = limit_int if limit_int && limit_int > 0
-        rescue ArgumentError, TypeError
-          # Silently use default limit if conversion fails or value is invalid
-        end
+      return log_empty_feed(context, limit) if feed_items.empty?
+
+      generate_feed_html(feed_items, context)
+    end
+
+    private
+
+    def parse_arguments
+      return if @raw_markup.empty?
+
+      unless @raw_markup.match?(SYNTAX_NAMED_ARG)
+        raise Liquid::SyntaxError, "Syntax Error in '#{@tag_name}': Invalid arguments. Use 'limit=N' or no arguments."
       end
 
-      feed_items = FeedUtils.get_combined_feed_items(site: site, limit: limit)
+      scanner = StringScanner.new(@raw_markup)
+      parse_named_argument(scanner)
+      validate_no_trailing_chars(scanner)
+    end
 
-      if feed_items.empty?
-        # Append log message to output if feed is empty
-        output << PluginLoggerUtils.log_liquid_failure(
-          context: context,
-          tag_type: "FRONT_PAGE_FEED",
-          reason: "No items found for the front page feed.",
-          identifiers: { limit: limit },
-          level: :info,
-        )
-        return output # Return the log message (or empty string if logging is off)
+    def parse_named_argument(scanner)
+      unless scanner.scan(SYNTAX_NAMED_ARG)
+        raise Liquid::SyntaxError, "Syntax Error in '#{@tag_name}': Malformed arguments '#{@raw_markup}'."
       end
 
-      output << "<div class=\"card-grid\">\n"
-      feed_items.each do |item|
-        # Determine item type. Jekyll::Document objects have a `collection` attribute.
-        if item.respond_to?(:collection) && item.collection&.label == 'books'
-          output << BookCardUtils.render(item, context) << "\n"
-        elsif item.respond_to?(:collection) && item.collection&.label == 'posts'
-          output << ArticleCardUtils.render(item, context) << "\n"
-        else
-          # Append log message for unknown item type to output
-          output << PluginLoggerUtils.log_liquid_failure(
-            context: context,
-            tag_type: "FRONT_PAGE_FEED",
-            reason: "Unknown item type in feed.",
-            identifiers: { item_title: item.data['title'] || 'N/A', item_url: item.url || 'N/A', item_collection: item.collection&.label || 'N/A' },
-            level: :warn,
-          )
-          output << "\n" # Add a newline after the comment
-        end
+      key = scanner[1].to_s.strip
+      value = scanner[2].to_s.strip
+      validate_and_store_argument(key, value)
+    end
+
+    def validate_and_store_argument(key, value)
+      if key == 'limit'
+        @limit_markup = value
+      else
+        raise Liquid::SyntaxError,
+              "Syntax Error in '#{@tag_name}': Unknown argument '#{key}'. Only 'limit' is allowed."
+      end
+    end
+
+    def validate_no_trailing_chars(scanner)
+      scanner.skip(/\s*/)
+      return if scanner.eos?
+
+      raise Liquid::SyntaxError, "Syntax Error in '#{@tag_name}': Unexpected arguments after 'limit'."
+    end
+
+    def resolve_limit(context)
+      return DEFAULT_LIMIT unless @limit_markup
+
+      resolved = TagArgumentUtils.resolve_value(@limit_markup, context)
+      begin
+        val = Integer(resolved.to_s)
+        val.positive? ? val : DEFAULT_LIMIT
+      rescue ArgumentError, TypeError
+        DEFAULT_LIMIT
+      end
+    end
+
+    def log_empty_feed(context, limit)
+      PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: 'FRONT_PAGE_FEED',
+        reason: 'No items found for the front page feed.',
+        identifiers: { limit: limit },
+        level: :info
+      )
+    end
+
+    def generate_feed_html(items, context)
+      output = +'<div class="card-grid">' # Initialize as mutable string
+      output << "\n"
+      items.each do |item|
+        output << render_item(item, context)
       end
       output << "</div>\n"
+    end
 
-      output
+    def render_item(item, context)
+      if book?(item)
+        BookCardUtils.render(item, context) << "\n"
+      elsif post?(item)
+        ArticleCardUtils.render(item, context) << "\n"
+      else
+        log_unknown_item(item, context) << "\n"
+      end
+    end
+
+    def book?(item)
+      item.respond_to?(:collection) && item.collection&.label == 'books'
+    end
+
+    def post?(item)
+      item.respond_to?(:collection) && item.collection&.label == 'posts'
+    end
+
+    def log_unknown_item(item, context)
+      PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: 'FRONT_PAGE_FEED',
+        reason: 'Unknown item type in feed.',
+        identifiers: build_unknown_item_identifiers(item),
+        level: :warn
+      )
+    end
+
+    def build_unknown_item_identifiers(item)
+      {
+        item_title: item.data['title'] || 'N/A',
+        item_url: item.url || 'N/A',
+        item_collection: item.collection&.label || 'N/A'
+      }
     end
   end
 end

@@ -1,60 +1,94 @@
+# frozen_string_literal: true
+
 # _plugins/display_unreviewed_mentions_tag.rb
 require 'jekyll'
 require 'liquid'
 require 'cgi'
-require 'set'
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/text_processing_utils'
 
 module Jekyll
+  # Displays a ranked list of unreviewed books mentioned in the site.
+  #
+  # Shows books that have been referenced but don't have review pages yet,
+  # ranked by mention count.
+  #
+  # Usage in Liquid templates:
+  #   {% display_unreviewed_mentions %}
   class DisplayUnreviewedMentionsTag < Liquid::Tag
-    def initialize(tag_name, markup, tokens)
-      super
-      # No arguments needed for this tag.
+    def render(context)
+      UnreviewedMentionsRenderer.new(context).render
     end
 
-    def render(context)
-      site = context.registers[:site]
-      unless site && site.data['mention_tracker'] && site.data.dig('link_cache', 'books')
-        return PluginLoggerUtils.log_liquid_failure(
-          context: context,
-          tag_type: "UNREVIEWED_MENTIONS",
+    # Helper class to handle rendering logic
+    class UnreviewedMentionsRenderer
+      def initialize(context)
+        @context = context
+        @site = context.registers[:site]
+      end
+
+      def render
+        return handle_missing_prerequisites unless valid_prerequisites?
+
+        tracker = @site.data['mention_tracker']
+        books_cache = @site.data['link_cache']['books']
+        existing_book_titles = Set.new(books_cache.keys)
+
+        ranked_list = build_ranked_list(tracker, existing_book_titles)
+
+        return '<p>No unreviewed works have been mentioned yet.</p>' if ranked_list.empty?
+
+        render_ranked_list(ranked_list)
+      end
+
+      private
+
+      def valid_prerequisites?
+        @site && @site.data['mention_tracker'] && @site.data.dig('link_cache', 'books')
+      end
+
+      def handle_missing_prerequisites
+        PluginLoggerUtils.log_liquid_failure(
+          context: @context,
+          tag_type: 'UNREVIEWED_MENTIONS',
           reason: "Prerequisites missing: mention_tracker or link_cache['books'] not found.",
           level: :error
         )
       end
 
-      tracker = site.data['mention_tracker']
-      books_cache = site.data['link_cache']['books']
+      def build_ranked_list(tracker, existing_book_titles)
+        items = tracker.map do |normalized_title, data|
+          next if existing_book_titles.include?(normalized_title)
 
-      # Create a set of all normalized titles of books that DO exist for efficient filtering.
-      existing_book_titles = Set.new(books_cache.keys)
+          display_title = find_display_title(data, normalized_title)
 
-      ranked_list = tracker.map do |normalized_title, data|
-        # CRITICAL: Skip this entry if a book with this normalized title actually exists.
-        next if existing_book_titles.include?(normalized_title)
-
-        # Find the most frequently used original casing for the title to display it nicely.
-        display_title = data[:original_titles].max_by { |_, count| count }&.first || normalized_title
-
-        {
-          title: display_title,
-          count: data[:sources].size
-        }
-      end.compact.sort_by { |item| -item[:count] } # Sort by count descending.
-
-      return "<p>No unreviewed works have been mentioned yet.</p>" if ranked_list.empty?
-
-      # Render the final HTML as an ordered list.
-      output = "<ol class=\"ranked-list\">\n"
-      ranked_list.each do |item|
-        # These are unlinked, so we just wrap them in <cite> and escape them.
-        mention_text = item[:count] == 1 ? "1 mention" : "#{item[:count]} mentions"
-        output << "  <li><cite>#{CGI.escapeHTML(item[:title])}</cite> <span class=\"mention-count\">(#{mention_text})</span></li>\n"
+          {
+            title: display_title,
+            count: data[:sources].size
+          }
+        end
+        items.compact.sort_by { |item| -item[:count] }
       end
-      output << "</ol>"
 
-      output
+      def find_display_title(data, normalized_title)
+        data[:original_titles].max_by { |_, count| count }&.first || normalized_title
+      end
+
+      def render_ranked_list(ranked_list)
+        output = +"<ol class=\"ranked-list\">\n"
+        ranked_list.each do |item|
+          output << render_list_item(item)
+        end
+        output << '</ol>'
+        output
+      end
+
+      def render_list_item(item)
+        mention_text = item[:count] == 1 ? '1 mention' : "#{item[:count]} mentions"
+        title_html = CGI.escapeHTML(item[:title])
+        "  <li><cite>#{title_html}</cite> " \
+          "<span class=\"mention-count\">(#{mention_text})</span></li>\n"
+      end
     end
   end
 end

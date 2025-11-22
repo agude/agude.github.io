@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/test_helper.rb
 require 'minitest/autorun'
 require 'jekyll'
@@ -31,11 +33,11 @@ require 'utils/post_list_utils'
 require 'utils/rating_utils'
 require 'utils/series_link_util'
 require 'utils/series_text_utils'
+require 'utils/short_story_link_util'
 require 'utils/tag_argument_utils'
 require 'utils/text_processing_utils'
 require 'utils/typography_utils'
 require 'utils/url_utils'
-
 
 # --- Mock Objects ---
 
@@ -44,53 +46,66 @@ MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection, :rel
   # Provides hash-like access to document attributes and front matter.
   def [](key)
     key_s = key.to_s
-    if key_s == 'url' then url
-    elsif key_s == 'content' then content # Direct attribute for post-conversion body
-    elsif key_s == 'date' then data['date'] # Access the date from the data hash for consistency with real Jekyll behavior
-    elsif key_s == 'title' then data['title'] || data[:title] rescue nil # Allow symbol or string key for title
-    elsif data&.key?(key_s) then data[key_s] # Check string key in data
-    elsif data&.key?(key.to_sym) then data[key.to_sym] # Check symbol key in data
-    else nil
-    end
+    lookup_special_key(key_s) || lookup_data_key(key_s, key)
   end
 
   def respond_to?(method_name, include_private = false)
     # Ensure common document attributes and '[]' are reported as available.
-    return true if %i[data url content date title site collection [] to_liquid relative_path].include?(method_name.to_sym)
+    return true if common_method_names.include?(method_name.to_sym)
+
     super
   end
 
-  # Override is_a? to pretend to be a Jekyll::Document for checks
-  # This allows testing code that uses `is_a?(Jekyll::Document)`
+  # Override is_a? to pretend to be a Jekyll::Document or Jekyll::Page for checks
   define_method(:is_a?) do |klass|
-    # Note: This is a simplification. A real Page is not a Document.
-    # If your injector logic needs to differentiate Page vs Document beyond layout/collection,
-    # this mock might need further refinement. For the current injector logic,
-    # pretending all mocks are Documents might suffice where collection checks are needed.
-    # However, the injector *also* checks `is_a?(Jekyll::Page)`.
-    # Let's make it specific:
     if klass == Jekyll::Document
-      # Pretend to be a Document *if* it has a collection assigned
-      # This helps distinguish it from a Page mock which wouldn't have one.
+      # Pretend to be a Document if it has a collection assigned
       !collection.nil?
     elsif klass == Jekyll::Page
-      # Pretend to be a Page *if* it does NOT have a collection assigned
+      # Pretend to be a Page if it does NOT have a collection assigned
       collection.nil?
     else
-      super(klass) # Use standard is_a? for other types
+      super(klass)
     end
   end
 
   # Mock for generate_excerpt, not strictly needed if data['excerpt'] is directly mocked,
   # but included for completeness if any code calls it.
-  def generate_excerpt(separator)
+  def generate_excerpt(_separator)
     # This is a very basic mock. Real excerpt generation is more complex.
     # For testing, usually data['excerpt'] (as a Struct with :output) is set directly.
   end
 
   # Allow MockDocument to be treated as a Liquid Drop by responding to to_liquid
   def to_liquid
-    self # A common simple implementation for drops that just expose their methods/attributes
+    self
+  end
+
+  private
+
+  def lookup_special_key(key_s)
+    case key_s
+    when 'url' then url
+    when 'content' then content
+    when 'date' then data['date']
+    when 'title'
+      begin
+        data['title'] || data[:title]
+      rescue StandardError
+        nil
+      end
+    end
+  end
+
+  def lookup_data_key(key_s, key_sym)
+    return data[key_s] if data&.key?(key_s)
+    return data[key_sym.to_sym] if data&.key?(key_sym.to_sym)
+
+    nil
+  end
+
+  def common_method_names
+    %i[data url content date title site collection [] to_liquid relative_path]
   end
 end
 
@@ -101,6 +116,7 @@ MockCollection = Struct.new(:docs, :label)
 class MockSite
   attr_accessor :config, :collections, :pages, :posts, :baseurl, :source, :converters, :data, :categories
 
+  # rubocop:disable Metrics/ParameterLists
   def initialize(config, collections, pages, posts, baseurl, source, converters, data, categories)
     @config = config
     @collections = collections
@@ -112,16 +128,10 @@ class MockSite
     @data = data
     @categories = categories
   end
+  # rubocop:enable Metrics/ParameterLists
 
   def documents
-    all_docs = []
-    # Add posts, ensuring posts.docs is an array before concatenating
-    all_docs.concat(posts.docs) if posts&.docs&.is_a?(Array)
-    # Add docs from other collections
-    collections&.each_value do |collection|
-      all_docs.concat(collection.docs) if collection&.docs&.is_a?(Array)
-    end
-    all_docs.uniq
+    collect_all_documents
   end
 
   def in_source_dir(path)
@@ -130,12 +140,29 @@ class MockSite
 
   def find_converter_instance(klass_or_name)
     return nil unless converters
-    converters.find do |c|
-      klass_or_name.is_a?(Class) ? c.is_a?(klass_or_name) : c.class.name.match?(klass_or_name.to_s)
+
+    converters.find { |c| converter_matches?(c, klass_or_name) }
+  end
+
+  private
+
+  def collect_all_documents
+    all_docs = []
+    all_docs.concat(posts.docs) if posts&.docs.is_a?(Array)
+    collections&.each_value do |collection|
+      all_docs.concat(collection.docs) if collection&.docs.is_a?(Array)
+    end
+    all_docs.uniq
+  end
+
+  def converter_matches?(converter, klass_or_name)
+    if klass_or_name.is_a?(Class)
+      converter.is_a?(klass_or_name)
+    else
+      converter.class.name.match?(klass_or_name.to_s)
     end
   end
 end
-
 
 # --- Helper Methods ---
 
@@ -144,8 +171,69 @@ def create_context(scopes = {}, registers = {})
   Liquid::Context.new(scopes, {}, registers)
 end
 
-def create_site(config_overrides = {}, collections_data = {}, pages_data = [], posts_data = [], categories_data = {})
-  test_plugin_logging_config = {
+# rubocop:disable Metrics/ParameterLists
+def create_site(config_overrides = {}, collections_data = {}, pages_data = [],
+                posts_data = [], categories_data = {})
+  # rubocop:enable Metrics/ParameterLists
+  base_config = build_test_site_config(config_overrides)
+  collections = build_collections(collections_data)
+  posts_collection = MockCollection.new(posts_data, 'posts')
+  mock_markdown_converter = create_mock_converter(base_config)
+
+  site = MockSite.new(
+    base_config,
+    collections,
+    pages_data,
+    posts_collection,
+    base_config['baseurl'],
+    base_config['source'],
+    [mock_markdown_converter],
+    {},
+    categories_data
+  )
+
+  generate_link_cache(site)
+  site
+end
+
+# rubocop:disable Metrics/ParameterLists
+def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = 'Test content attribute.',
+               date_str_param = nil, collection = nil)
+  # rubocop:enable Metrics/ParameterLists
+  string_keyed_data_overrides = data_overrides.transform_keys(&:to_s)
+  base_data = build_base_doc_data(string_keyed_data_overrides, url)
+  final_date_obj = parse_date_for_doc(base_data, date_str_param)
+  base_data['date'] = final_date_obj
+
+  doc = MockDocument.new(
+    base_data,
+    url,
+    content_attr_val,
+    final_date_obj,
+    nil,
+    collection,
+    base_data['path']
+  )
+
+  setup_mock_excerpt(doc, base_data)
+  doc
+end
+
+# --- Private Helper Methods ---
+
+def build_test_site_config(config_overrides)
+  {
+    'environment' => 'test',
+    'baseurl' => '',
+    'source' => '.',
+    'plugin_logging' => test_plugin_logging_config,
+    'excerpt_separator' => '<!--excerpt-->',
+    'plugin_log_level' => PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING
+  }.merge(config_overrides)
+end
+
+def test_plugin_logging_config
+  {
     'ALL_BOOKS_BY_AUTHOR_DISPLAY' => false,
     'ALL_BOOKS_BY_AWARD_DISPLAY' => false,
     'ALL_BOOKS_BY_TITLE_ALPHA_GROUP' => false,
@@ -186,113 +274,82 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [], p
     'SERIES_LINK' => false,
     'SERIES_LINK_UTIL_ERROR' => false,
     'UNITS_TAG_ERROR' => false,
-    'UNITS_TAG_WARNING' => false,
+    'UNITS_TAG_WARNING' => false
   }
+end
 
-  base_config = {
-    'environment' => 'test', 'baseurl' => '', 'source' => '.',
-    'plugin_logging' => test_plugin_logging_config,
-    'excerpt_separator' => "<!--excerpt-->",
-    'plugin_log_level' => PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING,
-  }.merge(config_overrides)
-
+def build_collections(collections_data)
   collections = {}
   collections_data.each do |name, docs_array|
     collections[name.to_s] = MockCollection.new(docs_array, name.to_s)
   end
+  collections
+end
 
-  # Initialize posts_collection correctly with its label 'posts'.
-  posts_collection = MockCollection.new(posts_data, 'posts')
+def create_mock_converter(config)
+  Class.new(Jekyll::Converter) do
+    def initialize(config = {})
+      super
+      @config = config
+    end
 
-  # Mock a basic Markdown converter instance.
-  mock_markdown_converter = Class.new(Jekyll::Converter) do
-    def initialize(config = {}) @config = config; end # Add initializer
-    def matches(ext); ext.casecmp('.md').zero?; end
-    def output_ext(ext); ".html"; end
-    def convert(content); "<p>#{content.strip}</p>"; end # Simplified Markdown to HTML
-  end.new(base_config)
+    def matches?(ext)
+      ext.casecmp('.md').zero?
+    end
 
-  site = MockSite.new(
-    base_config,
-    collections,
-    pages_data,
-    posts_collection, # Use the correctly initialized posts_collection
-    base_config['baseurl'],
-    base_config['source'],
-    [mock_markdown_converter],
-    {},
-    categories_data,
-  )
+    def output_ext(_ext)
+      '.html'
+    end
 
-  # Run the LinkCacheGenerator to populate site.data['link_cache']
-  # This makes the test environment more accurately reflect the real build process.
-  # Stub the logger during this call to prevent spamming the test console.
+    def convert(content)
+      "<p>#{content.strip}</p>"
+    end
+  end.new(config)
+end
+
+def generate_link_cache(site)
   silent_logger = Minitest::Mock.new
-  silent_logger.expect :info, nil, [String, String] # For "Building link cache..."
-  silent_logger.expect :info, nil, [String, String] # For "Building backlinks cache..."
-  silent_logger.expect :info, nil, [String, String] # For "Building favorites mentions cache..."
-  silent_logger.expect :info, nil, [String, String] # For "Cache built successfully."
+  4.times { silent_logger.expect :info, nil, [String, String] }
+
   Jekyll.stub :logger, silent_logger do
     Jekyll::LinkCacheGenerator.new.generate(site)
   end
-
-  site
 end
 
-def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = 'Test content attribute.', date_str_param = nil, collection = nil)
-  # Ensure all keys in data_overrides are strings for consistency.
-  string_keyed_data_overrides = data_overrides.transform_keys(&:to_s)
-
-  base_data = {
-    'layout' => 'test_layout', 'title' => 'Test Document', 'published' => true,
-    'path' => url ? url.sub(%r{^/}, '') : nil # Derive path from URL if URL is provided
+def build_base_doc_data(string_keyed_data_overrides, url)
+  {
+    'layout' => 'test_layout',
+    'title' => 'Test Document',
+    'published' => true,
+    'path' => url&.sub(%r{^/}, '')
   }.merge(string_keyed_data_overrides)
+end
 
+def parse_date_for_doc(base_data, date_str_param)
+  return base_data['date'] if base_data['date'].is_a?(Time)
 
-  # Priority:
-  # 1. data_overrides['date'] if it's already a Time object.
-  # 2. data_overrides['date'] if it's a String, try to parse it.
-  # 3. date_str_param (4th argument to create_doc) if provided and parseable.
-  # 4. Default to Time.now.
-  final_date_obj_for_struct = nil
-
-  if base_data['date'].is_a?(Time)
-    final_date_obj_for_struct = base_data['date']
-  elsif base_data['date'].is_a?(String) # Check if 'date' in data_overrides is a string
-    begin
-      final_date_obj_for_struct = Time.parse(base_data['date'])
-    rescue ArgumentError
-      # If parsing data_overrides['date'] string fails, then check date_str_param
-      if date_str_param
-        begin
-          final_date_obj_for_struct = Time.parse(date_str_param.to_s)
-        rescue ArgumentError
-          final_date_obj_for_struct = Time.now # Fallback if date_str_param also unparseable
-        end
-      else
-        final_date_obj_for_struct = Time.now # Fallback if no date_str_param
-      end
-    end
-  elsif date_str_param # 'date' was not in data_overrides or was not Time/String
-    begin
-      final_date_obj_for_struct = Time.parse(date_str_param.to_s)
-    rescue ArgumentError
-      final_date_obj_for_struct = Time.now # Fallback if date_str_param is unparseable
-    end
-  else # No 'date' in data_overrides, no date_str_param
-    final_date_obj_for_struct = Time.now
+  if base_data['date'].is_a?(String)
+    parse_date_string(base_data['date']) || parse_fallback_date(date_str_param)
+  elsif date_str_param
+    parse_date_string(date_str_param.to_s) || Time.now
+  else
+    Time.now
   end
+end
 
-  # Ensure the 'date' in the data hash is this canonical Time object.
-  base_data['date'] = final_date_obj_for_struct
+def parse_date_string(date_str)
+  Time.parse(date_str)
+rescue ArgumentError
+  nil
+end
 
-  # The path for relative_path should be what's in the data hash.
-  relative_path_for_mock = base_data['path']
-  doc = MockDocument.new(base_data, url, content_attr_val, final_date_obj_for_struct, nil, collection, relative_path_for_mock)
+def parse_fallback_date(date_str_param)
+  return Time.now unless date_str_param
 
-  # Mock excerpt handling:
-  # If 'excerpt_output_override' is provided, use it directly for excerpt.output.
-  # If 'excerpt' is a string in data_overrides, wrap it in a Struct with an :output method.
+  parse_date_string(date_str_param.to_s) || Time.now
+end
+
+def setup_mock_excerpt(doc, base_data)
   if base_data.key?('excerpt_output_override')
     excerpt_html_output = base_data.delete('excerpt_output_override')
     doc.data['excerpt'] = Struct.new(:output).new(excerpt_html_output)
@@ -300,9 +357,6 @@ def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = '
     string_excerpt_content = base_data['excerpt']
     doc.data['excerpt'] = Struct.new(:output).new(string_excerpt_content)
   end
-  # If 'excerpt' in data_overrides is already a pre-mocked object (e.g., Struct with :output), it will be used.
-
-  doc
 end
 
-puts "Expanded test helper loaded (with improved MockDocument and logging disabled)."
+puts 'Expanded test helper loaded (with improved MockDocument and logging disabled).'

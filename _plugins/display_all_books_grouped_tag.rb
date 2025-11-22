@@ -1,16 +1,24 @@
+# frozen_string_literal: true
+
 # _plugins/display_all_books_grouped_tag.rb
 require 'jekyll'
 require 'liquid'
 require_relative 'utils/book_list_utils'
 require_relative 'utils/series_link_util'
 
+# Jekyll namespace for custom plugins.
 module Jekyll
+  # Renders all books grouped by author and series.
+  #
+  # Usage in Liquid templates:
+  #   {% display_all_books_grouped %}
   class DisplayAllBooksGroupedTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
       super
-      unless markup.strip.empty?
-        raise Liquid::SyntaxError, "Syntax Error in 'display_all_books_grouped': This tag does not accept any arguments."
-      end
+      return if markup.strip.empty?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'display_all_books_grouped': This tag does not accept any arguments."
     end
 
     def render(context)

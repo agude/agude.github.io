@@ -20,7 +20,7 @@ BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 #   make test TEST=$$(find _tests/plugins/utils -name 'test_*.rb')
 TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb')
 
-.PHONY: all clean serve drafts debug image refresh lock test build profile
+.PHONY: all clean serve drafts debug image refresh lock test build profile lint check install-hook format-all
 
 all: serve
 
@@ -70,10 +70,10 @@ clean: image
 	@echo "Cleaning Jekyll build artifacts..."
 	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll clean
 
-# Build the site. Depends on image and clean.
+# Build the site for production. Depends on image and clean.
 build: image clean
-	@echo "Building site..."
-	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll build
+	@echo "Building site for production..."
+	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) -e JEKYLL_ENV=production $(IMAGE) bundle exec jekyll build
 
 # Profile the site build. Depends on image and clean.
 profile: image clean
@@ -151,3 +151,43 @@ test: image # Depends on the Docker image being built/up-to-date
 		echo "Error: Tests failed." && exit 1; \
 	fi
 	@echo "Tests finished successfully."
+
+# Run RuboCop linter.
+lint: image
+	@echo "Running linter..."
+	@docker run --rm \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		$(IMAGE) \
+		bundle exec rubocop
+
+# Build the site and check for broken links/HTML issues.
+check: build
+	@echo "Checking generated site for broken links and HTML issues..."
+	@docker run --rm \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		$(IMAGE) \
+		bundle exec ruby _bin/check_links.rb
+
+# Install the custom pre-commit hook that runs RuboCop inside Docker.
+# This target must be run on the HOST machine.
+install-hook: image _bin/pre-commit.sh
+	@echo "Installing custom Docker-based pre-commit hook..."
+	@mkdir -p .git/hooks
+	@cp _bin/pre-commit.sh .git/hooks/pre-commit
+	@chmod +x .git/hooks/pre-commit
+	@echo "Pre-commit hook installed at .git/hooks/pre-commit."
+	@echo "It will run 'rubocop --autocorrect' on staged Ruby files inside the Docker image."
+
+# Run RuboCop --autocorrect on all Ruby files to establish a clean formatting baseline.
+# This target modifies files on the host via the volume mount.
+format-all: image
+	@echo "Running RuboCop --autocorrect on ALL Ruby files to establish a clean baseline..."
+	@# Run RuboCop, ignore its non-zero exit code (1 or 123) with '|| true' to prevent 'make' from failing.
+	@docker run --rm \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		$(IMAGE) \
+		bundle exec rubocop --autocorrect --format quiet > /dev/null 2>&1 || true
+	@echo "All Ruby files have been safely auto-corrected. Please review and commit changes."

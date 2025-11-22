@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _plugins/units_tag.rb
 require 'jekyll'
 require 'liquid'
@@ -6,132 +8,153 @@ require_relative 'utils/plugin_logger_utils' # For logging
 require_relative 'utils/tag_argument_utils'
 
 module Jekyll
+  # Renders numbers with proper unit formatting and abbreviations.
+  #
+  # Generates HTML with properly formatted unit abbreviations using
+  # narrow non-breaking spaces and abbr elements.
+  #
+  # Usage in Liquid templates:
+  #   {% units number=100 unit="F" %}
+  #   {% units number=50 unit="km/h" %}
   class UnitsTag < Liquid::Tag
-    SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o.freeze
-    THIN_NBSP = "&#x202F;" # U+202F NARROW NO-BREAK SPACE
+    SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
+    THIN_NBSP = '&#x202F;' # U+202F NARROW NO-BREAK SPACE
 
     # Internal unit definitions (can be expanded)
     UNIT_DEFINITIONS = {
-      'F'  => { symbol: "°F", name: "Degrees Fahrenheit" },
-      'C'  => { symbol: "°C", name: "Degrees Celsius" },
-      'g'  => { symbol: "g",  name: "Grams" },
-      'kg' => { symbol: "kg", name: "Kilograms" },
-      'm'  => { symbol: "m",  name: "Meters" },
-      'cm' => { symbol: "cm", name: "Centimeters" },
-      'mm' => { symbol: "mm", name: "Millimeters" },
-      'in' => { symbol: "in", name: "Inches" },
-      'ft' => { symbol: "ft", name: "Feet" },
-      'kph' => { symbol: "kph", name: "Kilometres per hour" },
-      'mph' => { symbol: "mph", name: "Miles per hour" },
+      'F' => { symbol: '°F', name: 'Degrees Fahrenheit' },
+      'C' => { symbol: '°C', name: 'Degrees Celsius' },
+      'g' => { symbol: 'g',  name: 'Grams' },
+      'kg' => { symbol: 'kg', name: 'Kilograms' },
+      'm' => { symbol: 'm', name: 'Meters' },
+      'cm' => { symbol: 'cm', name: 'Centimeters' },
+      'mm' => { symbol: 'mm', name: 'Millimeters' },
+      'in' => { symbol: 'in', name: 'Inches' },
+      'ft' => { symbol: 'ft', name: 'Feet' },
+      'kph' => { symbol: 'kph', name: 'Kilometres per hour' },
+      'mph' => { symbol: 'mph', name: 'Miles per hour' }
       # Add other units here: 'ABBR' => { symbol: "SYMBOL", name: "Full Name" },
     }.freeze
 
-    ALLOWED_KEYS = ['number', 'unit'].freeze
+    ALLOWED_KEYS = %w[number unit].freeze
 
     def initialize(tag_name, markup, tokens)
       super
       @raw_markup = markup
-      @attributes = {}
-
-      scanner = StringScanner.new(markup.strip)
-      while scanner.scan(SYNTAX)
-        key = scanner[1]
-        value_markup = scanner[2]
-        @attributes[key] = value_markup
-        scanner.skip(/\s*/)
-      end
-
-      # Check for unrecognized attribute keys that were successfully parsed
-      @attributes.keys.each do |parsed_key|
-        unless ALLOWED_KEYS.include?(parsed_key.to_s)
-          raise Liquid::SyntaxError, "Syntax Error in 'units' tag: Unknown argument '#{parsed_key}' in '#{@raw_markup}'"
-        end
-      end
-
-      # Check if there's any unparseable text left (trailing garbage)
-      unless scanner.eos?
-        raise Liquid::SyntaxError, "Syntax Error in 'units' tag: Invalid or unexpected trailing arguments near '#{scanner.rest}' in '#{@raw_markup}'"
-      end
-
-      # Check for required arguments (must be present among parsed attributes)
-      unless @attributes['number']
-        # Note: We can't use PluginLoggerUtils here as it's a syntax error, build should halt.
-        raise Liquid::SyntaxError, "Syntax Error in 'units' tag: Required argument 'number' is missing in '#{@raw_markup}'"
-      end
-      unless @attributes['unit']
-        raise Liquid::SyntaxError, "Syntax Error in 'units' tag: Required argument 'unit' is missing in '#{@raw_markup}'"
-      end
+      @attributes = parse_attributes(markup)
+      validate_attributes
     end
 
     def render(context)
-      log_output = "" # Accumulator for any log messages
+      number, unit_key, error_log = resolve_and_validate_args(context)
+      return error_log if error_log
 
-      # Resolve arguments
+      unit_symbol, unit_name, warning_log = lookup_unit_data(unit_key, number, context)
+
+      html_output = generate_html(number, unit_symbol, unit_name)
+      warning_log + html_output
+    end
+
+    private
+
+    def parse_attributes(markup)
+      attributes = {}
+      scanner = StringScanner.new(markup.strip)
+      scan_attributes(scanner, attributes)
+      validate_no_trailing_args(scanner)
+      attributes
+    end
+
+    def scan_attributes(scanner, attributes)
+      while scanner.scan(SYNTAX)
+        attributes[scanner[1]] = scanner[2]
+        scanner.skip(/\s*/)
+      end
+    end
+
+    def validate_no_trailing_args(scanner)
+      return if scanner.eos?
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'units' tag: Invalid or unexpected trailing arguments near " \
+            "'#{scanner.rest}' in '#{@raw_markup}'"
+    end
+
+    def validate_attributes
+      @attributes.each_key do |key|
+        unless ALLOWED_KEYS.include?(key)
+          raise Liquid::SyntaxError, "Syntax Error in 'units' tag: Unknown argument '#{key}' in '#{@raw_markup}'"
+        end
+      end
+
+      validate_required_arg('number')
+      validate_required_arg('unit')
+    end
+
+    def validate_required_arg(arg)
+      return if @attributes[arg]
+
+      raise Liquid::SyntaxError,
+            "Syntax Error in 'units' tag: Required argument '#{arg}' is missing in '#{@raw_markup}'"
+    end
+
+    def resolve_and_validate_args(context)
       number_input = TagArgumentUtils.resolve_value(@attributes['number'], context)
       unit_key_input = TagArgumentUtils.resolve_value(@attributes['unit'], context)
 
-      # Validate resolved number
-      if number_input.nil? || number_input.to_s.strip.empty?
-        # Log with PluginLoggerUtils, as this is a runtime value resolution failure
-        log_output << PluginLoggerUtils.log_liquid_failure(
-          context: context,
-          tag_type: "UNITS_TAG_ERROR",
-          reason: "Argument 'number' resolved to nil or empty.",
-          identifiers: { number_markup: @attributes['number'] },
-          level: :error,
-        )
-        # Return only the log comment, or an empty span if preferred
-        return log_output
-      end
-      number_str = number_input.to_s # Ensure it's a string for output
+      return validate_number_input(context, number_input) if value_blank?(number_input)
 
-      # Validate resolved unit_key
-      if unit_key_input.nil? || unit_key_input.to_s.strip.empty?
-        log_output << PluginLoggerUtils.log_liquid_failure(
-          context: context,
-          tag_type: "UNITS_TAG_ERROR",
-          reason: "Argument 'unit' resolved to nil or empty.",
-          identifiers: { unit_markup: @attributes['unit'], number_val: number_str },
-          level: :error,
-        )
-        return log_output
-      end
-      unit_key = unit_key_input.to_s.strip
+      number_str = number_input.to_s
+      return validate_unit_input(context, unit_key_input, number_str) if value_blank?(unit_key_input)
 
-      # Look up unit data
+      [number_str, unit_key_input.to_s.strip, nil]
+    end
+
+    def validate_number_input(context, _number_input)
+      [nil, nil, log_error(context, "Argument 'number' resolved to nil or empty.",
+                           { number_markup: @attributes['number'] })]
+    end
+
+    def validate_unit_input(context, _unit_key_input, number_str)
+      [nil, nil, log_error(context, "Argument 'unit' resolved to nil or empty.",
+                           { unit_markup: @attributes['unit'], number_val: number_str })]
+    end
+
+    def lookup_unit_data(unit_key, number, context)
       unit_data = UNIT_DEFINITIONS[unit_key]
-      unit_symbol = nil
-      unit_name = nil
+      return [unit_data[:symbol], unit_data[:name], ''] if unit_data
 
-      if unit_data
-        unit_symbol = unit_data[:symbol]
-        unit_name = unit_data[:name]
-      else
-        # Fallback if unit key is not found
-        unit_symbol = unit_key
-        unit_name = unit_key
-        log_output << PluginLoggerUtils.log_liquid_failure(
-          context: context,
-          tag_type: "UNITS_TAG_WARNING", # Different tag_type for this specific warning
-          reason: "Unit key not found in internal definitions. Using key as symbol/name.",
-          identifiers: { UnitKey: unit_key, Number: number_str },
-          level: :warn,
-        )
-      end
+      log_unknown_unit(unit_key, number, context)
+    end
 
-      # Escape for HTML attributes and content
-      escaped_number = CGI.escapeHTML(number_str)
-      escaped_unit_name = CGI.escapeHTML(unit_name)
-      escaped_unit_symbol = CGI.escapeHTML(unit_symbol)
+    def log_unknown_unit(unit_key, number, context)
+      log = PluginLoggerUtils.log_liquid_failure(
+        context: context,
+        tag_type: 'UNITS_TAG_WARNING',
+        reason: 'Unit key not found in internal definitions. Using key as symbol/name.',
+        identifiers: { UnitKey: unit_key, Number: number },
+        level: :warn
+      )
+      [unit_key, unit_key, log]
+    end
 
-      # Output the formatted unit
-      html_output = "<span class=\"nowrap unit\">"
-      html_output << "#{escaped_number}"
-      html_output << "#{THIN_NBSP}"
-      html_output << "<abbr class=\"unit-abbr\" title=\"#{escaped_unit_name}\">#{escaped_unit_symbol}</abbr>"
-      html_output << "</span>"
+    def generate_html(number, symbol, name)
+      escaped_number = CGI.escapeHTML(number)
+      escaped_unit_name = CGI.escapeHTML(name)
+      escaped_unit_symbol = CGI.escapeHTML(symbol)
 
-      log_output + html_output # Prepend any log messages
+      "<span class=\"nowrap unit\">#{escaped_number}#{THIN_NBSP}" \
+        "<abbr class=\"unit-abbr\" title=\"#{escaped_unit_name}\">#{escaped_unit_symbol}</abbr></span>"
+    end
+
+    def value_blank?(val)
+      val.nil? || val.to_s.strip.empty?
+    end
+
+    def log_error(context, reason, identifiers)
+      PluginLoggerUtils.log_liquid_failure(
+        context: context, tag_type: 'UNITS_TAG_ERROR', reason: reason, identifiers: identifiers, level: :error
+      )
     end
   end
 end
