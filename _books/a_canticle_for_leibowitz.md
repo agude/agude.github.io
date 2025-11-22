@@ -14,11 +14,11 @@ awards:
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the first book in the
 <span class="book-series">{{ page.series }}</span> series. It is a fix-up
-consisting of three parts: <cite class="short-story-title">Fiat Homo</cite>,
-<cite class="short-story-title">Fiat Lux</cite>, and <cite
+novel consisting of three parts: <cite class="short-story-title">Fiat
+Homo</cite>, <cite class="short-story-title">Fiat Lux</cite>, and <cite
 class="short-story-title">Fiat Voluntas Tua</cite>. The story follows the
 monks of the Albertian Order of Leibowitz as they preserve the remains of
-mankind's knowledge after an atomic war.
+humanity's knowledge after an atomic war.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">Miller</span>{% endcapture %}
@@ -63,9 +63,8 @@ mankind's knowledge after an atomic war.
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 {% capture anti %}{% book_link "There Is No Antimemetics Division" %}{% endcapture %}
 
-
-The major theme of the book is the cyclical nature of the fall of humanity and
-the question, "Are we doomed to repeat it?" Other themes include the conflict
+The major theme of the book is the cyclical nature of humanity's fall and the
+question: "Are we doomed to repeat it?" Other themes include the conflict
 between faith and reason, the double-edged sword of knowledge, and the nature
 of suffering and sin.
 
@@ -73,8 +72,8 @@ It is an _explicitly_ Catholic book, if that wasn't clear from the fact that
 it's about monks. In that way, it reminds me a lot of {{ wolfes }} {{ new_sun
 }} and {{ simmonss }} {{ hyperion }}. All three authors mix Catholic theology
 with science fiction, but it goes deeper than that. They share a Catholic
-worldview: they center institutional faith, pain and suffering are core, and
-their far-future worlds feel ancient and burdened by the past.
+worldview: institutional faith is central, pain and suffering are core themes,
+and their far-future worlds feel ancient and burdened by the past.
 
 [fall]: https://en.wikipedia.org/wiki/Fall_of_man
 
@@ -89,25 +88,25 @@ Gerard spends 15 years creating an illuminated version of the blueprint before
 having it stolen on his journey to New Rome to witness the beatification of
 Leibowitz. He is killed by mutants on the way home.
 
-In this section we see civilization beginning its cycle again. We also see the
-smaller cycles {{ the_authors_lastname }} works into his stories: Gerard's
-repeated encounters with the Buzzards, who finally eat him, and the way the
-[Wandering Jew][wandering_jew] both starts and ends the chapter.
+In this section, we see civilization beginning its cycle again. We also see
+the smaller cycles {{ the_authors_lastname }} works into his stories: Gerard's
+repeated encounters with the buzzards, who finally eat him, and the way the
+[Wandering Jew][wandering_jew] both starts and ends the section.
 
 [wandering_jew]: https://en.wikipedia.org/wiki/Wandering_Jew
 
 ### {% short_story_title "Fiat Lux" %}
 
 Hundreds of years later, humans are starting to build empires again. Thon
-Taddeo, scientist and heir to the Texarkana kingdom, visits the Abbey to study
-the Memorabilia. Some monks are also studying the old texts and use them to
-invent an arc lamp. Abbot Paulo is caught between the rise of secular power
+Taddeo, a scientist and heir to the Texarkana kingdom, visits the Abbey to
+study the Memorabilia. Some monks are also studying the old texts and use them
+to invent an arc lamp. Abbot Paulo is caught between the rise of secular power
 and knowledge, and the mission his brotherhood has upheld for hundreds of
 years.
 
 The clearest theme is the tension between religion and science, with the monks
 not fully trusting the Thon, nor their own Brother Kornhoer, who invents the
-lamp. The theme also shows up in the church preparing to physically defend
+lamp. The theme also shows up in the Church preparing to physically defend
 itself from the state, which wants to use it as a fort in its conquest of the
 plains.
 
@@ -134,7 +133,7 @@ poisoning. Knowing as we do now that {{ the_authors_lastname }} eventually
 committed suicide, the argument feels less like a theological exercise and
 more like a man trying to steady himself with his own faith.
 
-At the end, the nuclear war resumes and Zerchi is trapped when the Church
+At the end, the nuclear war resumes and Zerchi is trapped when the church
 collapses. The two-headed mutant Mrs. Grales finds him---except her
 child-head, Rachel, is in control. He realizes that she is born without sin
 when she rejects his attempt to baptize her and instead administers the
@@ -175,12 +174,12 @@ signals the end of the age of Athena.
 
 ### Legacy
 
-{{ the_authors_lastname_possessive }} asks, "Are we doomed to repeat the
-fall?" {{ this_book }}'s answer is "yes". Man first fell when they were
-[banished from Eden][fall], after the serpent promised Adam and Eve knowledge
-of good and evil. The second fall was the "Flame Deluge", the nuclear war that
-scoured the earth right before the novel takes place. And the third comes at
-the end of the book, when humanity loses Earth.
+{{ the_authors_lastname }} asks, "Are we doomed to repeat the fall?" {{
+this_book }}'s answer is "yes". Humanity first fell when they were [banished
+from Eden][fall], after the serpent promised Adam and Eve knowledge of good
+and evil. The second fall was the "Flame Deluge", the nuclear war that scoured
+the earth right before the novel takes place. And the third comes at the end
+of the book, when humanity loses Earth.
 
 I really enjoyed {{ this_book }}. {{ s1 }} is a little slow, but {{ s2 }} does
 a great job capturing a moment from the Abbey and the wider world, with the
@@ -188,12 +187,12 @@ courage to end the section without over-explaining. And {{ s3 }} brings a
 growing sense of dread for the coming war while echoing and reinforcing the
 themes from earlier in the book, bringing the cycle back around one last time.
 
-You can see the influence of {{ this_book }} all over. The Brotherhood of
-Steel in {{ fallout }} is similar to the Order, preserving technology after a
-nuclear war. The Adeptus Mechanicus from {{ warhammer }}, who use sacred
-rituals to preserve technology and, like Abbot Zerchi, refer to AI as
-"abominable". A religious order preserving knowledge is also the key plot
-point in {{ stephensons }} {{ anathem }}.
+You can see the influence of {{ this_book }} all over the genre. The
+Brotherhood of Steel in {{ fallout }} is similar to the Order, preserving
+technology after a nuclear war. There is also the Adeptus Mechanicus from {{
+warhammer }}, who use sacred rituals to preserve technology and, like Abbot
+Zerchi, refer to AI as "abominable". A religious order preserving knowledge is
+also the key plot point in {{ stephensons }} {{ anathem }}.
 
 Mad Bear in {{ s2 }} reminds me of the Lord of the Mountain from {{ stirlings
 }} {{ ancestral_voices }} and {{ the_sixth_sun }}. The general
