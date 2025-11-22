@@ -168,10 +168,7 @@ check: build
 		-v $(PWD):$(MOUNT) \
 		-w $(MOUNT) \
 		$(IMAGE) \
-		bundle exec htmlproofer ./_site \
-		  --disable-external \
-		  --ignore-urls /livereload.js/ \
-		  --checks Links,HTML
+		bundle exec ruby _bin/check_links.rb
 
 # Install the custom pre-commit hook that runs RuboCop inside Docker.
 # This target must be run on the HOST machine.

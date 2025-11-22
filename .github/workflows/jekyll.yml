@@ -74,11 +74,7 @@ jobs:
           JEKYLL_ENV: production
 
       - name: Check for broken links
-        run: |
-          bundle exec htmlproofer ./_site \
-            --disable-external \
-            --ignore-urls "/livereload.js/" \
-            --check-html
+        run: bundle exec ruby _bin/check_links.rb
 
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
