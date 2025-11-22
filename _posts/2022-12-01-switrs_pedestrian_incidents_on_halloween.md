@@ -30,7 +30,7 @@ SWITRS data, but with a focus on Halloween.
 As per usual, the Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-{% capture notebook_uri %}{{ "SWITRS Incident Dates With Pedestrians.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "SWITRS Incident Dates With Pedestrians On Halloween.ipynb" | uri_escape }}{% endcapture %} 
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
