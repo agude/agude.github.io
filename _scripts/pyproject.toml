@@ -9,6 +9,7 @@ requires-python = ">=3.8"
 dependencies = [
     "pyyaml", # Used by make_pages.py and the ranker generators for reading .md front matter.
     "beautifulsoup4", # Used by compare_backlinks.py for parsing HTML.
+    "lxml", # Required by BeautifulSoup for fast HTML parsing
 ]
 
 [tool.uv]
