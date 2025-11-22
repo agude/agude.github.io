@@ -4,6 +4,7 @@
 require_relative 'plugin_logger_utils'
 require_relative 'text_processing_utils' # Potentially for sorting by title if needed
 
+# Utility module for fetching and filtering blog posts by category.
 module PostListUtils
   # Fetches posts for a specific category, optionally excluding a URL, sorted by date.
   #

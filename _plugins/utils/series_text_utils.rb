@@ -2,6 +2,7 @@
 
 # _plugins/utils/series_text_utils.rb
 
+# Utility module for detecting and formatting book series text.
 module SeriesTextUtils
   # Define common words that imply a series type.
   # These are checked as whole words against the normalized series name.

@@ -7,6 +7,7 @@ require_relative 'plugin_logger_utils'
 require_relative 'text_processing_utils'
 require_relative 'typography_utils'
 
+# Utility module for generating links to short stories within anthology books.
 module ShortStoryLinkUtils
   # Renders the HTML for a short story link.
   #

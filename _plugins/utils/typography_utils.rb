@@ -3,6 +3,7 @@
 # _plugins/utils/typography_utils.rb
 require 'cgi' # Still needed for the initial minimal escape, though not for full CGI.escapeHTML
 
+# Utility module for applying typographic transformations to text.
 module TypographyUtils
   # Applies manual "SmartyPants"-like transformations, minimal HTML escaping,
   # and allows <br> tags through. NO Kramdown involved.

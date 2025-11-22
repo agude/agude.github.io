@@ -4,6 +4,7 @@
 require 'cgi'
 require 'jekyll'
 
+# Utility module for centralized logging with configurable log levels.
 module PluginLoggerUtils
   LOG_LEVEL_MAP = {
     debug: 0,

@@ -2,6 +2,7 @@
 
 # _plugins/utils/url_utils.rb
 
+# Utility module for constructing absolute URLs from relative paths.
 module UrlUtils
   def self.absolute_url(path, site)
     return nil if path.nil?

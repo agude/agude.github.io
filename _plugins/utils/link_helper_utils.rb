@@ -3,6 +3,7 @@
 # _plugins/utils/link_helper_utils.rb
 require 'jekyll'
 
+# Utility module for generating HTML links with fallback handling.
 module LinkHelperUtils
   # Determines the correct text to display for a link/span.
   # Prioritizes override_text, then canonical_title from found_doc, then input_text.

@@ -3,6 +3,7 @@
 # _plugins/utils/text_processing_utils.rb
 require 'nokogiri'
 
+# Utility module for cleaning and processing HTML and text content.
 module TextProcessingUtils
   # Cleans HTML content to plain text, normalizes whitespace.
   # Removes script and style tag contents.

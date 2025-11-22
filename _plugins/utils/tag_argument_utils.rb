@@ -2,6 +2,7 @@
 
 # _plugins/utils/tag_argument_utils.rb
 
+# Utility module for parsing and resolving Liquid tag arguments.
 module TagArgumentUtils
   # Resolves a Liquid markup string.
   # - If the markup is quoted (single or double), returns the literal string content.

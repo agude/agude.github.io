@@ -4,6 +4,7 @@
 require 'jekyll' # For potential future Jekyll context, though not directly used by this method
 require 'cgi'    # For CGI.escapeHTML if it were needed (not in current stars logic)
 
+# Utility module for generating HTML star rating displays.
 module RatingUtils
   # Generates HTML for star rating display.
   # Accepts Integer or integer-like String input for rating (1-5), or nil.
