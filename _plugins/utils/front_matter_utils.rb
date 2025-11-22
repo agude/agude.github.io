@@ -2,6 +2,7 @@
 
 # _plugins/utils/front_matter_utils.rb
 
+# Utility module for processing and normalizing front matter values.
 module FrontMatterUtils
   # Helper to consistently return an array of unique strings from a front matter value
   # that could be a single string or an array of strings.

@@ -4,6 +4,7 @@
 # No specific requires needed from other utils for this basic version,
 # but PluginLoggerUtils could be added if logging within the util becomes necessary.
 
+# Utility module for combining and sorting posts and books for feed generation.
 module FeedUtils
   # Combines posts and books, sorts them by date, and returns a limited number.
   #
