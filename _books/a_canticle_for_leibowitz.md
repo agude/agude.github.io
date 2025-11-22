@@ -16,14 +16,8 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 <span class="book-series">{{ page.series }}</span> series.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">Miller</span>{% endcapture %}
 {% capture the_authors_lastname_possessive %}<span class="author-name">Miller</span>'s{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text="Miller" %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text="Miller" possessive %}{% endcapture %}
 
 {% capture s1 %}{% short_story_link "Fiat Homo" %}{% endcapture %}
 {% capture s2 %}{% short_story_link "Fiat Lux" %}{% endcapture %}
@@ -52,11 +46,8 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 {% capture new_sun %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 
 {% capture christophers %}{% author_link "John Christopher" possessive link_text="Christopher" %}{% endcapture %}
-{% capture tripods %}{% series_link "The Tripods" %}{% endcapture %}
 {% capture sword %}{% series_link "Sword of the Spirits" %}{% endcapture %}
 
-{% capture laumers %}{% author_link "Keith Laumer" possessive link_text="Laumer" %}{% endcapture %}
-{% capture bolo %}{% book_link "Bolo" %}{% endcapture %}
 
 {% capture stirlings %}{% author_link "S. M. Stirling" possessive link_text="Stirling" %}{% endcapture %}
 {% capture ancestral_voices %}{% short_story_link "Ancestral Voices" %}{% endcapture %}
