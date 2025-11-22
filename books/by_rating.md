@@ -51,6 +51,7 @@ ranked_list:
   - The Sword of the Lictor
   - The Citadel of the Autarch
   - The Shadow of the Torturer
+  - A Canticle For Leibowitz
   - Destination Moon
   - Eater
   - The Unconquerable
