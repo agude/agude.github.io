@@ -3,6 +3,7 @@
 # _plugins/utils/citation_utils.rb
 require 'cgi'
 
+# Utility module for generating formatted HTML citations from bibliographic data.
 module CitationUtils
   NBSP = "\u00A0" # Non-breaking space
 
