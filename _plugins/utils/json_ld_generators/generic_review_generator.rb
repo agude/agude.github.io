@@ -5,6 +5,7 @@ require_relative '../json_ld_utils'
 require_relative '../url_utils'
 require 'jekyll' # For logger
 
+# Generates JSON-LD Review schema for generic reviews.
 module GenericReviewLdGenerator
   def self.generate_hash(document, site)
     Generator.new(document, site).generate

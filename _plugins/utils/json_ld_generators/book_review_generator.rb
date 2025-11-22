@@ -6,6 +6,7 @@ require_relative '../url_utils'
 require_relative '../front_matter_utils'
 require 'jekyll'
 
+# Generates JSON-LD Review schema for book reviews.
 module BookReviewLdGenerator
   def self.generate_hash(document, site)
     Generator.new(document, site).generate

@@ -5,6 +5,7 @@ require_relative '../json_ld_utils'
 require_relative '../url_utils'
 require 'jekyll' # For logger
 
+# Generates JSON-LD BlogPosting schema for blog posts.
 module BlogPostingLdGenerator
   def self.generate_hash(document, site)
     data = base_data_hash

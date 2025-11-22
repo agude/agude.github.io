@@ -6,6 +6,7 @@ require_relative '../url_utils'
 require_relative '../front_matter_utils'
 require 'jekyll' # For logger
 
+# Generates JSON-LD Person schema for author profile pages.
 module AuthorProfileLdGenerator
   def self.generate_hash(document, site)
     data = _base_data_hash
