@@ -8,8 +8,6 @@ description: >
 ---
 
 In 2015 I worked at Lab41 on Project Hermes, a recommender system test bed. I
-wrote several articles about the project for the company blog,
-[**Gab41**][gab41]. Lab41 has kindly given me permission to host the articles
-here. You can find them below:
-
-[gab41]: https://gab41.lab41.org/
+wrote several articles about the project for the company blog, **Gab41**.
+Lab41 has kindly given me permission to host the articles here. You can find
+them below:

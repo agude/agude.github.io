@@ -20,10 +20,9 @@ particle physicist at CERN and a [cosmologist][scp] at Lawrence Berkeley Labs.
 I write about whatever catches my attention [here on this site][blog]; mostly
 that means data science, machine learning, deep learning, and software
 development. My writings on deep learning from my time at Lab41 can be found
-at [Gab41][gab41] and [rehosted on this page][lab41_posts].
+[rehosted on this page][lab41_posts].
 
 [blog]: {% link blog/index.html %}
-[gab41]: https://gab41.lab41.org/@Alex.Gude
 [lab41_posts]: {% link topics/lab41.md %}
 
 If you're interested in my thoughts in real time (as well as sneak peaks at

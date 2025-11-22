@@ -9,7 +9,5 @@ description: >
 
 In 2017 I worked at Lab41 on Project Pelops, a neural network for identifying
 cars from traffic cameras. I wrote several articles about the project for the
-company blog, [**Gab41**][gab41]. Lab41 has kindly given me permission to host
-the articles here. You can find them below:
-
-[gab41]: https://gab41.lab41.org/
+company blog, **Gab41**. Lab41 has kindly given me permission to host the
+articles here. You can find them below:
