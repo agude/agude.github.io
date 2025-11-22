@@ -172,10 +172,10 @@ check: build
 
 # Install the custom pre-commit hook that runs RuboCop inside Docker.
 # This target must be run on the HOST machine.
-install-hook: image _scripts/pre-commit.sh
+install-hook: image _bin/pre-commit.sh
 	@echo "Installing custom Docker-based pre-commit hook..."
 	@mkdir -p .git/hooks
-	@cp _scripts/pre-commit.sh .git/hooks/pre-commit
+	@cp _bin/pre-commit.sh .git/hooks/pre-commit
 	@chmod +x .git/hooks/pre-commit
 	@echo "Pre-commit hook installed at .git/hooks/pre-commit."
 	@echo "It will run 'rubocop --autocorrect' on staged Ruby files inside the Docker image."
