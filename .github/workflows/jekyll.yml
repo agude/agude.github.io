@@ -1,18 +1,10 @@
 # .github/workflows/jekyll.yml
-#
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
 name: Test and Deploy Jekyll site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Runs on pushes to ANY branch
   push:
-    branches: ["main"]
-
+  
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -22,14 +14,13 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allow only one concurrent deployment.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Test job
+  # Test job - Runs on EVERY branch
   test:
     runs-on: ubuntu-latest
     steps:
@@ -48,10 +39,10 @@ jobs:
       - name: Run tests
         run: bundle exec ruby -I _plugins -I _tests -e "require 'test_helper'; Dir.glob('_tests/**/test_*.rb').each { |f| load f }"
 
-  # Build job
+  # Build job - Runs on EVERY branch (checks links!)
   build:
     runs-on: ubuntu-latest
-    needs: test # This job only runs if the 'test' job succeeds
+    needs: test
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -59,16 +50,14 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1.244.0
         with:
-          #ruby-version: '3.1' # REMOVED, because not needed with a .ruby-version file
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-          cache-version: 0 # Increment this number if you need to re-download cached gems
+          bundler-cache: true
+          cache-version: 0
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
 
       - name: Build with Jekyll
-        # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
@@ -77,16 +66,17 @@ jobs:
         run: bundle exec ruby _bin/check_links.rb
 
       - name: Upload artifact
-        # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3
 
-  # Deployment job
+  # Deployment job - ONLY runs on 'main'
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    # SAFETY GUARD: Only deploy if we are on the main branch
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
