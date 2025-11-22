@@ -39,7 +39,7 @@ jobs:
       - name: Run tests
         run: bundle exec ruby -I _plugins -I _tests -e "require 'test_helper'; Dir.glob('_tests/**/test_*.rb').each { |f| load f }"
 
-  # Build job - Runs on EVERY branch (checks links!)
+  # Build job
   build:
     runs-on: ubuntu-latest
     needs: test
@@ -66,16 +66,18 @@ jobs:
         run: bundle exec ruby _bin/check_links.rb
 
       - name: Upload artifact
+        # Only upload if we are on main (where deployment happens)
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
 
-  # Deployment job - ONLY runs on 'main'
+  # Deployment job
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
-    # SAFETY GUARD: Only deploy if we are on the main branch
+    # This matches the condition above, ensuring we only try to deploy if we uploaded
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Deploy to GitHub Pages
