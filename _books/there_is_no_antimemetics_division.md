@@ -1,11 +1,11 @@
 ---
-date: 2025-11-16
+date: 2025-11-21
 title: There Is No Antimemetics Division
 book_authors: qntm
 series: null
 book_number: 1
 is_anthology: false
-rating: null
+rating: 4
 image: /books/covers/there_is_no_antimemetics_division.jpg
 ---
 
