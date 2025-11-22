@@ -3,6 +3,7 @@
 # _plugins/utils/card_renderer_utils.rb
 require 'cgi' # For escaping image alt text if not already escaped
 
+# Utility module for rendering HTML card components for books and articles.
 module CardRendererUtils
   # Renders a generic card structure based on provided data.
   #
