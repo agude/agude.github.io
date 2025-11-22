@@ -13,7 +13,12 @@ awards:
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the first book in the
-<span class="book-series">{{ page.series }}</span> series.
+<span class="book-series">{{ page.series }}</span> series. It is a fix-up
+consisting of three parts: <cite class="short-story-title">Fiat Homo</cite>,
+<cite class="short-story-title">Fiat Lux</cite>, and <cite
+class="short-story-title">Fiat Voluntas Tua</cite>. The story follows the
+monks of the Albertian Order of Leibowitz as they preserve the remains of
+mankind's knowledge after an atomic war.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">Miller</span>{% endcapture %}
@@ -24,6 +29,9 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 {% capture s3 %}{% short_story_link "Fiat Voluntas Tua" %}{% endcapture %}
 
 {% capture darfsteller %}{% book_link "The Darfsteller" %}{% endcapture %}
+{% capture horse %}{% book_link "Saint Leibowitz and the Wild Horse Woman" %}{% endcapture %}
+
+{% capture bisson %}{% author_link "Terry Bisson" %}{% endcapture %}
 
 {% capture bible %}{% book_link "Bible" %}{% endcapture %}
 
@@ -55,13 +63,9 @@ class="author-name">{{ page.book_authors }}</span>, is the first book in the
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 {% capture anti %}{% book_link "There Is No Antimemetics Division" %}{% endcapture %}
 
-{{ this_book }} is a fix-up by {{ the_authors_lastname }} consisting of three
-parts: {{ s1 }}, {{ s2 }}, and {{ s3 }}. It follows the monks of the Albertian
-Order of Leibowitz as they preserve the remains of mankind's knowledge after an
-atomic war.
 
-The major theme of the book is the cyclical nature of history and the
-question, "Are we doomed to repeat it?" Other themes include the conflict
+The major theme of the book is the cyclical nature of the fall of humanity and
+the question, "Are we doomed to repeat it?" Other themes include the conflict
 between faith and reason, the double-edged sword of knowledge, and the nature
 of suffering and sin.
 
@@ -69,9 +73,8 @@ It is an _explicitly_ Catholic book, if that wasn't clear from the fact that
 it's about monks. In that way, it reminds me a lot of {{ wolfes }} {{ new_sun
 }} and {{ simmonss }} {{ hyperion }}. All three authors mix Catholic theology
 with science fiction, but it goes deeper than that. They share a Catholic
-worldview: the Church remains a central institution, pain and suffering are
-core focuses, and their far-future worlds feel ancient and burdened by the
-past.
+worldview: they center institutional faith, pain and suffering are core, and
+their far-future worlds feel ancient and burdened by the past.
 
 [fall]: https://en.wikipedia.org/wiki/Fall_of_man
 
@@ -98,9 +101,9 @@ repeated encounters with the Buzzards, who finally eat him, and the way the
 Hundreds of years later, humans are starting to build empires again. Thon
 Taddeo, scientist and heir to the Texarkana kingdom, visits the Abbey to study
 the Memorabilia. Some monks are also studying the old texts and use them to
-invent an arc lamp. Abbot Dom Paulo is caught between the rise of secular
-power and knowledge, and the mission his brotherhood has upheld for hundreds
-of years.
+invent an arc lamp. Abbot Paulo is caught between the rise of secular power
+and knowledge, and the mission his brotherhood has upheld for hundreds of
+years.
 
 The clearest theme is the tension between religion and science, with the monks
 not fully trusting the Thon, nor their own Brother Kornhoer, who invents the
@@ -128,8 +131,8 @@ euthanasia after receiving a fatal dose of radiation. The Abbot, following
 Catholic doctrine, says no under any circumstances. Zerchi eventually has the
 argument again with a woman and her child who are dying of radiation
 poisoning. Knowing as we do now that {{ the_authors_lastname }} eventually
-committed suicide, the argument reads more like him trying to use his faith to
-convince himself.
+committed suicide, the argument feels less like a theological exercise and
+more like a man trying to steady himself with his own faith.
 
 At the end, the nuclear war resumes and Zerchi is trapped when the Church
 collapses. The two-headed mutant Mrs. Grales finds him---except her
@@ -161,8 +164,8 @@ In a way, Rachel also reminds me of Athena. Both sprout from their parent,
 both are virginal, and both are symbols of knowledge. But while Athena is tied
 to civilization and war---she is born fully clothed and armed---Rachel is a
 being of "primal innocence" and represents a return to Eden.[^eden] Once again
-it's the theme of secular versus spiritual knowledge, and Rachel signals the
-end of the age of Athena.
+it's the theme of secular versus spiritual knowledge, but this time Rachel
+signals the end of the age of Athena.
 
 [^eden]:
     > He did not ask why God would choose to raise up a creature of primal
@@ -170,14 +173,20 @@ end of the age of Athena.
     > preternatural gifts of Eden---those gifts which Man had been trying to
     > seize by brute force again from Heaven since first he lost them.
 
-### Other Works
+### Legacy
 
-{{ the_authors_lastname_possessive }} asks, "Are we doomed to repeat history?"
-{{ this_book }}'s answer is "yes". Man first fell when they were [banished
-from Eden][fall], after the serpent promised Adam and Eve knowledge of good
-and evil. The second fall was the "Flame Deluge", the nuclear war that scoured
-the earth right before the novel takes place. And the third comes at the end
-of the book, when humanity loses Earth.
+{{ the_authors_lastname_possessive }} asks, "Are we doomed to repeat the
+fall?" {{ this_book }}'s answer is "yes". Man first fell when they were
+[banished from Eden][fall], after the serpent promised Adam and Eve knowledge
+of good and evil. The second fall was the "Flame Deluge", the nuclear war that
+scoured the earth right before the novel takes place. And the third comes at
+the end of the book, when humanity loses Earth.
+
+I really enjoyed {{ this_book }}. {{ s1 }} is a little slow, but {{ s2 }} does
+a great job capturing a moment from the Abbey and the wider world, with the
+courage to end the section without over-explaining. And {{ s3 }} brings a
+growing sense of dread for the coming war while echoing and reinforcing the
+themes from earlier in the book, bringing the cycle back around one last time.
 
 You can see the influence of {{ this_book }} all over. The Brotherhood of
 Steel in {{ fallout }} is similar to the Order, preserving technology after a
@@ -188,12 +197,14 @@ point in {{ stephensons }} {{ anathem }}.
 
 Mad Bear in {{ s2 }} reminds me of the Lord of the Mountain from {{ stirlings
 }} {{ ancestral_voices }} and {{ the_sixth_sun }}. The general
-post-apocalyptic fantasy reminded me of {{ christophers }} {{ sword }}. The
-dread of the coming nuclear war in {{ s3 }} reminded me of {{ strosss }} {{
-colder_war }}.
+post-apocalyptic fantasy world reminded me of {{ christophers }} {{ sword }}.
+The dread of the coming nuclear war in {{ s3 }} reminded me of {{ strosss }}
+{{ colder_war }}.
 
-I really enjoyed {{ this_book }}. I'll be reading {{
-the_authors_lastname_possessive }} {{ darfsteller }} shortly. It's a novella
-about machines replacing humans in the arts, which couldn't be more timely
-with the release of Generative AI. I'm also planning to read the new version
-of {{ qntms }} {{ anti }} which just released. I'm looking forward to it!
+I'll be reading {{ the_authors_lastname_possessive }} {{ darfsteller }}
+shortly. It's a novella about machines replacing humans in the arts, which
+couldn't be more timely with the release of Generative AI. I am not sure if
+I'll read the sequel, {{ horse }}, published after the author's death and half
+written by {{ bisson }}. Before any of that though, I'm going to read the new
+version of {{ qntms }} {{ anti }} which just released. I'm looking forward to
+it!
