@@ -52,6 +52,7 @@ humanity's knowledge after an atomic war.
 
 {% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
 {% capture new_sun %}{% series_link "The Book of the New Sun" %}{% endcapture %}
+{% capture urth %}{% book_link "The Urth of the New Sun" %}{% endcapture %}
 
 {% capture christophers %}{% author_link "John Christopher" possessive link_text="Christopher" %}{% endcapture %}
 {% capture sword %}{% series_link "Sword of the Spirits" %}{% endcapture %}
@@ -204,6 +205,7 @@ I'll be reading {{ the_authors_lastname_possessive }} {{ darfsteller }}
 shortly. It's a novella about machines replacing humans in the arts, which
 couldn't be more timely with the release of Generative AI. I am not sure if
 I'll read the sequel, {{ horse }}, published after the author's death and half
-written by {{ bisson }}. Before any of that though, I'm going to read the new
-version of {{ qntms }} {{ anti }} which just released. I'm looking forward to
-it!
+written by {{ bisson }}. The reviews are mixed, and I worry it will be an
+unnecessary coda, like {{ urth }} was to {{ new_sun }}. Before any of that
+though, I'm going to read the new version of {{ qntms }} {{ anti }} which just
+released. I'm looking forward to it!
