@@ -46,6 +46,7 @@ humanity's knowledge after an atomic war.
 
 {% capture colder_war %}{% book_link "A Colder War" %}{% endcapture %}
 {% capture strosss %}{% author_link "Charles Stross" possessive link_text="Stross" %}{% endcapture %}
+{% capture cthulu_mythos %}{% series_link "Cthulhu Mythos" %}{% endcapture %}
 
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 {% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
@@ -109,7 +110,8 @@ The clearest theme is the tension between religion and science, with the monks
 not fully trusting the Thon, nor their own Brother Kornhoer, who invents the
 lamp. The theme also shows up in the Church preparing to physically defend
 itself from the state, which wants to use it as a fort in its conquest of the
-plains.
+plains, and Taddeo's refusal to take responsibility for his cousin's use of
+science in war.
 
 In this section, Taddeo wonders if humans are the servants of a higher race
 that created them, based on a piece from the Memorabilia---a reference to the
@@ -122,7 +124,7 @@ play {{ rur }} by {{ capek }}.[^robot]
 In the far future, humanity has once again conquered the atom and is on the
 brink of war, taking us full circle back to the beginning of the book. Abbot
 Zerchi prepares some of the brothers for a trip to human colonies in the stars
-to preserve the order while waiting for nuclear annihilation on Earth.
+to preserve the Order while waiting for nuclear annihilation on Earth.
 
 {{ the_authors_lastname }} continues the theme of conflict between the realm
 of man and the realm of God, much more openly. Abbot Zerchi spends pages
@@ -136,19 +138,19 @@ more like a man trying to steady himself with his own faith.
 
 At the end, the nuclear war resumes and Zerchi is trapped when the church
 collapses. The two-headed mutant Mrs. Grales finds him---except her
-child-head, Rachel, is in control. He realizes that she is born without sin
-when she rejects his attempt to baptize her and instead administers the
+child-head, Rachel, is in control. He realizes that Rachel was born without
+sin when she rejects his attempt to baptize her and instead administers the
 [Eucharist][eucharist] to him.
 
 [eucharist]: https://en.wikipedia.org/wiki/Eucharist
 
 Rachel is an interesting character, despite her short time in the story. She
-is a [new Eve][new_eve], representing the start of the cycle again. As such
-she is a [Mary][mary] figure. Zerchi recognizes this and begins praying the
-[Magnificat][magnificat]---the canticle Mary spoke when she visited Elizabeth
-in the {{ bible }}. She is also a Christ-like figure: she was born of Mrs.
-Grales alone; humanity's temptation to give in to euthanasia, and Zerchi
-himself trapped and dying in agony, can be interpreted as the
+is a [new Eve][new_eve], representing the start of the cycle again. She
+embodies the [Mary][mary] archetype, which Zerchi recognizes when he begins
+praying the [Magnificat][magnificat]---the canticle Mary spoke when she
+visited Elizabeth in the {{ bible }}. She is also a Christ-like figure: she
+was born of Mrs. Grales alone; humanity's temptation to give in to euthanasia,
+and Zerchi himself trapped and dying in agony, can be interpreted as the
 [Apostasy][apostasy] that Catholics think will precede [Jesus's
 return][second_coming]. Rachel arrives right before humanity destroys itself
 again, necessitating the [final judgment][last_judgment].
@@ -197,15 +199,16 @@ also the key plot point in {{ stephensons }} {{ anathem }}.
 
 Mad Bear in {{ s2 }} reminds me of the Lord of the Mountain from {{ stirlings
 }} {{ ancestral_voices }} and {{ the_sixth_sun }}. The general
-post-apocalyptic fantasy world reminded me of {{ christophers }} {{ sword }}.
-The dread of the coming nuclear war in {{ s3 }} reminded me of {{ strosss }}
-{{ colder_war }}.
+post-apocalyptic fantasy world had a similar feel to {{ christophers }} {{
+sword }}. The dread of the coming nuclear war in {{ s3 }} made me feel the
+same way I did when reading {{ strosss }} {{cthulu_mythos }} inspired {{
+colder_war }}.
 
-I'll be reading {{ the_authors_lastname_possessive }} {{ darfsteller }}
-shortly. It's a novella about machines replacing humans in the arts, which
-couldn't be more timely with the release of Generative AI. I am not sure if
-I'll read the sequel, {{ horse }}, published after the author's death and half
-written by {{ bisson }}. The reviews are mixed, and I worry it will be an
-unnecessary coda, like {{ urth }} was to {{ new_sun }}. Before any of that
+I don't know if I'll read the sequel, {{ horse }}, which was published after
+the author's death and half written by {{ bisson }}. The reviews are mixed,
+and I worry it will be an unnecessary coda, like {{ urth }} was to {{ new_sun
+}}. But I will be reading {{ the_authors_lastname_possessive }} {{ darfsteller
+}} shortly. It's a novella about machines replacing humans in the arts, which
+couldn't be more timely with the release of Generative AI. Before any of that
 though, I'm going to read the new version of {{ qntms }} {{ anti }} which just
 released. I'm looking forward to it!
