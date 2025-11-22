@@ -6,6 +6,7 @@ require 'jekyll'
 # If you get NameError for FrontMatterUtils, uncomment:
 # require_relative './utils/front_matter_utils'
 
+# Extension to Jekyll that provides front matter validation functionality.
 module Jekyll
   # Validates required front matter fields for Jekyll documents and pages.
   #
