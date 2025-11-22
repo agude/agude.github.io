@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require 'html-proofer'
 
 options = {
@@ -22,7 +24,7 @@ options = {
 begin
   HTMLProofer.check_directory('./_site', options).run
 rescue RuntimeError => e
-  puts "\n HTMLProofer found errors!"
+  puts "\n❌ HTMLProofer found errors!"
   puts e.message
   exit 1
 end
