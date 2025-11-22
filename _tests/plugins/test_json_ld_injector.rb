@@ -120,7 +120,7 @@ class TestJsonLdInjectorBase < Minitest::Test
       AuthorProfileLdGenerator => @author_profile_hash
     }
 
-    stubs.each do |generator, _hash|
+    stubs.each_key do |generator|
       stub_value = generator == active_generator ? active_hash : ->(*) { flunk "#{generator} should not be called" }
       generator.stub :generate_hash, stub_value do
         yield if generator == stubs.keys.last

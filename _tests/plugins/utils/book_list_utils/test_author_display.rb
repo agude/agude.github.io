@@ -192,10 +192,8 @@ class TestBookListUtilsAuthorDisplay < Minitest::Test
   def collect_all_rendered_titles(data)
     all_titles = []
     all_titles.concat(data[:standalone_books].compact.map { |book| book.data['title'] }) if data[:standalone_books]
-    if data[:series_groups]
-      data[:series_groups].compact.each do |series_group|
-        all_titles.concat(series_group[:books].compact.map { |book| book.data['title'] }) if series_group[:books]
-      end
+    data[:series_groups]&.compact&.each do |series_group|
+      all_titles.concat(series_group[:books].compact.map { |book| book.data['title'] }) if series_group[:books]
     end
     all_titles
   end

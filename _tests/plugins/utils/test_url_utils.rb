@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_url_utils.rb
 require_relative '../../test_helper'
 # UrlUtils is loaded via test_helper

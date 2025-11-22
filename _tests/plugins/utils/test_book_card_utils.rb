@@ -68,7 +68,7 @@ class TestBookCardUtils < Minitest::Test
 
     stub_rendering_dependencies(mock_base_data, mock_prepared_title, mock_description_html) do
       AuthorLinkUtils.stub :render_author_link, mock_author_link_html_single do
-        TextProcessingUtils.stub :format_list_as_sentence, ->(_list, etal_after: nil) { _list.first } do
+        TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
           RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
             captured_card_data = capture_card_data { BookCardUtils.render(book_to_test, @context) }
           end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # _tests/plugins/utils/test_series_text_utils.rb
 require_relative '../../test_helper'
 require_relative '../../../_plugins/utils/series_text_utils' # Load the util
