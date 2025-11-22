@@ -7,6 +7,8 @@ book_number: 1
 is_anthology: false
 rating: null
 image: /books/covers/the_darfsteller.jpg
+awards:
+  - hugo
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
