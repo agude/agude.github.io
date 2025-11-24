@@ -1,5 +1,5 @@
 ---
-date: 2025-11-22
+date: 2025-11-24
 title: The Darfsteller
 book_authors: Walter M. Miller Jr.
 series: null
