@@ -47,6 +47,10 @@ thought---and how you might combat a foe you can't even remember exists.
 {% capture simcity %}<cite class="video-game-title">SimCity 2000</cite>{% endcapture %}
 {% capture days_later %}<cite class="movie-title">28 Days Later</cite>{% endcapture %}
 
+{% capture darfsteller %}{% short_story_link "The Darfsteller" %}{% endcapture %}
+
+{% capture time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
+
 {{ this_book }} is {{ the_authors }} rewrite of his {{ original }}. I thought
 the strongest part of the {{ original }} was the first half, written as
 disjointed short stories with tight pacing. The weakest part was the second
@@ -88,13 +92,13 @@ only fail.
 {{ the_author }} revisits ideas he explored in {{ valuable_humans }}.
 Researcher Hix has a "do not upload" directive filed to prevent the
 Organization from uploading his consciousness if he dies or is near death. {{
-the_author }} explored the horrifying consequences of creating uploaded minds
----and how easy it is to ignore their humanity---in {{ lena }} and {{ driver
-}}.[^lena] One of the researchers references the quote _"Sending this message
-was important to us. We considered ourselves to be a powerful culture."_, the
-warning Sandia National Lab wanted to convey about nuclear waste disposal.
-That same message shows up in {{ powerful_culture }}, about disposing of
-dangerous waste to other dimensions.
+the_author }} explored the horrifying consequences of creating uploaded
+minds---and how easy it is to ignore their humanity---in {{ lena }} and {{
+driver }}.[^lena] One of the researchers references the quote _"Sending this
+message was important to us. We considered ourselves to be a powerful
+culture."_, the warning Sandia National Lab wanted to convey about nuclear
+waste disposal. That same message shows up in {{ powerful_culture }}, about
+disposing of dangerous waste to other dimensions.
 
 [^lena]: {{ lena }} is my favorite short story of the last decade.
 
@@ -117,4 +121,5 @@ move only when our eyes saccade. There's even a nod to Launch Arcologies from
 [scp]: https://en.wikipedia.org/wiki/SCP_Foundation
 
 I loved this rewrite, and I'm excited at the possibility of getting more
-Antimemetics stories, which {{ the_author }} has hinted at.
+Antimemetics stories, which {{ the_author }} has hinted at. Up next is {{
+darfsteller }} and then probably {{ time_war }} for my book club.
