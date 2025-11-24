@@ -20,9 +20,15 @@
         This now uses the pre-computed list from LinkCacheGenerator for performance.
       {% endcomment %}
 
-      {% for node in site.data.link_cache.sidebar_nav %}
-        <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{site.baseurl}}{{ node.url }}">{{ node.title }}</a>
-      {% endfor %}
+      {% assign data = site | optional: 'data' %}
+      {% assign link_cache = data | optional: 'link_cache' %}
+      {% assign nav_items = link_cache | optional: 'sidebar_nav' %}
+
+      {% if nav_items %}
+        {% for node in nav_items %}
+          <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{site.baseurl}}{{ node.url }}">{{ node.title }}</a>
+        {% endfor %}
+      {% endif %}
 
     </nav>
 

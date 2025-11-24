@@ -5,18 +5,19 @@
 {% endcomment %}
 <div class="resume-header-grid">
     {% comment %} Row 1: Company/Institution and Location {% endcomment %}
-    <div class="resume-company"><h3>{{ include.company }}</h3></div>
-    <div class="resume-location">{{ include.location }}</div>
+    <div class="resume-company"><h3>{{ include | optional: 'company' }}</h3></div>
+    <div class="resume-location">{{ include | optional: 'location' }}</div>
 
     {% comment %} Row 2: Position/Degree and Dates {% endcomment %}
-    <div class="resume-position">{{ include.position }}</div>
+    <div class="resume-position">{{ include | optional: 'position' }}</div>
     {% comment %} Keep markdownify for dates to process en dashes (--) {% endcomment %}
-    <div class="resume-dates">{{ include.dates | markdownify }}</div>
+    <div class="resume-dates">{{ include | optional: 'dates' | markdownify }}</div>
 
     {% comment %} Row 3: Optional second Position/Degree and Dates {% endcomment %}
-    {% if include.position_2 != null %}
-      <div class="resume-position">{{ include.position_2 }}</div>
+    {% assign position_2 = include | optional: 'position_2' %}
+    {% if position_2 != null %}
+      <div class="resume-position">{{ position_2 }}</div>
       {% comment %} Keep markdownify for dates to process en dashes (--) {% endcomment %}
-      <div class="resume-dates">{{ include.dates_2 | markdownify }}</div>
+      <div class="resume-dates">{{ include | optional: 'dates_2' | markdownify }}</div>
     {% endif %}
 </div>

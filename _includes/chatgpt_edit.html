@@ -12,13 +12,13 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
   <div class="chatgpt-prompt">{{- null -}}
     <strong>Prompt</strong>{{- null -}}
     <div class="chatgpt-prompt-only">{{- null -}}
-      <blockquote>{{include.prompt}}</blockquote>{{- null -}}
+      <blockquote>{{ include | optional: 'prompt' }}</blockquote>{{- null -}}
     </div>{{- null -}}
   </div>{{- null -}}
   <div class="chatgpt-output">{{- null -}}
     <strong>Output</strong>{{- null -}}
     <div class="chatgpt-output-only">{{- null -}}
-      <blockquote>{{include.output}}</blockquote>{{- null -}}
+      <blockquote>{{ include | optional: 'output' }}</blockquote>{{- null -}}
     </div>{{- null -}}
   </div>{{- null -}}
 </div>{{- null -}}

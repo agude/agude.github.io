@@ -1,10 +1,11 @@
 <figure>
   {% comment %} The image {% endcomment %}
-  <a href="{{ include.url }}">
-    <img src="{{ include.url }}" alt="{{ include.image_alt | default: "A figure with a caption" }}" />
+  <a href="{{ include | optional: 'url' }}">
+    <img src="{{ include | optional: 'url' }}" alt="{{ include | optional: 'image_alt' | default: "A figure with a caption" }}" />
   </a>
   {% comment %} The caption {% endcomment %}
-  {% if include.caption %}
-  <figcaption>{{ include.caption }}</figcaption>
+  {% assign caption = include | optional: 'caption' %}
+  {% if caption %}
+  <figcaption>{{ caption }}</figcaption>
   {% endif %}
 </figure>

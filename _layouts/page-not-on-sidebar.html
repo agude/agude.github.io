@@ -1,14 +1,17 @@
----
+s--
 layout: default
 ---
 
 <article class="page">
   <h1 class="page-title">{{ page.title }}</h1>
 
-  {% if page.hide_lead_image != true and page.image %}
+  {% assign hide_lead = page | optional: 'hide_lead_image' %}
+  {% assign image = page | optional: 'image' %}
+
+  {% if hide_lead != true and image %}
     <img id="lead-image"
-      src="{{ page.image }}"
-      alt="{{ page.image_alt | default: "Article header image, used for decoration." | strip }}"
+      src="{{ image }}"
+      alt="{{ page | optional: 'image_alt' | default: "Article header image, used for decoration." | strip }}"
     />
   {% endif %}
 
