@@ -17,11 +17,6 @@ thought---and how you might combat a foe you can't even remember exists.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture original %}{% book_link "There Is No Antimemetics Division (Original Edition)" link_text="original edition" %}{% endcapture %}
 
@@ -30,36 +25,21 @@ thought---and how you might combat a foe you can't even remember exists.
 {% capture powerful_culture %}{% short_story_link "A Powerful Culture" from_book="Valuable Humans in Transit and Other Stories" %}{% endcapture %}
 {% capture driver %}{% short_story_link "Driver" from_book="Valuable Humans in Transit and Other Stories" %}{% endcapture %}
 
-{% capture taylor %}{% author_link "Dennis E. Taylor" %}{% endcapture %}
-{% capture taylors %}{% author_link "Dennis E. Taylor" possessive %}{% endcapture %}
-{% capture taylor_lastname %}{% author_link "Dennis E. Taylor" link_text="Taylor" %}{% endcapture %}
-{% capture taylors_lastname %}{% author_link "Dennis E. Taylor" possessive link_text="Taylor" %}{% endcapture %}
 {% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
 
 {% capture arkady_and_boris_strugatskys %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" possessive %}{% endcapture %}
 {% capture roadside_picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
 
-{% capture watts %}{% author_link "Peter Watts" %}{% endcapture %}
-{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
-{% capture watts_lastname %}{% author_link "Peter Watts" link_text="Watts" %}{% endcapture %}
 {% capture wattss_lastname %}{% author_link "Peter Watts" possessive link_text="Watts" %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 
-{% capture vinge %}{% author_link "Vernor Vinge" %}{% endcapture %}
-{% capture vinges %}{% author_link "Vernor Vinge" possessive %}{% endcapture %}
-{% capture vinge_lastname %}{% author_link "Vernor Vinge" link_text="Vinge" %}{% endcapture %}
 {% capture vinges_lastname %}{% author_link "Vernor Vinge" possessive link_text="Vinge" %}{% endcapture %}
 {% capture fire_upon_the_deep %}{% book_link "A Fire Upon the Deep" %}{% endcapture %}
 
-{% capture lovecraft %}{% author_link "H. P. Lovecraft" %}{% endcapture %}
-{% capture lovecrafts %}{% author_link "H. P. Lovecraft" possessive %}{% endcapture %}
-{% capture lovecraft_lastname %}{% author_link "H. P. Lovecraft" link_text="Lovecraft" %}{% endcapture %}
 {% capture lovecrafts_lastname %}{% author_link "H. P. Lovecraft" possessive link_text="Lovecraft" %}{% endcapture %}
 {% capture cthulhu %}{% series_link "Cthulhu Mythos" %}{% endcapture %}
 
 {% capture stross %}{% author_link "Charles Stross" %}{% endcapture %}
-{% capture strosss %}{% author_link "Charles Stross" possessive %}{% endcapture %}
-{% capture stross_lastname %}{% author_link "Charles Stross" link_text="Stross" %}{% endcapture %}
 {% capture strosss_lastname %}{% author_link "Charles Stross" possessive link_text="Stross" %}{% endcapture %}
 {% capture colder_war %}{% book_link "A Colder War" %}{% endcapture %}
 {% capture laundry_files %}{% series_link "The Laundry Files" %}{% endcapture %}
