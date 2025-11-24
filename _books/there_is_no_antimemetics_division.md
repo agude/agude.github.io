@@ -47,75 +47,74 @@ thought---and how you might combat a foe you can't even remember exists.
 {% capture simcity %}<cite class="video-game-title">SimCity 2000</cite>{% endcapture %}
 {% capture days_later %}<cite class="movie-title">28 Days Later</cite>{% endcapture %}
 
-{{ this_book }} is {{the_authors }} rewrite of his {{ original }}. I thought
+{{ this_book }} is {{ the_authors }} rewrite of his {{ original }}. I thought
 the strongest part of the {{ original }} was the first half, written as
 disjointed short stories with tight pacing. The weakest part was the second
-half, where the author tried to form them into the base of a larger narrative.
-The execution felt shallow, and the world it described like a stage that was
-just wide enough to contain the action, but with nothing else there.
+half, where the author tried to stitch them into a larger narrative. The
+execution felt shallow, and the world it described felt like a stage just wide
+enough to contain the action, with nothing beyond the edges.
 
-This rewrite fixes all of those problems! The short stories maintain their
-pacing, and some are even edited down to be tighter and fit better into the
-overall storyline. {{ the_author }} adds in just a few more hints and
-signposts, which help make it clearer how they're all related. A couple
-Unknown Objects that were mentioned in the first book and then sort of
-vanished from the story are instead expanded and tied into the main plot.
-Everything builds towards the same conclusion instead of pulling in opposite
-directions. <!-- TODO: Want to mention the cyclical nature, people keep trying
-to same thing and losing, there have been multiple Antimemetics divisions,
-3125 has eaten them all. And that's clearer and easier to understand with the
-improved signposts. -->
+This rewrite fixes all of that. The short stories keep their pacing, and some
+are even trimmed to be tighter and fit more cleanly into the overall story. {{
+the_author }} adds just a few more hints and signposts, which help make the
+connections clearer. A couple of Unknown Objects that were mentioned in the
+first book and then sort of vanished from the plot are expanded here and tied
+directly into the main storyline. Everything builds toward the same conclusion
+instead of pulling in different directions. <!-- TODO: Mention the cyclical
+nature---people keep trying the same thing and losing; there have been
+multiple Antimemetics Divisions, 3125 has eaten them all. And that's clearer
+with the added signposts. -->
 
-{{ this_book }} is one you read for the ideas and concept, and they are
-fantastic: that there are antimemes, ideas which can not be remembered. How
-does one study an idea you can't keep in your head? How do you fight something
-that you forget about every time you leave the room? The world and its
-complexities are introduced naturally through the short-story chapters, so by
-the time the narrative really kicks off you have a solid grounding without
-lore dumps.
+{{ this_book }} is one you read for the ideas and concepts, and they're
+fantastic: that there are antimemes, ideas which cannot be remembered. How do
+you study an idea you can't keep in your head? How do you fight something you
+forget every time you leave the room? How do you win a war against an idea
+that will kill you as soon as you think it? The world and its complexities are
+introduced naturally through the short-story chapters, so by the time the
+narrative really kicks off you have a solid grounding without lore dumps.
 
-I liked this book a lot. I love stories that have the concept of "boring
-bureaucrats trying to control cosmic horrors" like {{ strosss_lastname }} {{
-colder_war }} and {{ laundry_files }}.[^stross] The short story format keeps
-the pacing high, and the tension builds but lets off enough to give you a
-rest. And despite the horrors there is hope. That's something I was missing in
-the first book which felt like things were only ever going to get worse and
-the characters would only fail.
+I liked this book a lot. I love stories built around "boring bureaucrats
+trying to control cosmic horrors" like {{ strosss_lastname }} {{ colder_war }}
+and {{ laundry_files }}.[^stross] The short story format keeps the pacing
+high, the tension builds but gives you enough slack to breathe, and despite
+the horrors there's hope. That was something missing from the first book,
+which felt like things were only going to get worse and the characters would
+only fail.
 
 [^stross]:
     {{ the_author }} thanks {{ stross }} in the acknowledgments for "help[ing]
     me out at several critical early points in this journey".
 
-{{ the_author }} revisits some of the ideas he explored in {{ valuable_humans
-}}. Researcher Hix has a "do not upload" directive filed to keep the
+{{ the_author }} revisits ideas he explored in {{ valuable_humans }}.
+Researcher Hix has a "do not upload" directive filed to prevent the
 Organization from uploading his consciousness if he dies or is near death. {{
-the_author }} explored the horrifying consequences of creating uploaded
-minds---and how easy it is to ignore their humanity---in {{ lena }} and {{
-driver }}.[^lena] One of the researchers references the quote _"Sending this message was
-important to us. We considered ourselves to be a powerful culture."_, the
-warning message Sandia National Lab wanted to convey about nuclear waste
-disposal. The same message is referenced in {{ powerful_culture }}, about
-disposing of dangerous waste to other dimensions.
+the_author }} explored the horrifying consequences of creating uploaded minds
+---and how easy it is to ignore their humanity---in {{ lena }} and {{ driver
+}}.[^lena] One of the researchers references the quote _"Sending this message
+was important to us. We considered ourselves to be a powerful culture."_, the
+warning Sandia National Lab wanted to convey about nuclear waste disposal.
+That same message shows up in {{ powerful_culture }}, about disposing of
+dangerous waste to other dimensions.
 
 [^lena]: {{ lena }} is my favorite short story of the last decade.
 
 [nuke]: https://en.wikipedia.org/wiki/Long-term_nuclear_waste_warning_messages
 
 {{ this_book }} reminded me of a few other works as well. The cosmic horrors
-are like {{ lovecrafts_lastname }} {{ cthulhu }}. Dealing with things beyond
+echo {{ lovecrafts_lastname }} {{ cthulhu }}. Struggling with things beyond
 understanding is a core theme of {{ arkady_and_boris_strugatskys }} {{
-roadside_picnic }}, and a key influence of the [SCP Foundation][scp] upon
-which this work is based. Adam walking through an abandoned English city
-devastated by UO-3125 was similar to {{ days_later }}. UO-3125 itself was like
-the Blight in {{ vinges_lastname }} {{ fire_upon_the_deep }} in how it could
-spread itself via hazardous information. Hix and Adam conversing in lawn
-chairs in a memory of a barbecue they both attended reminded me of how the
-Bobs meet in virtual reality in {{ bobiverse }}. Not being able to see a
-threat right in front of your reminds me of the Scramblers in {{
-wattss_lastname }} {{ blindsight }}, which move only when our eyes saccade.
-There is a reference to Launch Arcologies, from {{ simcity }}.
+roadside_picnic }}, and a key influence of the [SCP Foundation][scp], which
+this book is based on. Adam walking through an abandoned English city
+devastated by UO-3125 parallels {{ days_later }}. UO-3125 itself felt like the
+Blight in {{ vinges_lastname }} {{ fire_upon_the_deep }} in how it spreads via
+hazardous information. Hix and Adam talking in lawn chairs in the memory of a
+barbecue they both attended reminded me of how the Bobs meet in virtual
+reality in {{ bobiverse }}. Not being able to see a threat right in front of
+you recalls the Scramblers in {{ wattss_lastname }} {{ blindsight }}, which
+move only when our eyes saccade. There's even a nod to Launch Arcologies from
+{{ simcity }}.
 
 [scp]: https://en.wikipedia.org/wiki/SCP_Foundation
 
-I loved this rewrite, and I'm excited at the prospect of getting more
+I loved this rewrite, and I'm excited at the possibility of getting more
 Antimemetics stories, which {{ the_author }} has hinted at.
