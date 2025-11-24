@@ -42,6 +42,7 @@ ranked_list:
   - The Triumphant
   - The Abyss Beyond Dreams
   - Serpent Valley
+  - There Is No Antimemetics Division
   - A Mote in Shadow
   - The Dreaming Void
   # 4 Stars

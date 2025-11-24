@@ -5,7 +5,7 @@ book_authors: qntm
 series: null
 book_number: 1
 is_anthology: false
-rating: 4
+rating: 5
 image: /books/covers/there_is_no_antimemetics_division.jpg
 ---
 
