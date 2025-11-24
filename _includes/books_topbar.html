@@ -7,10 +7,17 @@
 
     Sort by:
 
-    {% for node in site.data.link_cache.books_topbar_nav %}
-      {% if node.short_title != null %}
-        <a class="book-nav-item {% if page.url == node.url %} active{% endif %}" href="{{site.baseurl}}{{ node.url }}">{{ node.short_title }}</a>
-      {% endif %}
-    {% endfor %}
+    {% assign data = site | optional: 'data' %}
+    {% assign link_cache = data | optional: 'link_cache' %}
+    {% assign nav_items = link_cache | optional: 'books_topbar_nav' %}
+
+    {% if nav_items %}
+      {% for node in nav_items %}
+        {% assign short_title = node | optional: 'short_title' %}
+        {% if short_title != null %}
+          <a class="book-nav-item {% if page.url == node.url %} active{% endif %}" href="{{site.baseurl}}{{ node.url }}">{{ short_title }}</a>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </nav>
 </aside>

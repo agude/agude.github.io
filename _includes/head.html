@@ -35,13 +35,17 @@
 
   <!-- JSON-LD Structured Data -->
   {%- comment -%} Look up generated script in site data hash {%- endcomment -%}
-  {%- assign generated_script = site.data.generated_json_ld_scripts[page.url] -%}
+  {%- assign data = site | optional: 'data' -%}
+  {%- assign scripts = data | optional: 'generated_json_ld_scripts' -%}
+  {%- assign generated_script = scripts | optional: page.url -%}
+
   {%- if generated_script -%}
     {{ generated_script }}
   {%- endif -%}
   <!-- End JSON-LD Structured Data -->
 
-  {% if page.use_latex %}
+  {% assign use_latex = page | optional: 'use_latex' %}
+  {% if use_latex %}
     <!-- MathJax -->
     {% include mathjax.html %}
   {% endif %}

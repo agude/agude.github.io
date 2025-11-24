@@ -29,6 +29,7 @@ thought---and how you might combat a foe you can't even remember exists.
 
 {% capture arkady_and_boris_strugatskys %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" possessive %}{% endcapture %}
 {% capture roadside_picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
+{% capture saturday %}{% book_link "Monday Begins on Saturday" %}{% endcapture %}
 
 {% capture wattss_lastname %}{% author_link "Peter Watts" possessive link_text="Watts" %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}

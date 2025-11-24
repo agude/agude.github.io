@@ -7,9 +7,9 @@
     {% comment %} Row 1: Programming Languages {% endcomment %}
     <div class="resume-languages-title"><strong>Languages</strong></div>
     {% comment %} Use markdownify to render HTML like the LaTeX span {% endcomment %}
-    <div class="resume-languages">{{ include.languages | markdownify }}</div>
+    <div class="resume-languages">{{ include | optional: 'languages' | markdownify }}</div>
 
     {% comment %} Row 2: Tools and Technologies {% endcomment %}
     <div class="resume-tools-title"><strong>Tools</strong></div>
-    <div class="resume-tools">{{ include.tools | markdownify }}</div>
+    <div class="resume-tools">{{ include | optional: 'tools' | markdownify }}</div>
 </div>

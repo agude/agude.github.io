@@ -5,10 +5,11 @@ layout: default
 <article class="page">
   <h1 class="page-title"><cite class="book-title">{{ page.title }}</cite></h1>
 
-  {% if page.image %}
+  {% assign image = page | optional: 'image' %}
+  {% if image %}
   <div class="book-cover-float-container">
     <img class="book-cover-lead"
-      src="{{ page.image }}"
+      src="{{ image }}"
       alt="Book cover of {{ page.title }}."
     >
   </div>
@@ -19,7 +20,8 @@ layout: default
   {% comment %} Authors {% endcomment %}
   {% assign authors_html_output = "" %}
   {% capture captured_authors_html %}
-    {% display_authors page.book_authors %}
+    {% assign book_authors = page | optional: 'book_authors' %}
+    {% display_authors book_authors %}
   {% endcapture %}
   {% assign authors_html_output = captured_authors_html | strip %}
 
@@ -28,20 +30,27 @@ layout: default
   {% endif %}
 
   {% comment %} Series {% endcomment %}
-  {% if page.series and page.book_number %}
+  {% assign series = page | optional: 'series' %}
+  {% assign book_number = page | optional: 'book_number' %}
+
+  {% if series and book_number %}
     <div class="book-series-line">
-      Book {{page.book_number}} of {% series_text page.series %}
+      Book {{book_number}} of {% series_text series %}
     </div>
   {% endif %}
 
   {% comment %} Awards and Favorites {% endcomment %}
-  {%- assign favorites_cache = site.data.link_cache.favorites_mentions -%}
-  {%- assign mentioning_posts = favorites_cache[page.url] | default: nil -%}
+  {%- assign data = site | optional: 'data' -%}
+  {%- assign link_cache = data | optional: 'link_cache' -%}
+  {%- assign favorites_cache = link_cache | optional: 'favorites_mentions' -%}
+  {%- assign mentioning_posts = favorites_cache | optional: page.url | default: nil -%}
 
-  {% if page.awards or mentioning_posts %}
+  {% assign awards = page | optional: 'awards' %}
+
+  {% if awards or mentioning_posts %}
     <div class="book-awards">Awards:
-    {% if page.awards %}
-        {% assign sorted_awards = page.awards | sort %}
+    {% if awards %}
+        {% assign sorted_awards = awards | sort %}
         {% for award in sorted_awards %}
           <a class="book-award" href="/books/by-award/#{{ award | slugify }}-award">
             {%- assign words = award | split: ' ' -%}
@@ -52,7 +61,7 @@ layout: default
         {% endfor %}
       {%- endif -%}
 
-      {%- if page.awards and mentioning_posts -%}, {% endif -%}
+      {%- if awards and mentioning_posts -%}, {% endif -%}
 
       {%- if mentioning_posts -%}
         {%- assign sorted_posts = mentioning_posts | sort: "is_favorites_list" | reverse -%}
@@ -65,18 +74,20 @@ layout: default
   {% endif %}
 
   {%- comment -%} On an ARCHIVED page, link back to its canonical version {%- endcomment -%}
-  {%- if page.canonical_url and page.canonical_url != "" -%}
+  {% assign canonical_url = page | optional: 'canonical_url' %}
+  {%- if canonical_url and canonical_url != "" -%}
     <div class="archived-notice">
       This is an archived review from {{ page.date | date: '%B %d, %Y' }}.
-      Read the <a href="{{ page.canonical_url | relative_url
+      Read the <a href="{{ canonical_url | relative_url
       }}"><strong>current review</strong></a>.
     </div>
   {%- endif -%}
 
   <h2 class="book-review-headline">Review</h2>
   {% comment %}Add star rating, if one exists in the metadata{% endcomment %}
-  {% if page.rating %}
-    {% rating_stars page.rating %}
+  {% assign rating = page | optional: 'rating' %}
+  {% if rating %}
+    {% rating_stars rating %}
   {% endif %}
 
   {{ content }}

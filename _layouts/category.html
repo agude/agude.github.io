@@ -3,10 +3,11 @@ layout: default
 ---
 <div class="categories">
   <h1 class="category-title">
-    Topic:&nbsp;{{ page.category-title }}
+    Topic:&nbsp;{{ page | optional: 'category-title' }}
   </h1>
   {{ content }}
 
-  {% display_category_posts topic=page.category-name %}
+  {% assign topic = page | optional: 'category-name' %}
+  {% display_category_posts topic=topic %}
 
 </div>

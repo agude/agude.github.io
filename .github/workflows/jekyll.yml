@@ -4,7 +4,7 @@ name: Test and Deploy Jekyll site to Pages
 on:
   # Runs on pushes to ANY branch
   push:
-  
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -38,6 +38,9 @@ jobs:
 
       - name: Run tests
         run: bundle exec ruby -I _plugins -I _tests -e "require 'test_helper'; Dir.glob('_tests/**/test_*.rb').each { |f| load f }"
+
+      - name: Check for strict Liquid errors
+        run: bundle exec ruby _bin/check_strict.rb
 
   # Build job
   build:

@@ -6,16 +6,19 @@ layout: default
   <h1 class="post-title">{{ page.title }}</h1>
   <div class="post-under-title">
   <time datetime="{{ page.date | date_to_xmlschema }}" class="post-date">{{ page.date | date: '%B %d, %Y' }}</time>
-  {% if page.categories %}
+
+  {% assign categories = page | optional: 'categories' %}
+  {% if categories %}
     <!-- Categories -->
-    {% assign sorted_categories = page.categories | sort %}
+    {% assign sorted_categories = categories | sort %}
     {% for category in sorted_categories %}
       <a class="post-tag" href="/topics/{{ category }}/">#{{ category }}</a>
     {% endfor %}
   {% endif %}
   </div>
 
-  {% if page.gab41 %}
+  {% assign gab41 = page | optional: 'gab41' %}
+  {% if gab41 %}
     <!-- Top note about Gab41 -->
     <p>
     <i>This article originally appeared on Lab41's blog: Gab41. It is reposted
@@ -23,10 +26,13 @@ layout: default
     </p>
   {% endif %}
 
-  {% if page.hide_lead_image != true and page.image %}
+  {% assign hide_lead_image = page | optional: 'hide_lead_image' %}
+  {% assign image = page | optional: 'image' %}
+
+  {% if hide_lead_image != true and image %}
     <img id="lead-image"
-      src="{{ page.image }}"
-      alt="{{ page.image_alt | default: "Article header image, used for decoration." | strip }}"
+      src="{{ image }}"
+      alt="{{ page | optional: 'image_alt' | default: "Article header image, used for decoration." | strip }}"
     />
   {% endif %}
 

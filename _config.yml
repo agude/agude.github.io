@@ -3,6 +3,15 @@
 # If a message's own level is lower than this, it won't show on console.
 plugin_log_level: info
 
+# Liquid Error Handling
+# Default mode is 'lax' to allow external plugins (e.g., jekyll-feed) to build.
+# Strict variable checking is enforced separately via the `make check-strict`
+# command, because the plugins we use are not safe under it.
+liquid:
+  error_mode: lax
+  strict_filters: true
+  strict_front_matter: true
+
 # Individual Plugin/Tag Type Switches (true = on, false = off)
 # If 'false', no logging (console or HTML) will occur for this tag_type,
 # regardless of plugin_log_level or message-specific level.
