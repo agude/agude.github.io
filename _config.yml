@@ -3,6 +3,14 @@
 # If a message's own level is lower than this, it won't show on console.
 plugin_log_level: info
 
+# Liquid Error Handling
+# Stop the build if a variable or filter is undefined (catches typos).
+liquid:
+  error_mode: strict
+  strict_filters: true
+  strict_front_matter: true
+  strict_variables: true
+
 # Individual Plugin/Tag Type Switches (true = on, false = off)
 # If 'false', no logging (console or HTML) will occur for this tag_type,
 # regardless of plugin_log_level or message-specific level.
