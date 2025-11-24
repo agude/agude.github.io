@@ -4,12 +4,13 @@
 plugin_log_level: info
 
 # Liquid Error Handling
-# Stop the build if a variable or filter is undefined (catches typos).
+# Default mode is 'lax' to allow external plugins (e.g., jekyll-feed) to build.
+# Strict variable checking is enforced separately via the `make check-strict`
+# command, because the plugins we use are not safe under it.
 liquid:
-  error_mode: strict
+  error_mode: lax
   strict_filters: true
   strict_front_matter: true
-  strict_variables: true
 
 # Individual Plugin/Tag Type Switches (true = on, false = off)
 # If 'false', no logging (console or HTML) will occur for this tag_type,

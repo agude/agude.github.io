@@ -20,7 +20,7 @@ BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 #   make test TEST=$$(find _tests/plugins/utils -name 'test_*.rb')
 TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb')
 
-.PHONY: all clean serve drafts debug image refresh lock test build profile lint check install-hook format-all
+.PHONY: all clean serve drafts debug image refresh lock test build profile lint check check-strict install-hook format-all
 
 all: serve
 
@@ -169,6 +169,15 @@ check: build
 		-w $(MOUNT) \
 		$(IMAGE) \
 		bundle exec ruby _bin/check_links.rb
+
+# Check all documents for strict Liquid compliance.
+check-strict: image
+	@echo "Checking all documents for strict Liquid compliance..."
+	@docker run --rm \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		$(IMAGE) \
+		bundle exec ruby _bin/check_strict.rb
 
 # Install the custom pre-commit hook that runs RuboCop inside Docker.
 # This target must be run on the HOST machine.
