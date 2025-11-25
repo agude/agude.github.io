@@ -208,7 +208,7 @@ I don't know if I'll read the sequel, {{ horse }}, which was published after
 the author's death and half written by {{ bisson }}. The reviews are mixed,
 and I worry it will be an unnecessary coda, like {{ urth }} was to {{ new_sun
 }}. But I will be reading {{ the_authors_lastname_possessive }} {{ darfsteller
-}} shortly. It's a novella about machines replacing humans in the arts, which
-couldn't be more timely with the release of Generative AI. Before any of that
-though, I'm going to read the new version of {{ qntms }} {{ anti }} which just
-released. I'm looking forward to it!
+}} shortly. It's a novelette about machines replacing humans in the arts,
+which couldn't be more timely with the release of Generative AI. Before any of
+that though, I'm going to read the new version of {{ qntms }} {{ anti }} which
+just released. I'm looking forward to it!
