@@ -110,10 +110,10 @@ echo {{ lovecrafts_lastname }} {{ cthulhu }}. Struggling with things beyond
 understanding is a core theme of {{ arkady_and_boris_strugatskys }} {{
 roadside_picnic }}, and a key influence of the [SCP Foundation][scp], which
 this book is based on. Adam walking through an abandoned English city
-devastated by UO-3125 parallels {{ days_later }} . UO-3125 itself felt like
-the Blight in {{ vinges_lastname }} {{ fire_upon_the_deep }} in how it spreads
-via hazardous information. Hix and Adam talking in lawn chairs in the memory
-of a barbecue they both attended reminded me of how the Bobs meet in virtual
+devastated by UO-3125 parallels {{ days_later }}. UO-3125 itself felt like the
+Blight in {{ vinges_lastname }} {{ fire_upon_the_deep }} in how it spreads via
+hazardous information. Hix and Adam talking in lawn chairs in the memory of a
+barbecue they both attended reminded me of how the Bobs meet in virtual
 reality in {{ bobiverse }}. Not being able to see a threat right in front of
 you recalls the Scramblers in {{ wattss_lastname }} {{ blindsight }}, which
 move only when our eyes saccade. There's even a nod to Launch Arcologies from
