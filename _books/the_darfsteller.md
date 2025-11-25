@@ -11,9 +11,11 @@ awards:
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is a novelette about an
-actor who is replaced by machines, and how he struggles to give up life in the
-theater.
+class="author-name">{{ page.book_authors }}</span>, is a Hugo Award-winning
+novelette about the obsolescence of the human artist. It follows Ryan
+Thornier, a former matinee idol reduced to working as a janitor in a theater
+now run entirely by androids and an AI director, as he schemes to take the
+stage one last time.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
