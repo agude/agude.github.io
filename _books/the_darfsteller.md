@@ -18,56 +18,28 @@ now run entirely by androids and an AI director, as he schemes to take the
 stage one last time.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture author_last_name_text %}Miller{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">Miller</span>{% endcapture %}
 {% capture the_authors_lastname_possessive %}<span class="author-name">Miller</span>'s{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
-{% capture roald_dahl %}{% author_link "Roald Dahl" %}{% endcapture %}
-{% capture roald_dahls %}{% author_link "Roald Dahl" possessive %}{% endcapture %}
-{% capture dahl_lastname %}{% author_link "Roald Dahl" link_text="Dahl" %}{% endcapture %}
 {% capture dahls_lastname %}{% author_link "Roald Dahl" possessive link_text="Dahl" %}{% endcapture %}
 {% capture grammatizator %}{% short_story_link "The Great Automatic Grammatizator" from_book="Someone Like You" %}{% endcapture %}
 
-{% capture fritz_leiber %}{% author_link "Fritz Leiber" %}{% endcapture %}
-{% capture fritz_leibers %}{% author_link "Fritz Leiber" possessive %}{% endcapture %}
-{% capture leiber_lastname %}{% author_link "Fritz Leiber" link_text="Leiber" %}{% endcapture %}
 {% capture leibers_lastname %}{% author_link "Fritz Leiber" possessive link_text="Leiber" %}{% endcapture %}
 {% capture the_silver_eggheads %}{% book_link "The Silver Eggheads" %}{% endcapture %}
 
-{% capture stanislaw_lem %}{% author_link "Stanislaw Lem" %}{% endcapture %}
-{% capture stanislaw_lems %}{% author_link "Stanislaw Lem" possessive %}{% endcapture %}
-{% capture lem_lastname %}{% author_link "Stanislaw Lem" link_text="Lem" %}{% endcapture %}
 {% capture lems_lastname %}{% author_link "Stanislaw Lem" possessive link_text="Lem" %}{% endcapture %}
-{% capture the_cyberiad %}{% book_link "The Cyberiad" %}{% endcapture %}
 {% capture trurls_electronic_bard %}{% short_story_link "Trurl's Electronic Bard" from_book="The Cyberiad" %}{% endcapture %}
 
-{% capture jg_ballard %}{% author_link "J.G. Ballard" %}{% endcapture %}
-{% capture jg_ballards %}{% author_link "J.G. Ballard" possessive %}{% endcapture %}
-{% capture ballard_lastname %}{% author_link "J.G. Ballard" link_text="Ballard" %}{% endcapture %}
 {% capture ballards_lastname %}{% author_link "J.G. Ballard" possessive link_text="Ballard" %}{% endcapture %}
 {% capture studio_5_the_stars %}{% short_story_link "Studio 5, The Stars" from_book="Vermilion Sands" %}{% endcapture %}
 
-{% capture kurt_vonnegut %}{% author_link "Kurt Vonnegut" %}{% endcapture %}
-{% capture kurt_vonneguts %}{% author_link "Kurt Vonnegut" possessive %}{% endcapture %}
-{% capture vonnegut_lastname %}{% author_link "Kurt Vonnegut" link_text="Vonnegut" %}{% endcapture %}
 {% capture vonneguts_lastname %}{% author_link "Kurt Vonnegut" possessive link_text="Vonnegut" %}{% endcapture %}
 {% capture player_piano %}{% book_link "Player Piano" %}{% endcapture %}
 
-{% capture robert_a_heinlein %}{% author_link "Robert A. Heinlein" %}{% endcapture %}
-{% capture robert_a_heinleins %}{% author_link "Robert A. Heinlein" possessive %}{% endcapture %}
 {% capture heinlein_lastname %}{% author_link "Robert A. Heinlein" link_text="Heinlein" %}{% endcapture %}
 {% capture heinleins_lastname %}{% author_link "Robert A. Heinlein" possessive link_text="Heinlein" %}{% endcapture %}
 {% capture time_enough_for_love %}{% book_link "Time Enough for Love" %}{% endcapture %}
 
-{% capture dan_simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
-{% capture dan_simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
-{% capture simmons_lastname %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
 {% capture simmonss_lastname %}{% author_link "Dan Simmons" possessive link_text="Simmons" %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 
