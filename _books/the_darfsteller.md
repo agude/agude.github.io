@@ -70,7 +70,8 @@ The main character, Ryan Thornier, is a former actor and now janitor at a
 theater where robots have replaced all the human actors because the audience
 prefers it. The AI Maestro that controls the performance tailors them to the
 audience reaction and specifically in a way that doesn't challenge their
-beliefs or make them think too hard.
+beliefs or make them think too hard. Thornier tries to scheme a way to get on
+the stage one last time.
 
 [wiki]: https://en.wikipedia.org/wiki/The_Darfsteller
 
@@ -82,6 +83,20 @@ back it is getting from artists][ai_art].
 
 [gen_ai]: {% link topics/generative-ai.md %}
 [ai_art]: {% post_url 2023-01-30-ai_artists_and_technology %}
+
+{{ the_authors_lastname_possessive }} shows how different artists respond to
+the changing world: Thornier can't let go and tries to continue living a life
+that can't exist anymore. Mela Stone sold her personality rights and lives off
+the royalties. Jade Ferne wasn't popular enough to sell her rights, and so
+produces robot plays.
+
+I was expecting {{ the_authors_lastname }}, as an artist, to take Thornier's
+side. But he doesn't, not really. He portrays Thornier as driven by vanity and
+fighting hopelessly against an inevitability. Nor does he condemn Stone and
+Ferne as collaborators. Even the robots and their creator aren't the villains.
+If there is anyone at fault, it is the audience that has learned to prefer
+unchallenging robots. But even there {{ the_authors_lastname }} admits that is
+the way it should be in commercial art.
 
 {{ the_authors_lastname_possessive }} answer is: for commercial art, what
 makes money is what will win. That no single person can fight against the
