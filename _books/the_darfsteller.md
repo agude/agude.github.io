@@ -63,6 +63,12 @@ theater.
 {% capture heinleins_lastname %}{% author_link "Robert A. Heinlein" possessive link_text="Heinlein" %}{% endcapture %}
 {% capture time_enough_for_love %}{% book_link "Time Enough for Love" %}{% endcapture %}
 
+{% capture dan_simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
+{% capture dan_simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
+{% capture simmons_lastname %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
+{% capture simmonss_lastname %}{% author_link "Dan Simmons" possessive link_text="Simmons" %}{% endcapture %}
+{% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
+
 In {{ this_book }}, actors have been replaced on the stage by robots. An AI
 Maestro controls them and adapts the works on the fly to the audience's
 reactions. Human actors are reduced to a novelty, only used out in the sticks
@@ -84,12 +90,13 @@ producing robotic plays.
 
 I was expecting {{ the_authors_lastname }}, as an artist, to take Thornier's
 side. But he doesn't, not really. He portrays Thornier as driven by vanity and
-fighting hopelessly against an inevitability. Nor does he condemn Stone and
-Ferne as collaborators. Even the robots and their creator aren't the villains.
-If there is anyone at fault, it is the audience that has learned to prefer
-unchallenging robots. But there too {{ the_authors_lastname }} admits that is
-the way it should be in commercial art. If anything, it is the economics that
-are at fault.
+fighting hopelessly against an inevitability. And his inability to move on,
+and respond to the audience, makes him more machine-like than the Maestro. Nor
+does he condemn Stone and Ferne as collaborators. Even the robots and their
+creator aren't the villains. If there is anyone at fault, it is the audience
+that has learned to prefer unchallenging robots. But there too {{
+the_authors_lastname }} admits that is the way it should be in commercial art.
+If anything, it is the economics that are at fault.
 
 At the end, the author argues that specialists are doomed to be replaced. The
 only one that isn't is the specialist that creates new specialties
@@ -119,7 +126,10 @@ artists][ai_art]. It's a theme addressed in a few other places: {{
 dahls_lastname }} {{ grammatizator }}, {{ leibers_lastname }} {{
 the_silver_eggheads }}, {{ lems_lastname }} {{ trurls_electronic_bard }}, {{
 ballards_lastname }} {{ studio_5_the_stars }}, and {{ vonneguts_lastname }} {{
-player_piano }}.
+player_piano }}. If we instead think of commercialization of art, we saw that
+with Silenus's <cite class="book-title">Cantos</cite> flopping while his <cite
+class="book-title">The Dying Earth</cite> sold billions in {{
+simmonss_lastname }} {{ hyperion }}.
 
 [gen_ai]: {% link topics/generative-ai.md %}
 [ai_art]: {% post_url 2023-01-30-ai_artists_and_technology %}
