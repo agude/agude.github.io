@@ -57,6 +57,73 @@ theater.
 {% capture vonneguts_lastname %}{% author_link "Kurt Vonnegut" possessive link_text="Vonnegut" %}{% endcapture %}
 {% capture player_piano %}{% book_link "Player Piano" %}{% endcapture %}
 
+{% capture robert_a_heinlein %}{% author_link "Robert A. Heinlein" %}{% endcapture %}
+{% capture robert_a_heinleins %}{% author_link "Robert A. Heinlein" possessive %}{% endcapture %}
+{% capture heinlein_lastname %}{% author_link "Robert A. Heinlein" link_text="Heinlein" %}{% endcapture %}
+{% capture heinleins_lastname %}{% author_link "Robert A. Heinlein" possessive link_text="Heinlein" %}{% endcapture %}
+{% capture time_enough_for_love %}{% book_link "Time Enough for Love" %}{% endcapture %}
+
+In {{ this_book }}, actors have been replaced on the stage by robots. An AI
+Maestro controls them and adapts the works on the fly to the audience's
+reactions. Human actors are reduced to a novelty, only used out in the sticks
+as a lark. Audiences prefer the robotic plays because they are easier to
+understand and less challenging to their points of view. Against this
+backdrop, three former actors---Ryan Thornier, Mela Stone, and Jade
+Ferne---try to figure out what to do with their lives.
+
+Thornier is obsessed with his former life, and is reduced to mopping the
+floors of the theater in a big to stay close to the stage. When he grows tired
+of it, and is on the verge of being replaced by again by a robot, he plots a
+way to have one last chance in the limelight when the theater puts on a
+robotic version of the last play he acted in.
+
+Stone has accepted the complete commercialization of her art. She sells her
+personality rights, allowing robots to be made in her image. Ferne was never
+popular enough to be offered that kind of contract, so she instead works
+producing robotic plays.
+
+I was expecting {{ the_authors_lastname }}, as an artist, to take Thornier's
+side. But he doesn't, not really. He portrays Thornier as driven by vanity and
+fighting hopelessly against an inevitability. Nor does he condemn Stone and
+Ferne as collaborators. Even the robots and their creator aren't the villains.
+If there is anyone at fault, it is the audience that has learned to prefer
+unchallenging robots. But there too {{ the_authors_lastname }} admits that is
+the way it should be in commercial art. If anything, it is the economics that
+are at fault.
+
+At the end, the author argues that specialists are doomed to be replaced. The
+only one that isn't is the specialist that creates new specialties
+continuously. As his character Rick says: "The specialty of creating new
+specialties. Continuously. Your own. [...] More or less a definition of Man,
+isn't it?" It reminds me of {{ heinleins_lastname }} quote from {{
+time_enough_for_love }}:
+
+> A human being should be able to change a diaper, plan an invasion, butcher a
+> hog, conn a ship, design a building, write a sonnet, balance accounts, build
+> a wall, set a bone, comfort the dying, take orders, give orders, cooperate,
+> act alone, solve equations, analyze a new problem, pitch manure, program a
+> computer, cook a tasty meal, fight efficiently, die gallantly.
+> Specialization is for insects.
+
+Although {{ the_authors_lastname }} is arguing more for specializing in being
+yourself, while {{ heinlein_lastname }} argues for generalization, both have
+identified stagnation as the problem.
+
+In science fiction, I often see works that predict robots replacing manual
+labor, or AI taking over numerical jobs. But a common conceit is that what
+makes humans unique is our creativity. {{ this_book }} is interesting in that
+it instead proposes that that creative work might infact be what we automate.
+That's the actuality that seems all the more possible today with the rise of
+[generative AI][gen_ai], and the [push back it is getting from
+artists][ai_art]. It's a theme addressed in a few other places: {{
+dahls_lastname }} {{ grammatizator }}, {{ leibers_lastname }} {{
+the_silver_eggheads }}, {{ lems_lastname }} {{ trurls_electronic_bard }}, {{
+ballards_lastname }} {{ studio_5_the_stars }}, and {{ vonneguts_lastname }} {{
+player_piano }}.
+
+[gen_ai]: {% link topics/generative-ai.md %}
+[ai_art]: {% post_url 2023-01-30-ai_artists_and_technology %}
+
 {{ this_book }} is named after the neologism "Darfsteller", which is probably
 a portmanteau of the German words "Darsteller" for "actor" and "Darf" meaning
 "allowed to". In the book it means roughly a method actor who must internalize
@@ -66,37 +133,7 @@ directed how to act. It serves as a linguistic focus for main tension in the
 plot: what role humans still have in art when a machine can do their job
 better.
 
-The main character, Ryan Thornier, is a former actor and now janitor at a
-theater where robots have replaced all the human actors because the audience
-prefers it. The AI Maestro that controls the performance tailors them to the
-audience reaction and specifically in a way that doesn't challenge their
-beliefs or make them think too hard. Thornier tries to scheme a way to get on
-the stage one last time.
-
 [wiki]: https://en.wikipedia.org/wiki/The_Darfsteller
-
-{{ this_book }} is interesting because it is one of the few works of science
-fiction that envisions robots and AI taking over creative jobs, instead of
-manual labor and logical/numeric work. It's an actuality that seems all the
-more possible today with the rise of [generative AI][gen_ai], and the [push
-back it is getting from artists][ai_art].
-
-[gen_ai]: {% link topics/generative-ai.md %}
-[ai_art]: {% post_url 2023-01-30-ai_artists_and_technology %}
-
-{{ the_authors_lastname_possessive }} shows how different artists respond to
-the changing world: Thornier can't let go and tries to continue living a life
-that can't exist anymore. Mela Stone sold her personality rights and lives off
-the royalties. Jade Ferne wasn't popular enough to sell her rights, and so
-produces robot plays.
-
-I was expecting {{ the_authors_lastname }}, as an artist, to take Thornier's
-side. But he doesn't, not really. He portrays Thornier as driven by vanity and
-fighting hopelessly against an inevitability. Nor does he condemn Stone and
-Ferne as collaborators. Even the robots and their creator aren't the villains.
-If there is anyone at fault, it is the audience that has learned to prefer
-unchallenging robots. But even there {{ the_authors_lastname }} admits that is
-the way it should be in commercial art.
 
 {{ the_authors_lastname_possessive }} answer is: for commercial art, what
 makes money is what will win. That no single person can fight against the
