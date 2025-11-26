@@ -36,7 +36,9 @@ class TestRelatedBooksTag < Minitest::Test
     finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
-      result = finder.find
+      Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
+        result = finder.find
+      end
     end
 
     assert_kind_of Hash, result
@@ -123,7 +125,9 @@ class TestRelatedBooksTag < Minitest::Test
     finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
-      result = finder.find
+      Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
+        result = finder.find
+      end
     end
 
     assert_empty result[:books]
@@ -136,7 +140,9 @@ class TestRelatedBooksTag < Minitest::Test
     finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
-      result = finder.find
+      Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
+        result = finder.find
+      end
     end
 
     assert_match(/unparseable book_number/, result[:logs])
