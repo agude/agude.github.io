@@ -5,9 +5,12 @@ require_relative '../test_helper'
 require_relative '../../_plugins/book_backlinks_tag' # Load the tag class
 # Utils are loaded via test_helper
 
-# Tests for BookBacklinksTag Liquid tag.
+# Tests for BookBacklinksTag Liquid tag and its components.
 #
-# Verifies that the tag correctly finds and renders backlinks from other books.
+# This test suite is organized into three sections:
+# 1. Finder tests - Test data retrieval logic directly
+# 2. Renderer tests - Test HTML generation directly
+# 3. Tag integration tests - Test the tag orchestration
 class TestBookBacklinksTag < Minitest::Test
   def setup
     # --- Mock Documents ---
@@ -46,9 +49,226 @@ class TestBookBacklinksTag < Minitest::Test
       "#{Regexp.escape(link_html)}</li>"
   end
 
-  # --- Test Cases ---
+  # ========================================================================
+  # Finder Tests - Test data retrieval logic directly
+  # ========================================================================
 
-  def test_renders_correct_structure_with_backlinks_and_dagger
+  def test_finder_returns_correct_structure
+    @site.data['link_cache']['backlinks'][@target_page.url] = [
+      { source: @source_doc_alpha, type: 'book' }
+    ]
+    context = create_context({}, { site: @site, page: @target_page })
+    finder = Jekyll::BookBacklinks::Finder.new(context)
+    result = finder.find
+
+    assert_kind_of Hash, result
+    assert_kind_of String, result[:logs]
+    assert_kind_of Array, result[:backlinks]
+  end
+
+  def test_finder_returns_sorted_backlinks_by_title
+    @site.data['link_cache']['backlinks'][@target_page.url] = [
+      { source: @source_doc_gamma, type: 'book' },
+      { source: @source_doc_alpha, type: 'book' },
+      { source: @source_doc_beta, type: 'direct' }
+    ]
+    context = create_context({}, { site: @site, page: @target_page })
+    finder = Jekyll::BookBacklinks::Finder.new(context)
+    result = finder.find
+
+    assert_equal 3, result[:backlinks].length
+    # Should be sorted alphabetically by title
+    assert_equal 'Book Alpha', result[:backlinks][0][0]
+    assert_equal 'Book Beta', result[:backlinks][1][0]
+    assert_equal 'Book Gamma', result[:backlinks][2][0]
+  end
+
+  def test_finder_includes_link_types_in_results
+    @site.data['link_cache']['backlinks'][@target_page.url] = [
+      { source: @source_doc_alpha, type: 'series' },
+      { source: @source_doc_beta, type: 'direct' }
+    ]
+    context = create_context({}, { site: @site, page: @target_page })
+    finder = Jekyll::BookBacklinks::Finder.new(context)
+    result = finder.find
+
+    assert_equal 2, result[:backlinks].length
+    # Check structure: [title, url, type]
+    assert_equal ['Book Alpha', '/a.html', 'series'], result[:backlinks][0]
+    assert_equal ['Book Beta', '/b.html', 'direct'], result[:backlinks][1]
+  end
+
+  def test_finder_deduplicates_backlinks_from_same_canonical_book
+    target_book = create_doc({ 'title' => 'Target' }, '/target.html')
+    source_canonical = create_doc({ 'title' => 'Source Book' }, '/source.html')
+    archived_data = { 'title' => 'Source Book', 'canonical_url' => '/source.html' }
+    source_archived = create_doc(archived_data, '/source-archived.html')
+
+    site = create_site({}, { 'books' => [target_book, source_canonical, source_archived] })
+    link_cache = site.data['link_cache']
+    link_cache['backlinks'] = {
+      '/target.html' => [
+        { source: source_canonical, type: 'book' },
+        { source: source_archived, type: 'book' }
+      ]
+    }
+
+    context = create_context({}, { site: site, page: target_book })
+    finder = Jekyll::BookBacklinks::Finder.new(context)
+    result = finder.find
+
+    assert_equal 1, result[:backlinks].length
+    assert_equal 'Source Book', result[:backlinks][0][0]
+  end
+
+  def test_finder_includes_series_mentions_for_series_books
+    series_data_1 = { 'title' => 'Series Book 1', 'series' => 'My Series' }
+    series_data_2 = { 'title' => 'Series Book 2', 'series' => 'My Series' }
+    series_book_1 = create_doc(series_data_1, '/series-1.html')
+    series_book_2 = create_doc(series_data_2, '/series-2.html')
+    source_for_series = create_doc({ 'title' => 'Source for Series' }, '/source-series.html')
+
+    all_series_books = [series_book_1, series_book_2, source_for_series]
+    site = create_site({}, { 'books' => all_series_books })
+    link_cache = site.data['link_cache']
+    link_cache['backlinks'] = {
+      '/series-1.html' => [{ source: source_for_series, type: 'series' }]
+    }
+
+    # Test on Series Book 2, which only gets the series mention indirectly
+    context = create_context({}, { site: site, page: series_book_2 })
+    finder = Jekyll::BookBacklinks::Finder.new(context)
+    result = finder.find
+
+    assert_equal 1, result[:backlinks].length
+    assert_equal 'Source for Series', result[:backlinks][0][0]
+    assert_equal 'series', result[:backlinks][0][2]
+  end
+
+  def test_finder_returns_empty_when_no_backlinks_found
+    context = create_context({}, { site: @site, page: @target_page })
+    finder = Jekyll::BookBacklinks::Finder.new(context)
+    result = finder.find
+
+    assert_empty result[:backlinks]
+    assert_equal '', result[:logs]
+  end
+
+  def test_finder_logs_error_when_prerequisites_missing
+    config = { 'plugin_logging' => { 'BOOK_BACKLINKS_TAG' => true } }
+    site = create_site(config, {})
+    page = create_doc({ 'title' => 'Test' }, '/test.html')
+    context = create_context({}, { site: site, page: page })
+
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:error, nil) do |prefix, msg|
+      prefix == 'PluginLiquid:' &&
+        msg.include?('BOOK_BACKLINKS_TAG_FAILURE') &&
+        msg.include?('site.collections') &&
+        msg.include?('books')
+    end
+
+    Jekyll.stub :logger, mock_logger do
+      finder = Jekyll::BookBacklinks::Finder.new(context)
+      result = finder.find
+
+      assert_empty result[:backlinks]
+      assert_match(/BOOK_BACKLINKS_TAG_FAILURE/, result[:logs])
+      assert_match(/site\.collections/, result[:logs])
+    end
+
+    mock_logger.verify
+  end
+
+  # ========================================================================
+  # Renderer Tests - Test HTML generation directly
+  # ========================================================================
+
+  def test_renderer_returns_empty_string_for_empty_backlinks
+    renderer = Jekyll::BookBacklinks::Renderer.new(@site.config, @target_page, [])
+    output = renderer.render
+
+    assert_equal '', output
+  end
+
+  def test_renderer_generates_correct_html_structure
+    backlinks = [
+      ['Book Alpha', '/a.html', 'book'],
+      ['Book Beta', '/b.html', 'direct']
+    ]
+
+    context = create_context({}, { site: @site, page: @target_page })
+    renderer = Jekyll::BookBacklinks::Renderer.new(context, @target_page, backlinks)
+    output = nil
+
+    BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
+      output = renderer.render
+    end
+
+    assert_match(/^<aside class="book-backlinks">/, output)
+    assert_match(/<h2 class="book-backlink-section">/, output)
+    assert_match(/<ul class="book-backlink-list">/, output)
+    assert_match(%r{</aside>$}, output)
+  end
+
+  def test_renderer_includes_dagger_for_series_links
+    backlinks = [
+      ['Book Alpha', '/a.html', 'series'],
+      ['Book Beta', '/b.html', 'book']
+    ]
+
+    context = create_context({}, { site: @site, page: @target_page })
+    renderer = Jekyll::BookBacklinks::Renderer.new(context, @target_page, backlinks)
+    output = nil
+
+    BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
+      output = renderer.render
+    end
+
+    # Should have dagger for series link
+    assert_match(/series-mention-indicator/, output)
+    assert_match(/†/, output)
+  end
+
+  def test_renderer_includes_explanation_when_series_links_present
+    backlinks = [['Book Alpha', '/a.html', 'series']]
+
+    context = create_context({}, { site: @site, page: @target_page })
+    renderer = Jekyll::BookBacklinks::Renderer.new(context, @target_page, backlinks)
+    output = nil
+
+    BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
+      output = renderer.render
+    end
+
+    expected_explanation = '<p class="backlink-explanation"><sup>†</sup> ' \
+                           '<em>Mentioned via a link to the series.</em></p>'
+    assert_match(/#{Regexp.escape(expected_explanation)}/, output)
+  end
+
+  def test_renderer_omits_explanation_when_no_series_links
+    backlinks = [
+      ['Book Alpha', '/a.html', 'book'],
+      ['Book Beta', '/b.html', 'direct']
+    ]
+
+    context = create_context({}, { site: @site, page: @target_page })
+    renderer = Jekyll::BookBacklinks::Renderer.new(context, @target_page, backlinks)
+    output = nil
+
+    BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
+      output = renderer.render
+    end
+
+    refute_match(/<p class="backlink-explanation">/, output)
+    refute_match(/†/, output)
+  end
+
+  # ========================================================================
+  # Tag Integration Tests - Test orchestration
+  # ========================================================================
+
+  def test_tag_orchestrates_finder_and_renderer_correctly
     # Inject test data directly into the cache. Includes a 'series' type link.
     @site.data['link_cache']['backlinks'][@target_page.url] = [
       { source: @source_doc_gamma, type: 'book' },
@@ -97,37 +317,7 @@ class TestBookBacklinksTag < Minitest::Test
                  'Explanation should be after the list and before the aside closes')
   end
 
-  def test_does_not_render_explanation_when_no_series_links
-    # Inject backlink data with NO 'series' type links
-    @site.data['link_cache']['backlinks'][@target_page.url] = [
-      { source: @source_doc_gamma, type: 'book' },
-      { source: @source_doc_beta, type: 'direct' }
-    ]
-    context = create_context({}, { site: @site, page: @target_page })
-
-    mock_link_html = {
-      'Book Beta' => "<a href='/b'>Beta Link</a>",
-      'Book Gamma' => "<a href='/g'>Gamma Link</a>"
-    }
-
-    output = ''
-    stub_logic = ->(title, _url, _ctx) { mock_link_html[title] }
-    BookLinkUtils.stub :render_book_link_from_data, stub_logic do
-      output = render_tag(context)
-    end
-
-    # Assert that the main structure is there
-    assert_match(/^<aside class="book-backlinks">/, output)
-    assert_match(/<ul class="book-backlink-list">/, output)
-
-    # Assert that NO daggers are present
-    refute_match %r{<sup>†</sup>}, output
-
-    # Assert that the explanatory paragraph IS ABSENT
-    refute_match(/<p class="backlink-explanation">/, output)
-  end
-
-  def test_renders_empty_string_when_no_backlinks_found
+  def test_tag_returns_empty_when_no_backlinks_found
     context = create_context({}, { site: @site, page: @target_page })
     output = ''
     BookLinkUtils.stub :render_book_link_from_data, lambda { |_t, _u, _c|
@@ -138,7 +328,7 @@ class TestBookBacklinksTag < Minitest::Test
     assert_equal '', output.strip
   end
 
-  def test_passes_correct_arguments_to_render_book_link_from_data
+  def test_tag_passes_correct_arguments_to_render_book_link_from_data
     @site.data['link_cache']['backlinks'][@target_page.url] = [
       { source: @source_doc_alpha, type: 'book' },
       { source: @source_doc_beta, type: 'series' }
@@ -163,116 +353,7 @@ class TestBookBacklinksTag < Minitest::Test
     assert_equal @source_doc_beta.url, captured_render_args[1][:url]
   end
 
-  def test_aggregates_backlinks_and_excludes_self_references
-    canonical_book = create_doc({ 'title' => 'Canonical' }, '/canonical.html')
-    archived_book = create_doc({ 'title' => 'Archived' }, '/archived.html')
-    source_book = create_doc({ 'title' => 'Source' }, '/source.html')
-
-    site = @site # Use site from setup to get the cache structure
-    link_cache = site.data['link_cache']
-
-    # Manually populate all necessary caches to isolate this test from the generator.
-    link_cache['url_to_canonical_map'] = {
-      '/canonical.html' => '/canonical.html',
-      '/archived.html' => '/canonical.html',
-      '/source.html' => '/source.html'
-    }
-    link_cache['book_families'] = {
-      '/canonical.html' => ['/canonical.html', '/archived.html'],
-      '/source.html' => ['/source.html']
-    }
-    link_cache['backlinks'] = {
-      '/canonical.html' => [{ source: source_book, type: 'book' }],
-      '/archived.html' => [{ source: canonical_book, type: 'book' }] # A self-reference
-    }
-
-    # Stub the link rendering to isolate the tag's logic.
-    stub_render_logic = ->(title, _url, _ctx) { "<a>#{title}</a>" }
-
-    # 1. Test rendering on the canonical page
-    context_canonical = create_context({}, { site: site, page: canonical_book })
-    output_canonical = ''
-    BookLinkUtils.stub :render_book_link_from_data, stub_render_logic do
-      output_canonical = render_tag(context_canonical)
-    end
-    assert_match(%r{<a>Source</a>}, output_canonical)
-    refute_match(%r{<a>(Canonical|Archived)</a>}, output_canonical)
-
-    # 2. Test rendering on the archived page
-    context_archived = create_context({}, { site: site, page: archived_book })
-    output_archived = ''
-    BookLinkUtils.stub :render_book_link_from_data, stub_render_logic do
-      output_archived = render_tag(context_archived)
-    end
-    assert_match(%r{<a>Source</a>}, output_archived)
-    refute_match(%r{<a>(Canonical|Archived)</a>}, output_archived)
-  end
-
-  def test_deduplicates_backlinks_from_multiple_versions_of_same_book
-    target_book = create_doc({ 'title' => 'Target' }, '/target.html')
-    source_canonical = create_doc({ 'title' => 'Source Book' }, '/source.html')
-    archived_data = { 'title' => 'Source Book', 'canonical_url' => '/source.html' }
-    source_archived = create_doc(archived_data, '/source-archived.html')
-
-    # Create a fresh site so the generator populates all maps correctly
-    site = create_site({}, { 'books' => [target_book, source_canonical, source_archived] })
-    link_cache = site.data['link_cache']
-    link_cache['backlinks'] = {
-      '/target.html' => [
-        { source: source_canonical, type: 'book' },
-        { source: source_archived, type: 'book' }
-      ]
-    }
-
-    context = create_context({}, { site: site, page: target_book })
-    output = render_tag(context)
-
-    assert_equal 1, output.scan('Source Book').count, "Should only list 'Source Book' once"
-  end
-
-  def test_includes_backlinks_from_series_mentions_for_all_series_books
-    series_data_1 = { 'title' => 'Series Book 1', 'series' => 'My Series' }
-    series_data_2 = { 'title' => 'Series Book 2', 'series' => 'My Series' }
-    series_book_1 = create_doc(series_data_1, '/series-1.html')
-    series_book_2 = create_doc(series_data_2, '/series-2.html')
-    source_for_series = create_doc({ 'title' => 'Source for Series' }, '/source-series.html')
-    source_for_book1 = create_doc({ 'title' => 'Source for Book 1' }, '/source-book1.html')
-
-    # Create a fresh site so the generator populates all maps correctly
-    all_series_books = [series_book_1, series_book_2, source_for_series, source_for_book1]
-    site = create_site({}, { 'books' => all_series_books })
-    link_cache = site.data['link_cache']
-    link_cache['backlinks'] = {
-      '/series-1.html' => [
-        { source: source_for_series, type: 'series' },
-        { source: source_for_book1, type: 'book' }
-      ],
-      '/series-2.html' => [
-        { source: source_for_series, type: 'series' }
-      ]
-    }
-
-    # Test on Series Book 2, which only has an indirect series mention
-    context_book2 = create_context({}, { site: site, page: series_book_2 })
-    output_book2 = render_tag(context_book2)
-
-    series_msg = 'Book 2 should find backlink from series mention'
-    assert_match(/Source for Series/, output_book2, series_msg)
-    book1_msg = 'Book 2 should not find backlink meant only for Book 1'
-    refute_match(/Source for Book 1/, output_book2, book1_msg)
-    dagger_msg = 'Should have the dagger for series mentions'
-    assert_match(/series-mention-indicator/, output_book2, dagger_msg)
-
-    # Test on Series Book 1, which has both
-    context_book1 = create_context({}, { site: site, page: series_book_1 })
-    output_book1 = render_tag(context_book1)
-    series1_msg = 'Book 1 should also find backlink from series mention'
-    assert_match(/Source for Series/, output_book1, series1_msg)
-    direct_msg = 'Book 1 should find its direct backlink'
-    assert_match(/Source for Book 1/, output_book1, direct_msg)
-  end
-
-  # --- Prerequisite Failure Tests (Unchanged) ---
+  # --- Prerequisite Failure Tests ---
 
   def test_returns_empty_and_logs_if_page_missing
     ctx_no_page = create_context({}, { site: @site })
