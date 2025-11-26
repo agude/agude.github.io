@@ -99,7 +99,7 @@ trait machines can't emulate, and it is what keeps us relevant. {{ this_book
 }} flips that. Instead, it suggests that creative work will be the first thing
 we automate. Seventy years later, with the rise of [generative AI][gen_ai],
 that is exactly what we're seeing. Like current artists, the actors in this
-story react in different ways: [some push back against][ai_art] it while
+story react in different ways: [some push back][ai_art] against it while
 others give in. {{ the_authors_lastname_possessive }} answer is bleak: in
 commercial art, what makes money wins. The result feels surprisingly
 prescient.
@@ -109,15 +109,15 @@ prescient.
 
 The fear of automating creative work is explored in a few other stories, and
 writers---being writers---have mostly focused on the written word: {{
-dahls_lastname }}'s {{ grammatizator }} features a machine that generates
-best-sellers automatically; {{ leibers_lastname }}'s {{ the_silver_eggheads }}
+dahls_lastname }} {{ grammatizator }} features a machine that generates
+best-sellers automatically; {{ leibers_lastname }} {{ the_silver_eggheads }}
 imagines authors selling their names to brand computer-written books; {{
-lems_lastname }}'s {{ trurls_electronic_bard }} centers on a machine that
-writes poetry better than humans, driving them to suicide; {{
-ballards_lastname }}'s {{ studio_5_the_stars }} likewise has a poetry machine.
-{{ vonneguts_lastname }}'s {{ player_piano }} explores a world where
-everything is automated. {{ simmonss_lastname }}'s {{ hyperion }} tackles the
-commercialization and debasement of art, where Silenus's brilliant <cite
+lems_lastname }} {{ trurls_electronic_bard }} centers on a machine that writes
+poetry better than humans, driving them to suicide; {{ ballards_lastname }} {{
+studio_5_the_stars }} likewise has a poetry machine. {{ vonneguts_lastname }}
+{{ player_piano }} explores a world where everything is automated. {{
+simmonss_lastname }} {{ hyperion }} tackles the commercialization and
+debasement of art, where Silenus's brilliant <cite
 class="book-title">Cantos</cite> flops while his pulpy <cite
 class="book-title">The Dying Earth</cite> sells billions.
 
