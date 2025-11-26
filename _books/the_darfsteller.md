@@ -66,7 +66,7 @@ instead.
 
 I expected {{ the_authors_lastname }}, as an artist, to take Thornier's side.
 But he doesn't, not really. He portrays Thornier as driven by vanity and
-fighting hopelessly against the inevitable. His inability respond to the
+fighting hopelessly against the inevitable. His inability to respond to the
 audience and move on makes him more machine-like than the Maestro. Nor does
 the author condemn Stone and Ferne as collaborators. Even the robots and their
 creator aren't villains. If anyone is at fault, it is the audience that has
@@ -95,13 +95,13 @@ stagnation as the problem.
 
 Science fiction often imagines robots replacing manual labor and AI taking
 over numerical jobs. A common conceit is that creativity is the one human
-trait machine can't emulate, and it is what keeps us relevant. {{ this_book }}
-is flips that. Instead, it suggests that that creative work will be the first
-thing we automate. Seventy years later, with the rise of [generative
-AI][gen_ai], that is exactly what we're seeing. Like current artists, the
-actors in this story react in different ways: [some push back against][ai_art]
-it while others give in. {{ the_authors_lastname_possessive }} answer is
-bleak: in commercial art, what makes money wins. The result feels surprisingly
+trait machines can't emulate, and it is what keeps us relevant. {{ this_book
+}} flips that. Instead, it suggests that creative work will be the first thing
+we automate. Seventy years later, with the rise of [generative AI][gen_ai],
+that is exactly what we're seeing. Like current artists, the actors in this
+story react in different ways: [some push back against][ai_art] it while
+others give in. {{ the_authors_lastname_possessive }} answer is bleak: in
+commercial art, what makes money wins. The result feels surprisingly
 prescient.
 
 [gen_ai]: {% link topics/generative-ai.md %}
