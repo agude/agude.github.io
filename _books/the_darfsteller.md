@@ -80,18 +80,20 @@ At the end, the author argues that specialists are doomed to be replaced. Only
 someone who adapts constantly survives. One of his characters says: "The
 specialty of creating new specialties. Continuously. Your own. [...] More or
 less a definition of Man, isn't it?" It reminds me of {{ heinleins_lastname }}
-quote from {{ time_enough_for_love }}:
+famous assertion that "Specialization is for insects".[^quote] Although {{
+the_authors_lastname }} is arguing more for specializing in _being yourself_,
+while {{ heinlein_lastname }} argues for generalization, both have identified
+stagnation as the problem.
 
-> A human being should be able to change a diaper, plan an invasion, butcher a
-> hog, conn a ship, design a building, write a sonnet, balance accounts, build
-> a wall, set a bone, comfort the dying, take orders, give orders, cooperate,
-> act alone, solve equations, analyze a new problem, pitch manure, program a
-> computer, cook a tasty meal, fight efficiently, die gallantly.
-> Specialization is for insects.
+[^quote]:
+    From {{ time_enough_for_love }}: 
 
-Although {{ the_authors_lastname }} is arguing more for specializing in being
-yourself, while {{ heinlein_lastname }} argues for generalization, both have
-identified stagnation as the problem.
+    > A human being should be able to change a diaper, plan an invasion,
+    > butcher a hog, conn a ship, design a building, write a sonnet, balance
+    > accounts, build a wall, set a bone, comfort the dying, take orders, give
+    > orders, cooperate, act alone, solve equations, analyze a new problem,
+    > pitch manure, program a computer, cook a tasty meal, fight efficiently,
+    > die gallantly. Specialization is for insects.
 
 In science fiction, I often see works that predict robots replacing manual
 labor, or AI taking over numerical jobs. A common conceit is that what makes
@@ -102,21 +104,25 @@ the rise of [generative AI][gen_ai], that might be exactly what we are
 starting to see. Like current artists, the actors in this book have different
 ways of dealing with their new reality, some [push back against it while
 others give in][ai_art]. {{ the_authors_lastname_possessive }} answer is
-bleak: for commercial art, what makes money is what will win. That no single
-person can fight against the tide, and that they will each do what they think
-they need to to survive.
-
-It's a theme addressed in a few other places: {{ dahls_lastname }} {{
-grammatizator }}, {{ leibers_lastname }} {{ the_silver_eggheads }}, {{
-lems_lastname }} {{ trurls_electronic_bard }}, {{ ballards_lastname }} {{
-studio_5_the_stars }}, and {{ vonneguts_lastname }} {{ player_piano }}. {{
-simmonss_lastname }} {{ hyperion }} tackles the commercialization and
-debasement of art, with Silenus's brilliant <cite
-class="book-title">Cantos</cite> flopping while his pulpy <cite
-class="book-title">The Dying Earth</cite> sold billions.
+bleak: for commercial art, what makes money is what will win. It makes the
+work a surprisingly prescient take on our modern world.
 
 [gen_ai]: {% link topics/generative-ai.md %}
 [ai_art]: {% post_url 2023-01-30-ai_artists_and_technology %}
+
+The anxiety of automation of creative work, and particularly of the writing
+process, is a theme explored by a few other works (an understandable fear,
+given they are written by authors): {{ dahls_lastname }} {{ grammatizator }}
+has a man invent a way to automatically generate best-selling books. {{
+leibers_lastname }} {{ the_silver_eggheads }} has authors selling their names
+to brand computer written books. {{ lems_lastname }} {{ trurls_electronic_bard
+}} has a machine that writes poetry better than humans, driving authors to
+suicide. {{ ballards_lastname }} {{ studio_5_the_stars }} likewise has a
+poetry writing machine. {{ vonneguts_lastname }} {{ player_piano }} explores a
+world where everything is automated. {{ simmonss_lastname }} {{ hyperion }}
+tackles the commercialization and debasement of art, with Silenus's brilliant
+<cite class="book-title">Cantos</cite> flopping while his pulpy <cite
+class="book-title">The Dying Earth</cite> sold billions.
 
 Up next is {{ arkady_and_boris_strugatskys }} {{ saturday }}, and then I
 really should start {{ time_war }} for my book club.
