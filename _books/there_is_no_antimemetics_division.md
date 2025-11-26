@@ -48,7 +48,7 @@ thought---and how you might combat a foe you can't even remember exists.
 {% capture simcity %}<cite class="video-game-title">SimCity 2000</cite>{% endcapture %}
 {% capture days_later %}<cite class="movie-title">28 Days Later</cite>{% endcapture %}
 
-{% capture darfsteller %}{% short_story_link "The Darfsteller" %}{% endcapture %}
+{% capture darfsteller %}{% book_link "The Darfsteller" %}{% endcapture %}
 
 {% capture time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
 
