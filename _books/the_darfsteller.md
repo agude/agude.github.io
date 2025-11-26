@@ -14,8 +14,8 @@ awards:
 class="author-name">{{ page.book_authors }}</span>, is a Hugo Award-winning
 novelette about the obsolescence of the human artist. It follows Ryan
 Thornier, a former matinee idol reduced to working as a janitor in a theater
-now run entirely by androids and an AI director, as he schemes to take the
-stage one last time.
+now run entirely by robots and an AI director, as he schemes to take the stage
+one last time.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">Miller</span>{% endcapture %}
@@ -43,41 +43,44 @@ stage one last time.
 {% capture simmonss_lastname %}{% author_link "Dan Simmons" possessive link_text="Simmons" %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 
-In {{ this_book }}, actors have been replaced on the stage by robots. An AI
-Maestro controls them and adapts the works on the fly to the audience's
-reactions. Human actors are reduced to a novelty, only used out in the sticks
-as a lark. Audiences prefer the robotic plays because they are easier to
-understand and less challenging to their points of view. Against this
+{% capture arkady_and_boris_strugatskys %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" possessive %}{% endcapture %}
+{% capture saturday %}{% book_link "Monday Begins on Saturday" %}{% endcapture %}
+
+{% capture time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
+
+In the specific future of {{ this_book }}, actors have been replaced on the
+stage by robots. An AI Maestro controls them and adapts the works on the fly
+to the audience's reactions. Human actors are a novelty, only used out in the
+sticks as a lark. Audiences prefer the robotic plays because they are easier
+to understand and less challenging to their points of view. Against this
 backdrop, three former actors---Ryan Thornier, Mela Stone, and Jade
 Ferne---try to figure out what to do with their lives.
 
 Thornier is obsessed with his former life, and is reduced to mopping the
 floors of the theater in a big to stay close to the stage. When he grows tired
-of it, and is on the verge of being replaced by again by a robot, he plots a
-way to have one last chance in the limelight when the theater puts on a
-robotic version of the last play he acted in.
+of it, and is on the verge of again being replaced by a robot, he plots a way
+to sabotage the play and give himself one last chance at a staring role.
+Stone, on the other hand, has accepted the complete commercialization of her
+art. She sells her personality rights, allowing robots to be made in her
+image. Ferne was never popular enough to be offered that kind of contract, so
+she instead works producing robotic plays.
 
-Stone has accepted the complete commercialization of her art. She sells her
-personality rights, allowing robots to be made in her image. Ferne was never
-popular enough to be offered that kind of contract, so she instead works
-producing robotic plays.
 
 I was expecting {{ the_authors_lastname }}, as an artist, to take Thornier's
 side. But he doesn't, not really. He portrays Thornier as driven by vanity and
-fighting hopelessly against an inevitability. And his inability to move on,
-and respond to the audience, makes him more machine-like than the Maestro. Nor
-does he condemn Stone and Ferne as collaborators. Even the robots and their
-creator aren't the villains. If there is anyone at fault, it is the audience
-that has learned to prefer unchallenging robots. But there too {{
-the_authors_lastname }} admits that is the way it should be in commercial art.
-If anything, it is the economics that are at fault.
+fighting hopelessly against an inevitability. His inability to move on, and
+respond to the audience, makes him more machine-like than the Maestro. Nor
+does the author condemn Stone and Ferne as collaborators. Even the robots and
+their creator aren't the villains. If there is anyone at fault, it is the
+audience that has learned to prefer unchallenging robots. But there too {{
+the_authors_lastname }} admits that is the way it should be in commercial art;
+controlled entirely by the economics of it.
 
-At the end, the author argues that specialists are doomed to be replaced. The
-only one that isn't is the specialist that creates new specialties
-continuously. As his character Rick says: "The specialty of creating new
-specialties. Continuously. Your own. [...] More or less a definition of Man,
-isn't it?" It reminds me of {{ heinleins_lastname }} quote from {{
-time_enough_for_love }}:
+At the end, the author argues that specialists are doomed to be replaced. Only
+someone who adapts constantly survives. One of his characters says: "The
+specialty of creating new specialties. Continuously. Your own. [...] More or
+less a definition of Man, isn't it?" It reminds me of {{ heinleins_lastname }}
+quote from {{ time_enough_for_love }}:
 
 > A human being should be able to change a diaper, plan an invasion, butcher a
 > hog, conn a ship, design a building, write a sonnet, balance accounts, build
@@ -91,34 +94,29 @@ yourself, while {{ heinlein_lastname }} argues for generalization, both have
 identified stagnation as the problem.
 
 In science fiction, I often see works that predict robots replacing manual
-labor, or AI taking over numerical jobs. But a common conceit is that what
-makes humans unique is our creativity. {{ this_book }} is interesting in that
-it instead proposes that that creative work might infact be what we automate.
-That's the actuality that seems all the more possible today with the rise of
-[generative AI][gen_ai], and the [push back it is getting from
-artists][ai_art]. It's a theme addressed in a few other places: {{
-dahls_lastname }} {{ grammatizator }}, {{ leibers_lastname }} {{
-the_silver_eggheads }}, {{ lems_lastname }} {{ trurls_electronic_bard }}, {{
-ballards_lastname }} {{ studio_5_the_stars }}, and {{ vonneguts_lastname }} {{
-player_piano }}. If we instead think of commercialization of art, we saw that
-with Silenus's <cite class="book-title">Cantos</cite> flopping while his <cite
-class="book-title">The Dying Earth</cite> sold billions in {{
-simmonss_lastname }} {{ hyperion }}.
+labor, or AI taking over numerical jobs. A common conceit is that what makes
+humans unique is our creativity and that is what will keep us relevant. {{
+this_book }} is interesting in that it instead proposes that that creative
+work might in fact be what we automate. 70 years after it was written, with
+the rise of [generative AI][gen_ai], that might be exactly what we are
+starting to see. Like current artists, the actors in this book have different
+ways of dealing with their new reality, some [push back against it while
+others give in][ai_art]. {{ the_authors_lastname_possessive }} answer is
+bleak: for commercial art, what makes money is what will win. That no single
+person can fight against the tide, and that they will each do what they think
+they need to to survive.
+
+It's a theme addressed in a few other places: {{ dahls_lastname }} {{
+grammatizator }}, {{ leibers_lastname }} {{ the_silver_eggheads }}, {{
+lems_lastname }} {{ trurls_electronic_bard }}, {{ ballards_lastname }} {{
+studio_5_the_stars }}, and {{ vonneguts_lastname }} {{ player_piano }}. {{
+simmonss_lastname }} {{ hyperion }} tackles the commercialization and
+debasement of art, with Silenus's brilliant <cite
+class="book-title">Cantos</cite> flopping while his pulpy <cite
+class="book-title">The Dying Earth</cite> sold billions.
 
 [gen_ai]: {% link topics/generative-ai.md %}
 [ai_art]: {% post_url 2023-01-30-ai_artists_and_technology %}
 
-{{ this_book }} is named after the neologism "Darfsteller", which is probably
-a portmanteau of the German words "Darsteller" for "actor" and "Darf" meaning
-"allowed to". In the book it means roughly a method actor who must internalize
-the role to play it and can't be given outside direction. It is paired against
-the "Schauspieler", also a German word meaning roughly "actor", who is
-directed how to act. It serves as a linguistic focus for main tension in the
-plot: what role humans still have in art when a machine can do their job
-better.
-
-[wiki]: https://en.wikipedia.org/wiki/The_Darfsteller
-
-{{ the_authors_lastname_possessive }} answer is: for commercial art, what
-makes money is what will win. That no single person can fight against the
-tide, and that they will each do what they think they need to to survive.
+Up next is {{ arkady_and_boris_strugatskys }} {{ saturday }}, and then I
+really should start {{ time_war }} for my book club.
