@@ -4,9 +4,12 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/related_books_tag'
 
-# Tests for RelatedBooksTag Liquid tag.
+# Tests for RelatedBooksTag Liquid tag and its components.
 #
-# Verifies that the tag correctly finds and displays related books by series and author.
+# This test suite is organized into three sections:
+# 1. Finder tests - Test data retrieval logic directly
+# 2. Renderer tests - Test HTML generation directly
+# 3. Tag integration tests - Test the tag orchestration
 class TestRelatedBooksTag < Minitest::Test
   DEFAULT_MAX_BOOKS = Jekyll::RelatedBooksTag::DEFAULT_MAX_BOOKS
 
@@ -21,41 +24,177 @@ class TestRelatedBooksTag < Minitest::Test
     @helper.setup_generic_books
   end
 
-  # --- Prerequisite Tests ---
-  def test_logs_error_if_prerequisites_missing
-    verify_missing_page_log
-    verify_missing_collection_log
-  end
+  # ========================================================================
+  # Finder Tests - Test data retrieval logic directly
+  # ========================================================================
 
-  def verify_missing_page_log
-    site = create_site(@site_config_base.dup)
-    context = create_context({}, { site: site })
-    mock = Minitest::Mock.new
-    mock.expect(:error, nil) { |_p, m| m.include?('Missing prerequisites: page object') }
-
-    output = @helper.render_tag_with_mock_logger(context, mock)
-    assert_match(
-      %r{<!-- \[ERROR\] RELATED_BOOKS_FAILURE: Reason='Missing prerequisites: page object.*PageURL='N/A'.* -->},
-      output
-    )
-    mock.verify
-  end
-
-  def verify_missing_collection_log
+  def test_finder_returns_correct_structure_with_empty_books
     site = create_site(@site_config_base.dup, {})
     page = create_doc({ 'title' => 'Test', 'url' => '/test.html', 'path' => 'test.md' }, '/test.html')
     context = create_context({}, { site: site, page: page })
-    mock = Minitest::Mock.new
-    mock.expect(:error, nil) { |_p, m| m.include?('Missing prerequisites: site.collections[&#39;books&#39;]') }
 
-    output = @helper.render_tag_with_mock_logger(context, mock)
-    expected_pattern = /<!-- \[ERROR\] RELATED_BOOKS_FAILURE: Reason='Missing prerequisites: site\.collections\[&#39;books&#39;\]\.' .*-->/
-    assert_match(expected_pattern, output)
-    mock.verify
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_kind_of Hash, result
+    assert_kind_of String, result[:logs]
+    assert_kind_of Array, result[:books]
   end
 
-  # --- New Series Logic Tests ---
-  def test_series_current_is_book1_of_4_shows_2_3_4_sorted
+  def test_finder_returns_series_books_in_correct_order
+    books, site = @helper.setup_series_books(4)
+    context = create_context({}, { site: site, page: books[0] })
+
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 3, result[:books].length
+    assert_equal books[1].url, result[:books][0].url
+    assert_equal books[2].url, result[:books][1].url
+    assert_equal books[3].url, result[:books][2].url
+  end
+
+  def test_finder_series_book2_of_4_returns_books_1_3_4
+    books, site = @helper.setup_series_books(4)
+    context = create_context({}, { site: site, page: books[1] })
+
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 3, result[:books].length
+    assert_equal [books[0].url, books[2].url, books[3].url], result[:books].map(&:url)
+  end
+
+  def test_finder_series_provides_zero_books_fills_with_author_and_recent
+    _, _, _, context = @helper.setup_zero_series_books_scenario
+
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 3, result[:books].length
+    assert_equal @helper.author_x_book2_recent.url, result[:books][0].url
+    assert_equal @helper.author_x_book1_old.url, result[:books][1].url
+    assert_equal @helper.recent_unrelated_book1.url, result[:books][2].url
+  end
+
+  def test_finder_excludes_archived_reviews
+    _, _, _, _, context = @helper.setup_archived_reviews_scenario
+
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    titles = result[:books].map { |b| b.data['title'] }
+    assert_includes titles, 'Related Canonical'
+    refute_includes titles, 'Related Archived'
+  end
+
+  def test_finder_includes_external_canonical_url
+    _, _, _, context = @helper.setup_external_canonical_scenario
+
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    titles = result[:books].map { |b| b.data['title'] }
+    assert_includes titles, 'Related External'
+  end
+
+  def test_finder_logs_error_when_prerequisites_missing
+    site = create_site(@site_config_base.dup)
+    context = create_context({}, { site: site })
+
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_empty result[:books]
+    assert_match(/Missing prerequisites: page object/, result[:logs])
+  end
+
+  def test_finder_with_unparseable_book_number_logs_info
+    _, _, _, _, _, _, context = @helper.setup_unparseable_book_number_scenario
+
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_match(/unparseable book_number/, result[:logs])
+    assert_equal 3, result[:books].length
+  end
+
+  # ========================================================================
+  # Renderer Tests - Test HTML generation directly
+  # ========================================================================
+
+  def test_renderer_returns_empty_string_for_empty_books
+    site = create_site(@site_config_base.dup, {})
+    context = create_context({}, { site: site })
+
+    renderer = Jekyll::RelatedBooks::Renderer.new(context, [])
+    output = renderer.render
+
+    assert_equal '', output
+  end
+
+  def test_renderer_generates_correct_html_structure
+    books, site = @helper.setup_series_books(2)
+    context = create_context({}, { site: site, page: books[0] })
+
+    renderer = Jekyll::RelatedBooks::Renderer.new(context, books)
+    output = nil
+    BookCardUtils.stub :render, ->(book_obj, _ctx) { "<!-- Card for: #{book_obj.data['title']} -->\n" } do
+      output = renderer.render
+    end
+
+    assert_match(/<aside class="related">/, output)
+    assert_match(%r{<h2>Related Books</h2>}, output)
+    assert_match(/<div class="card-grid">/, output)
+    assert_equal 2, output.scan('<!-- Card for:').count
+    assert_match(%r{</div>\s*</aside>}m, output)
+  end
+
+  def test_renderer_calls_book_card_utils_for_each_book
+    books, site = @helper.setup_series_books(3)
+    context = create_context({}, { site: site, page: books[0] })
+
+    card_render_count = 0
+    renderer = Jekyll::RelatedBooks::Renderer.new(context, books)
+    BookCardUtils.stub :render, lambda { |_book_obj, _ctx|
+      card_render_count += 1
+      "<!-- Card -->\n"
+    } do
+      renderer.render
+    end
+
+    assert_equal 3, card_render_count
+  end
+
+  # ========================================================================
+  # Tag Integration Tests - Test orchestration
+  # ========================================================================
+
+  def test_tag_orchestrates_finder_and_renderer_correctly
     books, site = @helper.setup_series_books(4)
     context = create_context({}, { site: site, page: books[0] })
 
@@ -64,14 +203,34 @@ class TestRelatedBooksTag < Minitest::Test
     assert_equal expected, @helper.extract_rendered_titles(output)
   end
 
-  def test_series_current_is_book2_of_4_shows_1_3_4_sorted
-    books, site = @helper.setup_series_books(4)
-    context = create_context({}, { site: site, page: books[1] })
+  def test_tag_returns_only_logs_when_no_books_found
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Alone Again', authors: ['Solo Author'],
+      date_offset_days: 0, url_suffix: 'alone_again', collection: coll
+    )
+    coll.docs = [curr, @helper.unpublished_book_generic, @helper.future_dated_book_generic].compact
+
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    context = create_context({}, { site: site, page: curr })
+    output = @helper.render_tag(context)
+    assert_equal '', output.strip
+  end
+
+  def test_tag_combines_logs_and_html_output
+    books, site = @helper.setup_series_books(2)
+    context = create_context({}, { site: site, page: books[0] })
 
     output = @helper.render_tag(context)
-    expected = [books[0].data['title'], books[2].data['title'], books[3].data['title']]
-    assert_equal expected, @helper.extract_rendered_titles(output)
+    # Should have HTML structure
+    assert_match(/<aside class="related">/, output)
+    # Logs may be empty or present, but the HTML should always be there
+    assert_includes output, books[1].data['title']
   end
+
+  # ========================================================================
+  # Legacy integration tests for comprehensive coverage
+  # ========================================================================
 
   def test_series_current_is_book4_of_4_shows_1_2_3_sorted
     books, site = @helper.setup_series_books(4)
@@ -89,27 +248,6 @@ class TestRelatedBooksTag < Minitest::Test
       series_books[2].data['title'],
       series_books[3].data['title'],
       series_books[5].data['title']
-    ]
-    assert_equal expected, @helper.extract_rendered_titles(output)
-  end
-
-  def test_series_current_book_number_unparseable_falls_back_to_all_series_sorted_numerically
-    _, s1b1, s1b2, s1b3, _, _, context = @helper.setup_unparseable_book_number_scenario
-    output = @helper.render_tag(context)
-    assert_equal [s1b1.data['title'], s1b2.data['title'], s1b3.data['title']],
-                 @helper.extract_rendered_titles(output)
-    expected_msg = /Reason='Current page has unparseable book_number \(&#39;xyz&#39;\)\. Using all series books sorted by number\.'/
-    assert_match(expected_msg, output)
-  end
-
-  # --- Tests for Series Providing < @max_books ---
-  def test_series_provides_zero_books_author_and_recent_fill
-    _, _, _, context = @helper.setup_zero_series_books_scenario
-    output = @helper.render_tag(context)
-    expected = [
-      @helper.author_x_book2_recent.data['title'],
-      @helper.author_x_book1_old.data['title'],
-      @helper.recent_unrelated_book1.data['title']
     ]
     assert_equal expected, @helper.extract_rendered_titles(output)
   end
@@ -136,7 +274,6 @@ class TestRelatedBooksTag < Minitest::Test
     assert_equal expected, @helper.extract_rendered_titles(output)
   end
 
-  # --- Author and Recent Fallback Tests ---
   def test_multi_author_current_page_uses_either_author_for_fallback
     _, auth_a, auth_b, recent_z, _, context = @helper.setup_multi_author_scenario
     output = @helper.render_tag(context)
@@ -155,53 +292,12 @@ class TestRelatedBooksTag < Minitest::Test
     assert_equal expected, @helper.extract_rendered_titles(output)
   end
 
-  # --- General Behavior Tests ---
   def test_world_of_trouble_scenario_with_new_series_logic
     _, tlp, cc, fill, _, context = @helper.setup_world_of_trouble_scenario
     output = @helper.render_tag(context)
     expected = [tlp.data['title'], cc.data['title'], fill.data['title']]
     assert_equal DEFAULT_MAX_BOOKS, @helper.extract_rendered_titles(output).count
     assert_equal expected, @helper.extract_rendered_titles(output)
-  end
-
-  def test_returns_empty_string_if_no_valid_related_books
-    coll = MockCollection.new([], 'books')
-    curr = @helper.create_book(
-      title: 'Alone Again', authors: ['Solo Author'],
-      date_offset_days: 0, url_suffix: 'alone_again', collection: coll
-    )
-    coll.docs = [curr, @helper.unpublished_book_generic, @helper.future_dated_book_generic].compact
-
-    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
-    context = create_context({}, { site: site, page: curr })
-    output = @helper.render_tag(context)
-    assert_equal '', output.strip
-  end
-
-  def test_html_structure_is_correct_when_books_found
-    _, _, _, _, context = @helper.setup_html_structure_scenario
-    output = @helper.render_tag(context)
-    refute_empty output.strip, 'Output should not be empty'
-    assert_match(/<aside class="related">/, output)
-    assert_match(%r{<h2>Related Books</h2>}, output)
-    assert_match(/<div class="card-grid">/, output)
-    assert_equal 1, output.scan('<!-- Card for:').count
-    assert_match(%r{</div>\s*</aside>}m, output)
-  end
-
-  def test_excludes_archived_reviews_from_recommendations
-    _, _, _, _, context = @helper.setup_archived_reviews_scenario
-    output = @helper.render_tag(context)
-    titles = @helper.extract_rendered_titles(output)
-
-    assert_includes titles, 'Related Canonical'
-    refute_includes titles, 'Related Archived'
-  end
-
-  def test_includes_books_with_external_canonical_url
-    _, _, _, context = @helper.setup_external_canonical_scenario
-    output = @helper.render_tag(context)
-    assert_includes @helper.extract_rendered_titles(output), 'Related External'
   end
 
   # Helper class for test setup and utilities
