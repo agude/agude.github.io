@@ -4,7 +4,7 @@ title: The Darfsteller
 book_authors: Walter M. Miller Jr.
 book_number: 1
 is_anthology: false
-rating: null
+rating: 3
 image: /books/covers/the_darfsteller.jpg
 awards:
   - hugo

@@ -83,6 +83,7 @@ ranked_list:
   - "Home: Habitat, Range, Niche, Territory"
   - Martin The Warrior
   - Chevalier
+  - The Darfsteller
   - The Moon is a Harsh Mistress
   - The Left Hand of Darkness
   - The War of the Worlds
