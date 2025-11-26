@@ -115,7 +115,7 @@ module Jekyll
       end
 
       def link_type_priority_map
-        defined?(Jekyll::LinkCacheGenerator::LINK_TYPE_PRIORITY) ? Jekyll::LinkCacheGenerator::LINK_TYPE_PRIORITY : {}
+        defined?(Jekyll::BacklinkBuilder::LINK_TYPE_PRIORITY) ? Jekyll::BacklinkBuilder::LINK_TYPE_PRIORITY : {}
       end
 
       def update_unique_entry(unique, entry, prio_map)
