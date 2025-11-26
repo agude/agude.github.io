@@ -64,6 +64,62 @@ This site has an extensive custom plugin architecture with ~40 plugins in `_plug
 - Text/logging: `text_processing_utils.rb`, `typography_utils.rb`, `plugin_logger_utils.rb`
 - Other: `rating_utils.rb`, `url_utils.rb`, `citation_utils.rb`, `backlink_utils.rb`
 
+#### Plugin Design Patterns
+
+To ensure maintainability, testability, and clarity, all custom plugins should adhere to the principle of **Separation of Concerns**. Specifically, logic that fetches or calculates data must be separate from logic that renders HTML.
+
+##### Liquid Tag (`Liquid::Tag`) Pattern
+
+Complex Liquid tags that fetch data and render HTML must follow a three-layer architecture. The `author_link_tag.rb` and its corresponding `author_link_util.rb` serve as a good model.
+
+1.  **Tag Class (`_plugins/my_tag.rb`)**: The public API for Liquid.
+    -   **Responsibility**: Parsing markup and resolving variables.
+    -   **Implementation**:
+        -   The `initialize` method should use `StringScanner` to parse arguments. It stores the raw markup for each argument (e.g., `'my_value'` or `page.variable`).
+        -   The `render` method is the entry point at build time. Its only job is to:
+            1.  Use `TagArgumentUtils.resolve_value` to get the actual values from the context.
+            2.  Instantiate a "Service/Utility" class from `_plugins/utils/`.
+            3.  Call a single method on that utility, passing the resolved values.
+    -   **Rule**: The Tag class itself contains **no business logic** and **no HTML generation**.
+
+2.  **Service/Utility Module (`_plugins/utils/my_util.rb`)**: The orchestrator.
+    -   **Responsibility**: Coordinating data fetching and rendering.
+    -   **Implementation**:
+        -   Contains the main public method called by the Tag (e.g., `render_my_component`).
+        -   Calls a `Finder` class to get the necessary data.
+        -   Passes the data from the `Finder` to a `Renderer` class.
+        -   Handles high-level error logging using `PluginLoggerUtils`.
+        -   Returns the final HTML string to the Tag.
+
+3.  **Logic Components (Private classes within the Service/Utility file)**:
+    -   **Finder Class**:
+        -   **Responsibility**: All data fetching, filtering, and sorting logic.
+        -   **Accesses**: `site.collections`, `site.posts`, `site.data['link_cache']`.
+        -   **Returns**: A pure data structure (e.g., an `Array` of `Jekyll::Document` objects or a `Hash`). **Never returns HTML.**
+    -   **Renderer Class**:
+        -   **Responsibility**: Generating the final HTML string.
+        -   **Input**: The data structure returned by the `Finder`.
+        -   **Implementation**: Contains the HTML structure, loops, and calls to lower-level rendering utilities like `BookCardUtils.render` or `RatingUtils.render_rating_stars`.
+        -   **Returns**: An HTML `String`.
+
+#### Liquid Filter (`Liquid::Filter`) Pattern
+
+Filters should be simple, stateless, and focused on a single data transformation.
+
+-   **Responsibility**: Transform a single input value into a single output value.
+-   **Implementation**: A method within a module registered with `Liquid::Template.register_filter`.
+-   **Rule**: If a filter's logic becomes complex (e.g., requiring access to `site` data), it should be refactored into a proper utility module in `_plugins/utils/` and the filter should become a simple wrapper around a call to that utility.
+
+#### Jekyll Generator (`Jekyll::Generator`) Pattern
+
+Generators are for modifying the `site` object or generating content before the site is rendered.
+
+-   **Responsibility**: Populating `site.data`, creating dynamic pages, or performing site-wide data modifications.
+-   **Implementation**:
+    -   The `generate` method should be the main entry point.
+    -   Complex logic should be extracted into separate helper classes. The `link_cache_generator.rb` is the canonical example, delegating all its work to builder classes (`CacheBuilder`, `BacklinkBuilder`, etc.).
+-   **Rule**: Keep the main generator class clean and focused on orchestration. Delegate complex tasks to dedicated helper classes, which should be organized into a subdirectory if numerous (e.g., `_plugins/link_cache/`).
+
 ### Plugin Logging System
 
 Plugins use a centralized logging system configured in `_config.yml`:
