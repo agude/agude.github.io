@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/book_list_utils/test_favorites_lists_display.rb
+# _tests/plugins/logic/book_lists/test_favorites_lists_finder.rb
 require_relative '../../../test_helper'
+require_relative '../../../../_plugins/logic/book_lists/favorites_lists_finder'
 
-# Tests for BookListUtils favorites lists display functionality.
+# Tests for Jekyll::BookLists::FavoritesListsFinder
 #
-# Verifies that the utility correctly displays books organized by favorites lists.
-class TestBookListUtilsFavoritesListsDisplay < Minitest::Test
+# Verifies that the finder correctly fetches and organizes books by favorites lists,
+# sorting lists by year and books within each list alphabetically by normalized title.
+class TestBookListFavoritesListsFinder < Minitest::Test
   def setup
     setup_test_documents
     setup_site_and_context
@@ -15,7 +17,8 @@ class TestBookListUtilsFavoritesListsDisplay < Minitest::Test
 
   def get_favorites_data(site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      BookListUtils.get_data_for_favorites_lists(site: site, context: context)
+      finder = Jekyll::BookLists::FavoritesListsFinder.new(site: site, context: context)
+      finder.find
     end
   end
 
@@ -47,7 +50,7 @@ class TestBookListUtilsFavoritesListsDisplay < Minitest::Test
       [],
       [@fav_post_2023, @fav_post_2024, @regular_post]
     )
-    # Manually set up the cache that the util will read from
+    # Manually set up the cache that the finder will read from
     @site.data['link_cache']['favorites_posts_to_books'] = {
       @fav_post_2024.url => [@book_z, @book_a], # Intentionally unsorted books
       @fav_post_2023.url => [@book_b]
@@ -68,44 +71,44 @@ class TestBookListUtilsFavoritesListsDisplay < Minitest::Test
     end
   end
 
-  def test_get_data_for_favorites_lists_correct_structure_and_sorting
-    data = get_favorites_data
+  def test_favorites_lists_finder_correct_structure_and_sorting
+    result = get_favorites_data
 
-    assert_empty data[:log_messages].to_s
-    assert_equal 2, data[:favorites_lists].size, 'Should find two favorites lists'
+    assert_empty result[:log_messages].to_s
+    assert_equal 2, result[:favorites_lists].size, 'Should find two favorites lists'
 
-    assert_correct_list_order(data)
-    assert_correct_2024_list_content(data[:favorites_lists][0])
-    assert_correct_2023_list_content(data[:favorites_lists][1])
+    assert_correct_list_order(result)
+    assert_correct_2024_list_content(result[:favorites_lists][0])
+    assert_correct_2023_list_content(result[:favorites_lists][1])
   end
 
-  def test_get_data_for_favorites_lists_no_favorites_posts_logs_info
+  def test_favorites_lists_finder_no_favorites_posts_logs_info
     site_no_favs = create_site({}, { 'books' => [@book_a] }, [], [@regular_post])
     site_no_favs.config['plugin_logging']['BOOK_LIST_FAVORITES'] = true
     context_no_favs = create_context({}, { site: site_no_favs, page: @context.registers[:page] })
 
-    data = get_favorites_data(site_no_favs, context_no_favs)
-    assert_empty data[:favorites_lists]
+    result = get_favorites_data(site_no_favs, context_no_favs)
+    assert_empty result[:favorites_lists]
     expected_info = /<!-- \[INFO\] BOOK_LIST_FAVORITES_FAILURE: Reason='No posts with /
-    assert_match(expected_info, data[:log_messages])
+    assert_match(expected_info, result[:log_messages])
   end
 
-  def test_get_data_for_favorites_lists_prerequisites_missing_logs_error
+  def test_favorites_lists_finder_prerequisites_missing_logs_error
     site_no_cache = create_site({}, {}, [], [@fav_post_2023])
     site_no_cache.data['link_cache'].delete('favorites_posts_to_books')
     site_no_cache.config['plugin_logging']['BOOK_LIST_FAVORITES'] = true
     context_no_cache = create_context({}, { site: site_no_cache, page: @context.registers[:page] })
 
-    data = get_favorites_data(site_no_cache, context_no_cache)
-    assert_empty data[:favorites_lists]
+    result = get_favorites_data(site_no_cache, context_no_cache)
+    assert_empty result[:favorites_lists]
     expected_error = /<!-- \[ERROR\] BOOK_LIST_FAVORITES_FAILURE: Reason='Prerequisites missing: /
-    assert_match(expected_error, data[:log_messages])
+    assert_match(expected_error, result[:log_messages])
   end
 
-  def assert_correct_list_order(data)
+  def assert_correct_list_order(result)
     # Overall list order (by year descending)
-    assert_equal @fav_post_2024.url, data[:favorites_lists][0][:post].url
-    assert_equal @fav_post_2023.url, data[:favorites_lists][1][:post].url
+    assert_equal @fav_post_2024.url, result[:favorites_lists][0][:post].url
+    assert_equal @fav_post_2023.url, result[:favorites_lists][1][:post].url
   end
 
   def assert_correct_2024_list_content(list_2024)

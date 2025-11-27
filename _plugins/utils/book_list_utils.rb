@@ -11,17 +11,6 @@ require_relative 'front_matter_utils'
 # Provides methods to filter, sort, and group books by various criteria
 # (series, author, title, awards, year) for use in various list formats.
 module BookListUtils
-  # --- Public Methods for Tags ---
-
-  def self.get_data_for_favorites_lists(site:, context:)
-    return _favorites_error_response(context) unless _favorites_prerequisites_met?(site)
-
-    favorites_lists_data = _build_favorites_lists(site)
-    log_msg = _generate_favorites_log(favorites_lists_data, context)
-
-    { favorites_lists: favorites_lists_data, log_messages: log_msg }
-  end
-
   # --- Private Helper Methods ---
 
   def self._validate_collection(site, context, params)
@@ -56,50 +45,6 @@ module BookListUtils
       context: context, tag_type: tag_type, reason: reason, identifiers: {}, level: :info
     )
     { key => [], log_messages: log.dup }
-  end
-
-  # --- Favorites Helpers ---
-
-  def self._favorites_prerequisites_met?(site)
-    site&.posts&.docs.is_a?(Array) && site.data.dig('link_cache', 'favorites_posts_to_books')
-  end
-
-  def self._favorites_error_response(context)
-    _return_error(context,
-                  'Prerequisites missing: site.posts or favorites_posts_to_books cache.',
-                  identifiers: {},
-                  key: :favorites_lists,
-                  tag_type: 'BOOK_LIST_FAVORITES')
-  end
-
-  def self._build_favorites_lists(site)
-    cache = site.data['link_cache']['favorites_posts_to_books']
-    posts = _get_sorted_favorites_posts(site)
-
-    posts.map { |post| _create_favorites_list_entry(post, cache) }
-  end
-
-  def self._get_sorted_favorites_posts(site)
-    site.posts.docs.select { |p| p.data.key?('is_favorites_list') }
-        .sort_by { |p| p.data['is_favorites_list'].to_i }
-        .reverse
-  end
-
-  def self._create_favorites_list_entry(post, cache)
-    books = cache[post.url] || []
-    sorted = books.sort_by do |b|
-      TextProcessingUtils.normalize_title(b.data['title'].to_s, strip_articles: true)
-    end
-    { post: post, books: sorted }
-  end
-
-  def self._generate_favorites_log(data, context)
-    return String.new unless data.empty?
-
-    PluginLoggerUtils.log_liquid_failure(
-      context: context, tag_type: 'BOOK_LIST_FAVORITES',
-      reason: "No posts with 'is_favorites_list' front matter found.", level: :info
-    ).dup
   end
 
   # --- General Helpers ---

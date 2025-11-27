@@ -5,7 +5,7 @@ require 'jekyll'
 require 'liquid'
 require 'cgi'
 require_relative 'logic/book_lists/by_award_finder'
-require_relative 'utils/book_list_utils'
+require_relative 'logic/book_lists/favorites_lists_finder'
 require_relative 'utils/book_card_utils'
 require_relative 'utils/text_processing_utils'
 
@@ -53,9 +53,10 @@ module Jekyll
       private
 
       def fetch_data
-        finder = Jekyll::BookLists::ByAwardFinder.new(site: @site, context: @context)
-        @awards_hash = finder.find
-        @favorites_hash = BookListUtils.get_data_for_favorites_lists(site: @site, context: @context)
+        award_finder = Jekyll::BookLists::ByAwardFinder.new(site: @site, context: @context)
+        @awards_hash = award_finder.find
+        favorites_finder = Jekyll::BookLists::FavoritesListsFinder.new(site: @site, context: @context)
+        @favorites_hash = favorites_finder.find
         @awards_groups = @awards_hash[:awards_data] || []
         @favorites_lists = @favorites_hash[:favorites_lists] || []
       end

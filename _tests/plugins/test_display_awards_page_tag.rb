@@ -22,11 +22,15 @@ class TestDisplayAwardsPageTag < Minitest::Test
   )
     output = ''
     # Stub the ByAwardFinder instance
-    mock_finder = Minitest::Mock.new
-    mock_finder.expect :find, awards_data
+    mock_award_finder = Minitest::Mock.new
+    mock_award_finder.expect :find, awards_data
 
-    Jekyll::BookLists::ByAwardFinder.stub :new, ->(_args) { mock_finder } do
-      BookListUtils.stub :get_data_for_favorites_lists, ->(_args) { favorites_data } do
+    # Stub the FavoritesListsFinder instance
+    mock_favorites_finder = Minitest::Mock.new
+    mock_favorites_finder.expect :find, favorites_data
+
+    Jekyll::BookLists::ByAwardFinder.stub :new, ->(_args) { mock_award_finder } do
+      Jekyll::BookLists::FavoritesListsFinder.stub :new, ->(_args) { mock_favorites_finder } do
         BookCardUtils.stub :render, ->(book, _ctx) { "<!-- Card for: #{book.data['title']} -->\n" } do
           Jekyll.stub :logger, @silent_logger_stub do
             output = Liquid::Template.parse('{% display_awards_page %}').render!(context)
@@ -34,7 +38,8 @@ class TestDisplayAwardsPageTag < Minitest::Test
         end
       end
     end
-    mock_finder.verify
+    mock_award_finder.verify
+    mock_favorites_finder.verify
     output
   end
 
