@@ -90,7 +90,7 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
     }
     card_stub = ->(book, _ctx) { "<!-- Standalone Card: #{book.data['title']} -->\n" }
 
-    BookListUtils.stub :render_book_groups_html, book_groups_stub do
+    BookListRendererUtils.stub :render_book_groups_html, book_groups_stub do
       BookCardUtils.stub :render, card_stub do
         Jekyll.stub :logger, @silent_logger_stub do
           output = Liquid::Template.parse('{% display_books_by_author_then_series %}').render!(context)

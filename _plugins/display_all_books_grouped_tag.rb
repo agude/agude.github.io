@@ -4,7 +4,7 @@
 require 'jekyll'
 require 'liquid'
 require_relative 'utils/book_list_utils'
-require_relative 'utils/series_link_util'
+require_relative 'utils/book_list_renderer_utils'
 
 # Jekyll namespace for custom plugins.
 module Jekyll
@@ -28,9 +28,9 @@ module Jekyll
         context: context
       )
 
-      # BookListUtils.render_book_groups_html will prepend data[:log_messages] (if any)
+      # BookListRendererUtils.render_book_groups_html will prepend data[:log_messages] (if any)
       # and handle cases where no books are found.
-      BookListUtils.render_book_groups_html(data, context, generate_nav: true)
+      BookListRendererUtils.render_book_groups_html(data, context, generate_nav: true)
     end
   end
   Liquid::Template.register_tag('display_all_books_grouped', DisplayAllBooksGroupedTag)

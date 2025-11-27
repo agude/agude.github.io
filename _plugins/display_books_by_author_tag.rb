@@ -4,7 +4,7 @@
 require 'jekyll'
 require 'liquid'
 require_relative 'utils/book_list_utils'
-require_relative 'utils/series_link_util'
+require_relative 'utils/book_list_renderer_utils'
 require_relative 'utils/tag_argument_utils'
 
 # Jekyll namespace for custom plugins.
@@ -54,8 +54,8 @@ module Jekyll
                  )
                end
 
-        # BookListUtils.render_book_groups_html will prepend data[:log_messages]
-        BookListUtils.render_book_groups_html(data, @context)
+        # BookListRendererUtils.render_book_groups_html will prepend data[:log_messages]
+        BookListRendererUtils.render_book_groups_html(data, @context)
       end
     end
   end

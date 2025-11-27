@@ -5,6 +5,7 @@ require 'jekyll'
 require 'liquid'
 require 'cgi'
 require_relative 'utils/book_list_utils'
+require_relative 'utils/book_list_renderer_utils'
 require_relative 'utils/book_card_utils'
 
 module Jekyll
@@ -98,7 +99,7 @@ module Jekyll
           series_groups: author_data[:series_groups],
           log_messages: ''
         }
-        BookListUtils.render_book_groups_html(data, @context, series_heading_level: 3)
+        BookListRendererUtils.render_book_groups_html(data, @context, series_heading_level: 3)
       end
 
       def build_navigation(anchors)
