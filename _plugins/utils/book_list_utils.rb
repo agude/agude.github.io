@@ -13,21 +13,6 @@ require_relative 'front_matter_utils'
 module BookListUtils
   # --- Public Methods for Tags ---
 
-  # Fetches all books, groups them by award.
-  def self.get_data_for_all_books_by_award_display(site:, context:)
-    error = _validate_collection(site, context, filter_type: 'all_books_by_award', key: :awards_data)
-    return error if error
-
-    all_books = _get_all_published_books(site, include_archived: false)
-    return { awards_data: [], log_messages: String.new } if all_books.empty?
-
-    unique_awards = _collect_unique_awards(all_books)
-    awards_data_list = _build_awards_data_list(unique_awards, all_books)
-    log_msg = _generate_awards_log(awards_data_list, context)
-
-    { awards_data: awards_data_list, log_messages: log_msg }
-  end
-
   # Fetches all books, sorts them by normalized title, then groups by first letter.
   # @param site [Jekyll::Site] The Jekyll site object.
   # @param context [Liquid::Context] The Liquid context.
@@ -108,87 +93,6 @@ module BookListUtils
       context: context, tag_type: tag_type, reason: reason, identifiers: {}, level: :info
     )
     { key => [], log_messages: log.dup }
-  end
-
-  # --- Award Helpers ---
-
-  private_class_method def self._format_award_display_name(award_string_raw)
-    return '' if award_string_raw.nil? || award_string_raw.to_s.strip.empty?
-
-    words = award_string_raw.to_s.strip.split.map do |word|
-      _format_award_word(word)
-    end
-    "#{words.join(' ')} Award"
-  end
-
-  def self._format_award_word(word)
-    if word.length == 2 && word[1] == '.' && word[0].match?(/[a-z]/i)
-      "#{word[0].upcase}."
-    else
-      word.capitalize
-    end
-  end
-
-  def self._collect_unique_awards(books)
-    unique = {}
-    books.each do |book|
-      next unless book.data['awards'].is_a?(Array)
-
-      book.data['awards'].each do |award|
-        next if award.nil? || award.to_s.strip.empty?
-
-        stripped = award.to_s.strip
-        unique[stripped.downcase] ||= stripped
-      end
-    end
-    unique
-  end
-
-  def self._build_awards_data_list(unique_awards, all_books)
-    sorted_awards = unique_awards.sort_by { |k, _v| k }.map { |_k, v| v }
-
-    sorted_awards.filter_map do |raw_award|
-      books = _find_books_for_award(all_books, raw_award)
-      next if books.empty?
-
-      _create_award_data_entry(raw_award, books)
-    end
-  end
-
-  def self._create_award_data_entry(raw_award, books)
-    display_name = _format_award_display_name(raw_award)
-    {
-      award_name: display_name,
-      award_slug: _slugify_award(display_name),
-      books: books
-    }
-  end
-
-  def self._find_books_for_award(all_books, raw_award)
-    books = all_books.select { |book| _book_has_award?(book, raw_award) }
-    books.sort_by { |b| TextProcessingUtils.normalize_title(b.data['title'].to_s, strip_articles: true) }
-  end
-
-  def self._book_has_award?(book, raw_award)
-    book.data['awards'].is_a?(Array) &&
-      book.data['awards'].any? { |ba| ba.to_s.strip.casecmp(raw_award.strip).zero? }
-  end
-
-  def self._slugify_award(name)
-    TextProcessingUtils.normalize_title(name, strip_articles: false)
-                       .gsub(/\s+/, '-')
-                       .gsub(/[^\w-]+/, '')
-                       .gsub(/--+/, '-')
-                       .gsub(/^-+|-+$/, '')
-  end
-
-  def self._generate_awards_log(data, context)
-    return String.new unless data.empty?
-
-    PluginLoggerUtils.log_liquid_failure(
-      context: context, tag_type: 'ALL_BOOKS_BY_AWARD_DISPLAY',
-      reason: 'No books with awards found.', identifiers: {}, level: :info
-    ).dup
   end
 
   # --- Alpha Group Helpers ---

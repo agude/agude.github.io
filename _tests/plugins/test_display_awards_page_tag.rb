@@ -21,7 +21,11 @@ class TestDisplayAwardsPageTag < Minitest::Test
     favorites_data = @mock_favorites_data_hash
   )
     output = ''
-    BookListUtils.stub :get_data_for_all_books_by_award_display, ->(_args) { awards_data } do
+    # Stub the ByAwardFinder instance
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, awards_data
+
+    Jekyll::BookLists::ByAwardFinder.stub :new, ->(_args) { mock_finder } do
       BookListUtils.stub :get_data_for_favorites_lists, ->(_args) { favorites_data } do
         BookCardUtils.stub :render, ->(book, _ctx) { "<!-- Card for: #{book.data['title']} -->\n" } do
           Jekyll.stub :logger, @silent_logger_stub do
@@ -30,6 +34,7 @@ class TestDisplayAwardsPageTag < Minitest::Test
         end
       end
     end
+    mock_finder.verify
     output
   end
 
