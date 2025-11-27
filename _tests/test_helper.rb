@@ -8,23 +8,60 @@ require 'time' # Needed for Time.parse if mocking dates
 # Add the parent _plugins directory to the load path
 $LOAD_PATH.unshift(File.expand_path('../_plugins', __dir__))
 
-# Explicitly require plugins and utils
+# --- Explicitly require all plugins and utilities for testing ---
+
+# --- Top-Level Tags ---
+require 'article_card_lookup_tag'
+require 'author_link_tag'
+require 'book_backlinks_tag'
+require 'book_card_lookup_tag'
+require 'book_link_tag'
+require 'citation_tag'
+require 'display_all_books_grouped_tag'
+require 'display_authors_tag'
+require 'display_awards_page_tag'
+require 'display_books_by_author_tag'
+require 'display_books_by_author_then_series_tag'
+require 'display_books_by_title_alpha_group_tag'
+require 'display_books_by_year_tag'
+require 'display_books_for_series_tag'
+require 'display_category_posts_tag'
 require 'display_previous_reviews_tag'
+require 'display_ranked_books_tag'
+require 'display_ranked_by_backlinks_tag'
+require 'display_unreviewed_mentions_tag'
+require 'front_page_feed_tag'
+require 'log_failure_tag'
+require 'rating_stars_tag'
+require 'related_books_tag'
+require 'related_posts_tag'
+require 'render_article_card_tag'
+require 'render_book_card_tag'
+require 'series_link_tag'
+require 'series_text_tag'
+require 'short_story_link_tag'
+require 'short_story_title_tag'
+require 'units_tag'
+
+# --- Top-Level Generators and Filters ---
+require 'environment_setter'
+require 'front_matter_validator'
+require 'json_ld_injector'
 require 'link_cache_generator'
+require 'optional_filter'
+
+# --- Utilities (_plugins/utils/) ---
 require 'utils/article_card_utils'
 require 'utils/author_link_util'
 require 'utils/backlink_utils'
 require 'utils/book_card_utils'
 require 'utils/book_link_util'
+require 'utils/book_list_renderer_utils'
 require 'utils/card_data_extractor_utils'
 require 'utils/card_renderer_utils'
 require 'utils/citation_utils'
 require 'utils/feed_utils'
 require 'utils/front_matter_utils'
-require 'utils/json_ld_generators/author_profile_generator'
-require 'utils/json_ld_generators/blog_posting_generator'
-require 'utils/json_ld_generators/book_review_generator'
-require 'utils/json_ld_generators/generic_review_generator'
 require 'utils/json_ld_utils'
 require 'utils/link_helper_utils'
 require 'utils/plugin_logger_utils'
@@ -37,6 +74,42 @@ require 'utils/tag_argument_utils'
 require 'utils/text_processing_utils'
 require 'utils/typography_utils'
 require 'utils/url_utils'
+
+# --- JSON-LD Generators (_plugins/utils/json_ld_generators/) ---
+require 'utils/json_ld_generators/author_profile_generator'
+require 'utils/json_ld_generators/blog_posting_generator'
+require 'utils/json_ld_generators/book_review_generator'
+require 'utils/json_ld_generators/generic_review_generator'
+
+# --- Link Cache Components (_plugins/link_cache/) ---
+require 'link_cache/backlink_builder'
+require 'link_cache/cache_builder'
+require 'link_cache/cache_maps'
+require 'link_cache/favorites_manager'
+require 'link_cache/link_validator'
+require 'link_cache/short_story_builder'
+
+# --- Logic Components (_plugins/logic/) ---
+require 'logic/book_backlinks/finder'
+require 'logic/book_backlinks/renderer'
+require 'logic/book_lists/all_books_by_author_finder'
+require 'logic/book_lists/all_books_finder'
+require 'logic/book_lists/author_finder'
+require 'logic/book_lists/by_award_finder'
+require 'logic/book_lists/by_title_alpha_finder'
+require 'logic/book_lists/by_year_finder'
+require 'logic/book_lists/favorites_lists_finder'
+require 'logic/book_lists/series_finder'
+require 'logic/book_lists/shared'
+require 'logic/display_ranked_books/processor'
+require 'logic/display_ranked_books/renderer'
+require 'logic/display_ranked_books/validator'
+require 'logic/display_unreviewed_mentions/finder'
+require 'logic/display_unreviewed_mentions/renderer'
+require 'logic/related_books/finder'
+require 'logic/related_books/renderer'
+require 'logic/related_posts/finder'
+require 'logic/related_posts/renderer'
 
 # --- Mock Objects ---
 
