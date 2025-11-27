@@ -3,7 +3,7 @@
 # _plugins/display_books_for_series_tag.rb
 require 'jekyll'
 require 'liquid'
-require_relative 'utils/book_list_utils'
+require_relative 'logic/book_lists/series_finder'
 require_relative 'utils/book_card_utils'
 require_relative 'utils/tag_argument_utils'
 
@@ -51,11 +51,12 @@ module Jekyll
       private
 
       def get_series_data(series_name_filter)
-        BookListUtils.get_data_for_series_display(
+        finder = Jekyll::BookLists::SeriesFinder.new(
           site: @site,
           series_name_filter: series_name_filter,
           context: @context
         )
+        finder.find
       end
 
       def render_output(data)

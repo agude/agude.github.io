@@ -13,22 +13,6 @@ require_relative 'front_matter_utils'
 module BookListUtils # rubocop:disable Metrics/ModuleLength
   # --- Public Methods for Tags ---
 
-  # Fetches and sorts books for a specific series.
-  # @param site [Jekyll::Site] The Jekyll site object.
-  # @param series_name_filter [String] The name of the series to filter by.
-  # @param context [Liquid::Context] The Liquid context.
-  # @return [Hash] Contains :books (Array of Document), :series_name (String), :log_messages (String).
-  def self.get_data_for_series_display(site:, series_name_filter:, context:)
-    error = _validate_collection(site, context, filter_type: 'series', series_name: series_name_filter)
-    return error if error
-
-    all_books = _get_all_published_books(site, include_archived: false)
-    books_in_series = _filter_series_books(all_books, series_name_filter)
-    log_msg = _generate_series_log(books_in_series, series_name_filter, context)
-
-    { books: books_in_series, series_name: series_name_filter, log_messages: log_msg }
-  end
-
   # Fetches and structures books for a specific author.
   # @param site [Jekyll::Site] The Jekyll site object.
   # @param author_name_filter [String] The name of the author to filter by.
@@ -168,44 +152,6 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
       context: context, tag_type: tag_type, reason: reason, identifiers: {}, level: :info
     )
     { key => [], log_messages: log.dup }
-  end
-
-  # --- Series Helpers ---
-
-  def self._filter_series_books(all_books, series_name)
-    return [] if series_name.nil? || series_name.to_s.strip.empty?
-
-    normalized = series_name.to_s.strip.downcase
-    all_books.select { |book| book.data['series']&.strip&.downcase == normalized }
-             .sort_by { |book| _series_sort_key(book) }
-  end
-
-  def self._series_sort_key(book)
-    [
-      _parse_book_number(book.data['book_number']),
-      TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true)
-    ]
-  end
-
-  def self._generate_series_log(books, series_name, context)
-    return _log_empty_series_name(series_name, context) if series_name.nil? || series_name.to_s.strip.empty?
-    return _log_no_books_in_series(series_name, context) if books.empty?
-
-    String.new
-  end
-
-  def self._log_empty_series_name(series_name, context)
-    PluginLoggerUtils.log_liquid_failure(
-      context: context, tag_type: 'BOOK_LIST_SERIES_DISPLAY', reason: 'Series name filter was empty or nil.',
-      identifiers: { SeriesFilterInput: series_name || 'N/A' }, level: :warn
-    ).dup
-  end
-
-  def self._log_no_books_in_series(series_name, context)
-    PluginLoggerUtils.log_liquid_failure(
-      context: context, tag_type: 'BOOK_LIST_SERIES_DISPLAY', reason: 'No books found for the specified series.',
-      identifiers: { SeriesFilter: series_name }, level: :info
-    ).dup
   end
 
   # --- Author Helpers ---

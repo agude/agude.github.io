@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/book_list_utils/test_series_display.rb
-require_relative '../../../test_helper' # Adjusted path
-# BookListUtils is loaded by test_helper
+# _tests/plugins/logic/book_lists/test_series_finder.rb
+require_relative '../../../test_helper'
+require_relative '../../../../_plugins/logic/book_lists/series_finder'
 
-# Renamed class
-class TestBookListUtilsSeriesDisplay < Minitest::Test
+# Test class for Jekyll::BookLists::SeriesFinder
+class TestBookListSeriesFinder < Minitest::Test
   def setup
     # --- Minimal Book Data Setup for Series Display Tests ---
     # Only include books relevant to testing series filtering and sorting.
@@ -67,18 +67,19 @@ class TestBookListUtilsSeriesDisplay < Minitest::Test
     end
   end
 
-  # Helper to call the utility method directly for these focused tests
+  # Helper to call the SeriesFinder directly
   def get_series_data(series_name_filter, site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      BookListUtils.get_data_for_series_display(
+      finder = Jekyll::BookLists::SeriesFinder.new(
         site: site,
         series_name_filter: series_name_filter,
         context: context
       )
+      finder.find
     end
   end
 
-  def test_get_data_for_series_display_found_and_sorted_numerically_with_floats
+  def test_find_returns_books_sorted_numerically_with_floats
     data = get_series_data('Series One')
     assert_equal 'Series One', data[:series_name]
     # Expected order: 0.5, 1, 2.0, 10, NilNum, StrNum (Nil/Str sort last due to Float::INFINITY)
@@ -97,14 +98,14 @@ class TestBookListUtilsSeriesDisplay < Minitest::Test
     assert_empty data[:log_messages].to_s, 'Expected no log messages for a successful series lookup'
   end
 
-  def test_get_data_for_series_display_found_case_insensitive
+  def test_find_is_case_insensitive
     data = get_series_data('series one') # Lowercase filter
-    assert_equal 'series one', data[:series_name] # Util preserves input filter casing for :series_name
+    assert_equal 'series one', data[:series_name] # Finder preserves input filter casing for :series_name
     assert_equal 6, data[:books].size # Should still find all 6 published "Series One" books
     assert_empty data[:log_messages].to_s
   end
 
-  def test_get_data_for_series_display_not_found_logs_info
+  def test_find_with_nonexistent_series_logs_info
     # Enable logging for this test
     @site.config['plugin_logging']['BOOK_LIST_SERIES_DISPLAY'] = true
     data = get_series_data('NonExistent Series')
@@ -114,7 +115,7 @@ class TestBookListUtilsSeriesDisplay < Minitest::Test
     assert_match(expected_log_pattern, data[:log_messages])
   end
 
-  def test_get_data_for_series_display_nil_filter_logs_warn
+  def test_find_with_nil_filter_logs_warn
     @site.config['plugin_logging']['BOOK_LIST_SERIES_DISPLAY'] = true
     data = get_series_data(nil)
     assert_nil data[:series_name]
@@ -123,7 +124,7 @@ class TestBookListUtilsSeriesDisplay < Minitest::Test
                  data[:log_messages]
   end
 
-  def test_get_data_for_series_display_empty_filter_logs_warn
+  def test_find_with_empty_filter_logs_warn
     @site.config['plugin_logging']['BOOK_LIST_SERIES_DISPLAY'] = true
     data = get_series_data('   ') # Filter with only whitespace
     assert_equal '   ', data[:series_name]
@@ -132,14 +133,14 @@ class TestBookListUtilsSeriesDisplay < Minitest::Test
     assert_match(expected_log_pattern, data[:log_messages])
   end
 
-  def test_get_data_for_series_display_ignores_unpublished
+  def test_find_ignores_unpublished_books
     data = get_series_data('Series One')
     assert_equal 6, data[:books].size # Should only find the 6 published ones
     refute_includes data[:books].map { |book| book.data['title'] }, @unpublished_s1.data['title']
     assert_empty data[:log_messages].to_s
   end
 
-  def test_get_data_for_series_display_books_collection_missing_logs_error
+  def test_find_with_missing_books_collection_logs_error
     site_no_books = create_site({}, {}) # No 'books' collection
     site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true # Enable general util logging
     context_no_books = create_context(
@@ -149,7 +150,7 @@ class TestBookListUtilsSeriesDisplay < Minitest::Test
 
     data = get_series_data('Any Series', site_no_books, context_no_books)
     assert_empty data[:books]
-    expected_log_pattern = /<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='series'\s*series_name='Any Series'\s*SourcePage='current_page\.html' -->/
+    expected_log_pattern = /<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*series_name='Any Series'\s*SourcePage='current_page\.html' -->/
     assert_match(expected_log_pattern, data[:log_messages])
   end
 end
