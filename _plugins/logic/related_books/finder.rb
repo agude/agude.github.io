@@ -2,7 +2,6 @@
 
 require_relative '../../utils/plugin_logger_utils'
 require_relative '../../utils/front_matter_utils'
-require_relative '../../utils/book_list_utils'
 require_relative '../../utils/text_processing_utils'
 
 module Jekyll
@@ -253,7 +252,15 @@ module Jekyll
 
       def parse_book_num(obj)
         data = obj.is_a?(Jekyll::Document) || obj.is_a?(Jekyll::Page) ? obj.data : obj
-        BookListUtils.__send__(:_parse_book_number, data['book_number'])
+        parse_book_number(data['book_number'])
+      end
+
+      def parse_book_number(book_number_raw)
+        return Float::INFINITY if book_number_raw.nil? || book_number_raw.to_s.strip.empty?
+
+        Float(book_number_raw.to_s)
+      rescue ArgumentError
+        Float::INFINITY
       end
     end
   end

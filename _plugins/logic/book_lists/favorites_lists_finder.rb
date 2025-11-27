@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # _plugins/logic/book_lists/favorites_lists_finder.rb
-require_relative '../../utils/plugin_logger_utils'
+require_relative 'shared'
 require_relative '../../utils/text_processing_utils'
 
 module Jekyll
@@ -11,6 +11,8 @@ module Jekyll
     # Handles validation of prerequisites (site.posts and favorites cache),
     # fetching posts marked as favorites lists, and organizing books for each list.
     class FavoritesListsFinder
+      include Jekyll::BookLists::Shared
+
       def initialize(site:, context:)
         @site = site
         @context = context
@@ -36,20 +38,10 @@ module Jekyll
       def favorites_error_response
         return_error(
           'Prerequisites missing: site.posts or favorites_posts_to_books cache.',
+          identifiers: {},
           key: :favorites_lists,
           tag_type: 'BOOK_LIST_FAVORITES'
         )
-      end
-
-      def return_error(reason, key: nil, tag_type: 'BOOK_LIST_UTIL')
-        log = PluginLoggerUtils.log_liquid_failure(
-          context: @context,
-          tag_type: tag_type,
-          reason: reason,
-          identifiers: {},
-          level: :error
-        )
-        { key || :books => [], log_messages: log.dup }
       end
 
       def build_favorites_lists

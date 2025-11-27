@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # _plugins/logic/book_lists/by_award_finder.rb
-require_relative '../../utils/plugin_logger_utils'
+require_relative 'shared'
 require_relative '../../utils/text_processing_utils'
 
 module Jekyll
@@ -11,6 +11,8 @@ module Jekyll
     # Handles validation, collecting unique awards, grouping books by award,
     # and formatting award names for display.
     class ByAwardFinder
+      include Jekyll::BookLists::Shared
+
       def initialize(site:, context:)
         @site = site
         @context = context
@@ -19,10 +21,10 @@ module Jekyll
       # Finds and structures all books grouped by award.
       # @return [Hash] Contains :awards_data (Array of Hashes), :log_messages (String).
       def find
-        error = validate_collection
+        error = validate_collection({ filter_type: 'all_books_by_award' }, key: :awards_data)
         return error if error
 
-        all_books = get_all_published_books(include_archived: false)
+        all_books = all_published_books(include_archived: false)
         return { awards_data: [], log_messages: String.new } if all_books.empty?
 
         unique_awards = collect_unique_awards(all_books)
@@ -33,37 +35,6 @@ module Jekyll
       end
 
       private
-
-      def validate_collection
-        return nil if books_collection_exists?
-
-        return_error(
-          "Required 'books' collection not found in site configuration.",
-          key: :awards_data
-        )
-      end
-
-      def books_collection_exists?
-        @site&.collections&.key?('books')
-      end
-
-      def return_error(reason, key: nil)
-        log = PluginLoggerUtils.log_liquid_failure(
-          context: @context,
-          tag_type: 'BOOK_LIST_UTIL',
-          reason: reason,
-          identifiers: { filter_type: 'all_books_by_award' },
-          level: :error
-        )
-        { key || :books => [], log_messages: log.dup }
-      end
-
-      def get_all_published_books(include_archived: false)
-        books = @site.collections['books'].docs.reject { |book| book.data['published'] == false }
-        return books if include_archived
-
-        books.reject { |book| book.data['canonical_url']&.start_with?('/') }
-      end
 
       def collect_unique_awards(books)
         unique = {}

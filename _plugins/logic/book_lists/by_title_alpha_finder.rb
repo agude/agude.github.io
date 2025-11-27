@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # _plugins/logic/book_lists/by_title_alpha_finder.rb
-require_relative '../../utils/plugin_logger_utils'
+require_relative 'shared'
 require_relative '../../utils/text_processing_utils'
 
 module Jekyll
@@ -11,6 +11,8 @@ module Jekyll
     # Handles validation, normalizing titles (removing articles), grouping by first letter,
     # and sorting books alphabetically within each letter group.
     class ByTitleAlphaFinder
+      include Jekyll::BookLists::Shared
+
       def initialize(site:, context:)
         @site = site
         @context = context
@@ -19,10 +21,10 @@ module Jekyll
       # Finds and structures all books grouped by title's first letter.
       # @return [Hash] Contains :alpha_groups (Array of Hashes), :log_messages (String).
       def find
-        error = validate_collection
+        error = validate_collection({ filter_type: 'all_books_by_title_alpha_group' }, key: :alpha_groups)
         return error if error
 
-        all_books = get_all_published_books(include_archived: false)
+        all_books = all_published_books(include_archived: false)
         if all_books.empty?
           return return_info('ALL_BOOKS_BY_TITLE_ALPHA_GROUP',
                              'No published books found to group by title.',
@@ -34,48 +36,6 @@ module Jekyll
       end
 
       private
-
-      def validate_collection
-        return nil if books_collection_exists?
-
-        return_error(
-          "Required 'books' collection not found in site configuration.",
-          key: :alpha_groups
-        )
-      end
-
-      def books_collection_exists?
-        @site&.collections&.key?('books')
-      end
-
-      def return_error(reason, key: nil)
-        log = PluginLoggerUtils.log_liquid_failure(
-          context: @context,
-          tag_type: 'BOOK_LIST_UTIL',
-          reason: reason,
-          identifiers: { filter_type: 'all_books_by_title_alpha_group' },
-          level: :error
-        )
-        { key || :books => [], log_messages: log.dup }
-      end
-
-      def return_info(tag_type, reason, key:)
-        log = PluginLoggerUtils.log_liquid_failure(
-          context: @context,
-          tag_type: tag_type,
-          reason: reason,
-          identifiers: {},
-          level: :info
-        )
-        { key => [], log_messages: log.dup }
-      end
-
-      def get_all_published_books(include_archived: false)
-        books = @site.collections['books'].docs.reject { |book| book.data['published'] == false }
-        return books if include_archived
-
-        books.reject { |book| book.data['canonical_url']&.start_with?('/') }
-      end
 
       def group_books_by_alpha(books)
         books_with_meta = books.map { |book| create_book_alpha_meta(book) }
