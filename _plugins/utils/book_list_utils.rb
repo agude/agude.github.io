@@ -13,18 +13,6 @@ require_relative 'front_matter_utils'
 module BookListUtils # rubocop:disable Metrics/ModuleLength
   # --- Public Methods for Tags ---
 
-  # Fetches and structures all books for display.
-  # @param site [Jekyll::Site] The Jekyll site object.
-  # @param context [Liquid::Context] The Liquid context.
-  # @return [Hash] Contains :standalone_books (Array), :series_groups (Array), :log_messages (String).
-  def self.get_data_for_all_books_display(site:, context:)
-    error = _validate_collection(site, context, filter_type: 'all_books', structure: true)
-    return error if error
-
-    all_books = _get_all_published_books(site, include_archived: false)
-    _structure_books_for_display(all_books)
-  end
-
   # Fetches all books, groups them by author, then structures each author's books.
   # @param site [Jekyll::Site] The Jekyll site object.
   # @param context [Liquid::Context] The Liquid context.

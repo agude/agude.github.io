@@ -3,7 +3,7 @@
 # _plugins/display_all_books_grouped_tag.rb
 require 'jekyll'
 require 'liquid'
-require_relative 'utils/book_list_utils'
+require_relative 'logic/book_lists/all_books_finder'
 require_relative 'utils/book_list_renderer_utils'
 
 # Jekyll namespace for custom plugins.
@@ -23,10 +23,8 @@ module Jekyll
 
     def render(context)
       site = context.registers[:site]
-      data = BookListUtils.get_data_for_all_books_display(
-        site: site,
-        context: context
-      )
+      finder = Jekyll::BookLists::AllBooksFinder.new(site: site, context: context)
+      data = finder.find
 
       # BookListRendererUtils.render_book_groups_html will prepend data[:log_messages] (if any)
       # and handle cases where no books are found.

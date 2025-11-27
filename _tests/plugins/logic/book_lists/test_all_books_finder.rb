@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/book_list_utils/test_all_books_display.rb
+# _tests/plugins/logic/book_lists/test_all_books_finder.rb
 require_relative '../../../test_helper'
-# BookListUtils is loaded by test_helper
+require_relative '../../../../_plugins/logic/book_lists/all_books_finder'
 
-# Renamed class
-class TestBookListUtilsAllBooksDisplay < Minitest::Test
+# Tests for Jekyll::BookLists::AllBooksFinder functionality.
+class TestBookListAllBooksFinder < Minitest::Test
   def setup
     # --- Book Data for All Books Display Tests ---
     # This setup should include a mix of series books and standalone books
@@ -70,14 +70,15 @@ class TestBookListUtilsAllBooksDisplay < Minitest::Test
     end
   end
 
-  # Helper to call the utility method directly
+  # Helper to call the finder directly
   def get_all_books_data(site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      BookListUtils.get_data_for_all_books_display(site: site, context: context)
+      finder = Jekyll::BookLists::AllBooksFinder.new(site: site, context: context)
+      finder.find
     end
   end
 
-  def test_get_data_for_all_books_display_correct_structure_and_sorting
+  def test_find_returns_correct_structure_and_sorting
     data = get_all_books_data
 
     # --- Assert Standalone Books ---
@@ -111,7 +112,7 @@ class TestBookListUtilsAllBooksDisplay < Minitest::Test
     assert_empty data[:log_messages].to_s, 'Expected no log messages for successful display'
   end
 
-  def test_get_data_for_all_books_display_sorts_series_ignoring_articles
+  def test_find_sorts_series_ignoring_articles
     book_expanse = create_doc(
       { 'title' => 'Book 1', 'series' => 'The Expanse', 'published' => true },
       '/b1.html'
@@ -144,7 +145,7 @@ class TestBookListUtilsAllBooksDisplay < Minitest::Test
     )
   end
 
-  def test_get_data_for_all_books_display_ignores_unpublished
+  def test_find_ignores_unpublished_books
     data = get_all_books_data
     all_rendered_titles = data[:standalone_books].map { |book| book.data['title'] } +
                           data[:series_groups].flat_map do |series_group|
@@ -153,9 +154,9 @@ class TestBookListUtilsAllBooksDisplay < Minitest::Test
     refute_includes all_rendered_titles, @unpublished_book.data['title']
   end
 
-  def test_get_data_for_all_books_display_empty_collection_logs_nothing_from_this_method
-    # NOTE: _get_all_published_books would return empty.
-    # _structure_books_for_display would then process an empty list, returning empty groups
+  def test_find_with_empty_collection_returns_empty_groups
+    # NOTE: get_all_published_books would return empty.
+    # structure_books_for_display would then process an empty list, returning empty groups
     # and an empty log_messages string. The top-level log for "collection missing" is tested separately.
     site_empty_books = create_site({}, { 'books' => [] })
     context_empty_books = create_context({}, { site: site_empty_books, page: @context.registers[:page] })
@@ -166,7 +167,7 @@ class TestBookListUtilsAllBooksDisplay < Minitest::Test
     assert_empty data[:log_messages].to_s # This method itself doesn't log for empty, but util might
   end
 
-  def test_get_data_for_all_books_display_books_collection_missing_logs_error
+  def test_find_with_missing_books_collection_logs_error
     site_no_books = create_site({}, {}) # No 'books' collection
     site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true
     context_no_books = create_context(
