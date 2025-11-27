@@ -3,7 +3,7 @@
 # _plugins/display_books_by_author_tag.rb
 require 'jekyll'
 require 'liquid'
-require_relative 'utils/book_list_utils'
+require_relative 'logic/book_lists/author_finder'
 require_relative 'utils/book_list_renderer_utils'
 require_relative 'utils/tag_argument_utils'
 
@@ -39,20 +39,19 @@ module Jekyll
       def render
         author_name_input = TagArgumentUtils.resolve_value(@author_name_markup, @context)
 
-        data = if author_name_input && !author_name_input.to_s.strip.empty?
-                 BookListUtils.get_data_for_author_display(
-                   site: @site,
-                   author_name_filter: author_name_input.to_s,
-                   context: @context
-                 )
-               else
-                 # Let BookListUtils handle logging for nil/empty author filter
-                 BookListUtils.get_data_for_author_display(
-                   site: @site,
-                   author_name_filter: author_name_input,
-                   context: @context
-                 )
-               end
+        # Convert to string if not nil, otherwise pass nil to let AuthorFinder handle logging
+        author_filter = if author_name_input && !author_name_input.to_s.strip.empty?
+                          author_name_input.to_s
+                        else
+                          author_name_input
+                        end
+
+        finder = Jekyll::BookLists::AuthorFinder.new(
+          site: @site,
+          author_name_filter: author_filter,
+          context: @context
+        )
+        data = finder.find
 
         # BookListRendererUtils.render_book_groups_html will prepend data[:log_messages]
         BookListRendererUtils.render_book_groups_html(data, @context)

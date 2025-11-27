@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/book_list_utils/test_author_display.rb
+# _tests/plugins/logic/book_lists/test_author_finder.rb
 require_relative '../../../test_helper'
+require_relative '../../../../_plugins/logic/book_lists/author_finder'
 
-# Tests for BookListUtils author-specific display functionality.
+# Tests for Jekyll::BookLists::AuthorFinder functionality.
 #
-# Verifies that the utility correctly displays books for a specific author with series grouping.
-class TestBookListUtilsAuthorDisplay < Minitest::Test
+# Verifies that the finder correctly displays books for a specific author with series grouping.
+class TestBookListAuthorFinder < Minitest::Test
   def setup
     setup_author_names
     setup_test_books
@@ -17,32 +18,33 @@ class TestBookListUtilsAuthorDisplay < Minitest::Test
 
   def get_author_data(author_name_filter, site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      BookListUtils.get_data_for_author_display(
+      finder = Jekyll::BookLists::AuthorFinder.new(
         site: site,
         author_name_filter: author_name_filter,
         context: context
       )
+      finder.find
     end
   end
 
-  def test_get_data_for_author_display_found_author_alpha
+  def test_find_returns_author_alpha_books_correctly_structured
     data = get_author_data(@author_alpha_name)
     assert_author_alpha_structure(data)
   end
 
-  def test_get_data_for_author_display_found_author_beta_case_insensitive
+  def test_find_is_case_insensitive_for_author_beta
     data = get_author_data('AUTHOR BETA')
     assert_author_beta_structure(data)
   end
 
-  def test_get_data_for_author_display_ignores_unpublished
+  def test_find_ignores_unpublished_books
     data = get_author_data(@author_alpha_name)
     all_rendered_titles = collect_all_rendered_titles(data)
     refute_includes all_rendered_titles, @unpublished_book_by_alpha.data['title']
     assert_expected_alpha_counts(data)
   end
 
-  def test_get_data_for_author_display_author_not_found_logs_info
+  def test_find_with_nonexistent_author_logs_info
     @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true
     data = get_author_data('NonExistent Author')
     assert_empty data[:standalone_books]
@@ -51,7 +53,7 @@ class TestBookListUtilsAuthorDisplay < Minitest::Test
     assert_match expected_pattern, data[:log_messages]
   end
 
-  def test_get_data_for_author_display_nil_filter_logs_warn
+  def test_find_with_nil_filter_logs_warn
     @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true
     data = get_author_data(nil)
     assert_empty data[:standalone_books]
@@ -60,7 +62,7 @@ class TestBookListUtilsAuthorDisplay < Minitest::Test
     assert_match expected_pattern, data[:log_messages]
   end
 
-  def test_get_data_for_author_display_empty_filter_logs_warn
+  def test_find_with_empty_filter_logs_warn
     @site.config['plugin_logging']['BOOK_LIST_AUTHOR_DISPLAY'] = true
     data = get_author_data('   ')
     assert_empty data[:standalone_books]
@@ -69,7 +71,7 @@ class TestBookListUtilsAuthorDisplay < Minitest::Test
     assert_match expected_pattern, data[:log_messages]
   end
 
-  def test_get_data_for_author_display_books_collection_missing_logs_error
+  def test_find_with_missing_books_collection_logs_error
     site_no_books = create_site({}, {})
     site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true
     context_no_books = create_context({}, { site: site_no_books, page: @context.registers[:page] })

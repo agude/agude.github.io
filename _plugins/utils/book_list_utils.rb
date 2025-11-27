@@ -13,23 +13,6 @@ require_relative 'front_matter_utils'
 module BookListUtils # rubocop:disable Metrics/ModuleLength
   # --- Public Methods for Tags ---
 
-  # Fetches and structures books for a specific author.
-  # @param site [Jekyll::Site] The Jekyll site object.
-  # @param author_name_filter [String] The name of the author to filter by.
-  # @param context [Liquid::Context] The Liquid context.
-  # @return [Hash] Contains :standalone_books (Array), :series_groups (Array), :log_messages (String).
-  def self.get_data_for_author_display(site:, author_name_filter:, context:)
-    error = _validate_collection(site, context, filter_type: 'author', author_name: author_name_filter, structure: true)
-    return error if error
-
-    author_books = _fetch_books_for_author(site, author_name_filter)
-    log_msg = _generate_author_log(author_books, author_name_filter, context)
-
-    structured_data = _structure_books_for_display(author_books)
-    structured_data[:log_messages] = (structured_data[:log_messages] || '') + log_msg
-    structured_data
-  end
-
   # Fetches and structures all books for display.
   # @param site [Jekyll::Site] The Jekyll site object.
   # @param context [Liquid::Context] The Liquid context.
@@ -152,51 +135,6 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
       context: context, tag_type: tag_type, reason: reason, identifiers: {}, level: :info
     )
     { key => [], log_messages: log.dup }
-  end
-
-  # --- Author Helpers ---
-
-  def self._fetch_books_for_author(site, author_name)
-    return [] if author_name.nil? || author_name.to_s.strip.empty?
-
-    link_cache = site.data['link_cache'] || {}
-    author_cache = link_cache['authors'] || {}
-    canonical_filter = _get_canonical_author(author_name, author_cache)
-    all_books = _get_all_published_books(site, include_archived: false)
-
-    all_books.select do |book|
-      _book_matches_author?(book, canonical_filter, author_cache)
-    end
-  end
-
-  def self._book_matches_author?(book, canonical_filter, author_cache)
-    authors = FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
-    authors.any? do |name|
-      c_name = _get_canonical_author(name, author_cache)
-      c_name && canonical_filter && c_name.casecmp(canonical_filter).zero?
-    end
-  end
-
-  def self._generate_author_log(books, author_name, context)
-    return _log_empty_author_name(author_name, context) if author_name.nil? || author_name.to_s.strip.empty?
-    return _log_no_books_for_author(author_name, context) if books.empty?
-
-    String.new
-  end
-
-  def self._log_empty_author_name(author_name, context)
-    PluginLoggerUtils.log_liquid_failure(
-      context: context, tag_type: 'BOOK_LIST_AUTHOR_DISPLAY',
-      reason: 'Author name filter was empty or nil when fetching data.',
-      identifiers: { AuthorFilterInput: author_name || 'N/A' }, level: :warn
-    ).dup
-  end
-
-  def self._log_no_books_for_author(author_name, context)
-    PluginLoggerUtils.log_liquid_failure(
-      context: context, tag_type: 'BOOK_LIST_AUTHOR_DISPLAY', reason: 'No books found for the specified author.',
-      identifiers: { AuthorFilter: author_name }, level: :info
-    ).dup
   end
 
   # --- All Books By Author Helpers ---
