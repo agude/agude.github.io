@@ -10,23 +10,8 @@ require_relative 'front_matter_utils'
 #
 # Provides methods to filter, sort, and group books by various criteria
 # (series, author, title, awards, year) for use in various list formats.
-module BookListUtils # rubocop:disable Metrics/ModuleLength
+module BookListUtils
   # --- Public Methods for Tags ---
-
-  # Fetches all books, groups them by author, then structures each author's books.
-  # @param site [Jekyll::Site] The Jekyll site object.
-  # @param context [Liquid::Context] The Liquid context.
-  # @return [Hash] Contains :authors_data (Array of Hashes), :log_messages (String).
-  def self.get_data_for_all_books_by_author_display(site:, context:)
-    error = _validate_collection(site, context, filter_type: 'all_books_by_author', key: :authors_data)
-    return error if error
-
-    books_by_author = _group_books_by_canonical_author(site)
-    authors_data_list = _build_authors_data_list(books_by_author)
-    log_msg = _generate_all_authors_log(authors_data_list, context)
-
-    { authors_data: authors_data_list, log_messages: log_msg }
-  end
 
   # Fetches all books, groups them by award.
   def self.get_data_for_all_books_by_award_display(site:, context:)
@@ -123,50 +108,6 @@ module BookListUtils # rubocop:disable Metrics/ModuleLength
       context: context, tag_type: tag_type, reason: reason, identifiers: {}, level: :info
     )
     { key => [], log_messages: log.dup }
-  end
-
-  # --- All Books By Author Helpers ---
-
-  def self._group_books_by_canonical_author(site)
-    link_cache = site.data['link_cache'] || {}
-    author_cache = link_cache['authors'] || {}
-    books_map = {}
-
-    _get_all_published_books(site, include_archived: false).each do |book|
-      _add_book_to_author_map(book, author_cache, books_map)
-    end
-    books_map
-  end
-
-  def self._add_book_to_author_map(book, author_cache, books_map)
-    FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors']).each do |name|
-      canonical = _get_canonical_author(name, author_cache)
-      next unless canonical
-
-      books_map[canonical] ||= []
-      books_map[canonical] << book
-    end
-  end
-
-  def self._build_authors_data_list(books_map)
-    list = books_map.map do |name, books|
-      structured = _structure_books_for_display(books.uniq)
-      {
-        author_name: name,
-        standalone_books: structured[:standalone_books],
-        series_groups: structured[:series_groups]
-      }
-    end
-    list.sort_by { |entry| entry[:author_name].downcase }
-  end
-
-  def self._generate_all_authors_log(data, context)
-    return String.new unless data.empty?
-
-    PluginLoggerUtils.log_liquid_failure(
-      context: context, tag_type: 'ALL_BOOKS_BY_AUTHOR_DISPLAY',
-      reason: 'No published books with valid author names found.', identifiers: {}, level: :info
-    ).dup
   end
 
   # --- Award Helpers ---

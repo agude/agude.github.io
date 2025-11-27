@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/book_list_utils/test_all_books_by_author_display.rb
+# _tests/plugins/logic/book_lists/test_all_books_by_author_finder.rb
 require_relative '../../../test_helper'
-# BookListUtils, FrontMatterUtils are loaded by test_helper
+require_relative '../../../../_plugins/logic/book_lists/all_books_by_author_finder'
 
-# Tests for BookListUtils all books by author display functionality.
-#
-# Verifies that the utility correctly groups and displays all books organized by author.
-class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
+# Tests for Jekyll::BookLists::AllBooksByAuthorFinder functionality.
+class TestBookListAllBooksByAuthorFinder < Minitest::Test
   def setup
     # --- Author Names ---
     @author_a_cap_name = 'Author Alpha'
@@ -117,11 +115,12 @@ class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
 
   def get_all_books_by_author_data(site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      BookListUtils.get_data_for_all_books_by_author_display(site: site, context: context)
+      finder = Jekyll::BookLists::AllBooksByAuthorFinder.new(site: site, context: context)
+      finder.find
     end
   end
 
-  def test_get_data_for_all_books_by_author_display_correct_structure_and_sorting
+  def test_find_returns_correct_structure_and_sorting
     data = get_all_books_by_author_data
 
     assert_empty data[:log_messages].to_s
@@ -185,7 +184,7 @@ class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
     assert_empty author_c_data[:series_groups], 'Author Charlie should have no series groups'
   end
 
-  def test_get_data_for_all_books_by_author_display_excludes_malformed_and_unpublished
+  def test_find_excludes_malformed_and_unpublished
     data = get_all_books_by_author_data
 
     # Check that no author groups were created for nil or empty string authors
@@ -207,7 +206,7 @@ class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
     refute_includes all_rendered_book_titles, @unpublished_book.data['title']
   end
 
-  def test_get_data_for_all_books_by_author_display_logs_if_no_valid_author_books
+  def test_find_logs_if_no_valid_author_books
     site_no_valid_authors = create_site({}, { 'books' => [@book_no_author, @book_nil_author] })
     site_no_valid_authors.config['plugin_logging']['ALL_BOOKS_BY_AUTHOR_DISPLAY'] = true
     ctx_page = @context.registers[:page]
@@ -223,7 +222,7 @@ class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
     assert_match expected_pattern, data[:log_messages]
   end
 
-  def test_get_data_for_all_books_by_author_display_logs_if_books_collection_missing
+  def test_find_logs_if_books_collection_missing
     site_no_books = create_site({}, {})
     site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true
     ctx_page = @context.registers[:page]
@@ -239,7 +238,7 @@ class TestBookListUtilsAllBooksByAuthorDisplay < Minitest::Test
     assert_match expected_pattern, data[:log_messages]
   end
 
-  def test_get_data_for_all_books_by_author_display_empty_books_collection
+  def test_find_with_empty_books_collection
     site_empty_books = create_site({}, { 'books' => [] })
     site_empty_books.config['plugin_logging']['ALL_BOOKS_BY_AUTHOR_DISPLAY'] = true
     ctx_page = @context.registers[:page]

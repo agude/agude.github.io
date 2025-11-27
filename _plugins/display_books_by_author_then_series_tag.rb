@@ -4,7 +4,7 @@
 require 'jekyll'
 require 'liquid'
 require 'cgi'
-require_relative 'utils/book_list_utils'
+require_relative 'logic/book_lists/all_books_by_author_finder'
 require_relative 'utils/book_list_renderer_utils'
 require_relative 'utils/book_card_utils'
 
@@ -51,10 +51,8 @@ module Jekyll
       private
 
       def fetch_data
-        BookListUtils.get_data_for_all_books_by_author_display(
-          site: @site,
-          context: @context
-        )
+        finder = Jekyll::BookLists::AllBooksByAuthorFinder.new(site: @site, context: @context)
+        finder.find
       end
 
       def build_content(authors_data)
