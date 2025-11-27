@@ -13,25 +13,6 @@ require_relative 'front_matter_utils'
 module BookListUtils
   # --- Public Methods for Tags ---
 
-  # Fetches all books, groups them by year, sorted most recent year first.
-  # Books within each year are sorted by date, most recent first.
-  # @param site [Jekyll::Site] The Jekyll site object.
-  # @param context [Liquid::Context] The Liquid context.
-  # @return [Hash] Contains :year_groups (Array of Hashes), :log_messages (String).
-  def self.get_data_for_all_books_by_year_display(site:, context:)
-    error = _validate_collection(site, context, filter_type: 'all_books_by_year', key: :year_groups)
-    return error if error
-
-    all_books = _get_all_published_books(site, include_archived: true)
-    if all_books.empty?
-      return _return_info(context, 'ALL_BOOKS_BY_YEAR_DISPLAY',
-                          'No published books found to group by year.', key: :year_groups)
-    end
-
-    year_groups_list = _group_books_by_year(all_books)
-    { year_groups: year_groups_list, log_messages: String.new }
-  end
-
   def self.get_data_for_favorites_lists(site:, context:)
     return _favorites_error_response(context) unless _favorites_prerequisites_met?(site)
 
@@ -75,20 +56,6 @@ module BookListUtils
       context: context, tag_type: tag_type, reason: reason, identifiers: {}, level: :info
     )
     { key => [], log_messages: log.dup }
-  end
-
-  # --- Year Group Helpers ---
-
-  def self._group_books_by_year(books)
-    sorted = books.sort_by do |book|
-      book.date.is_a?(Time) ? book.date : Time.now
-    end.reverse
-
-    grouped = sorted.group_by { |book| book.date.year.to_s }
-
-    grouped.keys.sort.reverse.map do |year|
-      { year: year, books: grouped[year] }
-    end
   end
 
   # --- Favorites Helpers ---

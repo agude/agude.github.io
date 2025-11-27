@@ -4,7 +4,7 @@
 require 'jekyll'
 require 'liquid'
 require 'cgi' # For CGI.escapeHTML
-require_relative 'utils/book_list_utils'
+require_relative 'logic/book_lists/by_year_finder'
 require_relative 'utils/book_card_utils'
 
 module Jekyll
@@ -34,10 +34,8 @@ module Jekyll
       end
 
       def render
-        data = BookListUtils.get_data_for_all_books_by_year_display(
-          site: @site,
-          context: @context
-        )
+        finder = Jekyll::BookLists::ByYearFinder.new(site: @site, context: @context)
+        data = finder.find
 
         output = data[:log_messages] || ''
         return output if data[:year_groups].empty? && !output.empty?

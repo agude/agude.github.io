@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/book_list_utils/test_all_books_by_year_display.rb
+# _tests/plugins/logic/book_lists/test_by_year_finder.rb
 require_relative '../../../test_helper'
+require_relative '../../../../_plugins/logic/book_lists/by_year_finder'
 require 'time'
 
+# Tests for Jekyll::BookLists::ByYearFinder
+#
+# Verifies that the finder correctly groups books by publication year,
+# sorts years in descending order, and sorts books within each year by date (most recent first).
 # Base test class with shared setup and helpers
-class TestBookListUtilsAllBooksByYearDisplayBase < Minitest::Test
+class TestBookListByYearFinderBase < Minitest::Test
   def setup
     setup_test_books
     setup_site_and_context
@@ -14,7 +19,8 @@ class TestBookListUtilsAllBooksByYearDisplayBase < Minitest::Test
 
   def get_all_books_by_year_data(site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      BookListUtils.get_data_for_all_books_by_year_display(site: site, context: context)
+      finder = Jekyll::BookLists::ByYearFinder.new(site: site, context: context)
+      finder.find
     end
   end
 
@@ -65,20 +71,20 @@ class TestBookListUtilsAllBooksByYearDisplayBase < Minitest::Test
 end
 
 # Tests for grouping and sorting functionality
-class TestBookListUtilsAllBooksByYearDisplayGrouping < TestBookListUtilsAllBooksByYearDisplayBase
-  def test_get_data_for_all_books_by_year_display_correct_grouping_and_sorting
+class TestBookListByYearFinderGrouping < TestBookListByYearFinderBase
+  def test_by_year_finder_correct_grouping_and_sorting
     test_books = create_year_test_books
     temp_site, temp_context = create_temp_site_and_context(test_books)
 
-    data = get_all_books_by_year_data(temp_site, temp_context)
+    result = get_all_books_by_year_data(temp_site, temp_context)
 
-    assert_empty data[:log_messages].to_s
-    assert_correct_year_groups(data, test_books)
+    assert_empty result[:log_messages].to_s
+    assert_correct_year_groups(result, test_books)
   end
 
-  def test_get_data_for_all_books_by_year_display_ignores_unpublished
-    data = get_all_books_by_year_data(@site, @context)
-    all_rendered_titles = data[:year_groups].flat_map { |yg| yg[:books].map { |b| b.data['title'] } }
+  def test_by_year_finder_ignores_unpublished
+    result = get_all_books_by_year_data(@site, @context)
+    all_rendered_titles = result[:year_groups].flat_map { |yg| yg[:books].map { |b| b.data['title'] } }
     refute_includes all_rendered_titles, @unpublished_2023_setup.data['title']
   end
 
@@ -124,19 +130,19 @@ class TestBookListUtilsAllBooksByYearDisplayGrouping < TestBookListUtilsAllBooks
     [temp_site, temp_context]
   end
 
-  def assert_correct_year_groups(data, books)
-    assert_equal 3, data[:year_groups].size, 'Incorrect number of year groups. Expected 3 based on test data.'
+  def assert_correct_year_groups(result, books)
+    assert_equal 3, result[:year_groups].size, 'Incorrect number of year groups. Expected 3 based on test data.'
 
-    actual_year_order = data[:year_groups].map { |yg| yg[:year] }
+    actual_year_order = result[:year_groups].map { |yg| yg[:year] }
     assert_equal %w[2024 2023 2022], actual_year_order, 'Year groups not sorted correctly'
 
-    assert_group_2024_correct(data, books)
-    assert_group_2023_correct(data, books)
-    assert_group_2022_correct(data, books)
+    assert_group_2024_correct(result, books)
+    assert_group_2023_correct(result, books)
+    assert_group_2022_correct(result, books)
   end
 
-  def assert_group_2024_correct(data, books)
-    group = data[:year_groups].find { |g| g[:year] == '2024' }
+  def assert_group_2024_correct(result, books)
+    group = result[:year_groups].find { |g| g[:year] == '2024' }
     refute_nil group, "Group '2024' missing"
     expected_titles = [
       books[:book_may_2024_fixed].data['title'],
@@ -147,16 +153,16 @@ class TestBookListUtilsAllBooksByYearDisplayGrouping < TestBookListUtilsAllBooks
                  'Books in 2024 group not sorted correctly by date'
   end
 
-  def assert_group_2023_correct(data, books)
-    group = data[:year_groups].find { |g| g[:year] == '2023' }
+  def assert_group_2023_correct(result, books)
+    group = result[:year_groups].find { |g| g[:year] == '2023' }
     refute_nil group, "Group '2023' missing"
     expected_titles = [books[:book_dec_2023].data['title'], books[:book_jun_2023].data['title']]
     assert_equal expected_titles, group[:books].map { |b| b.data['title'] },
                  'Books in 2023 group not sorted correctly by date'
   end
 
-  def assert_group_2022_correct(data, books)
-    group = data[:year_groups].find { |g| g[:year] == '2022' }
+  def assert_group_2022_correct(result, books)
+    group = result[:year_groups].find { |g| g[:year] == '2022' }
     refute_nil group, "Group '2022' missing"
     expected_titles = [books[:book_oct_2022].data['title']]
     assert_equal expected_titles, group[:books].map { |b| b.data['title'] },
@@ -165,25 +171,25 @@ class TestBookListUtilsAllBooksByYearDisplayGrouping < TestBookListUtilsAllBooks
 end
 
 # Tests for archived reviews and date handling
-class TestBookListUtilsAllBooksByYearDisplayArchived < TestBookListUtilsAllBooksByYearDisplayBase
+class TestBookListByYearFinderArchived < TestBookListByYearFinderBase
   def test_includes_archived_reviews
     canonical, archived = create_archived_test_books
     site = create_site({}, { 'books' => [canonical, archived] })
     context = create_context({}, { site: site, page: @context.registers[:page] })
 
-    data = get_all_books_by_year_data(site, context)
+    result = get_all_books_by_year_data(site, context)
 
-    assert_archived_reviews_included(data, canonical, archived)
+    assert_archived_reviews_included(result, canonical, archived)
   end
 
-  def test_get_data_for_all_books_by_year_display_handles_books_with_non_time_dates_gracefully
+  def test_by_year_finder_handles_books_with_non_time_dates_gracefully
     book_current_time, book_specific_string = create_mixed_date_books
     site_with_mixed = create_mixed_dates_site(book_current_time, book_specific_string)
     context_with_mixed = create_context({}, { site: site_with_mixed, page: @context.registers[:page] })
 
-    data = get_all_books_by_year_data(site_with_mixed, context_with_mixed)
+    result = get_all_books_by_year_data(site_with_mixed, context_with_mixed)
 
-    assert_mixed_dates_handled_correctly(data, book_current_time, book_specific_string)
+    assert_mixed_dates_handled_correctly(result, book_current_time, book_specific_string)
   end
 
   private
@@ -201,9 +207,9 @@ class TestBookListUtilsAllBooksByYearDisplayArchived < TestBookListUtilsAllBooks
     [canonical, archived]
   end
 
-  def assert_archived_reviews_included(data, canonical, archived)
-    assert_equal 1, data[:year_groups].size
-    group = data[:year_groups].first
+  def assert_archived_reviews_included(result, canonical, archived)
+    assert_equal 1, result[:year_groups].size
+    group = result[:year_groups].first
     assert_equal '2023', group[:year]
     assert_equal 2, group[:books].size
     assert_includes group[:books].map { |b| b.data['title'] }, canonical.data['title']
@@ -226,44 +232,44 @@ class TestBookListUtilsAllBooksByYearDisplayArchived < TestBookListUtilsAllBooks
     create_site({}, { 'books' => [book_current, book_specific, @book_jun_2023_setup] })
   end
 
-  def assert_mixed_dates_handled_correctly(data, book_current, book_specific)
+  def assert_mixed_dates_handled_correctly(result, book_current, book_specific)
     current_year_str = Time.now.year.to_s
     expected_years = [current_year_str, '2023', '2022'].uniq.sort.reverse
-    actual_years = data[:year_groups].map { |yg| yg[:year] }.sort.reverse
+    actual_years = result[:year_groups].map { |yg| yg[:year] }.sort.reverse
     assert_equal expected_years, actual_years
 
-    current_year_group = data[:year_groups].find { |yg| yg[:year] == current_year_str }
+    current_year_group = result[:year_groups].find { |yg| yg[:year] == current_year_str }
     refute_nil current_year_group, 'Group for current year (fallback or actual) missing'
     assert_includes current_year_group[:books].map { |b| b.data['title'] }, book_current.data['title']
 
-    year_group_2022 = data[:year_groups].find { |yg| yg[:year] == '2022' }
+    year_group_2022 = result[:year_groups].find { |yg| yg[:year] == '2022' }
     refute_nil year_group_2022
     assert_includes year_group_2022[:books].map { |b| b.data['title'] }, book_specific.data['title']
   end
 end
 
 # Tests for error handling and logging
-class TestBookListUtilsAllBooksByYearDisplayErrors < TestBookListUtilsAllBooksByYearDisplayBase
-  def test_get_data_for_all_books_by_year_display_no_books_logs_info
+class TestBookListByYearFinderErrors < TestBookListByYearFinderBase
+  def test_by_year_finder_no_books_logs_info
     site_empty = create_empty_books_site
     context_empty = create_context({}, { site: site_empty, page: @context.registers[:page] })
 
-    data = get_all_books_by_year_data(site_empty, context_empty)
+    result = get_all_books_by_year_data(site_empty, context_empty)
 
-    assert_empty data[:year_groups]
+    assert_empty result[:year_groups]
     expected_pattern = /<!-- \[INFO\] ALL_BOOKS_BY_YEAR_DISPLAY_FAILURE: Reason='No published books found to group by year\.'\s*SourcePage='current_page\.html' -->/
-    assert_match expected_pattern, data[:log_messages]
+    assert_match expected_pattern, result[:log_messages]
   end
 
-  def test_get_data_for_all_books_by_year_display_collection_missing_logs_error
+  def test_by_year_finder_collection_missing_logs_error
     site_no_collection = create_site_without_books_collection
     context_no_collection = create_context({}, { site: site_no_collection, page: @context.registers[:page] })
 
-    data = get_all_books_by_year_data(site_no_collection, context_no_collection)
+    result = get_all_books_by_year_data(site_no_collection, context_no_collection)
 
-    assert_empty data[:year_groups]
+    assert_empty result[:year_groups]
     expected_pattern = /<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books_by_year'\s*SourcePage='current_page\.html' -->/
-    assert_match expected_pattern, data[:log_messages]
+    assert_match expected_pattern, result[:log_messages]
   end
 
   private
