@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/book_list_utils/test_all_books_by_title_alpha_group.rb
+# _tests/plugins/logic/book_lists/test_by_title_alpha_finder.rb
 require_relative '../../../test_helper'
-# BookListUtils is loaded by test_helper
+require_relative '../../../../_plugins/logic/book_lists/by_title_alpha_finder'
 
-# Renamed class
-class TestBookListUtilsAllBooksByTitleAlphaGroup < Minitest::Test
+# Tests for Jekyll::BookLists::ByTitleAlphaFinder
+#
+# Verifies that the finder correctly groups books by the first letter of their normalized title
+# (with articles like "A", "An", "The" removed), handles edge cases, and sorts properly.
+class TestBookListByTitleAlphaFinder < Minitest::Test
   def setup
     create_test_books
     @books_for_alpha_tests = collect_all_test_books
@@ -17,64 +20,65 @@ class TestBookListUtilsAllBooksByTitleAlphaGroup < Minitest::Test
     @silent_logger_stub = create_silent_logger_stub
   end
 
-  # Helper to call the utility method directly
+  # Helper to call the finder directly
   def get_alpha_group_data(site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      BookListUtils.get_data_for_all_books_by_title_alpha_group(site: site, context: context)
+      finder = Jekyll::BookLists::ByTitleAlphaFinder.new(site: site, context: context)
+      finder.find
     end
   end
 
-  def test_get_data_for_all_books_by_title_alpha_group_correct_grouping_and_sorting
-    data = get_alpha_group_data
+  def test_by_title_alpha_finder_correct_grouping_and_sorting
+    result = get_alpha_group_data
 
-    assert_empty data[:log_messages].to_s
+    assert_empty result[:log_messages].to_s
     # Expected groups: #, A, B, C, E, Z (based on the published books in setup)
-    assert_equal 6, data[:alpha_groups].size, 'Incorrect number of alpha groups'
+    assert_equal 6, result[:alpha_groups].size, 'Incorrect number of alpha groups'
 
-    assert_group_hash_correct(data)
-    assert_group_a_correct(data)
-    assert_group_b_correct(data)
-    assert_group_c_correct(data)
-    assert_group_e_correct(data)
-    assert_group_z_correct(data)
-    assert_letter_groups_ordered(data)
+    assert_group_hash_correct(result)
+    assert_group_a_correct(result)
+    assert_group_b_correct(result)
+    assert_group_c_correct(result)
+    assert_group_e_correct(result)
+    assert_group_z_correct(result)
+    assert_letter_groups_ordered(result)
   end
 
-  def test_get_data_for_all_books_by_title_alpha_group_ignores_unpublished
-    data = get_alpha_group_data
-    all_rendered_titles = data[:alpha_groups].flat_map { |ag| ag[:books].map { |b| b.data['title'] } }
+  def test_by_title_alpha_finder_ignores_unpublished
+    result = get_alpha_group_data
+    all_rendered_titles = result[:alpha_groups].flat_map { |ag| ag[:books].map { |b| b.data['title'] } }
     refute_includes all_rendered_titles, @unpublished_book.data['title']
   end
 
   def test_excludes_archived_reviews
-    data = get_alpha_group_data
-    all_rendered_titles = data[:alpha_groups].flat_map { |ag| ag[:books].map { |b| b.data['title'] } }
+    result = get_alpha_group_data
+    all_rendered_titles = result[:alpha_groups].flat_map { |ag| ag[:books].map { |b| b.data['title'] } }
     refute_includes all_rendered_titles, @archived_book.data['title']
   end
 
-  def test_get_data_for_all_books_by_title_alpha_group_no_books_logs_info
+  def test_by_title_alpha_finder_no_books_logs_info
     site_empty_books = create_site({}, { 'books' => [] }) # Empty collection
     # Enable specific logging
     site_empty_books.config['plugin_logging']['ALL_BOOKS_BY_TITLE_ALPHA_GROUP'] = true
     context_empty_books = create_context({}, { site: site_empty_books, page: @context.registers[:page] })
 
-    data = get_alpha_group_data(site_empty_books, context_empty_books)
-    assert_empty data[:alpha_groups]
+    result = get_alpha_group_data(site_empty_books, context_empty_books)
+    assert_empty result[:alpha_groups]
     expected_log_pattern =
       /<!-- \[INFO\] ALL_BOOKS_BY_TITLE_ALPHA_GROUP_FAILURE: Reason='No published books found to group by title\.'\s*SourcePage='current_page\.html' -->/
-    assert_match(expected_log_pattern, data[:log_messages])
+    assert_match(expected_log_pattern, result[:log_messages])
   end
 
-  def test_get_data_for_all_books_by_title_alpha_group_collection_missing_logs_error
+  def test_by_title_alpha_finder_collection_missing_logs_error
     site_no_books = create_site({}, {}) # No 'books' collection
     site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true # Enable general util logging
     context_no_books = create_context({}, { site: site_no_books, page: @context.registers[:page] })
 
-    data = get_alpha_group_data(site_no_books, context_no_books)
-    assert_empty data[:alpha_groups]
+    result = get_alpha_group_data(site_no_books, context_no_books)
+    assert_empty result[:alpha_groups]
     expected_log_pattern =
       /<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books_by_title_alpha_group'\s*SourcePage='current_page\.html' -->/
-    assert_match(expected_log_pattern, data[:log_messages])
+    assert_match(expected_log_pattern, result[:log_messages])
   end
 
   private
@@ -164,8 +168,8 @@ class TestBookListUtilsAllBooksByTitleAlphaGroup < Minitest::Test
   # --- Assert Group # (Hash) ---
   # Books: "An" (norm: ""), "The " (norm: ""), "123 Go!" (norm: "123 go!")
   # Order within #: empty sort_titles first (sorted by original title), then "123 go!"
-  def assert_group_hash_correct(data)
-    group_hash = data[:alpha_groups].find { |g| g[:letter] == '#' }
+  def assert_group_hash_correct(result)
+    group_hash = result[:alpha_groups].find { |g| g[:letter] == '#' }
     refute_nil group_hash, "Group '#' missing"
     expected_hash_titles = [
       @book_only_an.data['title'],
@@ -178,8 +182,8 @@ class TestBookListUtilsAllBooksByTitleAlphaGroup < Minitest::Test
 
   # --- Assert Group A ---
   # Books: Aardvark Antics, Another Apple Tale, Apple Pie Adventures (sorted by normalized title)
-  def assert_group_a_correct(data)
-    group_a = data[:alpha_groups].find { |g| g[:letter] == 'A' }
+  def assert_group_a_correct(result)
+    group_a = result[:alpha_groups].find { |g| g[:letter] == 'A' }
     refute_nil group_a, "Group 'A' missing"
     expected_a_titles = [
       @book_aardvark.data['title'],
@@ -191,38 +195,38 @@ class TestBookListUtilsAllBooksByTitleAlphaGroup < Minitest::Test
 
   # --- Assert Group B ---
   # Book: A Banana Story (normalized: "banana story")
-  def assert_group_b_correct(data)
-    group_b = data[:alpha_groups].find { |g| g[:letter] == 'B' }
+  def assert_group_b_correct(result)
+    group_b = result[:alpha_groups].find { |g| g[:letter] == 'B' }
     refute_nil group_b, "Group 'B' missing"
     assert_equal([@book_a_banana.data['title']], group_b[:books].map { |b| b.data['title'] })
   end
 
   # --- Assert Group C ---
   # Book: The Cherry Chronicle (normalized: "cherry chronicle")
-  def assert_group_c_correct(data)
-    group_c = data[:alpha_groups].find { |g| g[:letter] == 'C' }
+  def assert_group_c_correct(result)
+    group_c = result[:alpha_groups].find { |g| g[:letter] == 'C' }
     refute_nil group_c, "Group 'C' missing"
     assert_equal([@book_the_cherry.data['title']], group_c[:books].map { |b| b.data['title'] })
   end
 
   # --- Assert Group E ---
-  def assert_group_e_correct(data)
-    group_e = data[:alpha_groups].find { |g| g[:letter] == 'E' }
+  def assert_group_e_correct(result)
+    group_e = result[:alpha_groups].find { |g| g[:letter] == 'E' }
     refute_nil group_e, "Group 'E' missing"
     assert_equal([@external_canonical_book.data['title']], group_e[:books].map { |b| b.data['title'] })
   end
 
   # --- Assert Group Z ---
   # Book: Zebra Zoom
-  def assert_group_z_correct(data)
-    group_z = data[:alpha_groups].find { |g| g[:letter] == 'Z' }
+  def assert_group_z_correct(result)
+    group_z = result[:alpha_groups].find { |g| g[:letter] == 'Z' }
     refute_nil group_z, "Group 'Z' missing"
     assert_equal([@book_zebra.data['title']], group_z[:books].map { |b| b.data['title'] })
   end
 
   # --- Assert Overall Order of Letter Groups ---
-  def assert_letter_groups_ordered(data)
-    letters_ordered = data[:alpha_groups].map { |g| g[:letter] }
+  def assert_letter_groups_ordered(result)
+    letters_ordered = result[:alpha_groups].map { |g| g[:letter] }
     assert_equal ['#', 'A', 'B', 'C', 'E', 'Z'], letters_ordered, 'Letter groups are not in # then A-Z order'
   end
 end

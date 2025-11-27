@@ -13,24 +13,6 @@ require_relative 'front_matter_utils'
 module BookListUtils
   # --- Public Methods for Tags ---
 
-  # Fetches all books, sorts them by normalized title, then groups by first letter.
-  # @param site [Jekyll::Site] The Jekyll site object.
-  # @param context [Liquid::Context] The Liquid context.
-  # @return [Hash] Contains :alpha_groups (Array of Hashes), :log_messages (String).
-  def self.get_data_for_all_books_by_title_alpha_group(site:, context:)
-    error = _validate_collection(site, context, filter_type: 'all_books_by_title_alpha_group', key: :alpha_groups)
-    return error if error
-
-    all_books = _get_all_published_books(site, include_archived: false)
-    if all_books.empty?
-      return _return_info(context, 'ALL_BOOKS_BY_TITLE_ALPHA_GROUP',
-                          'No published books found to group by title.', key: :alpha_groups)
-    end
-
-    alpha_groups_list = _group_books_by_alpha(all_books)
-    { alpha_groups: alpha_groups_list, log_messages: String.new }
-  end
-
   # Fetches all books, groups them by year, sorted most recent year first.
   # Books within each year are sorted by date, most recent first.
   # @param site [Jekyll::Site] The Jekyll site object.
@@ -93,38 +75,6 @@ module BookListUtils
       context: context, tag_type: tag_type, reason: reason, identifiers: {}, level: :info
     )
     { key => [], log_messages: log.dup }
-  end
-
-  # --- Alpha Group Helpers ---
-
-  def self._group_books_by_alpha(books)
-    books_with_meta = books.map { |book| _create_book_alpha_meta(book) }
-
-    sorted = books_with_meta.sort_by { |m| [m[:sort_title], m[:book].data['title'].to_s.downcase] }
-    grouped = sorted.group_by { |m| m[:first_letter] }
-
-    _sort_alpha_groups(grouped)
-  end
-
-  def self._create_book_alpha_meta(book)
-    sort_title = TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true)
-    first_letter = sort_title.empty? ? '#' : sort_title[0].upcase
-    first_letter = '#' unless first_letter.match?(/[A-Z]/)
-    { book: book, sort_title: sort_title, first_letter: first_letter }
-  end
-
-  def self._sort_alpha_groups(grouped)
-    keys = grouped.keys.sort do |a, b|
-      if a == '#' then -1
-      elsif b == '#' then 1
-      else
-        a <=> b
-      end
-    end
-
-    keys.map do |letter|
-      { letter: letter, books: grouped[letter].map { |m| m[:book] } }
-    end
   end
 
   # --- Year Group Helpers ---
