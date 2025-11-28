@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # _plugins/logic/book_lists/series_finder.rb
-require_relative '../../utils/plugin_logger_utils'
+require_relative 'shared'
 require_relative '../../utils/text_processing_utils'
 
 module Jekyll
@@ -10,6 +10,8 @@ module Jekyll
     #
     # Handles validation, filtering, and sorting of books by series name.
     class SeriesFinder
+      include Jekyll::BookLists::Shared
+
       def initialize(site:, series_name_filter:, context:)
         @site = site
         @series_name_filter = series_name_filter
@@ -19,10 +21,10 @@ module Jekyll
       # Finds and returns books for the specified series.
       # @return [Hash] Contains :books (Array of Document), :series_name (String), :log_messages (String).
       def find
-        error = validate_collection
+        error = validate_collection({ series_name: @series_name_filter }, key: :books)
         return error if error
 
-        all_books = get_all_published_books(include_archived: false)
+        all_books = all_published_books(include_archived: false)
         books_in_series = filter_series_books(all_books, @series_name_filter)
         log_msg = generate_series_log(books_in_series, @series_name_filter)
 
@@ -30,37 +32,6 @@ module Jekyll
       end
 
       private
-
-      def validate_collection
-        return nil if books_collection_exists?
-
-        return_error(
-          "Required 'books' collection not found in site configuration.",
-          identifiers: { series_name: @series_name_filter }
-        )
-      end
-
-      def books_collection_exists?
-        @site&.collections&.key?('books')
-      end
-
-      def return_error(reason, identifiers: {})
-        log = PluginLoggerUtils.log_liquid_failure(
-          context: @context,
-          tag_type: 'BOOK_LIST_UTIL',
-          reason: reason,
-          identifiers: identifiers,
-          level: :error
-        )
-        { books: [], log_messages: log.dup }
-      end
-
-      def get_all_published_books(include_archived: false)
-        books = @site.collections['books'].docs.reject { |book| book.data['published'] == false }
-        return books if include_archived
-
-        books.reject { |book| book.data['canonical_url']&.start_with?('/') }
-      end
 
       def filter_series_books(all_books, series_name)
         return [] if series_name.nil? || series_name.to_s.strip.empty?
@@ -75,14 +46,6 @@ module Jekyll
           parse_book_number(book.data['book_number']),
           TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true)
         ]
-      end
-
-      def parse_book_number(book_number_raw)
-        return Float::INFINITY if book_number_raw.nil? || book_number_raw.to_s.strip.empty?
-
-        Float(book_number_raw.to_s)
-      rescue ArgumentError
-        Float::INFINITY
       end
 
       def generate_series_log(books, series_name)

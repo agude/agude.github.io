@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative '../../utils/book_data_utils'
 require_relative '../../utils/plugin_logger_utils'
 require_relative '../../utils/text_processing_utils'
 require_relative '../../utils/front_matter_utils'
@@ -23,6 +24,16 @@ module Jekyll
         return books if include_archived
 
         books.reject { |book| book.data['canonical_url']&.start_with?('/') }
+      end
+
+      # Author Helpers
+      def get_canonical_author(name, author_cache)
+        return nil if name.nil? || name.to_s.strip.empty?
+
+        stripped = name.to_s.strip
+        normalized = TextProcessingUtils.normalize_title(stripped)
+        data = author_cache[normalized]
+        data ? data['title'] : stripped
       end
 
       # Structuring and Sorting
@@ -68,11 +79,7 @@ module Jekyll
       end
 
       def parse_book_number(book_number_raw)
-        return Float::INFINITY if book_number_raw.nil? || book_number_raw.to_s.strip.empty?
-
-        Float(book_number_raw.to_s)
-      rescue ArgumentError
-        Float::INFINITY
+        BookDataUtils.parse_book_number(book_number_raw)
       end
 
       # Logging
