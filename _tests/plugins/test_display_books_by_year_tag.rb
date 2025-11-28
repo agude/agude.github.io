@@ -3,63 +3,14 @@
 # _tests/plugins/test_display_books_by_year_tag.rb
 require_relative '../test_helper'
 require_relative '../../_plugins/display_books_by_year_tag'
-require 'cgi'
-require 'time' # For Time.parse
 
 # Tests for DisplayBooksByYearTag Liquid tag.
 #
-# Verifies that the tag correctly displays books grouped by publication year.
+# Verifies that the tag correctly orchestrates the Finder and Renderer.
 class TestDisplayBooksByYearTag < Minitest::Test
   def setup
-    @book_2024_jan = create_doc(
-      { 'title' => 'Book Jan 2024', 'date' => Time.parse('2024-01-15') },
-      '/b2024a.html'
-    )
-    # Most recent in 2024
-    @book_2024_mar = create_doc(
-      { 'title' => 'Book Mar 2024', 'date' => Time.parse('2024-03-10') },
-      '/b2024b.html'
-    )
-    @book_2023_dec = create_doc(
-      { 'title' => 'Book Dec 2023', 'date' => Time.parse('2023-12-01') },
-      '/b2023a.html'
-    )
-    @book_2023_jun = create_doc(
-      { 'title' => 'Book Jun 2023', 'date' => Time.parse('2023-06-20') },
-      '/b2023b.html'
-    )
-    # create_doc assigns Time.now if date is nil
-    @book_no_date = create_doc({ 'title' => 'Book No Date' }, '/bnodate.html')
-
-    @all_books_for_tag = [
-      @book_2024_jan, @book_2024_mar, @book_2023_dec, @book_2023_jun, @book_no_date
-    ]
-    @site = create_site({ 'url' => 'http://example.com' }, { 'books' => @all_books_for_tag })
-    @context = create_context({},
-                              { site: @site,
-                                page: create_doc({ 'path' => 'current_year_page.md' }, '/current_year_page.html') })
-
-    @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-    end
-  end
-
-  def render_tag(context = @context)
-    output = ''
-    BookCardUtils.stub :render, lambda { |book, _ctx|
-      "<!-- Card for: #{book.data['title']} (Date: #{book.date.strftime('%Y-%m-%d')}) -->\n"
-    } do
-      Jekyll.stub :logger, @silent_logger_stub do
-        output = Liquid::Template.parse('{% display_books_by_year %}').render!(context)
-      end
-    end
-    output
+    @site = create_site
+    @context = create_context({}, { site: @site })
   end
 
   def test_syntax_error_if_arguments_provided
@@ -69,90 +20,69 @@ class TestDisplayBooksByYearTag < Minitest::Test
     assert_match 'This tag does not accept any arguments', err.message
   end
 
-  def test_renders_correct_year_headings_and_book_order
-    # This test now also checks for the navigation bar.
-    # Setup specific books for THIS test with clear dates for deterministic results.
-    book_2024_mar = create_doc(
-      { 'title' => 'Book Mar 2024', 'date' => Time.parse('2024-03-10') },
-      '/b2024b.html'
-    )
-    book_2024_jan = create_doc(
-      { 'title' => 'Book Jan 2024', 'date' => Time.parse('2024-01-15') },
-      '/b2024a.html'
-    )
-    book_2023_dec = create_doc(
-      { 'title' => 'Book Dec 2023', 'date' => Time.parse('2023-12-01') },
-      '/b2023a.html'
-    )
+  def test_render_orchestrates_finder_and_renderer
+    # 1. Define the mock data that the Finder will "return"
+    mock_book = create_doc({ 'title' => 'Test Book' })
+    mock_finder_data = {
+      year_groups: [{ year: '2024', books: [mock_book] }],
+      log_messages: ''
+    }
 
-    # Create a specific site and context for this test to avoid side effects.
-    test_site = create_site({ 'url' => 'http://example.com' },
-                            { 'books' => [book_2024_jan, book_2024_mar, book_2023_dec] })
-    test_context = create_context({}, { site: test_site, page: @context.registers[:page] })
+    # 2. Define the mock HTML that the Renderer will "return"
+    mock_renderer_html = '<h1>Rendered HTML</h1>'
 
-    output = render_tag(test_context)
+    # 3. Set up mocks for the Finder and Renderer
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_finder_data
 
-    # --- Assert Jump Links Navigation ---
-    assert_match(/<nav class="alpha-jump-links">/, output)
-    # Check for links in the correct order (most recent year first) with separator
-    expected_nav_links = '<a href="#year-2024">2024</a> &middot; <a href="#year-2023">2023</a>'
-    assert_match expected_nav_links, output
+    mock_renderer = Minitest::Mock.new
+    mock_renderer.expect :render, mock_renderer_html
 
-    # --- Assert Group 2024 ---
-    assert_match %r{<h2 class="book-list-headline" id="year-2024">2024</h2>}, output
-    # Books within 2024: Mar (most recent), then Jan
-    expected_2024_cards = "<!-- Card for: #{book_2024_mar.data['title']} \\(Date: 2024-03-10\\) -->\\s*" \
-                          "<!-- Card for: #{book_2024_jan.data['title']} \\(Date: 2024-01-15\\) -->"
-    assert_match %r{id="year-2024">2024</h2>\s*<div class="card-grid">\s*#{expected_2024_cards}\s*</div>}m, output
+    # Stub the .new methods to return our mock instances
+    Jekyll::BookLists::ByYearFinder.stub :new, ->(_args) { mock_finder } do
+      Jekyll::BookLists::ByYearRenderer.stub :new, lambda { |context, data|
+        # This is a key assertion: ensure the data from the finder is what the renderer receives
+        assert_equal mock_finder_data, data
+        assert_equal @context, context
+        mock_renderer # Return our mock renderer instance
+      } do
+        # Execute the tag
+        output = Liquid::Template.parse('{% display_books_by_year %}').render!(@context)
 
-    # --- Assert Group 2023 ---
-    assert_match %r{<h2 class="book-list-headline" id="year-2023">2023</h2>}, output
-    expected_2023_cards = "<!-- Card for: #{book_2023_dec.data['title']} \\(Date: 2023-12-01\\) -->"
-    assert_match %r{id="year-2023">2023</h2>\s*<div class="card-grid">\s*#{expected_2023_cards}\s*</div>}m, output
+        # Assert that the final output is composed correctly (log_messages + rendered HTML)
+        assert_equal '<h1>Rendered HTML</h1>', output
+      end
+    end
 
-    # --- Assert Overall Order of Year Groups ---
-    idx_2024 = output.index('id="year-2024"')
-    idx_2023 = output.index('id="year-2023"')
-    refute_nil idx_2024
-    refute_nil idx_2023
-    assert idx_2024 < idx_2023, 'Year 2024 group should appear before 2023 group'
+    # Verify that both find and render methods were called exactly once
+    mock_finder.verify
+    mock_renderer.verify
   end
 
-  def test_renders_log_message_if_books_collection_missing
-    site_no_books = create_site({ 'url' => 'http://example.com' }, {})
-    site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true
-    context_no_books = create_context(
-      {},
-      {
-        site: site_no_books,
-        page: create_doc({ 'path' => 'current_year_page.md' }, '/current_year_page.html')
-      }
-    )
-    output = ''
-    Jekyll.stub :logger, @silent_logger_stub do
-      output = Liquid::Template.parse('{% display_books_by_year %}').render!(context_no_books)
-    end
-    expected_log_pattern = /<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books_by_year'\s*SourcePage='current_year_page\.md' -->/
-    assert_match(expected_log_pattern, output)
-    refute_match(/<h2 class="book-list-headline">/, output)
-  end
+  def test_render_includes_log_messages_from_finder
+    # Test that log messages from the finder are prepended to the renderer output
+    mock_finder_data = {
+      year_groups: [],
+      log_messages: '<!-- Log Message -->'
+    }
+    mock_renderer_html = '<div>No books</div>'
 
-  def test_renders_log_message_if_no_published_books_found
-    site_empty_books = create_site({ 'url' => 'http://example.com' }, { 'books' => [] })
-    site_empty_books.config['plugin_logging']['ALL_BOOKS_BY_YEAR_DISPLAY'] = true
-    context_empty_books = create_context(
-      {},
-      {
-        site: site_empty_books,
-        page: create_doc({ 'path' => 'current_year_page.md' }, '/current_year_page.html')
-      }
-    )
-    output = ''
-    Jekyll.stub :logger, @silent_logger_stub do
-      output = Liquid::Template.parse('{% display_books_by_year %}').render!(context_empty_books)
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_finder_data
+
+    mock_renderer = Minitest::Mock.new
+    mock_renderer.expect :render, mock_renderer_html
+
+    Jekyll::BookLists::ByYearFinder.stub :new, ->(_args) { mock_finder } do
+      Jekyll::BookLists::ByYearRenderer.stub :new, ->(_context, _data) { mock_renderer } do
+        output = Liquid::Template.parse('{% display_books_by_year %}').render!(@context)
+
+        # Log messages should come before rendered HTML
+        assert_equal '<!-- Log Message --><div>No books</div>', output
+      end
     end
-    expected_log_pattern = /<!-- \[INFO\] ALL_BOOKS_BY_YEAR_DISPLAY_FAILURE: Reason='No published books found to group by year\.'\s*SourcePage='current_year_page\.md' -->/
-    assert_match(expected_log_pattern, output)
-    refute_match(/<h2 class="book-list-headline">/, output)
+
+    mock_finder.verify
+    mock_renderer.verify
   end
 end

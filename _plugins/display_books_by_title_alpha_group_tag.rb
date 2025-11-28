@@ -26,7 +26,7 @@ module Jekyll
       finder = Jekyll::BookLists::ByTitleAlphaFinder.new(site: context.registers[:site], context: context)
       data = finder.find
 
-      output = data[:log_messages] || ''
+      output = +(data[:log_messages] || '')
       output << Jekyll::BookLists::ByTitleAlphaRenderer.new(context, data).render
     end
   end

@@ -6,87 +6,11 @@ require_relative '../../_plugins/display_books_for_series_tag'
 
 # Tests for DisplayBooksForSeriesTag Liquid tag.
 #
-# Verifies that the tag correctly displays book cards for a specified series.
+# Verifies that the tag correctly orchestrates the Finder and Renderer.
 class TestDisplayBooksForSeriesTag < Minitest::Test
   def setup
-    create_test_books
-    setup_site_and_context
-    @silent_logger_stub = create_silent_logger_stub
-  end
-
-  def render_tag(markup, context = @context)
-    output = ''
-    Jekyll.stub :logger, @silent_logger_stub do
-      output = Liquid::Template.parse("{% display_books_for_series #{markup} %}").render!(context)
-    end
-    output
-  end
-
-  def test_render_books_for_existing_series_literal
-    output = render_tag("'Series One'")
-    assert_match(/<div class="card-grid">/, output)
-    assert_match %r{<cite class="book-title">Series One Book 1</cite>}, output
-    assert_match %r{<cite class="book-title">Series One Book 2</cite>}, output
-    refute_match(/Other Series Book 1/, output)
-    # Expect no log comment because books were found
-    refute_match(/<!--.*BOOK_LIST_SERIES_DISPLAY_FAILURE.*-->/, output)
-  end
-
-  def test_render_books_for_existing_series_variable
-    output = render_tag('page_series_var') # page_series_var is 'Series One'
-    assert_match(/<div class="card-grid">/, output)
-    assert_match %r{<cite class="book-title">Series One Book 1</cite>}, output
-    assert_match %r{<cite class="book-title">Series One Book 2</cite>}, output
-    refute_match(/<!--.*BOOK_LIST_SERIES_DISPLAY_FAILURE.*-->/, output)
-  end
-
-  def test_render_no_books_for_non_existent_series
-    @site.config['plugin_logging']['BOOK_LIST_SERIES_DISPLAY'] = true
-    output = render_tag("'NonExistent Series'")
-    # BookListUtils logs with :info level and "No books found for the specified series."
-    assert_match(
-      /<!-- \[INFO\] BOOK_LIST_SERIES_DISPLAY_FAILURE:.*Reason='No books found for the specified series\.'.*SeriesFilter='NonExistent Series'.*SourcePage='current\.html' -->/,
-      output
-    )
-    refute_match(/<div class="card-grid">/, output)
-  end
-
-  def test_render_no_books_for_series_with_no_books
-    empty_series_site = create_site({ 'url' => 'http://example.com' }, { 'books' => [@book_other_series] })
-    empty_series_context = create_context(
-      {},
-      { site: empty_series_site, page: create_doc({ 'path' => 'current.html' }, '/current.html') }
-    )
-    empty_series_site.config['plugin_logging']['BOOK_LIST_SERIES_DISPLAY'] = true
-
-    output = render_tag("'Series One'", empty_series_context)
-    # BookListUtils logs with :info level
-    assert_match(
-      /<!-- \[INFO\] BOOK_LIST_SERIES_DISPLAY_FAILURE:.*Reason='No books found for the specified series\.'.*SeriesFilter='Series One'.*SourcePage='current\.html' -->/,
-      output
-    )
-    refute_match(/<div class="card-grid">/, output)
-  end
-
-  def test_render_empty_for_nil_series_name_variable
-    @context['nil_series_var'] = nil
-    @site.config['plugin_logging']['BOOK_LIST_SERIES_DISPLAY'] = true
-    output = render_tag('nil_series_var')
-    assert_match(
-      %r{<!-- \[WARN\] BOOK_LIST_SERIES_DISPLAY_FAILURE:.*Reason='Series name filter was empty or nil\.'.*SeriesFilterInput='N/A'.*SourcePage='current\.html' -->},
-      output
-    )
-    refute_match(/<div class="card-grid">/, output)
-  end
-
-  def test_render_empty_for_empty_series_name_literal
-    @site.config['plugin_logging']['BOOK_LIST_SERIES_DISPLAY'] = true
-    output = render_tag("''")
-    assert_match(
-      /<!-- \[WARN\] BOOK_LIST_SERIES_DISPLAY_FAILURE:.*Reason='Series name filter was empty or nil\.'.*SeriesFilterInput=''.*SourcePage='current\.html' -->/,
-      output
-    )
-    refute_match(/<div class="card-grid">/, output)
+    @site = create_site
+    @context = create_context({ 'series_var' => 'Test Series' }, { site: @site })
   end
 
   def test_syntax_error_missing_argument
@@ -96,49 +20,104 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     assert_match(/Series name .* is required/, err.message)
   end
 
-  private
+  def test_render_orchestrates_finder_and_renderer_with_literal
+    # 1. Define the mock data that the Finder will "return"
+    mock_book = create_doc({ 'title' => 'Test Book', 'series' => 'Test Series' })
+    mock_finder_data = {
+      books: [mock_book],
+      log_messages: ''
+    }
 
-  def create_test_books
-    @book1_s1 = create_doc(
-      { 'title' => 'Series One Book 1', 'series' => 'Series One', 'book_number' => 1,
-        'published' => true }, '/s1b1.html'
-    )
-    @book2_s1 = create_doc(
-      { 'title' => 'Series One Book 2', 'series' => 'Series One', 'book_number' => 2,
-        'published' => true }, '/s1b2.html'
-    )
-    @book_other_series = create_doc(
-      { 'title' => 'Other Series Book 1', 'series' => 'Other Series', 'book_number' => 1,
-        'published' => true }, '/osb1.html'
-    )
-  end
+    # 2. Define the mock HTML that the Renderer will "return"
+    mock_renderer_html = '<div class="card-grid">Book Cards</div>'
 
-  def setup_site_and_context
-    # Ensure site has a URL for UrlUtils called by BookCardUtils->CardDataExtractorUtils
-    @site = create_site(
-      { 'url' => 'http://example.com' },
-      { 'books' => [@book1_s1, @book2_s1, @book_other_series] }
-    )
-    # Added path for SourcePage
-    @context = create_context(
-      { 'page_series_var' => 'Series One' },
-      { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') }
-    )
-  end
+    # 3. Set up mocks for the Finder and Renderer
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_finder_data
 
-  def create_silent_logger_stub
-    Object.new.tap do |logger|
-      def logger.warn(topic, message); end
+    mock_renderer = Minitest::Mock.new
+    mock_renderer.expect :render, mock_renderer_html
 
-      def logger.error(topic, message); end
+    # Stub the .new methods to return our mock instances
+    Jekyll::BookLists::SeriesFinder.stub :new, lambda { |args|
+      # Verify the series_name_filter is passed correctly
+      assert_equal 'Test Series', args[:series_name_filter]
+      mock_finder
+    } do
+      Jekyll::BookLists::ForSeriesRenderer.stub :new, lambda { |context, data|
+        # This is a key assertion: ensure the data from the finder is what the renderer receives
+        assert_equal mock_finder_data, data
+        assert_equal @context, context
+        mock_renderer # Return our mock renderer instance
+      } do
+        # Execute the tag with a literal series name
+        output = Liquid::Template.parse("{% display_books_for_series 'Test Series' %}").render!(@context)
 
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-
-      def logger.log_level=(level); end
-
-      def logger.progname=(name); end
+        # Assert that the final output is composed correctly (log_messages + rendered HTML)
+        assert_equal '<div class="card-grid">Book Cards</div>', output
+      end
     end
+
+    # Verify that both find and render methods were called exactly once
+    mock_finder.verify
+    mock_renderer.verify
+  end
+
+  def test_render_orchestrates_finder_and_renderer_with_variable
+    # Test with a variable instead of a literal
+    mock_book = create_doc({ 'title' => 'Test Book', 'series' => 'Test Series' })
+    mock_finder_data = {
+      books: [mock_book],
+      log_messages: ''
+    }
+    mock_renderer_html = '<div class="card-grid">Book Cards</div>'
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_finder_data
+
+    mock_renderer = Minitest::Mock.new
+    mock_renderer.expect :render, mock_renderer_html
+
+    Jekyll::BookLists::SeriesFinder.stub :new, lambda { |args|
+      # Verify the series_name_filter is resolved from the variable
+      assert_equal 'Test Series', args[:series_name_filter]
+      mock_finder
+    } do
+      Jekyll::BookLists::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
+        # Use the variable defined in setup
+        output = Liquid::Template.parse('{% display_books_for_series series_var %}').render!(@context)
+        assert_equal '<div class="card-grid">Book Cards</div>', output
+      end
+    end
+
+    mock_finder.verify
+    mock_renderer.verify
+  end
+
+  def test_render_includes_log_messages_from_finder
+    # Test that log messages from the finder are prepended to the renderer output
+    mock_finder_data = {
+      books: [],
+      log_messages: '<!-- Log Message -->'
+    }
+    mock_renderer_html = ''
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_finder_data
+
+    mock_renderer = Minitest::Mock.new
+    mock_renderer.expect :render, mock_renderer_html
+
+    Jekyll::BookLists::SeriesFinder.stub :new, ->(_args) { mock_finder } do
+      Jekyll::BookLists::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
+        output = Liquid::Template.parse("{% display_books_for_series 'Empty Series' %}").render!(@context)
+
+        # Log messages should come before rendered HTML
+        assert_equal '<!-- Log Message -->', output
+      end
+    end
+
+    mock_finder.verify
+    mock_renderer.verify
   end
 end

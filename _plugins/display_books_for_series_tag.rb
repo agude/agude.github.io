@@ -40,7 +40,7 @@ module Jekyll
       )
       data = finder.find
 
-      output = data[:log_messages] || ''
+      output = +(data[:log_messages] || '')
       output << Jekyll::BookLists::ForSeriesRenderer.new(context, data).render
     end
   end
