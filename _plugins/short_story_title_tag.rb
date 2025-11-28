@@ -3,11 +3,9 @@
 # _plugins/short_story_title_tag.rb
 require 'jekyll'
 require 'liquid'
-require 'cgi'
 require 'strscan'
 require_relative 'utils/tag_argument_utils'
-require_relative 'utils/typography_utils'
-require_relative 'utils/text_processing_utils'
+require_relative 'utils/short_story_title_util'
 
 module Jekyll
   # Liquid Tag to format a short story title and optionally suppress the Kramdown anchor ID.
@@ -33,7 +31,13 @@ module Jekyll
     end
 
     def render(context)
-      ShortStoryTitleRenderer.new(context, @title_markup, @no_id_flag).render
+      story_title = TagArgumentUtils.resolve_value(@title_markup, context)
+
+      ShortStoryTitleUtil.render_title(
+        context: context,
+        title: story_title,
+        no_id: @no_id_flag
+      )
     end
 
     private
@@ -75,51 +79,6 @@ module Jekyll
       raise Liquid::SyntaxError,
             "Syntax Error in 'short_story_title': " \
             "Title value is missing or empty in '#{@raw_markup}'"
-    end
-
-    # Helper class to handle rendering logic
-    class ShortStoryTitleRenderer
-      def initialize(context, title_markup, no_id_flag)
-        @context = context
-        @title_markup = title_markup
-        @no_id_flag = no_id_flag
-      end
-
-      def render
-        initialize_title_counts
-        story_title = resolve_title
-        return '' if story_title.nil? || story_title.to_s.strip.empty?
-
-        cite_element = create_cite_element(story_title)
-        @no_id_flag ? cite_element : "#{cite_element} #{create_kramdown_id(story_title)}"
-      end
-
-      private
-
-      def initialize_title_counts
-        @context.registers[:story_title_counts] ||= Hash.new(0)
-      end
-
-      def resolve_title
-        TagArgumentUtils.resolve_value(@title_markup, @context)
-      end
-
-      def create_cite_element(story_title)
-        prepared_title = TypographyUtils.prepare_display_title(story_title)
-        "<cite class=\"short-story-title\">#{prepared_title}</cite>"
-      end
-
-      def create_kramdown_id(story_title)
-        base_slug = TextProcessingUtils.slugify(story_title)
-        final_slug = generate_unique_slug(base_slug)
-        "{##{final_slug}}"
-      end
-
-      def generate_unique_slug(base_slug)
-        @context.registers[:story_title_counts][base_slug] += 1
-        count = @context.registers[:story_title_counts][base_slug]
-        count > 1 ? "#{base_slug}-#{count}" : base_slug
-      end
     end
   end
 end

@@ -6,31 +6,20 @@ require_relative '../../_plugins/short_story_title_tag'
 
 # Tests for ShortStoryTitleTag Liquid tag.
 #
-# Verifies that the tag correctly renders short story titles with optional fragment IDs.
+# Verifies that the tag correctly parses arguments and delegates to ShortStoryTitleUtil.
 class TestShortStoryTitleTag < Minitest::Test
   def setup
     @site = create_site
     @context = create_context(
       {
-        'page_story_title' => 'A Story From a Variable',
-        'complex_story_title' => "\"Don't say 'hello' like that,\" she said.",
-        'nil_var' => nil,
-        'empty_string_var' => ''
+        'page_story_title' => 'My Story Title',
+        'nil_var' => nil
       },
-      # The context needs a fresh :story_title_counts register for each render
       { site: @site }
     )
   end
 
-  # Helper to render the tag
-  def render_tag(markup, context = @context)
-    # Re-initialize the context for each single-tag render to ensure clean registers
-    fresh_context = create_context(context.environments.first, context.registers)
-    fresh_context.registers[:story_title_counts] ||= Hash.new(0)
-    Liquid::Template.parse("{% short_story_title #{markup} %}").render!(fresh_context)
-  end
-
-  # --- Syntax Error Tests (Initialize) ---
+  # --- Syntax Error Tests ---
 
   def test_syntax_error_if_markup_is_empty
     err = assert_raises Liquid::SyntaxError do
@@ -46,110 +35,88 @@ class TestShortStoryTitleTag < Minitest::Test
     assert_match "Unknown argument 'bad_arg'", err.message
   end
 
-  # --- Rendering Tests ---
+  # --- Orchestration Tests ---
 
-  def test_render_default_behavior_with_id
-    output = render_tag("'My Simple Story'")
-    slug = TextProcessingUtils.slugify('My Simple Story')
-    expected = "<cite class=\"short-story-title\">My Simple Story</cite> {##{slug}}"
-    assert_equal expected, output
+  def test_calls_util_with_correct_title_from_literal
+    captured_args = {}
+    mock_output = '<cite class="short-story-title">Test Story</cite> {#test-story}'
+
+    ShortStoryTitleUtil.stub :render_title, lambda { |**args|
+      captured_args = args
+      mock_output
+    } do
+      output = Liquid::Template.parse("{% short_story_title 'Test Story' %}").render!(@context)
+
+      assert_equal @context, captured_args[:context]
+      assert_equal 'Test Story', captured_args[:title]
+      assert_equal false, captured_args[:no_id]
+      assert_equal mock_output, output
+    end
   end
 
-  def test_render_with_variable_and_default_id
-    output = render_tag('page_story_title')
-    slug = TextProcessingUtils.slugify('A Story From a Variable')
-    expected = "<cite class=\"short-story-title\">A Story From a Variable</cite> {##{slug}}"
-    assert_equal expected, output
+  def test_calls_util_with_correct_title_from_variable
+    captured_args = {}
+    mock_output = '<cite class="short-story-title">My Story Title</cite> {#my-story-title}'
+
+    ShortStoryTitleUtil.stub :render_title, lambda { |**args|
+      captured_args = args
+      mock_output
+    } do
+      output = Liquid::Template.parse('{% short_story_title page_story_title %}').render!(@context)
+
+      assert_equal @context, captured_args[:context]
+      assert_equal 'My Story Title', captured_args[:title]
+      assert_equal false, captured_args[:no_id]
+      assert_equal mock_output, output
+    end
   end
 
-  def test_render_with_no_id_flag
-    output = render_tag("'My Simple Story' no_id")
-    expected = '<cite class="short-story-title">My Simple Story</cite>'
-    assert_equal expected, output
+  def test_calls_util_with_no_id_false_by_default
+    captured_args = {}
+
+    ShortStoryTitleUtil.stub :render_title, lambda { |**args|
+      captured_args = args
+      '<mock output>'
+    } do
+      Liquid::Template.parse("{% short_story_title 'Test' %}").render!(@context)
+
+      assert_equal false, captured_args[:no_id]
+    end
   end
 
-  def test_render_with_variable_and_no_id_flag
-    output = render_tag('page_story_title no_id')
-    expected = '<cite class="short-story-title">A Story From a Variable</cite>'
-    assert_equal expected, output
+  def test_calls_util_with_no_id_true_when_flag_present
+    captured_args = {}
+
+    ShortStoryTitleUtil.stub :render_title, lambda { |**args|
+      captured_args = args
+      '<mock output>'
+    } do
+      Liquid::Template.parse("{% short_story_title 'Test' no_id %}").render!(@context)
+
+      assert_equal true, captured_args[:no_id]
+    end
   end
 
-  def test_render_applies_typography_utils_with_id
-    expected_typography = '“Don’t say ‘hello’ like that,” she said.'
-    slug = TextProcessingUtils.slugify("\"Don't say 'hello' like that,\" she said.")
-    output = render_tag('complex_story_title')
-    expected_html = "<cite class=\"short-story-title\">#{expected_typography}</cite> {##{slug}}"
-    assert_equal expected_html, output
+  def test_calls_util_with_nil_when_variable_is_nil
+    captured_args = {}
+
+    ShortStoryTitleUtil.stub :render_title, lambda { |**args|
+      captured_args = args
+      ''
+    } do
+      Liquid::Template.parse('{% short_story_title nil_var %}').render!(@context)
+
+      assert_nil captured_args[:title]
+    end
   end
 
-  def test_render_applies_typography_utils_with_no_id
-    expected_typography = '“Don’t say ‘hello’ like that,” she said.'
-    output = render_tag('complex_story_title no_id')
-    expected_html = "<cite class=\"short-story-title\">#{expected_typography}</cite>"
-    assert_equal expected_html, output
-  end
+  def test_returns_output_from_util
+    mock_output = '<div class="custom-story">Custom HTML</div>'
 
-  def test_render_handles_html_escaping_with_id
-    input_title = 'A & B <C>'
-    expected_escaped = 'A &amp; B &lt;C&gt;'
-    slug = TextProcessingUtils.slugify(input_title)
-    output = render_tag("'#{input_title}'")
-    expected_html = "<cite class=\"short-story-title\">#{expected_escaped}</cite> {##{slug}}"
-    assert_equal expected_html, output
-  end
+    ShortStoryTitleUtil.stub :render_title, ->(**_args) { mock_output } do
+      output = Liquid::Template.parse("{% short_story_title 'Test' %}").render!(@context)
 
-  def test_render_handles_html_escaping_with_no_id
-    input_title = 'A & B <C>'
-    expected_escaped = 'A &amp; B &lt;C&gt;'
-    output = render_tag("'#{input_title}' no_id")
-    expected_html = "<cite class=\"short-story-title\">#{expected_escaped}</cite>"
-    assert_equal expected_html, output
-  end
-
-  def test_render_returns_empty_for_nil_variable
-    output = render_tag('nil_var')
-    assert_equal '', output
-  end
-
-  def test_render_returns_empty_for_empty_string_variable
-    output = render_tag('empty_string_var')
-    assert_equal '', output
-  end
-
-  def test_render_returns_empty_for_non_existent_variable
-    output = render_tag('non_existent_variable')
-    assert_equal '', output
-  end
-
-  def test_render_returns_empty_for_empty_literal
-    output = render_tag("''")
-    assert_equal '', output
-  end
-
-  def test_render_returns_empty_for_whitespace_literal
-    output = render_tag("'   '")
-    assert_equal '', output
-  end
-
-  def test_render_auto_increments_id_for_duplicate_titles
-    # To test the stateful nature of the tag, we must render a single template
-    # that contains multiple calls to the tag. This ensures they share the same context.
-    template_string = "{% short_story_title 'Duplicate Story' %} and again {% short_story_title 'Duplicate Story' %}"
-    template = Liquid::Template.parse(template_string)
-
-    # Initialize a fresh context for this specific render operation
-    fresh_context = create_context(@context.environments.first, @context.registers)
-
-    output = template.render!(fresh_context)
-
-    slug = TextProcessingUtils.slugify('Duplicate Story')
-
-    # The first instance should have a clean ID
-    first_expected_part = "<cite class=\"short-story-title\">Duplicate Story</cite> {##{slug}}"
-    assert_includes output, first_expected_part
-
-    # The second instance should have an incremented ID
-    second_expected_part = "<cite class=\"short-story-title\">Duplicate Story</cite> {##{slug}-2}"
-    assert_includes output, second_expected_part
+      assert_equal mock_output, output
+    end
   end
 end
