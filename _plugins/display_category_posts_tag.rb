@@ -5,9 +5,9 @@ require 'jekyll'
 require 'liquid'
 require 'strscan'
 require_relative 'utils/post_list_utils'
-require_relative 'utils/article_card_utils'
 require_relative 'utils/tag_argument_utils'
 require_relative 'utils/plugin_logger_utils'
+require_relative 'logic/category_posts/renderer'
 
 module Jekyll
   # Displays article cards for posts in a specific category/topic.
@@ -45,7 +45,10 @@ module Jekyll
         exclude_url: url_to_exclude
       )
 
-      generate_output(result, context)
+      renderer = Jekyll::CategoryPosts::Renderer.new(context, result[:posts])
+      html_output = renderer.render
+
+      (result[:log_messages] || '') + html_output
     end
 
     private
@@ -123,19 +126,6 @@ module Jekyll
 
       page = context.registers[:page]
       exclude && page ? page['url'] : nil
-    end
-
-    def generate_output(result, context)
-      output = result[:log_messages]&.dup || String.new
-      posts = result[:posts]
-
-      return output if posts.empty?
-
-      output << "<div class=\"card-grid\">\n"
-      posts.each do |post|
-        output << ArticleCardUtils.render(post, context) << "\n"
-      end
-      output << "</div>\n"
     end
   end
 end
