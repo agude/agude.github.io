@@ -5,10 +5,9 @@ require 'jekyll'
 require 'liquid'
 require 'strscan'
 require_relative 'utils/feed_utils'
-require_relative 'utils/article_card_utils'
-require_relative 'utils/book_card_utils'
 require_relative 'utils/tag_argument_utils'
 require_relative 'utils/plugin_logger_utils'
+require_relative 'logic/front_page_feed/renderer'
 
 module Jekyll
   # Renders a feed combining recent posts and book reviews.
@@ -36,9 +35,12 @@ module Jekyll
       limit = resolve_limit(context)
       feed_items = FeedUtils.get_combined_feed_items(site: context.registers[:site], limit: limit)
 
-      return log_empty_feed(context, limit) if feed_items.empty?
+      log_output = log_empty_feed(context, limit) if feed_items.empty?
 
-      generate_feed_html(feed_items, context)
+      renderer = Jekyll::FrontPageFeed::Renderer.new(context, feed_items)
+      html_output = renderer.render
+
+      (log_output || '') + html_output
     end
 
     private
@@ -101,51 +103,6 @@ module Jekyll
         identifiers: { limit: limit },
         level: :info
       )
-    end
-
-    def generate_feed_html(items, context)
-      output = +'<div class="card-grid">' # Initialize as mutable string
-      output << "\n"
-      items.each do |item|
-        output << render_item(item, context)
-      end
-      output << "</div>\n"
-    end
-
-    def render_item(item, context)
-      if book?(item)
-        BookCardUtils.render(item, context) << "\n"
-      elsif post?(item)
-        ArticleCardUtils.render(item, context) << "\n"
-      else
-        log_unknown_item(item, context) << "\n"
-      end
-    end
-
-    def book?(item)
-      item.respond_to?(:collection) && item.collection&.label == 'books'
-    end
-
-    def post?(item)
-      item.respond_to?(:collection) && item.collection&.label == 'posts'
-    end
-
-    def log_unknown_item(item, context)
-      PluginLoggerUtils.log_liquid_failure(
-        context: context,
-        tag_type: 'FRONT_PAGE_FEED',
-        reason: 'Unknown item type in feed.',
-        identifiers: build_unknown_item_identifiers(item),
-        level: :warn
-      )
-    end
-
-    def build_unknown_item_identifiers(item)
-      {
-        item_title: item.data['title'] || 'N/A',
-        item_url: item.url || 'N/A',
-        item_collection: item.collection&.label || 'N/A'
-      }
     end
   end
 end
