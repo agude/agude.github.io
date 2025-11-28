@@ -4,11 +4,8 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require 'cgi'
 
-require_relative 'utils/front_matter_utils'
-require_relative 'utils/author_link_util'
-require_relative 'utils/text_processing_utils'
+require_relative 'utils/display_authors_util'
 require_relative 'utils/tag_argument_utils'
 require_relative 'utils/plugin_logger_utils'
 
@@ -37,16 +34,15 @@ module Jekyll
 
     def render(context)
       authors_input = TagArgumentUtils.resolve_value(@authors_list_markup, context)
-      author_names = FrontMatterUtils.get_list_from_string_or_array(authors_input)
+      linked_option = linked?(context)
+      etal_option = resolve_etal_after_option(context)
 
-      return '' if author_names.empty?
-
-      linked = linked?(context)
-      etal_after = resolve_etal_after_option(context)
-
-      processed_authors = process_authors(author_names, linked, context)
-
-      TextProcessingUtils.format_list_as_sentence(processed_authors, etal_after: etal_after)
+      DisplayAuthorsUtil.render_author_list(
+        author_input: authors_input,
+        context: context,
+        linked: linked_option,
+        etal_after: etal_option
+      )
     end
 
     private
@@ -131,16 +127,6 @@ module Jekyll
       Integer(val.to_s)
     rescue ArgumentError
       nil
-    end
-
-    def process_authors(names, linked, context)
-      names.map do |name|
-        if linked
-          AuthorLinkUtils.render_author_link(name, context)
-        else
-          "<span class=\"author-name\">#{CGI.escapeHTML(name)}</span>"
-        end
-      end
     end
   end
 end
