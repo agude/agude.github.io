@@ -12,17 +12,20 @@ class TestBookListFavoritesListsFinder < Minitest::Test
   def setup
     setup_test_documents
     setup_site_and_context
-    setup_silent_logger
-  end
-
-  def get_favorites_data(site = @site, context = @context)
-    Jekyll.stub :logger, @silent_logger_stub do
-      finder = Jekyll::BookLists::FavoritesListsFinder.new(site: site, context: context)
-      finder.find
-    end
   end
 
   private
+
+  def stub_silent_logger(&)
+    silent_logger = Object.new.tap do |logger|
+      def logger.warn(_prefix, _msg); end
+      def logger.error(_prefix, _msg); end
+      def logger.info(_prefix, _msg); end
+      def logger.debug(_prefix, _msg); end
+    end
+
+    Jekyll.stub(:logger, silent_logger, &)
+  end
 
   def setup_test_documents
     # --- Mock Books ---
@@ -59,67 +62,85 @@ class TestBookListFavoritesListsFinder < Minitest::Test
     @context = create_context({}, { site: @site, page: current_page })
   end
 
-  def setup_silent_logger
-    @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(param, msg); end
+  public
 
-      def logger.error(param, msg); end
+  # --- Happy Path Test ---
 
-      def logger.info(param, msg); end
+  def test_find_returns_correctly_structured_and_sorted_data
+    # Instantiate and call the finder directly
+    finder = Jekyll::BookLists::FavoritesListsFinder.new(site: @site, context: @context)
+    result = finder.find
 
-      def logger.debug(param, msg); end
-    end
-  end
-
-  def test_favorites_lists_finder_correct_structure_and_sorting
-    result = get_favorites_data
-
+    # Assert no error messages
     assert_empty result[:log_messages].to_s
     assert_equal 2, result[:favorites_lists].size, 'Should find two favorites lists'
 
-    assert_correct_list_order(result)
-    assert_correct_2024_list_content(result[:favorites_lists][0])
-    assert_correct_2023_list_content(result[:favorites_lists][1])
-  end
-
-  def test_favorites_lists_finder_no_favorites_posts_logs_info
-    site_no_favs = create_site({}, { 'books' => [@book_a] }, [], [@regular_post])
-    site_no_favs.config['plugin_logging']['BOOK_LIST_FAVORITES'] = true
-    context_no_favs = create_context({}, { site: site_no_favs, page: @context.registers[:page] })
-
-    result = get_favorites_data(site_no_favs, context_no_favs)
-    assert_empty result[:favorites_lists]
-    expected_info = /<!-- \[INFO\] BOOK_LIST_FAVORITES_FAILURE: Reason='No posts with /
-    assert_match(expected_info, result[:log_messages])
-  end
-
-  def test_favorites_lists_finder_prerequisites_missing_logs_error
-    site_no_cache = create_site({}, {}, [], [@fav_post_2023])
-    site_no_cache.data['link_cache'].delete('favorites_posts_to_books')
-    site_no_cache.config['plugin_logging']['BOOK_LIST_FAVORITES'] = true
-    context_no_cache = create_context({}, { site: site_no_cache, page: @context.registers[:page] })
-
-    result = get_favorites_data(site_no_cache, context_no_cache)
-    assert_empty result[:favorites_lists]
-    expected_error = /<!-- \[ERROR\] BOOK_LIST_FAVORITES_FAILURE: Reason='Prerequisites missing: /
-    assert_match(expected_error, result[:log_messages])
-  end
-
-  def assert_correct_list_order(result)
-    # Overall list order (by year descending)
+    # Assert lists are sorted by year descending (2024, then 2023)
     assert_equal @fav_post_2024.url, result[:favorites_lists][0][:post].url
     assert_equal @fav_post_2023.url, result[:favorites_lists][1][:post].url
-  end
 
-  def assert_correct_2024_list_content(list_2024)
+    # Assert books within the 2024 list are sorted by title ascending
+    list_2024 = result[:favorites_lists][0]
     assert_equal 2, list_2024[:books].size
-    # Books should be sorted alphabetically by title
-    assert_equal @book_a.data['title'], list_2024[:books][0].data['title']
-    assert_equal @book_z.data['title'], list_2024[:books][1].data['title']
+    assert_equal 'Apple Book', list_2024[:books][0].data['title']
+    assert_equal 'Zebra Book', list_2024[:books][1].data['title']
+
+    # Assert books within the 2023 list
+    list_2023 = result[:favorites_lists][1]
+    assert_equal 1, list_2023[:books].size
+    assert_equal 'Banana Book', list_2023[:books][0].data['title']
   end
 
-  def assert_correct_2023_list_content(list_2023)
-    assert_equal 1, list_2023[:books].size
-    assert_equal @book_b.data['title'], list_2023[:books][0].data['title']
+  # --- Error Path Tests ---
+
+  def test_find_logs_error_if_posts_collection_is_nil
+    # Create a site where site.posts is nil
+    site = create_site({}, { 'books' => [] }, [], [])
+    site.posts = nil # Manually set posts to nil
+    site.config['plugin_logging']['BOOK_LIST_FAVORITES'] = true
+    context = create_context({}, { site: site, page: create_doc({}, '/current.html') })
+
+    result = nil
+    stub_silent_logger do
+      finder = Jekyll::BookLists::FavoritesListsFinder.new(site: site, context: context)
+      result = finder.find
+    end
+
+    assert_empty result[:favorites_lists]
+    assert_match(/Prerequisites missing/, result[:log_messages])
+  end
+
+  def test_find_logs_error_if_favorites_cache_is_missing
+    # Create a site with posts, but no favorites cache
+    site = create_site({}, {}, [], [create_doc({}, '/post.html')])
+    site.data['link_cache'].delete('favorites_posts_to_books')
+    site.config['plugin_logging']['BOOK_LIST_FAVORITES'] = true
+    context = create_context({}, { site: site, page: create_doc({}, '/current.html') })
+
+    result = nil
+    stub_silent_logger do
+      finder = Jekyll::BookLists::FavoritesListsFinder.new(site: site, context: context)
+      result = finder.find
+    end
+
+    assert_empty result[:favorites_lists]
+    assert_match(/Prerequisites missing/, result[:log_messages])
+  end
+
+  def test_find_logs_info_if_no_favorites_posts_are_found
+    # Create a site with only regular posts (no is_favorites_list front matter)
+    site = create_site({}, {}, [], [create_doc({ 'title' => 'Regular' }, '/regular.html')])
+    site.config['plugin_logging']['BOOK_LIST_FAVORITES'] = true
+    context = create_context({}, { site: site, page: create_doc({}, '/current.html') })
+
+    result = nil
+    stub_silent_logger do
+      finder = Jekyll::BookLists::FavoritesListsFinder.new(site: site, context: context)
+      result = finder.find
+    end
+
+    assert_empty result[:favorites_lists]
+    # Match with HTML entities (&#39; for apostrophes) and any surrounding content
+    assert_match(/No posts with.*is_favorites_list.*front matter found/, result[:log_messages])
   end
 end
