@@ -28,4 +28,5 @@ group :development, :test do
   gem "html-proofer", "~> 5.0"
   gem 'minitest', '~> 5.25'
   gem 'rubocop', '~> 1.81'     # For Ruby linting
+  gem 'simplecov', '~> 0.22' # For code coverage
 end

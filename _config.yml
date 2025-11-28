@@ -148,18 +148,19 @@ compress_html:
 
 # Excluded files from site
 exclude:
-    - LICENSE.md
+    - .venv/
+    - CLAUDE.md
     - CNAME
+    - Dockerfile
     - Gemfile
     - Gemfile.lock
+    - LICENSE.md
+    - Makefile
+    - README.md
+    - _scripts
+    - coverage
     - redirects.json
     - vendor
-    - Makefile
-    - Dockerfile
-    - README.md
-    - CLAUDE.md
-    - _scripts
-    - .venv/
 
 redirect_from:
     json: false

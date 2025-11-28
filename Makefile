@@ -20,7 +20,7 @@ BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 #   make test TEST=$$(find _tests/plugins/utils -name 'test_*.rb')
 TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb')
 
-.PHONY: all clean serve drafts debug image refresh lock test build profile lint check check-strict install-hook format-all
+.PHONY: all clean clean-coverage serve drafts debug image refresh lock test coverage build profile lint check check-strict install-hook format-all
 
 all: serve
 
@@ -66,9 +66,14 @@ refresh: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-versio
 	    --no-cache . -f Dockerfile -t $(IMAGE)
 
 # Clean out _site and other caches. Requires the image to exist.
-clean: image
+clean: image clean-coverage
 	@echo "Cleaning Jekyll build artifacts..."
 	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll clean
+
+# Clean the coverage report directory.
+clean-coverage:
+	@echo "Cleaning coverage report..."
+	@rm -rf coverage
 
 # Build the site for production. Depends on image and clean.
 build: image clean
@@ -151,6 +156,23 @@ test: image # Depends on the Docker image being built/up-to-date
 		echo "Error: Tests failed." && exit 1; \
 	fi
 	@echo "Tests finished successfully."
+
+# Run tests and generate a code coverage report.
+coverage: image clean-coverage
+	@echo "Running tests and generating coverage report..."
+	@# The test command is the same as 'test', but SimpleCov (enabled in test_helper)
+	@# will automatically generate the report in the 'coverage/' directory.
+	@docker run --rm \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		$(IMAGE) \
+		bundle exec ruby -I _plugins -I _tests \
+		  -e "require 'test_helper'; ARGV.each { |f| load f }" \
+		  $(TEST)
+	@echo "---"
+	@echo "Coverage report generated in 'coverage/index.html'."
+	@echo "To view on macOS, run: open coverage/index.html"
+	@echo "To view on Linux, run: xdg-open coverage/index.html"
 
 # Run RuboCop linter.
 lint: image

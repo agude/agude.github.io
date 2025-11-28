@@ -1,6 +1,28 @@
 # frozen_string_literal: true
 
 # _tests/test_helper.rb
+
+# --- SimpleCov Setup ---
+# This must be the VERY FIRST thing in the file to ensure it tracks all loaded code.
+require 'simplecov'
+SimpleCov.start do
+  # Exclude the test files themselves from the coverage report
+  add_filter '_tests/'
+
+  # Group related files for a cleaner report
+  add_group 'Tags', '_plugins'
+  add_group 'Generators', '_plugins'
+  add_group 'Filters', '_plugins'
+  add_group 'Utilities', '_plugins/utils'
+  add_group 'Logic Components', '_plugins/logic'
+  add_group 'Link Cache', '_plugins/link_cache'
+
+  # Set a minimum coverage threshold. The build will fail if it drops below this.
+  minimum_coverage 95
+  # Enable branch coverage analysis
+  enable_coverage :branch
+end
+
 require 'minitest/autorun'
 require 'jekyll'
 require 'time' # Needed for Time.parse if mocking dates
@@ -61,6 +83,7 @@ require 'utils/book_list_renderer_utils'
 require 'utils/card_data_extractor_utils'
 require 'utils/card_renderer_utils'
 require 'utils/citation_utils'
+require 'utils/display_authors_util'
 require 'utils/feed_utils'
 require 'utils/front_matter_utils'
 require 'utils/json_ld_utils'
@@ -71,6 +94,7 @@ require 'utils/rating_utils'
 require 'utils/series_link_util'
 require 'utils/series_text_utils'
 require 'utils/short_story_link_util'
+require 'utils/short_story_title_util'
 require 'utils/tag_argument_utils'
 require 'utils/text_processing_utils'
 require 'utils/typography_utils'
@@ -104,11 +128,17 @@ require 'logic/book_lists/series_finder'
 require 'logic/book_lists/shared'
 require 'logic/card_lookups/article_finder'
 require 'logic/card_lookups/book_finder'
+require 'logic/category_posts/renderer'
 require 'logic/display_ranked_books/processor'
 require 'logic/display_ranked_books/renderer'
 require 'logic/display_ranked_books/validator'
 require 'logic/display_unreviewed_mentions/finder'
 require 'logic/display_unreviewed_mentions/renderer'
+require 'logic/front_page_feed/renderer'
+require 'logic/previous_reviews/finder'
+require 'logic/previous_reviews/renderer'
+require 'logic/ranked_by_backlinks/finder'
+require 'logic/ranked_by_backlinks/renderer'
 require 'logic/related_books/finder'
 require 'logic/related_books/renderer'
 require 'logic/related_posts/finder'
@@ -336,18 +366,20 @@ def test_plugin_logging_config
     'CARD_DATA_EXTRACTION' => false,
     'DISPLAY_CATEGORY_POSTS' => false,
     'DISPLAY_RANKED_BOOKS' => false,
+    'FRONT_PAGE_FEED' => false,
     'JSON_LD_REVIEW' => false,
     'POST_LIST_UTIL_CATEGORY' => false,
     'PREVIOUS_REVIEWS' => false,
+    'RANKED_BY_BACKLINKS' => false,
     'RELATED_BOOKS' => false,
+    'RELATED_BOOKS_SERIES' => false,
     'RELATED_POSTS' => false,
     'RENDER_ARTICLE_CARD_TAG' => false,
     'RENDER_AUTHOR_LINK' => false,
     'RENDER_BOOK_CARD_TAG' => false,
     'RENDER_BOOK_LINK' => false,
     'RENDER_SERIES_LINK' => false,
-    'SERIES_LINK' => false,
-    'SERIES_LINK_UTIL_ERROR' => false,
+    'RENDER_SHORT_STORY_LINK' => false,
     'UNITS_TAG_ERROR' => false,
     'UNITS_TAG_WARNING' => false
   }
