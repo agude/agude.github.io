@@ -3,8 +3,8 @@
 # _plugins/display_previous_reviews_tag.rb
 require 'jekyll'
 require 'liquid'
-require_relative 'utils/plugin_logger_utils'
-require_relative 'utils/book_card_utils'
+require_relative 'logic/previous_reviews/finder'
+require_relative 'logic/previous_reviews/renderer'
 
 module Jekyll
   # Displays previous reviews of the same book sorted by date.
@@ -23,61 +23,15 @@ module Jekyll
     end
 
     def render(context)
-      PreviousReviewsRenderer.new(context).render
-    end
+      finder = Jekyll::PreviousReviews::Finder.new(context)
+      result = finder.find
 
-    # Helper class to handle rendering logic
-    class PreviousReviewsRenderer
-      def initialize(context)
-        @context = context
-        @site = context.registers[:site]
-        @page = context.registers[:page]
-      end
+      return result[:logs] if result[:reviews].empty?
 
-      def render
-        return handle_missing_prerequisites unless valid_prerequisites?
+      renderer = Jekyll::PreviousReviews::Renderer.new(context, result[:reviews])
+      html_output = renderer.render
 
-        archived_docs = find_archived_docs
-        return '' if archived_docs.empty?
-
-        render_reviews(archived_docs.sort_by(&:date).reverse)
-      end
-
-      private
-
-      def valid_prerequisites?
-        @site && @page && @page['url']
-      end
-
-      def handle_missing_prerequisites
-        PluginLoggerUtils.log_liquid_failure(
-          context: @context,
-          tag_type: 'PREVIOUS_REVIEWS',
-          reason: 'Prerequisites missing: site, page, or page.url.',
-          level: :error
-        )
-      end
-
-      def find_archived_docs
-        @site.collections['books'].docs.select do |book|
-          book.data['canonical_url'] == @page['url']
-        end
-      end
-
-      def render_reviews(sorted_docs)
-        output = +"<aside class=\"previous-reviews\">\n"
-        output << "  <h2 class=\"book-review-headline\">Previous Reviews</h2>\n"
-        output << "  <div class=\"card-grid\">\n"
-
-        sorted_docs.each do |doc|
-          subtitle = "Review from #{doc.date.strftime('%B %d, %Y')}"
-          output << BookCardUtils.render(doc, @context, subtitle: subtitle)
-        end
-
-        output << "  </div>\n"
-        output << '</aside>'
-        output
-      end
+      result[:logs] + html_output
     end
   end
 end
