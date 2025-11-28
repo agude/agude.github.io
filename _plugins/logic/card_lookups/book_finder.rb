@@ -8,27 +8,43 @@ module Jekyll
     #
     # Searches the books collection for a book with a matching title,
     # using case-insensitive and whitespace-normalized comparison.
+    # Returns a hash with :book (the found document or nil) and :error
+    # (nil on success, or a hash with :type on failure).
     class BookFinder
-      def self.find(site:, title:)
-        return nil unless site && title
-
-        target_title_normalized = normalize_title(title)
-        return nil unless target_title_normalized
-
-        site.collections['books'].docs.find do |book|
-          next if book.data['published'] == false
-
-          normalize_title(book.data['title']) == target_title_normalized
-        end
+      def initialize(site:, title:)
+        @site = site
+        @title = title
       end
 
-      def self.normalize_title(title)
+      def find
+        return error_result(:invalid_input) unless @site && @title
+
+        target_title_normalized = normalize_title(@title)
+        return error_result(:invalid_input) unless target_title_normalized
+
+        book = @site.collections['books'].docs.find do |b|
+          next if b.data['published'] == false
+
+          normalize_title(b.data['title']) == target_title_normalized
+        end
+
+        return error_result(:not_found) unless book
+
+        { book: book, error: nil }
+      end
+
+      private
+
+      def normalize_title(title)
         return nil unless title
 
-        title.to_s.gsub(/\s+/, ' ').strip.downcase
+        normalized = title.to_s.gsub(/\s+/, ' ').strip.downcase
+        normalized.empty? ? nil : normalized
       end
 
-      private_class_method :normalize_title
+      def error_result(type)
+        { book: nil, error: { type: type } }
+      end
     end
   end
 end

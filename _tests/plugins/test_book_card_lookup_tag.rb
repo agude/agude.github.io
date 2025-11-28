@@ -52,12 +52,15 @@ class TestBookCardLookupTag < Minitest::Test
   # --- Orchestration Tests ---
 
   def test_calls_book_finder_with_correct_arguments
-    captured_args = nil
-    mock_book = @book1
+    captured_args = {}
+    mock_result = { book: @book1, error: nil }
 
-    Jekyll::CardLookups::BookFinder.stub :find, lambda { |args|
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::CardLookups::BookFinder.stub :new, lambda { |args|
       captured_args = args
-      mock_book
+      mock_finder
     } do
       BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
         Jekyll.stub :logger, @silent_logger_stub do
@@ -65,6 +68,7 @@ class TestBookCardLookupTag < Minitest::Test
 
           assert_equal @site, captured_args[:site]
           assert_equal 'The First Book', captured_args[:title]
+          mock_finder.verify
         end
       end
     end
@@ -73,9 +77,12 @@ class TestBookCardLookupTag < Minitest::Test
   def test_calls_book_card_utils_with_found_book
     captured_book = nil
     captured_context = nil
-    mock_book = @book1
+    mock_result = { book: @book1, error: nil }
 
-    Jekyll::CardLookups::BookFinder.stub :find, ->(_args) { mock_book } do
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::CardLookups::BookFinder.stub :new, ->(_args) { mock_finder } do
       BookCardUtils.stub :render, lambda { |book, ctx|
         captured_book = book
         captured_context = ctx
@@ -84,8 +91,9 @@ class TestBookCardLookupTag < Minitest::Test
         Jekyll.stub :logger, @silent_logger_stub do
           Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
 
-          assert_equal mock_book, captured_book
+          assert_equal @book1, captured_book
           assert_equal @context, captured_context
+          mock_finder.verify
         end
       end
     end
@@ -93,13 +101,18 @@ class TestBookCardLookupTag < Minitest::Test
 
   def test_returns_output_from_book_card_utils
     mock_output = '<div class="custom-card">Custom Card HTML</div>'
+    mock_result = { book: @book1, error: nil }
 
-    Jekyll::CardLookups::BookFinder.stub :find, ->(_args) { @book1 } do
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::CardLookups::BookFinder.stub :new, ->(_args) { mock_finder } do
       BookCardUtils.stub :render, ->(_book, _ctx) { mock_output } do
         Jekyll.stub :logger, @silent_logger_stub do
           output = Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
 
           assert_equal mock_output, output
+          mock_finder.verify
         end
       end
     end

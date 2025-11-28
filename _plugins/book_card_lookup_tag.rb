@@ -33,10 +33,12 @@ module Jekyll
       site = context.registers[:site]
       return log_missing_collection(context, target_title_input) unless site.collections.key?('books')
 
-      found_book = Jekyll::CardLookups::BookFinder.find(site: site, title: target_title_input)
-      return log_book_not_found(context, target_title_input) unless found_book
+      finder = Jekyll::CardLookups::BookFinder.new(site: site, title: target_title_input)
+      result = finder.find
 
-      render_book_card(found_book, context, target_title_input)
+      return log_book_not_found(context, target_title_input) if result[:error]
+
+      render_book_card(result[:book], context, target_title_input)
     end
 
     private

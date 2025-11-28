@@ -20,49 +20,76 @@ class TestBookFinder < Minitest::Test
     )
   end
 
-  def test_returns_nil_when_site_is_nil
-    result = Jekyll::CardLookups::BookFinder.find(site: nil, title: 'The First Book')
-    assert_nil result
+  def test_returns_error_when_site_is_nil
+    finder = Jekyll::CardLookups::BookFinder.new(site: nil, title: 'The First Book')
+    result = finder.find
+
+    assert_nil result[:book]
+    assert_equal :invalid_input, result[:error][:type]
   end
 
-  def test_returns_nil_when_title_is_nil
-    result = Jekyll::CardLookups::BookFinder.find(site: @site, title: nil)
-    assert_nil result
+  def test_returns_error_when_title_is_nil
+    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: nil)
+    result = finder.find
+
+    assert_nil result[:book]
+    assert_equal :invalid_input, result[:error][:type]
   end
 
-  def test_returns_nil_when_title_is_empty
-    result = Jekyll::CardLookups::BookFinder.find(site: @site, title: '   ')
-    assert_nil result
+  def test_returns_error_when_title_is_empty
+    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: '   ')
+    result = finder.find
+
+    assert_nil result[:book]
+    assert_equal :invalid_input, result[:error][:type]
   end
 
   def test_finds_book_by_exact_title
-    result = Jekyll::CardLookups::BookFinder.find(site: @site, title: 'The First Book')
-    assert_equal @book1, result
+    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: 'The First Book')
+    result = finder.find
+
+    assert_nil result[:error]
+    assert_equal @book1, result[:book]
   end
 
   def test_finds_book_by_case_insensitive_title
-    result = Jekyll::CardLookups::BookFinder.find(site: @site, title: 'the FIRST book')
-    assert_equal @book1, result
+    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: 'the FIRST book')
+    result = finder.find
+
+    assert_nil result[:error]
+    assert_equal @book1, result[:book]
   end
 
   def test_finds_book_by_normalized_whitespace
-    result = Jekyll::CardLookups::BookFinder.find(site: @site, title: '  The   First    Book  ')
-    assert_equal @book1, result
+    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: '  The   First    Book  ')
+    result = finder.find
+
+    assert_nil result[:error]
+    assert_equal @book1, result[:book]
   end
 
   def test_finds_book_with_extra_whitespace_in_stored_title
-    result = Jekyll::CardLookups::BookFinder.find(site: @site, title: 'Extra Whitespace')
-    assert_equal @book3, result
+    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: 'Extra Whitespace')
+    result = finder.find
+
+    assert_nil result[:error]
+    assert_equal @book3, result[:book]
   end
 
-  def test_returns_nil_when_book_not_found
-    result = Jekyll::CardLookups::BookFinder.find(site: @site, title: 'NonExistent Book')
-    assert_nil result
+  def test_returns_error_when_book_not_found
+    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: 'NonExistent Book')
+    result = finder.find
+
+    assert_nil result[:book]
+    assert_equal :not_found, result[:error][:type]
   end
 
   def test_excludes_unpublished_books
-    result = Jekyll::CardLookups::BookFinder.find(site: @site, title: 'Unpublished Title')
-    assert_nil result
+    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: 'Unpublished Title')
+    result = finder.find
+
+    assert_nil result[:book]
+    assert_equal :not_found, result[:error][:type]
   end
 
   def test_returns_first_matching_book_if_duplicates_exist
@@ -72,7 +99,10 @@ class TestBookFinder < Minitest::Test
       { 'books' => [@book1, duplicate_book, @book2] }
     )
 
-    result = Jekyll::CardLookups::BookFinder.find(site: site_with_duplicate, title: 'The First Book')
-    assert_equal @book1, result
+    finder = Jekyll::CardLookups::BookFinder.new(site: site_with_duplicate, title: 'The First Book')
+    result = finder.find
+
+    assert_nil result[:error]
+    assert_equal @book1, result[:book]
   end
 end
