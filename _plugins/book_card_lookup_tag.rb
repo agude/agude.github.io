@@ -7,6 +7,7 @@ require 'strscan'
 require_relative 'utils/plugin_logger_utils'
 require_relative 'utils/book_card_utils'
 require_relative 'utils/tag_argument_utils'
+require_relative 'logic/card_lookups/book_finder'
 
 module Jekyll
   # Renders a book card by looking up a book by its title.
@@ -32,7 +33,7 @@ module Jekyll
       site = context.registers[:site]
       return log_missing_collection(context, target_title_input) unless site.collections.key?('books')
 
-      found_book = find_book(site, target_title_input)
+      found_book = Jekyll::CardLookups::BookFinder.find(site: site, title: target_title_input)
       return log_book_not_found(context, target_title_input) unless found_book
 
       render_book_card(found_book, context, target_title_input)
@@ -77,22 +78,6 @@ module Jekyll
 
     def title_empty?(title)
       title.nil? || title.to_s.strip.empty?
-    end
-
-    def normalize_title(title)
-      return unless title
-
-      title.to_s.gsub(/\s+/, ' ').strip.downcase
-    end
-
-    def find_book(site, target_title_input)
-      target_title_normalized = normalize_title(target_title_input)
-
-      site.collections['books'].docs.find do |book|
-        next if book.data['published'] == false
-
-        normalize_title(book.data['title']) == target_title_normalized
-      end
     end
 
     def render_book_card(found_book, context, target_title_input)

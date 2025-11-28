@@ -6,7 +6,8 @@ require_relative '../../_plugins/article_card_lookup_tag'
 
 # Tests for ArticleCardLookupTag Liquid tag.
 #
-# Verifies that the tag correctly looks up posts by URL and renders article cards.
+# Verifies that the tag correctly orchestrates between argument parsing,
+# ArticleFinder, and ArticleCardUtils.
 class TestArticleCardLookupTag < Minitest::Test
   def setup
     setup_mock_posts
@@ -219,5 +220,119 @@ class TestArticleCardLookupTag < Minitest::Test
       Liquid::Template.parse("{% article_card_lookup '/p1.html' extra=bad %}")
     end
     assert_match(/Unknown argument\(s\)/, err2.message)
+  end
+
+  # --- Orchestration Tests ---
+
+  def test_calls_article_finder_with_correct_arguments
+    captured_args = {}
+    mock_result = { post: @post1, url: '/blog/post-one.html', error: nil }
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::CardLookups::ArticleFinder.stub :new, lambda { |args|
+      captured_args = args
+      mock_finder
+    } do
+      ArticleCardUtils.stub :render, ->(_post, _ctx) { '<div>Card</div>' } do
+        render_tag('url="/blog/post-one.html"')
+
+        assert_equal @site, captured_args[:site]
+        assert_equal '"/blog/post-one.html"', captured_args[:url_markup]
+        assert_equal @context, captured_args[:context]
+        mock_finder.verify
+      end
+    end
+  end
+
+  def test_calls_article_card_utils_when_finder_succeeds
+    captured_post = nil
+    captured_context = nil
+    mock_result = { post: @post1, url: '/blog/post-one.html', error: nil }
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
+      ArticleCardUtils.stub :render, lambda { |post, ctx|
+        captured_post = post
+        captured_context = ctx
+        '<div>Card</div>'
+      } do
+        render_tag('url="/blog/post-one.html"')
+
+        assert_equal @post1, captured_post
+        assert_equal @context, captured_context
+        mock_finder.verify
+      end
+    end
+  end
+
+  def test_returns_output_from_article_card_utils
+    mock_output = '<div class="custom-article">Custom Article HTML</div>'
+    mock_result = { post: @post1, url: '/blog/post-one.html', error: nil }
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
+      ArticleCardUtils.stub :render, ->(_post, _ctx) { mock_output } do
+        output = render_tag('url="/blog/post-one.html"')
+
+        assert_equal mock_output, output
+        mock_finder.verify
+      end
+    end
+  end
+
+  def test_logs_error_when_finder_returns_url_error
+    @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
+    mock_result = { post: nil, url: nil, error: { type: :url_error } }
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
+      output = render_tag('url=empty_var')
+
+      expected_pattern = /\[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty or nil\.'/
+      assert_match expected_pattern, output
+      mock_finder.verify
+    end
+  end
+
+  def test_logs_error_when_finder_returns_collection_error
+    @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
+    mock_result = { post: nil, url: '/blog/post.html', error: { type: :collection_error, details: 'String' } }
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
+      output = render_tag('url="/blog/post.html"')
+
+      expected_pattern = /\[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Cannot iterate site\.posts\.docs/
+      assert_match expected_pattern, output
+      assert_match(/PostsDocsType='String'/, output)
+      mock_finder.verify
+    end
+  end
+
+  def test_logs_warn_when_finder_returns_post_not_found
+    @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
+    mock_result = { post: nil, url: nil, error: { type: :post_not_found, details: '/blog/missing.html' } }
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
+      output = render_tag('url="/blog/missing.html"')
+
+      expected_pattern = /\[WARN\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Could not find post\.'/
+      assert_match expected_pattern, output
+      assert_match(%r{URL='/blog/missing\.html'}, output)
+      mock_finder.verify
+    end
   end
 end

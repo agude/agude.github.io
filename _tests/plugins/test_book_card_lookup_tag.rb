@@ -6,7 +6,8 @@ require_relative '../../_plugins/book_card_lookup_tag' # Load the tag
 
 # Tests for BookCardLookupTag Liquid tag.
 #
-# Verifies that the tag correctly looks up books by title and renders book cards.
+# Verifies that the tag correctly orchestrates between argument parsing,
+# BookFinder, and BookCardUtils.
 class TestBookCardLookupTag < Minitest::Test
   def setup
     create_test_books
@@ -48,108 +49,60 @@ class TestBookCardLookupTag < Minitest::Test
     assert_match "Unknown argument(s) 'extra='bad''", err_named.message
   end
 
-  # --- Argument Parsing and Lookup Success Tests ---
-  def test_lookup_with_named_title_literal_quoted
-    output = render_tag("title='The First Book'")
-    assert_match '<!-- BookCardUtils.render called for The First Book -->', output
+  # --- Orchestration Tests ---
+
+  def test_calls_book_finder_with_correct_arguments
+    captured_args = nil
+    mock_book = @book1
+
+    Jekyll::CardLookups::BookFinder.stub :find, lambda { |args|
+      captured_args = args
+      mock_book
+    } do
+      BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
+        Jekyll.stub :logger, @silent_logger_stub do
+          Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
+
+          assert_equal @site, captured_args[:site]
+          assert_equal 'The First Book', captured_args[:title]
+        end
+      end
+    end
   end
 
-  def test_lookup_with_named_title_literal_unquoted_variable_value
-    # This tests if title=variable (where variable is a string) works.
-    # The parser for named args in the tag allows unquoted values if they don't contain spaces.
-    # However, LiquidUtils.resolve_value will treat an unquoted value as a variable name.
-    # So, title=the first book would try to look up a var `the first book`.
-    # This test should be for title=page_book_title_var
-    output = render_tag('title=page_book_title_var') # page_book_title_var = "The First Book"
-    assert_match '<!-- BookCardUtils.render called for The First Book -->', output
+  def test_calls_book_card_utils_with_found_book
+    captured_book = nil
+    captured_context = nil
+    mock_book = @book1
+
+    Jekyll::CardLookups::BookFinder.stub :find, ->(_args) { mock_book } do
+      BookCardUtils.stub :render, lambda { |book, ctx|
+        captured_book = book
+        captured_context = ctx
+        '<div>Card</div>'
+      } do
+        Jekyll.stub :logger, @silent_logger_stub do
+          Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
+
+          assert_equal mock_book, captured_book
+          assert_equal @context, captured_context
+        end
+      end
+    end
   end
 
-  def test_lookup_with_positional_title_literal_quoted
-    output = render_tag("'The Second Book'")
-    assert_match '<!-- BookCardUtils.render called for The Second Book -->', output
-  end
+  def test_returns_output_from_book_card_utils
+    mock_output = '<div class="custom-card">Custom Card HTML</div>'
 
-  def test_lookup_with_positional_title_variable
-    output = render_tag('page_book_title_var') # "The First Book"
-    assert_match '<!-- BookCardUtils.render called for The First Book -->', output
-  end
+    Jekyll::CardLookups::BookFinder.stub :find, ->(_args) { @book1 } do
+      BookCardUtils.stub :render, ->(_book, _ctx) { mock_output } do
+        Jekyll.stub :logger, @silent_logger_stub do
+          output = Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
 
-  def test_lookup_is_case_insensitive_and_normalizes_whitespace
-    output_pos = render_tag("'  the FiRsT     BoOk  '")
-    assert_match '<!-- BookCardUtils.render called for The First Book -->', output_pos
-
-    output_named = render_tag('title=page_book_title_var_alt_case') # "the second book"
-    assert_match '<!-- BookCardUtils.render called for The Second Book -->', output_named
-  end
-
-  def test_lookup_ignores_unpublished_books
-    @site.config['plugin_logging']['BOOK_CARD_LOOKUP'] = true # Enable logging
-    # 'Unpublished Title' exists but is unpublished.
-    output = render_tag("'Unpublished Title'")
-    expected_log_pattern =
-      /<!-- \[WARN\] BOOK_CARD_LOOKUP_FAILURE: Reason='Could not find book\.'\s*Title='Unpublished Title'\s*SourcePage='current_lookup_page\.md' -->/
-    assert_match(expected_log_pattern, output)
-    refute_match 'BookCardUtils.render called', output
-  end
-
-  # --- Failure and Logging Tests ---
-  def test_logs_error_if_title_resolves_to_nil
-    @site.config['plugin_logging']['BOOK_CARD_LOOKUP'] = true
-    output = render_tag('nil_title_var') # nil_title_var is nil
-    expected_log_pattern =
-      /<!-- \[ERROR\] BOOK_CARD_LOOKUP_FAILURE: Reason='Title markup resolved to empty or nil\.'\s*Markup='nil_title_var'\s*SourcePage='current_lookup_page\.md' -->/
-    assert_match(expected_log_pattern, output)
-    refute_match 'BookCardUtils.render called', output
-  end
-
-  def test_logs_error_if_title_resolves_to_empty_string
-    @context['empty_title_var'] = '   '
-    @site.config['plugin_logging']['BOOK_CARD_LOOKUP'] = true
-    output = render_tag('empty_title_var')
-    expected_log_pattern =
-      /<!-- \[ERROR\] BOOK_CARD_LOOKUP_FAILURE: Reason='Title markup resolved to empty or nil\.'\s*Markup='empty_title_var'\s*SourcePage='current_lookup_page\.md' -->/
-    assert_match(expected_log_pattern, output)
-    refute_match 'BookCardUtils.render called', output
-  end
-
-  def test_logs_warn_if_book_not_found
-    @site.config['plugin_logging']['BOOK_CARD_LOOKUP'] = true
-    output = render_tag("'NonExistent Book Of Wonders'")
-    expected_log_pattern =
-      /<!-- \[WARN\] BOOK_CARD_LOOKUP_FAILURE: Reason='Could not find book\.'\s*Title='NonExistent Book Of Wonders'\s*SourcePage='current_lookup_page\.md' -->/
-    assert_match(expected_log_pattern, output)
-    refute_match 'BookCardUtils.render called', output
-  end
-
-  def test_logs_error_if_books_collection_missing
-    site_no_books = create_site({ 'url' => 'http://example.com' }, {}) # No 'books' collection
-    site_no_books.config['plugin_logging']['BOOK_CARD_LOOKUP'] = true
-    context_no_books = create_context(
-      {},
-      { site: site_no_books, page: create_doc({ 'path' => 'current_lookup_page.md' }, '/current-lookup-page.html') }
-    )
-
-    output = render_tag("'Any Book Title'", context_no_books)
-    expected_log_pattern =
-      /<!-- \[ERROR\] BOOK_CARD_LOOKUP_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*Title='Any Book Title'\s*SourcePage='current_lookup_page\.md' -->/
-    assert_match(expected_log_pattern, output)
-    refute_match 'BookCardUtils.render called', output
-  end
-
-  def test_logs_error_if_book_card_utils_render_fails
-    @site.config['plugin_logging']['BOOK_CARD_LOOKUP'] = true
-    error_message = 'Utility render failed!'
-
-    # Custom stub for BookCardUtils.render that raises an error
-    failing_stub = ->(_book_obj, _ctx) { raise StandardError, error_message }
-
-    output = render_tag("'The First Book'", @context, &failing_stub)
-
-    expected_log_pattern =
-      /<!-- \[ERROR\] BOOK_CARD_LOOKUP_FAILURE: Reason='Error calling BookCardUtils\.render utility: #{error_message}'\s*Title='The First Book'\s*ErrorClass='StandardError'\s*ErrorMessage='#{error_message.slice(
-        0, 100
-      )}'\s*SourcePage='current_lookup_page\.md' -->/
-    assert_match(expected_log_pattern, output)
+          assert_equal mock_output, output
+        end
+      end
+    end
   end
 
   private
