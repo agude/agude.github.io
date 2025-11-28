@@ -32,8 +32,7 @@ module Jekyll
     private
 
     def log_current_jekyll_env(env_var_jekyll_env)
-      puts 'ENVIRONMENT_SETTER_PLUGIN: Current value of JEKYLL_ENV: ' \
-           "'#{env_var_jekyll_env}'"
+      Jekyll.logger.info 'EnvironmentSetter:', "Current value of JEKYLL_ENV: '#{env_var_jekyll_env}'"
     end
 
     def update_environment(site, original_config_env, env_var_jekyll_env)
@@ -47,19 +46,19 @@ module Jekyll
     end
 
     def log_no_change_needed(current_env)
-      puts "ENVIRONMENT_SETTER_PLUGIN: site.config['environment'] already " \
-           "matched ENV['JEKYLL_ENV'] ('#{current_env}'). No change needed."
+      Jekyll.logger.info 'EnvironmentSetter:', "site.config['environment'] already " \
+                                               "matched ENV['JEKYLL_ENV'] ('#{current_env}'). No change needed."
     end
 
     def log_environment_updated(original_env, new_env)
-      puts "ENVIRONMENT_SETTER_PLUGIN: Updated site.config['environment'] " \
-           "from '#{original_env.inspect}' to '#{new_env}' " \
-           "(based on ENV['JEKYLL_ENV'])."
+      Jekyll.logger.info 'EnvironmentSetter:', "Updated site.config['environment'] " \
+                                               "from '#{original_env.inspect}' to '#{new_env}' " \
+                                               "(based on ENV['JEKYLL_ENV'])."
     end
 
     def log_jekyll_env_not_set(original_config_env)
-      puts "ENVIRONMENT_SETTER_PLUGIN: ENV['JEKYLL_ENV'] not found or empty. " \
-           "site.config['environment'] is '#{original_config_env.inspect}'."
+      Jekyll.logger.info 'EnvironmentSetter:', "ENV['JEKYLL_ENV'] not found or empty. " \
+                                               "site.config['environment'] is '#{original_config_env.inspect}'."
     end
   end
 end

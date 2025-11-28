@@ -24,21 +24,18 @@ class TestEnvironmentSetterGenerator < Minitest::Test
     ENV['JEKYLL_ENV'] = current_env_val
     @site.config['environment'] = 'development' # Initial site config
 
-    stdout_str, _stderr_str = capture_io do
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:info, nil, ['EnvironmentSetter:', "Current value of JEKYLL_ENV: '#{current_env_val}'"])
+    mock_logger.expect(:info, nil) do |prefix, msg|
+      prefix == 'EnvironmentSetter:' && msg.include?("Updated site.config['environment'] from '\"development\"' to '#{current_env_val}'")
+    end
+
+    Jekyll.stub :logger, mock_logger do
       @generator.generate(@site)
     end
 
     assert_equal current_env_val, @site.config['environment']
-    # Assert the new initial log line
-    assert_match(
-      /ENVIRONMENT_SETTER_PLUGIN: Current value of JEKYLL_ENV: '#{current_env_val}'/,
-      stdout_str
-    )
-    # Assert the subsequent update log line
-    assert_match(
-      /ENVIRONMENT_SETTER_PLUGIN: Updated site\.config\['environment'\] from '"development"' to '#{current_env_val}' \(based on ENV\['JEKYLL_ENV'\]\)\./,
-      stdout_str
-    )
+    mock_logger.verify
   end
 
   def test_env_set_and_same_as_site_config
@@ -46,36 +43,36 @@ class TestEnvironmentSetterGenerator < Minitest::Test
     ENV['JEKYLL_ENV'] = current_env_val
     @site.config['environment'] = current_env_val # Initial site config matches ENV
 
-    stdout_str, _stderr_str = capture_io do
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:info, nil, ['EnvironmentSetter:', "Current value of JEKYLL_ENV: '#{current_env_val}'"])
+    mock_logger.expect(:info, nil) do |prefix, msg|
+      prefix == 'EnvironmentSetter:' && msg.include?("site.config['environment'] already matched ENV['JEKYLL_ENV'] ('#{current_env_val}')")
+    end
+
+    Jekyll.stub :logger, mock_logger do
       @generator.generate(@site)
     end
 
     assert_equal current_env_val, @site.config['environment']
-    assert_match(
-      /ENVIRONMENT_SETTER_PLUGIN: Current value of JEKYLL_ENV: '#{current_env_val}'/,
-      stdout_str
-    )
-    assert_match(
-      /ENVIRONMENT_SETTER_PLUGIN: site\.config\['environment'\] already matched ENV\['JEKYLL_ENV'\] \('#{current_env_val}'\)\. No change needed\./,
-      stdout_str
-    )
+    mock_logger.verify
   end
 
   def test_env_not_set_site_config_remains
-    ENV['JEKYLL_ENV'] = nil # current_env_val will be empty string in the log
+    ENV['JEKYLL_ENV'] = nil
     @site.config['environment'] = 'development' # Initial site config
 
-    stdout_str, _stderr_str = capture_io do
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:info, nil, ['EnvironmentSetter:', "Current value of JEKYLL_ENV: ''"])
+    mock_logger.expect(:info, nil) do |prefix, msg|
+      prefix == 'EnvironmentSetter:' && msg.include?("ENV['JEKYLL_ENV'] not found or empty") && msg.include?("site.config['environment'] is '\"development\"'")
+    end
+
+    Jekyll.stub :logger, mock_logger do
       @generator.generate(@site)
     end
 
     assert_equal 'development', @site.config['environment']
-    # ENV is nil, so logged as empty
-    assert_match(/ENVIRONMENT_SETTER_PLUGIN: Current value of JEKYLL_ENV: ''/, stdout_str)
-    assert_match(
-      /ENVIRONMENT_SETTER_PLUGIN: ENV\['JEKYLL_ENV'\] not found or empty\. site\.config\['environment'\] is '"development"'\./,
-      stdout_str
-    )
+    mock_logger.verify
   end
 
   def test_env_set_to_empty_string_site_config_remains
@@ -83,16 +80,18 @@ class TestEnvironmentSetterGenerator < Minitest::Test
     ENV['JEKYLL_ENV'] = current_env_val
     @site.config['environment'] = 'development' # Initial site config
 
-    stdout_str, _stderr_str = capture_io do
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:info, nil, ['EnvironmentSetter:', "Current value of JEKYLL_ENV: '#{current_env_val}'"])
+    mock_logger.expect(:info, nil) do |prefix, msg|
+      prefix == 'EnvironmentSetter:' && msg.include?("ENV['JEKYLL_ENV'] not found or empty") && msg.include?("site.config['environment'] is '\"development\"'")
+    end
+
+    Jekyll.stub :logger, mock_logger do
       @generator.generate(@site)
     end
 
     assert_equal 'development', @site.config['environment']
-    assert_match(/ENVIRONMENT_SETTER_PLUGIN: Current value of JEKYLL_ENV: '#{current_env_val}'/, stdout_str)
-    assert_match(
-      /ENVIRONMENT_SETTER_PLUGIN: ENV\['JEKYLL_ENV'\] not found or empty\. site\.config\['environment'\] is '"development"'\./,
-      stdout_str
-    )
+    mock_logger.verify
   end
 
   def test_site_config_initially_nil_env_is_set
@@ -100,36 +99,36 @@ class TestEnvironmentSetterGenerator < Minitest::Test
     ENV['JEKYLL_ENV'] = current_env_val
     @site.config['environment'] = nil # Explicitly set to nil
 
-    stdout_str, _stderr_str = capture_io do
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:info, nil, ['EnvironmentSetter:', "Current value of JEKYLL_ENV: '#{current_env_val}'"])
+    mock_logger.expect(:info, nil) do |prefix, msg|
+      prefix == 'EnvironmentSetter:' && msg.include?("Updated site.config['environment'] from 'nil' to '#{current_env_val}'")
+    end
+
+    Jekyll.stub :logger, mock_logger do
       @generator.generate(@site)
     end
 
     assert_equal current_env_val, @site.config['environment']
-    assert_match(
-      /ENVIRONMENT_SETTER_PLUGIN: Current value of JEKYLL_ENV: '#{current_env_val}'/,
-      stdout_str
-    )
-    assert_match(
-      /ENVIRONMENT_SETTER_PLUGIN: Updated site\.config\['environment'\] from 'nil' to '#{current_env_val}' \(based on ENV\['JEKYLL_ENV'\]\)\./,
-      stdout_str
-    )
+    mock_logger.verify
   end
 
   def test_site_config_initially_nil_env_not_set
-    ENV['JEKYLL_ENV'] = nil # current_env_val will be empty string in the log
+    ENV['JEKYLL_ENV'] = nil
     @site.config['environment'] = nil # Explicitly set to nil
 
-    stdout_str, _stderr_str = capture_io do
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:info, nil, ['EnvironmentSetter:', "Current value of JEKYLL_ENV: ''"])
+    mock_logger.expect(:info, nil) do |prefix, msg|
+      prefix == 'EnvironmentSetter:' && msg.include?("ENV['JEKYLL_ENV'] not found or empty") && msg.include?("site.config['environment'] is 'nil'")
+    end
+
+    Jekyll.stub :logger, mock_logger do
       @generator.generate(@site)
     end
 
     assert_nil @site.config['environment']
-    # ENV is nil, so logged as empty
-    assert_match(/ENVIRONMENT_SETTER_PLUGIN: Current value of JEKYLL_ENV: ''/, stdout_str)
-    assert_match(
-      /ENVIRONMENT_SETTER_PLUGIN: ENV\['JEKYLL_ENV'\] not found or empty\. site\.config\['environment'\] is 'nil'\./,
-      stdout_str
-    )
+    mock_logger.verify
   end
 
   def test_generator_priority_is_highest
