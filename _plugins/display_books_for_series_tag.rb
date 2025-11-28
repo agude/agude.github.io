@@ -4,7 +4,7 @@
 require 'jekyll'
 require 'liquid'
 require_relative 'logic/book_lists/series_finder'
-require_relative 'utils/book_card_utils'
+require_relative 'logic/book_lists/renderers/for_series_renderer'
 require_relative 'utils/tag_argument_utils'
 
 # Jekyll namespace for custom plugins.
@@ -25,51 +25,23 @@ module Jekyll
     end
 
     def render(context)
-      BooksForSeriesRenderer.new(context, @series_name_markup).render
-    end
+      series_name_input = TagArgumentUtils.resolve_value(@series_name_markup, context)
 
-    # Helper class to handle rendering logic
-    class BooksForSeriesRenderer
-      def initialize(context, series_name_markup)
-        @context = context
-        @site = context.registers[:site]
-        @series_name_markup = series_name_markup
-      end
+      series_filter = if series_name_input && !series_name_input.to_s.strip.empty?
+                        series_name_input.to_s
+                      else
+                        series_name_input
+                      end
 
-      def render
-        series_name_input = TagArgumentUtils.resolve_value(@series_name_markup, @context)
+      finder = Jekyll::BookLists::SeriesFinder.new(
+        site: context.registers[:site],
+        series_name_filter: series_filter,
+        context: context
+      )
+      data = finder.find
 
-        data = if series_name_input && !series_name_input.to_s.strip.empty?
-                 get_series_data(series_name_input.to_s)
-               else
-                 get_series_data(series_name_input)
-               end
-
-        render_output(data)
-      end
-
-      private
-
-      def get_series_data(series_name_filter)
-        finder = Jekyll::BookLists::SeriesFinder.new(
-          site: @site,
-          series_name_filter: series_name_filter,
-          context: @context
-        )
-        finder.find
-      end
-
-      def render_output(data)
-        output = data[:log_messages] || ''
-        return output if data[:books].empty?
-
-        output << "<div class=\"card-grid\">\n"
-        data[:books].each do |book|
-          output << BookCardUtils.render(book, @context) << "\n"
-        end
-        output << "</div>\n"
-        output
-      end
+      output = data[:log_messages] || ''
+      output << Jekyll::BookLists::ForSeriesRenderer.new(context, data).render
     end
   end
   Liquid::Template.register_tag('display_books_for_series', DisplayBooksForSeriesTag)

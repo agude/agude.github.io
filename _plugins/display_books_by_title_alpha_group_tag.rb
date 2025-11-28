@@ -3,9 +3,8 @@
 # _plugins/display_books_by_title_alpha_group_tag.rb
 require 'jekyll'
 require 'liquid'
-require 'cgi' # For CGI.escapeHTML
 require_relative 'logic/book_lists/by_title_alpha_finder'
-require_relative 'utils/book_card_utils'
+require_relative 'logic/book_lists/renderers/by_title_alpha_renderer'
 
 module Jekyll
   # Liquid Tag to display all books, grouped by the first letter of their
@@ -24,76 +23,11 @@ module Jekyll
     end
 
     def render(context)
-      TitleAlphaGroupRenderer.new(context).render
-    end
+      finder = Jekyll::BookLists::ByTitleAlphaFinder.new(site: context.registers[:site], context: context)
+      data = finder.find
 
-    # Helper class to handle rendering logic
-    class TitleAlphaGroupRenderer
-      def initialize(context)
-        @context = context
-        @site = context.registers[:site]
-      end
-
-      def render
-        finder = Jekyll::BookLists::ByTitleAlphaFinder.new(site: @site, context: @context)
-        data = finder.find
-
-        output = data[:log_messages] || ''
-        return output if data[:alpha_groups].empty? && !output.empty?
-        return '' if data[:alpha_groups].empty?
-
-        output << generate_navigation(data[:alpha_groups])
-        output << render_alpha_groups(data[:alpha_groups])
-        output
-      end
-
-      private
-
-      def generate_navigation(alpha_groups)
-        existing_letters = Set.new(alpha_groups.map { |g| g[:letter] })
-        all_chars_for_nav = ['#'] + ('A'..'Z').to_a
-        nav_links = all_chars_for_nav.map do |char|
-          generate_nav_link(char, existing_letters.include?(char))
-        end
-
-        "<nav class=\"alpha-jump-links\">\n  #{nav_links.join(' ')}\n</nav>\n"
-      end
-
-      def generate_nav_link(char, exists)
-        id_letter = char == '#' ? 'hash' : char.downcase
-        if exists
-          "<a href=\"#letter-#{CGI.escapeHTML(id_letter)}\">" \
-            "#{CGI.escapeHTML(char)}</a>"
-        else
-          "<span>#{CGI.escapeHTML(char)}</span>"
-        end
-      end
-
-      def render_alpha_groups(alpha_groups)
-        output = +''
-        alpha_groups.each do |alpha_group|
-          output << render_single_alpha_group(alpha_group)
-        end
-        output
-      end
-
-      def render_single_alpha_group(alpha_group)
-        letter = alpha_group[:letter]
-        books_in_group = alpha_group[:books]
-        id_letter = letter == '#' ? 'hash' : letter.downcase
-
-        output = '<h2 class="book-list-headline" ' \
-                 "id=\"letter-#{CGI.escapeHTML(id_letter)}\">" \
-                 "#{CGI.escapeHTML(letter)}</h2>\n"
-        output << "<div class=\"card-grid\">\n"
-
-        books_in_group.each do |book|
-          output << BookCardUtils.render(book, @context) << "\n"
-        end
-
-        output << "</div>\n"
-        output
-      end
+      output = data[:log_messages] || ''
+      output << Jekyll::BookLists::ByTitleAlphaRenderer.new(context, data).render
     end
   end
 end
