@@ -226,4 +226,59 @@ class TestArticleCardUtils < Minitest::Test
       end
     end
   end
+
+  def test_render_article_card_missing_alt_logs_warning
+    post_missing_alt_data = {
+      'title' => 'Missing Alt Post',
+      'image' => '/images/no-alt.jpg'
+      # 'image_alt' is missing
+    }
+    post_missing_alt = create_doc(post_missing_alt_data, '/missing-alt.html')
+
+    mock_base_data = {
+      site: @site,
+      data_source_for_keys: post_missing_alt.data,
+      data_for_description: post_missing_alt.data,
+      absolute_url: 'http://example.com/missing-alt.html',
+      absolute_image_url: 'http://example.com/images/no-alt.jpg',
+      raw_title: 'Missing Alt Post',
+      log_output: +'' # Use mutable string to allow appending log messages
+    }
+    mock_prepared_title = 'Missing Alt Post Prepared'
+    mock_description_html = ''
+
+    captured_card_data = nil
+    log_called = false
+    log_verifier = lambda do |args|
+      log_called = true
+      assert_equal 'ARTICLE_CARD_ALT_MISSING', args[:tag_type]
+      assert_match "Missing 'image_alt' front matter", args[:reason]
+      assert_equal :warn, args[:level]
+      '<!-- LOG_MISSING_ALT -->'
+    end
+
+    CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      TypographyUtils.stub :prepare_display_title, mock_prepared_title do
+        CardDataExtractorUtils.stub :extract_description_html, mock_description_html do
+          PluginLoggerUtils.stub :log_liquid_failure, log_verifier do
+            CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
+              _ = context
+              captured_card_data = card_data
+              'card_missing_alt'
+            } do
+              Jekyll.stub :logger, @silent_logger_stub do
+                output = ArticleCardUtils.render(post_missing_alt, @context)
+                assert_match '<!-- LOG_MISSING_ALT -->', output # Log should be prepended
+                assert_match 'card_missing_alt', output
+              end
+            end
+          end
+        end
+      end
+    end
+
+    assert log_called, 'PluginLoggerUtils.log_liquid_failure should have been called'
+    refute_nil captured_card_data
+    assert_equal 'Article header image, used for decoration.', captured_card_data[:image_alt] # Default alt
+  end
 end
