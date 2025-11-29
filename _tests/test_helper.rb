@@ -147,7 +147,7 @@ require 'logic/related_posts/renderer'
 # --- Mock Objects ---
 
 # Simple mock for Jekyll documents (Posts, Pages, Collection Items)
-MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection, :relative_path) do
+MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection, :relative_path, :path) do
   # Provides hash-like access to document attributes and front matter.
   def [](key)
     key_s = key.to_s
@@ -247,6 +247,10 @@ class MockSite
     return nil unless converters
 
     converters.find { |c| converter_matches?(c, klass_or_name) }
+  end
+
+  def show_drafts
+    config['show_drafts']
   end
 
   private
@@ -465,5 +469,3 @@ def setup_mock_excerpt(doc, base_data)
     doc.data['excerpt'] = Struct.new(:output).new(string_excerpt_content)
   end
 end
-
-puts 'Expanded test helper loaded (with improved MockDocument and logging disabled).'
