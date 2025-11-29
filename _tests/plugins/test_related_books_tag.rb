@@ -4,12 +4,11 @@
 require_relative '../test_helper'
 require_relative '../../_plugins/related_books_tag'
 
-# Tests for RelatedBooksTag Liquid tag and its components.
+# Integration tests for RelatedBooksTag Liquid tag.
 #
-# This test suite is organized into three sections:
-# 1. Finder tests - Test data retrieval logic directly
-# 2. Renderer tests - Test HTML generation directly
-# 3. Tag integration tests - Test the tag orchestration
+# Tests the full orchestration of the tag, verifying that the Finder and
+# Renderer work together correctly. Unit tests for Finder and Renderer are in
+# _tests/plugins/logic/related_books/.
 class TestRelatedBooksTag < Minitest::Test
   DEFAULT_MAX_BOOKS = Jekyll::RelatedBooksTag::DEFAULT_MAX_BOOKS
 
@@ -23,182 +22,6 @@ class TestRelatedBooksTag < Minitest::Test
     @helper = BookTestHelper.new(@test_time_now, @site_config_base)
     @helper.setup_generic_books
   end
-
-  # ========================================================================
-  # Finder Tests - Test data retrieval logic directly
-  # ========================================================================
-
-  def test_finder_returns_correct_structure_with_empty_books
-    site = create_site(@site_config_base.dup, {})
-    page = create_doc({ 'title' => 'Test', 'url' => '/test.html', 'path' => 'test.md' }, '/test.html')
-    context = create_context({}, { site: site, page: page })
-
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
-    result = nil
-    Time.stub :now, @test_time_now do
-      Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
-        result = finder.find
-      end
-    end
-
-    assert_kind_of Hash, result
-    assert_kind_of String, result[:logs]
-    assert_kind_of Array, result[:books]
-  end
-
-  def test_finder_returns_series_books_in_correct_order
-    books, site = @helper.setup_series_books(4)
-    context = create_context({}, { site: site, page: books[0] })
-
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
-    result = nil
-    Time.stub :now, @test_time_now do
-      result = finder.find
-    end
-
-    assert_equal 3, result[:books].length
-    assert_equal books[1].url, result[:books][0].url
-    assert_equal books[2].url, result[:books][1].url
-    assert_equal books[3].url, result[:books][2].url
-  end
-
-  def test_finder_series_book2_of_4_returns_books_1_3_4
-    books, site = @helper.setup_series_books(4)
-    context = create_context({}, { site: site, page: books[1] })
-
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
-    result = nil
-    Time.stub :now, @test_time_now do
-      result = finder.find
-    end
-
-    assert_equal 3, result[:books].length
-    assert_equal [books[0].url, books[2].url, books[3].url], result[:books].map(&:url)
-  end
-
-  def test_finder_series_provides_zero_books_fills_with_author_and_recent
-    _, _, _, context = @helper.setup_zero_series_books_scenario
-
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
-    result = nil
-    Time.stub :now, @test_time_now do
-      result = finder.find
-    end
-
-    assert_equal 3, result[:books].length
-    assert_equal @helper.author_x_book2_recent.url, result[:books][0].url
-    assert_equal @helper.author_x_book1_old.url, result[:books][1].url
-    assert_equal @helper.recent_unrelated_book1.url, result[:books][2].url
-  end
-
-  def test_finder_excludes_archived_reviews
-    _, _, _, _, context = @helper.setup_archived_reviews_scenario
-
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
-    result = nil
-    Time.stub :now, @test_time_now do
-      result = finder.find
-    end
-
-    titles = result[:books].map { |b| b.data['title'] }
-    assert_includes titles, 'Related Canonical'
-    refute_includes titles, 'Related Archived'
-  end
-
-  def test_finder_includes_external_canonical_url
-    _, _, _, context = @helper.setup_external_canonical_scenario
-
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
-    result = nil
-    Time.stub :now, @test_time_now do
-      result = finder.find
-    end
-
-    titles = result[:books].map { |b| b.data['title'] }
-    assert_includes titles, 'Related External'
-  end
-
-  def test_finder_logs_error_when_prerequisites_missing
-    site = create_site(@site_config_base.dup)
-    context = create_context({}, { site: site })
-
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
-    result = nil
-    Time.stub :now, @test_time_now do
-      Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
-        result = finder.find
-      end
-    end
-
-    assert_empty result[:books]
-    assert_match(/Missing prerequisites: page object/, result[:logs])
-  end
-
-  def test_finder_with_unparseable_book_number_logs_info
-    _, _, _, _, _, _, context = @helper.setup_unparseable_book_number_scenario
-
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
-    result = nil
-    Time.stub :now, @test_time_now do
-      Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
-        result = finder.find
-      end
-    end
-
-    assert_match(/unparseable book_number/, result[:logs])
-    assert_equal 3, result[:books].length
-  end
-
-  # ========================================================================
-  # Renderer Tests - Test HTML generation directly
-  # ========================================================================
-
-  def test_renderer_returns_empty_string_for_empty_books
-    site = create_site(@site_config_base.dup, {})
-    context = create_context({}, { site: site })
-
-    renderer = Jekyll::RelatedBooks::Renderer.new(context, [])
-    output = renderer.render
-
-    assert_equal '', output
-  end
-
-  def test_renderer_generates_correct_html_structure
-    books, site = @helper.setup_series_books(2)
-    context = create_context({}, { site: site, page: books[0] })
-
-    renderer = Jekyll::RelatedBooks::Renderer.new(context, books)
-    output = nil
-    BookCardUtils.stub :render, ->(book_obj, _ctx) { "<!-- Card for: #{book_obj.data['title']} -->\n" } do
-      output = renderer.render
-    end
-
-    assert_match(/<aside class="related">/, output)
-    assert_match(%r{<h2>Related Books</h2>}, output)
-    assert_match(/<div class="card-grid">/, output)
-    assert_equal 2, output.scan('<!-- Card for:').count
-    assert_match(%r{</div>\s*</aside>}m, output)
-  end
-
-  def test_renderer_calls_book_card_utils_for_each_book
-    books, site = @helper.setup_series_books(3)
-    context = create_context({}, { site: site, page: books[0] })
-
-    card_render_count = 0
-    renderer = Jekyll::RelatedBooks::Renderer.new(context, books)
-    BookCardUtils.stub :render, lambda { |_book_obj, _ctx|
-      card_render_count += 1
-      "<!-- Card -->\n"
-    } do
-      renderer.render
-    end
-
-    assert_equal 3, card_render_count
-  end
-
-  # ========================================================================
-  # Tag Integration Tests - Test orchestration
-  # ========================================================================
 
   def test_tag_orchestrates_finder_and_renderer_correctly
     books, site = @helper.setup_series_books(4)
@@ -233,10 +56,6 @@ class TestRelatedBooksTag < Minitest::Test
     # Logs may be empty or present, but the HTML should always be there
     assert_includes output, books[1].data['title']
   end
-
-  # ========================================================================
-  # Legacy integration tests for comprehensive coverage
-  # ========================================================================
 
   def test_series_current_is_book4_of_4_shows_1_2_3_sorted
     books, site = @helper.setup_series_books(4)
@@ -384,16 +203,6 @@ class TestRelatedBooksTag < Minitest::Test
       output
     end
 
-    def render_tag_with_mock_logger(context, mock)
-      output = ''
-      Time.stub :now, @test_time_now do
-        Jekyll.stub :logger, mock do
-          output = Liquid::Template.parse('{% related_books %}').render!(context)
-        end
-      end
-      output
-    end
-
     def extract_rendered_titles(output_html)
       output_html.scan(/<!-- Card for: (.*?) -->/).flatten
     end
@@ -423,46 +232,6 @@ class TestRelatedBooksTag < Minitest::Test
       site = create_site(@site_config_base.dup, { 'books' => books_collection.docs })
       context = create_context({}, { site: site, page: series_books[4] })
       [books_collection, series_books, site, context]
-    end
-
-    def setup_unparseable_book_number_scenario
-      coll = MockCollection.new([], 'books')
-      s1b3 = create_book(
-        title: 'S1B3', series: 'Series 1', book_num: 3, authors: ['Auth'],
-        date_offset_days: 8, url_suffix: 's1b3', collection: coll
-      )
-      s1b1 = create_book(
-        title: 'S1B1', series: 'Series 1', book_num: 1, authors: ['Auth'],
-        date_offset_days: 10, url_suffix: 's1b1', collection: coll
-      )
-      s1b2 = create_book(
-        title: 'S1B2', series: 'Series 1', book_num: 2, authors: ['Auth'],
-        date_offset_days: 9, url_suffix: 's1b2', collection: coll
-      )
-      bad_num = create_book(
-        title: 'Current BadNum', series: 'Series 1', book_num: 'xyz', authors: ['Auth'],
-        date_offset_days: 1, url_suffix: 'curr_bad_num', collection: coll
-      )
-      coll.docs = [s1b1, s1b2, s1b3, bad_num, @recent_unrelated_book1].compact
-
-      site = create_site(@site_config_base.dup, { 'books' => coll.docs })
-      context = create_context({}, { site: site, page: bad_num })
-      [coll, s1b1, s1b2, s1b3, bad_num, site, context]
-    end
-
-    def setup_zero_series_books_scenario
-      coll = MockCollection.new([], 'books')
-      curr = create_book(
-        title: 'Current In SeriesX', series: 'Series X', book_num: 1, authors: ['Author X'],
-        date_offset_days: 0, url_suffix: 'curr_sx', collection: coll
-      )
-      coll.docs = [
-        curr, @author_x_book1_old, @author_x_book2_recent, @recent_unrelated_book1,
-        @recent_unrelated_book2, @recent_unrelated_book3
-      ].compact
-      site = create_site(@site_config_base.dup, { 'books' => coll.docs })
-      context = create_context({}, { site: site, page: curr })
-      [coll, curr, site, context]
     end
 
     def setup_one_series_book_scenario
@@ -572,67 +341,16 @@ class TestRelatedBooksTag < Minitest::Test
       [wot, tlp, cc, fill, site, context]
     end
 
-    def setup_html_structure_scenario
-      coll = MockCollection.new([], 'books')
-      s1b1 = create_book(
-        title: 'S1B1', series: 'Series 1', book_num: 1, authors: ['Auth'],
-        date_offset_days: 10, url_suffix: 's1b1', collection: coll
-      )
-      s1b2 = create_book(
-        title: 'S1B2', series: 'Series 1', book_num: 2, authors: ['Auth'],
-        date_offset_days: 9, url_suffix: 's1b2', collection: coll
-      )
-      coll.docs = [s1b1, s1b2].compact
-      site = create_site(@site_config_base.dup, { 'books' => coll.docs })
-      context = create_context({}, { site: site, page: s1b1 })
-      [coll, s1b1, s1b2, site, context]
-    end
-
-    def setup_archived_reviews_scenario
-      coll = MockCollection.new([], 'books')
-      curr = create_book(
-        title: 'Current Book', series: 'Series A', book_num: 1, authors: ['Auth'],
-        date_offset_days: 10, url_suffix: 'current', collection: coll
-      )
-      canon = create_book(
-        title: 'Related Canonical', series: 'Series A', book_num: 2, authors: ['Auth'],
-        date_offset_days: 9, url_suffix: 'related_canon', collection: coll
-      )
-      arch = create_book(
-        title: 'Related Archived', series: 'Series A', book_num: 3, authors: ['Auth'],
-        date_offset_days: 8, url_suffix: 'related_archive',
-        collection: coll, extra_fm: { 'canonical_url' => '/some/path' }
-      )
-      coll.docs = [curr, canon, arch].compact
-      site = create_site(@site_config_base.dup, { 'books' => coll.docs })
-      context = create_context({}, { site: site, page: curr })
-      [curr, canon, arch, site, context]
-    end
-
-    def setup_external_canonical_scenario
-      coll = MockCollection.new([], 'books')
-      curr = create_book(
-        title: 'Current Book', series: 'Series A', book_num: 1, authors: ['Auth'],
-        date_offset_days: 10, url_suffix: 'current', collection: coll
-      )
-      ext = create_book(
-        title: 'Related External', series: 'Series A', book_num: 2, authors: ['Auth'],
-        date_offset_days: 5, url_suffix: 'related_ext',
-        collection: coll, extra_fm: { 'canonical_url' => 'http://some.other.site/path' }
-      )
-      coll.docs = [curr, ext].compact
-      site = create_site(@site_config_base.dup, { 'books' => coll.docs })
-      context = create_context({}, { site: site, page: curr })
-      [curr, ext, site, context]
-    end
-
     private
 
     def create_silent_logger
       Object.new.tap do |logger|
         def logger.warn(topic, message); end
+
         def logger.error(topic, message); end
+
         def logger.info(topic, message); end
+
         def logger.debug(topic, message); end
       end
     end
