@@ -64,7 +64,8 @@ end
 class BookLinkResolver
   def initialize(context)
     @context = context
-    @site = context&.registers&.[](:site)
+    registers = context.respond_to?(:registers) ? context.registers : nil
+    @site = registers&.[](:site)
   end
 
   def resolve(title_raw, text_override, author_filter)

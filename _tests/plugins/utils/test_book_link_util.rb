@@ -22,10 +22,12 @@ class TestBookLinkUtils < Minitest::Test
     @ambiguous_book_b = create_doc(amb_b_data, '/books/ambiguous-b.html')
     pen_data = { 'title' => 'Pen Name Book', 'published' => true, 'book_authors' => ['A. A. Penname'] }
     @pen_name_book = create_doc(pen_data, '/books/penname.html')
+    book_with_empty_author_list_data = { 'title' => 'Empty Author Book', 'published' => true, 'book_authors' => [''] }
+    @book_with_empty_author_list = create_doc(book_with_empty_author_list_data, '/books/empty-author.html')
 
     @site = create_site(
       {},
-      { 'books' => [@unique_book, @ambiguous_book_a, @ambiguous_book_b, @pen_name_book] },
+      { 'books' => [@unique_book, @ambiguous_book_a, @ambiguous_book_b, @pen_name_book, @book_with_empty_author_list] },
       [@author_a_page, @author_b_page]
     )
     # Enable logging for this utility's tag type for all tests in this file.
@@ -38,8 +40,8 @@ class TestBookLinkUtils < Minitest::Test
     @silent_logger_stub = create_silent_logger
   end
 
-  def render_link(title, link_text = nil, author = nil)
-    BookLinkUtils.render_book_link(title, @ctx, link_text, author)
+  def render_link(title, link_text = nil, author = nil, context = @ctx)
+    BookLinkUtils.render_book_link(title, context, link_text, author)
   end
 
   # Helper to create a silent logger stub
@@ -55,6 +57,11 @@ class TestBookLinkUtils < Minitest::Test
   def test_render_unique_book_succeeds
     expected = '<a href="/books/unique.html"><cite class="book-title">Unique Book</cite></a>'
     assert_equal expected, render_link('Unique Book')
+  end
+
+  def test_unique_book_with_link_text_override
+    expected = '<a href="/books/unique.html"><cite class="book-title">Display Me</cite></a>'
+    assert_equal expected, render_link('Unique Book', 'Display Me')
   end
 
   def test_render_ambiguous_book_without_author_fails_build
@@ -254,5 +261,105 @@ class TestBookLinkUtils < Minitest::Test
       BookLinkUtils.render_book_link('External Canon Test', ctx)
     end
     assert_match "used by multiple authors: 'Author A'; 'Author B'", err.message
+  end
+
+  def test_resolver_handles_nil_site
+    # This covers `context&.registers` when context is valid but registers is nil
+    context_nil_registers = Struct.new(:registers).new(nil)
+    output = render_link('Unique Book', nil, nil, context_nil_registers)
+    expected = '<cite class="book-title">Unique Book</cite>'
+    assert_equal expected, output
+
+    # This covers `registers&.[](:site)` when registers is a hash but doesn't contain :site
+    context_no_site_in_registers = create_context({}, {}) # No :site in registers
+    output_no_site = render_link('Unique Book', nil, nil, context_no_site_in_registers)
+    assert_equal expected, output_no_site
+  end
+
+  def test_resolver_handles_context_without_registers
+    # A context object that doesn't respond to .registers
+    context_no_registers = {}
+    output = render_link('Unique Book', nil, nil, context_no_registers)
+    # It should fallback to an unlinked cite tag because @site will be nil
+    expected = '<cite class="book-title">Unique Book</cite>'
+    assert_equal expected, output
+  end
+
+  def test_resolver_handles_nil_context
+    # When context itself is nil, should safely handle and render unlinked cite tag
+    output = render_link('Unique Book', nil, nil, nil)
+    expected = '<cite class="book-title">Unique Book</cite>'
+    assert_equal expected, output
+  end
+
+  def test_unreviewed_mention_not_tracked_if_page_url_missing
+    @site.data['mention_tracker'].clear
+    page_no_url = create_doc({ 'path' => 'no_url.html' }, nil)
+    context_no_url = create_context({}, { site: @site, page: page_no_url })
+    Jekyll.stub :logger, @silent_logger_stub do
+      render_link('An Unreviewed Book', nil, nil, context_no_url)
+    end
+    assert_empty @site.data['mention_tracker']
+  end
+
+  def test_author_filter_with_empty_string_is_ignored
+    # An empty author filter should be ignored, and the lookup should proceed as if no filter was given.
+    # Since 'Ambiguous Book' is ambiguous without a filter, this should raise a fatal exception.
+    err = assert_raises(Jekyll::Errors::FatalException) do
+      render_link('Ambiguous Book', nil, '   ') # Whitespace-only author filter
+    end
+    assert_match '[FATAL] Ambiguous book title', err.message
+
+    # For a unique book, it should succeed.
+    expected = '<a href="/books/unique.html"><cite class="book-title">Unique Book</cite></a>'
+    assert_equal expected, render_link('Unique Book', nil, '') # Empty string author filter
+  end
+
+  def test_author_filter_handles_book_with_empty_author_list
+    output = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = render_link('Empty Author Book', nil, 'Some Author')
+    end
+    expected_pattern = '<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: ' \
+                       "Reason='Book title exists, but not by the specified author.' .*? -->" \
+                       '<cite class="book-title">Empty Author Book</cite>'
+    assert_match(/#{expected_pattern}/, output)
+  end
+
+  def test_legacy_track_unreviewed_mention_works
+    @site.data['mention_tracker'].clear
+    unreviewed_title = 'Legacy Tracked Book'
+    normalized_title = 'legacy tracked book'
+    Jekyll.stub :logger, @silent_logger_stub do
+      BookLinkUtils._track_unreviewed_mention(@ctx, unreviewed_title)
+    end
+    tracker = @site.data['mention_tracker']
+    refute_nil tracker[normalized_title]
+    assert_equal 1, tracker[normalized_title][:original_titles][unreviewed_title]
+  end
+
+  def test_get_canonical_author_handles_empty_author_name
+    # Test that when filtering by an empty author name, it's handled correctly.
+    # This is tested indirectly - when a book has an empty author in its list,
+    # the canonical author lookup should return nil for that empty author.
+    # This is already partially covered by test_author_filter_handles_book_with_empty_author_list,
+    # but let's ensure the edge case of comparing nil values works.
+
+    # Create a book with an empty author that matches another book's title
+    empty_auth_data = { 'title' => 'Test Title', 'published' => true, 'book_authors' => [''] }
+    empty_auth_book = create_doc(empty_auth_data, '/books/empty.html')
+    normal_data = { 'title' => 'Test Title', 'published' => true, 'book_authors' => ['Normal Author'] }
+    normal_book = create_doc(normal_data, '/books/normal.html')
+
+    site = create_site({}, { 'books' => [empty_auth_book, normal_book] }, [])
+    site.config['plugin_logging']['RENDER_BOOK_LINK'] = true
+    ctx = create_context({}, { site: site, page: @page })
+
+    # Since neither book can be disambiguated (one has empty author, one has normal),
+    # this should raise an ambiguous error
+    err = assert_raises(Jekyll::Errors::FatalException) do
+      BookLinkUtils.render_book_link('Test Title', ctx, nil, nil)
+    end
+    assert_match '[FATAL] Ambiguous book title', err.message
   end
 end
