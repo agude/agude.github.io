@@ -20,6 +20,7 @@ class TestRelatedBooksFinder < Minitest::Test
     @test_time_now = Time.parse('2024-03-15 10:00:00 EST')
     @helper = BookTestHelper.new(@test_time_now, @site_config_base)
     @helper.setup_generic_books
+    @context = create_context({}, { site: create_site, page: create_doc })
   end
 
   def test_returns_correct_structure_with_empty_books
@@ -112,7 +113,7 @@ class TestRelatedBooksFinder < Minitest::Test
     assert_includes titles, 'Related External'
   end
 
-  def test_logs_error_when_prerequisites_missing
+  def test_logs_error_when_page_is_missing
     site = create_site(@site_config_base.dup)
     context = create_context({}, { site: site })
 
@@ -126,6 +127,45 @@ class TestRelatedBooksFinder < Minitest::Test
 
     assert_empty result[:books]
     assert_match(/Missing prerequisites: page object/, result[:logs])
+  end
+
+  def test_logs_error_when_site_is_missing
+    page = create_doc({ 'title' => 'Test', 'url' => '/test.html' }, '/test.html')
+    context = Liquid::Context.new({}, {}, { page: page })
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+
+    _result, stderr_str = capture_io do
+      finder.find
+    end
+
+    assert_match(/Context, Site, or Site Config unavailable for logging/, stderr_str)
+    assert_match(/Original Call: RELATED_BOOKS - error: Missing prerequisites: site object/, stderr_str)
+  end
+
+  def test_logs_error_when_page_url_is_missing
+    site = create_site(@site_config_base.dup, { 'books' => [] })
+    page_no_url = create_doc({ 'title' => 'Test', 'path' => 'test.md' }, nil)
+    context = create_context({}, { site: site, page: page_no_url })
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    result = nil
+    Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
+      result = finder.find
+    end
+    assert_empty result[:books]
+    assert_match(/Missing prerequisites: page\[&#39;url&#39;\]/, result[:logs])
+  end
+
+  def test_logs_error_when_books_collection_is_missing
+    site_no_books = create_site(@site_config_base.dup) # No collections by default
+    page = create_doc({ 'title' => 'Test', 'url' => '/test.html', 'path' => 'test.html' }, '/test.html')
+    context = create_context({}, { site: site_no_books, page: page })
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    result = nil
+    Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
+      result = finder.find
+    end
+    assert_empty result[:books]
+    assert_match(/Missing prerequisites: site.collections\[&#39;books&#39;\]/, result[:logs])
   end
 
   def test_with_unparseable_book_number_logs_info
@@ -222,32 +262,54 @@ class TestRelatedBooksFinder < Minitest::Test
     refute_includes titles, 'Future Book'
   end
 
+  def test_excludes_book_with_nil_data
+    valid_books = [@helper.author_x_book1_old, @helper.author_x_book2_recent]
+    site = create_site(@site_config_base.dup, { 'books' => valid_books })
+    book_with_nil_data = @helper.create_book(title: 'Nil Data Book', authors: ['Author X'], url_suffix: 'nil-data')
+    book_with_nil_data.data = nil
+    site.collections['books'].docs << book_with_nil_data
+    context = create_context({}, { site: site, page: @helper.author_x_book1_old })
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    result = finder.find
+    urls = result[:books].map(&:url)
+    refute_includes urls, book_with_nil_data.url
+    assert_includes urls, @helper.author_x_book2_recent.url
+  end
+
+  def test_excludes_book_with_nil_date
+    book_with_nil_date = @helper.create_book(title: 'Nil Date Book', authors: ['Author X'], url_suffix: 'nil-date')
+    book_with_nil_date.date = nil
+    book_with_nil_date.data['date'] = nil
+    coll = MockCollection.new([@helper.author_x_book1_old, @helper.author_x_book2_recent, book_with_nil_date], 'books')
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    context = create_context({}, { site: site, page: @helper.author_x_book1_old })
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    result = finder.find
+    urls = result[:books].map(&:url)
+    refute_includes urls, book_with_nil_date.url
+    assert_includes urls, @helper.author_x_book2_recent.url
+  end
+
   def test_limits_results_to_max_books
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
       title: 'Current Book', authors: ['Author X'],
       date_offset_days: 20, url_suffix: 'current', collection: coll
     )
-
-    # Create 10 books by the same author
     books = (1..10).map do |i|
       @helper.create_book(
         title: "Book #{i}", authors: ['Author X'],
         date_offset_days: i, url_suffix: "book#{i}", collection: coll
       )
     end
-
     coll.docs = [curr] + books
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     context = create_context({}, { site: site, page: curr })
-
-    # Request only 5 books
     finder = Jekyll::RelatedBooks::Finder.new(context, 5)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
     end
-
     assert_equal 5, result[:books].length
   end
 
@@ -266,21 +328,44 @@ class TestRelatedBooksFinder < Minitest::Test
       title: 'Other Book', authors: ['Author X'],
       date_offset_days: 3, url_suffix: 'other', collection: coll
     )
-
     coll.docs = [curr, canonical, other].compact
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     context = create_context({}, { site: site, page: curr })
-
     finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
     end
-
     titles = result[:books].map { |b| b.data['title'] }
     refute_includes titles, 'Current Book'
     refute_includes titles, 'Canonical Book'
     assert_includes titles, 'Other Book'
+  end
+
+  def test_fallback_to_recent_when_page_has_no_authors
+    current_page = @helper.create_book(title: 'Current No Authors', authors: [], url_suffix: 'current-no-authors')
+    coll = MockCollection.new(
+      [current_page, @helper.author_x_book1_old, @helper.author_x_book2_recent,
+       @helper.recent_unrelated_book1, @helper.recent_unrelated_book2], 'books'
+    )
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    context = create_context({}, { site: site, page: current_page })
+    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    result = finder.find
+    expected_titles = [
+      @helper.recent_unrelated_book1.data['title'],
+      @helper.recent_unrelated_book2.data['title'],
+      @helper.author_x_book2_recent.data['title']
+    ]
+    actual_titles = result[:books].map { |b| b.data['title'] }
+    assert_equal expected_titles, actual_titles
+  end
+
+  def test_private_method_parse_book_num_with_hash
+    finder = Jekyll::RelatedBooks::Finder.new(@context, DEFAULT_MAX_BOOKS)
+    hash_obj = { 'book_number' => '3.14' }
+    result = finder.send(:parse_book_num, hash_obj)
+    assert_equal 3.14, result
   end
 
   # Helper class for test setup and utilities
