@@ -118,6 +118,88 @@ class TestBookCardLookupTag < Minitest::Test
     end
   end
 
+  # --- Edge Case & Error Handling Tests ---
+
+  def test_render_logs_error_when_resolved_title_is_empty
+    # Variable 'nil_title_var' is nil in @context
+    log_called = false
+    log_verifier = lambda do |args|
+      log_called = true
+      assert_equal 'BOOK_CARD_LOOKUP', args[:tag_type]
+      assert_equal 'Title markup resolved to empty or nil.', args[:reason]
+      ''
+    end
+
+    PluginLoggerUtils.stub :log_liquid_failure, log_verifier do
+      Liquid::Template.parse('{% book_card_lookup nil_title_var %}').render!(@context)
+    end
+    assert log_called, 'PluginLoggerUtils.log_liquid_failure should have been called'
+  end
+
+  def test_render_logs_error_when_books_collection_missing
+    site_no_books = create_site({}, {}) # Empty collections
+    context_no_books = create_context({}, { site: site_no_books })
+
+    log_called = false
+    log_verifier = lambda do |args|
+      log_called = true
+      assert_equal 'BOOK_CARD_LOOKUP', args[:tag_type]
+      assert_match "Required 'books' collection not found", args[:reason]
+      ''
+    end
+
+    PluginLoggerUtils.stub :log_liquid_failure, log_verifier do
+      Liquid::Template.parse("{% book_card_lookup 'Title' %}").render!(context_no_books)
+    end
+    assert log_called, 'PluginLoggerUtils.log_liquid_failure should have been called'
+  end
+
+  def test_render_logs_warning_when_book_not_found
+    mock_result = { book: nil, error: 'Book not found' }
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    log_called = false
+    log_verifier = lambda do |args|
+      log_called = true
+      assert_equal 'BOOK_CARD_LOOKUP', args[:tag_type]
+      assert_equal 'Could not find book.', args[:reason]
+      assert_equal :warn, args[:level]
+      ''
+    end
+
+    Jekyll::CardLookups::BookFinder.stub :new, ->(_args) { mock_finder } do
+      PluginLoggerUtils.stub :log_liquid_failure, log_verifier do
+        Liquid::Template.parse("{% book_card_lookup 'Missing Book' %}").render!(@context)
+      end
+    end
+    assert log_called, 'PluginLoggerUtils.log_liquid_failure should have been called'
+  end
+
+  def test_render_logs_error_when_utility_raises_exception
+    mock_result = { book: @book1, error: nil }
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    log_called = false
+    log_verifier = lambda do |args|
+      log_called = true
+      assert_equal 'BOOK_CARD_LOOKUP', args[:tag_type]
+      assert_match 'Error calling BookCardUtils.render utility', args[:reason]
+      assert_equal :error, args[:level]
+      ''
+    end
+
+    Jekyll::CardLookups::BookFinder.stub :new, ->(_args) { mock_finder } do
+      BookCardUtils.stub :render, ->(_book, _ctx) { raise StandardError, 'Render boom' } do
+        PluginLoggerUtils.stub :log_liquid_failure, log_verifier do
+          Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
+        end
+      end
+    end
+    assert log_called, 'PluginLoggerUtils.log_liquid_failure should have been called'
+  end
+
   private
 
   # Creates test book documents
