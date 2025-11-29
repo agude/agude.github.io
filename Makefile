@@ -11,6 +11,14 @@ BUNDLER_VERSION := 2.6.8
 # Define base image using the determined Ruby version
 BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 
+# Get the current user's UID and GID to run Docker commands as the host user.
+# This prevents Docker from creating files (e.g., _site, coverage) as root.
+# We also set HOME=/tmp to give the user a writable home directory inside the
+# container, which prevents certain permission errors with Jekyll and Bundler.
+USER_ID := $(shell id -u)
+GROUP_ID := $(shell id -g)
+DOCKER_RUN_OPTS := --user $(USER_ID):$(GROUP_ID) -e HOME=/tmp
+
 # Allow overriding the test file/pattern via command line.
 # Defaults to finding all 'test_*.rb' files in the '_tests' directory,
 # excluding 'test_helper.rb' itself.
@@ -30,6 +38,7 @@ lock: .ruby-version # Dependency on .ruby-version
 	@echo "Updating and normalizing Gemfile.lock using Docker ($(BASE_RUBY_IMAGE) with Bundler $(BUNDLER_VERSION))..."
 	@echo "Running 'bundle lock --update --normalize-platforms' inside container..." # Updated echo
 	@docker run --rm \
+		$(DOCKER_RUN_OPTS) \
 		-v $(PWD):$(MOUNT) \
 		-w $(MOUNT) \
 		$(BASE_RUBY_IMAGE) \
@@ -68,7 +77,7 @@ refresh: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-versio
 # Clean out _site and other caches. Requires the image to exist.
 clean: image clean-coverage
 	@echo "Cleaning Jekyll build artifacts..."
-	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll clean
+	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll clean
 
 # Clean the coverage report directory.
 clean-coverage:
@@ -78,19 +87,20 @@ clean-coverage:
 # Build the site for production. Depends on image and clean.
 build: image clean
 	@echo "Building site for production..."
-	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) -e JEKYLL_ENV=production $(IMAGE) bundle exec jekyll build
+	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -e JEKYLL_ENV=production $(IMAGE) bundle exec jekyll build
 
 # Profile the site build. Depends on image and clean.
 profile: image clean
 	@echo "Profiling Jekyll build..."
 	@echo "Output will be in '_site' and Liquid profiles in '_profile/'."
-	@docker run --rm -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll build --profile
+	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll build --profile
 
 # Serves the site for local development, with live reloading.
 # This target contains the solution to the '0.0.0.0' URL issue in browsers.
 serve: image clean
 	@echo "Serving site at http://localhost:4000..."
 	@docker run --rm \
+		$(DOCKER_RUN_OPTS) \
 		-p 4000:4000 \
 		-p 35729:35729 \
 		-v $(PWD):$(MOUNT) \
@@ -121,6 +131,7 @@ serve: image clean
 drafts: image clean
 	@echo "Serving site with drafts at http://localhost:4000..."
 	@docker run --rm \
+		$(DOCKER_RUN_OPTS) \
 		-p 4000:4000 \
 		-p 35729:35729 \
 		-v $(PWD):$(MOUNT) \
@@ -132,7 +143,7 @@ drafts: image clean
 # Interactive session within the image. Depends on image existing.
 debug: image
 	@echo "Starting interactive debug session in container..."
-	@docker run -it --rm -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) /bin/bash
+	@docker run -it --rm $(DOCKER_RUN_OPTS) -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) /bin/bash
 
 # Run Minitest tests located in _tests/ inside the Docker container.
 test: image # Depends on the Docker image being built/up-to-date
@@ -146,6 +157,7 @@ test: image # Depends on the Docker image being built/up-to-date
 	@echo "$(TEST)" | tr ' ' '\n'
 	@echo "---"
 	@docker run --rm \
+		$(DOCKER_RUN_OPTS) \
 		-v $(PWD):$(MOUNT) \
 		-w $(MOUNT) \
 		$(IMAGE) \
@@ -163,6 +175,7 @@ coverage: image clean-coverage
 	@# The test command is the same as 'test', but SimpleCov (enabled in test_helper)
 	@# will automatically generate the report in the 'coverage/' directory.
 	@docker run --rm \
+		$(DOCKER_RUN_OPTS) \
 		-v $(PWD):$(MOUNT) \
 		-w $(MOUNT) \
 		$(IMAGE) \
@@ -178,6 +191,7 @@ coverage: image clean-coverage
 lint: image
 	@echo "Running linter..."
 	@docker run --rm \
+		$(DOCKER_RUN_OPTS) \
 		-v $(PWD):$(MOUNT) \
 		-w $(MOUNT) \
 		$(IMAGE) \
@@ -187,6 +201,7 @@ lint: image
 check: build
 	@echo "Checking generated site for broken links and HTML issues..."
 	@docker run --rm \
+		$(DOCKER_RUN_OPTS) \
 		-v $(PWD):$(MOUNT) \
 		-w $(MOUNT) \
 		$(IMAGE) \
@@ -196,6 +211,7 @@ check: build
 check-strict: image
 	@echo "Checking all documents for strict Liquid compliance..."
 	@docker run --rm \
+		$(DOCKER_RUN_OPTS) \
 		-v $(PWD):$(MOUNT) \
 		-w $(MOUNT) \
 		$(IMAGE) \
@@ -217,6 +233,7 @@ format-all: image
 	@echo "Running RuboCop --autocorrect on ALL Ruby files to establish a clean baseline..."
 	@# Run RuboCop, ignore its non-zero exit code (1 or 123) with '|| true' to prevent 'make' from failing.
 	@docker run --rm \
+		$(DOCKER_RUN_OPTS) \
 		-v $(PWD):$(MOUNT) \
 		-w $(MOUNT) \
 		$(IMAGE) \
