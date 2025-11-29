@@ -9,6 +9,26 @@ require_relative '../../_plugins/utils/front_matter_utils' # Ensure this is load
 #
 # Verifies that the validator correctly checks required front matter fields.
 class TestFrontMatterValidator < Minitest::Test
+  # Simple struct to mimic Jekyll::Page for testing page_context
+  MockPage = Struct.new(:site, :dir, :name, :basename, :url, :relative_path) do
+    attr_accessor :data
+
+    def initialize(*args)
+      super
+      @data = {}
+    end
+
+    # Override is_a? to pretend to be a Jekyll::Page
+    def is_a?(klass)
+      klass == Jekyll::Page || super
+    end
+
+    # Satisfy jekyll-sass-converter hook requirements
+    def converters
+      []
+    end
+  end
+
   def setup
     @book_collection_label = 'books'
     @post_collection_label = 'posts'
@@ -272,6 +292,164 @@ class TestFrontMatterValidator < Minitest::Test
         end
       end
       mock_logger.verify
+    end
+  end
+
+  # --- Tests for Jekyll::Page validation ---
+  def test_page_with_configured_layout_valid_front_matter_passes
+    # Create a config that requires validation for a specific layout
+    page_layout = 'my_custom_layout'
+    required_fields = %w[title custom_field]
+
+    with_validator_config({ page_layout => required_fields }) do
+      # Create a Jekyll::Page-like object (not a Document)
+      page = MockPage.new(
+        @site,
+        '',
+        'my-page.html',
+        'my-page.html',
+        '/my-page.html',
+        'my-page.html'
+      )
+      page.data = {
+        'layout' => page_layout,
+        'title' => 'Valid Page Title',
+        'custom_field' => 'Valid Custom Field Value'
+      }
+
+      Jekyll.stub :logger, @silent_logger_stub do
+        assert_nil Jekyll::FrontMatterValidator.validate_document(page),
+                   'Should pass with all required fields for configured page layout'
+      end
+    end
+  end
+
+  def test_page_with_configured_layout_missing_field_raises_error
+    # Create a config that requires validation for a specific layout
+    page_layout = 'my_custom_layout'
+    required_fields = %w[title custom_field]
+
+    with_validator_config({ page_layout => required_fields }) do
+      # Create a Jekyll::Page-like object missing a required field
+      page = MockPage.new(
+        @site,
+        '',
+        'missing-field-page.html',
+        'missing-field-page.html',
+        '/missing-field-page.html',
+        'missing-field-page.html'
+      )
+      page.data = {
+        'layout' => page_layout,
+        'title' => 'Page Title'
+        # custom_field is missing
+      }
+
+      err = nil
+      Jekyll.stub :logger, @silent_logger_stub do
+        err = assert_raises Jekyll::Errors::FatalException do
+          Jekyll::FrontMatterValidator.validate_document(page)
+        end
+      end
+
+      assert_match 'missing or has empty required front matter fields: custom_field', err.message
+      assert_match "Page with layout '#{page_layout}'", err.message
+    end
+  end
+end
+
+# Tests for Jekyll Hooks registration and execution.
+#
+# Verifies that the plugin correctly registers and handles Jekyll hooks
+# for documents and pages, including exclusion logic.
+class TestFrontMatterValidatorHooks < Minitest::Test
+  def setup
+    @site = create_site
+    @silent_logger_stub = create_silent_logger
+  end
+
+  def create_silent_logger
+    logger = Object.new
+    def logger.warn(_topic, _message); end
+    def logger.error(_topic, _message); end
+    def logger.info(_topic, _message); end
+    def logger.debug(_topic, _message); end
+    logger
+  end
+
+  def test_documents_hook_validates_document
+    doc = create_doc({ 'title' => 'Test' }, '/test.html')
+
+    # We want to verify validate_document is called.
+    mock = Minitest::Mock.new
+    mock.expect(:call, nil, [doc])
+
+    Jekyll::FrontMatterValidator.stub :validate_document, mock do
+      Jekyll::Hooks.trigger(:documents, :pre_render, doc)
+    end
+
+    mock.verify
+  end
+
+  def test_pages_hook_validates_valid_page
+    page = TestFrontMatterValidator::MockPage.new(@site, '/', 'valid.html')
+    page.data = { 'title' => 'Page' }
+
+    mock = Minitest::Mock.new
+    mock.expect(:call, nil, [page])
+
+    Jekyll::FrontMatterValidator.stub :validate_document, mock do
+      Jekyll::Hooks.trigger(:pages, :pre_render, page)
+    end
+
+    mock.verify
+  end
+
+  def test_pages_hook_skips_nil_name
+    page = TestFrontMatterValidator::MockPage.new(@site, '/', nil)
+
+    Jekyll::FrontMatterValidator.stub :validate_document, ->(_) { flunk 'Should not validate' } do
+      Jekyll::Hooks.trigger(:pages, :pre_render, page)
+    end
+  end
+
+  def test_pages_hook_skips_excluded_names
+    ['404.html', 'feed.xml', 'sitemap.xml', 'robots.txt'].each do |name|
+      page = TestFrontMatterValidator::MockPage.new(@site, '/', name)
+
+      Jekyll::FrontMatterValidator.stub :validate_document, ->(_) { flunk "Should not validate #{name}" } do
+        Jekyll::Hooks.trigger(:pages, :pre_render, page)
+      end
+    end
+  end
+
+  def test_pages_hook_skips_excluded_extensions
+    ['data.json', 'style.css', 'script.js', 'style.scss', 'style.css.map'].each do |name|
+      page = TestFrontMatterValidator::MockPage.new(@site, '/', name)
+
+      Jekyll::FrontMatterValidator.stub :validate_document, ->(_) { flunk "Should not validate #{name}" } do
+        Jekyll::Hooks.trigger(:pages, :pre_render, page)
+      end
+    end
+  end
+
+  def test_pages_hook_skips_non_hash_data
+    page = TestFrontMatterValidator::MockPage.new(@site, '/', 'valid.html')
+    page.data = nil # Not a hash
+
+    Jekyll::FrontMatterValidator.stub :validate_document, ->(_) { flunk 'Should not validate non-hash data' } do
+      Jekyll::Hooks.trigger(:pages, :pre_render, page)
+    end
+  end
+
+  def test_pages_hook_skips_asset_dirs
+    ['/assets/', '/public/'].each do |dir|
+      page = TestFrontMatterValidator::MockPage.new(@site, dir, 'asset.html')
+      page.data = {}
+
+      Jekyll::FrontMatterValidator.stub :validate_document, ->(_) { flunk "Should not validate asset in #{dir}" } do
+        Jekyll::Hooks.trigger(:pages, :pre_render, page)
+      end
     end
   end
 end
