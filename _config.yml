@@ -157,6 +157,7 @@ exclude:
     - LICENSE.md
     - Makefile
     - README.md
+    - Rakefile
     - _scripts
     - coverage
     - redirects.json

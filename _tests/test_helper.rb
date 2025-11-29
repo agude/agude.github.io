@@ -5,6 +5,17 @@
 # --- SimpleCov Setup ---
 # This must be the VERY FIRST thing in the file to ensure it tracks all loaded code.
 require 'simplecov'
+require 'simplecov-json'
+require 'simplecov/formatter/multi_formatter'
+
+# Configure SimpleCov to output both HTML and JSON reports.
+# HTML is for human review, JSON is for machine parsing (e.g., by Rake tasks).
+formatters = [
+  SimpleCov::Formatter::HTMLFormatter,
+  SimpleCov::Formatter::JSONFormatter
+]
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(formatters)
+
 SimpleCov.start do
   # Exclude the test files themselves from the coverage report
   add_filter '_tests/'

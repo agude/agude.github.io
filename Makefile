@@ -28,7 +28,7 @@ DOCKER_RUN_OPTS := --user $(USER_ID):$(GROUP_ID) -e HOME=/tmp
 #   make test TEST=$$(find _tests/plugins/utils -name 'test_*.rb')
 TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb')
 
-.PHONY: all clean clean-coverage serve drafts debug image refresh lock test coverage build profile lint check check-strict install-hook format-all
+.PHONY: all build check check-strict clean clean-coverage coverage coverage-summary debug drafts format-all image install-hook lint lock profile refresh serve test
 
 all: serve
 
@@ -186,6 +186,32 @@ coverage: image clean-coverage
 	@echo "Coverage report generated in 'coverage/index.html'."
 	@echo "To view on macOS, run: open coverage/index.html"
 	@echo "To view on Linux, run: xdg-open coverage/index.html"
+
+# Run coverage and generate a machine-readable summary for LLM agents.
+coverage-summary: image clean-coverage coverage
+	@echo "Running tests and generating coverage report..."
+	@# First, run the tests with coverage enabled to generate coverage/coverage.json.
+	@# We pipe stdout to /dev/null to hide the minitest output and keep the summary clean.
+	@docker run --rm \
+		$(DOCKER_RUN_OPTS) \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		$(IMAGE) \
+		bundle exec ruby -I _plugins -I _tests \
+		  -e "require 'test_helper'; ARGV.each { |f| load f }" \
+		  $(TEST) > /dev/null
+	@echo "---"
+	@echo "Generating machine-readable coverage summary..."
+	@# Then, run the Rake task to parse the JSON and create the summary file.
+	@docker run --rm \
+		$(DOCKER_RUN_OPTS) \
+		-v $(PWD):$(MOUNT) \
+		-w $(MOUNT) \
+		$(IMAGE) \
+		bundle exec rake coverage:summary
+	@echo "---"
+	@echo "Displaying summary from coverage/coverage_summary.txt:"
+	@cat coverage/coverage_summary.txt
 
 # Run RuboCop linter.
 lint: image

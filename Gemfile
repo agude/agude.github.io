@@ -15,10 +15,10 @@ gem 'jekyll-seo-tag', '~> 2.8.0'
 gem 'jekyll-sitemap', '~> 1.4.0'
 
 # Required for `jekyll serve` in Ruby 3+
-gem 'webrick', '~> 1.8'
+gem 'webrick', '~> 1.9'
 
 # Required by Jekyll/deps, will be default gem later
-gem 'logger', '~> 1.6'
+gem 'logger', '~> 1.7'
 
 # For parsing HTML in custom plugins
 gem 'nokogiri', '~> 1.18'
@@ -27,6 +27,8 @@ gem 'nokogiri', '~> 1.18'
 group :development, :test do
   gem "html-proofer", "~> 5.0"
   gem 'minitest', '~> 5.25'
-  gem 'rubocop', '~> 1.81'     # For Ruby linting
+  gem 'rake', '~> 13.0'      # For creating command-line tasks
+  gem 'rubocop', '~> 1.81'   # For Ruby linting
   gem 'simplecov', '~> 0.22' # For code coverage
+  gem 'simplecov-json', '~> 0.2.3' # For generating JSON coverage reports
 end
