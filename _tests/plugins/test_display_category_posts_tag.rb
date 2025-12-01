@@ -56,6 +56,14 @@ class TestDisplayCategoryPostsTag < Minitest::Test
     assert_match "Unknown argument 'badkey'", err.message
   end
 
+  def test_syntax_error_duplicate_named_argument
+    # Tests line 88-90: duplicate argument detection
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse("{% display_category_posts topic='Tech' topic='Science' %}")
+    end
+    assert_match "Duplicate argument 'topic'", err.message
+  end
+
   def test_syntax_error_for_positional_topic_literal
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% display_category_posts 'Tech' %}")

@@ -120,4 +120,67 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     mock_finder.verify
     mock_renderer.verify
   end
+
+  def test_render_with_nil_series_name_variable
+    # This tests line 33 and the else branch on line 30
+    # When series name resolves to nil, it should be passed as-is (not converted to string)
+    context_with_nil = create_context({ 'nil_var' => nil }, { site: @site })
+
+    mock_finder_data = {
+      books: [],
+      log_messages: ''
+    }
+    mock_renderer_html = ''
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_finder_data
+
+    mock_renderer = Minitest::Mock.new
+    mock_renderer.expect :render, mock_renderer_html
+
+    Jekyll::BookLists::SeriesFinder.stub :new, lambda { |args|
+      # Verify that nil is passed as the filter (not converted to string)
+      assert_nil args[:series_name_filter]
+      mock_finder
+    } do
+      Jekyll::BookLists::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
+        output = Liquid::Template.parse('{% display_books_for_series nil_var %}').render!(context_with_nil)
+        assert_equal '', output
+      end
+    end
+
+    mock_finder.verify
+    mock_renderer.verify
+  end
+
+  def test_render_with_empty_string_series_name
+    # Test when series name is an empty string (after strip)
+    context_with_empty = create_context({ 'empty_var' => '   ' }, { site: @site })
+
+    mock_finder_data = {
+      books: [],
+      log_messages: ''
+    }
+    mock_renderer_html = ''
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_finder_data
+
+    mock_renderer = Minitest::Mock.new
+    mock_renderer.expect :render, mock_renderer_html
+
+    Jekyll::BookLists::SeriesFinder.stub :new, lambda { |args|
+      # Verify that the empty string (after strip) is passed as-is
+      assert_equal '   ', args[:series_name_filter]
+      mock_finder
+    } do
+      Jekyll::BookLists::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
+        output = Liquid::Template.parse('{% display_books_for_series empty_var %}').render!(context_with_empty)
+        assert_equal '', output
+      end
+    end
+
+    mock_finder.verify
+    mock_renderer.verify
+  end
 end

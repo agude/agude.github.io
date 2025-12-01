@@ -164,6 +164,34 @@ class TestCardDataExtractorUtils < Minitest::Test
     assert_equal '', CardDataExtractorUtils.extract_description_html(nil, type: :book)
   end
 
+  def test_extract_description_html_excerpt_as_plain_string
+    # This tests line 49 where excerpt exists but doesn't respond to :output
+    data_with_string_excerpt = { 'excerpt' => 'Plain string excerpt content' }
+    assert_equal 'Plain string excerpt content',
+                 CardDataExtractorUtils.extract_description_html(data_with_string_excerpt, type: :book)
+
+    # For articles, if description is missing, should fall back to excerpt
+    assert_equal 'Plain string excerpt content',
+                 CardDataExtractorUtils.extract_description_html(data_with_string_excerpt, type: :article)
+  end
+
+  def test_extract_base_data_with_drop_object
+    # This tests lines 86-87 (the valid_drop? branch)
+    # Create a mock Drop that inherits from Jekyll::Drops::Drop
+    doc = create_doc({ 'title' => 'Drop Title', 'image' => '/drop_img.jpg' }, '/drop-page.html')
+    drop = Jekyll::Drops::DocumentDrop.new(doc)
+
+    result = extract_base_data_with_silent_logger(drop, @context_no_baseurl,
+                                                  default_title: 'Default Drop Title')
+
+    assert_equal '', result[:log_output], 'Expected no log output for valid Drop'
+    assert_equal @site_no_baseurl, result[:site]
+    assert_equal drop, result[:data_source_for_keys], 'data_source should be the Drop itself'
+    assert_equal 'Drop Title', result[:raw_title]
+    assert_equal 'http://example.com/drop-page.html', result[:absolute_url]
+    assert_equal 'http://example.com/drop_img.jpg', result[:absolute_image_url]
+  end
+
   private
 
   def setup_sites_and_contexts

@@ -123,4 +123,16 @@ class TestSeriesLinkUtils < Minitest::Test
 
     assert_equal expected_html, actual_html
   end
+
+  def test_render_series_link_with_nil_site_uses_fallback
+    # This tests line 71 and the 'then' branch on line 54
+    # When site is nil in context, it should use the fallback method
+    ctx_no_site = create_context({}, {}) # No site in registers
+
+    # Should return just a span with the title (fallback behavior)
+    expected_html = '<span class="book-series">Fallback Series</span>'
+    actual_html = SeriesLinkUtils.render_series_link('Fallback Series', ctx_no_site)
+
+    assert_equal expected_html, actual_html
+  end
 end

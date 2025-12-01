@@ -322,4 +322,47 @@ class TestCitationUtilsSingleField < TestCitationUtilsBase
     expected = '<span class="citation"><cite>Just Container Title</cite>.</span>'
     assert_equal expected, format_citation(params)
   end
+
+  def test_only_author_handle_no_last_or_first
+    # Tests line 127 'then' and line 128
+    params = { author_handle: '@johndoe' }
+    expected = '<span class="citation">@johndoe.</span>'
+    assert_equal expected, format_citation(params)
+  end
+
+  def test_author_last_only_no_first_or_handle
+    # Tests line 134 'else' and line 137 'else'
+    params = { author_last: 'Smith' }
+    expected = '<span class="citation">Smith.</span>'
+    assert_equal expected, format_citation(params)
+  end
+
+  def test_author_last_and_first_no_handle
+    # Tests line 137 'else'
+    params = { author_last: 'Doe', author_first: 'Jane' }
+    expected = '<span class="citation">Doe, Jane.</span>'
+    assert_equal expected, format_citation(params)
+  end
+
+  def test_single_page_number
+    # Tests line 192 'then' and line 193
+    params = { page: '42' }
+    expected = "<span class=\"citation\">p.#{NBSP}42.</span>"
+    assert_equal expected, format_citation(params)
+  end
+
+  def test_first_page_without_last_page
+    # Tests line 190 'else'
+    params = { first_page: '100' }
+    expected = "<span class=\"citation\">pp.#{NBSP}100.</span>"
+    assert_equal expected, format_citation(params)
+  end
+
+  def test_doi_extraction_fails_for_malformed
+    # Tests line 216 'else' - when DOI URL extraction returns nil
+    params = { doi: 'https://doi.org/invalid' }
+    expected_doi_part = "doi:#{NBSP}https://doi.org/invalid"
+    expected = "<span class=\"citation\">#{expected_doi_part}.</span>"
+    assert_equal expected, format_citation(params)
+  end
 end

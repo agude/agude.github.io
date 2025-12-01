@@ -176,4 +176,14 @@ class TestAuthorLinkTag < Minitest::Test
     assert_equal 'An Author', captured_args[:name]
     assert_equal true, captured_args[:possessive]
   end
+
+  def test_render_with_trailing_whitespace_after_name
+    # This tests the branch on line 70 where scanner.eos? is true after skipping whitespace
+    # Explicitly create markup with trailing spaces
+    markup_with_trailing_spaces = "'Jane Doe' \t  " # Mix of space and tab
+    _output, captured_args = parse_and_capture_args(markup_with_trailing_spaces)
+    assert_equal 'Jane Doe', captured_args[:name]
+    assert_nil captured_args[:link_text_override]
+    assert_equal false, captured_args[:possessive]
+  end
 end

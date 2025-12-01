@@ -235,6 +235,106 @@ class TestBookCardUtils < Minitest::Test
     end
   end
 
+  def test_render_with_missing_title_logs_error
+    # This tests line 50-51 and the 'then' branch on line 49
+    @site.config['plugin_logging']['BOOK_CARD_MISSING_TITLE'] = true
+    book_no_title = create_doc({ 'book_authors' => ['Author'], 'image' => '/img.jpg' }, '/book.html')
+
+    mock_base_data = create_base_data(book_no_title, '/book.html', '/img.jpg', 'Untitled Book')
+    captured_output = ''
+
+    CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      TypographyUtils.stub :prepare_display_title, ->(title) { title } do
+        CardDataExtractorUtils.stub :extract_description_html, '' do
+          AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
+            TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
+              RatingUtils.stub :render_rating_stars, nil do
+                CardRendererUtils.stub :render_card, ->(context:, card_data:) { 'card_html' } do
+                  Jekyll.stub :logger, @silent_logger_stub do
+                    captured_output = BookCardUtils.render(book_no_title, @context)
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+
+    assert_match(/\[ERROR\] BOOK_CARD_MISSING_TITLE_FAILURE:.*Book title is missing and defaulted/, captured_output)
+  end
+
+  def test_render_with_provided_image_alt_uses_it
+    # This tests the 'then' branch on line 61 (returning alt when it's not empty)
+    book_with_alt = create_doc({
+                                 'title' => 'Book',
+                                 'image' => '/img.jpg',
+                                 'image_alt' => 'Custom Alt Text',
+                                 'book_authors' => ['Author']
+                               }, '/book.html')
+
+    mock_base_data = create_base_data(book_with_alt, '/book.html', '/img.jpg', 'Book')
+    captured_card_data = nil
+
+    CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      TypographyUtils.stub :prepare_display_title, ->(title) { title } do
+        CardDataExtractorUtils.stub :extract_description_html, '' do
+          AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
+            TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
+              RatingUtils.stub :render_rating_stars, nil do
+                CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
+                  captured_card_data = card_data
+                  'card'
+                } do
+                  Jekyll.stub :logger, @silent_logger_stub do
+                    BookCardUtils.render(book_with_alt, @context)
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+
+    assert_equal 'Custom Alt Text', captured_card_data[:image_alt]
+  end
+
+  def test_render_with_invalid_rating_logs_error_and_continues
+    # This tests lines 114-116 (rescue ArgumentError from RatingUtils)
+    @site.config['plugin_logging']['BOOK_CARD_RATING_ERROR'] = true
+    book_bad_rating = create_doc({
+                                   'title' => 'Book',
+                                   'image' => '/img.jpg',
+                                   'book_authors' => ['Author'],
+                                   'rating' => 'invalid'
+                                 }, '/book.html')
+
+    mock_base_data = create_base_data(book_bad_rating, '/book.html', '/img.jpg', 'Book')
+    captured_output = ''
+
+    CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      TypographyUtils.stub :prepare_display_title, ->(title) { title } do
+        CardDataExtractorUtils.stub :extract_description_html, '' do
+          AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
+            TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
+              # Make RatingUtils raise ArgumentError
+              RatingUtils.stub :render_rating_stars, ->(_val, _tag = 'div') { raise ArgumentError, 'Invalid rating' } do
+                CardRendererUtils.stub :render_card, ->(context:, card_data:) { 'card_html' } do
+                  Jekyll.stub :logger, @silent_logger_stub do
+                    captured_output = BookCardUtils.render(book_bad_rating, @context)
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+
+    assert_match(/\[WARN\] BOOK_CARD_RATING_ERROR_FAILURE:.*Invalid or malformed.*rating.*value/, captured_output)
+  end
+
   private
 
   def setup_book_objects

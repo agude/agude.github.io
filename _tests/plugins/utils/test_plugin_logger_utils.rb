@@ -230,4 +230,73 @@ class TestPluginLoggerUtilsInternalErrors < TestPluginLoggerUtilsBase
                     'Original Call: CTX_NO_SITE - error: Bad context'
     assert_equal expected_text, cleaned_stderr
   end
+
+  def test_fallback_to_warn_when_jekyll_logger_undefined
+    # Tests line 48 'else' and line 51
+    # When Jekyll.logger is not defined or doesn't respond to error, uses warn
+    # We'll test this by passing nil context which triggers handle_missing_config
+
+    # Capture stderr to see the warn output
+    _, stderr_str = capture_io do
+      # Undefine Jekyll temporarily
+      jekyll_backup = Jekyll
+      begin
+        Object.send(:remove_const, :Jekyll)
+        call_log_liquid_failure(nil, tag_type: 'NO_LOGGER', reason: 'Test', level: :error)
+      ensure
+        Object.const_set(:Jekyll, jekyll_backup)
+      end
+    end
+
+    # The warn should output to stderr
+    assert_match(/Context, Site, or Site Config unavailable/, stderr_str)
+  end
+
+  def test_invalid_log_level_uses_default
+    # Tests line 62 'else' and line 98 'else'
+    ctx = create_test_context('plugin_log_level' => 'debug', 'plugin_logging' => { 'MY_TAG' => true })
+    mock_logger = Minitest::Mock.new
+    # Invalid level should default to :warn
+    mock_logger.expect(:warn, nil, ['PluginLiquid:', String])
+
+    html_output = ''
+    Jekyll.stub :logger, mock_logger do
+      # Pass an invalid level symbol
+      html_output = call_log_liquid_failure(ctx, tag_type: 'MY_TAG', reason: 'Test', level: :invalid_level)
+    end
+
+    mock_logger.verify
+    # Should use DEFAULT_MESSAGE_LEVEL_SYMBOL which is :warn
+    assert_match(/\[WARN\] MY_TAG_FAILURE/, html_output)
+  end
+
+  def test_page_exists_but_has_no_path
+    # Tests line 76 'then' and line 77
+    # Create a mock class for the page
+    mock_class = Class.new do
+      def self.name
+        'MockPageClass'
+      end
+    end
+
+    page_no_path = Object.new
+    page_no_path.define_singleton_method(:respond_to?) { |method| method == :[] }
+    page_no_path.define_singleton_method(:[]) { |_key| nil } # No 'path' key
+    page_no_path.define_singleton_method(:class) { mock_class }
+
+    site = create_site({ 'plugin_logging' => { 'MY_TAG' => true } })
+    ctx = create_context({}, { site: site, page: page_no_path })
+
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:warn, nil, ['PluginLiquid:', String])
+
+    html_output = ''
+    Jekyll.stub :logger, mock_logger do
+      html_output = call_log_liquid_failure(ctx, tag_type: 'MY_TAG', reason: 'Test', level: :warn)
+    end
+
+    mock_logger.verify
+    # Should contain the fallback message about page_exists_no_path
+    assert_match(/page_exists_no_path \(class: MockPageClass\)/, html_output)
+  end
 end

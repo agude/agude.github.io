@@ -89,6 +89,22 @@ class TestPostListUtils < Minitest::Test
     assert_match expected_pattern, result[:log_messages]
   end
 
+  def test_get_posts_category_exists_in_keys_but_empty_array
+    # This tests lines 66-67 and the branch on line 37 (then path)
+    # Create a site where the category key exists but the array is empty
+    site_empty_category = create_site(
+      {}, {}, [], [], { 'EmptyCategory' => [] }
+    )
+    site_empty_category.config['plugin_logging']['POST_LIST_UTIL_CATEGORY'] = true
+    context = build_context_for_site(site_empty_category)
+
+    result = get_category_posts('EmptyCategory', nil, context, site_empty_category)
+    assert_empty result[:posts]
+    # Should log "No posts found in category"
+    assert_match(/\[INFO\] POST_LIST_UTIL_CATEGORY_FAILURE: Reason='No posts found in category\.'/,
+                 result[:log_messages])
+  end
+
   private
 
   def create_test_posts

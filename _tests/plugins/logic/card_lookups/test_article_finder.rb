@@ -150,4 +150,24 @@ class TestArticleFinder < Minitest::Test
     assert_nil result[:error]
     assert_equal @post1, result[:post]
   end
+
+  def test_returns_collection_error_when_posts_object_does_not_respond_to_docs
+    # This tests line 56 and the 'then' branch on line 55
+    # Create a mock posts object that doesn't respond to :docs
+    mock_posts = Object.new
+    @site.instance_variable_set(:@posts, mock_posts)
+
+    finder = Jekyll::CardLookups::ArticleFinder.new(
+      site: @site,
+      url_markup: '"/blog/post-one.html"',
+      context: @context
+    )
+    result = finder.find
+
+    assert_nil result[:post]
+    assert_equal '/blog/post-one.html', result[:url]
+    assert_equal :collection_error, result[:error][:type]
+    # Should capture the class name of the proxy object
+    assert_equal 'Object', result[:error][:details]
+  end
 end
