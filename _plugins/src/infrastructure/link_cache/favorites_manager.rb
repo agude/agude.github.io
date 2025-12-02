@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../src/infrastructure/text_processing_utils'
+require_relative '../text_processing_utils'
 
 module Jekyll
   # Manages caching for favorites lists and their book mentions.

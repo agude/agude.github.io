@@ -2,7 +2,7 @@
 
 # _tests/plugins/utils/test_backlink_utils.rb
 require_relative '../../test_helper'
-require_relative '../../../_plugins/utils/backlink_utils' # Load the util
+require_relative '../../../_plugins/src/infrastructure/links/backlink_utils' # Load the util
 
 # Tests for BacklinkUtils module.
 #

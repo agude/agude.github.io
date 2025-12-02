@@ -3,7 +3,7 @@
 # _plugins/utils/author_link_util.rb
 require 'jekyll'
 require 'cgi'
-require_relative 'link_helper_utils'
+require_relative '../src/infrastructure/links/link_helper_utils'
 require_relative '../src/infrastructure/plugin_logger_utils'
 require_relative '../src/infrastructure/text_processing_utils'
 

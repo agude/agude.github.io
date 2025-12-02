@@ -5,7 +5,7 @@ require 'jekyll'
 require_relative 'link_cache/cache_builder'
 require_relative 'link_cache/cache_maps'
 require_relative 'link_cache/short_story_builder'
-require_relative 'link_cache/link_validator'
+require_relative 'links/link_validator'
 require_relative 'link_cache/backlink_builder'
 require_relative 'link_cache/favorites_manager'
 

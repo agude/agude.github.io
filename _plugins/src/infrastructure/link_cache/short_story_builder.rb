@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../src/infrastructure/text_processing_utils'
+require_relative '../text_processing_utils'
 
 module Jekyll
   # Builds a cache of short stories found in anthology books.

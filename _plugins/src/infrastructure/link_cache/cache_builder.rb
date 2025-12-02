@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../src/infrastructure/text_processing_utils'
-require_relative '../src/infrastructure/front_matter_utils'
+require_relative '../text_processing_utils'
+require_relative '../front_matter_utils'
 
 module Jekyll
   # Builds the primary caches for authors, books, series, and navigation.

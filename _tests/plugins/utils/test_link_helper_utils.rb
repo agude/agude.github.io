@@ -2,7 +2,7 @@
 
 # _tests/plugins/utils/test_link_helper_utils.rb
 require_relative '../../test_helper'
-require_relative '../../../_plugins/utils/link_helper_utils' # Load the specific utils
+require_relative '../../../_plugins/src/infrastructure/links/link_helper_utils' # Load the specific utils
 
 # Tests for LinkHelperUtils module.
 #
