@@ -6,9 +6,9 @@ require 'liquid'
 require 'uri'
 require 'cgi'
 require 'strscan'
-require_relative 'utils/plugin_logger_utils'
+require_relative 'src/infrastructure/plugin_logger_utils'
 require_relative 'utils/article_card_utils'
-require_relative 'utils/tag_argument_utils'
+require_relative 'src/infrastructure/tag_argument_utils'
 require_relative 'logic/card_lookups/article_finder'
 
 module Jekyll

@@ -3,10 +3,10 @@
 # _plugins/utils/book_link_util.rb
 require 'jekyll'
 require_relative 'link_helper_utils'
-require_relative 'plugin_logger_utils'
-require_relative 'text_processing_utils'
-require_relative 'typography_utils'
-require_relative 'front_matter_utils'
+require_relative '../src/infrastructure/plugin_logger_utils'
+require_relative '../src/infrastructure/text_processing_utils'
+require_relative '../src/infrastructure/typography_utils'
+require_relative '../src/infrastructure/front_matter_utils'
 
 # Utility module for rendering book title links with citations.
 #

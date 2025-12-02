@@ -3,9 +3,9 @@
 # _plugins/utils/short_story_link_util.rb
 require 'jekyll'
 require_relative 'link_helper_utils'
-require_relative 'plugin_logger_utils'
-require_relative 'text_processing_utils'
-require_relative 'typography_utils'
+require_relative '../src/infrastructure/plugin_logger_utils'
+require_relative '../src/infrastructure/text_processing_utils'
+require_relative '../src/infrastructure/typography_utils'
 
 # Utility module for generating links to short stories within anthology books.
 module ShortStoryLinkUtils

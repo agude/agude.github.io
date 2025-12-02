@@ -44,7 +44,7 @@ require 'jekyll'
 require 'liquid'
 require 'strscan' # StringScanner is appropriate for this parsing task
 require_relative 'utils/citation_utils'
-require_relative 'utils/tag_argument_utils'
+require_relative 'src/infrastructure/tag_argument_utils'
 
 # Module for Jekyll specific plugins
 module Jekyll

@@ -3,8 +3,8 @@
 # _plugins/utils/backlink_utils.rb
 require 'jekyll'
 require 'cgi'
-require_relative 'plugin_logger_utils'
-require_relative 'text_processing_utils'
+require_relative '../src/infrastructure/plugin_logger_utils'
+require_relative '../src/infrastructure/text_processing_utils'
 
 # Utility module for finding and processing book backlinks.
 #

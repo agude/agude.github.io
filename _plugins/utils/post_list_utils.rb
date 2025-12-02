@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # _plugins/utils/post_list_utils.rb
-require_relative 'plugin_logger_utils'
-require_relative 'text_processing_utils' # Potentially for sorting by title if needed
+require_relative '../src/infrastructure/plugin_logger_utils'
+require_relative '../src/infrastructure/text_processing_utils' # Potentially for sorting by title if needed
 
 # Utility module for fetching and filtering blog posts by category.
 module PostListUtils

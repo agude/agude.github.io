@@ -4,8 +4,8 @@
 require 'jekyll'
 require 'cgi'
 require_relative 'link_helper_utils'
-require_relative 'plugin_logger_utils'
-require_relative 'text_processing_utils'
+require_relative '../src/infrastructure/plugin_logger_utils'
+require_relative '../src/infrastructure/text_processing_utils'
 
 # Utility module for rendering author name links.
 #

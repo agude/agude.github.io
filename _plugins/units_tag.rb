@@ -4,8 +4,8 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan' # For parsing arguments
-require_relative 'utils/plugin_logger_utils' # For logging
-require_relative 'utils/tag_argument_utils'
+require_relative 'src/infrastructure/plugin_logger_utils' # For logging
+require_relative 'src/infrastructure/tag_argument_utils'
 
 module Jekyll
   # Renders numbers with proper unit formatting and abbreviations.

@@ -6,7 +6,7 @@ require 'liquid'
 require 'cgi' # Keep for QuotedFragment, though CGI itself is now in LiquidUtils
 require 'strscan'
 require_relative 'utils/series_link_util'
-require_relative 'utils/tag_argument_utils'
+require_relative 'src/infrastructure/tag_argument_utils'
 
 module Jekyll
   # Renders a link to a book series page.

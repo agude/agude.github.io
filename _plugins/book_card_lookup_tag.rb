@@ -4,9 +4,9 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require_relative 'utils/plugin_logger_utils'
+require_relative 'src/infrastructure/plugin_logger_utils'
 require_relative 'utils/book_card_utils'
-require_relative 'utils/tag_argument_utils'
+require_relative 'src/infrastructure/tag_argument_utils'
 require_relative 'logic/card_lookups/book_finder'
 
 module Jekyll

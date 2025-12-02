@@ -2,7 +2,7 @@
 
 # _plugins/logic/book_lists/by_award_finder.rb
 require_relative 'shared'
-require_relative '../../utils/text_processing_utils'
+require_relative '../../src/infrastructure/text_processing_utils'
 
 module Jekyll
   module BookLists

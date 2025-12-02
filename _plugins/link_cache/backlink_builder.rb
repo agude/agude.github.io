@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../utils/text_processing_utils'
+require_relative '../src/infrastructure/text_processing_utils'
 
 module Jekyll
   # Builds backlink data showing which books reference other books.

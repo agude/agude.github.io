@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_optional_filter.rb
 require 'test_helper'
-require 'optional_filter'
+require 'src/infrastructure/optional_filter'
 
 # Tests for OptionalFilter.
 #

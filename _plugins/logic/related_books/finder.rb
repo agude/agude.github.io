@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require_relative '../../utils/book_data_utils'
-require_relative '../../utils/plugin_logger_utils'
-require_relative '../../utils/front_matter_utils'
-require_relative '../../utils/text_processing_utils'
+require_relative '../../src/infrastructure/plugin_logger_utils'
+require_relative '../../src/infrastructure/front_matter_utils'
+require_relative '../../src/infrastructure/text_processing_utils'
 
 module Jekyll
   module RelatedBooks

@@ -3,7 +3,7 @@
 # _plugins/display_unreviewed_mentions_tag.rb
 require 'jekyll'
 require 'liquid'
-require_relative 'utils/plugin_logger_utils'
+require_relative 'src/infrastructure/plugin_logger_utils'
 require_relative 'logic/display_unreviewed_mentions/finder'
 require_relative 'logic/display_unreviewed_mentions/renderer'
 

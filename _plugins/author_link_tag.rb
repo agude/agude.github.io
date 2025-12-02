@@ -6,7 +6,7 @@ require 'liquid'
 require 'cgi' # For HTML escaping
 require 'strscan' # For flexible argument parsing
 
-require_relative 'utils/tag_argument_utils'
+require_relative 'src/infrastructure/tag_argument_utils'
 module Jekyll
   # Liquid Tag for creating a link to an author page, wrapped in <span>.
   # Handles optional display text override and possessive ('s) suffix.

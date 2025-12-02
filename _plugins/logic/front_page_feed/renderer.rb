@@ -3,7 +3,7 @@
 # _plugins/logic/front_page_feed/renderer.rb
 require_relative '../../utils/article_card_utils'
 require_relative '../../utils/book_card_utils'
-require_relative '../../utils/plugin_logger_utils'
+require_relative '../../src/infrastructure/plugin_logger_utils'
 
 module Jekyll
   module FrontPageFeed

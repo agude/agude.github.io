@@ -2,7 +2,7 @@
 
 # _tests/plugins/utils/test_tag_argument_utils.rb
 require_relative '../../test_helper'
-require 'utils/tag_argument_utils' # Require the new util module
+require 'src/infrastructure/tag_argument_utils' # Require the new util module
 
 # Tests for TagArgumentUtils module.
 #

@@ -4,8 +4,8 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require_relative 'utils/plugin_logger_utils'
-require_relative 'utils/tag_argument_utils'
+require_relative 'plugin_logger_utils'
+require_relative 'tag_argument_utils'
 
 module Jekyll
   # Liquid Tag to call the centralized LiquidUtils.log_failure method.

@@ -4,7 +4,7 @@
 require 'cgi'
 require_relative 'series_link_util'
 require_relative 'book_card_utils'
-require_relative 'text_processing_utils'
+require_relative '../src/infrastructure/text_processing_utils'
 
 # Utility module for rendering HTML for lists of books.
 #

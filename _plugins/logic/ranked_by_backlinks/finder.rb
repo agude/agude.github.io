@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # _plugins/logic/ranked_by_backlinks/finder.rb
-require_relative '../../utils/plugin_logger_utils'
+require_relative '../../src/infrastructure/plugin_logger_utils'
 
 module Jekyll
   module RankedByBacklinks

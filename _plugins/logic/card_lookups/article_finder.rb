@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # _plugins/logic/card_lookups/article_finder.rb
-require_relative '../../utils/tag_argument_utils'
+require_relative '../../src/infrastructure/tag_argument_utils'
 
 module Jekyll
   module CardLookups

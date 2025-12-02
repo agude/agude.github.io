@@ -6,8 +6,8 @@ require 'liquid'
 require 'strscan'
 
 require_relative 'utils/display_authors_util'
-require_relative 'utils/tag_argument_utils'
-require_relative 'utils/plugin_logger_utils'
+require_relative 'src/infrastructure/tag_argument_utils'
+require_relative 'src/infrastructure/plugin_logger_utils'
 
 module Jekyll
   # Formats and displays a list of author names as a sentence.

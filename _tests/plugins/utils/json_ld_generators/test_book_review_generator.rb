@@ -3,7 +3,7 @@
 # _tests/plugins/utils/json_ld_generators/test_book_review_generator.rb
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/utils/json_ld_generators/book_review_generator'
-require_relative '../../../../_plugins/utils/front_matter_utils'
+require_relative '../../../../_plugins/src/infrastructure/front_matter_utils'
 require 'minitest/mock'
 
 # Tests for BookReviewLdGenerator module.

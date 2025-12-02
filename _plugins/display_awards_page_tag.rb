@@ -7,7 +7,7 @@ require 'cgi'
 require_relative 'logic/book_lists/by_award_finder'
 require_relative 'logic/book_lists/favorites_lists_finder'
 require_relative 'utils/book_card_utils'
-require_relative 'utils/text_processing_utils'
+require_relative 'src/infrastructure/text_processing_utils'
 
 module Jekyll
   # Liquid Tag to display the entire content of the "By Award" page,

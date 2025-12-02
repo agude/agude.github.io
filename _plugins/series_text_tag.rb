@@ -7,7 +7,7 @@ require 'liquid'
 require 'cgi'
 require 'strscan'
 require_relative 'utils/series_link_util'
-require_relative 'utils/tag_argument_utils'
+require_relative 'src/infrastructure/tag_argument_utils'
 require_relative 'utils/series_text_utils' # Require the new utility
 
 module Jekyll

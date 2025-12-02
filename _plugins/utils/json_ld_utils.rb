@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # _plugins/utils/json_ld_utils.rb
-require_relative 'text_processing_utils' # For cleaning/truncating text
-require_relative 'url_utils' # For absolute URLs
+require_relative '../src/infrastructure/text_processing_utils' # For cleaning/truncating text
+require_relative '../src/infrastructure/url_utils' # For absolute URLs
 
 # Utility module for generating Schema.org JSON-LD structured data.
 module JsonLdUtils

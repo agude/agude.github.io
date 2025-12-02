@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_log_failure_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/log_failure_tag' # Load the tag
+require_relative '../../_plugins/src/infrastructure/log_failure_tag' # Load the tag
 
 # Tests for LogFailureTag Liquid tag.
 #

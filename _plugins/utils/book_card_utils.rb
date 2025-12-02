@@ -2,12 +2,12 @@
 
 # _plugins/utils/book_card_utils.rb
 require 'cgi'
-require_relative 'plugin_logger_utils'
+require_relative '../src/infrastructure/plugin_logger_utils'
 require_relative 'card_data_extractor_utils'
 require_relative 'card_renderer_utils'
 require_relative 'author_link_util'
 require_relative 'rating_utils'
-require_relative 'typography_utils'
+require_relative '../src/infrastructure/typography_utils'
 
 # Utility module for rendering book review cards in HTML.
 #

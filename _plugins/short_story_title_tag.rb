@@ -4,7 +4,7 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require_relative 'utils/tag_argument_utils'
+require_relative 'src/infrastructure/tag_argument_utils'
 require_relative 'utils/short_story_title_util'
 
 module Jekyll

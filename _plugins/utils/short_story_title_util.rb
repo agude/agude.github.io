@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # _plugins/utils/short_story_title_util.rb
-require_relative 'typography_utils'
-require_relative 'text_processing_utils'
+require_relative '../src/infrastructure/typography_utils'
+require_relative '../src/infrastructure/text_processing_utils'
 
 # Utility module for rendering short story titles with optional Kramdown IDs.
 #

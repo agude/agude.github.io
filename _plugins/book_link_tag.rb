@@ -6,7 +6,7 @@ require 'liquid'
 require 'cgi' # Keep for QuotedFragment
 require 'strscan'
 require_relative 'utils/book_link_util' # Require the specific book link util
-require_relative 'utils/tag_argument_utils'
+require_relative 'src/infrastructure/tag_argument_utils'
 
 module Jekyll
   # Liquid Tag for creating a link to a book page, wrapped in <cite>.

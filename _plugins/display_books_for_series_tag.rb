@@ -5,7 +5,7 @@ require 'jekyll'
 require 'liquid'
 require_relative 'logic/book_lists/series_finder'
 require_relative 'logic/book_lists/renderers/for_series_renderer'
-require_relative 'utils/tag_argument_utils'
+require_relative 'src/infrastructure/tag_argument_utils'
 
 # Jekyll namespace for custom plugins.
 module Jekyll
