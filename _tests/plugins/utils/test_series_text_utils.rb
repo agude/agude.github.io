@@ -2,7 +2,7 @@
 
 # _tests/plugins/utils/test_series_text_utils.rb
 require_relative '../../test_helper'
-require_relative '../../../_plugins/utils/series_text_utils' # Load the util
+require_relative '../../../_plugins/src/content/series/series_text_utils' # Load the util
 
 # Tests for SeriesTextUtils module.
 #

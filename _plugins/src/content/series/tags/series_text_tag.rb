@@ -6,9 +6,9 @@ require 'liquid'
 # CGI and strscan are still used by the tag's initialize
 require 'cgi'
 require 'strscan'
-require_relative 'utils/series_link_util'
-require_relative 'src/infrastructure/tag_argument_utils'
-require_relative 'utils/series_text_utils' # Require the new utility
+require_relative '../series_link_util'
+require_relative '../../../infrastructure/tag_argument_utils'
+require_relative '../series_text_utils' # Require the new utility
 
 module Jekyll
   # Renders series text with appropriate context and linking.

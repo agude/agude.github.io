@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_series_link_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/series_link_tag' # Load the tag
+require_relative '../../_plugins/src/content/series/tags/series_link_tag' # Load the tag
 
 # Tests for SeriesLinkTag Liquid tag.
 #

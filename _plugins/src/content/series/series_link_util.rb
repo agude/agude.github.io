@@ -3,9 +3,9 @@
 # _plugins/utils/series_link_util.rb
 require 'jekyll'
 require 'cgi'
-require_relative '../src/infrastructure/links/link_helper_utils'
-require_relative '../src/infrastructure/plugin_logger_utils'
-require_relative '../src/infrastructure/text_processing_utils'
+require_relative '../../infrastructure/links/link_helper_utils'
+require_relative '../../infrastructure/plugin_logger_utils'
+require_relative '../../infrastructure/text_processing_utils'
 
 # Utility module for generating links to book series pages.
 module SeriesLinkUtils

@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_short_story_title_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/short_story_title_tag'
+require_relative '../../_plugins/src/content/short_stories/tags/short_story_title_tag'
 
 # Tests for ShortStoryTitleTag Liquid tag.
 #

@@ -2,7 +2,7 @@
 
 # _tests/plugins/utils/test_short_story_title_util.rb
 require_relative '../../test_helper'
-require_relative '../../../_plugins/utils/short_story_title_util'
+require_relative '../../../_plugins/src/content/short_stories/short_story_title_util'
 
 # Tests for ShortStoryTitleUtil module.
 #

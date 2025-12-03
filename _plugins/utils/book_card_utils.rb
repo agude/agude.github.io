@@ -5,7 +5,7 @@ require 'cgi'
 require_relative '../src/infrastructure/plugin_logger_utils'
 require_relative '../src/ui/cards/card_data_extractor_utils'
 require_relative '../src/ui/cards/card_renderer_utils'
-require_relative 'author_link_util'
+require_relative '../src/content/authors/author_link_util'
 require_relative '../src/ui/ratings/rating_utils'
 require_relative '../src/infrastructure/typography_utils'
 

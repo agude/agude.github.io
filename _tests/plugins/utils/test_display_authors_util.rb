@@ -2,7 +2,7 @@
 
 # _tests/plugins/utils/test_display_authors_util.rb
 require_relative '../../test_helper'
-require_relative '../../../_plugins/utils/display_authors_util'
+require_relative '../../../_plugins/src/content/authors/display_authors_util'
 
 # Tests for DisplayAuthorsUtil module.
 #

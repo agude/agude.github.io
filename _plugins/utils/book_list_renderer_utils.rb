@@ -2,7 +2,7 @@
 
 # _plugins/utils/book_list_renderer_utils.rb
 require 'cgi'
-require_relative 'series_link_util'
+require_relative '../src/content/series/series_link_util'
 require_relative 'book_card_utils'
 require_relative '../src/infrastructure/text_processing_utils'
 

@@ -4,8 +4,8 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require_relative 'src/infrastructure/tag_argument_utils'
-require_relative 'utils/short_story_title_util'
+require_relative '../../../infrastructure/tag_argument_utils'
+require_relative '../short_story_title_util'
 
 module Jekyll
   # Liquid Tag to format a short story title and optionally suppress the Kramdown anchor ID.

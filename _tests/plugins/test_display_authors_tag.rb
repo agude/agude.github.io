@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_display_authors_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/display_authors_tag'
+require_relative '../../_plugins/src/content/authors/tags/display_authors_tag'
 
 # Tests for DisplayAuthorsTag Liquid tag.
 #

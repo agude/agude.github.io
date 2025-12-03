@@ -4,8 +4,8 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require_relative 'utils/short_story_link_util'
-require_relative 'src/infrastructure/tag_argument_utils'
+require_relative '../short_story_link_util'
+require_relative '../../../infrastructure/tag_argument_utils'
 
 module Jekyll
   # Liquid Tag for creating a link to a short story.

@@ -3,8 +3,8 @@
 # _plugins/utils/display_authors_util.rb
 require 'cgi'
 require_relative 'author_link_util'
-require_relative '../src/infrastructure/text_processing_utils'
-require_relative '../src/infrastructure/front_matter_utils'
+require_relative '../../infrastructure/text_processing_utils'
+require_relative '../../infrastructure/front_matter_utils'
 
 # Utility module for rendering author lists as formatted HTML sentences.
 #

@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_author_link_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/author_link_tag' # Load the tag
+require_relative '../../_plugins/src/content/authors/tags/author_link_tag' # Load the tag
 
 # Tests for AuthorLinkTag Liquid tag.
 #

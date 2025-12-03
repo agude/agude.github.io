@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_series_text_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/series_text_tag' # Load the tag class
+require_relative '../../_plugins/src/content/series/tags/series_text_tag' # Load the tag class
 
 # Tests for SeriesTextTag Liquid tag.
 #
