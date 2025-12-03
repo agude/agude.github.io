@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_book_backlinks_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/book_backlinks_tag' # Load the tag class
+require_relative '../../_plugins/src/content/books/tags/book_backlinks_tag' # Load the tag class
 # Utils are loaded via test_helper
 
 # Tests for BookBacklinksTag Liquid tag and its components.

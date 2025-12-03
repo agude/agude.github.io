@@ -2,7 +2,7 @@
 
 # _tests/plugins/logic/ranked_by_backlinks/test_finder.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/logic/ranked_by_backlinks/finder'
+require_relative '../../../../_plugins/src/content/books/ranking/finder'
 
 # Tests for Jekyll::RankedByBacklinks::Finder.
 #

@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_display_awards_page_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/display_awards_page_tag'
+require_relative '../../_plugins/src/content/books/tags/display_awards_page_tag'
 
 # Tests for DisplayAwardsPageTag Liquid tag.
 #

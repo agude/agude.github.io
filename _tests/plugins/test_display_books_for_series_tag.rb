@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_display_books_for_series_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/display_books_for_series_tag'
+require_relative '../../_plugins/src/content/books/tags/display_books_for_series_tag'
 
 # Tests for DisplayBooksForSeriesTag Liquid tag.
 #

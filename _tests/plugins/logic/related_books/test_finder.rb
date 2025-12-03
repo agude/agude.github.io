@@ -2,7 +2,7 @@
 
 # _tests/plugins/logic/related_books/test_finder.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/logic/related_books/finder'
+require_relative '../../../../_plugins/src/content/books/related/finder'
 
 # Tests for Jekyll::RelatedBooks::Finder.
 #

@@ -2,7 +2,7 @@
 
 # _tests/plugins/logic/book_lists/test_by_year_finder.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/logic/book_lists/by_year_finder'
+require_relative '../../../../_plugins/src/content/books/lists/by_year_finder'
 require 'time'
 
 # Tests for Jekyll::BookLists::ByYearFinder

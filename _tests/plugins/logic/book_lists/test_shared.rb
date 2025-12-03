@@ -2,7 +2,7 @@
 
 # _tests/plugins/logic/book_lists/test_shared.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/logic/book_lists/shared'
+require_relative '../../../../_plugins/src/content/books/lists/shared'
 
 # Tests for Jekyll::BookLists::Shared module
 #

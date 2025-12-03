@@ -2,7 +2,7 @@
 
 # _tests/plugins/logic/previous_reviews/test_renderer.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/logic/previous_reviews/renderer'
+require_relative '../../../../_plugins/src/content/books/reviews/renderer'
 
 # Tests for Jekyll::PreviousReviews::Renderer.
 #

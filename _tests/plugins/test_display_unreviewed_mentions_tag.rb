@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_display_unreviewed_mentions_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/display_unreviewed_mentions_tag'
+require_relative '../../_plugins/src/content/books/tags/display_unreviewed_mentions_tag'
 
 # Tests for DisplayUnreviewedMentions::Finder class.
 #

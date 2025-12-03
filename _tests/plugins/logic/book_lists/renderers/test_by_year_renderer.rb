@@ -2,7 +2,7 @@
 
 # _tests/plugins/logic/book_lists/renderers/test_by_year_renderer.rb
 require_relative '../../../../test_helper'
-require_relative '../../../../../_plugins/logic/book_lists/renderers/by_year_renderer'
+require_relative '../../../../../_plugins/src/content/books/lists/renderers/by_year_renderer'
 
 # Tests for Jekyll::BookLists::ByYearRenderer
 #

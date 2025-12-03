@@ -2,7 +2,7 @@
 
 # _tests/plugins/logic/book_lists/test_by_title_alpha_finder.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/logic/book_lists/by_title_alpha_finder'
+require_relative '../../../../_plugins/src/content/books/lists/by_title_alpha_finder'
 
 # Tests for Jekyll::BookLists::ByTitleAlphaFinder
 #

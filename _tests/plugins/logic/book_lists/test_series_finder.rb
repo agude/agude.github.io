@@ -2,7 +2,7 @@
 
 # _tests/plugins/logic/book_lists/test_series_finder.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/logic/book_lists/series_finder'
+require_relative '../../../../_plugins/src/content/books/lists/series_finder'
 
 # Test class for Jekyll::BookLists::SeriesFinder
 class TestBookListSeriesFinder < Minitest::Test

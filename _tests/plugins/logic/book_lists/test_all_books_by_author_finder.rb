@@ -2,7 +2,7 @@
 
 # _tests/plugins/logic/book_lists/test_all_books_by_author_finder.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/logic/book_lists/all_books_by_author_finder'
+require_relative '../../../../_plugins/src/content/books/lists/all_books_by_author_finder'
 
 # Tests for Jekyll::BookLists::AllBooksByAuthorFinder functionality.
 class TestBookListAllBooksByAuthorFinder < Minitest::Test

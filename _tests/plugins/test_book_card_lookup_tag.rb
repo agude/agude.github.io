@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_book_card_lookup_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/book_card_lookup_tag' # Load the tag
+require_relative '../../_plugins/src/content/books/tags/book_card_lookup_tag' # Load the tag
 
 # Tests for BookCardLookupTag Liquid tag.
 #

@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_book_link_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/book_link_tag' # Load the tag
+require_relative '../../_plugins/src/content/books/tags/book_link_tag' # Load the tag
 
 # Tests for BookLinkTag Liquid tag.
 #

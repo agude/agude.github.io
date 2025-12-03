@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_related_books_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/related_books_tag'
+require_relative '../../_plugins/src/content/books/tags/related_books_tag'
 
 # Integration tests for RelatedBooksTag Liquid tag.
 #

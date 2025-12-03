@@ -2,7 +2,7 @@
 
 # _tests/plugins/logic/card_lookups/test_book_finder.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/logic/card_lookups/book_finder'
+require_relative '../../../../_plugins/src/content/books/lookups/book_finder'
 
 # Tests for Jekyll::CardLookups::BookFinder.
 #

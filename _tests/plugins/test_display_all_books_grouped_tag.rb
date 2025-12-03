@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_display_all_books_grouped_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/display_all_books_grouped_tag'
+require_relative '../../_plugins/src/content/books/tags/display_all_books_grouped_tag'
 
 # Tests for DisplayAllBooksGroupedTag Liquid tag.
 #
