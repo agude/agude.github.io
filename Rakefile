@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Rakefile
 
 require 'json'
@@ -45,11 +47,11 @@ def find_uncovered_branches(branches_data)
     line = branch_parts[2] || 'unknown'
 
     paths.each do |path_key, count|
-      if count.zero?
-        path_parts = path_key.scan(/:\w+/)
-        path_type = path_parts[0]&.sub(':', '') || 'unknown'
-        uncovered << "#{branch_type} on line #{line}: '#{path_type}' path not taken."
-      end
+      next unless count.zero?
+
+      path_parts = path_key.scan(/:\w+/)
+      path_type = path_parts[0]&.sub(':', '') || 'unknown'
+      uncovered << "#{branch_type} on line #{line}: '#{path_type}' path not taken."
     end
   end
   uncovered
@@ -63,12 +65,10 @@ namespace :coverage do
     json_path = Pathname.new('coverage/coverage.json')
     output_path = Pathname.new('coverage/coverage_summary.txt')
 
-    unless json_path.exist?
-      abort "Error: Coverage report not found at #{json_path}. Run 'make coverage' first."
-    end
+    abort "Error: Coverage report not found at #{json_path}. Run 'make coverage' first." unless json_path.exist?
 
     report = JSON.parse(File.read(json_path))
-    files_data = report.dig('files')
+    files_data = report['files']
     # Use the 'pwd' from metadata to correctly calculate relative paths.
     # If metadata.pwd is not available, fall back to the current directory.
     pwd_from_report = report.dig('metadata', 'pwd')
@@ -97,7 +97,7 @@ namespace :coverage do
         uncovered_lines = []
         coverage_lines = file_data.dig('coverage', 'lines') || file_data['coverage']
         coverage_lines.each_with_index do |coverage_count, index|
-          uncovered_lines << index + 1 if coverage_count&.zero?
+          uncovered_lines << (index + 1) if coverage_count&.zero?
         end
 
         unless uncovered_lines.empty?
@@ -110,18 +110,18 @@ namespace :coverage do
         # Find and list uncovered branches.
         branches_data = file_data.dig('coverage', 'branches') || file_data['branches']
         uncovered_branches = find_uncovered_branches(branches_data)
-        unless uncovered_branches.empty?
-          summary_lines << '  Uncovered Branches:'
-          uncovered_branches.each do |branch_info|
-            summary_lines << "  - #{branch_info}"
-          end
+        next if uncovered_branches.empty?
+
+        summary_lines << '  Uncovered Branches:'
+        uncovered_branches.each do |branch_info|
+          summary_lines << "  - #{branch_info}"
         end
       end
     end
 
     # Write the summary to the output file.
     output_path.dirname.mkpath
-    File.write(output_path, summary_lines.join("\n") + "\n")
+    File.write(output_path, "#{summary_lines.join("\n")}\n")
     puts "Coverage summary written to #{output_path}"
   end
 end
