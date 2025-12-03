@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_related_posts_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/related_posts_tag'
+require_relative '../../_plugins/src/content/posts/tags/related_posts_tag'
 # Components are loaded via main tag file
 
 # Tests for RelatedPostsTag Liquid tag and its components.

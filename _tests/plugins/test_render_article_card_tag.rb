@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_render_article_card_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/render_article_card_tag' # Load the tag
+require_relative '../../_plugins/src/content/posts/tags/render_article_card_tag' # Load the tag
 
 # Tests for RenderArticleCardTag Liquid tag.
 #

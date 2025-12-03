@@ -2,10 +2,10 @@
 
 # _plugins/utils/article_card_utils.rb
 require 'cgi'
-require_relative '../src/infrastructure/plugin_logger_utils'
-require_relative '../src/ui/cards/card_data_extractor_utils'
-require_relative '../src/ui/cards/card_renderer_utils'
-require_relative '../src/infrastructure/typography_utils'
+require_relative '../../infrastructure/plugin_logger_utils'
+require_relative '../../ui/cards/card_data_extractor_utils'
+require_relative '../../ui/cards/card_renderer_utils'
+require_relative '../../infrastructure/typography_utils'
 
 # Utility module for rendering article/post cards in HTML.
 #

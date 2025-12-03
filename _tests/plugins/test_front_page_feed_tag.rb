@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_front_page_feed_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/front_page_feed_tag'
+require_relative '../../_plugins/src/content/posts/tags/front_page_feed_tag'
 require 'time'
 
 # Tests for FrontPageFeedTag Liquid tag.

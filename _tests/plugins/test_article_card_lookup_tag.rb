@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_article_card_lookup_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/article_card_lookup_tag'
+require_relative '../../_plugins/src/content/posts/tags/article_card_lookup_tag'
 
 # Tests for ArticleCardLookupTag Liquid tag.
 #

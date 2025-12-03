@@ -2,7 +2,7 @@
 
 # _tests/plugins/logic/front_page_feed/test_renderer.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/logic/front_page_feed/renderer'
+require_relative '../../../../_plugins/src/content/posts/feed/renderer'
 
 # Tests for Jekyll::FrontPageFeed::Renderer.
 #

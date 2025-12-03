@@ -2,7 +2,7 @@
 
 # _tests/plugins/logic/card_lookups/test_article_finder.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/logic/card_lookups/article_finder'
+require_relative '../../../../_plugins/src/content/posts/lookups/article_finder'
 
 # Tests for Jekyll::CardLookups::ArticleFinder.
 #

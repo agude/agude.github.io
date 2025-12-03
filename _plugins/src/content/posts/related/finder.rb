@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../src/infrastructure/plugin_logger_utils'
+require_relative '../../../infrastructure/plugin_logger_utils'
 
 module Jekyll
   module CustomRelatedPosts

@@ -2,7 +2,7 @@
 
 # _tests/plugins/logic/category_posts/test_renderer.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/logic/category_posts/renderer'
+require_relative '../../../../_plugins/src/content/posts/category/renderer'
 
 # Tests for Jekyll::CategoryPosts::Renderer.
 #

@@ -4,10 +4,10 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require_relative 'utils/feed_utils'
-require_relative 'src/infrastructure/tag_argument_utils'
-require_relative 'src/infrastructure/plugin_logger_utils'
-require_relative 'logic/front_page_feed/renderer'
+require_relative '../feed_utils'
+require_relative '../../../infrastructure/tag_argument_utils'
+require_relative '../../../infrastructure/plugin_logger_utils'
+require_relative '../feed/renderer'
 
 module Jekyll
   # Renders a feed combining recent posts and book reviews.

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # _plugins/logic/category_posts/renderer.rb
-require_relative '../../utils/article_card_utils'
+require_relative '../article_card_utils'
 
 module Jekyll
   module CategoryPosts

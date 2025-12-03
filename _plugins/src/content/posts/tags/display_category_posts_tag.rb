@@ -4,10 +4,10 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require_relative 'utils/post_list_utils'
-require_relative 'src/infrastructure/tag_argument_utils'
-require_relative 'src/infrastructure/plugin_logger_utils'
-require_relative 'logic/category_posts/renderer'
+require_relative '../post_list_utils'
+require_relative '../../../infrastructure/tag_argument_utils'
+require_relative '../../../infrastructure/plugin_logger_utils'
+require_relative '../category/renderer'
 
 module Jekyll
   # Displays article cards for posts in a specific category/topic.

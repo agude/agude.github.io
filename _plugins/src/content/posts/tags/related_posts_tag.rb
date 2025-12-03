@@ -5,8 +5,8 @@ require 'jekyll'
 require 'liquid'
 require 'cgi'
 
-require_relative 'logic/related_posts/finder'
-require_relative 'logic/related_posts/renderer'
+require_relative '../related/finder'
+require_relative '../related/renderer'
 
 module Jekyll
   # Displays related or recent blog posts based on category matching.

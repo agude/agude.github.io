@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 # _plugins/logic/front_page_feed/renderer.rb
-require_relative '../../utils/article_card_utils'
-require_relative '../../src/content/books/core/book_card_utils'
-require_relative '../../src/infrastructure/plugin_logger_utils'
+require_relative '../article_card_utils'
+require_relative '../../books/core/book_card_utils'
+require_relative '../../../infrastructure/plugin_logger_utils'
 
 module Jekyll
   module FrontPageFeed

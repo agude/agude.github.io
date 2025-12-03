@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_display_category_posts_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/display_category_posts_tag'
+require_relative '../../_plugins/src/content/posts/tags/display_category_posts_tag'
 
 # Tests for DisplayCategoryPostsTag Liquid tag.
 #

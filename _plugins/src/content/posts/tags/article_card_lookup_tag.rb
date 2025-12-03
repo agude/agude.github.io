@@ -6,10 +6,10 @@ require 'liquid'
 require 'uri'
 require 'cgi'
 require 'strscan'
-require_relative 'src/infrastructure/plugin_logger_utils'
-require_relative 'utils/article_card_utils'
-require_relative 'src/infrastructure/tag_argument_utils'
-require_relative 'logic/card_lookups/article_finder'
+require_relative '../../../infrastructure/plugin_logger_utils'
+require_relative '../article_card_utils'
+require_relative '../../../infrastructure/tag_argument_utils'
+require_relative '../lookups/article_finder'
 
 module Jekyll
   # Renders an article card by looking up a post by URL.
