@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../utils/rating_utils'
+require_relative '../../src/ui/ratings/rating_utils'
 require_relative '../../utils/book_card_utils'
 
 module Jekyll

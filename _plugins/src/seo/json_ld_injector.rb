@@ -5,10 +5,10 @@ require 'json'
 require 'jekyll' # Required for Jekyll.logger and Hook classes
 
 # Require generator modules
-require_relative 'utils/json_ld_generators/blog_posting_generator'
-require_relative 'utils/json_ld_generators/book_review_generator'
-require_relative 'utils/json_ld_generators/generic_review_generator'
-require_relative 'utils/json_ld_generators/author_profile_generator'
+require_relative 'generators/blog_posting_generator'
+require_relative 'generators/book_review_generator'
+require_relative 'generators/generic_review_generator'
+require_relative 'generators/author_profile_generator'
 
 # Injects structured data (JSON-LD) into Jekyll documents and pages.
 #

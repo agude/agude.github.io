@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_citation_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/citation_tag' # Load the tag
+require_relative '../../_plugins/src/ui/tags/citation_tag' # Load the tag
 
 # Tests for CitationTag Liquid tag.
 #

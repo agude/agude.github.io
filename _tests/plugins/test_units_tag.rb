@@ -2,7 +2,7 @@
 
 # _tests/plugins/test_units_tag.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/units_tag' # Load the tag
+require_relative '../../_plugins/src/ui/tags/units_tag' # Load the tag
 
 # Tests for UnitsTag Liquid tag.
 #

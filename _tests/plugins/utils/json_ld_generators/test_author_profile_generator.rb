@@ -2,7 +2,7 @@
 
 # _tests/plugins/utils/json_ld_generators/test_author_profile_generator.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/utils/json_ld_generators/author_profile_generator' # Load the specific generator
+require_relative '../../../../_plugins/src/seo/generators/author_profile_generator' # Load the specific generator
 require 'minitest/mock' # For mocking logger
 
 # Tests for AuthorProfileLdGenerator module.

@@ -2,8 +2,8 @@
 
 # _plugins/utils/json_ld_generators/author_profile_generator.rb
 require_relative '../json_ld_utils'
-require_relative '../../src/infrastructure/url_utils'
-require_relative '../../src/infrastructure/front_matter_utils'
+require_relative '../../infrastructure/url_utils'
+require_relative '../../infrastructure/front_matter_utils'
 require 'jekyll' # For logger
 
 # Generates JSON-LD Person schema for author profile pages.

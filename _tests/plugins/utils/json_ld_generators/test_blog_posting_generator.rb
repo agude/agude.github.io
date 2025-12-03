@@ -2,7 +2,7 @@
 
 # _tests/plugins/utils/json_ld_generators/test_blog_posting_generator.rb
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/utils/json_ld_generators/blog_posting_generator'
+require_relative '../../../../_plugins/src/seo/generators/blog_posting_generator'
 
 # Tests for BlogPostingLdGenerator module.
 #

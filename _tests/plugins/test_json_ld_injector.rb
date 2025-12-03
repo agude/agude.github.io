@@ -2,14 +2,14 @@
 
 # _tests/plugins/test_json_ld_injector.rb
 require_relative '../test_helper'
-require_relative '../../_plugins/json_ld_injector'
+require_relative '../../_plugins/src/seo/json_ld_injector'
 require 'json'
 require 'minitest/mock'
 
-require 'utils/json_ld_generators/blog_posting_generator'
-require 'utils/json_ld_generators/book_review_generator'
-require 'utils/json_ld_generators/generic_review_generator'
-require 'utils/json_ld_generators/author_profile_generator'
+require 'src/seo/generators/blog_posting_generator'
+require 'src/seo/generators/book_review_generator'
+require 'src/seo/generators/generic_review_generator'
+require 'src/seo/generators/author_profile_generator'
 
 # Base test class with shared setup and helpers for JsonLdInjector tests.
 #

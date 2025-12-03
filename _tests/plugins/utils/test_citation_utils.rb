@@ -2,7 +2,7 @@
 
 # _tests/plugins/utils/test_citation_utils.rb
 require_relative '../../test_helper'
-require_relative '../../../_plugins/utils/citation_utils'
+require_relative '../../../_plugins/src/ui/citations/citation_utils'
 
 # Base test class with shared setup and helpers
 class TestCitationUtilsBase < Minitest::Test

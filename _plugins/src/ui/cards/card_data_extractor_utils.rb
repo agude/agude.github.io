@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # _plugins/utils/card_data_extractor_utils.rb
-require_relative '../src/infrastructure/url_utils'
-require_relative '../src/infrastructure/plugin_logger_utils'
+require_relative '../../infrastructure/url_utils'
+require_relative '../../infrastructure/plugin_logger_utils'
 
 # Utility module for extracting data from Jekyll documents for card rendering.
 #

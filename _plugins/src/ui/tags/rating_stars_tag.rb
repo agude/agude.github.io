@@ -4,8 +4,8 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require_relative 'utils/rating_utils' # Add this
-require_relative 'src/infrastructure/tag_argument_utils'
+require_relative '../ratings/rating_utils'
+require_relative '../../infrastructure/tag_argument_utils'
 
 module Jekyll
   # Liquid Tag to render rating stars using the LiquidUtils helper.
