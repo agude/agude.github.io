@@ -13,22 +13,28 @@ module Jekyll
     # Handles author name processing, optional linking to author pages,
     # and "et al." truncation.
     module DisplayAuthorsUtil
+      # Aliases for readability
+      FrontMatter = Jekyll::Infrastructure::FrontMatterUtils
+      Text = Jekyll::Infrastructure::TextProcessingUtils
+      AuthorLinker = Jekyll::Authors::AuthorLinkUtils
+      private_constant :FrontMatter, :Text, :AuthorLinker
+
       def self.render_author_list(author_input:, context:, linked: true, etal_after: nil)
         # Process author input into array of names
-        author_names = Jekyll::Infrastructure::FrontMatterUtils.get_list_from_string_or_array(author_input)
+        author_names = FrontMatter.get_list_from_string_or_array(author_input)
         return '' if author_names.empty?
 
         # Map over author names to create processed elements
         processed_authors = author_names.map do |name|
           if linked
-            Jekyll::Authors::AuthorLinkUtils.render_author_link(name, context)
+            AuthorLinker.render_author_link(name, context)
           else
             "<span class=\"author-name\">#{CGI.escapeHTML(name)}</span>"
           end
         end
 
         # Format as sentence with optional et al.
-        Jekyll::Infrastructure::TextProcessingUtils.format_list_as_sentence(processed_authors, etal_after: etal_after)
+        Text.format_list_as_sentence(processed_authors, etal_after: etal_after)
       end
     end
   end

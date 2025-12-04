@@ -17,6 +17,18 @@ module Jekyll
     module Core
       # Helper class to handle book card rendering logic
       class BookCardRenderer
+        # Aliases for readability
+        Logger = Jekyll::Infrastructure::PluginLoggerUtils
+        Typography = Jekyll::Infrastructure::TypographyUtils
+        FrontMatter = Jekyll::Infrastructure::FrontMatterUtils
+        Text = Jekyll::Infrastructure::TextProcessingUtils
+        CardExtractor = Jekyll::UI::Cards::CardDataExtractorUtils
+        CardRenderer = Jekyll::UI::Cards::CardRendererUtils
+        Ratings = Jekyll::UI::Ratings::RatingUtils
+        AuthorLinker = Jekyll::Authors::AuthorLinkUtils
+        private_constant :Logger, :Typography, :FrontMatter, :Text, :CardExtractor, :CardRenderer, :Ratings,
+                         :AuthorLinker
+
         def initialize(book_obj, context, title_override, subtitle)
           @book_obj = book_obj
           @context = context
@@ -26,7 +38,7 @@ module Jekyll
         end
 
         def render
-          @base = Jekyll::UI::Cards::CardDataExtractorUtils.extract_base_data(
+          @base = CardExtractor.extract_base_data(
             @book_obj, @context,
             default_title: Jekyll::Books::Core::BookCardUtils::DEFAULT_TITLE_FOR_BOOK_CARD,
             log_tag_type: 'BOOK_CARD_UTIL'
@@ -36,7 +48,7 @@ module Jekyll
 
           @data = @base[:data_source_for_keys]
           card_data = build_card_data(title_html, image_alt, description_html, extra_elements)
-          @log_out + Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
+          @log_out + CardRenderer.render_card(context: @context, card_data: card_data)
         end
 
         private
@@ -48,7 +60,7 @@ module Jekyll
                 { book_url: @base[:absolute_url] || @data['url'] || 'N/A' })
           end
           @final_title = t
-          "<strong><cite class=\"book-title\">#{Jekyll::Infrastructure::TypographyUtils.prepare_display_title(t)}</cite></strong>"
+          "<strong><cite class=\"book-title\">#{Typography.prepare_display_title(t)}</cite></strong>"
         end
 
         def image_alt
@@ -74,7 +86,7 @@ module Jekyll
         end
 
         def description_html
-          html = Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(@data, type: :book)
+          html = CardExtractor.extract_description_html(@data, type: :book)
           if html.strip.empty?
             log('BOOK_CARD_MISSING_EXCERPT', 'Book excerpt is missing or empty.', :warn,
                 { book_title: @base[:raw_title] })
@@ -87,14 +99,14 @@ module Jekyll
         end
 
         def authors_html
-          names = Jekyll::Infrastructure::FrontMatterUtils.get_list_from_string_or_array(@data['book_authors'])
+          names = FrontMatter.get_list_from_string_or_array(@data['book_authors'])
           if names.empty?
             log('BOOK_CARD_MISSING_AUTHORS', "'book_authors' field resolved to an empty list.", :warn,
                 { book_title: @base[:raw_title] })
             return nil
           end
-          links = names.map { |n| Jekyll::Authors::AuthorLinkUtils.render_author_link(n, @context) }
-          "    <span class=\"by-author\"> by #{Jekyll::Infrastructure::TextProcessingUtils.format_list_as_sentence(
+          links = names.map { |n| AuthorLinker.render_author_link(n, @context) }
+          "    <span class=\"by-author\"> by #{Text.format_list_as_sentence(
             links, etal_after: 3
           )}</span>\n"
         end
@@ -108,7 +120,7 @@ module Jekyll
         def rating_html
           return unless (val = @data['rating'])
 
-          html = Jekyll::UI::Ratings::RatingUtils.render_rating_stars(val, 'div')
+          html = Ratings.render_rating_stars(val, 'div')
           html && !html.empty? ? "    #{html}\n" : nil
         rescue ArgumentError => e
           log('BOOK_CARD_RATING_ERROR', "Invalid or malformed 'rating' value for book: #{e.message}", :warn,
@@ -126,7 +138,7 @@ module Jekyll
         end
 
         def log(tag, reason, level, ids)
-          @log_out << Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          @log_out << Logger.log_liquid_failure(
             context: @context, tag_type: tag, reason: reason, identifiers: ids, level: level
           )
         end

@@ -11,6 +11,11 @@ module Jekyll
     module Core
       # Helper class to handle the complexity of resolving a book link
       class BookLinkResolver
+        # Aliases for readability
+        Logger = Jekyll::Infrastructure::PluginLoggerUtils
+        Text = Jekyll::Infrastructure::TextProcessingUtils
+        private_constant :Logger, :Text
+
         def initialize(context)
           @context = context
           registers = context.respond_to?(:registers) ? context.registers : nil
@@ -21,7 +26,7 @@ module Jekyll
           return fallback(title_raw) unless @site
 
           @title = title_raw.to_s
-          @norm_title = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(@title)
+          @norm_title = Text.normalize_title(@title)
           return log_empty_title if @norm_title.empty?
 
           candidates = find_candidates
@@ -37,7 +42,7 @@ module Jekyll
         # Public method for the module delegate to call
         def track_unreviewed_mention_explicit(title)
           @title = title.to_s
-          @norm_title = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(@title)
+          @norm_title = Text.normalize_title(@title)
           track_unreviewed_mention
         end
 
@@ -48,7 +53,7 @@ module Jekyll
         end
 
         def log_empty_title
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          Logger.log_liquid_failure(
             context: @context, tag_type: 'RENDER_BOOK_LINK',
             reason: 'Input title resolved to empty after normalization.',
             identifiers: { TitleInput: @title || 'nil' }, level: :warn
@@ -70,7 +75,7 @@ module Jekyll
 
         def log_not_found
           track_unreviewed_mention
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          Logger.log_liquid_failure(
             context: @context, tag_type: 'RENDER_BOOK_LINK',
             reason: 'Could not find book page in cache.',
             identifiers: { Title: @title.strip }, level: :info
@@ -124,12 +129,12 @@ module Jekyll
         def get_canonical_author(name, cache)
           return nil if name.to_s.strip.empty?
 
-          norm = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(name.to_s.strip)
+          norm = Text.normalize_title(name.to_s.strip)
           cache[norm] ? cache[norm]['title'] : name.to_s.strip
         end
 
         def log_author_mismatch(author_filter)
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          Logger.log_liquid_failure(
             context: @context, tag_type: 'RENDER_BOOK_LINK',
             reason: 'Book title exists, but not by the specified author.',
             identifiers: { Title: @title, AuthorFilter: author_filter }, level: :warn

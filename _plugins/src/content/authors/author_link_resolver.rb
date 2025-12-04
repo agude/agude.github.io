@@ -12,6 +12,12 @@ module Jekyll
   module Authors
     # Helper class to handle author link resolution logic
     class AuthorLinkResolver
+      # Aliases for readability
+      LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
+      Logger = Jekyll::Infrastructure::PluginLoggerUtils
+      Text = Jekyll::Infrastructure::TextProcessingUtils
+      private_constant :LinkHelper, :Logger, :Text
+
       def initialize(context)
         @context = context
         @site = context&.registers&.[](:site)
@@ -25,7 +31,7 @@ module Jekyll
         @override = override.to_s.strip if override && !override.to_s.empty?
         @possessive = possessive
 
-        norm_name = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(@name_input)
+        norm_name = Text.normalize_title(@name_input)
         return log_empty_name(name_raw) if norm_name.empty?
 
         author_data = find_author(norm_name)
@@ -37,7 +43,7 @@ module Jekyll
       private
 
       def log_empty_name(raw)
-        Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+        Logger.log_liquid_failure(
           context: @context, tag_type: 'RENDER_AUTHOR_LINK',
           reason: 'Input author name resolved to empty after normalization.',
           identifiers: { NameInput: raw || 'nil' }, level: :warn
@@ -57,7 +63,7 @@ module Jekyll
         return @name_input.strip unless author_data
 
         canonical = author_data['title']
-        norm_canonical = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(canonical)
+        norm_canonical = Text.normalize_title(canonical)
 
         norm_name == norm_canonical ? canonical : @name_input.strip
       end
@@ -68,7 +74,7 @@ module Jekyll
         content = "#{span}#{suffix}"
         url = author_data ? author_data['url'] : nil
 
-        html = Jekyll::Infrastructure::Links::LinkHelperUtils._generate_link_html(@context, url, content)
+        html = LinkHelper._generate_link_html(@context, url, content)
 
         # Fallback logic from original code: if result is just the span (unlinked) and possessive requested,
         # ensure suffix is present. (Though content passed to generator already has it).

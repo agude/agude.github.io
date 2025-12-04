@@ -11,6 +11,12 @@ module Jekyll
   module ShortStories
     # Helper class to handle resolution logic.
     class ShortStoryResolver
+      # Aliases for readability
+      LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
+      Logger = Jekyll::Infrastructure::PluginLoggerUtils
+      Text = Jekyll::Infrastructure::TextProcessingUtils
+      private_constant :LinkHelper, :Logger, :Text
+
       def initialize(context)
         @context = context
         @site = context&.registers&.[](:site)
@@ -22,7 +28,7 @@ module Jekyll
 
         @title_input = title_raw.to_s.strip
         @book_filter = book_title_raw.to_s.strip if book_title_raw
-        @norm_title = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(@title_input)
+        @norm_title = Text.normalize_title(@title_input)
 
         return log_empty_title(title_raw) if @norm_title.empty?
 
@@ -37,7 +43,7 @@ module Jekyll
       end
 
       def log_empty_title(title_raw)
-        Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+        Logger.log_liquid_failure(
           context: @context, tag_type: 'RENDER_SHORT_STORY_LINK',
           reason: 'Input story title resolved to an empty string.',
           identifiers: { TitleInput: title_raw || 'nil' }, level: :warn
@@ -94,7 +100,7 @@ module Jekyll
 
         html = if target
                  url = "#{target['url']}##{target['slug']}"
-                 Jekyll::Infrastructure::Links::LinkHelperUtils._generate_link_html(@context, url, cite)
+                 LinkHelper._generate_link_html(@context, url, cite)
                else
                  cite
                end
@@ -103,7 +109,7 @@ module Jekyll
       end
 
       def log_not_found
-        @log_output = Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+        @log_output = Logger.log_liquid_failure(
           context: @context, tag_type: 'RENDER_SHORT_STORY_LINK',
           reason: 'Could not find short story in cache.',
           identifiers: { StoryTitle: @title_input }, level: :info
@@ -112,7 +118,7 @@ module Jekyll
       end
 
       def log_not_found_in_book
-        @log_output = Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+        @log_output = Logger.log_liquid_failure(
           context: @context, tag_type: 'RENDER_SHORT_STORY_LINK',
           reason: 'Story found in cache but not in the specified book.',
           identifiers: { StoryTitle: @title_input, FromBook: @book_filter }, level: :warn
@@ -122,7 +128,7 @@ module Jekyll
 
       def log_ambiguous(locations)
         books = locations.map { |loc| "'#{loc['parent_book_title']}'" }.join(', ')
-        @log_output = Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+        @log_output = Logger.log_liquid_failure(
           context: @context, tag_type: 'RENDER_SHORT_STORY_LINK',
           reason: "Ambiguous story title. Use 'from_book' to specify which book.",
           identifiers: { StoryTitle: @title_input, FoundIn: books }, level: :error

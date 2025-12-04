@@ -11,6 +11,12 @@ module Jekyll
   module Series
     # Helper class to handle series link resolution logic.
     class SeriesLinkResolver
+      # Aliases for readability
+      LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
+      Logger = Jekyll::Infrastructure::PluginLoggerUtils
+      Text = Jekyll::Infrastructure::TextProcessingUtils
+      private_constant :LinkHelper, :Logger, :Text
+
       def initialize(context)
         @context = context
         @site = context&.registers&.[](:site)
@@ -23,7 +29,7 @@ module Jekyll
         @title_input = title_raw.to_s
         @override = override_raw.to_s.strip if override_raw && !override_raw.to_s.empty?
 
-        norm_title = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(@title_input)
+        norm_title = Text.normalize_title(@title_input)
         return log_empty_title(title_raw) if norm_title.empty?
 
         series_data = find_series(norm_title)
@@ -39,7 +45,7 @@ module Jekyll
       end
 
       def log_empty_title(raw)
-        Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+        Logger.log_liquid_failure(
           context: @context, tag_type: 'RENDER_SERIES_LINK',
           reason: 'Input title resolved to empty after normalization.',
           identifiers: { TitleInput: raw || 'nil' },
@@ -70,7 +76,7 @@ module Jekyll
         span = Jekyll::Series::SeriesLinkUtils._build_series_span_element(display_text)
         url = series_data ? series_data['url'] : nil
 
-        html = Jekyll::Infrastructure::Links::LinkHelperUtils._generate_link_html(@context, url, span)
+        html = LinkHelper._generate_link_html(@context, url, span)
         @log_output + html
       end
     end
