@@ -21,6 +21,10 @@ module Jekyll
       class BookLinkTag < Liquid::Tag
         # Keep QuotedFragment handy for parsing values
         QuotedFragment = Liquid::QuotedFragment
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Linker = Jekyll::Books::Core::BookLinkUtils
+        private_constant :TagArgs, :Linker
 
         def initialize(tag_name, markup, tokens)
           super
@@ -36,19 +40,12 @@ module Jekyll
         # Renders the book link HTML by calling the utility function
         def render(context)
           # Resolve the potentially variable markup into actual strings
-          book_title = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@title_markup, context)
-          link_text_override = if @link_text_markup
-                                 Jekyll::Infrastructure::TagArgumentUtils.resolve_value(
-                                   @link_text_markup, context
-                                 )
-                               end
-          author_filter = if @author_markup
-                            Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@author_markup,
-                                                                                   context)
-                          end
+          book_title = TagArgs.resolve_value(@title_markup, context)
+          link_text_override = (TagArgs.resolve_value(@link_text_markup, context) if @link_text_markup)
+          author_filter = (TagArgs.resolve_value(@author_markup, context) if @author_markup)
 
           # Call the centralized utility function from Jekyll::Books::Core::BookLinkUtils with the new author argument
-          Jekyll::Books::Core::BookLinkUtils.render_book_link(book_title, context, link_text_override, author_filter)
+          Linker.render_book_link(book_title, context, link_text_override, author_filter)
         end
 
         private

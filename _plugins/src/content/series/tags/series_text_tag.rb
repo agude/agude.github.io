@@ -24,6 +24,12 @@ module Jekyll
       # Liquid tag for rendering series text with appropriate context and linking.
       # Analyzes series names and renders them with proper formatting and links.
       class SeriesTextTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Linker = Jekyll::Series::SeriesLinkUtils
+        TextUtil = Jekyll::Series::SeriesTextUtils
+        private_constant :TagArgs, :Linker, :TextUtil
+
         QuotedFragment = Liquid::QuotedFragment
 
         # SERIES_TYPE_WORDS is now in Jekyll::Series::SeriesTextUtils
@@ -37,12 +43,12 @@ module Jekyll
         end
 
         def render(context)
-          raw_series_name_input = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@series_name_markup, context)
+          raw_series_name_input = TagArgs.resolve_value(@series_name_markup, context)
 
-          analysis = Jekyll::Series::SeriesTextUtils.analyze_series_name(raw_series_name_input)
+          analysis = TextUtil.analyze_series_name(raw_series_name_input)
           return '' if analysis.nil?
 
-          linked_series_html = Jekyll::Series::SeriesLinkUtils.render_series_link(analysis[:name], context)
+          linked_series_html = Linker.render_series_link(analysis[:name], context)
           return '' if should_return_empty?(linked_series_html, analysis)
 
           build_output(analysis, linked_series_html)

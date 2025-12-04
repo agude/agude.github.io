@@ -20,6 +20,11 @@ module Jekyll
     #   reason: (Required) A string describing the reason for the log message.
     #   Other key-value pairs: Optional identifiers to include in the log message. Values can be literals or variables.
     class LogFailureTag < Liquid::Tag
+      # Aliases for readability
+      TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+      Logger = Jekyll::Infrastructure::PluginLoggerUtils
+      private_constant :TagArgs, :Logger
+
       SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
 
       def initialize(tag_name, markup, tokens)
@@ -33,11 +38,11 @@ module Jekyll
       end
 
       def render(context)
-        log_type = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@attributes['type'], context).to_s
-        log_reason = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@attributes['reason'], context).to_s
+        log_type = TagArgs.resolve_value(@attributes['type'], context).to_s
+        log_reason = TagArgs.resolve_value(@attributes['reason'], context).to_s
         identifiers = resolve_identifiers(context)
 
-        Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+        Logger.log_liquid_failure(
           context: context,
           tag_type: log_type,
           reason: log_reason,
@@ -77,7 +82,7 @@ module Jekyll
         @attributes.each do |key, value_markup|
           next if %w[type reason].include?(key)
 
-          identifiers[key] = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(value_markup, context)
+          identifiers[key] = TagArgs.resolve_value(value_markup, context)
         end
         identifiers
       end

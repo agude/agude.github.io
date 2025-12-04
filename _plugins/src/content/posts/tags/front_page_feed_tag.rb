@@ -23,6 +23,13 @@ module Jekyll
       # Liquid tag for rendering a feed combining recent posts and book reviews.
       # Displays the most recent content from both collections, sorted by date.
       class FrontPageFeedTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Logger = Jekyll::Infrastructure::PluginLoggerUtils
+        FeedUtils = Jekyll::Posts::FeedUtils
+        Renderer = Jekyll::Posts::Feed::FrontPageFeed::Renderer
+        private_constant :TagArgs, :Logger, :FeedUtils, :Renderer
+
         DEFAULT_LIMIT = 5
         SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
 
@@ -37,11 +44,11 @@ module Jekyll
 
         def render(context)
           limit = resolve_limit(context)
-          feed_items = Jekyll::Posts::FeedUtils.get_combined_feed_items(site: context.registers[:site], limit: limit)
+          feed_items = FeedUtils.get_combined_feed_items(site: context.registers[:site], limit: limit)
 
           log_output = log_empty_feed(context, limit) if feed_items.empty?
 
-          renderer = Jekyll::Posts::Feed::FrontPageFeed::Renderer.new(context, feed_items)
+          renderer = Renderer.new(context, feed_items)
           html_output = renderer.render
 
           (log_output || '') + html_output
@@ -91,7 +98,7 @@ module Jekyll
         def resolve_limit(context)
           return DEFAULT_LIMIT unless @limit_markup
 
-          resolved = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@limit_markup, context)
+          resolved = TagArgs.resolve_value(@limit_markup, context)
           begin
             val = Integer(resolved.to_s)
             val.positive? ? val : DEFAULT_LIMIT
@@ -101,7 +108,7 @@ module Jekyll
         end
 
         def log_empty_feed(context, limit)
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          Logger.log_liquid_failure(
             context: context,
             tag_type: 'FRONT_PAGE_FEED',
             reason: 'No items found for the front page feed.',

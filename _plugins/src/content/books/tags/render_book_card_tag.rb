@@ -23,6 +23,12 @@ module Jekyll
       # Liquid tag for rendering a book card from a book object variable.
       # Supports optional display title and subtitle overrides.
       class RenderBookCardTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Logger = Jekyll::Infrastructure::PluginLoggerUtils
+        CardUtils = Jekyll::Books::Core::BookCardUtils
+        private_constant :TagArgs, :Logger, :CardUtils
+
         SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
 
         def initialize(tag_name, markup, tokens)
@@ -37,11 +43,11 @@ module Jekyll
 
         def render(context)
           # Resolve the markup to actual values
-          book_object = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@book_object_markup, context)
+          book_object = TagArgs.resolve_value(@book_object_markup, context)
 
           # Return error if book object is nil
           unless book_object
-            return Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+            return Logger.log_liquid_failure(
               context: context,
               tag_type: 'RENDER_BOOK_CARD_TAG',
               reason: "Book object variable '#{@book_object_markup}' resolved to nil.",
@@ -51,22 +57,22 @@ module Jekyll
 
           # Resolve optional parameters
           display_title = if @display_title_markup
-                            Jekyll::Infrastructure::TagArgumentUtils.resolve_value(
+                            TagArgs.resolve_value(
                               @display_title_markup, context
                             )
                           end
           subtitle = if @subtitle_markup
-                       Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@subtitle_markup,
-                                                                              context)
+                       TagArgs.resolve_value(@subtitle_markup,
+                                             context)
                      end
 
           # Delegate to BookCardUtils
           begin
-            Jekyll::Books::Core::BookCardUtils.render(
+            CardUtils.render(
               book_object, context, display_title_override: display_title, subtitle: subtitle
             )
           rescue StandardError => e
-            Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+            Logger.log_liquid_failure(
               context: context,
               tag_type: 'RENDER_BOOK_CARD_TAG',
               reason: "Error rendering book card: #{e.message}",

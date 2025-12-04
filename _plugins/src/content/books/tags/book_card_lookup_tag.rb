@@ -21,6 +21,12 @@ module Jekyll
       # Supports both positional and named arguments.
       class BookCardLookupTag < Liquid::Tag
         QuotedFragment = Liquid::QuotedFragment
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Logger = Jekyll::Infrastructure::PluginLoggerUtils
+        CardUtils = Jekyll::Books::Core::BookCardUtils
+        Finder = Jekyll::Posts::Lookups::CardLookups::BookFinder
+        private_constant :TagArgs, :Logger, :CardUtils, :Finder
 
         def initialize(tag_name, markup, tokens)
           super
@@ -30,14 +36,14 @@ module Jekyll
 
         # Renders the book card by looking up the book and calling the utility
         def render(context)
-          target_title_input = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@title_markup, context)
+          target_title_input = TagArgs.resolve_value(@title_markup, context)
 
           return log_empty_title(context) if title_empty?(target_title_input)
 
           site = context.registers[:site]
           return log_missing_collection(context, target_title_input) unless site.collections.key?('books')
 
-          finder = Jekyll::Posts::Lookups::CardLookups::BookFinder.new(site: site, title: target_title_input)
+          finder = Finder.new(site: site, title: target_title_input)
           result = finder.find
 
           return log_book_not_found(context, target_title_input) if result[:error]
@@ -89,13 +95,13 @@ module Jekyll
 
         def render_book_card(found_book, context, target_title_input)
           # --- Call Utility to Render Card ---
-          Jekyll::Books::Core::BookCardUtils.render(found_book, context) # CHANGED: Call the new utility
+          CardUtils.render(found_book, context) # CHANGED: Call the new utility
         rescue StandardError => e
           # Return the log message from Jekyll::Infrastructure::PluginLoggerUtils
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          Logger.log_liquid_failure(
             context: context,
             tag_type: 'BOOK_CARD_LOOKUP',
-            reason: "Error calling Jekyll::Books::Core::BookCardUtils.render utility: #{e.message}",
+            reason: "Error calling CardUtils.render utility: #{e.message}",
             identifiers: { Title: target_title_input.to_s,
                            ErrorClass: e.class.name,
                            ErrorMessage: e.message.lines.first.chomp.slice(0, 100) },
@@ -104,7 +110,7 @@ module Jekyll
         end
 
         def log_empty_title(context)
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          Logger.log_liquid_failure(
             context: context,
             tag_type: 'BOOK_CARD_LOOKUP',
             reason: 'Title markup resolved to empty or nil.',
@@ -114,7 +120,7 @@ module Jekyll
         end
 
         def log_missing_collection(context, target_title_input)
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          Logger.log_liquid_failure(
             context: context,
             tag_type: 'BOOK_CARD_LOOKUP',
             reason: "Required 'books' collection not found in site configuration.",
@@ -124,7 +130,7 @@ module Jekyll
         end
 
         def log_book_not_found(context, target_title_input)
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          Logger.log_liquid_failure(
             context: context,
             tag_type: 'BOOK_CARD_LOOKUP',
             reason: 'Could not find book.',

@@ -22,6 +22,13 @@ module Jekyll
       # Liquid tag for rendering an article card by looking up a post by URL.
       # Supports both positional and named URL arguments.
       class ArticleCardLookupTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Logger = Jekyll::Infrastructure::PluginLoggerUtils
+        CardUtils = Jekyll::Posts::ArticleCardUtils
+        Finder = Jekyll::Posts::Lookups::CardLookups::ArticleFinder
+        private_constant :TagArgs, :Logger, :CardUtils, :Finder
+
         QuotedFragment = Liquid::QuotedFragment
 
         def initialize(tag_name, markup, tokens)
@@ -34,8 +41,8 @@ module Jekyll
         # Renders the article card by looking up the post and calling the utility function
         def render(context)
           site = context.registers[:site]
-          finder = Jekyll::Posts::Lookups::CardLookups::ArticleFinder.new(site: site, url_markup: @url_markup,
-                                                                          context: context)
+          finder = Finder.new(site: site, url_markup: @url_markup,
+                              context: context)
           result = finder.find
 
           return log_error(context, result[:error], result[:url]) if result[:error]
@@ -78,7 +85,7 @@ module Jekyll
         def log_error(context, error, url)
           case error[:type]
           when :url_error
-            Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+            Logger.log_liquid_failure(
               context: context,
               tag_type: 'ARTICLE_CARD_LOOKUP',
               reason: 'URL markup resolved to empty or nil.',
@@ -86,7 +93,7 @@ module Jekyll
               level: :error
             )
           when :collection_error
-            Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+            Logger.log_liquid_failure(
               context: context,
               tag_type: 'ARTICLE_CARD_LOOKUP',
               reason: 'Cannot iterate site.posts.docs. It is missing, not an Array, or site.posts is invalid.',
@@ -94,7 +101,7 @@ module Jekyll
               level: :error
             )
           when :post_not_found
-            Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+            Logger.log_liquid_failure(
               context: context,
               tag_type: 'ARTICLE_CARD_LOOKUP',
               reason: 'Could not find post.',
@@ -105,12 +112,12 @@ module Jekyll
         end
 
         def render_card(post, target_url, context)
-          Jekyll::Posts::ArticleCardUtils.render(post, context)
+          CardUtils.render(post, context)
         rescue StandardError => e
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          Logger.log_liquid_failure(
             context: context,
             tag_type: 'ARTICLE_CARD_LOOKUP',
-            reason: "Error calling Jekyll::Posts::ArticleCardUtils.render utility: #{e.message}",
+            reason: "Error calling CardUtils.render utility: #{e.message}",
             identifiers: { URL: target_url,
                            ErrorClass: e.class.name,
                            ErrorMessage: e.message.lines.first.chomp.slice(0, 100) },

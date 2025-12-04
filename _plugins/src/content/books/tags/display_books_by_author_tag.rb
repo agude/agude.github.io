@@ -18,6 +18,12 @@ module Jekyll
       #   {% display_books_by_author "Ursula K. Le Guin" %}
       #   {% display_books_by_author page.author %}
       class DisplayBooksByAuthorTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Finder = Jekyll::Books::Lists::Renderers::BookLists::AuthorFinder
+        Renderer = Jekyll::Books::Lists::BookListRendererUtils
+        private_constant :TagArgs, :Finder, :Renderer
+
         def initialize(tag_name, markup, tokens)
           super
           @author_name_markup = markup.strip
@@ -40,7 +46,7 @@ module Jekyll
           end
 
           def render
-            author_name_input = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@author_name_markup, @context)
+            author_name_input = TagArgs.resolve_value(@author_name_markup, @context)
 
             # Convert to string if not nil, otherwise pass nil to let AuthorFinder handle logging
             author_filter = if author_name_input && !author_name_input.to_s.strip.empty?
@@ -49,15 +55,15 @@ module Jekyll
                               author_name_input
                             end
 
-            finder = Jekyll::Books::Lists::Renderers::BookLists::AuthorFinder.new(
+            finder = Finder.new(
               site: @site,
               author_name_filter: author_filter,
               context: @context
             )
             data = finder.find
 
-            # Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html will prepend data[:log_messages]
-            Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(data, @context)
+            # Renderer.render_book_groups_html will prepend data[:log_messages]
+            Renderer.render_book_groups_html(data, @context)
           end
         end
       end

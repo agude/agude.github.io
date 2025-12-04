@@ -18,6 +18,12 @@ module Jekyll
       #   {% display_books_for_series "The Lord of the Rings" %}
       #   {% display_books_for_series page.series %}
       class DisplayBooksForSeriesTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Finder = Jekyll::Books::Lists::Renderers::BookLists::SeriesFinder
+        Renderer = Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer
+        private_constant :TagArgs, :Finder, :Renderer
+
         def initialize(tag_name, markup, tokens)
           super
           @series_name_markup = markup.strip
@@ -28,7 +34,7 @@ module Jekyll
         end
 
         def render(context)
-          series_name_input = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@series_name_markup, context)
+          series_name_input = TagArgs.resolve_value(@series_name_markup, context)
 
           series_filter = if series_name_input && !series_name_input.to_s.strip.empty?
                             series_name_input.to_s
@@ -36,7 +42,7 @@ module Jekyll
                             series_name_input
                           end
 
-          finder = Jekyll::Books::Lists::Renderers::BookLists::SeriesFinder.new(
+          finder = Finder.new(
             site: context.registers[:site],
             series_name_filter: series_filter,
             context: context
@@ -44,7 +50,7 @@ module Jekyll
           data = finder.find
 
           output = +(data[:log_messages] || '')
-          output << Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.new(context, data).render
+          output << Renderer.new(context, data).render
         end
       end
       Liquid::Template.register_tag('display_books_for_series', Jekyll::Books::Tags::DisplayBooksForSeriesTag)

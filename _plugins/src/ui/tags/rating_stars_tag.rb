@@ -20,6 +20,11 @@ module Jekyll
       #   {% rating_stars 5 wrapper_tag="span" %}
       #   {% rating_stars book.rating wrapper_tag='div' %}
       class RatingStarsTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        RatingUtil = Jekyll::UI::Ratings::RatingUtils
+        private_constant :TagArgs, :RatingUtil
+
         SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment})/o # For key=value args
 
         def initialize(tag_name, markup, tokens)
@@ -33,19 +38,19 @@ module Jekyll
 
         def render(context)
           # Resolve rating value
-          rating_value = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@rating_markup, context)
+          rating_value = TagArgs.resolve_value(@rating_markup, context)
 
           # Resolve wrapper tag (defaulting to 'div' is handled by the utility)
           wrapper_tag_value = 'div' # Default
           if @wrapper_tag_markup
             # resolve_value removes the quotes
-            resolved_tag = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@wrapper_tag_markup, context)
+            resolved_tag = TagArgs.resolve_value(@wrapper_tag_markup, context)
             # Pass the resolved string (e.g., "span") to the utility
             wrapper_tag_value = resolved_tag if resolved_tag
           end
 
           # Call the utility function. It handles nil, validation, errors.
-          Jekyll::UI::Ratings::RatingUtils.render_rating_stars(rating_value, wrapper_tag_value)
+          RatingUtil.render_rating_stars(rating_value, wrapper_tag_value)
         end
 
         private

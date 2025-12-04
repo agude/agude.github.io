@@ -53,7 +53,7 @@ require_relative '../../infrastructure/tag_argument_utils'
 # {% citation author_last="Doe" author_first="John" work_title="My Article" ... %}
 #
 # All parameters are optional and correspond to the keys expected by
-# Jekyll::UI::Citations::CitationUtils.format_citation_html. Values can be string literals
+# CitationUtil.format_citation_html. Values can be string literals
 module Jekyll
   # (in single or double quotes) or Liquid variables.
   module UI
@@ -61,6 +61,11 @@ module Jekyll
       # Liquid tag for generating formatted citations from bibliographic data.
       # Accepts multiple named parameters for citation components.
       class CitationTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        CitationUtil = Jekyll::UI::Citations::CitationUtils
+        private_constant :TagArgs, :CitationUtil
+
         # Regex for parsing "key='value'" or "key=variable" arguments.
         # - [\w-]+ : Matches the key (alphanumeric, underscore, hyphen).
         # - \s*=\s* : Matches the equals sign with optional surrounding whitespace.
@@ -86,12 +91,12 @@ module Jekyll
 
           # Iterate over the stored attribute markups and resolve their actual values
           @attributes_markup.each do |key, value_markup|
-            resolved_params[key] = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(value_markup, context)
+            resolved_params[key] = TagArgs.resolve_value(value_markup, context)
           end
 
           # Delegate the HTML formatting to the Jekyll::UI::Citations::CitationUtils module
           # This utility is responsible for handling nil/empty values gracefully.
-          Jekyll::UI::Citations::CitationUtils.format_citation_html(resolved_params, site)
+          CitationUtil.format_citation_html(resolved_params, site)
         end
 
         private

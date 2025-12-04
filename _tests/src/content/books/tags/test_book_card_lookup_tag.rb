@@ -185,7 +185,7 @@ class TestBookCardLookupTag < Minitest::Test
     log_verifier = lambda do |args|
       log_called = true
       assert_equal 'BOOK_CARD_LOOKUP', args[:tag_type]
-      assert_match 'Error calling Jekyll::Books::Core::BookCardUtils.render utility', args[:reason]
+      assert_match 'Error calling CardUtils.render utility', args[:reason]
       assert_equal :error, args[:level]
       ''
     end

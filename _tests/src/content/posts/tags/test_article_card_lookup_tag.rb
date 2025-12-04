@@ -197,7 +197,7 @@ class TestArticleCardLookupTag < Minitest::Test
     # Stub Jekyll::Posts::ArticleCardUtils.render to raise an error
     Jekyll::Posts::ArticleCardUtils.stub :render, ->(_post, _ctx) { raise StandardError, 'Card render failed!' } do
       output = render_tag('url="/blog/post-one.html"')
-      expected_pattern = %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Error calling Jekyll::Posts::ArticleCardUtils\.render utility: Card render failed!'\s*URL='/blog/post-one\.html'\s*ErrorClass='StandardError'\s*ErrorMessage='Card render failed!'\s*SourcePage='current\.html' -->}
+      expected_pattern = %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Error calling CardUtils\.render utility: Card render failed!'\s*URL='/blog/post-one\.html'\s*ErrorClass='StandardError'\s*ErrorMessage='Card render failed!'\s*SourcePage='current\.html' -->}
       assert_match expected_pattern, output
     end
   end

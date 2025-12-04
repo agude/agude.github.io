@@ -21,6 +21,11 @@ module Jekyll
       # Liquid tag for rendering numbers with proper unit formatting.
       # Generates HTML with unit abbreviations and narrow non-breaking spaces.
       class UnitsTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Logger = Jekyll::Infrastructure::PluginLoggerUtils
+        private_constant :TagArgs, :Logger
+
         SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
         THIN_NBSP = '&#x202F;' # U+202F NARROW NO-BREAK SPACE
 
@@ -103,8 +108,8 @@ module Jekyll
         end
 
         def resolve_and_validate_args(context)
-          number_input = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@attributes['number'], context)
-          unit_key_input = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@attributes['unit'], context)
+          number_input = TagArgs.resolve_value(@attributes['number'], context)
+          unit_key_input = TagArgs.resolve_value(@attributes['unit'], context)
 
           return validate_number_input(context, number_input) if value_blank?(number_input)
 
@@ -132,7 +137,7 @@ module Jekyll
         end
 
         def log_unknown_unit(unit_key, number, context)
-          log = Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          log = Logger.log_liquid_failure(
             context: context,
             tag_type: 'UNITS_TAG_WARNING',
             reason: 'Unit key not found in internal definitions. Using key as symbol/name.',
@@ -156,7 +161,7 @@ module Jekyll
         end
 
         def log_error(context, reason, identifiers)
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          Logger.log_liquid_failure(
             context: context, tag_type: 'UNITS_TAG_ERROR', reason: reason, identifiers: identifiers, level: :error
           )
         end

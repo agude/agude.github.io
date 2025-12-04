@@ -22,6 +22,11 @@ module Jekyll
       # Liquid tag for formatting short story titles with optional ID suppression.
       # Outputs formatted cite tags and Kramdown ID blocks by default.
       class ShortStoryTitleTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        TitleUtil = Jekyll::ShortStories::ShortStoryTitleUtil
+        private_constant :TagArgs, :TitleUtil
+
         QuotedFragment = Liquid::QuotedFragment
 
         def initialize(tag_name, markup, tokens)
@@ -34,9 +39,9 @@ module Jekyll
         end
 
         def render(context)
-          story_title = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@title_markup, context)
+          story_title = TagArgs.resolve_value(@title_markup, context)
 
-          Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
+          TitleUtil.render_title(
             context: context,
             title: story_title,
             no_id: @no_id_flag

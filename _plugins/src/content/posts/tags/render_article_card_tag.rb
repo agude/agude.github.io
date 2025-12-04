@@ -18,6 +18,12 @@ module Jekyll
       #   {% render_article_card post %}
       #   {% render_article_card my_post_variable %}
       class RenderArticleCardTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Logger = Jekyll::Infrastructure::PluginLoggerUtils
+        CardUtils = Jekyll::Posts::ArticleCardUtils
+        private_constant :TagArgs, :Logger, :CardUtils
+
         def initialize(tag_name, markup, tokens)
           super
           @post_object_markup = markup.strip
@@ -25,10 +31,10 @@ module Jekyll
         end
 
         def render(context)
-          post_object = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@post_object_markup, context)
+          post_object = TagArgs.resolve_value(@post_object_markup, context)
           return log_nil_object(context) unless post_object
 
-          Jekyll::Posts::ArticleCardUtils.render(post_object, context)
+          CardUtils.render(post_object, context)
         rescue StandardError => e
           log_render_error(context, e)
         end
@@ -42,7 +48,7 @@ module Jekyll
         end
 
         def log_nil_object(context)
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          Logger.log_liquid_failure(
             context: context,
             tag_type: 'RENDER_ARTICLE_CARD_TAG',
             reason: "Post object variable '#{@post_object_markup}' resolved to nil.",
@@ -52,7 +58,7 @@ module Jekyll
         end
 
         def log_render_error(context, error)
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          Logger.log_liquid_failure(
             context: context,
             tag_type: 'RENDER_ARTICLE_CARD_TAG',
             reason: "Error rendering article card via Jekyll::Posts::ArticleCardUtils: #{error.message}",

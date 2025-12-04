@@ -22,6 +22,11 @@ module Jekyll
       # Liquid tag for rendering a link to a book series page.
       # Creates an HTML link if the series page exists, otherwise renders plain text.
       class SeriesLinkTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Linker = Jekyll::Series::SeriesLinkUtils
+        private_constant :TagArgs, :Linker
+
         QuotedFragment = Liquid::QuotedFragment
 
         def initialize(tag_name, markup, tokens)
@@ -35,10 +40,10 @@ module Jekyll
 
         # Renders the series link HTML by calling the utility function
         def render(context)
-          series_title = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@title_markup, context)
+          series_title = TagArgs.resolve_value(@title_markup, context)
           link_text_override = resolve_link_text(context)
 
-          Jekyll::Series::SeriesLinkUtils.render_series_link(series_title, context, link_text_override)
+          Linker.render_series_link(series_title, context, link_text_override)
         end
 
         private
@@ -91,7 +96,7 @@ module Jekyll
         def resolve_link_text(context)
           return nil unless @link_text_markup
 
-          Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@link_text_markup, context)
+          TagArgs.resolve_value(@link_text_markup, context)
         end
       end
     end

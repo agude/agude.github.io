@@ -20,6 +20,10 @@ module Jekyll
       class AuthorLinkTag < Liquid::Tag
         # Keep QuotedFragment handy for parsing values
         QuotedFragment = Liquid::QuotedFragment
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Linker = Jekyll::Authors::AuthorLinkUtils
+        private_constant :TagArgs, :Linker
 
         def initialize(tag_name, markup, tokens)
           super
@@ -35,15 +39,11 @@ module Jekyll
         # Renders the author link HTML by calling the utility function
         def render(context)
           # Resolve the potentially variable markup into actual strings
-          author_name = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@name_markup, context)
-          link_text_override = if @link_text_markup
-                                 Jekyll::Infrastructure::TagArgumentUtils.resolve_value(
-                                   @link_text_markup, context
-                                 )
-                               end
+          author_name = TagArgs.resolve_value(@name_markup, context)
+          link_text_override = (TagArgs.resolve_value(@link_text_markup, context) if @link_text_markup)
 
           # Call the centralized utility function from Jekyll::Authors::AuthorLinkUtils
-          Jekyll::Authors::AuthorLinkUtils.render_author_link(
+          Linker.render_author_link(
             author_name,
             context,
             link_text_override,

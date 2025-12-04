@@ -19,6 +19,11 @@ module Jekyll
       # Liquid tag for creating links to short stories.
       # Handles disambiguation for stories that appear in multiple books.
       class ShortStoryLinkTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Linker = Jekyll::ShortStories::ShortStoryLinkUtils
+        private_constant :TagArgs, :Linker
+
         QuotedFragment = Liquid::QuotedFragment
 
         def initialize(tag_name, markup, tokens)
@@ -32,15 +37,15 @@ module Jekyll
 
         def render(context)
           # Resolve arguments from markup
-          story_title = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@title_markup, context)
+          story_title = TagArgs.resolve_value(@title_markup, context)
           from_book_title = if @from_book_markup
-                              Jekyll::Infrastructure::TagArgumentUtils.resolve_value(
+                              TagArgs.resolve_value(
                                 @from_book_markup, context
                               )
                             end
 
           # Delegate all logic to the utility module
-          Jekyll::ShortStories::ShortStoryLinkUtils.render_short_story_link(story_title, context, from_book_title)
+          Linker.render_short_story_link(story_title, context, from_book_title)
         end
 
         private

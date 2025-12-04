@@ -21,6 +21,10 @@ module Jekyll
       class DisplayAuthorsTag < Liquid::Tag
         SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
         ALLOWED_NAMED_KEYS = %w[linked etal_after].freeze
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        DisplayUtil = Jekyll::Authors::DisplayAuthorsUtil
+        private_constant :TagArgs, :DisplayUtil
 
         def initialize(tag_name, markup, tokens)
           super
@@ -33,11 +37,11 @@ module Jekyll
         end
 
         def render(context)
-          authors_input = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@authors_list_markup, context)
+          authors_input = TagArgs.resolve_value(@authors_list_markup, context)
           linked_option = linked?(context)
           etal_option = resolve_etal_after_option(context)
 
-          Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+          DisplayUtil.render_author_list(
             author_input: authors_input,
             context: context,
             linked: linked_option,
@@ -111,7 +115,7 @@ module Jekyll
         def linked?(context)
           return true unless @options_markup.key?(:linked)
 
-          val = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@options_markup[:linked], context)
+          val = TagArgs.resolve_value(@options_markup[:linked], context)
           return true if val.nil?
 
           val_str = val.to_s.downcase
@@ -121,7 +125,7 @@ module Jekyll
         def resolve_etal_after_option(context)
           return nil unless @options_markup.key?(:etal_after)
 
-          val = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@options_markup[:etal_after], context)
+          val = TagArgs.resolve_value(@options_markup[:etal_after], context)
           return nil unless val
 
           Integer(val.to_s)

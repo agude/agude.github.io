@@ -22,6 +22,13 @@ module Jekyll
       # Liquid tag for displaying article cards for posts in a specific category.
       # Supports optionally excluding the current page from results.
       class DisplayCategoryPostsTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Logger = Jekyll::Infrastructure::PluginLoggerUtils
+        ListUtils = Jekyll::Posts::PostListUtils
+        Renderer = Jekyll::Posts::Category::CategoryPosts::Renderer
+        private_constant :TagArgs, :Logger, :ListUtils, :Renderer
+
         SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
         ALLOWED_KEYS = %w[topic exclude_current_page].freeze
         REQUIRED_KEYS = ['topic'].freeze
@@ -42,14 +49,14 @@ module Jekyll
 
           url_to_exclude = resolve_exclude_url(context)
 
-          result = Jekyll::Posts::PostListUtils.get_posts_by_category(
+          result = ListUtils.get_posts_by_category(
             site: context.registers[:site],
             category_name: topic_name,
             context: context,
             exclude_url: url_to_exclude
           )
 
-          renderer = Jekyll::Posts::Category::CategoryPosts::Renderer.new(context, result[:posts])
+          renderer = Renderer.new(context, result[:posts])
           html_output = renderer.render
 
           (result[:log_messages] || '') + html_output
@@ -104,7 +111,7 @@ module Jekyll
         end
 
         def resolve_topic(context)
-          input = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@attributes_markup['topic'], context)
+          input = TagArgs.resolve_value(@attributes_markup['topic'], context)
           name = input.to_s.strip
 
           return [name, nil] unless name.empty?
@@ -114,7 +121,7 @@ module Jekyll
         end
 
         def log_empty_topic_error(context)
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+          Logger.log_liquid_failure(
             context: context, tag_type: 'DISPLAY_CATEGORY_POSTS',
             reason: "Argument 'topic' resolved to an empty string.",
             identifiers: { topic_markup: @attributes_markup['topic'] },
@@ -125,8 +132,8 @@ module Jekyll
         def resolve_exclude_url(context)
           return nil unless @attributes_markup.key?('exclude_current_page')
 
-          val = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(@attributes_markup['exclude_current_page'],
-                                                                       context)
+          val = TagArgs.resolve_value(@attributes_markup['exclude_current_page'],
+                                      context)
           exclude = val == true || val.to_s.casecmp('true').zero?
 
           page = context.registers[:page]
