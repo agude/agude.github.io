@@ -29,13 +29,13 @@ module Jekyll
         end
 
         def render(context)
-          finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(context, @max_posts)
+          finder = Jekyll::Posts::Related::Finder.new(context, @max_posts)
           result = finder.find
 
           return result[:logs] if result[:posts].empty?
 
-          renderer = Jekyll::Posts::Related::CustomRelatedPosts::Renderer.new(context, result[:posts],
-                                                                              result[:found_by_category])
+          renderer = Jekyll::Posts::Related::Renderer.new(context, result[:posts],
+                                                          result[:found_by_category])
           html_output = renderer.render
 
           result[:logs] + html_output

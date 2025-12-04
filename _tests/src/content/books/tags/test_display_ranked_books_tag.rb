@@ -95,7 +95,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_validator_accepts_valid_book_in_dev_mode
     book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Validator.new(book_map, 'test_list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'test_list', false)
 
     assert_silent do
       validator.validate('Book A (5 Stars)', 0, @book5a)
@@ -105,7 +105,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_validator_raises_error_for_missing_book_in_dev_mode
     book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Validator.new(book_map, 'test_list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'test_list', false)
 
     err = assert_raises RuntimeError do
       validator.validate('Non Existent Book', 1, nil)
@@ -115,7 +115,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_validator_raises_error_for_invalid_rating_in_dev_mode
     book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Validator.new(book_map, 'test_list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'test_list', false)
 
     err = assert_raises RuntimeError do
       validator.validate('Book Invalid Rating', 1, @book_invalid_rating)
@@ -125,7 +125,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_validator_raises_error_for_monotonicity_violation_in_dev_mode
     book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Validator.new(book_map, 'test_list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'test_list', false)
 
     validator.validate('Book C (4 Stars)', 0, @book4a)
 
@@ -138,7 +138,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_validator_skips_validation_in_production_mode
     book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Validator.new(book_map, 'test_list', true)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'test_list', true)
 
     # Should not raise even with invalid data in production
     assert_silent do
@@ -151,7 +151,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
   # ========================================================================
 
   def test_processor_returns_correct_structure
-    processor = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Processor.new(@context_dev, 'page.ranked_list')
+    processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(@context_dev, 'page.ranked_list')
     result = processor.process
 
     assert_kind_of Hash, result
@@ -160,7 +160,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
   end
 
   def test_processor_groups_books_by_rating_correctly
-    processor = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Processor.new(@context_dev, 'page.ranked_list')
+    processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(@context_dev, 'page.ranked_list')
     result = processor.process
 
     assert_equal 3, result[:rating_groups].length
@@ -183,7 +183,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_processor_returns_empty_groups_for_empty_list
     @context_dev['page']['ranked_list'] = []
-    processor = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Processor.new(@context_dev, 'page.ranked_list')
+    processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(@context_dev, 'page.ranked_list')
     result = processor.process
 
     assert_empty result[:rating_groups]
@@ -191,7 +191,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_processor_skips_missing_book_in_production_mode
     @context_prod['page']['ranked_list'] = @non_existent_title_list
-    processor = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Processor.new(@context_prod, 'page.ranked_list')
+    processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(@context_prod, 'page.ranked_list')
     result = nil
 
     mock_jekyll_logger = Minitest::Mock.new
@@ -213,7 +213,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_processor_skips_invalid_rating_in_production_mode
     @context_prod['page']['ranked_list'] = @invalid_rating_list
-    processor = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Processor.new(@context_prod, 'page.ranked_list')
+    processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(@context_prod, 'page.ranked_list')
     result = nil
 
     mock_jekyll_logger = Minitest::Mock.new
@@ -238,7 +238,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
   # ========================================================================
 
   def test_renderer_returns_empty_string_for_empty_groups
-    renderer = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Renderer.new(@context_dev, [])
+    renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, [])
     output = renderer.render
 
     assert_equal '', output
@@ -250,7 +250,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
       { rating: 4, books: [@book4a] }
     ]
 
-    renderer = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Renderer.new(@context_dev, rating_groups)
+    renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, rating_groups)
     output = nil
 
     Jekyll::Books::Core::BookCardUtils.stub :render, @mock_card_html_generic do
@@ -270,7 +270,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
     rating_groups = [{ rating: 5, books: [@book5a, @book5b, @book4a] }]
     card_render_count = 0
 
-    renderer = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Renderer.new(@context_dev, rating_groups)
+    renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, rating_groups)
     Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |_book_obj, _ctx|
       card_render_count += 1
       @mock_card_html_generic
@@ -290,7 +290,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
       { rating: 1, books: [@book1a] }
     ]
 
-    renderer = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Renderer.new(@context_dev, rating_groups)
+    renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, rating_groups)
     output = nil
 
     Jekyll::Books::Core::BookCardUtils.stub :render, @mock_card_html_generic do

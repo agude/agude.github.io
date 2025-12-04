@@ -23,13 +23,13 @@ module Jekyll
       class BookBacklinksTag < Liquid::Tag
         # Renders the list of books linking back to the current page.
         def render(context)
-          finder = Jekyll::Books::Backlinks::BookBacklinks::Finder.new(context)
+          finder = Jekyll::Books::Backlinks::Finder.new(context)
           result = finder.find
 
           page = context.registers[:page]
           return result[:logs] if result[:backlinks].empty?
 
-          renderer = Jekyll::Books::Backlinks::BookBacklinks::Renderer.new(context, page, result[:backlinks])
+          renderer = Jekyll::Books::Backlinks::Renderer.new(context, page, result[:backlinks])
           html_output = renderer.render
 
           result[:logs] + html_output

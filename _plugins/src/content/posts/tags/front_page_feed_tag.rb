@@ -27,7 +27,7 @@ module Jekyll
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
         FeedUtils = Jekyll::Posts::FeedUtils
-        Renderer = Jekyll::Posts::Feed::FrontPageFeed::Renderer
+        Renderer = Jekyll::Posts::Feed::Renderer
         private_constant :TagArgs, :Logger, :FeedUtils, :Renderer
 
         DEFAULT_LIMIT = 5

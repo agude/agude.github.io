@@ -76,7 +76,7 @@ module Jekyll
             output
           end
         end
+      end
     end
   end
-end
 end

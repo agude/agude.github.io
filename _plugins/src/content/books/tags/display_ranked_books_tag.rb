@@ -43,14 +43,14 @@ module Jekyll
         end
 
         def render(context)
-          processor = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Processor.new(context,
-                                                                                             @list_variable_markup)
+          processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context,
+                                                                         @list_variable_markup)
           result = processor.process
 
           return result[:log_messages] if result[:rating_groups].empty?
 
-          renderer = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Renderer.new(context,
-                                                                                           result[:rating_groups])
+          renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(context,
+                                                                       result[:rating_groups])
           html_output = renderer.render
 
           result[:log_messages] + html_output

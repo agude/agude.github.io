@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/posts/category/renderer'
 
-# Tests for Jekyll::Posts::Category::CategoryPosts::Renderer.
+# Tests for Jekyll::Posts::Category::Renderer.
 #
 # Verifies that the Renderer correctly generates HTML structure.
 class TestCategoryPostsRenderer < Minitest::Test
@@ -15,7 +15,7 @@ class TestCategoryPostsRenderer < Minitest::Test
   end
 
   def test_returns_empty_string_when_posts_empty
-    renderer = Jekyll::Posts::Category::CategoryPosts::Renderer.new(@context, [])
+    renderer = Jekyll::Posts::Category::Renderer.new(@context, [])
     output = renderer.render
 
     assert_equal '', output
@@ -23,7 +23,7 @@ class TestCategoryPostsRenderer < Minitest::Test
 
   def test_generates_correct_html_structure
     Jekyll::Posts::ArticleCardUtils.stub :render, ->(_post, _ctx) { '<div>Card</div>' } do
-      renderer = Jekyll::Posts::Category::CategoryPosts::Renderer.new(@context, [@post1])
+      renderer = Jekyll::Posts::Category::Renderer.new(@context, [@post1])
       output = renderer.render
 
       assert_match(/<div class="card-grid">/, output)
@@ -37,7 +37,7 @@ class TestCategoryPostsRenderer < Minitest::Test
       captured_args << { post: post, ctx: ctx }
       '<div>Card</div>'
     } do
-      renderer = Jekyll::Posts::Category::CategoryPosts::Renderer.new(@context, [@post1])
+      renderer = Jekyll::Posts::Category::Renderer.new(@context, [@post1])
       renderer.render
 
       assert_equal 1, captured_args.length
@@ -50,7 +50,7 @@ class TestCategoryPostsRenderer < Minitest::Test
     Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |post, _ctx|
       "<div>Card for #{post.data['title']}</div>"
     } do
-      renderer = Jekyll::Posts::Category::CategoryPosts::Renderer.new(@context, [@post1, @post2])
+      renderer = Jekyll::Posts::Category::Renderer.new(@context, [@post1, @post2])
       output = renderer.render
 
       # Verify both posts are present
@@ -68,7 +68,7 @@ class TestCategoryPostsRenderer < Minitest::Test
     Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |post, _ctx|
       "<article class=\"card\">#{post.data['title']}</article>"
     } do
-      renderer = Jekyll::Posts::Category::CategoryPosts::Renderer.new(@context, [@post1, @post2])
+      renderer = Jekyll::Posts::Category::Renderer.new(@context, [@post1, @post2])
       output = renderer.render
 
       assert_includes output, '<article class="card">Post Alpha</article>'
@@ -78,7 +78,7 @@ class TestCategoryPostsRenderer < Minitest::Test
 
   def test_wraps_all_cards_in_single_card_grid
     Jekyll::Posts::ArticleCardUtils.stub :render, ->(_post, _ctx) { '<div>Card</div>' } do
-      renderer = Jekyll::Posts::Category::CategoryPosts::Renderer.new(@context, [@post1, @post2])
+      renderer = Jekyll::Posts::Category::Renderer.new(@context, [@post1, @post2])
       output = renderer.render
 
       # Count occurrences of card-grid opening and closing

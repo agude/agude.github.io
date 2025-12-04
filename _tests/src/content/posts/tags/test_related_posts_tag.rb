@@ -76,7 +76,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(@context, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(@context, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -90,7 +90,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(@context, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(@context, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -113,7 +113,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(context_no_cats, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(context_no_cats, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -138,7 +138,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(context_no_cats, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(context_no_cats, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -152,7 +152,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(@context, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(@context, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -172,7 +172,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(context_for_dedup, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(context_for_dedup, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -191,7 +191,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(minimal_context, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(minimal_context, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -215,7 +215,7 @@ class TestRelatedPostsTag < Minitest::Test
     result = nil
     Jekyll.stub :logger, mock_logger do
       Time.stub :now, @test_time_now do
-        finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(context, DEFAULT_MAX_POSTS)
+        finder = Jekyll::Posts::Related::Finder.new(context, DEFAULT_MAX_POSTS)
         result = finder.find
       end
     end
@@ -230,7 +230,7 @@ class TestRelatedPostsTag < Minitest::Test
   # ========================================================================
 
   def test_renderer_returns_empty_string_for_empty_posts
-    renderer = Jekyll::Posts::Related::CustomRelatedPosts::Renderer.new(@context, [], false)
+    renderer = Jekyll::Posts::Related::Renderer.new(@context, [], false)
     output = renderer.render
 
     assert_equal '', output
@@ -239,7 +239,7 @@ class TestRelatedPostsTag < Minitest::Test
   def test_renderer_generates_correct_html_structure_related_posts
     posts = [@post_review1, @post_tech1]
 
-    renderer = Jekyll::Posts::Related::CustomRelatedPosts::Renderer.new(@context, posts, true)
+    renderer = Jekyll::Posts::Related::Renderer.new(@context, posts, true)
     output = nil
 
     Jekyll::Posts::ArticleCardUtils.stub :render, ->(p, _ctx) { "<div>#{p.data['title']}</div>\n" } do
@@ -257,7 +257,7 @@ class TestRelatedPostsTag < Minitest::Test
   def test_renderer_generates_correct_html_structure_recent_posts
     posts = [@post_uncat1, @post_tech2]
 
-    renderer = Jekyll::Posts::Related::CustomRelatedPosts::Renderer.new(@context, posts, false)
+    renderer = Jekyll::Posts::Related::Renderer.new(@context, posts, false)
     output = nil
 
     Jekyll::Posts::ArticleCardUtils.stub :render, ->(p, _ctx) { "<div>#{p.data['title']}</div>\n" } do

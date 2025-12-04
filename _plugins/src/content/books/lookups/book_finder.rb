@@ -3,50 +3,48 @@
 # _plugins/logic/card_lookups/book_finder.rb
 
 module Jekyll
-  module Posts
+  module Books
     module Lookups
-      module CardLookups
-        # Finds a book document by normalized title.
-        #
-        # Searches the books collection for a book with a matching title,
-        # using case-insensitive and whitespace-normalized comparison.
-        # Returns a hash with :book (the found document or nil) and :error
-        # (nil on success, or a hash with :type on failure).
-        class BookFinder
-          def initialize(site:, title:)
-            @site = site
-            @title = title
+      # Finds a book document by normalized title.
+      #
+      # Searches the books collection for a book with a matching title,
+      # using case-insensitive and whitespace-normalized comparison.
+      # Returns a hash with :book (the found document or nil) and :error
+      # (nil on success, or a hash with :type on failure).
+      class BookFinder
+        def initialize(site:, title:)
+          @site = site
+          @title = title
+        end
+
+        def find
+          return error_result(:invalid_input) unless @site && @title
+
+          target_title_normalized = normalize_title(@title)
+          return error_result(:invalid_input) unless target_title_normalized
+
+          book = @site.collections['books'].docs.find do |b|
+            next if b.data['published'] == false
+
+            normalize_title(b.data['title']) == target_title_normalized
           end
 
-          def find
-            return error_result(:invalid_input) unless @site && @title
+          return error_result(:not_found) unless book
 
-            target_title_normalized = normalize_title(@title)
-            return error_result(:invalid_input) unless target_title_normalized
+          { book: book, error: nil }
+        end
 
-            book = @site.collections['books'].docs.find do |b|
-              next if b.data['published'] == false
+        private
 
-              normalize_title(b.data['title']) == target_title_normalized
-            end
+        def normalize_title(title)
+          return nil unless title
 
-            return error_result(:not_found) unless book
+          normalized = title.to_s.gsub(/\s+/, ' ').strip.downcase
+          normalized.empty? ? nil : normalized
+        end
 
-            { book: book, error: nil }
-          end
-
-          private
-
-          def normalize_title(title)
-            return nil unless title
-
-            normalized = title.to_s.gsub(/\s+/, ' ').strip.downcase
-            normalized.empty? ? nil : normalized
-          end
-
-          def error_result(type)
-            { book: nil, error: { type: type } }
-          end
+        def error_result(type)
+          { book: nil, error: { type: type } }
         end
       end
     end

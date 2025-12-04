@@ -27,7 +27,7 @@ module Jekyll
 
         def render(context)
           finder = Jekyll::Books::Lists::ByYearFinder.new(site: context.registers[:site],
-                                                                                context: context)
+                                                          context: context)
           data = finder.find
 
           output = +(data[:log_messages] || '')

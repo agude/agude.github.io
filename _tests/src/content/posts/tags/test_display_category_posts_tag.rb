@@ -86,7 +86,7 @@ class TestDisplayCategoryPostsTag < Minitest::Test
       captured_util_args = args
       mock_result
     } do
-      Jekyll::Posts::Category::CategoryPosts::Renderer.stub :new, lambda { |context, posts|
+      Jekyll::Posts::Category::Renderer.stub :new, lambda { |context, posts|
         assert_equal @context, context
         assert_equal [mock_post], posts
         mock_renderer
@@ -113,7 +113,7 @@ class TestDisplayCategoryPostsTag < Minitest::Test
       captured_util_args = args
       mock_result
     } do
-      Jekyll::Posts::Category::CategoryPosts::Renderer.stub :new, ->(_context, _posts) { mock_renderer } do
+      Jekyll::Posts::Category::Renderer.stub :new, ->(_context, _posts) { mock_renderer } do
         output = render_tag('topic=page_category')
 
         assert_includes output, '<div>HTML</div>'
@@ -134,7 +134,7 @@ class TestDisplayCategoryPostsTag < Minitest::Test
       captured_util_args = args
       mock_result
     } do
-      Jekyll::Posts::Category::CategoryPosts::Renderer.stub :new, ->(_context, _posts) { mock_renderer } do
+      Jekyll::Posts::Category::Renderer.stub :new, ->(_context, _posts) { mock_renderer } do
         render_tag("topic='Tech' exclude_current_page=true")
 
         assert_equal @current_page.url, captured_util_args[:exclude_url]
@@ -154,7 +154,7 @@ class TestDisplayCategoryPostsTag < Minitest::Test
       captured_util_args = args
       mock_result
     } do
-      Jekyll::Posts::Category::CategoryPosts::Renderer.stub :new, ->(_context, _posts) { mock_renderer } do
+      Jekyll::Posts::Category::Renderer.stub :new, ->(_context, _posts) { mock_renderer } do
         render_tag("topic='Tech' exclude_current_page=false")
 
         assert_nil captured_util_args[:exclude_url]
@@ -171,7 +171,7 @@ class TestDisplayCategoryPostsTag < Minitest::Test
     mock_renderer.expect :render, '<div>HTML</div>'
 
     Jekyll::Posts::PostListUtils.stub :get_posts_by_category, ->(_args) { mock_result } do
-      Jekyll::Posts::Category::CategoryPosts::Renderer.stub :new, ->(_context, _posts) { mock_renderer } do
+      Jekyll::Posts::Category::Renderer.stub :new, ->(_context, _posts) { mock_renderer } do
         output = render_tag("topic='Tech'")
 
         assert_equal '<!-- Debug log --><div>HTML</div>', output
@@ -187,7 +187,7 @@ class TestDisplayCategoryPostsTag < Minitest::Test
     mock_renderer.expect :render, ''
 
     Jekyll::Posts::PostListUtils.stub :get_posts_by_category, ->(_args) { mock_result } do
-      Jekyll::Posts::Category::CategoryPosts::Renderer.stub :new, ->(_context, _posts) { mock_renderer } do
+      Jekyll::Posts::Category::Renderer.stub :new, ->(_context, _posts) { mock_renderer } do
         output = render_tag("topic='Tech'")
 
         assert_equal '<!-- No posts -->', output

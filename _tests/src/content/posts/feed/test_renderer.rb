@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/posts/feed/renderer'
 
-# Tests for Jekyll::Posts::Feed::FrontPageFeed::Renderer.
+# Tests for Jekyll::Posts::Feed::Renderer.
 #
 # Verifies that the Renderer correctly generates HTML structure and handles different item types.
 class TestFrontPageFeedRenderer < Minitest::Test
@@ -34,7 +34,7 @@ class TestFrontPageFeedRenderer < Minitest::Test
   end
 
   def test_returns_empty_string_when_feed_items_empty
-    renderer = Jekyll::Posts::Feed::FrontPageFeed::Renderer.new(@context, [])
+    renderer = Jekyll::Posts::Feed::Renderer.new(@context, [])
     output = renderer.render
 
     assert_equal '', output
@@ -42,7 +42,7 @@ class TestFrontPageFeedRenderer < Minitest::Test
 
   def test_generates_correct_html_structure
     Jekyll::Posts::ArticleCardUtils.stub :render, ->(_item, _ctx) { '<div>Article Card</div>' } do
-      renderer = Jekyll::Posts::Feed::FrontPageFeed::Renderer.new(@context, [@post])
+      renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@post])
       output = renderer.render
 
       assert_match(/<div class="card-grid">/, output)
@@ -56,7 +56,7 @@ class TestFrontPageFeedRenderer < Minitest::Test
       captured_args << { item: item, ctx: ctx }
       '<div>Article Card</div>'
     } do
-      renderer = Jekyll::Posts::Feed::FrontPageFeed::Renderer.new(@context, [@post])
+      renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@post])
       renderer.render
 
       assert_equal 1, captured_args.length
@@ -71,7 +71,7 @@ class TestFrontPageFeedRenderer < Minitest::Test
       captured_args << { item: item, ctx: ctx }
       '<div>Book Card</div>'
     } do
-      renderer = Jekyll::Posts::Feed::FrontPageFeed::Renderer.new(@context, [@book])
+      renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@book])
       renderer.render
 
       assert_equal 1, captured_args.length
@@ -87,7 +87,7 @@ class TestFrontPageFeedRenderer < Minitest::Test
       Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |item, _ctx|
         "<div>Book: #{item.data['title']}</div>"
       } do
-        renderer = Jekyll::Posts::Feed::FrontPageFeed::Renderer.new(@context, [@post, @book])
+        renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@post, @book])
         output = renderer.render
 
         # Verify both are present
@@ -118,7 +118,7 @@ class TestFrontPageFeedRenderer < Minitest::Test
     end
 
     Jekyll.stub :logger, silent_logger do
-      renderer = Jekyll::Posts::Feed::FrontPageFeed::Renderer.new(@context, [@unknown_item])
+      renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@unknown_item])
       output = renderer.render
 
       # Should still create the grid
@@ -134,7 +134,7 @@ class TestFrontPageFeedRenderer < Minitest::Test
   def test_wraps_all_items_in_single_card_grid
     Jekyll::Posts::ArticleCardUtils.stub :render, ->(_item, _ctx) { '<div>Card</div>' } do
       Jekyll::Books::Core::BookCardUtils.stub :render, ->(_item, _ctx) { '<div>Card</div>' } do
-        renderer = Jekyll::Posts::Feed::FrontPageFeed::Renderer.new(@context, [@post, @book])
+        renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@post, @book])
         output = renderer.render
 
         # Count occurrences of card-grid opening
@@ -155,7 +155,7 @@ class TestFrontPageFeedRenderer < Minitest::Test
 
     Jekyll::Posts::ArticleCardUtils.stub :render, ->(_item, _ctx) { '<div>Article</div>' } do
       Jekyll.stub :logger, silent_logger do
-        renderer = Jekyll::Posts::Feed::FrontPageFeed::Renderer.new(@context, [@unknown_item, @post])
+        renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@unknown_item, @post])
         output = renderer.render
 
         # Find positions of log and HTML

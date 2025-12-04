@@ -28,12 +28,12 @@ module Jekyll
         end
 
         def render(context)
-          finder = Jekyll::Books::Reviews::PreviousReviews::Finder.new(context)
+          finder = Jekyll::Books::Reviews::Finder.new(context)
           result = finder.find
 
           return result[:logs] if result[:reviews].empty?
 
-          renderer = Jekyll::Books::Reviews::PreviousReviews::Renderer.new(context, result[:reviews])
+          renderer = Jekyll::Books::Reviews::Renderer.new(context, result[:reviews])
           html_output = renderer.render
 
           result[:logs] + html_output

@@ -25,7 +25,7 @@ module Jekyll
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
         CardUtils = Jekyll::Books::Core::BookCardUtils
-        Finder = Jekyll::Posts::Lookups::CardLookups::BookFinder
+        Finder = Jekyll::Books::Lookups::BookFinder
         private_constant :TagArgs, :Logger, :CardUtils, :Finder
 
         def initialize(tag_name, markup, tokens)

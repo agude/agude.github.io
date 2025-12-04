@@ -26,7 +26,7 @@ module Jekyll
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
         CardUtils = Jekyll::Posts::ArticleCardUtils
-        Finder = Jekyll::Posts::Lookups::CardLookups::ArticleFinder
+        Finder = Jekyll::Posts::Lookups::ArticleFinder
         private_constant :TagArgs, :Logger, :CardUtils, :Finder
 
         QuotedFragment = Liquid::QuotedFragment

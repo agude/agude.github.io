@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/display_unreviewed_mentions_tag'
 
-# Tests for Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Finder class.
+# Tests for Jekyll::Books::Ranking::UnreviewedMentions::Finder class.
 #
 # Verifies the data retrieval and filtering logic.
 class TestDisplayUnreviewedMentionsFinder < Minitest::Test
@@ -21,7 +21,7 @@ class TestDisplayUnreviewedMentionsFinder < Minitest::Test
   def test_find_returns_correct_structure
     setup_mention_tracker_data
 
-    finder = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Finder.new(@context)
+    finder = Jekyll::Books::Ranking::UnreviewedMentions::Finder.new(@context)
     result = finder.find
 
     assert_instance_of Hash, result
@@ -34,7 +34,7 @@ class TestDisplayUnreviewedMentionsFinder < Minitest::Test
   def test_find_returns_sorted_mentions
     setup_mention_tracker_data
 
-    finder = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Finder.new(@context)
+    finder = Jekyll::Books::Ranking::UnreviewedMentions::Finder.new(@context)
     result = finder.find
 
     mentions = result[:mentions]
@@ -54,7 +54,7 @@ class TestDisplayUnreviewedMentionsFinder < Minitest::Test
   def test_find_filters_out_existing_books
     setup_mention_tracker_with_existing_book
 
-    finder = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Finder.new(@context)
+    finder = Jekyll::Books::Ranking::UnreviewedMentions::Finder.new(@context)
     result = finder.find
 
     mentions = result[:mentions]
@@ -66,7 +66,7 @@ class TestDisplayUnreviewedMentionsFinder < Minitest::Test
   def test_find_returns_empty_array_when_tracker_is_empty
     @site.data['mention_tracker'] = {}
 
-    finder = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Finder.new(@context)
+    finder = Jekyll::Books::Ranking::UnreviewedMentions::Finder.new(@context)
     result = finder.find
 
     assert_equal '', result[:logs]
@@ -81,7 +81,7 @@ class TestDisplayUnreviewedMentionsFinder < Minitest::Test
       }
     }
 
-    finder = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Finder.new(@context)
+    finder = Jekyll::Books::Ranking::UnreviewedMentions::Finder.new(@context)
     result = finder.find
 
     assert_equal '', result[:logs]
@@ -92,7 +92,7 @@ class TestDisplayUnreviewedMentionsFinder < Minitest::Test
     @site.data.delete('mention_tracker')
     @site.config['plugin_logging']['UNREVIEWED_MENTIONS'] = true
 
-    finder = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Finder.new(@context)
+    finder = Jekyll::Books::Ranking::UnreviewedMentions::Finder.new(@context)
 
     capture_io do
       result = finder.find
@@ -105,7 +105,7 @@ class TestDisplayUnreviewedMentionsFinder < Minitest::Test
     @site.data.delete('link_cache')
     @site.config['plugin_logging']['UNREVIEWED_MENTIONS'] = true
 
-    finder = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Finder.new(@context)
+    finder = Jekyll::Books::Ranking::UnreviewedMentions::Finder.new(@context)
 
     capture_io do
       result = finder.find
@@ -147,7 +147,7 @@ class TestDisplayUnreviewedMentionsFinder < Minitest::Test
   end
 end
 
-# Tests for Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Renderer class.
+# Tests for Jekyll::Books::Ranking::UnreviewedMentions::Renderer class.
 #
 # Verifies the HTML generation logic.
 class TestDisplayUnreviewedMentionsRenderer < Minitest::Test
@@ -158,7 +158,7 @@ class TestDisplayUnreviewedMentionsRenderer < Minitest::Test
       { title: 'Book B', count: 1 }
     ]
 
-    renderer = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Renderer.new(mentions)
+    renderer = Jekyll::Books::Ranking::UnreviewedMentions::Renderer.new(mentions)
     output = renderer.render
 
     assert_match(/<ol class="ranked-list">/, output)
@@ -170,7 +170,7 @@ class TestDisplayUnreviewedMentionsRenderer < Minitest::Test
   def test_render_handles_singular_mention_correctly
     mentions = [{ title: 'Solo Book', count: 1 }]
 
-    renderer = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Renderer.new(mentions)
+    renderer = Jekyll::Books::Ranking::UnreviewedMentions::Renderer.new(mentions)
     output = renderer.render
 
     assert_match(/1 mention\)/, output)
@@ -180,7 +180,7 @@ class TestDisplayUnreviewedMentionsRenderer < Minitest::Test
   def test_render_handles_plural_mentions_correctly
     mentions = [{ title: 'Popular Book', count: 42 }]
 
-    renderer = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Renderer.new(mentions)
+    renderer = Jekyll::Books::Ranking::UnreviewedMentions::Renderer.new(mentions)
     output = renderer.render
 
     assert_match(/42 mentions\)/, output)
@@ -189,7 +189,7 @@ class TestDisplayUnreviewedMentionsRenderer < Minitest::Test
   def test_render_escapes_html_in_titles
     mentions = [{ title: '<script>alert("xss")</script>', count: 1 }]
 
-    renderer = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Renderer.new(mentions)
+    renderer = Jekyll::Books::Ranking::UnreviewedMentions::Renderer.new(mentions)
     output = renderer.render
 
     refute_match(/<script>/, output)
@@ -197,7 +197,7 @@ class TestDisplayUnreviewedMentionsRenderer < Minitest::Test
   end
 
   def test_render_returns_no_mentions_message_for_empty_array
-    renderer = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Renderer.new([])
+    renderer = Jekyll::Books::Ranking::UnreviewedMentions::Renderer.new([])
     output = renderer.render
 
     assert_equal '<p>No unreviewed works have been mentioned yet.</p>', output

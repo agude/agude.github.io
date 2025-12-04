@@ -99,7 +99,7 @@ module Jekyll
                 .gsub(/^-+|-+$/, '')       # Remove leading/trailing hyphens
           end
         end
+      end
     end
   end
-end
 end

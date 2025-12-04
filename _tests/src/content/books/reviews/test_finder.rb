@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/reviews/finder'
 
-# Tests for Jekyll::Books::Reviews::PreviousReviews::Finder.
+# Tests for Jekyll::Books::Reviews::Finder.
 #
 # Verifies that the Finder correctly locates and sorts archived reviews.
 class TestPreviousReviewsFinder < Minitest::Test
@@ -15,7 +15,7 @@ class TestPreviousReviewsFinder < Minitest::Test
 
   def test_returns_empty_reviews_when_no_archived_reviews
     context = create_context({}, { site: @site, page: @unrelated_book })
-    finder = Jekyll::Books::Reviews::PreviousReviews::Finder.new(context)
+    finder = Jekyll::Books::Reviews::Finder.new(context)
     result = finder.find
 
     assert_equal '', result[:logs]
@@ -24,7 +24,7 @@ class TestPreviousReviewsFinder < Minitest::Test
 
   def test_finds_and_sorts_archived_reviews_by_date_descending
     context = create_context({}, { site: @site, page: @canonical_page })
-    finder = Jekyll::Books::Reviews::PreviousReviews::Finder.new(context)
+    finder = Jekyll::Books::Reviews::Finder.new(context)
     result = finder.find
 
     assert_equal '', result[:logs]
@@ -35,7 +35,7 @@ class TestPreviousReviewsFinder < Minitest::Test
 
   def test_returns_error_when_prerequisites_missing
     context_no_page = create_context({}, { site: @site }) # No page
-    finder = Jekyll::Books::Reviews::PreviousReviews::Finder.new(context_no_page)
+    finder = Jekyll::Books::Reviews::Finder.new(context_no_page)
     result = nil
 
     Jekyll.stub :logger, @silent_logger_stub do
@@ -53,7 +53,7 @@ class TestPreviousReviewsFinder < Minitest::Test
     @canonical_page.data['canonical_url'] = '/books/canonical.html'
 
     context = create_context({}, { site: @site, page: @canonical_page })
-    finder = Jekyll::Books::Reviews::PreviousReviews::Finder.new(context)
+    finder = Jekyll::Books::Reviews::Finder.new(context)
     result = finder.find
 
     # Should only find the two archive documents, not the canonical page

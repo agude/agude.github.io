@@ -21,10 +21,10 @@ module Jekyll
       # Shows books referenced without review pages, ranked by mention count.
       class DisplayUnreviewedMentionsTag < Liquid::Tag
         def render(context)
-          finder = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Finder.new(context)
+          finder = Jekyll::Books::Ranking::UnreviewedMentions::Finder.new(context)
           result = finder.find
 
-          renderer = Jekyll::Books::Ranking::UnreviewedMentions::DisplayUnreviewedMentions::Renderer.new(result[:mentions])
+          renderer = Jekyll::Books::Ranking::UnreviewedMentions::Renderer.new(result[:mentions])
           html_output = renderer.render
 
           result[:logs] + html_output

@@ -58,7 +58,7 @@ class TestBookCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::Posts::Lookups::CardLookups::BookFinder.stub :new, lambda { |args|
+    Jekyll::Books::Lookups::BookFinder.stub :new, lambda { |args|
       captured_args = args
       mock_finder
     } do
@@ -82,7 +82,7 @@ class TestBookCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::Posts::Lookups::CardLookups::BookFinder.stub :new, ->(_args) { mock_finder } do
+    Jekyll::Books::Lookups::BookFinder.stub :new, ->(_args) { mock_finder } do
       Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |book, ctx|
         captured_book = book
         captured_context = ctx
@@ -106,7 +106,7 @@ class TestBookCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::Posts::Lookups::CardLookups::BookFinder.stub :new, ->(_args) { mock_finder } do
+    Jekyll::Books::Lookups::BookFinder.stub :new, ->(_args) { mock_finder } do
       Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { mock_output } do
         Jekyll.stub :logger, @silent_logger_stub do
           output = Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
@@ -168,7 +168,7 @@ class TestBookCardLookupTag < Minitest::Test
       ''
     end
 
-    Jekyll::Posts::Lookups::CardLookups::BookFinder.stub :new, ->(_args) { mock_finder } do
+    Jekyll::Books::Lookups::BookFinder.stub :new, ->(_args) { mock_finder } do
       Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, log_verifier do
         Liquid::Template.parse("{% book_card_lookup 'Missing Book' %}").render!(@context)
       end
@@ -190,7 +190,7 @@ class TestBookCardLookupTag < Minitest::Test
       ''
     end
 
-    Jekyll::Posts::Lookups::CardLookups::BookFinder.stub :new, ->(_args) { mock_finder } do
+    Jekyll::Books::Lookups::BookFinder.stub :new, ->(_args) { mock_finder } do
       Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { raise StandardError, 'Render boom' } do
         Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, log_verifier do
           Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)

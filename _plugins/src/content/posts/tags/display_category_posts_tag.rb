@@ -26,7 +26,7 @@ module Jekyll
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
         ListUtils = Jekyll::Posts::PostListUtils
-        Renderer = Jekyll::Posts::Category::CategoryPosts::Renderer
+        Renderer = Jekyll::Posts::Category::Renderer
         private_constant :TagArgs, :Logger, :ListUtils, :Renderer
 
         SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
