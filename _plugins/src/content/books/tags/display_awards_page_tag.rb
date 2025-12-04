@@ -56,10 +56,10 @@ module Jekyll
           private
 
           def fetch_data
-            award_finder = Jekyll::Books::Lists::Renderers::BookLists::ByAwardFinder.new(site: @site,
+            award_finder = Jekyll::Books::Lists::ByAwardFinder.new(site: @site,
                                                                                          context: @context)
             @awards_hash = award_finder.find
-            favorites_finder = Jekyll::Books::Lists::Renderers::BookLists::FavoritesListsFinder.new(site: @site,
+            favorites_finder = Jekyll::Books::Lists::FavoritesListsFinder.new(site: @site,
                                                                                                     context: @context)
             @favorites_hash = favorites_finder.find
             @awards_groups = @awards_hash[:awards_data] || []

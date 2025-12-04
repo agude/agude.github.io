@@ -27,12 +27,12 @@ module Jekyll
         end
 
         def render(context)
-          finder = Jekyll::Books::Lists::Renderers::BookLists::ByTitleAlphaFinder.new(site: context.registers[:site],
+          finder = Jekyll::Books::Lists::ByTitleAlphaFinder.new(site: context.registers[:site],
                                                                                       context: context)
           data = finder.find
 
           output = +(data[:log_messages] || '')
-          output << Jekyll::Books::Lists::Renderers::BookLists::ByTitleAlphaRenderer.new(context, data).render
+          output << Jekyll::Books::Lists::Renderers::ByTitleAlphaRenderer.new(context, data).render
         end
       end
     end

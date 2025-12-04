@@ -39,8 +39,8 @@ class TestDisplayBooksByYearTag < Minitest::Test
     mock_renderer.expect :render, mock_renderer_html
 
     # Stub the .new methods to return our mock instances
-    Jekyll::Books::Lists::Renderers::BookLists::ByYearFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::Books::Lists::Renderers::BookLists::ByYearRenderer.stub :new, lambda { |context, data|
+    Jekyll::Books::Lists::ByYearFinder.stub :new, ->(_args) { mock_finder } do
+      Jekyll::Books::Lists::Renderers::ByYearRenderer.stub :new, lambda { |context, data|
         # This is a key assertion: ensure the data from the finder is what the renderer receives
         assert_equal mock_finder_data, data
         assert_equal @context, context
@@ -73,8 +73,8 @@ class TestDisplayBooksByYearTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, mock_renderer_html
 
-    Jekyll::Books::Lists::Renderers::BookLists::ByYearFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::Books::Lists::Renderers::BookLists::ByYearRenderer.stub :new, ->(_context, _data) { mock_renderer } do
+    Jekyll::Books::Lists::ByYearFinder.stub :new, ->(_args) { mock_finder } do
+      Jekyll::Books::Lists::Renderers::ByYearRenderer.stub :new, ->(_context, _data) { mock_renderer } do
         output = Liquid::Template.parse('{% display_books_by_year %}').render!(@context)
 
         # Log messages should come before rendered HTML

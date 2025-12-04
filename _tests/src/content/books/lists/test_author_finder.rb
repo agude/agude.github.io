@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lists/author_finder'
 
-# Tests for Jekyll::Books::Lists::Renderers::BookLists::AuthorFinder functionality.
+# Tests for Jekyll::Books::Lists::AuthorFinder functionality.
 #
 # Verifies that the finder correctly displays books for a specific author with series grouping.
 class TestBookListAuthorFinder < Minitest::Test
@@ -18,7 +18,7 @@ class TestBookListAuthorFinder < Minitest::Test
 
   def get_author_data(author_name_filter, site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      finder = Jekyll::Books::Lists::Renderers::BookLists::AuthorFinder.new(
+      finder = Jekyll::Books::Lists::AuthorFinder.new(
         site: site,
         author_name_filter: author_name_filter,
         context: context

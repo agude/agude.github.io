@@ -29,8 +29,8 @@ class TestDisplayAwardsPageTag < Minitest::Test
     mock_favorites_finder = Minitest::Mock.new
     mock_favorites_finder.expect :find, favorites_data
 
-    Jekyll::Books::Lists::Renderers::BookLists::ByAwardFinder.stub :new, ->(_args) { mock_award_finder } do
-      Jekyll::Books::Lists::Renderers::BookLists::FavoritesListsFinder.stub :new, ->(_args) { mock_favorites_finder } do
+    Jekyll::Books::Lists::ByAwardFinder.stub :new, ->(_args) { mock_award_finder } do
+      Jekyll::Books::Lists::FavoritesListsFinder.stub :new, ->(_args) { mock_favorites_finder } do
         Jekyll::Books::Core::BookCardUtils.stub :render, ->(book, _ctx) { "<!-- Card for: #{book.data['title']} -->\n" } do
           Jekyll.stub :logger, @silent_logger_stub do
             output = Liquid::Template.parse('{% display_awards_page %}').render!(context)

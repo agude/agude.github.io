@@ -20,8 +20,8 @@ module Jekyll
       class DisplayBooksForSeriesTag < Liquid::Tag
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
-        Finder = Jekyll::Books::Lists::Renderers::BookLists::SeriesFinder
-        Renderer = Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer
+        Finder = Jekyll::Books::Lists::SeriesFinder
+        Renderer = Jekyll::Books::Lists::Renderers::ForSeriesRenderer
         private_constant :TagArgs, :Finder, :Renderer
 
         def initialize(tag_name, markup, tokens)

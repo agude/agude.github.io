@@ -5,7 +5,7 @@ require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lists/by_year_finder'
 require 'time'
 
-# Tests for Jekyll::Books::Lists::Renderers::BookLists::ByYearFinder
+# Tests for Jekyll::Books::Lists::ByYearFinder
 #
 # Verifies that the finder correctly groups books by publication year,
 # sorts years in descending order, and sorts books within each year by date (most recent first).
@@ -19,7 +19,7 @@ class TestBookListByYearFinderBase < Minitest::Test
 
   def get_all_books_by_year_data(site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      finder = Jekyll::Books::Lists::Renderers::BookLists::ByYearFinder.new(site: site, context: context)
+      finder = Jekyll::Books::Lists::ByYearFinder.new(site: site, context: context)
       finder.find
     end
   end

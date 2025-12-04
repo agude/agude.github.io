@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lists/renderers/for_series_renderer'
 
-# Tests for Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer
+# Tests for Jekyll::Books::Lists::Renderers::ForSeriesRenderer
 #
 # Tests HTML generation for series book lists.
 class TestForSeriesRenderer < Minitest::Test
@@ -17,7 +17,7 @@ class TestForSeriesRenderer < Minitest::Test
     data = { books: [] }
 
     Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.new(@context, data)
+      renderer = Jekyll::Books::Lists::Renderers::ForSeriesRenderer.new(@context, data)
       output = renderer.render
       assert_equal '', output
     end
@@ -33,7 +33,7 @@ class TestForSeriesRenderer < Minitest::Test
     }
 
     Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.new(@context, data)
+      renderer = Jekyll::Books::Lists::Renderers::ForSeriesRenderer.new(@context, data)
       output = renderer.render
 
       # Assert card grid wrapper exists
@@ -51,7 +51,7 @@ class TestForSeriesRenderer < Minitest::Test
     data = { books: [book] }
 
     Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.new(@context, data)
+      renderer = Jekyll::Books::Lists::Renderers::ForSeriesRenderer.new(@context, data)
       output = renderer.render
 
       # Assert card grid exists
@@ -66,7 +66,7 @@ class TestForSeriesRenderer < Minitest::Test
     data = {}
 
     Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.new(@context, data)
+      renderer = Jekyll::Books::Lists::Renderers::ForSeriesRenderer.new(@context, data)
       output = renderer.render
 
       # Should return empty string when books key is missing

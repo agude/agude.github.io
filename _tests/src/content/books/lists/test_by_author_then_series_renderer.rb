@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lists/renderers/by_author_then_series_renderer'
 
-# Tests for Jekyll::Books::Lists::Renderers::BookLists::ByAuthorThenSeriesRenderer
+# Tests for Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer
 #
 # Tests HTML generation from author-grouped book data with series.
 class TestByAuthorThenSeriesRenderer < Minitest::Test
@@ -17,7 +17,7 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
     data = { authors_data: [] }
 
     Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::Books::Lists::Renderers::BookLists::ByAuthorThenSeriesRenderer.new(@context, data)
+      renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
       output = renderer.render
       assert_equal '', output
     end
@@ -37,7 +37,7 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
     }
 
     Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::Books::Lists::Renderers::BookLists::ByAuthorThenSeriesRenderer.new(@context, data)
+      renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
       output = renderer.render
 
       # Assert navigation exists
@@ -68,7 +68,7 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
 
     Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
       Jekyll::Books::Lists::BookListRendererUtils.stub :render_book_groups_html, ->(_groups, _ctx, _heading_level) { '<!-- Series Books -->' } do
-        renderer = Jekyll::Books::Lists::Renderers::BookLists::ByAuthorThenSeriesRenderer.new(@context, data)
+        renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
         output = renderer.render
 
         # Assert author heading
@@ -105,7 +105,7 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
     }
 
     Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::Books::Lists::Renderers::BookLists::ByAuthorThenSeriesRenderer.new(@context, data)
+      renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
       output = renderer.render
 
       # Assert navigation has correct letters (A, B, Z active, others as spans)
@@ -128,7 +128,7 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
     }
 
     Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::Books::Lists::Renderers::BookLists::ByAuthorThenSeriesRenderer.new(@context, data)
+      renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
       output = renderer.render
 
       # Assert the author name is escaped

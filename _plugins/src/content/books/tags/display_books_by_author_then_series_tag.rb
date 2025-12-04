@@ -28,13 +28,13 @@ module Jekyll
         end
 
         def render(context)
-          finder = Jekyll::Books::Lists::Renderers::BookLists::AllBooksByAuthorFinder.new(
+          finder = Jekyll::Books::Lists::AllBooksByAuthorFinder.new(
             site: context.registers[:site], context: context
           )
           data = finder.find
 
           output = +(data[:log_messages] || '')
-          output << Jekyll::Books::Lists::Renderers::BookLists::ByAuthorThenSeriesRenderer.new(context, data).render
+          output << Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(context, data).render
         end
       end
     end

@@ -26,7 +26,7 @@ module Jekyll
 
         def render(context)
           site = context.registers[:site]
-          finder = Jekyll::Books::Lists::Renderers::BookLists::AllBooksFinder.new(site: site, context: context)
+          finder = Jekyll::Books::Lists::AllBooksFinder.new(site: site, context: context)
           data = finder.find
 
           # Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html will prepend

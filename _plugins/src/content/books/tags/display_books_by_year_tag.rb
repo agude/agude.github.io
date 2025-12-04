@@ -26,12 +26,12 @@ module Jekyll
         end
 
         def render(context)
-          finder = Jekyll::Books::Lists::Renderers::BookLists::ByYearFinder.new(site: context.registers[:site],
+          finder = Jekyll::Books::Lists::ByYearFinder.new(site: context.registers[:site],
                                                                                 context: context)
           data = finder.find
 
           output = +(data[:log_messages] || '')
-          output << Jekyll::Books::Lists::Renderers::BookLists::ByYearRenderer.new(context, data).render
+          output << Jekyll::Books::Lists::Renderers::ByYearRenderer.new(context, data).render
         end
       end
     end

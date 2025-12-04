@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lists/by_title_alpha_finder'
 
-# Tests for Jekyll::Books::Lists::Renderers::BookLists::ByTitleAlphaFinder
+# Tests for Jekyll::Books::Lists::ByTitleAlphaFinder
 #
 # Verifies that the finder correctly groups books by the first letter of their normalized title
 # (with articles like "A", "An", "The" removed), handles edge cases, and sorts properly.
@@ -23,7 +23,7 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
   # Helper to call the finder directly
   def get_alpha_group_data(site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      finder = Jekyll::Books::Lists::Renderers::BookLists::ByTitleAlphaFinder.new(site: site, context: context)
+      finder = Jekyll::Books::Lists::ByTitleAlphaFinder.new(site: site, context: context)
       finder.find
     end
   end

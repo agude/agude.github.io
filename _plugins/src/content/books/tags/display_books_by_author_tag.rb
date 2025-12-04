@@ -20,7 +20,7 @@ module Jekyll
       class DisplayBooksByAuthorTag < Liquid::Tag
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
-        Finder = Jekyll::Books::Lists::Renderers::BookLists::AuthorFinder
+        Finder = Jekyll::Books::Lists::AuthorFinder
         Renderer = Jekyll::Books::Lists::BookListRendererUtils
         private_constant :TagArgs, :Finder, :Renderer
 
