@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lists/renderers/for_series_renderer'
 
-# Tests for Jekyll::BookLists::ForSeriesRenderer
+# Tests for Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer
 #
 # Tests HTML generation for series book lists.
 class TestForSeriesRenderer < Minitest::Test
@@ -16,8 +16,8 @@ class TestForSeriesRenderer < Minitest::Test
   def test_renders_empty_string_when_no_books
     data = { books: [] }
 
-    BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::BookLists::ForSeriesRenderer.new(@context, data)
+    Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
+      renderer = Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.new(@context, data)
       output = renderer.render
       assert_equal '', output
     end
@@ -32,8 +32,8 @@ class TestForSeriesRenderer < Minitest::Test
       books: [book1, book2, book3]
     }
 
-    BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::BookLists::ForSeriesRenderer.new(@context, data)
+    Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
+      renderer = Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.new(@context, data)
       output = renderer.render
 
       # Assert card grid wrapper exists
@@ -50,8 +50,8 @@ class TestForSeriesRenderer < Minitest::Test
 
     data = { books: [book] }
 
-    BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::BookLists::ForSeriesRenderer.new(@context, data)
+    Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
+      renderer = Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.new(@context, data)
       output = renderer.render
 
       # Assert card grid exists
@@ -65,8 +65,8 @@ class TestForSeriesRenderer < Minitest::Test
   def test_handles_missing_books_key
     data = {}
 
-    BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::BookLists::ForSeriesRenderer.new(@context, data)
+    Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
+      renderer = Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.new(@context, data)
       output = renderer.render
 
       # Should return empty string when books key is missing

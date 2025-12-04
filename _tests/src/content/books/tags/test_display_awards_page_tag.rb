@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/display_awards_page_tag'
 
-# Tests for DisplayAwardsPageTag Liquid tag.
+# Tests for Jekyll::Books::Tags::DisplayAwardsPageTag Liquid tag.
 #
 # Verifies that the tag correctly displays books grouped by award type.
 class TestDisplayAwardsPageTag < Minitest::Test
@@ -29,9 +29,9 @@ class TestDisplayAwardsPageTag < Minitest::Test
     mock_favorites_finder = Minitest::Mock.new
     mock_favorites_finder.expect :find, favorites_data
 
-    Jekyll::BookLists::ByAwardFinder.stub :new, ->(_args) { mock_award_finder } do
-      Jekyll::BookLists::FavoritesListsFinder.stub :new, ->(_args) { mock_favorites_finder } do
-        BookCardUtils.stub :render, ->(book, _ctx) { "<!-- Card for: #{book.data['title']} -->\n" } do
+    Jekyll::Books::Lists::Renderers::BookLists::ByAwardFinder.stub :new, ->(_args) { mock_award_finder } do
+      Jekyll::Books::Lists::Renderers::BookLists::FavoritesListsFinder.stub :new, ->(_args) { mock_favorites_finder } do
+        Jekyll::Books::Core::BookCardUtils.stub :render, ->(book, _ctx) { "<!-- Card for: #{book.data['title']} -->\n" } do
           Jekyll.stub :logger, @silent_logger_stub do
             output = Liquid::Template.parse('{% display_awards_page %}').render!(context)
           end

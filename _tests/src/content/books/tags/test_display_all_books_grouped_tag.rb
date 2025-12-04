@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/display_all_books_grouped_tag'
 
-# Tests for DisplayAllBooksGroupedTag Liquid tag.
+# Tests for Jekyll::Books::Tags::DisplayAllBooksGroupedTag Liquid tag.
 #
 # Verifies that the tag correctly displays all books grouped by series.
 class TestDisplayAllBooksGroupedTag < Minitest::Test

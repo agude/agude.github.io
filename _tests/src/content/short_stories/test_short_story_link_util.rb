@@ -3,7 +3,7 @@
 # _tests/plugins/utils/test_short_story_link_util.rb
 require_relative '../../../test_helper'
 
-# Tests for ShortStoryLinkUtils module.
+# Tests for Jekyll::ShortStories::ShortStoryLinkUtils module.
 #
 # Verifies that the utility correctly creates links to short stories within anthology books.
 class TestShortStoryLinkUtils < Minitest::Test
@@ -17,7 +17,7 @@ class TestShortStoryLinkUtils < Minitest::Test
   # Helper to call the utility
   def render_util(story_title, from_book_title = nil, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      ShortStoryLinkUtils.render_short_story_link(story_title, context, from_book_title)
+      Jekyll::ShortStories::ShortStoryLinkUtils.render_short_story_link(story_title, context, from_book_title)
     end
   end
 

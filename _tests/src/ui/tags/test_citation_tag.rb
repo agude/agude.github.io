@@ -4,7 +4,7 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/ui/tags/citation_tag' # Load the tag
 
-# Tests for CitationTag Liquid tag.
+# Tests for Jekyll::UI::Tags::CitationTag Liquid tag.
 #
 # Verifies that the tag correctly renders book citations with proper formatting.
 class TestCitationTag < Minitest::Test
@@ -66,7 +66,7 @@ class TestCitationTag < Minitest::Test
     mock_output_html = '<cite>Doe, An Article</cite>'
 
     captured_args = nil
-    CitationUtils.stub :format_citation_html, lambda { |params, site|
+    Jekyll::UI::Citations::CitationUtils.stub :format_citation_html, lambda { |params, site|
       captured_args = { params: params, site: site }
       mock_output_html
     } do
@@ -74,7 +74,7 @@ class TestCitationTag < Minitest::Test
       assert_equal mock_output_html, output
     end
 
-    refute_nil captured_args, 'CitationUtils.format_citation_html should have been called'
+    refute_nil captured_args, 'Jekyll::UI::Citations::CitationUtils.format_citation_html should have been called'
     assert_equal expected_resolved_params, captured_args[:params]
     assert_equal @site, captured_args[:site]
   end
@@ -88,7 +88,7 @@ class TestCitationTag < Minitest::Test
     mock_output_html = '<span>Resolved Vars Citation</span>'
 
     captured_args = nil
-    CitationUtils.stub :format_citation_html, lambda { |params, site|
+    Jekyll::UI::Citations::CitationUtils.stub :format_citation_html, lambda { |params, site|
       captured_args = { params: params, site: site }
       mock_output_html
     } do
@@ -111,7 +111,7 @@ class TestCitationTag < Minitest::Test
     mock_output_html = '<span>Mixed Args Citation</span>'
 
     captured_args = nil
-    CitationUtils.stub :format_citation_html, lambda { |params, site|
+    Jekyll::UI::Citations::CitationUtils.stub :format_citation_html, lambda { |params, site|
       captured_args = { params: params, site: site }
       mock_output_html
     } do
@@ -132,7 +132,7 @@ class TestCitationTag < Minitest::Test
     mock_output_html = '<span>Nil Var Citation</span>'
 
     captured_args = nil
-    CitationUtils.stub :format_citation_html, lambda { |params, site|
+    Jekyll::UI::Citations::CitationUtils.stub :format_citation_html, lambda { |params, site|
       captured_args = { params: params, site: site }
       mock_output_html
     } do
@@ -160,7 +160,7 @@ class TestCitationTag < Minitest::Test
     mock_output_html = '<span>Full Citation</span>'
 
     captured_args = nil
-    CitationUtils.stub :format_citation_html, lambda { |params, site|
+    Jekyll::UI::Citations::CitationUtils.stub :format_citation_html, lambda { |params, site|
       captured_args = { params: params, site: site }
       mock_output_html
     } do
@@ -179,7 +179,7 @@ class TestCitationTag < Minitest::Test
     mock_output_html = '<span>Empty Citation</span>'
 
     captured_args = nil
-    CitationUtils.stub :format_citation_html, lambda { |params, site|
+    Jekyll::UI::Citations::CitationUtils.stub :format_citation_html, lambda { |params, site|
       captured_args = { params: params, site: site }
       mock_output_html
     } do

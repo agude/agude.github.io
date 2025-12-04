@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/series/tags/series_text_tag' # Load the tag class
 
-# Tests for SeriesTextTag Liquid tag.
+# Tests for Jekyll::Series::Tags::SeriesTextTag Liquid tag.
 #
 # Verifies that the tag correctly generates formatted text for book series with proper prefixes and suffixes.
 class TestSeriesTextTag < Minitest::Test
@@ -26,7 +26,7 @@ class TestSeriesTextTag < Minitest::Test
     @arcane_page = create_doc({ 'title' => 'Arcane', 'layout' => 'series_page' }, '/series/arcane.html')
     @test_series_page = create_doc({ 'title' => 'Test Series', 'layout' => 'series_page' }, '/series/test.html')
 
-    # Create mock site and context. create_site now runs the LinkCacheGenerator automatically.
+    # Create mock site and context. create_site now runs the Jekyll::Infrastructure::LinkCacheGenerator automatically.
     @site = create_site({}, {}, [
                           @series1_page, @series2_page, @series3_page, @series4_page, @series5_page,
                           @arcane_page, @test_series_page

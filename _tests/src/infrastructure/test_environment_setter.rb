@@ -4,7 +4,7 @@
 require_relative '../../test_helper'
 require_relative '../../../_plugins/src/infrastructure/environment_setter' # Load the generator
 
-# Tests for EnvironmentSetterGenerator.
+# Tests for Jekyll::Infrastructure::EnvironmentSetterGenerator.
 #
 # Verifies that the generator correctly sets site.config['environment'] from ENV.
 class TestEnvironmentSetterGenerator < Minitest::Test
@@ -12,7 +12,7 @@ class TestEnvironmentSetterGenerator < Minitest::Test
     @original_jekyll_env = ENV.fetch('JEKYLL_ENV', nil) # Store original ENV value
     # Create a site with a default 'environment' to test against
     @site = create_site({ 'environment' => 'default_from_config' })
-    @generator = Jekyll::EnvironmentSetterGenerator.new
+    @generator = Jekyll::Infrastructure::EnvironmentSetterGenerator.new
   end
 
   def teardown
@@ -132,6 +132,6 @@ class TestEnvironmentSetterGenerator < Minitest::Test
   end
 
   def test_generator_priority_is_highest
-    assert_equal :highest, Jekyll::EnvironmentSetterGenerator.priority
+    assert_equal :highest, Jekyll::Infrastructure::EnvironmentSetterGenerator.priority
   end
 end

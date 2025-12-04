@@ -5,7 +5,7 @@ require_relative '../../test_helper'
 require_relative '../../../_plugins/src/seo/front_matter_validator'
 require_relative '../../../_plugins/src/infrastructure/front_matter_utils' # Ensure this is loaded
 
-# Tests for FrontMatterValidator module.
+# Tests for Jekyll::SEO::FrontMatterValidator module.
 #
 # Verifies that the validator correctly checks required front matter fields.
 class TestFrontMatterValidator < Minitest::Test
@@ -57,15 +57,15 @@ class TestFrontMatterValidator < Minitest::Test
 
   def teardown
     # Reset any test-specific config override after each test
-    Jekyll::FrontMatterValidator.reset_config_for_test
+    Jekyll::SEO::FrontMatterValidator.reset_config_for_test
   end
 
   # Helper to temporarily set the validator's config for a test using the new methods
   def with_validator_config(config)
-    Jekyll::FrontMatterValidator.override_config_for_test(config)
+    Jekyll::SEO::FrontMatterValidator.override_config_for_test(config)
     yield
   ensure
-    Jekyll::FrontMatterValidator.reset_config_for_test # Ensure reset even if test fails
+    Jekyll::SEO::FrontMatterValidator.reset_config_for_test # Ensure reset even if test fails
   end
 
   # --- Tests for 'books' Collection ---
@@ -76,7 +76,7 @@ class TestFrontMatterValidator < Minitest::Test
         '/valid-book.html', 'content', nil, MockCollection.new(nil, @book_collection_label)
       )
       Jekyll.stub :logger, @silent_logger_stub do
-        assert_nil Jekyll::FrontMatterValidator.validate_document(doc), 'Should pass with all required fields'
+        assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc), 'Should pass with all required fields'
       end
     end
   end
@@ -94,7 +94,7 @@ class TestFrontMatterValidator < Minitest::Test
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
-          Jekyll::FrontMatterValidator.validate_document(doc)
+          Jekyll::SEO::FrontMatterValidator.validate_document(doc)
         end
       end
       assert_match 'missing or has empty required front matter fields: title', err.message
@@ -113,7 +113,7 @@ class TestFrontMatterValidator < Minitest::Test
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
-          Jekyll::FrontMatterValidator.validate_document(doc)
+          Jekyll::SEO::FrontMatterValidator.validate_document(doc)
         end
       end
       assert_match 'missing or has empty required front matter fields: book_authors', err.message
@@ -131,7 +131,7 @@ class TestFrontMatterValidator < Minitest::Test
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
-          Jekyll::FrontMatterValidator.validate_document(doc)
+          Jekyll::SEO::FrontMatterValidator.validate_document(doc)
         end
       end
       assert_match 'missing or has empty required front matter fields: book_authors', err.message
@@ -149,7 +149,7 @@ class TestFrontMatterValidator < Minitest::Test
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
-          Jekyll::FrontMatterValidator.validate_document(doc)
+          Jekyll::SEO::FrontMatterValidator.validate_document(doc)
         end
       end
       assert_match 'missing or has empty required front matter fields: book_number', err.message
@@ -167,7 +167,7 @@ class TestFrontMatterValidator < Minitest::Test
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
-          Jekyll::FrontMatterValidator.validate_document(doc)
+          Jekyll::SEO::FrontMatterValidator.validate_document(doc)
         end
       end
       assert_match 'book_authors', err.message
@@ -185,7 +185,7 @@ class TestFrontMatterValidator < Minitest::Test
         '/valid-post-fm-date.html', 'content', nil, MockCollection.new(nil, @post_collection_label)
       )
       Jekyll.stub :logger, @silent_logger_stub do
-        assert_nil Jekyll::FrontMatterValidator.validate_document(doc)
+        assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc)
       end
     end
   end
@@ -203,7 +203,7 @@ class TestFrontMatterValidator < Minitest::Test
       # Even if doc.data['date'] was nil, doc.date (attribute) would be valid.
       # The validator now checks doc.date for posts.
       Jekyll.stub :logger, @silent_logger_stub do
-        assert_nil Jekyll::FrontMatterValidator.validate_document(doc)
+        assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc)
       end
     end
   end
@@ -223,7 +223,7 @@ class TestFrontMatterValidator < Minitest::Test
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
-          Jekyll::FrontMatterValidator.validate_document(doc)
+          Jekyll::SEO::FrontMatterValidator.validate_document(doc)
         end
       end
       assert_match 'missing or has empty required front matter fields: date', err.message
@@ -242,7 +242,7 @@ class TestFrontMatterValidator < Minitest::Test
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
-          Jekyll::FrontMatterValidator.validate_document(doc)
+          Jekyll::SEO::FrontMatterValidator.validate_document(doc)
         end
       end
       assert_match 'missing or has empty required front matter fields: date', err.message
@@ -258,7 +258,7 @@ class TestFrontMatterValidator < Minitest::Test
         '/unwatched-book.html', 'content', nil, MockCollection.new(nil, @book_collection_label)
       )
       Jekyll.stub :logger, @silent_logger_stub do
-        assert_nil Jekyll::FrontMatterValidator.validate_document(doc)
+        assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc)
       end
 
       page = create_doc(
@@ -266,7 +266,7 @@ class TestFrontMatterValidator < Minitest::Test
         '/unwatched-page.html', 'content', nil, nil
       )
       Jekyll.stub :logger, @silent_logger_stub do
-        assert_nil Jekyll::FrontMatterValidator.validate_document(page)
+        assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(page)
       end
     end
   end
@@ -288,7 +288,7 @@ class TestFrontMatterValidator < Minitest::Test
 
       Jekyll.stub :logger, mock_logger do
         assert_raises Jekyll::Errors::FatalException do
-          Jekyll::FrontMatterValidator.validate_document(doc)
+          Jekyll::SEO::FrontMatterValidator.validate_document(doc)
         end
       end
       mock_logger.verify
@@ -318,7 +318,7 @@ class TestFrontMatterValidator < Minitest::Test
       }
 
       Jekyll.stub :logger, @silent_logger_stub do
-        assert_nil Jekyll::FrontMatterValidator.validate_document(page),
+        assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(page),
                    'Should pass with all required fields for configured page layout'
       end
     end
@@ -348,7 +348,7 @@ class TestFrontMatterValidator < Minitest::Test
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
-          Jekyll::FrontMatterValidator.validate_document(page)
+          Jekyll::SEO::FrontMatterValidator.validate_document(page)
         end
       end
 
@@ -384,7 +384,7 @@ class TestFrontMatterValidatorHooks < Minitest::Test
     mock = Minitest::Mock.new
     mock.expect(:call, nil, [doc])
 
-    Jekyll::FrontMatterValidator.stub :validate_document, mock do
+    Jekyll::SEO::FrontMatterValidator.stub :validate_document, mock do
       Jekyll::Hooks.trigger(:documents, :pre_render, doc)
     end
 
@@ -398,7 +398,7 @@ class TestFrontMatterValidatorHooks < Minitest::Test
     mock = Minitest::Mock.new
     mock.expect(:call, nil, [page])
 
-    Jekyll::FrontMatterValidator.stub :validate_document, mock do
+    Jekyll::SEO::FrontMatterValidator.stub :validate_document, mock do
       Jekyll::Hooks.trigger(:pages, :pre_render, page)
     end
 
@@ -408,7 +408,7 @@ class TestFrontMatterValidatorHooks < Minitest::Test
   def test_pages_hook_skips_nil_name
     page = TestFrontMatterValidator::MockPage.new(@site, '/', nil)
 
-    Jekyll::FrontMatterValidator.stub :validate_document, ->(_) { flunk 'Should not validate' } do
+    Jekyll::SEO::FrontMatterValidator.stub :validate_document, ->(_) { flunk 'Should not validate' } do
       Jekyll::Hooks.trigger(:pages, :pre_render, page)
     end
   end
@@ -417,7 +417,7 @@ class TestFrontMatterValidatorHooks < Minitest::Test
     ['404.html', 'feed.xml', 'sitemap.xml', 'robots.txt'].each do |name|
       page = TestFrontMatterValidator::MockPage.new(@site, '/', name)
 
-      Jekyll::FrontMatterValidator.stub :validate_document, ->(_) { flunk "Should not validate #{name}" } do
+      Jekyll::SEO::FrontMatterValidator.stub :validate_document, ->(_) { flunk "Should not validate #{name}" } do
         Jekyll::Hooks.trigger(:pages, :pre_render, page)
       end
     end
@@ -427,7 +427,7 @@ class TestFrontMatterValidatorHooks < Minitest::Test
     ['data.json', 'style.css', 'script.js', 'style.scss', 'style.css.map'].each do |name|
       page = TestFrontMatterValidator::MockPage.new(@site, '/', name)
 
-      Jekyll::FrontMatterValidator.stub :validate_document, ->(_) { flunk "Should not validate #{name}" } do
+      Jekyll::SEO::FrontMatterValidator.stub :validate_document, ->(_) { flunk "Should not validate #{name}" } do
         Jekyll::Hooks.trigger(:pages, :pre_render, page)
       end
     end
@@ -437,7 +437,7 @@ class TestFrontMatterValidatorHooks < Minitest::Test
     page = TestFrontMatterValidator::MockPage.new(@site, '/', 'valid.html')
     page.data = nil # Not a hash
 
-    Jekyll::FrontMatterValidator.stub :validate_document, ->(_) { flunk 'Should not validate non-hash data' } do
+    Jekyll::SEO::FrontMatterValidator.stub :validate_document, ->(_) { flunk 'Should not validate non-hash data' } do
       Jekyll::Hooks.trigger(:pages, :pre_render, page)
     end
   end
@@ -447,7 +447,7 @@ class TestFrontMatterValidatorHooks < Minitest::Test
       page = TestFrontMatterValidator::MockPage.new(@site, dir, 'asset.html')
       page.data = {}
 
-      Jekyll::FrontMatterValidator.stub :validate_document, ->(_) { flunk "Should not validate asset in #{dir}" } do
+      Jekyll::SEO::FrontMatterValidator.stub :validate_document, ->(_) { flunk "Should not validate asset in #{dir}" } do
         Jekyll::Hooks.trigger(:pages, :pre_render, page)
       end
     end

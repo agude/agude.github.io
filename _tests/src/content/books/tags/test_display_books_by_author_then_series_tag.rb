@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/display_books_by_author_then_series_tag'
 
-# Tests for DisplayBooksByAuthorThenSeriesTag Liquid tag.
+# Tests for Jekyll::Books::Tags::DisplayBooksByAuthorThenSeriesTag Liquid tag.
 #
 # Verifies that the tag correctly orchestrates the Finder and Renderer.
 class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
@@ -45,8 +45,8 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
     mock_renderer.expect :render, mock_renderer_html
 
     # Stub the .new methods to return our mock instances
-    Jekyll::BookLists::AllBooksByAuthorFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::BookLists::ByAuthorThenSeriesRenderer.stub :new, lambda { |context, data|
+    Jekyll::Books::Lists::Renderers::BookLists::AllBooksByAuthorFinder.stub :new, ->(_args) { mock_finder } do
+      Jekyll::Books::Lists::Renderers::BookLists::ByAuthorThenSeriesRenderer.stub :new, lambda { |context, data|
         # This is a key assertion: ensure the data from the finder is what the renderer receives
         assert_equal mock_finder_data, data
         assert_equal @context, context
@@ -79,8 +79,8 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, mock_renderer_html
 
-    Jekyll::BookLists::AllBooksByAuthorFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::BookLists::ByAuthorThenSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
+    Jekyll::Books::Lists::Renderers::BookLists::AllBooksByAuthorFinder.stub :new, ->(_args) { mock_finder } do
+      Jekyll::Books::Lists::Renderers::BookLists::ByAuthorThenSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
         output = Liquid::Template.parse('{% display_books_by_author_then_series %}').render!(@context)
 
         # Log messages should come before rendered HTML

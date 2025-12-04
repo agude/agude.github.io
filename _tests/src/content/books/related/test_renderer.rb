@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/related/renderer'
 
-# Tests for Jekyll::RelatedBooks::Renderer.
+# Tests for Jekyll::Books::Related::RelatedBooks::Renderer.
 #
 # Verifies that the Renderer correctly generates HTML structure for related books.
 class TestRelatedBooksRenderer < Minitest::Test
@@ -22,7 +22,7 @@ class TestRelatedBooksRenderer < Minitest::Test
     site = create_site(@site_config_base.dup, {})
     context = create_context({}, { site: site })
 
-    renderer = Jekyll::RelatedBooks::Renderer.new(context, [])
+    renderer = Jekyll::Books::Related::RelatedBooks::Renderer.new(context, [])
     output = renderer.render
 
     assert_equal '', output
@@ -32,9 +32,9 @@ class TestRelatedBooksRenderer < Minitest::Test
     books, site = @helper.setup_series_books(2)
     context = create_context({}, { site: site, page: books[0] })
 
-    renderer = Jekyll::RelatedBooks::Renderer.new(context, books)
+    renderer = Jekyll::Books::Related::RelatedBooks::Renderer.new(context, books)
     output = nil
-    BookCardUtils.stub :render, ->(book_obj, _ctx) { "<!-- Card for: #{book_obj.data['title']} -->\n" } do
+    Jekyll::Books::Core::BookCardUtils.stub :render, ->(book_obj, _ctx) { "<!-- Card for: #{book_obj.data['title']} -->\n" } do
       output = renderer.render
     end
 
@@ -50,8 +50,8 @@ class TestRelatedBooksRenderer < Minitest::Test
     context = create_context({}, { site: site, page: books[0] })
 
     card_render_count = 0
-    renderer = Jekyll::RelatedBooks::Renderer.new(context, books)
-    BookCardUtils.stub :render, lambda { |_book_obj, _ctx|
+    renderer = Jekyll::Books::Related::RelatedBooks::Renderer.new(context, books)
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |_book_obj, _ctx|
       card_render_count += 1
       "<!-- Card -->\n"
     } do

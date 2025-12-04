@@ -5,7 +5,7 @@ require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/book_backlinks_tag' # Load the tag class
 # Utils are loaded via test_helper
 
-# Tests for BookBacklinksTag Liquid tag and its components.
+# Tests for Jekyll::Books::Tags::BookBacklinksTag Liquid tag and its components.
 #
 # This test suite is organized into three sections:
 # 1. Finder tests - Test data retrieval logic directly
@@ -58,7 +58,7 @@ class TestBookBacklinksTag < Minitest::Test
       { source: @source_doc_alpha, type: 'book' }
     ]
     context = create_context({}, { site: @site, page: @target_page })
-    finder = Jekyll::BookBacklinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::BookBacklinks::Finder.new(context)
     result = finder.find
 
     assert_kind_of Hash, result
@@ -73,7 +73,7 @@ class TestBookBacklinksTag < Minitest::Test
       { source: @source_doc_beta, type: 'direct' }
     ]
     context = create_context({}, { site: @site, page: @target_page })
-    finder = Jekyll::BookBacklinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::BookBacklinks::Finder.new(context)
     result = finder.find
 
     assert_equal 3, result[:backlinks].length
@@ -89,7 +89,7 @@ class TestBookBacklinksTag < Minitest::Test
       { source: @source_doc_beta, type: 'direct' }
     ]
     context = create_context({}, { site: @site, page: @target_page })
-    finder = Jekyll::BookBacklinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::BookBacklinks::Finder.new(context)
     result = finder.find
 
     assert_equal 2, result[:backlinks].length
@@ -114,7 +114,7 @@ class TestBookBacklinksTag < Minitest::Test
     }
 
     context = create_context({}, { site: site, page: target_book })
-    finder = Jekyll::BookBacklinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::BookBacklinks::Finder.new(context)
     result = finder.find
 
     assert_equal 1, result[:backlinks].length
@@ -137,7 +137,7 @@ class TestBookBacklinksTag < Minitest::Test
 
     # Test on Series Book 2, which only gets the series mention indirectly
     context = create_context({}, { site: site, page: series_book_2 })
-    finder = Jekyll::BookBacklinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::BookBacklinks::Finder.new(context)
     result = finder.find
 
     assert_equal 1, result[:backlinks].length
@@ -147,7 +147,7 @@ class TestBookBacklinksTag < Minitest::Test
 
   def test_finder_returns_empty_when_no_backlinks_found
     context = create_context({}, { site: @site, page: @target_page })
-    finder = Jekyll::BookBacklinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::BookBacklinks::Finder.new(context)
     result = finder.find
 
     assert_empty result[:backlinks]
@@ -169,7 +169,7 @@ class TestBookBacklinksTag < Minitest::Test
     end
 
     Jekyll.stub :logger, mock_logger do
-      finder = Jekyll::BookBacklinks::Finder.new(context)
+      finder = Jekyll::Books::Backlinks::BookBacklinks::Finder.new(context)
       result = finder.find
 
       assert_empty result[:backlinks]
@@ -185,7 +185,7 @@ class TestBookBacklinksTag < Minitest::Test
   # ========================================================================
 
   def test_renderer_returns_empty_string_for_empty_backlinks
-    renderer = Jekyll::BookBacklinks::Renderer.new(@site.config, @target_page, [])
+    renderer = Jekyll::Books::Backlinks::BookBacklinks::Renderer.new(@site.config, @target_page, [])
     output = renderer.render
 
     assert_equal '', output
@@ -198,10 +198,10 @@ class TestBookBacklinksTag < Minitest::Test
     ]
 
     context = create_context({}, { site: @site, page: @target_page })
-    renderer = Jekyll::BookBacklinks::Renderer.new(context, @target_page, backlinks)
+    renderer = Jekyll::Books::Backlinks::BookBacklinks::Renderer.new(context, @target_page, backlinks)
     output = nil
 
-    BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
       output = renderer.render
     end
 
@@ -218,10 +218,10 @@ class TestBookBacklinksTag < Minitest::Test
     ]
 
     context = create_context({}, { site: @site, page: @target_page })
-    renderer = Jekyll::BookBacklinks::Renderer.new(context, @target_page, backlinks)
+    renderer = Jekyll::Books::Backlinks::BookBacklinks::Renderer.new(context, @target_page, backlinks)
     output = nil
 
-    BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
       output = renderer.render
     end
 
@@ -234,10 +234,10 @@ class TestBookBacklinksTag < Minitest::Test
     backlinks = [['Book Alpha', '/a.html', 'series']]
 
     context = create_context({}, { site: @site, page: @target_page })
-    renderer = Jekyll::BookBacklinks::Renderer.new(context, @target_page, backlinks)
+    renderer = Jekyll::Books::Backlinks::BookBacklinks::Renderer.new(context, @target_page, backlinks)
     output = nil
 
-    BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
       output = renderer.render
     end
 
@@ -253,10 +253,10 @@ class TestBookBacklinksTag < Minitest::Test
     ]
 
     context = create_context({}, { site: @site, page: @target_page })
-    renderer = Jekyll::BookBacklinks::Renderer.new(context, @target_page, backlinks)
+    renderer = Jekyll::Books::Backlinks::BookBacklinks::Renderer.new(context, @target_page, backlinks)
     output = nil
 
-    BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
       output = renderer.render
     end
 
@@ -285,7 +285,7 @@ class TestBookBacklinksTag < Minitest::Test
 
     output = ''
     stub_logic = ->(title, _url, _ctx) { mock_link_html[title] }
-    BookLinkUtils.stub :render_book_link_from_data, stub_logic do
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, stub_logic do
       output = render_tag(context)
     end
 
@@ -320,7 +320,7 @@ class TestBookBacklinksTag < Minitest::Test
   def test_tag_returns_empty_when_no_backlinks_found
     context = create_context({}, { site: @site, page: @target_page })
     output = ''
-    BookLinkUtils.stub :render_book_link_from_data, lambda { |_t, _u, _c|
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, lambda { |_t, _u, _c|
       flunk 'render_book_link_from_data should not be called'
     } do
       output = render_tag(context)
@@ -341,7 +341,7 @@ class TestBookBacklinksTag < Minitest::Test
       "<cite>#{title_arg}</cite>"
     }
 
-    BookLinkUtils.stub :render_book_link_from_data, stub_render_logic do
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, stub_render_logic do
       render_tag(context)
     end
 

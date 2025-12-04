@@ -3,7 +3,7 @@
 # _tests/plugins/test_link_cache_generator_favorites.rb
 require_relative '../../test_helper'
 
-# Tests for LinkCacheGenerator favorites tracking functionality.
+# Tests for Jekyll::Infrastructure::LinkCacheGenerator favorites tracking functionality.
 #
 # Verifies that the generator correctly tracks book mentions in favorites posts.
 class TestLinkCacheGeneratorFavorites < Minitest::Test
@@ -35,7 +35,7 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
       '{% book_card_lookup title="Book C" %}'
     )
 
-    # The create_site helper runs the LinkCacheGenerator automatically
+    # The create_site helper runs the Jekyll::Infrastructure::LinkCacheGenerator automatically
     @site = create_site(
       {},
       { 'books' => [@book_a, @book_b, @book_c] },

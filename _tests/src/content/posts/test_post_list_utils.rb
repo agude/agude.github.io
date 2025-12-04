@@ -2,9 +2,9 @@
 
 # _tests/plugins/utils/post_list_utils/test_post_list_utils.rb
 require_relative '../../../test_helper'
-# PostListUtils is loaded by test_helper
+# Jekyll::Posts::PostListUtils is loaded by test_helper
 
-# Tests for PostListUtils module.
+# Tests for Jekyll::Posts::PostListUtils module.
 #
 # Verifies that the utility correctly retrieves and filters posts by category.
 class TestPostListUtils < Minitest::Test
@@ -20,7 +20,7 @@ class TestPostListUtils < Minitest::Test
   def get_category_posts(category_name, exclude_url = nil, context = @context, site = @site)
     result = {}
     Jekyll.stub :logger, @silent_logger_stub do
-      result = PostListUtils.get_posts_by_category(
+      result = Jekyll::Posts::PostListUtils.get_posts_by_category(
         site: site,
         category_name: category_name,
         context: context,

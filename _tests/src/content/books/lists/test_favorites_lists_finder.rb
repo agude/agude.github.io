@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lists/favorites_lists_finder'
 
-# Tests for Jekyll::BookLists::FavoritesListsFinder
+# Tests for Jekyll::Books::Lists::Renderers::BookLists::FavoritesListsFinder
 #
 # Verifies that the finder correctly fetches and organizes books by favorites lists,
 # sorting lists by year and books within each list alphabetically by normalized title.
@@ -68,7 +68,7 @@ class TestBookListFavoritesListsFinder < Minitest::Test
 
   def test_find_returns_correctly_structured_and_sorted_data
     # Instantiate and call the finder directly
-    finder = Jekyll::BookLists::FavoritesListsFinder.new(site: @site, context: @context)
+    finder = Jekyll::Books::Lists::Renderers::BookLists::FavoritesListsFinder.new(site: @site, context: @context)
     result = finder.find
 
     # Assert no error messages
@@ -102,7 +102,7 @@ class TestBookListFavoritesListsFinder < Minitest::Test
 
     result = nil
     stub_silent_logger do
-      finder = Jekyll::BookLists::FavoritesListsFinder.new(site: site, context: context)
+      finder = Jekyll::Books::Lists::Renderers::BookLists::FavoritesListsFinder.new(site: site, context: context)
       result = finder.find
     end
 
@@ -119,7 +119,7 @@ class TestBookListFavoritesListsFinder < Minitest::Test
 
     result = nil
     stub_silent_logger do
-      finder = Jekyll::BookLists::FavoritesListsFinder.new(site: site, context: context)
+      finder = Jekyll::Books::Lists::Renderers::BookLists::FavoritesListsFinder.new(site: site, context: context)
       result = finder.find
     end
 
@@ -135,7 +135,7 @@ class TestBookListFavoritesListsFinder < Minitest::Test
 
     result = nil
     stub_silent_logger do
-      finder = Jekyll::BookLists::FavoritesListsFinder.new(site: site, context: context)
+      finder = Jekyll::Books::Lists::Renderers::BookLists::FavoritesListsFinder.new(site: site, context: context)
       result = finder.find
     end
 

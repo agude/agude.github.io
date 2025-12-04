@@ -5,7 +5,7 @@ require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/seo/generators/author_profile_generator' # Load the specific generator
 require 'minitest/mock' # For mocking logger
 
-# Tests for AuthorProfileLdGenerator module.
+# Tests for Jekyll::SEO::Generators::AuthorProfileLdGenerator module.
 #
 # Verifies that the generator correctly creates JSON-LD structured data for author profile pages.
 class TestAuthorProfileLdGenerator < Minitest::Test
@@ -41,7 +41,7 @@ class TestAuthorProfileLdGenerator < Minitest::Test
   def test_generate_hash_basic
     doc = create_doc({ 'layout' => 'author_page', 'title' => 'Jane Doe' }, '/authors/jane-doe.html')
     expected = expected_base_hash('Jane Doe', 'https://mysite.dev/authors/jane-doe.html')
-    assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_same_as_urls
@@ -54,7 +54,7 @@ class TestAuthorProfileLdGenerator < Minitest::Test
     )
     expected = expected_hash_with_fields('Jane Doe', 'https://mysite.dev/authors/jane-doe.html',
                                          same_as: ['https://twitter.com/janedoe', 'https://linkedin.com/in/janedoe'])
-    assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_pen_names
@@ -65,7 +65,7 @@ class TestAuthorProfileLdGenerator < Minitest::Test
     )
     expected = expected_hash_with_fields('Canonical Name', 'https://mysite.dev/authors/canonical.html',
                                          alternate_name: ['Pen Name One', 'Pen Name Two'])
-    assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_all_fields
@@ -77,21 +77,21 @@ class TestAuthorProfileLdGenerator < Minitest::Test
     expected = expected_hash_with_fields('Jane Doe', 'https://mysite.dev/authors/jane-doe.html',
                                          description: 'An author bio.', same_as: ['https://example.com/jane'],
                                          alternate_name: ['J.D.'])
-    assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_empty_same_as_urls
     doc = create_doc({ 'layout' => 'author_page', 'title' => 'Jane Doe', 'same_as_urls' => [] },
                      '/authors/jane-doe.html')
     expected = expected_base_hash('Jane Doe', 'https://mysite.dev/authors/jane-doe.html')
-    assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_nil_same_as_urls
     doc = create_doc({ 'layout' => 'author_page', 'title' => 'Jane Doe', 'same_as_urls' => nil },
                      '/authors/jane-doe.html')
     expected = expected_base_hash('Jane Doe', 'https://mysite.dev/authors/jane-doe.html')
-    assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_description
@@ -101,7 +101,7 @@ class TestAuthorProfileLdGenerator < Minitest::Test
     )
     expected = expected_hash_with_fields('Jane Doe', 'https://mysite.dev/authors/jane-doe.html',
                                          description: 'An author bio.')
-    assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_excerpt
@@ -111,7 +111,7 @@ class TestAuthorProfileLdGenerator < Minitest::Test
     )
     expected = expected_hash_with_fields('Jane Doe', 'https://mysite.dev/authors/jane-doe.html',
                                          description: 'Excerpt bio.')
-    assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_excerpt_and_description_priority
@@ -122,7 +122,7 @@ class TestAuthorProfileLdGenerator < Minitest::Test
     )
     expected = expected_hash_with_fields('Jane Doe', 'https://mysite.dev/authors/jane-doe.html',
                                          description: 'Excerpt bio.')
-    assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_skips_invalid_same_as_urls_type_and_logs
@@ -140,7 +140,7 @@ class TestAuthorProfileLdGenerator < Minitest::Test
 
     actual_hash = nil
     Jekyll.stub :logger, mock_logger do
-      actual_hash = AuthorProfileLdGenerator.generate_hash(doc, @site)
+      actual_hash = Jekyll::SEO::Generators::AuthorProfileLdGenerator.generate_hash(doc, @site)
     end
 
     assert_equal expected, actual_hash
@@ -158,6 +158,6 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       '@type' => 'Person',
       'url' => 'https://mysite.dev/authors/empty.html'
     }
-    assert_equal expected, AuthorProfileLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::AuthorProfileLdGenerator.generate_hash(doc, @site)
   end
 end

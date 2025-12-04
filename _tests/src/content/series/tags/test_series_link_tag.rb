@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/series/tags/series_link_tag' # Load the tag
 
-# Tests for SeriesLinkTag Liquid tag.
+# Tests for Jekyll::Series::Tags::SeriesLinkTag Liquid tag.
 #
 # Verifies that the tag correctly creates links to book series pages.
 class TestSeriesLinkTag < Minitest::Test
@@ -24,9 +24,9 @@ class TestSeriesLinkTag < Minitest::Test
   def parse_and_capture_args(markup, context = @context)
     captured_args = nil
     # Stub the utility function
-    SeriesLinkUtils.stub :render_series_link, lambda { |title, ctx, link_text_override|
+    Jekyll::Series::SeriesLinkUtils.stub :render_series_link, lambda { |title, ctx, link_text_override|
       captured_args = { title: title, context: ctx, link_text_override: link_text_override }
-      "<!-- SeriesLinkUtils called with title: #{title}, link_text: #{link_text_override} -->"
+      "<!-- Jekyll::Series::SeriesLinkUtils called with title: #{title}, link_text: #{link_text_override} -->"
     } do
       template = Liquid::Template.parse("{% series_link #{markup} %}")
       output = template.render!(context)

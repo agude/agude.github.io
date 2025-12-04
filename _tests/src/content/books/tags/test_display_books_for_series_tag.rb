@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/display_books_for_series_tag'
 
-# Tests for DisplayBooksForSeriesTag Liquid tag.
+# Tests for Jekyll::Books::Tags::DisplayBooksForSeriesTag Liquid tag.
 #
 # Verifies that the tag correctly orchestrates the Finder and Renderer.
 class TestDisplayBooksForSeriesTag < Minitest::Test
@@ -39,12 +39,12 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     mock_renderer.expect :render, mock_renderer_html
 
     # Stub the .new methods to return our mock instances
-    Jekyll::BookLists::SeriesFinder.stub :new, lambda { |args|
+    Jekyll::Books::Lists::Renderers::BookLists::SeriesFinder.stub :new, lambda { |args|
       # Verify the series_name_filter is passed correctly
       assert_equal 'Test Series', args[:series_name_filter]
       mock_finder
     } do
-      Jekyll::BookLists::ForSeriesRenderer.stub :new, lambda { |context, data|
+      Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.stub :new, lambda { |context, data|
         # This is a key assertion: ensure the data from the finder is what the renderer receives
         assert_equal mock_finder_data, data
         assert_equal @context, context
@@ -78,12 +78,12 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, mock_renderer_html
 
-    Jekyll::BookLists::SeriesFinder.stub :new, lambda { |args|
+    Jekyll::Books::Lists::Renderers::BookLists::SeriesFinder.stub :new, lambda { |args|
       # Verify the series_name_filter is resolved from the variable
       assert_equal 'Test Series', args[:series_name_filter]
       mock_finder
     } do
-      Jekyll::BookLists::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
+      Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
         # Use the variable defined in setup
         output = Liquid::Template.parse('{% display_books_for_series series_var %}').render!(@context)
         assert_equal '<div class="card-grid">Book Cards</div>', output
@@ -108,8 +108,8 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, mock_renderer_html
 
-    Jekyll::BookLists::SeriesFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::BookLists::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
+    Jekyll::Books::Lists::Renderers::BookLists::SeriesFinder.stub :new, ->(_args) { mock_finder } do
+      Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
         output = Liquid::Template.parse("{% display_books_for_series 'Empty Series' %}").render!(@context)
 
         # Log messages should come before rendered HTML
@@ -138,12 +138,12 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, mock_renderer_html
 
-    Jekyll::BookLists::SeriesFinder.stub :new, lambda { |args|
+    Jekyll::Books::Lists::Renderers::BookLists::SeriesFinder.stub :new, lambda { |args|
       # Verify that nil is passed as the filter (not converted to string)
       assert_nil args[:series_name_filter]
       mock_finder
     } do
-      Jekyll::BookLists::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
+      Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
         output = Liquid::Template.parse('{% display_books_for_series nil_var %}').render!(context_with_nil)
         assert_equal '', output
       end
@@ -169,12 +169,12 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, mock_renderer_html
 
-    Jekyll::BookLists::SeriesFinder.stub :new, lambda { |args|
+    Jekyll::Books::Lists::Renderers::BookLists::SeriesFinder.stub :new, lambda { |args|
       # Verify that the empty string (after strip) is passed as-is
       assert_equal '   ', args[:series_name_filter]
       mock_finder
     } do
-      Jekyll::BookLists::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
+      Jekyll::Books::Lists::Renderers::BookLists::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
         output = Liquid::Template.parse('{% display_books_for_series empty_var %}').render!(context_with_empty)
         assert_equal '', output
       end

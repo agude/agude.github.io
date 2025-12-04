@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lists/series_finder'
 
-# Test class for Jekyll::BookLists::SeriesFinder
+# Test class for Jekyll::Books::Lists::Renderers::BookLists::SeriesFinder
 class TestBookListSeriesFinder < Minitest::Test
   def setup
     # --- Minimal Book Data Setup for Series Display Tests ---
@@ -70,7 +70,7 @@ class TestBookListSeriesFinder < Minitest::Test
   # Helper to call the SeriesFinder directly
   def get_series_data(series_name_filter, site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      finder = Jekyll::BookLists::SeriesFinder.new(
+      finder = Jekyll::Books::Lists::Renderers::BookLists::SeriesFinder.new(
         site: site,
         series_name_filter: series_name_filter,
         context: context

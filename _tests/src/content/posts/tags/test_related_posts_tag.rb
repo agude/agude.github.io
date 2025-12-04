@@ -5,14 +5,14 @@ require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/posts/tags/related_posts_tag'
 # Components are loaded via main tag file
 
-# Tests for RelatedPostsTag Liquid tag and its components.
+# Tests for Jekyll::Posts::Tags::RelatedPostsTag Liquid tag and its components.
 #
 # This test suite is organized into three sections:
 # 1. Finder tests - Test data retrieval logic directly
 # 2. Renderer tests - Test HTML generation directly
 # 3. Tag integration tests - Test the tag orchestration
 class TestRelatedPostsTag < Minitest::Test
-  DEFAULT_MAX_POSTS = Jekyll::RelatedPostsTag::DEFAULT_MAX_POSTS
+  DEFAULT_MAX_POSTS = Jekyll::Posts::Tags::RelatedPostsTag::DEFAULT_MAX_POSTS
 
   def setup
     @site_config_base = {
@@ -76,7 +76,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::CustomRelatedPosts::Finder.new(@context, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(@context, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -90,7 +90,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::CustomRelatedPosts::Finder.new(@context, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(@context, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -113,7 +113,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::CustomRelatedPosts::Finder.new(context_no_cats, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(context_no_cats, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -138,7 +138,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::CustomRelatedPosts::Finder.new(context_no_cats, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(context_no_cats, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -152,7 +152,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::CustomRelatedPosts::Finder.new(@context, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(@context, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -172,7 +172,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::CustomRelatedPosts::Finder.new(context_for_dedup, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(context_for_dedup, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -191,7 +191,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::CustomRelatedPosts::Finder.new(minimal_context, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(minimal_context, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -215,7 +215,7 @@ class TestRelatedPostsTag < Minitest::Test
     result = nil
     Jekyll.stub :logger, mock_logger do
       Time.stub :now, @test_time_now do
-        finder = Jekyll::CustomRelatedPosts::Finder.new(context, DEFAULT_MAX_POSTS)
+        finder = Jekyll::Posts::Related::CustomRelatedPosts::Finder.new(context, DEFAULT_MAX_POSTS)
         result = finder.find
       end
     end
@@ -230,7 +230,7 @@ class TestRelatedPostsTag < Minitest::Test
   # ========================================================================
 
   def test_renderer_returns_empty_string_for_empty_posts
-    renderer = Jekyll::CustomRelatedPosts::Renderer.new(@context, [], false)
+    renderer = Jekyll::Posts::Related::CustomRelatedPosts::Renderer.new(@context, [], false)
     output = renderer.render
 
     assert_equal '', output
@@ -239,10 +239,10 @@ class TestRelatedPostsTag < Minitest::Test
   def test_renderer_generates_correct_html_structure_related_posts
     posts = [@post_review1, @post_tech1]
 
-    renderer = Jekyll::CustomRelatedPosts::Renderer.new(@context, posts, true)
+    renderer = Jekyll::Posts::Related::CustomRelatedPosts::Renderer.new(@context, posts, true)
     output = nil
 
-    ArticleCardUtils.stub :render, ->(p, _ctx) { "<div>#{p.data['title']}</div>\n" } do
+    Jekyll::Posts::ArticleCardUtils.stub :render, ->(p, _ctx) { "<div>#{p.data['title']}</div>\n" } do
       output = renderer.render
     end
 
@@ -257,10 +257,10 @@ class TestRelatedPostsTag < Minitest::Test
   def test_renderer_generates_correct_html_structure_recent_posts
     posts = [@post_uncat1, @post_tech2]
 
-    renderer = Jekyll::CustomRelatedPosts::Renderer.new(@context, posts, false)
+    renderer = Jekyll::Posts::Related::CustomRelatedPosts::Renderer.new(@context, posts, false)
     output = nil
 
-    ArticleCardUtils.stub :render, ->(p, _ctx) { "<div>#{p.data['title']}</div>\n" } do
+    Jekyll::Posts::ArticleCardUtils.stub :render, ->(p, _ctx) { "<div>#{p.data['title']}</div>\n" } do
       output = renderer.render
     end
 
@@ -280,7 +280,7 @@ class TestRelatedPostsTag < Minitest::Test
     output = nil
     actual_titles_rendered = []
 
-    ArticleCardUtils.stub :render, lambda { |post_obj, _ctx|
+    Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |post_obj, _ctx|
       actual_titles_rendered << post_obj.data['title']
       "<div class='card'>CARD</div>\n"
     } do
@@ -302,8 +302,8 @@ class TestRelatedPostsTag < Minitest::Test
     minimal_context = create_context({}, { site: minimal_site, page: page_isolated })
 
     output = ''
-    ArticleCardUtils.stub :render, lambda { |_p, _c|
-      flunk 'ArticleCardUtils.render should not be called'
+    Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |_p, _c|
+      flunk 'Jekyll::Posts::ArticleCardUtils.render should not be called'
     } do
       output = render_tag(minimal_context)
     end
@@ -322,7 +322,7 @@ class TestRelatedPostsTag < Minitest::Test
 
     output = ''
     Jekyll.stub :logger, mock_logger do
-      ArticleCardUtils.stub :render, '<div>CARD</div>' do
+      Jekyll::Posts::ArticleCardUtils.stub :render, '<div>CARD</div>' do
         output = render_tag(bad_context)
       end
     end
@@ -345,7 +345,7 @@ class TestRelatedPostsTag < Minitest::Test
 
     output = ''
     Jekyll.stub :logger, mock_logger do
-      ArticleCardUtils.stub :render, '<div>CARD</div>' do
+      Jekyll::Posts::ArticleCardUtils.stub :render, '<div>CARD</div>' do
         output = render_tag(bad_context)
       end
     end
@@ -371,7 +371,7 @@ class TestRelatedPostsTag < Minitest::Test
 
     output = ''
     Jekyll.stub :logger, mock_logger do
-      ArticleCardUtils.stub :render, '<div>CARD</div>' do
+      Jekyll::Posts::ArticleCardUtils.stub :render, '<div>CARD</div>' do
         output = render_tag(context_no_url)
       end
     end

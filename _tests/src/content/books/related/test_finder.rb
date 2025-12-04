@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/related/finder'
 
-# Tests for Jekyll::RelatedBooks::Finder.
+# Tests for Jekyll::Books::Related::RelatedBooks::Finder.
 #
 # Verifies that the Finder correctly locates and ranks related books based on
 # series, author, and recency.
@@ -28,7 +28,7 @@ class TestRelatedBooksFinder < Minitest::Test
     page = create_doc({ 'title' => 'Test', 'url' => '/test.html', 'path' => 'test.md' }, '/test.html')
     context = create_context({}, { site: site, page: page })
 
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
       Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
@@ -45,7 +45,7 @@ class TestRelatedBooksFinder < Minitest::Test
     books, site = @helper.setup_series_books(4)
     context = create_context({}, { site: site, page: books[0] })
 
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -61,7 +61,7 @@ class TestRelatedBooksFinder < Minitest::Test
     books, site = @helper.setup_series_books(4)
     context = create_context({}, { site: site, page: books[1] })
 
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -74,7 +74,7 @@ class TestRelatedBooksFinder < Minitest::Test
   def test_series_provides_zero_books_fills_with_author_and_recent
     _, _, _, context = @helper.setup_zero_series_books_scenario
 
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -89,7 +89,7 @@ class TestRelatedBooksFinder < Minitest::Test
   def test_excludes_archived_reviews
     _, _, _, _, context = @helper.setup_archived_reviews_scenario
 
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -103,7 +103,7 @@ class TestRelatedBooksFinder < Minitest::Test
   def test_includes_external_canonical_url
     _, _, _, context = @helper.setup_external_canonical_scenario
 
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -117,7 +117,7 @@ class TestRelatedBooksFinder < Minitest::Test
     site = create_site(@site_config_base.dup)
     context = create_context({}, { site: site })
 
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
       Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
@@ -132,7 +132,7 @@ class TestRelatedBooksFinder < Minitest::Test
   def test_logs_error_when_site_is_missing
     page = create_doc({ 'title' => 'Test', 'url' => '/test.html' }, '/test.html')
     context = Liquid::Context.new({}, {}, { page: page })
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
 
     _result, stderr_str = capture_io do
       finder.find
@@ -146,7 +146,7 @@ class TestRelatedBooksFinder < Minitest::Test
     site = create_site(@site_config_base.dup, { 'books' => [] })
     page_no_url = create_doc({ 'title' => 'Test', 'path' => 'test.md' }, nil)
     context = create_context({}, { site: site, page: page_no_url })
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
       result = finder.find
@@ -159,7 +159,7 @@ class TestRelatedBooksFinder < Minitest::Test
     site_no_books = create_site(@site_config_base.dup) # No collections by default
     page = create_doc({ 'title' => 'Test', 'url' => '/test.html', 'path' => 'test.html' }, '/test.html')
     context = create_context({}, { site: site_no_books, page: page })
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
       result = finder.find
@@ -171,7 +171,7 @@ class TestRelatedBooksFinder < Minitest::Test
   def test_with_unparseable_book_number_logs_info
     _, _, _, _, _, _, context = @helper.setup_unparseable_book_number_scenario
 
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
       Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
@@ -190,7 +190,7 @@ class TestRelatedBooksFinder < Minitest::Test
     site.data.delete('link_cache')
     context = create_context({}, { site: site, page: page })
 
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
       Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
@@ -221,7 +221,7 @@ class TestRelatedBooksFinder < Minitest::Test
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     context = create_context({}, { site: site, page: curr })
 
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -251,7 +251,7 @@ class TestRelatedBooksFinder < Minitest::Test
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     context = create_context({}, { site: site, page: curr })
 
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -269,7 +269,7 @@ class TestRelatedBooksFinder < Minitest::Test
     book_with_nil_data.data = nil
     site.collections['books'].docs << book_with_nil_data
     context = create_context({}, { site: site, page: @helper.author_x_book1_old })
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = finder.find
     urls = result[:books].map(&:url)
     refute_includes urls, book_with_nil_data.url
@@ -283,7 +283,7 @@ class TestRelatedBooksFinder < Minitest::Test
     coll = MockCollection.new([@helper.author_x_book1_old, @helper.author_x_book2_recent, book_with_nil_date], 'books')
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     context = create_context({}, { site: site, page: @helper.author_x_book1_old })
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = finder.find
     urls = result[:books].map(&:url)
     refute_includes urls, book_with_nil_date.url
@@ -305,7 +305,7 @@ class TestRelatedBooksFinder < Minitest::Test
     coll.docs = [curr] + books
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     context = create_context({}, { site: site, page: curr })
-    finder = Jekyll::RelatedBooks::Finder.new(context, 5)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, 5)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -331,7 +331,7 @@ class TestRelatedBooksFinder < Minitest::Test
     coll.docs = [curr, canonical, other].compact
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     context = create_context({}, { site: site, page: curr })
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -350,7 +350,7 @@ class TestRelatedBooksFinder < Minitest::Test
     )
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     context = create_context({}, { site: site, page: current_page })
-    finder = Jekyll::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, DEFAULT_MAX_BOOKS)
     result = finder.find
     expected_titles = [
       @helper.recent_unrelated_book1.data['title'],
@@ -362,7 +362,7 @@ class TestRelatedBooksFinder < Minitest::Test
   end
 
   def test_private_method_parse_book_num_with_hash
-    finder = Jekyll::RelatedBooks::Finder.new(@context, DEFAULT_MAX_BOOKS)
+    finder = Jekyll::Books::Related::RelatedBooks::Finder.new(@context, DEFAULT_MAX_BOOKS)
     hash_obj = { 'book_number' => '3.14' }
     result = finder.send(:parse_book_num, hash_obj)
     assert_equal 3.14, result

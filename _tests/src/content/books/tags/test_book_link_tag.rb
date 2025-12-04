@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/book_link_tag' # Load the tag
 
-# Tests for BookLinkTag Liquid tag.
+# Tests for Jekyll::Books::Tags::BookLinkTag Liquid tag.
 #
 # Verifies that the tag correctly renders book links with author disambiguation.
 class TestBookLinkTag < Minitest::Test
@@ -50,7 +50,7 @@ class TestBookLinkTag < Minitest::Test
   def parse_and_capture_args(markup, context = @parsing_context)
     captured_args = nil
     # Stub the utility function to capture all four arguments
-    BookLinkUtils.stub :render_book_link, lambda { |title, ctx, link_text_override, author_filter|
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link, lambda { |title, ctx, link_text_override, author_filter|
       captured_args = { title: title, context: ctx, link_text_override: link_text_override, author_filter: author_filter }
       "<!-- Util called with title: #{title}, link_text: #{link_text_override}, author: #{author_filter} -->"
     } do

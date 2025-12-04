@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lists/renderers/by_title_alpha_renderer'
 
-# Tests for Jekyll::BookLists::ByTitleAlphaRenderer
+# Tests for Jekyll::Books::Lists::Renderers::BookLists::ByTitleAlphaRenderer
 #
 # Tests HTML generation from alphabetically-grouped book data.
 class TestByTitleAlphaRenderer < Minitest::Test
@@ -16,8 +16,8 @@ class TestByTitleAlphaRenderer < Minitest::Test
   def test_renders_empty_string_when_no_alpha_groups
     data = { alpha_groups: [] }
 
-    BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::BookLists::ByTitleAlphaRenderer.new(@context, data)
+    Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
+      renderer = Jekyll::Books::Lists::Renderers::BookLists::ByTitleAlphaRenderer.new(@context, data)
       output = renderer.render
       assert_equal '', output
     end
@@ -34,8 +34,8 @@ class TestByTitleAlphaRenderer < Minitest::Test
       ]
     }
 
-    BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::BookLists::ByTitleAlphaRenderer.new(@context, data)
+    Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
+      renderer = Jekyll::Books::Lists::Renderers::BookLists::ByTitleAlphaRenderer.new(@context, data)
       output = renderer.render
 
       # Assert navigation exists with all A-Z letters plus #
@@ -67,8 +67,8 @@ class TestByTitleAlphaRenderer < Minitest::Test
       ]
     }
 
-    BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::BookLists::ByTitleAlphaRenderer.new(@context, data)
+    Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
+      renderer = Jekyll::Books::Lists::Renderers::BookLists::ByTitleAlphaRenderer.new(@context, data)
       output = renderer.render
 
       # Assert # symbol uses "hash" as ID
@@ -85,8 +85,8 @@ class TestByTitleAlphaRenderer < Minitest::Test
       ]
     }
 
-    BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::BookLists::ByTitleAlphaRenderer.new(@context, data)
+    Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
+      renderer = Jekyll::Books::Lists::Renderers::BookLists::ByTitleAlphaRenderer.new(@context, data)
       output = renderer.render
 
       # Assert the letter is escaped

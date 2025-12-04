@@ -348,7 +348,7 @@ def build_test_site_config(config_overrides)
     'source' => '.',
     'plugin_logging' => test_plugin_logging_config,
     'excerpt_separator' => '<!--excerpt-->',
-    'plugin_log_level' => PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING
+    'plugin_log_level' => Jekyll::Infrastructure::PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING
   }.merge(config_overrides)
 end
 
@@ -434,7 +434,7 @@ def generate_link_cache(site)
   4.times { silent_logger.expect :info, nil, [String, String] }
 
   Jekyll.stub :logger, silent_logger do
-    Jekyll::LinkCacheGenerator.new.generate(site)
+    Jekyll::Infrastructure::LinkCacheGenerator.new.generate(site)
   end
 end
 

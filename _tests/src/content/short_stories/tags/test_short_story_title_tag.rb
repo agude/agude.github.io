@@ -4,9 +4,9 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/short_stories/tags/short_story_title_tag'
 
-# Tests for ShortStoryTitleTag Liquid tag.
+# Tests for Jekyll::ShortStories::Tags::ShortStoryTitleTag Liquid tag.
 #
-# Verifies that the tag correctly parses arguments and delegates to ShortStoryTitleUtil.
+# Verifies that the tag correctly parses arguments and delegates to Jekyll::ShortStories::ShortStoryTitleUtil.
 class TestShortStoryTitleTag < Minitest::Test
   def setup
     @site = create_site
@@ -41,7 +41,7 @@ class TestShortStoryTitleTag < Minitest::Test
     captured_args = {}
     mock_output = '<cite class="short-story-title">Test Story</cite> {#test-story}'
 
-    ShortStoryTitleUtil.stub :render_title, lambda { |**args|
+    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title, lambda { |**args|
       captured_args = args
       mock_output
     } do
@@ -58,7 +58,7 @@ class TestShortStoryTitleTag < Minitest::Test
     captured_args = {}
     mock_output = '<cite class="short-story-title">My Story Title</cite> {#my-story-title}'
 
-    ShortStoryTitleUtil.stub :render_title, lambda { |**args|
+    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title, lambda { |**args|
       captured_args = args
       mock_output
     } do
@@ -74,7 +74,7 @@ class TestShortStoryTitleTag < Minitest::Test
   def test_calls_util_with_no_id_false_by_default
     captured_args = {}
 
-    ShortStoryTitleUtil.stub :render_title, lambda { |**args|
+    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title, lambda { |**args|
       captured_args = args
       '<mock output>'
     } do
@@ -87,7 +87,7 @@ class TestShortStoryTitleTag < Minitest::Test
   def test_calls_util_with_no_id_true_when_flag_present
     captured_args = {}
 
-    ShortStoryTitleUtil.stub :render_title, lambda { |**args|
+    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title, lambda { |**args|
       captured_args = args
       '<mock output>'
     } do
@@ -100,7 +100,7 @@ class TestShortStoryTitleTag < Minitest::Test
   def test_calls_util_with_nil_when_variable_is_nil
     captured_args = {}
 
-    ShortStoryTitleUtil.stub :render_title, lambda { |**args|
+    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title, lambda { |**args|
       captured_args = args
       ''
     } do
@@ -113,7 +113,7 @@ class TestShortStoryTitleTag < Minitest::Test
   def test_returns_output_from_util
     mock_output = '<div class="custom-story">Custom HTML</div>'
 
-    ShortStoryTitleUtil.stub :render_title, ->(**_args) { mock_output } do
+    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title, ->(**_args) { mock_output } do
       output = Liquid::Template.parse("{% short_story_title 'Test' %}").render!(@context)
 
       assert_equal mock_output, output

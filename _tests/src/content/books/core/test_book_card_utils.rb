@@ -2,9 +2,9 @@
 
 # _tests/plugins/utils/test_book_card_utils.rb
 require_relative '../../../../test_helper'
-# BookCardUtils, FrontMatterUtils, TextProcessingUtils, etc., are loaded by test_helper
+# Jekyll::Books::Core::BookCardUtils, Jekyll::Infrastructure::FrontMatterUtils, Jekyll::Infrastructure::TextProcessingUtils, etc., are loaded by test_helper
 
-# Tests for BookCardUtils module.
+# Tests for Jekyll::Books::Core::BookCardUtils module.
 #
 # Verifies that the utility correctly renders book cards with authors, ratings, and optional subtitles.
 class TestBookCardUtils < Minitest::Test
@@ -67,10 +67,10 @@ class TestBookCardUtils < Minitest::Test
     captured_card_data = nil
 
     stub_rendering_dependencies(mock_base_data, mock_prepared_title, mock_description_html) do
-      AuthorLinkUtils.stub :render_author_link, mock_author_link_html_single do
-        TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
-          RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
-            captured_card_data = capture_card_data { BookCardUtils.render(book_to_test, @context) }
+      Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, mock_author_link_html_single do
+        Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
+          Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
+            captured_card_data = capture_card_data { Jekyll::Books::Core::BookCardUtils.render(book_to_test, @context) }
           end
         end
       end
@@ -99,17 +99,17 @@ class TestBookCardUtils < Minitest::Test
     author_link_calls = 0
 
     stub_rendering_dependencies(mock_base_data, mock_prepared_title, mock_description_html) do
-      AuthorLinkUtils.stub :render_author_link, lambda { |name, _ctx|
+      Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, lambda { |name, _ctx|
         author_link_calls += 1
         name == 'Author One' ? mock_author1_link_html : mock_author2_link_html
       } do
-        RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
-          captured_card_data = capture_card_data { BookCardUtils.render(book_to_test, @context) }
+        Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
+          captured_card_data = capture_card_data { Jekyll::Books::Core::BookCardUtils.render(book_to_test, @context) }
         end
       end
     end
 
-    assert_equal 2, author_link_calls, 'AuthorLinkUtils.render_author_link should be called twice'
+    assert_equal 2, author_link_calls, 'Jekyll::Authors::AuthorLinkUtils.render_author_link should be called twice'
     refute_nil captured_card_data
     assert_equal expected_card_data, captured_card_data
   end
@@ -133,18 +133,18 @@ class TestBookCardUtils < Minitest::Test
     author_link_calls = 0
 
     stub_rendering_dependencies(mock_base_data, mock_prepared_title, mock_description_html) do
-      AuthorLinkUtils.stub :render_author_link, lambda { |name, _ctx|
+      Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, lambda { |name, _ctx|
         author_link_calls += 1
         "<a href=\"...\">#{name}</a>"
       } do
-        RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
-          captured_card_data = capture_card_data { BookCardUtils.render(book_to_test, @context) }
+        Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
+          captured_card_data = capture_card_data { Jekyll::Books::Core::BookCardUtils.render(book_to_test, @context) }
         end
       end
     end
 
     assert_equal 4, author_link_calls,
-                 'AuthorLinkUtils.render_author_link should be called for all four authors'
+                 'Jekyll::Authors::AuthorLinkUtils.render_author_link should be called for all four authors'
     refute_nil captured_card_data
     assert_equal expected_card_data, captured_card_data
   end
@@ -165,15 +165,15 @@ class TestBookCardUtils < Minitest::Test
     final_output = ''
 
     stub_rendering_dependencies(mock_base_data, mock_prepared_title, mock_description_html) do
-      AuthorLinkUtils.stub :render_author_link, lambda { |_name, _ctx|
-        flunk 'AuthorLinkUtils should not be called for no authors'
+      Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, lambda { |_name, _ctx|
+        flunk 'Jekyll::Authors::AuthorLinkUtils should not be called for no authors'
       } do
-        TextProcessingUtils.stub :format_list_as_sentence, lambda { |_list, etal_after: nil|
+        Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, lambda { |_list, etal_after: nil|
           flunk 'format_list_as_sentence should not be called if author list is empty'
         } do
-          RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
+          Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
             captured_card_data, final_output = capture_card_data_and_output do
-              BookCardUtils.render(book_to_test, @context)
+              Jekyll::Books::Core::BookCardUtils.render(book_to_test, @context)
             end
           end
         end
@@ -201,7 +201,7 @@ class TestBookCardUtils < Minitest::Test
 
     stub_rendering_dependencies(mock_base_data, mock_prepared_title, mock_description_html) do
       captured_card_data, final_output = capture_card_data_and_output do
-        BookCardUtils.render(book_minimal, @context)
+        Jekyll::Books::Core::BookCardUtils.render(book_minimal, @context)
       end
     end
 
@@ -215,7 +215,7 @@ class TestBookCardUtils < Minitest::Test
 
   def test_render_returns_log_if_base_data_extraction_fails
     mock_failure_log = '<!-- BOOK_BASE_DATA_EXTRACTION_FAILURE -->'
-    CardDataExtractorUtils.stub :extract_base_data, {
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, {
       log_output: mock_failure_log, site: nil, data_source_for_keys: nil, data_for_description: nil
     } do
       output = render_with_silent_logger(@book_object_single_author)
@@ -229,7 +229,7 @@ class TestBookCardUtils < Minitest::Test
       absolute_url: '/some-url/', absolute_image_url: nil, raw_title: 'Some Title',
       log_output: '<!-- BOOK_ITEM_INVALID_LOG -->'
     }
-    CardDataExtractorUtils.stub :extract_base_data, mock_base_data_no_item_data do
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data_no_item_data do
       output = render_with_silent_logger(@book_object_single_author)
       assert_equal '<!-- BOOK_ITEM_INVALID_LOG -->', output
     end
@@ -243,15 +243,15 @@ class TestBookCardUtils < Minitest::Test
     mock_base_data = create_base_data(book_no_title, '/book.html', '/img.jpg', 'Untitled Book')
     captured_output = ''
 
-    CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
-      TypographyUtils.stub :prepare_display_title, ->(title) { title } do
-        CardDataExtractorUtils.stub :extract_description_html, '' do
-          AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
-            TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
-              RatingUtils.stub :render_rating_stars, nil do
-                CardRendererUtils.stub :render_card, ->(context:, card_data:) { 'card_html' } do
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, ->(title) { title } do
+        Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '' do
+          Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
+            Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
+              Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, nil do
+                Jekyll::UI::Cards::CardRendererUtils.stub :render_card, ->(context:, card_data:) { 'card_html' } do
                   Jekyll.stub :logger, @silent_logger_stub do
-                    captured_output = BookCardUtils.render(book_no_title, @context)
+                    captured_output = Jekyll::Books::Core::BookCardUtils.render(book_no_title, @context)
                   end
                 end
               end
@@ -276,18 +276,18 @@ class TestBookCardUtils < Minitest::Test
     mock_base_data = create_base_data(book_with_alt, '/book.html', '/img.jpg', 'Book')
     captured_card_data = nil
 
-    CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
-      TypographyUtils.stub :prepare_display_title, ->(title) { title } do
-        CardDataExtractorUtils.stub :extract_description_html, '' do
-          AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
-            TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
-              RatingUtils.stub :render_rating_stars, nil do
-                CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, ->(title) { title } do
+        Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '' do
+          Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
+            Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
+              Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, nil do
+                Jekyll::UI::Cards::CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
                   captured_card_data = card_data
                   'card'
                 } do
                   Jekyll.stub :logger, @silent_logger_stub do
-                    BookCardUtils.render(book_with_alt, @context)
+                    Jekyll::Books::Core::BookCardUtils.render(book_with_alt, @context)
                   end
                 end
               end
@@ -301,7 +301,7 @@ class TestBookCardUtils < Minitest::Test
   end
 
   def test_render_with_invalid_rating_logs_error_and_continues
-    # This tests lines 114-116 (rescue ArgumentError from RatingUtils)
+    # This tests lines 114-116 (rescue ArgumentError from Jekyll::UI::Ratings::RatingUtils)
     @site.config['plugin_logging']['BOOK_CARD_RATING_ERROR'] = true
     book_bad_rating = create_doc({
                                    'title' => 'Book',
@@ -313,16 +313,16 @@ class TestBookCardUtils < Minitest::Test
     mock_base_data = create_base_data(book_bad_rating, '/book.html', '/img.jpg', 'Book')
     captured_output = ''
 
-    CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
-      TypographyUtils.stub :prepare_display_title, ->(title) { title } do
-        CardDataExtractorUtils.stub :extract_description_html, '' do
-          AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
-            TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
-              # Make RatingUtils raise ArgumentError
-              RatingUtils.stub :render_rating_stars, ->(_val, _tag = 'div') { raise ArgumentError, 'Invalid rating' } do
-                CardRendererUtils.stub :render_card, ->(context:, card_data:) { 'card_html' } do
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, ->(title) { title } do
+        Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '' do
+          Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
+            Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
+              # Make Jekyll::UI::Ratings::RatingUtils raise ArgumentError
+              Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, ->(_val, _tag = 'div') { raise ArgumentError, 'Invalid rating' } do
+                Jekyll::UI::Cards::CardRendererUtils.stub :render_card, ->(context:, card_data:) { 'card_html' } do
                   Jekyll.stub :logger, @silent_logger_stub do
-                    captured_output = BookCardUtils.render(book_bad_rating, @context)
+                    captured_output = Jekyll::Books::Core::BookCardUtils.render(book_bad_rating, @context)
                   end
                 end
               end
@@ -378,7 +378,7 @@ class TestBookCardUtils < Minitest::Test
 
   def render_with_silent_logger(book, **options)
     Jekyll.stub :logger, @silent_logger_stub do
-      BookCardUtils.render(book, @context, **options)
+      Jekyll::Books::Core::BookCardUtils.render(book, @context, **options)
     end
   end
 
@@ -414,16 +414,16 @@ class TestBookCardUtils < Minitest::Test
   end
 
   def stub_rendering_dependencies(base_data, title, description, &block)
-    CardDataExtractorUtils.stub :extract_base_data, base_data do
-      TypographyUtils.stub :prepare_display_title, title do
-        CardDataExtractorUtils.stub :extract_description_html, description, &block
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, base_data do
+      Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, title do
+        Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, description, &block
       end
     end
   end
 
   def capture_card_data(&block)
     captured_card_data = nil
-    CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
+    Jekyll::UI::Cards::CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
       captured_card_data = card_data
       'mocked_card'
     } do
@@ -435,7 +435,7 @@ class TestBookCardUtils < Minitest::Test
   def capture_card_data_and_output
     captured_card_data = nil
     final_output = ''
-    CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
+    Jekyll::UI::Cards::CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
       captured_card_data = card_data
       'minimal_card_html'
     } do

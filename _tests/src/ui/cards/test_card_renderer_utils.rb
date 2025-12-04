@@ -2,9 +2,9 @@
 
 # _tests/plugins/utils/test_card_renderer_utils.rb
 require_relative '../../../test_helper'
-# CardRendererUtils will be loaded by test_helper once we add its require there.
+# Jekyll::UI::Cards::CardRendererUtils will be loaded by test_helper once we add its require there.
 
-# Tests for CardRendererUtils module.
+# Tests for Jekyll::UI::Cards::CardRendererUtils module.
 #
 # Verifies that the utility correctly renders HTML card components from card data.
 class TestCardRendererUtils < Minitest::Test
@@ -22,7 +22,7 @@ class TestCardRendererUtils < Minitest::Test
       title_html: '<strong>Minimal Title</strong>'
       # image_url, image_alt, image_div_class, description_html, etc., are all nil/missing
     }
-    output = CardRendererUtils.render_card(context: @context, card_data: card_data)
+    output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
 
     assert_match(/<div class="minimal-card">/, output)
     assert_match(/<div class="card-element card-text">/, output)
@@ -43,7 +43,7 @@ class TestCardRendererUtils < Minitest::Test
       image_alt: 'A picture',
       image_div_class: 'custom-image-class'
     }
-    output = CardRendererUtils.render_card(context: @context, card_data: card_data)
+    output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
 
     assert_match(/<div class="image-card">/, output)
     assert_match(/<div class="card-element custom-image-class">/, output)
@@ -60,7 +60,7 @@ class TestCardRendererUtils < Minitest::Test
       image_alt: 'Alt with "quotes" & <tags>',
       image_div_class: 'custom-image-class'
     }
-    output = CardRendererUtils.render_card(context: @context, card_data: card_data)
+    output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
     expected_alt = 'Alt with &quot;quotes&quot; &amp; &lt;tags&gt;'
     assert_match %r{<img src="/images/pic.jpg" alt="#{expected_alt}" />}, output
   end
@@ -74,7 +74,7 @@ class TestCardRendererUtils < Minitest::Test
       description_wrapper_html_open: "<br />\n    ", # NOTE: render_card appends description_html after this
       description_wrapper_html_close: ''
     }
-    output = CardRendererUtils.render_card(context: @context, card_data: card_data)
+    output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
     # The regex needs to account for how render_card assembles this.
     # It will be open_wrapper + description_html + close_wrapper
     # So, "<br />\n    This is the description."
@@ -90,7 +90,7 @@ class TestCardRendererUtils < Minitest::Test
       description_wrapper_html_open: "<div class=\"desc-wrapper\">\n      ",
       description_wrapper_html_close: "\n    </div>"
     }
-    output = CardRendererUtils.render_card(context: @context, card_data: card_data)
+    output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
     # Expecting: <div class="desc-wrapper">\n      Description in a div.\n    </div>
     assert_match %r{<div class="desc-wrapper">\s*Description in a div.\s*</div>}, output
   end
@@ -105,7 +105,7 @@ class TestCardRendererUtils < Minitest::Test
         '<div class="rating-line">Rating: 5 stars</div>'
       ]
     }
-    output = CardRendererUtils.render_card(context: @context, card_data: card_data)
+    output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
     assert_match %r{<span class="author-line">By Test Author</span>}, output
     assert_match %r{<div class="rating-line">Rating: 5 stars</div>}, output
     # Check order if important (Author should be before Rating based on array order)
@@ -129,7 +129,7 @@ class TestCardRendererUtils < Minitest::Test
       description_wrapper_html_open: '<div class="desc-container">',
       description_wrapper_html_close: '</div>'
     }
-    output = CardRendererUtils.render_card(context: @context, card_data: card_data)
+    output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
 
     assert_match(/<div class="full-card">/, output)
     assert_match %r{<img src="/img/full.png" alt="Full image"}, output
@@ -152,10 +152,10 @@ class TestCardRendererUtils < Minitest::Test
 
     invalid_inputs.each do |input|
       stdout_str, = capture_io do
-        output = CardRendererUtils.render_card(context: @context, card_data: input)
+        output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: input)
         assert_equal '', output.strip
       end
-      assert_match '[CardRendererUtils ERROR] Invalid or incomplete card_data provided.', stdout_str
+      assert_match '[Jekyll::UI::Cards::CardRendererUtils ERROR] Invalid or incomplete card_data provided.', stdout_str
     end
   end
 
@@ -168,7 +168,7 @@ class TestCardRendererUtils < Minitest::Test
       description_wrapper_html_open: '<div>',
       description_wrapper_html_close: '</div>'
     }
-    output = CardRendererUtils.render_card(context: @context, card_data: card_data)
+    output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
     refute_match %r{<div>\s*</div>}, output # The wrapper div should not appear if desc is empty
   end
 
@@ -181,7 +181,7 @@ class TestCardRendererUtils < Minitest::Test
       image_alt: nil, # Test nil alt
       image_div_class: 'custom-image-class'
     }
-    output = CardRendererUtils.render_card(context: @context, card_data: card_data)
+    output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
     assert_match %r{<img src="/images/pic.jpg" alt="" />}, output # Expect empty alt attribute
   end
 end

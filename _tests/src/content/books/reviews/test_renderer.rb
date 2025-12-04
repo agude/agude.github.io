@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/reviews/renderer'
 
-# Tests for Jekyll::PreviousReviews::Renderer.
+# Tests for Jekyll::Books::Reviews::PreviousReviews::Renderer.
 #
 # Verifies that the Renderer correctly generates HTML structure and subtitles.
 class TestPreviousReviewsRenderer < Minitest::Test
@@ -22,7 +22,7 @@ class TestPreviousReviewsRenderer < Minitest::Test
   end
 
   def test_returns_empty_string_when_reviews_empty
-    renderer = Jekyll::PreviousReviews::Renderer.new(@context, [])
+    renderer = Jekyll::Books::Reviews::PreviousReviews::Renderer.new(@context, [])
     output = renderer.render
 
     assert_equal '', output
@@ -30,11 +30,11 @@ class TestPreviousReviewsRenderer < Minitest::Test
 
   def test_generates_correct_html_structure
     captured_args = []
-    BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
       captured_args << { doc: doc, subtitle: subtitle }
       "<!-- Card for #{doc.data['title']} -->"
     } do
-      renderer = Jekyll::PreviousReviews::Renderer.new(@context, [@archive_new, @archive_old])
+      renderer = Jekyll::Books::Reviews::PreviousReviews::Renderer.new(@context, [@archive_new, @archive_old])
       output = renderer.render
 
       assert_match(/<aside class="previous-reviews">/, output)
@@ -46,11 +46,11 @@ class TestPreviousReviewsRenderer < Minitest::Test
 
   def test_calls_book_card_utils_with_correct_subtitle_format
     captured_args = []
-    BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
       captured_args << { doc: doc, subtitle: subtitle }
       ''
     } do
-      renderer = Jekyll::PreviousReviews::Renderer.new(@context, [@archive_new, @archive_old])
+      renderer = Jekyll::Books::Reviews::PreviousReviews::Renderer.new(@context, [@archive_new, @archive_old])
       renderer.render
 
       assert_equal 2, captured_args.length
@@ -63,12 +63,12 @@ class TestPreviousReviewsRenderer < Minitest::Test
 
   def test_renders_cards_in_given_order
     captured_args = []
-    BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
       captured_args << { doc: doc, subtitle: subtitle }
       "<!-- Card for #{doc.data['title']} -->"
     } do
       # Pass reviews in a specific order
-      renderer = Jekyll::PreviousReviews::Renderer.new(@context, [@archive_old, @archive_new])
+      renderer = Jekyll::Books::Reviews::PreviousReviews::Renderer.new(@context, [@archive_old, @archive_new])
       output = renderer.render
 
       # Verify the cards appear in the order given
@@ -84,10 +84,10 @@ class TestPreviousReviewsRenderer < Minitest::Test
   end
 
   def test_includes_all_rendered_cards_in_output
-    BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
       "<div class=\"card\">#{doc.data['title']}</div>"
     } do
-      renderer = Jekyll::PreviousReviews::Renderer.new(@context, [@archive_new, @archive_old])
+      renderer = Jekyll::Books::Reviews::PreviousReviews::Renderer.new(@context, [@archive_new, @archive_old])
       output = renderer.render
 
       assert_includes output, '<div class="card">Archived (New)</div>'

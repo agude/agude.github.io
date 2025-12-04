@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lookups/book_finder'
 
-# Tests for Jekyll::CardLookups::BookFinder.
+# Tests for Jekyll::Posts::Lookups::CardLookups::BookFinder.
 #
 # Verifies that the BookFinder correctly finds books by normalized title.
 class TestBookFinder < Minitest::Test
@@ -21,7 +21,7 @@ class TestBookFinder < Minitest::Test
   end
 
   def test_returns_error_when_site_is_nil
-    finder = Jekyll::CardLookups::BookFinder.new(site: nil, title: 'The First Book')
+    finder = Jekyll::Posts::Lookups::CardLookups::BookFinder.new(site: nil, title: 'The First Book')
     result = finder.find
 
     assert_nil result[:book]
@@ -29,7 +29,7 @@ class TestBookFinder < Minitest::Test
   end
 
   def test_returns_error_when_title_is_nil
-    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: nil)
+    finder = Jekyll::Posts::Lookups::CardLookups::BookFinder.new(site: @site, title: nil)
     result = finder.find
 
     assert_nil result[:book]
@@ -37,7 +37,7 @@ class TestBookFinder < Minitest::Test
   end
 
   def test_returns_error_when_title_is_empty
-    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: '   ')
+    finder = Jekyll::Posts::Lookups::CardLookups::BookFinder.new(site: @site, title: '   ')
     result = finder.find
 
     assert_nil result[:book]
@@ -45,7 +45,7 @@ class TestBookFinder < Minitest::Test
   end
 
   def test_finds_book_by_exact_title
-    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: 'The First Book')
+    finder = Jekyll::Posts::Lookups::CardLookups::BookFinder.new(site: @site, title: 'The First Book')
     result = finder.find
 
     assert_nil result[:error]
@@ -53,7 +53,7 @@ class TestBookFinder < Minitest::Test
   end
 
   def test_finds_book_by_case_insensitive_title
-    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: 'the FIRST book')
+    finder = Jekyll::Posts::Lookups::CardLookups::BookFinder.new(site: @site, title: 'the FIRST book')
     result = finder.find
 
     assert_nil result[:error]
@@ -61,7 +61,7 @@ class TestBookFinder < Minitest::Test
   end
 
   def test_finds_book_by_normalized_whitespace
-    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: '  The   First    Book  ')
+    finder = Jekyll::Posts::Lookups::CardLookups::BookFinder.new(site: @site, title: '  The   First    Book  ')
     result = finder.find
 
     assert_nil result[:error]
@@ -69,7 +69,7 @@ class TestBookFinder < Minitest::Test
   end
 
   def test_finds_book_with_extra_whitespace_in_stored_title
-    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: 'Extra Whitespace')
+    finder = Jekyll::Posts::Lookups::CardLookups::BookFinder.new(site: @site, title: 'Extra Whitespace')
     result = finder.find
 
     assert_nil result[:error]
@@ -77,7 +77,7 @@ class TestBookFinder < Minitest::Test
   end
 
   def test_returns_error_when_book_not_found
-    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: 'NonExistent Book')
+    finder = Jekyll::Posts::Lookups::CardLookups::BookFinder.new(site: @site, title: 'NonExistent Book')
     result = finder.find
 
     assert_nil result[:book]
@@ -85,7 +85,7 @@ class TestBookFinder < Minitest::Test
   end
 
   def test_excludes_unpublished_books
-    finder = Jekyll::CardLookups::BookFinder.new(site: @site, title: 'Unpublished Title')
+    finder = Jekyll::Posts::Lookups::CardLookups::BookFinder.new(site: @site, title: 'Unpublished Title')
     result = finder.find
 
     assert_nil result[:book]
@@ -99,7 +99,7 @@ class TestBookFinder < Minitest::Test
       { 'books' => [@book1, duplicate_book, @book2] }
     )
 
-    finder = Jekyll::CardLookups::BookFinder.new(site: site_with_duplicate, title: 'The First Book')
+    finder = Jekyll::Posts::Lookups::CardLookups::BookFinder.new(site: site_with_duplicate, title: 'The First Book')
     result = finder.find
 
     assert_nil result[:error]

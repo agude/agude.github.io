@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lists/renderers/by_year_renderer'
 
-# Tests for Jekyll::BookLists::ByYearRenderer
+# Tests for Jekyll::Books::Lists::Renderers::BookLists::ByYearRenderer
 #
 # Tests HTML generation from year-grouped book data.
 class TestByYearRenderer < Minitest::Test
@@ -16,8 +16,8 @@ class TestByYearRenderer < Minitest::Test
   def test_renders_empty_string_when_no_year_groups
     data = { year_groups: [] }
 
-    BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::BookLists::ByYearRenderer.new(@context, data)
+    Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
+      renderer = Jekyll::Books::Lists::Renderers::BookLists::ByYearRenderer.new(@context, data)
       output = renderer.render
       assert_equal '', output
     end
@@ -35,8 +35,8 @@ class TestByYearRenderer < Minitest::Test
       ]
     }
 
-    BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::BookLists::ByYearRenderer.new(@context, data)
+    Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
+      renderer = Jekyll::Books::Lists::Renderers::BookLists::ByYearRenderer.new(@context, data)
       output = renderer.render
 
       # Assert navigation exists with both years
@@ -65,8 +65,8 @@ class TestByYearRenderer < Minitest::Test
       ]
     }
 
-    BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
-      renderer = Jekyll::BookLists::ByYearRenderer.new(@context, data)
+    Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<!-- Book Card -->' } do
+      renderer = Jekyll::Books::Lists::Renderers::BookLists::ByYearRenderer.new(@context, data)
       output = renderer.render
 
       # Assert the year is escaped in both navigation and heading

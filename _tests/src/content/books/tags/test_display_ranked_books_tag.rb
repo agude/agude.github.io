@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/display_ranked_books_tag'
 
-# Tests for DisplayRankedBooksTag Liquid tag and its components.
+# Tests for Jekyll::Books::Tags::DisplayRankedBooksTag Liquid tag and its components.
 #
 # This test suite is organized into four sections:
 # 1. Validator tests - Test validation logic directly
@@ -95,7 +95,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_validator_accepts_valid_book_in_dev_mode
     book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::DisplayRankedBooks::Validator.new(book_map, 'test_list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Validator.new(book_map, 'test_list', false)
 
     assert_silent do
       validator.validate('Book A (5 Stars)', 0, @book5a)
@@ -105,7 +105,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_validator_raises_error_for_missing_book_in_dev_mode
     book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::DisplayRankedBooks::Validator.new(book_map, 'test_list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Validator.new(book_map, 'test_list', false)
 
     err = assert_raises RuntimeError do
       validator.validate('Non Existent Book', 1, nil)
@@ -115,7 +115,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_validator_raises_error_for_invalid_rating_in_dev_mode
     book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::DisplayRankedBooks::Validator.new(book_map, 'test_list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Validator.new(book_map, 'test_list', false)
 
     err = assert_raises RuntimeError do
       validator.validate('Book Invalid Rating', 1, @book_invalid_rating)
@@ -125,7 +125,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_validator_raises_error_for_monotonicity_violation_in_dev_mode
     book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::DisplayRankedBooks::Validator.new(book_map, 'test_list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Validator.new(book_map, 'test_list', false)
 
     validator.validate('Book C (4 Stars)', 0, @book4a)
 
@@ -138,7 +138,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_validator_skips_validation_in_production_mode
     book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::DisplayRankedBooks::Validator.new(book_map, 'test_list', true)
+    validator = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Validator.new(book_map, 'test_list', true)
 
     # Should not raise even with invalid data in production
     assert_silent do
@@ -151,7 +151,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
   # ========================================================================
 
   def test_processor_returns_correct_structure
-    processor = Jekyll::DisplayRankedBooks::Processor.new(@context_dev, 'page.ranked_list')
+    processor = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Processor.new(@context_dev, 'page.ranked_list')
     result = processor.process
 
     assert_kind_of Hash, result
@@ -160,7 +160,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
   end
 
   def test_processor_groups_books_by_rating_correctly
-    processor = Jekyll::DisplayRankedBooks::Processor.new(@context_dev, 'page.ranked_list')
+    processor = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Processor.new(@context_dev, 'page.ranked_list')
     result = processor.process
 
     assert_equal 3, result[:rating_groups].length
@@ -183,7 +183,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_processor_returns_empty_groups_for_empty_list
     @context_dev['page']['ranked_list'] = []
-    processor = Jekyll::DisplayRankedBooks::Processor.new(@context_dev, 'page.ranked_list')
+    processor = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Processor.new(@context_dev, 'page.ranked_list')
     result = processor.process
 
     assert_empty result[:rating_groups]
@@ -191,7 +191,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_processor_skips_missing_book_in_production_mode
     @context_prod['page']['ranked_list'] = @non_existent_title_list
-    processor = Jekyll::DisplayRankedBooks::Processor.new(@context_prod, 'page.ranked_list')
+    processor = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Processor.new(@context_prod, 'page.ranked_list')
     result = nil
 
     mock_jekyll_logger = Minitest::Mock.new
@@ -213,7 +213,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_processor_skips_invalid_rating_in_production_mode
     @context_prod['page']['ranked_list'] = @invalid_rating_list
-    processor = Jekyll::DisplayRankedBooks::Processor.new(@context_prod, 'page.ranked_list')
+    processor = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Processor.new(@context_prod, 'page.ranked_list')
     result = nil
 
     mock_jekyll_logger = Minitest::Mock.new
@@ -238,7 +238,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
   # ========================================================================
 
   def test_renderer_returns_empty_string_for_empty_groups
-    renderer = Jekyll::DisplayRankedBooks::Renderer.new(@context_dev, [])
+    renderer = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Renderer.new(@context_dev, [])
     output = renderer.render
 
     assert_equal '', output
@@ -250,11 +250,11 @@ class TestDisplayRankedBooksTag < Minitest::Test
       { rating: 4, books: [@book4a] }
     ]
 
-    renderer = Jekyll::DisplayRankedBooks::Renderer.new(@context_dev, rating_groups)
+    renderer = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Renderer.new(@context_dev, rating_groups)
     output = nil
 
-    BookCardUtils.stub :render, @mock_card_html_generic do
-      RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
+    Jekyll::Books::Core::BookCardUtils.stub :render, @mock_card_html_generic do
+      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
         output = renderer.render
       end
     end
@@ -270,12 +270,12 @@ class TestDisplayRankedBooksTag < Minitest::Test
     rating_groups = [{ rating: 5, books: [@book5a, @book5b, @book4a] }]
     card_render_count = 0
 
-    renderer = Jekyll::DisplayRankedBooks::Renderer.new(@context_dev, rating_groups)
-    BookCardUtils.stub :render, lambda { |_book_obj, _ctx|
+    renderer = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Renderer.new(@context_dev, rating_groups)
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |_book_obj, _ctx|
       card_render_count += 1
       @mock_card_html_generic
     } do
-      RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
+      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
         renderer.render
       end
     end
@@ -290,11 +290,11 @@ class TestDisplayRankedBooksTag < Minitest::Test
       { rating: 1, books: [@book1a] }
     ]
 
-    renderer = Jekyll::DisplayRankedBooks::Renderer.new(@context_dev, rating_groups)
+    renderer = Jekyll::Books::Ranking::RankedBooks::DisplayRankedBooks::Renderer.new(@context_dev, rating_groups)
     output = nil
 
-    BookCardUtils.stub :render, @mock_card_html_generic do
-      RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
+    Jekyll::Books::Core::BookCardUtils.stub :render, @mock_card_html_generic do
+      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
         output = renderer.render
       end
     end
@@ -368,7 +368,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
     @context_prod['page']['ranked_list'] = @non_existent_title_list
 
     mock_jekyll_logger = Minitest::Mock.new
-    # NOTE: PluginLoggerUtils escapes HTML in reason/identifiers for console too.
+    # NOTE: Jekyll::Infrastructure::PluginLoggerUtils escapes HTML in reason/identifiers for console too.
     expected_console_msg_fragment = "DISPLAY_RANKED_BOOKS_FAILURE: Reason='Book title from ranked list not found in lookup map (Production Mode).' Title='Non Existent Book' ListVariable='page.ranked_list' SourcePage='test_page.md'"
     mock_jekyll_logger.expect(:error, nil) do |prefix, msg|
       prefix == 'PluginLiquid:' && msg.include?(expected_console_msg_fragment)
@@ -376,8 +376,8 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
     output = ''
     # Pass the mock_jekyll_logger to render_tag
-    BookCardUtils.stub :render, @mock_card_html_generic do
-      RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
+    Jekyll::Books::Core::BookCardUtils.stub :render, @mock_card_html_generic do
+      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
         output = render_tag('page.ranked_list', @context_prod, mock_jekyll_logger)
       end
     end
@@ -400,8 +400,8 @@ class TestDisplayRankedBooksTag < Minitest::Test
     end
 
     output = ''
-    BookCardUtils.stub :render, @mock_card_html_generic do
-      RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
+    Jekyll::Books::Core::BookCardUtils.stub :render, @mock_card_html_generic do
+      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
         output = render_tag('page.ranked_list', @context_prod, mock_jekyll_logger)
       end
     end
@@ -415,10 +415,10 @@ class TestDisplayRankedBooksTag < Minitest::Test
   def test_correct_html_structure_and_grouping_for_valid_list
     @context_dev['page']['ranked_list'] = @valid_ranked_list.dup # Ensure it's using the valid list
     output = ''
-    BookCardUtils.stub :render, lambda { |book_obj, _ctx|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |book_obj, _ctx|
       "<div class='mock-book-card'>#{CGI.escapeHTML(book_obj.data['title'])}</div>\n"
     } do
-      RatingUtils.stub :render_rating_stars, lambda { |rating, _wrapper|
+      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, lambda { |rating, _wrapper|
         "<span>Rating #{rating} #{rating == 1 ? 'Star' : 'Stars'}</span>"
       } do
         output = render_tag('page.ranked_list', @context_dev)
@@ -443,7 +443,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
       title = book.data['title']
       next unless title && !title.to_s.strip.empty?
 
-      normalized = TextProcessingUtils.normalize_title(title, strip_articles: false)
+      normalized = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(title, strip_articles: false)
       map[normalized] = book
     end
   end

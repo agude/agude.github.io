@@ -4,7 +4,7 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/content/short_stories/short_story_title_util'
 
-# Tests for ShortStoryTitleUtil module.
+# Tests for Jekyll::ShortStories::ShortStoryTitleUtil module.
 #
 # Verifies that the utility correctly renders short story titles with optional
 # Kramdown IDs and proper typography handling.
@@ -24,20 +24,20 @@ class TestShortStoryTitleUtil < Minitest::Test
 
   def test_render_with_default_behavior_includes_id
     context = fresh_context
-    output = ShortStoryTitleUtil.render_title(
+    output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'My Simple Story',
       no_id: false
     )
 
-    slug = TextProcessingUtils.slugify('My Simple Story')
+    slug = Jekyll::Infrastructure::TextProcessingUtils.slugify('My Simple Story')
     expected = "<cite class=\"short-story-title\">My Simple Story</cite> {##{slug}}"
     assert_equal expected, output
   end
 
   def test_render_with_no_id_flag_excludes_id
     context = fresh_context
-    output = ShortStoryTitleUtil.render_title(
+    output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'My Simple Story',
       no_id: true
@@ -52,10 +52,10 @@ class TestShortStoryTitleUtil < Minitest::Test
   def test_render_applies_typography_utils_with_id
     context = fresh_context
     input_title = %("Don't say 'hello' like that," she said.)
-    expected_typography = TypographyUtils.prepare_display_title(input_title)
-    slug = TextProcessingUtils.slugify(input_title)
+    expected_typography = Jekyll::Infrastructure::TypographyUtils.prepare_display_title(input_title)
+    slug = Jekyll::Infrastructure::TextProcessingUtils.slugify(input_title)
 
-    output = ShortStoryTitleUtil.render_title(
+    output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: input_title,
       no_id: false
@@ -68,9 +68,9 @@ class TestShortStoryTitleUtil < Minitest::Test
   def test_render_applies_typography_utils_with_no_id
     context = fresh_context
     input_title = %("Don't say 'hello' like that," she said.)
-    expected_typography = TypographyUtils.prepare_display_title(input_title)
+    expected_typography = Jekyll::Infrastructure::TypographyUtils.prepare_display_title(input_title)
 
-    output = ShortStoryTitleUtil.render_title(
+    output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: input_title,
       no_id: true
@@ -86,9 +86,9 @@ class TestShortStoryTitleUtil < Minitest::Test
     context = fresh_context
     input_title = 'A & B <C>'
     expected_escaped = 'A &amp; B &lt;C&gt;'
-    slug = TextProcessingUtils.slugify(input_title)
+    slug = Jekyll::Infrastructure::TextProcessingUtils.slugify(input_title)
 
-    output = ShortStoryTitleUtil.render_title(
+    output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: input_title,
       no_id: false
@@ -103,7 +103,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     input_title = 'A & B <C>'
     expected_escaped = 'A &amp; B &lt;C&gt;'
 
-    output = ShortStoryTitleUtil.render_title(
+    output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: input_title,
       no_id: true
@@ -117,7 +117,7 @@ class TestShortStoryTitleUtil < Minitest::Test
 
   def test_render_returns_empty_for_nil_title
     context = fresh_context
-    output = ShortStoryTitleUtil.render_title(
+    output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: nil,
       no_id: false
@@ -128,7 +128,7 @@ class TestShortStoryTitleUtil < Minitest::Test
 
   def test_render_returns_empty_for_empty_string
     context = fresh_context
-    output = ShortStoryTitleUtil.render_title(
+    output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: '',
       no_id: false
@@ -139,7 +139,7 @@ class TestShortStoryTitleUtil < Minitest::Test
 
   def test_render_returns_empty_for_whitespace_only
     context = fresh_context
-    output = ShortStoryTitleUtil.render_title(
+    output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: '   ',
       no_id: false
@@ -152,10 +152,10 @@ class TestShortStoryTitleUtil < Minitest::Test
 
   def test_render_auto_increments_id_for_duplicate_titles
     context = fresh_context
-    slug = TextProcessingUtils.slugify('Duplicate Story')
+    slug = Jekyll::Infrastructure::TextProcessingUtils.slugify('Duplicate Story')
 
     # First call should get the base slug
-    output1 = ShortStoryTitleUtil.render_title(
+    output1 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Duplicate Story',
       no_id: false
@@ -164,7 +164,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     assert_equal expected1, output1
 
     # Second call should get slug-2
-    output2 = ShortStoryTitleUtil.render_title(
+    output2 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Duplicate Story',
       no_id: false
@@ -173,7 +173,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     assert_equal expected2, output2
 
     # Third call should get slug-3
-    output3 = ShortStoryTitleUtil.render_title(
+    output3 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Duplicate Story',
       no_id: false
@@ -184,11 +184,11 @@ class TestShortStoryTitleUtil < Minitest::Test
 
   def test_render_different_titles_get_independent_counters
     context = fresh_context
-    slug_a = TextProcessingUtils.slugify('Story A')
-    slug_b = TextProcessingUtils.slugify('Story B')
+    slug_a = Jekyll::Infrastructure::TextProcessingUtils.slugify('Story A')
+    slug_b = Jekyll::Infrastructure::TextProcessingUtils.slugify('Story B')
 
     # Call with Story A twice
-    output_a1 = ShortStoryTitleUtil.render_title(
+    output_a1 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Story A',
       no_id: false
@@ -197,7 +197,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     assert_equal expected_a1, output_a1
 
     # Call with Story B once
-    output_b1 = ShortStoryTitleUtil.render_title(
+    output_b1 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Story B',
       no_id: false
@@ -206,7 +206,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     assert_equal expected_b1, output_b1
 
     # Call with Story A again - should get slug_a-2
-    output_a2 = ShortStoryTitleUtil.render_title(
+    output_a2 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Story A',
       no_id: false
@@ -217,10 +217,10 @@ class TestShortStoryTitleUtil < Minitest::Test
 
   def test_render_no_id_flag_does_not_increment_counter
     context = fresh_context
-    slug = TextProcessingUtils.slugify('Test Story')
+    slug = Jekyll::Infrastructure::TextProcessingUtils.slugify('Test Story')
 
     # First call with no_id=true should not increment counter
-    output1 = ShortStoryTitleUtil.render_title(
+    output1 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Test Story',
       no_id: true
@@ -229,7 +229,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     assert_equal expected1, output1
 
     # Second call with no_id=false should get the base slug (counter still at 0)
-    output2 = ShortStoryTitleUtil.render_title(
+    output2 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Test Story',
       no_id: false
@@ -238,7 +238,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     assert_equal expected2, output2
 
     # Third call with no_id=false should get slug-2
-    output3 = ShortStoryTitleUtil.render_title(
+    output3 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Test Story',
       no_id: false

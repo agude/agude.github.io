@@ -2,9 +2,9 @@
 
 # _tests/plugins/utils/test_feed_utils.rb
 require_relative '../../../test_helper'
-# FeedUtils is loaded by test_helper
+# Jekyll::Posts::FeedUtils is loaded by test_helper
 
-# Tests for FeedUtils module.
+# Tests for Jekyll::Posts::FeedUtils module.
 #
 # Verifies that the utility correctly combines and sorts posts and books for feed display.
 class TestFeedUtils < Minitest::Test
@@ -55,7 +55,7 @@ class TestFeedUtils < Minitest::Test
     Time.stub :now, fixed_current_time do
       post_no_date, book_no_date, temp_site = create_test_site_with_current_date_docs
 
-      items = FeedUtils.get_combined_feed_items(site: temp_site)
+      items = Jekyll::Posts::FeedUtils.get_combined_feed_items(site: temp_site)
 
       assert_equal 5, items.size, 'Should return default limit of 5 items'
       actual_titles = items.map { |item| item.data['title'] }
@@ -111,7 +111,7 @@ class TestFeedUtils < Minitest::Test
     Time.stub :now, fixed_current_time do
       post_no_date, book_no_date, temp_site = create_test_site_with_current_date_docs
 
-      items = FeedUtils.get_combined_feed_items(site: temp_site, limit: 3)
+      items = Jekyll::Posts::FeedUtils.get_combined_feed_items(site: temp_site, limit: 3)
       assert_equal 3, items.size
       actual_titles = items.map { |item| item.data['title'] }
 
@@ -127,7 +127,7 @@ class TestFeedUtils < Minitest::Test
     Time.stub :now, fixed_current_time do
       _, book_no_date, temp_site = create_test_site_with_unpublished_docs
 
-      items = FeedUtils.get_combined_feed_items(site: temp_site, limit: 10) # High limit
+      items = Jekyll::Posts::FeedUtils.get_combined_feed_items(site: temp_site, limit: 10) # High limit
       titles = items.map { |item| item.data['title'] }
 
       refute_includes titles, @post_unpub.data['title']
@@ -167,7 +167,7 @@ class TestFeedUtils < Minitest::Test
     site_no_posts = create_site({}, { 'books' => @mock_books_collection_initial.docs }, [], [])
     site_no_posts.posts = nil
 
-    items = FeedUtils.get_combined_feed_items(site: site_no_posts, limit: 5)
+    items = Jekyll::Posts::FeedUtils.get_combined_feed_items(site: site_no_posts, limit: 5)
     # Expected: @book1, @book2 (original @book_no_date_val not in this site's setup for books)
     # @mock_books_collection_initial contains @book1, @book2, @book_unpub
     # So, 2 published books.
@@ -182,7 +182,7 @@ class TestFeedUtils < Minitest::Test
     site_no_books = create_site({}, {}, [], @mock_posts_collection_initial.docs)
     site_no_books.collections.delete('books')
 
-    items = FeedUtils.get_combined_feed_items(site: site_no_books, limit: 5)
+    items = Jekyll::Posts::FeedUtils.get_combined_feed_items(site: site_no_books, limit: 5)
     # Expected: @post1, @post2
     assert_equal 2, items.size
     titles = items.map { |i| i.data['title'] }
@@ -199,7 +199,7 @@ class TestFeedUtils < Minitest::Test
     site_empty = create_site({}, { 'books' => [book_unpub_only] }, [], [post_unpub_only])
     site_empty.posts = MockCollection.new([post_unpub_only], 'posts')
 
-    items = FeedUtils.get_combined_feed_items(site: site_empty, limit: 5)
+    items = Jekyll::Posts::FeedUtils.get_combined_feed_items(site: site_empty, limit: 5)
     assert_empty items, 'Expected no items when all are unpublished'
   end
 
@@ -220,7 +220,7 @@ class TestFeedUtils < Minitest::Test
     )
     site_with_bad_date.posts = MockCollection.new([post_bad_date_obj], 'posts')
 
-    items = FeedUtils.get_combined_feed_items(site: site_with_bad_date, limit: 5)
+    items = Jekyll::Posts::FeedUtils.get_combined_feed_items(site: site_with_bad_date, limit: 5)
     assert_equal 1, items.size
     assert_equal book_valid_date.data['title'], items[0].data['title']
   end

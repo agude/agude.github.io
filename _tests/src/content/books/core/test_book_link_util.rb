@@ -3,7 +3,7 @@
 # _tests/plugins/utils/test_book_link_util.rb
 require_relative '../../../../test_helper'
 
-# Tests for BookLinkUtils module.
+# Tests for Jekyll::Books::Core::BookLinkUtils module.
 #
 # Verifies that the utility correctly creates links to book reviews with ambiguity resolution and author filtering.
 class TestBookLinkUtils < Minitest::Test
@@ -41,7 +41,7 @@ class TestBookLinkUtils < Minitest::Test
   end
 
   def render_link(title, link_text = nil, author = nil, context = @ctx)
-    BookLinkUtils.render_book_link(title, context, link_text, author)
+    Jekyll::Books::Core::BookLinkUtils.render_book_link(title, context, link_text, author)
   end
 
   # Helper to create a silent logger stub
@@ -175,7 +175,7 @@ class TestBookLinkUtils < Minitest::Test
     another_page = create_doc({ 'path' => 'another.html' }, '/another.html')
     another_ctx = create_context({}, { site: @site, page: another_page })
     Jekyll.stub :logger, @silent_logger_stub do
-      BookLinkUtils.render_book_link(unreviewed_title, another_ctx)
+      Jekyll::Books::Core::BookLinkUtils.render_book_link(unreviewed_title, another_ctx)
     end
 
     mention_data = tracker[normalized_title]
@@ -201,7 +201,7 @@ class TestBookLinkUtils < Minitest::Test
     ctx = create_context({}, { site: site, page: @page })
 
     # This call would be ambiguous without the filtering logic
-    output = BookLinkUtils.render_book_link('Same Title', ctx)
+    output = Jekyll::Books::Core::BookLinkUtils.render_book_link('Same Title', ctx)
 
     expected = '<a href="/books/canonical.html"><cite class="book-title">Same Title</cite></a>'
     assert_equal expected, output
@@ -228,17 +228,17 @@ class TestBookLinkUtils < Minitest::Test
 
     # 1. Test that it's still ambiguous without an author filter
     err = assert_raises(Jekyll::Errors::FatalException) do
-      BookLinkUtils.render_book_link('Ambiguous Book', ctx)
+      Jekyll::Books::Core::BookLinkUtils.render_book_link('Ambiguous Book', ctx)
     end
     # The error message should only list the two canonical authors
     assert_match "used by multiple authors: 'Author A'; 'Author B'", err.message
 
     # 2. Test that it resolves correctly with an author filter
-    output_a = BookLinkUtils.render_book_link('Ambiguous Book', ctx, nil, 'Author A')
+    output_a = Jekyll::Books::Core::BookLinkUtils.render_book_link('Ambiguous Book', ctx, nil, 'Author A')
     expected_a = '<a href="/books/ambiguous-a.html"><cite class="book-title">Ambiguous Book</cite></a>'
     assert_equal expected_a, output_a
 
-    output_b = BookLinkUtils.render_book_link('Ambiguous Book', ctx, nil, 'Author B')
+    output_b = Jekyll::Books::Core::BookLinkUtils.render_book_link('Ambiguous Book', ctx, nil, 'Author B')
     expected_b = '<a href="/books/ambiguous-b.html"><cite class="book-title">Ambiguous Book</cite></a>'
     assert_equal expected_b, output_b
   end
@@ -258,7 +258,7 @@ class TestBookLinkUtils < Minitest::Test
     ctx = create_context({}, { site: site, page: @page })
 
     err = assert_raises(Jekyll::Errors::FatalException) do
-      BookLinkUtils.render_book_link('External Canon Test', ctx)
+      Jekyll::Books::Core::BookLinkUtils.render_book_link('External Canon Test', ctx)
     end
     assert_match "used by multiple authors: 'Author A'; 'Author B'", err.message
   end
@@ -331,7 +331,7 @@ class TestBookLinkUtils < Minitest::Test
     unreviewed_title = 'Legacy Tracked Book'
     normalized_title = 'legacy tracked book'
     Jekyll.stub :logger, @silent_logger_stub do
-      BookLinkUtils._track_unreviewed_mention(@ctx, unreviewed_title)
+      Jekyll::Books::Core::BookLinkUtils._track_unreviewed_mention(@ctx, unreviewed_title)
     end
     tracker = @site.data['mention_tracker']
     refute_nil tracker[normalized_title]
@@ -358,7 +358,7 @@ class TestBookLinkUtils < Minitest::Test
     # Since neither book can be disambiguated (one has empty author, one has normal),
     # this should raise an ambiguous error
     err = assert_raises(Jekyll::Errors::FatalException) do
-      BookLinkUtils.render_book_link('Test Title', ctx, nil, nil)
+      Jekyll::Books::Core::BookLinkUtils.render_book_link('Test Title', ctx, nil, nil)
     end
     assert_match '[FATAL] Ambiguous book title', err.message
   end

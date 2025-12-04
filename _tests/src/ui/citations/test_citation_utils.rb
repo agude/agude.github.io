@@ -9,7 +9,7 @@ class TestCitationUtilsBase < Minitest::Test
   NBSP = "\u00A0"
 
   def format_citation(params, _site = nil)
-    CitationUtils.format_citation_html(params)
+    Jekyll::UI::Citations::CitationUtils.format_citation_html(params)
   end
 end
 

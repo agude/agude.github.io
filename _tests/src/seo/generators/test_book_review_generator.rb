@@ -6,7 +6,7 @@ require_relative '../../../../_plugins/src/seo/generators/book_review_generator'
 require_relative '../../../../_plugins/src/infrastructure/front_matter_utils'
 require 'minitest/mock'
 
-# Tests for BookReviewLdGenerator module.
+# Tests for Jekyll::SEO::Generators::BookReviewLdGenerator module.
 #
 # Verifies that the generator correctly creates JSON-LD structured data for book reviews.
 class TestBookReviewLdGenerator < Minitest::Test
@@ -23,20 +23,20 @@ class TestBookReviewLdGenerator < Minitest::Test
   def test_generate_hash_basic_book_review_single_author
     doc = create_single_author_doc
     expected = build_expected_single_author_hash
-    assert_equal expected, BookReviewLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_book_review_multiple_authors
     doc = create_multiple_authors_doc
     expected = build_expected_multiple_authors_hash
-    actual = BookReviewLdGenerator.generate_hash(doc, @site)
+    actual = Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(doc, @site)
     assert_equal expected, actual
   end
 
   def test_generate_hash_book_review_all_fields_single_author
     doc = create_all_fields_doc
     expected = build_expected_all_fields_hash
-    assert_equal expected, BookReviewLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_book_review_review_body_from_content
@@ -49,7 +49,7 @@ class TestBookReviewLdGenerator < Minitest::Test
       '2023-01-02',
       @books_collection
     )
-    result = BookReviewLdGenerator.generate_hash(doc, @site)
+    result = Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(doc, @site)
     assert_equal 'This is the full content used as review body.', result['reviewBody']
   end
 
@@ -62,7 +62,7 @@ class TestBookReviewLdGenerator < Minitest::Test
   def test_generate_hash_book_review_minimal_data
     doc = create_minimal_data_doc
     expected = build_expected_minimal_hash
-    assert_equal expected, BookReviewLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_book_review_no_authors_empty_array
@@ -70,7 +70,7 @@ class TestBookReviewLdGenerator < Minitest::Test
       { 'layout' => 'book', 'title' => 'Book With No Authors', 'book_authors' => [] },
       '/books/no-authors.html', '', '2024-01-02', @books_collection
     )
-    result_hash = BookReviewLdGenerator.generate_hash(doc, @site)
+    result_hash = Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(doc, @site)
     assert_nil result_hash.dig('itemReviewed', 'author'),
                'itemReviewed.author should be nil if book_authors is empty'
   end
@@ -80,7 +80,7 @@ class TestBookReviewLdGenerator < Minitest::Test
       { 'layout' => 'book', 'title' => 'Book With Nil Authors', 'book_authors' => nil },
       '/books/nil-authors.html', '', '2024-01-03', @books_collection
     )
-    result_hash = BookReviewLdGenerator.generate_hash(doc, @site)
+    result_hash = Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(doc, @site)
     assert_nil result_hash.dig('itemReviewed', 'author'),
                'itemReviewed.author should be nil if book_authors is nil'
   end
@@ -90,7 +90,7 @@ class TestBookReviewLdGenerator < Minitest::Test
       { 'layout' => 'book', 'title' => 'Book Missing Authors Key' },
       '/books/missing-authors-key.html', '', '2024-01-04', @books_collection
     )
-    result_hash = BookReviewLdGenerator.generate_hash(doc, @site)
+    result_hash = Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(doc, @site)
     assert_nil result_hash.dig('itemReviewed', 'author'),
                'itemReviewed.author should be nil if book_authors key is missing'
   end
@@ -230,7 +230,7 @@ class TestBookReviewLdGenerator < Minitest::Test
     mock_logger.expect(:warn, nil) { |p, m| p == 'JSON-LD (BookReviewGen):' && m.include?('not an Array') }
     result_hash = nil
     Jekyll.stub :logger, mock_logger do
-      result_hash = BookReviewLdGenerator.generate_hash(doc, @site)
+      result_hash = Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(doc, @site)
     end
     mock_logger.verify
     result_hash

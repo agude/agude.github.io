@@ -15,7 +15,7 @@ class TestPluginLoggerUtilsBase < Minitest::Test
   def create_test_context(site_config_overrides = {})
     full_config_overrides = {
       'environment' => 'test',
-      'plugin_log_level' => PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING
+      'plugin_log_level' => Jekyll::Infrastructure::PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING
     }.merge(site_config_overrides)
     site = create_site(full_config_overrides)
     create_context({}, { site: site, page: @page_mock })
@@ -26,7 +26,7 @@ class TestPluginLoggerUtilsBase < Minitest::Test
   end
 
   def call_log_liquid_failure(ctx, tag_type:, reason:, level: :warn)
-    PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: tag_type, reason: reason, level: level)
+    ::Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: tag_type, reason: reason, level: level)
   end
 end
 
@@ -85,7 +85,7 @@ class TestPluginLoggerUtilsConsoleOutput < TestPluginLoggerUtilsBase
     mock_logger = create_mock_logger_expecting_warn
 
     Jekyll.stub :logger, mock_logger do
-      PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: 'MY_TAG', reason: 'Test')
+      Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(context: ctx, tag_type: 'MY_TAG', reason: 'Test')
     end
     mock_logger.verify
   end
@@ -238,11 +238,14 @@ class TestPluginLoggerUtilsInternalErrors < TestPluginLoggerUtilsBase
 
     # Capture stderr to see the warn output
     _, stderr_str = capture_io do
+      # Get a reference to the method before undefining Jekyll
+      method_ref = ::Jekyll::Infrastructure::PluginLoggerUtils.method(:log_liquid_failure)
+
       # Undefine Jekyll temporarily
       jekyll_backup = Jekyll
       begin
         Object.send(:remove_const, :Jekyll)
-        call_log_liquid_failure(nil, tag_type: 'NO_LOGGER', reason: 'Test', level: :error)
+        method_ref.call(context: nil, tag_type: 'NO_LOGGER', reason: 'Test', level: :error)
       ensure
         Object.const_set(:Jekyll, jekyll_backup)
       end

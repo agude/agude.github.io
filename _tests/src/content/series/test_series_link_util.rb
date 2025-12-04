@@ -3,7 +3,7 @@
 # _tests/plugins/utils/test_series_link_util.rb
 require_relative '../../../test_helper'
 
-# Tests for SeriesLinkUtils module.
+# Tests for Jekyll::Series::SeriesLinkUtils module.
 #
 # Verifies that the utility correctly creates links to book series pages.
 class TestSeriesLinkUtils < Minitest::Test
@@ -14,7 +14,7 @@ class TestSeriesLinkUtils < Minitest::Test
     ctx = create_context({}, { site: site, page: current_page })
 
     expected_html = '<a href="/series/awesome.html"><span class="book-series">My Awesome Series</span></a>'
-    actual_html = SeriesLinkUtils.render_series_link('My Awesome Series', ctx)
+    actual_html = Jekyll::Series::SeriesLinkUtils.render_series_link('My Awesome Series', ctx)
 
     assert_equal expected_html, actual_html
   end
@@ -27,7 +27,7 @@ class TestSeriesLinkUtils < Minitest::Test
     ctx = create_context({}, { site: site, page: current_page })
 
     expected_html = '<span class="book-series">My Awesome Series</span>' # No link
-    actual_html = SeriesLinkUtils.render_series_link('My Awesome Series', ctx)
+    actual_html = Jekyll::Series::SeriesLinkUtils.render_series_link('My Awesome Series', ctx)
 
     assert_equal expected_html, actual_html
   end
@@ -40,7 +40,7 @@ class TestSeriesLinkUtils < Minitest::Test
     # Expect the unlinked span. log_failure is called internally but returns ""
     # because logging is off by default in tests.
     expected_html = '<span class="book-series">NonExistent Series</span>'
-    actual_html = SeriesLinkUtils.render_series_link('NonExistent Series', ctx)
+    actual_html = Jekyll::Series::SeriesLinkUtils.render_series_link('NonExistent Series', ctx)
 
     assert_equal expected_html, actual_html
   end
@@ -52,7 +52,7 @@ class TestSeriesLinkUtils < Minitest::Test
     ctx = create_context({}, { site: site, page: current_page })
 
     expected_html = '<a href="/series/awesome.html"><span class="book-series">Display This Instead</span></a>'
-    actual_html = SeriesLinkUtils.render_series_link('My Awesome Series', ctx, 'Display This Instead')
+    actual_html = Jekyll::Series::SeriesLinkUtils.render_series_link('My Awesome Series', ctx, 'Display This Instead')
 
     assert_equal expected_html, actual_html
   end
@@ -64,7 +64,7 @@ class TestSeriesLinkUtils < Minitest::Test
 
     # Expect the unlinked span with the override text. log_failure returns ""
     expected_html = '<span class="book-series">Display This Instead</span>'
-    actual_html = SeriesLinkUtils.render_series_link('NonExistent Series', ctx, 'Display This Instead')
+    actual_html = Jekyll::Series::SeriesLinkUtils.render_series_link('NonExistent Series', ctx, 'Display This Instead')
 
     assert_equal expected_html, actual_html
   end
@@ -75,9 +75,9 @@ class TestSeriesLinkUtils < Minitest::Test
     ctx = create_context({}, { site: site, page: current_page })
 
     # log_failure is called internally and returns "", so the function returns ""
-    assert_equal '', SeriesLinkUtils.render_series_link('', ctx)
-    assert_equal '', SeriesLinkUtils.render_series_link('   ', ctx) # Whitespace only
-    assert_equal '', SeriesLinkUtils.render_series_link(nil, ctx)
+    assert_equal '', Jekyll::Series::SeriesLinkUtils.render_series_link('', ctx)
+    assert_equal '', Jekyll::Series::SeriesLinkUtils.render_series_link('   ', ctx) # Whitespace only
+    assert_equal '', Jekyll::Series::SeriesLinkUtils.render_series_link(nil, ctx)
   end
 
   def test_render_series_link_with_baseurl
@@ -89,7 +89,7 @@ class TestSeriesLinkUtils < Minitest::Test
 
     # Expect href to include the baseurl
     expected_html = '<a href="/blog/series/awesome.html"><span class="book-series">My Awesome Series</span></a>'
-    actual_html = SeriesLinkUtils.render_series_link('My Awesome Series', ctx)
+    actual_html = Jekyll::Series::SeriesLinkUtils.render_series_link('My Awesome Series', ctx)
 
     assert_equal expected_html, actual_html
   end
@@ -102,7 +102,7 @@ class TestSeriesLinkUtils < Minitest::Test
 
     # Expect basic HTML entities to be escaped in the display text
     expected_html = '<a href="/series/tricky.html"><span class="book-series">Series &lt;Title&gt; &amp; Stuff</span></a>'
-    actual_html = SeriesLinkUtils.render_series_link('Series <Title> & Stuff', ctx)
+    actual_html = Jekyll::Series::SeriesLinkUtils.render_series_link('Series <Title> & Stuff', ctx)
 
     assert_equal expected_html, actual_html
   end
@@ -119,7 +119,7 @@ class TestSeriesLinkUtils < Minitest::Test
     input_title = 'my canonical series title'
     # Expect the display text to use the canonical title from the page data (stripped)
     expected_html = '<a href="/series/canonical.html"><span class="book-series">My canonical   SERIES title</span></a>'
-    actual_html = SeriesLinkUtils.render_series_link(input_title, ctx)
+    actual_html = Jekyll::Series::SeriesLinkUtils.render_series_link(input_title, ctx)
 
     assert_equal expected_html, actual_html
   end
@@ -131,7 +131,7 @@ class TestSeriesLinkUtils < Minitest::Test
 
     # Should return just a span with the title (fallback behavior)
     expected_html = '<span class="book-series">Fallback Series</span>'
-    actual_html = SeriesLinkUtils.render_series_link('Fallback Series', ctx_no_site)
+    actual_html = Jekyll::Series::SeriesLinkUtils.render_series_link('Fallback Series', ctx_no_site)
 
     assert_equal expected_html, actual_html
   end

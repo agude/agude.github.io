@@ -4,10 +4,10 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/posts/tags/article_card_lookup_tag'
 
-# Tests for ArticleCardLookupTag Liquid tag.
+# Tests for Jekyll::Posts::Tags::ArticleCardLookupTag Liquid tag.
 #
 # Verifies that the tag correctly orchestrates between argument parsing,
-# ArticleFinder, and ArticleCardUtils.
+# ArticleFinder, and Jekyll::Posts::ArticleCardUtils.
 class TestArticleCardLookupTag < Minitest::Test
   def setup
     setup_mock_posts
@@ -62,7 +62,7 @@ class TestArticleCardLookupTag < Minitest::Test
   def assert_captured_args(captured_container, expected_url, label = '')
     captured_args = captured_container[:args]
     label_suffix = label.empty? ? '' : " (#{label})"
-    refute_nil captured_args, "ArticleCardUtils.render#{label_suffix} should have been called"
+    refute_nil captured_args, "Jekyll::Posts::ArticleCardUtils.render#{label_suffix} should have been called"
     assert_instance_of MockDocument, captured_args[0], "First argument#{label_suffix} should be a MockDocument"
     assert_equal expected_url, captured_args[0].url
     assert_equal @context, captured_args[1]
@@ -73,7 +73,7 @@ class TestArticleCardLookupTag < Minitest::Test
   # Helper to render the tag
   def render_tag(markup)
     output = '' # Initialize to prevent NameError if stubbing fails early
-    Jekyll.stub :logger, @silent_logger_stub do # Silence console output from PluginLoggerUtils
+    Jekyll.stub :logger, @silent_logger_stub do # Silence console output from Jekyll::Infrastructure::PluginLoggerUtils
       output = Liquid::Template.parse("{% article_card_lookup #{markup} %}").render!(@context)
     end
     output
@@ -85,7 +85,7 @@ class TestArticleCardLookupTag < Minitest::Test
     mock_output = "<div class='mock-card'>Post One Card</div>"
     stub_logic, captured = create_capturing_stub(mock_output)
 
-    ArticleCardUtils.stub :render, stub_logic do
+    Jekyll::Posts::ArticleCardUtils.stub :render, stub_logic do
       output = render_tag('url="/blog/post-one.html"')
       assert_equal mock_output, output
     end
@@ -98,7 +98,7 @@ class TestArticleCardLookupTag < Minitest::Test
     mock_output = "<div class='mock-card'>Post Two Card</div>"
     stub_logic, captured = create_capturing_stub(mock_output)
 
-    ArticleCardUtils.stub :render, stub_logic do
+    Jekyll::Posts::ArticleCardUtils.stub :render, stub_logic do
       output = render_tag('url=my_post_url')
       assert_equal mock_output, output
     end
@@ -110,7 +110,7 @@ class TestArticleCardLookupTag < Minitest::Test
     mock_output = "<div class='mock-card'>Post One Card Positional</div>"
     stub_logic, captured = create_capturing_stub(mock_output)
 
-    ArticleCardUtils.stub :render, stub_logic do
+    Jekyll::Posts::ArticleCardUtils.stub :render, stub_logic do
       output = render_tag('"/blog/post-one.html"')
       assert_equal mock_output, output
     end
@@ -123,7 +123,7 @@ class TestArticleCardLookupTag < Minitest::Test
     mock_output = "<div class='mock-card'>Post Two Card Positional Var</div>"
     stub_logic, captured = create_capturing_stub(mock_output)
 
-    ArticleCardUtils.stub :render, stub_logic do
+    Jekyll::Posts::ArticleCardUtils.stub :render, stub_logic do
       output = render_tag('my_post_url')
       assert_equal mock_output, output
     end
@@ -137,7 +137,7 @@ class TestArticleCardLookupTag < Minitest::Test
 
     # Test positional - Input is "blog/post-three.html"
     stub_logic_pos, captured_pos = create_capturing_stub(mock_output)
-    ArticleCardUtils.stub :render, stub_logic_pos do
+    Jekyll::Posts::ArticleCardUtils.stub :render, stub_logic_pos do
       output_pos = render_tag('"blog/post-three.html"')
       assert_equal mock_output, output_pos
     end
@@ -145,7 +145,7 @@ class TestArticleCardLookupTag < Minitest::Test
 
     # Test named - Input is "blog/post-three.html"
     stub_logic_named, captured_named = create_capturing_stub(mock_output)
-    ArticleCardUtils.stub :render, stub_logic_named do
+    Jekyll::Posts::ArticleCardUtils.stub :render, stub_logic_named do
       output_named = render_tag('url="blog/post-three.html"')
       assert_equal mock_output, output_named
     end
@@ -194,10 +194,10 @@ class TestArticleCardLookupTag < Minitest::Test
 
   def test_lookup_article_card_utils_render_error
     @site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
-    # Stub ArticleCardUtils.render to raise an error
-    ArticleCardUtils.stub :render, ->(_post, _ctx) { raise StandardError, 'Card render failed!' } do
+    # Stub Jekyll::Posts::ArticleCardUtils.render to raise an error
+    Jekyll::Posts::ArticleCardUtils.stub :render, ->(_post, _ctx) { raise StandardError, 'Card render failed!' } do
       output = render_tag('url="/blog/post-one.html"')
-      expected_pattern = %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Error calling ArticleCardUtils\.render utility: Card render failed!'\s*URL='/blog/post-one\.html'\s*ErrorClass='StandardError'\s*ErrorMessage='Card render failed!'\s*SourcePage='current\.html' -->}
+      expected_pattern = %r{<!-- \[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Error calling Jekyll::Posts::ArticleCardUtils\.render utility: Card render failed!'\s*URL='/blog/post-one\.html'\s*ErrorClass='StandardError'\s*ErrorMessage='Card render failed!'\s*SourcePage='current\.html' -->}
       assert_match expected_pattern, output
     end
   end
@@ -231,11 +231,11 @@ class TestArticleCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::CardLookups::ArticleFinder.stub :new, lambda { |args|
+    Jekyll::Posts::Lookups::CardLookups::ArticleFinder.stub :new, lambda { |args|
       captured_args = args
       mock_finder
     } do
-      ArticleCardUtils.stub :render, ->(_post, _ctx) { '<div>Card</div>' } do
+      Jekyll::Posts::ArticleCardUtils.stub :render, ->(_post, _ctx) { '<div>Card</div>' } do
         render_tag('url="/blog/post-one.html"')
 
         assert_equal @site, captured_args[:site]
@@ -254,8 +254,8 @@ class TestArticleCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
-      ArticleCardUtils.stub :render, lambda { |post, ctx|
+    Jekyll::Posts::Lookups::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
+      Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |post, ctx|
         captured_post = post
         captured_context = ctx
         '<div>Card</div>'
@@ -276,8 +276,8 @@ class TestArticleCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
-      ArticleCardUtils.stub :render, ->(_post, _ctx) { mock_output } do
+    Jekyll::Posts::Lookups::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
+      Jekyll::Posts::ArticleCardUtils.stub :render, ->(_post, _ctx) { mock_output } do
         output = render_tag('url="/blog/post-one.html"')
 
         assert_equal mock_output, output
@@ -293,7 +293,7 @@ class TestArticleCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
+    Jekyll::Posts::Lookups::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
       output = render_tag('url=empty_var')
 
       expected_pattern = /\[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='URL markup resolved to empty or nil\.'/
@@ -309,7 +309,7 @@ class TestArticleCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
+    Jekyll::Posts::Lookups::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
       output = render_tag('url="/blog/post.html"')
 
       expected_pattern = /\[ERROR\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Cannot iterate site\.posts\.docs/
@@ -326,7 +326,7 @@ class TestArticleCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
+    Jekyll::Posts::Lookups::CardLookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
       output = render_tag('url="/blog/missing.html"')
 
       expected_pattern = /\[WARN\] ARTICLE_CARD_LOOKUP_FAILURE: Reason='Could not find post\.'/

@@ -11,7 +11,7 @@ require 'src/seo/generators/book_review_generator'
 require 'src/seo/generators/generic_review_generator'
 require 'src/seo/generators/author_profile_generator'
 
-# Base test class with shared setup and helpers for JsonLdInjector tests.
+# Base test class with shared setup and helpers for Jekyll::SEO::JsonLdInjector tests.
 #
 # Provides common setup and helper methods for testing JSON-LD injection.
 class TestJsonLdInjectorBase < Minitest::Test
@@ -132,10 +132,10 @@ class TestJsonLdInjectorBase < Minitest::Test
 
   def stub_all_generators_except(active_generator, active_hash)
     stubs = {
-      BlogPostingLdGenerator => @blog_posting_hash,
-      BookReviewLdGenerator => @book_review_hash,
-      GenericReviewLdGenerator => @generic_review_hash,
-      AuthorProfileLdGenerator => @author_profile_hash
+      Jekyll::SEO::Generators::BlogPostingLdGenerator => @blog_posting_hash,
+      Jekyll::SEO::Generators::BookReviewLdGenerator => @book_review_hash,
+      Jekyll::SEO::Generators::GenericReviewLdGenerator => @generic_review_hash,
+      Jekyll::SEO::Generators::AuthorProfileLdGenerator => @author_profile_hash
     }
 
     stubs.each_key do |generator|
@@ -152,29 +152,29 @@ end
 # Verifies that the injector correctly generates and stores JSON-LD scripts.
 class TestJsonLdInjectorInjection < TestJsonLdInjectorBase
   def test_injects_for_standard_blog_post
-    stub_with_active_generator(BlogPostingLdGenerator, @blog_posting_hash) do
-      JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
+    stub_with_active_generator(Jekyll::SEO::Generators::BlogPostingLdGenerator, @blog_posting_hash) do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
     end
     assert_json_script(@blog_post_doc, @site, @blog_posting_hash)
   end
 
   def test_injects_for_book_review
-    stub_with_active_generator(BookReviewLdGenerator, @book_review_hash) do
-      JsonLdInjector.inject_json_ld(@book_review_doc, @site)
+    stub_with_active_generator(Jekyll::SEO::Generators::BookReviewLdGenerator, @book_review_hash) do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(@book_review_doc, @site)
     end
     assert_json_script(@book_review_doc, @site, @book_review_hash)
   end
 
   def test_injects_for_generic_review_post
-    stub_with_active_generator(GenericReviewLdGenerator, @generic_review_hash) do
-      JsonLdInjector.inject_json_ld(@generic_review_post_doc, @site)
+    stub_with_active_generator(Jekyll::SEO::Generators::GenericReviewLdGenerator, @generic_review_hash) do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(@generic_review_post_doc, @site)
     end
     assert_json_script(@generic_review_post_doc, @site, @generic_review_hash)
   end
 
   def test_injects_for_author_page
-    stub_with_active_generator(AuthorProfileLdGenerator, @author_profile_hash) do
-      JsonLdInjector.inject_json_ld(@author_page_doc, @site)
+    stub_with_active_generator(Jekyll::SEO::Generators::AuthorProfileLdGenerator, @author_profile_hash) do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(@author_page_doc, @site)
     end
     assert_json_script(@author_page_doc, @site, @author_profile_hash)
   end
@@ -182,12 +182,12 @@ class TestJsonLdInjectorInjection < TestJsonLdInjectorBase
   private
 
   def stub_with_active_generator(active_generator, active_hash, &block)
-    BlogPostingLdGenerator.stub :generate_hash, stub_value_for(BlogPostingLdGenerator, active_generator, active_hash) do
-      BookReviewLdGenerator.stub :generate_hash, stub_value_for(BookReviewLdGenerator, active_generator, active_hash) do
-        GenericReviewLdGenerator.stub :generate_hash,
-                                      stub_value_for(GenericReviewLdGenerator, active_generator, active_hash) do
-          AuthorProfileLdGenerator.stub :generate_hash,
-                                        stub_value_for(AuthorProfileLdGenerator, active_generator, active_hash), &block
+    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, stub_value_for(Jekyll::SEO::Generators::BlogPostingLdGenerator, active_generator, active_hash) do
+      Jekyll::SEO::Generators::BookReviewLdGenerator.stub :generate_hash, stub_value_for(Jekyll::SEO::Generators::BookReviewLdGenerator, active_generator, active_hash) do
+        Jekyll::SEO::Generators::GenericReviewLdGenerator.stub :generate_hash,
+                                                               stub_value_for(Jekyll::SEO::Generators::GenericReviewLdGenerator, active_generator, active_hash) do
+          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash,
+                                                                 stub_value_for(Jekyll::SEO::Generators::AuthorProfileLdGenerator, active_generator, active_hash), &block
         end
       end
     end
@@ -210,7 +210,7 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
     mock_logger = create_warning_logger_mock
     stub_all_generators_to_flunk do
       Jekyll.stub :logger, mock_logger do
-        JsonLdInjector.inject_json_ld(@generic_review_missing_item_doc, @site)
+        Jekyll::SEO::JsonLdInjector.inject_json_ld(@generic_review_missing_item_doc, @site)
       end
     end
 
@@ -220,21 +220,21 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
 
   def test_skips_injection_for_unhandled_layout
     stub_all_generators_to_flunk do
-      JsonLdInjector.inject_json_ld(@other_page_doc, @site)
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(@other_page_doc, @site)
     end
     assert_no_json_script(@other_page_doc, @site)
   end
 
   def test_skips_injection_if_generator_returns_nil
-    BlogPostingLdGenerator.stub :generate_hash, nil do
-      JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
+    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, nil do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
     end
     assert_no_json_script(@blog_post_doc, @site)
   end
 
   def test_skips_injection_if_generator_returns_empty_hash
-    BlogPostingLdGenerator.stub :generate_hash, {} do
-      JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
+    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, {} do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
     end
     assert_no_json_script(@blog_post_doc, @site)
   end
@@ -258,7 +258,7 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
 
     stub_all_generators_to_flunk do
       Jekyll.stub :logger, mock_logger do
-        JsonLdInjector.inject_json_ld(doc_no_url, @site)
+        Jekyll::SEO::JsonLdInjector.inject_json_ld(doc_no_url, @site)
       end
     end
 
@@ -283,7 +283,7 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
 
     stub_all_generators_to_flunk do
       Jekyll.stub :logger, mock_logger do
-        JsonLdInjector.inject_json_ld(doc_empty_url, @site)
+        Jekyll::SEO::JsonLdInjector.inject_json_ld(doc_empty_url, @site)
       end
     end
 
@@ -301,9 +301,9 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
       prefix == 'JSON-LD:' && message.include?('Failed to generate JSON')
     end
 
-    BlogPostingLdGenerator.stub :generate_hash, invalid_hash do
+    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, invalid_hash do
       Jekyll.stub :logger, mock_logger do
-        JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
+        Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
       end
     end
 
@@ -324,10 +324,10 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
   end
 
   def stub_all_generators_to_flunk(&block)
-    BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
-      BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
-        GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
-          AuthorProfileLdGenerator.stub :generate_hash, lambda { |*|
+    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
+      Jekyll::SEO::Generators::BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
+        Jekyll::SEO::Generators::GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
+          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash, lambda { |*|
             flunk 'AuthorProfile generator should not be called'
           }, &block
         end
@@ -353,14 +353,14 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
       'authors/page-author.html'
     )
 
-    # AuthorProfileLdGenerator should be called since layout matches
+    # Jekyll::SEO::Generators::AuthorProfileLdGenerator should be called since layout matches
     mock_hash = { '@type' => 'Person', 'name' => 'Page Author' }
     mock_logger = Minitest::Mock.new
     mock_logger.expect(:debug, nil, ['JSON-LD Type:', String])
 
-    AuthorProfileLdGenerator.stub :generate_hash, mock_hash do
+    Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash, mock_hash do
       Jekyll.stub :logger, mock_logger do
-        JsonLdInjector.inject_json_ld(author_page, @site)
+        Jekyll::SEO::JsonLdInjector.inject_json_ld(author_page, @site)
       end
     end
 
@@ -380,7 +380,7 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
 
     # No generator should be called
     stub_all_generators_to_flunk do
-      JsonLdInjector.inject_json_ld(regular_page, @site)
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(regular_page, @site)
     end
 
     # Should not have generated script
@@ -390,10 +390,10 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
   private
 
   def stub_all_generators_to_flunk(&block)
-    BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
-      BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
-        GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
-          AuthorProfileLdGenerator.stub :generate_hash, lambda { |*|
+    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
+      Jekyll::SEO::Generators::BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
+        Jekyll::SEO::Generators::GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
+          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash, lambda { |*|
             flunk 'AuthorProfile generator should not be called'
           }, &block
         end
@@ -420,7 +420,7 @@ class TestJsonLdInjectorHooks < TestJsonLdInjectorBase
 
   def test_documents_post_convert_hook_injects_json_ld
     # Verify that the hook calls inject_json_ld (evidenced by script generation)
-    BlogPostingLdGenerator.stub :generate_hash, @blog_posting_hash do
+    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, @blog_posting_hash do
       Jekyll::Hooks.trigger(:documents, :post_convert, @blog_post_doc)
     end
 
@@ -484,7 +484,7 @@ class TestJsonLdInjectorHooks < TestJsonLdInjectorBase
       'page-author.html'
     )
 
-    AuthorProfileLdGenerator.stub :generate_hash, @author_profile_hash do
+    Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash, @author_profile_hash do
       Jekyll::Hooks.trigger(:pages, :post_convert, page)
     end
 

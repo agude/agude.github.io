@@ -4,7 +4,7 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/infrastructure/links/backlink_utils' # Load the util
 
-# Tests for BacklinkUtils module.
+# Tests for Jekyll::Infrastructure::Links::BacklinkUtils module.
 #
 # Verifies that the utility correctly finds and sorts book backlinks from the link cache.
 class TestBacklinkUtils < Minitest::Test
@@ -19,8 +19,8 @@ class TestBacklinkUtils < Minitest::Test
     @page_with_no_backlinks = create_doc({ 'title' => 'Unlinked Page' }, '/unlinked.html')
 
     # --- Site & Context ---
-    # The create_site helper runs the LinkCacheGenerator, but we will manually
-    # set the backlinks cache to isolate this test to the BacklinkUtils logic.
+    # The create_site helper runs the Jekyll::Infrastructure::LinkCacheGenerator, but we will manually
+    # set the backlinks cache to isolate this test to the Jekyll::Infrastructure::Links::BacklinkUtils logic.
     @site = create_site
     @site.data['link_cache']['backlinks'] = {
       @target_page.url => [@book_banana, @book_apple, @book_orange] # Intentionally unsorted
@@ -30,7 +30,7 @@ class TestBacklinkUtils < Minitest::Test
 
   # Helper to call the utility
   def find_backlinks(page = @target_page, site = @site, context = @context)
-    BacklinkUtils.find_book_backlinks(page, site, context)
+    Jekyll::Infrastructure::Links::BacklinkUtils.find_book_backlinks(page, site, context)
   end
 
   def test_finds_and_sorts_backlinks_from_cache

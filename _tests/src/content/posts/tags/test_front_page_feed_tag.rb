@@ -5,9 +5,9 @@ require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/posts/tags/front_page_feed_tag'
 require 'time'
 
-# Tests for FrontPageFeedTag Liquid tag.
+# Tests for Jekyll::Posts::Tags::FrontPageFeedTag Liquid tag.
 #
-# Verifies that the tag correctly orchestrates between FeedUtils and Renderer.
+# Verifies that the tag correctly orchestrates between Jekyll::Posts::FeedUtils and Renderer.
 class TestFrontPageFeedTag < Minitest::Test
   def setup
     @site = create_site({ 'url' => 'http://example.com' })
@@ -58,11 +58,11 @@ class TestFrontPageFeedTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<div class="card-grid">HTML</div>'
 
-    FeedUtils.stub :get_combined_feed_items, lambda { |args|
+    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items, lambda { |args|
       captured_feed_args = args
       mock_feed_items
     } do
-      Jekyll::FrontPageFeed::Renderer.stub :new, lambda { |context, items|
+      Jekyll::Posts::Feed::FrontPageFeed::Renderer.stub :new, lambda { |context, items|
         assert_equal @context, context
         assert_equal mock_feed_items, items
         mock_renderer
@@ -70,7 +70,7 @@ class TestFrontPageFeedTag < Minitest::Test
         output = render_tag
 
         assert_equal '<div class="card-grid">HTML</div>', output
-        assert_equal Jekyll::FrontPageFeedTag::DEFAULT_LIMIT, captured_feed_args[:limit]
+        assert_equal Jekyll::Posts::Tags::FrontPageFeedTag::DEFAULT_LIMIT, captured_feed_args[:limit]
         assert_equal @site, captured_feed_args[:site]
         mock_renderer.verify
       end
@@ -84,11 +84,11 @@ class TestFrontPageFeedTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<div>HTML</div>'
 
-    FeedUtils.stub :get_combined_feed_items, lambda { |args|
+    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items, lambda { |args|
       captured_feed_args = args
       mock_feed_items
     } do
-      Jekyll::FrontPageFeed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
+      Jekyll::Posts::Feed::FrontPageFeed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
         render_tag('limit=3')
 
         assert_equal 3, captured_feed_args[:limit]
@@ -104,11 +104,11 @@ class TestFrontPageFeedTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<div>HTML</div>'
 
-    FeedUtils.stub :get_combined_feed_items, lambda { |args|
+    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items, lambda { |args|
       captured_feed_args = args
       mock_feed_items
     } do
-      Jekyll::FrontPageFeed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
+      Jekyll::Posts::Feed::FrontPageFeed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
         render_tag('limit=page_limit') # page_limit is 3
 
         assert_equal 3, captured_feed_args[:limit]
@@ -124,14 +124,14 @@ class TestFrontPageFeedTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<div>HTML</div>'
 
-    FeedUtils.stub :get_combined_feed_items, lambda { |args|
+    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items, lambda { |args|
       captured_feed_args = args
       mock_feed_items
     } do
-      Jekyll::FrontPageFeed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
+      Jekyll::Posts::Feed::FrontPageFeed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
         render_tag("limit='abc'")
 
-        assert_equal Jekyll::FrontPageFeedTag::DEFAULT_LIMIT, captured_feed_args[:limit]
+        assert_equal Jekyll::Posts::Tags::FrontPageFeedTag::DEFAULT_LIMIT, captured_feed_args[:limit]
         mock_renderer.verify
       end
     end
@@ -144,13 +144,13 @@ class TestFrontPageFeedTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<div>HTML</div>'
 
-    FeedUtils.stub :get_combined_feed_items, lambda { |args|
+    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items, lambda { |args|
       captured_feed_args = args
       mock_feed_items
     } do
-      Jekyll::FrontPageFeed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
+      Jekyll::Posts::Feed::FrontPageFeed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
         render_tag('limit=0')
-        assert_equal Jekyll::FrontPageFeedTag::DEFAULT_LIMIT, captured_feed_args[:limit]
+        assert_equal Jekyll::Posts::Tags::FrontPageFeedTag::DEFAULT_LIMIT, captured_feed_args[:limit]
         mock_renderer.verify
       end
     end
@@ -160,8 +160,8 @@ class TestFrontPageFeedTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, ''
 
-    FeedUtils.stub :get_combined_feed_items, ->(_args) { [] } do
-      Jekyll::FrontPageFeed::Renderer.stub :new, lambda { |_context, items|
+    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items, ->(_args) { [] } do
+      Jekyll::Posts::Feed::FrontPageFeed::Renderer.stub :new, lambda { |_context, items|
         assert_equal [], items
         mock_renderer
       } do
@@ -182,8 +182,8 @@ class TestFrontPageFeedTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<div>HTML</div>'
 
-    FeedUtils.stub :get_combined_feed_items, ->(_args) { [] } do
-      Jekyll::FrontPageFeed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
+    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items, ->(_args) { [] } do
+      Jekyll::Posts::Feed::FrontPageFeed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
         Jekyll.stub :logger, @silent_logger_stub do
           output = render_tag
 

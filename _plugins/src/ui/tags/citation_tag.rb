@@ -7,7 +7,7 @@
 #   Omit any parameters that are not applicable to the citation.
 #   The 'url' parameter will link the 'work_title'.
 #   If 'work_title' is absent but 'container_title' is present, and 'url' is given,
-#   the 'container_title' might be linked (depending on your CitationUtils logic).
+#   the 'container_title' might be linked (depending on your Jekyll::UI::Citations::CitationUtils logic).
 #   Styling of 'work_title' (quotes vs. italics) is inferred based on the
 #   presence or absence of 'container_title'.
 #
@@ -47,75 +47,81 @@ require_relative '../citations/citation_utils'
 require_relative '../../infrastructure/tag_argument_utils'
 
 # Module for Jekyll specific plugins
+# Defines a Liquid tag for generating citations.
+#
+# Syntax:
+# {% citation author_last="Doe" author_first="John" work_title="My Article" ... %}
+#
+# All parameters are optional and correspond to the keys expected by
+# Jekyll::UI::Citations::CitationUtils.format_citation_html. Values can be string literals
 module Jekyll
-  # Defines a Liquid tag for generating citations.
-  #
-  # Syntax:
-  # {% citation author_last="Doe" author_first="John" work_title="My Article" ... %}
-  #
-  # All parameters are optional and correspond to the keys expected by
-  # CitationUtils.format_citation_html. Values can be string literals
   # (in single or double quotes) or Liquid variables.
-  class CitationTag < Liquid::Tag
-    # Regex for parsing "key='value'" or "key=variable" arguments.
-    # - [\w-]+ : Matches the key (alphanumeric, underscore, hyphen).
-    # - \s*=\s* : Matches the equals sign with optional surrounding whitespace.
-    # - (value_pattern) : Captures the value.
-    #   - (['"])(?:(?!\3).)*\3 : Matches a quoted string. \3 backreferences the opening quote.
-    #   - | : OR
-    #   - \S+ : Matches one or more non-whitespace characters (for variables).
-    ARG_SYNTAX = /([\w-]+)\s*=\s*((['"])(?:(?!\3).)*\3|\S+)/o
+  module UI
+    module Tags
+      # Liquid tag for generating formatted citations from bibliographic data.
+      # Accepts multiple named parameters for citation components.
+      class CitationTag < Liquid::Tag
+        # Regex for parsing "key='value'" or "key=variable" arguments.
+        # - [\w-]+ : Matches the key (alphanumeric, underscore, hyphen).
+        # - \s*=\s* : Matches the equals sign with optional surrounding whitespace.
+        # - (value_pattern) : Captures the value.
+        #   - (['"])(?:(?!\3).)*\3 : Matches a quoted string. \3 backreferences the opening quote.
+        #   - | : OR
+        #   - \S+ : Matches one or more non-whitespace characters (for variables).
+        ARG_SYNTAX = /([\w-]+)\s*=\s*((['"])(?:(?!\3).)*\3|\S+)/o
 
-    def initialize(tag_name, markup, tokens)
-      super
-      @raw_markup = markup.strip # Store the raw markup, stripped of leading/trailing whitespace
-      @attributes_markup = {} # Hash to store the raw markup for each attribute's value
-      parse_markup(@raw_markup)
-    end
+        def initialize(tag_name, markup, tokens)
+          super
+          @raw_markup = markup.strip # Store the raw markup, stripped of leading/trailing whitespace
+          @attributes_markup = {} # Hash to store the raw markup for each attribute's value
+          parse_markup(@raw_markup)
+        end
 
-    def render(context)
-      # Get the site object from the Liquid context registers
-      site = context.registers[:site]
+        def render(context)
+          # Get the site object from the Liquid context registers
+          site = context.registers[:site]
 
-      # Hash to hold the resolved values of the parameters
-      resolved_params = {}
+          # Hash to hold the resolved values of the parameters
+          resolved_params = {}
 
-      # Iterate over the stored attribute markups and resolve their actual values
-      @attributes_markup.each do |key, value_markup|
-        resolved_params[key] = TagArgumentUtils.resolve_value(value_markup, context)
+          # Iterate over the stored attribute markups and resolve their actual values
+          @attributes_markup.each do |key, value_markup|
+            resolved_params[key] = Jekyll::Infrastructure::TagArgumentUtils.resolve_value(value_markup, context)
+          end
+
+          # Delegate the HTML formatting to the Jekyll::UI::Citations::CitationUtils module
+          # This utility is responsible for handling nil/empty values gracefully.
+          Jekyll::UI::Citations::CitationUtils.format_citation_html(resolved_params, site)
+        end
+
+        private
+
+        def parse_markup(markup)
+          # Use StringScanner to parse the arguments
+          scanner = StringScanner.new(markup)
+
+          # Loop through the markup, matching key=value pairs
+          while scanner.scan(ARG_SYNTAX)
+            key = scanner[1]          # The captured key (e.g., "author_last")
+            value_markup = scanner[2] # The captured raw value markup (e.g., "'Doe'" or "page.author")
+
+            # Store the raw value markup, to be resolved later in the render context
+            @attributes_markup[key.to_sym] = value_markup
+
+            scanner.skip(/\s*/) # Skip any whitespace before the next argument
+          end
+
+          # After the loop, if the scanner is not at the end of the string,
+          # it means there was some unparseable text, indicating a syntax error.
+          return if scanner.eos?
+
+          raise Liquid::SyntaxError,
+                "Syntax Error in 'citation' tag: Invalid arguments near '#{scanner.rest}' in '#{markup}'"
+        end
       end
-
-      # Delegate the HTML formatting to the CitationUtils module
-      # This utility is responsible for handling nil/empty values gracefully.
-      CitationUtils.format_citation_html(resolved_params, site)
-    end
-
-    private
-
-    def parse_markup(markup)
-      # Use StringScanner to parse the arguments
-      scanner = StringScanner.new(markup)
-
-      # Loop through the markup, matching key=value pairs
-      while scanner.scan(ARG_SYNTAX)
-        key = scanner[1]          # The captured key (e.g., "author_last")
-        value_markup = scanner[2] # The captured raw value markup (e.g., "'Doe'" or "page.author")
-
-        # Store the raw value markup, to be resolved later in the render context
-        @attributes_markup[key.to_sym] = value_markup
-
-        scanner.skip(/\s*/) # Skip any whitespace before the next argument
-      end
-
-      # After the loop, if the scanner is not at the end of the string,
-      # it means there was some unparseable text, indicating a syntax error.
-      return if scanner.eos?
-
-      raise Liquid::SyntaxError,
-            "Syntax Error in 'citation' tag: Invalid arguments near '#{scanner.rest}' in '#{markup}'"
     end
   end
 end
 
 # Register the tag with Liquid
-Liquid::Template.register_tag('citation', Jekyll::CitationTag)
+Liquid::Template.register_tag('citation', Jekyll::UI::Tags::CitationTag)

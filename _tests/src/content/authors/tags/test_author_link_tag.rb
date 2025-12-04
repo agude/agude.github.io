@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/authors/tags/author_link_tag' # Load the tag
 
-# Tests for AuthorLinkTag Liquid tag.
+# Tests for Jekyll::Authors::Tags::AuthorLinkTag Liquid tag.
 #
 # Verifies that the tag correctly renders author links with optional possessive forms.
 class TestAuthorLinkTag < Minitest::Test
@@ -32,10 +32,10 @@ class TestAuthorLinkTag < Minitest::Test
         link_text_override: link_text_override,
         possessive: possessive
       }
-      "<!-- AuthorLinkUtils called with name: #{name}, link_text: #{link_text_override}, " \
+      "<!-- Jekyll::Authors::AuthorLinkUtils called with name: #{name}, link_text: #{link_text_override}, " \
         "possessive: #{possessive} -->"
     end
-    AuthorLinkUtils.stub :render_author_link, stub_render_author_link do
+    Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, stub_render_author_link do
       template = Liquid::Template.parse("{% author_link #{markup} %}")
       output = template.render!(context)
       return output, captured_args
@@ -51,7 +51,7 @@ class TestAuthorLinkTag < Minitest::Test
   end
 
   # This test is changed: The tag should parse '' successfully.
-  # The utility AuthorLinkUtils will handle the empty resolved name.
+  # The utility Jekyll::Authors::AuthorLinkUtils will handle the empty resolved name.
   def test_render_author_name_empty_string_literal_passes_empty_to_util
     _output, captured_args = parse_and_capture_args("''")
     assert_equal '', captured_args[:name], "Tag should resolve '' to an empty string for the utility"

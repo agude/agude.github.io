@@ -6,34 +6,41 @@ require 'liquid'
 require_relative '../reviews/finder'
 require_relative '../reviews/renderer'
 
+# Displays previous reviews of the same book sorted by date.
+#
+# Finds all book reviews that share the same canonical URL and displays
+# them chronologically.
+#
+# Usage in Liquid templates:
 module Jekyll
-  # Displays previous reviews of the same book sorted by date.
-  #
-  # Finds all book reviews that share the same canonical URL and displays
-  # them chronologically.
-  #
-  # Usage in Liquid templates:
   #   {% display_previous_reviews %}
-  class DisplayPreviousReviewsTag < Liquid::Tag
-    def initialize(tag_name, markup, tokens)
-      super
-      return if markup.strip.empty?
+  module Books
+    module Tags
+      # Liquid tag for displaying previous reviews of the same book.
+      # Shows all reviews that share the same canonical URL, sorted chronologically.
+      class DisplayPreviousReviewsTag < Liquid::Tag
+        def initialize(tag_name, markup, tokens)
+          super
+          return if markup.strip.empty?
 
-      raise Liquid::SyntaxError, "Syntax Error in 'display_previous_reviews': This tag does not accept any arguments."
-    end
+          raise Liquid::SyntaxError,
+                "Syntax Error in 'display_previous_reviews': This tag does not accept any arguments."
+        end
 
-    def render(context)
-      finder = Jekyll::PreviousReviews::Finder.new(context)
-      result = finder.find
+        def render(context)
+          finder = Jekyll::Books::Reviews::PreviousReviews::Finder.new(context)
+          result = finder.find
 
-      return result[:logs] if result[:reviews].empty?
+          return result[:logs] if result[:reviews].empty?
 
-      renderer = Jekyll::PreviousReviews::Renderer.new(context, result[:reviews])
-      html_output = renderer.render
+          renderer = Jekyll::Books::Reviews::PreviousReviews::Renderer.new(context, result[:reviews])
+          html_output = renderer.render
 
-      result[:logs] + html_output
+          result[:logs] + html_output
+        end
+      end
     end
   end
 end
 
-Liquid::Template.register_tag('display_previous_reviews', Jekyll::DisplayPreviousReviewsTag)
+Liquid::Template.register_tag('display_previous_reviews', Jekyll::Books::Tags::DisplayPreviousReviewsTag)

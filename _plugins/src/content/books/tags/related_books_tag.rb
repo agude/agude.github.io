@@ -8,34 +8,40 @@ require 'cgi'
 require_relative '../related/finder'
 require_relative '../related/renderer'
 
+# Displays related book reviews based on series, author, and recency.
+#
+# Shows books from the same series, by the same authors, or recent reviews
+# to provide contextual recommendations.
+#
+# Usage in Liquid templates:
 module Jekyll
-  # Displays related book reviews based on series, author, and recency.
-  #
-  # Shows books from the same series, by the same authors, or recent reviews
-  # to provide contextual recommendations.
-  #
-  # Usage in Liquid templates:
   #   {% related_books %}
-  class RelatedBooksTag < Liquid::Tag
-    DEFAULT_MAX_BOOKS = 3
+  module Books
+    module Tags
+      # Liquid tag for displaying related book reviews.
+      # Shows books from the same series, by the same authors, or recent reviews.
+      class RelatedBooksTag < Liquid::Tag
+        DEFAULT_MAX_BOOKS = 3
 
-    def initialize(tag_name, markup, tokens)
-      super
-      @max_books = DEFAULT_MAX_BOOKS
-    end
+        def initialize(tag_name, markup, tokens)
+          super
+          @max_books = DEFAULT_MAX_BOOKS
+        end
 
-    def render(context)
-      finder = Jekyll::RelatedBooks::Finder.new(context, @max_books)
-      result = finder.find
+        def render(context)
+          finder = Jekyll::Books::Related::RelatedBooks::Finder.new(context, @max_books)
+          result = finder.find
 
-      return result[:logs] if result[:books].empty?
+          return result[:logs] if result[:books].empty?
 
-      renderer = Jekyll::RelatedBooks::Renderer.new(context, result[:books])
-      html_output = renderer.render
+          renderer = Jekyll::Books::Related::RelatedBooks::Renderer.new(context, result[:books])
+          html_output = renderer.render
 
-      result[:logs] + html_output
+          result[:logs] + html_output
+        end
+      end
     end
   end
 end
 
-Liquid::Template.register_tag('related_books', Jekyll::RelatedBooksTag)
+Liquid::Template.register_tag('related_books', Jekyll::Books::Tags::RelatedBooksTag)

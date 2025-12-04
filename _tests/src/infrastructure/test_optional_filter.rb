@@ -4,13 +4,13 @@
 require 'test_helper'
 require 'src/infrastructure/optional_filter'
 
-# Tests for OptionalFilter.
+# Tests for Jekyll::Infrastructure::OptionalFilter.
 #
 # Verifies that the filter safely handles missing keys, nil objects,
 # and type mismatches (e.g. accessing an Array with a String key)
 # to prevent Liquid strict_variables from crashing the build.
 class TestOptionalFilter < Minitest::Test
-  include Jekyll::OptionalFilter
+  include Jekyll::Infrastructure::OptionalFilter
 
   # A mock class that behaves like a Jekyll Drop (responds to [])
   class MockDrop

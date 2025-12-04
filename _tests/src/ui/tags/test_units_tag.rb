@@ -4,7 +4,7 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/ui/tags/units_tag' # Load the tag
 
-# Tests for UnitsTag Liquid tag.
+# Tests for Jekyll::UI::Tags::UnitsTag Liquid tag.
 #
 # Verifies that the tag correctly formats numbers with unit abbreviations.
 class TestUnitsTag < Minitest::Test
@@ -36,7 +36,7 @@ class TestUnitsTag < Minitest::Test
 
   def render_tag(markup, context = @context)
     output = ''
-    # Stub Jekyll.logger to silence console output from PluginLoggerUtils during tests
+    # Stub Jekyll.logger to silence console output from Jekyll::Infrastructure::PluginLoggerUtils during tests
     # unless a specific test is designed to capture it.
     Jekyll.stub :logger, @silent_logger_stub do
       output = Liquid::Template.parse("{% units #{markup} %}").render!(context)

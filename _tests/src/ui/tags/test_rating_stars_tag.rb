@@ -4,7 +4,7 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/ui/tags/rating_stars_tag'
 
-# Tests for RatingStarsTag Liquid tag.
+# Tests for Jekyll::UI::Tags::RatingStarsTag Liquid tag.
 #
 # Verifies that the tag correctly renders star ratings with proper HTML.
 class TestRatingStarsTag < Minitest::Test

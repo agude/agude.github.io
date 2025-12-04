@@ -2,9 +2,9 @@
 
 # _tests/plugins/test_link_cache_generator_short_stories.rb
 require_relative '../../test_helper'
-# LinkCacheGenerator is loaded by test_helper
+# Jekyll::Infrastructure::LinkCacheGenerator is loaded by test_helper
 
-# Tests for LinkCacheGenerator short story caching functionality.
+# Tests for Jekyll::Infrastructure::LinkCacheGenerator short story caching functionality.
 #
 # Verifies that the generator correctly extracts and caches short stories from anthology books.
 class TestLinkCacheGeneratorShortStories < Minitest::Test
@@ -84,7 +84,7 @@ class TestLinkCacheGeneratorShortStories < Minitest::Test
       '### {% short_story_title "Unpublished Story" %}'
     )
 
-    # The create_site helper automatically runs the LinkCacheGenerator,
+    # The create_site helper automatically runs the Jekyll::Infrastructure::LinkCacheGenerator,
     # so the cache will be populated and ready for assertions.
     @site = create_site(
       {}, # config

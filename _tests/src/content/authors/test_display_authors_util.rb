@@ -4,7 +4,7 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/content/authors/display_authors_util'
 
-# Tests for DisplayAuthorsUtil module.
+# Tests for Jekyll::Authors::DisplayAuthorsUtil module.
 #
 # Verifies that the utility correctly processes author lists and generates
 # HTML output with proper linking and formatting.
@@ -13,22 +13,22 @@ class TestDisplayAuthorsUtil < Minitest::Test
     @site = create_site({ 'url' => 'http://example.com' })
     @context = create_context({}, { site: @site })
 
-    # Mock AuthorLinkUtils to return predictable output
-    @original_render_author_link = AuthorLinkUtils.method(:render_author_link)
-    AuthorLinkUtils.define_singleton_method(:render_author_link) do |name, _context|
+    # Mock Jekyll::Authors::AuthorLinkUtils to return predictable output
+    @original_render_author_link = Jekyll::Authors::AuthorLinkUtils.method(:render_author_link)
+    Jekyll::Authors::AuthorLinkUtils.define_singleton_method(:render_author_link) do |name, _context|
       "<a href=\"/authors/#{name.downcase.gsub(' ', '-')}.html\">#{name}</a>"
     end
   end
 
   def teardown
-    # Restore original AuthorLinkUtils method
-    AuthorLinkUtils.define_singleton_method(:render_author_link, @original_render_author_link)
+    # Restore original Jekyll::Authors::AuthorLinkUtils method
+    Jekyll::Authors::AuthorLinkUtils.define_singleton_method(:render_author_link, @original_render_author_link)
   end
 
   # --- Single Author Tests ---
 
   def test_single_author_linked
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: 'Isaac Asimov',
       context: @context,
       linked: true
@@ -38,7 +38,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_single_author_not_linked
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: 'Isaac Asimov',
       context: @context,
       linked: false
@@ -48,7 +48,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_single_author_from_array
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov'],
       context: @context,
       linked: true
@@ -58,7 +58,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_single_author_with_special_characters
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: 'Ursula K. Le Guin',
       context: @context,
       linked: true
@@ -70,7 +70,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   # --- Two Authors Tests ---
 
   def test_two_authors_linked
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
       linked: true
@@ -82,7 +82,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_two_authors_not_linked
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
       linked: false
@@ -96,7 +96,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   # --- Three Authors Tests ---
 
   def test_three_authors_linked
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke'],
       context: @context,
       linked: true
@@ -109,7 +109,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_three_authors_not_linked
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke'],
       context: @context,
       linked: false
@@ -124,7 +124,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   # --- Four Authors Tests ---
 
   def test_four_authors_linked
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke', 'Frederik Pohl'],
       context: @context,
       linked: true
@@ -138,7 +138,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_four_authors_not_linked
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke', 'Frederik Pohl'],
       context: @context,
       linked: false
@@ -154,7 +154,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   # --- Et Al Tests ---
 
   def test_et_al_after_one
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
       linked: true,
@@ -166,7 +166,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_et_al_after_two
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke'],
       context: @context,
       linked: true,
@@ -178,7 +178,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_et_al_after_three
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke', 'Frederik Pohl'],
       context: @context,
       linked: true,
@@ -190,7 +190,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_et_al_does_not_truncate_when_threshold_equals_author_count
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
       linked: true,
@@ -203,7 +203,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_et_al_does_not_truncate_when_threshold_exceeds_author_count
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
       linked: true,
@@ -216,7 +216,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_et_al_not_linked
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke'],
       context: @context,
       linked: false,
@@ -228,7 +228,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_et_al_with_zero_threshold_shows_all
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
       linked: true,
@@ -241,7 +241,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_et_al_with_negative_threshold_shows_all
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
       linked: true,
@@ -256,7 +256,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   # --- String Input Tests ---
 
   def test_string_input_single_author
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: 'Isaac Asimov',
       context: @context,
       linked: true
@@ -269,7 +269,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   # --- Edge Cases ---
 
   def test_empty_string_returns_empty
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: '',
       context: @context,
       linked: true
@@ -279,7 +279,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_empty_array_returns_empty
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: [],
       context: @context,
       linked: true
@@ -289,7 +289,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_nil_input_returns_empty
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: nil,
       context: @context,
       linked: true
@@ -299,7 +299,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_linked_defaults_to_true
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: 'Isaac Asimov',
       context: @context
     )
@@ -308,7 +308,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_etal_after_defaults_to_nil
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
       linked: true
@@ -322,7 +322,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   # --- HTML Escaping Tests ---
 
   def test_unlinked_authors_are_html_escaped
-    result = DisplayAuthorsUtil.render_author_list(
+    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: '<script>alert("xss")</script>',
       context: @context,
       linked: false

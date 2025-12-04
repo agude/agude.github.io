@@ -4,9 +4,17 @@
 require 'jekyll'
 require_relative 'generic_review_generator_class'
 
-# Generates JSON-LD Review schema for generic reviews.
-module GenericReviewLdGenerator
-  def self.generate_hash(document, site)
-    GenericReviewGenerator.new(document, site).generate
+module Jekyll
+  # Generates JSON-LD Review schema for generic reviews.
+  module SEO
+    module Generators
+      # Utility module for generating JSON-LD Review schema for generic reviews.
+      # Delegates to GenericReviewGenerator class for implementation.
+      module GenericReviewLdGenerator
+        def self.generate_hash(document, site)
+          Jekyll::SEO::Generators::GenericReviewGenerator.new(document, site).generate
+        end
+      end
+    end
   end
 end

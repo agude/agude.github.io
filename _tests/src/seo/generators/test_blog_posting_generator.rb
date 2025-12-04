@@ -4,7 +4,7 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/seo/generators/blog_posting_generator'
 
-# Tests for BlogPostingLdGenerator module.
+# Tests for Jekyll::SEO::Generators::BlogPostingLdGenerator module.
 #
 # Verifies that the generator correctly creates JSON-LD structured data for blog posts.
 class TestBlogPostingLdGenerator < Minitest::Test
@@ -21,30 +21,30 @@ class TestBlogPostingLdGenerator < Minitest::Test
   def test_generate_hash_basic_post
     doc = create_basic_post_doc
     expected = build_expected_basic_post_hash
-    assert_equal expected, BlogPostingLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_excerpt_and_description
     doc = create_excerpt_and_description_doc
     expected = build_expected_excerpt_hash
-    assert_equal expected, BlogPostingLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_description_no_excerpt
     doc = create_description_no_excerpt_doc
     expected = build_expected_description_hash
-    assert_equal expected, BlogPostingLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_image_and_last_modified
     doc = create_image_and_modified_doc
     expected = build_expected_image_modified_hash
-    assert_equal expected, BlogPostingLdGenerator.generate_hash(doc, @site)
+    assert_equal expected, Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_with_long_description_truncation
     doc = create_long_description_doc
-    result_hash = BlogPostingLdGenerator.generate_hash(doc, @site)
+    result_hash = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
     expected_truncated_desc = build_expected_truncated_description
     assert_equal expected_truncated_desc, result_hash['description']
     assert result_hash.key?('headline')
@@ -52,7 +52,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
 
   def test_generate_hash_minimal_data
     doc = create_minimal_doc
-    actual_hash = BlogPostingLdGenerator.generate_hash(doc, @site)
+    actual_hash = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
     assert_minimal_hash_structure(actual_hash)
     assert_date_fields_present_and_valid(actual_hash)
     assert_expected_keys_only(actual_hash)

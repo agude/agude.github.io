@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/ranking/finder'
 
-# Tests for Jekyll::RankedByBacklinks::Finder.
+# Tests for Jekyll::Books::Ranking::RankedByBacklinks::Finder.
 #
 # Verifies that the Finder correctly processes backlinks cache and ranks books.
 class TestRankedByBacklinksFinder < Minitest::Test
@@ -23,7 +23,7 @@ class TestRankedByBacklinksFinder < Minitest::Test
   def test_returns_empty_ranked_list_when_no_backlinks_exist
     @site.data['link_cache']['backlinks'] = {}
 
-    finder = Jekyll::RankedByBacklinks::Finder.new(@context)
+    finder = Jekyll::Books::Ranking::RankedByBacklinks::Finder.new(@context)
     result = finder.find
 
     assert_equal '', result[:logs]
@@ -33,7 +33,7 @@ class TestRankedByBacklinksFinder < Minitest::Test
   def test_finds_and_ranks_books_correctly_sorted
     setup_backlink_data_for_ranking_test
 
-    finder = Jekyll::RankedByBacklinks::Finder.new(@context)
+    finder = Jekyll::Books::Ranking::RankedByBacklinks::Finder.new(@context)
     result = finder.find
 
     assert_equal '', result[:logs]
@@ -59,7 +59,7 @@ class TestRankedByBacklinksFinder < Minitest::Test
     fresh_context = create_context({}, { site: fresh_site })
     fresh_site.config['plugin_logging']['RANKED_BY_BACKLINKS'] = true
 
-    finder = Jekyll::RankedByBacklinks::Finder.new(fresh_context)
+    finder = Jekyll::Books::Ranking::RankedByBacklinks::Finder.new(fresh_context)
     result = nil
 
     capture_io do
@@ -76,7 +76,7 @@ class TestRankedByBacklinksFinder < Minitest::Test
     @site.data['link_cache'].delete('backlinks')
     @site.config['plugin_logging']['RANKED_BY_BACKLINKS'] = true
 
-    finder = Jekyll::RankedByBacklinks::Finder.new(@context)
+    finder = Jekyll::Books::Ranking::RankedByBacklinks::Finder.new(@context)
     result = nil
 
     capture_io do
@@ -92,7 +92,7 @@ class TestRankedByBacklinksFinder < Minitest::Test
     @site.data['link_cache'].delete('books')
     @site.config['plugin_logging']['RANKED_BY_BACKLINKS'] = true
 
-    finder = Jekyll::RankedByBacklinks::Finder.new(@context)
+    finder = Jekyll::Books::Ranking::RankedByBacklinks::Finder.new(@context)
     result = nil
 
     capture_io do
@@ -111,7 +111,7 @@ class TestRankedByBacklinksFinder < Minitest::Test
       '/unknown.html' => [{ source: create_doc, type: 'book' }]
     }
 
-    finder = Jekyll::RankedByBacklinks::Finder.new(@context)
+    finder = Jekyll::Books::Ranking::RankedByBacklinks::Finder.new(@context)
     result = finder.find
 
     assert_equal 1, result[:ranked_list].length

@@ -4,13 +4,13 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/related_books_tag'
 
-# Integration tests for RelatedBooksTag Liquid tag.
+# Integration tests for Jekyll::Books::Tags::RelatedBooksTag Liquid tag.
 #
 # Tests the full orchestration of the tag, verifying that the Finder and
 # Renderer work together correctly. Unit tests for Finder and Renderer are in
 # _tests/plugins/logic/related_books/.
 class TestRelatedBooksTag < Minitest::Test
-  DEFAULT_MAX_BOOKS = Jekyll::RelatedBooksTag::DEFAULT_MAX_BOOKS
+  DEFAULT_MAX_BOOKS = Jekyll::Books::Tags::RelatedBooksTag::DEFAULT_MAX_BOOKS
 
   def setup
     @site_config_base = {
@@ -195,7 +195,7 @@ class TestRelatedBooksTag < Minitest::Test
       output = ''
       Time.stub :now, @test_time_now do
         Jekyll.stub :logger, @silent_logger_stub do
-          BookCardUtils.stub :render, ->(book_obj, _ctx) { "<!-- Card for: #{book_obj.data['title']} -->\n" } do
+          Jekyll::Books::Core::BookCardUtils.stub :render, ->(book_obj, _ctx) { "<!-- Card for: #{book_obj.data['title']} -->\n" } do
             output = Liquid::Template.parse('{% related_books %}').render!(context)
           end
         end

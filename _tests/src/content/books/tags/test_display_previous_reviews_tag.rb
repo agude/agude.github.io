@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/display_previous_reviews_tag'
 
-# Tests for DisplayPreviousReviewsTag Liquid tag.
+# Tests for Jekyll::Books::Tags::DisplayPreviousReviewsTag Liquid tag.
 #
 # Verifies that the tag correctly orchestrates between Finder and Renderer.
 class TestDisplayPreviousReviewsTag < Minitest::Test
@@ -26,7 +26,7 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, { logs: '<!-- Log message -->', reviews: [] }
 
-    Jekyll::PreviousReviews::Finder.stub :new, ->(_context) { mock_finder } do
+    Jekyll::Books::Reviews::PreviousReviews::Finder.stub :new, ->(_context) { mock_finder } do
       output = render_tag
 
       assert_equal '<!-- Log message -->', output
@@ -43,8 +43,8 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<aside>HTML output</aside>'
 
-    Jekyll::PreviousReviews::Finder.stub :new, ->(_context) { mock_finder } do
-      Jekyll::PreviousReviews::Renderer.stub :new, lambda { |_context, reviews|
+    Jekyll::Books::Reviews::PreviousReviews::Finder.stub :new, ->(_context) { mock_finder } do
+      Jekyll::Books::Reviews::PreviousReviews::Renderer.stub :new, lambda { |_context, reviews|
         assert_equal [mock_doc], reviews
         mock_renderer
       } do
@@ -66,8 +66,8 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<aside>HTML</aside>'
 
-    Jekyll::PreviousReviews::Finder.stub :new, ->(_context) { mock_finder } do
-      Jekyll::PreviousReviews::Renderer.stub :new, ->(_context, _reviews) { mock_renderer } do
+    Jekyll::Books::Reviews::PreviousReviews::Finder.stub :new, ->(_context) { mock_finder } do
+      Jekyll::Books::Reviews::PreviousReviews::Renderer.stub :new, ->(_context, _reviews) { mock_renderer } do
         output = render_tag
 
         assert_equal '<!-- Debug log --><aside>HTML</aside>', output
@@ -88,11 +88,11 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<aside>HTML</aside>'
 
-    Jekyll::PreviousReviews::Finder.stub :new, lambda { |context|
+    Jekyll::Books::Reviews::PreviousReviews::Finder.stub :new, lambda { |context|
       context_passed_to_finder = context
       mock_finder
     } do
-      Jekyll::PreviousReviews::Renderer.stub :new, lambda { |context, _reviews|
+      Jekyll::Books::Reviews::PreviousReviews::Renderer.stub :new, lambda { |context, _reviews|
         context_passed_to_renderer = context
         mock_renderer
       } do

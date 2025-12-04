@@ -4,7 +4,7 @@
 require_relative '../../test_helper'
 require_relative '../../../_plugins/src/infrastructure/log_failure_tag' # Load the tag
 
-# Tests for LogFailureTag Liquid tag.
+# Tests for Jekyll::Infrastructure::LogFailureTag Liquid tag.
 #
 # Verifies that the tag correctly logs failures with custom types and identifiers.
 class TestLogFailureTag < Minitest::Test
@@ -62,7 +62,7 @@ class TestLogFailureTag < Minitest::Test
     mock_return_value = '<!-- MY_CUSTOM_ERROR LOGGED -->'
 
     captured_args = nil
-    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
       captured_args = args
       mock_return_value
     } do
@@ -70,7 +70,7 @@ class TestLogFailureTag < Minitest::Test
       assert_equal mock_return_value, output
     end
 
-    refute_nil captured_args, 'PluginLoggerUtils.log_liquid_failure should have been called'
+    refute_nil captured_args, 'Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure should have been called'
     assert_equal @context, captured_args[:context]
     assert_equal expected_log_type, captured_args[:tag_type]
     assert_equal expected_reason, captured_args[:reason]
@@ -89,7 +89,7 @@ class TestLogFailureTag < Minitest::Test
 
     mock_return_value = '<!-- LOGGED WITH LITERALS -->'
     captured_args = nil
-    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
       captured_args = args
       mock_return_value
     } do
@@ -98,7 +98,7 @@ class TestLogFailureTag < Minitest::Test
     end
 
     refute_nil captured_args
-    # Assertion will now expect original casing due to fix in LogFailureTag
+    # Assertion will now expect original casing due to fix in Jekyll::Infrastructure::LogFailureTag
     assert_equal expected_identifiers_corrected, captured_args[:identifiers]
   end
 
@@ -112,7 +112,7 @@ class TestLogFailureTag < Minitest::Test
     mock_return_value = '<!-- LOGGED WITH VARIABLES -->'
 
     captured_args = nil
-    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
       captured_args = args
       mock_return_value
     } do
@@ -134,7 +134,7 @@ class TestLogFailureTag < Minitest::Test
     mock_return_value = '<!-- LOGGED MIXED -->'
 
     captured_args = nil
-    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
       captured_args = args
       mock_return_value
     } do
@@ -155,7 +155,7 @@ class TestLogFailureTag < Minitest::Test
     }
     mock_return_value = '<!-- KEY TEST -->'
     captured_args = nil
-    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
       captured_args = args
       mock_return_value
     } do

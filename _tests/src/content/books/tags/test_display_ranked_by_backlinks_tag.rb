@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/display_ranked_by_backlinks_tag'
 
-# Tests for DisplayRankedByBacklinksTag Liquid tag.
+# Tests for Jekyll::Books::Tags::DisplayRankedByBacklinksTag Liquid tag.
 #
 # Verifies that the tag correctly orchestrates between Finder and Renderer.
 class TestDisplayRankedByBacklinksTag < Minitest::Test
@@ -23,8 +23,8 @@ class TestDisplayRankedByBacklinksTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<p>No books have been mentioned yet.</p>'
 
-    Jekyll::RankedByBacklinks::Finder.stub :new, ->(_context) { mock_finder } do
-      Jekyll::RankedByBacklinks::Renderer.stub :new, lambda { |_context, ranked_list|
+    Jekyll::Books::Ranking::RankedByBacklinks::Finder.stub :new, ->(_context) { mock_finder } do
+      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new, lambda { |_context, ranked_list|
         assert_equal [], ranked_list
         mock_renderer
       } do
@@ -48,8 +48,8 @@ class TestDisplayRankedByBacklinksTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<ol>HTML output</ol>'
 
-    Jekyll::RankedByBacklinks::Finder.stub :new, ->(_context) { mock_finder } do
-      Jekyll::RankedByBacklinks::Renderer.stub :new, lambda { |_context, ranked_list|
+    Jekyll::Books::Ranking::RankedByBacklinks::Finder.stub :new, ->(_context) { mock_finder } do
+      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new, lambda { |_context, ranked_list|
         assert_equal mock_ranked_list, ranked_list
         mock_renderer
       } do
@@ -73,8 +73,8 @@ class TestDisplayRankedByBacklinksTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<ol>HTML</ol>'
 
-    Jekyll::RankedByBacklinks::Finder.stub :new, ->(_context) { mock_finder } do
-      Jekyll::RankedByBacklinks::Renderer.stub :new, ->(_context, _ranked_list) { mock_renderer } do
+    Jekyll::Books::Ranking::RankedByBacklinks::Finder.stub :new, ->(_context) { mock_finder } do
+      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new, ->(_context, _ranked_list) { mock_renderer } do
         output = render_tag
 
         assert_equal '<!-- Debug log --><ol>HTML</ol>', output
@@ -95,11 +95,11 @@ class TestDisplayRankedByBacklinksTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<ol>HTML</ol>'
 
-    Jekyll::RankedByBacklinks::Finder.stub :new, lambda { |context|
+    Jekyll::Books::Ranking::RankedByBacklinks::Finder.stub :new, lambda { |context|
       context_passed_to_finder = context
       mock_finder
     } do
-      Jekyll::RankedByBacklinks::Renderer.stub :new, lambda { |context, _ranked_list|
+      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new, lambda { |context, _ranked_list|
         context_passed_to_renderer = context
         mock_renderer
       } do

@@ -3,7 +3,7 @@
 # _tests/plugins/utils/test_card_data_extractor_utils.rb
 require_relative '../../../test_helper'
 
-# Tests for CardDataExtractorUtils module.
+# Tests for Jekyll::UI::Cards::CardDataExtractorUtils module.
 #
 # Verifies that the utility correctly extracts and validates card data from documents.
 class TestCardDataExtractorUtils < Minitest::Test
@@ -112,7 +112,7 @@ class TestCardDataExtractorUtils < Minitest::Test
 
     result = nil
     Jekyll.stub :logger, mock_logger do
-      result = CardDataExtractorUtils.extract_base_data(create_doc, nil, log_tag_type: 'CTX_TEST')
+      result = Jekyll::UI::Cards::CardDataExtractorUtils.extract_base_data(create_doc, nil, log_tag_type: 'CTX_TEST')
     end
 
     assert_equal '', result[:log_output]
@@ -132,7 +132,7 @@ class TestCardDataExtractorUtils < Minitest::Test
     context_no_site = create_context({}, {})
     result = nil
     Jekyll.stub :logger, mock_logger do
-      result = CardDataExtractorUtils.extract_base_data(create_doc, context_no_site, log_tag_type: 'CTX_NO_SITE')
+      result = Jekyll::UI::Cards::CardDataExtractorUtils.extract_base_data(create_doc, context_no_site, log_tag_type: 'CTX_NO_SITE')
     end
 
     assert_equal '', result[:log_output]
@@ -153,26 +153,26 @@ class TestCardDataExtractorUtils < Minitest::Test
 
   def test_extract_description_html_strips_whitespace
     data_book = { 'excerpt' => Struct.new(:output).new("  <p>Content</p>  \n") }
-    assert_equal '<p>Content</p>', CardDataExtractorUtils.extract_description_html(data_book, type: :book)
+    assert_equal '<p>Content</p>', Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_book, type: :book)
 
     data_article = { 'description' => '  Article Desc  ' }
-    assert_equal 'Article Desc', CardDataExtractorUtils.extract_description_html(data_article, type: :article)
+    assert_equal 'Article Desc', Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_article, type: :article)
   end
 
   def test_extract_description_html_handles_nil_data_hash
-    assert_equal '', CardDataExtractorUtils.extract_description_html(nil, type: :article)
-    assert_equal '', CardDataExtractorUtils.extract_description_html(nil, type: :book)
+    assert_equal '', Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(nil, type: :article)
+    assert_equal '', Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(nil, type: :book)
   end
 
   def test_extract_description_html_excerpt_as_plain_string
     # This tests line 49 where excerpt exists but doesn't respond to :output
     data_with_string_excerpt = { 'excerpt' => 'Plain string excerpt content' }
     assert_equal 'Plain string excerpt content',
-                 CardDataExtractorUtils.extract_description_html(data_with_string_excerpt, type: :book)
+                 Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_with_string_excerpt, type: :book)
 
     # For articles, if description is missing, should fall back to excerpt
     assert_equal 'Plain string excerpt content',
-                 CardDataExtractorUtils.extract_description_html(data_with_string_excerpt, type: :article)
+                 Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_with_string_excerpt, type: :article)
   end
 
   def test_extract_base_data_with_drop_object
@@ -218,7 +218,7 @@ class TestCardDataExtractorUtils < Minitest::Test
 
   def extract_base_data_with_silent_logger(item, context, **options)
     Jekyll.stub :logger, @silent_logger_stub do
-      CardDataExtractorUtils.extract_base_data(item, context, **options)
+      Jekyll::UI::Cards::CardDataExtractorUtils.extract_base_data(item, context, **options)
     end
   end
 
@@ -226,7 +226,7 @@ class TestCardDataExtractorUtils < Minitest::Test
     result = nil
     _stdout_str, stderr_str = capture_io do
       Jekyll.stub :logger, @silent_logger_stub do
-        result = CardDataExtractorUtils.extract_base_data(item, context, log_tag_type: log_tag_type)
+        result = Jekyll::UI::Cards::CardDataExtractorUtils.extract_base_data(item, context, log_tag_type: log_tag_type)
       end
     end
     [result, stderr_str]
@@ -267,15 +267,15 @@ class TestCardDataExtractorUtils < Minitest::Test
 
   def assert_article_description_results(data_sets)
     assert_equal 'Article Description.',
-                 CardDataExtractorUtils.extract_description_html(data_sets[:desc_only], type: :article)
+                 Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_sets[:desc_only], type: :article)
     assert_equal '<p>Article Excerpt Output</p>',
-                 CardDataExtractorUtils.extract_description_html(data_sets[:excerpt_only], type: :article)
+                 Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_sets[:excerpt_only], type: :article)
     assert_equal 'Article Description Wins.',
-                 CardDataExtractorUtils.extract_description_html(data_sets[:both], type: :article)
+                 Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_sets[:both], type: :article)
     assert_equal 'Fallback Excerpt.',
-                 CardDataExtractorUtils.extract_description_html(data_sets[:desc_empty_fallback], type: :article)
-    assert_equal '', CardDataExtractorUtils.extract_description_html(data_sets[:neither], type: :article)
-    assert_equal '', CardDataExtractorUtils.extract_description_html(data_sets[:excerpt_nil_output], type: :article)
+                 Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_sets[:desc_empty_fallback], type: :article)
+    assert_equal '', Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_sets[:neither], type: :article)
+    assert_equal '', Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_sets[:excerpt_nil_output], type: :article)
   end
 
   def build_book_description_test_data
@@ -291,13 +291,13 @@ class TestCardDataExtractorUtils < Minitest::Test
   end
 
   def assert_book_description_results(data_sets)
-    assert_equal '', CardDataExtractorUtils.extract_description_html(data_sets[:desc_only], type: :book)
+    assert_equal '', Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_sets[:desc_only], type: :book)
     assert_equal '<p>Book Excerpt Output</p>',
-                 CardDataExtractorUtils.extract_description_html(data_sets[:excerpt_only], type: :book)
+                 Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_sets[:excerpt_only], type: :book)
     assert_equal 'Actual Book Excerpt.',
-                 CardDataExtractorUtils.extract_description_html(data_sets[:both], type: :book)
-    assert_equal '', CardDataExtractorUtils.extract_description_html(data_sets[:neither], type: :book)
-    assert_equal '', CardDataExtractorUtils.extract_description_html(data_sets[:excerpt_nil_output], type: :book)
-    assert_equal '', CardDataExtractorUtils.extract_description_html(data_sets[:nil_item_data], type: :book)
+                 Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_sets[:both], type: :book)
+    assert_equal '', Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_sets[:neither], type: :book)
+    assert_equal '', Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_sets[:excerpt_nil_output], type: :book)
+    assert_equal '', Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_sets[:nil_item_data], type: :book)
   end
 end

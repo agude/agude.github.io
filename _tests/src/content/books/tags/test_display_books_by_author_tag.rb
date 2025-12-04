@@ -3,9 +3,9 @@
 # _tests/plugins/test_display_books_by_author_tag.rb
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/display_books_by_author_tag'
-# BookListUtils, FrontMatterUtils, etc., are loaded by test_helper
+# BookListUtils, Jekyll::Infrastructure::FrontMatterUtils, etc., are loaded by test_helper
 
-# Tests for DisplayBooksByAuthorTag Liquid tag.
+# Tests for Jekyll::Books::Tags::DisplayBooksByAuthorTag Liquid tag.
 #
 # Verifies that the tag correctly displays books filtered by author.
 class TestDisplayBooksByAuthorTag < Minitest::Test

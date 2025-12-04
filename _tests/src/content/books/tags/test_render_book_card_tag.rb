@@ -4,12 +4,12 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/render_book_card_tag' # Load the tag
 
-# Tests for RenderBookCardTag Liquid tag.
+# Tests for Jekyll::Books::Tags::RenderBookCardTag Liquid tag.
 #
 # Verifies that the tag correctly renders book cards from book objects.
 class TestRenderBookCardTag < Minitest::Test
   def setup
-    @site = create_site({ 'url' => 'http://example.com' }) # For BookCardUtils -> CardDataExtractorUtils -> UrlUtils
+    @site = create_site({ 'url' => 'http://example.com' }) # For Jekyll::Books::Core::BookCardUtils -> Jekyll::UI::Cards::CardDataExtractorUtils -> Jekyll::Infrastructure::UrlUtils
     @book_obj = create_doc({ 'title' => 'Test Book', 'path' => 'test-book.md' }, '/test-book.html')
     @context = create_context(
       {
@@ -22,7 +22,7 @@ class TestRenderBookCardTag < Minitest::Test
       { site: @site, page: create_doc({ 'path' => 'current_page.md' }, '/current-page.html') } # Page path for SourcePage
     )
 
-    # Silent logger for tests not asserting specific console output from PluginLoggerUtils
+    # Silent logger for tests not asserting specific console output from Jekyll::Infrastructure::PluginLoggerUtils
     @silent_logger_stub = create_silent_logger
   end
 
@@ -72,7 +72,7 @@ class TestRenderBookCardTag < Minitest::Test
     expected_card_html = "<div class='book-card'>Rendered Test Book</div>"
     captured_args = nil
 
-    BookCardUtils.stub :render, lambda { |book_arg, context_arg, display_title_override: nil, subtitle: nil|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |book_arg, context_arg, display_title_override: nil, subtitle: nil|
       captured_args = { book: book_arg, context: context_arg, display_title_override: display_title_override, subtitle: subtitle }
       expected_card_html
     } do
@@ -80,9 +80,9 @@ class TestRenderBookCardTag < Minitest::Test
       assert_equal expected_card_html, output
     end
 
-    refute_nil captured_args, 'BookCardUtils.render should have been called'
-    assert_equal @book_obj, captured_args[:book], 'Incorrect book object passed to BookCardUtils'
-    assert_equal @context, captured_args[:context], 'Incorrect context passed to BookCardUtils'
+    refute_nil captured_args, 'Jekyll::Books::Core::BookCardUtils.render should have been called'
+    assert_equal @book_obj, captured_args[:book], 'Incorrect book object passed to Jekyll::Books::Core::BookCardUtils'
+    assert_equal @context, captured_args[:context], 'Incorrect context passed to Jekyll::Books::Core::BookCardUtils'
     assert_nil captured_args[:display_title_override], 'display_title_override should be nil by default'
     assert_nil captured_args[:subtitle], 'subtitle should be nil by default'
   end
@@ -91,14 +91,14 @@ class TestRenderBookCardTag < Minitest::Test
     markup = "my_book display_title='My Custom Title'"
     captured_args = nil
 
-    BookCardUtils.stub :render, lambda { |_book_arg, _context_arg, display_title_override: nil, subtitle: nil|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |_book_arg, _context_arg, display_title_override: nil, subtitle: nil|
       captured_args = { display_title_override: display_title_override }
       ''
     } do
       render_tag(markup)
     end
 
-    refute_nil captured_args, 'BookCardUtils.render should have been called'
+    refute_nil captured_args, 'Jekyll::Books::Core::BookCardUtils.render should have been called'
     assert_equal 'My Custom Title', captured_args[:display_title_override]
   end
 
@@ -106,7 +106,7 @@ class TestRenderBookCardTag < Minitest::Test
     markup = "my_book subtitle='My Subtitle'"
     captured_args = nil
 
-    BookCardUtils.stub :render, lambda { |_book_arg, _context_arg, display_title_override: nil, subtitle: nil|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |_book_arg, _context_arg, display_title_override: nil, subtitle: nil|
       captured_args = { subtitle: subtitle }
       ''
     } do
@@ -121,7 +121,7 @@ class TestRenderBookCardTag < Minitest::Test
     markup = 'my_book subtitle=subtitle_var'
     captured_args = nil
 
-    BookCardUtils.stub :render, lambda { |_book_arg, _context_arg, display_title_override: nil, subtitle: nil|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |_book_arg, _context_arg, display_title_override: nil, subtitle: nil|
       captured_args = { subtitle: subtitle }
       ''
     } do
@@ -136,7 +136,7 @@ class TestRenderBookCardTag < Minitest::Test
     markup = 'my_book display_title=title_var' # title_var is 'Title From Variable'
     captured_args = nil
 
-    BookCardUtils.stub :render, lambda { |_book_arg, _context_arg, display_title_override: nil, subtitle: nil|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |_book_arg, _context_arg, display_title_override: nil, subtitle: nil|
       captured_args = { display_title_override: display_title_override }
       ''
     } do
@@ -151,7 +151,7 @@ class TestRenderBookCardTag < Minitest::Test
     # Test with an empty string literal
     markup_empty = "my_book display_title=''"
     captured_args_empty = nil
-    BookCardUtils.stub :render, lambda { |_b, _c, display_title_override: nil, subtitle: nil|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |_b, _c, display_title_override: nil, subtitle: nil|
       captured_args_empty = { o: display_title_override }
       ''
     } do
@@ -162,7 +162,7 @@ class TestRenderBookCardTag < Minitest::Test
     # Test with a variable that resolves to nil
     markup_nil = 'my_book display_title=nil_title_var'
     captured_args_nil = nil
-    BookCardUtils.stub :render, lambda { |_b, _c, display_title_override: nil, subtitle: nil|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |_b, _c, display_title_override: nil, subtitle: nil|
       captured_args_nil = { o: display_title_override }
       ''
     } do
@@ -179,7 +179,7 @@ class TestRenderBookCardTag < Minitest::Test
 
     @site.config['plugin_logging']['RENDER_BOOK_CARD_TAG'] = true
 
-    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
       captured_log_args = args
       expected_log_html
     } do
@@ -187,7 +187,7 @@ class TestRenderBookCardTag < Minitest::Test
       assert_equal expected_log_html, output
     end
 
-    refute_nil captured_log_args, 'PluginLoggerUtils.log_liquid_failure should have been called'
+    refute_nil captured_log_args, 'Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure should have been called'
     assert_equal @context, captured_log_args[:context]
     assert_equal 'RENDER_BOOK_CARD_TAG', captured_log_args[:tag_type]
     assert_match "Book object variable '#{markup}' resolved to nil", captured_log_args[:reason]
@@ -201,7 +201,7 @@ class TestRenderBookCardTag < Minitest::Test
 
     @site.config['plugin_logging']['RENDER_BOOK_CARD_TAG'] = true
 
-    PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
       captured_log_args = args
       expected_log_html
     } do
@@ -214,19 +214,19 @@ class TestRenderBookCardTag < Minitest::Test
     assert_match "Book object variable '#{markup}' resolved to nil", captured_log_args[:reason]
   end
 
-  # 4. Render - Failure: BookCardUtils.render raises an error
+  # 4. Render - Failure: Jekyll::Books::Core::BookCardUtils.render raises an error
   def test_render_failure_if_book_card_utils_raises_error
     markup = 'my_book'
-    error_message = 'Something went wrong in BookCardUtils'
+    error_message = 'Something went wrong in Jekyll::Books::Core::BookCardUtils'
     expected_log_html = '<!-- RENDER_BOOK_CARD_TAG: UTIL ERROR -->'
     captured_log_args = nil
 
     @site.config['plugin_logging']['RENDER_BOOK_CARD_TAG'] = true
 
-    BookCardUtils.stub :render, lambda { |_book, _ctx, display_title_override: nil, subtitle: nil|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |_book, _ctx, display_title_override: nil, subtitle: nil|
       raise StandardError, error_message
     } do
-      PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
+      Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
         captured_log_args = args
         expected_log_html
       } do
@@ -235,7 +235,7 @@ class TestRenderBookCardTag < Minitest::Test
       end
     end
 
-    refute_nil captured_log_args, 'PluginLoggerUtils.log_liquid_failure should have been called for util error'
+    refute_nil captured_log_args, 'Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure should have been called for util error'
     assert_equal @context, captured_log_args[:context]
     assert_equal 'RENDER_BOOK_CARD_TAG', captured_log_args[:tag_type]
     assert_match "Error rendering book card: #{error_message}", captured_log_args[:reason]

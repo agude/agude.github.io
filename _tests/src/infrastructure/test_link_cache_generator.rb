@@ -4,7 +4,7 @@
 require_relative '../../test_helper'
 require_relative '../../../_plugins/src/infrastructure/link_cache_generator'
 
-# Base test class with shared setup for LinkCacheGenerator tests
+# Base test class with shared setup for Jekyll::Infrastructure::LinkCacheGenerator tests
 class TestLinkCacheGeneratorBase < Minitest::Test
   def setup
     setup_mock_pages

@@ -4,9 +4,9 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/authors/tags/display_authors_tag'
 
-# Tests for DisplayAuthorsTag Liquid tag.
+# Tests for Jekyll::Authors::Tags::DisplayAuthorsTag Liquid tag.
 #
-# Verifies that the tag correctly parses arguments and delegates to DisplayAuthorsUtil.
+# Verifies that the tag correctly parses arguments and delegates to Jekyll::Authors::DisplayAuthorsUtil.
 class TestDisplayAuthorsTag < Minitest::Test
   def setup
     @site = create_site({ 'url' => 'http://example.com' })
@@ -87,7 +87,7 @@ class TestDisplayAuthorsTag < Minitest::Test
     captured_args = {}
     mock_output = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>'
 
-    DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
       captured_args = args
       mock_output
     } do
@@ -104,7 +104,7 @@ class TestDisplayAuthorsTag < Minitest::Test
   def test_calls_util_with_linked_true_by_default
     captured_args = {}
 
-    DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
       captured_args = args
       '<mock output>'
     } do
@@ -119,7 +119,7 @@ class TestDisplayAuthorsTag < Minitest::Test
   def test_calls_util_with_linked_false_when_specified
     captured_args = {}
 
-    DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
       captured_args = args
       '<mock output>'
     } do
@@ -134,7 +134,7 @@ class TestDisplayAuthorsTag < Minitest::Test
   def test_calls_util_with_linked_variable
     captured_args = {}
 
-    DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
       captured_args = args
       '<mock output>'
     } do
@@ -149,7 +149,7 @@ class TestDisplayAuthorsTag < Minitest::Test
   def test_calls_util_with_etal_after_nil_by_default
     captured_args = {}
 
-    DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
       captured_args = args
       '<mock output>'
     } do
@@ -164,7 +164,7 @@ class TestDisplayAuthorsTag < Minitest::Test
   def test_calls_util_with_etal_after_when_specified
     captured_args = {}
 
-    DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
       captured_args = args
       '<mock output>'
     } do
@@ -179,7 +179,7 @@ class TestDisplayAuthorsTag < Minitest::Test
   def test_calls_util_with_etal_after_variable
     captured_args = {}
 
-    DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
       captured_args = args
       '<mock output>'
     } do
@@ -194,7 +194,7 @@ class TestDisplayAuthorsTag < Minitest::Test
   def test_returns_output_from_util
     mock_output = '<div class="custom-authors">Custom Author HTML</div>'
 
-    DisplayAuthorsUtil.stub :render_author_list, ->(**_args) { mock_output } do
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, ->(**_args) { mock_output } do
       Jekyll.stub :logger, @silent_logger_stub do
         output = Liquid::Template.parse('{% display_authors page.book_authors %}').render!(@context)
 
@@ -207,7 +207,7 @@ class TestDisplayAuthorsTag < Minitest::Test
     # Tests line 73: break if scanner.eos? after skipping whitespace
     captured_args = {}
 
-    DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
       captured_args = args
       '<mock output>'
     } do
@@ -232,7 +232,7 @@ class TestDisplayAuthorsTag < Minitest::Test
     )
     captured_args = {}
 
-    DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
       captured_args = args
       '<mock output>'
     } do
@@ -258,7 +258,7 @@ class TestDisplayAuthorsTag < Minitest::Test
     )
     captured_args = {}
 
-    DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
       captured_args = args
       '<mock output>'
     } do
@@ -284,7 +284,7 @@ class TestDisplayAuthorsTag < Minitest::Test
     )
     captured_args = {}
 
-    DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
       captured_args = args
       '<mock output>'
     } do

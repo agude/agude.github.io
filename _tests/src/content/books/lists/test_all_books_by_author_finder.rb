@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lists/all_books_by_author_finder'
 
-# Tests for Jekyll::BookLists::AllBooksByAuthorFinder functionality.
+# Tests for Jekyll::Books::Lists::Renderers::BookLists::AllBooksByAuthorFinder functionality.
 class TestBookListAllBooksByAuthorFinder < Minitest::Test
   def setup
     # --- Author Names ---
@@ -115,7 +115,7 @@ class TestBookListAllBooksByAuthorFinder < Minitest::Test
 
   def get_all_books_by_author_data(site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      finder = Jekyll::BookLists::AllBooksByAuthorFinder.new(site: site, context: context)
+      finder = Jekyll::Books::Lists::Renderers::BookLists::AllBooksByAuthorFinder.new(site: site, context: context)
       finder.find
     end
   end

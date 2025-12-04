@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/posts/lookups/article_finder'
 
-# Tests for Jekyll::CardLookups::ArticleFinder.
+# Tests for Jekyll::Posts::Lookups::CardLookups::ArticleFinder.
 #
 # Verifies that the ArticleFinder correctly finds posts by URL and handles errors.
 class TestArticleFinder < Minitest::Test
@@ -21,7 +21,7 @@ class TestArticleFinder < Minitest::Test
   end
 
   def test_finds_post_by_url
-    finder = Jekyll::CardLookups::ArticleFinder.new(
+    finder = Jekyll::Posts::Lookups::CardLookups::ArticleFinder.new(
       site: @site,
       url_markup: '"/blog/post-one.html"',
       context: @context
@@ -35,7 +35,7 @@ class TestArticleFinder < Minitest::Test
 
   def test_finds_post_by_url_from_variable
     @context['my_url'] = '/blog/post-two.html'
-    finder = Jekyll::CardLookups::ArticleFinder.new(
+    finder = Jekyll::Posts::Lookups::CardLookups::ArticleFinder.new(
       site: @site,
       url_markup: 'my_url',
       context: @context
@@ -48,7 +48,7 @@ class TestArticleFinder < Minitest::Test
   end
 
   def test_adds_leading_slash_to_url
-    finder = Jekyll::CardLookups::ArticleFinder.new(
+    finder = Jekyll::Posts::Lookups::CardLookups::ArticleFinder.new(
       site: @site,
       url_markup: '"blog/post-three.html"',
       context: @context
@@ -62,7 +62,7 @@ class TestArticleFinder < Minitest::Test
 
   def test_returns_url_error_when_url_markup_resolves_to_nil
     @context['nil_url'] = nil
-    finder = Jekyll::CardLookups::ArticleFinder.new(
+    finder = Jekyll::Posts::Lookups::CardLookups::ArticleFinder.new(
       site: @site,
       url_markup: 'nil_url',
       context: @context
@@ -76,7 +76,7 @@ class TestArticleFinder < Minitest::Test
 
   def test_returns_url_error_when_url_markup_resolves_to_empty
     @context['empty_url'] = '   '
-    finder = Jekyll::CardLookups::ArticleFinder.new(
+    finder = Jekyll::Posts::Lookups::CardLookups::ArticleFinder.new(
       site: @site,
       url_markup: 'empty_url',
       context: @context
@@ -90,7 +90,7 @@ class TestArticleFinder < Minitest::Test
 
   def test_returns_collection_error_when_posts_docs_is_not_array
     bad_site = create_site({ 'url' => 'http://example.com' }, {}, [], 'not_an_array')
-    finder = Jekyll::CardLookups::ArticleFinder.new(
+    finder = Jekyll::Posts::Lookups::CardLookups::ArticleFinder.new(
       site: bad_site,
       url_markup: '"/blog/post-one.html"',
       context: @context
@@ -105,7 +105,7 @@ class TestArticleFinder < Minitest::Test
 
   def test_returns_collection_error_when_posts_is_nil
     @site.instance_variable_set(:@posts, nil)
-    finder = Jekyll::CardLookups::ArticleFinder.new(
+    finder = Jekyll::Posts::Lookups::CardLookups::ArticleFinder.new(
       site: @site,
       url_markup: '"/blog/post-one.html"',
       context: @context
@@ -119,7 +119,7 @@ class TestArticleFinder < Minitest::Test
   end
 
   def test_returns_post_not_found_when_url_does_not_match
-    finder = Jekyll::CardLookups::ArticleFinder.new(
+    finder = Jekyll::Posts::Lookups::CardLookups::ArticleFinder.new(
       site: @site,
       url_markup: '"/blog/nonexistent.html"',
       context: @context
@@ -140,7 +140,7 @@ class TestArticleFinder < Minitest::Test
       [],
       [@post1, duplicate_post, @post2]
     )
-    finder = Jekyll::CardLookups::ArticleFinder.new(
+    finder = Jekyll::Posts::Lookups::CardLookups::ArticleFinder.new(
       site: site_with_duplicate,
       url_markup: '"/blog/post-one.html"',
       context: @context
@@ -157,7 +157,7 @@ class TestArticleFinder < Minitest::Test
     mock_posts = Object.new
     @site.instance_variable_set(:@posts, mock_posts)
 
-    finder = Jekyll::CardLookups::ArticleFinder.new(
+    finder = Jekyll::Posts::Lookups::CardLookups::ArticleFinder.new(
       site: @site,
       url_markup: '"/blog/post-one.html"',
       context: @context

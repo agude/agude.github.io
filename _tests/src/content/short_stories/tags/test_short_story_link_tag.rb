@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/short_stories/tags/short_story_link_tag'
 
-# Tests for ShortStoryLinkTag Liquid tag.
+# Tests for Jekyll::ShortStories::Tags::ShortStoryLinkTag Liquid tag.
 #
 # Verifies that the tag correctly creates links to short stories within anthology books.
 class TestShortStoryLinkTag < Minitest::Test
@@ -23,7 +23,7 @@ class TestShortStoryLinkTag < Minitest::Test
   # Helper to parse the tag and capture arguments passed to the utility
   def parse_and_capture_args(markup, context = @context)
     captured_args = nil
-    ShortStoryLinkUtils.stub :render_short_story_link, lambda { |story_title, ctx, from_book_title|
+    Jekyll::ShortStories::ShortStoryLinkUtils.stub :render_short_story_link, lambda { |story_title, ctx, from_book_title|
       captured_args = { story_title: story_title, context: ctx, from_book_title: from_book_title }
       "<!-- Util called with story: #{story_title}, book: #{from_book_title} -->"
     } do

@@ -4,7 +4,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lists/by_award_finder'
 
-# Tests for Jekyll::BookLists::ByAwardFinder
+# Tests for Jekyll::Books::Lists::Renderers::BookLists::ByAwardFinder
 #
 # Verifies that the finder correctly groups books by award, formats award names,
 # and handles various edge cases including multi-word awards, initials, and case sensitivity.
@@ -88,7 +88,7 @@ class TestBookListByAwardFinder < Minitest::Test
   # Helper to call the finder directly
   def get_all_books_by_award_data(site = @site, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
-      finder = Jekyll::BookLists::ByAwardFinder.new(site: site, context: context)
+      finder = Jekyll::Books::Lists::Renderers::BookLists::ByAwardFinder.new(site: site, context: context)
       finder.find
     end
   end
