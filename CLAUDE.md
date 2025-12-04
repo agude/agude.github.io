@@ -31,16 +31,3 @@ Jekyll-based static site (alexgude.com) running in Docker.
 2.  **Error Handling:** Use `PluginLoggerUtils.log_liquid_failure`.
 3.  **Testing:** Create a matching test file in `_tests/` for every new class.
 4.  **Link Cache:** The site relies on `site.data['link_cache']` (built by `LinkCacheGenerator`) for O(1) lookups of books/authors.
-
-## Commit Style
-**Format:**
-```text
-Short imperative headline (50 chars)
-
-Detailed body explaining *what* and *why*.
-
-Changes:
-- Specific change 1.
-- Specific change 2.
-```
-**Rule:** Use imperative mood ("Refactor" not "Refactored").
