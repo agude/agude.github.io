@@ -63,6 +63,13 @@ Metrics/ParameterLists:
   Exclude:
     - '_tests/**/*'
 
+# Block Length
+# Tests and Rakefiles often have long blocks (setup, assertions, task definitions)
+Metrics/BlockLength:
+  Exclude:
+    - '_tests/**/*'
+    - 'Rakefile'
+
 # ------------------------------------------------------------------
 # 3. Layout & Formatting
 # ------------------------------------------------------------------

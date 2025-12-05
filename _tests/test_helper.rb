@@ -1,6 +1,39 @@
 # frozen_string_literal: true
 
 # _tests/test_helper.rb
+
+# --- SimpleCov Setup ---
+# This must be the VERY FIRST thing in the file to ensure it tracks all loaded code.
+require 'simplecov'
+require 'simplecov-json'
+require 'simplecov/formatter/multi_formatter'
+
+# Configure SimpleCov to output both HTML and JSON reports.
+# HTML is for human review, JSON is for machine parsing (e.g., by Rake tasks).
+formatters = [
+  SimpleCov::Formatter::HTMLFormatter,
+  SimpleCov::Formatter::JSONFormatter
+]
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(formatters)
+
+SimpleCov.start do
+  # Exclude the test files themselves from the coverage report
+  add_filter '_tests/'
+
+  # Group related files for a cleaner report
+  add_group 'Tags', '_plugins'
+  add_group 'Generators', '_plugins'
+  add_group 'Filters', '_plugins'
+  add_group 'Utilities', '_plugins/utils'
+  add_group 'Logic Components', '_plugins/logic'
+  add_group 'Link Cache', '_plugins/link_cache'
+
+  # Set a minimum coverage threshold. The build will fail if it drops below this.
+  minimum_coverage 95
+  # Enable branch coverage analysis
+  enable_coverage :branch
+end
+
 require 'minitest/autorun'
 require 'jekyll'
 require 'time' # Needed for Time.parse if mocking dates
@@ -8,41 +41,124 @@ require 'time' # Needed for Time.parse if mocking dates
 # Add the parent _plugins directory to the load path
 $LOAD_PATH.unshift(File.expand_path('../_plugins', __dir__))
 
-# Explicitly require plugins and utils
-require 'display_previous_reviews_tag'
-require 'link_cache_generator'
-require 'utils/article_card_utils'
-require 'utils/author_link_util'
-require 'utils/backlink_utils'
-require 'utils/book_card_utils'
-require 'utils/book_link_util'
-require 'utils/book_list_utils'
-require 'utils/card_data_extractor_utils'
-require 'utils/card_renderer_utils'
-require 'utils/citation_utils'
-require 'utils/feed_utils'
-require 'utils/front_matter_utils'
-require 'utils/json_ld_generators/author_profile_generator'
-require 'utils/json_ld_generators/blog_posting_generator'
-require 'utils/json_ld_generators/book_review_generator'
-require 'utils/json_ld_generators/generic_review_generator'
-require 'utils/json_ld_utils'
-require 'utils/link_helper_utils'
-require 'utils/plugin_logger_utils'
-require 'utils/post_list_utils'
-require 'utils/rating_utils'
-require 'utils/series_link_util'
-require 'utils/series_text_utils'
-require 'utils/short_story_link_util'
-require 'utils/tag_argument_utils'
-require 'utils/text_processing_utils'
-require 'utils/typography_utils'
-require 'utils/url_utils'
+# --- Explicitly require all plugins and utilities for testing ---
+
+# --- Top-Level Tags ---
+require 'src/content/posts/tags/article_card_lookup_tag'
+require 'src/content/authors/tags/author_link_tag'
+require 'src/content/books/tags/book_backlinks_tag'
+require 'src/content/books/tags/book_card_lookup_tag'
+require 'src/content/books/tags/book_link_tag'
+require 'src/ui/tags/citation_tag'
+require 'src/content/books/tags/display_all_books_grouped_tag'
+require 'src/content/authors/tags/display_authors_tag'
+require 'src/content/books/tags/display_awards_page_tag'
+require 'src/content/books/tags/display_books_by_author_tag'
+require 'src/content/books/tags/display_books_by_author_then_series_tag'
+require 'src/content/books/tags/display_books_by_title_alpha_group_tag'
+require 'src/content/books/tags/display_books_by_year_tag'
+require 'src/content/books/tags/display_books_for_series_tag'
+require 'src/content/posts/tags/display_category_posts_tag'
+require 'src/content/books/tags/display_previous_reviews_tag'
+require 'src/content/books/tags/display_ranked_books_tag'
+require 'src/content/books/tags/display_ranked_by_backlinks_tag'
+require 'src/content/books/tags/display_unreviewed_mentions_tag'
+require 'src/content/posts/tags/front_page_feed_tag'
+require 'src/infrastructure/log_failure_tag'
+require 'src/ui/tags/rating_stars_tag'
+require 'src/content/books/tags/related_books_tag'
+require 'src/content/posts/tags/related_posts_tag'
+require 'src/content/posts/tags/render_article_card_tag'
+require 'src/content/books/tags/render_book_card_tag'
+require 'src/content/series/tags/series_link_tag'
+require 'src/content/series/tags/series_text_tag'
+require 'src/content/short_stories/tags/short_story_link_tag'
+require 'src/content/short_stories/tags/short_story_title_tag'
+require 'src/ui/tags/units_tag'
+
+# --- Top-Level Generators and Filters ---
+require 'src/infrastructure/environment_setter'
+require 'src/seo/front_matter_validator'
+require 'src/seo/json_ld_injector'
+require 'src/infrastructure/link_cache_generator'
+require 'src/infrastructure/optional_filter'
+
+# --- Utilities (_plugins/utils/) ---
+require 'src/content/posts/article_card_utils'
+require 'src/content/authors/author_link_util'
+require 'src/infrastructure/links/backlink_utils'
+require 'src/content/books/core/book_card_utils'
+require 'src/content/books/core/book_data_utils'
+require 'src/content/books/core/book_link_util'
+require 'src/content/books/lists/book_list_renderer_utils'
+require 'src/ui/cards/card_data_extractor_utils'
+require 'src/ui/cards/card_renderer_utils'
+require 'src/ui/citations/citation_utils'
+require 'src/content/authors/display_authors_util'
+require 'src/content/posts/feed_utils'
+require 'src/infrastructure/front_matter_utils'
+require 'src/seo/json_ld_utils'
+require 'src/infrastructure/links/link_helper_utils'
+require 'src/infrastructure/plugin_logger_utils'
+require 'src/content/posts/post_list_utils'
+require 'src/ui/ratings/rating_utils'
+require 'src/content/series/series_link_util'
+require 'src/content/series/series_text_utils'
+require 'src/content/short_stories/short_story_link_util'
+require 'src/content/short_stories/short_story_title_util'
+require 'src/infrastructure/tag_argument_utils'
+require 'src/infrastructure/text_processing_utils'
+require 'src/infrastructure/typography_utils'
+require 'src/infrastructure/url_utils'
+
+# --- JSON-LD Generators (_plugins/src/seo/generators/) ---
+require 'src/seo/generators/author_profile_generator'
+require 'src/seo/generators/blog_posting_generator'
+require 'src/seo/generators/book_review_generator'
+require 'src/seo/generators/generic_review_generator'
+
+# --- Link Cache Components (_plugins/src/infrastructure/link_cache/) ---
+require 'src/infrastructure/link_cache/backlink_builder'
+require 'src/infrastructure/link_cache/cache_builder'
+require 'src/infrastructure/link_cache/cache_maps'
+require 'src/infrastructure/link_cache/favorites_manager'
+require 'src/infrastructure/links/link_validator'
+require 'src/infrastructure/link_cache/short_story_builder'
+
+# --- Logic Components (_plugins/logic/) ---
+require 'src/content/books/backlinks/finder'
+require 'src/content/books/backlinks/renderer'
+require 'src/content/books/lists/all_books_by_author_finder'
+require 'src/content/books/lists/all_books_finder'
+require 'src/content/books/lists/author_finder'
+require 'src/content/books/lists/by_award_finder'
+require 'src/content/books/lists/by_title_alpha_finder'
+require 'src/content/books/lists/by_year_finder'
+require 'src/content/books/lists/favorites_lists_finder'
+require 'src/content/books/lists/series_finder'
+require 'src/content/books/lists/shared'
+require 'src/content/posts/lookups/article_finder'
+require 'src/content/books/lookups/book_finder'
+require 'src/content/posts/category/renderer'
+require 'src/content/books/ranking/ranked_books/processor'
+require 'src/content/books/ranking/ranked_books/renderer'
+require 'src/content/books/ranking/ranked_books/validator'
+require 'src/content/books/ranking/unreviewed_mentions/finder'
+require 'src/content/books/ranking/unreviewed_mentions/renderer'
+require 'src/content/posts/feed/renderer'
+require 'src/content/books/reviews/finder'
+require 'src/content/books/reviews/renderer'
+require 'src/content/books/ranking/finder'
+require 'src/content/books/ranking/renderer'
+require 'src/content/books/related/finder'
+require 'src/content/books/related/renderer'
+require 'src/content/posts/related/finder'
+require 'src/content/posts/related/renderer'
 
 # --- Mock Objects ---
 
 # Simple mock for Jekyll documents (Posts, Pages, Collection Items)
-MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection, :relative_path) do
+MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection, :relative_path, :path) do
   # Provides hash-like access to document attributes and front matter.
   def [](key)
     key_s = key.to_s
@@ -144,6 +260,10 @@ class MockSite
     converters.find { |c| converter_matches?(c, klass_or_name) }
   end
 
+  def show_drafts
+    config['show_drafts']
+  end
+
   private
 
   def collect_all_documents
@@ -228,7 +348,7 @@ def build_test_site_config(config_overrides)
     'source' => '.',
     'plugin_logging' => test_plugin_logging_config,
     'excerpt_separator' => '<!--excerpt-->',
-    'plugin_log_level' => PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING
+    'plugin_log_level' => Jekyll::Infrastructure::PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING
   }.merge(config_overrides)
 end
 
@@ -261,18 +381,20 @@ def test_plugin_logging_config
     'CARD_DATA_EXTRACTION' => false,
     'DISPLAY_CATEGORY_POSTS' => false,
     'DISPLAY_RANKED_BOOKS' => false,
+    'FRONT_PAGE_FEED' => false,
     'JSON_LD_REVIEW' => false,
     'POST_LIST_UTIL_CATEGORY' => false,
     'PREVIOUS_REVIEWS' => false,
+    'RANKED_BY_BACKLINKS' => false,
     'RELATED_BOOKS' => false,
+    'RELATED_BOOKS_SERIES' => false,
     'RELATED_POSTS' => false,
     'RENDER_ARTICLE_CARD_TAG' => false,
     'RENDER_AUTHOR_LINK' => false,
     'RENDER_BOOK_CARD_TAG' => false,
     'RENDER_BOOK_LINK' => false,
     'RENDER_SERIES_LINK' => false,
-    'SERIES_LINK' => false,
-    'SERIES_LINK_UTIL_ERROR' => false,
+    'RENDER_SHORT_STORY_LINK' => false,
     'UNITS_TAG_ERROR' => false,
     'UNITS_TAG_WARNING' => false
   }
@@ -312,7 +434,7 @@ def generate_link_cache(site)
   4.times { silent_logger.expect :info, nil, [String, String] }
 
   Jekyll.stub :logger, silent_logger do
-    Jekyll::LinkCacheGenerator.new.generate(site)
+    Jekyll::Infrastructure::LinkCacheGenerator.new.generate(site)
   end
 end
 
@@ -358,5 +480,3 @@ def setup_mock_excerpt(doc, base_data)
     doc.data['excerpt'] = Struct.new(:output).new(string_excerpt_content)
   end
 end
-
-puts 'Expanded test helper loaded (with improved MockDocument and logging disabled).'

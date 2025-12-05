@@ -1,0 +1,95 @@
+# frozen_string_literal: true
+
+# _plugins/short_story_link_tag.rb
+require 'jekyll'
+require 'liquid'
+require 'strscan'
+require_relative '../short_story_link_util'
+require_relative '../../../infrastructure/tag_argument_utils'
+
+# Liquid Tag for creating a link to a short story.
+# Handles disambiguation for stories that appear in multiple books.
+#
+# Usage:
+#   {% short_story_link "Story Title" %}
+#   {% short_story_link "Duplicate Story" from_book="Anthology Name" %}
+module Jekyll
+  module ShortStories
+    module Tags
+      # Liquid tag for creating links to short stories.
+      # Handles disambiguation for stories that appear in multiple books.
+      class ShortStoryLinkTag < Liquid::Tag
+        # Aliases for readability
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        Linker = Jekyll::ShortStories::ShortStoryLinkUtils
+        private_constant :TagArgs, :Linker
+
+        QuotedFragment = Liquid::QuotedFragment
+
+        def initialize(tag_name, markup, tokens)
+          super
+          @raw_markup = markup
+          @title_markup = nil
+          @from_book_markup = nil
+
+          parse_markup(markup)
+        end
+
+        def render(context)
+          # Resolve arguments from markup
+          story_title = TagArgs.resolve_value(@title_markup, context)
+          from_book_title = if @from_book_markup
+                              TagArgs.resolve_value(
+                                @from_book_markup, context
+                              )
+                            end
+
+          # Delegate all logic to the utility module
+          Linker.render_short_story_link(story_title, context, from_book_title)
+        end
+
+        private
+
+        def parse_markup(markup)
+          scanner = StringScanner.new(markup.strip)
+          scan_title(scanner)
+          scan_optional_arguments(scanner)
+          validate_title
+        end
+
+        def scan_title(scanner)
+          # 1. Extract the Title (first argument)
+          unless scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
+            raise Liquid::SyntaxError,
+                  "Syntax Error in 'short_story_link': Could not find story title in '#{@raw_markup}'"
+          end
+
+          @title_markup = scanner.matched
+        end
+
+        def scan_optional_arguments(scanner)
+          # 2. Scan for optional `from_book` argument
+          scanner.skip(/\s*/)
+          return if scanner.eos?
+
+          if scanner.scan(/from_book\s*=\s*(#{QuotedFragment})/)
+            @from_book_markup = scanner[1]
+          else
+            unknown_arg = scanner.scan(/\S+/)
+            raise Liquid::SyntaxError,
+                  "Syntax Error in 'short_story_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
+          end
+        end
+
+        def validate_title
+          return if @title_markup && !@title_markup.strip.empty?
+
+          raise Liquid::SyntaxError,
+                "Syntax Error in 'short_story_link': Title value is missing or empty in '#{@raw_markup}'"
+        end
+      end
+    end
+  end
+end
+
+Liquid::Template.register_tag('short_story_link', Jekyll::ShortStories::Tags::ShortStoryLinkTag)
