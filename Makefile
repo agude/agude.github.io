@@ -61,10 +61,7 @@ deps-lock: .ruby-version # Dependency on .ruby-version
 		/bin/bash -c "echo 'Installing Bundler $(BUNDLER_VERSION)...' && \
 		              gem install bundler -v $(BUNDLER_VERSION) --no-document && \
 		              echo 'Running bundle lock --update --normalize-platforms...' && \
-		              bundle lock --update --normalize-platforms" # <-- CORRECTED COMMAND
-	@if [ $$? -ne 0 ]; then \
-		echo "Error: bundle lock failed inside Docker." && exit 1; \
-	fi
+		              bundle lock --update --normalize-platforms"
 	@echo "Gemfile.lock updated and normalized successfully. Please commit Gemfile, Gemfile.lock, and .ruby-version."
 
 # Build the Docker image using '.' as build context.
@@ -161,9 +158,6 @@ test: image-build # Depends on the Docker image being built/up-to-date
 	@$(DOCKER_RUN) bundle exec ruby -I _plugins -I _tests \
 		-e "require 'test_helper'; ARGV.each { |f| load f }" \
 		$(TEST)
-	@if [ $$? -ne 0 ]; then \
-		echo "Error: Tests failed." && exit 1; \
-	fi
 	@echo "Tests finished successfully."
 
 # Run tests and generate a code coverage report.
