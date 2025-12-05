@@ -82,7 +82,7 @@ clean: image clean-coverage
 # Clean the coverage report directory.
 clean-coverage:
 	@echo "Cleaning coverage report..."
-	@rm -rf coverage
+	@rm -rf _coverage
 
 # Build the site for production. Depends on image and clean.
 build: image clean
@@ -173,7 +173,7 @@ test: image # Depends on the Docker image being built/up-to-date
 coverage: image clean-coverage
 	@echo "Running tests and generating coverage report..."
 	@# The test command is the same as 'test', but SimpleCov (enabled in test_helper)
-	@# will automatically generate the report in the 'coverage/' directory.
+	@# will automatically generate the report in the '_coverage/' directory.
 	@docker run --rm \
 		$(DOCKER_RUN_OPTS) \
 		-v $(PWD):$(MOUNT) \
@@ -183,14 +183,14 @@ coverage: image clean-coverage
 		  -e "require 'test_helper'; ARGV.each { |f| load f }" \
 		  $(TEST)
 	@echo "---"
-	@echo "Coverage report generated in 'coverage/index.html'."
-	@echo "To view on macOS, run: open coverage/index.html"
-	@echo "To view on Linux, run: xdg-open coverage/index.html"
+	@echo "Coverage report generated in '_coverage/index.html'."
+	@echo "To view on macOS, run: open _coverage/index.html"
+	@echo "To view on Linux, run: xdg-open _coverage/index.html"
 
 # Run coverage and generate a machine-readable summary for LLM agents.
 coverage-summary: image clean-coverage coverage
 	@echo "Running tests and generating coverage report..."
-	@# First, run the tests with coverage enabled to generate coverage/coverage.json.
+	@# First, run the tests with coverage enabled to generate _coverage/coverage.json.
 	@# We pipe stdout to /dev/null to hide the minitest output and keep the summary clean.
 	@docker run --rm \
 		$(DOCKER_RUN_OPTS) \
@@ -210,8 +210,8 @@ coverage-summary: image clean-coverage coverage
 		$(IMAGE) \
 		bundle exec rake coverage:summary
 	@echo "---"
-	@echo "Displaying summary from coverage/coverage_summary.txt:"
-	@cat coverage/coverage_summary.txt
+	@echo "Displaying summary from _coverage/coverage_summary.txt:"
+	@cat _coverage/coverage_summary.txt
 
 # Run RuboCop linter.
 lint: image

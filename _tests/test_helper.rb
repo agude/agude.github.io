@@ -17,6 +17,9 @@ formatters = [
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(formatters)
 
 SimpleCov.start do
+  # Use _coverage directory to prevent accidental shipping to production
+  coverage_dir '_coverage'
+
   # Exclude the test files themselves from the coverage report
   add_filter '_tests/'
 

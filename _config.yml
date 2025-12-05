@@ -159,7 +159,7 @@ exclude:
     - README.md
     - Rakefile
     - _scripts
-    - coverage
+    - _coverage
     - redirects.json
     - vendor
 

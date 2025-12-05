@@ -62,8 +62,8 @@ end
 namespace :coverage do
   desc 'Generate a summary of files with less than 100% test coverage.'
   task :summary do
-    json_path = Pathname.new('coverage/coverage.json')
-    output_path = Pathname.new('coverage/coverage_summary.txt')
+    json_path = Pathname.new('_coverage/coverage.json')
+    output_path = Pathname.new('_coverage/coverage_summary.txt')
 
     abort "Error: Coverage report not found at #{json_path}. Run 'make coverage' first." unless json_path.exist?
 
