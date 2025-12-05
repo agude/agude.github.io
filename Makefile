@@ -28,13 +28,26 @@ DOCKER_RUN_OPTS := --user $(USER_ID):$(GROUP_ID) -e HOME=/tmp
 #   make test TEST=$$(find _tests/plugins/utils -name 'test_*.rb')
 TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb')
 
-.PHONY: all build check check-strict clean clean-coverage coverage coverage-summary debug drafts format-all image install-hook lint lock profile refresh serve test
+# Tier 1: Daily drivers
+.PHONY: serve build test lint clean debug
+
+# Tier 2: Command variants
+.PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-liquid
+
+# Tier 3: Domain operations
+.PHONY: image-build image-rebuild deps-lock hooks-install
+
+# Internal targets
+.PHONY: all clean-coverage
+
+# Tier 4: Backward compatibility aliases
+.PHONY: image refresh coverage coverage-summary lock drafts profile check check-strict install-hook format-all
 
 all: serve
 
 # Manual target to update Gemfile.lock using the correct base Docker image and Bundler version.
 # Uses 'bundle lock --update --normalize-platforms' to regenerate the lockfile.
-lock: .ruby-version # Dependency on .ruby-version
+deps-lock: .ruby-version # Dependency on .ruby-version
 	@echo "Updating and normalizing Gemfile.lock using Docker ($(BASE_RUBY_IMAGE) with Bundler $(BUNDLER_VERSION))..."
 	@echo "Running 'bundle lock --update --normalize-platforms' inside container..." # Updated echo
 	@docker run --rm \
@@ -53,7 +66,7 @@ lock: .ruby-version # Dependency on .ruby-version
 
 # Build the Docker image using '.' as build context.
 # Pass the Ruby and Bundler versions as build arguments.
-image: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version dependency
+image-build: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version dependency
 	@echo "Building Docker image $(IMAGE) using Ruby $(RUBY_VERSION) and Bundler $(BUNDLER_VERSION)..."
 	@if [ ! -f .dockerignore ]; then \
 		echo "Warning: .dockerignore file not found. Build context might be large or include unwanted files."; \
@@ -64,7 +77,7 @@ image: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version 
 	    . -f Dockerfile -t $(IMAGE)
 
 # Rebuild the Docker image without cache.
-refresh: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version dependency
+image-rebuild: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version dependency
 	@echo "Rebuilding Docker image $(IMAGE) with --no-cache using Ruby $(RUBY_VERSION) and Bundler $(BUNDLER_VERSION)..."
 	@if [ ! -f .dockerignore ]; then \
 		echo "Warning: .dockerignore file not found. Build context might be large or include unwanted files."; \
@@ -75,7 +88,7 @@ refresh: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-versio
 	    --no-cache . -f Dockerfile -t $(IMAGE)
 
 # Clean out _site and other caches. Requires the image to exist.
-clean: image clean-coverage
+clean: image-build clean-coverage
 	@echo "Cleaning Jekyll build artifacts..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll clean
 
@@ -84,20 +97,20 @@ clean-coverage:
 	@echo "Cleaning coverage report..."
 	@rm -rf _coverage
 
-# Build the site for production. Depends on image and clean.
-build: image clean
+# Build the site for production. Depends on image-build and clean.
+build: image-build clean
 	@echo "Building site for production..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -e JEKYLL_ENV=production $(IMAGE) bundle exec jekyll build
 
-# Profile the site build. Depends on image and clean.
-profile: image clean
+# Profile the site build. Depends on image-build and clean.
+serve-profile: image-build clean
 	@echo "Profiling Jekyll build..."
 	@echo "Output will be in '_site' and Liquid profiles in '_profile/'."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll build --profile
 
 # Serves the site for local development, with live reloading.
 # This target contains the solution to the '0.0.0.0' URL issue in browsers.
-serve: image clean
+serve: image-build clean
 	@echo "Serving site at http://localhost:4000..."
 	@docker run --rm \
 		$(DOCKER_RUN_OPTS) \
@@ -126,9 +139,9 @@ serve: image clean
 # The `-e JEKYLL_ENV=docker` flag helps ensure this file-based configuration is
 # properly loaded and respected by the Jekyll `serve` command.
 
-# Serve the site with drafts. Depends on image and clean.
+# Serve the site with drafts. Depends on image-build and clean.
 # Uses same logic to avoid 0.0.0.0 bug as serve
-drafts: image clean
+serve-drafts: image-build clean
 	@echo "Serving site with drafts at http://localhost:4000..."
 	@docker run --rm \
 		$(DOCKER_RUN_OPTS) \
@@ -140,13 +153,13 @@ drafts: image clean
 		$(IMAGE) \
 		bundle exec jekyll serve --config _config.yml,_config_docker.yml --drafts --future --watch --incremental --livereload
 
-# Interactive session within the image. Depends on image existing.
-debug: image
+# Interactive session within the image. Depends on image-build existing.
+debug: image-build
 	@echo "Starting interactive debug session in container..."
 	@docker run -it --rm $(DOCKER_RUN_OPTS) -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) /bin/bash
 
 # Run Minitest tests located in _tests/ inside the Docker container.
-test: image # Depends on the Docker image being built/up-to-date
+test: image-build # Depends on the Docker image being built/up-to-date
 	@echo "Running tests..."
 	@# Check if the TEST variable is empty.
 	@if [ -z "$(TEST)" ]; then \
@@ -170,7 +183,7 @@ test: image # Depends on the Docker image being built/up-to-date
 	@echo "Tests finished successfully."
 
 # Run tests and generate a code coverage report.
-coverage: image clean-coverage
+test-cov: image-build clean-coverage
 	@echo "Running tests and generating coverage report..."
 	@# The test command is the same as 'test', but SimpleCov (enabled in test_helper)
 	@# will automatically generate the report in the '_coverage/' directory.
@@ -188,7 +201,7 @@ coverage: image clean-coverage
 	@echo "To view on Linux, run: xdg-open _coverage/index.html"
 
 # Run coverage and generate a machine-readable summary for LLM agents.
-coverage-summary: image clean-coverage coverage
+test-summary: image-build clean-coverage test-cov
 	@echo "Running tests and generating coverage report..."
 	@# First, run the tests with coverage enabled to generate _coverage/coverage.json.
 	@# We pipe stdout to /dev/null to hide the minitest output and keep the summary clean.
@@ -214,7 +227,7 @@ coverage-summary: image clean-coverage coverage
 	@cat _coverage/coverage_summary.txt
 
 # Run RuboCop linter.
-lint: image
+lint: image-build
 	@echo "Running linter..."
 	@docker run --rm \
 		$(DOCKER_RUN_OPTS) \
@@ -224,7 +237,7 @@ lint: image
 		bundle exec rubocop
 
 # Build the site and check for broken links/HTML issues.
-check: build
+check-links: build
 	@echo "Checking generated site for broken links and HTML issues..."
 	@docker run --rm \
 		$(DOCKER_RUN_OPTS) \
@@ -234,7 +247,7 @@ check: build
 		bundle exec ruby _bin/check_links.rb
 
 # Check all documents for strict Liquid compliance.
-check-strict: image
+check-liquid: image-build
 	@echo "Checking all documents for strict Liquid compliance..."
 	@docker run --rm \
 		$(DOCKER_RUN_OPTS) \
@@ -245,7 +258,7 @@ check-strict: image
 
 # Install the custom pre-commit hook that runs RuboCop inside Docker.
 # This target must be run on the HOST machine.
-install-hook: image _bin/pre-commit.sh
+hooks-install: image-build _bin/pre-commit.sh
 	@echo "Installing custom Docker-based pre-commit hook..."
 	@mkdir -p .git/hooks
 	@cp _bin/pre-commit.sh .git/hooks/pre-commit
@@ -255,7 +268,7 @@ install-hook: image _bin/pre-commit.sh
 
 # Run RuboCop --autocorrect on all Ruby files to establish a clean formatting baseline.
 # This target modifies files on the host via the volume mount.
-format-all: image
+lint-fix: image-build
 	@echo "Running RuboCop --autocorrect on ALL Ruby files to establish a clean baseline..."
 	@# Run RuboCop, ignore its non-zero exit code (1 or 123) with '|| true' to prevent 'make' from failing.
 	@docker run --rm \
@@ -265,3 +278,19 @@ format-all: image
 		$(IMAGE) \
 		bundle exec rubocop --autocorrect --format quiet > /dev/null 2>&1 || true
 	@echo "All Ruby files have been safely auto-corrected. Please review and commit changes."
+
+# --- Tier 4: Backward Compatibility Aliases ---
+# These aliases maintain backward compatibility for muscle memory.
+# All aliases point to the new hybrid-named targets.
+
+image: image-build
+refresh: image-rebuild
+lock: deps-lock
+coverage: test-cov
+coverage-summary: test-summary
+drafts: serve-drafts
+profile: serve-profile
+check: check-links
+check-strict: check-liquid
+install-hook: hooks-install
+format-all: lint-fix
