@@ -19,6 +19,9 @@ USER_ID := $(shell id -u)
 GROUP_ID := $(shell id -g)
 DOCKER_RUN_OPTS := --user $(USER_ID):$(GROUP_ID) -e HOME=/tmp
 
+# Define reusable Docker run command to reduce boilerplate
+DOCKER_RUN := docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE)
+
 # Allow overriding the test file/pattern via command line.
 # Defaults to finding all 'test_*.rb' files in the '_tests' directory,
 # excluding 'test_helper.rb' itself.
@@ -90,7 +93,7 @@ image-rebuild: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-
 # Clean out _site and other caches. Requires the image to exist.
 clean: image-build clean-coverage
 	@echo "Cleaning Jekyll build artifacts..."
-	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll clean
+	@$(DOCKER_RUN) bundle exec jekyll clean
 
 # Clean the coverage report directory.
 clean-coverage:
@@ -100,26 +103,19 @@ clean-coverage:
 # Build the site for production. Depends on image-build and clean.
 build: image-build clean
 	@echo "Building site for production..."
-	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -e JEKYLL_ENV=production $(IMAGE) bundle exec jekyll build
+	@$(DOCKER_RUN) -e JEKYLL_ENV=production bundle exec jekyll build
 
 # Profile the site build. Depends on image-build and clean.
 serve-profile: image-build clean
 	@echo "Profiling Jekyll build..."
 	@echo "Output will be in '_site' and Liquid profiles in '_profile/'."
-	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) bundle exec jekyll build --profile
+	@$(DOCKER_RUN) bundle exec jekyll build --profile
 
 # Serves the site for local development, with live reloading.
 # This target contains the solution to the '0.0.0.0' URL issue in browsers.
 serve: image-build clean
 	@echo "Serving site at http://localhost:4000..."
-	@docker run --rm \
-		$(DOCKER_RUN_OPTS) \
-		-p 4000:4000 \
-		-p 35729:35729 \
-		-v $(PWD):$(MOUNT) \
-		-w $(MOUNT) \
-		-e JEKYLL_ENV=docker \
-		$(IMAGE) \
+	@$(DOCKER_RUN) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker \
 		bundle exec jekyll serve --config _config.yml,_config_docker.yml --watch --incremental --livereload
 #
 # WHY THIS COMMAND IS STRUCTURED THIS WAY:
@@ -143,20 +139,13 @@ serve: image-build clean
 # Uses same logic to avoid 0.0.0.0 bug as serve
 serve-drafts: image-build clean
 	@echo "Serving site with drafts at http://localhost:4000..."
-	@docker run --rm \
-		$(DOCKER_RUN_OPTS) \
-		-p 4000:4000 \
-		-p 35729:35729 \
-		-v $(PWD):$(MOUNT) \
-		-w $(MOUNT) \
-		-e JEKYLL_ENV=docker \
-		$(IMAGE) \
+	@$(DOCKER_RUN) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker \
 		bundle exec jekyll serve --config _config.yml,_config_docker.yml --drafts --future --watch --incremental --livereload
 
 # Interactive session within the image. Depends on image-build existing.
 debug: image-build
 	@echo "Starting interactive debug session in container..."
-	@docker run -it --rm $(DOCKER_RUN_OPTS) -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) /bin/bash
+	@docker run -it $(DOCKER_RUN_OPTS) -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) /bin/bash
 
 # Run Minitest tests located in _tests/ inside the Docker container.
 test: image-build # Depends on the Docker image being built/up-to-date
@@ -169,14 +158,9 @@ test: image-build # Depends on the Docker image being built/up-to-date
 	@echo "Found test files:"
 	@echo "$(TEST)" | tr ' ' '\n'
 	@echo "---"
-	@docker run --rm \
-		$(DOCKER_RUN_OPTS) \
-		-v $(PWD):$(MOUNT) \
-		-w $(MOUNT) \
-		$(IMAGE) \
-		bundle exec ruby -I _plugins -I _tests \
-		  -e "require 'test_helper'; ARGV.each { |f| load f }" \
-		  $(TEST)
+	@$(DOCKER_RUN) bundle exec ruby -I _plugins -I _tests \
+		-e "require 'test_helper'; ARGV.each { |f| load f }" \
+		$(TEST)
 	@if [ $$? -ne 0 ]; then \
 		echo "Error: Tests failed." && exit 1; \
 	fi
@@ -187,14 +171,9 @@ test-cov: image-build clean-coverage
 	@echo "Running tests and generating coverage report..."
 	@# The test command is the same as 'test', but SimpleCov (enabled in test_helper)
 	@# will automatically generate the report in the '_coverage/' directory.
-	@docker run --rm \
-		$(DOCKER_RUN_OPTS) \
-		-v $(PWD):$(MOUNT) \
-		-w $(MOUNT) \
-		$(IMAGE) \
-		bundle exec ruby -I _plugins -I _tests \
-		  -e "require 'test_helper'; ARGV.each { |f| load f }" \
-		  $(TEST)
+	@$(DOCKER_RUN) bundle exec ruby -I _plugins -I _tests \
+		-e "require 'test_helper'; ARGV.each { |f| load f }" \
+		$(TEST)
 	@echo "---"
 	@echo "Coverage report generated in '_coverage/index.html'."
 	@echo "To view on macOS, run: open _coverage/index.html"
@@ -205,23 +184,13 @@ test-summary: image-build clean-coverage test-cov
 	@echo "Running tests and generating coverage report..."
 	@# First, run the tests with coverage enabled to generate _coverage/coverage.json.
 	@# We pipe stdout to /dev/null to hide the minitest output and keep the summary clean.
-	@docker run --rm \
-		$(DOCKER_RUN_OPTS) \
-		-v $(PWD):$(MOUNT) \
-		-w $(MOUNT) \
-		$(IMAGE) \
-		bundle exec ruby -I _plugins -I _tests \
-		  -e "require 'test_helper'; ARGV.each { |f| load f }" \
-		  $(TEST) > /dev/null
+	@$(DOCKER_RUN) bundle exec ruby -I _plugins -I _tests \
+		-e "require 'test_helper'; ARGV.each { |f| load f }" \
+		$(TEST) > /dev/null
 	@echo "---"
 	@echo "Generating machine-readable coverage summary..."
 	@# Then, run the Rake task to parse the JSON and create the summary file.
-	@docker run --rm \
-		$(DOCKER_RUN_OPTS) \
-		-v $(PWD):$(MOUNT) \
-		-w $(MOUNT) \
-		$(IMAGE) \
-		bundle exec rake coverage:summary
+	@$(DOCKER_RUN) bundle exec rake coverage:summary
 	@echo "---"
 	@echo "Displaying summary from _coverage/coverage_summary.txt:"
 	@cat _coverage/coverage_summary.txt
@@ -229,32 +198,17 @@ test-summary: image-build clean-coverage test-cov
 # Run RuboCop linter.
 lint: image-build
 	@echo "Running linter..."
-	@docker run --rm \
-		$(DOCKER_RUN_OPTS) \
-		-v $(PWD):$(MOUNT) \
-		-w $(MOUNT) \
-		$(IMAGE) \
-		bundle exec rubocop
+	@$(DOCKER_RUN) bundle exec rubocop
 
 # Build the site and check for broken links/HTML issues.
 check-links: build
 	@echo "Checking generated site for broken links and HTML issues..."
-	@docker run --rm \
-		$(DOCKER_RUN_OPTS) \
-		-v $(PWD):$(MOUNT) \
-		-w $(MOUNT) \
-		$(IMAGE) \
-		bundle exec ruby _bin/check_links.rb
+	@$(DOCKER_RUN) bundle exec ruby _bin/check_links.rb
 
 # Check all documents for strict Liquid compliance.
 check-liquid: image-build
 	@echo "Checking all documents for strict Liquid compliance..."
-	@docker run --rm \
-		$(DOCKER_RUN_OPTS) \
-		-v $(PWD):$(MOUNT) \
-		-w $(MOUNT) \
-		$(IMAGE) \
-		bundle exec ruby _bin/check_strict.rb
+	@$(DOCKER_RUN) bundle exec ruby _bin/check_strict.rb
 
 # Install the custom pre-commit hook that runs RuboCop inside Docker.
 # This target must be run on the HOST machine.
@@ -271,12 +225,7 @@ hooks-install: image-build _bin/pre-commit.sh
 lint-fix: image-build
 	@echo "Running RuboCop --autocorrect on ALL Ruby files to establish a clean baseline..."
 	@# Run RuboCop, ignore its non-zero exit code (1 or 123) with '|| true' to prevent 'make' from failing.
-	@docker run --rm \
-		$(DOCKER_RUN_OPTS) \
-		-v $(PWD):$(MOUNT) \
-		-w $(MOUNT) \
-		$(IMAGE) \
-		bundle exec rubocop --autocorrect --format quiet > /dev/null 2>&1 || true
+	@$(DOCKER_RUN) bundle exec rubocop --autocorrect --format quiet > /dev/null 2>&1 || true
 	@echo "All Ruby files have been safely auto-corrected. Please review and commit changes."
 
 # --- Tier 4: Backward Compatibility Aliases ---
