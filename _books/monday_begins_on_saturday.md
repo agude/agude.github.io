@@ -1,11 +1,11 @@
 ---
-date: 2025-11-25
+date: 2025-12-07
 title: Monday Begins on Saturday
 book_authors:
   - Arkady Strugatsky
   - Boris Strugatsky
 book_number: 1
-rating: null
+rating: 3
 image: /books/covers/monday_begins_on_saturday.jpg
 ---
 
