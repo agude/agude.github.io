@@ -161,8 +161,9 @@ picnic }}. One is the focus on happiness. NITWITT's mission is to discover and
 perfect human happiness, and in {{ picnic }} Red's wish at the end of the book
 is for "HAPPINESS, FREE, FOR EVERYONE, AND LET NO ONE BE FORGOTTEN!"
 
-{{ picnic }} is a darker book through and through, reflecting perhaps the
-stagnation of the Soviet Union in the 70s after the Khrushchev thaw in the 50s
-and early 60s. We see this clearly in its handling of the inhuman. In {{
-this_book }} doubles and other creatures are curious but harmless, while in {{
-picnic }}, Arthur and Dina are soulless dolls.
+There is an optimise in {{ this_book }}, perhaps reflecting when it was
+written just at the end of the liberalizing Khrushchev thaw, which is absent
+in {{ picnic }}, written during the Soviet stagnation in the 70s. We see this
+clearly in each books handling of the inhuman. In {{ this_book }} doubles and
+other creatures are curious but harmless, while in {{ picnic }}, Arthur and
+Dina are soulless dolls.
