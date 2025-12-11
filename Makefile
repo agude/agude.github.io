@@ -112,7 +112,7 @@ serve-profile: image-build clean
 # This target contains the solution to the '0.0.0.0' URL issue in browsers.
 serve: image-build clean
 	@echo "Serving site at http://localhost:4000..."
-	@$(DOCKER_RUN) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker \
+	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker $(IMAGE) \
 		bundle exec jekyll serve --config _config.yml,_config_docker.yml --watch --incremental --livereload
 #
 # WHY THIS COMMAND IS STRUCTURED THIS WAY:
@@ -136,7 +136,7 @@ serve: image-build clean
 # Uses same logic to avoid 0.0.0.0 bug as serve
 serve-drafts: image-build clean
 	@echo "Serving site with drafts at http://localhost:4000..."
-	@$(DOCKER_RUN) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker \
+	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker $(IMAGE) \
 		bundle exec jekyll serve --config _config.yml,_config_docker.yml --drafts --future --watch --incremental --livereload
 
 # Interactive session within the image. Depends on image-build existing.
