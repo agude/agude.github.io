@@ -21,8 +21,10 @@ fairy tale creatures.
 {% capture the_authors_first_only %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] | split: " " | first }}</span>{% endcapture %}
 {% capture the_authors_possessive %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] }}</span>'s{% endcapture %}
 {% capture boris %}<span class="author-name">{{ page.book_authors[1] }}</span>{% endcapture %}
+{% capture this_book_short %}{% book_link page.title link_text="Saturday" %}{% endcapture %}
 
 {% capture picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
+{% capture picnic_short %}{% book_link "Roadside Picnic" link_text="Picnic" %}{% endcapture %}
 
 {% capture dan_simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
 {% capture dan_simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
@@ -130,7 +132,7 @@ and CERN, the sort of giant research institutes this book is lampooning. But
 while I find the ideas and characters to be interesting, there wasn't really a
 plot to go along with it. {{ boris }} said they had the concept for the book
 for a long time but that they struggled "to think of a story or a plot for the
-adventure".[^boris] I don't think they ever managed.
+adventure".[^boris] I don't think they managed to find a story.
 
 [^boris]:
     > We came up with the idea of a story about wizards, witches,
@@ -151,19 +153,24 @@ adventure".[^boris] I don't think they ever managed.
     From {% citation author_last="Strugatsky" author_first="Boris"
     work_title="Afterword" container_title="Monday Begins on Saturday" %}
 
-{{ this_book }} contains three vignettes, which are loosely connected. The
-third one, in which they solve the mystery of the director A-Janus/S-Janus who
-is one person in two bodies is the one I enjoyed most. The first one, where
-the narrator discovers and joins NITWITT, has the least plot.
+{{ this_book }} contains three vignettes, which are loosely connected, and
+wander somewhat aimlessly. The third one, in which they solve the mystery of
+the director A-Janus/S-Janus who is one person in two bodies, is the one I
+enjoyed most because it follows closest to the classic "there is a mystery we
+are going to solve" story structure. The other two are more slice-of-life at
+the institute, and the first one, where the narrator discovers and joins
+NITWITT, was the worst with the least plot.
 
 {{ this_book }} shares themes and motifs with {{ the_authors_possessive }} {{
-picnic }}. One is the focus on happiness. NITWITT's mission is to discover and
+picnic }}. One is the focus on happiness: NITWITT's mission is to discover and
 perfect human happiness, and in {{ picnic }} Red's wish at the end of the book
-is for "HAPPINESS, FREE, FOR EVERYONE, AND LET NO ONE BE FORGOTTEN!"
-
-There is an optimise in {{ this_book }}, perhaps reflecting when it was
-written just at the end of the liberalizing Khrushchev thaw, which is absent
-in {{ picnic }}, written during the Soviet stagnation in the 70s. We see this
-clearly in each books handling of the inhuman. In {{ this_book }} doubles and
-other creatures are curious but harmless, while in {{ picnic }}, Arthur and
-Dina are soulless dolls.
+is for "HAPPINESS, FREE, FOR EVERYONE, AND LET NO ONE BE FORGOTTEN!" They both
+deal with the relationship between humans and human-like simulacrum. In {{
+this_book_short }}, the doubles are helpful, able to collect your paycheck for
+you or go to parties so you have more time to work, while in {{ picnic_short
+}}, the doll-like Arthur and Dina are more sinister. <!-- TODO: HOW are they
+sinister? -->
+The difference in tone---there is an optimism in {{ this_book }} absent from
+{{ picnic }}---perhaps reflects when they were written: {{ this_book_short }}
+came out at the end of the liberalizing Khrushchev thaw, while {{ picnic_short
+}} we written in the stagnation of the 70s.
