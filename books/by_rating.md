@@ -97,6 +97,7 @@ ranked_list:
   - The Blue Lotus
   - Clay's Ark
   - The Nameless City
+  - Monday Begins on Saturday
   - "Flatland: A Romance of Many Dimensions"
   - The Fractal Prince
   - Cigars of the Pharaoh
