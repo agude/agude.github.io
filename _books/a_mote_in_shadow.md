@@ -116,36 +116,36 @@ in the draft. Still, it never made me cringe the way {{ house_suns }} or {{
 shards }} did.
 
 The worldbuilding is unique and deep, but not overdone. The way society is
-structured around unbreakable quantum encryption makes sense, and it ties
-directly into the core conflict. At the same time, {{ the_author }} throws in
-all sorts of smaller details that make the setting feel alive: different waves
-to indicate your pronouns when meeting someone; robots that shift genders as
-they speak; automated systems that act less like clean, logical sci-fi AIs and
-more like modern, hallucinating LLMs.
+structured around unbreakable quantum encryption ties directly into the core
+conflict. At the same time, {{ the_author }} throws in all sorts of smaller
+details that make the setting feel alive: different waves to indicate your
+pronouns when meeting someone; robots that shift genders as they speak;
+automated systems that act less like clean, logical sci-fi AIs and more like
+modern, hallucinating LLMs.
 
-This book reminded me of a few works. The Closed Timelike Curve computers that
-can break any encryption made me think of {{ sneakers }} and its black box
-that could hack anything. The solving of the Fermi Paradox---with
-oxygen---made me think of how {{ taylor }} handles it in {{ lost }} with an
-alien federation that annexed everyone and then left, and how {{ liu }}
-approaches it in {{ three_body }} with hostile aliens. Cryptographic seals
-brought me back to the seals and (weak) encryption on infofeches in {{
+This book reminded me of a few other works. The Closed Timelike Curve
+computers that can break any encryption made me think of {{ sneakers }} and
+its black box that could hack anything. The solving of the Fermi
+Paradox---with oxygen---made me think of how {{ taylor }} handles it in {{
+lost }} with an alien federation that annexed everyone and then left, and how
+{{ liu }} approaches it in {{ three_body }} with hostile aliens. Cryptographic
+seals reminded me of the seals and (weak) encryption on infofeches in {{
 martines }} {{ memory_empire }}, and even more so to the cryptographic
 memories in {{ rajaniemis }} {{ quantum_thief }}. And the way the narrative
 flips between two timelines to preserve its surprises is like {{ banks }} {{
 use_weapons }}.
 
-The alien side of things reflected other works too. The spooky ruins, the
-ferrofluid plague, and especially the multi-armed metal aliens near the end
-reminded me of Rorschach and the Scramblers in {{ blindsight }}. The infected
-humans from the plague felt like the Flood from {{ halo }} or the xenomorph
-infection in {{ aliens_movie }}. Continuing the video game theme, I kept
-picturing the Gray Top and the Absolute Horizons commandos as Raul Kortenaer
-and the Krenel mercs from {{ disco_elysium }}; Krenel, with its roster of
-sadistic war criminals given free rein to rape and murder, would have fit
-right into this story's brutal disregard for human life. And the "blacker than
-black" Shade suits brought Fuligin to mind, the blacker-than-black worn by
-Severian in {{ wolfe }} {{ botns }}.
+The aliens also reminded me of other works. The spooky ruins, the ferrofluid
+plague, and especially the multi-armed metal aliens near the end reminded me
+of Rorschach and the Scramblers in {{ blindsight }}. The infected humans from
+the plague felt like the Flood from {{ halo }} or the xenomorph infection in
+{{ aliens_movie }}. Continuing the video game theme, I kept picturing the Gray
+Top and the Absolute Horizons commandos as Raul Kortenaer and the Krenel mercs
+from {{ disco_elysium }}; Krenel, with its roster of sadistic war criminals
+given free rein to rape and murder, would have fit right into this story's
+brutal disregard for human life. And the "blacker than black" Shade suits
+brought Fuligin to mind, the blacker-than-black worn by Severian in {{ wolfe
+}} {{ botns }}.
 
 Finally, the importance of time and distance---how Earth failed to govern its
 far-off colonies because it had to predict events months or years in
