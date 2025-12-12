@@ -1,11 +1,11 @@
 ---
-date: 2025-12-01
+date: 2025-12-12
 title: This Is How You Lose the Time War
 book_authors:
   - Amal El-Mohtar
   - Max Gladstone
 book_number: 1
-rating: null
+rating: 4
 image: /books/covers/this_is_how_you_lose_the_time_war.jpg
 awards:
   - hugo
