@@ -14,7 +14,7 @@ class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and
 <span class="author-name">{{ page.book_authors[1] }}</span>, is a Soviet sci-fi
 novel about scientist-magicians working at the National Institute for the
 Technology of Witchcraft and Thaumaturgy (NITWITT), where they study fairy-tale
-creatures.
+creatures and magic items.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_authors_possessive %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] }}</span>'s{% endcapture %}
@@ -80,11 +80,13 @@ ever quite found one.
     work_title="Afterword" container_title="Monday Begins on Saturday" %}
 
 {{ this_book }} is split into three loosely connected vignettes that wander
-around somewhat aimlessly. The third, where they solve the mystery of the
+around somewhat aimlessly. The third, where they solve the mystery of
 A-Janus/S-Janus, who is one person in two bodies, was my favorite because it
 comes closest to a classic "slowly unveiled mystery" plot. The other two are
-more slice-of-life around the institute, and the first, where the narrator
-stumbles into and joins NITWITT, had the least amount of plot.
+more slice-of-life around the institute and don't have a payoff like the
+third. The first vignettes, which introduces the whole institute and concept,
+has the least structure, which causes the book to stumble right from the
+start.
 
 {{ this_book }} shares some themes with {{ the_authors_possessive }} {{ picnic
 }}. Both are interested in happiness: NITWITT's mission is to discover and
@@ -101,10 +103,10 @@ thaw, while {{ picnic_short }} was written during the stagnation of the 70s.
 {{ this_book }} also reminded me of several other works. The "institute that
 contains anomalous items" is like the SCP foundation from {{
 there_is_no_antimemetics_division }}. NITWITT has an infinite library like {{
-borgess }} {{ the_library_of_babel }}. The protagonist's travel into a
-fictitious world is like {{ carrolls }} {{ alices_adventures_in_wonderland }}.
-And A-Janus/S-Janus moving backwards through time reminded me of Moneta in {{
-simmonss }} {{ hyperion }}.
+borgess }} {{ the_library_of_babel }}. The protagonist travels into a
+fictitious world is like Alice in {{ carrolls }} {{
+alices_adventures_in_wonderland }}. And A-Janus/S-Janus moving backwards
+through time reminded me of Moneta in {{ simmonss }} {{ hyperion }}.
 
 Despite its faults, I love {{ the_authors_possessive }} characters and dialog.
 There's a real plainness to how their characters talk that makes them feel
