@@ -11,10 +11,10 @@ image: /books/covers/monday_begins_on_saturday.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by brothers <span
 class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and
-<span class="author-name">{{ page.book_authors[1] }}</span>, is a Soviet
-sci-fi novel about scientist-magicians working in the National Institute for
-the Technology of Witchcraft and Thaumaturgy (NITWITT), where they study
-fairy tale creatures.
+<span class="author-name">{{ page.book_authors[1] }}</span>, is a Soviet sci-fi
+novel about scientist-magicians working at the National Institute for the
+Technology of Witchcraft and Thaumaturgy (NITWITT), where they study fairy-tale
+creatures.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_authors_possessive %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] }}</span>'s{% endcapture %}
@@ -24,7 +24,9 @@ fairy tale creatures.
 {% capture picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
 {% capture picnic_short %}{% book_link "Roadside Picnic" link_text="Picnic" %}{% endcapture %}
 
+{% capture simmonss %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
 {% capture cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
+{% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 {% capture fall_of_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
 
 {% capture carrolls %}{% author_link "Lewis Carroll" link_text="Carroll" possessive %}{% endcapture %}
@@ -48,15 +50,15 @@ fairy tale creatures.
 
 {{ this_book }} is like a light-hearted version of {{ qntms }} {{
 there_is_no_antimemetics_division }}, or {{ strosss }} {{ the_laundry_files }}
-or {{ a_colder_war }}. It follows scientists working in NITWITT as they study
-Maxwell's Demons, {{ dracula }}, magic wands, and dragons while dealing with
-Soviet bureaucracy. That should be the _perfect_ story for me! I love the
-genre of "bureaucrats dealing with the supernatural", and I've worked at LBL
-and CERN, the sort of giant research institutes this book is lampooning. But
-while I find the ideas and characters to be interesting, there wasn't really a
-plot to go along with it. {{ boris }} said they had the concept for the book
-for a long time but that they struggled "to think of a story or a plot for the
-adventure".[^boris] I don't think they managed to find a story.
+and {{ a_colder_war }}. It follows scientists at NITWITT as they study
+Maxwell's demons, {{ dracula }}, magic wands, and dragons while dealing with
+Soviet bureaucracy. On paper this should be _exactly_ my kind of story! I love
+the "bureaucrats dealing with the supernatural" genre, and I've worked at LBL
+and CERN, the kind of giant research institutes this book satirizes. But while
+the ideas and characters are fun, there isn't really a story tying it all
+together. {{ boris }} said they had the concept for a long time but struggled
+"to think of a story or a plot for the adventure".[^boris] I don't think they
+ever quite found one.
 
 [^boris]:
     > We came up with the idea of a story about wizards, witches,
@@ -77,40 +79,38 @@ adventure".[^boris] I don't think they managed to find a story.
     From {% citation author_last="Strugatsky" author_first="Boris"
     work_title="Afterword" container_title="Monday Begins on Saturday" %}
 
-{{ this_book }} contains three vignettes, which are loosely connected, and
-wander somewhat aimlessly. The third one, in which they solve the mystery of
-the director A-Janus/S-Janus who is one person in two bodies, is the one I
-enjoyed most because it follows closest to the classic "there is a mystery we
-are going to solve" story structure. The other two are more slice-of-life at
-the institute, and the first one, where the narrator discovers and joins
-NITWITT, was the worst with the least plot.
+{{ this_book }} is split into three loosely connected vignettes that wander
+around somewhat aimlessly. The third, where they solve the mystery of the
+A-Janus/S-Janus, who is one person in two bodies, was my favorite because it
+comes closest to a classic "slowly unveiled mystery" plot. The other two are
+more slice-of-life around the institute, and the first, where the narrator
+stumbles into and joins NITWITT, had the least amount of plot.
 
-{{ this_book }} shares themes and motifs with {{ the_authors_possessive }} {{
-picnic }}. One is the focus on happiness: NITWITT's mission is to discover and
-perfect human happiness, and in {{ picnic }} Red's wish at the end of the book
-is for "HAPPINESS, FREE, FOR EVERYONE, AND LET NO ONE BE FORGOTTEN!" They both
-deal with the relationship between humans and human-like simulacrum. In {{
-this_book_short }}, the doubles are helpful, able to collect your paycheck for
-you or go to parties so you have more time to work, while in {{ picnic_short
-}}, the doll-like Arthur and Dina are more sinister. <!-- TODO: HOW are they
-sinister? -->
-The difference in tone---there is an optimism in {{ this_book }} absent from
-{{ picnic }}---perhaps reflects when they were written: {{ this_book_short }}
-came out at the end of the liberalizing Khrushchev thaw, while {{ picnic_short
-}} we written in the stagnation of the 70s.
+{{ this_book }} shares some themes with {{ the_authors_possessive }} {{ picnic
+}}. Both are interested in happiness: NITWITT's mission is to discover and
+perfect human happiness, and in {{ picnic }} Red's final wish is for
+"HAPPINESS, FREE, FOR EVERYONE, AND LET NO ONE BE FORGOTTEN!" They also both
+deal with humans interacting with human-like simulacra. In {{ this_book_short
+}}, the doubles are helpful, collecting your paycheck or going to parties so
+you can work more, while in {{ picnic_short }} the artificial Arthur and Dina
+feel much more sinister. The difference in tone---{{ this_book }} is
+optimistic in a way {{ picnic }} is not---probably reflects when they were
+written: {{ this_book_short }} came out during the liberalizing Khrushchev
+thaw, while {{ picnic_short }} was written during the stagnation of the 70s.
 
-{{ this_book }} reminded me of several other works. As mentioned, the
-"institute that contains anomalous items" is like the SCP from {{
+{{ this_book }} also reminded me of several other works. The "institute that
+contains anomalous items" is like the SCP foundation from {{
 there_is_no_antimemetics_division }}. NITWITT has an infinite library like {{
-borgess }} {{ the_library_of_babel }}. The protagonist travels into a
-fantastical, fictitious world, a bit like {{ carrolls }} {{
-alices_adventures_in_wonderland }}. 
+borgess }} {{ the_library_of_babel }}. The protagonist's travel into a
+fictitious world is like {{ carrolls }} {{ alices_adventures_in_wonderland }}.
+And A-Janus/S-Janus moving backwards through time reminded me of Moneta in {{
+simmonss }} {{ hyperion }}.
 
 Despite its faults, I love {{ the_authors_possessive }} characters and dialog.
-There is a really simpleness to their conversations that makes them all the
-more real, almost like {{ ernest_hemingway }}. I have a bunch more of their
-books on my list, and I know they can write masterpieces even if they didn't
-manage it this time.
+There's a real plainness to how their characters talk that makes them feel
+alive, almost like {{ ernest_hemingway }}. I have a bunch more of their books
+on my list, and I'm looking forward to them because I know they can write
+masterpieces even if they didn't manage it this time.
 
-Up next is {{ time_war }} for the book club, and then I think back to the {{
-cantos }} with {{ fall_of_hyperion }}.
+Up next is {{ time_war }} for the book club, and then I think I'll return to
+the {{ cantos }} with {{ fall_of_hyperion }}.
