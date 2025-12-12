@@ -31,6 +31,8 @@ fairy tale creatures.
 {% capture simmons %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
 {% capture simmonss %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
+{% capture cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
+{% capture fall_of_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
 
 {% capture hg_wells %}{% author_link "H.G. Wells" %}{% endcapture %}
 {% capture hg_wellss %}{% author_link "H.G. Wells" possessive %}{% endcapture %}
@@ -122,6 +124,8 @@ fairy tale creatures.
 {% capture the_laundry_files %}{% series_link "The Laundry Files" %}{% endcapture %}
 {% capture a_colder_war %}{% short_story_link "A Colder War" %}{% endcapture %}
 
+{% capture time_war %}{% book_link "This is How You Lose the Time War" %}{% endcapture %}
+
 {{ this_book }} is like a light-hearted version of {{ qntms }} {{
 there_is_no_antimemetics_division }}, or {{ strosss }} {{ the_laundry_files }}
 or {{ a_colder_war }}. It follows scientists working in NITWITT as they study
@@ -174,3 +178,19 @@ The difference in tone---there is an optimism in {{ this_book }} absent from
 {{ picnic }}---perhaps reflects when they were written: {{ this_book_short }}
 came out at the end of the liberalizing Khrushchev thaw, while {{ picnic_short
 }} we written in the stagnation of the 70s.
+
+{{ this_book }} reminded me of several other works. As mentioned, the
+"institute that contains anomalous items" is like the SCP from {{
+there_is_no_antimemetics_division }}. NITWITT has an infinite library like {{
+borgess }} {{ the_library_of_babel }}. The protagonist travels into a
+fantastical, fictitious world, a bit like {{ carrolls }} {{
+alices_adventures_in_wonderland }}. 
+
+Despite its faults, I love {{ the_authors_possessive }} characters and dialog.
+There is a really simpleness to their conversations that makes them all the
+more real, almost like {{ ernest_hemingway }}. I have a bunch more of their
+books on my list, and I know they can write masterpieces even if they didn't
+manage it this time.
+
+Up next is {{ time_war }} for the book club, and then I think back to the {{
+cantos }} with {{ fall_of_hyperion }}.
