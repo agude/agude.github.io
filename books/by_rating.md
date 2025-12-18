@@ -52,7 +52,6 @@ ranked_list:
   - The Sword of the Lictor
   - The Citadel of the Autarch
   - The Shadow of the Torturer
-  - This Is How You Lose the Time War
   - A Canticle For Leibowitz
   - Destination Moon
   - Eater
@@ -84,6 +83,7 @@ ranked_list:
   - "Home: Habitat, Range, Niche, Territory"
   - Martin The Warrior
   - Chevalier
+  - This Is How You Lose the Time War
   - The Darfsteller
   - The Moon is a Harsh Mistress
   - The Left Hand of Darkness
