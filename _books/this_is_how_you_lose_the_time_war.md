@@ -38,6 +38,9 @@ changing the past in an attempt to wipe out the others.
 {% capture simmons_lastname %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
 {% capture simmonss_lastname %}{% author_link "Dan Simmons" possessive link_text="Simmons" %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
+{% capture hyperion2 %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
+{% capture hyperion3 %}{% book_link "Endymion" %}{% endcapture %}
+{% capture hyperion4 %}{% book_link "The Rise of Endymion" %}{% endcapture %}
 
 {% capture wolfe %}{% author_link "Gene Wolfe" %}{% endcapture %}
 {% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
@@ -130,6 +133,13 @@ changing the past in an attempt to wipe out the others.
 {% capture reynoldss_lastname %}{% author_link "Alastair Reynolds" possessive link_text="Reynolds" %}{% endcapture %}
 {% capture house_of_suns %}{% book_link "House of Suns" %}{% endcapture %}
 
+{{ this_book }} was one I really enjoyed when I was reading it, but after
+finishing and putting it down it has completely disappeared from my thoughts.
+Most books I think about for days after finishing, and some rare ones---{{
+the_book_of_the_new_sun }}, {{ firefall }}, and the {{ culture }}---for years.
+It is a book that does a fantastic job of getting you in a certain mood when
+you're reading it, but loses its power when you stop.
+
 {{ this_book }} is a book I loved being immersed in, and liked less and less
 the further I got from it. It's a book of vibes, it makes me feel deeply,
 remembering what falling in love was like. But that's all there really is.
@@ -143,10 +153,33 @@ culture }}---stick with me for years. {{ this_book }} is vibes based: it
 puts you in a mood, builds feelings around you, but that's its one and only
 trick.
 
-Reminded me of {{ a_memory_called_empire }} and not just because of the
-sapphic romance.
 
 {{ this_book }} is kind of the structural opposite of {{ jean_le_flambeur }}
 and {{ house_of_suns }}. Those books were all hard-world building with flat
 characters. {{ this_book }} is all soul, but no there there, a world
 intentionally empty to make the love story stand out.
+
+{{ this_book }} referenced a lot of other works: {{ mitchisons_lastname }} {{
+travel_light }}, {{ joyces_lastname }} {{ ulysses }}, {{ homers }} {{
+the_odyssey }}, {{ shelleys_lastname }} {{ ozymandias }}, {{ yeatss_lastname
+}} {{ the_second_coming }}, and {{ keatss_lastname }} epitaph (also heavily
+reference by {{ simmons }} in {{ hyperion }}).
+ 
+{{ this_book }} reminded me of {{ a_memory_called_empire }} and not just
+because of the sapphic romance. The constant references to pop-culture
+reminded me of {{ ready_player_one }}. The secret war was like {{ qntms }} {{
+there_is_no_antimemetics_division }}. The through time was like the Shrike and
+Moneta in {{ simmonss_lastname }} {{ hyperion }}. The wide variety combat
+methods and settings reminded me of {{ use_of_weapons }} and {{ surface_detail
+}}, Blue going undercover as a futuristic warrior disquiet as an apothecary
+was like {{ inversions }}, and the use of wild settings reminded me of how {{
+banks_lastname }} uses places in the {{ culture }} series in general. The
+letter that killed reminded me of the Bene Gesserit in {{ herberts_lastname }}
+{{ dune }}. Red being able to disable part of herself so her leaders don't
+know what she's doing is like Murderbot from {{ wellss_lastname }} {{
+the_murderbot_diaries }}.
+ 
+Next up is {{ hyperion2 }}, {{ hyperion3 }}, and {{ hyperion4 }}. I put off
+finishing the series the last time I read it, but this time I'm going to make
+it through. I've actually already started my re-read of {{ hyperion2 }} and
+it's even better than I remember. I'm so excited to see where the series goes!
