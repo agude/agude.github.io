@@ -50,6 +50,7 @@ changing the past in an attempt to wipe out the other side.
 {% capture qntms %}{% author_link "Qntm" possessive %}{% endcapture %}
 {% capture there_is_no_antimemetics_division %}{% book_link "There Is No Antimemetics Division" %}{% endcapture %}
 
+{% capture clines_lastname %}{% author_link "Ernest Cline" possessive link_text="Cline" %}{% endcapture %}
 {% capture ready_player_one %}{% book_link "Ready Player One" %}{% endcapture %}
 
 {% capture joyces_lastname %}{% author_link "James Joyce" possessive link_text="Joyce" %}{% endcapture %}
@@ -66,6 +67,7 @@ changing the past in an attempt to wipe out the other side.
 {% capture yeatss_lastname %}{% author_link "W.B. Yeats" possessive link_text="Yeats" %}{% endcapture %}
 {% capture the_second_coming %}{% short_story_link "The Second Coming" %}{% endcapture %}
 
+{% capture martines_lastname %}{% author_link "Arkady Martine" possessive link_text="Martine" %}{% endcapture %}
 {% capture a_memory_called_empire %}{% book_link "A Memory Called Empire" %}{% endcapture %}
 
 {% capture jean_le_flambeur %}{% series_link "Jean le Flambeur" %}{% endcapture %}
@@ -87,14 +89,14 @@ or about the logic of their current missions, because it is all pointless. The
 war is unending. It can't be won. The _only_ thing that matters is the
 feelings Red and Blue have for each other.
 
-In that way, {{ this_book }} is kind of the structural opposite of {{
-jean_le_flambeur }} and {{ house_of_suns }}. Those books were almost entirely
-carried by elaborate worldbuilding, where the characters, the plot, and even
-the writing were less important than the novelty of the setting. They suffered
-heavily for it. This book does away with most of the setting and plot to focus
-entirely on the characters and the prose. It works better, but it still leaves
-the book feeling a little incomplete. Those books are all brain, this book is
-all soul; you need both.
+In that way, {{ this_book }} is kind of the structural opposite of the {{
+jean_le_flambeur }} series and {{ house_of_suns }}. Those books were almost
+entirely carried by elaborate worldbuilding, where the characters, the plot,
+and even the writing were less important than the novelty of the setting. They
+suffered heavily for it. This book does away with most of the setting and plot
+to focus entirely on the characters and the prose. It works better, but it
+still leaves the book feeling a little incomplete. Those books are all brain,
+this book is all soul; you need both.
 
 {{ this_book }} also references a lot of other works: {{ mitchisons_lastname
 }} {{ travel_light }}, {{ joyces_lastname }} {{ ulysses }}, {{ homers }} {{
@@ -102,19 +104,20 @@ the_odyssey }}, {{ shelleys_lastname }} {{ ozymandias }}, {{ yeatss_lastname
 }} {{ the_second_coming }}, and {{ keatss_lastname }}'s epitaph (also heavily
 referenced by {{ simmons }} in {{ hyperion }}).
 
-The prose in {{ this_book }} reminded me of {{ a_memory_called_empire }}. The
-constant references to pop culture felt like {{ ready_player_one }}. The
-secret war that most people are oblivious to was similar to {{ qntms }} {{
-there_is_no_antimemetics_division }}. The fighting through time was like the
-Shrike and Moneta in {{ simmonss_lastname }} {{ hyperion }}. The wide variety
-of combat methods and settings reminded me of {{ use_of_weapons }} and {{
-surface_detail }}. Blue going undercover as an apothecary was like {{
-inversions }}, and the authors' use of wild settings reminded me of how {{
-banks_lastname }} uses places in the {{ culture }} series in general. The
-letter that kills reminded me of the Bene Gesserit and their power words in {{
-herberts_lastname }} {{ dune }}. Red being able to disable part of herself so
-her controllers wouldn't know what she's doing is like Murderbot from {{
-wellss_lastname }} {{ the_murderbot_diaries }}.
+The prose in {{ this_book }} reminded me of {{ martines_lastname }} {{
+a_memory_called_empire }}. The constant references to pop culture felt like {{
+clines_lastname }} {{ ready_player_one }}. The secret war that most people are
+oblivious to was similar to {{ qntms }} {{ there_is_no_antimemetics_division
+}}. The fighting through time was like the Shrike and Moneta in {{
+simmonss_lastname }} {{ hyperion }}. The wide variety of combat methods and
+settings reminded me of {{ use_of_weapons }} and {{ surface_detail }}. Blue
+going undercover as an apothecary was like {{ inversions }}, and the authors'
+use of wild settings reminded me of how {{ banks_lastname }} uses places in
+the {{ culture }} series in general. The letter that kills reminded me of the
+Bene Gesserit and their power words in {{ herberts_lastname }} {{ dune }}. Red
+being able to disable part of herself so her controllers wouldn't know what
+she's doing is like Murderbot from {{ wellss_lastname }} {{
+the_murderbot_diaries }}.
  
 Next up is {{ hyperion2 }}, {{ hyperion3 }}, and {{ hyperion4 }}. I put off
 finishing the series the last time I read it, but this time I'm going to make
