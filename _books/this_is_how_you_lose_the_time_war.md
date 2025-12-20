@@ -133,31 +133,28 @@ changing the past in an attempt to wipe out the others.
 {% capture reynoldss_lastname %}{% author_link "Alastair Reynolds" possessive link_text="Reynolds" %}{% endcapture %}
 {% capture house_of_suns %}{% book_link "House of Suns" %}{% endcapture %}
 
-{{ this_book }} was one I really enjoyed when I was reading it, but after
-finishing and putting it down it has completely disappeared from my thoughts.
-Most books I think about for days after finishing, and some rare ones---{{
-the_book_of_the_new_sun }}, {{ firefall }}, and the {{ culture }}---for years.
-It is a book that does a fantastic job of getting you in a certain mood when
-you're reading it, but loses its power when you stop.
+{{ this_book }} did a great job of building an mood within me using its prose
+and characters to shape how I was feeling, to make me remember what it was
+like to fall in love. But when I was reading it, the feeling collapsed, the
+book disappeared from my mind. That's not what normally happens. Most of the
+time I think about a book for days after I finish it, and for some rare
+ones---{{ the_book_of_the_new_sun }}, {{ firefall }}, and the {{ culture
+}}---years.
 
-{{ this_book }} is a book I loved being immersed in, and liked less and less
-the further I got from it. It's a book of vibes, it makes me feel deeply,
-remembering what falling in love was like. But that's all there really is.
-
-The war is pointless; impossible to win or lose. Against this hollowness the
-relationship of Blue and Red feels like the only thing that is real. I thought
-that feeling was very well done. But the book left my mind almost as soon as I
-finished. I think back on most books I've read for days after finishing them,
-and some---like {{ the_book_of_the_new_sun }}, {{ firefall }}, and the {{
-culture }}---stick with me for years. {{ this_book }} is vibes based: it
-puts you in a mood, builds feelings around you, but that's its one and only
-trick.
-
+I think it's because {{ this_book }} relies so heavily on the relationship,
+and intentionally hollows out the setting to bring Red and Blue into sharp
+focus. You don't need to know much about the war, about the Agency or Garden,
+about the logic of their current missions because it is all pointless. The war
+is unending, it can't be won. The _only_ thing that matters are the feelings
+Red and Blue have for each other.
 
 {{ this_book }} is kind of the structural opposite of {{ jean_le_flambeur }}
-and {{ house_of_suns }}. Those books were all hard-world building with flat
-characters. {{ this_book }} is all soul, but no there there, a world
-intentionally empty to make the love story stand out.
+and {{ house_of_suns }}. Those books were entirely carried by elaborate world
+build where the characters, the plot, and even the writing were less important
+than the novelty of the setting. They suffered heavily for it. This book does
+away with the setting and plot to focus entirely on the characters and the
+prose. It works better, but it still leaves it feeling a little incomplete.
+Those books are all brain, this book is all soul; you need both.
 
 {{ this_book }} referenced a lot of other works: {{ mitchisons_lastname }} {{
 travel_light }}, {{ joyces_lastname }} {{ ulysses }}, {{ homers }} {{
@@ -165,19 +162,19 @@ the_odyssey }}, {{ shelleys_lastname }} {{ ozymandias }}, {{ yeatss_lastname
 }} {{ the_second_coming }}, and {{ keatss_lastname }} epitaph (also heavily
 reference by {{ simmons }} in {{ hyperion }}).
  
-{{ this_book }} reminded me of {{ a_memory_called_empire }} and not just
-because of the sapphic romance. The constant references to pop-culture
-reminded me of {{ ready_player_one }}. The secret war was like {{ qntms }} {{
-there_is_no_antimemetics_division }}. The through time was like the Shrike and
-Moneta in {{ simmonss_lastname }} {{ hyperion }}. The wide variety combat
-methods and settings reminded me of {{ use_of_weapons }} and {{ surface_detail
-}}, Blue going undercover as a futuristic warrior disquiet as an apothecary
-was like {{ inversions }}, and the use of wild settings reminded me of how {{
+The prose in {{ this_book }} reminded me of {{ a_memory_called_empire }}. The
+constant references to pop-culture was like {{ ready_player_one }}. The secret
+war most people were oblivious to was similar to {{ qntms }} {{
+there_is_no_antimemetics_division }}. The fighting through time was like the
+Shrike and Moneta in {{ simmonss_lastname }} {{ hyperion }}. The wide variety
+combat methods and settings reminded me of {{ use_of_weapons }} and {{
+surface_detail }}, Blue going undercover as an apothecary was like {{
+inversions }}, and the authors' use of wild settings reminded me of how {{
 banks_lastname }} uses places in the {{ culture }} series in general. The
-letter that killed reminded me of the Bene Gesserit in {{ herberts_lastname }}
-{{ dune }}. Red being able to disable part of herself so her leaders don't
-know what she's doing is like Murderbot from {{ wellss_lastname }} {{
-the_murderbot_diaries }}.
+letter that kills reminded me of the Bene Gesserit with their power words in
+{{ herberts_lastname }} {{ dune }}. Red being able to disable part of herself
+so her controllers wouldn't know what she's doing is like Murderbot from {{
+wellss_lastname }} {{ the_murderbot_diaries }}.
  
 Next up is {{ hyperion2 }}, {{ hyperion3 }}, and {{ hyperion4 }}. I put off
 finishing the series the last time I read it, but this time I'm going to make
