@@ -74,13 +74,12 @@ changing the past in an attempt to wipe out the other side.
 
 {% capture house_of_suns %}{% book_link "House of Suns" %}{% endcapture %}
 
-{{ this_book }} did a great job of building a mood within me, using its prose
-and characters to shape how I was feeling, to make me remember what it was like
-to fall in love. But once I finished it, that feeling collapsed and the book
-kind of disappeared from my mind. That's not what normally happens. Most of the
-time I think about a book for days after I finish it, and for some rare
-ones---{{ the_book_of_the_new_sun }}, {{ firefall }}, and the {{ culture
-}}---years.
+{{ this_book }} was incredible at capturing a feeling, using its prose and
+characters to make me remember what it was like to fall in love. But once I
+finished it, that feeling collapsed and the book kind of disappeared from my
+mind. That's not what normally happens. Most of the time I think about a book
+for days after I finish it, and for some rare ones---{{
+the_book_of_the_new_sun }}, {{ firefall }}, and the {{ culture }}---years.
 
 I think that's because {{ this_book }} relies so heavily on the relationship,
 and intentionally hollows out the setting to bring Red and Blue into sharp
@@ -90,7 +89,7 @@ war is unending. It can't be won. The _only_ thing that matters is the
 feelings Red and Blue have for each other.
 
 In that way, {{ this_book }} is kind of the structural opposite of the {{
-jean_le_flambeur }} series and {{ house_of_suns }}. Those books were almost
+jean_le_flambeur }} series or {{ house_of_suns }}. Those books were almost
 entirely carried by elaborate worldbuilding, where the characters, the plot,
 and even the writing were less important than the novelty of the setting. They
 suffered heavily for it. This book does away with most of the setting and plot
@@ -101,7 +100,7 @@ this book is all soul; you need both.
 {{ this_book }} also references a lot of other works: {{ mitchisons_lastname
 }} {{ travel_light }}, {{ joyces_lastname }} {{ ulysses }}, {{ homers }} {{
 the_odyssey }}, {{ shelleys_lastname }} {{ ozymandias }}, {{ yeatss_lastname
-}} {{ the_second_coming }}, and {{ keatss_lastname }}'s epitaph (also heavily
+}} {{ the_second_coming }}, and {{ keatss_lastname }} epitaph (also heavily
 referenced by {{ simmons }} in {{ hyperion }}).
 
 The prose in {{ this_book }} reminded me of {{ martines_lastname }} {{
@@ -119,7 +118,7 @@ being able to disable part of herself so her controllers wouldn't know what
 she's doing is like Murderbot from {{ wellss_lastname }} {{
 the_murderbot_diaries }}.
  
-Next up is {{ hyperion2 }}, {{ hyperion3 }}, and {{ hyperion4 }}. I put off
+Next up are {{ hyperion2 }}, {{ hyperion3 }}, and {{ hyperion4 }}. I put off
 finishing the series the last time I read it, but this time I'm going to make
 it through. I've already started my re-read of {{ hyperion2 }}, and it's even
 better than I remember. I'm excited to see where the series goes.
