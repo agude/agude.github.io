@@ -155,7 +155,7 @@ class TestBookCardLookupTag < Minitest::Test
   end
 
   def test_render_logs_warning_when_book_not_found
-    mock_result = { book: nil, error: 'Book not found' }
+    mock_result = { book: nil, error: { type: :not_found } }
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
@@ -200,6 +200,190 @@ class TestBookCardLookupTag < Minitest::Test
     assert log_called, 'Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure should have been called'
   end
 
+  # --- Date Parameter Tests ---
+
+  def test_accepts_date_parameter_with_title
+    # Should not raise syntax error
+    template = Liquid::Template.parse("{% book_card_lookup title='Hyperion' date='2023-10-17' %}")
+    assert_instance_of Liquid::Template, template
+  end
+
+  def test_accepts_date_parameter_with_positional_title
+    # Should not raise syntax error
+    template = Liquid::Template.parse("{% book_card_lookup 'Hyperion' date='2023-10-17' %}")
+    assert_instance_of Liquid::Template, template
+  end
+
+  def test_calls_book_finder_with_date_argument
+    captured_args = {}
+    mock_result = { book: @hyperion_review1, error: nil }
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::Books::Lookups::BookFinder.stub :new, lambda { |args|
+      captured_args = args
+      mock_finder
+    } do
+      Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
+        Jekyll.stub :logger, @silent_logger_stub do
+          Liquid::Template.parse("{% book_card_lookup title='Hyperion' date='2023-10-17' %}").render!(@context)
+
+          assert_equal @site, captured_args[:site]
+          assert_equal 'Hyperion', captured_args[:title]
+          assert_equal '2023-10-17', captured_args[:date]
+          mock_finder.verify
+        end
+      end
+    end
+  end
+
+  def test_calls_book_finder_without_date_when_not_provided
+    captured_args = {}
+    mock_result = { book: @book1, error: nil }
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::Books::Lookups::BookFinder.stub :new, lambda { |args|
+      captured_args = args
+      mock_finder
+    } do
+      Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
+        Jekyll.stub :logger, @silent_logger_stub do
+          Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
+
+          assert_equal @site, captured_args[:site]
+          assert_equal 'The First Book', captured_args[:title]
+          assert_nil captured_args[:date]
+          mock_finder.verify
+        end
+      end
+    end
+  end
+
+  def test_raises_exception_when_date_provided_but_book_not_found_on_date
+    mock_result = { book: nil, error: { type: :date_not_found } }
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::Books::Lookups::BookFinder.stub :new, ->(_args) { mock_finder } do
+      Jekyll.stub :logger, @silent_logger_stub do
+        err = assert_raises Liquid::SyntaxError do
+          Liquid::Template.parse("{% book_card_lookup title='Hyperion' date='2020-01-01' %}").render!(@context)
+        end
+        assert_match 'No book found with title', err.message
+        assert_match 'on date', err.message
+        assert_match '2020-01-01', err.message
+      end
+    end
+  end
+
+  def test_raises_exception_when_date_format_invalid
+    mock_result = { book: nil, error: { type: :invalid_date } }
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::Books::Lookups::BookFinder.stub :new, ->(_args) { mock_finder } do
+      Jekyll.stub :logger, @silent_logger_stub do
+        err = assert_raises Liquid::SyntaxError do
+          Liquid::Template.parse("{% book_card_lookup title='Hyperion' date='not-a-date' %}").render!(@context)
+        end
+        assert_match 'Invalid date format', err.message
+        assert_match 'not-a-date', err.message
+      end
+    end
+  end
+
+  def test_date_parameter_with_variable
+    context_with_date = create_context(
+      { 'review_date' => '2023-10-17' },
+      { site: @site, page: create_doc({ 'path' => 'test.md' }, '/test.html') }
+    )
+
+    captured_args = {}
+    mock_result = { book: @hyperion_review1, error: nil }
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::Books::Lookups::BookFinder.stub :new, lambda { |args|
+      captured_args = args
+      mock_finder
+    } do
+      Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
+        Jekyll.stub :logger, @silent_logger_stub do
+          Liquid::Template.parse("{% book_card_lookup title='Hyperion' date=review_date %}").render!(context_with_date)
+
+          assert_equal '2023-10-17', captured_args[:date]
+          mock_finder.verify
+        end
+      end
+    end
+  end
+
+  # --- Flexible Argument Order Tests ---
+
+  def test_accepts_date_before_title
+    # date first, then title - should not raise syntax error
+    template = Liquid::Template.parse("{% book_card_lookup date='2023-10-17' title='Hyperion' %}")
+    assert_instance_of Liquid::Template, template
+  end
+
+  def test_parses_date_before_title_correctly
+    captured_args = {}
+    mock_result = { book: @hyperion_review1, error: nil }
+
+    mock_finder = Minitest::Mock.new
+    mock_finder.expect :find, mock_result
+
+    Jekyll::Books::Lookups::BookFinder.stub :new, lambda { |args|
+      captured_args = args
+      mock_finder
+    } do
+      Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
+        Jekyll.stub :logger, @silent_logger_stub do
+          Liquid::Template.parse("{% book_card_lookup date='2023-10-17' title='Hyperion' %}").render!(@context)
+
+          assert_equal 'Hyperion', captured_args[:title]
+          assert_equal '2023-10-17', captured_args[:date]
+          mock_finder.verify
+        end
+      end
+    end
+  end
+
+  def test_syntax_error_duplicate_title_argument
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse("{% book_card_lookup title='First' title='Second' %}")
+    end
+    assert_match 'Duplicate', err.message
+    assert_match 'title', err.message
+  end
+
+  def test_syntax_error_duplicate_date_argument
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse("{% book_card_lookup title='Hyperion' date='2023-10-17' date='2025-09-20' %}")
+    end
+    assert_match 'Duplicate', err.message
+    assert_match 'date', err.message
+  end
+
+  def test_syntax_error_positional_and_named_title
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse("{% book_card_lookup 'Positional Title' title='Named Title' %}")
+    end
+    assert_match 'Duplicate', err.message
+    assert_match 'title', err.message
+  end
+
+  def test_syntax_error_only_date_no_title
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse("{% book_card_lookup date='2023-10-17' %}")
+    end
+    assert_match 'Could not find title value', err.message
+  end
+
   private
 
   # Creates test book documents
@@ -208,13 +392,22 @@ class TestBookCardLookupTag < Minitest::Test
     @book2 = create_doc({ 'title' => 'The Second Book', 'published' => true }, '/books/second.html')
     @unpublished_book = create_doc({ 'title' => 'Unpublished Title', 'published' => false },
                                    '/books/unpublished.html')
+    # Books with same title but different dates (like multiple reviews)
+    @hyperion_review1 = create_doc(
+      { 'title' => 'Hyperion', 'published' => true, 'date' => Time.new(2023, 10, 17) },
+      '/books/hyperion/review-2023-10-17.html'
+    )
+    @hyperion_review2 = create_doc(
+      { 'title' => 'Hyperion', 'published' => true, 'date' => Time.new(2025, 9, 20) },
+      '/books/hyperion.html'
+    )
   end
 
   # Creates test site with books collection
   def create_test_site
     create_site(
       { 'url' => 'http://example.com' }, # For Jekyll::Books::Core::BookCardUtils -> Jekyll::UI::Cards::CardDataExtractorUtils -> Jekyll::Infrastructure::UrlUtils
-      { 'books' => [@book1, @book2, @unpublished_book] }
+      { 'books' => [@book1, @book2, @unpublished_book, @hyperion_review1, @hyperion_review2] }
     )
   end
 

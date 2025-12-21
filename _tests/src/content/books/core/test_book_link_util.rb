@@ -15,11 +15,12 @@ class TestBookLinkUtils < Minitest::Test
     title = 'Dune'
     override = 'The Dune Book'
     author = 'Frank Herbert'
+    date_filter = nil
     mock_output = '<a>Dune</a>'
 
     # Create a mock resolver instance
     mock_resolver = Minitest::Mock.new
-    mock_resolver.expect :resolve, mock_output, [title, override, author]
+    mock_resolver.expect :resolve, mock_output, [title, override, author, date_filter]
 
     # Stub .new to return the mock
     Jekyll::Books::Core::BookLinkResolver.stub :new, mock_resolver do

@@ -338,6 +338,83 @@ class TestBookLinkResolver < Minitest::Test
     assert_equal 1, tracker[normalized_title][:original_titles][unreviewed_title]
   end
 
+  # --- Date Filter Tests ---
+
+  def test_render_book_with_date_filter_succeeds
+    # Setup: Two reviews of the same book on different dates
+    review1_data = { 'title' => 'Multi Review Book', 'published' => true,
+                     'book_authors' => ['Author A'], 'date' => Time.new(2023, 10, 17) }
+    review1 = create_doc(review1_data, '/books/multi-review-1.html')
+    review2_data = { 'title' => 'Multi Review Book', 'published' => true,
+                     'book_authors' => ['Author A'], 'date' => Time.new(2025, 9, 20) }
+    review2 = create_doc(review2_data, '/books/multi-review-2.html')
+
+    site = create_site({}, { 'books' => [review1, review2] }, [@author_a_page])
+    ctx = create_context({}, { site: site, page: @page })
+
+    # Without date filter, this would be ambiguous (same author, same title)
+    # With date filter, it should resolve to the correct one
+    output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
+      'Multi Review Book', nil, nil, '2023-10-17'
+    )
+    expected = '<a href="/books/multi-review-1.html"><cite class="book-title">Multi Review Book</cite></a>'
+    assert_equal expected, output
+
+    output2 = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
+      'Multi Review Book', nil, nil, '2025-09-20'
+    )
+    expected2 = '<a href="/books/multi-review-2.html"><cite class="book-title">Multi Review Book</cite></a>'
+    assert_equal expected2, output2
+  end
+
+  def test_render_book_with_date_filter_and_author_succeeds
+    # Both filters together
+    review_data = { 'title' => 'Dated Book', 'published' => true,
+                    'book_authors' => ['Author A'], 'date' => Time.new(2023, 10, 17) }
+    review = create_doc(review_data, '/books/dated.html')
+
+    site = create_site({}, { 'books' => [review] }, [@author_a_page])
+    ctx = create_context({}, { site: site, page: @page })
+
+    output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
+      'Dated Book', nil, 'Author A', '2023-10-17'
+    )
+    expected = '<a href="/books/dated.html"><cite class="book-title">Dated Book</cite></a>'
+    assert_equal expected, output
+  end
+
+  def test_render_book_with_wrong_date_filter_warns
+    review_data = { 'title' => 'Wrong Date Book', 'published' => true,
+                    'book_authors' => ['Author A'], 'date' => Time.new(2023, 10, 17) }
+    review = create_doc(review_data, '/books/wrong-date.html')
+
+    site = create_site({}, { 'books' => [review] }, [@author_a_page])
+    site.config['plugin_logging']['RENDER_BOOK_LINK'] = true
+    ctx = create_context({}, { site: site, page: @page })
+
+    output = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
+        'Wrong Date Book', nil, nil, '2020-01-01'
+      )
+    end
+    expected_pattern = '<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: ' \
+                       "Reason='Book title exists, but not on the specified date.'"
+    assert_match(/#{expected_pattern}/, output)
+    assert_match('<cite class="book-title">Wrong Date Book</cite>', output)
+  end
+
+  def test_date_filter_with_empty_string_is_ignored
+    # An empty date filter should be ignored
+    expected = '<a href="/books/unique.html"><cite class="book-title">Unique Book</cite></a>'
+    assert_equal expected, render_link_with_date('Unique Book', nil, nil, '   ')
+    assert_equal expected, render_link_with_date('Unique Book', nil, nil, '')
+  end
+
+  def render_link_with_date(title, link_text = nil, author = nil, date = nil, context = @ctx)
+    Jekyll::Books::Core::BookLinkResolver.new(context).resolve(title, link_text, author, date)
+  end
+
   def test_get_canonical_author_handles_empty_author_name
     # Test that when filtering by an empty author name, it's handled correctly.
     # This is tested indirectly - when a book has an empty author in its list,

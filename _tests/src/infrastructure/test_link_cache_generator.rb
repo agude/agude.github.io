@@ -101,13 +101,12 @@ class TestLinkCacheGeneratorBasicOperations < TestLinkCacheGeneratorBase
   end
 
   def assert_book_cache_correct(cache)
-    expected = {
-      'url' => '/books/book-one.html',
-      'title' => 'Book One',
-      'authors' => ['Author A'],
-      'canonical_url' => nil
-    }
-    assert_equal(expected, cache['books']['book one'].first)
+    book_data = cache['books']['book one'].first
+    assert_equal '/books/book-one.html', book_data['url']
+    assert_equal 'Book One', book_data['title']
+    assert_equal ['Author A'], book_data['authors']
+    assert_nil book_data['canonical_url']
+    assert book_data.key?('date'), 'Book cache should include date field'
     assert_nil cache['books']['unpublished book']
   end
 

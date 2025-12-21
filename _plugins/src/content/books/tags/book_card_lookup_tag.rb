@@ -9,16 +9,19 @@ require_relative '../core/book_card_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../lookups/book_finder'
 
-# Renders a book card by looking up a book by its title.
+# Renders a book card by looking up a book by its title and optional date.
 #
 # Usage in Liquid templates:
 #   {% book_card_lookup "The Fellowship of the Ring" %}
+#   {% book_card_lookup title="The Fellowship of the Ring" %}
+#   {% book_card_lookup title="Hyperion" date="2023-10-17" %}
+#   {% book_card_lookup date="2023-10-17" title="Hyperion" %}
 module Jekyll
-  #   {% book_card_lookup title="The Fellowship of the Ring" %}
   module Books
     module Tags
       # Liquid tag for rendering a book card by looking up a book by its title.
-      # Supports both positional and named arguments.
+      # Supports both positional and named arguments in flexible order.
+      # Optional date parameter filters to a specific review date.
       class BookCardLookupTag < Liquid::Tag
         QuotedFragment = Liquid::QuotedFragment
         # Aliases for readability
@@ -31,22 +34,23 @@ module Jekyll
         def initialize(tag_name, markup, tokens)
           super
           @raw_markup = markup
-          @title_markup = parse_markup(markup)
+          @title_markup, @date_markup = parse_markup(markup)
         end
 
         # Renders the book card by looking up the book and calling the utility
         def render(context)
           target_title_input = TagArgs.resolve_value(@title_markup, context)
+          target_date_input = @date_markup ? TagArgs.resolve_value(@date_markup, context) : nil
 
           return log_empty_title(context) if title_empty?(target_title_input)
 
           site = context.registers[:site]
           return log_missing_collection(context, target_title_input) unless site.collections.key?('books')
 
-          finder = Finder.new(site: site, title: target_title_input)
+          finder = Finder.new(site: site, title: target_title_input, date: target_date_input)
           result = finder.find
 
-          return log_book_not_found(context, target_title_input) if result[:error]
+          return handle_finder_error(result, target_title_input, target_date_input, context) if result[:error]
 
           render_book_card(result[:book], context, target_title_input)
         end
@@ -55,18 +59,69 @@ module Jekyll
 
         def parse_markup(markup)
           scanner = StringScanner.new(markup.strip)
-          title = scan_title(scanner)
-          scanner.skip(/\s+/)
-          validate_scanner(scanner)
+          title = nil
+          date = nil
+
+          until scanner.eos?
+            scanner.skip(/\s+/)
+            break if scanner.eos?
+
+            if (val = scan_key_value(scanner, 'title')) || (val = scan_positional(scanner))
+              raise_duplicate_error('title') if title
+              title = val
+            elsif (val = scan_key_value(scanner, 'date'))
+              raise_duplicate_error('date') if date
+              date = val
+            else
+              handle_unknown_argument(scanner)
+            end
+          end
+
           validate_title(title)
-          title
+          [title, date]
         end
 
-        def validate_scanner(scanner)
-          return if scanner.eos?
+        def scan_key_value(scanner, key)
+          return nil unless scanner.scan(/#{key}\s*=\s*(#{QuotedFragment}|\S+)/)
 
+          scanner[1]
+        end
+
+        # Match quoted strings or variable names (without =) as positional arguments
+        QUOTED_STRING = /"[^"]*"|'[^']*'/
+        VARIABLE_NAME = /[a-zA-Z_][\w.]*/
+        private_constant :QUOTED_STRING, :VARIABLE_NAME
+
+        def scan_positional(scanner)
+          # First try quoted string
+          return scanner.matched if scanner.scan(QUOTED_STRING)
+
+          # Then try variable name, but only if not followed by =
+          pos = scanner.pos
+          return nil unless scanner.scan(VARIABLE_NAME)
+
+          # Save matched before match? potentially changes it
+          matched = scanner.matched
+
+          # Check if this looks like a key=value pair (followed by optional whitespace then =)
+          if scanner.match?(/\s*=/)
+            # It's a key=value, rewind and return nil
+            scanner.pos = pos
+            return nil
+          end
+
+          matched
+        end
+
+        def raise_duplicate_error(key)
           raise Liquid::SyntaxError,
-                "Syntax Error in 'book_card_lookup': Unknown argument(s) '#{scanner.rest}' in '#{@raw_markup}'"
+                "Syntax Error in 'book_card_lookup': Duplicate '#{key}' argument in '#{@raw_markup}'"
+        end
+
+        def handle_unknown_argument(scanner)
+          unknown = scanner.scan(/\S+/)
+          raise Liquid::SyntaxError,
+                "Syntax Error in 'book_card_lookup': Unknown argument(s) '#{unknown}' in '#{@raw_markup}'"
         end
 
         def validate_title(title)
@@ -76,26 +131,30 @@ module Jekyll
                 "Syntax Error in 'book_card_lookup': Could not find title value in '#{@raw_markup}'"
         end
 
-        def scan_title(scanner)
-          # Try to match named argument first: title='...' or title=...
-          if scanner.scan(/title\s*=\s*(#{QuotedFragment}|\S+)/)
-            scanner[1] # Value part of title=value
-          else
-            # If not named, assume positional: '...' or ...
-            # Reset scanner if it consumed part of a non-matching named arg pattern
-            scanner.reset
-            scanner.skip_until(/\A\s*/) # Go to start of content
-            scanner.matched if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
-          end
-        end
-
         def title_empty?(title)
           title.nil? || title.to_s.strip.empty?
         end
 
+        def handle_finder_error(result, target_title_input, target_date_input, context)
+          error_type = result[:error][:type]
+
+          case error_type
+          when :date_not_found
+            raise Liquid::SyntaxError,
+                  "Error in 'book_card_lookup': No book found with title '#{target_title_input}' " \
+                  "on date '#{target_date_input}'"
+          when :invalid_date
+            raise Liquid::SyntaxError,
+                  "Error in 'book_card_lookup': Invalid date format '#{target_date_input}'. " \
+                  'Expected YYYY-MM-DD format.'
+          else
+            log_book_not_found(context, target_title_input)
+          end
+        end
+
         def render_book_card(found_book, context, target_title_input)
           # --- Call Utility to Render Card ---
-          CardUtils.render(found_book, context) # CHANGED: Call the new utility
+          CardUtils.render(found_book, context)
         rescue StandardError => e
           # Return the log message from Jekyll::Infrastructure::PluginLoggerUtils
           Logger.log_liquid_failure(

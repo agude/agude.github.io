@@ -2,6 +2,7 @@
 
 # _plugins/src/content/books/core/book_link_resolver.rb
 require 'jekyll'
+require 'date'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../../../infrastructure/text_processing_utils'
 require_relative 'book_link_util'
@@ -22,11 +23,12 @@ module Jekyll
           @site = registers&.[](:site)
         end
 
-        def resolve(title_raw, text_override, author_filter)
+        def resolve(title_raw, text_override, author_filter, date_filter = nil)
           return fallback(title_raw) unless @site
 
           @title = title_raw.to_s
           @norm_title = Text.normalize_title(@title)
+          @date_filter = normalize_date_filter(date_filter)
           return log_empty_title if @norm_title.empty?
 
           candidates = find_candidates
@@ -101,6 +103,10 @@ module Jekyll
         end
 
         def filter_candidates(candidates, author_filter)
+          # Apply date filter first if provided
+          candidates = filter_by_date(candidates) if @date_filter
+          return log_date_mismatch if candidates.empty? && @date_filter
+
           if author_filter && !author_filter.to_s.strip.empty?
             filter_by_author(candidates, author_filter.to_s.strip)
           elsif candidates.length > 1
@@ -108,6 +114,45 @@ module Jekyll
           else
             candidates.first
           end
+        end
+
+        def filter_by_date(candidates)
+          candidates.select { |book| dates_match?(book['date'], @date_filter) }
+        end
+
+        def dates_match?(book_date, target_date)
+          return false unless book_date
+
+          normalize_date(book_date) == target_date
+        rescue ArgumentError
+          false
+        end
+
+        def normalize_date(date_input)
+          case date_input
+          when Date
+            date_input
+          when Time
+            date_input.to_date
+          else
+            Date.parse(date_input.to_s)
+          end
+        end
+
+        def normalize_date_filter(date_filter)
+          return nil if date_filter.nil? || date_filter.to_s.strip.empty?
+
+          Date.parse(date_filter.to_s)
+        rescue ArgumentError
+          nil
+        end
+
+        def log_date_mismatch
+          Logger.log_liquid_failure(
+            context: @context, tag_type: 'RENDER_BOOK_LINK',
+            reason: 'Book title exists, but not on the specified date.',
+            identifiers: { Title: @title, DateFilter: @date_filter.to_s }, level: :warn
+          )
         end
 
         def filter_by_author(candidates, author_filter)

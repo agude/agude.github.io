@@ -42,11 +42,13 @@ module Jekyll
         # @param context [Liquid::Context] The current Liquid context.
         # @param link_text_override_raw [String, nil] Optional text to display instead of the title.
         # @param author_filter_raw [String, nil] Optional author name to disambiguate.
+        # @param date_filter_raw [String, nil] Optional date to filter to a specific review.
         # @return [String] The generated HTML, potentially prepended with an HTML comment.
         # @raise [Jekyll::Errors::FatalException] if the title is ambiguous and no author is provided.
-        def self.render_book_link(book_title_raw, context, link_text_override_raw = nil, author_filter_raw = nil)
+        def self.render_book_link(book_title_raw, context, link_text_override_raw = nil, author_filter_raw = nil,
+                                  date_filter_raw = nil)
           Jekyll::Books::Core::BookLinkResolver.new(context).resolve(book_title_raw, link_text_override_raw,
-                                                                     author_filter_raw)
+                                                                     author_filter_raw, date_filter_raw)
         end
 
         # --- Private Helper Methods ---
