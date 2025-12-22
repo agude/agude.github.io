@@ -13,6 +13,7 @@ module Jekyll
       class FavoritesManager
         TAG_REGEX = /\{%\s*book_card_lookup\s+(.*?)%\}/m
         TITLE_REGEX = /(?:title\s*=\s*)?(?:'([^']+)'|"([^"]+)")/
+        DATE_REGEX = /date\s*=\s*(?:'([^']+)'|"([^"]+)")/
 
         def initialize(site, link_cache, url_map)
           @site = site
@@ -40,7 +41,8 @@ module Jekyll
             validator.check_tag(post, tag_content)
 
             title = extract_title(tag_content)
-            process_match(title, post) if title && !title.strip.empty?
+            date = extract_date(tag_content)
+            process_match(title, date, post, validator) if title && !title.strip.empty?
           end
         end
 
@@ -51,16 +53,39 @@ module Jekyll
           match.captures.compact.first
         end
 
-        def process_match(title, post)
+        def extract_date(tag_content)
+          match = tag_content.match(DATE_REGEX)
+          return nil unless match
+
+          match.captures.compact.first
+        end
+
+        def process_match(title, date, post, validator)
           normalized = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(title)
           locs = @link_cache['books'][normalized]
           return unless locs&.any?
 
-          book_url = locs.first['url']
-          return unless book_url
+          book = find_book_by_date(locs, date)
+          unless book
+            validator.check_date_match(post, title, date)
+            return
+          end
 
+          book_url = book['url']
           add_mention(book_url, post)
           add_post_link(post, book_url)
+        end
+
+        def find_book_by_date(locs, date_string)
+          return nil unless date_string
+
+          locs.find { |loc| format_date(loc['date']) == date_string }
+        end
+
+        def format_date(date)
+          return nil unless date
+
+          date.strftime('%Y-%m-%d')
         end
 
         def add_mention(book_url, post)

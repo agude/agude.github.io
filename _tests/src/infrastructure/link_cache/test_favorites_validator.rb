@@ -109,6 +109,43 @@ class TestFavoritesValidator < Minitest::Test
     assert_includes error.message, 'date parameter'
   end
 
+  # --- Unit tests for check_date_match ---
+
+  def test_date_mismatch_raises_error
+    post = create_favorites_post('2023', 'content')
+
+    @validator.check_date_match(post, 'Some Book', '2099-01-01')
+
+    error = assert_raises(RuntimeError) { @validator.raise_if_errors! }
+    assert_includes error.message, 'No matching review'
+    assert_includes error.message, 'Some Book'
+    assert_includes error.message, '2099-01-01'
+  end
+
+  def test_multiple_date_mismatches_all_captured
+    post = create_favorites_post('2023', 'content')
+
+    @validator.check_date_match(post, 'Book A', '2099-01-01')
+    @validator.check_date_match(post, 'Book B', '2099-02-01')
+
+    error = assert_raises(RuntimeError) { @validator.raise_if_errors! }
+    assert_includes error.message, 'Book A'
+    assert_includes error.message, 'Book B'
+  end
+
+  def test_both_error_types_reported_together
+    post = create_favorites_post('2023', 'content')
+
+    @validator.check_tag(post, 'title="Missing Date Book"')
+    @validator.check_date_match(post, 'Wrong Date Book', '2099-01-01')
+
+    error = assert_raises(RuntimeError) { @validator.raise_if_errors! }
+    assert_includes error.message, 'Missing date parameter'
+    assert_includes error.message, 'Missing Date Book'
+    assert_includes error.message, 'No matching review'
+    assert_includes error.message, 'Wrong Date Book'
+  end
+
   # --- Integration tests through FavoritesManager ---
 
   def test_integration_favorites_manager_raises_on_missing_date
@@ -133,7 +170,10 @@ class TestFavoritesValidator < Minitest::Test
   end
 
   def test_integration_favorites_manager_passes_with_date
-    book = create_doc({ 'title' => 'Blindsight' }, '/books/blindsight.html')
+    book = create_doc(
+      { 'title' => 'Blindsight', 'date' => Time.parse('2023-12-15') },
+      '/books/blindsight.html'
+    )
     favorites_post = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
@@ -194,7 +234,10 @@ class TestFavoritesValidator < Minitest::Test
   end
 
   def test_integration_some_valid_some_invalid_only_invalid_reported
-    book_a = create_doc({ 'title' => 'Book A' }, '/books/a.html')
+    book_a = create_doc(
+      { 'title' => 'Book A', 'date' => Time.parse('2023-01-01') },
+      '/books/a.html'
+    )
     book_b = create_doc({ 'title' => 'Book B' }, '/books/b.html')
 
     favorites_post = create_doc(
