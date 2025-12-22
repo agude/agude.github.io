@@ -40,7 +40,7 @@ plot moving quickly in this thought-provoking sci-fi novel. My favorite book
 of the year!
 
 <div class="card-grid">
-  {% book_card_lookup title="Blindsight" %}
+  {% book_card_lookup title="Blindsight" date="2023-11-01" %}
 </div>
 
 ## <span class="book-series">The Chronicle of the Fallers</span> by <span class="author-name">Peter F. Hamilton</span>
@@ -53,8 +53,8 @@ citizens with special knowledge as _"Outside Context Problems"_, pulling the
 stories into science fiction territory.
 
 <div class="card-grid">
-  {% book_card_lookup title="The Abyss Beyond Dreams" %}
-  {% book_card_lookup title="Night Without Stars" %}
+  {% book_card_lookup title="The Abyss Beyond Dreams" date="2023-12-08" %}
+  {% book_card_lookup title="Night Without Stars" date="2023-12-15" %}
 </div>
 
 ## <cite class="book-title">The Fall of Hyperion</cite> by <span class="author-name">Dan Simmons</span>
@@ -67,7 +67,7 @@ wormholes, a breakaway-but-helpful AI, and different factions of
 scheming AI who either want to eradicate the humans or uplift them.
 
 <div class="card-grid">
-  {% book_card_lookup title="The Fall of Hyperion" %}
+  {% book_card_lookup title="The Fall of Hyperion" date="2023-10-27" %}
 </div>
 
 ## <span class="book-series">The Commonwealth Saga</span> by <span class="author-name">Peter F. Hamilton</span>
@@ -75,8 +75,8 @@ scheming AI who either want to eradicate the humans or uplift them.
 Epic space opera with a massive cast of characters and incredible pacing.
 
 <div class="card-grid">
-  {% book_card_lookup title="Pandora's Star" %}
-  {% book_card_lookup title="Judas Unchained" %}
+  {% book_card_lookup title="Pandora's Star" date="2023-08-23" %}
+  {% book_card_lookup title="Judas Unchained" date="2023-09-03" %}
 </div>
 
 ## <cite class="book-title">Serpent Valley</cite> by <span class="author-name">Scott Warren</span>
@@ -87,5 +87,5 @@ quick, fun, nostalgic read. The third book, <cite class="book-title">Serpent
 Valley</cite>, exemplifies the series.
 
 <div class="card-grid">
-  {% book_card_lookup title="Serpent Valley" %}
+  {% book_card_lookup title="Serpent Valley" date="2023-11-30" %}
 </div>

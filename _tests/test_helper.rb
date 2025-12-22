@@ -125,6 +125,7 @@ require 'src/infrastructure/link_cache/backlink_builder'
 require 'src/infrastructure/link_cache/cache_builder'
 require 'src/infrastructure/link_cache/cache_maps'
 require 'src/infrastructure/link_cache/favorites_manager'
+require 'src/infrastructure/link_cache/favorites_validator'
 require 'src/infrastructure/links/link_validator'
 require 'src/infrastructure/link_cache/short_story_builder'
 

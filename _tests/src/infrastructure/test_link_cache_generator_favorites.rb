@@ -18,14 +18,15 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
     @favorites_post_2023 = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
-      '{% book_link "Book A" %} and {% book_card_lookup title="Book B" %}'
+      '{% book_link "Book A" %} and {% book_card_lookup title="Book B" date="2023-01-01" %}'
     )
 
     # Another favorites post linking to one existing and one non-existent book via card
     @favorites_post_2024 = create_doc(
       { 'title' => 'Favorites 2024', 'is_favorites_list' => 2024 },
       '/posts/fav24.html',
-      '{% book_card_lookup title="Book B" %} and {% book_card_lookup title="Non-Existent Book" %}'
+      '{% book_card_lookup title="Book B" date="2024-01-01" %} and ' \
+      '{% book_card_lookup title="Non-Existent Book" date="2024-02-01" %}'
     )
 
     # A regular post that should be ignored, even with a book_card_lookup
@@ -114,7 +115,8 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
     favorites_post_multi_mention = create_doc(
       { 'title' => 'Favorites Multi-Mention', 'is_favorites_list' => 2026 },
       '/posts/fav26.html',
-      '{% book_card_lookup title="Book A" %} and again {% book_card_lookup title="Book A" %}'
+      '{% book_card_lookup title="Book A" date="2026-01-01" %} and again ' \
+      '{% book_card_lookup title="Book A" date="2026-01-01" %}'
     )
     site_with_multi_mention = create_site(
       {},
