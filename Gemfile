@@ -26,7 +26,7 @@ gem 'nokogiri', '~> 1.18'
 # Tests
 group :development, :test do
   gem "html-proofer", "~> 5.0"
-  gem 'minitest', '~> 5.25'
+  gem 'minitest', '~> 6.0'
   gem 'rake', '~> 13.0'      # For creating command-line tasks
   gem 'rubocop', '~> 1.81'   # For Ruby linting
   gem 'simplecov', '~> 0.22' # For code coverage
