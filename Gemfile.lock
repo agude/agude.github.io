@@ -134,7 +134,7 @@ GEM
     mercenary (0.4.0)
     metrics (0.15.0)
     mini_portile2 (2.8.9)
-    minitest (6.0.0)
+    minitest (6.0.1)
       prism (~> 1.5)
     minitest-mock (5.27.0)
     nokogiri (1.18.10)
