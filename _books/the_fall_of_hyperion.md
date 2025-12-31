@@ -1,10 +1,10 @@
 ---
-date: 2025-12-20
+date: 2025-12-30
 title: The Fall of Hyperion
 book_authors: Dan Simmons
 series: Hyperion Cantos
 book_number: 2
-rating: null
+rating: 5
 image: /books/covers/the_fall_of_hyperion.jpg
 awards:
   - locus
