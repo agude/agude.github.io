@@ -27,7 +27,7 @@ ranked_list:
   - Night Without Stars
   - Exit Strategy
   - The Colonel
-  #- The Fall of Hyperion
+  - The Fall of Hyperion
   - Artificial Condition
   - Network Effect
   - Rogue Protocol
