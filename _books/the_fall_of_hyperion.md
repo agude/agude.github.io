@@ -30,7 +30,8 @@ Hegemony.
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
-{% capture the_fall_of_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
+{% capture endymion %}{% book_link "Endymion" %}{% endcapture %}
+{% capture rise_of_endymion %}{% book_link "The Rise of Endymion" %}{% endcapture %}
 {% capture hyperion_cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
 
 {% capture keats %}{% author_link "John Keats" %}{% endcapture %}
@@ -93,6 +94,7 @@ Hegemony.
 {% capture wolfe_lastname %}{% author_link "Gene Wolfe" link_text="Wolfe" %}{% endcapture %}
 {% capture wolfes_lastname %}{% author_link "Gene Wolfe" possessive link_text="Wolfe" %}{% endcapture %}
 {% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
+{% capture urth %}{% book_link "Urth of the New Sun" %}{% endcapture %}
 
 {% capture terminator %}<cite class="movie-title">The Terminator</cite>{% endcapture %}
 
@@ -129,26 +131,23 @@ first book widened considerably.
 
 ### Themes
 
-{{ this_book }} follows the themes and structure of its namesake {{ keatss }}
+{{ this_book }} follows the themes and structure of its namesake, {{ keatss }}
 {{ poem }}. Just as the narrator of the poem falls asleep and dreams of the
 aftermath of the [Titanomachy][titanmachy], so the cybrid Joseph Severn dreams
-of the fall of the Hegemony from a distance. {{ keats_lastname }} makes a
-distinction in his poem between the dreamer. The dreamer observes the world
-but does not impact it, whereas the poet uses their empathy to provide meaning
-and heal the world. Severn goes through this transition, at first only seeing
-the events, before finally interacting with the world when he connects to the
-"Void Which Binds", the empathy part of the triune human ultimate
-intelligence.
+of the fall of the Hegemony from a distance.
 
 [titanmachy]: https://en.wikipedia.org/wiki/Titanomachy
 
-Moneta, too, takes her role directly from the poem. In the {{ keatss_lastname
-}} poem, she is the last survivor of the war and guardian of the altar. In {{
-the_authors_lastname_possessive }} book, she is the survivor of a war in the
-far future, who brings the memory of it back in time.
+The character Moneta takes her role directly from the poem. In In the {{
+keatss_lastname }} poem, she is the last survivor of the war and guardian of
+the altar. In {{ the_authors_lastname_possessive }} book, she is the survivor
+of a war in the far future, who brings the memory of it back in time. In the
+poem, she points out that there is a difference between a dreamer and a poet:
+the dreamer observes the world but does not act, whereas the poet uses their
+empathy to provide meaning and heal the world.
 
-The theme of suffering being necessary for enlightenment also comes from the
-poem. Moneta tells the narrator:
+The central thesis of {{ this_book }}, that suffering in necessary for
+enlightenment, comes directly from {{ keatss_lastname }} poem:
 
 <figure>
   <blockquote cite="https://en.wikisource.org/wiki/The_Poetical_Works_of_John_Keats/An_Earlier_Version_of_%22Hyperion%22">
@@ -176,20 +175,52 @@ poem. Moneta tells the narrator:
   </figcaption>
 </figure>
 
-This is reflected in two places in the novel: First, in the juxtaposition of
-the stagnant Hegemony, sleeping away their days, and the Ousters, who reject
-the easy life offered by the TechnoCore and so flourish; and second, in the
-human UI god's war against the TechnoCore Machine UI, which can not succeed
-because it can not suffer and die.
+{{ the_authors_lastname }} applies this idea to civilization itself. The
+Hegemony is stagnant because the TechnoCore has mad their lives too easy. This
+is juxtaposed against the Ousters, who rejected the TechnoCore's gifts and
+have flourished.
 
-Ultimately the {{ this_book }} follows {{ keatss_lastname }} theme of "dying
-into life". The narrator in {{ poem }} dies and is reborn as he climbs to the
-altar, and so Severn must die and be reborn into the One Who Comes Before. The
-birth of the human UI god follows Apollo in {{ hyperion_keats }} who is
-granted godhood through "knowledge enormous", like the human UI reaches
-godhood via its empathy. We see this all over, with Father Duré and Father
-Hoyt dying and being reborn via the cruciform parasite, and the entire
-Hegemony which must be destroyed to allow humanity to survive.
+The requirement for suffering determines outcome for the war in heaven as
+well. The machine god is all intellect, but because it can not suffer it is
+destined to lose to the human god which unites intellect with empathy via the
+Void Which Binds. Severn transitions from dreamer to poet when he suffers
+through the same death as {{ keats_lastname }}, allowing him to interact with
+the world but joining the empathy part of the human god triune via the Void.
 
-The destruction of the Hegemony echos the themes of Abrahamic sacrifice from
-the first book which are again found here.
+Ultimately, the book follows {{ keatss_lastname }} theme of "dying into life".
+The narrator in {{ poem }} feels his death and rebirth as he climbs to the
+altar. In the novel, the birth of the human god follows Apollo in {{
+hyperion_keats }}, who is granted godhood through "knowledge enormous." We see
+this cycle everywhere: with Father Duré and Father Hoyt dying and being reborn
+via the cruciform parasite, and finally with CEO Meina Gladstone choice to
+destroy the Hegemony.
+
+Gladstone's choice echos the theme from the first book of Abrahamic sacrifice.
+Sol Weintraub finally sacrifices Rachael when he realizes that it is
+_Rachael_, not the Shrike, demanding the sacrifice. Likewise Gladstone makes
+the sacrifice of the Hegemony and takes on the sin of doing so not because it
+is demanded, but because she chooses it.
+
+### Story
+
+{{ hyperion }}'s structure is so compelling, with each pilgrims' story as a
+pastiche of a different genre. When you layer in the themes and references to
+{{ keatss_lastname }} work it becomes a masterpiece. {{ this_book }} feels
+like a pale imitation. It's still great, but not transcendental. It also
+suffers in the way {{ wolfes_lastname }} {{ urth }} does: it explains every
+mystery. The Cruciform parasites do this, the tree of thorns does that, etc.
+etc. It leaves the impression that the world is a little too neat, too planned
+out.
+
+But the plotting and pacing are on point. There are two twists that both hit
+hard: the first when the other Ouster swarms attach the web, indicating they
+must have been launched hundreds of years ago. The second, when the swarms are
+revealed to be TechnoCore false-flag operations, and the Ousters are shown to
+be humanity true descendants.
+
+<!-- TODO: Get the "Other works" written -->
+
+The last time I read this books, I stopped here before finishing the rest of
+the {{ hyperion_cantos }}. This time I intend to continue on through through
+{{ endymion }} and {{ rise_of_endymion }}, even though I hear that each one is
+worse than the last. I'm hoping I've heard incorrectly!
