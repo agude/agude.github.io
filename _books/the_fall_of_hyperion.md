@@ -29,13 +29,16 @@ Hegemony.
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
-{% capture simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
-{% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
-{% capture simmons_lastname %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
-{% capture simmonss_lastname %}{% author_link "Dan Simmons" possessive link_text="Simmons" %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 {% capture the_fall_of_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
 {% capture hyperion_cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
+
+{% capture keats %}{% author_link "John Keats" %}{% endcapture %}
+{% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
+{% capture keats_lastname %}{% author_link "Keats" %}{% endcapture %}
+{% capture keatss_lastname %}{% author_link "Keats" possessive %}{% endcapture %}
+{% capture poem %}{% book_link "The Fall of Hyperion: A Dream" %}{% endcapture %}
+{% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" %}{% endcapture %}
 
 {% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
@@ -126,8 +129,52 @@ first book widened considerably.
 
 ### Themes
 
-1. Abrahamic Sacrific
-2. Evolution of God: Technocore logical god vs evolved human empathetic god.
+{{ this_book }} follows the themes and structure of its namesake {{ keatss }}
+{{ poem }}. Just as the narrator of the poem falls asleep and dreams of the
+aftermath of the [Titanomachy][titanmachy], so the cybrid Joseph Severn dreams
+of the fall of the Hegemony from a distance. {{ keats_lastname }} makes a
+distinction in his poem between the dreamer. The dreamer observes the world
+but does not impact it, whereas the poet uses their empathy to provide meaning
+and heal the world. Severn goes through this transition, at first only seeing
+the events, before finally interacting with the world when he connects to the
+"Void Which Binds", the empathy part of the triune human ultimate
+intelligence.
+
+[titanmachy]: https://en.wikipedia.org/wiki/Titanomachy
+
+Moneta, too, takes her role directly from the poem. In the {{ keatss_lastname
+}} poem, she is the last survivor of the war and guardian of the altar. In {{
+the_authors_lastname_possessive }} book, she is the survivor of a war in the
+far future, who brings the memory of it back in time.
+
+The theme of suffering being necessary for enlightenment also comes from the
+poem. Moneta tells the narrator:
+
+> "None can usurp this height," returned that shade,\
+> "But those to whom the miseries of the world\
+> Are misery, and will not let them rest.\
+> All else who find a heaven in the world,\
+> Where they may thoughtless sleep away their days,\
+> If by a chance into this fane they come,\
+> Rot on the pavement where thou rottedst half." 
+>
+>  <!-- Todo, link to the source -->
+
+This is reflected in two places in the novel: First, in the juxtaposition of
+the stagnant Hegemony, sleeping away their days, and the Ousters, who reject
+the easy life offered by the TechnoCore and so flourish; and second, in the
+human UI god's war against the TechnoCore Machine UI, which can not succeed
+because it can not suffer and die.
+
+Ultimately the {{ this_book }} follows {{ keatss_lastname }} "die into life":
+
+- The narrator climbing to the alter.
+- Apollo when he gains empathy (the Knowledge enormous)
+- Severn dying into poetry
+- The human race with the death of the Hegemony
+
+1. Abrahamic Sacrifice
+2. Evolution of God: TechnoCore logical god vs evolved human empathetic god.
    Teilhard de Chardin
 3. Dream and poet as observer
 4. Fall of the old order
