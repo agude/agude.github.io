@@ -93,15 +93,43 @@ Hegemony.
 
 {% capture terminator %}<cite class="movie-title">The Terminator</cite>{% endcapture %}
 
+{% capture moore %}{% author_link "Alan Moore" %}{% endcapture %}
+{% capture moores %}{% author_link "Alan Moore" possessive %}{% endcapture %}
+{% capture moore_lastname %}{% author_link "Alan Moore" link_text="Moore" %}{% endcapture %}
+{% capture moores_lastname %}{% author_link "Alan Moore" possessive link_text="Moore" %}{% endcapture %}
+
+{% capture gibbons %}{% author_link "Dave Gibbons" %}{% endcapture %}
+{% capture gibbonss %}{% author_link "Dave Gibbons" possessive %}{% endcapture %}
+{% capture gibbons_lastname %}{% author_link "Dave Gibbons" link_text="Gibbons" %}{% endcapture %}
+{% capture gibbonss_lastname %}{% author_link "Dave Gibbons" possessive link_text="Gibbons" %}{% endcapture %}
+
+{% capture moore_and_gibbons %}{% author_link "Alan Moore" %} and {% author_link "Dave Gibbons" %}{% endcapture %}
+{% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
+
 I loved {{ this_book }} when I [first read it][first_read], even more so than
-{{ hyperion }}. It tells a much simpler story: there are space battles, the
-soldier fights the Shrike, and every mystery is finally explained. It doesn't
-require the kind of close reading {{ hyperion }} does. In this second read
-through, I thought {{ hyperion }} was a masterpiece on the same level of as {{
-wolfes_lastname }} {{ botns }} or <!-- TODO... What else? Things I rate more
-highly are: Firefall; Fire Upon The Deep; and Surface Detail, Use of Weapons,
-Look to Windward, Player of Games, and Inversions. BOTNS is actually rated
-much lower (4 stars) but I think on a reread I'd move it into the high 5-stars
-with the others.-->, but didn't change my opionion on {{ this_book }}.
+{{ hyperion }}. It tells a much simpler story: delivering space battles, the
+Soldier fighting the Shrike, and answers to every mystery. It just doesn't
+require the kind of close reading {{ hyperion }} does.
+
+In this second read through, I recognized {{ hyperion }} for the masterpiece
+it is, on the same level of as {{ wolfes_lastname }} {{ botns }} <!-- TODO...
+What else? Things I rate more highly are: Firefall; Fire Upon The Deep; and
+Surface Detail, Use of Weapons, Look to Windward, Player of Games, and
+Inversions. BOTNS is actually rated much lower (4 stars) but I think on a
+reread I'd move it into the high 5-stars with the others.-->, but my opinion
+of this book didn't change; it's still great, but the gap between it and the
+first book widened considerably.
 
 [first_read]: {% link _books/the_fall_of_hyperion/review-2023-10-27.md %}
+
+<!-- TODO Gladstone as Ozymandius -->
+
+### Themes
+
+1. Abrahamic Sacrific
+2. Evolution of God: Technocore logical god vs evolved human empathetic god.
+   Teilhard de Chardin
+3. Dream and poet as observer
+4. Fall of the old order
+5. Pain as a force the motivates. Hegemony's life is too easy, stagnant.
+   Ousters adapt themselves to the world, not the world to themselves.
