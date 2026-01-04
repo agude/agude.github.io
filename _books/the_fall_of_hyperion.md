@@ -35,6 +35,18 @@ end and depicts the war between the TechnoCore, the Ousters, and the Hegemony.
 {% capture the_player_of_games %}{% book_link "The Player of Games" %}{% endcapture %}
 {% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
 
+{% capture herbert %}{% author_link "Frank Herbert" %}{% endcapture %}
+{% capture herberts %}{% author_link "Frank Herbert" possessive %}{% endcapture %}
+{% capture herbert_lastname %}{% author_link "Frank Herbert" link_text="Herbert" %}{% endcapture %}
+{% capture herberts_lastname %}{% author_link "Frank Herbert" possessive link_text="Herbert" %}{% endcapture %}
+{% capture dune %}{% series_link "Dune" %}{% endcapture %}
+
+{% capture tolkien %}{% author_link "J. R. R. Tolkien" %}{% endcapture %}
+{% capture tolkiens %}{% author_link "J. R. R. Tolkien" possessive %}{% endcapture %}
+{% capture tolkien_lastname %}{% author_link "J. R. R. Tolkien" link_text="Tolkien" %}{% endcapture %}
+{% capture tolkiens_lastname %}{% author_link "J. R. R. Tolkien" possessive link_text="Tolkien" %}{% endcapture %}
+{% capture lotr %}{% series_link "The Lord of the Rings" %}{% endcapture %}
+
 {% capture el_mohtar_and_gladstones %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar"%} and {% author_link "Max Gladstone" link_text="Gladstone" possessive %}{% endcapture %}
 {% capture this_is_how_you_lose_the_time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
 
@@ -52,27 +64,23 @@ end and depicts the war between the TechnoCore, the Ousters, and the Hegemony.
 
 {% capture wolfes_lastname %}{% author_link "Gene Wolfe" possessive link_text="Wolfe" %}{% endcapture %}
 {% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
-{% capture urth %}{% book_link "Urth of the New Sun" %}{% endcapture %}
+{% capture urth %}{% book_link "The Urth of the New Sun" %}{% endcapture %}
 
 {% capture moore_and_gibbonss %}{% author_link "Alan Moore" link_text="Moore" %} and {% author_link "Dave Gibbons" link_text="Gibbons" possessive %}{% endcapture %}
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
 
 I loved {{ this_book }} when I [first read it][first_read], even more so than
-{{ hyperion }}. It tells a much simpler story, delivering space battles, the
-Soldier fighting the Shrike, and answers to every mystery. It doesn't require
-the kind of close reading {{ hyperion }} does to really enjoy it.
+{{ hyperion }}, because it tells a much simpler story. It has space battles,
+the Soldier fighting the Shrike, and answers to every mystery. It doesn't
+require the kind of close reading that the first one does to really enjoy it.
 
 [first_read]: {% link _books/the_fall_of_hyperion/review-2023-10-27.md %}
 
-On this second read-through, I recognized {{ hyperion }} for the masterpiece
-it is, on the same level as {{ wolfes_lastname }} {{ botns }} <!-- TODO...
-What else? Things I rate more highly are: Firefall; Fire Upon The Deep; and
-Surface Detail, Use of Weapons, Look to Windward, Player of Games, and
-Inversions. BOTNS is actually rated much lower (4 stars) but I think on a
-reread I'd move it into the high 5-stars with the others. -->. My opinion of
-this book didn't change; it's still great, but the gap between it and the
-first book widened considerably. <!-- TODO Not really widened? I used to think
-Hyperion was worse -->
+On this second read-through, I recognized {{ hyperion }} for the epic
+masterpiece it is, on the same level as {{ wolfes_lastname }} {{ botns }}, {{
+herberts_lastname }} {{ dune }}, or {{ tolkiens_lastname }} {{ lotr }}. My
+opinion of {{ this_book }} didn't change. It's still great, but it didn't
+reveal the same level of hidden depth.
 
 ### Themes
 
@@ -126,27 +134,36 @@ juxtaposed against the Ousters, who rejected the TechnoCore's gifts and have
 flourished as the true heirs of humanity.
 
 This requirement for suffering determines the outcome of the war in heaven as
-well. The machine god is all intellect, but because it cannot suffer, it is
-destined to lose to the human god, which unites intellect with empathy via the
-Void Which Binds. Severn transitions from dreamer to poet only when he suffers
-through the same death as {{ keats_lastname }}, allowing him to finally act by
-joining the empathy aspect of the triune human god.
+well. Through Father Paul Duré, {{ the_authors_lastname }} casts the war as a
+race to [Pierre Teilhard de Chardin's][ptdc] [Omega Point][op]---the final
+evolution of an evolving god. The machines try to reach this point by creating
+a god that is all intellect. But because it cannot suffer, it is destined to
+lose to the human god, which unites intellect with empathy via the Void Which
+Binds. Severn transitions from dreamer to poet only when he suffers through
+the same death as {{ keats_lastname }}, allowing him to finally act by joining
+the empathy aspect of the triune human god.
+
+[ptdc]: https://en.wikipedia.org/wiki/Pierre_Teilhard_de_Chardin
+[op]: https://en.wikipedia.org/wiki/Omega_Point
 
 Ultimately, the book follows {{ keatss_lastname }} theme of "dying into life."
 The narrator in {{ poem }} feels his death and rebirth as he climbs to the
-altar. In the novel, the birth of the human god parallels Apollo in {{
-hyperion_keats }}, who is granted godhood through "knowledge enormous". We see
-this cycle everywhere: with Father Duré and Father Hoyt dying and being reborn
-through the cruciform parasite, and finally with CEO Meina Gladstone's choice
-to destroy the Hegemony.
+altar; similarly, the novel's narrator, Joseph Severn, must physically die to
+be reborn within the Void. Apollo in {{ keatss_lastname }} {{ hyperion_keats
+}} is granted godhood through "knowledge enormous", taking in the agonies and
+triumphs of the universe, just as the human god is born from uniting intellect
+and empathy. We see this cycle everywhere: with Father Duré and Father Hoyt
+dying and being reborn through the cruciform parasite, and finally with CEO
+Meina Gladstone's choice to destroy the Hegemony.
 
 Gladstone's choice resolves the theme of Abrahamic sacrifice introduced in the
 first book. In {{ this_book }}, Sol Weintraub realizes that Abraham's test was
-actually a test of God, and that blind obedience is immoral. It is by
-reclaiming the will that he solves the dilemma. He sacrifices Rachel when
-_she_ requests it. Gladstone uses the same solution, sacrificing the Hegemony
-not because it is demanded, but because she chooses to take the sin upon
-herself to free humanity, allowing them to die into life.
+not really a test of Abraham, but a test of God, and that blind obedience is
+immoral. By reclaiming his own will, he resolves the dilemma. Weintraub
+sacrifices Rachel only when _she_ asks for it. Gladstone arrives at the same
+solution: she sacrifices the Hegemony not because it is demanded, but because
+she chooses to take the sin upon herself, freeing humanity and allowing them
+to die into life.
 
 ### Story
 
@@ -156,15 +173,16 @@ pastiche of a different genre. When you layer in the themes and references to
 like a pale imitation. It's still great, but not transcendental.
 
 It also suffers in the way {{ wolfes_lastname }} {{ urth }} does: it explains
-every mystery. The cruciform parasites do this, the Tree of Thorns does that,
-etc., etc. It leaves the impression that the world is a little too neat, too
-planned out.
+every mystery. The cruciform parasites were intended to do this, the Tree of
+Thorns was created to do that, etc., etc. It leaves the impression that the
+world is a little too neat, too planned out.
 
 That said, the plotting and pacing are on point. There are two twists that
-both hit hard. The first is when the other Ouster swarms attack the web,
+both hit hard. The first is when the other Ouster swarms attack the Web,
 indicating they must have been launched hundreds of years ago. The second
 comes when the swarms are revealed to be TechnoCore false-flag operations, and
-the Ousters are shown to be humanity's true descendants.
+the Ousters are revealed to be humanity's true descendants rather than
+barbarians.
 
 {{ this_book }} reminded me of a few other works. The Shrike's Tree of Pain
 being imaginary, the torture fed into the victims' heads via a shunt, is the
