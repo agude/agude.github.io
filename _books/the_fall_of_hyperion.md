@@ -140,12 +140,13 @@ this cycle everywhere: with Father Duré and Father Hoyt dying and being reborn
 through the cruciform parasite, and finally with CEO Meina Gladstone's choice
 to destroy the Hegemony.
 
-Gladstone's choice echoes the theme of Abrahamic sacrifice from the first book
-most closely associated with the scholar Sol Weintraub and his daughter
-Rachel. In {{ this_book }}, Weintraub finally sacrifices Rachel when he
-realizes that it is _his daughter_, not the Shrike, demanding the sacrifice.
-Likewise, Gladstone sacrifices the Hegemony and takes on the sin of doing so
-not because it is demanded, but because she chooses it.
+Gladstone's choice resolves the theme of Abrahamic sacrifice introduced in the
+first book. In {{ this_book }}, Sol Weintraub realizes that Abraham's test was
+actually a test of God, and that blind obedience is immoral. It is by
+reclaiming the will that he solves the dilemma. He sacrifices Rachel when
+_she_ requests it. Gladstone uses the same solution, sacrificing the Hegemony
+not because it is demanded, but because she chooses to take the sin upon
+herself to free humanity, allowing them to die into life.
 
 ### Story
 
