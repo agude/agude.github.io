@@ -14,7 +14,7 @@ awards:
 class="author-name">{{ page.book_authors }}</span>, is the second book in the
 <span class="book-series">{{ page.series }}</span>, but really it's the second
 half of {% book_link "Hyperion" %}. It brings the seven pilgrims' story to an
-end, and depicts the war between the TechnoCore, the Ousters, and the Hegemony.
+end and depicts the war between the TechnoCore, the Ousters, and the Hegemony.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -117,24 +117,24 @@ the kind of close reading {{ hyperion }} does to really enjoy it.
 
 [first_read]: {% link _books/the_fall_of_hyperion/review-2023-10-27.md %}
 
-On this second read-through, I recognized {{ hyperion }} for the masterpiece it
-is, on the same level as {{ wolfes_lastname }} {{ botns }} <!-- TODO...
+On this second read-through, I recognized {{ hyperion }} for the masterpiece
+it is, on the same level as {{ wolfes_lastname }} {{ botns }} <!-- TODO...
 What else? Things I rate more highly are: Firefall; Fire Upon The Deep; and
 Surface Detail, Use of Weapons, Look to Windward, Player of Games, and
 Inversions. BOTNS is actually rated much lower (4 stars) but I think on a
 reread I'd move it into the high 5-stars with the others. -->. My opinion of
-this book didn't change; it's still great, but the gap between it and the first
-book widened considerably. <!-- TODO Not really widdened? I used to think
+this book didn't change; it's still great, but the gap between it and the
+first book widened considerably. <!-- TODO Not really widened? I used to think
 Hyperion was worse -->
 
 ### Themes
 
 {{ this_book }} follows the themes and structure of its namesake, {{ keatss }}
 {{ poem }}. Just as the narrator of the poem falls asleep and dreams of the
-aftermath of the [Titanomachy][titanmachy], the cybrid Joseph Severn dreams of
-the fall of the Hegemony from a distance.
+aftermath of the [Titanomachy][titanomachy], the cybrid Joseph Severn dreams
+of the fall of the Hegemony from a distance.
 
-[titanmachy]: https://en.wikipedia.org/wiki/Titanomachy
+[titanomachy]: https://en.wikipedia.org/wiki/Titanomachy
 
 The character Moneta takes her role directly from the poem. In {{
 keatss_lastname }} poem, she is the living archive of the war and the guardian
@@ -194,8 +194,8 @@ through the cruciform parasite, and finally with CEO Meina Gladstone's choice
 to destroy the Hegemony.
 
 Gladstone's choice echoes the theme of Abrahamic sacrifice from the first book
-most closely associated with the Scholar Sol Weintraub and his daughter
-Rachael. In {{ this_book }}, Weintraub finally sacrifices Rachel when he
+most closely associated with the scholar Sol Weintraub and his daughter
+Rachel. In {{ this_book }}, Weintraub finally sacrifices Rachel when he
 realizes that it is _his daughter_, not the Shrike, demanding the sacrifice.
 Likewise, Gladstone sacrifices the Hegemony and takes on the sin of doing so
 not because it is demanded, but because she chooses it.
@@ -208,15 +208,15 @@ pastiche of a different genre. When you layer in the themes and references to
 like a pale imitation. It's still great, but not transcendental.
 
 It also suffers in the way {{ wolfes_lastname }} {{ urth }} does: it explains
-every mystery. The Cruciform parasites do this, the Tree of Thorns does that,
+every mystery. The cruciform parasites do this, the Tree of Thorns does that,
 etc., etc. It leaves the impression that the world is a little too neat, too
 planned out.
 
-That said, the plotting and pacing are on point. There are two twists that both
-hit hard. The first is when the other Ouster swarms attach the web, indicating
-they must have been launched hundreds of years ago. The second comes when the
-swarms are revealed to be TechnoCore false-flag operations, and the Ousters are
-shown to be humanity's true descendants.
+That said, the plotting and pacing are on point. There are two twists that
+both hit hard. The first is when the other Ouster swarms attack the web,
+indicating they must have been launched hundreds of years ago. The second
+comes when the swarms are revealed to be TechnoCore false-flag operations, and
+the Ousters are shown to be humanity's true descendants.
 
 {{ this_book }} reminded me of a few other works. The Shrike's Tree of Pain
 being imaginary, the torture fed into the victims' heads via a shunt, is the
@@ -232,7 +232,7 @@ the farcaster network as a DMZ is an idea later used by {{ taylor_lastname }}
 in {{ lost }}, and is similar to how Basilisk is used in {{ webers_lastname }}
 {{ basilisk }}. The cruciform glowing on the labyrinth walls reminded me of
 the glowing Harmonium aliens in the caves of Mercury in {{ vonneguts_lastname
-}} {{ the_sirens_of_titan }}. Both this book and  {{ el_mohtar_and_gladstones
+}} {{ the_sirens_of_titan }}. Both this book and {{ el_mohtar_and_gladstones
 }} {{ this_is_how_you_lose_the_time_war }} deal with a war being fought over
 possible futures.
 
