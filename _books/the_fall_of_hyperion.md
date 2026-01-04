@@ -31,7 +31,6 @@ end, and depicts the war between the TechnoCore, the Ousters, and the Hegemony.
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 {% capture endymion %}{% book_link "Endymion" %}{% endcapture %}
 {% capture rise_of_endymion %}{% book_link "The Rise of Endymion" %}{% endcapture %}
-{% capture hyperion_cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
 
 {% capture keats %}{% author_link "John Keats" %}{% endcapture %}
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
@@ -75,7 +74,7 @@ end, and depicts the war between the TechnoCore, the Ousters, and the Hegemony.
 {% capture webers %}{% author_link "David Weber" possessive %}{% endcapture %}
 {% capture weber_lastname %}{% author_link "David Weber" link_text="Weber" %}{% endcapture %}
 {% capture webers_lastname %}{% author_link "David Weber" possessive link_text="Weber" %}{% endcapture %}
-{% capture basilisk %}{% series_link "On Basilisk Station" %}{% endcapture %}
+{% capture basilisk %}{% book_link "On Basilisk Station" %}{% endcapture %}
 
 {% capture asimov %}{% author_link "Isaac Asimov" %}{% endcapture %}
 {% capture asimovs %}{% author_link "Isaac Asimov" possessive %}{% endcapture %}
@@ -125,7 +124,8 @@ Surface Detail, Use of Weapons, Look to Windward, Player of Games, and
 Inversions. BOTNS is actually rated much lower (4 stars) but I think on a
 reread I'd move it into the high 5-stars with the others. -->. My opinion of
 this book didn't change; it's still great, but the gap between it and the first
-book widened considerably.
+book widened considerably. <!-- TODO Not really widdened? I used to think
+Hyperion was worse -->
 
 ### Themes
 
@@ -137,7 +137,7 @@ the fall of the Hegemony from a distance.
 [titanmachy]: https://en.wikipedia.org/wiki/Titanomachy
 
 The character Moneta takes her role directly from the poem. In {{
-keatss_lastname }} poem, she is the last survivor of the war and the guardian
+keatss_lastname }} poem, she is the living archive of the war and the guardian
 of the altar. In {{ the_authors_lastname_possessive }} book, she is the
 survivor of a war in the far future who brings the memory of it back in time.
 In the poem, she points out the difference between a dreamer and a poet: the
@@ -193,11 +193,12 @@ this cycle everywhere: with Father Duré and Father Hoyt dying and being reborn
 through the cruciform parasite, and finally with CEO Meina Gladstone's choice
 to destroy the Hegemony.
 
-Gladstone's choice echoes the theme of Abrahamic sacrifice from the first
-book. Sol Weintraub finally sacrifices Rachel when he realizes that it is
-_Rachel_, not the Shrike, demanding the sacrifice. Likewise, Gladstone
-sacrifices the Hegemony and takes on the sin of doing so not because it is
-demanded, but because she chooses it.
+Gladstone's choice echoes the theme of Abrahamic sacrifice from the first book
+most closely associated with the Scholar Sol Weintraub and his daughter
+Rachael. In {{ this_book }}, Weintraub finally sacrifices Rachel when he
+realizes that it is _his daughter_, not the Shrike, demanding the sacrifice.
+Likewise, Gladstone sacrifices the Hegemony and takes on the sin of doing so
+not because it is demanded, but because she chooses it.
 
 ### Story
 
@@ -226,18 +227,18 @@ Gladstone sacrificing billions to save humanity reminds me of the choice
 Ozymandias makes in {{ moore_and_gibbonss }} {{ watchmen }}, where he brings
 humanity back from the brink of nuclear war by fabricating an alien threat.
 The Core references {{ asimovs_lastname }} [Three Laws of
-Robotics][three_laws] from {{ i_robot }}. The navy's use of a system in the
-farcaster network as a DMZ is an idea later used by {{ taylor_lastname }} in
-{{ lost }}, and is similar to how Basilisk is used in {{ webers_lastname }} {{
-basilisk }}. The cruciform glowing on the labyrinth walls reminded me of the
-glowing Harmonium aliens in the caves of Mercury in {{ vonneguts_lastname }}
-{{ the_sirens_of_titan }}. Both {{ el_mohtar_and_gladstones }} {{
-this_is_how_you_lose_the_time_war }} and this book deal with a war being
-fought over possible futures.
+Robotics][three_laws] from {{ i_robot }}. The navy's use of a star system in
+the farcaster network as a DMZ is an idea later used by {{ taylor_lastname }}
+in {{ lost }}, and is similar to how Basilisk is used in {{ webers_lastname }}
+{{ basilisk }}. The cruciform glowing on the labyrinth walls reminded me of
+the glowing Harmonium aliens in the caves of Mercury in {{ vonneguts_lastname
+}} {{ the_sirens_of_titan }}. Both this book and  {{ el_mohtar_and_gladstones
+}} {{ this_is_how_you_lose_the_time_war }} deal with a war being fought over
+possible futures.
 
 [three_laws]: https://en.wikipedia.org/wiki/Three_Laws_of_Robotics
 
 The last time I read this book, I stopped here and didn't finish the rest of
-the {{ hyperion_cantos }}. This time I intend to continue on through
-{{ endymion }} and {{ rise_of_endymion }}, even though I hear each one is worse
-than the last. I'm hoping I've heard incorrectly!
+the {{ this_series }}. This time I intend to continue on through {{ endymion
+}} and {{ rise_of_endymion }}, even though I hear each one is worse than the
+last. I'm hoping I've heard incorrectly!
