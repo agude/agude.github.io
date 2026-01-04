@@ -184,23 +184,26 @@ comes when the swarms are revealed to be TechnoCore false-flag operations, and
 the Ousters are revealed to be humanity's true descendants rather than
 barbarians.
 
-{{ this_book }} reminded me of a few other works. The Shrike's Tree of Pain
-being imaginary, the torture fed into the victims' heads via a shunt, is the
-same idea as in {{ bankss_lastname }} {{ surface_detail }}, where
-civilizations use simulated hells to punish sinners. The planet-wide inferno
-on God's Grove was like the tsunamis of flame in {{ the_player_of_games }}.
-Gladstone sacrificing billions to save humanity reminds me of the choice
-Ozymandias makes in {{ moore_and_gibbonss }} {{ watchmen }}, where he brings
-humanity back from the brink of nuclear war by fabricating an alien threat.
-The Core references {{ asimovs_lastname }} [Three Laws of
-Robotics][three_laws] from {{ i_robot }}. The navy's use of a star system in
-the farcaster network as a DMZ is an idea later used by {{ taylor_lastname }}
-in {{ lost }}, and is similar to how Basilisk is used in {{ webers_lastname }}
-{{ basilisk }}. The cruciform glowing on the labyrinth walls reminded me of
-the glowing Harmonium aliens in the caves of Mercury in {{ vonneguts_lastname
-}} {{ the_sirens_of_titan }}. Both this book and {{ el_mohtar_and_gladstones
-}} {{ this_is_how_you_lose_the_time_war }} deal with a war being fought over
+{{ this_book }} reminded me of a few other works regarding its darker themes.
+The Shrike's Tree of Pain being imaginary, with torture fed into the victims'
+heads via a shunt, is the same idea as in {{ bankss_lastname }} {{
+surface_detail }}, where civilizations use simulated hells to punish sinners.
+The planet-wide inferno on God's Grove was like the tsunamis of flame in {{
+the_player_of_games }}. Gladstone sacrificing billions to save humanity
+reminds me of the choice Ozymandias makes in {{ moore_and_gibbonss }} {{
+watchmen }}, although Ozymandias builds a lie whereas Gladstone exposes the
+truth. Both this book and {{ el_mohtar_and_gladstones }} {{
+this_is_how_you_lose_the_time_war }} deal with a war being fought over
 possible futures.
+
+Some concepts were also like other books. The Core references {{
+asimovs_lastname }} [Three Laws of Robotics][three_laws] from {{ i_robot }}.
+The navy's use of a star system in the farcaster network as a DMZ is an idea
+later used by {{ taylor_lastname }} in {{ lost }}, and is similar to how
+Basilisk is used in {{ webers_lastname }} {{ basilisk }}. Finally, the
+cruciform glowing on the labyrinth walls reminded me of the glowing Harmonium
+aliens in the caves of Mercury in {{ vonneguts_lastname }} {{
+the_sirens_of_titan }}.
 
 [three_laws]: https://en.wikipedia.org/wiki/Three_Laws_of_Robotics
 
