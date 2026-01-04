@@ -15,6 +15,7 @@ image_alt: >
     Sizee:#58; 1200x624, Model hashe:#58; d8691b4d16, Modele:#58;
     deliberate_v11, Versione:#58; v1.5.1
 categories:
+  - book-reviews
   - opinions
 ---
 

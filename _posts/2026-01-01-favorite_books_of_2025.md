@@ -13,6 +13,7 @@ image_alt: >
     white background. The robot has a rounded, friendly design with
     expression.
 categories:
+  - book-reviews
   - opinions
 ---
 
