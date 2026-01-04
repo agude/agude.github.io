@@ -63,6 +63,9 @@ end and depicts the war between the TechnoCore, the Ousters, and the Hegemony.
 {% capture moore_and_gibbonss %}{% author_link "Alan Moore" link_text="Moore" %} and {% author_link "Dave Gibbons" link_text="Gibbons" possessive %}{% endcapture %}
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
 
+{% capture millers_lastname %}{% author_link "Walter M. Miller Jr." link_text="Miller" possessive %}{% endcapture %}
+{% capture canticle %}{% book_link "A Canticle for Leibowitz" %}{% endcapture %}
+
 I loved {{ this_book }} when I [first read it][first_read], even more so than
 {{ hyperion }}, because it tells a much simpler story. It has space battles,
 the Soldier fighting the Shrike, and answers to every mystery. It doesn't
@@ -180,15 +183,16 @@ barbarians.
 
 {{ this_book }} reminded me of a few other works in its darker themes. The
 Shrike's Tree of Pain being imaginary, with torture fed into the victims'
-heads via a shunt, is the same idea as in {{ bankss_lastname }}
-{{ surface_detail }}, where civilizations use simulated hells to punish
-sinners. The planet-wide inferno on God's Grove was like the tsunamis of flame
-in {{ the_player_of_games }}. Gladstone sacrificing billions to save humanity
-reminds me of the choice Ozymandias makes in {{ moore_and_gibbonss }}
-{{ watchmen }}, although Ozymandias builds a lie whereas Gladstone exposes the
-truth. Both this book and {{ el_mohtar_and_gladstones }}
-{{ this_is_how_you_lose_the_time_war }} deal with a war being fought over
-possible futures.
+heads via a shunt, is the same idea as in {{ bankss_lastname }} {{
+surface_detail }}, where civilizations use simulated hells to punish sinners.
+The planet-wide inferno on God's Grove was like the tsunamis of flame in {{
+the_player_of_games }}. Gladstone sacrificing billions to save humanity
+reminds me of the choice Ozymandias makes in {{ moore_and_gibbonss }} {{
+watchmen }}, although Ozymandias builds a lie whereas Gladstone exposes the
+truth. The struggles of the Catholic Church during civilizations collapse is
+like {{ millers_lastname }} {{ canticle }}. Both this book and {{
+el_mohtar_and_gladstones }} {{ this_is_how_you_lose_the_time_war }} deal with
+a war being fought over possible futures.
 
 Some of the details were similar to other books as well. The Core references
 {{ asimovs_lastname }} [Three Laws of Robotics][three_laws] from {{ i_robot
