@@ -12,10 +12,9 @@ awards:
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the second book in the
-<span class="book-series">{{ page.series }}</span> series, but really it's the
-second half of {% book_link "Hyperion" %}. It sees the end of the seven
-pilgrims' story, and way between the TechnoCore, the Ousters, and the
-Hegemony.
+<span class="book-series">{{ page.series }}</span>, but really it's the second
+half of {% book_link "Hyperion" %}. It sees the end of the seven pilgrims'
+story, and war between the TechnoCore, the Ousters, and the Hegemony.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
