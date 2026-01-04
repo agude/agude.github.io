@@ -17,95 +17,42 @@ half of {% book_link "Hyperion" %}. It brings the seven pilgrims' story to an
 end and depicts the war between the TechnoCore, the Ousters, and the Hegemony.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 {% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 {% capture endymion %}{% book_link "Endymion" %}{% endcapture %}
 {% capture rise_of_endymion %}{% book_link "The Rise of Endymion" %}{% endcapture %}
 
-{% capture keats %}{% author_link "John Keats" %}{% endcapture %}
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
 {% capture keats_lastname %}{% author_link "Keats" %}{% endcapture %}
 {% capture keatss_lastname %}{% author_link "Keats" possessive %}{% endcapture %}
 {% capture poem %}{% book_link "The Fall of Hyperion: A Dream" %}{% endcapture %}
 {% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" %}{% endcapture %}
 
-{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
-{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
-{% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
 {% capture bankss_lastname %}{% author_link "Iain M. Banks" possessive link_text="Banks" %}{% endcapture %}
 {% capture the_player_of_games %}{% book_link "The Player of Games" %}{% endcapture %}
 {% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
 
-{% capture el_mohtar %}{% author_link "Amal El-Mohtar" %}{% endcapture %}
-{% capture el_mohtars %}{% author_link "Amal El-Mohtar" possessive %}{% endcapture %}
-{% capture el_mohtar_lastname %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar" %}{% endcapture %}
-{% capture el_mohtars_lastname %}{% author_link "Amal El-Mohtar" possessive link_text="El-Mohtar" %}{% endcapture %}
-{% capture gladstone %}{% author_link "Max Gladstone" %}{% endcapture %}
-{% capture gladstones %}{% author_link "Max Gladstone" possessive %}{% endcapture %}
-{% capture gladstone_lastname %}{% author_link "Max Gladstone" link_text="Gladstone" %}{% endcapture %}
-{% capture gladstones_lastname %}{% author_link "Max Gladstone" possessive link_text="Gladstone" %}{% endcapture %}
 {% capture el_mohtar_and_gladstones %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar"%} and {% author_link "Max Gladstone" link_text="Gladstone" possessive %}{% endcapture %}
 {% capture this_is_how_you_lose_the_time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
 
-{% capture vonnegut %}{% author_link "Kurt Vonnegut" %}{% endcapture %}
-{% capture vonneguts %}{% author_link "Kurt Vonnegut" possessive %}{% endcapture %}
-{% capture vonnegut_lastname %}{% author_link "Kurt Vonnegut" link_text="Vonnegut" %}{% endcapture %}
 {% capture vonneguts_lastname %}{% author_link "Kurt Vonnegut" possessive link_text="Vonnegut" %}{% endcapture %}
 {% capture the_sirens_of_titan %}{% book_link "The Sirens of Titan" %}{% endcapture %}
 
-{% capture taylor %}{% author_link "Dennis E. Taylor" %}{% endcapture %}
-{% capture taylors %}{% author_link "Dennis E. Taylor" possessive %}{% endcapture %}
 {% capture taylor_lastname %}{% author_link "Dennis E. Taylor" link_text="Taylor" %}{% endcapture %}
-{% capture taylors_lastname %}{% author_link "Dennis E. Taylor" possessive link_text="Taylor" %}{% endcapture %}
-{% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
 {% capture lost %}{% book_link "Not Till We Are Lost" %}{% endcapture %}
 
-{% capture weber %}{% author_link "David Weber" %}{% endcapture %}
-{% capture webers %}{% author_link "David Weber" possessive %}{% endcapture %}
-{% capture weber_lastname %}{% author_link "David Weber" link_text="Weber" %}{% endcapture %}
 {% capture webers_lastname %}{% author_link "David Weber" possessive link_text="Weber" %}{% endcapture %}
 {% capture basilisk %}{% book_link "On Basilisk Station" %}{% endcapture %}
 
-{% capture asimov %}{% author_link "Isaac Asimov" %}{% endcapture %}
-{% capture asimovs %}{% author_link "Isaac Asimov" possessive %}{% endcapture %}
-{% capture asimov_lastname %}{% author_link "Isaac Asimov" link_text="Asimov" %}{% endcapture %}
 {% capture asimovs_lastname %}{% author_link "Isaac Asimov" possessive link_text="Asimov" %}{% endcapture %}
 {% capture i_robot %}{% book_link "I, Robot" %}{% endcapture %}
 
-{% capture baum %}{% author_link "L. Frank Baum" %}{% endcapture %}
-{% capture baums %}{% author_link "L. Frank Baum" possessive %}{% endcapture %}
-{% capture baum_lastname %}{% author_link "L. Frank Baum" link_text="Baum" %}{% endcapture %}
-{% capture baums_lastname %}{% author_link "L. Frank Baum" possessive link_text="Baum" %}{% endcapture %}
-{% capture the_wonderful_wizard_of_oz %}{% book_link "The Wonderful Wizard of Oz" %}{% endcapture %}
-
-{% capture wolfe %}{% author_link "Gene Wolfe" %}{% endcapture %}
-{% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
-{% capture wolfe_lastname %}{% author_link "Gene Wolfe" link_text="Wolfe" %}{% endcapture %}
 {% capture wolfes_lastname %}{% author_link "Gene Wolfe" possessive link_text="Wolfe" %}{% endcapture %}
 {% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 {% capture urth %}{% book_link "Urth of the New Sun" %}{% endcapture %}
-
-{% capture terminator %}<cite class="movie-title">The Terminator</cite>{% endcapture %}
-
-{% capture moore %}{% author_link "Alan Moore" %}{% endcapture %}
-{% capture moores %}{% author_link "Alan Moore" possessive %}{% endcapture %}
-{% capture moore_lastname %}{% author_link "Alan Moore" link_text="Moore" %}{% endcapture %}
-{% capture moores_lastname %}{% author_link "Alan Moore" possessive link_text="Moore" %}{% endcapture %}
-
-{% capture gibbons %}{% author_link "Dave Gibbons" %}{% endcapture %}
-{% capture gibbonss %}{% author_link "Dave Gibbons" possessive %}{% endcapture %}
-{% capture gibbons_lastname %}{% author_link "Dave Gibbons" link_text="Gibbons" %}{% endcapture %}
-{% capture gibbonss_lastname %}{% author_link "Dave Gibbons" possessive link_text="Gibbons" %}{% endcapture %}
 
 {% capture moore_and_gibbonss %}{% author_link "Alan Moore" link_text="Moore" %} and {% author_link "Dave Gibbons" link_text="Gibbons" possessive %}{% endcapture %}
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
@@ -181,9 +128,9 @@ flourished as the true heirs of humanity.
 This requirement for suffering determines the outcome of the war in heaven as
 well. The machine god is all intellect, but because it cannot suffer, it is
 destined to lose to the human god, which unites intellect with empathy via the
-Void Which Binds. Severn transitions from dreamer to poet when he suffers
-through the same death as {{ keats_lastname }}, allowing him to act in the
-world by joining the empathy aspect of the human god triune through the Void.
+Void Which Binds. Severn transitions from dreamer to poet only when he suffers
+through the same death as {{ keats_lastname }}, allowing him to finally act by
+joining the empathy aspect of the triune human god.
 
 Ultimately, the book follows {{ keatss_lastname }} theme of "dying into life."
 The narrator in {{ poem }} feels his death and rebirth as he climbs to the
