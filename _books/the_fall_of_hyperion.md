@@ -56,7 +56,7 @@ Hegemony.
 {% capture gladstones %}{% author_link "Max Gladstone" possessive %}{% endcapture %}
 {% capture gladstone_lastname %}{% author_link "Max Gladstone" link_text="Gladstone" %}{% endcapture %}
 {% capture gladstones_lastname %}{% author_link "Max Gladstone" possessive link_text="Gladstone" %}{% endcapture %}
-{% capture el_mohtar_and_gladstone %}{% author_link "Amal El-Mohtar" %} and {% author_link "Max Gladstone" %}{% endcapture %}
+{% capture el_mohtar_and_gladstones %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar"%} and {% author_link "Max Gladstone" link_text="Gladstone" possessive %}{% endcapture %}
 {% capture this_is_how_you_lose_the_time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
 
 {% capture vonnegut %}{% author_link "Kurt Vonnegut" %}{% endcapture %}
@@ -70,12 +70,13 @@ Hegemony.
 {% capture taylor_lastname %}{% author_link "Dennis E. Taylor" link_text="Taylor" %}{% endcapture %}
 {% capture taylors_lastname %}{% author_link "Dennis E. Taylor" possessive link_text="Taylor" %}{% endcapture %}
 {% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
+{% capture lost %}{% book_link "Not Till We Are Lost" %}{% endcapture %}
 
 {% capture weber %}{% author_link "David Weber" %}{% endcapture %}
 {% capture webers %}{% author_link "David Weber" possessive %}{% endcapture %}
 {% capture weber_lastname %}{% author_link "David Weber" link_text="Weber" %}{% endcapture %}
 {% capture webers_lastname %}{% author_link "David Weber" possessive link_text="Weber" %}{% endcapture %}
-{% capture honor_harrington %}{% series_link "Honor Harrington" %}{% endcapture %}
+{% capture basilisk %}{% series_link "On Basilisk Station" %}{% endcapture %}
 
 {% capture asimov %}{% author_link "Isaac Asimov" %}{% endcapture %}
 {% capture asimovs %}{% author_link "Isaac Asimov" possessive %}{% endcapture %}
@@ -108,7 +109,7 @@ Hegemony.
 {% capture gibbons_lastname %}{% author_link "Dave Gibbons" link_text="Gibbons" %}{% endcapture %}
 {% capture gibbonss_lastname %}{% author_link "Dave Gibbons" possessive link_text="Gibbons" %}{% endcapture %}
 
-{% capture moore_and_gibbons %}{% author_link "Alan Moore" %} and {% author_link "Dave Gibbons" %}{% endcapture %}
+{% capture moore_and_gibbonss %}{% author_link "Alan Moore" link_text="Moore" %} and {% author_link "Dave Gibbons" link_text="Gibbons" possessive %}{% endcapture %}
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
 
 I loved {{ this_book }} when I [first read it][first_read], even more so than
@@ -218,7 +219,24 @@ must have been launched hundreds of years ago. The second, when the swarms are
 revealed to be TechnoCore false-flag operations, and the Ousters are shown to
 be humanity true descendants.
 
-<!-- TODO: Get the "Other works" written -->
+{{ this_book }} reminded me of a few other works. The Shrike's Tree of Pain
+being imaginary, simply torture fed into the victims head via a shunt, is the
+same idea as {{ bankss_lastname }} {{ surface_detail }} where civilizations
+use simulated hells to punish sinners. The planet-wide inferno on God's Grove
+was like the Tsunamis of flame in {{ the_player_of_games }}. Gladstone
+sacrificing billions in order to save humanity reminds me of the choice
+Ozymandias made in {{ moore_and_gibbonss }} {{ watchmen }} where he brings
+humanity back from the brink of nuclear war by fabricating an alien threat.
+The Core makes a reference to {{ asimovs_lastname }} [Three Laws of
+Robotics][three_laws] from {{ i_robot }}. The way the navy uses a system in
+the farcaster network as a DMZ is an idea later used by {{ taylor_lastname }}
+in {{ lost }}, and similar to how Basilisk is used in {{ webers_lastname }} {{
+basilisk }}. The cruciform glowing on the labyrinth walls reminded me of the
+glowing aliens on Venus in {{ vonneguts_lastname }} {{ the_sirens_of_titan }}.
+Both {{ el_mohtar_and_gladstones }} {{ this_is_how_you_lose_the_time_war }}
+and this book deal with a war being fought over the possible future.
+
+[three_laws]: https://en.wikipedia.org/wiki/Three_Laws_of_Robotics
 
 The last time I read this books, I stopped here before finishing the rest of
 the {{ hyperion_cantos }}. This time I intend to continue on through through
