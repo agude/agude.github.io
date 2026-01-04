@@ -49,7 +49,7 @@ categories:
 
 <div class="card-grid">
   {% book_card_lookup title="Hyperion" date="2025-09-20" %}
-  <!-- TODO Add in The Fall of Hyperion -->
+  {% book_card_lookup title="The Fall of Hyperion" date="2025-12-30" %}
 </div>
 
 ## <cite class="book-title">A Mote in Shadow</cite> by <span class="author-name">A. N. Alex</span>
