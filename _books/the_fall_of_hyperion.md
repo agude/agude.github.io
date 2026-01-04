@@ -75,7 +75,7 @@ require the kind of close reading that the first one does to really enjoy it.
 
 On this second read-through, I recognized {{ hyperion }} for the epic
 masterpiece it is, on the same level as {{ wolfes_lastname }} {{ botns }}, {{
-herberts_lastname }} {{ dune }}, or {{ tolkiens_lastname }} {{ lotr }}. My
+herberts_lastname }} {{ dune }}, or {{ tolkiens_lastname }} {{ lotr }}. But my
 opinion of {{ this_book }} didn't change. It's still great, but it didn't
 reveal the same level of hidden depth.
 
