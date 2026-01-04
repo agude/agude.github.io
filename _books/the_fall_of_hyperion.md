@@ -13,8 +13,8 @@ awards:
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the second book in the
 <span class="book-series">{{ page.series }}</span>, but really it's the second
-half of {% book_link "Hyperion" %}. It sees the end of the seven pilgrims'
-story, and war between the TechnoCore, the Ousters, and the Hegemony.
+half of {% book_link "Hyperion" %}. It brings the seven pilgrims' story to an
+end, and depicts the war between the TechnoCore, the Ousters, and the Hegemony.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -112,41 +112,39 @@ story, and war between the TechnoCore, the Ousters, and the Hegemony.
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
 
 I loved {{ this_book }} when I [first read it][first_read], even more so than
-{{ hyperion }}. It tells a much simpler story: delivering space battles, the
-Soldier fighting the Shrike, and answers to every mystery. It just doesn't
-require the kind of close reading {{ hyperion }} does.
-
-In this second read through, I recognized {{ hyperion }} for the masterpiece
-it is, on the same level of as {{ wolfes_lastname }} {{ botns }} <!-- TODO...
-What else? Things I rate more highly are: Firefall; Fire Upon The Deep; and
-Surface Detail, Use of Weapons, Look to Windward, Player of Games, and
-Inversions. BOTNS is actually rated much lower (4 stars) but I think on a
-reread I'd move it into the high 5-stars with the others.-->, but my opinion
-of this book didn't change; it's still great, but the gap between it and the
-first book widened considerably.
+{{ hyperion }}. It tells a much simpler story, delivering space battles, the
+Soldier fighting the Shrike, and answers to every mystery. It doesn't require
+the kind of close reading {{ hyperion }} does to really enjoy it.
 
 [first_read]: {% link _books/the_fall_of_hyperion/review-2023-10-27.md %}
 
-<!-- TODO Gladstone as Ozymandius -->
+On this second read-through, I recognized {{ hyperion }} for the masterpiece it
+is, on the same level as {{ wolfes_lastname }} {{ botns }} <!-- TODO...
+What else? Things I rate more highly are: Firefall; Fire Upon The Deep; and
+Surface Detail, Use of Weapons, Look to Windward, Player of Games, and
+Inversions. BOTNS is actually rated much lower (4 stars) but I think on a
+reread I'd move it into the high 5-stars with the others. -->. My opinion of
+this book didn't change; it's still great, but the gap between it and the first
+book widened considerably.
 
 ### Themes
 
 {{ this_book }} follows the themes and structure of its namesake, {{ keatss }}
 {{ poem }}. Just as the narrator of the poem falls asleep and dreams of the
-aftermath of the [Titanomachy][titanmachy], so the cybrid Joseph Severn dreams
-of the fall of the Hegemony from a distance.
+aftermath of the [Titanomachy][titanmachy], the cybrid Joseph Severn dreams of
+the fall of the Hegemony from a distance.
 
 [titanmachy]: https://en.wikipedia.org/wiki/Titanomachy
 
-The character Moneta takes her role directly from the poem. In In the {{
-keatss_lastname }} poem, she is the last survivor of the war and guardian of
-the altar. In {{ the_authors_lastname_possessive }} book, she is the survivor
-of a war in the far future, who brings the memory of it back in time. In the
-poem, she points out that there is a difference between a dreamer and a poet:
-the dreamer observes the world but does not act, whereas the poet uses their
-empathy to provide meaning and heal the world.
+The character Moneta takes her role directly from the poem. In {{
+keatss_lastname }} poem, she is the last survivor of the war and the guardian
+of the altar. In {{ the_authors_lastname_possessive }} book, she is the
+survivor of a war in the far future who brings the memory of it back in time.
+In the poem, she points out the difference between a dreamer and a poet: the
+dreamer observes the world but does not act, while the poet uses empathy to
+provide meaning and heal the world.
 
-The central thesis of {{ this_book }}, that suffering in necessary for
+The central thesis of {{ this_book }}, that suffering is necessary for
 enlightenment, comes directly from {{ keatss_lastname }} poem:
 
 <figure>
@@ -176,68 +174,70 @@ enlightenment, comes directly from {{ keatss_lastname }} poem:
 </figure>
 
 {{ the_authors_lastname }} applies this idea to civilization itself. The
-Hegemony is stagnant because the TechnoCore has mad their lives too easy. This
-is juxtaposed against the Ousters, who rejected the TechnoCore's gifts and
-have flourished.
+Hegemony is stagnant because the TechnoCore has made life too easy. This is
+juxtaposed against the Ousters, who rejected the TechnoCore's gifts and have
+flourished as the true heirs of humanity.
 
-The requirement for suffering determines outcome for the war in heaven as
-well. The machine god is all intellect, but because it can not suffer it is
-destined to lose to the human god which unites intellect with empathy via the
+This requirement for suffering determines the outcome of the war in heaven as
+well. The machine god is all intellect, but because it cannot suffer, it is
+destined to lose to the human god, which unites intellect with empathy via the
 Void Which Binds. Severn transitions from dreamer to poet when he suffers
-through the same death as {{ keats_lastname }}, allowing him to interact with
-the world but joining the empathy part of the human god triune via the Void.
+through the same death as {{ keats_lastname }}, allowing him to act in the
+world by joining the empathy aspect of the human god triune through the Void.
 
-Ultimately, the book follows {{ keatss_lastname }} theme of "dying into life".
+Ultimately, the book follows {{ keatss_lastname }} theme of "dying into life."
 The narrator in {{ poem }} feels his death and rebirth as he climbs to the
-altar. In the novel, the birth of the human god follows Apollo in {{
-hyperion_keats }}, who is granted godhood through "knowledge enormous." We see
+altar. In the novel, the birth of the human god parallels Apollo in {{
+hyperion_keats }}, who is granted godhood through "knowledge enormous". We see
 this cycle everywhere: with Father Duré and Father Hoyt dying and being reborn
-via the cruciform parasite, and finally with CEO Meina Gladstone choice to
-destroy the Hegemony.
+through the cruciform parasite, and finally with CEO Meina Gladstone's choice
+to destroy the Hegemony.
 
-Gladstone's choice echos the theme from the first book of Abrahamic sacrifice.
-Sol Weintraub finally sacrifices Rachael when he realizes that it is
-_Rachael_, not the Shrike, demanding the sacrifice. Likewise Gladstone makes
-the sacrifice of the Hegemony and takes on the sin of doing so not because it
-is demanded, but because she chooses it.
+Gladstone's choice echoes the theme of Abrahamic sacrifice from the first
+book. Sol Weintraub finally sacrifices Rachel when he realizes that it is
+_Rachel_, not the Shrike, demanding the sacrifice. Likewise, Gladstone
+sacrifices the Hegemony and takes on the sin of doing so not because it is
+demanded, but because she chooses it.
 
 ### Story
 
-{{ hyperion }}'s structure is so compelling, with each pilgrims' story as a
+{{ hyperion }}'s structure is so compelling, with each pilgrim's story as a
 pastiche of a different genre. When you layer in the themes and references to
-{{ keatss_lastname }} work it becomes a masterpiece. {{ this_book }} feels
-like a pale imitation. It's still great, but not transcendental. It also
-suffers in the way {{ wolfes_lastname }} {{ urth }} does: it explains every
-mystery. The Cruciform parasites do this, the tree of thorns does that, etc.
-etc. It leaves the impression that the world is a little too neat, too planned
-out.
+{{ keatss_lastname }} work, it becomes a masterpiece. {{ this_book }} feels
+like a pale imitation. It's still great, but not transcendental.
 
-But the plotting and pacing are on point. There are two twists that both hit
-hard: the first when the other Ouster swarms attach the web, indicating they
-must have been launched hundreds of years ago. The second, when the swarms are
-revealed to be TechnoCore false-flag operations, and the Ousters are shown to
-be humanity true descendants.
+It also suffers in the way {{ wolfes_lastname }} {{ urth }} does: it explains
+every mystery. The Cruciform parasites do this, the Tree of Thorns does that,
+etc., etc. It leaves the impression that the world is a little too neat, too
+planned out.
+
+That said, the plotting and pacing are on point. There are two twists that both
+hit hard. The first is when the other Ouster swarms attach the web, indicating
+they must have been launched hundreds of years ago. The second comes when the
+swarms are revealed to be TechnoCore false-flag operations, and the Ousters are
+shown to be humanity's true descendants.
 
 {{ this_book }} reminded me of a few other works. The Shrike's Tree of Pain
-being imaginary, simply torture fed into the victims head via a shunt, is the
-same idea as {{ bankss_lastname }} {{ surface_detail }} where civilizations
-use simulated hells to punish sinners. The planet-wide inferno on God's Grove
-was like the Tsunamis of flame in {{ the_player_of_games }}. Gladstone
-sacrificing billions in order to save humanity reminds me of the choice
-Ozymandias made in {{ moore_and_gibbonss }} {{ watchmen }} where he brings
+being imaginary, the torture fed into the victims' heads via a shunt, is the
+same idea as in {{ bankss_lastname }} {{ surface_detail }}, where
+civilizations use simulated hells to punish sinners. The planet-wide inferno
+on God's Grove was like the tsunamis of flame in {{ the_player_of_games }}.
+Gladstone sacrificing billions to save humanity reminds me of the choice
+Ozymandias makes in {{ moore_and_gibbonss }} {{ watchmen }}, where he brings
 humanity back from the brink of nuclear war by fabricating an alien threat.
-The Core makes a reference to {{ asimovs_lastname }} [Three Laws of
-Robotics][three_laws] from {{ i_robot }}. The way the navy uses a system in
-the farcaster network as a DMZ is an idea later used by {{ taylor_lastname }}
-in {{ lost }}, and similar to how Basilisk is used in {{ webers_lastname }} {{
+The Core references {{ asimovs_lastname }} [Three Laws of
+Robotics][three_laws] from {{ i_robot }}. The navy's use of a system in the
+farcaster network as a DMZ is an idea later used by {{ taylor_lastname }} in
+{{ lost }}, and is similar to how Basilisk is used in {{ webers_lastname }} {{
 basilisk }}. The cruciform glowing on the labyrinth walls reminded me of the
-glowing aliens on Venus in {{ vonneguts_lastname }} {{ the_sirens_of_titan }}.
-Both {{ el_mohtar_and_gladstones }} {{ this_is_how_you_lose_the_time_war }}
-and this book deal with a war being fought over the possible future.
+glowing Harmonium aliens in the caves of Mercury in {{ vonneguts_lastname }}
+{{ the_sirens_of_titan }}. Both {{ el_mohtar_and_gladstones }} {{
+this_is_how_you_lose_the_time_war }} and this book deal with a war being
+fought over possible futures.
 
 [three_laws]: https://en.wikipedia.org/wiki/Three_Laws_of_Robotics
 
-The last time I read this books, I stopped here before finishing the rest of
-the {{ hyperion_cantos }}. This time I intend to continue on through through
-{{ endymion }} and {{ rise_of_endymion }}, even though I hear that each one is
-worse than the last. I'm hoping I've heard incorrectly!
+The last time I read this book, I stopped here and didn't finish the rest of
+the {{ hyperion_cantos }}. This time I intend to continue on through
+{{ endymion }} and {{ rise_of_endymion }}, even though I hear each one is worse
+than the last. I'm hoping I've heard incorrectly!
