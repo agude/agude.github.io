@@ -35,15 +35,9 @@ end and depicts the war between the TechnoCore, the Ousters, and the Hegemony.
 {% capture the_player_of_games %}{% book_link "The Player of Games" %}{% endcapture %}
 {% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
 
-{% capture herbert %}{% author_link "Frank Herbert" %}{% endcapture %}
-{% capture herberts %}{% author_link "Frank Herbert" possessive %}{% endcapture %}
-{% capture herbert_lastname %}{% author_link "Frank Herbert" link_text="Herbert" %}{% endcapture %}
 {% capture herberts_lastname %}{% author_link "Frank Herbert" possessive link_text="Herbert" %}{% endcapture %}
 {% capture dune %}{% series_link "Dune" %}{% endcapture %}
 
-{% capture tolkien %}{% author_link "J. R. R. Tolkien" %}{% endcapture %}
-{% capture tolkiens %}{% author_link "J. R. R. Tolkien" possessive %}{% endcapture %}
-{% capture tolkien_lastname %}{% author_link "J. R. R. Tolkien" link_text="Tolkien" %}{% endcapture %}
 {% capture tolkiens_lastname %}{% author_link "J. R. R. Tolkien" possessive link_text="Tolkien" %}{% endcapture %}
 {% capture lotr %}{% series_link "The Lord of the Rings" %}{% endcapture %}
 
