@@ -21,7 +21,7 @@ module Jekyll
 
           output = String.new
           output << "<aside class=\"previous-reviews\">\n"
-          output << "  <h2 class=\"book-review-headline\">Previous Reviews</h2>\n"
+          output << "  <h2 class=\"previous-reviews-headline\">Previous Reviews</h2>\n"
           output << "  <div class=\"card-grid\">\n"
 
           @reviews.each do |doc|
