@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: book-reviews
-category-title: book reviews
+category-title: Book Reviews
 description: >
   All of the articles written by Alex Gude where he shares his book reviews.
 ---
