@@ -5,13 +5,15 @@ is_favorites_list: 2025
 description: >
     In 2025, I read 45 books. From sequels to classics, here are my favorite
     reads of the year.
-image: /files/book-reviews/a_simple_charming_color_pencil_drawing_of_an_adorable_robot_reading_a_book_on_a_white_background.jpg
+image: /files/book-reviews/books_from_the_marburg_image_archive.jpg
 hide_lead_image: False
 image_alt: >
-    A pencil drawing of a cute robot reading a book. Prompte:A simple,
-    charming color pencil drawing of an adorable robot reading a book, on a
-    white background. The robot has a rounded, friendly design with
-    expression.
+  Black-and-white photograph of a stack of four old, thick books seen from the
+  side, showing their spines and page edges. The books are richly decorated
+  with embossed floral and geometric patterns, worn leather bindings, and
+  visible aging. One book has a small handwritten label on its spine, and
+  another is secured with a metal clasp. The overall appearance suggests
+  antique or historical volumes.
 categories:
   - book-reviews
   - opinions

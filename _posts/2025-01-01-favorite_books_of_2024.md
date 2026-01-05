@@ -5,17 +5,23 @@ is_favorites_list: 2024
 description: >
     In 2024, I read 46 books and joined a sci-fi book club. From sequels to
     classics, here are my favorite reads of the year.
-image: /files/book-reviews/a_simple_charming_color_pencil_drawing_of_an_adorable_robot_reading_a_book_on_a_white_background.jpg
+image: /files/book-reviews/vertical_books_from_the_marburg_image_archive.jpg
 hide_lead_image: False
 image_alt: >
-    A pencil drawing of a cute robot reading a book. Prompte:A simple,
-    charming color pencil drawing of an adorable robot reading a book, on a
-    white background. The robot has a rounded, friendly design with
-    expression.
+  Black-and-white close-up of several antique book spines standing upright
+  side by side. The leather bindings are heavily textured and worn, featuring
+  intricate embossed floral, scroll, and geometric designs. Some spines show
+  decorative panels and faded lettering, highlighting the craftsmanship and
+  age of the books.
 categories:
   - book-reviews
   - opinions
 ---
+
+{% comment -%}
+Lead image from https://commons.wikimedia.org/w/index.php?title=Category:Photographs_by_Ludwig_Bickell&filefrom=Bad+Sooden-Allendorf%2C+Allendorf%2C+St.+Crucis%2C+Kanzel.jpg#mw-category-media
+Bücher fm812660.jpg etc.
+{%- endcomment %}
 
 {% capture file_dir %}/files/book-reviews{% endcapture %}
 
