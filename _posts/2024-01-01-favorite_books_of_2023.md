@@ -5,16 +5,16 @@ is_favorites_list: 2023
 description: >
     After abandoning social media in 2023, I read books instead. Read on for
     my favorites.
-image: /files/book-reviews/00253-610392424-a_simple_color_pencil_drawing_of_an_adorable_robot_reading_a_books_white_background.png
+image: /files/book-reviews/corner_books_from_the_marburg_image_archive.jpg
 hide_lead_image: False
 image_alt: >
-    A pencil drawing of two robots reading books. Prompte:#58; A simple color
-    pencil drawing of an adorable robot,  reading a books, white background.
-    Negative prompte:#58; (text), multiple people, group. Stepse:#58; 20,
-    Samplere:#58; DPM++ SDE Karras, CFG scalee:#58; 6, Seede:#58; 610392424,
-    Sizee:#58; 1200x624, Model hashe:#58; d8691b4d16, Modele:#58;
-    deliberate_v11, Versione:#58; v1.5.1
+  Black-and-white close-up of three horizontally stacked antique books viewed
+  from the side. The worn leather bindings feature raised bands and elaborate
+  embossed patterns, including repeating scrolls, floral motifs, and geometric
+  borders. Frayed edges and surface wear emphasize the age and craftsmanship
+  of the volumes.
 categories:
+  - book-reviews
   - opinions
 ---
 

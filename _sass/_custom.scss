@@ -359,4 +359,10 @@ abbr.etal {
     color: #cccccc;
     cursor: default;
   }
+
+  // Label for grouped navigation items (e.g., "Best of:")
+  .nav-label {
+    color: $body-color;
+    font-weight: normal;
+  }
 }

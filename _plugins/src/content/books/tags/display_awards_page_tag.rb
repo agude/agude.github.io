@@ -82,7 +82,10 @@ module Jekyll
 
             html = +"<nav class=\"alpha-jump-links\">\n"
             html << "  <div class=\"nav-row\">#{award_links.join(' &middot; ')}</div>\n" if award_links.any?
-            html << "  <div class=\"nav-row\">#{fav_links.join(' &middot; ')}</div>\n" if fav_links.any?
+            if fav_links.any?
+              fav_content = fav_links.join(' &middot; ')
+              html << "  <div class=\"nav-row\"><span class=\"nav-label\">Best of:</span> #{fav_content}</div>\n"
+            end
             html << "</nav>\n"
           end
 
@@ -94,11 +97,17 @@ module Jekyll
           end
 
           def generate_favorite_links
-            @favorites_lists.map do |list|
+            displayable_favorites.map do |list|
               title = list[:post].data['title']
               slug = Jekyll::Infrastructure::TextProcessingUtils.slugify(title)
-              "<a href=\"##{slug}\">#{CGI.escapeHTML(title)}</a>"
+              year = list[:post].data['is_favorites_list']
+              link_text = year ? year.to_s : title
+              "<a href=\"##{slug}\">#{CGI.escapeHTML(link_text)}</a>"
             end
+          end
+
+          def displayable_favorites
+            @favorites_lists.select { |list| list[:books].any? }
           end
 
           def render_awards_section
@@ -116,12 +125,10 @@ module Jekyll
           end
 
           def render_favorites_section
-            return '' if @favorites_lists.empty?
+            return '' if displayable_favorites.empty?
 
             html = +"<h2>My Favorite Books Lists</h2>\n"
-            @favorites_lists.each do |list|
-              next if list[:books].empty?
-
+            displayable_favorites.each do |list|
               html << render_favorite_list_header(list[:post])
               html << render_book_grid(list[:books], append_newline: true)
             end
