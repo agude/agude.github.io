@@ -19,13 +19,18 @@ categories:
   - opinions
 ---
 
-
 [fav_2024]: {% post_url 2025-01-01-favorite_books_of_2024 %}
 [fav_2023]: {% post_url 2024-01-01-favorite_books_of_2023 %}
 
 {% capture disco %}{% book_link "Disco Elysium" %}{% endcapture %}
 
-I read 45 books last year, and 1 computer game ({{ disco }}) last year
+I reviewed 45 books and 1 computer game last year. I haven't branched out
+much, I'm sticking to science fiction for the most part, but I have re-read a
+few books which has been enjoyable. I picked up so much more the second time
+through.
+
+Following the tradition of [2023][fav_2023] and [2024][fav_2024], here are my
+favorite books from 2025:
 
 ## <cite class="book-title">Disco Elysium</cite>
 
@@ -104,8 +109,23 @@ botns }} with its mix of archaic prose and intentional vagueness.
   {% book_card_lookup title="A Desolation Called Peace" date="2025-04-05" %}
 </div>
 
-## <span class="book-series">The Murderbot Diaries</span> by <span class="author-name">Martha Wells</span>
+## <cite class="book-title">Roadside Picnic</cite> by <span class="author-name">Arkady</span> and <span class="author-name">Boris Strugatsky</span>
 
+{% capture picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
+{% capture strugatskys %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" %}{% endcapture %}
+{% capture strugatskyss %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" possessive %}{% endcapture %}
+
+I picked up the {{ strugatskyss }} best-known novel {{ picnic }} because I
+wanted to broaden what I was reading. I loved it. The characters feel so real,
+the dialogue has a simple but earnest quality to it, and the atmosphere is
+completely different from western sci-fi. It wasn't the only book of theirs
+that I read, but it's my favorite.
+
+<div class="card-grid">
+  {% book_card_lookup title="Roadside Picnic" date="2025-08-04" %}
+</div>
+
+## <span class="book-series">The Murderbot Diaries</span> by <span class="author-name">Martha Wells</span>
 
 {% capture art_cond %}{% book_link "Artificial Condition" %}{% endcapture %}
 {% capture rogue %}{% book_link "Rogue Protocol" %}{% endcapture %}
@@ -115,7 +135,7 @@ botns }} with its mix of archaic prose and intentional vagueness.
 {% capture wells %}{% author_link "Martha Wells" link_text="Wells" %}{% endcapture %}
 {% capture wellss %}{% author_link "Martha Wells" link_text="Wells" possessive %}{% endcapture %}
 
-Everyone loves {{ murderbot }} and I am no exception. {{ wellss }} has the
+Everyone loves {{ murderbot }} and I am no exception. {{ wells }} has the
 perfect mix of pulpy action, fast pacing, memorable characters, but with deep
 philosophical themes around what it means to be a person. I have a few more to
 go this year, and I'm looking forward to them! I expect to see them in my 2026
@@ -159,5 +179,36 @@ future. He is working on the sequel, and I'm looking forward to it!
   {% book_card_lookup title="A Mote in Shadow" date="2025-08-30" %}
 </div>
 
+## <cite class="book-title">The Triumphant</cite> by <span class="author-name">Linda Evans</span>, <span class="author-name">Robert R. Hollingsworth</span>, and <span class="author-name">David Weber</span>
+
+{% capture triumphant %}{% book_link "The Triumphant" %}{% endcapture %}
+{% capture bolo %}{% series_link "Bolo" %}{% endcapture %}
+
+{% capture evans %}{% author_link "Linda Evans" %}{% endcapture %}
+{% capture evanss %}{% author_link "Linda Evans" possessive %}{% endcapture %}
+{% capture evans_lastname %}{% author_link "Linda Evans" link_text="Evans" %}{% endcapture %}
+{% capture evans_lastname %}{% author_link "Linda Evans" link_text="Evans" possessive %}{% endcapture %}
+
+{% capture hollingsworth %}{% author_link "Robert R. Hollingsworth" %}{% endcapture %}
+{% capture hollingsworths %}{% author_link "Robert R. Hollingsworth" possessive %}{% endcapture %}
+{% capture hollingsworth_lastname %}{% author_link "Robert R. Hollingsworth" link_text="Hollingsworth" %}{% endcapture %}
+{% capture hollingsworths_lastname %}{% author_link "Robert R. Hollingsworth" link_text="Hollingsworth" possessive %}{% endcapture %}
+
+{% capture weber %}{% author_link "David Weber" %}{% endcapture %}
+{% capture webers %}{% author_link "David Weber" possessive %}{% endcapture %}
+{% capture weber_lastname %}{% author_link "David Weber" link_text="Weber" %}{% endcapture %}
+{% capture webers_lastname %}{% author_link "David Weber" link_text="Weber" possessive %}{% endcapture %}
+
+{% capture combined_authors %}{{ evans }}, {{ hollingsworth }}, and {{ weber }}{% endcapture %}
+
+I started reading the {{ bolo }} books when I was a teen and loved them! Giant
+tanks blowing stuff up, but like {{ murderbot }} it broaches deep questions
+about the meaning of being alive. I started re-reading the series for
+nostalgia, and while most of them are servicable but not great, {{ triumphant
+}} is the exception.
+
+<div class="card-grid">
+  {% book_card_lookup title="The Triumphant" date="2025-09-23" %}
+</div>
 
 
