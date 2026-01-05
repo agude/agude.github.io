@@ -38,6 +38,7 @@ SimpleCov.start do
 end
 
 require 'minitest/autorun'
+require 'minitest/mock'
 require 'jekyll'
 require 'time' # Needed for Time.parse if mocking dates
 

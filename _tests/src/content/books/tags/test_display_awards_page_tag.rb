@@ -72,7 +72,7 @@ class TestDisplayAwardsPageTag < Minitest::Test
 
     assert_match(/<nav class="alpha-jump-links">/, output)
     expected_favorites_nav =
-      '<div class="nav-row"><a href="#my-favorite-books-of-2024">My Favorite Books of 2024</a> &middot; <a href="#my-favorite-books-of-2023">My Favorite Books of 2023</a></div>'
+      '<div class="nav-row"><span class="nav-label">Best of:</span> <a href="#my-favorite-books-of-2024">2024</a> &middot; <a href="#my-favorite-books-of-2023">2023</a></div>'
     assert_includes output, expected_favorites_nav
     refute_match(/<a href="#hugo-award">/, output) # No award links
 
@@ -95,6 +95,89 @@ class TestDisplayAwardsPageTag < Minitest::Test
       Liquid::Template.parse('{% display_awards_page some_arg %}')
     end
     assert_match 'This tag does not accept any arguments', err.message
+  end
+
+  def test_favorites_link_falls_back_to_title_when_year_missing
+    fav_post_no_year = create_doc({ 'title' => 'My Favorite Books' }, '/fav.html')
+    favorites_data = {
+      favorites_lists: [{ post: fav_post_no_year, books: [@fav_book_alpha] }],
+      log_messages: ''
+    }
+    output = render_tag(@context, { awards_data: [], log_messages: '' }, favorites_data)
+
+    expected_nav = '<a href="#my-favorite-books">My Favorite Books</a>'
+    assert_includes output, expected_nav
+  end
+
+  def test_skips_favorites_list_with_empty_books_in_nav_and_section
+    empty_list = { post: @fav_post_year_2024, books: [] }
+    populated_list = { post: @fav_post_year_2023, books: [@fav_book_beta] }
+    favorites_data = {
+      favorites_lists: [empty_list, populated_list],
+      log_messages: ''
+    }
+    output = render_tag(@context, { awards_data: [], log_messages: '' }, favorites_data)
+
+    # Nav should only have 2023, not 2024
+    refute_includes output, '2024'
+    assert_includes output, '<a href="#my-favorite-books-of-2023">2023</a>'
+
+    # Section should only have 2023
+    refute_match(/id="my-favorite-books-of-2024"/, output)
+    assert_match(/id="my-favorite-books-of-2023"/, output)
+  end
+
+  def test_renders_no_favorites_section_when_all_lists_have_empty_books
+    empty_list_1 = { post: @fav_post_year_2024, books: [] }
+    empty_list_2 = { post: @fav_post_year_2023, books: [] }
+    favorites_data = {
+      favorites_lists: [empty_list_1, empty_list_2],
+      log_messages: ''
+    }
+    output = render_tag(@context, @mock_awards_data_hash, favorites_data)
+
+    # Should have awards nav but no favorites nav row
+    assert_includes output, '<a href="#hugo-award">Hugo</a>'
+    refute_includes output, 'Best of:'
+    refute_match %r{<h2>My Favorite Books Lists</h2>}, output
+  end
+
+  def test_escapes_html_in_award_names
+    xss_award = {
+      award_name: '<script>alert("xss")</script> Award',
+      award_slug: 'xss-award',
+      books: [@award_book_hugo]
+    }
+    awards_data = { awards_data: [xss_award], log_messages: '' }
+    output = render_tag(@context, awards_data, { favorites_lists: [], log_messages: '' })
+
+    refute_includes output, '<script>'
+    assert_includes output, '&lt;script&gt;'
+  end
+
+  def test_favorites_links_include_baseurl
+    site_with_baseurl = create_site({ 'url' => 'http://example.com', 'baseurl' => '/blog' })
+    context_with_baseurl = create_context({}, { site: site_with_baseurl, page: create_doc({ 'path' => 'current.html' }, '/current.html') })
+
+    output = render_tag(context_with_baseurl)
+
+    assert_includes output, 'href="/blog/fav24.html"'
+  end
+
+  def test_renders_single_award_without_middot
+    single_award = { awards_data: [@mock_awards_data_hash[:awards_data].first], log_messages: '' }
+    output = render_tag(@context, single_award, { favorites_lists: [], log_messages: '' })
+
+    assert_includes output, '<a href="#hugo-award">Hugo</a>'
+    refute_includes output, '&middot;'
+  end
+
+  def test_renders_single_favorite_without_middot
+    single_fav = { favorites_lists: [@mock_favorites_data_hash[:favorites_lists].first], log_messages: '' }
+    output = render_tag(@context, { awards_data: [], log_messages: '' }, single_fav)
+
+    assert_includes output, '<a href="#my-favorite-books-of-2024">2024</a>'
+    refute_includes output, '&middot;'
   end
 
   private
@@ -120,8 +203,8 @@ class TestDisplayAwardsPageTag < Minitest::Test
 
   # Creates mock data for favorites section
   def create_favorites_data
-    @fav_post_year_2024 = create_doc({ 'title' => 'My Favorite Books of 2024' }, '/fav24.html')
-    @fav_post_year_2023 = create_doc({ 'title' => 'My Favorite Books of 2023' }, '/fav23.html')
+    @fav_post_year_2024 = create_doc({ 'title' => 'My Favorite Books of 2024', 'is_favorites_list' => 2024 }, '/fav24.html')
+    @fav_post_year_2023 = create_doc({ 'title' => 'My Favorite Books of 2023', 'is_favorites_list' => 2023 }, '/fav23.html')
     @fav_book_alpha = create_doc({ 'title' => 'Fav Book A' }, '/books/a.html')
     @fav_book_beta = create_doc({ 'title' => 'Fav Book B' }, '/books/b.html')
     @mock_favorites_data_hash = {
@@ -154,7 +237,7 @@ class TestDisplayAwardsPageTag < Minitest::Test
       '<div class="nav-row"><a href="#hugo-award">Hugo</a> &middot; <a href="#nebula-award">Nebula</a></div>'
     assert_includes output, expected_awards_nav
     expected_favorites_nav =
-      '<div class="nav-row"><a href="#my-favorite-books-of-2024">My Favorite Books of 2024</a> &middot; <a href="#my-favorite-books-of-2023">My Favorite Books of 2023</a></div>'
+      '<div class="nav-row"><span class="nav-label">Best of:</span> <a href="#my-favorite-books-of-2024">2024</a> &middot; <a href="#my-favorite-books-of-2023">2023</a></div>'
     assert_includes output, expected_favorites_nav
   end
 
