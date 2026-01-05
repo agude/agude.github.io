@@ -65,6 +65,23 @@ jobs:
         env:
           JEKYLL_ENV: production
 
+      - name: Validate HTML structure
+        run: |
+          echo "Checking for missing DOCTYPE declarations..."
+          missing_doctype=$(find _site -name '*.html' -exec sh -c 'head -1 "$1" | grep -qv "^<!DOCTYPE" && echo "$1"' _ {} \;)
+          if [ -n "$missing_doctype" ]; then
+            echo "ERROR: The following files are missing <!DOCTYPE html>:"
+            echo "$missing_doctype"
+            echo "This usually indicates a broken layout chain or corrupted front matter."
+            exit 1
+          fi
+          echo "Checking for raw front matter in output..."
+          if grep -rl "^---$" _site --include="*.html" 2>/dev/null; then
+            echo "ERROR: Raw front matter delimiters found in HTML output."
+            exit 1
+          fi
+          echo "All HTML structure checks passed."
+
       - name: Check for broken links
         run: bundle exec ruby _bin/check_links.rb
 

@@ -10,12 +10,16 @@ options = {
     /^http/ # Regex to ignore all http/https links (external)
   ],
 
-  # v5 requires explicitly listing checks if you want to limit them
-  checks: %w[Links Images Scripts],
+  # v5 requires explicitly listing checks if you want to limit them.
+  # Added Favicon and OpenGraph for broader validation coverage.
+  checks: %w[Links Images Scripts Favicon OpenGraph],
 
   # Standard Jekyll defaults
   assume_extension: true,
   directory_index_file: 'index.html',
+
+  # Require meaningful alt text on images (don't allow empty alt="")
+  ignore_empty_alt: false,
 
   # Speed up by running in parallel
   parallel: { in_processes: 2 }
