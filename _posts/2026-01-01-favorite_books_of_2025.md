@@ -3,8 +3,10 @@ layout: post
 title: My Favorite Books of 2025
 is_favorites_list: 2025
 description: >
-    In 2025, I read 45 books. From sequels to classics, here are my favorite
-    reads of the year.
+  I read 45 books in 2025, diving deep into sci-fi classics and modern hits.
+  From the Hyperion Cantos and the final Culture novel to the philosophical
+  action of Murderbot, plus one literary masterpiece that is actually a video
+  game, here are my absolute favorites of the year.
 image: /files/book-reviews/books_from_the_marburg_image_archive.jpg
 hide_lead_image: False
 image_alt: >
@@ -24,10 +26,10 @@ categories:
 
 {% capture disco %}{% book_link "Disco Elysium" %}{% endcapture %}
 
-Last year I reviewed 45 books and 1 computer game. I haven't branched out much:
-I'm sticking to science fiction for the most part. I also re-read a few books,
-which ended up being especially enjoyable because I picked up so much more the
-second time through.
+Last year I reviewed 45 books and 1 computer game. I haven't branched out
+much: I'm sticking to science fiction for the most part. I also re-read a few
+books, which ended up being especially enjoyable because I picked up so much
+more the second time through.
 
 Following the tradition of [2023][fav_2023] and [2024][fav_2024], here are my
 favorite books from 2025:
@@ -50,7 +52,6 @@ works, period.
 {% capture hyp %}{% book_link "Hyperion" %}{% endcapture %}
 {% capture fall %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
 {% capture cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
-{% capture simmons %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
 {% capture hyperion3 %}{% book_link "Endymion" %}{% endcapture %}
 {% capture hyperion4 %}{% book_link "The Rise of Endymion" %}{% endcapture %}
@@ -96,8 +97,6 @@ message that life only has the meaning you give it.
 
 {% capture memory %}{% book_link "A Memory Called Empire" %}{% endcapture %}
 {% capture peace %}{% book_link "A Desolation Called Peace" %}{% endcapture %}
-{% capture teixcalaan %}{% series_link "Teixcalaan" %}{% endcapture %}
-{% capture martine %}{% author_link "Arkady Martine" link_text="Martine" %}{% endcapture %}
 {% capture martines %}{% author_link "Arkady Martine" link_text="Martine" possessive %}{% endcapture %}
 {% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
 {% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
@@ -116,13 +115,12 @@ vagueness.
 ## <cite class="book-title">Roadside Picnic</cite> by <span class="author-name">Arkady</span> and <span class="author-name">Boris Strugatsky</span>
 
 {% capture picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
-{% capture strugatskys %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" %}{% endcapture %}
 {% capture strugatskyss %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" possessive %}{% endcapture %}
 
 I picked up {{ strugatskyss }} best-known novel, {{ picnic }}, because I
 wanted to broaden what I was reading. I ended up loving it. The characters
 feel incredibly real, the dialogue has a simple but earnest quality, and the
-atmosphere is completely different from western sci-fi.
+atmosphere is completely different from Western sci-fi.
 
 It wasn't the only book of theirs that I read, but it was easily my favorite.
 
@@ -132,13 +130,8 @@ It wasn't the only book of theirs that I read, but it was easily my favorite.
 
 ## <span class="book-series">The Murderbot Diaries</span> by <span class="author-name">Martha Wells</span>
 
-{% capture art_cond %}{% book_link "Artificial Condition" %}{% endcapture %}
-{% capture rogue %}{% book_link "Rogue Protocol" %}{% endcapture %}
-{% capture exit %}{% book_link "Exit Strategy" %}{% endcapture %}
-{% capture net_eff %}{% book_link "Network Effect" %}{% endcapture %}
 {% capture murderbot %}{% series_link "The Murderbot Diaries" %}{% endcapture %}
 {% capture wells %}{% author_link "Martha Wells" link_text="Wells" %}{% endcapture %}
-{% capture wellss %}{% author_link "Martha Wells" link_text="Wells" possessive %}{% endcapture %}
 
 Everyone loves {{ murderbot }}, and I'm no exception. {{ wells }} hits the
 perfect mix of pulpy action, fast pacing, and memorable characters, while
@@ -155,9 +148,7 @@ them. I fully expect to see them in my 2026 list.
 
 ## <cite class="book-title">There Is No Antimemetics Division</cite> by <span class="author-name">qntm</span>
 
-{% capture antimeme %}{% book_link "There Is No Antimemetics Division" %}{% endcapture %}
 {% capture original %}{% book_link "There Is No Antimemetics Division (Original Edition)" link_text="original edition" %}{% endcapture %}
-{% capture qntm %}{% author_link "qntm" %}{% endcapture %}
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 
 I read {{ qntms }} {{ original }} edition in 2023 and thought it was packed
@@ -171,8 +162,6 @@ cohesive book that brings its wild concepts to life. Highly recommend.
 
 ## <cite class="book-title">A Mote in Shadow</cite> by <span class="author-name">A. N. Alex</span>
 
-{% capture mote %}{% book_link "A Mote in Shadow" %}{% endcapture %}
-{% capture alex %}{% author_link "A. N. Alex" link_text="Alex" %}{% endcapture %}
 {% capture alexs %}{% author_link "A. N. Alex" link_text="Alex" possessive %}{% endcapture %}
 
 I found this book when my corner of BlueSky started talking about it, and I'm
@@ -191,28 +180,15 @@ looking forward to it.
 {% capture bolo %}{% series_link "Bolo" %}{% endcapture %}
 
 {% capture evans %}{% author_link "Linda Evans" %}{% endcapture %}
-{% capture evanss %}{% author_link "Linda Evans" possessive %}{% endcapture %}
-{% capture evans_lastname %}{% author_link "Linda Evans" link_text="Evans" %}{% endcapture %}
-{% capture evans_lastname %}{% author_link "Linda Evans" link_text="Evans" possessive %}{% endcapture %}
-
 {% capture hollingsworth %}{% author_link "Robert R. Hollingsworth" %}{% endcapture %}
-{% capture hollingsworths %}{% author_link "Robert R. Hollingsworth" possessive %}{% endcapture %}
-{% capture hollingsworth_lastname %}{% author_link "Robert R. Hollingsworth" link_text="Hollingsworth" %}{% endcapture %}
-{% capture hollingsworths_lastname %}{% author_link "Robert R. Hollingsworth" link_text="Hollingsworth" possessive %}{% endcapture %}
-
 {% capture weber %}{% author_link "David Weber" %}{% endcapture %}
-{% capture webers %}{% author_link "David Weber" possessive %}{% endcapture %}
-{% capture weber_lastname %}{% author_link "David Weber" link_text="Weber" %}{% endcapture %}
-{% capture webers_lastname %}{% author_link "David Weber" link_text="Weber" possessive %}{% endcapture %}
-
-{% capture combined_authors %}{{ evans }}, {{ hollingsworth }}, and {{ weber }}{% endcapture %}
 
 I started reading the {{ bolo }} books when I was a teen and absolutely loved
-them. Giant tanks blowing stuff up, but, like {{ murderbot }}, they also
-broach deeper questions about the meaning of being alive, and if honor and
-duty translate to machines. I recently started re-reading the series for
-nostalgia. While most of the books are serviceable but not great, {{
-triumphant }} is the clear exception.
+them. They feature giant tanks blowing stuff up, but, like {{ murderbot }},
+they also broach deeper questions about the meaning of being alive, and
+whether honor and duty translate to machines. I recently started re-reading
+the series for nostalgia. While most of the books are serviceable but not
+great, {{ triumphant }} is the clear exception.
 
 <div class="card-grid">
   {% book_card_lookup title="The Triumphant" date="2025-09-23" %}
