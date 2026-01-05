@@ -76,8 +76,12 @@ jobs:
             exit 1
           fi
           echo "Checking for raw front matter in output..."
-          if grep -rl "^---$" _site --include="*.html" 2>/dev/null; then
-            echo "ERROR: Raw front matter delimiters found in HTML output."
+          # Only check for --- at the START of files (actual unprocessed front matter)
+          # Ignore --- inside code blocks (legitimate content like Jekyll tutorials)
+          raw_frontmatter=$(find _site -name '*.html' -exec sh -c 'head -1 "$1" | grep -q "^---$" && echo "$1"' _ {} \;)
+          if [ -n "$raw_frontmatter" ]; then
+            echo "ERROR: Raw front matter delimiters found at start of HTML files:"
+            echo "$raw_frontmatter"
             exit 1
           fi
           echo "All HTML structure checks passed."
