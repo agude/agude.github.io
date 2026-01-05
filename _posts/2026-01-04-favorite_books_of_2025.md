@@ -26,10 +26,9 @@ categories:
 
 {% capture disco %}{% book_link "Disco Elysium" %}{% endcapture %}
 
-Last year I reviewed 45 books and 1 computer game. I haven't branched out
-much: I'm sticking to science fiction for the most part. I also re-read a few
-books, which ended up being especially enjoyable because I picked up so much
-more the second time through.
+Last year I reviewed 45 books and 1 computer game. I mostly stuck to science
+fiction, and I also re-read a few books, which was especially enjoyable
+because I picked up so much more the second time through.
 
 Following the tradition of [2023][fav_2023] and [2024][fav_2024], here are my
 favorite books from 2025:
@@ -60,8 +59,8 @@ I didn't love the {{ cantos }} the first time I read them. I found {{ fall }},
 the easier and more straightforward of the two, to be great, but I didn't
 really get {{ hyp }}. This year I re-read them for my book club and focused on
 finding and understanding the influences from {{ keatss }} works. That
-completely transformed the experience. I **LOVED** {{ hyp }}, and now view it
-as a new masterpiece of the genre.
+completely transformed the experience. I **LOVED** {{ hyp }}, seeing it as far
+deeper and more complex than I did the first time through.
 
 This year I'll be tackling {{ hyperion3 }} and {{ hyperion4 }}, which I've
 heard don't live up to the greatness of the first two, but I'm still hopeful.
@@ -137,7 +136,7 @@ Everyone loves {{ murderbot }}, and I'm no exception. {{ wells }} hits the
 perfect mix of pulpy action, fast pacing, and memorable characters, while
 still digging into deep philosophical questions about what it means to be a
 person. I've got a few more to go this year, and I'm really looking forward to
-them. I fully expect to see them in my 2026 list.
+them. I fully expect to see them on my 2026 list.
 
 <div class="card-grid">
   {% book_card_lookup title="Artificial Condition" date="2025-05-18" %}
@@ -185,10 +184,10 @@ looking forward to it.
 
 I started reading the {{ bolo }} books when I was a teen and absolutely loved
 them. They feature giant tanks blowing stuff up, but, like {{ murderbot }},
-they also broach deeper questions about the meaning of being alive, and
-whether honor and duty translate to machines. I recently started re-reading
-the series for nostalgia. While most of the books are serviceable but not
-great, {{ triumphant }} is the clear exception.
+they also broach deeper questions about the meaning of being alive and whether
+honor and duty translate to machines. I recently started re-reading the series
+for nostalgia, and while most of the books are serviceable but not great, {{
+triumphant }} is the clear exception.
 
 <div class="card-grid">
   {% book_card_lookup title="The Triumphant" date="2025-09-23" %}
