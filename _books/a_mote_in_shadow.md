@@ -14,7 +14,7 @@ two down-on-their-luck outsiders dragged into a war between shadowy mercenary
 groups: exobiologist Chaeyoung No, whose disagreement with the scientific
 establishment leaves her in no position to question a too-good-to-be-true
 offer to fund her research expedition; and space hauler Frederik Obialo, who
-is more than willing to take a dangerous jobs if it brings him closer to his
+is more than willing to take a dangerous job if it brings him closer to his
 dream of giving his daughter a permanent home.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
