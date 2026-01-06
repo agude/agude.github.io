@@ -99,31 +99,24 @@ provide meaning and heal the world.
 The central thesis of {{ this_book }}, that suffering is necessary for
 enlightenment, comes directly from {{ keatss_lastname }} poem:
 
-<figure>
-  <blockquote cite="https://en.wikisource.org/wiki/The_Poetical_Works_of_John_Keats/An_Earlier_Version_of_%22Hyperion%22">
-    <p>
-    "None can usurp this height," returned that shade,<br>
-    "But those to whom the miseries of the world<br>
-    Are misery, and will not let them rest.<br>
-    All else who find a heaven in the world,<br>
-    Where they may thoughtless sleep away their days,<br>
-    If by a chance into this fane they come,<br>
-    Rot on the pavement where thou rottedst half."
-    </p>
-  </blockquote>
-  <figcaption>
-    <small>&mdash;{% citation
-      author_first="John"
-      author_last="Keats"
-      work_title="An Earlier Version of 'Hyperion'"
-      container_title="The Poetical Works of John Keats"
-      publisher="DeWolfe, Fiske & Company"
-      date=1884
-      page=281
-      url="https://en.wikisource.org/wiki/The_Poetical_Works_of_John_Keats/An_Earlier_Version_of_%22Hyperion%22"
-    %}</small>
-  </figcaption>
-</figure>
+{% citedquote
+  author_first="John"
+  author_last="Keats"
+  work_title="An Earlier Version of 'Hyperion'"
+  container_title="The Poetical Works of John Keats"
+  publisher="DeWolfe, Fiske & Company"
+  date=1884
+  page=281
+  url="https://en.wikisource.org/wiki/The_Poetical_Works_of_John_Keats/An_Earlier_Version_of_%22Hyperion%22"
+%}
+"None can usurp this height," returned that shade,\
+"But those to whom the miseries of the world\
+Are misery, and will not let them rest.\
+All else who find a heaven in the world,\
+Where they may thoughtless sleep away their days,\
+If by a chance into this fane they come,\
+Rot on the pavement where thou rottedst half."
+{% endcitedquote %}
 
 {{ the_authors_lastname }} applies this idea to civilization itself. The
 Hegemony is stagnant because the TechnoCore has made life too easy. This is

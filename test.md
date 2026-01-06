@@ -86,6 +86,33 @@ This is another paragraph with **bold text**, *italic text*, and ***bold italic 
 
 ---
 
+## Cited Quotes
+
+{% citedquote author_last="Keats" author_first="John" work_title="Ode on a Grecian Urn" date=1819 %}
+"Beauty is truth, truth beauty,"---that is all\
+Ye know on earth, and all ye need to know.
+{% endcitedquote %}
+
+{% citedquote author_last="Banks" author_first="Iain M." work_title="Excession" publisher="Orbit" date=1996 url="https://en.wikipedia.org/wiki/Excession" %}
+An Outside Context Problem was the sort of thing most civilizations
+encountered just once, and which they tended to encounter rather in the same
+way a sentence encountered a full stop. The usual example given to illustrate
+an Outside Context Problem was imagining you were a tribe on a largish,
+fertile island; you'd tamed the land, invented the wheel or writing or
+whatever, the neighbors were cooperative or enslaved but at any rate peaceful
+and you were busy raising temples to yourself with all the excess productive
+capacity you had, you were in a position of near-absolute power and control
+which your hallowed ancestors could hardly have dreamed of and the whole
+situation was just running along nicely like a canoe on wet grass... when
+suddenly this bristling lump of iron appears sailless and trailing steam in
+the bay and these guys carrying long funny-looking sticks come ashore and
+announce you've just been discovered, you're all subjects of the Emperor now,
+he's keen on presents called tax and these bright-eyed holy men would like a
+word with your priests.
+{% endcitedquote %}
+
+---
+
 ## Tables
 
 | Left Justified | Centered | Right Justified |

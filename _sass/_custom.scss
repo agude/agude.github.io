@@ -83,6 +83,11 @@ figure img {
   margin: auto;
 }
 
+// Cited quotes ({% citedquote %} tag)
+.cited-quote figcaption {
+  font-size: $small-font-size;
+}
+
 // Check boxes
 input[type="checkbox"].task-list-item-checkbox {
   appearance: none;

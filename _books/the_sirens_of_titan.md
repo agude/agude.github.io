@@ -84,26 +84,25 @@ life. The difference is I found {{ hitchhikers_guide_short }} to be
 
 [^interview]: {{ adams }} said as much in an interview:
 
-    > {{ the_author }}, who I think is absolutely superb. I've read
-    > {{ this_book }} six times now, and it gets better every time. He is an
-    > influence, I must own up. {{ this_book }} is just one of those
-    > books---you read it through the first time and you think it's very
-    > loosely, casually written. You think the fact that everything suddenly
-    > makes such good sense at the end is almost accidental. And then you read
-    > it a few more times, simultaneously finding out more about writing
-    > yourself, and you realize what an absolute tour de force it was, making
-    > something as beautifully honed as that appear so casual.
-
-    --- {% citation
-    author_first="Ian"
-    author_last="Shircore"
-    work_title="Douglas Adams: The First and Last Tapes"
-    container_title="Darker Matter"
-    number="1"
-    date="March 2007"
-    url="https://www.darkermatter.com/issue1/douglas_adams.php"
-    access_date="October 4, 2025"
+    {% citedquote
+      author_first="Ian"
+      author_last="Shircore"
+      work_title="Douglas Adams: The First and Last Tapes"
+      container_title="Darker Matter"
+      number="1"
+      date="March 2007"
+      url="https://www.darkermatter.com/issue1/douglas_adams.php"
+      access_date="October 4, 2025"
     %}
+{{ the_author }}, who I think is absolutely superb. I've read {{ this_book }}
+six times now, and it gets better every time. He is an influence, I must own
+up. {{ this_book }} is just one of those books---you read it through the first
+time and you think it's very loosely, casually written. You think the fact
+that everything suddenly makes such good sense at the end is almost
+accidental. And then you read it a few more times, simultaneously finding out
+more about writing yourself, and you realize what an absolute tour de force it
+was, making something as beautifully honed as that appear so casual.
+{% endcitedquote %}
 
 I think {{ the_authors_lastname_possessive }} writing is just too
 straightforward for my tastes. I have a weakness for books that are a bit of a
