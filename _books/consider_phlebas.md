@@ -54,4 +54,4 @@ that his side of the war is the more enlightened one, but it was just
 unpleasant to read about him _drowning in literal shit_ and _having his
 fingers chewed off_.
 
-I hope that {{ c2 }} better.
+I hope that {{ c2 }} is better.

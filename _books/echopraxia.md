@@ -45,7 +45,7 @@ The major characters are:
 
 - Portia, an alien computer-slime mold sent by _Rorschach_ to _Icarus_.
 
-The novel is full of with Christian imagery, reinforcing its themes of
+The novel is full of Christian imagery, reinforcing its themes of
 transcendence and digital theology:
 
 - Valerie is a Moses figure, trying to free her people from slavery. Her first

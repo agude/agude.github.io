@@ -16,7 +16,7 @@ feel like realistic battlefield tech, not magic.
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture ymir %}{% book_link "Ymir" %}{% endcapture %}
 
-The plot of {{this_book }}is a classic: Vandal is a mech (called upright
+The plot of {{ this_book }} is a classic: Vandal is a mech (called upright
 tanks) mechanic in a mercenary company. When mysterious, badass mercenaries
 decimate his unit, he's forced to become a pilot instead, a role he is
 naturally gifted at. He befriends the other new pilots and is thrust into

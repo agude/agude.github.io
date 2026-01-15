@@ -304,7 +304,7 @@ with the way it charts Rachel's mental decline, but this one hit me much
 harder.
 
 {{ the_scholars_tale }} also makes a passing reference to {{ le_guins }}
-Ansible, seen in {{ rocannon}}, {{ left_hand_of_darkness }}, and throughout
+Ansible, seen in {{ rocannon }}, {{ left_hand_of_darkness }}, and throughout
 her {{ hainish_cycle }}. The requirement to sleep to survive faster-than-light
 travel without going insane also shows up in {{ tchaikovskys }} {{
 shards_of_earth }}.

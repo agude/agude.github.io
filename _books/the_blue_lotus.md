@@ -25,7 +25,7 @@ an opium ring in China.
 {% capture tt16 %}{% book_link "Destination Moon" %}{% endcapture %}
 {% capture tt17 %}{% book_link "Explorers on the Moon" %}{% endcapture %}
 
-{{ this_book }} is a departs from the earlier books in the series by placing
+{{ this_book }} departs from the earlier books in the series by placing
 Tintin in an actual historical event: [the Japanese invasion of
 Manchuria][invasion]. The book follows history closely, with Tintin witnessing
 Japanese agents blowing up a rail line in a false-flag attack, just like what

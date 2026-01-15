@@ -59,7 +59,7 @@ the datasets:
 
 ### MovieLens
 
-The MovieLens dataset was put together by the GroupLens research group at my
+The MovieLens dataset was put together by the GroupLens research group at
 my alma mater, the University of Minnesota (which had nothing to do with us
 using the dataset). MovieLens is a collection of movie ratings and comes in
 various sizes. We make use of the 1M, 10M, and 20M datasets which are so named

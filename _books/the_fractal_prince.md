@@ -28,7 +28,7 @@ its own unique culture, technology, and characters, just like Mars. And again,
 this time he gives us a little help. Some characters ask questions the reader
 likely has, providing small bits of exposition missing from the first book.
 
-Earth's culture is loosely based on {{ one_thousand}}---tales within tales
+Earth's culture is loosely based on {{ one_thousand }}---tales within tales
 have power, minds without bodies are called Jinn, and the desert of wildcode
 is a constant threat.
 
