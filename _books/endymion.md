@@ -1,10 +1,10 @@
 ---
-date: 2026-01-01
+date: 2026-01-19
 title: Endymion
 book_authors: Dan Simmons
 series: Hyperion Cantos
 book_number: 3
-rating: null
+rating: 4
 image: /books/covers/endymion.jpg
 ---
 
