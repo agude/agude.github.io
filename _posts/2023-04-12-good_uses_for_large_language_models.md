@@ -39,7 +39,7 @@ with a model? Succinctly, it is a problem **where solving it is hard, but
 verifying the solution is easy**. I will go into more detail in the rest of
 this post.
 
-[last_post]: {% post_url 2023-02-13-how_i_write_with_chatgpt %}
+[last_post]: {% post_url 2025-02-02-how_i_write_with_llms_revised %}
 
 ## What Are They Good For?
 
@@ -66,8 +66,17 @@ have tests in place to verify the code's correctness.
 LLMs are **bad for problems where verification is hard** compared to the
 generation of an answer.
 
-Some people are using LLMs as a replacement for search engines. This is a
-perfect example of a **bad use** of the technology because verifying the
-accuracy of the information provided by the model takes time and effort. In
-fact, it often involves additional searches to confirm the validity of the
+Some people are using LLMs as a replacement for search engines.[^mea_culpa]
+This is a perfect example of a **bad use** of the technology because verifying
+the accuracy of the information provided by the model takes time and effort.
+In fact, it often involves additional searches to confirm the validity of the
 answer, which defeats the purpose of using an LLM in the first place.
+
+[^mea_culpa]:
+    **Author's Note**: This specific example didn't age well! When I wrote
+    this in 2023, models relied on "frozen" training weights to mimic search,
+    making them prone to confident hallucinations. But now, almost every model
+    uses live search results to ground their responses. LLMs have become a
+    fantastic way to search because they are now doing what they're best at:
+    reading a lot more text than a human ever could and distilling it down to
+    the key points.
