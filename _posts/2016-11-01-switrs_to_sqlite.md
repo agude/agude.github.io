@@ -52,9 +52,18 @@ time information to a form recognized by SQLite.
 
 ### Installation and Running
 
-Installation is easy with `pip`:
+The best way to install SWITRS-to-SQLite is with
+[UV][uv]:
 
-```shell
+[uv]: https://docs.astral.sh/uv/
+
+```bash
+uv tool install switrs-to-sqlite
+```
+
+Or with standard `pip`:
+
+```bash
 pip install switrs-to-sqlite
 ```
 
@@ -67,8 +76,8 @@ PartyRecords.txt \
 VictimRecords.txt
 ```
 
-This will run for a while (about an hour on my ancient desktop) and produce a
-SQLite3 file named `switrs.sqlite3`.
+This will run for a while (about a 12 minutes on my ancient desktop) and
+produce a SQLite3 file named `switrs.sqlite3`.
 
 ### Crash Mapping Example
 
