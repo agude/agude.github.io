@@ -162,9 +162,9 @@ oppresive Pax using a Raft and the River Tethys.
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
 {% capture keats_lastname %}{% author_link "John Keats" link_text="Keats" %}{% endcapture %}
 {% capture keatss_lastname %}{% author_link "John Keats" link_text="Keats" possessive %}{% endcapture %}
-{% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" style="text" link_text="version" %}{% endcapture %}
-{% capture fall_keats %}{% book_link "The Fall of Hyperion" author="John Keats" style="text" link_text="the poem" %}{% endcapture %}
-{% capture endymion_keats %}{% book_link "Endymion" author="John Keats" style="text" link_text="poem" %}{% endcapture %}
+{% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" cite=false link_text="version" %}{% endcapture %}
+{% capture fall_keats %}{% book_link "The Fall of Hyperion" author="John Keats" cite=false link_text="the poem" %}{% endcapture %}
+{% capture endymion_keats %}{% book_link "Endymion" author="John Keats" cite=false link_text="poem" %}{% endcapture %}
 {% capture endymion_keats_name %}{% book_link "Endymion" author="John Keats" %}{% endcapture %}
 {% capture keatss_lastname_endymion %}{{ keatss_lastname }} {{ endymion_keats_name }}{% endcapture %}
 

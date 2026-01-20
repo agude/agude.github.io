@@ -6,7 +6,7 @@ require_relative '../../../../../_plugins/src/content/books/tags/book_link_tag' 
 
 # Tests for Jekyll::Books::Tags::BookLinkTag Liquid tag.
 #
-# Verifies that the tag correctly renders book links with author disambiguation.
+# Verifies that the tag correctly renders book links with author disambiguation and cite toggle.
 class TestBookLinkTag < Minitest::Test
   def setup
     # Setup for parsing tests
@@ -16,6 +16,7 @@ class TestBookLinkTag < Minitest::Test
         'page_book_title' => 'Variable Book Title',
         'page_link_text' => 'Variable Link Text for Book',
         'page_author' => 'Variable Author',
+        'page_cite' => false,
         'nil_var' => nil,
         'empty_string_var' => ''
       },
@@ -49,10 +50,18 @@ class TestBookLinkTag < Minitest::Test
   # Helper to parse the tag and capture arguments passed to the utility
   def parse_and_capture_args(markup, context = @parsing_context)
     captured_args = nil
-    # Stub the utility function to capture all four arguments
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link, lambda { |title, ctx, link_text_override, author_filter|
-      captured_args = { title: title, context: ctx, link_text_override: link_text_override, author_filter: author_filter }
-      "<!-- Util called with title: #{title}, link_text: #{link_text_override}, author: #{author_filter} -->"
+    # Stub the utility function to capture all arguments
+    # The signature is (title, ctx, link_text, author, date, cite:)
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link, lambda { |title, ctx, link_text_override, author_filter, date_filter = nil, cite: true|
+      captured_args = {
+        title: title,
+        context: ctx,
+        link_text_override: link_text_override,
+        author_filter: author_filter,
+        date_filter: date_filter,
+        cite: cite
+      }
+      '<!-- Util called -->'
     } do
       template = Liquid::Template.parse("{% book_link #{markup} %}")
       output = template.render!(context)
@@ -94,6 +103,7 @@ class TestBookLinkTag < Minitest::Test
     assert_equal 'The Great Gatsby', captured_args[:title]
     assert_nil captured_args[:link_text_override]
     assert_nil captured_args[:author_filter]
+    assert_equal true, captured_args[:cite]
   end
 
   def test_render_with_variable_title_only
@@ -101,6 +111,7 @@ class TestBookLinkTag < Minitest::Test
     assert_equal 'Variable Book Title', captured_args[:title]
     assert_nil captured_args[:link_text_override]
     assert_nil captured_args[:author_filter]
+    assert_equal true, captured_args[:cite]
   end
 
   def test_render_with_literal_title_and_literal_link_text
@@ -117,11 +128,47 @@ class TestBookLinkTag < Minitest::Test
     assert_equal 'An Author', captured_args[:author_filter]
   end
 
-  def test_render_with_all_parameters_as_variables
-    _output, captured_args = parse_and_capture_args('page_book_title link_text=page_link_text author=page_author')
+  def test_render_with_literal_title_and_cite_false
+    _output, captured_args = parse_and_capture_args("'The Great Gatsby' cite=false")
+    assert_equal 'The Great Gatsby', captured_args[:title]
+    assert_equal false, captured_args[:cite]
+  end
+
+  def test_render_with_cite_true_explicit
+    _output, captured_args = parse_and_capture_args("'The Great Gatsby' cite=true")
+    assert_equal 'The Great Gatsby', captured_args[:title]
+    assert_equal true, captured_args[:cite]
+  end
+
+  def test_render_with_cite_false_as_quoted_string
+    # cite='false' (string) should still be treated as false
+    _output, captured_args = parse_and_capture_args("'The Great Gatsby' cite='false'")
+    assert_equal 'The Great Gatsby', captured_args[:title]
+    assert_equal false, captured_args[:cite]
+  end
+
+  def test_render_with_cite_nil_variable_defaults_to_true
+    # When cite= references a nil variable, should default to true
+    _output, captured_args = parse_and_capture_args("'The Great Gatsby' cite=nil_var")
+    assert_equal 'The Great Gatsby', captured_args[:title]
+    assert_equal true, captured_args[:cite]
+  end
+
+  def test_render_with_all_parameters_as_variables_including_cite
+    _output, captured_args = parse_and_capture_args('page_book_title link_text=page_link_text author=page_author cite=page_cite')
     assert_equal 'Variable Book Title', captured_args[:title]
     assert_equal 'Variable Link Text for Book', captured_args[:link_text_override]
     assert_equal 'Variable Author', captured_args[:author_filter]
+    assert_equal false, captured_args[:cite]
+  end
+
+  def test_render_with_arguments_in_different_order
+    # Arguments should work regardless of order: author before link_text, cite in middle
+    _output, captured_args = parse_and_capture_args("'Title' author='Author' cite=false link_text='Text'")
+    assert_equal 'Title', captured_args[:title]
+    assert_equal 'Text', captured_args[:link_text_override]
+    assert_equal 'Author', captured_args[:author_filter]
+    assert_equal false, captured_args[:cite]
   end
 
   def test_render_author_filter_resolves_to_nil
@@ -142,7 +189,7 @@ class TestBookLinkTag < Minitest::Test
 
   def test_integration_tag_and_util_work_together
     Jekyll.stub :logger, @silent_logger_stub do
-      # Case 1: Correct author, should link
+      # Case 1: Correct author, should link with citation (default)
       template_correct = Liquid::Template.parse("{% book_link 'Hyperion' author='Dan Simmons' %}")
       output_correct = template_correct.render!(@integration_context)
       expected_output = '<a href="/books/hyperion-simmons.html"><cite class="book-title">Hyperion</cite></a>'
@@ -153,6 +200,24 @@ class TestBookLinkTag < Minitest::Test
       output_incorrect = template_incorrect.render!(@integration_context)
       expected_pattern = %r{<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: Reason='Book title exists, but not by the specified author.'.*?--><cite class="book-title">Hyperion</cite>}
       assert_match expected_pattern, output_incorrect
+
+      # Case 3: cite=false, should render span.book-text instead of cite
+      template_no_cite = Liquid::Template.parse("{% book_link 'Hyperion' author='Dan Simmons' cite=false %}")
+      output_no_cite = template_no_cite.render!(@integration_context)
+      expected_no_cite_output = '<a href="/books/hyperion-simmons.html"><span class="book-text">Hyperion</span></a>'
+      assert_equal expected_no_cite_output, output_no_cite
+
+      # Case 4: cite=false with MISSING book should still use span (not cite)
+      template_missing = Liquid::Template.parse("{% book_link 'Nonexistent Book' cite=false %}")
+      output_missing = template_missing.render!(@integration_context)
+      assert_match %r{<span class="book-text">Nonexistent Book</span>}, output_missing
+      refute_match(/<cite/, output_missing)
+
+      # Case 5: cite=false with author mismatch (fallback) should still use span
+      template_mismatch = Liquid::Template.parse("{% book_link 'Hyperion' author='Wrong Author' cite=false %}")
+      output_mismatch = template_mismatch.render!(@integration_context)
+      assert_match %r{<span class="book-text">Hyperion</span>}, output_mismatch
+      refute_match(/<cite/, output_mismatch)
     end
   end
 end
