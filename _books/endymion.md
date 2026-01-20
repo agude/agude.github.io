@@ -162,15 +162,39 @@ oppresive Pax using a Raft and the River Tethys.
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
 {% capture keats_lastname %}{% author_link "John Keats" link_text="Keats" %}{% endcapture %}
 {% capture keatss_lastname %}{% author_link "John Keats" link_text="Keats" possessive %}{% endcapture %}
-{% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" %}{% endcapture %}
-{% capture fall_keats %}{% book_link "The Fall of Hyperion" author="John Keats" %}{% endcapture %}
-{% capture endymion_keats %}{% book_link "Endymion" author="John Keats" %}{% endcapture %}
+{% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" style="text" link_text="version" %}{% endcapture %}
+{% capture fall_keats %}{% book_link "The Fall of Hyperion" author="John Keats" style="text" link_text="the poem" %}{% endcapture %}
+{% capture endymion_keats %}{% book_link "Endymion" author="John Keats" style="text" link_text="poem" %}{% endcapture %}
+{% capture endymion_keats_name %}{% book_link "Endymion" author="John Keats" %}{% endcapture %}
+{% capture keatss_lastname_endymion %}{{ keatss_lastname }} {{ endymion_keats_name }}{% endcapture %}
 
 {% comment %} Other Media {% endcomment %}
 {% capture terminator_2 %}<cite class="movie-title">Terminator 2: Judgment Day</cite>{% endcapture %}
 {% capture empire_strikes_back %}<cite class="movie-title">The Empire Strikes Back</cite>{% endcapture %}
 
 {{ hyperion }} followed the themes and plot of {{ keatss }} {{ hyperion_keats
-}}, and {{ fall_hyperion }} likewise followed {{ keatss_lastname }} {{
-fall_keats }}. {{ this_book }}, no surprise, is based on {{ keatss_lastname }}
-{{ endymion_keats }}.
+}}, and {{ fall_hyperion }} likewise followed {{ fall_keats }} by {{
+keats_lastname }}. So it's no surprise that {{ this_book }} is _also_ based on
+a {{ keats_lastname }} {{ endymion_keats }}. {{ keatss_lastname_endymion }} is
+the story of the shepherd Endymion who falls in love with the moon goddess
+Cynthia.
+
+<!-- TODO clean this up, it's just raw notes now basically -->
+One of the main themes of {{ keatss_lastname_endymion }} is the pairing of the
+mortal and immortal, the earthly and the divine. We see these pairings in {{
+this_book }} as well. Aenea is a messianic figure, a mix of humanity and the
+divine. The Pax have given up on the divine and instead turned to technology
+to grant immortality through the crucifix parasite instead of true spiritual
+immortality through evolving towards god. Just as in {{ hyperion }} and {{
+fall_hyperion }}, things must "die into life", and the Pax has refused death.
+
+{{ this_book }} follows the structure of Endymion's journey in the {{
+endymion_keats }}, with Raul visiting the underworld (ice cave of Sol Draconi
+Septem), ocean floor (Mare Infinitus), and meeting [Glaucus][glaucus]. But it
+is influenced by other literature as well. The journey as a voyage on a raft
+is from {{ twains }} {{ huck_finn }}, with the formerly enslaved android
+Bettik standing in as a Jim figure. {{ simmons_lastname }}, as he has done
+through the whole series, also likens his characters to those from {{
+baums_lastname }} {{ wizard_of_oz }}.
+
+[glaucus]: https://en.wikipedia.org/wiki/Glaucus
