@@ -139,7 +139,7 @@ algorithms did, we needed a labeled dataset. We used the [VeRi
 dataset][veri],[^veri] which contains pictures of 776 uniquely identified
 vehicles. There are multiple pictures of each vehicle taken from 20 different
 traffic cameras in China. An example of two VeRi images from Liu _et
-al._[^liu] is show below.
+al._[^liu] is shown below.
 
 [veri]: https://ieeexplore.ieee.org/document/7553002/
 [^veri]:
@@ -169,7 +169,7 @@ al._[^liu] is show below.
 {% capture image_2 %} {{ file_dir }}/trucks.jpg {% endcapture %}
 {% include figure.html
   url=image_2
-  image_alt="Two images from the dataset showing a front and read view of the
+  image_alt="Two images from the dataset showing a front and rear view of the
   same truck."
   caption="Two example images from VeRi showing the same truck passing two
   different cameras."

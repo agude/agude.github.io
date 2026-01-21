@@ -27,7 +27,7 @@ visualization that [Tufte][tufte] used it as the cover of _The Visual Display
 of Quantitative Information_.
 
 [^lmgd]: The full title is _La Méthode Graphique Dans les Sciences Expérimentales et Principalement en Physiologie et en Médecine_, or roughly _The Graphical Method in Experimental Sciences and Mainly in Physiology and Medicine_.
-[^ibry]: The caption in Marey's book reads: _"Graphique de la marche des trains sur un chemin de fer, d'après la méthode de Ibry"_ or _"Graph showing the progress of trains on a railway, according to the method of Ibry"_. Unfortunately, little else is know of Ibry, and so this type of chart is often named for Marey instead.
+[^ibry]: The caption in Marey's book reads: _"Graphique de la marche des trains sur un chemin de fer, d'après la méthode de Ibry"_ or _"Graph showing the progress of trains on a railway, according to the method of Ibry"_. Unfortunately, little else is known of Ibry, and so this type of chart is often named for Marey instead.
 
 [![Graph showing the progress of trains on a railway, according to the method
 of Ibry][schedule_image]][schedule_image]

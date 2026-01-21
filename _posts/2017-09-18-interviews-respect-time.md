@@ -7,7 +7,7 @@ description: >
   to make it easier on everyone.
 image: /files/interviews/watch_and_suite_jeremy_beadle.jpg
 image_alt: >
-  A closeup of a watch on a man's wrist. The man is wearing a nice suite and
+  A closeup of a watch on a man's wrist. The man is wearing a nice suit and
   is pulling on the cuff next to the watch.
 categories: 
   - interviewing

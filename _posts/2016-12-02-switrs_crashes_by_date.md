@@ -74,7 +74,7 @@ obvious:
    with a big drop in 2008, but is now rising sharply in 2015.
 
 2. Each year is similar, with a mid-year lull and wildly varying
-   increases and decrease right before the end of the year.
+   increases and decreases right before the end of the year.
 
 The first trend is easy to explain: the [Great Recession][gr] put many people
 out of work, who then stopped commuting. The second trend is also due to
@@ -114,7 +114,7 @@ record for the **highest number of crashes**, but Valentine's Day and St.
 Patrick's Day also show increases. I believe there are two reasons these
 holidays have higher than normal crash counts. First, these are not
 generally paid holidays, so the normal number of commute-related crashes
-happen. Second, these are holidays are celebrated away from home after work
+happen. Second, these holidays are celebrated away from home after work
 (for drinks, dates, or candy), and so people drive more on these days than
 they would otherwise. I suspect that there is a third reason behind
 Halloween's high crash count: a higher than average number of pedestrians

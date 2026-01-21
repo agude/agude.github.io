@@ -2,7 +2,7 @@
 layout: post
 title: "SWITRS: On What Days Do Motorcycles Crash?"
 description: >
-  Motorcycles riders are a different breed, born to chase excitment! So when
+  Motorcycles riders are a different breed, born to chase excitement! So when
   do they crash? Using California's SWITRS data I find out! I'll give you a
   hint: it is not on the way to their 9-5!
 image: /files/switrs-motorcycle-accidents-by-date/police_in_stockholm.jpg
@@ -130,7 +130,7 @@ this as due to the seasonal weather:
   gives them the extra motivation they need.
 
 One final outlier to address: the sharp peak at the end of February is [leap
-day][leapday]. The peak not an error, but is a statistical artifact. The mean
+day][leapday]. The peak is not an error, but is a statistical artifact. The mean
 for all other days is calculated with `n = 15`, but only `n = 3` for leap day.
 
 [leapday]: https://en.wikipedia.org/wiki/February_29

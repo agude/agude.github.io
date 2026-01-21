@@ -111,7 +111,7 @@ out into its own line.
 You just write:
 
 ```python
-import seaborne as sns
+import seaborn as sns
 
 fig, ax = setup_plot(title="Collisions by Make")
 

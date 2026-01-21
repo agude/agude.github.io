@@ -104,7 +104,7 @@ often more useful for large datasets.
 [**Swarm Plots**][swarm], also called beeswarm plots, are similar to strip
 plots in that they plot all of the data points. Unlike strip plots, swarm
 plots attempt to avoid obscuring points by calculating non-overlapping
-positions instead of adding random jitter. This sort of gives them appearance
+positions instead of adding random jitter. This sort of gives them the appearance
 of a swarm of bees, or perhaps a honeycomb.
 
 [swarm]: http://www.cbs.dtu.dk/~eklund/beeswarm/
@@ -141,7 +141,7 @@ distributions difficult.
 
 ## Violin Plots
 
-[**Violin plots**][violin] plots try to give an indication of the distribution
+[**Violin plots**][violin] try to give an indication of the distribution
 of data without cluttering the plot by drawing all of the points. They do
 this by using [kernel density estimation (KDE)][kde] to model the
 distribution. There is a lot of information to process in a violin plot so
@@ -149,7 +149,7 @@ they can be a bit tough to read. The shape of the violin body indicates the
 number of observations: if the violin is thick at some value it means there
 are a lot of data points there, if it is thin then there are few. The inside
 of the violin is often marked to indicate additional information. The violins
-below have the quartiles draw inside them as dashed lines, but miniature box
+below have the quartiles drawn inside them as dashed lines, but miniature box
 plots are another common inner marking.
 
 [violin]: https://en.wikipedia.org/wiki/Violin_plot

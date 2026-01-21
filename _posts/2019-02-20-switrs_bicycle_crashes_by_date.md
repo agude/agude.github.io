@@ -20,7 +20,7 @@ It is time to use [SWITRS data][switrs] to look at vehicle crashes in
 California again. I have previously used the data to look at [when cars
 crash][car_switrs]---during holidays when people both drive to work and to
 parties after---and [when motorcycles crash][mc_switrs]---during the summer
-when its good riding weather. Today I want to look at something a little
+when it's good riding weather. Today I want to look at something a little
 closer to my heart: **bicycles**.
 
 [switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
@@ -108,7 +108,7 @@ It shows features similar to both cars and motorcycles:
 
 Thinking back to [the model][model] we can try to reason about the trend. We
 know the number of cars increased, so the decrease in crashes in the last few
-years is either due to a decrease in the  number of cyclists---possibly
+years is either due to a decrease in the number of cyclists---possibly
 because they traded their bikes for cars as they found employment---or a
 decrease in the likelihood of a crashes---perhaps because drivers are more
 used to cyclists and look out for them.
@@ -117,11 +117,11 @@ used to cyclists and look out for them.
 
 ## Day-by-Day
 
-Car are involved in crashes [on holidays during which the drivers also
+Cars are involved in crashes [on holidays during which the drivers also
 work][car_dbd], like Halloween. Motorcycles are in crashes during summer
 holidays. Bicycles, on the other hand, have no holidays with a large excess in
 the number of crashes. Some holidays, like Christmas and Thanksgiving, keep
-people from getting on their bikes, but none seem to motivate to get out and
+people from getting on their bikes, but none seem to motivate people to get out and
 ride.
 
 [car_dbd]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-by-day

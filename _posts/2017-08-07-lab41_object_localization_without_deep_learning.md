@@ -24,7 +24,7 @@ drove past a fixed set of video cameras without reading the license plate.
 We broke the project down into three parts:
 
 - **Chipping**: localizing vehicles within an image or frame from a video and
-  extract and image (chip) containing the vehicle
+  extract an image (chip) containing the vehicle
 
 - **Feature extraction**: producing a compact representation of a vehicle's
   chip suitable for machine learning
@@ -41,7 +41,7 @@ are covered in a later post][next_post].
 
 There has been a lot of work done on using deep learning for object
 localization in the past few years. Deep learning based methods currently
-achieves state of the art results for many localization problems. In fact, our
+achieve state of the art results for many localization problems. In fact, our
 sister lab, [CosmiQ Works][cosmiq], explored using these techniques, and even
 developed a modified version of YOLO called [You Only Look Twice (YOLT)][yolt]
 to do ship and plane localization in satellite images.

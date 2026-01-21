@@ -29,7 +29,7 @@ the network on disk, improve performance, and decrease run time.
       author_last="Han, Song and Mao, Huizi and Dally, William J"
       work_title="Deep compression: Compressing deep neural networks with pruning, trained quantization and huffman coding"
       container_title="arXiv preprint"
-      date="Octobe 1, 2015"
+      date="October 1, 2015"
       url="https://arxiv.org/abs/1510.00149"
     %}
 
@@ -77,7 +77,7 @@ you through them in more depth in the next few paragraphs.
 {% capture image_1 %} {{ file_dir }}/compression_stages.png {% endcapture %}
 {% include figure.html
   url=image_1
-  image_alt="A chart sumarizing the stages of deep compression."
+  image_alt="A chart summarizing the stages of deep compression."
   caption="A summary of the three stages in the compression pipeline proposed
   by Han <em>et al.</em> Note that the size reduction is cumulative. Image
   from their paper."
@@ -131,7 +131,7 @@ showing the energy efficiency and speedups due to compression are shown below:
 {% capture image_3 %} {{ file_dir }}/energy_usage_of_deep_learning.png {% endcapture %}
 {% include figure.html
   url=image_3
-  image_alt="A diagram showing energy effiency and speedups due to compression."
+  image_alt="A diagram showing energy efficiency and speedups due to compression."
   caption="The energy efficiency and speedups due to compression for various
   layers in the neural networks. The dense bars are the results before
   compression, and the pruned bars are the results after. Note the Y axis is

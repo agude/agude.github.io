@@ -146,7 +146,7 @@ intervals exactly using a little knowledge of probability. This is the method
 I used in my [previous post][lastpost] because it is _fast **and** exact_.
 
 The interval indicates the expected results a fair set of dice would roll 99%
-of the time, but that is exactly what probabilities gives as well! The
+of the time, but that is exactly what probability gives as well! The
 interval is therefore just the set of rolls that make up 99% of the cumulative
 probability, centered around the most likely value for each outcome.
 Equivalently, we can find the set of rolls that make up the very unlikely 1%,

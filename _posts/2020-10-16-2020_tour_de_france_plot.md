@@ -190,4 +190,4 @@ avoid being cut for being too slow.
 This year's Tour was unique due to needing to adjust to the COVID pandemic,
 but it turned out to be one of the most exciting races in the history of the
 sport! And what's more, it gave us some much-needed entertainment during these
-dark time.
+dark times.

@@ -2,7 +2,7 @@
 layout: post
 title: "Dragon Farkle: Simulating the End Game"
 description: >
-  How many soldiers do you need to successful defeat the dragon in Dragon
+  How many soldiers do you need to successfully defeat the dragon in Dragon
   Farkle, and how likely to succeed is your attack? I find out by simulating a
   game of Dragon Farkle!
 image: /files/dragon_farkle/st_george_and_the_dragon.jpg
@@ -20,7 +20,7 @@ categories:
 Some of my friends came over last week to play board games and while we ate
 dinner we played [Dragon Farkle][dragonfarkle] because it was a simple enough
 game to not distract us from the meal. The game involves rolling six normal
-six-side dice and a special six-sided die with the following sides: `{0, 0, 0,
+six-sided dice and a special six-sided die with the following sides: `{0, 0, 0,
 0, 1, 2}`. On their turn a player rolls the dice to try to recruit soldiers
 for their army by scoring points. They score points by rolling various
 combinations on the dice (ignoring the special die, which mainly modifies how
@@ -78,13 +78,13 @@ soldiers or rolls a farkle we will discard the run. The results are:
 [avg_lost]: {{ file_dir }}/dragon_farkle_soldier_expectation_value.svg
 
 The various peaks are due to the fact that there are always an integer number
-of rolls made in a turn and there is a limited set of scores that be earned
+of rolls made in a turn and there is a limited set of scores that can be earned
 with each roll. The mean is 1007 soldiers lost before the dragon is defeated,
 which is **far** less than the 5000 soldiers that the rules require you to
 have before declaring an attack! This suggests that you will almost never run
 out of soldiers when attacking the dragon!
 
-Let's look at exactly how often each of the three end conditions for you turn
+Let's look at exactly how often each of the three end conditions for your turn
 are reached. Here we'll fix the number of soldiers you have, simulate a bunch
 of turns, and record the outcome for each. The results are:
 
@@ -101,6 +101,6 @@ exponentially in the number of soldiers!
 This is a clear failure of game design; once the minimum number of soldiers is
 reached getting more has no effect on the outcome. This removes any possible
 strategy where the player might trade time---and hence chances for their
-opponents to win---for a higher likely of succeeding with their own attacks.
+opponents to win---for a higher likelihood of succeeding with their own attacks.
 Instead, the only correct strategy is to attack as soon as you can, and keep
 doing it as often as you can until you win.

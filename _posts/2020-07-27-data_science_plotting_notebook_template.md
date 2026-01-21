@@ -16,7 +16,7 @@ categories:
 {% capture file_dir %}/files/jupyter-library/{% endcapture %}
 
 I recently released my [Jupyter Notebook Template Library][library]. Its goal
-is to accelerate your data science projects without having to to spend hours
+is to accelerate your data science projects without having to spend hours
 poring over old notebooks to find handy code snippets. In this post I dive
 into the plotting notebook to show you what it can do.
 

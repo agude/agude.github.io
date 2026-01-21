@@ -7,7 +7,7 @@ description: >
   answer looks like!
 image: /files/interviews/Artgate_Fondazione_Cariplo_-_Canova_Antonio,_Allegoria_della_Giustizia.jpg
 image_alt: >
-  A relief showing a women holding up a set of balance scales.
+  A relief showing a woman holding up a set of balance scales.
 categories:
   - machine-learning
   - interviewing

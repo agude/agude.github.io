@@ -87,7 +87,7 @@ Thankfully, someone has already done so.
 
 The [named tuple][namedtuple] functions exactly like a tuple, with one
 addition: you can access each component of the tuple by name. Our card example
-would now looks like this:
+would now look like this:
 
 [namedtuple]: https://docs.python.org/3/library/collections.html#collections.namedtuple
 

@@ -115,7 +115,7 @@ dataset.
 ## The Best Spot
 
 Having selected the best photos for each tag, I needed to determine where the
-best spot to take a photos of the tagged subject.
+best spot to take a photo of the tagged subject.
 
 My first attempt was to cluster the photos in space, weighted by their
 quality, so that the cluster centers would indicate areas of high quality
@@ -132,7 +132,7 @@ probability density of good photos in the city as a function of location. The
 maximum in this distribution was then the "best spot" to take a photo of the
 tagged thing. This algorithm worked well, except it favored areas with lots of
 photos, not necessarily areas with the best photos. For example, in San
-Francisco the maximum of the "flowers" KDE was in the financial distract, not
+Francisco the maximum of the "flowers" KDE was in the financial district, not
 because the best flower photos were taken there, but because every tourist
 took dozens of mediocre photos there tagged flowers.
 

@@ -2,7 +2,7 @@
 layout: post
 title: "SWITRS: Car Crashes After Daylight Saving Time"
 description: >
-  Day light saving time leaves us drowsy and cranky at work, but it also leads
+  Daylight saving time leaves us drowsy and cranky at work, but it also leads
   to an increase in traffic collisions! Find out exactly how many more there
   are with this analysis!
 image: /files/switrs-dst/dst_change_gare_saint_lazare_1937.png

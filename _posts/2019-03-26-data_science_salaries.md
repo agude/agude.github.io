@@ -2,7 +2,7 @@
 layout: post
 title: "Data Science Salaries"
 description: >
-  How do data scientists salaries vary by experience and location? Read on to
+  How do data scientist salaries vary by experience and location? Read on to
   find out!
 image: /files/data-science-salaries/josef_wagner_hohenberg_the_billing_coins.jpg
 image_alt: > 

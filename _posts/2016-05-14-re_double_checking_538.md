@@ -94,8 +94,8 @@ The result of this calculation for each candidate are tabulated below:
 | Carson    |                     0.00 |
 
 Carson's predictions are always in the interval, so his MAMV is 0. The missed
-predictions for the Republicans are better that for the Democrats, with Trump
+predictions for the Republicans are better than for the Democrats, with Trump
 having the worst prediction misses. Sanders's misses and Clinton's misses are
 on average worse than the Republicans, but this is again due to Michigan. If
-Michigan is removed Clinton's MAMV is 0.52 and Sanders is 0.39, make the MAMV
+Michigan is removed Clinton's MAMV is 0.52 and Sanders's is 0.39, making the MAMV
 for both parties about equal.

@@ -95,7 +95,7 @@ passed all of my technical screens!
 
 In 2017 on-sites were on site! In 2020 they are done via video conferencing. I
 thought virtual on-sites would be less draining, but I actually felt even more
-exhausted after them. However,  I still felt I was able to connect on a
+exhausted after them. However, I still felt I was able to connect on a
 personal level with the interviewers, despite not being in the same place.
 
 #### Whiteboard Coding

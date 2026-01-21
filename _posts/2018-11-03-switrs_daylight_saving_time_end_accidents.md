@@ -2,7 +2,7 @@
 layout: post
 title: "SWITRS: Car Crashes After Daylight Saving Time Ends"
 description: >
-  Day light saving time leaves leads to more traffic collisions, but what
+  Daylight saving time leads to more traffic collisions, but what
   about when DST ends? Some researchers have found that it does lead to more
   crashes, so I take a look using California's SWITRS data.
 image: /files/switrs-dst/a_woman_sets_the_clocks_forward.jpg
@@ -41,7 +41,7 @@ DST".[^varughese_cite]
 [dst_article]: {% post_url 2017-03-20-switrs_daylight_saving_time_accidents %}
 [varughese]: https://doi.org/10.1016/S1389-9457(00)00032-0
 
-With the [SWIRTS data][s2s_post] that I collected, and the analysis code I
+With the [SWITRS data][s2s_post] that I collected, and the analysis code I
 developed for [my post last year looking at car crashes after the DST
 change][dst_article], it should be pretty easy to check if I see the same
 trend as Varughese & Allen.

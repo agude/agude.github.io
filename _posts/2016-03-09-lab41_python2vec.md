@@ -60,7 +60,7 @@ vector space. It does this by creating two types of vectors: word vectors
 (used after the training) and context vectors (used in training and mostly
 forgotten afterwards). Let's consider an example using Python source code:
 
-![Taking two Python inport statements and converting them to word arrays.]({{
+![Taking two Python import statements and converting them to word arrays.]({{
 site.url }}/files/python2vec/01_import.svg)
 
 In this case `import math` and `import numpy as np` are two lines from a
@@ -172,7 +172,7 @@ word2vec.setVectorSize(50)
 ```
 
 The resulting model and code needed to explore it can be found
-[here][p2v_files]. Included is an [Jupyter notebook with an example of using
+[here][p2v_files]. Included is a [Jupyter notebook with an example of using
 the model][model_nb]. If you would like to try training your own Python2Vec
 model, use the [data processing script][data_sh] in the main Hermes project to
 download the raw data and then use the [model training notebook][training_nb]

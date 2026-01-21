@@ -40,12 +40,12 @@ separated by many days, forcing us to try to remember when he first used it.
 
 As Theo got older and much better at language, we ran into new issues. First,
 he was learning so fast that we had trouble keeping up and remembering if a
-word had been recorded our not. Second, he became so good at mimicking sounds
+word had been recorded or not. Second, he became so good at mimicking sounds
 that he would repeat words back to you several times, but not remember them
 later.
 
 Still, we think the data is a pretty good representation of his language
-development. I'll spend a future post exploring some off the quality issues.
+development. I'll spend a future post exploring some of the quality issues.
 
 You can find the Jupyter notebook used to perform this analysis
 [here][notebook] ([rendered on Github][rendered]). The data can be found

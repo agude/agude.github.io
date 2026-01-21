@@ -88,7 +88,7 @@ within a few minutes of each other. But they do not. The last place rider, the
 
 Bernal and Alaphilippe, who looked so far apart in the first plot, are now
 seen to be neck-and-neck. [Yoann Offredo][offredo] looked like a lock to win
-the lanterne rogue when he fell ill on stage 8, but [Sebastian
+the lanterne rouge when he fell ill on stage 8, but [Sebastian
 Langeveld][langeveld] took it in the penultimate stage after suffering an
 injury in the second week of the race.
 

@@ -162,7 +162,7 @@ word models but at a much higher computational cost.
 We have used skip-thought vectors a little bit at the Lab, most recently for
 the [Pythia challenge][pythia]. We found them to be useful for novelty
 detection, but incredibly slow. Running skip-thought vectors on a corpus of
-about 20,000 documents took many hours, where as simpler (and as effective)
+about 20,000 documents took many hours, whereas simpler (and as effective)
 methods took seconds or minutes.
 
 [pythia]: https://gab41.lab41.org/tell-me-something-i-dont-know-detecting-novelty-and-redundancy-with-natural-language-processing-818124e4013c#.6xf8nejr9

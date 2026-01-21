@@ -227,7 +227,7 @@ on the whiteboard over and over and over again.
 
 ## Final Thoughts
 
-I believe giving someone all the information they need to make an informed
+I believe in giving someone all the information they need to make an informed
 decision. That's why I wrote this post. I think Insight is worth the costs,
 but I wanted to make those costs known ahead of time. In the end, I would go
 through the program again. It helped my career get off to a great start by

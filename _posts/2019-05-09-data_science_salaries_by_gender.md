@@ -2,7 +2,7 @@
 layout: post
 title: "The Gender Pay Gap in Data Science Salaries"
 description: >
-  How do the salaries of woman data scientists compare to those of men? This month we
+  How do the salaries of women data scientists compare to those of men? This month we
   explore pay by gender and location.
 image: /files/data-science-salaries/josef_wagner_hohenberg_the_notary_2_coins.jpg
 image_alt: > 
@@ -48,8 +48,8 @@ Asking the respondent's gender was added to the survey late, so around a third
 of the data does not have that information. This leaves us 79 men and 28
 women. Not a huge sample, but better than nothing.
 
-Of course, this low number of woman might itself be a further bias: Insight
-generally has pretty gender-balanced cohorts, so that fact the many fewer
+Of course, this low number of women might itself be a further bias: Insight
+generally has pretty gender-balanced cohorts, so the fact that many fewer
 women have filled out the survey is worrying. It is possible that non-response
 is correlated to the underlying distribution, for example, perhaps people who
 are paid less refuse to report.

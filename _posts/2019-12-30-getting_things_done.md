@@ -103,7 +103,7 @@ quickly get the ones that require action turned into a task.
 - **On The Go**: I use the Trello app on my phone, and I have a widget that
 lets me add a card with the press of a button. Just like email, this puts it
 into the _Inbox_ column for later triage. I find using the dictation feature
-of my phone makes adding task really fast.
+of my phone makes adding tasks really fast.
 
 ## Useful Power-Ups
 
@@ -118,7 +118,7 @@ To this end I set three "ask for feedback" tasks appear on my board every
 Monday so I could get in the habit of asking.
 
 - **Card Aging**: This power-up faded cards that hadn't been touched for a
-while. This let me see what tasks where being ignored and let me re-evaluate
+while. This let me see what tasks were being ignored and let me re-evaluate
 if they were still worth doing.
 
 This is how I get things done as a data scientist. It is pretty simple, but

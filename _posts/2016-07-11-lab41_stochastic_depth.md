@@ -8,7 +8,7 @@ description: >
   by dropping whole layers!
 image: /files/stochastic-depth/header.jpg
 image_alt: >
-  Zion national park, a very deep canyon, put probably not stochastically deep.
+  Zion national park, a very deep canyon, but probably not stochastically deep.
 categories: 
   - reading-group
   - lab41
@@ -43,7 +43,7 @@ The authors begin by pointing out that deep neural networks have greater
 expressive power as compared to shallow networks, that is they can learn more
 details and better separate similar classes of objects. For example, a shallow
 network might be able to tell cats from dogs, but a deep network has a better
-chance of learning to tell Husky from a Malamute. However, deep networks are
+chance of learning to tell a Husky from a Malamute. However, deep networks are
 more difficult to train. Huang and Sun list the following issues that appear
 when training very deep networks:
 
@@ -87,7 +87,7 @@ dropped!
 Stochastic depth adds a new hyper-parameter, $$p(l)$$, the probability of
 dropping a layer as a function of its depth. They take $$p(l)$$ to be linear
 with it equal to 0.0 for the first layer and 0.5 for the last, although other
-functions (include a constant) are possible. With this model the expected
+functions (including a constant) are possible. With this model the expected
 depth of a network is effectively reduced by 25% with corresponding reductions
 in training time. The authors also show that it reduces the problems
 associated with vanishing gradients and diminishing feature use, as expected
@@ -118,10 +118,10 @@ on CIFAR-10 and find that it produces an even better result, the first time a
 
 [cifar10]: https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf
 [cifar100]: https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf
-[svhn]: http://ufldl.stanford.edu/housenumbers/nips2011_housenumbers.pdf<Paste>
+[svhn]: http://ufldl.stanford.edu/housenumbers/nips2011_housenumbers.pdf
 
 The main idea behind stochastic depth is relatively simple, remove some layers
-when training to make the network train is if it were shallow, but the results
+when training to make the network train as if it were shallow, but the results
 are surprisingly good. The new networks not only train faster, but they
 perform better as well. Further, the idea is compatible with other methods of
 improving network training like [batch normalization][bn][^ioffe]. All in all,

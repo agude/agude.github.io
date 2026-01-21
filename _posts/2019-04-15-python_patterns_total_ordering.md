@@ -29,7 +29,7 @@ sorted((4, 3, 2.2, 5)) == [2.2, 3, 4, 5]
 
 All of these are made possible by [special methods][special] defined by each
 class. Implementing comparison and sorting for your own classes means defining
-six methods, one each for `==`, `!=`, `>`, `=>`, `<`, and `<=`. Thankfully,
+six methods, one each for `==`, `!=`, `>`, `>=`, `<`, and `<=`. Thankfully,
 Python has a helper method that makes it even simpler: [the `@total_ordering`
 decorator][total].
 
@@ -98,7 +98,7 @@ class Book:
 
 That is a lot of boilerplate code!
 
-Math tells us that if `self > other` is true, than `self < other` and `self ==
+Math tells us that if `self > other` is true, then `self < other` and `self ==
 other` are false. We could write our own logic taking advantage of this fact
 to reduce the boilerplate, but that is exactly what `@total_ordering` from
 `functools` does already!

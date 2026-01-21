@@ -3,7 +3,7 @@ layout: post
 title: "Improving An Old Supernova Plot"
 description: >
   I learned to use matplotlib more than ten years ago. Around that time, I
-  made a plot of supernova 2002cx for Wikipedia, but it was not terrible good.
+  made a plot of supernova 2002cx for Wikipedia, but it was not terribly good.
   So this year, I updated it!
 image: /files/supernova-plot-update/virgo_by_sidney_hall.jpg
 hide_lead_image: True
@@ -36,7 +36,7 @@ a lot of room for improvement! This shouldn't come as a surprise since it was on
 earliest plots I made in my scientific career. Some of the shortcomings of the plot include:
 - The spectra overlap a bit.
 
-- Poor utilization of available space due to the need for large margins to accomodate the legend.
+- Poor utilization of available space due to the need for large margins to accommodate the legend.
 
 - The axes titles are wrong and do not include the units they measure.
 
@@ -75,7 +75,7 @@ clutter and unused space so that the presented information is foremost.
 
 To start, I removed the legend and replaced it with a label next to each spectrum.
 This not only helps the reader to quickly identify each line, it also cuts down on the
-space needed for supplemntal information. Consequently, the margins can be reduced, allowing
+space needed for supplemental information. Consequently, the margins can be reduced, allowing
 for more of the available space to be used to display the full range of the data.
 
 Then, I fixed the axis labels to indicate what they measure; for example,

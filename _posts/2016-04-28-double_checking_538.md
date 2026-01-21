@@ -55,8 +55,8 @@ overview of FiveThirtyEight's primary model, see their description
 ## Acquiring the Data
 
 FiveThirtyEight provides their predicted vote share distributions as plots, an
-example of which is shown below. This plot is contains the predictions for the
-New York democratic primary with predicted distributions for both Hilary
+example of which is shown below. This plot contains the predictions for the
+New York democratic primary with predicted distributions for both Hillary
 Clinton and Bernie Sanders. The average vote share is given as a point (56.3%
 for Clinton and 41.3% for Sanders) and the 80% confidence interval is
 highlighted in blue (roughly 54 to 64 for Clinton and 36 to 46 for Sanders).
@@ -75,7 +75,7 @@ Extracting the data from FiveThirtyEight was, unfortunately, difficult. They
 do not make their distributions available except in the types of plots shown
 above, so I went through by hand and estimated the intervals for every
 candidate in each state. This added some uncertainty, but probably not much
-more than than 1 percentage point on the numbers, which is accounted for in
+more than 1 percentage point on the numbers, which is accounted for in
 the final result. The data on the actual outcomes was copied from
 [Politico][politico].
 

@@ -116,7 +116,7 @@ class CardSuit(Enum):
     SPADES = auto()
 ```
 
-The function `auto()` sets the values and insures that they are unique. The
+The function `auto()` sets the values and ensures that they are unique. The
 members are not orderable (so `CardSuit.CLUBS > CardSuit.DIAMONDS` will raise
 an error), but do have equality (so `CardSuit.CLUBS != CardSuit.DIAMONDS`
 works). We can also test membership easily, allowing us to ensure only valid
@@ -144,7 +144,7 @@ from enum import IntEnum, unique
 
 @unique
 class CardRank(IntEnum):
-    """ Playing card values. They are order able as excepted:
+    """ Playing card values. They are orderable as expected:
     2 < 3 < ... < king < ace.
     """
     TWO = 2
@@ -164,7 +164,7 @@ Now the card class is easy to implement:
 
 ```python
 @total_ordering
-Class PlayingCard:
+class PlayingCard:
   def __init__(self, suit, rank):
     # Check that the suit is valid
     if not isinstance(suit, CardSuit):

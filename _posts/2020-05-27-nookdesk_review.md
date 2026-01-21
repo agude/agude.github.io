@@ -20,7 +20,7 @@ review:
 
 I bought a standing desk recently because I am working from home three days a
 week. I considered many desks but I decided on a [Nookdesk][nookdesk]. It was
-not an easy to choose because I only found [one **real** review
+not easy to choose because I only found [one **real** review
 online][review]; all the others were rewritten press releases.
 
 Luckily I have a good friend who had just bought one. She was happy with her
@@ -136,7 +136,7 @@ don't know how I would organize my cables without it.
 
 You can order the desk without creating an account on Nookdesk's website, but
 if you do not create an account then retrieving your order status is
-difficult. You are supposed use a special page on the site where you enter
+difficult. You are supposed to use a special page on the site where you enter
 your email address, but it did not work for me. Instead I had to get customer
 support to send me the tracking number.
 

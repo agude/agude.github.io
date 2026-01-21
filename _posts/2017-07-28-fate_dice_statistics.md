@@ -68,7 +68,7 @@ Here are the distributions of rolls for each of the four sets of dice. The
 points indicate the number of rolls that came up with a certain value, while
 the grey area is the range in which we would expect to find a result produced
 by a fair set of dice 99% of the time. I discuss how these regions are
-computing in detail in [another post][regions_post].
+computed in detail in [another post][regions_post].
 
 [regions_post]: {% post_url 2017-08-14-fate_dice_intervals %}
 

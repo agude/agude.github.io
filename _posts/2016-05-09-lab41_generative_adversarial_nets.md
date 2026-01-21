@@ -115,7 +115,7 @@ the training set.
 
 Some of the challenges of GAN models are that it can be difficult to
 synchronize the generative and discriminative networks. If one network is much
-better at its task than the other network, than the left behind network will
+better at its task than the other network, then the left behind network will
 have trouble learning because it always loses. Additionally, there is no
 explicit modeling of the probability of the data distribution; if it is
 required, it must be approximated from the model.

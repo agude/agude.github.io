@@ -67,7 +67,7 @@ python:
 
 This will run tests in parallel on Python 2.7, 3.7, and [Pypy3][pypy]. Python
 3.7 is [only supported on Ubuntu Xenial][supported], so we set that as the
-`dist`. I removed a bunch of version for clarity; to add more, just write them
+`dist`. I removed a bunch of versions for clarity; to add more, just write them
 in the list.
 
 [supported]: https://docs.travis-ci.com/user/languages/python/#python-37-and-higher
