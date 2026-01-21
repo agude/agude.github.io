@@ -10,9 +10,11 @@ image: /books/covers/endymion.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the third book in the
-<span class="book-series">{{ page.series }}</span> series. It follows a
-completely new cast of characters---Aenea, Raul, Bettik---as they escape the
-oppressive Pax using a Raft and the River Tethys.
+<span class="book-series">{{ page.series }}</span> series. It follows a new
+cast of characters---Aenea, Raul, and Bettik---as they flee the oppressive
+forces of the Pax via a raft on the River Tethys. Set centuries after the
+earlier books, the story reveals a galaxy reshaped by the Church and its dark
+covenant of immortality.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture series_link %}{% series_link page.series %}{% endcapture %}
