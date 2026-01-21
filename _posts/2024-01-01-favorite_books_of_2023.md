@@ -20,8 +20,8 @@ categories:
 
 {% capture file_dir %}/files/book-reviews{% endcapture %}
 
-Social media died for me in 2023. Twitter and Reddit both shutdown their third
-party API making accessing them a pain, and the quality of Twitter decreased
+Social media died for me in 2023. Twitter and Reddit both shut down their third-party
+APIs, making accessing them a pain, and the quality of Twitter decreased
 significantly with its sale to Elon Musk. I realized how much time I had
 wasted on social media and decided to spend it more wisely by reading books. I
 bought a Kindle in October and finished 20 books between then and the end of

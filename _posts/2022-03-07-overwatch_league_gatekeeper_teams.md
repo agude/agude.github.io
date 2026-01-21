@@ -8,7 +8,7 @@ description: >
 image: /files/overwatch_league/gate_of_damascus_jerusalem_april_14_1939_by_louis_haghe_and_david_roberts.jpg
 hide_lead_image: False
 image_alt: > 
-  Drawing showing the Gate of Damascus in Jeusalem. Many men and camels wait
+  Drawing showing the Gate of Damascus in Jerusalem. Many men and camels wait
   outside.
 categories:
   - fun-and-games
@@ -348,7 +348,7 @@ gatekeeper because their 0% win rate against higher ranked teams (just the
 For that reason, I think the [2021 Toronto Defiant][2021_defiant] are the
 gatekeepers of the North American region. They had a typical middle of the
 pack season: finishing 7 out of 12 in the West, a 9-7 match record, and a
-perfectly balance map record with 32 wins and 32 losses. To round it out, they
+perfectly balanced map record with 32 wins and 32 losses. To round it out, they
 had an 82% win rate against worse teams and just a 20% win rate against better
 teams.
 
@@ -369,7 +369,7 @@ teams.
 
 The [2021 Guangzhou Charge][2021_charge] have the highest gatekeeper score,
 but it is, once again, [due to only having a single team below
-them][volatility]: the winless [2021 Los Angles Valiant][2021_valiant]. So
+them][volatility]: the winless [2021 Los Angeles Valiant][2021_valiant]. So
 I do not think they're a good choice for gatekeepers.
 
 [2021_charge]: https://en.wikipedia.org/wiki/2021_Guangzhou_Charge_season

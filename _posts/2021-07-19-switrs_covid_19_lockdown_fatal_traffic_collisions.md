@@ -8,7 +8,7 @@ description: >
 image: /files/switrs-covid/auto_accident_on_bloor_street_west_in_1918.jpg
 image_alt: >
   A black and white photo of an old car slid up against the curb, its front
-  wheels completely buckled. A crowed stands on the sidewalk looking on.
+  wheels completely buckled. A crowd stands on the sidewalk looking on.
 categories:
   - california-traffic-data
   - data-science
@@ -73,7 +73,7 @@ post as well to help you dive right in.
 ## Data
 
 I selected all collisions in the dataset between the start of 2019 and
-November 30th, 2020, including whether their was a fatality as a result of the
+November 30th, 2020, including whether there was a fatality as a result of the
 collision, with this query:
 
 ```sql
@@ -106,9 +106,9 @@ stay-at-home order.][ts_plot]][ts_plot]
 
 You can see the fatality rate **immediately** jumps up to over 1% for the
 first time in our dataset, and then goes even higher in the coming weeks. It
-stays elevated for the entirety our data range.
+stays elevated for the entirety of our data range.
 
-Another way to look at this data is to plot of histogram of the rate before
+Another way to look at this data is to plot a histogram of the rate before
 and after the stay-at-home order. Here it is:
 
 [![A histogram showing traffic fatality rate in California before and after

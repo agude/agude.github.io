@@ -50,7 +50,7 @@ FROM collisions
 WHERE Collision_Date IS NOT NULL
 AND pedestrian_Collision = 1        -- Involves a pedestrian
 AND collision_date <= '2020-12-31'  -- 2021 is incomplete
--- and it happens on Haloween
+-- and it happens on Halloween
 AND strftime('%m-%d', Collision_Date) = '10-31'
 ```
 

@@ -114,7 +114,7 @@ working with it.
 ## Zenodo
 
 Zenodo---hosted by CERN---is a much simpler and smaller service than Kaggle.
-It does not hat a community built up around it. It does not have attached
+It does not have a community built up around it. It does not have attached
 cloud compute. They have almost no users.[^usage]
 
 [^usage]: As of this post, my dataset has been viewed 161 times on Zenodo and

@@ -121,7 +121,7 @@ the plot:
 Which was produced by this short code snippet:
 
 ```python
-import seaborne as sns
+import seaborn as sns
 
 fig, ax = setup_plot(title="Collisions by Make")
 

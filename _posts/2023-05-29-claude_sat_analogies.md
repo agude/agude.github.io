@@ -9,7 +9,7 @@ image_alt: >
   An impressionistic painting based on 'Night Before the Exam' by Leonid
   Pasternak, generated with Stable Diffusion using img2img from the original.
   The painting shows four students sitting around a kitchen table studying for
-  a exam. Prompt: Impressionistic painting, four men studying at a desk,
+  an exam. Prompt: Impressionistic painting, four men studying at a desk,
   smoking, looking over papers, window in the background.
 categories:
   - generative-ai
@@ -161,7 +161,7 @@ One potential issue: I left the analogies and their possible answers in the
 sorted order from my word2vec post. This means the analogies word2vec got
 right were up first, with the correct answer in the first position. Then the
 ones word2vec had the correct answer second, and so on. I randomized a few of
-the analogies to check if this was a significnat problem, and it did not seem
+the analogies to check if this was a significant problem, and it did not seem
 to be. If I had API access, I would have randomized the order of all the
 potential answers and run multiple tests.
 

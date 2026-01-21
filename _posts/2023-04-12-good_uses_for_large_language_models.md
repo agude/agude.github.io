@@ -8,8 +8,8 @@ description: >
 image: /files/chatgpt/00259-1343806484-A_drawing_of_a_cute_robot_color_writing_with_a_pen_sitting_at_a_desk.jpg
 hide_lead_image: False
 image_alt: >
-    A colorful illustration of a two robots sitting at a desk with with
-    empty paper and books infront of them. One is holding a pencil. Generated 
+    A colorful illustration of two robots sitting at a desk with
+    empty paper and books in front of them. One is holding a pencil. Generated 
     with stable diffusion. Prompt: A drawing of a cute robot, color, writing 
     with a pen, sitting at a desk
 redirect_from: blog/good-uses-for-large-language-mo-models/
@@ -43,7 +43,7 @@ this post.
 
 ## What Are They Good For?
 
-In math, there are a types of problems where finding a solution is difficult
+In math, there are types of problems where finding a solution is difficult
 or impossible, but confirming a solution is easy. A common strategy to solve
 these problems is to guess the solution's form and then verify it, such as for
 an integral where the solution can be checked by taking its derivative.

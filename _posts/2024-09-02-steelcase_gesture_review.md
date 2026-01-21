@@ -8,7 +8,7 @@ description: >
 image: /files/steelcase/steelcase_gesture_with_headrest_360_arms_in_lizard.jpg
 image_alt: >
   The Steelcase Gesture in my office against a wall. The chair has green
-  upholstry and a headrest. The arms are black. The base is silver-grey.
+  upholstery and a headrest. The arms are black. The base is silver-grey.
 categories:
   - opinions
 

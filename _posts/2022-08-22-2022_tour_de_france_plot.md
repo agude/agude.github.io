@@ -20,7 +20,7 @@ first edition in several years that felt almost normal---the 2020 edition had
 been delayed by [COVID][covid] and 2021 edition moved to avoid the
 [Olympics][olympics].
 
-[Like last year][last_post], let's explore who the race unfolded with data.
+[Like last year][last_post], let's explore how the race unfolded with data.
 
 [tour]: https://en.wikipedia.org/wiki/2022_Tour_de_France
 [olympics]: https://en.wikipedia.org/wiki/2020_Summer_Olympics
@@ -50,7 +50,7 @@ Other favorites this year were:
 
 - [Jonas Vingegaard][vingegaard], who came in second last year.
 
-- [Geraint Thomas][thomas], who won won in 2018 and finished second in 2019.
+- [Geraint Thomas][thomas], who won in 2018 and finished second in 2019.
 
 - [Aleksandr Vlasov][vlasov], who won the Tour de Romandie earlier in the year.
 
@@ -130,6 +130,6 @@ managed to cross the finish line in Paris.
 [ewan]: https://en.wikipedia.org/wiki/Caleb_Ewan
 [lanterne]: https://en.wikipedia.org/wiki/Lanterne_rouge
 
-Pre-race hopeful Primož Roglič crashed and dislocated his should on stage 5.
+Pre-race hopeful Primož Roglič crashed and dislocated his shoulder on stage 5.
 He held on for 10 days---thankfully for Vingegaard who used Roglič to weaken
 Pogačar on stage 11---but dropped out during stage 15.

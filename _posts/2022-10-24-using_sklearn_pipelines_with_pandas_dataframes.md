@@ -2,7 +2,7 @@
 layout: post
 title: "Using Scikit-learn Pipelines with Pandas Dataframes"
 description: >
-  Pandas and scikiet-learn are two important libraries for building machine
+  Pandas and scikit-learn are two important libraries for building machine
   learning models. Here is how to get them to work together.
 image: /files/pandas-pipelines/navy_pipes.jpg
 image_alt: >

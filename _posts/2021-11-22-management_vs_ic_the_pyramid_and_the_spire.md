@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "The Pyramid and the Spire: Management and Individual Contributer
+title: "The Pyramid and the Spire: Management and Individual Contributor
 Tracks"
 description: >
   Data science has left the era of the Unicorn and entered the era of the
   team, but that means there is now a whole spectrum of data science jobs.
   Here is what they do.
-image: /files/pyramid/the_great_sphyinx_david_roberts_1839.jpg
+image: /files/pyramid/the_great_sphinx_david_roberts_1839.jpg
 image_alt: >
   A painting of the Great Sphinx with two pyramids in the background.
 seo:
@@ -18,7 +18,7 @@ categories:
 {% capture file_dir %}/files/pyramid/{% endcapture %}
 
 Most tech companies have two tracks for engineers, data scientists, and other
-technical people: an individual contributer (IC) track and a manager track.
+technical people: an individual contributor (IC) track and a manager track.
 The intent is that a technical person should be able to advance their career
 along the IC track without switching to managing people---which is an entirely
 different skill set and job.
@@ -45,7 +45,7 @@ a manager role. The higher the number, the more senior the role.[^numbers]
 [^numbers]: In this example I started the track at L1, but many companies
       start it at a different number. Amazon seems to start at 4, Apple at 2,
       Facebook at 3, Google at 3, and Microsoft at 59. For a lot more
-      information on a specific company's levels and total compenstation, see
+      information on a specific company's levels and total compensation, see
       [levels.fyi][levels].
 
 [levels]: https://www.levels.fyi
@@ -85,7 +85,7 @@ Silicon Valley. The company had more than a dozen M8s.
 In the data organization, there was one senior vice presidents (M8), two vice
 presidents (M7), and roughly five directors (M6). There were only two L6s, and
 one of them had almost 20 years of experience at the company. All of the
-managers has less tenure than that.
+managers had less tenure than that.
 
 ## The Track Forward
 
@@ -95,7 +95,7 @@ haven't decided which track I will stay on in the long term.
 
 From a pure numbers game, if I want to climb to the highest levels, the
 manager track looks better. But it is easier to jump between companies on the
-IC track---I could leave my job today and have a stack of comprable IC offers
+IC track---I could leave my job today and have a stack of comparable IC offers
 within a month. Also the manager job is **just different**, I would no longer
 be an engineer.
 

@@ -53,7 +53,7 @@ I have combined all of my data requests into one SQLite database. You no
 longer have to worry about requesting the data or using my script to clean it
 up since I have done all that work for you.
 
-You can **download the datebase** from either [**Kaggle** (requires
+You can **download the database** from either [**Kaggle** (requires
 account)][db_link] or [**Zenodo** (no account required!)][zen_link] and get
 right to work! I have even included a [demo notebook on Kaggle][demo_nb] so
 you can jump right in!
@@ -75,7 +75,7 @@ created it.
 I have saved four copies of the data, requested in 2016, 2017, 2018, and 2020.
 The first three copies have data from 2001 until their request date, while the
 2020 dataset only covers 2008--2020 due to the new limit California
-instituted. To created the hosted dataset I had to merge these four datasets.
+instituted. To create the hosted dataset I had to merge these four datasets.
 There were two main challenges:
 
 1. Each dataset contains three tables: collision records, party records, and
@@ -149,7 +149,7 @@ The [script to do this is here][script].
 ### Using the dataset
 
 Using the hosted dataset, it is simple to reproduce the work I did when I
-announced the data converter script: [plotting the location off all crashes in
+announced the data converter script: [plotting the location of all crashes in
 California][s2s_plot].
 
 [s2s_plot]: {% post_url 2016-11-01-switrs_to_sqlite %}#crash-mapping-example

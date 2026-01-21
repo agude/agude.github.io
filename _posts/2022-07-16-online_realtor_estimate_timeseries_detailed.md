@@ -3,7 +3,7 @@ layout: post
 title: "Comparing Zillow, Redfin, and Realtor.com Price Estimates in Time"
 description: >
   How do various online brokers' home price estimates change in time? I use a
-  recently sold house near my neightborhood to find out. Come check it out!
+  recently sold house near my neighborhood to find out. Come check it out!
 image: /files/online-realtor-estimate-comparison/1935_mission_style_house.jpg
 image_alt: >
   A line drawing of a mission style home from Architect and Engineer magazine.
@@ -81,7 +81,7 @@ The estimate is most important when the house is actually for sale and
 Realtor.com just punts completely. Embarrassing.
 
 Still we can see that, when the house is _not_ for sale, they update their
-estimate roughly every two weeks. Their initially estimates are not too bad,
+estimate roughly every two weeks. Their initial estimates are not too bad,
 just about 6% low from the final sale price.
 
 #### Zillow
@@ -115,7 +115,7 @@ Zillow underestimates the final price by about 10%.
 
 Redfin is the only company that keeps posting estimates once the house is
 actually for sale! Their pre-listing estimate is almost exactly right, but
-once the house is listed their on-the-market model over estimates by about
+once the house is listed their on-the-market model overestimates by about
 10%.
 
 Before the listing is posted, Redfin updates its estimate roughly weekly, and

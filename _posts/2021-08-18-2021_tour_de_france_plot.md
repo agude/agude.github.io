@@ -104,7 +104,7 @@ rest of the race.
 
 [Ben O'Connor][oconnor] attempted to contest Pogačar's lead on stage 9 with a
 solo break away win but fell two minutes short. O'Connor's effort put him in
-second place, but he wasn't able to hold his form and eventually placed forth
+second place, but he wasn't able to hold his form and eventually placed fourth
 after losing time in the Pyrenees. By the end of stage 10, Pogačar had an
 unassailable lead of almost 6 minutes.
 
@@ -112,7 +112,7 @@ unassailable lead of almost 6 minutes.
 
 ### The Green Jersey
 
-Although the race for yellow uneventful, the race for the [green
+Although the race for yellow was uneventful, the race for the [green
 jersey][green] was incredibly exciting. The green jersey is awarded to the
 rider with the most points, which are earned by winning intermediate sprints
 and stages.
@@ -188,7 +188,7 @@ stage.][full_plot]][full_plot]
 [full_plot]: {{ file_dir }}/2021_tour_de_france.svg
 
 Cavendish paced himself in the mountains, finishing with the slowest rider to
-save his energy. Cavendish's teammate, [Tim Declercq][declercq], time is
+save his energy. Cavendish's teammate, [Tim Declercq][declercq]'s time is
 almost identical to Cavendish's for the first 12 stages, as he stayed with
 the sprinter to ensure that Cavendish made it in under the time cut. Declercq
 was involved in a major crash in stage 13, where he lost almost 15 minutes.
@@ -202,7 +202,7 @@ Finally, how did the other riders who held the yellow jersey during the race,
 [Julian Alaphilippe][alaphilippe] and Mathieu van der Poel, do? Van der Poel
 dropped out when they hit the mountains to prepare for the Olympics. Despite
 his strength, he is not the type of rider who could have won this tour, being
-to heavy to climb quickly. Alaphilippe, although not a climber specialist, can
+too heavy to climb quickly. Alaphilippe, although not a climber specialist, can
 compete in the mountains as [we saw in the 2019 Tour][2019_tour], but he too
 started to lose time in the Alps. He held on and finished in Paris, but far
 down the leaderboard.

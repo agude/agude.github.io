@@ -152,7 +152,7 @@ this page in the form of a too-honest resume.
 - While [looking for a job][job] after being laid off during COVID, I called
   my friend and former coworker from Lab41, Patrick Callier, asking if he had
   a lead on any positions at Square. He suggested I should work for Cash App
-  and introduced my to my current boss and skip-level (also both Insight
+  and introduced me to my current boss and skip-level (also both Insight
   Alumni). 
 
 

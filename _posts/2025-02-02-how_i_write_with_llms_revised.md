@@ -52,7 +52,7 @@ writing without overpowering it.
 The prompt you use with the LLM is important, because it strongly shapes how
 the model edits your writing. The prompt keeps the machine from filling my
 writing with phrases like ["delve", "showcasing", and "underscores"][ars]. I
-currently use a slight variations of this prompt:
+currently use a slight variation of this prompt:
 
 > Help me edit this blog post I'm writing. Fix errors, make it clearer. Reword
 > to make the arguments and sentences more coherent. Use the same sort of
@@ -65,7 +65,7 @@ currently use a slight variations of this prompt:
 
 Once I have the LLM's version, I put it side-by-side with my draft to compare.
 Sometimes the edited version is perfect, and I'll take an entire paragraph as
-is. Other times, I'll borrow ideas about how to structuring a paragraph or a
+is. Other times, I'll borrow ideas about how to structure a paragraph or a
 transition, but I rewrite it in my own words. The model sometimes tries to fix
 sections that are fine, and I simply ignore it.
 

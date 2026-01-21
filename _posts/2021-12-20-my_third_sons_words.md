@@ -99,11 +99,11 @@ Ash's Spanish development has been slow. He has had plenty of time with my
 parents (who both speak Spanish) but not much alone time with them. He
 normally visits with his older brothers who speak mostly English to my parents
 now, which has reduced Ash's exposure to Spanish. Ash also did not love
-Spanish cartoons, which is older brothers did at his age.
+Spanish cartoons, which his older brothers did at his age.
 
 ## The Words
 
-I plotted a selection of some of ash's first words in each language below.
+I plotted a selection of some of Ash's first words in each language below.
 Notice that I have switched to a log plot for the _y_-axis to better show the
 beginnings of each language.
 

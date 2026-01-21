@@ -20,7 +20,7 @@ When I bought my house several years ago I was unsure how much money it would
 take to actually buy it. There was the list-price, of course, but I didn't
 expect that to be the price the seller would accept. Zillow and Redfin
 estimated two different prices, both slightly higher than the list price, and
-my realtor suggested a forth based on comprable homes. In the end we made up a
+my realtor suggested a fourth based on comparable homes. In the end we made up a
 number combining all four prices, nudged it up a bit as a hedge, and had our
 offer accepted. It left me wondering if there was a better way to predict
 prices, and if Zillow and Redfin had been right with their predicted prices.

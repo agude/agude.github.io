@@ -67,7 +67,7 @@ human.
     {% citation
       author_first="Chloe"
       author_last="Xiang"
-      work_title="Artist Are Revolting Against AI Art on ArtStation"
+      work_title="Artists Are Revolting Against AI Art on ArtStation"
       container_title="Vice"
       date="2022-12-14"
       url="https://www.vice.com/en/article/artists-are-revolt-against-ai-art-on-artstation/"
@@ -165,8 +165,8 @@ their skill with a brush so I picked up a camera instead.
 
 [^hans_art]:
     My father somewhat rejected the title of "artist", although in later life
-    he branded himself as such. He prefered to think of himself as a
-    craftsman, honing his skills through hardwork and study.
+    he branded himself as such. He preferred to think of himself as a
+    craftsman, honing his skills through hard work and study.
 
 I was drawn to photography **specifically because** it used technology. I like
 learning new technologies and how to master them. I _also_ thought it would be

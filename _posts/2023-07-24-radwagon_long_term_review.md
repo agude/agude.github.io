@@ -30,7 +30,7 @@ After all the time spent with it, would we recommend it to another family?
 
 In short: we **love the utility an electric cargo bike offers**, and I think
 we will always have one in the garage to supplement our minivan, **but the
-RadWagon has some significant draw backs** that make recommending it
+RadWagon has some significant drawbacks** that make recommending it
 difficult. Read on for the full review.
 
 ## The Bike

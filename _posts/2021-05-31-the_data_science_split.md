@@ -40,7 +40,7 @@ companies were looking for someone to set up their data teams and extract
 value from their data.
 
 This was the tail end of the unicorn era. Data engineering had already become
-it's own specialty, but everything else was still under the umbrella term data
+its own specialty, but everything else was still under the umbrella term data
 scientist. Even as a neophyte I could see further splits coming.
 
 ### Unicorn Era

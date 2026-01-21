@@ -41,7 +41,7 @@ the received payment feature above, but to make a decision on _a received
 payment_. Whatever system is keeping count now has to be very fast so it can
 update the feature and return the value to the model in order to make a
 decision without keeping the user waiting too long. In a payment system "too
-long" could much less than a second!
+long" could be much less than a second!
 
 Worse, some features can not be pre-computed at all. For example, the feature
 "_Has this user ever logged in from this location?_" is very useful for
@@ -55,7 +55,7 @@ compute them below.
 
 ## A Machine Learning System
 
-Let's consider a simplified machine learning system that that looks like this:
+Let's consider a simplified machine learning system that looks like this:
 
 [![A diagram showing a machine learning system with incoming events, a feature
 store, and a model host.][batch_pic]][batch_pic]

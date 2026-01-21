@@ -3,7 +3,7 @@ layout: post
 title: Using Large Language Models To Clean Data
 description: >
   Manually fixing messy data is tedious and slow. But thankfully, LLMs are
-  pretty good are piecing together mangled text. Read on to find out how!
+  pretty good at piecing together mangled text. Read on to find out how!
 image: /files/llm-data/00045-1994538970-a_simple_color_pencil_drawing_a_robot,_inspecting_a_car,_holding_a_clipboard,_white_background.png
 hide_lead_image: False
 image_alt: >
@@ -27,7 +27,7 @@ relatively small number of common brands, so it should be mapped to a
 categorical column.
 
 [^make]: 
-    The "make" of a vehicle is the brand of the manfacturer, like 'Honda',
+    The "make" of a vehicle is the brand of the manufacturer, like 'Honda',
     'Ford', 'Tesla', etc.
 
 [s2s]: {% post_url 2016-11-01-switrs_to_sqlite %}
@@ -180,7 +180,7 @@ WNBG
 WNBGO
 ```
 
-I believe seeing multiple short versions next to eachother helped the model
+I believe seeing multiple short versions next to each other helped the model
 infer the right mapping.
 
 ### Performance

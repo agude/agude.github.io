@@ -264,7 +264,7 @@ Then I would copy and paste this but replace the `weekend_ratio` with a
 it is easy to write.
 
 Combining the queries is possible. To do so I first use a sub-query to do the
-aggregation. A `WTIH` clause keeps it tidy so we don't have to copy/paste the
+aggregation. A `WITH` clause keeps it tidy so we don't have to copy/paste the
 sub-query twice. I use `HAVING` to filter out makes with too few collisions;
 it has to be `HAVING` and not `WHERE` because it filters **after** the
 aggregation.

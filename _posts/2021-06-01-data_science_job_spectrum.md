@@ -24,7 +24,7 @@ what their skill sets are.
 
 [last_post]: {% post_url 2021-05-31-the_data_science_split %}
 
-It useful to know where you prefer to be on the data science spectrum, as it
+It is useful to know where you prefer to be on the data science spectrum, as it
 will determine what roles you should apply for. "What are the responsibilities
 of this position and what the key skills to be successful in it?" is one of
 the first questions I ask when applying to a new position. The answer lets me
@@ -33,7 +33,7 @@ I would be interested in the job.
 
 ## The Spectrum
 
-You could define the spectrum of data science along multiple axises, but I
+You could define the spectrum of data science along multiple axes, but I
 find using just one works pretty well:[^research]
 
 [^research]: If I were to add a second axis, it would probably be
@@ -48,7 +48,7 @@ engineering role.
 On the "low engineeriness" side of the spectrum you have roles that work
 almost entirely with the contents of the data and domain-specific languages
 for data access, processing, and plotting. As you move towards the other end
-you start working with "lower-level" languages and often less on the on the
+you start working with "lower-level" languages and often less on the
 data itself and more on supportive tooling around it.
 
 A particular job at a company could fall anywhere on the spectrum, but the
@@ -95,8 +95,8 @@ use Python, machine learning frameworks like TensorFlow, sometimes Scala and
 Spark, Docker, and REST APIs.
 
 [^mlm]: This role is sometimes called data scientist, sometimes machine
-    learning engineer; often those two roles split the responcibility. These
-    rolls are closer to [Michael Hochster's][@michaelhochster] [Type B Data
+    learning engineer; often those two roles split the responsibility. These
+    roles are closer to [Michael Hochster's][@michaelhochster] [Type B Data
     Scientists][type_a_b].
 
 This is the role I feel most comfortable in, with its mix of [software

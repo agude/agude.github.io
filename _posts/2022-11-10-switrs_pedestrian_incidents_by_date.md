@@ -9,7 +9,7 @@ image: /files/switrs-pedestrian-incidents-by-date/auto_accident_loc_2016842389_1
 hide_lead_image: False
 image_alt: >
   Black and white photo from 1926 of men and boys crowded around a car that
-  has driven into a lamppost and lost it's front left wheel.
+  has driven into a lamppost and lost its front left wheel.
 categories: 
   - california-traffic-data 
   - data-science

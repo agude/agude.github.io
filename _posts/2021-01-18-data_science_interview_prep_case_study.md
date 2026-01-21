@@ -6,8 +6,8 @@ description: >
   is the ML case study. Read on for an example of how I solve them!
 image: /files/interview-prep/henry_reid_at_his_desk_nasa.jpg
 image_alt: >
-  A black and white photo of Henry J.E. Reid, Directory of the Langley
-  Aeronautics Laborator, in a suit writing while sitting at a desk.
+  A black and white photo of Henry J.E. Reid, Director of the Langley
+  Aeronautics Laboratory, in a suit writing while sitting at a desk.
 categories:
   - career-advice
   - interviewing
@@ -89,7 +89,7 @@ At the start of the interview I try to fully explore the bounds of the
 problem, which is often open ended. My goal with this part of the interview is
 to:
 
-- Understand the problem and all the edges cases.
+- Understand the problem and all the edge cases.
 
 - Come to an agreement with the interviewer on the scope---narrower is
   better!---of the problem to solve.

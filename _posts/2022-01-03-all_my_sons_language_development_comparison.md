@@ -108,7 +108,7 @@ didn't know as many animal sounds as well: I used to sit with Theo and Cory
 and point at animals in books and teach them but I did not do this with Ash.
 
 As a final note: our kids' doctors were worried about both Theo and Ash's
-language development being too slow. Some of that worry transfered to us as
+language development being too slow. Some of that worry transferred to us as
 parents. Keeping track of their words like this was reassuring---we could see
 that Ash was on pace compared to Theo, and we knew Theo turned out fine!
 

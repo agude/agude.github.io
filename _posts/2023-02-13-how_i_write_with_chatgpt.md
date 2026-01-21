@@ -9,7 +9,7 @@ image: /files/chatgpt/00137-2463433472-watercolor_illustration_adorable_robot_de
 hide_lead_image: False
 image_alt: >
     'A colorful watercolor illustration of a robot sitting at a desk with a
-    typewriter infront of the robot. Generated with stable diffusion. Prompt:
+    typewriter in front of the robot. Generated with stable diffusion. Prompt:
     watercolor illustration, adorable robot, desk lamp, sitting at a
     typewriter, chair, desk, clear, straight lines'
 categories:
@@ -33,7 +33,7 @@ For my updated approach, check out my latest post:**
 
 [ChatGPT][chatgpt], the new chatbot from [OpenAI][oai], has received
 widespread attention for its versatility in conversation, information
-retrieval, and even song writing. However, it's tendency to generate false but
+retrieval, and even song writing. However, its tendency to generate false but
 believable information has led many to see it as _entertaining_ but not
 _useful_.[^edit_1]<sup> (Click to see my edit prompts.)</sup>
 
@@ -42,7 +42,7 @@ _useful_.[^edit_1]<sup> (Click to see my edit prompts.)</sup>
 
 But ChatGPT is an **incredibly useful tool** for my writing due to its ability
 to rapidly iterate through alternative phrasings for ideas, sentences, and
-paragraphs. In this cases, the model's habit of generating false information
+paragraphs. In these cases, the model's habit of generating false information
 is not a concern because I wrote the original input so I know what it should
 say, and I can easily edit out any inaccuracies introduced by the
 model.[^edit_2][^edit_3]
@@ -51,7 +51,7 @@ Let me illustrate how I use ChatGPT to write and copyedit my work.[^edit_4]
 
 ## My Writing Process
 
-I start by writing a rough draft which may consists of a few bullet points or
+I start by writing a rough draft which may consist of a few bullet points or
 a detailed set of paragraphs. Next, I give it to ChatGPT for refinement.
 
 {% comment %}These div, etc. match chatgpt_edit.html {% endcomment %}
@@ -84,7 +84,7 @@ a detailed set of paragraphs. Next, I give it to ChatGPT for refinement.
 I don't usually take the entire output from ChatGPT, rather I use it to
 inspire my own editing:[^edit_5]
 
-> I start by writing a rough draft which may consists of a few bullet points
+> I start by writing a rough draft which may consist of a few bullet points
 > or a detailed set of paragraphs. Next, I give it to ChatGPT for refinement.
 
 I iterate using this process, refining my text by sending the sections I'm

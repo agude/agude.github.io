@@ -7,7 +7,7 @@ description: >
 image: /files/jekyll/stansaab_censor_and_operator.jpg 
 image_alt: >
   A black and white photo of a man in a short-sleeve collared shirt uses an
-  osciliscope to adjust a circuit board on a Stansaab 'Censor' computer at
+  oscilloscope to adjust a circuit board on a Stansaab 'Censor' computer at
   Standard Radio's factory in Ulvsunda, Stockholm.
 categories:
   - software-development

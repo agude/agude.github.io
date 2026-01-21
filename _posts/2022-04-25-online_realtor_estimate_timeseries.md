@@ -3,7 +3,7 @@ layout: post
 title: "Comparing Zillow and Redfin Price Estimates in Time"
 description: >
   How do Zillow and Redfin's home price estimates change in time? I use a
-  recently sold house in my neightborhood to find out. Come check it out!
+  recently sold house in my neighborhood to find out. Come check it out!
 image: /files/online-realtor-estimate-comparison/1935_houses_in_san_francisco.jpg
 image_alt: >
   A line drawing of two houses in San Francisco from Architect and Engineer
@@ -74,7 +74,7 @@ estimates for Zillow are shown using blue triangles.
 ### Comments
 
 There is _a lot_ of movement in the estimates. Redfin and Zillow start off far
-apart. Redfin reverts strongly to the list price once the house if official on
+apart. Redfin reverts strongly to the list price once the house is official on
 the market (I missed Zillow's price on the day of listing). As the house goes
 pending, both estimates increase drastically.
 
