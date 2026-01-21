@@ -12,134 +12,16 @@ image: /books/covers/endymion.jpg
 class="author-name">{{ page.book_authors }}</span>, is the third book in the
 <span class="book-series">{{ page.series }}</span> series. It follows a
 completely new cast of characters---Aenea, Rual, Bettik---as the escape the
-oppresive Pax using a Raft and the River Tethys.
+oppressive Pax using a Raft and the River Tethys.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
 {% capture series_link %}{% series_link page.series %}{% endcapture %}
+{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 
-{% capture simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
-{% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
-{% capture simmons_lastname %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
-{% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
-{% capture endymion %}{% book_link "Endymion" %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 {% capture fall_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
 {% capture rise_of_endymion %}{% book_link "The Rise of Endymion" %}{% endcapture %}
 
-{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
-{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
-{% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
-{% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
-{% capture consider_phlebas %}{% book_link "Consider Phlebas" %}{% endcapture %}
-
-{% capture twain %}{% author_link "Mark Twain" %}{% endcapture %}
-{% capture twains %}{% author_link "Mark Twain" possessive %}{% endcapture %}
-{% capture twain_lastname %}{% author_link "Mark Twain" link_text="Twain" %}{% endcapture %}
-{% capture twains_lastname %}{% author_link "Mark Twain" link_text="Twain" possessive %}{% endcapture %}
-{% capture huck_finn %}{% book_link "Adventures of Huckleberry Finn" %}{% endcapture %}
-
-{% capture baum %}{% author_link "L. Frank Baum" %}{% endcapture %}
-{% capture baums %}{% author_link "L. Frank Baum" possessive %}{% endcapture %}
-{% capture baum_lastname %}{% author_link "L. Frank Baum" link_text="Baum" %}{% endcapture %}
-{% capture baums_lastname %}{% author_link "L. Frank Baum" link_text="Baum" possessive %}{% endcapture %}
-{% capture wizard_of_oz %}{% book_link "The Wonderful Wizard of Oz" %}{% endcapture %}
-
-{% capture wolfe %}{% author_link "Gene Wolfe" %}{% endcapture %}
-{% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
-{% capture wolfe_lastname %}{% author_link "Gene Wolfe" link_text="Wolfe" %}{% endcapture %}
-{% capture wolfes_lastname %}{% author_link "Gene Wolfe" link_text="Wolfe" possessive %}{% endcapture %}
-{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
-{% capture shadow_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
-
-{% capture hamilton %}{% author_link "Peter F. Hamilton" %}{% endcapture %}
-{% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}
-{% capture hamilton_lastname %}{% author_link "Peter F. Hamilton" link_text="Hamilton" %}{% endcapture %}
-{% capture hamiltons_lastname %}{% author_link "Peter F. Hamilton" link_text="Hamilton" possessive %}{% endcapture %}
-{% capture abyss_beyond_dreams %}{% book_link "The Abyss Beyond Dreams" %}{% endcapture %}
-{% capture pandoras_star %}{% book_link "Pandora's Star" %}{% endcapture %}
-{% capture judas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}
-
-{% capture atwood %}{% author_link "Margaret Atwood" %}{% endcapture %}
-{% capture atwoods %}{% author_link "Margaret Atwood" possessive %}{% endcapture %}
-{% capture atwood_lastname %}{% author_link "Margaret Atwood" link_text="Atwood" %}{% endcapture %}
-{% capture atwoods_lastname %}{% author_link "Margaret Atwood" link_text="Atwood" possessive %}{% endcapture %}
-{% capture handmaids_tale %}{% book_link "The Handmaid's Tale" %}{% endcapture %}
-
-{% capture herbert %}{% author_link "Frank Herbert" %}{% endcapture %}
-{% capture herberts %}{% author_link "Frank Herbert" possessive %}{% endcapture %}
-{% capture herbert_lastname %}{% author_link "Frank Herbert" link_text="Herbert" %}{% endcapture %}
-{% capture herberts_lastname %}{% author_link "Frank Herbert" link_text="Herbert" possessive %}{% endcapture %}
-{% capture dune %}{% book_link "Dune" %}{% endcapture %}
-
-{% capture nabokov %}{% author_link "Vladimir Nabokov" %}{% endcapture %}
-{% capture nabokovs %}{% author_link "Vladimir Nabokov" possessive %}{% endcapture %}
-{% capture nabokov_lastname %}{% author_link "Vladimir Nabokov" link_text="Nabokov" %}{% endcapture %}
-{% capture nabokovs_lastname %}{% author_link "Vladimir Nabokov" link_text="Nabokov" possessive %}{% endcapture %}
-{% capture lolita %}{% book_link "Lolita" %}{% endcapture %}
-
-{% capture heinlein %}{% author_link "Robert A. Heinlein" %}{% endcapture %}
-{% capture heinleins %}{% author_link "Robert A. Heinlein" possessive %}{% endcapture %}
-{% capture heinlein_lastname %}{% author_link "Robert A. Heinlein" link_text="Heinlein" %}{% endcapture %}
-{% capture heinleins_lastname %}{% author_link "Robert A. Heinlein" link_text="Heinlein" possessive %}{% endcapture %}
-{% capture starship_troopers %}{% book_link "Starship Troopers" %}{% endcapture %}
-
-{% capture tchaikovsky %}{% author_link "Adrian Tchaikovsky" %}{% endcapture %}
-{% capture tchaikovskys %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
-{% capture tchaikovsky_lastname %}{% author_link "Adrian Tchaikovsky" link_text="Tchaikovsky" %}{% endcapture %}
-{% capture tchaikovskys_lastname %}{% author_link "Adrian Tchaikovsky" link_text="Tchaikovsky" possessive %}{% endcapture %}
-{% capture final_architecture %}{% series_link "The Final Architecture" %}{% endcapture %}
-
-{% capture asimov %}{% author_link "Isaac Asimov" %}{% endcapture %}
-{% capture asimovs %}{% author_link "Isaac Asimov" possessive %}{% endcapture %}
-{% capture asimov_lastname %}{% author_link "Isaac Asimov" link_text="Asimov" %}{% endcapture %}
-{% capture asimovs_lastname %}{% author_link "Isaac Asimov" link_text="Asimov" possessive %}{% endcapture %}
-{% capture i_robot %}{% book_link "I, Robot" %}{% endcapture %}
-
-{% capture langton %}{% author_link "Jane Langton" %}{% endcapture %}
-{% capture langtons %}{% author_link "Jane Langton" possessive %}{% endcapture %}
-{% capture langton_lastname %}{% author_link "Jane Langton" link_text="Langton" %}{% endcapture %}
-{% capture langtons_lastname %}{% author_link "Jane Langton" link_text="Langton" possessive %}{% endcapture %}
-{% capture diamond_window %}{% book_link "The Diamond in the Window" %}{% endcapture %}
-
-{% capture brunner %}{% author_link "John Brunner" %}{% endcapture %}
-{% capture brunners %}{% author_link "John Brunner" possessive %}{% endcapture %}
-{% capture brunner_lastname %}{% author_link "John Brunner" link_text="Brunner" %}{% endcapture %}
-{% capture brunners_lastname %}{% author_link "John Brunner" link_text="Brunner" possessive %}{% endcapture %}
-{% capture stand_on_zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
-
-{% capture liu %}{% author_link "Cixin Liu" %}{% endcapture %}
-{% capture lius %}{% author_link "Cixin Liu" possessive %}{% endcapture %}
-{% capture liu_lastname %}{% author_link "Cixin Liu" link_text="Liu" %}{% endcapture %}
-{% capture lius_lastname %}{% author_link "Cixin Liu" link_text="Liu" possessive %}{% endcapture %}
-{% capture three_body %}{% book_link "The Three-Body Problem" %}{% endcapture %}
-
-{% capture el_mohtar %}{% author_link "Amal El-Mohtar" %}{% endcapture %}
-{% capture el_mohtars %}{% author_link "Amal El-Mohtar" possessive %}{% endcapture %}
-{% capture el_mohtar_lastname %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar" %}{% endcapture %}
-{% capture el_mohtars_lastname %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar" possessive %}{% endcapture %}
-
-{% capture gladstone %}{% author_link "Max Gladstone" %}{% endcapture %}
-{% capture gladstones %}{% author_link "Max Gladstone" possessive %}{% endcapture %}
-{% capture gladstone_lastname %}{% author_link "Max Gladstone" link_text="Gladstone" %}{% endcapture %}
-{% capture gladstones_lastname %}{% author_link "Max Gladstone" link_text="Gladstone" possessive %}{% endcapture %}
-
-{% capture el_mohtar_and_gladstone %}{% author_link "Amal El-Mohtar" %} and {% author_link "Max Gladstone" %}{% endcapture %}
-{% capture time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
-
-{% capture alexs_lastname %}{% author_link "A. N. Alex" link_text="Alex" possessive %}{% endcapture %}
-{% capture mote %}{% book_link "A Mote In Shadow" %}{% endcapture %}
-
-{% capture keats %}{% author_link "John Keats" %}{% endcapture %}
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
 {% capture keats_lastname %}{% author_link "John Keats" link_text="Keats" %}{% endcapture %}
 {% capture keatss_lastname %}{% author_link "John Keats" link_text="Keats" possessive %}{% endcapture %}
@@ -149,9 +31,56 @@ oppresive Pax using a Raft and the River Tethys.
 {% capture endymion_keats_name %}{% book_link "Endymion" author="John Keats" %}{% endcapture %}
 {% capture keatss_lastname_endymion %}{{ keatss_lastname }} {{ endymion_keats_name }}{% endcapture %}
 
-{% comment %} Other Media {% endcomment %}
+{% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
+{% capture consider_phlebas %}{% book_link "Consider Phlebas" %}{% endcapture %}
+
+{% capture twains %}{% author_link "Mark Twain" possessive %}{% endcapture %}
+{% capture huck_finn %}{% book_link "Adventures of Huckleberry Finn" %}{% endcapture %}
+
+{% capture baums_lastname %}{% author_link "L. Frank Baum" link_text="Baum" possessive %}{% endcapture %}
+{% capture wizard_of_oz %}{% book_link "The Wonderful Wizard of Oz" %}{% endcapture %}
+
+{% capture wolfes_lastname %}{% author_link "Gene Wolfe" link_text="Wolfe" possessive %}{% endcapture %}
+{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
+
+{% capture pandoras_star %}{% book_link "Pandora's Star" %}{% endcapture %}
+{% capture judas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}
+
+{% capture atwoods_lastname %}{% author_link "Margaret Atwood" link_text="Atwood" possessive %}{% endcapture %}
+{% capture handmaids_tale %}{% book_link "The Handmaid's Tale" %}{% endcapture %}
+
+{% capture herberts_lastname %}{% author_link "Frank Herbert" link_text="Herbert" possessive %}{% endcapture %}
+{% capture dune %}{% book_link "Dune" %}{% endcapture %}
+
+{% capture nabokov %}{% author_link "Vladimir Nabokov" %}{% endcapture %}
+{% capture lolita %}{% book_link "Lolita" %}{% endcapture %}
+
+{% capture heinleins_lastname %}{% author_link "Robert A. Heinlein" link_text="Heinlein" possessive %}{% endcapture %}
+{% capture starship_troopers %}{% book_link "Starship Troopers" %}{% endcapture %}
+
+{% capture asimovs_lastname %}{% author_link "Isaac Asimov" link_text="Asimov" possessive %}{% endcapture %}
+{% capture i_robot %}{% book_link "I, Robot" %}{% endcapture %}
+
+{% capture langtons_lastname %}{% author_link "Jane Langton" link_text="Langton" possessive %}{% endcapture %}
+{% capture diamond_window %}{% book_link "The Diamond in the Window" %}{% endcapture %}
+
+{% capture brunners_lastname %}{% author_link "John Brunner" link_text="Brunner" possessive %}{% endcapture %}
+{% capture stand_on_zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
+
+{% capture lius_lastname %}{% author_link "Cixin Liu" link_text="Liu" possessive %}{% endcapture %}
+{% capture three_body %}{% book_link "The Three-Body Problem" %}{% endcapture %}
+
+{% capture el_mohtar_lastname %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar" %}{% endcapture %}
+
+{% capture gladstones_lastname %}{% author_link "Max Gladstone" link_text="Gladstone" possessive %}{% endcapture %}
+
+{% capture time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
+
+{% capture alexs_lastname %}{% author_link "A. N. Alex" link_text="Alex" possessive %}{% endcapture %}
+{% capture mote %}{% book_link "A Mote In Shadow" %}{% endcapture %}
+
+
 {% capture terminator_2 %}<cite class="movie-title">Terminator 2: Judgment Day</cite>{% endcapture %}
-{% capture empire_strikes_back %}<cite class="movie-title">The Empire Strikes Back</cite>{% endcapture %}
 
 {{ hyperion }} followed the themes and plot of {{ keatss }} {{ hyperion_keats
 }}, and {{ fall_hyperion }} likewise followed {{ fall_keats }} by {{
@@ -174,7 +103,7 @@ endymion_keats }}, with Raul visiting the underworld (ice cave of Sol Draconi
 Septem), ocean floor (Mare Infinitus), and meeting [Glaucus][glaucus]. But it
 is influenced by other literature as well. The journey as a voyage on a raft
 is from {{ twains }} {{ huck_finn }}, with the formerly enslaved android
-Bettik standing in as a Jim figure. {{ simmons_lastname }}, as he has done
+Bettik standing in as a Jim figure. {{ the_authors_lastname }}, as he has done
 through the whole series, also likens his characters to those from {{
 baums_lastname }} {{ wizard_of_oz }}.
 
@@ -197,14 +126,14 @@ annoying: Raul because he spends most of the narrative passive, and then
 screws things up when he acts. Aenea because she is supposed to be a mix of
 immature 12 year old and all-knowing messiah, but instead comes off
 inconsistent. She keeps talking about how they will someday be lovers which is
-weird given how young she is, and so {{ simmons_lastname }} has to keep
+weird given how young she is, and so {{ the_authors_lastname }} has to keep
 throwing in awkward narrator notes reminding us the Raul is not a pedophile
-and doesn't find her attractive. At the same time, {{ simmons_lastname }}
+and doesn't find her attractive. At the same time, {{ the_authors_lastname }}
 makes winking allusions to {{ nabokov }} and {{ lolita }}.
 
-{{ simmons_lastname }} always includes a lot of references to literature and
-pop culture in his {{ series_link }}. The raft voyage, as mentioned, is like
-Huck and Jim's down the Mississippi in {{ huck_finn }}. Raul as narrator,
+{{ the_authors_lastname }} always includes a lot of references to literature
+and pop culture in his {{ series_link }}. The raft voyage, as mentioned, is
+like Huck and Jim's down the Mississippi in {{ huck_finn }}. Raul as narrator,
 writing the story of his and Aenea's life, with authorial interjections is
 like Severian writing the story for {{ wolfes_lastname }} {{ botns }}. Nemes's
 uses of monofilament wire to slice the raft in half is a direct reference to a
