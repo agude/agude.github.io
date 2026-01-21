@@ -71,6 +71,7 @@ oppresive Pax using a Raft and the River Tethys.
 {% capture hamilton_lastname %}{% author_link "Peter F. Hamilton" link_text="Hamilton" %}{% endcapture %}
 {% capture hamiltons_lastname %}{% author_link "Peter F. Hamilton" link_text="Hamilton" possessive %}{% endcapture %}
 {% capture abyss_beyond_dreams %}{% book_link "The Abyss Beyond Dreams" %}{% endcapture %}
+{% capture pandoras_star %}{% book_link "Pandora's Star" %}{% endcapture %}
 {% capture judas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}
 
 {% comment %} Margaret Atwood {% endcomment %}
@@ -157,6 +158,9 @@ oppresive Pax using a Raft and the River Tethys.
 {% capture vonneguts_lastname %}{% author_link "Kurt Vonnegut" link_text="Vonnegut" possessive %}{% endcapture %}
 {% capture sirens_of_titan %}{% book_link "The Sirens of Titan" %}{% endcapture %}
 
+{% capture alexs_lastname %}{% author_link "A. N. Alex" link_text="Alex" possessive %}{% endcapture %}
+{% capture mote %}{% book_link "A Mote In Shadow" %}{% endcapture %}
+
 {% comment %} John Keats {% endcomment %}
 {% capture keats %}{% author_link "John Keats" %}{% endcapture %}
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
@@ -198,3 +202,44 @@ through the whole series, also likens his characters to those from {{
 baums_lastname }} {{ wizard_of_oz }}.
 
 [glaucus]: https://en.wikipedia.org/wiki/Glaucus
+
+There was a lot I enjoyed in {{ this_book }}. The nominal antagonist, Federico
+de Soya, is sympathetic even as he tries to capture the heroes. His slow
+realization that the Pax isn't the salvation of humanity he thought it was is
+haunting. The pacing, once the real antagonist---Rhadamanth Nemes---is
+revealed is perfect. I couldn't stop turning the pages. The additional
+worldbuilding, how the universe has changed in 300 years, is also really
+interesting, especially how humanity reacts to true resurrection, and the
+horrifying technology it enables. The freed Android Bettik is another great
+character, searching for his family, unwaveringly loyal and competent, and
+unfortunately underutilized.
+
+But for all that, this book is good, but not great. The pacing is too slow:
+Nemes wasn't even introduced until the last quarter. Raul and Aenea as
+annoying: Raul because he spends most of the narrative passive, and then
+screws things up when he acts. Aenea because she is supposed to be a mix of
+immature 12 year old and all-knowing messiah, but instead comes off
+inconsistent. She keeps talking about how they will someday be lovers which is
+weird given how young she is, and so {{ simmons_lastname }} has to keep
+throwing in awkward narrator notes reminding us the Raul is not a pedophile
+and doesn't find her attractive. At the same time, {{ simmons_lastname }}
+makes winking allusions to {{ nabokov }} and {{ lolita }}.
+
+{{ this_book }} reminded me of many others. Raul's narration as a written
+story of his life reminded me of Severian's narration in {{ wolfes_lastname }}
+{{ botns }}. The Schrödinger's Cat Box execution method reminds me of the
+unorthodox execution method used on Horza in {{ bankss_lastname }} {{
+consider_phlebas }}. The Pax remind me of Gilead from {{ atwoods_lastname }}
+{{ handmaids_tale }}, their ban on AI is similar to {{ herberts_lastname }} {{
+dune }}, and the Swiss Guard in their power armor at like the Mobile Infantry
+{{ heinleins_lastname }} {{ starship_troopers }}. I appreciated that Androids
+have "Asimotivation", modeled after {{ asimovs_lastname }} Three Laws from {{
+i_robot }}. The journey on the river felt like Ozzy's trip in {{ pandoras_star
+}} and {{ judas_unchained }}. The A. and M. honorifics to indicate species
+reminds me of the hand gestures to indicate pronouns in {{ alexs_lastname }}
+{{ mote }}. Being trapped in the ice cave reminded me of being trapped in the
+nautilus in {{ langtons_lastname }} {{ diamond_window }}.
+
+I was tempted to take a break but instead I picked up {{ rise_of_endymion }}
+immediately after finishing. I'm a few chapters into it as I write this review
+and I can already tell it's going to be a struggle. Wish me luck!
