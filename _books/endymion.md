@@ -27,8 +27,8 @@ covenant of immortality.
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
 {% capture keats_lastname %}{% author_link "John Keats" link_text="Keats" %}{% endcapture %}
 {% capture keatss_lastname %}{% author_link "John Keats" link_text="Keats" possessive %}{% endcapture %}
-{% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" cite=false link_text="version" %}{% endcapture %}
-{% capture fall_keats %}{% book_link "The Fall of Hyperion" author="John Keats" cite=false link_text="the poem" %}{% endcapture %}
+{% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" %}{% endcapture %}
+{% capture fall_keats %}{% book_link "The Fall of Hyperion" author="John Keats" %}{% endcapture %}
 {% capture endymion_keats %}{% book_link "Endymion" author="John Keats" cite=false link_text="poem" %}{% endcapture %}
 {% capture endymion_keats_name %}{% book_link "Endymion" author="John Keats" %}{% endcapture %}
 {% capture keatss_lastname_endymion %}{{ keatss_lastname }} {{ endymion_keats_name }}{% endcapture %}
@@ -83,20 +83,20 @@ covenant of immortality.
 
 {% capture terminator_2 %}<cite class="movie-title">Terminator 2: Judgment Day</cite>{% endcapture %}
 
-{{ hyperion }} followed the themes and plot of {{ keatss }} {{ hyperion_keats }},
-and {{ fall_hyperion }} likewise followed {{ fall_keats }} by {{ keats_lastname
-}}. So it's no surprise that {{ this_book }} is _also_ based on a {{
-keats_lastname }} {{ endymion_keats }}. {{ keatss_lastname_endymion }} is the
-story of the shepherd Endymion, who falls in love with the moon goddess Cynthia.
+{{ hyperion }} and {{ fall_hyperion }} both model their plots and themes on {{
+keatss }} {{ hyperion_keats }} and {{ fall_keats }}. {{ this_book }} follows
+suit, taking its inspiration from {{ keatss_lastname_endymion }}. It is the
+story of the shepherd Endymion, who falls in love with the moon goddess
+Cynthia. This relationship shapes both works.
 
 One of the main themes of {{ keatss_lastname_endymion }} is the pairing of the
-mortal and the immortal, the earthly and the divine. We see these pairings in
-{{ this_book }} as well. Aenea is a messianic figure, a mix of humanity and the
-divine. The Pax have given up on the divine and instead turned to technology to
-grant immortality through the cruciform parasite, rather than true spiritual
-immortality through evolving toward godhood. Just as in {{ hyperion }} and {{
-fall_hyperion }}, things must "die into life," and the Pax has refused death.
-<!-- Other examples of die into life -->
+mortal and the immortal, the earthly and the divine, and we see those same
+pairings in {{ this_book }} as well. Aenea is a messianic figure, a mix of
+humanity and the divine. The Pax, by contrast, have given up on the divine and
+turned to technology, granting immortality through the cruciform parasite
+instead of true spiritual immortality through evolving toward godhood. Just as
+in {{ hyperion }} and {{ fall_hyperion }}, things must "die into life", but
+the Pax, like the Hegemony before it, has refused death and chosen stagnation.
 
 {{ this_book }} follows the structure of Endymion's journey in the {{
 endymion_keats }}, with Raul visiting the underworld (the ice cave of Sol
