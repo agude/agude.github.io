@@ -23,12 +23,13 @@ module Jekyll
           @site = registers&.[](:site)
         end
 
-        def resolve(title_raw, text_override, author_filter, date_filter = nil)
+        def resolve(title_raw, text_override, author_filter, date_filter = nil, cite: true)
           return fallback(title_raw) unless @site
 
           @title = title_raw.to_s
           @norm_title = Text.normalize_title(@title)
           @date_filter = normalize_date_filter(date_filter)
+          @cite = cite
           return log_empty_title if @norm_title.empty?
 
           candidates = find_candidates
@@ -51,7 +52,11 @@ module Jekyll
         private
 
         def fallback(title)
-          Jekyll::Books::Core::BookLinkUtils._build_book_cite_element(title.to_s)
+          if @cite == false
+            Jekyll::Books::Core::BookLinkUtils._build_book_text_element(title.to_s)
+          else
+            Jekyll::Books::Core::BookLinkUtils._build_book_cite_element(title.to_s)
+          end
         end
 
         def log_empty_title
@@ -203,7 +208,12 @@ module Jekyll
                     else
                       book_data['title']
                     end
-          Jekyll::Books::Core::BookLinkUtils.render_book_link_from_data(display, book_data['url'], @context)
+          Jekyll::Books::Core::BookLinkUtils.render_book_link_from_data(
+            display,
+            book_data['url'],
+            @context,
+            cite: @cite
+          )
         end
       end
     end

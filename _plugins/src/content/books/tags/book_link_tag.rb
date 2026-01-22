@@ -11,13 +11,13 @@ require_relative '../../../infrastructure/tag_argument_utils'
 # Liquid Tag for creating a link to a book page, wrapped in <cite>.
 # Handles optional display text override and author disambiguation.
 # Arguments can be in flexible order after the title.
-# Usage: {% book_link "Title" [link_text="Display Text"] [author="Author Name"] %}
+# Usage: {% book_link "Title" [link_text="Display Text"] [author="Author Name"] [cite=false] %}
 module Jekyll
   #        {% book_link variable [link_text=var2] [author=var3] %}
   module Books
     module Tags
       # Liquid tag for creating a link to a book page.
-      # Supports optional display text override and author disambiguation.
+      # Supports optional display text override, author disambiguation, and cite toggle.
       class BookLinkTag < Liquid::Tag
         # Keep QuotedFragment handy for parsing values
         QuotedFragment = Liquid::QuotedFragment
@@ -33,6 +33,7 @@ module Jekyll
           @title_markup = nil
           @link_text_markup = nil
           @author_markup = nil
+          @cite_markup = nil
 
           parse_markup(markup)
         end
@@ -43,9 +44,10 @@ module Jekyll
           book_title = TagArgs.resolve_value(@title_markup, context)
           link_text_override = (TagArgs.resolve_value(@link_text_markup, context) if @link_text_markup)
           author_filter = (TagArgs.resolve_value(@author_markup, context) if @author_markup)
+          cite_arg = cite_enabled?(context)
 
-          # Call the centralized utility function from Jekyll::Books::Core::BookLinkUtils with the new author argument
-          Linker.render_book_link(book_title, context, link_text_override, author_filter)
+          # Call the centralized utility function
+          Linker.render_book_link(book_title, context, link_text_override, author_filter, nil, cite: cite_arg)
         end
 
         private
@@ -76,6 +78,8 @@ module Jekyll
               @link_text_markup ||= scanner[1] # Take the first one found
             elsif scanner.scan(/author\s*=\s*(#{QuotedFragment})/)
               @author_markup ||= scanner[1] # Take the first one found
+            elsif scanner.scan(/cite\s*=\s*(#{QuotedFragment})/)
+              @cite_markup ||= scanner[1]
             else
               handle_unknown_argument(scanner)
             end
@@ -93,6 +97,14 @@ module Jekyll
 
           raise Liquid::SyntaxError,
                 "Syntax Error in 'book_link': Title value is missing or empty in '#{@raw_markup}'"
+        end
+
+        # Returns true unless cite= is explicitly set to 'false'
+        def cite_enabled?(context)
+          return true unless @cite_markup
+
+          value = TagArgs.resolve_value(@cite_markup, context)
+          value.to_s.downcase != 'false'
         end
       end
     end
