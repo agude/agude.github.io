@@ -26,7 +26,6 @@ immortality.
 {% capture rise_of_endymion %}{% book_link "The Rise of Endymion" %}{% endcapture %}
 
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
-{% capture keats_lastname %}{% author_link "John Keats" link_text="Keats" %}{% endcapture %}
 {% capture keatss_lastname %}{% author_link "John Keats" link_text="Keats" possessive %}{% endcapture %}
 {% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" %}{% endcapture %}
 {% capture fall_keats %}{% book_link "The Fall of Hyperion" author="John Keats" %}{% endcapture %}
