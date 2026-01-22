@@ -75,6 +75,7 @@ ranked_list:
   - Not Till We Are Lost
   - For We Are Many
   - Ymir
+  - Endymion
   - City on Fire
   - All These Worlds
   # 3 Stars
