@@ -89,6 +89,8 @@ suit, taking its inspiration from {{ keatss_lastname_endymion }}. It is the
 story of the shepherd Endymion, who falls in love with the moon goddess
 Cynthia. This relationship shapes both works.
 
+### Themes
+
 One of the main themes of {{ keatss_lastname_endymion }} is the pairing of the
 mortal and the immortal, the earthly and the divine, and we see those same
 pairings in {{ this_book }} as well. Aenea is a messianic figure, a mix of
@@ -98,69 +100,74 @@ instead of true spiritual immortality through evolving toward godhood. Just as
 in {{ hyperion }} and {{ fall_hyperion }}, things must "die into life", but
 the Pax, like the Hegemony before it, has refused death and chosen stagnation.
 
-{{ this_book }} follows the structure of Endymion's journey in the {{
-endymion_keats }}, with Raul visiting the underworld (the ice cave of Sol
-Draconi Septem), the ocean floor (Mare Infinitus), and meeting
-[Glaucus][glaucus]. But it is influenced by other literature as well. The
-journey as a voyage on a raft comes from {{ twains }} {{ huck_finn }}, with the
-formerly enslaved android Bettik standing in as a Jim figure. {{
-the_authors_lastname }}, as he has done throughout the series, also likens his
-characters to those from {{ baums_lastname }} {{ wizard_of_oz }}.
+The story in {{ this_book }} follows the structure of Endymion's journey in
+the {{ endymion_keats }}, with Raul visiting the underworld (the ice cave of
+Sol Draconi Septem), the ocean floor (Mare Infinitus), and meeting
+[Glaucus][glaucus]. It is influenced by other literature as well. The raft
+voyage itself comes from {{ twains }} {{ huck_finn }}, with the formerly
+enslaved android Bettik standing in as a Jim figure. {{ the_authors_lastname }},
+as he has done throughout the series, also likens his characters to those from
+{{ baums_lastname }} {{ wizard_of_oz }}.
 
 [glaucus]: https://en.wikipedia.org/wiki/Glaucus
 
+### Story
+
 There was a lot I enjoyed in {{ this_book }}. The nominal antagonist, Federico
-de Soya, is sympathetic even as he tries to capture the heroes. His slow
+de Soya, is sympathetic even as he works against the heroes. His slow
 realization that the Pax isn't the salvation of humanity he thought it was is
 haunting. The pacing, once the real antagonist---Rhadamanth Nemes---is
-revealed, is perfect. I couldn't stop turning the pages. The additional
+revealed, is excellent, and I couldn't stop turning the pages. The additional
 worldbuilding, showing how the universe has changed in 300 years, is also
 really interesting, especially how humanity reacts to true resurrection and
 the horrifying technology it enables. The freed android Bettik is another
 great character: searching for his family, unwaveringly loyal and competent,
 and unfortunately underutilized.
 
-But for all that, this book is good, but not great. The pacing is too slow:
-Nemes isn't even introduced until the last quarter. Raul and Aenea are
-annoying---Raul because he spends most of the narrative passive, and then screws
-things up when he finally acts; Aenea because she is supposed to be a mix of an
-immature twelve-year-old and an all-knowing messiah, but instead comes off as
-inconsistent. She keeps talking about how they will someday be lovers, which
-is weird given how young she is, and so {{ the_authors_lastname }} has to keep
-throwing in awkward narrator notes reminding us that Raul is not a pedophile
-and does not find her attractive. At the same time, {{ the_authors_lastname }}
-makes winking allusions to {{ nabokov }} and {{ lolita }}.
+But for all that, this book is good, not great. The pacing is too slow
+overall: Nemes isn't even introduced until the last quarter. Raul and Aenea
+are both annoying---Raul because he spends most of the narrative passive, and
+then screws things up when he finally acts; Aenea because she is supposed to
+be a mix of an immature twelve-year-old and an all-knowing messiah, but
+instead comes off as inconsistent. She keeps talking about how they will
+someday be lovers, which is uncomfortable given how young she is, and so {{
+the_authors_lastname }} has to keep throwing in awkward narrator notes
+reminding us that Raul is not a pedophile and does not find her attractive. At
+the same time, {{ the_authors_lastname }} makes winking allusions to {{
+nabokov }} and {{ lolita }}.
+
+### Literary References
 
 {{ the_authors_lastname }} always includes a lot of references to literature
-and pop culture in his {{ series_link }}. The raft voyage, as mentioned, is
-like Huck and Jim's trip down the Mississippi in {{ huck_finn }}. Raul as
-narrator, writing the story of his and Aenea's lives with authorial
-interjections, is like Severian writing his story in {{ wolfes_lastname }} {{
-botns }}. Nemes's use of monofilament wire to slice the raft in half is a
-direct reference to a trap used in {{ brunners_lastname }} {{
-stand_on_zanzibar }}, and later reused in {{ lius_lastname }} {{ three_body }}.
-Nemes herself is a lot like the T-1000 from {{ terminator_2 }}. She is a chrome,
-shapeshifting, time-traveling assassin sent through time by a machine
+and pop culture in his {{ series_link }}, and this book is no exception. The
+raft voyage, as mentioned, is like Huck and Jim's trip down the Mississippi in
+{{ huck_finn }}. Raul as narrator, writing the story of his and Aenea's lives
+with authorial interjections, is like Severian writing his story in {{
+wolfes_lastname }} {{ botns }}. Nemes's use of monofilament wire to slice the
+raft in half is a direct reference to a trap used in {{ brunners_lastname }}
+{{ stand_on_zanzibar }}, and later reused in {{ lius_lastname }} {{ three_body
+}}. Nemes herself is a lot like the T-1000 from {{ terminator_2 }}. She is a
+chrome, shapeshifting, time-traveling assassin sent through time by a machine
 intelligence to kill a messianic child, who is protected by the previous
-iteration of a time-traveling assassin---the Shrike. Nemes is defeated by being
-sunk into a pool of molten rock after the Shrike fails to defeat her in single
-combat.
+iteration of a time-traveling assassin---the Shrike. Nemes is defeated by
+being sunk into a pool of molten rock after the Shrike fails to defeat her in
+single combat.
 
-There are also small parts of the book that reminded me of other works I've
-read. The Pax remind me of Gilead from {{ atwoods_lastname }} {{
-handmaids_tale }}. Their ban on AI is similar to the Butlerian Jihad from {{
-herberts_lastname }} {{ dune }}. The Swiss Guard in power armor act like the
-Mobile Infantry in {{ heinleins_lastname }} {{ starship_troopers }}. The
-Schrödinger's Cat Box execution method reminds me of the unorthodox execution
-used on Horza in {{ bankss_lastname }} {{ consider_phlebas }}. I appreciated
-that androids have "Asimotivation," modeled after {{ asimovs_lastname }} Three
-Laws from {{ i_robot }}. The journey on the river felt like Ozzy's trip in {{
-pandoras_star }} and {{ judas_unchained }}. The A. and M. honorifics to
-indicate species remind me of the hand gestures used to indicate pronouns in
-{{ alexs_lastname }} {{ mote }}. Being trapped in the ice cave reminded me of
-being trapped in the nautilus in {{ langtons_lastname }} {{ diamond_window }}.
-The time-travel-based love story is similar to {{ el_mohtar_lastname }} and {{
-gladstones_lastname }} {{ time_war }}.
+Besides those major influences, there are also smaller moments that reminded
+me of other works I've read. The Pax resemble Gilead from {{ atwoods_lastname
+}} {{ handmaids_tale }}. Their ban on AI is similar to the Butlerian Jihad
+from {{ herberts_lastname }} {{ dune }}. The Swiss Guard in power armor act
+like the Mobile Infantry in {{ heinleins_lastname }} {{ starship_troopers }}.
+The Schrödinger's Cat Box execution method reminds me of the unorthodox
+execution used on Horza in {{ bankss_lastname }} {{ consider_phlebas }}. I
+appreciated that androids have "Asimotivation," modeled after {{
+asimovs_lastname }} Three Laws from {{ i_robot }}. The journey on the river
+felt like Ozzy's trip in {{ pandoras_star }} and {{ judas_unchained }}. The A.
+and M. honorifics to indicate species remind me of the hand gestures used to
+indicate pronouns in {{ alexs_lastname }} {{ mote }}. Being trapped in the ice
+cave reminded me of being trapped in the nautilus in {{ langtons_lastname }}
+{{ diamond_window }}. The time-travel-based love story is similar to {{
+el_mohtar_lastname }} and {{ gladstones_lastname }} {{ time_war }}.
 
 I was tempted to take a break before tackling {{ rise_of_endymion }}, which is
 even longer than this book, but instead I decided to pick it up immediately
