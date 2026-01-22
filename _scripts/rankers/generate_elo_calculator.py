@@ -8,6 +8,7 @@ import yaml
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, "../.."))
 BOOKS_DIR = os.path.join(PROJECT_ROOT, "_books")
+RANKING_FILE = os.path.join(PROJECT_ROOT, "books", "by_rating.md")
 OUTPUT_FILE = os.path.join(SCRIPT_DIR, "elo_calculator_tool.html")
 
 # --- HTML Template ---
@@ -52,7 +53,7 @@ HTML_TEMPLATE = """
         <div id="assignment-panel" class="panel">
             <h2>1. Assign ELO to Ordered List</h2>
             <p>Paste your ordered list (one title per line, e.g., from the sorting tool).</p>
-            <textarea id="initial-list" placeholder="  - Title A&#10;  - - Title B&#10;  - Title C"></textarea>
+            <textarea id="initial-list">__DEFAULT_RANKING__</textarea>
             <div class="config-item">
                 <label for="base-elo">Base ELO:</label>
                 <input type="number" id="base-elo" value="1200">
@@ -89,7 +90,12 @@ HTML_TEMPLATE = """
     </div>
 
     <script>
-        const BOOKS_DATA_MAP = __BOOKS_DATA_MAP__;
+        const BOOKS_DATA_MAP_RAW = __BOOKS_DATA_MAP__;
+        // Create a case-insensitive lookup map
+        const BOOKS_DATA_MAP = {};
+        for (const [key, value] of Object.entries(BOOKS_DATA_MAP_RAW)) {
+            BOOKS_DATA_MAP[key.toLowerCase()] = value;
+        }
         let ratedBooks = []; // Holds { title, elo }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -144,8 +150,10 @@ HTML_TEMPLATE = """
                 item.dataset.title = book.title;
                 item.dataset.elo = book.elo;
 
-                const bookData = BOOKS_DATA_MAP[book.title] || { image: '' };
-                const imageHtml = bookData.image ? `<img src="../../${bookData.image}" alt="${book.title}">` : '';
+                const bookData = BOOKS_DATA_MAP[book.title.toLowerCase()] || { image: '' };
+                // Strip leading slash from image path to avoid double-slash in relative path
+                const imagePath = bookData.image ? bookData.image.replace(/^\\//, '') : '';
+                const imageHtml = imagePath ? `<img src="../../${imagePath}" alt="${book.title}">` : '';
 
                 let actionsHtml = '';
                 if (type === 'source') {
@@ -280,13 +288,42 @@ def extract_book_data_map():
     return book_map
 
 
+def extract_default_ranking():
+    """
+    Reads the ranking file and extracts the ordered list of book titles.
+    """
+    if not os.path.isfile(RANKING_FILE):
+        print(f"Warning: Ranking file '{RANKING_FILE}' not found.")
+        return []
+    try:
+        with open(RANKING_FILE, "r", encoding="utf-8") as f:
+            content = f.read()
+        match = re.search(r"\A---\s*\n(.*?)\n---\s*", content, re.DOTALL)
+        if not match:
+            return []
+        data = yaml.safe_load(match.group(1))
+        return data.get("ranked_list", [])
+    except Exception as e:
+        print(f"An error occurred reading ranking file: {e}")
+        return []
+
+
 def main():
     """Main execution: generates data and writes the self-contained HTML tool."""
     print(f"Reading book files from '{BOOKS_DIR}'...")
     book_map = extract_book_data_map()
     print(f"Found data for {len(book_map)} books.")
+
+    print(f"Reading default ranking from '{RANKING_FILE}'...")
+    default_ranking = extract_default_ranking()
+    print(f"Found {len(default_ranking)} books in ranking.")
+
+    # Format the default ranking as YAML-style list
+    default_ranking_text = "\n".join(f"  - {title}" for title in default_ranking)
+
     book_map_json = json.dumps(book_map, indent=2)
     final_html = HTML_TEMPLATE.replace("__BOOKS_DATA_MAP__", book_map_json)
+    final_html = final_html.replace("__DEFAULT_RANKING__", default_ranking_text)
     try:
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             f.write(final_html)
