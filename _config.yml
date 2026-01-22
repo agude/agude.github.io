@@ -171,3 +171,5 @@ feed:
   post_limit: 100
   collections:
     - books
+
+timezone: America/Los_Angeles
