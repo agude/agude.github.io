@@ -10,15 +10,16 @@ image: /books/covers/endymion.jpg
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
 class="author-name">{{ page.book_authors }}</span>, is the third book in the
-<span class="book-series">{{ page.series }}</span> series. It follows a new
-cast of characters---Aenea, Raul, and Bettik---as they flee the oppressive
-forces of the Pax via a raft on the River Tethys. Set centuries after the
-earlier books, the story reveals a galaxy reshaped by the Church and its dark
-covenant of immortality.
+<span class="book-series">{{ page.series }}</span>. It follows a new cast of
+characters---Aenea, Raul, and Bettik---as they flee the oppressive forces of
+the Pax via a raft on the River Tethys. Set centuries after the earlier books,
+the story reveals a galaxy reshaped by the Church and its dark covenant of
+immortality.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture series_link %}{% series_link page.series %}{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
+{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
 
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 {% capture fall_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
@@ -29,6 +30,7 @@ covenant of immortality.
 {% capture keatss_lastname %}{% author_link "John Keats" link_text="Keats" possessive %}{% endcapture %}
 {% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" %}{% endcapture %}
 {% capture fall_keats %}{% book_link "The Fall of Hyperion" author="John Keats" %}{% endcapture %}
+{% capture endymion_keats_same_name %}{% book_link "Endymion" author="John Keats" cite=false link_text="poem of the same name" %}{% endcapture %}
 {% capture endymion_keats %}{% book_link "Endymion" author="John Keats" cite=false link_text="poem" %}{% endcapture %}
 {% capture endymion_keats_name %}{% book_link "Endymion" author="John Keats" %}{% endcapture %}
 {% capture keatss_lastname_endymion %}{{ keatss_lastname }} {{ endymion_keats_name }}{% endcapture %}
@@ -83,22 +85,25 @@ covenant of immortality.
 
 {% capture terminator_2 %}<cite class="movie-title">Terminator 2: Judgment Day</cite>{% endcapture %}
 
-{{ hyperion }} and {{ fall_hyperion }} both model their plots and themes on {{
-keatss }} {{ hyperion_keats }} and {{ fall_keats }}. {{ this_book }} follows
-suit, taking its inspiration from {{ keatss_lastname_endymion }}. It is the
-story of the shepherd Endymion, who falls in love with the moon goddess
-Cynthia. This relationship shapes both works.
+{{ the_authors_lastname_possessive }} {{ hyperion }} and {{ fall_hyperion }}
+model their plots and themes on {{ keatss }} {{ hyperion_keats }} and {{
+fall_keats }}. {{ this_book }} follows suit, taking its inspiration from {{
+keatss_lastname }} {{ endymion_keats_same_name }}. It is the story of the
+mortal shepherd Endymion, who falls in love with the moon goddess Cynthia.
+This relationship shapes both works.
 
 ### Themes
 
 One of the main themes of {{ keatss_lastname_endymion }} is the pairing of the
 mortal and the immortal, the earthly and the divine, and we see those same
-pairings in {{ this_book }} as well. Aenea is a messianic figure, a mix of
-humanity and the divine. The Pax, by contrast, have given up on the divine and
-turned to technology, granting immortality through the cruciform parasite
-instead of true spiritual immortality through evolving toward godhood. Just as
-in {{ hyperion }} and {{ fall_hyperion }}, things must "die into life", but
-the Pax, like the Hegemony before it, has refused death and chosen stagnation.
+pairings in {{ the_authors_lastname_possessive }} {{ this_book }} as well.
+Aenea is a messianic figure, a mix of humanity and the divine. The coming
+Teilhardian human god, created from humanity evolving to godhood, is the same.
+By contrast, the Pax have given up on the divine and turned to technology,
+granting immortality through the cruciform parasite instead of true spiritual
+immortality. Just as in {{ hyperion }} and {{ fall_hyperion }}, things must
+"die into life", but the Pax, like the Hegemony before it, has refused death
+and chosen stagnation.
 
 The story in {{ this_book }} follows the structure of Endymion's journey in
 the {{ endymion_keats }}, with Raul visiting the underworld (the ice cave of
@@ -129,12 +134,13 @@ overall: Nemes isn't even introduced until the last quarter. Raul and Aenea
 are both annoying---Raul because he spends most of the narrative passive, and
 then screws things up when he finally acts; Aenea because she is supposed to
 be a mix of an immature twelve-year-old and an all-knowing messiah, but
-instead comes off as inconsistent. She keeps talking about how they will
-someday be lovers, which is uncomfortable given how young she is, and so {{
-the_authors_lastname }} has to keep throwing in awkward narrator notes
-reminding us that Raul is not a pedophile and does not find her attractive. At
-the same time, {{ the_authors_lastname }} makes winking allusions to {{
-nabokov }} and {{ lolita }}.
+instead comes off as flipping back and forth between the two. Further, she
+keeps talking about how she and Raul will someday be lovers, which is
+uncomfortable given how young she is, and so {{ the_authors_lastname }} has to
+keep throwing in awkward narrator notes reminding us that Raul is not a
+pedophile and does not find her attractive. At the same time, {{
+the_authors_lastname }} makes winking allusions to {{ nabokov }} and {{ lolita
+}}.
 
 ### Literary References
 
@@ -149,8 +155,8 @@ trap used in {{ brunners_lastname }} {{ stand_on_zanzibar }}, and later reused
 in {{ lius_lastname }} {{ three_body }}. Nemes herself is also clearly modeled
 on the T-1000 from {{ terminator_2 }}: a chrome, shapeshifting, time-traveling
 assassin sent by a machine intelligence to kill a messianic child, and
-defeated only after being sunk into molten rock when the previous assassin,
-the Shrike, fails to stop her in single combat.
+defeated only after being sunk into molten rock when the previous
+assassin-turned-bodyguard, the Shrike, fails to stop her in single combat.
 
 Beyond those major influences, there are also smaller moments that reminded me
 of other works I've read. The Pax are similar to Gilead from {{
@@ -159,15 +165,15 @@ Butlerian Jihad from {{ herberts_lastname }} {{ dune }}. The Swiss Guard in
 power armor act like the Mobile Infantry in {{ heinleins_lastname }} {{
 starship_troopers }}. The Schrödinger's Cat Box execution method reminded me
 of the unorthodox execution used on Horza in {{ bankss_lastname }} {{
-consider_phlebas }}. I appreciated that androids have "Asimotivation", modeled
-after {{ asimovs_lastname }} Three Laws from {{ i_robot }}. The river journey
-felt like Ozzy's trip with the Silfen in {{ pandoras_star }} and {{
-judas_unchained }}. The A. and M. honorifics to indicate species remind me of
-the hand gestures used to indicate pronouns in {{ alexs_lastname }} {{ mote
-}}. Being trapped in the ice cave reminded me of being trapped in the nautilus
-in {{ langtons_lastname }} {{ diamond_window }}. The time-travel-based love
-story is similar to {{ el_mohtar_lastname }} and {{ gladstones_lastname }} {{
-time_war }}.
+consider_phlebas }}. I loved that androids have "Asimotivation", modeled after
+{{ asimovs_lastname }} Three Laws from {{ i_robot }}. The river journey felt
+like Ozzy's trip with the Silfen in {{ pandoras_star }} and {{ judas_unchained
+}}. The A. and M. honorifics to indicate species was similar to the hand
+gestures used to indicate pronouns in {{ alexs_lastname }} {{ mote }}. Being
+trapped in the ice cave reminded me of being trapped in the nautilus in {{
+langtons_lastname }} {{ diamond_window }}. The time-travel-based love story is
+similar to {{ el_mohtar_lastname }} and {{ gladstones_lastname }} {{ time_war
+}}.
 
 I was tempted to take a break before tackling {{ rise_of_endymion }}, which is
 even longer than this book, but instead I decided to pick it up immediately
