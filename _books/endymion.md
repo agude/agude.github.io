@@ -99,7 +99,7 @@ mortal and the immortal, the earthly and the divine, and we see those same
 pairings in {{ the_authors_lastname_possessive }} {{ this_book }} as well.
 Aenea is a messianic figure, a mix of humanity and the divine. The coming
 Teilhardian human god, created from humanity evolving to godhood, is the same.
-By contrast, the Pax have given up on the divine and turned to technology,
+By contrast, the Pax has given up on the divine and turned to technology,
 granting immortality through the cruciform parasite instead of true spiritual
 immortality. Just as in {{ hyperion }} and {{ fall_hyperion }}, things must
 "die into life", but the Pax, like the Hegemony before it, has refused death
@@ -107,7 +107,7 @@ and chosen stagnation.
 
 The story in {{ this_book }} follows the structure of Endymion's journey in
 the {{ endymion_keats }}, with Raul visiting the underworld (the ice cave of
-Sol Draconi Septem), the ocean floor (Mare Infinitus), and meeting
+Sol Draconi Septem) and the ocean floor (Mare Infinitus), and meeting
 [Glaucus][glaucus]. It is influenced by other literature as well. The raft
 voyage itself comes from {{ twains }} {{ huck_finn }}, with the formerly
 enslaved android Bettik standing in as a Jim figure. {{ the_authors_lastname
@@ -159,21 +159,20 @@ defeated only after being sunk into molten rock when the previous
 assassin-turned-bodyguard, the Shrike, fails to stop her in single combat.
 
 Beyond those major influences, there are also smaller moments that reminded me
-of other works I've read. The Pax are similar to Gilead from {{
-atwoods_lastname }} {{ handmaids_tale }}. Their ban on AI is like the
-Butlerian Jihad from {{ herberts_lastname }} {{ dune }}. The Swiss Guard in
-power armor act like the Mobile Infantry in {{ heinleins_lastname }} {{
-starship_troopers }}. The Schrödinger's Cat Box execution method reminded me
-of the unorthodox execution used on Horza in {{ bankss_lastname }} {{
-consider_phlebas }}. I loved that androids have "Asimotivation", modeled after
-{{ asimovs_lastname }} Three Laws from {{ i_robot }}. The river journey felt
-like Ozzy's trip with the Silfen in {{ pandoras_star }} and {{ judas_unchained
-}}. The A. and M. honorifics to indicate species was similar to the hand
-gestures used to indicate pronouns in {{ alexs_lastname }} {{ mote }}. Being
-trapped in the ice cave reminded me of being trapped in the nautilus in {{
-langtons_lastname }} {{ diamond_window }}. The time-travel-based love story is
-similar to {{ el_mohtar_lastname }} and {{ gladstones_lastname }} {{ time_war
-}}.
+of other works I've read. The Pax is similar to Gilead from {{
+atwoods_lastname }} {{ handmaids_tale }}. Its ban on AI is like the Butlerian
+Jihad from {{ herberts_lastname }} {{ dune }}. The Swiss Guard in power armor
+acts like the Mobile Infantry in {{ heinleins_lastname }} {{ starship_troopers
+}}. The Schrödinger's Cat Box execution method reminded me of the unorthodox
+execution used on Horza in {{ bankss_lastname }} {{ consider_phlebas }}. I
+loved that androids have "Asimotivation", modeled after {{ asimovs_lastname }}
+Three Laws from {{ i_robot }}. The river journey felt like Ozzy's trip with
+the Silfen in {{ pandoras_star }} and {{ judas_unchained }}. The A. and M.
+honorifics to indicate species were similar to the hand gestures used to
+indicate pronouns in {{ alexs_lastname }} {{ mote }}. Being trapped in the ice
+cave reminded me of being trapped in the nautilus in {{ langtons_lastname }}
+{{ diamond_window }}. The time-travel-based love story is similar to {{
+el_mohtar_lastname }} and {{ gladstones_lastname }} {{ time_war }}.
 
 I was tempted to take a break before tackling {{ rise_of_endymion }}, which is
 even longer than this book, but instead I decided to pick it up immediately
