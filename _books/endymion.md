@@ -105,9 +105,9 @@ the {{ endymion_keats }}, with Raul visiting the underworld (the ice cave of
 Sol Draconi Septem), the ocean floor (Mare Infinitus), and meeting
 [Glaucus][glaucus]. It is influenced by other literature as well. The raft
 voyage itself comes from {{ twains }} {{ huck_finn }}, with the formerly
-enslaved android Bettik standing in as a Jim figure. {{ the_authors_lastname }},
-as he has done throughout the series, also likens his characters to those from
-{{ baums_lastname }} {{ wizard_of_oz }}.
+enslaved android Bettik standing in as a Jim figure. {{ the_authors_lastname
+}}, as he has done throughout the series, also likens his characters to those
+from {{ baums_lastname }} {{ wizard_of_oz }}.
 
 [glaucus]: https://en.wikipedia.org/wiki/Glaucus
 
@@ -139,35 +139,35 @@ nabokov }} and {{ lolita }}.
 ### Literary References
 
 {{ the_authors_lastname }} always includes a lot of references to literature
-and pop culture in his {{ series_link }}, and this book is no exception. The
-raft voyage, as mentioned, is like Huck and Jim's trip down the Mississippi in
-{{ huck_finn }}. Raul as narrator, writing the story of his and Aenea's lives
-with authorial interjections, is like Severian writing his story in {{
-wolfes_lastname }} {{ botns }}. Nemes's use of monofilament wire to slice the
-raft in half is a direct reference to a trap used in {{ brunners_lastname }}
-{{ stand_on_zanzibar }}, and later reused in {{ lius_lastname }} {{ three_body
-}}. Nemes herself is a lot like the T-1000 from {{ terminator_2 }}. She is a
-chrome, shapeshifting, time-traveling assassin sent through time by a machine
-intelligence to kill a messianic child, who is protected by the previous
-iteration of a time-traveling assassin---the Shrike. Nemes is defeated by
-being sunk into a pool of molten rock after the Shrike fails to defeat her in
-single combat.
+and pop culture in his {{ series_link }}, and this book is no exception. Some
+of these influences are structural. The raft voyage, as mentioned, is like
+Huck and Jim's trip down the Mississippi in {{ huck_finn }}. Raul as narrator,
+writing the story of his and Aenea's lives with authorial interjections, is
+like Severian writing his story in {{ wolfes_lastname }} {{ botns }}. Nemes's
+use of monofilament wire to slice the raft in half is a direct reference to a
+trap used in {{ brunners_lastname }} {{ stand_on_zanzibar }}, and later reused
+in {{ lius_lastname }} {{ three_body }}. Nemes herself is also clearly modeled
+on the T-1000 from {{ terminator_2 }}: a chrome, shapeshifting, time-traveling
+assassin sent by a machine intelligence to kill a messianic child, and
+defeated only after being sunk into molten rock when the previous assassin,
+the Shrike, fails to stop her in single combat.
 
-Besides those major influences, there are also smaller moments that reminded
-me of other works I've read. The Pax resemble Gilead from {{ atwoods_lastname
-}} {{ handmaids_tale }}. Their ban on AI is similar to the Butlerian Jihad
-from {{ herberts_lastname }} {{ dune }}. The Swiss Guard in power armor act
-like the Mobile Infantry in {{ heinleins_lastname }} {{ starship_troopers }}.
-The Schrödinger's Cat Box execution method reminds me of the unorthodox
-execution used on Horza in {{ bankss_lastname }} {{ consider_phlebas }}. I
-appreciated that androids have "Asimotivation," modeled after {{
-asimovs_lastname }} Three Laws from {{ i_robot }}. The journey on the river
-felt like Ozzy's trip in {{ pandoras_star }} and {{ judas_unchained }}. The A.
-and M. honorifics to indicate species remind me of the hand gestures used to
-indicate pronouns in {{ alexs_lastname }} {{ mote }}. Being trapped in the ice
-cave reminded me of being trapped in the nautilus in {{ langtons_lastname }}
-{{ diamond_window }}. The time-travel-based love story is similar to {{
-el_mohtar_lastname }} and {{ gladstones_lastname }} {{ time_war }}.
+Beyond those major influences, there are also smaller moments that reminded me
+of other works I've read. The Pax are similar to Gilead from {{
+atwoods_lastname }} {{ handmaids_tale }}. Their ban on AI is like the
+Butlerian Jihad from {{ herberts_lastname }} {{ dune }}. The Swiss Guard in
+power armor act like the Mobile Infantry in {{ heinleins_lastname }} {{
+starship_troopers }}. The Schrödinger's Cat Box execution method reminded me
+of the unorthodox execution used on Horza in {{ bankss_lastname }} {{
+consider_phlebas }}. I appreciated that androids have "Asimotivation", modeled
+after {{ asimovs_lastname }} Three Laws from {{ i_robot }}. The river journey
+felt like Ozzy's trip with the Silfen in {{ pandoras_star }} and {{
+judas_unchained }}. The A. and M. honorifics to indicate species remind me of
+the hand gestures used to indicate pronouns in {{ alexs_lastname }} {{ mote
+}}. Being trapped in the ice cave reminded me of being trapped in the nautilus
+in {{ langtons_lastname }} {{ diamond_window }}. The time-travel-based love
+story is similar to {{ el_mohtar_lastname }} and {{ gladstones_lastname }} {{
+time_war }}.
 
 I was tempted to take a break before tackling {{ rise_of_endymion }}, which is
 even longer than this book, but instead I decided to pick it up immediately
