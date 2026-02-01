@@ -25,7 +25,7 @@ gem 'nokogiri', '~> 1.19'
 
 # Tests
 group :development, :test do
-  gem "html-proofer", "~> 5.0"
+  gem "html-proofer", "~> 5.2"
   gem 'minitest', '~> 6.0'
   gem 'minitest-mock', '~> 5.27'
   gem 'rake', '~> 13.0'      # For creating command-line tasks
