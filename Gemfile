@@ -29,7 +29,7 @@ group :development, :test do
   gem 'minitest', '~> 6.0'
   gem 'minitest-mock', '~> 5.27'
   gem 'rake', '~> 13.0'      # For creating command-line tasks
-  gem 'rubocop', '~> 1.82'   # For Ruby linting
+  gem 'rubocop', '~> 1.84'   # For Ruby linting
   gem 'simplecov', '~> 0.22' # For code coverage
   gem 'simplecov-json', '~> 0.2.3' # For generating JSON coverage reports
 end
