@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# List all plugin files without corresponding tests.
+# Usage: untested-plugins [--by-domain]
+
+set -euo pipefail
+
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+
+by_domain=false
+[[ "${1:-}" == "--by-domain" ]] && by_domain=true
+
+cd "$PROJECT_ROOT"
+
+total=0
+untested=0
+declare -A domain_untested
+
+while IFS= read -r plugin; do
+    total=$((total + 1))
+
+    relative="${plugin#_plugins/src/}"
+    dir="$(dirname "$relative")"
+    basename="$(basename "$relative" .rb)"
+    domain="${relative%%/*}"
+
+    test_pattern="_tests/src/$dir/test_${basename}*.rb"
+
+    if ! compgen -G "$test_pattern" > /dev/null 2>&1; then
+        untested=$((untested + 1))
+        if $by_domain; then
+            domain_untested["$domain"]+="$plugin"$'\n'
+        else
+            echo "$plugin"
+        fi
+    fi
+done < <(find _plugins/src -name "*.rb" | sort)
+
+if $by_domain; then
+    for domain in $(echo "${!domain_untested[@]}" | tr ' ' '\n' | sort); do
+        count=$(echo -n "${domain_untested[$domain]}" | grep -c '^' || true)
+        echo ""
+        echo "## $domain ($count)"
+        echo "${domain_untested[$domain]}" | sed 's/^/  /' | grep -v '^[[:space:]]*$'
+    done
+fi
+
+echo ""
+echo "---"
+echo "Total: $untested untested / $total plugins"

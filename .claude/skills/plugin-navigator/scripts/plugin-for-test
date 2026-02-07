@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# Given a test path, output the corresponding plugin path.
+# Usage: plugin-for-test _tests/src/infrastructure/test_url_utils.rb
+
+set -euo pipefail
+
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+
+if [[ $# -eq 0 ]]; then
+    echo "Usage: $(basename "$0") <test-path>" >&2
+    echo "Example: $(basename "$0") _tests/src/infrastructure/test_url_utils.rb" >&2
+    exit 1
+fi
+
+test_path="$1"
+test_path="${test_path#./}"
+
+if [[ ! "$test_path" =~ ^_tests/src/ ]]; then
+    echo "Error: Path must be under _tests/src/" >&2
+    exit 1
+fi
+
+relative="${test_path#_tests/src/}"
+dir="$(dirname "$relative")"
+basename="$(basename "$relative" .rb)"
+
+if [[ ! "$basename" =~ ^test_ ]]; then
+    echo "Error: Test file must start with 'test_'" >&2
+    exit 1
+fi
+
+# Remove test_ prefix
+plugin_basename="${basename#test_}"
+
+# Try exact match first
+plugin_path="$PROJECT_ROOT/_plugins/src/$dir/${plugin_basename}.rb"
+if [[ -f "$plugin_path" ]]; then
+    echo "_plugins/src/$dir/${plugin_basename}.rb"
+    exit 0
+fi
+
+# Try stripping suffixes (e.g., test_link_cache_generator_favorites -> link_cache_generator)
+IFS='_' read -ra parts <<< "$plugin_basename"
+for ((i=${#parts[@]}-1; i>=1; i--)); do
+    candidate=$(IFS='_'; echo "${parts[*]:0:i}")
+    candidate_path="$PROJECT_ROOT/_plugins/src/$dir/${candidate}.rb"
+    if [[ -f "$candidate_path" ]]; then
+        echo "_plugins/src/$dir/${candidate}.rb"
+        exit 0
+    fi
+done
+
+echo "ORPHAN"
+exit 1

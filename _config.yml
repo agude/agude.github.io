@@ -164,6 +164,7 @@ exclude:
     - _scripts
     - redirects.json
     - vendor
+    - .claude
 
 redirect_from:
     json: false

@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# Show test coverage statistics by domain.
+# Usage: coverage-stats
+
+set -euo pipefail
+
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+
+cd "$PROJECT_ROOT"
+
+declare -A domain_total
+declare -A domain_tested
+
+# Count plugins and tests per domain
+while IFS= read -r plugin; do
+    relative="${plugin#_plugins/src/}"
+    domain="${relative%%/*}"
+    dir="$(dirname "$relative")"
+    basename="$(basename "$relative" .rb)"
+
+    domain_total["$domain"]=$((${domain_total["$domain"]:-0} + 1))
+
+    test_pattern="_tests/src/$dir/test_${basename}*.rb"
+    if compgen -G "$test_pattern" > /dev/null 2>&1; then
+        domain_tested["$domain"]=$((${domain_tested["$domain"]:-0} + 1))
+    fi
+done < <(find _plugins/src -name "*.rb" | sort)
+
+echo "Plugin Test Coverage"
+echo "=================================================="
+echo ""
+
+grand_total=0
+grand_tested=0
+
+for domain in $(echo "${!domain_total[@]}" | tr ' ' '\n' | sort); do
+    total=${domain_total["$domain"]}
+    tested=${domain_tested["$domain"]:-0}
+    grand_total=$((grand_total + total))
+    grand_tested=$((grand_tested + tested))
+
+    pct=$((tested * 100 / total))
+
+    # Build progress bar
+    bar_filled=$((pct / 5))
+    bar_empty=$((20 - bar_filled))
+    bar=$(printf '#%.0s' $(seq 1 $bar_filled 2>/dev/null) || true)
+    bar+=$(printf -- '-%.0s' $(seq 1 $bar_empty 2>/dev/null) || true)
+
+    # Mark incomplete domains
+    if [[ $tested -eq $total ]]; then
+        marker="  "
+    else
+        marker="!!"
+    fi
+
+    printf "%s %-18s [%-20s] %3d%% (%d/%d)\n" "$marker" "$domain" "$bar" "$pct" "$tested" "$total"
+done
+
+echo ""
+echo "=================================================="
+grand_pct=$((grand_tested * 100 / grand_total))
+printf "   %-18s                       %3d%% (%d/%d)\n" "TOTAL" "$grand_pct" "$grand_tested" "$grand_total"

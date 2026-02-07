@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# List all test files without corresponding plugins.
+# Usage: orphan-tests
+
+set -euo pipefail
+
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+
+cd "$PROJECT_ROOT"
+
+orphan_count=0
+
+while IFS= read -r test_file; do
+    # Skip test_helper.rb
+    [[ "$(basename "$test_file")" == "test_helper.rb" ]] && continue
+
+    relative="${test_file#_tests/src/}"
+    dir="$(dirname "$relative")"
+    basename="$(basename "$relative" .rb)"
+
+    [[ ! "$basename" =~ ^test_ ]] && continue
+
+    plugin_basename="${basename#test_}"
+
+    # Try exact match
+    if [[ -f "_plugins/src/$dir/${plugin_basename}.rb" ]]; then
+        continue
+    fi
+
+    # Try stripping suffixes
+    found=false
+    IFS='_' read -ra parts <<< "$plugin_basename"
+    for ((i=${#parts[@]}-1; i>=1; i--)); do
+        candidate=$(IFS='_'; echo "${parts[*]:0:i}")
+        if [[ -f "_plugins/src/$dir/${candidate}.rb" ]]; then
+            found=true
+            break
+        fi
+    done
+
+    if ! $found; then
+        echo "$test_file"
+        orphan_count=$((orphan_count + 1))
+    fi
+done < <(find _tests/src -name "*.rb" | sort)
+
+echo ""
+echo "---"
+if [[ $orphan_count -eq 0 ]]; then
+    echo "No orphan tests found."
+else
+    echo "Total: $orphan_count orphan tests"
+fi
