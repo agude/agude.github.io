@@ -149,17 +149,19 @@ compress_html:
 # Excluded files from site
 exclude:
     - .venv/
+    - AGENTS.md
     - CLAUDE.md
     - CNAME
     - Dockerfile
+    - GEMINI.md
     - Gemfile
     - Gemfile.lock
     - LICENSE.md
     - Makefile
     - README.md
     - Rakefile
-    - _scripts
     - _coverage
+    - _scripts
     - redirects.json
     - vendor
 
