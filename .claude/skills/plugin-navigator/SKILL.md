@@ -18,23 +18,23 @@ Run from project root:
 # Find plugin for a test
 .claude/skills/plugin-navigator/scripts/plugin-for-test _tests/src/infrastructure/test_url_utils.rb
 
-# List all untested plugins
-.claude/skills/plugin-navigator/scripts/untested-plugins
-.claude/skills/plugin-navigator/scripts/untested-plugins --by-domain
+# Coverage summary
+.claude/skills/plugin-navigator/scripts/coverage-stats
+
+# List untested plugins
+.claude/skills/plugin-navigator/scripts/coverage-stats --list-missing
+.claude/skills/plugin-navigator/scripts/coverage-stats --list-missing --by-domain
 
 # List orphan tests (no matching plugin)
 .claude/skills/plugin-navigator/scripts/orphan-tests
-
-# Coverage summary by domain
-.claude/skills/plugin-navigator/scripts/coverage-stats
 ```
 
 ## Naming Convention
 
 - Plugin: `_plugins/src/{path}/{name}.rb`
-- Test: `_tests/src/{path}/test_{name}.rb`
+- Test: `_tests/src/{path}/test_{name}.rb` or `_tests/src/{path}/test_{name}_*.rb`
 
-Some plugins have multiple test files (e.g., `test_link_cache_generator.rb`, `test_link_cache_generator_favorites.rb`).
+Matching is precise: `test_user.rb` and `test_user_integration.rb` match `user.rb`, but `test_user_profile.rb` does NOT match `user.rb` (it matches `user_profile.rb`).
 
 ## Architecture
 

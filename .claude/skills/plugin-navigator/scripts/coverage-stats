@@ -1,63 +1,73 @@
 #!/usr/bin/env bash
 # Show test coverage statistics by domain.
-# Usage: coverage-stats
+# Usage: coverage-stats [--list-missing] [--by-domain]
 
 set -euo pipefail
-
-PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+source "$(dirname "${BASH_SOURCE[0]}")/lib/common.sh"
 
 cd "$PROJECT_ROOT"
 
+list_missing=false
+by_domain=false
+
+for arg in "$@"; do
+    case "$arg" in
+        --list-missing) list_missing=true ;;
+        --by-domain) by_domain=true ;;
+    esac
+done
+
 declare -A domain_total
 declare -A domain_tested
+declare -A domain_missing
 
-# Count plugins and tests per domain
 while IFS= read -r plugin; do
-    relative="${plugin#_plugins/src/}"
+    relative="${plugin#$PLUGINS_DIR/}"
     domain="${relative%%/*}"
-    dir="$(dirname "$relative")"
-    basename="$(basename "$relative" .rb)"
 
     domain_total["$domain"]=$((${domain_total["$domain"]:-0} + 1))
 
-    test_pattern="_tests/src/$dir/test_${basename}*.rb"
-    if compgen -G "$test_pattern" > /dev/null 2>&1; then
+    if plugin_has_test "$plugin"; then
         domain_tested["$domain"]=$((${domain_tested["$domain"]:-0} + 1))
+    else
+        domain_missing["$domain"]+="$plugin"$'\n'
     fi
-done < <(find _plugins/src -name "*.rb" | sort)
+done < <(find "$PLUGINS_DIR" -name "*.rb" | LC_ALL=C sort)
 
-echo "Plugin Test Coverage"
-echo "=================================================="
-echo ""
-
+# Compute totals once
 grand_total=0
 grand_tested=0
-
-for domain in $(echo "${!domain_total[@]}" | tr ' ' '\n' | sort); do
-    total=${domain_total["$domain"]}
-    tested=${domain_tested["$domain"]:-0}
-    grand_total=$((grand_total + total))
-    grand_tested=$((grand_tested + tested))
-
-    pct=$((tested * 100 / total))
-
-    # Build progress bar
-    bar_filled=$((pct / 5))
-    bar_empty=$((20 - bar_filled))
-    bar=$(printf '#%.0s' $(seq 1 $bar_filled 2>/dev/null) || true)
-    bar+=$(printf -- '-%.0s' $(seq 1 $bar_empty 2>/dev/null) || true)
-
-    # Mark incomplete domains
-    if [[ $tested -eq $total ]]; then
-        marker="  "
-    else
-        marker="!!"
-    fi
-
-    printf "%s %-18s [%-20s] %3d%% (%d/%d)\n" "$marker" "$domain" "$bar" "$pct" "$tested" "$total"
+for domain in "${!domain_total[@]}"; do
+    grand_total=$((grand_total + domain_total["$domain"]))
+    grand_tested=$((grand_tested + ${domain_tested["$domain"]:-0}))
 done
 
-echo ""
-echo "=================================================="
-grand_pct=$((grand_tested * 100 / grand_total))
-printf "   %-18s                       %3d%% (%d/%d)\n" "TOTAL" "$grand_pct" "$grand_tested" "$grand_total"
+# List missing mode
+if $list_missing; then
+    if $by_domain; then
+        for domain in $(echo "${!domain_missing[@]}" | tr ' ' '\n' | LC_ALL=C sort); do
+            [[ -z "${domain_missing[$domain]:-}" ]] && continue
+            count=$(echo -n "${domain_missing[$domain]}" | grep -c '^' || true)
+            echo ""
+            echo "## $domain ($count)"
+            echo "${domain_missing[$domain]}" | sed 's/^/  /' | grep -v '^[[:space:]]*$'
+        done
+    else
+        for domain in $(echo "${!domain_missing[@]}" | tr ' ' '\n' | LC_ALL=C sort); do
+            echo -n "${domain_missing[$domain]:-}"
+        done | grep -v '^$' | LC_ALL=C sort
+    fi
+
+    echo ""
+    echo "---"
+    echo "Total: $((grand_total - grand_tested)) untested / $grand_total plugins"
+    exit 0
+fi
+
+# Stats mode (default)
+for domain in $(echo "${!domain_total[@]}" | tr ' ' '\n' | LC_ALL=C sort); do
+    printf "%-18s %d/%d\n" "$domain" "${domain_tested[$domain]:-0}" "${domain_total[$domain]}"
+done
+
+echo "---"
+printf "%-18s %d/%d\n" "TOTAL" "$grand_tested" "$grand_total"

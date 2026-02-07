@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-# Given a plugin path, output the corresponding test path(s).
+# Find test file(s) for a plugin.
 # Usage: test-for-plugin _plugins/src/infrastructure/url_utils.rb
 
 set -euo pipefail
-
-PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+source "$(dirname "${BASH_SOURCE[0]}")/lib/common.sh"
 
 if [[ $# -eq 0 ]]; then
     echo "Usage: $(basename "$0") <plugin-path>" >&2
@@ -12,33 +11,14 @@ if [[ $# -eq 0 ]]; then
     exit 1
 fi
 
-plugin_path="$1"
+plugin_path="${1#./}"
 
-# Normalize: remove leading ./ if present
-plugin_path="${plugin_path#./}"
-
-# Validate path
-if [[ ! "$plugin_path" =~ ^_plugins/src/ ]]; then
-    echo "Error: Path must be under _plugins/src/" >&2
+if [[ ! "$plugin_path" =~ ^$PLUGINS_DIR/ ]]; then
+    echo "Error: Path must be under $PLUGINS_DIR/" >&2
     exit 1
 fi
 
-# Transform: _plugins/src/foo/bar.rb -> _tests/src/foo/test_bar*.rb
-relative="${plugin_path#_plugins/src/}"
-dir="$(dirname "$relative")"
-basename="$(basename "$relative" .rb)"
-
-test_pattern="$PROJECT_ROOT/_tests/src/$dir/test_${basename}*.rb"
-
-# Find matches
-matches=()
-for f in $test_pattern; do
-    [[ -f "$f" ]] && matches+=("${f#$PROJECT_ROOT/}")
-done
-
-if [[ ${#matches[@]} -eq 0 ]]; then
+if ! find_tests_for_plugin "$plugin_path"; then
     echo "MISSING"
     exit 1
-else
-    printf '%s\n' "${matches[@]}"
 fi
