@@ -362,8 +362,14 @@ class TestBookBacklinksTag < Minitest::Test
 
   def test_returns_empty_and_logs_if_site_missing
     ctx_no_site = create_context({}, { page: @target_page })
+
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:error, nil, [String, String])
+
     output = nil
-    capture_io { output = render_tag(ctx_no_site) }
+    Jekyll.stub :logger, mock_logger do
+      output = render_tag(ctx_no_site)
+    end
     assert_equal '', output.strip
   end
 

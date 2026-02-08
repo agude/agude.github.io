@@ -22,8 +22,10 @@ module Jekyll
           #   - :logs [String] - error/warning messages (empty if successful)
           #   - :mentions [Array<Hash>] - ranked list of unreviewed mentions
           def find
-            log_output = handle_missing_prerequisites
-            return { logs: log_output, mentions: [] } if log_output && !log_output.empty?
+            unless valid_prerequisites?
+              log_output = handle_missing_prerequisites
+              return { logs: log_output, mentions: [] }
+            end
 
             tracker = @site.data['mention_tracker']
             books_cache = @site.data['link_cache']['books']
