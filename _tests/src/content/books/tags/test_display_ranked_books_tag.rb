@@ -412,6 +412,31 @@ class TestDisplayRankedBooksTag < Minitest::Test
     assert_equal 2, output.scan('mock-book-card').count
   end
 
+  def test_processor_skips_book_with_empty_title
+    # This tests line 72 in processor.rb: `return unless title && !title.to_s.strip.empty?`
+    book_empty_title = create_doc({ 'title' => '', 'rating' => 5, 'published' => true }, '/empty.html')
+    book_whitespace_title = create_doc({ 'title' => '   ', 'rating' => 5, 'published' => true }, '/ws.html')
+    books_with_empty = [@book5a, book_empty_title, book_whitespace_title]
+
+    site = create_site({ 'environment' => 'development' })
+    site.collections = { 'books' => MockCollection.new(books_with_empty, 'books') }
+
+    # The ranked list has the empty titles (which won't be in the book map)
+    page_data = { 'ranked_list' => ['Book A (5 Stars)'], 'path' => 'test.md' }
+    context = create_context(
+      { 'page' => page_data },
+      { site: site, page: create_doc(page_data.merge({ 'url' => '/test.html' }), '/test.html') }
+    )
+
+    processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'page.ranked_list')
+    result = processor.process
+
+    # Only Book A should be in the result (empty title books aren't in the map)
+    assert_equal 1, result[:rating_groups].length
+    assert_equal 1, result[:rating_groups][0][:books].length
+    assert_equal 'Book A (5 Stars)', result[:rating_groups][0][:books][0].data['title']
+  end
+
   def test_correct_html_structure_and_grouping_for_valid_list
     @context_dev['page']['ranked_list'] = @valid_ranked_list.dup # Ensure it's using the valid list
     output = ''

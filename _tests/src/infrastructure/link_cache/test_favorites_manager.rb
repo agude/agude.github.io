@@ -137,6 +137,60 @@ class TestFavoritesManager < Minitest::Test
     assert_empty mentions
   end
 
+  def test_process_match_skips_empty_title
+    # Tests line 45: `if title && !title.strip.empty?` else branch
+    # When title is empty or nil, process_match should not call add_mention/add_post_link
+    site = create_site({}, { 'books' => [@book] }, [], [])
+    link_cache = { 'favorites_mentions' => {}, 'favorites_posts_to_books' => {}, 'books' => {} }
+    manager = Jekyll::Infrastructure::LinkCache::FavoritesManager.new(site, link_cache, {})
+
+    post = create_doc({ 'title' => 'Test Post' }, '/test.html')
+    validator = Jekyll::Infrastructure::LinkCache::FavoritesValidator.new
+
+    # Call process_match with nil title - it should skip silently
+    manager.send(:process_match, nil, '2024-01-15', post, validator)
+
+    # No mentions or post links should be added
+    assert_empty link_cache['favorites_mentions']
+    assert_empty link_cache['favorites_posts_to_books']
+  end
+
+  def test_extract_title_returns_nil_for_no_match
+    # Tests line 51: `return nil unless match` - title doesn't match the expected pattern
+    site = create_site({}, { 'books' => [@book] }, [], [])
+    link_cache = { 'favorites_mentions' => {}, 'favorites_posts_to_books' => {}, 'books' => {} }
+    manager = Jekyll::Infrastructure::LinkCache::FavoritesManager.new(site, link_cache, {})
+
+    result = manager.send(:extract_title, '{% book_card_lookup bad_syntax %}')
+    assert_nil result
+  end
+
+  def test_format_date_returns_nil_for_nil_date
+    # Tests line 86: `return nil unless date`
+    site = create_site({}, { 'books' => [@book] }, [], [])
+    link_cache = { 'favorites_mentions' => {}, 'favorites_posts_to_books' => {}, 'books' => {} }
+    manager = Jekyll::Infrastructure::LinkCache::FavoritesManager.new(site, link_cache, {})
+
+    result = manager.send(:format_date, nil)
+    assert_nil result
+  end
+
+  def test_add_post_link_skips_when_book_not_in_url_map
+    # Tests line 98: `return unless book_doc` - book URL not in map
+    site = create_site({}, { 'books' => [@book] }, [], [])
+    link_cache = { 'favorites_mentions' => {}, 'favorites_posts_to_books' => {}, 'books' => {} }
+    # Empty url_map means the book URL won't be found
+    manager = Jekyll::Infrastructure::LinkCache::FavoritesManager.new(site, link_cache, {})
+
+    # Try to add a post link for a URL that doesn't exist in the map
+    post = create_doc({ 'title' => 'Test Post' }, '/test.html')
+    manager.send(:add_post_link, post, '/nonexistent-book.html')
+
+    # The posts_to_books hash should remain empty
+    posts_to_books = manager.instance_variable_get(:@posts_to_books)
+    assert_empty posts_to_books
+  end
+
   private
 
   def create_favorites_post(year, content)

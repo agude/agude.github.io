@@ -215,4 +215,91 @@ class TestRelatedPostsFinder < Minitest::Test
 
     assert_equal '/posts/newer.html', result[:posts].first.url
   end
+
+  def test_excludes_posts_without_date
+    # Tests line 108: `return false unless post.date`
+    no_date_post = create_doc(
+      { 'title' => 'No Date', 'categories' => ['tech'], 'published' => true },
+      '/posts/no-date.html'
+    )
+    no_date_post.define_singleton_method(:date) { nil }
+
+    site = create_site_with_posts([no_date_post, @related_post])
+    page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
+    context = create_context({}, { site: site, page: page })
+
+    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    result = finder.find
+
+    urls = result[:posts].map(&:url)
+    refute_includes urls, '/posts/no-date.html'
+    assert_includes urls, '/posts/related.html'
+  end
+
+  def test_site_posts_detail_when_docs_not_array
+    # Tests line 77: site.posts.docs is not Array
+    config = { 'plugin_logging' => { 'RELATED_POSTS' => true } }
+    site = create_site(config, {})
+    # Create posts object where docs is not an Array
+    posts_obj = Struct.new(:docs).new('not_an_array')
+    site.define_singleton_method(:posts) { posts_obj }
+    page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
+    context = create_context({}, { site: site, page: page })
+
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:error, nil) do |prefix, msg|
+      prefix == 'PluginLiquid:' && msg.include?('not Array')
+    end
+
+    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    Jekyll.stub :logger, mock_logger do
+      result = finder.find
+      assert_match(/site\.posts\.docs is String, not Array/, result[:logs])
+    end
+    mock_logger.verify
+  end
+
+  def test_site_posts_detail_when_posts_lacks_docs
+    # Tests line 79: site.posts does not have .docs
+    config = { 'plugin_logging' => { 'RELATED_POSTS' => true } }
+    site = create_site(config, {})
+    # Create posts object without docs method
+    posts_obj = Object.new
+    site.define_singleton_method(:posts) { posts_obj }
+    page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
+    context = create_context({}, { site: site, page: page })
+
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:error, nil) do |prefix, msg|
+      prefix == 'PluginLiquid:' && msg.include?('does not have .docs')
+    end
+
+    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    Jekyll.stub :logger, mock_logger do
+      result = finder.find
+      assert_match(/site\.posts does not have \.docs/, result[:logs])
+    end
+    mock_logger.verify
+  end
+
+  def test_excludes_objects_without_required_methods
+    # Tests line 105: `return false unless post.respond_to?(:data) && post.respond_to?(:url) && post.respond_to?(:date)`
+    # Create an object that doesn't respond to :data
+    invalid_post = Object.new
+    invalid_post.define_singleton_method(:url) { '/posts/invalid.html' }
+    invalid_post.define_singleton_method(:date) { Time.now - 86_400 }
+    # Intentionally NOT defining :data method
+
+    site = create_site_with_posts([invalid_post, @related_post])
+    page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
+    context = create_context({}, { site: site, page: page })
+
+    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    result = finder.find
+
+    # The invalid_post should be excluded, only @related_post should be in results
+    urls = result[:posts].map(&:url)
+    refute_includes urls, '/posts/invalid.html'
+    assert_includes urls, '/posts/related.html'
+  end
 end

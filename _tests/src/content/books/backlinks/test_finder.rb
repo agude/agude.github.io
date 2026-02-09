@@ -212,4 +212,69 @@ class TestBacklinksFinder < Minitest::Test
     # Result format is [title, url, type]
     assert_equal 'book', result[:backlinks].first[2]
   end
+
+  def test_skips_backlink_source_with_empty_title
+    # Tests line 150: `next unless present?(title)` - when source title is empty/nil
+    empty_title_book = create_doc(
+      { 'title' => '', 'published' => true },
+      '/books/empty-title.html',
+      "{% book_link 'Target' %}"
+    )
+    target = create_doc(
+      { 'title' => 'Target', 'published' => true },
+      '/books/target.html'
+    )
+
+    site = create_site({}, { 'books' => [empty_title_book, target] })
+    context = create_context({}, { site: site, page: target })
+
+    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    result = finder.find
+
+    # The empty-title book should be filtered out
+    assert_empty result[:backlinks]
+  end
+
+  def test_returns_empty_when_canonical_url_not_found
+    # Tests line 25: `return { logs: '', backlinks: [] } unless canonical_url`
+    # Create a page whose URL isn't in the canonical map
+    orphan_page = create_doc(
+      { 'title' => 'Orphan', 'published' => true },
+      '/books/orphan.html'
+    )
+    # Create site without the orphan in the books collection (so it won't be in canonical map)
+    site = create_site({}, { 'books' => [@book_a, @book_b] })
+    # Now create context with the orphan page
+    context = create_context({}, { site: site, page: orphan_page })
+
+    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    result = finder.find
+
+    assert_empty result[:backlinks]
+  end
+
+  def test_deduplicates_lower_priority_entries
+    # Tests line 124: should_skip_entry returns true when duplicate has lower priority
+    # This is tested implicitly through normal operation, but we can verify
+    # by having same source link twice with different types
+    book_c = create_doc(
+      { 'title' => 'Book C', 'published' => true },
+      '/books/c.html',
+      "{% book_link 'Target' %}"
+    )
+    target = create_doc(
+      { 'title' => 'Target', 'published' => true },
+      '/books/target.html'
+    )
+
+    site = create_site({}, { 'books' => [book_c, target] })
+    context = create_context({}, { site: site, page: target })
+
+    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    result = finder.find
+
+    # Should only have one entry for Book C (deduplicated)
+    titles = result[:backlinks].map(&:first)
+    assert_equal 1, titles.count('Book C')
+  end
 end

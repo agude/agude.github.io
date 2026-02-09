@@ -224,4 +224,27 @@ class TestFeedUtils < Minitest::Test
     assert_equal 1, items.size
     assert_equal book_valid_date.data['title'], items[0].data['title']
   end
+
+  def test_collect_published_posts_returns_empty_when_posts_docs_not_array
+    # Tests line 28: `return [] unless site.posts&.docs.is_a?(Array)`
+    site_bad_posts = create_site({}, { 'books' => @mock_books_collection_initial.docs }, [], [])
+    # Create posts object with docs that's not an Array
+    posts_obj = Struct.new(:docs).new('not_an_array')
+    site_bad_posts.define_singleton_method(:posts) { posts_obj }
+
+    result = Jekyll::Posts::FeedUtils.send(:_collect_published_posts, site_bad_posts)
+    assert_equal [], result
+  end
+
+  def test_collect_published_books_returns_empty_when_books_docs_not_array
+    # Tests line 38: `return [] unless site.collections['books']&.docs.is_a?(Array)`
+    site_bad_books = create_site({}, {}, [], @mock_posts_collection_initial.docs)
+    site_bad_books.posts = @mock_posts_collection_initial
+    # Create books collection with docs that's not an Array
+    books_obj = Struct.new(:docs).new('not_an_array')
+    site_bad_books.collections['books'] = books_obj
+
+    result = Jekyll::Posts::FeedUtils.send(:_collect_published_books, site_bad_books)
+    assert_equal [], result
+  end
 end

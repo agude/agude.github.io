@@ -365,4 +365,23 @@ class TestCitationUtilsSingleField < TestCitationUtilsBase
     expected = "<span class=\"citation\">#{expected_doi_part}.</span>"
     assert_equal expected, format_citation(params)
   end
+
+  def test_escape_html_returns_nil_for_nil_input
+    # Tests line 122: `return nil unless _present?(str)`
+    result = Jekyll::UI::Citations::CitationUtils.send(:_escape_html, nil)
+    assert_nil result
+  end
+
+  def test_escape_html_returns_nil_for_empty_input
+    # Tests line 122: `return nil unless _present?(str)`
+    result = Jekyll::UI::Citations::CitationUtils.send(:_escape_html, '')
+    assert_nil result
+  end
+
+  def test_build_author_with_last_name_returns_nil_for_all_empty
+    # Tests line 142: `_present?(main) ? main : nil` else branch
+    # When all parts are empty/nil, should return nil
+    result = Jekyll::UI::Citations::CitationUtils.send(:_build_author_with_last_name, nil, nil, nil)
+    assert_nil result
+  end
 end
