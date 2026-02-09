@@ -74,6 +74,11 @@ class TestRatingStarsTag < Minitest::Test
     assert_match(%r{Rating value/variable is missing}, err.message)
   end
 
+  def test_syntax_error_unknown_argument_key
+    err = assert_raises(Liquid::SyntaxError) { Liquid::Template.parse("{% rating_stars 3 foo='bar' %}") }
+    assert_match(/Unknown argument 'foo'/, err.message)
+  end
+
   def test_syntax_error_extra_args
     err = assert_raises(Liquid::SyntaxError) { Liquid::Template.parse("{% rating_stars 3 wrapper_tag='span' extra %}") }
     assert_match(/Unexpected arguments/, err.message)
