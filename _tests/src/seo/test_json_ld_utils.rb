@@ -273,6 +273,12 @@ class TestJsonLdUtils < Minitest::Test
     assert_equal expected, data
   end
 
+  def test_cleanup_data_hash_non_hash_input_returns_input
+    assert_nil Jekyll::SEO::JsonLdUtils.cleanup_data_hash!(nil)
+    assert_equal 'string', Jekyll::SEO::JsonLdUtils.cleanup_data_hash!('string')
+    assert_equal 42, Jekyll::SEO::JsonLdUtils.cleanup_data_hash!(42)
+  end
+
   def test_cleanup_data_hash_deeply_nested
     data = create_deeply_nested_test_data
     expected = create_expected_deeply_nested_result
