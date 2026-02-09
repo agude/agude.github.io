@@ -66,6 +66,13 @@ class TestRenderBookCardTag < Minitest::Test
     assert_match "Unknown argument 'unknown_arg'", err.message
   end
 
+  def test_syntax_error_for_invalid_argument_syntax
+    err = assert_raises Liquid::SyntaxError do
+      render_tag('my_book not_key_value')
+    end
+    assert_match "Invalid arguments near 'not_key_value'", err.message
+  end
+
   # 2. Render - Success
   def test_render_success_calls_book_card_utils
     markup = 'my_book' # 'my_book' is @book_obj in context
