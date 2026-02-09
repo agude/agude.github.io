@@ -103,6 +103,15 @@ class TestShortStoryResolver < Minitest::Test
     assert_match(expected_log_pattern_empty, output_empty)
   end
 
+  def test_render_fallback_when_no_site_in_context
+    # When context has no site (e.g., nil context), should return unlinked cite element
+    nil_context = nil
+    resolver = Jekyll::ShortStories::ShortStoryResolver.new(nil_context)
+    output = resolver.resolve('Some Story', nil)
+    expected = '<cite class="short-story-title">Some Story</cite>'
+    assert_equal expected, output
+  end
+
   def test_render_link_is_created_for_anchor_on_current_page
     # Simulate the story being on the current page
     @mock_story_cache['story on this page'] = [
