@@ -154,6 +154,30 @@ class TestBacklinkBuilder < Minitest::Test
     assert_equal 1, (backlinks['/books/foundation-empire.html'] || []).length
   end
 
+  def test_short_story_link_without_from_book_resolves_when_unique_url
+    story_book = create_doc(
+      { 'title' => 'Only Collection', 'published' => true },
+      '/books/only.html',
+      'Contains short stories.'
+    )
+    referencing_book = create_doc(
+      { 'title' => 'Reviewer', 'published' => true },
+      '/books/reviewer.html',
+      "I enjoyed {% short_story_link 'Unique Story' %}."
+    )
+
+    # All locations share the same URL, so no from_book is needed
+    site = create_site_with_short_stories(
+      [story_book, referencing_book],
+      { 'unique story' => [{ 'url' => '/books/only.html', 'parent_book_title' => 'Only Collection' }] }
+    )
+    backlinks = site.data['link_cache']['backlinks']
+
+    target_backlinks = backlinks['/books/only.html'] || []
+    assert_equal 1, target_backlinks.length
+    assert_equal 'short_story', target_backlinks.first[:type]
+  end
+
   def test_short_story_link_creates_backlinks
     story_book = create_doc(
       { 'title' => 'Story Collection', 'published' => true },
