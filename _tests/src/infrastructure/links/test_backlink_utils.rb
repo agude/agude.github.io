@@ -62,6 +62,18 @@ class TestBacklinkUtils < Minitest::Test
     assert_equal 3, result.size, 'Should still have the original 3 valid backlinks'
   end
 
+  def test_handles_backlinking_doc_with_empty_title
+    book_empty = create_doc({ 'title' => '' }, '/books/empty-title.html')
+    book_whitespace = create_doc({ 'title' => '   ' }, '/books/ws-title.html')
+    @site.data['link_cache']['backlinks'][@target_page.url] << book_empty
+    @site.data['link_cache']['backlinks'][@target_page.url] << book_whitespace
+
+    result = find_backlinks
+    assert(result.none? { |pair| pair[1] == '/books/empty-title.html' })
+    assert(result.none? { |pair| pair[1] == '/books/ws-title.html' })
+    assert_equal 3, result.size, 'Should still have the original 3 valid backlinks'
+  end
+
   # --- Test Edge Cases for Utility Input ---
 
   def test_returns_empty_array_if_current_page_is_nil

@@ -162,6 +162,44 @@ class TestLinkValidator < Minitest::Test
     assert_includes error.message, '/authors/jane-doe.html'
   end
 
+  def test_detects_violations_across_multiple_files
+    post1 = create_doc(
+      { 'title' => 'Bad Post 1' },
+      '/posts/bad1.html',
+      '[Book](/books/test-book.html)'
+    )
+    post2 = create_doc(
+      { 'title' => 'Bad Post 2' },
+      '/posts/bad2.html',
+      '[Author](/authors/jane-doe.html)'
+    )
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [@book] }, [@author_page, @series_page], [post1, post2])
+    end
+
+    assert_includes error.message, 'posts/bad1.html'
+    assert_includes error.message, '/books/test-book.html'
+    assert_includes error.message, 'posts/bad2.html'
+    assert_includes error.message, '/authors/jane-doe.html'
+  end
+
+  def test_deduplicates_repeated_violations_in_same_file
+    post = create_doc(
+      { 'title' => 'Repeat Bad' },
+      '/posts/repeat.html',
+      '[First](/books/test-book.html) and [Second](/books/test-book.html).'
+    )
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [@book] }, [@author_page, @series_page], [post])
+    end
+
+    # The error message should contain the link only once due to .uniq
+    occurrences = error.message.scan('Markdown: /books/test-book.html').length
+    assert_equal 1, occurrences, 'Duplicate violations should be deduplicated'
+  end
+
   def test_skips_docs_without_content
     # MockDocument with nil content
     nil_doc = create_doc(

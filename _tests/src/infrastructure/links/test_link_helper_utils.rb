@@ -177,6 +177,11 @@ class TestLinkHelperUtils < Minitest::Test
     assert_equal expected, Jekyll::Infrastructure::Links::LinkHelperUtils._generate_link_html(ctx, found_doc.url, inner_html)
   end
 
+  def test_generate_link_nil_context_returns_inner_html
+    inner_html = '<cite>Found Doc</cite>'
+    assert_equal inner_html, Jekyll::Infrastructure::Links::LinkHelperUtils._generate_link_html(nil, '/found.html', inner_html)
+  end
+
   def test_generate_link_no_current_page_in_context
     site = create_site
     found_doc = create_doc({ 'title' => 'Found Doc' }, '/found.html')
