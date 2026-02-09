@@ -91,6 +91,11 @@ class TestTextProcessingUtils < Minitest::Test
     assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.truncate_words('', 0)
   end
 
+  def test_truncate_words_non_string_input
+    assert_equal '12345', Jekyll::Infrastructure::TextProcessingUtils.truncate_words(12_345, 5)
+    assert_equal '...', Jekyll::Infrastructure::TextProcessingUtils.truncate_words(123, 0)
+  end
+
   def test_truncate_words_input_with_leading_trailing_whitespace
     text = '  leading and trailing whitespace  '
     expected_no_trunc = 'leading and trailing whitespace'
@@ -126,6 +131,12 @@ class TestTextProcessingUtils < Minitest::Test
   def test_normalize_title_empty_string
     assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.normalize_title('')
     assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.normalize_title('   ')
+  end
+
+  def test_normalize_title_bare_article_becomes_empty
+    assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.normalize_title('The', strip_articles: true)
+    assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.normalize_title('an', strip_articles: true)
+    assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.normalize_title('A', strip_articles: true)
   end
 
   def test_normalize_title_multiple_spaces_and_newlines
@@ -190,6 +201,12 @@ class TestTextProcessingUtils < Minitest::Test
 
     expected = "#{item1} <abbr class=\"etal\">et al.</abbr>"
     assert_equal expected, Jekyll::Infrastructure::TextProcessingUtils.format_list_as_sentence(items, etal_after: 3)
+  end
+
+  def test_format_list_as_sentence_with_non_string_items
+    items = [:alpha, 42, true]
+    expected = 'alpha, 42, and true'
+    assert_equal expected, Jekyll::Infrastructure::TextProcessingUtils.format_list_as_sentence(items)
   end
 
   def test_format_list_as_sentence_with_invalid_etal_after_defaults_to_full_list

@@ -302,4 +302,72 @@ class TestPluginLoggerUtilsInternalErrors < TestPluginLoggerUtilsBase
     # Should contain the fallback message about page_exists_no_path
     assert_match(/page_exists_no_path \(class: MockPageClass\)/, html_output)
   end
+
+  def test_page_register_is_nil_shows_unknown_page
+    site = create_site({ 'plugin_logging' => { 'MY_TAG' => true } })
+    ctx = create_context({}, { site: site })
+
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:warn, nil, ['PluginLiquid:', String])
+
+    html_output = ''
+    Jekyll.stub :logger, mock_logger do
+      html_output = call_log_liquid_failure(ctx, tag_type: 'MY_TAG', reason: 'Test', level: :warn)
+    end
+
+    mock_logger.verify
+    assert_match(/SourcePage='unknown_page'/, html_output)
+  end
+
+  def test_plugin_logging_config_missing_entirely
+    ctx = create_test_context({})
+    # Remove plugin_logging entirely from site config
+    ctx.registers[:site].config.delete('plugin_logging')
+
+    result = call_log_liquid_failure(ctx, tag_type: 'MY_TAG', reason: 'Test', level: :warn)
+    assert_equal '', result, 'Should return empty string when plugin_logging config is absent'
+  end
+end
+
+# Tests for identifiers and CGI escaping in log messages
+class TestPluginLoggerUtilsIdentifiersAndEscaping < TestPluginLoggerUtilsBase
+  def test_identifiers_appear_in_output_message
+    ctx = create_test_context('plugin_log_level' => 'debug', 'plugin_logging' => { 'MY_TAG' => true })
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:warn, nil, ['PluginLiquid:', String])
+
+    html_output = ''
+    Jekyll.stub :logger, mock_logger do
+      html_output = Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+        context: ctx, tag_type: 'MY_TAG', reason: 'Test',
+        identifiers: { 'book' => 'Dune', 'author' => 'Herbert' }, level: :warn
+      )
+    end
+
+    mock_logger.verify
+    assert_match(/book='Dune'/, html_output)
+    assert_match(/author='Herbert'/, html_output)
+  end
+
+  def test_cgi_escaping_of_special_characters
+    ctx = create_test_context('plugin_log_level' => 'debug', 'plugin_logging' => { 'MY_TAG' => true })
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:warn, nil, ['PluginLiquid:', String])
+
+    html_output = ''
+    Jekyll.stub :logger, mock_logger do
+      html_output = Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+        context: ctx, tag_type: 'MY_TAG', reason: '<script>alert("xss")</script>',
+        identifiers: { 'key' => '<b>bold</b>' }, level: :warn
+      )
+    end
+
+    mock_logger.verify
+    # Reason should be CGI-escaped
+    assert_match(/&lt;script&gt;/, html_output)
+    refute_match(/<script>/, html_output)
+    # Identifier values should be CGI-escaped
+    assert_match(%r{&lt;b&gt;bold&lt;/b&gt;}, html_output)
+    refute_match(%r{<b>bold</b>}, html_output)
+  end
 end

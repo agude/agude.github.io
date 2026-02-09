@@ -63,6 +63,12 @@ class TestTagArgumentUtils < Minitest::Test
     assert_nil Jekyll::Infrastructure::TagArgumentUtils.resolve_value('  ', ctx)
   end
 
+  def test_resolve_value_whitespace_padded_quoted_string
+    ctx = create_context
+    assert_equal 'hello', Jekyll::Infrastructure::TagArgumentUtils.resolve_value("  'hello'  ", ctx)
+    assert_equal 'world', Jekyll::Infrastructure::TagArgumentUtils.resolve_value('  "world"  ', ctx)
+  end
+
   def test_resolve_value_deeply_nested_variable
     ctx = create_context({ 'a' => { 'b' => { 'c' => 'deep value' } } })
     assert_equal 'deep value', Jekyll::Infrastructure::TagArgumentUtils.resolve_value('a.b.c', ctx)
