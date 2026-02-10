@@ -165,75 +165,77 @@ require 'src/content/posts/related/renderer'
 # --- Mock Objects ---
 
 # Simple mock for Jekyll documents (Posts, Pages, Collection Items)
-MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection, :relative_path, :path) do
-  # Provides hash-like access to document attributes and front matter.
-  def [](key)
-    key_s = key.to_s
-    lookup_special_key(key_s) || lookup_data_key(key_s, key)
-  end
-
-  def respond_to?(method_name, include_private = false)
-    # Ensure common document attributes and '[]' are reported as available.
-    return true if common_method_names.include?(method_name.to_sym)
-
-    super
-  end
-
-  # Override is_a? to pretend to be a Jekyll::Document or Jekyll::Page for checks
-  define_method(:is_a?) do |klass|
-    if klass == Jekyll::Document
-      # Pretend to be a Document if it has a collection assigned
-      !collection.nil?
-    elsif klass == Jekyll::Page
-      # Pretend to be a Page if it does NOT have a collection assigned
-      collection.nil?
-    else
-      super(klass)
+unless defined?(MockDocument)
+  MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection, :relative_path, :path) do
+    # Provides hash-like access to document attributes and front matter.
+    def [](key)
+      key_s = key.to_s
+      lookup_special_key(key_s) || lookup_data_key(key_s, key)
     end
-  end
 
-  # Mock for generate_excerpt, not strictly needed if data['excerpt'] is directly mocked,
-  # but included for completeness if any code calls it.
-  def generate_excerpt(_separator)
-    # This is a very basic mock. Real excerpt generation is more complex.
-    # For testing, usually data['excerpt'] (as a Struct with :output) is set directly.
-  end
+    def respond_to?(method_name, include_private = false)
+      # Ensure common document attributes and '[]' are reported as available.
+      return true if common_method_names.include?(method_name.to_sym)
 
-  # Allow MockDocument to be treated as a Liquid Drop by responding to to_liquid
-  def to_liquid
-    self
-  end
+      super
+    end
 
-  private
-
-  def lookup_special_key(key_s)
-    case key_s
-    when 'url' then url
-    when 'content' then content
-    when 'date' then data['date']
-    when 'title'
-      begin
-        data['title'] || data[:title]
-      rescue StandardError
-        nil
+    # Override is_a? to pretend to be a Jekyll::Document or Jekyll::Page for checks
+    define_method(:is_a?) do |klass|
+      if klass == Jekyll::Document
+        # Pretend to be a Document if it has a collection assigned
+        !collection.nil?
+      elsif klass == Jekyll::Page
+        # Pretend to be a Page if it does NOT have a collection assigned
+        collection.nil?
+      else
+        super(klass)
       end
     end
-  end
 
-  def lookup_data_key(key_s, key_sym)
-    return data[key_s] if data&.key?(key_s)
-    return data[key_sym.to_sym] if data&.key?(key_sym.to_sym)
+    # Mock for generate_excerpt, not strictly needed if data['excerpt'] is directly mocked,
+    # but included for completeness if any code calls it.
+    def generate_excerpt(_separator)
+      # This is a very basic mock. Real excerpt generation is more complex.
+      # For testing, usually data['excerpt'] (as a Struct with :output) is set directly.
+    end
 
-    nil
-  end
+    # Allow MockDocument to be treated as a Liquid Drop by responding to to_liquid
+    def to_liquid
+      self
+    end
 
-  def common_method_names
-    %i[data url content date title site collection [] to_liquid relative_path]
+    private
+
+    def lookup_special_key(key_s)
+      case key_s
+      when 'url' then url
+      when 'content' then content
+      when 'date' then data['date']
+      when 'title'
+        begin
+          data['title'] || data[:title]
+        rescue StandardError
+          nil
+        end
+      end
+    end
+
+    def lookup_data_key(key_s, key_sym)
+      return data[key_s] if data&.key?(key_s)
+      return data[key_sym.to_sym] if data&.key?(key_sym.to_sym)
+
+      nil
+    end
+
+    def common_method_names
+      %i[data url content date title site collection [] to_liquid relative_path]
+    end
   end
 end
 
 # Mock for site.collections['some_collection'] or site.posts
-MockCollection = Struct.new(:docs, :label)
+MockCollection = Struct.new(:docs, :label) unless defined?(MockCollection)
 
 # Mock for the Jekyll site object, now a full class for reliability.
 class MockSite
