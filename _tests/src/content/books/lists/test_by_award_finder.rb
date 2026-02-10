@@ -226,4 +226,13 @@ class TestBookListByAwardFinder < Minitest::Test
     assert_empty result[:awards_data]
     assert_empty result[:log_messages].to_s # Finder returns early before logging "no awards found"
   end
+
+  def test_format_award_display_name_handles_nil
+    # This tests line 86: `return '' if award_string_raw.nil? || award_string_raw.to_s.strip.empty?`
+    # Access the private method via send for direct testing
+    finder = Jekyll::Books::Lists::ByAwardFinder.new(site: @site, context: @context)
+    assert_equal '', finder.send(:format_award_display_name, nil)
+    assert_equal '', finder.send(:format_award_display_name, '')
+    assert_equal '', finder.send(:format_award_display_name, '   ')
+  end
 end

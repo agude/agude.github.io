@@ -49,6 +49,15 @@ class TestFrontPageFeedTag < Minitest::Test
     assert_match "Unexpected arguments after 'limit'", err.message
   end
 
+  def test_syntax_error_malformed_argument_with_valid_later
+    # Tests line 74: when match? succeeds (pattern exists) but scan fails at position 0
+    # Input has junk before a valid "limit=5" - match? sees "limit=5" but scan fails on "junk"
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse('{% front_page_feed junk limit=5 %}')
+    end
+    assert_match 'Malformed arguments', err.message
+  end
+
   # --- Orchestration Tests ---
 
   def test_calls_feed_utils_and_renderer_with_default_limit

@@ -335,6 +335,45 @@ class TestBookCardRenderer < Minitest::Test
     assert_match(/\[WARN\] BOOK_CARD_RATING_ERROR_FAILURE:.*Invalid or malformed.*rating.*value/, captured_output)
   end
 
+  def test_render_with_empty_rating_html_excludes_rating_element
+    # This tests line 124's else branch: html && !html.empty? returns false when html is ''
+    book_with_rating = create_doc({
+                                    'title' => 'Book',
+                                    'image' => '/img.jpg',
+                                    'book_authors' => ['Author'],
+                                    'rating' => 3
+                                  }, '/book.html')
+
+    mock_base_data = create_base_data(book_with_rating, '/book.html', '/img.jpg', 'Book')
+    captured_card_data = nil
+
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, ->(title) { title } do
+        Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '' do
+          Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
+            Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
+              # Return empty string instead of nil to trigger the else branch
+              Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, '' do
+                Jekyll::UI::Cards::CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
+                  captured_card_data = card_data
+                  'card'
+                } do
+                  Jekyll.stub :logger, @silent_logger_stub do
+                    Jekyll::Books::Core::BookCardRenderer.new(book_with_rating, @context, nil, nil).render
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+
+    # Only author element should be present, no rating element
+    assert_equal 1, captured_card_data[:extra_elements_html].length
+    assert_match(/by-author/, captured_card_data[:extra_elements_html].first)
+  end
+
   private
 
   def setup_book_objects

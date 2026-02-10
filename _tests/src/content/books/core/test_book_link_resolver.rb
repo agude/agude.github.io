@@ -415,6 +415,66 @@ class TestBookLinkResolver < Minitest::Test
     Jekyll::Books::Core::BookLinkResolver.new(context).resolve(title, link_text, author, date)
   end
 
+  def test_render_book_with_date_filter_book_has_no_date
+    # This tests line 129: `return false unless book_date` - book without date + date filter provided
+    review_no_date_data = { 'title' => 'No Date Book', 'published' => true, 'book_authors' => ['Author A'] }
+    # Create doc without setting date
+    review_no_date = create_doc(review_no_date_data, '/books/no-date.html')
+    # Don't set .date on the doc - it should be nil
+
+    site = create_site({}, { 'books' => [review_no_date] }, [@author_a_page])
+    site.config['plugin_logging']['RENDER_BOOK_LINK'] = true
+    ctx = create_context({}, { site: site, page: @page })
+
+    output = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      # With a date filter, should fail because book has no date
+      output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
+        'No Date Book', nil, nil, '2023-10-17'
+      )
+    end
+    expected_pattern = "Reason='Book title exists, but not on the specified date.'"
+    assert_match(/#{expected_pattern}/, output)
+  end
+
+  def test_render_book_with_date_as_date_object
+    # This tests line 138-139: `when Date` branch in normalize_date
+    review_data = { 'title' => 'Date Object Book', 'published' => true, 'book_authors' => ['Author A'],
+                    'date' => Time.new(2023, 10, 17) }
+    review = create_doc(review_data, '/books/date-obj.html')
+
+    site = create_site({}, { 'books' => [review] }, [@author_a_page])
+    ctx = create_context({}, { site: site, page: @page })
+
+    # Stub the book's date method to return a Date object instead of Time
+    review.stub :date, Date.new(2023, 10, 17) do
+      output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
+        'Date Object Book', nil, nil, '2023-10-17'
+      )
+      expected = '<a href="/books/date-obj.html"><cite class="book-title">Date Object Book</cite></a>'
+      assert_equal expected, output
+    end
+  end
+
+  def test_render_book_with_date_as_string
+    # This tests line 142-143: `else Date.parse(date_input.to_s)` branch
+    review_data = { 'title' => 'String Date Book', 'published' => true, 'book_authors' => ['Author A'],
+                    'date' => Time.new(2023, 10, 17) }
+    review = create_doc(review_data, '/books/string-date.html')
+
+    site = create_site({}, { 'books' => [review] }, [@author_a_page])
+    ctx = create_context({}, { site: site, page: @page })
+
+    # Stub the book's date method to return a string
+    review.stub :date, '2023-10-17' do
+      output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
+        'String Date Book', nil, nil, '2023-10-17'
+      )
+      expected = '<a href="/books/string-date.html"><cite class="book-title">String Date Book</cite></a>'
+      assert_equal expected, output
+    end
+  end
+
   def test_get_canonical_author_handles_empty_author_name
     # Test that when filtering by an empty author name, it's handled correctly.
     # This is tested indirectly - when a book has an empty author in its list,
@@ -438,5 +498,22 @@ class TestBookLinkResolver < Minitest::Test
       Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve('Test Title', nil, nil)
     end
     assert_match '[FATAL] Ambiguous book title', err.message
+  end
+
+  def test_get_canonical_author_returns_nil_for_empty_name
+    # Tests line 180: `return nil if name.to_s.strip.empty?`
+    resolver = Jekyll::Books::Core::BookLinkResolver.new(@ctx)
+
+    # Call private method directly with empty string
+    result = resolver.send(:get_canonical_author, '', {})
+    assert_nil result
+
+    # Call with whitespace-only string
+    result = resolver.send(:get_canonical_author, '   ', {})
+    assert_nil result
+
+    # Call with nil
+    result = resolver.send(:get_canonical_author, nil, {})
+    assert_nil result
   end
 end

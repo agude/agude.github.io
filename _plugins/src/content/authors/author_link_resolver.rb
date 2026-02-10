@@ -76,10 +76,6 @@ module Jekyll
 
         html = LinkHelper._generate_link_html(@context, url, content)
 
-        # Fallback logic from original code: if result is just the span (unlinked) and possessive requested,
-        # ensure suffix is present. (Though content passed to generator already has it).
-        html << suffix if html == span && @possessive
-
         @log_output + html
       end
     end

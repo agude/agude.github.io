@@ -74,8 +74,21 @@ class TestRatingStarsTag < Minitest::Test
     assert_match(%r{Rating value/variable is missing}, err.message)
   end
 
+  def test_syntax_error_unknown_argument_key
+    err = assert_raises(Liquid::SyntaxError) { Liquid::Template.parse("{% rating_stars 3 foo='bar' %}") }
+    assert_match(/Unknown argument 'foo'/, err.message)
+  end
+
   def test_syntax_error_extra_args
     err = assert_raises(Liquid::SyntaxError) { Liquid::Template.parse("{% rating_stars 3 wrapper_tag='span' extra %}") }
     assert_match(/Unexpected arguments/, err.message)
+  end
+
+  def test_render_tag_with_nil_wrapper_tag_variable_uses_default
+    # Tests line 49: `wrapper_tag_value = resolved_tag if resolved_tag` - else branch when nil
+    @context['nil_wrapper'] = nil
+    output = render_tag('4 wrapper_tag=nil_wrapper')
+    assert_match(/class="book-rating star-rating-4"/, output)
+    assert_match(/^<div/, output) # Should use default 'div' wrapper
   end
 end

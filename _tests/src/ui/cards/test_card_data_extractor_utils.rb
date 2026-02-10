@@ -175,6 +175,13 @@ class TestCardDataExtractorUtils < Minitest::Test
                  Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_with_string_excerpt, type: :article)
   end
 
+  def test_extract_description_html_unknown_type_returns_empty
+    # Tests line 43's else branch: when type is neither :article nor :book
+    data_with_content = { 'description' => 'Should be ignored', 'excerpt' => Struct.new(:output).new('Also ignored') }
+    assert_equal '', Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_with_content, type: :unknown)
+    assert_equal '', Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(data_with_content, type: nil)
+  end
+
   def test_extract_base_data_with_drop_object
     # This tests lines 86-87 (the valid_drop? branch)
     # Create a mock Drop that inherits from Jekyll::Drops::Drop

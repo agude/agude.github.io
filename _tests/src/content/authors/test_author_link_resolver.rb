@@ -114,6 +114,12 @@ class TestAuthorLinkResolver < Minitest::Test
     assert_equal '', Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve(nil, nil, nil)
   end
 
+  def test_render_author_link_nil_context_returns_escaped_name
+    resolver = Jekyll::Authors::AuthorLinkResolver.new(nil)
+    assert_equal 'Jane Doe', resolver.resolve('Jane Doe', nil, nil)
+    assert_equal '&lt;script&gt;', resolver.resolve('<script>', nil, nil)
+  end
+
   def test_render_author_link_with_baseurl
     site_with_baseurl = create_site({ 'baseurl' => '/myblog' }, {}, [@canonical_author_page])
     ctx_with_baseurl = create_context({}, { site: site_with_baseurl, page: @page })

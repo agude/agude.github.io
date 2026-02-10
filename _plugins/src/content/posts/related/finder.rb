@@ -86,6 +86,7 @@ module Jekyll
           @current_url = @page['url']
           @all_posts = filter_and_sort_posts(@site.posts.docs)
 
+          # Waterfall priority: category matches > config posts > recent posts
           candidates = []
           candidates.concat(find_by_category)
           candidates.concat(find_from_config) if candidates.length < @max_posts

@@ -113,4 +113,12 @@ class TestSeriesLinkTag < Minitest::Test
     assert_equal 'A Series', captured_args[:title]
     assert_equal 'First Text', captured_args[:link_text_override]
   end
+
+  def test_render_with_trailing_whitespace_after_title
+    # Tests line 71: `break if scanner.eos?` - when scanner reaches end after skipping whitespace
+    markup_with_trailing_spaces = "'The Foundation Series'   \t  "
+    _output, captured_args = parse_and_capture_args(markup_with_trailing_spaces)
+    assert_equal 'The Foundation Series', captured_args[:title]
+    assert_nil captured_args[:link_text_override]
+  end
 end

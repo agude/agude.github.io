@@ -26,6 +26,7 @@ plugin_logging:
     BACKLINK_UTIL: true
     BOOK_BACKLINKS_TAG: true
     BOOK_CARD_LOOKUP: true
+    BOOK_LIST_FAVORITES: true
     BOOK_CARD_MISSING_AUTHORS: true
     BOOK_CARD_MISSING_EXCERPT: true
     BOOK_CARD_MISSING_IMAGE_PATH: true
@@ -52,6 +53,7 @@ plugin_logging:
     RENDER_SHORT_STORY_LINK: true
     UNITS_TAG_ERROR: true
     UNITS_TAG_WARNING: true
+    UNREVIEWED_MENTIONS: true
 
 # Dependencies
 plugins:

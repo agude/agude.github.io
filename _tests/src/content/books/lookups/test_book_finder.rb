@@ -214,4 +214,62 @@ class TestBookFinder < Minitest::Test
     assert_nil result[:error]
     assert_equal @hyperion_review1, result[:book]
   end
+
+  def test_dates_match_returns_false_when_book_has_nil_date
+    # Tests line 75: `return false unless book_date`
+    book_no_date = create_doc({ 'title' => 'Book No Date', 'published' => true }, '/books/no-date.html')
+    # Ensure the book has no date
+    book_no_date.define_singleton_method(:date) { nil }
+
+    site = create_site({ 'url' => 'http://example.com' }, { 'books' => [book_no_date] })
+    finder = Jekyll::Books::Lookups::BookFinder.new(site: site, title: 'Book No Date', date: '2023-10-17')
+    result = finder.find
+
+    assert_nil result[:book]
+    assert_equal :date_not_found, result[:error][:type]
+  end
+
+  def test_normalize_date_handles_date_object
+    # Tests line 86: `when Date` branch in normalize_date
+    # The finder reads from b.data['date'], so we need to manually set date as a Date object
+    # after creation since create_doc converts Date to Time.now
+    book_with_date_obj = create_doc(
+      { 'title' => 'Date Obj Book', 'published' => true },
+      '/books/date-obj.html'
+    )
+    # Manually set data['date'] to a Date object to test the Date branch
+    book_with_date_obj.data['date'] = Date.new(2023, 10, 17)
+
+    site = create_site({ 'url' => 'http://example.com' }, { 'books' => [book_with_date_obj] })
+    finder = Jekyll::Books::Lookups::BookFinder.new(site: site, title: 'Date Obj Book', date: '2023-10-17')
+    result = finder.find
+
+    assert_nil result[:error], "Expected no error, got: #{result[:error]}"
+    assert_equal book_with_date_obj, result[:book]
+  end
+
+  def test_normalize_date_handles_string_date
+    # Tests line 90: `else Date.parse(date_input.to_s)` branch
+    # The finder reads from b.data['date'], so set date as a string there
+    book_with_str_date = create_doc(
+      { 'title' => 'String Date Book', 'published' => true, 'date' => '2023-10-17' },
+      '/books/str-date.html'
+    )
+
+    site = create_site({ 'url' => 'http://example.com' }, { 'books' => [book_with_str_date] })
+    finder = Jekyll::Books::Lookups::BookFinder.new(site: site, title: 'String Date Book', date: '2023-10-17')
+    result = finder.find
+
+    assert_nil result[:error], "Expected no error, got: #{result[:error]}"
+    assert_equal book_with_str_date, result[:book]
+  end
+
+  def test_normalize_title_returns_nil_for_nil_title
+    # Tests line 95: `return nil unless title`
+    # This is already implicitly tested by test_returns_error_when_title_is_nil
+    # but let's test the private method directly
+    finder = Jekyll::Books::Lookups::BookFinder.new(site: @site, title: 'Test')
+    result = finder.send(:normalize_title, nil)
+    assert_nil result
+  end
 end

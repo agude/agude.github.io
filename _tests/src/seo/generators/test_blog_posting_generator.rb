@@ -257,4 +257,66 @@ class TestBlogPostingLdGenerator < Minitest::Test
     ]
     assert_equal expected_keys.sort, actual_hash.keys.sort, 'Hash keys do not match expected set'
   end
+
+  def test_generate_hash_with_empty_title_omits_headline
+    # Tests line 36: `if headline && !headline.strip.empty?` else branch
+    doc = create_doc(
+      { 'layout' => 'post', 'title' => '   ' },
+      '/empty-title.html',
+      '<p>Content</p>',
+      '2024-01-15',
+      @post_collection
+    )
+
+    result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
+    refute result.key?('headline'), 'Empty title should not produce headline'
+  end
+
+  def test_generate_hash_without_site_author_omits_author_fields
+    # Tests lines 41 and 44: `if author_entity` and `if publisher_entity` else branches
+    site_no_author = create_site({ 'url' => 'https://example.com', 'baseurl' => '' })
+    doc = create_doc(
+      { 'layout' => 'post', 'title' => 'Test' },
+      '/test.html',
+      '<p>Content</p>',
+      '2024-01-15',
+      @post_collection
+    )
+
+    result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, site_no_author)
+    refute result.key?('author'), 'No site author should omit author'
+    refute result.key?('publisher'), 'No site author should omit publisher'
+  end
+
+  def test_generate_hash_without_date_omits_date_fields
+    # Tests line 48: `return unless document.date` - no date on document
+    doc = create_doc(
+      { 'layout' => 'post', 'title' => 'No Date Post' },
+      '/no-date.html',
+      '<p>Content</p>',
+      nil,
+      @post_collection
+    )
+    # Manually set date to nil to ensure no date
+    doc.stub :date, nil do
+      result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
+      refute result.key?('datePublished'), 'Nil date should omit datePublished'
+      refute result.key?('dateModified'), 'Nil date should omit dateModified'
+    end
+  end
+
+  def test_generate_hash_without_url_omits_url_fields
+    # Tests line 63: `unless doc_url_abs && !doc_url_abs.strip.empty?`
+    doc = create_doc(
+      { 'layout' => 'post', 'title' => 'No URL Post' },
+      nil,
+      '<p>Content</p>',
+      '2024-01-15',
+      @post_collection
+    )
+
+    result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
+    refute result.key?('url'), 'Nil URL should omit url field'
+    refute result.key?('mainEntityOfPage'), 'Nil URL should omit mainEntityOfPage'
+  end
 end
