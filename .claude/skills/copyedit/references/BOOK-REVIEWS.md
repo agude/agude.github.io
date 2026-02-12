@@ -52,6 +52,27 @@ For series:
 <span class="book-series">{{ page.series }}</span>. It [continues/follows]...
 ```
 
+For multiple authors:
+```markdown
+<cite class="book-title">{{ page.title }}</cite>, by <span
+class="author-name">{{ page.book_authors[0] }}</span> and <span
+class="author-name">{{ page.book_authors[1] }}</span>, is ...
+```
+
+For siblings (like the Strugatsky brothers):
+```markdown
+<cite class="book-title">{{ page.title }}</cite>, by brothers <span
+class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and
+<span class="author-name">{{ page.book_authors[1] }}</span>, is ...
+```
+
+For 3+ authors (anthologies): Don't enumerate all authors in the first paragraph. Describe generically:
+```markdown
+<cite class="book-title">{{ page.title }}</cite> is the twelfth book in the
+<span class="book-series">{{ page.series }}</span> series. It's an anthology
+of Bolo stories written by three different authors.
+```
+
 ## Capture Blocks
 
 After the first paragraph, define template variables:
