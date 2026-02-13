@@ -22,6 +22,13 @@ Jekyll-based static site (alexgude.com) running in Docker.
     - `content/`: Domain logic (Books, Posts, Authors, Series).
 - **Tests:** `_tests/` (Mirrors `_plugins/src/` structure).
 
+## Markdown Source Files
+The site generates `.md` versions of posts, books, and pages for LLM/agent consumption.
+- **Output:** `/blog/2024/01/01/title.md`, `/books/title.md`, `/index.md`
+- **Features:** Liquid tags render as markdown links (`[*Title*](url)`) instead of HTML.
+- **Opt-out:** Set `markdown_source: false` in frontmatter to exclude a page.
+- **Implementation:** `MarkdownSourceGenerator` in `infrastructure/`.
+
 ## Development Rules
 1.  **Separation of Concerns:**
     -   **Tags** (`tags/`) are thin wrappers.
@@ -31,3 +38,4 @@ Jekyll-based static site (alexgude.com) running in Docker.
 2.  **Error Handling:** Use `PluginLoggerUtils.log_liquid_failure`.
 3.  **Testing:** Create a matching test file in `_tests/` for every new class.
 4.  **Link Cache:** The site relies on `site.data['link_cache']` (built by `LinkCacheGenerator`) for O(1) lookups of books/authors.
+5.  **Markdown Mode:** Link utils check `context.registers[:markdown_mode]` to output markdown links instead of HTML.
