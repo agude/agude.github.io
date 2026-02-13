@@ -254,6 +254,26 @@ class TestMarkdownSourceGenerator < Minitest::Test
     assert @generator.send(:include_page?, page)
   end
 
+  # --- normalize_whitespace tests ---
+
+  def test_normalize_whitespace_collapses_multiple_blank_lines
+    input = "Line 1\n\n\n\n\nLine 2"
+    result = @generator.send(:normalize_whitespace, input)
+    assert_equal "Line 1\n\nLine 2", result
+  end
+
+  def test_normalize_whitespace_preserves_single_blank_line
+    input = "Line 1\n\nLine 2"
+    result = @generator.send(:normalize_whitespace, input)
+    assert_equal "Line 1\n\nLine 2", result
+  end
+
+  def test_normalize_whitespace_strips_whitespace_only_lines
+    input = "Line 1\n    \n\t\n  \t  \nLine 2"
+    result = @generator.send(:normalize_whitespace, input)
+    assert_equal "Line 1\n\nLine 2", result
+  end
+
   # --- build_page_frontmatter tests ---
 
   def test_build_page_frontmatter_includes_all_fields

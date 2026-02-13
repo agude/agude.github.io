@@ -116,7 +116,16 @@ module Jekyll
         # Render through Liquid with markdown_mode enabled
         rendered_content = render_with_markdown_mode(site, doc, source_content)
 
-        "#{frontmatter}#{rendered_content}"
+        # Normalize whitespace (Liquid tags leave excess blank lines)
+        normalized_content = normalize_whitespace(rendered_content)
+
+        "#{frontmatter}#{normalized_content}"
+      end
+
+      def normalize_whitespace(content)
+        content
+          .gsub(/^[ \t]+$/, '')         # Convert whitespace-only lines to empty lines
+          .gsub(/\n{3,}/, "\n\n")       # Collapse 3+ newlines into 2
       end
 
       def build_frontmatter(doc, type)
