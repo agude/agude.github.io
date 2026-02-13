@@ -3,6 +3,7 @@
 # _plugins/utils/series_link_util.rb
 require 'jekyll'
 require 'cgi'
+require_relative '../../infrastructure/links/markdown_link_utils'
 require_relative '../../infrastructure/plugin_logger_utils'
 require_relative 'series_link_resolver'
 

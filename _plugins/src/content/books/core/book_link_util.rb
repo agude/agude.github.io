@@ -3,6 +3,7 @@
 # _plugins/utils/book_link_util.rb
 require 'jekyll'
 require_relative '../../../infrastructure/links/link_helper_utils'
+require_relative '../../../infrastructure/links/markdown_link_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../../../infrastructure/text_processing_utils'
 require_relative '../../../infrastructure/typography_utils'
@@ -26,8 +27,13 @@ module Jekyll
         # @param url [String] The URL of the book page.
         # @param context [Liquid::Context] The current Liquid context.
         # @param cite [Boolean] true (default) for <cite> wrapper, false for span.book-text.
-        # @return [String] The generated HTML (<a href=...><cite>...</cite></a> or <cite>...</cite>).
+        # @return [String] The generated HTML or markdown link.
         def self.render_book_link_from_data(title, url, context, cite: true)
+          # Check for markdown mode
+          if Jekyll::Infrastructure::Links::MarkdownLinkUtils.markdown_mode?(context)
+            return Jekyll::Infrastructure::Links::MarkdownLinkUtils.render_link(title, url, italic: cite)
+          end
+
           # Build the inner element based on cite flag
           inner_element = cite ? _build_book_cite_element(title) : _build_book_text_element(title)
 

@@ -3,6 +3,7 @@
 # _plugins/src/content/series/series_link_resolver.rb
 require 'jekyll'
 require_relative '../../infrastructure/links/link_helper_utils'
+require_relative '../../infrastructure/links/markdown_link_utils'
 require_relative '../../infrastructure/plugin_logger_utils'
 require_relative '../../infrastructure/text_processing_utils'
 require_relative 'series_link_util'
@@ -41,6 +42,11 @@ module Jekyll
       private
 
       def fallback(title)
+        # Check for markdown mode
+        if Jekyll::Infrastructure::Links::MarkdownLinkUtils.markdown_mode?(@context)
+          return title.to_s
+        end
+
         Jekyll::Series::SeriesLinkUtils._build_series_span_element(title.to_s)
       end
 
@@ -73,8 +79,15 @@ module Jekyll
       end
 
       def generate_html(display_text, series_data)
-        span = Jekyll::Series::SeriesLinkUtils._build_series_span_element(display_text)
         url = series_data ? series_data['url'] : nil
+
+        # Check for markdown mode
+        if Jekyll::Infrastructure::Links::MarkdownLinkUtils.markdown_mode?(@context)
+          link = Jekyll::Infrastructure::Links::MarkdownLinkUtils.render_link(display_text, url, italic: false)
+          return @log_output + link
+        end
+
+        span = Jekyll::Series::SeriesLinkUtils._build_series_span_element(display_text)
 
         html = LinkHelper._generate_link_html(@context, url, span)
         @log_output + html

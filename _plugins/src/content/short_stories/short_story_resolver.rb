@@ -3,6 +3,7 @@
 # _plugins/src/content/short_stories/short_story_resolver.rb
 require 'jekyll'
 require_relative '../../infrastructure/links/link_helper_utils'
+require_relative '../../infrastructure/links/markdown_link_utils'
 require_relative '../../infrastructure/plugin_logger_utils'
 require_relative '../../infrastructure/text_processing_utils'
 require_relative 'short_story_link_util'
@@ -39,6 +40,11 @@ module Jekyll
       private
 
       def fallback(title)
+        # Check for markdown mode
+        if Jekyll::Infrastructure::Links::MarkdownLinkUtils.markdown_mode?(@context)
+          return "*#{title}*"
+        end
+
         Jekyll::ShortStories::ShortStoryLinkUtils._build_story_cite_element(title.to_s)
       end
 
@@ -96,6 +102,14 @@ module Jekyll
 
       def render_html(target)
         display = target ? target['title'] : @title_input
+
+        # Check for markdown mode
+        if Jekyll::Infrastructure::Links::MarkdownLinkUtils.markdown_mode?(@context)
+          url = target ? "#{target['url']}##{target['slug']}" : nil
+          link = Jekyll::Infrastructure::Links::MarkdownLinkUtils.render_link(display, url, italic: true)
+          return @log_output + link
+        end
+
         cite = Jekyll::ShortStories::ShortStoryLinkUtils._build_story_cite_element(display)
 
         html = if target

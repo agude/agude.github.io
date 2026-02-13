@@ -4,6 +4,7 @@
 require 'jekyll'
 require 'cgi'
 require_relative '../../infrastructure/links/link_helper_utils'
+require_relative '../../infrastructure/links/markdown_link_utils'
 require_relative '../../infrastructure/plugin_logger_utils'
 require_relative '../../infrastructure/text_processing_utils'
 require_relative 'author_link_resolver'

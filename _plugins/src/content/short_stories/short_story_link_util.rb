@@ -2,6 +2,7 @@
 
 # _plugins/utils/short_story_link_util.rb
 require 'jekyll'
+require_relative '../../infrastructure/links/markdown_link_utils'
 require_relative '../../infrastructure/typography_utils'
 require_relative 'short_story_resolver'
 

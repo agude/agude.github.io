@@ -4,6 +4,7 @@
 require 'jekyll'
 require 'cgi'
 require_relative '../../infrastructure/links/link_helper_utils'
+require_relative '../../infrastructure/links/markdown_link_utils'
 require_relative '../../infrastructure/plugin_logger_utils'
 require_relative '../../infrastructure/text_processing_utils'
 require_relative 'author_link_util'
@@ -69,10 +70,17 @@ module Jekyll
       end
 
       def generate_html(display_text, author_data)
-        span = Jekyll::Authors::AuthorLinkUtils._build_author_span_element(display_text)
-        suffix = @possessive ? "\u2019s" : ''
-        content = "#{span}#{suffix}"
         url = author_data ? author_data['url'] : nil
+        suffix = @possessive ? "\u2019s" : ''
+
+        # Check for markdown mode
+        if Jekyll::Infrastructure::Links::MarkdownLinkUtils.markdown_mode?(@context)
+          link = Jekyll::Infrastructure::Links::MarkdownLinkUtils.render_link(display_text, url, italic: false)
+          return @log_output + link + suffix
+        end
+
+        span = Jekyll::Authors::AuthorLinkUtils._build_author_span_element(display_text)
+        content = "#{span}#{suffix}"
 
         html = LinkHelper._generate_link_html(@context, url, content)
 

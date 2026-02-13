@@ -3,6 +3,7 @@
 # _plugins/src/content/books/core/book_link_resolver.rb
 require 'jekyll'
 require 'date'
+require_relative '../../../infrastructure/links/markdown_link_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../../../infrastructure/text_processing_utils'
 require_relative 'book_link_util'
@@ -52,6 +53,11 @@ module Jekyll
         private
 
         def fallback(title)
+          # Check for markdown mode
+          if Jekyll::Infrastructure::Links::MarkdownLinkUtils.markdown_mode?(@context)
+            return @cite == false ? title.to_s : "*#{title}*"
+          end
+
           if @cite == false
             Jekyll::Books::Core::BookLinkUtils._build_book_text_element(title.to_s)
           else
