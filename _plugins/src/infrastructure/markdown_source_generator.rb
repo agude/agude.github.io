@@ -215,7 +215,7 @@ module Jekyll
         # Read the raw file content
         return '' unless doc.path && File.exist?(doc.path)
 
-        raw_content = File.read(doc.path)
+        raw_content = File.read(doc.path, encoding: 'UTF-8')
 
         # Remove frontmatter (content between --- markers at the start)
         if raw_content =~ /\A---\s*\n(.*?\n?)^---\s*$\n?(.*)/m
