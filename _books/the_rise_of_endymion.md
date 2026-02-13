@@ -1,10 +1,10 @@
 ---
-date: 2026-01-21
+date: 2026-02-13
 title: The Rise of Endymion
 book_authors: Dan Simmons
 series: Hyperion Cantos
 book_number: 4
-rating: null
+rating: 4
 image: /books/covers/the_rise_of_endymion.jpg
 ---
 
