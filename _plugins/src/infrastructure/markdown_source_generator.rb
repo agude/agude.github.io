@@ -5,7 +5,7 @@ require 'jekyll'
 
 module Jekyll
   module Infrastructure
-    # Generator that creates .md source files for posts and books.
+    # Generator that creates .md source files for posts, books, and pages.
     #
     # These markdown files are intended for LLM/agent consumption,
     # rendering Liquid tags in markdown mode (outputting markdown links
@@ -17,16 +17,24 @@ module Jekyll
     # Output URLs:
     # - Post at /blog/2024/01/01/title/ -> /blog/2024/01/01/title.md
     # - Book at /books/title-author/ -> /books/title-author.md
+    # - Page at /resume/ -> /resume.md
+    #
+    # Pages can opt-out with `markdown_source: false` in frontmatter.
+    # Utility pages (404, etc.) are excluded by default.
     class MarkdownSourceGenerator < Generator
       safe true
       # Run after LinkCacheGenerator and other generators
       priority :lowest
+
+      # Page names to exclude by default (can be overridden with markdown_source: true)
+      EXCLUDED_PAGE_NAMES = %w[404.md 404.html].freeze
 
       def generate(site)
         Jekyll.logger.info 'MarkdownSourceGenerator:', 'Generating markdown source files...'
 
         generate_for_collection(site, site.posts.docs, :post)
         generate_for_collection(site, site.collections['books']&.docs || [], :book)
+        generate_for_pages(site)
 
         Jekyll.logger.info 'MarkdownSourceGenerator:', 'Markdown source generation complete.'
       end
@@ -41,11 +49,47 @@ module Jekyll
         end
       end
 
+      def generate_for_pages(site)
+        site.pages.each do |page|
+          next unless include_page?(page)
+
+          create_markdown_page(site, page, :page)
+        end
+      end
+
+      def include_page?(page)
+        # Explicit opt-out
+        return false if page.data['markdown_source'] == false
+
+        # Explicit opt-in overrides all other checks
+        return true if page.data['markdown_source'] == true
+
+        # Must have a layout (real content page, not static file)
+        return false unless page.data['layout']
+
+        # Skip utility pages
+        return false if EXCLUDED_PAGE_NAMES.include?(page.name)
+
+        # Skip non-markdown/html source files
+        return false unless %w[.md .markdown .html].include?(page.extname)
+
+        true
+      end
+
       def create_markdown_page(site, doc, type)
         # Get the URL path without trailing slash
         url_base = doc.url.chomp('/')
-        dir = File.dirname(url_base)
-        basename = File.basename(url_base)
+
+        # Handle root index page (URL is "/" which becomes "")
+        if url_base.empty?
+          dir = '/'
+          basename = 'index'
+          permalink = '/index.mdsrc'
+        else
+          dir = File.dirname(url_base)
+          basename = File.basename(url_base)
+          permalink = "#{url_base}.mdsrc"
+        end
 
         # Use .mdsrc extension (Jekyll won't convert it)
         # Will be renamed to .md in post_write hook
@@ -57,7 +101,7 @@ module Jekyll
         page.content = content
         page.data['layout'] = nil
         page.data['sitemap'] = false
-        page.data['permalink'] = "#{url_base}.mdsrc"
+        page.data['permalink'] = permalink
 
         site.pages << page
       end
@@ -83,6 +127,8 @@ module Jekyll
           lines.concat(build_post_frontmatter(doc))
         when :book
           lines.concat(build_book_frontmatter(doc))
+        when :page
+          lines.concat(build_page_frontmatter(doc))
         end
 
         lines << '---'
@@ -127,6 +173,14 @@ module Jekyll
         lines << "rating: #{doc.data['rating']}/5" if doc.data['rating']
         lines << "review_date: #{format_date(doc.date)}" if doc.date
         lines << "url: #{doc.url}"
+        lines
+      end
+
+      def build_page_frontmatter(page)
+        lines = []
+        lines << "title: #{yaml_quote(page.data['title'])}" if page.data['title']
+        lines << "description: #{yaml_quote(page.data['description'])}" if page.data['description']
+        lines << "url: #{page.url}"
         lines
       end
 

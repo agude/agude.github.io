@@ -214,6 +214,60 @@ class TestMarkdownSourceGenerator < Minitest::Test
     assert_equal 1, call_count
   end
 
+  # --- include_page? tests ---
+
+  def test_include_page_returns_false_for_explicit_opt_out
+    page = create_mock_page('test.md', '/test/', 'default', '.md')
+    page.data['markdown_source'] = false
+
+    refute @generator.send(:include_page?, page)
+  end
+
+  def test_include_page_returns_true_for_explicit_opt_in
+    page = create_mock_page('404.md', '/404.html', 'default', '.md')
+    page.data['markdown_source'] = true
+
+    assert @generator.send(:include_page?, page)
+  end
+
+  def test_include_page_returns_false_without_layout
+    page = create_mock_page('test.md', '/test/', nil, '.md')
+
+    refute @generator.send(:include_page?, page)
+  end
+
+  def test_include_page_excludes_404
+    page = create_mock_page('404.md', '/404.html', 'default', '.md')
+
+    refute @generator.send(:include_page?, page)
+  end
+
+  def test_include_page_excludes_non_markdown_html
+    page = create_mock_page('styles.css', '/styles.css', 'default', '.css')
+
+    refute @generator.send(:include_page?, page)
+  end
+
+  def test_include_page_returns_true_for_normal_page
+    page = create_mock_page('about.md', '/about/', 'default', '.md')
+
+    assert @generator.send(:include_page?, page)
+  end
+
+  # --- build_page_frontmatter tests ---
+
+  def test_build_page_frontmatter_includes_all_fields
+    page = create_mock_page('resume.md', '/resume/', 'resume', '.md')
+    page.data['title'] = 'My Resume'
+    page.data['description'] = 'Professional resume'
+
+    lines = @generator.send(:build_page_frontmatter, page)
+
+    assert_includes lines, 'title: My Resume'
+    assert_includes lines, 'description: Professional resume'
+    assert_includes lines, 'url: /resume/'
+  end
+
   # --- render_markdown_content tests ---
 
   def test_render_markdown_content_combines_frontmatter_and_rendered_content
@@ -234,6 +288,26 @@ class TestMarkdownSourceGenerator < Minitest::Test
         assert result.include?('title: Test Post')
         assert result.include?('rendered content')
       end
+    end
+  end
+
+  private
+
+  # Helper to create a mock page with required properties
+  def create_mock_page(name, url, layout, extname)
+    MockPage.new(name, url, layout, extname)
+  end
+
+  # Simple mock for Jekyll pages
+  class MockPage
+    attr_accessor :name, :url, :extname, :data, :path
+
+    def initialize(name, url, layout, extname)
+      @name = name
+      @url = url
+      @extname = extname
+      @data = { 'layout' => layout }
+      @path = nil
     end
   end
 
