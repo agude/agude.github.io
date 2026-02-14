@@ -32,18 +32,19 @@ module Jekyll
         # Internal unit definitions (can be expanded)
         # Optional `nospace: true` removes the separator between number and symbol.
         UNIT_DEFINITIONS = {
-          'F' => { symbol: '°F', name: 'Degrees Fahrenheit' },
           'C' => { symbol: '°C', name: 'Degrees Celsius' },
-          'deg' => { symbol: '°', name: 'Degrees', nospace: true },
-          'g' => { symbol: 'g', name: 'Grams' },
-          'kg' => { symbol: 'kg', name: 'Kilograms' },
-          'm' => { symbol: 'm', name: 'Meters' },
+          'F' => { symbol: '°F', name: 'Degrees Fahrenheit' },
           'cm' => { symbol: 'cm', name: 'Centimeters' },
-          'mm' => { symbol: 'mm', name: 'Millimeters' },
-          'in' => { symbol: 'in', name: 'Inches' },
+          'deg' => { symbol: '°', name: 'Degrees', nospace: true },
           'ft' => { symbol: 'ft', name: 'Feet' },
+          'g' => { symbol: 'g', name: 'Grams' },
+          'in' => { symbol: 'in', name: 'Inches' },
+          'kg' => { symbol: 'kg', name: 'Kilograms' },
           'kph' => { symbol: 'kph', name: 'Kilometres per hour' },
+          'm' => { symbol: 'm', name: 'Meters' },
+          'mm' => { symbol: 'mm', name: 'Millimeters' },
           'mph' => { symbol: 'mph', name: 'Miles per hour' },
+          # Add other units here: 'ABBR' => { symbol: "SYMBOL", name: "Full Name" },
         }.freeze
 
         ALLOWED_KEYS = %w[number unit].freeze
