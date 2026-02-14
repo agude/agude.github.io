@@ -294,6 +294,24 @@ class TestMarkdownOutputAssembler < Minitest::Test
     assert_includes result, '## Related Posts'
   end
 
+  def test_related_books_section_respects_limit
+    max = Assembler.const_get(:MAX_RELATED_BOOKS)
+    books, site = setup_book_with_many_related(max + 4)
+    current = books.first
+    result = Assembler.build_related_books_section(site, current)
+    book_links = result.lines.count { |l| l.start_with?('- [') }
+    assert_equal max, book_links, "Expected #{max} related books, got #{book_links}"
+  end
+
+  def test_related_posts_section_respects_limit
+    max = Assembler.const_get(:MAX_RELATED_POSTS)
+    posts, site = setup_post_with_many_related(max + 4)
+    current = posts.first
+    result = Assembler.build_related_posts_section(site, current)
+    post_links = result.lines.count { |l| l.start_with?('- [') }
+    assert_equal max, post_links, "Expected #{max} related posts, got #{post_links}"
+  end
+
   def test_non_book_assembly_has_no_footer
     doc = create_doc(
       {
@@ -312,6 +330,48 @@ class TestMarkdownOutputAssembler < Minitest::Test
   end
 
   private
+
+  def setup_post_with_many_related(count)
+    test_time = Time.parse('2026-01-15 10:00:00 EST')
+    posts = (0...count).map do |i|
+      create_doc(
+        {
+          'layout' => 'post',
+          'title' => "Post #{('A'.ord + i).chr}",
+          'categories' => ['tech'],
+          'date' => test_time - (60 * 60 * 24 * i),
+        },
+        "/blog/post-#{i}/",
+      )
+    end
+    site = create_site({}, {}, [], posts)
+    [posts, site]
+  end
+
+  def setup_book_with_many_related(count)
+    test_time = Time.parse('2024-03-15 10:00:00 EST')
+    coll = MockCollection.new([], 'books')
+    books = (1..count).map do |i|
+      create_doc(
+        {
+          'layout' => 'book',
+          'title' => "S1B#{i}",
+          'series' => 'Series 1',
+          'book_number' => i,
+          'book_authors' => ['Auth'],
+          'rating' => 4,
+          'date' => test_time - (60 * 60 * 24 * (count + 1 - i)),
+        },
+        "/books/s1b#{i}.html",
+        "Content #{i}",
+        nil,
+        coll,
+      )
+    end
+    coll.docs = books
+    site = create_site({}, { 'books' => coll.docs })
+    [books, site]
+  end
 
   def setup_post_with_related
     test_time = Time.parse('2026-01-15 10:00:00 EST')
