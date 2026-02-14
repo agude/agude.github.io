@@ -21,25 +21,42 @@ module Jekyll
           @context = context
           registers = context.respond_to?(:registers) ? context.registers : nil
           @site = registers&.[](:site)
+          @log_output = ''
         end
 
         def resolve(title_raw, text_override, author_filter, date_filter = nil, cite: true)
-          return fallback(title_raw) unless @site
+          data = resolve_data(title_raw, text_override, author_filter, date_filter, cite: cite)
+          render_html_from_data(data)
+        end
+
+        def resolve_data(title_raw, text_override, author_filter, date_filter = nil, cite: true)
+          unless @site
+            return { status: :no_site, url: nil, display_text: title_raw.to_s,
+                     canonical_title: nil, cite: nil }.freeze
+          end
 
           @title = title_raw.to_s
           @norm_title = Text.normalize_title(@title)
           @date_filter = normalize_date_filter(date_filter)
           @cite = cite
-          return log_empty_title if @norm_title.empty?
+
+          if @norm_title.empty?
+            @log_output = log_empty_title
+            return { status: :empty_title, url: nil, display_text: nil,
+                     canonical_title: nil, cite: nil }.freeze
+          end
 
           candidates = find_candidates
           display_text = determine_display_text(text_override)
-          return log_not_found + fallback(display_text) if candidates.empty?
+
+          if candidates.empty?
+            @log_output = log_not_found
+            return { status: :not_found, url: nil, display_text: display_text,
+                     canonical_title: nil, cite: cite }.freeze
+          end
 
           result = filter_candidates(candidates, author_filter)
-          return result + fallback(display_text) if result.is_a?(String)
-
-          render_result(result, text_override)
+          build_result_hash(result, display_text, text_override, cite)
         end
 
         # Public method for the module delegate to call
@@ -50,6 +67,33 @@ module Jekyll
         end
 
         private
+
+        def build_result_hash(result, display_text, text_override, cite)
+          if result.is_a?(String)
+            @log_output = result
+            return { status: :not_found, url: nil, display_text: display_text,
+                     canonical_title: nil, cite: cite }.freeze
+          end
+
+          found_display = text_override && !text_override.to_s.empty? ? text_override.to_s.strip : result['title']
+          { status: :found, url: result['url'], display_text: found_display,
+            canonical_title: result['title'], cite: cite }.freeze
+        end
+
+        def render_html_from_data(data)
+          case data[:status]
+          when :no_site
+            fallback(data[:display_text])
+          when :empty_title
+            @log_output
+          when :not_found
+            @log_output.to_s + fallback(data[:display_text])
+          when :found
+            Jekyll::Books::Core::BookLinkUtils.render_book_link_from_data(
+              data[:display_text], data[:url], @context, cite: @cite
+            )
+          end
+        end
 
         def fallback(title)
           if @cite == false
@@ -81,7 +125,7 @@ module Jekyll
         end
 
         def log_not_found
-          track_unreviewed_mention
+          track_unreviewed_mention unless @context.registers[:render_mode] == :markdown
           Logger.log_liquid_failure(
             context: @context, tag_type: 'RENDER_BOOK_LINK',
             reason: 'Could not find book page in cache.',
@@ -200,20 +244,6 @@ module Jekyll
             Reason: The book title "#{@title}" is used by multiple authors: #{names}.
             Fix: Add an author parameter, e.g., {% book_link "#{@title}" author="Author Name" %}
           MSG
-        end
-
-        def render_result(book_data, text_override)
-          display = if text_override && !text_override.to_s.empty?
-                      text_override.to_s.strip
-                    else
-                      book_data['title']
-                    end
-          Jekyll::Books::Core::BookLinkUtils.render_book_link_from_data(
-            display,
-            book_data['url'],
-            @context,
-            cite: @cite
-          )
         end
       end
     end

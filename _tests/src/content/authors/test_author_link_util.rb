@@ -11,6 +11,24 @@ class TestAuthorLinkUtils < Minitest::Test
     @context = create_context
   end
 
+  def test_find_author_link_data_delegates_to_resolver
+    name = 'Isaac Asimov'
+    override = 'The Good Doctor'
+    possessive = true
+    mock_data = { status: :found, url: '/authors/asimov.html', display_text: 'The Good Doctor', possessive: true }
+
+    mock_resolver = Minitest::Mock.new
+    mock_resolver.expect :resolve_data, mock_data, [name, override, possessive]
+
+    Jekyll::Authors::AuthorLinkResolver.stub :new, mock_resolver do
+      result = Jekyll::Authors::AuthorLinkUtils.find_author_link_data(name, @context, override, possessive)
+      assert_equal mock_data, result
+      assert_equal :found, result[:status]
+    end
+
+    mock_resolver.verify
+  end
+
   def test_render_author_link_delegates_to_resolver
     name = 'Isaac Asimov'
     override = 'The Good Doctor'

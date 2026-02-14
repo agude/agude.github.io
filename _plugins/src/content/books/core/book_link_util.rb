@@ -57,6 +57,14 @@ module Jekyll
           )
         end
 
+        # Returns a structured data hash (not HTML) for a book link resolution.
+        def self.find_book_link_data(book_title_raw, context, link_text_override_raw = nil,
+                                     author_filter_raw = nil, date_filter_raw = nil, cite: true)
+          Jekyll::Books::Core::BookLinkResolver.new(context).resolve_data(
+            book_title_raw, link_text_override_raw, author_filter_raw, date_filter_raw, cite: cite
+          )
+        end
+
         # --- Private Helper Methods ---
 
         # Prepares display text and wraps it in a <cite> tag.

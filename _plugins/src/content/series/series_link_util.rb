@@ -22,6 +22,11 @@ module Jekyll
         Jekyll::Series::SeriesLinkResolver.new(context).resolve(series_title_raw, link_text_override_raw)
       end
 
+      # Returns a structured data hash (not HTML) for a series link resolution.
+      def self.find_series_link_data(series_title_raw, context, link_text_override_raw = nil)
+        Jekyll::Series::SeriesLinkResolver.new(context).resolve_data(series_title_raw, link_text_override_raw)
+      end
+
       # --- Private Helper Methods ---
 
       # Builds the inner <span> element for the series name.

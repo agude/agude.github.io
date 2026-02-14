@@ -25,22 +25,47 @@ module Jekyll
       end
 
       def resolve(name_raw, override, possessive)
-        return CGI.escapeHTML(name_raw.to_s) unless @site
+        data = resolve_data(name_raw, override, possessive)
+        render_html_from_data(data)
+      end
+
+      def resolve_data(name_raw, override, possessive)
+        return { status: :no_site, url: nil, display_text: name_raw.to_s, possessive: nil }.freeze unless @site
 
         @name_input = name_raw.to_s
         @override = override.to_s.strip if override && !override.to_s.empty?
         @possessive = possessive
 
         norm_name = Text.normalize_title(@name_input)
-        return log_empty_name(name_raw) if norm_name.empty?
+        if norm_name.empty?
+          @log_output = log_empty_name(name_raw)
+          return { status: :empty_name, url: nil, display_text: nil, possessive: nil }.freeze
+        end
 
         author_data = find_author(norm_name)
         display_text = determine_display_text(author_data, norm_name)
 
-        generate_html(display_text, author_data)
+        if author_data
+          { status: :found, url: author_data['url'], display_text: display_text,
+            possessive: !!@possessive }.freeze
+        else
+          { status: :not_found, url: nil, display_text: display_text,
+            possessive: !!@possessive }.freeze
+        end
       end
 
       private
+
+      def render_html_from_data(data)
+        case data[:status]
+        when :no_site
+          CGI.escapeHTML(data[:display_text])
+        when :empty_name
+          @log_output
+        when :found, :not_found
+          generate_html(data)
+        end
+      end
 
       def log_empty_name(raw)
         Logger.log_liquid_failure(
@@ -68,13 +93,12 @@ module Jekyll
         norm_name == norm_canonical ? canonical : @name_input.strip
       end
 
-      def generate_html(display_text, author_data)
-        span = Jekyll::Authors::AuthorLinkUtils._build_author_span_element(display_text)
-        suffix = @possessive ? "\u2019s" : ''
+      def generate_html(data)
+        span = Jekyll::Authors::AuthorLinkUtils._build_author_span_element(data[:display_text])
+        suffix = data[:possessive] ? "\u2019s" : ''
         content = "#{span}#{suffix}"
-        url = author_data ? author_data['url'] : nil
 
-        html = LinkHelper._generate_link_html(@context, url, content)
+        html = LinkHelper._generate_link_html(@context, data[:url], content)
 
         @log_output + html
       end

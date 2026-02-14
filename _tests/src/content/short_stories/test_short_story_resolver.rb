@@ -123,6 +123,61 @@ class TestShortStoryResolver < Minitest::Test
     assert_equal expected, output
   end
 
+  # --- resolve_data() tests ---
+
+  def resolve_data_util(story_title, from_book_title = nil, context = @context)
+    Jekyll.stub :logger, @silent_logger_stub do
+      Jekyll::ShortStories::ShortStoryResolver.new(context).resolve_data(story_title, from_book_title)
+    end
+  end
+
+  def test_resolve_data_found
+    data = resolve_data_util('Unique Story')
+    assert_equal :found, data[:status]
+    assert_equal '/books/one.html#unique-story', data[:url]
+    assert_equal 'Unique Story', data[:display_text]
+  end
+
+  def test_resolve_data_not_found
+    data = resolve_data_util('NonExistent Story')
+    assert_equal :not_found, data[:status]
+    assert_nil data[:url]
+    assert_equal 'NonExistent Story', data[:display_text]
+  end
+
+  def test_resolve_data_ambiguous
+    data = resolve_data_util('Duplicate Story')
+    assert_equal :ambiguous, data[:status]
+    assert_nil data[:url]
+    assert_equal 'Duplicate Story', data[:display_text]
+  end
+
+  def test_resolve_data_resolved_by_book_filter
+    data = resolve_data_util('Duplicate Story', 'Book Two')
+    assert_equal :found, data[:status]
+    assert_equal '/books/two.html#duplicate-story', data[:url]
+    assert_equal 'Duplicate Story', data[:display_text]
+  end
+
+  def test_resolve_data_empty_title
+    data = resolve_data_util('')
+    assert_equal :empty_title, data[:status]
+    assert_nil data[:url]
+    assert_nil data[:display_text]
+  end
+
+  def test_resolve_data_no_site
+    data = Jekyll::ShortStories::ShortStoryResolver.new(nil).resolve_data('Some Story', nil)
+    assert_equal :no_site, data[:status]
+    assert_nil data[:url]
+    assert_equal 'Some Story', data[:display_text]
+  end
+
+  def test_resolve_data_frozen
+    data = resolve_data_util('Unique Story')
+    assert data.frozen?, 'resolve_data() should return a frozen hash'
+  end
+
   private
 
   # Creates mock short story cache data

@@ -160,4 +160,85 @@ class TestAuthorLinkResolver < Minitest::Test
     assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('Jane  Doe', nil, nil)
     assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('  jAnE dOe   ', nil, nil)
   end
+
+  # --- resolve() log capture regression tests ---
+
+  def test_resolve_empty_name_includes_log_output_when_logging_enabled
+    site_with_logging = create_site({}, {}, [@canonical_author_page])
+    site_with_logging.config['plugin_logging']['RENDER_AUTHOR_LINK'] = true
+    ctx_logging = create_context({}, { site: site_with_logging, page: @page })
+
+    silent_logger = Object.new
+    def silent_logger.warn(_topic, _message); end
+    def silent_logger.info(_topic, _message); end
+
+    output = Jekyll.stub(:logger, silent_logger) do
+      Jekyll::Authors::AuthorLinkResolver.new(ctx_logging).resolve('', nil, nil)
+    end
+    assert_match(/<!-- \[WARN\] RENDER_AUTHOR_LINK_FAILURE:.*?empty after normalization.*?-->/, output)
+  end
+
+  # --- resolve_data() tests ---
+
+  def test_resolve_data_found
+    data = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve_data('Jane Doe', nil, nil)
+    assert_equal :found, data[:status]
+    assert_equal '/authors/jane-doe.html', data[:url]
+    assert_equal 'Jane Doe', data[:display_text]
+    assert_equal false, data[:possessive]
+  end
+
+  def test_resolve_data_found_possessive
+    data = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve_data('Jane Doe', nil, true)
+    assert_equal :found, data[:status]
+    assert_equal '/authors/jane-doe.html', data[:url]
+    assert_equal 'Jane Doe', data[:display_text]
+    assert_equal true, data[:possessive]
+  end
+
+  def test_resolve_data_not_found
+    site_no_pages = create_site({}, {}, [])
+    ctx_no_pages = create_context({}, { site: site_no_pages, page: @page })
+    data = Jekyll::Authors::AuthorLinkResolver.new(ctx_no_pages).resolve_data('John Smith', nil, nil)
+    assert_equal :not_found, data[:status]
+    assert_nil data[:url]
+    assert_equal 'John Smith', data[:display_text]
+    assert_equal false, data[:possessive]
+  end
+
+  def test_resolve_data_empty_name
+    data = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve_data('', nil, nil)
+    assert_equal :empty_name, data[:status]
+    assert_nil data[:url]
+    assert_nil data[:display_text]
+    assert_nil data[:possessive]
+  end
+
+  def test_resolve_data_no_site
+    resolver = Jekyll::Authors::AuthorLinkResolver.new(nil)
+    data = resolver.resolve_data('Jane Doe', nil, nil)
+    assert_equal :no_site, data[:status]
+    assert_nil data[:url]
+    assert_equal 'Jane Doe', data[:display_text]
+    assert_nil data[:possessive]
+  end
+
+  def test_resolve_data_with_override
+    data = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve_data('Jane Doe', 'JD', nil)
+    assert_equal :found, data[:status]
+    assert_equal '/authors/jane-doe.html', data[:url]
+    assert_equal 'JD', data[:display_text]
+  end
+
+  def test_resolve_data_pen_name
+    data = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve_data('Pen Name', nil, nil)
+    assert_equal :found, data[:status]
+    assert_equal '/authors/canonical.html', data[:url]
+    assert_equal 'Pen Name', data[:display_text]
+  end
+
+  def test_resolve_data_frozen
+    data = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve_data('Jane Doe', nil, nil)
+    assert data.frozen?, 'resolve_data() should return a frozen hash'
+  end
 end

@@ -21,22 +21,58 @@ module Jekyll
         @context = context
         @site = context&.registers&.[](:site)
         @log_output = ''
+        @ambiguous = false
       end
 
       def resolve(title_raw, book_title_raw)
-        return fallback(title_raw) unless @site
+        data = resolve_data(title_raw, book_title_raw)
+        render_html_from_data(data)
+      end
+
+      def resolve_data(title_raw, book_title_raw)
+        return { status: :no_site, url: nil, display_text: title_raw.to_s }.freeze unless @site
 
         @title_input = title_raw.to_s.strip
         @book_filter = book_title_raw.to_s.strip if book_title_raw
         @norm_title = Text.normalize_title(@title_input)
 
-        return log_empty_title(title_raw) if @norm_title.empty?
+        if @norm_title.empty?
+          @log_output = log_empty_title(title_raw)
+          return { status: :empty_title, url: nil, display_text: nil }.freeze
+        end
 
         target = find_target_location
-        render_html(target)
+        build_data_hash(target)
       end
 
       private
+
+      def build_data_hash(target)
+        if target
+          url = "#{target['url']}##{target['slug']}"
+          { status: :found, url: url, display_text: target['title'] }.freeze
+        elsif @ambiguous
+          { status: :ambiguous, url: nil, display_text: @title_input }.freeze
+        else
+          { status: :not_found, url: nil, display_text: @title_input }.freeze
+        end
+      end
+
+      def render_html_from_data(data)
+        case data[:status]
+        when :no_site
+          fallback(data[:display_text])
+        when :empty_title
+          @log_output
+        when :found
+          cite = Jekyll::ShortStories::ShortStoryLinkUtils._build_story_cite_element(data[:display_text])
+          html = LinkHelper._generate_link_html(@context, data[:url], cite)
+          @log_output + html
+        when :not_found, :ambiguous
+          cite = Jekyll::ShortStories::ShortStoryLinkUtils._build_story_cite_element(data[:display_text])
+          @log_output + cite
+        end
+      end
 
       def fallback(title)
         Jekyll::ShortStories::ShortStoryLinkUtils._build_story_cite_element(title.to_s)
@@ -94,20 +130,6 @@ module Jekyll
         match
       end
 
-      def render_html(target)
-        display = target ? target['title'] : @title_input
-        cite = Jekyll::ShortStories::ShortStoryLinkUtils._build_story_cite_element(display)
-
-        html = if target
-                 url = "#{target['url']}##{target['slug']}"
-                 LinkHelper._generate_link_html(@context, url, cite)
-               else
-                 cite
-               end
-
-        @log_output + html
-      end
-
       def log_not_found
         @log_output = Logger.log_liquid_failure(
           context: @context, tag_type: 'RENDER_SHORT_STORY_LINK',
@@ -127,6 +149,7 @@ module Jekyll
       end
 
       def log_ambiguous(locations)
+        @ambiguous = true
         books = locations.map { |loc| "'#{loc['parent_book_title']}'" }.join(', ')
         @log_output = Logger.log_liquid_failure(
           context: @context, tag_type: 'RENDER_SHORT_STORY_LINK',

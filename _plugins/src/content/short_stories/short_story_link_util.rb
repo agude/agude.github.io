@@ -19,6 +19,11 @@ module Jekyll
         Jekyll::ShortStories::ShortStoryResolver.new(context).resolve(story_title_raw, from_book_title_raw)
       end
 
+      # Returns a structured data hash (not HTML) for a short story link resolution.
+      def self.find_short_story_link_data(story_title_raw, context, from_book_title_raw = nil)
+        Jekyll::ShortStories::ShortStoryResolver.new(context).resolve_data(story_title_raw, from_book_title_raw)
+      end
+
       def self._build_story_cite_element(display_text)
         prepared_display_text = Jekyll::Infrastructure::TypographyUtils.prepare_display_title(display_text)
         "<cite class=\"short-story-title\">#{prepared_display_text}</cite>"
