@@ -335,6 +335,124 @@ class TestBookCardRenderer < Minitest::Test
     assert_match(/\[WARN\] BOOK_CARD_RATING_ERROR_FAILURE:.*Invalid or malformed.*rating.*value/, captured_output)
   end
 
+  # --- extract_data tests ---
+
+  def test_extract_data_returns_frozen_hash_with_expected_keys
+    book = @book_object_single_author
+    mock_base_data = create_base_data(book, '/book_single.html', '/images/book.jpg', 'My Book Title')
+
+    data = nil
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '<p>Book excerpt.</p>' do
+        Jekyll.stub :logger, @silent_logger_stub do
+          data = Jekyll::Books::Core::BookCardRenderer.new(book, @context, nil, nil).extract_data
+        end
+      end
+    end
+
+    assert data.frozen?
+    assert_equal %i[title authors rating excerpt url image_url image_alt subtitle].sort, data.keys.sort
+  end
+
+  def test_extract_data_returns_raw_values
+    book = @book_object_single_author
+    mock_base_data = create_base_data(book, '/book_single.html', '/images/book.jpg', 'My Book Title')
+
+    data = nil
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '<p>Book excerpt.</p>' do
+        Jekyll.stub :logger, @silent_logger_stub do
+          data = Jekyll::Books::Core::BookCardRenderer.new(book, @context, nil, nil).extract_data
+        end
+      end
+    end
+
+    assert_equal 'My Book Title', data[:title]
+    assert_equal ['Test Author'], data[:authors]
+    assert_equal 4, data[:rating]
+    assert_equal '<p>Book excerpt.</p>', data[:excerpt]
+    assert_equal 'http://example.com/book_single.html', data[:url]
+    assert_equal 'http://example.com/images/book.jpg', data[:image_url]
+    assert_equal 'Book cover of My Book Title.', data[:image_alt]
+    assert_nil data[:subtitle]
+  end
+
+  def test_extract_data_returns_nil_when_base_extraction_fails
+    mock_failure = { log_output: '<!-- fail -->', site: nil, data_source_for_keys: nil }
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_failure do
+      data = Jekyll::Books::Core::BookCardRenderer.new(@book_object_single_author, @context, nil, nil).extract_data
+      assert_nil data
+    end
+  end
+
+  def test_extract_data_respects_title_override
+    book = @book_object_single_author
+    mock_base_data = create_base_data(book, '/book_single.html', '/images/book.jpg', 'My Book Title')
+
+    data = nil
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '' do
+        Jekyll.stub :logger, @silent_logger_stub do
+          data = Jekyll::Books::Core::BookCardRenderer.new(book, @context, 'Custom Title', nil).extract_data
+        end
+      end
+    end
+
+    assert_equal 'Custom Title', data[:title]
+    assert_equal 'Book cover of Custom Title.', data[:image_alt]
+  end
+
+  def test_extract_data_includes_subtitle_when_provided
+    book = @book_object_single_author
+    mock_base_data = create_base_data(book, '/book_single.html', '/images/book.jpg', 'My Book Title')
+
+    data = nil
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '' do
+        Jekyll.stub :logger, @silent_logger_stub do
+          data = Jekyll::Books::Core::BookCardRenderer.new(book, @context, nil, 'A Subtitle').extract_data
+        end
+      end
+    end
+
+    assert_equal 'A Subtitle', data[:subtitle]
+  end
+
+  def test_extract_data_uses_provided_image_alt
+    book = create_doc({
+                        'title' => 'Book', 'image' => '/img.jpg', 'image_alt' => 'Custom Alt',
+                        'book_authors' => ['Author'], 'rating' => 3
+                      }, '/book.html')
+    mock_base_data = create_base_data(book, '/book.html', '/img.jpg', 'Book')
+
+    data = nil
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '' do
+        Jekyll.stub :logger, @silent_logger_stub do
+          data = Jekyll::Books::Core::BookCardRenderer.new(book, @context, nil, nil).extract_data
+        end
+      end
+    end
+
+    assert_equal 'Custom Alt', data[:image_alt]
+  end
+
+  def test_extract_data_returns_multiple_authors
+    book = @book_object_multi_author
+    mock_base_data = create_base_data(book, '/book_multi.html', '/images/collab.jpg', 'Collaborative Work')
+
+    data = nil
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '' do
+        Jekyll.stub :logger, @silent_logger_stub do
+          data = Jekyll::Books::Core::BookCardRenderer.new(book, @context, nil, nil).extract_data
+        end
+      end
+    end
+
+    assert_equal ['Author One', 'Author Two'], data[:authors]
+  end
+
   def test_render_with_empty_rating_html_excludes_rating_element
     # This tests line 124's else branch: html && !html.empty? returns false when html is ''
     book_with_rating = create_doc({
