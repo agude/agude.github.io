@@ -74,6 +74,10 @@ end
 
 # Hook for collection documents (posts, books)
 Jekyll::Hooks.register :documents, :pre_render do |doc, payload|
+  # Ensure render_mode is always defined for strict Liquid compliance.
+  # The markdown pass overrides this to "markdown" via payload_with_mode.
+  payload['render_mode'] ||= 'html' if payload
+
   next unless Jekyll::MarkdownOutput::MarkdownBodyHook.enabled?(doc.site)
   next unless Jekyll::MarkdownOutput::MarkdownBodyHook.eligible_document?(doc)
 
@@ -91,6 +95,9 @@ end
 
 # Hook for standalone pages (author, series, category, root pages, etc.)
 Jekyll::Hooks.register :pages, :pre_render do |page, payload|
+  # Ensure render_mode is always defined for strict Liquid compliance.
+  payload['render_mode'] ||= 'html' if payload
+
   next unless Jekyll::MarkdownOutput::MarkdownBodyHook.enabled?(page.site)
   next unless Jekyll::MarkdownOutput::MarkdownBodyHook.eligible_page?(page)
 

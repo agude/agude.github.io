@@ -34,10 +34,11 @@
   {% seo %}
 
   {% comment %} Markdown alternate for LLM/agent consumption {% endcomment %}
-  {% if page.markdown_alternate_href %}
+  {% assign markdown_alternate_href = page | optional: 'markdown_alternate_href' %}
+  {% if markdown_alternate_href %}
   <link rel="alternate"
         type="text/markdown; charset=UTF-8"
-        href="{{ page.markdown_alternate_href | absolute_url }}"
+        href="{{ markdown_alternate_href | absolute_url }}"
         title="Markdown version">
   {% endif %}
 
