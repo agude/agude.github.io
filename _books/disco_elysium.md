@@ -12,6 +12,7 @@ series: Elysium
 book_number: 2
 rating: 5
 image: /books/covers/disco_elysium.jpg
+redirect_from: /books/disco_elyisum/
 ---
 
 <cite class="video-game-title">{{ page.title }}</cite>, written by <span
