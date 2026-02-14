@@ -106,21 +106,26 @@ class TestMarkdownBodyHook < Minitest::Test
 
   def test_compute_markdown_href_trailing_slash
     doc = create_doc({}, '/papers/')
-    assert_equal '/papers/index.md', Hook.compute_markdown_href(doc)
+    assert_equal '/papers.md', Hook.compute_markdown_href(doc)
   end
 
   def test_compute_markdown_href_no_trailing_slash
     doc = create_doc({}, '/resume')
-    assert_equal '/index.md', Hook.compute_markdown_href(doc)
+    assert_equal '/resume.md', Hook.compute_markdown_href(doc)
   end
 
   def test_compute_markdown_href_nested_path
     doc = create_doc({}, '/blog/2026/my-post/')
-    assert_equal '/blog/2026/my-post/index.md', Hook.compute_markdown_href(doc)
+    assert_equal '/blog/2026/my-post.md', Hook.compute_markdown_href(doc)
+  end
+
+  def test_compute_markdown_href_root_url
+    doc = create_doc({}, '/')
+    assert_equal '/index.md', Hook.compute_markdown_href(doc)
   end
 
   def test_compute_markdown_href_html_extension
     doc = create_doc({}, '/books/hyperion-simmons.html')
-    assert_equal '/books/index.md', Hook.compute_markdown_href(doc)
+    assert_equal '/books/hyperion-simmons.md', Hook.compute_markdown_href(doc)
   end
 end

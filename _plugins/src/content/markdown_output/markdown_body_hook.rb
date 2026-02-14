@@ -55,13 +55,11 @@ module Jekyll
 
       def self.compute_markdown_href(item)
         url = item.url
-        if url.end_with?('/')
-          "#{url}index.md"
-        else
-          parent = File.dirname(url)
-          parent = '' if parent == '/'
-          "#{parent}/index.md"
-        end
+        return '/index.md' if url == '/'
+
+        url = url.chomp('/')
+        url = url.sub(%r{\.[^./]+\z}, '') # strip file extension if present
+        "#{url}.md"
       end
     end
   end

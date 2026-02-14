@@ -83,7 +83,7 @@ class TestMarkdownOutputAssembler < Minitest::Test
     doc = create_doc(
       { 'layout' => 'page', 'title' => 'Test',
         'markdown_body' => "Some **bold** content\n\nWith paragraphs.",
-        'markdown_alternate_href' => '/test/index.md' },
+        'markdown_alternate_href' => '/test.md' },
       '/test/'
     )
     result = Assembler.assemble_markdown(doc)
@@ -105,7 +105,7 @@ class TestMarkdownOutputAssembler < Minitest::Test
     doc = create_doc(
       { 'layout' => 'page', 'title' => 'Test',
         'markdown_body' => 'content',
-        'markdown_alternate_href' => '/papers/index.md' },
+        'markdown_alternate_href' => '/papers.md' },
       '/papers/'
     )
     site = create_site
@@ -113,6 +113,6 @@ class TestMarkdownOutputAssembler < Minitest::Test
     Assembler.process_items(site, [doc])
     assert_equal 1, site.static_files.length
     file = site.static_files.first
-    assert_equal 'index.md', file.generated_name
+    assert_equal 'papers.md', file.generated_name
   end
 end
