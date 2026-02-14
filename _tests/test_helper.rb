@@ -92,9 +92,12 @@ require 'src/infrastructure/optional_filter'
 # --- Utilities (_plugins/utils/) ---
 require 'src/content/posts/article_card_utils'
 require 'src/content/authors/author_link_util'
+require 'src/content/authors/author_link_finder'
+require 'src/content/authors/author_link_resolver'
 require 'src/infrastructure/links/backlink_utils'
 require 'src/content/books/core/book_card_utils'
 require 'src/content/books/core/book_data_utils'
+require 'src/content/books/core/book_link_finder'
 require 'src/content/books/core/book_link_util'
 require 'src/content/books/lists/book_list_renderer_utils'
 require 'src/ui/cards/card_data_extractor_utils'
@@ -106,12 +109,15 @@ require 'src/content/posts/feed_utils'
 require 'src/infrastructure/front_matter_utils'
 require 'src/seo/json_ld_utils'
 require 'src/infrastructure/links/link_helper_utils'
+require 'src/infrastructure/links/link_formatter'
 require 'src/infrastructure/links/markdown_link_utils'
 require 'src/infrastructure/plugin_logger_utils'
 require 'src/content/posts/post_list_utils'
 require 'src/ui/ratings/rating_utils'
+require 'src/content/series/series_link_finder'
 require 'src/content/series/series_link_util'
 require 'src/content/series/series_text_utils'
+require 'src/content/short_stories/short_story_link_finder'
 require 'src/content/short_stories/short_story_link_util'
 require 'src/content/short_stories/short_story_title_util'
 require 'src/infrastructure/tag_argument_utils'
@@ -485,4 +491,16 @@ def setup_mock_excerpt(doc, base_data)
     string_excerpt_content = base_data['excerpt']
     doc.data['excerpt'] = Struct.new(:output).new(string_excerpt_content)
   end
+end
+
+# Creates a site with a pre-built link cache for testing finders.
+# This bypasses the normal link cache generator and directly sets the cache data.
+#
+# @param link_cache_data [Hash] The link cache data to use
+# @return [MockSite] A site with the specified link cache
+def create_site_with_link_cache(link_cache_data)
+  site = create_site
+  site.data['link_cache'] = link_cache_data
+  site.data['mention_tracker'] = {}
+  site
 end

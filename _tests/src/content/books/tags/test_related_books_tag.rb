@@ -195,7 +195,7 @@ class TestRelatedBooksTag < Minitest::Test
       output = ''
       Time.stub :now, @test_time_now do
         Jekyll.stub :logger, @silent_logger_stub do
-          Jekyll::Books::Core::BookCardUtils.stub :render, ->(book_obj, _ctx) { "<!-- Card for: #{book_obj.data['title']} -->\n" } do
+          Jekyll::Books::Core::BookCardUtils.stub :render, ->(book_obj, _ctx, format: nil) { "<!-- Card for: #{book_obj.data['title']} -->\n" } do
             output = Liquid::Template.parse('{% related_books %}').render!(context)
           end
         end

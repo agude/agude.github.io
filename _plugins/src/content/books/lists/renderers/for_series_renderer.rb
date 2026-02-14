@@ -22,7 +22,7 @@ module Jekyll
 
             output = +"<div class=\"card-grid\">\n"
             @books.each do |book|
-              output << Jekyll::Books::Core::BookCardUtils.render(book, @context) << "\n"
+              output << Jekyll::Books::Core::BookCardUtils.render(book, @context, format: :html) << "\n"
             end
             output << "</div>\n"
             output

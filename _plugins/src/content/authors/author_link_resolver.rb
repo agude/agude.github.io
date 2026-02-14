@@ -19,10 +19,11 @@ module Jekyll
       Text = Jekyll::Infrastructure::TextProcessingUtils
       private_constant :LinkHelper, :Logger, :Text
 
-      def initialize(context)
+      def initialize(context, force_html: false)
         @context = context
         @site = context&.registers&.[](:site)
         @log_output = ''
+        @force_html = force_html
       end
 
       def resolve(name_raw, override, possessive)
@@ -73,8 +74,8 @@ module Jekyll
         url = author_data ? author_data['url'] : nil
         suffix = @possessive ? "\u2019s" : ''
 
-        # Check for markdown mode
-        if Jekyll::Infrastructure::Links::MarkdownLinkUtils.markdown_mode?(@context)
+        # Check for markdown mode (skip if force_html is set, e.g., inside HTML card structures)
+        if !@force_html && Jekyll::Infrastructure::Links::MarkdownLinkUtils.markdown_mode?(@context)
           link = Jekyll::Infrastructure::Links::MarkdownLinkUtils.render_link(display_text, url, italic: false)
           return @log_output + link + suffix
         end

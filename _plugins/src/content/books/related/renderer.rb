@@ -27,7 +27,7 @@ module Jekyll
           output = String.new("<aside class=\"related\">\n")
           output << "  <h2>Related Books</h2>\n"
           output << "  <div class=\"card-grid\">\n"
-          @books.each { |book| output << Jekyll::Books::Core::BookCardUtils.render(book, @context) << "\n" }
+          @books.each { |book| output << Jekyll::Books::Core::BookCardUtils.render(book, @context, format: :html) << "\n" }
           output << "  </div>\n"
           output << '</aside>'
         end

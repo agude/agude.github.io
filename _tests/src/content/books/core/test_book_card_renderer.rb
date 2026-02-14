@@ -99,7 +99,7 @@ class TestBookCardRenderer < Minitest::Test
     author_link_calls = 0
 
     stub_rendering_dependencies(mock_base_data, mock_prepared_title, mock_description_html) do
-      Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, lambda { |name, _ctx|
+      Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, lambda { |name, _ctx, _override = nil, _poss = nil, **_kw|
         author_link_calls += 1
         name == 'Author One' ? mock_author1_link_html : mock_author2_link_html
       } do
@@ -133,7 +133,7 @@ class TestBookCardRenderer < Minitest::Test
     author_link_calls = 0
 
     stub_rendering_dependencies(mock_base_data, mock_prepared_title, mock_description_html) do
-      Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, lambda { |name, _ctx|
+      Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, lambda { |name, _ctx, _override = nil, _poss = nil, **_kw|
         author_link_calls += 1
         "<a href=\"...\">#{name}</a>"
       } do
@@ -485,5 +485,135 @@ class TestBookCardRenderer < Minitest::Test
       end
     end
     [captured_card_data, final_output]
+  end
+end
+
+# Tests for markdown mode rendering of book cards.
+class TestBookCardRendererMarkdown < Minitest::Test
+  def setup
+    @author_page = create_doc(
+      { 'title' => 'Dan Simmons', 'layout' => 'author_page' },
+      '/authors/dan-simmons.html'
+    )
+    @site = create_site({ 'url' => 'http://example.com' }, {}, [@author_page])
+    @page = create_doc({}, '/current.html')
+
+    @book_data = {
+      'title' => 'Hyperion',
+      'image' => '/images/hyperion.jpg',
+      'book_authors' => ['Dan Simmons'],
+      'rating' => 5,
+      'excerpt' => Struct.new(:output).new('<p>The Hegemony Consul sat on the balcony.</p>')
+    }
+    @book = create_doc(@book_data, '/books/hyperion.html')
+
+    @silent_logger = Object.new.tap do |logger|
+      def logger.warn(_topic, _message); end
+      def logger.error(_topic, _message); end
+      def logger.info(_topic, _message); end
+      def logger.debug(_topic, _message); end
+    end
+  end
+
+  def test_renders_html_by_default
+    context = create_context({}, { site: @site, page: @page })
+
+    output = Jekyll.stub :logger, @silent_logger do
+      Jekyll::Books::Core::BookCardRenderer.new(@book, context, nil, nil).render
+    end
+
+    assert_match(/<div class="book-card">/, output)
+    assert_match(/<cite class="book-title">/, output)
+  end
+
+  def test_renders_markdown_in_markdown_mode
+    context = create_context({}, { site: @site, page: @page, markdown_mode: true })
+
+    output = Jekyll.stub :logger, @silent_logger do
+      Jekyll::Books::Core::BookCardRenderer.new(@book, context, nil, nil).render
+    end
+
+    # Should have horizontal rules
+    assert_match(/^---$/, output)
+    # Should NOT have HTML card structure
+    refute_match(/<div class="book-card">/, output)
+    refute_match(/<cite/, output)
+  end
+
+  def test_markdown_contains_linked_title
+    context = create_context({}, { site: @site, page: @page, markdown_mode: true })
+
+    output = Jekyll.stub :logger, @silent_logger do
+      Jekyll::Books::Core::BookCardRenderer.new(@book, context, nil, nil).render
+    end
+
+    # Title should be bold, italic, and linked (absolute URL includes domain)
+    assert_match %r{\*\*\[\*Hyperion\*\]\(.*?/books/hyperion\.html\)\*\*}, output
+  end
+
+  def test_markdown_contains_linked_author
+    context = create_context({}, { site: @site, page: @page, markdown_mode: true })
+
+    output = Jekyll.stub :logger, @silent_logger do
+      Jekyll::Books::Core::BookCardRenderer.new(@book, context, nil, nil).render
+    end
+
+    # Author should be linked
+    assert_match %r{by \[Dan Simmons\]\(/authors/dan-simmons\.html\)}, output
+  end
+
+  def test_markdown_contains_rating_stars
+    context = create_context({}, { site: @site, page: @page, markdown_mode: true })
+
+    output = Jekyll.stub :logger, @silent_logger do
+      Jekyll::Books::Core::BookCardRenderer.new(@book, context, nil, nil).render
+    end
+
+    # Should have star rating (5 stars = ★★★★★)
+    assert_match(/★★★★★/, output)
+  end
+
+  def test_markdown_contains_cover_image
+    context = create_context({}, { site: @site, page: @page, markdown_mode: true })
+
+    output = Jekyll.stub :logger, @silent_logger do
+      Jekyll::Books::Core::BookCardRenderer.new(@book, context, nil, nil).render
+    end
+
+    # Should have markdown image
+    assert_match %r{!\[.*\]\(.*/images/hyperion\.jpg\)}, output
+  end
+
+  def test_markdown_contains_description
+    context = create_context({}, { site: @site, page: @page, markdown_mode: true })
+
+    output = Jekyll.stub :logger, @silent_logger do
+      Jekyll::Books::Core::BookCardRenderer.new(@book, context, nil, nil).render
+    end
+
+    # Description text should be present (HTML stripped)
+    assert_match(/The Hegemony Consul sat on the balcony/, output)
+  end
+
+  def test_markdown_without_rating_omits_stars
+    book_no_rating = create_doc(@book_data.merge('rating' => nil), '/books/hyperion.html')
+    context = create_context({}, { site: @site, page: @page, markdown_mode: true })
+
+    output = Jekyll.stub :logger, @silent_logger do
+      Jekyll::Books::Core::BookCardRenderer.new(book_no_rating, context, nil, nil).render
+    end
+
+    refute_match(/★/, output)
+  end
+
+  def test_markdown_without_image_omits_image_line
+    book_no_image = create_doc(@book_data.merge('image' => nil), '/books/hyperion.html')
+    context = create_context({}, { site: @site, page: @page, markdown_mode: true })
+
+    output = Jekyll.stub :logger, @silent_logger do
+      Jekyll::Books::Core::BookCardRenderer.new(book_no_image, context, nil, nil).render
+    end
+
+    refute_match(/!\[/, output)
   end
 end

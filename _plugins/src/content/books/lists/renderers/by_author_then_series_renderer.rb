@@ -61,7 +61,7 @@ module Jekyll
             id = "standalone-books-#{slug}"
             html = "<h3 class=\"book-list-headline\" id=\"#{id}\">Standalone Books</h3>\n"
             html << "<div class=\"card-grid\">\n"
-            books.each { |book| html << Jekyll::Books::Core::BookCardUtils.render(book, @context) << "\n" }
+            books.each { |book| html << Jekyll::Books::Core::BookCardUtils.render(book, @context, format: :html) << "\n" }
             html << "</div>\n"
           end
 

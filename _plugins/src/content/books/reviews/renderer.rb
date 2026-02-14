@@ -26,7 +26,7 @@ module Jekyll
 
           @reviews.each do |doc|
             subtitle = "Review from #{doc.date.strftime('%B %d, %Y')}"
-            output << Jekyll::Books::Core::BookCardUtils.render(doc, @context, subtitle: subtitle)
+            output << Jekyll::Books::Core::BookCardUtils.render(doc, @context, subtitle: subtitle, format: :html)
           end
 
           output << "  </div>\n"

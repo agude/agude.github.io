@@ -26,7 +26,7 @@ module Jekyll
 
           @feed_items.each do |item|
             if book?(item)
-              output << Jekyll::Books::Core::BookCardUtils.render(item, @context) << "\n"
+              output << Jekyll::Books::Core::BookCardUtils.render(item, @context, format: :html) << "\n"
             elsif post?(item)
               output << Jekyll::Posts::ArticleCardUtils.render(item, @context) << "\n"
             else

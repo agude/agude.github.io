@@ -2,6 +2,8 @@
 
 # _plugins/src/content/books/core/book_card_renderer.rb
 require 'cgi'
+require_relative '../../../infrastructure/links/link_formatter'
+require_relative '../../../infrastructure/links/markdown_link_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../../../infrastructure/typography_utils'
 require_relative '../../../infrastructure/front_matter_utils'
@@ -26,14 +28,17 @@ module Jekyll
         CardRenderer = Jekyll::UI::Cards::CardRendererUtils
         Ratings = Jekyll::UI::Ratings::RatingUtils
         AuthorLinker = Jekyll::Authors::AuthorLinkUtils
+        MarkdownUtils = Jekyll::Infrastructure::Links::MarkdownLinkUtils
+        Formatter = Jekyll::Infrastructure::Links::LinkFormatter
         private_constant :Logger, :Typography, :FrontMatter, :Text, :CardExtractor, :CardRenderer, :Ratings,
-                         :AuthorLinker
+                         :AuthorLinker, :MarkdownUtils, :Formatter
 
-        def initialize(book_obj, context, title_override, subtitle)
+        def initialize(book_obj, context, title_override, subtitle, format: nil)
           @book_obj = book_obj
           @context = context
           @title_override = title_override
           @subtitle = subtitle
+          @format = format
           @log_out = ''
         end
 
@@ -47,19 +52,106 @@ module Jekyll
           return @log_out if @base[:site].nil? || @base[:data_source_for_keys].nil?
 
           @data = @base[:data_source_for_keys]
-          card_data = build_card_data(title_html, image_alt, description_html, extra_elements)
-          @log_out + CardRenderer.render_card(context: @context, card_data: card_data)
+
+          # Check markdown mode and render accordingly
+          if markdown_mode?
+            render_markdown
+          else
+            render_html
+          end
         end
 
         private
 
-        def title_html
+        def markdown_mode?
+          # Explicit format parameter takes precedence over context
+          return @format == :markdown if @format
+
+          MarkdownUtils.markdown_mode?(@context)
+        end
+
+        def render_html
+          card_data = build_card_data(title_html, image_alt, description_html, extra_elements_html)
+          @log_out + CardRenderer.render_card(context: @context, card_data: card_data)
+        end
+
+        def render_markdown
+          desc = description_text
+          lines = []
+          lines << '---'
+          lines << title_line_markdown
+          lines << rating_markdown if rating_value
+          lines << image_markdown if @base[:absolute_image_url]
+          lines << ''
+          lines << desc if desc && !desc.strip.empty?
+          lines << '---'
+          @log_out + lines.join("\n")
+        end
+
+        def title_line_markdown
+          title = resolved_title
+          url = @base[:absolute_url]
+          title_link = Formatter.markdown(title, url, italic: true)
+          author_links = authors_markdown
+
+          if author_links && !author_links.empty?
+            "**#{title_link}** by #{author_links}"
+          else
+            "**#{title_link}**"
+          end
+        end
+
+        def authors_markdown
+          names = FrontMatter.get_list_from_string_or_array(@data['book_authors'])
+          return nil if names.empty?
+
+          # Let author links auto-detect format from context (markdown mode)
+          links = names.map { |n| AuthorLinker.render_author_link(n, @context) }
+          Text.format_list_as_sentence(links, etal_after: 3)
+        end
+
+        def rating_markdown
+          val = rating_value
+          return nil unless val
+
+          full_stars = val.to_i
+          half_star = (val % 1) >= 0.5
+          empty_stars = 5 - full_stars - (half_star ? 1 : 0)
+
+          ('★' * full_stars) + (half_star ? '⯨' : '') + ('☆' * empty_stars)
+        end
+
+        def rating_value
+          @data['rating']
+        end
+
+        def image_markdown
+          url = @base[:absolute_image_url]
+          alt = image_alt
+          "![#{alt}](#{url})"
+        end
+
+        def description_text
+          html = CardExtractor.extract_description_html(@data, type: :book)
+          Text.clean_text_from_html(html)
+        end
+
+        def resolved_title
           t = @title_override.to_s.strip.empty? ? @base[:raw_title] : @title_override
           if t == Jekyll::Books::Core::BookCardUtils::DEFAULT_TITLE_FOR_BOOK_CARD
             log('BOOK_CARD_MISSING_TITLE', 'Book title is missing and defaulted.', :error,
                 { book_url: @base[:absolute_url] || @data['url'] || 'N/A' })
           end
           @final_title = t
+          t
+        end
+
+        def extra_elements_html
+          [authors_html, subtitle_html, rating_html].compact
+        end
+
+        def title_html
+          t = resolved_title
           "<strong><cite class=\"book-title\">#{Typography.prepare_display_title(t)}</cite></strong>"
         end
 
@@ -94,10 +186,6 @@ module Jekyll
           html
         end
 
-        def extra_elements
-          [authors_html, subtitle_html, rating_html].compact
-        end
-
         def authors_html
           names = FrontMatter.get_list_from_string_or_array(@data['book_authors'])
           if names.empty?
@@ -105,7 +193,8 @@ module Jekyll
                 { book_title: @base[:raw_title] })
             return nil
           end
-          links = names.map { |n| AuthorLinker.render_author_link(n, @context) }
+          # Explicitly use HTML format since we're rendering HTML card
+          links = names.map { |n| AuthorLinker.render_author_link(n, @context, format: :html) }
           "    <span class=\"by-author\"> by #{Text.format_list_as_sentence(
             links, etal_after: 3
           )}</span>\n"

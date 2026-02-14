@@ -27,7 +27,7 @@ module Jekyll
               output << render_group_header(group[:rating])
               output << "<div class=\"card-grid\">\n"
               group[:books].each do |book|
-                output << Jekyll::Books::Core::BookCardUtils.render(book, @context) << "\n"
+                output << Jekyll::Books::Core::BookCardUtils.render(book, @context, format: :html) << "\n"
               end
               output << "</div>\n"
             end

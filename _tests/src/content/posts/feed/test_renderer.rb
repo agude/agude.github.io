@@ -67,7 +67,7 @@ class TestFrontPageFeedRenderer < Minitest::Test
 
   def test_calls_book_card_utils_for_books
     captured_args = []
-    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |item, ctx|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |item, ctx, format: nil|
       captured_args << { item: item, ctx: ctx }
       '<div>Book Card</div>'
     } do
@@ -84,7 +84,7 @@ class TestFrontPageFeedRenderer < Minitest::Test
     Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |item, _ctx|
       "<div>Article: #{item.data['title']}</div>"
     } do
-      Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |item, _ctx|
+      Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |item, _ctx, format: nil|
         "<div>Book: #{item.data['title']}</div>"
       } do
         renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@post, @book])
@@ -133,7 +133,7 @@ class TestFrontPageFeedRenderer < Minitest::Test
 
   def test_wraps_all_items_in_single_card_grid
     Jekyll::Posts::ArticleCardUtils.stub :render, ->(_item, _ctx) { '<div>Card</div>' } do
-      Jekyll::Books::Core::BookCardUtils.stub :render, ->(_item, _ctx) { '<div>Card</div>' } do
+      Jekyll::Books::Core::BookCardUtils.stub :render, ->(_item, _ctx, format: nil) { '<div>Card</div>' } do
         renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@post, @book])
         output = renderer.render
 

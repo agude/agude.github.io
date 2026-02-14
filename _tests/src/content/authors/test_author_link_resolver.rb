@@ -160,4 +160,25 @@ class TestAuthorLinkResolver < Minitest::Test
     assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('Jane  Doe', nil, nil)
     assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('  jAnE dOe   ', nil, nil)
   end
+
+  # --- Markdown Mode Tests ---
+
+  def test_render_author_link_in_markdown_mode_returns_markdown
+    ctx_md = create_context({}, { site: @site, page: @page, markdown_mode: true })
+    expected = '[Jane Doe](/authors/jane-doe.html)'
+    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(ctx_md).resolve('Jane Doe', nil, nil)
+  end
+
+  def test_render_author_link_force_html_overrides_markdown_mode
+    # Even with markdown_mode: true, force_html should return HTML
+    ctx_md = create_context({}, { site: @site, page: @page, markdown_mode: true })
+    expected = '<a href="/authors/jane-doe.html"><span class="author-name">Jane Doe</span></a>'
+    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(ctx_md, force_html: true).resolve('Jane Doe', nil, nil)
+  end
+
+  def test_render_author_link_force_html_with_possessive_in_markdown_mode
+    ctx_md = create_context({}, { site: @site, page: @page, markdown_mode: true })
+    expected = "<a href=\"/authors/jane-doe.html\"><span class=\"author-name\">Jane Doe</span>\u2019s</a>"
+    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(ctx_md, force_html: true).resolve('Jane Doe', nil, true)
+  end
 end

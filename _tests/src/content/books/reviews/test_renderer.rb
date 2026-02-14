@@ -30,7 +30,7 @@ class TestPreviousReviewsRenderer < Minitest::Test
 
   def test_generates_correct_html_structure
     captured_args = []
-    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:, format: nil|
       captured_args << { doc: doc, subtitle: subtitle }
       "<!-- Card for #{doc.data['title']} -->"
     } do
@@ -46,7 +46,7 @@ class TestPreviousReviewsRenderer < Minitest::Test
 
   def test_calls_book_card_utils_with_correct_subtitle_format
     captured_args = []
-    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:, format: nil|
       captured_args << { doc: doc, subtitle: subtitle }
       ''
     } do
@@ -63,7 +63,7 @@ class TestPreviousReviewsRenderer < Minitest::Test
 
   def test_renders_cards_in_given_order
     captured_args = []
-    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
+    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:, format: nil|
       captured_args << { doc: doc, subtitle: subtitle }
       "<!-- Card for #{doc.data['title']} -->"
     } do
