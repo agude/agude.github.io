@@ -15,7 +15,7 @@ class TestPreviousReviewsFinder < Minitest::Test
 
   def test_returns_empty_reviews_when_no_archived_reviews
     context = create_context({}, { site: @site, page: @unrelated_book })
-    finder = Jekyll::Books::Reviews::Finder.new(context)
+    finder = Jekyll::Books::Reviews::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_equal '', result[:logs]
@@ -24,7 +24,7 @@ class TestPreviousReviewsFinder < Minitest::Test
 
   def test_finds_and_sorts_archived_reviews_by_date_descending
     context = create_context({}, { site: @site, page: @canonical_page })
-    finder = Jekyll::Books::Reviews::Finder.new(context)
+    finder = Jekyll::Books::Reviews::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_equal '', result[:logs]
@@ -35,7 +35,7 @@ class TestPreviousReviewsFinder < Minitest::Test
 
   def test_returns_error_when_prerequisites_missing
     context_no_page = create_context({}, { site: @site }) # No page
-    finder = Jekyll::Books::Reviews::Finder.new(context_no_page)
+    finder = Jekyll::Books::Reviews::Finder.new(context_no_page.registers[:site], context_no_page.registers[:page])
     result = nil
 
     Jekyll.stub :logger, @silent_logger_stub do
@@ -53,7 +53,7 @@ class TestPreviousReviewsFinder < Minitest::Test
     @canonical_page.data['canonical_url'] = '/books/canonical.html'
 
     context = create_context({}, { site: @site, page: @canonical_page })
-    finder = Jekyll::Books::Reviews::Finder.new(context)
+    finder = Jekyll::Books::Reviews::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     # Should only find the two archive documents, not the canonical page

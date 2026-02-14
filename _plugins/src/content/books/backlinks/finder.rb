@@ -11,10 +11,16 @@ module Jekyll
       # Handles all data retrieval from caches, aggregation, deduplication,
       # and sorting of backlinks. Returns structured data without HTML.
       class Finder
-        def initialize(context)
-          @context = context
-          @site = context.registers[:site]
-          @page = context.registers[:page]
+        # Accepts site + page directly (for use outside Liquid context).
+        # Legacy: also accepts a Liquid::Context as the sole argument.
+        def initialize(site_or_context, page = nil)
+          if site_or_context.respond_to?(:registers)
+            @site = site_or_context.registers[:site]
+            @page = site_or_context.registers[:page]
+          else
+            @site = site_or_context
+            @page = page
+          end
           @caches = fetch_caches
         end
 
@@ -73,12 +79,21 @@ module Jekyll
 
         def log_validation_failure(missing)
           Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
+            context: log_context,
             tag_type: 'BOOK_BACKLINKS_TAG',
             reason: "Tag prerequisites missing: #{missing.join(', ')}.",
             identifiers: { PageURL: @page&.[]('url') || 'N/A', PageTitle: @page&.[]('title') || 'N/A' },
             level: :error
           )
+        end
+
+        # Builds a minimal context-like object for PluginLoggerUtils.
+        def log_context
+          page = @page
+          site = @site
+          Object.new.tap do |ctx|
+            ctx.define_singleton_method(:registers) { { site: site, page: page } }
+          end
         end
 
         def gather_backlinks(canonical_url)

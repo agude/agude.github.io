@@ -26,7 +26,7 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, { logs: '<!-- Log message -->', reviews: [] }
 
-    Jekyll::Books::Reviews::Finder.stub :new, ->(_context) { mock_finder } do
+    Jekyll::Books::Reviews::Finder.stub :new, ->(_site, _page) { mock_finder } do
       output = render_tag
 
       assert_equal '<!-- Log message -->', output
@@ -43,7 +43,7 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<aside>HTML output</aside>'
 
-    Jekyll::Books::Reviews::Finder.stub :new, ->(_context) { mock_finder } do
+    Jekyll::Books::Reviews::Finder.stub :new, ->(_site, _page) { mock_finder } do
       Jekyll::Books::Reviews::Renderer.stub :new, lambda { |_context, reviews|
         assert_equal [mock_doc], reviews
         mock_renderer
@@ -66,7 +66,7 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<aside>HTML</aside>'
 
-    Jekyll::Books::Reviews::Finder.stub :new, ->(_context) { mock_finder } do
+    Jekyll::Books::Reviews::Finder.stub :new, ->(_site, _page) { mock_finder } do
       Jekyll::Books::Reviews::Renderer.stub :new, ->(_context, _reviews) { mock_renderer } do
         output = render_tag
 
@@ -77,10 +77,14 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     end
   end
 
-  def test_passes_context_to_finder_and_renderer
+  def test_passes_site_and_page_to_finder
     mock_doc = create_doc({ 'title' => 'Test' }, '/books/test.html')
-    context_passed_to_finder = nil
-    context_passed_to_renderer = nil
+    test_site = create_site({}, { 'books' => [mock_doc] })
+    test_page = create_doc({ 'title' => 'Current' }, '/books/current.html')
+    @context = create_context({}, { site: test_site, page: test_page })
+
+    site_passed_to_finder = nil
+    page_passed_to_finder = nil
 
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, { logs: '', reviews: [mock_doc] }
@@ -88,18 +92,18 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<aside>HTML</aside>'
 
-    Jekyll::Books::Reviews::Finder.stub :new, lambda { |context|
-      context_passed_to_finder = context
+    Jekyll::Books::Reviews::Finder.stub :new, lambda { |site, page|
+      site_passed_to_finder = site
+      page_passed_to_finder = page
       mock_finder
     } do
-      Jekyll::Books::Reviews::Renderer.stub :new, lambda { |context, _reviews|
-        context_passed_to_renderer = context
+      Jekyll::Books::Reviews::Renderer.stub :new, lambda { |_context, _reviews|
         mock_renderer
       } do
         render_tag
 
-        assert_equal @context, context_passed_to_finder
-        assert_equal @context, context_passed_to_renderer
+        assert_equal test_site, site_passed_to_finder
+        assert_equal test_page, page_passed_to_finder
       end
     end
   end

@@ -10,11 +10,18 @@ module Jekyll
       # Handles all logic for selecting posts based on category matching,
       # with fallback to recent posts. Returns structured data without HTML.
       class Finder
-        def initialize(context, max_posts)
-          @context = context
-          @max_posts = max_posts
-          @site = context.registers[:site]
-          @page = context.registers[:page]
+        # Accepts site + page directly (for use outside Liquid context).
+        # Legacy: also accepts a Liquid::Context as the first argument.
+        def initialize(site_or_context, page_or_max_posts, max_posts = nil)
+          if site_or_context.respond_to?(:registers)
+            @site = site_or_context.registers[:site]
+            @page = site_or_context.registers[:page]
+            @max_posts = page_or_max_posts
+          else
+            @site = site_or_context
+            @page = page_or_max_posts
+            @max_posts = max_posts
+          end
           @now_unix = Time.now.to_i
           @found_by_category = false
         end
@@ -47,12 +54,21 @@ module Jekyll
         def log_missing_prerequisites
           missing = collect_missing_items
           Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
+            context: log_context,
             tag_type: 'RELATED_POSTS',
             reason: "Missing prerequisites: #{missing.join(', ')}.",
             identifiers: { PageURL: @page ? (@page['url'] || 'N/A') : 'N/A' },
             level: :error
           )
+        end
+
+        # Builds a minimal context-like object for PluginLoggerUtils.
+        def log_context
+          page = @page
+          site = @site
+          Object.new.tap do |ctx|
+            ctx.define_singleton_method(:registers) { { site: site, page: page } }
+          end
         end
 
         def collect_missing_items

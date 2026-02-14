@@ -38,7 +38,7 @@ class TestRelatedPostsFinder < Minitest::Test
     page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
     context = create_context({}, { site: site, page: page })
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
     result = finder.find
 
     assert result[:found_by_category]
@@ -53,7 +53,7 @@ class TestRelatedPostsFinder < Minitest::Test
     page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
     context = create_context({}, { site: site, page: page })
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
     result = finder.find
 
     urls = result[:posts].map(&:url)
@@ -71,7 +71,7 @@ class TestRelatedPostsFinder < Minitest::Test
     page = { 'url' => '/posts/current.html', 'categories' => ['unique'] }
     context = create_context({}, { site: site, page: page })
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
     result = finder.find
 
     refute result[:found_by_category]
@@ -92,7 +92,7 @@ class TestRelatedPostsFinder < Minitest::Test
     page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
     context = create_context({}, { site: site, page: page })
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 3)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 3)
     result = finder.find
 
     assert_equal 3, result[:posts].length
@@ -109,7 +109,7 @@ class TestRelatedPostsFinder < Minitest::Test
     page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
     context = create_context({}, { site: site, page: page })
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
     result = finder.find
 
     urls = result[:posts].map(&:url)
@@ -127,7 +127,7 @@ class TestRelatedPostsFinder < Minitest::Test
     page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
     context = create_context({}, { site: site, page: page })
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
     result = finder.find
 
     urls = result[:posts].map(&:url)
@@ -142,7 +142,7 @@ class TestRelatedPostsFinder < Minitest::Test
       prefix == 'PluginLogger:' && msg.include?('RELATED_POSTS')
     end
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
     result = nil
     Jekyll.stub :logger, mock_logger do
       result = finder.find
@@ -163,7 +163,7 @@ class TestRelatedPostsFinder < Minitest::Test
     mock_logger = Minitest::Mock.new
     mock_logger.expect(:error, nil, [String, String])
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
     result = nil
     Jekyll.stub :logger, mock_logger do
       result = finder.find
@@ -184,7 +184,7 @@ class TestRelatedPostsFinder < Minitest::Test
     mock_logger = Minitest::Mock.new
     mock_logger.expect(:error, nil, [String, String])
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
     result = nil
     Jekyll.stub :logger, mock_logger do
       result = finder.find
@@ -210,7 +210,7 @@ class TestRelatedPostsFinder < Minitest::Test
     page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
     context = create_context({}, { site: site, page: page })
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
     result = finder.find
 
     assert_equal '/posts/newer.html', result[:posts].first.url
@@ -228,7 +228,7 @@ class TestRelatedPostsFinder < Minitest::Test
     page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
     context = create_context({}, { site: site, page: page })
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
     result = finder.find
 
     urls = result[:posts].map(&:url)
@@ -251,7 +251,7 @@ class TestRelatedPostsFinder < Minitest::Test
       prefix == 'PluginLiquid:' && msg.include?('not Array')
     end
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
     Jekyll.stub :logger, mock_logger do
       result = finder.find
       assert_match(/site\.posts\.docs is String, not Array/, result[:logs])
@@ -274,7 +274,7 @@ class TestRelatedPostsFinder < Minitest::Test
       prefix == 'PluginLiquid:' && msg.include?('does not have .docs')
     end
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
     Jekyll.stub :logger, mock_logger do
       result = finder.find
       assert_match(/site\.posts does not have \.docs/, result[:logs])
@@ -294,7 +294,7 @@ class TestRelatedPostsFinder < Minitest::Test
     page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
     context = create_context({}, { site: site, page: page })
 
-    finder = Jekyll::Posts::Related::Finder.new(context, 5)
+    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
     result = finder.find
 
     # The invalid_post should be excluded, only @related_post should be in results
