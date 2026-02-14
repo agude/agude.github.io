@@ -2,7 +2,12 @@
 
 require_relative '../../infrastructure/generated_static_file'
 require_relative '../../infrastructure/markdown_whitespace_normalizer'
+require_relative '../books/backlinks/finder'
+require_relative '../books/related/finder'
+require_relative '../books/reviews/finder'
+require_relative '../posts/related/finder'
 require_relative 'markdown_body_hook'
+require_relative 'markdown_card_utils'
 
 module Jekyll
   module MarkdownOutput
@@ -25,15 +30,17 @@ module Jekyll
         items.each do |item|
           next unless item.data['markdown_body']
 
-          md_content = assemble_markdown(item)
+          md_content = assemble_markdown(item, site: site)
           add_static_file(site, item, md_content)
         end
       end
 
-      def self.assemble_markdown(item)
+      def self.assemble_markdown(item, site: nil)
         sections = []
         sections << build_header(item)
         sections << item.data['markdown_body']
+        sections << build_book_footer(site, item) if site && item.data['layout'] == 'book'
+        sections << build_post_footer(site, item) if site && item.data['layout'] == 'post'
         raw = sections.compact.reject { |s| s.to_s.strip.empty? }.join("\n\n")
         Normalizer.normalize(raw)
       end
@@ -80,6 +87,85 @@ module Jekyll
       def self.build_title_only_header(item)
         "# #{item.data['title']}"
       end
+
+      # --- Book footer sections (related, backlinks, previous reviews) ---
+
+      def self.build_book_footer(site, item)
+        sections = []
+        sections << build_related_books_section(site, item)
+        sections << build_backlinks_section(site, item)
+        sections << build_previous_reviews_section(site, item)
+        sections.compact.reject { |s| s.to_s.strip.empty? }.join("\n\n")
+      end
+
+      MAX_RELATED_BOOKS = 6
+      private_constant :MAX_RELATED_BOOKS
+
+      def self.build_related_books_section(site, item)
+        result = Jekyll::Books::Related::Finder.new(site, item, MAX_RELATED_BOOKS).find
+        books = result[:books]
+        return nil if books.empty?
+
+        lines = ['## Related Books']
+        books.each { |book| lines << MarkdownCardUtils.render_book_card_md(book_doc_to_card_data(book)) }
+        lines.join("\n")
+      end
+
+      def self.build_backlinks_section(site, item)
+        result = Jekyll::Books::Backlinks::Finder.new(site, item).find
+        backlinks = result[:backlinks]
+        return nil if backlinks.empty?
+
+        lines = ['## Mentioned In']
+        backlinks.each { |title, url, _type| lines << "- [#{title}](#{url})" }
+        lines.join("\n")
+      end
+
+      def self.build_previous_reviews_section(site, item)
+        result = Jekyll::Books::Reviews::Finder.new(site, item).find
+        reviews = result[:reviews]
+        return nil if reviews.empty?
+
+        lines = ['## Previous Reviews']
+        reviews.each { |review| lines << MarkdownCardUtils.render_book_card_md(book_doc_to_card_data(review)) }
+        lines.join("\n")
+      end
+
+      # --- Post footer sections (related posts) ---
+
+      MAX_RELATED_POSTS = 6
+      private_constant :MAX_RELATED_POSTS
+
+      def self.build_post_footer(site, item)
+        build_related_posts_section(site, item)
+      end
+
+      def self.build_related_posts_section(site, item)
+        result = Jekyll::Posts::Related::Finder.new(site, item, MAX_RELATED_POSTS).find
+        posts = result[:posts]
+        return nil if posts.empty?
+
+        lines = ['## Related Posts']
+        posts.each { |post| lines << MarkdownCardUtils.render_article_card_md(post_doc_to_card_data(post)) }
+        lines.join("\n")
+      end
+
+      def self.post_doc_to_card_data(doc)
+        { title: doc.data['title'], url: doc.url }
+      end
+      private_class_method :post_doc_to_card_data
+
+      def self.book_doc_to_card_data(doc)
+        authors = doc.data['book_authors']
+        author_list = authors.is_a?(Array) ? authors : [authors].compact
+        {
+          title: doc.data['title'],
+          url: doc.url,
+          authors: author_list,
+          rating: doc.data['rating']
+        }
+      end
+      private_class_method :book_doc_to_card_data
 
       def self.add_static_file(site, item, content)
         href = item.data['markdown_alternate_href']

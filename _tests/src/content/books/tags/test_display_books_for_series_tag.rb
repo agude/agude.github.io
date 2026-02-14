@@ -183,4 +183,38 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     mock_finder.verify
     mock_renderer.verify
   end
+
+  # --- Markdown render mode ---
+
+  def test_markdown_mode_outputs_numbered_list
+    books = [
+      create_doc({ 'title' => 'Book 1', 'series' => 'Test Series',
+                   'book_number' => 1, 'book_authors' => ['Auth A'], 'rating' => 4 }, '/b1.html'),
+      create_doc({ 'title' => 'Book 2', 'series' => 'Test Series',
+                   'book_number' => 2, 'book_authors' => ['Auth A'], 'rating' => 5 }, '/b2.html')
+    ]
+    site = create_site({ 'url' => 'http://example.com' }, { 'books' => books })
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({ 'path' => 'test.html' }, '/test.html'),
+        render_mode: :markdown }
+    )
+
+    silent_logger = Object.new.tap do |l|
+      def l.warn(_, _); end
+      def l.error(_, _); end
+      def l.info(_, _); end
+      def l.debug(_, _); end
+    end
+
+    output = ''
+    Jekyll.stub :logger, silent_logger do
+      output = Liquid::Template.parse("{% display_books_for_series 'Test Series' %}").render!(md_context)
+    end
+    assert_includes output, '1. [Book 1](/b1.html)'
+    assert_includes output, '2. [Book 2](/b2.html)'
+    assert_includes output, 'by Auth A'
+    refute_includes output, '<div'
+    refute_includes output, '<cite'
+  end
 end

@@ -115,4 +115,201 @@ class TestMarkdownOutputAssembler < Minitest::Test
     file = site.static_files.first
     assert_equal 'papers.md', file.generated_name
   end
+
+  # --- Book footer: related books ---
+
+  def test_related_books_section_renders_markdown_list
+    books, site = setup_book_with_related
+    current = books.first
+
+    result = Assembler.build_related_books_section(site, current)
+    assert_includes result, '## Related Books'
+    # Should contain links to the other books
+    books[1..].each do |book|
+      assert_includes result, "[#{book.data['title']}](#{book.url})"
+    end
+  end
+
+  def test_related_books_section_nil_when_no_related
+    site = create_site({}, {})
+    doc = create_doc(
+      { 'layout' => 'book', 'title' => 'Solo Book',
+        'book_authors' => ['Author'], 'rating' => 3 },
+      '/books/solo/'
+    )
+    result = Assembler.build_related_books_section(site, doc)
+    assert_nil result
+  end
+
+  # --- Book footer: backlinks ---
+
+  def test_backlinks_section_renders_markdown_list
+    site, current = setup_book_with_backlinks
+    result = Assembler.build_backlinks_section(site, current)
+    assert_includes result, '## Mentioned In'
+    assert_includes result, '[Mentioning Post](/blog/mention/)'
+  end
+
+  def test_backlinks_section_nil_when_no_backlinks
+    site = create_site({}, {})
+    doc = create_doc(
+      { 'layout' => 'book', 'title' => 'No Links', 'book_authors' => ['Auth'] },
+      '/books/no-links/'
+    )
+    result = Assembler.build_backlinks_section(site, doc)
+    assert_nil result
+  end
+
+  # --- Book footer: previous reviews ---
+
+  def test_previous_reviews_section_renders_markdown_list
+    site, current, archived = setup_book_with_previous_reviews
+    result = Assembler.build_previous_reviews_section(site, current)
+    assert_includes result, '## Previous Reviews'
+    assert_includes result, "[#{archived.data['title']}](#{archived.url})"
+  end
+
+  def test_previous_reviews_section_nil_when_no_reviews
+    coll = MockCollection.new([], 'books')
+    doc = create_doc(
+      { 'layout' => 'book', 'title' => 'First Review',
+        'book_authors' => ['Auth'], 'rating' => 4 },
+      '/books/first/', 'Content', nil, coll
+    )
+    coll.docs = [doc]
+    site = create_site({}, { 'books' => coll.docs })
+    result = Assembler.build_previous_reviews_section(site, doc)
+    assert_nil result
+  end
+
+  # --- Book footer: full assembly integration ---
+
+  def test_book_assembly_includes_footer_sections
+    books, site = setup_book_with_related
+    current = books.first
+    current.data['markdown_body'] = 'Great book review.'
+    result = Assembler.assemble_markdown(current, site: site)
+    assert_includes result, '# S1B1'
+    assert_includes result, 'Great book review.'
+    assert_includes result, '## Related Books'
+  end
+
+  # --- Post footer: related posts ---
+
+  def test_related_posts_section_renders_markdown_list
+    posts, site = setup_post_with_related
+    current = posts.first
+    result = Assembler.build_related_posts_section(site, current)
+    assert_includes result, '## Related Posts'
+    posts[1..].each do |post|
+      assert_includes result, "[#{post.data['title']}](#{post.url})"
+    end
+  end
+
+  def test_related_posts_section_nil_when_no_related
+    site = create_site({}, {}, [], [])
+    doc = create_doc(
+      { 'layout' => 'post', 'title' => 'Solo Post',
+        'date' => Time.new(2026, 1, 1), 'categories' => ['unique'] },
+      '/blog/solo/'
+    )
+    result = Assembler.build_related_posts_section(site, doc)
+    assert_nil result
+  end
+
+  def test_post_assembly_includes_related_section
+    posts, site = setup_post_with_related
+    current = posts.first
+    current.data['markdown_body'] = 'Article content here.'
+    result = Assembler.assemble_markdown(current, site: site)
+    assert_includes result, '# Post A'
+    assert_includes result, 'Article content here.'
+    assert_includes result, '## Related Posts'
+  end
+
+  def test_non_book_assembly_has_no_footer
+    doc = create_doc(
+      { 'layout' => 'post', 'title' => 'Blog Post',
+        'date' => Time.new(2026, 1, 1),
+        'markdown_body' => 'Post body.' },
+      '/blog/post/'
+    )
+    site = create_site
+    result = Assembler.assemble_markdown(doc, site: site)
+    refute_includes result, '## Related Books'
+    refute_includes result, '## Mentioned In'
+    refute_includes result, '## Previous Reviews'
+  end
+
+  private
+
+  def setup_post_with_related
+    test_time = Time.parse('2026-01-15 10:00:00 EST')
+    posts = %w[A B C].each_with_index.map do |letter, i|
+      create_doc(
+        { 'layout' => 'post', 'title' => "Post #{letter}",
+          'categories' => ['tech'],
+          'date' => test_time - (60 * 60 * 24 * i) },
+        "/blog/post-#{letter.downcase}/"
+      )
+    end
+    site = create_site({}, {}, [], posts)
+    [posts, site]
+  end
+
+  def setup_book_with_related
+    test_time = Time.parse('2024-03-15 10:00:00 EST')
+    coll = MockCollection.new([], 'books')
+    books = (1..4).map do |i|
+      create_doc(
+        { 'layout' => 'book', 'title' => "S1B#{i}", 'series' => 'Series 1',
+          'book_number' => i, 'book_authors' => ['Auth'], 'rating' => 4,
+          'date' => test_time - (60 * 60 * 24 * (10 - i)) },
+        "/books/s1b#{i}.html", "Content #{i}", nil, coll
+      )
+    end
+    coll.docs = books
+    site = create_site({}, { 'books' => coll.docs })
+    [books, site]
+  end
+
+  def setup_book_with_backlinks
+    coll = MockCollection.new([], 'books')
+    current = create_doc(
+      { 'layout' => 'book', 'title' => 'Target Book',
+        'book_authors' => ['Auth'], 'rating' => 5 },
+      '/books/target.html', 'Content', nil, coll
+    )
+    mentioning = create_doc(
+      { 'layout' => 'post', 'title' => 'Mentioning Post' },
+      '/blog/mention/'
+    )
+    coll.docs = [current]
+    # Wire up the link_cache with backlinks
+    site = create_site({}, { 'books' => coll.docs })
+    site.data['link_cache']['url_to_canonical_map'] = { '/books/target.html' => '/books/target.html' }
+    site.data['link_cache']['book_families'] = { '/books/target.html' => ['/books/target.html'] }
+    site.data['link_cache']['backlinks'] = {
+      '/books/target.html' => [{ source: mentioning, type: 'direct' }]
+    }
+    [site, current]
+  end
+
+  def setup_book_with_previous_reviews
+    coll = MockCollection.new([], 'books')
+    current = create_doc(
+      { 'layout' => 'book', 'title' => 'Dune (2024)',
+        'book_authors' => ['Frank Herbert'], 'rating' => 5 },
+      '/books/dune-2024/', 'Current review', nil, coll
+    )
+    archived = create_doc(
+      { 'layout' => 'book', 'title' => 'Dune (2020)',
+        'book_authors' => ['Frank Herbert'], 'rating' => 4,
+        'canonical_url' => '/books/dune-2024/' },
+      '/books/dune-2020/', 'Old review', '2020-01-01', coll
+    )
+    coll.docs = [current, archived]
+    site = create_site({}, { 'books' => coll.docs })
+    [site, current, archived]
+  end
 end

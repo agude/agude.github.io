@@ -6,6 +6,7 @@ require 'liquid'
 require_relative '../lists/series_finder'
 require_relative '../lists/renderers/for_series_renderer'
 require_relative '../../../infrastructure/tag_argument_utils'
+require_relative '../../markdown_output/markdown_card_utils'
 
 module Jekyll
   module Books
@@ -33,6 +34,9 @@ module Jekyll
                 "Syntax Error in 'display_books_for_series': Series name (string literal or variable) is required."
         end
 
+        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+        private_constant :MdCards
+
         def render(context)
           series_name_input = TagArgs.resolve_value(@series_name_markup, context)
 
@@ -49,8 +53,35 @@ module Jekyll
           )
           data = finder.find
 
-          output = +(data[:log_messages] || '')
-          output << Renderer.new(context, data).render
+          if context.registers[:render_mode] == :markdown
+            render_markdown(data)
+          else
+            output = +(data[:log_messages] || '')
+            output << Renderer.new(context, data).render
+          end
+        end
+
+        private
+
+        def render_markdown(data)
+          books = data[:books] || []
+          return '' if books.empty?
+
+          lines = []
+          books.each_with_index do |book, idx|
+            authors = book.data['book_authors']
+            card = {
+              title: book.data['title'],
+              url: book.url,
+              authors: authors.is_a?(Array) ? authors : [authors].compact,
+              rating: book.data['rating']
+            }
+            # Numbered list for reading order
+            lines << "#{idx + 1}. [#{card[:title]}](#{card[:url]})" \
+                     "#{" by #{card[:authors].join(', ')}" if card[:authors]&.any?}" \
+                     "#{" --- #{"\u2605" * card[:rating].to_i}#{"\u2606" * (5 - card[:rating].to_i)}" if card[:rating]}"
+          end
+          lines.join("\n")
         end
       end
       Liquid::Template.register_tag('display_books_for_series', Jekyll::Books::Tags::DisplayBooksForSeriesTag)
