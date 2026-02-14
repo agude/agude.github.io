@@ -284,4 +284,33 @@ class TestCitedQuoteTag < Minitest::Test
 
     assert_equal content, captured_content
   end
+
+  # --- Markdown Mode Tests ---
+
+  def test_markdown_mode_renders_blockquote
+    md_context = create_context(
+      {},
+      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+    )
+    template = Liquid::Template.parse(
+      '{% citedquote author_last="Doe" work_title="Test" %}Quote content{% endcitedquote %}'
+    )
+    output = template.render!(md_context)
+    assert_includes output, '> Quote content'
+    assert_includes output, '> ---'
+    assert_includes output, '*Test*'
+  end
+
+  def test_markdown_mode_multiline_content
+    md_context = create_context(
+      {},
+      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+    )
+    template = Liquid::Template.parse(
+      "{% citedquote author_last=\"Doe\" %}Line one\nLine two{% endcitedquote %}"
+    )
+    output = template.render!(md_context)
+    assert_includes output, '> Line one'
+    assert_includes output, '> Line two'
+  end
 end

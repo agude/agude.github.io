@@ -186,4 +186,43 @@ class TestAuthorLinkTag < Minitest::Test
     assert_nil captured_args[:link_text_override]
     assert_equal false, captured_args[:possessive]
   end
+
+  # --- Markdown Mode Tests ---
+
+  def test_markdown_mode_renders_markdown_link
+    author_page = create_doc({ 'title' => 'Dan Simmons', 'layout' => 'author_page' },
+                             '/books/authors/dan-simmons/')
+    site = create_site({}, {}, [author_page])
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+    )
+    template = Liquid::Template.parse("{% author_link 'Dan Simmons' %}")
+    output = template.render!(md_context)
+    assert_equal '[Dan Simmons](/books/authors/dan-simmons/)', output
+  end
+
+  def test_markdown_mode_possessive_appends_after_link
+    author_page = create_doc({ 'title' => 'Dan Simmons', 'layout' => 'author_page' },
+                             '/books/authors/dan-simmons/')
+    site = create_site({}, {}, [author_page])
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+    )
+    template = Liquid::Template.parse("{% author_link 'Dan Simmons' possessive %}")
+    output = template.render!(md_context)
+    assert_equal "[Dan Simmons](/books/authors/dan-simmons/)'s", output
+  end
+
+  def test_markdown_mode_not_found_renders_plain_text
+    site = create_site
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+    )
+    template = Liquid::Template.parse("{% author_link 'Unknown Author' %}")
+    output = template.render!(md_context)
+    assert_equal 'Unknown Author', output
+  end
 end

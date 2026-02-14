@@ -1,3 +1,6 @@
+{% if render_mode == "markdown" %}
+![{{ include | optional: 'image_alt' | default: "A figure with a caption" }}]({{ include | optional: 'url' }})
+{% else %}
 <figure>
   {% comment %} The image {% endcomment %}
   <a href="{{ include | optional: 'url' }}">
@@ -9,3 +12,4 @@
   <figcaption>{{ caption }}</figcaption>
   {% endif %}
 </figure>
+{% endif %}

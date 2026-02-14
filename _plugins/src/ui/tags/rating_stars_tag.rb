@@ -40,17 +40,21 @@ module Jekyll
           # Resolve rating value
           rating_value = TagArgs.resolve_value(@rating_markup, context)
 
-          # Resolve wrapper tag (defaulting to 'div' is handled by the utility)
-          wrapper_tag_value = 'div' # Default
-          if @wrapper_tag_markup
-            # resolve_value removes the quotes
-            resolved_tag = TagArgs.resolve_value(@wrapper_tag_markup, context)
-            # Pass the resolved string (e.g., "span") to the utility
-            wrapper_tag_value = resolved_tag if resolved_tag
-          end
+          if context.registers[:render_mode] == :markdown
+            return '' if rating_value.nil?
 
-          # Call the utility function. It handles nil, validation, errors.
-          RatingUtil.render_rating_stars(rating_value, wrapper_tag_value)
+            rating_int = RatingUtil._validate_and_convert_rating(rating_value)
+            ('★' * rating_int) + ('☆' * (5 - rating_int))
+          else
+            # Resolve wrapper tag (defaulting to 'div' is handled by the utility)
+            wrapper_tag_value = 'div' # Default
+            if @wrapper_tag_markup
+              resolved_tag = TagArgs.resolve_value(@wrapper_tag_markup, context)
+              wrapper_tag_value = resolved_tag if resolved_tag
+            end
+
+            RatingUtil.render_rating_stars(rating_value, wrapper_tag_value)
+          end
         end
 
         private

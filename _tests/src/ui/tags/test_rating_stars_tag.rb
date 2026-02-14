@@ -91,4 +91,21 @@ class TestRatingStarsTag < Minitest::Test
     assert_match(/class="book-rating star-rating-4"/, output)
     assert_match(/^<div/, output) # Should use default 'div' wrapper
   end
+
+  # --- Markdown Mode Tests ---
+
+  def test_markdown_mode_renders_unicode_stars
+    md_context = create_context({}, { site: @site, page: @page, render_mode: :markdown })
+    template = Liquid::Template.parse('{% rating_stars 4 %}')
+    output = template.render!(md_context)
+    assert_equal "\u2605\u2605\u2605\u2605\u2606", output
+  end
+
+  def test_markdown_mode_no_html_tags
+    md_context = create_context({}, { site: @site, page: @page, render_mode: :markdown })
+    template = Liquid::Template.parse('{% rating_stars 3 %}')
+    output = template.render!(md_context)
+    refute_match(/</, output)
+    assert_equal "\u2605\u2605\u2605\u2606\u2606", output
+  end
 end

@@ -116,6 +116,11 @@ require 'src/infrastructure/tag_argument_utils'
 require 'src/infrastructure/text_processing_utils'
 require 'src/infrastructure/typography_utils'
 require 'src/infrastructure/url_utils'
+require 'src/infrastructure/generated_static_file'
+require 'src/content/markdown_output/markdown_link_formatter'
+require 'src/content/markdown_output/markdown_body_hook'
+require 'src/infrastructure/markdown_whitespace_normalizer'
+require 'src/content/markdown_output/markdown_output_assembler'
 
 # --- JSON-LD Generators (_plugins/src/seo/generators/) ---
 require 'src/seo/generators/author_profile_generator'

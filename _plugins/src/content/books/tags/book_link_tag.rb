@@ -7,6 +7,7 @@ require 'cgi' # Keep for QuotedFragment
 require 'strscan'
 require_relative '../core/book_link_util' # Require the specific book link util
 require_relative '../../../infrastructure/tag_argument_utils'
+require_relative '../../markdown_output/markdown_link_formatter'
 
 # Liquid Tag for creating a link to a book page, wrapped in <cite>.
 # Handles optional display text override and author disambiguation.
@@ -24,7 +25,8 @@ module Jekyll
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Linker = Jekyll::Books::Core::BookLinkUtils
-        private_constant :TagArgs, :Linker
+        MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
+        private_constant :TagArgs, :Linker, :MdLink
 
         def initialize(tag_name, markup, tokens)
           super
@@ -38,7 +40,7 @@ module Jekyll
           parse_markup(markup)
         end
 
-        # Renders the book link HTML by calling the utility function
+        # Renders the book link HTML (or Markdown in markdown mode)
         def render(context)
           # Resolve the potentially variable markup into actual strings
           book_title = TagArgs.resolve_value(@title_markup, context)
@@ -46,8 +48,14 @@ module Jekyll
           author_filter = (TagArgs.resolve_value(@author_markup, context) if @author_markup)
           cite_arg = cite_enabled?(context)
 
-          # Call the centralized utility function
-          Linker.render_book_link(book_title, context, link_text_override, author_filter, nil, cite: cite_arg)
+          if context.registers[:render_mode] == :markdown
+            data = Linker.find_book_link_data(
+              book_title, context, link_text_override, author_filter, nil, cite: cite_arg
+            )
+            MdLink.format_link(data)
+          else
+            Linker.render_book_link(book_title, context, link_text_override, author_filter, nil, cite: cite_arg)
+          end
         end
 
         private

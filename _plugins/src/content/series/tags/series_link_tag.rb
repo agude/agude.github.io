@@ -7,6 +7,7 @@ require 'cgi' # Keep for QuotedFragment, though CGI itself is now in LiquidUtils
 require 'strscan'
 require_relative '../series_link_util'
 require_relative '../../../infrastructure/tag_argument_utils'
+require_relative '../../markdown_output/markdown_link_formatter'
 
 # Renders a link to a book series page.
 #
@@ -25,7 +26,8 @@ module Jekyll
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Linker = Jekyll::Series::SeriesLinkUtils
-        private_constant :TagArgs, :Linker
+        MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
+        private_constant :TagArgs, :Linker, :MdLink
 
         QuotedFragment = Liquid::QuotedFragment
 
@@ -38,12 +40,17 @@ module Jekyll
           parse_arguments(markup)
         end
 
-        # Renders the series link HTML by calling the utility function
+        # Renders the series link HTML (or Markdown in markdown mode)
         def render(context)
           series_title = TagArgs.resolve_value(@title_markup, context)
           link_text_override = resolve_link_text(context)
 
-          Linker.render_series_link(series_title, context, link_text_override)
+          if context.registers[:render_mode] == :markdown
+            data = Linker.find_series_link_data(series_title, context, link_text_override)
+            MdLink.format_link(data)
+          else
+            Linker.render_series_link(series_title, context, link_text_override)
+          end
         end
 
         private

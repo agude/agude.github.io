@@ -85,4 +85,39 @@ class TestShortStoryLinkTag < Minitest::Test
     assert_equal 'Some Story', captured_args[:story_title]
     assert_nil captured_args[:from_book_title]
   end
+
+  # --- Markdown Mode Tests ---
+
+  def test_markdown_mode_renders_markdown_link
+    # Short stories are discovered by scanning book content for short_story_title tags
+    # The book must be marked as is_anthology: true for the scanner to find stories
+    book_content = "## {% short_story_title 'Story of Your Life' %}"
+    book = create_doc(
+      { 'title' => 'Stories of Your Life and Others',
+        'book_authors' => ['Ted Chiang'],
+        'is_anthology' => true },
+      '/books/stories-of-your-life/',
+      book_content
+    )
+    site = create_site({}, { 'books' => [book] })
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+    )
+    template = Liquid::Template.parse("{% short_story_link 'Story of Your Life' %}")
+    output = template.render!(md_context)
+    assert_includes output, '[Story of Your Life]('
+    assert_includes output, '/books/stories-of-your-life/'
+  end
+
+  def test_markdown_mode_not_found_renders_plain_text
+    site = create_site
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+    )
+    template = Liquid::Template.parse("{% short_story_link 'Unknown Story' %}")
+    output = template.render!(md_context)
+    assert_equal 'Unknown Story', output
+  end
 end

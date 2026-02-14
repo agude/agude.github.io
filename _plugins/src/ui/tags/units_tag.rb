@@ -60,8 +60,12 @@ module Jekyll
 
           unit_symbol, unit_name, warning_log = lookup_unit_data(unit_key, number, context)
 
-          html_output = generate_html(number, unit_symbol, unit_name)
-          warning_log + html_output
+          if context.registers[:render_mode] == :markdown
+            "#{number} #{unit_symbol}"
+          else
+            html_output = generate_html(number, unit_symbol, unit_name)
+            warning_log + html_output
+          end
         end
 
         private

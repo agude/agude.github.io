@@ -220,4 +220,30 @@ class TestBookLinkTag < Minitest::Test
       refute_match(/<cite/, output_mismatch)
     end
   end
+
+  # --- Markdown Mode Tests ---
+
+  def test_markdown_mode_renders_markdown_link
+    md_context = create_context(
+      {},
+      { site: @integration_site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+    )
+    Jekyll.stub :logger, @silent_logger_stub do
+      template = Liquid::Template.parse("{% book_link 'Hyperion' author='Dan Simmons' %}")
+      output = template.render!(md_context)
+      assert_equal '[Hyperion](/books/hyperion-simmons.html)', output
+    end
+  end
+
+  def test_markdown_mode_not_found_renders_plain_text
+    md_context = create_context(
+      {},
+      { site: @integration_site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+    )
+    Jekyll.stub :logger, @silent_logger_stub do
+      template = Liquid::Template.parse("{% book_link 'Nonexistent Book' %}")
+      output = template.render!(md_context)
+      assert_equal 'Nonexistent Book', output
+    end
+  end
 end
