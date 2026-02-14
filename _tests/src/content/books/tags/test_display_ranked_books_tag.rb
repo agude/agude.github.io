@@ -27,11 +27,11 @@ class TestDisplayRankedBooksTag < Minitest::Test
     @context_dev = create_context(
       { 'page' => @page_data_dev },
       # Ensure page in registers also has data and a URL for any internal Jekyll processes
-      { site: @site_dev, page: create_doc(@page_data_dev.merge({ 'url' => '/test_page.html' }), '/test_page.html') }
+      { site: @site_dev, page: create_doc(@page_data_dev.merge({ 'url' => '/test_page.html' }), '/test_page.html') },
     )
     @context_prod = create_context(
       { 'page' => @page_data_prod },
-      { site: @site_prod, page: create_doc(@page_data_prod.merge({ 'url' => '/test_page.html' }), '/test_page.html') }
+      { site: @site_prod, page: create_doc(@page_data_prod.merge({ 'url' => '/test_page.html' }), '/test_page.html') },
     )
 
     # Enable logging for the tag type for production tests that check console output
@@ -53,7 +53,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
     @book4a = create_doc({ 'title' => 'Book C (4 Stars)', 'rating' => 4, 'published' => true }, '/b4a.html')
     @book1a = create_doc({ 'title' => 'Book D (1 Star)', 'rating' => 1, 'published' => true }, '/b1a.html') # For singular test
     @book_invalid_rating = create_doc(
-      { 'title' => 'Book Invalid Rating', 'rating' => 'five_stars', 'published' => true }, '/bir.html'
+      { 'title' => 'Book Invalid Rating', 'rating' => 'five_stars', 'published' => true }, '/bir.html',
     )
     @book_unlisted = create_doc({ 'title' => 'Book Unlisted In Map', 'rating' => 3, 'published' => true }, '/bul.html') # Not in ranked_list
 
@@ -247,7 +247,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
   def test_renderer_generates_correct_html_structure
     rating_groups = [
       { rating: 5, books: [@book5a, @book5b] },
-      { rating: 4, books: [@book4a] }
+      { rating: 4, books: [@book4a] },
     ]
 
     renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, rating_groups)
@@ -271,10 +271,11 @@ class TestDisplayRankedBooksTag < Minitest::Test
     card_render_count = 0
 
     renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, rating_groups)
-    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |_book_obj, _ctx|
-      card_render_count += 1
-      @mock_card_html_generic
-    } do
+    Jekyll::Books::Core::BookCardUtils.stub :render,
+                                            lambda { |_book_obj, _ctx|
+                                              card_render_count += 1
+                                              @mock_card_html_generic
+                                            } do
       Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
         renderer.render
       end
@@ -287,7 +288,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
     rating_groups = [
       { rating: 5, books: [@book5a] },
       { rating: 4, books: [@book4a] },
-      { rating: 1, books: [@book1a] }
+      { rating: 1, books: [@book1a] },
     ]
 
     renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, rating_groups)
@@ -383,8 +384,11 @@ class TestDisplayRankedBooksTag < Minitest::Test
     end
 
     mock_jekyll_logger.verify
-    refute_match(/<!--.*?DISPLAY_RANKED_BOOKS_FAILURE.*?-->/, output,
-                 'HTML comment should NOT be present in production')
+    refute_match(
+      /<!--.*?DISPLAY_RANKED_BOOKS_FAILURE.*?-->/,
+      output,
+      'HTML comment should NOT be present in production',
+    )
     assert_equal 2, output.scan('mock-book-card').count
   end
 
@@ -407,8 +411,11 @@ class TestDisplayRankedBooksTag < Minitest::Test
     end
 
     mock_jekyll_logger.verify
-    refute_match(/<!--.*?DISPLAY_RANKED_BOOKS_FAILURE.*?-->/, output,
-                 'HTML comment should NOT be present in production')
+    refute_match(
+      /<!--.*?DISPLAY_RANKED_BOOKS_FAILURE.*?-->/,
+      output,
+      'HTML comment should NOT be present in production',
+    )
     assert_equal 2, output.scan('mock-book-card').count
   end
 
@@ -425,7 +432,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
     page_data = { 'ranked_list' => ['Book A (5 Stars)'], 'path' => 'test.md' }
     context = create_context(
       { 'page' => page_data },
-      { site: site, page: create_doc(page_data.merge({ 'url' => '/test.html' }), '/test.html') }
+      { site: site, page: create_doc(page_data.merge({ 'url' => '/test.html' }), '/test.html') },
     )
 
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'page.ranked_list')
@@ -440,12 +447,14 @@ class TestDisplayRankedBooksTag < Minitest::Test
   def test_correct_html_structure_and_grouping_for_valid_list
     @context_dev['page']['ranked_list'] = @valid_ranked_list.dup # Ensure it's using the valid list
     output = ''
-    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |book_obj, _ctx|
-      "<div class='mock-book-card'>#{CGI.escapeHTML(book_obj.data['title'])}</div>\n"
-    } do
-      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, lambda { |rating, _wrapper|
-        "<span>Rating #{rating} #{rating == 1 ? 'Star' : 'Stars'}</span>"
-      } do
+    Jekyll::Books::Core::BookCardUtils.stub :render,
+                                            lambda { |book_obj, _ctx|
+                                              "<div class='mock-book-card'>#{CGI.escapeHTML(book_obj.data['title'])}</div>\n"
+                                            } do
+      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars,
+                                            lambda { |rating, _wrapper|
+                                              "<span>Rating #{rating} #{rating == 1 ? 'Star' : 'Stars'}</span>"
+                                            } do
         output = render_tag('page.ranked_list', @context_dev)
       end
     end

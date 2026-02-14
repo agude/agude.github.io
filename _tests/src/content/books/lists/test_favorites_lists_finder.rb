@@ -36,11 +36,11 @@ class TestBookListFavoritesListsFinder < Minitest::Test
     # --- Mock Posts ---
     @fav_post_2024 = create_doc(
       { 'title' => 'Favorites 2024', 'is_favorites_list' => 2024 },
-      '/posts/fav24.html'
+      '/posts/fav24.html',
     )
     @fav_post_2023 = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
-      '/posts/fav23.html'
+      '/posts/fav23.html',
     )
     @regular_post = create_doc({ 'title' => 'Regular Post' }, '/posts/regular.html')
   end
@@ -51,12 +51,12 @@ class TestBookListFavoritesListsFinder < Minitest::Test
       {},
       { 'books' => [@book_a, @book_b, @book_z] },
       [],
-      [@fav_post_2023, @fav_post_2024, @regular_post]
+      [@fav_post_2023, @fav_post_2024, @regular_post],
     )
     # Manually set up the cache that the finder will read from
     @site.data['link_cache']['favorites_posts_to_books'] = {
       @fav_post_2024.url => [@book_z, @book_a], # Intentionally unsorted books
-      @fav_post_2023.url => [@book_b]
+      @fav_post_2023.url => [@book_b],
     }
     current_page = create_doc({ 'path' => 'current.html' }, '/current.html')
     @context = create_context({}, { site: @site, page: current_page })

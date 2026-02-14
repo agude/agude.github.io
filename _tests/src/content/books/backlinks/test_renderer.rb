@@ -9,7 +9,7 @@ class TestBacklinksRenderer < Minitest::Test
   def setup
     @book = create_doc(
       { 'title' => 'Test Book', 'published' => true },
-      '/books/test.html'
+      '/books/test.html',
     )
     @site = create_site({}, { 'books' => [@book] })
     @context = create_context({}, { site: @site, page: @book })
@@ -53,7 +53,7 @@ class TestBacklinksRenderer < Minitest::Test
   def test_renders_multiple_backlinks
     backlinks = [
       ['Book A', '/books/a.html', 'book'],
-      ['Book B', '/books/b.html', 'book']
+      ['Book B', '/books/b.html', 'book'],
     ]
     renderer = Jekyll::Books::Backlinks::Renderer.new(@context, @book, backlinks)
     result = renderer.render
@@ -93,7 +93,7 @@ class TestBacklinksRenderer < Minitest::Test
   def test_escapes_html_in_book_title
     book_with_special = create_doc(
       { 'title' => 'Book <script>alert("xss")</script>', 'published' => true },
-      '/books/special.html'
+      '/books/special.html',
     )
     site = create_site({}, { 'books' => [book_with_special] })
     context = create_context({}, { site: site, page: book_with_special })
@@ -109,7 +109,7 @@ class TestBacklinksRenderer < Minitest::Test
   def test_mixed_book_and_series_links
     backlinks = [
       ['Book Link', '/books/book.html', 'book'],
-      ['Series Link', '/books/series.html', 'series']
+      ['Series Link', '/books/series.html', 'series'],
     ]
     renderer = Jekyll::Books::Backlinks::Renderer.new(@context, @book, backlinks)
     result = renderer.render

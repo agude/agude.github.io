@@ -50,7 +50,7 @@ module Jekyll
 
           if context.registers[:render_mode] == :markdown
             data = Linker.find_book_link_data(
-              book_title, context, link_text_override, author_filter, nil, cite: cite_arg
+              book_title, context, link_text_override, author_filter, nil, cite: cite_arg,
             )
             MdLink.format_link(data)
           else

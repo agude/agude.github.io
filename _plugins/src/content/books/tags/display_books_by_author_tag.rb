@@ -62,7 +62,7 @@ module Jekyll
             finder = Finder.new(
               site: @site,
               author_name_filter: author_filter,
-              context: @context
+              context: @context,
             )
             data = finder.find
 
@@ -96,7 +96,7 @@ module Jekyll
               title: doc.data['title'],
               url: doc.url,
               authors: authors.is_a?(Array) ? authors : [authors].compact,
-              rating: doc.data['rating']
+              rating: doc.data['rating'],
             }
           end
         end

@@ -9,11 +9,11 @@ class TestRankedBooksValidator < Minitest::Test
   def setup
     @book_5star = create_doc(
       { 'title' => 'Five Star Book', 'published' => true, 'rating' => 5 },
-      '/books/five.html'
+      '/books/five.html',
     )
     @book_4star = create_doc(
       { 'title' => 'Four Star Book', 'published' => true, 'rating' => 4 },
-      '/books/four.html'
+      '/books/four.html',
     )
   end
 
@@ -48,7 +48,7 @@ class TestRankedBooksValidator < Minitest::Test
   def test_validates_rating_is_integer
     bad_rating = create_doc(
       { 'title' => 'Bad', 'published' => true, 'rating' => 'five' },
-      '/books/bad.html'
+      '/books/bad.html',
     )
     book_map = build_book_map([bad_rating])
     validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'list', false)
@@ -81,7 +81,7 @@ class TestRankedBooksValidator < Minitest::Test
 
     book_5star_b = create_doc(
       { 'title' => 'Another Five', 'published' => true, 'rating' => 5 },
-      '/books/five-b.html'
+      '/books/five-b.html',
     )
 
     # Should not raise
@@ -126,7 +126,7 @@ class TestRankedBooksValidator < Minitest::Test
   def test_handles_nil_rating
     nil_rating = create_doc(
       { 'title' => 'Nil Rating', 'published' => true, 'rating' => nil },
-      '/books/nil.html'
+      '/books/nil.html',
     )
     book_map = build_book_map([nil_rating])
     validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'list', false)

@@ -7,7 +7,7 @@ options = {
   # v5 removed 'disable_external'. We must use ignore_urls to skip them.
   ignore_urls: [
     %r{/livereload.js},
-    /^http/ # Regex to ignore all http/https links (external)
+    /^http/, # Regex to ignore all http/https links (external)
   ],
 
   # v5 requires explicitly listing checks if you want to limit them.
@@ -22,7 +22,7 @@ options = {
   ignore_empty_alt: false,
 
   # Speed up by running in parallel
-  parallel: { in_processes: 2 }
+  parallel: { in_processes: 2 },
 }
 
 begin

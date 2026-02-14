@@ -16,8 +16,12 @@ module Jekyll
         def validate_collection(identifiers, structure: false, key: nil)
           return nil if @site&.collections&.key?('books')
 
-          return_error("Required 'books' collection not found in site configuration.",
-                       identifiers: identifiers, structure: structure, key: key)
+          return_error(
+            "Required 'books' collection not found in site configuration.",
+            identifiers: identifiers,
+            structure: structure,
+            key: key,
+          )
         end
 
         def all_published_books(include_archived: false)
@@ -54,8 +58,10 @@ module Jekyll
 
         def sort_books_by_title(books)
           books.sort_by do |book|
-            Jekyll::Infrastructure::TextProcessingUtils.normalize_title(book.data['title'].to_s,
-                                                                        strip_articles: true)
+            Jekyll::Infrastructure::TextProcessingUtils.normalize_title(
+              book.data['title'].to_s,
+              strip_articles: true,
+            )
           end
         end
 
@@ -68,11 +74,15 @@ module Jekyll
         def sort_series_books(books)
           books.sort_by do |book|
             [
-              Jekyll::Infrastructure::TextProcessingUtils.normalize_title(book.data['series'].to_s,
-                                                                          strip_articles: true),
+              Jekyll::Infrastructure::TextProcessingUtils.normalize_title(
+                book.data['series'].to_s,
+                strip_articles: true,
+              ),
               parse_book_number(book.data['book_number']),
-              Jekyll::Infrastructure::TextProcessingUtils.normalize_title(book.data['title'].to_s,
-                                                                          strip_articles: true)
+              Jekyll::Infrastructure::TextProcessingUtils.normalize_title(
+                book.data['title'].to_s,
+                strip_articles: true,
+              ),
             ]
           end
         end
@@ -89,8 +99,11 @@ module Jekyll
         # Logging
         def return_error(reason, identifiers:, structure: false, key: nil, tag_type: 'BOOK_LIST_UTIL')
           log = Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context, tag_type: tag_type, reason: reason,
-            identifiers: identifiers, level: :error
+            context: @context,
+            tag_type: tag_type,
+            reason: reason,
+            identifiers: identifiers,
+            level: :error,
           )
           log = log.dup
           return { standalone_books: [], series_groups: [], log_messages: log } if structure
@@ -100,7 +113,7 @@ module Jekyll
 
         def return_info(tag_type, reason, key:)
           log = Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context, tag_type: tag_type, reason: reason, identifiers: {}, level: :info
+            context: @context, tag_type: tag_type, reason: reason, identifiers: {}, level: :info,
           )
           { key => [], log_messages: log.dup }
         end

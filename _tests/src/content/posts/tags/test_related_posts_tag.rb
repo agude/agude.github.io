@@ -18,7 +18,7 @@ class TestRelatedPostsTag < Minitest::Test
     @site_config_base = {
       'url' => 'http://example.com',
       'plugin_logging' => { 'RELATED_POSTS' => false },
-      'plugin_log_level' => 'debug'
+      'plugin_log_level' => 'debug',
     }
     @test_time_now = Time.parse('2024-01-15 10:00:00 EST')
 
@@ -33,8 +33,14 @@ class TestRelatedPostsTag < Minitest::Test
     @post_unpublished = create_post_obj('Unpublished', ['Tech'], 3, 'unpub', 'unpub', published: false)
 
     @all_posts_for_site_default = [
-      @post_curr, @post_review1, @post_tech1, @post_uncat1,
-      @post_tech2, @post_gadgets1, @post_future, @post_unpublished
+      @post_curr,
+      @post_review1,
+      @post_tech1,
+      @post_uncat1,
+      @post_tech2,
+      @post_gadgets1,
+      @post_future,
+      @post_unpublished,
     ]
 
     # --- Site and Context ---
@@ -53,9 +59,9 @@ class TestRelatedPostsTag < Minitest::Test
         'published' => published,
         'path' => "path_to_#{path_suffix}.md",
         'image' => "img_#{path_suffix}.jpg",
-        'description' => "#{title} description."
+        'description' => "#{title} description.",
       },
-      "/#{url_suffix}.html"
+      "/#{url_suffix}.html",
     )
   end
 
@@ -280,10 +286,11 @@ class TestRelatedPostsTag < Minitest::Test
     output = nil
     actual_titles_rendered = []
 
-    Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |post_obj, _ctx|
-      actual_titles_rendered << post_obj.data['title']
-      "<div class='card'>CARD</div>\n"
-    } do
+    Jekyll::Posts::ArticleCardUtils.stub :render,
+                                         lambda { |post_obj, _ctx|
+                                           actual_titles_rendered << post_obj.data['title']
+                                           "<div class='card'>CARD</div>\n"
+                                         } do
       output = render_tag(@context)
     end
 
@@ -302,9 +309,10 @@ class TestRelatedPostsTag < Minitest::Test
     minimal_context = create_context({}, { site: minimal_site, page: page_isolated })
 
     output = ''
-    Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |_p, _c|
-      flunk 'Jekyll::Posts::ArticleCardUtils.render should not be called'
-    } do
+    Jekyll::Posts::ArticleCardUtils.stub :render,
+                                         lambda { |_p, _c|
+                                           flunk 'Jekyll::Posts::ArticleCardUtils.render should not be called'
+                                         } do
       output = render_tag(minimal_context)
     end
     assert_equal '', output.strip

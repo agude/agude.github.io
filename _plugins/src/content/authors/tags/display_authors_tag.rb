@@ -45,7 +45,7 @@ module Jekyll
             author_input: authors_input,
             context: context,
             linked: linked_option,
-            etal_after: etal_option
+            etal_after: etal_option,
           )
         end
 

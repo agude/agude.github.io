@@ -44,7 +44,7 @@ module Jekyll
           TitleUtil.render_title(
             context: context,
             title: story_title,
-            no_id: @no_id_flag
+            no_id: @no_id_flag,
           )
         end
 

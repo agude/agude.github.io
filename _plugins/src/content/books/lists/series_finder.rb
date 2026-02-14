@@ -45,8 +45,10 @@ module Jekyll
         def series_sort_key(book)
           [
             parse_book_number(book.data['book_number']),
-            Jekyll::Infrastructure::TextProcessingUtils.normalize_title(book.data['title'].to_s,
-                                                                        strip_articles: true)
+            Jekyll::Infrastructure::TextProcessingUtils.normalize_title(
+              book.data['title'].to_s,
+              strip_articles: true,
+            ),
           ]
         end
 
@@ -63,7 +65,7 @@ module Jekyll
             tag_type: 'BOOK_LIST_SERIES_DISPLAY',
             reason: 'Series name filter was empty or nil.',
             identifiers: { SeriesFilterInput: series_name || 'N/A' },
-            level: :warn
+            level: :warn,
           ).dup
         end
 
@@ -73,7 +75,7 @@ module Jekyll
             tag_type: 'BOOK_LIST_SERIES_DISPLAY',
             reason: 'No books found for the specified series.',
             identifiers: { SeriesFilter: series_name },
-            level: :info
+            level: :info,
           ).dup
         end
       end

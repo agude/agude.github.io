@@ -47,7 +47,7 @@ module Jekyll
             'title' => title,
             'parent_book_title' => parent_title,
             'url' => parent_url,
-            'slug' => Jekyll::Infrastructure::TextProcessingUtils.slugify(title)
+            'slug' => Jekyll::Infrastructure::TextProcessingUtils.slugify(title),
           }
           @cache[normalized] ||= []
           @cache[normalized] << data

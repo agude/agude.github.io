@@ -23,7 +23,7 @@ class TestArticleCardRenderer < Minitest::Test
       'title' => 'My Article Title',
       'image' => '/images/article.jpg',
       'image_alt' => 'Custom Alt',
-      'description' => 'Front matter description.'
+      'description' => 'Front matter description.',
     }
     @post_object = create_doc(@post_data_hash, '/article.html')
   end
@@ -56,7 +56,7 @@ class TestArticleCardRenderer < Minitest::Test
       absolute_url: 'http://example.com/article.html',
       absolute_image_url: 'http://example.com/images/article.jpg',
       raw_title: 'My Article Title', # From @post_object.data['title']
-      log_output: ''
+      log_output: '',
     }
     # This is what LiquidUtils._prepare_display_title is stubbed to return
     mock_prepared_title = 'My Prepared Article Title'
@@ -73,7 +73,7 @@ class TestArticleCardRenderer < Minitest::Test
       description_html: mock_description_html_from_desc_extractor,
       description_wrapper_html_open: "<br>\n",
       description_wrapper_html_close: '',
-      extra_elements_html: []
+      extra_elements_html: [],
     }
 
     captured_card_data = nil
@@ -81,11 +81,12 @@ class TestArticleCardRenderer < Minitest::Test
     Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data_from_extractor do
       Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, mock_prepared_title do
         Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, mock_description_html_from_desc_extractor do
-          Jekyll::UI::Cards::CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
-            _ = context # Explicitly ignore unused variable
-            captured_card_data = card_data
-            'mocked_card_html'
-          } do
+          Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
+                                                    lambda { |context:, card_data:|
+                                                      _ = context # Explicitly ignore unused variable
+                                                      captured_card_data = card_data
+                                                      'mocked_card_html'
+                                                    } do
             Jekyll.stub :logger, @silent_logger_stub do # For Jekyll::Infrastructure::PluginLoggerUtils if called
               output = Jekyll::Posts::ArticleCardRenderer.new(@post_object, @context).render
               assert_equal 'mocked_card_html', output
@@ -114,7 +115,7 @@ class TestArticleCardRenderer < Minitest::Test
       absolute_url: 'http://example.com/no-image.html',
       absolute_image_url: nil,
       raw_title: 'No Image Post',
-      log_output: ''
+      log_output: '',
     }
     mock_prepared_title = 'No Image Post Prepared'
     mock_description_html = '' # Assume no description for this case
@@ -123,11 +124,12 @@ class TestArticleCardRenderer < Minitest::Test
     Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
       Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, mock_prepared_title do
         Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, mock_description_html do
-          Jekyll::UI::Cards::CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
-            _ = context # Explicitly ignore unused variable
-            captured_card_data = card_data
-            'card_no_image'
-          } do
+          Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
+                                                    lambda { |context:, card_data:|
+                                                      _ = context # Explicitly ignore unused variable
+                                                      captured_card_data = card_data
+                                                      'card_no_image'
+                                                    } do
             Jekyll.stub :logger, @silent_logger_stub do
               Jekyll::Posts::ArticleCardRenderer.new(post_no_image, @context).render
             end
@@ -144,7 +146,7 @@ class TestArticleCardRenderer < Minitest::Test
     post_with_excerpt_data = {
       'title' => 'Excerpt Post',
       # No 'description' front matter, Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html will use excerpt
-      'excerpt' => Struct.new(:output).new('<p>Excerpt content.</p>')
+      'excerpt' => Struct.new(:output).new('<p>Excerpt content.</p>'),
     }
     post_with_excerpt = create_doc(post_with_excerpt_data, '/excerpt.html')
 
@@ -155,7 +157,7 @@ class TestArticleCardRenderer < Minitest::Test
       absolute_url: 'http://example.com/excerpt.html',
       absolute_image_url: nil,
       raw_title: 'Excerpt Post',
-      log_output: ''
+      log_output: '',
     }
     mock_prepared_title = 'Excerpt Post Prepared'
     # This is what Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html is stubbed to return
@@ -166,15 +168,17 @@ class TestArticleCardRenderer < Minitest::Test
 
     Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
       Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, mock_prepared_title do
-        Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, lambda { |source, type:|
-          args_to_desc_extractor = { source: source, type: type }
-          mock_description_html_from_extractor
-        } do
-          Jekyll::UI::Cards::CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
-            _ = context # Explicitly ignore unused variable
-            captured_card_data = card_data
-            'card_with_excerpt'
-          } do
+        Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html,
+                                                       lambda { |source, type:|
+                                                         args_to_desc_extractor = { source: source, type: type }
+                                                         mock_description_html_from_extractor
+                                                       } do
+          Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
+                                                    lambda { |context:, card_data:|
+                                                      _ = context # Explicitly ignore unused variable
+                                                      captured_card_data = card_data
+                                                      'card_with_excerpt'
+                                                    } do
             Jekyll.stub :logger, @silent_logger_stub do
               Jekyll::Posts::ArticleCardRenderer.new(post_with_excerpt, @context).render
             end
@@ -195,12 +199,13 @@ class TestArticleCardRenderer < Minitest::Test
     mock_failure_log = '<!-- BASE_DATA_EXTRACTION_FAILURE -->'
     # Simulate Jekyll::UI::Cards::CardDataExtractorUtils.extract_base_data returning a log and site:nil
     # Also ensure data_source_for_keys is nil to trigger the correct early return in Jekyll::Posts::ArticleCardUtils
-    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, {
-      log_output: mock_failure_log,
-      site: nil,
-      data_source_for_keys: nil,
-      data_for_description: nil
-    } do
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data,
+                                                   {
+                                                     log_output: mock_failure_log,
+                                                     site: nil,
+                                                     data_source_for_keys: nil,
+                                                     data_for_description: nil,
+                                                   } do
       Jekyll.stub :logger, @silent_logger_stub do
         output = Jekyll::Posts::ArticleCardRenderer.new(@post_object, @context).render
         assert_equal mock_failure_log, output
@@ -216,7 +221,7 @@ class TestArticleCardRenderer < Minitest::Test
       absolute_url: '/some-url/',
       absolute_image_url: nil,
       raw_title: 'Some Title',
-      log_output: '<!-- ITEM_INVALID_LOG -->' # This log is from Jekyll::UI::Cards::CardDataExtractorUtils
+      log_output: '<!-- ITEM_INVALID_LOG -->', # This log is from Jekyll::UI::Cards::CardDataExtractorUtils
     }
     Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data_no_item_data do
       Jekyll.stub :logger, @silent_logger_stub do
@@ -231,9 +236,13 @@ class TestArticleCardRenderer < Minitest::Test
 
   def test_extract_data_returns_frozen_hash_with_expected_keys
     mock_base_data = {
-      site: @site, data_source_for_keys: @post_object.data, data_for_description: @post_object.data,
-      absolute_url: 'http://example.com/article.html', absolute_image_url: 'http://example.com/images/article.jpg',
-      raw_title: 'My Article Title', log_output: ''
+      site: @site,
+      data_source_for_keys: @post_object.data,
+      data_for_description: @post_object.data,
+      absolute_url: 'http://example.com/article.html',
+      absolute_image_url: 'http://example.com/images/article.jpg',
+      raw_title: 'My Article Title',
+      log_output: '',
     }
 
     data = nil
@@ -251,9 +260,13 @@ class TestArticleCardRenderer < Minitest::Test
 
   def test_extract_data_returns_raw_values
     mock_base_data = {
-      site: @site, data_source_for_keys: @post_object.data, data_for_description: @post_object.data,
-      absolute_url: 'http://example.com/article.html', absolute_image_url: 'http://example.com/images/article.jpg',
-      raw_title: 'My Article Title', log_output: ''
+      site: @site,
+      data_source_for_keys: @post_object.data,
+      data_for_description: @post_object.data,
+      absolute_url: 'http://example.com/article.html',
+      absolute_image_url: 'http://example.com/images/article.jpg',
+      raw_title: 'My Article Title',
+      log_output: '',
     }
 
     data = nil
@@ -283,9 +296,13 @@ class TestArticleCardRenderer < Minitest::Test
   def test_extract_data_uses_default_alt_when_no_image
     post_no_image = create_doc({ 'title' => 'No Image' }, '/no-image.html')
     mock_base_data = {
-      site: @site, data_source_for_keys: post_no_image.data, data_for_description: post_no_image.data,
-      absolute_url: 'http://example.com/no-image.html', absolute_image_url: nil,
-      raw_title: 'No Image', log_output: ''
+      site: @site,
+      data_source_for_keys: post_no_image.data,
+      data_for_description: post_no_image.data,
+      absolute_url: 'http://example.com/no-image.html',
+      absolute_image_url: nil,
+      raw_title: 'No Image',
+      log_output: '',
     }
 
     data = nil
@@ -303,7 +320,7 @@ class TestArticleCardRenderer < Minitest::Test
   def test_render_article_card_missing_alt_logs_warning
     post_missing_alt_data = {
       'title' => 'Missing Alt Post',
-      'image' => '/images/no-alt.jpg'
+      'image' => '/images/no-alt.jpg',
       # 'image_alt' is missing
     }
     post_missing_alt = create_doc(post_missing_alt_data, '/missing-alt.html')
@@ -315,7 +332,7 @@ class TestArticleCardRenderer < Minitest::Test
       absolute_url: 'http://example.com/missing-alt.html',
       absolute_image_url: 'http://example.com/images/no-alt.jpg',
       raw_title: 'Missing Alt Post',
-      log_output: +'' # Use mutable string to allow appending log messages
+      log_output: +'', # Use mutable string to allow appending log messages
     }
     mock_prepared_title = 'Missing Alt Post Prepared'
     mock_description_html = ''
@@ -334,11 +351,12 @@ class TestArticleCardRenderer < Minitest::Test
       Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, mock_prepared_title do
         Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, mock_description_html do
           Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, log_verifier do
-            Jekyll::UI::Cards::CardRendererUtils.stub :render_card, lambda { |context:, card_data:|
-              _ = context
-              captured_card_data = card_data
-              'card_missing_alt'
-            } do
+            Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
+                                                      lambda { |context:, card_data:|
+                                                        _ = context
+                                                        captured_card_data = card_data
+                                                        'card_missing_alt'
+                                                      } do
               Jekyll.stub :logger, @silent_logger_stub do
                 output = Jekyll::Posts::ArticleCardRenderer.new(post_missing_alt, @context).render
                 assert_match '<!-- LOG_MISSING_ALT -->', output # Log should be prepended

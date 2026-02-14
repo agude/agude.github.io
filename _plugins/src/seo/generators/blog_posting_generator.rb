@@ -27,7 +27,7 @@ module Jekyll
         private_class_method def self.base_data_hash
           {
             '@context' => 'https://schema.org',
-            '@type' => 'BlogPosting'
+            '@type' => 'BlogPosting',
           }
         end
 
@@ -76,7 +76,7 @@ module Jekyll
           description = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
             document,
             field_priority: %w[excerpt description],
-            truncate_options: { words: 50, omission: '...' }
+            truncate_options: { words: 50, omission: '...' },
           )
           data['description'] = description if description # Helper already returns nil if empty
         end
@@ -85,7 +85,7 @@ module Jekyll
           # Article Body (Use helper: content, no truncation)
           article_body = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
             document,
-            field_priority: ['content'] # Only check document.content (post-conversion)
+            field_priority: ['content'], # Only check document.content (post-conversion)
           )
           data['articleBody'] = article_body if article_body # Helper already returns nil if empty
         end

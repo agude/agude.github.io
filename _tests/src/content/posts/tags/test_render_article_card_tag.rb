@@ -13,7 +13,7 @@ class TestRenderArticleCardTag < Minitest::Test
     @post_obj = create_doc({ 'title' => 'Test Post', 'path' => 'test-post.md' }, '/test-post.html')
     @context = create_context(
       { 'my_post' => @post_obj, 'nil_post_var' => nil },
-      { site: @site, page: create_doc({ 'path' => 'current_page.md' }, '/current-page.html') } # Page path for SourcePage
+      { site: @site, page: create_doc({ 'path' => 'current_page.md' }, '/current-page.html') }, # Page path for SourcePage
     )
 
     # Silent logger for tests not asserting specific console output from Jekyll::Infrastructure::PluginLoggerUtils
@@ -62,10 +62,11 @@ class TestRenderArticleCardTag < Minitest::Test
     expected_card_html = "<div class='article-card'>Rendered Test Post</div>"
     captured_args = nil
 
-    Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |post_arg, context_arg|
-      captured_args = { post: post_arg, context: context_arg }
-      expected_card_html
-    } do
+    Jekyll::Posts::ArticleCardUtils.stub :render,
+                                         lambda { |post_arg, context_arg|
+                                           captured_args = { post: post_arg, context: context_arg }
+                                           expected_card_html
+                                         } do
       output = render_tag(markup)
       assert_equal expected_card_html, output
     end
@@ -84,10 +85,11 @@ class TestRenderArticleCardTag < Minitest::Test
     # Enable logging for this specific tag type for this test
     @site.config['plugin_logging']['RENDER_ARTICLE_CARD_TAG'] = true
 
-    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
-      captured_log_args = args
-      expected_log_html # Return the stubbed HTML comment
-    } do
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure,
+                                                   lambda { |args|
+                                                     captured_log_args = args
+                                                     expected_log_html # Return the stubbed HTML comment
+                                                   } do
       output = render_tag(markup)
       assert_equal expected_log_html, output
     end
@@ -108,10 +110,11 @@ class TestRenderArticleCardTag < Minitest::Test
 
     @site.config['plugin_logging']['RENDER_ARTICLE_CARD_TAG'] = true
 
-    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
-      captured_log_args = args
-      expected_log_html
-    } do
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure,
+                                                   lambda { |args|
+                                                     captured_log_args = args
+                                                     expected_log_html
+                                                   } do
       output = render_tag(markup)
       assert_equal expected_log_html, output
     end
@@ -131,10 +134,11 @@ class TestRenderArticleCardTag < Minitest::Test
     @site.config['plugin_logging']['RENDER_ARTICLE_CARD_TAG'] = true
 
     Jekyll::Posts::ArticleCardUtils.stub :render, ->(_post, _ctx) { raise StandardError, error_message } do
-      Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
-        captured_log_args = args
-        expected_log_html
-      } do
+      Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure,
+                                                     lambda { |args|
+                                                       captured_log_args = args
+                                                       expected_log_html
+                                                     } do
         output = render_tag(markup)
         assert_equal expected_log_html, output
       end
@@ -144,8 +148,10 @@ class TestRenderArticleCardTag < Minitest::Test
     assert_equal @context, captured_log_args[:context]
     assert_equal 'RENDER_ARTICLE_CARD_TAG', captured_log_args[:tag_type]
     assert_match "Error rendering article card via Jekyll::Posts::ArticleCardUtils: #{error_message}", captured_log_args[:reason]
-    assert_equal({ post_markup: markup, error_class: 'StandardError', error_message: error_message.slice(0, 100) },
-                 captured_log_args[:identifiers])
+    assert_equal(
+      { post_markup: markup, error_class: 'StandardError', error_message: error_message.slice(0, 100) },
+      captured_log_args[:identifiers],
+    )
     assert_equal :error, captured_log_args[:level]
   end
 
@@ -155,7 +161,7 @@ class TestRenderArticleCardTag < Minitest::Test
   def test_markdown_mode_renders_markdown_link
     md_context = create_context(
       { 'my_post' => @post_obj },
-      { site: @site, page: create_doc({}, '/current.html'), render_mode: :markdown }
+      { site: @site, page: create_doc({}, '/current.html'), render_mode: :markdown },
     )
     output = render_tag('my_post', md_context)
     assert_equal '- [Test Post](/test-post.html)', output
@@ -167,7 +173,7 @@ class TestRenderArticleCardTag < Minitest::Test
     drop = Jekyll::Drops::DocumentDrop.new(@post_obj)
     md_context = create_context(
       { 'my_post' => drop },
-      { site: @site, page: create_doc({}, '/current.html'), render_mode: :markdown }
+      { site: @site, page: create_doc({}, '/current.html'), render_mode: :markdown },
     )
     output = render_tag('my_post', md_context)
     assert_equal '- [Test Post](/test-post.html)', output
@@ -177,13 +183,14 @@ class TestRenderArticleCardTag < Minitest::Test
   def test_markdown_mode_does_not_call_html_renderer
     md_context = create_context(
       { 'my_post' => @post_obj },
-      { site: @site, page: create_doc({}, '/current.html'), render_mode: :markdown }
+      { site: @site, page: create_doc({}, '/current.html'), render_mode: :markdown },
     )
     called = false
-    Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |_p, _c|
-      called = true
-      ''
-    } do
+    Jekyll::Posts::ArticleCardUtils.stub :render,
+                                         lambda { |_p, _c|
+                                           called = true
+                                           ''
+                                         } do
       render_tag('my_post', md_context)
     end
     refute called, 'ArticleCardUtils.render should not be called in markdown mode'

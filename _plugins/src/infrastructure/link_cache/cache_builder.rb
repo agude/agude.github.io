@@ -108,7 +108,7 @@ module Jekyll
             'title' => book.data['title'].strip,
             'authors' => Jekyll::Infrastructure::FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors']),
             'canonical_url' => book.data['canonical_url'],
-            'date' => book.data['date']
+            'date' => book.data['date'],
           }
         end
 

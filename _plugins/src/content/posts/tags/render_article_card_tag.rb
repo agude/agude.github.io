@@ -61,7 +61,7 @@ module Jekyll
             tag_type: 'RENDER_ARTICLE_CARD_TAG',
             reason: "Post object variable '#{@post_object_markup}' resolved to nil.",
             identifiers: { markup: @post_object_markup },
-            level: :error
+            level: :error,
           )
         end
 
@@ -71,7 +71,7 @@ module Jekyll
             tag_type: 'RENDER_ARTICLE_CARD_TAG',
             reason: "Error rendering article card via Jekyll::Posts::ArticleCardUtils: #{error.message}",
             identifiers: build_error_identifiers(error),
-            level: :error
+            level: :error,
           )
         end
 
@@ -79,7 +79,7 @@ module Jekyll
           {
             post_markup: @post_object_markup,
             error_class: error.class.name,
-            error_message: error.message.lines.first.chomp.slice(0, 100)
+            error_message: error.message.lines.first.chomp.slice(0, 100),
           }
         end
       end

@@ -18,7 +18,7 @@ class TestCitedQuoteUtils < Minitest::Test
     output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
       'Some quote text',
       { author_last: 'Doe' },
-      @site
+      @site,
     )
 
     assert_match(/<figure class="cited-quote">/, output)
@@ -29,7 +29,7 @@ class TestCitedQuoteUtils < Minitest::Test
     output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
       'Some quote text',
       { author_last: 'Doe' },
-      @site
+      @site,
     )
 
     # Output wrapped in {::nomarkdown}...{:/nomarkdown} for Kramdown compatibility
@@ -41,7 +41,7 @@ class TestCitedQuoteUtils < Minitest::Test
     output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
       'Some quote text',
       { author_last: 'Doe' },
-      @site
+      @site,
     )
 
     assert_match(/<blockquote>/, output)
@@ -52,7 +52,7 @@ class TestCitedQuoteUtils < Minitest::Test
     output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
       'Some quote text',
       { author_last: 'Doe', url: 'http://example.com/source' },
-      @site
+      @site,
     )
 
     assert_match(%r{cite="http://example\.com/source"}, output)
@@ -62,7 +62,7 @@ class TestCitedQuoteUtils < Minitest::Test
     output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
       'Some quote text',
       { author_last: 'Doe' },
-      @site
+      @site,
     )
 
     refute_match(/cite=/, output)
@@ -72,7 +72,7 @@ class TestCitedQuoteUtils < Minitest::Test
     output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
       'Some quote text',
       { author_last: 'Doe' },
-      @site
+      @site,
     )
 
     assert_match(/<figcaption>/, output)
@@ -94,7 +94,7 @@ class TestCitedQuoteUtils < Minitest::Test
       output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
         '**bold** text',
         { author_last: 'Doe' },
-        @site
+        @site,
       )
 
       # The mock converter wraps in <p> tags
@@ -106,7 +106,7 @@ class TestCitedQuoteUtils < Minitest::Test
     output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
       '<em>emphasized</em> text',
       { author_last: 'Doe' },
-      @site
+      @site,
     )
 
     assert_match(%r{<em>emphasized</em>}, output)
@@ -116,7 +116,7 @@ class TestCitedQuoteUtils < Minitest::Test
     output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
       "Line one<br>\nLine two",
       { author_last: 'Doe' },
-      @site
+      @site,
     )
 
     assert_match(/<br>/, output)
@@ -128,14 +128,15 @@ class TestCitedQuoteUtils < Minitest::Test
     params = {
       author_last: 'Doe',
       author_first: 'John',
-      work_title: 'Test Article'
+      work_title: 'Test Article',
     }
 
     captured_params = nil
-    Jekyll::UI::Citations::CitationUtils.stub :format_citation_html, lambda { |p, _site|
-      captured_params = p
-      '<span class="citation">Doe, John. "Test Article".</span>'
-    } do
+    Jekyll::UI::Citations::CitationUtils.stub :format_citation_html,
+                                              lambda { |p, _site|
+                                                captured_params = p
+                                                '<span class="citation">Doe, John. "Test Article".</span>'
+                                              } do
       Jekyll::UI::Quotes::CitedQuoteUtils.render('content', params, @site)
     end
 
@@ -152,7 +153,7 @@ class TestCitedQuoteUtils < Minitest::Test
       output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
         'content',
         { author_last: 'Doe', author_first: 'John' },
-        @site
+        @site,
       )
 
       assert_match(/#{Regexp.escape(mock_citation)}/, output)
@@ -165,7 +166,7 @@ class TestCitedQuoteUtils < Minitest::Test
     output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
       'content',
       { author_last: 'Doe', url: 'http://example.com/path?a=1&b=2' },
-      @site
+      @site,
     )
 
     # Ampersand should be escaped in attribute
@@ -178,21 +179,35 @@ class TestCitedQuoteUtils < Minitest::Test
     output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
       'A famous quote',
       { author_last: 'Doe', url: 'http://example.com' },
-      @site
+      @site,
     )
 
     # Check overall structure order
-    assert_match(%r{<figure class="cited-quote">.*<blockquote.*>.*</blockquote>.*<figcaption>.*</figcaption>.*</figure>}m,
-                 output)
+    assert_match(
+      %r{<figure class="cited-quote">.*<blockquote.*>.*</blockquote>.*<figcaption>.*</figcaption>.*</figure>}m,
+      output,
+    )
   end
 
   def test_render_handles_all_citation_params
     params = {
-      author_last: 'Doe', author_first: 'John', author_handle: '@jdoe',
-      work_title: 'Work', container_title: 'Container', editor: 'Ed',
-      edition: '2nd', volume: 'X', number: '1', publisher: 'Pub',
-      date: '2023', first_page: '10', last_page: '20', page: '15',
-      doi: '10.123', url: 'http://example.com', access_date: 'Today'
+      author_last: 'Doe',
+      author_first: 'John',
+      author_handle: '@jdoe',
+      work_title: 'Work',
+      container_title: 'Container',
+      editor: 'Ed',
+      edition: '2nd',
+      volume: 'X',
+      number: '1',
+      publisher: 'Pub',
+      date: '2023',
+      first_page: '10',
+      last_page: '20',
+      page: '15',
+      doi: '10.123',
+      url: 'http://example.com',
+      access_date: 'Today',
     }
 
     # Should not raise error
@@ -208,7 +223,7 @@ class TestCitedQuoteUtils < Minitest::Test
       output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
         'Raw content here',
         { author_last: 'Doe' },
-        @site
+        @site,
       )
 
       # Content should be passed through unprocessed (no <p> wrapper)
@@ -224,7 +239,7 @@ class TestCitedQuoteUtils < Minitest::Test
     output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
       'Quote text',
       { author_last: '', work_title: 'A Book' },
-      @site
+      @site,
     )
 
     # Should still produce valid output without error
@@ -245,7 +260,7 @@ class TestCitedQuoteUtils < Minitest::Test
     citedquote_output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
       'A great quote.',
       { author_last: 'Doe', work_title: 'Test Work' },
-      @site
+      @site,
     )
 
     # Create markdown with a footnote containing the citedquote output
@@ -259,17 +274,32 @@ class TestCitedQuoteUtils < Minitest::Test
     html_output = Kramdown::Document.new(markdown_with_footnote).to_html
 
     # The HTML should contain proper <figure> and <blockquote> tags, not escaped
-    assert_match(/<figure class="cited-quote">/, html_output,
-                 'Figure tag should not be escaped in footnote')
-    assert_match(/<blockquote>/, html_output,
-                 'Blockquote tag should not be escaped in footnote')
-    assert_match(/<figcaption>/, html_output,
-                 'Figcaption tag should not be escaped in footnote')
+    assert_match(
+      /<figure class="cited-quote">/,
+      html_output,
+      'Figure tag should not be escaped in footnote',
+    )
+    assert_match(
+      /<blockquote>/,
+      html_output,
+      'Blockquote tag should not be escaped in footnote',
+    )
+    assert_match(
+      /<figcaption>/,
+      html_output,
+      'Figcaption tag should not be escaped in footnote',
+    )
 
     # Verify tags are NOT escaped (would appear as &lt;figure&gt; if escaped)
-    refute_match(/&lt;figure/, html_output,
-                 'Figure tag should not be HTML-escaped')
-    refute_match(/&lt;blockquote/, html_output,
-                 'Blockquote tag should not be HTML-escaped')
+    refute_match(
+      /&lt;figure/,
+      html_output,
+      'Figure tag should not be HTML-escaped',
+    )
+    refute_match(
+      /&lt;blockquote/,
+      html_output,
+      'Blockquote tag should not be HTML-escaped',
+    )
   end
 end

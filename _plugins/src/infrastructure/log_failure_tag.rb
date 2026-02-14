@@ -46,7 +46,7 @@ module Jekyll
           context: context,
           tag_type: log_type,
           reason: log_reason,
-          identifiers: identifiers
+          identifiers: identifiers,
         )
       end
 

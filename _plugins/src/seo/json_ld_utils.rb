@@ -30,7 +30,7 @@ module Jekyll
       def self._base_person_entity(person_name)
         {
           '@type' => 'Person',
-          'name' => person_name
+          'name' => person_name,
         }
       end
       private_class_method :_base_person_entity
@@ -51,7 +51,7 @@ module Jekyll
 
         {
           '@type' => 'Person',
-          'name' => person_name
+          'name' => person_name,
         }
       end
 
@@ -68,7 +68,7 @@ module Jekyll
 
         {
           '@type' => 'ImageObject',
-          'url' => Jekyll::Infrastructure::UrlUtils.absolute_url(image_path, site)
+          'url' => Jekyll::Infrastructure::UrlUtils.absolute_url(image_path, site),
           # "height" and "width" could be added if a mechanism to fetch them exists
         }
       end
@@ -150,7 +150,7 @@ module Jekyll
           '@type' => 'Rating',
           'ratingValue' => rating_value.to_s,
           'bestRating' => best_rating.to_s,
-          'worstRating' => worst_rating.to_s
+          'worstRating' => worst_rating.to_s,
         }
       end
 
@@ -167,7 +167,7 @@ module Jekyll
 
         series_data = {
           '@type' => 'BookSeries',
-          'name' => series_name
+          'name' => series_name,
         }
         position = position_raw.to_i
         series_data['position'] = position.to_s if position.positive?

@@ -56,7 +56,7 @@ module Jekyll
           current_page_url = page['url']
           target_base_url, target_fragment = _parse_url_parts(target_url_str)
           current_canonical_url, target_canonical_url = _resolve_canonical_urls(
-            site, current_page_url, target_base_url
+            site, current_page_url, target_base_url,
           )
 
           link_params = {
@@ -65,7 +65,7 @@ module Jekyll
             target_fragment: target_fragment,
             target_url_str: target_url_str,
             inner_html_element: inner_html_element,
-            site: site
+            site: site,
           }
           _build_appropriate_link(link_params)
         end

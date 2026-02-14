@@ -20,11 +20,11 @@ class TestJsonLdUtils < Minitest::Test
     @site_config_full = {
       'url' => 'https://example.com',
       'baseurl' => '/blog',
-      'author' => { 'name' => 'Site Author Name' }
+      'author' => { 'name' => 'Site Author Name' },
     }
     @site_config_no_author = {
       'url' => 'https://example.com',
-      'baseurl' => ''
+      'baseurl' => '',
     }
     @mock_site_full = create_site(@site_config_full)
     @mock_site_no_author = create_site(@site_config_no_author)
@@ -36,7 +36,7 @@ class TestJsonLdUtils < Minitest::Test
       'title' => 'Test Doc',
       'description' => 'Front matter description.',
       'excerpt' => Struct.new(:output).new('<p>Excerpt <em>HTML</em> content.</p>'), # Mock Excerpt object
-      'content' => '<div>Full <span>HTML</span> page content.</div>'
+      'content' => '<div>Full <span>HTML</span> page content.</div>',
     }
     @mock_document = create_doc(@mock_doc_data)
   end
@@ -53,7 +53,7 @@ class TestJsonLdUtils < Minitest::Test
     expected = {
       '@type' => 'Person',
       'name' => 'Site Author Name',
-      'url' => 'https://example.com/blog/' # Jekyll::Infrastructure::UrlUtils.absolute_url("", @mock_site_full)
+      'url' => 'https://example.com/blog/', # Jekyll::Infrastructure::UrlUtils.absolute_url("", @mock_site_full)
     }
     assert_equal expected, Jekyll::SEO::JsonLdUtils.build_site_person_entity(@mock_site_full, include_site_url: true)
   end
@@ -86,7 +86,7 @@ class TestJsonLdUtils < Minitest::Test
   def test_build_image_object_entity_valid_path
     expected = {
       '@type' => 'ImageObject',
-      'url' => 'https://example.com/blog/images/pic.jpg' # Jekyll::Infrastructure::UrlUtils.absolute_url("images/pic.jpg", @mock_site_full)
+      'url' => 'https://example.com/blog/images/pic.jpg', # Jekyll::Infrastructure::UrlUtils.absolute_url("images/pic.jpg", @mock_site_full)
     }
     assert_equal expected, Jekyll::SEO::JsonLdUtils.build_image_object_entity('images/pic.jpg', @mock_site_full)
   end
@@ -105,7 +105,7 @@ class TestJsonLdUtils < Minitest::Test
     # Excerpt exists and is primary
     result = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
       @mock_document,
-      field_priority: %w[excerpt description content]
+      field_priority: %w[excerpt description content],
     )
     assert_equal 'Excerpt HTML content.', result # Cleaned from <p>Excerpt <em>HTML</em> content.</p>
   end
@@ -115,19 +115,21 @@ class TestJsonLdUtils < Minitest::Test
     doc_no_excerpt_output = create_doc(@mock_doc_data.merge('excerpt' => Struct.new(:output).new('')))
     result = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
       doc_no_excerpt_output,
-      field_priority: %w[excerpt description content]
+      field_priority: %w[excerpt description content],
     )
     assert_equal 'Front matter description.', result
   end
 
   def test_extract_descriptive_text_priority_content
-    doc_no_excerpt_desc = create_doc(@mock_doc_data.merge(
-                                       'excerpt' => Struct.new(:output).new(''),
-                                       'description' => ''
-                                     ))
+    doc_no_excerpt_desc = create_doc(
+      @mock_doc_data.merge(
+        'excerpt' => Struct.new(:output).new(''),
+        'description' => '',
+      ),
+    )
     result = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
       doc_no_excerpt_desc,
-      field_priority: %w[excerpt description content]
+      field_priority: %w[excerpt description content],
     )
     assert_equal 'Full HTML page content.', result # Cleaned from <div>Full <span>HTML</span> page content.</div>
   end
@@ -135,17 +137,23 @@ class TestJsonLdUtils < Minitest::Test
   def test_extract_descriptive_text_only_content_specified
     result = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
       @mock_document, # Has excerpt and description, but we only ask for content
-      field_priority: ['content']
+      field_priority: ['content'],
     )
     assert_equal 'Full HTML page content.', result
   end
 
   def test_extract_descriptive_text_no_matching_fields
-    doc_empty = create_doc({ 'title' => 'Empty Doc', 'excerpt' => Struct.new(:output).new(nil), 'description' => nil,
-                             'content' => nil })
+    doc_empty = create_doc(
+      {
+        'title' => 'Empty Doc',
+        'excerpt' => Struct.new(:output).new(nil),
+        'description' => nil,
+        'content' => nil,
+      },
+    )
     result = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
       doc_empty,
-      field_priority: %w[excerpt description content]
+      field_priority: %w[excerpt description content],
     )
     assert_nil result
   end
@@ -154,7 +162,7 @@ class TestJsonLdUtils < Minitest::Test
     result = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
       @mock_document, # Uses excerpt: "Excerpt HTML content." (3 words)
       field_priority: ['excerpt'],
-      truncate_options: { words: 2, omission: '...' }
+      truncate_options: { words: 2, omission: '...' },
     )
     assert_equal 'Excerpt HTML...', result
   end
@@ -163,7 +171,7 @@ class TestJsonLdUtils < Minitest::Test
     result = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
       @mock_document, # Uses excerpt: "Excerpt HTML content." (3 words)
       field_priority: ['excerpt'],
-      truncate_options: { words: 5, omission: '...' }
+      truncate_options: { words: 5, omission: '...' },
     )
     assert_equal 'Excerpt HTML content.', result # Original cleaned text
   end
@@ -172,7 +180,7 @@ class TestJsonLdUtils < Minitest::Test
     result = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
       @mock_document,
       field_priority: ['excerpt'],
-      truncate_options: nil # Explicitly nil
+      truncate_options: nil, # Explicitly nil
     )
     assert_equal 'Excerpt HTML content.', result
   end
@@ -234,10 +242,10 @@ class TestJsonLdUtils < Minitest::Test
       'nested' => {
         'prop1' => 'value',
         'prop2' => nil,
-        'prop3' => ''
+        'prop3' => '',
       },
       'valid_empty_array_prop' => ['item'], # Should stay
-      'empty_array_prop_to_remove' => [] # Should be removed
+      'empty_array_prop_to_remove' => [], # Should be removed
     }
   end
 
@@ -247,9 +255,9 @@ class TestJsonLdUtils < Minitest::Test
       'name' => 'Test',
       'image' => 'img.jpg',
       'nested' => {
-        'prop1' => 'value'
+        'prop1' => 'value',
       },
-      'valid_empty_array_prop' => ['item']
+      'valid_empty_array_prop' => ['item'],
     }
   end
 
@@ -295,13 +303,13 @@ class TestJsonLdUtils < Minitest::Test
           'desc' => '',
           'level3' => {
             'val' => 'v3',
-            'empty_arr' => []
+            'empty_arr' => [],
           },
-          'other_l2' => nil
+          'other_l2' => nil,
         },
-        'arr' => ['a']
+        'arr' => ['a'],
       },
-      'notes' => ''
+      'notes' => '',
     }
   end
 
@@ -312,11 +320,11 @@ class TestJsonLdUtils < Minitest::Test
         'name' => 'L1',
         'level2' => {
           'level3' => {
-            'val' => 'v3'
-          }
+            'val' => 'v3',
+          },
         },
-        'arr' => ['a']
-      }
+        'arr' => ['a'],
+      },
     }
   end
 end

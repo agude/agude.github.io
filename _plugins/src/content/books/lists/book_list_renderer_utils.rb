@@ -29,8 +29,13 @@ module Jekyll
 
           return output if standalone_books.empty? && series_groups.empty?
 
-          renderer = BookGroupsRenderer.new(standalone_books, series_groups, context, series_heading_level,
-                                            generate_nav)
+          renderer = BookGroupsRenderer.new(
+            standalone_books,
+            series_groups,
+            context,
+            series_heading_level,
+            generate_nav,
+          )
           output + renderer.render
         end
 
@@ -72,7 +77,7 @@ module Jekyll
 
         def self._register_series_anchor(name, slug, options)
           sort_key = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(name, strip_articles: true).sub(
-            /^series\s+/, ''
+            /^series\s+/, '',
           ).strip
           letter = sort_key.empty? ? '#' : sort_key[0].upcase
           options[:anchors][letter] ||= slug
@@ -104,7 +109,7 @@ module Jekyll
           def render
             options = { series_hl: @series_hl, generate_nav: @generate_nav, anchors: @anchors }
             content = Jekyll::Books::Lists::BookListRendererUtils._render_content_buffer(
-              @standalone_books, @series_groups, @context, options
+              @standalone_books, @series_groups, @context, options,
             )
 
             return content unless @generate_nav

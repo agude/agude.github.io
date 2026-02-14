@@ -9,19 +9,19 @@ class TestRelatedPostsFinder < Minitest::Test
   def setup
     @current_post = create_doc(
       { 'title' => 'Current Post', 'categories' => ['tech'] },
-      '/posts/current.html'
+      '/posts/current.html',
     )
     @current_post.define_singleton_method(:date) { Time.now - 86_400 }
 
     @related_post = create_doc(
       { 'title' => 'Related Post', 'categories' => ['tech'], 'published' => true },
-      '/posts/related.html'
+      '/posts/related.html',
     )
     @related_post.define_singleton_method(:date) { Time.now - 172_800 }
 
     @unrelated_post = create_doc(
       { 'title' => 'Unrelated Post', 'categories' => ['cooking'], 'published' => true },
-      '/posts/unrelated.html'
+      '/posts/unrelated.html',
     )
     @unrelated_post.define_singleton_method(:date) { Time.now - 259_200 }
   end
@@ -63,7 +63,7 @@ class TestRelatedPostsFinder < Minitest::Test
   def test_falls_back_to_recent_when_no_category_match
     no_category_post = create_doc(
       { 'title' => 'No Category', 'categories' => [], 'published' => true },
-      '/posts/no-cat.html'
+      '/posts/no-cat.html',
     )
     no_category_post.define_singleton_method(:date) { Time.now - 86_400 }
 
@@ -82,7 +82,7 @@ class TestRelatedPostsFinder < Minitest::Test
     posts = (1..10).map do |i|
       post = create_doc(
         { 'title' => "Post #{i}", 'categories' => ['tech'], 'published' => true },
-        "/posts/#{i}.html"
+        "/posts/#{i}.html",
       )
       post.define_singleton_method(:date) { Time.now - (i * 86_400) }
       post
@@ -101,7 +101,7 @@ class TestRelatedPostsFinder < Minitest::Test
   def test_excludes_unpublished_posts
     unpublished = create_doc(
       { 'title' => 'Draft', 'categories' => ['tech'], 'published' => false },
-      '/posts/draft.html'
+      '/posts/draft.html',
     )
     unpublished.define_singleton_method(:date) { Time.now - 86_400 }
 
@@ -119,7 +119,7 @@ class TestRelatedPostsFinder < Minitest::Test
   def test_excludes_future_posts
     future = create_doc(
       { 'title' => 'Future', 'categories' => ['tech'], 'published' => true },
-      '/posts/future.html'
+      '/posts/future.html',
     )
     future.define_singleton_method(:date) { Time.now + 86_400 }
 
@@ -196,13 +196,13 @@ class TestRelatedPostsFinder < Minitest::Test
   def test_sorts_by_date_descending
     older = create_doc(
       { 'title' => 'Older', 'categories' => ['tech'], 'published' => true },
-      '/posts/older.html'
+      '/posts/older.html',
     )
     older.define_singleton_method(:date) { Time.now - 259_200 }
 
     newer = create_doc(
       { 'title' => 'Newer', 'categories' => ['tech'], 'published' => true },
-      '/posts/newer.html'
+      '/posts/newer.html',
     )
     newer.define_singleton_method(:date) { Time.now - 86_400 }
 
@@ -220,7 +220,7 @@ class TestRelatedPostsFinder < Minitest::Test
     # Tests line 108: `return false unless post.date`
     no_date_post = create_doc(
       { 'title' => 'No Date', 'categories' => ['tech'], 'published' => true },
-      '/posts/no-date.html'
+      '/posts/no-date.html',
     )
     no_date_post.define_singleton_method(:date) { nil }
 

@@ -43,7 +43,7 @@ module Jekyll
           tag_type: 'RENDER_SERIES_LINK',
           reason: 'Could not find series page in cache.',
           identifiers: { Series: input_title.strip },
-          level: :info
+          level: :info,
         )
       end
     end

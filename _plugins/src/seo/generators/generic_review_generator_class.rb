@@ -43,14 +43,14 @@ module Jekyll
           Jekyll.logger.error(
             'JSON-LD (GenericReviewGen):',
             "Called for '#{id}' but 'review.item_name' is missing or empty. " \
-            'This should have been caught by the injector.'
+            'This should have been caught by the injector.',
           )
         end
 
         def build_base_data
           data = {
             '@context' => 'https://schema.org',
-            '@type' => 'Review'
+            '@type' => 'Review',
           }
           add_review_metadata(data)
           data
@@ -67,7 +67,7 @@ module Jekyll
         def extract_review_body
           Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
             @document,
-            field_priority: ['description']
+            field_priority: ['description'],
           )
         end
 
@@ -78,7 +78,7 @@ module Jekyll
         def build_item_reviewed
           item = {
             '@type' => @review_fm['item_type'] || 'Product',
-            'name' => @review_fm['item_name']
+            'name' => @review_fm['item_name'],
           }
           add_item_image(item)
           add_item_url(item)

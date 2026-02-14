@@ -41,7 +41,7 @@ module Jekyll
             'Prerequisites missing: site.posts or favorites_posts_to_books cache.',
             identifiers: {},
             key: :favorites_lists,
-            tag_type: 'BOOK_LIST_FAVORITES'
+            tag_type: 'BOOK_LIST_FAVORITES',
           )
         end
 
@@ -61,8 +61,10 @@ module Jekyll
         def create_favorites_list_entry(post, cache)
           books = cache[post.url] || []
           sorted = books.sort_by do |b|
-            Jekyll::Infrastructure::TextProcessingUtils.normalize_title(b.data['title'].to_s,
-                                                                        strip_articles: true)
+            Jekyll::Infrastructure::TextProcessingUtils.normalize_title(
+              b.data['title'].to_s,
+              strip_articles: true,
+            )
           end
           { post: post, books: sorted }
         end
@@ -75,7 +77,7 @@ module Jekyll
             tag_type: 'BOOK_LIST_FAVORITES',
             reason: "No posts with 'is_favorites_list' front matter found.",
             identifiers: {},
-            level: :info
+            level: :info,
           ).dup
         end
       end

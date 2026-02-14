@@ -26,7 +26,7 @@ class TestOptionalFilter < Minitest::Test
       'title' => 'My Post',
       'is_true' => true,
       'is_false' => false,
-      'nested' => { 'id' => 123 }
+      'nested' => { 'id' => 123 },
     }
     @array = %w[a b c]
     @drop = MockDrop.new
@@ -111,19 +111,19 @@ class TestOptionalFilter < Minitest::Test
   def test_liquid_conditional_logic
     # 1. Missing key -> nil -> falsy
     template_missing = Liquid::Template.parse(
-      "{% assign val = data | optional: 'missing' %}{% if val %}YES{% else %}NO{% endif %}"
+      "{% assign val = data | optional: 'missing' %}{% if val %}YES{% else %}NO{% endif %}",
     )
     assert_equal 'NO', template_missing.render('data' => @data)
 
     # 2. Existing key (true) -> true -> truthy
     template_true = Liquid::Template.parse(
-      "{% assign val = data | optional: 'is_true' %}{% if val %}YES{% else %}NO{% endif %}"
+      "{% assign val = data | optional: 'is_true' %}{% if val %}YES{% else %}NO{% endif %}",
     )
     assert_equal 'YES', template_true.render('data' => @data)
 
     # 3. Existing key (false) -> false -> falsy
     template_false = Liquid::Template.parse(
-      "{% assign val = data | optional: 'is_false' %}{% if val %}YES{% else %}NO{% endif %}"
+      "{% assign val = data | optional: 'is_false' %}{% if val %}YES{% else %}NO{% endif %}",
     )
     assert_equal 'NO', template_false.render('data' => @data)
   end

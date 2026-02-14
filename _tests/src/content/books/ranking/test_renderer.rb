@@ -21,7 +21,7 @@ class TestRankedByBacklinksRenderer < Minitest::Test
 
   def test_generates_correct_html_structure
     ranked_list = [
-      { title: 'Book A', url: '/a.html', count: 2 }
+      { title: 'Book A', url: '/a.html', count: 2 },
     ]
 
     Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(_title, _url, _ctx) { '<a>Link</a>' } do
@@ -35,14 +35,15 @@ class TestRankedByBacklinksRenderer < Minitest::Test
 
   def test_calls_book_link_utils_with_correct_parameters
     ranked_list = [
-      { title: 'Book A', url: '/a.html', count: 2 }
+      { title: 'Book A', url: '/a.html', count: 2 },
     ]
 
     captured_args = []
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, lambda { |title, url, ctx|
-      captured_args << { title: title, url: url, ctx: ctx }
-      '<a>Link</a>'
-    } do
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data,
+                                            lambda { |title, url, ctx|
+                                              captured_args << { title: title, url: url, ctx: ctx }
+                                              '<a>Link</a>'
+                                            } do
       renderer = Jekyll::Books::Ranking::RankedByBacklinks::Renderer.new(@context, ranked_list)
       renderer.render
 
@@ -55,7 +56,7 @@ class TestRankedByBacklinksRenderer < Minitest::Test
 
   def test_renders_singular_mention_text_correctly
     ranked_list = [
-      { title: 'Book A', url: '/a.html', count: 1 }
+      { title: 'Book A', url: '/a.html', count: 1 },
     ]
 
     Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(_title, _url, _ctx) { '<a>Book A</a>' } do
@@ -69,7 +70,7 @@ class TestRankedByBacklinksRenderer < Minitest::Test
 
   def test_renders_plural_mention_text_correctly
     ranked_list = [
-      { title: 'Book A', url: '/a.html', count: 5 }
+      { title: 'Book A', url: '/a.html', count: 5 },
     ]
 
     Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(_title, _url, _ctx) { '<a>Book A</a>' } do
@@ -85,12 +86,13 @@ class TestRankedByBacklinksRenderer < Minitest::Test
     ranked_list = [
       { title: 'Book B', url: '/b.html', count: 3 },
       { title: 'Book A', url: '/a.html', count: 2 },
-      { title: 'Book C', url: '/c.html', count: 1 }
+      { title: 'Book C', url: '/c.html', count: 1 },
     ]
 
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, lambda { |title, _url, _ctx|
-      "<a>#{title}</a>"
-    } do
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data,
+                                            lambda { |title, _url, _ctx|
+                                              "<a>#{title}</a>"
+                                            } do
       renderer = Jekyll::Books::Ranking::RankedByBacklinks::Renderer.new(@context, ranked_list)
       output = renderer.render
 
@@ -111,12 +113,13 @@ class TestRankedByBacklinksRenderer < Minitest::Test
 
   def test_renders_list_items_with_correct_structure
     ranked_list = [
-      { title: 'Book A', url: '/a.html', count: 2 }
+      { title: 'Book A', url: '/a.html', count: 2 },
     ]
 
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, lambda { |title, url, _ctx|
-      "<a href=\"#{url}\">#{title}</a>"
-    } do
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data,
+                                            lambda { |title, url, _ctx|
+                                              "<a href=\"#{url}\">#{title}</a>"
+                                            } do
       renderer = Jekyll::Books::Ranking::RankedByBacklinks::Renderer.new(@context, ranked_list)
       output = renderer.render
 

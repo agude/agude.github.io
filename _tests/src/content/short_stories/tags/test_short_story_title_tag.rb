@@ -13,9 +13,9 @@ class TestShortStoryTitleTag < Minitest::Test
     @context = create_context(
       {
         'page_story_title' => 'My Story Title',
-        'nil_var' => nil
+        'nil_var' => nil,
       },
-      { site: @site }
+      { site: @site },
     )
   end
 
@@ -41,10 +41,11 @@ class TestShortStoryTitleTag < Minitest::Test
     captured_args = {}
     mock_output = '<cite class="short-story-title">Test Story</cite> {#test-story}'
 
-    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title, lambda { |**args|
-      captured_args = args
-      mock_output
-    } do
+    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title,
+                                                   lambda { |**args|
+                                                     captured_args = args
+                                                     mock_output
+                                                   } do
       output = Liquid::Template.parse("{% short_story_title 'Test Story' %}").render!(@context)
 
       assert_equal @context, captured_args[:context]
@@ -58,10 +59,11 @@ class TestShortStoryTitleTag < Minitest::Test
     captured_args = {}
     mock_output = '<cite class="short-story-title">My Story Title</cite> {#my-story-title}'
 
-    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title, lambda { |**args|
-      captured_args = args
-      mock_output
-    } do
+    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title,
+                                                   lambda { |**args|
+                                                     captured_args = args
+                                                     mock_output
+                                                   } do
       output = Liquid::Template.parse('{% short_story_title page_story_title %}').render!(@context)
 
       assert_equal @context, captured_args[:context]
@@ -74,10 +76,11 @@ class TestShortStoryTitleTag < Minitest::Test
   def test_calls_util_with_no_id_false_by_default
     captured_args = {}
 
-    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title, lambda { |**args|
-      captured_args = args
-      '<mock output>'
-    } do
+    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title,
+                                                   lambda { |**args|
+                                                     captured_args = args
+                                                     '<mock output>'
+                                                   } do
       Liquid::Template.parse("{% short_story_title 'Test' %}").render!(@context)
 
       assert_equal false, captured_args[:no_id]
@@ -87,10 +90,11 @@ class TestShortStoryTitleTag < Minitest::Test
   def test_calls_util_with_no_id_true_when_flag_present
     captured_args = {}
 
-    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title, lambda { |**args|
-      captured_args = args
-      '<mock output>'
-    } do
+    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title,
+                                                   lambda { |**args|
+                                                     captured_args = args
+                                                     '<mock output>'
+                                                   } do
       Liquid::Template.parse("{% short_story_title 'Test' no_id %}").render!(@context)
 
       assert_equal true, captured_args[:no_id]
@@ -100,10 +104,11 @@ class TestShortStoryTitleTag < Minitest::Test
   def test_calls_util_with_nil_when_variable_is_nil
     captured_args = {}
 
-    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title, lambda { |**args|
-      captured_args = args
-      ''
-    } do
+    Jekyll::ShortStories::ShortStoryTitleUtil.stub :render_title,
+                                                   lambda { |**args|
+                                                     captured_args = args
+                                                     ''
+                                                   } do
       Liquid::Template.parse('{% short_story_title nil_var %}').render!(@context)
 
       assert_nil captured_args[:title]

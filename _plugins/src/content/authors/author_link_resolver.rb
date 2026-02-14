@@ -46,11 +46,19 @@ module Jekyll
         display_text = determine_display_text(author_data, norm_name)
 
         if author_data
-          { status: :found, url: author_data['url'], display_text: display_text,
-            possessive: !!@possessive }.freeze
+          {
+            status: :found,
+            url: author_data['url'],
+            display_text: display_text,
+            possessive: !!@possessive,
+          }.freeze
         else
-          { status: :not_found, url: nil, display_text: display_text,
-            possessive: !!@possessive }.freeze
+          {
+            status: :not_found,
+            url: nil,
+            display_text: display_text,
+            possessive: !!@possessive,
+          }.freeze
         end
       end
 
@@ -69,9 +77,11 @@ module Jekyll
 
       def log_empty_name(raw)
         Logger.log_liquid_failure(
-          context: @context, tag_type: 'RENDER_AUTHOR_LINK',
+          context: @context,
+          tag_type: 'RENDER_AUTHOR_LINK',
           reason: 'Input author name resolved to empty after normalization.',
-          identifiers: { NameInput: raw || 'nil' }, level: :warn
+          identifiers: { NameInput: raw || 'nil' },
+          level: :warn,
         )
       end
 

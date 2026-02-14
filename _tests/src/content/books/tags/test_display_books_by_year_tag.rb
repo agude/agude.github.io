@@ -25,7 +25,7 @@ class TestDisplayBooksByYearTag < Minitest::Test
     mock_book = create_doc({ 'title' => 'Test Book' })
     mock_finder_data = {
       year_groups: [{ year: '2024', books: [mock_book] }],
-      log_messages: ''
+      log_messages: '',
     }
 
     # 2. Define the mock HTML that the Renderer will "return"
@@ -40,12 +40,13 @@ class TestDisplayBooksByYearTag < Minitest::Test
 
     # Stub the .new methods to return our mock instances
     Jekyll::Books::Lists::ByYearFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::Books::Lists::Renderers::ByYearRenderer.stub :new, lambda { |context, data|
-        # This is a key assertion: ensure the data from the finder is what the renderer receives
-        assert_equal mock_finder_data, data
-        assert_equal @context, context
-        mock_renderer # Return our mock renderer instance
-      } do
+      Jekyll::Books::Lists::Renderers::ByYearRenderer.stub :new,
+                                                           lambda { |context, data|
+                                                             # This is a key assertion: ensure the data from the finder is what the renderer receives
+                                                             assert_equal mock_finder_data, data
+                                                             assert_equal @context, context
+                                                             mock_renderer # Return our mock renderer instance
+                                                           } do
         # Execute the tag
         output = Liquid::Template.parse('{% display_books_by_year %}').render!(@context)
 
@@ -63,7 +64,7 @@ class TestDisplayBooksByYearTag < Minitest::Test
     # Test that log messages from the finder are prepended to the renderer output
     mock_finder_data = {
       year_groups: [],
-      log_messages: '<!-- Log Message -->'
+      log_messages: '<!-- Log Message -->',
     }
     mock_renderer_html = '<div>No books</div>'
 

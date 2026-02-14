@@ -49,7 +49,7 @@ module Jekyll
           finder = Finder.new(
             site: context.registers[:site],
             series_name_filter: series_filter,
-            context: context
+            context: context,
           )
           data = finder.find
 
@@ -74,7 +74,7 @@ module Jekyll
               title: book.data['title'],
               url: book.url,
               authors: authors.is_a?(Array) ? authors : [authors].compact,
-              rating: book.data['rating']
+              rating: book.data['rating'],
             }
             # Numbered list for reading order
             lines << "#{idx + 1}. [#{card[:title]}](#{card[:url]})" \

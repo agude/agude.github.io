@@ -16,8 +16,13 @@ class TestBookLinkUtils < Minitest::Test
     override = 'The Dune Book'
     author = 'Frank Herbert'
     date_filter = nil
-    mock_data = { status: :found, url: '/books/dune/', display_text: 'The Dune Book',
-                  canonical_title: 'Dune', cite: true }
+    mock_data = {
+      status: :found,
+      url: '/books/dune/',
+      display_text: 'The Dune Book',
+      canonical_title: 'Dune',
+      cite: true,
+    }
 
     mock_resolver = Minitest::Mock.new
     mock_resolver.expect :resolve_data, mock_data, [title, override, author, date_filter], cite: true

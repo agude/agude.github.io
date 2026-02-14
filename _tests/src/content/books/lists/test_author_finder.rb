@@ -21,7 +21,7 @@ class TestBookListAuthorFinder < Minitest::Test
       finder = Jekyll::Books::Lists::AuthorFinder.new(
         site: site,
         author_name_filter: author_name_filter,
-        context: context
+        context: context,
       )
       finder.find
     end
@@ -102,57 +102,94 @@ class TestBookListAuthorFinder < Minitest::Test
       @book_beta_standalone,
       @coauthored_alpha_beta,
       @book_gamma_standalone,
-      @unpublished_book_by_alpha
+      @unpublished_book_by_alpha,
     ].compact
   end
 
   def create_alpha_books
     @book_alpha_series1_book1 = create_doc(
-      { 'title' => 'AA Series1 Book1', 'series' => 'Alpha Series', 'book_number' => 1,
-        'book_authors' => [@author_alpha_name], 'published' => true, 'date' => Time.now },
-      '/aa_s1b1.html'
+      {
+        'title' => 'AA Series1 Book1',
+        'series' => 'Alpha Series',
+        'book_number' => 1,
+        'book_authors' => [@author_alpha_name],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/aa_s1b1.html',
     )
     @book_alpha_series1_book_half = create_doc(
-      { 'title' => 'AA Series1 Book0.5', 'series' => 'Alpha Series', 'book_number' => 0.5,
-        'book_authors' => [@author_alpha_name], 'published' => true, 'date' => Time.now },
-      '/aa_s1b0_5.html'
+      {
+        'title' => 'AA Series1 Book0.5',
+        'series' => 'Alpha Series',
+        'book_number' => 0.5,
+        'book_authors' => [@author_alpha_name],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/aa_s1b0_5.html',
     )
     @book_alpha_standalone = create_doc(
-      { 'title' => 'AA Standalone', 'book_authors' => [@author_alpha_name],
-        'published' => true, 'date' => Time.now },
-      '/aa_sa.html'
+      {
+        'title' => 'AA Standalone',
+        'book_authors' => [@author_alpha_name],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/aa_sa.html',
     )
   end
 
   def create_beta_books
     @book_beta_series2_book1 = create_doc(
-      { 'title' => 'ab Series2 Book1', 'series' => 'Beta Series', 'book_number' => 1,
-        'book_authors' => [@author_beta_lower_name], 'published' => true, 'date' => Time.now },
-      '/ab_s2b1.html'
+      {
+        'title' => 'ab Series2 Book1',
+        'series' => 'Beta Series',
+        'book_number' => 1,
+        'book_authors' => [@author_beta_lower_name],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/ab_s2b1.html',
     )
     @book_beta_standalone = create_doc(
-      { 'title' => 'Standalone by ab', 'book_authors' => [@author_beta_lower_name],
-        'published' => true, 'date' => Time.now },
-      '/ab_sa.html'
+      {
+        'title' => 'Standalone by ab',
+        'book_authors' => [@author_beta_lower_name],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/ab_sa.html',
     )
   end
 
   def create_coauthored_and_other_books
     @coauthored_alpha_beta = create_doc(
-      { 'title' => 'Co-authored AA & ab',
+      {
+        'title' => 'Co-authored AA & ab',
         'book_authors' => [@author_alpha_name, @author_beta_lower_name],
-        'published' => true, 'date' => Time.now },
-      '/coauth_aa_ab.html'
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/coauth_aa_ab.html',
     )
     @book_gamma_standalone = create_doc(
-      { 'title' => 'Gamma Standalone', 'book_authors' => [@author_gamma_name],
-        'published' => true, 'date' => Time.now },
-      '/gamma_sa.html'
+      {
+        'title' => 'Gamma Standalone',
+        'book_authors' => [@author_gamma_name],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/gamma_sa.html',
     )
     @unpublished_book_by_alpha = create_doc(
-      { 'title' => 'Unpublished by AA', 'book_authors' => [@author_alpha_name],
-        'published' => false, 'date' => Time.now },
-      '/unpub_aa.html'
+      {
+        'title' => 'Unpublished by AA',
+        'book_authors' => [@author_alpha_name],
+        'published' => false,
+        'date' => Time.now,
+      },
+      '/unpub_aa.html',
     )
   end
 

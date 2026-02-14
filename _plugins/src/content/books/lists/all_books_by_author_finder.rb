@@ -63,7 +63,7 @@ module Jekyll
             {
               author_name: name,
               standalone_books: structured[:standalone_books],
-              series_groups: structured[:series_groups]
+              series_groups: structured[:series_groups],
             }
           end
           list.sort_by { |entry| entry[:author_name].downcase }
@@ -77,7 +77,7 @@ module Jekyll
             tag_type: 'ALL_BOOKS_BY_AUTHOR_DISPLAY',
             reason: 'No published books with valid author names found.',
             identifiers: {},
-            level: :info
+            level: :info,
           ).dup
         end
       end

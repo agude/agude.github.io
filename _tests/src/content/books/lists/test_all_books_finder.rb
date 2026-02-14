@@ -13,51 +13,82 @@ class TestBookListAllBooksFinder < Minitest::Test
 
     # Series One
     @s1_b1 = create_doc(
-      { 'title' => 'Series One Book 1', 'series' => 'Series One', 'book_number' => 1, 'published' => true,
-        'date' => Time.now }, '/s1b1.html'
+      {
+        'title' => 'Series One Book 1',
+        'series' => 'Series One',
+        'book_number' => 1,
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/s1b1.html',
     )
     @s1_b0_5 = create_doc(
-      { 'title' => 'S1 Book 0.5', 'series' => 'Series One', 'book_number' => 0.5, 'published' => true,
-        'date' => Time.now }, '/s1b0_5.html'
+      {
+        'title' => 'S1 Book 0.5',
+        'series' => 'Series One',
+        'book_number' => 0.5,
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/s1b0_5.html',
     )
 
     # Series Two
     @s2_b1 = create_doc(
-      { 'title' => 'Series Two Book 1', 'series' => 'Series Two', 'book_number' => 1, 'published' => true,
-        'date' => Time.now }, '/s2b1.html'
+      {
+        'title' => 'Series Two Book 1',
+        'series' => 'Series Two',
+        'book_number' => 1,
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/s2b1.html',
     )
 
     # Standalone Books
     @st_apple = create_doc(
       { 'title' => 'Apple Standalone', 'published' => true, 'date' => Time.now },
-      '/apple.html'
+      '/apple.html',
     )
     # Starts with "The" for sort test
     @st_the_zebra = create_doc(
       { 'title' => 'The Zebra Standalone', 'published' => true, 'date' => Time.now },
-      '/zebra.html'
+      '/zebra.html',
     )
     @st_banana = create_doc(
       { 'title' => 'Banana Standalone', 'published' => true, 'date' => Time.now },
-      '/banana.html'
+      '/banana.html',
     )
 
     # Unpublished Book (should be filtered out)
     @unpublished_book = create_doc(
-      { 'title' => 'Unpublished Book', 'series' => 'Series One', 'published' => false,
-        'date' => Time.now }, '/unpub.html'
+      {
+        'title' => 'Unpublished Book',
+        'series' => 'Series One',
+        'published' => false,
+        'date' => Time.now,
+      },
+      '/unpub.html',
     )
 
     @books_for_all_display_tests = [
-      @s1_b1, @s1_b0_5, @s2_b1,
-      @st_apple, @st_the_zebra, @st_banana,
-      @unpublished_book
+      @s1_b1,
+      @s1_b0_5,
+      @s2_b1,
+      @st_apple,
+      @st_the_zebra,
+      @st_banana,
+      @unpublished_book,
     ]
 
     @site = create_site({}, { 'books' => @books_for_all_display_tests })
-    @context = create_context({},
-                              { site: @site,
-                                page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
+    @context = create_context(
+      {},
+      {
+        site: @site,
+        page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html'),
+      },
+    )
 
     @silent_logger_stub = Object.new.tap do |logger|
       def logger.warn(topic, message); end
@@ -115,21 +146,21 @@ class TestBookListAllBooksFinder < Minitest::Test
   def test_find_sorts_series_ignoring_articles
     book_expanse = create_doc(
       { 'title' => 'Book 1', 'series' => 'The Expanse', 'published' => true },
-      '/b1.html'
+      '/b1.html',
     )
     book_dune = create_doc(
       { 'title' => 'Book 2', 'series' => 'Dune', 'published' => true },
-      '/b2.html'
+      '/b2.html',
     )
     book_canticle = create_doc(
       { 'title' => 'Book 3', 'series' => 'A Canticle for Leibowitz', 'published' => true },
-      '/b3.html'
+      '/b3.html',
     )
 
     site_for_series_sort = create_site({}, { 'books' => [book_expanse, book_dune, book_canticle] })
     context_for_series_sort = create_context(
       {},
-      { site: site_for_series_sort, page: @context.registers[:page] }
+      { site: site_for_series_sort, page: @context.registers[:page] },
     )
 
     data = get_all_books_data(site_for_series_sort, context_for_series_sort)
@@ -141,7 +172,7 @@ class TestBookListAllBooksFinder < Minitest::Test
     assert_equal(
       expected_series_order,
       actual_series_order,
-      'Series groups were not sorted correctly ignoring articles'
+      'Series groups were not sorted correctly ignoring articles',
     )
   end
 
@@ -172,7 +203,7 @@ class TestBookListAllBooksFinder < Minitest::Test
     site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true
     context_no_books = create_context(
       {},
-      { site: site_no_books, page: @context.registers[:page] }
+      { site: site_no_books, page: @context.registers[:page] },
     )
 
     data = get_all_books_data(site_no_books, context_no_books)

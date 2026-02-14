@@ -14,12 +14,21 @@ class TestCardDataExtractorUtils < Minitest::Test
 
   def test_extract_base_data_valid_item_no_baseurl
     doc = create_doc({ 'title' => 'Test Post', 'image' => 'images/test.jpg' }, '/test-post.html')
-    result = extract_base_data_with_silent_logger(doc, @context_no_baseurl,
-                                                  default_title: 'Default', log_tag_type: 'TEST_CARD')
+    result = extract_base_data_with_silent_logger(
+      doc,
+      @context_no_baseurl,
+      default_title: 'Default',
+      log_tag_type: 'TEST_CARD',
+    )
 
-    assert_valid_base_data_result(result, @site_no_baseurl, doc, 'Test Post',
-                                  'http://example.com/test-post.html',
-                                  'http://example.com/images/test.jpg')
+    assert_valid_base_data_result(
+      result,
+      @site_no_baseurl,
+      doc,
+      'Test Post',
+      'http://example.com/test-post.html',
+      'http://example.com/images/test.jpg',
+    )
   end
 
   def test_extract_base_data_valid_item_with_baseurl
@@ -37,16 +46,22 @@ class TestCardDataExtractorUtils < Minitest::Test
 
   def test_extract_base_data_item_no_title_uses_default
     doc = create_doc({ 'title' => nil, 'image' => 'img.jpg' }, '/no-title.html')
-    result = extract_base_data_with_silent_logger(doc, @context_no_baseurl,
-                                                  default_title: 'My Default Title')
+    result = extract_base_data_with_silent_logger(
+      doc,
+      @context_no_baseurl,
+      default_title: 'My Default Title',
+    )
     assert_equal '', result[:log_output]
     assert_equal 'My Default Title', result[:raw_title]
   end
 
   def test_extract_base_data_item_empty_string_title_uses_default
     doc = create_doc({ 'title' => '  ' }, '/empty-title.html')
-    result = extract_base_data_with_silent_logger(doc, @context_no_baseurl,
-                                                  default_title: 'Another Default')
+    result = extract_base_data_with_silent_logger(
+      doc,
+      @context_no_baseurl,
+      default_title: 'Another Default',
+    )
     assert_equal '', result[:log_output]
     assert_equal 'Another Default', result[:raw_title]
   end
@@ -74,32 +89,56 @@ class TestCardDataExtractorUtils < Minitest::Test
 
   def test_extract_base_data_invalid_item_object_does_not_respond_to_data
     @site_no_baseurl.config['plugin_logging']['BAD_ITEM_CARD'] = true
-    result, stderr_str = extract_base_data_capturing_io('not_a_doc_object', @context_no_baseurl,
-                                                        log_tag_type: 'BAD_ITEM_CARD')
+    result, stderr_str = extract_base_data_capturing_io(
+      'not_a_doc_object',
+      @context_no_baseurl,
+      log_tag_type: 'BAD_ITEM_CARD',
+    )
 
-    assert_invalid_item_result(result, @site_no_baseurl, 'BAD_ITEM_CARD',
-                               "item_class='String'", 'current.html')
+    assert_invalid_item_result(
+      result,
+      @site_no_baseurl,
+      'BAD_ITEM_CARD',
+      "item_class='String'",
+      'current.html',
+    )
     assert_empty stderr_str
   end
 
   def test_extract_base_data_invalid_item_object_does_not_respond_to_url
     @site_no_baseurl.config['plugin_logging']['BAD_ITEM_CARD_NO_URL'] = true
     item_no_url = Struct.new(:data).new({ 'title' => 'Some Title' })
-    result, stderr_str = extract_base_data_capturing_io(item_no_url, @context_no_baseurl,
-                                                        log_tag_type: 'BAD_ITEM_CARD_NO_URL')
+    result, stderr_str = extract_base_data_capturing_io(
+      item_no_url,
+      @context_no_baseurl,
+      log_tag_type: 'BAD_ITEM_CARD_NO_URL',
+    )
 
-    assert_invalid_item_result(result, @site_no_baseurl, 'BAD_ITEM_CARD_NO_URL',
-                               "item_class=''", 'current.html')
+    assert_invalid_item_result(
+      result,
+      @site_no_baseurl,
+      'BAD_ITEM_CARD_NO_URL',
+      "item_class=''",
+      'current.html',
+    )
     assert_empty stderr_str
   end
 
   def test_extract_base_data_nil_item_object
     @site_no_baseurl.config['plugin_logging']['NIL_ITEM_CARD'] = true
-    result, stderr_str = extract_base_data_capturing_io(nil, @context_no_baseurl,
-                                                        log_tag_type: 'NIL_ITEM_CARD')
+    result, stderr_str = extract_base_data_capturing_io(
+      nil,
+      @context_no_baseurl,
+      log_tag_type: 'NIL_ITEM_CARD',
+    )
 
-    assert_invalid_item_result(result, @site_no_baseurl, 'NIL_ITEM_CARD',
-                               "item_class='NilClass'", 'current.html')
+    assert_invalid_item_result(
+      result,
+      @site_no_baseurl,
+      'NIL_ITEM_CARD',
+      "item_class='NilClass'",
+      'current.html',
+    )
     assert_empty stderr_str
   end
 
@@ -188,8 +227,11 @@ class TestCardDataExtractorUtils < Minitest::Test
     doc = create_doc({ 'title' => 'Drop Title', 'image' => '/drop_img.jpg' }, '/drop-page.html')
     drop = Jekyll::Drops::DocumentDrop.new(doc)
 
-    result = extract_base_data_with_silent_logger(drop, @context_no_baseurl,
-                                                  default_title: 'Default Drop Title')
+    result = extract_base_data_with_silent_logger(
+      drop,
+      @context_no_baseurl,
+      default_title: 'Default Drop Title',
+    )
 
     assert_equal '', result[:log_output], 'Expected no log output for valid Drop'
     assert_equal @site_no_baseurl, result[:site]
@@ -204,12 +246,20 @@ class TestCardDataExtractorUtils < Minitest::Test
   def setup_sites_and_contexts
     @site_with_baseurl = create_site({ 'url' => 'http://example.com', 'baseurl' => '/blog' })
     @site_no_baseurl = create_site({ 'url' => 'http://example.com' })
-    @context_with_baseurl = create_context({},
-                                           { site: @site_with_baseurl,
-                                             page: create_doc({ 'path' => 'current.html' }, '/current.html') })
-    @context_no_baseurl = create_context({},
-                                         { site: @site_no_baseurl,
-                                           page: create_doc({ 'path' => 'current.html' }, '/current.html') })
+    @context_with_baseurl = create_context(
+      {},
+      {
+        site: @site_with_baseurl,
+        page: create_doc({ 'path' => 'current.html' }, '/current.html'),
+      },
+    )
+    @context_no_baseurl = create_context(
+      {},
+      {
+        site: @site_no_baseurl,
+        page: create_doc({ 'path' => 'current.html' }, '/current.html'),
+      },
+    )
   end
 
   def create_silent_logger_stub
@@ -263,12 +313,16 @@ class TestCardDataExtractorUtils < Minitest::Test
     {
       desc_only: { 'description' => 'Article Description.' },
       excerpt_only: { 'excerpt' => Struct.new(:output).new('<p>Article Excerpt Output</p>') },
-      both: { 'description' => 'Article Description Wins.',
-              'excerpt' => Struct.new(:output).new('<p>Excerpt Ignored</p>') },
-      desc_empty_fallback: { 'description' => '  ',
-                             'excerpt' => Struct.new(:output).new('Fallback Excerpt.') },
+      both: {
+        'description' => 'Article Description Wins.',
+        'excerpt' => Struct.new(:output).new('<p>Excerpt Ignored</p>'),
+      },
+      desc_empty_fallback: {
+        'description' => '  ',
+        'excerpt' => Struct.new(:output).new('Fallback Excerpt.'),
+      },
       neither: {},
-      excerpt_nil_output: { 'excerpt' => Struct.new(:output).new(nil) }
+      excerpt_nil_output: { 'excerpt' => Struct.new(:output).new(nil) },
     }
   end
 
@@ -289,11 +343,13 @@ class TestCardDataExtractorUtils < Minitest::Test
     {
       desc_only: { 'description' => 'Book Description (ignored).' },
       excerpt_only: { 'excerpt' => Struct.new(:output).new('<p>Book Excerpt Output</p>') },
-      both: { 'description' => 'Book Description (ignored).',
-              'excerpt' => Struct.new(:output).new('Actual Book Excerpt.') },
+      both: {
+        'description' => 'Book Description (ignored).',
+        'excerpt' => Struct.new(:output).new('Actual Book Excerpt.'),
+      },
       neither: {},
       excerpt_nil_output: { 'excerpt' => Struct.new(:output).new(nil) },
-      nil_item_data: nil
+      nil_item_data: nil,
     }
   end
 

@@ -54,7 +54,7 @@ module Jekyll
           type: type,
           title: item.data['title'] || '',
           href: item.data['markdown_alternate_href'],
-          description: extract_description(item)
+          description: extract_description(item),
         }
       end
 
@@ -106,8 +106,12 @@ module Jekyll
         lines << ''
       end
 
-      private_class_method :collect_entries, :collect_from_docs, :collect_from_pages,
-                           :build_entry, :extract_description, :build_llms_txt,
+      private_class_method :collect_entries,
+                           :collect_from_docs,
+                           :collect_from_pages,
+                           :build_entry,
+                           :extract_description,
+                           :build_llms_txt,
                            :append_section
     end
   end

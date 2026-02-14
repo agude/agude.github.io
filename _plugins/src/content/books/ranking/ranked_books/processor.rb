@@ -104,8 +104,10 @@ module Jekyll
           end
 
           def find_book(title_raw, book_map)
-            normalized = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(title_raw,
-                                                                                     strip_articles: false)
+            normalized = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(
+              title_raw,
+              strip_articles: false,
+            )
             book_map[normalized]
           end
 
@@ -122,7 +124,7 @@ module Jekyll
               tag_type: 'DISPLAY_RANKED_BOOKS',
               reason: 'Book title from ranked list not found in lookup map (Production Mode).',
               identifiers: { Title: title_raw, ListVariable: @list_variable_markup },
-              level: :error
+              level: :error,
             )
           end
 
@@ -143,9 +145,9 @@ module Jekyll
               identifiers: {
                 Title: title_raw,
                 Rating: book.data['rating'].inspect,
-                ListVariable: @list_variable_markup
+                ListVariable: @list_variable_markup,
               },
-              level: :error
+              level: :error,
             )
           end
         end

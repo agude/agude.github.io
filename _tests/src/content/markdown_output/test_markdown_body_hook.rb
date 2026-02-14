@@ -178,7 +178,8 @@ class TestMarkdownBodyHook < Minitest::Test
       html_file = renderer.file(path).parse(content)
       html_result = html_file.render!(payload, registers: { site: site, page: page_data })
 
-      assert_match %r{<cite class="book-title">Hyperion</cite>}, html_result,
+      assert_match %r{<cite class="book-title">Hyperion</cite>},
+                   html_result,
                    'render_mode: :markdown must not leak into subsequent HTML renders'
     end
   end
@@ -188,7 +189,7 @@ class TestMarkdownBodyHook < Minitest::Test
   def build_rendering_fixtures
     book = create_doc(
       { 'title' => 'Hyperion', 'published' => true, 'book_authors' => ['Dan Simmons'] },
-      '/books/hyperion.html'
+      '/books/hyperion.html',
     )
     site = create_site({}, { 'books' => [book] })
     page_data = { 'url' => '/test-page/', 'path' => 'test-page.md', 'title' => 'Test' }

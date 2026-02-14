@@ -12,7 +12,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
     @site_config = {
       'url' => 'https://blog.example.com',
       'baseurl' => '',
-      'author' => { 'name' => 'Test Author' }
+      'author' => { 'name' => 'Test Author' },
     }
     @site = create_site(@site_config)
     @post_collection = MockCollection.new([], 'posts')
@@ -66,7 +66,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
       '/tech/first-post.html',
       '<p>This is the main content.</p>',
       '2024-01-15 10:00:00 EST',
-      @post_collection
+      @post_collection,
     )
   end
 
@@ -82,10 +82,10 @@ class TestBlogPostingLdGenerator < Minitest::Test
       'url' => 'https://blog.example.com/tech/first-post.html',
       'mainEntityOfPage' => {
         '@type' => 'WebPage',
-        '@id' => 'https://blog.example.com/tech/first-post.html'
+        '@id' => 'https://blog.example.com/tech/first-post.html',
       },
       'articleBody' => 'This is the main content.',
-      'keywords' => 'Tech'
+      'keywords' => 'Tech',
     }
   end
 
@@ -96,12 +96,12 @@ class TestBlogPostingLdGenerator < Minitest::Test
         'title' => 'Post With Excerpt',
         'excerpt_output_override' => '<p>This is the <strong>excerpt</strong>.</p>',
         'description' => 'This front matter description should be ignored for LD description.',
-        'tags' => %w[Example Test]
+        'tags' => %w[Example Test],
       },
       '/test/excerpt-post.html',
       '<p>Full content here.</p>',
       '2024-02-10',
-      @post_collection
+      @post_collection,
     )
   end
 
@@ -117,11 +117,11 @@ class TestBlogPostingLdGenerator < Minitest::Test
       'url' => 'https://blog.example.com/test/excerpt-post.html',
       'mainEntityOfPage' => {
         '@type' => 'WebPage',
-        '@id' => 'https://blog.example.com/test/excerpt-post.html'
+        '@id' => 'https://blog.example.com/test/excerpt-post.html',
       },
       'description' => 'This is the excerpt.',
       'articleBody' => 'Full content here.',
-      'keywords' => 'Example, Test'
+      'keywords' => 'Example, Test',
     }
   end
 
@@ -133,12 +133,12 @@ class TestBlogPostingLdGenerator < Minitest::Test
         'excerpt_output_override' => '',
         'description' => ' This is the <strong>description</strong> from front matter. ',
         'categories' => ['Info'],
-        'tags' => ['Test']
+        'tags' => ['Test'],
       },
       '/test/desc-post.html',
       '<p>Main body.</p>',
       '2024-03-01',
-      @post_collection
+      @post_collection,
     )
   end
 
@@ -154,11 +154,11 @@ class TestBlogPostingLdGenerator < Minitest::Test
       'url' => 'https://blog.example.com/test/desc-post.html',
       'mainEntityOfPage' => {
         '@type' => 'WebPage',
-        '@id' => 'https://blog.example.com/test/desc-post.html'
+        '@id' => 'https://blog.example.com/test/desc-post.html',
       },
       'description' => 'This is the description from front matter.',
       'articleBody' => 'Main body.',
-      'keywords' => 'Info, Test'
+      'keywords' => 'Info, Test',
     }
   end
 
@@ -168,12 +168,12 @@ class TestBlogPostingLdGenerator < Minitest::Test
         'layout' => 'post',
         'title' => 'Updated Post',
         'image' => '/images/featured.png',
-        'last_modified_at' => Time.parse('2024-04-01 12:00:00 UTC')
+        'last_modified_at' => Time.parse('2024-04-01 12:00:00 UTC'),
       },
       '/updates/updated-post.html',
       '<p>Updated content.</p>',
       '2024-03-15',
-      @post_collection
+      @post_collection,
     )
   end
 
@@ -190,9 +190,9 @@ class TestBlogPostingLdGenerator < Minitest::Test
       'url' => 'https://blog.example.com/updates/updated-post.html',
       'mainEntityOfPage' => {
         '@type' => 'WebPage',
-        '@id' => 'https://blog.example.com/updates/updated-post.html'
+        '@id' => 'https://blog.example.com/updates/updated-post.html',
       },
-      'articleBody' => 'Updated content.'
+      'articleBody' => 'Updated content.',
     }
   end
 
@@ -202,12 +202,12 @@ class TestBlogPostingLdGenerator < Minitest::Test
       {
         'layout' => 'post',
         'title' => 'Long Desc Post',
-        'description' => "<p>#{long_desc}</p>"
+        'description' => "<p>#{long_desc}</p>",
       },
       '/test/long-desc.html',
       'Body',
       '2024-01-01',
-      @post_collection
+      @post_collection,
     )
   end
 
@@ -221,7 +221,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
       '/minimal.html',
       '',
       nil,
-      @post_collection
+      @post_collection,
     )
   end
 
@@ -233,7 +233,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
       'author' => { '@type' => 'Person', 'name' => 'Test Author' },
       'publisher' => { '@type' => 'Person', 'name' => 'Test Author', 'url' => 'https://blog.example.com/' },
       'url' => 'https://blog.example.com/minimal.html',
-      'mainEntityOfPage' => { '@type' => 'WebPage', '@id' => 'https://blog.example.com/minimal.html' }
+      'mainEntityOfPage' => { '@type' => 'WebPage', '@id' => 'https://blog.example.com/minimal.html' },
     }
 
     expected_structure.each do |key, value|
@@ -252,8 +252,15 @@ class TestBlogPostingLdGenerator < Minitest::Test
 
   def assert_expected_keys_only(actual_hash)
     expected_keys = [
-      '@context', '@type', 'headline', 'author', 'publisher',
-      'url', 'mainEntityOfPage', 'datePublished', 'dateModified'
+      '@context',
+      '@type',
+      'headline',
+      'author',
+      'publisher',
+      'url',
+      'mainEntityOfPage',
+      'datePublished',
+      'dateModified',
     ]
     assert_equal expected_keys.sort, actual_hash.keys.sort, 'Hash keys do not match expected set'
   end
@@ -265,7 +272,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
       '/empty-title.html',
       '<p>Content</p>',
       '2024-01-15',
-      @post_collection
+      @post_collection,
     )
 
     result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
@@ -280,7 +287,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
       '/test.html',
       '<p>Content</p>',
       '2024-01-15',
-      @post_collection
+      @post_collection,
     )
 
     result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, site_no_author)
@@ -295,7 +302,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
       '/no-date.html',
       '<p>Content</p>',
       nil,
-      @post_collection
+      @post_collection,
     )
     # Manually set date to nil to ensure no date
     doc.stub :date, nil do
@@ -312,7 +319,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
       nil,
       '<p>Content</p>',
       '2024-01-15',
-      @post_collection
+      @post_collection,
     )
 
     result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)

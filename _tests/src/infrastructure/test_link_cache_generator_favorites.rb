@@ -11,12 +11,12 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
   def test_book_with_no_favorites_reference_has_no_badge
     book = create_doc(
       { 'title' => 'Lonely Book', 'date' => Time.parse('2023-06-15') },
-      '/books/lonely.html'
+      '/books/lonely.html',
     )
     regular_post = create_doc(
       { 'title' => 'Regular Post' },
       '/posts/regular.html',
-      'No book cards here.'
+      'No book cards here.',
     )
 
     site = create_site({}, { 'books' => [book] }, [], [regular_post])
@@ -29,12 +29,12 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
   def test_single_book_single_post_gets_badge
     book = create_doc(
       { 'title' => 'Great Book', 'date' => Time.parse('2023-06-15') },
-      '/books/great.html'
+      '/books/great.html',
     )
     favorites_post = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
-      '{% book_card_lookup title="Great Book" date="2023-06-15" %}'
+      '{% book_card_lookup title="Great Book" date="2023-06-15" %}',
     )
 
     site = create_site({}, { 'books' => [book] }, [], [favorites_post])
@@ -49,17 +49,17 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
   def test_single_book_multiple_posts_gets_multiple_badges
     book = create_doc(
       { 'title' => 'Classic Book', 'date' => Time.parse('2023-06-15') },
-      '/books/classic.html'
+      '/books/classic.html',
     )
     favorites_2023 = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
-      '{% book_card_lookup title="Classic Book" date="2023-06-15" %}'
+      '{% book_card_lookup title="Classic Book" date="2023-06-15" %}',
     )
     favorites_2024 = create_doc(
       { 'title' => 'Favorites 2024', 'is_favorites_list' => 2024 },
       '/posts/fav24.html',
-      '{% book_card_lookup title="Classic Book" date="2023-06-15" %}'
+      '{% book_card_lookup title="Classic Book" date="2023-06-15" %}',
     )
 
     site = create_site({}, { 'books' => [book] }, [], [favorites_2023, favorites_2024])
@@ -76,16 +76,16 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
   def test_two_reviews_one_post_badges_matching_review_only
     old_review = create_doc(
       { 'title' => 'Hyperion', 'date' => Time.parse('2023-10-27') },
-      '/books/hyperion-2023.html'
+      '/books/hyperion-2023.html',
     )
     new_review = create_doc(
       { 'title' => 'Hyperion', 'date' => Time.parse('2025-12-20') },
-      '/books/hyperion-2025.html'
+      '/books/hyperion-2025.html',
     )
     favorites_post = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
-      '{% book_card_lookup title="Hyperion" date="2023-10-27" %}'
+      '{% book_card_lookup title="Hyperion" date="2023-10-27" %}',
     )
 
     site = create_site({}, { 'books' => [old_review, new_review] }, [], [favorites_post])
@@ -103,28 +103,28 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
   def test_two_reviews_two_posts_each_badges_its_review
     old_review = create_doc(
       { 'title' => 'Hyperion', 'date' => Time.parse('2023-10-27') },
-      '/books/hyperion-2023.html'
+      '/books/hyperion-2023.html',
     )
     new_review = create_doc(
       { 'title' => 'Hyperion', 'date' => Time.parse('2025-12-20') },
-      '/books/hyperion-2025.html'
+      '/books/hyperion-2025.html',
     )
     favorites_2023 = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
-      '{% book_card_lookup title="Hyperion" date="2023-10-27" %}'
+      '{% book_card_lookup title="Hyperion" date="2023-10-27" %}',
     )
     favorites_2025 = create_doc(
       { 'title' => 'Favorites 2025', 'is_favorites_list' => 2025 },
       '/posts/fav25.html',
-      '{% book_card_lookup title="Hyperion" date="2025-12-20" %}'
+      '{% book_card_lookup title="Hyperion" date="2025-12-20" %}',
     )
 
     site = create_site(
       {},
       { 'books' => [old_review, new_review] },
       [],
-      [favorites_2023, favorites_2025]
+      [favorites_2023, favorites_2025],
     )
     cache = site.data['link_cache']['favorites_mentions']
 
@@ -143,13 +143,13 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
   def test_same_book_twice_in_one_post_no_duplicate
     book = create_doc(
       { 'title' => 'Great Book', 'date' => Time.parse('2023-06-15') },
-      '/books/great.html'
+      '/books/great.html',
     )
     favorites_post = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
       '{% book_card_lookup title="Great Book" date="2023-06-15" %} and again ' \
-      '{% book_card_lookup title="Great Book" date="2023-06-15" %}'
+      '{% book_card_lookup title="Great Book" date="2023-06-15" %}',
     )
 
     site = create_site({}, { 'books' => [book] }, [], [favorites_post])
@@ -163,12 +163,12 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
   def test_date_mismatch_raises_error
     book = create_doc(
       { 'title' => 'Some Book', 'date' => Time.parse('2023-06-15') },
-      '/books/some.html'
+      '/books/some.html',
     )
     favorites_post = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
-      '{% book_card_lookup title="Some Book" date="2099-01-01" %}'
+      '{% book_card_lookup title="Some Book" date="2099-01-01" %}',
     )
 
     error = assert_raises(RuntimeError) do
@@ -184,12 +184,12 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
   def test_nonexistent_book_ignored
     book = create_doc(
       { 'title' => 'Real Book', 'date' => Time.parse('2023-06-15') },
-      '/books/real.html'
+      '/books/real.html',
     )
     favorites_post = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
-      '{% book_card_lookup title="Fake Book" date="2023-01-01" %}'
+      '{% book_card_lookup title="Fake Book" date="2023-01-01" %}',
     )
 
     # Should not raise - non-existent books are ignored
@@ -204,17 +204,17 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
   def test_posts_to_books_cache_created_correctly
     book_a = create_doc(
       { 'title' => 'Book A', 'date' => Time.parse('2023-01-01') },
-      '/books/a.html'
+      '/books/a.html',
     )
     book_b = create_doc(
       { 'title' => 'Book B', 'date' => Time.parse('2023-02-01') },
-      '/books/b.html'
+      '/books/b.html',
     )
     favorites_post = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
       '{% book_card_lookup title="Book A" date="2023-01-01" %} and ' \
-      '{% book_card_lookup title="Book B" date="2023-02-01" %}'
+      '{% book_card_lookup title="Book B" date="2023-02-01" %}',
     )
 
     site = create_site({}, { 'books' => [book_a, book_b] }, [], [favorites_post])
@@ -230,12 +230,12 @@ class TestLinkCacheGeneratorFavorites < Minitest::Test
   def test_regular_post_not_in_posts_to_books_cache
     book = create_doc(
       { 'title' => 'Book', 'date' => Time.parse('2023-01-01') },
-      '/books/book.html'
+      '/books/book.html',
     )
     regular_post = create_doc(
       { 'title' => 'Regular Post' },
       '/posts/regular.html',
-      '{% book_card_lookup title="Book" %}'
+      '{% book_card_lookup title="Book" %}',
     )
 
     site = create_site({}, { 'books' => [book] }, [], [regular_post])

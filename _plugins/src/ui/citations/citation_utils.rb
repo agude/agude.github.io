@@ -52,7 +52,7 @@ module Jekyll
             _date_generator(params),
             _pages_generator(params),
             _doi_generator(params),
-            _access_date_generator(params)
+            _access_date_generator(params),
           ]
         end
 
@@ -61,7 +61,7 @@ module Jekyll
             _generate_author_part(
               last: params[:author_last],
               first: params[:author_first],
-              handle: params[:author_handle]
+              handle: params[:author_handle],
             )
           }
         end
@@ -72,7 +72,7 @@ module Jekyll
             _generate_work_and_container_part(
               work: params[:work_title],
               container: params[:container_title],
-              url: params[:url]
+              url: params[:url],
             )
           }
         end
@@ -108,7 +108,7 @@ module Jekyll
             _generate_pages_part(
               first_page: params[:first_page],
               last_page: params[:last_page],
-              page: params[:page]
+              page: params[:page],
             )
           }
         end

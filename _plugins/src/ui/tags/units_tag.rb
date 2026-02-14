@@ -41,7 +41,7 @@ module Jekyll
           'in' => { symbol: 'in', name: 'Inches' },
           'ft' => { symbol: 'ft', name: 'Feet' },
           'kph' => { symbol: 'kph', name: 'Kilometres per hour' },
-          'mph' => { symbol: 'mph', name: 'Miles per hour' }
+          'mph' => { symbol: 'mph', name: 'Miles per hour' },
           # Add other units here: 'ABBR' => { symbol: "SYMBOL", name: "Full Name" },
         }.freeze
 
@@ -124,13 +124,27 @@ module Jekyll
         end
 
         def validate_number_input(context, _number_input)
-          [nil, nil, log_error(context, "Argument 'number' resolved to nil or empty.",
-                               { number_markup: @attributes['number'] })]
+          [
+            nil,
+            nil,
+            log_error(
+              context,
+              "Argument 'number' resolved to nil or empty.",
+              { number_markup: @attributes['number'] },
+            ),
+          ]
         end
 
         def validate_unit_input(context, _unit_key_input, number_str)
-          [nil, nil, log_error(context, "Argument 'unit' resolved to nil or empty.",
-                               { unit_markup: @attributes['unit'], number_val: number_str })]
+          [
+            nil,
+            nil,
+            log_error(
+              context,
+              "Argument 'unit' resolved to nil or empty.",
+              { unit_markup: @attributes['unit'], number_val: number_str },
+            ),
+          ]
         end
 
         def lookup_unit_data(unit_key, number, context)
@@ -146,7 +160,7 @@ module Jekyll
             tag_type: 'UNITS_TAG_WARNING',
             reason: 'Unit key not found in internal definitions. Using key as symbol/name.',
             identifiers: { UnitKey: unit_key, Number: number },
-            level: :warn
+            level: :warn,
           )
           [unit_key, unit_key, log]
         end
@@ -166,7 +180,7 @@ module Jekyll
 
         def log_error(context, reason, identifiers)
           Logger.log_liquid_failure(
-            context: context, tag_type: 'UNITS_TAG_ERROR', reason: reason, identifiers: identifiers, level: :error
+            context: context, tag_type: 'UNITS_TAG_ERROR', reason: reason, identifiers: identifiers, level: :error,
           )
         end
       end

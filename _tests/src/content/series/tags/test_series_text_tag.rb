@@ -15,22 +15,31 @@ class TestSeriesTextTag < Minitest::Test
     @series3_page = create_doc({ 'title' => 'Dune Saga', 'layout' => 'series_page' }, '/series/dune.html')
     @series4_page = create_doc(
       { 'title' => 'The Wheel of Time Saga', 'layout' => 'series_page' },
-      '/series/wot.html'
+      '/series/wot.html',
     )
     # Series named 'Saga'
     @series5_page = create_doc(
       { 'title' => 'Saga', 'layout' => 'series_page' },
-      '/series/saga-comic.html'
+      '/series/saga-comic.html',
     )
     # Add pages needed for the previously failing tests
     @arcane_page = create_doc({ 'title' => 'Arcane', 'layout' => 'series_page' }, '/series/arcane.html')
     @test_series_page = create_doc({ 'title' => 'Test Series', 'layout' => 'series_page' }, '/series/test.html')
 
     # Create mock site and context. create_site now runs the Jekyll::Infrastructure::LinkCacheGenerator automatically.
-    @site = create_site({}, {}, [
-                          @series1_page, @series2_page, @series3_page, @series4_page, @series5_page,
-                          @arcane_page, @test_series_page
-                        ])
+    @site = create_site(
+      {},
+      {},
+      [
+        @series1_page,
+        @series2_page,
+        @series3_page,
+        @series4_page,
+        @series5_page,
+        @arcane_page,
+        @test_series_page,
+      ],
+    )
     @current_page = create_doc({}, '/current-page.html')
     @context = create_context({}, { site: @site, page: @current_page })
   end

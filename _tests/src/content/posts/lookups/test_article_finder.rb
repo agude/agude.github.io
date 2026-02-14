@@ -16,7 +16,7 @@ class TestArticleFinder < Minitest::Test
     @site = create_site({ 'url' => 'http://example.com' }, {}, [], [@post1, @post2, @post3])
     @context = create_context(
       {},
-      { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') }
+      { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') },
     )
   end
 
@@ -24,7 +24,7 @@ class TestArticleFinder < Minitest::Test
     finder = Jekyll::Posts::Lookups::ArticleFinder.new(
       site: @site,
       url_markup: '"/blog/post-one.html"',
-      context: @context
+      context: @context,
     )
     result = finder.find
 
@@ -38,7 +38,7 @@ class TestArticleFinder < Minitest::Test
     finder = Jekyll::Posts::Lookups::ArticleFinder.new(
       site: @site,
       url_markup: 'my_url',
-      context: @context
+      context: @context,
     )
     result = finder.find
 
@@ -51,7 +51,7 @@ class TestArticleFinder < Minitest::Test
     finder = Jekyll::Posts::Lookups::ArticleFinder.new(
       site: @site,
       url_markup: '"blog/post-three.html"',
-      context: @context
+      context: @context,
     )
     result = finder.find
 
@@ -65,7 +65,7 @@ class TestArticleFinder < Minitest::Test
     finder = Jekyll::Posts::Lookups::ArticleFinder.new(
       site: @site,
       url_markup: 'nil_url',
-      context: @context
+      context: @context,
     )
     result = finder.find
 
@@ -79,7 +79,7 @@ class TestArticleFinder < Minitest::Test
     finder = Jekyll::Posts::Lookups::ArticleFinder.new(
       site: @site,
       url_markup: 'empty_url',
-      context: @context
+      context: @context,
     )
     result = finder.find
 
@@ -93,7 +93,7 @@ class TestArticleFinder < Minitest::Test
     finder = Jekyll::Posts::Lookups::ArticleFinder.new(
       site: bad_site,
       url_markup: '"/blog/post-one.html"',
-      context: @context
+      context: @context,
     )
     result = finder.find
 
@@ -108,7 +108,7 @@ class TestArticleFinder < Minitest::Test
     finder = Jekyll::Posts::Lookups::ArticleFinder.new(
       site: @site,
       url_markup: '"/blog/post-one.html"',
-      context: @context
+      context: @context,
     )
     result = finder.find
 
@@ -122,7 +122,7 @@ class TestArticleFinder < Minitest::Test
     finder = Jekyll::Posts::Lookups::ArticleFinder.new(
       site: @site,
       url_markup: '"/blog/nonexistent.html"',
-      context: @context
+      context: @context,
     )
     result = finder.find
 
@@ -138,12 +138,12 @@ class TestArticleFinder < Minitest::Test
       { 'url' => 'http://example.com' },
       {},
       [],
-      [@post1, duplicate_post, @post2]
+      [@post1, duplicate_post, @post2],
     )
     finder = Jekyll::Posts::Lookups::ArticleFinder.new(
       site: site_with_duplicate,
       url_markup: '"/blog/post-one.html"',
-      context: @context
+      context: @context,
     )
     result = finder.find
 
@@ -160,7 +160,7 @@ class TestArticleFinder < Minitest::Test
     finder = Jekyll::Posts::Lookups::ArticleFinder.new(
       site: @site,
       url_markup: '"/blog/post-one.html"',
-      context: @context
+      context: @context,
     )
     result = finder.find
 

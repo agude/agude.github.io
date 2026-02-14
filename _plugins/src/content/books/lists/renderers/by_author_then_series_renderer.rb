@@ -71,10 +71,13 @@ module Jekyll
             data = {
               standalone_books: [],
               series_groups: author_data[:series_groups],
-              log_messages: ''
+              log_messages: '',
             }
-            Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(data, @context,
-                                                                                series_heading_level: 3)
+            Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(
+              data,
+              @context,
+              series_heading_level: 3,
+            )
           end
 
           def build_navigation(anchors)

@@ -73,7 +73,10 @@ class TestFrontMatterValidator < Minitest::Test
     with_validator_config({ @book_collection_label => @required_for_books }) do
       doc = create_doc(
         { 'title' => 'Valid Book', 'book_authors' => ['An Author'], 'book_number' => '1', 'path' => 'valid-book.html' },
-        '/valid-book.html', 'content', nil, MockCollection.new(nil, @book_collection_label)
+        '/valid-book.html',
+        'content',
+        nil,
+        MockCollection.new(nil, @book_collection_label),
       )
       Jekyll.stub :logger, @silent_logger_stub do
         assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc), 'Should pass with all required fields'
@@ -87,7 +90,7 @@ class TestFrontMatterValidator < Minitest::Test
         'title' => nil,
         'book_authors' => ['An Author'],
         'book_number' => '1',
-        'path' => 'missing-title.html'
+        'path' => 'missing-title.html',
       }
       doc = create_doc(doc_data, '/missing-title.html', 'content', nil, MockCollection.new(nil, @book_collection_label))
 
@@ -106,8 +109,10 @@ class TestFrontMatterValidator < Minitest::Test
   def test_book_collection_empty_book_authors_string_raises_error
     with_validator_config({ @book_collection_label => @required_for_books }) do
       doc_data = {
-        'title' => 'Test', 'book_authors' => '   ', 'book_number' => '1',
-        'path' => 'empty-authors.html'
+        'title' => 'Test',
+        'book_authors' => '   ',
+        'book_number' => '1',
+        'path' => 'empty-authors.html',
       }
       doc = create_doc(doc_data, '/empty-authors.html', 'content', nil, MockCollection.new(nil, @book_collection_label))
       err = nil
@@ -123,11 +128,18 @@ class TestFrontMatterValidator < Minitest::Test
   def test_book_collection_empty_book_authors_array_raises_error
     with_validator_config({ @book_collection_label => @required_for_books }) do
       doc_data = {
-        'title' => 'Test', 'book_authors' => ['', nil, '  '], 'book_number' => '1',
-        'path' => 'empty-authors-array.html'
+        'title' => 'Test',
+        'book_authors' => ['', nil, '  '],
+        'book_number' => '1',
+        'path' => 'empty-authors-array.html',
       }
-      doc = create_doc(doc_data, '/empty-authors-array.html', 'content', nil,
-                       MockCollection.new(nil, @book_collection_label))
+      doc = create_doc(
+        doc_data,
+        '/empty-authors-array.html',
+        'content',
+        nil,
+        MockCollection.new(nil, @book_collection_label),
+      )
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
@@ -141,11 +153,17 @@ class TestFrontMatterValidator < Minitest::Test
   def test_book_collection_missing_book_number_raises_error
     with_validator_config({ @book_collection_label => @required_for_books }) do
       doc_data = {
-        'title' => 'Test', 'book_authors' => ['Author'],
-        'path' => 'missing-book-number.html'
+        'title' => 'Test',
+        'book_authors' => ['Author'],
+        'path' => 'missing-book-number.html',
       }
-      doc = create_doc(doc_data, '/missing-book-number.html', 'content', nil,
-                       MockCollection.new(nil, @book_collection_label))
+      doc = create_doc(
+        doc_data,
+        '/missing-book-number.html',
+        'content',
+        nil,
+        MockCollection.new(nil, @book_collection_label),
+      )
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
@@ -160,10 +178,15 @@ class TestFrontMatterValidator < Minitest::Test
     with_validator_config({ @book_collection_label => @required_for_books }) do # Requires title, book_authors, book_number
       doc_data = {
         'title' => 'Test', # Only title is present
-        'path' => 'multiple-missing-books.html'
+        'path' => 'multiple-missing-books.html',
       }
-      doc = create_doc(doc_data, '/multiple-missing-books.html', 'content', nil,
-                       MockCollection.new(nil, @book_collection_label))
+      doc = create_doc(
+        doc_data,
+        '/multiple-missing-books.html',
+        'content',
+        nil,
+        MockCollection.new(nil, @book_collection_label),
+      )
       err = nil
       Jekyll.stub :logger, @silent_logger_stub do
         err = assert_raises Jekyll::Errors::FatalException do
@@ -182,7 +205,10 @@ class TestFrontMatterValidator < Minitest::Test
       # Date explicitly in front matter
       doc = create_doc(
         { 'title' => 'Valid Post FM Date', 'date' => Time.now, 'path' => 'valid-post-fm-date.html' },
-        '/valid-post-fm-date.html', 'content', nil, MockCollection.new(nil, @post_collection_label)
+        '/valid-post-fm-date.html',
+        'content',
+        nil,
+        MockCollection.new(nil, @post_collection_label),
       )
       Jekyll.stub :logger, @silent_logger_stub do
         assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc)
@@ -197,8 +223,10 @@ class TestFrontMatterValidator < Minitest::Test
       # create_doc will use the date_str_param to set doc.date and doc.data['date']
       doc = create_doc(
         doc_data,
-        '/2024/01/01/my-post.html', 'content', '2024-01-01', # This sets doc.date
-        MockCollection.new(nil, @post_collection_label)
+        '/2024/01/01/my-post.html',
+        'content',
+        '2024-01-01', # This sets doc.date
+        MockCollection.new(nil, @post_collection_label),
       )
       # Even if doc.data['date'] was nil, doc.date (attribute) would be valid.
       # The validator now checks doc.date for posts.
@@ -213,8 +241,10 @@ class TestFrontMatterValidator < Minitest::Test
       doc_data = { 'title' => 'Post Truly Missing Date', 'path' => 'post-truly-missing-date.html' }
       doc = create_doc(
         doc_data,
-        '/post-truly-missing-date.html', 'content', nil, # No date_str_param
-        MockCollection.new(nil, @post_collection_label)
+        '/post-truly-missing-date.html',
+        'content',
+        nil, # No date_str_param
+        MockCollection.new(nil, @post_collection_label),
       )
       # create_doc would set doc.date to Time.now if date not in data_overrides and no date_str_param.
       # To simulate Jekyll failing to set a date (e.g. invalid filename and no FM date), we mock doc.date.
@@ -234,8 +264,13 @@ class TestFrontMatterValidator < Minitest::Test
   def test_post_collection_date_is_not_time_object_raises_error
     with_validator_config({ @post_collection_label => @required_for_posts }) do
       doc_data = { 'title' => 'Post Bad Date Type', 'path' => 'post-bad-date-type.html' }
-      doc = create_doc(doc_data, '/post-bad-date-type.html', 'content', nil,
-                       MockCollection.new(nil, @post_collection_label))
+      doc = create_doc(
+        doc_data,
+        '/post-bad-date-type.html',
+        'content',
+        nil,
+        MockCollection.new(nil, @post_collection_label),
+      )
       # Override doc.date to return something that is not a Time object
       doc.define_singleton_method(:date) { 'This is not a Time object' }
 
@@ -255,7 +290,10 @@ class TestFrontMatterValidator < Minitest::Test
     with_validator_config({ 'other_collection' => ['some_field'] }) do
       doc = create_doc(
         { 'title' => 'Book in Unwatched Collection', 'path' => 'unwatched-book.html' },
-        '/unwatched-book.html', 'content', nil, MockCollection.new(nil, @book_collection_label)
+        '/unwatched-book.html',
+        'content',
+        nil,
+        MockCollection.new(nil, @book_collection_label),
       )
       Jekyll.stub :logger, @silent_logger_stub do
         assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc)
@@ -263,7 +301,10 @@ class TestFrontMatterValidator < Minitest::Test
 
       page = create_doc(
         { 'layout' => 'unwatched_layout', 'title' => 'Page with Unwatched Layout', 'path' => 'unwatched-page.html' },
-        '/unwatched-page.html', 'content', nil, nil
+        '/unwatched-page.html',
+        'content',
+        nil,
+        nil,
       )
       Jekyll.stub :logger, @silent_logger_stub do
         assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(page)
@@ -274,16 +315,25 @@ class TestFrontMatterValidator < Minitest::Test
   def test_logs_error_before_raising_exception
     with_validator_config({ @book_collection_label => ['title'] }) do
       doc_data_for_log = { 'path' => 'no-title-for-log-test.html', 'title' => nil } # Explicitly nil title
-      doc = create_doc(doc_data_for_log, '/no-title-for-log-test.html', 'c', nil,
-                       MockCollection.new(nil, @book_collection_label))
+      doc = create_doc(
+        doc_data_for_log,
+        '/no-title-for-log-test.html',
+        'c',
+        nil,
+        MockCollection.new(nil, @book_collection_label),
+      )
       # doc.data.delete('title') # No longer needed if title is nil in data_overrides
 
       mock_logger = Minitest::Mock.new
       mock_logger.expect(
-        :error, nil,
-        ['FrontMatter Error:', lambda { |msg|
-          msg.include?("'no-title-for-log-test.html'") && msg.include?('missing or has empty required front matter fields: title')
-        }]
+        :error,
+        nil,
+        [
+          'FrontMatter Error:',
+          lambda { |msg|
+            msg.include?("'no-title-for-log-test.html'") && msg.include?('missing or has empty required front matter fields: title')
+          },
+        ],
       )
 
       Jekyll.stub :logger, mock_logger do
@@ -309,12 +359,12 @@ class TestFrontMatterValidator < Minitest::Test
         'my-page.html',
         'my-page.html',
         '/my-page.html',
-        'my-page.html'
+        'my-page.html',
       )
       page.data = {
         'layout' => page_layout,
         'title' => 'Valid Page Title',
-        'custom_field' => 'Valid Custom Field Value'
+        'custom_field' => 'Valid Custom Field Value',
       }
 
       Jekyll.stub :logger, @silent_logger_stub do
@@ -337,11 +387,11 @@ class TestFrontMatterValidator < Minitest::Test
         'missing-field-page.html',
         'missing-field-page.html',
         '/missing-field-page.html',
-        'missing-field-page.html'
+        'missing-field-page.html',
       )
       page.data = {
         'layout' => page_layout,
-        'title' => 'Page Title'
+        'title' => 'Page Title',
         # custom_field is missing
       }
 

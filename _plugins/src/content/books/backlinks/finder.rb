@@ -48,7 +48,7 @@ module Jekyll
             backlinks: lc['backlinks'] || {},
             canonical_map: lc['url_to_canonical_map'] || {},
             book_families: lc['book_families'] || {},
-            series_map: lc['series_map'] || {}
+            series_map: lc['series_map'] || {},
           }
         end
 
@@ -83,7 +83,7 @@ module Jekyll
             tag_type: 'BOOK_BACKLINKS_TAG',
             reason: "Tag prerequisites missing: #{missing.join(', ')}.",
             identifiers: { PageURL: @page&.[]('url') || 'N/A', PageTitle: @page&.[]('title') || 'N/A' },
-            level: :error
+            level: :error,
           )
         end
 
@@ -164,8 +164,12 @@ module Jekyll
             title = src.data['title']
             next unless present?(title)
 
-            [Jekyll::Infrastructure::TextProcessingUtils.normalize_title(title, strip_articles: true), title,
-             src.url, e[:type]]
+            [
+              Jekyll::Infrastructure::TextProcessingUtils.normalize_title(title, strip_articles: true),
+              title,
+              src.url,
+              e[:type],
+            ]
           end.compact
         end
       end

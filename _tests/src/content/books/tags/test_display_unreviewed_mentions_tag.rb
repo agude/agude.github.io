@@ -14,7 +14,7 @@ class TestDisplayUnreviewedMentionsFinder < Minitest::Test
 
     # Pre-populate the caches for tests
     @site.data['link_cache']['books'] = {
-      'existing book' => [{ 'url' => '/books/existing.html', 'title' => 'Existing Book', 'authors' => [] }]
+      'existing book' => [{ 'url' => '/books/existing.html', 'title' => 'Existing Book', 'authors' => [] }],
     }
   end
 
@@ -77,8 +77,8 @@ class TestDisplayUnreviewedMentionsFinder < Minitest::Test
     @site.data['mention_tracker'] = {
       'existing book' => {
         original_titles: { 'Existing Book' => 2 },
-        sources: Set.new(['/src1.html', '/src2.html'])
-      }
+        sources: Set.new(['/src1.html', '/src2.html']),
+      },
     }
 
     finder = Jekyll::Books::Ranking::UnreviewedMentions::Finder.new(@context)
@@ -120,16 +120,16 @@ class TestDisplayUnreviewedMentionsFinder < Minitest::Test
     @site.data['mention_tracker'] = {
       'unreviewed book a' => {
         original_titles: { 'Unreviewed Book A' => 2, 'unreviewed book a' => 1 },
-        sources: Set.new(['/src1.html', '/src2.html', '/src3.html']) # 3 mentions
+        sources: Set.new(['/src1.html', '/src2.html', '/src3.html']), # 3 mentions
       },
       'unreviewed book b' => {
         original_titles: { 'Unreviewed Book B' => 1 },
-        sources: Set.new(['/src1.html']) # 1 mention
+        sources: Set.new(['/src1.html']), # 1 mention
       },
       'unreviewed book c' => {
         original_titles: { 'Unreviewed Book C' => 5 },
-        sources: Set.new(['/src1.html', '/src2.html', '/src3.html', '/src4.html', '/src5.html']) # 5 mentions
-      }
+        sources: Set.new(['/src1.html', '/src2.html', '/src3.html', '/src4.html', '/src5.html']), # 5 mentions
+      },
     }
   end
 
@@ -137,12 +137,12 @@ class TestDisplayUnreviewedMentionsFinder < Minitest::Test
     @site.data['mention_tracker'] = {
       'unreviewed book a' => {
         original_titles: { 'Unreviewed Book A' => 2 },
-        sources: Set.new(['/src1.html', '/src2.html']) # 2 mentions
+        sources: Set.new(['/src1.html', '/src2.html']), # 2 mentions
       },
       'existing book' => { # This one should be filtered out
         original_titles: { 'Existing Book' => 5 },
-        sources: Set.new(['/src1.html', '/src2.html', '/src3.html', '/src4.html', '/src5.html'])
-      }
+        sources: Set.new(['/src1.html', '/src2.html', '/src3.html', '/src4.html', '/src5.html']),
+      },
     }
   end
 end
@@ -155,7 +155,7 @@ class TestDisplayUnreviewedMentionsRenderer < Minitest::Test
     mentions = [
       { title: 'Book C', count: 5 },
       { title: 'Book A', count: 3 },
-      { title: 'Book B', count: 1 }
+      { title: 'Book B', count: 1 },
     ]
 
     renderer = Jekyll::Books::Ranking::UnreviewedMentions::Renderer.new(mentions)
@@ -214,7 +214,7 @@ class TestDisplayUnreviewedMentionsTag < Minitest::Test
 
     # Pre-populate the caches for tests
     @site.data['link_cache']['books'] = {
-      'existing book' => [{ 'url' => '/books/existing.html', 'title' => 'Existing Book', 'authors' => [] }]
+      'existing book' => [{ 'url' => '/books/existing.html', 'title' => 'Existing Book', 'authors' => [] }],
     }
   end
 
@@ -227,8 +227,8 @@ class TestDisplayUnreviewedMentionsTag < Minitest::Test
     @site.data['mention_tracker'] = {
       'unreviewed book a' => {
         original_titles: { 'Unreviewed Book A' => 2 },
-        sources: Set.new(['/src1.html', '/src2.html'])
-      }
+        sources: Set.new(['/src1.html', '/src2.html']),
+      },
     }
 
     output = render_tag

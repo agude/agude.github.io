@@ -109,8 +109,10 @@ class TestSeriesLinkResolver < Minitest::Test
 
   def test_render_series_link_uses_canonical_title_from_page
     # Page title has different whitespace/casing than input
-    series_page = create_doc({ 'title' => '  My canonical   SERIES title ', 'layout' => 'series_page' },
-                             '/series/canonical.html')
+    series_page = create_doc(
+      { 'title' => '  My canonical   SERIES title ', 'layout' => 'series_page' },
+      '/series/canonical.html',
+    )
     site = create_site({}, {}, [series_page])
     current_page = create_doc({}, '/current-page.html')
     ctx = create_context({}, { site: site, page: current_page })

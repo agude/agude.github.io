@@ -15,21 +15,21 @@ class TestFrontPageFeedRenderer < Minitest::Test
       '/post.html',
       'content',
       nil,
-      MockCollection.new(nil, 'posts')
+      MockCollection.new(nil, 'posts'),
     )
     @book = create_doc(
       { 'title' => 'Test Book' },
       '/book.html',
       'content',
       nil,
-      MockCollection.new(nil, 'books')
+      MockCollection.new(nil, 'books'),
     )
     @unknown_item = create_doc(
       { 'title' => 'Unknown Item' },
       '/unknown.html',
       'content',
       nil,
-      MockCollection.new(nil, 'unknown')
+      MockCollection.new(nil, 'unknown'),
     )
   end
 
@@ -52,10 +52,11 @@ class TestFrontPageFeedRenderer < Minitest::Test
 
   def test_calls_article_card_utils_for_posts
     captured_args = []
-    Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |item, ctx|
-      captured_args << { item: item, ctx: ctx }
-      '<div>Article Card</div>'
-    } do
+    Jekyll::Posts::ArticleCardUtils.stub :render,
+                                         lambda { |item, ctx|
+                                           captured_args << { item: item, ctx: ctx }
+                                           '<div>Article Card</div>'
+                                         } do
       renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@post])
       renderer.render
 
@@ -67,10 +68,11 @@ class TestFrontPageFeedRenderer < Minitest::Test
 
   def test_calls_book_card_utils_for_books
     captured_args = []
-    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |item, ctx|
-      captured_args << { item: item, ctx: ctx }
-      '<div>Book Card</div>'
-    } do
+    Jekyll::Books::Core::BookCardUtils.stub :render,
+                                            lambda { |item, ctx|
+                                              captured_args << { item: item, ctx: ctx }
+                                              '<div>Book Card</div>'
+                                            } do
       renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@book])
       renderer.render
 
@@ -81,12 +83,14 @@ class TestFrontPageFeedRenderer < Minitest::Test
   end
 
   def test_renders_mixed_posts_and_books_in_order
-    Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |item, _ctx|
-      "<div>Article: #{item.data['title']}</div>"
-    } do
-      Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |item, _ctx|
-        "<div>Book: #{item.data['title']}</div>"
-      } do
+    Jekyll::Posts::ArticleCardUtils.stub :render,
+                                         lambda { |item, _ctx|
+                                           "<div>Article: #{item.data['title']}</div>"
+                                         } do
+      Jekyll::Books::Core::BookCardUtils.stub :render,
+                                              lambda { |item, _ctx|
+                                                "<div>Book: #{item.data['title']}</div>"
+                                              } do
         renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@post, @book])
         output = renderer.render
 

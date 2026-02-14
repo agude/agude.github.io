@@ -27,7 +27,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'My Simple Story',
-      no_id: false
+      no_id: false,
     )
 
     slug = Jekyll::Infrastructure::TextProcessingUtils.slugify('My Simple Story')
@@ -40,7 +40,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'My Simple Story',
-      no_id: true
+      no_id: true,
     )
 
     expected = '<cite class="short-story-title">My Simple Story</cite>'
@@ -58,7 +58,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: input_title,
-      no_id: false
+      no_id: false,
     )
 
     expected_html = "<cite class=\"short-story-title\">#{expected_typography}</cite> {##{slug}}"
@@ -73,7 +73,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: input_title,
-      no_id: true
+      no_id: true,
     )
 
     expected_html = "<cite class=\"short-story-title\">#{expected_typography}</cite>"
@@ -91,7 +91,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: input_title,
-      no_id: false
+      no_id: false,
     )
 
     expected_html = "<cite class=\"short-story-title\">#{expected_escaped}</cite> {##{slug}}"
@@ -106,7 +106,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: input_title,
-      no_id: true
+      no_id: true,
     )
 
     expected_html = "<cite class=\"short-story-title\">#{expected_escaped}</cite>"
@@ -120,7 +120,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: nil,
-      no_id: false
+      no_id: false,
     )
 
     assert_equal '', output
@@ -131,7 +131,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: '',
-      no_id: false
+      no_id: false,
     )
 
     assert_equal '', output
@@ -142,7 +142,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: '   ',
-      no_id: false
+      no_id: false,
     )
 
     assert_equal '', output
@@ -158,7 +158,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output1 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Duplicate Story',
-      no_id: false
+      no_id: false,
     )
     expected1 = "<cite class=\"short-story-title\">Duplicate Story</cite> {##{slug}}"
     assert_equal expected1, output1
@@ -167,7 +167,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output2 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Duplicate Story',
-      no_id: false
+      no_id: false,
     )
     expected2 = "<cite class=\"short-story-title\">Duplicate Story</cite> {##{slug}-2}"
     assert_equal expected2, output2
@@ -176,7 +176,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output3 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Duplicate Story',
-      no_id: false
+      no_id: false,
     )
     expected3 = "<cite class=\"short-story-title\">Duplicate Story</cite> {##{slug}-3}"
     assert_equal expected3, output3
@@ -191,7 +191,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output_a1 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Story A',
-      no_id: false
+      no_id: false,
     )
     expected_a1 = "<cite class=\"short-story-title\">Story A</cite> {##{slug_a}}"
     assert_equal expected_a1, output_a1
@@ -200,7 +200,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output_b1 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Story B',
-      no_id: false
+      no_id: false,
     )
     expected_b1 = "<cite class=\"short-story-title\">Story B</cite> {##{slug_b}}"
     assert_equal expected_b1, output_b1
@@ -209,7 +209,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output_a2 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Story A',
-      no_id: false
+      no_id: false,
     )
     expected_a2 = "<cite class=\"short-story-title\">Story A</cite> {##{slug_a}-2}"
     assert_equal expected_a2, output_a2
@@ -223,7 +223,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output1 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Test Story',
-      no_id: true
+      no_id: true,
     )
     expected1 = '<cite class="short-story-title">Test Story</cite>'
     assert_equal expected1, output1
@@ -232,7 +232,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output2 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Test Story',
-      no_id: false
+      no_id: false,
     )
     expected2 = "<cite class=\"short-story-title\">Test Story</cite> {##{slug}}"
     assert_equal expected2, output2
@@ -241,7 +241,7 @@ class TestShortStoryTitleUtil < Minitest::Test
     output3 = Jekyll::ShortStories::ShortStoryTitleUtil.render_title(
       context: context,
       title: 'Test Story',
-      no_id: false
+      no_id: false,
     )
     expected3 = "<cite class=\"short-story-title\">Test Story</cite> {##{slug}-2}"
     assert_equal expected3, output3

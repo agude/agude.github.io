@@ -58,7 +58,7 @@ module Jekyll
             tag_type: 'RELATED_POSTS',
             reason: "Missing prerequisites: #{missing.join(', ')}.",
             identifiers: { PageURL: @page ? (@page['url'] || 'N/A') : 'N/A' },
-            level: :error
+            level: :error,
           )
         end
 

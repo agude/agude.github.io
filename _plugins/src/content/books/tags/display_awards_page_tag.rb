@@ -61,11 +61,15 @@ module Jekyll
           private
 
           def fetch_data
-            award_finder = Jekyll::Books::Lists::ByAwardFinder.new(site: @site,
-                                                                   context: @context)
+            award_finder = Jekyll::Books::Lists::ByAwardFinder.new(
+              site: @site,
+              context: @context,
+            )
             @awards_hash = award_finder.find
-            favorites_finder = Jekyll::Books::Lists::FavoritesListsFinder.new(site: @site,
-                                                                              context: @context)
+            favorites_finder = Jekyll::Books::Lists::FavoritesListsFinder.new(
+              site: @site,
+              context: @context,
+            )
             @favorites_hash = favorites_finder.find
             @awards_groups = @awards_hash[:awards_data] || []
             @favorites_lists = @favorites_hash[:favorites_lists] || []
@@ -180,11 +184,11 @@ module Jekyll
 
           def fetch_data
             @awards_groups = Jekyll::Books::Lists::ByAwardFinder.new(
-              site: @site, context: @context
+              site: @site, context: @context,
             ).find[:awards_data] || []
 
             @favorites_lists = Jekyll::Books::Lists::FavoritesListsFinder.new(
-              site: @site, context: @context
+              site: @site, context: @context,
             ).find[:favorites_lists] || []
           end
 
@@ -215,9 +219,10 @@ module Jekyll
           def book_to_card(doc)
             authors = doc.data['book_authors']
             {
-              title: doc.data['title'], url: doc.url,
+              title: doc.data['title'],
+              url: doc.url,
               authors: authors.is_a?(Array) ? authors : [authors].compact,
-              rating: doc.data['rating']
+              rating: doc.data['rating'],
             }
           end
         end

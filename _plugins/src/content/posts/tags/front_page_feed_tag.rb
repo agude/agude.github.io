@@ -127,7 +127,7 @@ module Jekyll
             tag_type: 'FRONT_PAGE_FEED',
             reason: 'No items found for the front page feed.',
             identifiers: { limit: limit },
-            level: :info
+            level: :info,
           )
         end
       end

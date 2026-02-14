@@ -41,8 +41,11 @@ module Jekyll
         # Renders the article card by looking up the post and calling the utility function
         def render(context)
           site = context.registers[:site]
-          finder = Finder.new(site: site, url_markup: @url_markup,
-                              context: context)
+          finder = Finder.new(
+            site: site,
+            url_markup: @url_markup,
+            context: context,
+          )
           result = finder.find
 
           return log_error(context, result[:error], result[:url]) if result[:error]
@@ -90,7 +93,7 @@ module Jekyll
               tag_type: 'ARTICLE_CARD_LOOKUP',
               reason: 'URL markup resolved to empty or nil.',
               identifiers: { Markup: @url_markup || @raw_markup },
-              level: :error
+              level: :error,
             )
           when :collection_error
             Logger.log_liquid_failure(
@@ -98,7 +101,7 @@ module Jekyll
               tag_type: 'ARTICLE_CARD_LOOKUP',
               reason: 'Cannot iterate site.posts.docs. It is missing, not an Array, or site.posts is invalid.',
               identifiers: { URL: url, PostsDocsType: error[:details] },
-              level: :error
+              level: :error,
             )
           when :post_not_found
             Logger.log_liquid_failure(
@@ -106,7 +109,7 @@ module Jekyll
               tag_type: 'ARTICLE_CARD_LOOKUP',
               reason: 'Could not find post.',
               identifiers: { URL: error[:details] },
-              level: :warn
+              level: :warn,
             )
           end
         end
@@ -118,10 +121,12 @@ module Jekyll
             context: context,
             tag_type: 'ARTICLE_CARD_LOOKUP',
             reason: "Error calling CardUtils.render utility: #{e.message}",
-            identifiers: { URL: target_url,
-                           ErrorClass: e.class.name,
-                           ErrorMessage: e.message.lines.first.chomp.slice(0, 100) },
-            level: :error
+            identifiers: {
+              URL: target_url,
+              ErrorClass: e.class.name,
+              ErrorMessage: e.message.lines.first.chomp.slice(0, 100),
+            },
+            level: :error,
           )
         end
       end

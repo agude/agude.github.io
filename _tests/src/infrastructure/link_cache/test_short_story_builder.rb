@@ -10,7 +10,7 @@ class TestShortStoryBuilder < Minitest::Test
     anthology = create_doc(
       { 'title' => 'Story Collection', 'published' => true, 'is_anthology' => true },
       '/books/collection.html',
-      "## {% short_story_title 'The Last Question' %}\n\nStory content."
+      "## {% short_story_title 'The Last Question' %}\n\nStory content.",
     )
 
     site = create_site({}, { 'books' => [anthology] })
@@ -25,7 +25,7 @@ class TestShortStoryBuilder < Minitest::Test
     anthology = create_doc(
       { 'title' => 'Nine Tomorrows', 'published' => true, 'is_anthology' => true },
       '/books/nine-tomorrows.html',
-      "## {% short_story_title 'The Last Question' %}"
+      "## {% short_story_title 'The Last Question' %}",
     )
 
     site = create_site({}, { 'books' => [anthology] })
@@ -39,7 +39,7 @@ class TestShortStoryBuilder < Minitest::Test
     anthology = create_doc(
       { 'title' => 'Collection', 'published' => true, 'is_anthology' => true },
       '/books/collection.html',
-      "## {% short_story_title 'The Last Question' %}"
+      "## {% short_story_title 'The Last Question' %}",
     )
 
     site = create_site({}, { 'books' => [anthology] })
@@ -52,7 +52,7 @@ class TestShortStoryBuilder < Minitest::Test
     anthology = create_doc(
       { 'title' => 'Collection', 'published' => true, 'is_anthology' => true },
       '/books/collection.html',
-      "## {% short_story_title 'Story One' %}\n\n## {% short_story_title 'Story Two' %}"
+      "## {% short_story_title 'Story One' %}\n\n## {% short_story_title 'Story Two' %}",
     )
 
     site = create_site({}, { 'books' => [anthology] })
@@ -66,12 +66,12 @@ class TestShortStoryBuilder < Minitest::Test
     anthology_a = create_doc(
       { 'title' => 'Collection A', 'published' => true, 'is_anthology' => true },
       '/books/a.html',
-      "## {% short_story_title 'Famous Story' %}"
+      "## {% short_story_title 'Famous Story' %}",
     )
     anthology_b = create_doc(
       { 'title' => 'Collection B', 'published' => true, 'is_anthology' => true },
       '/books/b.html',
-      "## {% short_story_title 'Famous Story' %}"
+      "## {% short_story_title 'Famous Story' %}",
     )
 
     site = create_site({}, { 'books' => [anthology_a, anthology_b] })
@@ -84,7 +84,7 @@ class TestShortStoryBuilder < Minitest::Test
     regular_book = create_doc(
       { 'title' => 'Regular Book', 'published' => true },
       '/books/regular.html',
-      "## {% short_story_title 'Hidden Story' %}"
+      "## {% short_story_title 'Hidden Story' %}",
     )
 
     site = create_site({}, { 'books' => [regular_book] })
@@ -97,7 +97,7 @@ class TestShortStoryBuilder < Minitest::Test
     unpublished = create_doc(
       { 'title' => 'Draft Anthology', 'published' => false, 'is_anthology' => true },
       '/books/draft.html',
-      "## {% short_story_title 'Draft Story' %}"
+      "## {% short_story_title 'Draft Story' %}",
     )
 
     site = create_site({}, { 'books' => [unpublished] })
@@ -110,7 +110,7 @@ class TestShortStoryBuilder < Minitest::Test
     anthology = create_doc(
       { 'title' => 'Collection', 'published' => true, 'is_anthology' => true },
       '/books/collection.html',
-      '## {% short_story_title "Double Quoted" %}'
+      '## {% short_story_title "Double Quoted" %}',
     )
 
     site = create_site({}, { 'books' => [anthology] })
@@ -123,7 +123,7 @@ class TestShortStoryBuilder < Minitest::Test
     anthology = create_doc(
       { 'title' => 'Collection', 'published' => true, 'is_anthology' => true },
       '/books/collection.html',
-      "{% short_story_title 'Not In Heading' %}"
+      "{% short_story_title 'Not In Heading' %}",
     )
 
     site = create_site({}, { 'books' => [anthology] })
@@ -137,7 +137,7 @@ class TestShortStoryBuilder < Minitest::Test
     anthology = create_doc(
       { 'title' => 'Collection', 'published' => true, 'is_anthology' => true },
       '/books/collection.html',
-      "## {% short_story_title 'Skip This' no_id %}"
+      "## {% short_story_title 'Skip This' no_id %}",
     )
 
     site = create_site({}, { 'books' => [anthology] })
@@ -150,7 +150,7 @@ class TestShortStoryBuilder < Minitest::Test
     anthology = create_doc(
       { 'title' => 'Collection', 'published' => true, 'is_anthology' => true },
       '/books/collection.html',
-      "# {% short_story_title 'H1 Story' %}\n### {% short_story_title 'H3 Story' %}"
+      "# {% short_story_title 'H1 Story' %}\n### {% short_story_title 'H3 Story' %}",
     )
 
     site = create_site({}, { 'books' => [anthology] })
@@ -171,7 +171,7 @@ class TestShortStoryBuilder < Minitest::Test
     anthology = create_doc(
       { 'title' => nil, 'published' => true, 'is_anthology' => true },
       '/books/no-title.html',
-      "## {% short_story_title 'Orphan Story' %}"
+      "## {% short_story_title 'Orphan Story' %}",
     )
 
     site = create_site({}, { 'books' => [anthology] })

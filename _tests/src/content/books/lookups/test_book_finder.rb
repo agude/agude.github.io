@@ -17,16 +17,16 @@ class TestBookFinder < Minitest::Test
     # Books with same title but different dates (like multiple reviews)
     @hyperion_review1 = create_doc(
       { 'title' => 'Hyperion', 'published' => true, 'date' => Time.new(2023, 10, 17) },
-      '/books/hyperion/review-2023-10-17.html'
+      '/books/hyperion/review-2023-10-17.html',
     )
     @hyperion_review2 = create_doc(
       { 'title' => 'Hyperion', 'published' => true, 'date' => Time.new(2025, 9, 20) },
-      '/books/hyperion.html'
+      '/books/hyperion.html',
     )
 
     @site = create_site(
       { 'url' => 'http://example.com' },
-      { 'books' => [@book1, @book2, @book3, @unpublished_book, @hyperion_review1, @hyperion_review2] }
+      { 'books' => [@book1, @book2, @book3, @unpublished_book, @hyperion_review1, @hyperion_review2] },
     )
   end
 
@@ -106,7 +106,7 @@ class TestBookFinder < Minitest::Test
     duplicate_book = create_doc({ 'title' => 'The First Book', 'published' => true }, '/books/duplicate.html')
     site_with_duplicate = create_site(
       { 'url' => 'http://example.com' },
-      { 'books' => [@book1, duplicate_book, @book2] }
+      { 'books' => [@book1, duplicate_book, @book2] },
     )
 
     finder = Jekyll::Books::Lookups::BookFinder.new(site: site_with_duplicate, title: 'The First Book')
@@ -122,7 +122,7 @@ class TestBookFinder < Minitest::Test
     finder = Jekyll::Books::Lookups::BookFinder.new(
       site: @site,
       title: 'Hyperion',
-      date: Date.new(2023, 10, 17)
+      date: Date.new(2023, 10, 17),
     )
     result = finder.find
 
@@ -134,7 +134,7 @@ class TestBookFinder < Minitest::Test
     finder = Jekyll::Books::Lookups::BookFinder.new(
       site: @site,
       title: 'Hyperion',
-      date: '2025-09-20'
+      date: '2025-09-20',
     )
     result = finder.find
 
@@ -147,7 +147,7 @@ class TestBookFinder < Minitest::Test
     finder1 = Jekyll::Books::Lookups::BookFinder.new(
       site: @site,
       title: 'Hyperion',
-      date: '2023-10-17'
+      date: '2023-10-17',
     )
     result1 = finder1.find
 
@@ -155,7 +155,7 @@ class TestBookFinder < Minitest::Test
     finder2 = Jekyll::Books::Lookups::BookFinder.new(
       site: @site,
       title: 'Hyperion',
-      date: '2025-09-20'
+      date: '2025-09-20',
     )
     result2 = finder2.find
 
@@ -170,7 +170,7 @@ class TestBookFinder < Minitest::Test
     finder = Jekyll::Books::Lookups::BookFinder.new(
       site: @site,
       title: 'Hyperion',
-      date: '2020-01-01'
+      date: '2020-01-01',
     )
     result = finder.find
 
@@ -182,7 +182,7 @@ class TestBookFinder < Minitest::Test
     finder = Jekyll::Books::Lookups::BookFinder.new(
       site: @site,
       title: 'Hyperion',
-      date: 'not-a-date'
+      date: 'not-a-date',
     )
     result = finder.find
 
@@ -195,7 +195,7 @@ class TestBookFinder < Minitest::Test
     finder = Jekyll::Books::Lookups::BookFinder.new(
       site: @site,
       title: 'The First Book',
-      date: '2023-01-01'
+      date: '2023-01-01',
     )
     result = finder.find
 
@@ -207,7 +207,7 @@ class TestBookFinder < Minitest::Test
     # Without date parameter, should return first match (existing behavior)
     finder = Jekyll::Books::Lookups::BookFinder.new(
       site: @site,
-      title: 'Hyperion'
+      title: 'Hyperion',
     )
     result = finder.find
 
@@ -235,7 +235,7 @@ class TestBookFinder < Minitest::Test
     # after creation since create_doc converts Date to Time.now
     book_with_date_obj = create_doc(
       { 'title' => 'Date Obj Book', 'published' => true },
-      '/books/date-obj.html'
+      '/books/date-obj.html',
     )
     # Manually set data['date'] to a Date object to test the Date branch
     book_with_date_obj.data['date'] = Date.new(2023, 10, 17)
@@ -253,7 +253,7 @@ class TestBookFinder < Minitest::Test
     # The finder reads from b.data['date'], so set date as a string there
     book_with_str_date = create_doc(
       { 'title' => 'String Date Book', 'published' => true, 'date' => '2023-10-17' },
-      '/books/str-date.html'
+      '/books/str-date.html',
     )
 
     site = create_site({ 'url' => 'http://example.com' }, { 'books' => [book_with_str_date] })

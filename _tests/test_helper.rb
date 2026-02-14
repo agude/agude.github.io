@@ -12,7 +12,7 @@ require 'simplecov/formatter/multi_formatter'
 # HTML is for human review, JSON is for machine parsing (e.g., by Rake tasks).
 formatters = [
   SimpleCov::Formatter::HTMLFormatter,
-  SimpleCov::Formatter::JSONFormatter
+  SimpleCov::Formatter::JSONFormatter,
 ]
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(formatters)
 
@@ -244,7 +244,15 @@ MockCollection = Struct.new(:docs, :label) unless defined?(MockCollection)
 
 # Mock for the Jekyll site object, now a full class for reliability.
 class MockSite
-  attr_accessor :config, :collections, :pages, :posts, :baseurl, :source, :converters, :data, :categories,
+  attr_accessor :config,
+                :collections,
+                :pages,
+                :posts,
+                :baseurl,
+                :source,
+                :converters,
+                :data,
+                :categories,
                 :static_files
 
   # rubocop:disable Metrics/ParameterLists
@@ -325,7 +333,7 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [],
     base_config['source'],
     [mock_markdown_converter],
     {},
-    categories_data
+    categories_data,
   )
 
   generate_link_cache(site)
@@ -348,7 +356,7 @@ def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = '
     final_date_obj,
     nil,
     collection,
-    base_data['path']
+    base_data['path'],
   )
 
   setup_mock_excerpt(doc, base_data)
@@ -364,7 +372,7 @@ def build_test_site_config(config_overrides)
     'source' => '.',
     'plugin_logging' => test_plugin_logging_config,
     'excerpt_separator' => '<!--excerpt-->',
-    'plugin_log_level' => Jekyll::Infrastructure::PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING
+    'plugin_log_level' => Jekyll::Infrastructure::PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING,
   }.merge(config_overrides)
 end
 
@@ -407,7 +415,7 @@ def test_plugin_logging_config
     'RENDER_SERIES_LINK' => false,
     'RENDER_SHORT_STORY_LINK' => false,
     'UNITS_TAG_ERROR' => false,
-    'UNITS_TAG_WARNING' => false
+    'UNITS_TAG_WARNING' => false,
   }
 end
 
@@ -454,7 +462,7 @@ def build_base_doc_data(string_keyed_data_overrides, url)
     'layout' => 'test_layout',
     'title' => 'Test Document',
     'published' => true,
-    'path' => url&.sub(%r{^/}, '')
+    'path' => url&.sub(%r{^/}, ''),
   }.merge(string_keyed_data_overrides)
 end
 

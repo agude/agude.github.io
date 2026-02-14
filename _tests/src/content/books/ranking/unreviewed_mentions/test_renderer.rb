@@ -60,7 +60,7 @@ class TestUnreviewedMentionsRenderer < Minitest::Test
     mentions = [
       { title: 'First Book', count: 10 },
       { title: 'Second Book', count: 5 },
-      { title: 'Third Book', count: 1 }
+      { title: 'Third Book', count: 1 },
     ]
     renderer = Jekyll::Books::Ranking::UnreviewedMentions::Renderer.new(mentions)
     result = renderer.render

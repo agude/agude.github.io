@@ -33,7 +33,7 @@ module Jekyll
 
         def render(context)
           finder = Jekyll::Books::Lists::AllBooksByAuthorFinder.new(
-            site: context.registers[:site], context: context
+            site: context.registers[:site], context: context,
           )
           data = finder.find
 
@@ -66,9 +66,10 @@ module Jekyll
         def book_to_card(doc)
           authors = doc.data['book_authors']
           {
-            title: doc.data['title'], url: doc.url,
+            title: doc.data['title'],
+            url: doc.url,
             authors: authors.is_a?(Array) ? authors : [authors].compact,
-            rating: doc.data['rating']
+            rating: doc.data['rating'],
           }
         end
       end

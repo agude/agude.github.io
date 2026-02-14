@@ -36,8 +36,11 @@ module Jekyll
 
           return result[:logs] if result[:posts].empty?
 
-          renderer = Jekyll::Posts::Related::Renderer.new(context, result[:posts],
-                                                          result[:found_by_category])
+          renderer = Jekyll::Posts::Related::Renderer.new(
+            context,
+            result[:posts],
+            result[:found_by_category],
+          )
           html_output = renderer.render
 
           result[:logs] + html_output

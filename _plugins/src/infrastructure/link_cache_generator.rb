@@ -45,10 +45,18 @@ module Jekyll
 
       def initialize_cache
         {
-          'authors' => {}, 'books' => {}, 'series' => {}, 'series_map' => {},
-          'short_stories' => {}, 'sidebar_nav' => [], 'books_topbar_nav' => [],
-          'backlinks' => {}, 'favorites_mentions' => {}, 'favorites_posts_to_books' => {},
-          'url_to_canonical_map' => {}, 'book_families' => Hash.new { |h, k| h[k] = [] }
+          'authors' => {},
+          'books' => {},
+          'series' => {},
+          'series_map' => {},
+          'short_stories' => {},
+          'sidebar_nav' => [],
+          'books_topbar_nav' => [],
+          'backlinks' => {},
+          'favorites_mentions' => {},
+          'favorites_posts_to_books' => {},
+          'url_to_canonical_map' => {},
+          'book_families' => Hash.new { |h, k| h[k] = [] },
         }
       end
     end

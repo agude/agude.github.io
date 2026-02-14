@@ -69,10 +69,11 @@ module Jekyll
 
       def log_empty_title(raw)
         Logger.log_liquid_failure(
-          context: @context, tag_type: 'RENDER_SERIES_LINK',
+          context: @context,
+          tag_type: 'RENDER_SERIES_LINK',
           reason: 'Input title resolved to empty after normalization.',
           identifiers: { TitleInput: raw || 'nil' },
-          level: :warn
+          level: :warn,
         )
       end
 

@@ -30,7 +30,7 @@ module Jekyll
         def build_base_review_data
           data = {
             '@context' => 'https://schema.org',
-            '@type' => 'Review' # The page itself is a Review
+            '@type' => 'Review', # The page itself is a Review
           }
           add_review_metadata(data)
           data
@@ -78,7 +78,7 @@ module Jekyll
         def extract_review_body
           Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
             @document,
-            field_priority: %w[excerpt description content]
+            field_priority: %w[excerpt description content],
             # No truncation specified in original include for book review body
           )
         end
@@ -93,7 +93,7 @@ module Jekyll
             # Book's name is the page title for book review pages
             'name' => @document.data['title'],
             # The URL for the Book item within the Review should be the review page itself
-            'url' => review_page_url
+            'url' => review_page_url,
           }
 
           add_book_details(item)
@@ -142,7 +142,7 @@ module Jekyll
           id = @document.url || @document.data['path'] || @document.relative_path
           Jekyll.logger.warn(
             'JSON-LD (BookReviewGen):',
-            "Front matter 'awards' for '#{id}' is not an Array, skipping awards."
+            "Front matter 'awards' for '#{id}' is not an Array, skipping awards.",
           )
         end
 
@@ -150,7 +150,7 @@ module Jekyll
           # Book Series Info (From page.series and page.book_number)
           series_entity = Jekyll::SEO::JsonLdUtils.build_book_series_entity(
             @document.data['series'],
-            @document.data['book_number']
+            @document.data['book_number'],
           )
           item['isPartOf'] = series_entity if series_entity
         end

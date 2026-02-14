@@ -12,65 +12,130 @@ class TestBookListByAwardFinder < Minitest::Test
   def setup
     # --- Book Data for Award Display Tests ---
     @award_book_hugo_locus = create_doc(
-      { 'title' => 'Book A (Hugo & Locus)', 'awards' => %w[Hugo Locus], 'published' => true,
-        'date' => Time.now }, '/award_a.html'
+      {
+        'title' => 'Book A (Hugo & Locus)',
+        'awards' => %w[Hugo Locus],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/award_a.html',
     )
     @award_book_nebula = create_doc(
-      { 'title' => 'Book B (Nebula)', 'awards' => ['Nebula'], 'published' => true, 'date' => Time.now }, '/award_b.html'
+      { 'title' => 'Book B (Nebula)', 'awards' => ['Nebula'], 'published' => true, 'date' => Time.now }, '/award_b.html',
     )
     @award_book_hugo_lower = create_doc(
-      { 'title' => 'Book C (hugo)', 'awards' => ['hugo'], 'published' => true, 'date' => Time.now }, '/award_c.html'
+      { 'title' => 'Book C (hugo)', 'awards' => ['hugo'], 'published' => true, 'date' => Time.now }, '/award_c.html',
     )
     @award_book_acc = create_doc(
-      { 'title' => 'Book D (Arthur C. Clarke)', 'awards' => ['arthur c. clarke'], 'published' => true,
-        'date' => Time.now }, '/award_d.html'
+      {
+        'title' => 'Book D (Arthur C. Clarke)',
+        'awards' => ['arthur c. clarke'],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/award_d.html',
     )
-    @award_book_no_awards = create_doc({ 'title' => 'Book E (No Awards)', 'published' => true, 'date' => Time.now },
-                                       '/award_e.html')
+    @award_book_no_awards = create_doc(
+      { 'title' => 'Book E (No Awards)', 'published' => true, 'date' => Time.now },
+      '/award_e.html',
+    )
     @award_book_locus_only = create_doc(
-      { 'title' => 'Book F (Locus Only)', 'awards' => ['Locus'], 'published' => true,
-        'date' => Time.now }, '/award_f.html'
+      {
+        'title' => 'Book F (Locus Only)',
+        'awards' => ['Locus'],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/award_f.html',
     )
     @award_book_mixed_case = create_doc(
-      { 'title' => 'Book G (mIxEd CaSe AwArD)', 'awards' => ['mIxEd CaSe AwArD'], 'published' => true,
-        'date' => Time.now }, '/award_g.html'
+      {
+        'title' => 'Book G (mIxEd CaSe AwArD)',
+        'awards' => ['mIxEd CaSe AwArD'],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/award_g.html',
     )
     @award_book_locus_sf_novel = create_doc(
-      { 'title' => 'Locus SF Winner', 'awards' => ['Locus for Best SF Novel'], 'published' => true,
-        'date' => Time.now }, '/locus_sf.html'
+      {
+        'title' => 'Locus SF Winner',
+        'awards' => ['Locus for Best SF Novel'],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/locus_sf.html',
     )
     @award_book_empty_award_array = create_doc(
-      { 'title' => 'Book H (Empty Awards Array)', 'awards' => [], 'published' => true,
-        'date' => Time.now }, '/award_h.html'
+      {
+        'title' => 'Book H (Empty Awards Array)',
+        'awards' => [],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/award_h.html',
     )
     @award_book_nil_in_awards = create_doc(
-      { 'title' => 'Book I (Nil in Awards)', 'awards' => ['Valid Award', nil, 'Another Valid'], 'published' => true,
-        'date' => Time.now }, '/award_i.html'
+      {
+        'title' => 'Book I (Nil in Awards)',
+        'awards' => ['Valid Award', nil, 'Another Valid'],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/award_i.html',
     )
     @unpublished_award_book = create_doc(
-      { 'title' => 'Unpublished Award Book', 'awards' => ['Hugo'], 'published' => false,
-        'date' => Time.now }, '/unpub_award.html'
+      {
+        'title' => 'Unpublished Award Book',
+        'awards' => ['Hugo'],
+        'published' => false,
+        'date' => Time.now,
+      },
+      '/unpub_award.html',
     )
     @award_book_pkd = create_doc(
-      { 'title' => 'Book J (Philip K. Dick)', 'awards' => ['philip k. dick'], 'published' => true,
-        'date' => Time.now }, '/award_j.html'
+      {
+        'title' => 'Book J (Philip K. Dick)',
+        'awards' => ['philip k. dick'],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/award_j.html',
     )
     @award_book_british_fantasy = create_doc(
-      { 'title' => 'Book K (British Fantasy)', 'awards' => ['british fantasy'], 'published' => true,
-        'date' => Time.now }, '/award_k.html'
+      {
+        'title' => 'Book K (British Fantasy)',
+        'awards' => ['british fantasy'],
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/award_k.html',
     )
 
     @books_for_award_tests = [
-      @award_book_hugo_locus, @award_book_nebula, @award_book_hugo_lower, @award_book_acc,
-      @award_book_no_awards, @award_book_locus_only, @award_book_mixed_case,
-      @award_book_locus_sf_novel, @award_book_empty_award_array, @award_book_nil_in_awards,
-      @unpublished_award_book, @award_book_pkd, @award_book_british_fantasy
+      @award_book_hugo_locus,
+      @award_book_nebula,
+      @award_book_hugo_lower,
+      @award_book_acc,
+      @award_book_no_awards,
+      @award_book_locus_only,
+      @award_book_mixed_case,
+      @award_book_locus_sf_novel,
+      @award_book_empty_award_array,
+      @award_book_nil_in_awards,
+      @unpublished_award_book,
+      @award_book_pkd,
+      @award_book_british_fantasy,
     ]
 
     @site = create_site({}, { 'books' => @books_for_award_tests })
-    @context = create_context({},
-                              { site: @site,
-                                page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
+    @context = create_context(
+      {},
+      {
+        site: @site,
+        page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html'),
+      },
+    )
 
     @silent_logger_stub = create_silent_logger
   end
@@ -121,9 +186,10 @@ class TestBookListByAwardFinder < Minitest::Test
     assert_includes hugo_award_data[:books].map { |b| b.data['title'] }, @award_book_hugo_locus.data['title']
     assert_includes hugo_award_data[:books].map { |b| b.data['title'] }, @award_book_hugo_lower.data['title']
     # Check internal sort by title
-    assert_equal [@award_book_hugo_locus.data['title'], @award_book_hugo_lower.data['title']].sort, hugo_award_data[:books].map { |b|
-      b.data['title']
-    }.sort
+    assert_equal [@award_book_hugo_locus.data['title'], @award_book_hugo_lower.data['title']].sort,
+                 hugo_award_data[:books].map { |b|
+                   b.data['title']
+                 }.sort
 
     # Check Locus Award
     locus_award_data = result[:awards_data].find { |ad| ad[:award_name] == 'Locus Award' }
@@ -194,7 +260,7 @@ class TestBookListByAwardFinder < Minitest::Test
       'Mixed Case Award Award',
       'Nebula Award',
       'Philip K. Dick Award',
-      'Valid Award Award'
+      'Valid Award Award',
     ].sort # Ensure test expectation is also sorted for comparison
     assert_equal expected_award_order, award_names_in_order.sort
   end
@@ -205,8 +271,10 @@ class TestBookListByAwardFinder < Minitest::Test
     context_no_awards = create_context({}, { site: site_no_awards, page: @context.registers[:page] })
     result = get_all_books_by_award_data(site_no_awards, context_no_awards)
     assert_empty result[:awards_data]
-    assert_match(/<!-- \[INFO\] ALL_BOOKS_BY_AWARD_DISPLAY_FAILURE: Reason='No books with awards found\.'\s*SourcePage='current_page\.html' -->/,
-                 result[:log_messages])
+    assert_match(
+      /<!-- \[INFO\] ALL_BOOKS_BY_AWARD_DISPLAY_FAILURE: Reason='No books with awards found\.'\s*SourcePage='current_page\.html' -->/,
+      result[:log_messages],
+    )
   end
 
   def test_by_award_finder_books_collection_missing
@@ -215,8 +283,10 @@ class TestBookListByAwardFinder < Minitest::Test
     context_no_books_coll = create_context({}, { site: site_no_books_coll, page: @context.registers[:page] })
     result = get_all_books_by_award_data(site_no_books_coll, context_no_books_coll)
     assert_empty result[:awards_data]
-    assert_match(/<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books_by_award'\s*SourcePage='current_page\.html' -->/,
-                 result[:log_messages])
+    assert_match(
+      /<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: Reason='Required &#39;books&#39; collection not found in site configuration\.'\s*filter_type='all_books_by_award'\s*SourcePage='current_page\.html' -->/,
+      result[:log_messages],
+    )
   end
 
   def test_by_award_finder_empty_book_collection

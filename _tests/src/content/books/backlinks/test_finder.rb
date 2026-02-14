@@ -11,12 +11,12 @@ class TestBacklinksFinder < Minitest::Test
     @book_a = create_doc(
       { 'title' => 'Book A', 'published' => true },
       '/books/a.html',
-      "Review with {% book_link 'Book B' %}."
+      "Review with {% book_link 'Book B' %}.",
     )
     @book_b = create_doc(
       { 'title' => 'Book B', 'published' => true },
       '/books/b.html',
-      'Content of Book B.'
+      'Content of Book B.',
     )
   end
 
@@ -34,7 +34,7 @@ class TestBacklinksFinder < Minitest::Test
   def test_returns_empty_when_no_backlinks
     standalone = create_doc(
       { 'title' => 'Standalone', 'published' => true },
-      '/books/standalone.html'
+      '/books/standalone.html',
     )
 
     site = create_site({}, { 'books' => [standalone] })
@@ -50,7 +50,7 @@ class TestBacklinksFinder < Minitest::Test
     self_ref = create_doc(
       { 'title' => 'Self Ref', 'published' => true },
       '/books/self.html',
-      "{% book_link 'Self Ref' %}"
+      "{% book_link 'Self Ref' %}",
     )
 
     site = create_site({}, { 'books' => [self_ref] })
@@ -66,16 +66,16 @@ class TestBacklinksFinder < Minitest::Test
     book_z = create_doc(
       { 'title' => 'Zebra Book', 'published' => true },
       '/books/z.html',
-      "{% book_link 'Target' %}"
+      "{% book_link 'Target' %}",
     )
     book_a = create_doc(
       { 'title' => 'Apple Book', 'published' => true },
       '/books/apple.html',
-      "{% book_link 'Target' %}"
+      "{% book_link 'Target' %}",
     )
     target = create_doc(
       { 'title' => 'Target', 'published' => true },
-      '/books/target.html'
+      '/books/target.html',
     )
 
     site = create_site({}, { 'books' => [book_z, book_a, target] })
@@ -92,16 +92,16 @@ class TestBacklinksFinder < Minitest::Test
     the_book = create_doc(
       { 'title' => 'The Amazing Book', 'published' => true },
       '/books/the-amazing.html',
-      "{% book_link 'Target' %}"
+      "{% book_link 'Target' %}",
     )
     basic_book = create_doc(
       { 'title' => 'Basic Book', 'published' => true },
       '/books/basic.html',
-      "{% book_link 'Target' %}"
+      "{% book_link 'Target' %}",
     )
     target = create_doc(
       { 'title' => 'Target', 'published' => true },
-      '/books/target.html'
+      '/books/target.html',
     )
 
     site = create_site({}, { 'books' => [the_book, basic_book, target] })
@@ -175,20 +175,20 @@ class TestBacklinksFinder < Minitest::Test
   def test_includes_series_backlinks
     series_book_1 = create_doc(
       { 'title' => 'Series Book 1', 'published' => true, 'series' => 'Epic Series' },
-      '/books/series1.html'
+      '/books/series1.html',
     )
     series_book_2 = create_doc(
       { 'title' => 'Series Book 2', 'published' => true, 'series' => 'Epic Series' },
-      '/books/series2.html'
+      '/books/series2.html',
     )
     linker = create_doc(
       { 'title' => 'Linker', 'published' => true },
       '/books/linker.html',
-      "{% series_link 'Epic Series' %}"
+      "{% series_link 'Epic Series' %}",
     )
     series_page = create_doc(
       { 'title' => 'Epic Series', 'layout' => 'series_page' },
-      '/series/epic.html'
+      '/series/epic.html',
     )
 
     site = create_site({}, { 'books' => [series_book_1, series_book_2, linker] }, [series_page])
@@ -218,11 +218,11 @@ class TestBacklinksFinder < Minitest::Test
     empty_title_book = create_doc(
       { 'title' => '', 'published' => true },
       '/books/empty-title.html',
-      "{% book_link 'Target' %}"
+      "{% book_link 'Target' %}",
     )
     target = create_doc(
       { 'title' => 'Target', 'published' => true },
-      '/books/target.html'
+      '/books/target.html',
     )
 
     site = create_site({}, { 'books' => [empty_title_book, target] })
@@ -240,7 +240,7 @@ class TestBacklinksFinder < Minitest::Test
     # Create a page whose URL isn't in the canonical map
     orphan_page = create_doc(
       { 'title' => 'Orphan', 'published' => true },
-      '/books/orphan.html'
+      '/books/orphan.html',
     )
     # Create site without the orphan in the books collection (so it won't be in canonical map)
     site = create_site({}, { 'books' => [@book_a, @book_b] })
@@ -260,11 +260,11 @@ class TestBacklinksFinder < Minitest::Test
     book_c = create_doc(
       { 'title' => 'Book C', 'published' => true },
       '/books/c.html',
-      "{% book_link 'Target' %}"
+      "{% book_link 'Target' %}",
     )
     target = create_doc(
       { 'title' => 'Target', 'published' => true },
-      '/books/target.html'
+      '/books/target.html',
     )
 
     site = create_site({}, { 'books' => [book_c, target] })

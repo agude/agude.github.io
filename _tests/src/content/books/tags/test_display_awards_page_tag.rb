@@ -101,7 +101,7 @@ class TestDisplayAwardsPageTag < Minitest::Test
     fav_post_no_year = create_doc({ 'title' => 'My Favorite Books' }, '/fav.html')
     favorites_data = {
       favorites_lists: [{ post: fav_post_no_year, books: [@fav_book_alpha] }],
-      log_messages: ''
+      log_messages: '',
     }
     output = render_tag(@context, { awards_data: [], log_messages: '' }, favorites_data)
 
@@ -114,7 +114,7 @@ class TestDisplayAwardsPageTag < Minitest::Test
     populated_list = { post: @fav_post_year_2023, books: [@fav_book_beta] }
     favorites_data = {
       favorites_lists: [empty_list, populated_list],
-      log_messages: ''
+      log_messages: '',
     }
     output = render_tag(@context, { awards_data: [], log_messages: '' }, favorites_data)
 
@@ -132,7 +132,7 @@ class TestDisplayAwardsPageTag < Minitest::Test
     empty_list_2 = { post: @fav_post_year_2023, books: [] }
     favorites_data = {
       favorites_lists: [empty_list_1, empty_list_2],
-      log_messages: ''
+      log_messages: '',
     }
     output = render_tag(@context, @mock_awards_data_hash, favorites_data)
 
@@ -146,7 +146,7 @@ class TestDisplayAwardsPageTag < Minitest::Test
     xss_award = {
       award_name: '<script>alert("xss")</script> Award',
       award_slug: 'xss-award',
-      books: [@award_book_hugo]
+      books: [@award_book_hugo],
     }
     awards_data = { awards_data: [xss_award], log_messages: '' }
     output = render_tag(@context, awards_data, { favorites_lists: [], log_messages: '' })
@@ -195,9 +195,9 @@ class TestDisplayAwardsPageTag < Minitest::Test
     @mock_awards_data_hash = {
       awards_data: [
         { award_name: 'Hugo Award', award_slug: 'hugo-award', books: [@award_book_hugo] },
-        { award_name: 'Nebula Award', award_slug: 'nebula-award', books: [@award_book_nebula] }
+        { award_name: 'Nebula Award', award_slug: 'nebula-award', books: [@award_book_nebula] },
       ],
-      log_messages: ''
+      log_messages: '',
     }
   end
 
@@ -210,9 +210,9 @@ class TestDisplayAwardsPageTag < Minitest::Test
     @mock_favorites_data_hash = {
       favorites_lists: [
         { post: @fav_post_year_2024, books: [@fav_book_alpha] },
-        { post: @fav_post_year_2023, books: [@fav_book_beta] }
+        { post: @fav_post_year_2023, books: [@fav_book_beta] },
       ],
-      log_messages: ''
+      log_messages: '',
     }
   end
 

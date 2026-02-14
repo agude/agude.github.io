@@ -165,7 +165,7 @@ module Jekyll
           title: doc.data['title'],
           url: doc.url,
           authors: author_list,
-          rating: doc.data['rating']
+          rating: doc.data['rating'],
         }
       end
       private_class_method :book_doc_to_card_data

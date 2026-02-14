@@ -110,7 +110,7 @@ module Jekyll
           def log_invalid_item
             log_failure(
               'Invalid item_object: Expected a Jekyll Document/Page or Drop with .url and data access capabilities.',
-              { item_class: @item.class.name, item_inspect: @item.inspect.slice(0, 100) }
+              { item_class: @item.class.name, item_inspect: @item.inspect.slice(0, 100) },
             )
           end
 
@@ -122,13 +122,20 @@ module Jekyll
               absolute_url: absolute_url,
               absolute_image_url: absolute_image_url,
               raw_title: raw_title,
-              log_output: @log_out
+              log_output: @log_out,
             }
           end
 
           def failure_result
-            { log_output: @log_out, site: @site, data_source_for_keys: nil, data_for_description: nil,
-              absolute_url: nil, absolute_image_url: nil, raw_title: nil }
+            {
+              log_output: @log_out,
+              site: @site,
+              data_source_for_keys: nil,
+              data_for_description: nil,
+              absolute_url: nil,
+              absolute_image_url: nil,
+              raw_title: nil,
+            }
           end
 
           def absolute_url
@@ -150,7 +157,7 @@ module Jekyll
 
           def log_failure(reason, identifiers)
             @log_out << Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-              context: @context, tag_type: @log_tag, reason: reason, identifiers: identifiers
+              context: @context, tag_type: @log_tag, reason: reason, identifiers: identifiers,
             )
           end
         end

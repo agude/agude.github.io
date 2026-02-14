@@ -30,8 +30,10 @@ module Jekyll
         private_constant :MdCards
 
         def render(context)
-          finder = Jekyll::Books::Lists::ByYearFinder.new(site: context.registers[:site],
-                                                          context: context)
+          finder = Jekyll::Books::Lists::ByYearFinder.new(
+            site: context.registers[:site],
+            context: context,
+          )
           data = finder.find
 
           if context.registers[:render_mode] == :markdown
@@ -59,9 +61,10 @@ module Jekyll
         def book_to_card(doc)
           authors = doc.data['book_authors']
           {
-            title: doc.data['title'], url: doc.url,
+            title: doc.data['title'],
+            url: doc.url,
             authors: authors.is_a?(Array) ? authors : [authors].compact,
-            rating: doc.data['rating']
+            rating: doc.data['rating'],
           }
         end
       end

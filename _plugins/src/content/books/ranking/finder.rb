@@ -37,7 +37,7 @@ module Jekyll
               context: @context,
               tag_type: 'RANKED_BY_BACKLINKS',
               reason: 'Prerequisites missing: link_cache, backlinks, or books cache.',
-              level: :error
+              level: :error,
             )
           end
 
@@ -57,7 +57,7 @@ module Jekyll
               {
                 title: book_data['title'],
                 url: url,
-                count: sources.length
+                count: sources.length,
               }
             end
             items.compact.sort_by { |item| -item[:count] }

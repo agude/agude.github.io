@@ -81,6 +81,64 @@ Layout/LineLength:
   Exclude:
     - '_tests/**/*'
 
+# Enforce trailing commas for cleaner git diffs
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+
+# Ensure closing brackets are on their own new line.
+# Good:
+# [
+#   1,
+# ]
+# Bad:
+# [
+#   1, ]
+Layout/MultilineArrayBraceLayout:
+  EnforcedStyle: new_line
+
+Layout/MultilineHashBraceLayout:
+  EnforcedStyle: new_line
+
+Layout/MultilineMethodCallBraceLayout:
+  EnforcedStyle: new_line
+
+# Forces the first item to jump to a new line if the list is multiline.
+# Transforms:
+#   { a: 1,
+#     b: 2,
+#   }
+# Into:
+#   {
+#     a: 1,
+#     b: 2,
+#   }
+
+Layout/FirstHashElementLineBreak:
+  Enabled: true
+
+Layout/FirstArrayElementLineBreak:
+  Enabled: true
+
+Layout/FirstMethodArgumentLineBreak:
+  Enabled: true
+
+# Ensure arguments inside the list are actually split onto new lines
+# if the list itself is multiline.
+Layout/MultilineArrayLineBreaks:
+  Enabled: true
+
+Layout/MultilineHashKeyLineBreaks:
+  Enabled: true
+
+Layout/MultilineMethodArgumentLineBreaks:
+  Enabled: true
+
 # ------------------------------------------------------------------
 # 4. Test-Specific Naming & Style
 # ------------------------------------------------------------------

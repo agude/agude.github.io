@@ -29,7 +29,7 @@ module Jekyll
         def self._base_data_hash
           {
             '@context' => 'https://schema.org',
-            '@type' => 'Person'
+            '@type' => 'Person',
           }
         end
 
@@ -91,7 +91,7 @@ module Jekyll
         def self._add_description(data, document)
           description = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
             document,
-            field_priority: %w[excerpt description]
+            field_priority: %w[excerpt description],
           )
           data['description'] = description if description
         end

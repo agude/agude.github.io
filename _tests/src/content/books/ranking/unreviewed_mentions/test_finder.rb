@@ -9,7 +9,7 @@ class TestUnreviewedMentionsFinder < Minitest::Test
   def setup
     @book = create_doc(
       { 'title' => 'Reviewed Book', 'published' => true },
-      '/books/reviewed.html'
+      '/books/reviewed.html',
     )
   end
 
@@ -34,8 +34,8 @@ class TestUnreviewedMentionsFinder < Minitest::Test
     tracker = {
       'unreviewed book' => {
         sources: ['/posts/one.html', '/posts/two.html'],
-        original_titles: { 'Unreviewed Book' => 2 }
-      }
+        original_titles: { 'Unreviewed Book' => 2 },
+      },
     }
     site = create_site_with_mentions(tracker, { 'reviewed book' => @book })
     context = create_context({}, { site: site, page: @book })
@@ -52,8 +52,8 @@ class TestUnreviewedMentionsFinder < Minitest::Test
     tracker = {
       'reviewed book' => {
         sources: ['/posts/one.html'],
-        original_titles: { 'Reviewed Book' => 1 }
-      }
+        original_titles: { 'Reviewed Book' => 1 },
+      },
     }
     site = create_site_with_mentions(tracker, { 'reviewed book' => @book })
     context = create_context({}, { site: site, page: @book })
@@ -68,12 +68,12 @@ class TestUnreviewedMentionsFinder < Minitest::Test
     tracker = {
       'few mentions' => {
         sources: ['/posts/one.html'],
-        original_titles: { 'Few Mentions' => 1 }
+        original_titles: { 'Few Mentions' => 1 },
       },
       'many mentions' => {
         sources: ['/posts/a.html', '/posts/b.html', '/posts/c.html'],
-        original_titles: { 'Many Mentions' => 3 }
-      }
+        original_titles: { 'Many Mentions' => 3 },
+      },
     }
     site = create_site_with_mentions(tracker)
     context = create_context({}, { site: site, page: @book })
@@ -90,8 +90,8 @@ class TestUnreviewedMentionsFinder < Minitest::Test
     tracker = {
       'the book' => {
         sources: ['/posts/one.html', '/posts/two.html', '/posts/three.html'],
-        original_titles: { 'The Book' => 2, 'the book' => 1 }
-      }
+        original_titles: { 'The Book' => 2, 'the book' => 1 },
+      },
     }
     site = create_site_with_mentions(tracker)
     context = create_context({}, { site: site, page: @book })
@@ -126,16 +126,16 @@ class TestUnreviewedMentionsFinder < Minitest::Test
     tracker = {
       'book a' => {
         sources: ['/posts/one.html'],
-        original_titles: { 'Book A' => 1 }
+        original_titles: { 'Book A' => 1 },
       },
       'book b' => {
         sources: ['/posts/two.html'],
-        original_titles: { 'Book B' => 1 }
+        original_titles: { 'Book B' => 1 },
       },
       'book c' => {
         sources: ['/posts/three.html'],
-        original_titles: { 'Book C' => 1 }
-      }
+        original_titles: { 'Book C' => 1 },
+      },
     }
     site = create_site_with_mentions(tracker)
     context = create_context({}, { site: site, page: @book })

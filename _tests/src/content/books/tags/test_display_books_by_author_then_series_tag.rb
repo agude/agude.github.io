@@ -28,10 +28,10 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
         {
           author_name: 'Test Author',
           standalone_books: [mock_book],
-          series_groups: []
-        }
+          series_groups: [],
+        },
       ],
-      log_messages: ''
+      log_messages: '',
     }
 
     # 2. Define the mock HTML that the Renderer will "return"
@@ -46,12 +46,13 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
 
     # Stub the .new methods to return our mock instances
     Jekyll::Books::Lists::AllBooksByAuthorFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.stub :new, lambda { |context, data|
-        # This is a key assertion: ensure the data from the finder is what the renderer receives
-        assert_equal mock_finder_data, data
-        assert_equal @context, context
-        mock_renderer # Return our mock renderer instance
-      } do
+      Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.stub :new,
+                                                                       lambda { |context, data|
+                                                                         # This is a key assertion: ensure the data from the finder is what the renderer receives
+                                                                         assert_equal mock_finder_data, data
+                                                                         assert_equal @context, context
+                                                                         mock_renderer # Return our mock renderer instance
+                                                                       } do
         # Execute the tag
         output = Liquid::Template.parse('{% display_books_by_author_then_series %}').render!(@context)
 
@@ -69,7 +70,7 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
     # Test that log messages from the finder are prepended to the renderer output
     mock_finder_data = {
       authors_data: [],
-      log_messages: '<!-- Log Message -->'
+      log_messages: '<!-- Log Message -->',
     }
     mock_renderer_html = '<div>No authors</div>'
 

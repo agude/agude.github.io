@@ -70,17 +70,23 @@ class TestPreviousReviewsFinder < Minitest::Test
     @canonical_page = create_doc({ 'title' => 'Canonical Book' }, '/books/canonical.html')
 
     # Archived reviews that point to the canonical page
-    @archive_new = create_doc({
-                                'title' => 'Archived (New)',
-                                'date' => Time.parse('2023-01-01'),
-                                'canonical_url' => '/books/canonical.html'
-                              }, '/books/archive-new.html')
+    @archive_new = create_doc(
+      {
+        'title' => 'Archived (New)',
+        'date' => Time.parse('2023-01-01'),
+        'canonical_url' => '/books/canonical.html',
+      },
+      '/books/archive-new.html',
+    )
 
-    @archive_old = create_doc({
-                                'title' => 'Archived (Old)',
-                                'date' => Time.parse('2022-01-01'),
-                                'canonical_url' => '/books/canonical.html'
-                              }, '/books/archive-old.html')
+    @archive_old = create_doc(
+      {
+        'title' => 'Archived (Old)',
+        'date' => Time.parse('2022-01-01'),
+        'canonical_url' => '/books/canonical.html',
+      },
+      '/books/archive-old.html',
+    )
 
     # An unrelated book that should be ignored
     @unrelated_book = create_doc({ 'title' => 'Unrelated' }, '/books/unrelated.html')

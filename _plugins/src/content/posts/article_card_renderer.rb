@@ -32,7 +32,7 @@ module Jekyll
           url: @base_data[:absolute_url],
           date: @data_accessor['date'],
           image_url: @base_data[:absolute_image_url],
-          image_alt: resolve_image_alt
+          image_alt: resolve_image_alt,
         }.freeze
       end
 
@@ -51,7 +51,7 @@ module Jekyll
           @post_object,
           @context,
           default_title: 'Untitled Post',
-          log_tag_type: 'ARTICLE_CARD_UTIL'
+          log_tag_type: 'ARTICLE_CARD_UTIL',
         )
         @log_output = @base_data[:log_output] || ''
       end
@@ -75,7 +75,7 @@ module Jekyll
           description_html: data[:excerpt],
           description_wrapper_html_open: "<br>\n",
           description_wrapper_html_close: '',
-          extra_elements_html: []
+          extra_elements_html: [],
         }
       end
 
@@ -111,7 +111,7 @@ module Jekyll
           tag_type: 'ARTICLE_CARD_ALT_MISSING',
           reason: "Missing 'image_alt' front matter for article image. Using default alt text.",
           identifiers: { article_title: @base_data[:raw_title], image_path: path },
-          level: :warn
+          level: :warn,
         )
       end
     end

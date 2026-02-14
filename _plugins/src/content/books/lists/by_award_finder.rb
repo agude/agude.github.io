@@ -68,7 +68,7 @@ module Jekyll
           {
             award_name: display_name,
             award_slug: slugify_award(display_name),
-            books: books
+            books: books,
           }
         end
 
@@ -115,7 +115,7 @@ module Jekyll
             tag_type: 'ALL_BOOKS_BY_AWARD_DISPLAY',
             reason: 'No books with awards found.',
             identifiers: {},
-            level: :info
+            level: :info,
           ).dup
         end
       end

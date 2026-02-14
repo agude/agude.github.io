@@ -24,10 +24,11 @@ class TestDisplayRankedByBacklinksTag < Minitest::Test
     mock_renderer.expect :render, '<p>No books have been mentioned yet.</p>'
 
     Jekyll::Books::Ranking::RankedByBacklinks::Finder.stub :new, ->(_context) { mock_finder } do
-      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new, lambda { |_context, ranked_list|
-        assert_equal [], ranked_list
-        mock_renderer
-      } do
+      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new,
+                                                               lambda { |_context, ranked_list|
+                                                                 assert_equal [], ranked_list
+                                                                 mock_renderer
+                                                               } do
         output = render_tag
 
         assert_equal '<!-- Log message --><p>No books have been mentioned yet.</p>', output
@@ -39,7 +40,7 @@ class TestDisplayRankedByBacklinksTag < Minitest::Test
 
   def test_calls_finder_and_renderer_when_ranked_list_found
     mock_ranked_list = [
-      { title: 'Book A', url: '/a.html', count: 2 }
+      { title: 'Book A', url: '/a.html', count: 2 },
     ]
 
     mock_finder = Minitest::Mock.new
@@ -49,10 +50,11 @@ class TestDisplayRankedByBacklinksTag < Minitest::Test
     mock_renderer.expect :render, '<ol>HTML output</ol>'
 
     Jekyll::Books::Ranking::RankedByBacklinks::Finder.stub :new, ->(_context) { mock_finder } do
-      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new, lambda { |_context, ranked_list|
-        assert_equal mock_ranked_list, ranked_list
-        mock_renderer
-      } do
+      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new,
+                                                               lambda { |_context, ranked_list|
+                                                                 assert_equal mock_ranked_list, ranked_list
+                                                                 mock_renderer
+                                                               } do
         output = render_tag
 
         assert_equal '<ol>HTML output</ol>', output
@@ -64,7 +66,7 @@ class TestDisplayRankedByBacklinksTag < Minitest::Test
 
   def test_concatenates_logs_and_html_when_both_present
     mock_ranked_list = [
-      { title: 'Book A', url: '/a.html', count: 2 }
+      { title: 'Book A', url: '/a.html', count: 2 },
     ]
 
     mock_finder = Minitest::Mock.new
@@ -95,14 +97,16 @@ class TestDisplayRankedByBacklinksTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, '<ol>HTML</ol>'
 
-    Jekyll::Books::Ranking::RankedByBacklinks::Finder.stub :new, lambda { |context|
-      context_passed_to_finder = context
-      mock_finder
-    } do
-      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new, lambda { |context, _ranked_list|
-        context_passed_to_renderer = context
-        mock_renderer
-      } do
+    Jekyll::Books::Ranking::RankedByBacklinks::Finder.stub :new,
+                                                           lambda { |context|
+                                                             context_passed_to_finder = context
+                                                             mock_finder
+                                                           } do
+      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new,
+                                                               lambda { |context, _ranked_list|
+                                                                 context_passed_to_renderer = context
+                                                                 mock_renderer
+                                                               } do
         render_tag
 
         assert_equal @context, context_passed_to_finder

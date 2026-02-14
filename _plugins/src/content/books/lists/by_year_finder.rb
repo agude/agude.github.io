@@ -26,9 +26,11 @@ module Jekyll
 
           all_books = all_published_books(include_archived: true)
           if all_books.empty?
-            return return_info('ALL_BOOKS_BY_YEAR_DISPLAY',
-                               'No published books found to group by year.',
-                               key: :year_groups)
+            return return_info(
+              'ALL_BOOKS_BY_YEAR_DISPLAY',
+              'No published books found to group by year.',
+              key: :year_groups,
+            )
           end
 
           year_groups_list = group_books_by_year(all_books)

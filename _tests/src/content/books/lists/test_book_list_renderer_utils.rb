@@ -9,15 +9,15 @@ class TestBookListRendererUtils < Minitest::Test
   def setup
     @standalone = create_doc(
       { 'title' => 'Standalone Book', 'published' => true },
-      '/books/standalone.html'
+      '/books/standalone.html',
     )
     @series_book = create_doc(
       { 'title' => 'Series Book', 'published' => true, 'series' => 'Epic Series' },
-      '/books/series.html'
+      '/books/series.html',
     )
     @series_page = create_doc(
       { 'title' => 'Epic Series', 'layout' => 'series_page' },
-      '/series/epic.html'
+      '/series/epic.html',
     )
 
     @site = create_site({}, { 'books' => [@standalone, @series_book] }, [@series_page])
@@ -53,7 +53,7 @@ class TestBookListRendererUtils < Minitest::Test
     series_group = { name: 'Epic Series', books: [@series_book] }
     data = { standalone_books: [], series_groups: [series_group] }
     result = Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(
-      data, @context, series_heading_level: 3
+      data, @context, series_heading_level: 3,
     )
 
     assert_includes result, '<h3 class="series-title"'
@@ -63,7 +63,7 @@ class TestBookListRendererUtils < Minitest::Test
     series_group = { name: 'Epic Series', books: [@series_book] }
     data = { standalone_books: [], series_groups: [series_group] }
     result = Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(
-      data, @context, series_heading_level: 99
+      data, @context, series_heading_level: 99,
     )
 
     assert_includes result, '<h2 class="series-title"'
@@ -73,7 +73,7 @@ class TestBookListRendererUtils < Minitest::Test
     series_group = { name: 'Epic Series', books: [@series_book] }
     data = { standalone_books: [@standalone], series_groups: [series_group] }
     result = Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(
-      data, @context, generate_nav: true
+      data, @context, generate_nav: true,
     )
 
     assert_includes result, '<nav class="alpha-jump-links">'
@@ -84,7 +84,7 @@ class TestBookListRendererUtils < Minitest::Test
     series_z = { name: 'Zeta Series', books: [@series_book] }
     data = { standalone_books: [], series_groups: [series_a, series_z] }
     result = Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(
-      data, @context, generate_nav: true
+      data, @context, generate_nav: true,
     )
 
     # Should have links for A and Z
@@ -96,7 +96,7 @@ class TestBookListRendererUtils < Minitest::Test
     series_m = { name: 'Middle Series', books: [@series_book] }
     data = { standalone_books: [], series_groups: [series_m] }
     result = Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(
-      data, @context, generate_nav: true
+      data, @context, generate_nav: true,
     )
 
     # A should be a span (no content), M should be a link
@@ -131,7 +131,7 @@ class TestBookListRendererUtils < Minitest::Test
   def test_standalone_section_gets_hash_anchor
     data = { standalone_books: [@standalone], series_groups: [] }
     result = Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(
-      data, @context, generate_nav: true
+      data, @context, generate_nav: true,
     )
 
     assert_includes result, 'id="standalone-books"'
@@ -142,7 +142,7 @@ class TestBookListRendererUtils < Minitest::Test
     series_the = { name: 'The Amazing Series', books: [@series_book] }
     data = { standalone_books: [], series_groups: [series_the] }
     result = Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(
-      data, @context, generate_nav: true
+      data, @context, generate_nav: true,
     )
 
     # "The Amazing Series" should register under A, not T

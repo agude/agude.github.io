@@ -42,7 +42,7 @@ module Jekyll
           story_title = TagArgs.resolve_value(@title_markup, context)
           from_book_title = if @from_book_markup
                               TagArgs.resolve_value(
-                                @from_book_markup, context
+                                @from_book_markup, context,
                               )
                             end
 

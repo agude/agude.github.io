@@ -15,40 +15,68 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
     @author_b = 'Author B'
 
     # Create mock documents using 'book_authors' as an array
-    @authA_book_s1_n1 = create_doc({
-                                     'title' => 'Author A Series One Book 1', 'series' => 'Series One',
-                                     'book_number' => 1, 'book_authors' => [@author_a]
-                                   }, '/a_s1b1.html')
-    @authA_book_s1_n2 = create_doc({
-                                     'title' => 'Author A Series One Book 2', 'series' => 'Series One',
-                                     'book_number' => 2, 'book_authors' => [@author_a]
-                                   }, '/a_s1b2.html')
-    @authA_standalone = create_doc({
-                                     'title' => 'The Author A Standalone', 'book_authors' => [@author_a]
-                                   }, '/a_sa.html')
+    @authA_book_s1_n1 = create_doc(
+      {
+        'title' => 'Author A Series One Book 1',
+        'series' => 'Series One',
+        'book_number' => 1,
+        'book_authors' => [@author_a],
+      },
+      '/a_s1b1.html',
+    )
+    @authA_book_s1_n2 = create_doc(
+      {
+        'title' => 'Author A Series One Book 2',
+        'series' => 'Series One',
+        'book_number' => 2,
+        'book_authors' => [@author_a],
+      },
+      '/a_s1b2.html',
+    )
+    @authA_standalone = create_doc(
+      {
+        'title' => 'The Author A Standalone', 'book_authors' => [@author_a],
+      },
+      '/a_sa.html',
+    )
 
     # Book co-authored by Author A and Author B, to test if it appears under both
-    @co_authored_book = create_doc({
-                                     'title' => 'Co-authored Book', 'book_authors' => [@author_a, @author_b]
-                                   }, '/coauth.html')
+    @co_authored_book = create_doc(
+      {
+        'title' => 'Co-authored Book', 'book_authors' => [@author_a, @author_b],
+      },
+      '/coauth.html',
+    )
 
-    @authB_book_s2_n1 = create_doc({
-                                     'title' => 'Author B Series Two Book 1', 'series' => 'Series Two',
-                                     'book_number' => 1, 'book_authors' => [@author_b]
-                                   }, '/b_s2b1.html')
-    @authB_standalone = create_doc({
-                                     'title' => 'Author B Standalone', 'book_authors' => [@author_b]
-                                   }, '/b_sb.html')
+    @authB_book_s2_n1 = create_doc(
+      {
+        'title' => 'Author B Series Two Book 1',
+        'series' => 'Series Two',
+        'book_number' => 1,
+        'book_authors' => [@author_b],
+      },
+      '/b_s2b1.html',
+    )
+    @authB_standalone = create_doc(
+      {
+        'title' => 'Author B Standalone', 'book_authors' => [@author_b],
+      },
+      '/b_sb.html',
+    )
 
     @all_books = [
-      @authA_book_s1_n1, @authA_book_s1_n2, @authA_standalone, @co_authored_book,
-      @authB_book_s2_n1, @authB_standalone
+      @authA_book_s1_n1,
+      @authA_book_s1_n2,
+      @authA_standalone,
+      @co_authored_book,
+      @authB_book_s2_n1,
+      @authB_standalone,
     ]
 
     @site = create_site({ 'url' => 'http://example.com' }, { 'books' => @all_books })
     @context = create_context(
       { 'page_author_var' => @author_a },
-      { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') }
+      { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') },
     )
 
     @silent_logger_stub = Object.new.tap do |logger|
@@ -153,8 +181,11 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
   def test_markdown_mode_outputs_book_list
     md_context = create_context(
       {},
-      { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html'),
-        render_mode: :markdown }
+      {
+        site: @site,
+        page: create_doc({ 'path' => 'current.html' }, '/current.html'),
+        render_mode: :markdown,
+      },
     )
     output = ''
     Jekyll.stub :logger, @silent_logger_stub do
@@ -171,8 +202,11 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
   def test_markdown_mode_groups_by_series
     md_context = create_context(
       {},
-      { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html'),
-        render_mode: :markdown }
+      {
+        site: @site,
+        page: create_doc({ 'path' => 'current.html' }, '/current.html'),
+        render_mode: :markdown,
+      },
     )
     output = ''
     Jekyll.stub :logger, @silent_logger_stub do

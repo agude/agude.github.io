@@ -15,7 +15,7 @@ class TestPluginLoggerUtilsBase < Minitest::Test
   def create_test_context(site_config_overrides = {})
     full_config_overrides = {
       'environment' => 'test',
-      'plugin_log_level' => Jekyll::Infrastructure::PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING
+      'plugin_log_level' => Jekyll::Infrastructure::PluginLoggerUtils::DEFAULT_SITE_CONSOLE_LEVEL_STRING,
     }.merge(site_config_overrides)
     site = create_site(full_config_overrides)
     create_context({}, { site: site, page: @page_mock })
@@ -35,7 +35,7 @@ class TestPluginLoggerUtilsTagEnable < TestPluginLoggerUtilsBase
   def test_logging_disabled_for_tag_type_overrides_level
     ctx = create_test_context(
       'plugin_log_level' => 'debug',
-      'plugin_logging' => { 'MY_TAG' => false }
+      'plugin_logging' => { 'MY_TAG' => false },
     )
     mock_logger = Minitest::Mock.new
 
@@ -66,7 +66,8 @@ class TestPluginLoggerUtilsConsoleOutput < TestPluginLoggerUtilsBase
 
     mock_logger.verify
     assert_match %r{<!-- \[INFO\] MY_TAG_FAILURE: Reason='Test'\s*SourcePage='path/page\.html' -->},
-                 html_output, 'HTML comment should still be generated'
+                 html_output,
+                 'HTML comment should still be generated'
   end
 
   def test_console_log_uses_default_global_level_if_not_set
@@ -123,7 +124,7 @@ end
 class TestPluginLoggerUtilsHtmlComments < TestPluginLoggerUtilsBase
   def test_html_comment_in_non_production_when_enabled_and_level_met
     ctx = create_test_context(
-      'environment' => 'test', 'plugin_log_level' => 'debug', 'plugin_logging' => { 'MY_TAG' => true }
+      'environment' => 'test', 'plugin_log_level' => 'debug', 'plugin_logging' => { 'MY_TAG' => true },
     )
 
     html_output = run_with_debug_logger(ctx, 'Debug Test')
@@ -133,7 +134,7 @@ class TestPluginLoggerUtilsHtmlComments < TestPluginLoggerUtilsBase
 
   def test_html_comment_in_non_production_even_if_console_suppressed_by_level
     ctx = create_test_context(
-      'environment' => 'test', 'plugin_log_level' => 'error', 'plugin_logging' => { 'MY_TAG' => true }
+      'environment' => 'test', 'plugin_log_level' => 'error', 'plugin_logging' => { 'MY_TAG' => true },
     )
 
     html_output = run_with_no_console(ctx, 'Warn Test', :warn)
@@ -143,7 +144,7 @@ class TestPluginLoggerUtilsHtmlComments < TestPluginLoggerUtilsBase
 
   def test_no_html_comment_in_production_even_if_enabled_and_level_met
     ctx = create_test_context(
-      'environment' => 'production', 'plugin_log_level' => 'debug', 'plugin_logging' => { 'MY_TAG' => true }
+      'environment' => 'production', 'plugin_log_level' => 'debug', 'plugin_logging' => { 'MY_TAG' => true },
     )
 
     html_output = run_with_debug_logger(ctx, 'Prod Test')
@@ -339,8 +340,11 @@ class TestPluginLoggerUtilsIdentifiersAndEscaping < TestPluginLoggerUtilsBase
     html_output = ''
     Jekyll.stub :logger, mock_logger do
       html_output = Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-        context: ctx, tag_type: 'MY_TAG', reason: 'Test',
-        identifiers: { 'book' => 'Dune', 'author' => 'Herbert' }, level: :warn
+        context: ctx,
+        tag_type: 'MY_TAG',
+        reason: 'Test',
+        identifiers: { 'book' => 'Dune', 'author' => 'Herbert' },
+        level: :warn,
       )
     end
 
@@ -357,8 +361,11 @@ class TestPluginLoggerUtilsIdentifiersAndEscaping < TestPluginLoggerUtilsBase
     html_output = ''
     Jekyll.stub :logger, mock_logger do
       html_output = Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-        context: ctx, tag_type: 'MY_TAG', reason: '<script>alert("xss")</script>',
-        identifiers: { 'key' => '<b>bold</b>' }, level: :warn
+        context: ctx,
+        tag_type: 'MY_TAG',
+        reason: '<script>alert("xss")</script>',
+        identifiers: { 'key' => '<b>bold</b>' },
+        level: :warn,
       )
     end
 

@@ -27,9 +27,11 @@ module Jekyll
 
           all_books = all_published_books(include_archived: false)
           if all_books.empty?
-            return return_info('ALL_BOOKS_BY_TITLE_ALPHA_GROUP',
-                               'No published books found to group by title.',
-                               key: :alpha_groups)
+            return return_info(
+              'ALL_BOOKS_BY_TITLE_ALPHA_GROUP',
+              'No published books found to group by title.',
+              key: :alpha_groups,
+            )
           end
 
           alpha_groups_list = group_books_by_alpha(all_books)
@@ -48,8 +50,10 @@ module Jekyll
         end
 
         def create_book_alpha_meta(book)
-          sort_title = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(book.data['title'].to_s,
-                                                                                   strip_articles: true)
+          sort_title = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(
+            book.data['title'].to_s,
+            strip_articles: true,
+          )
           first_letter = sort_title.empty? ? '#' : sort_title[0].upcase
           first_letter = '#' unless first_letter.match?(/[A-Z]/)
           { book: book, sort_title: sort_title, first_letter: first_letter }

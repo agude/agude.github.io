@@ -15,34 +15,44 @@ class TestLinkCacheGeneratorBase < Minitest::Test
   private
 
   def setup_mock_pages
-    @author_page = create_doc({ 'title' => 'Jane Doe', 'layout' => 'author_page', 'pen_names' => ['J.D.'] },
-                              '/authors/jane-doe.html')
+    @author_page = create_doc(
+      { 'title' => 'Jane Doe', 'layout' => 'author_page', 'pen_names' => ['J.D.'] },
+      '/authors/jane-doe.html',
+    )
     @series_page = create_doc({ 'title' => 'The Foundation', 'layout' => 'series_page' }, '/series/foundation.html')
     @sidebar_page = create_doc({ 'title' => 'About Page', 'sidebar_include' => true }, '/about.html')
     @topbar_page = create_doc(
       { 'title' => 'By Series', 'book_topbar_include' => true, 'short_title' => 'Series' },
-      '/books/by-series.html'
+      '/books/by-series.html',
     )
     @paginated_page = create_doc({ 'title' => 'Blog Page 2', 'sidebar_include' => true }, '/blog/page2/')
   end
 
   def setup_mock_books
-    @book1 = create_doc({ 'title' => 'Book One', 'published' => true, 'book_authors' => ['Author A'] },
-                        '/books/book-one.html')
-    @book2_unpublished = create_doc({ 'title' => 'Unpublished Book', 'published' => false },
-                                    '/books/unpublished.html')
+    @book1 = create_doc(
+      { 'title' => 'Book One', 'published' => true, 'book_authors' => ['Author A'] },
+      '/books/book-one.html',
+    )
+    @book2_unpublished = create_doc(
+      { 'title' => 'Unpublished Book', 'published' => false },
+      '/books/unpublished.html',
+    )
     @book3_no_title = create_doc({ 'title' => nil, 'published' => true }, '/books/no-title.html')
-    @dup_book_a = create_doc({ 'title' => 'Duplicate Title', 'published' => true, 'book_authors' => ['Author A'] },
-                             '/books/dup-a.html')
-    @dup_book_b = create_doc({ 'title' => 'Duplicate Title', 'published' => true, 'book_authors' => ['Author B'] },
-                             '/books/dup-b.html')
+    @dup_book_a = create_doc(
+      { 'title' => 'Duplicate Title', 'published' => true, 'book_authors' => ['Author A'] },
+      '/books/dup-a.html',
+    )
+    @dup_book_b = create_doc(
+      { 'title' => 'Duplicate Title', 'published' => true, 'book_authors' => ['Author B'] },
+      '/books/dup-b.html',
+    )
   end
 
   def create_default_site
     @site = create_site(
       {},
       { 'books' => [@book1, @book2_unpublished, @book3_no_title, @dup_book_a, @dup_book_b] },
-      [@author_page, @series_page, @sidebar_page, @topbar_page, @paginated_page]
+      [@author_page, @series_page, @sidebar_page, @topbar_page, @paginated_page],
     )
   end
 end
@@ -119,7 +129,7 @@ class TestLinkCacheGeneratorBasicOperations < TestLinkCacheGeneratorBase
     canonical_book = create_doc({ 'title' => 'Canonical Book', 'published' => true }, '/books/canonical.html')
     archived_book = create_doc(
       { 'title' => 'Canonical Book', 'published' => true, 'canonical_url' => '/books/canonical.html' },
-      '/books/canonical/2023.html'
+      '/books/canonical/2023.html',
     )
     standalone_book = create_doc({ 'title' => 'Standalone Book', 'published' => true }, '/books/standalone.html')
     [canonical_book, archived_book, standalone_book]
@@ -180,17 +190,17 @@ class TestLinkCacheGeneratorValidation < TestLinkCacheGeneratorBase
   def create_raw_book_link_docs
     target_book = create_doc(
       { 'title' => 'Target Book', 'published' => true, 'book_authors' => ['Author C'], 'path' => '_books/target.md' },
-      '/books/target-book.html'
+      '/books/target-book.html',
     )
     source_book_md = create_doc(
       { 'title' => 'Source Markdown', 'published' => true, 'path' => '_books/source-md.md' },
       '/books/source-md.html',
-      'Link via markdown: [MD Link](/books/target-book.html)'
+      'Link via markdown: [MD Link](/books/target-book.html)',
     )
     source_post_html = create_doc(
       { 'title' => 'Source HTML Post', 'published' => true, 'path' => '_posts/source-html.md' },
       '/posts/source-html.html',
-      'Link via HTML: <a href="/books/target-book.html">HTML Link</a>'
+      'Link via HTML: <a href="/books/target-book.html">HTML Link</a>',
     )
     [target_book, source_book_md, source_post_html]
   end
@@ -198,12 +208,12 @@ class TestLinkCacheGeneratorValidation < TestLinkCacheGeneratorBase
   def create_raw_author_link_docs
     author_page_for_test = create_doc(
       { 'title' => 'Test Author', 'layout' => 'author_page', 'path' => 'authors/test.md' },
-      '/authors/test.html'
+      '/authors/test.html',
     )
     source_post = create_doc(
       { 'title' => 'Source Post', 'published' => true, 'path' => '_posts/linking-post.md' },
       '/posts/linking-post.html',
-      'Link to an author: [Test Author](/authors/test.html)'
+      'Link to an author: [Test Author](/authors/test.html)',
     )
     [author_page_for_test, source_post]
   end
@@ -211,12 +221,12 @@ class TestLinkCacheGeneratorValidation < TestLinkCacheGeneratorBase
   def create_raw_series_link_docs
     series_page_for_test = create_doc(
       { 'title' => 'Test Series', 'layout' => 'series_page', 'path' => 'series/test.md' },
-      '/series/test.html'
+      '/series/test.html',
     )
     source_book = create_doc(
       { 'title' => 'Source Book', 'published' => true, 'path' => '_books/linking-book.md' },
       '/books/linking-book.html',
-      'Link to a series: <a href="/series/test.html">Test Series</a>'
+      'Link to a series: <a href="/series/test.html">Test Series</a>',
     )
     [series_page_for_test, source_book]
   end
@@ -269,12 +279,14 @@ class TestLinkCacheGeneratorBacklinks < TestLinkCacheGeneratorBase
   end
 
   def test_backlink_priority_is_enforced
-    target_book = create_doc({ 'title' => 'Target Book', 'series' => 'Target Series', 'published' => true },
-                             '/books/target.html')
+    target_book = create_doc(
+      { 'title' => 'Target Book', 'series' => 'Target Series', 'published' => true },
+      '/books/target.html',
+    )
     source_doc = create_doc(
       { 'title' => 'Source Doc', 'published' => true },
       '/books/source.html',
-      'I love the {% series_link "Target Series" %}, especially {% book_link "Target Book" %}.'
+      'I love the {% series_link "Target Series" %}, especially {% book_link "Target Book" %}.',
     )
 
     site = create_site({}, { 'books' => [target_book, source_doc] })
@@ -295,61 +307,92 @@ class TestLinkCacheGeneratorBacklinks < TestLinkCacheGeneratorBase
   private
 
   def create_short_story_test_docs
-    anthology1 = create_doc({ 'title' => 'Anthology One', 'is_anthology' => true, 'published' => true },
-                            '/books/anthology-one.html', '### {% short_story_title "Unique Story" %}')
-    anthology2 = create_doc({ 'title' => 'Anthology Two', 'is_anthology' => true, 'published' => true },
-                            '/books/anthology-two.html', '### {% short_story_title "Duplicate Story" %}')
-    anthology3 = create_doc({ 'title' => 'Anthology Three', 'is_anthology' => true, 'published' => true },
-                            '/books/anthology-three.html', '### {% short_story_title "Duplicate Story" %}')
-    source_book1 = create_doc({ 'title' => 'Source 1', 'published' => true }, '/books/source1.html',
-                              'I read {% short_story_link "Unique Story" %}.')
+    anthology1 = create_doc(
+      { 'title' => 'Anthology One', 'is_anthology' => true, 'published' => true },
+      '/books/anthology-one.html',
+      '### {% short_story_title "Unique Story" %}',
+    )
+    anthology2 = create_doc(
+      { 'title' => 'Anthology Two', 'is_anthology' => true, 'published' => true },
+      '/books/anthology-two.html',
+      '### {% short_story_title "Duplicate Story" %}',
+    )
+    anthology3 = create_doc(
+      { 'title' => 'Anthology Three', 'is_anthology' => true, 'published' => true },
+      '/books/anthology-three.html',
+      '### {% short_story_title "Duplicate Story" %}',
+    )
+    source_book1 = create_doc(
+      { 'title' => 'Source 1', 'published' => true },
+      '/books/source1.html',
+      'I read {% short_story_link "Unique Story" %}.',
+    )
     source_book2 = create_doc(
       { 'title' => 'Source 2', 'published' => true },
       '/books/source2.html',
-      'I also read {% short_story_link "Duplicate Story" from_book="Anthology Three" %}.'
+      'I also read {% short_story_link "Duplicate Story" from_book="Anthology Three" %}.',
     )
     [[anthology1, anthology2, anthology3], [source_book1, source_book2]]
   end
 
   def create_ambiguous_short_story_test_docs
-    anthology2 = create_doc({ 'title' => 'Anthology Two', 'is_anthology' => true, 'published' => true },
-                            '/books/anthology-two.html', '### {% short_story_title "Duplicate Story" %}')
-    anthology3 = create_doc({ 'title' => 'Anthology Three', 'is_anthology' => true, 'published' => true },
-                            '/books/anthology-three.html', '### {% short_story_title "Duplicate Story" %}')
+    anthology2 = create_doc(
+      { 'title' => 'Anthology Two', 'is_anthology' => true, 'published' => true },
+      '/books/anthology-two.html',
+      '### {% short_story_title "Duplicate Story" %}',
+    )
+    anthology3 = create_doc(
+      { 'title' => 'Anthology Three', 'is_anthology' => true, 'published' => true },
+      '/books/anthology-three.html',
+      '### {% short_story_title "Duplicate Story" %}',
+    )
     source_ambiguous = create_doc(
       { 'title' => 'Source Ambiguous', 'published' => true },
       '/books/source-ambiguous.html',
-      'I read {% short_story_link "Duplicate Story" %}.'
+      'I read {% short_story_link "Duplicate Story" %}.',
     )
     [[anthology2, anthology3], source_ambiguous]
   end
 
   def create_series_backlink_test_docs
-    series_book1 = create_doc({ 'title' => 'Series Book 1', 'series' => 'Test Series', 'published' => true },
-                              '/books/series1.html')
-    series_book2 = create_doc({ 'title' => 'Series Book 2', 'series' => 'Test Series', 'published' => true },
-                              '/books/series2.html')
+    series_book1 = create_doc(
+      { 'title' => 'Series Book 1', 'series' => 'Test Series', 'published' => true },
+      '/books/series1.html',
+    )
+    series_book2 = create_doc(
+      { 'title' => 'Series Book 2', 'series' => 'Test Series', 'published' => true },
+      '/books/series2.html',
+    )
     source_series_link = create_doc(
       { 'title' => 'Source Series Link', 'published' => true },
       '/books/source-series.html',
-      'A general mention of the series: {% series_link "Test Series" %}'
+      'A general mention of the series: {% series_link "Test Series" %}',
     )
     source_book_link = create_doc(
       { 'title' => 'Source Book Link', 'published' => true },
       '/books/source-book.html',
-      'A specific mention of one book: {% book_link "Series Book 1" %}'
+      'A specific mention of one book: {% book_link "Series Book 1" %}',
     )
     [[series_book1, series_book2], [source_series_link, source_book_link]]
   end
 
   def create_non_book_source_docs
     target_book = create_doc({ 'title' => 'Target Book', 'published' => true }, '/books/target.html')
-    source_book = create_doc({ 'title' => 'Source Book', 'published' => true }, '/books/source-book.html',
-                             '{% book_link "Target Book" %}')
-    source_post = create_doc({ 'title' => 'Source Post', 'published' => true }, '/posts/source-post.html',
-                             '{% book_link "Target Book" %}')
-    source_page = create_doc({ 'title' => 'Source Page', 'published' => true }, '/source-page.html',
-                             '{% book_link "Target Book" %}')
+    source_book = create_doc(
+      { 'title' => 'Source Book', 'published' => true },
+      '/books/source-book.html',
+      '{% book_link "Target Book" %}',
+    )
+    source_post = create_doc(
+      { 'title' => 'Source Post', 'published' => true },
+      '/posts/source-post.html',
+      '{% book_link "Target Book" %}',
+    )
+    source_page = create_doc(
+      { 'title' => 'Source Page', 'published' => true },
+      '/source-page.html',
+      '{% book_link "Target Book" %}',
+    )
     [target_book, source_book, source_post, source_page]
   end
 

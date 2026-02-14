@@ -28,7 +28,7 @@ class TestBookLinkResolver < Minitest::Test
     @site = create_site(
       {},
       { 'books' => [@unique_book, @ambiguous_book_a, @ambiguous_book_b, @pen_name_book, @book_with_empty_author_list] },
-      [@author_a_page, @author_b_page]
+      [@author_a_page, @author_b_page],
     )
     # Enable logging for this utility's tag type for all tests in this file.
     @site.config['plugin_logging']['RENDER_BOOK_LINK'] = true
@@ -188,15 +188,17 @@ class TestBookLinkResolver < Minitest::Test
     canonical_data = { 'title' => 'Same Title', 'published' => true, 'book_authors' => ['Author A'] }
     canonical_book = create_doc(canonical_data, '/books/canonical.html')
     archived_data = {
-      'title' => 'Same Title', 'published' => true, 'book_authors' => ['Author A'],
-      'canonical_url' => '/books/canonical.html'
+      'title' => 'Same Title',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'canonical_url' => '/books/canonical.html',
     }
     archived_book = create_doc(archived_data, '/books/archived.html')
 
     site = create_site(
       {},
       { 'books' => [canonical_book, archived_book] },
-      [@author_a_page]
+      [@author_a_page],
     )
     ctx = create_context({}, { site: site, page: @page })
 
@@ -212,8 +214,10 @@ class TestBookLinkResolver < Minitest::Test
     canon_a_data = { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author A'] }
     canonical_a = create_doc(canon_a_data, '/books/ambiguous-a.html')
     archived_a_data = {
-      'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author A'],
-      'canonical_url' => '/books/ambiguous-a.html'
+      'title' => 'Ambiguous Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'canonical_url' => '/books/ambiguous-a.html',
     }
     archived_a = create_doc(archived_a_data, '/books/archived-a.html')
     canon_b_data = { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author B'] }
@@ -222,7 +226,7 @@ class TestBookLinkResolver < Minitest::Test
     site = create_site(
       {},
       { 'books' => [canonical_a, archived_a, canonical_b] },
-      [@author_a_page, @author_b_page]
+      [@author_a_page, @author_b_page],
     )
     ctx = create_context({}, { site: site, page: @page })
 
@@ -249,8 +253,10 @@ class TestBookLinkResolver < Minitest::Test
     book_a_data = { 'title' => 'External Canon Test', 'published' => true, 'book_authors' => ['Author A'] }
     book_a = create_doc(book_a_data, '/books/ext-a.html')
     book_b_data = {
-      'title' => 'External Canon Test', 'published' => true, 'book_authors' => ['Author B'],
-      'canonical_url' => 'http://some-other.site/original'
+      'title' => 'External Canon Test',
+      'published' => true,
+      'book_authors' => ['Author B'],
+      'canonical_url' => 'http://some-other.site/original',
     }
     book_b_external = create_doc(book_b_data, '/books/ext-b.html')
 
@@ -342,11 +348,19 @@ class TestBookLinkResolver < Minitest::Test
 
   def test_render_book_with_date_filter_succeeds
     # Setup: Two reviews of the same book on different dates
-    review1_data = { 'title' => 'Multi Review Book', 'published' => true,
-                     'book_authors' => ['Author A'], 'date' => Time.new(2023, 10, 17) }
+    review1_data = {
+      'title' => 'Multi Review Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'date' => Time.new(2023, 10, 17),
+    }
     review1 = create_doc(review1_data, '/books/multi-review-1.html')
-    review2_data = { 'title' => 'Multi Review Book', 'published' => true,
-                     'book_authors' => ['Author A'], 'date' => Time.new(2025, 9, 20) }
+    review2_data = {
+      'title' => 'Multi Review Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'date' => Time.new(2025, 9, 20),
+    }
     review2 = create_doc(review2_data, '/books/multi-review-2.html')
 
     site = create_site({}, { 'books' => [review1, review2] }, [@author_a_page])
@@ -355,13 +369,13 @@ class TestBookLinkResolver < Minitest::Test
     # Without date filter, this would be ambiguous (same author, same title)
     # With date filter, it should resolve to the correct one
     output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
-      'Multi Review Book', nil, nil, '2023-10-17'
+      'Multi Review Book', nil, nil, '2023-10-17',
     )
     expected = '<a href="/books/multi-review-1.html"><cite class="book-title">Multi Review Book</cite></a>'
     assert_equal expected, output
 
     output2 = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
-      'Multi Review Book', nil, nil, '2025-09-20'
+      'Multi Review Book', nil, nil, '2025-09-20',
     )
     expected2 = '<a href="/books/multi-review-2.html"><cite class="book-title">Multi Review Book</cite></a>'
     assert_equal expected2, output2
@@ -369,23 +383,31 @@ class TestBookLinkResolver < Minitest::Test
 
   def test_render_book_with_date_filter_and_author_succeeds
     # Both filters together
-    review_data = { 'title' => 'Dated Book', 'published' => true,
-                    'book_authors' => ['Author A'], 'date' => Time.new(2023, 10, 17) }
+    review_data = {
+      'title' => 'Dated Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'date' => Time.new(2023, 10, 17),
+    }
     review = create_doc(review_data, '/books/dated.html')
 
     site = create_site({}, { 'books' => [review] }, [@author_a_page])
     ctx = create_context({}, { site: site, page: @page })
 
     output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
-      'Dated Book', nil, 'Author A', '2023-10-17'
+      'Dated Book', nil, 'Author A', '2023-10-17',
     )
     expected = '<a href="/books/dated.html"><cite class="book-title">Dated Book</cite></a>'
     assert_equal expected, output
   end
 
   def test_render_book_with_wrong_date_filter_warns
-    review_data = { 'title' => 'Wrong Date Book', 'published' => true,
-                    'book_authors' => ['Author A'], 'date' => Time.new(2023, 10, 17) }
+    review_data = {
+      'title' => 'Wrong Date Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'date' => Time.new(2023, 10, 17),
+    }
     review = create_doc(review_data, '/books/wrong-date.html')
 
     site = create_site({}, { 'books' => [review] }, [@author_a_page])
@@ -395,7 +417,7 @@ class TestBookLinkResolver < Minitest::Test
     output = nil
     Jekyll.stub :logger, @silent_logger_stub do
       output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
-        'Wrong Date Book', nil, nil, '2020-01-01'
+        'Wrong Date Book', nil, nil, '2020-01-01',
       )
     end
     expected_pattern = '<!-- \[WARN\] RENDER_BOOK_LINK_FAILURE: ' \
@@ -430,7 +452,7 @@ class TestBookLinkResolver < Minitest::Test
     Jekyll.stub :logger, @silent_logger_stub do
       # With a date filter, should fail because book has no date
       output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
-        'No Date Book', nil, nil, '2023-10-17'
+        'No Date Book', nil, nil, '2023-10-17',
       )
     end
     expected_pattern = "Reason='Book title exists, but not on the specified date.'"
@@ -439,8 +461,12 @@ class TestBookLinkResolver < Minitest::Test
 
   def test_render_book_with_date_as_date_object
     # This tests line 138-139: `when Date` branch in normalize_date
-    review_data = { 'title' => 'Date Object Book', 'published' => true, 'book_authors' => ['Author A'],
-                    'date' => Time.new(2023, 10, 17) }
+    review_data = {
+      'title' => 'Date Object Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'date' => Time.new(2023, 10, 17),
+    }
     review = create_doc(review_data, '/books/date-obj.html')
 
     site = create_site({}, { 'books' => [review] }, [@author_a_page])
@@ -449,7 +475,7 @@ class TestBookLinkResolver < Minitest::Test
     # Stub the book's date method to return a Date object instead of Time
     review.stub :date, Date.new(2023, 10, 17) do
       output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
-        'Date Object Book', nil, nil, '2023-10-17'
+        'Date Object Book', nil, nil, '2023-10-17',
       )
       expected = '<a href="/books/date-obj.html"><cite class="book-title">Date Object Book</cite></a>'
       assert_equal expected, output
@@ -458,8 +484,12 @@ class TestBookLinkResolver < Minitest::Test
 
   def test_render_book_with_date_as_string
     # This tests line 142-143: `else Date.parse(date_input.to_s)` branch
-    review_data = { 'title' => 'String Date Book', 'published' => true, 'book_authors' => ['Author A'],
-                    'date' => Time.new(2023, 10, 17) }
+    review_data = {
+      'title' => 'String Date Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'date' => Time.new(2023, 10, 17),
+    }
     review = create_doc(review_data, '/books/string-date.html')
 
     site = create_site({}, { 'books' => [review] }, [@author_a_page])
@@ -468,7 +498,7 @@ class TestBookLinkResolver < Minitest::Test
     # Stub the book's date method to return a string
     review.stub :date, '2023-10-17' do
       output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
-        'String Date Book', nil, nil, '2023-10-17'
+        'String Date Book', nil, nil, '2023-10-17',
       )
       expected = '<a href="/books/string-date.html"><cite class="book-title">String Date Book</cite></a>'
       assert_equal expected, output
@@ -597,26 +627,38 @@ class TestBookLinkResolver < Minitest::Test
   end
 
   def test_resolve_data_date_filter_match
-    review1_data = { 'title' => 'Dated Book', 'published' => true,
-                     'book_authors' => ['Author A'], 'date' => Time.new(2023, 10, 17) }
+    review1_data = {
+      'title' => 'Dated Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'date' => Time.new(2023, 10, 17),
+    }
     review1 = create_doc(review1_data, '/books/dated-1.html')
-    review2_data = { 'title' => 'Dated Book', 'published' => true,
-                     'book_authors' => ['Author A'], 'date' => Time.new(2025, 9, 20) }
+    review2_data = {
+      'title' => 'Dated Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'date' => Time.new(2025, 9, 20),
+    }
     review2 = create_doc(review2_data, '/books/dated-2.html')
 
     site = create_site({}, { 'books' => [review1, review2] }, [@author_a_page])
     ctx = create_context({}, { site: site, page: @page })
 
     data = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve_data(
-      'Dated Book', nil, nil, '2023-10-17'
+      'Dated Book', nil, nil, '2023-10-17',
     )
     assert_equal :found, data[:status]
     assert_equal '/books/dated-1.html', data[:url]
   end
 
   def test_resolve_data_date_filter_mismatch
-    review_data = { 'title' => 'Wrong Date Book', 'published' => true,
-                    'book_authors' => ['Author A'], 'date' => Time.new(2023, 10, 17) }
+    review_data = {
+      'title' => 'Wrong Date Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'date' => Time.new(2023, 10, 17),
+    }
     review = create_doc(review_data, '/books/wrong-date.html')
 
     site = create_site({}, { 'books' => [review] }, [@author_a_page])
@@ -626,7 +668,7 @@ class TestBookLinkResolver < Minitest::Test
     data = nil
     Jekyll.stub :logger, @silent_logger_stub do
       data = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve_data(
-        'Wrong Date Book', nil, nil, '2020-01-01'
+        'Wrong Date Book', nil, nil, '2020-01-01',
       )
     end
     assert_equal :not_found, data[:status]
@@ -652,15 +694,19 @@ class TestBookLinkResolver < Minitest::Test
   end
 
   def test_resolve_data_date_and_author_combined
-    review_data = { 'title' => 'Combined Filter Book', 'published' => true,
-                    'book_authors' => ['Author A'], 'date' => Time.new(2023, 10, 17) }
+    review_data = {
+      'title' => 'Combined Filter Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'date' => Time.new(2023, 10, 17),
+    }
     review = create_doc(review_data, '/books/combined.html')
 
     site = create_site({}, { 'books' => [review] }, [@author_a_page])
     ctx = create_context({}, { site: site, page: @page })
 
     data = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve_data(
-      'Combined Filter Book', nil, 'Author A', '2023-10-17'
+      'Combined Filter Book', nil, 'Author A', '2023-10-17',
     )
     assert_equal :found, data[:status]
     assert_equal '/books/combined.html', data[:url]
@@ -670,8 +716,10 @@ class TestBookLinkResolver < Minitest::Test
     canonical_data = { 'title' => 'Archive Test', 'published' => true, 'book_authors' => ['Author A'] }
     canonical_book = create_doc(canonical_data, '/books/canonical.html')
     archived_data = {
-      'title' => 'Archive Test', 'published' => true, 'book_authors' => ['Author A'],
-      'canonical_url' => '/books/canonical.html'
+      'title' => 'Archive Test',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'canonical_url' => '/books/canonical.html',
     }
     archived_book = create_doc(archived_data, '/books/archived.html')
 

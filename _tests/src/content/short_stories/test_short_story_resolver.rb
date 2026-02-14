@@ -43,13 +43,21 @@ class TestShortStoryResolver < Minitest::Test
     archived_url = '/books/canonical-anthology/2023.html'
     @site.data['link_cache']['url_to_canonical_map'] = {
       canonical_url => canonical_url,
-      archived_url => canonical_url
+      archived_url => canonical_url,
     }
     @site.data['link_cache']['short_stories']['story in archive'] = [
-      { 'title' => 'Story in Archive', 'parent_book_title' => 'Canonical Anthology', 'url' => canonical_url,
-        'slug' => 'story-slug' },
-      { 'title' => 'Story in Archive', 'parent_book_title' => 'Archived Anthology', 'url' => archived_url,
-        'slug' => 'story-slug' }
+      {
+        'title' => 'Story in Archive',
+        'parent_book_title' => 'Canonical Anthology',
+        'url' => canonical_url,
+        'slug' => 'story-slug',
+      },
+      {
+        'title' => 'Story in Archive',
+        'parent_book_title' => 'Archived Anthology',
+        'url' => archived_url,
+        'slug' => 'story-slug',
+      },
     ]
 
     # This would be ambiguous without the new logic
@@ -115,8 +123,12 @@ class TestShortStoryResolver < Minitest::Test
   def test_render_link_is_created_for_anchor_on_current_page
     # Simulate the story being on the current page
     @mock_story_cache['story on this page'] = [
-      { 'title' => 'Story On This Page', 'parent_book_title' => 'Current Book', 'url' => '/current-page.html',
-        'slug' => 'story-on-this-page' }
+      {
+        'title' => 'Story On This Page',
+        'parent_book_title' => 'Current Book',
+        'url' => '/current-page.html',
+        'slug' => 'story-on-this-page',
+      },
     ]
     output = render_util('Story On This Page')
     expected = '<a href="#story-on-this-page"><cite class="short-story-title">Story On This Page</cite></a>'
@@ -184,23 +196,43 @@ class TestShortStoryResolver < Minitest::Test
   def create_mock_story_cache
     @mock_story_cache = {
       'unique story' => [
-        { 'title' => 'Unique Story', 'parent_book_title' => 'Book One', 'url' => '/books/one.html',
-          'slug' => 'unique-story' }
+        {
+          'title' => 'Unique Story',
+          'parent_book_title' => 'Book One',
+          'url' => '/books/one.html',
+          'slug' => 'unique-story',
+        },
       ],
       # Same title in DIFFERENT books. This should still require disambiguation.
       'duplicate story' => [
-        { 'title' => 'Duplicate Story', 'parent_book_title' => 'Book One', 'url' => '/books/one.html',
-          'slug' => 'duplicate-story' },
-        { 'title' => 'Duplicate Story', 'parent_book_title' => 'Book Two', 'url' => '/books/two.html',
-          'slug' => 'duplicate-story' }
+        {
+          'title' => 'Duplicate Story',
+          'parent_book_title' => 'Book One',
+          'url' => '/books/one.html',
+          'slug' => 'duplicate-story',
+        },
+        {
+          'title' => 'Duplicate Story',
+          'parent_book_title' => 'Book Two',
+          'url' => '/books/two.html',
+          'slug' => 'duplicate-story',
+        },
       ],
       # Same title mentioned multiple times in the SAME book. This is NOT ambiguous.
       'story mentioned twice in one book' => [
-        { 'title' => 'Story Mentioned Twice', 'parent_book_title' => 'Book Three', 'url' => '/books/three.html',
-          'slug' => 'story-mentioned-twice' },
-        { 'title' => 'Story Mentioned Twice', 'parent_book_title' => 'Book Three', 'url' => '/books/three.html',
-          'slug' => 'story-mentioned-twice-2' }
-      ]
+        {
+          'title' => 'Story Mentioned Twice',
+          'parent_book_title' => 'Book Three',
+          'url' => '/books/three.html',
+          'slug' => 'story-mentioned-twice',
+        },
+        {
+          'title' => 'Story Mentioned Twice',
+          'parent_book_title' => 'Book Three',
+          'url' => '/books/three.html',
+          'slug' => 'story-mentioned-twice-2',
+        },
+      ],
     }
   end
 

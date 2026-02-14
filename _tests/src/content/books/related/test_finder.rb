@@ -15,7 +15,7 @@ class TestRelatedBooksFinder < Minitest::Test
     @site_config_base = {
       'url' => 'http://example.com',
       'plugin_logging' => { 'RELATED_BOOKS' => true, 'RELATED_BOOKS_SERIES' => true },
-      'plugin_log_level' => 'debug'
+      'plugin_log_level' => 'debug',
     }
     @test_time_now = Time.parse('2024-03-15 10:00:00 EST')
     @helper = BookTestHelper.new(@test_time_now, @site_config_base)
@@ -205,16 +205,26 @@ class TestRelatedBooksFinder < Minitest::Test
   def test_excludes_unpublished_books
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
-      title: 'Current Book', authors: ['Author X'],
-      date_offset_days: 10, url_suffix: 'current', collection: coll
+      title: 'Current Book',
+      authors: ['Author X'],
+      date_offset_days: 10,
+      url_suffix: 'current',
+      collection: coll,
     )
     published_book = @helper.create_book(
-      title: 'Published Book', authors: ['Author X'],
-      date_offset_days: 5, url_suffix: 'published', collection: coll
+      title: 'Published Book',
+      authors: ['Author X'],
+      date_offset_days: 5,
+      url_suffix: 'published',
+      collection: coll,
     )
     unpublished_book = @helper.create_book(
-      title: 'Unpublished Book', authors: ['Author X'],
-      date_offset_days: 3, url_suffix: 'unpublished', collection: coll, published: false
+      title: 'Unpublished Book',
+      authors: ['Author X'],
+      date_offset_days: 3,
+      url_suffix: 'unpublished',
+      collection: coll,
+      published: false,
     )
 
     coll.docs = [curr, published_book, unpublished_book].compact
@@ -235,16 +245,25 @@ class TestRelatedBooksFinder < Minitest::Test
   def test_excludes_future_dated_books
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
-      title: 'Current Book', authors: ['Author X'],
-      date_offset_days: 10, url_suffix: 'current', collection: coll
+      title: 'Current Book',
+      authors: ['Author X'],
+      date_offset_days: 10,
+      url_suffix: 'current',
+      collection: coll,
     )
     past_book = @helper.create_book(
-      title: 'Past Book', authors: ['Author X'],
-      date_offset_days: 5, url_suffix: 'past', collection: coll
+      title: 'Past Book',
+      authors: ['Author X'],
+      date_offset_days: 5,
+      url_suffix: 'past',
+      collection: coll,
     )
     future_book = @helper.create_book(
-      title: 'Future Book', authors: ['Author X'],
-      date_offset_days: -5, url_suffix: 'future', collection: coll
+      title: 'Future Book',
+      authors: ['Author X'],
+      date_offset_days: -5,
+      url_suffix: 'future',
+      collection: coll,
     )
 
     coll.docs = [curr, past_book, future_book].compact
@@ -293,13 +312,19 @@ class TestRelatedBooksFinder < Minitest::Test
   def test_limits_results_to_max_books
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
-      title: 'Current Book', authors: ['Author X'],
-      date_offset_days: 20, url_suffix: 'current', collection: coll
+      title: 'Current Book',
+      authors: ['Author X'],
+      date_offset_days: 20,
+      url_suffix: 'current',
+      collection: coll,
     )
     books = (1..10).map do |i|
       @helper.create_book(
-        title: "Book #{i}", authors: ['Author X'],
-        date_offset_days: i, url_suffix: "book#{i}", collection: coll
+        title: "Book #{i}",
+        authors: ['Author X'],
+        date_offset_days: i,
+        url_suffix: "book#{i}",
+        collection: coll,
       )
     end
     coll.docs = [curr] + books
@@ -316,17 +341,26 @@ class TestRelatedBooksFinder < Minitest::Test
   def test_excludes_current_page_and_canonical_url_match
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
-      title: 'Current Book', authors: ['Author X'],
-      date_offset_days: 10, url_suffix: 'current', collection: coll,
-      extra_fm: { 'canonical_url' => '/books/canonical.html' }
+      title: 'Current Book',
+      authors: ['Author X'],
+      date_offset_days: 10,
+      url_suffix: 'current',
+      collection: coll,
+      extra_fm: { 'canonical_url' => '/books/canonical.html' },
     )
     canonical = @helper.create_book(
-      title: 'Canonical Book', authors: ['Author X'],
-      date_offset_days: 5, url_suffix: 'canonical', collection: coll
+      title: 'Canonical Book',
+      authors: ['Author X'],
+      date_offset_days: 5,
+      url_suffix: 'canonical',
+      collection: coll,
     )
     other = @helper.create_book(
-      title: 'Other Book', authors: ['Author X'],
-      date_offset_days: 3, url_suffix: 'other', collection: coll
+      title: 'Other Book',
+      authors: ['Author X'],
+      date_offset_days: 3,
+      url_suffix: 'other',
+      collection: coll,
     )
     coll.docs = [curr, canonical, other].compact
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
@@ -345,8 +379,14 @@ class TestRelatedBooksFinder < Minitest::Test
   def test_fallback_to_recent_when_page_has_no_authors
     current_page = @helper.create_book(title: 'Current No Authors', authors: [], url_suffix: 'current-no-authors')
     coll = MockCollection.new(
-      [current_page, @helper.author_x_book1_old, @helper.author_x_book2_recent,
-       @helper.recent_unrelated_book1, @helper.recent_unrelated_book2], 'books'
+      [
+        current_page,
+        @helper.author_x_book1_old,
+        @helper.author_x_book2_recent,
+        @helper.recent_unrelated_book1,
+        @helper.recent_unrelated_book2,
+      ],
+      'books',
     )
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     context = create_context({}, { site: site, page: current_page })
@@ -355,7 +395,7 @@ class TestRelatedBooksFinder < Minitest::Test
     expected_titles = [
       @helper.recent_unrelated_book1.data['title'],
       @helper.recent_unrelated_book2.data['title'],
-      @helper.author_x_book2_recent.data['title']
+      @helper.author_x_book2_recent.data['title'],
     ]
     actual_titles = result[:books].map { |b| b.data['title'] }
     assert_equal expected_titles, actual_titles
@@ -370,8 +410,16 @@ class TestRelatedBooksFinder < Minitest::Test
 
   # Helper class for test setup and utilities
   class BookTestHelper
-    attr_reader :test_time_now, :site_config_base, :author_x_book1_old, :author_x_book2_recent, :author_y_book1_recent,
-                :recent_unrelated_book1, :recent_unrelated_book2, :recent_unrelated_book3, :unpublished_book_generic, :future_dated_book_generic
+    attr_reader :test_time_now,
+                :site_config_base,
+                :author_x_book1_old,
+                :author_x_book2_recent,
+                :author_y_book1_recent,
+                :recent_unrelated_book1,
+                :recent_unrelated_book2,
+                :recent_unrelated_book3,
+                :unpublished_book_generic,
+                :future_dated_book_generic
 
     def initialize(test_time_now, site_config_base)
       @test_time_now = test_time_now
@@ -381,36 +429,57 @@ class TestRelatedBooksFinder < Minitest::Test
 
     def setup_generic_books
       @author_x_book1_old = create_book(
-        title: 'AuthorX Book1 (Old)', authors: ['Author X'],
-        date_offset_days: 20, url_suffix: 'ax_b1_old'
+        title: 'AuthorX Book1 (Old)',
+        authors: ['Author X'],
+        date_offset_days: 20,
+        url_suffix: 'ax_b1_old',
       )
       @author_x_book2_recent = create_book(
-        title: 'AuthorX Book2 (Recent)', authors: ['Author X'],
-        date_offset_days: 5, url_suffix: 'ax_b2_recent'
+        title: 'AuthorX Book2 (Recent)',
+        authors: ['Author X'],
+        date_offset_days: 5,
+        url_suffix: 'ax_b2_recent',
       )
       @author_y_book1_recent = create_book(
-        title: 'AuthorY Book1 (Recent)', authors: ['Author Y'],
-        date_offset_days: 4, url_suffix: 'ay_b1_recent'
+        title: 'AuthorY Book1 (Recent)',
+        authors: ['Author Y'],
+        date_offset_days: 4,
+        url_suffix: 'ay_b1_recent',
       )
       @recent_unrelated_book1 = create_book(
-        title: 'Recent Unrelated 1', authors: ['Author Z'],
-        date_offset_days: 1, url_suffix: 'ru1'
+        title: 'Recent Unrelated 1',
+        authors: ['Author Z'],
+        date_offset_days: 1,
+        url_suffix: 'ru1',
       )
       @recent_unrelated_book2 = create_book(
-        title: 'Recent Unrelated 2', authors: ['Author W'],
-        date_offset_days: 2, url_suffix: 'ru2'
+        title: 'Recent Unrelated 2',
+        authors: ['Author W'],
+        date_offset_days: 2,
+        url_suffix: 'ru2',
       )
       @recent_unrelated_book3 = create_book(
-        title: 'Recent Unrelated 3', authors: ['Author V'],
-        date_offset_days: 3, url_suffix: 'ru3'
+        title: 'Recent Unrelated 3',
+        authors: ['Author V'],
+        date_offset_days: 3,
+        url_suffix: 'ru3',
       )
       @unpublished_book_generic = create_book(
-        title: 'Unpublished Book Generic', series: 'Series Misc', book_num: 1,
-        authors: ['Author X'], date_offset_days: 5, url_suffix: 'unpub_gen', published: false
+        title: 'Unpublished Book Generic',
+        series: 'Series Misc',
+        book_num: 1,
+        authors: ['Author X'],
+        date_offset_days: 5,
+        url_suffix: 'unpub_gen',
+        published: false,
       )
       @future_dated_book_generic = create_book(
-        title: 'Future Book Generic', series: 'Series Misc', book_num: 1,
-        authors: ['Author X'], date_offset_days: -5, url_suffix: 'future_gen'
+        title: 'Future Book Generic',
+        series: 'Series Misc',
+        book_num: 1,
+        authors: ['Author X'],
+        date_offset_days: -5,
+        url_suffix: 'future_gen',
       )
     end
 
@@ -418,11 +487,14 @@ class TestRelatedBooksFinder < Minitest::Test
                     date_offset_days: 0, published: true, collection: nil, extra_fm: {})
       authors_data = normalize_authors(authors)
       front_matter = {
-        'title' => title, 'series' => series, 'book_number' => book_num,
-        'book_authors' => authors_data, 'published' => published,
+        'title' => title,
+        'series' => series,
+        'book_number' => book_num,
+        'book_authors' => authors_data,
+        'published' => published,
         'date' => @test_time_now - (60 * 60 * 24 * date_offset_days),
         'image' => "/images/book_#{url_suffix}.jpg",
-        'excerpt_output_override' => "#{title} excerpt."
+        'excerpt_output_override' => "#{title} excerpt.",
       }.merge(extra_fm)
       create_doc(front_matter, "/books/#{url_suffix}.html", "Content for #{title}", nil, collection)
     end
@@ -438,8 +510,13 @@ class TestRelatedBooksFinder < Minitest::Test
       coll = MockCollection.new([], 'books')
       books = (1..count).map do |i|
         create_book(
-          title: "S1B#{i}", series: 'Series 1', book_num: i, authors: ['Auth'],
-          date_offset_days: 10 - i, url_suffix: "s1b#{i}", collection: coll
+          title: "S1B#{i}",
+          series: 'Series 1',
+          book_num: i,
+          authors: ['Auth'],
+          date_offset_days: 10 - i,
+          url_suffix: "s1b#{i}",
+          collection: coll,
         )
       end
       coll.docs = books.compact
@@ -450,20 +527,40 @@ class TestRelatedBooksFinder < Minitest::Test
     def setup_unparseable_book_number_scenario
       coll = MockCollection.new([], 'books')
       s1b3 = create_book(
-        title: 'S1B3', series: 'Series 1', book_num: 3, authors: ['Auth'],
-        date_offset_days: 8, url_suffix: 's1b3', collection: coll
+        title: 'S1B3',
+        series: 'Series 1',
+        book_num: 3,
+        authors: ['Auth'],
+        date_offset_days: 8,
+        url_suffix: 's1b3',
+        collection: coll,
       )
       s1b1 = create_book(
-        title: 'S1B1', series: 'Series 1', book_num: 1, authors: ['Auth'],
-        date_offset_days: 10, url_suffix: 's1b1', collection: coll
+        title: 'S1B1',
+        series: 'Series 1',
+        book_num: 1,
+        authors: ['Auth'],
+        date_offset_days: 10,
+        url_suffix: 's1b1',
+        collection: coll,
       )
       s1b2 = create_book(
-        title: 'S1B2', series: 'Series 1', book_num: 2, authors: ['Auth'],
-        date_offset_days: 9, url_suffix: 's1b2', collection: coll
+        title: 'S1B2',
+        series: 'Series 1',
+        book_num: 2,
+        authors: ['Auth'],
+        date_offset_days: 9,
+        url_suffix: 's1b2',
+        collection: coll,
       )
       bad_num = create_book(
-        title: 'Current BadNum', series: 'Series 1', book_num: 'xyz', authors: ['Auth'],
-        date_offset_days: 1, url_suffix: 'curr_bad_num', collection: coll
+        title: 'Current BadNum',
+        series: 'Series 1',
+        book_num: 'xyz',
+        authors: ['Auth'],
+        date_offset_days: 1,
+        url_suffix: 'curr_bad_num',
+        collection: coll,
       )
       coll.docs = [s1b1, s1b2, s1b3, bad_num, @recent_unrelated_book1].compact
 
@@ -475,12 +572,21 @@ class TestRelatedBooksFinder < Minitest::Test
     def setup_zero_series_books_scenario
       coll = MockCollection.new([], 'books')
       curr = create_book(
-        title: 'Current In SeriesX', series: 'Series X', book_num: 1, authors: ['Author X'],
-        date_offset_days: 0, url_suffix: 'curr_sx', collection: coll
+        title: 'Current In SeriesX',
+        series: 'Series X',
+        book_num: 1,
+        authors: ['Author X'],
+        date_offset_days: 0,
+        url_suffix: 'curr_sx',
+        collection: coll,
       )
       coll.docs = [
-        curr, @author_x_book1_old, @author_x_book2_recent, @recent_unrelated_book1,
-        @recent_unrelated_book2, @recent_unrelated_book3
+        curr,
+        @author_x_book1_old,
+        @author_x_book2_recent,
+        @recent_unrelated_book1,
+        @recent_unrelated_book2,
+        @recent_unrelated_book3,
       ].compact
       site = create_site(@site_config_base.dup, { 'books' => coll.docs })
       context = create_context({}, { site: site, page: curr })
@@ -490,17 +596,32 @@ class TestRelatedBooksFinder < Minitest::Test
     def setup_archived_reviews_scenario
       coll = MockCollection.new([], 'books')
       curr = create_book(
-        title: 'Current Book', series: 'Series A', book_num: 1, authors: ['Auth'],
-        date_offset_days: 10, url_suffix: 'current', collection: coll
+        title: 'Current Book',
+        series: 'Series A',
+        book_num: 1,
+        authors: ['Auth'],
+        date_offset_days: 10,
+        url_suffix: 'current',
+        collection: coll,
       )
       canon = create_book(
-        title: 'Related Canonical', series: 'Series A', book_num: 2, authors: ['Auth'],
-        date_offset_days: 9, url_suffix: 'related_canon', collection: coll
+        title: 'Related Canonical',
+        series: 'Series A',
+        book_num: 2,
+        authors: ['Auth'],
+        date_offset_days: 9,
+        url_suffix: 'related_canon',
+        collection: coll,
       )
       arch = create_book(
-        title: 'Related Archived', series: 'Series A', book_num: 3, authors: ['Auth'],
-        date_offset_days: 8, url_suffix: 'related_archive',
-        collection: coll, extra_fm: { 'canonical_url' => '/some/path' }
+        title: 'Related Archived',
+        series: 'Series A',
+        book_num: 3,
+        authors: ['Auth'],
+        date_offset_days: 8,
+        url_suffix: 'related_archive',
+        collection: coll,
+        extra_fm: { 'canonical_url' => '/some/path' },
       )
       coll.docs = [curr, canon, arch].compact
       site = create_site(@site_config_base.dup, { 'books' => coll.docs })
@@ -511,13 +632,23 @@ class TestRelatedBooksFinder < Minitest::Test
     def setup_external_canonical_scenario
       coll = MockCollection.new([], 'books')
       curr = create_book(
-        title: 'Current Book', series: 'Series A', book_num: 1, authors: ['Auth'],
-        date_offset_days: 10, url_suffix: 'current', collection: coll
+        title: 'Current Book',
+        series: 'Series A',
+        book_num: 1,
+        authors: ['Auth'],
+        date_offset_days: 10,
+        url_suffix: 'current',
+        collection: coll,
       )
       ext = create_book(
-        title: 'Related External', series: 'Series A', book_num: 2, authors: ['Auth'],
-        date_offset_days: 5, url_suffix: 'related_ext',
-        collection: coll, extra_fm: { 'canonical_url' => 'http://some.other.site/path' }
+        title: 'Related External',
+        series: 'Series A',
+        book_num: 2,
+        authors: ['Auth'],
+        date_offset_days: 5,
+        url_suffix: 'related_ext',
+        collection: coll,
+        extra_fm: { 'canonical_url' => 'http://some.other.site/path' },
       )
       coll.docs = [curr, ext].compact
       site = create_site(@site_config_base.dup, { 'books' => coll.docs })

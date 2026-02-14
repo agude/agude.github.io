@@ -80,9 +80,11 @@ module Jekyll
 
       def log_empty_title(title_raw)
         Logger.log_liquid_failure(
-          context: @context, tag_type: 'RENDER_SHORT_STORY_LINK',
+          context: @context,
+          tag_type: 'RENDER_SHORT_STORY_LINK',
           reason: 'Input story title resolved to an empty string.',
-          identifiers: { TitleInput: title_raw || 'nil' }, level: :warn
+          identifiers: { TitleInput: title_raw || 'nil' },
+          level: :warn,
         )
       end
 
@@ -132,18 +134,22 @@ module Jekyll
 
       def log_not_found
         @log_output = Logger.log_liquid_failure(
-          context: @context, tag_type: 'RENDER_SHORT_STORY_LINK',
+          context: @context,
+          tag_type: 'RENDER_SHORT_STORY_LINK',
           reason: 'Could not find short story in cache.',
-          identifiers: { StoryTitle: @title_input }, level: :info
+          identifiers: { StoryTitle: @title_input },
+          level: :info,
         )
         nil
       end
 
       def log_not_found_in_book
         @log_output = Logger.log_liquid_failure(
-          context: @context, tag_type: 'RENDER_SHORT_STORY_LINK',
+          context: @context,
+          tag_type: 'RENDER_SHORT_STORY_LINK',
           reason: 'Story found in cache but not in the specified book.',
-          identifiers: { StoryTitle: @title_input, FromBook: @book_filter }, level: :warn
+          identifiers: { StoryTitle: @title_input, FromBook: @book_filter },
+          level: :warn,
         )
         nil
       end
@@ -152,9 +158,11 @@ module Jekyll
         @ambiguous = true
         books = locations.map { |loc| "'#{loc['parent_book_title']}'" }.join(', ')
         @log_output = Logger.log_liquid_failure(
-          context: @context, tag_type: 'RENDER_SHORT_STORY_LINK',
+          context: @context,
+          tag_type: 'RENDER_SHORT_STORY_LINK',
           reason: "Ambiguous story title. Use 'from_book' to specify which book.",
-          identifiers: { StoryTitle: @title_input, FoundIn: books }, level: :error
+          identifiers: { StoryTitle: @title_input, FoundIn: books },
+          level: :error,
         )
         nil
       end

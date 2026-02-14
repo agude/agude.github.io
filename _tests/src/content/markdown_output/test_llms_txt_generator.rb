@@ -111,14 +111,19 @@ class TestLlmsTxtGenerator < Minitest::Test
   def test_empty_section_omitted
     # Only posts, no books or pages
     post = create_doc(
-      { 'layout' => 'post', 'title' => 'Solo Post',
+      {
+        'layout' => 'post',
+        'title' => 'Solo Post',
         'markdown_body' => 'body',
-        'markdown_alternate_href' => '/blog/solo.md' },
-      '/blog/solo/'
+        'markdown_alternate_href' => '/blog/solo.md',
+      },
+      '/blog/solo/',
     )
     site = create_site(
       { 'markdown_output' => { 'enabled' => true } },
-      {}, [], [post]
+      {},
+      [],
+      [post],
     )
     Generator.generate(site)
 
@@ -130,16 +135,23 @@ class TestLlmsTxtGenerator < Minitest::Test
 
   def test_excerpt_used_as_fallback_description
     post = create_doc(
-      { 'layout' => 'post', 'title' => 'Excerpt Post',
+      {
+        'layout' => 'post',
+        'title' => 'Excerpt Post',
         'excerpt' => '<p>HTML excerpt text</p>',
         'markdown_body' => 'body',
-        'markdown_alternate_href' => '/blog/excerpt.md' },
-      '/blog/excerpt/'
+        'markdown_alternate_href' => '/blog/excerpt.md',
+      },
+      '/blog/excerpt/',
     )
     site = create_site(
-      { 'markdown_output' => { 'enabled' => true },
-        'description' => 'Site desc' },
-      {}, [], [post]
+      {
+        'markdown_output' => { 'enabled' => true },
+        'description' => 'Site desc',
+      },
+      {},
+      [],
+      [post],
     )
     Generator.generate(site)
 
@@ -151,38 +163,53 @@ class TestLlmsTxtGenerator < Minitest::Test
 
   def build_site_with_entries
     post = create_doc(
-      { 'layout' => 'post', 'title' => 'My Blog Post',
+      {
+        'layout' => 'post',
+        'title' => 'My Blog Post',
         'description' => 'A great blog post',
         'markdown_body' => 'body',
-        'markdown_alternate_href' => '/blog/my-post.md' },
-      '/blog/my-post/'
+        'markdown_alternate_href' => '/blog/my-post.md',
+      },
+      '/blog/my-post/',
     )
 
     coll = MockCollection.new([], 'books')
     book = create_doc(
-      { 'layout' => 'book', 'title' => 'Dune Review',
-        'book_authors' => ['Frank Herbert'], 'rating' => 5,
+      {
+        'layout' => 'book',
+        'title' => 'Dune Review',
+        'book_authors' => ['Frank Herbert'],
+        'rating' => 5,
         'description' => 'Review of Dune',
         'markdown_body' => 'body',
-        'markdown_alternate_href' => '/books/dune.md' },
-      '/books/dune/', 'content', nil, coll
+        'markdown_alternate_href' => '/books/dune.md',
+      },
+      '/books/dune/',
+      'content',
+      nil,
+      coll,
     )
     coll.docs = [book]
 
     about_page = create_doc(
-      { 'layout' => 'page', 'title' => 'About',
+      {
+        'layout' => 'page',
+        'title' => 'About',
         'markdown_body' => 'body',
-        'markdown_alternate_href' => '/about.md' },
-      '/about/'
+        'markdown_alternate_href' => '/about.md',
+      },
+      '/about/',
     )
 
     create_site(
-      { 'markdown_output' => { 'enabled' => true },
+      {
+        'markdown_output' => { 'enabled' => true },
         'url' => 'https://alexgude.com',
-        'description' => 'Test site description' },
+        'description' => 'Test site description',
+      },
       { 'books' => [book] },
       [about_page],
-      [post]
+      [post],
     )
   end
 

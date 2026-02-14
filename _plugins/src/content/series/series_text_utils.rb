@@ -55,7 +55,7 @@ module Jekyll
         {
           prefix: prefix,
           name: stripped_name,
-          suffix: suffix
+          suffix: suffix,
         }
       end
 

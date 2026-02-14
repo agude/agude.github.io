@@ -9,11 +9,11 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
   def setup
     @book = create_doc(
       { 'title' => 'Test Book', 'published' => true },
-      '/books/test.html'
+      '/books/test.html',
     )
     @series_book = create_doc(
       { 'title' => 'Series Book', 'published' => true, 'series' => 'Epic Saga' },
-      '/books/series.html'
+      '/books/series.html',
     )
     @site = create_site({}, { 'books' => [@book, @series_book] })
     @context = create_context({}, { site: @site, page: @book })
@@ -29,8 +29,8 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
   def test_renders_author_heading
     data = {
       authors_data: [
-        { author_name: 'Jane Doe', standalone_books: [@book], series_groups: [] }
-      ]
+        { author_name: 'Jane Doe', standalone_books: [@book], series_groups: [] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
     result = renderer.render
@@ -42,8 +42,8 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
   def test_generates_author_slug_for_id
     data = {
       authors_data: [
-        { author_name: 'Jane Doe', standalone_books: [@book], series_groups: [] }
-      ]
+        { author_name: 'Jane Doe', standalone_books: [@book], series_groups: [] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
     result = renderer.render
@@ -54,8 +54,8 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
   def test_renders_standalone_books_section
     data = {
       authors_data: [
-        { author_name: 'Jane Doe', standalone_books: [@book], series_groups: [] }
-      ]
+        { author_name: 'Jane Doe', standalone_books: [@book], series_groups: [] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
     result = renderer.render
@@ -69,8 +69,8 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
     series_group = { name: 'Epic Saga', books: [@series_book] }
     data = {
       authors_data: [
-        { author_name: 'Jane Doe', standalone_books: [], series_groups: [series_group] }
-      ]
+        { author_name: 'Jane Doe', standalone_books: [], series_groups: [series_group] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
     result = renderer.render
@@ -82,8 +82,8 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
     series_group = { name: 'Epic Saga', books: [@series_book] }
     data = {
       authors_data: [
-        { author_name: 'Jane Doe', standalone_books: [@book], series_groups: [series_group] }
-      ]
+        { author_name: 'Jane Doe', standalone_books: [@book], series_groups: [series_group] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
     result = renderer.render
@@ -96,8 +96,8 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
     data = {
       authors_data: [
         { author_name: 'Alice', standalone_books: [@book], series_groups: [] },
-        { author_name: 'Zack', standalone_books: [@book], series_groups: [] }
-      ]
+        { author_name: 'Zack', standalone_books: [@book], series_groups: [] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
     result = renderer.render
@@ -110,8 +110,8 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
   def test_uses_spans_for_missing_letters
     data = {
       authors_data: [
-        { author_name: 'Mike', standalone_books: [@book], series_groups: [] }
-      ]
+        { author_name: 'Mike', standalone_books: [@book], series_groups: [] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
     result = renderer.render
@@ -125,8 +125,8 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
     data = {
       authors_data: [
         { author_name: 'Alice', standalone_books: [@book], series_groups: [] },
-        { author_name: 'Bob', standalone_books: [@book], series_groups: [] }
-      ]
+        { author_name: 'Bob', standalone_books: [@book], series_groups: [] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
     result = renderer.render
@@ -138,8 +138,8 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
   def test_escapes_html_in_author_name
     data = {
       authors_data: [
-        { author_name: 'Jane <script>alert("xss")</script>', standalone_books: [@book], series_groups: [] }
-      ]
+        { author_name: 'Jane <script>alert("xss")</script>', standalone_books: [@book], series_groups: [] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
     result = renderer.render
@@ -152,8 +152,8 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
     series_group = { name: 'Epic Saga', books: [@series_book] }
     data = {
       authors_data: [
-        { author_name: 'Jane Doe', standalone_books: [], series_groups: [series_group] }
-      ]
+        { author_name: 'Jane Doe', standalone_books: [], series_groups: [series_group] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
     result = renderer.render
@@ -165,8 +165,8 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
   def test_skips_series_section_when_empty
     data = {
       authors_data: [
-        { author_name: 'Jane Doe', standalone_books: [@book], series_groups: [] }
-      ]
+        { author_name: 'Jane Doe', standalone_books: [@book], series_groups: [] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data)
     result = renderer.render

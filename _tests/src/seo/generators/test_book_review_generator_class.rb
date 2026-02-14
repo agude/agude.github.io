@@ -14,7 +14,7 @@ class TestBookReviewGenerator < Minitest::Test
     @site_config = {
       'url' => 'https://alexgude.com',
       'baseurl' => '',
-      'author' => { 'name' => 'Alex Gude' }
+      'author' => { 'name' => 'Alex Gude' },
     }
     @site = create_site(@site_config)
     @books_collection = MockCollection.new([], 'books')
@@ -41,13 +41,17 @@ class TestBookReviewGenerator < Minitest::Test
 
   def test_generate_hash_book_review_review_body_from_content
     doc = create_doc(
-      { 'layout' => 'book', 'title' => 'Content Body Book',
+      {
+        'layout' => 'book',
+        'title' => 'Content Body Book',
         'book_authors' => ['Author'],
-        'excerpt_output_override' => '', 'description' => '' },
+        'excerpt_output_override' => '',
+        'description' => '',
+      },
       '/books/content-body.html',
       '<p>This is the <strong>full content</strong> used as review body.</p>',
       '2023-01-02',
-      @books_collection
+      @books_collection,
     )
     result = Jekyll::SEO::Generators::BookReviewGenerator.new(doc, @site).generate
     assert_equal 'This is the full content used as review body.', result['reviewBody']
@@ -68,7 +72,10 @@ class TestBookReviewGenerator < Minitest::Test
   def test_generate_hash_book_review_no_authors_empty_array
     doc = create_doc(
       { 'layout' => 'book', 'title' => 'Book With No Authors', 'book_authors' => [] },
-      '/books/no-authors.html', '', '2024-01-02', @books_collection
+      '/books/no-authors.html',
+      '',
+      '2024-01-02',
+      @books_collection,
     )
     result_hash = Jekyll::SEO::Generators::BookReviewGenerator.new(doc, @site).generate
     assert_nil result_hash.dig('itemReviewed', 'author'),
@@ -78,7 +85,10 @@ class TestBookReviewGenerator < Minitest::Test
   def test_generate_hash_book_review_no_authors_nil_value
     doc = create_doc(
       { 'layout' => 'book', 'title' => 'Book With Nil Authors', 'book_authors' => nil },
-      '/books/nil-authors.html', '', '2024-01-03', @books_collection
+      '/books/nil-authors.html',
+      '',
+      '2024-01-03',
+      @books_collection,
     )
     result_hash = Jekyll::SEO::Generators::BookReviewGenerator.new(doc, @site).generate
     assert_nil result_hash.dig('itemReviewed', 'author'),
@@ -88,7 +98,10 @@ class TestBookReviewGenerator < Minitest::Test
   def test_generate_hash_book_review_no_authors_missing_key
     doc = create_doc(
       { 'layout' => 'book', 'title' => 'Book Missing Authors Key' },
-      '/books/missing-authors-key.html', '', '2024-01-04', @books_collection
+      '/books/missing-authors-key.html',
+      '',
+      '2024-01-04',
+      @books_collection,
     )
     result_hash = Jekyll::SEO::Generators::BookReviewGenerator.new(doc, @site).generate
     assert_nil result_hash.dig('itemReviewed', 'author'),
@@ -104,12 +117,12 @@ class TestBookReviewGenerator < Minitest::Test
         'title' => 'Hyperion',
         'book_authors' => ['Dan Simmons'],
         'rating' => 5,
-        'excerpt_output_override' => '<p>A fantastic space opera.</p>'
+        'excerpt_output_override' => '<p>A fantastic space opera.</p>',
       },
       '/books/hyperion.html',
       'Full review content here.',
       '2023-10-26 11:00:00 EST',
-      @books_collection
+      @books_collection,
     )
   end
 
@@ -127,22 +140,24 @@ class TestBookReviewGenerator < Minitest::Test
         '@type' => 'Book',
         'name' => 'Hyperion',
         'author' => { '@type' => 'Person', 'name' => 'Dan Simmons' },
-        'url' => 'https://alexgude.com/books/hyperion.html'
-      }
+        'url' => 'https://alexgude.com/books/hyperion.html',
+      },
     }
   end
 
   def create_multiple_authors_doc
     create_doc(
       {
-        'layout' => 'book', 'title' => 'Good Omens',
+        'layout' => 'book',
+        'title' => 'Good Omens',
         'book_authors' => ['Terry Pratchett', 'Neil Gaiman'],
-        'rating' => 5, 'excerpt_output_override' => 'Very funny.'
+        'rating' => 5,
+        'excerpt_output_override' => 'Very funny.',
       },
       '/books/good-omens.html',
       'Review content',
       '2023-11-01',
-      @books_collection
+      @books_collection,
     )
   end
 
@@ -161,26 +176,31 @@ class TestBookReviewGenerator < Minitest::Test
         'name' => 'Good Omens',
         'author' => [
           { '@type' => 'Person', 'name' => 'Terry Pratchett' },
-          { '@type' => 'Person', 'name' => 'Neil Gaiman' }
+          { '@type' => 'Person', 'name' => 'Neil Gaiman' },
         ],
-        'url' => 'https://alexgude.com/books/good-omens.html'
-      }
+        'url' => 'https://alexgude.com/books/good-omens.html',
+      },
     }
   end
 
   def create_all_fields_doc
     create_doc(
       {
-        'layout' => 'book', 'title' => 'Dune',
+        'layout' => 'book',
+        'title' => 'Dune',
         'book_authors' => ['Frank Herbert'],
-        'rating' => 4, 'description' => 'An epic tale of desert power.',
-        'image' => '/assets/covers/dune.jpg', 'isbn' => '978-0441172719',
-        'awards' => ['Hugo Award', 'Nebula Award'], 'series' => 'Dune Saga', 'book_number' => '1'
+        'rating' => 4,
+        'description' => 'An epic tale of desert power.',
+        'image' => '/assets/covers/dune.jpg',
+        'isbn' => '978-0441172719',
+        'awards' => ['Hugo Award', 'Nebula Award'],
+        'series' => 'Dune Saga',
+        'book_number' => '1',
       },
       '/books/dune.html',
       'Detailed review content.',
       '2023-11-15',
-      @books_collection
+      @books_collection,
     )
   end
 
@@ -194,7 +214,7 @@ class TestBookReviewGenerator < Minitest::Test
       'reviewRating' => { '@type' => 'Rating', 'ratingValue' => '4', 'bestRating' => '5', 'worstRating' => '1' },
       'reviewBody' => 'An epic tale of desert power.',
       'url' => 'https://alexgude.com/books/dune.html',
-      'itemReviewed' => build_expected_dune_item_reviewed
+      'itemReviewed' => build_expected_dune_item_reviewed,
     }
   end
 
@@ -207,21 +227,22 @@ class TestBookReviewGenerator < Minitest::Test
       'isbn' => '978-0441172719',
       'award' => ['Hugo Award', 'Nebula Award'],
       'isPartOf' => { '@type' => 'BookSeries', 'name' => 'Dune Saga', 'position' => '1' },
-      'url' => 'https://alexgude.com/books/dune.html'
+      'url' => 'https://alexgude.com/books/dune.html',
     }
   end
 
   def create_non_array_awards_doc
     create_doc(
       {
-        'layout' => 'book', 'title' => 'Non Array Awards',
+        'layout' => 'book',
+        'title' => 'Non Array Awards',
         'book_authors' => ['Author'],
-        'awards' => 'This is a string, not an array'
+        'awards' => 'This is a string, not an array',
       },
       '/books/non-array-awards.html',
       'Content',
       '2023-01-03',
-      @books_collection
+      @books_collection,
     )
   end
 
@@ -242,7 +263,7 @@ class TestBookReviewGenerator < Minitest::Test
       '/books/minimal-book.html',
       '',
       '2024-01-01',
-      @books_collection
+      @books_collection,
     )
   end
 
@@ -258,8 +279,8 @@ class TestBookReviewGenerator < Minitest::Test
         '@type' => 'Book',
         'name' => 'Minimal Book',
         'author' => { '@type' => 'Person', 'name' => 'Min Author' },
-        'url' => 'https://alexgude.com/books/minimal-book.html'
-      }
+        'url' => 'https://alexgude.com/books/minimal-book.html',
+      },
     }
   end
 end

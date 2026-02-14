@@ -59,7 +59,7 @@ module Jekyll
             tag_type: 'RELATED_BOOKS',
             reason: "Missing prerequisites: #{missing.join(', ')}.",
             identifiers: { PageURL: @page ? @page['url'] : 'N/A' },
-            level: :error
+            level: :error,
           )
         end
 
@@ -87,7 +87,7 @@ module Jekyll
             tag_type: 'RELATED_BOOKS',
             reason: 'Link cache is missing. Ensure Jekyll::Infrastructure::LinkCacheGenerator is running.',
             identifiers: { PageURL: @page['url'] },
-            level: :error
+            level: :error,
           )
         end
 
@@ -159,7 +159,7 @@ module Jekyll
             reason: "Current page has unparseable book_number ('#{@page['book_number']}'). " \
                     'Using all series books sorted by number.',
             identifiers: { PageURL: @page['url'], Series: series },
-            level: :info
+            level: :info,
           )
         end
 
@@ -205,8 +205,12 @@ module Jekyll
           idx_succ = 0
 
           loop do
-            break if selected.length >= @max_books || exhausted_both_lists?(idx_pre, preceding, idx_succ,
-                                                                            succeeding)
+            break if selected.length >= @max_books || exhausted_both_lists?(
+              idx_pre,
+              preceding,
+              idx_succ,
+              succeeding,
+            )
 
             idx_pre = add_from_list(selected, preceding, idx_pre)
             break if selected.length >= @max_books

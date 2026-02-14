@@ -16,7 +16,7 @@ class TestBookListAllBooksByAuthorFinder < Minitest::Test
     # --- Author Pages ---
     @page_ac = create_doc(
       { 'title' => @author_c_canonical_name, 'layout' => 'author_page', 'pen_names' => [@author_c_pen_name] },
-      '/authors/author-charlie.html'
+      '/authors/author-charlie.html',
     )
     # Author Alpha and Beta do not have dedicated pages in this test to ensure the logic
     # falls back to using their given names as canonical when no page is found.
@@ -28,10 +28,19 @@ class TestBookListAllBooksByAuthorFinder < Minitest::Test
     setup_malformed_books
 
     @all_books = [
-      @book_aa_s1_b1, @book_aa_s1_b0_5, @book_aa_standalone_zeta, @book_aa_standalone_apple,
-      @book_ab_standalone, @book_ac_canonical, @book_ac_pen_name, @coauthored_aa_ab,
-      @book_no_author, @book_nil_author, @book_empty_author, @book_array_empty_author,
-      @unpublished_book
+      @book_aa_s1_b1,
+      @book_aa_s1_b0_5,
+      @book_aa_standalone_zeta,
+      @book_aa_standalone_apple,
+      @book_ab_standalone,
+      @book_ac_canonical,
+      @book_ac_pen_name,
+      @coauthored_aa_ab,
+      @book_no_author,
+      @book_nil_author,
+      @book_empty_author,
+      @book_array_empty_author,
+      @unpublished_book,
     ]
     @all_pages = [@page_ac]
 
@@ -45,61 +54,107 @@ class TestBookListAllBooksByAuthorFinder < Minitest::Test
   # Helper to set up Author Alpha's books
   def setup_author_alpha_books
     @book_aa_s1_b1 = create_doc(
-      { 'title' => 'AA: Series One, Book 1', 'series' => 'Series One', 'book_number' => 1,
-        'book_authors' => [@author_a_cap_name], 'published' => true }, '/aa_s1b1.html'
+      {
+        'title' => 'AA: Series One, Book 1',
+        'series' => 'Series One',
+        'book_number' => 1,
+        'book_authors' => [@author_a_cap_name],
+        'published' => true,
+      },
+      '/aa_s1b1.html',
     )
     @book_aa_s1_b0_5 = create_doc(
-      { 'title' => 'AA: Series One, Book 0.5', 'series' => 'Series One', 'book_number' => 0.5,
-        'book_authors' => [@author_a_cap_name], 'published' => true }, '/aa_s1b0_5.html'
+      {
+        'title' => 'AA: Series One, Book 0.5',
+        'series' => 'Series One',
+        'book_number' => 0.5,
+        'book_authors' => [@author_a_cap_name],
+        'published' => true,
+      },
+      '/aa_s1b0_5.html',
     )
     @book_aa_standalone_zeta = create_doc(
-      { 'title' => 'Zeta Standalone by AA', 'book_authors' => [@author_a_cap_name],
-        'published' => true }, '/aa_sa_zeta.html'
+      {
+        'title' => 'Zeta Standalone by AA',
+        'book_authors' => [@author_a_cap_name],
+        'published' => true,
+      },
+      '/aa_sa_zeta.html',
     )
     @book_aa_standalone_apple = create_doc(
-      { 'title' => 'Apple Standalone by AA', 'book_authors' => [@author_a_cap_name],
-        'published' => true }, '/aa_sa_apple.html'
+      {
+        'title' => 'Apple Standalone by AA',
+        'book_authors' => [@author_a_cap_name],
+        'published' => true,
+      },
+      '/aa_sa_apple.html',
     )
   end
 
   # Helper to set up author beta's books
   def setup_author_beta_books
     @book_ab_standalone = create_doc(
-      { 'title' => 'Standalone by ab', 'book_authors' => [@author_b_lower_name], 'published' => true }, '/ab_sa.html'
+      { 'title' => 'Standalone by ab', 'book_authors' => [@author_b_lower_name], 'published' => true }, '/ab_sa.html',
     )
     @coauthored_aa_ab = create_doc(
-      { 'title' => 'Co-authored AA & ab', 'book_authors' => [@author_a_cap_name, @author_b_lower_name],
-        'published' => true }, '/coauth_aa_ab.html'
+      {
+        'title' => 'Co-authored AA & ab',
+        'book_authors' => [@author_a_cap_name, @author_b_lower_name],
+        'published' => true,
+      },
+      '/coauth_aa_ab.html',
     )
   end
 
   # Helper to set up Author Charlie's books
   def setup_author_charlie_books
     @book_ac_canonical = create_doc(
-      { 'title' => 'Book by Author Charlie', 'book_authors' => [@author_c_canonical_name],
-        'published' => true }, '/ac_canon.html'
+      {
+        'title' => 'Book by Author Charlie',
+        'book_authors' => [@author_c_canonical_name],
+        'published' => true,
+      },
+      '/ac_canon.html',
     )
     @book_ac_pen_name = create_doc(
-      { 'title' => 'Book by Charles Penotti', 'book_authors' => [@author_c_pen_name],
-        'published' => true }, '/ac_pen.html'
+      {
+        'title' => 'Book by Charles Penotti',
+        'book_authors' => [@author_c_pen_name],
+        'published' => true,
+      },
+      '/ac_pen.html',
     )
   end
 
   # Helper to set up books with malformed or invalid data
   def setup_malformed_books
-    @book_no_author = create_doc({ 'title' => 'No Author Book', 'book_authors' => [], 'published' => true },
-                                 '/no_auth.html')
-    @book_nil_author = create_doc({ 'title' => 'Nil Author Book', 'book_authors' => nil, 'published' => true },
-                                  '/nil_auth.html')
-    @book_empty_author = create_doc({ 'title' => 'Empty Author Book', 'book_authors' => [' '], 'published' => true },
-                                    '/empty_auth.html')
+    @book_no_author = create_doc(
+      { 'title' => 'No Author Book', 'book_authors' => [], 'published' => true },
+      '/no_auth.html',
+    )
+    @book_nil_author = create_doc(
+      { 'title' => 'Nil Author Book', 'book_authors' => nil, 'published' => true },
+      '/nil_auth.html',
+    )
+    @book_empty_author = create_doc(
+      { 'title' => 'Empty Author Book', 'book_authors' => [' '], 'published' => true },
+      '/empty_auth.html',
+    )
     @book_array_empty_author = create_doc(
-      { 'title' => 'Array Empty Author Book', 'book_authors' => ['', '  '],
-        'published' => true }, '/arr_empty_auth.html'
+      {
+        'title' => 'Array Empty Author Book',
+        'book_authors' => ['', '  '],
+        'published' => true,
+      },
+      '/arr_empty_auth.html',
     )
     @unpublished_book = create_doc(
-      { 'title' => 'Unpublished Book by AA', 'book_authors' => [@author_a_cap_name],
-        'published' => false }, '/unpub_aa.html'
+      {
+        'title' => 'Unpublished Book by AA',
+        'book_authors' => [@author_a_cap_name],
+        'published' => false,
+      },
+      '/unpub_aa.html',
     )
   end
 
@@ -130,7 +185,8 @@ class TestBookListAllBooksByAuthorFinder < Minitest::Test
     # --- Assert Author Order ---
     expected_author_names_ordered = [@author_a_cap_name, @author_b_lower_name, @author_c_canonical_name]
     actual_author_names_ordered = data[:authors_data].map { |ad| ad[:author_name] }
-    assert_equal expected_author_names_ordered, actual_author_names_ordered,
+    assert_equal expected_author_names_ordered,
+                 actual_author_names_ordered,
                  'Authors not sorted correctly by canonical name'
 
     assert_author_alpha_data(data[:authors_data][0])
@@ -149,18 +205,21 @@ class TestBookListAllBooksByAuthorFinder < Minitest::Test
     expected_standalone_titles = [
       @book_aa_standalone_apple.data['title'],
       @coauthored_aa_ab.data['title'],
-      @book_aa_standalone_zeta.data['title']
+      @book_aa_standalone_zeta.data['title'],
     ]
-    assert_equal expected_standalone_titles, author_a_standalone_titles,
+    assert_equal expected_standalone_titles,
+                 author_a_standalone_titles,
                  'Standalone books for Author Alpha are not sorted alphabetically'
     # Series books should be sorted by book_number
     assert_equal 1, author_a_data[:series_groups].size, 'Incorrect series group count for Author Alpha'
     series_one_group = author_a_data[:series_groups][0]
     assert_equal 'Series One', series_one_group[:name]
     assert_equal 2, series_one_group[:books].size, 'Incorrect number of books in Series One for Author Alpha'
-    assert_equal @book_aa_s1_b0_5.data['title'], series_one_group[:books][0].data['title'],
+    assert_equal @book_aa_s1_b0_5.data['title'],
+                 series_one_group[:books][0].data['title'],
                  'Series One books not sorted correctly by book_number'
-    assert_equal @book_aa_s1_b1.data['title'], series_one_group[:books][1].data['title'],
+    assert_equal @book_aa_s1_b1.data['title'],
+                 series_one_group[:books][1].data['title'],
                  'Series One books not sorted correctly by book_number'
   end
 
@@ -217,7 +276,7 @@ class TestBookListAllBooksByAuthorFinder < Minitest::Test
     expected_pattern = Regexp.new(
       '<!-- \[INFO\] ALL_BOOKS_BY_AUTHOR_DISPLAY_FAILURE: ' \
       "Reason='No published books with valid author names found\\.' " \
-      "\\s*SourcePage='current_page\\.html' -->"
+      "\\s*SourcePage='current_page\\.html' -->",
     )
     assert_match expected_pattern, data[:log_messages]
   end
@@ -233,7 +292,7 @@ class TestBookListAllBooksByAuthorFinder < Minitest::Test
     expected_pattern = Regexp.new(
       '<!-- \[ERROR\] BOOK_LIST_UTIL_FAILURE: ' \
       "Reason='Required &#39;books&#39; collection not found in site configuration\\.' " \
-      "\\s*filter_type='all_books_by_author'\\s*SourcePage='current_page\\.html' -->"
+      "\\s*filter_type='all_books_by_author'\\s*SourcePage='current_page\\.html' -->",
     )
     assert_match expected_pattern, data[:log_messages]
   end
@@ -249,7 +308,7 @@ class TestBookListAllBooksByAuthorFinder < Minitest::Test
     expected_pattern = Regexp.new(
       '<!-- \[INFO\] ALL_BOOKS_BY_AUTHOR_DISPLAY_FAILURE: ' \
       "Reason='No published books with valid author names found\\.' " \
-      "\\s*SourcePage='current_page\\.html' -->"
+      "\\s*SourcePage='current_page\\.html' -->",
     )
     assert_match expected_pattern, data[:log_messages]
   end

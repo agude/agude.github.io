@@ -57,7 +57,7 @@ module Jekyll
             site: context.registers[:site],
             category_name: topic_name,
             context: context,
-            exclude_url: url_to_exclude
+            exclude_url: url_to_exclude,
           )
 
           if context.registers[:render_mode] == :markdown
@@ -135,18 +135,21 @@ module Jekyll
 
         def log_empty_topic_error(context)
           Logger.log_liquid_failure(
-            context: context, tag_type: 'DISPLAY_CATEGORY_POSTS',
+            context: context,
+            tag_type: 'DISPLAY_CATEGORY_POSTS',
             reason: "Argument 'topic' resolved to an empty string.",
             identifiers: { topic_markup: @attributes_markup['topic'] },
-            level: :error
+            level: :error,
           )
         end
 
         def resolve_exclude_url(context)
           return nil unless @attributes_markup.key?('exclude_current_page')
 
-          val = TagArgs.resolve_value(@attributes_markup['exclude_current_page'],
-                                      context)
+          val = TagArgs.resolve_value(
+            @attributes_markup['exclude_current_page'],
+            context,
+          )
           exclude = val == true || val.to_s.casecmp('true').zero?
 
           page = context.registers[:page]

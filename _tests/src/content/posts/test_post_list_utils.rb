@@ -24,7 +24,7 @@ class TestPostListUtils < Minitest::Test
         site: site,
         category_name: category_name,
         context: context,
-        exclude_url: exclude_url
+        exclude_url: exclude_url,
       )
     end
     result
@@ -93,7 +93,7 @@ class TestPostListUtils < Minitest::Test
     # This tests lines 66-67 and the branch on line 37 (then path)
     # Create a site where the category key exists but the array is empty
     site_empty_category = create_site(
-      {}, {}, [], [], { 'EmptyCategory' => [] }
+      {}, {}, [], [], { 'EmptyCategory' => [] },
     )
     site_empty_category.config['plugin_logging']['POST_LIST_UTIL_CATEGORY'] = true
     context = build_context_for_site(site_empty_category)
@@ -101,37 +101,59 @@ class TestPostListUtils < Minitest::Test
     result = get_category_posts('EmptyCategory', nil, context, site_empty_category)
     assert_empty result[:posts]
     # Should log "No posts found in category"
-    assert_match(/\[INFO\] POST_LIST_UTIL_CATEGORY_FAILURE: Reason='No posts found in category\.'/,
-                 result[:log_messages])
+    assert_match(
+      /\[INFO\] POST_LIST_UTIL_CATEGORY_FAILURE: Reason='No posts found in category\.'/,
+      result[:log_messages],
+    )
   end
 
   private
 
   def create_test_posts
     @post1_tech_gadgets = create_doc(
-      { 'title' => 'Tech & Gadgets Post 1', 'categories' => %w[Tech Gadgets],
-        'date' => Time.parse('2024-03-15'), 'published' => true },
-      '/tech/post1.html'
+      {
+        'title' => 'Tech & Gadgets Post 1',
+        'categories' => %w[Tech Gadgets],
+        'date' => Time.parse('2024-03-15'),
+        'published' => true,
+      },
+      '/tech/post1.html',
     )
     @post2_tech_recent = create_doc(
-      { 'title' => 'Tech Post Recent', 'categories' => ['Tech'],
-        'date' => Time.parse('2024-03-20'), 'published' => true },
-      '/tech/post2.html'
+      {
+        'title' => 'Tech Post Recent',
+        'categories' => ['Tech'],
+        'date' => Time.parse('2024-03-20'),
+        'published' => true,
+      },
+      '/tech/post2.html',
     )
     @post3_gadgets_only = create_doc(
-      { 'title' => 'Gadgets Only Post', 'categories' => ['Gadgets'],
-        'date' => Time.parse('2024-03-01'), 'published' => true },
-      '/gadgets/post3.html'
+      {
+        'title' => 'Gadgets Only Post',
+        'categories' => ['Gadgets'],
+        'date' => Time.parse('2024-03-01'),
+        'published' => true,
+      },
+      '/gadgets/post3.html',
     )
     @post4_tech_unpublished = create_doc(
-      { 'title' => 'Tech Post Unpublished', 'categories' => ['Tech'],
-        'date' => Time.parse('2024-02-01'), 'published' => false },
-      '/tech/post4.html'
+      {
+        'title' => 'Tech Post Unpublished',
+        'categories' => ['Tech'],
+        'date' => Time.parse('2024-02-01'),
+        'published' => false,
+      },
+      '/tech/post4.html',
     )
     @post5_other = create_doc(
-      { 'title' => 'Other Category Post', 'categories' => ['Other'],
-        'date' => Time.parse('2024-03-05'), 'published' => true },
-      '/other/post5.html'
+      {
+        'title' => 'Other Category Post',
+        'categories' => ['Other'],
+        'date' => Time.parse('2024-03-05'),
+        'published' => true,
+      },
+      '/other/post5.html',
     )
   end
 
@@ -140,14 +162,17 @@ class TestPostListUtils < Minitest::Test
     {
       'Tech' => [@post2_tech_recent, @post1_tech_gadgets, @post4_tech_unpublished].sort_by(&:date).reverse,
       'Gadgets' => [@post1_tech_gadgets, @post3_gadgets_only].sort_by(&:date).reverse,
-      'Other' => [@post5_other].sort_by(&:date).reverse
+      'Other' => [@post5_other].sort_by(&:date).reverse,
     }
   end
 
   def build_test_site
     all_posts = [
-      @post1_tech_gadgets, @post2_tech_recent, @post3_gadgets_only,
-      @post4_tech_unpublished, @post5_other
+      @post1_tech_gadgets,
+      @post2_tech_recent,
+      @post3_gadgets_only,
+      @post4_tech_unpublished,
+      @post5_other,
     ]
     create_site({}, {}, [], all_posts, @site_categories_data)
   end
@@ -226,7 +251,7 @@ class TestPostListUtils < Minitest::Test
 
   def build_site_with_unpublished_only
     site_only_unpub = create_site(
-      {}, {}, [], [@post4_tech_unpublished], { 'Tech' => [@post4_tech_unpublished] }
+      {}, {}, [], [@post4_tech_unpublished], { 'Tech' => [@post4_tech_unpublished] },
     )
     site_only_unpub.config['plugin_logging']['POST_LIST_UTIL_CATEGORY'] = true
     site_only_unpub
@@ -234,7 +259,7 @@ class TestPostListUtils < Minitest::Test
 
   def build_site_with_one_post
     site_one_tech_post = create_site(
-      {}, {}, [], [@post2_tech_recent], { 'Tech' => [@post2_tech_recent] }
+      {}, {}, [], [@post2_tech_recent], { 'Tech' => [@post2_tech_recent] },
     )
     site_one_tech_post.config['plugin_logging']['POST_LIST_UTIL_CATEGORY'] = true
     site_one_tech_post

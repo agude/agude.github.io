@@ -14,9 +14,9 @@ class TestSeriesLinkTag < Minitest::Test
       {
         'page_series_title' => 'Variable Series Title',
         'page_link_text_for_series' => 'Var Link Text for Series',
-        'nil_var' => nil
+        'nil_var' => nil,
       },
-      { site: @site, page: create_doc({}, '/current.html') }
+      { site: @site, page: create_doc({}, '/current.html') },
     )
   end
 
@@ -24,10 +24,11 @@ class TestSeriesLinkTag < Minitest::Test
   def parse_and_capture_args(markup, context = @context)
     captured_args = nil
     # Stub the utility function
-    Jekyll::Series::SeriesLinkUtils.stub :render_series_link, lambda { |title, ctx, link_text_override|
-      captured_args = { title: title, context: ctx, link_text_override: link_text_override }
-      "<!-- Jekyll::Series::SeriesLinkUtils called with title: #{title}, link_text: #{link_text_override} -->"
-    } do
+    Jekyll::Series::SeriesLinkUtils.stub :render_series_link,
+                                         lambda { |title, ctx, link_text_override|
+                                           captured_args = { title: title, context: ctx, link_text_override: link_text_override }
+                                           "<!-- Jekyll::Series::SeriesLinkUtils called with title: #{title}, link_text: #{link_text_override} -->"
+                                         } do
       template = Liquid::Template.parse("{% series_link #{markup} %}")
       output = template.render!(context)
       return output, captured_args
@@ -125,12 +126,14 @@ class TestSeriesLinkTag < Minitest::Test
   # --- Markdown Mode Tests ---
 
   def test_markdown_mode_renders_markdown_link
-    series_page = create_doc({ 'title' => 'Hyperion Cantos', 'layout' => 'series_page' },
-                             '/books/series/hyperion-cantos/')
+    series_page = create_doc(
+      { 'title' => 'Hyperion Cantos', 'layout' => 'series_page' },
+      '/books/series/hyperion-cantos/',
+    )
     site = create_site({}, {}, [series_page])
     md_context = create_context(
       {},
-      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     template = Liquid::Template.parse("{% series_link 'Hyperion Cantos' %}")
     output = template.render!(md_context)
@@ -141,7 +144,7 @@ class TestSeriesLinkTag < Minitest::Test
     site = create_site
     md_context = create_context(
       {},
-      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     template = Liquid::Template.parse("{% series_link 'Unknown Series' %}")
     output = template.render!(md_context)

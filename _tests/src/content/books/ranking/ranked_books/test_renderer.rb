@@ -9,7 +9,7 @@ class TestRankedBooksRenderer < Minitest::Test
   def setup
     @book = create_doc(
       { 'title' => 'Test Book', 'published' => true, 'rating' => 5 },
-      '/books/test.html'
+      '/books/test.html',
     )
     @site = create_site({}, { 'books' => [@book] })
     @context = create_context({}, { site: @site, page: @book })
@@ -50,7 +50,7 @@ class TestRankedBooksRenderer < Minitest::Test
   def test_generates_navigation
     groups = [
       { rating: 5, books: [@book] },
-      { rating: 4, books: [@book] }
+      { rating: 4, books: [@book] },
     ]
     renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context, groups)
     result = renderer.render
@@ -63,7 +63,7 @@ class TestRankedBooksRenderer < Minitest::Test
   def test_navigation_uses_singular_for_one_star
     one_star = create_doc(
       { 'title' => 'One Star', 'published' => true, 'rating' => 1 },
-      '/books/one.html'
+      '/books/one.html',
     )
     groups = [{ rating: 1, books: [one_star] }]
     renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context, groups)
@@ -84,7 +84,7 @@ class TestRankedBooksRenderer < Minitest::Test
   def test_navigation_uses_middot_separator
     groups = [
       { rating: 5, books: [@book] },
-      { rating: 4, books: [@book] }
+      { rating: 4, books: [@book] },
     ]
     renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context, groups)
     result = renderer.render
@@ -95,11 +95,11 @@ class TestRankedBooksRenderer < Minitest::Test
   def test_renders_multiple_rating_groups
     book_4star = create_doc(
       { 'title' => 'Four Star', 'published' => true, 'rating' => 4 },
-      '/books/four.html'
+      '/books/four.html',
     )
     groups = [
       { rating: 5, books: [@book] },
-      { rating: 4, books: [book_4star] }
+      { rating: 4, books: [book_4star] },
     ]
     renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context, groups)
     result = renderer.render
@@ -111,7 +111,7 @@ class TestRankedBooksRenderer < Minitest::Test
   def test_renders_multiple_books_in_group
     book_b = create_doc(
       { 'title' => 'Second Book', 'published' => true, 'rating' => 5 },
-      '/books/second.html'
+      '/books/second.html',
     )
     groups = [{ rating: 5, books: [@book, book_b] }]
     renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context, groups)

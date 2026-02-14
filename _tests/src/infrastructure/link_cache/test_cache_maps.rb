@@ -10,10 +10,10 @@ class TestCacheMaps < Minitest::Test
     link_cache = {
       'books' => {
         'book one' => [{ 'url' => '/books/one.html', 'title' => 'Book One' }],
-        'book two' => [{ 'url' => '/books/two.html', 'title' => 'Book Two' }]
+        'book two' => [{ 'url' => '/books/two.html', 'title' => 'Book Two' }],
       },
       'authors' => {},
-      'series' => {}
+      'series' => {},
     }
 
     maps = Jekyll::Infrastructure::LinkCache::CacheMaps.new(link_cache)
@@ -27,9 +27,9 @@ class TestCacheMaps < Minitest::Test
       'books' => {},
       'authors' => {
         'jane doe' => { 'url' => '/authors/jane.html', 'title' => 'Jane Doe' },
-        'john smith' => { 'url' => '/authors/john.html', 'title' => 'John Smith' }
+        'john smith' => { 'url' => '/authors/john.html', 'title' => 'John Smith' },
       },
-      'series' => {}
+      'series' => {},
     }
 
     maps = Jekyll::Infrastructure::LinkCache::CacheMaps.new(link_cache)
@@ -44,8 +44,8 @@ class TestCacheMaps < Minitest::Test
       'authors' => {},
       'series' => {
         'foundation' => { 'url' => '/series/foundation.html', 'title' => 'Foundation' },
-        'dune' => { 'url' => '/series/dune.html', 'title' => 'Dune' }
-      }
+        'dune' => { 'url' => '/series/dune.html', 'title' => 'Dune' },
+      },
     }
 
     maps = Jekyll::Infrastructure::LinkCache::CacheMaps.new(link_cache)
@@ -59,11 +59,11 @@ class TestCacheMaps < Minitest::Test
       'books' => {
         'duplicate' => [
           { 'url' => '/books/dup-a.html', 'title' => 'Duplicate', 'authors' => ['Author A'] },
-          { 'url' => '/books/dup-b.html', 'title' => 'Duplicate', 'authors' => ['Author B'] }
-        ]
+          { 'url' => '/books/dup-b.html', 'title' => 'Duplicate', 'authors' => ['Author B'] },
+        ],
       },
       'authors' => {},
-      'series' => {}
+      'series' => {},
     }
 
     maps = Jekyll::Infrastructure::LinkCache::CacheMaps.new(link_cache)
@@ -77,7 +77,7 @@ class TestCacheMaps < Minitest::Test
     link_cache = {
       'books' => {},
       'authors' => {},
-      'series' => {}
+      'series' => {},
     }
 
     maps = Jekyll::Infrastructure::LinkCache::CacheMaps.new(link_cache)
@@ -92,10 +92,10 @@ class TestCacheMaps < Minitest::Test
       'books' => {
         'book a' => [{ 'url' => '/books/a.html', 'title' => 'Book A' }],
         'book b' => [{ 'url' => '/books/b.html', 'title' => 'Book B' }],
-        'book c' => [{ 'url' => '/books/c.html', 'title' => 'Book C' }]
+        'book c' => [{ 'url' => '/books/c.html', 'title' => 'Book C' }],
       },
       'authors' => {},
-      'series' => {}
+      'series' => {},
     }
 
     maps = Jekyll::Infrastructure::LinkCache::CacheMaps.new(link_cache)
@@ -110,9 +110,9 @@ class TestCacheMaps < Minitest::Test
       'books' => {},
       'authors' => {
         'jane doe' => { 'url' => '/authors/jane.html', 'title' => 'Jane Doe' },
-        'j.d. writer' => { 'url' => '/authors/jane.html', 'title' => 'Jane Doe' }
+        'j.d. writer' => { 'url' => '/authors/jane.html', 'title' => 'Jane Doe' },
       },
-      'series' => {}
+      'series' => {},
     }
 
     maps = Jekyll::Infrastructure::LinkCache::CacheMaps.new(link_cache)

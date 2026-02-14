@@ -161,10 +161,12 @@ module Jekyll
             context: context,
             tag_type: 'BOOK_CARD_LOOKUP',
             reason: "Error calling CardUtils.render utility: #{e.message}",
-            identifiers: { Title: target_title_input.to_s,
-                           ErrorClass: e.class.name,
-                           ErrorMessage: e.message.lines.first.chomp.slice(0, 100) },
-            level: :error
+            identifiers: {
+              Title: target_title_input.to_s,
+              ErrorClass: e.class.name,
+              ErrorMessage: e.message.lines.first.chomp.slice(0, 100),
+            },
+            level: :error,
           )
         end
 
@@ -174,7 +176,7 @@ module Jekyll
             tag_type: 'BOOK_CARD_LOOKUP',
             reason: 'Title markup resolved to empty or nil.',
             identifiers: { Markup: @title_markup || @raw_markup },
-            level: :error
+            level: :error,
           )
         end
 
@@ -184,7 +186,7 @@ module Jekyll
             tag_type: 'BOOK_CARD_LOOKUP',
             reason: "Required 'books' collection not found in site configuration.",
             identifiers: { Title: target_title_input.to_s }, # Log the title we were trying to find
-            level: :error # Prerequisite missing
+            level: :error, # Prerequisite missing
           )
         end
 
@@ -194,7 +196,7 @@ module Jekyll
             tag_type: 'BOOK_CARD_LOOKUP',
             reason: 'Could not find book.',
             identifiers: { Title: target_title_input.to_s }, # Use original input for clarity in log
-            level: :warn
+            level: :warn,
           )
         end
       end

@@ -13,7 +13,7 @@ class TestRelatedBooksRenderer < Minitest::Test
     @site_config_base = {
       'url' => 'http://example.com',
       'plugin_logging' => { 'RELATED_BOOKS' => true },
-      'plugin_log_level' => 'debug'
+      'plugin_log_level' => 'debug',
     }
     @helper = BookTestHelper.new(@test_time_now, @site_config_base)
   end
@@ -51,10 +51,11 @@ class TestRelatedBooksRenderer < Minitest::Test
 
     card_render_count = 0
     renderer = Jekyll::Books::Related::Renderer.new(context, books)
-    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |_book_obj, _ctx|
-      card_render_count += 1
-      "<!-- Card -->\n"
-    } do
+    Jekyll::Books::Core::BookCardUtils.stub :render,
+                                            lambda { |_book_obj, _ctx|
+                                              card_render_count += 1
+                                              "<!-- Card -->\n"
+                                            } do
       renderer.render
     end
 
@@ -74,11 +75,14 @@ class TestRelatedBooksRenderer < Minitest::Test
                     date_offset_days: 0, published: true, collection: nil, extra_fm: {})
       authors_data = normalize_authors(authors)
       front_matter = {
-        'title' => title, 'series' => series, 'book_number' => book_num,
-        'book_authors' => authors_data, 'published' => published,
+        'title' => title,
+        'series' => series,
+        'book_number' => book_num,
+        'book_authors' => authors_data,
+        'published' => published,
         'date' => @test_time_now - (60 * 60 * 24 * date_offset_days),
         'image' => "/images/book_#{url_suffix}.jpg",
-        'excerpt_output_override' => "#{title} excerpt."
+        'excerpt_output_override' => "#{title} excerpt.",
       }.merge(extra_fm)
       create_doc(front_matter, "/books/#{url_suffix}.html", "Content for #{title}", nil, collection)
     end
@@ -94,8 +98,13 @@ class TestRelatedBooksRenderer < Minitest::Test
       coll = MockCollection.new([], 'books')
       books = (1..count).map do |i|
         create_book(
-          title: "S1B#{i}", series: 'Series 1', book_num: i, authors: ['Auth'],
-          date_offset_days: 10 - i, url_suffix: "s1b#{i}", collection: coll
+          title: "S1B#{i}",
+          series: 'Series 1',
+          book_num: i,
+          authors: ['Auth'],
+          date_offset_days: 10 - i,
+          url_suffix: "s1b#{i}",
+          collection: coll,
         )
       end
       coll.docs = books.compact

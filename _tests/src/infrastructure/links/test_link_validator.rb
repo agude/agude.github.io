@@ -10,15 +10,15 @@ class TestLinkValidator < Minitest::Test
   def setup
     @book = create_doc(
       { 'title' => 'Test Book', 'published' => true },
-      '/books/test-book.html'
+      '/books/test-book.html',
     )
     @author_page = create_doc(
       { 'title' => 'Jane Doe', 'layout' => 'author_page' },
-      '/authors/jane-doe.html'
+      '/authors/jane-doe.html',
     )
     @series_page = create_doc(
       { 'title' => 'Test Series', 'layout' => 'series_page' },
-      '/series/test-series.html'
+      '/series/test-series.html',
     )
   end
 
@@ -26,7 +26,7 @@ class TestLinkValidator < Minitest::Test
     post = create_doc(
       { 'title' => 'Clean Post' },
       '/posts/clean.html',
-      "This post uses {% book_link 'Test Book' %} properly."
+      "This post uses {% book_link 'Test Book' %} properly.",
     )
 
     # Should not raise
@@ -38,7 +38,7 @@ class TestLinkValidator < Minitest::Test
     post = create_doc(
       { 'title' => 'Bad Post' },
       '/posts/bad.html',
-      'Check out [this book](/books/test-book.html)!'
+      'Check out [this book](/books/test-book.html)!',
     )
 
     error = assert_raises(Jekyll::Errors::FatalException) do
@@ -54,7 +54,7 @@ class TestLinkValidator < Minitest::Test
     post = create_doc(
       { 'title' => 'Bad Post' },
       '/posts/bad.html',
-      '<a href="/books/test-book.html">Read this</a>'
+      '<a href="/books/test-book.html">Read this</a>',
     )
 
     error = assert_raises(Jekyll::Errors::FatalException) do
@@ -68,7 +68,7 @@ class TestLinkValidator < Minitest::Test
     post = create_doc(
       { 'title' => 'Bad Post' },
       '/posts/bad.html',
-      '[Jane Doe](/authors/jane-doe.html) wrote great books.'
+      '[Jane Doe](/authors/jane-doe.html) wrote great books.',
     )
 
     error = assert_raises(Jekyll::Errors::FatalException) do
@@ -82,7 +82,7 @@ class TestLinkValidator < Minitest::Test
     post = create_doc(
       { 'title' => 'Bad Post' },
       '/posts/bad.html',
-      'Read the [Test Series](/series/test-series.html).'
+      'Read the [Test Series](/series/test-series.html).',
     )
 
     error = assert_raises(Jekyll::Errors::FatalException) do
@@ -96,7 +96,7 @@ class TestLinkValidator < Minitest::Test
     post = create_doc(
       { 'title' => 'External Links' },
       '/posts/external.html',
-      '[External](https://example.com) and [internal](/other/page.html).'
+      '[External](https://example.com) and [internal](/other/page.html).',
     )
 
     # Should not raise - these are not known cached URLs
@@ -108,7 +108,7 @@ class TestLinkValidator < Minitest::Test
     post = create_doc(
       { 'title' => 'Anchor Link' },
       '/posts/anchor.html',
-      '[Section](/books/test-book.html#chapter-1)'
+      '[Section](/books/test-book.html#chapter-1)',
     )
 
     error = assert_raises(Jekyll::Errors::FatalException) do
@@ -123,7 +123,7 @@ class TestLinkValidator < Minitest::Test
     post = create_doc(
       { 'title' => 'Bad Post', 'path' => 'posts/bad.html' },
       '/posts/bad.html',
-      '[Bad link](/books/test-book.html)'
+      '[Bad link](/books/test-book.html)',
     )
 
     error = assert_raises(Jekyll::Errors::FatalException) do
@@ -137,7 +137,7 @@ class TestLinkValidator < Minitest::Test
     bad_page = create_doc(
       { 'title' => 'Bad Page' },
       '/pages/bad.html',
-      '[Link](/books/test-book.html)'
+      '[Link](/books/test-book.html)',
     )
 
     error = assert_raises(Jekyll::Errors::FatalException) do
@@ -151,7 +151,7 @@ class TestLinkValidator < Minitest::Test
     post = create_doc(
       { 'title' => 'Multiple Bad' },
       '/posts/multi.html',
-      '[Book](/books/test-book.html) and [Author](/authors/jane-doe.html).'
+      '[Book](/books/test-book.html) and [Author](/authors/jane-doe.html).',
     )
 
     error = assert_raises(Jekyll::Errors::FatalException) do
@@ -166,12 +166,12 @@ class TestLinkValidator < Minitest::Test
     post1 = create_doc(
       { 'title' => 'Bad Post 1' },
       '/posts/bad1.html',
-      '[Book](/books/test-book.html)'
+      '[Book](/books/test-book.html)',
     )
     post2 = create_doc(
       { 'title' => 'Bad Post 2' },
       '/posts/bad2.html',
-      '[Author](/authors/jane-doe.html)'
+      '[Author](/authors/jane-doe.html)',
     )
 
     error = assert_raises(Jekyll::Errors::FatalException) do
@@ -188,7 +188,7 @@ class TestLinkValidator < Minitest::Test
     post = create_doc(
       { 'title' => 'Repeat Bad' },
       '/posts/repeat.html',
-      '[First](/books/test-book.html) and [Second](/books/test-book.html).'
+      '[First](/books/test-book.html) and [Second](/books/test-book.html).',
     )
 
     error = assert_raises(Jekyll::Errors::FatalException) do
@@ -205,7 +205,7 @@ class TestLinkValidator < Minitest::Test
     nil_doc = create_doc(
       { 'title' => 'No Content' },
       '/posts/nil.html',
-      nil
+      nil,
     )
 
     # Should not raise

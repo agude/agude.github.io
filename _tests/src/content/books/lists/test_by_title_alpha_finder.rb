@@ -15,7 +15,7 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
     @site = create_site({}, { 'books' => @books_for_alpha_tests })
     @context = create_context(
       {},
-      { site: @site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') }
+      { site: @site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') },
     )
     @silent_logger_stub = create_silent_logger_stub
   end
@@ -87,68 +87,77 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
   def create_test_books
     @book_apple = create_doc(
       { 'title' => 'Apple Pie Adventures', 'published' => true, 'date' => Time.now },
-      '/apa.html'
+      '/apa.html',
     )
     # Sorts under B
     @book_a_banana = create_doc(
       { 'title' => 'A Banana Story', 'published' => true, 'date' => Time.now },
-      '/abs.html'
+      '/abs.html',
     )
     # Sorts under C
     @book_the_cherry = create_doc(
       { 'title' => 'The Cherry Chronicle', 'published' => true, 'date' => Time.now },
-      '/tcc.html'
+      '/tcc.html',
     )
     # Sorts under A
     @book_another_apple = create_doc(
       { 'title' => 'Another Apple Tale', 'published' => true, 'date' => Time.now },
-      '/aat.html'
+      '/aat.html',
     )
     # Sorts under A
     @book_aardvark = create_doc(
       { 'title' => 'Aardvark Antics', 'published' => true, 'date' => Time.now },
-      '/aa.html'
+      '/aa.html',
     )
     # Sorts under Z
     @book_zebra = create_doc(
       { 'title' => 'Zebra Zoom', 'published' => true, 'date' => Time.now },
-      '/zz.html'
+      '/zz.html',
     )
     # Sorts under #
     @book_123go = create_doc(
       { 'title' => '123 Go!', 'published' => true, 'date' => Time.now },
-      '/123.html'
+      '/123.html',
     )
     # Sorts under #
     @book_empty_title_sort = create_doc(
       { 'title' => 'The ', 'published' => true, 'date' => Time.now },
-      '/the.html'
+      '/the.html',
     )
     # Sorts under #
     @book_only_an = create_doc(
       { 'title' => 'An', 'published' => true, 'date' => Time.now },
-      '/an.html'
+      '/an.html',
     )
     @unpublished_book = create_doc(
       { 'title' => 'Unpublished Alpha Book', 'published' => false, 'date' => Time.now },
-      '/unpub_alpha.html'
+      '/unpub_alpha.html',
     )
     @archived_book = create_doc(
       { 'title' => 'Archived Book', 'published' => true, 'canonical_url' => '/some/path' },
-      '/archived.html'
+      '/archived.html',
     )
     @external_canonical_book = create_doc(
       { 'title' => 'External Canon Book', 'published' => true, 'canonical_url' => 'http://othersite.com' },
-      '/external.html'
+      '/external.html',
     )
   end
 
   # Collects all test books into an array
   def collect_all_test_books
     [
-      @book_apple, @book_a_banana, @book_the_cherry, @book_another_apple,
-      @book_aardvark, @book_zebra, @book_123go, @book_empty_title_sort, @book_only_an,
-      @unpublished_book, @archived_book, @external_canonical_book
+      @book_apple,
+      @book_a_banana,
+      @book_the_cherry,
+      @book_another_apple,
+      @book_aardvark,
+      @book_zebra,
+      @book_123go,
+      @book_empty_title_sort,
+      @book_only_an,
+      @unpublished_book,
+      @archived_book,
+      @external_canonical_book,
     ]
   end
 
@@ -174,7 +183,7 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
     expected_hash_titles = [
       @book_only_an.data['title'],
       @book_empty_title_sort.data['title'],
-      @book_123go.data['title']
+      @book_123go.data['title'],
     ]
     actual_hash_titles = group_hash[:books].map { |b| b.data['title'] }
     assert_equal expected_hash_titles, actual_hash_titles
@@ -188,7 +197,7 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
     expected_a_titles = [
       @book_aardvark.data['title'],
       @book_another_apple.data['title'],
-      @book_apple.data['title']
+      @book_apple.data['title'],
     ]
     assert_equal(expected_a_titles, group_a[:books].map { |b| b.data['title'] })
   end

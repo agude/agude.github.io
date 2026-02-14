@@ -9,11 +9,11 @@ class TestForSeriesRenderer < Minitest::Test
   def setup
     @book1 = create_doc(
       { 'title' => 'Book One', 'published' => true, 'series' => 'Epic Saga' },
-      '/books/one.html'
+      '/books/one.html',
     )
     @book2 = create_doc(
       { 'title' => 'Book Two', 'published' => true, 'series' => 'Epic Saga' },
-      '/books/two.html'
+      '/books/two.html',
     )
     @site = create_site({}, { 'books' => [@book1, @book2] })
     @context = create_context({}, { site: @site, page: @book1 })

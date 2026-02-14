@@ -58,10 +58,11 @@ class TestBookCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::Books::Lookups::BookFinder.stub :new, lambda { |args|
-      captured_args = args
-      mock_finder
-    } do
+    Jekyll::Books::Lookups::BookFinder.stub :new,
+                                            lambda { |args|
+                                              captured_args = args
+                                              mock_finder
+                                            } do
       Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
         Jekyll.stub :logger, @silent_logger_stub do
           Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
@@ -83,11 +84,12 @@ class TestBookCardLookupTag < Minitest::Test
     mock_finder.expect :find, mock_result
 
     Jekyll::Books::Lookups::BookFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |book, ctx|
-        captured_book = book
-        captured_context = ctx
-        '<div>Card</div>'
-      } do
+      Jekyll::Books::Core::BookCardUtils.stub :render,
+                                              lambda { |book, ctx|
+                                                captured_book = book
+                                                captured_context = ctx
+                                                '<div>Card</div>'
+                                              } do
         Jekyll.stub :logger, @silent_logger_stub do
           Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
 
@@ -221,10 +223,11 @@ class TestBookCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::Books::Lookups::BookFinder.stub :new, lambda { |args|
-      captured_args = args
-      mock_finder
-    } do
+    Jekyll::Books::Lookups::BookFinder.stub :new,
+                                            lambda { |args|
+                                              captured_args = args
+                                              mock_finder
+                                            } do
       Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
         Jekyll.stub :logger, @silent_logger_stub do
           Liquid::Template.parse("{% book_card_lookup title='Hyperion' date='2023-10-17' %}").render!(@context)
@@ -245,10 +248,11 @@ class TestBookCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::Books::Lookups::BookFinder.stub :new, lambda { |args|
-      captured_args = args
-      mock_finder
-    } do
+    Jekyll::Books::Lookups::BookFinder.stub :new,
+                                            lambda { |args|
+                                              captured_args = args
+                                              mock_finder
+                                            } do
       Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
         Jekyll.stub :logger, @silent_logger_stub do
           Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
@@ -298,7 +302,7 @@ class TestBookCardLookupTag < Minitest::Test
   def test_date_parameter_with_variable
     context_with_date = create_context(
       { 'review_date' => '2023-10-17' },
-      { site: @site, page: create_doc({ 'path' => 'test.md' }, '/test.html') }
+      { site: @site, page: create_doc({ 'path' => 'test.md' }, '/test.html') },
     )
 
     captured_args = {}
@@ -307,10 +311,11 @@ class TestBookCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::Books::Lookups::BookFinder.stub :new, lambda { |args|
-      captured_args = args
-      mock_finder
-    } do
+    Jekyll::Books::Lookups::BookFinder.stub :new,
+                                            lambda { |args|
+                                              captured_args = args
+                                              mock_finder
+                                            } do
       Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
         Jekyll.stub :logger, @silent_logger_stub do
           Liquid::Template.parse("{% book_card_lookup title='Hyperion' date=review_date %}").render!(context_with_date)
@@ -337,10 +342,11 @@ class TestBookCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::Books::Lookups::BookFinder.stub :new, lambda { |args|
-      captured_args = args
-      mock_finder
-    } do
+    Jekyll::Books::Lookups::BookFinder.stub :new,
+                                            lambda { |args|
+                                              captured_args = args
+                                              mock_finder
+                                            } do
       Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
         Jekyll.stub :logger, @silent_logger_stub do
           Liquid::Template.parse("{% book_card_lookup date='2023-10-17' title='Hyperion' %}").render!(@context)
@@ -390,16 +396,18 @@ class TestBookCardLookupTag < Minitest::Test
   def create_test_books
     @book1 = create_doc({ 'title' => 'The First Book', 'published' => true }, '/books/first.html')
     @book2 = create_doc({ 'title' => 'The Second Book', 'published' => true }, '/books/second.html')
-    @unpublished_book = create_doc({ 'title' => 'Unpublished Title', 'published' => false },
-                                   '/books/unpublished.html')
+    @unpublished_book = create_doc(
+      { 'title' => 'Unpublished Title', 'published' => false },
+      '/books/unpublished.html',
+    )
     # Books with same title but different dates (like multiple reviews)
     @hyperion_review1 = create_doc(
       { 'title' => 'Hyperion', 'published' => true, 'date' => Time.new(2023, 10, 17) },
-      '/books/hyperion/review-2023-10-17.html'
+      '/books/hyperion/review-2023-10-17.html',
     )
     @hyperion_review2 = create_doc(
       { 'title' => 'Hyperion', 'published' => true, 'date' => Time.new(2025, 9, 20) },
-      '/books/hyperion.html'
+      '/books/hyperion.html',
     )
   end
 
@@ -407,7 +415,7 @@ class TestBookCardLookupTag < Minitest::Test
   def create_test_site
     create_site(
       { 'url' => 'http://example.com' }, # For Jekyll::Books::Core::BookCardUtils -> Jekyll::UI::Cards::CardDataExtractorUtils -> Jekyll::Infrastructure::UrlUtils
-      { 'books' => [@book1, @book2, @unpublished_book, @hyperion_review1, @hyperion_review2] }
+      { 'books' => [@book1, @book2, @unpublished_book, @hyperion_review1, @hyperion_review2] },
     )
   end
 
@@ -417,10 +425,10 @@ class TestBookCardLookupTag < Minitest::Test
       {
         'page_book_title_var' => 'The First Book',
         'page_book_title_var_alt_case' => 'the second book',
-        'nil_title_var' => nil
+        'nil_title_var' => nil,
       },
       # Page path for SourcePage identifier in Jekyll::Infrastructure::PluginLoggerUtils
-      { site: @site, page: create_doc({ 'path' => 'current_lookup_page.md' }, '/current-lookup-page.html') }
+      { site: @site, page: create_doc({ 'path' => 'current_lookup_page.md' }, '/current-lookup-page.html') },
     )
   end
 

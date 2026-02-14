@@ -71,7 +71,7 @@ module Jekyll
             tag_type: 'BOOK_LIST_AUTHOR_DISPLAY',
             reason: 'Author name filter was empty or nil when fetching data.',
             identifiers: { AuthorFilterInput: @author_name_filter || 'N/A' },
-            level: :warn
+            level: :warn,
           ).dup
         end
 
@@ -81,7 +81,7 @@ module Jekyll
             tag_type: 'BOOK_LIST_AUTHOR_DISPLAY',
             reason: 'No books found for the specified author.',
             identifiers: { AuthorFilter: @author_name_filter },
-            level: :info
+            level: :info,
           ).dup
         end
       end

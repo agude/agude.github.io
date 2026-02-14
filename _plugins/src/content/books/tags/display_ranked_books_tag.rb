@@ -47,8 +47,10 @@ module Jekyll
         private_constant :MdCards
 
         def render(context)
-          processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context,
-                                                                         @list_variable_markup)
+          processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(
+            context,
+            @list_variable_markup,
+          )
           result = processor.process
 
           return result[:log_messages] if result[:rating_groups].empty?
@@ -56,8 +58,10 @@ module Jekyll
           if context.registers[:render_mode] == :markdown
             render_markdown(result)
           else
-            renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(context,
-                                                                         result[:rating_groups])
+            renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(
+              context,
+              result[:rating_groups],
+            )
             result[:log_messages] + renderer.render
           end
         end
@@ -77,9 +81,10 @@ module Jekyll
         def book_to_card(doc)
           authors = doc.data['book_authors']
           {
-            title: doc.data['title'], url: doc.url,
+            title: doc.data['title'],
+            url: doc.url,
             authors: authors.is_a?(Array) ? authors : [authors].compact,
-            rating: doc.data['rating']
+            rating: doc.data['rating'],
           }
         end
       end

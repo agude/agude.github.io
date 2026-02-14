@@ -9,11 +9,11 @@ class TestByYearRenderer < Minitest::Test
   def setup
     @book_2024 = create_doc(
       { 'title' => 'Book 2024', 'published' => true },
-      '/books/2024.html'
+      '/books/2024.html',
     )
     @book_2023 = create_doc(
       { 'title' => 'Book 2023', 'published' => true },
-      '/books/2023.html'
+      '/books/2023.html',
     )
     @site = create_site({}, { 'books' => [@book_2024, @book_2023] })
     @context = create_context({}, { site: @site, page: @book_2024 })
@@ -55,8 +55,8 @@ class TestByYearRenderer < Minitest::Test
     data = {
       year_groups: [
         { year: '2024', books: [@book_2024] },
-        { year: '2023', books: [@book_2023] }
-      ]
+        { year: '2023', books: [@book_2023] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByYearRenderer.new(@context, data)
     result = renderer.render
@@ -70,8 +70,8 @@ class TestByYearRenderer < Minitest::Test
     data = {
       year_groups: [
         { year: '2024', books: [@book_2024] },
-        { year: '2023', books: [@book_2023] }
-      ]
+        { year: '2023', books: [@book_2023] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByYearRenderer.new(@context, data)
     result = renderer.render
@@ -83,8 +83,8 @@ class TestByYearRenderer < Minitest::Test
     data = {
       year_groups: [
         { year: '2024', books: [@book_2024] },
-        { year: '2023', books: [@book_2023] }
-      ]
+        { year: '2023', books: [@book_2023] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByYearRenderer.new(@context, data)
     result = renderer.render
@@ -96,7 +96,7 @@ class TestByYearRenderer < Minitest::Test
   def test_renders_multiple_books_in_year
     book_2024_b = create_doc(
       { 'title' => 'Another 2024 Book', 'published' => true },
-      '/books/2024b.html'
+      '/books/2024b.html',
     )
     data = { year_groups: [{ year: '2024', books: [@book_2024, book_2024_b] }] }
     renderer = Jekyll::Books::Lists::Renderers::ByYearRenderer.new(@context, data)

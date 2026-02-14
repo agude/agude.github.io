@@ -18,24 +18,32 @@ class TestBookLinkTag < Minitest::Test
         'page_author' => 'Variable Author',
         'page_cite' => false,
         'nil_var' => nil,
-        'empty_string_var' => ''
+        'empty_string_var' => '',
       },
-      { site: @parsing_site, page: create_doc({}, '/current.html') }
+      { site: @parsing_site, page: create_doc({}, '/current.html') },
     )
 
     # --- Setup for Integration Test ---
-    @integration_book = create_doc({ 'title' => 'Hyperion', 'published' => true, 'book_authors' => ['Dan Simmons'] },
-                                   '/books/hyperion-simmons.html')
+    @integration_book = create_doc(
+      { 'title' => 'Hyperion', 'published' => true, 'book_authors' => ['Dan Simmons'] },
+      '/books/hyperion-simmons.html',
+    )
     @integration_site = create_site(
       {},
       { 'books' => [@integration_book] },
-      [] # No author pages needed for this simple test
+      [], # No author pages needed for this simple test
     )
     @integration_site.config['plugin_logging']['RENDER_BOOK_LINK'] = true
-    @integration_context = create_context({},
-                                          { site: @integration_site,
-                                            page: create_doc({ 'path' => 'integration_test.md' },
-                                                             '/integration.html') })
+    @integration_context = create_context(
+      {},
+      {
+        site: @integration_site,
+        page: create_doc(
+          { 'path' => 'integration_test.md' },
+          '/integration.html',
+        ),
+      },
+    )
     @silent_logger_stub = Object.new.tap do |logger|
       def logger.warn(topic, message); end
 
@@ -52,17 +60,18 @@ class TestBookLinkTag < Minitest::Test
     captured_args = nil
     # Stub the utility function to capture all arguments
     # The signature is (title, ctx, link_text, author, date, cite:)
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link, lambda { |title, ctx, link_text_override, author_filter, date_filter = nil, cite: true|
-      captured_args = {
-        title: title,
-        context: ctx,
-        link_text_override: link_text_override,
-        author_filter: author_filter,
-        date_filter: date_filter,
-        cite: cite
-      }
-      '<!-- Util called -->'
-    } do
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link,
+                                            lambda { |title, ctx, link_text_override, author_filter, date_filter = nil, cite: true|
+                                              captured_args = {
+                                                title: title,
+                                                context: ctx,
+                                                link_text_override: link_text_override,
+                                                author_filter: author_filter,
+                                                date_filter: date_filter,
+                                                cite: cite,
+                                              }
+                                              '<!-- Util called -->'
+                                            } do
       template = Liquid::Template.parse("{% book_link #{markup} %}")
       output = template.render!(context)
       return output, captured_args
@@ -226,7 +235,7 @@ class TestBookLinkTag < Minitest::Test
   def test_markdown_mode_renders_markdown_link
     md_context = create_context(
       {},
-      { site: @integration_site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+      { site: @integration_site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     Jekyll.stub :logger, @silent_logger_stub do
       template = Liquid::Template.parse("{% book_link 'Hyperion' author='Dan Simmons' %}")
@@ -238,7 +247,7 @@ class TestBookLinkTag < Minitest::Test
   def test_markdown_mode_not_found_renders_plain_text
     md_context = create_context(
       {},
-      { site: @integration_site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+      { site: @integration_site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     Jekyll.stub :logger, @silent_logger_stub do
       template = Liquid::Template.parse("{% book_link 'Nonexistent Book' %}")

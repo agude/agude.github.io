@@ -42,46 +42,44 @@ module Jekyll
         end
 
         def render(context)
-          # Resolve the markup to actual values
           book_object = TagArgs.resolve_value(@book_object_markup, context)
+          return log_nil_book_object(context) unless book_object
 
-          # Return error if book object is nil
-          unless book_object
-            return Logger.log_liquid_failure(
-              context: context,
-              tag_type: 'RENDER_BOOK_CARD_TAG',
-              reason: "Book object variable '#{@book_object_markup}' resolved to nil.",
-              identifiers: { markup: @book_object_markup }
-            )
-          end
+          display_title = resolve_optional(@display_title_markup, context)
+          subtitle = resolve_optional(@subtitle_markup, context)
 
-          # Resolve optional parameters
-          display_title = if @display_title_markup
-                            TagArgs.resolve_value(
-                              @display_title_markup, context
-                            )
-                          end
-          subtitle = if @subtitle_markup
-                       TagArgs.resolve_value(@subtitle_markup,
-                                             context)
-                     end
-
-          # Delegate to BookCardUtils
-          begin
-            CardUtils.render(
-              book_object, context, display_title_override: display_title, subtitle: subtitle
-            )
-          rescue StandardError => e
-            Logger.log_liquid_failure(
-              context: context,
-              tag_type: 'RENDER_BOOK_CARD_TAG',
-              reason: "Error rendering book card: #{e.message}",
-              identifiers: { book_markup: @book_object_markup, error_class: e.class.name }
-            )
-          end
+          render_card(book_object, context, display_title, subtitle)
         end
 
         private
+
+        def log_nil_book_object(context)
+          Logger.log_liquid_failure(
+            context: context,
+            tag_type: 'RENDER_BOOK_CARD_TAG',
+            reason: "Book object variable '#{@book_object_markup}' resolved to nil.",
+            identifiers: { markup: @book_object_markup },
+          )
+        end
+
+        def resolve_optional(markup, context)
+          return nil unless markup
+
+          TagArgs.resolve_value(markup, context)
+        end
+
+        def render_card(book_object, context, display_title, subtitle)
+          CardUtils.render(
+            book_object, context, display_title_override: display_title, subtitle: subtitle,
+          )
+        rescue StandardError => e
+          Logger.log_liquid_failure(
+            context: context,
+            tag_type: 'RENDER_BOOK_CARD_TAG',
+            reason: "Error rendering book card: #{e.message}",
+            identifiers: { book_markup: @book_object_markup, error_class: e.class.name },
+          )
+        end
 
         def parse_arguments
           scanner = StringScanner.new(@raw_markup)

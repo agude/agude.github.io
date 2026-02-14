@@ -54,7 +54,7 @@ module Jekyll
             tag_type: 'FRONT_PAGE_FEED',
             reason: 'Unknown item type in feed.',
             identifiers: build_unknown_item_identifiers(item),
-            level: :warn
+            level: :warn,
           )
         end
 
@@ -62,7 +62,7 @@ module Jekyll
           {
             item_title: item.data['title'] || 'N/A',
             item_url: item.url || 'N/A',
-            item_collection: item.collection&.label || 'N/A'
+            item_collection: item.collection&.label || 'N/A',
           }
         end
       end

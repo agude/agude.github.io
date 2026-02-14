@@ -9,11 +9,11 @@ class TestCacheBuilder < Minitest::Test
   def test_caches_sidebar_nav_items
     sidebar_page = create_doc(
       { 'title' => 'About', 'sidebar_include' => true },
-      '/about.html'
+      '/about.html',
     )
     non_sidebar_page = create_doc(
       { 'title' => 'Contact', 'sidebar_include' => false },
-      '/contact.html'
+      '/contact.html',
     )
 
     site = create_site({}, {}, [sidebar_page, non_sidebar_page])
@@ -26,7 +26,7 @@ class TestCacheBuilder < Minitest::Test
   def test_excludes_paginated_pages_from_sidebar
     paginated_page = create_doc(
       { 'title' => 'Blog Page 2', 'sidebar_include' => true },
-      '/blog/page2/'
+      '/blog/page2/',
     )
 
     site = create_site({}, {}, [paginated_page])
@@ -38,11 +38,11 @@ class TestCacheBuilder < Minitest::Test
   def test_caches_topbar_nav_items
     topbar_page = create_doc(
       { 'title' => 'By Series', 'book_topbar_include' => true },
-      '/books/by-series.html'
+      '/books/by-series.html',
     )
     non_topbar_page = create_doc(
       { 'title' => 'Other', 'book_topbar_include' => false },
-      '/other.html'
+      '/other.html',
     )
 
     site = create_site({}, {}, [topbar_page, non_topbar_page])
@@ -66,7 +66,7 @@ class TestCacheBuilder < Minitest::Test
   def test_caches_author_pages
     author_page = create_doc(
       { 'title' => 'Jane Doe', 'layout' => 'author_page' },
-      '/authors/jane-doe.html'
+      '/authors/jane-doe.html',
     )
 
     site = create_site({}, {}, [author_page])
@@ -79,7 +79,7 @@ class TestCacheBuilder < Minitest::Test
   def test_caches_author_pen_names
     author_page = create_doc(
       { 'title' => 'Jane Doe', 'layout' => 'author_page', 'pen_names' => ['J.D. Writer', 'Anonymous'] },
-      '/authors/jane-doe.html'
+      '/authors/jane-doe.html',
     )
 
     site = create_site({}, {}, [author_page])
@@ -93,7 +93,7 @@ class TestCacheBuilder < Minitest::Test
   def test_caches_series_pages
     series_page = create_doc(
       { 'title' => 'The Foundation Series', 'layout' => 'series_page' },
-      '/series/foundation.html'
+      '/series/foundation.html',
     )
 
     site = create_site({}, {}, [series_page])
@@ -106,7 +106,7 @@ class TestCacheBuilder < Minitest::Test
   def test_caches_books_with_normalized_titles
     book = create_doc(
       { 'title' => 'The Great Gatsby', 'published' => true, 'book_authors' => ['F. Scott Fitzgerald'] },
-      '/books/great-gatsby.html'
+      '/books/great-gatsby.html',
     )
 
     site = create_site({}, { 'books' => [book] })
@@ -119,11 +119,11 @@ class TestCacheBuilder < Minitest::Test
   def test_handles_duplicate_book_titles
     book_a = create_doc(
       { 'title' => 'Duplicate', 'published' => true, 'book_authors' => ['Author A'] },
-      '/books/dup-a.html'
+      '/books/dup-a.html',
     )
     book_b = create_doc(
       { 'title' => 'Duplicate', 'published' => true, 'book_authors' => ['Author B'] },
-      '/books/dup-b.html'
+      '/books/dup-b.html',
     )
 
     site = create_site({}, { 'books' => [book_a, book_b] })
@@ -135,11 +135,11 @@ class TestCacheBuilder < Minitest::Test
   def test_excludes_unpublished_books_from_cache
     published = create_doc(
       { 'title' => 'Published Book', 'published' => true },
-      '/books/published.html'
+      '/books/published.html',
     )
     unpublished = create_doc(
       { 'title' => 'Draft Book', 'published' => false },
-      '/books/draft.html'
+      '/books/draft.html',
     )
 
     site = create_site({}, { 'books' => [published, unpublished] })
@@ -152,15 +152,15 @@ class TestCacheBuilder < Minitest::Test
   def test_builds_series_map
     book1 = create_doc(
       { 'title' => 'Foundation', 'published' => true, 'series' => 'Foundation Series' },
-      '/books/foundation.html'
+      '/books/foundation.html',
     )
     book2 = create_doc(
       { 'title' => 'Foundation and Empire', 'published' => true, 'series' => 'Foundation Series' },
-      '/books/foundation-empire.html'
+      '/books/foundation-empire.html',
     )
     standalone = create_doc(
       { 'title' => 'Standalone', 'published' => true },
-      '/books/standalone.html'
+      '/books/standalone.html',
     )
 
     site = create_site({}, { 'books' => [book1, book2, standalone] })
@@ -173,11 +173,11 @@ class TestCacheBuilder < Minitest::Test
   def test_builds_book_families_with_canonical_url
     canonical = create_doc(
       { 'title' => 'Original Edition', 'published' => true },
-      '/books/original.html'
+      '/books/original.html',
     )
     reprint = create_doc(
       { 'title' => 'Reprint Edition', 'published' => true, 'canonical_url' => '/books/original.html' },
-      '/books/reprint.html'
+      '/books/reprint.html',
     )
 
     site = create_site({}, { 'books' => [canonical, reprint] })
@@ -196,7 +196,7 @@ class TestCacheBuilder < Minitest::Test
   def test_skips_pages_without_title
     no_title_page = create_doc(
       { 'title' => nil, 'sidebar_include' => true },
-      '/no-title.html'
+      '/no-title.html',
     )
 
     site = create_site({}, {}, [no_title_page])
@@ -208,7 +208,7 @@ class TestCacheBuilder < Minitest::Test
   def test_skips_books_without_title
     no_title_book = create_doc(
       { 'title' => nil, 'published' => true },
-      '/books/no-title.html'
+      '/books/no-title.html',
     )
 
     site = create_site({}, { 'books' => [no_title_book] })
@@ -220,7 +220,7 @@ class TestCacheBuilder < Minitest::Test
   def test_skips_books_with_empty_title
     empty_title_book = create_doc(
       { 'title' => '   ', 'published' => true },
-      '/books/empty-title.html'
+      '/books/empty-title.html',
     )
 
     site = create_site({}, { 'books' => [empty_title_book] })
@@ -239,7 +239,7 @@ class TestCacheBuilder < Minitest::Test
   def test_book_data_includes_authors
     book = create_doc(
       { 'title' => 'Collaboration', 'published' => true, 'book_authors' => ['Author A', 'Author B'] },
-      '/books/collab.html'
+      '/books/collab.html',
     )
 
     site = create_site({}, { 'books' => [book] })
@@ -251,7 +251,7 @@ class TestCacheBuilder < Minitest::Test
   def test_book_data_includes_date
     book = create_doc(
       { 'title' => 'Dated Book', 'published' => true, 'date' => Time.parse('2024-01-15') },
-      '/books/dated.html'
+      '/books/dated.html',
     )
 
     site = create_site({}, { 'books' => [book] })

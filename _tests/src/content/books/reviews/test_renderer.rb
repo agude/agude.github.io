@@ -10,15 +10,21 @@ require_relative '../../../../../_plugins/src/content/books/reviews/renderer'
 class TestPreviousReviewsRenderer < Minitest::Test
   def setup
     @context = create_context({}, {})
-    @archive_new = create_doc({
-                                'title' => 'Archived (New)',
-                                'date' => Time.parse('2023-01-01')
-                              }, '/books/archive-new.html')
+    @archive_new = create_doc(
+      {
+        'title' => 'Archived (New)',
+        'date' => Time.parse('2023-01-01'),
+      },
+      '/books/archive-new.html',
+    )
 
-    @archive_old = create_doc({
-                                'title' => 'Archived (Old)',
-                                'date' => Time.parse('2022-01-01')
-                              }, '/books/archive-old.html')
+    @archive_old = create_doc(
+      {
+        'title' => 'Archived (Old)',
+        'date' => Time.parse('2022-01-01'),
+      },
+      '/books/archive-old.html',
+    )
   end
 
   def test_returns_empty_string_when_reviews_empty
@@ -30,10 +36,11 @@ class TestPreviousReviewsRenderer < Minitest::Test
 
   def test_generates_correct_html_structure
     captured_args = []
-    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
-      captured_args << { doc: doc, subtitle: subtitle }
-      "<!-- Card for #{doc.data['title']} -->"
-    } do
+    Jekyll::Books::Core::BookCardUtils.stub :render,
+                                            lambda { |doc, _ctx, subtitle:|
+                                              captured_args << { doc: doc, subtitle: subtitle }
+                                              "<!-- Card for #{doc.data['title']} -->"
+                                            } do
       renderer = Jekyll::Books::Reviews::Renderer.new(@context, [@archive_new, @archive_old])
       output = renderer.render
 
@@ -46,10 +53,11 @@ class TestPreviousReviewsRenderer < Minitest::Test
 
   def test_calls_book_card_utils_with_correct_subtitle_format
     captured_args = []
-    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
-      captured_args << { doc: doc, subtitle: subtitle }
-      ''
-    } do
+    Jekyll::Books::Core::BookCardUtils.stub :render,
+                                            lambda { |doc, _ctx, subtitle:|
+                                              captured_args << { doc: doc, subtitle: subtitle }
+                                              ''
+                                            } do
       renderer = Jekyll::Books::Reviews::Renderer.new(@context, [@archive_new, @archive_old])
       renderer.render
 
@@ -63,10 +71,11 @@ class TestPreviousReviewsRenderer < Minitest::Test
 
   def test_renders_cards_in_given_order
     captured_args = []
-    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
-      captured_args << { doc: doc, subtitle: subtitle }
-      "<!-- Card for #{doc.data['title']} -->"
-    } do
+    Jekyll::Books::Core::BookCardUtils.stub :render,
+                                            lambda { |doc, _ctx, subtitle:|
+                                              captured_args << { doc: doc, subtitle: subtitle }
+                                              "<!-- Card for #{doc.data['title']} -->"
+                                            } do
       # Pass reviews in a specific order
       renderer = Jekyll::Books::Reviews::Renderer.new(@context, [@archive_old, @archive_new])
       output = renderer.render
@@ -84,9 +93,10 @@ class TestPreviousReviewsRenderer < Minitest::Test
   end
 
   def test_includes_all_rendered_cards_in_output
-    Jekyll::Books::Core::BookCardUtils.stub :render, lambda { |doc, _ctx, subtitle:|
-      "<div class=\"card\">#{doc.data['title']}</div>"
-    } do
+    Jekyll::Books::Core::BookCardUtils.stub :render,
+                                            lambda { |doc, _ctx, subtitle:|
+                                              "<div class=\"card\">#{doc.data['title']}</div>"
+                                            } do
       renderer = Jekyll::Books::Reviews::Renderer.new(@context, [@archive_new, @archive_old])
       output = renderer.render
 

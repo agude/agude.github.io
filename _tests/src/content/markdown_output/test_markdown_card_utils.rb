@@ -12,7 +12,7 @@ class TestMarkdownCardUtils < Minitest::Test
       title: 'The Great Gatsby',
       authors: ['F. Scott Fitzgerald'],
       rating: 4,
-      url: '/books/the-great-gatsby/'
+      url: '/books/the-great-gatsby/',
     }
 
     result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
@@ -26,7 +26,7 @@ class TestMarkdownCardUtils < Minitest::Test
       title: 'Collaborative Work',
       authors: ['Author One', 'Author Two', 'Author Three'],
       rating: 5,
-      url: '/books/collab/'
+      url: '/books/collab/',
     }
 
     result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
@@ -40,7 +40,7 @@ class TestMarkdownCardUtils < Minitest::Test
       title: 'Anonymous',
       authors: [],
       rating: 3,
-      url: '/books/anon/'
+      url: '/books/anon/',
     }
 
     result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
@@ -53,7 +53,7 @@ class TestMarkdownCardUtils < Minitest::Test
       title: 'Unrated Book',
       authors: ['Author'],
       rating: nil,
-      url: '/books/unrated/'
+      url: '/books/unrated/',
     }
 
     result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
@@ -66,7 +66,7 @@ class TestMarkdownCardUtils < Minitest::Test
       title: 'Minimal',
       authors: nil,
       rating: nil,
-      url: '/books/minimal/'
+      url: '/books/minimal/',
     }
 
     result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
@@ -77,7 +77,7 @@ class TestMarkdownCardUtils < Minitest::Test
   def test_render_article_card_md
     data = {
       title: 'My Blog Post',
-      url: '/blog/my-blog-post/'
+      url: '/blog/my-blog-post/',
     }
 
     result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_article_card_md(data)

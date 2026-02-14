@@ -18,7 +18,7 @@ module Jekyll
       # Default configuration
       DEFAULT_REQUIRED_FIELDS_CONFIG = {
         'books' => %w[title book_authors book_number],
-        'posts' => %w[title date]
+        'posts' => %w[title date],
         # Add other layouts or collection labels as needed:
         # 'my_layout' => ['field1', 'field2'],
         # 'my_collection' => ['fieldA', 'fieldB'],

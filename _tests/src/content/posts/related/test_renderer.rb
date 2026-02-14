@@ -9,7 +9,7 @@ class TestRelatedPostsRenderer < Minitest::Test
   def setup
     @post = create_doc(
       { 'title' => 'Test Post', 'published' => true },
-      '/posts/test.html'
+      '/posts/test.html',
     )
     @site = create_site({}, {})
     @context = create_context({}, { site: @site, page: @post })
@@ -53,11 +53,11 @@ class TestRelatedPostsRenderer < Minitest::Test
   def test_renders_multiple_posts
     post_a = create_doc(
       { 'title' => 'Post A', 'published' => true },
-      '/posts/a.html'
+      '/posts/a.html',
     )
     post_b = create_doc(
       { 'title' => 'Post B', 'published' => true },
-      '/posts/b.html'
+      '/posts/b.html',
     )
 
     renderer = Jekyll::Posts::Related::Renderer.new(@context, [post_a, post_b], true)

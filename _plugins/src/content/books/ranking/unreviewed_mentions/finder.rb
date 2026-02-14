@@ -49,7 +49,7 @@ module Jekyll
               context: @context,
               tag_type: 'UNREVIEWED_MENTIONS',
               reason: "Prerequisites missing: mention_tracker or link_cache['books'] not found.",
-              level: :error
+              level: :error,
             )
           end
 
@@ -61,7 +61,7 @@ module Jekyll
 
               {
                 title: display_title,
-                count: data[:sources].size
+                count: data[:sources].size,
               }
             end
             items.compact.sort_by { |item| -item[:count] }

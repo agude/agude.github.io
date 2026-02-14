@@ -31,7 +31,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: 'Isaac Asimov',
       context: @context,
-      linked: true
+      linked: true,
     )
 
     assert_equal '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>', result
@@ -41,7 +41,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: 'Isaac Asimov',
       context: @context,
-      linked: false
+      linked: false,
     )
 
     assert_equal '<span class="author-name">Isaac Asimov</span>', result
@@ -51,7 +51,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov'],
       context: @context,
-      linked: true
+      linked: true,
     )
 
     assert_equal '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>', result
@@ -61,7 +61,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: 'Ursula K. Le Guin',
       context: @context,
-      linked: true
+      linked: true,
     )
 
     assert_equal '<a href="/authors/ursula-k.-le-guin.html">Ursula K. Le Guin</a>', result
@@ -73,7 +73,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
-      linked: true
+      linked: true,
     )
 
     expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
@@ -85,7 +85,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
-      linked: false
+      linked: false,
     )
 
     expected = '<span class="author-name">Isaac Asimov</span> and ' \
@@ -99,7 +99,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke'],
       context: @context,
-      linked: true
+      linked: true,
     )
 
     expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>, ' \
@@ -112,7 +112,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke'],
       context: @context,
-      linked: false
+      linked: false,
     )
 
     expected = '<span class="author-name">Isaac Asimov</span>, ' \
@@ -127,7 +127,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke', 'Frederik Pohl'],
       context: @context,
-      linked: true
+      linked: true,
     )
 
     expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>, ' \
@@ -141,7 +141,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke', 'Frederik Pohl'],
       context: @context,
-      linked: false
+      linked: false,
     )
 
     expected = '<span class="author-name">Isaac Asimov</span>, ' \
@@ -158,7 +158,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
       linked: true,
-      etal_after: 1
+      etal_after: 1,
     )
 
     expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> <abbr class="etal">et al.</abbr>'
@@ -170,7 +170,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke'],
       context: @context,
       linked: true,
-      etal_after: 2
+      etal_after: 2,
     )
 
     expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> <abbr class="etal">et al.</abbr>'
@@ -182,7 +182,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke', 'Frederik Pohl'],
       context: @context,
       linked: true,
-      etal_after: 3
+      etal_after: 3,
     )
 
     expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> <abbr class="etal">et al.</abbr>'
@@ -194,7 +194,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
       linked: true,
-      etal_after: 2
+      etal_after: 2,
     )
 
     expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
@@ -207,7 +207,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
       linked: true,
-      etal_after: 5
+      etal_after: 5,
     )
 
     expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
@@ -220,7 +220,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
       author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke'],
       context: @context,
       linked: false,
-      etal_after: 2
+      etal_after: 2,
     )
 
     expected = '<span class="author-name">Isaac Asimov</span> <abbr class="etal">et al.</abbr>'
@@ -232,7 +232,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
       linked: true,
-      etal_after: 0
+      etal_after: 0,
     )
 
     expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
@@ -245,7 +245,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
       linked: true,
-      etal_after: -1
+      etal_after: -1,
     )
 
     expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
@@ -259,7 +259,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: 'Isaac Asimov',
       context: @context,
-      linked: true
+      linked: true,
     )
 
     expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>'
@@ -272,7 +272,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: '',
       context: @context,
-      linked: true
+      linked: true,
     )
 
     assert_equal '', result
@@ -282,7 +282,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: [],
       context: @context,
-      linked: true
+      linked: true,
     )
 
     assert_equal '', result
@@ -292,7 +292,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: nil,
       context: @context,
-      linked: true
+      linked: true,
     )
 
     assert_equal '', result
@@ -301,7 +301,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
   def test_linked_defaults_to_true
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: 'Isaac Asimov',
-      context: @context
+      context: @context,
     )
 
     assert_equal '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>', result
@@ -311,7 +311,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: ['Isaac Asimov', 'Robert Silverberg'],
       context: @context,
-      linked: true
+      linked: true,
     )
 
     expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
@@ -325,7 +325,7 @@ class TestDisplayAuthorsUtil < Minitest::Test
     result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
       author_input: '<script>alert("xss")</script>',
       context: @context,
-      linked: false
+      linked: false,
     )
 
     assert_equal '<span class="author-name">&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;</span>', result

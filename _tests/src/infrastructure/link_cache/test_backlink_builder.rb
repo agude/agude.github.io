@@ -11,17 +11,17 @@ class TestBacklinkBuilder < Minitest::Test
     @book_a = create_doc(
       { 'title' => 'Book A', 'published' => true },
       '/books/book-a.html',
-      "Review of Book A with {% book_link 'Book B' %} reference."
+      "Review of Book A with {% book_link 'Book B' %} reference.",
     )
     @book_b = create_doc(
       { 'title' => 'Book B', 'published' => true },
       '/books/book-b.html',
-      'Book B content with no links.'
+      'Book B content with no links.',
     )
     @book_c = create_doc(
       { 'title' => 'Book C', 'published' => true },
       '/books/book-c.html',
-      "Book C references {% book_link \"Book A\" %} and {% book_link 'Book B' %}."
+      "Book C references {% book_link \"Book A\" %} and {% book_link 'Book B' %}.",
     )
   end
 
@@ -41,7 +41,7 @@ class TestBacklinkBuilder < Minitest::Test
     self_ref_book = create_doc(
       { 'title' => 'Self Ref', 'published' => true },
       '/books/self-ref.html',
-      "This book references itself: {% book_link 'Self Ref' %}."
+      "This book references itself: {% book_link 'Self Ref' %}.",
     )
 
     site = create_site({}, { 'books' => [self_ref_book] })
@@ -55,7 +55,7 @@ class TestBacklinkBuilder < Minitest::Test
     empty_book = create_doc(
       { 'title' => 'Empty', 'published' => true },
       '/books/empty.html',
-      ''
+      '',
     )
 
     site = create_site({}, { 'books' => [empty_book, @book_b] })
@@ -67,7 +67,7 @@ class TestBacklinkBuilder < Minitest::Test
     nil_book = create_doc(
       { 'title' => 'Nil Content', 'published' => true },
       '/books/nil.html',
-      nil
+      nil,
     )
 
     site = create_site({}, { 'books' => [nil_book, @book_b] })
@@ -94,22 +94,22 @@ class TestBacklinkBuilder < Minitest::Test
     dual_link_book = create_doc(
       { 'title' => 'Dual Linker', 'published' => true },
       '/books/dual.html',
-      "{% series_link 'Test Series' %} and {% book_link 'Series Book' %}."
+      "{% series_link 'Test Series' %} and {% book_link 'Series Book' %}.",
     )
     series_book = create_doc(
       { 'title' => 'Series Book', 'published' => true, 'series' => 'Test Series' },
       '/books/series-book.html',
-      'Part of test series.'
+      'Part of test series.',
     )
     series_page = create_doc(
       { 'title' => 'Test Series', 'layout' => 'series_page' },
-      '/series/test-series.html'
+      '/series/test-series.html',
     )
 
     site = create_site(
       {},
       { 'books' => [dual_link_book, series_book] },
-      [series_page]
+      [series_page],
     )
     backlinks = site.data['link_cache']['backlinks']
 
@@ -125,27 +125,27 @@ class TestBacklinkBuilder < Minitest::Test
     series_book_1 = create_doc(
       { 'title' => 'Foundation', 'published' => true, 'series' => 'Foundation Series' },
       '/books/foundation.html',
-      'First book.'
+      'First book.',
     )
     series_book_2 = create_doc(
       { 'title' => 'Foundation and Empire', 'published' => true, 'series' => 'Foundation Series' },
       '/books/foundation-empire.html',
-      'Second book.'
+      'Second book.',
     )
     referencing_book = create_doc(
       { 'title' => 'Review Collection', 'published' => true },
       '/books/reviews.html',
-      "I love the {% series_link 'Foundation Series' %}!"
+      "I love the {% series_link 'Foundation Series' %}!",
     )
     series_page = create_doc(
       { 'title' => 'Foundation Series', 'layout' => 'series_page' },
-      '/series/foundation.html'
+      '/series/foundation.html',
     )
 
     site = create_site(
       {},
       { 'books' => [series_book_1, series_book_2, referencing_book] },
-      [series_page]
+      [series_page],
     )
     backlinks = site.data['link_cache']['backlinks']
 
@@ -158,18 +158,18 @@ class TestBacklinkBuilder < Minitest::Test
     story_book = create_doc(
       { 'title' => 'Only Collection', 'published' => true },
       '/books/only.html',
-      'Contains short stories.'
+      'Contains short stories.',
     )
     referencing_book = create_doc(
       { 'title' => 'Reviewer', 'published' => true },
       '/books/reviewer.html',
-      "I enjoyed {% short_story_link 'Unique Story' %}."
+      "I enjoyed {% short_story_link 'Unique Story' %}.",
     )
 
     # All locations share the same URL, so no from_book is needed
     site = create_site_with_short_stories(
       [story_book, referencing_book],
-      { 'unique story' => [{ 'url' => '/books/only.html', 'parent_book_title' => 'Only Collection' }] }
+      { 'unique story' => [{ 'url' => '/books/only.html', 'parent_book_title' => 'Only Collection' }] },
     )
     backlinks = site.data['link_cache']['backlinks']
 
@@ -182,18 +182,18 @@ class TestBacklinkBuilder < Minitest::Test
     story_book = create_doc(
       { 'title' => 'Story Collection', 'published' => true },
       '/books/collection.html',
-      'Contains short stories.'
+      'Contains short stories.',
     )
     referencing_book = create_doc(
       { 'title' => 'Analysis', 'published' => true },
       '/books/analysis.html',
-      "Analysis of {% short_story_link 'The Last Question' from_book='Story Collection' %}."
+      "Analysis of {% short_story_link 'The Last Question' from_book='Story Collection' %}.",
     )
 
     # Set up link_cache with short story data
     site = create_site_with_short_stories(
       [story_book, referencing_book],
-      { 'the last question' => [{ 'url' => '/books/collection.html', 'parent_book_title' => 'Story Collection' }] }
+      { 'the last question' => [{ 'url' => '/books/collection.html', 'parent_book_title' => 'Story Collection' }] },
     )
     backlinks = site.data['link_cache']['backlinks']
 
@@ -207,7 +207,7 @@ class TestBacklinkBuilder < Minitest::Test
     double_quoted = create_doc(
       { 'title' => 'Double Quoted', 'published' => true },
       '/books/double.html',
-      'Uses {% book_link "Book B" %} with double quotes.'
+      'Uses {% book_link "Book B" %} with double quotes.',
     )
 
     site = create_site({}, { 'books' => [double_quoted, @book_b] })
@@ -220,7 +220,7 @@ class TestBacklinkBuilder < Minitest::Test
     multi_linker = create_doc(
       { 'title' => 'Multi Linker', 'published' => true },
       '/books/multi.html',
-      "{% book_link 'Book B' %} is great. Did I mention {% book_link 'Book B' %}?"
+      "{% book_link 'Book B' %} is great. Did I mention {% book_link 'Book B' %}?",
     )
 
     site = create_site({}, { 'books' => [multi_linker, @book_b] })

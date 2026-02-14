@@ -55,7 +55,7 @@ class TestBookBacklinksTag < Minitest::Test
 
   def test_finder_returns_correct_structure
     @site.data['link_cache']['backlinks'][@target_page.url] = [
-      { source: @source_doc_alpha, type: 'book' }
+      { source: @source_doc_alpha, type: 'book' },
     ]
     context = create_context({}, { site: @site, page: @target_page })
     finder = Jekyll::Books::Backlinks::Finder.new(context)
@@ -70,7 +70,7 @@ class TestBookBacklinksTag < Minitest::Test
     @site.data['link_cache']['backlinks'][@target_page.url] = [
       { source: @source_doc_gamma, type: 'book' },
       { source: @source_doc_alpha, type: 'book' },
-      { source: @source_doc_beta, type: 'direct' }
+      { source: @source_doc_beta, type: 'direct' },
     ]
     context = create_context({}, { site: @site, page: @target_page })
     finder = Jekyll::Books::Backlinks::Finder.new(context)
@@ -86,7 +86,7 @@ class TestBookBacklinksTag < Minitest::Test
   def test_finder_includes_link_types_in_results
     @site.data['link_cache']['backlinks'][@target_page.url] = [
       { source: @source_doc_alpha, type: 'series' },
-      { source: @source_doc_beta, type: 'direct' }
+      { source: @source_doc_beta, type: 'direct' },
     ]
     context = create_context({}, { site: @site, page: @target_page })
     finder = Jekyll::Books::Backlinks::Finder.new(context)
@@ -109,8 +109,8 @@ class TestBookBacklinksTag < Minitest::Test
     link_cache['backlinks'] = {
       '/target.html' => [
         { source: source_canonical, type: 'book' },
-        { source: source_archived, type: 'book' }
-      ]
+        { source: source_archived, type: 'book' },
+      ],
     }
 
     context = create_context({}, { site: site, page: target_book })
@@ -132,7 +132,7 @@ class TestBookBacklinksTag < Minitest::Test
     site = create_site({}, { 'books' => all_series_books })
     link_cache = site.data['link_cache']
     link_cache['backlinks'] = {
-      '/series-1.html' => [{ source: source_for_series, type: 'series' }]
+      '/series-1.html' => [{ source: source_for_series, type: 'series' }],
     }
 
     # Test on Series Book 2, which only gets the series mention indirectly
@@ -194,7 +194,7 @@ class TestBookBacklinksTag < Minitest::Test
   def test_renderer_generates_correct_html_structure
     backlinks = [
       ['Book Alpha', '/a.html', 'book'],
-      ['Book Beta', '/b.html', 'direct']
+      ['Book Beta', '/b.html', 'direct'],
     ]
 
     context = create_context({}, { site: @site, page: @target_page })
@@ -214,7 +214,7 @@ class TestBookBacklinksTag < Minitest::Test
   def test_renderer_includes_dagger_for_series_links
     backlinks = [
       ['Book Alpha', '/a.html', 'series'],
-      ['Book Beta', '/b.html', 'book']
+      ['Book Beta', '/b.html', 'book'],
     ]
 
     context = create_context({}, { site: @site, page: @target_page })
@@ -249,7 +249,7 @@ class TestBookBacklinksTag < Minitest::Test
   def test_renderer_omits_explanation_when_no_series_links
     backlinks = [
       ['Book Alpha', '/a.html', 'book'],
-      ['Book Beta', '/b.html', 'direct']
+      ['Book Beta', '/b.html', 'direct'],
     ]
 
     context = create_context({}, { site: @site, page: @target_page })
@@ -273,14 +273,14 @@ class TestBookBacklinksTag < Minitest::Test
     @site.data['link_cache']['backlinks'][@target_page.url] = [
       { source: @source_doc_gamma, type: 'book' },
       { source: @source_doc_alpha, type: 'series' },
-      { source: @source_doc_beta, type: 'direct' }
+      { source: @source_doc_beta, type: 'direct' },
     ]
     context = create_context({}, { site: @site, page: @target_page })
 
     mock_link_html = {
       'Book Alpha' => "<a href='/a'>Alpha Link</a>",
       'Book Beta' => "<a href='/b'>Beta Link</a>",
-      'Book Gamma' => "<a href='/g'>Gamma Link</a>"
+      'Book Gamma' => "<a href='/g'>Gamma Link</a>",
     }
 
     output = ''
@@ -313,16 +313,20 @@ class TestBookBacklinksTag < Minitest::Test
     expected_explanation = '<p class="backlink-explanation"><sup>†</sup> ' \
                            '<em>Mentioned via a link to the series.</em></p>'
     assert_match(/#{Regexp.escape(expected_explanation)}/, output)
-    assert_match(%r{</ul>.*?<p class="backlink-explanation">.*?</aside>$}m, output,
-                 'Explanation should be after the list and before the aside closes')
+    assert_match(
+      %r{</ul>.*?<p class="backlink-explanation">.*?</aside>$}m,
+      output,
+      'Explanation should be after the list and before the aside closes',
+    )
   end
 
   def test_tag_returns_empty_when_no_backlinks_found
     context = create_context({}, { site: @site, page: @target_page })
     output = ''
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, lambda { |_t, _u, _c|
-      flunk 'render_book_link_from_data should not be called'
-    } do
+    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data,
+                                            lambda { |_t, _u, _c|
+                                              flunk 'render_book_link_from_data should not be called'
+                                            } do
       output = render_tag(context)
     end
     assert_equal '', output.strip
@@ -331,7 +335,7 @@ class TestBookBacklinksTag < Minitest::Test
   def test_tag_passes_correct_arguments_to_render_book_link_from_data
     @site.data['link_cache']['backlinks'][@target_page.url] = [
       { source: @source_doc_alpha, type: 'book' },
-      { source: @source_doc_beta, type: 'series' }
+      { source: @source_doc_beta, type: 'series' },
     ]
     context = create_context({}, { site: @site, page: @target_page })
 

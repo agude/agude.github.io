@@ -12,49 +12,106 @@ class TestBookListSeriesFinder < Minitest::Test
 
     # Series One Books
     @s1_b0_5 = create_doc(
-      { 'title' => 'S1 Book 0.5 (Novella)', 'series' => 'Series One', 'book_number' => 0.5, 'published' => true,
-        'date' => Time.now }, '/s1b0_5.html'
+      {
+        'title' => 'S1 Book 0.5 (Novella)',
+        'series' => 'Series One',
+        'book_number' => 0.5,
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/s1b0_5.html',
     )
     @s1_b1 = create_doc(
-      { 'title' => 'S1 Book 1',   'series' => 'Series One', 'book_number' => 1, 'published' => true,
-        'date' => Time.now }, '/s1b1.html'
+      {
+        'title' => 'S1 Book 1',
+        'series' => 'Series One',
+        'book_number' => 1,
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/s1b1.html',
     )
     @s1_b2 = create_doc(
-      { 'title' => 'S1 Book 2',   'series' => 'Series One', 'book_number' => '2.0', 'published' => true,
-        'date' => Time.now }, '/s1b2.html'
+      {
+        'title' => 'S1 Book 2',
+        'series' => 'Series One',
+        'book_number' => '2.0',
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/s1b2.html',
     )
     @s1_b10 = create_doc(
-      { 'title' => 'S1 Book 10',  'series' => 'Series One', 'book_number' => '10', 'published' => true,
-        'date' => Time.now }, '/s1b10.html'
+      {
+        'title' => 'S1 Book 10',
+        'series' => 'Series One',
+        'book_number' => '10',
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/s1b10.html',
     )
     @s1_b_nil_num = create_doc(
-      { 'title' => 'S1 Book NilNum', 'series' => 'Series One', 'book_number' => nil, 'published' => true,
-        'date' => Time.now }, '/s1b_nil.html'
+      {
+        'title' => 'S1 Book NilNum',
+        'series' => 'Series One',
+        'book_number' => nil,
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/s1b_nil.html',
     )
     @s1_b_str_num = create_doc(
-      { 'title' => 'S1 Book StrNum', 'series' => 'Series One', 'book_number' => 'Part 3', 'published' => true,
-        'date' => Time.now }, '/s1b_str.html'
+      {
+        'title' => 'S1 Book StrNum',
+        'series' => 'Series One',
+        'book_number' => 'Part 3',
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/s1b_str.html',
     )
     @unpublished_s1 = create_doc(
-      { 'title' => 'Unpublished S1 Book', 'series' => 'Series One', 'published' => false,
-        'date' => Time.now }, '/s1_unpub.html'
+      {
+        'title' => 'Unpublished S1 Book',
+        'series' => 'Series One',
+        'published' => false,
+        'date' => Time.now,
+      },
+      '/s1_unpub.html',
     )
 
     # Series Two Book (for testing "not found" or different series)
     @s2_b1 = create_doc(
-      { 'title' => 'S2 Book 1', 'series' => 'Series Two', 'book_number' => 1, 'published' => true,
-        'date' => Time.now }, '/s2b1.html'
+      {
+        'title' => 'S2 Book 1',
+        'series' => 'Series Two',
+        'book_number' => 1,
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/s2b1.html',
     )
 
     @books_for_series_tests = [
-      @s1_b0_5, @s1_b1, @s1_b2, @s1_b10, @s1_b_nil_num, @s1_b_str_num,
-      @unpublished_s1, @s2_b1
+      @s1_b0_5,
+      @s1_b1,
+      @s1_b2,
+      @s1_b10,
+      @s1_b_nil_num,
+      @s1_b_str_num,
+      @unpublished_s1,
+      @s2_b1,
     ]
 
     @site = create_site({}, { 'books' => @books_for_series_tests })
-    @context = create_context({},
-                              { site: @site,
-                                page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') })
+    @context = create_context(
+      {},
+      {
+        site: @site,
+        page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html'),
+      },
+    )
 
     @silent_logger_stub = Object.new.tap do |logger|
       def logger.warn(topic, message); end
@@ -73,7 +130,7 @@ class TestBookListSeriesFinder < Minitest::Test
       finder = Jekyll::Books::Lists::SeriesFinder.new(
         site: site,
         series_name_filter: series_name_filter,
-        context: context
+        context: context,
       )
       finder.find
     end
@@ -145,7 +202,7 @@ class TestBookListSeriesFinder < Minitest::Test
     site_no_books.config['plugin_logging']['BOOK_LIST_UTIL'] = true # Enable general util logging
     context_no_books = create_context(
       {},
-      { site: site_no_books, page: @context.registers[:page] }
+      { site: site_no_books, page: @context.registers[:page] },
     )
 
     data = get_series_data('Any Series', site_no_books, context_no_books)

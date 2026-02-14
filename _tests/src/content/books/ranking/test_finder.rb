@@ -16,7 +16,7 @@ class TestRankedByBacklinksFinder < Minitest::Test
     @site.data['link_cache']['books'] = {
       'book a' => [{ 'url' => '/a.html', 'title' => 'Book A', 'authors' => [] }],
       'book b' => [{ 'url' => '/b.html', 'title' => 'Book B', 'authors' => [] }],
-      'book c' => [{ 'url' => '/c.html', 'title' => 'Book C', 'authors' => [] }]
+      'book c' => [{ 'url' => '/c.html', 'title' => 'Book C', 'authors' => [] }],
     }
   end
 
@@ -108,7 +108,7 @@ class TestRankedByBacklinksFinder < Minitest::Test
     # Add a backlink for a book that doesn't exist in the books cache
     @site.data['link_cache']['backlinks'] = {
       '/a.html' => [{ source: create_doc, type: 'book' }],
-      '/unknown.html' => [{ source: create_doc, type: 'book' }]
+      '/unknown.html' => [{ source: create_doc, type: 'book' }],
     }
 
     finder = Jekyll::Books::Ranking::RankedByBacklinks::Finder.new(@context)
@@ -125,16 +125,16 @@ class TestRankedByBacklinksFinder < Minitest::Test
     @site.data['link_cache']['backlinks'] = {
       '/a.html' => [
         { source: create_doc, type: 'book' },
-        { source: create_doc, type: 'series' }
+        { source: create_doc, type: 'series' },
       ],
       '/b.html' => [
         { source: create_doc, type: 'book' },
         { source: create_doc, type: 'book' },
-        { source: create_doc, type: 'direct' }
+        { source: create_doc, type: 'direct' },
       ],
       '/c.html' => [
-        { source: create_doc, type: 'book' }
-      ]
+        { source: create_doc, type: 'book' },
+      ],
     }
   end
 end

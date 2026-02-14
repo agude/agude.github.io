@@ -19,7 +19,7 @@ class TestCardRendererUtils < Minitest::Test
     card_data = {
       base_class: 'minimal-card',
       url: '/item/1',
-      title_html: '<strong>Minimal Title</strong>'
+      title_html: '<strong>Minimal Title</strong>',
       # image_url, image_alt, image_div_class, description_html, etc., are all nil/missing
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
@@ -41,7 +41,7 @@ class TestCardRendererUtils < Minitest::Test
       title_html: '<strong>Image Card Title</strong>',
       image_url: '/images/pic.jpg',
       image_alt: 'A picture',
-      image_div_class: 'custom-image-class'
+      image_div_class: 'custom-image-class',
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
 
@@ -58,7 +58,7 @@ class TestCardRendererUtils < Minitest::Test
       title_html: '<strong>Title</strong>',
       image_url: '/images/pic.jpg',
       image_alt: 'Alt with "quotes" & <tags>',
-      image_div_class: 'custom-image-class'
+      image_div_class: 'custom-image-class',
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
     expected_alt = 'Alt with &quot;quotes&quot; &amp; &lt;tags&gt;'
@@ -72,7 +72,7 @@ class TestCardRendererUtils < Minitest::Test
       title_html: '<strong>Desc Card Title</strong>',
       description_html: 'This is the description.',
       description_wrapper_html_open: "<br />\n    ", # NOTE: render_card appends description_html after this
-      description_wrapper_html_close: ''
+      description_wrapper_html_close: '',
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
     # The regex needs to account for how render_card assembles this.
@@ -88,7 +88,7 @@ class TestCardRendererUtils < Minitest::Test
       title_html: '<strong>Desc Div Title</strong>',
       description_html: 'Description in a div.',
       description_wrapper_html_open: "<div class=\"desc-wrapper\">\n      ",
-      description_wrapper_html_close: "\n    </div>"
+      description_wrapper_html_close: "\n    </div>",
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
     # Expecting: <div class="desc-wrapper">\n      Description in a div.\n    </div>
@@ -102,8 +102,8 @@ class TestCardRendererUtils < Minitest::Test
       title_html: '<strong>Extra Elements Title</strong>',
       extra_elements_html: [
         "<span class=\"author-line\">By Test Author</span>\n", # Ensure newlines are handled if part of the string
-        '<div class="rating-line">Rating: 5 stars</div>'
-      ]
+        '<div class="rating-line">Rating: 5 stars</div>',
+      ],
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
     assert_match %r{<span class="author-line">By Test Author</span>}, output
@@ -127,7 +127,7 @@ class TestCardRendererUtils < Minitest::Test
       extra_elements_html: ['<p>Extra info</p>'],
       description_html: 'Full description here.',
       description_wrapper_html_open: '<div class="desc-container">',
-      description_wrapper_html_close: '</div>'
+      description_wrapper_html_close: '</div>',
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
 
@@ -147,7 +147,7 @@ class TestCardRendererUtils < Minitest::Test
       'not a hash',
       { url: '/foo', title_html: 'T' }, # Missing :base_class
       { base_class: 'foo', title_html: 'T' }, # Missing :url
-      { base_class: 'foo', url: '/foo' } # Missing :title_html
+      { base_class: 'foo', url: '/foo' }, # Missing :title_html
     ]
 
     invalid_inputs.each do |input|
@@ -166,7 +166,7 @@ class TestCardRendererUtils < Minitest::Test
       title_html: '<strong>Title</strong>',
       description_html: '   ', # Whitespace only
       description_wrapper_html_open: '<div>',
-      description_wrapper_html_close: '</div>'
+      description_wrapper_html_close: '</div>',
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
     refute_match %r{<div>\s*</div>}, output # The wrapper div should not appear if desc is empty
@@ -179,7 +179,7 @@ class TestCardRendererUtils < Minitest::Test
       title_html: '<strong>Title</strong>',
       image_url: '/images/pic.jpg',
       image_alt: nil, # Test nil alt
-      image_div_class: 'custom-image-class'
+      image_div_class: 'custom-image-class',
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
     assert_match %r{<img src="/images/pic.jpg" alt="" />}, output # Expect empty alt attribute

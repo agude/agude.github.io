@@ -81,7 +81,7 @@ module Jekyll
           log(
             'No posts found in category after filtering (e.g., excluded current page or unpublished).',
             { category_name: key, excluded_url: @exclude_url || 'N/A' },
-            :info
+            :info,
           )
         end
 
@@ -91,7 +91,7 @@ module Jekyll
             tag_type: 'POST_LIST_UTIL_CATEGORY',
             reason: reason,
             identifiers: identifiers,
-            level: level
+            level: level,
           )
         end
       end

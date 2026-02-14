@@ -43,7 +43,7 @@ module Jekyll
             context: log_context,
             tag_type: 'PREVIOUS_REVIEWS',
             reason: 'Prerequisites missing: site, page, or page.url.',
-            level: :error
+            level: :error,
           )
         end
 

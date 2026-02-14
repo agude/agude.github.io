@@ -23,8 +23,11 @@ module Jekyll
             output = +"<ol class=\"ranked-list\">\n"
 
             @ranked_list.each do |item|
-              book_link_html = Jekyll::Books::Core::BookLinkUtils.render_book_link_from_data(item[:title],
-                                                                                             item[:url], @context)
+              book_link_html = Jekyll::Books::Core::BookLinkUtils.render_book_link_from_data(
+                item[:title],
+                item[:url],
+                @context,
+              )
               mention_text = item[:count] == 1 ? '1 mention' : "#{item[:count]} mentions"
               output << "  <li>#{book_link_html} <span class=\"mention-count\">(#{mention_text})</span></li>\n"
             end

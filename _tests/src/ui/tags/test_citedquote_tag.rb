@@ -14,9 +14,9 @@ class TestCitedQuoteTag < Minitest::Test
       {
         'page_author' => 'PageAuthor',
         'page_title' => 'Page Title Variable',
-        'nil_var' => nil
+        'nil_var' => nil,
       },
-      { site: @site, page: create_doc({ 'path' => 'test_page.md' }, '/test.html') }
+      { site: @site, page: create_doc({ 'path' => 'test_page.md' }, '/test.html') },
     )
 
     @silent_logger_stub = Object.new.tap do |logger|
@@ -75,10 +75,11 @@ class TestCitedQuoteTag < Minitest::Test
   def test_parses_apostrophe_in_double_quoted_value
     # Common case: Irish names like O'Malley
     captured_args = nil
-    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render, lambda { |_cont, params, _site|
-      captured_args = params
-      '<figure>mock</figure>'
-    } do
+    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render,
+                                             lambda { |_cont, params, _site|
+                                               captured_args = params
+                                               '<figure>mock</figure>'
+                                             } do
       render_tag("author_last=\"O'Malley\"", 'Quote text')
     end
 
@@ -88,10 +89,11 @@ class TestCitedQuoteTag < Minitest::Test
   def test_parses_double_quote_in_single_quoted_value
     # Title containing double quotes
     captured_args = nil
-    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render, lambda { |_cont, params, _site|
-      captured_args = params
-      '<figure>mock</figure>'
-    } do
+    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render,
+                                             lambda { |_cont, params, _site|
+                                               captured_args = params
+                                               '<figure>mock</figure>'
+                                             } do
       render_tag("work_title='A \"Quoted\" Title'", 'Quote text')
     end
 
@@ -101,10 +103,11 @@ class TestCitedQuoteTag < Minitest::Test
   def test_parses_single_quote_in_double_quoted_value
     # Title containing single quotes
     captured_args = nil
-    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render, lambda { |_cont, params, _site|
-      captured_args = params
-      '<figure>mock</figure>'
-    } do
+    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render,
+                                             lambda { |_cont, params, _site|
+                                               captured_args = params
+                                               '<figure>mock</figure>'
+                                             } do
       render_tag("work_title=\"The 'Best' Book\"", 'Quote text')
     end
 
@@ -173,14 +176,15 @@ class TestCitedQuoteTag < Minitest::Test
     content = 'Quote content here'
     expected_params = {
       author_last: 'Doe',
-      work_title: 'Test Article'
+      work_title: 'Test Article',
     }
 
     captured_args = nil
-    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render, lambda { |cont, params, site|
-      captured_args = { content: cont, params: params, site: site }
-      '<figure>mock</figure>'
-    } do
+    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render,
+                                             lambda { |cont, params, site|
+                                               captured_args = { content: cont, params: params, site: site }
+                                               '<figure>mock</figure>'
+                                             } do
       render_tag(markup, content)
     end
 
@@ -195,14 +199,15 @@ class TestCitedQuoteTag < Minitest::Test
     content = 'Quote content'
     expected_params = {
       author_last: 'PageAuthor',
-      work_title: 'Page Title Variable'
+      work_title: 'Page Title Variable',
     }
 
     captured_args = nil
-    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render, lambda { |cont, params, site|
-      captured_args = { content: cont, params: params, site: site }
-      '<figure>mock</figure>'
-    } do
+    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render,
+                                             lambda { |cont, params, site|
+                                               captured_args = { content: cont, params: params, site: site }
+                                               '<figure>mock</figure>'
+                                             } do
       render_tag(markup, content)
     end
 
@@ -214,14 +219,15 @@ class TestCitedQuoteTag < Minitest::Test
     markup = 'author_last=nil_var work_title="Test"'
     expected_params = {
       author_last: nil,
-      work_title: 'Test'
+      work_title: 'Test',
     }
 
     captured_args = nil
-    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render, lambda { |_cont, params, _site|
-      captured_args = { params: params }
-      '<figure>mock</figure>'
-    } do
+    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render,
+                                             lambda { |_cont, params, _site|
+                                               captured_args = { params: params }
+                                               '<figure>mock</figure>'
+                                             } do
       render_tag(markup, 'content')
     end
 
@@ -236,18 +242,31 @@ class TestCitedQuoteTag < Minitest::Test
              "date='2023' first_page='10' last_page='20' page='15' " \
              "doi='10.123' url='http://example.com' access_date='Today'"
     expected_params = {
-      author_last: 'Doe', author_first: 'John', author_handle: '@jdoe',
-      work_title: 'Work', container_title: 'Container', editor: 'Ed',
-      edition: '2nd', volume: 'X', number: '1', publisher: 'Pub',
-      date: '2023', first_page: '10', last_page: '20', page: '15',
-      doi: '10.123', url: 'http://example.com', access_date: 'Today'
+      author_last: 'Doe',
+      author_first: 'John',
+      author_handle: '@jdoe',
+      work_title: 'Work',
+      container_title: 'Container',
+      editor: 'Ed',
+      edition: '2nd',
+      volume: 'X',
+      number: '1',
+      publisher: 'Pub',
+      date: '2023',
+      first_page: '10',
+      last_page: '20',
+      page: '15',
+      doi: '10.123',
+      url: 'http://example.com',
+      access_date: 'Today',
     }
 
     captured_args = nil
-    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render, lambda { |_cont, params, _site|
-      captured_args = { params: params }
-      '<figure>mock</figure>'
-    } do
+    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render,
+                                             lambda { |_cont, params, _site|
+                                               captured_args = { params: params }
+                                               '<figure>mock</figure>'
+                                             } do
       render_tag(markup, 'content')
     end
 
@@ -261,10 +280,11 @@ class TestCitedQuoteTag < Minitest::Test
     content = '<em>emphasized</em> and <strong>bold</strong>'
 
     captured_content = nil
-    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render, lambda { |cont, _params, _site|
-      captured_content = cont
-      '<figure>mock</figure>'
-    } do
+    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render,
+                                             lambda { |cont, _params, _site|
+                                               captured_content = cont
+                                               '<figure>mock</figure>'
+                                             } do
       render_tag('author_last="Doe"', content)
     end
 
@@ -275,10 +295,11 @@ class TestCitedQuoteTag < Minitest::Test
     content = "Line one<br>\nLine two"
 
     captured_content = nil
-    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render, lambda { |cont, _params, _site|
-      captured_content = cont
-      '<figure>mock</figure>'
-    } do
+    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render,
+                                             lambda { |cont, _params, _site|
+                                               captured_content = cont
+                                               '<figure>mock</figure>'
+                                             } do
       render_tag('author_last="Doe"', content)
     end
 
@@ -290,10 +311,10 @@ class TestCitedQuoteTag < Minitest::Test
   def test_markdown_mode_renders_blockquote
     md_context = create_context(
       {},
-      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     template = Liquid::Template.parse(
-      '{% citedquote author_last="Doe" work_title="Test" %}Quote content{% endcitedquote %}'
+      '{% citedquote author_last="Doe" work_title="Test" %}Quote content{% endcitedquote %}',
     )
     output = template.render!(md_context)
     assert_includes output, '> Quote content'
@@ -304,10 +325,10 @@ class TestCitedQuoteTag < Minitest::Test
   def test_markdown_mode_multiline_content
     md_context = create_context(
       {},
-      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     template = Liquid::Template.parse(
-      "{% citedquote author_last=\"Doe\" %}Line one\nLine two{% endcitedquote %}"
+      "{% citedquote author_last=\"Doe\" %}Line one\nLine two{% endcitedquote %}",
     )
     output = template.render!(md_context)
     assert_includes output, '> Line one'

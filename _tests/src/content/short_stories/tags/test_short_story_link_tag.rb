@@ -14,19 +14,20 @@ class TestShortStoryLinkTag < Minitest::Test
       {
         'page_story_title' => 'Variable Story Title',
         'page_book_title' => 'Variable Book Title',
-        'nil_var' => nil
+        'nil_var' => nil,
       },
-      { site: @site, page: create_doc({}, '/current.html') }
+      { site: @site, page: create_doc({}, '/current.html') },
     )
   end
 
   # Helper to parse the tag and capture arguments passed to the utility
   def parse_and_capture_args(markup, context = @context)
     captured_args = nil
-    Jekyll::ShortStories::ShortStoryLinkUtils.stub :render_short_story_link, lambda { |story_title, ctx, from_book_title|
-      captured_args = { story_title: story_title, context: ctx, from_book_title: from_book_title }
-      "<!-- Util called with story: #{story_title}, book: #{from_book_title} -->"
-    } do
+    Jekyll::ShortStories::ShortStoryLinkUtils.stub :render_short_story_link,
+                                                   lambda { |story_title, ctx, from_book_title|
+                                                     captured_args = { story_title: story_title, context: ctx, from_book_title: from_book_title }
+                                                     "<!-- Util called with story: #{story_title}, book: #{from_book_title} -->"
+                                                   } do
       template = Liquid::Template.parse("{% short_story_link #{markup} %}")
       output = template.render!(context)
       return output, captured_args
@@ -93,16 +94,18 @@ class TestShortStoryLinkTag < Minitest::Test
     # The book must be marked as is_anthology: true for the scanner to find stories
     book_content = "## {% short_story_title 'Story of Your Life' %}"
     book = create_doc(
-      { 'title' => 'Stories of Your Life and Others',
+      {
+        'title' => 'Stories of Your Life and Others',
         'book_authors' => ['Ted Chiang'],
-        'is_anthology' => true },
+        'is_anthology' => true,
+      },
       '/books/stories-of-your-life/',
-      book_content
+      book_content,
     )
     site = create_site({}, { 'books' => [book] })
     md_context = create_context(
       {},
-      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     template = Liquid::Template.parse("{% short_story_link 'Story of Your Life' %}")
     output = template.render!(md_context)
@@ -114,7 +117,7 @@ class TestShortStoryLinkTag < Minitest::Test
     site = create_site
     md_context = create_context(
       {},
-      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     template = Liquid::Template.parse("{% short_story_link 'Unknown Story' %}")
     output = template.render!(md_context)

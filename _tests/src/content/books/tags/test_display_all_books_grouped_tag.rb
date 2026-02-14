@@ -18,22 +18,37 @@ class TestDisplayAllBooksGroupedTag < Minitest::Test
 
   def create_test_books
     @book_s1_b1 = create_doc(
-      { 'title' => 'S1 Book 1', 'series' => 'Series Alpha', 'book_number' => 1,
-        'book_author' => 'Author A' }, '/s1b1.html'
+      {
+        'title' => 'S1 Book 1',
+        'series' => 'Series Alpha',
+        'book_number' => 1,
+        'book_author' => 'Author A',
+      },
+      '/s1b1.html',
     )
     @book_s1_b2 = create_doc(
-      { 'title' => 'S1 Book 2', 'series' => 'Series Alpha', 'book_number' => 2,
-        'book_author' => 'Author A' }, '/s1b2.html'
+      {
+        'title' => 'S1 Book 2',
+        'series' => 'Series Alpha',
+        'book_number' => 2,
+        'book_author' => 'Author A',
+      },
+      '/s1b2.html',
     )
     @book_s2_b1 = create_doc(
-      { 'title' => 'S2 Book 1', 'series' => 'Series Beta', 'book_number' => 1,
-        'book_author' => 'Author B' }, '/s2b1.html'
+      {
+        'title' => 'S2 Book 1',
+        'series' => 'Series Beta',
+        'book_number' => 1,
+        'book_author' => 'Author B',
+      },
+      '/s2b1.html',
     )
     @standalone_apple = create_doc(
-      { 'title' => 'Apple Book', 'book_author' => 'Author C' }, '/apple.html'
+      { 'title' => 'Apple Book', 'book_author' => 'Author C' }, '/apple.html',
     )
     @standalone_the_zebra = create_doc(
-      { 'title' => 'The Zebra Book', 'book_author' => 'Author D' }, '/zebra.html'
+      { 'title' => 'The Zebra Book', 'book_author' => 'Author D' }, '/zebra.html',
     )
   end
 
@@ -41,7 +56,7 @@ class TestDisplayAllBooksGroupedTag < Minitest::Test
     @all_books = [@book_s1_b1, @book_s1_b2, @book_s2_b1, @standalone_apple, @standalone_the_zebra]
     @site = create_site({}, { 'books' => @all_books })
     @context = create_context(
-      {}, { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') }
+      {}, { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') },
     )
   end
 
@@ -96,35 +111,35 @@ class TestDisplayAllBooksGroupedTag < Minitest::Test
   def assert_standalone_books_section(output)
     assert_match(
       %r{<h2 class="book-list-headline" id="standalone-books">Standalone Books</h2>},
-      output
+      output,
     )
     # Standalone sorted: Apple Book, The Zebra Book (Zebra after Apple)
     assert_match(
       %r{<cite class="book-title">Apple Book</cite>.*<cite class="book-title">The Zebra Book</cite>}m,
-      output
+      output,
     )
   end
 
   def assert_series_alpha_section(output)
     assert_match(
       %r{<h2 class="series-title" id="series-alpha">.*<span class="book-series">Series Alpha</span>.*</h2>}m,
-      output
+      output,
     )
     # Books in Series Alpha sorted by number
     assert_match(
       %r{<cite class="book-title">S1 Book 1</cite>.*<cite class="book-title">S1 Book 2</cite>}m,
-      output
+      output,
     )
   end
 
   def assert_series_beta_section(output)
     assert_match(
       %r{<h2 class="series-title" id="series-beta">.*<span class="book-series">Series Beta</span>.*</h2>}m,
-      output
+      output,
     )
     assert_match(
       %r{<cite class="book-title">S2 Book 1</cite>}m,
-      output
+      output,
     )
   end
 

@@ -15,7 +15,7 @@ class TestUnitsTag < Minitest::Test
     @site = create_site({ 'url' => 'http://example.com' })
     @context = create_context(
       { 'page_num' => '37.5', 'page_unit' => 'C', 'nil_val' => nil, 'empty_val' => '' },
-      { site: @site, page: create_doc({ 'path' => 'current_test_page.html' }, '/current.html') } # Page path for SourcePage
+      { site: @site, page: create_doc({ 'path' => 'current_test_page.html' }, '/current.html') }, # Page path for SourcePage
     )
 
     # Silent logger for tests not asserting specific console output
@@ -165,7 +165,7 @@ class TestUnitsTag < Minitest::Test
   def test_markdown_mode_renders_plain_text
     md_context = create_context(
       {},
-      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     template = Liquid::Template.parse('{% units number="100" unit="F" %}')
     output = template.render!(md_context)
@@ -175,7 +175,7 @@ class TestUnitsTag < Minitest::Test
   def test_markdown_mode_no_html_tags
     md_context = create_context(
       {},
-      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     template = Liquid::Template.parse('{% units number="50" unit="kg" %}')
     output = template.render!(md_context)

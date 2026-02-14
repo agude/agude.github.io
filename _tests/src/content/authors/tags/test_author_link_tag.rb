@@ -15,9 +15,9 @@ class TestAuthorLinkTag < Minitest::Test
         'page_author_name' => 'Variable Author',
         'page_link_text' => 'Variable Link Text',
         'nil_var' => nil,
-        'empty_string_var' => ''
+        'empty_string_var' => '',
       },
-      { site: @site, page: create_doc({}, '/current.html') }
+      { site: @site, page: create_doc({}, '/current.html') },
     )
   end
 
@@ -30,7 +30,7 @@ class TestAuthorLinkTag < Minitest::Test
         name: name,
         context: ctx,
         link_text_override: link_text_override,
-        possessive: possessive
+        possessive: possessive,
       }
       "<!-- Jekyll::Authors::AuthorLinkUtils called with name: #{name}, link_text: #{link_text_override}, " \
         "possessive: #{possessive} -->"
@@ -190,12 +190,14 @@ class TestAuthorLinkTag < Minitest::Test
   # --- Markdown Mode Tests ---
 
   def test_markdown_mode_renders_markdown_link
-    author_page = create_doc({ 'title' => 'Dan Simmons', 'layout' => 'author_page' },
-                             '/books/authors/dan-simmons/')
+    author_page = create_doc(
+      { 'title' => 'Dan Simmons', 'layout' => 'author_page' },
+      '/books/authors/dan-simmons/',
+    )
     site = create_site({}, {}, [author_page])
     md_context = create_context(
       {},
-      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     template = Liquid::Template.parse("{% author_link 'Dan Simmons' %}")
     output = template.render!(md_context)
@@ -203,12 +205,14 @@ class TestAuthorLinkTag < Minitest::Test
   end
 
   def test_markdown_mode_possessive_appends_after_link
-    author_page = create_doc({ 'title' => 'Dan Simmons', 'layout' => 'author_page' },
-                             '/books/authors/dan-simmons/')
+    author_page = create_doc(
+      { 'title' => 'Dan Simmons', 'layout' => 'author_page' },
+      '/books/authors/dan-simmons/',
+    )
     site = create_site({}, {}, [author_page])
     md_context = create_context(
       {},
-      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     template = Liquid::Template.parse("{% author_link 'Dan Simmons' possessive %}")
     output = template.render!(md_context)
@@ -219,7 +223,7 @@ class TestAuthorLinkTag < Minitest::Test
     site = create_site
     md_context = create_context(
       {},
-      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     template = Liquid::Template.parse("{% author_link 'Unknown Author' %}")
     output = template.render!(md_context)

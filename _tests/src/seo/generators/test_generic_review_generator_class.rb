@@ -12,7 +12,7 @@ class TestGenericReviewGenerator < Minitest::Test
     @site_config = {
       'url' => 'https://myreviews.com',
       'baseurl' => '/stuff',
-      'author' => { 'name' => 'Reviewer Name' }
+      'author' => { 'name' => 'Reviewer Name' },
     }
     @site = create_site(@site_config)
     @post_collection = MockCollection.new([], 'posts')
@@ -21,14 +21,18 @@ class TestGenericReviewGenerator < Minitest::Test
   def test_generate_hash_basic_review
     doc = create_doc(
       {
-        'layout' => 'post', 'title' => 'Review of My Gadget',
+        'layout' => 'post',
+        'title' => 'Review of My Gadget',
         'review' => {
           'item_name' => 'My Awesome Gadget',
-          'item_type' => 'Product' # Explicitly Product
+          'item_type' => 'Product', # Explicitly Product
         },
-        'description' => 'This gadget is pretty cool and does things.'
+        'description' => 'This gadget is pretty cool and does things.',
       },
-      '/reviews/my-gadget.html', 'Post content', '2024-05-01', @post_collection
+      '/reviews/my-gadget.html',
+      'Post content',
+      '2024-05-01',
+      @post_collection,
     )
     expected = {
       '@context' => 'https://schema.org',
@@ -40,8 +44,8 @@ class TestGenericReviewGenerator < Minitest::Test
       'url' => 'https://myreviews.com/stuff/reviews/my-gadget.html',
       'itemReviewed' => {
         '@type' => 'Product',
-        'name' => 'My Awesome Gadget'
-      }
+        'name' => 'My Awesome Gadget',
+      },
     }
     assert_equal expected, Jekyll::SEO::Generators::GenericReviewGenerator.new(doc, @site).generate
   end
@@ -49,17 +53,21 @@ class TestGenericReviewGenerator < Minitest::Test
   def test_generate_hash_review_with_all_item_fields
     doc = create_doc(
       {
-        'layout' => 'post', 'title' => 'Full Review of Service X',
+        'layout' => 'post',
+        'title' => 'Full Review of Service X',
         'review' => {
           'item_name' => 'Service X',
           'item_type' => 'Service',
           'item_url' => 'https://servicex.com',
-          'item_description' => 'A revolutionary new service for tasks.'
+          'item_description' => 'A revolutionary new service for tasks.',
         },
         'description' => 'My thoughts on Service X.', # This is reviewBody
-        'image' => '/images/service_x_logo.png' # This becomes itemReviewed.image
+        'image' => '/images/service_x_logo.png', # This becomes itemReviewed.image
       },
-      '/reviews/service-x.html', 'Post content', '2024-05-02', @post_collection
+      '/reviews/service-x.html',
+      'Post content',
+      '2024-05-02',
+      @post_collection,
     )
     expected = {
       '@context' => 'https://schema.org',
@@ -74,8 +82,8 @@ class TestGenericReviewGenerator < Minitest::Test
         'name' => 'Service X',
         'image' => 'https://myreviews.com/stuff/images/service_x_logo.png',
         'url' => 'https://myreviews.com/stuff/servicex.com', # Jekyll::Infrastructure::UrlUtils will add baseurl if path is relative
-        'description' => 'A revolutionary new service for tasks.'
-      }
+        'description' => 'A revolutionary new service for tasks.',
+      },
     }
     # Adjust itemReviewed.url if servicex.com was intended as absolute
     # For this test, assume item_url is a path relative to site if not absolute
@@ -91,11 +99,15 @@ class TestGenericReviewGenerator < Minitest::Test
   def test_generate_hash_review_default_item_type
     doc = create_doc(
       {
-        'layout' => 'post', 'title' => 'Review of Thingy',
+        'layout' => 'post',
+        'title' => 'Review of Thingy',
         'review' => { 'item_name' => 'A Thingamajig' }, # No item_type, should default to Product
-        'description' => 'It is a thing.'
+        'description' => 'It is a thing.',
       },
-      '/reviews/thingy.html', 'Post content', '2024-05-03', @post_collection
+      '/reviews/thingy.html',
+      'Post content',
+      '2024-05-03',
+      @post_collection,
     )
     result_hash = Jekyll::SEO::Generators::GenericReviewGenerator.new(doc, @site).generate
     assert_equal 'Product', result_hash.dig('itemReviewed', '@type')
@@ -106,11 +118,15 @@ class TestGenericReviewGenerator < Minitest::Test
   def test_generate_hash_review_missing_optional_fields
     doc = create_doc(
       {
-        'layout' => 'post', 'title' => 'Minimal Review',
-        'review' => { 'item_name' => 'Basic Item' }
+        'layout' => 'post',
+        'title' => 'Minimal Review',
+        'review' => { 'item_name' => 'Basic Item' },
         # No description, no page.image, no item_url, no item_description
       },
-      '/reviews/minimal.html', 'Post content', '2024-05-04', @post_collection
+      '/reviews/minimal.html',
+      'Post content',
+      '2024-05-04',
+      @post_collection,
     )
     expected = {
       '@context' => 'https://schema.org',
@@ -121,8 +137,8 @@ class TestGenericReviewGenerator < Minitest::Test
       'url' => 'https://myreviews.com/stuff/reviews/minimal.html',
       'itemReviewed' => {
         '@type' => 'Product', # Default
-        'name' => 'Basic Item'
-      }
+        'name' => 'Basic Item',
+      },
       # reviewBody will be missing
     }
     assert_equal expected, Jekyll::SEO::Generators::GenericReviewGenerator.new(doc, @site).generate
@@ -133,10 +149,14 @@ class TestGenericReviewGenerator < Minitest::Test
     # so the generator's internal guard should return empty.
     doc_missing_item_name = create_doc(
       {
-        'layout' => 'post', 'title' => 'Bad Review Data',
-        'review' => { 'item_type' => 'Product' } # item_name is missing
+        'layout' => 'post',
+        'title' => 'Bad Review Data',
+        'review' => { 'item_type' => 'Product' }, # item_name is missing
       },
-      '/reviews/bad-data.html', 'Post content', '2024-05-05', @post_collection
+      '/reviews/bad-data.html',
+      'Post content',
+      '2024-05-05',
+      @post_collection,
     )
     # Mock logger to ensure error is logged by the generator itself
     mock_logger = Minitest::Mock.new

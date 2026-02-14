@@ -34,10 +34,10 @@ class TestLinkCacheGeneratorShortStories < Minitest::Test
       {
         'title' => 'First Collection',
         'is_anthology' => true,
-        'published' => true
+        'published' => true,
       },
       '/books/first-collection.html',
-      anthology1_content
+      anthology1_content,
     )
 
     # A second anthology with a duplicate story title
@@ -45,21 +45,21 @@ class TestLinkCacheGeneratorShortStories < Minitest::Test
       {
         'title' => 'Second Collection',
         'is_anthology' => true,
-        'published' => true
+        'published' => true,
       },
       '/books/second-collection.html',
-      anthology2_content
+      anthology2_content,
     )
 
     # A book with story tags but WITHOUT the is_anthology flag
     @book_no_flag = create_doc(
       {
         'title' => 'Book Without Flag',
-        'published' => true
+        'published' => true,
         # 'is_anthology' is missing
       },
       '/books/book-no-flag.html',
-      '### {% short_story_title "Ignored Story" %}'
+      '### {% short_story_title "Ignored Story" %}',
     )
 
     # An anthology with a story tag using the `no_id` flag
@@ -67,10 +67,10 @@ class TestLinkCacheGeneratorShortStories < Minitest::Test
       {
         'title' => 'No ID Collection',
         'is_anthology' => true,
-        'published' => true
+        'published' => true,
       },
       '/books/no-id-collection.html',
-      '### {% short_story_title "Story With No ID" no_id %}'
+      '### {% short_story_title "Story With No ID" no_id %}',
     )
 
     # An unpublished anthology that should be ignored
@@ -78,21 +78,26 @@ class TestLinkCacheGeneratorShortStories < Minitest::Test
       {
         'title' => 'Unpublished Collection',
         'is_anthology' => true,
-        'published' => false
+        'published' => false,
       },
       '/books/unpublished-collection.html',
-      '### {% short_story_title "Unpublished Story" %}'
+      '### {% short_story_title "Unpublished Story" %}',
     )
 
     # The create_site helper automatically runs the Jekyll::Infrastructure::LinkCacheGenerator,
     # so the cache will be populated and ready for assertions.
     @site = create_site(
       {}, # config
-      { 'books' => [
-        @anthology1, @anthology2, @book_no_flag,
-        @anthology_no_id, @anthology_unpublished
-      ] }, # collections
-      [] # pages
+      {
+        'books' => [
+          @anthology1,
+          @anthology2,
+          @book_no_flag,
+          @anthology_no_id,
+          @anthology_unpublished,
+        ],
+      }, # collections
+      [], # pages
     )
     @cache = @site.data['link_cache']
   end
@@ -163,7 +168,7 @@ class TestLinkCacheGeneratorShortStories < Minitest::Test
       { 'title' => 'Malformed Content', 'is_anthology' => true, 'published' => true },
       '/books/malformed.html',
       # This line is intentionally malformed Liquid
-      '### {% short_story_title "A Title with a %}" in it %}'
+      '### {% short_story_title "A Title with a %}" in it %}',
     )
 
     # We need to re-run the generator with this new book.

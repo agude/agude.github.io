@@ -23,7 +23,7 @@ class TestBacklinkUtils < Minitest::Test
     # set the backlinks cache to isolate this test to the Jekyll::Infrastructure::Links::BacklinkUtils logic.
     @site = create_site
     @site.data['link_cache']['backlinks'] = {
-      @target_page.url => [@book_banana, @book_apple, @book_orange] # Intentionally unsorted
+      @target_page.url => [@book_banana, @book_apple, @book_orange], # Intentionally unsorted
     }
     @context = create_context({}, { site: @site, page: @target_page })
   end
@@ -40,15 +40,18 @@ class TestBacklinkUtils < Minitest::Test
     expected_order = [
       [@book_apple.data['title'], @book_apple.url],     # The Apple Book
       [@book_banana.data['title'], @book_banana.url],   # Banana Book
-      [@book_orange.data['title'], @book_orange.url]    # An Orange Story
+      [@book_orange.data['title'], @book_orange.url], # An Orange Story
     ]
     assert_equal expected_order, result
   end
 
   def test_returns_empty_array_for_page_with_no_backlinks_in_cache
     # Use the page that has no entry in our manually created cache
-    result = find_backlinks(@page_with_no_backlinks, @site,
-                            create_context({}, { site: @site, page: @page_with_no_backlinks }))
+    result = find_backlinks(
+      @page_with_no_backlinks,
+      @site,
+      create_context({}, { site: @site, page: @page_with_no_backlinks }),
+    )
     assert_equal [], result
   end
 

@@ -30,8 +30,11 @@ module Jekyll
 
       # Returns a structured data hash (not HTML) for an author link resolution.
       def self.find_author_link_data(author_name_raw, context, link_text_override_raw = nil, possessive = nil)
-        Jekyll::Authors::AuthorLinkResolver.new(context).resolve_data(author_name_raw, link_text_override_raw,
-                                                                      possessive)
+        Jekyll::Authors::AuthorLinkResolver.new(context).resolve_data(
+          author_name_raw,
+          link_text_override_raw,
+          possessive,
+        )
       end
 
       # --- Private Helper Methods ---
@@ -46,10 +49,11 @@ module Jekyll
       # Logs the failure when the author page is not found.
       def self._log_author_not_found(context, input_name)
         Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-          context: context, tag_type: 'RENDER_AUTHOR_LINK',
+          context: context,
+          tag_type: 'RENDER_AUTHOR_LINK',
           reason: 'Could not find author page in cache.',
           identifiers: { Name: input_name.strip },
-          level: :info
+          level: :info,
         )
       end
     end

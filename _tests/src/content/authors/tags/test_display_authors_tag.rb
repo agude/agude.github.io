@@ -16,10 +16,10 @@ class TestDisplayAuthorsTag < Minitest::Test
           'book_authors' => ['Isaac Asimov', 'Robert Silverberg'],
           'single_author' => ['Jane Doe'],
           'linked_false_var' => false,
-          'etal_var' => 3
-        }
+          'etal_var' => 3,
+        },
       },
-      { site: @site }
+      { site: @site },
     )
     @silent_logger_stub = create_silent_logger
   end
@@ -87,10 +87,11 @@ class TestDisplayAuthorsTag < Minitest::Test
     captured_args = {}
     mock_output = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>'
 
-    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
-      captured_args = args
-      mock_output
-    } do
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list,
+                                             lambda { |**args|
+                                               captured_args = args
+                                               mock_output
+                                             } do
       Jekyll.stub :logger, @silent_logger_stub do
         output = Liquid::Template.parse('{% display_authors page.book_authors %}').render!(@context)
 
@@ -104,10 +105,11 @@ class TestDisplayAuthorsTag < Minitest::Test
   def test_calls_util_with_linked_true_by_default
     captured_args = {}
 
-    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
-      captured_args = args
-      '<mock output>'
-    } do
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list,
+                                             lambda { |**args|
+                                               captured_args = args
+                                               '<mock output>'
+                                             } do
       Jekyll.stub :logger, @silent_logger_stub do
         Liquid::Template.parse('{% display_authors page.single_author %}').render!(@context)
 
@@ -119,10 +121,11 @@ class TestDisplayAuthorsTag < Minitest::Test
   def test_calls_util_with_linked_false_when_specified
     captured_args = {}
 
-    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
-      captured_args = args
-      '<mock output>'
-    } do
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list,
+                                             lambda { |**args|
+                                               captured_args = args
+                                               '<mock output>'
+                                             } do
       Jekyll.stub :logger, @silent_logger_stub do
         Liquid::Template.parse("{% display_authors page.single_author linked='false' %}").render!(@context)
 
@@ -134,10 +137,11 @@ class TestDisplayAuthorsTag < Minitest::Test
   def test_calls_util_with_linked_variable
     captured_args = {}
 
-    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
-      captured_args = args
-      '<mock output>'
-    } do
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list,
+                                             lambda { |**args|
+                                               captured_args = args
+                                               '<mock output>'
+                                             } do
       Jekyll.stub :logger, @silent_logger_stub do
         Liquid::Template.parse('{% display_authors page.single_author linked=page.linked_false_var %}').render!(@context)
 
@@ -149,10 +153,11 @@ class TestDisplayAuthorsTag < Minitest::Test
   def test_calls_util_with_etal_after_nil_by_default
     captured_args = {}
 
-    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
-      captured_args = args
-      '<mock output>'
-    } do
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list,
+                                             lambda { |**args|
+                                               captured_args = args
+                                               '<mock output>'
+                                             } do
       Jekyll.stub :logger, @silent_logger_stub do
         Liquid::Template.parse('{% display_authors page.book_authors %}').render!(@context)
 
@@ -164,10 +169,11 @@ class TestDisplayAuthorsTag < Minitest::Test
   def test_calls_util_with_etal_after_when_specified
     captured_args = {}
 
-    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
-      captured_args = args
-      '<mock output>'
-    } do
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list,
+                                             lambda { |**args|
+                                               captured_args = args
+                                               '<mock output>'
+                                             } do
       Jekyll.stub :logger, @silent_logger_stub do
         Liquid::Template.parse('{% display_authors page.book_authors etal_after=2 %}').render!(@context)
 
@@ -179,10 +185,11 @@ class TestDisplayAuthorsTag < Minitest::Test
   def test_calls_util_with_etal_after_variable
     captured_args = {}
 
-    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
-      captured_args = args
-      '<mock output>'
-    } do
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list,
+                                             lambda { |**args|
+                                               captured_args = args
+                                               '<mock output>'
+                                             } do
       Jekyll.stub :logger, @silent_logger_stub do
         Liquid::Template.parse('{% display_authors page.book_authors etal_after=page.etal_var %}').render!(@context)
 
@@ -207,10 +214,11 @@ class TestDisplayAuthorsTag < Minitest::Test
     # Tests line 73: break if scanner.eos? after skipping whitespace
     captured_args = {}
 
-    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
-      captured_args = args
-      '<mock output>'
-    } do
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list,
+                                             lambda { |**args|
+                                               captured_args = args
+                                               '<mock output>'
+                                             } do
       Jekyll.stub :logger, @silent_logger_stub do
         Liquid::Template.parse('{% display_authors page.book_authors linked=true   %}').render!(@context)
 
@@ -223,14 +231,15 @@ class TestDisplayAuthorsTag < Minitest::Test
     # Tests line 115: return true if val.nil?
     ctx = create_context(
       { 'page' => { 'book_authors' => ['Jane Doe'], 'nil_var' => nil } },
-      { site: @site }
+      { site: @site },
     )
     captured_args = {}
 
-    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
-      captured_args = args
-      '<mock output>'
-    } do
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list,
+                                             lambda { |**args|
+                                               captured_args = args
+                                               '<mock output>'
+                                             } do
       Jekyll.stub :logger, @silent_logger_stub do
         Liquid::Template.parse('{% display_authors page.book_authors linked=page.nil_var %}').render!(ctx)
 
@@ -244,14 +253,15 @@ class TestDisplayAuthorsTag < Minitest::Test
     # Tests line 125: return nil unless val
     ctx = create_context(
       { 'page' => { 'book_authors' => ['Jane Doe'], 'nil_var' => nil } },
-      { site: @site }
+      { site: @site },
     )
     captured_args = {}
 
-    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
-      captured_args = args
-      '<mock output>'
-    } do
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list,
+                                             lambda { |**args|
+                                               captured_args = args
+                                               '<mock output>'
+                                             } do
       Jekyll.stub :logger, @silent_logger_stub do
         Liquid::Template.parse('{% display_authors page.book_authors etal_after=page.nil_var %}').render!(ctx)
 
@@ -265,14 +275,15 @@ class TestDisplayAuthorsTag < Minitest::Test
     # Tests line 129: rescue ArgumentError returns nil
     ctx = create_context(
       { 'page' => { 'book_authors' => ['Jane Doe'], 'bad_int' => 'not_a_number' } },
-      { site: @site }
+      { site: @site },
     )
     captured_args = {}
 
-    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list, lambda { |**args|
-      captured_args = args
-      '<mock output>'
-    } do
+    Jekyll::Authors::DisplayAuthorsUtil.stub :render_author_list,
+                                             lambda { |**args|
+                                               captured_args = args
+                                               '<mock output>'
+                                             } do
       Jekyll.stub :logger, @silent_logger_stub do
         Liquid::Template.parse('{% display_authors page.book_authors etal_after=page.bad_int %}').render!(ctx)
 

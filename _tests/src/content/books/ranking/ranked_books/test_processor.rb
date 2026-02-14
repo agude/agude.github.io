@@ -9,15 +9,15 @@ class TestRankedBooksProcessor < Minitest::Test
   def setup
     @book_5star = create_doc(
       { 'title' => 'Five Star Book', 'published' => true, 'rating' => 5 },
-      '/books/five.html'
+      '/books/five.html',
     )
     @book_4star = create_doc(
       { 'title' => 'Four Star Book', 'published' => true, 'rating' => 4 },
-      '/books/four.html'
+      '/books/four.html',
     )
     @book_3star = create_doc(
       { 'title' => 'Three Star Book', 'published' => true, 'rating' => 3 },
-      '/books/three.html'
+      '/books/three.html',
     )
   end
 
@@ -35,7 +35,7 @@ class TestRankedBooksProcessor < Minitest::Test
     site = create_site({}, { 'books' => [@book_5star, @book_4star] })
     context = create_context(
       { 'my_list' => ['Five Star Book', 'Four Star Book'] },
-      { site: site, page: @book_5star }
+      { site: site, page: @book_5star },
     )
 
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
@@ -49,12 +49,12 @@ class TestRankedBooksProcessor < Minitest::Test
   def test_combines_books_with_same_rating
     book_5star_b = create_doc(
       { 'title' => 'Another Five Star', 'published' => true, 'rating' => 5 },
-      '/books/five-b.html'
+      '/books/five-b.html',
     )
     site = create_site({}, { 'books' => [@book_5star, book_5star_b] })
     context = create_context(
       { 'my_list' => ['Five Star Book', 'Another Five Star'] },
-      { site: site, page: @book_5star }
+      { site: site, page: @book_5star },
     )
 
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
@@ -87,7 +87,7 @@ class TestRankedBooksProcessor < Minitest::Test
   def test_skips_unpublished_books
     unpublished = create_doc(
       { 'title' => 'Unpublished', 'published' => false, 'rating' => 5 },
-      '/books/unpub.html'
+      '/books/unpub.html',
     )
     site = create_site({}, { 'books' => [unpublished] })
     context = create_context({ 'my_list' => ['Unpublished'] }, { site: site, page: unpublished })
@@ -103,7 +103,7 @@ class TestRankedBooksProcessor < Minitest::Test
     site = create_site({ 'environment' => 'development' }, { 'books' => [@book_4star, @book_5star] })
     context = create_context(
       { 'my_list' => ['Four Star Book', 'Five Star Book'] },
-      { site: site, page: @book_4star }
+      { site: site, page: @book_4star },
     )
 
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
@@ -117,7 +117,7 @@ class TestRankedBooksProcessor < Minitest::Test
     site = create_site({ 'environment' => 'production' }, { 'books' => [@book_5star] })
     context = create_context(
       { 'my_list' => ['Missing Book'] },
-      { site: site, page: @book_5star }
+      { site: site, page: @book_5star },
     )
 
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
@@ -130,12 +130,12 @@ class TestRankedBooksProcessor < Minitest::Test
   def test_handles_books_with_invalid_rating_in_production
     bad_rating = create_doc(
       { 'title' => 'Bad Rating', 'published' => true, 'rating' => 'not a number' },
-      '/books/bad.html'
+      '/books/bad.html',
     )
     site = create_site({ 'environment' => 'production' }, { 'books' => [bad_rating] })
     context = create_context(
       { 'my_list' => ['Bad Rating'] },
-      { site: site, page: bad_rating }
+      { site: site, page: bad_rating },
     )
 
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')

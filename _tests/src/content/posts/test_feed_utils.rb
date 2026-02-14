@@ -15,7 +15,7 @@ class TestFeedUtils < Minitest::Test
     post1_data = { 'title' => 'Post 1 (Recent)', 'date' => @ref_time - (1 * 24 * 60 * 60), 'published' => true }
     post2_data = { 'title' => 'Post 2 (Old)', 'date' => @ref_time - (10 * 24 * 60 * 60), 'published' => true }
     post_unpub_data = {
-      'title' => 'Post Unpublished', 'date' => @ref_time - (3 * 24 * 60 * 60), 'published' => false
+      'title' => 'Post Unpublished', 'date' => @ref_time - (3 * 24 * 60 * 60), 'published' => false,
     }
     posts_collection = MockCollection.new(nil, 'posts')
     @post1 = create_doc(post1_data, '/p1.html', 'content', nil, posts_collection) # May 31
@@ -27,7 +27,7 @@ class TestFeedUtils < Minitest::Test
     book1_data = { 'title' => 'Book 1 (Mid)', 'date' => @ref_time - (2 * 24 * 60 * 60), 'published' => true }
     book2_data = { 'title' => 'Book 2 (Oldest)', 'date' => @ref_time - (20 * 24 * 60 * 60), 'published' => true }
     book_unpub_data = {
-      'title' => 'Book Unpublished', 'date' => @ref_time - (5 * 24 * 60 * 60), 'published' => false
+      'title' => 'Book Unpublished', 'date' => @ref_time - (5 * 24 * 60 * 60), 'published' => false,
     }
     books_collection = MockCollection.new(nil, 'books')
     @book1 = create_doc(book1_data, '/b1.html', 'content', nil, books_collection) # May 30
@@ -44,7 +44,7 @@ class TestFeedUtils < Minitest::Test
       {},
       { 'books' => @mock_books_collection_initial.docs }, # Pass docs array
       [],
-      @mock_posts_collection_initial.docs # Pass docs array
+      @mock_posts_collection_initial.docs, # Pass docs array
     )
     @site.posts = @mock_posts_collection_initial # Assign MockCollection instance
   end
@@ -77,10 +77,20 @@ class TestFeedUtils < Minitest::Test
 
   # Helper to create a site with documents that have current date
   def create_test_site_with_current_date_docs
-    post_no_date_current = create_doc(@post_no_date_val_template, '/pnodate.html', 'content', nil,
-                                      MockCollection.new(nil, 'posts'))
-    book_no_date_current = create_doc(@book_no_date_val_template, '/bnodate.html', 'content', nil,
-                                      MockCollection.new(nil, 'books'))
+    post_no_date_current = create_doc(
+      @post_no_date_val_template,
+      '/pnodate.html',
+      'content',
+      nil,
+      MockCollection.new(nil, 'posts'),
+    )
+    book_no_date_current = create_doc(
+      @book_no_date_val_template,
+      '/bnodate.html',
+      'content',
+      nil,
+      MockCollection.new(nil, 'books'),
+    )
 
     current_test_posts = [@post1, @post2, post_no_date_current]
     current_test_books = [@book1, @book2, book_no_date_current]
@@ -145,10 +155,20 @@ class TestFeedUtils < Minitest::Test
 
   # Helper to create a site with unpublished documents
   def create_test_site_with_unpublished_docs
-    post_no_date_current = create_doc(@post_no_date_val_template, '/pnodate.html', 'content', nil,
-                                      MockCollection.new(nil, 'posts'))
-    book_no_date_current = create_doc(@book_no_date_val_template, '/bnodate.html', 'content', nil,
-                                      MockCollection.new(nil, 'books'))
+    post_no_date_current = create_doc(
+      @post_no_date_val_template,
+      '/pnodate.html',
+      'content',
+      nil,
+      MockCollection.new(nil, 'posts'),
+    )
+    book_no_date_current = create_doc(
+      @book_no_date_val_template,
+      '/bnodate.html',
+      'content',
+      nil,
+      MockCollection.new(nil, 'books'),
+    )
 
     # Include unpublished items in the source collections for this test
     all_test_posts = [@post1, @post2, @post_unpub, post_no_date_current]
@@ -191,10 +211,20 @@ class TestFeedUtils < Minitest::Test
   end
 
   def test_get_combined_feed_items_empty_if_no_valid_items
-    post_unpub_only = create_doc({ 'published' => false, 'date' => Time.now }, '/p.html', 'c', nil,
-                                 MockCollection.new(nil, 'posts'))
-    book_unpub_only = create_doc({ 'published' => false, 'date' => Time.now }, '/b.html', 'c', nil,
-                                 MockCollection.new(nil, 'books'))
+    post_unpub_only = create_doc(
+      { 'published' => false, 'date' => Time.now },
+      '/p.html',
+      'c',
+      nil,
+      MockCollection.new(nil, 'posts'),
+    )
+    book_unpub_only = create_doc(
+      { 'published' => false, 'date' => Time.now },
+      '/b.html',
+      'c',
+      nil,
+      MockCollection.new(nil, 'books'),
+    )
 
     site_empty = create_site({}, { 'books' => [book_unpub_only] }, [], [post_unpub_only])
     site_empty.posts = MockCollection.new([post_unpub_only], 'posts')
@@ -216,7 +246,7 @@ class TestFeedUtils < Minitest::Test
       {},
       { 'books' => [book_valid_date] },
       [],
-      [post_bad_date_obj]
+      [post_bad_date_obj],
     )
     site_with_bad_date.posts = MockCollection.new([post_bad_date_obj], 'posts')
 

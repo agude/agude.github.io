@@ -45,8 +45,11 @@ class TestCitationUtilsBasicFormatting < TestCitationUtilsBase
   end
 
   def test_work_and_container_linked_infers_work_quoted_style
-    params = { work_title: 'My Linked Article', container_title: 'The Journal',
-               url: 'http://example.com/article' }
+    params = {
+      work_title: 'My Linked Article',
+      container_title: 'The Journal',
+      url: 'http://example.com/article',
+    }
     expected = '<span class="citation"><a href="http://example.com/article">"My Linked Article"</a> ' \
                '<cite>The Journal</cite>.</span>'
     assert_equal expected, format_citation(params)
@@ -150,11 +153,12 @@ class TestCitationUtilsFullCitations < TestCitationUtilsBase
 
   def test_web_page_article_on_website
     params = {
-      author_last: 'WebWriter', author_first: 'W.',
+      author_last: 'WebWriter',
+      author_first: 'W.',
       work_title: 'My Thoughts on the Web',
       container_title: 'Personal Blog',
       url: 'http://webwriter.blog/thoughts',
-      date: 'January 1, 2024'
+      date: 'January 1, 2024',
     }
     expected_inner = 'WebWriter, W. <a href="http://webwriter.blog/thoughts">' \
                      '"My Thoughts on the Web"</a> <cite>Personal Blog</cite>. January 1, 2024.'
@@ -167,7 +171,7 @@ class TestCitationUtilsFullCitations < TestCitationUtilsBase
       work_title: 'Comprehensive News Site',
       url: 'http://comprehensivenews.com',
       publisher: 'News Network Inc.',
-      date: '2024'
+      date: '2024',
     }
     expected_inner = '<a href="http://comprehensivenews.com">' \
                      '<cite>Comprehensive News Site</cite></a>. News Network Inc. 2024.'
@@ -193,14 +197,17 @@ class TestCitationUtilsFullCitations < TestCitationUtilsBase
 
   def build_article_params
     {
-      author_last: 'Doe', author_first: 'Jane',
+      author_last: 'Doe',
+      author_first: 'Jane',
       work_title: 'My Research Findings',
       container_title: 'Journal of Important Discoveries',
       url: 'http://example.com/article_url',
-      volume: '15', number: '3',
+      volume: '15',
+      number: '3',
       date: '2023',
-      first_page: '101', last_page: '115',
-      doi: '10.1234/jid.2023.15.3.101'
+      first_page: '101',
+      last_page: '115',
+      doi: '10.1234/jid.2023.15.3.101',
     }
   end
 
@@ -213,25 +220,28 @@ class TestCitationUtilsFullCitations < TestCitationUtilsBase
 
   def build_book_params
     {
-      author_last: 'Smith', author_first: 'John',
+      author_last: 'Smith',
+      author_first: 'John',
       work_title: 'A History of Everything',
       url: 'http://example.com/books/history',
       editor: 'Alice Wonderland',
       publisher: 'Academic Books Ltd.',
-      date: '2020'
+      date: '2020',
     }
   end
 
   def build_chapter_params
     {
-      author_last: 'ChapterAuthor', author_first: 'C.',
+      author_last: 'ChapterAuthor',
+      author_first: 'C.',
       work_title: 'On Specific Topics',
       container_title: 'The Big Book of Topics',
       url: 'http://example.com/chapter_url',
       editor: 'Book Editor',
       publisher: 'University Press',
       date: '2021',
-      first_page: '45', last_page: '60'
+      first_page: '45',
+      last_page: '60',
     }
   end
 
@@ -243,13 +253,16 @@ class TestCitationUtilsFullCitations < TestCitationUtilsBase
 
   def build_journal_no_url_params
     {
-      author_first: 'Henrietta', author_last: 'Clopath',
+      author_first: 'Henrietta',
+      author_last: 'Clopath',
       work_title: 'Genuine Art versus Mechanism',
       container_title: 'Brush and Pencil',
-      volume: '7', number: '6',
+      volume: '7',
+      number: '6',
       date: 'March 1, 1901',
-      first_page: '331', last_page: '333',
-      doi: '10.2307/25505621'
+      first_page: '331',
+      last_page: '333',
+      doi: '10.2307/25505621',
     }
   end
 
@@ -261,18 +274,21 @@ class TestCitationUtilsFullCitations < TestCitationUtilsBase
 
   def build_maximal_params
     {
-      author_last: 'Maximus', author_first: 'A.',
+      author_last: 'Maximus',
+      author_first: 'A.',
       work_title: 'The Component Piece',
       container_title: 'The Grand Collection',
       url: 'http://example.com/max',
       editor: 'Ed Itor',
       edition: '3rd Revised',
-      volume: 'X', number: '1',
+      volume: 'X',
+      number: '1',
       publisher: 'OmniPress',
       date: '2025',
-      first_page: '10', last_page: '20',
+      first_page: '10',
+      last_page: '20',
       doi: '10.9999/max.123',
-      access_date: 'Feb 29, 2028'
+      access_date: 'Feb 29, 2028',
     }
   end
 

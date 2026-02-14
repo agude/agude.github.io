@@ -33,10 +33,11 @@ class TestCategoryPostsRenderer < Minitest::Test
 
   def test_calls_article_card_utils_with_correct_parameters
     captured_args = []
-    Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |post, ctx|
-      captured_args << { post: post, ctx: ctx }
-      '<div>Card</div>'
-    } do
+    Jekyll::Posts::ArticleCardUtils.stub :render,
+                                         lambda { |post, ctx|
+                                           captured_args << { post: post, ctx: ctx }
+                                           '<div>Card</div>'
+                                         } do
       renderer = Jekyll::Posts::Category::Renderer.new(@context, [@post1])
       renderer.render
 
@@ -47,9 +48,10 @@ class TestCategoryPostsRenderer < Minitest::Test
   end
 
   def test_renders_multiple_posts_in_given_order
-    Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |post, _ctx|
-      "<div>Card for #{post.data['title']}</div>"
-    } do
+    Jekyll::Posts::ArticleCardUtils.stub :render,
+                                         lambda { |post, _ctx|
+                                           "<div>Card for #{post.data['title']}</div>"
+                                         } do
       renderer = Jekyll::Posts::Category::Renderer.new(@context, [@post1, @post2])
       output = renderer.render
 
@@ -65,9 +67,10 @@ class TestCategoryPostsRenderer < Minitest::Test
   end
 
   def test_includes_all_rendered_cards_in_output
-    Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |post, _ctx|
-      "<article class=\"card\">#{post.data['title']}</article>"
-    } do
+    Jekyll::Posts::ArticleCardUtils.stub :render,
+                                         lambda { |post, _ctx|
+                                           "<article class=\"card\">#{post.data['title']}</article>"
+                                         } do
       renderer = Jekyll::Posts::Category::Renderer.new(@context, [@post1, @post2])
       output = renderer.render
 

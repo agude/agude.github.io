@@ -29,10 +29,14 @@ class TestMarkdownOutputAssembler < Minitest::Test
 
   def test_header_post_includes_title_and_date
     doc = create_doc(
-      { 'layout' => 'post', 'title' => 'My Post',
-        'date' => Time.new(2026, 2, 13), 'categories' => %w[tech ai],
-        'markdown_body' => 'Body content' },
-      '/blog/my-post/'
+      {
+        'layout' => 'post',
+        'title' => 'My Post',
+        'date' => Time.new(2026, 2, 13),
+        'categories' => %w[tech ai],
+        'markdown_body' => 'Body content',
+      },
+      '/blog/my-post/',
     )
     header = Assembler.build_header(doc)
     assert_includes header, '# My Post'
@@ -42,11 +46,16 @@ class TestMarkdownOutputAssembler < Minitest::Test
 
   def test_header_book_includes_authors_and_rating
     doc = create_doc(
-      { 'layout' => 'book', 'title' => 'Dune',
-        'book_authors' => ['Frank Herbert'], 'series' => 'Dune',
-        'book_number' => 1, 'rating' => 5,
-        'markdown_body' => 'Review body' },
-      '/books/dune/'
+      {
+        'layout' => 'book',
+        'title' => 'Dune',
+        'book_authors' => ['Frank Herbert'],
+        'series' => 'Dune',
+        'book_number' => 1,
+        'rating' => 5,
+        'markdown_body' => 'Review body',
+      },
+      '/books/dune/',
     )
     header = Assembler.build_header(doc)
     assert_includes header, '# Dune'
@@ -58,10 +67,14 @@ class TestMarkdownOutputAssembler < Minitest::Test
 
   def test_header_book_multiple_authors
     doc = create_doc(
-      { 'layout' => 'book', 'title' => 'Good Omens',
+      {
+        'layout' => 'book',
+        'title' => 'Good Omens',
         'book_authors' => ['Terry Pratchett', 'Neil Gaiman'],
-        'rating' => 4, 'markdown_body' => 'Body' },
-      '/books/good-omens/'
+        'rating' => 4,
+        'markdown_body' => 'Body',
+      },
+      '/books/good-omens/',
     )
     header = Assembler.build_header(doc)
     assert_includes header, 'by Terry Pratchett and Neil Gaiman'
@@ -70,7 +83,7 @@ class TestMarkdownOutputAssembler < Minitest::Test
   def test_header_author_page
     doc = create_doc(
       { 'layout' => 'author_page', 'title' => 'Dan Simmons', 'markdown_body' => '' },
-      '/books/authors/dan-simmons/'
+      '/books/authors/dan-simmons/',
     )
     header = Assembler.build_header(doc)
     assert_equal '# Dan Simmons', header
@@ -79,7 +92,7 @@ class TestMarkdownOutputAssembler < Minitest::Test
   def test_header_series_page
     doc = create_doc(
       { 'layout' => 'series_page', 'title' => 'Culture', 'markdown_body' => '' },
-      '/books/series/culture/'
+      '/books/series/culture/',
     )
     header = Assembler.build_header(doc)
     assert_equal '# Culture', header
@@ -88,7 +101,7 @@ class TestMarkdownOutputAssembler < Minitest::Test
   def test_header_generic_page
     doc = create_doc(
       { 'layout' => 'page', 'title' => 'Papers', 'markdown_body' => '' },
-      '/papers/'
+      '/papers/',
     )
     header = Assembler.build_header(doc)
     assert_equal '# Papers', header
@@ -98,10 +111,13 @@ class TestMarkdownOutputAssembler < Minitest::Test
 
   def test_body_content_preserved
     doc = create_doc(
-      { 'layout' => 'page', 'title' => 'Test',
+      {
+        'layout' => 'page',
+        'title' => 'Test',
         'markdown_body' => "Some **bold** content\n\nWith paragraphs.",
-        'markdown_alternate_href' => '/test.md' },
-      '/test/'
+        'markdown_alternate_href' => '/test.md',
+      },
+      '/test/',
     )
     result = Assembler.assemble_markdown(doc)
     assert_includes result, '# Test'
@@ -120,10 +136,13 @@ class TestMarkdownOutputAssembler < Minitest::Test
 
   def test_output_path_for_trailing_slash_url
     doc = create_doc(
-      { 'layout' => 'page', 'title' => 'Test',
+      {
+        'layout' => 'page',
+        'title' => 'Test',
         'markdown_body' => 'content',
-        'markdown_alternate_href' => '/papers.md' },
-      '/papers/'
+        'markdown_alternate_href' => '/papers.md',
+      },
+      '/papers/',
     )
     site = create_site
     site.define_singleton_method(:static_files) { @static_files ||= [] }
@@ -150,9 +169,13 @@ class TestMarkdownOutputAssembler < Minitest::Test
   def test_related_books_section_nil_when_no_related
     site = create_site({}, {})
     doc = create_doc(
-      { 'layout' => 'book', 'title' => 'Solo Book',
-        'book_authors' => ['Author'], 'rating' => 3 },
-      '/books/solo/'
+      {
+        'layout' => 'book',
+        'title' => 'Solo Book',
+        'book_authors' => ['Author'],
+        'rating' => 3,
+      },
+      '/books/solo/',
     )
     result = Assembler.build_related_books_section(site, doc)
     assert_nil result
@@ -171,7 +194,7 @@ class TestMarkdownOutputAssembler < Minitest::Test
     site = create_site({}, {})
     doc = create_doc(
       { 'layout' => 'book', 'title' => 'No Links', 'book_authors' => ['Auth'] },
-      '/books/no-links/'
+      '/books/no-links/',
     )
     result = Assembler.build_backlinks_section(site, doc)
     assert_nil result
@@ -189,9 +212,16 @@ class TestMarkdownOutputAssembler < Minitest::Test
   def test_previous_reviews_section_nil_when_no_reviews
     coll = MockCollection.new([], 'books')
     doc = create_doc(
-      { 'layout' => 'book', 'title' => 'First Review',
-        'book_authors' => ['Auth'], 'rating' => 4 },
-      '/books/first/', 'Content', nil, coll
+      {
+        'layout' => 'book',
+        'title' => 'First Review',
+        'book_authors' => ['Auth'],
+        'rating' => 4,
+      },
+      '/books/first/',
+      'Content',
+      nil,
+      coll,
     )
     coll.docs = [doc]
     site = create_site({}, { 'books' => coll.docs })
@@ -226,9 +256,13 @@ class TestMarkdownOutputAssembler < Minitest::Test
   def test_related_posts_section_nil_when_no_related
     site = create_site({}, {}, [], [])
     doc = create_doc(
-      { 'layout' => 'post', 'title' => 'Solo Post',
-        'date' => Time.new(2026, 1, 1), 'categories' => ['unique'] },
-      '/blog/solo/'
+      {
+        'layout' => 'post',
+        'title' => 'Solo Post',
+        'date' => Time.new(2026, 1, 1),
+        'categories' => ['unique'],
+      },
+      '/blog/solo/',
     )
     result = Assembler.build_related_posts_section(site, doc)
     assert_nil result
@@ -262,10 +296,13 @@ class TestMarkdownOutputAssembler < Minitest::Test
 
   def test_non_book_assembly_has_no_footer
     doc = create_doc(
-      { 'layout' => 'post', 'title' => 'Blog Post',
+      {
+        'layout' => 'post',
+        'title' => 'Blog Post',
         'date' => Time.new(2026, 1, 1),
-        'markdown_body' => 'Post body.' },
-      '/blog/post/'
+        'markdown_body' => 'Post body.',
+      },
+      '/blog/post/',
     )
     site = create_site
     result = Assembler.assemble_markdown(doc, site: site)
@@ -280,10 +317,13 @@ class TestMarkdownOutputAssembler < Minitest::Test
     test_time = Time.parse('2026-01-15 10:00:00 EST')
     posts = %w[A B C].each_with_index.map do |letter, i|
       create_doc(
-        { 'layout' => 'post', 'title' => "Post #{letter}",
+        {
+          'layout' => 'post',
+          'title' => "Post #{letter}",
           'categories' => ['tech'],
-          'date' => test_time - (60 * 60 * 24 * i) },
-        "/blog/post-#{letter.downcase}/"
+          'date' => test_time - (60 * 60 * 24 * i),
+        },
+        "/blog/post-#{letter.downcase}/",
       )
     end
     site = create_site({}, {}, [], posts)
@@ -295,10 +335,19 @@ class TestMarkdownOutputAssembler < Minitest::Test
     coll = MockCollection.new([], 'books')
     books = (1..4).map do |i|
       create_doc(
-        { 'layout' => 'book', 'title' => "S1B#{i}", 'series' => 'Series 1',
-          'book_number' => i, 'book_authors' => ['Auth'], 'rating' => 4,
-          'date' => test_time - (60 * 60 * 24 * (10 - i)) },
-        "/books/s1b#{i}.html", "Content #{i}", nil, coll
+        {
+          'layout' => 'book',
+          'title' => "S1B#{i}",
+          'series' => 'Series 1',
+          'book_number' => i,
+          'book_authors' => ['Auth'],
+          'rating' => 4,
+          'date' => test_time - (60 * 60 * 24 * (10 - i)),
+        },
+        "/books/s1b#{i}.html",
+        "Content #{i}",
+        nil,
+        coll,
       )
     end
     coll.docs = books
@@ -309,13 +358,20 @@ class TestMarkdownOutputAssembler < Minitest::Test
   def setup_book_with_backlinks
     coll = MockCollection.new([], 'books')
     current = create_doc(
-      { 'layout' => 'book', 'title' => 'Target Book',
-        'book_authors' => ['Auth'], 'rating' => 5 },
-      '/books/target.html', 'Content', nil, coll
+      {
+        'layout' => 'book',
+        'title' => 'Target Book',
+        'book_authors' => ['Auth'],
+        'rating' => 5,
+      },
+      '/books/target.html',
+      'Content',
+      nil,
+      coll,
     )
     mentioning = create_doc(
       { 'layout' => 'post', 'title' => 'Mentioning Post' },
-      '/blog/mention/'
+      '/blog/mention/',
     )
     coll.docs = [current]
     # Wire up the link_cache with backlinks
@@ -323,7 +379,7 @@ class TestMarkdownOutputAssembler < Minitest::Test
     site.data['link_cache']['url_to_canonical_map'] = { '/books/target.html' => '/books/target.html' }
     site.data['link_cache']['book_families'] = { '/books/target.html' => ['/books/target.html'] }
     site.data['link_cache']['backlinks'] = {
-      '/books/target.html' => [{ source: mentioning, type: 'direct' }]
+      '/books/target.html' => [{ source: mentioning, type: 'direct' }],
     }
     [site, current]
   end
@@ -331,15 +387,29 @@ class TestMarkdownOutputAssembler < Minitest::Test
   def setup_book_with_previous_reviews
     coll = MockCollection.new([], 'books')
     current = create_doc(
-      { 'layout' => 'book', 'title' => 'Dune (2024)',
-        'book_authors' => ['Frank Herbert'], 'rating' => 5 },
-      '/books/dune-2024/', 'Current review', nil, coll
+      {
+        'layout' => 'book',
+        'title' => 'Dune (2024)',
+        'book_authors' => ['Frank Herbert'],
+        'rating' => 5,
+      },
+      '/books/dune-2024/',
+      'Current review',
+      nil,
+      coll,
     )
     archived = create_doc(
-      { 'layout' => 'book', 'title' => 'Dune (2020)',
-        'book_authors' => ['Frank Herbert'], 'rating' => 4,
-        'canonical_url' => '/books/dune-2024/' },
-      '/books/dune-2020/', 'Old review', '2020-01-01', coll
+      {
+        'layout' => 'book',
+        'title' => 'Dune (2020)',
+        'book_authors' => ['Frank Herbert'],
+        'rating' => 4,
+        'canonical_url' => '/books/dune-2024/',
+      },
+      '/books/dune-2020/',
+      'Old review',
+      '2020-01-01',
+      coll,
     )
     coll.docs = [current, archived]
     site = create_site({}, { 'books' => coll.docs })

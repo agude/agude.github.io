@@ -9,11 +9,11 @@ class TestByTitleAlphaRenderer < Minitest::Test
   def setup
     @book_a = create_doc(
       { 'title' => 'Apple Book', 'published' => true },
-      '/books/apple.html'
+      '/books/apple.html',
     )
     @book_z = create_doc(
       { 'title' => 'Zebra Book', 'published' => true },
-      '/books/zebra.html'
+      '/books/zebra.html',
     )
     @site = create_site({}, { 'books' => [@book_a, @book_z] })
     @context = create_context({}, { site: @site, page: @book_a })
@@ -55,8 +55,8 @@ class TestByTitleAlphaRenderer < Minitest::Test
     data = {
       alpha_groups: [
         { letter: 'A', books: [@book_a] },
-        { letter: 'Z', books: [@book_z] }
-      ]
+        { letter: 'Z', books: [@book_z] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByTitleAlphaRenderer.new(@context, data)
     result = renderer.render
@@ -88,7 +88,7 @@ class TestByTitleAlphaRenderer < Minitest::Test
   def test_handles_hash_group_for_numeric_titles
     numeric_book = create_doc(
       { 'title' => '1984', 'published' => true },
-      '/books/1984.html'
+      '/books/1984.html',
     )
     data = { alpha_groups: [{ letter: '#', books: [numeric_book] }] }
     renderer = Jekyll::Books::Lists::Renderers::ByTitleAlphaRenderer.new(@context, data)
@@ -102,8 +102,8 @@ class TestByTitleAlphaRenderer < Minitest::Test
     data = {
       alpha_groups: [
         { letter: 'A', books: [@book_a] },
-        { letter: 'Z', books: [@book_z] }
-      ]
+        { letter: 'Z', books: [@book_z] },
+      ],
     }
     renderer = Jekyll::Books::Lists::Renderers::ByTitleAlphaRenderer.new(@context, data)
     result = renderer.render
@@ -115,7 +115,7 @@ class TestByTitleAlphaRenderer < Minitest::Test
   def test_renders_multiple_books_in_group
     book_a2 = create_doc(
       { 'title' => 'Another Book', 'published' => true },
-      '/books/another.html'
+      '/books/another.html',
     )
     data = { alpha_groups: [{ letter: 'A', books: [@book_a, book_a2] }] }
     renderer = Jekyll::Books::Lists::Renderers::ByTitleAlphaRenderer.new(@context, data)

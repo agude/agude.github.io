@@ -16,7 +16,7 @@ class TestRelatedBooksTag < Minitest::Test
     @site_config_base = {
       'url' => 'http://example.com',
       'plugin_logging' => { 'RELATED_BOOKS' => true, 'RELATED_BOOKS_SERIES' => true },
-      'plugin_log_level' => 'debug'
+      'plugin_log_level' => 'debug',
     }
     @test_time_now = Time.parse('2024-03-15 10:00:00 EST')
     @helper = BookTestHelper.new(@test_time_now, @site_config_base)
@@ -35,8 +35,11 @@ class TestRelatedBooksTag < Minitest::Test
   def test_tag_returns_only_logs_when_no_books_found
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
-      title: 'Alone Again', authors: ['Solo Author'],
-      date_offset_days: 0, url_suffix: 'alone_again', collection: coll
+      title: 'Alone Again',
+      authors: ['Solo Author'],
+      date_offset_days: 0,
+      url_suffix: 'alone_again',
+      collection: coll,
     )
     coll.docs = [curr, @helper.unpublished_book_generic, @helper.future_dated_book_generic].compact
 
@@ -72,7 +75,7 @@ class TestRelatedBooksTag < Minitest::Test
     expected = [
       series_books[2].data['title'],
       series_books[3].data['title'],
-      series_books[5].data['title']
+      series_books[5].data['title'],
     ]
     assert_equal expected, @helper.extract_rendered_titles(output)
   end
@@ -83,7 +86,7 @@ class TestRelatedBooksTag < Minitest::Test
     expected = [
       s1b2.data['title'],
       other_ay.data['title'],
-      @helper.recent_unrelated_book1.data['title']
+      @helper.recent_unrelated_book1.data['title'],
     ]
     assert_equal expected, @helper.extract_rendered_titles(output)
   end
@@ -94,7 +97,7 @@ class TestRelatedBooksTag < Minitest::Test
     expected = [
       s1b2.data['title'],
       s1b3.data['title'],
-      @helper.recent_unrelated_book1.data['title']
+      @helper.recent_unrelated_book1.data['title'],
     ]
     assert_equal expected, @helper.extract_rendered_titles(output)
   end
@@ -112,7 +115,7 @@ class TestRelatedBooksTag < Minitest::Test
     expected = [
       @helper.recent_unrelated_book1.data['title'],
       @helper.recent_unrelated_book2.data['title'],
-      @helper.recent_unrelated_book3.data['title']
+      @helper.recent_unrelated_book3.data['title'],
     ]
     assert_equal expected, @helper.extract_rendered_titles(output)
   end
@@ -127,8 +130,16 @@ class TestRelatedBooksTag < Minitest::Test
 
   # Helper class for test setup and utilities
   class BookTestHelper
-    attr_reader :test_time_now, :site_config_base, :author_x_book1_old, :author_x_book2_recent, :author_y_book1_recent,
-                :recent_unrelated_book1, :recent_unrelated_book2, :recent_unrelated_book3, :unpublished_book_generic, :future_dated_book_generic
+    attr_reader :test_time_now,
+                :site_config_base,
+                :author_x_book1_old,
+                :author_x_book2_recent,
+                :author_y_book1_recent,
+                :recent_unrelated_book1,
+                :recent_unrelated_book2,
+                :recent_unrelated_book3,
+                :unpublished_book_generic,
+                :future_dated_book_generic
 
     def initialize(test_time_now, site_config_base)
       @test_time_now = test_time_now
@@ -138,36 +149,57 @@ class TestRelatedBooksTag < Minitest::Test
 
     def setup_generic_books
       @author_x_book1_old = create_book(
-        title: 'AuthorX Book1 (Old)', authors: ['Author X'],
-        date_offset_days: 20, url_suffix: 'ax_b1_old'
+        title: 'AuthorX Book1 (Old)',
+        authors: ['Author X'],
+        date_offset_days: 20,
+        url_suffix: 'ax_b1_old',
       )
       @author_x_book2_recent = create_book(
-        title: 'AuthorX Book2 (Recent)', authors: ['Author X'],
-        date_offset_days: 5, url_suffix: 'ax_b2_recent'
+        title: 'AuthorX Book2 (Recent)',
+        authors: ['Author X'],
+        date_offset_days: 5,
+        url_suffix: 'ax_b2_recent',
       )
       @author_y_book1_recent = create_book(
-        title: 'AuthorY Book1 (Recent)', authors: ['Author Y'],
-        date_offset_days: 4, url_suffix: 'ay_b1_recent'
+        title: 'AuthorY Book1 (Recent)',
+        authors: ['Author Y'],
+        date_offset_days: 4,
+        url_suffix: 'ay_b1_recent',
       )
       @recent_unrelated_book1 = create_book(
-        title: 'Recent Unrelated 1', authors: ['Author Z'],
-        date_offset_days: 1, url_suffix: 'ru1'
+        title: 'Recent Unrelated 1',
+        authors: ['Author Z'],
+        date_offset_days: 1,
+        url_suffix: 'ru1',
       )
       @recent_unrelated_book2 = create_book(
-        title: 'Recent Unrelated 2', authors: ['Author W'],
-        date_offset_days: 2, url_suffix: 'ru2'
+        title: 'Recent Unrelated 2',
+        authors: ['Author W'],
+        date_offset_days: 2,
+        url_suffix: 'ru2',
       )
       @recent_unrelated_book3 = create_book(
-        title: 'Recent Unrelated 3', authors: ['Author V'],
-        date_offset_days: 3, url_suffix: 'ru3'
+        title: 'Recent Unrelated 3',
+        authors: ['Author V'],
+        date_offset_days: 3,
+        url_suffix: 'ru3',
       )
       @unpublished_book_generic = create_book(
-        title: 'Unpublished Book Generic', series: 'Series Misc', book_num: 1,
-        authors: ['Author X'], date_offset_days: 5, url_suffix: 'unpub_gen', published: false
+        title: 'Unpublished Book Generic',
+        series: 'Series Misc',
+        book_num: 1,
+        authors: ['Author X'],
+        date_offset_days: 5,
+        url_suffix: 'unpub_gen',
+        published: false,
       )
       @future_dated_book_generic = create_book(
-        title: 'Future Book Generic', series: 'Series Misc', book_num: 1,
-        authors: ['Author X'], date_offset_days: -5, url_suffix: 'future_gen'
+        title: 'Future Book Generic',
+        series: 'Series Misc',
+        book_num: 1,
+        authors: ['Author X'],
+        date_offset_days: -5,
+        url_suffix: 'future_gen',
       )
     end
 
@@ -175,11 +207,14 @@ class TestRelatedBooksTag < Minitest::Test
                     date_offset_days: 0, published: true, collection: nil, extra_fm: {})
       authors_data = normalize_authors(authors)
       front_matter = {
-        'title' => title, 'series' => series, 'book_number' => book_num,
-        'book_authors' => authors_data, 'published' => published,
+        'title' => title,
+        'series' => series,
+        'book_number' => book_num,
+        'book_authors' => authors_data,
+        'published' => published,
         'date' => @test_time_now - (60 * 60 * 24 * date_offset_days),
         'image' => "/images/book_#{url_suffix}.jpg",
-        'excerpt_output_override' => "#{title} excerpt."
+        'excerpt_output_override' => "#{title} excerpt.",
       }.merge(extra_fm)
       create_doc(front_matter, "/books/#{url_suffix}.html", "Content for #{title}", nil, collection)
     end
@@ -211,8 +246,13 @@ class TestRelatedBooksTag < Minitest::Test
       coll = MockCollection.new([], 'books')
       books = (1..count).map do |i|
         create_book(
-          title: "S1B#{i}", series: 'Series 1', book_num: i, authors: ['Auth'],
-          date_offset_days: 10 - i, url_suffix: "s1b#{i}", collection: coll
+          title: "S1B#{i}",
+          series: 'Series 1',
+          book_num: i,
+          authors: ['Auth'],
+          date_offset_days: 10 - i,
+          url_suffix: "s1b#{i}",
+          collection: coll,
         )
       end
       coll.docs = books.compact
@@ -224,8 +264,13 @@ class TestRelatedBooksTag < Minitest::Test
       books_collection = MockCollection.new([], 'books')
       series_books = (1..10).map do |i|
         create_book(
-          title: "S1B#{i}", series: 'Series 1', book_num: i, authors: ['Auth'],
-          date_offset_days: 20 - i, url_suffix: "s1b#{i}", collection: books_collection
+          title: "S1B#{i}",
+          series: 'Series 1',
+          book_num: i,
+          authors: ['Auth'],
+          date_offset_days: 20 - i,
+          url_suffix: "s1b#{i}",
+          collection: books_collection,
         )
       end
       books_collection.docs = series_books.compact
@@ -237,16 +282,29 @@ class TestRelatedBooksTag < Minitest::Test
     def setup_one_series_book_scenario
       coll = MockCollection.new([], 'books')
       curr = create_book(
-        title: 'Current S1B1', series: 'Series Y', book_num: 1, authors: ['Author Y'],
-        date_offset_days: 0, url_suffix: 'curr_s1b1', collection: coll
+        title: 'Current S1B1',
+        series: 'Series Y',
+        book_num: 1,
+        authors: ['Author Y'],
+        date_offset_days: 0,
+        url_suffix: 'curr_s1b1',
+        collection: coll,
       )
       s1b2 = create_book(
-        title: 'S1B2', series: 'Series Y', book_num: 2, authors: ['Author Y'],
-        date_offset_days: 5, url_suffix: 's1b2', collection: coll
+        title: 'S1B2',
+        series: 'Series Y',
+        book_num: 2,
+        authors: ['Author Y'],
+        date_offset_days: 5,
+        url_suffix: 's1b2',
+        collection: coll,
       )
       other_ay = create_book(
-        title: 'Other AY Book Recent', authors: ['Author Y'],
-        date_offset_days: 3, url_suffix: 'ay_other_rec', collection: coll
+        title: 'Other AY Book Recent',
+        authors: ['Author Y'],
+        date_offset_days: 3,
+        url_suffix: 'ay_other_rec',
+        collection: coll,
       )
       coll.docs = [curr, s1b2, other_ay, @recent_unrelated_book1, @recent_unrelated_book2].compact
       site = create_site(@site_config_base.dup, { 'books' => coll.docs })
@@ -257,16 +315,31 @@ class TestRelatedBooksTag < Minitest::Test
     def setup_two_series_books_scenario
       coll = MockCollection.new([], 'books')
       curr = create_book(
-        title: 'Current S1B1', series: 'Series Z', book_num: 1, authors: ['Author Z'],
-        date_offset_days: 0, url_suffix: 'curr_s1b1', collection: coll
+        title: 'Current S1B1',
+        series: 'Series Z',
+        book_num: 1,
+        authors: ['Author Z'],
+        date_offset_days: 0,
+        url_suffix: 'curr_s1b1',
+        collection: coll,
       )
       s1b2 = create_book(
-        title: 'S1B2', series: 'Series Z', book_num: 2, authors: ['Author Z'],
-        date_offset_days: 10, url_suffix: 's1b2', collection: coll
+        title: 'S1B2',
+        series: 'Series Z',
+        book_num: 2,
+        authors: ['Author Z'],
+        date_offset_days: 10,
+        url_suffix: 's1b2',
+        collection: coll,
       )
       s1b3 = create_book(
-        title: 'S1B3', series: 'Series Z', book_num: 3, authors: ['Author Z'],
-        date_offset_days: 5, url_suffix: 's1b3', collection: coll
+        title: 'S1B3',
+        series: 'Series Z',
+        book_num: 3,
+        authors: ['Author Z'],
+        date_offset_days: 5,
+        url_suffix: 's1b3',
+        collection: coll,
       )
       coll.docs = [curr, s1b2, s1b3, @recent_unrelated_book1, @author_x_book2_recent].compact
       site = create_site(@site_config_base.dup, { 'books' => coll.docs })
@@ -277,20 +350,34 @@ class TestRelatedBooksTag < Minitest::Test
     def setup_multi_author_scenario
       coll = MockCollection.new([], 'books')
       curr = create_book(
-        title: 'Current Multi-Author', series: 'UniqueSeries', book_num: 1,
-        authors: ['Author A', 'Author B'], date_offset_days: 0, url_suffix: 'curr_multi', collection: coll
+        title: 'Current Multi-Author',
+        series: 'UniqueSeries',
+        book_num: 1,
+        authors: ['Author A', 'Author B'],
+        date_offset_days: 0,
+        url_suffix: 'curr_multi',
+        collection: coll,
       )
       auth_a = create_book(
-        title: 'AuthorA Solo Book', authors: ['Author A'],
-        date_offset_days: 2, url_suffix: 'aa_solo', collection: coll
+        title: 'AuthorA Solo Book',
+        authors: ['Author A'],
+        date_offset_days: 2,
+        url_suffix: 'aa_solo',
+        collection: coll,
       )
       auth_b = create_book(
-        title: 'AuthorB Solo Book', authors: ['Author B'],
-        date_offset_days: 4, url_suffix: 'ab_solo', collection: coll
+        title: 'AuthorB Solo Book',
+        authors: ['Author B'],
+        date_offset_days: 4,
+        url_suffix: 'ab_solo',
+        collection: coll,
       )
       recent_z = create_book(
-        title: 'Recent By Z', authors: ['Author Z'],
-        date_offset_days: 1, url_suffix: 'ru_z', collection: coll
+        title: 'Recent By Z',
+        authors: ['Author Z'],
+        date_offset_days: 1,
+        url_suffix: 'ru_z',
+        collection: coll,
       )
       coll.docs = [curr, auth_a, auth_b, recent_z].compact
       site = create_site(@site_config_base.dup, { 'books' => coll.docs })
@@ -301,12 +388,20 @@ class TestRelatedBooksTag < Minitest::Test
     def setup_recent_fallback_scenario
       coll = MockCollection.new([], 'books')
       curr = create_book(
-        title: 'Current S1B1', series: 'Series Beta', book_num: 1, authors: ['Author B'],
-        date_offset_days: 10, url_suffix: 'curr_s1b1', collection: coll
+        title: 'Current S1B1',
+        series: 'Series Beta',
+        book_num: 1,
+        authors: ['Author B'],
+        date_offset_days: 10,
+        url_suffix: 'curr_s1b1',
+        collection: coll,
       )
       coll.docs = [
-        curr, @recent_unrelated_book1, @recent_unrelated_book2,
-        @recent_unrelated_book3, @unpublished_book_generic
+        curr,
+        @recent_unrelated_book1,
+        @recent_unrelated_book2,
+        @recent_unrelated_book3,
+        @unpublished_book_generic,
       ].compact
       site = create_site(@site_config_base.dup, { 'books' => coll.docs })
       context = create_context({}, { site: site, page: curr })
@@ -319,20 +414,38 @@ class TestRelatedBooksTag < Minitest::Test
       authors = ['Ben H. Winters']
 
       wot = create_book(
-        title: 'World of Trouble', series: series, book_num: 3, authors: authors,
-        date_offset_days: 0, url_suffix: 'wot', collection: coll
+        title: 'World of Trouble',
+        series: series,
+        book_num: 3,
+        authors: authors,
+        date_offset_days: 0,
+        url_suffix: 'wot',
+        collection: coll,
       )
       cc = create_book(
-        title: 'Countdown City', series: series, book_num: 2, authors: authors,
-        date_offset_days: 300, url_suffix: 'cc', collection: coll
+        title: 'Countdown City',
+        series: series,
+        book_num: 2,
+        authors: authors,
+        date_offset_days: 300,
+        url_suffix: 'cc',
+        collection: coll,
       )
       tlp = create_book(
-        title: 'The Last Policeman', series: series, book_num: 1, authors: authors,
-        date_offset_days: 365, url_suffix: 'tlp', collection: coll
+        title: 'The Last Policeman',
+        series: series,
+        book_num: 1,
+        authors: authors,
+        date_offset_days: 365,
+        url_suffix: 'tlp',
+        collection: coll,
       )
       fill = create_book(
-        title: 'Recent Unrelated Fill', authors: ['Another Author'],
-        date_offset_days: 5, url_suffix: 'ru_fill', collection: coll
+        title: 'Recent Unrelated Fill',
+        authors: ['Another Author'],
+        date_offset_days: 5,
+        url_suffix: 'ru_fill',
+        collection: coll,
       )
 
       coll.docs = [wot, tlp, cc, fill].compact

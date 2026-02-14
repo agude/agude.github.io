@@ -23,7 +23,8 @@ class TestRatingUtils < Minitest::Test
     expected_sequence = ('★' * full_count) + ('☆' * empty_count)
 
     # --- Compare Sequences ---
-    assert_equal expected_sequence, extracted_sequence,
+    assert_equal expected_sequence,
+                 extracted_sequence,
                  "Sequence check failed: Expected '#{expected_sequence}', but got '#{extracted_sequence}'"
   end
 

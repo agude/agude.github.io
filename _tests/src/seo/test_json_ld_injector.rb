@@ -52,37 +52,55 @@ class TestJsonLdInjectorBase < Minitest::Test
   def setup_mock_documents
     @blog_post_doc = create_doc(
       { 'layout' => 'post', 'title' => 'Standard Post' },
-      '/blog/standard.html', 'Blog content', nil, @posts_collection
+      '/blog/standard.html',
+      'Blog content',
+      nil,
+      @posts_collection,
     )
     @blog_post_doc.site = @site
 
     @book_review_doc = create_doc(
       { 'layout' => 'book', 'title' => 'Book Review' },
-      '/books/review.html', 'Book review content', nil, @books_collection
+      '/books/review.html',
+      'Book review content',
+      nil,
+      @books_collection,
     )
     @book_review_doc.site = @site
 
     @generic_review_post_doc = create_doc(
       { 'layout' => 'post', 'title' => 'Generic Review', 'review' => { 'item_name' => 'Gadget V1' } },
-      '/blog/generic.html', 'Generic review content', nil, @posts_collection
+      '/blog/generic.html',
+      'Generic review content',
+      nil,
+      @posts_collection,
     )
     @generic_review_post_doc.site = @site
 
     @generic_review_missing_item_doc = create_doc(
       { 'layout' => 'post', 'title' => 'Generic Review Missing', 'review' => {} },
-      '/blog/generic-missing.html', 'Generic review missing content', nil, @posts_collection
+      '/blog/generic-missing.html',
+      'Generic review missing content',
+      nil,
+      @posts_collection,
     )
     @generic_review_missing_item_doc.site = @site
 
     @author_page_doc = create_doc(
       { 'layout' => 'author_page', 'title' => 'Author Name' },
-      '/authors/author.html', 'Author bio', nil, nil
+      '/authors/author.html',
+      'Author bio',
+      nil,
+      nil,
     )
     @author_page_doc.site = @site
 
     @other_page_doc = create_doc(
       { 'layout' => 'default', 'title' => 'Other Page' },
-      '/other.html', 'Other content', nil, nil
+      '/other.html',
+      'Other content',
+      nil,
+      nil,
     )
     @other_page_doc.site = @site
   end
@@ -93,7 +111,7 @@ class TestJsonLdInjectorBase < Minitest::Test
     @generic_review_hash = {
       '@type' => 'Review',
       'itemReviewed' => { '@type' => 'Product', 'name' => 'Gadget V1' },
-      'test_marker' => 'generic'
+      'test_marker' => 'generic',
     }
     @author_profile_hash = { '@type' => 'Person', 'name' => 'Author Name', 'test_marker' => 'author' }
   end
@@ -135,7 +153,7 @@ class TestJsonLdInjectorBase < Minitest::Test
       Jekyll::SEO::Generators::BlogPostingLdGenerator => @blog_posting_hash,
       Jekyll::SEO::Generators::BookReviewLdGenerator => @book_review_hash,
       Jekyll::SEO::Generators::GenericReviewLdGenerator => @generic_review_hash,
-      Jekyll::SEO::Generators::AuthorProfileLdGenerator => @author_profile_hash
+      Jekyll::SEO::Generators::AuthorProfileLdGenerator => @author_profile_hash,
     }
 
     stubs.each_key do |generator|
@@ -187,7 +205,8 @@ class TestJsonLdInjectorInjection < TestJsonLdInjectorBase
         Jekyll::SEO::Generators::GenericReviewLdGenerator.stub :generate_hash,
                                                                stub_value_for(Jekyll::SEO::Generators::GenericReviewLdGenerator, active_generator, active_hash) do
           Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash,
-                                                                 stub_value_for(Jekyll::SEO::Generators::AuthorProfileLdGenerator, active_generator, active_hash), &block
+                                                                 stub_value_for(Jekyll::SEO::Generators::AuthorProfileLdGenerator, active_generator, active_hash),
+                                                                 &block
         end
       end
     end
@@ -248,7 +267,7 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
       Time.now,
       @site,
       @posts_collection,
-      nil # relative_path
+      nil, # relative_path
     )
 
     mock_logger = Minitest::Mock.new
@@ -272,7 +291,7 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
       '', # URL is empty string
       'Content',
       nil,
-      @posts_collection
+      @posts_collection,
     )
     doc_empty_url.site = @site
 
@@ -327,9 +346,11 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
     Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
       Jekyll::SEO::Generators::BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
         Jekyll::SEO::Generators::GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
-          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash, lambda { |*|
-            flunk 'AuthorProfile generator should not be called'
-          }, &block
+          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash,
+                                                                 lambda { |*|
+                                                                   flunk 'AuthorProfile generator should not be called'
+                                                                 },
+                                                                 &block
         end
       end
     end
@@ -350,7 +371,7 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
       { 'layout' => 'author_page', 'title' => 'Page Author' },
       '/authors/page-author.html',
       'authors/page-author.html',
-      'authors/page-author.html'
+      'authors/page-author.html',
     )
 
     # Jekyll::SEO::Generators::AuthorProfileLdGenerator should be called since layout matches
@@ -375,7 +396,7 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
       { 'layout' => 'default', 'title' => 'Regular Page' },
       '/regular.html',
       'regular.html',
-      'regular.html'
+      'regular.html',
     )
 
     # No generator should be called
@@ -393,9 +414,11 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
     Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
       Jekyll::SEO::Generators::BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
         Jekyll::SEO::Generators::GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
-          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash, lambda { |*|
-            flunk 'AuthorProfile generator should not be called'
-          }, &block
+          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash,
+                                                                 lambda { |*|
+                                                                   flunk 'AuthorProfile generator should not be called'
+                                                                 },
+                                                                 &block
         end
       end
     end
@@ -440,7 +463,10 @@ class TestJsonLdInjectorHooks < TestJsonLdInjectorBase
     # Create a draft document
     draft_doc = create_doc(
       { 'layout' => 'post', 'title' => 'Draft Post' },
-      '/drafts/post.html', 'Draft content', nil, @posts_collection
+      '/drafts/post.html',
+      'Draft content',
+      nil,
+      @posts_collection,
     )
     draft_doc.site = @site
 
@@ -458,7 +484,7 @@ class TestJsonLdInjectorHooks < TestJsonLdInjectorBase
   def test_documents_post_convert_hook_logs_error_when_site_missing
     # Create document with nil site
     doc_no_site = MockDocument.new(
-      { 'layout' => 'post' }, '/no-site.html', 'Content', Time.now, nil, @posts_collection, 'no-site.html'
+      { 'layout' => 'post' }, '/no-site.html', 'Content', Time.now, nil, @posts_collection, 'no-site.html',
     )
 
     mock_logger = Minitest::Mock.new
@@ -481,7 +507,7 @@ class TestJsonLdInjectorHooks < TestJsonLdInjectorBase
       { 'layout' => 'author_page', 'title' => 'Page Author' },
       '/page-author.html',
       'page-author.html',
-      'page-author.html'
+      'page-author.html',
     )
 
     Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash, @author_profile_hash do
@@ -503,7 +529,7 @@ class TestJsonLdInjectorHooks < TestJsonLdInjectorBase
       nil,
       { 'layout' => 'page' },
       '/no-site-page.html',
-      'no-site-page.html'
+      'no-site-page.html',
     )
 
     mock_logger = Minitest::Mock.new

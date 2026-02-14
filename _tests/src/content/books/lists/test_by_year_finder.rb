@@ -29,23 +29,23 @@ class TestBookListByYearFinderBase < Minitest::Test
   def setup_test_books
     @book_mar_2024_setup = create_doc(
       { 'title' => 'Book Mar 2024 Setup', 'date' => Time.utc(2024, 3, 10), 'published' => true },
-      '/b2024mar_setup.html'
+      '/b2024mar_setup.html',
     )
     @book_jun_2023_setup = create_doc(
       { 'title' => 'Book Jun 2023 Setup', 'date' => Time.utc(2023, 6, 20), 'published' => true },
-      '/b2023jun_setup.html'
+      '/b2023jun_setup.html',
     )
     @unpublished_2023_setup = create_doc(
       { 'title' => 'Unpublished 2023 Book Setup', 'date' => Time.utc(2023, 7, 7), 'published' => false },
-      '/unpub2023_setup.html'
+      '/unpub2023_setup.html',
     )
     @book_string_date_2022_setup = create_doc(
       { 'title' => 'Book String Date 2022 Setup', 'date' => '2022-11-11', 'published' => true },
-      '/b_str_date_2022_setup.html'
+      '/b_str_date_2022_setup.html',
     )
 
     @books_for_general_year_tests = [
-      @book_mar_2024_setup, @book_jun_2023_setup, @unpublished_2023_setup, @book_string_date_2022_setup
+      @book_mar_2024_setup, @book_jun_2023_setup, @unpublished_2023_setup, @book_string_date_2022_setup,
     ]
   end
 
@@ -53,7 +53,7 @@ class TestBookListByYearFinderBase < Minitest::Test
     @site = create_site({}, { 'books' => @books_for_general_year_tests })
     @context = create_context(
       {},
-      { site: @site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') }
+      { site: @site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') },
     )
   end
 
@@ -94,36 +94,39 @@ class TestBookListByYearFinderGrouping < TestBookListByYearFinderBase
     {
       book_mar_2024: create_doc(
         { 'title' => 'Book Mar 2024', 'date' => Time.utc(2024, 3, 10), 'published' => true },
-        '/b2024b.html'
+        '/b2024b.html',
       ),
       book_jan_2024: create_doc(
         { 'title' => 'Book Jan 2024', 'date' => Time.utc(2024, 1, 15), 'published' => true },
-        '/b2024a.html'
+        '/b2024a.html',
       ),
       book_may_2024_fixed: create_doc(
         { 'title' => 'Book Fixed Now Year (May 2024)', 'date' => Time.utc(2024, 5, 20), 'published' => true },
-        '/bnow.html'
+        '/bnow.html',
       ),
       book_dec_2023: create_doc(
         { 'title' => 'Book Dec 2023', 'date' => Time.utc(2023, 12, 1), 'published' => true },
-        '/b2023a.html'
+        '/b2023a.html',
       ),
       book_jun_2023: create_doc(
         { 'title' => 'Book Jun 2023', 'date' => Time.utc(2023, 6, 20), 'published' => true },
-        '/b2023b.html'
+        '/b2023b.html',
       ),
       book_oct_2022: create_doc(
         { 'title' => 'Book Oct 2022', 'date' => Time.utc(2022, 10, 5), 'published' => true },
-        '/b2022oct.html'
-      )
+        '/b2022oct.html',
+      ),
     }
   end
 
   def create_temp_site_and_context(books)
     current_books_for_year_test = [
-      books[:book_jan_2024], books[:book_mar_2024], books[:book_may_2024_fixed],
-      books[:book_dec_2023], books[:book_jun_2023],
-      books[:book_oct_2022]
+      books[:book_jan_2024],
+      books[:book_mar_2024],
+      books[:book_may_2024_fixed],
+      books[:book_dec_2023],
+      books[:book_jun_2023],
+      books[:book_oct_2022],
     ]
     temp_site = create_site({}, { 'books' => current_books_for_year_test })
     temp_context = create_context({}, { site: temp_site, page: @context.registers[:page] })
@@ -147,9 +150,10 @@ class TestBookListByYearFinderGrouping < TestBookListByYearFinderBase
     expected_titles = [
       books[:book_may_2024_fixed].data['title'],
       books[:book_mar_2024].data['title'],
-      books[:book_jan_2024].data['title']
+      books[:book_jan_2024].data['title'],
     ]
-    assert_equal expected_titles, group[:books].map { |b| b.data['title'] },
+    assert_equal expected_titles,
+                 group[:books].map { |b| b.data['title'] },
                  'Books in 2024 group not sorted correctly by date'
   end
 
@@ -157,7 +161,8 @@ class TestBookListByYearFinderGrouping < TestBookListByYearFinderBase
     group = result[:year_groups].find { |g| g[:year] == '2023' }
     refute_nil group, "Group '2023' missing"
     expected_titles = [books[:book_dec_2023].data['title'], books[:book_jun_2023].data['title']]
-    assert_equal expected_titles, group[:books].map { |b| b.data['title'] },
+    assert_equal expected_titles,
+                 group[:books].map { |b| b.data['title'] },
                  'Books in 2023 group not sorted correctly by date'
   end
 
@@ -165,7 +170,8 @@ class TestBookListByYearFinderGrouping < TestBookListByYearFinderBase
     group = result[:year_groups].find { |g| g[:year] == '2022' }
     refute_nil group, "Group '2022' missing"
     expected_titles = [books[:book_oct_2022].data['title']]
-    assert_equal expected_titles, group[:books].map { |b| b.data['title'] },
+    assert_equal expected_titles,
+                 group[:books].map { |b| b.data['title'] },
                  'Books in 2022 group not sorted correctly by date'
   end
 end
@@ -197,12 +203,16 @@ class TestBookListByYearFinderArchived < TestBookListByYearFinderBase
   def create_archived_test_books
     canonical = create_doc(
       { 'title' => 'Canonical 2023', 'date' => Time.utc(2023, 8, 1), 'published' => true },
-      '/c23.html'
+      '/c23.html',
     )
     archived = create_doc(
-      { 'title' => 'Archived 2023', 'date' => Time.utc(2023, 4, 1), 'published' => true,
-        'canonical_url' => '/c23.html' },
-      '/a23.html'
+      {
+        'title' => 'Archived 2023',
+        'date' => Time.utc(2023, 4, 1),
+        'published' => true,
+        'canonical_url' => '/c23.html',
+      },
+      '/a23.html',
     )
     [canonical, archived]
   end
@@ -219,11 +229,13 @@ class TestBookListByYearFinderArchived < TestBookListByYearFinderBase
   end
 
   def create_mixed_date_books
-    book_current = create_doc({ 'title' => 'Current Time Date Book', 'published' => true },
-                              '/current_time_date.html')
+    book_current = create_doc(
+      { 'title' => 'Current Time Date Book', 'published' => true },
+      '/current_time_date.html',
+    )
     book_specific = create_doc(
       { 'title' => 'Specific String Date Book', 'date' => '2022-07-01', 'published' => true },
-      '/specific_string_date.html'
+      '/specific_string_date.html',
     )
     [book_current, book_specific]
   end

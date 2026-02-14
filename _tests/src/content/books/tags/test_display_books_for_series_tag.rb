@@ -25,7 +25,7 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     mock_book = create_doc({ 'title' => 'Test Book', 'series' => 'Test Series' })
     mock_finder_data = {
       books: [mock_book],
-      log_messages: ''
+      log_messages: '',
     }
 
     # 2. Define the mock HTML that the Renderer will "return"
@@ -39,17 +39,19 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     mock_renderer.expect :render, mock_renderer_html
 
     # Stub the .new methods to return our mock instances
-    Jekyll::Books::Lists::SeriesFinder.stub :new, lambda { |args|
-      # Verify the series_name_filter is passed correctly
-      assert_equal 'Test Series', args[:series_name_filter]
-      mock_finder
-    } do
-      Jekyll::Books::Lists::Renderers::ForSeriesRenderer.stub :new, lambda { |context, data|
-        # This is a key assertion: ensure the data from the finder is what the renderer receives
-        assert_equal mock_finder_data, data
-        assert_equal @context, context
-        mock_renderer # Return our mock renderer instance
-      } do
+    Jekyll::Books::Lists::SeriesFinder.stub :new,
+                                            lambda { |args|
+                                              # Verify the series_name_filter is passed correctly
+                                              assert_equal 'Test Series', args[:series_name_filter]
+                                              mock_finder
+                                            } do
+      Jekyll::Books::Lists::Renderers::ForSeriesRenderer.stub :new,
+                                                              lambda { |context, data|
+                                                                # This is a key assertion: ensure the data from the finder is what the renderer receives
+                                                                assert_equal mock_finder_data, data
+                                                                assert_equal @context, context
+                                                                mock_renderer # Return our mock renderer instance
+                                                              } do
         # Execute the tag with a literal series name
         output = Liquid::Template.parse("{% display_books_for_series 'Test Series' %}").render!(@context)
 
@@ -68,7 +70,7 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     mock_book = create_doc({ 'title' => 'Test Book', 'series' => 'Test Series' })
     mock_finder_data = {
       books: [mock_book],
-      log_messages: ''
+      log_messages: '',
     }
     mock_renderer_html = '<div class="card-grid">Book Cards</div>'
 
@@ -78,11 +80,12 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, mock_renderer_html
 
-    Jekyll::Books::Lists::SeriesFinder.stub :new, lambda { |args|
-      # Verify the series_name_filter is resolved from the variable
-      assert_equal 'Test Series', args[:series_name_filter]
-      mock_finder
-    } do
+    Jekyll::Books::Lists::SeriesFinder.stub :new,
+                                            lambda { |args|
+                                              # Verify the series_name_filter is resolved from the variable
+                                              assert_equal 'Test Series', args[:series_name_filter]
+                                              mock_finder
+                                            } do
       Jekyll::Books::Lists::Renderers::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
         # Use the variable defined in setup
         output = Liquid::Template.parse('{% display_books_for_series series_var %}').render!(@context)
@@ -98,7 +101,7 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     # Test that log messages from the finder are prepended to the renderer output
     mock_finder_data = {
       books: [],
-      log_messages: '<!-- Log Message -->'
+      log_messages: '<!-- Log Message -->',
     }
     mock_renderer_html = ''
 
@@ -128,7 +131,7 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
 
     mock_finder_data = {
       books: [],
-      log_messages: ''
+      log_messages: '',
     }
     mock_renderer_html = ''
 
@@ -138,11 +141,12 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, mock_renderer_html
 
-    Jekyll::Books::Lists::SeriesFinder.stub :new, lambda { |args|
-      # Verify that nil is passed as the filter (not converted to string)
-      assert_nil args[:series_name_filter]
-      mock_finder
-    } do
+    Jekyll::Books::Lists::SeriesFinder.stub :new,
+                                            lambda { |args|
+                                              # Verify that nil is passed as the filter (not converted to string)
+                                              assert_nil args[:series_name_filter]
+                                              mock_finder
+                                            } do
       Jekyll::Books::Lists::Renderers::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
         output = Liquid::Template.parse('{% display_books_for_series nil_var %}').render!(context_with_nil)
         assert_equal '', output
@@ -159,7 +163,7 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
 
     mock_finder_data = {
       books: [],
-      log_messages: ''
+      log_messages: '',
     }
     mock_renderer_html = ''
 
@@ -169,11 +173,12 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     mock_renderer = Minitest::Mock.new
     mock_renderer.expect :render, mock_renderer_html
 
-    Jekyll::Books::Lists::SeriesFinder.stub :new, lambda { |args|
-      # Verify that the empty string (after strip) is passed as-is
-      assert_equal '   ', args[:series_name_filter]
-      mock_finder
-    } do
+    Jekyll::Books::Lists::SeriesFinder.stub :new,
+                                            lambda { |args|
+                                              # Verify that the empty string (after strip) is passed as-is
+                                              assert_equal '   ', args[:series_name_filter]
+                                              mock_finder
+                                            } do
       Jekyll::Books::Lists::Renderers::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
         output = Liquid::Template.parse('{% display_books_for_series empty_var %}').render!(context_with_empty)
         assert_equal '', output
@@ -188,16 +193,35 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
 
   def test_markdown_mode_outputs_numbered_list
     books = [
-      create_doc({ 'title' => 'Book 1', 'series' => 'Test Series',
-                   'book_number' => 1, 'book_authors' => ['Auth A'], 'rating' => 4 }, '/b1.html'),
-      create_doc({ 'title' => 'Book 2', 'series' => 'Test Series',
-                   'book_number' => 2, 'book_authors' => ['Auth A'], 'rating' => 5 }, '/b2.html')
+      create_doc(
+        {
+          'title' => 'Book 1',
+          'series' => 'Test Series',
+          'book_number' => 1,
+          'book_authors' => ['Auth A'],
+          'rating' => 4,
+        },
+        '/b1.html',
+      ),
+      create_doc(
+        {
+          'title' => 'Book 2',
+          'series' => 'Test Series',
+          'book_number' => 2,
+          'book_authors' => ['Auth A'],
+          'rating' => 5,
+        },
+        '/b2.html',
+      ),
     ]
     site = create_site({ 'url' => 'http://example.com' }, { 'books' => books })
     md_context = create_context(
       {},
-      { site: site, page: create_doc({ 'path' => 'test.html' }, '/test.html'),
-        render_mode: :markdown }
+      {
+        site: site,
+        page: create_doc({ 'path' => 'test.html' }, '/test.html'),
+        render_mode: :markdown,
+      },
     )
 
     silent_logger = Object.new.tap do |l|

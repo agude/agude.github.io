@@ -54,7 +54,7 @@ def setup_site_with_strict_config
       'error_mode' => 'strict',
       'strict_variables' => true,
       'strict_filters' => true,
-      'strict_front_matter' => true
+      'strict_front_matter' => true,
     }
 
     site = Jekyll::Site.new(config)

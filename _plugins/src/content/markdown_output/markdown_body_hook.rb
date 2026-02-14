@@ -19,10 +19,10 @@ module Jekyll
           registers: {
             site: site,
             page: payload['page'],
-            render_mode: :markdown
+            render_mode: :markdown,
           },
           strict_filters: site.config.dig('liquid', 'strict_filters'),
-          strict_variables: site.config.dig('liquid', 'strict_variables')
+          strict_variables: site.config.dig('liquid', 'strict_variables'),
         }
 
         # Inject render_mode into payload for includes (which can't access registers)
@@ -83,7 +83,7 @@ Jekyll::Hooks.register :documents, :pre_render do |doc, payload|
 
   begin
     doc.data['markdown_body'] = Jekyll::MarkdownOutput::MarkdownBodyHook.render_markdown_body(
-      doc.content, doc.path, doc.site, payload
+      doc.content, doc.path, doc.site, payload,
     )
     doc.data['markdown_alternate_href'] = Jekyll::MarkdownOutput::MarkdownBodyHook.compute_markdown_href(doc)
   rescue StandardError => e
@@ -103,7 +103,7 @@ Jekyll::Hooks.register :pages, :pre_render do |page, payload|
 
   begin
     page.data['markdown_body'] = Jekyll::MarkdownOutput::MarkdownBodyHook.render_markdown_body(
-      page.content, page.path, page.site, payload
+      page.content, page.path, page.site, payload,
     )
     page.data['markdown_alternate_href'] = Jekyll::MarkdownOutput::MarkdownBodyHook.compute_markdown_href(page)
   rescue StandardError => e

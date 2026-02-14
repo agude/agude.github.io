@@ -47,7 +47,7 @@ module Jekyll
             tag_type: 'BACKLINK_UTIL',
             reason: 'Prerequisites missing: site, page, link_cache, or backlinks cache unavailable.',
             identifiers: { PageURL: current_page ? (current_page['url'] || 'N/A') : 'N/A' },
-            level: :error
+            level: :error,
           )
         end
 

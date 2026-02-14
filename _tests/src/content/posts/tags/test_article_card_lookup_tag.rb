@@ -27,8 +27,10 @@ class TestArticleCardLookupTag < Minitest::Test
   # Helper to set up site and context
   def setup_site_and_context
     @site = create_site({ 'url' => 'http://example.com' }, {}, [], [@post1, @post2, @post3])
-    @context = create_context({ 'page' => { 'url' => '/current.html', 'path' => 'current.html' } },
-                              { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') })
+    @context = create_context(
+      { 'page' => { 'url' => '/current.html', 'path' => 'current.html' } },
+      { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') },
+    )
   end
 
   # Helper to create a silent logger stub
@@ -180,8 +182,10 @@ class TestArticleCardLookupTag < Minitest::Test
     # In create_site, posts_data is used to initialize MockCollection.new(posts_data, 'posts')
     # So, site.posts will be a MockCollection. site.posts.docs will be the string.
     bad_site = create_site({ 'url' => 'http://example.com' }, {}, [], 'not_an_array_or_collection_docs')
-    bad_context = create_context({ 'page' => { 'path' => 'current.html' } },
-                                 { site: bad_site, page: create_doc({ 'path' => 'current.html' }, '/current.html') })
+    bad_context = create_context(
+      { 'page' => { 'path' => 'current.html' } },
+      { site: bad_site, page: create_doc({ 'path' => 'current.html' }, '/current.html') },
+    )
     bad_site.config['plugin_logging']['ARTICLE_CARD_LOOKUP'] = true
 
     output = ''
@@ -231,10 +235,11 @@ class TestArticleCardLookupTag < Minitest::Test
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_result
 
-    Jekyll::Posts::Lookups::ArticleFinder.stub :new, lambda { |args|
-      captured_args = args
-      mock_finder
-    } do
+    Jekyll::Posts::Lookups::ArticleFinder.stub :new,
+                                               lambda { |args|
+                                                 captured_args = args
+                                                 mock_finder
+                                               } do
       Jekyll::Posts::ArticleCardUtils.stub :render, ->(_post, _ctx) { '<div>Card</div>' } do
         render_tag('url="/blog/post-one.html"')
 
@@ -255,11 +260,12 @@ class TestArticleCardLookupTag < Minitest::Test
     mock_finder.expect :find, mock_result
 
     Jekyll::Posts::Lookups::ArticleFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |post, ctx|
-        captured_post = post
-        captured_context = ctx
-        '<div>Card</div>'
-      } do
+      Jekyll::Posts::ArticleCardUtils.stub :render,
+                                           lambda { |post, ctx|
+                                             captured_post = post
+                                             captured_context = ctx
+                                             '<div>Card</div>'
+                                           } do
         render_tag('url="/blog/post-one.html"')
 
         assert_equal @post1, captured_post

@@ -14,9 +14,9 @@ class TestLogFailureTag < Minitest::Test
       {
         'page_path_var' => 'path/from/variable.html',
         'user_id_var' => 12_345,
-        'status_var' => 'pending'
+        'status_var' => 'pending',
       },
-      { site: @site, page: create_doc({ 'path' => 'current_test_page.html' }, '/current.html') }
+      { site: @site, page: create_doc({ 'path' => 'current_test_page.html' }, '/current.html') },
     )
     @site.config['plugin_logging']['MY_CUSTOM_ERROR'] = true
     @site.config['plugin_logging']['TEMPLATE_INFO'] = true
@@ -62,10 +62,11 @@ class TestLogFailureTag < Minitest::Test
     mock_return_value = '<!-- MY_CUSTOM_ERROR LOGGED -->'
 
     captured_args = nil
-    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
-      captured_args = args
-      mock_return_value
-    } do
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure,
+                                                   lambda { |args|
+                                                     captured_args = args
+                                                     mock_return_value
+                                                   } do
       output = render_tag(markup)
       assert_equal mock_return_value, output
     end
@@ -84,15 +85,16 @@ class TestLogFailureTag < Minitest::Test
     expected_identifiers_corrected = {
       'id' => 'item123',
       'status' => 'failed',
-      'count' => '5' # LiquidUtils.resolve_value for "'5'" returns string "5"
+      'count' => '5', # LiquidUtils.resolve_value for "'5'" returns string "5"
     }
 
     mock_return_value = '<!-- LOGGED WITH LITERALS -->'
     captured_args = nil
-    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
-      captured_args = args
-      mock_return_value
-    } do
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure,
+                                                   lambda { |args|
+                                                     captured_args = args
+                                                     mock_return_value
+                                                   } do
       output = render_tag(markup_corrected)
       assert_equal mock_return_value, output
     end
@@ -107,15 +109,16 @@ class TestLogFailureTag < Minitest::Test
     expected_identifiers = {
       'path' => 'path/from/variable.html',
       'user' => 12_345,
-      'current_status' => 'pending'
+      'current_status' => 'pending',
     }
     mock_return_value = '<!-- LOGGED WITH VARIABLES -->'
 
     captured_args = nil
-    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
-      captured_args = args
-      mock_return_value
-    } do
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure,
+                                                   lambda { |args|
+                                                     captured_args = args
+                                                     mock_return_value
+                                                   } do
       output = render_tag(markup)
       assert_equal mock_return_value, output
     end
@@ -129,15 +132,16 @@ class TestLogFailureTag < Minitest::Test
     markup = "type='MY_CUSTOM_ERROR' reason='Mixed event' literal_id='abc' var_id=user_id_var"
     expected_identifiers = {
       'literal_id' => 'abc',
-      'var_id' => 12_345
+      'var_id' => 12_345,
     }
     mock_return_value = '<!-- LOGGED MIXED -->'
 
     captured_args = nil
-    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
-      captured_args = args
-      mock_return_value
-    } do
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure,
+                                                   lambda { |args|
+                                                     captured_args = args
+                                                     mock_return_value
+                                                   } do
       output = render_tag(markup)
       assert_equal mock_return_value, output
     end
@@ -151,14 +155,15 @@ class TestLogFailureTag < Minitest::Test
     markup = "type='T' reason='R' myKey='val' another_Key='val2'"
     expected_identifiers_passed_to_util = {
       'myKey' => 'val',
-      'another_Key' => 'val2'
+      'another_Key' => 'val2',
     }
     mock_return_value = '<!-- KEY TEST -->'
     captured_args = nil
-    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, lambda { |args|
-      captured_args = args
-      mock_return_value
-    } do
+    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure,
+                                                   lambda { |args|
+                                                     captured_args = args
+                                                     mock_return_value
+                                                   } do
       render_tag(markup)
     end
     # Assertion will now expect original casing

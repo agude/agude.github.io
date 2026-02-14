@@ -153,7 +153,7 @@ class TestFavoritesValidator < Minitest::Test
     favorites_post = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
-      '{% book_card_lookup title="Blindsight" %}'
+      '{% book_card_lookup title="Blindsight" %}',
     )
 
     error = assert_raises(RuntimeError) do
@@ -161,7 +161,7 @@ class TestFavoritesValidator < Minitest::Test
         {},
         { 'books' => [book] },
         [],
-        [favorites_post]
+        [favorites_post],
       )
     end
 
@@ -172,12 +172,12 @@ class TestFavoritesValidator < Minitest::Test
   def test_integration_favorites_manager_passes_with_date
     book = create_doc(
       { 'title' => 'Blindsight', 'date' => Time.parse('2023-12-15') },
-      '/books/blindsight.html'
+      '/books/blindsight.html',
     )
     favorites_post = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
-      '{% book_card_lookup title="Blindsight" date="2023-12-15" %}'
+      '{% book_card_lookup title="Blindsight" date="2023-12-15" %}',
     )
 
     # Should not raise
@@ -185,7 +185,7 @@ class TestFavoritesValidator < Minitest::Test
       {},
       { 'books' => [book] },
       [],
-      [favorites_post]
+      [favorites_post],
     )
 
     refute_nil site.data['link_cache']['favorites_mentions']
@@ -196,7 +196,7 @@ class TestFavoritesValidator < Minitest::Test
     regular_post = create_doc(
       { 'title' => 'Regular Post' },
       '/posts/regular.html',
-      '{% book_card_lookup title="Blindsight" %}'
+      '{% book_card_lookup title="Blindsight" %}',
     )
 
     # Should not raise - regular posts are not validated
@@ -204,7 +204,7 @@ class TestFavoritesValidator < Minitest::Test
       {},
       { 'books' => [book] },
       [],
-      [regular_post]
+      [regular_post],
     )
 
     refute_nil site.data['link_cache']
@@ -217,7 +217,7 @@ class TestFavoritesValidator < Minitest::Test
     favorites_post = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
-      '{% book_card_lookup title="Book A" %} and {% book_card_lookup title="Book B" %}'
+      '{% book_card_lookup title="Book A" %} and {% book_card_lookup title="Book B" %}',
     )
 
     error = assert_raises(RuntimeError) do
@@ -225,7 +225,7 @@ class TestFavoritesValidator < Minitest::Test
         {},
         { 'books' => [book_a, book_b] },
         [],
-        [favorites_post]
+        [favorites_post],
       )
     end
 
@@ -236,14 +236,14 @@ class TestFavoritesValidator < Minitest::Test
   def test_integration_some_valid_some_invalid_only_invalid_reported
     book_a = create_doc(
       { 'title' => 'Book A', 'date' => Time.parse('2023-01-01') },
-      '/books/a.html'
+      '/books/a.html',
     )
     book_b = create_doc({ 'title' => 'Book B' }, '/books/b.html')
 
     favorites_post = create_doc(
       { 'title' => 'Favorites 2023', 'is_favorites_list' => 2023 },
       '/posts/fav23.html',
-      '{% book_card_lookup title="Book A" date="2023-01-01" %} and {% book_card_lookup title="Book B" %}'
+      '{% book_card_lookup title="Book A" date="2023-01-01" %} and {% book_card_lookup title="Book B" %}',
     )
 
     error = assert_raises(RuntimeError) do
@@ -251,7 +251,7 @@ class TestFavoritesValidator < Minitest::Test
         {},
         { 'books' => [book_a, book_b] },
         [],
-        [favorites_post]
+        [favorites_post],
       )
     end
 
@@ -265,7 +265,7 @@ class TestFavoritesValidator < Minitest::Test
     create_doc(
       { 'title' => "Favorites #{year}", 'is_favorites_list' => year.to_i },
       url,
-      content
+      content,
     )
   end
 end

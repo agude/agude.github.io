@@ -104,7 +104,7 @@ class TestLinkHelperUtils < Minitest::Test
     archived_page = create_doc({}, '/books/archived.html')
     site.data['link_cache']['url_to_canonical_map'] = {
       '/books/canonical.html' => '/books/canonical.html',
-      '/books/archived.html' => '/books/canonical.html'
+      '/books/archived.html' => '/books/canonical.html',
     }
     inner_html = '<cite>Link</cite>'
 
@@ -197,7 +197,7 @@ class TestLinkHelperUtils < Minitest::Test
   def test_integration_with_link_cache_generator_for_self_link_suppression
     canonical_book = create_doc({ 'title' => 'Canonical', 'published' => true }, '/books/canonical.html')
     archived_book = create_doc(
-      { 'title' => 'Archived', 'published' => true, 'canonical_url' => '/books/canonical.html' }, '/books/archived.html'
+      { 'title' => 'Archived', 'published' => true, 'canonical_url' => '/books/canonical.html' }, '/books/archived.html',
     )
 
     # Create a site, which runs the Jekyll::Infrastructure::LinkCacheGenerator and populates the map
