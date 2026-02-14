@@ -2,6 +2,23 @@
 
 require_relative '../../../test_helper'
 
+# Wrapper that mimics real Jekyll::Document behavior: doc['url'] returns
+# data['url'] (nil) instead of MockDocument's special url field. This
+# catches bugs where code assumes page['url'] works on raw documents.
+class RealDocLike
+  attr_reader :data, :url
+
+  def initialize(mock_doc)
+    @data = mock_doc.data.dup
+    @data.delete('url')
+    @url = mock_doc.url
+  end
+
+  def [](key)
+    @data[key.to_s]
+  end
+end
+
 # Tests for Jekyll::MarkdownOutput::MarkdownOutputAssembler.
 #
 # Verifies header generation and markdown assembly for different page types.
@@ -224,6 +241,22 @@ class TestMarkdownOutputAssembler < Minitest::Test
     result = Assembler.assemble_markdown(current, site: site)
     assert_includes result, '# Post A'
     assert_includes result, 'Article content here.'
+    assert_includes result, '## Related Posts'
+  end
+
+  # Regression: verify footer methods work when doc['url'] returns nil
+  # (real Jekyll::Document behavior), not MockDocument's special handling.
+  def test_book_footer_works_without_url_in_data
+    books, site = setup_book_with_related
+    current = RealDocLike.new(books.first)
+    result = Assembler.build_book_footer(site, current)
+    assert_includes result, '## Related Books'
+  end
+
+  def test_post_footer_works_without_url_in_data
+    posts, site = setup_post_with_related
+    current = RealDocLike.new(posts.first)
+    result = Assembler.build_post_footer(site, current)
     assert_includes result, '## Related Posts'
   end
 

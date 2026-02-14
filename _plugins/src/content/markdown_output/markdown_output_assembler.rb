@@ -92,10 +92,11 @@ module Jekyll
       # --- Book footer sections (related, backlinks, previous reviews) ---
 
       def self.build_book_footer(site, item)
+        page = page_data_for(item)
         sections = []
-        sections << build_related_books_section(site, item)
-        sections << build_backlinks_section(site, item)
-        sections << build_previous_reviews_section(site, item)
+        sections << build_related_books_section(site, page)
+        sections << build_backlinks_section(site, page)
+        sections << build_previous_reviews_section(site, page)
         sections.compact.reject { |s| s.to_s.strip.empty? }.join("\n\n")
       end
 
@@ -138,11 +139,12 @@ module Jekyll
       private_constant :MAX_RELATED_POSTS
 
       def self.build_post_footer(site, item)
-        build_related_posts_section(site, item)
+        page = page_data_for(item)
+        build_related_posts_section(site, page)
       end
 
-      def self.build_related_posts_section(site, item)
-        result = Jekyll::Posts::Related::Finder.new(site, item, MAX_RELATED_POSTS).find
+      def self.build_related_posts_section(site, page)
+        result = Jekyll::Posts::Related::Finder.new(site, page, MAX_RELATED_POSTS).find
         posts = result[:posts]
         return nil if posts.empty?
 
@@ -177,6 +179,14 @@ module Jekyll
       end
 
       # --- Private helpers ---
+
+      # Build a page-data hash compatible with Finder prerequisite checks.
+      # Finders expect page['url'], page['title'], etc. via hash access,
+      # but Jekyll::Document stores url as a method, not in data[].
+      def self.page_data_for(item)
+        item.data.merge('url' => item.url)
+      end
+      private_class_method :page_data_for
 
       def self.format_date(date)
         date.strftime('%B %-d, %Y')
