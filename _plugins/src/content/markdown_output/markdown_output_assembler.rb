@@ -8,6 +8,7 @@ require_relative '../books/reviews/finder'
 require_relative '../posts/related/finder'
 require_relative 'markdown_body_hook'
 require_relative 'markdown_card_utils'
+require_relative 'llms_txt_generator'
 
 module Jekyll
   module MarkdownOutput
@@ -211,4 +212,5 @@ end
 # Hook: runs after all documents/pages have been rendered
 Jekyll::Hooks.register :site, :post_render do |site|
   Jekyll::MarkdownOutput::MarkdownOutputAssembler.assemble_all(site)
+  Jekyll::MarkdownOutput::LlmsTxtGenerator.generate(site)
 end

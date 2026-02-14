@@ -244,7 +244,8 @@ MockCollection = Struct.new(:docs, :label) unless defined?(MockCollection)
 
 # Mock for the Jekyll site object, now a full class for reliability.
 class MockSite
-  attr_accessor :config, :collections, :pages, :posts, :baseurl, :source, :converters, :data, :categories
+  attr_accessor :config, :collections, :pages, :posts, :baseurl, :source, :converters, :data, :categories,
+                :static_files
 
   # rubocop:disable Metrics/ParameterLists
   def initialize(config, collections, pages, posts, baseurl, source, converters, data, categories)
@@ -257,6 +258,7 @@ class MockSite
     @converters = converters
     @data = data
     @categories = categories
+    @static_files = []
   end
   # rubocop:enable Metrics/ParameterLists
 
