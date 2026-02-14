@@ -148,4 +148,44 @@ class TestRenderArticleCardTag < Minitest::Test
                  captured_log_args[:identifiers])
     assert_equal :error, captured_log_args[:level]
   end
+
+  # --- Markdown Mode Tests ---
+
+  # 5. Markdown mode renders markdown list item
+  def test_markdown_mode_renders_markdown_link
+    md_context = create_context(
+      { 'my_post' => @post_obj },
+      { site: @site, page: create_doc({}, '/current.html'), render_mode: :markdown }
+    )
+    output = render_tag('my_post', md_context)
+    assert_equal '- [Test Post](/test-post.html)', output
+  end
+
+  # 6. Markdown mode works with DocumentDrop (regression test for the real
+  #    Liquid pipeline where variables resolve to Drops, not Documents)
+  def test_markdown_mode_works_with_document_drop
+    drop = Jekyll::Drops::DocumentDrop.new(@post_obj)
+    md_context = create_context(
+      { 'my_post' => drop },
+      { site: @site, page: create_doc({}, '/current.html'), render_mode: :markdown }
+    )
+    output = render_tag('my_post', md_context)
+    assert_equal '- [Test Post](/test-post.html)', output
+  end
+
+  # 7. Markdown mode does not call ArticleCardUtils (HTML renderer)
+  def test_markdown_mode_does_not_call_html_renderer
+    md_context = create_context(
+      { 'my_post' => @post_obj },
+      { site: @site, page: create_doc({}, '/current.html'), render_mode: :markdown }
+    )
+    called = false
+    Jekyll::Posts::ArticleCardUtils.stub :render, lambda { |_p, _c|
+      called = true
+      ''
+    } do
+      render_tag('my_post', md_context)
+    end
+    refute called, 'ArticleCardUtils.render should not be called in markdown mode'
+  end
 end
