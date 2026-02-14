@@ -135,4 +135,87 @@ class TestSeriesLinkResolver < Minitest::Test
 
     assert_equal expected_html, actual_html
   end
+
+  # --- resolve() log capture regression tests ---
+
+  def test_resolve_empty_title_includes_log_output_when_logging_enabled
+    site_with_logging = create_site
+    site_with_logging.config['plugin_logging']['RENDER_SERIES_LINK'] = true
+    current_page = create_doc({}, '/current-page.html')
+    ctx_logging = create_context({}, { site: site_with_logging, page: current_page })
+
+    silent_logger = Object.new
+    def silent_logger.warn(_topic, _message); end
+    def silent_logger.info(_topic, _message); end
+
+    output = Jekyll.stub(:logger, silent_logger) do
+      Jekyll::Series::SeriesLinkResolver.new(ctx_logging).resolve('', nil)
+    end
+    assert_match(/<!-- \[WARN\] RENDER_SERIES_LINK_FAILURE:.*?empty after normalization.*?-->/, output)
+  end
+
+  # --- resolve_data() tests ---
+
+  def test_resolve_data_found
+    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
+    site = create_site({}, {}, [series_page])
+    current_page = create_doc({}, '/current-page.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    data = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve_data('My Awesome Series', nil)
+    assert_equal :found, data[:status]
+    assert_equal '/series/awesome.html', data[:url]
+    assert_equal 'My Awesome Series', data[:display_text]
+  end
+
+  def test_resolve_data_not_found
+    site = create_site({}, {}, [])
+    current_page = create_doc({}, '/current-page.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    data = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve_data('NonExistent Series', nil)
+    assert_equal :not_found, data[:status]
+    assert_nil data[:url]
+    assert_equal 'NonExistent Series', data[:display_text]
+  end
+
+  def test_resolve_data_empty_title
+    site = create_site
+    current_page = create_doc({}, '/current-page.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    data = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve_data('', nil)
+    assert_equal :empty_title, data[:status]
+    assert_nil data[:url]
+    assert_nil data[:display_text]
+  end
+
+  def test_resolve_data_no_site
+    ctx_no_site = create_context({}, {})
+    data = Jekyll::Series::SeriesLinkResolver.new(ctx_no_site).resolve_data('Some Series', nil)
+    assert_equal :no_site, data[:status]
+    assert_nil data[:url]
+    assert_equal 'Some Series', data[:display_text]
+  end
+
+  def test_resolve_data_with_override
+    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
+    site = create_site({}, {}, [series_page])
+    current_page = create_doc({}, '/current-page.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    data = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve_data('My Awesome Series', 'Custom Text')
+    assert_equal :found, data[:status]
+    assert_equal 'Custom Text', data[:display_text]
+  end
+
+  def test_resolve_data_frozen
+    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
+    site = create_site({}, {}, [series_page])
+    current_page = create_doc({}, '/current-page.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    data = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve_data('My Awesome Series', nil)
+    assert data.frozen?, 'resolve_data() should return a frozen hash'
+  end
 end

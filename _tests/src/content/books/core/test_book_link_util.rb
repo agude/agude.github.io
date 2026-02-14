@@ -11,6 +11,26 @@ class TestBookLinkUtils < Minitest::Test
     @context = create_context
   end
 
+  def test_find_book_link_data_delegates_to_resolver
+    title = 'Dune'
+    override = 'The Dune Book'
+    author = 'Frank Herbert'
+    date_filter = nil
+    mock_data = { status: :found, url: '/books/dune/', display_text: 'The Dune Book',
+                  canonical_title: 'Dune', cite: true }
+
+    mock_resolver = Minitest::Mock.new
+    mock_resolver.expect :resolve_data, mock_data, [title, override, author, date_filter], cite: true
+
+    Jekyll::Books::Core::BookLinkResolver.stub :new, mock_resolver do
+      result = Jekyll::Books::Core::BookLinkUtils.find_book_link_data(title, @context, override, author)
+      assert_equal mock_data, result
+      assert_equal :found, result[:status]
+    end
+
+    mock_resolver.verify
+  end
+
   def test_render_book_link_delegates_to_resolver_with_cite_default
     title = 'Dune'
     override = 'The Dune Book'

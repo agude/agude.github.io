@@ -500,6 +500,189 @@ class TestBookLinkResolver < Minitest::Test
     assert_match '[FATAL] Ambiguous book title', err.message
   end
 
+  # --- resolve_data() tests ---
+
+  def resolve_data_link(title, text = nil, author = nil, date = nil, context = @ctx, cite: true)
+    Jekyll::Books::Core::BookLinkResolver.new(context).resolve_data(title, text, author, date, cite: cite)
+  end
+
+  def test_resolve_data_found
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = resolve_data_link('Unique Book')
+    end
+    assert_equal :found, data[:status]
+    assert_equal '/books/unique.html', data[:url]
+    assert_equal 'Unique Book', data[:display_text]
+    assert_equal 'Unique Book', data[:canonical_title]
+    assert_equal true, data[:cite]
+  end
+
+  def test_resolve_data_found_cite_false
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = resolve_data_link('Unique Book', nil, nil, nil, @ctx, cite: false)
+    end
+    assert_equal :found, data[:status]
+    assert_equal false, data[:cite]
+  end
+
+  def test_resolve_data_not_found
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = resolve_data_link('Non-existent Book')
+    end
+    assert_equal :not_found, data[:status]
+    assert_nil data[:url]
+    assert_equal 'Non-existent Book', data[:display_text]
+    assert_nil data[:canonical_title]
+    assert_equal true, data[:cite]
+  end
+
+  def test_resolve_data_empty_title
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = resolve_data_link('')
+    end
+    assert_equal :empty_title, data[:status]
+    assert_nil data[:url]
+    assert_nil data[:display_text]
+    assert_nil data[:canonical_title]
+    assert_nil data[:cite]
+  end
+
+  def test_resolve_data_no_site
+    context_no_site = create_context({}, {})
+    data = resolve_data_link('Unique Book', nil, nil, nil, context_no_site)
+    assert_equal :no_site, data[:status]
+    assert_nil data[:url]
+    assert_equal 'Unique Book', data[:display_text]
+    assert_nil data[:canonical_title]
+    assert_nil data[:cite]
+  end
+
+  def test_resolve_data_with_text_override
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = resolve_data_link('Unique Book', 'Display Me')
+    end
+    assert_equal :found, data[:status]
+    assert_equal 'Display Me', data[:display_text]
+    assert_equal 'Unique Book', data[:canonical_title]
+  end
+
+  def test_resolve_data_ambiguous_raises
+    assert_raises(Jekyll::Errors::FatalException) do
+      resolve_data_link('Ambiguous Book')
+    end
+  end
+
+  def test_resolve_data_found_display_text_uses_canonical_title
+    # Raw input differs from canonical title (case/whitespace) — display_text should be canonical
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = resolve_data_link('  unique BOOK  ')
+    end
+    assert_equal :found, data[:status]
+    assert_equal 'Unique Book', data[:display_text], 'display_text should be the canonical title, not raw input'
+    assert_equal 'Unique Book', data[:canonical_title]
+  end
+
+  def test_resolve_data_frozen
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = resolve_data_link('Unique Book')
+    end
+    assert data.frozen?, 'resolve_data() should return a frozen hash'
+  end
+
+  def test_resolve_data_date_filter_match
+    review1_data = { 'title' => 'Dated Book', 'published' => true,
+                     'book_authors' => ['Author A'], 'date' => Time.new(2023, 10, 17) }
+    review1 = create_doc(review1_data, '/books/dated-1.html')
+    review2_data = { 'title' => 'Dated Book', 'published' => true,
+                     'book_authors' => ['Author A'], 'date' => Time.new(2025, 9, 20) }
+    review2 = create_doc(review2_data, '/books/dated-2.html')
+
+    site = create_site({}, { 'books' => [review1, review2] }, [@author_a_page])
+    ctx = create_context({}, { site: site, page: @page })
+
+    data = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve_data(
+      'Dated Book', nil, nil, '2023-10-17'
+    )
+    assert_equal :found, data[:status]
+    assert_equal '/books/dated-1.html', data[:url]
+  end
+
+  def test_resolve_data_date_filter_mismatch
+    review_data = { 'title' => 'Wrong Date Book', 'published' => true,
+                    'book_authors' => ['Author A'], 'date' => Time.new(2023, 10, 17) }
+    review = create_doc(review_data, '/books/wrong-date.html')
+
+    site = create_site({}, { 'books' => [review] }, [@author_a_page])
+    site.config['plugin_logging']['RENDER_BOOK_LINK'] = true
+    ctx = create_context({}, { site: site, page: @page })
+
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve_data(
+        'Wrong Date Book', nil, nil, '2020-01-01'
+      )
+    end
+    assert_equal :not_found, data[:status]
+    assert_nil data[:url]
+  end
+
+  def test_resolve_data_author_filter_match
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = resolve_data_link('Ambiguous Book', nil, 'Author A')
+    end
+    assert_equal :found, data[:status]
+    assert_equal '/books/ambiguous-a.html', data[:url]
+  end
+
+  def test_resolve_data_author_filter_mismatch
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = resolve_data_link('Ambiguous Book', nil, 'Wrong Author')
+    end
+    assert_equal :not_found, data[:status]
+    assert_nil data[:url]
+  end
+
+  def test_resolve_data_date_and_author_combined
+    review_data = { 'title' => 'Combined Filter Book', 'published' => true,
+                    'book_authors' => ['Author A'], 'date' => Time.new(2023, 10, 17) }
+    review = create_doc(review_data, '/books/combined.html')
+
+    site = create_site({}, { 'books' => [review] }, [@author_a_page])
+    ctx = create_context({}, { site: site, page: @page })
+
+    data = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve_data(
+      'Combined Filter Book', nil, 'Author A', '2023-10-17'
+    )
+    assert_equal :found, data[:status]
+    assert_equal '/books/combined.html', data[:url]
+  end
+
+  def test_resolve_data_canonical_vs_archived
+    canonical_data = { 'title' => 'Archive Test', 'published' => true, 'book_authors' => ['Author A'] }
+    canonical_book = create_doc(canonical_data, '/books/canonical.html')
+    archived_data = {
+      'title' => 'Archive Test', 'published' => true, 'book_authors' => ['Author A'],
+      'canonical_url' => '/books/canonical.html'
+    }
+    archived_book = create_doc(archived_data, '/books/archived.html')
+
+    site = create_site({}, { 'books' => [canonical_book, archived_book] }, [@author_a_page])
+    ctx = create_context({}, { site: site, page: @page })
+
+    data = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve_data('Archive Test', nil, nil)
+    assert_equal :found, data[:status]
+    assert_equal '/books/canonical.html', data[:url]
+  end
+
   def test_get_canonical_author_returns_nil_for_empty_name
     # Tests line 180: `return nil if name.to_s.strip.empty?`
     resolver = Jekyll::Books::Core::BookLinkResolver.new(@ctx)

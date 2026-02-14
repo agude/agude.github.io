@@ -28,6 +28,12 @@ module Jekyll
         Jekyll::Authors::AuthorLinkResolver.new(context).resolve(author_name_raw, link_text_override_raw, possessive)
       end
 
+      # Returns a structured data hash (not HTML) for an author link resolution.
+      def self.find_author_link_data(author_name_raw, context, link_text_override_raw = nil, possessive = nil)
+        Jekyll::Authors::AuthorLinkResolver.new(context).resolve_data(author_name_raw, link_text_override_raw,
+                                                                      possessive)
+      end
+
       # --- Private Helper Methods ---
 
       # Builds the inner <span> element for the author name.

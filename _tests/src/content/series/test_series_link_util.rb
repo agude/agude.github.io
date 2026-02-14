@@ -11,6 +11,23 @@ class TestSeriesLinkUtils < Minitest::Test
     @context = create_context
   end
 
+  def test_find_series_link_data_delegates_to_resolver
+    title = 'Foundation'
+    override = 'The Foundation Series'
+    mock_data = { status: :found, url: '/series/foundation/', display_text: 'The Foundation Series' }
+
+    mock_resolver = Minitest::Mock.new
+    mock_resolver.expect :resolve_data, mock_data, [title, override]
+
+    Jekyll::Series::SeriesLinkResolver.stub :new, mock_resolver do
+      result = Jekyll::Series::SeriesLinkUtils.find_series_link_data(title, @context, override)
+      assert_equal mock_data, result
+      assert_equal :found, result[:status]
+    end
+
+    mock_resolver.verify
+  end
+
   def test_render_series_link_delegates_to_resolver
     title = 'Foundation'
     override = 'The Foundation Series'
