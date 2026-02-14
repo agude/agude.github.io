@@ -7,6 +7,7 @@ require 'cgi'
 
 require_relative '../ranking/ranked_books/processor'
 require_relative '../ranking/ranked_books/renderer'
+require_relative '../../markdown_output/markdown_card_utils'
 
 # Liquid Tag to validate (in non-prod) and render a list of books
 # grouped by rating, based on a monotonically sorted list of titles.
@@ -42,6 +43,9 @@ module Jekyll
                 "Syntax Error in 'display_ranked_books': A variable name holding the list must be provided."
         end
 
+        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+        private_constant :MdCards
+
         def render(context)
           processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context,
                                                                          @list_variable_markup)
@@ -49,11 +53,34 @@ module Jekyll
 
           return result[:log_messages] if result[:rating_groups].empty?
 
-          renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(context,
-                                                                       result[:rating_groups])
-          html_output = renderer.render
+          if context.registers[:render_mode] == :markdown
+            render_markdown(result)
+          else
+            renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(context,
+                                                                         result[:rating_groups])
+            result[:log_messages] + renderer.render
+          end
+        end
 
-          result[:log_messages] + html_output
+        private
+
+        def render_markdown(result)
+          lines = []
+          (result[:rating_groups] || []).each do |group|
+            stars = ("\u2605" * group[:rating]) + ("\u2606" * (5 - group[:rating]))
+            lines << "### #{stars}"
+            group[:books].each { |book| lines << MdCards.render_book_card_md(book_to_card(book)) }
+          end
+          lines.join("\n")
+        end
+
+        def book_to_card(doc)
+          authors = doc.data['book_authors']
+          {
+            title: doc.data['title'], url: doc.url,
+            authors: authors.is_a?(Array) ? authors : [authors].compact,
+            rating: doc.data['rating']
+          }
         end
       end
     end

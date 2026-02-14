@@ -8,6 +8,7 @@ require_relative '../post_list_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../category/renderer'
+require_relative '../../markdown_output/markdown_card_utils'
 
 # Displays article cards for posts in a specific category/topic.
 #
@@ -43,6 +44,9 @@ module Jekyll
           validate_required_keys
         end
 
+        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+        private_constant :MdCards
+
         def render(context)
           topic_name, error_log = resolve_topic(context)
           return error_log if error_log
@@ -56,13 +60,22 @@ module Jekyll
             exclude_url: url_to_exclude
           )
 
-          renderer = Renderer.new(context, result[:posts])
-          html_output = renderer.render
-
-          (result[:log_messages] || '') + html_output
+          if context.registers[:render_mode] == :markdown
+            render_markdown(result)
+          else
+            renderer = Renderer.new(context, result[:posts])
+            (result[:log_messages] || '') + renderer.render
+          end
         end
 
         private
+
+        def render_markdown(result)
+          posts = result[:posts] || []
+          return '' if posts.empty?
+
+          posts.map { |p| MdCards.render_article_card_md({ title: p.data['title'], url: p.url }) }.join("\n")
+        end
 
         def parse_attributes
           scanner = StringScanner.new(@raw_markup)
