@@ -6,6 +6,7 @@ require 'liquid'
 require_relative '../article_card_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
+require_relative '../../markdown_output/markdown_card_utils'
 
 module Jekyll
   module Posts
@@ -30,11 +31,18 @@ module Jekyll
           validate_markup
         end
 
+        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+        private_constant :MdCards
+
         def render(context)
           post_object = TagArgs.resolve_value(@post_object_markup, context)
           return log_nil_object(context) unless post_object
 
-          CardUtils.render(post_object, context)
+          if context.registers[:render_mode] == :markdown
+            MdCards.render_article_card_md({ title: post_object['title'], url: post_object['url'] })
+          else
+            CardUtils.render(post_object, context)
+          end
         rescue StandardError => e
           log_render_error(context, e)
         end

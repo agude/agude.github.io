@@ -12,10 +12,16 @@ module Jekyll
       #   - logs: Error/warning messages (empty string if none)
       #   - reviews: Array of Jekyll::Document objects sorted by date (newest first)
       class Finder
-        def initialize(context)
-          @context = context
-          @site = context.registers[:site]
-          @page = context.registers[:page]
+        # Accepts site + page directly (for use outside Liquid context).
+        # Legacy: also accepts a Liquid::Context as the sole argument.
+        def initialize(site_or_context, page = nil)
+          if site_or_context.respond_to?(:registers)
+            @site = site_or_context.registers[:site]
+            @page = site_or_context.registers[:page]
+          else
+            @site = site_or_context
+            @page = page
+          end
         end
 
         def find
@@ -34,11 +40,20 @@ module Jekyll
           return nil if @site && @page && @page['url']
 
           Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
+            context: log_context,
             tag_type: 'PREVIOUS_REVIEWS',
             reason: 'Prerequisites missing: site, page, or page.url.',
             level: :error
           )
+        end
+
+        # Builds a minimal context-like object for PluginLoggerUtils.
+        def log_context
+          page = @page
+          site = @site
+          Object.new.tap do |ctx|
+            ctx.define_singleton_method(:registers) { { site: site, page: page } }
+          end
         end
 
         def find_archived_docs

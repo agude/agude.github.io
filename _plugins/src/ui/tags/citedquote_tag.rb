@@ -5,6 +5,7 @@ require 'jekyll'
 require 'liquid'
 require 'strscan'
 require_relative '../quotes/citedquote_utils'
+require_relative '../citations/citation_utils'
 require_relative '../../infrastructure/tag_argument_utils'
 
 module Jekyll
@@ -24,7 +25,8 @@ module Jekyll
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         QuoteUtils = Jekyll::UI::Quotes::CitedQuoteUtils
-        private_constant :TagArgs, :QuoteUtils
+        CitationUtil = Jekyll::UI::Citations::CitationUtils
+        private_constant :TagArgs, :QuoteUtils, :CitationUtil
 
         # Regex for parsing "key='value'" or "key=variable" arguments.
         ARG_SYNTAX = /([\w-]+)\s*=\s*((['"])(?:(?!\3).)*\3|\S+)/o
@@ -50,8 +52,11 @@ module Jekyll
           # Resolve all attribute values
           resolved_params = resolve_params(context)
 
-          # Delegate to utility
-          QuoteUtils.render(content, resolved_params, site)
+          if context.registers[:render_mode] == :markdown
+            render_markdown_quote(content, resolved_params, site)
+          else
+            QuoteUtils.render(content, resolved_params, site)
+          end
         end
 
         private
@@ -86,6 +91,14 @@ module Jekyll
           raise Liquid::SyntaxError,
                 "Syntax Error in 'citedquote' tag: Content is required between " \
                 '{% citedquote %} and {% endcitedquote %}.'
+        end
+
+        def render_markdown_quote(content, params, site)
+          quoted_lines = content.strip.lines.map { |line| "> #{line.rstrip}" }
+          citation_text = CitationUtil.format_citation_text(params, site)
+          quoted_lines << '>'
+          quoted_lines << "> --- #{citation_text}"
+          quoted_lines.join("\n")
         end
 
         def resolve_params(context)

@@ -385,3 +385,34 @@ class TestCitationUtilsSingleField < TestCitationUtilsBase
     assert_nil result
   end
 end
+
+# Tests for format_citation_text (Markdown output)
+class TestCitationUtilsFormatText < Minitest::Test
+  def test_simple_author_and_work
+    params = { author_last: 'Doe', author_first: 'Jane', work_title: 'Test Work' }
+    result = Jekyll::UI::Citations::CitationUtils.format_citation_text(params)
+    assert_includes result, 'Doe, Jane'
+    assert_includes result, '*Test Work*'
+    refute_includes result, '<'
+  end
+
+  def test_cite_converted_to_italic
+    params = { work_title: 'Italic Title' }
+    result = Jekyll::UI::Citations::CitationUtils.format_citation_text(params)
+    assert_includes result, '*Italic Title*'
+    refute_includes result, '<cite>'
+  end
+
+  def test_doi_link_converted_to_markdown
+    params = { doi: '10.1234/test' }
+    result = Jekyll::UI::Citations::CitationUtils.format_citation_text(params)
+    assert_includes result, '[10.1234/test](https://doi.org/10.1234/test)'
+    refute_includes result, '<a '
+  end
+
+  def test_all_html_stripped
+    params = { author_last: 'Smith', work_title: 'Work', publisher: 'Pub', date: '2023' }
+    result = Jekyll::UI::Citations::CitationUtils.format_citation_text(params)
+    refute_match(/<[^>]+>/, result)
+  end
+end

@@ -8,6 +8,7 @@ require_relative '../lists/by_award_finder'
 require_relative '../lists/favorites_lists_finder'
 require_relative '../core/book_card_utils'
 require_relative '../../../infrastructure/text_processing_utils'
+require_relative '../../markdown_output/markdown_card_utils'
 
 # Liquid Tag to display the entire content of the "By Award" page,
 # including a unified navigation bar, the list of books grouped by major awards,
@@ -31,7 +32,11 @@ module Jekyll
         end
 
         def render(context)
-          Renderer.new(context).render
+          if context.registers[:render_mode] == :markdown
+            MarkdownRenderer.new(context).render
+          else
+            Renderer.new(context).render
+          end
         end
 
         # Helper class to handle the rendering logic
@@ -150,6 +155,70 @@ module Jekyll
               html << "\n" if append_newline
             end
             html << "</div>\n"
+          end
+        end
+
+        # Markdown renderer for awards page content
+        class MarkdownRenderer
+          MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+          private_constant :MdCards
+
+          def initialize(context)
+            @site = context.registers[:site]
+            @context = context
+          end
+
+          def render
+            fetch_data
+            lines = []
+            lines.concat(render_awards)
+            lines.concat(render_favorites)
+            lines.join("\n")
+          end
+
+          private
+
+          def fetch_data
+            @awards_groups = Jekyll::Books::Lists::ByAwardFinder.new(
+              site: @site, context: @context
+            ).find[:awards_data] || []
+
+            @favorites_lists = Jekyll::Books::Lists::FavoritesListsFinder.new(
+              site: @site, context: @context
+            ).find[:favorites_lists] || []
+          end
+
+          def render_awards
+            return [] if @awards_groups.empty?
+
+            lines = ['## Major Awards']
+            @awards_groups.each do |group|
+              lines << "### #{group[:award_name]}"
+              (group[:books] || []).each { |book| lines << MdCards.render_book_card_md(book_to_card(book)) }
+            end
+            lines
+          end
+
+          def render_favorites
+            displayable = @favorites_lists.select { |l| (l[:books] || []).any? }
+            return [] if displayable.empty?
+
+            lines = ['## My Favorite Books Lists']
+            displayable.each do |list|
+              title = list[:post].data['title']
+              lines << "### [#{title}](#{list[:post].url})"
+              list[:books].each { |book| lines << MdCards.render_book_card_md(book_to_card(book)) }
+            end
+            lines
+          end
+
+          def book_to_card(doc)
+            authors = doc.data['book_authors']
+            {
+              title: doc.data['title'], url: doc.url,
+              authors: authors.is_a?(Array) ? authors : [authors].compact,
+              rating: doc.data['rating']
+            }
           end
         end
       end

@@ -227,6 +227,79 @@ class TestArticleCardRenderer < Minitest::Test
     end
   end
 
+  # --- extract_data tests ---
+
+  def test_extract_data_returns_frozen_hash_with_expected_keys
+    mock_base_data = {
+      site: @site, data_source_for_keys: @post_object.data, data_for_description: @post_object.data,
+      absolute_url: 'http://example.com/article.html', absolute_image_url: 'http://example.com/images/article.jpg',
+      raw_title: 'My Article Title', log_output: ''
+    }
+
+    data = nil
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, 'Front matter description.' do
+        Jekyll.stub :logger, @silent_logger_stub do
+          data = Jekyll::Posts::ArticleCardRenderer.new(@post_object, @context).extract_data
+        end
+      end
+    end
+
+    assert data.frozen?
+    assert_equal %i[title excerpt url date image_url image_alt].sort, data.keys.sort
+  end
+
+  def test_extract_data_returns_raw_values
+    mock_base_data = {
+      site: @site, data_source_for_keys: @post_object.data, data_for_description: @post_object.data,
+      absolute_url: 'http://example.com/article.html', absolute_image_url: 'http://example.com/images/article.jpg',
+      raw_title: 'My Article Title', log_output: ''
+    }
+
+    data = nil
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, 'Front matter description.' do
+        Jekyll.stub :logger, @silent_logger_stub do
+          data = Jekyll::Posts::ArticleCardRenderer.new(@post_object, @context).extract_data
+        end
+      end
+    end
+
+    assert_equal 'My Article Title', data[:title]
+    assert_equal 'Front matter description.', data[:excerpt]
+    assert_equal 'http://example.com/article.html', data[:url]
+    assert_equal 'http://example.com/images/article.jpg', data[:image_url]
+    assert_equal 'Custom Alt', data[:image_alt]
+  end
+
+  def test_extract_data_returns_nil_when_base_extraction_fails
+    mock_failure = { log_output: '<!-- fail -->', site: nil, data_source_for_keys: nil }
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_failure do
+      data = Jekyll::Posts::ArticleCardRenderer.new(@post_object, @context).extract_data
+      assert_nil data
+    end
+  end
+
+  def test_extract_data_uses_default_alt_when_no_image
+    post_no_image = create_doc({ 'title' => 'No Image' }, '/no-image.html')
+    mock_base_data = {
+      site: @site, data_source_for_keys: post_no_image.data, data_for_description: post_no_image.data,
+      absolute_url: 'http://example.com/no-image.html', absolute_image_url: nil,
+      raw_title: 'No Image', log_output: ''
+    }
+
+    data = nil
+    Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
+      Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '' do
+        Jekyll.stub :logger, @silent_logger_stub do
+          data = Jekyll::Posts::ArticleCardRenderer.new(post_no_image, @context).extract_data
+        end
+      end
+    end
+
+    assert_equal 'Article header image, used for decoration.', data[:image_alt]
+  end
+
   def test_render_article_card_missing_alt_logs_warning
     post_missing_alt_data = {
       'title' => 'Missing Alt Post',

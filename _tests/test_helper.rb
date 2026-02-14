@@ -116,6 +116,11 @@ require 'src/infrastructure/tag_argument_utils'
 require 'src/infrastructure/text_processing_utils'
 require 'src/infrastructure/typography_utils'
 require 'src/infrastructure/url_utils'
+require 'src/infrastructure/generated_static_file'
+require 'src/content/markdown_output/markdown_link_formatter'
+require 'src/content/markdown_output/markdown_body_hook'
+require 'src/infrastructure/markdown_whitespace_normalizer'
+require 'src/content/markdown_output/markdown_output_assembler'
 
 # --- JSON-LD Generators (_plugins/src/seo/generators/) ---
 require 'src/seo/generators/author_profile_generator'
@@ -239,7 +244,8 @@ MockCollection = Struct.new(:docs, :label) unless defined?(MockCollection)
 
 # Mock for the Jekyll site object, now a full class for reliability.
 class MockSite
-  attr_accessor :config, :collections, :pages, :posts, :baseurl, :source, :converters, :data, :categories
+  attr_accessor :config, :collections, :pages, :posts, :baseurl, :source, :converters, :data, :categories,
+                :static_files
 
   # rubocop:disable Metrics/ParameterLists
   def initialize(config, collections, pages, posts, baseurl, source, converters, data, categories)
@@ -252,6 +258,7 @@ class MockSite
     @converters = converters
     @data = data
     @categories = categories
+    @static_files = []
   end
   # rubocop:enable Metrics/ParameterLists
 

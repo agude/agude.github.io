@@ -33,6 +33,15 @@
   {% comment %} From jekyll/jekyll-seo-tag {% endcomment %}
   {% seo %}
 
+  {% comment %} Markdown alternate for LLM/agent consumption {% endcomment %}
+  {% assign markdown_alternate_href = page | optional: 'markdown_alternate_href' %}
+  {% if markdown_alternate_href %}
+  <link rel="alternate"
+        type="text/markdown; charset=UTF-8"
+        href="{{ markdown_alternate_href | absolute_url }}"
+        title="Markdown version">
+  {% endif %}
+
   <!-- JSON-LD Structured Data -->
   {%- comment -%} Look up generated script in site data hash {%- endcomment -%}
   {%- assign data = site | optional: 'data' -%}

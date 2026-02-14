@@ -24,7 +24,7 @@ class TestBacklinksFinder < Minitest::Test
     site = create_site({}, { 'books' => [@book_a, @book_b] })
     context = create_context({}, { site: site, page: @book_b })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_equal 1, result[:backlinks].length
@@ -40,7 +40,7 @@ class TestBacklinksFinder < Minitest::Test
     site = create_site({}, { 'books' => [standalone] })
     context = create_context({}, { site: site, page: standalone })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_empty result[:backlinks]
@@ -56,7 +56,7 @@ class TestBacklinksFinder < Minitest::Test
     site = create_site({}, { 'books' => [self_ref] })
     context = create_context({}, { site: site, page: self_ref })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_empty result[:backlinks]
@@ -81,7 +81,7 @@ class TestBacklinksFinder < Minitest::Test
     site = create_site({}, { 'books' => [book_z, book_a, target] })
     context = create_context({}, { site: site, page: target })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_equal 'Apple Book', result[:backlinks].first[0]
@@ -107,7 +107,7 @@ class TestBacklinksFinder < Minitest::Test
     site = create_site({}, { 'books' => [the_book, basic_book, target] })
     context = create_context({}, { site: site, page: target })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     # "The Amazing Book" should sort as "Amazing Book" before "Basic Book"
@@ -120,7 +120,7 @@ class TestBacklinksFinder < Minitest::Test
     mock_logger = Minitest::Mock.new
     mock_logger.expect(:error, nil, [String, String])
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = nil
     Jekyll.stub :logger, mock_logger do
       result = finder.find
@@ -134,7 +134,7 @@ class TestBacklinksFinder < Minitest::Test
     site = create_site({}, { 'books' => [@book_a, @book_b] })
     context = create_context({}, { site: site, page: nil })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_empty result[:backlinks]
@@ -145,7 +145,7 @@ class TestBacklinksFinder < Minitest::Test
     site = create_site({}, { 'books' => [@book_a] })
     context = create_context({}, { site: site, page: no_url_page })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_empty result[:backlinks]
@@ -156,7 +156,7 @@ class TestBacklinksFinder < Minitest::Test
     site = create_site({}, { 'books' => [@book_a] })
     context = create_context({}, { site: site, page: no_title_page })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_empty result[:backlinks]
@@ -166,7 +166,7 @@ class TestBacklinksFinder < Minitest::Test
     site = create_site({}, {}, [])
     context = create_context({}, { site: site, page: @book_b })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_empty result[:backlinks]
@@ -194,7 +194,7 @@ class TestBacklinksFinder < Minitest::Test
     site = create_site({}, { 'books' => [series_book_1, series_book_2, linker] }, [series_page])
     context = create_context({}, { site: site, page: series_book_1 })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     # Should find the linker as a series backlink
@@ -206,7 +206,7 @@ class TestBacklinksFinder < Minitest::Test
     site = create_site({}, { 'books' => [@book_a, @book_b] })
     context = create_context({}, { site: site, page: @book_b })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     # Result format is [title, url, type]
@@ -228,7 +228,7 @@ class TestBacklinksFinder < Minitest::Test
     site = create_site({}, { 'books' => [empty_title_book, target] })
     context = create_context({}, { site: site, page: target })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     # The empty-title book should be filtered out
@@ -247,7 +247,7 @@ class TestBacklinksFinder < Minitest::Test
     # Now create context with the orphan page
     context = create_context({}, { site: site, page: orphan_page })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_empty result[:backlinks]
@@ -270,7 +270,7 @@ class TestBacklinksFinder < Minitest::Test
     site = create_site({}, { 'books' => [book_c, target] })
     context = create_context({}, { site: site, page: target })
 
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     # Should only have one entry for Book C (deduplicated)

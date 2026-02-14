@@ -13,11 +13,20 @@ module Jekyll
       # This class handles the data retrieval logic for finding related books.
       # It does not produce any HTML output.
       class Finder
-        def initialize(context, max_books)
-          @context = context
-          @max_books = max_books
-          @site = context.registers[:site]
-          @page = context.registers[:page]
+        # Accepts site + page directly (for use outside Liquid context).
+        # Legacy: also accepts a Liquid::Context as the first argument.
+        def initialize(site_or_context, page_or_max_books, max_books = nil)
+          if site_or_context.respond_to?(:registers)
+            # Legacy Liquid::Context interface
+            @site = site_or_context.registers[:site]
+            @page = site_or_context.registers[:page]
+            @max_books = page_or_max_books
+          else
+            # Direct site + page interface
+            @site = site_or_context
+            @page = page_or_max_books
+            @max_books = max_books
+          end
           @logs = String.new
           @candidate_books = []
         end
@@ -46,7 +55,7 @@ module Jekyll
         def log_missing_prerequisites
           missing = collect_missing_prerequisites
           @logs << Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
+            context: log_context,
             tag_type: 'RELATED_BOOKS',
             reason: "Missing prerequisites: #{missing.join(', ')}.",
             identifiers: { PageURL: @page ? @page['url'] : 'N/A' },
@@ -74,7 +83,7 @@ module Jekyll
 
         def log_missing_cache
           @logs << Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
+            context: log_context,
             tag_type: 'RELATED_BOOKS',
             reason: 'Link cache is missing. Ensure Jekyll::Infrastructure::LinkCacheGenerator is running.',
             identifiers: { PageURL: @page['url'] },
@@ -145,13 +154,22 @@ module Jekyll
 
         def log_unparseable_number(series)
           @logs << Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
+            context: log_context,
             tag_type: 'RELATED_BOOKS_SERIES',
             reason: "Current page has unparseable book_number ('#{@page['book_number']}'). " \
                     'Using all series books sorted by number.',
             identifiers: { PageURL: @page['url'], Series: series },
             level: :info
           )
+        end
+
+        # Builds a minimal context-like object for PluginLoggerUtils.
+        def log_context
+          page = @page
+          site = @site
+          Object.new.tap do |ctx|
+            ctx.define_singleton_method(:registers) { { site: site, page: page } }
+          end
         end
 
         def select_series_candidates(series_books, current_num)

@@ -8,6 +8,7 @@ require_relative '../feed_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../feed/renderer'
+require_relative '../../markdown_output/markdown_card_utils'
 
 # Renders a feed combining recent posts and book reviews.
 #
@@ -42,19 +43,32 @@ module Jekyll
           parse_arguments
         end
 
+        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+        private_constant :MdCards
+
         def render(context)
           limit = resolve_limit(context)
           feed_items = FeedUtils.get_combined_feed_items(site: context.registers[:site], limit: limit)
 
-          log_output = log_empty_feed(context, limit) if feed_items.empty?
-
-          renderer = Renderer.new(context, feed_items)
-          html_output = renderer.render
-
-          (log_output || '') + html_output
+          if context.registers[:render_mode] == :markdown
+            render_markdown(feed_items)
+          else
+            log_output = log_empty_feed(context, limit) if feed_items.empty?
+            renderer = Renderer.new(context, feed_items)
+            (log_output || '') + renderer.render
+          end
         end
 
         private
+
+        def render_markdown(items)
+          return '' if items.empty?
+
+          items.map do |item|
+            card = { title: item.data['title'], url: item.url }
+            MdCards.render_article_card_md(card)
+          end.join("\n")
+        end
 
         def parse_arguments
           return if @raw_markup.empty?

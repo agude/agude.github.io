@@ -10,6 +10,10 @@ require_relative '../../ui/cards/card_renderer_utils'
 module Jekyll
   module Posts
     # Helper class to handle article card rendering logic.
+    #
+    # Provides two public interfaces:
+    # - extract_data: returns a frozen hash of raw card data (no HTML)
+    # - render: returns the full HTML card string
     class ArticleCardRenderer
       def initialize(post_object, context)
         @post_object = post_object
@@ -17,7 +21,32 @@ module Jekyll
         @log_output = ''
       end
 
+      def extract_data
+        extract_base
+        return nil if invalid_base_data?
+
+        @data_accessor = @base_data[:data_source_for_keys]
+        {
+          title: @base_data[:raw_title],
+          excerpt: resolve_excerpt,
+          url: @base_data[:absolute_url],
+          date: @data_accessor['date'],
+          image_url: @base_data[:absolute_image_url],
+          image_alt: resolve_image_alt
+        }.freeze
+      end
+
       def render
+        data = extract_data
+        return @log_output unless data
+
+        card_data = assemble_card_data(data)
+        @log_output + Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
+      end
+
+      private
+
+      def extract_base
         @base_data = Jekyll::UI::Cards::CardDataExtractorUtils.extract_base_data(
           @post_object,
           @context,
@@ -25,39 +54,33 @@ module Jekyll
           log_tag_type: 'ARTICLE_CARD_UTIL'
         )
         @log_output = @base_data[:log_output] || ''
-
-        return @log_output if invalid_base_data?
-
-        @data_accessor = @base_data[:data_source_for_keys]
-
-        card_data = assemble_card_data
-        @log_output + Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
       end
-
-      private
 
       def invalid_base_data?
         @base_data[:site].nil? || @base_data[:data_source_for_keys].nil?
       end
 
-      def assemble_card_data
+      def resolve_excerpt
+        Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(@data_accessor, type: :article)
+      end
+
+      def assemble_card_data(data)
         {
           base_class: 'article-card',
-          url: @base_data[:absolute_url],
-          image_url: @base_data[:absolute_image_url],
-          image_alt: resolve_image_alt,
+          url: data[:url],
+          image_url: data[:image_url],
+          image_alt: data[:image_alt],
           image_div_class: 'card-image',
-          title_html: generate_title_html,
-          description_html: Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(@data_accessor,
-                                                                                               type: :article),
+          title_html: format_title_html(data[:title]),
+          description_html: data[:excerpt],
           description_wrapper_html_open: "<br>\n",
           description_wrapper_html_close: '',
           extra_elements_html: []
         }
       end
 
-      def generate_title_html
-        prepared = Jekyll::Infrastructure::TypographyUtils.prepare_display_title(@base_data[:raw_title])
+      def format_title_html(title)
+        prepared = Jekyll::Infrastructure::TypographyUtils.prepare_display_title(title)
         "<strong>#{prepared}</strong>"
       end
 

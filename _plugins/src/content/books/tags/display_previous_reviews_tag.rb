@@ -28,7 +28,9 @@ module Jekyll
         end
 
         def render(context)
-          finder = Jekyll::Books::Reviews::Finder.new(context)
+          site = context.registers[:site]
+          page = context.registers[:page]
+          finder = Jekyll::Books::Reviews::Finder.new(site, page)
           result = finder.find
 
           return result[:logs] if result[:reviews].empty?

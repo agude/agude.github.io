@@ -4,6 +4,7 @@ title: Test Papge
 description: >
   Test page to render all elements of my website.
 sidebar_include: false
+markdown_output: false
 ---
 
 # Markdown Test Page

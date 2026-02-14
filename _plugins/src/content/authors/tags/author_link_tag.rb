@@ -8,6 +8,7 @@ require 'strscan' # For flexible argument parsing
 
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../author_link_util'
+require_relative '../../markdown_output/markdown_link_formatter'
 
 module Jekyll
   module Authors
@@ -23,7 +24,8 @@ module Jekyll
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Linker = Jekyll::Authors::AuthorLinkUtils
-        private_constant :TagArgs, :Linker
+        MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
+        private_constant :TagArgs, :Linker, :MdLink
 
         def initialize(tag_name, markup, tokens)
           super
@@ -36,19 +38,19 @@ module Jekyll
           parse_arguments(markup)
         end
 
-        # Renders the author link HTML by calling the utility function
+        # Renders the author link HTML (or Markdown in markdown mode)
         def render(context)
           # Resolve the potentially variable markup into actual strings
           author_name = TagArgs.resolve_value(@name_markup, context)
           link_text_override = (TagArgs.resolve_value(@link_text_markup, context) if @link_text_markup)
 
-          # Call the centralized utility function from Jekyll::Authors::AuthorLinkUtils
-          Linker.render_author_link(
-            author_name,
-            context,
-            link_text_override,
-            @possessive_flag # Pass the possessive flag
-          )
+          if context.registers[:render_mode] == :markdown
+            data = Linker.find_author_link_data(author_name, context, link_text_override, @possessive_flag)
+            result = MdLink.format_link(data)
+            data[:possessive] ? "#{result}'s" : result
+          else
+            Linker.render_author_link(author_name, context, link_text_override, @possessive_flag)
+          end
         end
 
         private

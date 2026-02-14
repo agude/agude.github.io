@@ -13,6 +13,16 @@ module Jekyll
         NBSP = "\u00A0" # Non-breaking space
 
         # --- Public API ---
+
+        # Formats citation as plain text with Markdown formatting.
+        # Reuses format_citation_html() and converts HTML to Markdown.
+        def self.format_citation_text(params, site = nil)
+          html = format_citation_html(params, site)
+          text = html.gsub(%r{<cite>([^<]+)</cite>}, '*\1*')
+          text = text.gsub(%r{<a href="([^"]+)">([^<]+)</a>}, '[\2](\1)')
+          text.gsub(/<[^>]+>/, '')
+        end
+
         def self.format_citation_html(params, _site = nil)
           # Generate all parts
           generated_parts = _build_generators(params).map(&:call)

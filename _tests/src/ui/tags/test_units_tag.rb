@@ -159,4 +159,27 @@ class TestUnitsTag < Minitest::Test
     # Will fail on 'number' first
     assert_match "Required argument 'number' is missing", err.message
   end
+
+  # --- Markdown Mode Tests ---
+
+  def test_markdown_mode_renders_plain_text
+    md_context = create_context(
+      {},
+      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+    )
+    template = Liquid::Template.parse('{% units number="100" unit="F" %}')
+    output = template.render!(md_context)
+    assert_equal '100 °F', output
+  end
+
+  def test_markdown_mode_no_html_tags
+    md_context = create_context(
+      {},
+      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+    )
+    template = Liquid::Template.parse('{% units number="50" unit="kg" %}')
+    output = template.render!(md_context)
+    refute_match(/</, output)
+    assert_equal '50 kg', output
+  end
 end

@@ -6,6 +6,7 @@ require 'liquid'
 require_relative '../lists/author_finder'
 require_relative '../lists/book_list_renderer_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
+require_relative '../../markdown_output/markdown_card_utils'
 
 module Jekyll
   module Books
@@ -39,6 +40,9 @@ module Jekyll
 
         # Helper class to handle rendering logic
         class BooksByAuthorRenderer
+          MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+          private_constant :MdCards
+
           def initialize(context, author_name_markup)
             @context = context
             @site = context.registers[:site]
@@ -62,8 +66,38 @@ module Jekyll
             )
             data = finder.find
 
-            # Renderer.render_book_groups_html will prepend data[:log_messages]
-            Renderer.render_book_groups_html(data, @context)
+            if @context.registers[:render_mode] == :markdown
+              render_markdown(data)
+            else
+              # Renderer.render_book_groups_html will prepend data[:log_messages]
+              Renderer.render_book_groups_html(data, @context)
+            end
+          end
+
+          private
+
+          def render_markdown(data)
+            lines = []
+            (data[:series_groups] || []).each do |group|
+              lines << "### #{group[:name]}"
+              group[:books].each { |book| lines << MdCards.render_book_card_md(book_to_card(book)) }
+            end
+            standalone = data[:standalone_books] || []
+            unless standalone.empty?
+              lines << '### Standalone' unless (data[:series_groups] || []).empty?
+              standalone.each { |book| lines << MdCards.render_book_card_md(book_to_card(book)) }
+            end
+            lines.join("\n")
+          end
+
+          def book_to_card(doc)
+            authors = doc.data['book_authors']
+            {
+              title: doc.data['title'],
+              url: doc.url,
+              authors: authors.is_a?(Array) ? authors : [authors].compact,
+              rating: doc.data['rating']
+            }
           end
         end
       end

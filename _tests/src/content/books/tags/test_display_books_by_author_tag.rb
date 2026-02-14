@@ -147,4 +147,37 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
     end
     assert_match(/Author name .* is required/, err.message)
   end
+
+  # --- Markdown render mode ---
+
+  def test_markdown_mode_outputs_book_list
+    md_context = create_context(
+      {},
+      { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html'),
+        render_mode: :markdown }
+    )
+    output = ''
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse("{% display_books_by_author '#{@author_a}' %}").render!(md_context)
+    end
+    # Should contain markdown links, not HTML
+    assert_includes output, '[Author A Series One Book 1](/a_s1b1.html)'
+    assert_includes output, '[Author A Series One Book 2](/a_s1b2.html)'
+    assert_includes output, '[The Author A Standalone](/a_sa.html)'
+    refute_includes output, '<cite'
+    refute_includes output, '<div'
+  end
+
+  def test_markdown_mode_groups_by_series
+    md_context = create_context(
+      {},
+      { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html'),
+        render_mode: :markdown }
+    )
+    output = ''
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse("{% display_books_by_author '#{@author_a}' %}").render!(md_context)
+    end
+    assert_includes output, '### Series One'
+  end
 end

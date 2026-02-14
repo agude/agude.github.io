@@ -121,4 +121,30 @@ class TestSeriesLinkTag < Minitest::Test
     assert_equal 'The Foundation Series', captured_args[:title]
     assert_nil captured_args[:link_text_override]
   end
+
+  # --- Markdown Mode Tests ---
+
+  def test_markdown_mode_renders_markdown_link
+    series_page = create_doc({ 'title' => 'Hyperion Cantos', 'layout' => 'series_page' },
+                             '/books/series/hyperion-cantos/')
+    site = create_site({}, {}, [series_page])
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+    )
+    template = Liquid::Template.parse("{% series_link 'Hyperion Cantos' %}")
+    output = template.render!(md_context)
+    assert_equal '[Hyperion Cantos](/books/series/hyperion-cantos/)', output
+  end
+
+  def test_markdown_mode_not_found_renders_plain_text
+    site = create_site
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown }
+    )
+    template = Liquid::Template.parse("{% series_link 'Unknown Series' %}")
+    output = template.render!(md_context)
+    assert_equal 'Unknown Series', output
+  end
 end
