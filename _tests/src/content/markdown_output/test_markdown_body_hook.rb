@@ -128,4 +128,81 @@ class TestMarkdownBodyHook < Minitest::Test
     doc = create_doc({}, '/books/hyperion-simmons.html')
     assert_equal '/books/hyperion-simmons.md', Hook.compute_markdown_href(doc)
   end
+
+  # --- render_markdown_body ---
+
+  def test_render_markdown_body_produces_markdown_for_book_link
+    site, _, payload = build_rendering_fixtures
+    content = "{% book_link 'Hyperion' author='Dan Simmons' %}"
+
+    with_silent_logger do
+      result = Hook.render_markdown_body(content, 'test.md', site, payload)
+      assert_equal '[Hyperion](/books/hyperion.html)', result
+    end
+  end
+
+  def test_render_markdown_body_produces_plain_text_for_missing_book
+    site, _, payload = build_rendering_fixtures
+    content = "{% book_link 'Nonexistent Book' %}"
+
+    with_silent_logger do
+      result = Hook.render_markdown_body(content, 'test.md', site, payload)
+      assert_match(/Nonexistent Book/, result)
+      refute_match(/\[/, result)
+    end
+  end
+
+  # Regression: render_markdown_body must not pollute the Jekyll template
+  # cache.  Jekyll 4 caches Liquid::Template objects by filename (||=) and
+  # Liquid::Template#render mutates the cached template's @registers via
+  # merge!.  If render_markdown_body used site.liquid_renderer, the
+  # render_mode: :markdown register would leak into subsequent HTML renders,
+  # causing every link tag to emit Markdown instead of HTML.
+  def test_render_markdown_body_does_not_pollute_jekyll_template_cache
+    site, page_data, payload = build_rendering_fixtures
+
+    # Give MockSite the pieces Jekyll::LiquidRenderer expects
+    site.config['liquid'] = { 'error_mode' => 'warn' }
+    site.define_singleton_method(:theme) { nil }
+    renderer = Jekyll::LiquidRenderer.new(site)
+
+    content = "{% book_link 'Hyperion' author='Dan Simmons' %}"
+    path = 'test_cache_isolation.md'
+
+    with_silent_logger do
+      # Step 1: markdown render (simulates :pre_render hook)
+      md_result = Hook.render_markdown_body(content, path, site, payload)
+      assert_match(/\[Hyperion\]/, md_result)
+
+      # Step 2: HTML render via the shared LiquidRenderer (simulates Jekyll)
+      html_file = renderer.file(path).parse(content)
+      html_result = html_file.render!(payload, registers: { site: site, page: page_data })
+
+      assert_match %r{<cite class="book-title">Hyperion</cite>}, html_result,
+                   'render_mode: :markdown must not leak into subsequent HTML renders'
+    end
+  end
+
+  private
+
+  def build_rendering_fixtures
+    book = create_doc(
+      { 'title' => 'Hyperion', 'published' => true, 'book_authors' => ['Dan Simmons'] },
+      '/books/hyperion.html'
+    )
+    site = create_site({}, { 'books' => [book] })
+    page_data = { 'url' => '/test-page/', 'path' => 'test-page.md', 'title' => 'Test' }
+    payload = { 'page' => page_data }
+    [site, page_data, payload]
+  end
+
+  def with_silent_logger(&)
+    silent = Object.new.tap do |l|
+      def l.warn(*); end
+      def l.error(*); end
+      def l.info(*); end
+      def l.debug(*); end
+    end
+    Jekyll.stub(:logger, silent, &)
+  end
 end

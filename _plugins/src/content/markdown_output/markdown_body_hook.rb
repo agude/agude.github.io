@@ -6,8 +6,15 @@ module Jekyll
     # document/page body through Liquid with render_mode: :markdown.
     # The result is stored in data['markdown_body'] for the assembler.
     module MarkdownBodyHook
-      def self.render_markdown_body(content, path, site, payload)
-        template = site.liquid_renderer.file(path).parse(content)
+      def self.render_markdown_body(content, _path, site, payload)
+        # Parse a standalone template instead of using site.liquid_renderer.
+        # Jekyll 4 caches templates by filename via ||=, and Liquid's render
+        # mutates the cached template's @registers with merge!.  If we used
+        # the site renderer here, render_mode: :markdown would leak into the
+        # cached template's registers and persist into Jekyll's own HTML
+        # rendering pass, causing every link tag to emit Markdown instead of
+        # HTML.
+        template = Liquid::Template.parse(content, line_numbers: true)
         info = {
           registers: {
             site: site,
