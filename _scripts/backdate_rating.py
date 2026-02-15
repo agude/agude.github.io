@@ -9,6 +9,7 @@ Usage:
     uv run _scripts/backdate_rating.py _books/some_book.md
     uv run _scripts/backdate_rating.py --latest '_books/a_*.md'
     uv run _scripts/backdate_rating.py --dry-run '_books/*.md'
+    uv run _scripts/backdate_rating.py --force '_books/some_book.md'
 """
 
 import argparse
@@ -23,6 +24,8 @@ from pathlib import Path
 
 RATING_RE = re.compile(r"^rating:\s*(.+)$", re.MULTILINE)
 DATE_RE = re.compile(r"^date:\s*(.+)$", re.MULTILINE)
+# A bare date is just YYYY-MM-DD with nothing else; a timestamp has time/tz info.
+BARE_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
 def get_repo_root() -> str:
@@ -237,6 +240,11 @@ def main():
         action="store_true",
         help="Show what would change without modifying files.",
     )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Process files even if they already have a timestamp (not just a date).",
+    )
     args = parser.parse_args()
 
     # Expand globs
@@ -264,6 +272,16 @@ def main():
             print("  SKIP (template)")
             skipped += 1
             continue
+
+        # Skip files that already have a full timestamp (not just a bare date)
+        if not args.force:
+            with open(filepath, "r") as f:
+                content = f.read()
+            date_match = DATE_RE.search(content)
+            if date_match and not BARE_DATE_RE.match(date_match.group(1).strip()):
+                print("  SKIP (already has timestamp; use --force to override)")
+                skipped += 1
+                continue
 
         commit = find_rating_commit(filepath, args.latest)
         if commit is None:
