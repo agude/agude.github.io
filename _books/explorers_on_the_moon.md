@@ -49,18 +49,18 @@ by implying that Wolff might have survived,[^ref] although the reference is so
 weak that it barely registers.
 
 [^ref]:
-    > When the story was first published {{ the_author }} was persuaded by the
-    > Church, against his wishes, to modify this part of the narrative to
-    > allow for the possibility of a miracle. Wolff's letter refers to the
-    > possibility that he might escape death, which dampens the suicidal tone.
-
-    {% citation
+    {% citedquote
       work_title="Explorers on the Moon"
       container_title="Tintin.com"
       date="2021"
       url="https://www.tintin.com/en/albums/explorers-on-the-moon"
       access_date="July 12, 2025"
     %}
+    When the story was first published {{ the_author }} was persuaded by the
+    Church, against his wishes, to modify this part of the narrative to
+    allow for the possibility of a miracle. Wolff's letter refers to the
+    possibility that he might escape death, which dampens the suicidal tone.
+    {% endcitedquote %}
 
 Together, {{ tt16 }} and {{ this_book }} are a highlight of {{ this_series }},
 showcasing {{ the_authors }} skill at both storytelling and illustration. I've

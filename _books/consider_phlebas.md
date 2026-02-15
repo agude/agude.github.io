@@ -35,19 +35,20 @@ gruesome imagery---something [he is infamous for][wasp]---is off putting.
 [^banks]:
     {{ banks }} says this is the point:
 
-    > I've read so many SF books where the action is terribly, terribly
-    > important to the fate of everyone and everything. That fate of a whole
-    > planet can hang on the outcome of a protagonist's actions. Sometimes,
-    > the fate of the entire universe! Well, if you look at history, this is
-    > very unusual indeed. What usually happens is that people suffer and die
-    > and get involved in all sorts of mayhem and catastrophe and it doesn't
-    > make that much difference in the end.
-    >
-    > That was one of the ideas behind {{ this_book }}.
-    >
-    > --- [Interview with Iain M. Banks][int]
+    {% citedquote
+      work_title="Interview with Iain M. Banks"
+      url="https://web.archive.org/web/20071223184232/http://homepages.compuserve.de/Mostral/interviews/starlog94.htm"
+    %}
+    I've read so many SF books where the action is terribly, terribly
+    important to the fate of everyone and everything. That fate of a whole
+    planet can hang on the outcome of a protagonist's actions. Sometimes,
+    the fate of the entire universe! Well, if you look at history, this is
+    very unusual indeed. What usually happens is that people suffer and die
+    and get involved in all sorts of mayhem and catastrophe and it doesn't
+    make that much difference in the end.
 
-[int]: https://web.archive.org/web/20071223184232/http://homepages.compuserve.de/Mostral/interviews/starlog94.htm
+    That was one of the ideas behind {{ this_book }}.
+    {% endcitedquote %}
 
 I think that Horza's bleak reality is supposed to contrast with his belief
 that his side of the war is the more enlightened one, but it was just

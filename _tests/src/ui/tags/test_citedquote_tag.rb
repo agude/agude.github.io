@@ -334,4 +334,133 @@ class TestCitedQuoteTag < Minitest::Test
     assert_includes output, '> Line one'
     assert_includes output, '> Line two'
   end
+
+  # --- Tests for Content Dedenting (HTML Mode) ---
+
+  def test_render_dedents_uniformly_indented_content
+    content = "\n    Line one\n    Line two\n"
+
+    captured_content = nil
+    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render,
+                                             lambda { |cont, _params, _site|
+                                               captured_content = cont
+                                               '<figure>mock</figure>'
+                                             } do
+      render_tag('author_last="Doe"', content)
+    end
+
+    # 4-space common indent should be stripped
+    assert_equal "\nLine one\nLine two\n", captured_content
+  end
+
+  def test_render_dedents_preserving_relative_indentation
+    content = "\n    Base line\n        Indented line\n    Base again\n"
+
+    captured_content = nil
+    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render,
+                                             lambda { |cont, _params, _site|
+                                               captured_content = cont
+                                               '<figure>mock</figure>'
+                                             } do
+      render_tag('author_last="Doe"', content)
+    end
+
+    # Common indent (4 spaces) stripped; relative indent (extra 4) preserved
+    assert_equal "\nBase line\n    Indented line\nBase again\n", captured_content
+  end
+
+  def test_render_no_dedent_when_content_at_column_zero
+    content = "Already at column zero\nSecond line"
+
+    captured_content = nil
+    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render,
+                                             lambda { |cont, _params, _site|
+                                               captured_content = cont
+                                               '<figure>mock</figure>'
+                                             } do
+      render_tag('author_last="Doe"', content)
+    end
+
+    assert_equal content, captured_content
+  end
+
+  # --- Tests for Markdown Mode Dedenting and Re-indentation ---
+
+  def test_markdown_mode_dedents_indented_content
+    md_context = create_context(
+      {},
+      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    template = Liquid::Template.parse(
+      "{% citedquote author_last=\"Doe\" %}\n    Line one\n    Line two\n{% endcitedquote %}",
+    )
+    output = template.render!(md_context)
+
+    # Both content lines should be dedented in the blockquote
+    assert_includes output, '> Line one'
+    assert_includes output, '> Line two'
+    refute_includes output, '>     Line two'
+  end
+
+  def test_markdown_mode_reindents_output_for_footnote_context
+    md_context = create_context(
+      {},
+      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    template = Liquid::Template.parse(
+      "{% citedquote author_last=\"Doe\" %}\n    Line one\n    Line two\n{% endcitedquote %}",
+    )
+    output = template.render!(md_context)
+    lines = output.lines.map(&:rstrip)
+
+    # First line: no indent (template literal provides it in real usage)
+    assert_match(/^> /, lines.first)
+    # Subsequent non-empty lines: 4-space indent (matching detected content indent)
+    lines[1..].each do |line|
+      next if line.strip.empty?
+
+      assert_match(/^    /, line, "Expected 4-space indent: #{line.inspect}")
+    end
+  end
+
+  def test_markdown_mode_no_reindent_when_content_at_column_zero
+    md_context = create_context(
+      {},
+      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    template = Liquid::Template.parse(
+      "{% citedquote author_last=\"Doe\" %}Line one\nLine two{% endcitedquote %}",
+    )
+    output = template.render!(md_context)
+
+    # No re-indentation when content has no common indent
+    output.lines.each do |line|
+      refute_match(/^    /, line, "Expected no indent: #{line.inspect}")
+    end
+  end
+
+  def test_markdown_mode_footnote_integration
+    md_context = create_context(
+      {},
+      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    # Simulate a footnote: [^fn]: followed by the tag indented 4 spaces
+    template = Liquid::Template.parse(
+      "[^fn]:\n    {% citedquote author_last=\"Doe\" %}\n    Quote text here\n    {% endcitedquote %}",
+    )
+    output = template.render!(md_context)
+    lines = output.lines.map(&:rstrip)
+
+    # All non-empty lines after [^fn]: should be indented 4 spaces
+    # to remain inside the footnote scope
+    lines[1..].each do |line|
+      next if line.strip.empty?
+
+      assert_match(
+        /^    /,
+        line,
+        "Footnote continuation line must be indented 4 spaces: #{line.inspect}",
+      )
+    end
+  end
 end

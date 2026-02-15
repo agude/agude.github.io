@@ -35,21 +35,22 @@ drove more recklessly and wore their seatbelt less often.[^nhtsa]
 [fatal]: https://www.nhtsa.gov/press-releases/2020-fatality-data-show-increased-traffic-fatalities-during-pandemic
 
 [^nhtsa]: Specifically:
-    > NHTSA's research suggests that throughout the national public health
-    > emergency and associated lockdowns, driving patterns and behaviors
-    > changed significantly, and that drivers who remained on the roads
-    > engaged in more risky behavior, including speeding, failing to wear seat
-    > belts, and driving under the influence of drugs or alcohol. Traffic data
-    > indicates that average speeds increased throughout the year, and
-    > examples of extreme speeds became more common, while the evidence also
-    > shows that fewer people involved in crashes used their seat belts.
 
-    {% citation
+    {% citedquote
       author_last="National Highway Traffic Safety Administration"
       work_title="2020 Fatality Data Show Increased Traffic Fatalities During Pandemic"
       date="June 3, 2021"
       url="https://www.nhtsa.gov/press-releases/2020-fatality-data-show-increased-traffic-fatalities-during-pandemic"
     %}
+    NHTSA's research suggests that throughout the national public health
+    emergency and associated lockdowns, driving patterns and behaviors
+    changed significantly, and that drivers who remained on the roads
+    engaged in more risky behavior, including speeding, failing to wear seat
+    belts, and driving under the influence of drugs or alcohol. Traffic data
+    indicates that average speeds increased throughout the year, and
+    examples of extreme speeds became more common, while the evidence also
+    shows that fewer people involved in crashes used their seat belts.
+    {% endcitedquote %}
 
 I can't test that hypothesis with my [SWITRS data][hosted_dataset_post]---it
 does not include much information about driving behavior, only about

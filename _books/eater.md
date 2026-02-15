@@ -92,16 +92,7 @@ adequate. The main characters are:
     As Patricia Byrd wrote in [<cite>Star Trek Lives: Trekker
     Slang</cite>][doi]:
 
-    > Mary Sue stories---the adventures of the youngest and smartest ever
-    > person to graduate from the academy and ever get a commission at such a
-    > tender age. Usually characterized by unprecedented skill in everything
-    > from art to zoology, including karate and arm-wrestling. This character
-    > can also be found burrowing her way into the good graces/heart/mind of
-    > one of the Big Three [Kirk, Spock, and McCoy], if not all three at once.
-    > She saves the day by her wit and ability, and, if we are lucky, **has
-    > the good grace to die at the end**, being grieved by the entire ship.
-
-    {% citation
+    {% citedquote
       author_first="Patricia"
       author_last="Byrd"
       work_title="Star Trek Lives: Trekker Slang"
@@ -114,6 +105,15 @@ adequate. The main characters are:
       url="https://doi.org/10.2307/455340"
       doi="10.2307/455340"
     %}
+    Mary Sue stories---the adventures of the youngest and smartest ever
+    person to graduate from the academy and ever get a commission at such a
+    tender age. Usually characterized by unprecedented skill in everything
+    from art to zoology, including karate and arm-wrestling. This character
+    can also be found burrowing her way into the good graces/heart/mind of
+    one of the Big Three [Kirk, Spock, and McCoy], if not all three at once.
+    She saves the day by her wit and ability, and, if we are lucky, **has
+    the good grace to die at the end**, being grieved by the entire ship.
+    {% endcitedquote %}
 
 [doi]: https://doi.org/10.2307/455340
 

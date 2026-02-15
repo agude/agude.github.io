@@ -41,10 +41,14 @@ module Jekyll
 
         def render(context)
           # Get block content by calling super
-          content = super.to_s
+          raw_content = super.to_s
 
           # Validate content is not empty
-          validate_content_present(content)
+          validate_content_present(raw_content)
+
+          # Strip common leading whitespace so content can be indented
+          # to match surrounding context (e.g. inside footnotes)
+          indent, content = dedent(raw_content)
 
           # Get the site object from the Liquid context registers
           site = context.registers[:site]
@@ -53,7 +57,7 @@ module Jekyll
           resolved_params = resolve_params(context)
 
           if context.registers[:render_mode] == :markdown
-            render_markdown_quote(content, resolved_params, site)
+            render_markdown_quote(content, resolved_params, site, indent)
           else
             QuoteUtils.render(content, resolved_params, site)
           end
@@ -93,12 +97,35 @@ module Jekyll
                 '{% citedquote %} and {% endcitedquote %}.'
         end
 
-        def render_markdown_quote(content, params, site)
+        def render_markdown_quote(content, params, site, indent)
           quoted_lines = content.strip.lines.map { |line| "> #{line.rstrip}" }
           citation_text = CitationUtil.format_citation_text(params, site)
           quoted_lines << '>'
           quoted_lines << "> --- #{citation_text}"
+
+          # Re-indent lines 2+ so the output stays inside an indented
+          # context (e.g. a Markdown footnote).  Line 1 inherits its
+          # indent from the Liquid template literal preceding the tag.
+          if indent.positive?
+            prefix = ' ' * indent
+            quoted_lines = quoted_lines.each_with_index.map do |line, i|
+              i.zero? ? line : "#{prefix}#{line}"
+            end
+          end
+
           quoted_lines.join("\n")
+        end
+
+        # Detect and strip common leading whitespace from block content.
+        # Returns [indent_size, dedented_content].
+        def dedent(content)
+          lines = content.lines
+          indents = lines.filter_map { |line| line[/^([ \t]+)/, 1]&.length if line =~ /\S/ }
+          min_indent = indents.min || 0
+          return [0, content] if min_indent.zero?
+
+          stripped = lines.map { |line| line =~ /\S/ ? line[min_indent..] : line }.join
+          [min_indent, stripped]
         end
 
         def resolve_params(context)

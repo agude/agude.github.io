@@ -89,19 +89,19 @@ normalized plot:
 
     From the Minnesota Department of Public Safety:
 
-    > Volume of traffic, or vehicle miles traveled (VMT), is a predictor of
-    > crash incidence. All other things being equal, as VMT increases, so will
-    > traffic crashes. The relationship may not be simple, however; after a
-    > point, increasing congestion leads to reduced speeds, changing the
-    > proportion of crashes that occur at different severity levels.
-
-    {% citation
+    {% citedquote
       author_last="Minnesota Department of Public Safety, Office of Traffic Safety"
       work_title="Minnesota Traffic Crashes in 2014"
       date="2014"
       first_page="2"
       url="https://web.archive.org/web/20151004145329/https://dps.mn.gov/divisions/ots/reports-statistics/Documents/2014-crash-facts.pdf"
     %}
+    Volume of traffic, or vehicle miles traveled (VMT), is a predictor of
+    crash incidence. All other things being equal, as VMT increases, so will
+    traffic crashes. The relationship may not be simple, however; after a
+    point, increasing congestion leads to reduced speeds, changing the
+    proportion of crashes that occur at different severity levels.
+    {% endcitedquote %}
 
 [mn_report]: https://dps.mn.gov/divisions/ots/reports-statistics/Documents/2014-crash-facts.pdf
 
@@ -146,13 +146,7 @@ Fords.[^political_cars]
 
     The type of car and brand both are driven by political leaning:
 
-    > The most left-leaning models with at least a dozen sightings in Mr.
-    > MacMichael's project were the Honda Civic (80-20 left-leaning), Toyota
-    > Corolla (78-19) and Toyota Camry (74-26). The list of most right-leaning
-    > was led by another Toyota, but a midsize SUV, the Toyota 4Runner
-    > (86-14), followed by the Ford Expedition (76-24) and Ford F-150 (75-25).
-
-    {% citation
+    {% citedquote
       author_last="Tierney"
       author_first="John"
       work_title="Your Car: Politics on Wheels"
@@ -160,6 +154,12 @@ Fords.[^political_cars]
       date="April 1, 2005"
       url="https://www.nytimes.com/2005/04/01/automobiles/your-car-politics-on-wheels.html"
     %}
+    The most left-leaning models with at least a dozen sightings in Mr.
+    MacMichael's project were the Honda Civic (80-20 left-leaning), Toyota
+    Corolla (78-19) and Toyota Camry (74-26). The list of most right-leaning
+    was led by another Toyota, but a midsize SUV, the Toyota 4Runner
+    (86-14), followed by the Ford Expedition (76-24) and Ford F-150 (75-25).
+    {% endcitedquote %}
 
 [nyt_car]: https://www.nytimes.com/2005/04/01/automobiles/your-car-politics-on-wheels.html
 

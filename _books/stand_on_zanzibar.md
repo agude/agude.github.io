@@ -112,15 +112,15 @@ followed it:
 [^codder]:
     From egypturnash on Reddit, who said this while reviewing {{ this_book }}:
 
-    > It [{{ this_book }}] is the origin of one of my personal terms for
-    > Sci-Fi Problems: a story with "a case of the codder-shiggies" is a story
-    > with awkward future slang that makes you cringe every time someone says
-    > it.
-
-    {% citation
+    {% citedquote
       author_handle="egypturnash"
       work_title="Comment on 'Stand on Zanzibar'"
       container_title="Reddit, r/PrintSF"
       date="2019-02-24"
       url="https://www.reddit.com/r/printSF/comments/au154p/stand_on_zanzibar/eh52zha/"
     %}
+    It [{{ this_book }}] is the origin of one of my personal terms for
+    Sci-Fi Problems: a story with "a case of the codder-shiggies" is a story
+    with awkward future slang that makes you cringe every time someone says
+    it.
+    {% endcitedquote %}

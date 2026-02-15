@@ -67,14 +67,7 @@ look at when in the day crashes happen:
 [aw_curbed]: https://archive.curbed.com/2019/10/25/20927701/halloween-safety-pedestrian-deaths-kids
 
 [^aw_quote]:
-    > But when the commuting drivers are removed from the equation, deaths
-    > seem to go down. A study by AutoInsurance.org used FARS data to compare
-    > 24 years of crash data by days of the week. Halloweens that fell on
-    > workdays had an 83 percent increase in deadly crashes involving kids
-    > compared to weekend days. The worst day? Friday. Since 1994, the three
-    > deadliest Halloween nights for kids have all been Friday nights.
-
-    {% citation
+    {% citedquote
       author_last="Walker"
       author_first="Alissa"
       work_title="The most terrifying part of Halloween for kids is our deadly streets"
@@ -83,6 +76,13 @@ look at when in the day crashes happen:
       date="October 25, 2019"
       url="https://archive.curbed.com/2019/10/25/20927701/halloween-safety-pedestrian-deaths-kids"
     %}
+    But when the commuting drivers are removed from the equation, deaths
+    seem to go down. A study by AutoInsurance.org used FARS data to compare
+    24 years of crash data by days of the week. Halloweens that fell on
+    workdays had an 83 percent increase in deadly crashes involving kids
+    compared to weekend days. The worst day? Friday. Since 1994, the three
+    deadliest Halloween nights for kids have all been Friday nights.
+    {% endcitedquote %}
 
 [![Average number of incidents involving pedestrians per hour on Halloween
 from 2001 to 2020, separated by weekend and

@@ -36,12 +36,7 @@ human.
 [not_art]: https://www.vice.com/en/article/ake9me/artists-are-revolt-against-ai-art-on-artstation
 
 [^stolen_quote]:
-    > Current AI "art" is created on the backs of hundreds of thousands of
-    > artists and photographers who made billions of images and spend time,
-    > love and dedication to have their work soullessly stolen and used by
-    > selfish people for profit without the slightest concept of ethics.
-
-    {% citation
+    {% citedquote
       author_first="Alexander"
       author_last="Nanitchkov"
       author_handle="@Artofinca"
@@ -50,6 +45,11 @@ human.
       date="2022-12-05"
       url="https://twitter.com/Artofinca/status/1599730391698485248"
     %}
+    Current AI "art" is created on the backs of hundreds of thousands of
+    artists and photographers who made billions of images and spend time,
+    love and dedication to have their work soullessly stolen and used by
+    selfish people for profit without the slightest concept of ethics.
+    {% endcitedquote %}
 
 [^not_art_quote]:
     >"I believe art is something inherently and intrinsically human, even
@@ -96,17 +96,7 @@ an art in its own right.[^brush_and_pencil]<sup>, </sup>[^the_new_path]
 [as]: https://en.wikipedia.org/wiki/Alfred_Stieglitz
 
 [^brush_and_pencil]:
-    > The fear has sometimes been expressed that photography would in time
-    > entirely supersede the art of painting. Some people seem to think that
-    > when the process of taking photographs in colors has been perfected and
-    > made common enough, the painter will have nothing more to do. We need
-    > not fear anything of the kind. Perfection in photography may rid us in
-    > time of all the poor work done in color. The work of the artist,
-    > however, in which is seen his own individuality, his own perception of
-    > the beautiful, his own creation in fact, can no more perish than the
-    > soul which inspired it.
-
-    {% citation
+    {% citedquote
       author_first="Henrietta"
       author_last="Clopath"
       work_title="Genuine Art versus Mechanism"
@@ -119,22 +109,19 @@ an art in its own right.[^brush_and_pencil]<sup>, </sup>[^the_new_path]
       url="https://doi.org/10.2307/25505621"
       doi="10.2307/25505621"
     %}
+    The fear has sometimes been expressed that photography would in time
+    entirely supersede the art of painting. Some people seem to think that
+    when the process of taking photographs in colors has been perfected and
+    made common enough, the painter will have nothing more to do. We need
+    not fear anything of the kind. Perfection in photography may rid us in
+    time of all the poor work done in color. The work of the artist,
+    however, in which is seen his own individuality, his own perception of
+    the beautiful, his own creation in fact, can no more perish than the
+    soul which inspired it.
+    {% endcitedquote %}
 
 [^the_new_path]:
-    > Photography is an infinitely valuable mechanism by which to obtain
-    > records of limited abstract truth, and as such, may be of great service
-    > to the artist. Much may be learned about drawing by reference to a good
-    > photograph, that even a man of quick natural perception would be slow to
-    > learn without such help. But, unless the real shortcomings of the
-    > photograph are understood, it must certainly mislead if followed.
-    >
-    > But beyond these merely technical matters, art differs from any
-    > mechanical process in being "the expression of man's delight in God's
-    > work", and thus it appeals to, and awakens all noble sympathy and right
-    > feeling. All labor of love must have something beyond mere mechanism at
-    > the bottom of it.
-
-    {% citation
+    {% citedquote
       work_title="Art and Photography"
       container_title="The New Path"
       volume="2"
@@ -144,6 +131,19 @@ an art in its own right.[^brush_and_pencil]<sup>, </sup>[^the_new_path]
       last_page="199"
       url="https://www.jstor.org/stable/20542505"
     %}
+    Photography is an infinitely valuable mechanism by which to obtain
+    records of limited abstract truth, and as such, may be of great service
+    to the artist. Much may be learned about drawing by reference to a good
+    photograph, that even a man of quick natural perception would be slow to
+    learn without such help. But, unless the real shortcomings of the
+    photograph are understood, it must certainly mislead if followed.
+
+    But beyond these merely technical matters, art differs from any
+    mechanical process in being "the expression of man's delight in God's
+    work", and thus it appeals to, and awakens all noble sympathy and right
+    feeling. All labor of love must have something beyond mere mechanism at
+    the bottom of it.
+    {% endcitedquote %}
 
 The concerns and criticisms currently being directed towards AI-generated art
 are the same as those leveled against photography in the past. And just as

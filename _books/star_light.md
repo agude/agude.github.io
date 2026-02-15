@@ -60,16 +60,7 @@ editing I think it could have surpassed {{ mission }}, but as it stands it's
 slightly worse.
 
 [^game]:
-    > Writing a science fiction story is fun, not work. [...] The fun, and the
-    > material for this article, lies in treating the whole thing as a game.
-    > I've been playing the game since I was a child, so the rules must be
-    > quite simple. They are; for the reader of a science-fiction story, they
-    > consist of finding as many as possible of the author's statements or
-    > implications which conflict with the facts as science currently
-    > understands them. For the author, the rule is to make as few such slips
-    > as he possibly can.
-
-    {% citation
+    {% citedquote
       author_first="Hal"
       author_last="Clement"
       work_title="Whirligig World"
@@ -82,3 +73,12 @@ slightly worse.
       first_page="102"
       last_page="114"
     %}
+    Writing a science fiction story is fun, not work. [...] The fun, and the
+    material for this article, lies in treating the whole thing as a game.
+    I've been playing the game since I was a child, so the rules must be
+    quite simple. They are; for the reader of a science-fiction story, they
+    consist of finding as many as possible of the author's statements or
+    implications which conflict with the facts as science currently
+    understands them. For the author, the rule is to make as few such slips
+    as he possibly can.
+    {% endcitedquote %}
