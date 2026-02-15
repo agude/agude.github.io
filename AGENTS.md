@@ -1,5 +1,7 @@
 # AGENTS.md
 
+`CLAUDE.md` and `GEMINI.md` are symlinks to this file.
+
 ## Context
 Jekyll-based static site (alexgude.com) running in Docker.
 **Crucial:** Always use `make` commands. Never run `jekyll` or `bundle` directly.
@@ -11,6 +13,7 @@ Jekyll-based static site (alexgude.com) running in Docker.
 - **Build:** `make build` (Production build to `_site/`).
 - **Deps:** `make lock` (Update Gemfile.lock via Docker).
 - **Lint:** `make lint` / `make format-all`.
+- **Hooks:** `make hooks-install` (Install pre-commit hook).
 
 ## Architecture Map
 - **Content:** `_posts/` (Blog), `_books/` (Reviews collection).
@@ -22,6 +25,19 @@ Jekyll-based static site (alexgude.com) running in Docker.
     - `seo/`: JSON-LD generators & Validation.
     - `content/`: Domain logic (Books, Posts, Authors, Series, **Markdown Output**).
 - **Tests:** `_tests/` (Mirrors `_plugins/src/` structure).
+
+## CI/CD & Hooks
+
+**GitHub Actions** (`.github/workflows/jekyll.yml`) runs on every push:
+1. `bundle exec rubocop` (lint).
+2. `bundle exec ruby ... load test_*.rb` (tests).
+3. `bundle exec ruby _bin/check_strict.rb` (strict Liquid variables).
+4. Build, HTML validation, broken-link check (main branch deploys).
+
+**Pre-commit hook** (`_bin/pre-commit.sh`, install via `make hooks-install`):
+- Runs `rubocop --autocorrect` inside Docker on staged `.rb` files only.
+- Auto-corrected files are re-staged automatically.
+- Rejects the commit if uncorrectable offenses remain.
 
 ## Development Rules
 1.  **Separation of Concerns:**
