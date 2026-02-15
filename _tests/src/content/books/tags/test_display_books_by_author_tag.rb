@@ -199,6 +199,24 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
     refute_includes output, '<div'
   end
 
+  def test_markdown_mode_standalone_before_series
+    md_context = create_context(
+      {},
+      {
+        site: @site,
+        page: create_doc({ 'path' => 'current.html' }, '/current.html'),
+        render_mode: :markdown,
+      },
+    )
+    output = ''
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse("{% display_books_by_author '#{@author_a}' %}").render!(md_context)
+    end
+    standalone_pos = output.index('### Standalone')
+    series_pos = output.index('### Series One')
+    assert standalone_pos < series_pos, 'Standalone section should appear before series groups'
+  end
+
   def test_markdown_mode_groups_by_series
     md_context = create_context(
       {},

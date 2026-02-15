@@ -49,9 +49,10 @@ module Jekyll
       def self.build_header(item)
         layout = item.data['layout']
         case layout
-        when 'post' then build_post_header(item)
-        when 'book' then build_book_header(item)
-        else             build_title_only_header(item)
+        when 'post'     then build_post_header(item)
+        when 'book'     then build_book_header(item)
+        when 'category' then build_category_header(item)
+        else                 build_title_only_header(item)
         end
       end
 
@@ -83,6 +84,11 @@ module Jekyll
         lines << details.join("\n") unless details.empty?
         lines << '## Review'
         lines.join("\n\n")
+      end
+
+      def self.build_category_header(item)
+        title = item.data['category-title'] || item.data['title']
+        "# Topic: #{title}"
       end
 
       def self.build_title_only_header(item)

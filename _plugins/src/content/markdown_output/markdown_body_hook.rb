@@ -6,6 +6,28 @@ module Jekyll
     # document/page body through Liquid with render_mode: :markdown.
     # The result is stored in data['markdown_body'] for the assembler.
     module MarkdownBodyHook
+      # Layout-driven pages keep their display tags in the layout template,
+      # not in page.content. We append the relevant snippet so the markdown
+      # pass picks them up.
+      # Intro text mirrors the HTML layouts so both outputs stay in sync.
+      LAYOUT_TAG_SNIPPETS = {
+        'author_page' => "Below you'll find short reviews of {{ page.title }}'s books:\n\n" \
+                         '{% display_books_by_author page.title %}',
+        'series_page' => "Below you'll find short reviews of the books from the series: {{ page.title }}\n\n" \
+                         '{% display_books_for_series page.title %}',
+        'category' => '{% assign topic = page | optional: "category-name" %}{% display_category_posts topic=topic %}',
+      }.freeze
+
+      def self.content_with_layout_tags(content, item)
+        snippet = LAYOUT_TAG_SNIPPETS[item.data['layout']]
+        return content unless snippet
+
+        body = content.to_s.strip
+        return snippet if body.empty?
+
+        "#{body}\n\n#{snippet}"
+      end
+
       def self.render_markdown_body(content, _path, site, payload)
         # Parse a standalone template instead of using site.liquid_renderer.
         # Jekyll 4 caches templates by filename via ||=, and Liquid's render
@@ -102,8 +124,9 @@ Jekyll::Hooks.register :pages, :pre_render do |page, payload|
   next unless Jekyll::MarkdownOutput::MarkdownBodyHook.eligible_page?(page)
 
   begin
+    content = Jekyll::MarkdownOutput::MarkdownBodyHook.content_with_layout_tags(page.content, page)
     page.data['markdown_body'] = Jekyll::MarkdownOutput::MarkdownBodyHook.render_markdown_body(
-      page.content, page.path, page.site, payload,
+      content, page.path, page.site, payload,
     )
     page.data['markdown_alternate_href'] = Jekyll::MarkdownOutput::MarkdownBodyHook.compute_markdown_href(page)
   rescue StandardError => e

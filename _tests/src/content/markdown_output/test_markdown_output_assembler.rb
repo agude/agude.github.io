@@ -98,6 +98,28 @@ class TestMarkdownOutputAssembler < Minitest::Test
     assert_equal '# Culture', header
   end
 
+  def test_header_category_page
+    doc = create_doc(
+      {
+        'layout' => 'category',
+        'category-title' => 'Machine Learning',
+        'markdown_body' => '',
+      },
+      '/topics/machine-learning/',
+    )
+    header = Assembler.build_header(doc)
+    assert_equal '# Topic: Machine Learning', header
+  end
+
+  def test_header_category_page_falls_back_to_title
+    doc = create_doc(
+      { 'layout' => 'category', 'title' => 'Fallback Title', 'markdown_body' => '' },
+      '/topics/test/',
+    )
+    header = Assembler.build_header(doc)
+    assert_equal '# Topic: Fallback Title', header
+  end
+
   def test_header_generic_page
     doc = create_doc(
       { 'layout' => 'page', 'title' => 'Papers', 'markdown_body' => '' },
@@ -310,6 +332,51 @@ class TestMarkdownOutputAssembler < Minitest::Test
     result = Assembler.build_related_posts_section(site, current)
     post_links = result.lines.count { |l| l.start_with?('- [') }
     assert_equal max, post_links, "Expected #{max} related posts, got #{post_links}"
+  end
+
+  # --- Assembly: layout-driven pages ---
+
+  def test_author_page_assembly_has_title_and_body
+    doc = create_doc(
+      {
+        'layout' => 'author_page',
+        'title' => 'Dan Simmons',
+        'markdown_body' => "### Hyperion Cantos\n- [Hyperion](/books/hyperion.html) by Dan Simmons --- 5 stars",
+      },
+      '/books/authors/dan-simmons/',
+    )
+    result = Assembler.assemble_markdown(doc)
+    assert_includes result, '# Dan Simmons'
+    assert_includes result, '[Hyperion](/books/hyperion.html)'
+  end
+
+  def test_series_page_assembly_has_title_and_body
+    doc = create_doc(
+      {
+        'layout' => 'series_page',
+        'title' => 'Dune',
+        'markdown_body' => '1. [Dune](/books/dune.html) by Frank Herbert --- 5 stars',
+      },
+      '/books/series/dune/',
+    )
+    result = Assembler.assemble_markdown(doc)
+    assert_includes result, '# Dune'
+    assert_includes result, '1. [Dune](/books/dune.html)'
+  end
+
+  def test_category_page_assembly_has_title_intro_and_body
+    doc = create_doc(
+      {
+        'layout' => 'category',
+        'category-title' => 'Machine Learning',
+        'markdown_body' => "Intro paragraph.\n\n- [My Post](/blog/my-post/) (January 1, 2026)",
+      },
+      '/topics/machine-learning/',
+    )
+    result = Assembler.assemble_markdown(doc)
+    assert_includes result, '# Topic: Machine Learning'
+    assert_includes result, 'Intro paragraph.'
+    assert_includes result, '[My Post](/blog/my-post/)'
   end
 
   def test_non_book_assembly_has_no_footer

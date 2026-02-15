@@ -78,14 +78,15 @@ module Jekyll
 
           def render_markdown(data)
             lines = []
-            (data[:series_groups] || []).each do |group|
+            standalone = data[:standalone_books] || []
+            series_groups = data[:series_groups] || []
+            unless standalone.empty?
+              lines << '### Standalone' unless series_groups.empty?
+              standalone.each { |book| lines << MdCards.render_book_card_md(book_to_card(book)) }
+            end
+            series_groups.each do |group|
               lines << "### #{group[:name]}"
               group[:books].each { |book| lines << MdCards.render_book_card_md(book_to_card(book)) }
-            end
-            standalone = data[:standalone_books] || []
-            unless standalone.empty?
-              lines << '### Standalone' unless (data[:series_groups] || []).empty?
-              standalone.each { |book| lines << MdCards.render_book_card_md(book_to_card(book)) }
             end
             lines.join("\n")
           end
