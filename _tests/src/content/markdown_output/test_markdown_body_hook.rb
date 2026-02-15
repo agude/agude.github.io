@@ -129,6 +129,59 @@ class TestMarkdownBodyHook < Minitest::Test
     assert_equal '/books/hyperion-simmons.md', Hook.compute_markdown_href(doc)
   end
 
+  # --- content_with_layout_tags ---
+
+  def test_content_with_layout_tags_normal_page_unchanged
+    page = create_doc({ 'layout' => 'page' }, '/papers/')
+    result = Hook.content_with_layout_tags('Some body text', page)
+    assert_equal 'Some body text', result
+  end
+
+  def test_content_with_layout_tags_author_page_empty_body
+    page = create_doc({ 'layout' => 'author_page' }, '/books/authors/dan-simmons/')
+    result = Hook.content_with_layout_tags('', page)
+    assert_includes result, "short reviews of {{ page.title }}'s books:"
+    assert_includes result, '{% display_books_by_author page.title %}'
+  end
+
+  def test_content_with_layout_tags_series_page_empty_body
+    page = create_doc({ 'layout' => 'series_page' }, '/books/series/culture/')
+    result = Hook.content_with_layout_tags('', page)
+    assert_includes result, 'short reviews of the books from the series: {{ page.title }}'
+    assert_includes result, '{% display_books_for_series page.title %}'
+  end
+
+  def test_content_with_layout_tags_category_page_with_intro
+    page = create_doc({ 'layout' => 'category' }, '/topics/machine-learning/')
+    result = Hook.content_with_layout_tags('Intro paragraph here.', page)
+    assert_includes result, 'Intro paragraph here.'
+    assert_includes result, '{% display_category_posts topic=topic %}'
+    assert_match(/Intro paragraph here\.\n\n.*display_category_posts/, result)
+  end
+
+  def test_content_with_layout_tags_nil_content
+    page = create_doc({ 'layout' => 'author_page' }, '/books/authors/someone/')
+    result = Hook.content_with_layout_tags(nil, page)
+    assert_includes result, '{% display_books_by_author page.title %}'
+  end
+
+  def test_content_with_layout_tags_whitespace_only_content
+    page = create_doc({ 'layout' => 'series_page' }, '/books/series/dune/')
+    result = Hook.content_with_layout_tags("  \n  \n  ", page)
+    assert_includes result, '{% display_books_for_series page.title %}'
+  end
+
+  def test_content_with_layout_tags_author_page_with_body
+    page = create_doc({ 'layout' => 'author_page' }, '/books/authors/someone/')
+    result = Hook.content_with_layout_tags('Bio text here.', page)
+    assert_includes result, 'Bio text here.'
+    assert_includes result, '{% display_books_by_author page.title %}'
+    # Body should come before snippet
+    body_pos = result.index('Bio text here.')
+    snippet_pos = result.index('display_books_by_author')
+    assert body_pos < snippet_pos
+  end
+
   # --- render_markdown_body ---
 
   def test_render_markdown_body_produces_markdown_for_book_link
@@ -181,6 +234,82 @@ class TestMarkdownBodyHook < Minitest::Test
       assert_match %r{<cite class="book-title">Hyperion</cite>},
                    html_result,
                    'render_mode: :markdown must not leak into subsequent HTML renders'
+    end
+  end
+
+  # --- Integration: layout-driven pages render through markdown pass ---
+
+  def test_author_page_renders_book_list_via_layout_tag
+    books = [
+      create_doc(
+        {
+          'title' => 'Hyperion',
+          'series' => 'Hyperion Cantos',
+          'book_number' => 1,
+          'book_authors' => ['Dan Simmons'],
+          'rating' => 5,
+        },
+        '/books/hyperion.html',
+      ),
+      create_doc(
+        {
+          'title' => 'Fall of Hyperion',
+          'series' => 'Hyperion Cantos',
+          'book_number' => 2,
+          'book_authors' => ['Dan Simmons'],
+          'rating' => 4,
+        },
+        '/books/fall-of-hyperion.html',
+      ),
+    ]
+    site = create_site({ 'url' => 'http://example.com' }, { 'books' => books })
+    page = create_doc({ 'layout' => 'author_page', 'title' => 'Dan Simmons' }, '/books/authors/dan-simmons/')
+    content = Hook.content_with_layout_tags('', page)
+    payload = { 'page' => page.data.merge('title' => 'Dan Simmons') }
+
+    with_silent_logger do
+      result = Hook.render_markdown_body(content, 'test.md', site, payload)
+      assert_includes result, "short reviews of Dan Simmons's books:"
+      assert_includes result, '[Hyperion](/books/hyperion.html)'
+      assert_includes result, '[Fall of Hyperion](/books/fall-of-hyperion.html)'
+      refute_includes result, '<div'
+    end
+  end
+
+  def test_series_page_renders_numbered_book_list_via_layout_tag
+    books = [
+      create_doc(
+        {
+          'title' => 'Dune',
+          'series' => 'Dune',
+          'book_number' => 1,
+          'book_authors' => ['Frank Herbert'],
+          'rating' => 5,
+        },
+        '/books/dune.html',
+      ),
+      create_doc(
+        {
+          'title' => 'Dune Messiah',
+          'series' => 'Dune',
+          'book_number' => 2,
+          'book_authors' => ['Frank Herbert'],
+          'rating' => 4,
+        },
+        '/books/dune-messiah.html',
+      ),
+    ]
+    site = create_site({ 'url' => 'http://example.com' }, { 'books' => books })
+    page = create_doc({ 'layout' => 'series_page', 'title' => 'Dune' }, '/books/series/dune/')
+    content = Hook.content_with_layout_tags('', page)
+    payload = { 'page' => page.data.merge('title' => 'Dune') }
+
+    with_silent_logger do
+      result = Hook.render_markdown_body(content, 'test.md', site, payload)
+      assert_includes result, 'short reviews of the books from the series: Dune'
+      assert_includes result, '[Dune](/books/dune.html)'
+      assert_includes result, '[Dune Messiah](/books/dune-messiah.html)'
+      refute_includes result, '<div'
     end
   end
 

@@ -49,9 +49,10 @@ module Jekyll
       def self.build_header(item)
         layout = item.data['layout']
         case layout
-        when 'post' then build_post_header(item)
-        when 'book' then build_book_header(item)
-        else             build_title_only_header(item)
+        when 'post'     then build_post_header(item)
+        when 'book'     then build_book_header(item)
+        when 'category' then build_category_header(item)
+        else                 build_title_only_header(item)
         end
       end
 
@@ -85,6 +86,11 @@ module Jekyll
         lines.join("\n\n")
       end
 
+      def self.build_category_header(item)
+        title = item.data['category-title'] || item.data['title']
+        "# Topic: #{title}"
+      end
+
       def self.build_title_only_header(item)
         "# #{item.data['title']}"
       end
@@ -100,7 +106,7 @@ module Jekyll
         sections.compact.reject { |s| s.to_s.strip.empty? }.join("\n\n")
       end
 
-      MAX_RELATED_BOOKS = 6
+      MAX_RELATED_BOOKS = 3
       private_constant :MAX_RELATED_BOOKS
 
       def self.build_related_books_section(site, item)
@@ -135,7 +141,7 @@ module Jekyll
 
       # --- Post footer sections (related posts) ---
 
-      MAX_RELATED_POSTS = 6
+      MAX_RELATED_POSTS = 3
       private_constant :MAX_RELATED_POSTS
 
       def self.build_post_footer(site, item)

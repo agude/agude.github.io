@@ -98,6 +98,28 @@ class TestMarkdownOutputAssembler < Minitest::Test
     assert_equal '# Culture', header
   end
 
+  def test_header_category_page
+    doc = create_doc(
+      {
+        'layout' => 'category',
+        'category-title' => 'Machine Learning',
+        'markdown_body' => '',
+      },
+      '/topics/machine-learning/',
+    )
+    header = Assembler.build_header(doc)
+    assert_equal '# Topic: Machine Learning', header
+  end
+
+  def test_header_category_page_falls_back_to_title
+    doc = create_doc(
+      { 'layout' => 'category', 'title' => 'Fallback Title', 'markdown_body' => '' },
+      '/topics/test/',
+    )
+    header = Assembler.build_header(doc)
+    assert_equal '# Topic: Fallback Title', header
+  end
+
   def test_header_generic_page
     doc = create_doc(
       { 'layout' => 'page', 'title' => 'Papers', 'markdown_body' => '' },
@@ -294,6 +316,69 @@ class TestMarkdownOutputAssembler < Minitest::Test
     assert_includes result, '## Related Posts'
   end
 
+  def test_related_books_section_respects_limit
+    max = Assembler.const_get(:MAX_RELATED_BOOKS)
+    books, site = setup_book_with_many_related(max + 4)
+    current = books.first
+    result = Assembler.build_related_books_section(site, current)
+    book_links = result.lines.count { |l| l.start_with?('- [') }
+    assert_equal max, book_links, "Expected #{max} related books, got #{book_links}"
+  end
+
+  def test_related_posts_section_respects_limit
+    max = Assembler.const_get(:MAX_RELATED_POSTS)
+    posts, site = setup_post_with_many_related(max + 4)
+    current = posts.first
+    result = Assembler.build_related_posts_section(site, current)
+    post_links = result.lines.count { |l| l.start_with?('- [') }
+    assert_equal max, post_links, "Expected #{max} related posts, got #{post_links}"
+  end
+
+  # --- Assembly: layout-driven pages ---
+
+  def test_author_page_assembly_has_title_and_body
+    doc = create_doc(
+      {
+        'layout' => 'author_page',
+        'title' => 'Dan Simmons',
+        'markdown_body' => "### Hyperion Cantos\n- [Hyperion](/books/hyperion.html) by Dan Simmons --- 5 stars",
+      },
+      '/books/authors/dan-simmons/',
+    )
+    result = Assembler.assemble_markdown(doc)
+    assert_includes result, '# Dan Simmons'
+    assert_includes result, '[Hyperion](/books/hyperion.html)'
+  end
+
+  def test_series_page_assembly_has_title_and_body
+    doc = create_doc(
+      {
+        'layout' => 'series_page',
+        'title' => 'Dune',
+        'markdown_body' => '1. [Dune](/books/dune.html) by Frank Herbert --- 5 stars',
+      },
+      '/books/series/dune/',
+    )
+    result = Assembler.assemble_markdown(doc)
+    assert_includes result, '# Dune'
+    assert_includes result, '1. [Dune](/books/dune.html)'
+  end
+
+  def test_category_page_assembly_has_title_intro_and_body
+    doc = create_doc(
+      {
+        'layout' => 'category',
+        'category-title' => 'Machine Learning',
+        'markdown_body' => "Intro paragraph.\n\n- [My Post](/blog/my-post/) (January 1, 2026)",
+      },
+      '/topics/machine-learning/',
+    )
+    result = Assembler.assemble_markdown(doc)
+    assert_includes result, '# Topic: Machine Learning'
+    assert_includes result, 'Intro paragraph.'
+    assert_includes result, '[My Post](/blog/my-post/)'
+  end
+
   def test_non_book_assembly_has_no_footer
     doc = create_doc(
       {
@@ -312,6 +397,48 @@ class TestMarkdownOutputAssembler < Minitest::Test
   end
 
   private
+
+  def setup_post_with_many_related(count)
+    test_time = Time.parse('2026-01-15 10:00:00 EST')
+    posts = (0...count).map do |i|
+      create_doc(
+        {
+          'layout' => 'post',
+          'title' => "Post #{('A'.ord + i).chr}",
+          'categories' => ['tech'],
+          'date' => test_time - (60 * 60 * 24 * i),
+        },
+        "/blog/post-#{i}/",
+      )
+    end
+    site = create_site({}, {}, [], posts)
+    [posts, site]
+  end
+
+  def setup_book_with_many_related(count)
+    test_time = Time.parse('2024-03-15 10:00:00 EST')
+    coll = MockCollection.new([], 'books')
+    books = (1..count).map do |i|
+      create_doc(
+        {
+          'layout' => 'book',
+          'title' => "S1B#{i}",
+          'series' => 'Series 1',
+          'book_number' => i,
+          'book_authors' => ['Auth'],
+          'rating' => 4,
+          'date' => test_time - (60 * 60 * 24 * (count + 1 - i)),
+        },
+        "/books/s1b#{i}.html",
+        "Content #{i}",
+        nil,
+        coll,
+      )
+    end
+    coll.docs = books
+    site = create_site({}, { 'books' => coll.docs })
+    [books, site]
+  end
 
   def setup_post_with_related
     test_time = Time.parse('2026-01-15 10:00:00 EST')
