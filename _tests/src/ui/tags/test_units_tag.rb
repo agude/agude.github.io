@@ -160,6 +160,24 @@ class TestUnitsTag < Minitest::Test
     assert_match "Required argument 'number' is missing", err.message
   end
 
+  # --- Nospace Unit (deg) ---
+
+  def test_render_nospace_unit_degrees_no_separator
+    output = render_tag('number="360" unit="deg"')
+    expected = '<span class="nowrap unit">360<abbr class="unit-abbr" title="Degrees">°</abbr></span>'
+    assert_equal expected, output
+  end
+
+  def test_render_spaced_unit_still_has_separator
+    output = render_tag('number="100" unit="F"')
+    assert_includes output, "100#{THIN_NBSP}<abbr"
+  end
+
+  def test_render_unknown_unit_has_separator
+    output = render_tag('number="5" unit="XYZ"')
+    assert_includes output, "5#{THIN_NBSP}<abbr"
+  end
+
   # --- Markdown Mode Tests ---
 
   def test_markdown_mode_renders_plain_text
@@ -181,5 +199,15 @@ class TestUnitsTag < Minitest::Test
     output = template.render!(md_context)
     refute_match(/</, output)
     assert_equal '50 kg', output
+  end
+
+  def test_markdown_mode_nospace_unit
+    md_context = create_context(
+      {},
+      { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    template = Liquid::Template.parse('{% units number="90" unit="deg" %}')
+    output = template.render!(md_context)
+    assert_equal '90°', output
   end
 end

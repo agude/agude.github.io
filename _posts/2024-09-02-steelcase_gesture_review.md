@@ -55,7 +55,7 @@ I bought a Steelcase Gesture with:
 
 - Matching Base
 
-- 360° Arms
+- {% units number=360 unit="deg" %} Arms
 
 - Lumbar Support
 

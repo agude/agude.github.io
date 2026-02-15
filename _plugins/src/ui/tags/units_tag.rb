@@ -30,10 +30,12 @@ module Jekyll
         THIN_NBSP = '&#x202F;' # U+202F NARROW NO-BREAK SPACE
 
         # Internal unit definitions (can be expanded)
+        # Optional `nospace: true` removes the separator between number and symbol.
         UNIT_DEFINITIONS = {
           'F' => { symbol: '°F', name: 'Degrees Fahrenheit' },
           'C' => { symbol: '°C', name: 'Degrees Celsius' },
-          'g' => { symbol: 'g',  name: 'Grams' },
+          'deg' => { symbol: '°', name: 'Degrees', nospace: true },
+          'g' => { symbol: 'g', name: 'Grams' },
           'kg' => { symbol: 'kg', name: 'Kilograms' },
           'm' => { symbol: 'm', name: 'Meters' },
           'cm' => { symbol: 'cm', name: 'Centimeters' },
@@ -42,7 +44,6 @@ module Jekyll
           'ft' => { symbol: 'ft', name: 'Feet' },
           'kph' => { symbol: 'kph', name: 'Kilometres per hour' },
           'mph' => { symbol: 'mph', name: 'Miles per hour' },
-          # Add other units here: 'ABBR' => { symbol: "SYMBOL", name: "Full Name" },
         }.freeze
 
         ALLOWED_KEYS = %w[number unit].freeze
@@ -58,12 +59,12 @@ module Jekyll
           number, unit_key, error_log = resolve_and_validate_args(context)
           return error_log if error_log
 
-          unit_symbol, unit_name, warning_log = lookup_unit_data(unit_key, number, context)
+          unit_symbol, unit_name, nospace, warning_log = lookup_unit_data(unit_key, number, context)
 
           if context.registers[:render_mode] == :markdown
-            "#{number} #{unit_symbol}"
+            nospace ? "#{number}#{unit_symbol}" : "#{number} #{unit_symbol}"
           else
-            html_output = generate_html(number, unit_symbol, unit_name)
+            html_output = generate_html(number, unit_symbol, unit_name, nospace)
             warning_log + html_output
           end
         end
@@ -149,7 +150,7 @@ module Jekyll
 
         def lookup_unit_data(unit_key, number, context)
           unit_data = UNIT_DEFINITIONS[unit_key]
-          return [unit_data[:symbol], unit_data[:name], ''] if unit_data
+          return [unit_data[:symbol], unit_data[:name], unit_data[:nospace] || false, ''] if unit_data
 
           log_unknown_unit(unit_key, number, context)
         end
@@ -162,15 +163,16 @@ module Jekyll
             identifiers: { UnitKey: unit_key, Number: number },
             level: :warn,
           )
-          [unit_key, unit_key, log]
+          [unit_key, unit_key, false, log]
         end
 
-        def generate_html(number, symbol, name)
+        def generate_html(number, symbol, name, nospace)
           escaped_number = CGI.escapeHTML(number)
           escaped_unit_name = CGI.escapeHTML(name)
           escaped_unit_symbol = CGI.escapeHTML(symbol)
+          separator = nospace ? '' : THIN_NBSP
 
-          "<span class=\"nowrap unit\">#{escaped_number}#{THIN_NBSP}" \
+          "<span class=\"nowrap unit\">#{escaped_number}#{separator}" \
             "<abbr class=\"unit-abbr\" title=\"#{escaped_unit_name}\">#{escaped_unit_symbol}</abbr></span>"
         end
 
