@@ -86,4 +86,47 @@ class TestDisplayBooksByTitleAlphaGroupTag < Minitest::Test
     mock_finder.verify
     mock_renderer.verify
   end
+
+  # --- Markdown render mode ---
+
+  def test_markdown_mode_outputs_book_list
+    books = [
+      create_doc(
+        {
+          'title' => 'Dune',
+          'book_authors' => ['Frank Herbert'],
+          'rating' => 5,
+        },
+        '/books/dune.html',
+      ),
+      create_doc(
+        {
+          'title' => 'Hyperion',
+          'book_authors' => ['Dan Simmons'],
+          'rating' => 5,
+        },
+        '/books/hyperion.html',
+      ),
+    ]
+    site = create_site({ 'url' => 'http://example.com' }, { 'books' => books })
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({ 'path' => 'test.html' }, '/test.html'), render_mode: :markdown },
+    )
+    silent_logger = Object.new.tap do |l|
+      def l.warn(*, **); end
+      def l.error(*, **); end
+      def l.info(*, **); end
+      def l.debug(*, **); end
+    end
+    output = ''
+    Jekyll.stub :logger, silent_logger do
+      output = Liquid::Template.parse('{% display_books_by_title_alpha_group %}').render!(md_context)
+    end
+    assert_includes output, '### D'
+    assert_includes output, '[Dune](/books/dune.html)'
+    assert_includes output, '### H'
+    assert_includes output, '[Hyperion](/books/hyperion.html)'
+    refute_includes output, '<div'
+  end
 end

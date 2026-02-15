@@ -54,7 +54,7 @@ module Jekyll
           lines = []
           groups.each do |group|
             lines << "### #{group[:letter]}"
-            group[:books].each { |meta| lines << MdCards.render_book_card_md(book_to_card(meta[:book])) }
+            group[:books].each { |book| lines << MdCards.render_book_card_md(book_to_card(book)) }
           end
           lines.join("\n")
         end
