@@ -81,7 +81,7 @@ class TestFrontPageFeedTag < Minitest::Test
         output = render_tag
 
         assert_equal '<div class="card-grid">HTML</div>', output
-        assert_equal Jekyll::Posts::Tags::FrontPageFeedTag::DEFAULT_LIMIT, captured_feed_args[:limit]
+        assert_nil captured_feed_args[:limit], 'Tag should pass nil so FeedUtils reads config'
         assert_equal @site, captured_feed_args[:site]
         mock_renderer.verify
       end
@@ -145,7 +145,7 @@ class TestFrontPageFeedTag < Minitest::Test
       Jekyll::Posts::Feed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
         render_tag("limit='abc'")
 
-        assert_equal Jekyll::Posts::Tags::FrontPageFeedTag::DEFAULT_LIMIT, captured_feed_args[:limit]
+        assert_nil captured_feed_args[:limit], 'Invalid limit should pass nil so FeedUtils reads config'
         mock_renderer.verify
       end
     end
@@ -165,7 +165,7 @@ class TestFrontPageFeedTag < Minitest::Test
                                   } do
       Jekyll::Posts::Feed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
         render_tag('limit=0')
-        assert_equal Jekyll::Posts::Tags::FrontPageFeedTag::DEFAULT_LIMIT, captured_feed_args[:limit]
+        assert_nil captured_feed_args[:limit], 'Zero limit should pass nil so FeedUtils reads config'
         mock_renderer.verify
       end
     end

@@ -10,9 +10,11 @@ module Jekyll
       # Handles all logic for selecting posts based on category matching,
       # with fallback to recent posts. Returns structured data without HTML.
       class Finder
+        DEFAULT_MAX_POSTS = 3
+
         # Accepts site + page directly (for use outside Liquid context).
         # Legacy: also accepts a Liquid::Context as the first argument.
-        def initialize(site_or_context, page_or_max_posts, max_posts = nil)
+        def initialize(site_or_context, page_or_max_posts = nil, max_posts = nil)
           if site_or_context.respond_to?(:registers)
             @site = site_or_context.registers[:site]
             @page = site_or_context.registers[:page]
@@ -22,6 +24,7 @@ module Jekyll
             @page = page_or_max_posts
             @max_posts = max_posts
           end
+          @max_posts ||= @site&.config&.dig('display_limits', 'related_posts') || DEFAULT_MAX_POSTS
           @now_unix = Time.now.to_i
           @found_by_category = false
         end

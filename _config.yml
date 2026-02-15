@@ -55,6 +55,13 @@ plugin_logging:
     UNITS_TAG_WARNING: true
     UNREVIEWED_MENTIONS: true
 
+# Display limits for related content and feeds.
+# These are read by Finders and FeedUtils; tags/assemblers defer to them.
+display_limits:
+    related_books: 3
+    related_posts: 3
+    front_page_feed: 5
+
 # Dependencies
 plugins:
     - jekyll-feed

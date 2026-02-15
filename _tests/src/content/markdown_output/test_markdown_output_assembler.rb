@@ -317,7 +317,7 @@ class TestMarkdownOutputAssembler < Minitest::Test
   end
 
   def test_related_books_section_respects_limit
-    max = Assembler.const_get(:MAX_RELATED_BOOKS)
+    max = Jekyll::Books::Related::Finder::DEFAULT_MAX_BOOKS
     books, site = setup_book_with_many_related(max + 4)
     current = books.first
     result = Assembler.build_related_books_section(site, current)
@@ -326,7 +326,7 @@ class TestMarkdownOutputAssembler < Minitest::Test
   end
 
   def test_related_posts_section_respects_limit
-    max = Assembler.const_get(:MAX_RELATED_POSTS)
+    max = Jekyll::Posts::Related::Finder::DEFAULT_MAX_POSTS
     posts, site = setup_post_with_many_related(max + 4)
     current = posts.first
     result = Assembler.build_related_posts_section(site, current)

@@ -10,7 +10,7 @@ require_relative '../../../../../_plugins/src/content/books/tags/related_books_t
 # Renderer work together correctly. Unit tests for Finder and Renderer are in
 # _tests/plugins/logic/related_books/.
 class TestRelatedBooksTag < Minitest::Test
-  DEFAULT_MAX_BOOKS = Jekyll::Books::Tags::RelatedBooksTag::DEFAULT_MAX_BOOKS
+  DEFAULT_MAX_BOOKS = Jekyll::Books::Related::Finder::DEFAULT_MAX_BOOKS
 
   def setup
     @site_config_base = {

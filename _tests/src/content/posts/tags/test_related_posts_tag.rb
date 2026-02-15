@@ -12,7 +12,8 @@ require_relative '../../../../../_plugins/src/content/posts/tags/related_posts_t
 # 2. Renderer tests - Test HTML generation directly
 # 3. Tag integration tests - Test the tag orchestration
 class TestRelatedPostsTag < Minitest::Test
-  DEFAULT_MAX_POSTS = Jekyll::Posts::Tags::RelatedPostsTag::DEFAULT_MAX_POSTS
+  DEFAULT_MAX_POSTS = Jekyll::Posts::Related::Finder::DEFAULT_MAX_POSTS
+  CONFIG_KEY = 'display_limits'
 
   def setup
     @site_config_base = {
@@ -229,6 +230,52 @@ class TestRelatedPostsTag < Minitest::Test
     assert_empty result[:posts]
     assert_match(/RELATED_POSTS_FAILURE/, result[:logs])
     mock_logger.verify
+  end
+
+  # --- Config-driven limit tests ---
+
+  def test_finder_uses_default_when_no_limit_and_no_config
+    many_posts = (1..8).map { |i| create_post_obj("Post #{i}", ['Tech'], i, "p#{i}", "p#{i}") }
+    site = create_site(@site_config_base.dup, {}, [], many_posts)
+    site.config['related_posts'] = []
+    page = many_posts.first
+    finder = nil
+    result = nil
+    Time.stub :now, @test_time_now do
+      finder = Jekyll::Posts::Related::Finder.new(site, page)
+      result = finder.find
+    end
+    assert_equal DEFAULT_MAX_POSTS, result[:posts].length
+  end
+
+  def test_finder_reads_limit_from_site_config
+    many_posts = (1..8).map { |i| create_post_obj("Post #{i}", ['Tech'], i, "p#{i}", "p#{i}") }
+    config = @site_config_base.merge(CONFIG_KEY => { 'related_posts' => 5 })
+    site = create_site(config, {}, [], many_posts)
+    site.config['related_posts'] = []
+    page = many_posts.first
+    finder = nil
+    result = nil
+    Time.stub :now, @test_time_now do
+      finder = Jekyll::Posts::Related::Finder.new(site, page)
+      result = finder.find
+    end
+    assert_equal 5, result[:posts].length
+  end
+
+  def test_finder_explicit_limit_overrides_config
+    many_posts = (1..8).map { |i| create_post_obj("Post #{i}", ['Tech'], i, "p#{i}", "p#{i}") }
+    config = @site_config_base.merge(CONFIG_KEY => { 'related_posts' => 5 })
+    site = create_site(config, {}, [], many_posts)
+    site.config['related_posts'] = []
+    page = many_posts.first
+    finder = nil
+    result = nil
+    Time.stub :now, @test_time_now do
+      finder = Jekyll::Posts::Related::Finder.new(site, page, 2)
+      result = finder.find
+    end
+    assert_equal 2, result[:posts].length
   end
 
   # ========================================================================

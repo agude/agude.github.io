@@ -13,9 +13,11 @@ module Jekyll
       # This class handles the data retrieval logic for finding related books.
       # It does not produce any HTML output.
       class Finder
+        DEFAULT_MAX_BOOKS = 3
+
         # Accepts site + page directly (for use outside Liquid context).
         # Legacy: also accepts a Liquid::Context as the first argument.
-        def initialize(site_or_context, page_or_max_books, max_books = nil)
+        def initialize(site_or_context, page_or_max_books = nil, max_books = nil)
           if site_or_context.respond_to?(:registers)
             # Legacy Liquid::Context interface
             @site = site_or_context.registers[:site]
@@ -27,6 +29,7 @@ module Jekyll
             @page = page_or_max_books
             @max_books = max_books
           end
+          @max_books ||= @site&.config&.dig('display_limits', 'related_books') || DEFAULT_MAX_BOOKS
           @logs = String.new
           @candidate_books = []
         end

@@ -31,7 +31,6 @@ module Jekyll
         Renderer = Jekyll::Posts::Feed::Renderer
         private_constant :TagArgs, :Logger, :FeedUtils, :Renderer
 
-        DEFAULT_LIMIT = 5
         SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
 
         def initialize(tag_name, markup, tokens)
@@ -110,14 +109,14 @@ module Jekyll
         end
 
         def resolve_limit(context)
-          return DEFAULT_LIMIT unless @limit_markup
+          return nil unless @limit_markup
 
           resolved = TagArgs.resolve_value(@limit_markup, context)
           begin
             val = Integer(resolved.to_s)
-            val.positive? ? val : DEFAULT_LIMIT
+            val.positive? ? val : nil
           rescue ArgumentError, TypeError
-            DEFAULT_LIMIT
+            nil
           end
         end
 

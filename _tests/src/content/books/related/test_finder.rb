@@ -9,7 +9,8 @@ require_relative '../../../../../_plugins/src/content/books/related/finder'
 # Verifies that the Finder correctly locates and ranks related books based on
 # series, author, and recency.
 class TestRelatedBooksFinder < Minitest::Test
-  DEFAULT_MAX_BOOKS = 3
+  DEFAULT_MAX_BOOKS = Jekyll::Books::Related::Finder::DEFAULT_MAX_BOOKS
+  CONFIG_KEY = 'display_limits'
 
   def setup
     @site_config_base = {
@@ -406,6 +407,58 @@ class TestRelatedBooksFinder < Minitest::Test
     hash_obj = { 'book_number' => '3.14' }
     result = finder.send(:parse_book_num, hash_obj)
     assert_equal 3.14, result
+  end
+
+  # --- Config-driven limit tests ---
+
+  def test_finder_uses_default_when_no_limit_and_no_config
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(title: 'Current', authors: ['A'], date_offset_days: 20, url_suffix: 'curr', collection: coll)
+    books = (1..6).map do |i|
+      @helper.create_book(title: "Book #{i}", authors: ['A'], date_offset_days: i, url_suffix: "b#{i}", collection: coll)
+    end
+    coll.docs = [curr] + books
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    finder = Jekyll::Books::Related::Finder.new(site, curr)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+    assert_equal DEFAULT_MAX_BOOKS, result[:books].length
+  end
+
+  def test_finder_reads_limit_from_site_config
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(title: 'Current', authors: ['A'], date_offset_days: 20, url_suffix: 'curr', collection: coll)
+    books = (1..6).map do |i|
+      @helper.create_book(title: "Book #{i}", authors: ['A'], date_offset_days: i, url_suffix: "b#{i}", collection: coll)
+    end
+    coll.docs = [curr] + books
+    config = @site_config_base.merge(CONFIG_KEY => { 'related_books' => 5 })
+    site = create_site(config, { 'books' => coll.docs })
+    finder = Jekyll::Books::Related::Finder.new(site, curr)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+    assert_equal 5, result[:books].length
+  end
+
+  def test_finder_explicit_limit_overrides_config
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(title: 'Current', authors: ['A'], date_offset_days: 20, url_suffix: 'curr', collection: coll)
+    books = (1..6).map do |i|
+      @helper.create_book(title: "Book #{i}", authors: ['A'], date_offset_days: i, url_suffix: "b#{i}", collection: coll)
+    end
+    coll.docs = [curr] + books
+    config = @site_config_base.merge(CONFIG_KEY => { 'related_books' => 5 })
+    site = create_site(config, { 'books' => coll.docs })
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+    assert_equal 2, result[:books].length
   end
 
   # Helper class for test setup and utilities

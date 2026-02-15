@@ -21,17 +21,10 @@ module Jekyll
       # Liquid tag for displaying related or recent blog posts.
       # Shows posts that share categories, falling back to recent posts.
       class RelatedPostsTag < Liquid::Tag
-        DEFAULT_MAX_POSTS = 3
-
-        def initialize(tag_name, markup, tokens)
-          super
-          @max_posts = DEFAULT_MAX_POSTS
-        end
-
         def render(context)
           site = context.registers[:site]
           page = context.registers[:page]
-          finder = Jekyll::Posts::Related::Finder.new(site, page, @max_posts)
+          finder = Jekyll::Posts::Related::Finder.new(site, page)
           result = finder.find
 
           return result[:logs] if result[:posts].empty?

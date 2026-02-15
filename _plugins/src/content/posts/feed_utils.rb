@@ -8,12 +8,17 @@ module Jekyll
   module Posts
     # Utility module for combining and sorting posts and books for feed generation.
     module FeedUtils
+      DEFAULT_LIMIT = 5
+
       # Combines posts and books, sorts them by date, and returns a limited number.
       #
       # @param site [Jekyll::Site] The Jekyll site object.
-      # @param limit [Integer] The maximum number of items to return.
+      # @param limit [Integer, nil] The maximum number of items to return.
+      #   When nil, reads from site.config['display_limits']['front_page_feed'],
+      #   falling back to DEFAULT_LIMIT.
       # @return [Array<Jekyll::Document>] An array of Jekyll documents (posts or books).
-      def self.get_combined_feed_items(site:, limit: 5)
+      def self.get_combined_feed_items(site:, limit: nil)
+        limit ||= site.config.dig('display_limits', 'front_page_feed') || DEFAULT_LIMIT
         all_items = []
         all_items.concat(_collect_published_posts(site))
         all_items.concat(_collect_published_books(site))

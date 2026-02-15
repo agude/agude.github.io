@@ -21,17 +21,10 @@ module Jekyll
       # Liquid tag for displaying related book reviews.
       # Shows books from the same series, by the same authors, or recent reviews.
       class RelatedBooksTag < Liquid::Tag
-        DEFAULT_MAX_BOOKS = 3
-
-        def initialize(tag_name, markup, tokens)
-          super
-          @max_books = DEFAULT_MAX_BOOKS
-        end
-
         def render(context)
           site = context.registers[:site]
           page = context.registers[:page]
-          finder = Jekyll::Books::Related::Finder.new(site, page, @max_books)
+          finder = Jekyll::Books::Related::Finder.new(site, page)
           result = finder.find
 
           return result[:logs] if result[:books].empty?

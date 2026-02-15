@@ -49,6 +49,28 @@ class TestFeedUtils < Minitest::Test
     @site.posts = @mock_posts_collection_initial # Assign MockCollection instance
   end
 
+  def test_get_combined_feed_items_reads_limit_from_config
+    fixed_current_time = @ref_time + (1 * 24 * 60 * 60)
+    Time.stub :now, fixed_current_time do
+      _, _, temp_site = create_test_site_with_current_date_docs
+      temp_site.config['display_limits'] = { 'front_page_feed' => 2 }
+
+      items = Jekyll::Posts::FeedUtils.get_combined_feed_items(site: temp_site)
+      assert_equal 2, items.size, 'Should read limit from display_limits config'
+    end
+  end
+
+  def test_get_combined_feed_items_explicit_limit_overrides_config
+    fixed_current_time = @ref_time + (1 * 24 * 60 * 60)
+    Time.stub :now, fixed_current_time do
+      _, _, temp_site = create_test_site_with_current_date_docs
+      temp_site.config['display_limits'] = { 'front_page_feed' => 2 }
+
+      items = Jekyll::Posts::FeedUtils.get_combined_feed_items(site: temp_site, limit: 4)
+      assert_equal 4, items.size, 'Explicit limit should override config'
+    end
+  end
+
   def test_get_combined_feed_items_default_limit
     fixed_current_time = @ref_time + (1 * 24 * 60 * 60) # June 2nd, most recent
 
@@ -57,7 +79,7 @@ class TestFeedUtils < Minitest::Test
 
       items = Jekyll::Posts::FeedUtils.get_combined_feed_items(site: temp_site)
 
-      assert_equal 5, items.size, 'Should return default limit of 5 items'
+      assert_equal Jekyll::Posts::FeedUtils::DEFAULT_LIMIT, items.size, 'Should return default limit items'
       actual_titles = items.map { |item| item.data['title'] }
 
       expected_sorted = [post_no_date.data['title'], book_no_date.data['title']].sort

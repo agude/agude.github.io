@@ -106,11 +106,8 @@ module Jekyll
         sections.compact.reject { |s| s.to_s.strip.empty? }.join("\n\n")
       end
 
-      MAX_RELATED_BOOKS = 3
-      private_constant :MAX_RELATED_BOOKS
-
       def self.build_related_books_section(site, item)
-        result = Jekyll::Books::Related::Finder.new(site, item, MAX_RELATED_BOOKS).find
+        result = Jekyll::Books::Related::Finder.new(site, item).find
         books = result[:books]
         return nil if books.empty?
 
@@ -141,16 +138,13 @@ module Jekyll
 
       # --- Post footer sections (related posts) ---
 
-      MAX_RELATED_POSTS = 3
-      private_constant :MAX_RELATED_POSTS
-
       def self.build_post_footer(site, item)
         page = page_data_for(item)
         build_related_posts_section(site, page)
       end
 
       def self.build_related_posts_section(site, page)
-        result = Jekyll::Posts::Related::Finder.new(site, page, MAX_RELATED_POSTS).find
+        result = Jekyll::Posts::Related::Finder.new(site, page).find
         posts = result[:posts]
         return nil if posts.empty?
 
