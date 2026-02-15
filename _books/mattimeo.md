@@ -1,5 +1,5 @@
 ---
-date: 2024-06-11
+date: 2024-06-11 19:54:40 -0700
 title: Mattimeo
 book_authors: Brian Jacques
 series: Redwall

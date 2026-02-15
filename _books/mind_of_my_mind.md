@@ -1,5 +1,5 @@
 ---
-date: 2025-01-05
+date: 2025-01-05 16:54:05 -0800
 title: Mind of My Mind
 book_authors: Octavia E. Butler
 series: Patternist

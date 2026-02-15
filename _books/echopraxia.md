@@ -1,5 +1,5 @@
 ---
-date: 2024-04-19
+date: 2024-04-19 20:50:37 -0700
 title: Echopraxia
 book_authors: Peter Watts
 series: Firefall

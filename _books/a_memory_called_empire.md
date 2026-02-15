@@ -1,5 +1,5 @@
 ---
-date: 2025-03-16
+date: 2025-03-16 14:46:47 -0700
 title: A Memory Called Empire
 book_authors: Arkady Martine
 series: Teixcalaan

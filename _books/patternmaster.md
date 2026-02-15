@@ -1,5 +1,5 @@
 ---
-date: 2025-01-16
+date: 2025-01-16 18:15:14 -0800
 title: Patternmaster
 book_authors: Octavia E. Butler
 series: Patternist

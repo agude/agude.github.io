@@ -1,5 +1,5 @@
 ---
-date: 2025-08-30
+date: 2025-08-30 12:58:51 -0700
 title: A Mote in Shadow
 book_authors: A. N. Alex
 series: null

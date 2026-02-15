@@ -1,5 +1,5 @@
 ---
-date: 2024-06-20
+date: 2024-06-20 20:16:59 -0700
 title: Starquake
 book_authors: Robert L. Forward
 series: Cheela

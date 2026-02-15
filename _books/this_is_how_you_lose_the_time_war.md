@@ -1,5 +1,5 @@
 ---
-date: 2025-12-12
+date: 2025-12-12 07:20:57 -0800
 title: This Is How You Lose the Time War
 book_authors:
   - Amal El-Mohtar

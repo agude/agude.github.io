@@ -1,5 +1,5 @@
 ---
-date: 2026-01-19
+date: 2026-01-19 10:02:13 -0800
 title: Endymion
 book_authors: Dan Simmons
 series: Hyperion Cantos

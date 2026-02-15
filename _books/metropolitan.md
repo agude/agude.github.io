@@ -1,5 +1,5 @@
 ---
-date: 2025-04-28
+date: 2025-04-28 18:39:27 -0700
 title: Metropolitan
 book_authors: Walter Jon Williams
 series: Metropolitan

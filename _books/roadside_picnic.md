@@ -1,5 +1,5 @@
 ---
-date: 2025-08-04
+date: 2025-08-04 19:01:10 -0700
 title: Roadside Picnic
 book_authors:
   - Arkady Strugatsky

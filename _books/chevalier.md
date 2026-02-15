@@ -1,5 +1,5 @@
 ---
-date: 2023-11-21
+date: 2023-11-21 15:53:09 -0800
 title: Chevalier
 book_authors: Scott Warren
 series: War Horses

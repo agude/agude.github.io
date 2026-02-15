@@ -1,5 +1,5 @@
 ---
-date: 2025-06-06 18:34:00 -0700
+date: 2025-06-06 19:19:33 -0700
 title: Tintin in the Congo
 book_authors: Hergé
 series: The Adventures of Tintin

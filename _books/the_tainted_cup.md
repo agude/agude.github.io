@@ -1,5 +1,5 @@
 ---
-date: 2024-05-19
+date: 2024-05-19 11:21:31 -0700
 title: The Tainted Cup
 book_authors: Robert Jackson Bennett
 series: Shadow of the Leviathan

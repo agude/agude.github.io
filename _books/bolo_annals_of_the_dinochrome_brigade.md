@@ -1,5 +1,5 @@
 ---
-date: 2025-06-06 12:27:48 -0700
+date: 2025-06-07 10:41:25 -0700
 title: "Bolo: Annals of the Dinochrome Brigade"
 book_authors: Keith Laumer
 series: Bolo

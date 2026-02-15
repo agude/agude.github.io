@@ -1,5 +1,5 @@
 ---
-date: 2025-06-04
+date: 2025-06-04 15:43:58 -0700
 title: Shards of Earth
 book_authors: Adrian Tchaikovsky
 series: The Final Architecture

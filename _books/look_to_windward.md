@@ -1,5 +1,5 @@
 ---
-date: 2024-10-16
+date: 2024-10-16 12:46:42 -0700
 title: Look to Windward
 book_authors: Iain M. Banks
 series: Culture

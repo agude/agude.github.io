@@ -1,5 +1,5 @@
 ---
-date: 2025-10-12
+date: 2025-10-12 13:13:43 -0700
 title: Last Stand
 book_authors:
   - S. M. Stirling

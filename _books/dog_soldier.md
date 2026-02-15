@@ -1,5 +1,5 @@
 ---
-date: 2024-04-04
+date: 2024-04-04 09:23:32 -0700
 title: Dog Soldier
 book_authors: Scott Warren
 series: War Horses

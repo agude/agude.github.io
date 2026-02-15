@@ -1,5 +1,5 @@
 ---
-date: 2024-04-10
+date: 2024-04-10 19:02:40 -0700
 title: The Dragon's Banker
 book_authors: Scott Warren
 series: null

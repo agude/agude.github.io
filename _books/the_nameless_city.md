@@ -1,5 +1,5 @@
 ---
-date: 2024-11-16
+date: 2024-11-16 14:53:37 -0800
 title: The Nameless City
 book_authors: H. P. Lovecraft
 series: Cthulhu Mythos

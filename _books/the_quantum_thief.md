@@ -1,5 +1,5 @@
 ---
-date: 2023-11-07
+date: 2023-11-07 13:07:13 -0800
 title: The Quantum Thief
 book_authors: Hannu Rajaniemi
 series: Jean le Flambeur

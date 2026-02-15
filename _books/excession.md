@@ -1,5 +1,5 @@
 ---
-date: 2024-03-25
+date: 2024-03-25 19:50:35 -0700
 title: Excession
 book_authors: Iain M. Banks
 series: Culture

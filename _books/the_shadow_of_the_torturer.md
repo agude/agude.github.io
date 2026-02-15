@@ -1,5 +1,5 @@
 ---
-date: 2023-12-25
+date: 2023-12-25 14:44:30 -0800
 title: The Shadow of the Torturer
 book_authors: Gene Wolfe
 series: The Book of the New Sun

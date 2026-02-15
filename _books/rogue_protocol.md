@@ -1,5 +1,5 @@
 ---
-date: 2025-05-21
+date: 2025-05-21 17:56:22 -0700
 title: Rogue Protocol
 book_authors: Martha Wells
 series: The Murderbot Diaries

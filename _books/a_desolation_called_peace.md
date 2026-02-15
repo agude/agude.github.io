@@ -1,5 +1,5 @@
 ---
-date: 2025-04-05
+date: 2025-04-05 15:27:39 -0700
 title: A Desolation Called Peace
 book_authors: Arkady Martine
 series: Teixcalaan

@@ -1,5 +1,5 @@
 ---
-date: 2025-05-17
+date: 2025-05-17 17:54:32 -0700
 title: All Systems Red
 book_authors: Martha Wells
 series: The Murderbot Diaries

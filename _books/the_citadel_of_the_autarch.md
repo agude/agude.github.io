@@ -1,5 +1,5 @@
 ---
-date: 2024-01-26
+date: 2024-01-26 09:35:34 -0800
 title: The Citadel of the Autarch
 book_authors: Gene Wolfe
 series: The Book of the New Sun

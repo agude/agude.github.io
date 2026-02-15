@@ -1,5 +1,5 @@
 ---
-date: 2024-07-17
+date: 2024-07-17 19:46:47 -0700
 title: Star Light
 book_authors: Hal Clement
 series: Mesklin

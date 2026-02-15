@@ -1,5 +1,5 @@
 ---
-date: 2024-12-09
+date: 2024-12-09 18:13:11 -0800
 title: Grand Melee
 book_authors: Scott Warren
 series: War Horses

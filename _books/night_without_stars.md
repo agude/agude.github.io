@@ -1,5 +1,5 @@
 ---
-date: 2023-12-15
+date: 2023-12-15 15:50:49 -0800
 title: Night Without Stars
 book_authors: Peter F. Hamilton
 series: The Chronicle of the Fallers

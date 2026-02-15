@@ -1,5 +1,5 @@
 ---
-date: 2025-07-09
+date: 2025-07-09 20:07:17 -0700
 title: Explorers on the Moon
 book_authors: Hergé
 series: The Adventures of Tintin

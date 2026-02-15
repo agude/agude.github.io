@@ -1,5 +1,5 @@
 ---
-date: 2024-10-02
+date: 2024-10-02 12:51:11 -0700
 title: Inversions
 book_authors: Iain M. Banks
 series: Culture

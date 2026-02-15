@@ -1,5 +1,5 @@
 ---
-date: 2024-05-26
+date: 2024-05-26 07:37:26 -0700
 title: Childhood's End
 book_authors: Arthur C. Clarke
 series: null

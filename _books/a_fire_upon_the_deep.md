@@ -1,5 +1,5 @@
 ---
-date: 2024-08-22
+date: 2024-08-22 13:13:38 -0700
 title: A Fire Upon The Deep
 book_authors: Vernor Vinge
 series: Zones of Thought

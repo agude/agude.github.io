@@ -1,5 +1,5 @@
 ---
-date: 2025-10-02
+date: 2025-10-02 16:41:37 -0700
 title: The Sirens of Titan
 book_authors: Kurt Vonnegut
 series: null

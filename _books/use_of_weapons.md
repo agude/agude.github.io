@@ -1,5 +1,5 @@
 ---
-date: 2024-02-28
+date: 2024-02-28 18:52:53 -0800
 title: Use of Weapons
 book_authors: Iain M. Banks
 series: Culture

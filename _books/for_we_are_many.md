@@ -1,5 +1,5 @@
 ---
-date: 2024-08-07
+date: 2024-08-07 20:06:07 -0700
 title: For We Are Many
 book_authors: Dennis E. Taylor
 series: Bobiverse

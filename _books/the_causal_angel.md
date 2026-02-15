@@ -1,5 +1,5 @@
 ---
-date: 2023-11-18
+date: 2023-11-18 18:36:29 -0800
 title: The Causal Angel
 book_authors: Hannu Rajaniemi
 series: Jean le Flambeur

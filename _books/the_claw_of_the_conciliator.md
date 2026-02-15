@@ -1,5 +1,5 @@
 ---
-date: 2024-01-07
+date: 2024-01-07 19:56:41 -0800
 title: The Claw of the Conciliator
 book_authors: Gene Wolfe
 series: The Book of the New Sun

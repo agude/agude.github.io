@@ -1,5 +1,5 @@
 ---
-date: 2025-03-01
+date: 2025-03-01 09:04:06 -0800
 title: Stand on Zanzibar
 book_authors: John Brunner
 series: null

@@ -1,5 +1,5 @@
 ---
-date: 2025-02-06
+date: 2025-02-06 08:33:04 -0800
 title: The Hydrogen Sonata
 book_authors: Iain M. Banks
 series: Culture

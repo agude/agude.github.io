@@ -1,5 +1,5 @@
 ---
-date: 2024-02-19
+date: 2024-02-19 13:10:36 -0800
 title: The Player of Games
 book_authors: Iain M. Banks
 series: Culture

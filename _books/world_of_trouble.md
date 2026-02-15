@@ -1,5 +1,5 @@
 ---
-date: 2024-09-23
+date: 2024-09-23 08:25:45 -0700
 title: World of Trouble
 book_authors: Ben H. Winters
 series: The Last Policeman

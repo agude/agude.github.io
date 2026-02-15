@@ -1,5 +1,5 @@
 ---
-date: 2025-12-30
+date: 2025-12-30 22:23:58 -0800
 title: The Fall of Hyperion
 book_authors: Dan Simmons
 series: Hyperion Cantos

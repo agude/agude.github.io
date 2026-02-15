@@ -1,5 +1,5 @@
 ---
-date: 2025-05-23 18:57:00 -0700
+date: 2025-05-23 19:01:54 -0700
 title: "Home: Habitat, Range, Niche, Territory"
 book_authors: Martha Wells
 series: The Murderbot Diaries

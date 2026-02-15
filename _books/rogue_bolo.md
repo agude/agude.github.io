@@ -1,5 +1,5 @@
 ---
-date: 2025-06-08
+date: 2025-06-08 14:19:51 -0700
 title: "Rogue Bolo"
 book_authors: Keith Laumer
 series: Bolo

@@ -1,5 +1,5 @@
 ---
-date: 2025-07-06
+date: 2025-07-06 14:32:17 -0700
 title: The War of the Worlds
 book_authors: H. G. Wells
 series: null

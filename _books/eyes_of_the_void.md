@@ -1,5 +1,5 @@
 ---
-date: 2025-06-22
+date: 2025-06-22 13:50:45 -0700
 title: Eyes of the Void
 book_authors: Adrian Tchaikovsky
 series: The Final Architecture

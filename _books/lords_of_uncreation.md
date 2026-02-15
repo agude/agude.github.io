@@ -1,5 +1,5 @@
 ---
-date: 2025-07-31
+date: 2025-07-31 18:42:16 -0700
 title: Lords of Uncreation
 book_authors: Adrian Tchaikovsky
 series: The Final Architecture

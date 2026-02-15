@@ -1,5 +1,5 @@
 ---
-date: 2024-08-02
+date: 2024-08-02 08:24:15 -0700
 title: We Are Legion (We Are Bob)
 book_authors: Dennis E. Taylor
 series: Bobiverse

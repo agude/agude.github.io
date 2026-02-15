@@ -1,5 +1,5 @@
 ---
-date: 2024-12-02
+date: 2024-12-02 12:24:48 -0800
 title: Surface Detail
 book_authors: Iain M. Banks
 series: Culture

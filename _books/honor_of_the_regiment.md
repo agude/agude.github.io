@@ -1,5 +1,5 @@
 ---
-date: 2025-06-28
+date: 2025-06-28 14:31:40 -0700
 title: Honor of the Regiment
 book_authors:
   - S. M. Stirling

@@ -1,5 +1,5 @@
 ---
-date: 2024-09-19
+date: 2024-09-19 18:13:26 -0400
 title: Countdown City
 book_authors: Ben H. Winters
 series: The Last Policeman

@@ -1,5 +1,5 @@
 ---
-date: 2025-01-12
+date: 2025-01-12 08:48:45 -0800
 title: Clay's Ark
 book_authors: Octavia E. Butler
 series: Patternist

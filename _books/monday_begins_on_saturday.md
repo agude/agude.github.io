@@ -1,5 +1,5 @@
 ---
-date: 2025-12-07
+date: 2025-12-07 22:44:15 -0800
 title: Monday Begins on Saturday
 book_authors:
   - Arkady Strugatsky

@@ -1,5 +1,5 @@
 ---
-date: 2025-07-17
+date: 2025-07-17 08:42:43 -0700
 title: Network Effect
 book_authors: Martha Wells
 series: The Murderbot Diaries

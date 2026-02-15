@@ -1,5 +1,5 @@
 ---
-date: 2023-11-30
+date: 2023-11-30 16:56:30 -0800
 title: Serpent Valley
 book_authors: Scott Warren
 series: War Horses

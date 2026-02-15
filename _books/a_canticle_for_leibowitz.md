@@ -1,5 +1,5 @@
 ---
-date: 2025-11-16
+date: 2025-11-16 08:35:33 -0800
 title: A Canticle for Leibowitz
 book_authors: Walter M. Miller Jr.
 series: Saint Leibowitz

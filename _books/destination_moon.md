@@ -1,5 +1,5 @@
 ---
-date: 2025-06-02
+date: 2025-06-02 19:34:25 -0700
 title: Destination Moon
 book_authors: Hergé
 series: The Adventures of Tintin

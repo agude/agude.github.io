@@ -1,5 +1,5 @@
 ---
-date: 2023-11-01
+date: 2023-11-01 21:16:41 -0700
 title: Blindsight
 book_authors: Peter Watts
 series: Firefall

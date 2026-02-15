@@ -1,5 +1,5 @@
 ---
-date: 2025-05-18
+date: 2025-05-18 14:56:05 -0700
 title: Artificial Condition
 book_authors: Martha Wells
 series: The Murderbot Diaries

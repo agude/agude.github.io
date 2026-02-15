@@ -1,5 +1,5 @@
 ---
-date: 2024-12-20
+date: 2024-12-20 18:34:04 -0800
 title: Wild Seed
 book_authors: Octavia E. Butler
 series: Patternist

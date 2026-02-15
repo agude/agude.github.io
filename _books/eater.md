@@ -1,5 +1,5 @@
 ---
-date: 2024-06-05
+date: 2024-06-05 12:21:01 -0700
 title: Eater
 book_authors: Gregory Benford
 series: null

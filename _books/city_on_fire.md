@@ -1,5 +1,5 @@
 ---
-date: 2025-05-16
+date: 2025-05-16 18:00:36 -0700
 title: City on Fire
 book_authors: Walter Jon Williams
 series: Metropolitan

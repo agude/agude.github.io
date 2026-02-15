@@ -1,5 +1,5 @@
 ---
-date: 2024-08-12
+date: 2024-08-12 18:07:36 -0700
 title: All These Worlds
 book_authors: Dennis E. Taylor
 series: Bobiverse

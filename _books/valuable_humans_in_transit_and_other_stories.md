@@ -1,5 +1,5 @@
 ---
-date: 2024-09-06
+date: 2024-09-06 13:26:45 -0700
 title: Valuable Humans in Transit and Other Stories
 book_authors: qntm
 series: null

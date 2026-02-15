@@ -1,5 +1,5 @@
 ---
-date: 2025-07-27
+date: 2025-07-27 19:50:40 -0700
 title: Cigars of the Pharaoh
 book_authors: Hergé
 series: The Adventures of Tintin

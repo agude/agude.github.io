@@ -1,5 +1,5 @@
 ---
-date: 2025-08-20
+date: 2025-08-20 22:19:24 -0700
 title: Not Till We Are Lost
 book_authors: Dennis E. Taylor
 series: Bobiverse

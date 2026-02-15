@@ -1,5 +1,5 @@
 ---
-date: 2025-11-03
+date: 2025-11-03 19:21:41 -0800
 title: On Basilisk Station
 book_authors: David Weber
 series: Honor Harrington

@@ -1,5 +1,5 @@
 ---
-date: 2023-11-25
+date: 2023-11-25 22:39:49 -0800
 title: Ymir
 book_authors: Scott Warren
 series: War Horses

@@ -1,5 +1,5 @@
 ---
-date: 2024-02-09
+date: 2024-02-09 18:59:26 -0800
 title: The Urth of the New Sun
 book_authors: Gene Wolfe
 series: The Book of the New Sun
