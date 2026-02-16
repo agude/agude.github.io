@@ -74,6 +74,36 @@ class TestMarkdownCardUtils < Minitest::Test
     assert_equal '- [_Minimal_](/books/minimal/)', result
   end
 
+  def test_render_book_card_md_author_linked
+    data = {
+      title: 'Dune',
+      authors: ['Frank Herbert'],
+      author_urls: { 'Frank Herbert' => '/books/authors/frank_herbert/' },
+      rating: 5,
+      url: '/books/dune/',
+    }
+
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
+
+    assert_equal "- [_Dune_](/books/dune/) by [Frank Herbert](/books/authors/frank_herbert/) --- \u2605\u2605\u2605\u2605\u2605",
+                 result
+  end
+
+  def test_render_book_card_md_mixed_author_links
+    data = {
+      title: 'Collab',
+      authors: ['Linked Author', 'Unlinked Author'],
+      author_urls: { 'Linked Author' => '/books/authors/linked/' },
+      rating: 4,
+      url: '/books/collab/',
+    }
+
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
+
+    assert_equal "- [_Collab_](/books/collab/) by [Linked Author](/books/authors/linked/), Unlinked Author --- \u2605\u2605\u2605\u2605\u2606",
+                 result
+  end
+
   def test_render_article_card_md
     data = {
       title: 'My Blog Post',

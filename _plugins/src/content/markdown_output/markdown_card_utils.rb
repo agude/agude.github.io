@@ -9,7 +9,7 @@ module Jekyll
     module MarkdownCardUtils
       def self.render_book_card_md(data)
         line = "- [_#{data[:title]}_](#{data[:url]})"
-        line += " by #{data[:authors].join(', ')}" if data[:authors]&.any?
+        line += " by #{format_card_authors(data)}" if data[:authors]&.any?
         if data[:rating]
           filled = data[:rating].to_i
           empty = 5 - filled
@@ -18,6 +18,15 @@ module Jekyll
         end
         line
       end
+
+      def self.format_card_authors(data)
+        urls = data[:author_urls] || {}
+        data[:authors].map do |name|
+          url = urls[name]
+          url ? "[#{name}](#{url})" : name
+        end.join(', ')
+      end
+      private_class_method :format_card_authors
 
       def self.render_article_card_md(data)
         "- [#{data[:title]}](#{data[:url]})"

@@ -6,8 +6,10 @@ require_relative '../books/backlinks/finder'
 require_relative '../books/related/finder'
 require_relative '../books/reviews/finder'
 require_relative '../posts/related/finder'
+require_relative '../../infrastructure/text_processing_utils'
 require_relative 'markdown_body_hook'
 require_relative 'markdown_card_utils'
+require_relative 'markdown_link_formatter'
 require_relative 'llms_txt_generator'
 
 module Jekyll
@@ -17,7 +19,9 @@ module Jekyll
     # documents and pages have been rendered.
     module MarkdownOutputAssembler
       Normalizer = Jekyll::Infrastructure::MarkdownWhitespaceNormalizer
-      private_constant :Normalizer
+      Text = Jekyll::Infrastructure::TextProcessingUtils
+      MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
+      private_constant :Normalizer, :Text, :MdLink
 
       def self.assemble_all(site)
         return unless MarkdownBodyHook.enabled?(site)
@@ -38,7 +42,7 @@ module Jekyll
 
       def self.assemble_markdown(item, site: nil)
         sections = []
-        sections << build_header(item)
+        sections << build_header(item, site: site)
         sections << item.data['markdown_body']
         sections << build_book_footer(site, item) if site && item.data['layout'] == 'book'
         sections << build_post_footer(site, item) if site && item.data['layout'] == 'post'
@@ -46,11 +50,11 @@ module Jekyll
         Normalizer.normalize(raw)
       end
 
-      def self.build_header(item)
+      def self.build_header(item, site: nil)
         layout = item.data['layout']
         case layout
         when 'post'     then build_post_header(item)
-        when 'book'     then build_book_header(item)
+        when 'book'     then build_book_header(item, site)
         when 'category' then build_category_header(item)
         else                 build_title_only_header(item)
         end
@@ -69,18 +73,23 @@ module Jekyll
         lines.join("\n\n")
       end
 
-      def self.build_book_header(item)
+      def self.build_book_header(item, site)
         title = item.data['title']
         authors = item.data['book_authors']
         series = item.data['series']
         book_number = item.data['book_number']
         rating = item.data['rating']
+        image = item.data['image']
+        cache = site&.data&.dig('link_cache') || {}
 
         lines = ["# #{title}"]
+        lines << "![Book cover of #{title}](#{image})" if image
         details = []
-        details << format_authors(authors) if authors
-        details << format_series(series, book_number) if series
+        details << format_authors(authors, cache) if authors
+        details << format_series(series, book_number, cache) if series
+        details << format_awards(item, site) if site
         details << format_rating(rating) if rating
+        details.compact!
         lines << details.join("\n") unless details.empty?
         lines << '## Review'
         lines.join("\n\n")
@@ -111,8 +120,9 @@ module Jekyll
         books = result[:books]
         return nil if books.empty?
 
+        cache = site.data['link_cache'] || {}
         lines = ['## Related Books']
-        books.each { |book| lines << MarkdownCardUtils.render_book_card_md(book_doc_to_card_data(book)) }
+        books.each { |book| lines << MarkdownCardUtils.render_book_card_md(book_doc_to_card_data(book, cache)) }
         lines.join("\n")
       end
 
@@ -131,8 +141,9 @@ module Jekyll
         reviews = result[:reviews]
         return nil if reviews.empty?
 
+        cache = site.data['link_cache'] || {}
         lines = ['## Previous Reviews']
-        reviews.each { |review| lines << MarkdownCardUtils.render_book_card_md(book_doc_to_card_data(review)) }
+        reviews.each { |review| lines << MarkdownCardUtils.render_book_card_md(book_doc_to_card_data(review, cache)) }
         lines.join("\n")
       end
 
@@ -158,17 +169,29 @@ module Jekyll
       end
       private_class_method :post_doc_to_card_data
 
-      def self.book_doc_to_card_data(doc)
+      def self.book_doc_to_card_data(doc, cache = {})
         authors = doc.data['book_authors']
         author_list = authors.is_a?(Array) ? authors : [authors].compact
         {
           title: doc.data['title'],
           url: doc.url,
           authors: author_list,
+          author_urls: resolve_author_urls(author_list, cache),
           rating: doc.data['rating'],
         }
       end
       private_class_method :book_doc_to_card_data
+
+      def self.resolve_author_urls(author_list, cache)
+        author_cache = cache['authors'] || {}
+        urls = {}
+        author_list.each do |name|
+          data = author_cache[Text.normalize_title(name)]
+          urls[name] = data['url'] if data
+        end
+        urls
+      end
+      private_class_method :resolve_author_urls
 
       def self.add_static_file(site, item, content)
         href = item.data['markdown_alternate_href']
@@ -195,18 +218,65 @@ module Jekyll
       end
       private_class_method :format_date
 
-      def self.format_authors(authors)
+      def self.format_authors(authors, cache)
         author_list = authors.is_a?(Array) ? authors : [authors]
-        "by #{author_list.join(' and ')}"
+        formatted = author_list.map { |name| format_author_name(name, cache) }
+        "by #{formatted.join(' and ')}"
       end
       private_class_method :format_authors
 
-      def self.format_series(series, book_number)
-        return "#{series} series" unless book_number
+      def self.format_author_name(name, cache)
+        author_cache = cache['authors'] || {}
+        normalized = Text.normalize_title(name)
+        data = author_cache[normalized]
+        return name unless data
 
-        "Book #{book_number} of #{series}"
+        MdLink.format_link({ status: :found, url: data['url'], display_text: data['title'] || name })
+      end
+      private_class_method :format_author_name
+
+      def self.format_series(series, book_number, cache)
+        series_name = format_series_name(series, cache)
+        return "#{series_name} series" unless book_number
+
+        "Book #{book_number} of #{series_name}"
       end
       private_class_method :format_series
+
+      def self.format_series_name(name, cache)
+        series_cache = cache['series'] || {}
+        normalized = Text.normalize_title(name)
+        data = series_cache[normalized]
+        return name unless data
+
+        MdLink.format_link({ status: :found, url: data['url'], display_text: data['title'] || name })
+      end
+      private_class_method :format_series_name
+
+      def self.format_awards(item, site)
+        parts = []
+        awards = item.data['awards']
+        if awards.is_a?(Array) && !awards.empty?
+          awards.sort.each do |award|
+            label = award.split.map(&:capitalize).join(' ')
+            slug = Jekyll::Utils.slugify(award)
+            parts << "[#{label}](/books/by-award/##{slug}-award)"
+          end
+        end
+
+        mentions = site.data.dig('link_cache', 'favorites_mentions', item.url)
+        if mentions.is_a?(Array) && !mentions.empty?
+          mentions.sort_by { |p| p.data['is_favorites_list'].to_s }.reverse_each do |post|
+            year = post.data['is_favorites_list']
+            parts << "[#{year} Favorites](#{post.url})"
+          end
+        end
+
+        return nil if parts.empty?
+
+        "Awards: #{parts.join(', ')}"
+      end
+      private_class_method :format_awards
 
       def self.format_rating(rating)
         rating_int = rating.to_i

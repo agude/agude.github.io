@@ -80,6 +80,257 @@ class TestMarkdownOutputAssembler < Minitest::Test
     assert_includes header, 'by Terry Pratchett and Neil Gaiman'
   end
 
+  # --- Book header: cover image ---
+
+  def test_header_book_includes_cover_image
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Dune',
+        'book_authors' => ['Frank Herbert'],
+        'rating' => 5,
+        'image' => '/books/covers/dune.jpg',
+        'markdown_body' => 'Body',
+      },
+      '/books/dune/',
+    )
+    header = Assembler.build_header(doc)
+    assert_includes header, '![Book cover of Dune](/books/covers/dune.jpg)'
+  end
+
+  def test_header_book_no_cover_when_no_image
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Dune',
+        'book_authors' => ['Frank Herbert'],
+        'rating' => 5,
+        'markdown_body' => 'Body',
+      },
+      '/books/dune/',
+    )
+    header = Assembler.build_header(doc)
+    refute_includes header, '![Book cover'
+  end
+
+  # --- Book header: author links ---
+
+  def test_header_book_author_linked_when_in_cache
+    author_page = create_doc(
+      { 'layout' => 'author_page', 'title' => 'Frank Herbert' },
+      '/books/authors/frank_herbert/',
+    )
+    site = create_site({}, {}, [author_page])
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Dune',
+        'book_authors' => ['Frank Herbert'],
+        'rating' => 5,
+        'markdown_body' => 'Body',
+      },
+      '/books/dune/',
+    )
+    header = Assembler.build_header(doc, site: site)
+    assert_includes header, 'by [Frank Herbert](/books/authors/frank_herbert/)'
+  end
+
+  def test_header_book_author_plain_when_not_in_cache
+    site = create_site
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Dune',
+        'book_authors' => ['Frank Herbert'],
+        'rating' => 5,
+        'markdown_body' => 'Body',
+      },
+      '/books/dune/',
+    )
+    header = Assembler.build_header(doc, site: site)
+    assert_includes header, 'by Frank Herbert'
+    refute_includes header, '[Frank Herbert]'
+  end
+
+  def test_header_book_multiple_authors_linked
+    author_a = create_doc(
+      { 'layout' => 'author_page', 'title' => 'Terry Pratchett' },
+      '/books/authors/terry_pratchett/',
+    )
+    author_b = create_doc(
+      { 'layout' => 'author_page', 'title' => 'Neil Gaiman' },
+      '/books/authors/neil_gaiman/',
+    )
+    site = create_site({}, {}, [author_a, author_b])
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Good Omens',
+        'book_authors' => ['Terry Pratchett', 'Neil Gaiman'],
+        'rating' => 4,
+        'markdown_body' => 'Body',
+      },
+      '/books/good-omens/',
+    )
+    header = Assembler.build_header(doc, site: site)
+    assert_includes header, '[Terry Pratchett](/books/authors/terry_pratchett/)'
+    assert_includes header, '[Neil Gaiman](/books/authors/neil_gaiman/)'
+    assert_includes header, 'by '
+    assert_includes header, ' and '
+  end
+
+  # --- Book header: series link ---
+
+  def test_header_book_series_linked_when_in_cache
+    series_page = create_doc(
+      { 'layout' => 'series_page', 'title' => 'Dune' },
+      '/books/series/dune/',
+    )
+    site = create_site({}, {}, [series_page])
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Dune',
+        'book_authors' => ['Frank Herbert'],
+        'series' => 'Dune',
+        'book_number' => 1,
+        'rating' => 5,
+        'markdown_body' => 'Body',
+      },
+      '/books/dune/',
+    )
+    header = Assembler.build_header(doc, site: site)
+    assert_includes header, 'Book 1 of [Dune](/books/series/dune/)'
+  end
+
+  def test_header_book_series_plain_when_not_in_cache
+    site = create_site
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Dune',
+        'book_authors' => ['Frank Herbert'],
+        'series' => 'Dune',
+        'book_number' => 1,
+        'rating' => 5,
+        'markdown_body' => 'Body',
+      },
+      '/books/dune/',
+    )
+    header = Assembler.build_header(doc, site: site)
+    assert_includes header, 'Book 1 of Dune'
+    refute_includes header, '[Dune]'
+  end
+
+  # --- Book header: awards ---
+
+  def test_header_book_awards_line
+    site = create_site
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Dune',
+        'book_authors' => ['Frank Herbert'],
+        'rating' => 5,
+        'awards' => %w[hugo locus],
+        'markdown_body' => 'Body',
+      },
+      '/books/dune/',
+    )
+    header = Assembler.build_header(doc, site: site)
+    assert_includes header, 'Awards: [Hugo](/books/by-award/#hugo-award), [Locus](/books/by-award/#locus-award)'
+  end
+
+  def test_header_book_awards_multi_word
+    site = create_site
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Test',
+        'book_authors' => ['Auth'],
+        'rating' => 5,
+        'awards' => ['nebula award'],
+        'markdown_body' => 'Body',
+      },
+      '/books/test/',
+    )
+    header = Assembler.build_header(doc, site: site)
+    assert_includes header, '[Nebula Award](/books/by-award/#nebula-award-award)'
+  end
+
+  def test_header_book_favorites_mentions
+    favorites_post = create_doc(
+      {
+        'layout' => 'post',
+        'title' => 'Favorite Books of 2025',
+        'is_favorites_list' => '2025',
+        'date' => Time.new(2025, 12, 1),
+      },
+      '/blog/favorite-books-of-2025/',
+    )
+    site = create_site({}, {}, [], [favorites_post])
+    site.data['link_cache']['favorites_mentions'] = {
+      '/books/dune/' => [favorites_post],
+    }
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Dune',
+        'book_authors' => ['Frank Herbert'],
+        'rating' => 5,
+        'markdown_body' => 'Body',
+      },
+      '/books/dune/',
+    )
+    header = Assembler.build_header(doc, site: site)
+    assert_includes header, '[2025 Favorites](/blog/favorite-books-of-2025/)'
+  end
+
+  def test_header_book_awards_and_favorites_combined
+    favorites_post = create_doc(
+      {
+        'layout' => 'post',
+        'title' => 'Favorite Books of 2025',
+        'is_favorites_list' => '2025',
+        'date' => Time.new(2025, 12, 1),
+      },
+      '/blog/favorite-books-of-2025/',
+    )
+    site = create_site({}, {}, [], [favorites_post])
+    site.data['link_cache']['favorites_mentions'] = {
+      '/books/dune/' => [favorites_post],
+    }
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Dune',
+        'book_authors' => ['Frank Herbert'],
+        'rating' => 5,
+        'awards' => ['hugo'],
+        'markdown_body' => 'Body',
+      },
+      '/books/dune/',
+    )
+    header = Assembler.build_header(doc, site: site)
+    assert_includes header, 'Awards: [Hugo](/books/by-award/#hugo-award), [2025 Favorites](/blog/favorite-books-of-2025/)'
+  end
+
+  def test_header_book_no_awards_line_when_empty
+    site = create_site
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Dune',
+        'book_authors' => ['Frank Herbert'],
+        'rating' => 5,
+        'markdown_body' => 'Body',
+      },
+      '/books/dune/',
+    )
+    header = Assembler.build_header(doc, site: site)
+    refute_includes header, 'Awards:'
+  end
+
   def test_header_author_page
     doc = create_doc(
       { 'layout' => 'author_page', 'title' => 'Dan Simmons', 'markdown_body' => '' },
