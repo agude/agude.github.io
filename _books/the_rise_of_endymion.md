@@ -14,10 +14,9 @@ awards:
 class="author-name">Dan Simmons</span>, is the fourth and final book in the
 <span class="book-series">Hyperion Cantos</span>. It concludes the journey of
 Aenea and Raul as they race to unlock the secret of the Void Which Binds
-before the Pax can silence them. Along the way, the series's long-standing
-mysteries about the Shrike and the TechnoCore are resolved, and the book
-argues that the Church's gift of immortality is a trap, and that for humanity
-to truly live, it must be willing to die.
+before the Pax can silence them. It resolves the mysteries of the Shrike and
+the TechnoCore while arguing that the Church's immortality is a trap: to truly
+live, humanity must be willing to die.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -37,6 +36,13 @@ to truly live, it must be willing to die.
 
 {% capture keats_lastname %}{% author_link "John Keats" link_text="Keats" %}{% endcapture %}
 {% capture keats_lastname_possessive %}{% author_link "John Keats" link_text="Keats" possessive %}{% endcapture %}
+
+{% capture wolfes_lastname %}{% author_link "Gene Wolfe" link_text="Wolfe" possessive %}{% endcapture %}
+{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
+{% capture urth_of_the_new_sun %}{% book_link "The Urth of the New Sun" %}{% endcapture %}
+
+{% capture millers_lastname %}{% author_link "Walter M. Miller Jr." link_text="Miller" possessive %}{% endcapture %}
+{% capture a_canticle_for_leibowitz %}{% book_link "A Canticle for Leibowitz" %}{% endcapture %}
 
 {% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
 {% capture look_to_windward %}{% book_link "Look to Windward" %}{% endcapture %}
@@ -82,12 +88,18 @@ others feel.
 
 Aenea is _also_ a Christ-like figure, a point {{ the_authors_lastname }}
 drives home when he has her explain that Christ was the first human able to
-touch the Void. Like Christ, Aenea's disciples drink her blood to gain her
-abilities, and she is tortured to death just as the Christian messiah was.
-This continues the theme of "dying into life", with her movement taking off
-only after the Shared Moment sent out through the Void at her death. Dying
-into life is taken to its final extreme in {{ this_book }}, with Aenea
-preaching that the human race must splinter into many new races to survive.
+touch the Void. Like the Christian Eucharist, Aenea's disciples drink her
+blood to achieve communion. But {{ the_authors_lastname }} makes the
+theological subtext text: the blood contains viral RNA that rewrites their
+DNA, granting them the ability to touch the Void and literally share the
+perspective of others.
+
+This messianic arc is reminiscent of Severian in {{ wolfes_lastname }} {{
+botns }} and especially {{ urth_of_the_new_sun }}, another torture-linked
+savior who must bring destruction to save the world. And it is the inverse of
+{{ millers_lastname }} {{ a_canticle_for_leibowitz }}; instead of the church
+being the ark of humanity to protect it from the deluge, the Pax is the
+stagnation the must be wiped out by the flood.
 
 ### Story
 
@@ -136,8 +148,8 @@ of them in his work.
 
 At first glance, they are hard to find. The books feature a multicultural
 cast, there are gay characters in the background, and the thesis of {{
-this_book }} is that diversity is our strength. Fedmahn Kassad, a Palestinian
-Muslim, is a hero in the series.
+this_book }} is that diversity is our strength. Fedmahn Kassad, a Palestinian,
+is a hero in the series.
 
 But on closer inspection, the seeds are there. There's an uncomfortable
 obsession with the sexuality of young girls. There's his throwaway comment
