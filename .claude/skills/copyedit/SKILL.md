@@ -56,7 +56,7 @@ Key points:
 - **Vocabulary**: Simple, direct words. "great", "fun", "loved"---not "exceptional", "delightful", "adored"
 - **Hedging**: Avoid. Say "I didn't like it" not "I perhaps didn't fully appreciate it"
 - **Em-dashes**: Do NOT add em-dashes. LLMs overuse them. Only keep existing ones if appropriate.
-- **Contractions**: Use naturally
+- **Contractions**: Use naturally, don't insert needlessly.
 - **Oxford comma**: Yes
 
 ### Anti-patterns (never do these)
