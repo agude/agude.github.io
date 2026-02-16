@@ -6,6 +6,8 @@ series: Hyperion Cantos
 book_number: 4
 rating: 4
 image: /books/covers/the_rise_of_endymion.jpg
+awards:
+  - locus
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
@@ -128,6 +130,8 @@ class="author-name">{{ page.book_authors }}</span>, is the forth and final book 
 
 {% capture et %}<cite class="movie-title">E.T. the Extra-Terrestrial</cite>{% endcapture %}
 
+### Themes
+
 {{ this_book }} breaks from the past three books in the {{ this_series }} in
 that it is not named and themes after one of {{ keats_lastname_possessive }}
 works. Instead, it mirrors {{ keats_lastname_possessive }} life. Aenea is a {{
@@ -146,6 +150,8 @@ only with the Shared Moment sent out through Void at her death. Dying into
 life is taken to its final extreme in {{ this_book }}, with Aenea preaching
 that the human race must splinter into many new races to survive.
 
+### Story
+
 I liked this book about the same as {{ endymion }}, but I think it's pacing
 was much worse. The first third of the book jumps back and forth between
 from cliffhanger to cliffhanger, but the middle third on T'ien Shan drags as
@@ -160,13 +166,14 @@ de Soya, Kassad---are great, although Bettik gets written out of this book a
 bit only to show up at the end of the observer for the other powers of the
 Void.
 
+### Literary References
+
 As in his previous works, {{ the_authors_lastname }} referenced numerous works
 of science fiction and popular culture, and he continues that in {{ this_book
 }}. He directly compares Aenea and Raul to Scout and Boo Radley from {{
 lees_lastname }} {{ to_kill_a_mockingbird }}. One of the crops of Mars is
-"Brad berries" in honor {{ bradbury_lastname }} and his {{ martian_chronicles }}.
-
-The triune marriages of the Amoiete Spectrum Helix are like the
+"Brad berries" in honor {{ bradbury_lastname }} and his {{ martian_chronicles
+}}. The triune marriages of the Amoiete Spectrum Helix are like the
 non-traditional marriages from {{ heinleins_lastname }} {{
 the_moon_is_a_harsh_mistress }}; their windwagons remind me of the
 wind-powered cable cars in {{ bankss_lastname }} {{ look_to_windward }}. The
