@@ -265,6 +265,33 @@ class TestBlogPostingLdGenerator < Minitest::Test
     assert_equal expected_keys.sort, actual_hash.keys.sort, 'Hash keys do not match expected set'
   end
 
+  def test_generate_hash_with_markdown_alternate_href_includes_encoding
+    doc = create_doc(
+      {
+        'layout' => 'post',
+        'title' => 'Post With Markdown',
+        'markdown_alternate_href' => '/tech/markdown-post.md',
+      },
+      '/tech/markdown-post.html',
+      '<p>Content</p>',
+      '2024-01-15',
+      @post_collection,
+    )
+    result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
+    expected_encoding = {
+      '@type' => 'MediaObject',
+      'encodingFormat' => 'text/markdown',
+      'contentUrl' => 'https://blog.example.com/tech/markdown-post.md',
+    }
+    assert_equal expected_encoding, result['encoding']
+  end
+
+  def test_generate_hash_without_markdown_alternate_href_omits_encoding
+    doc = create_basic_post_doc
+    result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
+    refute result.key?('encoding'), 'No markdown_alternate_href should omit encoding'
+  end
+
   def test_generate_hash_with_empty_title_omits_headline
     # Tests line 36: `if headline && !headline.strip.empty?` else branch
     doc = create_doc(

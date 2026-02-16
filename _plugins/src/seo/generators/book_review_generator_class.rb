@@ -43,6 +43,7 @@ module Jekyll
           add_review_rating(data)
           add_review_body(data)
           add_review_url(data)
+          add_review_encoding(data)
         end
 
         def add_review_author(data)
@@ -73,6 +74,13 @@ module Jekyll
         def add_review_url(data)
           # Review URL (This Page)
           data['url'] = review_page_url
+        end
+
+        def add_review_encoding(data)
+          encoding = Jekyll::SEO::JsonLdUtils.build_markdown_encoding_entity(
+            @document.data['markdown_alternate_href'], @site,
+          )
+          data['encoding'] = encoding if encoding
         end
 
         def extract_review_body

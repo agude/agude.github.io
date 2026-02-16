@@ -223,6 +223,25 @@ class TestJsonLdUtils < Minitest::Test
     assert_nil Jekyll::SEO::JsonLdUtils.build_book_series_entity(nil, '1')
   end
 
+  # --- Tests for build_markdown_encoding_entity ---
+  def test_build_markdown_encoding_entity_valid_path
+    expected = {
+      '@type' => 'MediaObject',
+      'encodingFormat' => 'text/markdown',
+      'contentUrl' => 'https://example.com/blog/posts/my-post.md',
+    }
+    assert_equal expected, Jekyll::SEO::JsonLdUtils.build_markdown_encoding_entity('/posts/my-post.md', @mock_site_full)
+  end
+
+  def test_build_markdown_encoding_entity_empty_path
+    assert_nil Jekyll::SEO::JsonLdUtils.build_markdown_encoding_entity('', @mock_site_full)
+    assert_nil Jekyll::SEO::JsonLdUtils.build_markdown_encoding_entity('  ', @mock_site_full)
+  end
+
+  def test_build_markdown_encoding_entity_nil_path
+    assert_nil Jekyll::SEO::JsonLdUtils.build_markdown_encoding_entity(nil, @mock_site_full)
+  end
+
   # --- Tests for cleanup_data_hash! ---
   def test_cleanup_data_hash_removes_nil_and_empty
     data = create_cleanup_test_data_with_nil_and_empty
