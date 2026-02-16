@@ -31,6 +31,9 @@ class="author-name">{{ page.book_authors }}</span>, is the forth and final book 
 {% capture olympos %}{% book_link "Olympos" %}{% endcapture %}
 {% capture flashback %}{% book_link "Flashback" %}{% endcapture %}
 
+{% capture rowling %}{% author_link "J. K. Rowling" %}{% endcapture %}
+{% capture asimov_lastname %}{% author_link "Isaac Asimov" link_text="Asimov" %}{% endcapture %}
+
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
 {% capture keats_lastname %}{% author_link "John Keats" link_text="Keats" %}{% endcapture %}
 {% capture keats_lastname_possessive %}{% author_link "John Keats" link_text="Keats" possessive %}{% endcapture %}
@@ -156,21 +159,21 @@ Void.
 
 ### The Author
 
-{{ the_author }} has veered far to the right in the last few decades, with his
-more recent books---{{ ilium }}, {{ olympos }}, and {{ flashback }}.
+{{ the_author }} has been a mystery to me while I read {{ this_series }}. I
+know that he is now a far-right fascist, and so I've looked for the seeds of
+it in his work, but they're hard to find. They feature multicultural casts,
+there are gay characters in the background, the thesis of {{ this_book }} is
+that diversity is our strength. Kassad, a Muslim, is one of the heroes.
 
-- Hyperion has a diverse cast and homosexual background characters.
+But although the seeds are hard to find, they are there: his an obsession with
+the sexuality of young girls, the way he writes about the violence and
+barbarianism of Muslims, and his disparagingly refers to welfare queens.
 
-- The Rise proposes that the strength of humanity is its diversity.
-
-But you can see some cracks: the muslims who slaughter eachother in hyperion
-and who kassad defeats.
-
-The reference to wellfare queens in rise.
-
-But then 9/11.
-
-And now Islam is the great evil.
-
-And in flashback, "Obama" lets Muslims overrun the world in what is widely
-considered a right-wing polemic.
+I don't think I will read any more of {{ the_authors_lastname_possessive }}
+work. I hear {{ ilium }} and {{ olympos }} take the anti-Muslim stance up
+another level, and that {{ flashback }} is a right-wing screed against a
+barely disguised Obama. In someways it is easier to support an artist who is a
+horrible person---like {{ asimov_lastname }} or {{ clarke_lastname }}---after
+they're dead. I won't read {{ rowling }} because supporting her gives her more
+money and power to attack my trans friends, and likewise with {{
+the_authors_lastname }}.
