@@ -22,28 +22,28 @@ Generate `{% capture %}` blocks for book reviews from rough notes.
 
 For **each book referenced**, generate the full bundle:
 
-1. Book link
-2. Series link (if part of a series)
-3. Author link
-4. Author possessive
-5. Author lastname
-6. Author lastname possessive
+1. Author link
+2. Author possessive
+3. Author lastname
+4. Author lastname possessive
+5. Series link (if part of a series)
+6. Book link
 
 Group by book:
 
 ```liquid
-{% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
-{% capture culture %}{% series_link "Culture" %}{% endcapture %}
 {% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
 {% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
+{% capture culture %}{% series_link "Culture" %}{% endcapture %}
+{% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
 
-{% capture a_colder_war %}{% short_story_link "A Colder War" %}{% endcapture %}
 {% capture stross %}{% author_link "Charles Stross" %}{% endcapture %}
 {% capture strosss %}{% author_link "Charles Stross" possessive %}{% endcapture %}
 {% capture stross_lastname %}{% author_link "Charles Stross" link_text="Stross" %}{% endcapture %}
 {% capture strosss_lastname %}{% author_link "Charles Stross" link_text="Stross" possessive %}{% endcapture %}
+{% capture a_colder_war %}{% short_story_link "A Colder War" %}{% endcapture %}
 
 {% capture terminator %}<cite class="movie-title">Terminator</cite>{% endcapture %}
 {% capture fallout %}<cite class="video-game-title">Fallout</cite>{% endcapture %}
@@ -52,15 +52,13 @@ Group by book:
 If multiple books share the same author, only include the author bundle once (with the first book):
 
 ```liquid
-{% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
-{% capture culture %}{% series_link "Culture" %}{% endcapture %}
 {% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
 {% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
-
+{% capture culture %}{% series_link "Culture" %}{% endcapture %}
+{% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
 {% capture use_of_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
-
 {% capture look_to_windward %}{% book_link "Look to Windward" %}{% endcapture %}
 ```
 
@@ -102,12 +100,10 @@ For books with multiple authors, generate captures for each author separately, p
 {% capture el_mohtars %}{% author_link "Amal El-Mohtar" possessive %}{% endcapture %}
 {% capture el_mohtar_lastname %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar" %}{% endcapture %}
 {% capture el_mohtars_lastname %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar" possessive %}{% endcapture %}
-
 {% capture gladstone %}{% author_link "Max Gladstone" %}{% endcapture %}
 {% capture gladstones %}{% author_link "Max Gladstone" possessive %}{% endcapture %}
 {% capture gladstone_lastname %}{% author_link "Max Gladstone" link_text="Gladstone" %}{% endcapture %}
 {% capture gladstones_lastname %}{% author_link "Max Gladstone" link_text="Gladstone" possessive %}{% endcapture %}
-
 {% capture el_mohtar_and_gladstone %}{% author_link "Amal El-Mohtar" %} and {% author_link "Max Gladstone" %}{% endcapture %}
 {% capture el_mohtar_and_gladstones %}{% author_link "Amal El-Mohtar" %} and {% author_link "Max Gladstone" possessive %}{% endcapture %}
 ```
@@ -172,16 +168,7 @@ Check existing files for correct spellings:
 
 ## Standard Captures (always included)
 
-Every review starts with these captures for the book being reviewed (from `_books/_template/book_template.md`):
-
-```liquid
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
-```
+Every review starts with captures for the book being reviewed, the author, and series (from `_books/_template/book_template.md`):
 
 Don't duplicate these. Only generate captures for *other* books/authors mentioned in the notes.
 
@@ -197,7 +184,6 @@ Don't duplicate these. Only generate captures for *other* books/authors mentione
 
 **Output:**
 ```liquid
-{% capture time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
 {% capture el_mohtar %}{% author_link "Amal El-Mohtar" %}{% endcapture %}
 {% capture el_mohtars %}{% author_link "Amal El-Mohtar" possessive %}{% endcapture %}
 {% capture el_mohtar_lastname %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar" %}{% endcapture %}
@@ -206,23 +192,24 @@ Don't duplicate these. Only generate captures for *other* books/authors mentione
 {% capture gladstones %}{% author_link "Max Gladstone" possessive %}{% endcapture %}
 {% capture gladstone_lastname %}{% author_link "Max Gladstone" link_text="Gladstone" %}{% endcapture %}
 {% capture gladstones_lastname %}{% author_link "Max Gladstone" link_text="Gladstone" possessive %}{% endcapture %}
+{% capture time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
 
-{% capture i_robot %}{% book_link "I, Robot" %}{% endcapture %}
 {% capture asimov %}{% author_link "Isaac Asimov" %}{% endcapture %}
 {% capture asimovs %}{% author_link "Isaac Asimov" possessive %}{% endcapture %}
 {% capture asimov_lastname %}{% author_link "Isaac Asimov" link_text="Asimov" %}{% endcapture %}
 {% capture asimovs_lastname %}{% author_link "Isaac Asimov" link_text="Asimov" possessive %}{% endcapture %}
+{% capture i_robot %}{% book_link "I, Robot" %}{% endcapture %}
 
-{% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
-{% capture culture %}{% series_link "Culture" %}{% endcapture %}
 {% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
 {% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
+{% capture culture %}{% series_link "Culture" %}{% endcapture %}
+{% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
 
-{% capture a_colder_war %}{% short_story_link "A Colder War" %}{% endcapture %}
 {% capture stross %}{% author_link "Charles Stross" %}{% endcapture %}
 {% capture strosss %}{% author_link "Charles Stross" possessive %}{% endcapture %}
 {% capture stross_lastname %}{% author_link "Charles Stross" link_text="Stross" %}{% endcapture %}
 {% capture strosss_lastname %}{% author_link "Charles Stross" link_text="Stross" possessive %}{% endcapture %}
+{% capture a_colder_war %}{% short_story_link "A Colder War" %}{% endcapture %}
 ```
