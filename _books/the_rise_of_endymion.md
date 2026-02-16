@@ -14,7 +14,7 @@ awards:
 class="author-name">Dan Simmons</span>, is the fourth and final book in the
 <span class="book-series">Hyperion Cantos</span>. It concludes the journey of
 Aenea and Raul as they race to unlock the secret of the Void Which Binds
-before the Pax can silence them. Along the way, the series' long-standing
+before the Pax can silence them. Along the way, the series's long-standing
 mysteries about the Shrike and the TechnoCore are resolved, and the book
 argues that the Church's gift of immortality is a trap, and that for humanity
 to truly live, it must be willing to die.
@@ -77,7 +77,7 @@ works. Instead, it mirrors {{ keats_lastname_possessive }} life. Aenea is a {{
 keats_lastname }} stand-in who, like the poet, knows her time is short and
 rushes to complete her life's work of helping people understand the world and
 become empathetic. Her philosophy and interaction with the Void Which Binds
-embodies his concept of the _Chameleon Poet_, allowing everyone to feel what
+embody his concept of the _Chameleon Poet_, allowing everyone to feel what
 others feel.
 
 Aenea is _also_ a Christ-like figure, a point {{ the_authors_lastname }}
@@ -134,10 +134,10 @@ technology-centric Core is like the conflict in {{ el_mohtar_and_gladstones }}
 know he's now known for his far-right views, and so I've looked for the seeds
 of them in his work.
 
-At first glance they are hard to find. The books feature a multicultural cast,
-there are gay characters in the background, the thesis of {{ this_book }} is
-that diversity is our strength. Fedmahn Kassad, a Palestinian Muslim, is a
-hero in the series.
+At first glance, they are hard to find. The books feature a multicultural
+cast, there are gay characters in the background, and the thesis of {{
+this_book }} is that diversity is our strength. Fedmahn Kassad, a Palestinian
+Muslim, is a hero in the series.
 
 But on closer inspection, the seeds are there. There's an uncomfortable
 obsession with the sexuality of young girls. There's his throwaway comment
