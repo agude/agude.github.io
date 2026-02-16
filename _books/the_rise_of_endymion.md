@@ -10,9 +10,14 @@ awards:
   - locus
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the fourth and final
-book in the <span class="book-series">{{ page.series }}</span>. 
+<cite class="book-title">The Rise of Endymion</cite>, by <span
+class="author-name">Dan Simmons</span>, is the fourth and final book in the
+<span class="book-series">Hyperion Cantos</span>. It concludes the journey of
+Aenea and Raul as they race to unlock the secret of the Void Which Binds
+before the Pax can silence them. It resolves the series' long-standing
+mysteries regarding the Shrike and the TechnoCore, ultimately arguing that the
+Church's gift of immortality is a trap, and that for humanity to truly live,
+it must be willing to die.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
