@@ -11,8 +11,8 @@ awards:
 ---
 
 <cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the forth and final book in the
-<span class="book-series">{{ page.series }}</span>. 
+class="author-name">{{ page.book_authors }}</span>, is the fourth and final
+book in the <span class="book-series">{{ page.series }}</span>. 
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
@@ -133,10 +133,10 @@ class="author-name">{{ page.book_authors }}</span>, is the forth and final book 
 ### Themes
 
 {{ this_book }} breaks from the past three books in the {{ this_series }} in
-that it is not named and themes after one of {{ keats_lastname_possessive }}
+that it is not named and themed after one of {{ keats_lastname_possessive }}
 works. Instead, it mirrors {{ keats_lastname_possessive }} life. Aenea is a {{
-keats_lastname }} stand-in, who like the poet knows her time is short rush to
-complete her life's work of helping people understand the world and become
+keats_lastname }} stand-in, who like the poet knows her time is short rushing
+to complete her life's work of helping people understand the world and become
 empathetic. Her philosophy and interaction with the Void Which Binds embodies
 his concept of the _Chameleon Poet_,  allowing everyone to feel that which
 others are.
@@ -152,13 +152,12 @@ that the human race must splinter into many new races to survive.
 
 ### Story
 
-I liked this book about the same as {{ endymion }}, but I think it's pacing
-was much worse. The first third of the book jumps back and forth between
-from cliffhanger to cliffhanger, but the middle third on T'ien Shan drags as
-it spend 300 pages in one place, following Aenea as she preaches to her
-disciples. The book is saved by a climax that wraps up the series and explains
-further mysteries from the first few books, just as {{ fall_hyperion }} does
-for {{ hyperion }}.
+I liked this book about the same as {{ endymion }}, but I think its pacing was
+much worse. The first third of the book jumps back and forth from cliffhanger
+to cliffhanger, but the middle third on T'ien Shan drags as it spend 300 pages
+in one place, following Aenea as she preaches to her disciples. The book is
+saved by a climax that wraps up the series and explains further mysteries from
+the first few books, just as {{ fall_hyperion }} does for {{ hyperion }}.
 
 I still didn't like Raul or Aenea, although their relationship was a little
 better this time around. But the supporting characters---A. Bettik, Federico
@@ -172,7 +171,7 @@ As in his previous works, {{ the_authors_lastname }} referenced numerous works
 of science fiction and popular culture, and he continues that in {{ this_book
 }}. He directly compares Aenea and Raul to Scout and Boo Radley from {{
 lees_lastname }} {{ to_kill_a_mockingbird }}. One of the crops of Mars is
-"Brad berries" in honor {{ bradbury_lastname }} and his {{ martian_chronicles
+"Bradberries" in honor {{ bradbury_lastname }} and his {{ martian_chronicles
 }}. The triune marriages of the Amoiete Spectrum Helix are like the
 non-traditional marriages from {{ heinleins_lastname }} {{
 the_moon_is_a_harsh_mistress }}; their windwagons remind me of the
@@ -184,29 +183,38 @@ step in the evolution of humanity is similar to {{ clarkes_lastname }} {{
 childhoods_end }}. The need to splinter humanity and scatter them across the
 universe to prevent stagnation is like the Golden Path from {{
 herberts_lastname }} {{ dune }} and {{ dune_messiah }}, and {{ dune_children
-}}. The Void, as a alternate dimension that allows instant travel and reflects
-the minds of the people in the universe, is similar to Unspace in {{
-tchaikovskys_lastname }} {{ final_architecture }}. The biological Ousters
-fighting the technology centric technocore is like conflict in {{
-el_mohtar_and_gladstones }} {{ this_is_how_you_lose_the_time_war }}.
+}}, with Aenea playing the role of Leto II. The Void, as a alternate dimension
+that allows instant travel and reflects the minds of the people in the
+universe, is similar to Unspace in {{ tchaikovskys_lastname }} {{
+final_architecture }}. The biological Ousters fighting the technology-centric
+Core is like conflict in {{ el_mohtar_and_gladstones }} {{
+this_is_how_you_lose_the_time_war }}.
 
 ### The Author
 
 {{ the_author }} has been a mystery to me while I read {{ this_series }}. I
-know that he is now a far-right fascist, and so I've looked for the seeds of
-it in his work, but they're hard to find. They feature multicultural casts,
-there are gay characters in the background, the thesis of {{ this_book }} is
-that diversity is our strength. Kassad, a Muslim, is one of the heroes.
+know that he is now known for his far-right views, and so I've looked for the
+seeds of it in his work.
 
-But although the seeds are hard to find, they are there: his an obsession with
-the sexuality of young girls, the way he writes about the violence and
-barbarianism of Muslims, and his disparagingly refers to welfare queens.
+At first glance they are hard to find. The books feature a multicultural cast,
+there are gay characters in the background, the thesis of {{ this_book }} is
+that diversity is our strength. Fedmahn Kassad, a Palestinian Muslim, is a
+hero in the series.
+
+But on closer inspection, the seeds are there. There is an uncomfortable
+obsession with the sexuality of young girls. There is his throw away comment
+about "Welfare Queens" in this book. And even with Kassad, there is a hint
+that he has distinguished himself as a "good Muslim" by accepting the
+civilizing influence of the Hegemony and replacing his religion with the
+secular New Bushido code, in stark contrast to the Sunni and Shi'ite Muslims
+of Qom-Riyadh who go back to slaughtering each other as soon as the empire is
+distracted.
 
 I don't think I will read any more of {{ the_authors_lastname_possessive }}
-work. I hear {{ ilium }} and {{ olympos }} take the anti-Muslim stance up
+work. I hear {{ ilium }} and {{ olympos }} take the anti-Muslim stance to
 another level, and that {{ flashback }} is a right-wing screed against a
-barely disguised Obama. In someways it is easier to support an artist who is a
-horrible person---like {{ asimov_lastname }} or {{ clarke_lastname }}---after
-they're dead. I won't read {{ rowling }} because supporting her gives her more
-money and power to attack my trans friends, and likewise with {{
-the_authors_lastname }}.
+barely disguised Obama. In some ways it is easier to support an artist who is
+a horrible person---like {{ asimov_lastname }} or {{ clarke_lastname
+}}---after they're dead. I won't read {{ rowling }} because supporting her
+gives her more money and power to attack my trans friends, and I feel the same
+with {{ the_authors_lastname }}.
