@@ -60,10 +60,10 @@ class="author-name">{{ page.book_authors }}</span>, is the forth and final book 
 {% capture lees_lastname %}{% author_link "Harper Lee" link_text="Lee" possessive %}{% endcapture %}
 
 {% capture city_on_fire %}{% book_link "City on Fire" %}{% endcapture %}
-{% capture williams %}{% author_link "Walter John Williams" %}{% endcapture %}
-{% capture williamss %}{% author_link "Walter John Williams" possessive %}{% endcapture %}
-{% capture williams_lastname %}{% author_link "Walter John Williams" link_text="Williams" %}{% endcapture %}
-{% capture williamss_lastname %}{% author_link "Walter John Williams" link_text="Williams" possessive %}{% endcapture %}
+{% capture williams %}{% author_link "Walter Jon Williams" %}{% endcapture %}
+{% capture williamss %}{% author_link "Walter Jon Williams" possessive %}{% endcapture %}
+{% capture williams_lastname %}{% author_link "Walter Jon Williams" link_text="Williams" %}{% endcapture %}
+{% capture williamss_lastname %}{% author_link "Walter Jon Williams" link_text="Williams" possessive %}{% endcapture %}
 
 {% capture judas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}
 {% capture hamilton %}{% author_link "Peter F. Hamilton" %}{% endcapture %}
@@ -81,6 +81,7 @@ class="author-name">{{ page.book_authors }}</span>, is the forth and final book 
 {% capture bradburys %}{% author_link "Ray Bradbury" possessive %}{% endcapture %}
 {% capture bradbury_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" %}{% endcapture %}
 {% capture bradburys_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" possessive %}{% endcapture %}
+{% capture martian_chronicles %}{% book_link "The Martian Chronicles" %}{% endcapture %}
 
 {% capture childhoods_end %}{% book_link "Childhood's End" %}{% endcapture %}
 {% capture clarke %}{% author_link "Arthur C. Clarke" %}{% endcapture %}
@@ -88,11 +89,13 @@ class="author-name">{{ page.book_authors }}</span>, is the forth and final book 
 {% capture clarke_lastname %}{% author_link "Arthur C. Clarke" link_text="Clarke" %}{% endcapture %}
 {% capture clarkes_lastname %}{% author_link "Arthur C. Clarke" link_text="Clarke" possessive %}{% endcapture %}
 
-{% capture dune %}{% book_link "Dune" %}{% endcapture %}
 {% capture herbert %}{% author_link "Frank Herbert" %}{% endcapture %}
 {% capture herberts %}{% author_link "Frank Herbert" possessive %}{% endcapture %}
 {% capture herbert_lastname %}{% author_link "Frank Herbert" link_text="Herbert" %}{% endcapture %}
 {% capture herberts_lastname %}{% author_link "Frank Herbert" link_text="Herbert" possessive %}{% endcapture %}
+{% capture dune %}{% book_link "Dune" %}{% endcapture %}
+{% capture dune_messiah %}{% book_link "Dune Messiah" %}{% endcapture %}
+{% capture dune_children %}{% book_link "Children of Dune" %}{% endcapture %}
 
 {% capture wolfe %}{% author_link "Gene Wolfe" %}{% endcapture %}
 {% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
@@ -115,7 +118,7 @@ class="author-name">{{ page.book_authors }}</span>, is the forth and final book 
 {% capture gladstone_lastname %}{% author_link "Max Gladstone" link_text="Gladstone" %}{% endcapture %}
 {% capture gladstones_lastname %}{% author_link "Max Gladstone" link_text="Gladstone" possessive %}{% endcapture %}
 {% capture el_mohtar_and_gladstone %}{% author_link "Amal El-Mohtar" %} and {% author_link "Max Gladstone" %}{% endcapture %}
-{% capture el_mohtar_and_gladstones %}{% author_link "Amal El-Mohtar" %} and {% author_link "Max Gladstone" possessive %}{% endcapture %}
+{% capture el_mohtar_and_gladstones %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar" %} and {% author_link "Max Gladstone" link_text="Gladstone" possessive %}{% endcapture %}
 
 {% capture waiting_for_godot %}{% book_link "Waiting for Godot" %}{% endcapture %}
 {% capture beckett %}{% author_link "Samuel Beckett" %}{% endcapture %}
@@ -131,8 +134,8 @@ works. Instead, it mirrors {{ keats_lastname_possessive }} life. Aenea is a {{
 keats_lastname }} stand-in, who like the poet knows her time is short rush to
 complete her life's work of helping people understand the world and become
 empathetic. Her philosophy and interaction with the Void Which Binds embodies
-his concept of the _Chameleon Poet_ {{ keats_lastname }}, allowing everyone to
-feel which others are.
+his concept of the _Chameleon Poet_,  allowing everyone to feel that which
+others are.
 
 Aenea is _also_ a Christ-like figure, a point {{ the_authors_lastname }}
 drives home when he has her explain that Christ was the first human able to
@@ -156,6 +159,29 @@ better this time around. But the supporting characters---A. Bettik, Federico
 de Soya, Kassad---are great, although Bettik gets written out of this book a
 bit only to show up at the end of the observer for the other powers of the
 Void.
+
+As in his previous works, {{ the_authors_lastname }} referenced numerous works
+of science fiction and popular culture, and he continues that in {{ this_book
+}}. He directly compares Aenea and Raul to Scout and Boo Radley from {{
+lees_lastname }} {{ to_kill_a_mockingbird }}. One of the crops of Mars is
+"Brad berries" in honor {{ bradbury_lastname }} and his {{ martian_chronicles }}.
+
+The triune marriages of the Amoiete Spectrum Helix are like the
+non-traditional marriages from {{ heinleins_lastname }} {{
+the_moon_is_a_harsh_mistress }}; their windwagons remind me of the
+wind-powered cable cars in {{ bankss_lastname }} {{ look_to_windward }}. The
+linear city is like the girdle city in {{ the_hydrogen_sonata }}. When Raul
+kayaked through the canals of Lusus surrounded by massive hive buildings, it
+reminded me of {{ williamss_lastname }} {{ city_on_fire }}. Exploring the next
+step in the evolution of humanity is similar to {{ clarkes_lastname }} {{
+childhoods_end }}. The need to splinter humanity and scatter them across the
+universe to prevent stagnation is like the Golden Path from {{
+herberts_lastname }} {{ dune }} and {{ dune_messiah }}, and {{ dune_children
+}}. The Void, as a alternate dimension that allows instant travel and reflects
+the minds of the people in the universe, is similar to Unspace in {{
+tchaikovskys_lastname }} {{ final_architecture }}. The biological Ousters
+fighting the technology centric technocore is like conflict in {{
+el_mohtar_and_gladstones }} {{ this_is_how_you_lose_the_time_war }}.
 
 ### The Author
 
