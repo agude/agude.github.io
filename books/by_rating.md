@@ -76,6 +76,7 @@ ranked_list:
   - For We Are Many
   - Ymir
   - Endymion
+  - The Rise of Endymion
   - City on Fire
   - All These Worlds
   # 3 Stars
