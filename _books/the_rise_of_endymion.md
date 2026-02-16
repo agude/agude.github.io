@@ -16,14 +16,8 @@ book in the <span class="book-series">{{ page.series }}</span>.
 
 {% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 {% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
@@ -36,99 +30,39 @@ book in the <span class="book-series">{{ page.series }}</span>.
 {% capture rowling %}{% author_link "J. K. Rowling" %}{% endcapture %}
 {% capture asimov_lastname %}{% author_link "Isaac Asimov" link_text="Asimov" %}{% endcapture %}
 
-{% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
 {% capture keats_lastname %}{% author_link "John Keats" link_text="Keats" %}{% endcapture %}
 {% capture keats_lastname_possessive %}{% author_link "John Keats" link_text="Keats" possessive %}{% endcapture %}
-{% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" %}{% endcapture %}
 
+{% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
 {% capture look_to_windward %}{% book_link "Look to Windward" %}{% endcapture %}
 {% capture the_hydrogen_sonata %}{% book_link "The Hydrogen Sonata" %}{% endcapture %}
-{% capture culture %}{% series_link "Culture" %}{% endcapture %}
-{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
-{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
-{% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
-{% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
 
-{% capture a_memory_called_empire %}{% book_link "A Memory Called Empire" %}{% endcapture %}
-{% capture martine %}{% author_link "Arkady Martine" %}{% endcapture %}
-{% capture martines %}{% author_link "Arkady Martine" possessive %}{% endcapture %}
-{% capture martine_lastname %}{% author_link "Arkady Martine" link_text="Martine" %}{% endcapture %}
-{% capture martines_lastname %}{% author_link "Arkady Martine" link_text="Martine" possessive %}{% endcapture %}
-
-{% capture to_kill_a_mockingbird %}{% book_link "To Kill a Mockingbird" %}{% endcapture %}
-{% capture lee %}{% author_link "Harper Lee" %}{% endcapture %}
-{% capture lees %}{% author_link "Harper Lee" possessive %}{% endcapture %}
-{% capture lee_lastname %}{% author_link "Harper Lee" link_text="Lee" %}{% endcapture %}
 {% capture lees_lastname %}{% author_link "Harper Lee" link_text="Lee" possessive %}{% endcapture %}
+{% capture to_kill_a_mockingbird %}{% book_link "To Kill a Mockingbird" %}{% endcapture %}
 
-{% capture city_on_fire %}{% book_link "City on Fire" %}{% endcapture %}
-{% capture williams %}{% author_link "Walter Jon Williams" %}{% endcapture %}
-{% capture williamss %}{% author_link "Walter Jon Williams" possessive %}{% endcapture %}
-{% capture williams_lastname %}{% author_link "Walter Jon Williams" link_text="Williams" %}{% endcapture %}
 {% capture williamss_lastname %}{% author_link "Walter Jon Williams" link_text="Williams" possessive %}{% endcapture %}
+{% capture city_on_fire %}{% book_link "City on Fire" %}{% endcapture %}
 
-{% capture judas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}
-{% capture hamilton %}{% author_link "Peter F. Hamilton" %}{% endcapture %}
-{% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}
-{% capture hamilton_lastname %}{% author_link "Peter F. Hamilton" link_text="Hamilton" %}{% endcapture %}
-{% capture hamiltons_lastname %}{% author_link "Peter F. Hamilton" link_text="Hamilton" possessive %}{% endcapture %}
-
-{% capture the_moon_is_a_harsh_mistress %}{% book_link "The Moon Is a Harsh Mistress" %}{% endcapture %}
-{% capture heinlein %}{% author_link "Robert A. Heinlein" %}{% endcapture %}
-{% capture heinleins %}{% author_link "Robert A. Heinlein" possessive %}{% endcapture %}
-{% capture heinlein_lastname %}{% author_link "Robert A. Heinlein" link_text="Heinlein" %}{% endcapture %}
 {% capture heinleins_lastname %}{% author_link "Robert A. Heinlein" link_text="Heinlein" possessive %}{% endcapture %}
+{% capture the_moon_is_a_harsh_mistress %}{% book_link "The Moon Is a Harsh Mistress" %}{% endcapture %}
 
-{% capture bradbury %}{% author_link "Ray Bradbury" %}{% endcapture %}
-{% capture bradburys %}{% author_link "Ray Bradbury" possessive %}{% endcapture %}
 {% capture bradbury_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" %}{% endcapture %}
-{% capture bradburys_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" possessive %}{% endcapture %}
 {% capture martian_chronicles %}{% book_link "The Martian Chronicles" %}{% endcapture %}
 
-{% capture childhoods_end %}{% book_link "Childhood's End" %}{% endcapture %}
-{% capture clarke %}{% author_link "Arthur C. Clarke" %}{% endcapture %}
-{% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}
 {% capture clarke_lastname %}{% author_link "Arthur C. Clarke" link_text="Clarke" %}{% endcapture %}
 {% capture clarkes_lastname %}{% author_link "Arthur C. Clarke" link_text="Clarke" possessive %}{% endcapture %}
+{% capture childhoods_end %}{% book_link "Childhood's End" %}{% endcapture %}
 
-{% capture herbert %}{% author_link "Frank Herbert" %}{% endcapture %}
-{% capture herberts %}{% author_link "Frank Herbert" possessive %}{% endcapture %}
-{% capture herbert_lastname %}{% author_link "Frank Herbert" link_text="Herbert" %}{% endcapture %}
 {% capture herberts_lastname %}{% author_link "Frank Herbert" link_text="Herbert" possessive %}{% endcapture %}
 {% capture dune %}{% book_link "Dune" %}{% endcapture %}
 {% capture dune_messiah %}{% book_link "Dune Messiah" %}{% endcapture %}
 {% capture dune_children %}{% book_link "Children of Dune" %}{% endcapture %}
 
-{% capture wolfe %}{% author_link "Gene Wolfe" %}{% endcapture %}
-{% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
-{% capture wolfe_lastname %}{% author_link "Gene Wolfe" link_text="Wolfe" %}{% endcapture %}
-{% capture wolfes_lastname %}{% author_link "Gene Wolfe" link_text="Wolfe" possessive %}{% endcapture %}
-
-{% capture final_architecture %}{% series_link "The Final Architecture" %}{% endcapture %}
-{% capture tchaikovsky %}{% author_link "Adrian Tchaikovsky" %}{% endcapture %}
-{% capture tchaikovskys %}{% author_link "Adrian Tchaikovsky" possessive %}{% endcapture %}
-{% capture tchaikovsky_lastname %}{% author_link "Adrian Tchaikovsky" link_text="Tchaikovsky" %}{% endcapture %}
 {% capture tchaikovskys_lastname %}{% author_link "Adrian Tchaikovsky" link_text="Tchaikovsky" possessive %}{% endcapture %}
+{% capture final_architecture %}{% series_link "The Final Architecture" %}{% endcapture %}
 
-{% capture this_is_how_you_lose_the_time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
-{% capture el_mohtar %}{% author_link "Amal El-Mohtar" %}{% endcapture %}
-{% capture el_mohtars %}{% author_link "Amal El-Mohtar" possessive %}{% endcapture %}
-{% capture el_mohtar_lastname %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar" %}{% endcapture %}
-{% capture el_mohtars_lastname %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar" possessive %}{% endcapture %}
-{% capture gladstone %}{% author_link "Max Gladstone" %}{% endcapture %}
-{% capture gladstones %}{% author_link "Max Gladstone" possessive %}{% endcapture %}
-{% capture gladstone_lastname %}{% author_link "Max Gladstone" link_text="Gladstone" %}{% endcapture %}
-{% capture gladstones_lastname %}{% author_link "Max Gladstone" link_text="Gladstone" possessive %}{% endcapture %}
-{% capture el_mohtar_and_gladstone %}{% author_link "Amal El-Mohtar" %} and {% author_link "Max Gladstone" %}{% endcapture %}
 {% capture el_mohtar_and_gladstones %}{% author_link "Amal El-Mohtar" link_text="El-Mohtar" %} and {% author_link "Max Gladstone" link_text="Gladstone" possessive %}{% endcapture %}
-
-{% capture waiting_for_godot %}{% book_link "Waiting for Godot" %}{% endcapture %}
-{% capture beckett %}{% author_link "Samuel Beckett" %}{% endcapture %}
-{% capture becketts %}{% author_link "Samuel Beckett" possessive %}{% endcapture %}
-{% capture beckett_lastname %}{% author_link "Samuel Beckett" link_text="Beckett" %}{% endcapture %}
-{% capture becketts_lastname %}{% author_link "Samuel Beckett" link_text="Beckett" possessive %}{% endcapture %}
-
-{% capture et %}<cite class="movie-title">E.T. the Extra-Terrestrial</cite>{% endcapture %}
+{% capture this_is_how_you_lose_the_time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
 
 ### Themes
 
