@@ -456,11 +456,29 @@ class TestMarkdownOutputAssembler < Minitest::Test
 
   # --- Book footer: backlinks ---
 
-  def test_backlinks_section_renders_markdown_list
+  def test_backlinks_section_renders_italic_titles
     site, current = setup_book_with_backlinks
     result = Assembler.build_backlinks_section(site, current)
     assert_includes result, '## Mentioned In'
-    assert_includes result, '[Mentioning Post](/blog/mention/)'
+    assert_includes result, '- [_Mentioning Book_](/books/mention/)'
+  end
+
+  def test_backlinks_section_series_type_has_dagger
+    site, current = setup_book_with_backlinks_series
+    result = Assembler.build_backlinks_section(site, current)
+    assert_includes result, "- [_Series Mention_](/books/series-mention/)\u2020"
+  end
+
+  def test_backlinks_section_series_footnote
+    site, current = setup_book_with_backlinks_series
+    result = Assembler.build_backlinks_section(site, current)
+    assert_includes result, "\u2020 _Mentioned via a link to the series._"
+  end
+
+  def test_backlinks_section_no_footnote_without_series
+    site, current = setup_book_with_backlinks
+    result = Assembler.build_backlinks_section(site, current)
+    refute_includes result, "\u2020 _Mentioned"
   end
 
   def test_backlinks_section_nil_when_no_backlinks
@@ -748,8 +766,8 @@ class TestMarkdownOutputAssembler < Minitest::Test
       coll,
     )
     mentioning = create_doc(
-      { 'layout' => 'post', 'title' => 'Mentioning Post' },
-      '/blog/mention/',
+      { 'layout' => 'book', 'title' => 'Mentioning Book', 'book_authors' => ['Auth'] },
+      '/books/mention/',
     )
     coll.docs = [current]
     # Wire up the link_cache with backlinks
@@ -757,7 +775,35 @@ class TestMarkdownOutputAssembler < Minitest::Test
     site.data['link_cache']['url_to_canonical_map'] = { '/books/target.html' => '/books/target.html' }
     site.data['link_cache']['book_families'] = { '/books/target.html' => ['/books/target.html'] }
     site.data['link_cache']['backlinks'] = {
-      '/books/target.html' => [{ source: mentioning, type: 'direct' }],
+      '/books/target.html' => [{ source: mentioning, type: 'book' }],
+    }
+    [site, current]
+  end
+
+  def setup_book_with_backlinks_series
+    coll = MockCollection.new([], 'books')
+    current = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Target Book',
+        'book_authors' => ['Auth'],
+        'rating' => 5,
+      },
+      '/books/target.html',
+      'Content',
+      nil,
+      coll,
+    )
+    series_mention = create_doc(
+      { 'layout' => 'book', 'title' => 'Series Mention', 'book_authors' => ['Auth'] },
+      '/books/series-mention/',
+    )
+    coll.docs = [current]
+    site = create_site({}, { 'books' => coll.docs })
+    site.data['link_cache']['url_to_canonical_map'] = { '/books/target.html' => '/books/target.html' }
+    site.data['link_cache']['book_families'] = { '/books/target.html' => ['/books/target.html'] }
+    site.data['link_cache']['backlinks'] = {
+      '/books/target.html' => [{ source: series_mention, type: 'series' }],
     }
     [site, current]
   end

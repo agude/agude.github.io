@@ -131,8 +131,17 @@ module Jekyll
         backlinks = result[:backlinks]
         return nil if backlinks.empty?
 
+        has_series = false
         lines = ['## Mentioned In']
-        backlinks.each { |title, url, _type| lines << "- [#{title}](#{url})" }
+        backlinks.each do |title, url, type|
+          entry = "- [_#{title}_](#{url})"
+          if type == 'series'
+            entry += "\u2020"
+            has_series = true
+          end
+          lines << entry
+        end
+        lines << '' << "\u2020 _Mentioned via a link to the series._" if has_series
         lines.join("\n")
       end
 
