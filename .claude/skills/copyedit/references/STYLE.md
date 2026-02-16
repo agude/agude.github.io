@@ -36,7 +36,8 @@ The test: Would you say it out loud to a friend? If not, simplify.
 
 - **Oxford comma**: Always use it
 - **Em-dashes**: Use sparingly. Do not add unless it significantly improves the prose.
-- **Contractions**: Use naturally (don't, isn't, I've)
+- **Contractions**: Use naturally (don't, isn't, I've), but don't insert too
+  many.
 - **Exclamation marks**: Rarely. Only for genuine enthusiasm.
 - **Ellipses**: Avoid
 
