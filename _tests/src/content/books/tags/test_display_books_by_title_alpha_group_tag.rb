@@ -124,9 +124,9 @@ class TestDisplayBooksByTitleAlphaGroupTag < Minitest::Test
       output = Liquid::Template.parse('{% display_books_by_title_alpha_group %}').render!(md_context)
     end
     assert_includes output, '### D'
-    assert_includes output, '[Dune](/books/dune.html)'
+    assert_includes output, '[_Dune_](/books/dune.html)'
     assert_includes output, '### H'
-    assert_includes output, '[Hyperion](/books/hyperion.html)'
+    assert_includes output, '[_Hyperion_](/books/hyperion.html)'
     refute_includes output, '<div'
   end
 end

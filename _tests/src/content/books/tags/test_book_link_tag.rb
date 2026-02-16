@@ -240,7 +240,7 @@ class TestBookLinkTag < Minitest::Test
     Jekyll.stub :logger, @silent_logger_stub do
       template = Liquid::Template.parse("{% book_link 'Hyperion' author='Dan Simmons' %}")
       output = template.render!(md_context)
-      assert_equal '[Hyperion](/books/hyperion-simmons.html)', output
+      assert_equal '[_Hyperion_](/books/hyperion-simmons.html)', output
     end
   end
 
@@ -252,7 +252,7 @@ class TestBookLinkTag < Minitest::Test
     Jekyll.stub :logger, @silent_logger_stub do
       template = Liquid::Template.parse("{% book_link 'Nonexistent Book' %}")
       output = template.render!(md_context)
-      assert_equal 'Nonexistent Book', output
+      assert_equal '_Nonexistent Book_', output
     end
   end
 end

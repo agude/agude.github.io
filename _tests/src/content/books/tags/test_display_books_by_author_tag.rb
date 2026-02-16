@@ -192,9 +192,9 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
       output = Liquid::Template.parse("{% display_books_by_author '#{@author_a}' %}").render!(md_context)
     end
     # Should contain markdown links, not HTML
-    assert_includes output, '[Author A Series One Book 1](/a_s1b1.html)'
-    assert_includes output, '[Author A Series One Book 2](/a_s1b2.html)'
-    assert_includes output, '[The Author A Standalone](/a_sa.html)'
+    assert_includes output, '[_Author A Series One Book 1_](/a_s1b1.html)'
+    assert_includes output, '[_Author A Series One Book 2_](/a_s1b2.html)'
+    assert_includes output, '[_The Author A Standalone_](/a_sa.html)'
     refute_includes output, '<cite'
     refute_includes output, '<div'
   end

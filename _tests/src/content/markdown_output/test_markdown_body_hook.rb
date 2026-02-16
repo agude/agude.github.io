@@ -190,7 +190,7 @@ class TestMarkdownBodyHook < Minitest::Test
 
     with_silent_logger do
       result = Hook.render_markdown_body(content, 'test.md', site, payload)
-      assert_equal '[Hyperion](/books/hyperion.html)', result
+      assert_equal '[_Hyperion_](/books/hyperion.html)', result
     end
   end
 
@@ -225,7 +225,7 @@ class TestMarkdownBodyHook < Minitest::Test
     with_silent_logger do
       # Step 1: markdown render (simulates :pre_render hook)
       md_result = Hook.render_markdown_body(content, path, site, payload)
-      assert_match(/\[Hyperion\]/, md_result)
+      assert_match(/\[_Hyperion_\]/, md_result)
 
       # Step 2: HTML render via the shared LiquidRenderer (simulates Jekyll)
       html_file = renderer.file(path).parse(content)
@@ -270,8 +270,8 @@ class TestMarkdownBodyHook < Minitest::Test
     with_silent_logger do
       result = Hook.render_markdown_body(content, 'test.md', site, payload)
       assert_includes result, "short reviews of Dan Simmons's books:"
-      assert_includes result, '[Hyperion](/books/hyperion.html)'
-      assert_includes result, '[Fall of Hyperion](/books/fall-of-hyperion.html)'
+      assert_includes result, '[_Hyperion_](/books/hyperion.html)'
+      assert_includes result, '[_Fall of Hyperion_](/books/fall-of-hyperion.html)'
       refute_includes result, '<div'
     end
   end

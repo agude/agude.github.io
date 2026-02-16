@@ -36,4 +36,26 @@ class TestMarkdownLinkFormatter < Minitest::Test
     data = { status: :ambiguous, url: nil, display_text: 'Ambiguous Title' }
     assert_equal 'Ambiguous Title', Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data)
   end
+
+  # --- italic: true ---
+
+  def test_format_link_italic_found
+    data = { status: :found, url: '/books/dune/', display_text: 'Dune' }
+    assert_equal '[_Dune_](/books/dune/)', Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data, italic: true)
+  end
+
+  def test_format_link_italic_not_found
+    data = { status: :not_found, url: nil, display_text: 'Unknown Book' }
+    assert_equal '_Unknown Book_', Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data, italic: true)
+  end
+
+  def test_format_link_italic_found_but_nil_url
+    data = { status: :found, url: nil, display_text: 'No URL' }
+    assert_equal '_No URL_', Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data, italic: true)
+  end
+
+  def test_format_link_italic_nil_display_text
+    data = { status: :not_found, url: nil, display_text: nil }
+    assert_equal '', Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data, italic: true)
+  end
 end

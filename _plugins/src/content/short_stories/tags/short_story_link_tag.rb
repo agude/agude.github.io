@@ -48,7 +48,7 @@ module Jekyll
 
           if context.registers[:render_mode] == :markdown
             data = Linker.find_short_story_link_data(story_title, context, from_book_title)
-            MdLink.format_link(data)
+            MdLink.format_link(data, italic: true)
           else
             Linker.render_short_story_link(story_title, context, from_book_title)
           end

@@ -109,7 +109,7 @@ class TestShortStoryLinkTag < Minitest::Test
     )
     template = Liquid::Template.parse("{% short_story_link 'Story of Your Life' %}")
     output = template.render!(md_context)
-    assert_includes output, '[Story of Your Life]('
+    assert_includes output, '[_Story of Your Life_]('
     assert_includes output, '/books/stories-of-your-life/'
   end
 
@@ -121,6 +121,6 @@ class TestShortStoryLinkTag < Minitest::Test
     )
     template = Liquid::Template.parse("{% short_story_link 'Unknown Story' %}")
     output = template.render!(md_context)
-    assert_equal 'Unknown Story', output
+    assert_equal '_Unknown Story_', output
   end
 end

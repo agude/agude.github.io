@@ -52,7 +52,7 @@ module Jekyll
             data = Linker.find_book_link_data(
               book_title, context, link_text_override, author_filter, nil, cite: cite_arg,
             )
-            MdLink.format_link(data)
+            MdLink.format_link(data, italic: data[:cite])
           else
             Linker.render_book_link(book_title, context, link_text_override, author_filter, nil, cite: cite_arg)
           end

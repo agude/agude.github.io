@@ -17,7 +17,7 @@ class TestMarkdownCardUtils < Minitest::Test
 
     result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
 
-    assert_equal "- [The Great Gatsby](/books/the-great-gatsby/) by F. Scott Fitzgerald --- \u2605\u2605\u2605\u2605\u2606",
+    assert_equal "- [_The Great Gatsby_](/books/the-great-gatsby/) by F. Scott Fitzgerald --- \u2605\u2605\u2605\u2605\u2606",
                  result
   end
 
@@ -31,7 +31,7 @@ class TestMarkdownCardUtils < Minitest::Test
 
     result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
 
-    assert_equal "- [Collaborative Work](/books/collab/) by Author One, Author Two, Author Three --- \u2605\u2605\u2605\u2605\u2605",
+    assert_equal "- [_Collaborative Work_](/books/collab/) by Author One, Author Two, Author Three --- \u2605\u2605\u2605\u2605\u2605",
                  result
   end
 
@@ -45,7 +45,7 @@ class TestMarkdownCardUtils < Minitest::Test
 
     result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
 
-    assert_equal "- [Anonymous](/books/anon/) --- \u2605\u2605\u2605\u2606\u2606", result
+    assert_equal "- [_Anonymous_](/books/anon/) --- \u2605\u2605\u2605\u2606\u2606", result
   end
 
   def test_render_book_card_md_no_rating
@@ -58,7 +58,7 @@ class TestMarkdownCardUtils < Minitest::Test
 
     result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
 
-    assert_equal '- [Unrated Book](/books/unrated/) by Author', result
+    assert_equal '- [_Unrated Book_](/books/unrated/) by Author', result
   end
 
   def test_render_book_card_md_no_authors_no_rating
@@ -71,7 +71,7 @@ class TestMarkdownCardUtils < Minitest::Test
 
     result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
 
-    assert_equal '- [Minimal](/books/minimal/)', result
+    assert_equal '- [_Minimal_](/books/minimal/)', result
   end
 
   def test_render_article_card_md

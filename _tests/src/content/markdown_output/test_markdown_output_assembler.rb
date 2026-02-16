@@ -184,7 +184,7 @@ class TestMarkdownOutputAssembler < Minitest::Test
     assert_includes result, '## Related Books'
     # Should contain links to the other books
     books[1..].each do |book|
-      assert_includes result, "[#{book.data['title']}](#{book.url})"
+      assert_includes result, "[_#{book.data['title']}_](#{book.url})"
     end
   end
 
@@ -228,7 +228,7 @@ class TestMarkdownOutputAssembler < Minitest::Test
     site, current, archived = setup_book_with_previous_reviews
     result = Assembler.build_previous_reviews_section(site, current)
     assert_includes result, '## Previous Reviews'
-    assert_includes result, "[#{archived.data['title']}](#{archived.url})"
+    assert_includes result, "[_#{archived.data['title']}_](#{archived.url})"
   end
 
   def test_previous_reviews_section_nil_when_no_reviews

@@ -8,7 +8,7 @@ module Jekyll
     # ArticleCardRenderer.extract_data) into Markdown list items.
     module MarkdownCardUtils
       def self.render_book_card_md(data)
-        line = "- [#{data[:title]}](#{data[:url]})"
+        line = "- [_#{data[:title]}_](#{data[:url]})"
         line += " by #{data[:authors].join(', ')}" if data[:authors]&.any?
         if data[:rating]
           filled = data[:rating].to_i
