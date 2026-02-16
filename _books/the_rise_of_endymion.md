@@ -1,5 +1,5 @@
 ---
-date: 2026-02-13
+date: 2026-02-13 07:05:51 -0800
 title: The Rise of Endymion
 book_authors: Dan Simmons
 series: Hyperion Cantos
