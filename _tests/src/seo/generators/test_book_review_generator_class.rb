@@ -69,6 +69,34 @@ class TestBookReviewGenerator < Minitest::Test
     assert_equal expected, Jekyll::SEO::Generators::BookReviewGenerator.new(doc, @site).generate
   end
 
+  def test_generate_hash_with_markdown_alternate_href_includes_encoding
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Markdown Book',
+        'book_authors' => ['Author'],
+        'markdown_alternate_href' => '/books/markdown-book.md',
+      },
+      '/books/markdown-book.html',
+      '<p>Content</p>',
+      '2024-01-15',
+      @books_collection,
+    )
+    result = Jekyll::SEO::Generators::BookReviewGenerator.new(doc, @site).generate
+    expected_encoding = {
+      '@type' => 'MediaObject',
+      'encodingFormat' => 'text/markdown',
+      'contentUrl' => 'https://alexgude.com/books/markdown-book.md',
+    }
+    assert_equal expected_encoding, result['encoding']
+  end
+
+  def test_generate_hash_without_markdown_alternate_href_omits_encoding
+    doc = create_minimal_data_doc
+    result = Jekyll::SEO::Generators::BookReviewGenerator.new(doc, @site).generate
+    refute result.key?('encoding'), 'No markdown_alternate_href should omit encoding'
+  end
+
   def test_generate_hash_book_review_no_authors_empty_array
     doc = create_doc(
       { 'layout' => 'book', 'title' => 'Book With No Authors', 'book_authors' => [] },

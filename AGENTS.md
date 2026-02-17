@@ -112,6 +112,12 @@ Tags with render_mode support: all link tags (`book_link`, `author_link`,
   context, merge url into data: `item.data.merge('url' => item.url)`.
   `MockDocument` masks this with special `['url']` handling; use `RealDocLike`
   wrapper in tests to catch regressions.
+- **Page payload snapshot:** `Page#to_liquid` returns a plain `Hash`
+  (snapshot at call time), while `Document#to_liquid` returns a live
+  `DocumentDrop`. In `Renderer#run`, `assign_pages!` calls `to_liquid`
+  *before* the `:pre_render` hook fires. Data set in `:pre_render` hooks is
+  visible for Documents (live Drop) but **not** for Pages (stale Hash). Fix:
+  in `:pages` hooks, also inject into `payload['page']` directly.
 - **Strict Liquid:** `render_mode` must always be defined in the payload
   (set to `'html'` by default in pre-render hooks) for strict variable mode.
 - **Config:** Feature controlled by `enable_markdown_output` (default: `true`).

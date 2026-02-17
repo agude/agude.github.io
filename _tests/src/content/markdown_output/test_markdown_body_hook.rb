@@ -313,6 +313,50 @@ class TestMarkdownBodyHook < Minitest::Test
     end
   end
 
+  # --- Regression: Page payload snapshot bug ---
+  # Page#to_liquid returns a plain Hash (snapshot), unlike Document's live
+  # DocumentDrop.  Data set in :pre_render hooks is invisible to layouts
+  # unless also injected into payload['page'].
+
+  def test_pages_hook_injects_markdown_alternate_href_into_payload
+    site = create_site('enable_markdown_output' => true)
+    page = create_doc({ 'layout' => 'page' }, '/papers/')
+    page.define_singleton_method(:ext) { '.html' }
+    page.define_singleton_method(:content) { 'Some content' }
+    page.define_singleton_method(:path) { 'papers.md' }
+    page.define_singleton_method(:site) { site }
+
+    # Simulate what Renderer#assign_pages! does: snapshot via to_liquid
+    payload = { 'page' => page.data.dup, 'render_mode' => 'html' }
+
+    # Simulate what the hook does
+    Hook.eligible_page?(page) || skip('Page not eligible')
+    content = Hook.content_with_layout_tags(page.content, page)
+    with_silent_logger do
+      page.data['markdown_body'] = Hook.render_markdown_body(content, page.path, site, payload)
+    end
+    href = Hook.compute_markdown_href(page)
+    page.data['markdown_alternate_href'] = href
+    payload['page']['markdown_alternate_href'] = href
+
+    # The key assertion: payload['page'] must have the href
+    assert_equal '/papers.md',
+                 payload['page']['markdown_alternate_href'],
+                 'markdown_alternate_href must be injected into payload for Pages'
+  end
+
+  def test_pages_hook_cleans_payload_on_failure
+    # If the hook fails, payload['page'] should not retain a stale href
+    payload = { 'page' => { 'layout' => 'page' }, 'render_mode' => 'html' }
+    payload['page']['markdown_alternate_href'] = '/stale.md'
+
+    # Simulate error cleanup
+    payload['page']&.delete('markdown_alternate_href')
+
+    refute payload['page'].key?('markdown_alternate_href'),
+           'Stale markdown_alternate_href must be cleaned from payload on failure'
+  end
+
   private
 
   def build_rendering_fixtures

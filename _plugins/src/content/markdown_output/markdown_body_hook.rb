@@ -128,10 +128,16 @@ Jekyll::Hooks.register :pages, :pre_render do |page, payload|
     page.data['markdown_body'] = Jekyll::MarkdownOutput::MarkdownBodyHook.render_markdown_body(
       content, page.path, page.site, payload,
     )
-    page.data['markdown_alternate_href'] = Jekyll::MarkdownOutput::MarkdownBodyHook.compute_markdown_href(page)
+    href = Jekyll::MarkdownOutput::MarkdownBodyHook.compute_markdown_href(page)
+    page.data['markdown_alternate_href'] = href
+    # Page#to_liquid returns a Hash snapshot (unlike Document's live Drop),
+    # so the payload's 'page' won't see data changes made after assign_pages!.
+    # Inject into the payload directly so layouts/includes can access it.
+    payload['page']['markdown_alternate_href'] = href if payload
   rescue StandardError => e
     Jekyll.logger.warn 'MarkdownOutput:', "Failed for #{page.url}: #{e.message}"
     page.data.delete('markdown_body')
     page.data.delete('markdown_alternate_href')
+    payload['page']&.delete('markdown_alternate_href') if payload
   end
 end

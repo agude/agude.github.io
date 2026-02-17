@@ -175,6 +175,23 @@ module Jekyll
         series_data
       end
 
+      # --- MediaObject Schema Object Helper ---
+
+      # Generates a Schema.org MediaObject for a Markdown alternate of this page.
+      # @param markdown_href [String] The relative path to the Markdown file.
+      # @param site [Jekyll::Site] The Jekyll site object.
+      # @return [Hash, nil] The Ruby Hash representing the MediaObject, or nil if href is empty.
+      def self.build_markdown_encoding_entity(markdown_href, site)
+        href = markdown_href.to_s.strip
+        return nil if href.empty?
+
+        {
+          '@type' => 'MediaObject',
+          'encodingFormat' => 'text/markdown',
+          'contentUrl' => Jekyll::Infrastructure::UrlUtils.absolute_url(href, site),
+        }
+      end
+
       # --- Utility Helpers ---
 
       # Cleans a Ruby Hash (representing a future JSON object) by removing keys

@@ -21,6 +21,7 @@ module Jekyll
           add_url_and_main_entity(data, document, site)
           add_description_and_body(data, document)
           add_keywords(data, document)
+          add_encoding(data, document, site)
           Jekyll::SEO::JsonLdUtils.cleanup_data_hash!(data)
         end
 
@@ -88,6 +89,13 @@ module Jekyll
             field_priority: ['content'], # Only check document.content (post-conversion)
           )
           data['articleBody'] = article_body if article_body # Helper already returns nil if empty
+        end
+
+        private_class_method def self.add_encoding(data, document, site)
+          encoding = Jekyll::SEO::JsonLdUtils.build_markdown_encoding_entity(
+            document.data['markdown_alternate_href'], site,
+          )
+          data['encoding'] = encoding if encoding
         end
 
         private_class_method def self.add_keywords(data, document)
