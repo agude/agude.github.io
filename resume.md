@@ -8,12 +8,7 @@ description: >
 
 # Alexander Gude
 
-{% capture current_mode %}{% render_mode %}{% endcapture %}
-{% if current_mode == "markdown" %}
-**Staff Machine Learning Engineer**
-{% else %}
-<div class="subtitle">Staff Machine Learning Engineer</div>
-{% endif %}
+{% subtitle "Staff Machine Learning Engineer" %}
 
 ## Statement
 
@@ -30,7 +25,7 @@ that delivered tangible business value.
 
 ## Experience
 
-{% include resume_experience.html
+{% resume_experience
   company="Cash App"
   location="Remote"
   position="Senior Staff (L7) Machine Learning Engineer, Modeler"
@@ -66,7 +61,7 @@ that delivered tangible business value.
   volume by 30%. The improved income categorization has allowed us to make
   more profitable loans by sizing loan offers to expected ability to repay.
 
-{% include resume_experience.html
+{% resume_experience
   company="Intuit"
   location="Mountain View, CA"
   position="Staff Data Scientist"
@@ -97,7 +92,7 @@ that delivered tangible business value.
   reduction in wrongly challenged users, stopping 10X as many fraudsters, and
   shortening feature processing time from 2 hours to under a second.
 
-{% include resume_experience.html
+{% resume_experience
   company="Lab41, an In-Q-Tel Lab"
   location="Menlo Park, CA"
   position="Data Scientist"
@@ -122,21 +117,21 @@ that delivered tangible business value.
 
 ## Skills
 
-{% include resume_skills.html
+{% resume_skills
   languages='Python, Scala, SQL, shell script, C++, <span class="latex">L<sup>a</sup>T<sub>e</sub>X</span>'
   tools="Sagemaker, NumPy, SciPy, Matplotlib, Tensorflow, Pandas, Spark, git, Linux, vim"
 %}
 
 ## Education
 
-{% include resume_experience.html
+{% resume_experience
   company="University of Minnesota"
   location="Minneapolis, MN"
   position="PhD, High Energy Particle Physics"
   dates="2009--2015"
 %}
 
-{% include resume_experience.html
+{% resume_experience
   company="University of California, Berkeley"
   location="Berkeley, CA"
   position="BA, Physics (Honors), College of Letters and Sciences"

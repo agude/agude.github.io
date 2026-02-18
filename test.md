@@ -250,7 +250,7 @@ This sentence tests units within a footnote definition.[^unit_test]
 
 # Resume Person's Name
 
-<div class="subtitle">Subtitle for Resume</div>
+{% subtitle "Subtitle for Resume" %}
 
 ## Statement
 
@@ -259,7 +259,7 @@ date: "%Y" | minus: 2015 }}.
 
 ## Experience Test
 
-{% include resume_experience.html
+{% resume_experience
   company="Company with Two Positions"
   location="Anywhere, USA"
   position="Test Position"
@@ -271,14 +271,14 @@ date: "%Y" | minus: 2015 }}.
 - Things that were done
 - More things
 
-{% include resume_experience.html
+{% resume_experience
   company="Company with One Positions"
   location="Anywhere, USA"
   position="Test Position"
   dates="2015--2020"
 %}
 
-{% include resume_experience.html
+{% resume_experience
   company="Company with Dateless Positions"
   location="Anywhere, USA"
   position="Test Position"
@@ -288,21 +288,21 @@ date: "%Y" | minus: 2015 }}.
 
 ## Resume Skills Test
 
-{% include resume_skills.html
+{% resume_skills
   languages='Python, Ruby, JavaScript'
   tools="Docker, Kubernetes, Jenkins, Terraform"
 %}
 
 ## Education Test
 
-{% include resume_experience.html
+{% resume_experience
   company="University with Date"
   location="Anywhere, USA"
   position="PhD, Website Testing"
   dates="2010--2015"
 %}
 
-{% include resume_experience.html
+{% resume_experience
   company="University without Date"
   location="Anywhere, USA"
   position="PhD, Website Testing"
