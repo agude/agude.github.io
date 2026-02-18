@@ -3,6 +3,11 @@
   Formats the skills section for the resume.
   Uses a grid layout for alignment.
 {% endcomment %}
+{% capture current_mode %}{% render_mode %}{% endcapture %}
+{% if current_mode == "markdown" %}
+- **Languages**: {{ include | optional: 'languages' | strip_html }}
+- **Tools**: {{ include | optional: 'tools' | strip_html }}
+{% else %}
 <div class="resume-skills-grid">
     {% comment %} Row 1: Programming Languages {% endcomment %}
     <div class="resume-languages-title"><strong>Languages</strong></div>
@@ -13,3 +18,4 @@
     <div class="resume-tools-title"><strong>Tools</strong></div>
     <div class="resume-tools">{{ include | optional: 'tools' | markdownify }}</div>
 </div>
+{% endif %}

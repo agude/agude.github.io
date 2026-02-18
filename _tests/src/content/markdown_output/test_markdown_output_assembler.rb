@@ -380,6 +380,15 @@ class TestMarkdownOutputAssembler < Minitest::Test
     assert_equal '# Papers', header
   end
 
+  def test_header_resume_returns_nil
+    doc = create_doc(
+      { 'layout' => 'resume', 'title' => 'Resume', 'markdown_body' => '' },
+      '/resume/',
+    )
+    header = Assembler.build_header(doc)
+    assert_nil header
+  end
+
   # --- Assembly ---
 
   def test_body_content_preserved

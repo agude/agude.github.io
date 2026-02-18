@@ -56,6 +56,7 @@ module Jekyll
         when 'post'     then build_post_header(item)
         when 'book'     then build_book_header(item, site)
         when 'category' then build_category_header(item)
+        when 'resume'   then nil
         else                 build_title_only_header(item)
         end
       end

@@ -8,7 +8,12 @@ description: >
 
 # Alexander Gude
 
+{% capture current_mode %}{% render_mode %}{% endcapture %}
+{% if current_mode == "markdown" %}
+**Staff Machine Learning Engineer**
+{% else %}
 <div class="subtitle">Staff Machine Learning Engineer</div>
+{% endif %}
 
 ## Statement
 
