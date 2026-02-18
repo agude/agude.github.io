@@ -100,7 +100,8 @@ clean-coverage:
 # Build the site for production. Depends on image-build and clean.
 build: image-build clean
 	@echo "Building site for production..."
-	@$(DOCKER_RUN) -e JEKYLL_ENV=production bundle exec jekyll build
+	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -e JEKYLL_ENV=production $(IMAGE) \
+		bundle exec jekyll build
 
 # Profile the site build. Depends on image-build and clean.
 serve-profile: image-build clean
