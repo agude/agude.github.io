@@ -1,5 +1,5 @@
 ---
-date: 2023-10-29
+date: 2023-10-29 10:34:00 -0700
 title: There Is No Antimemetics Division (Original Edition)
 book_authors: qntm
 series: null

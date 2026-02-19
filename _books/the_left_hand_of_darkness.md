@@ -1,5 +1,5 @@
 ---
-date: 2024-11-12
+date: 2024-11-12 21:09:31 -0800
 title: The Left Hand of Darkness
 book_authors: Ursula K. Le Guin
 series: Hainish Cycle

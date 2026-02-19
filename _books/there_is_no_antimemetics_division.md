@@ -1,5 +1,5 @@
 ---
-date: 2025-11-21
+date: 2025-11-21 18:17:22 -0800
 title: There Is No Antimemetics Division
 book_authors: qntm
 series: null
