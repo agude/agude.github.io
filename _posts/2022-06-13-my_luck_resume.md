@@ -19,7 +19,7 @@ categories:
 
 <div class="fake-h1">Alexander Gude</div>
 
-<div class="subtitle">Lucky Data Scientist / Machine Learning Engineer</div>
+{% subtitle "Lucky Data Scientist / Machine Learning Engineer" %}
 
 ## Statement
 
@@ -35,14 +35,14 @@ this page in the form of a too-honest resume.
 
 ## Education
 
-{% include resume_experience.html
+{% resume_experience
   company="University of California, Berkeley"
   location="Berkeley, CA"
   position="BA, Physics (Honors), College of Letters and Sciences"
   dates="2004--2008"
 %}
 
-{% include resume_experience.html
+{% resume_experience
   company="University of Minnesota"
   location="Minneapolis, MN"
   position="PhD, High Energy Particle Physics"
@@ -59,7 +59,7 @@ this page in the form of a too-honest resume.
 
 ## Experience
 
-{% include resume_experience.html
+{% resume_experience
   company="Supernova Cosmology Project"
   location="Berkeley, CA"
   position="Undergraduate Research Assistant"
@@ -86,7 +86,7 @@ this page in the form of a too-honest resume.
 [idl_is_bad]: https://en.wikipedia.org/wiki/IDL_(programming_language)
 [vim]: https://en.wikipedia.org/wiki/Vim_(text_editor)
 
-{% include resume_experience.html
+{% resume_experience
   company="Insight Data Science"
   location="Palo Alto, CA"
   position="Data Scientist Fellow"
@@ -127,7 +127,7 @@ this page in the form of a too-honest resume.
     > Yammer before this internship started so I participated as a
     > mentor/recruiter instead of a fellow.
     
-{% include resume_experience.html
+{% resume_experience
   company="Intuit"
   location="Mountain View, CA"
   position="Staff Data Scientist"
@@ -140,7 +140,7 @@ this page in the form of a too-honest resume.
   team rudderless. It gave me an opportunity to step into a management role
   first unofficially, and then officially several months later.
 
-{% include resume_experience.html
+{% resume_experience
   company="Cash App"
   location="Remote"
   position="Senior Staff (L7) Machine Learning Engineer, Modeler"
