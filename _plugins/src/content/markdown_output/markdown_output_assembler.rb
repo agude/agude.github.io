@@ -110,9 +110,9 @@ module Jekyll
       def self.build_book_footer(site, item)
         page = page_data_for(item)
         sections = []
-        sections << build_related_books_section(site, page)
         sections << build_backlinks_section(site, page)
         sections << build_previous_reviews_section(site, page)
+        sections << build_related_books_section(site, page)
         sections.compact.reject { |s| s.to_s.strip.empty? }.join("\n\n")
       end
 
@@ -133,7 +133,7 @@ module Jekyll
         return nil if backlinks.empty?
 
         has_series = false
-        lines = ['## Mentioned In']
+        lines = ["## Reviews that mention _#{item['title']}_"]
         backlinks.each do |title, url, type|
           entry = "- [_#{title}_](#{url})"
           if type == 'series'
