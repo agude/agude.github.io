@@ -468,7 +468,7 @@ class TestMarkdownOutputAssembler < Minitest::Test
   def test_backlinks_section_renders_italic_titles
     site, current = setup_book_with_backlinks
     result = Assembler.build_backlinks_section(site, current)
-    assert_includes result, '## Mentioned In'
+    assert_includes result, '## Reviews that mention _Target Book_'
     assert_includes result, '- [_Mentioning Book_](/books/mention/)'
   end
 
@@ -612,6 +612,46 @@ class TestMarkdownOutputAssembler < Minitest::Test
     assert_equal max, post_links, "Expected #{max} related posts, got #{post_links}"
   end
 
+  def test_book_footer_order_matches_html_layout
+    # This test ensures that the Markdown footer sections are in the same relative
+    # order as the Liquid tags in the HTML layout file.
+    layout_path = File.expand_path('../../../../_layouts/book.html', __dir__)
+    layout_content = File.read(layout_path)
+
+    # Extract positions of tags in HTML
+    backlinks_tag_pos = layout_content.index('{% book_backlinks %}')
+    previous_tag_pos = layout_content.index('{% display_previous_reviews %}')
+    related_tag_pos = layout_content.index('{% related_books %}')
+
+    # Ensure tags exist in layout (safety check for the test itself)
+    assert backlinks_tag_pos, 'HTML layout should contain {% book_backlinks %}'
+    assert previous_tag_pos, 'HTML layout should contain {% display_previous_reviews %}'
+    assert related_tag_pos, 'HTML layout should contain {% related_books %}'
+
+    # Assert HTML order
+    assert backlinks_tag_pos < previous_tag_pos, 'HTML: Backlinks should be before Previous'
+    assert previous_tag_pos < related_tag_pos, 'HTML: Previous should be before Related'
+
+    # Now verify Markdown assembler matches this order
+    # We can mock the sections to avoid complex setup
+    Assembler.stub :build_backlinks_section, 'BACKLINKS_SECTION' do
+      Assembler.stub :build_previous_reviews_section, 'PREVIOUS_SECTION' do
+        Assembler.stub :build_related_books_section, 'RELATED_SECTION' do
+          site = create_site
+          doc = create_doc({ 'layout' => 'book' })
+          result = Assembler.build_book_footer(site, doc)
+
+          backlinks_md_pos = result.index('BACKLINKS_SECTION')
+          previous_md_pos = result.index('PREVIOUS_SECTION')
+          related_md_pos = result.index('RELATED_SECTION')
+
+          assert backlinks_md_pos < previous_md_pos, 'Markdown: Backlinks should be before Previous'
+          assert previous_md_pos < related_md_pos, 'Markdown: Previous should be before Related'
+        end
+      end
+    end
+  end
+
   # --- Assembly: layout-driven pages ---
 
   def test_author_page_assembly_has_title_and_body
@@ -670,7 +710,7 @@ class TestMarkdownOutputAssembler < Minitest::Test
     site = create_site
     result = Assembler.assemble_markdown(doc, site: site)
     refute_includes result, '## Related Books'
-    refute_includes result, '## Mentioned In'
+    refute_includes result, '## Reviews that mention'
     refute_includes result, '## Previous Reviews'
   end
 
