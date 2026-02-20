@@ -55,7 +55,8 @@ class TestRenderModeCoverage < Minitest::Test
       next if ALLOWLIST.include?(basename)
 
       content = File.read(path)
-      missing << basename unless content.include?('render_mode')
+      # Check for render_mode usage that isn't in a comment
+      missing << basename unless content.match?(/^[^#]*render_mode/)
     end
 
     assert_empty missing,
