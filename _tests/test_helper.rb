@@ -258,7 +258,6 @@ class MockSite
                 :categories,
                 :static_files
 
-  # rubocop:disable Metrics/ParameterLists
   def initialize(config, collections, pages, posts, baseurl, source, converters, data, categories)
     @config = config
     @collections = collections
@@ -271,7 +270,6 @@ class MockSite
     @categories = categories
     @static_files = []
   end
-  # rubocop:enable Metrics/ParameterLists
 
   def documents
     collect_all_documents
@@ -318,10 +316,8 @@ def create_context(scopes = {}, registers = {})
   Liquid::Context.new(scopes, {}, registers)
 end
 
-# rubocop:disable Metrics/ParameterLists
 def create_site(config_overrides = {}, collections_data = {}, pages_data = [],
                 posts_data = [], categories_data = {})
-  # rubocop:enable Metrics/ParameterLists
   base_config = build_test_site_config(config_overrides)
   collections = build_collections(collections_data)
   posts_collection = MockCollection.new(posts_data, 'posts')
@@ -343,10 +339,8 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [],
   site
 end
 
-# rubocop:disable Metrics/ParameterLists
 def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = 'Test content attribute.',
                date_str_param = nil, collection = nil)
-  # rubocop:enable Metrics/ParameterLists
   string_keyed_data_overrides = data_overrides.transform_keys(&:to_s)
   base_data = build_base_doc_data(string_keyed_data_overrides, url)
   final_date_obj = parse_date_for_doc(base_data, date_str_param)

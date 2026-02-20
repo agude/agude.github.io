@@ -54,8 +54,8 @@ module Jekyll
 
         def sorted_favorites_posts
           @site.posts.docs.select { |p| p.data.key?('is_favorites_list') }
-               .sort_by { |p| p.data['is_favorites_list'].to_i }
-               .reverse
+                          .sort_by { |p| p.data['is_favorites_list'].to_i }
+                          .reverse
         end
 
         def create_favorites_list_entry(post, cache)
