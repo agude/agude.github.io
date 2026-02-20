@@ -13,6 +13,10 @@ class TestMarkdownTextUtils < Minitest::Test
     assert_equal 'Title \\[Vol. 1\\]', MdText.escape_link_text('Title [Vol. 1]')
   end
 
+  def test_escape_link_text_escapes_parentheses
+    assert_equal 'Title \\(Part 2\\)', MdText.escape_link_text('Title (Part 2)')
+  end
+
   def test_escape_link_text_escapes_backslashes
     assert_equal 'Back\\\\Slash', MdText.escape_link_text('Back\\Slash')
   end
