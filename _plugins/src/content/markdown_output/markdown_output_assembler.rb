@@ -7,6 +7,7 @@ require_relative '../books/related/finder'
 require_relative '../books/reviews/finder'
 require_relative '../posts/related/finder'
 require_relative '../../infrastructure/text_processing_utils'
+require_relative '../../infrastructure/text/markdown_text_utils'
 require_relative 'markdown_body_hook'
 require_relative 'markdown_card_utils'
 require_relative 'markdown_link_formatter'
@@ -20,8 +21,9 @@ module Jekyll
     module MarkdownOutputAssembler
       Normalizer = Jekyll::Infrastructure::MarkdownWhitespaceNormalizer
       Text = Jekyll::Infrastructure::TextProcessingUtils
+      MdText = Jekyll::Infrastructure::Text::MarkdownTextUtils
       MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
-      private_constant :Normalizer, :Text, :MdLink
+      private_constant :Normalizer, :Text, :MdText, :MdLink
 
       def self.assemble_all(site)
         return unless MarkdownBodyHook.enabled?(site)
@@ -84,7 +86,7 @@ module Jekyll
         cache = site&.data&.dig('link_cache') || {}
 
         lines = ["# #{title}"]
-        lines << "![Book cover of #{escape_link_text(title)}](#{escape_url(image)})" if image
+        lines << "![Book cover of #{MdText.escape_link_text(title)}](#{MdText.escape_url(image)})" if image
         details = []
         details << format_authors(authors, cache) if authors
         details << format_series(series, book_number, cache) if series
@@ -293,16 +295,6 @@ module Jekyll
         MarkdownCardUtils.format_stars(rating)
       end
       private_class_method :format_rating
-
-      def self.escape_link_text(text)
-        text.to_s.gsub(/[\\\[\]]/) { |m| "\\#{m}" }
-      end
-      private_class_method :escape_link_text
-
-      def self.escape_url(url)
-        url.to_s.gsub(/[\\()]/) { |m| "\\#{m}" }
-      end
-      private_class_method :escape_url
     end
   end
 end

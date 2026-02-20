@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
+require_relative '../../infrastructure/text/markdown_text_utils'
+
 module Jekyll
   module MarkdownOutput
     # Converts card data hashes (from BookCardRenderer.extract_data and
     # ArticleCardRenderer.extract_data) into Markdown list items.
     module MarkdownCardUtils
+      MdText = Jekyll::Infrastructure::Text::MarkdownTextUtils
+
       # Convert a Jekyll book document into a card data hash.
       # Pass author_urls: { 'Name' => '/url/' } for linked authors.
       def self.book_doc_to_card_data(doc, author_urls: {})
@@ -29,7 +33,7 @@ module Jekyll
       end
 
       def self.render_book_card_md(data)
-        line = "- [_#{escape_link_text(data[:title])}_](#{escape_url(data[:url])})"
+        line = "- [_#{MdText.escape_link_text(data[:title])}_](#{MdText.escape_url(data[:url])})"
         line += " by #{format_card_authors(data)}" if data[:authors]&.any?
         stars = format_stars(data[:rating])
         line += " --- #{stars}" if stars
@@ -40,24 +44,14 @@ module Jekyll
         urls = data[:author_urls] || {}
         data[:authors].map do |name|
           url = urls[name]
-          url ? "[#{escape_link_text(name)}](#{escape_url(url)})" : name
+          url ? "[#{MdText.escape_link_text(name)}](#{MdText.escape_url(url)})" : name
         end.join(', ')
       end
       private_class_method :format_card_authors
 
       def self.render_article_card_md(data)
-        "- [#{escape_link_text(data[:title])}](#{escape_url(data[:url])})"
+        "- [#{MdText.escape_link_text(data[:title])}](#{MdText.escape_url(data[:url])})"
       end
-
-      def self.escape_link_text(text)
-        text.to_s.gsub(/[\\\[\]]/) { |m| "\\#{m}" }
-      end
-
-      def self.escape_url(url)
-        url.to_s.gsub(/[\\()]/) { |m| "\\#{m}" }
-      end
-
-      private_class_method :escape_link_text, :escape_url
     end
   end
 end
