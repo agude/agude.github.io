@@ -187,4 +187,33 @@ class TestMarkdownCardUtils < Minitest::Test
     assert_equal "\u2605\u2605\u2605\u2605\u2606",
                  Jekyll::MarkdownOutput::MarkdownCardUtils.format_stars('4')
   end
+
+  def test_render_book_card_md_escapes_brackets_in_title
+    data = {
+      title: 'We Are Legion (We Are Bob)',
+      authors: ['Dennis E. Taylor'],
+      rating: 4,
+      url: '/books/we_are_legion_we_are_bob/',
+    }
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
+    # Parentheses in text don't need escaping, but brackets would
+    assert_includes result, '[_We Are Legion (We Are Bob)_]'
+  end
+
+  def test_render_book_card_md_escapes_bracket_in_title
+    data = {
+      title: 'Anthology [Vol. 2]',
+      authors: ['Editor'],
+      rating: 3,
+      url: '/books/anthology-vol-2/',
+    }
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
+    assert_includes result, 'Anthology \[Vol. 2\]'
+  end
+
+  def test_render_article_card_md_escapes_bracket_in_title
+    data = { title: 'Post [Update]', url: '/blog/post/' }
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_article_card_md(data)
+    assert_equal '- [Post \[Update\]](/blog/post/)', result
+  end
 end

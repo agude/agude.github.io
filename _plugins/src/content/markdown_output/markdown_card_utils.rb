@@ -29,7 +29,7 @@ module Jekyll
       end
 
       def self.render_book_card_md(data)
-        line = "- [_#{data[:title]}_](#{data[:url]})"
+        line = "- [_#{escape_link_text(data[:title])}_](#{escape_url(data[:url])})"
         line += " by #{format_card_authors(data)}" if data[:authors]&.any?
         stars = format_stars(data[:rating])
         line += " --- #{stars}" if stars
@@ -40,14 +40,24 @@ module Jekyll
         urls = data[:author_urls] || {}
         data[:authors].map do |name|
           url = urls[name]
-          url ? "[#{name}](#{url})" : name
+          url ? "[#{escape_link_text(name)}](#{escape_url(url)})" : name
         end.join(', ')
       end
       private_class_method :format_card_authors
 
       def self.render_article_card_md(data)
-        "- [#{data[:title]}](#{data[:url]})"
+        "- [#{escape_link_text(data[:title])}](#{escape_url(data[:url])})"
       end
+
+      def self.escape_link_text(text)
+        text.to_s.gsub(/[\\\[\]]/) { |m| "\\#{m}" }
+      end
+
+      def self.escape_url(url)
+        url.to_s.gsub(/[\\()]/) { |m| "\\#{m}" }
+      end
+
+      private_class_method :escape_link_text, :escape_url
     end
   end
 end

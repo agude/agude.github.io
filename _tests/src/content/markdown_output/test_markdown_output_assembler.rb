@@ -500,6 +500,50 @@ class TestMarkdownOutputAssembler < Minitest::Test
     assert_nil result
   end
 
+  def test_backlinks_section_escapes_special_characters
+    coll = MockCollection.new([], 'books')
+    current = create_doc(
+      { 'layout' => 'book', 'title' => 'Target' },
+      '/books/target.html',
+      'Content',
+      nil,
+      coll,
+    )
+    mentioning = create_doc(
+      { 'layout' => 'book', 'title' => 'Book [Vol. 1]', 'book_authors' => ['Auth'] },
+      '/books/mention_(edition)/',
+    )
+    coll.docs = [current]
+    site = create_site({}, { 'books' => coll.docs })
+    site.data['link_cache']['url_to_canonical_map'] = { '/books/target.html' => '/books/target.html' }
+    site.data['link_cache']['book_families'] = { '/books/target.html' => ['/books/target.html'] }
+    site.data['link_cache']['backlinks'] = {
+      '/books/target.html' => [{ source: mentioning, type: 'book' }],
+    }
+
+    result = Assembler.build_backlinks_section(site, current)
+    assert_includes result, '- [_Book \[Vol. 1\]_](/books/mention_\(edition\)/)'
+  end
+
+  # --- Book header: cover image ---
+
+  def test_header_book_escapes_image_alt_text
+    site = create_site
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Title [With Brackets]',
+        'book_authors' => ['Auth'],
+        'rating' => 5,
+        'image' => '/covers/img (1).jpg',
+        'markdown_body' => 'Body',
+      },
+      '/books/test/',
+    )
+    header = Assembler.build_header(doc, site: site)
+    assert_includes header, '![Book cover of Title \[With Brackets\]](/covers/img \(1\).jpg)'
+  end
+
   # --- Book footer: previous reviews ---
 
   def test_previous_reviews_section_renders_markdown_list

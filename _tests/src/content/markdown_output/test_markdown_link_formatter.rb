@@ -58,4 +58,36 @@ class TestMarkdownLinkFormatter < Minitest::Test
     data = { status: :not_found, url: nil, display_text: nil }
     assert_equal '', Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data, italic: true)
   end
+
+  # --- escaping ---
+
+  def test_format_link_escapes_brackets_in_text
+    data = { status: :found, url: '/books/test/', display_text: 'Title [Vol. 1]' }
+    result = Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data)
+    assert_equal '[Title \[Vol. 1\]](/books/test/)', result
+  end
+
+  def test_format_link_escapes_parens_in_url
+    data = { status: :found, url: '/books/test_(edition)/', display_text: 'Title' }
+    result = Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data)
+    assert_equal '[Title](/books/test_\(edition\)/)', result
+  end
+
+  def test_format_link_escapes_backslashes
+    data = { status: :found, url: '/books/test\\path/', display_text: 'Title \\ Subtitle' }
+    result = Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data)
+    assert_equal '[Title \\\\ Subtitle](/books/test\\\\path/)', result
+  end
+
+  def test_format_link_italic_with_brackets
+    data = { status: :found, url: '/books/test/', display_text: 'Book [Part 2]' }
+    result = Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data, italic: true)
+    assert_equal '[_Book \[Part 2\]_](/books/test/)', result
+  end
+
+  def test_format_link_no_escaping_needed
+    data = { status: :found, url: '/books/dune/', display_text: 'Dune' }
+    result = Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data)
+    assert_equal '[Dune](/books/dune/)', result
+  end
 end

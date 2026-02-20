@@ -11,8 +11,18 @@ module Jekyll
         text = "_#{text}_" if italic && !text.empty?
         return text if data[:status] != :found || data[:url].nil?
 
-        "[#{text}](#{data[:url]})"
+        "[#{escape_link_text(text)}](#{escape_url(data[:url])})"
       end
+
+      def self.escape_link_text(text)
+        text.to_s.gsub(/[\\\[\]]/) { |m| "\\#{m}" }
+      end
+
+      def self.escape_url(url)
+        url.to_s.gsub(/[\\()]/) { |m| "\\#{m}" }
+      end
+
+      private_class_method :escape_link_text, :escape_url
     end
   end
 end

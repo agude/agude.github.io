@@ -84,7 +84,7 @@ module Jekyll
         cache = site&.data&.dig('link_cache') || {}
 
         lines = ["# #{title}"]
-        lines << "![Book cover of #{title}](#{image})" if image
+        lines << "![Book cover of #{escape_link_text(title)}](#{escape_url(image)})" if image
         details = []
         details << format_authors(authors, cache) if authors
         details << format_series(series, book_number, cache) if series
@@ -141,10 +141,12 @@ module Jekyll
         has_series = false
         lines = ["## Reviews that mention _#{item['title']}_"]
         backlinks.each do |title, url, type|
-          entry = "- [_#{title}_](#{url})"
+          entry = MdLink.format_link({ status: :found, url: url, display_text: title }, italic: true)
           if type == 'series'
-            entry += "\u2020"
+            entry = "- #{entry}\u2020"
             has_series = true
+          else
+            entry = "- #{entry}"
           end
           lines << entry
         end
@@ -291,6 +293,16 @@ module Jekyll
         MarkdownCardUtils.format_stars(rating)
       end
       private_class_method :format_rating
+
+      def self.escape_link_text(text)
+        text.to_s.gsub(/[\\\[\]]/) { |m| "\\#{m}" }
+      end
+      private_class_method :escape_link_text
+
+      def self.escape_url(url)
+        url.to_s.gsub(/[\\()]/) { |m| "\\#{m}" }
+      end
+      private_class_method :escape_url
     end
   end
 end
