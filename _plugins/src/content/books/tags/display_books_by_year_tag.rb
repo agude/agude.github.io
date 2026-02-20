@@ -53,19 +53,9 @@ module Jekyll
           lines = []
           groups.each do |group|
             lines << "### #{group[:year]}"
-            group[:books].each { |book| lines << MdCards.render_book_card_md(book_to_card(book)) }
+            group[:books].each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
           end
           lines.join("\n")
-        end
-
-        def book_to_card(doc)
-          authors = doc.data['book_authors']
-          {
-            title: doc.data['title'],
-            url: doc.url,
-            authors: authors.is_a?(Array) ? authors : [authors].compact,
-            rating: doc.data['rating'],
-          }
         end
       end
     end

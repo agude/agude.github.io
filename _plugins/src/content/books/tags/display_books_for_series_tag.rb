@@ -69,17 +69,13 @@ module Jekyll
 
           lines = []
           books.each_with_index do |book, idx|
-            authors = book.data['book_authors']
-            card = {
-              title: book.data['title'],
-              url: book.url,
-              authors: authors.is_a?(Array) ? authors : [authors].compact,
-              rating: book.data['rating'],
-            }
+            card = MdCards.book_doc_to_card_data(book)
             # Numbered list for reading order
-            lines << "#{idx + 1}. [#{card[:title]}](#{card[:url]})" \
-                     "#{" by #{card[:authors].join(', ')}" if card[:authors]&.any?}" \
-                     "#{" --- #{"\u2605" * card[:rating].to_i}#{"\u2606" * (5 - card[:rating].to_i)}" if card[:rating]}"
+            line = "#{idx + 1}. [#{card[:title]}](#{card[:url]})"
+            line += " by #{card[:authors].join(', ')}" if card[:authors]&.any?
+            stars = MdCards.format_stars(card[:rating])
+            line += " --- #{stars}" if stars
+            lines << line
           end
           lines.join("\n")
         end

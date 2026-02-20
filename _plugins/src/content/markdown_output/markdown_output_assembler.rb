@@ -123,7 +123,13 @@ module Jekyll
 
         cache = site.data['link_cache'] || {}
         lines = ['## Related Books']
-        books.each { |book| lines << MarkdownCardUtils.render_book_card_md(book_doc_to_card_data(book, cache)) }
+        books.each do |book|
+          authors = book.data['book_authors']
+          author_list = authors.is_a?(Array) ? authors : [authors].compact
+          author_urls = resolve_author_urls(author_list, cache)
+          card_data = MarkdownCardUtils.book_doc_to_card_data(book, author_urls: author_urls)
+          lines << MarkdownCardUtils.render_book_card_md(card_data)
+        end
         lines.join("\n")
       end
 
@@ -153,7 +159,13 @@ module Jekyll
 
         cache = site.data['link_cache'] || {}
         lines = ['## Previous Reviews']
-        reviews.each { |review| lines << MarkdownCardUtils.render_book_card_md(book_doc_to_card_data(review, cache)) }
+        reviews.each do |review|
+          authors = review.data['book_authors']
+          author_list = authors.is_a?(Array) ? authors : [authors].compact
+          author_urls = resolve_author_urls(author_list, cache)
+          card_data = MarkdownCardUtils.book_doc_to_card_data(review, author_urls: author_urls)
+          lines << MarkdownCardUtils.render_book_card_md(card_data)
+        end
         lines.join("\n")
       end
 
@@ -178,19 +190,6 @@ module Jekyll
         { title: doc.data['title'], url: doc.url }
       end
       private_class_method :post_doc_to_card_data
-
-      def self.book_doc_to_card_data(doc, cache = {})
-        authors = doc.data['book_authors']
-        author_list = authors.is_a?(Array) ? authors : [authors].compact
-        {
-          title: doc.data['title'],
-          url: doc.url,
-          authors: author_list,
-          author_urls: resolve_author_urls(author_list, cache),
-          rating: doc.data['rating'],
-        }
-      end
-      private_class_method :book_doc_to_card_data
 
       def self.resolve_author_urls(author_list, cache)
         author_cache = cache['authors'] || {}
@@ -289,10 +288,7 @@ module Jekyll
       private_class_method :format_awards
 
       def self.format_rating(rating)
-        rating_int = rating.to_i
-        return nil unless (1..5).include?(rating_int)
-
-        ("\u2605" * rating_int) + ("\u2606" * (5 - rating_int))
+        MarkdownCardUtils.format_stars(rating)
       end
       private_class_method :format_rating
     end

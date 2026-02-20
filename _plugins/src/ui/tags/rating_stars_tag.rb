@@ -44,7 +44,7 @@ module Jekyll
             return '' if rating_value.nil?
 
             rating_int = RatingUtil._validate_and_convert_rating(rating_value)
-            ('★' * rating_int) + ('☆' * (5 - rating_int))
+            Jekyll::MarkdownOutput::MarkdownCardUtils.format_stars(rating_int)
           else
             # Resolve wrapper tag (defaulting to 'div' is handled by the utility)
             wrapper_tag_value = 'div' # Default
