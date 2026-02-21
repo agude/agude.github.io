@@ -1,0 +1,7 @@
+---
+---
+# {{ site.title }}
+
+{{ site.description }}
+
+{% llms_txt_index %}

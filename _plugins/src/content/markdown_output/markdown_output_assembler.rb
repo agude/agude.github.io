@@ -11,7 +11,7 @@ require_relative '../../infrastructure/text/markdown_text_utils'
 require_relative 'markdown_body_hook'
 require_relative 'markdown_card_utils'
 require_relative 'markdown_link_formatter'
-require_relative 'llms_txt_generator'
+require_relative 'tags/llms_txt_index_tag'
 
 module Jekyll
   module MarkdownOutput
@@ -302,5 +302,4 @@ end
 # Hook: runs after all documents/pages have been rendered
 Jekyll::Hooks.register :site, :post_render do |site|
   Jekyll::MarkdownOutput::MarkdownOutputAssembler.assemble_all(site)
-  Jekyll::MarkdownOutput::LlmsTxtGenerator.generate(site)
 end

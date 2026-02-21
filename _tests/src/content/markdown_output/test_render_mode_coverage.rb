@@ -40,6 +40,10 @@ class TestRenderModeCoverage < Minitest::Test
 
       # --- Infrastructure: not content output. ---
       'log_failure_tag.rb',
+
+      # --- llms.txt index: only used in llms.txt (plain text), never
+      # rendered through the markdown pipeline. ---
+      'llms_txt_index_tag.rb',
     ],
   ).freeze
 
