@@ -7,6 +7,7 @@ require_relative '../books/related/finder'
 require_relative '../books/reviews/finder'
 require_relative '../posts/related/finder'
 require_relative '../../infrastructure/text_processing_utils'
+require_relative '../../infrastructure/text/markdown_text_utils'
 require_relative 'markdown_body_hook'
 require_relative 'markdown_card_utils'
 require_relative 'markdown_link_formatter'
@@ -20,8 +21,9 @@ module Jekyll
     module MarkdownOutputAssembler
       Normalizer = Jekyll::Infrastructure::MarkdownWhitespaceNormalizer
       Text = Jekyll::Infrastructure::TextProcessingUtils
+      MdText = Jekyll::Infrastructure::Text::MarkdownTextUtils
       MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
-      private_constant :Normalizer, :Text, :MdLink
+      private_constant :Normalizer, :Text, :MdText, :MdLink
 
       def self.assemble_all(site)
         return unless MarkdownBodyHook.enabled?(site)
@@ -84,7 +86,7 @@ module Jekyll
         cache = site&.data&.dig('link_cache') || {}
 
         lines = ["# #{title}"]
-        lines << "![Book cover of #{title}](#{image})" if image
+        lines << "![Book cover of #{MdText.escape_link_text(title)}](#{MdText.escape_url(image)})" if image
         details = []
         details << format_authors(authors, cache) if authors
         details << format_series(series, book_number, cache) if series
@@ -123,7 +125,13 @@ module Jekyll
 
         cache = site.data['link_cache'] || {}
         lines = ['## Related Books']
-        books.each { |book| lines << MarkdownCardUtils.render_book_card_md(book_doc_to_card_data(book, cache)) }
+        books.each do |book|
+          authors = book.data['book_authors']
+          author_list = authors.is_a?(Array) ? authors : [authors].compact
+          author_urls = resolve_author_urls(author_list, cache)
+          card_data = MarkdownCardUtils.book_doc_to_card_data(book, author_urls: author_urls)
+          lines << MarkdownCardUtils.render_book_card_md(card_data)
+        end
         lines.join("\n")
       end
 
@@ -135,10 +143,12 @@ module Jekyll
         has_series = false
         lines = ["## Reviews that mention _#{item['title']}_"]
         backlinks.each do |title, url, type|
-          entry = "- [_#{title}_](#{url})"
+          entry = MdLink.format_link({ status: :found, url: url, display_text: title }, italic: true)
           if type == 'series'
-            entry += "\u2020"
+            entry = "- #{entry}\u2020"
             has_series = true
+          else
+            entry = "- #{entry}"
           end
           lines << entry
         end
@@ -153,7 +163,13 @@ module Jekyll
 
         cache = site.data['link_cache'] || {}
         lines = ['## Previous Reviews']
-        reviews.each { |review| lines << MarkdownCardUtils.render_book_card_md(book_doc_to_card_data(review, cache)) }
+        reviews.each do |review|
+          authors = review.data['book_authors']
+          author_list = authors.is_a?(Array) ? authors : [authors].compact
+          author_urls = resolve_author_urls(author_list, cache)
+          card_data = MarkdownCardUtils.book_doc_to_card_data(review, author_urls: author_urls)
+          lines << MarkdownCardUtils.render_book_card_md(card_data)
+        end
         lines.join("\n")
       end
 
@@ -178,19 +194,6 @@ module Jekyll
         { title: doc.data['title'], url: doc.url }
       end
       private_class_method :post_doc_to_card_data
-
-      def self.book_doc_to_card_data(doc, cache = {})
-        authors = doc.data['book_authors']
-        author_list = authors.is_a?(Array) ? authors : [authors].compact
-        {
-          title: doc.data['title'],
-          url: doc.url,
-          authors: author_list,
-          author_urls: resolve_author_urls(author_list, cache),
-          rating: doc.data['rating'],
-        }
-      end
-      private_class_method :book_doc_to_card_data
 
       def self.resolve_author_urls(author_list, cache)
         author_cache = cache['authors'] || {}
@@ -223,7 +226,7 @@ module Jekyll
 
       def self.format_date(date)
         date.strftime('%B %-d, %Y')
-      rescue StandardError
+      rescue NoMethodError, ArgumentError
         date.to_s
       end
       private_class_method :format_date
@@ -270,7 +273,7 @@ module Jekyll
           awards.sort.each do |award|
             label = award.split.map(&:capitalize).join(' ')
             slug = Jekyll::Utils.slugify(award)
-            parts << "[#{label}](/books/by-award/##{slug}-award)"
+            parts << "[#{MdText.escape_link_text(label)}](/books/by-award/##{slug}-award)"
           end
         end
 
@@ -278,7 +281,7 @@ module Jekyll
         if mentions.is_a?(Array) && !mentions.empty?
           mentions.sort_by { |p| p.data['is_favorites_list'].to_s }.reverse_each do |post|
             year = post.data['is_favorites_list']
-            parts << "[#{year} Favorites](#{post.url})"
+            parts << "[#{MdText.escape_link_text("#{year} Favorites")}](#{MdText.escape_url(post.url)})"
           end
         end
 
@@ -289,10 +292,7 @@ module Jekyll
       private_class_method :format_awards
 
       def self.format_rating(rating)
-        rating_int = rating.to_i
-        return nil unless (1..5).include?(rating_int)
-
-        ("\u2605" * rating_int) + ("\u2606" * (5 - rating_int))
+        MarkdownCardUtils.format_stars(rating)
       end
       private_class_method :format_rating
     end

@@ -206,6 +206,25 @@ class TestDisplayCategoryPostsTag < Minitest::Test
     end
   end
 
+  # --- Markdown mode ---
+
+  def test_markdown_mode_renders_article_card_links
+    mock_post = create_doc({ 'title' => 'Tech Post' }, '/tech/post.html')
+    mock_result = { posts: [mock_post], log_messages: '' }
+
+    md_context = create_context(
+      {},
+      { site: @site, page: @current_page, render_mode: :markdown },
+    )
+    Jekyll::Posts::PostListUtils.stub :get_posts_by_category, ->(_args) { mock_result } do
+      Jekyll.stub :logger, @silent_logger_stub do
+        output = Liquid::Template.parse("{% display_category_posts topic='Tech' %}").render!(md_context)
+        assert_includes output, '- [Tech Post](/tech/post.html)'
+        refute_match(/<div/, output)
+      end
+    end
+  end
+
   def test_logs_error_if_topic_resolves_to_empty_string
     @site.config['plugin_logging']['DISPLAY_CATEGORY_POSTS'] = true
 

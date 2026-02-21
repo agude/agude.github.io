@@ -198,7 +198,9 @@ module Jekyll
             lines = ['## Major Awards']
             @awards_groups.each do |group|
               lines << "### #{group[:award_name]}"
-              (group[:books] || []).each { |book| lines << MdCards.render_book_card_md(book_to_card(book)) }
+              (group[:books] || []).each do |book|
+                lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book))
+              end
             end
             lines
           end
@@ -211,19 +213,9 @@ module Jekyll
             displayable.each do |list|
               title = list[:post].data['title']
               lines << "### [#{title}](#{list[:post].url})"
-              list[:books].each { |book| lines << MdCards.render_book_card_md(book_to_card(book)) }
+              list[:books].each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
             end
             lines
-          end
-
-          def book_to_card(doc)
-            authors = doc.data['book_authors']
-            {
-              title: doc.data['title'],
-              url: doc.url,
-              authors: authors.is_a?(Array) ? authors : [authors].compact,
-              rating: doc.data['rating'],
-            }
           end
         end
       end

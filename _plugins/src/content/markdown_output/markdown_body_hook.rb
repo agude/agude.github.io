@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'markdown_html_converter'
+
 module Jekyll
   module MarkdownOutput
     # Provides methods for the :pre_render hooks that re-render each
@@ -28,7 +30,7 @@ module Jekyll
         "#{body}\n\n#{snippet}"
       end
 
-      def self.render_markdown_body(content, _path, site, payload)
+      def self.render_markdown_body(content, site, payload)
         # Parse a standalone template instead of using site.liquid_renderer.
         # Jekyll 4 caches templates by filename via ||=, and Liquid's render
         # mutates the cached template's @registers with merge!.  If we used
@@ -49,7 +51,8 @@ module Jekyll
 
         # Inject render_mode into payload for includes (which can't access registers)
         payload_with_mode = payload.merge('render_mode' => 'markdown')
-        template.render!(payload_with_mode, info)
+        rendered = template.render!(payload_with_mode, info)
+        MarkdownHtmlConverter.convert(rendered)
       end
 
       def self.enabled?(site)
@@ -105,7 +108,7 @@ Jekyll::Hooks.register :documents, :pre_render do |doc, payload|
 
   begin
     doc.data['markdown_body'] = Jekyll::MarkdownOutput::MarkdownBodyHook.render_markdown_body(
-      doc.content, doc.path, doc.site, payload,
+      doc.content, doc.site, payload,
     )
     doc.data['markdown_alternate_href'] = Jekyll::MarkdownOutput::MarkdownBodyHook.compute_markdown_href(doc)
   rescue StandardError => e
@@ -126,7 +129,7 @@ Jekyll::Hooks.register :pages, :pre_render do |page, payload|
   begin
     content = Jekyll::MarkdownOutput::MarkdownBodyHook.content_with_layout_tags(page.content, page)
     page.data['markdown_body'] = Jekyll::MarkdownOutput::MarkdownBodyHook.render_markdown_body(
-      content, page.path, page.site, payload,
+      content, page.site, payload,
     )
     href = Jekyll::MarkdownOutput::MarkdownBodyHook.compute_markdown_href(page)
     page.data['markdown_alternate_href'] = href

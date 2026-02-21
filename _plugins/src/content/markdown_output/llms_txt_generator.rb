@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../../infrastructure/generated_static_file'
+require_relative '../../infrastructure/text/html_text_utils'
 
 module Jekyll
   module MarkdownOutput
@@ -66,7 +67,7 @@ module Jekyll
         return nil unless excerpt
 
         text = excerpt.respond_to?(:output) ? excerpt.output : excerpt.to_s
-        text = text.gsub(/<[^>]+>/, '').strip
+        text = Jekyll::Infrastructure::Text::HtmlTextUtils.strip_tags(text).strip
         return nil if text.empty?
 
         text

@@ -444,6 +444,23 @@ class TestDisplayRankedBooksTag < Minitest::Test
     assert_equal 'Book A (5 Stars)', result[:rating_groups][0][:books][0].data['title']
   end
 
+  # --- Markdown mode ---
+
+  def test_markdown_mode_renders_star_headings_and_book_links
+    md_context = create_context(
+      { 'page' => @page_data_dev },
+      { site: @site_dev, page: create_doc(@page_data_dev.merge({ 'url' => '/test.html' }), '/test.html'), render_mode: :markdown },
+    )
+    output = ''
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse('{% display_ranked_books page.ranked_list %}').render!(md_context)
+    end
+    assert_match(/^### ★/, output)
+    assert_match(/^- \[_.*_\]\(.*\)/, output)
+    refute_match(/<div/, output)
+    refute_match(/<nav/, output)
+  end
+
   def test_correct_html_structure_and_grouping_for_valid_list
     @context_dev['page']['ranked_list'] = @valid_ranked_list.dup # Ensure it's using the valid list
     output = ''

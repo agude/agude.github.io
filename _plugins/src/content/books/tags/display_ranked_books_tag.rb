@@ -71,21 +71,11 @@ module Jekyll
         def render_markdown(result)
           lines = []
           (result[:rating_groups] || []).each do |group|
-            stars = ("\u2605" * group[:rating]) + ("\u2606" * (5 - group[:rating]))
+            stars = MdCards.format_stars(group[:rating])
             lines << "### #{stars}"
-            group[:books].each { |book| lines << MdCards.render_book_card_md(book_to_card(book)) }
+            group[:books].each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
           end
           lines.join("\n")
-        end
-
-        def book_to_card(doc)
-          authors = doc.data['book_authors']
-          {
-            title: doc.data['title'],
-            url: doc.url,
-            authors: authors.is_a?(Array) ? authors : [authors].compact,
-            rating: doc.data['rating'],
-          }
         end
       end
     end
