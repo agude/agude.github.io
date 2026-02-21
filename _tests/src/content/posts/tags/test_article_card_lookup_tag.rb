@@ -341,4 +341,22 @@ class TestArticleCardLookupTag < Minitest::Test
       mock_finder.verify
     end
   end
+
+  # --- Render Mode: Markdown ---
+
+  def test_markdown_mode_renders_article_card_md
+    md_context = create_context(
+      { 'page' => { 'url' => '/current.html', 'path' => 'current.html' } },
+      { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html'), render_mode: :markdown },
+    )
+
+    output = ''
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse('{% article_card_lookup url="/blog/post-one.html" %}').render!(md_context)
+    end
+
+    assert_match(/^- \[Post One\]/, output)
+    assert_match(%r{/blog/post-one\.html}, output)
+    refute_match(/<div/, output)
+  end
 end

@@ -124,4 +124,36 @@ class TestShortStoryTitleTag < Minitest::Test
       assert_equal mock_output, output
     end
   end
+
+  # --- Render Mode: Markdown ---
+
+  def test_markdown_mode_renders_italic_title_with_id
+    md_context = create_context(
+      {},
+      { site: @site, render_mode: :markdown },
+    )
+
+    output = Liquid::Template.parse("{% short_story_title 'The Lottery' %}").render!(md_context)
+    assert_equal '_The Lottery_ {#the-lottery}', output
+  end
+
+  def test_markdown_mode_renders_italic_title_without_id
+    md_context = create_context(
+      {},
+      { site: @site, render_mode: :markdown },
+    )
+
+    output = Liquid::Template.parse("{% short_story_title 'The Lottery' no_id %}").render!(md_context)
+    assert_equal '_The Lottery_', output
+  end
+
+  def test_markdown_mode_returns_empty_for_nil
+    md_context = create_context(
+      { 'nil_var' => nil },
+      { site: @site, render_mode: :markdown },
+    )
+
+    output = Liquid::Template.parse('{% short_story_title nil_var %}').render!(md_context)
+    assert_equal '', output
+  end
 end

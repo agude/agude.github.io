@@ -8,6 +8,7 @@ require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../core/book_card_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../lookups/book_finder'
+require_relative '../../markdown_output/markdown_card_utils'
 
 # Renders a book card by looking up a book by its title and optional date.
 #
@@ -29,7 +30,8 @@ module Jekyll
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
         CardUtils = Jekyll::Books::Core::BookCardUtils
         Finder = Jekyll::Books::Lookups::BookFinder
-        private_constant :TagArgs, :Logger, :CardUtils, :Finder
+        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+        private_constant :TagArgs, :Logger, :CardUtils, :Finder, :MdCards
 
         def initialize(tag_name, markup, tokens)
           super
@@ -153,7 +155,10 @@ module Jekyll
         end
 
         def render_book_card(found_book, context, target_title_input)
-          # --- Call Utility to Render Card ---
+          if context.registers[:render_mode] == :markdown
+            return MdCards.render_book_card_md(MdCards.book_doc_to_card_data(found_book))
+          end
+
           CardUtils.render(found_book, context)
         rescue StandardError => e
           # Return the log message from Jekyll::Infrastructure::PluginLoggerUtils

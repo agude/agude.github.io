@@ -210,4 +210,46 @@ class TestCitationTag < Minitest::Test
     refute_nil captured_args
     assert_equal expected_resolved_params, captured_args[:params]
   end
+
+  # --- Render Mode: Markdown ---
+
+  def test_render_mode_markdown_calls_format_citation_text
+    markup = "author_last=\"Doe\" work_title='An Article'"
+    mock_text_output = 'Doe, *An Article*'
+
+    md_context = create_context(
+      {},
+      { site: @site, render_mode: :markdown },
+    )
+
+    captured_args = nil
+    Jekyll::UI::Citations::CitationUtils.stub :format_citation_text,
+                                              lambda { |params, site|
+                                                captured_args = { params: params, site: site }
+                                                mock_text_output
+                                              } do
+      output = Liquid::Template.parse("{% citation #{markup} %}").render!(md_context)
+      assert_equal mock_text_output, output
+    end
+
+    refute_nil captured_args, 'format_citation_text should have been called'
+    assert_equal({ author_last: 'Doe', work_title: 'An Article' }, captured_args[:params])
+  end
+
+  def test_render_mode_html_calls_format_citation_html
+    markup = "author_last=\"Doe\" work_title='An Article'"
+    mock_html_output = '<cite>Doe, An Article</cite>'
+
+    captured_args = nil
+    Jekyll::UI::Citations::CitationUtils.stub :format_citation_html,
+                                              lambda { |params, site|
+                                                captured_args = { params: params, site: site }
+                                                mock_html_output
+                                              } do
+      output = render_tag(markup)
+      assert_equal mock_html_output, output
+    end
+
+    refute_nil captured_args, 'format_citation_html should have been called'
+  end
 end

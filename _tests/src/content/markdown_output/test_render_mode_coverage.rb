@@ -21,22 +21,10 @@ class TestRenderModeCoverage < Minitest::Test
       # --- Layout header tags: assembler builds author/series links directly
       # using the link cache, bypassing these tags. ---
       'display_authors_tag.rb',
-      'series_text_tag.rb',
-
-      # --- HTML-only lookup/nav tags: used in sidebars or complex nav pages,
-      # not in the markdown body content path. ---
-      'book_card_lookup_tag.rb',
-      'article_card_lookup_tag.rb',
-      'display_all_books_grouped_tag.rb',
 
       # --- Admin/statistics pages: not reader-facing content. ---
       'display_ranked_by_backlinks_tag.rb',
       'display_unreviewed_mentions_tag.rb',
-
-      # --- Acceptable inline HTML: semantic tags that Markdown parsers
-      # pass through and LLMs can read. ---
-      'short_story_title_tag.rb',
-      'citation_tag.rb',
 
       # --- Infrastructure: not content output. ---
       'log_failure_tag.rb',

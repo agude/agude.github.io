@@ -169,4 +169,39 @@ class TestDisplayAllBooksGroupedTag < Minitest::Test
     end
     assert_match(/This tag does not accept any arguments/, err.message)
   end
+
+  # --- Render Mode: Markdown ---
+
+  def test_markdown_mode_renders_series_and_standalone
+    md_context = create_context(
+      {}, { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html'), render_mode: :markdown },
+    )
+
+    output = ''
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse('{% display_all_books_grouped %}').render!(md_context)
+    end
+
+    assert_includes output, '### Series Alpha'
+    assert_includes output, '### Series Beta'
+    assert_includes output, '### Standalone'
+    assert_match(/- \[_S1 Book 1_\]/, output)
+    assert_match(/- \[_Apple Book_\]/, output)
+    refute_match(/<nav/, output)
+    refute_match(/<div/, output)
+  end
+
+  def test_markdown_mode_empty_when_no_books
+    empty_site = create_site({}, { 'books' => [] })
+    md_context = create_context(
+      {}, { site: empty_site, page: create_doc({}, '/current.html'), render_mode: :markdown },
+    )
+
+    output = ''
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse('{% display_all_books_grouped %}').render!(md_context)
+    end
+
+    assert_equal '', output
+  end
 end

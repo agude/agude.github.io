@@ -10,6 +10,7 @@ require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../article_card_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../lookups/article_finder'
+require_relative '../../markdown_output/markdown_card_utils'
 
 # Renders an article card by looking up a post by URL.
 #
@@ -27,7 +28,8 @@ module Jekyll
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
         CardUtils = Jekyll::Posts::ArticleCardUtils
         Finder = Jekyll::Posts::Lookups::ArticleFinder
-        private_constant :TagArgs, :Logger, :CardUtils, :Finder
+        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+        private_constant :TagArgs, :Logger, :CardUtils, :Finder, :MdCards
 
         QuotedFragment = Liquid::QuotedFragment
 
@@ -115,6 +117,15 @@ module Jekyll
         end
 
         def render_card(post, target_url, context)
+          if context.registers[:render_mode] == :markdown
+            card = {
+              title: post.data['title'],
+              url: post.url,
+              description: MdCards.extract_plain_description(post.data),
+            }
+            return MdCards.render_article_card_md(card)
+          end
+
           CardUtils.render(post, context)
         rescue StandardError => e
           Logger.log_liquid_failure(

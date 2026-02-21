@@ -29,6 +29,17 @@ module Jekyll
         "#{cite_element} #{kramdown_id}"
       end
 
+      def self.render_title_markdown(context:, title:, no_id: false)
+        return '' if title.nil? || title.to_s.strip.empty?
+
+        prepared = Jekyll::Infrastructure::TypographyUtils.prepare_display_title(title)
+        return "_#{prepared}_" if no_id
+
+        context.registers[:story_title_counts] ||= Hash.new(0)
+        kramdown_id = create_kramdown_id(context, title)
+        "_#{prepared}_ #{kramdown_id}"
+      end
+
       # Private helper methods
       class << self
         private

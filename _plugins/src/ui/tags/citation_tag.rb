@@ -94,9 +94,11 @@ module Jekyll
             resolved_params[key] = TagArgs.resolve_value(value_markup, context)
           end
 
-          # Delegate the HTML formatting to the Jekyll::UI::Citations::CitationUtils module
-          # This utility is responsible for handling nil/empty values gracefully.
-          CitationUtil.format_citation_html(resolved_params, site)
+          if context.registers[:render_mode] == :markdown
+            CitationUtil.format_citation_text(resolved_params, site)
+          else
+            CitationUtil.format_citation_html(resolved_params, site)
+          end
         end
 
         private

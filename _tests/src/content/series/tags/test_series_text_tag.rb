@@ -203,4 +203,36 @@ class TestSeriesTextTag < Minitest::Test
     expected_output = "the #{expected_link}"
     assert_equal expected_output, render_tag(markup)
   end
+
+  # --- Render Mode: Markdown ---
+
+  def test_markdown_mode_renders_linked_series
+    md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
+    output = Liquid::Template.parse('{% series_text "Foundation" %}').render!(md_context)
+    assert_equal 'the [Foundation](/series/foundation.html) series', output
+  end
+
+  def test_markdown_mode_renders_unlinked_series
+    md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
+    output = Liquid::Template.parse('{% series_text "Unknown" %}').render!(md_context)
+    assert_equal 'the Unknown series', output
+  end
+
+  def test_markdown_mode_series_starting_with_the
+    md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
+    output = Liquid::Template.parse('{% series_text "The Expanse" %}').render!(md_context)
+    assert_equal '[The Expanse](/series/expanse.html) series', output
+  end
+
+  def test_markdown_mode_series_containing_keyword
+    md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
+    output = Liquid::Template.parse('{% series_text "Dune Saga" %}').render!(md_context)
+    assert_equal 'the [Dune Saga](/series/dune.html)', output
+  end
+
+  def test_markdown_mode_empty_input
+    md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
+    output = Liquid::Template.parse('{% series_text "" %}').render!(md_context)
+    assert_equal '', output
+  end
 end

@@ -390,6 +390,23 @@ class TestBookCardLookupTag < Minitest::Test
     assert_match 'Could not find title value', err.message
   end
 
+  # --- Render Mode: Markdown ---
+
+  def test_markdown_mode_renders_book_card_md
+    md_context = create_context(
+      { 'nil_title_var' => nil },
+      { site: @site, page: create_doc({ 'path' => 'test.md' }, '/test.html'), render_mode: :markdown },
+    )
+
+    output = ''
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(md_context)
+    end
+
+    assert_match(/^- \[_The First Book_\]/, output)
+    refute_match(/<div/, output)
+  end
+
   private
 
   # Creates test book documents

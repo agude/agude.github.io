@@ -41,11 +41,19 @@ module Jekyll
         def render(context)
           story_title = TagArgs.resolve_value(@title_markup, context)
 
-          TitleUtil.render_title(
-            context: context,
-            title: story_title,
-            no_id: @no_id_flag,
-          )
+          if context.registers[:render_mode] == :markdown
+            TitleUtil.render_title_markdown(
+              context: context,
+              title: story_title,
+              no_id: @no_id_flag,
+            )
+          else
+            TitleUtil.render_title(
+              context: context,
+              title: story_title,
+              no_id: @no_id_flag,
+            )
+          end
         end
 
         private

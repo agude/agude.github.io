@@ -48,6 +48,8 @@ module Jekyll
           analysis = TextUtil.analyze_series_name(raw_series_name_input)
           return '' if analysis.nil?
 
+          return render_markdown(analysis, context) if context.registers[:render_mode] == :markdown
+
           linked_series_html = Linker.render_series_link(analysis[:name], context)
           return '' if should_return_empty?(linked_series_html, analysis)
 
@@ -88,6 +90,16 @@ module Jekyll
           raise Liquid::SyntaxError,
                 "Syntax Error in 'series_text': " \
                 "Series name value is missing or empty in '#{@raw_markup}'"
+        end
+
+        def render_markdown(analysis, context)
+          data = Linker.find_series_link_data(analysis[:name], context)
+          link = if data[:url]
+                   "[#{data[:display_text]}](#{data[:url]})"
+                 else
+                   data[:display_text]
+                 end
+          "#{analysis[:prefix]}#{link}#{analysis[:suffix]}".strip
         end
 
         def should_return_empty?(linked_series_html, analysis)
