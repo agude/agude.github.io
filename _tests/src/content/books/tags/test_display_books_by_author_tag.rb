@@ -212,8 +212,8 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
     Jekyll.stub :logger, @silent_logger_stub do
       output = Liquid::Template.parse("{% display_books_by_author '#{@author_a}' %}").render!(md_context)
     end
-    standalone_pos = output.index('### Standalone')
-    series_pos = output.index('### Series One')
+    standalone_pos = output.index('## Standalone')
+    series_pos = output.index('## Series One')
     assert standalone_pos < series_pos, 'Standalone section should appear before series groups'
   end
 
@@ -230,6 +230,6 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
     Jekyll.stub :logger, @silent_logger_stub do
       output = Liquid::Template.parse("{% display_books_by_author '#{@author_a}' %}").render!(md_context)
     end
-    assert_includes output, '### Series One'
+    assert_includes output, '## Series One'
   end
 end

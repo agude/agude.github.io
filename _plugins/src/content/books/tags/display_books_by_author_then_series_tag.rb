@@ -53,9 +53,9 @@ module Jekyll
 
           lines = []
           authors.each do |author|
-            lines << "### #{author[:author_name]}"
+            lines << "## #{author[:author_name]}"
             (author[:series_groups] || []).each do |group|
-              lines << "#### #{group[:name]}"
+              lines << "### #{group[:name]}"
               group[:books].each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
             end
             (author[:standalone_books] || []).each do |book|

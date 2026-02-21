@@ -73,7 +73,7 @@ class TestDisplayBooksByYearTag < Minitest::Test
       { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     output = Liquid::Template.parse('{% display_books_by_year %}').render!(md_context)
-    assert_match(/^### \d{4}$/, output)
+    assert_match(/^## \d{4}$/, output)
     assert_match(/^- \[_.*_\]\(.*\)/, output)
     refute_match(/<div/, output)
   end

@@ -182,9 +182,9 @@ class TestDisplayAllBooksGroupedTag < Minitest::Test
       output = Liquid::Template.parse('{% display_all_books_grouped %}').render!(md_context)
     end
 
-    assert_includes output, '### Series Alpha'
-    assert_includes output, '### Series Beta'
-    assert_includes output, '### Standalone'
+    assert_includes output, '## Series Alpha'
+    assert_includes output, '## Series Beta'
+    assert_includes output, '## Standalone'
     assert_match(/- \[_S1 Book 1_\]/, output)
     assert_match(/- \[_Apple Book_\]/, output)
     refute_match(/<nav/, output)

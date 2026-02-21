@@ -455,7 +455,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
     Jekyll.stub :logger, @silent_logger_stub do
       output = Liquid::Template.parse('{% display_ranked_books page.ranked_list %}').render!(md_context)
     end
-    assert_match(/^### ★/, output)
+    assert_match(/^## ★/, output)
     assert_match(/^- \[_.*_\]\(.*\)/, output)
     refute_match(/<div/, output)
     refute_match(/<nav/, output)
