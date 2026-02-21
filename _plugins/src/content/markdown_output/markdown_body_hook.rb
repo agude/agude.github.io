@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'markdown_html_converter'
+
 module Jekyll
   module MarkdownOutput
     # Provides methods for the :pre_render hooks that re-render each
@@ -49,7 +51,8 @@ module Jekyll
 
         # Inject render_mode into payload for includes (which can't access registers)
         payload_with_mode = payload.merge('render_mode' => 'markdown')
-        template.render!(payload_with_mode, info)
+        rendered = template.render!(payload_with_mode, info)
+        MarkdownHtmlConverter.convert(rendered)
       end
 
       def self.enabled?(site)
