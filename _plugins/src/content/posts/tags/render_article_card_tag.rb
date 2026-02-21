@@ -39,7 +39,12 @@ module Jekyll
           return log_nil_object(context) unless post_object
 
           if context.registers[:render_mode] == :markdown
-            MdCards.render_article_card_md({ title: post_object['title'], url: post_object['url'] })
+            card = {
+              title: post_object['title'],
+              url: post_object['url'],
+              description: MdCards.extract_plain_description(post_object, type: :article),
+            }
+            MdCards.render_article_card_md(card)
           else
             CardUtils.render(post_object, context)
           end

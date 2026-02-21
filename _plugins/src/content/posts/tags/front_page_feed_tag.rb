@@ -64,7 +64,11 @@ module Jekyll
           return '' if items.empty?
 
           items.map do |item|
-            card = { title: item.data['title'], url: item.url }
+            card = {
+              title: item.data['title'],
+              url: item.url,
+              description: MdCards.extract_plain_description(item.data, type: :article),
+            }
             MdCards.render_article_card_md(card)
           end.join("\n")
         end

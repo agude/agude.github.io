@@ -216,4 +216,88 @@ class TestMarkdownCardUtils < Minitest::Test
     result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_article_card_md(data)
     assert_equal '- [Post \[Update\]](/blog/post/)', result
   end
+
+  # --- description in cards ---
+
+  def test_render_book_card_md_with_description
+    data = {
+      title: 'Dune',
+      authors: ['Frank Herbert'],
+      rating: 5,
+      url: '/books/dune/',
+      description: 'A desert planet epic',
+    }
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
+    assert_includes result, ': A desert planet epic'
+    assert_match(/\u2605{5}: A desert/, result)
+  end
+
+  def test_render_book_card_md_without_description
+    data = {
+      title: 'Dune',
+      authors: ['Frank Herbert'],
+      rating: 5,
+      url: '/books/dune/',
+    }
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_book_card_md(data)
+    refute_includes result, ':'
+  end
+
+  def test_render_article_card_md_with_description
+    data = { title: 'My Post', url: '/blog/post/', description: 'A great article' }
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_article_card_md(data)
+    assert_equal '- [My Post](/blog/post/): A great article', result
+  end
+
+  def test_render_article_card_md_without_description
+    data = { title: 'My Post', url: '/blog/post/' }
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.render_article_card_md(data)
+    assert_equal '- [My Post](/blog/post/)', result
+  end
+
+  # --- extract_plain_description ---
+
+  def test_extract_plain_description_from_description_field
+    data = { 'description' => 'A plain text description' }
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.extract_plain_description(data)
+    assert_equal 'A plain text description', result
+  end
+
+  def test_extract_plain_description_from_html_excerpt
+    data = { 'excerpt' => '<p>HTML <strong>excerpt</strong> text</p>' }
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.extract_plain_description(data)
+    assert_equal 'HTML excerpt text', result
+  end
+
+  def test_extract_plain_description_nil_when_empty
+    data = {}
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.extract_plain_description(data)
+    assert_nil result
+  end
+
+  def test_extract_plain_description_collapses_whitespace
+    data = { 'description' => "Line one.\nLine two.\n  Extra   spaces." }
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.extract_plain_description(data)
+    assert_equal 'Line one. Line two. Extra spaces.', result
+  end
+
+  def test_extract_plain_description_book_type_uses_excerpt
+    data = { 'description' => 'Ignored for books', 'excerpt' => '<p>Book excerpt</p>' }
+    result = Jekyll::MarkdownOutput::MarkdownCardUtils.extract_plain_description(data, type: :book)
+    assert_equal 'Book excerpt', result
+  end
+
+  def test_book_doc_to_card_data_includes_description
+    doc = create_doc(
+      {
+        'title' => 'Dune',
+        'book_authors' => ['Frank Herbert'],
+        'rating' => 5,
+        'excerpt' => '<p>A review of Dune</p>',
+      },
+      '/books/dune/',
+    )
+    card = Jekyll::MarkdownOutput::MarkdownCardUtils.book_doc_to_card_data(doc)
+    assert_equal 'A review of Dune', card[:description]
+  end
 end

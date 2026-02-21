@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require_relative '../../infrastructure/text/markdown_text_utils'
+require_relative '../../infrastructure/text/html_text_utils'
+require_relative '../../ui/cards/card_data_extractor_utils'
 
 module Jekyll
   module MarkdownOutput
@@ -8,6 +10,7 @@ module Jekyll
     # ArticleCardRenderer.extract_data) into Markdown list items.
     module MarkdownCardUtils
       MdText = Jekyll::Infrastructure::Text::MarkdownTextUtils
+      HtmlText = Jekyll::Infrastructure::Text::HtmlTextUtils
 
       # Convert a Jekyll book document into a card data hash.
       # Pass author_urls: { 'Name' => '/url/' } for linked authors.
@@ -20,7 +23,20 @@ module Jekyll
           authors: author_list,
           author_urls: author_urls,
           rating: doc.data['rating'],
+          description: extract_plain_description(doc.data, type: :book),
         }
+      end
+
+      # Extract a plain-text description from a Jekyll data hash.
+      # Reuses CardDataExtractorUtils for HTML extraction, then strips tags.
+      def self.extract_plain_description(data_source, type: :article)
+        html = Jekyll::UI::Cards::CardDataExtractorUtils.extract_description_html(
+          data_source, type: type,
+        )
+        return nil if html.empty?
+
+        text = HtmlText.strip_tags(html).gsub(/\s+/, ' ').strip
+        text.empty? ? nil : text
       end
 
       # Format a numeric rating as Unicode stars (e.g. "★★★★☆").
@@ -37,6 +53,7 @@ module Jekyll
         line += " by #{format_card_authors(data)}" if data[:authors]&.any?
         stars = format_stars(data[:rating])
         line += " --- #{stars}" if stars
+        line += ": #{data[:description]}" if data[:description]
         line
       end
 
@@ -50,7 +67,9 @@ module Jekyll
       private_class_method :format_card_authors
 
       def self.render_article_card_md(data)
-        "- [#{MdText.escape_link_text(data[:title])}](#{MdText.escape_url(data[:url])})"
+        line = "- [#{MdText.escape_link_text(data[:title])}](#{MdText.escape_url(data[:url])})"
+        line += ": #{data[:description]}" if data[:description]
+        line
       end
     end
   end
