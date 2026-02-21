@@ -66,6 +66,30 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
     mock_renderer.verify
   end
 
+  # --- Markdown mode ---
+
+  def test_markdown_mode_renders_author_and_series_headings
+    books = [
+      create_doc(
+        { 'title' => 'Book A', 'book_authors' => ['Author One'], 'series' => 'Series X', 'book_number' => 1, 'rating' => 5 },
+        '/books/a.html',
+      ),
+      create_doc(
+        { 'title' => 'Book B', 'book_authors' => ['Author One'], 'rating' => 4 },
+        '/books/b.html',
+      ),
+    ]
+    site = create_site({}, { 'books' => books })
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    output = Liquid::Template.parse('{% display_books_by_author_then_series %}').render!(md_context)
+    assert_match(/^### /, output)
+    assert_match(/^- \[_.*_\]\(.*\)/, output)
+    refute_match(/<div/, output)
+  end
+
   def test_render_includes_log_messages_from_finder
     # Test that log messages from the finder are prepended to the renderer output
     mock_finder_data = {

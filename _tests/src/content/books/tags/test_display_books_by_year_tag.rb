@@ -60,6 +60,24 @@ class TestDisplayBooksByYearTag < Minitest::Test
     mock_renderer.verify
   end
 
+  # --- Markdown mode ---
+
+  def test_markdown_mode_renders_year_headings_and_book_links
+    books = [
+      create_doc({ 'title' => 'Old Book', 'book_authors' => ['Auth'], 'rating' => 4 }, '/books/old.html'),
+      create_doc({ 'title' => 'New Book', 'book_authors' => ['Auth'], 'rating' => 5 }, '/books/new.html'),
+    ]
+    site = create_site({}, { 'books' => books })
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    output = Liquid::Template.parse('{% display_books_by_year %}').render!(md_context)
+    assert_match(/^### \d{4}$/, output)
+    assert_match(/^- \[_.*_\]\(.*\)/, output)
+    refute_match(/<div/, output)
+  end
+
   def test_render_includes_log_messages_from_finder
     # Test that log messages from the finder are prepended to the renderer output
     mock_finder_data = {

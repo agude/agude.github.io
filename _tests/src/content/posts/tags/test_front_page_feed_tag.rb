@@ -211,6 +211,24 @@ class TestFrontPageFeedTag < Minitest::Test
     end
   end
 
+  # --- Markdown mode ---
+
+  def test_markdown_mode_renders_article_card_links
+    md_context = create_context(
+      {},
+      { site: @site, page: create_doc({ 'path' => 'index.md' }, '/index.html'), render_mode: :markdown },
+    )
+    output = ''
+    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items, ->(_args) { [@post1, @book1] } do
+      Jekyll.stub :logger, @silent_logger_stub do
+        output = Liquid::Template.parse('{% front_page_feed %}').render!(md_context)
+      end
+    end
+    assert_includes output, '- [Recent Post](/post1.html)'
+    assert_includes output, '- [Recent Book](/book1.html)'
+    refute_match(/<div/, output)
+  end
+
   private
 
   def create_test_items

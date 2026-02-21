@@ -180,6 +180,40 @@ class TestDisplayAwardsPageTag < Minitest::Test
     refute_includes output, '&middot;'
   end
 
+  # --- Markdown mode ---
+
+  def test_markdown_mode_renders_award_and_favorites_sections
+    md_context = create_context(
+      {},
+      { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html'), render_mode: :markdown },
+    )
+
+    mock_award_finder = Minitest::Mock.new
+    mock_award_finder.expect :find, @mock_awards_data_hash
+
+    mock_favorites_finder = Minitest::Mock.new
+    mock_favorites_finder.expect :find, @mock_favorites_data_hash
+
+    output = ''
+    Jekyll::Books::Lists::ByAwardFinder.stub :new, ->(_args) { mock_award_finder } do
+      Jekyll::Books::Lists::FavoritesListsFinder.stub :new, ->(_args) { mock_favorites_finder } do
+        Jekyll.stub :logger, @silent_logger_stub do
+          output = Liquid::Template.parse('{% display_awards_page %}').render!(md_context)
+        end
+      end
+    end
+
+    mock_award_finder.verify
+    mock_favorites_finder.verify
+
+    assert_includes output, '## Major Awards'
+    assert_includes output, '### Hugo Award'
+    assert_includes output, '## My Favorite Books Lists'
+    assert_match(/^- \[_.*_\]\(.*\)/, output)
+    refute_match(/<div/, output)
+    refute_match(/<nav/, output)
+  end
+
   private
 
   # Creates test data for awards and favorites
