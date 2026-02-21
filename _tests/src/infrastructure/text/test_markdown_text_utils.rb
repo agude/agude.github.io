@@ -13,12 +13,12 @@ class TestMarkdownTextUtils < Minitest::Test
     assert_equal 'Title \\[Vol. 1\\]', MdText.escape_link_text('Title [Vol. 1]')
   end
 
-  def test_escape_link_text_escapes_parentheses
-    assert_equal 'Title \\(Part 2\\)', MdText.escape_link_text('Title (Part 2)')
+  def test_escape_link_text_passes_through_parentheses
+    assert_equal 'Title (Part 2)', MdText.escape_link_text('Title (Part 2)')
   end
 
-  def test_escape_link_text_escapes_backslashes
-    assert_equal 'Back\\\\Slash', MdText.escape_link_text('Back\\Slash')
+  def test_escape_link_text_passes_through_backslashes
+    assert_equal 'Back\\Slash', MdText.escape_link_text('Back\\Slash')
   end
 
   def test_escape_link_text_noop_on_safe_string
@@ -35,8 +35,8 @@ class TestMarkdownTextUtils < Minitest::Test
     assert_equal '/path/file\\(1\\)', MdText.escape_url('/path/file(1)')
   end
 
-  def test_escape_url_escapes_backslashes
-    assert_equal '/path/file\\\\name', MdText.escape_url('/path/file\\name')
+  def test_escape_url_passes_through_backslashes
+    assert_equal '/path/file\\name', MdText.escape_url('/path/file\\name')
   end
 
   def test_escape_url_noop_on_safe_url

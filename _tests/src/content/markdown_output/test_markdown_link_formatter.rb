@@ -73,10 +73,10 @@ class TestMarkdownLinkFormatter < Minitest::Test
     assert_equal '[Title](/books/test_\(edition\)/)', result
   end
 
-  def test_format_link_escapes_backslashes
+  def test_format_link_passes_through_backslashes
     data = { status: :found, url: '/books/test\\path/', display_text: 'Title \\ Subtitle' }
     result = Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data)
-    assert_equal '[Title \\\\ Subtitle](/books/test\\\\path/)', result
+    assert_equal '[Title \\ Subtitle](/books/test\\path/)', result
   end
 
   def test_format_link_italic_with_brackets

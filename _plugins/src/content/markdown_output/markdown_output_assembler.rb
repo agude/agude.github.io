@@ -273,7 +273,7 @@ module Jekyll
           awards.sort.each do |award|
             label = award.split.map(&:capitalize).join(' ')
             slug = Jekyll::Utils.slugify(award)
-            parts << "[#{label}](/books/by-award/##{slug}-award)"
+            parts << "[#{MdText.escape_link_text(label)}](/books/by-award/##{slug}-award)"
           end
         end
 
@@ -281,7 +281,7 @@ module Jekyll
         if mentions.is_a?(Array) && !mentions.empty?
           mentions.sort_by { |p| p.data['is_favorites_list'].to_s }.reverse_each do |post|
             year = post.data['is_favorites_list']
-            parts << "[#{year} Favorites](#{post.url})"
+            parts << "[#{MdText.escape_link_text("#{year} Favorites")}](#{MdText.escape_url(post.url)})"
           end
         end
 

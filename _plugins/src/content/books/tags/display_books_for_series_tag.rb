@@ -7,6 +7,7 @@ require_relative '../lists/series_finder'
 require_relative '../lists/renderers/for_series_renderer'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../infrastructure/text/markdown_text_utils'
 
 module Jekyll
   module Books
@@ -35,7 +36,8 @@ module Jekyll
         end
 
         MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
-        private_constant :MdCards
+        MdText = Jekyll::Infrastructure::Text::MarkdownTextUtils
+        private_constant :MdCards, :MdText
 
         def render(context)
           series_name_input = TagArgs.resolve_value(@series_name_markup, context)
@@ -71,7 +73,7 @@ module Jekyll
           books.each_with_index do |book, idx|
             card = MdCards.book_doc_to_card_data(book)
             # Numbered list for reading order
-            line = "#{idx + 1}. [#{card[:title]}](#{card[:url]})"
+            line = "#{idx + 1}. [#{MdText.escape_link_text(card[:title])}](#{MdText.escape_url(card[:url])})"
             line += " by #{card[:authors].join(', ')}" if card[:authors]&.any?
             stars = MdCards.format_stars(card[:rating])
             line += " --- #{stars}" if stars
