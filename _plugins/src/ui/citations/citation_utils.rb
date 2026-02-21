@@ -2,6 +2,7 @@
 
 # _plugins/utils/citation_utils.rb
 require 'cgi'
+require_relative '../../infrastructure/text/html_text_utils'
 
 module Jekyll
   # Utility module for generating formatted HTML citations from bibliographic data.
@@ -20,7 +21,7 @@ module Jekyll
           html = format_citation_html(params, site)
           text = html.gsub(%r{<cite>([^<]+)</cite>}, '*\1*')
           text = text.gsub(%r{<a href="([^"]+)">([^<]+)</a>}, '[\2](\1)')
-          text.gsub(/<[^>]+>/, '')
+          Jekyll::Infrastructure::Text::HtmlTextUtils.strip_tags(text)
         end
 
         def self.format_citation_html(params, _site = nil)
