@@ -1,5 +1,5 @@
 ---
-date: 2026-02-21
+date: 2026-02-21 12:57:55 -0800
 title: Sunstone Imperative
 book_authors: Scott Warren
 series: War Horses
