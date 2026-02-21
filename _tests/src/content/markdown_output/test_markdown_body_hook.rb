@@ -189,7 +189,7 @@ class TestMarkdownBodyHook < Minitest::Test
     content = "{% book_link 'Hyperion' author='Dan Simmons' %}"
 
     with_silent_logger do
-      result = Hook.render_markdown_body(content, 'test.md', site, payload)
+      result = Hook.render_markdown_body(content, site, payload)
       assert_equal '[_Hyperion_](/books/hyperion.html)', result
     end
   end
@@ -199,7 +199,7 @@ class TestMarkdownBodyHook < Minitest::Test
     content = "{% book_link 'Nonexistent Book' %}"
 
     with_silent_logger do
-      result = Hook.render_markdown_body(content, 'test.md', site, payload)
+      result = Hook.render_markdown_body(content, site, payload)
       assert_match(/Nonexistent Book/, result)
       refute_match(/\[/, result)
     end
@@ -224,7 +224,7 @@ class TestMarkdownBodyHook < Minitest::Test
 
     with_silent_logger do
       # Step 1: markdown render (simulates :pre_render hook)
-      md_result = Hook.render_markdown_body(content, path, site, payload)
+      md_result = Hook.render_markdown_body(content, site, payload)
       assert_match(/\[_Hyperion_\]/, md_result)
 
       # Step 2: HTML render via the shared LiquidRenderer (simulates Jekyll)
@@ -268,7 +268,7 @@ class TestMarkdownBodyHook < Minitest::Test
     payload = { 'page' => page.data.merge('title' => 'Dan Simmons') }
 
     with_silent_logger do
-      result = Hook.render_markdown_body(content, 'test.md', site, payload)
+      result = Hook.render_markdown_body(content, site, payload)
       assert_includes result, "short reviews of Dan Simmons's books:"
       assert_includes result, '[_Hyperion_](/books/hyperion.html)'
       assert_includes result, '[_Fall of Hyperion_](/books/fall-of-hyperion.html)'
@@ -305,7 +305,7 @@ class TestMarkdownBodyHook < Minitest::Test
     payload = { 'page' => page.data.merge('title' => 'Dune') }
 
     with_silent_logger do
-      result = Hook.render_markdown_body(content, 'test.md', site, payload)
+      result = Hook.render_markdown_body(content, site, payload)
       assert_includes result, 'short reviews of the books from the series: Dune'
       assert_includes result, '[Dune](/books/dune.html)'
       assert_includes result, '[Dune Messiah](/books/dune-messiah.html)'
@@ -333,7 +333,7 @@ class TestMarkdownBodyHook < Minitest::Test
     Hook.eligible_page?(page) || skip('Page not eligible')
     content = Hook.content_with_layout_tags(page.content, page)
     with_silent_logger do
-      page.data['markdown_body'] = Hook.render_markdown_body(content, page.path, site, payload)
+      page.data['markdown_body'] = Hook.render_markdown_body(content, site, payload)
     end
     href = Hook.compute_markdown_href(page)
     page.data['markdown_alternate_href'] = href
