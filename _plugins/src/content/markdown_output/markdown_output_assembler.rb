@@ -226,7 +226,7 @@ module Jekyll
 
       def self.format_date(date)
         date.strftime('%B %-d, %Y')
-      rescue StandardError
+      rescue NoMethodError, ArgumentError
         date.to_s
       end
       private_class_method :format_date

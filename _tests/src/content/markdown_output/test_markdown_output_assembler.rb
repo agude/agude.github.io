@@ -44,6 +44,29 @@ class TestMarkdownOutputAssembler < Minitest::Test
     assert_includes header, '#tech, #ai'
   end
 
+  def test_post_header_handles_string_date_gracefully
+    doc = create_doc(
+      { 'layout' => 'post', 'title' => 'Test', 'categories' => [] },
+      '/blog/test/',
+    )
+    # Bypass create_doc's Time coercion to test the rescue path
+    doc.data['date'] = '2026-01-15'
+    header = Assembler.build_post_header(doc)
+    # String doesn't have strftime, falls back to to_s
+    assert_includes header, '*2026-01-15*'
+  end
+
+  def test_post_header_handles_nil_date
+    doc = create_doc(
+      { 'layout' => 'post', 'title' => 'Test', 'categories' => ['test'] },
+      '/blog/test/',
+    )
+    doc.data['date'] = nil
+    header = Assembler.build_post_header(doc)
+    # nil date is skipped entirely (guard: "if date")
+    refute_includes header, '*'
+  end
+
   def test_header_book_includes_authors_and_rating
     doc = create_doc(
       {
