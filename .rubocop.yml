@@ -3,6 +3,7 @@ AllCops:
   Exclude:
     - 'vendor/**/*'
     - 'Gemfile'
+  SuggestExtensions: false
 
 # ------------------------------------------------------------------
 # 1. Global Relaxations (Apply to everything)
