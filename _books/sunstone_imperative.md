@@ -1,10 +1,10 @@
 ---
-date: 2026-02-15
+date: 2026-02-21
 title: Sunstone Imperative
 book_authors: Scott Warren
 series: War Horses
 book_number: 6
-rating: null
+rating: 4
 image: /books/covers/sunstone_imperative.jpg
 ---
 
