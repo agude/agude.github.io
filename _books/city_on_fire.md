@@ -88,7 +88,7 @@ it, but that too is being saved for later.
 The book reminded me of a few other works:
 
 - The little shrines with devotion candles in the plasm stations felt straight
-  out of <cite class="table-top-game-title">Warhammer 40,000</cite>, with its
+  out of {% game_title "Warhammer 40,000" %}, with its
   mix of technology and religion.
 - The way major military actions are sometimes covered in just a sentence felt
   like the end of {{ bankss }} {{ weapons }}.

@@ -97,13 +97,13 @@ be with Three Seagrass makes her an outcast from her home.
   in {{ grrms }} {{ game_of_thrones }}.
 
 - The furry pets that have overrun the _Weight for the Wheel_'s air vents are
-  an homage to the Tribbles from <cite class="tv-show-title">Star Trek</cite>.
+  an homage to the Tribbles from {% tv_show_title "Star Trek" %}.
 
 - The Teixcalaanli Empire sent a poet to establish first contact with the
   Ebrektia and regretted it when the poet sent back no scientific
   observations, leading to the line: "We sent a poet where we ought to have
-  sent a team of _ixplanatl_ researchers"---a reference to the movie <cite
-  class="movie-title">Contact</cite>, based on {{ sagans }} novel {{ contact
+  sent a team of _ixplanatl_ researchers"---a reference to the movie
+  {% movie_title "Contact" %}, based on {{ sagans }} novel {{ contact
   }}.
 
 I enjoyed how {{ the_author }} mixed different genres---space opera, romance,

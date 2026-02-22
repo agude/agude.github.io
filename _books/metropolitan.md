@@ -86,16 +86,16 @@ falcon---that reinforces the theme of freedom.
 - The dolphins fighting for freedom are reminiscent of those in {{ brins }} {{
   startide }}, even if the ones in this book are likely modified humans.
 
-- The blend of magic, technology, and revolution echoes <cite
-  class="video-game-title">Final Fantasy VI</cite> and <cite
-  class="video-game-title">Final Fantasy VII</cite>. Mako is similar to plasm,
+- The blend of magic, technology, and revolution echoes
+  {% game_title "Final Fantasy VI" %} and {% game_title "Final Fantasy VII" %}.
+  Mako is similar to plasm,
   although Mako's extraction destroys the planet while plasm's is more benign.
 
 - The ghostly voices in the background of Aiah's calls are like the
   entroponetic interference on the intercom in {{ disco }}.
 
 - The final battle, where mages and attack helicopters share the battlefield,
-  reminded me of a <cite class="table-top-game-title">Shadowrun</cite>
+  reminded me of a {% game_title "Shadowrun" %}
   session.
 
 {{ the_author }} leaves many questions unanswered: What is the shield, and why

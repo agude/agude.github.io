@@ -316,28 +316,23 @@ date: "%Y" | minus: 2015 }}.
 
 ### TV
 
-- <cite class="tv-show-title">Hard Time</cite>
-- <cite class="tv-show-title">The Wire</cite>
+- {% tv_show_title "Hard Time" %}
+- {% tv_show_title "The Wire" %}
 
 ### Movie
 
-- <cite class="movie-title">Batman Begins</cite>
-- <cite class="movie-title">Pacific Rim</cite>
+- {% movie_title "Batman Begins" %}
+- {% movie_title "Pacific Rim" %}
 
 ---
 
 ## Games
 
-### Video Games
-
-- <cite class="video-game-title">Chrono Trigger</cite>
-- <cite class="video-game-title">Disco Elysium</cite>
-- <cite class="video-game-title">Final Fantasy VI</cite>
-
-### Tabletop Games
-
-- <cite class="table-top-game-title">Shadowrun</cite>
-- <cite class="table-top-game-title">Warhammer 40,000</cite>
+- {% game_title "Chrono Trigger" %}
+- {% game_title "Disco Elysium" %}
+- {% game_title "Final Fantasy VI" %}
+- {% game_title "Shadowrun" %}
+- {% game_title "Warhammer 40,000" %}
 
 ---
 

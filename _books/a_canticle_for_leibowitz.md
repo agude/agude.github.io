@@ -35,8 +35,8 @@ humanity's knowledge after an atomic war.
 
 {% capture bible %}{% book_link "Bible" %}{% endcapture %}
 
-{% capture fallout %}<cite class="video-game-title">Fallout</cite>{% endcapture %}
-{% capture warhammer %}<cite class="table-top-game-title">Warhammer 40,000</cite>{% endcapture %}
+{% capture fallout %}{% game_title "Fallout" %}{% endcapture %}
+{% capture warhammer %}{% game_title "Warhammer 40,000" %}{% endcapture %}
 
 {% capture rur %}{% book_link "R.U.R." %}{% endcapture %}
 {% capture capek %}{% author_link "Karel Čapek" %}{% endcapture %}

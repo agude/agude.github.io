@@ -20,7 +20,7 @@ Originator masters.
 {% capture fa1 %}{% book_link "Shards of Earth" %}{% endcapture %}
 {% capture fa2 %}{% book_link "Eyes of the Void" %}{% endcapture %}
 
-{% capture borg %}<cite class="tv-show-title">Star Trek</cite>'s <cite class="tv-show-title">I, Borg</cite>{% endcapture %}
+{% capture borg %}{% tv_show_title "Star Trek" %}'s {% tv_show_title "I, Borg" %}{% endcapture %}
 
 {% capture war %}{% book_link "The War of the Worlds" %}{% endcapture %}
 

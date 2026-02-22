@@ -73,8 +73,7 @@ This book reminded me of a few other works of fiction:
   alien architecture, recalls Makkathran in {{ void1 }}.
 
 - Tothiat parasite--host naming (Emma and Neth becoming Emmaneth) works a lot
-  like how the Trill are named in <cite class="tv-show-title">Deep Space
-  9</cite>.
+  like how the Trill are named in {% tv_show_title "Deep Space 9" %}.
 
 - The planet Matachin is a clear homage to the Matachin Tower in {{ torturer
   }}.

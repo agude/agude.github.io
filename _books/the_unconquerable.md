@@ -60,8 +60,8 @@ galaxy-altering conflict that would define the end of the Concordiat era.
 {% capture conrads %}{% author_link "Joseph Conrad" possessive %}{% endcapture %}
 {% capture heart %}{% book_link "Heart of Darkness" %}{% endcapture %}
 
-{% capture predator %}<cite class="movie-title">Predator</cite>{% endcapture %}
-{% capture empire %}<cite class="movie-title">The Empire Strikes Back</cite>{% endcapture %}
+{% capture predator %}{% movie_title "Predator" %}{% endcapture %}
+{% capture empire %}{% movie_title "The Empire Strikes Back" %}{% endcapture %}
 
 {% capture asimovs %}{% author_link "Isaac Asimov" possessive %}{% endcapture %}
 {% capture liar %}{% short_story_link "Liar!" %}{% endcapture %}

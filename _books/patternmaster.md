@@ -46,8 +46,8 @@ that comes with it. The entire civilization is built on hierarchy, with the
 most powerful Patternists controlling those beneath them. Children and those
 outside the houses are fair game for abuse and enslavement. Might makes right.
 
-Weirdly enough, {{ this_book }} reminds me of the anime <cite
-class="tv-show-title">Attack on Titan</cite>. Both civilizations---the
+Weirdly enough, {{ this_book }} reminds me of the anime
+{% tv_show_title "Attack on Titan" %}. Both civilizations---the
 Patternists and the Eldians---are built around genetic superpowers that they
 use to oppress others. Both are under siege by human-monsters---the Clayarks
 and the Titans. Both explore themes of hierarchy and power. I also couldn't

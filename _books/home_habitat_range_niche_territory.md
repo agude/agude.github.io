@@ -45,8 +45,8 @@ and shaped by that---and Mensah, whose trauma has reshaped her as well.
 It also more directly confronts the horror of the Corporation Rim, especially
 their system of slavery. The story highlights how both their human
 workers---enslaved physically---and their constructs---enslaved in both body
-and mind---are trapped. It made me realize that SecUnits are basically <cite
-class="table-top-game-title">Warhammer 40,000</cite> servitors, just
+and mind---are trapped. It made me realize that SecUnits are basically
+{% game_title "Warhammer 40,000" %} servitors, just
 deceptively less grimdark.
 
 What I love about {{ this_series }} is the perfect mix of action and

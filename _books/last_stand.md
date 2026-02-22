@@ -83,7 +83,7 @@ the Final War with the Melconians.
 {% capture combat_unit %}{% short_story_link "Combat Unit" %}{% endcapture %}
 {% capture odyssey %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 
-{% capture thx %}<cite class="movie-title">THX-1138</cite>{% endcapture %}
+{% capture thx %}{% movie_title "THX-1138" %}{% endcapture %}
 {% capture nineteen_eighty_four %}{% book_link "1984" %}{% endcapture %}
 {% capture christies %}{% author_link "Agatha Christie" possessive %}{% endcapture %}
 {% capture poirot %}{% book_link "The Mysterious Affair at Styles" %}{% endcapture %}

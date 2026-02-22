@@ -52,7 +52,7 @@ the nature of religion along the way.
 {% capture absalom_absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}
 {% capture sound_and_the_fury %}{% book_link "The Sound and the Fury" %}{% endcapture %}
 
-{% capture memento %}<cite class="movie-title">Memento</cite>{% endcapture %}
+{% capture memento %}{% movie_title "Memento" %}{% endcapture %}
 {% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
 
 {% capture adams %}{% author_link "Douglas Adams" %}{% endcapture %}

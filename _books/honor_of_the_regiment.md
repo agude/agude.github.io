@@ -164,7 +164,7 @@ identifies a hidden threat and prepares for it. In this case, the Bolo
 orchestrates the threat of itself to unite the human factions, which reminds
 me of how Ozymandias sets up a fake-alien threat to prevent nuclear war in {{
 watchmen }}. The united human response to the alien invasion also feels a lot
-like <cite class="movie-title">Independence Day</cite>. It's thematically
+like {% movie_title "Independence Day" %}. It's thematically
 similar to {{ relic_from_bolo1 }} and {{ final_mission_from_bolo2 }}, where a
 Bolo is woken up and has to defend humans from an unanticipated alien attack.
 

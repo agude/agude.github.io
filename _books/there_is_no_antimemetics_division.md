@@ -45,8 +45,8 @@ thought---and how you might combat a foe you can't even remember exists.
 {% capture colder_war %}{% book_link "A Colder War" %}{% endcapture %}
 {% capture laundry_files %}{% series_link "The Laundry Files" %}{% endcapture %}
 
-{% capture simcity %}<cite class="video-game-title">SimCity 2000</cite>{% endcapture %}
-{% capture days_later %}<cite class="movie-title">28 Days Later</cite>{% endcapture %}
+{% capture simcity %}{% game_title "SimCity 2000" %}{% endcapture %}
+{% capture days_later %}{% movie_title "28 Days Later" %}{% endcapture %}
 
 {% capture darfsteller %}{% book_link "The Darfsteller" %}{% endcapture %}
 

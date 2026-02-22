@@ -38,14 +38,14 @@ their genocidal campaign against humanity.
 
 {% capture mb_series %}{% series_link "The Murderbot Diaries" %} series{% endcapture %}
 
-{% capture wh40k %}<cite class="table-top-game-title">Warhammer 40,000</cite>{% endcapture %}
-{% capture fortyk %}<cite class="table-top-game-title">40k</cite>{% endcapture %}
-{% capture battletech %}<cite class="table-top-game-title">BattleTech</cite>{% endcapture %}
+{% capture wh40k %}{% game_title "Warhammer 40,000" %}{% endcapture %}
+{% capture fortyk %}{% game_title "40k" %}{% endcapture %}
+{% capture battletech %}{% game_title "BattleTech" %}{% endcapture %}
 
-{% capture star_trek_4 %}<cite class="movie-title">Star Trek IV: The Voyage Home</cite>{% endcapture %}
+{% capture star_trek_4 %}{% movie_title "Star Trek IV: The Voyage Home" %}{% endcapture %}
 
-{% capture mass_effect %}<cite class="video-game-title">Mass Effect</cite>{% endcapture %}
-{% capture halo %}<cite class="video-game-title">Halo</cite>{% endcapture %}
+{% capture mass_effect %}{% game_title "Mass Effect" %}{% endcapture %}
+{% capture halo %}{% game_title "Halo" %}{% endcapture %}
 {% capture disco_elysium %}{% book_link "Disco Elysium"%}{% endcapture %}
 
 {% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}

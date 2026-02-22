@@ -134,7 +134,7 @@ together history, myth, and prophecy to tell of the impending downfall of man.
 {% capture kierkegaard_lastname %}{% author_link "Søren Kierkegaard" link_text="Kierkegaard" %}{% endcapture %}
 {% capture fear_and_trembling %}{% book_link "Fear and Trembling" %}{% endcapture %}
 
-{% capture terminator %}<cite class="movie-title">The Terminator</cite>{% endcapture %}
+{% capture terminator %}{% movie_title "The Terminator" %}{% endcapture %}
 
 {% capture bolo12 %}{% book_link "The Triumphant" %}{% endcapture %}
 {% capture bolo13 %}{% book_link "Last Stand" %}{% endcapture %}

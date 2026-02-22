@@ -43,10 +43,10 @@ plot that proves to be the opening move in an interstellar war.
 {% capture bolo12 %}{% book_link "The Triumphant" %}{% endcapture %}
 {% capture bolo13 %}{% book_link "Last Stand" %}{% endcapture %}
 
-{% capture tng %}<cite class="tv-show-title">Star Trek: The Next Generation</cite>{% endcapture %}
-{% capture ds9 %}<cite class="tv-show-title">Deep Space Nine</cite>{% endcapture %}
-{% capture sw %}<cite class="movie-title">Star Wars</cite>{% endcapture %}
-{% capture zulu %}<cite class="movie-title">Zulu</cite>{% endcapture %}
+{% capture tng %}{% tv_show_title "Star Trek: The Next Generation" %}{% endcapture %}
+{% capture ds9 %}{% tv_show_title "Deep Space Nine" %}{% endcapture %}
+{% capture sw %}{% movie_title "Star Wars" %}{% endcapture %}
+{% capture zulu %}{% movie_title "Zulu" %}{% endcapture %}
 
 {% capture alexs %}{% author_link "A. N. Alex" link_text="Alex" possessive %}{% endcapture %}
 {% capture mote_in_shadow %}{% book_link "A Mote in Shadow" %}{% endcapture %}

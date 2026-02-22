@@ -53,7 +53,7 @@ small group of rebels and their self-aware computer.
 
 {% capture zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
 
-{% capture firefly %}<cite class="tv-show-title">Firefly</cite>{% endcapture %}
+{% capture firefly %}{% tv_show_title "Firefly" %}{% endcapture %}
 
 {% capture the_population_bomb %}{% book_link "The Population Bomb" %}{% endcapture %}
 {% capture paul_ehrlich %}{% author_link "Paul R. Ehrlich" link_text="Paul"%}{% endcapture %}

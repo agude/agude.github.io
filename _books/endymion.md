@@ -82,7 +82,7 @@ immortality.
 {% capture alexs_lastname %}{% author_link "A. N. Alex" link_text="Alex" possessive %}{% endcapture %}
 {% capture mote %}{% book_link "A Mote In Shadow" %}{% endcapture %}
 
-{% capture terminator_2 %}<cite class="movie-title">Terminator 2: Judgment Day</cite>{% endcapture %}
+{% capture terminator_2 %}{% movie_title "Terminator 2: Judgment Day" %}{% endcapture %}
 
 {{ the_authors_lastname_possessive }} {{ hyperion }} and {{ fall_hyperion }}
 model their plots and themes on {{ keatss }} {{ hyperion_keats }} and {{

@@ -54,9 +54,9 @@ dream of giving his daughter a permanent home.
 
 {% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
 
-{% capture aliens_movie %}<cite class="movie-title">Aliens</cite>{% endcapture %}
-{% capture sneakers %}<cite class="movie-title">Sneakers</cite>{% endcapture %}
-{% capture halo %}<cite class="game-title">Halo</cite>{% endcapture %}
+{% capture aliens_movie %}{% movie_title "Aliens" %}{% endcapture %}
+{% capture sneakers %}{% movie_title "Sneakers" %}{% endcapture %}
+{% capture halo %}{% game_title "Halo" %}{% endcapture %}
 
 {{ this_book }} is a "hard sci-fi techno-thriller". It feels like {{ clancys
 }} work, but not from the operator or spy perspective; it's told from the view

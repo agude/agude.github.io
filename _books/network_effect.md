@@ -44,7 +44,7 @@ its crew.
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture matter %}{% book_link "Matter" %}{% endcapture %}
 
-{% capture soldier_movie %}[<cite class="movie-title">Soldier</cite>][soldier]{% endcapture %}
+{% capture soldier_movie %}[{% movie_title "Soldier" %}][soldier]{% endcapture %}
 
 [soldier]: https://en.wikipedia.org/wiki/Soldier_(1998_American_film)
 

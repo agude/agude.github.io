@@ -130,7 +130,7 @@ things in the background.
   that is the ratio by which the dead outnumber the living."
 
 - The virtual hells are reminiscent of the _Star Trek: Deep Space Nine_
-  episode <cite class="tv-show-title">Hard Time</cite>, where Chief O'Brien
+  episode {% tv_show_title "Hard Time" %}, where Chief O'Brien
   suffers PTSD after receiving memories of a 20-year imprisonment.
 
 - Virtual afterlife and themes of mind and consciousness both feature
