@@ -40,10 +40,10 @@ full-scale invasion.
 {% capture h4 %}{% book_link "The Rise of Endymion" %}{% endcapture %}
 {% capture cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
 
-In {{ this_book }}, the Wyking clans, that we first saw in {{ w2 }}, are
+In {{ this_book }}, the Wyking clans, which we first saw in {{ w2 }}, are
 locked in a bitter civil war. Sensing an opportunity, the Emirs of the West
 Gulf and the Archon de Catalan put aside their differences and assemble a
-joint taskforce to breach the Dwimor Gate, one of the few navigable routes
+joint task force to breach the Dwimor Gate, one of the few navigable routes
 into clan space. Blocking their path is a massive fortress-asteroid
 honeycombed with narrow passages and defended by Wyking warriors. Taking the
 stronghold is essential for the invasion's success. Mechs are too large for
@@ -59,11 +59,11 @@ evil, but with some humor, and it's interesting to get a deeper look into
 their culture and how the hierarchy of the different clans works.
 
 The initial assault on the asteroid reminded me of the [American airborne
-assault][airborne] during [Operation Overlord][overlord], or at least how
-they're described in {{ ambroses_lastname }} {{ bob }}. The Seraphs and
-marines teleport over to take out key objectives before the main assault, but
-they end up scattered and in the wrong drop zones, desperately trying to
-regroup rather than achieve their objectives.
+assault][airborne] during [Operation Overlord][overlord], or at least how it's
+described in {{ ambroses_lastname }} {{ bob }}. The Seraphs and marines
+teleport over to take out key objectives before the main assault, but they end
+up scattered and in the wrong drop zones, desperately trying to regroup rather
+than achieve their objectives.
 
 [airborne]: https://en.wikipedia.org/wiki/American_airborne_landings_in_Normandy
 [overlord]: https://en.wikipedia.org/wiki/Operation_Overlord
