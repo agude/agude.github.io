@@ -32,6 +32,12 @@ class TestRenderModeCoverage < Minitest::Test
       # --- llms.txt index: only used in llms.txt (plain text), never
       # rendered through the markdown pipeline. ---
       'llms_txt_index_tag.rb',
+
+      # --- Media title tags: render_mode handled by base class
+      # CiteTitleTag (cite_title_tag.rb). ---
+      'game_title_tag.rb',
+      'movie_title_tag.rb',
+      'tv_show_title_tag.rb',
     ],
   ).freeze
 
