@@ -122,3 +122,34 @@ Tags with render_mode support: all link tags (`book_link`, `author_link`,
   (set to `'html'` by default in pre-render hooks) for strict variable mode.
 - **Config:** Feature controlled by `enable_markdown_output` (default: `true`).
   Documents/pages opt out with `markdown_output: false` in front matter.
+
+## Content Authoring
+
+### Excerpt and Opening Paragraph
+
+Jekyll's excerpt is the first "block" of content (before the first blank
+line). A `{% capture %}` block placed *above* the opening paragraph becomes
+the excerpt instead of the actual paragraph text. Therefore:
+
+- **`{% capture %}` definitions must go _after_ the opening paragraph.**
+- **Inline Liquid tags work fine in the opening paragraph** (e.g.
+  `{% game_title page.title %}`), because they produce output in-place
+  without creating a separate block.
+- Opening paragraphs that need title formatting but can't use capture
+  variables should use the inline title tags (`movie_title`, `game_title`,
+  `tv_show_title`) or raw `<cite>` HTML (which `MarkdownHtmlConverter`
+  will handle as a fallback).
+
+### Media Title Tags
+
+Simple formatting tags for non-book creative works. Emit
+`<cite class="...-title">` in HTML, `_italic_` in Markdown.
+
+| Tag | CSS class | Example |
+|-----|-----------|---------|
+| `movie_title` | `movie-title` | `{% movie_title "The Matrix" %}` |
+| `game_title` | `game-title` | `{% game_title "Elden Ring" %}` |
+| `tv_show_title` | `tv-show-title` | `{% tv_show_title "The Wire" %}` |
+
+Accepts quoted strings or Liquid variables (`{% game_title page.title %}`).
+Base class: `ui/tags/cite_title_tag.rb`.

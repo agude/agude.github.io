@@ -45,8 +45,8 @@ Group by book:
 {% capture strosss_lastname %}{% author_link "Charles Stross" link_text="Stross" possessive %}{% endcapture %}
 {% capture a_colder_war %}{% short_story_link "A Colder War" %}{% endcapture %}
 
-{% capture terminator %}<cite class="movie-title">Terminator</cite>{% endcapture %}
-{% capture fallout %}<cite class="video-game-title">Fallout</cite>{% endcapture %}
+{% capture terminator %}{% movie_title "Terminator" %}{% endcapture %}
+{% capture fallout %}{% game_title "Fallout" %}{% endcapture %}
 ```
 
 If multiple books share the same author, only include the author bundle once (with the first book):
@@ -149,9 +149,9 @@ Common abbreviations are fine in the variable name: `botns`, `cantos`.
 These don't have link tags, so use raw HTML:
 
 ```liquid
-{% capture terminator %}<cite class="movie-title">Terminator</cite>{% endcapture %}
-{% capture fallout %}<cite class="video-game-title">Fallout</cite>{% endcapture %}
-{% capture ds9 %}<cite class="tv-series-title">Deep Space Nine</cite>{% endcapture %}
+{% capture terminator %}{% movie_title "Terminator" %}{% endcapture %}
+{% capture fallout %}{% game_title "Fallout" %}{% endcapture %}
+{% capture ds9 %}{% tv_show_title "Deep Space Nine" %}{% endcapture %}
 ```
 
 **Exception**: Disco Elysium is treated as a book and uses `{% book_link "Disco Elysium" %}`.
