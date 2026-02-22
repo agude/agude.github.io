@@ -25,6 +25,10 @@ Use simple, direct words:
 
 The test: Would you say it out loud to a friend? If not, simplify.
 
+**Stacked adjectives**: Avoid comma-separated adjective pairs like "brutal,
+high-stakes" or "dark, gritty". Pick the one that does the most work and drop
+the other. LLMs love doubling up adjectives; the author almost never does.
+
 ## Sentence Structure
 
 - Mix short and medium sentences
@@ -40,6 +44,8 @@ The test: Would you say it out loud to a friend? If not, simplify.
   many.
 - **Exclamation marks**: Rarely. Only for genuine enthusiasm.
 - **Ellipses**: Avoid
+- **Bold**: Use `**double stars**` only.
+- **Italics**: Use `_single underscores_` only.
 
 ## Comparisons to Other Works
 

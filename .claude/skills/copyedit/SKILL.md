@@ -43,7 +43,7 @@ You must:
 
 ## Output Format
 
-Add the edited copy to the bottom of the article, separated by a markdown HR break.
+**Add the edited copy to the bottom of the article, separated by a markdown HR break.**
 
 For grammar mode, just change in place, and also list the changes made so the author can review them.
 
@@ -68,6 +68,7 @@ Key points:
 - Don't add hedging words ("perhaps", "somewhat", "rather")
 - Don't make it sound more formal or academic
 - Don't add superlatives or intensifiers
+- Don't stack comma-separated adjectives ("brutal, high-stakes", "dark, gritty"). Pick one.
 
 ## Book Review Structure
 
