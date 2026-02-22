@@ -36,16 +36,19 @@ to open the gates for a full-scale invasion.
 {% capture bob %}{% book_link "Band of Brothers" %}{% endcapture %}
 {% capture ambroses_lastname %}{% author_link "Stephen E. Ambrose" link_text="Ambrose" possessive %}{% endcapture %}
 
+{% capture h3 %}{% book_link "Endymion" %}{% endcapture %}
+{% capture h4 %}{% book_link "The Rise of Endymion" %}{% endcapture %}
 {% capture cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
 
 In {{ this_book }}, the Wyking clans---first introduced in {{ w2 }}---are
 locked in a bitter civil war. Sensing an opportunity, the Emirs of the West
-Gulf and the Archon de Catalan assemble a joint taskforce to breach the Dwimor
-Gate, one of the few navigable routes into clan space. Blocking their path is
-a massive fortress-asteroid honeycombed with narrow passages and defended by
-Wyking warriors. Taking the stronghold is essential for the invasion's
-success. Mechs are too large for most of the asteroid's tunnels, but just the
-right size for the Seraphs: human-sized power armor first seen in {{ w5 }}.
+Gulf and the Archon de Catalan put aside their differences and assemble a
+joint taskforce to breach the Dwimor Gate, one of the few navigable routes
+into clan space. Blocking their path is a massive fortress-asteroid
+honeycombed with narrow passages and defended by Wyking warriors. Taking the
+stronghold is essential for the invasion's success. Mechs are too large for
+most of the asteroid's tunnels, but just the right size for the Seraphs:
+human-sized power armor first seen in {{ w5 }}.
 
 The story is relatively simple, but I enjoyed it. The long-running gag about
 Vandal's leadership training is great. {{ the_authors_lastname }} must have
@@ -69,4 +72,4 @@ regroup rather than achieve their objectives.
 careful plotting and insight into the types of people you need during and after
 a revolution that made {{ w3 }} and {{ w4 }} so good, but it's a solid action
 romp in the vein of {{ w1 }}, and a perfect palate cleanser after the
-philosophical and _long_ {{ cantos }}.
+philosophical and _long_ {{ h3 }} and {{ h4 }} of the {{ cantos }}.
