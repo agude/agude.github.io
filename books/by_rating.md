@@ -74,6 +74,7 @@ ranked_list:
   - Matter
   - Not Till We Are Lost
   - For We Are Many
+  - Sunstone Imperative
   - Ymir
   - Endymion
   - The Rise of Endymion
