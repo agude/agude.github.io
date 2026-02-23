@@ -24,16 +24,20 @@ module Jekyll
       # @param link_text_override_raw [String, nil] Optional display text.
       # @param possessive [Boolean, nil] If true, append ’s to the output. Defaults to nil (falsey).
       # @return [String] The generated HTML (e.g., <a><span>...</span></a> or <span>...</span>’s).
-      def self.render_author_link(author_name_raw, context, link_text_override_raw = nil, possessive = nil)
-        Jekyll::Authors::AuthorLinkResolver.new(context).resolve(author_name_raw, link_text_override_raw, possessive)
+      def self.render_author_link(author_name_raw, context, link_text_override_raw = nil, possessive = nil, link: true)
+        Jekyll::Authors::AuthorLinkResolver.new(context).resolve(
+          author_name_raw, link_text_override_raw, possessive, link: link,
+        )
       end
 
       # Returns a structured data hash (not HTML) for an author link resolution.
-      def self.find_author_link_data(author_name_raw, context, link_text_override_raw = nil, possessive = nil)
+      def self.find_author_link_data(author_name_raw, context, link_text_override_raw = nil, possessive = nil,
+                                     link: true)
         Jekyll::Authors::AuthorLinkResolver.new(context).resolve_data(
           author_name_raw,
           link_text_override_raw,
           possessive,
+          link: link,
         )
       end
 

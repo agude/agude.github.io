@@ -237,6 +237,30 @@ class TestAuthorLinkResolver < Minitest::Test
     assert_equal 'Pen Name', data[:display_text]
   end
 
+  # --- link: false tests ---
+
+  def test_resolve_link_false_found_returns_span_without_anchor
+    output = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('Jane Doe', nil, nil, link: false)
+    assert_equal '<span class="author-name">Jane Doe</span>', output
+  end
+
+  def test_resolve_link_false_possessive
+    output = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('Jane Doe', nil, true, link: false)
+    assert_equal "<span class=\"author-name\">Jane Doe</span>\u2019s", output
+  end
+
+  def test_resolve_link_true_still_links
+    output = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('Jane Doe', nil, nil, link: true)
+    assert_equal '<a href="/authors/jane-doe.html"><span class="author-name">Jane Doe</span></a>', output
+  end
+
+  def test_resolve_data_link_false_nullifies_url
+    data = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve_data('Jane Doe', nil, nil, link: false)
+    assert_equal :found, data[:status]
+    assert_nil data[:url]
+    assert_equal 'Jane Doe', data[:display_text]
+  end
+
   def test_resolve_data_frozen
     data = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve_data('Jane Doe', nil, nil)
     assert data.frozen?, 'resolve_data() should return a frozen hash'

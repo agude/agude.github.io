@@ -24,12 +24,14 @@ module Jekyll
         @log_output = ''
       end
 
-      def resolve(name_raw, override, possessive)
-        data = resolve_data(name_raw, override, possessive)
+      def resolve(name_raw, override, possessive, link: true)
+        @link = link
+        data = resolve_data(name_raw, override, possessive, link: link)
         render_html_from_data(data)
       end
 
-      def resolve_data(name_raw, override, possessive)
+      def resolve_data(name_raw, override, possessive, link: true)
+        @link = link
         return { status: :no_site, url: nil, display_text: name_raw.to_s, possessive: nil }.freeze unless @site
 
         @name_input = name_raw.to_s
@@ -48,7 +50,7 @@ module Jekyll
         if author_data
           {
             status: :found,
-            url: author_data['url'],
+            url: @link ? author_data['url'] : nil,
             display_text: display_text,
             possessive: !!@possessive,
           }.freeze
@@ -108,7 +110,11 @@ module Jekyll
         suffix = data[:possessive] ? "\u2019s" : ''
         content = "#{span}#{suffix}"
 
-        html = LinkHelper._generate_link_html(@context, data[:url], content)
+        html = if @link
+                 LinkHelper._generate_link_html(@context, data[:url], content)
+               else
+                 content
+               end
 
         @log_output + html
       end

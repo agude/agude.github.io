@@ -35,6 +35,7 @@ module Jekyll
           @raw_markup = markup # Store original for potential error messages
           @name_markup = nil
           @link_text_markup = nil
+          @link_markup = nil
           @possessive_flag = false
 
           parse_arguments(markup)
@@ -46,12 +47,19 @@ module Jekyll
           author_name = TagArgs.resolve_value(@name_markup, context)
           link_text_override = (TagArgs.resolve_value(@link_text_markup, context) if @link_text_markup)
 
+          link_arg = link_enabled?(context)
+
           if context.registers[:render_mode] == :markdown
-            data = Linker.find_author_link_data(author_name, context, link_text_override, @possessive_flag)
-            result = MdLink.format_link(data, self_link: LinkHelper.self_link?(context, data[:url]))
+            data = Linker.find_author_link_data(
+              author_name, context, link_text_override, @possessive_flag, link: link_arg,
+            )
+            no_link = !link_arg || LinkHelper.self_link?(context, data[:url])
+            result = MdLink.format_link(data, self_link: no_link)
             data[:possessive] ? "#{result}'s" : result
           else
-            Linker.render_author_link(author_name, context, link_text_override, @possessive_flag)
+            Linker.render_author_link(
+              author_name, context, link_text_override, @possessive_flag, link: link_arg,
+            )
           end
         end
 
@@ -84,6 +92,8 @@ module Jekyll
               # scanner[1] contains the captured quoted fragment (the value)
               # Prevent overwriting if it appears multiple times (take the first one)
               @link_text_markup ||= scanner[1]
+            elsif scanner.scan(/link\s*=\s*(#{QuotedFragment})/)
+              @link_markup ||= scanner[1]
             elsif scanner.scan(/possessive(?!\S)/) # Ensure 'possessive' is a whole word
               @possessive_flag = true
             else
@@ -98,6 +108,14 @@ module Jekyll
           # Raise an error to break the build
           raise Liquid::SyntaxError,
                 "Syntax Error in 'author_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
+        end
+
+        # Returns true unless link= is explicitly set to 'false'
+        def link_enabled?(context)
+          return true unless @link_markup
+
+          value = TagArgs.resolve_value(@link_markup, context)
+          value.to_s.downcase != 'false'
         end
 
         def validate_name
