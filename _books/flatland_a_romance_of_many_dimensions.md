@@ -8,9 +8,9 @@ rating: 3
 image: /books/covers/flatland_a_romance_of_many_dimensions.jpg
 ---
 
-{% book_link page.title %} is a satirical short novel by
-<span class="author-name">{{ page.book_authors }}</span>, critiquing the rigid
-class hierarchy of Victorian England through the lens of geometry.
+{% book_link page.title %} is a satirical short novel by <span class="author-
+name">{{ page.book_authors }}</span>, critiquing the rigid class hierarchy of
+Victorian England through the lens of geometry.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

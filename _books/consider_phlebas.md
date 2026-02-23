@@ -10,8 +10,8 @@ image: /books/covers/consider_phlebas.jpg
 
 I've been meaning to read <span class="author-name">Banks</span>'s <span
 class="book-series">{{ page.series }}</span> series for more than two decades,
-so I was excited to finally get started. Unfortunately, <cite
-class="book-title">{{ page.title }}</cite> was not a great introduction.
+so I was excited to finally get started. Unfortunately, <cite class="book-
+title">{{ page.title }}</cite> was not a great introduction.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

@@ -8,11 +8,10 @@ rating: 4
 image: /books/covers/patternmaster.jpg
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is the fourth and final
-book in the <span class="book-series">{{ page.series }}</span> series. It
-follows the Patternist brothers, Teray and Coransee, as they fight each other
-to become the new Patternmaster.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is the fourth and final book in the <span class="book-series">{{
+page.series }}</span> series. It follows the Patternist brothers, Teray and
+Coransee, as they fight each other to become the new Patternmaster.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

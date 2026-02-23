@@ -10,10 +10,10 @@ awards:
   - hugo
 ---
 
-{% book_link page.title %} was recommended as a
-exciting, hard-scifi book full of new ideas. I was eager to read it, having
-just gotten back into fiction. I bought it for my flight from Melbourne to San
-Francisco and I threw it in the airport trash as I got off the plane.
+{% book_link page.title %} was recommended as a exciting, hard-scifi book full
+of new ideas. I was eager to read it, having just gotten back into fiction. I
+bought it for my flight from Melbourne to San Francisco and I threw it in the
+airport trash as I got off the plane.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

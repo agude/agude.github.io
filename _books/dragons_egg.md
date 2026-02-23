@@ -10,10 +10,9 @@ awards:
   - locus
 ---
 
-{% book_link page.title %} is a hard sci-fi novel by
-<span class="author-name">{{ page.book_authors }}</span>. It is the story of
-first contact between humans and the Cheela: beings who live on a neutron
-star.
+{% book_link page.title %} is a hard sci-fi novel by <span class="author-
+name">{{ page.book_authors }}</span>. It is the story of first contact between
+humans and the Cheela: beings who live on a neutron star.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

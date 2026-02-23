@@ -8,13 +8,12 @@ rating: 5
 image: /books/covers/echopraxia.jpg
 ---
 
-{% book_link page.title %} is the second book in <span
-class="author-name">{{ page.book_authors }}</span>'s <span
-class="book-series">{{ page.series }}</span> series, unfolding at roughly the
-same time as {% book_link "Blindsight" %}. It follows parasitologist Daniel
-Brüks, who gets unwillingly dragged into a conflict between multiple
-transhuman factions, travels to the _Icarus_ station orbiting the sun, and
-eventually back to Earth.
+{% book_link page.title %} is the second book in <span class="author-name">{{
+page.book_authors }}</span>'s <span class="book-series">{{ page.series }}</span>
+series, unfolding at roughly the same time as {% book_link "Blindsight" %}. It
+follows parasitologist Daniel Brüks, who gets unwillingly dragged into a
+conflict between multiple transhuman factions, travels to the _Icarus_ station
+orbiting the sun, and eventually back to Earth.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}

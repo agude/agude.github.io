@@ -8,10 +8,10 @@ rating: 5
 image: /books/covers/blindsight.jpg
 ---
 
-{% book_link page.title %} is a hard sci-fi novel about
-first contact with aliens in the near future. A crew of four transhumans and a
-vampire are sent on a spaceship to investigate an anomaly in the solar system
-after a swarm of alien probes scan Earth.
+{% book_link page.title %} is a hard sci-fi novel about first contact with
+aliens in the near future. A crew of four transhumans and a vampire are sent on
+a spaceship to investigate an anomaly in the solar system after a swarm of alien
+probes scan Earth.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

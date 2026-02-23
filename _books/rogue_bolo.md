@@ -9,10 +9,10 @@ rating: 3
 image: /books/covers/rogue_bolo.jpg
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is the second book in the
-<span class="book-series">{{ page.series }}</span> series. It's a collection
-of two novellas featuring the sentient tanks.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is the second book in the <span class="book-series">{{ page.series
+}}</span> series. It's a collection of two novellas featuring the sentient
+tanks.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

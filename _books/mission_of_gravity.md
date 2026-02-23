@@ -8,10 +8,10 @@ rating: 3
 image: /books/covers/mission_of_gravity.jpg
 ---
 
-{% book_link page.title %} is a sci-fi adventure story
-set on the planet Mesklin---a massive, rapidly rotating world with gravity
-much higher than Earth's. It follows Barlennan, a Mesklinite, as he sails the
-_Bree_ across the planet in search of a lost human rocket ship.
+{% book_link page.title %} is a sci-fi adventure story set on the planet Mesklin
+---a massive, rapidly rotating world with gravity much higher than Earth's. It
+follows Barlennan, a Mesklinite, as he sails the _Bree_ across the planet in
+search of a lost human rocket ship.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture forwards %}{% author_link "Robert L. Forward" possessive %}{% endcapture %}

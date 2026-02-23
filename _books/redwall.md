@@ -8,11 +8,10 @@ rating: 4
 image: /books/covers/redwall.jpg
 ---
 
-{% book_link page.title %} is the first book in <span
-class="author-name">{{ page.book_authors }}</span>'s <span
-class="book-series">{{ page.series }}</span> series. It tells the story of
-Mathias, a mouse who follows his destiny to become the warrior of Redwall
-Abbey and defeat the evil rat Cluny the Scourge.
+{% book_link page.title %} is the first book in <span class="author-name">{{
+page.book_authors }}</span>'s <span class="book-series">{{ page.series }}</span>
+series. It tells the story of Mathias, a mouse who follows his destiny to become
+the warrior of Redwall Abbey and defeat the evil rat Cluny the Scourge.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}

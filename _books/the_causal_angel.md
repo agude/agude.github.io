@@ -8,10 +8,9 @@ rating: 3
 image: /books/covers/the_causal_angel.jpg
 ---
 
-{% book_link page.title %} is the last book in the <span
-class="book-series">{{ page.series }}</span> trilogy. We finally learn le
-Flambeur was hired to steal the Kaminari Jewel, a Zoku gem with the power to
-alter reality.
+{% book_link page.title %} is the last book in the <span class="book-series">{{
+page.series }}</span> trilogy. We finally learn le Flambeur was hired to steal
+the Kaminari Jewel, a Zoku gem with the power to alter reality.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

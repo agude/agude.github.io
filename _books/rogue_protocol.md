@@ -8,11 +8,10 @@ rating: 5
 image: /books/covers/rogue_protocol.jpg
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is the third book in the
-<span class="book-series">{{ page.series }}</span>. It follows Murderbot as it
-investigates a GrayCris terraforming station and, you guessed it, ends up
-saving a group of humans.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is the third book in the <span class="book-series">{{ page.series
+}}</span>. It follows Murderbot as it investigates a GrayCris terraforming
+station and, you guessed it, ends up saving a group of humans.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

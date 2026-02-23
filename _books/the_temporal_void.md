@@ -10,9 +10,9 @@ image: /books/covers/the_temporal_void.jpg
 
 The second book in <span class="author-name">Hamilton</span>'s <span
 class="book-series">{{ page.series }}</span>, <cite class="book-title">{{
-page.title }}</cite>, continues to advance the story, but like many middle
-books in a trilogy, it does so slowly. Much of this slowness is due to
-multiple, massive, 200-page chapters following Edeard in the Void.
+page.title }}</cite>, continues to advance the story, but like many middle books
+in a trilogy, it does so slowly. Much of this slowness is due to multiple,
+massive, 200-page chapters following Edeard in the Void.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

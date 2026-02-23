@@ -8,10 +8,10 @@ rating: 1
 image: /books/covers/house_of_suns.jpg
 ---
 
-{% book_link page.title %} is a standalone hard sci-fi
-book by <span class="author-name">{{ page.book_authors }}</span>. It tells the
-story of the Gentian Line, a family of clones who are betrayed, nearly wiped
-out, and must unravel what happened.
+{% book_link page.title %} is a standalone hard sci-fi book by <span
+class="author-name">{{ page.book_authors }}</span>. It tells the story of the
+Gentian Line, a family of clones who are betrayed, nearly wiped out, and must
+unravel what happened.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

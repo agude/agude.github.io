@@ -8,12 +8,11 @@ rating: 3
 image: /books/covers/the_sirens_of_titan.jpg
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is a satirical science
-fiction novel about the richest man in America, Malachi Constant. It follows
-his unwilling and absurd journey from Earth to Mars, Mercury, and finally
-Titan, exploring questions about free will, the purpose of human history, and
-the nature of religion along the way.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is a satirical science fiction novel about the richest man in
+America, Malachi Constant. It follows his unwilling and absurd journey from
+Earth to Mars, Mercury, and finally Titan, exploring questions about free will,
+the purpose of human history, and the nature of religion along the way.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

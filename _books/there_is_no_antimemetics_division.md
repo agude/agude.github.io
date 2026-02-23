@@ -9,10 +9,10 @@ rating: 5
 image: /books/covers/there_is_no_antimemetics_division.jpg
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is a book about
-researchers trying to control dangerous antimemes---ideas that can't be
-thought---and how you might combat a foe you can't even remember exists.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is a book about researchers trying to control dangerous antimemes---
+ideas that can't be thought---and how you might combat a foe you can't even
+remember exists.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

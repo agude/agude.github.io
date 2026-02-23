@@ -10,11 +10,11 @@ awards:
   - hugo
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is the first book in the
-<span class="book-series">{{ page.series }}</span> series. It follows Mahit
-Dzmare, an ambassador from the space station Lsel, as she tries to save her
-home from being annexed by the Teixcalaanli empire.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is the first book in the <span class="book-series">{{ page.series
+}}</span> series. It follows Mahit Dzmare, an ambassador from the space station
+Lsel, as she tries to save her home from being annexed by the Teixcalaanli
+empire.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

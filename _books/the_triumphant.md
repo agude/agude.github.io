@@ -12,11 +12,11 @@ rating: 5
 image: /books/covers/bolos_book_3_the_triumphant_1st_edition.jpg
 ---
 
-{% book_link page.title %} is the twelfth book in the
-<span class="book-series">{{ page.series }}</span> series. It's an anthology
-of Bolo stories written by three different authors. They explore the emotional
-bond between a Bolo and the people around them, and the dangers of caring too
-much about a machine built for war.
+{% book_link page.title %} is the twelfth book in the <span class="book-
+series">{{ page.series }}</span> series. It's an anthology of Bolo stories
+written by three different authors. They explore the emotional bond between a
+Bolo and the people around them, and the dangers of caring too much about a
+machine built for war.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

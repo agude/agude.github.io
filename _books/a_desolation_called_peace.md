@@ -11,11 +11,10 @@ awards:
   - locus
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is the second book in the
-<span class="book-series">{{ page.series }}</span> series. It tells the story
-of Mahit and Three Seagrass trying to stop the war between the Teixcalaanli
-Empire and a mysterious alien race.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is the second book in the <span class="book-series">{{ page.series
+}}</span> series. It tells the story of Mahit and Three Seagrass trying to stop
+the war between the Teixcalaanli Empire and a mysterious alien race.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

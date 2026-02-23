@@ -10,10 +10,9 @@ awards:
   - locus
 ---
 
-{% book_link page.title %} is a sci-fi, hardboiled
-detective novel set in near-future Oakland, California. It follows Conrad
-Metcalf, a private inquisitor, as he tries to solve the murder of Maynard
-Stanhunt.
+{% book_link page.title %} is a sci-fi, hardboiled detective novel set in near-
+future Oakland, California. It follows Conrad Metcalf, a private inquisitor, as
+he tries to solve the murder of Maynard Stanhunt.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

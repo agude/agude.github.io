@@ -10,12 +10,11 @@ awards:
   - hugo
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is a Hugo Award-winning
-novelette about the obsolescence of the human artist. It follows Ryan
-Thornier, a former stage idol reduced to working as a janitor in a theater now
-run entirely by robots and an AI director, as he schemes to take the stage one
-last time.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is a Hugo Award-winning novelette about the obsolescence of the human
+artist. It follows Ryan Thornier, a former stage idol reduced to working as a
+janitor in a theater now run entirely by robots and an AI director, as he
+schemes to take the stage one last time.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">Miller</span>{% endcapture %}

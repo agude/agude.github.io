@@ -8,10 +8,9 @@ rating: 3
 image: /books/covers/martin_the_warrior.jpg
 ---
 
-{% book_link page.title %} is the sixth book in the
-<span class="book-series">{{ page.series }}</span> series. It's Martin's
-origin story, following him as he's enslaved by---and eventually leads an
-uprising against---the tyrant Badrang.
+{% book_link page.title %} is the sixth book in the <span class="book-series">{{
+page.series }}</span> series. It's Martin's origin story, following him as he's
+enslaved by---and eventually leads an uprising against---the tyrant Badrang.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

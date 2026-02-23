@@ -8,10 +8,10 @@ rating: 5
 image: /books/covers/night_without_stars.jpg
 ---
 
-{% book_link page.title %} is the second book in the
-<span class="book-series">{{ page.series }}</span>. It is action packed, with
-great pacing, and complex characters. It is my new favorite <span
-class="author-name">{{ page.book_authors }}</span> book.
+{% book_link page.title %} is the second book in the <span class="book-
+series">{{ page.series }}</span>. It is action packed, with great pacing, and
+complex characters. It is my new favorite <span class="author-name">{{
+page.book_authors }}</span> book.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

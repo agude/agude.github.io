@@ -8,10 +8,9 @@ rating: 3
 image: /books/covers/the_dragons_banker.jpg
 ---
 
-{% book_link page.title %} is a standalone novel by
-<span class="author-name">{{ page.book_authors }}</span>. It tells the story of
-Sailor Kelstern, a banker in a fantasy world who, as the title suggests, is
-hired by a dragon.
+{% book_link page.title %} is a standalone novel by <span class="author-name">{{
+page.book_authors }}</span>. It tells the story of Sailor Kelstern, a banker in
+a fantasy world who, as the title suggests, is hired by a dragon.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

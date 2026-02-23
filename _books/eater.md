@@ -8,10 +8,9 @@ rating: 4
 image: /books/covers/eater.jpg
 ---
 
-{% book_link page.title %} is a hard sci-fi novel by
-<span class="author-name">{{ page.book_authors }}</span>. It follows a group of
-astrophysicists who discover a sentient black hole that is headed straight
-towards Earth.
+{% book_link page.title %} is a hard sci-fi novel by <span class="author-
+name">{{ page.book_authors }}</span>. It follows a group of astrophysicists who
+discover a sentient black hole that is headed straight towards Earth.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

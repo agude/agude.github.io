@@ -8,12 +8,11 @@ rating: 5
 image: /books/covers/inversions.jpg
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is the sixth <span
-class="book-series">{{ page.series }}</span> book, but it is very different
-from typical Culture novels: there are no spaceships and almost no advanced
-technology. Instead, it follows Culture citizens DeWar and Vosill as they
-manipulate a medieval society.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is the sixth <span class="book-series">{{ page.series }}</span> book,
+but it is very different from typical Culture novels: there are no spaceships
+and almost no advanced technology. Instead, it follows Culture citizens DeWar
+and Vosill as they manipulate a medieval society.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

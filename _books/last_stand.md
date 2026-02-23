@@ -20,11 +20,11 @@ rating: 3
 image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 ---
 
-{% book_link page.title %} is the thirteenth book in the
-<span class="book-series">{{ page.series }}</span> series. It features ten
-stories by eleven authors, many of whom are new. Their stories explore themes
-of Bolos going rogue, the distant future of the setting, and new details about
-the Final War with the Melconians.
+{% book_link page.title %} is the thirteenth book in the <span class="book-
+series">{{ page.series }}</span> series. It features ten stories by eleven
+authors, many of whom are new. Their stories explore themes of Bolos going
+rogue, the distant future of the setting, and new details about the Final War
+with the Melconians.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

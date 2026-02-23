@@ -8,11 +8,10 @@ rating: 4
 image: /books/covers/grand_melee.jpg
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is the fifth book in the
-<span class="book-series">{{ page.series }}</span> series. In it, the
-Chevaliers take a break from wartime contracts to participate in a massive
-mech tournament.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is the fifth book in the <span class="book-series">{{ page.series
+}}</span> series. In it, the Chevaliers take a break from wartime contracts to
+participate in a massive mech tournament.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

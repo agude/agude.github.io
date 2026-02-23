@@ -9,11 +9,11 @@ rating: 3
 image: /books/covers/the_state_of_the_art.jpg
 ---
 
-{% book_link page.title %} is a collection of short
-stories by <span class="author-name">{{ page.book_authors }}</span>. It
-contains some stories related to the <span class="book-series">{{ page.series
-}}</span> universe and some general science fiction tales. Although it has
-been considered utopian fiction, it comes across as rather bleak.
+{% book_link page.title %} is a collection of short stories by <span
+class="author-name">{{ page.book_authors }}</span>. It contains some stories
+related to the <span class="book-series">{{ page.series }}</span> universe and
+some general science fiction tales. Although it has been considered utopian
+fiction, it comes across as rather bleak.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %}{% endcapture %}

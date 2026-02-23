@@ -8,11 +8,10 @@ rating: 4
 image: /books/covers/ymir.jpg
 ---
 
-{% book_link page.title %} is the second book in the
-<span class="book-series">{{ page.series }}</span> series, keeping <span
-class="nowrap">{% book_link "Chevalier" %}'s</span> action
-and quick pacing while adding more backstory, character development, and a
-more complex plot.
+{% book_link page.title %} is the second book in the <span class="book-
+series">{{ page.series }}</span> series, keeping <span class="nowrap">{%
+book_link "Chevalier" %}'s</span> action and quick pacing while adding more
+backstory, character development, and a more complex plot.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

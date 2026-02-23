@@ -11,11 +11,10 @@ awards:
   - locus
 ---
 
-{% book_link page.title %} is the second book in <span
-class="author-name">{{ page.book_authors }}</span>'s <span
-class="book-series">{{ page.series }}</span> tetralogy. It picks up right
-where {% book_link "The Shadow of the Torturer" %} leaves
-off, following Severian as he makes his way towards Thrax.
+{% book_link page.title %} is the second book in <span class="author-name">{{
+page.book_authors }}</span>'s <span class="book-series">{{ page.series }}</span>
+tetralogy. It picks up right where {% book_link "The Shadow of the Torturer" %}
+leaves off, following Severian as he makes his way towards Thrax.
 
 {% capture this_series %}{% series_link page.series %}{% endcapture %}
 

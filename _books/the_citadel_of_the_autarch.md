@@ -8,10 +8,10 @@ rating: 4
 image: /books/covers/the_citadel_of_the_autarch.jpg
 ---
 
-{% book_link page.title %} is the fourth book in {% author_link page.book_authors %}'s <span
-class="book-series">{{ page.series }}</span> tetralogy. It follows Severian as
-he reaches the front in the war against the Ascians and assumes the role of
-Autarch.
+{% book_link page.title %} is the fourth book in {% author_link
+page.book_authors %}'s <span class="book-series">{{ page.series }}</span>
+tetralogy. It follows Severian as he reaches the front in the war against the
+Ascians and assumes the role of Autarch.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture urth_new_sun %}{% book_link "The Urth of the New Sun" %}{% endcapture %}

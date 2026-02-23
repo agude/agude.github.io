@@ -8,10 +8,10 @@ rating: 1
 image: /books/covers/tintin_in_the_congo.jpg
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is the second book in the
-<span class="book-series">{{ page.series }}</span>. In it, Tintin travels to
-the Belgian Congo and uncovers a diamond-smuggling ring.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is the second book in the <span class="book-series">{{ page.series
+}}</span>. In it, Tintin travels to the Belgian Congo and uncovers a diamond-
+smuggling ring.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

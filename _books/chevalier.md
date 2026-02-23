@@ -8,10 +8,10 @@ rating: 3
 image: /books/covers/chevalier.jpg
 ---
 
-{% book_link page.title %} is a modern reimagining of 1980's
-mech sci-fi like Battletech, Gundam, and Macross. It's a quick, action-packed
-read---not very deep but highly entertaining---that focuses on making mechs
-feel like realistic battlefield tech, not magic.
+{% book_link page.title %} is a modern reimagining of 1980's mech sci-fi like
+Battletech, Gundam, and Macross. It's a quick, action-packed read---not very
+deep but highly entertaining---that focuses on making mechs feel like realistic
+battlefield tech, not magic.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture ymir %}{% book_link "Ymir" %}{% endcapture %}

@@ -15,11 +15,11 @@ image: /books/covers/disco_elysium.jpg
 redirect_from: /books/disco_elyisum/
 ---
 
-{% game_title page.title %}, written by <span
-class="author-name">{{ page.book_authors[0] }}</span> <abbr class="etal">et
-al.</abbr>, is a role-playing game produced by ZA/UM. It's the story of
-Harrier "Harry" Du Bois, a man who wakes up with no memories and has to solve
-a murder while learning who he is.
+{% game_title page.title %}, written by <span class="author-name">{{
+page.book_authors[0] }}</span> <abbr class="etal">et al.</abbr>, is a role-
+playing game produced by ZA/UM. It's the story of Harrier "Harry" Du Bois, a man
+who wakes up with no memories and has to solve a murder while learning who he
+is.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

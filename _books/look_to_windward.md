@@ -8,10 +8,10 @@ rating: 5
 image: /books/covers/look_to_windward.jpg
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is the seventh <span
-class="book-series">{{ page.series }}</span> book. It explores the aftermath
-of the Idiran--Culture War and Chelgrian civil war.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is the seventh <span class="book-series">{{ page.series }}</span>
+book. It explores the aftermath of the Idiran--Culture War and Chelgrian civil
+war.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

@@ -8,10 +8,10 @@ rating: 3
 image: /books/covers/the_war_of_the_worlds.jpg
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is a landmark science
-fiction novel. It takes place in late Victorian England as an unnamed narrator
-witnesses a terrifying invasion by Martians with advanced weaponry.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is a landmark science fiction novel. It takes place in late Victorian
+England as an unnamed narrator witnesses a terrifying invasion by Martians with
+advanced weaponry.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}

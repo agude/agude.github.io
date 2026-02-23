@@ -8,11 +8,10 @@ rating: 3
 image: /books/covers/lords_of_uncreation.jpg
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is the third and final
-book in the <span class="book-series">{{ page.series }}</span> series. In it,
-humanity takes the war into Unspace to destroy the Architects and their
-Originator masters.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is the third and final book in the <span class="book-series">{{
+page.series }}</span> series. In it, humanity takes the war into Unspace to
+destroy the Architects and their Originator masters.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}

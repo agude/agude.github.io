@@ -8,11 +8,11 @@ rating: 3
 image: /books/covers/home_habitat_range_niche_territory.jpg
 ---
 
-{% book_link page.title %}, by <span
-class="author-name">{{ page.book_authors }}</span>, is a short story from
-<span class="book-series">{{ page.series }}</span>, set between {% book_link
-"Exit Strategy" %} and {% book_link "Network Effect" %}. It shows us Murderbot
-and Mensah adjusting to their new situation after the GrayCris storyline.
+{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
+}}</span>, is a short story from <span class="book-series">{{ page.series
+}}</span>, set between {% book_link "Exit Strategy" %} and {% book_link "Network
+Effect" %}. It shows us Murderbot and Mensah adjusting to their new situation
+after the GrayCris storyline.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
