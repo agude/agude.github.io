@@ -11,7 +11,7 @@ awards:
   - hugo
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is the first book in the
 <span class="book-series">{{ page.series }}</span> series. It is a fix-up
 novel consisting of three parts: <cite class="short-story-title">Fiat
@@ -20,7 +20,7 @@ class="short-story-title">Fiat Voluntas Tua</cite>. The story follows the
 monks of the Albertian Order of Leibowitz as they preserve the remains of
 humanity's knowledge after an atomic war.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">Miller</span>{% endcapture %}
 {% capture the_authors_lastname_possessive %}<span class="author-name">Miller</span>'s{% endcapture %}
 

@@ -8,13 +8,13 @@ rating: 2
 image: /books/covers/the_urth_of_the_new_sun.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the fifth and final book
+{% book_link page.title %} is the fifth and final book
 in <span class="author-name">{{ page.book_authors }}</span>'s <span
 class="book-series">{{ page.series }}</span> tetralogy. It follows Severian as
 he leaves Urth to save mankind and returns to witness its destruction and
 rebirth.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture wolfe %}<span class="author-name">Wolfe</span>{% endcapture %}
 
 {% capture citadel_autarch %}{% book_link "The Citadel of the Autarch" %}{% endcapture %}

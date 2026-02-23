@@ -8,12 +8,12 @@ rating: 5
 image: /books/covers/the_hydrogen_sonata.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is the tenth and final
 <span class="book-series">{{ page.series }}</span> book. It explores the last
 days of the Glitz people as they prepare to Sublime.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}

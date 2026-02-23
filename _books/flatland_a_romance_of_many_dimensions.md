@@ -8,11 +8,11 @@ rating: 3
 image: /books/covers/flatland_a_romance_of_many_dimensions.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a satirical short novel by
+{% book_link page.title %} is a satirical short novel by
 <span class="author-name">{{ page.book_authors }}</span>, critiquing the rigid
 class hierarchy of Victorian England through the lens of geometry.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture swifts %}{% author_link "Jonathan Swift" possessive %}{% endcapture %}
 {% capture a_modest_proposal %}{% book_link "A Modest Proposal" %}{% endcapture %}

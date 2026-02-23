@@ -8,12 +8,12 @@ rating: 5
 image: /books/covers/night_without_stars.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the second book in the
+{% book_link page.title %} is the second book in the
 <span class="book-series">{{ page.series }}</span>. It is action packed, with
 great pacing, and complex characters. It is my new favorite <span
 class="author-name">{{ page.book_authors }}</span> book.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture abyss %}{% book_link "The Abyss Beyond Dreams" %}{% endcapture %}
 

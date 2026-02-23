@@ -8,13 +8,13 @@ rating: 2
 image: /books/covers/shards_of_earth.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is the first book in the
 <span class="book-series">{{ page.series }}</span> series. It follows Idris,
 Solace, and the crew of the _Vulture God_ as the Architects return and restart
 their genocidal campaign against humanity.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 

@@ -10,12 +10,12 @@ awards:
   - locus
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a sci-fi, hardboiled
+{% book_link page.title %} is a sci-fi, hardboiled
 detective novel set in near-future Oakland, California. It follows Conrad
 Metcalf, a private inquisitor, as he tries to solve the murder of Maynard
 Stanhunt.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture chandlers %}{% author_link "Raymond Chandler" link_text="Chandler" possessive %}{% endcapture %}
 {% capture r_chandler %}{% author_link "Raymond Chandler" %}{% endcapture %}

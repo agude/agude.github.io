@@ -8,13 +8,13 @@ rating: 2
 image: /books/covers/world_of_trouble.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is the third and final
 novel in the <span class="book-series">{{ page.series }}</span> series. It
 follows Detective Palace as he uncovers his sister's involvement in a
 mysterious plot just days before the world's end.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture lpm1 %}{% book_link "The Last Policeman" %}{% endcapture %}
 {% capture lpm2 %}{% book_link "Countdown City" %}{% endcapture %}

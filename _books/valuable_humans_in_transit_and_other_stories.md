@@ -9,7 +9,7 @@ rating: 4
 image: /books/covers/valuable_humans_in_transit_and_other_stories.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a collection of short
+{% book_link page.title %} is a collection of short
 stories by <span class="author-name">{{ page.book_authors }}</span>.
 
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}

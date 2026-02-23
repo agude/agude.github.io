@@ -12,14 +12,14 @@ awards:
   - locus
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is <span
+{% book_link page.title %} is <span
 class="author-name">{{ page.book_authors }}</span>'s masterpiece. It is the
 first book in his <span class="book-series">{{ page.series }}</span>. It
 follows seven pilgrims as they travel to the Time Tombs on Hyperion to
 petition the Shrike. Along the way, each tells their own story, weaving
 together history, myth, and prophecy to tell of the impending downfall of man.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 

@@ -13,7 +13,7 @@ class="book-series">{{ page.series }}</span> series for more than two decades,
 so I was excited to finally get started. Unfortunately, <cite
 class="book-title">{{ page.title }}</cite> was not a great introduction.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture banks %}<span class="author-name">Banks</span>{% endcapture %}
 {% capture bankss %}{{ banks }}'s{% endcapture %}

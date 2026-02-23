@@ -8,11 +8,11 @@ rating: 5
 image: /books/covers/pandoras_star.jpg
 ---
 
-I couldn't put <cite class="book-title">{{ page.title }}</cite> down! It is a
+I couldn't put {% book_link page.title %} down! It is a
 sci-fi book that reads more like a thriller. There were always new mysteries
 that just a few more pages promised the answers to.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %}{% endcapture %}
 
 {% capture judas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}

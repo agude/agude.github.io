@@ -10,12 +10,12 @@ awards:
   - hugo
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a fantasy detective novel
+{% book_link page.title %} is a fantasy detective novel
 set in a world where humanity is on the brink of destruction from giant Kaiju.
 It follows investigators Dinios Kol and Ana Dolabra as they try to solve the
 murder of an engineer and uncover a conspiracy that runs far deeper.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
 
 {% capture corruption %}{% book_link "A Drop of Corruption" %}{% endcapture %}

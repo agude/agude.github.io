@@ -8,13 +8,13 @@ rating: 3
 image: /books/covers/the_blue_lotus.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is the fifth book in the
 <span class="book-series">{{ page.series }}</span>. It continues the story
 started in {% book_link "Cigars of the Pharaoh" %}, ending with Tintin busting
 an opium ring in China.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 
 {% capture tt2 %}{% book_link "Tintin in the Congo" %}{% endcapture %}

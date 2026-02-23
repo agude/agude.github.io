@@ -8,12 +8,12 @@ rating: 4
 image: /books/covers/dog_soldier.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is the fourth book in the
 <span class="book-series">{{ page.series }}</span> series. It concludes the
 Cinto DaSelva campaign and further develops the setting's backstory.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 
 {% capture w1 %}{% book_link "Chevalier" %}{% endcapture %}

@@ -8,12 +8,12 @@ rating: 3
 image: /books/covers/the_fractal_prince.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the second book in the
+{% book_link page.title %} is the second book in the
 <span class="book-series">{{ page.series }}</span> series. While the first
 book, {% book_link "The Quantum Thief" %}, left me
 underwhelmed, the second book more than lived up to the hype.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 
 {% capture quantum_thief %}{% book_link "The Quantum Thief" %}{% endcapture %}

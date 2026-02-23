@@ -13,13 +13,13 @@ awards:
   - nebula
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors[0] }}</span> and <span
 class="author-name">{{ page.book_authors[1] }}</span>, is a story about two
 agents---Red and Blue---working for opposite factions from the far future,
 changing the past in an attempt to wipe out the other side.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
 {% capture use_of_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}

@@ -8,13 +8,13 @@ rating: 3
 image: /books/covers/the_last_policeman.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> by <span
+{% book_link page.title %} by <span
 class="author-name">{{ page.book_authors }}</span> is an apocalyptic detective
 novel set in Concord, New Hampshire. It follows Detective Palace as he tries
 to solve a murder six months before an asteroid is set to wipe out
 civilization.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture gun %}{% book_link "Gun, with Occasional Music" %}{% endcapture %}
 {% capture lpm2 %}{% book_link "Countdown City" %}{% endcapture %}

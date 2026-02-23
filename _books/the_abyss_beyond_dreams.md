@@ -8,14 +8,14 @@ rating: 5
 image: /books/covers/the_abyss_beyond_dreams.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> starts off <span
+{% book_link page.title %} starts off <span
 class="book-series">{{ page.series }}</span>, another series in <span
 class="author-name">{{ page.book_authors }}</span>'s Commonwealth universe.
 Though billed as space opera, it often reads more as urban fantasy since most
 of the story occurs on the planet Bienvenido inside the Void where steam
 engines are their most advanced technology.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 
 {% capture void %}{% series_link "The Void Trilogy" %}{% endcapture %}

@@ -8,12 +8,12 @@ rating: 5
 image: /books/covers/exit_strategy.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is the fourth book in the
 <span class="book-series">{{ page.series }}</span>. It wraps up the GrayCris
 storyline as Murderbot returns to save its friends.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 

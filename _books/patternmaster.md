@@ -8,13 +8,13 @@ rating: 4
 image: /books/covers/patternmaster.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is the fourth and final
 book in the <span class="book-series">{{ page.series }}</span> series. It
 follows the Patternist brothers, Teray and Coransee, as they fight each other
 to become the new Patternmaster.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture p1 %}{% book_link "Wild Seed" %}{% endcapture %}
 {% capture p2 %}{% book_link "Mind of My Mind" %}{% endcapture %}

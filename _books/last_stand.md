@@ -20,13 +20,13 @@ rating: 3
 image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the thirteenth book in the
+{% book_link page.title %} is the thirteenth book in the
 <span class="book-series">{{ page.series }}</span> series. It features ten
 stories by eleven authors, many of whom are new. Their stories explore themes
 of Bolos going rogue, the distant future of the setting, and new details about
 the Final War with the Melconians.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture author_stirling %}{% author_link "S. M. Stirling" %}{% endcapture %}
 {% capture author_weber %}{% author_link "David Weber" %}{% endcapture %}

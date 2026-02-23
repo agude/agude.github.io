@@ -14,7 +14,7 @@ page.title }}</cite>, continues to advance the story, but like many middle
 books in a trilogy, it does so slowly. Much of this slowness is due to
 multiple, massive, 200-page chapters following Edeard in the Void.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 
 {% capture dreaming_void %}{% book_link "The Dreaming Void" %}{% endcapture %}

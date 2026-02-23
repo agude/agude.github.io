@@ -8,13 +8,13 @@ rating: 3
 image: /books/covers/home_habitat_range_niche_territory.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is a short story from
 <span class="book-series">{{ page.series }}</span>, set between {% book_link
 "Exit Strategy" %} and {% book_link "Network Effect" %}. It shows us Murderbot
 and Mensah adjusting to their new situation after the GrayCris storyline.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
@@ -32,7 +32,7 @@ near-murder by GrayCris in {{ mb1 }} and kidnapping in {{ mb4 }}---while
 trying to navigate politics, deal with pestering reporters, and support
 Murderbot and her team.
 
-[^note]: Available for free on Tor's website: [<cite class="book-title">{{ page.title }}</cite>][home]
+[^note]: Available for free on Tor's website: [{% book_link page.title %}][home]
 
 [home]: https://reactormag.com/home-habitat-range-niche-territory-martha-wells/
 

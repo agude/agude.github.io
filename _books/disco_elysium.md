@@ -21,7 +21,7 @@ al.</abbr>, is a role-playing game produced by ZA/UM. It's the story of
 Harrier "Harry" Du Bois, a man who wakes up with no memories and has to solve
 a murder while learning who he is.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture faulkners %}{% author_link "William Faulkner" possessive %}{% endcapture %}
 {% capture absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}

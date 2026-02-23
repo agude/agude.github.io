@@ -11,12 +11,12 @@ awards:
   - nebula
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a Hugo and Nebula
+{% book_link page.title %} is a Hugo and Nebula
 award-winning novel about Charlie Gordon, a man with intellectual disabilities
 who undergoes surgery to enhance his cognitive abilities. While it is a
 beautifully crafted narrative, it failed to hold my attention.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}

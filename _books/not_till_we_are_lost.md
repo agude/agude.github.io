@@ -10,13 +10,13 @@ image: /books/covers/not_till_we_are_lost.jpg
 redirect_from: /books/not_til_we_are_lost/
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is the fifth book in the
 <span class="book-series">{{ page.series }}</span> series. It sets up the
 Quiniverse, introduces a Skippy AI, and explores the discovery of wormhole
 travel.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}

@@ -8,13 +8,13 @@ rating: 3
 image: /books/covers/clays_ark.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is the third book in the
 <span class="book-series">{{ page.series }}</span> series. It follows Eli
 Doyle, an astronaut, after he has returned to earth with an alien infection
 and attempts to contain it.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 

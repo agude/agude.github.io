@@ -8,12 +8,12 @@ rating: 5
 image: /books/covers/use_of_weapons.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the third novel in the {{
+{% book_link page.title %} is the third novel in the {{
 page.series }} series by {{ page.book_authors }}. It tells the story of a man
 called Cheradenine Zakalwe, who works for the Culture's Special Circumstances
 division.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture banks %}<span class="author-name">Banks</span>{% endcapture %}
 
 {% capture player_of_games %}{% book_link "The Player of Games" %}{% endcapture %}

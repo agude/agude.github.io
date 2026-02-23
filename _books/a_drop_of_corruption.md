@@ -8,13 +8,13 @@ rating: 4
 image: /books/covers/a_drop_of_corruption.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is the second <span
 class="book-series">{{ page.series }}</span> book. This time, Din and Ana
 track down a murderer in the northern Kingdom of Yarrow whose brilliance is
 almost a match for Ana's own.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
 
 

@@ -8,12 +8,12 @@ rating: 3
 image: /books/covers/the_causal_angel.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the last book in the <span
+{% book_link page.title %} is the last book in the <span
 class="book-series">{{ page.series }}</span> trilogy. We finally learn le
 Flambeur was hired to steal the Kaminari Jewel, a Zoku gem with the power to
 alter reality.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture fractal_prince %}{% book_link "The Fractal Prince" %}{% endcapture %}
 

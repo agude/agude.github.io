@@ -10,12 +10,12 @@ awards:
   - hugo
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a sci-fi novel by <span
+{% book_link page.title %} is a sci-fi novel by <span
 class="author-name">{{ page.book_authors }}</span>. It tells the story of the
 Blight---a galactic-scale, transcendent evil---and the humans racing to stop
 it.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 
 {% capture deepness %}{% book_link "A Deepness in the Sky" %}{% endcapture %}

@@ -8,14 +8,14 @@ rating: 5
 image: /books/covers/the_player_of_games.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the second novel in <span
+{% book_link page.title %} is the second novel in <span
 class="author-name">{{ page.book_authors }}</span>'s <span
 class="book-series">{{ page.series }}</span> series. It tells the story of
 Jernau Morat Gurgeh, a master game player who is recruited to play Azad, an
 incredibly complex game that serves as the basis for the Empire of Azad's
 entire government.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
 {% capture bankss %}<span class="author-name">Banks</span>'s{% endcapture %}
 

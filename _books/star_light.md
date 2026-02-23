@@ -8,10 +8,10 @@ rating: 2
 image: /books/covers/star_light.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the sequel to {% book_link "Mission of Gravity" %}, and continues the theme of
+{% book_link page.title %} is the sequel to {% book_link "Mission of Gravity" %}, and continues the theme of
 Human--Mesklinite exploration, this time focusing on a large star-like planet.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture series %}{% series_link page.series %} series{% endcapture %}
 {% capture clements %}{% author_link page.book_authors possessive %}{% endcapture %}

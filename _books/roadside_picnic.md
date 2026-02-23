@@ -10,14 +10,14 @@ rating: 5
 image: /books/covers/roadside_picnic.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by brothers <span
+{% book_link page.title %}, by brothers <span
 class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and
 <span class="author-name">{{ page.book_authors[1] }}</span>, is a Soviet
 sci-fi novel. It's essentially four short stories---each presented as a
 chapter---about the life of Redrick "Red" Schuhart, a "stalker" who illegally
 enters an alien-contaminated Zone to retrieve items for the black market.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] }}</span>{% endcapture %}
 {% capture the_authors_first_only %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] | split: " " | first }}</span>{% endcapture %}
 {% capture the_authors_possessive %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] }}</span>'s{% endcapture %}

@@ -8,14 +8,14 @@ rating: 4
 image: /books/covers/sunstone_imperative.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is the sixth book in the
 <span class="book-series">{{ page.series }}</span> series. Returning to the
 action-packed roots of the earlier books, it drops the Chevaliers into the
 middle of a raid against a Wyking stronghold to open the gates for a
 full-scale invasion.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
 {% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}

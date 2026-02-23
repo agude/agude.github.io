@@ -12,12 +12,12 @@ awards:
   - nebula
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
+{% book_link page.title %}, by <span
 class="author-name">{{ page.book_authors }}</span>, is the first book in the
 <span class="book-series">{{ page.series }}</span>. It introduces us to
 Murderbot as it saves a team of scientists.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture mb2 %}{% book_link "Artificial Condition" %}{% endcapture %}
 

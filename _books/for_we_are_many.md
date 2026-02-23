@@ -8,11 +8,11 @@ rating: 4
 image: /books/covers/for_we_are_many.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the second book in the
+{% book_link page.title %} is the second book in the
 <span class="book-series">{{ page.series }}</span> series. It focuses on the
 Others storyline while also continuing many of the side stories begun in {% book_link "We Are Legion (We Are Bob)" %}.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
 {% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
 {% capture bob3 %}{% book_link "All These Worlds" %}{% endcapture %}
