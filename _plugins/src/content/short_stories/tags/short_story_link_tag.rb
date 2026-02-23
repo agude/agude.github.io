@@ -7,6 +7,7 @@ require 'strscan'
 require_relative '../short_story_link_util'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../markdown_output/markdown_link_formatter'
+require_relative '../../../infrastructure/links/link_helper_utils'
 
 # Liquid Tag for creating a link to a short story.
 # Handles disambiguation for stories that appear in multiple books.
@@ -24,7 +25,8 @@ module Jekyll
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Linker = Jekyll::ShortStories::ShortStoryLinkUtils
         MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
-        private_constant :TagArgs, :Linker, :MdLink
+        LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
+        private_constant :TagArgs, :Linker, :MdLink, :LinkHelper
 
         QuotedFragment = Liquid::QuotedFragment
 
@@ -48,7 +50,7 @@ module Jekyll
 
           if context.registers[:render_mode] == :markdown
             data = Linker.find_short_story_link_data(story_title, context, from_book_title)
-            MdLink.format_link(data, italic: true)
+            MdLink.format_link(data, italic: true, self_link: LinkHelper.self_link?(context, data[:url]))
           else
             Linker.render_short_story_link(story_title, context, from_book_title)
           end

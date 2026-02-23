@@ -8,6 +8,7 @@ require 'strscan'
 require_relative '../series_link_util'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../markdown_output/markdown_link_formatter'
+require_relative '../../../infrastructure/links/link_helper_utils'
 
 # Renders a link to a book series page.
 #
@@ -27,7 +28,8 @@ module Jekyll
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Linker = Jekyll::Series::SeriesLinkUtils
         MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
-        private_constant :TagArgs, :Linker, :MdLink
+        LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
+        private_constant :TagArgs, :Linker, :MdLink, :LinkHelper
 
         QuotedFragment = Liquid::QuotedFragment
 
@@ -47,7 +49,7 @@ module Jekyll
 
           if context.registers[:render_mode] == :markdown
             data = Linker.find_series_link_data(series_title, context, link_text_override)
-            MdLink.format_link(data)
+            MdLink.format_link(data, self_link: LinkHelper.self_link?(context, data[:url]))
           else
             Linker.render_series_link(series_title, context, link_text_override)
           end

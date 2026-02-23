@@ -9,6 +9,7 @@ require 'strscan' # For flexible argument parsing
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../author_link_util'
 require_relative '../../markdown_output/markdown_link_formatter'
+require_relative '../../../infrastructure/links/link_helper_utils'
 
 module Jekyll
   module Authors
@@ -25,7 +26,8 @@ module Jekyll
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Linker = Jekyll::Authors::AuthorLinkUtils
         MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
-        private_constant :TagArgs, :Linker, :MdLink
+        LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
+        private_constant :TagArgs, :Linker, :MdLink, :LinkHelper
 
         def initialize(tag_name, markup, tokens)
           super
@@ -46,7 +48,7 @@ module Jekyll
 
           if context.registers[:render_mode] == :markdown
             data = Linker.find_author_link_data(author_name, context, link_text_override, @possessive_flag)
-            result = MdLink.format_link(data)
+            result = MdLink.format_link(data, self_link: LinkHelper.self_link?(context, data[:url]))
             data[:possessive] ? "#{result}'s" : result
           else
             Linker.render_author_link(author_name, context, link_text_override, @possessive_flag)
