@@ -48,7 +48,7 @@ into clan space. Blocking their path is a massive fortress-asteroid
 honeycombed with narrow passages and defended by Wyking warriors. Taking the
 stronghold is essential for the invasion's success. Mechs are too large for
 most of the asteroid's tunnels, but the Seraphs---human-sized power armor
-first seen in {{ w5 }}---are just right.
+first seen in {{ w4 }}---are just right.
 
 The story is relatively simple, but I enjoyed it. The long-running gag about
 Vandal's leadership training is great. {{ the_authors_lastname }} must have
