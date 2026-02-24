@@ -8,13 +8,13 @@ rating: 3
 image: /books/covers/clays_ark.jpg
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is the third book in the <span class="book-series">{{ page.series
-}}</span> series. It follows Eli Doyle, an astronaut, after he has returned to
-earth with an alien infection and attempts to contain it.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the third book in the <span class="book-series">{{ page.series }}</span>
+series. It follows Eli Doyle, an astronaut, after he has returned to earth with
+an alien infection and attempts to contain it.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture p1 %}{% book_link "Wild Seed" %}{% endcapture %}

@@ -8,13 +8,13 @@ rating: 3
 image: /books/covers/the_nameless_city.jpg
 ---
 
-{% book_link page.title %} is a short story by <span class="author-name">{{
-page.book_authors }}</span> set in the <span class="book-series">{{ page.series
-}}</span>. It follows an unnamed narrator who discovers a mysterious ancient
-city and ventures deep beneath its surface.
+{% book_link page.title %} is a short story by {% author_link page.book_authors
+link=false %} set in the <span class="book-series">{{ page.series }}</span>. It
+follows an unnamed narrator who discovers a mysterious ancient city and ventures
+deep beneath its surface.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
 
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}

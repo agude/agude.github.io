@@ -8,14 +8,15 @@ rating: 2
 image: /books/covers/shards_of_earth.jpg
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is the first book in the <span class="book-series">{{ page.series
-}}</span> series. It follows Idris, Solace, and the crew of the _Vulture God_ as
-the Architects return and restart their genocidal campaign against humanity.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the first book in the <span class="book-series">{{ page.series }}</span>
+series. It follows Idris, Solace, and the crew of the _Vulture God_ as the
+Architects return and restart their genocidal campaign against humanity.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 
 {% capture fa2 %}{% book_link "Eyes of the Void" %}{% endcapture %}
 {% capture fa3 %}{% book_link "Lords of Uncreation" %}{% endcapture %}

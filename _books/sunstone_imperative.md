@@ -8,18 +8,18 @@ rating: 4
 image: /books/covers/sunstone_imperative.jpg
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is the sixth book in the <span class="book-series">{{ page.series
-}}</span> series. Returning to the action-packed roots of the earlier books, it
-drops the Chevaliers into the middle of a raid against a Wyking stronghold to
-open the gates for a full-scale invasion.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the sixth book in the <span class="book-series">{{ page.series }}</span>
+series. Returning to the action-packed roots of the earlier books, it drops the
+Chevaliers into the middle of a raid against a Wyking stronghold to open the
+gates for a full-scale invasion.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
+{% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
 {% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 {% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}

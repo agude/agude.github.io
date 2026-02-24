@@ -12,14 +12,14 @@ awards:
   - prometheus hall of fame
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is a Hugo Award-winning classic of libertarian science fiction. It
-chronicles the revolt of a lunar penal colony against its terrestrial rulers, a
-revolution orchestrated by a small group of rebels and their self-aware
-computer.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is a Hugo Award-winning classic of libertarian science fiction. It chronicles
+the revolt of a lunar penal colony against its terrestrial rulers, a revolution
+orchestrated by a small group of rebels and their self-aware computer.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 
 {% capture sst %}{% book_link "Starship Troopers" %}{% endcapture %}
 {% capture stranger %}{% book_link "Stranger in a Strange Land" %}{% endcapture %}

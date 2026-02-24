@@ -8,11 +8,11 @@ rating: 4
 image: /books/covers/the_evolutionary_void.jpg
 ---
 
-The final book in <span class="author-name">Hamilton</span>'s <span class="book-
-series">{{ page.series }}</span>, <cite class="book-title">{{ page.title
-}}</cite>, wraps up the series well, but a little too quickly. All the
-characters and storylines arrive where they're needed and then the story is
-over.
+The final book in {% author_link page.book_authors link=false
+link_text="Hamilton" possessive %} <span class="book-series">{{ page.series
+}}</span>, <cite class="book-title">{{ page.title }}</cite>, wraps up the series
+well, but a little too quickly. All the characters and storylines arrive where
+they're needed and then the story is over.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

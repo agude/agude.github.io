@@ -8,9 +8,9 @@ rating: 2
 image: /books/covers/mind_of_my_mind.jpg
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is the second book in the <span class="book-series">{{ page.series
-}}</span> series. It tells the origin story of the Patternists.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the second book in the <span class="book-series">{{ page.series }}</span>
+series. It tells the origin story of the Patternists.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

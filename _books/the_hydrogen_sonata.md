@@ -8,19 +8,18 @@ rating: 5
 image: /books/covers/the_hydrogen_sonata.jpg
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is the tenth and final <span class="book-series">{{ page.series
-}}</span> book. It explores the last days of the Glitz people as they prepare to
-Sublime.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the tenth and final <span class="book-series">{{ page.series }}</span> book.
+It explores the last days of the Glitz people as they prepare to Sublime.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
 {% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 
 {% capture the_quarry %}{% book_link "The Quarry" %}{% endcapture %}
-{% capture iain_banks %}<span class="author-name">Iain Banks</span>{% endcapture %}
+{% capture iain_banks %}{% author_link page.book_authors link=false link_text="Iain Banks" %}{% endcapture %}
 
 {% capture c1 %}{% book_link "Consider Phlebas" %}{% endcapture %}
 {% capture c2 %}{% book_link "The Player of Games" %}{% endcapture %}

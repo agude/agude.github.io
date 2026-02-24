@@ -17,7 +17,7 @@ Ascians and assumes the role of Autarch.
 {% capture urth_new_sun %}{% book_link "The Urth of the New Sun" %}{% endcapture %}
 {% capture shadow_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
 
-{% capture wolfe %}<span class="author-name">Wolfe</span>{% endcapture %}
+{% capture wolfe %}{% author_link page.book_authors link=false link_text="Wolfe" %}{% endcapture %}
 
 {% capture ursula %}{% author_link "Ursula K. Le Guin" %}{% endcapture %}
 {% capture neil %}{% author_link "Neil Gaiman" %}{% endcapture %}

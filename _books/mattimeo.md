@@ -13,7 +13,7 @@ page.series }}</span> series. It begins with the kidnapping of the abbey
 children by Slagar the cruel and follows Mathias as he tries to save them.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture redwall %}{% book_link "Redwall" %}{% endcapture %}
 {% capture mossflower %}{% book_link "Mossflower" %}{% endcapture %}
 {% capture mariel %}{% book_link "Mariel of Redwall" %}{% endcapture %}

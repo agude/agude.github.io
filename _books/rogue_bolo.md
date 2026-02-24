@@ -9,13 +9,12 @@ rating: 3
 image: /books/covers/rogue_bolo.jpg
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is the second book in the <span class="book-series">{{ page.series
-}}</span> series. It's a collection of two novellas featuring the sentient
-tanks.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the second book in the <span class="book-series">{{ page.series }}</span>
+series. It's a collection of two novellas featuring the sentient tanks.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 
 {% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
 {% capture bolo3 %}{% book_link "The Stars Must Wait" %}{% endcapture %}

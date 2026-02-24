@@ -10,9 +10,9 @@ awards:
   - hugo
 ---
 
-{% book_link page.title %} is a sci-fi novel by <span class="author-name">{{
-page.book_authors }}</span>. It tells the story of the Blight---a galactic-
-scale, transcendent evil---and the humans racing to stop it.
+{% book_link page.title %} is a sci-fi novel by {% author_link page.book_authors
+link=false %}. It tells the story of the Blight---a galactic-scale, transcendent
+evil---and the humans racing to stop it.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}

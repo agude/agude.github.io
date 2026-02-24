@@ -10,8 +10,8 @@ awards:
   - locus
 ---
 
-{% book_link page.title %} is the third book in <span class="author-name">{{
-page.book_authors }}</span>'s <span class="book-series">{{ page.series }}</span>
+{% book_link page.title %} is the third book in {% author_link page.book_authors
+link=false possessive %} <span class="book-series">{{ page.series }}</span>
 tetralogy. It follows Severian after he reaches Thrax and is exiled for a second
 time.
 

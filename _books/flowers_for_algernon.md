@@ -17,7 +17,7 @@ enhance his cognitive abilities. While it is a beautifully crafted narrative, it
 failed to hold my attention.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}

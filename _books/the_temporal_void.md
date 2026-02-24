@@ -8,14 +8,15 @@ rating: 4
 image: /books/covers/the_temporal_void.jpg
 ---
 
-The second book in <span class="author-name">Hamilton</span>'s <span
-class="book-series">{{ page.series }}</span>, <cite class="book-title">{{
-page.title }}</cite>, continues to advance the story, but like many middle books
-in a trilogy, it does so slowly. Much of this slowness is due to multiple,
-massive, 200-page chapters following Edeard in the Void.
+The second book in {% author_link page.book_authors link=false
+link_text="Hamilton" possessive %} <span class="book-series">{{ page.series
+}}</span>, <cite class="book-title">{{ page.title }}</cite>, continues to
+advance the story, but like many middle books in a trilogy, it does so slowly.
+Much of this slowness is due to multiple, massive, 200-page chapters following
+Edeard in the Void.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 
 {% capture dreaming_void %}{% book_link "The Dreaming Void" %}{% endcapture %}
 

@@ -8,13 +8,13 @@ rating: 5
 image: /books/covers/starquake.jpg
 ---
 
-{% book_link page.title %} is the second book in the <span class="book-
-series">{{ page.series }}</span> series by <span class="author-name">{{
-page.book_authors }}</span>. It follows the Cheela as they rescue the humans and
-rebuild after a devastating starquake.
+{% book_link page.title %} is the second book in the <span
+class="book-series">{{ page.series }}</span> series by {% author_link
+page.book_authors link=false %}. It follows the Cheela as they rescue the humans
+and rebuild after a devastating starquake.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture dragons_egg %}{% book_link "Dragon's Egg" %}{% endcapture %}
 {% capture lion %}{% book_link "The Lion and the Mouse" %}{% endcapture %}
 {% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}

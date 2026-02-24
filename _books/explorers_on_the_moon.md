@@ -8,14 +8,14 @@ rating: 5
 image: /books/covers/explorers_on_the_moon.jpg
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is the seventeenth book in the <span class="book-series">{{
-page.series }}</span>. It's the second part of a two-book arc in which Tintin,
-Haddock, and Calculus land on the Moon.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the seventeenth book in the <span class="book-series">{{ page.series
+}}</span>. It's the second part of a two-book arc in which Tintin, Haddock, and
+Calculus land on the Moon.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture tt2 %}{% book_link "Tintin in the Congo" %}{% endcapture %}

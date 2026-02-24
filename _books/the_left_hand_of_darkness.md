@@ -11,10 +11,10 @@ awards:
   - nebula
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is her Hugo and Nebula award-winning novel about the planet of
-Winter. It follows Genly Ai, an envoy from the Ekumen, as he attempts to bring
-this androgynous world into galactic civilization.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is her Hugo and Nebula award-winning novel about the planet of Winter. It
+follows Genly Ai, an envoy from the Ekumen, as he attempts to bring this
+androgynous world into galactic civilization.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

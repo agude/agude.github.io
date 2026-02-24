@@ -10,18 +10,19 @@ awards:
   - locus
 ---
 
-<cite class="book-title">The Rise of Endymion</cite>, by <span class="author-
-name">Dan Simmons</span>, is the fourth and final book in the <span class="book-
-series">Hyperion Cantos</span>. It concludes the journey of Aenea and Raul as
-they race to unlock the secret of the Void Which Binds before the Pax can
-silence them. It resolves the mysteries of the Shrike and the TechnoCore while
-arguing that the Church's immortality is a trap: to truly live, humanity must be
-willing to die.
+<cite class="book-title">The Rise of Endymion</cite>, by <span
+class="author-name">Dan Simmons</span>, is the fourth and final book in the
+<span class="book-series">Hyperion Cantos</span>. It concludes the journey of
+Aenea and Raul as they race to unlock the secret of the Void Which Binds before
+the Pax can silence them. It resolves the mysteries of the Shrike and the
+TechnoCore while arguing that the Church's immortality is a trap: to truly live,
+humanity must be willing to die.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
+{% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}

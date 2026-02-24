@@ -8,15 +8,15 @@ rating: 5
 image: /books/covers/surface_detail.jpg
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is the ninth <span class="book-series">{{ page.series }}</span> book.
-It follows Lededje Y'breq as she seeks revenge for her own murder, set against
-the backdrop of a galactic conflict over virtual hells.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the ninth <span class="book-series">{{ page.series }}</span> book. It follows
+Lededje Y'breq as she seeks revenge for her own murder, set against the backdrop
+of a galactic conflict over virtual hells.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture culture %}{% series_link page.series %}{% endcapture %}
-{% capture banks %}<span class="author-name">Banks</span>{% endcapture %}
+{% capture banks %}{% author_link page.book_authors link=false link_text="Banks" %}{% endcapture %}
 
 {% capture c3 %}{% book_link "Use of Weapons" %}{% endcapture %}
 {% capture c7 %}{% book_link "Look to Windward" %}{% endcapture %}

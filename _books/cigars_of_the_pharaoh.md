@@ -8,13 +8,13 @@ rating: 3
 image: /books/covers/cigars_of_the_pharaoh.jpg
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is the fourth book in the <span class="book-series">{{ page.series
-}}</span>. It follows Tintin as he explores Egypt and India and uncovers an
-opium-smuggling ring.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the fourth book in the <span class="book-series">{{ page.series }}</span>. It
+follows Tintin as he explores Egypt and India and uncovers an opium-smuggling
+ring.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture tt1 %}{% book_link "Tintin in the Land of the Soviets" %}{% endcapture %}

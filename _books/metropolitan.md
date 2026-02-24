@@ -8,14 +8,13 @@ rating: 4
 image: /books/covers/metropolitan.jpg
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is the first book in the <span class="book-series">{{ page.series
-}}</span> series. It is the story of Aiah, a young woman who discovers an
-illegal source of magical plasm, and how it draws her into conflict with the
-world.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the first book in the <span class="book-series">{{ page.series }}</span>
+series. It is the story of Aiah, a young woman who discovers an illegal source
+of magical plasm, and how it draws her into conflict with the world.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 
 {% capture city %}{% book_link "City on Fire" %}{% endcapture %}
 

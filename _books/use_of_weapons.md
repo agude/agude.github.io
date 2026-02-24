@@ -13,7 +13,7 @@ image: /books/covers/use_of_weapons.jpg
 who works for the Culture's Special Circumstances division.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture banks %}<span class="author-name">Banks</span>{% endcapture %}
+{% capture banks %}{% author_link page.book_authors link=false link_text="Banks" %}{% endcapture %}
 
 {% capture player_of_games %}{% book_link "The Player of Games" %}{% endcapture %}
 {% capture state_of_the_art %}{% book_link "The State of the Art" %}{% endcapture %}

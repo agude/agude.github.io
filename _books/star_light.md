@@ -13,7 +13,7 @@ image: /books/covers/star_light.jpg
 on a large star-like planet.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture series %}{% series_link page.series %} series{% endcapture %}
 {% capture clements %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture mission %}{% book_link "Mission of Gravity" %}{% endcapture %}

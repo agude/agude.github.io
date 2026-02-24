@@ -10,12 +10,12 @@ awards:
   - hugo
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is a Hugo-winning, New Wave science fiction novel that explores
-overpopulation, corporate power, and societal collapse.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is a Hugo-winning, New Wave science fiction novel that explores overpopulation,
+corporate power, and societal collapse.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 
 {% capture make_room_make_room %}{% book_link "Make Room! Make Room!" %}{% endcapture %}
 {% capture harry_harrisons %}{% author_link "Harry Harrison" possessive %}{% endcapture %}

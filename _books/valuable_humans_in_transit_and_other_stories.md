@@ -9,10 +9,10 @@ rating: 4
 image: /books/covers/valuable_humans_in_transit_and_other_stories.jpg
 ---
 
-{% book_link page.title %} is a collection of short stories by <span
-class="author-name">{{ page.book_authors }}</span>.
+{% book_link page.title %} is a collection of short stories by {% author_link
+page.book_authors link=false %}.
 
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
 {% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
 {% capture cleaning_up %}{% short_story_link "Cleaning Up" %}{% endcapture %}

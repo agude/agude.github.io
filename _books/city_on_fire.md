@@ -8,13 +8,13 @@ rating: 4
 image: /books/covers/city_on_fire.jpg
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is the second book in the <span class="book-series">{{ page.series
-}}</span> series. It picks up right as the smoke clears in Caraqui after the
-revolution, leaving Aiah and Constantine to figure out how to govern.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the second book in the <span class="book-series">{{ page.series }}</span>
+series. It picks up right as the smoke clears in Caraqui after the revolution,
+leaving Aiah and Constantine to figure out how to govern.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture m1 %}{% book_link "Metropolitan" %}{% endcapture %}

@@ -8,16 +8,17 @@ rating: 3
 image: /books/covers/the_sirens_of_titan.jpg
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is a satirical science fiction novel about the richest man in
-America, Malachi Constant. It follows his unwilling and absurd journey from
-Earth to Mars, Mercury, and finally Titan, exploring questions about free will,
-the purpose of human history, and the nature of religion along the way.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is a satirical science fiction novel about the richest man in America, Malachi
+Constant. It follows his unwilling and absurd journey from Earth to Mars,
+Mercury, and finally Titan, exploring questions about free will, the purpose of
+human history, and the nature of religion along the way.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
+{% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture harrison_bergeron %}{% short_story_link "Harrison Bergeron" %}{% endcapture %}
 {% capture cats_cradle %}{% book_link "Cat's Cradle" %}{% endcapture %}

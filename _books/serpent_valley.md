@@ -14,7 +14,7 @@ the flaws holding back its predecessors. Easily my favorite of the series so
 far!
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 
 {% capture ymir %}{% book_link "Ymir" %}{% endcapture %}
 {% capture dog_soldier %}{% book_link "Dog Soldier" %}{% endcapture %}

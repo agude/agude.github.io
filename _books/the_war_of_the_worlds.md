@@ -8,14 +8,15 @@ rating: 3
 image: /books/covers/the_war_of_the_worlds.jpg
 ---
 
-{% book_link page.title %}, by <span class="author-name">{{ page.book_authors
-}}</span>, is a landmark science fiction novel. It takes place in late Victorian
-England as an unnamed narrator witnesses a terrifying invasion by Martians with
-advanced weaponry.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is a landmark science fiction novel. It takes place in late Victorian England as
+an unnamed narrator witnesses a terrifying invasion by Martians with advanced
+weaponry.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 
 {% capture orsons %}{% author_link "Orson Welles" possessive %}{% endcapture %}
 {% capture pal %}{% author_link "George Pal" %}{% endcapture %}
