@@ -1,0 +1,13 @@
+# Build artifacts
+_site/
+_coverage/
+vendor/
+node_modules/
+
+# Agent/meta files (not site content)
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+README.md
+LICENSE.md
+.claude/

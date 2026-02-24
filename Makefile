@@ -1,5 +1,6 @@
 # Makefile
 IMAGE := jekyll-image-agude
+PRETTIER_IMAGE := prettier-image-agude
 MOUNT := /workspace
 
 # Define Ruby version by reading .ruby-version file, ignoring comments/whitespace
@@ -38,7 +39,7 @@ TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb
 .PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-liquid
 
 # Tier 3: Domain operations
-.PHONY: image-build image-rebuild deps-lock hooks-install
+.PHONY: image-build image-rebuild deps-lock hooks-install prettier-image-build prettier-image-rebuild format-md
 
 # Internal targets
 .PHONY: all clean-coverage
@@ -205,15 +206,15 @@ check-liquid: image-build
 	@echo "Checking all documents for strict Liquid compliance..."
 	@$(DOCKER_RUN) bundle exec ruby _bin/check_strict.rb
 
-# Install the custom pre-commit hook that runs RuboCop inside Docker.
+# Install the custom pre-commit hook that runs formatters inside Docker.
 # This target must be run on the HOST machine.
-hooks-install: image-build _bin/pre-commit.sh
+hooks-install: image-build prettier-image-build _bin/pre-commit.sh
 	@echo "Installing custom Docker-based pre-commit hook..."
 	@mkdir -p .git/hooks
 	@cp _bin/pre-commit.sh .git/hooks/pre-commit
 	@chmod +x .git/hooks/pre-commit
 	@echo "Pre-commit hook installed at .git/hooks/pre-commit."
-	@echo "It will run 'rubocop --autocorrect' on staged Ruby files inside the Docker image."
+	@echo "It will run RuboCop on staged .rb files and Prettier on staged .md files."
 
 # Run RuboCop --autocorrect on all Ruby files to establish a clean formatting baseline.
 # This target modifies files on the host via the volume mount.
@@ -222,6 +223,23 @@ lint-fix: image-build
 	@# Run RuboCop, ignore its non-zero exit code (1 or 123) with '|| true' to prevent 'make' from failing.
 	@$(DOCKER_RUN) bundle exec rubocop --autocorrect --format quiet > /dev/null 2>&1 || true
 	@echo "All Ruby files have been safely auto-corrected. Please review and commit changes."
+
+# Build the Prettier Docker image.
+prettier-image-build: Dockerfile.prettier .prettierrc .prettierignore
+	@echo "Building Prettier image $(PRETTIER_IMAGE)..."
+	@docker build -f Dockerfile.prettier -t $(PRETTIER_IMAGE) .
+
+# Rebuild without cache.
+prettier-image-rebuild: Dockerfile.prettier .prettierrc .prettierignore
+	@echo "Rebuilding Prettier image $(PRETTIER_IMAGE) with --no-cache..."
+	@docker build --no-cache -f Dockerfile.prettier -t $(PRETTIER_IMAGE) .
+
+# Run Prettier on ALL Markdown files (respects .prettierignore).
+format-md: prettier-image-build
+	@echo "Running Prettier on all Markdown files..."
+	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) $(PRETTIER_IMAGE) \
+		prettier --write "**/*.md"
+	@echo "All Markdown files formatted. Please review and commit changes."
 
 # --- Tier 4: Backward Compatibility Aliases ---
 # These aliases maintain backward compatibility for muscle memory.

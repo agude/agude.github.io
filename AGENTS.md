@@ -13,6 +13,7 @@ Jekyll-based static site (alexgude.com) running in Docker.
 - **Build:** `make build` (Production build to `_site/`).
 - **Deps:** `make lock` (Update Gemfile.lock via Docker).
 - **Lint:** `make lint` / `make format-all`.
+- **Format MD:** `make format-md` (Run Prettier on all Markdown files).
 - **Hooks:** `make hooks-install` (Install pre-commit hook).
 
 ## Architecture Map
@@ -35,7 +36,8 @@ Jekyll-based static site (alexgude.com) running in Docker.
 4. Build, HTML validation, broken-link check (main branch deploys).
 
 **Pre-commit hook** (`_bin/pre-commit.sh`, install via `make hooks-install`):
-- Runs `rubocop --autocorrect` inside Docker on staged `.rb` files only.
+- Runs `rubocop --autocorrect` inside Docker on staged `.rb` files.
+- Runs `prettier --write` inside Docker on staged `.md` files (excluding meta files).
 - Auto-corrected files are re-staged automatically.
 - Rejects the commit if uncorrectable offenses remain.
 
