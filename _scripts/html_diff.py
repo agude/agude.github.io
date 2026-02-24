@@ -222,15 +222,7 @@ def main():
     # Print suggested commands
     print("💡 COMMANDS TO VIEW DIFFS:\n")
     print("  Using Git:")
-    print(f"    git diff --no-index {dir_a_export} {dir_b_export}\n")
-
-    if diffs:
-        print("  Using Neovim:")
-        print(f"    nvim -d {dir_a_export}/{diffs[0]} {dir_b_export}/{diffs[0]}")
-        if len(diffs) > 1:
-            print(
-                f"    git difftool --dir-diff --tool=nvimdiff --no-index {dir_a_export} {dir_b_export}"
-            )
+    print(f"    git diff --no-index --word-diff {dir_a_export} {dir_b_export}\n")
 
     sys.exit(1)
 
