@@ -54,7 +54,21 @@ Examples:
 {% series_link "Series Name" link_text="the series" %}
 ```
 
-Output: `<span class="book-series"><a href="...">Series Name</a></span>`
+Output: `<a href="..."><span class="book-series">Series Name</span></a>`
+
+## Series Text
+
+Renders a series name with appropriate prefix ("the") and suffix ("series"),
+auto-detected from the name. Use `link=false` for unlinked styled spans.
+
+```liquid
+{% series_text "Series Name" %}
+{% series_text page.series link=false %}
+```
+
+- "Foundation" → "the Foundation series"
+- "The Expanse" → "The Expanse series" (no extra "the")
+- "Dune Saga" → "the Dune Saga" (no "series" — name contains type word)
 
 ## Short Story Links
 

@@ -103,7 +103,7 @@ end
 ```
 
 Tags with render_mode support: all link tags (`book_link`, `author_link`,
-`series_link`, `short_story_link`), all display tags (`display_books_by_year`,
+`series_link`, `series_text`, `short_story_link`), all display tags (`display_books_by_year`,
 `display_books_by_author_then_series`, `display_books_by_title_alpha_group`,
 `display_ranked_books`, `display_awards_page`, `display_books_by_author`,
 `display_books_for_series`, `display_category_posts`, `front_page_feed`,
