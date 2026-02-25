@@ -4,6 +4,11 @@ _coverage/
 vendor/
 node_modules/
 
+# Lots of nested Liquid
+linktree.md
+omemo-fingerprints.md
+twitter-disavow.md
+
 # Agent/meta files (not site content)
 AGENTS.md
 CLAUDE.md

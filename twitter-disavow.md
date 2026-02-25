@@ -19,11 +19,11 @@ datetime="2024-11-10T00:48:30+00:00">November 10<sup>th</sup>, 2024</time>.
 I also deleted my bot accounts:
 
 {%- for handle in page.twitter_bot_handles -%}
-    {%- if forloop.last and forloop.length > 1 %}
-        and
-    {% endif -%}
+  {%- if forloop.last and forloop.length > 1 %}
+    and
+  {% endif -%}
     `@{{ handle }}`
-    {%- if forloop.last == false -%}, {% endif -%}
+  {%- if forloop.last == false -%}, {% endif -%}
 {%- endfor -%}.
 
 This page serves as a record to clarify that any future usage of these handles

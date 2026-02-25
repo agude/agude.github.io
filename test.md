@@ -16,10 +16,15 @@ This is a test page to demonstrate all standard Markdown elements.
 ## Headings
 
 # Heading Level 1
+
 ## Heading Level 2
+
 ### Heading Level 3
+
 #### Heading Level 4
+
 ##### Heading Level 5
+
 ###### Heading Level 6
 
 ---
@@ -27,7 +32,7 @@ This is a test page to demonstrate all standard Markdown elements.
 ## Paragraphs
 
 This is a simple paragraph.
-This is another paragraph with **bold text**, *italic text*, and ***bold italic text***.
+This is another paragraph with **bold text**, _italic text_, and **_bold italic text_**.
 
 ---
 
@@ -116,14 +121,14 @@ word with your priests.
 
 ## Tables
 
-| Left Justified | Centered | Right Justified |
-|:---------------|:--------:|----------------:|
-| Data 1         | Data 2   | Data 3          |
-| _Data 4_       | Data 5   | Data 6          |
-| **Data 7**     | Data 8   | Data 9          |
-|================|==========|=================|
-| Footer row     | Data 10  | Data 11         |
-|----------------|----------|-----------------|
+| Left Justified   |  Centered  |   Right Justified |
+| :--------------- | :--------: | ----------------: |
+| Data 1           |   Data 2   |            Data 3 |
+| _Data 4_         |   Data 5   |            Data 6 |
+| **Data 7**       |   Data 8   |            Data 9 |
+| ================ | ========== | ================= |
+| Footer row       |  Data 10   |           Data 11 |
+| ---------------- | ---------- | ----------------- |
 
 ---
 
@@ -175,7 +180,6 @@ This is a sentence with **two footnotes**, one of which is reused!![^1][^long]
 This is a footnote within a footnote.[^2]
 
 Two footnotes, but[^4] on different words.[^5]
-
 
 [^2]: First footnote.[^3]
 
@@ -403,6 +407,7 @@ date: "%Y" | minus: 2015 }}.
 
 {% assign four=4 %}
 {% assign five="5" %}
+
 - {% rating_stars 1 %}
 - {% rating_stars '2' %}
 - {% rating_stars "3" %}
@@ -436,9 +441,10 @@ date: "%Y" | minus: 2015 }}.
   <h2 class="book-review-headline">Review</h2>
   {% rating_stars 5 %}
 
-  This is a sample review of the book, demonstrating the inclusion of
-  custom metadata, images, and dynamic content. The story revolves around a
-  fascinating premise and is exceptionally well-written.
+This is a sample review of the book, demonstrating the inclusion of
+custom metadata, images, and dynamic content. The story revolves around a
+fascinating premise and is exceptionally well-written.
+
 </article>
 
 ## Books Ranked by Backlinks
