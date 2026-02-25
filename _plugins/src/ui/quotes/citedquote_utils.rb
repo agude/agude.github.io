@@ -28,7 +28,7 @@ module Jekyll
           # Wrap in {::nomarkdown} to prevent Kramdown from escaping HTML when
           # used inside footnotes. Output as single line for extra safety.
           html = "<figure class=\"cited-quote\">#{blockquote_html}#{figcaption_html}</figure>"
-          "{::nomarkdown}#{html.gsub("\n", '')}{:/nomarkdown}"
+          "{::nomarkdown}#{html.gsub("\n", ' ')}{:/nomarkdown}"
         end
 
         # Process content through the site's Markdown converter.

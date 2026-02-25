@@ -249,6 +249,62 @@ class TestCitedQuoteUtils < Minitest::Test
     assert_match(/A Book/, output)
   end
 
+  # --- Tests for Multiline Content (Newline-as-Word-Separator) ---
+
+  def test_render_does_not_merge_words_across_line_breaks
+    # Kramdown preserves soft line breaks inside <p> tags.
+    # The nomarkdown flattening must not strip them without
+    # leaving a space, or adjacent words will fuse together.
+    mock_converter = Object.new
+    def mock_converter.convert(content)
+      "<p>#{content.strip}</p>\n"
+    end
+
+    multiline_content = "terribly, terribly\nimportant to the fate"
+
+    @site.stub :find_converter_instance, mock_converter do
+      output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
+        multiline_content,
+        { author_last: 'Banks' },
+        @site,
+      )
+
+      # Words that were separated by a newline must remain separated
+      refute_match(/terribly\nimportant/, output, 'Raw newline should not survive into final output')
+      refute_match(/terriblyimportant/, output, 'Newline must not be stripped without leaving a space')
+      assert_match(/terribly important/, output, 'Newline between words should become a space')
+    end
+  end
+
+  def test_render_does_not_merge_words_in_real_paragraph
+    # End-to-end: multi-line paragraph processed by a realistic converter
+    mock_converter = Object.new
+    def mock_converter.convert(content)
+      # Kramdown wraps in <p> but preserves internal newlines
+      "<p>#{content.strip}</p>\n"
+    end
+
+    content = <<~TEXT
+      I've read so many SF books where the action is terribly, terribly
+      important to the fate of everyone and everything. That fate of a whole
+      planet can hang on the outcome of a protagonist's actions.
+    TEXT
+
+    @site.stub :find_converter_instance, mock_converter do
+      output = Jekyll::UI::Quotes::CitedQuoteUtils.render(
+        content,
+        { author_last: 'Banks' },
+        @site,
+      )
+
+      refute_match(/terriblyimportant/, output)
+      refute_match(/wholeplanet/, output)
+      refute_match(/actions\.Sometimes/, output)
+      assert_match(/terribly important/, output)
+      assert_match(/whole planet/, output)
+    end
+  end
+
   # --- Integration Test for Kramdown Footnote Compatibility ---
 
   def test_render_output_not_escaped_when_processed_by_kramdown_in_footnote
