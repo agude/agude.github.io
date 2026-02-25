@@ -17,6 +17,9 @@ _site
 .jekyll-metadata
 .jekyll-cache
 
+# Make stamp files
+.prettier-image.stamp
+
 # Ruby
 Gemfile.lock
 .bundle

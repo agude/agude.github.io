@@ -39,7 +39,7 @@ TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb
 .PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-liquid
 
 # Tier 3: Domain operations
-.PHONY: image-build image-rebuild deps-lock hooks-install prettier-image-build prettier-image-rebuild format-md
+.PHONY: image-build image-rebuild deps-lock hooks-install prettier-image-build prettier-image-rebuild format-md prettier
 
 # Internal targets
 .PHONY: all clean-coverage
@@ -224,22 +224,38 @@ lint-fix: image-build
 	@$(DOCKER_RUN) bundle exec rubocop --autocorrect --format quiet > /dev/null 2>&1 || true
 	@echo "All Ruby files have been safely auto-corrected. Please review and commit changes."
 
-# Build the Prettier Docker image.
-prettier-image-build: Dockerfile.prettier .prettierrc .prettierignore
+# Build the Prettier Docker image. Uses a stamp file so the build only runs
+# when Dockerfile or config files actually change.
+.prettier-image.stamp: Dockerfile.prettier .prettierrc .prettierignore
 	@echo "Building Prettier image $(PRETTIER_IMAGE)..."
 	@docker build -f Dockerfile.prettier -t $(PRETTIER_IMAGE) .
+	@touch .prettier-image.stamp
+
+prettier-image-build: .prettier-image.stamp
 
 # Rebuild without cache.
 prettier-image-rebuild: Dockerfile.prettier .prettierrc .prettierignore
 	@echo "Rebuilding Prettier image $(PRETTIER_IMAGE) with --no-cache..."
 	@docker build --no-cache -f Dockerfile.prettier -t $(PRETTIER_IMAGE) .
+	@touch .prettier-image.stamp
 
 # Run Prettier on ALL Markdown files (respects .prettierignore).
-format-md: prettier-image-build
+format-md: .prettier-image.stamp
 	@echo "Running Prettier on all Markdown files..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) $(PRETTIER_IMAGE) \
 		prettier --write "**/*.md"
 	@echo "All Markdown files formatted. Please review and commit changes."
+
+# Run Prettier on specific files: make prettier file.md _books/*.md
+PRETTIER_FILES := $(filter-out prettier,$(MAKECMDGOALS))
+prettier: .prettier-image.stamp
+	@if [ -z "$(PRETTIER_FILES)" ]; then \
+		echo "Error: No files specified."; \
+		echo "Usage: make prettier <file1.md> <file2.md>"; \
+		exit 1; \
+	fi
+	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) $(PRETTIER_IMAGE) \
+		prettier --write $(PRETTIER_FILES)
 
 # --- Tier 4: Backward Compatibility Aliases ---
 # These aliases maintain backward compatibility for muscle memory.
@@ -256,3 +272,10 @@ check: check-links
 check-strict: check-liquid
 install-hook: hooks-install
 format-all: lint-fix
+
+# When `make prettier file1 file2` is used, Make treats the files as targets.
+# This catch-all no-ops them. Only active when prettier is the primary goal.
+ifneq ($(filter prettier,$(MAKECMDGOALS)),)
+%:
+	@:
+endif
