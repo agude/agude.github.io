@@ -10,7 +10,7 @@ image: /files/deep-compression/header.jpg
 image_alt: >
   A photo shot looking upwards between two buildings, the colors of the
   windows fade as you move down reminding me of compression.
-categories: 
+categories:
   - reading-group
   - lab41
 ---

@@ -85,7 +85,7 @@ average. I call this the Mean Absolute Miss Value, or MAMV.
 The result of this calculation for each candidate are tabulated below:
 
 | Candidate | Mean Absolute Miss Value |
-|:----------|-------------------------:|
+| :-------- | -----------------------: |
 | Clinton   |                     0.84 |
 | Sanders   |                     1.00 |
 | Trump     |                     0.66 |

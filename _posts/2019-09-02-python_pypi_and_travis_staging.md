@@ -23,6 +23,7 @@ versions of Python,[^1] which required me to [automate the build system][ab].
 I needed my build system to:
 
 [^1]: Currently 2.7, 3.4 through 3.7, the development versions of 3.7 and 3.8, the nightly release, and [pypy 2.7 and 3.5][pypy].
+
 [pypy]: https://pypy.org/
 
 - Install the software for each supported Python version.
@@ -30,9 +31,10 @@ I needed my build system to:
 - Run tests against each Python version.
 
 - Publish **_exactly once_** to [Pypi][wbma_pypi] when all the tests in all
-the Python versions had passed.
+  the Python versions had passed.
 
 [wbma]: https://github.com/agude/wayback-machine-archiver
+
 [wbma_post]: {% post_url 2019-06-04-wayback_machine_archiver %}
 [ab]: https://en.wikipedia.org/wiki/Build_automation
 [wbma_pypi]: https://pypi.org/project/wayback-machine-archiver/
@@ -59,7 +61,7 @@ We start by setting up the Python versions to use for testing:
 language: python
 dist: xenial # Required for Python >= 3.7
 python:
-  - "2.7" 
+  - "2.7"
   - "3.7"
   # Also test pypy
   - "pypy3"
@@ -72,7 +74,7 @@ in the list.
 
 [supported]: https://docs.travis-ci.com/user/languages/python/#python-37-and-higher
 
-Next, we tell Travis how to set up the environment and test the code: 
+Next, we tell Travis how to set up the environment and test the code:
 
 ```yaml
 install:
@@ -105,7 +107,7 @@ jobs:
         provider: pypi
         user: alexgude
         password:
-          secure: Bq6I8x...sqslR  # Hashed password
+          secure: Bq6I8x...sqslR # Hashed password
         distributions: "sdist bdist_wheel"
         on:
           tags: true
@@ -134,4 +136,3 @@ deployment! In the future, I hope to migrate to [Github
 Actions][github_actions], but that is for another time.
 
 [github_actions]: https://github.com/features/actions
-

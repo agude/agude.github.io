@@ -34,7 +34,7 @@ manager track than the IC track._
 Every company is slightly different, but most of them have their tracks
 set up something like this:
 
-``` text
+```text
     L1 → L2 → L3 → L4 → L5 → L6 ...
                   ↳ M4 → M5 → M6 ...
 ```
@@ -42,11 +42,12 @@ set up something like this:
 Where an **L** (short for "Level") indicates an IC role and an **M** indicates
 a manager role. The higher the number, the more senior the role.[^numbers]
 
-[^numbers]: In this example I started the track at L1, but many companies
-      start it at a different number. Amazon seems to start at 4, Apple at 2,
-      Facebook at 3, Google at 3, and Microsoft at 59. For a lot more
-      information on a specific company's levels and total compensation, see
-      [levels.fyi][levels].
+[^numbers]:
+    In this example I started the track at L1, but many companies
+    start it at a different number. Amazon seems to start at 4, Apple at 2,
+    Facebook at 3, Google at 3, and Microsoft at 59. For a lot more
+    information on a specific company's levels and total compensation, see
+    [levels.fyi][levels].
 
 [levels]: https://www.levels.fyi
 

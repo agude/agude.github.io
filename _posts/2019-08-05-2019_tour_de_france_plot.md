@@ -22,6 +22,7 @@ and plots (as I [mentioned last month][last_post]), so once again I found a
 way to combine the two, by graphically exploring how the race unfolded.
 
 [tour]: https://en.wikipedia.org/wiki/Tour_de_France
+
 [last_post]: {% post_url 2019-07-09-hour_record_plot_improvements %}
 
 The code that generated the plots can be found [here][plot_code]

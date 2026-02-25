@@ -8,12 +8,12 @@ description: >
 image: /files/chatgpt/00259-1343806484-A_drawing_of_a_cute_robot_color_writing_with_a_pen_sitting_at_a_desk.jpg
 hide_lead_image: False
 image_alt: >
-    A colorful illustration of two robots sitting at a desk with
-    empty paper and books in front of them. One is holding a pencil. Generated 
-    with stable diffusion. Prompt: A drawing of a cute robot, color, writing 
-    with a pen, sitting at a desk
+  A colorful illustration of two robots sitting at a desk with
+  empty paper and books in front of them. One is holding a pencil. Generated 
+  with stable diffusion. Prompt: A drawing of a cute robot, color, writing 
+  with a pen, sitting at a desk
 redirect_from: blog/good-uses-for-large-language-mo-models/
-categories: 
+categories:
   - generative-ai
   - large-language-models
   - machine-learning

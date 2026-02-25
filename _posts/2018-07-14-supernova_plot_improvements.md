@@ -24,6 +24,7 @@ tells us what is going on during the explosion and what elements are present.
 
 [sn_cosmo]: https://en.wikipedia.org/wiki/Supernova_Cosmology_Project
 [2002cx]: https://en.wikipedia.org/wiki/SN_2002cx
+
 [old_post]: {% post_url 2018-04-07-matplotlib_blitting_supernova %}
 
 [![The spectrum of Supernova 2002cx at four different times during the
@@ -34,6 +35,7 @@ explosion.][old_supernova]][old_supernova]
 It is not a bad plot---it conveys the information it is required to---but it has
 a lot of room for improvement! This shouldn't come as a surprise since it was one of the
 earliest plots I made in my scientific career. Some of the shortcomings of the plot include:
+
 - The spectra overlap a bit.
 
 - Poor utilization of available space due to the need for large margins to accommodate the legend.
@@ -44,7 +46,7 @@ earliest plots I made in my scientific career. Some of the shortcomings of the p
 
 The code that generated this plot can be found [here][old_plot_code]
 ([rendered on Github][old_rendered]). It is not very good but, in my defense,
-it *is* almost a decade old.
+it _is_ almost a decade old.
 
 {% capture old_notebook_uri %}{{ "Old Plot.ipynb" | uri_escape }}{% endcapture %}
 [old_plot_code]: {{ file_dir }}/{{ old_notebook_uri }}
@@ -53,7 +55,7 @@ it *is* almost a decade old.
 ## Improvements
 
 I had not thought of the plot for years, until I ran into it again while
-browsing Wikipedia. Using the experience I have gained since then to fix 
+browsing Wikipedia. Using the experience I have gained since then to fix
 and re-release it to the world seemed like the right thing to do. The
 result of my improvements is below:
 

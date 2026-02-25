@@ -10,8 +10,8 @@ hide_lead_image: False
 image_alt: >
   Black and white photo from 1926 of men and boys crowded around a car that
   has driven into a lamppost and lost its front left wheel.
-categories: 
-  - california-traffic-data 
+categories:
+  - california-traffic-data
   - data-science
 ---
 
@@ -26,8 +26,8 @@ drivers have crashes][toyota_post].
 
 [switrs]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
 [last_post]: {% post_url 2019-02-20-switrs_bicycle_crashes_by_date %}
-[covid]: https://en.wikipedia.org/wiki/COVID-19_pandemic_in_California 
-[fatalities_post]: {% post_url 2021-07-19-switrs_covid_19_lockdown_fatal_traffic_collisions %} 
+[covid]: https://en.wikipedia.org/wiki/COVID-19_pandemic_in_California
+[fatalities_post]: {% post_url 2021-07-19-switrs_covid_19_lockdown_fatal_traffic_collisions %}
 [toyota_post]: {% post_url 2021-09-27-switrs_ford_vs_toyota_during_covid_19 %}
 
 So with all the new data, I wanted to look at the most vulnerable road users:
@@ -36,12 +36,12 @@ pedestrians.
 As per usual, the Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-{% capture notebook_uri %}{{ "SWITRS Incident Dates With Pedestrians.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "SWITRS Incident Dates With Pedestrians.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
-## Data Selection 
+## Data Selection
 
 I selected crashes involving pedestrians from the [SQLite database][s2s] with
 the following query:
@@ -50,10 +50,10 @@ the following query:
 
 ```sql
 SELECT collision_date
-     , collision_time 
+     , collision_time
      , pedestrian_killed_count
-FROM collisions 
-WHERE collision_date IS NOT NULL 
+FROM collisions
+WHERE collision_date IS NOT NULL
 AND pedestrian_Collision = 1        -- Involves a pedestrian
 AND collision_date <= '2020-12-31'  -- 2021 is incomplete
 ```
@@ -133,12 +133,12 @@ per hour of the day for weekends and weekdays,][per_hour_plot]][per_hour_plot]
 
 The most striking feature is the large increase in the number of incidents
 during the morning commute (07--09) and again in the during the evening
-commute (17--19)! Commuters in cars are dangerous to pedestrians! 
+commute (17--19)! Commuters in cars are dangerous to pedestrians!
 
 There is also an increase in incidents on both weekends and weekdays at about
 17:00. This is probably because that is around sunset.[^sunset]
 
-[^sunset]: 
+[^sunset]:
     This dataset covers the whole year so the exact time of sunset changes. It
     would be interesting to make a similar chart but relative to sunrise and
     sunset.

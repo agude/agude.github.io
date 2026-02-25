@@ -6,10 +6,10 @@ description: >
   Properly hiding your implementation will make life much easier!
 image: /files/ml-api/00678-3489016266-a_simple_color_pencil_drawing_a_cute_robot,_plugging_cat5_cable_into_a_network_switch,_white_background.png
 image_alt: >
-    A colorful pencil drawing of two robots fussing with some techno-thingy
-    between them. Generated with stable diffusion. Prompt: A simple color
-    pencil drawing a ((cute robot)), plugging cat5 cable into a network
-    switch, white background
+  A colorful pencil drawing of two robots fussing with some techno-thingy
+  between them. Generated with stable diffusion. Prompt: A simple color
+  pencil drawing a ((cute robot)), plugging cat5 cable into a network
+  switch, white background
 categories:
   - machine-learning
   - machine-learning-engineering
@@ -50,10 +50,10 @@ ATO model API might return the following actions:
 - _Allow_: The login looks fine, allow it.
 
 - _Step-up_: The login looks odd, require the user to provide a second factor
-of authentication, such as a code sent to their email.
+  of authentication, such as a code sent to their email.
 
 - _Lock_: The login looks clearly fraudulent, deny the login and lock the
-account until the user recovers it.
+  account until the user recovers it.
 
 These actions do a really good job of hiding the implementation behind the
 API. You can freely change thresholds when the model performance changes,

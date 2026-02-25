@@ -27,6 +27,7 @@ visualization that [Tufte][tufte] used it as the cover of _The Visual Display
 of Quantitative Information_.
 
 [^lmgd]: The full title is _La Méthode Graphique Dans les Sciences Expérimentales et Principalement en Physiologie et en Médecine_, or roughly _The Graphical Method in Experimental Sciences and Mainly in Physiology and Medicine_.
+
 [^ibry]: The caption in Marey's book reads: _"Graphique de la marche des trains sur un chemin de fer, d'après la méthode de Ibry"_ or _"Graph showing the progress of trains on a railway, according to the method of Ibry"_. Unfortunately, little else is known of Ibry, and so this type of chart is often named for Marey instead.
 
 [![Graph showing the progress of trains on a railway, according to the method
@@ -34,6 +35,7 @@ of Ibry][schedule_image]][schedule_image]
 
 [ejm]: https://en.wikipedia.org/wiki/%C3%89tienne-Jules_Marey
 [original_graphique]: https://archive.org/details/lamthodegraphiq00maregoog
+
 [schedule_image]: {{ file_dir }}/ibry-trainschedule.jpg
 [tufte]: https://en.wikipedia.org/wiki/Edward_Tufte
 
@@ -57,6 +59,7 @@ developer site][dev].
 [caltrain_vis3]: https://www.davidstarke.com/projects/caltrain/
 [caltrain_vis4]: https://www.svds.com/wp-content/uploads/2016/05/DataEDGE_2016.pdf#page=14
 [caltrain]: https://en.wikipedia.org/wiki/Caltrain
+
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 [dev]: http://www.caltrain.com/developer.html
@@ -70,7 +73,9 @@ is scaled to the actual distance [recorded on the track
 mileposts][mileposts].[^note] Click the schedules for larger versions.
 
 [mileposts]: https://en.wikipedia.org/wiki/List_of_Caltrain_stations
+
 [^note]: The mileposts markers are off by up to 100m for stations south of [Lawrence][lawrence]. I tried to measure the actual track distances using [OpenStreetMap][osm] but found that I could not do so more accurately than the milepost numbers.
+
 [lawrence]: https://en.wikipedia.org/wiki/Lawrence_station_(Caltrain)
 [osm]: https://www.openstreetmap.org/#map=11/37.5574/-122.3050&layers=T
 

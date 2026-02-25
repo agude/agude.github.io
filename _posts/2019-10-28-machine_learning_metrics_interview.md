@@ -90,6 +90,7 @@ using dollars in model optimization, see Airbnb's post on [_Fighting Financial
 Fraud with Targeted Friction_][airbnb].
 
 [^rep]: One of our largest costs is [reputational risk][rep_risk], which is very hard to assign a number to.
+
 [rep_risk]: https://en.wikipedia.org/wiki/Reputational_risk
 [airbnb]: https://medium.com/airbnb-engineering/fighting-financial-fraud-with-targeted-friction-82d950d8900e
 

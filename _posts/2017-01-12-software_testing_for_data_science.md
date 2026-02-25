@@ -38,6 +38,7 @@ my [SWITRS-to-SQLite][s2s_gh] project (which I've [discussed
 previously][s2s_blog]).
 
 [s2s_gh]: https://github.com/agude/SWITRS-to-SQLite
+
 [s2s_blog]: {% post_url 2016-11-01-switrs_to_sqlite %}
 
 ## Data Extraction Tests

@@ -9,7 +9,7 @@ description: >
 image: /files/skip-thought/header.jpg
 image_alt: >
   A picture of old books on shelves taken at an angle.
-categories: 
+categories:
   - reading-group
   - lab41
 ---

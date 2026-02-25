@@ -2,17 +2,17 @@
 layout: post
 title: A Letter to my Alma Mater
 description: >
-    In a stunning failure of courage, UC Berkeley has turned over the personal
-    information of students and staff to the federal government. This decision
-    is a profound betrayal of the university's legacy, particularly the Free
-    Speech Movement. This is my letter to the administration.
+  In a stunning failure of courage, UC Berkeley has turned over the personal
+  information of students and staff to the federal government. This decision
+  is a profound betrayal of the university's legacy, particularly the Free
+  Speech Movement. This is my letter to the administration.
 image: /files/berkeley/berkeley_wheeler.jpg
 hide_lead_image: False
 image_alt: >
-    The grand, neoclassical facade of Wheeler Hall on the UC Berkeley campus,
-    viewed from a low angle in the late afternoon. The building's stone
-    columns and wide steps are highlighted by strong sunlight and shadow, with
-    the Campanile visible in the background against a clear blue sky.
+  The grand, neoclassical facade of Wheeler Hall on the UC Berkeley campus,
+  viewed from a low angle in the late afternoon. The building's stone
+  columns and wide steps are highlighted by strong sunlight and shadow, with
+  the Campanile visible in the background against a clear blue sky.
 categories:
   - opinions
 ---
@@ -38,6 +38,5 @@ You aren't willing to put your careers, never mind your bodies, upon the
 wheels and levers to make it stop.
 
 You believe you're saving the University. But you are destroying its soul.
-
 
 **Alexander Gude** ('08)

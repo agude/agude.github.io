@@ -17,7 +17,7 @@ categories:
 {% capture file_dir %}/files/data-science-spectrum/{% endcapture %}
 
 The role of a data scientist has become narrower and more specialized as the
-demand for them has increased. In my last post, [_The Data Science Split_][last_post], 
+demand for them has increased. In my last post, [_The Data Science Split_][last_post],
 I talked about why I think this happened. In this post, I will walk through a
 few of the most common roles in the data ecosystem and cover what they do and
 what their skill sets are.
@@ -36,7 +36,8 @@ I would be interested in the job.
 You could define the spectrum of data science along multiple axes, but I
 find using just one works pretty well:[^research]
 
-[^research]: If I were to add a second axis, it would probably be
+[^research]:
+    If I were to add a second axis, it would probably be
     **Researchiness** to differentiate the product focused data roles covered
     in this post from the more academic roles present at some large companies.
     The biggest difference is "publishing papers" is a metric more researchy
@@ -66,7 +67,8 @@ dashboards, and presentations. They are generally really adept at SQL and
 making data visualizations, but are less likely to use general-purpose
 languages like Python.
 
-[^biz]: Sometimes data analyst, business intelligence analyst, or even data
+[^biz]:
+    Sometimes data analyst, business intelligence analyst, or even data
     scientist.
 
 ### Data Scientist
@@ -77,7 +79,8 @@ influence them. They can clean a dataset, find biases, and then use it to
 power decisions and products. They work with more general programming
 languages like R or Python.
 
-[^ds]: Also product data scientist, sometimes decision scientist,
+[^ds]:
+    Also product data scientist, sometimes decision scientist,
     statistician. These align closely with [Michael
     Hochster's][@michaelhochster] [Type A Data Scientists][type_a_b].
 
@@ -94,7 +97,8 @@ models all the way from first iteration through hosting it in production. They
 use Python, machine learning frameworks like TensorFlow, sometimes Scala and
 Spark, Docker, and REST APIs.
 
-[^mlm]: This role is sometimes called data scientist, sometimes machine
+[^mlm]:
+    This role is sometimes called data scientist, sometimes machine
     learning engineer; often those two roles split the responsibility. These
     roles are closer to [Michael Hochster's][@michaelhochster] [Type B Data
     Scientists][type_a_b].

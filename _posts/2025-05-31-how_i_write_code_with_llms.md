@@ -25,6 +25,7 @@ Vim, and a full IDE. Now, I'm exploring writing code with [large language
 models (LLMs)][llms], similar to [how I use them for writing][writing_llms].
 
 [llms]: https://en.wikipedia.org/wiki/Large_language_model
+
 [writing_llms]: {% post_url 2025-02-02-how_i_write_with_llms_revised %}
 
 At work, I use [Codename Goose][goose], which can directly interact with my

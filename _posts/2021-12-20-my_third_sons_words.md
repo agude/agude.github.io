@@ -9,7 +9,7 @@ hide_lead_image: True
 image_alt: >
   A woodcut by J. W. Orr showing a father giving his son a picture book in a
   richly appointed study.
-categories: 
+categories:
   - childhood-language
   - data-visualization
 ---
@@ -25,7 +25,7 @@ how quickly he was picking up the different languages we speak.
 
 ## The Data
 
-The data was collected in the [same manner as last two times][theo_post_data]. 
+The data was collected in the [same manner as last two times][theo_post_data].
 One difference was that Ash learned to speak during the [COVID-19
 pandemic][pandemic], when we were much more isolated from family and the rest
 of the world, but also I was working from home so it was easier to enter my
@@ -34,12 +34,12 @@ own data rather than have my wife text me when Ash said a new word.
 [theo_post_data]: {% post_url 2018-09-30-my_sons_words %}#the-data
 [pandemic]: https://en.wikipedia.org/wiki/COVID-19_pandemic
 
-The main difficulties in data collection were the same though: 
+The main difficulties in data collection were the same though:
 
 - Deciding when Ash had associated a sound with a concept as opposed to just babbling.
 
 - Deciding if Ash "knew" a word or was just repeating a sound he had just
-heard.
+  heard.
 
 You can find the Jupyter notebook used to perform this analysis
 [here][notebook] ([rendered on Github][rendered]). The data can be found

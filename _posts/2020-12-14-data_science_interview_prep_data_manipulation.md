@@ -97,9 +97,9 @@ Which returns:
 
 <div class="low-width-table" markdown="1" style="max-width: 20%">
 
-|   collision_count |
-|------------------:|
-|         9,172,565 |
+| collision_count |
+| --------------: |
+|       9,172,565 |
 
 </div>
 </details>
@@ -126,11 +126,11 @@ about this assumption, we could leave them in and treat the answer as a lower
 bound.
 
 ```sql
-SELECT 
-    COUNT(DISTINCT case_id) 
+SELECT
+    COUNT(DISTINCT case_id)
     / (
-        SELECT CAST(COUNT(DISTINCT case_id) AS FLOAT) 
-        FROM parties 
+        SELECT CAST(COUNT(DISTINCT case_id) AS FLOAT)
+        FROM parties
         WHERE party_age IS NOT NULL
         AND party_sex IS NOT NULL
         )
@@ -144,9 +144,9 @@ The result is:
 
 <div class="low-width-table" markdown="1" style="max-width: 20%">
 
-|   percentage |
-|-------------:|
-|        0.258 |
+| percentage |
+| ---------: |
+|      0.258 |
 
 </div>
 
@@ -183,28 +183,28 @@ This gives us:
 
 <div class="low-width-table" markdown="1" style="max-width: 20%">
 
-|   collision_year |   collision_count |
-|-----------------:|------------------:|
-|             2001 |              3258 |
-|             2002 |              3393 |
-|             2003 |              3822 |
-|             2004 |              3955 |
-|             2005 |              3755 |
-|             2006 |              3967 |
-|             2007 |              4513 |
-|             2008 |              4948 |
-|             2009 |              4266 |
-|             2010 |              3902 |
-|             2011 |              4054 |
-|             2012 |              4143 |
-|             2013 |              4209 |
-|             2014 |              4267 |
-|             2015 |              4415 |
-|             2016 |              4471 |
-|             2017 |              4373 |
-|             2018 |              4240 |
-|             2019 |              3772 |
-|             2020 |              2984 |
+| collision_year | collision_count |
+| -------------: | --------------: |
+|           2001 |            3258 |
+|           2002 |            3393 |
+|           2003 |            3822 |
+|           2004 |            3955 |
+|           2005 |            3755 |
+|           2006 |            3967 |
+|           2007 |            4513 |
+|           2008 |            4948 |
+|           2009 |            4266 |
+|           2010 |            3902 |
+|           2011 |            4054 |
+|           2012 |            4143 |
+|           2013 |            4209 |
+|           2014 |            4267 |
+|           2015 |            4415 |
+|           2016 |            4471 |
+|           2017 |            4373 |
+|           2018 |            4240 |
+|           2019 |            3772 |
+|           2020 |            2984 |
 
 </div>
 
@@ -280,7 +280,7 @@ it. I'd love to hear how you got it to work!
 ```sql
 WITH counter AS (
   SELECT
-    p.vehicle_make AS make, 
+    p.vehicle_make AS make,
     AVG(
       CASE WHEN STRFTIME('%w', c.collision_date) IN ('0', '6') THEN 1 ELSE 0 END
     ) AS weekend_fraction,
@@ -296,7 +296,7 @@ WITH counter AS (
 )
 
 SELECT * FROM (
-  SELECT 
+  SELECT
     *
   FROM counter
   ORDER BY weekend_fraction DESC
@@ -306,7 +306,7 @@ SELECT * FROM (
 UNION
 
 SELECT * FROM (
-  SELECT 
+  SELECT
     *
   FROM counter
   ORDER BY weekday_fraction DESC
@@ -316,10 +316,10 @@ SELECT * FROM (
 
 Which yields:
 
-| make            |   weekend_fraction |   weekday_fraction |   total |
-|:----------------|-------------------:|-------------------:|--------:|
-| HARLEY-DAVIDSON |             0.385  |             0.614  |  49,602 |
-| PETERBILT       |             0.092  |             0.908  |  70,579 |
+| make            | weekend_fraction | weekday_fraction |  total |
+| :-------------- | ---------------: | ---------------: | -----: |
+| HARLEY-DAVIDSON |            0.385 |            0.614 | 49,602 |
+| PETERBILT       |            0.092 |            0.908 | 70,579 |
 
 These results makes sense, Peterbilt is a commercial truck manufacturer which
 you expect to be driven for work. Harley-Davidson makes iconic motorcycles
@@ -336,6 +336,7 @@ that people ride for fun on the weekend with their friends.
 "Toyota" show up?
 
 What steps would you take to fix this problem?
+
 </summary>
 
 This is a case where there is no _right_ answer. You can get a more and more
@@ -346,7 +347,7 @@ The first step is to figure out what values might represent Toyota. I do that
 with a few simple `LIKE` filters:
 
 ```sql
-SELECT 
+SELECT
   vehicle_make,
   COUNT(1) AS number_seen
 FROM parties
@@ -361,34 +362,34 @@ Which gives us this table (truncated):
 
 <div class="low-width-table" markdown="1" style="max-width: 20%">
 
-| vehicle_make   |   number_seen |
-|:---------------|--------------:|
-| TOYOTA         |     2,374,621 |
-| TOYO           |       166,209 |
-| TOYT           |       146,746 |
-| TOYOT          |          2823 |
-| TOY            |          2262 |
-| TOYTA          |           246 |
-| TOYOTA/        |           181 |
-| TOYTO          |            84 |
-| TOYTOA         |            71 |
-| TOYOYA         |            66 |
-| TOYT.          |            65 |
-| TOYA           |            51 |
-| TOYTOTA        |            45 |
-| TOYOA          |            43 |
-| TOYO /         |            39 |
-| TOYT /         |            17 |
-| TOYT/          |            14 |
-| TYMCO          |            13 |
-| TOYOTO         |            10 |
-| TOY0           |            10 |
-| TOYOYTA        |             7 |
-| TOYTT          |             6 |
-| TOYOY          |             6 |
-| TOYOTS         |             5 |
-| TYOTA          |             4 |
-| ...            |           ... |
+| vehicle_make | number_seen |
+| :----------- | ----------: |
+| TOYOTA       |   2,374,621 |
+| TOYO         |     166,209 |
+| TOYT         |     146,746 |
+| TOYOT        |        2823 |
+| TOY          |        2262 |
+| TOYTA        |         246 |
+| TOYOTA/      |         181 |
+| TOYTO        |          84 |
+| TOYTOA       |          71 |
+| TOYOYA       |          66 |
+| TOYT.        |          65 |
+| TOYA         |          51 |
+| TOYTOTA      |          45 |
+| TOYOA        |          43 |
+| TOYO /       |          39 |
+| TOYT /       |          17 |
+| TOYT/        |          14 |
+| TYMCO        |          13 |
+| TOYOTO       |          10 |
+| TOY0         |          10 |
+| TOYOYTA      |           7 |
+| TOYTT        |           6 |
+| TOYOY        |           6 |
+| TOYOTS       |           5 |
+| TYOTA        |           4 |
+| ...          |         ... |
 
 </div>
 
@@ -409,10 +410,10 @@ So that's it! I hope it was useful and you learned something!
 Here are my notebooks with the solutions:
 
 - The [SQL solution notebook][sql_answers] ([Rendered on
-Github][sql_rendered])
+  Github][sql_rendered])
 
 - The [Python/Pandas solution notebook][pandas_answers] ([Rendered on
-Github][python_rendered])
+  Github][python_rendered])
 
 {% capture sql_notebook_uri %}{{ "Interview Prep SQL Solutions.ipynb" | uri_escape }}{% endcapture %}
 [sql_answers]: {{ file_dir }}/{{ sql_notebook_uri }}
@@ -427,4 +428,3 @@ A special thanks to [**Quynh M. Nguyen**][quynhneo] who came up with some simpli
 [quynhneo]: https://github.com/quynhneo
 
 Let me know if you find any more elegant solutions!
-

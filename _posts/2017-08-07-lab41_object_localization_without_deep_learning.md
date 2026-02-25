@@ -216,7 +216,7 @@ The results for the three best chipping methods for the Texas IH-37 at 9th
 Street camera:
 
 | Method | Kernel Size | Threshold | F1 Score |   IOU |
-|:-------|------------:|----------:|---------:|------:|
+| :----- | ----------: | --------: | -------: | ----: |
 | OpenCV |     11 x 11 |         8 |    0.623 | 0.273 |
 | OpenCV |     13 x 13 |        10 |    0.622 | 0.280 |
 | OpenCV |     11 x 11 |        10 |    0.614 | 0.276 |
@@ -236,7 +236,7 @@ The results for the three best chipping methods for the Texas IH-37 at Jones
 Avenue camera:
 
 | Method | Kernel Size | Threshold | F1 Score |   IOU |
-|:-------|------------:|----------:|---------:|------:|
+| :----- | ----------: | --------: | -------: | ----: |
 | OpenCV |       5 x 5 |         4 |    0.698 | 0.261 |
 | OpenCV |     15 x 15 |        10 |    0.681 | 0.277 |
 | OpenCV |     11 x 11 |        10 |    0.675 | 0.270 |
@@ -255,11 +255,10 @@ The results for the three best chipping methods for the Louisiana traffic
 camera:
 
 | Method | Kernel Size | Threshold | F1 Score |   IOU |
-|:-------|------------:|----------:|---------:|------:|
+| :----- | ----------: | --------: | -------: | ----: |
 | OpenCV |     99 x 99 |        50 |    0.783 | 0.419 |
 | OpenCV |   101 x 101 |        50 |    0.783 | 0.419 |
 | OpenCV |     99 x 97 |        50 |    0.783 | 0.410 |
-
 
 ### Conclusion
 

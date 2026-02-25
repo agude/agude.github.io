@@ -19,7 +19,8 @@ needed to become comfortable working on the command line, which included
 editing text files and scripts, so my mentor recommended the text editor he
 used: [Vim][vim]. It has been my primary editor ever since.[^neovim]
 
-[^neovim]: At least until 2015, when I switched to [Neovim][neovim]. Neovim is
+[^neovim]:
+    At least until 2015, when I switched to [Neovim][neovim]. Neovim is
     a fork of Vim with the goal of creating a modern open source project that
     is easy to contribute to, easy to maintain, and extend, all while adding
     new features and making the editor an embeddable library.
@@ -30,14 +31,15 @@ used: [Vim][vim]. It has been my primary editor ever since.[^neovim]
 Most Vim users love tweaking their editor configurations and perfecting their
 editing habits. This is referred to as [sharpening their saws][saw] by Drew
 Neil. I am no exception of course---I made a [custom color scheme,
-*Eldar*][eldar], to make Vim that much more perfect for me---but there is one
-area where I am an iconoclast: 
+_Eldar_][eldar], to make Vim that much more perfect for me---but there is one
+area where I am an iconoclast:
 
 I still love `hjkl`.
 
 Let me explain:
 
 [saw]: http://vimcasts.org/blog/2012/08/on-sharpening-the-saw/
+
 [eldar]: {% post_url 2016-12-23-vim_eldar %}
 
 ## Movement
@@ -57,32 +59,34 @@ done [here on Reddit][reddit][^reddit_quote] or [here on Stack Overflow][romainl
 [romainl]: https://stackoverflow.com/a/26704213/1342354
 
 [^reddit_quote]: Text of the Reddit comment:
+
     > hjkl are irrelevant, it's like micro movements, I want big fat movements
     > that put exactly where I need to be to do what I want.
-    > 
+    >
     > Each decision on how to navigate is informed by my intent for when I get
     > there. Snap decisions of course, I'm not sitting there working stuff out, it
     > just is automatic now.
-    > 
+    >
     > hjkl are just to help you do basic text editing. hjkl vs arrow keys is like
     > asking whether you prefer to crawl or drag yourself in a running race, just
     > learn to run.
 
 [^so_quote]: Text of the Stack Overflow comment:
+
     > The problem with the arrows is not that they are too far: the problem is
     > that they only allow you to move character-by-character and line-by-line.
     > And guess what? That is exactly what `hjkl` do. The only benefit of `hjkl`
     > over the arrows is that it saves that slight movement of the arm to and from
     > the arrows. Whether you think that benefit is worth the trouble is your
     > call. In my opinion, it isn't.
-    > 
+    >
     > `hjkl` are only _marginally better_ than the arrows while Vim's more
     > advanced motions, `bBeEwWfFtT,;/?^$` and so on, offer a _huge_ advantage
     > over the arrows and `hjkl`.
-    > 
+    >
     > FWIW, I use the arrows for small movements, in normal and insert mode, and
     > the advanced motions above for larger motions.
-    > 
+    >
     > ```
     > mouse-using sucker everyone laughs at:  (move)↓↓↓↓↓↓↓↓↓↓→→→→→(move)
     > hjkl-obsessed hipster:                        jjjjjjjjjjlllll efficient

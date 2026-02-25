@@ -16,7 +16,6 @@ categories:
   - machine-learning
 ---
 
-
 {% capture file_dir %}/files/sat2vec{% endcapture %}
 
 Several years ago, I [tried to get Word2Vec to solve SAT
@@ -186,13 +185,13 @@ underline{{endu}}):
 
 <div class="low-width-table" markdown="1" style="max-width: 30%">
 
-| hospitable : courtesy             |
-|:----------------------------------|
-| **vindictive : spite**            |
-| {{u}}despondent : glee{{endu}}    |
-| leisurely : haste                 |
-| morbid : cheerfulness             |
-| infamous : honor                  |
+| hospitable : courtesy          |
+| :----------------------------- |
+| **vindictive : spite**         |
+| {{u}}despondent : glee{{endu}} |
+| leisurely : haste              |
+| morbid : cheerfulness          |
+| infamous : honor               |
 
 </div>
 

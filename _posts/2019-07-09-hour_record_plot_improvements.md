@@ -23,6 +23,7 @@ hands multiple times since. Wikipedia has this plot showing the progression:
 
 [hour_record]: https://en.wikipedia.org/wiki/Hour_record
 [merckx]: https://en.wikipedia.org/wiki/Eddy_Merckx
+
 [^goat]: The 🐐!
 
 {% capture wiki_plot %}{{file_dir}}/Progression_of_Hour_record_from_Merckx_to_Unified.png{% endcapture %}

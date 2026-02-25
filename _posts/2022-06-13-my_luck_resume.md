@@ -109,24 +109,23 @@ this page in the form of a too-honest resume.
 [jessica]: https://twitter.com/berkeleyjess
 [jess_post]: https://berkeleyjess.blogspot.com/2014/07/career-profiles-astronomer-to-data.html
 
-[^jk_post]: The text of [_Career Profiles: Astronomer to Data Scientist_][jess_post]:
+[^jk_post]:
+    The text of [_Career Profiles: Astronomer to Data Scientist_][jess_post]:
 
     > _What, if any, additional training did you complete in order to meet the
     > qualifications?_
     >
-    > 1) I participated in Scicoder where I learned about databases. 
-    > 
-    > 2) I participated in a consulting internship where I learned about
-    > working on interdisciplinary teams, tech/business applications of the
-    > scientific method, and working with customers 
-    > 
-    > 3) I was accepted to (but didn't end up participating in) the **Insight
-    > Data Science Fellows Program** where I would have learned more about the
-    > transition from academia to tech, the tools used in data science /
-    > analytics, and prepared for tech interviews. I got my job offer at
-    > Yammer before this internship started so I participated as a
-    > mentor/recruiter instead of a fellow.
-    
+    > 1. I participated in Scicoder where I learned about databases.
+    > 2. I participated in a consulting internship where I learned about
+    >    working on interdisciplinary teams, tech/business applications of the
+    >    scientific method, and working with customers
+    > 3. I was accepted to (but didn't end up participating in) the **Insight
+    >    Data Science Fellows Program** where I would have learned more about the
+    >    transition from academia to tech, the tools used in data science /
+    >    analytics, and prepared for tech interviews. I got my job offer at
+    >    Yammer before this internship started so I participated as a
+    >    mentor/recruiter instead of a fellow.
+
 {% resume_experience
   company="Intuit"
   location="Mountain View, CA"
@@ -153,8 +152,7 @@ this page in the form of a too-honest resume.
   my friend and former coworker from Lab41, Patrick Callier, asking if he had
   a lead on any positions at Square. He suggested I should work for Cash App
   and introduced me to my current boss and skip-level (also both Insight
-  Alumni). 
-
+  Alumni).
 
 [job]: {% post_url 2020-09-21-interviewing_for_data_science_positions_in_2020 %}
 

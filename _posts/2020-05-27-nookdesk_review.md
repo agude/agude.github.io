@@ -38,7 +38,7 @@ desktop is always 30″ deep with widths from 48″ to 72″. It is 3/4″ thick
 desk frame comes in three colors: white, black, and grey.
 
 I chose a 30″ by 72″ (+$200) blackwood laminate (+$100) desktop with white
-frame.  The wood laminate feels great: smooth with just a bit of depth from
+frame. The wood laminate feels great: smooth with just a bit of depth from
 the grain. The white frame contrasts nicely with the black desktop.
 
 ![The wood laminate surface.][surface]
@@ -158,23 +158,23 @@ Assembling the desk was actually harder than I expected because there were a
 few problems:
 
 - The hardware---screws, bolts, guides, and whatnot---was packed in unlabeled
-bags and the instructions reused the same icons to indicate different screws.
+  bags and the instructions reused the same icons to indicate different screws.
 
 - The bill of materials listed both items that came in the bags and those that
-came preinstalled in the same count. When it said "10 screws of type X" it
-might mean there were 4 in the bag and 6 already attached to the frame.
+  came preinstalled in the same count. When it said "10 screws of type X" it
+  might mean there were 4 in the bag and 6 already attached to the frame.
 
 - Hardware was included that is only used for optional accessories. I had
-screws leftover that I had not used at all. This made me worry that I had
-completely forgotten some critical step.
+  screws leftover that I had not used at all. This made me worry that I had
+  completely forgotten some critical step.
 
 - Two hex keys are included, but one of them had such poor tolerance that it
-would not drive the bolts. I ended up using a set of hex keys that I already
-owned.
+  would not drive the bolts. I ended up using a set of hex keys that I already
+  owned.
 
 - The shelf is connected to the frame with four screws, but the contact area
-is so small it kept coming apart. I needed to add washers that I had lying
-around to make a solid connection. See my photo below:
+  is so small it kept coming apart. I needed to add washers that I had lying
+  around to make a solid connection. See my photo below:
 
 ![Attaching the upper storage with washers.][washers]
 

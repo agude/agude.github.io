@@ -25,6 +25,7 @@ Ergo, graduate school (specifically, the University of Minnesota[^umn]) was
 the next step in my journey.
 
 [^bear]: Go Bears! 🐻
+
 [^umn]: Go Golden Gophers! [🐿️](https://twitter.com/goldythegopher/status/657228811751264256)
 
 Seven years later, as a freshly minted PhD in particle physics, I went
@@ -36,11 +37,13 @@ physics professor had long since been abandoned. I never even applied for a
 process.[^pd]
 
 [insight]: https://www.insightdatascience.com
+
 [should_i_go_insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
 [postdoc]: https://en.wikipedia.org/wiki/Postdoctoral_researcher
+
 [^pd]:
-    A postdoc is a position used to gain more experience before applying for
-    professorships. Graduates often spend five to six years doing multiple
+    A postdoc is a position used to gain more experience before applying
+    for professorships. Graduates often spend five to six years doing multiple
     postdocs, which are all but required to land a professorship.
 
 So what caused me to redirect my ambitions and energy? What was it that,
@@ -52,7 +55,10 @@ particular answer be suitable for all, but if you are wondering if you should
 follow in my footsteps (or wondering about the road not taken), then a review
 of my experiences may reveal insights.
 
-[^year_off]: I was forced to take a year off after undergrad; [a story I shared in another post][grad_post].
+[^year_off]:
+    I was forced to take a year off after undergrad; [a story I
+    shared in another post][grad_post].
+
 [grad_post]: {% post_url 2018-03-14-a_career_starts_with_rejection %}
 
 ## You learn a lot
@@ -100,6 +106,7 @@ will not get. You learn a lot along the way, but you could certainly learn the
 useful things in a much shorter amount of time.
 
 [^dont]: Or, at least, you should not!
+
 [op_cost]: https://en.wikipedia.org/wiki/Opportunity_cost
 
 In six years, if you get rid of the physics courses, exams, and teaching, you

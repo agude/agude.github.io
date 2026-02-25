@@ -70,7 +70,7 @@ Realtor.com are shown using purple diamonds.
 ### Comments
 
 I wrote a script to ensure that I would get data for every day, but as you can
-see there are still many missing points. 
+see there are still many missing points.
 
 #### Realtor.com
 
@@ -95,7 +95,7 @@ robust machine learning model.
 [^error]: The error message:
 
     > **Where's the Zestimate?**
-    > 
+    >
     > County transactional data for this home is insufficient so we cannot
     > calculate a Zestimate. We are adding data all the time, so be sure to come
     > back.

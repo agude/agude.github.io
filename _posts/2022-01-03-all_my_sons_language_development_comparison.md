@@ -33,10 +33,10 @@ When we heard a new word we would log it. I then normalized the words
 word, for example) by hand and took the first occurrence of each word in each
 language as the date when they learned it.
 
-I discuss data collection in more depth in [Theo's][theo_post_data], 
+I discuss data collection in more depth in [Theo's][theo_post_data],
 [Cory's][cory_post_data], and [Ash's][ash_post_data] data sections. You can
 find the Jupyter notebook used to perform this analysis [here][notebook]
-([rendered on Github][rendered]). The data can be found [here][theo_data], 
+([rendered on Github][rendered]). The data can be found [here][theo_data],
 [here][cory_data], and [here][ash_data].
 
 [theo_post_data]: {% post_url 2018-09-30-my_sons_words %}#the-data

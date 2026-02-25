@@ -1,18 +1,18 @@
 ---
 layout: post
 title: "Data Science, Compensation, and Asking for Money"
-description: > 
+description: >
   Advice about data science salaries and examples from my career of
   negotiating your offer.
 image: /files/data-science-salaries/Wagner-höhenberg_paying_his_dues.jpg
-image_alt: > 
+image_alt: >
   Painting by Josef Wagner-Höhenberg showing a late 1800s farmer signing a
   contract at a wooden table while a notary gestures to the two bankers at the
   other end of the table who have a pile of gold and silver coins in front of
   them.
-categories: 
+categories:
   - career-advice
-  - data-science 
+  - data-science
 ---
 
 {% capture file_dir %}/files/data-science-salaries/{% endcapture %}
@@ -43,6 +43,7 @@ years earlier---that science was worth more than dollars. I felt instantly at
 home.
 
 [cern]: https://en.wikipedia.org/wiki/CERN
+
 [phd]: {% post_url 2018-05-20-my_phd_thesis %}
 
 When I ended up [leaving academia][leaving] several years later, it was for
@@ -75,7 +76,8 @@ These were from standard tech companies, but I also heard from data scientists
 in finance and investment who'd be disappointed if their bonus wasn't an
 "integer multiple of their salary."[^quant_note]
 
-[^quant_note]: Although as a [quant][quant] friend of mine pointed out: "Zero
+[^quant_note]:
+    Although as a [quant][quant] friend of mine pointed out: "Zero
     is also an integer multiple."
 
 [quant]: https://en.wikipedia.org/wiki/Quantitative_analysis_(finance)
@@ -120,11 +122,11 @@ family about the offer, trying to work up the courage to call the hiring
 manager. In the end, I took a deep breath and wrote a quick email:
 
 > Hi!
-> 
+>
 > I'm very excited by your offer and the thought of working with the team, but
 > I have another offer for $15,000 more. Can you increase yours? If so, I'll
 > sign today.
-> 
+>
 > Alex
 
 They wrote back a few hours later, having increased the offer by $7,500. I

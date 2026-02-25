@@ -85,9 +85,8 @@ through June of 2019. This gives me a baseline to compare against. Here is the
 normalized plot:
 
 [vmt]: https://en.wikipedia.org/wiki/Units_of_transportation_measurement#Fatalities_by_VMT
-[^mn_pub_safety]:
 
-    From the Minnesota Department of Public Safety:
+[^mn_pub_safety]: From the Minnesota Department of Public Safety:
 
     {% citedquote
       author_last="Minnesota Department of Public Safety, Office of Traffic Safety"
@@ -143,7 +142,6 @@ Fords.[^political_cars]
 [blue_collar]: https://en.wikipedia.org/wiki/Blue-collar_worker
 
 [^political_cars]:
-
     The type of car and brand both are driven by political leaning:
 
     {% citedquote

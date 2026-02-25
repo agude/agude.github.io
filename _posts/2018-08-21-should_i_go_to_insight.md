@@ -101,7 +101,6 @@ here][demo] if you want to see what that looks like.
 
 [demo]: https://docs.google.com/presentation/d/1BwKT9-hDt0jHaCS6qjVlPptYKe5CkCwQUpqdT4GI8hM/edit?usp=sharing
 
-
 Some of the companies you demo at will want to take the next step and
 interview you. When not demoing, you practice for those interviews and brush
 up on all the topics you are unsure of with the help of the other Fellows and
@@ -110,13 +109,13 @@ mentors.
 Throughout the program you receive guidance from a range of people:
 
 - _Insight staff_, who are often outstanding Fellows from previous sessions
-hired to lead the program.
+  hired to lead the program.
 
 - _Industry mentors_, who have worked in data science for some time, such as
-myself.
+  myself.
 
 - _Previous Fellows_ who come back to help teach the next generation, also
-such as myself.
+  such as myself.
 
 - _The other Fellows_ who make up your session.
 
@@ -146,22 +145,22 @@ them without Insight to make the introduction.
 
 ### A Killer Network
 
-Insight is also a great way to build a professional network. There are over 
+Insight is also a great way to build a professional network. There are over
 fifteen hundred alumni scattered all across the country. Friends from my
 session now work at a wide variety of companies, including:
-AdRoll, 
-Airbnb, 
-Facebook, 
-Google, 
-Instagram, 
-Intuit, 
-Kabaam!, 
-LinkedIn, 
-Netflix, 
-Salesforce, 
-SambaTV, 
-Silicon Valley Data Science, 
-Stitch Fix, 
+AdRoll,
+Airbnb,
+Facebook,
+Google,
+Instagram,
+Intuit,
+Kabaam!,
+LinkedIn,
+Netflix,
+Salesforce,
+SambaTV,
+Silicon Valley Data Science,
+Stitch Fix,
 and
 VEVO.
 

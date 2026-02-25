@@ -9,7 +9,7 @@ description: >
 image: /files/python2vec/header.jpg
 image_alt: >
   A generic picture of code on a screen. It's HTML, not Python, but whatever.
-categories: 
+categories:
   - lab41
   - hermes
 ---
@@ -113,7 +113,7 @@ repositories to the dataset. These are:
 [datasets_post]: {% post_url 2016-02-08-lab41_recommender_systems_datasets %}
 
 | Library                         | Description                       |
-|:--------------------------------|:----------------------------------|
+| :------------------------------ | :-------------------------------- |
 | [**ansible**][ansible]          | An IT automation platform.        |
 | [**beets**][beets]              | A music library manager.          |
 | [**django**][django]            | A web framework.                  |
@@ -257,7 +257,7 @@ and libraries. The user coverage decreases, but not as significantly---most
 users, it seems, use at least a few of the most common functions.
 
 [tps]: https://gab41.lab41.org/tps-report-for-recommender-systems-yeah-that-would-be-great-3beb26ab9fe0#.o2frg2eat
-[metrics]:  https://gab41.lab41.org/recommender-systems-its-not-all-about-the-accuracy-562c7dceeaff#.n291twu23
+[metrics]: https://gab41.lab41.org/recommender-systems-its-not-all-about-the-accuracy-562c7dceeaff#.n291twu23
 [mllib_collab]: https://spark.apache.org/docs/latest/mllib-collaborative-filtering.html
 
 The low item coverage is a particularly challenging issue. We set the

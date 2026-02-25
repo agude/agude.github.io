@@ -9,8 +9,8 @@ image_alt: >
   A black and white photo of about a dozen men and boys standing around a
   broken car taken in Washington D.C. in 1923. One of the car's wheels has
   splintered and the car is tilted over.
-categories: 
-  - california-traffic-data 
+categories:
+  - california-traffic-data
   - data-science
 seo:
   date_modified: 2018-09-24T21:19:35-0700
@@ -26,6 +26,7 @@ going to look at when car crashes happen, and specifically on what dates.
 
 [switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
 [s2s]: https://github.com/agude/SWITRS-to-SQLite
+
 [lastpost]: {% post_url 2016-11-01-switrs_to_sqlite %}
 
 As always, the Jupyter notebook used to do this analysis can be found

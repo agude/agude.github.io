@@ -10,7 +10,7 @@ hide_lead_image: True
 image_alt: >
   A black and white photo of male students sitting on the steps of Wheeler
   Hall on the University of California, Berkeley campus in 1940.
-categories: 
+categories:
   - career-advice
 ---
 
@@ -67,6 +67,6 @@ they just need a bit of a hand to get back up and on their way.
 
 [insight]: https://www.insightdatascience.com
 [lab41]: https://www.lab41.org
-[paper]: https://www.dropbox.com/s/q2bquqawpg8htgc/0956.pdf?dl=1 
+[paper]: https://www.dropbox.com/s/q2bquqawpg8htgc/0956.pdf?dl=1
 [arxiv]: https://arxiv.org/abs/1611.06962
 [intuit]: https://www.intuit.com

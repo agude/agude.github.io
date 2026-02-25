@@ -10,8 +10,8 @@ image_alt: >
   A black and white photo from 1959 of a policeman in full-leather protective
   gear. He stands over a motorcycle on side of a street in Stockholm as
   traffic passes by.
-categories: 
-  - california-traffic-data 
+categories:
+  - california-traffic-data
   - data-science
 seo:
   date_modified: 2019-02-20T20:13:43-0800
@@ -48,7 +48,7 @@ factors in a later post.
 As per usual, the Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-{% capture notebook_uri %}{{ "SWITRS Crash Dates With Motorcycles.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "SWITRS Crash Dates With Motorcycles.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
@@ -59,6 +59,7 @@ I selected crashes involving motorcycles from the [SQLite database][s2s]
 ([discussed previously][s2s_post]) with the following query:
 
 [s2s]: https://github.com/agude/SWITRS-to-SQLite
+
 [s2s_post]: {% post_url 2016-11-01-switrs_to_sqlite %}
 
 ```sql

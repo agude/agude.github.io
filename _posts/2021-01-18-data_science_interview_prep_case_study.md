@@ -107,7 +107,7 @@ away). Russian bots are probably a bigger issue in terms of public perception,
 but that's much harder to measure.
 
 [rpi_bot]: {% post_url  2017-11-13-raspberry_pi_reboot_times %}
-[russia_bot]: https://en.wikipedia.org/wiki/Russian_web_brigades 
+[russia_bot]: https://en.wikipedia.org/wiki/Russian_web_brigades
 [spam_bot]: https://en.wikipedia.org/wiki/Spambot
 
 After deciding on the scope, I would ask more about the systems they currently

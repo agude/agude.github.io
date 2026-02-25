@@ -6,7 +6,7 @@ description: >
 image: /files/jupyter-library/jupiter_red_spot_juno.jpg
 image_alt: >
   The planet Jupiter as seen by the Juno spacecraft.
-categories: 
+categories:
   - data-visualization
   - data-science
   - jupyter
@@ -61,7 +61,7 @@ are some examples:
 
 - [**Discussing my sons' language development**][language_post] to highlight each month.
 
-- [**Plotting the progression of the cycling hour record**][hour_post] to show each decade.  
+- [**Plotting the progression of the cycling hour record**][hour_post] to show each decade.
 
 - [**Exploring when cyclists are involved in traffic accidents**][bike_post] to highlight the seasonality.
 

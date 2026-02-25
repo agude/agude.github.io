@@ -3,8 +3,8 @@ layout: post
 title: My Favorite Books of 2023
 is_favorites_list: 2023
 description: >
-    After abandoning social media in 2023, I read books instead. Read on for
-    my favorites.
+  After abandoning social media in 2023, I read books instead. Read on for
+  my favorites.
 image: /files/book-reviews/corner_books_from_the_marburg_image_archive.jpg
 hide_lead_image: False
 image_alt: >

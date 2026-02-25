@@ -33,7 +33,7 @@ The code used to perform the analysis explained in this post can be found in
 this [Jupyter Notebook][notebook] ([rendered on Github][rendered]). The data
 used are here: [Republican Results][gopdata], [Democrat Results][demdata]
 
-{% capture notebook_uri %}{{ "Prediction Check -- 538 2016 Primary.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "Prediction Check -- 538 2016 Primary.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
@@ -94,9 +94,9 @@ results. The numbers I report use the mean from the results of these
 simulations, and the uncertainties are two standard deviations.
 
 | Party      | Prediction Low | Prediction Within Interval | Prediction High |
-|:-----------|---------------:|---------------------------:|----------------:|
-| Democratic | 5.5 +- 3.0%    | 77.6 +- 4.2%               | 17.0 +- 3.0%    |
-| Republican | 6.5 +- 1.2%    | 78.6 +- 3.3%               | 14.9 +- 3.1%    |
+| :--------- | -------------: | -------------------------: | --------------: |
+| Democratic |    5.5 +- 3.0% |               77.6 +- 4.2% |    17.0 +- 3.0% |
+| Republican |    6.5 +- 1.2% |               78.6 +- 3.3% |    14.9 +- 3.1% |
 
 Finally, we can visualize these results by scaling the 80% confidence interval
 to the interval -1 to 1. Any result from -1 to 1 is a good prediction,
