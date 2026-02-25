@@ -18,13 +18,17 @@ module Jekyll
       # @param context [Liquid::Context] The current Liquid context.
       # @param link_text_override_raw [String, nil] Optional text to display instead of the title.
       # @return [String] The generated HTML (<a href=...><span>...</span></a> or <span>...</span>).
-      def self.render_series_link(series_title_raw, context, link_text_override_raw = nil)
-        Jekyll::Series::SeriesLinkResolver.new(context).resolve(series_title_raw, link_text_override_raw)
+      def self.render_series_link(series_title_raw, context, link_text_override_raw = nil, link: true)
+        Jekyll::Series::SeriesLinkResolver.new(context).resolve(series_title_raw, link_text_override_raw, link: link)
       end
 
       # Returns a structured data hash (not HTML) for a series link resolution.
-      def self.find_series_link_data(series_title_raw, context, link_text_override_raw = nil)
-        Jekyll::Series::SeriesLinkResolver.new(context).resolve_data(series_title_raw, link_text_override_raw)
+      def self.find_series_link_data(series_title_raw, context, link_text_override_raw = nil, link: true)
+        Jekyll::Series::SeriesLinkResolver.new(context).resolve_data(
+          series_title_raw,
+          link_text_override_raw,
+          link: link,
+        )
       end
 
       # --- Private Helper Methods ---

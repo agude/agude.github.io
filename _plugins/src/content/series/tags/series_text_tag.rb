@@ -19,10 +19,12 @@ require_relative '../series_text_utils' # Require the new utility
 #   {% series_text "The Lord of the Rings" %}
 module Jekyll
   #   {% series_text page.series %}
+  #   {% series_text page.series link=false %}
   module Series
     module Tags
       # Liquid tag for rendering series text with appropriate context and linking.
       # Analyzes series names and renders them with proper formatting and links.
+      # Supports link=false to emit a styled span without an <a> wrapper.
       class SeriesTextTag < Liquid::Tag
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
@@ -38,6 +40,7 @@ module Jekyll
           super
           @raw_markup = markup
           @series_name_markup = nil
+          @link_markup = nil
 
           parse_arguments(markup)
         end
@@ -48,9 +51,11 @@ module Jekyll
           analysis = TextUtil.analyze_series_name(raw_series_name_input)
           return '' if analysis.nil?
 
-          return render_markdown(analysis, context) if context.registers[:render_mode] == :markdown
+          link = link_enabled?(context)
 
-          linked_series_html = Linker.render_series_link(analysis[:name], context)
+          return render_markdown(analysis, context, link) if context.registers[:render_mode] == :markdown
+
+          linked_series_html = Linker.render_series_link(analysis[:name], context, nil, link: link)
           return '' if should_return_empty?(linked_series_html, analysis)
 
           build_output(analysis, linked_series_html)
@@ -61,6 +66,7 @@ module Jekyll
         def parse_arguments(markup)
           scanner = StringScanner.new(markup.strip)
           parse_series_name(scanner)
+          parse_options(scanner)
           validate_no_extra_arguments(scanner)
           validate_series_name
         end
@@ -73,6 +79,23 @@ module Jekyll
                   "Syntax Error in 'series_text': " \
                   "Could not find series name in '#{@raw_markup}'"
           end
+        end
+
+        def parse_options(scanner)
+          scanner.skip(/\s+/)
+          return if scanner.eos?
+
+          return unless scanner.scan(/link\s*=\s*(#{QuotedFragment})/)
+
+          @link_markup = scanner[1]
+        end
+
+        # Returns true unless link= is explicitly set to 'false'.
+        def link_enabled?(context)
+          return true unless @link_markup
+
+          value = TagArgs.resolve_value(@link_markup, context)
+          value.to_s.downcase != 'false'
         end
 
         def validate_no_extra_arguments(scanner)
@@ -92,14 +115,14 @@ module Jekyll
                 "Series name value is missing or empty in '#{@raw_markup}'"
         end
 
-        def render_markdown(analysis, context)
-          data = Linker.find_series_link_data(analysis[:name], context)
-          link = if data[:url]
+        def render_markdown(analysis, context, link)
+          data = Linker.find_series_link_data(analysis[:name], context, nil, link: link)
+          text = if data[:url]
                    "[#{data[:display_text]}](#{data[:url]})"
                  else
                    data[:display_text]
                  end
-          "#{analysis[:prefix]}#{link}#{analysis[:suffix]}".strip
+          "#{analysis[:prefix]}#{text}#{analysis[:suffix]}".strip
         end
 
         def should_return_empty?(linked_series_html, analysis)

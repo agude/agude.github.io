@@ -17,7 +17,7 @@ class TestSeriesLinkUtils < Minitest::Test
     mock_data = { status: :found, url: '/series/foundation/', display_text: 'The Foundation Series' }
 
     mock_resolver = Minitest::Mock.new
-    mock_resolver.expect :resolve_data, mock_data, [title, override]
+    mock_resolver.expect :resolve_data, mock_data, [title, override], link: true
 
     Jekyll::Series::SeriesLinkResolver.stub :new, mock_resolver do
       result = Jekyll::Series::SeriesLinkUtils.find_series_link_data(title, @context, override)
@@ -35,7 +35,7 @@ class TestSeriesLinkUtils < Minitest::Test
 
     # Create a mock resolver instance
     mock_resolver = Minitest::Mock.new
-    mock_resolver.expect :resolve, mock_output, [title, override]
+    mock_resolver.expect :resolve, mock_output, [title, override], link: true
 
     # Stub .new to return the mock
     Jekyll::Series::SeriesLinkResolver.stub :new, mock_resolver do

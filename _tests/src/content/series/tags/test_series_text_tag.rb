@@ -235,4 +235,74 @@ class TestSeriesTextTag < Minitest::Test
     output = Liquid::Template.parse('{% series_text "" %}').render!(md_context)
     assert_equal '', output
   end
+
+  # --- link=false ---
+
+  def test_link_false_renders_span_without_anchor
+    output = render_tag('"Foundation" link=false')
+    expected_span = '<span class="book-series">Foundation</span>'
+    assert_equal "the #{expected_span} series", output
+  end
+
+  def test_link_false_series_starting_with_the
+    output = render_tag('"The Expanse" link=false')
+    expected_span = '<span class="book-series">The Expanse</span>'
+    assert_equal "#{expected_span} series", output
+  end
+
+  def test_link_false_series_containing_keyword
+    output = render_tag('"Dune Saga" link=false')
+    expected_span = '<span class="book-series">Dune Saga</span>'
+    assert_equal "the #{expected_span}", output
+  end
+
+  def test_link_false_unknown_series_renders_span
+    output = render_tag('"Unknown" link=false')
+    expected_span = '<span class="book-series">Unknown</span>'
+    assert_equal "the #{expected_span} series", output
+  end
+
+  def test_link_true_explicit_still_links
+    output = render_tag('"Foundation" link=true')
+    expected_link = '<a href="/series/foundation.html"><span class="book-series">Foundation</span></a>'
+    assert_equal "the #{expected_link} series", output
+  end
+
+  def test_link_false_markdown_mode_renders_plain_text
+    md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
+    output = Liquid::Template.parse('{% series_text "Foundation" link=false %}').render!(md_context)
+    assert_equal 'the Foundation series', output
+  end
+
+  def test_link_false_markdown_mode_series_starting_with_the
+    md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
+    output = Liquid::Template.parse('{% series_text "The Expanse" link=false %}').render!(md_context)
+    assert_equal 'The Expanse series', output
+  end
+
+  def test_link_false_with_variable
+    @context['my_series_var'] = 'Foundation'
+    output = render_tag('my_series_var link=false')
+    expected_span = '<span class="book-series">Foundation</span>'
+    assert_equal "the #{expected_span} series", output
+  end
+
+  def test_syntax_error_unknown_argument_still_raises
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse('{% series_text "Foundation" bogus=arg %}')
+    end
+    assert_match(/Unexpected arguments/, err.message)
+  end
+
+  def test_link_false_empty_string_returns_empty
+    output = render_tag('"" link=false')
+    assert_equal '', output
+  end
+
+  def test_link_false_variable_resolves_to_unknown_series
+    @context['unknown_var'] = 'Nonexistent'
+    output = render_tag('unknown_var link=false')
+    expected_span = '<span class="book-series">Nonexistent</span>'
+    assert_equal "the #{expected_span} series", output
+  end
 end

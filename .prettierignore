@@ -8,6 +8,7 @@ node_modules/
 linktree.md
 omemo-fingerprints.md
 twitter-disavow.md
+topics/
 
 # Agent/meta files (not site content)
 AGENTS.md
