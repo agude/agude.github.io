@@ -33,8 +33,7 @@ gruesome imagery---something [he is infamous for][wasp]---is off putting.
 
 [wasp]: https://en.wikipedia.org/wiki/The_Wasp_Factory
 
-[^banks]:
-    {{ banks }} says this is the point:
+[^banks]: {{ banks }} says this is the point:
 
     {% citedquote
       work_title="Interview with Iain M. Banks"

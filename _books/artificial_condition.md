@@ -55,7 +55,7 @@ realizing that its need to protect people isn't leftover programming but a
 core part of who it is. There's a scene where ART proposes surgically
 modifying Murderbot to help it stay hidden, and Murderbot instinctively
 rejects it. To it, changing itself feels like losing part of what makes it
-*it*. In the end, though, Murderbot accepts the alteration as necessary to
+_it_. In the end, though, Murderbot accepts the alteration as necessary to
 remain free.
 
 This question of "what makes the self" is a common theme in sci-fi, one we've

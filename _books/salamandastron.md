@@ -36,7 +36,7 @@ several ways:
 
 - The battles feel weighty and damaging, even to the victors.
 
-{{ this_book }} features the first true *war* in the {{ redwall_series }}
+{{ this_book }} features the first true _war_ in the {{ redwall_series }}
 series: we witness warrior hares defending their mountain fortress against
 thousands of vermin in a full-scale conflict. In the previous Redwall sieges,
 the death of a defender was a major, book-defining moment; in the siege of

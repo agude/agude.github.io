@@ -17,7 +17,6 @@ brilliance is almost a match for Ana's own.
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 {% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 
-
 {% capture book1 %}{% book_link "The Tainted Cup" %}{% endcapture %}
 
 {% capture doyles %}{% author_link "Arthur Conan Doyle" possessive %}{% endcapture %}

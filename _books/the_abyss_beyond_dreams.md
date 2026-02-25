@@ -56,8 +56,7 @@ expected would build to climatic confrontations were resolved in under a page.
 But these complaints are minor. The writing is great and the pacing kept me on
 the edge of my seat. A book I could not put down!
 
-[^excession]:
-    Coined by {{ banks }} in {{ excession }}:
+[^excession]: Coined by {{ banks }} in {{ excession }}:
 
     > An Outside Context Problem was the sort of thing most civilizations
     > encountered just once, and which they tended to encounter rather in the

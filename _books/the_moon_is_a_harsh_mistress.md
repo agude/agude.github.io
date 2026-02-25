@@ -103,7 +103,8 @@ wells_lastname_possessive }} {{ mb4 }}, to libertarian apologia in the vein of
 {{ smiths_lastname_possessive }} {{ probability_broach }} or {{
 rand_lastname_possessive }} {{ fountainhead }} and {{ atlas }}.[^orcs]
 
-[^orcs]: It's clear from the above paragraphs which side of [John
+[^orcs]:
+    It's clear from the above paragraphs which side of [John
     Rogers's][orcs] line I fall on:
 
     > There are two novels that can change a bookish fourteen-year old's life:

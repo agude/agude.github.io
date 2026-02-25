@@ -21,7 +21,6 @@ enslaved by---and eventually leads an uprising against---the tyrant Badrang.
 {% capture salamandastron %}{% book_link "Salamandastron" %}{% endcapture %}
 {% capture bellmaker %}{% book_link "The Bellmaker" %}{% endcapture %}
 
-
 {{ this_book }} has two villains: Badrang the Tyrant and the corsair Tramun
 Clogg. For much of the story, they have an on-again, off-again rivalry, with
 intertwining schemes and betrayals, before Badrang finally gains the upper

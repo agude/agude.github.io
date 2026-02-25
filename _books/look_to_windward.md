@@ -92,8 +92,7 @@ The Hub itself has died twice, been restored from backup once, and transferred
 to its current body on Masaq'. In the end, both the Hub and Quilan choose
 complete erasure---true death with no chance of rebirth.
 
-[^lampshade]:
-    {{ the_author }} [lampshades][lampshade] this:
+[^lampshade]: {{ the_author }} [lampshades][lampshade] this:
 
     > The pairing of this [Misil Tchasole's] rebirth with Ibm Dolince's death
     > was supposed to take some of the sadness out of the man's departure, but

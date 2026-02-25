@@ -65,6 +65,7 @@ and mercenary groups keep hiring them, double-crossing them, or holding them
 hostage.[^plot] They're a lot like Daniel Brüks in {{ echopraxia }}: they
 understand the least about what's really going on.
 
+<!-- prettier-ignore -->
 [^plot]:
     ### Chaeyoung's Storyline:
 

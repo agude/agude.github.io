@@ -90,6 +90,7 @@ using just a few authors---{{ evans }}, {{ hollingsworth }}, and {{ weber
 many-authors format and continues some of the stories started here.
 
 ### {% short_story_title "Ancestral Voices" %}
+
 <div class="written-by">by {{ author_stirling }}</div>
 {% rating_stars 4 %}
 
@@ -108,6 +109,7 @@ It vaguely reminds me of {{ conrads }} {{ heart }}, with the outsider who
 convinces a native tribe that he is a demigod, complete with atrocities.
 
 ### {% short_story_title "Sir Kendrick's Lady" %}
+
 <div class="written-by">by {{ author_lewitt }}</div>
 {% rating_stars 4 %}
 
@@ -124,6 +126,7 @@ It's a fresh take on a standard story, and it highlights the kind of horror
 that you can't solve with a well-aimed Hellbore blast.
 
 ### {% short_story_title "You're It" %}
+
 <div class="written-by">by {{ author_meier }}</div>
 {% rating_stars 5 %}
 
@@ -152,6 +155,7 @@ lost_legion }} and {{ ancestral_voices }} had a female-voiced Bolo, but one
 too primitive to be "people" like LRS "Laura" is.
 
 ### {% short_story_title "Shared Experience" %}
+
 <div class="written-by">by {{ author_stasheff }}</div>
 {% rating_stars 1 %}
 
@@ -168,6 +172,7 @@ from underneath, between the treads. Previously, crews always had to climb up
 the outside.
 
 ### {% short_story_title "The Murphosensor Bomb" %}
+
 <div class="written-by">by {{ author_wehrstein }}</div>
 {% rating_stars 5 %}
 
@@ -186,6 +191,7 @@ The Octopod mechs the Djann use are a little like the tripods from {{ wellss
 }} {{ war }}, as is how humanity is helpless against their assault.
 
 ### {% short_story_title "Legacy" %}
+
 <div class="written-by">by {{ author_johnson }}</div>
 {% rating_stars 4 %}
 
@@ -198,6 +204,7 @@ odds. We also get a glimpse at new technology, like thought-controlled
 nanobots, and a human merging their personality with that of the Bolo.
 
 ### {% short_story_title "Endings" %}
+
 <div class="written-by">by {{ author_forstchen }}</div>
 {% rating_stars 5 %}
 

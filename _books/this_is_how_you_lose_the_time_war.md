@@ -116,7 +116,7 @@ Bene Gesserit and their power words in {{ herberts_lastname }} {{ dune }}. Red
 being able to disable part of herself so her controllers wouldn't know what
 she's doing is like Murderbot from {{ wellss_lastname }} {{
 the_murderbot_diaries }}.
- 
+
 Next up are {{ hyperion2 }}, {{ hyperion3 }}, and {{ hyperion4 }}. I put off
 finishing the series the last time I read it, but this time I'm going to make
 it through. I've already started my re-read of {{ hyperion2 }}, and it's even

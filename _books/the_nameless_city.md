@@ -54,6 +54,7 @@ fiction of all genres, I plan to read more stories from the {{ series }} to
 better understand his impact on the field.
 
 {%- comment -%}
+
 1. Dagon
 
 2. The Nameless City

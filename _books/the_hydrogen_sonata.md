@@ -50,11 +50,11 @@ Each character finds their own meaning in the story: Vyr takes on the
 life-task of playing the titular Hydrogen Sonata. The barbaric Colonel Cagad
 Agansu derives meaning from his position in the military hierarchy, regardless
 of what it demands of him. Reikl's meaning comes from serving and dying
-honorably.  The revelers on the _Equatorial 353_ find meaning in hedonism. The
+honorably. The revelers on the _Equatorial 353_ find meaning in hedonism. The
 drone, Hassipura Plyn-Frie, shapes rocks and sand into kinetic sculptures.
 Ngaroe QiRia immerses himself in sound.
 
-[^last]: 
+[^last]:
     It is the last book published under the author's "{{ the_author }}" name.
     A final book, {{ the_quarry }}, was published posthumously under the name
     "{{ iain_banks }}".

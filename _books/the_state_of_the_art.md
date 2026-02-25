@@ -24,12 +24,14 @@ as rather bleak.
 {% capture player_of_games %}{% book_link "The Player of Games" %}{% endcapture %}
 
 ### {% short_story_title "Road of Skulls" %}
+
 {% rating_stars 2 %}
 
 A cart travels along a road paved with skulls, chasing a city that lays the
 road behind it as it moves. Nothing happens in this story.
 
 ### {% short_story_title "A Gift from the Culture" %}
+
 {% rating_stars 4 %}
 
 A Culture-woman living in a lower-tech civilization is pressured into
@@ -47,6 +49,7 @@ fanatics, or even the Culture itself. This ambiguity allowed me to ponder the
 motives behind the assassination.
 
 ### {% short_story_title "Odd Attachment" %}
+
 {% rating_stars 3 %}
 
 A love-sick plant monster rends a spaceman limb-from-limb like a daisy in the
@@ -57,6 +60,7 @@ giving the monster 21 digits to rip off).
 [daisy]: https://en.wikipedia.org/wiki/He_loves_me..._he_loves_me_not
 
 ### {% short_story_title "Descendant" %}
+
 {% rating_stars 3 %}
 
 A man and his sentient spacesuit crash on a planet and have to walk for months
@@ -70,6 +74,7 @@ answering our question. The "Descendant" refers to the suit (and a drone at
 the end) that are, in some ways, mankind's descendants.
 
 ### {% short_story_title "Cleaning Up" %}
+
 {% rating_stars 4 %}
 
 This story is a parody of the military-industrial complex during the Cold War,
@@ -79,6 +84,7 @@ Earth, where humans interpreted it as gifts. It's good fun, albeit a little
 over-the-top.
 
 ### {% short_story_title "Piece" %}
+
 {% rating_stars 3 %}
 
 A reflection on the extreme lengths religions drive people to, written by a
@@ -87,6 +93,7 @@ man on the [Lockerbie flight][lockerbie] just before it explodes.
 [lockerbie]: https://en.wikipedia.org/wiki/Pan_Am_Flight_103
 
 ### {% short_story_title "The State of the Art" %}
+
 {% rating_stars 3 %}
 
 The largest part of the book, {{ this_book }}, is a novella featuring Diziet
@@ -111,10 +118,10 @@ showing again by having the character who defended Earth's liveliness mugged
 and murdered in an alley in New York.
 
 ### {% short_story_title "Scratch" %}
+
 {% rating_stars 1 %}
 
 A stream-of-consciousness narrative in the form of [found art][found_art] text
 clippings from the future. I did not finish this story.
 
 [found_art]: https://en.wikipedia.org/wiki/Found_object
-

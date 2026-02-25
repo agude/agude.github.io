@@ -86,7 +86,7 @@ out against inequality and the treatment of the poor. The artilleryman, by
 contrast, sees the Martians as a necessary reckoning---cleansing humanity of
 the weakness brought on by modern life. That lines up well with a lot of
 contemporary conservative rhetoric.
- 
+
 But the style of the book makes it hard to love. The prose is great---in a way
 that {{ suns }}, {{ shards }}, and {{ three }} are not---but the narrative
 takes long digressions and slows the pacing as the author focuses on small

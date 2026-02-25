@@ -125,6 +125,7 @@ catch up on {{ mb }} with {{ mb6 }} and {{ mb7 }}, and definitely re-read {{
 moon }}.
 
 ### {% short_story_title "The Sixth Sun" %}
+
 <div class="written-by">by {{ author_stirling }}</div>
 {% rating_stars 4 %}
 
@@ -144,6 +145,7 @@ idyllic by contrast: a small remnant of civilization that has managed to
 endure.
 
 ### {% short_story_title "The Traitor" %}
+
 <div class="written-by">by {{ author_weber }}</div>
 {% rating_stars 5 %}
 
@@ -158,6 +160,7 @@ little_red_hen }}, and {{ author_weber_lastname_possessive }} own {{
 miles_to_go }}.
 
 ### {% short_story_title "Yesterday's Gods" %}
+
 <div class="written-by">by {{ author_mina }} and {{ author_forstchen }}</div>
 {% rating_stars 3 %}
 
@@ -172,6 +175,7 @@ juvenile and salacious, with the main character obsessing over sex, and how
 attractive all the women are, which distracts from the story.
 
 ### {% short_story_title "Memories of Erin" %}
+
 <div class="written-by">by {{ author_greenberger }}</div>
 {% rating_stars 2 %}
 
@@ -193,6 +197,7 @@ death. But {{ author_greenberger }} doesn't make Erin compelling enough for
 her death to have real weight.
 
 ### {% short_story_title "Hold Until Relieved" %}
+
 <div class="written-by">by {{ author_keith }}</div>
 {% rating_stars 4 %}
 
@@ -211,6 +216,7 @@ large magnetic anomaly reminds me of the excavation of Tycho Magnetic Anomaly
 One---the monolith---in {{ odyssey }}.
 
 ### {% short_story_title "A Question of Valor" %}
+
 <div class="written-by">by {{ author_johnson }}</div>
 {% rating_stars 3 %}
 
@@ -230,6 +236,7 @@ its mission, and like {{ last_command }}, where the Bolo causes earthquakes
 while operating underground.
 
 ### {% short_story_title "In the Flesh" %}
+
 <div class="written-by">by {{ author_perry }} and {{ author_decamp }}</div>
 {% rating_stars 3 %}
 
@@ -243,6 +250,7 @@ The human--Bolo relationship is similar to {{ little_red_hen }} and {{
 miles_to_go }} from {{ bolo12 }}.
 
 ### {% short_story_title "And Don't Come Back" %}
+
 <div class="written-by">by {{ author_thies }}</div>
 {% rating_stars 5 %}
 
@@ -255,6 +263,7 @@ shows a bit of normal life in the Concordiat, and ends with a satisfying "the
 bad guys messed with the wrong people" revenge plot.
 
 ### {% short_story_title "A Time to Kill" %}
+
 <div class="written-by">by {{ author_weber }}</div>
 {% rating_stars 5 %}
 
@@ -276,6 +285,7 @@ dfs }} in the Bolo-inspired {{ world_breakers }}, and even his {{ honorverse
 }} series, starting with {{ honor }}.
 
 ### {% short_story_title "A Brief History of Human Expansion Beyond Concordiat Space" %}
+
 <div class="written-by">by {{ author_evans }}</div>
 {% rating_stars 5 %}
 

@@ -82,8 +82,7 @@ the_authors_lastname }} argues more for specializing in _being yourself_ while
 {{ heinlein_lastname }} argues for generalization, both have identified
 stagnation as the problem.
 
-[^quote]:
-    From {{ time_enough_for_love }}: 
+[^quote]: From {{ time_enough_for_love }}:
 
     > A human being should be able to change a diaper, plan an invasion,
     > butcher a hog, conn a ship, design a building, write a sonnet, balance

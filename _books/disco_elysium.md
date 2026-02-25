@@ -130,7 +130,8 @@ the mundane and the decay that permeates Martinaise. This is never clearer
 than in the scene describing Harry watching his lost love as her streetcar
 recedes into the distance, which paints the picture perfectly in my mind:
 
-[^gothic]: {{ faulkners }} work and {{ this_book }} share more than fantastic
+[^gothic]:
+    {{ faulkners }} work and {{ this_book }} share more than fantastic
     prose. Both follow the Gothic tradition, focusing on decaying settings
     where the oppressive weight of a failed past suffocates the present. {{
     faulkners }} post-Civil War South and the post-revolutionary city of
@@ -148,7 +149,7 @@ recedes into the distance, which paints the picture perfectly in my mind:
 > face. A delicate composition of triangles. The street seems to grow longer,
 > like in a dolly zoom. And there's something in the air as you stand there
 > and wave back at the shape growing smaller and smaller. Something that has
-> *always* been there. A great see-through world. The tenderness you feel. The
+> _always_ been there. A great see-through world. The tenderness you feel. The
 > ghost of Revachol between you, carrying your signals. The holy messenger.
 
 The prose is brought to life by the fantastic cast of voice actors. Lenval

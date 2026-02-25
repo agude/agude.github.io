@@ -1,6 +1,6 @@
 ---
 date: 2024-05-29 18:48:31 -0700
-title: 'Flatland: A Romance of Many Dimensions'
+title: "Flatland: A Romance of Many Dimensions"
 book_authors: Edwin A. Abbott
 series: null
 book_number: 1

@@ -54,6 +54,7 @@ and {{ bolo9 }}), and {{ stirling }} <abbr class="etal">et al.</abbr> ({{
 bolo10 }}, {{ bolo11 }}, etc.).
 
 ### {% short_story_title "Rogue Bolo" %}
+
 {% rating_stars 4 %}
 
 {% short_story_title "Rogue Bolo" no_id %} is an expansion of the concept and
@@ -80,6 +81,7 @@ Bolo</cite>, constantly pushing for access to more databases and processing
 power.
 
 ### {% short_story_title "Final Mission" %}
+
 {% rating_stars 3 %}
 
 A deactivated Bolo sits in a museum in a town of 300 people on a backwater

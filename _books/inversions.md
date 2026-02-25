@@ -47,7 +47,7 @@ The title, {{ this_book }}, refers to several different things:
   bodyguard who kills only in defense, while Vosill steers the course of the
   world through manipulation and assassination.
 
-- There are many role _inversions_ as well:  DeWar is an assassin who
+- There are many role _inversions_ as well: DeWar is an assassin who
   protects, Vosill is a doctor who kills. UrLeyn is an oppressive
   anti-monarchist, Quience is a democratizing monarch.
 
