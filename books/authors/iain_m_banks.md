@@ -4,7 +4,7 @@ title: Iain M. Banks
 pen_names:
   - Iain Banks
 description: >
-    Alex Gude's reviews of books written by Iain M. Banks.
+  Alex Gude's reviews of books written by Iain M. Banks.
 same_as_urls:
   - https://www.wikidata.org/wiki/Q312579
   - https://en.wikipedia.org/wiki/Iain_Banks

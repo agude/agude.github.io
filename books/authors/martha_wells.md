@@ -2,7 +2,7 @@
 layout: author_page
 title: Martha Wells
 description: >
-    Alex Gude's reviews of books written by Martha Wells.
+  Alex Gude's reviews of books written by Martha Wells.
 same_as_urls:
   - https://www.wikidata.org/wiki/Q6774606
   - https://marthawells.com

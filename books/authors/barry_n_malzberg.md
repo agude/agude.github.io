@@ -2,7 +2,7 @@
 layout: author_page
 title: Barry N. Malzberg
 description: >
-    Alex Gude's reviews of books written by Barry N. Malzberg.
+  Alex Gude's reviews of books written by Barry N. Malzberg.
 same_as_urls:
   - https://www.isfdb.org/cgi-bin/ea.cgi?534
   - https://www.imdb.com/name/nm4050062/

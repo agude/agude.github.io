@@ -3,7 +3,7 @@ layout: author_page
 title: Steve Perry
 pen_names:
 description: >
-    Alex Gude's reviews of books written by Steve Perry.
+  Alex Gude's reviews of books written by Steve Perry.
 same_as_urls:
   - https://en.wikipedia.org/wiki/Steve_Perry_(author)
   - https://www.wikidata.org/wiki/Q1368134

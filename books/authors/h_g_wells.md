@@ -6,7 +6,7 @@ pen_names:
   - Reginald Bliss
   - Septimus Browne
 description: >
-    Alex Gude's reviews of books written by H. G. Wells.
+  Alex Gude's reviews of books written by H. G. Wells.
 same_as_urls:
   - https://www.isfdb.org/cgi-bin/ea.cgi?65
   - https://sf-encyclopedia.com/fe/wells_h_g

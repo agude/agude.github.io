@@ -3,7 +3,7 @@ layout: author_page
 title: David Weber
 pen_names:
 description: >
-    Alex Gude's reviews of books written by David Weber.
+  Alex Gude's reviews of books written by David Weber.
 same_as_urls:
   - https://www.facebook.com/davidweberauthor/
   - https://en.wikipedia.org/wiki/David_Weber

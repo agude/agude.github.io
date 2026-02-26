@@ -4,7 +4,7 @@ title: Robert A. Heinlein
 pen_names:
   - Robert Heinlein
 description: >
-    Alex Gude's reviews of books written by Robert A. Heinlein.
+  Alex Gude's reviews of books written by Robert A. Heinlein.
 same_as_urls:
   - https://en.wikipedia.org/wiki/Robert_A._Heinlein
   - https://www.wikidata.org/wiki/Q123078

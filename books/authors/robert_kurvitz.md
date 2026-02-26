@@ -1,9 +1,9 @@
 ---
 layout: author_page
 title: Robert Kurvitz
-pen_names: 
+pen_names:
 description: >
-    Alex Gude's reviews of books written by Robert Kurvitz.
+  Alex Gude's reviews of books written by Robert Kurvitz.
 same_as_urls:
   - https://en.wikipedia.org/wiki/Robert_Kurvitz
   - https://www.wikidata.org/wiki/Q16404726

@@ -2,7 +2,7 @@
 layout: author_page
 title: Peter F. Hamilton
 description: >
-    Alex Gude's reviews of books written by Peter F. Hamilton.
+  Alex Gude's reviews of books written by Peter F. Hamilton.
 same_as_urls:
   - https://www.wikidata.org/wiki/Q455495
   - https://en.wikipedia.org/wiki/Peter_F._Hamilton

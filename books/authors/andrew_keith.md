@@ -5,7 +5,7 @@ pen_names:
   - J. Andrew Keith
   - Keith William Andrews
 description: >
-    Alex Gude's reviews of books written by Andrew Keith.
+  Alex Gude's reviews of books written by Andrew Keith.
 same_as_urls:
   - https://www.freelancetraveller.com/jakeith/jakeith.html
   - https://sf-encyclopedia.com/entry/keith_andrew

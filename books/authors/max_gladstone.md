@@ -3,7 +3,7 @@ layout: author_page
 title: Max Gladstone
 pen_names:
 description: >
-    Alex Gude's reviews of books written by Max Gladstone.
+  Alex Gude's reviews of books written by Max Gladstone.
 same_as_urls:
   - http://www.maxgladstone.com
   - https://en.wikipedia.org/wiki/Max_Gladstone

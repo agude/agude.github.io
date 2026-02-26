@@ -11,7 +11,7 @@ pen_names:
   - Robert Cain
   - William H. Keith
 description: >
-    Alex Gude's reviews of books written by William H. Keith, Jr..
+  Alex Gude's reviews of books written by William H. Keith, Jr..
 same_as_urls:
   - https://en.wikipedia.org/wiki/William_H._Keith_Jr.
   - https://www.wikidata.org/wiki/Q8010470
