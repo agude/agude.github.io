@@ -1,0 +1,233 @@
+"""Shared Wikidata API utilities for metadata fetcher scripts."""
+
+from __future__ import annotations
+
+import json
+import sys
+import urllib.error
+import urllib.parse
+import urllib.request
+
+WIKIDATA_API = "https://www.wikidata.org/w/api.php"
+USER_AGENT = "alexgude-blog-scripts/0.1 (wikidata metadata fetcher)"
+
+# Characters that require quoting in YAML scalar values.
+_YAML_SPECIAL = set(': # \' " [ ] { } , & * ? | > ! %'.split())
+
+
+def _needs_yaml_quoting(value: str) -> bool:
+    """Return True if the value contains characters that need YAML quoting."""
+    return any(ch in value for ch in _YAML_SPECIAL)
+
+
+def yaml_quoted(value: str) -> str:
+    """Return the value quoted for YAML if necessary."""
+    if _needs_yaml_quoting(value):
+        escaped = value.replace("\\", "\\\\").replace('"', '\\"')
+        return f'"{escaped}"'
+    return value
+
+
+def api_get(params: dict[str, str]) -> dict:
+    """Make a GET request to the Wikidata API and return parsed JSON."""
+    params["format"] = "json"
+    url = f"{WIKIDATA_API}?{urllib.parse.urlencode(params)}"
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            return json.loads(resp.read().decode())
+    except urllib.error.HTTPError as exc:
+        print(f"Wikidata API returned HTTP {exc.code}: {exc.reason}", file=sys.stderr)
+        sys.exit(1)
+    except urllib.error.URLError as exc:
+        print(f"Failed to reach Wikidata API: {exc.reason}", file=sys.stderr)
+        sys.exit(1)
+    except json.JSONDecodeError:
+        print("Wikidata API returned invalid JSON", file=sys.stderr)
+        sys.exit(1)
+
+
+def search_entity(name: str) -> str | None:
+    """Search Wikidata for an entity by name. Return the Q-ID or None."""
+    data = api_get({
+        "action": "wbsearchentities",
+        "search": name,
+        "language": "en",
+        "type": "item",
+        "limit": "5",
+    })
+    results = data.get("search", [])
+    if not results:
+        return None
+
+    for i, r in enumerate(results):
+        desc = r.get("description", "")
+        print(f"  [{i}] {r['id']}  {r['label']}" + (f" — {desc}" if desc else ""),
+              file=sys.stderr)
+
+    if sys.stdin.isatty():
+        print(file=sys.stderr)
+        choice = input("Pick a result [0]: ").strip()
+        idx = int(choice) if choice.isdigit() and int(choice) < len(results) else 0
+    else:
+        idx = 0
+
+    qid = results[idx]["id"]
+    print(f"\nUsing: {qid} ({results[idx].get('label', '')})\n", file=sys.stderr)
+    return qid
+
+
+def fetch_entity(qid: str) -> dict:
+    """Fetch a Wikidata entity by Q-ID."""
+    data = api_get({
+        "action": "wbgetentities",
+        "ids": qid,
+        "props": "claims|sitelinks|labels",
+        "languages": "en",
+    })
+    return data["entities"][qid]
+
+
+def get_claim_strings(entity: dict, prop_id: str) -> list[str]:
+    """Extract string values from all claims of a given property."""
+    claims = entity.get("claims", {})
+    values: list[str] = []
+    for claim in claims.get(prop_id, []):
+        value = claim.get("mainsnak", {}).get("datavalue", {}).get("value", "")
+        if isinstance(value, str) and value:
+            values.append(value)
+    return values
+
+
+def get_claim_time(entity: dict, prop_id: str) -> str | None:
+    """Extract the first time value from a property.
+
+    Returns the most precise date string available: YYYY-MM-DD, YYYY-MM, or
+    YYYY. Wikidata uses 00 for unknown month or day components.
+    """
+    claims = entity.get("claims", {})
+    for claim in claims.get(prop_id, []):
+        value = claim.get("mainsnak", {}).get("datavalue", {}).get("value", {})
+        if isinstance(value, dict) and "time" in value:
+            # Wikidata time format: "+1989-06-00T00:00:00Z"
+            time_str = value["time"].lstrip("+")
+            year, month, day = time_str.split("T")[0].split("-")[:3]
+            if month == "00":
+                return year
+            if day == "00":
+                return f"{year}-{month}"
+            return f"{year}-{month}-{day}"
+    return None
+
+
+def extract_same_as_urls(
+    entity: dict,
+    qid: str,
+    property_map: list[tuple[str, str, str | None]],
+) -> list[str]:
+    """Extract sameAs URLs from a Wikidata entity using a property map."""
+    urls: list[str] = []
+
+    # Wikidata itself
+    urls.append(f"https://www.wikidata.org/wiki/{qid}")
+
+    # English Wikipedia from sitelinks
+    sitelinks = entity.get("sitelinks", {})
+    enwiki = sitelinks.get("enwiki", {}).get("title")
+    if enwiki:
+        slug = urllib.parse.quote(enwiki.replace(" ", "_"), safe="")
+        urls.append(f"https://en.wikipedia.org/wiki/{slug}")
+
+    # Properties
+    claims = entity.get("claims", {})
+    for prop_id, label, template in property_map:
+        if prop_id not in claims:
+            continue
+        for claim in claims[prop_id]:
+            mainsnak = claim.get("mainsnak", {})
+            datavalue = mainsnak.get("datavalue", {})
+            value = datavalue.get("value", "")
+
+            if isinstance(value, str) and value:
+                if template is None:
+                    urls.append(value)
+                else:
+                    urls.append(template.format(value=value))
+
+    # Deduplicate while preserving order
+    return list(dict.fromkeys(urls))
+
+
+SPARQL_ENDPOINT = "https://query.wikidata.org/sparql"
+
+
+def sparql_query(query: str) -> list[dict]:
+    """Run a SPARQL query against Wikidata and return the result bindings."""
+    url = f"{SPARQL_ENDPOINT}?{urllib.parse.urlencode({'query': query, 'format': 'json'})}"
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = json.loads(resp.read().decode())
+        return data.get("results", {}).get("bindings", [])
+    except (urllib.error.URLError, json.JSONDecodeError) as exc:
+        print(f"SPARQL query failed: {exc}", file=sys.stderr)
+        return []
+
+
+def get_earliest_edition_isbn(work_qid: str) -> str | None:
+    """Query SPARQL for the first ISBN from the earliest edition of a work.
+
+    Prefers the earliest English-language edition (P407 = Q1860), sorted by
+    publication date. Falls back to any edition if no English one has an ISBN.
+    Takes whichever ISBN type (13 or 10) appears first; old books predate
+    ISBN-13 so their first editions only carry ISBN-10.
+    """
+    query = f"""
+SELECT ?isbn13 ?isbn10 ?pubdate ?langLabel WHERE {{
+  ?edition wdt:P629 wd:{work_qid} .
+  OPTIONAL {{ ?edition wdt:P407 ?lang . }}
+  OPTIONAL {{ ?edition wdt:P577 ?pubdate . }}
+  OPTIONAL {{ ?edition wdt:P212 ?isbn13 . }}
+  OPTIONAL {{ ?edition wdt:P957 ?isbn10 . }}
+  FILTER(BOUND(?isbn13) || BOUND(?isbn10))
+  SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
+}}
+ORDER BY ?pubdate
+LIMIT 30
+"""
+    bindings = sparql_query(query)
+
+    # Single pass: take the first ISBN from the earliest English edition,
+    # falling back to the earliest non-English edition.
+    english_isbn: str | None = None
+    any_isbn: str | None = None
+
+    for row in bindings:
+        lang = row.get("langLabel", {}).get("value", "")
+        isbn = (row.get("isbn13", {}).get("value")
+                or row.get("isbn10", {}).get("value"))
+        if not isbn:
+            continue
+
+        is_english = lang.lower() in ("english", "en")
+        if is_english and not english_isbn:
+            english_isbn = isbn
+        elif not is_english and not any_isbn:
+            any_isbn = isbn
+
+        if english_isbn and any_isbn:
+            break
+
+    return english_isbn or any_isbn
+
+
+def resolve_qid(arg: str) -> str:
+    """Resolve a Q-ID or name string to a Q-ID. Exits on failure."""
+    if arg.startswith("Q") and arg[1:].isdigit():
+        return arg
+
+    qid = search_entity(arg)
+    if qid is None:
+        print(f"No Wikidata entity found for: {arg}", file=sys.stderr)
+        sys.exit(1)
+    return qid
