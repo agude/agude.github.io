@@ -154,8 +154,10 @@ class TestSeriesTextTag < Minitest::Test
   end
 
   def test_empty_input_string
-    markup = '""'
-    assert_equal '', render_tag(markup)
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse('{% series_text "" %}')
+    end
+    assert_match(/Series name value is missing or empty/, err.message)
   end
 
   def test_empty_input_variable
@@ -171,8 +173,10 @@ class TestSeriesTextTag < Minitest::Test
   end
 
   def test_whitespace_input_string
-    markup = '"   "'
-    assert_equal '', render_tag(markup)
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse('{% series_text "   " %}')
+    end
+    assert_match(/Series name value is missing or empty/, err.message)
   end
 
   def test_keyword_as_substring_does_not_prevent_suffix
@@ -187,6 +191,27 @@ class TestSeriesTextTag < Minitest::Test
       Liquid::Template.parse('{% series_text %}')
     end
     assert_match(/Could not find series name/, err.message)
+  end
+
+  def test_syntax_error_empty_single_quoted_name
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse("{% series_text '' %}")
+    end
+    assert_match(/Series name value is missing or empty/, err.message)
+  end
+
+  def test_syntax_error_empty_double_quoted_name
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse('{% series_text "" %}')
+    end
+    assert_match(/Series name value is missing or empty/, err.message)
+  end
+
+  def test_syntax_error_whitespace_only_quoted_name
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse("{% series_text '   ' %}")
+    end
+    assert_match(/Series name value is missing or empty/, err.message)
   end
 
   def test_syntax_error_extra_argument
@@ -209,31 +234,51 @@ class TestSeriesTextTag < Minitest::Test
   def test_markdown_mode_renders_linked_series
     md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
     output = Liquid::Template.parse('{% series_text "Foundation" %}').render!(md_context)
-    assert_equal 'the [Foundation](/series/foundation.html) series', output
+    assert_equal 'the [_Foundation_](/series/foundation.html) series', output
   end
 
   def test_markdown_mode_renders_unlinked_series
     md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
     output = Liquid::Template.parse('{% series_text "Unknown" %}').render!(md_context)
-    assert_equal 'the Unknown series', output
+    assert_equal 'the _Unknown_ series', output
   end
 
   def test_markdown_mode_series_starting_with_the
     md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
     output = Liquid::Template.parse('{% series_text "The Expanse" %}').render!(md_context)
-    assert_equal '[The Expanse](/series/expanse.html) series', output
+    assert_equal '[_The Expanse_](/series/expanse.html) series', output
   end
 
   def test_markdown_mode_series_containing_keyword
     md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
     output = Liquid::Template.parse('{% series_text "Dune Saga" %}').render!(md_context)
-    assert_equal 'the [Dune Saga](/series/dune.html)', output
+    assert_equal 'the [_Dune Saga_](/series/dune.html)', output
   end
 
   def test_markdown_mode_empty_input
-    md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
-    output = Liquid::Template.parse('{% series_text "" %}').render!(md_context)
-    assert_equal '', output
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse('{% series_text "" %}')
+    end
+    assert_match(/Series name value is missing or empty/, err.message)
+  end
+
+  def test_markdown_mode_self_link_suppressed
+    # When rendering a series page's own markdown, the link should be suppressed
+    md_context = create_context(
+      {},
+      { site: @site, page: @series1_page, render_mode: :markdown },
+    )
+    output = Liquid::Template.parse('{% series_text "Foundation" %}').render!(md_context)
+    assert_equal 'the _Foundation_ series', output
+  end
+
+  def test_markdown_mode_self_link_with_the_prefix
+    md_context = create_context(
+      {},
+      { site: @site, page: @series2_page, render_mode: :markdown },
+    )
+    output = Liquid::Template.parse('{% series_text "The Expanse" %}').render!(md_context)
+    assert_equal '_The Expanse_ series', output
   end
 
   # --- link=false ---
@@ -271,13 +316,13 @@ class TestSeriesTextTag < Minitest::Test
   def test_link_false_markdown_mode_renders_plain_text
     md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
     output = Liquid::Template.parse('{% series_text "Foundation" link=false %}').render!(md_context)
-    assert_equal 'the Foundation series', output
+    assert_equal 'the _Foundation_ series', output
   end
 
   def test_link_false_markdown_mode_series_starting_with_the
     md_context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
     output = Liquid::Template.parse('{% series_text "The Expanse" link=false %}').render!(md_context)
-    assert_equal 'The Expanse series', output
+    assert_equal '_The Expanse_ series', output
   end
 
   def test_link_false_with_variable
@@ -294,9 +339,11 @@ class TestSeriesTextTag < Minitest::Test
     assert_match(/Unexpected arguments/, err.message)
   end
 
-  def test_link_false_empty_string_returns_empty
-    output = render_tag('"" link=false')
-    assert_equal '', output
+  def test_link_false_empty_string_raises
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse('{% series_text "" link=false %}')
+    end
+    assert_match(/Series name value is missing or empty/, err.message)
   end
 
   def test_link_false_variable_resolves_to_unknown_series

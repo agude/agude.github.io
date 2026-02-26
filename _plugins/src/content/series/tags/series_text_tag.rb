@@ -3,12 +3,12 @@
 # _plugins/series_text_tag.rb
 require 'jekyll'
 require 'liquid'
-# CGI and strscan are still used by the tag's initialize
-require 'cgi'
 require 'strscan'
 require_relative '../series_link_util'
 require_relative '../../../infrastructure/tag_argument_utils'
-require_relative '../series_text_utils' # Require the new utility
+require_relative '../series_text_utils'
+require_relative '../../markdown_output/markdown_link_formatter'
+require_relative '../../../infrastructure/links/link_helper_utils'
 
 # Renders series text with appropriate context and linking.
 #
@@ -30,7 +30,9 @@ module Jekyll
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Linker = Jekyll::Series::SeriesLinkUtils
         TextUtil = Jekyll::Series::SeriesTextUtils
-        private_constant :TagArgs, :Linker, :TextUtil
+        MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
+        LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
+        private_constant :TagArgs, :Linker, :TextUtil, :MdLink, :LinkHelper
 
         QuotedFragment = Liquid::QuotedFragment
 
@@ -108,8 +110,15 @@ module Jekyll
         end
 
         def validate_series_name
-          return if @series_name_markup && !@series_name_markup.strip.empty?
+          raise_empty_name if @series_name_markup.nil? || @series_name_markup.strip.empty?
 
+          m = @series_name_markup.match(/\A(['"])(.*)\1\z/m)
+          return unless m
+
+          raise_empty_name if m[2].strip.empty?
+        end
+
+        def raise_empty_name
           raise Liquid::SyntaxError,
                 "Syntax Error in 'series_text': " \
                 "Series name value is missing or empty in '#{@raw_markup}'"
@@ -117,11 +126,8 @@ module Jekyll
 
         def render_markdown(analysis, context, link)
           data = Linker.find_series_link_data(analysis[:name], context, nil, link: link)
-          text = if data[:url]
-                   "[#{data[:display_text]}](#{data[:url]})"
-                 else
-                   data[:display_text]
-                 end
+          self_link = LinkHelper.self_link?(context, data[:url])
+          text = MdLink.format_link(data, italic: true, self_link: self_link)
           "#{analysis[:prefix]}#{text}#{analysis[:suffix]}".strip
         end
 

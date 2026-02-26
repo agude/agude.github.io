@@ -3,7 +3,6 @@
 # _plugins/series_link_tag.rb
 require 'jekyll'
 require 'liquid'
-require 'cgi' # Keep for QuotedFragment, though CGI itself is now in LiquidUtils
 require 'strscan'
 require_relative '../series_link_util'
 require_relative '../../../infrastructure/tag_argument_utils'
@@ -49,7 +48,7 @@ module Jekyll
 
           if context.registers[:render_mode] == :markdown
             data = Linker.find_series_link_data(series_title, context, link_text_override)
-            MdLink.format_link(data, self_link: LinkHelper.self_link?(context, data[:url]))
+            MdLink.format_link(data, italic: true, self_link: LinkHelper.self_link?(context, data[:url]))
           else
             Linker.render_series_link(series_title, context, link_text_override)
           end
@@ -95,8 +94,15 @@ module Jekyll
         end
 
         def validate_title
-          return if @title_markup && !@title_markup.strip.empty?
+          raise_empty_title if @title_markup.nil? || @title_markup.strip.empty?
 
+          m = @title_markup.match(/\A(['"])(.*)\1\z/m)
+          return unless m
+
+          raise_empty_title if m[2].strip.empty?
+        end
+
+        def raise_empty_title
           raise Liquid::SyntaxError,
                 "Syntax Error in 'series_link': " \
                 "Title value is missing or empty in '#{@raw_markup}'"
