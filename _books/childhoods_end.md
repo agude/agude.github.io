@@ -8,14 +8,13 @@ rating: 5
 image: /books/covers/childhoods_end.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a classic sci-fi novel by
-<span class="author-name">{{ page.book_authors }}</span>. It is about first
-contact between humans and the mysterious Overlords, and the end of the human
-race.
+{% book_link page.title %} is a classic sci-fi novel by <span
+class="author-name">{{ page.book_authors }}</span>. It is about first contact
+between humans and the mysterious Overlords, and the end of the human race.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture clarke %}<span class="author-name">Clarke</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
+{% capture clarke %}{% author_link page.book_authors link=false link_text="Clarke" %}{% endcapture %}
 {% capture flatland %}{% book_link "Flatland: A Romance of Many Dimensions" link_text="Flatland" %}{% endcapture %}
 {% capture liu_cixin %}{% author_link "Liu Cixin" possessive %}{% endcapture %}
 {% capture three_body %}{% book_link "The Three-Body Problem" %}{% endcapture %}

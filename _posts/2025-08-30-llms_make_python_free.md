@@ -2,20 +2,20 @@
 layout: post
 title: LLMs Make Python Scripts Free
 description: >
-    I used to spend hours writing and saving little Python scripts. Now, with
-    LLMs, I can get the same code in under a minute. Python scripts, and small
-    programs in general, are effectively free.
+  I used to spend hours writing and saving little Python scripts. Now, with
+  LLMs, I can get the same code in under a minute. Python scripts, and small
+  programs in general, are effectively free.
 image: /files/llm-free-python/a_robot_sells_pythons_of_many_colors.png
 hide_lead_image: False
 image_alt: >
-    A watercolor cartoon illustration of a cheerful robot giving away free
-    pythons. On the left, a smiling light-blue robot with antennae stands
-    behind a wooden counter with a cash register that displays "$0." A sign
-    next to the register reads, "HAPPY PYTHONS - FREE!" The robot has one arm
-    outstretched towards the right, where a small market stall with a striped
-    awning stands. The stall has two shelves filled with small, colorful, and
-    smiling cartoon pythons in various patterns and colors, including green,
-    yellow, orange, and blue. The background is entirely white.
+  A watercolor cartoon illustration of a cheerful robot giving away free
+  pythons. On the left, a smiling light-blue robot with antennae stands
+  behind a wooden counter with a cash register that displays "$0." A sign
+  next to the register reads, "HAPPY PYTHONS - FREE!" The robot has one arm
+  outstretched towards the right, where a small market stall with a striped
+  awning stands. The stall has two shelves filled with small, colorful, and
+  smiling cartoon pythons in various patterns and colors, including green,
+  yellow, orange, and blue. The background is entirely white.
 categories:
   - generative-ai
   - large-language-models
@@ -64,7 +64,8 @@ realized this yet. Once again, {{ gibson }} was right:
 
 > The future is already here -- it's just not very evenly distributed.
 
-[^also]: And not just Python, but any 300-line piece of code! I used Gemini to
+[^also]:
+    And not just Python, but any 300-line piece of code! I used Gemini to
     completely re-write the backend of this blog in pure Ruby, cutting build
     times from minutes to seconds, adding hundreds of tests to define and
     enforce behavior, and I don't even know Ruby!

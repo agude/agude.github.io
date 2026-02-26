@@ -8,14 +8,13 @@ rating: 2
 image: /books/covers/eyes_of_the_void.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the second book in the
-<span class="book-series">{{ page.series }}</span> series. It takes place
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the second book in {% series_text page.series link=false %}. It takes place
 during the new war with the Architects, as Idris and the crew of the _Vulture
 God_ discover where the Architects come from.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 
 {% capture fa1 %}{% book_link "Shards of Earth" %}{% endcapture %}
 {% capture fa3 %}{% book_link "Lords of Uncreation" %}{% endcapture %}

@@ -8,12 +8,11 @@ rating: 4
 image: /books/covers/mossflower.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the second book in the
-<span class="book-series">{{ page.series }}</span> series. It chronicles the
-arrival of Martin the Warrior in Mossflower Woods and how he saves the
-woodlanders from the evil wildcat queen, Tsarmina.
+{% book_link page.title %} is the second book in {% series_text page.series
+link=false %}. It chronicles the arrival of Martin the Warrior in Mossflower
+Woods and how he saves the woodlanders from the evil wildcat queen, Tsarmina.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture redwall %}{% book_link "Redwall" %}{% endcapture %}
 {% capture mattimeo %}{% book_link "Mattimeo" %}{% endcapture %}
 

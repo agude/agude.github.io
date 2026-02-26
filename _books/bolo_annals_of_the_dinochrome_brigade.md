@@ -9,13 +9,13 @@ rating: 3
 image: /books/covers/bolo.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the first book in the
-<span class="book-series">{{ page.series }}</span> series. It is a collection
-of seven novellas and short stories, all featuring Bolos.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the first book in {% series_text page.series link=false %}. It is a
+collection of seven novellas and short stories, all featuring Bolos.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 
 {% capture bolo2 %}{% book_link "Rogue Bolo" %}{% endcapture %}
@@ -67,11 +67,13 @@ people you saved. This allows {{ the_authors_lastname }} to explore other
 themes as well: loss, death, and what it means to be alive.
 
 ### {% short_story_title "A Short History of the Bolo Fighting Machines" %}
+
 {% rating_stars 3 %}
 
 An in-universe explanation of how Bolos came to be. Not really a story.
 
 ### {% short_story_title "The Night of the Trolls" %}
+
 {% rating_stars 3 %}
 
 A novella version of {{ the_authors }} later novel {{ bolo3 }}. The main
@@ -82,6 +84,7 @@ just an obstacle to overcome, not a character like in the more successful
 stories.
 
 ### {% short_story_title "Courier" %}
+
 {% rating_stars 2 %}
 
 A {{ retief }} story that just happens to have a Bolo at the end. Retief
@@ -93,6 +96,7 @@ strength and annoyingly correct confidence. Feels like a
 Retief as a less intellectual (I know!) Kirk.
 
 ### {% short_story_title "Field Test" %}
+
 {% rating_stars 3 %}
 
 The first sentient Bolo---the Mark XX---is thrown into combat untested in a
@@ -116,6 +120,7 @@ reference the story. {{ traitor }} explores the fear of self-directed Bolos
 going rogue, and the hidden reason for their behavior.
 
 ### {% short_story_title "The Last Command" %}
+
 {% rating_stars 4 %}
 
 A Bolo wakes up after being decommissioned and buried, assumes it's under
@@ -127,6 +132,7 @@ with you..." That connection between man and machine is a recurring theme in
 the later books.
 
 ### {% short_story_title "A Relic of War" %}
+
 {% rating_stars 3 %}
 
 An abandoned Bolo is found by the government, who mean to shut it down---only
@@ -135,6 +141,7 @@ the Bolo allows itself to be shut down to protect the town from itself, which
 reminded me a little of shutting down HAL in {{ so2001 }}.
 
 ### {% short_story_title "Combat Unit" %}
+
 {% rating_stars 4 %}
 
 A damaged Bolo wakes up in a repair bay and suspects it's been captured and is

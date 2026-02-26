@@ -8,12 +8,12 @@ rating: 3
 image: /books/covers/countdown_city.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the second novel in the
-<span class="book-series">{{ page.series }}</span> series. In it, Detective
-Palace searches for a missing person as the world continues to deteriorate.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the second novel in {% series_text page.series link=false %}. In it,
+Detective Palace searches for a missing person as the world continues to
+deteriorate.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture lpm1 %}{% book_link "The Last Policeman" %}{% endcapture %}
 {% capture lpm3 %}{% book_link "World of Trouble" %}{% endcapture %}
 

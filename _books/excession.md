@@ -8,14 +8,13 @@ rating: 4
 image: /books/covers/excession.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the fourth novel and
-fifth book in the <span class="book-series">{{ page.series }}</span> series.
-It follows the reaction of the Culture and other civilizations to an
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the fourth novel and fifth book in {% series_text page.series link=false
+%}. It follows the reaction of the Culture and other civilizations to an
 "excession": an _"Outside Context Problem"_---something mysterious,
 unpredictable, and enormously powerful.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture hamiltons %}{% author_link "Peter F. Hamilton" %}{% endcapture %}
 {% capture pandoras_star %}{% book_link "Pandora's Star" %}{% endcapture %}

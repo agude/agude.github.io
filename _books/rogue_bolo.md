@@ -9,13 +9,12 @@ rating: 3
 image: /books/covers/rogue_bolo.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the second book in the
-<span class="book-series">{{ page.series }}</span> series. It's a collection
-of two novellas featuring the sentient tanks.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the second book in {% series_text page.series link=false %}. It's a
+collection of two novellas featuring the sentient tanks.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 
 {% capture bolo1 %}{% book_link "Bolo: Annals of the Dinochrome Brigade" %}{% endcapture %}
 {% capture bolo3 %}{% book_link "The Stars Must Wait" %}{% endcapture %}
@@ -55,6 +54,7 @@ and {{ bolo9 }}), and {{ stirling }} <abbr class="etal">et al.</abbr> ({{
 bolo10 }}, {{ bolo11 }}, etc.).
 
 ### {% short_story_title "Rogue Bolo" %}
+
 {% rating_stars 4 %}
 
 {% short_story_title "Rogue Bolo" no_id %} is an expansion of the concept and
@@ -81,6 +81,7 @@ Bolo</cite>, constantly pushing for access to more databases and processing
 power.
 
 ### {% short_story_title "Final Mission" %}
+
 {% rating_stars 3 %}
 
 A deactivated Bolo sits in a museum in a town of 300 people on a backwater

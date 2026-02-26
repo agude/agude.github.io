@@ -3,13 +3,13 @@ layout: post
 title: "Lab41 Reading Group: Generative Adversarial Nets"
 gab41: http://www.lab41.org/lab41-reading-group-generative-adversarial-nets/
 description: >
-    What cost function would you use to determine if a picture looks real? How
-    about one learned by another network! Find out more with my summary of
-    Generative Adversarial Networks!
+  What cost function would you use to determine if a picture looks real? How
+  about one learned by another network! Find out more with my summary of
+  Generative Adversarial Networks!
 image: /files/gans/header.jpg
 image_alt: >
   A coffee, reading glasses, and a book sit on a table in front of a MacBook.
-categories: 
+categories:
   - reading-group
   - lab41
 use_latex: true
@@ -29,6 +29,7 @@ interesting, so we plan to start posting about our findings on Gab41.
 Generative Adversarial Nets (GANs).[^goodfellow]
 
 [paper]: https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf
+
 [^goodfellow]:
     {% citation
       author_last="Goodfellow"

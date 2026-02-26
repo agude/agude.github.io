@@ -1,6 +1,6 @@
 ---
 layout: author_page
-title: Shariann Lewitt 
+title: Shariann Lewitt
 pen_names:
   - Gordon Kendall
   - Nina Harper
@@ -8,7 +8,7 @@ pen_names:
   - S. N. Lewitt
   - Shariann N. Lewitt
 description: >
-    Alex Gude's reviews of books written by Shariann Lewitt.
+  Alex Gude's reviews of books written by Shariann Lewitt.
 same_as_urls:
   - https://sf-encyclopedia.com/entry/lewitt_s_n
   - https://en.wikipedia.org/wiki/Shariann_Lewitt

@@ -18,6 +18,7 @@ image_alt: >
 **Back to the original:**
 
 {% capture url %}{% post_url 2025-02-02-how_i_write_with_llms_revised %}{% endcapture %}
+
 <div class="card-grid">
   {% article_card_lookup url=url %}
 </div>

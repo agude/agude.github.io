@@ -8,20 +8,18 @@ rating: 3
 image: /books/covers/martin_the_warrior.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the sixth book in the
-<span class="book-series">{{ page.series }}</span> series. It's Martin's
-origin story, following him as he's enslaved by---and eventually leads an
-uprising against---the tyrant Badrang.
+{% book_link page.title %} is the sixth book in {% series_text page.series
+link=false %}. It's Martin's origin story, following him as he's enslaved
+by---and eventually leads an uprising against---the tyrant Badrang.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span> series{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
+{% capture series %}{% series_text page.series link=false %}{% endcapture %}
 
 {% capture redwall %}{% book_link "Redwall" %}{% endcapture %}
 {% capture mossflower %}{% book_link "Mossflower" %}{% endcapture %}
 {% capture salamandastron %}{% book_link "Salamandastron" %}{% endcapture %}
 {% capture bellmaker %}{% book_link "The Bellmaker" %}{% endcapture %}
-
 
 {{ this_book }} has two villains: Badrang the Tyrant and the corsair Tramun
 Clogg. For much of the story, they have an on-again, off-again rivalry, with

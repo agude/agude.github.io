@@ -8,8 +8,8 @@ image: /files/switrs-dataset/tram_auto_crash_in_1957_frederiksplein_amsterdam.jp
 image_alt: >
   A photo of a tram and a delivery van collision in Frederiksplein, Amsterdam,
   1957.
-categories: 
-  - california-traffic-data 
+categories:
+  - california-traffic-data
   - my-projects
 ---
 
@@ -88,7 +88,7 @@ There were two main challenges:
 
 [primary_key]: https://en.wikipedia.org/wiki/Primary_key
 
-I made the following assumptions when merging the datasets: 
+I made the following assumptions when merging the datasets:
 
 - The collision records table from the more recent dataset was correct when
   there was a conflict.
@@ -102,7 +102,7 @@ preferring the newer ones:
 
 ```sql
 -- Select all from 2020
-CREATE TABLE outputdb.case_ids AS 
+CREATE TABLE outputdb.case_ids AS
 SELECT case_id, '2020' AS db_year
 FROM db20.collision;
 
@@ -157,7 +157,7 @@ California][s2s_plot].
 Just download the data, unzip it, and run the [notebook][notebook] ([rendered
 on Github][rendered]). This will produce the following plot:
 
-{% capture notebook_uri %}{{ "Mapping California Crashes 2001 to 2020.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "Mapping California Crashes 2001 to 2020.ipynb" | uri_escape }}{% endcapture %}
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 

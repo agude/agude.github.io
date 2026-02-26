@@ -118,4 +118,5 @@ PhD?_][phd]; advice for aspiring academics about a topic they might not have
 considered.
 
 [jerks]: https://boss.blogs.nytimes.com/2012/09/26/what-do-you-do-with-the-brilliant-jerk/
+
 [phd]: {% post_url 2018-01-19-should_i_get_a_phd %}

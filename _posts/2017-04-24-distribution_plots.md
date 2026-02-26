@@ -185,10 +185,10 @@ summary statistics, and avoids cluttering the plot with every data point.
 [dst]: {% post_url 2017-03-20-switrs_daylight_saving_time_accidents %}#crash-ratio
 
 {% comment %}
-| Plot      | Time to render |
+| Plot | Time to render |
 |:----------|---------------:|
-| Violin    | 1.2 seconds    |
-| Box       | 1.5 seconds    |
-| Strip     | 4.9 seconds    |
+| Violin | 1.2 seconds |
+| Box | 1.5 seconds |
+| Strip | 4.9 seconds |
 | **Swarm** | **74 seconds** |
 {% endcomment %}

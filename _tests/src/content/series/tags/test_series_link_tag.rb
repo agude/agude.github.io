@@ -43,13 +43,26 @@ class TestSeriesLinkTag < Minitest::Test
     assert_match 'Could not find series title', err.message
   end
 
-  # Commenting out the problematic test for empty string literal, assuming similar issue
-  # def test_syntax_error_series_title_empty_string_literal
-  #   err = assert_raises Liquid::SyntaxError do
-  #     Liquid::Template.parse("{% series_link '' %}")
-  #   end
-  #   assert_match "Title value is missing or empty", err.message
-  # end
+  def test_syntax_error_empty_single_quoted_title
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse("{% series_link '' %}")
+    end
+    assert_match 'Title value is missing or empty', err.message
+  end
+
+  def test_syntax_error_empty_double_quoted_title
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse('{% series_link "" %}')
+    end
+    assert_match 'Title value is missing or empty', err.message
+  end
+
+  def test_syntax_error_whitespace_only_quoted_title
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse("{% series_link '   ' %}")
+    end
+    assert_match 'Title value is missing or empty', err.message
+  end
 
   def test_syntax_error_unknown_argument
     err = assert_raises Liquid::SyntaxError do
@@ -137,7 +150,7 @@ class TestSeriesLinkTag < Minitest::Test
     )
     template = Liquid::Template.parse("{% series_link 'Hyperion Cantos' %}")
     output = template.render!(md_context)
-    assert_equal '[Hyperion Cantos](/books/series/hyperion-cantos/)', output
+    assert_equal '[_Hyperion Cantos_](/books/series/hyperion-cantos/)', output
   end
 
   def test_markdown_mode_not_found_renders_plain_text
@@ -148,6 +161,51 @@ class TestSeriesLinkTag < Minitest::Test
     )
     template = Liquid::Template.parse("{% series_link 'Unknown Series' %}")
     output = template.render!(md_context)
-    assert_equal 'Unknown Series', output
+    assert_equal '_Unknown Series_', output
+  end
+
+  def test_markdown_mode_self_link_renders_italic_text
+    series_page = create_doc(
+      { 'title' => 'Hyperion Cantos', 'layout' => 'series_page' },
+      '/books/series/hyperion-cantos/',
+    )
+    site = create_site({}, {}, [series_page])
+    md_context = create_context(
+      {},
+      { site: site, page: series_page, render_mode: :markdown },
+    )
+    template = Liquid::Template.parse("{% series_link 'Hyperion Cantos' %}")
+    output = template.render!(md_context)
+    assert_equal '_Hyperion Cantos_', output
+  end
+
+  def test_markdown_mode_with_link_text_override
+    series_page = create_doc(
+      { 'title' => 'Hyperion Cantos', 'layout' => 'series_page' },
+      '/books/series/hyperion-cantos/',
+    )
+    site = create_site({}, {}, [series_page])
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    template = Liquid::Template.parse("{% series_link 'Hyperion Cantos' link_text='the series' %}")
+    output = template.render!(md_context)
+    assert_equal '[_the series_](/books/series/hyperion-cantos/)', output
+  end
+
+  def test_markdown_mode_escapes_brackets_in_title
+    series_page = create_doc(
+      { 'title' => 'Foundation [Novels]', 'layout' => 'series_page' },
+      '/books/series/foundation-novels/',
+    )
+    site = create_site({}, {}, [series_page])
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    template = Liquid::Template.parse("{% series_link 'Foundation [Novels]' %}")
+    output = template.render!(md_context)
+    assert_equal '[_Foundation \[Novels\]_](/books/series/foundation-novels/)', output
   end
 end

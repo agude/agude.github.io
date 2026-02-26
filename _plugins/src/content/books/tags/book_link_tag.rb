@@ -8,6 +8,7 @@ require 'strscan'
 require_relative '../core/book_link_util' # Require the specific book link util
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../markdown_output/markdown_link_formatter'
+require_relative '../../../infrastructure/links/link_helper_utils'
 
 # Liquid Tag for creating a link to a book page, wrapped in <cite>.
 # Handles optional display text override and author disambiguation.
@@ -26,7 +27,8 @@ module Jekyll
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Linker = Jekyll::Books::Core::BookLinkUtils
         MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
-        private_constant :TagArgs, :Linker, :MdLink
+        LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
+        private_constant :TagArgs, :Linker, :MdLink, :LinkHelper
 
         def initialize(tag_name, markup, tokens)
           super
@@ -52,7 +54,7 @@ module Jekyll
             data = Linker.find_book_link_data(
               book_title, context, link_text_override, author_filter, nil, cite: cite_arg,
             )
-            MdLink.format_link(data, italic: data[:cite])
+            MdLink.format_link(data, italic: data[:cite], self_link: LinkHelper.self_link?(context, data[:url]))
           else
             Linker.render_book_link(book_title, context, link_text_override, author_filter, nil, cite: cite_arg)
           end

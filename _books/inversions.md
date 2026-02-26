@@ -8,15 +8,14 @@ rating: 5
 image: /books/covers/inversions.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the sixth <span
-class="book-series">{{ page.series }}</span> book, but it is very different
-from typical Culture novels: there are no spaceships and almost no advanced
-technology. Instead, it follows Culture citizens DeWar and Vosill as they
-manipulate a medieval society.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the sixth book in {% series_text page.series link=false %}, but it is very
+different from typical Culture novels: there are no spaceships and almost no
+advanced technology. Instead, it follows Culture citizens DeWar and Vosill as
+they manipulate a medieval society.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
 
 {% capture c1 %}{% book_link "Consider Phlebas" %}{% endcapture %}
@@ -48,7 +47,7 @@ The title, {{ this_book }}, refers to several different things:
   bodyguard who kills only in defense, while Vosill steers the course of the
   world through manipulation and assassination.
 
-- There are many role _inversions_ as well:  DeWar is an assassin who
+- There are many role _inversions_ as well: DeWar is an assassin who
   protects, Vosill is a doctor who kills. UrLeyn is an oppressive
   anti-monarchist, Quience is a democratizing monarch.
 

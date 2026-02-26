@@ -12,13 +12,12 @@ rating: 5
 image: /books/covers/bolos_book_3_the_triumphant_1st_edition.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the twelfth book in the
-<span class="book-series">{{ page.series }}</span> series. It's an anthology
-of Bolo stories written by three different authors. They explore the emotional
-bond between a Bolo and the people around them, and the dangers of caring too
-much about a machine built for war.
+{% book_link page.title %} is the twelfth book in {% series_text page.series
+link=false %}. It's an anthology of Bolo stories written by three different
+authors. They explore the emotional bond between a Bolo and the people around
+them, and the dangers of caring too much about a machine built for war.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture author_evans %}{% author_link "Linda Evans" %}{% endcapture %}
 {% capture author_evans_lastname %}{% author_link "Linda Evans" link_text="Evans" %}{% endcapture %}
@@ -87,6 +86,7 @@ compromise them, even while also using those feelings to drive them to
 self-sacrifice.
 
 ### {% short_story_title "The Farmer's Wife" %}
+
 <div class="written-by">by {{ author_evans }}</div>
 {% rating_stars 2 %}
 
@@ -123,6 +123,7 @@ which she wrote with {{ ringo }} in the salt-of-the-earth farmers just trying
 to make their way against a hostile world.
 
 ### {% short_story_title "Little Red Hen" %}
+
 <div class="written-by">by {{ author_evans }} and {{ author_hollingsworth }}</div>
 {% rating_stars 5 %}
 
@@ -155,6 +156,7 @@ the_last_command }}.
     > baby, she's just starkers, no explanation, nuthin'..."
 
 ### {% short_story_title "Little Dog Gone" %}
+
 <div class="written-by">by {{ author_evans }}</div>
 {% rating_stars 5 %}
 
@@ -177,6 +179,7 @@ awaken a forgotten Bolo that is then called on to repel a Deng invasion. The
 genetically enhanced dogs reminded me of the Tines in {{ vinges }} {{ fire }}.
 
 ### {% short_story_title "Miles to Go" %}
+
 <div class="written-by">by {{ author_weber }}</div>
 {% rating_stars 5 %}
 
@@ -212,12 +215,14 @@ the_murphosensor_bomb }}, a machine with emotions and emotional intelligence
 throughout reminded me of {{ simmonss }} {{ hyperion }}.
 
 [^test]: Also directly referenced:
+
     > _Yet my Main Memory contain ample documentation of the opposition Doctor
     > Chin and General Bates faced before Unit DNE was permitted to
     > demonstrate the feasibility of a self-directed Bolo against the People's
     > Republic._
 
 ### {% short_story_title "A Brief Technical History of the Bolo" %}
+
 <div class="written-by">by {{ author_weber }}</div>
 {% rating_stars 5 %}
 

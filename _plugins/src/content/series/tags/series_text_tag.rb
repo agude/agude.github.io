@@ -3,12 +3,12 @@
 # _plugins/series_text_tag.rb
 require 'jekyll'
 require 'liquid'
-# CGI and strscan are still used by the tag's initialize
-require 'cgi'
 require 'strscan'
 require_relative '../series_link_util'
 require_relative '../../../infrastructure/tag_argument_utils'
-require_relative '../series_text_utils' # Require the new utility
+require_relative '../series_text_utils'
+require_relative '../../markdown_output/markdown_link_formatter'
+require_relative '../../../infrastructure/links/link_helper_utils'
 
 # Renders series text with appropriate context and linking.
 #
@@ -19,16 +19,20 @@ require_relative '../series_text_utils' # Require the new utility
 #   {% series_text "The Lord of the Rings" %}
 module Jekyll
   #   {% series_text page.series %}
+  #   {% series_text page.series link=false %}
   module Series
     module Tags
       # Liquid tag for rendering series text with appropriate context and linking.
       # Analyzes series names and renders them with proper formatting and links.
+      # Supports link=false to emit a styled span without an <a> wrapper.
       class SeriesTextTag < Liquid::Tag
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Linker = Jekyll::Series::SeriesLinkUtils
         TextUtil = Jekyll::Series::SeriesTextUtils
-        private_constant :TagArgs, :Linker, :TextUtil
+        MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
+        LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
+        private_constant :TagArgs, :Linker, :TextUtil, :MdLink, :LinkHelper
 
         QuotedFragment = Liquid::QuotedFragment
 
@@ -38,6 +42,7 @@ module Jekyll
           super
           @raw_markup = markup
           @series_name_markup = nil
+          @link_markup = nil
 
           parse_arguments(markup)
         end
@@ -48,9 +53,11 @@ module Jekyll
           analysis = TextUtil.analyze_series_name(raw_series_name_input)
           return '' if analysis.nil?
 
-          return render_markdown(analysis, context) if context.registers[:render_mode] == :markdown
+          link = link_enabled?(context)
 
-          linked_series_html = Linker.render_series_link(analysis[:name], context)
+          return render_markdown(analysis, context, link) if context.registers[:render_mode] == :markdown
+
+          linked_series_html = Linker.render_series_link(analysis[:name], context, nil, link: link)
           return '' if should_return_empty?(linked_series_html, analysis)
 
           build_output(analysis, linked_series_html)
@@ -61,6 +68,7 @@ module Jekyll
         def parse_arguments(markup)
           scanner = StringScanner.new(markup.strip)
           parse_series_name(scanner)
+          parse_options(scanner)
           validate_no_extra_arguments(scanner)
           validate_series_name
         end
@@ -75,6 +83,23 @@ module Jekyll
           end
         end
 
+        def parse_options(scanner)
+          scanner.skip(/\s+/)
+          return if scanner.eos?
+
+          return unless scanner.scan(/link\s*=\s*(#{QuotedFragment})/)
+
+          @link_markup = scanner[1]
+        end
+
+        # Returns true unless link= is explicitly set to 'false'.
+        def link_enabled?(context)
+          return true unless @link_markup
+
+          value = TagArgs.resolve_value(@link_markup, context)
+          value.to_s.downcase != 'false'
+        end
+
         def validate_no_extra_arguments(scanner)
           scanner.skip(/\s+/)
           return if scanner.eos?
@@ -85,21 +110,25 @@ module Jekyll
         end
 
         def validate_series_name
-          return if @series_name_markup && !@series_name_markup.strip.empty?
+          raise_empty_name if @series_name_markup.nil? || @series_name_markup.strip.empty?
 
+          m = @series_name_markup.match(/\A(['"])(.*)\1\z/m)
+          return unless m
+
+          raise_empty_name if m[2].strip.empty?
+        end
+
+        def raise_empty_name
           raise Liquid::SyntaxError,
                 "Syntax Error in 'series_text': " \
                 "Series name value is missing or empty in '#{@raw_markup}'"
         end
 
-        def render_markdown(analysis, context)
-          data = Linker.find_series_link_data(analysis[:name], context)
-          link = if data[:url]
-                   "[#{data[:display_text]}](#{data[:url]})"
-                 else
-                   data[:display_text]
-                 end
-          "#{analysis[:prefix]}#{link}#{analysis[:suffix]}".strip
+        def render_markdown(analysis, context, link)
+          data = Linker.find_series_link_data(analysis[:name], context, nil, link: link)
+          self_link = LinkHelper.self_link?(context, data[:url])
+          text = MdLink.format_link(data, italic: true, self_link: self_link)
+          "#{analysis[:prefix]}#{text}#{analysis[:suffix]}".strip
         end
 
         def should_return_empty?(linked_series_html, analysis)

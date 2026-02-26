@@ -5,7 +5,7 @@ pen_names:
   - Todd Johnson
   - Todd J. McCaffrey
 description: >
-    Alex Gude's reviews of books written by Todd McCaffrey.
+  Alex Gude's reviews of books written by Todd McCaffrey.
 same_as_urls:
   - https://www.isfdb.org/cgi-bin/ea.cgi?21307
   - http://pernhome.com/tjm/

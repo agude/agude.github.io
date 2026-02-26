@@ -8,14 +8,14 @@ rating: 3
 image: /books/covers/the_nameless_city.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a short story by <span
-class="author-name">{{ page.book_authors }}</span> set in the <span
-class="book-series">{{ page.series }}</span>. It follows an unnamed narrator
-who discovers a mysterious ancient city and ventures deep beneath its surface.
+{% book_link page.title %} is a short story by {% author_link
+page.book_authors link=false %} set in {% series_text page.series link=false
+%}. It follows an unnamed narrator who discovers a mysterious ancient city and
+ventures deep beneath its surface.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
+{% capture series %}{% series_text page.series link=false %}{% endcapture %}
 
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture the_authors_short %}{% author_link page.book_authors possessive link_text="Lovecraft" %}{% endcapture %}
@@ -54,6 +54,7 @@ fiction of all genres, I plan to read more stories from the {{ series }} to
 better understand his impact on the field.
 
 {%- comment -%}
+
 1. Dagon
 
 2. The Nameless City

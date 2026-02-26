@@ -2,7 +2,7 @@
 layout: author_page
 title: Mike Resnick
 description: >
-    Alex Gude's reviews of books written by Mike Resnick.
+  Alex Gude's reviews of books written by Mike Resnick.
 same_as_urls:
   - https://www.isfdb.org/cgi-bin/ea.cgi?48
   - https://fancyclopedia.org/Mike_Resnick

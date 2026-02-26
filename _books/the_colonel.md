@@ -8,12 +8,12 @@ rating: 5
 image: /books/covers/the_colonel.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a short story that serves
-as a bridge between {% book_link "Blindsight" %} and {% book_link "Echopraxia" %}. It follows Colonel Keaton---the
-father of Siri Keaton---as he investigates whether the Bicameral hivemind
-poses a threat to baseline humans.
+{% book_link page.title %} is a short story that serves as a bridge between {%
+book_link "Blindsight" %} and {% book_link "Echopraxia" %}. It follows Colonel
+Keaton---the father of Siri Keaton---as he investigates whether the Bicameral
+hivemind poses a threat to baseline humans.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 {% capture wattss %}{% author_link page.book_authors possessive %}{% endcapture %}

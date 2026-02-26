@@ -36,13 +36,14 @@ The plot is pretty good, at least at first glance! It is (appropriately) a
 when the race was not held. But the plot also has a few problems:
 
 [log_wiki]: https://en.wikipedia.org/wiki/Semi-log_plot
+
 [^exp]: Inflation is exponential.
 
 - The X-axis is wrong; the race did not start before 1900 and the two gaps are
-from the World Wars which did not happen in 1898 and 1921.
+  from the World Wars which did not happen in 1898 and 1921.
 
 - The text is too small to read easily at Wikipedia's default 200px image
-size.
+  size.
 
 - The axis labels are redundant and tick labels have a lot of zeroes.
 
@@ -73,7 +74,6 @@ Github][data_rendered]).
 [data_code]: {{ file_dir }}/{{ data_notebook_uri }}
 [data_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ data_notebook_uri }}
 
-
 I fixed the X-axis so that the dates are now correct! The first race is in
 1903 as expected. I have also removed the axis label because I think the tick
 labels make it clear what is plotted. I have added my ([patent pending
@@ -86,7 +86,7 @@ _K_ and _M_. I also removed the label and replaced it with the euro symbol (€)
 on each tick.
 
 I made all the text larger and the lines thicker to improve legibility when the plot
-is downscaled. I have also changed from a line plot to a step plot because the amount 
+is downscaled. I have also changed from a line plot to a step plot because the amount
 of prize money changes at specific moments in time, not continually.
 
 Finally, I have cleaned up the data a bit. The original plot used uncorrected

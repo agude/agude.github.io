@@ -10,13 +10,13 @@ awards:
   - hugo
 ---
 
-<cite class="book-title">{{ page.title }}</cite> was recommended as a
-exciting, hard-scifi book full of new ideas. I was eager to read it, having
-just gotten back into fiction. I bought it for my flight from Melbourne to San
-Francisco and I threw it in the airport trash as I got off the plane.
+{% book_link page.title %} was recommended as a exciting, hard-scifi book full
+of new ideas. I was eager to read it, having just gotten back into fiction. I
+bought it for my flight from Melbourne to San Francisco and I threw it in the
+airport trash as I got off the plane.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 
 Or that's what I wish I had done. Instead, I had 50 pages to go when I landed
 and I finished it during the ride home, where I threw it in the trash (after

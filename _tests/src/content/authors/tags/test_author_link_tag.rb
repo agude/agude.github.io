@@ -25,12 +25,13 @@ class TestAuthorLinkTag < Minitest::Test
   def parse_and_capture_args(markup, context = @context)
     captured_args = nil
     # Stub the utility function
-    stub_render_author_link = lambda do |name, ctx, link_text_override, possessive|
+    stub_render_author_link = lambda do |name, ctx, link_text_override, possessive, link:|
       captured_args = {
         name: name,
         context: ctx,
         link_text_override: link_text_override,
         possessive: possessive,
+        link: link,
       }
       "<!-- Jekyll::Authors::AuthorLinkUtils called with name: #{name}, link_text: #{link_text_override}, " \
         "possessive: #{possessive} -->"
@@ -185,6 +186,80 @@ class TestAuthorLinkTag < Minitest::Test
     assert_equal 'Jane Doe', captured_args[:name]
     assert_nil captured_args[:link_text_override]
     assert_equal false, captured_args[:possessive]
+  end
+
+  # --- link=false Argument Parsing Tests ---
+
+  def test_syntax_parses_link_false
+    captured_args = nil
+    stub = lambda do |name, ctx, link_text_override, possessive, link:|
+      captured_args = { name: name, link: link }
+      'stubbed'
+    end
+    Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, stub do
+      template = Liquid::Template.parse("{% author_link 'Jane Doe' link=false %}")
+      template.render!(@context)
+    end
+    assert_equal false, captured_args[:link]
+  end
+
+  def test_syntax_parses_link_true
+    captured_args = nil
+    stub = lambda do |name, ctx, link_text_override, possessive, link:|
+      captured_args = { name: name, link: link }
+      'stubbed'
+    end
+    Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, stub do
+      template = Liquid::Template.parse("{% author_link 'Jane Doe' link=true %}")
+      template.render!(@context)
+    end
+    assert_equal true, captured_args[:link]
+  end
+
+  def test_link_false_with_possessive
+    captured_args = nil
+    stub = lambda do |name, ctx, link_text_override, possessive, link:|
+      captured_args = { name: name, possessive: possessive, link: link }
+      'stubbed'
+    end
+    Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, stub do
+      template = Liquid::Template.parse("{% author_link 'Jane Doe' link=false possessive %}")
+      template.render!(@context)
+    end
+    assert_equal false, captured_args[:link]
+    assert_equal true, captured_args[:possessive]
+  end
+
+  # --- Markdown Mode link=false Tests ---
+
+  def test_markdown_mode_link_false_renders_plain_text
+    author_page = create_doc(
+      { 'title' => 'Dan Simmons', 'layout' => 'author_page' },
+      '/books/authors/dan-simmons/',
+    )
+    site = create_site({}, {}, [author_page])
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    template = Liquid::Template.parse("{% author_link 'Dan Simmons' link=false %}")
+    output = template.render!(md_context)
+    assert_equal 'Dan Simmons', output
+  end
+
+  def test_markdown_mode_link_false_possessive
+    author_page = create_doc(
+      { 'title' => 'Dan Simmons', 'layout' => 'author_page' },
+      '/books/authors/dan-simmons/',
+    )
+    site = create_site({}, {}, [author_page])
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    template = Liquid::Template.parse("{% author_link 'Dan Simmons' link=false possessive %}")
+    output = template.render!(md_context)
+    assert_equal "Dan Simmons's", output
   end
 
   # --- Markdown Mode Tests ---

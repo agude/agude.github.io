@@ -3,7 +3,7 @@ layout: author_page
 title: Robert Greenberger
 pen_names:
 description: >
-    Alex Gude's reviews of books written by Robert Greenberger.
+  Alex Gude's reviews of books written by Robert Greenberger.
 same_as_urls:
   - https://en.wikipedia.org/wiki/Robert_Greenberger
   - https://www.wikidata.org/wiki/Q7344933

@@ -5,9 +5,9 @@ description: >
   How do data scientist salaries vary by experience and location? Read on to
   find out!
 image: /files/data-science-salaries/josef_wagner_hohenberg_the_billing_coins.jpg
-image_alt: > 
+image_alt: >
   A painting of coins on a table by Josef Wagner-Höhenberg.
-categories: 
+categories:
   - career-advice
   - data-science
 ---
@@ -22,12 +22,13 @@ they won't give you all their data.[^levels] That's why I prefer the survey that
 [Insight][insight] alumni put together. With the full dataset I can slice it
 however I want.
 
-[^levels]: 
+[^levels]:
     One site, [levels.fyi][levels], **does** offer their data and has
     very accurate total compensation information. Definitely give them a look if
     you are trying to figure out what your skills are worth!
 
 [^data]: Companies pay good money to get salary data so they know exactly what a good (and bad) offer looks like. You should have the same information.
+
 [indeed]: https://www.indeed.com/salaries/Data-Scientist-Salaries,-Mountain-View-CA
 [glassdoor]: https://www.glassdoor.com/Salaries/san-jose-data-scientist-salary-SRCH_IL.0,8_IM761_KO9,23.htm
 [insight]: https://www.insightdatascience.com
@@ -57,12 +58,12 @@ scientists, data engineers, and data analysts. Data science salaries span a
 greater range, although this is likely due to the larger number in the sample
 (N=132 vs N=8). The median values are:
 
-| Title                     |  Median Total Compensation |
-|:--------------------------|---------------------------:|
-| Machine Learning Engineer |                      $161k |
-| Data Scientist            |                      $145k |
-| Data Engineer             |                      $128k |
-| Analyst                   |                      $105k |
+| Title                     | Median Total Compensation |
+| :------------------------ | ------------------------: |
+| Machine Learning Engineer |                     $161k |
+| Data Scientist            |                     $145k |
+| Data Engineer             |                     $128k |
+| Analyst                   |                     $105k |
 
 ## Location, Location, Location
 
@@ -128,4 +129,5 @@ Money**_][asking_for_money].
 
 [pat]: https://twitter.com/patio11
 [negotiate]: https://www.kalzumeus.com/2012/01/23/salary-negotiation/
+
 [asking_for_money]: {% post_url 2021-10-25-data_science_asking_for_more_money %}

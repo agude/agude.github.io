@@ -8,13 +8,12 @@ rating: 2
 image: /books/covers/close_to_critical.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the second book in the
-<span class="book-series">{{ page.series }}</span> series. It tells the story
-of a spaceship carrying the children of two ambassadors that crashes on an
-inhospitable planet, forcing humans to collaborate with the primitive native
-aliens to rescue them.
+{% book_link page.title %} is the second book in {% series_text page.series
+link=false %}. It tells the story of a spaceship carrying the children of two
+ambassadors that crashes on an inhospitable planet, forcing humans to
+collaborate with the primitive native aliens to rescue them.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture series %}{% series_link page.series %} series{% endcapture %}
 {% capture clement %}{% author_link page.book_authors %}{% endcapture %}
 {% capture mission %}{% book_link "Mission of Gravity" %}{% endcapture %}

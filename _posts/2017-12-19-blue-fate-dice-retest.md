@@ -25,7 +25,7 @@ sets were fine, but that the fourth set, the blue dice, were significantly biase
 [pvalue]: https://en.wikipedia.org/wiki/p-value
 
 As a scientist, I want to know more than simply whether or not the dice are
-biased; I also want to understand *how* they are biased. Is only one of the
+biased; I also want to understand _how_ they are biased. Is only one of the
 dice actually bad? Are they all slightly biased, but only when combined
 together is the bias significant? These questions could not be answered with
 the data at hand as only the final total for each roll was recorded.
@@ -39,6 +39,7 @@ You can find the Jupyter notebook used to make these calculations
 
 [new_data]: {{file_dir}}/blue_fate_dice_rolls.csv
 [old_data]: {{file_dir}}/fate_dice_data.csv
+
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 

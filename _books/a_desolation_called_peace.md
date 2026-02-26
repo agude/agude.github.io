@@ -11,14 +11,13 @@ awards:
   - locus
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the second book in the
-<span class="book-series">{{ page.series }}</span> series. It tells the story
-of Mahit and Three Seagrass trying to stop the war between the Teixcalaanli
-Empire and a mysterious alien race.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the second book in {% series_text page.series link=false %}. It tells the
+story of Mahit and Three Seagrass trying to stop the war between the
+Teixcalaanli Empire and a mysterious alien race.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 
 {% capture teix1 %}{% book_link "A Memory Called Empire" %}{% endcapture %}
 

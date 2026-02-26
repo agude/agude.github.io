@@ -8,8 +8,8 @@ image: /files/switrs-dataset/doe_computer.jpg
 image_alt: >
   An overhead photo of a Department of Energy supercomputer showing the
   ethernet interconnects.
-categories: 
-  - california-traffic-data 
+categories:
+  - california-traffic-data
   - data-science
 ---
 
@@ -22,6 +22,7 @@ and fix it][s2s]. I wanted other people to be able to make use of the data
 without going through the same hassle, so I released the scripts.
 
 [switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
+
 [s2s]: {% post_url 2016-11-01-switrs_to_sqlite %}
 
 It wasn't enough. People still had to request the data, download it, and then
@@ -117,7 +118,8 @@ Zenodo---hosted by CERN---is a much simpler and smaller service than Kaggle.
 It does not have a community built up around it. It does not have attached
 cloud compute. They have almost no users.[^usage]
 
-[^usage]: As of this post, my dataset has been viewed 161 times on Zenodo and
+[^usage]:
+    As of this post, my dataset has been viewed 161 times on Zenodo and
     downloaded just 47 times. It has been viewed 47,800 times on Kaggle and
     downloaded 3017 times. In addition, there have been 24 Kaggle notebooks
     posted that make use of the data.

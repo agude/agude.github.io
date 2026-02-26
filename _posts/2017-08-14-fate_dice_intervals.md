@@ -30,7 +30,7 @@ As per usual, you can find the Jupyter notebook used to perform these
 calculations and make the plots [here][notebook] ([rendered on
 Github][rendered]).
 
-{% capture notebook_uri %}{{ "Fate Dice Expectation Regions.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "Fate Dice Expectation Regions.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
@@ -43,9 +43,14 @@ appear is to assume that the distribution of results is
 are thrown _N_ times, then the range of expected results is:
 
 [normal]: https://en.wikipedia.org/wiki/Normal_distribution
+
 [^clt]: The [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem) can be used to justify this approximation, but as you can see in the plot in the [binomial section](#binomial-probability), even for large _N_ the distribution is not a perfect Gaussian.
 
+<!-- prettier-ignore-start -->
+
 $$ M_{\pm} = NP \pm z \sqrt{NP(1-P)} $$
+
+<!-- prettier-ignore-end -->
 
 Where [_z_][zscore] is the correct value for the interval (2.58 for 99%) and the
 two M values are the lower (for minus) and upper (for plus) bounds on the
@@ -54,17 +59,17 @@ region.
 [zscore]: https://en.wikipedia.org/wiki/Standard_score
 
 Using this approximation yields values that are close to exact, with the
-exception that they allow negative counts for rare outcomes. The values (the 
+exception that they allow negative counts for rare outcomes. The values (the
 negative outcomes -4 through -1 are removed, because the distribution is symmetric)
 are:
 
 | Outcome | Lower Bound | Upper Bound |
-|:--------|------------:|------------:|
-|       0 |       97.47 |      147.42 |
-|       1 |       79.64 |      126.58 |
-|       2 |       45.05 |       83.84 |
-|       3 |       13.01 |       38.55 |
-|       4 |       -0.06 |       12.95 |
+| :------ | ----------: | ----------: |
+| 0       |       97.47 |      147.42 |
+| 1       |       79.64 |      126.58 |
+| 2       |       45.05 |       83.84 |
+| 3       |       13.01 |       38.55 |
+| 4       |       -0.06 |       12.95 |
 
 ## Wilson Score Interval
 
@@ -75,17 +80,21 @@ go below 0. It is defined as:
 
 [wilson]: https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval
 
+<!-- prettier-ignore-start -->
+
 $$ M_{\pm} = \frac{N^2}{N+z^2} \left[ P + \frac{z^2}{2N} \pm z \sqrt{ \frac{P \left(1 - P\right)}{N}  + \frac{z^2}{4N^2}} \,\right] $$
+
+<!-- prettier-ignore-end -->
 
 Plugging in the numbers yields:
 
 | Outcome | Lower Bound | Upper Bound |
-|:--------|------------:|------------:|
-|       0 |       99.34 |      149.02 |
-|       1 |       81.73 |      128.46 |
-|       2 |       47.52 |       86.31 |
-|       3 |       15.72 |       41.74 |
-|       4 |        2.43 |       16.84 |
+| :------ | ----------: | ----------: |
+| 0       |       99.34 |      149.02 |
+| 1       |       81.73 |      128.46 |
+| 2       |       47.52 |       86.31 |
+| 3       |       15.72 |       41.74 |
+| 4       |        2.43 |       16.84 |
 
 ## Monte Carlo Simulation
 
@@ -131,12 +140,12 @@ percentile and the 99.5 percentile for each possible 4dF outcomes. The results
 are:
 
 | Outcome | Lower Bound | Upper Bound |
-|:--------|------------:|------------:|
-|       0 |          98 |         148 |
-|       1 |          80 |         127 |
-|       2 |          46 |          84 |
-|       3 |          14 |          39 |
-|       4 |           1 |          14 |
+| :------ | ----------: | ----------: |
+| 0       |          98 |         148 |
+| 1       |          80 |         127 |
+| 2       |          46 |          84 |
+| 3       |          14 |          39 |
+| 4       |           1 |          14 |
 
 ## Binomial Probability
 
@@ -168,7 +177,11 @@ of the histogram are the results of the two integrals, each containing about
 
 Each of the bins in the plot has probability given by:
 
+<!-- prettier-ignore-start -->
+
 $$ \binom{N}{M} P^M (1-P)^{N-M} $$
+
+<!-- prettier-ignore-end -->
 
 Where _P_ is the probability of rolling the outcome on one roll and _M_ is the
 number of time the outcome happens in _N_ throws.
@@ -177,12 +190,12 @@ Applying this process to all the possible outcomes gives the following
 results:
 
 | Outcome | Lower Bound | Upper Bound |
-|:--------|------------:|------------:|
-|       0 |          98 |         148 |
-|       1 |          80 |         127 |
-|       2 |          46 |          84 |
-|       3 |          14 |          39 |
-|       4 |           1 |          14 |
+| :------ | ----------: | ----------: |
+| 0       |          98 |         148 |
+| 1       |          80 |         127 |
+| 2       |          46 |          84 |
+| 3       |          14 |          39 |
+| 4       |           1 |          14 |
 
 ## Comparison
 

@@ -9,7 +9,7 @@ image: /files/interviews/watch_and_suite_jeremy_beadle.jpg
 image_alt: >
   A closeup of a watch on a man's wrist. The man is wearing a nice suit and
   is pulling on the cuff next to the watch.
-categories: 
+categories:
   - interviewing
   - opinions
 ---
@@ -21,6 +21,7 @@ questions to ask, what questions not to ask, why the questions we used to ask
 are bad. I have nothing of value to add to that debate.[^haoyi]
 
 [^haoyi]: If that is what you'd like though, I think [Li Haoyi's _How to conduct a good Programming Interview_][lihaoyi] is pretty good.
+
 [lihaoyi]: https://www.lihaoyi.com/post/HowtoconductagoodProgrammingInterview.html
 
 What I do have to add is one guiding principle for the interviewing company:

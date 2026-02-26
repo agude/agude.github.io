@@ -10,8 +10,8 @@ hide_lead_image: False
 image_alt: >
   Black and white photo from around 1920 of men in suits with hats crowded
   around a car that has driven over a curb and lost its front left wheel.
-categories: 
-  - california-traffic-data 
+categories:
+  - california-traffic-data
   - data-science
 ---
 
@@ -30,12 +30,12 @@ SWITRS data, but with a focus on Halloween.
 As per usual, the Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-{% capture notebook_uri %}{{ "SWITRS Incident Dates With Pedestrians On Halloween.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "SWITRS Incident Dates With Pedestrians On Halloween.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
-## Data Selection 
+## Data Selection
 
 I selected crashes involving pedestrians from the [SQLite database][s2s] with
 the following query:
@@ -142,4 +142,4 @@ claim.
 Despite this, the data does not show a significant difference between the two
 distributions, with a _p_-value of 0.08. However, this lower _p_-value as
 compared to the all-ages data does indicate some evidence for the specific
-claim about child deaths. 
+claim about child deaths.

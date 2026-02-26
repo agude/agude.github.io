@@ -3,7 +3,7 @@ layout: author_page
 title: Amal El-Mohtar
 pen_names:
 description: >
-    Alex Gude's reviews of books written by Amal El-Mohtar.
+  Alex Gude's reviews of books written by Amal El-Mohtar.
 same_as_urls:
   - https://amalelmohtar.com/
   - https://en.wikipedia.org/wiki/Amal_El-Mohtar

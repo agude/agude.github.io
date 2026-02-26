@@ -13,13 +13,12 @@ awards:
   - nebula
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors[0] }}</span> and <span
-class="author-name">{{ page.book_authors[1] }}</span>, is a story about two
+{% book_link page.title %}, by {% author_link page.book_authors[0] link=false
+%} and {% author_link page.book_authors[1] link=false %}, is a story about two
 agents---Red and Blue---working for opposite factions from the far future,
 changing the past in an attempt to wipe out the other side.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
 {% capture use_of_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
@@ -117,7 +116,7 @@ Bene Gesserit and their power words in {{ herberts_lastname }} {{ dune }}. Red
 being able to disable part of herself so her controllers wouldn't know what
 she's doing is like Murderbot from {{ wellss_lastname }} {{
 the_murderbot_diaries }}.
- 
+
 Next up are {{ hyperion2 }}, {{ hyperion3 }}, and {{ hyperion4 }}. I put off
 finishing the series the last time I read it, but this time I'm going to make
 it through. I've already started my re-read of {{ hyperion2 }}, and it's even

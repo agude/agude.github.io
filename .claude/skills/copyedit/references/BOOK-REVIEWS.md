@@ -35,21 +35,20 @@ book_authors:
 The first paragraph is special:
 
 1. **Pulled out for previews**: Used on social media cards, front page, related books sections
-2. **No custom plugin tags**: Cannot use `{% book_link %}`, `{% author_link %}`, etc.
+2. **No capture variables**: Cannot define `{% capture %}` blocks and use them here (the capture becomes the excerpt instead of the paragraph text). Inline plugin tags (`{% book_link %}`, `{% author_link %}`, `{% series_text %}`) work fine.
 3. **Can use page variables**: `{{ page.title }}`, `{{ page.book_authors }}`, `{{ page.series }}`
 4. **Must stand alone**: Should make sense without the rest of the review
 
 Standard opening pattern:
 ```markdown
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is [description]. It follows
-[brief plot/premise].
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is [description]. It follows [brief plot/premise].
 ```
 
 For series:
 ```markdown
-<cite class="book-title">{{ page.title }}</cite> is the [Nth] book in the
-<span class="book-series">{{ page.series }}</span>. It [continues/follows]...
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the [Nth] book in {% series_text page.series link=false %}. It [continues/follows]...
 ```
 
 For multiple authors:
@@ -68,8 +67,8 @@ class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and
 
 For 3+ authors (anthologies): Don't enumerate all authors in the first paragraph. Describe generically:
 ```markdown
-<cite class="book-title">{{ page.title }}</cite> is the twelfth book in the
-<span class="book-series">{{ page.series }}</span> series. It's an anthology
+<cite class="book-title">{{ page.title }}</cite> is the twelfth book in
+{% series_text page.series link=false %}. It's an anthology
 of Bolo stories written by three different authors.
 ```
 
@@ -78,8 +77,8 @@ of Bolo stories written by three different authors.
 After the first paragraph, define template variables:
 
 ```liquid
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 
 {% capture other_book %}{% book_link "Other Book Title" %}{% endcapture %}
 {% capture authors_lastname %}{% author_link "Full Name" link_text="Lastname" possessive %}{% endcapture %}

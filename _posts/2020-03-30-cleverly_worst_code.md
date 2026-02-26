@@ -26,10 +26,10 @@ I had to handle setting some state based on two variables. Each variable could
 take one of a few discrete values. For simplicity, think of the variables and
 possible values:
 
-| Variable Name | Possible Values                  |
-|:--------------|---------------------------------:|
+| Variable Name |                  Possible Values |
+| :------------ | -------------------------------: |
 | `direction`   | `north`, `east`, `south`, `west` |
-| `travel_mode` | `bike`, `car`, `plane`        |
+| `travel_mode` |           `bike`, `car`, `plane` |
 
 All twelve combinations required doing something slightly different, so the
 first code I wrote looked something like this:
@@ -38,10 +38,10 @@ first code I wrote looked something like this:
 if (direction == "north" && travel_mode == "bike") {
   do_north_bike_stuff();
 }
-else if (direction == "north" && travel_mode == "car") { 
+else if (direction == "north" && travel_mode == "car") {
   do_north_car_stuff();
 }
-else if ( ... ) { 
+else if ( ... ) {
   ... // etc.
 }
 ```
@@ -62,6 +62,7 @@ remembered a "useful" math fact: the [product of unique primes is itself
 unique][fta].[^useful] A horrible plan came together, it looked like this:
 
 [fta]: https://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic
+
 [^useful]: _Narrator_: It was not useful.
 
 ```cpp
@@ -98,7 +99,11 @@ So how would I write it now? I think a hybrid method is actually the way to
 go, using [`enum`][enum][^post] and a few helper functions:
 
 [enum]: https://en.cppreference.com/w/cpp/language/enum
-[^post]: See [_Python Patterns: Enum_][enum_post], which covers use-cases for `enum` in Python. It works essentially the same in C++.
+
+[^post]:
+    See [_Python Patterns: Enum_][enum_post], which covers use-cases
+    for `enum` in Python. It works essentially the same in C++.
+
 [enum_post]: {% post_url 2019-01-22-python_patterns_enum %}
 
 ```cpp

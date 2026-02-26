@@ -1,0 +1,19 @@
+# Build artifacts
+_site/
+_coverage/
+vendor/
+node_modules/
+
+# Lots of nested Liquid
+linktree.md
+omemo-fingerprints.md
+twitter-disavow.md
+topics/
+
+# Agent/meta files (not site content)
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+README.md
+LICENSE.md
+.claude/

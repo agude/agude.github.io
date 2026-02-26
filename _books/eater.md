@@ -8,13 +8,13 @@ rating: 4
 image: /books/covers/eater.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a hard sci-fi novel by
-<span class="author-name">{{ page.book_authors }}</span>. It follows a group of
+{% book_link page.title %} is a hard sci-fi novel by <span
+class="author-name">{{ page.book_authors }}</span>. It follows a group of
 astrophysicists who discover a sentient black hole that is headed straight
 towards Earth.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture timescape %}{% book_link "Timescape" %}{% endcapture %}
 {% capture cosm %}{% book_link "Cosm" %}{% endcapture %}
@@ -45,6 +45,7 @@ Some other examples of how hard the science is:
 
 [plot]: https://en.wikipedia.org/wiki/Plot_(graphics)
 [macho]: https://en.wikipedia.org/wiki/Massive_compact_halo_object
+
 [^macho]: The Eater itself is, of course, a [MACHO][macho].
 
 I believe that the hardness of the science partly accounts for the poor
@@ -88,6 +89,7 @@ adequate. The main characters are:
   paradoxical personality: perfect for an alien being.
 
 [gary]: https://en.wikipedia.org/wiki/Mary_Sue
+
 [^gary]:
     As Patricia Byrd wrote in [<cite>Star Trek Lives: Trekker
     Slang</cite>][doi]:
@@ -128,7 +130,8 @@ massive companies. Self-driving cars have completely replaced taxis. The US
 government has formed a new, all-powerful agency that takes charge during
 crises.
 
-[^gulf]: The author intentionally hides the date at several points, but
+[^gulf]:
+    The author intentionally hides the date at several points, but
     slips up once and mentions "Since the Gulf War 32 years ago...".
 
 [alto]: https://en.wikipedia.org/wiki/Air-launch-to-orbit

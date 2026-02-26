@@ -8,14 +8,13 @@ rating: 5
 image: /books/covers/the_abyss_beyond_dreams.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> starts off <span
-class="book-series">{{ page.series }}</span>, another series in <span
-class="author-name">{{ page.book_authors }}</span>'s Commonwealth universe.
-Though billed as space opera, it often reads more as urban fantasy since most
-of the story occurs on the planet Bienvenido inside the Void where steam
-engines are their most advanced technology.
+{% book_link page.title %} starts off {% series_text page.series link=false
+%}, another series in {% author_link page.book_authors link=false possessive
+%} Commonwealth universe. Though billed as space opera, it often reads more as
+urban fantasy since most of the story occurs on the planet Bienvenido inside
+the Void where steam engines are their most advanced technology.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 
 {% capture void %}{% series_link "The Void Trilogy" %}{% endcapture %}
@@ -56,8 +55,7 @@ expected would build to climatic confrontations were resolved in under a page.
 But these complaints are minor. The writing is great and the pacing kept me on
 the edge of my seat. A book I could not put down!
 
-[^excession]:
-    Coined by {{ banks }} in {{ excession }}:
+[^excession]: Coined by {{ banks }} in {{ excession }}:
 
     > An Outside Context Problem was the sort of thing most civilizations
     > encountered just once, and which they tended to encounter rather in the

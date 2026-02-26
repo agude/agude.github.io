@@ -2,7 +2,7 @@
 layout: author_page
 title: qntm
 description: >
-    Alex Gude's reviews of books written by qntm.
+  Alex Gude's reviews of books written by qntm.
 same_as_urls:
   - https://www.wikidata.org/wiki/Q106988964
   - https://en.wikipedia.org/wiki/Qntm

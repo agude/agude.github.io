@@ -10,10 +10,11 @@ module Jekyll
     module MarkdownLinkFormatter
       MdText = Jekyll::Infrastructure::Text::MarkdownTextUtils
 
-      def self.format_link(data, italic: false)
+      def self.format_link(data, italic: false, self_link: false)
         text = data[:display_text] || ''
         text = "_#{text}_" if italic && !text.empty?
         return text if data[:status] != :found || data[:url].nil?
+        return text if self_link
 
         "[#{MdText.escape_link_text(text)}](#{MdText.escape_url(data[:url])})"
       end

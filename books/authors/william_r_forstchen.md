@@ -3,7 +3,7 @@ layout: author_page
 title: William R. Forstchen
 pen_names:
 description: >
-    Alex Gude's reviews of books written by William R. Forstchen.
+  Alex Gude's reviews of books written by William R. Forstchen.
 same_as_urls:
   - https://www.wikidata.org/wiki/Q838661
   - https://id.loc.gov/authorities/names/no94020198.html

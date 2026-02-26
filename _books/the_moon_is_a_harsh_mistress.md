@@ -12,14 +12,15 @@ awards:
   - prometheus hall of fame
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is a Hugo Award-winning
-classic of libertarian science fiction. It chronicles the revolt of a lunar
-penal colony against its terrestrial rulers, a revolution orchestrated by a
-small group of rebels and their self-aware computer.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is a Hugo Award-winning classic of libertarian science fiction. It chronicles
+the revolt of a lunar penal colony against its terrestrial rulers, a
+revolution orchestrated by a small group of rebels and their self-aware
+computer.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 
 {% capture sst %}{% book_link "Starship Troopers" %}{% endcapture %}
 {% capture stranger %}{% book_link "Stranger in a Strange Land" %}{% endcapture %}
@@ -103,7 +104,8 @@ wells_lastname_possessive }} {{ mb4 }}, to libertarian apologia in the vein of
 {{ smiths_lastname_possessive }} {{ probability_broach }} or {{
 rand_lastname_possessive }} {{ fountainhead }} and {{ atlas }}.[^orcs]
 
-[^orcs]: It's clear from the above paragraphs which side of [John
+[^orcs]:
+    It's clear from the above paragraphs which side of [John
     Rogers's][orcs] line I fall on:
 
     > There are two novels that can change a bookish fourteen-year old's life:

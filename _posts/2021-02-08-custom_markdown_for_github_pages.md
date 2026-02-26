@@ -4,7 +4,7 @@ title: "Making Custom Markdown for Github Pages"
 description: >
   I love Markdown, I take all my notes in it and write my blog in it. But
   sometimes you want to create new syntax; read on to find out how!
-image: /files/jekyll/stansaab_censor_and_operator.jpg 
+image: /files/jekyll/stansaab_censor_and_operator.jpg
 image_alt: >
   A black and white photo of a man in a short-sleeve collared shirt uses an
   oscilloscope to adjust a circuit board on a Stansaab 'Censor' computer at
@@ -70,6 +70,7 @@ To define our custom syntax then, we just need to write a simple layout and
 place it in `_layouts/substitute.html`:
 
 {% raw %}
+
 ```liquid
 {% comment %}
 <!-- This is the code block to define custom syntax -->
@@ -81,6 +82,7 @@ place it in `_layouts/substitute.html`:
 
 {{output}}
 ```
+
 {% endraw %}
 
 Here `content` is the special variable that contains the compiled HTML from
@@ -90,6 +92,7 @@ We then change our primary layout (probably `_layouts/default.html`) to
 inherit from `substitute`:
 
 {% raw %}
+
 ```html
 ---
 layout: substitute
@@ -98,12 +101,11 @@ layout: substitute
 <!DOCTYPE html>
 <html lang="en">
   <body>
-    <main>
-      {{ content }}
-    </main>
+    <main>{{ content }}</main>
   </body>
 </html>
 ```
+
 {% endraw %}
 
 And that's it! All the customization is controlled by changing the Liquid code
@@ -114,26 +116,30 @@ in `substitute.html`. Below are some examples.
 Markdown has no syntax for <u>Underline</u>, but we can define some like this:
 
 {% raw %}
+
 ```liquid
 {% assign output = content
     | replace: '-!', '<u>'
     | replace: '!-', '</u>'
 %}
 ```
+
 {% endraw %}
 
-Now `-!Underline!-` compiles to `<u>Underline</u>`. 
+Now `-!Underline!-` compiles to `<u>Underline</u>`.
 
 But we can go further: we can define anything we'd like in the substitution,
 for example a `<span>`:
 
 {% raw %}
+
 ```liquid
 {% assign output = content
     | replace: '-!', '<span class="book-title">'
     | replace: '!-', '</span>'
 %}
 ```
+
 {% endraw %}
 
 Which can be fully customized with CSS.
@@ -160,12 +166,14 @@ denote text that has been removed. We can override it to insert
 `<u>Underline</u>` instead as follows:
 
 {% raw %}
+
 ```liquid
 {% assign output = content
   | replace: '<del>', '<u>'
   | replace: '</del>', '</u>'
 %}
 ```
+
 {% endraw %}
 
 Notice that I didn't replace `~~`, I replaced `<del>`. This is because the
@@ -180,11 +188,13 @@ image or table. We can even reshape the page, for example, adding an `<hr>`
 above the footnotes automatically like this:
 
 {% raw %}
+
 ```liquid
 {% assign output = content
   | replace: '<div class="footnotes" role="doc-endnotes">', '<hr><div class="footnotes" role="doc-endnotes">'
 %}
 ```
+
 {% endraw %}
 
 ## Conclusion

@@ -95,7 +95,9 @@ and a focused legend:
 You can read more about the plotting notebook in detail here:
 
 <!-- A grid of hand-selected related posts. -->
+
 {% capture plotting_url %}{% post_url 2020-07-27-data_science_plotting_notebook_template %}{% endcapture %}
+
 <div class="card-grid">
   {% article_card_lookup url=plotting_url %}
 </div>
@@ -135,6 +137,7 @@ To make this plot:
 You can read more about it here:
 
 {% capture time_url %}{% post_url 2021-03-14-data_science_timeseries_plotting_notebook_template %}{% endcapture %}
+
 <div class="card-grid">
   {% article_card_lookup url=time_url %}
 </div>

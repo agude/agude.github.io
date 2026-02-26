@@ -9,10 +9,10 @@ rating: 4
 image: /books/covers/valuable_humans_in_transit_and_other_stories.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a collection of short
-stories by <span class="author-name">{{ page.book_authors }}</span>.
+{% book_link page.title %} is a collection of short stories by {% author_link
+page.book_authors link=false %}.
 
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
 {% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
 {% capture cleaning_up %}{% short_story_link "Cleaning Up" %}{% endcapture %}
@@ -42,6 +42,7 @@ stories by <span class="author-name">{{ page.book_authors }}</span>.
 [valueable_story]: https://qntm.org/transi
 
 ### {% short_story_title "Lena" %}
+
 {% rating_stars 5 %}
 
 {{ lena_link }} is my favorite short story from the past decade. It tells the
@@ -60,6 +61,7 @@ interesting, as this short story shows the potential horrors of brain
 emulation, while {{ bob1 }} presents it in a positive light.
 
 ### {% short_story_title "If You Are Reading This" %}
+
 {% rating_stars 3 %}
 
 {{ if_you_are_reading_this_link }} is about a speed runner who meets his
@@ -69,6 +71,7 @@ mentioning Dark Energy and Higgs research as cutting-edge scientific
 work---but it falls flat. The ideas didn't feel exciting or novel.
 
 ### {% short_story_title "The Frame-by-Frame" %}
+
 {% rating_stars 4 %}
 
 This story follows a self-driving car discovering a man on the road ahead,
@@ -78,6 +81,7 @@ when it realizes the man is the car's former lead programmer who left for a
 competing company.
 
 ### {% short_story_title "The Difference" %}
+
 {% rating_stars 4 %}
 
 {{ the_difference_link }} is an IRC chat between a person (or bot) and other
@@ -86,6 +90,7 @@ people who think he is a bot. As the story progresses, we realize it's
 impossible to determine the truth.
 
 ### {% short_story_title "George" %}
+
 {% rating_stars 4 %}
 
 {{ george_link }} follows a human spaceship that discovers a planet covered in
@@ -96,6 +101,7 @@ giving it access to space travel.
 [grey_wiki]: https://en.wikipedia.org/wiki/Gray_goo
 
 ### {% short_story_title "cripes does anybody remember Google People" %}
+
 {% rating_stars 3 %}
 
 {{ cripes_link }} was originally composed on Twitter, taking the form of a
@@ -103,6 +109,7 @@ series of tweets. The author and others reminisce about a fictional social
 network, Google People, and its strange AI or paranormal behavior.
 
 ### {% short_story_title "Driver" %}
+
 {% rating_stars 4 %}
 
 A follow-up to {{ lena_anchor }}, {{ driver_title }} is another Wikipedia
@@ -111,6 +118,7 @@ images. It expands on the world introduced in {{ lena_title }} and hints at a
 mysterious _ele_.
 
 ### {% short_story_title "I Don't Know, Timmy, Being God Is a Big Responsibility" %}
+
 {% rating_stars 5 %}
 
 I had read a draft of {{ i_dont_know_timmy_link }} before but didn't remember
@@ -121,6 +129,7 @@ simulation. The concept is engaging, and the story does a great job of
 gradually revealing this twist.
 
 ### {% short_story_title "A Powerful Culture" %}
+
 {% rating_stars 4 %}
 
 This story offers a take on the infamous [_"We considered ourselves to be a
@@ -133,6 +142,7 @@ bankss }} {{ art }}.
 [honor]: https://en.wikipedia.org/wiki/Long-term_nuclear_waste_warning_messages
 
 ### {% short_story_title "Valuable Humans in Transit" %}
+
 {% rating_stars 5 %}
 
 {{ valuable_humans_link }} is about an AI that controls all nanotechnology on

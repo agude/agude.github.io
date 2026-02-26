@@ -7,7 +7,7 @@ description: >
 image: /files/shadow-mode/bricks_at_mit.jpg
 image_alt: >
   A black and white photo of bricks making up Kresge Auditorium at MIT.
-categories: 
+categories:
   - machine-learning
   - machine-learning-engineering
 ---
@@ -28,7 +28,8 @@ learning products, I highly recommend [Emmanuel Ameisen's][manu] book:
 
 [manu]: https://mlpowered.com/
 [book]: https://mlpowered.com/book/
-[^disclaimer]: **Disclaimer**: I was a technical editor for the book, but make no money off sales. 
+
+[^disclaimer]: **Disclaimer**: I was a technical editor for the book, but make no money off sales.
 
 ## What Is Shadow Mode?
 
@@ -48,19 +49,19 @@ service disruptions.
 Shadow mode is a great way to test a few things:
 
 - **Engineering**: With a shadow model you can test that the "pipeline" is
-working: the model is getting the inputs it expects, and it is returning
-results in the correct format. You can also verify that the latency is not too
-high.
+  working: the model is getting the inputs it expects, and it is returning
+  results in the correct format. You can also verify that the latency is not too
+  high.
 
 - **Outputs**: You can verify that the distribution of results looks the way
-you expect (for example, your model is not reporting just a single value for
-all input).
+  you expect (for example, your model is not reporting just a single value for
+  all input).
 
 - **Performance**: You can verify that the shadow model is producing results
-that are comparable to or better than those of the live model. This involves
-choosing the right [machine learning metric based on the business use
-case][ml_metrics] to compare the model's outputs against ground truth or
-against each other.
+  that are comparable to or better than those of the live model. This involves
+  choosing the right [machine learning metric based on the business use
+  case][ml_metrics] to compare the model's outputs against ground truth or
+  against each other.
 
 [ml_metrics]: {% post_url 2019-10-28-machine_learning_metrics_interview %}
 
@@ -106,23 +107,23 @@ model that runs at new user creation and blocks suspected bad actors.
 The advantages of this method are:
 
 - **The caller has control.** They decide when to switch the shadow model to
-live. They can roll back instantly if there are problems. They can even stop
-the experiment if it is hurting their system. 
+  live. They can roll back instantly if there are problems. They can even stop
+  the experiment if it is hurting their system.
 
 - **The call can be different.** If the shadow model requires different inputs
-(perhaps a new ID associated with the user), its API can be different than
-that of the live model.
+  (perhaps a new ID associated with the user), its API can be different than
+  that of the live model.
 
-The main disadvantages are: 
+The main disadvantages are:
 
 - **The change is closer to the customer.** The calling code is generally
-closer to the core business, so any bug introduced during integration of the
-shadow model is likely to be more impactful. 
+  closer to the core business, so any bug introduced during integration of the
+  shadow model is likely to be more impactful.
 
 - **Tighter coordination is required.** The team that owns the model and the
-team that calls it will both have to make changes to their code: the model
-team to spin up an endpoint, and the calling team to add the call to the
-second model as well as a logging action.
+  team that calls it will both have to make changes to their code: the model
+  team to spin up an endpoint, and the calling team to add the call to the
+  second model as well as a logging action.
 
 ### Behind the API
 
@@ -145,23 +146,23 @@ going on behind it.
 The advantages of this method are:
 
 - **The model host has control.** You can change the shadow model, turn it on,
-turn it off, and swap in a new one at a whim. You can log exactly what you are
-interested in recording.
+  turn it off, and swap in a new one at a whim. You can log exactly what you are
+  interested in recording.
 
 - **Little coordination with other teams is required.** To the outside world
-the API looks the same as before; no one else has to change their code.
+  the API looks the same as before; no one else has to change their code.
 
 The main disadvantages are:
 
 - **The shadow model must be input compatible with the live model.** Since the
-outside world is not changing what it passes to the API, your shadow model is
-restricted to the same inputs as the live model (although it _can_ choose to
-use only a subset, or get additional inputs via some other method).
+  outside world is not changing what it passes to the API, your shadow model is
+  restricted to the same inputs as the live model (although it _can_ choose to
+  use only a subset, or get additional inputs via some other method).
 
 - **You still have to change the calling code.** Eventually, when the model is
-ready to replace the live model, you will need to change the API version and
-change the calling code to use this new version. This means there is a little
-extra work to be done once you are satisfied with your test results.
+  ready to replace the live model, you will need to change the API version and
+  change the calling code to use this new version. This means there is a little
+  extra work to be done once you are satisfied with your test results.
 
 ## Conclusion
 

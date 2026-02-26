@@ -35,6 +35,7 @@ fingerprints are used to verify the identity of my devices in end-to-end
 encrypted communication.
 
 {% for device in page.omemo_fingerprints %}
+
 ## {{ device.device_name }}
 
 **Fingerprint:** `{{ device.fingerprint }}`
@@ -42,7 +43,7 @@ encrypted communication.
   {% if device.qr_code %}
 **QR Code:** ![{{ device.device_name }} OMEMO QR Code]({{ device.qr_code }}){: .omemo-qr-code }
   {% else %}
-**QR Code:** *No QR code available for this device.*
+**QR Code:** _No QR code available for this device._
   {% endif %}
 
 {% endfor %}

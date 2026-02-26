@@ -8,14 +8,15 @@ rating: 3
 image: /books/covers/the_war_of_the_worlds.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is a landmark science
-fiction novel. It takes place in late Victorian England as an unnamed narrator
-witnesses a terrifying invasion by Martians with advanced weaponry.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is a landmark science fiction novel. It takes place in late Victorian England
+as an unnamed narrator witnesses a terrifying invasion by Martians with
+advanced weaponry.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 
 {% capture orsons %}{% author_link "Orson Welles" possessive %}{% endcapture %}
 {% capture pal %}{% author_link "George Pal" %}{% endcapture %}
@@ -85,7 +86,7 @@ out against inequality and the treatment of the poor. The artilleryman, by
 contrast, sees the Martians as a necessary reckoning---cleansing humanity of
 the weakness brought on by modern life. That lines up well with a lot of
 contemporary conservative rhetoric.
- 
+
 But the style of the book makes it hard to love. The prose is great---in a way
 that {{ suns }}, {{ shards }}, and {{ three }} are not---but the narrative
 takes long digressions and slows the pacing as the author focuses on small

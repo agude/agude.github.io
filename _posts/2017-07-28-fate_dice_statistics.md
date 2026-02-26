@@ -41,7 +41,7 @@ Figuring out the probability of rolling a value is just simple combinatorics.
 These probabilities are:
 
 | Value    | Probability |
-|:---------|------------:|
+| :------- | ----------: |
 | 0        |       19/81 |
 | 1 xor -1 |       16/81 |
 | 2 xor -2 |       10/81 |
@@ -58,7 +58,7 @@ individually. As per usual, you can find the Jupyter notebook used to make
 these calculations [here][notebook] ([rendered on Github][rendered]). The data
 is [here][data].
 
-{% capture notebook_uri %}{{ "Fate Dice Statistics.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "Fate Dice Statistics.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
@@ -95,8 +95,8 @@ this test on our dice yields the following results:
 [chi2_dist]: https://en.wikipedia.org/wiki/Chi-squared_distribution
 
 | Dice  | chi-squared | _p_-value |
-|:------|------------:|----------:|
-| Blue  |       26.31 |     0.001 | 
+| :---- | ----------: | --------: |
+| Blue  |       26.31 |     0.001 |
 | Black |        9.32 |     0.315 |
 | Red   |       10.77 |     0.215 |
 | White |       19.07 |     0.014 |

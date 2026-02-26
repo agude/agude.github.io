@@ -25,6 +25,7 @@ project I built, **Whereto.photo**, tried to answer the question: _Where is
 the best place in this city to take a picture?_
 
 [insight]: https://www.insightdatascience.com/
+
 [should_i_go_insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
 
 In this post I'm going to walk through how I built my project from

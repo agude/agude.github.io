@@ -10,7 +10,7 @@ image: /files/recommender-datasets/header.jpg
 image_alt: >
   Part of the painting 'Allegory of the Four Elements' by Cornelis Jacobsz,
   1610.
-categories: 
+categories:
   - lab41
   - hermes
 ---
@@ -212,17 +212,17 @@ the libraries and functions themselves as items to recommend.
 The various datasets all differ in terms of their key metrics. A summary of
 these metrics for each dataset is provided in the following table:
 
-| Dataset                    | Users     | Items     | Ratings     | Density | Rating Scale            |
-|:---------------------------|----------:|----------:|------------:|--------:|------------------------:|
-| MovieLens 1M               | 6040      | 3883      | 1,000,209   | 4.26%   | [1, 5]                  |
-| MovieLens 10M              | 69,878    | 10681     | 10,000,054  | 1.33%   | [0.5, 5]                |
-| MovieLens 20M              | 138,492   | 27,278    | 20,000,263  | 0.54%   | [0.5, 5]                |
-| Jester                     | 124,113   | 150       | 5,865,235   | 31.50%  | [-10, 10]               |
-| Book-Crossing              | 92,107    | 271,379   | 1,031,175   | 0.0041% | [-10, 10], and implicit |
-| Last.fm                    | 1892      | 17,632    | 92,834      | 0.28%   | Play counts             |
-| Wikipedia                  | 5,583,724 | 4,936,761 | 417,996,336 | 0.0015% | Interactions            |
-| OpenStreetMap (Azerbaijan) | 231       | 108,330   | 205,774     | 0.82%   | Interactions            |
-| Git (Django)               | 790       | 1757      | 13,165      | 0.95%   | Interactions            |
+| Dataset                    |     Users |     Items |     Ratings | Density |            Rating Scale |
+| :------------------------- | --------: | --------: | ----------: | ------: | ----------------------: |
+| MovieLens 1M               |      6040 |      3883 |   1,000,209 |   4.26% |                  [1, 5] |
+| MovieLens 10M              |    69,878 |     10681 |  10,000,054 |   1.33% |                [0.5, 5] |
+| MovieLens 20M              |   138,492 |    27,278 |  20,000,263 |   0.54% |                [0.5, 5] |
+| Jester                     |   124,113 |       150 |   5,865,235 |  31.50% |               [-10, 10] |
+| Book-Crossing              |    92,107 |   271,379 |   1,031,175 | 0.0041% | [-10, 10], and implicit |
+| Last.fm                    |      1892 |    17,632 |      92,834 |   0.28% |             Play counts |
+| Wikipedia                  | 5,583,724 | 4,936,761 | 417,996,336 | 0.0015% |            Interactions |
+| OpenStreetMap (Azerbaijan) |       231 |   108,330 |     205,774 |   0.82% |            Interactions |
+| Git (Django)               |       790 |      1757 |      13,165 |   0.95% |            Interactions |
 
 For two of the datasets we are using a small sample for testing. The
 OpenStreetMap data is limited to edits in Azerbaijan from 2012 and earlier,

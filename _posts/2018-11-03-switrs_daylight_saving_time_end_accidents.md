@@ -8,9 +8,9 @@ description: >
 image: /files/switrs-dst/a_woman_sets_the_clocks_forward.jpg
 image_alt: >
   A blonde woman adjusts the time on a row of clocks at a store.
-categories: 
+categories:
   - data-science
-  - california-traffic-data 
+  - california-traffic-data
 ---
 
 {% capture file_dir %}/files/switrs-dst{% endcapture %}
@@ -38,6 +38,7 @@ DST".[^varughese_cite]
     %}
 
 [dst]: https://en.wikipedia.org/wiki/Daylight_saving_time
+
 [dst_article]: {% post_url 2017-03-20-switrs_daylight_saving_time_accidents %}
 [varughese]: https://doi.org/10.1016/S1389-9457(00)00032-0
 
@@ -51,7 +52,7 @@ trend as Varughese & Allen.
 The Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-{% capture notebook_uri %}{{ "SWITRS Daylight Saving Time Crashes.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "SWITRS Daylight Saving Time Crashes.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
@@ -62,7 +63,7 @@ Just like [last time][dst_ar], I will look at the number of crashes on the
 days following the end of DST. In order to help cancel out effects other than
 the time change---like the fact that [crash rates vary by 30% depending on the
 year][apw]---I will divide each day's total by the number of crashes a week
-later, when people are presumably back to normal. 
+later, when people are presumably back to normal.
 
 [apw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#crashes-per-week
 [dst_ar]: {% post_url 2017-03-20-switrs_daylight_saving_time_accidents %}#crash-ratio
@@ -95,6 +96,7 @@ but two weeks after has similar lighting.
 
 [before_plot]: {{ file_dir }}/accidents_after_end_dst_in_california_before.svg
 [after_plot]: {{ file_dir }}/accidents_two_weeks_after_end_dst_in_california.svg
+
 [^after]: The large deviations on the two week plot for Thursday and Friday are explained by Thanksgiving and Black Friday.
 
 ## _t_-Test
@@ -105,7 +107,7 @@ used by Varughese & Allen. They find a significant (_p_ < 0.002) increase in
 the number of deadly crashes on the Sunday that DST ends, but I do not (_p_
 = 0.082).
 
-Our methods are different in a few key ways: 
+Our methods are different in a few key ways:
 
 - They look only at fatal crashes while I look at all.
 

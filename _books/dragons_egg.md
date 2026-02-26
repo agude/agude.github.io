@@ -10,13 +10,12 @@ awards:
   - locus
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a hard sci-fi novel by
-<span class="author-name">{{ page.book_authors }}</span>. It is the story of
-first contact between humans and the Cheela: beings who live on a neutron
-star.
+{% book_link page.title %} is a hard sci-fi novel by <span
+class="author-name">{{ page.book_authors }}</span>. It is the story of first
+contact between humans and the Cheela: beings who live on a neutron star.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture clements %}{% author_link "Hal Clement" possessive %}{% endcapture %}
 {% capture gravity %}{% book_link "Mission of Gravity " %}{% endcapture %}
 {% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}

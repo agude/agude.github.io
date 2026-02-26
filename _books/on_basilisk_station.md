@@ -9,18 +9,18 @@ rating: 4
 image: /books/covers/on_basilisk_station.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the first book in the
-long-running <span class="book-series">{{ page.series }}</span> series of
-military science fiction. It introduces Commander Honor Harrington, a
-brilliant naval officer exiled to a remote star system with an aging ship and
-a demoralized crew. There, she must enforce the law and uncover a smuggling
-plot that proves to be the opening move in an interstellar war.
+{% book_link page.title %} by {% author_link page.book_authors link=false %}
+is the first book in the long-running military science fiction epic, {%
+series_text page.series link=false %}. It introduces Commander Honor
+Harrington, a brilliant naval officer exiled to a remote star system with an
+aging ship and a demoralized crew. There, she must enforce the law and uncover
+a smuggling plot that proves to be the opening move in an interstellar war.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_authors %}<span class="author-name">{{ page.book_authors }}</span>'s{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
+{% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
 {% capture this_series_link %}{% series_link page.series %}{% endcapture %}
 
 {% capture hh2 %}{% book_link "The Honor of the Queen" %}{% endcapture %}

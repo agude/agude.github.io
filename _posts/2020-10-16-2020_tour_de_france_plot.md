@@ -23,6 +23,7 @@ year's][last_post], I will use plots to explore how the Tour unfolded.
 
 [tour]: https://en.wikipedia.org/wiki/2020_Tour_de_France
 [covid]: https://en.wikipedia.org/wiki/COVID-19_pandemic
+
 [last_post]: {% post_url 2019-08-05-2019_tour_de_france_plot %}
 
 The code that generated the plots can be found [here][plot_code]
@@ -129,12 +130,13 @@ finished in Paris, but lost lots of time in the Alps.
 
 [quintana]: https://en.wikipedia.org/wiki/Nairo_Quintana
 [mc]: https://en.wikipedia.org/wiki/Massif_Central
+
 [^sportsmanship]:
     Ineos said Bernal dropped out to "focus on recovery", but many fans felt
     that Bernal---who had won last year, placed as high as second this year,
     and worn the [white jersey][white] for the best young rider---was
     abandoning the most prestigious race of the season to avoid embarrassment
-    at the hands of his opponents. 
+    at the hands of his opponents.
 
 [white]: https://en.wikipedia.org/wiki/White_jersey
 

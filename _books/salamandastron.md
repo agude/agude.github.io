@@ -8,12 +8,12 @@ rating: 5
 image: /books/covers/salamandastron.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the fifth book in the
-<span class="book-series">{{ page.series }}</span> series. It tells the story
-of two parallel conflicts: the siege of Salamandastron by Ferahgo the Assassin
-and a devastating plague at Redwall Abbey.
+{% book_link page.title %} is the fifth book in {% series_text page.series
+link=false %}. It tells the story of two parallel conflicts: the siege of
+Salamandastron by Ferahgo the Assassin and a devastating plague at Redwall
+Abbey.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture mattimeo %}{% book_link "Mattimeo" %}{% endcapture %}
 {% capture mariel %}{% book_link "Mariel of Redwall" %}{% endcapture %}
@@ -36,7 +36,7 @@ several ways:
 
 - The battles feel weighty and damaging, even to the victors.
 
-{{ this_book }} features the first true *war* in the {{ redwall_series }}
+{{ this_book }} features the first true _war_ in the {{ redwall_series }}
 series: we witness warrior hares defending their mountain fortress against
 thousands of vermin in a full-scale conflict. In the previous Redwall sieges,
 the death of a defender was a major, book-defining moment; in the siege of

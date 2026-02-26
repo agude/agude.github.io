@@ -10,7 +10,7 @@ image_alt: >
   A pencil drawing of a robot inspecting a car. Prompt: A simple color pencil
   drawing a robot, inspecting a car, holding a clipboard, white background.
 redirect_from: blog/good-uses-for-large-language-mo-models/
-categories: 
+categories:
   - generative-ai
   - large-language-models
   - machine-learning
@@ -26,7 +26,7 @@ make[^make] of the vehicle. This field is a free text field, but there is a
 relatively small number of common brands, so it should be mapped to a
 categorical column.
 
-[^make]: 
+[^make]:
     The "make" of a vehicle is the brand of the manufacturer, like 'Honda',
     'Ford', 'Tesla', etc.
 
@@ -69,9 +69,9 @@ As someone who did this mapping by hand for [over 900 entries][git], it is
 quite tedious. Fortunately, making sense of mangled text is something [Large
 Language Models (LLMs) are pretty good at][good_llm]!
 
-[git]:  https://github.com/agude/SWITRS-to-SQLite/blob/85ac7e7850680bd47f3fef5a44ab180d8ee9dd8b/switrs_to_sqlite/make_map.py
-[good_llm]: {% post_url 2023-04-12-good_uses_for_large_language_models %}
+[git]: https://github.com/agude/SWITRS-to-SQLite/blob/85ac7e7850680bd47f3fef5a44ab180d8ee9dd8b/switrs_to_sqlite/make_map.py
 
+[good_llm]: {% post_url 2023-04-12-good_uses_for_large_language_models %}
 
 ## Automating
 
@@ -172,11 +172,11 @@ itself, but succeeded when I gave it the list:
 
 ```
 WINN
-WINNE   
+WINNE
 WINNEBAG
 WINNEBAGO
 WINNI
-WNBG 
+WNBG
 WNBGO
 ```
 
@@ -189,7 +189,7 @@ I obtained the following performance on my 902 hand-mapped entries:
 
 - The model correctly fixed 2 entries that I had gotten wrong.
 
-- It matched 682 (75.6%) of my hand-labeled mappings. 
+- It matched 682 (75.6%) of my hand-labeled mappings.
 
 - It missed 218 (24.1%) of the mappings, frequently using made-up enum values.
 

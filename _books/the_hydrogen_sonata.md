@@ -8,19 +8,18 @@ rating: 5
 image: /books/covers/the_hydrogen_sonata.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the tenth and final
-<span class="book-series">{{ page.series }}</span> book. It explores the last
-days of the Glitz people as they prepare to Sublime.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the tenth and final book in {% series_text page.series link=false %}. It
+explores the last days of the Glitz people as they prepare to Sublime.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
 {% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
 
 {% capture the_quarry %}{% book_link "The Quarry" %}{% endcapture %}
-{% capture iain_banks %}<span class="author-name">Iain Banks</span>{% endcapture %}
+{% capture iain_banks %}{% author_link page.book_authors link=false link_text="Iain Banks" %}{% endcapture %}
 
 {% capture c1 %}{% book_link "Consider Phlebas" %}{% endcapture %}
 {% capture c2 %}{% book_link "The Player of Games" %}{% endcapture %}
@@ -51,11 +50,11 @@ Each character finds their own meaning in the story: Vyr takes on the
 life-task of playing the titular Hydrogen Sonata. The barbaric Colonel Cagad
 Agansu derives meaning from his position in the military hierarchy, regardless
 of what it demands of him. Reikl's meaning comes from serving and dying
-honorably.  The revelers on the _Equatorial 353_ find meaning in hedonism. The
+honorably. The revelers on the _Equatorial 353_ find meaning in hedonism. The
 drone, Hassipura Plyn-Frie, shapes rocks and sand into kinetic sculptures.
 Ngaroe QiRia immerses himself in sound.
 
-[^last]: 
+[^last]:
     It is the last book published under the author's "{{ the_author }}" name.
     A final book, {{ the_quarry }}, was published posthumously under the name
     "{{ iain_banks }}".

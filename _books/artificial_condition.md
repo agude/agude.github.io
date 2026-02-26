@@ -8,13 +8,13 @@ rating: 5
 image: /books/covers/artificial_condition.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the second book in the
-<span class="book-series">{{ page.series }}</span>. It follows Murderbot as it
-digs into its past and, once again, saves some scientists.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the second book in {% series_text page.series link=false %}. It follows
+Murderbot as it digs into its past and, once again, saves some scientists.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
@@ -54,7 +54,7 @@ realizing that its need to protect people isn't leftover programming but a
 core part of who it is. There's a scene where ART proposes surgically
 modifying Murderbot to help it stay hidden, and Murderbot instinctively
 rejects it. To it, changing itself feels like losing part of what makes it
-*it*. In the end, though, Murderbot accepts the alteration as necessary to
+_it_. In the end, though, Murderbot accepts the alteration as necessary to
 remain free.
 
 This question of "what makes the self" is a common theme in sci-fi, one we've

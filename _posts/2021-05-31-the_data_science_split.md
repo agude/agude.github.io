@@ -23,7 +23,8 @@ across country and gotten a job with the help of [Insight][insight]. It was
 there that I realized that the data science role was already splintering into
 multiple, specialized roles.
 
-[^pro]: At least in the sense that I was paid to do it... I don't claim to
+[^pro]:
+    At least in the sense that I was paid to do it... I don't claim to
     have been any good.
 
 [phd]: {% post_url 2018-01-19-should_i_get_a_phd %}#but-there-are-no-jobs
@@ -84,6 +85,7 @@ infrastructure, to improving specialized tooling, to building models, to
 reporting out the results. I discuss five of these roles in my next post:
 
 {% capture url %}{% post_url 2021-06-01-data_science_job_spectrum %}{% endcapture %}
+
 <div class="card-grid">
   {% article_card_lookup url=url %}
 </div>

@@ -8,17 +8,17 @@ rating: 3
 image: /books/covers/the_sirens_of_titan.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is a satirical science
-fiction novel about the richest man in America, Malachi Constant. It follows
-his unwilling and absurd journey from Earth to Mars, Mercury, and finally
-Titan, exploring questions about free will, the purpose of human history, and
-the nature of religion along the way.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is a satirical science fiction novel about the richest man in America, Malachi
+Constant. It follows his unwilling and absurd journey from Earth to Mars,
+Mercury, and finally Titan, exploring questions about free will, the purpose
+of human history, and the nature of religion along the way.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
+{% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture harrison_bergeron %}{% short_story_link "Harrison Bergeron" %}{% endcapture %}
 {% capture cats_cradle %}{% book_link "Cat's Cradle" %}{% endcapture %}
@@ -94,15 +94,15 @@ life. The difference is I found {{ hitchhikers_guide_short }} to be
       url="https://www.darkermatter.com/issue1/douglas_adams.php"
       access_date="October 4, 2025"
     %}
-{{ the_author }}, who I think is absolutely superb. I've read {{ this_book }}
-six times now, and it gets better every time. He is an influence, I must own
-up. {{ this_book }} is just one of those books---you read it through the first
-time and you think it's very loosely, casually written. You think the fact
-that everything suddenly makes such good sense at the end is almost
-accidental. And then you read it a few more times, simultaneously finding out
-more about writing yourself, and you realize what an absolute tour de force it
-was, making something as beautifully honed as that appear so casual.
-{% endcitedquote %}
+    {{ the_author }}, who I think is absolutely superb. I've read {{ this_book }}
+    six times now, and it gets better every time. He is an influence, I must own
+    up. {{ this_book }} is just one of those books---you read it through the first
+    time and you think it's very loosely, casually written. You think the fact
+    that everything suddenly makes such good sense at the end is almost
+    accidental. And then you read it a few more times, simultaneously finding out
+    more about writing yourself, and you realize what an absolute tour de force it
+    was, making something as beautifully honed as that appear so casual.
+    {% endcitedquote %}
 
 I think {{ the_authors_lastname_possessive }} writing is just too
 straightforward for my tastes. I have a weakness for books that are a bit of a

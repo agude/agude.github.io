@@ -8,11 +8,11 @@ rating: 3
 image: /books/covers/heavens_river.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the fourth book in the
-<span class="book-series">{{ page.series }}</span> series. It starts a new
-storyline and changes the way the stories are told.
+{% book_link page.title %} is the fourth book in {% series_text page.series
+link=false %}. It starts a new storyline and changes the way the stories are
+told.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture bobiverse %}{% series_link page.series %}{% endcapture %}
 
 {% capture bob1 %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}

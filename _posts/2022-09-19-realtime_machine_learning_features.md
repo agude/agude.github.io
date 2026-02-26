@@ -8,7 +8,7 @@ description: >
 image: /files/realtime-features/20110727-14-38-39--customs_house_tower_close.jpg
 image_alt: >
   A black and white photo of the clock on the Customs House Tower in Boston.
-categories: 
+categories:
   - machine-learning
   - machine-learning-engineering
 ---

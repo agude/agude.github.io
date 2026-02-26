@@ -8,12 +8,12 @@ rating: 1
 image: /books/covers/house_of_suns.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a standalone hard sci-fi
-book by <span class="author-name">{{ page.book_authors }}</span>. It tells the
-story of the Gentian Line, a family of clones who are betrayed, nearly wiped
-out, and must unravel what happened.
+{% book_link page.title %} is a standalone hard sci-fi book by {% author_link
+page.book_authors link=false %}. It tells the story of the Gentian Line, a
+family of clones who are betrayed, nearly wiped out, and must unravel what
+happened.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture quantum %}{% book_link "The Quantum Thief" %}{% endcapture %}
 {% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}

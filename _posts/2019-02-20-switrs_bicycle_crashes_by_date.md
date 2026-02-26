@@ -8,8 +8,8 @@ image: /files/switrs-bicycle-accidents-by-date/wilhelmina_cycle_co.jpg
 image_alt: >
   An 1890s advertisement for Wilhelmina Cycle Co. Ltd. showing a family on bicycles.
 use_latex: True
-categories: 
-  - california-traffic-data 
+categories:
+  - california-traffic-data
   - cycling
   - data-science
 ---
@@ -24,6 +24,7 @@ when it's good riding weather. Today I want to look at something a little
 closer to my heart: **bicycles**.
 
 [switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
+
 [car_switrs]: {% post_url 2016-12-02-switrs_crashes_by_date %}
 [mc_switrs]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}
 
@@ -34,7 +35,7 @@ crashes happen is something I am very interested in.
 As per usual, the Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-{% capture notebook_uri %}{{ "SWITRS Crash Dates With Bicycles.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "SWITRS Crash Dates With Bicycles.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
@@ -44,14 +45,19 @@ As per usual, the Jupyter notebook used to perform this analysis can be found
 Before we dig into the data, I have a simple model for how many bicycle
 crashes there are. It is:
 
+<!-- prettier-ignore-start -->
+
 $$ N_{\textrm{crashes}} = P_{\textrm{car-bike}} \, L_{\textrm{miles biked}} \, \lambda_{\textrm{cars per mile}} $$
+
+<!-- prettier-ignore-end -->
 
 That is, the number of crashes involving bicycles ($$N$$) is the probability
 of a crash happening when a bike encounters a car ($$P$$) times the number of
 cars encountered ($$L \lambda$$). This ignores some crashes, like solo crashes
 and those that do not involve a car, but these are rare.[^rare]
 
-[^rare]: Of the 223,772 recorded crashes with bicycles, **89% involve a car**.
+[^rare]:
+    Of the 223,772 recorded crashes with bicycles, **89% involve a car**.
     There is a bias though: SWITRS reports are filled out when the police or
     CHP are called to the scene. As such, they skew towards worse accidents.
 
@@ -67,6 +73,7 @@ I selected crashes involving bicycles from the [SQLite database][s2s]
 ([discussed previously][s2s_post]) with the following query:
 
 [s2s]: https://github.com/agude/SWITRS-to-SQLite
+
 [s2s_post]: {% post_url 2016-11-01-switrs_to_sqlite %}
 
 ```sql

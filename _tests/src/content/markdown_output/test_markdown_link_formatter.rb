@@ -90,4 +90,26 @@ class TestMarkdownLinkFormatter < Minitest::Test
     result = Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data)
     assert_equal '[Dune](/books/dune/)', result
   end
+
+  # --- self_link: true ---
+
+  def test_format_link_self_link_returns_plain_text
+    data = { status: :found, url: '/books/dune/', display_text: 'Dune' }
+    assert_equal 'Dune', Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data, self_link: true)
+  end
+
+  def test_format_link_self_link_with_italic
+    data = { status: :found, url: '/books/dune/', display_text: 'Dune' }
+    assert_equal '_Dune_', Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data, italic: true, self_link: true)
+  end
+
+  def test_format_link_self_link_not_found_returns_plain_text
+    data = { status: :not_found, url: nil, display_text: 'Unknown' }
+    assert_equal 'Unknown', Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data, self_link: true)
+  end
+
+  def test_format_link_self_link_false_still_links
+    data = { status: :found, url: '/books/dune/', display_text: 'Dune' }
+    assert_equal '[Dune](/books/dune/)', Jekyll::MarkdownOutput::MarkdownLinkFormatter.format_link(data, self_link: false)
+  end
 end

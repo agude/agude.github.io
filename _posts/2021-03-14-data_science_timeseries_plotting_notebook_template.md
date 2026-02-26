@@ -6,7 +6,7 @@ description: >
 image: /files/jupyter-library/jupiter_in_the_rearview_mirror.jpg
 image_alt: >
   The planet Jupiter as seen by the departing Juno spacecraft.
-categories: 
+categories:
   - data-visualization
   - data-science
   - jupyter
@@ -38,12 +38,12 @@ Suppose we are looking at the number of automobile collisions by make using my
 [curated SWITRS dataset][switrs_data]. We could extract one row for each
 collision and the associated vehicle, which would look like this:
 
-|  ID  |   datetime |  vehicle_make |
-|:-----|-----------:|--------------:|
-| 0    | 2020-01-01 |         Honda |
-| 1    | 2020-02-01 |        Toyota |
-| 2    | 2020-01-01 |         Other |
-| ...  |        ... |           ... |
+| ID  |   datetime | vehicle_make |
+| :-- | ---------: | -----------: |
+| 0   | 2020-01-01 |        Honda |
+| 1   | 2020-02-01 |       Toyota |
+| 2   | 2020-01-01 |        Other |
+| ... |        ... |          ... |
 
 [switrs_data]: {% post_url 2020-11-24-switrs_sqlite_hosted_dataset %}
 
@@ -59,7 +59,7 @@ accidents per week by vehicle make, we would call:
 
 ```python
 plot_time_series(
-  df, 
+  df,
   ax,
   date_col="datetime",
   category_col="vehicle_make",
@@ -77,12 +77,12 @@ California][first_plot]][first_plot]
 The function accepts a few optional parameters:
 
 - `resample_frequency`: controls the timescale over which the data is
-aggregated.
+  aggregated.
 
 - `aggfunc` which controls how the data is aggregated.
 
 - `linewidth` which can be used to make the lines larger if there are only a
-few of them, or thinner if there is lots of data.
+  few of them, or thinner if there is lots of data.
 
 ### Simple Legend
 

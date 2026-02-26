@@ -8,18 +8,18 @@ rating: 4
 image: /books/covers/endymion.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the third book in the
-<span class="book-series">{{ page.series }}</span>. It follows a new cast of
-characters---Aenea, Raul, and Bettik---as they flee the oppressive forces of
-the Pax via a raft on the River Tethys. Set centuries after the earlier books,
-the story reveals a galaxy reshaped by the Church and its dark covenant of
-immortality.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the third book in {% series_text page.series link=false %}. It follows a
+new cast of characters---Aenea, Raul, and Bettik---as they flee the oppressive
+forces of the Pax via a raft on the River Tethys. Set centuries after the
+earlier books, the story reveals a galaxy reshaped by the Church and its dark
+covenant of immortality.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture series_link %}{% series_link page.series %}{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>'s{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
+{% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 {% capture fall_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}

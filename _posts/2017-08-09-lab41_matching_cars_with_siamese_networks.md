@@ -8,7 +8,7 @@ description: >
 image: /files/siamese-networks/header.jpg
 image_alt: >
   View of a freeway seen through a chain-link fence at sunset.
-categories: 
+categories:
   - lab41
   - pelops
 ---
@@ -22,6 +22,7 @@ of video automatically. We found that background subtraction worked OK based
 on the small amount of labeled data we had.
 
 [pelops]: https://github.com/Lab41/pelops
+
 [chipping]: {% post_url 2017-08-07-lab41_object_localization_without_deep_learning %}
 
 In this post I'll go over the rest of the pipeline: **feature extraction** and
@@ -142,6 +143,7 @@ traffic cameras in China. An example of two VeRi images from Liu _et
 al._[^liu] is shown below.
 
 [veri]: https://ieeexplore.ieee.org/document/7553002/
+
 [^veri]:
     {% citation
       author_last="Liu, Xinchen and Liu, Wu and Ma, Huadong and Fu, Huiyuan"
@@ -174,7 +176,6 @@ al._[^liu] is shown below.
   caption="Two example images from VeRi showing the same truck passing two
   different cameras."
 %}
-
 
 This dataset allowed us to test our performance on essentially the exact task
 we were hoping to solve: re-identifying the same vehicle if it passed another

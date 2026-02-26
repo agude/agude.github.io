@@ -53,12 +53,11 @@ data is summarized in the table below:
 {% capture xome_post %}$1074K<span class="supsub"><sup>+91K</sup><sub>-113K</sub></span>{% endcapture %}
 
 | Company         |  Pre-listing | Post-listing |     Post-sale |
-|:----------------|-------------:|-------------:|--------------:|
-| **Zillow**      |        $938K |        $941K |       $1077K |
-| **Realtor.com** |        $977K | Not Recorded |       $1105K |
+| :-------------- | -----------: | -----------: | ------------: |
+| **Zillow**      |        $938K |        $941K |        $1077K |
+| **Realtor.com** |        $977K | Not Recorded |        $1105K |
 | **Xome**        | {{xome_pre}} |    Unchanged | {{xome_post}} |
-| **Redfin**      |      $1144K |        $963K |       $1090K |
-
+| **Redfin**      |       $1144K |        $963K |        $1090K |
 
 I could not find Realtor.com's estimate after the listing went up, so it is
 not included. Xome did not change their estimate after the listing was posted.
@@ -85,13 +84,13 @@ https://en.wikipedia.org/wiki/Geometric_Shapes_(Unicode){% endcomment %}
 The three price estimates are:
 
 - **Pre-listing**: Before the listing was picked up by the brokers,
-   represented with a circle: {{circle}}
+  represented with a circle: {{circle}}
 
 - **Post-listing**: After the listing was posted but before the sale,
-   represented with a triangle: {{triangle}}
+  represented with a triangle: {{triangle}}
 
 - **Post-sale**: After the sale was made public, represented with a square:
-   {{square}}
+  {{square}}
 
 I have slightly offset the date points for each company---with the circle on
 left, the triangle in the middle, and the square on the right---to give a
@@ -120,8 +119,8 @@ about 3%, although they gave themselves a lot of room with their uncertainty.
 Here are the four pre-listing estimates ranked from lowest to highest absolute
 error:
 
-| Company         |  Absolute Error| Percent Error |
-|:----------------|---------------:|--------------:|
+| Company         | Absolute Error | Percent Error |
+| :-------------- | -------------: | ------------: |
 | **Xome**        |           $30K |          2.8% |
 | **Redfin**      |           $74K |          6.9% |
 | **Realtor.com** |           $93K |          8.7% |

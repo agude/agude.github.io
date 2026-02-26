@@ -28,6 +28,24 @@ module Jekyll
           display_text
         end
 
+        # Returns true when target_url points to the same conceptual page as
+        # the current page (after canonical-URL resolution), with no fragment.
+        # Used by link tags to suppress self-links in both HTML and Markdown.
+        def self.self_link?(context, target_url)
+          site, page = _extract_context_components(context)
+          return false unless site && page
+
+          target_url_str = target_url.to_s
+          return false if target_url_str.empty?
+
+          current_page_url = page['url']
+          target_base_url, target_fragment = _parse_url_parts(target_url_str)
+          return false if target_fragment
+
+          current_canonical, target_canonical = _resolve_canonical_urls(site, current_page_url, target_base_url)
+          current_canonical == target_canonical
+        end
+
         # Generates the final HTML (<a> or just the inner element) based on the target URL and context.
         # @param context [Liquid::Context] The current Liquid context.
         # @param target_url [String, nil] The URL to link to.

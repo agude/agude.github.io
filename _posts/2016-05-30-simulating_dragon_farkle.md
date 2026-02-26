@@ -42,7 +42,7 @@ instead damages the dragon. The player's turn can end in one of three ways:
 
 1. The player **wins** the game if dragon takes a total of three damage.
 
-2. The player's turn ends if they roll a farkle *and* roll a 0 on the special
+2. The player's turn ends if they roll a farkle _and_ roll a 0 on the special
    die. If they roll damage and a farkle they can continue rolling.
 
 3. The player's turn ends if they run out of soldiers.
@@ -60,8 +60,8 @@ question. The notebook that performs the simulation can be found
 [here][notebook] ([rendered on Github][rendered]). The plotting notebook is
 [here][plotnotebook] ([rendered on Github][plotrendered]).
 
-{% capture notebook_uri %}{{ "Dragon Farkle Simulation.ipynb" | uri_escape }}{% endcapture %} 
-{% capture notebook_plotting_uri %}{{ "Plot Results.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "Dragon Farkle Simulation.ipynb" | uri_escape }}{% endcapture %}
+{% capture notebook_plotting_uri %}{{ "Plot Results.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}

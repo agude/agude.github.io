@@ -25,6 +25,7 @@ year's][last_post], I plot how the race unfolded.
 [tour]: https://en.wikipedia.org/wiki/2021_Tour_de_France
 [olympics]: https://en.wikipedia.org/wiki/2020_Summer_Olympics
 [covid]: https://en.wikipedia.org/wiki/COVID-19_pandemic
+
 [last_post]: {% post_url 2020-10-16-2020_tour_de_france_plot %}
 
 The code that generated the plots can be found [here][plot_code]
@@ -45,7 +46,7 @@ winner of last year's race, was the clear favorite this year.
 [yellow]: https://en.wikipedia.org/wiki/General_classification_in_the_Tour_de_France
 [pogacar]: https://en.wikipedia.org/wiki/Tadej_Poga%C4%8Dar
 
-[^young]: 
+[^young]:
     Pogačar is the second youngest winner of the Tour at 21. [Henri
     Cornet][cornet] is the youngest winner at just 10 days shy of 20 when he
     won the 1904 edition.
@@ -93,6 +94,7 @@ rest of the race.
 
 [mvdp]: https://en.wikipedia.org/wiki/Mathieu_van_der_Poel
 [wva]: https://en.wikipedia.org/wiki/Wout_van_Aert
+
 [^cyclocross]:
     Van der Poel and van Aert are an exciting pair to watch! They got their
     start dominating [cyclo-cross][cross], where their only real competition
@@ -143,7 +145,6 @@ raised the possibility of him beating Merckx's record.
     me a sense of nostalgia and excitement for the sport I hadn't felt for a
     while. I hope the feeling lasts.
 
-
 [green]: https://en.wikipedia.org/wiki/Points_classification_in_the_Tour_de_France
 [cav]: https://en.wikipedia.org/wiki/Mark_Cavendish
 [most_stage_wins]: https://en.wikipedia.org/wiki/Tour_de_France_records_and_statistics#Stage_wins_per_rider
@@ -193,7 +194,7 @@ almost identical to Cavendish's for the first 12 stages, as he stayed with
 the sprinter to ensure that Cavendish made it in under the time cut. Declercq
 was involved in a major crash in stage 13, where he lost almost 15 minutes.
 But he held on as other, slower riders dropped out, allowing him take the
-[lanterne rougue][lanterne] awarded to the last place rider. 
+[lanterne rougue][lanterne] awarded to the last place rider.
 
 [declercq]: https://en.wikipedia.org/wiki/Tim_Declercq
 [lanterne]: https://en.wikipedia.org/wiki/Lanterne_rouge
@@ -208,6 +209,7 @@ started to lose time in the Alps. He held on and finished in Paris, but far
 down the leaderboard.
 
 [alaphilippe]: https://en.wikipedia.org/wiki/Julian_Alaphilippe
+
 [2019_tour]: {% post_url 2019-08-05-2019_tour_de_france_plot %}#the-race-for-yellow
 
 Although this year's competition for the yellow jersey lacked the excitement

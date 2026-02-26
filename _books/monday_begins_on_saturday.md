@@ -9,16 +9,16 @@ rating: 3
 image: /books/covers/monday_begins_on_saturday.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by brothers <span
-class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and
-<span class="author-name">{{ page.book_authors[1] }}</span>, is a Soviet
-sci-fi novel about scientist-magicians working at the National Institute for
-the Technology of Witchcraft and Thaumaturgy (NITWITT), where they study
-fairy-tale creatures and magic items.
+{% book_link page.title %}, by brothers {% author_link "Arkady Strugatsky"
+link=false link_text="Arkady" %} and {% author_link "Boris Strugatsky"
+link=false %}, is a Soviet sci-fi novel about scientist-magicians working at
+the National Institute for the Technology of Witchcraft and Thaumaturgy
+(NITWITT), where they study fairy-tale creatures and magic items.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_authors_possessive %}<span class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and <span class="author-name">{{ page.book_authors[1] }}</span>'s{% endcapture %}
-{% capture boris %}<span class="author-name">{{ page.book_authors[1] }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture first_author_first %}{{ page.book_authors[0] | split: " " | first }}{% endcapture %}
+{% capture the_authors_possessive %}{% author_link page.book_authors[0] link=false link_text=first_author_first %} and {% author_link page.book_authors[1] link=false possessive %}{% endcapture %}
+{% capture boris %}{% author_link page.book_authors[1] link=false %}{% endcapture %}
 {% capture this_book_short %}{% book_link page.title link_text="Saturday" %}{% endcapture %}
 
 {% capture picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}

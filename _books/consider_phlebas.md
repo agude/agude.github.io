@@ -8,14 +8,14 @@ rating: 1
 image: /books/covers/consider_phlebas.jpg
 ---
 
-I've been meaning to read <span class="author-name">Banks</span>'s <span
-class="book-series">{{ page.series }}</span> series for more than two decades,
-so I was excited to finally get started. Unfortunately, <cite
-class="book-title">{{ page.title }}</cite> was not a great introduction.
+I've been meaning to read {% author_link page.book_authors link=false
+link_text="Banks" possessive %} {% series_text page.series link=false %} for
+more than two decades, so I was excited to finally get started. Unfortunately,
+<cite class="book-title">{{ page.title }}</cite> was not a great introduction.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
-{% capture banks %}<span class="author-name">Banks</span>{% endcapture %}
+{% capture banks %}{% author_link page.book_authors link=false link_text="Banks" %}{% endcapture %}
 {% capture bankss %}{{ banks }}'s{% endcapture %}
 {% capture c2 %}{% book_link "The Player of Games" %}{% endcapture %}
 
@@ -32,8 +32,7 @@ gruesome imagery---something [he is infamous for][wasp]---is off putting.
 
 [wasp]: https://en.wikipedia.org/wiki/The_Wasp_Factory
 
-[^banks]:
-    {{ banks }} says this is the point:
+[^banks]: {{ banks }} says this is the point:
 
     {% citedquote
       work_title="Interview with Iain M. Banks"

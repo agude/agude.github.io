@@ -7,7 +7,7 @@ description: >
   determine which teams are each season's gatekeeper.
 image: /files/overwatch_league/gate_of_damascus_jerusalem_april_14_1939_by_louis_haghe_and_david_roberts.jpg
 hide_lead_image: False
-image_alt: > 
+image_alt: >
   Drawing showing the Gate of Damascus in Jerusalem. Many men and camels wait
   outside.
 categories:
@@ -17,7 +17,7 @@ categories:
 {% capture file_dir %}/files/overwatch_league/{% endcapture %}
 
 Watching the [Overwatch league][owl] is probably my nerdiest hobby (well after
-doing data analysis on the weekend so I can write these posts of course). 
+doing data analysis on the weekend so I can write these posts of course).
 
 [owl]: https://en.wikipedia.org/wiki/Overwatch_League
 
@@ -25,7 +25,7 @@ Overwatch fans love debating which team each year is the "gatekeeper". The
 gatekeeper is the team that beats lower ranked teams, often in a lopsided
 fashion, but can't themselves move out of the [midtable][mid]. In this way
 they gatekeep the standings: top teams can beat them, bottom teams can't, and
-so they define the dividing line between the two groups. 
+so they define the dividing line between the two groups.
 
 [mid]: https://en.wiktionary.org/wiki/midtable
 
@@ -80,15 +80,16 @@ Github][gatekeeper_rendered]).
 
 [match_level_data]: {{ file_dir }}/match_level_data.json
 
-{% capture notebook_gatekeeper_uri %}{{ "OWL Gatekeeper Teams.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_gatekeeper_uri %}{{ "OWL Gatekeeper Teams.ipynb" | uri_escape }}{% endcapture %}
 [gatekeeper_notebook]: {{ file_dir }}/{{ notebook_gatekeeper_uri }}
 [gatekeeper_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_gatekeeper_uri }}
 
-[^match]: A match consists of multiple maps that are played sequentially. The
-          first team to win a specific number of maps wins the match. The
-          number of map wins needed is often 3, but occasionally 4 or more for
-          tournaments. Some seasons all maps were played out even if one team
-          had already clinched the match.
+[^match]:
+    A match consists of multiple maps that are played sequentially. The
+    first team to win a specific number of maps wins the match. The
+    number of map wins needed is often 3, but occasionally 4 or more for
+    tournaments. Some seasons all maps were played out even if one team
+    had already clinched the match.
 
 [map_stats]: https://overwatchleague.com/en-us/statslab
 
@@ -100,10 +101,11 @@ accurate estimate of a team's performance. The parsed standings data is
 [here][standings_data]. The code to generate the data frame is
 [here][parser_notebook] ([rendered on Github][parser_rendered]).
 
-[liquipedia]: https://liquipedia.net/overwatch/Overwatch_League 
+[liquipedia]: https://liquipedia.net/overwatch/Overwatch_League
+
 [standings_data]: {{ file_dir }}/owl_standings.json
 
-{% capture notebook_parser_uri %}{{ "OWL Gatekeeper Teams.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_parser_uri %}{{ "OWL Gatekeeper Teams.ipynb" | uri_escape }}{% endcapture %}
 [parser_notebook]: {{ file_dir }}/{{ notebook_parser_uri }}
 [parser_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_parser_uri }}
 
@@ -125,20 +127,20 @@ think could rightfully be called gatekeepers.
 
 ### 2018 Season
 
-| Team                   |    Gatekeeper Score |
-|------------------------|--------------------:|
-| New York Excelsior     |                 --- |
-| Los Angeles Valiant    |                  28 |
-| Boston Uprising        |                   8 |
-| Los Angeles Gladiators |                  56 |
-| London Spitfire        |                  23 |
-| Philadelphia Fusion    |                  33 |
-| Houston Outlaws        |                  28 |
-| **Seoul Dynasty**      |              **61** |
-| San Francisco Shock    |                  54 |
-| Dallas Fuel            |                  51 |
-| **Florida Mayhem**     |              **89** |
-| Shanghai Dragons       |                 --- |
+| Team                   | Gatekeeper Score |
+| ---------------------- | ---------------: |
+| New York Excelsior     |              --- |
+| Los Angeles Valiant    |               28 |
+| Boston Uprising        |                8 |
+| Los Angeles Gladiators |               56 |
+| London Spitfire        |               23 |
+| Philadelphia Fusion    |               33 |
+| Houston Outlaws        |               28 |
+| **Seoul Dynasty**      |           **61** |
+| San Francisco Shock    |               54 |
+| Dallas Fuel            |               51 |
+| **Florida Mayhem**     |           **89** |
+| Shanghai Dragons       |              --- |
 
 [2018_dragons]: https://en.wikipedia.org/wiki/2018_Shanghai_Dragons_season
 
@@ -160,7 +162,7 @@ But are they the gatekeeper? They run into the [volatility problem I described
 above][volatility]: 3 wins against the Dragons got them 100 points and 4 wins
 against better teams lost them only 11.
 
-[volatility]: #high-volatility-near-the-top-and-bottom 
+[volatility]: #high-volatility-near-the-top-and-bottom
 
 I think the [2018 Seoul Dynasty][2018_seoul] are a better candidate for the
 gatekeeper team. They went 22-18, solidly middle-of-the-pack, and they have a
@@ -183,28 +185,28 @@ down in the rankings.
 
 [goats]: https://thegamehaus.com/overwatch/a-comprehensive-history-of-overwatch-metas-part-15-goats/2020/02/06/
 
-| Team                   |   Gatekeeper Score |
-|:-----------------------|-------------------:|
-| Vancouver Titans       |                --- |
-| San Francisco Shock    |                 24 |
-| New York Excelsior     |                 56 |
-| **Hangzhou Spark**     |             **75** |
-| Los Angeles Gladiators |                 44 |
-| Atlanta Reign          |                 12 |
-| London Spitfire        |                 39 |
-| Seoul Dynasty          |                 47 |
-| Guangzhou Charge       |                 46 |
-| Philadelphia Fusion    |                 28 |
-| Shanghai Dragons       |                 13 |
-| Chengdu Hunters        |                 38 |
-| Los Angeles Valiant    |                 26 |
-| Paris Eternal          |                 25 |
-| Dallas Fuel            |                 55 |
-| Houston Outlaws        |                 26 |
-| Toronto Defiant        |                  7 |
-| **Washington Justice** |             **83** |
-| Boston Uprising        |                 24 |
-| Florida Mayhem         |                --- |
+| Team                   | Gatekeeper Score |
+| :--------------------- | ---------------: |
+| Vancouver Titans       |              --- |
+| San Francisco Shock    |               24 |
+| New York Excelsior     |               56 |
+| **Hangzhou Spark**     |           **75** |
+| Los Angeles Gladiators |               44 |
+| Atlanta Reign          |               12 |
+| London Spitfire        |               39 |
+| Seoul Dynasty          |               47 |
+| Guangzhou Charge       |               46 |
+| Philadelphia Fusion    |               28 |
+| Shanghai Dragons       |               13 |
+| Chengdu Hunters        |               38 |
+| Los Angeles Valiant    |               26 |
+| Paris Eternal          |               25 |
+| Dallas Fuel            |               55 |
+| Houston Outlaws        |               26 |
+| Toronto Defiant        |                7 |
+| **Washington Justice** |           **83** |
+| Boston Uprising        |               24 |
+| Florida Mayhem         |              --- |
 
 Once again a bottom-ranked team has the highest score and for the same reason:
 [volatility][volatility]. The [2019 Washington Justice][2019_justice] went 4-0
@@ -215,7 +217,7 @@ against Boston and Florida and 4-20 against better teams.
 More interesting are the [2019 Hangzhou Spark][2019_spark], who placed fourth.
 They lost every game against the top three teams, going 0-7, including 2 lost
 playoff games against the eventual champions the San Francisco Shock. But the
-Spark made up for it with a 75% win rate against worse teams. 
+Spark made up for it with a 75% win rate against worse teams.
 
 [2019_spark]: https://en.wikipedia.org/wiki/2019_Hangzhou_Spark_season
 
@@ -237,21 +239,21 @@ Asian regions separately.
 
 #### North America
 
-| Team                   |   Gatekeeper Score |
-|:-----------------------|-------------------:|
-| Philadelphia Fusion    |                --- |
-| San Francisco Shock    |                 14 |
-| Paris Eternal          |                 31 |
-| Florida Mayhem         |                 41 |
-| Los Angeles Valiant    |                 15 |
-| Los Angeles Gladiators |                 50 |
-| **Atlanta Reign**      |             **67** |
-| **Dallas Fuel**        |             **77** |
-| Toronto Defiant        |                 62 |
-| Houston Outlaws        |                  6 |
-| Vancouver Titans       |                 39 |
-| Washington Justice     |                 69 |
-| Boston Uprising        |                --- |
+| Team                   | Gatekeeper Score |
+| :--------------------- | ---------------: |
+| Philadelphia Fusion    |              --- |
+| San Francisco Shock    |               14 |
+| Paris Eternal          |               31 |
+| Florida Mayhem         |               41 |
+| Los Angeles Valiant    |               15 |
+| Los Angeles Gladiators |               50 |
+| **Atlanta Reign**      |           **67** |
+| **Dallas Fuel**        |           **77** |
+| Toronto Defiant        |               62 |
+| Houston Outlaws        |                6 |
+| Vancouver Titans       |               39 |
+| Washington Justice     |               69 |
+| Boston Uprising        |              --- |
 
 The [2020 Atlanta Reign][2020_reign] were the first time I remember a team
 specifically being referred to as a gatekeeper. They had flashy, lopsided
@@ -259,7 +261,7 @@ games against teams below them in the standings, but constantly failed to
 advance by beating teams ahead of them. You can see it in their stats: the
 Reign have an 85% win rate against lower ranked teams---the third highest in
 the league behind the eventual champions the Shock and Washington who only had
-team below them---but just an 18% win rate against higher ranked teams. 
+team below them---but just an 18% win rate against higher ranked teams.
 
 [2020_reign]: https://en.wikipedia.org/wiki/2020_Atlanta_Reign_season
 
@@ -272,15 +274,15 @@ that year!
 
 #### Asia
 
-| Team                   |   Gatekeeper Score |
-|:-----------------------|-------------------:|
-| Shanghai Dragons       |                --- |
-| Guangzhou Charge       |                 40 |
-| New York Excelsior     |                 38 |
-| **Hangzhou Spark**     |             **50** |
-| Seoul Dynasty          |                 32 |
-| Chengdu Hunters        |                 23 |
-| London Spitfire        |                --- |
+| Team               | Gatekeeper Score |
+| :----------------- | ---------------: |
+| Shanghai Dragons   |              --- |
+| Guangzhou Charge   |               40 |
+| New York Excelsior |               38 |
+| **Hangzhou Spark** |           **50** |
+| Seoul Dynasty      |               32 |
+| Chengdu Hunters    |               23 |
+| London Spitfire    |              --- |
 
 There were two facts in the 2020 Asian region: the Shanghai Dragons were the
 best team in the region by a mile, and the London[^london] Spitfire were the
@@ -293,8 +295,9 @@ exactly in the middle of the pack in the standings.
 
 [2020_spark]: https://en.wikipedia.org/wiki/2020_Hangzhou_Spark_season
 
-[^london]: I know London is not in Asia, and neither is New York, but during
-           the pandemic these teams decided to move to Korea for safety.
+[^london]:
+    I know London is not in Asia, and neither is New York, but during
+    the pandemic these teams decided to move to Korea for safety.
 
 ## 2021 Season
 
@@ -306,21 +309,20 @@ were determined.
 
 ### North America
 
-| Team                       |   Gatekeeper Score |
-|:---------------------------|-------------------:|
-| Dallas Fuel                |                --- |
-| **Los Angeles Gladiators** |             **70** |
-| Atlanta Reign              |                 32 |
-| San Francisco Shock        |                 43 |
-| Houston Outlaws            |                 47 |
-| Washington Justice         |                 39 |
-| **Toronto Defiant**        |             **62** |
-| Paris Eternal              |                 46 |
-| Boston Uprising            |                 31 |
-| Florida Mayhem             |                 69 |
-| **London Spitfire**        |            **100** |
-| Vancouver Titans           |                --- |
-
+| Team                       | Gatekeeper Score |
+| :------------------------- | ---------------: |
+| Dallas Fuel                |              --- |
+| **Los Angeles Gladiators** |           **70** |
+| Atlanta Reign              |               32 |
+| San Francisco Shock        |               43 |
+| Houston Outlaws            |               47 |
+| Washington Justice         |               39 |
+| **Toronto Defiant**        |           **62** |
+| Paris Eternal              |               46 |
+| Boston Uprising            |               31 |
+| Florida Mayhem             |               69 |
+| **London Spitfire**        |          **100** |
+| Vancouver Titans           |              --- |
 
 The [2021 London Spitfire][2021_spitfire] were a disappointing team. The
 majority of the players had been called up from the Spitfire's academy team
@@ -356,16 +358,16 @@ teams.
 
 ### Asia
 
-| Team                   |   Gatekeeper Score |
-|:-----------------------|-------------------:|
-| Shanghai Dragons       |                --- |
-| Chengdu Hunters        |                 53 |
-| **Seoul Dynasty**      |             **62** |
-| Philadelphia Fusion    |                 40 |
-| Hangzhou Spark         |                 42 |
-| New York Excelsior     |                 27 |
-| **Guangzhou Charge**   |             **79** |
-| Los Angeles Valiant    |                --- |
+| Team                 | Gatekeeper Score |
+| :------------------- | ---------------: |
+| Shanghai Dragons     |              --- |
+| Chengdu Hunters      |               53 |
+| **Seoul Dynasty**    |           **62** |
+| Philadelphia Fusion  |               40 |
+| Hangzhou Spark       |               42 |
+| New York Excelsior   |               27 |
+| **Guangzhou Charge** |           **79** |
+| Los Angeles Valiant  |              --- |
 
 The [2021 Guangzhou Charge][2021_charge] have the highest gatekeeper score,
 but it is, once again, [due to only having a single team below

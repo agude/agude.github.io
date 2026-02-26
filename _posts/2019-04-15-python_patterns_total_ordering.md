@@ -110,6 +110,7 @@ one of the other comparison methods. The rest of the methods are filled in for
 us. It's used like so:
 
 [^to]: A [decorator][decorator] is a function that takes a Python object as an argument and returns a (often) modified copy of the object.
+
 [decorator]: https://docs.python.org/3/glossary.html#term-decorator
 
 ```python

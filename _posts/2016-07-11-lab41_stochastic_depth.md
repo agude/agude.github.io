@@ -9,7 +9,7 @@ description: >
 image: /files/stochastic-depth/header.jpg
 image_alt: >
   Zion national park, a very deep canyon, but probably not stochastically deep.
-categories: 
+categories:
   - reading-group
   - lab41
 use_latex: true

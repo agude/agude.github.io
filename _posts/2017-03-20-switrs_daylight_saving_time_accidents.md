@@ -8,8 +8,8 @@ description: >
 image: /files/switrs-dst/dst_change_gare_saint_lazare_1937.png
 image_alt: >
   A man adjusts the central time of the Gare Saint-Lazare in Paris, 1937.
-categories: 
-  - california-traffic-data 
+categories:
+  - california-traffic-data
   - data-science
 seo:
   date_modified: 2018-10-13T22:25:17-0700
@@ -28,6 +28,7 @@ data][s2s_post] that I've collected.
 [energy]: https://www.scientificamerican.com/article/does-daylight-saving-times-save-energy/
 [varughese]: https://doi.org/10.1016/S1389-9457(00)00032-0
 [smith]: https://doi.org/10.1257/app.20140100
+
 [s2s_post]: {% post_url 2016-11-01-switrs_to_sqlite %}
 
 [^varughese_cite]:
@@ -62,7 +63,7 @@ data][s2s_post] that I've collected.
 The Jupyter notebook used to perform this analysis can be found
 [here][notebook] ([rendered on Github][rendered]).
 
-{% capture notebook_uri %}{{ "SWITRS Daylight Saving Time Crashes.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "SWITRS Daylight Saving Time Crashes.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
@@ -77,9 +78,15 @@ that are unrelated to the time change---like the fact that [crash rates vary
 by 30% depending on the year][apw]. Two weeks after is a good choice for
 normalization because:
 
-[^after]: It is also possible to use the week before or the week directly after the DST change to normalize. For the curious, I have also made [a plot using the week before for normalization][before_plot] and [the week after][after_plot]. They both show the same trend.
+[^after]:
+    It is also possible to use the week before or the week directly
+    after the DST change to normalize. For the curious, I have also
+    made [a plot using the week before for normalization][before_plot]
+    and [the week after][after_plot]. They both show the same trend.
+
 [before_plot]: {{ file_dir }}/accidents_after_dst_change_in_california_before.svg
 [after_plot]: {{ file_dir }}/accidents_after_dst_change_in_california.svg
+
 [apw]: {% post_url 2016-12-02-switrs_crashes_by_date %}#crashes-per-week
 
 - The weeks after the time change have similar daylight hours to the week of
@@ -89,7 +96,16 @@ normalization because:
   the very next week hides some of the increase that is due to the start of
   DST.[^back_to_normal]
 
-[^back_to_normal]: I assume that people are back to normal after three weeks, and so I use that week as a control. I then compare that ratios of the control week with [one week after the DST change][1_vs_3] and [two weeks after the DST change][2_vs_3] to see which is more normal. One week after has Monday and Thursday high, indicating people are still having more crashes than we expect. Two weeks after the ratios are near one, and so I conclude people are back to normal by then. 
+[^back_to_normal]:
+    I assume that people are back to normal after three weeks, and so
+    I use that week as a control. I then compare that ratios of the
+    control week with [one week after the DST change][1_vs_3] and
+    [two weeks after the DST change][2_vs_3] to see which is more
+    normal. One week after has Monday and Thursday high, indicating
+    people are still having more crashes than we expect. Two weeks
+    after the ratios are near one, and so I conclude people are back
+    to normal by then.
+
 [1_vs_3]: {{ file_dir }}/accidents_one_and_three_weeks_after_dst_change_in_california.svg
 [2_vs_3]: {{ file_dir }}/accidents_two_and_three_weeks_after_dst_change_in_california.svg
 
@@ -119,15 +135,15 @@ results.
 
 [paired_t-test]: https://en.wikipedia.org/wiki/Student%27s_t-test#Paired_samples
 
-| Day          | _t_-value |   _p_-value |
-|:-------------|----------:|------------:|
-| **Monday**   |       2.7 |   **0.017** |
-| **Tuesday**  |       2.5 |   **0.023** |
-| Wednesday    |       1.6 |     0.122   |
-| Thursday     |       1.4 |     0.191   |
-| Friday       |       0.9 |     0.361   |
-| **Saturday** |       2.6 |   **0.019** |
-| Sunday (DST) |      -1.6 |     0.121   |
+| Day          | _t_-value | _p_-value |
+| :----------- | --------: | --------: |
+| **Monday**   |       2.7 | **0.017** |
+| **Tuesday**  |       2.5 | **0.023** |
+| Wednesday    |       1.6 |     0.122 |
+| Thursday     |       1.4 |     0.191 |
+| Friday       |       0.9 |     0.361 |
+| **Saturday** |       2.6 | **0.019** |
+| Sunday (DST) |      -1.6 |     0.121 |
 
 The increase in crashes on Monday is significant, as is Tuesday and Saturday.
 Sunday is the only day that trends lower (matching the plot), but not

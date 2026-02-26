@@ -25,6 +25,7 @@ been delayed by [COVID][covid] and 2021 edition moved to avoid the
 [tour]: https://en.wikipedia.org/wiki/2022_Tour_de_France
 [olympics]: https://en.wikipedia.org/wiki/2020_Summer_Olympics
 [covid]: https://en.wikipedia.org/wiki/COVID-19_pandemic
+
 [last_post]: {% post_url 2021-08-18-2021_tour_de_france_plot %}
 
 The code that generated the plots can be found [here][plot_code]

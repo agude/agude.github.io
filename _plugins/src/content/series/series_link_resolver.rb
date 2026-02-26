@@ -23,12 +23,14 @@ module Jekyll
         @log_output = ''
       end
 
-      def resolve(title_raw, override_raw)
-        data = resolve_data(title_raw, override_raw)
+      def resolve(title_raw, override_raw, link: true)
+        @link = link
+        data = resolve_data(title_raw, override_raw, link: link)
         render_html_from_data(data)
       end
 
-      def resolve_data(title_raw, override_raw)
+      def resolve_data(title_raw, override_raw, link: true)
+        @link = link
         return { status: :no_site, url: nil, display_text: title_raw.to_s }.freeze unless @site
 
         @title_input = title_raw.to_s
@@ -44,7 +46,7 @@ module Jekyll
         display_text = determine_display_text(series_data)
 
         if series_data
-          { status: :found, url: series_data['url'], display_text: display_text }.freeze
+          { status: :found, url: @link ? series_data['url'] : nil, display_text: display_text }.freeze
         else
           { status: :not_found, url: nil, display_text: display_text }.freeze
         end
@@ -99,7 +101,11 @@ module Jekyll
       def generate_html(data)
         span = Jekyll::Series::SeriesLinkUtils._build_series_span_element(data[:display_text])
 
-        html = LinkHelper._generate_link_html(@context, data[:url], span)
+        html = if @link
+                 LinkHelper._generate_link_html(@context, data[:url], span)
+               else
+                 span
+               end
         @log_output + html
       end
     end

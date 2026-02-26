@@ -2,7 +2,7 @@
 layout: author_page
 title: Keith Laumer
 description: >
-    Alex Gude's reviews of books written by Keith Laumer.
+  Alex Gude's reviews of books written by Keith Laumer.
 same_as_urls:
   - https://www.wikidata.org/wiki/Q724395
   - https://id.loc.gov/authorities/names/n80032675.html

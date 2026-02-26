@@ -77,6 +77,7 @@ the examples below for clarity.
 {% capture notebook_uri %}{{ "Matplotlib Animation Blitting Example - Supernova Spectra.ipynb" | uri_escape }}{% endcapture %}
 
 [data]: https://snfactory.lbl.gov/snf/data/SNfactory_Pereira_etal_2013_SN2011fe.tar.gz
+
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
@@ -105,7 +106,7 @@ requires us to write three functions:
 - [`frame_iter()`][frame_iter]: yields the `frame_data` needed to draw each update
 
 - [`update_artists(frame_data)`][update_artists]: takes `frame_data` and
-updates the artists
+  updates the artists
 
 [init_fig]: #init_fig-function
 [frame_iter]: #frame_iter-function
@@ -118,6 +119,7 @@ post][tuple_post]). This will let us access the different artists by name, for
 example `artists.flux_line`, instead of having to remember their index number.
 
 [namedtuple]: https://docs.python.org/2/library/collections.html#collections.namedtuple
+
 [tuple_post]: {% post_url 2018-12-18-python_patterns_namedtuple %}
 
 ### init_fig Function

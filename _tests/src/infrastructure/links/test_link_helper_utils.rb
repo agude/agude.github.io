@@ -194,6 +194,64 @@ class TestLinkHelperUtils < Minitest::Test
     assert_equal expected, Jekyll::Infrastructure::Links::LinkHelperUtils._generate_link_html(ctx, found_doc.url, inner_html)
   end
 
+  # --- Tests for self_link? ---
+
+  def test_self_link_same_page
+    site = create_site
+    current_page = create_doc({}, '/books/dune.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    assert Jekyll::Infrastructure::Links::LinkHelperUtils.self_link?(ctx, '/books/dune.html')
+  end
+
+  def test_self_link_different_page
+    site = create_site
+    current_page = create_doc({}, '/books/dune.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    refute Jekyll::Infrastructure::Links::LinkHelperUtils.self_link?(ctx, '/books/other.html')
+  end
+
+  def test_self_link_with_fragment_is_not_self_link
+    site = create_site
+    current_page = create_doc({}, '/books/dune.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    refute Jekyll::Infrastructure::Links::LinkHelperUtils.self_link?(ctx, '/books/dune.html#section')
+  end
+
+  def test_self_link_nil_url
+    site = create_site
+    current_page = create_doc({}, '/books/dune.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    refute Jekyll::Infrastructure::Links::LinkHelperUtils.self_link?(ctx, nil)
+  end
+
+  def test_self_link_empty_url
+    site = create_site
+    current_page = create_doc({}, '/books/dune.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    refute Jekyll::Infrastructure::Links::LinkHelperUtils.self_link?(ctx, '')
+  end
+
+  def test_self_link_nil_context
+    refute Jekyll::Infrastructure::Links::LinkHelperUtils.self_link?(nil, '/books/dune.html')
+  end
+
+  def test_self_link_canonical_map
+    site = create_site
+    site.data['link_cache']['url_to_canonical_map'] = {
+      '/books/canonical.html' => '/books/canonical.html',
+      '/books/archived.html' => '/books/canonical.html',
+    }
+    current_page = create_doc({}, '/books/archived.html')
+    ctx = create_context({}, { site: site, page: current_page })
+
+    assert Jekyll::Infrastructure::Links::LinkHelperUtils.self_link?(ctx, '/books/canonical.html')
+  end
+
   def test_integration_with_link_cache_generator_for_self_link_suppression
     canonical_book = create_doc({ 'title' => 'Canonical', 'published' => true }, '/books/canonical.html')
     archived_book = create_doc(

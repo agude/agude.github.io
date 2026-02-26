@@ -8,12 +8,11 @@ rating: 3
 image: /books/covers/the_dragons_banker.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is a standalone novel by
-<span class="author-name">{{ page.book_authors }}</span>. It tells the story of
-Sailor Kelstern, a banker in a fantasy world who, as the title suggests, is
-hired by a dragon.
+{% book_link page.title %} is a standalone novel by {% author_link
+page.book_authors link=false %}. It tells the story of Sailor Kelstern, a
+banker in a fantasy world who, as the title suggests, is hired by a dragon.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 One of my favorite niche sub-genres of fantasy[^fate] explores the question:
 What if a dragon used their intellect, riches, and magic to subtly shape the

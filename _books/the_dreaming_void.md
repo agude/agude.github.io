@@ -8,14 +8,14 @@ rating: 5
 image: /books/covers/the_dreaming_void.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is set in the same universe
-as <span class="author-name">Hamilton</span>'s <span
-class="book-series">Commonwealth Saga</span>, but saying that isn't quite
-strong enough: it is really a sequel. You pretty much must read the
-Commonwealth Saga first because half of the characters return, and every major
-plot point from the earlier books is spoiled in this one.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is set in the same universe as {% series_text "Commonwealth Saga" link=false
+%}, but saying that isn't quite strong enough: it is really a sequel. You
+pretty much must read the Commonwealth Saga first because half of the
+characters return, and every major plot point from the earlier books is
+spoiled in this one.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture judas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}
 {% capture pandoras_star %}{% book_link "Pandora's Star" %}{% endcapture %}

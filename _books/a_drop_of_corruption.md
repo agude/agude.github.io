@@ -8,15 +8,14 @@ rating: 4
 image: /books/covers/a_drop_of_corruption.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the second <span
-class="book-series">{{ page.series }}</span> book. This time, Din and Ana
-track down a murderer in the northern Kingdom of Yarrow whose brilliance is
-almost a match for Ana's own.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the second book in {% series_text page.series link=false %}. This time, Din
+and Ana track down a murderer in the northern Kingdom of Yarrow whose
+brilliance is almost a match for Ana's own.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">{{ page.book_authors | split: " " | last }}</span>{% endcapture %}
-
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 
 {% capture book1 %}{% book_link "The Tainted Cup" %}{% endcapture %}
 

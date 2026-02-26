@@ -3,7 +3,7 @@ layout: author_page
 title: Linda Evans
 pen_names:
 description: >
-    Alex Gude's reviews of books written by Linda Evans.
+  Alex Gude's reviews of books written by Linda Evans.
 same_as_urls:
   - https://en.wikipedia.org/wiki/Linda_Evans_(author)
   - https://www.wikidata.org/wiki/Q3241335

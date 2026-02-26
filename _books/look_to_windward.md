@@ -8,13 +8,12 @@ rating: 5
 image: /books/covers/look_to_windward.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the seventh <span
-class="book-series">{{ page.series }}</span> book. It explores the aftermath
-of the Idiran--Culture War and Chelgrian civil war.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the seventh book in {% series_text page.series link=false %}. It explores
+the aftermath of the Idiran--Culture War and Chelgrian civil war.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
 
 {% capture c1 %}{% book_link "Consider Phlebas" %}{% endcapture %}
@@ -93,8 +92,7 @@ The Hub itself has died twice, been restored from backup once, and transferred
 to its current body on Masaq'. In the end, both the Hub and Quilan choose
 complete erasure---true death with no chance of rebirth.
 
-[^lampshade]:
-    {{ the_author }} [lampshades][lampshade] this:
+[^lampshade]: {{ the_author }} [lampshades][lampshade] this:
 
     > The pairing of this [Misil Tchasole's] rebirth with Ibm Dolince's death
     > was supposed to take some of the sadness out of the man's departure, but

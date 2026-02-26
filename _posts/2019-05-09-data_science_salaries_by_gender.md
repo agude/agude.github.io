@@ -5,7 +5,7 @@ description: >
   How do the salaries of women data scientists compare to those of men? This month we
   explore pay by gender and location.
 image: /files/data-science-salaries/josef_wagner_hohenberg_the_notary_2_coins.jpg
-image_alt: > 
+image_alt: >
   A painting of coins on a table by Josef Wagner-Höhenberg.
 categories:
   - career-advice
@@ -22,7 +22,8 @@ Data Science salaries a little with the same [Insight data][insight] I used
 [pay_gap]: https://en.wikipedia.org/wiki/Gender_pay_gap
 [women_in_tech]: https://qz.com/work/1287881/how-technology-companies-alienate-women-during-recruitment/
 [insight]: https://www.insightdatascience.com
-[last_time]: {% post_url 2019-03-26-data_science_salaries %} 
+
+[last_time]: {% post_url 2019-03-26-data_science_salaries %}
 
 Others have looked into the same question before: [Florian
 Lindstaedt][florian] used a much larger (but less clean) dataset from Kaggle
@@ -72,6 +73,7 @@ data scientist who responded "transgender" without further indicating their
 gender identity.
 
 [^salary]: Salary, yearly bonus, and yearly stock grant. Signing bonus is not included.
+
 [last_time_mle]: {% post_url 2019-03-26-data_science_salaries %}#scientists-engineers-and-analysts
 
 So, how is pay equality in data science?
@@ -84,10 +86,10 @@ scientists.][gender_plot]][gender_plot]
 Pretty equal, actually! The median woman in the sample earns more than the
 median man, but of course the number of samples is really small.
 
-| Gender  |  Median Total Compensation|
-|:--------|--------------------------:|
-| Female  |                     $149k |
-| Male    |                     $139k |
+| Gender | Median Total Compensation |
+| :----- | ------------------------: |
+| Female |                     $149k |
+| Male   |                     $139k |
 
 There are lots of things I would like to explore---like "do women see the same benefit from
 seniority as men?", as [I observed last time][last_time_senior]---but
@@ -113,6 +115,7 @@ Again, these look pretty equal, with the median woman earning slightly more than
 median man in both regions.
 
 {% comment %}Raw HTML is needed to have entries span columns or rows.{% endcomment %}
+
 <table>
   <thead>
     <tr> <th>Region</th> <th>Gender</th> <th style="text-align: right">Median Total Compensation</th> </tr>
@@ -127,7 +130,7 @@ median man in both regions.
 
 ## By Age
 
-Finally, I can check what Florian found: that women under 30 earned more than 
+Finally, I can check what Florian found: that women under 30 earned more than
 men in the same age range, but men out earned women in the 30--35 age range. I use the same
 selection as above, but now partitioning by age instead of region.
 

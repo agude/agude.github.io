@@ -2,7 +2,7 @@
 layout: author_page
 title: Ursula K. Le Guin
 description: >
-    Alex Gude's reviews of books written by Ursula K. Le Guin.
+  Alex Gude's reviews of books written by Ursula K. Le Guin.
 same_as_urls:
   - https://www.wikidata.org/wiki/Q181659
   - https://en.wikipedia.org/wiki/Ursula_K._Le_Guin

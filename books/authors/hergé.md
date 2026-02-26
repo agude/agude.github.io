@@ -2,7 +2,7 @@
 layout: author_page
 title: Hergé
 description: >
-    Alex Gude's reviews of books written by Hergé.
+  Alex Gude's reviews of books written by Hergé.
 same_as_urls:
   - https://www.wikidata.org/wiki/Q52985
   - https://seriewikin.serieframjandet.se/index.php/Herg%C3%A9

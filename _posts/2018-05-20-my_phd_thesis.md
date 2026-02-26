@@ -7,7 +7,7 @@ description: >
 image: /files/my-phd-thesis/20110610--Building_40-,_or_-My_Home_Away_From_Home-.jpg
 image_alt: >
   A color photo of CERN's Building 40 at sunset.
-use_latex: True
+use_latex: true
 categories:
   - reading-group
 ---
@@ -21,6 +21,7 @@ ever going to read it, attempted to summarize below in a more accessible
 fashion.
 
 [thesis]: https://hdl.handle.net/11299/175445
+
 [phd]: {% post_url 2018-01-19-should_i_get_a_phd %}
 [cern]: https://cern.ch
 [z]: https://en.wikipedia.org/wiki/W_and_Z_bosons

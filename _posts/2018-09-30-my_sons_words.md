@@ -12,7 +12,7 @@ image_alt: >
   children how to pronounce words.
 seo:
   date_modified: 2021-12-19T19:04:09-08:00
-categories: 
+categories:
   - childhood-language
   - data-visualization
 ---
@@ -110,28 +110,28 @@ In a future post I'll explore when Theo learned different groups of words
 (colors, numbers, foods, etc.), but for now here are some of the fun words
 Theo learned:
 
-- **Little Brother** (Cantonese): Theo has a brother, Cory,  who is 18 months
-younger than him; it only took Theo a few weeks to learn what the new intruder
-was called.
+- **Little Brother** (Cantonese): Theo has a brother, Cory, who is 18 months
+  younger than him; it only took Theo a few weeks to learn what the new intruder
+  was called.
 
 - **Google** (English): We have a few [Google Homes][google_home] in our
-apartment and so we say the trigger word, "Hey Google", several times a day.
-Theo quickly picked it up. We knew he was saying "Google" and not babbling
-"Gaga" because he would either point at the device or grab it and shout at it
-when saying it.
+  apartment and so we say the trigger word, "Hey Google", several times a day.
+  Theo quickly picked it up. We knew he was saying "Google" and not babbling
+  "Gaga" because he would either point at the device or grab it and shout at it
+  when saying it.
 
 - **Cookie** (Spanish): Theo's first word in Spanish was "Cookie". We can
-blame the grandparents for this, as they love giving him sweets.
+  blame the grandparents for this, as they love giving him sweets.
 
 - **Monkey** (Sign): "Monkey" is signed by holding one hand out with palm up
-and bouncing the other on top of it, palm facing out and fingers spread. He
-invented this sign after we used it while singing [Five Little
-Monkeys][five_monkeys].
+  and bouncing the other on top of it, palm facing out and fingers spread. He
+  invented this sign after we used it while singing [Five Little
+  Monkeys][five_monkeys].
 
 - **Pig** (Sign): "Pig" is signed by rubbing your chin between thumb and index
-finger. He modeled this sign after the hand motions I would make while reading
-[The Three Little Pigs][three_pigs], specifically during the line "Not by the
-hair on my chiny chin chin".
+  finger. He modeled this sign after the hand motions I would make while reading
+  [The Three Little Pigs][three_pigs], specifically during the line "Not by the
+  hair on my chiny chin chin".
 
 [google_home]: https://en.wikipedia.org/wiki/Google_Home
 [five_monkeys]: https://en.wikipedia.org/wiki/Five_Little_Monkeys

@@ -10,8 +10,8 @@ image_alt: >
   A sports utility vehicle belonging to the California Highway Patrol is
   parked in front of the Golden Gate Bridge.
 redirect_from: /2016/11/01/switrs_to_sqlite/
-categories: 
-  - california-traffic-data 
+categories:
+  - california-traffic-data
   - my-projects
 ---
 
@@ -135,7 +135,7 @@ due to our mapping but are inherent in the data. Some further clean up will be
 necessary before doing any analysis! A Jupyter notebook used to make the map
 can be found [here][notebook] ([rendered on Github][rendered]).
 
-{% capture notebook_uri %}{{ "SWITRS Crash Map.ipynb" | uri_escape }}{% endcapture %} 
+{% capture notebook_uri %}{{ "SWITRS Crash Map.ipynb" | uri_escape }}{% endcapture %}
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}

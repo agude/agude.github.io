@@ -127,6 +127,7 @@ take out the lumbar support and it helped a lot (but I still didn't find it
 comfortable). I would not buy the lumbar support again.
 
 [reddit]: https://www.reddit.com/r/OfficeChairs/comments/rixars/psa_remove_lumbar_support_from_your_steelcase/
+
 [pdf]: {{ file_dir }}/steelcase_gesture_back_replacement_guide-939544221revA.pdf
 
 [^reddit]:

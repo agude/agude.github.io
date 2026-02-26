@@ -8,13 +8,12 @@ rating: 4
 image: /books/covers/matter.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the eighth <span
-class="book-series">{{ page.series }}</span> book. It begins with a tale of
-betrayal in an early-industrial kingdom housed within a shellworld, and ends
-with the unleashing of a cosmic horror.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the eighth book in {% series_text page.series link=false %}. It begins with
+a tale of betrayal in an early-industrial kingdom housed within a shellworld,
+and ends with the unleashing of a cosmic horror.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}

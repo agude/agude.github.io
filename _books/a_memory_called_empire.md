@@ -10,14 +10,13 @@ awards:
   - hugo
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is the first book in the
-<span class="book-series">{{ page.series }}</span> series. It follows Mahit
-Dzmare, an ambassador from the space station Lsel, as she tries to save her
-home from being annexed by the Teixcalaanli empire.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the first book in {% series_text page.series link=false %}. It follows
+Mahit Dzmare, an ambassador from the space station Lsel, as she tries to save
+her home from being annexed by the Teixcalaanli empire.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_author %}<span class="author-name">{{ page.book_authors }}</span>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture teix2 %}{% book_link "A Desolation Called Peace" %}{% endcapture %}
 
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}

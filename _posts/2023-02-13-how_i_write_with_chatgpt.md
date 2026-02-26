@@ -8,10 +8,10 @@ description: >
 image: /files/chatgpt/00137-2463433472-watercolor_illustration_adorable_robot_desk_lamp_sitting_at_a_typewriter_chair_desk_clear_straight_lines.jpg
 hide_lead_image: False
 image_alt: >
-    'A colorful watercolor illustration of a robot sitting at a desk with a
-    typewriter in front of the robot. Generated with stable diffusion. Prompt:
-    watercolor illustration, adorable robot, desk lamp, sitting at a
-    typewriter, chair, desk, clear, straight lines'
+  'A colorful watercolor illustration of a robot sitting at a desk with a
+  typewriter in front of the robot. Generated with stable diffusion. Prompt:
+  watercolor illustration, adorable robot, desk lamp, sitting at a
+  typewriter, chair, desk, clear, straight lines'
 categories:
   - generative-ai
   - large-language-models
@@ -25,6 +25,7 @@ Since then, my methods have evolved significantly with improvements in LLMs.
 For my updated approach, check out my latest post:**
 
 {% capture url %}{% post_url 2025-02-02-how_i_write_with_llms_revised %}{% endcapture %}
+
 <div class="card-grid">
   {% article_card_lookup url=url %}
 </div>
@@ -55,6 +56,7 @@ I start by writing a rough draft which may consist of a few bullet points or
 a detailed set of paragraphs. Next, I give it to ChatGPT for refinement.
 
 {% comment %}These div, etc. match chatgpt_edit.html {% endcomment %}
+
 <div class="chatgpt-edit-block">
 <div class="chatgpt-prompt">
 <strong>Prompt</strong>

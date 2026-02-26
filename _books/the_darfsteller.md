@@ -10,16 +10,15 @@ awards:
   - hugo
 ---
 
-<cite class="book-title">{{ page.title }}</cite>, by <span
-class="author-name">{{ page.book_authors }}</span>, is a Hugo Award-winning
-novelette about the obsolescence of the human artist. It follows Ryan
-Thornier, a former stage idol reduced to working as a janitor in a theater now
-run entirely by robots and an AI director, as he schemes to take the stage one
-last time.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is a Hugo Award-winning novelette about the obsolescence of the human artist.
+It follows Ryan Thornier, a former stage idol reduced to working as a janitor
+in a theater now run entirely by robots and an AI director, as he schemes to
+take the stage one last time.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
-{% capture the_authors_lastname %}<span class="author-name">Miller</span>{% endcapture %}
-{% capture the_authors_lastname_possessive %}<span class="author-name">Miller</span>'s{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text="Miller" %}{% endcapture %}
+{% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text="Miller" possessive %}{% endcapture %}
 
 {% capture dahls_lastname %}{% author_link "Roald Dahl" possessive link_text="Dahl" %}{% endcapture %}
 {% capture grammatizator %}{% short_story_link "The Great Automatic Grammatizator" from_book="Someone Like You" %}{% endcapture %}
@@ -83,8 +82,7 @@ the_authors_lastname }} argues more for specializing in _being yourself_ while
 {{ heinlein_lastname }} argues for generalization, both have identified
 stagnation as the problem.
 
-[^quote]:
-    From {{ time_enough_for_love }}: 
+[^quote]: From {{ time_enough_for_love }}:
 
     > A human being should be able to change a diaper, plan an invasion,
     > butcher a hog, conn a ship, design a building, write a sonnet, balance

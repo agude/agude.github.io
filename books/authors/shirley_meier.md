@@ -3,7 +3,7 @@ layout: author_page
 title: Shirley Meier
 pen_names:
 description: >
-    Alex Gude's reviews of books written by Shirley Meier.
+  Alex Gude's reviews of books written by Shirley Meier.
 same_as_urls:
   - https://www.wikidata.org/wiki/Q21783055
   - https://id.loc.gov/authorities/names/n89650489.html

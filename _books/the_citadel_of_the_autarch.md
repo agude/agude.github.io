@@ -8,16 +8,16 @@ rating: 4
 image: /books/covers/the_citadel_of_the_autarch.jpg
 ---
 
-<cite class="book-title">{{ page.title }}</cite> is the fourth book in {% author_link page.book_authors %}'s <span
-class="book-series">{{ page.series }}</span> tetralogy. It follows Severian as
-he reaches the front in the war against the Ascians and assumes the role of
-Autarch.
+{% book_link page.title %} is the fourth book in {% author_link
+page.book_authors link=false possessive %} {% series_text page.series
+link=false %} tetralogy. It follows Severian as he reaches the front in the
+war against the Ascians and assumes the role of Autarch.
 
-{% capture this_book %}<cite class="book-title">{{ page.title }}</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture urth_new_sun %}{% book_link "The Urth of the New Sun" %}{% endcapture %}
 {% capture shadow_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
 
-{% capture wolfe %}<span class="author-name">Wolfe</span>{% endcapture %}
+{% capture wolfe %}{% author_link page.book_authors link=false link_text="Wolfe" %}{% endcapture %}
 
 {% capture ursula %}{% author_link "Ursula K. Le Guin" %}{% endcapture %}
 {% capture neil %}{% author_link "Neil Gaiman" %}{% endcapture %}
