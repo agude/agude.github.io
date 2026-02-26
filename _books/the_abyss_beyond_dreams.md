@@ -8,12 +8,11 @@ rating: 5
 image: /books/covers/the_abyss_beyond_dreams.jpg
 ---
 
-{% book_link page.title %} starts off <span class="book-series">{{ page.series
-}}</span>, another series in {% author_link page.book_authors link=false
-possessive %} Commonwealth universe. Though billed as space opera, it often
-reads more as urban fantasy since most of the story occurs on the planet
-Bienvenido inside the Void where steam engines are their most advanced
-technology.
+{% book_link page.title %} starts off {% series_text page.series link=false
+%}, another series in {% author_link page.book_authors link=false possessive
+%} Commonwealth universe. Though billed as space opera, it often reads more as
+urban fantasy since most of the story occurs on the planet Bienvenido inside
+the Void where steam engines are their most advanced technology.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}

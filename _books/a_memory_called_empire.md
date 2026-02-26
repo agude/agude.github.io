@@ -11,9 +11,9 @@ awards:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the first book in the <span class="book-series">{{ page.series }}</span>
-series. It follows Mahit Dzmare, an ambassador from the space station Lsel, as
-she tries to save her home from being annexed by the Teixcalaanli empire.
+is the first book in {% series_text page.series link=false %}. It follows
+Mahit Dzmare, an ambassador from the space station Lsel, as she tries to save
+her home from being annexed by the Teixcalaanli empire.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

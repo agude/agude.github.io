@@ -14,8 +14,9 @@ awards:
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
 is a Hugo Award-winning classic of libertarian science fiction. It chronicles
-the revolt of a lunar penal colony against its terrestrial rulers, a revolution
-orchestrated by a small group of rebels and their self-aware computer.
+the revolt of a lunar penal colony against its terrestrial rulers, a
+revolution orchestrated by a small group of rebels and their self-aware
+computer.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}

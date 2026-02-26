@@ -9,9 +9,9 @@ image: /books/covers/the_blue_lotus.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the fifth book in the <span class="book-series">{{ page.series }}</span>. It
-continues the story started in {% book_link "Cigars of the Pharaoh" %}, ending
-with Tintin busting an opium ring in China.
+is the fifth book in {% series_text page.series link=false %}. It continues
+the story started in {% book_link "Cigars of the Pharaoh" %}, ending with
+Tintin busting an opium ring in China.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

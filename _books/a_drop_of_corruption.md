@@ -9,8 +9,8 @@ image: /books/covers/a_drop_of_corruption.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the second <span class="book-series">{{ page.series }}</span> book. This
-time, Din and Ana track down a murderer in the northern Kingdom of Yarrow whose
+is the second book in {% series_text page.series link=false %}. This time, Din
+and Ana track down a murderer in the northern Kingdom of Yarrow whose
 brilliance is almost a match for Ana's own.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}

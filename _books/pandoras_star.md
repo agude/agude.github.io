@@ -9,8 +9,8 @@ image: /books/covers/pandoras_star.jpg
 ---
 
 I couldn't put {% book_link page.title %} down! It is a sci-fi book that reads
-more like a thriller. There were always new mysteries that just a few more pages
-promised the answers to.
+more like a thriller. There were always new mysteries that just a few more
+pages promised the answers to.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %}{% endcapture %}

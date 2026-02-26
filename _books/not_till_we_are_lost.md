@@ -11,9 +11,9 @@ redirect_from: /books/not_til_we_are_lost/
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the fifth book in the <span class="book-series">{{ page.series }}</span>
-series. It sets up the Quiniverse, introduces a Skippy AI, and explores the
-discovery of wormhole travel.
+is the fifth book in {% series_text page.series link=false %}. It sets up the
+Quiniverse, introduces a Skippy AI, and explores the discovery of wormhole
+travel.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

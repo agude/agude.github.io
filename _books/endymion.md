@@ -9,11 +9,11 @@ image: /books/covers/endymion.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the third book in the <span class="book-series">{{ page.series }}</span>. It
-follows a new cast of characters---Aenea, Raul, and Bettik---as they flee the
-oppressive forces of the Pax via a raft on the River Tethys. Set centuries after
-the earlier books, the story reveals a galaxy reshaped by the Church and its
-dark covenant of immortality.
+is the third book in {% series_text page.series link=false %}. It follows a
+new cast of characters---Aenea, Raul, and Bettik---as they flee the oppressive
+forces of the Pax via a raft on the River Tethys. Set centuries after the
+earlier books, the story reveals a galaxy reshaped by the Church and its dark
+covenant of immortality.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture series_link %}{% series_link page.series %}{% endcapture %}

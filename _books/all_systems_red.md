@@ -13,8 +13,8 @@ awards:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the first book in the <span class="book-series">{{ page.series }}</span>. It
-introduces us to Murderbot as it saves a team of scientists.
+is the first book in {% series_text page.series link=false %}. It introduces
+us to Murderbot as it saves a team of scientists.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

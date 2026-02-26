@@ -11,9 +11,9 @@ awards:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the second book in the <span class="book-series">{{ page.series }}</span>,
-but really it's the second half of {% book_link "Hyperion" %}. It brings the
-seven pilgrims' story to an end and depicts the war between the TechnoCore, the
+is the second book in {% series_text page.series link=false %}, but really
+it's the second half of {% book_link "Hyperion" %}. It brings the seven
+pilgrims' story to an end and depicts the war between the TechnoCore, the
 Ousters, and the Hegemony.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}

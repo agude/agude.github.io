@@ -9,9 +9,8 @@ image: /books/covers/cigars_of_the_pharaoh.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the fourth book in the <span class="book-series">{{ page.series }}</span>. It
-follows Tintin as he explores Egypt and India and uncovers an opium-smuggling
-ring.
+is the fourth book in {% series_text page.series link=false %}. It follows
+Tintin as he explores Egypt and India and uncovers an opium-smuggling ring.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

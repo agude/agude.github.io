@@ -12,8 +12,8 @@ image: /books/covers/the_dreaming_void.jpg
 class="author-name">Hamilton</span>'s <span class="book-series">Commonwealth
 Saga</span>, but saying that isn't quite strong enough: it is really a sequel.
 You pretty much must read the Commonwealth Saga first because half of the
-characters return, and every major plot point from the earlier books is spoiled
-in this one.
+characters return, and every major plot point from the earlier books is
+spoiled in this one.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

@@ -9,9 +9,9 @@ image: /books/covers/lords_of_uncreation.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the third and final book in the <span class="book-series">{{ page.series
-}}</span> series. In it, humanity takes the war into Unspace to destroy the
-Architects and their Originator masters.
+is the third and final book in {% series_text page.series link=false %}. In
+it, humanity takes the war into Unspace to destroy the Architects and their
+Originator masters.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
@@ -32,7 +32,7 @@ Architects and their Originator masters.
 {% capture surface %}{% book_link "Surface Detail" %}{% endcapture %}
 {% capture culture_series %}{% series_link "Culture" %}{% endcapture %}
 
-{% capture bioshock %}<cite class="">BioShock</cite>{% endcapture %}
+{% capture bioshock %}{% game_title "BioShock" %}{% endcapture %}
 
 {% capture ender %}{% book_link "Ender's Game" %}{% endcapture %}
 {% capture speaker %}{% book_link "Speaker for the Dead" %}{% endcapture %}

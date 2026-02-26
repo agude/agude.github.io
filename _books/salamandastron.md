@@ -8,10 +8,10 @@ rating: 5
 image: /books/covers/salamandastron.jpg
 ---
 
-{% book_link page.title %} is the fifth book in the <span class="book-series">{{
-page.series }}</span> series. It tells the story of two parallel conflicts: the
-siege of Salamandastron by Ferahgo the Assassin and a devastating plague at
-Redwall Abbey.
+{% book_link page.title %} is the fifth book in {% series_text page.series
+link=false %}. It tells the story of two parallel conflicts: the siege of
+Salamandastron by Ferahgo the Assassin and a devastating plague at Redwall
+Abbey.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

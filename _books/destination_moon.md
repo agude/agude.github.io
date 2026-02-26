@@ -9,9 +9,9 @@ image: /books/covers/destination_moon.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the sixteenth book in the <span class="book-series">{{ page.series }}</span>.
-It's the first part of a two-book story arc where Tintin, Haddock, and Calculus
-prepare for a mission to the moon.
+is the sixteenth book in {% series_text page.series link=false %}. It's the
+first part of a two-book story arc where Tintin, Haddock, and Calculus prepare
+for a mission to the moon.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

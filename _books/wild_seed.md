@@ -9,9 +9,9 @@ image: /books/covers/wild_seed.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the first book in the <span class="book-series">{{ page.series }}</span>
-series, though it was the fourth to be published. It tells the origin story of
-Doro---a malevolent spirit---and Anyanwu---an immortal woman.
+is the first book in {% series_text page.series link=false %}, though it was
+the fourth to be published. It tells the origin story of Doro---a malevolent
+spirit---and Anyanwu---an immortal woman.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

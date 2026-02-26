@@ -9,9 +9,9 @@ image: /books/covers/surface_detail.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the ninth <span class="book-series">{{ page.series }}</span> book. It follows
-Lededje Y'breq as she seeks revenge for her own murder, set against the backdrop
-of a galactic conflict over virtual hells.
+is the ninth book in {% series_text page.series link=false %}. It follows
+Lededje Y'breq as she seeks revenge for her own murder, set against the
+backdrop of a galactic conflict over virtual hells.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors possessive %}{% endcapture %}

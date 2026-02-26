@@ -8,10 +8,9 @@ rating: 5
 image: /books/covers/serpent_valley.jpg
 ---
 
-{% book_link page.title %}, the third book in the <span class="book-series">{{
-page.series }}</span> series, is another quick, action-packed read---but without
-the flaws holding back its predecessors. Easily my favorite of the series so
-far!
+{% book_link page.title %}, the third book in {% series_text page.series
+link=false %}, is another quick, action-packed read---but without the flaws
+holding back its predecessors. Easily my favorite of the series so far!
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

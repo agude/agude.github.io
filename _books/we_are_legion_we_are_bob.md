@@ -8,10 +8,10 @@ rating: 4
 image: /books/covers/we_are_legion_we_are_bob.jpg
 ---
 
-{% book_link page.title %} is a pop sci-fi book, the first in the <span
-class="book-series">{{ page.series }}</span> series. It follows Bob Johansson,
-who dies, gets his brain frozen, and awakens to find himself press-ganged into
-piloting a von Neumann probe.
+{% book_link page.title %} is a pop sci-fi book, the first in {% series_text
+page.series link=false %}. It follows Bob Johansson, who dies, gets his brain
+frozen, and awakens to find himself press-ganged into piloting a von Neumann
+probe.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

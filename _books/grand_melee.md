@@ -9,13 +9,13 @@ image: /books/covers/grand_melee.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the fifth book in the <span class="book-series">{{ page.series }}</span>
-series. In it, the Chevaliers take a break from wartime contracts to participate
-in a massive mech tournament.
+is the fifth book in {% series_text page.series link=false %}. In it, the
+Chevaliers take a break from wartime contracts to participate in a massive
+mech tournament.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
-{% capture series %}<span class="book-series">{{ page.series }}</span>{% endcapture %}
+{% capture series %}{% series_text page.series link=false %}{% endcapture %}
 
 {% capture w1 %}{% book_link "Chevalier" %}{% endcapture %}
 {% capture w2 %}{% book_link "Ymir" %}{% endcapture %}

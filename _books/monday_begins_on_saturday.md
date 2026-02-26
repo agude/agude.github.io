@@ -11,10 +11,10 @@ image: /books/covers/monday_begins_on_saturday.jpg
 
 {% book_link page.title %}, by brothers <span class="author-name">{{
 page.book_authors[0] | split: " " | first }}</span> and <span
-class="author-name">{{ page.book_authors[1] }}</span>, is a Soviet sci-fi novel
-about scientist-magicians working at the National Institute for the Technology
-of Witchcraft and Thaumaturgy (NITWITT), where they study fairy-tale creatures
-and magic items.
+class="author-name">{{ page.book_authors[1] }}</span>, is a Soviet sci-fi
+novel about scientist-magicians working at the National Institute for the
+Technology of Witchcraft and Thaumaturgy (NITWITT), where they study
+fairy-tale creatures and magic items.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture first_author_first %}{{ page.book_authors[0] | split: " " | first }}{% endcapture %}

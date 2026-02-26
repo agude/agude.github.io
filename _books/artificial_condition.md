@@ -9,9 +9,8 @@ image: /books/covers/artificial_condition.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the second book in the <span class="book-series">{{ page.series }}</span>. It
-follows Murderbot as it digs into its past and, once again, saves some
-scientists.
+is the second book in {% series_text page.series link=false %}. It follows
+Murderbot as it digs into its past and, once again, saves some scientists.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}

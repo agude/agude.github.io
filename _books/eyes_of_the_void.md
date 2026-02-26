@@ -9,9 +9,9 @@ image: /books/covers/eyes_of_the_void.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the second book in the <span class="book-series">{{ page.series }}</span>
-series. It takes place during the new war with the Architects, as Idris and the
-crew of the _Vulture God_ discover where the Architects come from.
+is the second book in {% series_text page.series link=false %}. It takes place
+during the new war with the Architects, as Idris and the crew of the _Vulture
+God_ discover where the Architects come from.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

@@ -9,9 +9,8 @@ image: /books/covers/dog_soldier.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the fourth book in the <span class="book-series">{{ page.series }}</span>
-series. It concludes the Cinto DaSelva campaign and further develops the
-setting's backstory.
+is the fourth book in {% series_text page.series link=false %}. It concludes
+the Cinto DaSelva campaign and further develops the setting's backstory.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

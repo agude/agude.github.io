@@ -8,10 +8,9 @@ rating: 4
 image: /books/covers/mariel_of_redwall.jpg
 ---
 
-{% book_link page.title %} is the fourth book in the <span
-class="book-series">{{ page.series }}</span> series. It follows Mariel as she
-plots her revenge against the searat pirate Gabool, who attempted to kill her
-and her father, Joseph the Bellmaker.
+{% book_link page.title %} is the fourth book in {% series_text page.series
+link=false %}. It follows Mariel as she plots her revenge against the searat
+pirate Gabool, who attempted to kill her and her father, Joseph the Bellmaker.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

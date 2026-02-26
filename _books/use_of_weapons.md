@@ -8,9 +8,9 @@ rating: 5
 image: /books/covers/use_of_weapons.jpg
 ---
 
-{% book_link page.title %} is the third novel in the {{ page.series }} series by
-{{ page.book_authors }}. It tells the story of a man called Cheradenine Zakalwe,
-who works for the Culture's Special Circumstances division.
+{% book_link page.title %} is the third novel in the {{ page.series }} series
+by {{ page.book_authors }}. It tells the story of a man called Cheradenine
+Zakalwe, who works for the Culture's Special Circumstances division.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture banks %}{% author_link page.book_authors link=false link_text="Banks" %}{% endcapture %}

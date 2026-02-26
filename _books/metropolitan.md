@@ -9,9 +9,9 @@ image: /books/covers/metropolitan.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the first book in the <span class="book-series">{{ page.series }}</span>
-series. It is the story of Aiah, a young woman who discovers an illegal source
-of magical plasm, and how it draws her into conflict with the world.
+is the first book in {% series_text page.series link=false %}. It is the story
+of Aiah, a young woman who discovers an illegal source of magical plasm, and
+how it draws her into conflict with the world.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

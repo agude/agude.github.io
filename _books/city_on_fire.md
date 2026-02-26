@@ -9,9 +9,9 @@ image: /books/covers/city_on_fire.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the second book in the <span class="book-series">{{ page.series }}</span>
-series. It picks up right as the smoke clears in Caraqui after the revolution,
-leaving Aiah and Constantine to figure out how to govern.
+is the second book in {% series_text page.series link=false %}. It picks up
+right as the smoke clears in Caraqui after the revolution, leaving Aiah and
+Constantine to figure out how to govern.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

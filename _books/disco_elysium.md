@@ -16,9 +16,9 @@ redirect_from: /books/disco_elyisum/
 ---
 
 {% game_title page.title %}, written by {% author_link page.book_authors[0]
-link=false %} <abbr class="etal">et al.</abbr>, is a role-playing game produced
-by ZA/UM. It's the story of Harrier "Harry" Du Bois, a man who wakes up with no
-memories and has to solve a murder while learning who he is.
+link=false %} <abbr class="etal">et al.</abbr>, is a role-playing game
+produced by ZA/UM. It's the story of Harrier "Harry" Du Bois, a man who wakes
+up with no memories and has to solve a murder while learning who he is.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

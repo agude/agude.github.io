@@ -8,9 +8,9 @@ rating: 5
 image: /books/covers/mattimeo.jpg
 ---
 
-{% book_link page.title %} is the third book in the <span class="book-series">{{
-page.series }}</span> series. It begins with the kidnapping of the abbey
-children by Slagar the cruel and follows Mathias as he tries to save them.
+{% book_link page.title %} is the third book in {% series_text page.series
+link=false %}. It begins with the kidnapping of the abbey children by Slagar
+the cruel and follows Mathias as he tries to save them.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

@@ -12,10 +12,10 @@ awards:
 ---
 
 {% book_link page.title %} is the second book in {% author_link
-page.book_authors link=false possessive %} <span class="book-series">{{
-page.series }}</span> tetralogy. It picks up right where {% book_link "The
-Shadow of the Torturer" %} leaves off, following Severian as he makes his way
-towards Thrax.
+page.book_authors link=false possessive %} {% series_text page.series
+link=false %} tetralogy. It picks up right where {% book_link "The Shadow of
+the Torturer" %} leaves off, following Severian as he makes his way towards
+Thrax.
 
 {% capture this_series %}{% series_link page.series %}{% endcapture %}
 

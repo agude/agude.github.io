@@ -9,9 +9,9 @@ image: /books/covers/world_of_trouble.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the third and final novel in the <span class="book-series">{{ page.series
-}}</span> series. It follows Detective Palace as he uncovers his sister's
-involvement in a mysterious plot just days before the world's end.
+is the third and final novel in {% series_text page.series link=false %}. It
+follows Detective Palace as he uncovers his sister's involvement in a
+mysterious plot just days before the world's end.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

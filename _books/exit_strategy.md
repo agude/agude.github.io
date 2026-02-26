@@ -9,8 +9,8 @@ image: /books/covers/exit_strategy.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the fourth book in the <span class="book-series">{{ page.series }}</span>. It
-wraps up the GrayCris storyline as Murderbot returns to save its friends.
+is the fourth book in {% series_text page.series link=false %}. It wraps up
+the GrayCris storyline as Murderbot returns to save its friends.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}

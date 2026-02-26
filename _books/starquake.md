@@ -8,10 +8,10 @@ rating: 5
 image: /books/covers/starquake.jpg
 ---
 
-{% book_link page.title %} is the second book in the <span
-class="book-series">{{ page.series }}</span> series by {% author_link
-page.book_authors link=false %}. It follows the Cheela as they rescue the humans
-and rebuild after a devastating starquake.
+{% book_link page.title %} is the second book in {% series_text page.series
+link=false %} by {% author_link page.book_authors link=false %}. It follows
+the Cheela as they rescue the humans and rebuild after a devastating
+starquake.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

@@ -14,10 +14,10 @@ awards:
 
 {% book_link page.title %} is {% author_link page.book_authors link=false
 possessive %} masterpiece. It is the first book in his <span
-class="book-series">{{ page.series }}</span>. It follows seven pilgrims as they
-travel to the Time Tombs on Hyperion to petition the Shrike. Along the way, each
-tells their own story, weaving together history, myth, and prophecy to tell of
-the impending downfall of man.
+class="book-series">{{ page.series }}</span>. It follows seven pilgrims as
+they travel to the Time Tombs on Hyperion to petition the Shrike. Along the
+way, each tells their own story, weaving together history, myth, and prophecy
+to tell of the impending downfall of man.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

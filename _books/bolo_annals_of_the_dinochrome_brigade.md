@@ -10,9 +10,8 @@ image: /books/covers/bolo.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the first book in the <span class="book-series">{{ page.series }}</span>
-series. It is a collection of seven novellas and short stories, all featuring
-Bolos.
+is the first book in {% series_text page.series link=false %}. It is a
+collection of seven novellas and short stories, all featuring Bolos.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}

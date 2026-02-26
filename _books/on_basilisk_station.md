@@ -9,12 +9,12 @@ rating: 4
 image: /books/covers/on_basilisk_station.jpg
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the first book in the long-running <span class="book-series">{{ page.series
-}}</span> series of military science fiction. It introduces Commander Honor
+{% book_link page.title %} by {% author_link page.book_authors link=false %}
+is the first book in the long-running military science fiction epic, {%
+series_text page.series link=false %}. It introduces Commander Honor
 Harrington, a brilliant naval officer exiled to a remote star system with an
-aging ship and a demoralized crew. There, she must enforce the law and uncover a
-smuggling plot that proves to be the opening move in an interstellar war.
+aging ship and a demoralized crew. There, she must enforce the law and uncover
+a smuggling plot that proves to be the opening move in an interstellar war.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}

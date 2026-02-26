@@ -13,8 +13,8 @@ awards:
   - nebula
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors[0] link=false %}
-and {% author_link page.book_authors[1] link=false %}, is a story about two
+{% book_link page.title %}, by {% author_link page.book_authors[0] link=false
+%} and {% author_link page.book_authors[1] link=false %}, is a story about two
 agents---Red and Blue---working for opposite factions from the far future,
 changing the past in an attempt to wipe out the other side.
 

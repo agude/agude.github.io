@@ -11,8 +11,8 @@ awards:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is a Hugo-winning, New Wave science fiction novel that explores overpopulation,
-corporate power, and societal collapse.
+is a Hugo-winning, New Wave science fiction novel that explores
+overpopulation, corporate power, and societal collapse.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

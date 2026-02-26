@@ -9,9 +9,9 @@ image: /books/covers/explorers_on_the_moon.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the seventeenth book in the <span class="book-series">{{ page.series
-}}</span>. It's the second part of a two-book arc in which Tintin, Haddock, and
-Calculus land on the Moon.
+is the seventeenth book in {% series_text page.series link=false %}. It's the
+second part of a two-book arc in which Tintin, Haddock, and Calculus land on
+the Moon.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

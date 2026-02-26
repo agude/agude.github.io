@@ -9,10 +9,10 @@ image: /books/covers/sunstone_imperative.jpg
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the sixth book in the <span class="book-series">{{ page.series }}</span>
-series. Returning to the action-packed roots of the earlier books, it drops the
-Chevaliers into the middle of a raid against a Wyking stronghold to open the
-gates for a full-scale invasion.
+is the sixth book in {% series_text page.series link=false %}. Returning to
+the action-packed roots of the earlier books, it drops the Chevaliers into the
+middle of a raid against a Wyking stronghold to open the gates for a
+full-scale invasion.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
