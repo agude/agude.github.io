@@ -8,9 +8,9 @@ rating: 2
 image: /books/covers/the_urth_of_the_new_sun.jpg
 ---
 
-{% book_link page.title %} is the fifth and final book in <span
-class="author-name">{{ page.book_authors }}</span>'s <span
-class="book-series">{{ page.series }}</span> tetralogy. It follows Severian as
+{% book_link page.title %} is the fifth and final book in {% author_link
+page.book_authors link=false possessive %} {% series_text page.series
+link=false %} tetralogy. It follows Severian as
 he leaves Urth to save mankind and returns to witness its destruction and
 rebirth.
 

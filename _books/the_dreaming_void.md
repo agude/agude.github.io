@@ -8,10 +8,10 @@ rating: 5
 image: /books/covers/the_dreaming_void.jpg
 ---
 
-{% book_link page.title %} is set in the same universe as <span
-class="author-name">Hamilton</span>'s <span class="book-series">Commonwealth
-Saga</span>, but saying that isn't quite strong enough: it is really a sequel.
-You pretty much must read the Commonwealth Saga first because half of the
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is set in the same universe as {% series_text "Commonwealth Saga" link=false
+%}, but saying that isn't quite strong enough: it is really a sequel. You
+pretty much must read the Commonwealth Saga first because half of the
 characters return, and every major plot point from the earlier books is
 spoiled in this one.
 

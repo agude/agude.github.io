@@ -8,9 +8,9 @@ rating: 4
 image: /books/covers/the_shadow_of_the_torturer.jpg
 ---
 
-{% book_link page.title %} is the first installment in <span
-class="author-name">{{ page.book_authors }}</span>'s <span
-class="book-series">{{ page.series }}</span> tetralogy. It follows the life of
+{% book_link page.title %} is the first installment in {% author_link
+page.book_authors link=false possessive %} {% series_text page.series
+link=false %} tetralogy. It follows the life of
 Severian, a torturer and executioner on a dying Earth. The pacing is slow, but
 Wolfe's worldbuilding is fantastic, crafting a setting that pulls the reader
 in.
