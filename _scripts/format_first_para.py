@@ -7,7 +7,7 @@ from pathlib import Path
 
 def wrap_paragraph(para_lines):
     text = " ".join(para_lines)
-    return textwrap.fill(text, width=80, break_long_words=False, break_on_hyphens=False)
+    return textwrap.fill(text, width=78, break_long_words=False, break_on_hyphens=False)
 
 
 def format_first_paragraph(filepath):
