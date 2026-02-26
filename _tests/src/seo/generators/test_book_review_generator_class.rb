@@ -63,6 +63,29 @@ class TestBookReviewGenerator < Minitest::Test
     assert_nil result_hash.dig('itemReviewed', 'award')
   end
 
+  def test_generate_hash_book_review_non_array_same_as_urls_logs_warning
+    doc = create_doc(
+      {
+        'layout' => 'book',
+        'title' => 'Non Array SameAs',
+        'book_authors' => ['Author'],
+        'same_as_urls' => 'This is a string, not an array',
+      },
+      '/books/non-array-same-as.html',
+      'Content',
+      '2023-01-03',
+      @books_collection,
+    )
+    mock_logger = Minitest::Mock.new
+    mock_logger.expect(:warn, nil) { |p, m| p == 'JSON-LD (BookReviewGen):' && m.include?('not an Array') }
+    result_hash = nil
+    Jekyll.stub :logger, mock_logger do
+      result_hash = Jekyll::SEO::Generators::BookReviewGenerator.new(doc, @site).generate
+    end
+    mock_logger.verify
+    assert_nil result_hash.dig('itemReviewed', 'sameAs')
+  end
+
   def test_generate_hash_book_review_minimal_data
     doc = create_minimal_data_doc
     expected = build_expected_minimal_hash
@@ -224,6 +247,11 @@ class TestBookReviewGenerator < Minitest::Test
         'awards' => ['Hugo Award', 'Nebula Award'],
         'series' => 'Dune Saga',
         'book_number' => '1',
+        'date_published' => '1965-08',
+        'same_as_urls' => [
+          'https://www.wikidata.org/wiki/Q190159',
+          'https://en.wikipedia.org/wiki/Dune_(novel)',
+        ],
       },
       '/books/dune.html',
       'Detailed review content.',
@@ -255,6 +283,11 @@ class TestBookReviewGenerator < Minitest::Test
       'isbn' => '978-0441172719',
       'award' => ['Hugo Award', 'Nebula Award'],
       'isPartOf' => { '@type' => 'BookSeries', 'name' => 'Dune Saga', 'position' => '1' },
+      'datePublished' => '1965-08',
+      'sameAs' => [
+        'https://www.wikidata.org/wiki/Q190159',
+        'https://en.wikipedia.org/wiki/Dune_(novel)',
+      ],
       'url' => 'https://alexgude.com/books/dune.html',
     }
   end

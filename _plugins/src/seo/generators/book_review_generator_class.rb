@@ -112,8 +112,10 @@ module Jekyll
           add_book_authors(item)
           item['image'] = Jekyll::SEO::JsonLdUtils.build_image_object_entity(@document.data['image'], @site)
           add_isbn(item)
+          add_book_date_published(item)
           add_book_awards(item)
           add_book_series(item)
+          add_book_same_as(item)
         end
 
         def add_book_authors(item)
@@ -134,6 +136,11 @@ module Jekyll
           item['isbn'] = isbn.to_s.strip if isbn && !isbn.to_s.strip.empty?
         end
 
+        def add_book_date_published(item)
+          date_published = @document.data['date_published']
+          item['datePublished'] = date_published.to_s.strip if date_published && !date_published.to_s.strip.empty?
+        end
+
         def add_book_awards(item)
           # Book Awards (From page.awards - assuming it's an array)
           awards_input = @document.data['awards']
@@ -151,6 +158,24 @@ module Jekyll
           Jekyll.logger.warn(
             'JSON-LD (BookReviewGen):',
             "Front matter 'awards' for '#{id}' is not an Array, skipping awards.",
+          )
+        end
+
+        def add_book_same_as(item)
+          same_as_input = @document.data['same_as_urls']
+          if same_as_input.is_a?(Array)
+            cleaned = same_as_input.map(&:to_s).map(&:strip).compact.reject(&:empty?)
+            item['sameAs'] = cleaned if cleaned.any?
+          elsif same_as_input
+            log_invalid_same_as
+          end
+        end
+
+        def log_invalid_same_as
+          id = @document.url || @document.data['path'] || @document.relative_path
+          Jekyll.logger.warn(
+            'JSON-LD (BookReviewGen):',
+            "Front matter 'same_as_urls' for '#{id}' is not an Array, skipping sameAs.",
           )
         end
 
