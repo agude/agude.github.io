@@ -24,7 +24,6 @@ age.][words_plot]][words_plot]
 [words_plot]: {{ file_dir }}/theo_total_words.svg
 {% endcomment %}
 
-
 ## The Data
 
 We collected the data using a Google form. We decided a "word" was a phrase or
@@ -120,4 +119,3 @@ but he was inventive and started using it for squirrels and crows (but only
 when they were hopping around).
 
 Theo's first sign was for "_milk_", but his second sign word was "_cat_".
-

@@ -1,6 +1,6 @@
 ---
 layout: page-not-on-sidebar
-title: LLM Data Cleaning Prompt 
+title: LLM Data Cleaning Prompt
 description: >
   The prompt for my SWITRS Make mapping.
 image: /files/llm-data/00045-1994538970-a_simple_color_pencil_drawing_a_robot,_inspecting_a_car,_holding_a_clipboard,_white_background.png
@@ -19,7 +19,7 @@ fields is the "make" of the vehicle, for example, "Honda", "Ford",
 
 But this field a free-text field filled out by the CHP officer on the scene of
 the collision. As such there are misspellings, abbreviations, and other
-mistakes that have to be fixed. 
+mistakes that have to be fixed.
 
 I have created a set of makes as follows (including `NONE` as a placeholder
 for unknown values). Here is the list in a Python `Enum`:
@@ -120,7 +120,7 @@ the following keys, in this same order:
   explanation: "An explanation of why you think the enum value is a good match, or why there is no match possible.",
   input_string: "The input string",
   enum: "The correct enum from above",
-  no_match: "`True` or `False`. True if there is no matching enum or no way to make a match, otherwise False.", 
+  no_match: "`True` or `False`. True if there is no matching enum or no way to make a match, otherwise False.",
 }
 ```
 

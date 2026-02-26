@@ -19,6 +19,7 @@ image_alt: >
 **Back to the original:**
 
 {% capture url %}{% post_url 2025-02-02-how_i_write_with_llms_revised %}{% endcapture %}
+
 <div class="card-grid">
   {% article_card_lookup url=url %}
 </div>
@@ -72,5 +73,3 @@ my voice comes through in each sentence. Sometimes I'll go through another
 full pass with the LLM, but more often I'll have it focus on specific
 sentences or paragraphs that I still don't like. Once I'm happy, I commit my
 changes and publish.
-
-
