@@ -142,40 +142,26 @@ module Jekyll
         end
 
         def add_book_awards(item)
-          # Book Awards (From page.awards - assuming it's an array)
-          awards_input = @document.data['awards']
-          if awards_input.is_a?(Array)
-            # Clean up array: convert to string, strip, remove nils/empty
-            cleaned = awards_input.map(&:to_s).map(&:strip).compact.reject(&:empty?)
-            item['award'] = cleaned if cleaned.any?
-          elsif awards_input
-            log_invalid_awards
-          end
-        end
-
-        def log_invalid_awards
-          id = @document.url || @document.data['path'] || @document.relative_path
-          Jekyll.logger.warn(
-            'JSON-LD (BookReviewGen):',
-            "Front matter 'awards' for '#{id}' is not an Array, skipping awards.",
+          item.merge!(
+            Jekyll::SEO::JsonLdUtils.clean_array_field(
+              @document.data,
+              'awards',
+              'award',
+              'JSON-LD (BookReviewGen):',
+              doc_id: @document.url,
+            ),
           )
         end
 
         def add_book_same_as(item)
-          same_as_input = @document.data['same_as_urls']
-          if same_as_input.is_a?(Array)
-            cleaned = same_as_input.map(&:to_s).map(&:strip).compact.reject(&:empty?)
-            item['sameAs'] = cleaned if cleaned.any?
-          elsif same_as_input
-            log_invalid_same_as
-          end
-        end
-
-        def log_invalid_same_as
-          id = @document.url || @document.data['path'] || @document.relative_path
-          Jekyll.logger.warn(
-            'JSON-LD (BookReviewGen):',
-            "Front matter 'same_as_urls' for '#{id}' is not an Array, skipping sameAs.",
+          item.merge!(
+            Jekyll::SEO::JsonLdUtils.clean_array_field(
+              @document.data,
+              'same_as_urls',
+              'sameAs',
+              'JSON-LD (BookReviewGen):',
+              doc_id: @document.url,
+            ),
           )
         end
 
