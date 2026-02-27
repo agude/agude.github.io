@@ -8,6 +8,12 @@ rating: 5
 image: /books/covers/a_fire_upon_the_deep.jpg
 awards:
   - hugo
+isbn: 978-0-312-85182-8
+date_published: 1992-04
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q58221164"
+  - "https://en.wikipedia.org/wiki/A_Fire_Upon_the_Deep"
+  - "https://openlibrary.org/works/OL20832939W"
 ---
 
 {% book_link page.title %} is a sci-fi novel by {% author_link

@@ -9,6 +9,13 @@ rating: 4
 image: /books/covers/a_canticle_for_leibowitz.jpg
 awards:
   - hugo
+isbn: 978-0-553-27381-6
+date_published: 1959-10
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q1659714"
+  - "https://en.wikipedia.org/wiki/A_Canticle_for_Leibowitz"
+  - "https://openlibrary.org/works/OL2626638W/A_Canticle_for_Leibowitz"
+  - "https://www.britannica.com/topic/A-Canticle-for-Leibowitz"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

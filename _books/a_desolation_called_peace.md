@@ -9,6 +9,12 @@ image: /books/covers/a_desolation_called_peace.jpg
 awards:
   - hugo
   - locus
+isbn: 978-1-5290-0163-1
+date_published: 2021-03-02
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q105722561"
+  - "https://en.wikipedia.org/wiki/A_Desolation_Called_Peace"
+  - "https://openlibrary.org/works/OL20832939W/A_Desolation_Called_Peace"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

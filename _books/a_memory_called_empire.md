@@ -8,6 +8,12 @@ rating: 5
 image: /books/covers/a_memory_called_empire.jpg
 awards:
   - hugo
+isbn: 978-1-250-18643-0
+date_published: 2019-03-26
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q82566838"
+  - "https://en.wikipedia.org/wiki/A_Memory_Called_Empire"
+  - "https://openlibrary.org/works/OL20157046W/A_Memory_Called_Empire"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

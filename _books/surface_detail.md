@@ -6,6 +6,12 @@ series: Culture
 book_number: 9
 rating: 5
 image: /books/covers/surface_detail.jpg
+isbn: 978-1-84149-894-2
+date_published: 2010-10-07
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q302026"
+  - "https://en.wikipedia.org/wiki/Surface_Detail"
+  - "https://openlibrary.org/works/OL15544038W"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
