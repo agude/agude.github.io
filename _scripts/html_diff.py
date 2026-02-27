@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.10"
+# dependencies = ["beautifulsoup4", "lxml"]
+# ///
 import os
 import sys
 import argparse

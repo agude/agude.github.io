@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.10"
+# dependencies = ["PyYAML"]
+# ///
 from typing import Dict, Union, TextIO, List, Tuple
 import glob
 import os
