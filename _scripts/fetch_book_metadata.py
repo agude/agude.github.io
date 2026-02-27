@@ -36,8 +36,11 @@ BOOK_PROPERTY_MAP: list[tuple[str, str, str | None]] = [
     ("P2969", "Goodreads (work)", "https://www.goodreads.com/work/editions/{value}"),
     ("P648", "Open Library", "https://openlibrary.org/works/{value}"),
     ("P1233", "ISFDB (title)", "https://www.isfdb.org/cgi-bin/title.cgi?{value}"),
+    ("P1274", "ISFDB (title ID)", "https://www.isfdb.org/cgi-bin/title.cgi?{value}"),
     ("P1417", "Britannica", "https://www.britannica.com/{value}"),
     ("P7400", "LibraryThing", "https://www.librarything.com/work/{value}"),
+    ("P1085", "LibraryThing (work ID)", "https://www.librarything.com/work/{value}"),
+    ("P646", "Freebase", "https://www.google.com/search?kgmid={value}"),
     ("P8947", "Google KG", "https://www.google.com/search?kgmid={value}"),
 ]
 
