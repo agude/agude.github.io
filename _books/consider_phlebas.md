@@ -6,6 +6,16 @@ series: Culture
 book_number: 1
 rating: 1
 image: /books/covers/consider_phlebas.jpg
+wikidata_qid: Q261728
+isbn: 978-0-333-45430-5
+date_published: 1987
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q261728"
+  - "https://en.wikipedia.org/wiki/Consider_Phlebas"
+  - "https://openlibrary.org/works/OL8368432W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?2200"
+  - "https://www.librarything.com/work/18595"
+  - "https://www.google.com/search?kgmid=/m/0g05x"
 ---
 
 I've been meaning to read {% author_link page.book_authors link=false

@@ -6,6 +6,13 @@ series: Bobiverse
 book_number: 4
 rating: 3
 image: /books/covers/heavens_river.jpg
+wikidata_qid: Q134525266
+isbn: 978-1-68068-226-7
+date_published: 2021-01-24
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q134525266"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?2789069"
+  - "https://www.amazon.com/Heavens-River-Dennis-Taylor-ebook/dp/B08P3NTSSR"
 ---
 
 {% book_link page.title %} is the fourth book in {% series_text page.series
@@ -22,8 +29,8 @@ told.
 
 {% capture quantum %}{% book_link "The Quantum Thief" %}{% endcapture %}
 
-What I loved about the previous three {{ bobiverse }} books---{{ bob1 }},
-{{ bob2 }}, and {{ bob3 }}---was how many interweaving stories they told. The
+What I loved about the previous three {{ bobiverse }} books---{{ bob1 }}, {{
+bob2 }}, and {{ bob3 }}---was how many interweaving stories they told. The
 chapters were very short, often just a few minutes to read, and each new one
 changed point of view and story. This kept the books moving fast.
 

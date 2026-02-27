@@ -6,6 +6,15 @@ series: Patternist
 book_number: 2
 rating: 2
 image: /books/covers/mind_of_my_mind.jpg
+wikidata_qid: Q23307127
+isbn: 978-0-385-12600-7
+date_published: 1977-06
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q23307127"
+  - "https://en.wikipedia.org/wiki/Mind_of_My_Mind"
+  - "https://openlibrary.org/works/OL35626W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1523"
+  - "https://www.librarything.com/work/1094473"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

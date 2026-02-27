@@ -6,6 +6,16 @@ series: Jean le Flambeur
 book_number: 2
 rating: 3
 image: /books/covers/the_fractal_prince.jpg
+wikidata_qid: Q11859870
+isbn: 978-1-4299-8663-2
+date_published: 2012-09-27
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q11859870"
+  - "https://en.wikipedia.org/wiki/The_Fractal_Prince"
+  - "https://openlibrary.org/works/OL17400059W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1244664"
+  - "https://www.librarything.com/work/11726044"
+  - "https://www.google.com/search?kgmid=/m/0j7knx8"
 ---
 
 {% book_link page.title %} is the second book in {% series_text page.series

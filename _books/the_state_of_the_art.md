@@ -7,6 +7,16 @@ book_number: 4
 is_anthology: true
 rating: 3
 image: /books/covers/the_state_of_the_art.jpg
+wikidata_qid: Q151337
+isbn: 978-0-356-19669-5
+date_published: 1991-03
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q151337"
+  - "https://en.wikipedia.org/wiki/The_State_of_the_Art"
+  - "https://openlibrary.org/works/OL8368448W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?39183"
+  - "https://www.librarything.com/work/2384641"
+  - "https://www.google.com/search?kgmid=/m/0hzkp"
 ---
 
 {% book_link page.title %} is a collection of short stories by {% author_link

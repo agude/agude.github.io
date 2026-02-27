@@ -6,6 +6,15 @@ series: Commonwealth Saga
 book_number: 1
 rating: 5
 image: /books/covers/pandoras_star.jpg
+wikidata_qid: Q18289391
+isbn: 978-0-345-46162-9
+date_published: 2004-02
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q18289391"
+  - "https://openlibrary.org/works/OL474061W/Pandora's_Star"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?154552"
+  - "https://www.librarything.com/work/48931"
+  - "https://www.google.com/search?kgmid=/m/04t26s_"
 ---
 
 I couldn't put {% book_link page.title %} down! It is a sci-fi book that reads

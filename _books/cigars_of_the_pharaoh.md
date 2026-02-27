@@ -6,6 +6,16 @@ series: The Adventures of Tintin
 book_number: 4
 rating: 3
 image: /books/covers/cigars_of_the_pharaoh.jpg
+wikidata_qid: Q837304
+isbn: 978-1-4052-0615-0
+date_published: 1934
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q837304"
+  - "https://en.wikipedia.org/wiki/Cigars_of_the_Pharaoh"
+  - "https://www.tintin.com/en/albums/cigars-of-the-pharaoh"
+  - "https://openlibrary.org/works/OL151056W/Les_cigares_du_pharaon"
+  - "https://www.librarything.com/work/9829550"
+  - "https://www.google.com/search?kgmid=/m/0f9p1"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

@@ -6,6 +6,16 @@ series: The Void Trilogy
 book_number: 1
 rating: 5
 image: /books/covers/the_dreaming_void.jpg
+wikidata_qid: Q3557788
+isbn: 978-1-4050-8880-0
+date_published: 2007-08
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q3557788"
+  - "https://en.wikipedia.org/wiki/The_Dreaming_Void"
+  - "https://openlibrary.org/works/OL17726800W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?694213"
+  - "https://www.librarything.com/work/3119013"
+  - "https://www.google.com/search?kgmid=/m/02wwm3b"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

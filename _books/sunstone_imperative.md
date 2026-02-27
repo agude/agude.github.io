@@ -6,6 +6,12 @@ series: War Horses
 book_number: 6
 rating: 4
 image: /books/covers/sunstone_imperative.jpg
+wikidata_qid: null
+isbn: null
+date_published: 2026-01-10
+same_as_urls:
+  - "https://www.amazon.com/War-Horses-Book-Sunstone-Imperative-ebook/dp/B0G6GYNQ65"
+  - "https://www.goodreads.com/book/show/245108288-war-horses-book-6"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

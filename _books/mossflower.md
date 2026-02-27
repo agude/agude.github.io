@@ -6,6 +6,16 @@ series: Redwall
 book_number: 2
 rating: 4
 image: /books/covers/mossflower.jpg
+wikidata_qid: Q2576767
+isbn: 978-0-399-21549-0
+date_published: 1988
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q2576767"
+  - "https://en.wikipedia.org/wiki/Mossflower"
+  - "https://openlibrary.org/works/OL25672716W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?4165"
+  - "https://www.librarything.com/work/31836"
+  - "https://www.google.com/search?kgmid=/m/047wtd"
 ---
 
 {% book_link page.title %} is the second book in {% series_text page.series

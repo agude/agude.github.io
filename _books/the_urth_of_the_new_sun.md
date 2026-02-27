@@ -6,13 +6,22 @@ series: The Book of the New Sun
 book_number: 5
 rating: 2
 image: /books/covers/the_urth_of_the_new_sun.jpg
+wikidata_qid: Q3225052
+isbn: 978-0-312-93033-2
+date_published: 1987-08
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q3225052"
+  - "https://en.wikipedia.org/wiki/The_Urth_of_the_New_Sun"
+  - "https://openlibrary.org/works/OL14871974W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?936"
+  - "https://www.librarything.com/work/57310"
+  - "https://www.google.com/search?kgmid=/m/0271xb4"
 ---
 
 {% book_link page.title %} is the fifth and final book in {% author_link
 page.book_authors link=false possessive %} {% series_text page.series
-link=false %} tetralogy. It follows Severian as
-he leaves Urth to save mankind and returns to witness its destruction and
-rebirth.
+link=false %} tetralogy. It follows Severian as he leaves Urth to save mankind
+and returns to witness its destruction and rebirth.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture wolfe %}{% author_link page.book_authors link=false link_text="Wolfe" %}{% endcapture %}

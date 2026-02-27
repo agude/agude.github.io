@@ -6,6 +6,14 @@ series: Mesklin
 book_number: 2
 rating: 2
 image: /books/covers/close_to_critical.jpg
+wikidata_qid: Q5135263
+isbn: 978-0-552-07915-0
+date_published: 1964-07
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q5135263"
+  - "https://en.wikipedia.org/wiki/Close_to_Critical"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?2219"
+  - "https://www.google.com/search?kgmid=/m/02qv3t2"
 ---
 
 {% book_link page.title %} is the second book in {% series_text page.series
@@ -60,10 +68,9 @@ fine but not great book.
     %}
     Writing a science fiction story is fun, not work. [...] The fun, and the
     material for this article, lies in treating the whole thing as a game.
-    I've been playing the game since I was a child, so the rules must be
-    quite simple. They are; for the reader of a science-fiction story, they
-    consist of finding as many as possible of the author's statements or
-    implications which conflict with the facts as science currently
-    understands them. For the author, the rule is to make as few such slips
-    as he possibly can.
+    I've been playing the game since I was a child, so the rules must be quite
+    simple. They are; for the reader of a science-fiction story, they consist
+    of finding as many as possible of the author's statements or implications
+    which conflict with the facts as science currently understands them. For
+    the author, the rule is to make as few such slips as he possibly can.
     {% endcitedquote %}

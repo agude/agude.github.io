@@ -6,6 +6,16 @@ series: Culture
 book_number: 2
 rating: 5
 image: /books/covers/the_player_of_games.jpg
+wikidata_qid: Q467139
+isbn: 978-0-333-47110-4
+date_published: 1988-08
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q467139"
+  - "https://en.wikipedia.org/wiki/The_Player_of_Games"
+  - "https://openlibrary.org/works/OL100779W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1380"
+  - "https://www.librarything.com/work/19119"
+  - "https://www.google.com/search?kgmid=/m/0hznb"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false
@@ -37,8 +47,8 @@ culture, but it was seeing the cracks in the Empire, and finally fully
 rejecting their philosophy and embracing his Culture roots that allowed him to
 dominate.
 
-[{{ bankss}} sadism][wasp], as seen in {{ consider_phlebas }}, reappears in {{
-this_book }} but in a more controlled manner. Rather than gratuitous, it
+[{{ bankss }} sadism][wasp], as seen in {{ consider_phlebas }}, reappears in
+{{ this_book }} but in a more controlled manner. Rather than gratuitous, it
 serves to shape the reader's (and Gurgeh's) view of the Azadian Empire and
 pushes Gurgeh to reject their influence.
 

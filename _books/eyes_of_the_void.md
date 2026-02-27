@@ -6,6 +6,12 @@ series: The Final Architecture
 book_number: 2
 rating: 2
 image: /books/covers/eyes_of_the_void.jpg
+wikidata_qid: Q131382897
+isbn: 978-0-316-70587-5
+date_published: 2022-04-28
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q131382897"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?3009985"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

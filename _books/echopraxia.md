@@ -6,6 +6,15 @@ series: Firefall
 book_number: 2
 rating: 5
 image: /books/covers/echopraxia.jpg
+wikidata_qid: Q24255737
+isbn: 978-0-7653-2802-1
+date_published: 2014-08-26
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q24255737"
+  - "https://en.wikipedia.org/wiki/Echopraxia_%28novel%29"
+  - "https://openlibrary.org/works/OL19982983W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1746859"
+  - "https://www.librarything.com/work/14603863"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

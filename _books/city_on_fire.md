@@ -6,6 +6,16 @@ series: Metropolitan
 book_number: 2
 rating: 4
 image: /books/covers/city_on_fire.jpg
+wikidata_qid: Q3209704
+isbn: 978-0-06-105213-2
+date_published: 1997-01
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q3209704"
+  - "https://en.wikipedia.org/wiki/City_on_Fire_%28Williams_novel%29"
+  - "https://openlibrary.org/works/OL447387W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?7271"
+  - "https://www.librarything.com/work/108178"
+  - "https://www.google.com/search?kgmid=/m/05qckqp"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

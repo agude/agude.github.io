@@ -7,6 +7,16 @@ book_number: 1
 is_anthology: false
 rating: 4
 image: /books/covers/on_basilisk_station.jpg
+wikidata_qid: Q3316723
+isbn: 978-0-671-72163-3
+date_published: 1993-04
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q3316723"
+  - "https://en.wikipedia.org/wiki/On_Basilisk_Station"
+  - "https://openlibrary.org/works/OL80028W/On_Basilisk_Station"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1442"
+  - "https://www.librarything.com/work/7703"
+  - "https://www.google.com/search?kgmid=/m/04xlck"
 ---
 
 {% book_link page.title %} by {% author_link page.book_authors link=false %}

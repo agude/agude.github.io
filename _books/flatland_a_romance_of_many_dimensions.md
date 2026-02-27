@@ -6,11 +6,21 @@ series: null
 book_number: 1
 rating: 3
 image: /books/covers/flatland_a_romance_of_many_dimensions.jpg
+wikidata_qid: Q728312
+isbn: 979-8-6302-4801-5
+date_published: 1884
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q728312"
+  - "https://en.wikipedia.org/wiki/Flatland"
+  - "https://openlibrary.org/works/OL118388W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1933"
+  - "https://www.librarything.com/work/8292"
+  - "https://www.google.com/search?kgmid=/m/0j_mj"
 ---
 
-{% book_link page.title %} is a satirical short novel by <span
-class="author-name">{{ page.book_authors }}</span>, critiquing the rigid class
-hierarchy of Victorian England through the lens of geometry.
+{% book_link page.title %} is a satirical short novel by {% author_link
+page.book_authors link=false %}, critiquing the rigid class hierarchy of
+Victorian England through the lens of geometry.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -19,8 +29,8 @@ hierarchy of Victorian England through the lens of geometry.
 
 {{ this_book }} tells the story of A Square, who is a square living in a
 two-dimensional world. The first part of the book explains how Square's world
-and society work, while the second part chronicles Square's visits
-to worlds with different dimensions.
+and society work, while the second part chronicles Square's visits to worlds
+with different dimensions.
 
 The social commentary is a heavy-handed satire, so much so that even someone
 with only a passing familiarity with Victorian life can see what they're

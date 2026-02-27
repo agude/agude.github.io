@@ -6,6 +6,14 @@ series: The Chronicle of the Fallers
 book_number: 1
 rating: 5
 image: /books/covers/the_abyss_beyond_dreams.jpg
+wikidata_qid: Q18389116
+isbn: 978-1-4472-3592-7
+date_published: 2014-10-21
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q18389116"
+  - "https://openlibrary.org/works/OL17819298W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1766257"
+  - "https://www.google.com/search?kgmid=/m/0123k9tp"
 ---
 
 {% book_link page.title %} starts off {% series_text page.series link=false

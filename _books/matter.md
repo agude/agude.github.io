@@ -6,6 +6,16 @@ series: Culture
 book_number: 8
 rating: 4
 image: /books/covers/matter.jpg
+wikidata_qid: Q684818
+isbn: 978-1-84149-418-0
+date_published: 2008-01-31
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q684818"
+  - "https://en.wikipedia.org/wiki/Matter_%28novel%29"
+  - "https://openlibrary.org/works/OL100768W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?640181"
+  - "https://www.librarything.com/work/4194080"
+  - "https://www.google.com/search?kgmid=/m/02p9pw7"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

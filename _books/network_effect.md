@@ -6,6 +6,15 @@ series: The Murderbot Diaries
 book_number: 5
 rating: 5
 image: /books/covers/network_effect.jpg
+wikidata_qid: Q100540380
+isbn: 978-1-250-22986-1
+date_published: 2020-05-05
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q100540380"
+  - "https://en.wikipedia.org/wiki/Network_Effect_%28novel%29"
+  - "https://openlibrary.org/works/OL20735675W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?2717735"
+  - "https://www.librarything.com/work/22627423"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

@@ -10,6 +10,16 @@ image: /books/covers/hyperion.jpg
 awards:
   - hugo
   - locus
+wikidata_qid: Q1798059
+isbn: 978-0-385-24949-2
+date_published: 1989-06
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q1798059"
+  - "https://en.wikipedia.org/wiki/Hyperion_%28Simmons_novel%29"
+  - "https://openlibrary.org/works/OL1963268W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1749"
+  - "https://www.librarything.com/work/23078"
+  - "https://www.google.com/search?kgmid=/m/05mgnz"
 ---
 
 {% book_link page.title %} is {% author_link page.book_authors link=false

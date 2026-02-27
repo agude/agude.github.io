@@ -6,6 +6,13 @@ series: Bobiverse
 book_number: 3
 rating: 4
 image: /books/covers/all_these_worlds.jpg
+wikidata_qid: Q133306305
+isbn: 978-1-68068-060-7
+date_published: 2017-07-25
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q133306305"
+  - "https://openlibrary.org/works/OL19742647W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?2333582"
 ---
 
 {% book_link page.title %} is the third book in {% series_text page.series

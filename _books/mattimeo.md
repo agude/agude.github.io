@@ -6,6 +6,16 @@ series: Redwall
 book_number: 3
 rating: 5
 image: /books/covers/mattimeo.jpg
+wikidata_qid: Q683464
+isbn: 978-0-09-173898-3
+date_published: 1989-10
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q683464"
+  - "https://en.wikipedia.org/wiki/Mattimeo"
+  - "https://openlibrary.org/works/OL25672713W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?4166"
+  - "https://www.librarything.com/work/31835"
+  - "https://www.google.com/search?kgmid=/m/04tzcg"
 ---
 
 {% book_link page.title %} is the third book in {% series_text page.series

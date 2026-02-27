@@ -6,6 +6,12 @@ series: War Horses
 book_number: 1
 rating: 3
 image: /books/covers/chevalier.jpg
+wikidata_qid: Q135003430
+isbn: 979-8-9855718-1-3
+date_published: 2022-09-15
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q135003430"
+  - "https://www.amazon.com/gp/product/B0B4PS5GHR"
 ---
 
 {% book_link page.title %} is a modern reimagining of 1980's mech sci-fi like

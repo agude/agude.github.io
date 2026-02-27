@@ -6,6 +6,13 @@ series: Bobiverse
 book_number: 2
 rating: 4
 image: /books/covers/for_we_are_many.jpg
+wikidata_qid: Q30612289
+isbn: 978-1-68068-059-1
+date_published: 2017-04-18
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q30612289"
+  - "https://openlibrary.org/works/OL19742648W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?2214429"
 ---
 
 {% book_link page.title %} is the second book in {% series_text page.series

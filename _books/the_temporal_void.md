@@ -6,14 +6,22 @@ series: The Void Trilogy
 book_number: 2
 rating: 4
 image: /books/covers/the_temporal_void.jpg
+wikidata_qid: Q3557789
+isbn: 978-1-4050-8883-1
+date_published: 2008-10
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q3557789"
+  - "https://en.wikipedia.org/wiki/The_Temporal_Void"
+  - "https://openlibrary.org/works/OL474053W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?910040"
+  - "https://www.google.com/search?kgmid=/m/02ww_fs"
 ---
 
 The second book in {% author_link page.book_authors link=false
 link_text="Hamilton" possessive %} {% series_text page.series link=false %},
-<cite class="book-title">{{ page.title }}</cite>, continues to advance the
-story, but like many middle books in a trilogy, it does so slowly. Much of
-this slowness is due to multiple, massive, 200-page chapters following Edeard
-in the Void.
+{% book_link page.title %}, continues to advance the story, but like many
+middle books in a trilogy, it does so slowly. Much of this slowness is due to
+multiple, massive, 200-page chapters following Edeard in the Void.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

@@ -8,6 +8,16 @@ rating: 1
 image: /books/covers/the_three_body_problem.jpg
 awards:
   - hugo
+wikidata_qid: Q607112
+isbn: 978-0-7653-7706-7
+date_published: 2006
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q607112"
+  - "https://en.wikipedia.org/wiki/The_Three-Body_Problem_%28novel%29"
+  - "https://openlibrary.org/works/OL17267881W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1779018"
+  - "https://www.librarything.com/work/14831230"
+  - "https://www.google.com/search?kgmid=/m/0gkxb4v"
 ---
 
 {% book_link page.title %} was recommended as a exciting, hard-scifi book full

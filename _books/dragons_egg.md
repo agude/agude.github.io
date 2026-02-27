@@ -8,6 +8,16 @@ rating: 5
 image: /books/covers/dragons_egg.jpg
 awards:
   - locus
+wikidata_qid: Q3205839
+isbn: 978-0-345-28646-8
+date_published: 1980-05
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q3205839"
+  - "https://en.wikipedia.org/wiki/Dragon%27s_Egg"
+  - "https://openlibrary.org/works/OL84296W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?6773"
+  - "https://www.librarything.com/work/94939"
+  - "https://www.google.com/search?kgmid=/m/0b_n9k"
 ---
 
 {% book_link page.title %} is a hard sci-fi novel by <span

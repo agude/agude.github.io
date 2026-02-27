@@ -13,6 +13,13 @@ book_number: 2
 rating: 5
 image: /books/covers/disco_elysium.jpg
 redirect_from: /books/disco_elyisum/
+wikidata_qid: Q71693825
+isbn: null
+date_published: 2019-10-15
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q71693825"
+  - "https://en.wikipedia.org/wiki/Disco_Elysium"
+  - "https://discoelysium.com/"
 ---
 
 {% game_title page.title %}, written by {% author_link page.book_authors[0]

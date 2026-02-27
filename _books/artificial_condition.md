@@ -6,6 +6,14 @@ series: The Murderbot Diaries
 book_number: 2
 rating: 5
 image: /books/covers/artificial_condition.jpg
+wikidata_qid: Q56065509
+isbn: 978-1-250-18692-8
+date_published: 2018-05-08
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q56065509"
+  - "https://openlibrary.org/works/OL27481052W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?2344581"
+  - "https://www.librarything.com/work/20421899"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

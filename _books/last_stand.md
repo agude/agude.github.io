@@ -18,6 +18,13 @@ book_number: 13
 is_anthology: true
 rating: 3
 image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
+wikidata_qid: null
+isbn: 978-0-671-87760-6
+date_published: 1997-03-01
+same_as_urls:
+  - "https://www.amazon.com/Last-Stand-Bolos-Keith-Laumer/dp/0671877607"
+  - "https://www.baen.com/bolos-iv-the-last-stand.html"
+  - "www.goodreads.com/book/show/362564.Last_Stand"
 ---
 
 {% book_link page.title %} is the thirteenth book in {% series_text

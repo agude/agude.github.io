@@ -10,6 +10,13 @@ book_number: 12
 is_anthology: true
 rating: 5
 image: /books/covers/bolos_book_3_the_triumphant_1st_edition.jpg
+wikidata_qid: null
+isbn: 978-0-671-87683-8
+date_published: 1995-08
+same_as_urls:
+  - "https://www.amazon.com/Triumphant-Bolos-Keith-Laumer/dp/067187683X"
+  - "https://www.goodreads.com/book/show/470056.The_Triumphant"
+  - "https://www.baen.com/bolos-iii-the-triumphant.html"
 ---
 
 {% book_link page.title %} is the twelfth book in {% series_text page.series

@@ -6,6 +6,16 @@ series: Culture
 book_number: 10
 rating: 5
 image: /books/covers/the_hydrogen_sonata.jpg
+wikidata_qid: Q7741197
+isbn: 978-0-356-50150-5
+date_published: 2012-10-04
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q7741197"
+  - "https://en.wikipedia.org/wiki/The_Hydrogen_Sonata"
+  - "https://openlibrary.org/works/OL17717215W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1488930"
+  - "https://www.librarything.com/work/12351370"
+  - "https://www.google.com/search?kgmid=/m/0j6431p"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

@@ -6,6 +6,16 @@ series: The Adventures of Tintin
 book_number: 5
 rating: 3
 image: /books/covers/the_blue_lotus.jpg
+wikidata_qid: Q76210
+isbn: 978-0-316-35856-9
+date_published: 1936
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q76210"
+  - "https://en.wikipedia.org/wiki/The_Blue_Lotus"
+  - "https://www.tintin.com/en/albums/the-blue-lotus"
+  - "https://openlibrary.org/works/OL151051W"
+  - "https://www.librarything.com/work/3228445"
+  - "https://www.google.com/search?kgmid=/m/01ptzf"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
@@ -24,13 +34,13 @@ Tintin busting an opium ring in China.
 {% capture tt16 %}{% book_link "Destination Moon" %}{% endcapture %}
 {% capture tt17 %}{% book_link "Explorers on the Moon" %}{% endcapture %}
 
-{{ this_book }} departs from the earlier books in the series by placing
-Tintin in an actual historical event: [the Japanese invasion of
-Manchuria][invasion]. The book follows history closely, with Tintin witnessing
-Japanese agents blowing up a rail line in a false-flag attack, just like what
-happened in the real war. The tone is more serious to fit the wartime setting:
-no bouncing on fat men like in {{ tt4 }}, though there's still plenty of
-slapstick with Thomson and Thompson.
+{{ this_book }} departs from the earlier books in the series by placing Tintin
+in an actual historical event: [the Japanese invasion of Manchuria][invasion].
+The book follows history closely, with Tintin witnessing Japanese agents
+blowing up a rail line in a false-flag attack, just like what happened in the
+real war. The tone is more serious to fit the wartime setting: no bouncing on
+fat men like in {{ tt4 }}, though there's still plenty of slapstick with
+Thomson and Thompson.
 
 [invasion]: https://en.wikipedia.org/wiki/Japanese_invasion_of_Manchuria
 

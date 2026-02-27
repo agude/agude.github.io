@@ -6,6 +6,14 @@ series: The Murderbot Diaries
 book_number: 4
 rating: 5
 image: /books/covers/exit_strategy.jpg
+wikidata_qid: Q63177967
+isbn: 978-1-250-19185-4
+date_published: 2018-10-02
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q63177967"
+  - "https://openlibrary.org/works/OL19763338W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?2421678"
+  - "https://www.librarything.com/work/20558348"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

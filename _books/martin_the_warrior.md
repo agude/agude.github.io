@@ -6,6 +6,16 @@ series: Redwall
 book_number: 6
 rating: 3
 image: /books/covers/martin_the_warrior.jpg
+wikidata_qid: Q664389
+isbn: 978-0-09-176150-9
+date_published: 1993-10
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q664389"
+  - "https://en.wikipedia.org/wiki/Martin_the_Warrior"
+  - "https://openlibrary.org/works/OL465920W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?4169"
+  - "https://www.librarything.com/work/28686"
+  - "https://www.google.com/search?kgmid=/m/048686"
 ---
 
 {% book_link page.title %} is the sixth book in {% series_text page.series

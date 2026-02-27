@@ -6,6 +6,16 @@ series: Redwall
 book_number: 4
 rating: 4
 image: /books/covers/mariel_of_redwall.jpg
+wikidata_qid: Q3063726
+isbn: 978-0-09-176405-0
+date_published: 1991-10
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q3063726"
+  - "https://en.wikipedia.org/wiki/Mariel_of_Redwall"
+  - "https://openlibrary.org/works/OL20421742W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?4167"
+  - "https://www.librarything.com/work/31833"
+  - "https://www.google.com/search?kgmid=/m/04vjd5"
 ---
 
 {% book_link page.title %} is the fourth book in {% series_text page.series

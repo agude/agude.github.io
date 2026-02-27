@@ -6,6 +6,17 @@ series: Patternist
 book_number: 4
 rating: 4
 image: /books/covers/patternmaster.jpg
+wikidata_qid: Q23038229
+isbn: 978-0-385-12197-2
+date_published: 1976-07
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q23038229"
+  - "https://en.wikipedia.org/wiki/Patternmaster"
+  - "https://openlibrary.org/works/OL35620W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1413"
+  - "https://www.britannica.com/topic/Patternmaster"
+  - "https://www.librarything.com/work/1094480"
+  - "https://www.google.com/search?kgmid=/m/05qcwr5"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

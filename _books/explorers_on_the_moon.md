@@ -6,6 +6,16 @@ series: The Adventures of Tintin
 book_number: 17
 rating: 5
 image: /books/covers/explorers_on_the_moon.jpg
+wikidata_qid: Q1309201
+isbn: 978-0-316-35846-0
+date_published: 1954
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q1309201"
+  - "https://en.wikipedia.org/wiki/Explorers_on_the_Moon"
+  - "https://www.tintin.com/en/albums/explorers-on-the-moon"
+  - "https://openlibrary.org/works/OL151067W/On_a_marché_sur_la_Lune"
+  - "https://www.librarything.com/work/7497"
+  - "https://www.google.com/search?kgmid=/m/02nw4s"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

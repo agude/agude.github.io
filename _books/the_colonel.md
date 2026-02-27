@@ -6,6 +6,14 @@ series: Firefall
 book_number: 1.5
 rating: 5
 image: /books/covers/the_colonel.jpg
+wikidata_qid: null
+isbn: 978-1-4668-7647-7
+date_published: 2014-07-29
+same_as_urls:
+  - "https://www.amazon.com/Colonel-Tor-Com-Original-Firefall-ebook/dp/B00L73GSVE"
+  - "https://torpublishinggroup.com/the-colonel/?isbn=9781466876477"
+  - "https://reactormag.com/the-colonel-peter-watts/"
+  - "https://www.google.com/search?kgmid=/g/11b60frqhx"
 ---
 
 {% book_link page.title %} is a short story that serves as a bridge between {%

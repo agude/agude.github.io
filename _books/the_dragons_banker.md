@@ -6,6 +6,13 @@ series: null
 book_number: 1
 rating: 3
 image: /books/covers/the_dragons_banker.jpg
+wikidata_qid: null
+isbn: 978-0-578-55292-7
+date_published: 2019-09-25
+same_as_urls:
+  - "https://www.amazon.com/Dragons-Banker-Bonus-Novelette-Forego-ebook/dp/B07TX1SJKF"
+  - "https://www.goodreads.com/book/show/49405286-the-dragon-s-banker"
+  - "https://www.google.com/search?kgmid=/g/11h51_k0_7"
 ---
 
 {% book_link page.title %} is a standalone novel by {% author_link

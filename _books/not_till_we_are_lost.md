@@ -8,6 +8,12 @@ is_anthology: false
 rating: 4
 image: /books/covers/not_till_we_are_lost.jpg
 redirect_from: /books/not_til_we_are_lost/
+wikidata_qid: Q134525267
+isbn: 978-1-68068-345-5
+date_published: 2025-01-05
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q134525267"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?3399590"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

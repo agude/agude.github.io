@@ -6,6 +6,16 @@ series: Culture
 book_number: 5
 rating: 4
 image: /books/covers/excession.jpg
+wikidata_qid: Q74362
+isbn: 978-1-85723-394-0
+date_published: 1996-06
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q74362"
+  - "https://en.wikipedia.org/wiki/Excession"
+  - "https://openlibrary.org/works/OL11169894W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?6886"
+  - "https://www.librarything.com/work/18673"
+  - "https://www.google.com/search?kgmid=/m/0hzpk"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

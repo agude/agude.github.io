@@ -6,6 +6,17 @@ series: null
 book_number: 1
 rating: 3
 image: /books/covers/the_war_of_the_worlds.jpg
+wikidata_qid: Q213019
+isbn: 978-0-14-000570-7
+date_published: 1897-04
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q213019"
+  - "https://en.wikipedia.org/wiki/The_War_of_the_Worlds"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?895"
+  - "https://openlibrary.org/books/OL33225306M/The_war_of_the_worlds"
+  - "https://www.britannica.com/topic/The-War-of-the-Worlds-novel-by-Wells"
+  - "https://www.librarything.com/work/11494"
+  - "https://www.google.com/search?kgmid=/m/0276mtb"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

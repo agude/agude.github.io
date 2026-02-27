@@ -6,6 +6,15 @@ series: The Last Policeman
 book_number: 3
 rating: 2
 image: /books/covers/world_of_trouble.jpg
+wikidata_qid: Q18210253
+isbn: 978-1-59474-685-7
+date_published: 2014-06-01
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q18210253"
+  - "https://en.wikipedia.org/wiki/World_of_Trouble"
+  - "https://openlibrary.org/works/OL19981755W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1733090"
+  - "https://www.google.com/search?kgmid=/m/011srgj0"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

@@ -6,6 +6,16 @@ series: Jean le Flambeur
 book_number: 1
 rating: 2
 image: /books/covers/the_quantum_thief.jpg
+wikidata_qid: Q6303649
+isbn: 978-0-575-08887-0
+date_published: 2010-09
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q6303649"
+  - "https://en.wikipedia.org/wiki/The_Quantum_Thief"
+  - "https://openlibrary.org/works/OL17699438W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1105067"
+  - "https://www.librarything.com/work/9664958"
+  - "https://www.google.com/search?kgmid=/m/0fqmw6s"
 ---
 
 {% book_link page.title %} is a sci-fi novel following the adventures of the

@@ -7,6 +7,14 @@ book_number: 1
 is_anthology: true
 rating: 4
 image: /books/covers/valuable_humans_in_transit_and_other_stories.jpg
+wikidata_qid: null
+isbn: 979-8-3592-9806-3
+date_published: 2022-11-09
+same_as_urls:
+  - "https://qntm.org/vhitaos"
+  - "https://www.amazon.com/dp/B0BLYBM32C"
+  - "https://www.goodreads.com/book/show/63198504-valuable-humans-in-transit-and-other-stories"
+  - "https://www.google.com/search?kgmid=/g/11sbdxphsj"
 ---
 
 {% book_link page.title %} is a collection of short stories by {% author_link

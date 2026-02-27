@@ -8,6 +8,14 @@ rating: 3
 image: /books/covers/the_darfsteller.jpg
 awards:
   - hugo
+wikidata_qid: Q7728896
+isbn: 978-0-8398-2496-1
+date_published: 1955-01
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q7728896"
+  - "https://en.wikipedia.org/wiki/The_Darfsteller"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?55822"
+  - "https://www.google.com/search?kgmid=/m/0658nb"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

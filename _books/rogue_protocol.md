@@ -6,6 +6,14 @@ series: The Murderbot Diaries
 book_number: 3
 rating: 5
 image: /books/covers/rogue_protocol.jpg
+wikidata_qid: Q63177761
+isbn: 978-1-250-19178-6
+date_published: 2018-08-07
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q63177761"
+  - "https://openlibrary.org/works/OL19753589W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?2391283"
+  - "https://www.librarything.com/work/20525242"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

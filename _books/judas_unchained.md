@@ -6,6 +6,14 @@ series: Commonwealth Saga
 book_number: 2
 rating: 5
 image: /books/covers/judas_unchained.jpg
+wikidata_qid: Q18289389
+isbn: 978-1-4050-0036-9
+date_published: 2005-10-07
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q18289389"
+  - "https://openlibrary.org/works/OL20870384W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?180477"
+  - "https://www.librarything.com/work/48743"
 ---
 
 The sequel to {% book_link "Pandora's Star" %}, <cite class="book-title">{{

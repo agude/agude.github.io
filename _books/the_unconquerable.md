@@ -14,6 +14,13 @@ book_number: 11
 is_anthology: true
 rating: 4
 image: /books/covers/bolos_book_2_the_unconquerable_1st_edition.jpg
+wikidata_qid: null
+isbn: 978-0-671-87629-6
+date_published: 1994-01
+same_as_urls:
+  - "https://www.amazon.com/Bolos-II-Unconquerable-Book-Bk/dp/0671876295"
+  - "https://www.goodreads.com/book/show/362562.The_Unconquerable"
+  - "https://www.baen.com/bolos-ii-the-unconquerable.html"
 ---
 
 {% book_link page.title %} is the eleventh book in {% series_text page.series
