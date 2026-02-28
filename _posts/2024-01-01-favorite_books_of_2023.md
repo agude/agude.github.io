@@ -59,12 +59,12 @@ stories into science fiction territory.
 
 ## <cite class="book-title">The Fall of Hyperion</cite> by <span class="author-name">Dan Simmons</span>
 
-I enjoyed the sequel to {% book_link "Hyperion" %} the most
-of the two books because it tied the personal story of the pilgrims to a much
-broader galactic conflict. Interestingly, you can see a lot of ideas in the
-Hyperion Cantos that Hamilton later adopted in his Commonwealth Saga including
-wormholes, a breakaway-but-helpful AI, and different factions of
-scheming AI who either want to eradicate the humans or uplift them.
+I enjoyed the sequel to {% book_link "Hyperion" %} the most of the two books
+because it tied the personal story of the pilgrims to a much broader galactic
+conflict. Interestingly, you can see a lot of ideas in the Hyperion Cantos
+that Hamilton later adopted in his Commonwealth Saga including wormholes, a
+breakaway-but-helpful AI, and different factions of scheming AI who either
+want to eradicate the humans or uplift them.
 
 <div class="card-grid">
   {% book_card_lookup title="The Fall of Hyperion" date="2023-10-27" %}
