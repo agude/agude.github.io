@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Tier Maker</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #1a1a2e;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.8em;
+            color: #fff;
+        }
+
+        /* --- Loading Screen --- */
+        #load-screen {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #16213e;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        #load-screen h2 { margin-bottom: 20px; color: #fff; }
+
+        .load-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            background: #0f3460;
+            border-radius: 8px;
+        }
+
+        .load-step.done { background: #1a5c3a; }
+
+        .load-step label {
+            cursor: pointer;
+            padding: 10px 20px;
+            background: #e94560;
+            color: #fff;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .load-step label:hover { background: #c73852; }
+        .load-step.done label { background: #555; pointer-events: none; }
+
+        .load-step input[type="file"] { display: none; }
+
+        .load-step .status {
+            flex: 1;
+            text-align: left;
+            font-size: 0.95em;
+        }
+
+        .load-step .check {
+            font-size: 1.5em;
+            display: none;
+        }
+
+        .load-step.done .check { display: inline; }
+
+        /* --- Tier Maker --- */
+        #tier-maker { display: none; max-width: 1400px; margin: 0 auto; padding: 0 20px 40px; }
+
+        .toolbar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .toolbar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #fff;
+            transition: opacity 0.2s;
+        }
+
+        .toolbar button:hover { opacity: 0.85; }
+        .btn-yaml { background: #e94560; }
+        .btn-changes { background: #0f3460; }
+        .btn-reset { background: #555; }
+
+        .tier-row {
+            display: flex;
+            margin-bottom: 4px;
+            min-height: 130px;
+            background: #16213e;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tier-label {
+            width: 80px;
+            min-width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            user-select: none;
+        }
+
+        .tier-5 .tier-label { background: #ff4444; }
+        .tier-4 .tier-label { background: #ff8c00; }
+        .tier-3 .tier-label { background: #ffd700; color: #333; text-shadow: none; }
+        .tier-2 .tier-label { background: #4caf50; }
+        .tier-1 .tier-label { background: #2196f3; }
+        .tier-0 .tier-label { background: #555; font-size: 0.9em; }
+
+        .tier-books {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            gap: 6px;
+            padding: 8px;
+            min-height: 100px;
+            transition: background 0.15s;
+        }
+
+        .tier-books.drag-over {
+            background: rgba(233, 69, 96, 0.15);
+        }
+
+        .book-card {
+            width: 80px;
+            height: 120px;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: grab;
+            position: relative;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            transition: transform 0.1s, box-shadow 0.1s;
+            background: #2a2a4a;
+        }
+
+        .book-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+            z-index: 10;
+        }
+
+        .book-card:active { cursor: grabbing; }
+
+        .book-card.dragging {
+            opacity: 0.4;
+        }
+
+        .book-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-card .fallback-title {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 10px;
+            padding: 4px;
+            line-height: 1.2;
+            color: #ccc;
+        }
+
+        .book-card .changed-indicator {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            background: #e94560;
+            border-radius: 50%;
+            border: 2px solid #1a1a2e;
+            display: none;
+        }
+
+        .book-card.changed .changed-indicator { display: block; }
+
+        /* Tooltip */
+        .book-card .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+            z-index: 100;
+        }
+
+        .book-card:hover .tooltip { opacity: 1; }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4caf50;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .toast.show { opacity: 1; }
+
+        /* Summary stats */
+        .stats {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        .stats .changed-count { color: #e94560; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Book Tier Maker</h1>
+
+    <div id="load-screen">
+        <h2>Load Book Data</h2>
+        <div class="load-step" id="step-books">
+            <label for="books-input">Select _books/ folder</label>
+            <input type="file" id="books-input" webkitdirectory>
+            <span class="status" id="books-status">Not loaded</span>
+            <span class="check">&#10003;</span>
+        </div>
+        <div class="load-step" id="step-covers">
+            <label for="covers-input">Select books/covers/ folder</label>
+            <input type="file" id="covers-input" webkitdirectory>
+            <span class="status" id="covers-status">Not loaded</span>
+            <span class="check">&#10003;</span>
+        </div>
+    </div>
+
+    <div id="tier-maker">
+        <div class="stats" id="stats"></div>
+        <div class="toolbar">
+            <button class="btn-yaml" onclick="copyYaml()">Copy as YAML</button>
+            <button class="btn-changes" onclick="copyChanges()">Copy changed ratings</button>
+            <button class="btn-reset" onclick="resetAll()">Reset to original</button>
+        </div>
+        <div id="tiers"></div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // --- State ---
+        let books = [];        // { title, originalRating, image (filename), coverUrl }
+        let coverUrls = {};    // filename -> objectURL
+        let loaded = { books: false, covers: false };
+
+        // --- YAML Front Matter Parser ---
+        function parseFrontMatter(text) {
+            const match = text.match(/\A---\s*\n([\s\S]*?)\n---/);
+            if (!match) {
+                // Try from start of string
+                const match2 = text.match(/^---\s*\n([\s\S]*?)\n---/);
+                if (!match2) return null;
+                return parseSimpleYaml(match2[1]);
+            }
+            return parseSimpleYaml(match[1]);
+        }
+
+        function parseSimpleYaml(yaml) {
+            const result = {};
+            for (const line of yaml.split('\n')) {
+                // Match top-level key: value pairs only
+                const m = line.match(/^(\w[\w_]*)\s*:\s*(.+)/);
+                if (m) {
+                    let val = m[2].trim();
+                    // Strip surrounding quotes
+                    if ((val.startsWith('"') && val.endsWith('"')) ||
+                        (val.startsWith("'") && val.endsWith("'"))) {
+                        val = val.slice(1, -1);
+                    }
+                    // Parse numbers
+                    if (/^\d+$/.test(val)) val = parseInt(val, 10);
+                    result[m[1]] = val;
+                }
+            }
+            return result;
+        }
+
+        // --- File Loading ---
+        document.getElementById('books-input').addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files);
+            const mdFiles = files.filter(f =>
+                f.name.endsWith('.md') &&
+                // Skip subdirectory files (archived reviews)
+                !f.webkitRelativePath.includes('/', f.webkitRelativePath.indexOf('/') + 1)
+            );
+
+            // Actually we need to check: webkitRelativePath is like "_books/foo.md"
+            // or "_books/subdir/foo.md". Skip the latter.
+            const topLevelMd = files.filter(f => {
+                if (!f.name.endsWith('.md')) return false;
+                const parts = f.webkitRelativePath.split('/');
+                return parts.length === 2; // ["_books", "foo.md"]
+            });
+
+            let count = 0;
+            for (const file of topLevelMd) {
+                const text = await file.text();
+                const data = parseFrontMatter(text);
+                if (data && data.title && data.rating != null) {
+                    const imageFilename = data.image
+                        ? data.image.split('/').pop()
+                        : null;
+                    // Skip books with canonical_url (archived reviews)
+                    if (data.canonical_url) continue;
+                    books.push({
+                        title: data.title,
+                        originalRating: data.rating,
+                        currentRating: data.rating,
+                        imageFilename: imageFilename,
+                        coverUrl: null
+                    });
+                    count++;
+                }
+            }
+
+            // Sort by title within each rating for consistent initial order
+            books.sort((a, b) => a.title.localeCompare(b.title));
+
+            document.getElementById('books-status').textContent = `${count} books loaded`;
+            document.getElementById('step-books').classList.add('done');
+            loaded.books = true;
+            tryRender();
+        });
+
+        document.getElementById('covers-input').addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files);
+            let count = 0;
+            for (const file of files) {
+                if (file.type.startsWith('image/')) {
+                    const url = URL.createObjectURL(file);
+                    coverUrls[file.name] = url;
+                    count++;
+                }
+            }
+
+            document.getElementById('covers-status').textContent = `${count} covers loaded`;
+            document.getElementById('step-covers').classList.add('done');
+            loaded.covers = true;
+            tryRender();
+        });
+
+        function tryRender() {
+            if (!loaded.books || !loaded.covers) return;
+
+            // Match covers to books
+            for (const book of books) {
+                if (book.imageFilename && coverUrls[book.imageFilename]) {
+                    book.coverUrl = coverUrls[book.imageFilename];
+                }
+            }
+
+            document.getElementById('load-screen').style.display = 'none';
+            document.getElementById('tier-maker').style.display = 'block';
+            buildTiers();
+        }
+
+        // --- Tier Maker ---
+        function buildTiers() {
+            const container = document.getElementById('tiers');
+            container.innerHTML = '';
+
+            const tiers = [
+                { rating: 5, label: '5★' },
+                { rating: 4, label: '4★' },
+                { rating: 3, label: '3★' },
+                { rating: 2, label: '2★' },
+                { rating: 1, label: '1★' },
+                { rating: 0, label: '?' }
+            ];
+
+            for (const tier of tiers) {
+                const row = document.createElement('div');
+                row.className = `tier-row tier-${tier.rating}`;
+
+                const label = document.createElement('div');
+                label.className = 'tier-label';
+                label.textContent = tier.label;
+                row.appendChild(label);
+
+                const booksZone = document.createElement('div');
+                booksZone.className = 'tier-books';
+                booksZone.dataset.rating = tier.rating;
+                setupDropZone(booksZone);
+                row.appendChild(booksZone);
+
+                container.appendChild(row);
+
+                // Add books to their current tier
+                const tierBooks = books.filter(b => b.currentRating === tier.rating);
+                for (const book of tierBooks) {
+                    booksZone.appendChild(createBookCard(book));
+                }
+            }
+
+            updateStats();
+        }
+
+        function createBookCard(book) {
+            const card = document.createElement('div');
+            card.className = 'book-card';
+            card.draggable = true;
+            card.dataset.title = book.title;
+
+            if (book.coverUrl) {
+                const img = document.createElement('img');
+                img.src = book.coverUrl;
+                img.alt = book.title;
+                img.draggable = false;
+                card.appendChild(img);
+            } else {
+                const fallback = document.createElement('div');
+                fallback.className = 'fallback-title';
+                fallback.textContent = book.title;
+                card.appendChild(fallback);
+            }
+
+            const indicator = document.createElement('div');
+            indicator.className = 'changed-indicator';
+            card.appendChild(indicator);
+
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            tooltip.textContent = book.title;
+            card.appendChild(tooltip);
+
+            // Update changed state
+            if (book.currentRating !== book.originalRating) {
+                card.classList.add('changed');
+                tooltip.textContent = `${book.title} (was ${book.originalRating}★)`;
+            }
+
+            // Drag events
+            card.addEventListener('dragstart', (e) => {
+                card.classList.add('dragging');
+                e.dataTransfer.setData('text/plain', book.title);
+                e.dataTransfer.effectAllowed = 'move';
+            });
+
+            card.addEventListener('dragend', () => {
+                card.classList.remove('dragging');
+                document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+            });
+
+            return card;
+        }
+
+        function setupDropZone(zone) {
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                zone.classList.add('drag-over');
+            });
+
+            zone.addEventListener('dragleave', (e) => {
+                // Only remove if we're actually leaving the zone
+                if (!zone.contains(e.relatedTarget)) {
+                    zone.classList.remove('drag-over');
+                }
+            });
+
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                zone.classList.remove('drag-over');
+
+                const title = e.dataTransfer.getData('text/plain');
+                const newRating = parseInt(zone.dataset.rating, 10);
+                const book = books.find(b => b.title === title);
+                if (!book) return;
+
+                book.currentRating = newRating;
+
+                // Find the dragged card and move it
+                const card = document.querySelector(`.book-card[data-title="${CSS.escape(title)}"]`);
+                if (!card) return;
+
+                // Find insertion point based on mouse position
+                const afterElement = getDragAfterElement(zone, e.clientX, e.clientY);
+                if (afterElement) {
+                    zone.insertBefore(card, afterElement);
+                } else {
+                    zone.appendChild(card);
+                }
+
+                // Update changed indicator
+                const tooltip = card.querySelector('.tooltip');
+                if (book.currentRating !== book.originalRating) {
+                    card.classList.add('changed');
+                    tooltip.textContent = `${book.title} (was ${book.originalRating}★)`;
+                } else {
+                    card.classList.remove('changed');
+                    tooltip.textContent = book.title;
+                }
+
+                updateStats();
+            });
+        }
+
+        function getDragAfterElement(zone, x, y) {
+            const cards = [...zone.querySelectorAll('.book-card:not(.dragging)')];
+            let closest = null;
+            let closestDist = Infinity;
+
+            for (const card of cards) {
+                const rect = card.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                const dist = Math.hypot(x - cx, y - cy);
+
+                // Only consider cards that are after the drop point
+                // (to the right or below)
+                if ((x < cx || y < cy) && dist < closestDist) {
+                    closestDist = dist;
+                    closest = card;
+                }
+            }
+
+            return closest;
+        }
+
+        function updateStats() {
+            const changed = books.filter(b => b.currentRating !== b.originalRating).length;
+            const counts = [5, 4, 3, 2, 1].map(r =>
+                `${r}★: ${books.filter(b => b.currentRating === r).length}`
+            ).join('  ·  ');
+
+            const statsEl = document.getElementById('stats');
+            if (changed > 0) {
+                statsEl.innerHTML = `${counts}  ·  <span class="changed-count">${changed} changed</span>`;
+            } else {
+                statsEl.textContent = counts;
+            }
+        }
+
+        // --- Export ---
+        function copyYaml() {
+            const lines = ['ranked_list:'];
+            const tierNames = {5: '5 Stars', 4: '4 Stars', 3: '3 Stars', 2: '2 Stars', 1: '1 Stars'};
+
+            for (const rating of [5, 4, 3, 2, 1]) {
+                lines.push(`  # ${tierNames[rating]}`);
+
+                // Get books in visual order from the DOM
+                const zone = document.querySelector(`.tier-books[data-rating="${rating}"]`);
+                const cards = zone.querySelectorAll('.book-card');
+                for (const card of cards) {
+                    const title = card.dataset.title;
+                    // Quote titles containing colons or special YAML chars
+                    if (title.includes(':') || title.includes('#') || title.includes('"')) {
+                        lines.push(`  - "${title.replace(/"/g, '\\"')}"`);
+                    } else {
+                        lines.push(`  - ${title}`);
+                    }
+                }
+            }
+
+            navigator.clipboard.writeText(lines.join('\n')).then(() => {
+                showToast('YAML copied to clipboard');
+            });
+        }
+
+        function copyChanges() {
+            const changed = books
+                .filter(b => b.currentRating !== b.originalRating)
+                .sort((a, b) => a.title.localeCompare(b.title))
+                .map(b => `${b.title}: ${b.originalRating}★ → ${b.currentRating}★`)
+                .join('\n');
+
+            if (!changed) {
+                showToast('No changes to copy');
+                return;
+            }
+
+            navigator.clipboard.writeText(changed).then(() => {
+                showToast('Changes copied to clipboard');
+            });
+        }
+
+        function resetAll() {
+            for (const book of books) {
+                book.currentRating = book.originalRating;
+            }
+            buildTiers();
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blind Book Rater</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #1a1a2e;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.8em;
+            color: #fff;
+        }
+
+        /* --- Loading Screen --- */
+        #load-screen {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #16213e;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        #load-screen h2 { margin-bottom: 20px; color: #fff; }
+
+        .load-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            background: #0f3460;
+            border-radius: 8px;
+        }
+
+        .load-step.done { background: #1a5c3a; }
+
+        .load-step label {
+            cursor: pointer;
+            padding: 10px 20px;
+            background: #e94560;
+            color: #fff;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .load-step label:hover { background: #c73852; }
+        .load-step.done label { background: #555; pointer-events: none; }
+
+        .load-step input[type="file"] { display: none; }
+
+        .load-step .status { flex: 1; text-align: left; font-size: 0.95em; }
+        .load-step .check { font-size: 1.5em; display: none; }
+        .load-step.done .check { display: inline; }
+
+        /* --- Rating Screen --- */
+        #rating-screen { display: none; max-width: 600px; margin: 0 auto; padding: 0 20px 40px; }
+
+        .progress-area {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: #0f3460;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: #e94560;
+            transition: width 0.3s;
+            border-radius: 4px;
+        }
+
+        .progress-text {
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        .book-display {
+            text-align: center;
+            background: #16213e;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .book-display .cover-container {
+            width: 220px;
+            height: 330px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f3460;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .book-display .cover-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .book-display .cover-container .fallback-title {
+            padding: 20px;
+            font-size: 1.1em;
+            color: #999;
+            text-align: center;
+        }
+
+        .book-display .book-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .star-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .star-btn {
+            width: 70px;
+            height: 70px;
+            border: 3px solid transparent;
+            border-radius: 12px;
+            font-size: 1.6em;
+            font-weight: bold;
+            cursor: pointer;
+            color: #fff;
+            transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .star-btn:hover {
+            transform: scale(1.12);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
+
+        .star-btn:active { transform: scale(0.95); }
+
+        .star-1 { background: #2196f3; }
+        .star-2 { background: #4caf50; }
+        .star-3 { background: #ffd700; color: #333; }
+        .star-4 { background: #ff8c00; }
+        .star-5 { background: #ff4444; }
+
+        .skip-btn {
+            padding: 10px 30px;
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 6px;
+            color: #999;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .skip-btn:hover { background: #444; color: #ccc; }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: #0f3460;
+            border: none;
+            border-radius: 6px;
+            color: #ccc;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover { background: #1a4a80; }
+        .back-btn:disabled { opacity: 0.3; cursor: default; }
+
+        .finish-btn {
+            padding: 10px 20px;
+            background: #e94560;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .finish-btn:hover { background: #c73852; }
+
+        /* --- Results Screen --- */
+        #results-screen { display: none; max-width: 900px; margin: 0 auto; padding: 0 20px 40px; }
+
+        .results-toolbar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .results-toolbar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #fff;
+            transition: opacity 0.2s;
+        }
+
+        .results-toolbar button:hover { opacity: 0.85; }
+        .btn-yaml { background: #e94560; }
+        .btn-changes { background: #0f3460; }
+        .btn-back { background: #555; }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .filter-btn {
+            padding: 6px 16px;
+            border: 1px solid #555;
+            border-radius: 20px;
+            background: transparent;
+            color: #999;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: #e94560;
+            border-color: #e94560;
+            color: #fff;
+        }
+
+        .results-summary {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .results-summary .highlight { color: #e94560; font-weight: bold; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #16213e;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #0f3460;
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #999;
+        }
+
+        td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #0f3460;
+            font-size: 0.95em;
+        }
+
+        tr:last-child td { border-bottom: none; }
+
+        tr.changed { background: rgba(233, 69, 96, 0.1); }
+
+        .delta-up { color: #ff4444; font-weight: bold; }
+        .delta-down { color: #4caf50; font-weight: bold; }
+        .delta-same { color: #555; }
+
+        .star-cell { font-weight: bold; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4caf50;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .toast.show { opacity: 1; }
+    </style>
+</head>
+<body>
+    <h1>Blind Book Rater</h1>
+
+    <!-- Load Screen -->
+    <div id="load-screen">
+        <h2>Load Book Data</h2>
+        <div class="load-step" id="step-books">
+            <label for="books-input">Select _books/ folder</label>
+            <input type="file" id="books-input" webkitdirectory>
+            <span class="status" id="books-status">Not loaded</span>
+            <span class="check">&#10003;</span>
+        </div>
+        <div class="load-step" id="step-covers">
+            <label for="covers-input">Select books/covers/ folder</label>
+            <input type="file" id="covers-input" webkitdirectory>
+            <span class="status" id="covers-status">Not loaded</span>
+            <span class="check">&#10003;</span>
+        </div>
+    </div>
+
+    <!-- Rating Screen -->
+    <div id="rating-screen">
+        <div class="progress-area">
+            <span class="progress-text" id="progress-text">0 / 0</span>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="book-display">
+            <div class="cover-container" id="cover-container"></div>
+            <div class="book-title" id="current-title"></div>
+        </div>
+
+        <div class="star-buttons">
+            <button class="star-btn star-1" onclick="rate(1)">1★</button>
+            <button class="star-btn star-2" onclick="rate(2)">2★</button>
+            <button class="star-btn star-3" onclick="rate(3)">3★</button>
+            <button class="star-btn star-4" onclick="rate(4)">4★</button>
+            <button class="star-btn star-5" onclick="rate(5)">5★</button>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="back-btn" id="prev-btn" onclick="goBack()" disabled>&#8592; Previous</button>
+            <button class="skip-btn" onclick="skip()">Skip</button>
+            <button class="finish-btn" id="finish-btn" onclick="showResults()" style="display:none">View Results</button>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen">
+        <h2 style="text-align:center; color:#fff; margin-bottom:15px;">Results</h2>
+        <div class="results-summary" id="results-summary"></div>
+        <div class="results-toolbar">
+            <button class="btn-yaml" onclick="copyYaml()">Copy as YAML</button>
+            <button class="btn-changes" onclick="copyChanges()">Copy changed ratings</button>
+            <button class="btn-back" onclick="backToRating()">Back to rating</button>
+        </div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+            <button class="filter-btn" onclick="setFilter('changed', this)">Changed only</button>
+            <button class="filter-btn" onclick="setFilter('skipped', this)">Skipped</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Old</th>
+                    <th>New</th>
+                    <th>Delta</th>
+                </tr>
+            </thead>
+            <tbody id="results-body"></tbody>
+        </table>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // --- State ---
+        let books = [];
+        let coverUrls = {};
+        let loaded = { books: false, covers: false };
+        let order = [];       // shuffled indices
+        let currentIndex = 0;
+        let currentFilter = 'all';
+
+        // --- YAML Front Matter Parser ---
+        function parseFrontMatter(text) {
+            const match = text.match(/^---\s*\n([\s\S]*?)\n---/);
+            if (!match) return null;
+            return parseSimpleYaml(match[1]);
+        }
+
+        function parseSimpleYaml(yaml) {
+            const result = {};
+            for (const line of yaml.split('\n')) {
+                const m = line.match(/^(\w[\w_]*)\s*:\s*(.+)/);
+                if (m) {
+                    let val = m[2].trim();
+                    if ((val.startsWith('"') && val.endsWith('"')) ||
+                        (val.startsWith("'") && val.endsWith("'"))) {
+                        val = val.slice(1, -1);
+                    }
+                    if (/^\d+$/.test(val)) val = parseInt(val, 10);
+                    result[m[1]] = val;
+                }
+            }
+            return result;
+        }
+
+        // --- Shuffle ---
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // --- File Loading ---
+        document.getElementById('books-input').addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files);
+            const topLevelMd = files.filter(f => {
+                if (!f.name.endsWith('.md')) return false;
+                return f.webkitRelativePath.split('/').length === 2;
+            });
+
+            let count = 0;
+            for (const file of topLevelMd) {
+                const text = await file.text();
+                const data = parseFrontMatter(text);
+                if (data && data.title && data.rating != null) {
+                    if (data.canonical_url) continue;
+                    const imageFilename = data.image ? data.image.split('/').pop() : null;
+                    books.push({
+                        title: data.title,
+                        originalRating: data.rating,
+                        newRating: null,
+                        imageFilename: imageFilename,
+                        coverUrl: null
+                    });
+                    count++;
+                }
+            }
+
+            document.getElementById('books-status').textContent = `${count} books loaded`;
+            document.getElementById('step-books').classList.add('done');
+            loaded.books = true;
+            tryStart();
+        });
+
+        document.getElementById('covers-input').addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files);
+            let count = 0;
+            for (const file of files) {
+                if (file.type.startsWith('image/')) {
+                    coverUrls[file.name] = URL.createObjectURL(file);
+                    count++;
+                }
+            }
+
+            document.getElementById('covers-status').textContent = `${count} covers loaded`;
+            document.getElementById('step-covers').classList.add('done');
+            loaded.covers = true;
+            tryStart();
+        });
+
+        function tryStart() {
+            if (!loaded.books || !loaded.covers) return;
+
+            for (const book of books) {
+                if (book.imageFilename && coverUrls[book.imageFilename]) {
+                    book.coverUrl = coverUrls[book.imageFilename];
+                }
+            }
+
+            // Shuffle order
+            order = shuffle([...Array(books.length).keys()]);
+            currentIndex = 0;
+
+            document.getElementById('load-screen').style.display = 'none';
+            document.getElementById('rating-screen').style.display = 'block';
+            showBook();
+        }
+
+        // --- Rating Flow ---
+        function showBook() {
+            if (currentIndex >= order.length) {
+                showResults();
+                return;
+            }
+
+            const book = books[order[currentIndex]];
+            const container = document.getElementById('cover-container');
+            container.innerHTML = '';
+
+            if (book.coverUrl) {
+                const img = document.createElement('img');
+                img.src = book.coverUrl;
+                img.alt = book.title;
+                container.appendChild(img);
+            } else {
+                const div = document.createElement('div');
+                div.className = 'fallback-title';
+                div.textContent = book.title;
+                container.appendChild(div);
+            }
+
+            document.getElementById('current-title').textContent = book.title;
+
+            // Highlight star if already rated (going back)
+            document.querySelectorAll('.star-btn').forEach(btn => {
+                btn.style.borderColor = 'transparent';
+            });
+            if (book.newRating != null) {
+                const btn = document.querySelector(`.star-${book.newRating}`);
+                if (btn) btn.style.borderColor = '#fff';
+            }
+
+            updateProgress();
+            document.getElementById('prev-btn').disabled = (currentIndex === 0);
+
+            // Show finish button when at least one book has been rated
+            const anyRated = books.some(b => b.newRating != null);
+            document.getElementById('finish-btn').style.display = anyRated ? 'inline-block' : 'none';
+        }
+
+        function updateProgress() {
+            const rated = books.filter(b => b.newRating != null).length;
+            const total = books.length;
+            document.getElementById('progress-text').textContent = `${rated} / ${total} rated`;
+            document.getElementById('progress-fill').style.width = `${(rated / total) * 100}%`;
+        }
+
+        function rate(stars) {
+            books[order[currentIndex]].newRating = stars;
+            currentIndex++;
+            showBook();
+        }
+
+        function skip() {
+            currentIndex++;
+            showBook();
+        }
+
+        function goBack() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showBook();
+            }
+        }
+
+        // --- Results ---
+        function showResults() {
+            document.getElementById('rating-screen').style.display = 'none';
+            document.getElementById('results-screen').style.display = 'block';
+            renderResults();
+        }
+
+        function backToRating() {
+            document.getElementById('results-screen').style.display = 'none';
+            document.getElementById('rating-screen').style.display = 'block';
+            // Go to first unrated book, or stay at end
+            const firstUnrated = order.findIndex(i => books[i].newRating == null);
+            if (firstUnrated >= 0) {
+                currentIndex = firstUnrated;
+            }
+            showBook();
+        }
+
+        function renderResults() {
+            const sorted = [...books].sort((a, b) => a.title.localeCompare(b.title));
+            const changed = sorted.filter(b => b.newRating != null && b.newRating !== b.originalRating);
+            const skipped = sorted.filter(b => b.newRating == null);
+            const rated = sorted.filter(b => b.newRating != null);
+
+            document.getElementById('results-summary').innerHTML =
+                `${rated.length} rated · <span class="highlight">${changed.length} changed</span> · ${skipped.length} skipped`;
+
+            const tbody = document.getElementById('results-body');
+            tbody.innerHTML = '';
+
+            for (const book of sorted) {
+                const isChanged = book.newRating != null && book.newRating !== book.originalRating;
+                const isSkipped = book.newRating == null;
+
+                // Apply filter
+                if (currentFilter === 'changed' && !isChanged) continue;
+                if (currentFilter === 'skipped' && !isSkipped) continue;
+
+                const tr = document.createElement('tr');
+                if (isChanged) tr.className = 'changed';
+
+                const delta = book.newRating != null ? book.newRating - book.originalRating : 0;
+                let deltaText, deltaClass;
+                if (isSkipped) {
+                    deltaText = '—';
+                    deltaClass = 'delta-same';
+                } else if (delta > 0) {
+                    deltaText = `+${delta}`;
+                    deltaClass = 'delta-up';
+                } else if (delta < 0) {
+                    deltaText = `${delta}`;
+                    deltaClass = 'delta-down';
+                } else {
+                    deltaText = '0';
+                    deltaClass = 'delta-same';
+                }
+
+                tr.innerHTML = `
+                    <td>${book.title}</td>
+                    <td class="star-cell">${book.originalRating}★</td>
+                    <td class="star-cell">${isSkipped ? '—' : book.newRating + '★'}</td>
+                    <td class="${deltaClass}">${deltaText}</td>
+                `;
+                tbody.appendChild(tr);
+            }
+        }
+
+        function setFilter(filter, btn) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderResults();
+        }
+
+        // --- Export ---
+        function copyYaml() {
+            const rated = books.filter(b => b.newRating != null);
+            if (rated.length === 0) {
+                showToast('No books rated yet');
+                return;
+            }
+
+            const lines = ['ranked_list:'];
+            const tierNames = {5: '5 Stars', 4: '4 Stars', 3: '3 Stars', 2: '2 Stars', 1: '1 Stars'};
+
+            for (const rating of [5, 4, 3, 2, 1]) {
+                const tierBooks = rated
+                    .filter(b => b.newRating === rating)
+                    .sort((a, b) => a.title.localeCompare(b.title));
+
+                if (tierBooks.length === 0) continue;
+
+                lines.push(`  # ${tierNames[rating]}`);
+                for (const book of tierBooks) {
+                    if (book.title.includes(':') || book.title.includes('#') || book.title.includes('"')) {
+                        lines.push(`  - "${book.title.replace(/"/g, '\\"')}"`);
+                    } else {
+                        lines.push(`  - ${book.title}`);
+                    }
+                }
+            }
+
+            navigator.clipboard.writeText(lines.join('\n')).then(() => {
+                showToast('YAML copied to clipboard');
+            });
+        }
+
+        function copyChanges() {
+            const changed = books
+                .filter(b => b.newRating != null && b.newRating !== b.originalRating)
+                .sort((a, b) => a.title.localeCompare(b.title))
+                .map(b => `${b.title}: ${b.originalRating}★ → ${b.newRating}★`)
+                .join('\n');
+
+            if (!changed) {
+                showToast('No changes to copy');
+                return;
+            }
+
+            navigator.clipboard.writeText(changed).then(() => {
+                showToast('Changes copied to clipboard');
+            });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+    </script>
+</body>
+</html>
