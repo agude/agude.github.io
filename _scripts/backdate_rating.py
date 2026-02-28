@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.10"
+# ///
 """Update book review dates to match the git commit where the rating changed.
 
 By default, finds the first commit that set a non-null rating (i.e., when the

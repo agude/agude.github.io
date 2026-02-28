@@ -17,6 +17,14 @@ book_number: 10
 is_anthology: true
 rating: 4
 image: /books/covers/bolos_book_1_honor_of_the_regiment_2nd_edition.jpg
+wikidata_qid: Q135027319
+isbn: 978-0-671-72184-8
+date_published: 2002-06-25
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q135027319"
+  - "https://www.amazon.com/Honor-Regiment-Bolos-Keith-Laumer/dp/0671721844"
+  - "https://www.baen.com/Chapters/0671721844/0671721844.htm"
+  - "https://www.goodreads.com/book/show/464055.Honor_of_the_Regiment"
 ---
 
 {% book_link page.title %} is the tenth book in {% series_text page.series

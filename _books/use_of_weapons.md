@@ -6,6 +6,16 @@ series: Culture
 book_number: 3
 rating: 5
 image: /books/covers/use_of_weapons.jpg
+wikidata_qid: Q339923
+isbn: 978-0-356-19160-7
+date_published: 1990-09
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q339923"
+  - "https://en.wikipedia.org/wiki/Use_of_Weapons"
+  - "https://openlibrary.org/works/OL15833793W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?935"
+  - "https://www.librarything.com/work/141"
+  - "https://www.google.com/search?kgmid=/m/0hzs4"
 ---
 
 {% book_link page.title %} is the third novel in the {{ page.series }} series

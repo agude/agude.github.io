@@ -6,6 +6,15 @@ series: Mesklin
 book_number: 3
 rating: 2
 image: /books/covers/star_light.jpg
+wikidata_qid: Q7600780
+isbn: 978-0-345-02361-2
+date_published: 1970-09
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q7600780"
+  - "https://en.wikipedia.org/wiki/Star_Light"
+  - "https://openlibrary.org/works/OL15005203W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1143"
+  - "https://www.librarything.com/work/115582"
 ---
 
 {% book_link page.title %} is the sequel to {% book_link "Mission of Gravity"
@@ -76,10 +85,9 @@ slightly worse.
     %}
     Writing a science fiction story is fun, not work. [...] The fun, and the
     material for this article, lies in treating the whole thing as a game.
-    I've been playing the game since I was a child, so the rules must be
-    quite simple. They are; for the reader of a science-fiction story, they
-    consist of finding as many as possible of the author's statements or
-    implications which conflict with the facts as science currently
-    understands them. For the author, the rule is to make as few such slips
-    as he possibly can.
+    I've been playing the game since I was a child, so the rules must be quite
+    simple. They are; for the reader of a science-fiction story, they consist
+    of finding as many as possible of the author's statements or implications
+    which conflict with the facts as science currently understands them. For
+    the author, the rule is to make as few such slips as he possibly can.
     {% endcitedquote %}

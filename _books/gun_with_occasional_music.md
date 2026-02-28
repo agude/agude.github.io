@@ -8,6 +8,16 @@ rating: 3
 image: /books/covers/gun_with_occasional_music.jpg
 awards:
   - locus
+wikidata_qid: Q3686127
+isbn: 978-0-15-136458-9
+date_published: 1994-03
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q3686127"
+  - "https://en.wikipedia.org/wiki/Gun%2C_with_Occasional_Music"
+  - "https://openlibrary.org/works/OL74406W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1828"
+  - "https://www.librarything.com/work/15685"
+  - "https://www.google.com/search?kgmid=/m/02ylc1"
 ---
 
 {% book_link page.title %} is a sci-fi, hardboiled detective novel set in

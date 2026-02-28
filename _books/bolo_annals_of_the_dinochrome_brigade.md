@@ -7,6 +7,13 @@ book_number: 1
 is_anthology: true
 rating: 3
 image: /books/covers/bolo.jpg
+wikidata_qid: Q48997316
+isbn: 978-0-399-11794-7
+date_published: 1976-08
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q48997316"
+  - "https://en.wikipedia.org/wiki/Bolo%3A_Annals_of_the_Dinochrome_Brigade"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?2837878"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

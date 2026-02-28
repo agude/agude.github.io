@@ -7,6 +7,16 @@ book_number: 1
 is_anthology: false
 rating: 5
 image: /books/covers/there_is_no_antimemetics_division.jpg
+wikidata_qid: Q123682427
+isbn: 978-0-593-98375-1
+date_published: 2025-11-11
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q123682427"
+  - "https://en.wikipedia.org/wiki/There_Is_No_Antimemetics_Division"
+  - "https://openlibrary.org/books/OL58038489M/There_Is_No_Antimemetics_Division"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?3501161"
+  - "https://www.librarything.com/work/34592252/t/There-Is-No-Antimemetics-Division-%7BRevised%7D"
+  - "https://www.google.com/search?kgmid=/g/11n033mg8k"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

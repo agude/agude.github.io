@@ -6,6 +6,16 @@ series: Jean le Flambeur
 book_number: 3
 rating: 3
 image: /books/covers/the_causal_angel.jpg
+wikidata_qid: Q18205890
+isbn: 978-0-7653-2951-6
+date_published: 2014-07-15
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q18205890"
+  - "https://en.wikipedia.org/wiki/The_Causal_Angel"
+  - "https://openlibrary.org/works/OL19982984W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1734148"
+  - "https://www.librarything.com/work/14352058"
+  - "https://www.google.com/search?kgmid=/m/011qbg4z"
 ---
 
 {% book_link page.title %} is the last book in {% series_text page.series

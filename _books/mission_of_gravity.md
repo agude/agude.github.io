@@ -6,6 +6,15 @@ series: Mesklin
 book_number: 1
 rating: 3
 image: /books/covers/mission_of_gravity.jpg
+wikidata_qid: Q1769466
+isbn: 978-0-515-03479-0
+date_published: 1953-07
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q1769466"
+  - "https://en.wikipedia.org/wiki/Mission_of_Gravity"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1511"
+  - "https://www.britannica.com/topic/Mission-of-Gravity"
+  - "https://www.google.com/search?kgmid=/m/062hld"
 ---
 
 {% book_link page.title %} is a sci-fi adventure story set on the planet

@@ -57,31 +57,15 @@ module Jekyll
         # @param data [Hash] The data hash to modify.
         # @param document [Jekyll::Document] The document containing author data.
         def self._add_same_as_links(data, document)
-          same_as_links_from_fm = document.data['same_as_urls'] || []
-
-          if same_as_links_from_fm.is_a?(Array)
-            _process_same_as_array(data, same_as_links_from_fm)
-          elsif same_as_links_from_fm
-            _log_invalid_same_as(document)
-          end
-        end
-
-        # Processes and filters sameAs links array.
-        #
-        # @param data [Hash] The data hash to modify.
-        # @param links [Array] The array of links to process.
-        def self._process_same_as_array(data, links)
-          filtered_links = links.map(&:to_s).map(&:strip).compact.reject(&:empty?)
-          data['sameAs'] = filtered_links if filtered_links.any?
-        end
-
-        # Logs a warning when same_as_urls is not an array.
-        #
-        # @param document [Jekyll::Document] The document with invalid data.
-        def self._log_invalid_same_as(document)
-          doc_identifier = document.url || document.path || document.relative_path
-          Jekyll.logger.warn 'JSON-LD:',
-                             "Front matter 'same_as_urls' for '#{doc_identifier}' is not an Array, skipping sameAs."
+          data.merge!(
+            Jekyll::SEO::JsonLdUtils.clean_array_field(
+              document.data,
+              'same_as_urls',
+              'sameAs',
+              'JSON-LD:',
+              doc_id: document.url,
+            ),
+          )
         end
 
         # Adds description to the data hash.

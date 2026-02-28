@@ -6,14 +6,23 @@ series: The Book of the New Sun
 book_number: 1
 rating: 4
 image: /books/covers/the_shadow_of_the_torturer.jpg
+wikidata_qid: Q1150125
+isbn: 978-0-671-25325-7
+date_published: 1980-05
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q1150125"
+  - "https://en.wikipedia.org/wiki/The_Shadow_of_the_Torturer"
+  - "https://openlibrary.org/works/OL14871979W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1243"
+  - "https://www.librarything.com/work/100075"
+  - "https://www.google.com/search?kgmid=/m/02p6nd0"
 ---
 
 {% book_link page.title %} is the first installment in {% author_link
 page.book_authors link=false possessive %} {% series_text page.series
-link=false %} tetralogy. It follows the life of
-Severian, a torturer and executioner on a dying Earth. The pacing is slow, but
-Wolfe's worldbuilding is fantastic, crafting a setting that pulls the reader
-in.
+link=false %} tetralogy. It follows the life of Severian, a torturer and
+executioner on a dying Earth. The pacing is slow, but Wolfe's worldbuilding is
+fantastic, crafting a setting that pulls the reader in.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}

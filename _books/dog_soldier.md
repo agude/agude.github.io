@@ -6,6 +6,12 @@ series: War Horses
 book_number: 4
 rating: 4
 image: /books/covers/dog_soldier.jpg
+wikidata_qid: Q135006063
+isbn: null
+date_published: 2024-03-15
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q135006063"
+  - "https://www.amazon.com/-/dp/B0CRBLQQHN"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

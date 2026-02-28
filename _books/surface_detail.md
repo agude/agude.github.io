@@ -6,6 +6,16 @@ series: Culture
 book_number: 9
 rating: 5
 image: /books/covers/surface_detail.jpg
+wikidata_qid: Q302026
+isbn: 978-0-316-12340-2
+date_published: 2010-10-07
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q302026"
+  - "https://en.wikipedia.org/wiki/Surface_Detail"
+  - "https://openlibrary.org/books/OL24500323M/Surface_Detail"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1143220"
+  - "https://www.librarything.com/work/9927769"
+  - "https://www.google.com/search?kgmid=/m/0dgnxsj"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
@@ -129,8 +139,8 @@ things in the background.
   that is the ratio by which the dead outnumber the living."
 
 - The virtual hells are reminiscent of the _Star Trek: Deep Space Nine_
-  episode {% tv_show_title "Hard Time" %}, where Chief O'Brien
-  suffers PTSD after receiving memories of a 20-year imprisonment.
+  episode {% tv_show_title "Hard Time" %}, where Chief O'Brien suffers PTSD
+  after receiving memories of a 20-year imprisonment.
 
 - Virtual afterlife and themes of mind and consciousness both feature
   prominently in {{ blindsight }}.

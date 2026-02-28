@@ -6,6 +6,16 @@ series: Redwall
 book_number: 5
 rating: 5
 image: /books/covers/salamandastron.jpg
+wikidata_qid: Q2346562
+isbn: 978-0-09-176433-3
+date_published: 1992-08
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q2346562"
+  - "https://en.wikipedia.org/wiki/Salamandastron"
+  - "https://openlibrary.org/works/OL465969W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?4168"
+  - "https://www.librarything.com/work/28702"
+  - "https://www.google.com/search?kgmid=/m/04yk43"
 ---
 
 {% book_link page.title %} is the fifth book in {% series_text page.series

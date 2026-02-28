@@ -6,6 +6,15 @@ series: Metropolitan
 book_number: 1
 rating: 4
 image: /books/covers/metropolitan.jpg
+wikidata_qid: Q3391713
+isbn: 978-0-06-105212-5
+date_published: 1995-04
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q3391713"
+  - "https://en.wikipedia.org/wiki/Metropolitan_%28novel%29"
+  - "https://openlibrary.org/works/OL20034143W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?611"
+  - "https://www.google.com/search?kgmid=/m/02gx93"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

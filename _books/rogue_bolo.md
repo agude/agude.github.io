@@ -7,6 +7,13 @@ book_number: 2
 is_anthology: true
 rating: 3
 image: /books/covers/rogue_bolo.jpg
+wikidata_qid: null
+isbn: 978-0-671-65545-7
+date_published: 1986-01
+same_as_urls:
+  - "https://www.isfdb.org/cgi-bin/title.cgi?36973"
+  - "https://www.goodreads.com/book/show/470074.Rogue_Bolo"
+  - "https://www.amazon.com/Bolo-Rogue-Keith-Laumer/dp/1612424813"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

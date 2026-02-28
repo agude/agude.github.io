@@ -6,6 +6,12 @@ series: War Horses
 book_number: 5
 rating: 4
 image: /books/covers/grand_melee.jpg
+wikidata_qid: Q135006078
+isbn: null
+date_published: 2024-11-20
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q135006078"
+  - "https://www.amazon.com/War-Horses-Book-Grand-Melee-ebook/dp/B0DK5TQ4PN"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

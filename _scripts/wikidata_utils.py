@@ -143,16 +143,18 @@ def extract_same_as_urls(
     for prop_id, label, template in property_map:
         if prop_id not in claims:
             continue
-        for claim in claims[prop_id]:
-            mainsnak = claim.get("mainsnak", {})
-            datavalue = mainsnak.get("datavalue", {})
-            value = datavalue.get("value", "")
+        # Take only the first claim per property to avoid foreign-language
+        # or alternate-edition duplicates.
+        claim = claims[prop_id][0]
+        mainsnak = claim.get("mainsnak", {})
+        datavalue = mainsnak.get("datavalue", {})
+        value = datavalue.get("value", "")
 
-            if isinstance(value, str) and value:
-                if template is None:
-                    urls.append(value)
-                else:
-                    urls.append(template.format(value=value))
+        if isinstance(value, str) and value:
+            if template is None:
+                urls.append(value)
+            else:
+                urls.append(template.format(value=value))
 
     # Deduplicate while preserving order
     return list(dict.fromkeys(urls))
@@ -169,56 +171,48 @@ def sparql_query(query: str) -> list[dict]:
         with urllib.request.urlopen(req, timeout=15) as resp:
             data = json.loads(resp.read().decode())
         return data.get("results", {}).get("bindings", [])
-    except (urllib.error.URLError, json.JSONDecodeError) as exc:
+    except (urllib.error.URLError, json.JSONDecodeError, TimeoutError) as exc:
         print(f"SPARQL query failed: {exc}", file=sys.stderr)
         return []
 
 
 def get_earliest_edition_isbn(work_qid: str) -> str | None:
-    """Query SPARQL for the first ISBN from the earliest edition of a work.
+    """Find an ISBN from the editions of a work via the Wikidata API.
 
-    Prefers the earliest English-language edition (P407 = Q1860), sorted by
-    publication date. Falls back to any edition if no English one has an ISBN.
-    Takes whichever ISBN type (13 or 10) appears first; old books predate
-    ISBN-13 so their first editions only carry ISBN-10.
+    Uses P747 (has edition or translation) on the work entity to find
+    edition Q-IDs, fetches them in batches, and returns the first ISBN
+    found. Prefers ISBN-13 (P212) over ISBN-10 (P957).
     """
-    query = f"""
-SELECT ?isbn13 ?isbn10 ?pubdate ?langLabel WHERE {{
-  ?edition wdt:P629 wd:{work_qid} .
-  OPTIONAL {{ ?edition wdt:P407 ?lang . }}
-  OPTIONAL {{ ?edition wdt:P577 ?pubdate . }}
-  OPTIONAL {{ ?edition wdt:P212 ?isbn13 . }}
-  OPTIONAL {{ ?edition wdt:P957 ?isbn10 . }}
-  FILTER(BOUND(?isbn13) || BOUND(?isbn10))
-  SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
-}}
-ORDER BY ?pubdate
-LIMIT 30
-"""
-    bindings = sparql_query(query)
+    # Get edition Q-IDs from the work entity.
+    work = fetch_entity(work_qid)
+    edition_claims = work.get("claims", {}).get("P747", [])
+    edition_qids = []
+    for claim in edition_claims:
+        qid = claim.get("mainsnak", {}).get("datavalue", {}).get("value", {}).get("id")
+        if qid:
+            edition_qids.append(qid)
 
-    # Single pass: take the first ISBN from the earliest English edition,
-    # falling back to the earliest non-English edition.
-    english_isbn: str | None = None
-    any_isbn: str | None = None
+    if not edition_qids:
+        return None
 
-    for row in bindings:
-        lang = row.get("langLabel", {}).get("value", "")
-        isbn = (row.get("isbn13", {}).get("value")
-                or row.get("isbn10", {}).get("value"))
-        if not isbn:
-            continue
+    # Fetch editions in batches of 50 (API limit).
+    for i in range(0, len(edition_qids), 50):
+        batch = edition_qids[i : i + 50]
+        data = api_get({
+            "action": "wbgetentities",
+            "ids": "|".join(batch),
+            "props": "claims",
+        })
+        for qid in batch:
+            entity = data.get("entities", {}).get(qid, {})
+            isbn_list = (
+                get_claim_strings(entity, "P212")
+                or get_claim_strings(entity, "P957")
+            )
+            if isbn_list:
+                return isbn_list[0]
 
-        is_english = lang.lower() in ("english", "en")
-        if is_english and not english_isbn:
-            english_isbn = isbn
-        elif not is_english and not any_isbn:
-            any_isbn = isbn
-
-        if english_isbn and any_isbn:
-            break
-
-    return english_isbn or any_isbn
+    return None
 
 
 def resolve_qid(arg: str) -> str:

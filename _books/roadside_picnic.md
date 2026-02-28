@@ -8,6 +8,16 @@ series: null
 book_number: 1
 rating: 5
 image: /books/covers/roadside_picnic.jpg
+wikidata_qid: Q848517
+isbn: 978-0-575-02445-8
+date_published: 1972
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q848517"
+  - "https://en.wikipedia.org/wiki/Roadside_Picnic"
+  - "https://openlibrary.org/works/OL16465148W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?669485"
+  - "https://www.librarything.com/work/49011"
+  - "https://www.google.com/search?kgmid=/m/0472k4"
 ---
 
 {% book_link page.title %}, by brothers {% author_link "Arkady Strugatsky"

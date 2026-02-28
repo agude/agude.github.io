@@ -6,6 +6,16 @@ series: Culture
 book_number: 6
 rating: 5
 image: /books/covers/inversions.jpg
+wikidata_qid: Q666405
+isbn: 978-1-85723-626-2
+date_published: 1998-06-04
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q666405"
+  - "https://en.wikipedia.org/wiki/Inversions_%28novel%29"
+  - "https://openlibrary.org/works/OL100772W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?12636"
+  - "https://www.librarything.com/work/18770"
+  - "https://www.google.com/search?kgmid=/m/0g0l4"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

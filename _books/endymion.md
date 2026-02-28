@@ -6,6 +6,16 @@ series: Hyperion Cantos
 book_number: 3
 rating: 4
 image: /books/covers/endymion.jpg
+wikidata_qid: Q2656138
+isbn: 978-0-553-10020-4
+date_published: 1996-01
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q2656138"
+  - "https://en.wikipedia.org/wiki/Endymion_%28Simmons_novel%29"
+  - "https://openlibrary.org/works/OL1963317W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?11"
+  - "https://www.librarything.com/work/23063"
+  - "https://www.google.com/search?kgmid=/m/0267t3p"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

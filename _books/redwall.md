@@ -6,6 +6,16 @@ series: Redwall
 book_number: 1
 rating: 4
 image: /books/covers/redwall.jpg
+wikidata_qid: Q2617336
+isbn: 978-0-09-165090-2
+date_published: 1986-11
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q2617336"
+  - "https://en.wikipedia.org/wiki/Redwall_%28novel%29"
+  - "https://openlibrary.org/works/OL29343903W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?4164"
+  - "https://www.librarything.com/work/27113"
+  - "https://www.google.com/search?kgmid=/m/023m32"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

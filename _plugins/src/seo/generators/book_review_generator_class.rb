@@ -112,8 +112,10 @@ module Jekyll
           add_book_authors(item)
           item['image'] = Jekyll::SEO::JsonLdUtils.build_image_object_entity(@document.data['image'], @site)
           add_isbn(item)
+          add_book_date_published(item)
           add_book_awards(item)
           add_book_series(item)
+          add_book_same_as(item)
         end
 
         def add_book_authors(item)
@@ -134,23 +136,32 @@ module Jekyll
           item['isbn'] = isbn.to_s.strip if isbn && !isbn.to_s.strip.empty?
         end
 
-        def add_book_awards(item)
-          # Book Awards (From page.awards - assuming it's an array)
-          awards_input = @document.data['awards']
-          if awards_input.is_a?(Array)
-            # Clean up array: convert to string, strip, remove nils/empty
-            cleaned = awards_input.map(&:to_s).map(&:strip).compact.reject(&:empty?)
-            item['award'] = cleaned if cleaned.any?
-          elsif awards_input
-            log_invalid_awards
-          end
+        def add_book_date_published(item)
+          date_published = @document.data['date_published']
+          item['datePublished'] = date_published.to_s.strip if date_published && !date_published.to_s.strip.empty?
         end
 
-        def log_invalid_awards
-          id = @document.url || @document.data['path'] || @document.relative_path
-          Jekyll.logger.warn(
-            'JSON-LD (BookReviewGen):',
-            "Front matter 'awards' for '#{id}' is not an Array, skipping awards.",
+        def add_book_awards(item)
+          item.merge!(
+            Jekyll::SEO::JsonLdUtils.clean_array_field(
+              @document.data,
+              'awards',
+              'award',
+              'JSON-LD (BookReviewGen):',
+              doc_id: @document.url,
+            ),
+          )
+        end
+
+        def add_book_same_as(item)
+          item.merge!(
+            Jekyll::SEO::JsonLdUtils.clean_array_field(
+              @document.data,
+              'same_as_urls',
+              'sameAs',
+              'JSON-LD (BookReviewGen):',
+              doc_id: @document.url,
+            ),
           )
         end
 

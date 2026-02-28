@@ -6,6 +6,16 @@ series: The Adventures of Tintin
 book_number: 2
 rating: 1
 image: /books/covers/tintin_in_the_congo.jpg
+wikidata_qid: Q636870
+isbn: 978-2-203-09650-9
+date_published: 1931
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q636870"
+  - "https://en.wikipedia.org/wiki/Tintin_in_the_Congo"
+  - "https://www.tintin.com/en/albums/tintin-in-the-congo"
+  - "https://openlibrary.org/books/OL8406613M/Tintin_in_the_Congo"
+  - "https://www.librarything.com/work/289572"
+  - "https://www.google.com/search?kgmid=/m/02nc1_"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

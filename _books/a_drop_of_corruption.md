@@ -6,6 +6,13 @@ series: Shadow of the Leviathan
 book_number: 2
 rating: 4
 image: /books/covers/a_drop_of_corruption.jpg
+wikidata_qid: Q134481106
+isbn: 978-0-593-72382-1
+date_published: 2025-04-01
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q134481106"
+  - "https://en.wikipedia.org/wiki/A_Drop_of_Corruption"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?3425278"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

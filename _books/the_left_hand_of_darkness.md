@@ -9,6 +9,17 @@ image: /books/covers/the_left_hand_of_darkness.jpg
 awards:
   - hugo
   - nebula
+wikidata_qid: Q2008211
+isbn: 978-0-356-02947-4
+date_published: 1969-03
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q2008211"
+  - "https://en.wikipedia.org/wiki/The_Left_Hand_of_Darkness"
+  - "https://openlibrary.org/works/OL59864W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?7662"
+  - "https://www.britannica.com/topic/The-Left-Hand-of-Darkness"
+  - "https://www.librarything.com/work/23117"
+  - "https://www.google.com/search?kgmid=/m/07l1r"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
@@ -35,12 +46,13 @@ civilization. The story is broken in three distinct parts:
 
 - In the first part, Genly lives in Karhide where he---under the advisement of
   the vizier Estraven---tries to convince the King to join the Ekumen. This
-  leads to Estraven being banished as a traitor and Genly traveling to Orgoreyn.
+  leads to Estraven being banished as a traitor and Genly traveling to
+  Orgoreyn.
 
-- The second part follows Genly in Orgoreyn, a nation modeled after the
-  Soviet Union. While initially impressed by their organization, he soon
-  discovers their darker side when he's detained by the secret police and
-  sent to a gulag.
+- The second part follows Genly in Orgoreyn, a nation modeled after the Soviet
+  Union. While initially impressed by their organization, he soon discovers
+  their darker side when he's detained by the secret police and sent to a
+  gulag.
 
 - The third part chronicles Estraven's rescue of Genly and their desperate
   escape across a glacier back to Karhide.
@@ -79,8 +91,8 @@ how societies respond to major, fundamental changes: {{ the_authors }} work
 looks at how a civilization reacts to moving beyond the gender binary, while
 {{ clarkes }} examines humanity's evolution into something completely new.
 
-Still, certain scenes left lasting impressions: Genly's transportation
-in the truck to the gulag, and his and Estraven's escape across the ice. {{
+Still, certain scenes left lasting impressions: Genly's transportation in the
+truck to the gulag, and his and Estraven's escape across the ice. {{
 the_authors }} writing is haunting, sprinkled with insights like:
 
 > It is a terrible thing, this kindness that human beings do not lose.

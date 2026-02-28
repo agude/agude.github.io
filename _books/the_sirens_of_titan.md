@@ -6,6 +6,17 @@ series: null
 book_number: 1
 rating: 3
 image: /books/covers/the_sirens_of_titan.jpg
+wikidata_qid: Q2294155
+isbn: 978-0-340-02876-6
+date_published: 1959-10
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q2294155"
+  - "https://en.wikipedia.org/wiki/The_Sirens_of_Titan"
+  - "https://openlibrary.org/works/OL98485W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1205"
+  - "https://www.britannica.com/topic/The-Sirens-of-Titan"
+  - "https://www.librarything.com/work/815646"
+  - "https://www.google.com/search?kgmid=/m/01xrl_"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

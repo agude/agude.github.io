@@ -6,6 +6,16 @@ series: Culture
 book_number: 7
 rating: 5
 image: /books/covers/look_to_windward.jpg
+wikidata_qid: Q884010
+isbn: 978-1-85723-981-2
+date_published: 2000-08-10
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q884010"
+  - "https://en.wikipedia.org/wiki/Look_to_Windward"
+  - "https://openlibrary.org/works/OL100773W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?6887"
+  - "https://www.librarything.com/work/122"
+  - "https://www.google.com/search?kgmid=/m/0hzrs"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

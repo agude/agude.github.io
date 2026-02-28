@@ -6,6 +6,13 @@ series: null
 book_number: 1
 rating: 4
 image: /books/covers/eater.jpg
+wikidata_qid: Q5331267
+isbn: 978-0-380-97436-8
+date_published: 2000-05
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q5331267"
+  - "https://en.wikipedia.org/wiki/Eater_%28novel%29"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?20863"
 ---
 
 {% book_link page.title %} is a hard sci-fi novel by <span

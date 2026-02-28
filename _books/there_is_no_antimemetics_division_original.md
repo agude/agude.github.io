@@ -6,6 +6,16 @@ series: null
 book_number: 1
 rating: 3
 image: /books/covers/there_is_no_antimemetics_division_original.jpg
+wikidata_qid: Q123682427
+isbn: 979-8-5140-6303-1
+date_published: 2021-06-19
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q123682427"
+  - "https://en.wikipedia.org/wiki/There_Is_No_Antimemetics_Division"
+  - "https://openlibrary.org/books/OL32825888M/There_Is_No_Antimemetics_Division"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?3359329"
+  - "https://www.librarything.com/work/25412951"
+  - "https://www.google.com/search?kgmid=/g/11n033mg8k"
 ---
 
 <cite class="book-title">There Is No Antimemetics Division</cite> is a book

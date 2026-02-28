@@ -6,6 +6,13 @@ series: null
 book_number: 1
 rating: 5
 image: /books/covers/a_mote_in_shadow.jpg
+wikidata_qid: Q138497553
+isbn: null
+date_published: 2024-05-07
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q138497553"
+  - "https://lastnpcalex.agency/ams.html"
+  - "https://www.amazon.com/Mote-Shadow-N-Alex-ebook/dp/B0CZMW9NCC"
 ---
 
 {% book_link page.title %} is {% author_link page.book_authors link=false

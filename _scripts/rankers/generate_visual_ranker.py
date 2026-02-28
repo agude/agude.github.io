@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.10"
+# dependencies = ["PyYAML"]
+# ///
 # _scripts/generate_visual_ranker.py
 import os
 import json

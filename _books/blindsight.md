@@ -6,6 +6,16 @@ series: Firefall
 book_number: 1
 rating: 5
 image: /books/covers/blindsight.jpg
+wikidata_qid: Q2511421
+isbn: 978-0-7653-1218-1
+date_published: 2006-10-03
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q2511421"
+  - "https://en.wikipedia.org/wiki/Blindsight_%28Watts_novel%29"
+  - "https://openlibrary.org/works/OL8514692W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?186521"
+  - "https://www.librarything.com/work/1333265"
+  - "https://www.google.com/search?kgmid=/m/02x0mg7"
 ---
 
 {% book_link page.title %} is a hard sci-fi novel about first contact with

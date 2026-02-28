@@ -6,6 +6,16 @@ series: The Adventures of Tintin
 book_number: 16
 rating: 4
 image: /books/covers/destination_moon.jpg
+wikidata_qid: Q1320289
+isbn: 978-0-316-35845-3
+date_published: 1953
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q1320289"
+  - "https://en.wikipedia.org/wiki/Destination_Moon_%28comics%29"
+  - "https://www.tintin.com/en/albums/destination-moon"
+  - "https://openlibrary.org/works/OL151080W"
+  - "https://www.librarything.com/work/5277996"
+  - "https://www.google.com/search?kgmid=/m/04rd2j"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

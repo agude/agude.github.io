@@ -9,6 +9,15 @@ image: /books/covers/flowers_for_algernon.jpg
 awards:
   - hugo
   - nebula
+wikidata_qid: Q12246381
+isbn: 978-0-330-02094-7
+date_published: 1966
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q122463813"
+  - "https://en.wikipedia.org/wiki/Flowers_for_Algernon"
+  - "https://openlibrary.org/works/OL515754W"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1927"
+  - "https://www.google.com/search?kgmid=/m/019qz_"
 ---
 
 {% book_link page.title %} is a Hugo and Nebula award-winning novel about

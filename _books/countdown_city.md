@@ -6,6 +6,14 @@ series: The Last Policeman
 book_number: 2
 rating: 3
 image: /books/covers/countdown_city.jpg
+wikidata_qid: Q18149437
+isbn: 978-1-59474-626-0
+date_published: 2013-07-16
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q18149437"
+  - "https://en.wikipedia.org/wiki/Countdown_City"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?1601130"
+  - "https://www.google.com/search?kgmid=/m/011spmr5"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

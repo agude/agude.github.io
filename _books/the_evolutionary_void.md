@@ -6,13 +6,22 @@ series: The Void Trilogy
 book_number: 3
 rating: 4
 image: /books/covers/the_evolutionary_void.jpg
+wikidata_qid: Q3557786
+isbn: 978-0-345-49657-7
+date_published: 2010-08
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q3557786"
+  - "https://en.wikipedia.org/wiki/The_Evolutionary_Void"
+  - "https://openlibrary.org/works/OL28237368M"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?982734"
+  - "https://www.google.com/search?kgmid=/m/09k7416"
 ---
 
 The final book in {% author_link page.book_authors link=false
 link_text="Hamilton" possessive %} {% series_text page.series link=false %},
-<cite class="book-title">{{ page.title }}</cite>, wraps up the series well,
-but a little too quickly. All the characters and storylines arrive where
-they're needed and then the story is over.
+{% book_link page.title %}, wraps up the series well, but a little too
+quickly. All the characters and storylines arrive where they're needed and
+then the story is over.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

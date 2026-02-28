@@ -8,6 +8,15 @@ rating: 4
 image: /books/covers/the_tainted_cup.jpg
 awards:
   - hugo
+wikidata_qid: Q133842917
+isbn: 978-1-9848-2070-9
+date_published: 2024-02-06
+same_as_urls:
+  - "https://www.wikidata.org/wiki/Q133842917"
+  - "https://en.wikipedia.org/wiki/The_Tainted_Cup"
+  - "https://www.isfdb.org/cgi-bin/title.cgi?3267240"
+  - "https://www.librarything.com/work/30597048"
+  - "https://www.google.com/search?kgmid=/g/11v02xhtt7"
 ---
 
 {% book_link page.title %} is a fantasy detective novel set in a world where
@@ -17,6 +26,8 @@ engineer and uncover a conspiracy that runs far deeper.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
+{% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
+{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 
 {% capture corruption %}{% book_link "A Drop of Corruption" %}{% endcapture %}
 
@@ -28,14 +39,15 @@ engineer and uncover a conspiracy that runs far deeper.
 {{ this_book }} is (and this is going to sound crazy) a Holmesian detective
 story set in a bio-punk fantasy world based on imperial China, where Kaiju
 monsters leave the ocean every year to attack the empire's walls. It draws
-inspiration from Sherlock Holmes, {% tv_show_title "Attack on Titan" %},
-{% movie_title "Pacific Rim" %}, {{ botns }}, and
-surprisingly, local zoning boards.[^zoning]
+inspiration from Sherlock Holmes, {% tv_show_title "Attack on Titan" %}, {%
+movie_title "Pacific Rim" %}, {{ botns }}, and surprisingly, local zoning
+boards.[^zoning]
 
 [^zoning]:
-    Not joking! The author, Bennett, specifically mentions this in his
-    afterwards, but it is also pretty obvious from the text itself, in which
-    preservation boards act as an enabler of the larger conspiracy.
+    Not joking! The author, {{ the_authors_lastname }}, specifically mentions
+    this in his afterwards, but it is also pretty obvious from the text
+    itself, in which preservation boards act as an enabler of the larger
+    conspiracy.
 
 The main characters are Dinios Kol, a new investigator, and his superior, Ana
 Dolabra. Kol is a dyslexic Watson with eidetic memory, while Dolabra is an
