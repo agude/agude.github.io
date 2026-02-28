@@ -7,6 +7,7 @@ require_relative 'link_cache/cache_maps'
 require_relative 'link_cache/short_story_builder'
 require_relative 'links/link_validator'
 require_relative 'link_cache/backlink_builder'
+require_relative 'link_cache/book_family_validator'
 require_relative 'link_cache/favorites_manager'
 
 module Jekyll
@@ -34,6 +35,7 @@ module Jekyll
       private
 
       def build_secondary_caches(site, link_cache, url_to_book_doc_map)
+        Jekyll::Infrastructure::LinkCache::BookFamilyValidator.new(site).validate
         Jekyll::Infrastructure::LinkCache::ShortStoryBuilder.new(site, link_cache).build
 
         maps = Jekyll::Infrastructure::LinkCache::CacheMaps.new(link_cache)

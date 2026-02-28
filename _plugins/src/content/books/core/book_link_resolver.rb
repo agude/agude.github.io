@@ -154,6 +154,9 @@ module Jekyll
           end
         end
 
+        # Filter out archived (non-canonical) reviews. Archived reviews have a
+        # local canonical_url (starts with '/') pointing to the canonical page.
+        # BookFamilyValidator guarantees canonical pages never have canonical_url.
         def find_candidates
           cache = @site.data['link_cache'] || {}
           (cache.dig('books', @norm_title) || []).reject { |b| b['canonical_url']&.start_with?('/') }

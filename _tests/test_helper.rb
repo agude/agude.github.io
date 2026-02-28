@@ -136,6 +136,7 @@ require 'src/seo/generators/generic_review_generator'
 
 # --- Link Cache Components (_plugins/src/infrastructure/link_cache/) ---
 require 'src/infrastructure/link_cache/backlink_builder'
+require 'src/infrastructure/link_cache/book_family_validator'
 require 'src/infrastructure/link_cache/cache_builder'
 require 'src/infrastructure/link_cache/cache_maps'
 require 'src/infrastructure/link_cache/favorites_manager'

@@ -56,6 +56,27 @@ Jekyll-based static site (alexgude.com) running in Docker.
 3.  **Testing:** Create a matching test file in `_tests/` for every new class.
 4.  **Link Cache:** The site relies on `site.data['link_cache']` (built by
     `LinkCacheGenerator`) for O(1) lookups of books/authors.
+5.  **Break, don't fail silently.** When an invariant is violated, raise
+    `Jekyll::Errors::FatalException` to stop the build. A broken build is
+    always better than silently wrong output — wrong output ships to
+    production and is discovered much later. See **Build Validators** below.
+
+## Build Validators
+
+Validators raise `FatalException` to break the build on data errors. Each
+one is a standalone class that accumulates all violations and raises once
+with a clear, actionable message.
+
+| Validator | File | What it catches |
+| --- | --- | --- |
+| **BookFamilyValidator** | `infrastructure/link_cache/book_family_validator.rb` | Book referenced as a canonical target by another book also has `canonical_url` set (copy-paste error) |
+| **FavoritesValidator** | `infrastructure/link_cache/favorites_validator.rb` | `book_card_lookup` in favorites posts missing `date=` param or date mismatch |
+| **LinkValidator** | `infrastructure/links/link_validator.rb` | Raw Markdown/HTML links to items that should use custom tags |
+| **FrontMatterValidator** | `seo/front_matter_validator.rb` | Missing required front matter fields for a collection |
+
+**When to add a validator:** If bad data can produce wrong output that would
+go unnoticed, add a validator. If the issue is cosmetic or recoverable, log
+a warning with `PluginLoggerUtils` instead.
 
 ## Markdown Output Pipeline
 
@@ -130,6 +151,31 @@ Tags with render_mode support: all link tags (`book_link`, `author_link`,
   (set to `'html'` by default in pre-render hooks) for strict variable mode.
 - **Config:** Feature controlled by `enable_markdown_output` (default: `true`).
   Documents/pages opt out with `markdown_output: false` in front matter.
+
+## Book Families & `canonical_url`
+
+When a book is re-reviewed, the old review moves to a subdirectory and a new
+canonical review takes its place:
+
+```
+_books/hyperion.md                      ← canonical (NO canonical_url)
+_books/hyperion/review-2023-10-17.md    ← archived  (canonical_url: /books/hyperion/)
+```
+
+**Rules:**
+
+- The **canonical review** (top-level file) must **never** have `canonical_url`
+  in its front matter. It _is_ the canonical page.
+- **Archived reviews** set `canonical_url` to the canonical page's URL so the
+  link resolver filters them out and `book_link` always points to the current
+  review.
+- When adding metadata (ISBN, Wikidata, etc.) to book families, do **not**
+  copy `canonical_url` from an archived review into the canonical file.
+
+`BookFamilyValidator` breaks the build if a page referenced as a canonical
+target also has `canonical_url` set (see **Build Validators** above).
+The link resolver filters archived reviews by rejecting entries with a
+local `canonical_url`.
 
 ## Content Authoring
 
