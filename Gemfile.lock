@@ -23,6 +23,7 @@ GEM
       json
     csv (3.3.5)
     docile (1.4.1)
+    drb (2.2.3)
     em-websocket (0.5.3)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0)
@@ -135,7 +136,8 @@ GEM
     mercenary (0.4.0)
     metrics (0.15.0)
     mini_portile2 (2.8.9)
-    minitest (6.0.1)
+    minitest (6.0.2)
+      drb (~> 2.0)
       prism (~> 1.5)
     minitest-mock (5.27.0)
     nokogiri (1.19.1)
