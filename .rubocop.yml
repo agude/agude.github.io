@@ -144,6 +144,12 @@ Layout/MultilineMethodArgumentLineBreaks:
 # 4. Test-Specific Naming & Style
 # ------------------------------------------------------------------
 
+# Test files split related test classes across a shared base class
+# in a single file. This is idiomatic for Minitest.
+Style/OneClassPerFile:
+  Exclude:
+    - '_tests/**/*'
+
 # Allow test_render_author_A (Capital letters in method names)
 Naming/MethodName:
   Exclude:

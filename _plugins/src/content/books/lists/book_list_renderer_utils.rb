@@ -54,7 +54,7 @@ module Jekyll
         def self._render_standalone_section(books, context, options)
           slug = 'standalone-books'
           options[:anchors]['#'] = slug if options[:generate_nav]
-          html = String.new("<h2 class=\"book-list-headline\" id=\"#{slug}\">Standalone Books</h2>\n")
+          html = "<h2 class=\"book-list-headline\" id=\"#{slug}\">Standalone Books</h2>\n"
           html << "<div class=\"card-grid\">\n"
           books.each { |b| html << Jekyll::Books::Core::BookCardUtils.render(b, context) << "\n" }
           html << "</div>\n"
@@ -68,7 +68,7 @@ module Jekyll
 
           heading_level = options[:series_hl]
           link = Jekyll::Series::SeriesLinkUtils.render_series_link(name, context)
-          html = String.new("<h#{heading_level} class=\"series-title\" id=\"#{slug}\">#{link}</h#{heading_level}>\n")
+          html = "<h#{heading_level} class=\"series-title\" id=\"#{slug}\">#{link}</h#{heading_level}>\n"
           html << "<div class=\"card-grid\">\n"
           group[:books].each { |b| html << Jekyll::Books::Core::BookCardUtils.render(b, context) << "\n" }
           html << "</div>\n"
