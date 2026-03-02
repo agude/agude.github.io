@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELO Book Ranker</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f0f2f5; color: #1c1e21; }
+
+        /* Header */
+        header { background: #fff; border-bottom: 1px solid #ddd; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
+        header h1 { font-size: 1.4em; }
+        .controls { display: flex; gap: 10px; align-items: center; }
+        .controls button, .controls label { font-size: 0.9em; padding: 6px 14px; border: 1px solid #ccc; border-radius: 4px; background: #fff; cursor: pointer; }
+        .controls button:hover, .controls label:hover { background: #e8e8e8; }
+        .controls input[type="file"] { display: none; }
+        .stats { font-size: 0.85em; color: #666; }
+
+        /* Matchup area */
+        #matchup-area { padding: 24px; display: none; }
+        .matchup { display: flex; gap: 20px; justify-content: center; align-items: stretch; flex-wrap: wrap; }
+        .book-card { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 520px; display: flex; gap: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .book-card img { width: 140px; height: 210px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
+        .book-info { flex: 1; min-width: 0; }
+        .book-info .title { font-size: 1.3em; font-weight: 700; margin-bottom: 6px; }
+        .book-info .author { color: #555; margin-bottom: 6px; font-size: 1.05em; }
+        .book-info .series { color: #777; font-style: italic; margin-bottom: 6px; font-size: 0.95em; }
+        .book-info .meta { font-size: 0.9em; color: #888; margin-bottom: 10px; }
+        .book-info .summary { font-size: 0.9em; color: #444; line-height: 1.5; }
+        .stars { color: #e6a817; }
+
+        /* Vote buttons */
+        .vote-buttons { display: flex; gap: 12px; justify-content: center; margin-top: 18px; }
+        .vote-buttons button { font-size: 1em; padding: 10px 28px; border: 2px solid #ccc; border-radius: 6px; background: #fff; cursor: pointer; font-weight: 600; transition: all 0.15s; }
+        .vote-buttons button:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+        .vote-buttons button.left { border-color: #4a90d9; color: #4a90d9; }
+        .vote-buttons button.left:hover { background: #4a90d9; color: #fff; }
+        .vote-buttons button.tie { border-color: #888; color: #888; }
+        .vote-buttons button.tie:hover { background: #888; color: #fff; }
+        .vote-buttons button.right { border-color: #d94a4a; color: #d94a4a; }
+        .vote-buttons button.right:hover { background: #d94a4a; color: #fff; }
+        .vote-buttons button kbd { font-family: inherit; font-size: 0.8em; opacity: 0.6; margin-left: 6px; }
+
+        /* Undo button */
+        .undo-section { text-align: center; margin-top: 10px; }
+        .undo-section button { font-size: 0.85em; padding: 4px 14px; border: 1px solid #ccc; border-radius: 4px; background: #fff; cursor: pointer; color: #888; }
+        .undo-section button:hover { background: #e8e8e8; color: #333; }
+        .undo-section button:disabled { opacity: 0.3; cursor: default; }
+
+        /* Load prompt */
+        #load-prompt { text-align: center; padding: 80px 24px; }
+        #load-prompt h2 { margin-bottom: 16px; color: #555; }
+        #load-prompt label { display: inline-block; font-size: 1.1em; padding: 12px 28px; border: 2px dashed #aaa; border-radius: 8px; cursor: pointer; color: #555; }
+        #load-prompt label:hover { border-color: #4a90d9; color: #4a90d9; }
+
+        /* Leaderboard */
+        #leaderboard { padding: 0 24px 24px; }
+        #leaderboard h2 { margin-bottom: 12px; font-size: 1.1em; }
+        table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+        th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.9em; }
+        th { background: #fafafa; cursor: pointer; user-select: none; font-weight: 600; white-space: nowrap; }
+        th:hover { background: #f0f0f0; }
+        th .sort-arrow { margin-left: 4px; font-size: 0.7em; }
+        td.num { text-align: right; font-variant-numeric: tabular-nums; }
+        tr:hover td { background: #f8f9fa; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>ELO Book Ranker</h1>
+    <div class="stats" id="stats"></div>
+    <div class="controls">
+        <label>Load State <input type="file" id="file-input" accept=".json"></label>
+        <button id="btn-export" disabled>Export State</button>
+        <button id="btn-copy" disabled>Copy JSON</button>
+    </div>
+</header>
+
+<div id="load-prompt">
+    <h2>Load a state file to begin</h2>
+    <label>Choose JSON file <input type="file" id="file-input-main" accept=".json"></label>
+</div>
+
+<div id="matchup-area">
+    <div class="matchup">
+        <div class="book-card" id="card-left"></div>
+        <div class="book-card" id="card-right"></div>
+    </div>
+    <div class="vote-buttons">
+        <button class="left" id="btn-left">Left wins <kbd>1</kbd></button>
+        <button class="tie" id="btn-tie">Tie <kbd>2</kbd></button>
+        <button class="right" id="btn-right">Right wins <kbd>3</kbd></button>
+    </div>
+    <div class="undo-section">
+        <button id="btn-undo" disabled>Undo last <kbd>Ctrl+Z</kbd></button>
+    </div>
+</div>
+
+<div id="leaderboard"></div>
+
+<script>
+(function() {
+    "use strict";
+
+    let state = null;
+    let sessionMatches = 0;
+    let currentPair = null;
+    // Stack of snapshots for undo: { pair, result, leftEloBefore, rightEloBefore }
+    let undoStack = [];
+
+    const K = 32;
+
+    // DOM refs
+    const loadPrompt = document.getElementById("load-prompt");
+    const matchupArea = document.getElementById("matchup-area");
+    const leaderboardDiv = document.getElementById("leaderboard");
+    const statsDiv = document.getElementById("stats");
+    const btnExport = document.getElementById("btn-export");
+    const btnCopy = document.getElementById("btn-copy");
+    const btnUndo = document.getElementById("btn-undo");
+
+    // File inputs (both point to same handler)
+    document.getElementById("file-input").addEventListener("change", handleFile);
+    document.getElementById("file-input-main").addEventListener("change", handleFile);
+
+    btnExport.addEventListener("click", exportState);
+    btnCopy.addEventListener("click", copyState);
+    btnUndo.addEventListener("click", undoLast);
+
+    document.getElementById("btn-left").addEventListener("click", () => recordResult("left"));
+    document.getElementById("btn-tie").addEventListener("click", () => recordResult("tie"));
+    document.getElementById("btn-right").addEventListener("click", () => recordResult("right"));
+
+    document.addEventListener("keydown", (e) => {
+        if (!state || !currentPair) return;
+        if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+        if (e.key === "1") recordResult("left");
+        else if (e.key === "2") recordResult("tie");
+        else if (e.key === "3") recordResult("right");
+        else if (e.key === "z" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); undoLast(); }
+    });
+
+    function handleFile(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            try {
+                state = JSON.parse(ev.target.result);
+                sessionMatches = 0;
+                undoStack = [];
+                btnUndo.disabled = true;
+                loadPrompt.style.display = "none";
+                matchupArea.style.display = "block";
+                btnExport.disabled = false;
+                btnCopy.disabled = false;
+                nextMatchup();
+                renderLeaderboard();
+                updateStats();
+            } catch (err) {
+                alert("Invalid JSON: " + err.message);
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    // --- ELO ---
+
+    function expectedScore(ra, rb) {
+        return 1 / (1 + Math.pow(10, (rb - ra) / 400));
+    }
+
+    function updateElo(keyA, keyB, scoreA) {
+        const a = state.books[keyA];
+        const b = state.books[keyB];
+        const ea = expectedScore(a.elo, b.elo);
+        const eb = 1 - ea;
+        a.elo = Math.round(a.elo + K * (scoreA - ea));
+        b.elo = Math.round(b.elo + K * ((1 - scoreA) - eb));
+        a.matches = (a.matches || 0) + 1;
+        b.matches = (b.matches || 0) + 1;
+    }
+
+    // --- Matchup selection ---
+
+    function buildComparisonCounts() {
+        // Map "keyA|keyB" (sorted) -> count
+        const counts = {};
+        for (const m of state.matches) {
+            const pair = [m.left, m.right].sort().join("|");
+            counts[pair] = (counts[pair] || 0) + 1;
+        }
+        return counts;
+    }
+
+    function selectPair() {
+        const keys = Object.keys(state.books);
+        if (keys.length < 2) return null;
+
+        const counts = buildComparisonCounts();
+
+        let bestPairs = [];
+        let bestCount = Infinity;
+        let bestEloDiff = Infinity;
+
+        for (let i = 0; i < keys.length; i++) {
+            for (let j = i + 1; j < keys.length; j++) {
+                const pair = [keys[i], keys[j]].sort().join("|");
+                const c = counts[pair] || 0;
+                const diff = Math.abs(state.books[keys[i]].elo - state.books[keys[j]].elo);
+
+                if (c < bestCount || (c === bestCount && diff < bestEloDiff)) {
+                    bestCount = c;
+                    bestEloDiff = diff;
+                    bestPairs = [[keys[i], keys[j]]];
+                } else if (c === bestCount && diff === bestEloDiff) {
+                    bestPairs.push([keys[i], keys[j]]);
+                }
+            }
+        }
+
+        if (bestPairs.length === 0) return null;
+        const chosen = bestPairs[Math.floor(Math.random() * bestPairs.length)];
+        // Randomize left/right
+        if (Math.random() < 0.5) chosen.reverse();
+        return chosen;
+    }
+
+    // --- Rendering ---
+
+    function starsStr(rating) {
+        return '<span class="stars">' + "★".repeat(rating) + "☆".repeat(5 - rating) + "</span>";
+    }
+
+    function renderCard(elementId, key) {
+        const book = state.books[key];
+        const el = document.getElementById(elementId);
+        const series = book.series
+            ? `<div class="series">${book.series}${book.book_number ? " #" + book.book_number : ""}</div>`
+            : "";
+        const summary = book.summary || book.summary_raw || "";
+        el.innerHTML = `
+            <img src="..${book.image}" alt="" onerror="this.style.display='none'">
+            <div class="book-info">
+                <div class="title">${book.title}</div>
+                <div class="author">${book.authors.join(", ")}</div>
+                ${series}
+                <div class="meta">${starsStr(book.rating)} &nbsp; ELO: ${book.elo} &nbsp; Matches: ${book.matches || 0}</div>
+                <div class="summary">${summary}</div>
+            </div>
+        `;
+    }
+
+    function nextMatchup() {
+        currentPair = selectPair();
+        if (!currentPair) return;
+        renderCard("card-left", currentPair[0]);
+        renderCard("card-right", currentPair[1]);
+    }
+
+    function recordResult(result) {
+        if (!currentPair) return;
+        const [leftKey, rightKey] = currentPair;
+        const leftEloBefore = state.books[leftKey].elo;
+        const rightEloBefore = state.books[rightKey].elo;
+        const leftMatchesBefore = state.books[leftKey].matches || 0;
+        const rightMatchesBefore = state.books[rightKey].matches || 0;
+
+        let scoreA;
+        if (result === "left") scoreA = 1;
+        else if (result === "right") scoreA = 0;
+        else scoreA = 0.5;
+
+        updateElo(leftKey, rightKey, scoreA);
+
+        const matchRecord = {
+            left: leftKey,
+            right: rightKey,
+            result: result,
+            timestamp: new Date().toISOString()
+        };
+        state.matches.push(matchRecord);
+        state.meta.total_matches = (state.meta.total_matches || 0) + 1;
+        sessionMatches++;
+
+        // Push undo snapshot
+        undoStack.push({
+            match: matchRecord,
+            leftKey: leftKey,
+            rightKey: rightKey,
+            leftEloBefore: leftEloBefore,
+            rightEloBefore: rightEloBefore,
+            leftMatchesBefore: leftMatchesBefore,
+            rightMatchesBefore: rightMatchesBefore,
+        });
+        btnUndo.disabled = false;
+
+        nextMatchup();
+        renderLeaderboard();
+        updateStats();
+    }
+
+    function undoLast() {
+        if (undoStack.length === 0) return;
+        const snap = undoStack.pop();
+
+        // Restore ELO and match counts
+        state.books[snap.leftKey].elo = snap.leftEloBefore;
+        state.books[snap.rightKey].elo = snap.rightEloBefore;
+        state.books[snap.leftKey].matches = snap.leftMatchesBefore;
+        state.books[snap.rightKey].matches = snap.rightMatchesBefore;
+
+        // Remove last match
+        state.matches.pop();
+        state.meta.total_matches = Math.max(0, (state.meta.total_matches || 1) - 1);
+        sessionMatches = Math.max(0, sessionMatches - 1);
+
+        btnUndo.disabled = undoStack.length === 0;
+
+        // Restore the undone pair so the user can re-vote
+        currentPair = [snap.leftKey, snap.rightKey];
+        renderCard("card-left", currentPair[0]);
+        renderCard("card-right", currentPair[1]);
+        renderLeaderboard();
+        updateStats();
+    }
+
+    function updateStats() {
+        if (!state) return;
+        const total = state.meta.total_matches || 0;
+        const books = Object.keys(state.books).length;
+        statsDiv.textContent = `${books} books | ${total} total matches | ${sessionMatches} this session`;
+    }
+
+    // --- Leaderboard ---
+
+    let sortCol = "elo";
+    let sortAsc = false;
+
+    function renderLeaderboard() {
+        if (!state) return;
+
+        const keys = Object.keys(state.books);
+        const rows = keys.map(k => {
+            const b = state.books[k];
+            return { key: k, title: b.title, series: b.series || "", rating: b.rating, elo: b.elo, matches: b.matches || 0 };
+        });
+
+        rows.sort((a, b) => {
+            let va = a[sortCol], vb = b[sortCol];
+            if (typeof va === "string") { va = va.toLowerCase(); vb = vb.toLowerCase(); }
+            if (va < vb) return sortAsc ? -1 : 1;
+            if (va > vb) return sortAsc ? 1 : -1;
+            return 0;
+        });
+
+        const arrow = (col) => col === sortCol ? (sortAsc ? " ▲" : " ▼") : "";
+
+        let html = `<h2>Leaderboard</h2><table>
+            <thead><tr>
+                <th data-col="rank">#</th>
+                <th data-col="title">Title<span class="sort-arrow">${arrow("title")}</span></th>
+                <th data-col="series">Series<span class="sort-arrow">${arrow("series")}</span></th>
+                <th data-col="rating">Rating<span class="sort-arrow">${arrow("rating")}</span></th>
+                <th data-col="elo">ELO<span class="sort-arrow">${arrow("elo")}</span></th>
+                <th data-col="matches">Matches<span class="sort-arrow">${arrow("matches")}</span></th>
+            </tr></thead><tbody>`;
+
+        rows.forEach((r, i) => {
+            html += `<tr>
+                <td class="num">${i + 1}</td>
+                <td>${r.title}</td>
+                <td>${r.series}</td>
+                <td class="num">${starsStr(r.rating)}</td>
+                <td class="num">${r.elo}</td>
+                <td class="num">${r.matches}</td>
+            </tr>`;
+        });
+
+        html += "</tbody></table>";
+        leaderboardDiv.innerHTML = html;
+
+        // Attach sort handlers
+        leaderboardDiv.querySelectorAll("th[data-col]").forEach(th => {
+            th.addEventListener("click", () => {
+                const col = th.dataset.col;
+                if (col === "rank") return;
+                if (sortCol === col) sortAsc = !sortAsc;
+                else { sortCol = col; sortAsc = col === "title" || col === "series"; }
+                renderLeaderboard();
+            });
+        });
+    }
+
+    // --- Export ---
+
+    function stateJSON() {
+        return JSON.stringify(state, null, 2);
+    }
+
+    function exportState() {
+        if (!state) return;
+        const blob = new Blob([stateJSON()], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "book_ranking_state.json";
+        a.click();
+        URL.revokeObjectURL(a.href);
+    }
+
+    function copyState() {
+        if (!state) return;
+        navigator.clipboard.writeText(stateJSON()).then(
+            () => { btnCopy.textContent = "Copied!"; setTimeout(() => { btnCopy.textContent = "Copy JSON"; }, 1500); },
+            () => alert("Clipboard write failed")
+        );
+    }
+})();
+</script>
+</body>
+</html>

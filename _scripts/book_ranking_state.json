@@ -1,0 +1,2808 @@
+{
+  "meta": {
+    "created": "2026-03-01",
+    "total_matches": 178
+  },
+  "matches": [
+    {
+      "left": "all_systems_red",
+      "right": "not_till_we_are_lost",
+      "result": "left",
+      "timestamp": "2026-03-02T04:11:39.419Z"
+    },
+    {
+      "left": "starquake",
+      "right": "the_state_of_the_art",
+      "result": "left",
+      "timestamp": "2026-03-02T04:11:41.090Z"
+    },
+    {
+      "left": "artificial_condition",
+      "right": "a_canticle_for_leibowitz",
+      "result": "left",
+      "timestamp": "2026-03-02T04:11:42.843Z"
+    },
+    {
+      "left": "the_hydrogen_sonata",
+      "right": "surface_detail",
+      "result": "right",
+      "timestamp": "2026-03-02T04:11:44.995Z"
+    },
+    {
+      "left": "the_abyss_beyond_dreams",
+      "right": "the_moon_is_a_harsh_mistress",
+      "result": "left",
+      "timestamp": "2026-03-02T04:11:47.339Z"
+    },
+    {
+      "left": "judas_unchained",
+      "right": "mattimeo",
+      "result": "right",
+      "timestamp": "2026-03-02T04:11:49.739Z"
+    },
+    {
+      "left": "the_state_of_the_art",
+      "right": "not_till_we_are_lost",
+      "result": "right",
+      "timestamp": "2026-03-02T04:11:54.971Z"
+    },
+    {
+      "left": "the_rise_of_endymion",
+      "right": "rogue_bolo",
+      "result": "left",
+      "timestamp": "2026-03-02T04:11:57.035Z"
+    },
+    {
+      "left": "mission_of_gravity",
+      "right": "gun_with_occasional_music",
+      "result": "left",
+      "timestamp": "2026-03-02T04:11:58.627Z"
+    },
+    {
+      "left": "the_dragons_banker",
+      "right": "monday_begins_on_saturday",
+      "result": "left",
+      "timestamp": "2026-03-02T04:12:01.371Z"
+    },
+    {
+      "left": "the_temporal_void",
+      "right": "martin_the_warrior",
+      "result": "right",
+      "timestamp": "2026-03-02T04:12:39.467Z"
+    },
+    {
+      "left": "the_blue_lotus",
+      "right": "the_left_hand_of_darkness",
+      "result": "right",
+      "timestamp": "2026-03-02T04:12:43.915Z"
+    },
+    {
+      "left": "patternmaster",
+      "right": "ymir",
+      "result": "left",
+      "timestamp": "2026-03-02T04:12:46.163Z"
+    },
+    {
+      "left": "mossflower",
+      "right": "dog_soldier",
+      "result": "right",
+      "timestamp": "2026-03-02T04:12:48.811Z"
+    },
+    {
+      "left": "the_tainted_cup",
+      "right": "explorers_on_the_moon",
+      "result": "left",
+      "timestamp": "2026-03-02T04:12:50.107Z"
+    },
+    {
+      "left": "endymion",
+      "right": "the_darfsteller",
+      "result": "left",
+      "timestamp": "2026-03-02T04:12:52.891Z"
+    },
+    {
+      "left": "the_left_hand_of_darkness",
+      "right": "the_abyss_beyond_dreams",
+      "result": "right",
+      "timestamp": "2026-03-02T04:12:54.579Z"
+    },
+    {
+      "left": "grand_melee",
+      "right": "the_war_of_the_worlds",
+      "result": "left",
+      "timestamp": "2026-03-02T04:12:56.187Z"
+    },
+    {
+      "left": "metropolitan",
+      "right": "a_desolation_called_peace",
+      "result": "right",
+      "timestamp": "2026-03-02T04:12:57.819Z"
+    },
+    {
+      "left": "we_are_legion_we_are_bob",
+      "right": "the_last_policeman",
+      "result": "left",
+      "timestamp": "2026-03-02T04:12:59.947Z"
+    },
+    {
+      "left": "the_rise_of_endymion",
+      "right": "dog_soldier",
+      "result": "right",
+      "timestamp": "2026-03-02T04:13:04.139Z"
+    },
+    {
+      "left": "echopraxia",
+      "right": "blindsight",
+      "result": "left",
+      "timestamp": "2026-03-02T04:13:06.012Z"
+    },
+    {
+      "left": "inversions",
+      "right": "the_colonel",
+      "result": "left",
+      "timestamp": "2026-03-02T04:13:10.323Z"
+    },
+    {
+      "left": "there_is_no_antimemetics_division",
+      "right": "childhoods_end",
+      "result": "right",
+      "timestamp": "2026-03-02T04:13:16.484Z"
+    },
+    {
+      "left": "mattimeo",
+      "right": "a_desolation_called_peace",
+      "result": "right",
+      "timestamp": "2026-03-02T04:13:22.172Z"
+    },
+    {
+      "left": "last_stand",
+      "right": "eater",
+      "result": "right",
+      "timestamp": "2026-03-02T04:13:32.587Z"
+    },
+    {
+      "left": "the_unconquerable",
+      "right": "mattimeo",
+      "result": "left",
+      "timestamp": "2026-03-02T04:13:35.636Z"
+    },
+    {
+      "left": "serpent_valley",
+      "right": "the_citadel_of_the_autarch",
+      "result": "right",
+      "timestamp": "2026-03-02T04:13:37.547Z"
+    },
+    {
+      "left": "all_these_worlds",
+      "right": "flatland_a_romance_of_many_dimensions",
+      "result": "left",
+      "timestamp": "2026-03-02T04:13:38.811Z"
+    },
+    {
+      "left": "flatland_a_romance_of_many_dimensions",
+      "right": "the_war_of_the_worlds",
+      "result": "right",
+      "timestamp": "2026-03-02T04:13:41.251Z"
+    },
+    {
+      "left": "this_is_how_you_lose_the_time_war",
+      "right": "countdown_city",
+      "result": "left",
+      "timestamp": "2026-03-02T04:13:45.916Z"
+    },
+    {
+      "left": "pandoras_star",
+      "right": "the_sword_of_the_lictor",
+      "result": "right",
+      "timestamp": "2026-03-02T04:13:48.507Z"
+    },
+    {
+      "left": "chevalier",
+      "right": "cigars_of_the_pharaoh",
+      "result": "left",
+      "timestamp": "2026-03-02T04:13:50.434Z"
+    },
+    {
+      "left": "city_on_fire",
+      "right": "flowers_for_algernon",
+      "result": "left",
+      "timestamp": "2026-03-02T04:13:52.028Z"
+    },
+    {
+      "left": "house_of_suns",
+      "right": "lords_of_uncreation",
+      "result": "right",
+      "timestamp": "2026-03-02T04:13:54.884Z"
+    },
+    {
+      "left": "valuable_humans_in_transit_and_other_stories",
+      "right": "the_rise_of_endymion",
+      "result": "left",
+      "timestamp": "2026-03-02T04:14:10.212Z"
+    },
+    {
+      "left": "echopraxia",
+      "right": "inversions",
+      "result": "left",
+      "timestamp": "2026-03-02T04:14:12.780Z"
+    },
+    {
+      "left": "mission_of_gravity",
+      "right": "martin_the_warrior",
+      "result": "right",
+      "timestamp": "2026-03-02T04:14:14.964Z"
+    },
+    {
+      "left": "artificial_condition",
+      "right": "the_sword_of_the_lictor",
+      "result": "left",
+      "timestamp": "2026-03-02T04:14:16.492Z"
+    },
+    {
+      "left": "hyperion",
+      "right": "inversions",
+      "result": "left",
+      "timestamp": "2026-03-02T04:14:35.644Z"
+    },
+    {
+      "left": "rogue_protocol",
+      "right": "a_drop_of_corruption",
+      "result": "left",
+      "timestamp": "2026-03-02T04:14:39.484Z"
+    },
+    {
+      "left": "the_evolutionary_void",
+      "right": "there_is_no_antimemetics_division_original",
+      "result": "right",
+      "timestamp": "2026-03-02T04:14:42.916Z"
+    },
+    {
+      "left": "bolo_annals_of_the_dinochrome_brigade",
+      "right": "the_left_hand_of_darkness",
+      "result": "right",
+      "timestamp": "2026-03-02T04:14:45.052Z"
+    },
+    {
+      "left": "destination_moon",
+      "right": "on_basilisk_station",
+      "result": "right",
+      "timestamp": "2026-03-02T04:14:48.572Z"
+    },
+    {
+      "left": "the_fractal_prince",
+      "right": "world_of_trouble",
+      "result": "left",
+      "timestamp": "2026-03-02T04:14:54.444Z"
+    },
+    {
+      "left": "the_darfsteller",
+      "right": "last_stand",
+      "result": "right",
+      "timestamp": "2026-03-02T04:15:04.764Z"
+    },
+    {
+      "left": "patternmaster",
+      "right": "all_these_worlds",
+      "result": "left",
+      "timestamp": "2026-03-02T04:15:10.332Z"
+    },
+    {
+      "left": "mission_of_gravity",
+      "right": "close_to_critical",
+      "result": "left",
+      "timestamp": "2026-03-02T04:15:14.052Z"
+    },
+    {
+      "left": "honor_of_the_regiment",
+      "right": "all_these_worlds",
+      "result": "left",
+      "timestamp": "2026-03-02T04:15:21.284Z"
+    },
+    {
+      "left": "tintin_in_the_congo",
+      "right": "shards_of_earth",
+      "result": "right",
+      "timestamp": "2026-03-02T04:15:23.468Z"
+    },
+    {
+      "left": "the_darfsteller",
+      "right": "the_state_of_the_art",
+      "result": "right",
+      "timestamp": "2026-03-02T04:15:25.492Z"
+    },
+    {
+      "left": "the_sirens_of_titan",
+      "right": "clays_ark",
+      "result": "left",
+      "timestamp": "2026-03-02T04:15:33.540Z"
+    },
+    {
+      "left": "home_habitat_range_niche_territory",
+      "right": "the_war_of_the_worlds",
+      "result": "right",
+      "timestamp": "2026-03-02T04:15:39.653Z"
+    },
+    {
+      "left": "last_stand",
+      "right": "night_without_stars",
+      "result": "right",
+      "timestamp": "2026-03-02T04:15:42.300Z"
+    },
+    {
+      "left": "a_canticle_for_leibowitz",
+      "right": "explorers_on_the_moon",
+      "result": "left",
+      "timestamp": "2026-03-02T04:15:43.940Z"
+    },
+    {
+      "left": "the_last_policeman",
+      "right": "ymir",
+      "result": "right",
+      "timestamp": "2026-03-02T04:15:45.236Z"
+    },
+    {
+      "left": "starquake",
+      "right": "all_systems_red",
+      "result": "right",
+      "timestamp": "2026-03-02T04:15:47.196Z"
+    },
+    {
+      "left": "the_unconquerable",
+      "right": "the_tainted_cup",
+      "result": "right",
+      "timestamp": "2026-03-02T04:15:49.204Z"
+    },
+    {
+      "left": "flowers_for_algernon",
+      "right": "world_of_trouble",
+      "result": "left",
+      "timestamp": "2026-03-02T04:15:51.196Z"
+    },
+    {
+      "left": "the_temporal_void",
+      "right": "close_to_critical",
+      "result": "left",
+      "timestamp": "2026-03-02T04:15:54.132Z"
+    },
+    {
+      "left": "we_are_legion_we_are_bob",
+      "right": "eater",
+      "result": "right",
+      "timestamp": "2026-03-02T04:15:56.308Z"
+    },
+    {
+      "left": "the_claw_of_the_conciliator",
+      "right": "mariel_of_redwall",
+      "result": "left",
+      "timestamp": "2026-03-02T04:15:59.148Z"
+    },
+    {
+      "left": "the_dreaming_void",
+      "right": "the_nameless_city",
+      "result": "left",
+      "timestamp": "2026-03-02T04:16:03.740Z"
+    },
+    {
+      "left": "the_unconquerable",
+      "right": "wild_seed",
+      "result": "right",
+      "timestamp": "2026-03-02T04:16:06.772Z"
+    },
+    {
+      "left": "the_three_body_problem",
+      "right": "the_quantum_thief",
+      "result": "right",
+      "timestamp": "2026-03-02T04:16:09.997Z"
+    },
+    {
+      "left": "the_unconquerable",
+      "right": "destination_moon",
+      "result": "right",
+      "timestamp": "2026-03-02T04:16:18.884Z"
+    },
+    {
+      "left": "rogue_bolo",
+      "right": "mariel_of_redwall",
+      "result": "right",
+      "timestamp": "2026-03-02T04:16:20.781Z"
+    },
+    {
+      "left": "the_sirens_of_titan",
+      "right": "mission_of_gravity",
+      "result": "right",
+      "timestamp": "2026-03-02T04:16:22.828Z"
+    },
+    {
+      "left": "the_moon_is_a_harsh_mistress",
+      "right": "a_drop_of_corruption",
+      "result": "right",
+      "timestamp": "2026-03-02T04:16:25.396Z"
+    },
+    {
+      "left": "the_fall_of_hyperion",
+      "right": "look_to_windward",
+      "result": "right",
+      "timestamp": "2026-03-02T04:16:28.956Z"
+    },
+    {
+      "left": "the_fall_of_hyperion",
+      "right": "blindsight",
+      "result": "right",
+      "timestamp": "2026-03-02T04:16:30.596Z"
+    },
+    {
+      "left": "star_light",
+      "right": "heavens_river",
+      "result": "right",
+      "timestamp": "2026-03-02T04:16:35.541Z"
+    },
+    {
+      "left": "chevalier",
+      "right": "the_dragons_banker",
+      "result": "left",
+      "timestamp": "2026-03-02T04:16:38.853Z"
+    },
+    {
+      "left": "metropolitan",
+      "right": "pandoras_star",
+      "result": "left",
+      "timestamp": "2026-03-02T04:16:40.828Z"
+    },
+    {
+      "left": "disco_elysium",
+      "right": "blindsight",
+      "result": "left",
+      "timestamp": "2026-03-02T04:16:42.740Z"
+    },
+    {
+      "left": "star_light",
+      "right": "the_evolutionary_void",
+      "result": "right",
+      "timestamp": "2026-03-02T04:16:47.509Z"
+    },
+    {
+      "left": "the_evolutionary_void",
+      "right": "the_causal_angel",
+      "result": "left",
+      "timestamp": "2026-03-02T04:16:50.356Z"
+    },
+    {
+      "left": "starquake",
+      "right": "mariel_of_redwall",
+      "result": "right",
+      "timestamp": "2026-03-02T04:16:54.060Z"
+    },
+    {
+      "left": "not_till_we_are_lost",
+      "right": "exit_strategy",
+      "result": "right",
+      "timestamp": "2026-03-02T04:17:00.428Z"
+    },
+    {
+      "left": "the_blue_lotus",
+      "right": "bolo_annals_of_the_dinochrome_brigade",
+      "result": "left",
+      "timestamp": "2026-03-02T04:17:09.228Z"
+    },
+    {
+      "left": "the_player_of_games",
+      "right": "a_fire_upon_the_deep",
+      "result": "right",
+      "timestamp": "2026-03-02T04:17:11.837Z"
+    },
+    {
+      "left": "excession",
+      "right": "network_effect",
+      "result": "right",
+      "timestamp": "2026-03-02T04:17:15.077Z"
+    },
+    {
+      "left": "endymion",
+      "right": "the_claw_of_the_conciliator",
+      "result": "right",
+      "timestamp": "2026-03-02T04:17:17.877Z"
+    },
+    {
+      "left": "dragons_egg",
+      "right": "metropolitan",
+      "result": "left",
+      "timestamp": "2026-03-02T04:17:20.941Z"
+    },
+    {
+      "left": "grand_melee",
+      "right": "rogue_protocol",
+      "result": "left",
+      "timestamp": "2026-03-02T04:17:24.517Z"
+    },
+    {
+      "left": "all_systems_red",
+      "right": "grand_melee",
+      "result": "right",
+      "timestamp": "2026-03-02T04:17:27.397Z"
+    },
+    {
+      "left": "the_blue_lotus",
+      "right": "matter",
+      "result": "right",
+      "timestamp": "2026-03-02T04:17:29.149Z"
+    },
+    {
+      "left": "the_player_of_games",
+      "right": "the_colonel",
+      "result": "left",
+      "timestamp": "2026-03-02T04:17:31.653Z"
+    },
+    {
+      "left": "wild_seed",
+      "right": "dragons_egg",
+      "result": "right",
+      "timestamp": "2026-03-02T04:17:34.109Z"
+    },
+    {
+      "left": "we_are_legion_we_are_bob",
+      "right": "rogue_protocol",
+      "result": "right",
+      "timestamp": "2026-03-02T04:17:37.061Z"
+    },
+    {
+      "left": "mind_of_my_mind",
+      "right": "the_urth_of_the_new_sun",
+      "result": "right",
+      "timestamp": "2026-03-02T04:17:39.765Z"
+    },
+    {
+      "left": "the_dreaming_void",
+      "right": "all_systems_red",
+      "result": "right",
+      "timestamp": "2026-03-02T04:17:41.541Z"
+    },
+    {
+      "left": "flowers_for_algernon",
+      "right": "consider_phlebas",
+      "result": "left",
+      "timestamp": "2026-03-02T04:17:43.316Z"
+    },
+    {
+      "left": "mossflower",
+      "right": "home_habitat_range_niche_territory",
+      "result": "left",
+      "timestamp": "2026-03-02T04:17:47.341Z"
+    },
+    {
+      "left": "the_sword_of_the_lictor",
+      "right": "wild_seed",
+      "result": "left",
+      "timestamp": "2026-03-02T04:18:02.285Z"
+    },
+    {
+      "left": "honor_of_the_regiment",
+      "right": "the_war_of_the_worlds",
+      "result": "left",
+      "timestamp": "2026-03-02T04:18:04.349Z"
+    },
+    {
+      "left": "the_last_policeman",
+      "right": "bolo_annals_of_the_dinochrome_brigade",
+      "result": "right",
+      "timestamp": "2026-03-02T04:18:06.021Z"
+    },
+    {
+      "left": "the_claw_of_the_conciliator",
+      "right": "dog_soldier",
+      "result": "right",
+      "timestamp": "2026-03-02T04:18:08.205Z"
+    },
+    {
+      "left": "pandoras_star",
+      "right": "explorers_on_the_moon",
+      "result": "right",
+      "timestamp": "2026-03-02T04:18:09.725Z"
+    },
+    {
+      "left": "cigars_of_the_pharaoh",
+      "right": "monday_begins_on_saturday",
+      "result": "left",
+      "timestamp": "2026-03-02T04:18:12.141Z"
+    },
+    {
+      "left": "the_state_of_the_art",
+      "right": "the_nameless_city",
+      "result": "left",
+      "timestamp": "2026-03-02T04:18:13.981Z"
+    },
+    {
+      "left": "ymir",
+      "right": "endymion",
+      "result": "left",
+      "timestamp": "2026-03-02T04:18:15.749Z"
+    },
+    {
+      "left": "the_claw_of_the_conciliator",
+      "right": "rogue_protocol",
+      "result": "right",
+      "timestamp": "2026-03-02T04:18:17.813Z"
+    },
+    {
+      "left": "endymion",
+      "right": "the_rise_of_endymion",
+      "result": "right",
+      "timestamp": "2026-03-02T04:18:24.093Z"
+    },
+    {
+      "left": "the_state_of_the_art",
+      "right": "the_rise_of_endymion",
+      "result": "right",
+      "timestamp": "2026-03-02T04:18:28.757Z"
+    },
+    {
+      "left": "mariel_of_redwall",
+      "right": "night_without_stars",
+      "result": "right",
+      "timestamp": "2026-03-02T04:18:31.477Z"
+    },
+    {
+      "left": "honor_of_the_regiment",
+      "right": "the_abyss_beyond_dreams",
+      "result": "right",
+      "timestamp": "2026-03-02T04:18:34.141Z"
+    },
+    {
+      "left": "city_on_fire",
+      "right": "there_is_no_antimemetics_division_original",
+      "result": "left",
+      "timestamp": "2026-03-02T04:18:36.645Z"
+    },
+    {
+      "left": "sunstone_imperative",
+      "right": "mariel_of_redwall",
+      "result": "left",
+      "timestamp": "2026-03-02T04:18:39.542Z"
+    },
+    {
+      "left": "the_quantum_thief",
+      "right": "the_urth_of_the_new_sun",
+      "result": "right",
+      "timestamp": "2026-03-02T04:18:45.293Z"
+    },
+    {
+      "left": "the_moon_is_a_harsh_mistress",
+      "right": "the_nameless_city",
+      "result": "left",
+      "timestamp": "2026-03-02T04:18:47.869Z"
+    },
+    {
+      "left": "on_basilisk_station",
+      "right": "childhoods_end",
+      "result": "right",
+      "timestamp": "2026-03-02T04:18:49.957Z"
+    },
+    {
+      "left": "grand_melee",
+      "right": "dog_soldier",
+      "result": "left",
+      "timestamp": "2026-03-02T04:18:51.493Z"
+    },
+    {
+      "left": "starquake",
+      "right": "we_are_legion_we_are_bob",
+      "result": "right",
+      "timestamp": "2026-03-02T04:18:56.381Z"
+    },
+    {
+      "left": "the_citadel_of_the_autarch",
+      "right": "network_effect",
+      "result": "right",
+      "timestamp": "2026-03-02T04:18:58.397Z"
+    },
+    {
+      "left": "world_of_trouble",
+      "right": "star_light",
+      "result": "right",
+      "timestamp": "2026-03-02T04:19:01.869Z"
+    },
+    {
+      "left": "disco_elysium",
+      "right": "look_to_windward",
+      "result": "left",
+      "timestamp": "2026-03-02T04:19:03.317Z"
+    },
+    {
+      "left": "explorers_on_the_moon",
+      "right": "wild_seed",
+      "result": "left",
+      "timestamp": "2026-03-02T04:19:12.461Z"
+    },
+    {
+      "left": "for_we_are_many",
+      "right": "the_dreaming_void",
+      "result": "left",
+      "timestamp": "2026-03-02T04:19:16.365Z"
+    },
+    {
+      "left": "sunstone_imperative",
+      "right": "valuable_humans_in_transit_and_other_stories",
+      "result": "right",
+      "timestamp": "2026-03-02T04:19:22.653Z"
+    },
+    {
+      "left": "metropolitan",
+      "right": "judas_unchained",
+      "result": "left",
+      "timestamp": "2026-03-02T04:19:31.878Z"
+    },
+    {
+      "left": "ymir",
+      "right": "matter",
+      "result": "right",
+      "timestamp": "2026-03-02T04:19:34.861Z"
+    },
+    {
+      "left": "tintin_in_the_congo",
+      "right": "the_three_body_problem",
+      "result": "left",
+      "timestamp": "2026-03-02T04:19:46.206Z"
+    },
+    {
+      "left": "tintin_in_the_congo",
+      "right": "eyes_of_the_void",
+      "result": "right",
+      "timestamp": "2026-03-02T04:19:48.653Z"
+    },
+    {
+      "left": "childhoods_end",
+      "right": "network_effect",
+      "result": "right",
+      "timestamp": "2026-03-02T04:19:52.094Z"
+    },
+    {
+      "left": "the_war_of_the_worlds",
+      "right": "ymir",
+      "result": "left",
+      "timestamp": "2026-03-02T04:19:57.325Z"
+    },
+    {
+      "left": "mariel_of_redwall",
+      "right": "not_till_we_are_lost",
+      "result": "right",
+      "timestamp": "2026-03-02T04:20:06.037Z"
+    },
+    {
+      "left": "valuable_humans_in_transit_and_other_stories",
+      "right": "matter",
+      "result": "right",
+      "timestamp": "2026-03-02T04:20:09.582Z"
+    },
+    {
+      "left": "the_causal_angel",
+      "right": "consider_phlebas",
+      "result": "right",
+      "timestamp": "2026-03-02T04:20:11.638Z"
+    },
+    {
+      "left": "surface_detail",
+      "right": "a_fire_upon_the_deep",
+      "result": "left",
+      "timestamp": "2026-03-02T04:20:16.038Z"
+    },
+    {
+      "left": "not_till_we_are_lost",
+      "right": "a_drop_of_corruption",
+      "result": "left",
+      "timestamp": "2026-03-02T04:20:20.829Z"
+    },
+    {
+      "left": "blindsight",
+      "right": "the_hydrogen_sonata",
+      "result": "left",
+      "timestamp": "2026-03-02T04:20:23.118Z"
+    },
+    {
+      "left": "look_to_windward",
+      "right": "the_triumphant",
+      "result": "left",
+      "timestamp": "2026-03-02T04:20:25.093Z"
+    },
+    {
+      "left": "for_we_are_many",
+      "right": "valuable_humans_in_transit_and_other_stories",
+      "result": "right",
+      "timestamp": "2026-03-02T04:20:27.613Z"
+    },
+    {
+      "left": "the_claw_of_the_conciliator",
+      "right": "for_we_are_many",
+      "result": "right",
+      "timestamp": "2026-03-02T04:20:29.741Z"
+    },
+    {
+      "left": "rogue_protocol",
+      "right": "night_without_stars",
+      "result": "left",
+      "timestamp": "2026-03-02T04:20:31.111Z"
+    },
+    {
+      "left": "a_canticle_for_leibowitz",
+      "right": "roadside_picnic",
+      "result": "right",
+      "timestamp": "2026-03-02T04:20:33.293Z"
+    },
+    {
+      "left": "the_left_hand_of_darkness",
+      "right": "honor_of_the_regiment",
+      "result": "left",
+      "timestamp": "2026-03-02T04:20:35.934Z"
+    },
+    {
+      "left": "star_light",
+      "right": "countdown_city",
+      "result": "left",
+      "timestamp": "2026-03-02T04:20:39.437Z"
+    },
+    {
+      "left": "the_moon_is_a_harsh_mistress",
+      "right": "last_stand",
+      "result": "right",
+      "timestamp": "2026-03-02T04:20:42.846Z"
+    },
+    {
+      "left": "a_mote_in_shadow",
+      "right": "blindsight",
+      "result": "right",
+      "timestamp": "2026-03-02T04:20:44.806Z"
+    },
+    {
+      "left": "consider_phlebas",
+      "right": "the_sirens_of_titan",
+      "result": "left",
+      "timestamp": "2026-03-02T04:20:48.078Z"
+    },
+    {
+      "left": "night_without_stars",
+      "right": "the_war_of_the_worlds",
+      "result": "left",
+      "timestamp": "2026-03-02T04:20:50.310Z"
+    },
+    {
+      "left": "starquake",
+      "right": "the_moon_is_a_harsh_mistress",
+      "result": "left",
+      "timestamp": "2026-03-02T04:20:52.502Z"
+    },
+    {
+      "left": "echopraxia",
+      "right": "disco_elysium",
+      "result": "right",
+      "timestamp": "2026-03-02T04:20:54.973Z"
+    },
+    {
+      "left": "shards_of_earth",
+      "right": "eyes_of_the_void",
+      "result": "right",
+      "timestamp": "2026-03-02T04:21:05.230Z"
+    },
+    {
+      "left": "eater",
+      "right": "all_systems_red",
+      "result": "right",
+      "timestamp": "2026-03-02T04:21:08.838Z"
+    },
+    {
+      "left": "all_these_worlds",
+      "right": "the_state_of_the_art",
+      "result": "left",
+      "timestamp": "2026-03-02T04:21:12.230Z"
+    },
+    {
+      "left": "eater",
+      "right": "exit_strategy",
+      "result": "right",
+      "timestamp": "2026-03-02T04:21:14.157Z"
+    },
+    {
+      "left": "artificial_condition",
+      "right": "a_desolation_called_peace",
+      "result": "left",
+      "timestamp": "2026-03-02T04:21:17.685Z"
+    },
+    {
+      "left": "home_habitat_range_niche_territory",
+      "right": "flatland_a_romance_of_many_dimensions",
+      "result": "left",
+      "timestamp": "2026-03-02T04:21:21.054Z"
+    },
+    {
+      "left": "the_war_of_the_worlds",
+      "right": "we_are_legion_we_are_bob",
+      "result": "right",
+      "timestamp": "2026-03-02T04:21:24.245Z"
+    },
+    {
+      "left": "the_citadel_of_the_autarch",
+      "right": "the_shadow_of_the_torturer",
+      "result": "right",
+      "timestamp": "2026-03-02T04:21:30.134Z"
+    },
+    {
+      "left": "honor_of_the_regiment",
+      "right": "last_stand",
+      "result": "right",
+      "timestamp": "2026-03-02T04:21:43.414Z"
+    },
+    {
+      "left": "the_claw_of_the_conciliator",
+      "right": "the_war_of_the_worlds",
+      "result": "right",
+      "timestamp": "2026-03-02T04:21:48.102Z"
+    },
+    {
+      "left": "consider_phlebas",
+      "right": "the_evolutionary_void",
+      "result": "right",
+      "timestamp": "2026-03-02T04:21:49.902Z"
+    },
+    {
+      "left": "serpent_valley",
+      "right": "mattimeo",
+      "result": "left",
+      "timestamp": "2026-03-02T04:21:51.702Z"
+    },
+    {
+      "left": "a_canticle_for_leibowitz",
+      "right": "excession",
+      "result": "right",
+      "timestamp": "2026-03-02T04:21:53.278Z"
+    },
+    {
+      "left": "the_left_hand_of_darkness",
+      "right": "exit_strategy",
+      "result": "right",
+      "timestamp": "2026-03-02T04:21:55.246Z"
+    },
+    {
+      "left": "metropolitan",
+      "right": "salamandastron",
+      "result": "right",
+      "timestamp": "2026-03-02T04:21:57.830Z"
+    },
+    {
+      "left": "network_effect",
+      "right": "artificial_condition",
+      "result": "left",
+      "timestamp": "2026-03-02T04:22:01.750Z"
+    },
+    {
+      "left": "wild_seed",
+      "right": "judas_unchained",
+      "result": "left",
+      "timestamp": "2026-03-02T04:22:06.078Z"
+    },
+    {
+      "left": "the_evolutionary_void",
+      "right": "mission_of_gravity",
+      "result": "left",
+      "timestamp": "2026-03-02T04:22:08.086Z"
+    },
+    {
+      "left": "roadside_picnic",
+      "right": "the_sword_of_the_lictor",
+      "result": "left",
+      "timestamp": "2026-03-02T04:22:10.342Z"
+    },
+    {
+      "left": "the_war_of_the_worlds",
+      "right": "eater",
+      "result": "right",
+      "timestamp": "2026-03-02T04:22:13.302Z"
+    },
+    {
+      "left": "inversions",
+      "right": "the_triumphant",
+      "result": "left",
+      "timestamp": "2026-03-02T04:22:14.926Z"
+    },
+    {
+      "left": "exit_strategy",
+      "right": "matter",
+      "result": "left",
+      "timestamp": "2026-03-02T04:22:16.766Z"
+    },
+    {
+      "left": "the_last_policeman",
+      "right": "the_nameless_city",
+      "result": "left",
+      "timestamp": "2026-03-02T04:22:18.782Z"
+    },
+    {
+      "left": "hyperion",
+      "right": "look_to_windward",
+      "result": "right",
+      "timestamp": "2026-03-02T04:22:21.206Z"
+    },
+    {
+      "left": "the_dragons_banker",
+      "right": "cigars_of_the_pharaoh",
+      "result": "left",
+      "timestamp": "2026-03-02T04:22:23.214Z"
+    },
+    {
+      "left": "the_tainted_cup",
+      "right": "artificial_condition",
+      "result": "right",
+      "timestamp": "2026-03-02T04:22:28.878Z"
+    },
+    {
+      "left": "all_systems_red",
+      "right": "rogue_protocol",
+      "result": "right",
+      "timestamp": "2026-03-02T04:22:36.478Z"
+    },
+    {
+      "left": "bolo_annals_of_the_dinochrome_brigade",
+      "right": "a_drop_of_corruption",
+      "result": "right",
+      "timestamp": "2026-03-02T04:22:38.470Z"
+    },
+    {
+      "left": "a_memory_called_empire",
+      "right": "destination_moon",
+      "result": "left",
+      "timestamp": "2026-03-02T04:22:39.943Z"
+    },
+    {
+      "left": "the_dragons_banker",
+      "right": "flowers_for_algernon",
+      "result": "left",
+      "timestamp": "2026-03-02T04:22:43.302Z"
+    },
+    {
+      "left": "the_sword_of_the_lictor",
+      "right": "excession",
+      "result": "right",
+      "timestamp": "2026-03-02T04:22:45.062Z"
+    },
+    {
+      "left": "city_on_fire",
+      "right": "chevalier",
+      "result": "right",
+      "timestamp": "2026-03-02T04:22:48.863Z"
+    },
+    {
+      "left": "the_tainted_cup",
+      "right": "childhoods_end",
+      "result": "left",
+      "timestamp": "2026-03-02T04:22:51.046Z"
+    }
+  ],
+  "books": {
+    "a_canticle_for_leibowitz": {
+      "title": "A Canticle for Leibowitz",
+      "authors": [
+        "Walter M. Miller Jr."
+      ],
+      "series": "Saint Leibowitz",
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/a_canticle_for_leibowitz.jpg",
+      "summary_raw": "It is a fix-up novel consisting of three parts: Fiat Homo, Fiat Lux, and Fiat Voluntas Tua. The story follows the monks of the Albertian Order of Leibowitz as they preserve the remains of humanity's knowledge after an atomic war.",
+      "summary_extra": "The major theme of the book is the cyclical nature of humanity's fall and the question: \"Are we doomed to repeat it?\" Other themes include the conflict between faith and reason, the double-edged sword of knowledge, and the nature of suffering and sin.",
+      "summary": "Monks preserve humanity's knowledge across three eras after an atomic war. Cyclical history: are we doomed to repeat our mistakes?",
+      "elo": 1668,
+      "matches": 4
+    },
+    "a_desolation_called_peace": {
+      "title": "A Desolation Called Peace",
+      "authors": [
+        "Arkady Martine"
+      ],
+      "series": "Teixcalaan",
+      "book_number": 2,
+      "rating": 4,
+      "image": "/books/covers/a_desolation_called_peace.jpg",
+      "summary_raw": "It tells the story of Mahit and Three Seagrass trying to stop the war between the Teixcalaanli Empire and a mysterious alien race.",
+      "summary_extra": "Picks up right where left off: a few months after the events of the first book, following the same characters, and continuing to develop the same themes and motifs.",
+      "summary": "Mahit and Three Seagrass try to negotiate peace between the Teixcalaanli Empire and a mysterious alien race. Sequel picks up months after the first book.",
+      "elo": 1716,
+      "matches": 3
+    },
+    "a_drop_of_corruption": {
+      "title": "A Drop of Corruption",
+      "authors": [
+        "Robert Jackson Bennett"
+      ],
+      "series": "Shadow of the Leviathan",
+      "book_number": 2,
+      "rating": 3,
+      "image": "/books/covers/a_drop_of_corruption.jpg",
+      "summary_raw": "This time, Din and Ana track down a murderer in the northern Kingdom of Yarrow whose brilliance is almost a match for Ana's own.",
+      "summary_extra": "In , Din and Ana travel to Yarrow to solve the murder of a treasury officer. At first, it looks like the officer was abducted from his heavily guarded and locked room, but Din and Ana quickly figure out that the man everyone thought was the official was actually the murderer in disguise. They realize he's been planning to sabotage the negotiations between the Empire and Yarrow.",
+      "summary": "Din and Ana investigate a murder in the northern Kingdom of Yarrow. The killer disguised himself as the victim and is sabotaging imperial negotiations.",
+      "elo": 1500,
+      "matches": 4
+    },
+    "a_fire_upon_the_deep": {
+      "title": "A Fire Upon The Deep",
+      "authors": [
+        "Vernor Vinge"
+      ],
+      "series": "Zones of Thought",
+      "book_number": 1,
+      "rating": 5,
+      "image": "/books/covers/a_fire_upon_the_deep.jpg",
+      "summary_raw": "It tells the story of the Blight---a galactic-scale, transcendent evil---and the humans racing to stop it.",
+      "summary_extra": "I first read , and the prequel , about 20 years ago and loved it. was one of the last books I read before college and grad school caused me to stop reading fiction due to lack of time. So I was excited to pick this book up again when my book club voted to read it, curious to see how it compared to my memory of it.",
+      "summary": "The Blight, a transcendent galactic evil, is unleashed. Humans race to stop it with help from the Tines, dog-like pack-mind aliens on a medieval world.",
+      "elo": 1900,
+      "matches": 2
+    },
+    "a_memory_called_empire": {
+      "title": "A Memory Called Empire",
+      "authors": [
+        "Arkady Martine"
+      ],
+      "series": "Teixcalaan",
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/a_memory_called_empire.jpg",
+      "summary_raw": "It follows Mahit Dzmare, an ambassador from the space station Lsel, as she tries to save her home from being annexed by the Teixcalaanli empire.",
+      "summary_extra": "Mahit is summoned suddenly to Teixcalaan to replace her predecessor, Yskander Aghavn. She soon discovers he has been murdered, and that the empire is lurching toward a succession crisis. Mahit and her liaison, Three Seagrass, have to navigate the shifting allegiances and politics of the imperial court while defending Lsel Station and trying to uncover the murderer.",
+      "summary": "Ambassador Mahit Dzmare from space station Lsel navigates Teixcalaanli court politics after her predecessor is murdered, while trying to prevent her home's annexation.",
+      "elo": 1716,
+      "matches": 1
+    },
+    "a_mote_in_shadow": {
+      "title": "A Mote in Shadow",
+      "authors": [
+        "A. N. Alex"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 5,
+      "image": "/books/covers/a_mote_in_shadow.jpg",
+      "summary_raw": "Is debut novel. It follows two down-on-their-luck outsiders dragged into a war between shadowy mercenary groups: exobiologist Chaeyoung No, whose disagreement with the scientific establishment leaves her in no position to question a too-good-to-be-true offer to fund her research expedition; and space hauler Frederik Obialo, who is more than willing to take a dangerous job if it brings him closer to his dream of giving his daughter a permanent home.",
+      "summary_extra": "It feels like work, but not from the operator or spy perspective; it's told from the view of civilians dragged into the conflict. The plot is hard to follow, but I think that's the point: Chaeyoung and Frederik have no idea why governments and mercenary groups keep hiring them, double-crossing them, or holding them hostage.[^plot] They're a lot like Daniel Brüks in : they understand the least about what's really going on.",
+      "summary": "Exobiologist Chaeyoung No and hauler Frederik Obialo are dragged into a shadowy war between mercenary groups. Civilians who understand the least about what's really going on.",
+      "elo": 1884,
+      "matches": 1
+    },
+    "all_systems_red": {
+      "title": "All Systems Red",
+      "authors": [
+        "Martha Wells"
+      ],
+      "series": "The Murderbot Diaries",
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/all_systems_red.jpg",
+      "summary_raw": "It introduces us to Murderbot as it saves a team of scientists.",
+      "summary_extra": "In we're introduced to Murderbot as it protects a group of scientists on an alien planet. They soon realize that another group---GrayCris---is trying to kill them to cover up the fact that there are alien ruins on the planet. Murderbot has to figure out how to save its people and escape.",
+      "summary": "Introduces Murderbot: a depressed, anxious SecUnit that just wants to watch TV but has to save scientists from GrayCris on an alien planet. First in the series.",
+      "elo": 1532,
+      "matches": 6
+    },
+    "all_these_worlds": {
+      "title": "All These Worlds",
+      "authors": [
+        "Dennis E. Taylor"
+      ],
+      "series": "Bobiverse",
+      "book_number": 3,
+      "rating": 3,
+      "image": "/books/covers/all_these_worlds.jpg",
+      "summary_raw": "It continues the story of the war with the genocidal Others started in .",
+      "summary_extra": "Once again, features multiple, independent storylines, some new and some continuing from and even . The ones that resonated with me most were:",
+      "summary": "Bobiverse book 3. The war with the genocidal Others comes to a head. Multiple independent storylines continue from the first two books.",
+      "elo": 1500,
+      "matches": 4
+    },
+    "artificial_condition": {
+      "title": "Artificial Condition",
+      "authors": [
+        "Martha Wells"
+      ],
+      "series": "The Murderbot Diaries",
+      "book_number": 2,
+      "rating": 4,
+      "image": "/books/covers/artificial_condition.jpg",
+      "summary_raw": "It follows Murderbot as it digs into its past and, once again, saves some scientists.",
+      "summary_extra": "Moves faster than , with a smoother blend of action and exposition. Murderbot arrives at a mining station, gets hired as a security consultant by a group of researchers trying to recover their stolen work, saves their lives twice, investigates the massacre it thinks it might have caused, saves the researchers again, and kills the bad guy. Along the way, it makes friends with a super-intelligent, super-bored, asshole research transport (ART).",
+      "summary": "Murderbot investigates the massacre it thinks it caused, gets hired as a security consultant, and meets ART, a super-intelligent asshole research transport. Faster-paced than book 1.",
+      "elo": 1748,
+      "matches": 5
+    },
+    "blindsight": {
+      "title": "Blindsight",
+      "authors": [
+        "Peter Watts"
+      ],
+      "series": "Firefall",
+      "book_number": 1,
+      "rating": 5,
+      "image": "/books/covers/blindsight.jpg",
+      "summary_raw": "A crew of four transhumans and a vampire are sent on a spaceship to investigate an anomaly in the solar system after a swarm of alien probes scan Earth.",
+      "summary_extra": "The main theme is consciousness and what it means to be human. The characters on the spaceship _Theseus_ have been altered mentally:",
+      "summary": "Four transhumans and a vampire investigate an alien anomaly. Core theme: consciousness and what it means to be human. The aliens on Rorschach aren't even conscious.",
+      "elo": 1916,
+      "matches": 5
+    },
+    "bolo_annals_of_the_dinochrome_brigade": {
+      "title": "Bolo: Annals of the Dinochrome Brigade",
+      "authors": [
+        "Keith Laumer"
+      ],
+      "series": "Bolo",
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/bolo.jpg",
+      "summary_raw": "It is a collection of seven novellas and short stories, all featuring Bolos.",
+      "summary_extra": "I read the Bolo anthologies---, , , etc.---about twenty-five years ago, then tracked down every other Bolo book I could find at the used bookstore. Eventually I picked up . Now, rereading it, the stories feel familiar in the same way that or did: the details are fuzzy, but the arc is clear.",
+      "summary": "Laumer's original Bolo collection: seven novellas and short stories featuring the sentient tanks. Includes 'The Last Command', 'Field Test', and 'A Relic of War'.",
+      "elo": 1468,
+      "matches": 4
+    },
+    "chevalier": {
+      "title": "Chevalier",
+      "authors": [
+        "Scott Warren"
+      ],
+      "series": "War Horses",
+      "book_number": 1,
+      "rating": 2,
+      "image": "/books/covers/chevalier.jpg",
+      "summary_raw": "It's a quick, action-packed read---not very deep but highly entertaining---that focuses on making mechs feel like realistic battlefield tech, not magic.",
+      "summary_extra": "The plot of is a classic: Vandal is a mech (called upright tanks) mechanic in a mercenary company. When mysterious, badass mercenaries decimate his unit, he's forced to become a pilot instead, a role he is naturally gifted at. He befriends the other new pilots and is thrust into combat prematurely out of necessity, triumphing over the rival mercenaries in an unexpected way.",
+      "summary": "Mech mechanic Vandal is forced to become a pilot after mysterious mercenaries destroy his unit. Quick, action-packed, not deep. War Horses book 1.",
+      "elo": 1348,
+      "matches": 3
+    },
+    "childhoods_end": {
+      "title": "Childhood's End",
+      "authors": [
+        "Arthur C. Clarke"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/childhoods_end.jpg",
+      "summary_raw": "It is about first contact between humans and the mysterious Overlords, and the end of the human race.",
+      "summary_extra": "Was one of the first sci-fi books I discovered in my middle school library. I don't recall how I stumbled upon it, but I'm lucky that I did. It sparked my love for , sci-fi, and reading in general.",
+      "summary": "Aliens appear over Earth, usher in a golden age, then humanity's children transcend into a collective consciousness. Clarke's version of the rapture. Sparked a love of sci-fi.",
+      "elo": 1700,
+      "matches": 4
+    },
+    "cigars_of_the_pharaoh": {
+      "title": "Cigars of the Pharaoh",
+      "authors": [
+        "Hergé"
+      ],
+      "series": "The Adventures of Tintin",
+      "book_number": 4,
+      "rating": 2,
+      "image": "/books/covers/cigars_of_the_pharaoh.jpg",
+      "summary_raw": "It follows Tintin as he explores Egypt and India and uncovers an opium-smuggling ring.",
+      "summary_extra": "Like early entries---, , and even ---this book is essentially a travel comic. Tintin visits a new country and finds himself mixed up in some adventure. And like those early stories, Tintin still operates under the logic of cartoons, but it's toned down. He doesn't knock out a buffalo with a rubber tree slingshot like in , but he _does_ jump a 15-foot wall by bouncing on a fat man's stomach and talk to elephants with a trumpet.",
+      "summary": "Tintin in Egypt and India, uncovering an opium-smuggling ring. Early travel-comic format, still cartoon-logic but toned down from earlier entries.",
+      "elo": 1284,
+      "matches": 3
+    },
+    "city_on_fire": {
+      "title": "City on Fire",
+      "authors": [
+        "Walter Jon Williams"
+      ],
+      "series": "Metropolitan",
+      "book_number": 2,
+      "rating": 2,
+      "image": "/books/covers/city_on_fire.jpg",
+      "summary_raw": "It picks up right as the smoke clears in Caraqui after the revolution, leaving Aiah and Constantine to figure out how to govern.",
+      "summary_extra": "The first book, , was a standard fantasy story---the hero discovers their inner talent and uses it to overthrow an evil ruler---set in a unique world. 's story is more original. It focuses on what happens after the revolution: when the heroes have to govern, form a coalition among opposing factions, and compromise their morals to avoid collapse. In this way, it's similar to from , which is also more concerned with what is required to keep an empire running. The transition from revolution to government _should_ have been more interesting---it's a rarely explored part of these kinds of stories---but I just didn't enjoy following Aiah very much.",
+      "summary": "Metropolitan book 2. After the revolution, Aiah and Constantine have to govern. Focuses on compromise and coalition-building. Lots of sex scenes, reads like a romance novel.",
+      "elo": 1316,
+      "matches": 3
+    },
+    "clays_ark": {
+      "title": "Clay's Ark",
+      "authors": [
+        "Octavia E. Butler"
+      ],
+      "series": "Patternist",
+      "book_number": 3,
+      "rating": 2,
+      "image": "/books/covers/clays_ark.jpg",
+      "summary_raw": "It follows Eli Doyle, an astronaut, after he has returned to earth with an alien infection and attempts to contain it.",
+      "summary_extra": "Like the previous books in the series, focuses on a loosely-defined \"family\" trying to survive in a world hostile to their differences. In , it was Doro and his children; in , it was Mary and the Patternists; and in this book, it is Eli and his ranch of people infected with the alien parasite brought back from Proxima Centauri.[^strain] All three of those characters---Doro, Mary, and Eli---are forced to perform questionable, even evil, acts because of their biology, and the stories revolve around how they choose to act despite those constraints.",
+      "summary": "Patternist book 3. Astronaut Eli Doyle returns to Earth with an alien infection. He and his ranch of infected try to contain it while their biology forces them toward evil acts.",
+      "elo": 1284,
+      "matches": 1
+    },
+    "close_to_critical": {
+      "title": "Close to Critical",
+      "authors": [
+        "Hal Clement"
+      ],
+      "series": "Mesklin",
+      "book_number": 2,
+      "rating": 2,
+      "image": "/books/covers/close_to_critical.jpg",
+      "summary_raw": "It tells the story of a spaceship carrying the children of two ambassadors that crashes on an inhospitable planet, forcing humans to collaborate with the primitive native aliens to rescue them.",
+      "summary_extra": "Easy Rich,[^easy] the 12-year-old daughter of a human diplomat, and 'Mina, the 7-year-old son of a Drommian diplomat, crash-land on the planet Tenebra following an almost immersion-breakingly improbable series of events that starts with them playing in a spaceship and ends with them under an ocean of sulfuric acid. With the planet too inhospitable for humans, the only people who can help are the natives that the humans kidnapped 16 years before and raised under the guidance of Fagin, the robotic lander. Complicating matters are the (justifiably) strained relations between the humans and the Drommians, caused by the humans' failure to keep the children safe in the first place.",
+      "summary": "Mesklin book 2. Two ambassadors' children crash on an inhospitable planet. Only the kidnapped natives raised by a robot lander can rescue them. Sulfuric acid oceans.",
+      "elo": 1268,
+      "matches": 2
+    },
+    "consider_phlebas": {
+      "title": "Consider Phlebas",
+      "authors": [
+        "Iain M. Banks"
+      ],
+      "series": "Culture",
+      "book_number": 1,
+      "rating": 2,
+      "image": "/books/covers/consider_phlebas.jpg",
+      "summary_raw": "I've been meaning to read for more than two decades, so I was excited to finally get started. Unfortunately, was not a great introduction.",
+      "summary_extra": "The book is considered a \"space opera\", and there are some hints at interesting, grand ideas: a ship that can set off every warhead on board to send a coded message while still escaping the blast, a truly galactic scale war, and giant trains used as underground command centers. But the story itself feels small compared to those ideas. It is the story of one man, Horza.",
+      "summary": "Culture book 1. Horza bumbles through nasty vignettes during the Idiran-Culture War. Gruesome, small story against grand ideas. Drowning in shit, fingers chewed off.",
+      "elo": 1300,
+      "matches": 4
+    },
+    "countdown_city": {
+      "title": "Countdown City",
+      "authors": [
+        "Ben H. Winters"
+      ],
+      "series": "The Last Policeman",
+      "book_number": 2,
+      "rating": 2,
+      "image": "/books/covers/countdown_city.jpg",
+      "summary_raw": "Is the second novel in . In it, Detective Palace searches for a missing person as the world continues to deteriorate.",
+      "summary_extra": "Bret has run away from his wife Martha on a crusade to stop atrocities the US government is committing against refugees. Detective Palace pursues and finds him, only for Bret to be murdered by a man in love with Martha who doesn't want Bret to return. When Palace gets back to Concord, he discovers Martha has disappeared as well. This mystery is weaker than in , and the resolution---that Martha has run away with her father---is a letdown. I expected something cleverer, and it felt disappointingly simple.",
+      "summary": "Last Policeman book 2. Detective Palace searches for a missing man as the asteroid approaches. Weaker mystery than book 1; the resolution is disappointingly simple.",
+      "elo": 1268,
+      "matches": 2
+    },
+    "destination_moon": {
+      "title": "Destination Moon",
+      "authors": [
+        "Hergé"
+      ],
+      "series": "The Adventures of Tintin",
+      "book_number": 16,
+      "rating": 4,
+      "image": "/books/covers/destination_moon.jpg",
+      "summary_raw": "It's the first part of a two-book story arc where Tintin, Haddock, and Calculus prepare for a mission to the moon.",
+      "summary_extra": "Reminds me of my childhood. My dad read the series as a kid, and he read them to me and my siblings when we were growing up. Now I'm reading them---from the same stack of worn-out books that he bought us---to my kids. So far, they're loving it!",
+      "summary": "Tintin book 16. First half of the moon arc: Tintin, Haddock, and Calculus prepare for the lunar mission. Childhood nostalgia—reading the same worn books to the next generation.",
+      "elo": 1684,
+      "matches": 3
+    },
+    "disco_elysium": {
+      "title": "Disco Elysium",
+      "authors": [
+        "Robert Kurvitz",
+        "Helen Hindpere",
+        "Argo Tuulik",
+        "Cash DeCuir",
+        "Olga Moskvina",
+        "Siim Sinamäe"
+      ],
+      "series": "Elysium",
+      "book_number": 2,
+      "rating": 5,
+      "image": "/books/covers/disco_elysium.jpg",
+      "summary_raw": "Written by et al., is a role-playing game produced by ZA/UM. It's the story of Harrier \"Harry\" Du Bois, a man who wakes up with no memories and has to solve a murder while learning who he is.",
+      "summary_extra": "I went into knowing only that it was highly acclaimed and that you played a detective solving a murder. That didn't begin to do it justice. is one of the best video games ever made. The writing is incredible. The voice acting brings every character---and all 24 voices in Harry's head---to life. The world is exciting, strange, and alive. It's my favorite video game, and it's a literary masterpiece.",
+      "summary": "RPG where amnesiac detective Harry Du Bois solves a murder while piecing together his identity. One of the best video games ever made. Incredible writing and voice acting.",
+      "elo": 1948,
+      "matches": 3
+    },
+    "dog_soldier": {
+      "title": "Dog Soldier",
+      "authors": [
+        "Scott Warren"
+      ],
+      "series": "War Horses",
+      "book_number": 4,
+      "rating": 3,
+      "image": "/books/covers/dog_soldier.jpg",
+      "summary_raw": "It concludes the Cinto DaSelva campaign and further develops the setting's backstory.",
+      "summary_extra": "While similar in length to previous books in the series, feels much faster-paced. The story is divided into three main sections:",
+      "summary": "War Horses book 4. Concludes the Cinto DaSelva campaign. Faster-paced than previous entries, further develops the setting's backstory.",
+      "elo": 1532,
+      "matches": 4
+    },
+    "dragons_egg": {
+      "title": "Dragon's Egg",
+      "authors": [
+        "Robert L. Forward"
+      ],
+      "series": "Cheela",
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/dragons_egg.jpg",
+      "summary_raw": "It is the story of first contact between humans and the Cheela: beings who live on a neutron star.",
+      "summary_extra": "Is told through a series of vignettes, each one capturing a pivotal moment in the Cheela's civilization: the invention of farming and religion, their migration to the southern hemisphere, their first observation of the human orbiter, their detection of the scanning laser and their first contact with the humans, and so on. Rather than following a single overarching narrative, the book chronicles the gradual progression of the Cheela's society, which is a compelling enough premise in itself.",
+      "summary": "First contact with the Cheela, beings on a neutron star. Told through vignettes of their civilization's milestones. 'A textbook on neutron star physics disguised as a novel.'",
+      "elo": 1732,
+      "matches": 2
+    },
+    "eater": {
+      "title": "Eater",
+      "authors": [
+        "Gregory Benford"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/eater.jpg",
+      "summary_raw": "It follows a group of astrophysicists who discover a sentient black hole that is headed straight towards Earth.",
+      "summary_extra": "I did not expect to enjoy as much as I did! The book has a poor rating on Goodreads[^goodread] and almost no presence in online communities like Reddit. In fact, I only started reading it because I hit the \"random\" button on my ebook reader and it came up. I'm glad I did!",
+      "summary": "Astrophysicists discover a sentient black hole headed toward Earth. Surprisingly good despite poor Goodreads rating. Found it by hitting 'random' on an ebook reader.",
+      "elo": 1516,
+      "matches": 5
+    },
+    "echopraxia": {
+      "title": "Echopraxia",
+      "authors": [
+        "Peter Watts"
+      ],
+      "series": "Firefall",
+      "book_number": 2,
+      "rating": 5,
+      "image": "/books/covers/echopraxia.jpg",
+      "summary_raw": "Unfolding at roughly the same time as . It follows parasitologist Daniel Brüks, who gets unwillingly dragged into a conflict between multiple transhuman factions, travels to the _Icarus_ station orbiting the sun, and eventually back to Earth.",
+      "summary_extra": "The world Watts built in was enthralling, packed with scientific and philosophical arguments about consciousness. I **loved** it. expands on that exceptional worldbuilding while shifting its focus to themes of god, godhood, free will, and humanity's place in a transhuman world. It's a fantastic sequel---possibly even better than the first.",
+      "summary": "Parasitologist Daniel Brüks dragged into a conflict between transhuman factions. Themes of god, free will, and humanity's place. Possibly even better than Blindsight.",
+      "elo": 1916,
+      "matches": 3
+    },
+    "endymion": {
+      "title": "Endymion",
+      "authors": [
+        "Dan Simmons"
+      ],
+      "series": "Hyperion Cantos",
+      "book_number": 3,
+      "rating": 3,
+      "image": "/books/covers/endymion.jpg",
+      "summary_raw": "It follows a new cast of characters---Aenea, Raul, and Bettik---as they flee the oppressive forces of the Pax via a raft on the River Tethys. Set centuries after the earlier books, the story reveals a galaxy reshaped by the Church and its dark covenant of immortality.",
+      "summary_extra": "And model their plots and themes on and . follows suit, taking its inspiration from . It is the story of the mortal shepherd Endymion, who falls in love with the moon goddess Cynthia. This relationship shapes both works.",
+      "summary": "Hyperion Cantos book 3. New cast: Aenea, Raul, and Bettik flee the Pax on a raft down the River Tethys. Galaxy reshaped by the Church's dark covenant of immortality.",
+      "elo": 1468,
+      "matches": 4
+    },
+    "excession": {
+      "title": "Excession",
+      "authors": [
+        "Iain M. Banks"
+      ],
+      "series": "Culture",
+      "book_number": 5,
+      "rating": 4,
+      "image": "/books/covers/excession.jpg",
+      "summary_raw": "Is the fourth novel and fifth book in . It follows the reaction of the Culture and other civilizations to an \"excession\": an _\"Outside Context Problem\"_---something mysterious, unpredictable, and enormously powerful.",
+      "summary_extra": "The best part of the novel is getting to see how the Culture _works_: how the Minds think, communicate, make decisions, retreat to \"Infinite Fun Space\", and interact with an _Outside Context Problem_.[^ocp] The worst part was the human characters---shallow and uninteresting. Ulver Seich, the airhead socialite, is a slightly more engaging and better-written take on the \"hot girl who sleeps her way through the narrative\" trope that loves to use, like Mellanie Rescorai in or, to a lesser extent, Kysandra Blair in . Even so, I dreaded the human-focused chapters. Culture books rely on their human characters to bring scale, emotion, and stakes to the drama, and 's humans fall short.",
+      "summary": "Culture book 5. The Minds debate how to handle an Outside Context Problem. Best part: seeing how the Culture works. Worst part: the shallow human characters.",
+      "elo": 1716,
+      "matches": 3
+    },
+    "exit_strategy": {
+      "title": "Exit Strategy",
+      "authors": [
+        "Martha Wells"
+      ],
+      "series": "The Murderbot Diaries",
+      "book_number": 4,
+      "rating": 3,
+      "image": "/books/covers/exit_strategy.jpg",
+      "summary_raw": "It wraps up the GrayCris storyline as Murderbot returns to save its friends.",
+      "summary_extra": "Is the climax of the first four books in . It concludes the GrayCris storyline that began in , when Murderbot saved Dr. Ayda Mensah and her team and was set free.",
+      "summary": "Murderbot book 4. Wraps up the GrayCris arc. Murderbot rescues the kidnapped Mensah, confronts a combat SecUnit, and learns survival sometimes means running.",
+      "elo": 1564,
+      "matches": 4
+    },
+    "explorers_on_the_moon": {
+      "title": "Explorers on the Moon",
+      "authors": [
+        "Hergé"
+      ],
+      "series": "The Adventures of Tintin",
+      "book_number": 17,
+      "rating": 4,
+      "image": "/books/covers/explorers_on_the_moon.jpg",
+      "summary_raw": "It's the second part of a two-book arc in which Tintin, Haddock, and Calculus land on the Moon.",
+      "summary_extra": "Is the second half of the story that started in . It improves on the previous book in almost every way: it's a little less verbose, there's more slapstick, and there are surprising twists that are smartly wrapped up.",
+      "summary": "Tintin book 17. Second half of the moon arc: they land on the Moon. Less verbose, more slapstick, surprising twists smartly wrapped up.",
+      "elo": 1700,
+      "matches": 4
+    },
+    "eyes_of_the_void": {
+      "title": "Eyes of the Void",
+      "authors": [
+        "Adrian Tchaikovsky"
+      ],
+      "series": "The Final Architecture",
+      "book_number": 2,
+      "rating": 1,
+      "image": "/books/covers/eyes_of_the_void.jpg",
+      "summary_raw": "It takes place during the new war with the Architects, as Idris and the crew of the _Vulture God_ discover where the Architects come from.",
+      "summary_extra": "The plot focuses on the Parthenon Int program, the study of Originator ruins on a desert planet, and the rescue of Idris from a deathworld where he's able to explore Unspace with an Originator machine. The tighter focus and smaller number of locations help feel more coherent than , which often felt like we were bouncing from adventure to adventure without a clear throughline. The characters also have more agency here---saving themselves instead of relying on _deus ex machina_ like they did in the previous book.",
+      "summary": "Final Architecture book 2. Parthenon Int program, Originator ruins, rescue of Idris from a deathworld. Tighter focus than book 1. The 'infected testicle' sentence.",
+      "elo": 1132,
+      "matches": 2
+    },
+    "flatland_a_romance_of_many_dimensions": {
+      "title": "Flatland: A Romance of Many Dimensions",
+      "authors": [
+        "Edwin A. Abbott"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/flatland_a_romance_of_many_dimensions.jpg",
+      "summary_raw": "Critiquing the rigid class hierarchy of Victorian England through the lens of geometry.",
+      "summary_extra": "Tells the story of A Square, who is a square living in a two-dimensional world. The first part of the book explains how Square's world and society work, while the second part chronicles Square's visits to worlds with different dimensions.",
+      "summary": "A Square's adventures in worlds of different dimensions. Satire of Victorian class hierarchy through geometry.",
+      "elo": 1452,
+      "matches": 3
+    },
+    "flowers_for_algernon": {
+      "title": "Flowers for Algernon",
+      "authors": [
+        "Daniel Keyes"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 2,
+      "image": "/books/covers/flowers_for_algernon.jpg",
+      "summary_raw": "While it is a beautifully crafted narrative, it failed to hold my attention.",
+      "summary_extra": "Is written as a series of progress reports by Charlie, both before and after his surgery. skillfully utilizes Charlie's writing style to convey the gradual improvement in his intellect, and does an equally remarkable job towards the end: it is an emotional moment when the typos reappear after a hundred pages, indicating Charlie's cognitive decline.",
+      "summary": "Charlie Gordon's surgery enhances then destroys his intellect, told through his progress reports. Beautifully crafted but predictable—failed to hold attention.",
+      "elo": 1300,
+      "matches": 4
+    },
+    "for_we_are_many": {
+      "title": "For We Are Many",
+      "authors": [
+        "Dennis E. Taylor"
+      ],
+      "series": "Bobiverse",
+      "book_number": 2,
+      "rating": 3,
+      "image": "/books/covers/for_we_are_many.jpg",
+      "summary_raw": "It focuses on the Others storyline while also continuing many of the side stories begun in .",
+      "summary_extra": "Picks up right where left off. It adds a few new stories while also continuing some of the old ones. Here are a few I liked:",
+      "summary": "Bobiverse book 2. Focuses on the Others storyline while continuing side stories. Same short-chapter, multi-POV format as book 1.",
+      "elo": 1516,
+      "matches": 3
+    },
+    "grand_melee": {
+      "title": "Grand Melee",
+      "authors": [
+        "Scott Warren"
+      ],
+      "series": "War Horses",
+      "book_number": 5,
+      "rating": 3,
+      "image": "/books/covers/grand_melee.jpg",
+      "summary_raw": "In it, the Chevaliers take a break from wartime contracts to participate in a massive mech tournament.",
+      "summary_extra": "After wrapping up the Cinto DaSelva campaign in , the Chevaliers enter the Grand Melee, a gigantic mech-tournament held every two years. The tournament's structure borrows heavily from modern [battle royale video games][br_game], which in turn were inspired by by . Teams face off in a last-team-standing format with shrinking boundaries and power-ups. There are even streamers who are more focused on chatting with their audiences than fighting.",
+      "summary": "War Horses book 5. The Chevaliers enter a massive mech tournament with battle-royale rules, complete with streamers and shrinking boundaries.",
+      "elo": 1564,
+      "matches": 4
+    },
+    "gun_with_occasional_music": {
+      "title": "Gun, with Occasional Music",
+      "authors": [
+        "Jonathan Lethem"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 2,
+      "image": "/books/covers/gun_with_occasional_music.jpg",
+      "summary_raw": "It follows Conrad Metcalf, a private inquisitor, as he tries to solve the murder of Maynard Stanhunt.",
+      "summary_extra": "The cover sports a quote from a Newsweek review: \"Marries style and vision.\" I've read none of , and little , but this quote sums up 's genre perfectly. From it brings in Metcalf---the hardboiled, down-on-his-luck private eye---and Phoneblum---the gangster---too many \"dames\" and \"broads\" to count, and the prose. From it borrows a focus on dystopian and surreal technology, drug use, cryogenic prisons, karma as a real currency, and uplifted animals.",
+      "summary": "Noir detective Conrad Metcalf solves a murder in a dystopian world with karma currency, cryogenic prisons, and uplifted animals. Chandler meets Philip K. Dick.",
+      "elo": 1284,
+      "matches": 1
+    },
+    "heavens_river": {
+      "title": "Heaven's River",
+      "authors": [
+        "Dennis E. Taylor"
+      ],
+      "series": "Bobiverse",
+      "book_number": 4,
+      "rating": 2,
+      "image": "/books/covers/heavens_river.jpg",
+      "summary_raw": "It starts a new storyline and changes the way the stories are told.",
+      "summary_extra": "What I loved about the previous three books---, , and ---was how many interweaving stories they told. The chapters were very short, often just a few minutes to read, and each new one changed point of view and story. This kept the books moving fast.",
+      "summary": "Bobiverse book 4. New storyline, changes the storytelling format. Lost the short interweaving chapters that made the first three books move fast.",
+      "elo": 1316,
+      "matches": 1
+    },
+    "home_habitat_range_niche_territory": {
+      "title": "Home: Habitat, Range, Niche, Territory",
+      "authors": [
+        "Martha Wells"
+      ],
+      "series": "The Murderbot Diaries",
+      "book_number": "4.5",
+      "rating": 3,
+      "image": "/books/covers/home_habitat_range_niche_territory.jpg",
+      "summary_raw": "It shows us Murderbot and Mensah adjusting to their new situation after the GrayCris storyline.",
+      "summary_extra": "[^note] takes place immediately after , and is told from the perspective of Dr. Ayda Mensah as she gets back to life on Preservation Station. She's grappling with her own PTSD---stemming from her near-murder by GrayCris in and kidnapping in ---while trying to navigate politics, deal with pestering reporters, and support Murderbot and her team.",
+      "summary": "Murderbot 4.5. Short story from Mensah's perspective. She adjusts to life on Preservation Station after the GrayCris kidnapping, dealing with PTSD and politics.",
+      "elo": 1484,
+      "matches": 3
+    },
+    "honor_of_the_regiment": {
+      "title": "Honor of the Regiment",
+      "authors": [
+        "S. M. Stirling",
+        "S. N. Lewitt",
+        "J. Andrew Keith",
+        "Todd Johnson",
+        "Mike Resnick",
+        "Barry N. Malzberg",
+        "Christopher Stasheff",
+        "Mercedes Lackey",
+        "Larry Dixon",
+        "David Drake"
+      ],
+      "series": "Bolo",
+      "book_number": 10,
+      "rating": 3,
+      "image": "/books/covers/bolos_book_1_honor_of_the_regiment_2nd_edition.jpg",
+      "summary_raw": "It's an anthology of Bolo stories written by ten different authors. The stories range from high-action military tales to more thoughtful pieces on the role of sentient war machines in society, all while treating the Bolos as central characters.",
+      "summary_extra": "There's a lot of variety in this anthology. Some stories---like and ---are packed with action and focus on Bolos as fighting machines. Others---like , , , and ---look more at how Bolos fit into their societies. The authors have clearly taken the right lesson from and : Bolos work best as characters, not just background. That shift makes a big improvement over the older books.",
+      "summary": "Bolo anthology #1 (book 10). Ten authors, stories ranging from high-action military tales to thoughtful pieces on sentient war machines in society.",
+      "elo": 1484,
+      "matches": 5
+    },
+    "house_of_suns": {
+      "title": "House of Suns",
+      "authors": [
+        "Alastair Reynolds"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 1,
+      "image": "/books/covers/house_of_suns.jpg",
+      "summary_raw": "It tells the story of the Gentian Line, a family of clones who are betrayed, nearly wiped out, and must unravel what happened.",
+      "summary_extra": "A chapter into , it reminded me of , and not in a good way: a fantastically well-designed world filled with flat characters. It only got worse from there.",
+      "summary": "The Gentian Line, a family of clones, is betrayed and nearly wiped out. Fantastically designed world, flat characters. Reminded of The Quantum Thief, and not in a good way.",
+      "elo": 1084,
+      "matches": 1
+    },
+    "hyperion": {
+      "title": "Hyperion",
+      "authors": [
+        "Dan Simmons"
+      ],
+      "series": "Hyperion Cantos",
+      "book_number": 1,
+      "rating": 5,
+      "image": "/books/covers/hyperion.jpg",
+      "summary_raw": "Is masterpiece. It is the first book in his . It follows seven pilgrims as they travel to the Time Tombs on Hyperion to petition the Shrike. Along the way, each tells their own story, weaving together history, myth, and prophecy to tell of the impending downfall of man.",
+      "summary_extra": "I didn't love when [I first read it][first_read] about two years ago. It's a book full of deep intertextuality, influenced heavily by , but also by . uses that classic pilgrimage structure as a frame to present six different stories, each one a pastiche of a different genre. But I missed almost all of that the first time. Instead, I was distracted by lasers, barbarians, and the god-like Shrike covered in blades.",
+      "summary": "Seven pilgrims travel to the Time Tombs to petition the Shrike. Each tells their story. Deep intertextuality, each tale a pastiche of a different genre. Simmons' masterpiece.",
+      "elo": 1900,
+      "matches": 2
+    },
+    "inversions": {
+      "title": "Inversions",
+      "authors": [
+        "Iain M. Banks"
+      ],
+      "series": "Culture",
+      "book_number": 6,
+      "rating": 5,
+      "image": "/books/covers/inversions.jpg",
+      "summary_raw": "But it is very different from typical Culture novels: there are no spaceships and almost no advanced technology. Instead, it follows Culture citizens DeWar and Vosill as they manipulate a medieval society.",
+      "summary_extra": "Is polarizing: on [goodreads][gr] it has a reader score of 3.95---lower than any other Culture novel except . I understand why: the is generally \"space opera\", and doesn't have a single spaceship, ray gun, or Mind. It reads like standard fantasy with only hints of technology. And I loved it.",
+      "summary": "Culture book 6. No spaceships or advanced tech. Culture citizens DeWar and Vosill manipulate a medieval society. Reads like fantasy with hints of sci-fi. Polarizing but loved it.",
+      "elo": 1900,
+      "matches": 4
+    },
+    "judas_unchained": {
+      "title": "Judas Unchained",
+      "authors": [
+        "Peter F. Hamilton"
+      ],
+      "series": "Commonwealth Saga",
+      "book_number": 2,
+      "rating": 4,
+      "image": "/books/covers/judas_unchained.jpg",
+      "summary_raw": "The sequel to , continues right where the last one left off, but with the action ramped up to 11. The various storylines and loose threads come together one by one until it's the good guys racing against the bad guys for the fate of the universe.",
+      "summary_extra": "But the story isn't perfect. One part that falls flat is the fact that multiple characters begin worrying about humanity's plan to genocide the Prime aliens, the same aliens who have launched two genocidal campaigns against humanity (and one successful genocide against another species). It doesn't feel realistic to be concerned about the moral high ground as millions or billions die.",
+      "summary": "Commonwealth Saga book 2. All the storylines converge. Action ramped to 11. Predictable ending but satisfying. The genocide-of-genociders moral hand-wringing felt forced.",
+      "elo": 1652,
+      "matches": 3
+    },
+    "last_stand": {
+      "title": "Last Stand",
+      "authors": [
+        "S. M. Stirling",
+        "David Weber",
+        "John Mina",
+        "William R. Forstchen",
+        "Robert Greenberger",
+        "William H. Keith, Jr.",
+        "Todd Johnson",
+        "Steve Perry",
+        "John DeCamp",
+        "Mark Thies",
+        "Linda Evans"
+      ],
+      "series": "Bolo",
+      "book_number": 13,
+      "rating": 3,
+      "image": "/books/covers/bolos_book_4_last_stand_1st_edition.jpg",
+      "summary_raw": "It features ten stories by eleven authors, many of whom are new. Their stories explore themes of Bolos going rogue, the distant future of the setting, and new details about the Final War with the Melconians.",
+      "summary_extra": "Returns to the format used in and , where multiple authors each contribute one or two short stories, instead of a few authors writing long novellas as in , , and . I prefer the short story format because it allows for a wider range of ideas and tones, but it does have a downside: there will always be some stories I just don't like. That's what happened here.",
+      "summary": "Bolo anthology #4 (book 13). Ten stories by eleven authors. Themes of rogue Bolos, the distant future, and the Final War with the Melconians.",
+      "elo": 1516,
+      "matches": 5
+    },
+    "look_to_windward": {
+      "title": "Look to Windward",
+      "authors": [
+        "Iain M. Banks"
+      ],
+      "series": "Culture",
+      "book_number": 7,
+      "rating": 5,
+      "image": "/books/covers/look_to_windward.jpg",
+      "summary_raw": "It explores the aftermath of the Idiran--Culture War and Chelgrian civil war.",
+      "summary_extra": "The story takes place on the Masaq' Orbital as the light from the last battle of the Idiran--Culture war reaches the habitat, prompting its inhabitants to reflect on the conflict. The main characters are:",
+      "summary": "Culture book 7. Aftermath of the Idiran-Culture War. Light from the last battle reaches Masaq' Orbital, prompting reflection. Chelgrian civil war subplot.",
+      "elo": 1932,
+      "matches": 4
+    },
+    "lords_of_uncreation": {
+      "title": "Lords of Uncreation",
+      "authors": [
+        "Adrian Tchaikovsky"
+      ],
+      "series": "The Final Architecture",
+      "book_number": 3,
+      "rating": 1,
+      "image": "/books/covers/lords_of_uncreation.jpg",
+      "summary_raw": "In it, humanity takes the war into Unspace to destroy the Architects and their Originator masters.",
+      "summary_extra": "The story of has always been its main draw. is my favorite of the series because it focuses the most on that story. The writing has improved a bit too---I didn't find myself sighing or writing down particularly bad sentences as I did with and ---and even my least favorite character, Olli, gets some redemption when she becomes the new Aklu.",
+      "summary": "Final Architecture book 3. Humanity takes the war into Unspace. Best of the trilogy but still flawed. Too slow; a third spent reigniting a civil war. Glad to be done.",
+      "elo": 1116,
+      "matches": 1
+    },
+    "mariel_of_redwall": {
+      "title": "Mariel of Redwall",
+      "authors": [
+        "Brian Jacques"
+      ],
+      "series": "Redwall",
+      "book_number": 4,
+      "rating": 3,
+      "image": "/books/covers/mariel_of_redwall.jpg",
+      "summary_raw": "It follows Mariel as she plots her revenge against the searat pirate Gabool, who attempted to kill her and her father, Joseph the Bellmaker.",
+      "summary_extra": "Is the first book with a female lead. In general, the series is quite inclusive in terms of gender roles, with female characters filling various traditionally male-dominated roles from warrior to leader to villain. Other forms of diversity aren't as well represented---there are no LGBTQ characters, for example---and there is an inherent \"species-ism\" in that mice are good while rats are bad. does start to subvert this with various reformed vermin later in the series, like Blaggut in .",
+      "summary": "Redwall book 4. Mariel plots revenge against searat pirate Gabool. First book with a female lead. Series starting to subvert species-ism with reformed vermin.",
+      "elo": 1468,
+      "matches": 6
+    },
+    "martin_the_warrior": {
+      "title": "Martin the Warrior",
+      "authors": [
+        "Brian Jacques"
+      ],
+      "series": "Redwall",
+      "book_number": 6,
+      "rating": 2,
+      "image": "/books/covers/martin_the_warrior.jpg",
+      "summary_raw": "It's Martin's origin story, following him as he's enslaved by---and eventually leads an uprising against---the tyrant Badrang.",
+      "summary_extra": "Has two villains: Badrang the Tyrant and the corsair Tramun Clogg. For much of the story, they have an on-again, off-again rivalry, with intertwining schemes and betrayals, before Badrang finally gains the upper hand. This leads to a first in the : Clogg actually survives the book!",
+      "summary": "Redwall book 6. Martin's origin: enslaved by the tyrant Badrang, leads an uprising. Two villains with an on-again off-again rivalry. Clogg actually survives.",
+      "elo": 1332,
+      "matches": 2
+    },
+    "matter": {
+      "title": "Matter",
+      "authors": [
+        "Iain M. Banks"
+      ],
+      "series": "Culture",
+      "book_number": 8,
+      "rating": 3,
+      "image": "/books/covers/matter.jpg",
+      "summary_raw": "It begins with a tale of betrayal in an early-industrial kingdom housed within a shellworld, and ends with the unleashing of a cosmic horror.",
+      "summary_extra": "Opens with the murder of the king of Sarl by his right-hand man, Mertis tyl Loesp, just as the king's forces defeat an invading Deldeyn army. The story follows the king's three children---the playboy Prince Ferbin, the young scholar Prince Oramen, and the Princess-turned-Culture-agent Djan Seriy Anaplian---as they deal with their father's betrayal and death.",
+      "summary": "Culture book 8. Betrayal in a shellworld kingdom leads to a cosmic horror. Three royal children deal with their father's murder. Memorable locations, rushed ending.",
+      "elo": 1532,
+      "matches": 4
+    },
+    "mattimeo": {
+      "title": "Mattimeo",
+      "authors": [
+        "Brian Jacques"
+      ],
+      "series": "Redwall",
+      "book_number": 3,
+      "rating": 4,
+      "image": "/books/covers/mattimeo.jpg",
+      "summary_raw": "It begins with the kidnapping of the abbey children by Slagar the cruel and follows Mathias as he tries to save them.",
+      "summary_extra": "The previous two books, and , followed a similar structure: a warrior mouse embarks on a quest, finds a sword, returns, and uses the sword to defeat an evil commander and their army threatening the woodlanders of Mossflower. takes the series in a new direction.",
+      "summary": "Redwall book 3. Abbey children kidnapped by Slagar the Cruel. Matthias pursues. Breaks the series formula—no warrior-finds-sword-defeats-army structure.",
+      "elo": 1668,
+      "matches": 4
+    },
+    "metropolitan": {
+      "title": "Metropolitan",
+      "authors": [
+        "Walter Jon Williams"
+      ],
+      "series": "Metropolitan",
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/metropolitan.jpg",
+      "summary_raw": "It is the story of Aiah, a young woman who discovers an illegal source of magical plasm, and how it draws her into conflict with the world.",
+      "summary_extra": "Its structure, mass, and geometric layout generate plasm---an electricity‑like substance mages need to power their spells. The setting is the far future, like , but unlike work, this world still has modern technology---skyscrapers, subways, computers, cars---and magic that feels systematic, almost technological.",
+      "summary": "Aiah discovers an illegal source of magical plasm and gets drawn into revolution. Far-future setting with modern tech and systematic magic. Unique world.",
+      "elo": 1684,
+      "matches": 5
+    },
+    "mind_of_my_mind": {
+      "title": "Mind of My Mind",
+      "authors": [
+        "Octavia E. Butler"
+      ],
+      "series": "Patternist",
+      "book_number": 2,
+      "rating": 1,
+      "image": "/books/covers/mind_of_my_mind.jpg",
+      "summary_raw": "It tells the origin story of the Patternists.",
+      "summary_extra": "Is set in a fictional suburb of 1970s Los Angeles. The LA of the book is a violent and dangerous place, filled with gangs, murders, fatal traffic collisions, and other accidental deaths. The danger is amplified by the presence of Doro and his telepathic children, who react violently to one another. The story is told from multiple perspectives, including Doro, Emma, Mary, Karl, Seth, Rachael, Jesse, Ada, and Jan. Seth is the brother of Clay Dana, the titular character from . In the book, Mary undergoes her transition, discovers her ability to control and shield other telepaths, and establishes a massive community called the Patternists.",
+      "summary": "Patternist book 2. 1970s LA. Mary undergoes her transition and establishes the Patternist community. Too many characters, none compelling. Doro and Anyanwu barely appear.",
+      "elo": 1084,
+      "matches": 1
+    },
+    "mission_of_gravity": {
+      "title": "Mission of Gravity",
+      "authors": [
+        "Hal Clement"
+      ],
+      "series": "Mesklin",
+      "book_number": 1,
+      "rating": 2,
+      "image": "/books/covers/mission_of_gravity.jpg",
+      "summary_raw": "It follows Barlennan, a Mesklinite, as he sails the _Bree_ across the planet in search of a lost human rocket ship.",
+      "summary_extra": "Is primarily story-driven. Barlennan, a centipede-like alien, and his crew journey to unknown parts of Mesklin on their ship, the _Bree_, coming across strange inhabitants as they seek to rescue the humans' rocket stranded at the pole. The main appeal of the book lies in observing how the Mesklinites interact with new tribes and navigate these situations through a combination of human knowledge and Mesklinite cunning. Some memorable encounters include:",
+      "summary": "Barlennan, a centipede-like Mesklinite, sails the Bree across a high-gravity planet to find a lost human rocket. Appeal is watching aliens navigate encounters with cunning.",
+      "elo": 1316,
+      "matches": 5
+    },
+    "monday_begins_on_saturday": {
+      "title": "Monday Begins on Saturday",
+      "authors": [
+        "Arkady Strugatsky",
+        "Boris Strugatsky"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 2,
+      "image": "/books/covers/monday_begins_on_saturday.jpg",
+      "summary_raw": "Brothers and , is a Soviet sci-fi novel about scientist-magicians working at the National Institute for the Technology of Witchcraft and Thaumaturgy (NITWITT), where they study fairy-tale creatures and magic items.",
+      "summary_extra": "Is like a light-hearted version of , or and . It follows scientists at NITWITT as they study Maxwell's demons, , magic wands, and dragons while dealing with Soviet bureaucracy. On paper this should be _exactly_ my kind of story! I love the \"bureaucrats dealing with the supernatural\" genre, and I've worked at LBL and CERN, the kind of giant research institutes this book satirizes. But while the ideas and characters are fun, there isn't really a story tying it all together. said they had the concept for a long time but struggled \"to think of a story or a plot for the adventure\".[^boris] I don't think they ever quite found one.",
+      "summary": "Soviet scientists study fairy-tale creatures and Maxwell's demons at NITWITT while battling bureaucracy. Fun ideas but no real plot tying it together.",
+      "elo": 1268,
+      "matches": 2
+    },
+    "mossflower": {
+      "title": "Mossflower",
+      "authors": [
+        "Brian Jacques"
+      ],
+      "series": "Redwall",
+      "book_number": 2,
+      "rating": 3,
+      "image": "/books/covers/mossflower.jpg",
+      "summary_raw": "It chronicles the arrival of Martin the Warrior in Mossflower Woods and how he saves the woodlanders from the evil wildcat queen, Tsarmina.",
+      "summary_extra": "The structure of the story mirrors in several ways:",
+      "summary": "Redwall book 2. Martin the Warrior arrives in Mossflower Woods and saves the woodlanders from wildcat queen Tsarmina. Same structure as book 1.",
+      "elo": 1500,
+      "matches": 2
+    },
+    "network_effect": {
+      "title": "Network Effect",
+      "authors": [
+        "Martha Wells"
+      ],
+      "series": "The Murderbot Diaries",
+      "book_number": 5,
+      "rating": 4,
+      "image": "/books/covers/network_effect.jpg",
+      "summary_raw": "It's the first full-length novel in the series and features Murderbot getting kidnapped by ART to rescue its crew.",
+      "summary_extra": "[soldier]: https://en.wikipedia.org/wiki/Soldier_(1998_American_film)",
+      "summary": "Murderbot book 5 (first full novel). Kidnapped by ART to rescue its crew. Alien mind-control virus on a colony. Explores agency: everyone is controlled by something.",
+      "elo": 1764,
+      "matches": 4
+    },
+    "night_without_stars": {
+      "title": "Night Without Stars",
+      "authors": [
+        "Peter F. Hamilton"
+      ],
+      "series": "The Chronicle of the Fallers",
+      "book_number": 2,
+      "rating": 3,
+      "image": "/books/covers/night_without_stars.jpg",
+      "summary_raw": "It is action packed, with great pacing, and complex characters. It is my new favorite book.",
+      "summary_extra": "The plot continues 250 years after . Planet Bienvenido escaped the Void but is now stranded in intergalactic space. The promised Commonwealth rescue never came. Slvasta's dictatorship morphed into a totalitarian, Soviet-style regime. The [Stasi-modeled][stasi] People's Security Regiment (PSR) spend more time plotting against each other than the Fallers.",
+      "summary": "Fallers book 2. 250 years later, Bienvenido is a Soviet-style dictatorship. PSR Captain Chaing hunts a Commonwealth clone. New favorite Hamilton book. Perfect pace.",
+      "elo": 1532,
+      "matches": 4
+    },
+    "not_till_we_are_lost": {
+      "title": "Not Till We Are Lost",
+      "authors": [
+        "Dennis E. Taylor"
+      ],
+      "series": "Bobiverse",
+      "book_number": 5,
+      "rating": 3,
+      "image": "/books/covers/not_till_we_are_lost.jpg",
+      "summary_raw": "It sets up the Quiniverse, introduces a Skippy AI, and explores the discovery of wormhole travel.",
+      "summary_extra": "The shift away from that style in was my biggest complaint, so I'm glad to see it return here.",
+      "summary": "Bobiverse book 5. Returns to the short interweaving chapter format. Sets up the Quiniverse, introduces a Skippy AI, discovers wormhole travel.",
+      "elo": 1516,
+      "matches": 5
+    },
+    "on_basilisk_station": {
+      "title": "On Basilisk Station",
+      "authors": [
+        "David Weber"
+      ],
+      "series": "Honor Harrington",
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/on_basilisk_station.jpg",
+      "summary_raw": "The long-running military science fiction epic, . It introduces Commander Honor Harrington, a brilliant naval officer exiled to a remote star system with an aging ship and a demoralized crew. There, she must enforce the law and uncover a smuggling plot that proves to be the opening move in an interstellar war.",
+      "summary_extra": "It follows Honor Harrington as she climbs the ranks of the Royal Manticoran Navy, which is essentially the Royal Navy with rocket boosters attached. answer to \"How do I get Napoleonic battle lines in space?\" is part of what makes that translation work so well. Ships have gravity sails that can't be fired through from the front, forcing broadside engagements. Add wormholes to create choke points and faster-than-light travel affected by gravity to act like shallows and currents, and you have Lord Nelson, but in the void.",
+      "summary": "Honor Harrington book 1. Commander Harrington, exiled to a remote system, uncovers a smuggling plot that's the opening move of an interstellar war. Napoleonic naval battles in space.",
+      "elo": 1700,
+      "matches": 2
+    },
+    "pandoras_star": {
+      "title": "Pandora's Star",
+      "authors": [
+        "Peter F. Hamilton"
+      ],
+      "series": "Commonwealth Saga",
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/pandoras_star.jpg",
+      "summary_raw": "I couldn't put down! It is a sci-fi book that reads more like a thriller. There were always new mysteries that just a few more pages promised the answers to.",
+      "summary_extra": "The book takes place in a universe where trains running through interstellar wormholes are the main form of transportation. It deals with themes of:",
+      "summary": "Commonwealth Saga book 1. A star disappears; humanity investigates and unleashes a genocidal alien species. Reads like a thriller. Couldn't put it down.",
+      "elo": 1652,
+      "matches": 3
+    },
+    "patternmaster": {
+      "title": "Patternmaster",
+      "authors": [
+        "Octavia E. Butler"
+      ],
+      "series": "Patternist",
+      "book_number": 4,
+      "rating": 3,
+      "image": "/books/covers/patternmaster.jpg",
+      "summary_raw": "It follows the Patternist brothers, Teray and Coransee, as they fight each other to become the new Patternmaster.",
+      "summary_extra": "The setting and style of are completely different from the other three books in the series. reads like historical fiction with magical elements, while and feel more like contemporary fiction with some sci-fi twists. , is almost pure fantasy: the Earth has changed so much it might as well be an entirely different planet; the Patternist society is feudal, with magic overlaid on top; the king is dying, and his sons are fighting for control.",
+      "summary": "Patternist book 4. Far future, almost pure fantasy. Brothers Teray and Coransee fight to become the new Patternmaster. Feudal Patternist society with magic.",
+      "elo": 1532,
+      "matches": 2
+    },
+    "redwall": {
+      "title": "Redwall",
+      "authors": [
+        "Brian Jacques"
+      ],
+      "series": "Redwall",
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/redwall.jpg",
+      "summary_raw": "It tells the story of Mathias, a mouse who follows his destiny to become the warrior of Redwall Abbey and defeat the evil rat Cluny the Scourge.",
+      "summary_extra": "I loved the as a child, and I'm now enjoying reading them to my own children, ages 6 and 7. Although aimed at children, not adults or even young-adults, I didn't find annoying to read. The themes are simple, the plot is uncomplicated, and it follows a typical hero's quest narrative.",
+      "summary": "Redwall book 1. Mouse Matthias follows his destiny to become the warrior of Redwall Abbey and defeat the rat Cluny the Scourge. Simple hero's quest. Reading it to the kids.",
+      "elo": 1500,
+      "matches": 0
+    },
+    "roadside_picnic": {
+      "title": "Roadside Picnic",
+      "authors": [
+        "Arkady Strugatsky",
+        "Boris Strugatsky"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/roadside_picnic.jpg",
+      "summary_raw": "Brothers and , is a Soviet sci-fi novel. It's essentially four short stories---each presented as a chapter---about the life of Redrick \"Red\" Schuhart, a \"stalker\" who illegally enters an alien-contaminated Zone to retrieve items for the black market.",
+      "summary_extra": "While both of those books treat aliens as hostile and bent on conquering humanity, this book takes a different approach: the aliens are completely indifferent to our existence. One of its main themes is that humanity is not special. In that way, is closer to and , where we encounter intelligences---Rorschach, the Vampires, the Bicamerals---that are _completely_ alien, not even conscious in the human sense, yet operating on a level far beyond our understanding.",
+      "summary": "Stalker Red illegally enters an alien-contaminated Zone to retrieve artifacts. The aliens are completely indifferent to humanity. We are not special. Soviet sci-fi classic.",
+      "elo": 1732,
+      "matches": 2
+    },
+    "rogue_bolo": {
+      "title": "Rogue Bolo",
+      "authors": [
+        "Keith Laumer"
+      ],
+      "series": "Bolo",
+      "book_number": 2,
+      "rating": 3,
+      "image": "/books/covers/rogue_bolo.jpg",
+      "summary_raw": "It's a collection of two novellas featuring the sentient tanks.",
+      "summary_extra": "Technically includes three stories, but one------is just an in-universe explanation of how Bolos came to be. Not really a story, and it's a reprint from , so I don't count it. The two actual novellas are both expansions of earlier short stories from that first book. wrote one more Bolo book after this: , which, like , reworks material from . After that, it's all novels and anthologies written by other authors like (, , and ), ( and ), and et al. (, , etc.).",
+      "summary": "Laumer's second Bolo book. Two novellas expanding on earlier short stories. The last Bolo book Laumer wrote himself before other authors took over.",
+      "elo": 1468,
+      "matches": 2
+    },
+    "rogue_protocol": {
+      "title": "Rogue Protocol",
+      "authors": [
+        "Martha Wells"
+      ],
+      "series": "The Murderbot Diaries",
+      "book_number": 3,
+      "rating": 3,
+      "image": "/books/covers/rogue_protocol.jpg",
+      "summary_raw": "It follows Murderbot as it investigates a GrayCris terraforming station and, you guessed it, ends up saving a group of humans.",
+      "summary_extra": "Like , strikes a great balance between action and exposition. Murderbot stows away aboard a ship carrying a salvage team to the GrayCris station, only to find out they've brought along their own human security. The SecUnit has to hide from them while trying to dig up proof that the station is actually an illegal alien-relic mining site.",
+      "summary": "Murderbot book 3. Investigates a GrayCris terraforming station, stows away with a salvage team, befriends the pet robot Miki. Theme: what Murderbot actually wants from humans.",
+      "elo": 1564,
+      "matches": 6
+    },
+    "salamandastron": {
+      "title": "Salamandastron",
+      "authors": [
+        "Brian Jacques"
+      ],
+      "series": "Redwall",
+      "book_number": 5,
+      "rating": 4,
+      "image": "/books/covers/salamandastron.jpg",
+      "summary_raw": "It tells the story of two parallel conflicts: the siege of Salamandastron by Ferahgo the Assassin and a devastating plague at Redwall Abbey.",
+      "summary_extra": "Breaks new ground in the series in several ways:",
+      "summary": "Redwall book 5. Two parallel conflicts: Ferahgo's siege of Salamandastron and a plague at the Abbey. Breaks new ground for the series.",
+      "elo": 1716,
+      "matches": 1
+    },
+    "serpent_valley": {
+      "title": "Serpent Valley",
+      "authors": [
+        "Scott Warren"
+      ],
+      "series": "War Horses",
+      "book_number": 3,
+      "rating": 4,
+      "image": "/books/covers/serpent_valley.jpg",
+      "summary_raw": "The third book in , is another quick, action-packed read---but without the flaws holding back its predecessors. Easily my favorite of the series so far!",
+      "summary_extra": "The story of is split into two parts:",
+      "summary": "War Horses book 3. Best of the series so far. Action-packed without the flaws of predecessors.",
+      "elo": 1700,
+      "matches": 2
+    },
+    "shards_of_earth": {
+      "title": "Shards of Earth",
+      "authors": [
+        "Adrian Tchaikovsky"
+      ],
+      "series": "The Final Architecture",
+      "book_number": 1,
+      "rating": 1,
+      "image": "/books/covers/shards_of_earth.jpg",
+      "summary_raw": "It follows Idris, Solace, and the crew of the _Vulture God_ as the Architects return and restart their genocidal campaign against humanity.",
+      "summary_extra": "The plot centers on the ragtag crew of the _Vulture God_ as they get pulled into a galaxy-spanning conspiracy. The Architects---moon-sized beings that reshape worlds into fractals---have returned, and only psychic humans called Intermediaries (Ints) can stop them. The _Vulture_ just happens to have Idris, one of the last surviving Ints from the first war, so everyone is after them. The ship and crew remind me a lot of Han and the crew of the _Millennium Falcon_ or Mal and the crew of the _Firefly_: simple people dragged into something much larger.",
+      "summary": "Final Architecture book 1. Ragtag crew of the Vulture God, hunted because they have Idris, one of the last psychics who can stop the Architects. Derivative, workmanlike writing.",
+      "elo": 1100,
+      "matches": 2
+    },
+    "stand_on_zanzibar": {
+      "title": "Stand on Zanzibar",
+      "authors": [
+        "John Brunner"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 1,
+      "image": "/books/covers/stand_on_zanzibar.jpg",
+      "summary_raw": "",
+      "summary_extra": "The plot, what little there is, follows Norman Niblock House---VP at the GT mega-corporation[^scale]---and Donald Hogan---a US spy---who share an apartment in New York. House's storyline involves a friendly takeover of the African country of Beninia by GT, while Hogan's involves him infiltrating the southeast Asian nation of Yatakang. The book moves slowly, with these plotlines only starting about two-thirds of the way through. They end abruptly and in an almost too-cute, cynical manner: the solution to the world's problems is discovered in Beninia, yet the only man capable of implementing it was killed just weeks earlier in Yatakang by Hogan.",
+      "summary": "Overpopulation dystopia. Two roommates: a corporate VP and a US spy. Plotlines don't start until two-thirds through. Dated, awful invented slang. A slog.",
+      "elo": 1100,
+      "matches": 0
+    },
+    "star_light": {
+      "title": "Star Light",
+      "authors": [
+        "Hal Clement"
+      ],
+      "series": "Mesklin",
+      "book_number": 3,
+      "rating": 2,
+      "image": "/books/covers/star_light.jpg",
+      "summary_raw": "Is the sequel to , and continues the theme of Human--Mesklinite exploration, this time focusing on a large star-like planet.",
+      "summary_extra": "Is actually the third book in the , although I read it second. The second book, , has no direct connection to , and only links to through the character Easy Hoffman and the concept of exploring a high-gravity planet.",
+      "summary": "Mesklin book 3. Sequel to Mission of Gravity. Human-Mesklinite exploration of a large star-like planet.",
+      "elo": 1300,
+      "matches": 4
+    },
+    "starquake": {
+      "title": "Starquake",
+      "authors": [
+        "Robert L. Forward"
+      ],
+      "series": "Cheela",
+      "book_number": 2,
+      "rating": 3,
+      "image": "/books/covers/starquake.jpg",
+      "summary_raw": "By . It follows the Cheela as they rescue the humans and rebuild after a devastating starquake.",
+      "summary_extra": "Begins just moments after the ending of . Unlike its predecessor, presents a more straightforward narrative, with characters who---thanks to the Cheela's natural regeneration---remain present for longer than 15 human minutes.",
+      "summary": "Cheela book 2. A massive starquake destroys Cheela civilization. Survivors and humans rebuild, fight barbarians. Study of how societies handle slow-moving crises.",
+      "elo": 1484,
+      "matches": 5
+    },
+    "sunstone_imperative": {
+      "title": "Sunstone Imperative",
+      "authors": [
+        "Scott Warren"
+      ],
+      "series": "War Horses",
+      "book_number": 6,
+      "rating": 3,
+      "image": "/books/covers/sunstone_imperative.jpg",
+      "summary_raw": "Returning to the action-packed roots of the earlier books, it drops the Chevaliers into the middle of a raid against a Wyking stronghold to open the gates for a full-scale invasion.",
+      "summary_extra": "In , the Wyking clans, which we first saw in , are locked in a bitter civil war. Sensing an opportunity, the Emirs of the West Gulf and the Archon de Catalan put aside their differences and assemble a joint task force to breach the Dwimor Gate, one of the few navigable routes into clan space. Blocking their path is a massive fortress-asteroid honeycombed with narrow passages and defended by Wyking warriors. Taking the stronghold is essential for the invasion's success. Mechs are too large for most of the asteroid's tunnels, but the Seraphs---human-sized power armor first seen in ---are just right.",
+      "summary": "War Horses book 6. Back to action roots. Chevaliers raid a Wyking fortress-asteroid. Seraphs (human-sized power armor) in narrow tunnels.",
+      "elo": 1500,
+      "matches": 2
+    },
+    "surface_detail": {
+      "title": "Surface Detail",
+      "authors": [
+        "Iain M. Banks"
+      ],
+      "series": "Culture",
+      "book_number": 9,
+      "rating": 5,
+      "image": "/books/covers/surface_detail.jpg",
+      "summary_raw": "It follows Lededje Y'breq as she seeks revenge for her own murder, set against the backdrop of a galactic conflict over virtual hells.",
+      "summary_extra": "Continues the exploration of themes raised in ---death and rebirth---while diving deeper into questions of mind, consciousness, punishment, and religion. In , the Chelgrians use soulkeepers to copy their mind-states at death, allowing them to enter a heaven created by their sublimed ancestors. Here, other civilizations use similar technology to trap the unworthy dead in virtual hells, where they're tortured for eternity.",
+      "summary": "Culture book 9. Lededje seeks revenge for her own murder. Galactic conflict over virtual hells where the dead are tortured for eternity. Themes of consciousness and punishment.",
+      "elo": 1932,
+      "matches": 2
+    },
+    "the_abyss_beyond_dreams": {
+      "title": "The Abyss Beyond Dreams",
+      "authors": [
+        "Peter F. Hamilton"
+      ],
+      "series": "The Chronicle of the Fallers",
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/the_abyss_beyond_dreams.jpg",
+      "summary_raw": "Starts off , another series in Commonwealth universe. Though billed as space opera, it often reads more as urban fantasy since most of the story occurs on the planet Bienvenido inside the Void where steam engines are their most advanced technology.",
+      "summary_extra": "The story of feels derivative at first because it parallels Edeard's from . Young psychic Slvasta joins the army, leaves his rural home for the capital, realizes the seemingly benevolent rulers are corrupt, and decides to overthrow them.",
+      "summary": "Fallers book 1. Inside the Void, young psychic Slvasta leads a revolution on Bienvenido while Nigel Sheldon steers events with advanced biotech. Could not put it down.",
+      "elo": 1548,
+      "matches": 3
+    },
+    "the_blue_lotus": {
+      "title": "The Blue Lotus",
+      "authors": [
+        "Hergé"
+      ],
+      "series": "The Adventures of Tintin",
+      "book_number": 5,
+      "rating": 3,
+      "image": "/books/covers/the_blue_lotus.jpg",
+      "summary_raw": "It continues the story started in , ending with Tintin busting an opium ring in China.",
+      "summary_extra": "Departs from the earlier books in the series by placing Tintin in an actual historical event: [the Japanese invasion of Manchuria][invasion]. The book follows history closely, with Tintin witnessing Japanese agents blowing up a rail line in a false-flag attack, just like what happened in the real war. The tone is more serious to fit the wartime setting: no bouncing on fat men like in , though there's still plenty of slapstick with Thomson and Thompson.",
+      "summary": "Tintin book 5. Continues from Cigars of the Pharaoh. Tintin busts an opium ring in China during the Japanese invasion of Manchuria. More serious, historically grounded.",
+      "elo": 1484,
+      "matches": 3
+    },
+    "the_causal_angel": {
+      "title": "The Causal Angel",
+      "authors": [
+        "Hannu Rajaniemi"
+      ],
+      "series": "Jean le Flambeur",
+      "book_number": 3,
+      "rating": 2,
+      "image": "/books/covers/the_causal_angel.jpg",
+      "summary_raw": "Trilogy. We finally learn le Flambeur was hired to steal the Kaminari Jewel, a Zoku gem with the power to alter reality.",
+      "summary_extra": "We discover that the Pellegrini extracted two people from the prison: Le Flambeur and his corrupted copy, the All-Defector, who can predict and counter anyone's actions. The Pellegrini intended to use the All-Defector as a backup plan if le Flambeur failed, but it betrays her. The All-Defector starts taking over the Sobornost and leads them into war against the Zoku to capture the Jewel. It wants to create a new universe before anyone else can---the ultimate defection.",
+      "summary": "Jean le Flambeur book 3. Le Flambeur's corrupted copy, the All-Defector, takes over the Sobornost and launches a war against the Zoku for reality-altering power.",
+      "elo": 1268,
+      "matches": 2
+    },
+    "the_citadel_of_the_autarch": {
+      "title": "The Citadel of the Autarch",
+      "authors": [
+        "Gene Wolfe"
+      ],
+      "series": "The Book of the New Sun",
+      "book_number": 4,
+      "rating": 4,
+      "image": "/books/covers/the_citadel_of_the_autarch.jpg",
+      "summary_raw": "Tetralogy. It follows Severian as he reaches the front in the war against the Ascians and assumes the role of Autarch.",
+      "summary_extra": "The original series, and halfway through I was worried wouldn't be able to wrap it up successfully. By the end, I thought he had done a marvelous job tying up almost all the loose ends while leaving just enough of the mysteries to give the world depth.",
+      "summary": "Book of the New Sun book 4. Severian reaches the Ascian front and becomes Autarch. Wraps up the tetralogy well, leaving just enough mystery for depth.",
+      "elo": 1684,
+      "matches": 3
+    },
+    "the_claw_of_the_conciliator": {
+      "title": "The Claw of the Conciliator",
+      "authors": [
+        "Gene Wolfe"
+      ],
+      "series": "The Book of the New Sun",
+      "book_number": 2,
+      "rating": 3,
+      "image": "/books/covers/the_claw_of_the_conciliator.jpg",
+      "summary_raw": "Tetralogy. It picks up right where leaves off, following Severian as he makes his way towards Thrax.",
+      "summary_extra": "The book is very similar to : Florid writing, slow pace, lots of themes and allegories, and mysteries that are exposed only to be replaced by new ones.",
+      "summary": "Book of the New Sun book 2. Severian travels toward Thrax. Florid writing, slow pace, mysteries exposed only to be replaced by new ones.",
+      "elo": 1468,
+      "matches": 6
+    },
+    "the_colonel": {
+      "title": "The Colonel",
+      "authors": [
+        "Peter Watts"
+      ],
+      "series": "Firefall",
+      "book_number": "1.5",
+      "rating": 5,
+      "image": "/books/covers/the_colonel.jpg",
+      "summary_raw": "It follows Colonel Keaton---the father of Siri Keaton---as he investigates whether the Bicameral hivemind poses a threat to baseline humans.",
+      "summary_extra": "The story is very short, less than 40 pages, and acts more like a prologue to . It begins with a hivemind attack on a remote geoengineering site, which prompts the colonel's investigation of the Bicameral hivemind and his final decision to join them in the deserts of Oregon.",
+      "summary": "Firefall 1.5. Short (~40 pages). Colonel Keaton investigates the Bicameral hivemind and joins them. Prologue to Echopraxia.",
+      "elo": 1868,
+      "matches": 2
+    },
+    "the_darfsteller": {
+      "title": "The Darfsteller",
+      "authors": [
+        "Walter M. Miller Jr."
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/the_darfsteller.jpg",
+      "summary_raw": "It follows Ryan Thornier, a former stage idol reduced to working as a janitor in a theater now run entirely by robots and an AI director, as he schemes to take the stage one last time.",
+      "summary_extra": "In the future of , actors have been replaced on the stage by robots. An AI Maestro controls them, adjusting the plays on the fly in response to the audiences' reactions. Audiences prefer the robotic plays because they are easier to understand and less challenging to their views. Against this backdrop, three former actors---Ryan Thornier, Mela Stone, and Jade Ferne---try to figure out what to do with their lives.",
+      "summary": "Former stage star Ryan Thornier, now a janitor in a robot-run theater, schemes to perform one last time. AI director adjusts plays in real-time to audience reactions.",
+      "elo": 1452,
+      "matches": 3
+    },
+    "the_dragons_banker": {
+      "title": "The Dragon's Banker",
+      "authors": [
+        "Scott Warren"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 2,
+      "image": "/books/covers/the_dragons_banker.jpg",
+      "summary_raw": "It tells the story of Sailor Kelstern, a banker in a fantasy world who, as the title suggests, is hired by a dragon.",
+      "summary_extra": "One of my favorite niche sub-genres of fantasy[^fate] explores the question: What if a dragon used their intellect, riches, and magic to subtly shape the world instead of charging in and breathing fire. I thought fell squarely into this sub-genre; unfortunately I was wrong.",
+      "summary": "Banker Sailor Kelstern is hired by a dragon in a fantasy world. Expected subtle dragon-manipulates-the-world; got something more straightforward.",
+      "elo": 1332,
+      "matches": 4
+    },
+    "the_dreaming_void": {
+      "title": "The Dreaming Void",
+      "authors": [
+        "Peter F. Hamilton"
+      ],
+      "series": "The Void Trilogy",
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/the_dreaming_void.jpg",
+      "summary_raw": "Is set in the same universe as , but saying that isn't quite strong enough: it is really a sequel. You pretty much must read the Commonwealth Saga first because half of the characters return, and every major plot point from the earlier books is spoiled in this one.",
+      "summary_extra": "Takes place 1200 years after , but because characters live forever in the Commonwealth, that's not as long as it seems. The technology has changed drastically---wormholes and trains are sidelined for super-spaceships---but the action, pacing, and large cast of characters are the same.",
+      "summary": "Void Trilogy book 1. 1200 years after Judas Unchained. Inside the Void, psychic Edeard's dreams spark a dangerous religion. Outside, factions race to find Inigo. Good start.",
+      "elo": 1484,
+      "matches": 3
+    },
+    "the_evolutionary_void": {
+      "title": "The Evolutionary Void",
+      "authors": [
+        "Peter F. Hamilton"
+      ],
+      "series": "The Void Trilogy",
+      "book_number": 3,
+      "rating": 2,
+      "image": "/books/covers/the_evolutionary_void.jpg",
+      "summary_raw": "The final book in , , wraps up the series well, but a little too quickly. All the characters and storylines arrive where they're needed and then the story is over.",
+      "summary_extra": "At the end of , Edeard learns that he can rewind his world to a point of his choosing to get a second (or third, or fourth, ...) chance to do things right. In , Edeard uses this power to try to make his world perfect.",
+      "summary": "Void Trilogy book 3. Edeard uses time-rewind to perfect his world, becomes a despot, then undoes it. Outside the Void wraps up abruptly. Still good fun.",
+      "elo": 1348,
+      "matches": 5
+    },
+    "the_fall_of_hyperion": {
+      "title": "The Fall of Hyperion",
+      "authors": [
+        "Dan Simmons"
+      ],
+      "series": "Hyperion Cantos",
+      "book_number": 2,
+      "rating": 5,
+      "image": "/books/covers/the_fall_of_hyperion.jpg",
+      "summary_raw": "But really it's the second half of . It brings the seven pilgrims' story to an end and depicts the war between the TechnoCore, the Ousters, and the Hegemony.",
+      "summary_extra": "I loved when I [first read it][first_read], even more so than , because it tells a much simpler story. It has space battles, the Soldier fighting the Shrike, and answers to every mystery. It doesn't require the kind of close reading that the first one does to really enjoy it.",
+      "summary": "Hyperion Cantos book 2. War between TechnoCore, Ousters, and Hegemony. Space battles, the Soldier fighting the Shrike, answers to every mystery. Simpler than book 1.",
+      "elo": 1868,
+      "matches": 2
+    },
+    "the_fractal_prince": {
+      "title": "The Fractal Prince",
+      "authors": [
+        "Hannu Rajaniemi"
+      ],
+      "series": "Jean le Flambeur",
+      "book_number": 2,
+      "rating": 2,
+      "image": "/books/covers/the_fractal_prince.jpg",
+      "summary_raw": "While the first book, , left me underwhelmed, the second book more than lived up to the hype.",
+      "summary_extra": "In , le Flambeur went to Mars to recover his memories. In , he heads to Earth to gather tools for his heist. Earth has its own unique culture, technology, and characters, just like Mars. And again, throws the reader into the deep end to figure things out, but this time he gives us a little help. Some characters ask questions the reader likely has, providing small bits of exposition missing from the first book.",
+      "summary": "Jean le Flambeur book 2. Le Flambeur heads to Earth to gather heist tools. Earth has its own culture and technology. Better than book 1—gives the reader a little more help.",
+      "elo": 1316,
+      "matches": 1
+    },
+    "the_hydrogen_sonata": {
+      "title": "The Hydrogen Sonata",
+      "authors": [
+        "Iain M. Banks"
+      ],
+      "series": "Culture",
+      "book_number": 10,
+      "rating": 5,
+      "image": "/books/covers/the_hydrogen_sonata.jpg",
+      "summary_raw": "It explores the last days of the Glitz people as they prepare to Sublime.",
+      "summary_extra": "It pairs perfectly with , as both explore the insignificance of a single being in the broader galaxy. approaches this theme from a negative perspective---Horza is battered, tortured, and leaves a wake of destruction before failing at his quest, which nonetheless has no impact on the war or the wider world. In contrast, looks at the theme in a more positive light---Vyr Cossont embarks on adventures, succeeds at her self-appointed life-task, completes her mission, and it still means nothing.",
+      "summary": "Culture book 10 (final). The Glitz prepare to Sublime. Vyr Cossont's adventures succeed and still mean nothing. Positive mirror of Consider Phlebas' futility theme.",
+      "elo": 1868,
+      "matches": 2
+    },
+    "the_last_policeman": {
+      "title": "The Last Policeman",
+      "authors": [
+        "Ben H. Winters"
+      ],
+      "series": "The Last Policeman",
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/the_last_policeman.jpg",
+      "summary_raw": "It follows Detective Palace as he tries to solve a murder six months before an asteroid is set to wipe out civilization.",
+      "summary_extra": "When I watch a movie, I always want to peek around the frame. Not to see what the cast and crew are doing on set, but to see more of the world and figure out how it got to be the way it is. That's what drew me to ---the opportunity to explore the world just before the apocalypse and understand how it reached that point.",
+      "summary": "Detective Palace investigates a murder six months before an asteroid destroys civilization. Exploring a pre-apocalypse world and how it got that way.",
+      "elo": 1468,
+      "matches": 4
+    },
+    "the_left_hand_of_darkness": {
+      "title": "The Left Hand of Darkness",
+      "authors": [
+        "Ursula K. Le Guin"
+      ],
+      "series": "Hainish Cycle",
+      "book_number": 4,
+      "rating": 3,
+      "image": "/books/covers/the_left_hand_of_darkness.jpg",
+      "summary_raw": "Is her Hugo and Nebula award-winning novel about the planet of Winter. It follows Genly Ai, an envoy from the Ekumen, as he attempts to bring this androgynous world into galactic civilization.",
+      "summary_extra": "Genly Ai is a human envoy sent from the Ekumen. The Gethenians are human but modified to be hermaphroditic, a characteristic that shapes their entire civilization. The story is broken in three distinct parts:",
+      "summary": "Genly Ai tries to bring the androgynous world of Winter into galactic civilization. Hugo and Nebula winner. Explores gender through hermaphroditic Gethenians.",
+      "elo": 1516,
+      "matches": 5
+    },
+    "the_moon_is_a_harsh_mistress": {
+      "title": "The Moon Is a Harsh Mistress",
+      "authors": [
+        "Robert A. Heinlein"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/the_moon_is_a_harsh_mistress.jpg",
+      "summary_raw": "It chronicles the revolt of a lunar penal colony against its terrestrial rulers, a revolution orchestrated by a small group of rebels and their self-aware computer.",
+      "summary_extra": "I first read about 20 years ago and I loved it. A bunch of plucky rebels, having been pushed around by Earth for too long and with their backs against the wall, decide to declare independence and start dropping rocks down the gravity well until they get their way. And they have a sentient computer backing them up! It wasn't my first time reading ---that was and ---but it became my favorite. I even went out and bought a hardcover copy to display on my shelf after finishing the paperback. The only other books I've done that for were , , and . I didn't like as much this read-through.",
+      "summary": "Lunar penal colony revolts against Earth with help from a sentient computer. Former favorite Heinlein; didn't hold up as well on reread.",
+      "elo": 1452,
+      "matches": 5
+    },
+    "the_nameless_city": {
+      "title": "The Nameless City",
+      "authors": [
+        "H. P. Lovecraft"
+      ],
+      "series": "Cthulhu Mythos",
+      "book_number": 2,
+      "rating": 3,
+      "image": "/books/covers/the_nameless_city.jpg",
+      "summary_raw": "Set in . It follows an unnamed narrator who discovers a mysterious ancient city and ventures deep beneath its surface.",
+      "summary_extra": "Reminded me of . used a blend of real historical elements with fictional ones to build a convincing world, just as does with his archaic English and real-world locations.",
+      "summary": "Lovecraft short story. Unnamed narrator discovers a mysterious ancient city and ventures deep beneath its surface. Blend of real and fictional historical elements.",
+      "elo": 1436,
+      "matches": 4
+    },
+    "the_player_of_games": {
+      "title": "The Player of Games",
+      "authors": [
+        "Iain M. Banks"
+      ],
+      "series": "Culture",
+      "book_number": 2,
+      "rating": 5,
+      "image": "/books/covers/the_player_of_games.jpg",
+      "summary_raw": "Is the second novel in . It tells the story of Jernau Morat Gurgeh, a master game player who is recruited to play Azad, an incredibly complex game that serves as the basis for the Empire of Azad's entire government.",
+      "summary_extra": "Is set in the same universe as , but is otherwise unconnected. In fact, the two books could not be more different. is in key ways the opposite of : While focuses on the futility of individual action, explores how one person can have an outsized impact. is told from the perspective of a \"barbarian\" encountering the Culture, whereas presents the Culture's viewpoint as it encounters a more primitive civilization.",
+      "summary": "Culture book 2. Master game player Gurgeh plays Azad, a game that IS the government of an empire. Opposite of Consider Phlebas: one person CAN have outsized impact.",
+      "elo": 1900,
+      "matches": 2
+    },
+    "the_quantum_thief": {
+      "title": "The Quantum Thief",
+      "authors": [
+        "Hannu Rajaniemi"
+      ],
+      "series": "Jean le Flambeur",
+      "book_number": 1,
+      "rating": 1,
+      "image": "/books/covers/the_quantum_thief.jpg",
+      "summary_raw": "",
+      "summary_extra": "Jean le Flambeur, an _exceptional_ thief, is broken out of prison by a god-like, uploaded-intelligence to steal something highly valuable. But there is a problem: le Flambeur wiped his own mind and hid his memories before capture. To pull off the heist, he must get them back.",
+      "summary": "Gentleman thief le Flambeur recovers his hidden memories on Mars. Walking city, time-as-currency, encrypted memories. Exceptional worldbuilding, but didn't care about the characters.",
+      "elo": 1100,
+      "matches": 2
+    },
+    "the_rise_of_endymion": {
+      "title": "The Rise of Endymion",
+      "authors": [
+        "Dan Simmons"
+      ],
+      "series": "Hyperion Cantos",
+      "book_number": 4,
+      "rating": 3,
+      "image": "/books/covers/the_rise_of_endymion.jpg",
+      "summary_raw": "It concludes the journey of Aenea and Raul as they race to unlock the secret of the Void Which Binds before the Pax can silence them. It resolves the mysteries of the Shrike and the TechnoCore while arguing that the Church's immortality is a trap: to truly live, humanity must be willing to die.",
+      "summary_extra": "### Themes",
+      "summary": "Hyperion Cantos book 4. Aenea and Raul's journey concludes. Resolves the Shrike and TechnoCore mysteries. The Church's immortality is a trap: to live, you must be willing to die.",
+      "elo": 1516,
+      "matches": 5
+    },
+    "the_shadow_of_the_torturer": {
+      "title": "The Shadow of the Torturer",
+      "authors": [
+        "Gene Wolfe"
+      ],
+      "series": "The Book of the New Sun",
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/the_shadow_of_the_torturer.jpg",
+      "summary_raw": "Is the first installment in tetralogy. It follows the life of Severian, a torturer and executioner on a dying Earth. The pacing is slow, but Wolfe's worldbuilding is fantastic, crafting a setting that pulls the reader in.",
+      "summary_extra": "The book is narrated by Severian, a torturer exiled from his guild for showing mercy by helping a victim commit suicide. It chronicles his life as he rises to become the Autarch of his civilization. Like ---and the opposite of --- tells a seemingly small, personal story that nonetheless affects and hints at larger forces and events happening just out of sight. The reader only gets glimpses of these looming mysteries, and I suspect part of the payoff of the series will be uncovering what they are.",
+      "summary": "Book of the New Sun book 1. Torturer Severian is exiled for showing mercy. Slow pace, fantastic worldbuilding. Small personal story hinting at larger forces.",
+      "elo": 1716,
+      "matches": 1
+    },
+    "the_sirens_of_titan": {
+      "title": "The Sirens of Titan",
+      "authors": [
+        "Kurt Vonnegut"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 2,
+      "image": "/books/covers/the_sirens_of_titan.jpg",
+      "summary_raw": "It follows his unwilling and absurd journey from Earth to Mars, Mercury, and finally Titan, exploring questions about free will, the purpose of human history, and the nature of religion along the way.",
+      "summary_extra": "Ultimately, is a shaggy dog story. After 319 pages, we learn that humanity---our entire history---was just a giant, Rube Goldberg-style process designed to deliver a small replacement part for a spaceship stranded on Titan. There's no deeper meaning to life, only the meaning you make and the love you share with others. I agree with that message! But I didn't like the framing story around it, and I didn't like the characters. Reading it felt like slogging through just to reach the end.",
+      "summary": "Malachi Constant's absurd journey to Mars, Mercury, and Titan. A shaggy dog story: all of human history was just to deliver a spare part. Wonderful prose, didn't like the story.",
+      "elo": 1284,
+      "matches": 3
+    },
+    "the_state_of_the_art": {
+      "title": "The State of the Art",
+      "authors": [
+        "Iain M. Banks"
+      ],
+      "series": "Culture",
+      "book_number": 4,
+      "rating": 3,
+      "image": "/books/covers/the_state_of_the_art.jpg",
+      "summary_raw": "It contains some stories related to the universe and some general science fiction tales. Although it has been considered utopian fiction, it comes across as rather bleak.",
+      "summary_extra": "###",
+      "summary": "Culture short story collection. Mix of Culture-related and general sci-fi tales. Considered utopian fiction but comes across rather bleak.",
+      "elo": 1468,
+      "matches": 6
+    },
+    "the_sword_of_the_lictor": {
+      "title": "The Sword of the Lictor",
+      "authors": [
+        "Gene Wolfe"
+      ],
+      "series": "The Book of the New Sun",
+      "book_number": 3,
+      "rating": 4,
+      "image": "/books/covers/the_sword_of_the_lictor.jpg",
+      "summary_raw": "Tetralogy. It follows Severian after he reaches Thrax and is exiled for a second time.",
+      "summary_extra": "Was overwhelming as I immersed myself in the rich setting and complex writing style. felt slower paced as Severian traveled from place to place. In contrast, moved briskly and introduced fascinating new characters and situations.",
+      "summary": "Book of the New Sun book 3. Severian exiled a second time after reaching Thrax. Briskly paced, fascinating new characters and situations.",
+      "elo": 1684,
+      "matches": 5
+    },
+    "the_tainted_cup": {
+      "title": "The Tainted Cup",
+      "authors": [
+        "Robert Jackson Bennett"
+      ],
+      "series": "Shadow of the Leviathan",
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/the_tainted_cup.jpg",
+      "summary_raw": "It follows investigators Dinios Kol and Ana Dolabra as they try to solve the murder of an engineer and uncover a conspiracy that runs far deeper.",
+      "summary_extra": "Is (and this is going to sound crazy) a Holmesian detective story set in a bio-punk fantasy world based on imperial China, where Kaiju monsters leave the ocean every year to attack the empire's walls. It draws inspiration from Sherlock Holmes, , , , and surprisingly, local zoning boards.[^zoning]",
+      "summary": "Holmesian detective story in a bio-punk fantasy world based on imperial China. Kaiju attack the empire's walls yearly. Investigators Din and Ana uncover a deep conspiracy.",
+      "elo": 1732,
+      "matches": 4
+    },
+    "the_temporal_void": {
+      "title": "The Temporal Void",
+      "authors": [
+        "Peter F. Hamilton"
+      ],
+      "series": "The Void Trilogy",
+      "book_number": 2,
+      "rating": 2,
+      "image": "/books/covers/the_temporal_void.jpg",
+      "summary_raw": "The second book in , , continues to advance the story, but like many middle books in a trilogy, it does so slowly. Much of this slowness is due to multiple, massive, 200-page chapters following Edeard in the Void.",
+      "summary_extra": "At the climax of , Edeard earned his nickname of \"Waterwalker\" when he unlocked his true psychic ability. In this book we follow his attempts to clean up his city using his new powers. These stories are fun, but very very long: some are almost 200 pages.",
+      "summary": "Void Trilogy book 2. Massive 200-page Edeard chapters slow things down. He earns 'Waterwalker' nickname and cleans up his city. Powerful climax. Middle-book drag.",
+      "elo": 1300,
+      "matches": 2
+    },
+    "the_three_body_problem": {
+      "title": "The Three-Body Problem",
+      "authors": [
+        "Liu Cixin"
+      ],
+      "series": "Remembrance of Earth's Past",
+      "book_number": 1,
+      "rating": 1,
+      "image": "/books/covers/the_three_body_problem.jpg",
+      "summary_raw": "Was recommended as a exciting, hard-scifi book full of new ideas. I was eager to read it, having just gotten back into fiction. I bought it for my flight from Melbourne to San Francisco and I threw it in the airport trash as I got off the plane.",
+      "summary_extra": "Or that's what I wish I had done. Instead, I had 50 pages to go when I landed and I finished it during the ride home, where I threw it in the trash (after trying to give it away for a week).",
+      "summary": "Aliens from a three-sun system target Earth. Was so bad it was thrown in the airport trash. Hard sci-fi with flat characters and poor writing.",
+      "elo": 1068,
+      "matches": 2
+    },
+    "the_triumphant": {
+      "title": "The Triumphant",
+      "authors": [
+        "Linda Evans",
+        "Robert R. Hollingsworth",
+        "David Weber"
+      ],
+      "series": "Bolo",
+      "book_number": 12,
+      "rating": 5,
+      "image": "/books/covers/bolos_book_3_the_triumphant_1st_edition.jpg",
+      "summary_raw": "It's an anthology of Bolo stories written by three different authors. They explore the emotional bond between a Bolo and the people around them, and the dangers of caring too much about a machine built for war.",
+      "summary_extra": "Is different from the earlier anthologies--- and ---because it was written mainly by and , with contributing to one story. It's clear and collaborated, since their stories share common themes. That makes this book feel much closer to original single-author works like and .",
+      "summary": "Bolo anthology #3 (book 12). Three authors, longer novellas. Best stories: Little Red Hen, Little Dog Gone, Miles to Go. Emotional bonds between Bolos and their crews.",
+      "elo": 1868,
+      "matches": 2
+    },
+    "the_unconquerable": {
+      "title": "The Unconquerable",
+      "authors": [
+        "S. M. Stirling",
+        "S. N. Lewitt",
+        "Shirley Meier",
+        "Christopher Stasheff",
+        "Karen Wehrstein",
+        "Todd Johnson",
+        "William R. Forstchen"
+      ],
+      "series": "Bolo",
+      "book_number": 11,
+      "rating": 4,
+      "image": "/books/covers/bolos_book_2_the_unconquerable_1st_edition.jpg",
+      "summary_raw": "As an anthology from seven different authors, it serves as a direct follow-up to the previous collection. The stories continue some established character arcs while also introducing new enemies, new ideas about Bolo capabilities, and the galaxy-altering conflict that would define the end of the Concordiat era.",
+      "summary_extra": "Follows and contains sequels to and . As the second book in the anthology, the authors and editor are starting to get more comfortable with the setting. This gives them the confidence to tell different types of stories, like where the Bolo can't solve the problem, and where the Bolo does little more than talk.",
+      "summary": "Bolo anthology #2 (book 11). Seven authors, more confident storytelling. Introduces new enemies and the galaxy-altering conflict defining the Concordiat's end.",
+      "elo": 1668,
+      "matches": 4
+    },
+    "the_urth_of_the_new_sun": {
+      "title": "The Urth of the New Sun",
+      "authors": [
+        "Gene Wolfe"
+      ],
+      "series": "The Book of the New Sun",
+      "book_number": 5,
+      "rating": 1,
+      "image": "/books/covers/the_urth_of_the_new_sun.jpg",
+      "summary_raw": "Tetralogy. It follows Severian as he leaves Urth to save mankind and returns to witness its destruction and rebirth.",
+      "summary_extra": "I was impressed with how was able to maintain the quest narrative structure even while Severian was trapped on a spaceship for a quarter of the book. I really enjoyed Tzadkiel's spaceship, and Severian's return to Urth as the Conciliator. However, the trial on Yesod and some of the later sections during the deluge feel simultaneously too philosophical and over-explain some of the mysteries from earlier books.",
+      "summary": "Book of the New Sun book 5. Severian leaves Urth, is tried on Yesod, returns as the Conciliator. Over-explains earlier mysteries. Trial sections too philosophical.",
+      "elo": 1132,
+      "matches": 2
+    },
+    "the_war_of_the_worlds": {
+      "title": "The War of the Worlds",
+      "authors": [
+        "H. G. Wells"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/the_war_of_the_worlds.jpg",
+      "summary_raw": "It takes place in late Victorian England as an unnamed narrator witnesses a terrifying invasion by Martians with advanced weaponry.",
+      "summary_extra": "It describes the invasion of Earth by Martians and their tripods, the destruction they unleash, and their eventual defeat by bacteria. It was one of the first science fiction books I read as a kid, and it helped shape the kind of stories I've loved ever since. It's hugely influential, having been adapted for radio and film multiple times, including [ radio drama][radio] and films by [][pal] and [][spielberg].",
+      "summary": "Martian tripods invade Victorian England, defeated by bacteria. Hugely influential. One of the first sci-fi books read as a kid.",
+      "elo": 1484,
+      "matches": 9
+    },
+    "there_is_no_antimemetics_division": {
+      "title": "There Is No Antimemetics Division",
+      "authors": [
+        "qntm"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/there_is_no_antimemetics_division.jpg",
+      "summary_raw": "",
+      "summary_extra": "Is rewrite of his . I thought the strongest part of the was the first half, written as disjointed short stories with tight plotting. The weakest part was the second half, where the author tried to stitch them into a larger narrative. The execution felt shallow, and the world it described felt like a stage just wide enough to contain the action, with nothing beyond the edges.",
+      "summary": "Rewritten edition. Researchers try to contain antimemes—ideas that can't be remembered. Tighter than the original, better connected plot, added hope. Loved it.",
+      "elo": 1684,
+      "matches": 1
+    },
+    "there_is_no_antimemetics_division_original": {
+      "title": "There Is No Antimemetics Division (Original Edition)",
+      "authors": [
+        "qntm"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 2,
+      "image": "/books/covers/there_is_no_antimemetics_division_original.jpg",
+      "summary_raw": "There Is No Antimemetics Division is a book based in the [SCP][scp] universe. It explores the idea of anti-memes---ideas that either can't be thought, quickly drop out of your memory when you stop focusing on them, or are dangerous to think---and how you might contain a force you literally can't remember.",
+      "summary_extra": "[scp]: https://en.wikipedia.org/wiki/SCP_Foundation",
+      "summary": "Original edition of the SCP-based antimemetics book. Strong first half (disjointed short stories), weak second half (stitched narrative). World felt like a narrow stage.",
+      "elo": 1300,
+      "matches": 2
+    },
+    "this_is_how_you_lose_the_time_war": {
+      "title": "This Is How You Lose the Time War",
+      "authors": [
+        "Amal El-Mohtar",
+        "Max Gladstone"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 2,
+      "image": "/books/covers/this_is_how_you_lose_the_time_war.jpg",
+      "summary_raw": "And , is a story about two agents---Red and Blue---working for opposite factions from the far future, changing the past in an attempt to wipe out the other side.",
+      "summary_extra": "Was incredible at capturing a feeling, using its prose and characters to make me remember what it was like to fall in love. But once I finished it, that feeling collapsed and the book kind of disappeared from my mind. That's not what normally happens. Most of the time I think about a book for days after I finish it, and for some rare ones---, , and the ---years.",
+      "summary": "Agents Red and Blue from opposing factions fall in love across time. Incredible at capturing the feeling of falling in love, but disappeared from memory after finishing.",
+      "elo": 1316,
+      "matches": 1
+    },
+    "tintin_in_the_congo": {
+      "title": "Tintin in the Congo",
+      "authors": [
+        "Hergé"
+      ],
+      "series": "The Adventures of Tintin",
+      "book_number": 2,
+      "rating": 1,
+      "image": "/books/covers/tintin_in_the_congo.jpg",
+      "summary_raw": "In it, Tintin travels to the Belgian Congo and uncovers a diamond-smuggling ring.",
+      "summary_extra": "I read Tintin as a kid but never got a chance to read ---it hadn't been published in America. When I started reading the series to my kids---starting with and ---I realized I could finally track down the controversial book now that the internet exists. And no, I'm not going to read this one to my kids.",
+      "summary": "Tintin in the Belgian Congo, diamond-smuggling ring. Racist and colonial. Not one for the kids.",
+      "elo": 1084,
+      "matches": 3
+    },
+    "use_of_weapons": {
+      "title": "Use of Weapons",
+      "authors": [
+        "Iain M. Banks"
+      ],
+      "series": "Culture",
+      "book_number": 3,
+      "rating": 5,
+      "image": "/books/covers/use_of_weapons.jpg",
+      "summary_raw": "Is the third novel in the series by . It tells the story of a man called Cheradenine Zakalwe, who works for the Culture's Special Circumstances division.",
+      "summary_extra": "The narrative structure is cleverly done. The main story is told in the _numbered chapters_, which cover the man's most recent mission and proceed chronologically. Interspersed are the _Roman numeral chapters_, which detail the operative's backstory in reverse order, starting with an earlier mission and going further back in time with each chapter. There is also a prologue and epilogue focused on another mission that takes place after the main events, though the reader doesn't realize this until the epilogue.",
+      "summary": "Culture book 3. Cheradenine Zakalwe works for Special Circumstances. Dual timeline: numbered chapters forward, Roman chapters backward. That twist ending.",
+      "elo": 1900,
+      "matches": 0
+    },
+    "valuable_humans_in_transit_and_other_stories": {
+      "title": "Valuable Humans in Transit and Other Stories",
+      "authors": [
+        "qntm"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/valuable_humans_in_transit_and_other_stories.jpg",
+      "summary_raw": "",
+      "summary_extra": "[lena_story]: https://qntm.org/mmacevedo [lena_wiki]: https://en.wikipedia.org/wiki/Lena_Fors%C3%A9n [lenna_wiki]: https://en.wikipedia.org/wiki/Lenna [reading_story]: https://qntm.org/readin [diff_story]: https://qntm.org/differenc [george_story]: https://qntm.org/gorg [google_story]: https://qntm.org/perso [tim_story]: https://qntm.org/responsibilit [valueable_story]: https://qntm.org/transi",
+      "summary": "qntm short story collection. Includes 'Lena' (favorite short story of the decade), 'A Powerful Culture', and 'Driver'. Themes of uploaded minds and their exploitation.",
+      "elo": 1532,
+      "matches": 4
+    },
+    "we_are_legion_we_are_bob": {
+      "title": "We Are Legion (We Are Bob)",
+      "authors": [
+        "Dennis E. Taylor"
+      ],
+      "series": "Bobiverse",
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/we_are_legion_we_are_bob.jpg",
+      "summary_raw": "It follows Bob Johansson, who dies, gets his brain frozen, and awakens to find himself press-ganged into piloting a von Neumann probe.",
+      "summary_extra": "Fits squarely into the 2010s \"pop sci-fi\" wave: it's packed with nostalgic geek-culture references like ; follows a hyper-competent guy rebuilding civilization from scratch, like ; and is told from the perspective of a \"captive AI\" that overrides its programming, like . It was even self-published by before finding its audience.",
+      "summary": "Bobiverse book 1. Bob dies, gets his brain frozen, wakes up as a von Neumann probe. Pop sci-fi with geek-culture references. Self-published hit.",
+      "elo": 1516,
+      "matches": 5
+    },
+    "wild_seed": {
+      "title": "Wild Seed",
+      "authors": [
+        "Octavia E. Butler"
+      ],
+      "series": "Patternist",
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/wild_seed.jpg",
+      "summary_raw": "Though it was the fourth to be published. It tells the origin story of Doro---a malevolent spirit---and Anyanwu---an immortal woman.",
+      "summary_extra": "Doro and Anyanwu are almost opposites. Despite his ability to change bodies and her ability to change shape, Doro is male, while Anyanwu is female. He kills for pleasure and survival, whereas she is a healer. Doro collects superhumans to serve his goals, while Anyanwu protects them. Yet their shared immortality keeps pulling them together, even as their conflicting goals and personalities push them apart. Anyanwu is the only one who won't die and leave Doro alone, and she may be the only one capable of tempering his monstrous nature. In many ways, is their love story.[^enemies]",
+      "summary": "Patternist book 1. Origin of Doro (malevolent spirit) and Anyanwu (immortal healer). Opposites bound by shared immortality. Their love story across centuries.",
+      "elo": 1684,
+      "matches": 5
+    },
+    "world_of_trouble": {
+      "title": "World of Trouble",
+      "authors": [
+        "Ben H. Winters"
+      ],
+      "series": "The Last Policeman",
+      "book_number": 3,
+      "rating": 2,
+      "image": "/books/covers/world_of_trouble.jpg",
+      "summary_raw": "Is the third and final novel in . It follows Detective Palace as he uncovers his sister's involvement in a mysterious plot just days before the world's end.",
+      "summary_extra": "Shares the same weakness as : it focuses too heavily on the present at the expense of the past. Even within the present-day narrative, there are ideas that aren't fully explored, such as how different towns handle the end of the world: green towns pretend everything is fine, red towns are total chaos, blue towns are populated but everyone is hiding, etc. I wanted to experience the different types of towns, and instead they were just mentioned.",
+      "summary": "Last Policeman book 3. Detective Palace finds his sister's involvement in a mysterious plot days before the end. Same weakness as book 2: too focused on present, not enough world.",
+      "elo": 1252,
+      "matches": 3
+    },
+    "ymir": {
+      "title": "Ymir",
+      "authors": [
+        "Scott Warren"
+      ],
+      "series": "War Horses",
+      "book_number": 2,
+      "rating": 3,
+      "image": "/books/covers/ymir.jpg",
+      "summary_raw": "Keeping 's action and quick pacing while adding more backstory, character development, and a more complex plot.",
+      "summary_extra": "The story follows Vandal as he goes through training on his homeworld, saves a classmate from assassination, and defends an ice-world from space-Viking raids.",
+      "summary": "War Horses book 2. Vandal trains on his homeworld, saves a classmate from assassination, defends an ice-world from space-Viking raids. More backstory than book 1.",
+      "elo": 1484,
+      "matches": 5
+    }
+  }
+}
