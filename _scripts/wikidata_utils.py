@@ -12,7 +12,7 @@ WIKIDATA_API = "https://www.wikidata.org/w/api.php"
 USER_AGENT = "alexgude-blog-scripts/0.1 (wikidata metadata fetcher)"
 
 # Characters that require quoting in YAML scalar values.
-_YAML_SPECIAL = set(': # \' " [ ] { } , & * ? | > ! %'.split())
+_YAML_SPECIAL = set(": # ' \" [ ] { } , & * ? | > ! %".split())
 
 
 def _needs_yaml_quoting(value: str) -> bool:
@@ -49,21 +49,25 @@ def api_get(params: dict[str, str]) -> dict:
 
 def search_entity(name: str) -> str | None:
     """Search Wikidata for an entity by name. Return the Q-ID or None."""
-    data = api_get({
-        "action": "wbsearchentities",
-        "search": name,
-        "language": "en",
-        "type": "item",
-        "limit": "5",
-    })
+    data = api_get(
+        {
+            "action": "wbsearchentities",
+            "search": name,
+            "language": "en",
+            "type": "item",
+            "limit": "5",
+        }
+    )
     results = data.get("search", [])
     if not results:
         return None
 
     for i, r in enumerate(results):
         desc = r.get("description", "")
-        print(f"  [{i}] {r['id']}  {r['label']}" + (f" — {desc}" if desc else ""),
-              file=sys.stderr)
+        print(
+            f"  [{i}] {r['id']}  {r['label']}" + (f" — {desc}" if desc else ""),
+            file=sys.stderr,
+        )
 
     if sys.stdin.isatty():
         print(file=sys.stderr)
@@ -79,12 +83,14 @@ def search_entity(name: str) -> str | None:
 
 def fetch_entity(qid: str) -> dict:
     """Fetch a Wikidata entity by Q-ID."""
-    data = api_get({
-        "action": "wbgetentities",
-        "ids": qid,
-        "props": "claims|sitelinks|labels",
-        "languages": "en",
-    })
+    data = api_get(
+        {
+            "action": "wbgetentities",
+            "ids": qid,
+            "props": "claims|sitelinks|labels",
+            "languages": "en",
+        }
+    )
     return data["entities"][qid]
 
 
@@ -198,16 +204,17 @@ def get_earliest_edition_isbn(work_qid: str) -> str | None:
     # Fetch editions in batches of 50 (API limit).
     for i in range(0, len(edition_qids), 50):
         batch = edition_qids[i : i + 50]
-        data = api_get({
-            "action": "wbgetentities",
-            "ids": "|".join(batch),
-            "props": "claims",
-        })
+        data = api_get(
+            {
+                "action": "wbgetentities",
+                "ids": "|".join(batch),
+                "props": "claims",
+            }
+        )
         for qid in batch:
             entity = data.get("entities", {}).get(qid, {})
-            isbn_list = (
-                get_claim_strings(entity, "P212")
-                or get_claim_strings(entity, "P957")
+            isbn_list = get_claim_strings(entity, "P212") or get_claim_strings(
+                entity, "P957"
             )
             if isbn_list:
                 return isbn_list[0]

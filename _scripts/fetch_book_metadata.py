@@ -70,8 +70,9 @@ def format_yaml(
 
 def main() -> None:
     if len(sys.argv) < 2:
-        print("Usage: uv run fetch_book_metadata.py <Q-ID or book title>",
-              file=sys.stderr)
+        print(
+            "Usage: uv run fetch_book_metadata.py <Q-ID or book title>", file=sys.stderr
+        )
         sys.exit(1)
 
     arg = " ".join(sys.argv[1:])

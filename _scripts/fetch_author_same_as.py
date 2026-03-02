@@ -33,7 +33,11 @@ from wikidata_utils import (
 AUTHOR_PROPERTY_MAP: list[tuple[str, str, str | None]] = [
     ("P856", "official website", None),
     ("P2963", "Goodreads", "https://www.goodreads.com/author/show/{value}"),
-    ("P244", "Library of Congress", "https://id.loc.gov/authorities/names/{value}.html"),
+    (
+        "P244",
+        "Library of Congress",
+        "https://id.loc.gov/authorities/names/{value}.html",
+    ),
     ("P648", "Open Library", "https://openlibrary.org/authors/{value}"),
     ("P1233", "ISFDB", "https://www.isfdb.org/cgi-bin/ea.cgi?{value}"),
     ("P1417", "Britannica", "https://www.britannica.com/{value}"),
@@ -65,8 +69,10 @@ def format_yaml(urls: list[str], pseudonyms: list[str], title: str) -> str:
 
 def main() -> None:
     if len(sys.argv) < 2:
-        print("Usage: uv run fetch_author_same_as.py <Q-ID or author name>",
-              file=sys.stderr)
+        print(
+            "Usage: uv run fetch_author_same_as.py <Q-ID or author name>",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     arg = " ".join(sys.argv[1:])

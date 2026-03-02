@@ -31,6 +31,7 @@ from wikidata_utils import (
     yaml_quoted,
 )
 
+
 def search_book_entity(title: str, author: str) -> str:
     """Search Wikidata for a book, prioritizing results that mention the author.
 
@@ -38,13 +39,15 @@ def search_book_entity(title: str, author: str) -> str:
     contains the author's surname to the top, then presents the interactive
     picker.
     """
-    data = api_get({
-        "action": "wbsearchentities",
-        "search": title,
-        "language": "en",
-        "type": "item",
-        "limit": "15",
-    })
+    data = api_get(
+        {
+            "action": "wbsearchentities",
+            "search": title,
+            "language": "en",
+            "type": "item",
+            "limit": "15",
+        }
+    )
     results = data.get("search", [])
     if not results:
         print(f"No Wikidata entity found for: {title}", file=sys.stderr)
