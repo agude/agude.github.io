@@ -73,6 +73,12 @@
 
         .load-step.done .check { display: inline; }
 
+        .load-hint {
+            margin-top: 15px;
+            font-size: 0.85em;
+            color: #888;
+        }
+
         /* --- Tier Maker --- */
         #tier-maker { display: none; max-width: 1400px; margin: 0 auto; padding: 0 20px 40px; }
 
@@ -200,6 +206,20 @@
 
         .book-card.changed .changed-indicator { display: block; }
 
+        /* Rank badge */
+        .book-card .rank-badge {
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 1px 4px;
+            border-radius: 3px;
+            pointer-events: none;
+        }
+
         /* Tooltip */
         .book-card .tooltip {
             position: absolute;
@@ -254,6 +274,12 @@
 
     <div id="load-screen">
         <h2>Load Book Data</h2>
+        <div class="load-step" id="step-ranking">
+            <label for="ranking-input">Select books/by_rating.md</label>
+            <input type="file" id="ranking-input" accept=".md">
+            <span class="status" id="ranking-status">Not loaded</span>
+            <span class="check">&#10003;</span>
+        </div>
         <div class="load-step" id="step-books">
             <label for="books-input">Select _books/ folder</label>
             <input type="file" id="books-input" webkitdirectory>
@@ -266,12 +292,14 @@
             <span class="status" id="covers-status">Not loaded</span>
             <span class="check">&#10003;</span>
         </div>
+        <p class="load-hint">Load by_rating.md first to preserve the existing ranking order.<br>
+        Without it, books are sorted alphabetically within each tier.</p>
     </div>
 
     <div id="tier-maker">
         <div class="stats" id="stats"></div>
         <div class="toolbar">
-            <button class="btn-yaml" onclick="copyYaml()">Copy as YAML</button>
+            <button class="btn-yaml" onclick="copyYaml()">Copy ranked YAML</button>
             <button class="btn-changes" onclick="copyChanges()">Copy changed ratings</button>
             <button class="btn-reset" onclick="resetAll()">Reset to original</button>
         </div>
@@ -282,9 +310,10 @@
 
     <script>
         // --- State ---
-        let books = [];        // { title, originalRating, image (filename), coverUrl }
+        let books = [];        // { title, originalRating, currentRating, imageFilename, coverUrl, rankOrder }
         let coverUrls = {};    // filename -> objectURL
-        let loaded = { books: false, covers: false };
+        let rankedTitles = []; // ordered list from by_rating.md
+        let loaded = { books: false, covers: false, ranking: false };
 
         // --- YAML Front Matter Parser ---
         function parseFrontMatter(text) {
@@ -318,17 +347,55 @@
             return result;
         }
 
+        // --- Parse ranked_list from by_rating.md ---
+        function parseRankedList(text) {
+            const titles = [];
+            const parts = text.split('---');
+            if (parts.length < 3) return titles;
+            const front = parts[1];
+
+            let inList = false;
+            for (const line of front.split('\n')) {
+                const stripped = line.trim();
+                if (stripped.startsWith('ranked_list:')) {
+                    inList = true;
+                    continue;
+                }
+                if (!inList) continue;
+                if (stripped.startsWith('#')) continue; // YAML comment
+                if (stripped.startsWith('- ')) {
+                    let title = stripped.slice(2).trim();
+                    if ((title.startsWith('"') && title.endsWith('"')) ||
+                        (title.startsWith("'") && title.endsWith("'"))) {
+                        title = title.slice(1, -1);
+                    }
+                    titles.push(title);
+                } else if (stripped === '') {
+                    continue;
+                } else {
+                    break;
+                }
+            }
+            return titles;
+        }
+
         // --- File Loading ---
+        document.getElementById('ranking-input').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const text = await file.text();
+            rankedTitles = parseRankedList(text);
+
+            document.getElementById('ranking-status').textContent = `${rankedTitles.length} books in ranking`;
+            document.getElementById('step-ranking').classList.add('done');
+            loaded.ranking = true;
+            tryRender();
+        });
+
         document.getElementById('books-input').addEventListener('change', async (e) => {
             const files = Array.from(e.target.files);
-            const mdFiles = files.filter(f =>
-                f.name.endsWith('.md') &&
-                // Skip subdirectory files (archived reviews)
-                !f.webkitRelativePath.includes('/', f.webkitRelativePath.indexOf('/') + 1)
-            );
 
-            // Actually we need to check: webkitRelativePath is like "_books/foo.md"
-            // or "_books/subdir/foo.md". Skip the latter.
+            // Only top-level .md files in _books/
             const topLevelMd = files.filter(f => {
                 if (!f.name.endsWith('.md')) return false;
                 const parts = f.webkitRelativePath.split('/');
@@ -350,14 +417,12 @@
                         originalRating: data.rating,
                         currentRating: data.rating,
                         imageFilename: imageFilename,
-                        coverUrl: null
+                        coverUrl: null,
+                        rankOrder: Infinity  // default; overridden if ranking loaded
                     });
                     count++;
                 }
             }
-
-            // Sort by title within each rating for consistent initial order
-            books.sort((a, b) => a.title.localeCompare(b.title));
 
             document.getElementById('books-status').textContent = `${count} books loaded`;
             document.getElementById('step-books').classList.add('done');
@@ -390,6 +455,24 @@
                 if (book.imageFilename && coverUrls[book.imageFilename]) {
                     book.coverUrl = coverUrls[book.imageFilename];
                 }
+            }
+
+            // Apply ranking order if loaded
+            if (loaded.ranking && rankedTitles.length > 0) {
+                // Build case-insensitive lookup
+                const rankMap = new Map();
+                for (let i = 0; i < rankedTitles.length; i++) {
+                    rankMap.set(rankedTitles[i].toLowerCase(), i);
+                }
+                for (const book of books) {
+                    const idx = rankMap.get(book.title.toLowerCase());
+                    book.rankOrder = (idx !== undefined) ? idx : Infinity;
+                }
+                // Sort by rank order (preserves existing ranking within tiers)
+                books.sort((a, b) => a.rankOrder - b.rankOrder);
+            } else {
+                // Fallback: alphabetical
+                books.sort((a, b) => a.title.localeCompare(b.title));
             }
 
             document.getElementById('load-screen').style.display = 'none';
@@ -428,13 +511,16 @@
 
                 container.appendChild(row);
 
-                // Add books to their current tier
-                const tierBooks = books.filter(b => b.currentRating === tier.rating);
+                // Add books to their current tier, sorted by rankOrder
+                const tierBooks = books
+                    .filter(b => b.currentRating === tier.rating)
+                    .sort((a, b) => a.rankOrder - b.rankOrder);
                 for (const book of tierBooks) {
                     booksZone.appendChild(createBookCard(book));
                 }
             }
 
+            updateRankBadges();
             updateStats();
         }
 
@@ -460,6 +546,10 @@
             const indicator = document.createElement('div');
             indicator.className = 'changed-indicator';
             card.appendChild(indicator);
+
+            const badge = document.createElement('div');
+            badge.className = 'rank-badge';
+            card.appendChild(badge);
 
             const tooltip = document.createElement('div');
             tooltip.className = 'tooltip';
@@ -534,6 +624,7 @@
                     tooltip.textContent = book.title;
                 }
 
+                updateRankBadges();
                 updateStats();
             });
         }
@@ -558,6 +649,22 @@
             }
 
             return closest;
+        }
+
+        function updateRankBadges() {
+            let globalRank = 1;
+            for (const rating of [5, 4, 3, 2, 1]) {
+                const zone = document.querySelector(`.tier-books[data-rating="${rating}"]`);
+                if (!zone) continue;
+                const cards = zone.querySelectorAll('.book-card');
+                let tierRank = 1;
+                for (const card of cards) {
+                    const badge = card.querySelector('.rank-badge');
+                    badge.textContent = `#${tierRank}`;
+                    tierRank++;
+                    globalRank++;
+                }
+            }
         }
 
         function updateStats() {
@@ -597,7 +704,7 @@
             }
 
             navigator.clipboard.writeText(lines.join('\n')).then(() => {
-                showToast('YAML copied to clipboard');
+                showToast('Ranked YAML copied to clipboard');
             });
         }
 
