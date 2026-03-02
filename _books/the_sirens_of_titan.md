@@ -4,7 +4,7 @@ title: The Sirens of Titan
 book_authors: Kurt Vonnegut
 series: null
 book_number: 1
-rating: 1
+rating: 2
 image: /books/covers/the_sirens_of_titan.jpg
 wikidata_qid: Q2294155
 isbn: 978-0-340-02876-6
