@@ -5,7 +5,7 @@ book_authors: Pierce Brown
 series: Red Rising Trilogy
 book_number: 1
 is_anthology: false
-rating: null
+rating: 3
 image: /books/covers/red_rising.jpg
 wikidata_qid: Q18393778
 isbn: 978-0-345-53978-6
