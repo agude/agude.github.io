@@ -115,10 +115,10 @@ ranked_list:
   - Consider Phlebas
   - Countdown City
   - World of Trouble
+  - The Sirens of Titan
   # 1 Stars
   - The Urth of the New Sun
   - Stand on Zanzibar
-  - The Sirens of Titan
   - Lords of Uncreation
   - Eyes of the Void
   - Shards of Earth
