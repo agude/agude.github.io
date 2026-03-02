@@ -4,7 +4,7 @@ title: Mattimeo
 book_authors: Brian Jacques
 series: Redwall
 book_number: 3
-rating: 5
+rating: 4
 image: /books/covers/mattimeo.jpg
 wikidata_qid: Q683464
 isbn: 978-0-09-173898-3

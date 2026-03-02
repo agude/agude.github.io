@@ -4,7 +4,7 @@ title: Rogue Protocol
 book_authors: Martha Wells
 series: The Murderbot Diaries
 book_number: 3
-rating: 5
+rating: 3
 image: /books/covers/rogue_protocol.jpg
 wikidata_qid: Q63177761
 isbn: 978-1-250-19178-6

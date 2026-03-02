@@ -4,7 +4,7 @@ title: Matter
 book_authors: Iain M. Banks
 series: Culture
 book_number: 8
-rating: 4
+rating: 3
 image: /books/covers/matter.jpg
 wikidata_qid: Q684818
 isbn: 978-1-84149-418-0

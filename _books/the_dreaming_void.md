@@ -4,7 +4,7 @@ title: The Dreaming Void
 book_authors: Peter F. Hamilton
 series: The Void Trilogy
 book_number: 1
-rating: 5
+rating: 3
 image: /books/covers/the_dreaming_void.jpg
 wikidata_qid: Q3557788
 isbn: 978-1-4050-8880-0

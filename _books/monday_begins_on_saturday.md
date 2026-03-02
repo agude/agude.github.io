@@ -5,7 +5,7 @@ book_authors:
   - Arkady Strugatsky
   - Boris Strugatsky
 book_number: 1
-rating: 3
+rating: 2
 image: /books/covers/monday_begins_on_saturday.jpg
 wikidata_qid: Q1195862
 isbn: 978-0-87997-336-0

@@ -4,7 +4,7 @@ title: Cigars of the Pharaoh
 book_authors: Hergé
 series: The Adventures of Tintin
 book_number: 4
-rating: 3
+rating: 2
 image: /books/covers/cigars_of_the_pharaoh.jpg
 wikidata_qid: Q837304
 isbn: 978-1-4052-0615-0

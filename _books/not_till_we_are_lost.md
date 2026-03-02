@@ -5,7 +5,7 @@ book_authors: Dennis E. Taylor
 series: Bobiverse
 book_number: 5
 is_anthology: false
-rating: 4
+rating: 3
 image: /books/covers/not_till_we_are_lost.jpg
 redirect_from: /books/not_til_we_are_lost/
 wikidata_qid: Q134525267

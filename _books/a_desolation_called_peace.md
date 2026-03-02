@@ -4,7 +4,7 @@ title: A Desolation Called Peace
 book_authors: Arkady Martine
 series: Teixcalaan
 book_number: 2
-rating: 5
+rating: 4
 image: /books/covers/a_desolation_called_peace.jpg
 awards:
   - hugo

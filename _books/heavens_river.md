@@ -4,7 +4,7 @@ title: Heaven's River
 book_authors: Dennis E. Taylor
 series: Bobiverse
 book_number: 4
-rating: 3
+rating: 2
 image: /books/covers/heavens_river.jpg
 wikidata_qid: Q134525266
 isbn: 978-1-68068-226-7

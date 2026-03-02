@@ -4,7 +4,7 @@ title: A Memory Called Empire
 book_authors: Arkady Martine
 series: Teixcalaan
 book_number: 1
-rating: 5
+rating: 4
 image: /books/covers/a_memory_called_empire.jpg
 awards:
   - hugo

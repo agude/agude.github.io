@@ -6,7 +6,7 @@ book_authors:
   - Boris Strugatsky
 series: null
 book_number: 1
-rating: 5
+rating: 4
 image: /books/covers/roadside_picnic.jpg
 wikidata_qid: Q848517
 isbn: 978-0-575-02445-8

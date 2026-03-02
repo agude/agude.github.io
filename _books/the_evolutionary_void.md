@@ -4,7 +4,7 @@ title: The Evolutionary Void
 book_authors: Peter F. Hamilton
 series: The Void Trilogy
 book_number: 3
-rating: 4
+rating: 2
 image: /books/covers/the_evolutionary_void.jpg
 wikidata_qid: Q3557786
 isbn: 978-0-345-49657-7

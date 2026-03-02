@@ -4,7 +4,7 @@ title: Network Effect
 book_authors: Martha Wells
 series: The Murderbot Diaries
 book_number: 5
-rating: 5
+rating: 4
 image: /books/covers/network_effect.jpg
 wikidata_qid: Q100540380
 isbn: 978-1-250-22986-1

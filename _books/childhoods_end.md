@@ -4,7 +4,7 @@ title: Childhood's End
 book_authors: Arthur C. Clarke
 series: null
 book_number: 1
-rating: 5
+rating: 4
 image: /books/covers/childhoods_end.jpg
 wikidata_qid: Q466057
 isbn: 978-0-345-34795-4

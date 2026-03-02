@@ -4,7 +4,7 @@ title: Starquake
 book_authors: Robert L. Forward
 series: Cheela
 book_number: 2
-rating: 5
+rating: 3
 image: /books/covers/starquake.jpg
 wikidata_qid: Q3968388
 isbn: 978-0-345-31232-7

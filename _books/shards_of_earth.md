@@ -4,7 +4,7 @@ title: Shards of Earth
 book_authors: Adrian Tchaikovsky
 series: The Final Architecture
 book_number: 1
-rating: 2
+rating: 1
 image: /books/covers/shards_of_earth.jpg
 wikidata_qid: Q131382888
 isbn: 978-1-5290-5191-9

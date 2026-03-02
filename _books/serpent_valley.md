@@ -4,7 +4,7 @@ title: Serpent Valley
 book_authors: Scott Warren
 series: War Horses
 book_number: 3
-rating: 5
+rating: 4
 image: /books/covers/serpent_valley.jpg
 wikidata_qid: Q135006054
 isbn: null

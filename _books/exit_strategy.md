@@ -4,7 +4,7 @@ title: Exit Strategy
 book_authors: Martha Wells
 series: The Murderbot Diaries
 book_number: 4
-rating: 5
+rating: 3
 image: /books/covers/exit_strategy.jpg
 wikidata_qid: Q63177967
 isbn: 978-1-250-19185-4

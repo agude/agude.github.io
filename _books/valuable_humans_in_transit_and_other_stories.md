@@ -5,7 +5,7 @@ book_authors: qntm
 series: null
 book_number: 1
 is_anthology: true
-rating: 4
+rating: 3
 image: /books/covers/valuable_humans_in_transit_and_other_stories.jpg
 wikidata_qid: null
 isbn: 979-8-3592-9806-3

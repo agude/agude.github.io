@@ -4,7 +4,7 @@ title: Redwall
 book_authors: Brian Jacques
 series: Redwall
 book_number: 1
-rating: 4
+rating: 3
 image: /books/covers/redwall.jpg
 wikidata_qid: Q2617336
 isbn: 978-0-09-165090-2

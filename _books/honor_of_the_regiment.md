@@ -15,7 +15,7 @@ book_authors:
 series: Bolo
 book_number: 10
 is_anthology: true
-rating: 4
+rating: 3
 image: /books/covers/bolos_book_1_honor_of_the_regiment_2nd_edition.jpg
 wikidata_qid: Q135027319
 isbn: 978-0-671-72184-8

@@ -4,7 +4,7 @@ title: Clay's Ark
 book_authors: Octavia E. Butler
 series: Patternist
 book_number: 3
-rating: 3
+rating: 2
 image: /books/covers/clays_ark.jpg
 wikidata_qid: Q23307323
 isbn: 978-0-312-14321-3

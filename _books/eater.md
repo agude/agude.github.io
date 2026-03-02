@@ -4,7 +4,7 @@ title: Eater
 book_authors: Gregory Benford
 series: null
 book_number: 1
-rating: 4
+rating: 3
 image: /books/covers/eater.jpg
 wikidata_qid: Q5331267
 isbn: 978-0-380-97436-8

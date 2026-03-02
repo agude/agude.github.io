@@ -4,7 +4,7 @@ title: Judas Unchained
 book_authors: Peter F. Hamilton
 series: Commonwealth Saga
 book_number: 2
-rating: 5
+rating: 4
 image: /books/covers/judas_unchained.jpg
 wikidata_qid: Q18289389
 isbn: 978-1-4050-0036-9

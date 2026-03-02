@@ -4,7 +4,7 @@ title: Endymion
 book_authors: Dan Simmons
 series: Hyperion Cantos
 book_number: 3
-rating: 4
+rating: 3
 image: /books/covers/endymion.jpg
 wikidata_qid: Q2656138
 isbn: 978-0-553-10020-4

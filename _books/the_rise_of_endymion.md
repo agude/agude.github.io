@@ -4,7 +4,7 @@ title: The Rise of Endymion
 book_authors: Dan Simmons
 series: Hyperion Cantos
 book_number: 4
-rating: 4
+rating: 3
 image: /books/covers/the_rise_of_endymion.jpg
 awards:
   - locus

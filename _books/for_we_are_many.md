@@ -4,7 +4,7 @@ title: For We Are Many
 book_authors: Dennis E. Taylor
 series: Bobiverse
 book_number: 2
-rating: 4
+rating: 3
 image: /books/covers/for_we_are_many.jpg
 wikidata_qid: Q30612289
 isbn: 978-1-68068-059-1

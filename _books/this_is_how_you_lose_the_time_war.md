@@ -5,7 +5,7 @@ book_authors:
   - Amal El-Mohtar
   - Max Gladstone
 book_number: 1
-rating: 3
+rating: 2
 image: /books/covers/this_is_how_you_lose_the_time_war.jpg
 awards:
   - hugo

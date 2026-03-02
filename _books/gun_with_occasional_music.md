@@ -4,7 +4,7 @@ title: Gun, with Occasional Music
 book_authors: Jonathan Lethem
 series: null
 book_number: 1
-rating: 3
+rating: 2
 image: /books/covers/gun_with_occasional_music.jpg
 awards:
   - locus

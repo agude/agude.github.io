@@ -4,7 +4,7 @@ title: Sunstone Imperative
 book_authors: Scott Warren
 series: War Horses
 book_number: 6
-rating: 4
+rating: 3
 image: /books/covers/sunstone_imperative.jpg
 wikidata_qid: null
 isbn: null

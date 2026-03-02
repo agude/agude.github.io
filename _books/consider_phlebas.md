@@ -4,7 +4,7 @@ title: Consider Phlebas
 book_authors: Iain M. Banks
 series: Culture
 book_number: 1
-rating: 1
+rating: 2
 image: /books/covers/consider_phlebas.jpg
 wikidata_qid: Q261728
 isbn: 978-0-333-45430-5

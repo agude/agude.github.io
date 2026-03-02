@@ -4,7 +4,7 @@ title: Artificial Condition
 book_authors: Martha Wells
 series: The Murderbot Diaries
 book_number: 2
-rating: 5
+rating: 4
 image: /books/covers/artificial_condition.jpg
 wikidata_qid: Q56065509
 isbn: 978-1-250-18692-8
