@@ -4,7 +4,7 @@ title: The Abyss Beyond Dreams
 book_authors: Peter F. Hamilton
 series: The Chronicle of the Fallers
 book_number: 1
-rating: 5
+rating: 3
 image: /books/covers/the_abyss_beyond_dreams.jpg
 wikidata_qid: Q18389116
 isbn: 978-1-4472-3592-7

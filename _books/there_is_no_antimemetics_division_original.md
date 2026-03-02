@@ -4,7 +4,7 @@ title: There Is No Antimemetics Division (Original Edition)
 book_authors: qntm
 series: null
 book_number: 1
-rating: 3
+rating: 2
 image: /books/covers/there_is_no_antimemetics_division_original.jpg
 wikidata_qid: Q123682427
 isbn: 979-8-5140-6303-1

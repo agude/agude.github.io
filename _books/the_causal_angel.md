@@ -4,7 +4,7 @@ title: The Causal Angel
 book_authors: Hannu Rajaniemi
 series: Jean le Flambeur
 book_number: 3
-rating: 3
+rating: 2
 image: /books/covers/the_causal_angel.jpg
 wikidata_qid: Q18205890
 isbn: 978-0-7653-2951-6

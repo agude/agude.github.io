@@ -4,7 +4,7 @@ title: Mind of My Mind
 book_authors: Octavia E. Butler
 series: Patternist
 book_number: 2
-rating: 2
+rating: 1
 image: /books/covers/mind_of_my_mind.jpg
 wikidata_qid: Q23307127
 isbn: 978-0-385-12600-7

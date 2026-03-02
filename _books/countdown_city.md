@@ -4,7 +4,7 @@ title: Countdown City
 book_authors: Ben H. Winters
 series: The Last Policeman
 book_number: 2
-rating: 3
+rating: 2
 image: /books/covers/countdown_city.jpg
 wikidata_qid: Q18149437
 isbn: 978-1-59474-626-0

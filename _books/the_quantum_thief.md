@@ -4,7 +4,7 @@ title: The Quantum Thief
 book_authors: Hannu Rajaniemi
 series: Jean le Flambeur
 book_number: 1
-rating: 2
+rating: 1
 image: /books/covers/the_quantum_thief.jpg
 wikidata_qid: Q6303649
 isbn: 978-0-575-08887-0

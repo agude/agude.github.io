@@ -4,7 +4,7 @@ title: Salamandastron
 book_authors: Brian Jacques
 series: Redwall
 book_number: 5
-rating: 5
+rating: 4
 image: /books/covers/salamandastron.jpg
 wikidata_qid: Q2346562
 isbn: 978-0-09-176433-3

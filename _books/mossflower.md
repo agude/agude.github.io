@@ -4,7 +4,7 @@ title: Mossflower
 book_authors: Brian Jacques
 series: Redwall
 book_number: 2
-rating: 4
+rating: 3
 image: /books/covers/mossflower.jpg
 wikidata_qid: Q2576767
 isbn: 978-0-399-21549-0

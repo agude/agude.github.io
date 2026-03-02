@@ -13,117 +13,117 @@ ranked_list:
   - Disco Elysium
   - Echopraxia
   - Blindsight
-  - A Fire Upon the Deep
+  - A Fire Upon The Deep
   - Surface Detail
   - Use of Weapons
   - Look to Windward
   - The Player of Games
-  - Inversions
   - Hyperion
-  - Pandora's Star
-  - Judas Unchained
+  - Inversions
   - The Hydrogen Sonata
-  - A Memory Called Empire
-  - Night Without Stars
-  - Exit Strategy
   - The Colonel
   - The Fall of Hyperion
+  - The Triumphant
+  - A Mote in Shadow
+  # 4 Stars
+  - A Memory Called Empire
   - Artificial Condition
   - Network Effect
-  - Rogue Protocol
-  - A Desolation Called Peace
+  - The Tainted Cup
+  - There Is No Antimemetics Division
   - Explorers on the Moon
   - Childhood's End
-  - Dragon's Egg
-  - Starquake
+  - Excession
+  - Roadside Picnic
+  - A Desolation Called Peace
   - Salamandastron
   - Mattimeo
-  - Roadside Picnic
-  - The Triumphant
-  - The Abyss Beyond Dreams
   - Serpent Valley
-  - There Is No Antimemetics Division
-  - A Mote in Shadow
-  - The Dreaming Void
-  # 4 Stars
-  - Excession
-  - Redwall
-  - The Tainted Cup
   - The Sword of the Lictor
   - The Citadel of the Autarch
   - The Shadow of the Torturer
-  - A Canticle For Leibowitz
+  - A Canticle for Leibowitz
   - Destination Moon
-  - Eater
-  - The Unconquerable
-  - Patternmaster
+  - Dragon's Egg
   - Wild Seed
-  - Grand Melee
+  - The Unconquerable
+  - On Basilisk Station
+  - Pandora's Star
+  - Judas Unchained
   - Metropolitan
-  - The Temporal Void
-  - The Evolutionary Void
+  # 3 Stars
+  - Eater
+  - Night Without Stars
+  - Exit Strategy
+  - Rogue Protocol
+  - A Drop of Corruption
+  - Starquake
+  - The Abyss Beyond Dreams
+  - The Dreaming Void
+  - Redwall
+  - The Rise of Endymion
+  - Endymion
+  - Grand Melee
+  - Patternmaster
   - Valuable Humans in Transit and Other Stories
   - Dog Soldier
   - Honor of the Regiment
   - Mariel of Redwall
   - We Are Legion (We Are Bob)
-  - On Basilisk Station
   - All Systems Red
-  - A Drop of Corruption
   - Mossflower
   - Matter
+  - The Claw of the Conciliator
   - Not Till We Are Lost
   - For We Are Many
   - Sunstone Imperative
   - Ymir
-  - Endymion
-  - The Rise of Endymion
-  - City on Fire
   - All These Worlds
-  # 3 Stars
   - Last Stand
-  - Mission of Gravity
   - "Home: Habitat, Range, Niche, Territory"
-  - Martin The Warrior
-  - Chevalier
-  - This Is How You Lose the Time War
   - The Darfsteller
-  - The Moon is a Harsh Mistress
+  - The Moon Is a Harsh Mistress
   - The Left Hand of Darkness
   - The War of the Worlds
   - Rogue Bolo
   - The Last Policeman
-  - Gun, with Occasional Music
-  - Heaven's River
-  - The Claw of the Conciliator
-  - The Dragon's Banker
   - The State of the Art
   - The Blue Lotus
-  - Clay's Ark
   - The Nameless City
-  - Monday Begins on Saturday
   - "Flatland: A Romance of Many Dimensions"
+  - "Bolo: Annals of the Dinochrome Brigade"
+  # 2 Stars
+  - There Is No Antimemetics Division (Original Edition)
+  - Monday Begins on Saturday
+  - This Is How You Lose the Time War
+  - The Temporal Void
+  - The Evolutionary Void
+  - Chevalier
+  - City on Fire
+  - Mission of Gravity
+  - Martin the Warrior
   - The Fractal Prince
+  - The Dragon's Banker
+  - Heaven's River
+  - Gun, with Occasional Music
+  - Clay's Ark
   - Cigars of the Pharaoh
   - Flowers for Algernon
-  - "Bolo: Annals of the Dinochrome Brigade"
-  - The Sirens of Titan
-  - Countdown City
-  - The Causal Angel
-  - There Is No Antimemetics Division (Original Edition)
-  - Lords of Uncreation
-  # 2 Stars
   - Close to Critical
   - Star Light
+  - The Causal Angel
+  - Consider Phlebas
+  - Countdown City
+  - World of Trouble
+  # 1 Stars
+  - The Urth of the New Sun
+  - Stand on Zanzibar
+  - The Sirens of Titan
+  - Lords of Uncreation
   - Eyes of the Void
   - Shards of Earth
-  - World of Trouble
-  - Stand on Zanzibar
-  - Mind of My Mind
   - The Quantum Thief
-  - The Urth of the New Sun
-  # 1 Stars
-  - Consider Phlebas
+  - Mind of My Mind
   - House of Suns
   - Tintin in the Congo
   - The Three-Body Problem

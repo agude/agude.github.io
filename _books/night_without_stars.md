@@ -4,7 +4,7 @@ title: Night Without Stars
 book_authors: Peter F. Hamilton
 series: The Chronicle of the Fallers
 book_number: 2
-rating: 5
+rating: 3
 image: /books/covers/night_without_stars.jpg
 wikidata_qid: Q30601997
 isbn: 978-0-345-54722-4

@@ -4,7 +4,7 @@ title: Explorers on the Moon
 book_authors: Hergé
 series: The Adventures of Tintin
 book_number: 17
-rating: 5
+rating: 4
 image: /books/covers/explorers_on_the_moon.jpg
 wikidata_qid: Q1309201
 isbn: 978-0-316-35846-0

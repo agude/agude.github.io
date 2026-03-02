@@ -4,7 +4,7 @@ title: Dragon's Egg
 book_authors: Robert L. Forward
 series: Cheela
 book_number: 1
-rating: 5
+rating: 4
 image: /books/covers/dragons_egg.jpg
 awards:
   - locus

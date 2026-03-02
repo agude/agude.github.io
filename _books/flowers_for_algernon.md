@@ -4,7 +4,7 @@ title: Flowers for Algernon
 book_authors: Daniel Keyes
 series: null
 book_number: 1
-rating: 3
+rating: 2
 image: /books/covers/flowers_for_algernon.jpg
 awards:
   - hugo

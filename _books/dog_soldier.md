@@ -4,7 +4,7 @@ title: Dog Soldier
 book_authors: Scott Warren
 series: War Horses
 book_number: 4
-rating: 4
+rating: 3
 image: /books/covers/dog_soldier.jpg
 wikidata_qid: Q135006063
 isbn: null

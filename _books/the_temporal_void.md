@@ -4,7 +4,7 @@ title: The Temporal Void
 book_authors: Peter F. Hamilton
 series: The Void Trilogy
 book_number: 2
-rating: 4
+rating: 2
 image: /books/covers/the_temporal_void.jpg
 wikidata_qid: Q3557789
 isbn: 978-1-4050-8883-1

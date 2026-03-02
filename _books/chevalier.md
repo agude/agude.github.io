@@ -4,7 +4,7 @@ title: Chevalier
 book_authors: Scott Warren
 series: War Horses
 book_number: 1
-rating: 3
+rating: 2
 image: /books/covers/chevalier.jpg
 wikidata_qid: Q135003430
 isbn: 979-8-9855718-1-3

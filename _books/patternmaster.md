@@ -4,7 +4,7 @@ title: Patternmaster
 book_authors: Octavia E. Butler
 series: Patternist
 book_number: 4
-rating: 4
+rating: 3
 image: /books/covers/patternmaster.jpg
 wikidata_qid: Q23038229
 isbn: 978-0-385-12197-2

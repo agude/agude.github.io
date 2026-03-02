@@ -4,7 +4,7 @@ title: The Urth of the New Sun
 book_authors: Gene Wolfe
 series: The Book of the New Sun
 book_number: 5
-rating: 2
+rating: 1
 image: /books/covers/the_urth_of_the_new_sun.jpg
 wikidata_qid: Q3225052
 isbn: 978-0-312-93033-2

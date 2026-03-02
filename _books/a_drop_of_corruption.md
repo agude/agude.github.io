@@ -4,7 +4,7 @@ title: A Drop of Corruption
 book_authors: Robert Jackson Bennett
 series: Shadow of the Leviathan
 book_number: 2
-rating: 4
+rating: 3
 image: /books/covers/a_drop_of_corruption.jpg
 wikidata_qid: Q134481106
 isbn: 978-0-593-72382-1

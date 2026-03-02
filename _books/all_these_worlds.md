@@ -4,7 +4,7 @@ title: All These Worlds
 book_authors: Dennis E. Taylor
 series: Bobiverse
 book_number: 3
-rating: 4
+rating: 3
 image: /books/covers/all_these_worlds.jpg
 wikidata_qid: Q133306305
 isbn: 978-1-68068-060-7

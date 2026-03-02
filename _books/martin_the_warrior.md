@@ -4,7 +4,7 @@ title: Martin the Warrior
 book_authors: Brian Jacques
 series: Redwall
 book_number: 6
-rating: 3
+rating: 2
 image: /books/covers/martin_the_warrior.jpg
 wikidata_qid: Q664389
 isbn: 978-0-09-176150-9

@@ -4,7 +4,7 @@ title: Grand Melee
 book_authors: Scott Warren
 series: War Horses
 book_number: 5
-rating: 4
+rating: 3
 image: /books/covers/grand_melee.jpg
 wikidata_qid: Q135006078
 isbn: null

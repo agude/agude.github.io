@@ -4,7 +4,7 @@ title: Lords of Uncreation
 book_authors: Adrian Tchaikovsky
 series: The Final Architecture
 book_number: 3
-rating: 3
+rating: 1
 image: /books/covers/lords_of_uncreation.jpg
 wikidata_qid: Q131382911
 isbn: 978-1-5290-5198-8

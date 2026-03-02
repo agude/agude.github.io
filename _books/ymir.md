@@ -4,7 +4,7 @@ title: Ymir
 book_authors: Scott Warren
 series: War Horses
 book_number: 2
-rating: 4
+rating: 3
 image: /books/covers/ymir.jpg
 wikidata_qid: Q135006034
 isbn: null

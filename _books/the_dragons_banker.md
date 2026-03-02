@@ -4,7 +4,7 @@ title: The Dragon's Banker
 book_authors: Scott Warren
 series: null
 book_number: 1
-rating: 3
+rating: 2
 image: /books/covers/the_dragons_banker.jpg
 wikidata_qid: null
 isbn: 978-0-578-55292-7

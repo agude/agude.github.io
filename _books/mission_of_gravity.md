@@ -4,7 +4,7 @@ title: Mission of Gravity
 book_authors: Hal Clement
 series: Mesklin
 book_number: 1
-rating: 3
+rating: 2
 image: /books/covers/mission_of_gravity.jpg
 wikidata_qid: Q1769466
 isbn: 978-0-515-03479-0

@@ -4,7 +4,7 @@ title: We Are Legion (We Are Bob)
 book_authors: Dennis E. Taylor
 series: Bobiverse
 book_number: 1
-rating: 4
+rating: 3
 image: /books/covers/we_are_legion_we_are_bob.jpg
 wikidata_qid: Q30612330
 isbn: 978-1-68068-032-4

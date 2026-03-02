@@ -4,7 +4,7 @@ title: Stand on Zanzibar
 book_authors: John Brunner
 series: null
 book_number: 1
-rating: 2
+rating: 1
 image: /books/covers/stand_on_zanzibar.jpg
 awards:
   - hugo
