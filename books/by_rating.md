@@ -31,6 +31,7 @@ ranked_list:
   - Artificial Condition
   - Network Effect
   - The Tainted Cup
+  - Exit Strategy
   - Explorers on the Moon
   - Childhood's End
   - Excession
@@ -54,7 +55,6 @@ ranked_list:
   # 3 Stars
   - Eater
   - Night Without Stars
-  - Exit Strategy
   - Rogue Protocol
   - A Drop of Corruption
   - Starquake
