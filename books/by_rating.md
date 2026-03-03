@@ -25,12 +25,12 @@ ranked_list:
   - The Fall of Hyperion
   - The Triumphant
   - A Mote in Shadow
+  - There Is No Antimemetics Division
   # 4 Stars
   - A Memory Called Empire
   - Artificial Condition
   - Network Effect
   - The Tainted Cup
-  - There Is No Antimemetics Division
   - Explorers on the Moon
   - Childhood's End
   - Excession
