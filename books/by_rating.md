@@ -81,10 +81,11 @@ ranked_list:
   - All These Worlds
   - Last Stand
   - "Home: Habitat, Range, Niche, Territory"
-  - The Darfsteller
   - The Moon Is a Harsh Mistress
   - The Left Hand of Darkness
   - The War of the Worlds
+  - Red Rising
+  - The Darfsteller
   - Rogue Bolo
   - The Last Policeman
   - The State of the Art
