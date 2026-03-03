@@ -1,5 +1,5 @@
 ---
-date: 2026-02-22
+date: 2026-03-01 20:34:56 -0800
 title: Red Rising
 book_authors: Pierce Brown
 series: Red Rising Trilogy
