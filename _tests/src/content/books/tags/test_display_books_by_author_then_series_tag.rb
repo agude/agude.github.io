@@ -86,8 +86,88 @@ class TestDisplayBooksByAuthorThenSeriesTag < Minitest::Test
     )
     output = Liquid::Template.parse('{% display_books_by_author_then_series %}').render!(md_context)
     assert_match(/^## /, output)
+    assert_includes output, '### Standalone'
     assert_match(/^- \[_.*_\]\(.*\)/, output)
     refute_match(/<div/, output)
+  end
+
+  def test_markdown_mode_standalone_before_series
+    books = [
+      create_doc(
+        { 'title' => 'Series Book', 'book_authors' => ['Author One'], 'series' => 'Series X', 'book_number' => 1 },
+        '/books/a.html',
+      ),
+      create_doc(
+        { 'title' => 'Standalone Book', 'book_authors' => ['Author One'] },
+        '/books/b.html',
+      ),
+    ]
+    site = create_site({}, { 'books' => books })
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    output = Liquid::Template.parse('{% display_books_by_author_then_series %}').render!(md_context)
+    standalone_pos = output.index('### Standalone')
+    series_pos = output.index('### Series X')
+    assert standalone_pos < series_pos, 'Standalone should appear before series groups'
+  end
+
+  def test_markdown_mode_standalone_only_author
+    books = [
+      create_doc(
+        { 'title' => 'Solo Book', 'book_authors' => ['Solo Author'] },
+        '/books/solo.html',
+      ),
+    ]
+    site = create_site({}, { 'books' => books })
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    output = Liquid::Template.parse('{% display_books_by_author_then_series %}').render!(md_context)
+    assert_includes output, '## Solo Author'
+    assert_includes output, '### Standalone'
+    assert_match(/\[_Solo Book_\]/, output)
+  end
+
+  def test_markdown_mode_series_only_author_no_standalone_heading
+    books = [
+      create_doc(
+        { 'title' => 'Series Book', 'book_authors' => ['Series Author'], 'series' => 'Epic Series', 'book_number' => 1 },
+        '/books/s.html',
+      ),
+    ]
+    site = create_site({}, { 'books' => books })
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    output = Liquid::Template.parse('{% display_books_by_author_then_series %}').render!(md_context)
+    assert_includes output, '## Series Author'
+    assert_includes output, '### Epic Series'
+    refute_includes output, '### Standalone'
+  end
+
+  def test_markdown_mode_multiple_authors
+    books = [
+      create_doc(
+        { 'title' => 'Book by Alpha', 'book_authors' => ['Alpha Author'] },
+        '/books/alpha.html',
+      ),
+      create_doc(
+        { 'title' => 'Book by Beta', 'book_authors' => ['Beta Author'] },
+        '/books/beta.html',
+      ),
+    ]
+    site = create_site({}, { 'books' => books })
+    md_context = create_context(
+      {},
+      { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
+    )
+    output = Liquid::Template.parse('{% display_books_by_author_then_series %}').render!(md_context)
+    assert_includes output, '## Alpha Author'
+    assert_includes output, '## Beta Author'
   end
 
   def test_render_includes_log_messages_from_finder

@@ -217,6 +217,59 @@ class TestDisplayBooksByAuthorTag < Minitest::Test
     assert standalone_pos < series_pos, 'Standalone section should appear before series groups'
   end
 
+  def test_markdown_mode_standalone_only_author_has_heading
+    standalone_only_author = 'Solo Author'
+    books = [
+      create_doc(
+        { 'title' => 'Solo Book One', 'book_authors' => [standalone_only_author] },
+        '/solo1.html',
+      ),
+      create_doc(
+        { 'title' => 'Solo Book Two', 'book_authors' => [standalone_only_author] },
+        '/solo2.html',
+      ),
+    ]
+    site = create_site({ 'url' => 'http://example.com' }, { 'books' => books })
+    md_context = create_context(
+      {},
+      {
+        site: site,
+        page: create_doc({ 'path' => 'current.html' }, '/current.html'),
+        render_mode: :markdown,
+      },
+    )
+    output = ''
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse("{% display_books_by_author '#{standalone_only_author}' %}").render!(md_context)
+    end
+    assert_includes output, '## Standalone'
+  end
+
+  def test_markdown_mode_series_only_author_no_standalone_heading
+    series_only_author = 'Series Author'
+    books = [
+      create_doc(
+        { 'title' => 'Series Book', 'book_authors' => [series_only_author], 'series' => 'Epic Series', 'book_number' => 1 },
+        '/sb1.html',
+      ),
+    ]
+    site = create_site({ 'url' => 'http://example.com' }, { 'books' => books })
+    md_context = create_context(
+      {},
+      {
+        site: site,
+        page: create_doc({ 'path' => 'current.html' }, '/current.html'),
+        render_mode: :markdown,
+      },
+    )
+    output = ''
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse("{% display_books_by_author '#{series_only_author}' %}").render!(md_context)
+    end
+    refute_includes output, '## Standalone'
+    assert_includes output, '## Epic Series'
+  end
+
   def test_markdown_mode_groups_by_series
     md_context = create_context(
       {},
