@@ -191,6 +191,40 @@ class TestDisplayAllBooksGroupedTag < Minitest::Test
     refute_match(/<div/, output)
   end
 
+  def test_markdown_mode_standalone_before_series
+    md_context = create_context(
+      {}, { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html'), render_mode: :markdown },
+    )
+
+    output = ''
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse('{% display_all_books_grouped %}').render!(md_context)
+    end
+
+    standalone_pos = output.index('## Standalone')
+    series_pos = output.index('## Series Alpha')
+    assert standalone_pos < series_pos, 'Standalone section should appear before series groups in markdown'
+  end
+
+  def test_markdown_mode_standalone_only_no_series
+    standalone_books = [
+      create_doc({ 'title' => 'Only Book', 'book_author' => 'Author X' }, '/only.html'),
+    ]
+    site = create_site({}, { 'books' => standalone_books })
+    md_context = create_context(
+      {}, { site: site, page: create_doc({ 'path' => 'current.html' }, '/current.html'), render_mode: :markdown },
+    )
+
+    output = ''
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = Liquid::Template.parse('{% display_all_books_grouped %}').render!(md_context)
+    end
+
+    assert_includes output, '## Standalone'
+    assert_match(/\[_Only Book_\]/, output)
+    refute_match(/## Series/, output)
+  end
+
   def test_markdown_mode_empty_when_no_books
     empty_site = create_site({}, { 'books' => [] })
     md_context = create_context(

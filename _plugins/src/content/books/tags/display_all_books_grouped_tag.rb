@@ -44,16 +44,16 @@ module Jekyll
 
         def render_markdown(data)
           lines = []
-          (data[:series_groups] || []).each do |group|
-            lines << "## #{group[:name]}"
-            group[:books].each do |book|
-              lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book))
-            end
-          end
           standalone = data[:standalone_books] || []
           unless standalone.empty?
             lines << '## Standalone'
             standalone.each do |book|
+              lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book))
+            end
+          end
+          (data[:series_groups] || []).each do |group|
+            lines << "## #{group[:name]}"
+            group[:books].each do |book|
               lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book))
             end
           end

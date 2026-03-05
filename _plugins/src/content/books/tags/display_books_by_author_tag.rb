@@ -81,7 +81,7 @@ module Jekyll
             standalone = data[:standalone_books] || []
             series_groups = data[:series_groups] || []
             unless standalone.empty?
-              lines << '## Standalone' unless series_groups.empty?
+              lines << '## Standalone'
               standalone.each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
             end
             series_groups.each do |group|
