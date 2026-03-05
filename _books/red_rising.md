@@ -34,6 +34,15 @@ is the first book in {% series_text page.series link=false %}.
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
+{% capture nam %}{% author_link "Heesung Nam" %}{% endcapture %}
+{% capture nams %}{% author_link "Heesung Nam" possessive %}{% endcapture %}
+{% capture nam_lastname %}{% author_link "Heesung Nam" link_text="Nam" %}{% endcapture %}
+{% capture nams_lastname %}{% author_link "Heesung Nam" link_text="Nam" possessive %}{% endcapture %}
+{% capture the_legendary_moonlight_sculptor %}{% book_link "The Legendary Moonlight Sculptor" %}{% endcapture %}
+
+{% capture costikyan_gelber_and_goldbergs %}{% author_link "Greg Costikyan" link_text="Costikyan" %}, {% author_link "Dan Gelber" link_text="Gelber" %}, and {% author_link "Eric Goldberg" link_text="Goldberg" possessive %}{% endcapture %}
+{% capture paranoia %}{% game_title "Paranoia" %}{% endcapture %}
+
 {% capture rand %}{% author_link "Ayn Rand" %}{% endcapture %}
 {% capture rands %}{% author_link "Ayn Rand" possessive %}{% endcapture %}  
 {% capture rand_lastname %}{% author_link "Ayn Rand" link_text="Rand" %}{% endcapture %}
@@ -146,16 +155,19 @@ is the first book in {% series_text page.series link=false %}.
 
 {% capture gattaca %}{% movie_title "Gattaca" %}{% endcapture %}
 
-I did not expect to like {{ red_rising }}, which my book club pitched as "{{
-the_hunger_games }} on Mars". And did it have good writing? No. But did it
-have interesting
+I did not expect to like {{ this_book }}.
 
-{{ this_book }} is a pastiche of a lot of popular books that came before it.
-Most directly, it's {{ collinss_lastname }} {{ the_hunger_games }} but on
-Mars. The reds compete to mine the most to win additional rations, and the
-children of the Golds are throwing into a violent game to win patronage.
+It is a pastiche of many popular books that came before it. Most directly,
+it's {{ collinss_lastname }} {{ the_hunger_games }}, but on Mars. The reds
+compete in their mines to win additional rations, and the children of the
+Golds are thrown into a violent game to win patronage. The various houses and
+being sorted into them is from {{ rowlings_lastname }} {{ harry_potter }}. The
+genetically stratified culture is borrowed from {{ huxleys_lastname }} {{
+brave_new_world }}, and the colors to represent each are from {{
+costikyan_gelber_and_goldbergs }} {{ paranoia }}. It even brings in game
+mechanics such as leveling-up to win Primus straight out of the LitRPGs---like
+{{ nams_lastname }} {{ the_legendary_moonlight_sculptor }}---that were just
+taking off in 2013.
 
-It even brings in game mechanics such as leveling-up to win Primus straight
-out of LitRPGs that were just taking off in 2013.
-
-Darrow is a classic Christ figure, like Sevarian in {{
+Darrow is a classic Christ figure, like Sevarian in {{ botns }} or Father Duré
+in {{ hyperion }}.
