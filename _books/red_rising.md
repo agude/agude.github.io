@@ -169,5 +169,20 @@ mechanics such as leveling-up to win Primus straight out of the LitRPGs---like
 {{ nams_lastname }} {{ the_legendary_moonlight_sculptor }}---that were just
 taking off in 2013.
 
-Darrow is a classic Christ figure, like Sevarian in {{ botns }} or Father Duré
-in {{ hyperion }}.
+Darrow is a Christ figure---like Sevarian in {{ botns }}, Father Duré in {{
+hyperion }}, or Edeard in {{ the_void_trilogy }}---but with a Greek twist. He
+dies for his people and is resurrected. Then he rises from the underworld to
+overthrow his masters just as [Cronus][cronus] usurps his father the sky-god
+[Uranus][uranus]. He even has a scythe.[^castration]
+
+[^castration]: Although _so far_ he hasn't castrated anyone with it.
+
+[cronus]: https://en.wikipedia.org/wiki/Cronus
+[uranus]: https://en.wikipedia.org/wiki/Uranus_(mythology)
+
+The strength of the book is its pacing. There is a new twist or cliffhanger
+every few pages. Darrow meets new characters, befriends them, and then watches
+them die in the span of a chapter. I constantly felt the need to keep turning
+the pages to find out what happened next.
+
+The book's weakest part is everything else.
