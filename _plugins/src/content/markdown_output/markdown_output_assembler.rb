@@ -11,6 +11,7 @@ require_relative '../../infrastructure/text/markdown_text_utils'
 require_relative 'markdown_body_hook'
 require_relative 'markdown_card_utils'
 require_relative 'markdown_link_formatter'
+require_relative '../books/core/book_awards_formatter'
 require_relative 'tags/llms_txt_index_tag'
 
 module Jekyll
@@ -267,27 +268,9 @@ module Jekyll
       private_class_method :format_series_name
 
       def self.format_awards(item, site)
-        parts = []
         awards = item.data['awards']
-        if awards.is_a?(Array) && !awards.empty?
-          awards.sort.each do |award|
-            label = award.split.map(&:capitalize).join(' ')
-            slug = Jekyll::Utils.slugify(award)
-            parts << "[#{MdText.escape_link_text(label)}](/books/by-award/##{slug}-award)"
-          end
-        end
-
         mentions = site.data.dig('link_cache', 'favorites_mentions', item.url)
-        if mentions.is_a?(Array) && !mentions.empty?
-          mentions.sort_by { |p| p.data['is_favorites_list'].to_s }.reverse_each do |post|
-            year = post.data['is_favorites_list']
-            parts << "[#{MdText.escape_link_text("#{year} Favorites")}](#{MdText.escape_url(post.url)})"
-          end
-        end
-
-        return nil if parts.empty?
-
-        "Awards: #{parts.join(', ')}"
+        Jekyll::Books::Core::BookAwardsFormatter.new(awards, mentions).render
       end
       private_class_method :format_awards
 
