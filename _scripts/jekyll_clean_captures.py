@@ -32,10 +32,14 @@ def find_unused_captures(content):
         # current capture block's definition.
         search_content = content[: match.start()] + content[match.end() :]
 
-        # Regex to find usage of the variable, e.g., {{ my_variable }}
-        usage_regex = re.compile(r"{{\s*" + re.escape(variable_name) + r"\s*}}")
+        # Check for usage in output tags: {{ my_variable }}
+        output_regex = re.compile(r"{{\s*" + re.escape(variable_name) + r"\s*}}")
+        # Check for usage as a tag parameter value: tag arg=my_variable
+        param_regex = re.compile(r"=\s*" + re.escape(variable_name) + r"(?:\s|%)")
 
-        if not usage_regex.search(search_content):
+        if not output_regex.search(search_content) and not param_regex.search(
+            search_content
+        ):
             unused.append((variable_name, match))
 
     return unused

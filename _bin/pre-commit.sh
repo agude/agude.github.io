@@ -3,6 +3,7 @@
 # Pre-commit hook: runs formatters inside Docker containers.
 #   Stage 1: RuboCop on staged Ruby files
 #   Stage 2: Prettier on staged Markdown files
+#   Stage 3: Ruff on staged Python files
 #
 # Auto-fixes and re-stages; rejects the commit if uncorrectable issues remain.
 
@@ -79,6 +80,36 @@ if [ -n "$STAGED_MD_FILES" ]; then
     OVERALL_EXIT=1
   else
     echo "✅ Prettier passed."
+  fi
+fi
+
+# ===========================================================================
+# Stage 3: Ruff on staged Python files
+# ===========================================================================
+
+STAGED_PY_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$' || true)
+
+if [ -n "$STAGED_PY_FILES" ]; then
+  echo "---"
+  echo "Running Ruff on staged Python files..."
+  echo "$STAGED_PY_FILES" | tr ' ' '\n'
+  echo "---"
+
+  echo "$STAGED_PY_FILES" | xargs ruff check --fix
+  RUFF_CHECK_EXIT=$?
+
+  echo "$STAGED_PY_FILES" | xargs ruff format
+  RUFF_FORMAT_EXIT=$?
+
+  echo "$STAGED_PY_FILES" | xargs git add
+
+  if [ $RUFF_CHECK_EXIT -ne 0 ] || [ $RUFF_FORMAT_EXIT -ne 0 ]; then
+    echo "---"
+    echo "❌ Ruff found uncorrectable issues in Python files."
+    echo "   Please fix the errors above and try again."
+    OVERALL_EXIT=1
+  else
+    echo "✅ Ruff passed."
   fi
 fi
 
