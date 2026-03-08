@@ -5,7 +5,7 @@ book_authors: Pierce Brown
 series: Red Rising Trilogy
 book_number: 1
 is_anthology: false
-rating: 3
+rating: 2
 image: /books/covers/red_rising.jpg
 wikidata_qid: Q18393778
 isbn: 978-0-345-53978-6
@@ -234,26 +234,25 @@ rule the empire. So go murder each other while we drink and party on Mt.
 Olympus.
 
 {{ this_book }} reminded me of _a lot_ of other books, some that clearly
-influenced it and others it might have influenced. The Golds' lunar revolution
-and the way people talk slightly differently from modern English are like {{
-heinleins_lastname }} {{ the_moon_is_a_harsh_mistress }}. Iron Golds have
-cheek scars like those in {{ tchaikovskys_lastname }} {{
-the_final_architecture }}, which are based on [dueling scars][scars] from 19th
-century Germany and Austria. The faked execution mirrors how Endymion is saved
-and recruited in {{ simmonss_lastname }} {{ endymion }}. There are throwaway
-references to Osgiliath from {{ tolkiens_lastname }} {{ the_lord_of_the_rings
-}}. Mickey, the Violet Carver who makes Darrow a Gold, reminded me of Ximenyr
-from {{ bankss_lastname }} {{ the_hydrogen_sonata }} with his... too many
-dicks. Darrow's trick of faking a fire to reveal the opponent's banner is
-borrowed from Sherlock Holmes in {{ doyles_lastname }} {{ a_scandal_in_bohemia
-}}. The Institute is similar to the Battle School from {{ cards_lastname }} {{
-enders_game }}, especially the brutal environment to hone children into
-leaders; there is a passing reference to Darrow as Wiggins. The interfering
-Proctors are modeled on the Greek gods flying around the battlefield in {{
-homers }} {{ the_iliad }} and {{ the_odyssey }}. Like Vandal in {{
-warrens_lastname }} {{ grand_melee }}, Darrow is given the choice of winning
-or bowing out but forwarding his cause. The revolution reminds me of {{
-williamss_lastname }} {{ metropolitan }}.
+influenced it and others it might have influenced. The Institute is similar to
+the Battle School from {{ cards_lastname }} {{ enders_game }}, especially as a
+brutal environment to hone children into leaders; there is even a passing
+reference to Darrow as Wiggins. The interfering Proctors are modeled on the
+Greek gods flying around the battlefield in {{ homers }} {{ the_iliad }} and
+{{ the_odyssey }}. The Golds' lunar revolution and the way people talk
+slightly differently from modern English are like {{ heinleins_lastname }} {{
+the_moon_is_a_harsh_mistress }}, and the broader revolution reminds me of {{
+williamss_lastname }} {{ metropolitan }}. Like Vandal in {{ warrens_lastname
+}} {{ grand_melee }}, Darrow is given the choice of winning or bowing out but
+forwarding his cause. The faked execution mirrors how Endymion is saved and
+recruited in {{ simmonss_lastname }} {{ endymion }}, and Darrow's trick of
+faking a fire to reveal the opponent's banner is borrowed from Sherlock Holmes
+in {{ doyles_lastname }} {{ a_scandal_in_bohemia }}. Iron Golds have cheek
+scars like those in {{ tchaikovskys_lastname }} {{ the_final_architecture }},
+based on [dueling scars][scars] from 19th century Germany and Austria, and
+there are throwaway references to Osgiliath from {{ tolkiens_lastname }} {{
+the_lord_of_the_rings }}. Mickey, the Violet Carver who makes Darrow a Gold,
+reminded me of Ximenyr from {{ bankss_lastname }} {{ the_hydrogen_sonata }}.
 
 [scars]: https://en.wikipedia.org/wiki/Dueling_scar
 

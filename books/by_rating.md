@@ -84,7 +84,6 @@ ranked_list:
   - The Moon Is a Harsh Mistress
   - The Left Hand of Darkness
   - The War of the Worlds
-  - Red Rising
   - The Darfsteller
   - Rogue Bolo
   - The Last Policeman
@@ -95,6 +94,7 @@ ranked_list:
   - "Bolo: Annals of the Dinochrome Brigade"
   # 2 Stars
   - There Is No Antimemetics Division (Original Edition)
+  - Red Rising
   - Monday Begins on Saturday
   - This Is How You Lose the Time War
   - The Temporal Void
