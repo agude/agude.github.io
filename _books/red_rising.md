@@ -181,9 +181,9 @@ I did not expect to like {{ this_book }}.
 It's a pastiche of many popular books that came before it. Most directly, it's
 {{ collinss_lastname }} {{ the_hunger_games }}, but on Mars. The Reds compete
 in their mines to win additional rations, and the children of the Golds are
-thrown into a violent game to win patronage. Being sorted into houses is from
-{{ rowlings_lastname }} {{ harry_potter }}. The genetically stratified culture
-is borrowed from {{ huxleys_lastname }} {{ brave_new_world }}, and the
+thrown into a violent game to win patronage. Being sorted into houses comes
+from {{ rowlings_lastname }} {{ harry_potter }}. The genetically stratified
+culture is borrowed from {{ huxleys_lastname }} {{ brave_new_world }}, and the
 color-coded castes are from {{ costikyan_gelber_and_goldbergs }} {{ paranoia
 }}. It even brings in game mechanics like leveling up to win Primus, straight
 out of the LitRPGs---like {{ nams_lastname }} {{
@@ -192,9 +192,9 @@ the_legendary_moonlight_sculptor }}---that were just taking off in 2013.
 Darrow is a Christ figure---like Severian in {{ botns }}, Father Duré in {{
 hyperion }}, Edeard in {{ the_void_trilogy }}, and Paul in {{ dune_series
 }}---but with a Greek twist. He dies for his people and is resurrected. Then
-he rises from the underworld to overthrow his masters just as [Cronus][cronus]
-usurps his father the sky-god [Uranus][uranus]. He even has a
-scythe.[^castration]
+he rises from the underworld to overthrow his masters, just as
+[Cronus][cronus] usurps his father, the sky-god [Uranus][uranus]. He even has
+a scythe.[^castration]
 
 [^castration]: Although _so far_ he hasn't castrated anyone with it.
 
@@ -218,16 +218,16 @@ intertextuality in the {{ hyperion_cantos }}, which I read right before this.
 And the pace, which is what kept me turning the pages, blunts the emotional
 impact. At one point Darrow discovers another Red disguised as a Gold, but one
 who is taking brutal revenge and endangering their mission. He is supposed to
-be both a dark reflection of Darrow, and a dilemma: how can Darrow kill this
+be both a dark reflection of Darrow and a dilemma: how can Darrow kill this
 man who is more his brother than any of the Golds? Sounds like a strong
-emotional hook right?! Too bad, we killed him in three pages. We won't really
+emotional hook, right?! Too bad! We killed him in three pages. We won't really
 think about that again. Moving on!
 
 {{ the_author }} doesn't trust the reader. At several points he has a
 character turn to the camera and tell the audience what they should have
 picked up. The worst example is when the leader of the Golds on Mars tells the
-students that empires fall when they become decadent, and that's why they
-devised the brutal Institute, to winnow out those without the strength to
+students that empires fall when they become decadent, and that this is why
+they devised the brutal Institute: to winnow out those without the strength to
 rule the empire. So go murder each other while we drink and party on Mt.
 Olympus.
 
@@ -249,7 +249,7 @@ enders_game }}, especially the brutal environment to hone children into
 leaders; there is a passing reference to Darrow as Wiggins. The interfering
 Proctors are modeled on the Greek gods flying around the battlefield in {{
 homers }} {{ the_iliad }} and {{ the_odyssey }}. Like Vandal in {{
-warrens_lastname }} {{ grand_melee }}, Darrow is given the choice of winning,
+warrens_lastname }} {{ grand_melee }}, Darrow is given the choice of winning
 or bowing out but forwarding his cause. The revolution reminds me of {{
 williamss_lastname }} {{ metropolitan }}.
 
