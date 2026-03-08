@@ -2,6 +2,8 @@
 # /// script
 # requires-python = ">=3.10"
 # ///
+"""Find and remove unused Liquid capture blocks from Markdown files."""
+
 import argparse
 import re
 import sys

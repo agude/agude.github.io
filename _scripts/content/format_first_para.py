@@ -2,6 +2,8 @@
 # /// script
 # requires-python = ">=3.10"
 # ///
+"""Re-wrap the first paragraph of a Markdown file to 78 columns."""
+
 import sys
 import textwrap
 import glob

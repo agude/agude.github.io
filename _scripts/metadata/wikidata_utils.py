@@ -1,4 +1,5 @@
 """Shared Wikidata API utilities for metadata fetcher scripts."""
+# not-a-script
 
 from __future__ import annotations
 
