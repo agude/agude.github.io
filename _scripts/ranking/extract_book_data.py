@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.12"
+# ///
 """Extract book data from _books/ front matter and first paragraphs.
 
 Outputs a JSON state file suitable for the ELO ranking tool.
 """
 
-import glob
 import json
 import re
-import sys
 from pathlib import Path
 
 BOOKS_DIR = Path(__file__).resolve().parent.parent / "_books"

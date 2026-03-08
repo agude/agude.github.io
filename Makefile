@@ -33,7 +33,7 @@ DOCKER_RUN := docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) 
 TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb')
 
 # Tier 1: Daily drivers
-.PHONY: serve build test lint clean debug
+.PHONY: serve build test test-scripts lint clean debug scripts
 
 # Tier 2: Command variants
 .PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-liquid
@@ -146,6 +146,53 @@ debug: image-build
 	@echo "Starting interactive debug session in container..."
 	@docker run -it $(DOCKER_RUN_OPTS) -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) /bin/bash
 
+# List available scripts with one-line descriptions and invocations.
+scripts:
+	@echo "Available scripts (run from repo root unless noted):"
+	@echo ""
+	@echo "== content =="
+	@echo "  backdate_rating.py     Backdate review dates to git commit of rating change"
+	@echo "    uv run _scripts/content/backdate_rating.py _books/some_book.md"
+	@echo ""
+	@echo "  format_first_para.py   Re-wrap the first paragraph to 78 columns"
+	@echo "    uv run _scripts/content/format_first_para.py _books/some_book.md"
+	@echo ""
+	@echo "  jekyll_clean_captures.py  Remove unused Liquid capture blocks"
+	@echo "    uv run _scripts/content/jekyll_clean_captures.py _books/some_book.md"
+	@echo ""
+	@echo "  make_pages.py          Generate author and series pages from book metadata"
+	@echo "    uv run _scripts/content/make_pages.py"
+	@echo ""
+	@echo "== diagnostics =="
+	@echo "  compare_backlinks.py   Compare backlink sections between two site builds"
+	@echo "    uv run _scripts/diagnostics/compare_backlinks.py"
+	@echo ""
+	@echo "  html_diff.py           Semantically diff two Jekyll builds, ignoring noise"
+	@echo "    uv run _scripts/diagnostics/html_diff.py old/ new/"
+	@echo ""
+	@echo "== metadata (run from _scripts/metadata/ for local imports) =="
+	@echo "  fetch_author_same_as.py  Fetch author sameAs URLs from Wikidata"
+	@echo "    cd _scripts/metadata && uv run fetch_author_same_as.py Q312579"
+	@echo ""
+	@echo "  fetch_book_metadata.py   Fetch book metadata from Wikidata"
+	@echo "    cd _scripts/metadata && uv run fetch_book_metadata.py Q302026"
+	@echo ""
+	@echo "  format_isbn.py         Hyphenate ISBNs in book front matter"
+	@echo "    uv run _scripts/metadata/format_isbn.py"
+	@echo ""
+	@echo "  update_book_metadata.py  Write Wikidata metadata into a book file"
+	@echo "    cd _scripts/metadata && uv run update_book_metadata.py ../../_books/matter.md"
+	@echo ""
+	@echo "== ranking =="
+	@echo "  extract_book_data.py   Export book data as JSON for the ELO ranker"
+	@echo "    uv run _scripts/ranking/extract_book_data.py"
+	@echo ""
+	@echo "  push_ratings_from_ranking.py  Push star ratings from by_rating.md to book files"
+	@echo "    uv run _scripts/ranking/push_ratings_from_ranking.py --dry-run"
+	@echo ""
+	@echo "  reorder_ranking.py     Reorder by_rating.md to match current front matter"
+	@echo "    uv run _scripts/ranking/reorder_ranking.py --dry-run"
+
 # Run Minitest tests located in _tests/ inside the Docker container.
 test: image-build # Depends on the Docker image being built/up-to-date
 	@echo "Running tests..."
@@ -161,6 +208,12 @@ test: image-build # Depends on the Docker image being built/up-to-date
 		-e "require 'test_helper'; ARGV.each { |f| load f }" \
 		$(TEST)
 	@echo "Tests finished successfully."
+
+# Run Python script tests via pytest.
+test-scripts:
+	@echo "Running script tests..."
+	@uv run --project _scripts pytest _scripts/tests/ -v
+	@echo "Script tests finished."
 
 # Run tests and generate a code coverage report.
 test-cov: image-build clean-coverage

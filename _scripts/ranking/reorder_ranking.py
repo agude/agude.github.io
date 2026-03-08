@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.12"
+# ///
 """Reorder the ranked_list in books/by_rating.md to match current front matter ratings.
 
 Algorithm:

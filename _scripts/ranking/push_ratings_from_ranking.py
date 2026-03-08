@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.12"
+# ///
 """Read the ranked_list in books/by_rating.md and update rating: in each book's front matter.
 
 The star tier is determined by the YAML comments (# 5 Stars, # 4 Stars, etc.)
