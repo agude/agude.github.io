@@ -81,10 +81,10 @@ ranked_list:
   - All These Worlds
   - Last Stand
   - "Home: Habitat, Range, Niche, Territory"
-  - The Darfsteller
   - The Moon Is a Harsh Mistress
   - The Left Hand of Darkness
   - The War of the Worlds
+  - The Darfsteller
   - Rogue Bolo
   - The Last Policeman
   - The State of the Art
@@ -94,6 +94,7 @@ ranked_list:
   - "Bolo: Annals of the Dinochrome Brigade"
   # 2 Stars
   - There Is No Antimemetics Division (Original Edition)
+  - Red Rising
   - Monday Begins on Saturday
   - This Is How You Lose the Time War
   - The Temporal Void

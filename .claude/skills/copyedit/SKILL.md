@@ -27,7 +27,9 @@ Fix ONLY:
 ### Polish Mode
 
 Follow this prompt:
-> Fix errors, make it clearer. Reword to make the arguments and sentences more coherent. Use the same sort of words I'm using, don't substitute fancy synonyms. Maintain my voice.
+> Fix errors, make it clearer. Reword to make the arguments and sentences more
+> coherent. Use the same sort of words I'm using, don't substitute fancy
+> synonyms. Maintain my voice.
 
 You may:
 - Fix all grammar/spelling issues
@@ -43,9 +45,13 @@ You must:
 
 ## Output Format
 
-**Add the edited copy to the bottom of the article, separated by a markdown HR break.**
+### Polish Mode
 
-For grammar mode, just change in place, and also list the changes made so the author can review them.
+**Add the edited copy to the bottom of the article, separated by a markdown HR break.** This is a first draft. After that, work with the author to iterate: propose options for specific sentences or paragraphs, discuss transitions, and refine collaboratively.
+
+### Grammar Mode
+
+Change in place, and also list the changes made so the author can review them.
 
 ## Voice & Style Guide
 
@@ -75,7 +81,7 @@ Key points:
 See [references/BOOK-REVIEWS.md](references/BOOK-REVIEWS.md) for details on book review structure.
 
 Key constraints:
-- **First paragraph**: Uses `{{ page.title }}`, `{{ page.book_authors }}`, etc. No custom plugin tags. This paragraph is pulled out for social media previews, so it must stand alone.
+- **First paragraph**: Uses inline plugin tags (`{% book_link page.title %}`, `{% author_link page.book_authors %}`, `{% series_text page.series %}`), but no capture variables. This paragraph is pulled out for social media previews, so it must stand alone.
 - **After first paragraph**: `{% capture %}` blocks define template variables, then prose continues using those variables.
 - **Paragraph 2 transition**: The challenge is prose flow---don't repeat too much of what paragraph 1 just said. Find a new angle or continue the thought. Generally the author has already tried to do this but help them a bit.
 - **References to other works**: These create backlinks, so mentioning other books/authors is encouraged, but again the author will have filled in most of these. You may suggest others.
