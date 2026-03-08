@@ -89,6 +89,7 @@ and joins a revolution by infiltrating the Gold ruling class.
 {% capture the_lord_of_the_rings %}{% book_link "The Lord of the Rings" %}{% endcapture %}
 
 {% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
+{% capture player_of_games %}{% book_link "The Player of Games" %}{% endcapture %}
 {% capture the_hydrogen_sonata %}{% book_link "The Hydrogen Sonata" %}{% endcapture %}
 
 {% capture rowlings_lastname %}{% author_link "J.K. Rowling" link_text="Rowling" possessive %}{% endcapture %}
@@ -119,7 +120,9 @@ from {{ rowlings_lastname }} {{ harry_potter }}. The genetically stratified
 culture is borrowed from {{ huxleys_lastname }} {{ brave_new_world }}, and the
 color-coded castes are from {{ costikyan_gelber_and_goldbergs }} {{ paranoia
 }}. The Golds' belief that greatness is dragged down by lesser people who want
-to freeload is {{ rands_lastname }} {{ atlas_shrugged }}. It even brings in
+to freeload is {{ rands_lastname }} {{ atlas_shrugged }}. The whole premise of
+an outsider destroying a corrupt empire from within by beating them at their
+own game is {{ bankss_lastname }} {{ player_of_games }}. It even brings in
 game mechanics like leveling up to win Primus, straight out of the LitRPGs
 like {{ nams_lastname }} {{ the_legendary_moonlight_sculptor }} that were just
 taking off in 2013.
@@ -129,7 +132,7 @@ hyperion }}, Edeard in {{ the_void_trilogy }}, and Paul in {{ dune_series
 }}---but with a Greek twist. He dies for his people and is resurrected. Then
 he rises from the underworld to overthrow his masters, just as
 [Cronus][cronus] usurps his father, the sky-god [Uranus][uranus]. He even has
-a scythe.[^castration]
+a sickle.[^castration]
 
 [^castration]: Although _so far_ he hasn't castrated anyone with it.
 
@@ -170,7 +173,7 @@ Olympus.
 influenced it and others it might have influenced. The Institute is similar to
 the Battle School from {{ cards_lastname }} {{ enders_game }}, especially as a
 brutal environment to hone children into leaders; there is even a passing
-reference to Darrow as Wiggins. The Golds earn their right to rule through the
+reference to Darrow as Wiggin. The Golds earn their right to rule through the
 Institute the same way Heinlein's soldiers earn citizenship through service in
 {{ starship_troopers }}. The interfering Proctors are modeled on the Greek
 gods flying around the battlefield in {{ homers }} {{ the_iliad }} and {{
