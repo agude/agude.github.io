@@ -22,9 +22,7 @@ same_as_urls:
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
 is the first book in {% series_text page.series link=false %}. It follows
 Darrow, a Red miner on Mars who discovers his entire caste has been enslaved,
-and joins a revolution by infiltrating the Gold ruling class. A pastiche of a
-dozen popular sci-fi books that came before it, its relentless pacing made it
-a fun read anyway.
+and joins a revolution by infiltrating the Gold ruling class.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -221,25 +219,25 @@ intertextuality in the {{ hyperion_cantos }}, which I read right before this.
 
 And the pace, which is what kept me turning the pages, blunts the emotional
 impact. At one point Darrow discovers another Red disguised as a Gold, but one
-who is taking brutal revenge and endangering their mission. He is supposed to
-be both a dark reflection of Darrow and a dilemma: how can Darrow kill this
-man who is more his brother than any of the Golds? Sounds like a strong
-emotional hook, right?! Too bad! We killed him in three pages. We won't really
-think about that again. Moving on!
+who is taking brutal revenge and endangering their mission. This enemy turned
+potential ally is supposed to be both a dark reflection of Darrow and a
+dilemma: how can Darrow kill this man who is more his brother than any of the
+Golds? Sounds like a strong emotional hook, right?! Too bad! We killed him in
+three pages. We won't really think about that again. Moving on!
 
-{{ the_author }} doesn't trust the reader. At several points he has a
-character turn to the camera and tell the audience what they should have
+On top of all that, {{ the_author }} doesn't trust the reader. At several
+points he has a character stop and explain to the reader what they should have
 picked up. The worst example is when the leader of the Golds on Mars tells the
 students that empires fall when they become decadent, and that this is why
-they devised the brutal Institute: to winnow out those without the strength to
+they devised the brutal Institute: to winnow those without the strength to
 rule the empire. So go murder each other while we drink and party on Mt.
 Olympus.
 
-{{ this_book }} was influenced by _a lot_ of previous works, only some of
-which I mentioned above, and it reminded me of still more. The Golds' lunar
-revolution and the way people talk slightly differently from modern English
-are like {{ heinleins_lastname }} {{ the_moon_is_a_harsh_mistress }}. Iron
-Golds have cheek scars like those in {{ tchaikovskys_lastname }} {{
+{{ this_book }} reminded me of _a lot_ of other books, some that clearly
+influenced it and others it might have influenced. The Golds' lunar revolution
+and the way people talk slightly differently from modern English are like {{
+heinleins_lastname }} {{ the_moon_is_a_harsh_mistress }}. Iron Golds have
+cheek scars like those in {{ tchaikovskys_lastname }} {{
 the_final_architecture }}, which are based on [dueling scars][scars] from 19th
 century Germany and Austria. The faked execution mirrors how Endymion is saved
 and recruited in {{ simmonss_lastname }} {{ endymion }}. There are throwaway
@@ -259,7 +257,7 @@ williamss_lastname }} {{ metropolitan }}.
 
 [scars]: https://en.wikipedia.org/wiki/Dueling_scar
 
-There are so many reasons I shouldn't be able to recommend this book, but in
-the end it was a fun read. Will I continue on to {{ golden_son }} and {{
-morning_star }}? I don't know. It feels like {{ the_author }} might have used
-up all his tricks already, but if I do, I'll write them up.
+There are so many reasons I shouldn't recommend this book, but in the end it
+was a fun read. Will I continue on to {{ golden_son }} and {{ morning_star }}?
+It feels like {{ the_author }} might have used up all his tricks already, but
+if I do, I'll write about them.
