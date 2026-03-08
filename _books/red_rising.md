@@ -187,9 +187,11 @@ thrown into a violent game to win patronage. Being sorted into houses comes
 from {{ rowlings_lastname }} {{ harry_potter }}. The genetically stratified
 culture is borrowed from {{ huxleys_lastname }} {{ brave_new_world }}, and the
 color-coded castes are from {{ costikyan_gelber_and_goldbergs }} {{ paranoia
-}}. It even brings in game mechanics like leveling up to win Primus, straight
-out of the LitRPGs---like {{ nams_lastname }} {{
-the_legendary_moonlight_sculptor }}---that were just taking off in 2013.
+}}. The Golds' belief that greatness is dragged down by lesser people who want
+to freeload is {{ rands_lastname }} {{ atlas_shrugged }}. It even brings in
+game mechanics like leveling up to win Primus, straight out of the LitRPGs
+like {{ nams_lastname }} {{ the_legendary_moonlight_sculptor }} that were just
+taking off in 2013.
 
 Darrow is a Christ figure---like Severian in {{ botns }}, Father Duré in {{
 hyperion }}, Edeard in {{ the_void_trilogy }}, and Paul in {{ dune_series
