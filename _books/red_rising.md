@@ -34,6 +34,27 @@ is the first book in {% series_text page.series link=false %}.
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
+{% capture golden_son %}{% book_link "Golden Son" %}{% endcapture %}  
+{% capture morning_star %}{% book_link "Morning Star" %}{% endcapture %}
+
+{% capture homer %}{% author_link "Homer" %}{% endcapture %}  
+{% capture homers %}{% author_link "Homer" possessive %}{% endcapture %}  
+{% capture the_iliad %}{% book_link "The Iliad" %}{% endcapture %}  
+{% capture the_odyssey %}{% book_link "The Odyssey" %}{% endcapture %}
+
+{% capture doyle %}{% author_link "Arthur Conan Doyle" %}{% endcapture %}
+{% capture doyles %}{% author_link "Arthur Conan Doyle" possessive %}{% endcapture %}  
+{% capture doyle_lastname %}{% author_link "Arthur Conan Doyle" link_text="Doyle" %}{% endcapture %}
+{% capture doyles_lastname %}{% author_link "Arthur Conan Doyle" link_text="Doyle" possessive %}{% endcapture %}
+{% capture a_scandal_in_bohemia %}{% short_story_link "A Scandal in Bohemia" %}{% endcapture %}
+
+{% capture herbert %}{% author_link "Frank Herbert" %}{% endcapture %}  
+{% capture herberts %}{% author_link "Frank Herbert" possessive %}{% endcapture %}  
+{% capture herbert_lastname %}{% author_link "Frank Herbert" link_text="Herbert" %}{% endcapture %}  
+{% capture herberts_lastname %}{% author_link "Frank Herbert" link_text="Herbert" possessive %}{% endcapture %}  
+{% capture dune_series %}{% series_link "Dune" %}{% endcapture %}  
+{% capture dune %}{% book_link "Dune" %}{% endcapture %}
+
 {% capture nam %}{% author_link "Heesung Nam" %}{% endcapture %}
 {% capture nams %}{% author_link "Heesung Nam" possessive %}{% endcapture %}
 {% capture nam_lastname %}{% author_link "Heesung Nam" link_text="Nam" %}{% endcapture %}
@@ -170,10 +191,11 @@ mechanics such as leveling-up to win Primus straight out of the LitRPGs---like
 taking off in 2013.
 
 Darrow is a Christ figure---like Sevarian in {{ botns }}, Father Duré in {{
-hyperion }}, or Edeard in {{ the_void_trilogy }}---but with a Greek twist. He
-dies for his people and is resurrected. Then he rises from the underworld to
-overthrow his masters just as [Cronus][cronus] usurps his father the sky-god
-[Uranus][uranus]. He even has a scythe.[^castration]
+hyperion }}, Edeard in {{ the_void_trilogy }}, and Paul in {{ dune_series
+}}---but with a Greek twist. He dies for his people and is resurrected. Then
+he rises from the underworld to overthrow his masters just as [Cronus][cronus]
+usurps his father the sky-god [Uranus][uranus]. He even has a
+scythe.[^castration]
 
 [^castration]: Although _so far_ he hasn't castrated anyone with it.
 
@@ -185,4 +207,57 @@ every few pages. Darrow meets new characters, befriends them, and then watches
 them die in the span of a chapter. I constantly felt the need to keep turning
 the pages to find out what happened next.
 
-The book's weakest part is everything else.
+The book's weakest part is everything else. The mix of Greek and Roman history
+and mythology is _almost_ coherent, but every time it feels like {{
+the_authors_lastname }} is about to make a deeper point with it or reinforce
+his themes, he muddles it. The Golds are modeled after roman authoritarians
+while the good guys are Athenian democracy! That's why the Golds use roman
+names and also Greek names and also they're the Spartans... Its shallowness is
+exaggerated in comparison to the depth of {{ simmonss_lastname }} handling of
+myth and intertextuality in {{ hyperion_cantos }} which I read directly before
+this.
+
+And the pace, which is what kept me turning the pages, blunts the emotional
+impact. At one point Darrow discovers another Red disguised as a Gold, but one
+who is taking brutal revenge and endangering their mission. He is supposed to
+be both a dark reflection of Darrow, and a dilemma: how can Darrow kill this
+man who is more his brother than any of the Golds? Sounds like a strong
+emotional hook right?! Too bad, we killed him in just 3 pages. We won't really
+think about that again. Moving on!
+
+{{ the_author }} just doesn't trust his reader. At several points he has a
+character turn to the camera and just tell the audience what they should have
+picked up. Most egregiously when the leader of the Golds on Mars tells the
+students that empires fall when they become decadent, and that's why they have
+devised the brutal Institute, to winnow out those without the strength to
+rule the empire. So go murder each other while we drink and party on Mt.
+Olympus.
+
+{{ this_book }} was influenced by _a lot_ of previous works, only some of
+which I mentioned above, and it reminded me of still more. The Gold's lunar
+revolution, way people talk slightly different than modern English are like {{
+heinleins_lastname }} {{ the_moon_is_a_harsh_mistress }}. Irons Golds have
+cheek scars like the dueling scars from {{ tchaikovskys_lastname }} {{
+the_final_architecture }}, which are based on dueling scars from 19th century
+Germany and Austria. The faked execution is the same way Endymion was saved
+and recruited into his adventure in {{ simmonss_lastname }} {{ endymion }}.
+There are throwaway references to Osgiliath from {{ tolkiens_lastname }} {{
+the_lord_of_the_rings }}. Mickey, the Violet Carver who makes Darrow a Gold
+reminded me of Ximenyr from {{ bankss_lastname }} {{ the_hydrogen_sonata }}
+with his... too many dicks. Darrow's trick of faking a fire to reveal the
+opponents banner is borrowed from Sherlock Holmes in {{ doyles_lastname }} {{
+a_scandal_in_bohemia }}. The Institute is similar to the Battle School from {{
+cards_lastname }} {{ enders_game }}, especial the brutal environment to hone
+children into leaders; there is a passing reference to Darrow as Wiggins. The
+interfering Proctors are modeled on the Greek gods flying around the
+battlefield in {{ homers }} {{ the_iliad }} and {{ the_odyssey }}. Like Vandal
+in {{ warrens_lastname }} {{ grand_melee }}, Darrow is given the choice of
+winning, or bowing out but forwarding his cause. The revolution reminds me of
+{{ williamss_lastname }} {{ metropolitan }}.
+
+[scars]: https://en.wikipedia.org/wiki/Dueling_scar
+
+There are so many reasons I shouldn't be able to recommend this book, but in
+the end it was a fun read. Will I continue on to {{ golden_son }} and {{ morning_star
+}}? I don't know. It feel like {{ the_author }} might have used up all his
+tricks already, but if I do I'll be sure to write them up.
