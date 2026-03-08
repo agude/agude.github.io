@@ -20,7 +20,11 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the first book in {% series_text page.series link=false %}.
+is the first book in {% series_text page.series link=false %}. It follows
+Darrow, a Red miner on Mars who discovers his entire caste has been enslaved,
+and joins a revolution by infiltrating the Gold ruling class. A pastiche of a
+dozen popular sci-fi books that came before it, its relentless pacing made it
+a fun read anyway.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
