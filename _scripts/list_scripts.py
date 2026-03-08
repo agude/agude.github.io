@@ -5,11 +5,11 @@
 """List available scripts with descriptions and invocation examples."""
 
 import ast
+import re
 import sys
 from pathlib import Path
 
 SCRIPT_ROOT = Path(__file__).resolve().parent
-SUBDIRS = ["content", "diagnostics", "metadata", "ranking"]
 SKIP_MARKER = "# not-a-script"
 
 # ANSI escape codes.
@@ -19,18 +19,41 @@ CYAN = "\033[36m"
 RESET = "\033[0m"
 
 
-def has_local_imports(source: str) -> bool:
-    """Return True if the source contains from-imports of local modules."""
+def has_local_imports(source: str, directory: Path) -> bool:
+    """Return True if the source imports a module that exists as a sibling .py file."""
+    sibling_names = {p.stem for p in directory.glob("*.py")}
     for node in ast.walk(ast.parse(source)):
         if isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
             top = node.module.split(".")[0]
-            if top in sys.stdlib_module_names:
-                continue
-            # Known third-party packages used by scripts in this repo.
-            if top in {"yaml", "bs4", "lxml", "isbnlib"}:
-                continue
-            return True
+            if top in sibling_names:
+                return True
     return False
+
+
+def parse_docstring(source: str) -> tuple[str, str]:
+    """Return (first_line, example_args) from a module docstring.
+
+    Looks for a line matching ``Example: <args>`` in the docstring body.
+    """
+    try:
+        docstring = ast.get_docstring(ast.parse(source))
+    except SyntaxError:
+        docstring = None
+
+    if not docstring:
+        return ("** missing docstring **", "")
+
+    lines = docstring.split("\n")
+    first_line = lines[0]
+
+    example_args = ""
+    for line in lines[1:]:
+        match = re.match(r"\s*Example:\s*(.*)", line)
+        if match:
+            example_args = match.group(1).strip()
+            break
+
+    return (first_line, example_args)
 
 
 def main() -> None:
@@ -44,42 +67,50 @@ def main() -> None:
         f"{bold}Available scripts{reset} {dim}(run from repo root unless noted){reset}"
     )
 
-    for subdir in SUBDIRS:
-        dirpath = SCRIPT_ROOT / subdir
-        if not dirpath.is_dir():
-            continue
+    subdirs = sorted(
+        p.name
+        for p in SCRIPT_ROOT.iterdir()
+        if p.is_dir() and not p.name.startswith((".", "__")) and p.name != "tests"
+    )
 
-        scripts: list[tuple[str, str, bool]] = []
+    first_group = True
+    for subdir in subdirs:
+        dirpath = SCRIPT_ROOT / subdir
+        scripts: list[tuple[str, str, str, bool]] = []
         for pyfile in sorted(dirpath.glob("*.py")):
             source = pyfile.read_text()
-            if SKIP_MARKER in source:
+            if SKIP_MARKER in source.splitlines()[:10]:
                 continue
-            try:
-                docstring = ast.get_docstring(ast.parse(source))
-            except SyntaxError:
-                docstring = None
-            desc = docstring.split("\n")[0] if docstring else "** missing docstring **"
-            local = has_local_imports(source)
-            scripts.append((pyfile.name, desc, local))
+            desc, example_args = parse_docstring(source)
+            local = has_local_imports(source, dirpath)
+            scripts.append((pyfile.name, desc, example_args, local))
 
         if not scripts:
             continue
 
-        any_local = any(local for _, _, local in scripts)
+        any_local = any(local for _, _, _, local in scripts)
         header = subdir
         if any_local:
             header += f" {dim}(run from _scripts/{subdir}/){reset}"
 
+        if not first_group:
+            print()
+        first_group = False
         print()
         print(f"{bold}{cyan}{header}{reset}")
-        for name, desc, local in scripts:
+        for i, (name, desc, example_args, local) in enumerate(scripts):
+            if i > 0:
+                print()
             print(f"  {bold}{name}{reset}  {desc}")
             if local:
                 invocation = f"cd _scripts/{subdir} && uv run {name}"
             else:
                 invocation = f"uv run _scripts/{subdir}/{name}"
+            if example_args:
+                invocation += f" {example_args}"
             print(f"  {dim}$ {invocation}{reset}")
-            print()
+
+    print()
 
 
 if __name__ == "__main__":

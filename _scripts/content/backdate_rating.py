@@ -4,6 +4,8 @@
 # ///
 """Update book review dates to match the git commit where the rating changed.
 
+Example: _books/some_book.md
+
 By default, finds the first commit that set a non-null rating (i.e., when the
 review was published). With --latest, finds the most recent commit that changed
 the rating to a (different) non-null value.
@@ -22,7 +24,6 @@ import re
 import subprocess
 import sys
 from datetime import datetime
-from pathlib import Path
 
 
 RATING_RE = re.compile(r"^rating:\s*(.+)$", re.MULTILINE)

@@ -4,6 +4,8 @@
 # ///
 """Reorder the ranked_list in books/by_rating.md to match current front matter ratings.
 
+Example: --dry-run
+
 Algorithm:
   1. Read the current ranked_list to get each book's global rank (position).
   2. Read each book's rating: from front matter.

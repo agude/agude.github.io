@@ -4,6 +4,8 @@
 # ///
 """Fetch book metadata from Wikidata for book review front matter.
 
+Example: Q302026
+
 Given a Wikidata Q-ID or a book title, queries the Wikidata API and
 extracts isbn, date_published, and same_as_urls suitable for book front
 matter.

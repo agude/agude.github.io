@@ -4,6 +4,8 @@
 # ///
 """Update a book review file's front matter with Wikidata metadata.
 
+Example: ../../_books/matter.md
+
 Reads a _books/*.md file, fetches metadata from Wikidata, and writes
 the results (wikidata_qid, isbn, date_published, same_as_urls) directly
 into the file's YAML front matter.

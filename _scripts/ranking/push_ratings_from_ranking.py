@@ -4,6 +4,8 @@
 # ///
 """Read the ranked_list in books/by_rating.md and update rating: in each book's front matter.
 
+Example: --dry-run
+
 The star tier is determined by the YAML comments (# 5 Stars, # 4 Stars, etc.)
 in the ranked_list. Each book under a comment gets that rating pushed to its
 front matter.
