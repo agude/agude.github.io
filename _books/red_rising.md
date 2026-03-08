@@ -237,9 +237,12 @@ Olympus.
 influenced it and others it might have influenced. The Institute is similar to
 the Battle School from {{ cards_lastname }} {{ enders_game }}, especially as a
 brutal environment to hone children into leaders; there is even a passing
-reference to Darrow as Wiggins. The interfering Proctors are modeled on the
-Greek gods flying around the battlefield in {{ homers }} {{ the_iliad }} and
-{{ the_odyssey }}. The Golds' lunar revolution and the way people talk
+reference to Darrow as Wiggins. The Golds earn their right to rule through the
+Institute the same way Heinlein's soldiers earn citizenship through service in
+{{ starship_troopers }}. The interfering Proctors are modeled on the Greek
+gods flying around the battlefield in {{ homers }} {{ the_iliad }} and {{
+the_odyssey }}; Darrow's soldiers emerging from corpses to take the gates are
+literally Trojan horses. The Golds' lunar revolution and the way people talk
 slightly differently from modern English are like {{ heinleins_lastname }} {{
 the_moon_is_a_harsh_mistress }}, and the broader revolution reminds me of {{
 williamss_lastname }} {{ metropolitan }}. Like Vandal in {{ warrens_lastname
@@ -251,8 +254,9 @@ in {{ doyles_lastname }} {{ a_scandal_in_bohemia }}. Iron Golds have cheek
 scars like those in {{ tchaikovskys_lastname }} {{ the_final_architecture }},
 based on [dueling scars][scars] from 19th century Germany and Austria, and
 there are throwaway references to Osgiliath from {{ tolkiens_lastname }} {{
-the_lord_of_the_rings }}. Mickey, the Violet Carver who makes Darrow a Gold,
-reminded me of Ximenyr from {{ bankss_lastname }} {{ the_hydrogen_sonata }}.
+the_lord_of_the_rings }}. Mickey changing Darrow to pass as a gold is right
+out of {{ gattaca }}. Mickey himself reminded me of Ximenyr from {{
+bankss_lastname }} {{ the_hydrogen_sonata }}.
 
 [scars]: https://en.wikipedia.org/wiki/Dueling_scar
 
