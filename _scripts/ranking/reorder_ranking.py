@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.12"
+# ///
 """Reorder the ranked_list in books/by_rating.md to match current front matter ratings.
+
+Example: --dry-run
 
 Algorithm:
   1. Read the current ranked_list to get each book's global rank (position).

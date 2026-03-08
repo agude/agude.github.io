@@ -4,6 +4,8 @@
 # ///
 """Fetch author metadata from Wikidata for author page front matter.
 
+Example: Q312579
+
 Given a Wikidata Q-ID or an author name, queries the Wikidata API and
 extracts same_as_urls and pen_names suitable for author page front matter.
 

@@ -3,6 +3,11 @@
 # requires-python = ">=3.10"
 # dependencies = ["beautifulsoup4", "lxml"]
 # ///
+"""Semantically diff two Jekyll builds, ignoring volatile elements.
+
+Example: old/ new/
+"""
+
 import os
 import sys
 import argparse

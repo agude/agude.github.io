@@ -2,6 +2,11 @@
 # /// script
 # requires-python = ">=3.10"
 # ///
+"""Re-wrap the first paragraph of a Markdown file to 78 columns.
+
+Example: _books/some_book.md
+"""
+
 import sys
 import textwrap
 import glob

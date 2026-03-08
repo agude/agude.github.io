@@ -3,6 +3,8 @@
 # requires-python = ">=3.10"
 # dependencies = ["PyYAML"]
 # ///
+"""Generate author and series pages from book front matter."""
+
 from typing import Dict, Union, TextIO, List, Tuple
 import glob
 import os

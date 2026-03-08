@@ -2,6 +2,11 @@
 # /// script
 # requires-python = ">=3.10"
 # ///
+"""Find and remove unused Liquid capture blocks from Markdown files.
+
+Example: _posts/some_post.md --dry-run
+"""
+
 import argparse
 import re
 import sys

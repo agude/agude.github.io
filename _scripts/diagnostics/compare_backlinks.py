@@ -3,6 +3,8 @@
 # requires-python = ">=3.10"
 # dependencies = ["beautifulsoup4", "lxml"]
 # ///
+"""Compare backlink sections between two Jekyll site builds."""
+
 import sys
 from pathlib import Path
 from bs4 import BeautifulSoup

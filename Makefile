@@ -33,7 +33,7 @@ DOCKER_RUN := docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) 
 TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb')
 
 # Tier 1: Daily drivers
-.PHONY: serve build test lint clean debug
+.PHONY: serve build test test-scripts lint clean debug scripts
 
 # Tier 2: Command variants
 .PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-liquid
@@ -146,6 +146,10 @@ debug: image-build
 	@echo "Starting interactive debug session in container..."
 	@docker run -it $(DOCKER_RUN_OPTS) -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) /bin/bash
 
+# List available scripts with one-line descriptions and invocations.
+scripts:
+	@uv run _scripts/list_scripts.py
+
 # Run Minitest tests located in _tests/ inside the Docker container.
 test: image-build # Depends on the Docker image being built/up-to-date
 	@echo "Running tests..."
@@ -161,6 +165,12 @@ test: image-build # Depends on the Docker image being built/up-to-date
 		-e "require 'test_helper'; ARGV.each { |f| load f }" \
 		$(TEST)
 	@echo "Tests finished successfully."
+
+# Run Python script tests via pytest.
+test-scripts:
+	@echo "Running script tests..."
+	@uv run --project _scripts pytest _scripts/tests/ -v
+	@echo "Script tests finished."
 
 # Run tests and generate a code coverage report.
 test-cov: image-build clean-coverage

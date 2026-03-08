@@ -16,6 +16,8 @@ Jekyll-based static site (alexgude.com) running in Docker.
 - **Deps:** `make lock` (Update Gemfile.lock via Docker).
 - **Lint:** `make lint` / `make format-all`.
 - **Format MD:** `make format-md` (Run Prettier on all Markdown files).
+- **Scripts:** `make scripts` (List available Python scripts with descriptions).
+- **Test Scripts:** `make test-scripts` (Run Python script tests via pytest).
 - **Hooks:** `make hooks-install` (Install pre-commit hook).
 
 ## Architecture Map
