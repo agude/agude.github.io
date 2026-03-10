@@ -11,6 +11,15 @@ module Jekyll
       # Utility module for rendering star rating HTML.
       # Generates visual star ratings from numeric values (1-5).
       module RatingUtils
+        # Human-readable labels for each star rating, used in title and aria-label.
+        RATING_LABELS = {
+          1 => "Bad — I didn't like it",
+          2 => 'Flawed — It was OK',
+          3 => 'Good — I liked it',
+          4 => 'Great — I really liked it',
+          5 => 'Masterpiece — I loved it',
+        }.freeze
+
         # Generates HTML for star rating display.
         # Accepts Integer or integer-like String input for rating (1-5), or nil.
         # Returns empty string for nil input.
@@ -84,13 +93,15 @@ module Jekyll
         # @return [String] The complete HTML string for the rating.
         def self._generate_stars_html(rating_int, wrapper_tag)
           max_stars = 5
-          aria_label = "Rating: #{rating_int} out of #{max_stars} stars"
+          label = RATING_LABELS[rating_int]
+          escaped_label = CGI.escapeHTML(label)
+          aria_label = "Rating: #{rating_int} out of #{max_stars} stars. #{escaped_label}"
           css_class = "book-rating star-rating-#{rating_int}"
           stars_html = _build_stars_html(rating_int, max_stars)
           safe_wrapper_tag = _safe_wrapper_tag(wrapper_tag)
 
           "<#{safe_wrapper_tag} class=\"#{css_class}\" role=\"img\" " \
-            "aria-label=\"#{aria_label}\">#{stars_html}</#{safe_wrapper_tag}>"
+            "aria-label=\"#{aria_label}\" title=\"#{escaped_label}\">#{stars_html}</#{safe_wrapper_tag}>"
         end
 
         # Builds the HTML string for individual star elements.
