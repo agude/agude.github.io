@@ -28,38 +28,54 @@ class TestRatingUtils < Minitest::Test
                  "Sequence check failed: Expected '#{expected_sequence}', but got '#{extracted_sequence}'"
   end
 
+  # Asserts that rendered rating HTML has the correct class, role, aria-label, title, and star sequence.
+  def assert_rating_output(html, rating:, filled:, empty:, escaped_label:)
+    assert_match(/class="book-rating star-rating-#{rating}"/, html)
+    assert_match(/role="img"/, html)
+    assert_match(/aria-label="Rating: #{rating} out of 5 stars. #{Regexp.escape(escaped_label)}"/, html)
+    assert_match(/title="#{Regexp.escape(escaped_label)}"/, html)
+    assert_stars(html, filled, empty)
+  end
+
   def test_render_rating_stars_valid_integers
-    output5 = Jekyll::UI::Ratings::RatingUtils.render_rating_stars(5)
-    assert_match(/class="book-rating star-rating-5"/, output5)
-    assert_match(/role="img"/, output5)
-    assert_match(/aria-label="Rating: 5 out of 5 stars"/, output5)
-    assert_stars(output5, 5, 0)
-
-    output3 = Jekyll::UI::Ratings::RatingUtils.render_rating_stars(3)
-    assert_match(/class="book-rating star-rating-3"/, output3)
-    assert_match(/role="img"/, output3)
-    assert_match(/aria-label="Rating: 3 out of 5 stars"/, output3)
-    assert_stars(output3, 3, 2)
-
-    output1 = Jekyll::UI::Ratings::RatingUtils.render_rating_stars(1)
-    assert_match(/class="book-rating star-rating-1"/, output1)
-    assert_match(/role="img"/, output1)
-    assert_match(/aria-label="Rating: 1 out of 5 stars"/, output1)
-    assert_stars(output1, 1, 4)
+    assert_rating_output(
+      Jekyll::UI::Ratings::RatingUtils.render_rating_stars(5),
+      rating: 5,
+      filled: 5,
+      empty: 0,
+      escaped_label: 'Masterpiece — I loved it',
+    )
+    assert_rating_output(
+      Jekyll::UI::Ratings::RatingUtils.render_rating_stars(3),
+      rating: 3,
+      filled: 3,
+      empty: 2,
+      escaped_label: 'Good — I liked it',
+    )
+    assert_rating_output(
+      Jekyll::UI::Ratings::RatingUtils.render_rating_stars(1),
+      rating: 1,
+      filled: 1,
+      empty: 4,
+      escaped_label: 'Bad — I didn&#39;t like it',
+    )
   end
 
   def test_render_rating_stars_valid_strings
-    output4_str = Jekyll::UI::Ratings::RatingUtils.render_rating_stars('4')
-    assert_match(/class="book-rating star-rating-4"/, output4_str)
-    assert_match(/role="img"/, output4_str)
-    assert_match(/aria-label="Rating: 4 out of 5 stars"/, output4_str)
-    assert_stars(output4_str, 4, 1)
-
-    output2_str = Jekyll::UI::Ratings::RatingUtils.render_rating_stars('2')
-    assert_match(/class="book-rating star-rating-2"/, output2_str)
-    assert_match(/role="img"/, output2_str)
-    assert_match(/aria-label="Rating: 2 out of 5 stars"/, output2_str)
-    assert_stars(output2_str, 2, 3)
+    assert_rating_output(
+      Jekyll::UI::Ratings::RatingUtils.render_rating_stars('4'),
+      rating: 4,
+      filled: 4,
+      empty: 1,
+      escaped_label: 'Great — I really liked it',
+    )
+    assert_rating_output(
+      Jekyll::UI::Ratings::RatingUtils.render_rating_stars('2'),
+      rating: 2,
+      filled: 2,
+      empty: 3,
+      escaped_label: 'Flawed — It was OK',
+    )
   end
 
   def test_render_rating_stars_invalid_range_throws_error
