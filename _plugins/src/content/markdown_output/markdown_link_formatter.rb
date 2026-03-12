@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../infrastructure/text/markdown_text_utils'
+require_relative '../../infrastructure/text_processing_utils'
 
 module Jekyll
   module MarkdownOutput
@@ -8,7 +8,7 @@ module Jekyll
     # Used by all 4 link tags (book, author, series, short_story)
     # when rendering in Markdown mode.
     module MarkdownLinkFormatter
-      MdText = Jekyll::Infrastructure::Text::MarkdownTextUtils
+      MdText = Jekyll::Infrastructure::TextProcessingUtils
 
       def self.format_link(data, italic: false, self_link: false)
         text = data[:display_text] || ''

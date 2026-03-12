@@ -249,4 +249,81 @@ class TestTextProcessingUtils < Minitest::Test
     expected = 'a-b-s-test-for-1'
     assert_equal expected, Jekyll::Infrastructure::TextProcessingUtils.slugify(input)
   end
+
+  # --- Tests for strip_tags (moved from HtmlTextUtils) ---
+
+  def test_strip_simple_tags
+    assert_equal 'Hello world', Jekyll::Infrastructure::TextProcessingUtils.strip_tags('<p>Hello world</p>')
+  end
+
+  def test_strip_nested_tags
+    assert_equal 'Some emphasized & bold text',
+                 Jekyll::Infrastructure::TextProcessingUtils.strip_tags('<p>Some <em>emphasized</em> &amp; <strong>bold</strong> text</p>')
+  end
+
+  def test_strip_html_comments
+    assert_equal 'Some text',
+                 Jekyll::Infrastructure::TextProcessingUtils.strip_tags('<!-- draft -->Some text<!-- end -->')
+  end
+
+  def test_strip_self_closing_tags
+    assert_equal 'BeforeAfter', Jekyll::Infrastructure::TextProcessingUtils.strip_tags('Before<br/>After')
+  end
+
+  def test_strip_tags_with_attributes
+    assert_equal 'Link text',
+                 Jekyll::Infrastructure::TextProcessingUtils.strip_tags('<a href="/path" class="link">Link text</a>')
+  end
+
+  def test_strip_tags_plain_text_passthrough
+    assert_equal 'No HTML here', Jekyll::Infrastructure::TextProcessingUtils.strip_tags('No HTML here')
+  end
+
+  def test_strip_tags_empty_string
+    assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.strip_tags('')
+  end
+
+  def test_strip_tags_non_string_coercion
+    assert_equal '42', Jekyll::Infrastructure::TextProcessingUtils.strip_tags(42)
+  end
+
+  # --- Tests for escape_link_text (moved from MarkdownTextUtils) ---
+
+  def test_escape_link_text_escapes_brackets
+    assert_equal 'Title \\[Vol. 1\\]', Jekyll::Infrastructure::TextProcessingUtils.escape_link_text('Title [Vol. 1]')
+  end
+
+  def test_escape_link_text_passes_through_parentheses
+    assert_equal 'Title (Part 2)', Jekyll::Infrastructure::TextProcessingUtils.escape_link_text('Title (Part 2)')
+  end
+
+  def test_escape_link_text_passes_through_backslashes
+    assert_equal 'Back\\Slash', Jekyll::Infrastructure::TextProcessingUtils.escape_link_text('Back\\Slash')
+  end
+
+  def test_escape_link_text_noop_on_safe_string
+    assert_equal 'Safe Title', Jekyll::Infrastructure::TextProcessingUtils.escape_link_text('Safe Title')
+  end
+
+  def test_escape_link_text_handles_non_strings
+    assert_equal '123', Jekyll::Infrastructure::TextProcessingUtils.escape_link_text(123)
+  end
+
+  # --- Tests for escape_url (moved from MarkdownTextUtils) ---
+
+  def test_escape_url_escapes_parentheses
+    assert_equal '/path/file\\(1\\)', Jekyll::Infrastructure::TextProcessingUtils.escape_url('/path/file(1)')
+  end
+
+  def test_escape_url_passes_through_backslashes
+    assert_equal '/path/file\\name', Jekyll::Infrastructure::TextProcessingUtils.escape_url('/path/file\\name')
+  end
+
+  def test_escape_url_noop_on_safe_url
+    assert_equal '/path/file-name', Jekyll::Infrastructure::TextProcessingUtils.escape_url('/path/file-name')
+  end
+
+  def test_escape_url_handles_non_strings
+    assert_equal '456', Jekyll::Infrastructure::TextProcessingUtils.escape_url(456)
+  end
 end

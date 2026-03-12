@@ -7,7 +7,7 @@ require_relative '../lists/series_finder'
 require_relative '../lists/renderers/for_series_renderer'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../markdown_output/markdown_card_utils'
-require_relative '../../../infrastructure/text/markdown_text_utils'
+require_relative '../../../infrastructure/text_processing_utils'
 
 module Jekyll
   module Books
@@ -36,7 +36,7 @@ module Jekyll
         end
 
         MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
-        MdText = Jekyll::Infrastructure::Text::MarkdownTextUtils
+        MdText = Jekyll::Infrastructure::TextProcessingUtils
         private_constant :MdCards, :MdText
 
         def render(context)

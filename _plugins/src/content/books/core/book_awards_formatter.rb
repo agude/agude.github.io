@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require_relative '../../../infrastructure/text/markdown_text_utils'
+require_relative '../../../infrastructure/text_processing_utils'
 
 module Jekyll
   module Books
     module Core
       # Formats book awards and favorites mentions as Markdown text.
       class BookAwardsFormatter
-        MdText = Jekyll::Infrastructure::Text::MarkdownTextUtils
+        MdText = Jekyll::Infrastructure::TextProcessingUtils
         private_constant :MdText
 
         def initialize(awards, mentions)

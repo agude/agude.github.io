@@ -105,6 +105,21 @@ module Jekyll
         slug
       end
 
+      # Strip all HTML tags and decode entities, returning plain text.
+      def self.strip_tags(html)
+        Nokogiri::HTML.fragment(html.to_s).text
+      end
+
+      # Escapes characters that break Markdown link text: [ and ].
+      def self.escape_link_text(text)
+        text.to_s.gsub(/[\[\]]/) { |m| "\\#{m}" }
+      end
+
+      # Escapes characters that break Markdown link URLs: ( and ).
+      def self.escape_url(url)
+        url.to_s.gsub(/[()]/) { |m| "\\#{m}" }
+      end
+
       # --- Private Helper Methods ---
 
       def self._use_etal?(count, limit)

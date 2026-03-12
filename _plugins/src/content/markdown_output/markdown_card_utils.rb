@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../infrastructure/text/markdown_text_utils'
-require_relative '../../infrastructure/text/html_text_utils'
+require_relative '../../infrastructure/text_processing_utils'
 require_relative '../../ui/cards/card_data_extractor_utils'
 
 module Jekyll
@@ -9,8 +8,7 @@ module Jekyll
     # Converts card data hashes (from BookCardRenderer.extract_data and
     # ArticleCardRenderer.extract_data) into Markdown list items.
     module MarkdownCardUtils
-      MdText = Jekyll::Infrastructure::Text::MarkdownTextUtils
-      HtmlText = Jekyll::Infrastructure::Text::HtmlTextUtils
+      Text = Jekyll::Infrastructure::TextProcessingUtils
 
       # Convert a Jekyll book document into a card data hash.
       # Pass author_urls: { 'Name' => '/url/' } for linked authors.
@@ -35,7 +33,7 @@ module Jekyll
         )
         return nil if html.empty?
 
-        text = HtmlText.strip_tags(html).gsub(/\s+/, ' ').strip
+        text = Text.strip_tags(html).gsub(/\s+/, ' ').strip
         text.empty? ? nil : text
       end
 
@@ -49,7 +47,7 @@ module Jekyll
       end
 
       def self.render_book_card_md(data)
-        line = "- [_#{MdText.escape_link_text(data[:title])}_](#{MdText.escape_url(data[:url])})"
+        line = "- [_#{Text.escape_link_text(data[:title])}_](#{Text.escape_url(data[:url])})"
         line += " by #{format_card_authors(data)}" if data[:authors]&.any?
         stars = format_stars(data[:rating])
         line += " --- #{stars}" if stars
@@ -61,13 +59,13 @@ module Jekyll
         urls = data[:author_urls] || {}
         data[:authors].map do |name|
           url = urls[name]
-          url ? "[#{MdText.escape_link_text(name)}](#{MdText.escape_url(url)})" : name
+          url ? "[#{Text.escape_link_text(name)}](#{Text.escape_url(url)})" : name
         end.join(', ')
       end
       private_class_method :format_card_authors
 
       def self.render_article_card_md(data)
-        line = "- [#{MdText.escape_link_text(data[:title])}](#{MdText.escape_url(data[:url])})"
+        line = "- [#{Text.escape_link_text(data[:title])}](#{Text.escape_url(data[:url])})"
         line += ": #{data[:description]}" if data[:description]
         line
       end
