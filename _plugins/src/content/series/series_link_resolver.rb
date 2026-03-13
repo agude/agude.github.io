@@ -1,27 +1,13 @@
 # frozen_string_literal: true
 
 # _plugins/src/content/series/series_link_resolver.rb
-require 'jekyll'
-require 'cgi'
-require_relative '../../infrastructure/links/link_helper_utils'
-require_relative '../../infrastructure/plugin_logger_utils'
-require_relative '../../infrastructure/text_processing_utils'
+require_relative '../../infrastructure/links/link_resolver_support'
 
 module Jekyll
   module Series
     # Helper class to handle series link resolution logic.
     class SeriesLinkResolver
-      # Aliases for readability
-      LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
-      Logger = Jekyll::Infrastructure::PluginLoggerUtils
-      Text = Jekyll::Infrastructure::TextProcessingUtils
-      private_constant :LinkHelper, :Logger, :Text
-
-      def initialize(context)
-        @context = context
-        @site = context&.registers&.[](:site)
-        @log_output = ''
-      end
+      include Jekyll::Infrastructure::Links::LinkResolverSupport
 
       def resolve(title_raw, override_raw, link: true)
         data = resolve_data(title_raw, override_raw, link: link)
@@ -37,7 +23,12 @@ module Jekyll
 
         norm_title = Text.normalize_title(@title_input)
         if norm_title.empty?
-          @log_output = log_empty_title(title_raw)
+          @log_output = log_failure(
+            tag_type: 'RENDER_SERIES_LINK',
+            reason: 'Input title resolved to empty after normalization.',
+            identifiers: { TitleInput: title_raw || 'nil' },
+            level: :warn,
+          )
           return { status: :empty_title, url: nil, display_text: nil }.freeze
         end
 
@@ -56,7 +47,7 @@ module Jekyll
       def render_html_from_data(data)
         case data[:status]
         when :no_site
-          fallback(data[:display_text])
+          build_series_span_element(data[:display_text].to_s)
         when :empty_title
           @log_output
         when :found, :not_found
@@ -64,27 +55,17 @@ module Jekyll
         end
       end
 
-      def fallback(title)
-        build_series_span_element(title.to_s)
-      end
-
-      def log_empty_title(raw)
-        Logger.log_liquid_failure(
-          context: @context,
-          tag_type: 'RENDER_SERIES_LINK',
-          reason: 'Input title resolved to empty after normalization.',
-          identifiers: { TitleInput: raw || 'nil' },
-          level: :warn,
-        )
-      end
-
       def find_series(norm_title)
-        cache = @site.data['link_cache'] || {}
-        series_cache = cache['series'] || {}
-        data = series_cache[norm_title]
-
-        @log_output = log_series_not_found unless data
-        data
+        series_data = find_in_cache('series', norm_title)
+        unless series_data
+          @log_output = log_failure(
+            tag_type: 'RENDER_SERIES_LINK',
+            reason: 'Could not find series page in cache.',
+            identifiers: { Series: @title_input.strip },
+            level: :info,
+          )
+        end
+        series_data
       end
 
       def determine_display_text(series_data)
@@ -101,7 +82,7 @@ module Jekyll
         span = build_series_span_element(data[:display_text])
 
         html = if @link
-                 LinkHelper._generate_link_html(@context, data[:url], span)
+                 wrap_with_link(span, data[:url])
                else
                  span
                end
@@ -111,16 +92,6 @@ module Jekyll
       def build_series_span_element(display_text)
         escaped_display_text = CGI.escapeHTML(display_text)
         "<span class=\"book-series\">#{escaped_display_text}</span>"
-      end
-
-      def log_series_not_found
-        Logger.log_liquid_failure(
-          context: @context,
-          tag_type: 'RENDER_SERIES_LINK',
-          reason: 'Could not find series page in cache.',
-          identifiers: { Series: @title_input.strip },
-          level: :info,
-        )
       end
     end
   end

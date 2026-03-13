@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
 # _plugins/src/content/books/core/book_link_resolver.rb
-require 'jekyll'
 require 'date'
-require_relative '../../../infrastructure/links/link_helper_utils'
-require_relative '../../../infrastructure/plugin_logger_utils'
-require_relative '../../../infrastructure/text_processing_utils'
+require_relative '../../../infrastructure/links/link_resolver_support'
 require_relative '../../../infrastructure/typography_utils'
 
 module Jekyll
@@ -13,19 +10,10 @@ module Jekyll
     module Core
       # Helper class to handle the complexity of resolving a book link
       class BookLinkResolver
-        # Aliases for readability
-        LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
-        Logger = Jekyll::Infrastructure::PluginLoggerUtils
-        Text = Jekyll::Infrastructure::TextProcessingUtils
-        Typography = Jekyll::Infrastructure::TypographyUtils
-        private_constant :LinkHelper, :Logger, :Text, :Typography
+        include Jekyll::Infrastructure::Links::LinkResolverSupport
 
-        def initialize(context)
-          @context = context
-          registers = context.respond_to?(:registers) ? context.registers : nil
-          @site = registers&.[](:site)
-          @log_output = ''
-        end
+        Typography = Jekyll::Infrastructure::TypographyUtils
+        private_constant :Typography
 
         # Renders the book link/cite HTML directly from title and URL data.
         # Used when the book data is already known (e.g., from backlinks).
@@ -36,7 +24,7 @@ module Jekyll
         # @return [String] The generated HTML.
         def render_from_data(title, url, cite: true)
           inner_element = cite ? build_book_cite_element(title) : build_book_text_element(title)
-          LinkHelper._generate_link_html(@context, url, inner_element)
+          wrap_with_link(inner_element, url)
         end
 
         def resolve(title_raw, text_override, author_filter, date_filter = nil, cite: true)
@@ -78,7 +66,12 @@ module Jekyll
         end
 
         def empty_title_result
-          @log_output = log_empty_title
+          @log_output = log_failure(
+            tag_type: 'RENDER_BOOK_LINK',
+            reason: 'Input title resolved to empty after normalization.',
+            identifiers: { TitleInput: @title || 'nil' },
+            level: :warn,
+          )
           {
             status: :empty_title,
             url: nil,
@@ -142,16 +135,6 @@ module Jekyll
           end
         end
 
-        def log_empty_title
-          Logger.log_liquid_failure(
-            context: @context,
-            tag_type: 'RENDER_BOOK_LINK',
-            reason: 'Input title resolved to empty after normalization.',
-            identifiers: { TitleInput: @title || 'nil' },
-            level: :warn,
-          )
-        end
-
         def determine_display_text(text_override)
           if text_override && !text_override.to_s.empty?
             text_override.to_s.strip
@@ -170,8 +153,7 @@ module Jekyll
 
         def log_not_found
           track_unreviewed_mention unless @context.registers[:render_mode] == :markdown
-          Logger.log_liquid_failure(
-            context: @context,
+          log_failure(
             tag_type: 'RENDER_BOOK_LINK',
             reason: 'Could not find book page in cache.',
             identifiers: { Title: @title.strip },
@@ -243,8 +225,7 @@ module Jekyll
         end
 
         def log_date_mismatch
-          Logger.log_liquid_failure(
-            context: @context,
+          log_failure(
             tag_type: 'RENDER_BOOK_LINK',
             reason: 'Book title exists, but not on the specified date.',
             identifiers: { Title: @title, DateFilter: @date_filter.to_s },
@@ -276,8 +257,7 @@ module Jekyll
         end
 
         def log_author_mismatch(author_filter)
-          Logger.log_liquid_failure(
-            context: @context,
+          log_failure(
             tag_type: 'RENDER_BOOK_LINK',
             reason: 'Book title exists, but not by the specified author.',
             identifiers: { Title: @title, AuthorFilter: author_filter },

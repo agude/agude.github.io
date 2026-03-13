@@ -1,27 +1,13 @@
 # frozen_string_literal: true
 
 # _plugins/src/content/authors/author_link_resolver.rb
-require 'jekyll'
-require 'cgi'
-require_relative '../../infrastructure/links/link_helper_utils'
-require_relative '../../infrastructure/plugin_logger_utils'
-require_relative '../../infrastructure/text_processing_utils'
+require_relative '../../infrastructure/links/link_resolver_support'
 
 module Jekyll
   module Authors
     # Helper class to handle author link resolution logic
     class AuthorLinkResolver
-      # Aliases for readability
-      LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
-      Logger = Jekyll::Infrastructure::PluginLoggerUtils
-      Text = Jekyll::Infrastructure::TextProcessingUtils
-      private_constant :LinkHelper, :Logger, :Text
-
-      def initialize(context)
-        @context = context
-        @site = context&.registers&.[](:site)
-        @log_output = ''
-      end
+      include Jekyll::Infrastructure::Links::LinkResolverSupport
 
       def resolve(name_raw, override, possessive, link: true)
         data = resolve_data(name_raw, override, possessive, link: link)
@@ -38,28 +24,18 @@ module Jekyll
 
         norm_name = Text.normalize_title(@name_input)
         if norm_name.empty?
-          @log_output = log_empty_name(name_raw)
+          @log_output = log_failure(
+            tag_type: 'RENDER_AUTHOR_LINK',
+            reason: 'Input author name resolved to empty after normalization.',
+            identifiers: { NameInput: name_raw || 'nil' },
+            level: :warn,
+          )
           return { status: :empty_name, url: nil, display_text: nil, possessive: nil }.freeze
         end
 
         author_data = find_author(norm_name)
         display_text = determine_display_text(author_data, norm_name)
-
-        if author_data
-          {
-            status: :found,
-            url: @link ? author_data['url'] : nil,
-            display_text: display_text,
-            possessive: !!@possessive,
-          }.freeze
-        else
-          {
-            status: :not_found,
-            url: nil,
-            display_text: display_text,
-            possessive: !!@possessive,
-          }.freeze
-        end
+        build_result(author_data, display_text)
       end
 
       private
@@ -75,21 +51,25 @@ module Jekyll
         end
       end
 
-      def log_empty_name(raw)
-        Logger.log_liquid_failure(
-          context: @context,
-          tag_type: 'RENDER_AUTHOR_LINK',
-          reason: 'Input author name resolved to empty after normalization.',
-          identifiers: { NameInput: raw || 'nil' },
-          level: :warn,
-        )
+      def build_result(author_data, display_text)
+        {
+          status: author_data ? :found : :not_found,
+          url: author_data && @link ? author_data['url'] : nil,
+          display_text: display_text,
+          possessive: @possessive ? true : false,
+        }.freeze
       end
 
       def find_author(norm_name)
-        cache = @site.data['link_cache'] || {}
-        author_data = (cache['authors'] || {})[norm_name]
-
-        @log_output = log_author_not_found unless author_data
+        author_data = find_in_cache('authors', norm_name)
+        unless author_data
+          @log_output = log_failure(
+            tag_type: 'RENDER_AUTHOR_LINK',
+            reason: 'Could not find author page in cache.',
+            identifiers: { Name: @name_input.strip },
+            level: :info,
+          )
+        end
         author_data
       end
 
@@ -109,7 +89,7 @@ module Jekyll
         content = "#{span}#{suffix}"
 
         html = if @link
-                 LinkHelper._generate_link_html(@context, data[:url], content)
+                 wrap_with_link(content, data[:url])
                else
                  content
                end
@@ -120,16 +100,6 @@ module Jekyll
       def build_author_span_element(display_text)
         escaped_display_text = CGI.escapeHTML(display_text)
         "<span class=\"author-name\">#{escaped_display_text}</span>"
-      end
-
-      def log_author_not_found
-        Logger.log_liquid_failure(
-          context: @context,
-          tag_type: 'RENDER_AUTHOR_LINK',
-          reason: 'Could not find author page in cache.',
-          identifiers: { Name: @name_input.strip },
-          level: :info,
-        )
       end
     end
   end
