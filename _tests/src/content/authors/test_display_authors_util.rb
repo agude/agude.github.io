@@ -12,29 +12,29 @@ class TestDisplayAuthorsUtil < Minitest::Test
   def setup
     @site = create_site({ 'url' => 'http://example.com' })
     @context = create_context({}, { site: @site })
-
-    # Mock Jekyll::Authors::AuthorLinkUtils to return predictable output
-    @original_render_author_link = Jekyll::Authors::AuthorLinkUtils.method(:render_author_link)
-    Jekyll::Authors::AuthorLinkUtils.define_singleton_method(:render_author_link) do |name, _context|
-      "<a href=\"/authors/#{name.downcase.gsub(' ', '-')}.html\">#{name}</a>"
-    end
   end
 
-  def teardown
-    # Restore original Jekyll::Authors::AuthorLinkUtils method
-    Jekyll::Authors::AuthorLinkUtils.define_singleton_method(:render_author_link, @original_render_author_link)
+  # Helper to stub AuthorLinkResolver so resolve returns predictable output
+  def with_stub_resolver(&)
+    resolver = Object.new
+    resolver.define_singleton_method(:resolve) do |name, _override, _possessive, link: true|
+      "<a href=\"/authors/#{name.downcase.gsub(' ', '-')}.html\">#{name}</a>"
+    end
+    Jekyll::Authors::AuthorLinkResolver.stub(:new, resolver, &)
   end
 
   # --- Single Author Tests ---
 
   def test_single_author_linked
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: 'Isaac Asimov',
-      context: @context,
-      linked: true,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: 'Isaac Asimov',
+        context: @context,
+        linked: true,
+      )
 
-    assert_equal '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>', result
+      assert_equal '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>', result
+    end
   end
 
   def test_single_author_not_linked
@@ -48,37 +48,43 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_single_author_from_array
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: ['Isaac Asimov'],
-      context: @context,
-      linked: true,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: ['Isaac Asimov'],
+        context: @context,
+        linked: true,
+      )
 
-    assert_equal '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>', result
+      assert_equal '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>', result
+    end
   end
 
   def test_single_author_with_special_characters
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: 'Ursula K. Le Guin',
-      context: @context,
-      linked: true,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: 'Ursula K. Le Guin',
+        context: @context,
+        linked: true,
+      )
 
-    assert_equal '<a href="/authors/ursula-k.-le-guin.html">Ursula K. Le Guin</a>', result
+      assert_equal '<a href="/authors/ursula-k.-le-guin.html">Ursula K. Le Guin</a>', result
+    end
   end
 
   # --- Two Authors Tests ---
 
   def test_two_authors_linked
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: ['Isaac Asimov', 'Robert Silverberg'],
-      context: @context,
-      linked: true,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: ['Isaac Asimov', 'Robert Silverberg'],
+        context: @context,
+        linked: true,
+      )
 
-    expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
-               '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>'
-    assert_equal expected, result
+      expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
+                 '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>'
+      assert_equal expected, result
+    end
   end
 
   def test_two_authors_not_linked
@@ -96,16 +102,18 @@ class TestDisplayAuthorsUtil < Minitest::Test
   # --- Three Authors Tests ---
 
   def test_three_authors_linked
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke'],
-      context: @context,
-      linked: true,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke'],
+        context: @context,
+        linked: true,
+      )
 
-    expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>, ' \
-               '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>, and ' \
-               '<a href="/authors/arthur-c.-clarke.html">Arthur C. Clarke</a>'
-    assert_equal expected, result
+      expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>, ' \
+                 '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>, and ' \
+                 '<a href="/authors/arthur-c.-clarke.html">Arthur C. Clarke</a>'
+      assert_equal expected, result
+    end
   end
 
   def test_three_authors_not_linked
@@ -124,17 +132,19 @@ class TestDisplayAuthorsUtil < Minitest::Test
   # --- Four Authors Tests ---
 
   def test_four_authors_linked
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke', 'Frederik Pohl'],
-      context: @context,
-      linked: true,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke', 'Frederik Pohl'],
+        context: @context,
+        linked: true,
+      )
 
-    expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>, ' \
-               '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>, ' \
-               '<a href="/authors/arthur-c.-clarke.html">Arthur C. Clarke</a>, and ' \
-               '<a href="/authors/frederik-pohl.html">Frederik Pohl</a>'
-    assert_equal expected, result
+      expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>, ' \
+                 '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>, ' \
+                 '<a href="/authors/arthur-c.-clarke.html">Arthur C. Clarke</a>, and ' \
+                 '<a href="/authors/frederik-pohl.html">Frederik Pohl</a>'
+      assert_equal expected, result
+    end
   end
 
   def test_four_authors_not_linked
@@ -154,65 +164,75 @@ class TestDisplayAuthorsUtil < Minitest::Test
   # --- Et Al Tests ---
 
   def test_et_al_after_one
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: ['Isaac Asimov', 'Robert Silverberg'],
-      context: @context,
-      linked: true,
-      etal_after: 1,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: ['Isaac Asimov', 'Robert Silverberg'],
+        context: @context,
+        linked: true,
+        etal_after: 1,
+      )
 
-    expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> <abbr class="etal">et al.</abbr>'
-    assert_equal expected, result
+      expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> <abbr class="etal">et al.</abbr>'
+      assert_equal expected, result
+    end
   end
 
   def test_et_al_after_two
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke'],
-      context: @context,
-      linked: true,
-      etal_after: 2,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke'],
+        context: @context,
+        linked: true,
+        etal_after: 2,
+      )
 
-    expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> <abbr class="etal">et al.</abbr>'
-    assert_equal expected, result
+      expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> <abbr class="etal">et al.</abbr>'
+      assert_equal expected, result
+    end
   end
 
   def test_et_al_after_three
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke', 'Frederik Pohl'],
-      context: @context,
-      linked: true,
-      etal_after: 3,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: ['Isaac Asimov', 'Robert Silverberg', 'Arthur C. Clarke', 'Frederik Pohl'],
+        context: @context,
+        linked: true,
+        etal_after: 3,
+      )
 
-    expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> <abbr class="etal">et al.</abbr>'
-    assert_equal expected, result
+      expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> <abbr class="etal">et al.</abbr>'
+      assert_equal expected, result
+    end
   end
 
   def test_et_al_does_not_truncate_when_threshold_equals_author_count
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: ['Isaac Asimov', 'Robert Silverberg'],
-      context: @context,
-      linked: true,
-      etal_after: 2,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: ['Isaac Asimov', 'Robert Silverberg'],
+        context: @context,
+        linked: true,
+        etal_after: 2,
+      )
 
-    expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
-               '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>'
-    assert_equal expected, result
+      expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
+                 '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>'
+      assert_equal expected, result
+    end
   end
 
   def test_et_al_does_not_truncate_when_threshold_exceeds_author_count
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: ['Isaac Asimov', 'Robert Silverberg'],
-      context: @context,
-      linked: true,
-      etal_after: 5,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: ['Isaac Asimov', 'Robert Silverberg'],
+        context: @context,
+        linked: true,
+        etal_after: 5,
+      )
 
-    expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
-               '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>'
-    assert_equal expected, result
+      expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
+                 '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>'
+      assert_equal expected, result
+    end
   end
 
   def test_et_al_not_linked
@@ -228,42 +248,48 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_et_al_with_zero_threshold_shows_all
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: ['Isaac Asimov', 'Robert Silverberg'],
-      context: @context,
-      linked: true,
-      etal_after: 0,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: ['Isaac Asimov', 'Robert Silverberg'],
+        context: @context,
+        linked: true,
+        etal_after: 0,
+      )
 
-    expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
-               '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>'
-    assert_equal expected, result
+      expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
+                 '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>'
+      assert_equal expected, result
+    end
   end
 
   def test_et_al_with_negative_threshold_shows_all
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: ['Isaac Asimov', 'Robert Silverberg'],
-      context: @context,
-      linked: true,
-      etal_after: -1,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: ['Isaac Asimov', 'Robert Silverberg'],
+        context: @context,
+        linked: true,
+        etal_after: -1,
+      )
 
-    expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
-               '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>'
-    assert_equal expected, result
+      expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
+                 '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>'
+      assert_equal expected, result
+    end
   end
 
   # --- String Input Tests ---
 
   def test_string_input_single_author
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: 'Isaac Asimov',
-      context: @context,
-      linked: true,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: 'Isaac Asimov',
+        context: @context,
+        linked: true,
+      )
 
-    expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>'
-    assert_equal expected, result
+      expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>'
+      assert_equal expected, result
+    end
   end
 
   # --- Edge Cases ---
@@ -299,24 +325,28 @@ class TestDisplayAuthorsUtil < Minitest::Test
   end
 
   def test_linked_defaults_to_true
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: 'Isaac Asimov',
-      context: @context,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: 'Isaac Asimov',
+        context: @context,
+      )
 
-    assert_equal '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>', result
+      assert_equal '<a href="/authors/isaac-asimov.html">Isaac Asimov</a>', result
+    end
   end
 
   def test_etal_after_defaults_to_nil
-    result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
-      author_input: ['Isaac Asimov', 'Robert Silverberg'],
-      context: @context,
-      linked: true,
-    )
+    with_stub_resolver do
+      result = Jekyll::Authors::DisplayAuthorsUtil.render_author_list(
+        author_input: ['Isaac Asimov', 'Robert Silverberg'],
+        context: @context,
+        linked: true,
+      )
 
-    expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
-               '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>'
-    assert_equal expected, result
+      expected = '<a href="/authors/isaac-asimov.html">Isaac Asimov</a> and ' \
+                 '<a href="/authors/robert-silverberg.html">Robert Silverberg</a>'
+      assert_equal expected, result
+    end
   end
 
   # --- HTML Escaping Tests ---

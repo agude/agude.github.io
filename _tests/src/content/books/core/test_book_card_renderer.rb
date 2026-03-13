@@ -75,7 +75,7 @@ class TestBookCardRenderer < Minitest::Test
     captured_card_data = nil
 
     stub_rendering_dependencies(mock_base_data, mock_prepared_title, mock_description_html) do
-      Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, mock_author_link_html_single do
+      stub_author_resolver(mock_author_link_html_single) do
         Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
           Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
             captured_card_data = capture_card_data { Jekyll::Books::Core::BookCardRenderer.new(book_to_test, @context, nil, nil).render }
@@ -111,18 +111,19 @@ class TestBookCardRenderer < Minitest::Test
     author_link_calls = 0
 
     stub_rendering_dependencies(mock_base_data, mock_prepared_title, mock_description_html) do
-      Jekyll::Authors::AuthorLinkUtils.stub :render_author_link,
-                                            lambda { |name, _ctx|
-                                              author_link_calls += 1
-                                              name == 'Author One' ? mock_author1_link_html : mock_author2_link_html
-                                            } do
+      stub_author_resolver(
+        lambda { |name, _override, _possessive|
+          author_link_calls += 1
+          name == 'Author One' ? mock_author1_link_html : mock_author2_link_html
+        },
+      ) do
         Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
           captured_card_data = capture_card_data { Jekyll::Books::Core::BookCardUtils.render(book_to_test, @context) }
         end
       end
     end
 
-    assert_equal 2, author_link_calls, 'Jekyll::Authors::AuthorLinkUtils.render_author_link should be called twice'
+    assert_equal 2, author_link_calls, 'AuthorLinkResolver#resolve should be called twice'
     refute_nil captured_card_data
     assert_equal expected_card_data, captured_card_data
   end
@@ -150,11 +151,12 @@ class TestBookCardRenderer < Minitest::Test
     author_link_calls = 0
 
     stub_rendering_dependencies(mock_base_data, mock_prepared_title, mock_description_html) do
-      Jekyll::Authors::AuthorLinkUtils.stub :render_author_link,
-                                            lambda { |name, _ctx|
-                                              author_link_calls += 1
-                                              "<a href=\"...\">#{name}</a>"
-                                            } do
+      stub_author_resolver(
+        lambda { |name, _override, _possessive|
+          author_link_calls += 1
+          "<a href=\"...\">#{name}</a>"
+        },
+      ) do
         Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
           captured_card_data = capture_card_data { Jekyll::Books::Core::BookCardUtils.render(book_to_test, @context) }
         end
@@ -163,7 +165,7 @@ class TestBookCardRenderer < Minitest::Test
 
     assert_equal 4,
                  author_link_calls,
-                 'Jekyll::Authors::AuthorLinkUtils.render_author_link should be called for all four authors'
+                 'AuthorLinkResolver#resolve should be called for all four authors'
     refute_nil captured_card_data
     assert_equal expected_card_data, captured_card_data
   end
@@ -186,10 +188,11 @@ class TestBookCardRenderer < Minitest::Test
     final_output = ''
 
     stub_rendering_dependencies(mock_base_data, mock_prepared_title, mock_description_html) do
-      Jekyll::Authors::AuthorLinkUtils.stub :render_author_link,
-                                            lambda { |_name, _ctx|
-                                              flunk 'Jekyll::Authors::AuthorLinkUtils should not be called for no authors'
-                                            } do
+      stub_author_resolver(
+        lambda { |_name, _override, _possessive|
+          flunk 'AuthorLinkResolver#resolve should not be called for no authors'
+        },
+      ) do
         Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence,
                                                          lambda { |_list, etal_after: nil|
                                                            flunk 'format_list_as_sentence should not be called if author list is empty'
@@ -269,7 +272,6 @@ class TestBookCardRenderer < Minitest::Test
   end
 
   def test_render_with_missing_title_logs_error
-    # This tests line 50-51 and the 'then' branch on line 49
     @site.config['plugin_logging']['BOOK_CARD_MISSING_TITLE'] = true
     book_no_title = create_doc({ 'book_authors' => ['Author'], 'image' => '/img.jpg' }, '/book.html')
 
@@ -279,7 +281,7 @@ class TestBookCardRenderer < Minitest::Test
     Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
       Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, ->(title) { title } do
         Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '' do
-          Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
+          stub_author_resolver('<a>Author</a>') do
             Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
               Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, nil do
                 Jekyll::UI::Cards::CardRendererUtils.stub :render_card, ->(context:, card_data:) { 'card_html' } do
@@ -298,7 +300,6 @@ class TestBookCardRenderer < Minitest::Test
   end
 
   def test_render_with_provided_image_alt_uses_it
-    # This tests the 'then' branch on line 61 (returning alt when it's not empty)
     book_with_alt = create_doc(
       {
         'title' => 'Book',
@@ -315,7 +316,7 @@ class TestBookCardRenderer < Minitest::Test
     Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
       Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, ->(title) { title } do
         Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '' do
-          Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
+          stub_author_resolver('<a>Author</a>') do
             Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
               Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, nil do
                 Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
@@ -338,7 +339,6 @@ class TestBookCardRenderer < Minitest::Test
   end
 
   def test_render_with_invalid_rating_logs_error_and_continues
-    # This tests lines 114-116 (rescue ArgumentError from Jekyll::UI::Ratings::RatingUtils)
     @site.config['plugin_logging']['BOOK_CARD_RATING_ERROR'] = true
     book_bad_rating = create_doc(
       {
@@ -356,7 +356,7 @@ class TestBookCardRenderer < Minitest::Test
     Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
       Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, ->(title) { title } do
         Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '' do
-          Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
+          stub_author_resolver('<a>Author</a>') do
             Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
               # Make Jekyll::UI::Ratings::RatingUtils raise ArgumentError
               Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, ->(_val, _tag = 'div') { raise ArgumentError, 'Invalid rating' } do
@@ -500,7 +500,6 @@ class TestBookCardRenderer < Minitest::Test
   end
 
   def test_render_with_empty_rating_html_excludes_rating_element
-    # This tests line 124's else branch: html && !html.empty? returns false when html is ''
     book_with_rating = create_doc(
       {
         'title' => 'Book',
@@ -517,7 +516,7 @@ class TestBookCardRenderer < Minitest::Test
     Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, mock_base_data do
       Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, ->(title) { title } do
         Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, '' do
-          Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, '<a>Author</a>' do
+          stub_author_resolver('<a>Author</a>') do
             Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
               # Return empty string instead of nil to trigger the else branch
               Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, '' do
@@ -543,6 +542,20 @@ class TestBookCardRenderer < Minitest::Test
   end
 
   private
+
+  # Creates a stub resolver object for AuthorLinkResolver.
+  # Accepts either a constant value or a lambda for the resolve method.
+  def stub_author_resolver(resolve_behavior, &)
+    resolver = Object.new
+    if resolve_behavior.is_a?(Proc)
+      resolver.define_singleton_method(:resolve) do |name, override, possessive, link: true|
+        resolve_behavior.call(name, override, possessive)
+      end
+    else
+      resolver.define_singleton_method(:resolve) { |*_args, **_kwargs| resolve_behavior }
+    end
+    Jekyll::Authors::AuthorLinkResolver.stub(:new, resolver, &)
+  end
 
   def setup_book_objects
     @book_data_single_author = {

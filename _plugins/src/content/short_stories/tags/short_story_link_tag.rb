@@ -4,7 +4,7 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require_relative '../short_story_link_util'
+require_relative '../short_story_resolver'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../markdown_output/markdown_link_formatter'
 require_relative '../../../infrastructure/links/link_helper_utils'
@@ -23,10 +23,10 @@ module Jekyll
       class ShortStoryLinkTag < Liquid::Tag
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
-        Linker = Jekyll::ShortStories::ShortStoryLinkUtils
+        Resolver = Jekyll::ShortStories::ShortStoryResolver
         MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
         LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
-        private_constant :TagArgs, :Linker, :MdLink, :LinkHelper
+        private_constant :TagArgs, :Resolver, :MdLink, :LinkHelper
 
         QuotedFragment = Liquid::QuotedFragment
 
@@ -48,11 +48,13 @@ module Jekyll
                               )
                             end
 
+          resolver = Resolver.new(context)
+
           if context.registers[:render_mode] == :markdown
-            data = Linker.find_short_story_link_data(story_title, context, from_book_title)
+            data = resolver.resolve_data(story_title, from_book_title)
             MdLink.format_link(data, italic: true, self_link: LinkHelper.self_link?(context, data[:url]))
           else
-            Linker.render_short_story_link(story_title, context, from_book_title)
+            resolver.resolve(story_title, from_book_title)
           end
         end
 

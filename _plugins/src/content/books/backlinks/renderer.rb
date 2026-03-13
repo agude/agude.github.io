@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../core/book_link_util'
+require_relative '../core/book_link_resolver'
 
 module Jekyll
   module Books
@@ -14,6 +14,7 @@ module Jekyll
           @context = context
           @page = page
           @backlinks = backlinks
+          @resolver = Jekyll::Books::Core::BookLinkResolver.new(context)
         end
 
         def render
@@ -31,7 +32,7 @@ module Jekyll
         private
 
         def render_item(title, url, type)
-          link = Jekyll::Books::Core::BookLinkUtils.render_book_link_from_data(title, url, @context)
+          link = @resolver.render_from_data(title, url)
           indicator = type == 'series' ? series_indicator : ''
           "<li class=\"book-backlink-item\" data-link-type=\"#{type}\">#{link}#{indicator}</li>"
         end

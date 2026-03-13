@@ -2,7 +2,7 @@
 
 # _plugins/utils/book_list_renderer_utils.rb
 require 'cgi'
-require_relative '../../series/series_link_util'
+require_relative '../../series/series_link_resolver'
 require_relative '../core/book_card_utils'
 require_relative '../../../infrastructure/text_processing_utils'
 
@@ -67,7 +67,7 @@ module Jekyll
           _register_series_anchor(name, slug, options) if options[:generate_nav]
 
           heading_level = options[:series_hl]
-          link = Jekyll::Series::SeriesLinkUtils.render_series_link(name, context)
+          link = Jekyll::Series::SeriesLinkResolver.new(context).resolve(name, nil)
           html = "<h#{heading_level} class=\"series-title\" id=\"#{slug}\">#{link}</h#{heading_level}>\n"
           html << "<div class=\"card-grid\">\n"
           group[:books].each { |b| html << Jekyll::Books::Core::BookCardUtils.render(b, context) << "\n" }

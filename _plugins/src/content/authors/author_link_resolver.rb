@@ -6,7 +6,6 @@ require 'cgi'
 require_relative '../../infrastructure/links/link_helper_utils'
 require_relative '../../infrastructure/plugin_logger_utils'
 require_relative '../../infrastructure/text_processing_utils'
-require_relative 'author_link_util'
 
 module Jekyll
   module Authors
@@ -25,7 +24,6 @@ module Jekyll
       end
 
       def resolve(name_raw, override, possessive, link: true)
-        @link = link
         data = resolve_data(name_raw, override, possessive, link: link)
         render_html_from_data(data)
       end
@@ -91,7 +89,7 @@ module Jekyll
         cache = @site.data['link_cache'] || {}
         author_data = (cache['authors'] || {})[norm_name]
 
-        @log_output = Jekyll::Authors::AuthorLinkUtils._log_author_not_found(@context, @name_input) unless author_data
+        @log_output = log_author_not_found unless author_data
         author_data
       end
 
@@ -106,7 +104,7 @@ module Jekyll
       end
 
       def generate_html(data)
-        span = Jekyll::Authors::AuthorLinkUtils._build_author_span_element(data[:display_text])
+        span = build_author_span_element(data[:display_text])
         suffix = data[:possessive] ? "\u2019s" : ''
         content = "#{span}#{suffix}"
 
@@ -117,6 +115,21 @@ module Jekyll
                end
 
         @log_output + html
+      end
+
+      def build_author_span_element(display_text)
+        escaped_display_text = CGI.escapeHTML(display_text)
+        "<span class=\"author-name\">#{escaped_display_text}</span>"
+      end
+
+      def log_author_not_found
+        Logger.log_liquid_failure(
+          context: @context,
+          tag_type: 'RENDER_AUTHOR_LINK',
+          reason: 'Could not find author page in cache.',
+          identifiers: { Name: @name_input.strip },
+          level: :info,
+        )
       end
     end
   end

@@ -34,6 +34,19 @@ class TestBookBacklinksTag < Minitest::Test
     Liquid::Template.parse('{% book_backlinks %}').render!(context)
   end
 
+  # Helper to stub BookLinkResolver so render_from_data returns controlled output
+  def stub_book_resolver(render_behavior, &)
+    resolver = Object.new
+    if render_behavior.is_a?(Proc)
+      resolver.define_singleton_method(:render_from_data) do |title, url, cite: true|
+        render_behavior.call(title, url)
+      end
+    else
+      resolver.define_singleton_method(:render_from_data) { |*_args, **_kwargs| render_behavior }
+    end
+    Jekyll::Books::Core::BookLinkResolver.stub(:new, resolver, &)
+  end
+
   # Helper to build expected list item with dagger
   def build_expected_li_with_dagger(link_html)
     dagger_html = '<sup class="series-mention-indicator" role="img" ' \
@@ -198,17 +211,16 @@ class TestBookBacklinksTag < Minitest::Test
     ]
 
     context = create_context({}, { site: @site, page: @target_page })
-    renderer = Jekyll::Books::Backlinks::Renderer.new(context, @target_page, backlinks)
-    output = nil
 
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
+    stub_book_resolver(->(title, _url) { "<a>#{title}</a>" }) do
+      renderer = Jekyll::Books::Backlinks::Renderer.new(context, @target_page, backlinks)
       output = renderer.render
-    end
 
-    assert_match(/^<aside class="book-backlinks">/, output)
-    assert_match(/<h2 class="book-backlink-section">/, output)
-    assert_match(/<ul class="book-backlink-list">/, output)
-    assert_match(%r{</aside>$}, output)
+      assert_match(/^<aside class="book-backlinks">/, output)
+      assert_match(/<h2 class="book-backlink-section">/, output)
+      assert_match(/<ul class="book-backlink-list">/, output)
+      assert_match(%r{</aside>$}, output)
+    end
   end
 
   def test_renderer_includes_dagger_for_series_links
@@ -218,32 +230,30 @@ class TestBookBacklinksTag < Minitest::Test
     ]
 
     context = create_context({}, { site: @site, page: @target_page })
-    renderer = Jekyll::Books::Backlinks::Renderer.new(context, @target_page, backlinks)
-    output = nil
 
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
+    stub_book_resolver(->(title, _url) { "<a>#{title}</a>" }) do
+      renderer = Jekyll::Books::Backlinks::Renderer.new(context, @target_page, backlinks)
       output = renderer.render
-    end
 
-    # Should have dagger for series link
-    assert_match(/series-mention-indicator/, output)
-    assert_match(/†/, output)
+      # Should have dagger for series link
+      assert_match(/series-mention-indicator/, output)
+      assert_match(/†/, output)
+    end
   end
 
   def test_renderer_includes_explanation_when_series_links_present
     backlinks = [['Book Alpha', '/a.html', 'series']]
 
     context = create_context({}, { site: @site, page: @target_page })
-    renderer = Jekyll::Books::Backlinks::Renderer.new(context, @target_page, backlinks)
-    output = nil
 
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
+    stub_book_resolver(->(title, _url) { "<a>#{title}</a>" }) do
+      renderer = Jekyll::Books::Backlinks::Renderer.new(context, @target_page, backlinks)
       output = renderer.render
-    end
 
-    expected_explanation = '<p class="backlink-explanation"><sup>†</sup> ' \
-                           '<em>Mentioned via a link to the series.</em></p>'
-    assert_match(/#{Regexp.escape(expected_explanation)}/, output)
+      expected_explanation = '<p class="backlink-explanation"><sup>†</sup> ' \
+                             '<em>Mentioned via a link to the series.</em></p>'
+      assert_match(/#{Regexp.escape(expected_explanation)}/, output)
+    end
   end
 
   def test_renderer_omits_explanation_when_no_series_links
@@ -253,15 +263,14 @@ class TestBookBacklinksTag < Minitest::Test
     ]
 
     context = create_context({}, { site: @site, page: @target_page })
-    renderer = Jekyll::Books::Backlinks::Renderer.new(context, @target_page, backlinks)
-    output = nil
 
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(title, _url, _ctx) { "<a>#{title}</a>" } do
+    stub_book_resolver(->(title, _url) { "<a>#{title}</a>" }) do
+      renderer = Jekyll::Books::Backlinks::Renderer.new(context, @target_page, backlinks)
       output = renderer.render
-    end
 
-    refute_match(/<p class="backlink-explanation">/, output)
-    refute_match(/†/, output)
+      refute_match(/<p class="backlink-explanation">/, output)
+      refute_match(/†/, output)
+    end
   end
 
   # ========================================================================
@@ -284,8 +293,7 @@ class TestBookBacklinksTag < Minitest::Test
     }
 
     output = ''
-    stub_logic = ->(title, _url, _ctx) { mock_link_html[title] }
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, stub_logic do
+    stub_book_resolver(->(title, _url) { mock_link_html[title] }) do
       output = render_tag(context)
     end
 
@@ -323,16 +331,13 @@ class TestBookBacklinksTag < Minitest::Test
   def test_tag_returns_empty_when_no_backlinks_found
     context = create_context({}, { site: @site, page: @target_page })
     output = ''
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data,
-                                            lambda { |_t, _u, _c|
-                                              flunk 'render_book_link_from_data should not be called'
-                                            } do
+    stub_book_resolver(->(_t, _u) { flunk 'render_from_data should not be called' }) do
       output = render_tag(context)
     end
     assert_equal '', output.strip
   end
 
-  def test_tag_passes_correct_arguments_to_render_book_link_from_data
+  def test_tag_passes_correct_arguments_to_render_from_data
     @site.data['link_cache']['backlinks'][@target_page.url] = [
       { source: @source_doc_alpha, type: 'book' },
       { source: @source_doc_beta, type: 'series' },
@@ -340,12 +345,12 @@ class TestBookBacklinksTag < Minitest::Test
     context = create_context({}, { site: @site, page: @target_page })
 
     captured_render_args = []
-    stub_render_logic = lambda { |title_arg, url_arg, context_arg|
-      captured_render_args << { title: title_arg, url: url_arg, context: context_arg }
+    stub_render_logic = lambda { |title_arg, url_arg|
+      captured_render_args << { title: title_arg, url: url_arg }
       "<cite>#{title_arg}</cite>"
     }
 
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, stub_render_logic do
+    stub_book_resolver(stub_render_logic) do
       render_tag(context)
     end
 

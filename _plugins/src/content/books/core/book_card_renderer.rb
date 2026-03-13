@@ -9,7 +9,7 @@ require_relative '../../../infrastructure/text_processing_utils'
 require_relative '../../../ui/cards/card_data_extractor_utils'
 require_relative '../../../ui/cards/card_renderer_utils'
 require_relative '../../../ui/ratings/rating_utils'
-require_relative '../../authors/author_link_util'
+require_relative '../../authors/author_link_resolver'
 require_relative 'book_card_utils'
 
 module Jekyll
@@ -29,15 +29,13 @@ module Jekyll
         CardExtractor = Jekyll::UI::Cards::CardDataExtractorUtils
         CardRenderer = Jekyll::UI::Cards::CardRendererUtils
         Ratings = Jekyll::UI::Ratings::RatingUtils
-        AuthorLinker = Jekyll::Authors::AuthorLinkUtils
         private_constant :Logger,
                          :Typography,
                          :FrontMatter,
                          :Text,
                          :CardExtractor,
                          :CardRenderer,
-                         :Ratings,
-                         :AuthorLinker
+                         :Ratings
 
         def initialize(book_obj, context, title_override, subtitle)
           @book_obj = book_obj
@@ -162,7 +160,8 @@ module Jekyll
         def format_authors_html(authors)
           return nil if authors.empty?
 
-          links = authors.map { |n| AuthorLinker.render_author_link(n, @context) }
+          resolver = Jekyll::Authors::AuthorLinkResolver.new(@context)
+          links = authors.map { |n| resolver.resolve(n, nil, nil) }
           "    <span class=\"by-author\"> by #{Text.format_list_as_sentence(
             links, etal_after: 3,
           )}</span>\n"

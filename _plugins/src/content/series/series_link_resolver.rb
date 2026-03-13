@@ -2,10 +2,10 @@
 
 # _plugins/src/content/series/series_link_resolver.rb
 require 'jekyll'
+require 'cgi'
 require_relative '../../infrastructure/links/link_helper_utils'
 require_relative '../../infrastructure/plugin_logger_utils'
 require_relative '../../infrastructure/text_processing_utils'
-require_relative 'series_link_util'
 
 module Jekyll
   module Series
@@ -24,7 +24,6 @@ module Jekyll
       end
 
       def resolve(title_raw, override_raw, link: true)
-        @link = link
         data = resolve_data(title_raw, override_raw, link: link)
         render_html_from_data(data)
       end
@@ -66,7 +65,7 @@ module Jekyll
       end
 
       def fallback(title)
-        Jekyll::Series::SeriesLinkUtils._build_series_span_element(title.to_s)
+        build_series_span_element(title.to_s)
       end
 
       def log_empty_title(raw)
@@ -84,7 +83,7 @@ module Jekyll
         series_cache = cache['series'] || {}
         data = series_cache[norm_title]
 
-        @log_output = Jekyll::Series::SeriesLinkUtils._log_series_not_found(@context, @title_input) unless data
+        @log_output = log_series_not_found unless data
         data
       end
 
@@ -99,7 +98,7 @@ module Jekyll
       end
 
       def generate_html(data)
-        span = Jekyll::Series::SeriesLinkUtils._build_series_span_element(data[:display_text])
+        span = build_series_span_element(data[:display_text])
 
         html = if @link
                  LinkHelper._generate_link_html(@context, data[:url], span)
@@ -107,6 +106,21 @@ module Jekyll
                  span
                end
         @log_output + html
+      end
+
+      def build_series_span_element(display_text)
+        escaped_display_text = CGI.escapeHTML(display_text)
+        "<span class=\"book-series\">#{escaped_display_text}</span>"
+      end
+
+      def log_series_not_found
+        Logger.log_liquid_failure(
+          context: @context,
+          tag_type: 'RENDER_SERIES_LINK',
+          reason: 'Could not find series page in cache.',
+          identifiers: { Series: @title_input.strip },
+          level: :info,
+        )
       end
     end
   end

@@ -55,25 +55,27 @@ class TestBookLinkTag < Minitest::Test
     end
   end
 
-  # Helper to parse the tag and capture arguments passed to the utility
+  # Helper to parse the tag and capture arguments passed to the resolver.
+  # Uses Minitest::Mock to verify that resolve is actually called and to
+  # capture the arguments for assertion.
   def parse_and_capture_args(markup, context = @parsing_context)
     captured_args = nil
-    # Stub the utility function to capture all arguments
-    # The signature is (title, ctx, link_text, author, date, cite:)
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link,
-                                            lambda { |title, ctx, link_text_override, author_filter, date_filter = nil, cite: true|
-                                              captured_args = {
-                                                title: title,
-                                                context: ctx,
-                                                link_text_override: link_text_override,
-                                                author_filter: author_filter,
-                                                date_filter: date_filter,
-                                                cite: cite,
-                                              }
-                                              '<!-- Util called -->'
-                                            } do
+    mock_resolver = Minitest::Mock.new
+    mock_resolver.expect(:resolve, '<!-- Resolver called -->') do |title, link_text_override, author_filter, date_filter, cite:|
+      captured_args = {
+        title: title,
+        link_text_override: link_text_override,
+        author_filter: author_filter,
+        date_filter: date_filter,
+        cite: cite,
+      }
+      true
+    end
+
+    Jekyll::Books::Core::BookLinkResolver.stub :new, mock_resolver do
       template = Liquid::Template.parse("{% book_link #{markup} %}")
       output = template.render!(context)
+      mock_resolver.verify
       return output, captured_args
     end
   end

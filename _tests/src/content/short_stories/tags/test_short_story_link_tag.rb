@@ -20,16 +20,21 @@ class TestShortStoryLinkTag < Minitest::Test
     )
   end
 
-  # Helper to parse the tag and capture arguments passed to the utility
+  # Helper to parse the tag and capture arguments passed to the resolver.
+  # Uses Minitest::Mock to verify that resolve is actually called and to
+  # capture the arguments for assertion.
   def parse_and_capture_args(markup, context = @context)
     captured_args = nil
-    Jekyll::ShortStories::ShortStoryLinkUtils.stub :render_short_story_link,
-                                                   lambda { |story_title, ctx, from_book_title|
-                                                     captured_args = { story_title: story_title, context: ctx, from_book_title: from_book_title }
-                                                     "<!-- Util called with story: #{story_title}, book: #{from_book_title} -->"
-                                                   } do
+    mock_resolver = Minitest::Mock.new
+    mock_resolver.expect(:resolve, '<!-- Resolver called -->') do |story_title, from_book_title|
+      captured_args = { story_title: story_title, from_book_title: from_book_title }
+      true
+    end
+
+    Jekyll::ShortStories::ShortStoryResolver.stub :new, mock_resolver do
       template = Liquid::Template.parse("{% short_story_link #{markup} %}")
       output = template.render!(context)
+      mock_resolver.verify
       return output, captured_args
     end
   end
@@ -54,7 +59,6 @@ class TestShortStoryLinkTag < Minitest::Test
     _output, captured_args = parse_and_capture_args("'A Good Story'")
     assert_equal 'A Good Story', captured_args[:story_title]
     assert_nil captured_args[:from_book_title]
-    assert_equal @context, captured_args[:context]
   end
 
   def test_render_with_variable_title_only

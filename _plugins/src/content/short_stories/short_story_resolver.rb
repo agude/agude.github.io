@@ -5,7 +5,7 @@ require 'jekyll'
 require_relative '../../infrastructure/links/link_helper_utils'
 require_relative '../../infrastructure/plugin_logger_utils'
 require_relative '../../infrastructure/text_processing_utils'
-require_relative 'short_story_link_util'
+require_relative '../../infrastructure/typography_utils'
 
 module Jekyll
   module ShortStories
@@ -15,7 +15,8 @@ module Jekyll
       LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
       Logger = Jekyll::Infrastructure::PluginLoggerUtils
       Text = Jekyll::Infrastructure::TextProcessingUtils
-      private_constant :LinkHelper, :Logger, :Text
+      Typography = Jekyll::Infrastructure::TypographyUtils
+      private_constant :LinkHelper, :Logger, :Text, :Typography
 
       def initialize(context)
         @context = context
@@ -65,17 +66,17 @@ module Jekyll
         when :empty_title
           @log_output
         when :found
-          cite = Jekyll::ShortStories::ShortStoryLinkUtils._build_story_cite_element(data[:display_text])
+          cite = build_story_cite_element(data[:display_text])
           html = LinkHelper._generate_link_html(@context, data[:url], cite)
           @log_output + html
         when :not_found, :ambiguous
-          cite = Jekyll::ShortStories::ShortStoryLinkUtils._build_story_cite_element(data[:display_text])
+          cite = build_story_cite_element(data[:display_text])
           @log_output + cite
         end
       end
 
       def fallback(title)
-        Jekyll::ShortStories::ShortStoryLinkUtils._build_story_cite_element(title.to_s)
+        build_story_cite_element(title.to_s)
       end
 
       def log_empty_title(title_raw)
@@ -165,6 +166,11 @@ module Jekyll
           level: :error,
         )
         nil
+      end
+
+      def build_story_cite_element(display_text)
+        prepared_display_text = Typography.prepare_display_title(display_text)
+        "<cite class=\"short-story-title\">#{prepared_display_text}</cite>"
       end
     end
   end

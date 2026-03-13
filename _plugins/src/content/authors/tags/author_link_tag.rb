@@ -7,7 +7,7 @@ require 'cgi' # For HTML escaping
 require 'strscan' # For flexible argument parsing
 
 require_relative '../../../infrastructure/tag_argument_utils'
-require_relative '../author_link_util'
+require_relative '../author_link_resolver'
 require_relative '../../markdown_output/markdown_link_formatter'
 require_relative '../../../infrastructure/links/link_helper_utils'
 
@@ -24,10 +24,10 @@ module Jekyll
         QuotedFragment = Liquid::QuotedFragment
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
-        Linker = Jekyll::Authors::AuthorLinkUtils
+        Resolver = Jekyll::Authors::AuthorLinkResolver
         MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
         LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
-        private_constant :TagArgs, :Linker, :MdLink, :LinkHelper
+        private_constant :TagArgs, :Resolver, :MdLink, :LinkHelper
 
         def initialize(tag_name, markup, tokens)
           super
@@ -48,17 +48,18 @@ module Jekyll
           link_text_override = (TagArgs.resolve_value(@link_text_markup, context) if @link_text_markup)
 
           link_arg = link_enabled?(context)
+          resolver = Resolver.new(context)
 
           if context.registers[:render_mode] == :markdown
-            data = Linker.find_author_link_data(
-              author_name, context, link_text_override, @possessive_flag, link: link_arg,
+            data = resolver.resolve_data(
+              author_name, link_text_override, @possessive_flag, link: link_arg,
             )
             no_link = !link_arg || LinkHelper.self_link?(context, data[:url])
             result = MdLink.format_link(data, self_link: no_link)
             data[:possessive] ? "#{result}'s" : result
           else
-            Linker.render_author_link(
-              author_name, context, link_text_override, @possessive_flag, link: link_arg,
+            resolver.resolve(
+              author_name, link_text_override, @possessive_flag, link: link_arg,
             )
           end
         end

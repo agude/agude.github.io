@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # _plugins/logic/ranked_by_backlinks/renderer.rb
-require_relative '../core/book_link_util'
+require_relative '../core/book_link_resolver'
 
 module Jekyll
   module Books
@@ -15,6 +15,7 @@ module Jekyll
           def initialize(context, ranked_list)
             @context = context
             @ranked_list = ranked_list
+            @resolver = Jekyll::Books::Core::BookLinkResolver.new(context)
           end
 
           def render
@@ -23,11 +24,7 @@ module Jekyll
             output = +"<ol class=\"ranked-list\">\n"
 
             @ranked_list.each do |item|
-              book_link_html = Jekyll::Books::Core::BookLinkUtils.render_book_link_from_data(
-                item[:title],
-                item[:url],
-                @context,
-              )
+              book_link_html = @resolver.render_from_data(item[:title], item[:url])
               mention_text = item[:count] == 1 ? '1 mention' : "#{item[:count]} mentions"
               output << "  <li>#{book_link_html} <span class=\"mention-count\">(#{mention_text})</span></li>\n"
             end
