@@ -7,6 +7,7 @@ require_relative '../lists/author_finder'
 require_relative '../lists/book_list_renderer_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/tags/display_tag_renderable'
 
 module Jekyll
   module Books
@@ -40,8 +41,7 @@ module Jekyll
 
         # Helper class to handle rendering logic
         class BooksByAuthorRenderer
-          MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
-          private_constant :MdCards
+          include Jekyll::UI::DisplayTagRenderable
 
           def initialize(context, author_name_markup)
             @context = context
@@ -66,10 +66,7 @@ module Jekyll
             )
             data = finder.find
 
-            if @context.registers[:render_mode] == :markdown
-              render_markdown(data)
-            else
-              # Renderer.render_book_groups_html will prepend data[:log_messages]
+            render_display_tag(@context, data) do |_d|
               Renderer.render_book_groups_html(data, @context)
             end
           end

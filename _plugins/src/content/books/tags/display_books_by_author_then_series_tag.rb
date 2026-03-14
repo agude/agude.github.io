@@ -6,6 +6,7 @@ require 'liquid'
 require_relative '../lists/all_books_by_author_finder'
 require_relative '../lists/renderers/by_author_then_series_renderer'
 require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/tags/display_tag_renderable'
 
 # Liquid Tag to display all books, grouped first by author (alphabetically),
 # then by series (alphabetically), with books in series sorted by book_number (numerically).
@@ -20,6 +21,8 @@ module Jekyll
       # Liquid tag for displaying all books grouped by author, then by series.
       # Books are sorted alphabetically within each group.
       class DisplayBooksByAuthorThenSeriesTag < Liquid::Tag
+        include Jekyll::UI::DisplayTagRenderable
+
         def initialize(tag_name, markup, tokens)
           super
           # No arguments to parse for this tag.
@@ -28,20 +31,14 @@ module Jekyll
           raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
         end
 
-        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
-        private_constant :MdCards
-
         def render(context)
           finder = Jekyll::Books::Lists::AllBooksByAuthorFinder.new(
             site: context.registers[:site], context: context,
           )
           data = finder.find
 
-          if context.registers[:render_mode] == :markdown
-            render_markdown(data)
-          else
-            output = +(data[:log_messages] || '')
-            output << Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(context, data).render
+          render_display_tag(context, data) do |d|
+            Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(context, d).render
           end
         end
 

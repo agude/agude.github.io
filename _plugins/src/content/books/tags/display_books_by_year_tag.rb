@@ -6,6 +6,7 @@ require 'liquid'
 require_relative '../lists/by_year_finder'
 require_relative '../lists/renderers/by_year_renderer'
 require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/tags/display_tag_renderable'
 
 # Liquid Tag to display all books, grouped by year (most recent year first).
 # Books within each year are sorted by date (most recent first).
@@ -19,15 +20,14 @@ module Jekyll
       # Liquid tag for displaying books grouped by year.
       # Most recent year appears first, with most recent books first within each year.
       class DisplayBooksByYearTag < Liquid::Tag
+        include Jekyll::UI::DisplayTagRenderable
+
         def initialize(tag_name, markup, tokens)
           super
           return if markup.strip.empty?
 
           raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
         end
-
-        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
-        private_constant :MdCards
 
         def render(context)
           finder = Jekyll::Books::Lists::ByYearFinder.new(
@@ -36,11 +36,8 @@ module Jekyll
           )
           data = finder.find
 
-          if context.registers[:render_mode] == :markdown
-            render_markdown(data)
-          else
-            output = +(data[:log_messages] || '')
-            output << Jekyll::Books::Lists::Renderers::ByYearRenderer.new(context, data).render
+          render_display_tag(context, data) do |d|
+            Jekyll::Books::Lists::Renderers::ByYearRenderer.new(context, d).render
           end
         end
 

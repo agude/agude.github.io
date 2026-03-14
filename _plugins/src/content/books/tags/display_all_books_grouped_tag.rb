@@ -6,6 +6,7 @@ require 'liquid'
 require_relative '../lists/all_books_finder'
 require_relative '../lists/book_list_renderer_utils'
 require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/tags/display_tag_renderable'
 
 module Jekyll
   module Books
@@ -17,8 +18,7 @@ module Jekyll
       # Usage in Liquid templates:
       #   {% display_all_books_grouped %}
       class DisplayAllBooksGroupedTag < Liquid::Tag
-        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
-        private_constant :MdCards
+        include Jekyll::UI::DisplayTagRenderable
 
         def initialize(tag_name, markup, tokens)
           super
@@ -33,9 +33,7 @@ module Jekyll
           finder = Jekyll::Books::Lists::AllBooksFinder.new(site: site, context: context)
           data = finder.find
 
-          if context.registers[:render_mode] == :markdown
-            render_markdown(data)
-          else
+          render_display_tag(context, data) do |_d|
             Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(data, context, generate_nav: true)
           end
         end
