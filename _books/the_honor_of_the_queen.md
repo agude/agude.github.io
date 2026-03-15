@@ -1,11 +1,11 @@
 ---
-date: 2026-03-07
+date: 2026-03-14
 title: The Honor of the Queen
 book_authors: David Weber
 series: Honor Harrington
 book_number: 2
 is_anthology: false
-rating: null
+rating: 4
 image: /books/covers/the_honor_of_the_queen.jpg
 wikidata_qid: Q3400447
 isbn: 978-0-671-72172-5
