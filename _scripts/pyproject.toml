@@ -4,8 +4,8 @@ version = "0.0.0"
 requires-python = ">=3.12"
 
 [dependency-groups]
-dev = ["pytest"]
+dev = ["pytest", "pyyaml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["content", "diagnostics", "metadata", "ranking"]
+pythonpath = ["content", "diagnostics", "metadata", "ranking", "../.claude/skills/stub-book/scripts"]
