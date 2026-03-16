@@ -200,6 +200,110 @@ class TestLinkValidator < Minitest::Test
     assert_equal 1, occurrences, 'Duplicate violations should be deduplicated'
   end
 
+  def test_detects_reference_style_link_to_book
+    post = create_doc(
+      { 'title' => 'Ref Link Post' },
+      '/posts/ref.html',
+      "I said this [before][ref1].\n\n[ref1]: /books/test-book.html",
+    )
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [@book] }, [@author_page, @series_page], [post])
+    end
+
+    assert_includes error.message, 'Markdown (reference):'
+    assert_includes error.message, '/books/test-book.html'
+  end
+
+  def test_detects_reference_style_link_to_author
+    post = create_doc(
+      { 'title' => 'Ref Author Post' },
+      '/posts/ref-author.html',
+      "Written by [her][author_ref].\n\n[author_ref]: /authors/jane-doe.html",
+    )
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [@book] }, [@author_page, @series_page], [post])
+    end
+
+    assert_includes error.message, 'Markdown (reference):'
+    assert_includes error.message, '/authors/jane-doe.html'
+  end
+
+  def test_reference_style_link_allows_unknown_urls
+    post = create_doc(
+      { 'title' => 'Safe Ref Post' },
+      '/posts/safe-ref.html',
+      "Check [this][ext].\n\n[ext]: https://example.com",
+    )
+
+    # Should not raise
+    site = create_site({}, { 'books' => [@book] }, [@author_page, @series_page], [post])
+    assert site.data['link_cache']
+  end
+
+  def test_detects_reference_style_link_to_series
+    post = create_doc(
+      { 'title' => 'Ref Series Post' },
+      '/posts/ref-series.html',
+      "Read the [series][s1].\n\n[s1]: /series/test-series.html",
+    )
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [@book] }, [@author_page, @series_page], [post])
+    end
+
+    assert_includes error.message, 'Markdown (reference):'
+    assert_includes error.message, '/series/test-series.html'
+  end
+
+  def test_detects_indented_reference_style_link
+    post = create_doc(
+      { 'title' => 'Indented Ref Post' },
+      '/posts/indented-ref.html',
+      "See [this][ref1].\n\n   [ref1]: /books/test-book.html",
+    )
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [@book] }, [@author_page, @series_page], [post])
+    end
+
+    assert_includes error.message, 'Markdown (reference):'
+    assert_includes error.message, '/books/test-book.html'
+  end
+
+  def test_detects_angle_bracket_reference_link
+    post = create_doc(
+      { 'title' => 'Angle Ref Post' },
+      '/posts/angle-ref.html',
+      "See [this][ref1].\n\n[ref1]: </books/test-book.html>",
+    )
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [@book] }, [@author_page, @series_page], [post])
+    end
+
+    assert_includes error.message, 'Markdown (reference):'
+    assert_includes error.message, '/books/test-book.html'
+  end
+
+  def test_detects_mixed_inline_and_reference_links
+    post = create_doc(
+      { 'title' => 'Mixed Post' },
+      '/posts/mixed.html',
+      "[Inline](/authors/jane-doe.html) and [ref][r1].\n\n[r1]: /books/test-book.html",
+    )
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [@book] }, [@author_page, @series_page], [post])
+    end
+
+    assert_includes error.message, 'Markdown:'
+    assert_includes error.message, '/authors/jane-doe.html'
+    assert_includes error.message, 'Markdown (reference):'
+    assert_includes error.message, '/books/test-book.html'
+  end
+
   def test_skips_docs_without_content
     # MockDocument with nil content
     nil_doc = create_doc(
