@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../article_card_utils'
+require_relative '../article_card_renderer'
 
 module Jekyll
   module Posts
@@ -21,7 +21,7 @@ module Jekyll
 
           header = @found_by_category ? 'Related Posts' : 'Recent Posts'
           out = "<aside class=\"related\">\n  <h2>#{header}</h2>\n  <div class=\"card-grid\">\n"
-          @posts.each { |p| out << Jekyll::Posts::ArticleCardUtils.render(p, @context) << "\n" }
+          @posts.each { |p| out << Jekyll::Posts::ArticleCardRenderer.render(p, @context) << "\n" }
           out << "  </div>\n</aside>"
         end
       end

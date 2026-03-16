@@ -34,7 +34,7 @@ class TestRelatedBooksRenderer < Minitest::Test
 
     renderer = Jekyll::Books::Related::Renderer.new(context, books)
     output = nil
-    Jekyll::Books::Core::BookCardUtils.stub :render, ->(book_obj, _ctx) { "<!-- Card for: #{book_obj.data['title']} -->\n" } do
+    Jekyll::Books::Core::BookCardRenderer.stub :render, ->(book_obj, _ctx) { "<!-- Card for: #{book_obj.data['title']} -->\n" } do
       output = renderer.render
     end
 
@@ -51,11 +51,11 @@ class TestRelatedBooksRenderer < Minitest::Test
 
     card_render_count = 0
     renderer = Jekyll::Books::Related::Renderer.new(context, books)
-    Jekyll::Books::Core::BookCardUtils.stub :render,
-                                            lambda { |_book_obj, _ctx|
-                                              card_render_count += 1
-                                              "<!-- Card -->\n"
-                                            } do
+    Jekyll::Books::Core::BookCardRenderer.stub :render,
+                                               lambda { |_book_obj, _ctx|
+                                                 card_render_count += 1
+                                                 "<!-- Card -->\n"
+                                               } do
       renderer.render
     end
 

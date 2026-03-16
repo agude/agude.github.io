@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../core/book_card_utils'
+require_relative '../core/book_card_renderer'
 
 module Jekyll
   module Books
@@ -27,7 +27,7 @@ module Jekyll
           output = String.new("<aside class=\"related\">\n")
           output << "  <h2>Related Books</h2>\n"
           output << "  <div class=\"card-grid\">\n"
-          @books.each { |book| output << Jekyll::Books::Core::BookCardUtils.render(book, @context) << "\n" }
+          @books.each { |book| output << Jekyll::Books::Core::BookCardRenderer.render(book, @context) << "\n" }
           output << "  </div>\n"
           output << '</aside>'
         end

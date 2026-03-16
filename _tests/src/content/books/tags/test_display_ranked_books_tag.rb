@@ -253,7 +253,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
     renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, rating_groups)
     output = nil
 
-    Jekyll::Books::Core::BookCardUtils.stub :render, @mock_card_html_generic do
+    Jekyll::Books::Core::BookCardRenderer.stub :render, @mock_card_html_generic do
       Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
         output = renderer.render
       end
@@ -271,11 +271,11 @@ class TestDisplayRankedBooksTag < Minitest::Test
     card_render_count = 0
 
     renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, rating_groups)
-    Jekyll::Books::Core::BookCardUtils.stub :render,
-                                            lambda { |_book_obj, _ctx|
-                                              card_render_count += 1
-                                              @mock_card_html_generic
-                                            } do
+    Jekyll::Books::Core::BookCardRenderer.stub :render,
+                                               lambda { |_book_obj, _ctx|
+                                                 card_render_count += 1
+                                                 @mock_card_html_generic
+                                               } do
       Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
         renderer.render
       end
@@ -294,7 +294,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
     renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, rating_groups)
     output = nil
 
-    Jekyll::Books::Core::BookCardUtils.stub :render, @mock_card_html_generic do
+    Jekyll::Books::Core::BookCardRenderer.stub :render, @mock_card_html_generic do
       Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
         output = renderer.render
       end
@@ -377,7 +377,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
     output = ''
     # Pass the mock_jekyll_logger to render_tag
-    Jekyll::Books::Core::BookCardUtils.stub :render, @mock_card_html_generic do
+    Jekyll::Books::Core::BookCardRenderer.stub :render, @mock_card_html_generic do
       Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
         output = render_tag('page.ranked_list', @context_prod, mock_jekyll_logger)
       end
@@ -404,7 +404,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
     end
 
     output = ''
-    Jekyll::Books::Core::BookCardUtils.stub :render, @mock_card_html_generic do
+    Jekyll::Books::Core::BookCardRenderer.stub :render, @mock_card_html_generic do
       Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
         output = render_tag('page.ranked_list', @context_prod, mock_jekyll_logger)
       end
@@ -464,10 +464,10 @@ class TestDisplayRankedBooksTag < Minitest::Test
   def test_correct_html_structure_and_grouping_for_valid_list
     @context_dev['page']['ranked_list'] = @valid_ranked_list.dup # Ensure it's using the valid list
     output = ''
-    Jekyll::Books::Core::BookCardUtils.stub :render,
-                                            lambda { |book_obj, _ctx|
-                                              "<div class='mock-book-card'>#{CGI.escapeHTML(book_obj.data['title'])}</div>\n"
-                                            } do
+    Jekyll::Books::Core::BookCardRenderer.stub :render,
+                                               lambda { |book_obj, _ctx|
+                                                 "<div class='mock-book-card'>#{CGI.escapeHTML(book_obj.data['title'])}</div>\n"
+                                               } do
       Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars,
                                             lambda { |rating, _wrapper|
                                               "<span>Rating #{rating} #{rating == 1 ? 'Star' : 'Stars'}</span>"

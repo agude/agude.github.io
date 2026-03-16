@@ -2,7 +2,7 @@
 
 # _tests/plugins/utils/test_book_card_utils.rb
 require_relative '../../../../test_helper'
-# Jekyll::Books::Core::BookCardUtils, Jekyll::Infrastructure::FrontMatterUtils, Jekyll::Infrastructure::TextProcessingUtils, etc., are loaded by test_helper
+# Jekyll::Books::Core::BookCardRenderer, Jekyll::Infrastructure::FrontMatterUtils, Jekyll::Infrastructure::TextProcessingUtils, etc., are loaded by test_helper
 
 # Tests for Jekyll::Books::Core::BookCardRenderer class.
 #
@@ -118,7 +118,7 @@ class TestBookCardRenderer < Minitest::Test
         },
       ) do
         Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
-          captured_card_data = capture_card_data { Jekyll::Books::Core::BookCardUtils.render(book_to_test, @context) }
+          captured_card_data = capture_card_data { Jekyll::Books::Core::BookCardRenderer.render(book_to_test, @context) }
         end
       end
     end
@@ -158,7 +158,7 @@ class TestBookCardRenderer < Minitest::Test
         },
       ) do
         Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, mock_rating_stars_html do
-          captured_card_data = capture_card_data { Jekyll::Books::Core::BookCardUtils.render(book_to_test, @context) }
+          captured_card_data = capture_card_data { Jekyll::Books::Core::BookCardRenderer.render(book_to_test, @context) }
         end
       end
     end

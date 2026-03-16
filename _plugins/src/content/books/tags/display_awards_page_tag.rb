@@ -6,7 +6,7 @@ require 'liquid'
 require 'cgi'
 require_relative '../lists/by_award_finder'
 require_relative '../lists/favorites_lists_finder'
-require_relative '../core/book_card_utils'
+require_relative '../core/book_card_renderer'
 require_relative '../../../infrastructure/text_processing_utils'
 require_relative '../../markdown_output/markdown_card_utils'
 
@@ -155,7 +155,7 @@ module Jekyll
           def render_book_grid(books, append_newline:)
             html = +"<div class=\"card-grid\">\n"
             books.each do |book|
-              html << Jekyll::Books::Core::BookCardUtils.render(book, @context)
+              html << Jekyll::Books::Core::BookCardRenderer.render(book, @context)
               html << "\n" if append_newline
             end
             html << "</div>\n"

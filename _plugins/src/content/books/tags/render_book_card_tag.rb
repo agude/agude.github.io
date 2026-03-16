@@ -4,7 +4,7 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require_relative '../core/book_card_utils'
+require_relative '../core/book_card_renderer'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
 
@@ -26,8 +26,8 @@ module Jekyll
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
-        CardUtils = Jekyll::Books::Core::BookCardUtils
-        private_constant :TagArgs, :Logger, :CardUtils
+        CardRenderer = Jekyll::Books::Core::BookCardRenderer
+        private_constant :TagArgs, :Logger, :CardRenderer
 
         SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
 
@@ -69,7 +69,7 @@ module Jekyll
         end
 
         def render_card(book_object, context, display_title, subtitle)
-          CardUtils.render(
+          CardRenderer.render(
             book_object, context, display_title_override: display_title, subtitle: subtitle,
           )
         rescue StandardError => e

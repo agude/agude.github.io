@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require_relative '../../../../test_helper'
-require_relative '../../../../../_plugins/src/content/books/core/book_card_utils'
+require_relative '../../../../../_plugins/src/content/books/core/book_card_renderer'
 
-# Tests delegation from BookCardUtils module to BookCardRenderer class.
-class TestBookCardUtils < Minitest::Test
+# Tests BookCardRenderer.render class method (formerly delegated through BookCardUtils).
+class TestBookCardRendererClassMethod < Minitest::Test
   def setup
     @context = create_context
     @book = create_doc
@@ -21,7 +21,7 @@ class TestBookCardUtils < Minitest::Test
 
     # Stub .new to return the mock
     Jekyll::Books::Core::BookCardRenderer.stub :new, mock_renderer do
-      result = Jekyll::Books::Core::BookCardUtils.render(@book, @context, display_title_override: title_override, subtitle: subtitle)
+      result = Jekyll::Books::Core::BookCardRenderer.render(@book, @context, display_title_override: title_override, subtitle: subtitle)
       assert_equal mock_output, result
     end
 

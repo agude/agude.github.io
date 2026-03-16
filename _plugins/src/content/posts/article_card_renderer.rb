@@ -15,6 +15,10 @@ module Jekyll
     # - extract_data: returns a frozen hash of raw card data (no HTML)
     # - render: returns the full HTML card string
     class ArticleCardRenderer
+      def self.render(post_object, context)
+        new(post_object, context).render
+      end
+
       def initialize(post_object, context)
         @post_object = post_object
         @context = context

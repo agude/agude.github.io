@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # _plugins/logic/category_posts/renderer.rb
-require_relative '../article_card_utils'
+require_relative '../article_card_renderer'
 
 module Jekyll
   module Posts
@@ -21,7 +21,7 @@ module Jekyll
 
           output = +"<div class=\"card-grid\">\n"
           @posts.each do |post|
-            output << Jekyll::Posts::ArticleCardUtils.render(post, @context) << "\n"
+            output << Jekyll::Posts::ArticleCardRenderer.render(post, @context) << "\n"
           end
           output << "</div>\n"
         end

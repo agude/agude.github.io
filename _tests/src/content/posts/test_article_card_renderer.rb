@@ -2,7 +2,7 @@
 
 # _tests/plugins/utils/test_article_card_utils.rb
 require_relative '../../../test_helper'
-# Jekyll::Posts::ArticleCardUtils, Jekyll::Infrastructure::TypographyUtils, etc., are loaded by test_helper
+# Jekyll::Posts::ArticleCardRenderer, Jekyll::Infrastructure::TypographyUtils, etc., are loaded by test_helper
 
 # Tests for Jekyll::Posts::ArticleCardRenderer class.
 #
@@ -198,7 +198,7 @@ class TestArticleCardRenderer < Minitest::Test
     # Simulate Jekyll::UI::Cards::CardDataExtractorUtils.extract_base_data returning a log message
     mock_failure_log = '<!-- BASE_DATA_EXTRACTION_FAILURE -->'
     # Simulate Jekyll::UI::Cards::CardDataExtractorUtils.extract_base_data returning a log and site:nil
-    # Also ensure data_source_for_keys is nil to trigger the correct early return in Jekyll::Posts::ArticleCardUtils
+    # Also ensure data_source_for_keys is nil to trigger the correct early return in Jekyll::Posts::ArticleCardRenderer
     Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data,
                                                    {
                                                      log_output: mock_failure_log,

@@ -5,7 +5,7 @@ require 'jekyll'
 require 'liquid'
 require 'strscan'
 require_relative '../../../infrastructure/plugin_logger_utils'
-require_relative '../core/book_card_utils'
+require_relative '../core/book_card_renderer'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../lookups/book_finder'
 require_relative '../../markdown_output/markdown_card_utils'
@@ -28,10 +28,10 @@ module Jekyll
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
-        CardUtils = Jekyll::Books::Core::BookCardUtils
+        CardRenderer = Jekyll::Books::Core::BookCardRenderer
         Finder = Jekyll::Books::Lookups::BookFinder
         MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
-        private_constant :TagArgs, :Logger, :CardUtils, :Finder, :MdCards
+        private_constant :TagArgs, :Logger, :CardRenderer, :Finder, :MdCards
 
         def initialize(tag_name, markup, tokens)
           super
@@ -159,13 +159,13 @@ module Jekyll
             return MdCards.render_book_card_md(MdCards.book_doc_to_card_data(found_book))
           end
 
-          CardUtils.render(found_book, context)
+          CardRenderer.render(found_book, context)
         rescue StandardError => e
           # Return the log message from Jekyll::Infrastructure::PluginLoggerUtils
           Logger.log_liquid_failure(
             context: context,
             tag_type: 'BOOK_CARD_LOOKUP',
-            reason: "Error calling CardUtils.render utility: #{e.message}",
+            reason: "Error rendering book card: #{e.message}",
             identifiers: {
               Title: target_title_input.to_s,
               ErrorClass: e.class.name,
