@@ -50,34 +50,33 @@ is the second book in {% series_text page.series link=false %}.
 {% capture the_legacy_of_leonidas %}{% short_story_link "The Legacy of Leonidas" %}{% endcapture %}
 
 Half way through {{ this_book }} I checked Goodreads and was surprised to find
-it was higher rated than {{ hh1 }}. The first half is: Harrington has to make
-a bunch of uncharacteristic mistakes to allow the plot to move forward; {{
-the_author }} is weird about Asian women like Harrington's mom and Ensign
-Mai-ling; and there is a constant theme of the "practical naval officer has
-to---regrettably!---ground the too trusting bureaucrats"; It felt like the
-book was going to collapse under the weight of those three things. Then the
-shooting starts.
+it was higher rated than {{ hh1 }}, because the first half has three problems:
+Harrington has to make a bunch of uncharacteristic mistakes to allow the plot
+to move forward; there is a constant theme of the "practical naval officer has
+to---regrettably!---ground the too trusting bureaucrats"; and {{ the_author }}
+is weird about Asian women.
 
-In {{ hh1 }} I complained the action was uneven: either too fast or too slow.
-{{ the_authors_lastname }} has improved his pacing and the combat moves
-quickly, but still allows time to build tension. And this book has the same
-appeal as the first: professional naval personnel doing their duty despite the
-sacrifice. But that seems to be Harrington's only trick. She's not more
-clever, she's not better prepared, she's just more willing to sacrifice,
-mostly her crew and ship. But perhaps that's the consequence of the "despite
-sacrifice" implied above. It's part of why Harrington action so dumb in the
-first half of the book is frustrating: its directly opposed to the competence
-she and her squadron as supposed to highlight.
+Harrington's mistakes are especially frustrating because the series' core
+appeal is competence: professional naval personnel doing their duty despite
+the sacrifice. Having her act dumb so the plot can escalate directly
+undermines that. It also clashes with {{ the_authors_lastname_possessive }}
+Hawkish '90s Centrism that was apparent in both the first book and this one.
+Harrington and the military know what's right even as the diplomats and
+liberals are hopelessly naive; the leaders of Grayson understand their culture
+needs to advance, it's their underlings that are the real problem. The elites
+can and must work together to control the public.
 
-Its a tension that ties back into the 90s "Reagan Democrat" themes from {{ hh1
-}}. Harrington is following {{ the_authors_lastname_possessive }} politics of
-Hawkish Centrism. The military knows what's right even as the diplomats and
-liberals hopelessly naive; the leaders of Grayson understand their culture
-needs to advance, its their underlings that are the real problem. The elites
-can and must work together to control the public. The 90s attitude also shows
-up with the {{ the_authors_lastname_possessive }} treatment of Asian women:
-first with Harrington's mother who is exotic and sexy but loyal to her white
-husband, and then with Ensign Mai-ling who's exists only to be sexually
-assault and demonstrate how evil the enemies are.
+The '90s attitude also shows up in {{ the_authors_lastname_possessive }}
+treatment of Asian women: Harrington's mother who is exotic and sexy but loyal
+to her white husband, and Ensign Mai-ling who exists only to be sexually
+assaulted and demonstrate how evil the enemies are.
 
-But damn I still enjoyed 
+It felt like the book was going to collapse under the weight of those three
+things. Then the shooting starts.
+
+{{ the_authors_lastname }} can write action. In {{ hh1 }} I complained the
+pacing was uneven: either too fast or too slow. In {{ this_book }} he's
+improved. The combat moves quickly but still allows time to build tension.
+Harrington's only trick is being more willing to sacrifice her crew and ship
+than her opponent, but perhaps that's the consequence of the "despite
+sacrifice" implied above.
