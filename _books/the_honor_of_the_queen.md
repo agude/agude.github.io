@@ -47,30 +47,27 @@ the_authors_lastname_possessive }} [overly verbose world-building][pizza] and
 three problems: Harrington has to make a bunch of uncharacteristic mistakes to
 allow the plot to move forward; there is a constant theme of the "practical
 naval officer has to---regrettably!---ground the too trusting bureaucrats";
-and {{ the_author }} is weird about Asian women.
+and {{ the_author }} is weird about Asian women in a way that hasn't aged
+well.
 
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
-Harrington's mistakes are especially frustrating because the series' core
-appeal is competence: professional naval personnel doing their duty despite
-the sacrifice. Having her act dumb so the plot can escalate directly
-undermines that. It also clashes with {{ the_authors_lastname_possessive }}
-Hawkish '90s Centrism that was apparent in both the first book and this one.
-Harrington and the military know what's right even as the diplomats and
-liberals are hopelessly naive; the leaders of Grayson understand their culture
-needs to advance, it's their underlings that are the real problem. The elites
-can and must work together to control the public, except when they make stupid
-mistakes apparently.
+Harrington's mistakes are especially frustrating because they clash with {{
+the_authors_lastname_possessive }} own hawkish '90s centrism I also flagged in
+{{ hh1 }}: the military always knows what's right, the diplomats and liberals
+are hopelessly naive---except when the plot needs Harrington to be the naive
+one. The leaders of Grayson understand their culture needs to advance, it's
+their underlings that are the real problem. The elites can and must work
+together to control the public, except when they make stupid mistakes
+apparently.
 
 The '90s attitude also shows up in {{ the_authors_lastname_possessive }}
 treatment of Asian women: Harrington's mother is exotic, sexy, brilliant and
-loyal to her white husband, and Ensign Mai-ling who exists only to be sexually
-assaulted and demonstrate how evil the enemies are.
+loyal to her white husband, while Ensign Mai-ling who exists only to be
+sexually assaulted and demonstrate how evil the enemies are.
 
-It felt like the book was going to collapse under the weight of those three
-things. Then the shooting starts.
-
-As I've said [before][weber_action_1], {{ the_authors_lastname }} can write
+I thought the book was going to collapse. Then the shooting starts, and as
+I've said [before][weber_action_1], {{ the_authors_lastname }} can write
 action. In {{ hh1 }}, I complained the pacing was uneven: either too fast or
 too slow. In {{ this_book }} he's improved it significantly. The combat moves
 quickly but still allows time to build tension. But like last time,
