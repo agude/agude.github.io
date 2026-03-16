@@ -84,7 +84,8 @@ the_legacy_of_leonidas }} from {{ honor_of_the_regiment }}. And the whole
 structure is pure {{ clancy_lastname }}: {{ debt_of_honor }} has the same
 competent-insiders-vs-clueless-appointees plot and the same '90s orientalism.
 
-As a naval action read, {{ this_book }} works great, but I hope {{
-the_authors_lastname }} expands on the types of action in {{ hh3 }} and {{
-hh4 }}. I'm not sure how much more I can read about Harrington getting her
-ship blown up while the author spends pages explaining politics.
+This book is in conflict with itself: it spends the first half making
+Harrington incompetent so that she can demonstrate her competence. And the
+action feels like a retread of the encounter with the Q-ship in {{ hh1 }}. I
+hope {{ the_authors_lastname }} finds a way to let Harrington win without
+getting her ship blown to hell in {{ hh3 }}.
