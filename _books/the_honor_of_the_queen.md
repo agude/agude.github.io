@@ -39,8 +39,11 @@ don't believe women belong in uniform, while Haven plots to stop her.
 {% capture honor_of_the_regiment %}{% book_link "Honor of the Regiment" %}{% endcapture %}
 {% capture the_legacy_of_leonidas %}{% short_story_link "The Legacy of Leonidas" %}{% endcapture %}
 
-{% capture clancy_lastname %}{% author_link "Tom Clancy" link_text="Clancy" %}{% endcapture %}
+{% capture clancys_lastname %}{% author_link "Tom Clancy" link_text="Clancy" possessive %}{% endcapture %}
 {% capture debt_of_honor %}{% book_link "Debt of Honor" %}{% endcapture %}
+
+{% capture crichtons_lastname %}{% author_link "Michael Crichton" link_text="Crichton" possessive %}{% endcapture %}
+{% capture rising_sun %}{% book_link "Rising Sun" %}{% endcapture %}
 
 Halfway through {{ this_book }}, I checked Goodreads and was surprised to find
 it rated higher than {{ hh1 }}, because the first half drags under {{
@@ -66,15 +69,16 @@ treatment of Asian women: Harrington's mother is exotic, sexy, brilliant, and
 loyal to her white husband, while Ensign Mai-ling exists only to be
 sexually assaulted and demonstrate how evil the enemies are.
 
-I thought the book was going to collapse. Then the shooting starts, and as
-I've said [before][weber_action_1], {{ the_authors_lastname }} can write
-action. In {{ hh1 }}, I complained the pacing was uneven: either too fast or
-too slow. In {{ this_book }}, he's improved significantly. The combat moves
-quickly but still allows time to build tension. And {{ the_authors_lastname }}
-sets up the reinforcements at the end well enough that they don't feel like a
-cheap deus ex. But like last time, Harrington's only trick is being more
-willing to sacrifice her crew and ship than her opponent---though maybe that's
-the consequence of the "despite sacrifice" ethos from above.
+With all that hanging over it, I thought the book was going to collapse. Then
+the shooting starts, and as I've said [before][weber_action_1], {{
+the_authors_lastname }} can write action. In {{ hh1 }}, I complained the
+pacing was uneven: either too fast or too slow. In {{ this_book }}, he's
+improved significantly. The combat moves quickly but still allows time to
+build tension. And {{ the_authors_lastname }} sets up the reinforcements at
+the end well enough that they don't feel like a cheap deus ex. But like last
+time, Harrington's only trick is being more willing to sacrifice her crew and
+ship than her opponent---though maybe that's the consequence of the "despite
+sacrifice" ethos from above.
 
 [weber_action_1]: /books/the_triumphant/
 
@@ -82,9 +86,12 @@ A few bits reminded me of other works. The frontier justice on
 Grayson---lynching men who disrespect women---is straight out of {{
 heinleins_lastname }} {{ the_moon_is_a_harsh_mistress }}. The religious
 fanatics with their Mormon-like polygamy reminded me of {{
-the_legacy_of_leonidas }} from {{ honor_of_the_regiment }}. And the whole
-structure is pure {{ clancy_lastname }}: {{ debt_of_honor }} has the same
-competent-insiders-vs-clueless-appointees plot and the same '90s orientalism.
+the_legacy_of_leonidas }} from {{ honor_of_the_regiment }}. But more broadly,
+{{ the_authors_lastname }} was writing in the same moment that produced {{
+clancys_lastname }} {{ debt_of_honor }} and {{ crichtons_lastname }} {{
+rising_sun }}, and it shows: the hawkish politics, the orientalism, and the
+certainty that the professionals know what must be done but the bureaucrats
+won't listen until it's almost too late.
 
 This book is in conflict with itself: it spends the first half making
 Harrington incompetent so that she can demonstrate her competence. And the
