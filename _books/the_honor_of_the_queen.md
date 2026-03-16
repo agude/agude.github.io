@@ -41,39 +41,38 @@ is the second book in {% series_text page.series link=false %}.
 {% capture clancy_lastname %}{% author_link "Tom Clancy" link_text="Clancy" %}{% endcapture %}
 {% capture debt_of_honor %}{% book_link "Debt of Honor" %}{% endcapture %}
 
-Half way through {{ this_book }} I checked Goodreads and was surprised to find
-it was higher rated than {{ hh1 }}, because the first half drags under {{
+Halfway through {{ this_book }}, I checked Goodreads and was surprised to find
+it rated higher than {{ hh1 }}, because the first half drags under {{
 the_authors_lastname_possessive }} [overly verbose world-building][pizza] and
-three problems: Harrington has to make a bunch of uncharacteristic mistakes to
-allow the plot to move forward; there is a constant theme of the "practical
-naval officer has to---regrettably!---ground the too trusting bureaucrats";
-and {{ the_author }} is weird about Asian women in a way that hasn't aged
-well.
+three problems: Harrington has to make uncharacteristic mistakes so the plot
+can move forward; there's a constant theme of "the practical naval officer
+must---regrettably!---overrule the too-trusting bureaucrats"; and {{
+the_author }} is weird about Asian women in a way that hasn't aged well.
 
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
 Harrington's mistakes are especially frustrating because they clash with {{
-the_authors_lastname_possessive }} own hawkish '90s centrism I also flagged in
-{{ hh1 }}: the military always knows what's right, the diplomats and liberals
-are hopelessly naive---except when the plot needs Harrington to be the naive
-one. The leaders of Grayson understand their culture needs to advance, it's
-their underlings that are the real problem. The elites can and must work
-together to control the public, except when they make stupid mistakes
-apparently.
+the_authors_lastname_possessive }} own hawkish '90s centrism, which I also
+flagged in {{ hh1 }}: the military always knows what's right, the diplomats
+and liberals are hopelessly naive---except when the plot needs Harrington to
+be the naive one. The leaders of Grayson understand their culture needs to
+advance; it's their underlings that are the real problem. The elites can and
+must work together to control the public, except when they make stupid
+mistakes apparently.
 
 The '90s attitude also shows up in {{ the_authors_lastname_possessive }}
-treatment of Asian women: Harrington's mother is exotic, sexy, brilliant and
-loyal to her white husband, while Ensign Mai-ling who exists only to be
+treatment of Asian women: Harrington's mother is exotic, sexy, brilliant, and
+loyal to her white husband, while Ensign Mai-ling exists only to be
 sexually assaulted and demonstrate how evil the enemies are.
 
 I thought the book was going to collapse. Then the shooting starts, and as
 I've said [before][weber_action_1], {{ the_authors_lastname }} can write
 action. In {{ hh1 }}, I complained the pacing was uneven: either too fast or
-too slow. In {{ this_book }} he's improved it significantly. The combat moves
+too slow. In {{ this_book }}, he's improved significantly. The combat moves
 quickly but still allows time to build tension. But like last time,
 Harrington's only trick is being more willing to sacrifice her crew and ship
-than her opponent, but perhaps that's the consequence of the "despite
-sacrifice" implied above.
+than her opponent---though maybe that's the consequence of the "despite
+sacrifice" ethos from above.
 
 [weber_action_1]: /books/the_triumphant/
 
@@ -86,6 +85,6 @@ structure is pure {{ clancy_lastname }}: {{ debt_of_honor }} has the same
 competent-insiders-vs-clueless-appointees plot and the same '90s orientalism.
 
 As a naval action read, {{ this_book }} works great, but I hope {{
-the_authors_lastname }} expands on the types of action more in {{ hh3 }} and
-{{ hh4 }}; I'm not sure how much more I can read about Harrington getting her
+the_authors_lastname }} expands on the types of action in {{ hh3 }} and {{
+hh4 }}. I'm not sure how much more I can read about Harrington getting her
 ship blown up while the author spends pages explaining politics.
