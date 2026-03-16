@@ -30,7 +30,6 @@ is the second book in {% series_text page.series link=false %}.
 
 {% capture hh1 %}{% book_link "On Basilisk Station" %}{% endcapture %}
 {% capture hh3 %}{% book_link "The Short Victorious War" %}{% endcapture %}
-{% capture hh4 %}{% book_link "Field of Dishonor" %}{% endcapture %}
 
 {% capture heinleins_lastname %}{% author_link "Robert A. Heinlein" link_text="Heinlein" possessive %}{% endcapture %}
 {% capture the_moon_is_a_harsh_mistress %}{% book_link "The Moon Is a Harsh Mistress" %}{% endcapture %}
@@ -69,10 +68,11 @@ I thought the book was going to collapse. Then the shooting starts, and as
 I've said [before][weber_action_1], {{ the_authors_lastname }} can write
 action. In {{ hh1 }}, I complained the pacing was uneven: either too fast or
 too slow. In {{ this_book }}, he's improved significantly. The combat moves
-quickly but still allows time to build tension. But like last time,
-Harrington's only trick is being more willing to sacrifice her crew and ship
-than her opponent---though maybe that's the consequence of the "despite
-sacrifice" ethos from above.
+quickly but still allows time to build tension. And {{ the_authors_lastname }}
+sets up the reinforcements at the end well enough that they don't feel like a
+cheap deus ex. But like last time, Harrington's only trick is being more
+willing to sacrifice her crew and ship than her opponent---though maybe that's
+the consequence of the "despite sacrifice" ethos from above.
 
 [weber_action_1]: /books/the_triumphant/
 
