@@ -57,6 +57,7 @@ ranked_list:
   - Night Without Stars
   - Rogue Protocol
   - A Drop of Corruption
+  - The Honor of the Queen
   - Starquake
   - The Abyss Beyond Dreams
   - The Dreaming Void
