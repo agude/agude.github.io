@@ -86,6 +86,8 @@ competent-insiders-vs-clueless-appointees plot and the same '90s orientalism.
 
 This book is in conflict with itself: it spends the first half making
 Harrington incompetent so that she can demonstrate her competence. And the
-action feels like a retread of the encounter with the Q-ship in {{ hh1 }}. I
-hope {{ the_authors_lastname }} finds a way to let Harrington win without
-getting her ship blown to hell in {{ hh3 }}.
+action feels like a retread of the encounter with the Q-ship in {{ hh1 }}. But
+I enjoy the space battles, and nothing else I'm reading delivers that
+age-of-sail sense of duty and sacrifice. I hope {{ the_authors_lastname }}
+finds a way to let Harrington win without getting her ship blown to hell in {{
+hh3 }}.
