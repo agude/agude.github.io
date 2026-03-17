@@ -53,7 +53,8 @@ can move forward; there's a constant theme of "the practical naval officer
 must---regrettably!---overrule the too-trusting bureaucrats"; and {{
 the_author }} is weird about Asian women in a way that hasn't aged well.
 
-[pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
+[pizza]:
+https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
 Harrington's mistakes are especially frustrating because they clash with {{
 the_authors_lastname_possessive }} own hawkish '90s centrism, which I also
@@ -66,21 +67,19 @@ mistakes apparently.
 
 The '90s attitude also shows up in {{ the_authors_lastname_possessive }}
 treatment of Asian women: Harrington's mother is exotic, sexy, brilliant, and
-loyal to her white husband, while Ensign Mai-ling exists only to be
-sexually assaulted and demonstrate how evil the enemies are.
+loyal to her white husband, while Ensign Mai-ling exists only to be sexually
+assaulted and demonstrate how evil the enemies are.
 
 With all that hanging over it, I thought the book was going to collapse. Then
-the shooting starts, and as I've said [before][weber_action_1], {{
-the_authors_lastname }} can write action. In {{ hh1 }}, I complained the
-pacing was uneven: either too fast or too slow. In {{ this_book }}, he's
-improved significantly. The combat moves quickly but still allows time to
-build tension. And {{ the_authors_lastname }} sets up the reinforcements at
-the end well enough that they don't feel like a cheap deus ex. But like last
-time, Harrington's only trick is being more willing to sacrifice her crew and
-ship than her opponent---though maybe that's the consequence of the "despite
-sacrifice" ethos from above.
-
-[weber_action_1]: /books/the_triumphant/
+the shooting starts, and as I've said {% book_link "The Triumphant" cite=false
+link_text="before" %}, {{ the_authors_lastname }} can write action. In {{ hh1
+}}, I complained the pacing was uneven: either too fast or too slow. In {{
+this_book }}, he's improved significantly. The combat moves quickly but still
+allows time to build tension. And {{ the_authors_lastname }} sets up the
+reinforcements at the end well enough that they don't feel like a cheap deus
+ex. But like last time, Harrington's only trick is being more willing to
+sacrifice her crew and ship than her opponent---though maybe that's the
+consequence of the "despite sacrifice" ethos from above.
 
 A few bits reminded me of other works. The frontier justice on
 Grayson---lynching men who disrespect women---is straight out of {{

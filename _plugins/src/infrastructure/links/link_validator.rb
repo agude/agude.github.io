@@ -27,6 +27,7 @@ module Jekyll
           return unless doc.respond_to?(:content) && doc.content
 
           check_regex(doc, /\[[^\]]+\]\(([^)\s]+)/, 'Markdown', found_raw_links)
+          check_regex(doc, /^ {0,3}\[[^\]]+\]:\s*<?(\S+?)>?(?:\s|$)/, 'Markdown (reference)', found_raw_links)
           check_regex(doc, /<a\s+(?:[^>]*?\s+)?href="([^"]+)"/, 'HTML', found_raw_links)
         end
 

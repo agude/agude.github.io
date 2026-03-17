@@ -2,7 +2,7 @@
 
 # _plugins/utils/display_authors_util.rb
 require 'cgi'
-require_relative 'author_link_util'
+require_relative 'author_link_resolver'
 require_relative '../../infrastructure/text_processing_utils'
 require_relative '../../infrastructure/front_matter_utils'
 
@@ -16,8 +16,7 @@ module Jekyll
       # Aliases for readability
       FrontMatter = Jekyll::Infrastructure::FrontMatterUtils
       Text = Jekyll::Infrastructure::TextProcessingUtils
-      AuthorLinker = Jekyll::Authors::AuthorLinkUtils
-      private_constant :FrontMatter, :Text, :AuthorLinker
+      private_constant :FrontMatter, :Text
 
       def self.render_author_list(author_input:, context:, linked: true, etal_after: nil)
         # Process author input into array of names
@@ -25,9 +24,10 @@ module Jekyll
         return '' if author_names.empty?
 
         # Map over author names to create processed elements
+        resolver = Jekyll::Authors::AuthorLinkResolver.new(context) if linked
         processed_authors = author_names.map do |name|
           if linked
-            AuthorLinker.render_author_link(name, context)
+            resolver.resolve(name, nil, nil)
           else
             "<span class=\"author-name\">#{CGI.escapeHTML(name)}</span>"
           end

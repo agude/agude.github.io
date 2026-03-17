@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # _plugins/logic/front_page_feed/renderer.rb
-require_relative '../article_card_utils'
-require_relative '../../books/core/book_card_utils'
+require_relative '../article_card_renderer'
+require_relative '../../books/core/book_card_renderer'
 require_relative '../../../infrastructure/plugin_logger_utils'
 
 module Jekyll
@@ -26,9 +26,9 @@ module Jekyll
 
           @feed_items.each do |item|
             if book?(item)
-              output << Jekyll::Books::Core::BookCardUtils.render(item, @context) << "\n"
+              output << Jekyll::Books::Core::BookCardRenderer.render(item, @context) << "\n"
             elsif post?(item)
-              output << Jekyll::Posts::ArticleCardUtils.render(item, @context) << "\n"
+              output << Jekyll::Posts::ArticleCardRenderer.render(item, @context) << "\n"
             else
               log_output << log_unknown_item(item) << "\n"
             end

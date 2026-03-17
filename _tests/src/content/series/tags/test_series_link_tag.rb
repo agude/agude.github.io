@@ -20,17 +20,21 @@ class TestSeriesLinkTag < Minitest::Test
     )
   end
 
-  # Helper to parse the tag and capture arguments passed to the utility
+  # Helper to parse the tag and capture arguments passed to the resolver.
+  # Uses Minitest::Mock to verify that resolve is actually called and to
+  # capture the arguments for assertion.
   def parse_and_capture_args(markup, context = @context)
     captured_args = nil
-    # Stub the utility function
-    Jekyll::Series::SeriesLinkUtils.stub :render_series_link,
-                                         lambda { |title, ctx, link_text_override|
-                                           captured_args = { title: title, context: ctx, link_text_override: link_text_override }
-                                           "<!-- Jekyll::Series::SeriesLinkUtils called with title: #{title}, link_text: #{link_text_override} -->"
-                                         } do
+    mock_resolver = Minitest::Mock.new
+    mock_resolver.expect(:resolve, '<!-- SeriesLinkResolver called -->') do |title, link_text_override, link: true|
+      captured_args = { title: title, link_text_override: link_text_override }
+      true
+    end
+
+    Jekyll::Series::SeriesLinkResolver.stub :new, mock_resolver do
       template = Liquid::Template.parse("{% series_link #{markup} %}")
       output = template.render!(context)
+      mock_resolver.verify
       return output, captured_args
     end
   end
@@ -83,7 +87,6 @@ class TestSeriesLinkTag < Minitest::Test
     _output, captured_args = parse_and_capture_args("'The Foundation Series'")
     assert_equal 'The Foundation Series', captured_args[:title]
     assert_nil captured_args[:link_text_override]
-    assert_equal @context, captured_args[:context]
   end
 
   def test_render_with_variable_title_only
@@ -129,7 +132,6 @@ class TestSeriesLinkTag < Minitest::Test
   end
 
   def test_render_with_trailing_whitespace_after_title
-    # Tests line 71: `break if scanner.eos?` - when scanner reaches end after skipping whitespace
     markup_with_trailing_spaces = "'The Foundation Series'   \t  "
     _output, captured_args = parse_and_capture_args(markup_with_trailing_spaces)
     assert_equal 'The Foundation Series', captured_args[:title]

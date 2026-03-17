@@ -1,27 +1,30 @@
 # frozen_string_literal: true
 
 # _plugins/src/content/books/core/book_link_resolver.rb
-require 'jekyll'
 require 'date'
-require_relative '../../../infrastructure/plugin_logger_utils'
-require_relative '../../../infrastructure/text_processing_utils'
-require_relative 'book_link_util'
+require_relative '../../../infrastructure/links/link_resolver_support'
+require_relative '../../../infrastructure/typography_utils'
 
 module Jekyll
   module Books
     module Core
       # Helper class to handle the complexity of resolving a book link
       class BookLinkResolver
-        # Aliases for readability
-        Logger = Jekyll::Infrastructure::PluginLoggerUtils
-        Text = Jekyll::Infrastructure::TextProcessingUtils
-        private_constant :Logger, :Text
+        include Jekyll::Infrastructure::Links::LinkResolverSupport
 
-        def initialize(context)
-          @context = context
-          registers = context.respond_to?(:registers) ? context.registers : nil
-          @site = registers&.[](:site)
-          @log_output = ''
+        Typography = Jekyll::Infrastructure::TypographyUtils
+        private_constant :Typography
+
+        # Renders the book link/cite HTML directly from title and URL data.
+        # Used when the book data is already known (e.g., from backlinks).
+        #
+        # @param title [String] The canonical title to display (will be processed).
+        # @param url [String] The URL of the book page.
+        # @param cite [Boolean] true (default) for <cite> wrapper, false for span.book-text.
+        # @return [String] The generated HTML.
+        def render_from_data(title, url, cite: true)
+          inner_element = cite ? build_book_cite_element(title) : build_book_text_element(title)
+          wrap_with_link(inner_element, url)
         end
 
         def resolve(title_raw, text_override, author_filter, date_filter = nil, cite: true)
@@ -41,13 +44,6 @@ module Jekyll
 
           result = filter_candidates(candidates, author_filter)
           build_result_hash(result, display_text, text_override, cite)
-        end
-
-        # Public method for the module delegate to call
-        def track_unreviewed_mention_explicit(title)
-          @title = title.to_s
-          @norm_title = Text.normalize_title(@title)
-          track_unreviewed_mention
         end
 
         private
@@ -70,7 +66,12 @@ module Jekyll
         end
 
         def empty_title_result
-          @log_output = log_empty_title
+          @log_output = log_failure(
+            tag_type: 'RENDER_BOOK_LINK',
+            reason: 'Input title resolved to empty after normalization.',
+            identifiers: { TitleInput: @title || 'nil' },
+            level: :warn,
+          )
           {
             status: :empty_title,
             url: nil,
@@ -122,28 +123,16 @@ module Jekyll
           when :not_found
             @log_output.to_s + fallback(data[:display_text])
           when :found
-            Jekyll::Books::Core::BookLinkUtils.render_book_link_from_data(
-              data[:display_text], data[:url], @context, cite: @cite,
-            )
+            render_from_data(data[:display_text], data[:url], cite: @cite)
           end
         end
 
         def fallback(title)
           if @cite == false
-            Jekyll::Books::Core::BookLinkUtils._build_book_text_element(title.to_s)
+            build_book_text_element(title.to_s)
           else
-            Jekyll::Books::Core::BookLinkUtils._build_book_cite_element(title.to_s)
+            build_book_cite_element(title.to_s)
           end
-        end
-
-        def log_empty_title
-          Logger.log_liquid_failure(
-            context: @context,
-            tag_type: 'RENDER_BOOK_LINK',
-            reason: 'Input title resolved to empty after normalization.',
-            identifiers: { TitleInput: @title || 'nil' },
-            level: :warn,
-          )
         end
 
         def determine_display_text(text_override)
@@ -164,8 +153,7 @@ module Jekyll
 
         def log_not_found
           track_unreviewed_mention unless @context.registers[:render_mode] == :markdown
-          Logger.log_liquid_failure(
-            context: @context,
+          log_failure(
             tag_type: 'RENDER_BOOK_LINK',
             reason: 'Could not find book page in cache.',
             identifiers: { Title: @title.strip },
@@ -237,8 +225,7 @@ module Jekyll
         end
 
         def log_date_mismatch
-          Logger.log_liquid_failure(
-            context: @context,
+          log_failure(
             tag_type: 'RENDER_BOOK_LINK',
             reason: 'Book title exists, but not on the specified date.',
             identifiers: { Title: @title, DateFilter: @date_filter.to_s },
@@ -270,8 +257,7 @@ module Jekyll
         end
 
         def log_author_mismatch(author_filter)
-          Logger.log_liquid_failure(
-            context: @context,
+          log_failure(
             tag_type: 'RENDER_BOOK_LINK',
             reason: 'Book title exists, but not by the specified author.',
             identifiers: { Title: @title, AuthorFilter: author_filter },
@@ -288,6 +274,16 @@ module Jekyll
             Reason: The book title "#{@title}" is used by multiple authors: #{names}.
             Fix: Add an author parameter, e.g., {% book_link "#{@title}" author="Author Name" %}
           MSG
+        end
+
+        def build_book_cite_element(display_text)
+          prepared_display_text = Typography.prepare_display_title(display_text)
+          "<cite class=\"book-title\">#{prepared_display_text}</cite>"
+        end
+
+        def build_book_text_element(display_text)
+          prepared_display_text = Typography.prepare_display_title(display_text)
+          "<span class=\"book-text\">#{prepared_display_text}</span>"
         end
       end
     end

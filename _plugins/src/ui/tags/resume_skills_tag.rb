@@ -4,7 +4,7 @@ require 'jekyll'
 require 'liquid'
 require 'strscan'
 require_relative '../../infrastructure/tag_argument_utils'
-require_relative '../../infrastructure/text/html_text_utils'
+require_relative '../../infrastructure/text_processing_utils'
 
 module Jekyll
   module UI
@@ -77,7 +77,7 @@ module Jekyll
         end
 
         def strip_html(text)
-          Jekyll::Infrastructure::Text::HtmlTextUtils.strip_tags(text)
+          Jekyll::Infrastructure::TextProcessingUtils.strip_tags(text)
         end
 
         def parse_markup(markup)

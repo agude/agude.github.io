@@ -12,6 +12,19 @@ class TestRankedByBacklinksRenderer < Minitest::Test
     @context = create_context({}, {})
   end
 
+  # Helper to stub BookLinkResolver so render_from_data returns controlled output
+  def stub_book_resolver(render_behavior, &)
+    resolver = Object.new
+    if render_behavior.is_a?(Proc)
+      resolver.define_singleton_method(:render_from_data) do |title, url, cite: true|
+        render_behavior.call(title, url)
+      end
+    else
+      resolver.define_singleton_method(:render_from_data) { |*_args, **_kwargs| render_behavior }
+    end
+    Jekyll::Books::Core::BookLinkResolver.stub(:new, resolver, &)
+  end
+
   def test_returns_no_books_message_when_list_empty
     renderer = Jekyll::Books::Ranking::RankedByBacklinks::Renderer.new(@context, [])
     output = renderer.render
@@ -24,7 +37,7 @@ class TestRankedByBacklinksRenderer < Minitest::Test
       { title: 'Book A', url: '/a.html', count: 2 },
     ]
 
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(_title, _url, _ctx) { '<a>Link</a>' } do
+    stub_book_resolver(->(_title, _url) { '<a>Link</a>' }) do
       renderer = Jekyll::Books::Ranking::RankedByBacklinks::Renderer.new(@context, ranked_list)
       output = renderer.render
 
@@ -33,24 +46,24 @@ class TestRankedByBacklinksRenderer < Minitest::Test
     end
   end
 
-  def test_calls_book_link_utils_with_correct_parameters
+  def test_calls_resolver_render_from_data_with_correct_parameters
     ranked_list = [
       { title: 'Book A', url: '/a.html', count: 2 },
     ]
 
     captured_args = []
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data,
-                                            lambda { |title, url, ctx|
-                                              captured_args << { title: title, url: url, ctx: ctx }
-                                              '<a>Link</a>'
-                                            } do
+    stub_book_resolver(
+      lambda { |title, url|
+        captured_args << { title: title, url: url }
+        '<a>Link</a>'
+      },
+    ) do
       renderer = Jekyll::Books::Ranking::RankedByBacklinks::Renderer.new(@context, ranked_list)
       renderer.render
 
       assert_equal 1, captured_args.length
       assert_equal 'Book A', captured_args[0][:title]
       assert_equal '/a.html', captured_args[0][:url]
-      assert_equal @context, captured_args[0][:ctx]
     end
   end
 
@@ -59,7 +72,7 @@ class TestRankedByBacklinksRenderer < Minitest::Test
       { title: 'Book A', url: '/a.html', count: 1 },
     ]
 
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(_title, _url, _ctx) { '<a>Book A</a>' } do
+    stub_book_resolver(->(_title, _url) { '<a>Book A</a>' }) do
       renderer = Jekyll::Books::Ranking::RankedByBacklinks::Renderer.new(@context, ranked_list)
       output = renderer.render
 
@@ -73,7 +86,7 @@ class TestRankedByBacklinksRenderer < Minitest::Test
       { title: 'Book A', url: '/a.html', count: 5 },
     ]
 
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data, ->(_title, _url, _ctx) { '<a>Book A</a>' } do
+    stub_book_resolver(->(_title, _url) { '<a>Book A</a>' }) do
       renderer = Jekyll::Books::Ranking::RankedByBacklinks::Renderer.new(@context, ranked_list)
       output = renderer.render
 
@@ -89,10 +102,7 @@ class TestRankedByBacklinksRenderer < Minitest::Test
       { title: 'Book C', url: '/c.html', count: 1 },
     ]
 
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data,
-                                            lambda { |title, _url, _ctx|
-                                              "<a>#{title}</a>"
-                                            } do
+    stub_book_resolver(->(title, _url) { "<a>#{title}</a>" }) do
       renderer = Jekyll::Books::Ranking::RankedByBacklinks::Renderer.new(@context, ranked_list)
       output = renderer.render
 
@@ -116,10 +126,7 @@ class TestRankedByBacklinksRenderer < Minitest::Test
       { title: 'Book A', url: '/a.html', count: 2 },
     ]
 
-    Jekyll::Books::Core::BookLinkUtils.stub :render_book_link_from_data,
-                                            lambda { |title, url, _ctx|
-                                              "<a href=\"#{url}\">#{title}</a>"
-                                            } do
+    stub_book_resolver(->(title, url) { "<a href=\"#{url}\">#{title}</a>" }) do
       renderer = Jekyll::Books::Ranking::RankedByBacklinks::Renderer.new(@context, ranked_list)
       output = renderer.render
 

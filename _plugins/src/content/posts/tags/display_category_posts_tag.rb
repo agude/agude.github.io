@@ -9,6 +9,7 @@ require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../category/renderer'
 require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/tags/display_tag_renderable'
 
 # Displays article cards for posts in a specific category/topic.
 #
@@ -23,6 +24,8 @@ module Jekyll
       # Liquid tag for displaying article cards for posts in a specific category.
       # Supports optionally excluding the current page from results.
       class DisplayCategoryPostsTag < Liquid::Tag
+        include Jekyll::UI::DisplayTagRenderable
+
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
@@ -44,9 +47,6 @@ module Jekyll
           validate_required_keys
         end
 
-        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
-        private_constant :MdCards
-
         def render(context)
           topic_name, error_log = resolve_topic(context)
           return error_log if error_log
@@ -60,11 +60,8 @@ module Jekyll
             exclude_url: url_to_exclude,
           )
 
-          if context.registers[:render_mode] == :markdown
-            render_markdown(result)
-          else
-            renderer = Renderer.new(context, result[:posts])
-            (result[:log_messages] || '') + renderer.render
+          render_display_tag(context, result) do |d|
+            Renderer.new(context, d[:posts]).render
           end
         end
 

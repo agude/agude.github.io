@@ -5,7 +5,7 @@ require 'jekyll'
 require 'liquid'
 require 'cgi' # Keep for QuotedFragment
 require 'strscan'
-require_relative '../core/book_link_util' # Require the specific book link util
+require_relative '../core/book_link_resolver'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../markdown_output/markdown_link_formatter'
 require_relative '../../../infrastructure/links/link_helper_utils'
@@ -25,10 +25,10 @@ module Jekyll
         QuotedFragment = Liquid::QuotedFragment
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
-        Linker = Jekyll::Books::Core::BookLinkUtils
+        Resolver = Jekyll::Books::Core::BookLinkResolver
         MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
         LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
-        private_constant :TagArgs, :Linker, :MdLink, :LinkHelper
+        private_constant :TagArgs, :Resolver, :MdLink, :LinkHelper
 
         def initialize(tag_name, markup, tokens)
           super
@@ -50,13 +50,15 @@ module Jekyll
           author_filter = (TagArgs.resolve_value(@author_markup, context) if @author_markup)
           cite_arg = cite_enabled?(context)
 
+          resolver = Resolver.new(context)
+
           if context.registers[:render_mode] == :markdown
-            data = Linker.find_book_link_data(
-              book_title, context, link_text_override, author_filter, nil, cite: cite_arg,
+            data = resolver.resolve_data(
+              book_title, link_text_override, author_filter, nil, cite: cite_arg,
             )
             MdLink.format_link(data, italic: data[:cite], self_link: LinkHelper.self_link?(context, data[:url]))
           else
-            Linker.render_book_link(book_title, context, link_text_override, author_filter, nil, cite: cite_arg)
+            resolver.resolve(book_title, link_text_override, author_filter, nil, cite: cite_arg)
           end
         end
 

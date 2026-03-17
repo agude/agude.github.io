@@ -295,7 +295,7 @@ class TestRelatedPostsTag < Minitest::Test
     renderer = Jekyll::Posts::Related::Renderer.new(@context, posts, true)
     output = nil
 
-    Jekyll::Posts::ArticleCardUtils.stub :render, ->(p, _ctx) { "<div>#{p.data['title']}</div>\n" } do
+    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(p, _ctx) { "<div>#{p.data['title']}</div>\n" } do
       output = renderer.render
     end
 
@@ -313,7 +313,7 @@ class TestRelatedPostsTag < Minitest::Test
     renderer = Jekyll::Posts::Related::Renderer.new(@context, posts, false)
     output = nil
 
-    Jekyll::Posts::ArticleCardUtils.stub :render, ->(p, _ctx) { "<div>#{p.data['title']}</div>\n" } do
+    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(p, _ctx) { "<div>#{p.data['title']}</div>\n" } do
       output = renderer.render
     end
 
@@ -333,11 +333,11 @@ class TestRelatedPostsTag < Minitest::Test
     output = nil
     actual_titles_rendered = []
 
-    Jekyll::Posts::ArticleCardUtils.stub :render,
-                                         lambda { |post_obj, _ctx|
-                                           actual_titles_rendered << post_obj.data['title']
-                                           "<div class='card'>CARD</div>\n"
-                                         } do
+    Jekyll::Posts::ArticleCardRenderer.stub :render,
+                                            lambda { |post_obj, _ctx|
+                                              actual_titles_rendered << post_obj.data['title']
+                                              "<div class='card'>CARD</div>\n"
+                                            } do
       output = render_tag(@context)
     end
 
@@ -356,10 +356,10 @@ class TestRelatedPostsTag < Minitest::Test
     minimal_context = create_context({}, { site: minimal_site, page: page_isolated })
 
     output = ''
-    Jekyll::Posts::ArticleCardUtils.stub :render,
-                                         lambda { |_p, _c|
-                                           flunk 'Jekyll::Posts::ArticleCardUtils.render should not be called'
-                                         } do
+    Jekyll::Posts::ArticleCardRenderer.stub :render,
+                                            lambda { |_p, _c|
+                                              flunk 'Jekyll::Posts::ArticleCardRenderer.render should not be called'
+                                            } do
       output = render_tag(minimal_context)
     end
     assert_equal '', output.strip
@@ -377,7 +377,7 @@ class TestRelatedPostsTag < Minitest::Test
 
     output = ''
     Jekyll.stub :logger, mock_logger do
-      Jekyll::Posts::ArticleCardUtils.stub :render, '<div>CARD</div>' do
+      Jekyll::Posts::ArticleCardRenderer.stub :render, '<div>CARD</div>' do
         output = render_tag(bad_context)
       end
     end
@@ -400,7 +400,7 @@ class TestRelatedPostsTag < Minitest::Test
 
     output = ''
     Jekyll.stub :logger, mock_logger do
-      Jekyll::Posts::ArticleCardUtils.stub :render, '<div>CARD</div>' do
+      Jekyll::Posts::ArticleCardRenderer.stub :render, '<div>CARD</div>' do
         output = render_tag(bad_context)
       end
     end
@@ -426,7 +426,7 @@ class TestRelatedPostsTag < Minitest::Test
 
     output = ''
     Jekyll.stub :logger, mock_logger do
-      Jekyll::Posts::ArticleCardUtils.stub :render, '<div>CARD</div>' do
+      Jekyll::Posts::ArticleCardRenderer.stub :render, '<div>CARD</div>' do
         output = render_tag(context_no_url)
       end
     end

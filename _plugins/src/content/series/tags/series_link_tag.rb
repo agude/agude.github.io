@@ -4,7 +4,7 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require_relative '../series_link_util'
+require_relative '../series_link_resolver'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../markdown_output/markdown_link_formatter'
 require_relative '../../../infrastructure/links/link_helper_utils'
@@ -25,10 +25,10 @@ module Jekyll
       class SeriesLinkTag < Liquid::Tag
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
-        Linker = Jekyll::Series::SeriesLinkUtils
+        Resolver = Jekyll::Series::SeriesLinkResolver
         MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
         LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
-        private_constant :TagArgs, :Linker, :MdLink, :LinkHelper
+        private_constant :TagArgs, :Resolver, :MdLink, :LinkHelper
 
         QuotedFragment = Liquid::QuotedFragment
 
@@ -45,12 +45,13 @@ module Jekyll
         def render(context)
           series_title = TagArgs.resolve_value(@title_markup, context)
           link_text_override = resolve_link_text(context)
+          resolver = Resolver.new(context)
 
           if context.registers[:render_mode] == :markdown
-            data = Linker.find_series_link_data(series_title, context, link_text_override)
+            data = resolver.resolve_data(series_title, link_text_override)
             MdLink.format_link(data, italic: true, self_link: LinkHelper.self_link?(context, data[:url]))
           else
-            Linker.render_series_link(series_title, context, link_text_override)
+            resolver.resolve(series_title, link_text_override)
           end
         end
 

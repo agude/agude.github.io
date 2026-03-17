@@ -9,7 +9,7 @@ require_relative '../../../../../_plugins/src/content/posts/tags/render_article_
 # Verifies that the tag correctly renders article cards from post objects.
 class TestRenderArticleCardTag < Minitest::Test
   def setup
-    @site = create_site({ 'url' => 'http://example.com' }) # For Jekyll::Posts::ArticleCardUtils -> Jekyll::UI::Cards::CardDataExtractorUtils -> Jekyll::Infrastructure::UrlUtils
+    @site = create_site({ 'url' => 'http://example.com' }) # For Jekyll::Posts::ArticleCardRenderer -> Jekyll::UI::Cards::CardDataExtractorUtils -> Jekyll::Infrastructure::UrlUtils
     @post_obj = create_doc({ 'title' => 'Test Post', 'path' => 'test-post.md' }, '/test-post.html')
     @context = create_context(
       { 'my_post' => @post_obj, 'nil_post_var' => nil },
@@ -62,18 +62,18 @@ class TestRenderArticleCardTag < Minitest::Test
     expected_card_html = "<div class='article-card'>Rendered Test Post</div>"
     captured_args = nil
 
-    Jekyll::Posts::ArticleCardUtils.stub :render,
-                                         lambda { |post_arg, context_arg|
-                                           captured_args = { post: post_arg, context: context_arg }
-                                           expected_card_html
-                                         } do
+    Jekyll::Posts::ArticleCardRenderer.stub :render,
+                                            lambda { |post_arg, context_arg|
+                                              captured_args = { post: post_arg, context: context_arg }
+                                              expected_card_html
+                                            } do
       output = render_tag(markup)
       assert_equal expected_card_html, output
     end
 
-    refute_nil captured_args, 'Jekyll::Posts::ArticleCardUtils.render should have been called'
-    assert_equal @post_obj, captured_args[:post], 'Incorrect post object passed to Jekyll::Posts::ArticleCardUtils'
-    assert_equal @context, captured_args[:context], 'Incorrect context passed to Jekyll::Posts::ArticleCardUtils'
+    refute_nil captured_args, 'Jekyll::Posts::ArticleCardRenderer.render should have been called'
+    assert_equal @post_obj, captured_args[:post], 'Incorrect post object passed to Jekyll::Posts::ArticleCardRenderer'
+    assert_equal @context, captured_args[:context], 'Incorrect context passed to Jekyll::Posts::ArticleCardRenderer'
   end
 
   # 3. Render - Failure: Post object resolves to nil
@@ -124,16 +124,16 @@ class TestRenderArticleCardTag < Minitest::Test
     assert_match "Post object variable '#{markup}' resolved to nil", captured_log_args[:reason]
   end
 
-  # 4. Render - Failure: Jekyll::Posts::ArticleCardUtils.render raises an error
+  # 4. Render - Failure: Jekyll::Posts::ArticleCardRenderer.render raises an error
   def test_render_failure_if_article_card_utils_raises_error
     markup = 'my_post'
-    error_message = 'Something went wrong in Jekyll::Posts::ArticleCardUtils'
+    error_message = 'Something went wrong in ArticleCardRenderer'
     expected_log_html = '<!-- RENDER_ARTICLE_CARD_TAG: UTIL ERROR -->'
     captured_log_args = nil
 
     @site.config['plugin_logging']['RENDER_ARTICLE_CARD_TAG'] = true
 
-    Jekyll::Posts::ArticleCardUtils.stub :render, ->(_post, _ctx) { raise StandardError, error_message } do
+    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(_post, _ctx) { raise StandardError, error_message } do
       Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure,
                                                      lambda { |args|
                                                        captured_log_args = args
@@ -147,7 +147,7 @@ class TestRenderArticleCardTag < Minitest::Test
     refute_nil captured_log_args, 'Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure should have been called for util error'
     assert_equal @context, captured_log_args[:context]
     assert_equal 'RENDER_ARTICLE_CARD_TAG', captured_log_args[:tag_type]
-    assert_match "Error rendering article card via Jekyll::Posts::ArticleCardUtils: #{error_message}", captured_log_args[:reason]
+    assert_match "Error rendering article card: #{error_message}", captured_log_args[:reason]
     assert_equal(
       { post_markup: markup, error_class: 'StandardError', error_message: error_message.slice(0, 100) },
       captured_log_args[:identifiers],
@@ -179,20 +179,20 @@ class TestRenderArticleCardTag < Minitest::Test
     assert_equal '- [Test Post](/test-post.html)', output
   end
 
-  # 7. Markdown mode does not call ArticleCardUtils (HTML renderer)
+  # 7. Markdown mode does not call ArticleCardRenderer (HTML renderer)
   def test_markdown_mode_does_not_call_html_renderer
     md_context = create_context(
       { 'my_post' => @post_obj },
       { site: @site, page: create_doc({}, '/current.html'), render_mode: :markdown },
     )
     called = false
-    Jekyll::Posts::ArticleCardUtils.stub :render,
-                                         lambda { |_p, _c|
-                                           called = true
-                                           ''
-                                         } do
+    Jekyll::Posts::ArticleCardRenderer.stub :render,
+                                            lambda { |_p, _c|
+                                              called = true
+                                              ''
+                                            } do
       render_tag('my_post', md_context)
     end
-    refute called, 'ArticleCardUtils.render should not be called in markdown mode'
+    refute called, 'ArticleCardRenderer.render should not be called in markdown mode'
   end
 end

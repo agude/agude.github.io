@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/src/content/posts/article_card_utils'
+require_relative '../../../../_plugins/src/content/posts/article_card_renderer'
 
-# Tests delegation from ArticleCardUtils module to ArticleCardRenderer class.
-class TestArticleCardUtils < Minitest::Test
+# Tests ArticleCardRenderer.render class method (formerly delegated through ArticleCardUtils).
+class TestArticleCardRendererClassMethod < Minitest::Test
   def setup
     @context = create_context
     @post = create_doc
@@ -19,7 +19,7 @@ class TestArticleCardUtils < Minitest::Test
 
     # Stub .new to return the mock
     Jekyll::Posts::ArticleCardRenderer.stub :new, mock_renderer do
-      result = Jekyll::Posts::ArticleCardUtils.render(@post, @context)
+      result = Jekyll::Posts::ArticleCardRenderer.render(@post, @context)
       assert_equal mock_output, result
     end
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # _plugins/logic/previous_reviews/renderer.rb
-require_relative '../core/book_card_utils'
+require_relative '../core/book_card_renderer'
 
 module Jekyll
   module Books
@@ -26,7 +26,7 @@ module Jekyll
 
           @reviews.each do |doc|
             subtitle = "Review from #{doc.date.strftime('%B %d, %Y')}"
-            output << Jekyll::Books::Core::BookCardUtils.render(doc, @context, subtitle: subtitle)
+            output << Jekyll::Books::Core::BookCardRenderer.render(doc, @context, subtitle: subtitle)
           end
 
           output << "  </div>\n"

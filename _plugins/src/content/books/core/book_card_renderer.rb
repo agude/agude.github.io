@@ -9,9 +9,7 @@ require_relative '../../../infrastructure/text_processing_utils'
 require_relative '../../../ui/cards/card_data_extractor_utils'
 require_relative '../../../ui/cards/card_renderer_utils'
 require_relative '../../../ui/ratings/rating_utils'
-require_relative '../../authors/author_link_util'
-require_relative 'book_card_utils'
-
+require_relative '../../authors/author_link_resolver'
 module Jekyll
   module Books
     module Core
@@ -21,6 +19,8 @@ module Jekyll
       # - extract_data: returns a frozen hash of raw card data (no HTML)
       # - render: returns the full HTML card string
       class BookCardRenderer
+        DEFAULT_TITLE_FOR_BOOK_CARD = 'Untitled Book'
+
         # Aliases for readability
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
         Typography = Jekyll::Infrastructure::TypographyUtils
@@ -29,15 +29,17 @@ module Jekyll
         CardExtractor = Jekyll::UI::Cards::CardDataExtractorUtils
         CardRenderer = Jekyll::UI::Cards::CardRendererUtils
         Ratings = Jekyll::UI::Ratings::RatingUtils
-        AuthorLinker = Jekyll::Authors::AuthorLinkUtils
         private_constant :Logger,
                          :Typography,
                          :FrontMatter,
                          :Text,
                          :CardExtractor,
                          :CardRenderer,
-                         :Ratings,
-                         :AuthorLinker
+                         :Ratings
+
+        def self.render(book_object, context, display_title_override: nil, subtitle: nil)
+          new(book_object, context, display_title_override, subtitle).render
+        end
 
         def initialize(book_obj, context, title_override, subtitle)
           @book_obj = book_obj
@@ -84,7 +86,7 @@ module Jekyll
           @base = CardExtractor.extract_base_data(
             @book_obj,
             @context,
-            default_title: Jekyll::Books::Core::BookCardUtils::DEFAULT_TITLE_FOR_BOOK_CARD,
+            default_title: DEFAULT_TITLE_FOR_BOOK_CARD,
             log_tag_type: 'BOOK_CARD_UTIL',
           )
           @log_out = @base[:log_output] || ''
@@ -94,7 +96,7 @@ module Jekyll
 
         def resolve_title
           t = @title_override.to_s.strip.empty? ? @base[:raw_title] : @title_override
-          if t == Jekyll::Books::Core::BookCardUtils::DEFAULT_TITLE_FOR_BOOK_CARD
+          if t == DEFAULT_TITLE_FOR_BOOK_CARD
             log(
               'BOOK_CARD_MISSING_TITLE',
               'Book title is missing and defaulted.',
@@ -162,7 +164,8 @@ module Jekyll
         def format_authors_html(authors)
           return nil if authors.empty?
 
-          links = authors.map { |n| AuthorLinker.render_author_link(n, @context) }
+          resolver = Jekyll::Authors::AuthorLinkResolver.new(@context)
+          links = authors.map { |n| resolver.resolve(n, nil, nil) }
           "    <span class=\"by-author\"> by #{Text.format_list_as_sentence(
             links, etal_after: 3,
           )}</span>\n"

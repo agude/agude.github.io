@@ -1,26 +1,20 @@
 # frozen_string_literal: true
 
 # _plugins/src/content/short_stories/short_story_resolver.rb
-require 'jekyll'
-require_relative '../../infrastructure/links/link_helper_utils'
-require_relative '../../infrastructure/plugin_logger_utils'
-require_relative '../../infrastructure/text_processing_utils'
-require_relative 'short_story_link_util'
+require_relative '../../infrastructure/links/link_resolver_support'
+require_relative '../../infrastructure/typography_utils'
 
 module Jekyll
   module ShortStories
     # Helper class to handle resolution logic.
     class ShortStoryResolver
-      # Aliases for readability
-      LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
-      Logger = Jekyll::Infrastructure::PluginLoggerUtils
-      Text = Jekyll::Infrastructure::TextProcessingUtils
-      private_constant :LinkHelper, :Logger, :Text
+      include Jekyll::Infrastructure::Links::LinkResolverSupport
+
+      Typography = Jekyll::Infrastructure::TypographyUtils
+      private_constant :Typography
 
       def initialize(context)
-        @context = context
-        @site = context&.registers&.[](:site)
-        @log_output = ''
+        super
         @ambiguous = false
       end
 
@@ -37,7 +31,12 @@ module Jekyll
         @norm_title = Text.normalize_title(@title_input)
 
         if @norm_title.empty?
-          @log_output = log_empty_title(title_raw)
+          @log_output = log_failure(
+            tag_type: 'RENDER_SHORT_STORY_LINK',
+            reason: 'Input story title resolved to an empty string.',
+            identifiers: { TitleInput: title_raw || 'nil' },
+            level: :warn,
+          )
           return { status: :empty_title, url: nil, display_text: nil }.freeze
         end
 
@@ -61,31 +60,17 @@ module Jekyll
       def render_html_from_data(data)
         case data[:status]
         when :no_site
-          fallback(data[:display_text])
+          build_story_cite_element(data[:display_text].to_s)
         when :empty_title
           @log_output
         when :found
-          cite = Jekyll::ShortStories::ShortStoryLinkUtils._build_story_cite_element(data[:display_text])
-          html = LinkHelper._generate_link_html(@context, data[:url], cite)
+          cite = build_story_cite_element(data[:display_text])
+          html = wrap_with_link(cite, data[:url])
           @log_output + html
         when :not_found, :ambiguous
-          cite = Jekyll::ShortStories::ShortStoryLinkUtils._build_story_cite_element(data[:display_text])
+          cite = build_story_cite_element(data[:display_text])
           @log_output + cite
         end
-      end
-
-      def fallback(title)
-        Jekyll::ShortStories::ShortStoryLinkUtils._build_story_cite_element(title.to_s)
-      end
-
-      def log_empty_title(title_raw)
-        Logger.log_liquid_failure(
-          context: @context,
-          tag_type: 'RENDER_SHORT_STORY_LINK',
-          reason: 'Input story title resolved to an empty string.',
-          identifiers: { TitleInput: title_raw || 'nil' },
-          level: :warn,
-        )
       end
 
       def find_target_location
@@ -133,8 +118,7 @@ module Jekyll
       end
 
       def log_not_found
-        @log_output = Logger.log_liquid_failure(
-          context: @context,
+        @log_output = log_failure(
           tag_type: 'RENDER_SHORT_STORY_LINK',
           reason: 'Could not find short story in cache.',
           identifiers: { StoryTitle: @title_input },
@@ -144,8 +128,7 @@ module Jekyll
       end
 
       def log_not_found_in_book
-        @log_output = Logger.log_liquid_failure(
-          context: @context,
+        @log_output = log_failure(
           tag_type: 'RENDER_SHORT_STORY_LINK',
           reason: 'Story found in cache but not in the specified book.',
           identifiers: { StoryTitle: @title_input, FromBook: @book_filter },
@@ -157,14 +140,18 @@ module Jekyll
       def log_ambiguous(locations)
         @ambiguous = true
         books = locations.map { |loc| "'#{loc['parent_book_title']}'" }.join(', ')
-        @log_output = Logger.log_liquid_failure(
-          context: @context,
+        @log_output = log_failure(
           tag_type: 'RENDER_SHORT_STORY_LINK',
           reason: "Ambiguous story title. Use 'from_book' to specify which book.",
           identifiers: { StoryTitle: @title_input, FoundIn: books },
           level: :error,
         )
         nil
+      end
+
+      def build_story_cite_element(display_text)
+        prepared_display_text = Typography.prepare_display_title(display_text)
+        "<cite class=\"short-story-title\">#{prepared_display_text}</cite>"
       end
     end
   end

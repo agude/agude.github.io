@@ -2,7 +2,7 @@
 
 # _plugins/logic/book_lists/renderers/by_author_then_series_renderer.rb
 require_relative '../book_list_renderer_utils'
-require_relative '../../core/book_card_utils'
+require_relative '../../core/book_card_renderer'
 require 'cgi'
 
 module Jekyll
@@ -61,7 +61,7 @@ module Jekyll
             id = "standalone-books-#{slug}"
             html = "<h3 class=\"book-list-headline\" id=\"#{id}\">Standalone Books</h3>\n"
             html << "<div class=\"card-grid\">\n"
-            books.each { |book| html << Jekyll::Books::Core::BookCardUtils.render(book, @context) << "\n" }
+            books.each { |book| html << Jekyll::Books::Core::BookCardRenderer.render(book, @context) << "\n" }
             html << "</div>\n"
           end
 

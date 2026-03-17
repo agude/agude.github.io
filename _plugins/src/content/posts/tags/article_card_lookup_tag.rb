@@ -7,7 +7,7 @@ require 'uri'
 require 'cgi'
 require 'strscan'
 require_relative '../../../infrastructure/plugin_logger_utils'
-require_relative '../article_card_utils'
+require_relative '../article_card_renderer'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../lookups/article_finder'
 require_relative '../../markdown_output/markdown_card_utils'
@@ -26,10 +26,10 @@ module Jekyll
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
-        CardUtils = Jekyll::Posts::ArticleCardUtils
+        CardRenderer = Jekyll::Posts::ArticleCardRenderer
         Finder = Jekyll::Posts::Lookups::ArticleFinder
         MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
-        private_constant :TagArgs, :Logger, :CardUtils, :Finder, :MdCards
+        private_constant :TagArgs, :Logger, :CardRenderer, :Finder, :MdCards
 
         QuotedFragment = Liquid::QuotedFragment
 
@@ -126,12 +126,12 @@ module Jekyll
             return MdCards.render_article_card_md(card)
           end
 
-          CardUtils.render(post, context)
+          CardRenderer.render(post, context)
         rescue StandardError => e
           Logger.log_liquid_failure(
             context: context,
             tag_type: 'ARTICLE_CARD_LOOKUP',
-            reason: "Error calling CardUtils.render utility: #{e.message}",
+            reason: "Error rendering article card: #{e.message}",
             identifiers: {
               URL: target_url,
               ErrorClass: e.class.name,

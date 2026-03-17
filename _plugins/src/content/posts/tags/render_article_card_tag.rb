@@ -3,7 +3,7 @@
 # _plugins/render_article_card_tag.rb
 require 'jekyll'
 require 'liquid'
-require_relative '../article_card_utils'
+require_relative '../article_card_renderer'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../markdown_output/markdown_card_utils'
@@ -22,8 +22,8 @@ module Jekyll
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
-        CardUtils = Jekyll::Posts::ArticleCardUtils
-        private_constant :TagArgs, :Logger, :CardUtils
+        CardRenderer = Jekyll::Posts::ArticleCardRenderer
+        private_constant :TagArgs, :Logger, :CardRenderer
 
         def initialize(tag_name, markup, tokens)
           super
@@ -46,7 +46,7 @@ module Jekyll
             }
             MdCards.render_article_card_md(card)
           else
-            CardUtils.render(post_object, context)
+            CardRenderer.render(post_object, context)
           end
         rescue StandardError => e
           log_render_error(context, e)
@@ -74,7 +74,7 @@ module Jekyll
           Logger.log_liquid_failure(
             context: context,
             tag_type: 'RENDER_ARTICLE_CARD_TAG',
-            reason: "Error rendering article card via Jekyll::Posts::ArticleCardUtils: #{error.message}",
+            reason: "Error rendering article card: #{error.message}",
             identifiers: build_error_identifiers(error),
             level: :error,
           )

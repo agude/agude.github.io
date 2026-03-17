@@ -4,7 +4,7 @@
 require 'jekyll'
 require 'liquid'
 require 'strscan'
-require_relative '../series_link_util'
+require_relative '../series_link_resolver'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../series_text_utils'
 require_relative '../../markdown_output/markdown_link_formatter'
@@ -28,11 +28,11 @@ module Jekyll
       class SeriesTextTag < Liquid::Tag
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
-        Linker = Jekyll::Series::SeriesLinkUtils
+        Resolver = Jekyll::Series::SeriesLinkResolver
         TextUtil = Jekyll::Series::SeriesTextUtils
         MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
         LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
-        private_constant :TagArgs, :Linker, :TextUtil, :MdLink, :LinkHelper
+        private_constant :TagArgs, :Resolver, :TextUtil, :MdLink, :LinkHelper
 
         QuotedFragment = Liquid::QuotedFragment
 
@@ -54,10 +54,11 @@ module Jekyll
           return '' if analysis.nil?
 
           link = link_enabled?(context)
+          resolver = Resolver.new(context)
 
-          return render_markdown(analysis, context, link) if context.registers[:render_mode] == :markdown
+          return render_markdown(analysis, resolver, context, link) if context.registers[:render_mode] == :markdown
 
-          linked_series_html = Linker.render_series_link(analysis[:name], context, nil, link: link)
+          linked_series_html = resolver.resolve(analysis[:name], nil, link: link)
           return '' if should_return_empty?(linked_series_html, analysis)
 
           build_output(analysis, linked_series_html)
@@ -124,8 +125,8 @@ module Jekyll
                 "Series name value is missing or empty in '#{@raw_markup}'"
         end
 
-        def render_markdown(analysis, context, link)
-          data = Linker.find_series_link_data(analysis[:name], context, nil, link: link)
+        def render_markdown(analysis, resolver, context, link)
+          data = resolver.resolve_data(analysis[:name], nil, link: link)
           self_link = LinkHelper.self_link?(context, data[:url])
           text = MdLink.format_link(data, italic: true, self_link: self_link)
           "#{analysis[:prefix]}#{text}#{analysis[:suffix]}".strip

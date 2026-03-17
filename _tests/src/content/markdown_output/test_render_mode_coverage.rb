@@ -53,8 +53,11 @@ class TestRenderModeCoverage < Minitest::Test
       next if ALLOWLIST.include?(basename)
 
       content = File.read(path)
-      # Check for render_mode usage that isn't in a comment
-      missing << basename unless content.match?(/^[^#]*render_mode/)
+      # Check for render_mode usage that isn't in a comment,
+      # or inclusion of the DisplayTagRenderable mixin (which handles render_mode)
+      has_render_mode = content.match?(/^[^#]*render_mode/)
+      has_mixin = content.match?(/^[^#]*DisplayTagRenderable/)
+      missing << basename unless has_render_mode || has_mixin
     end
 
     assert_empty missing,

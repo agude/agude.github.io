@@ -196,6 +196,20 @@ the excerpt instead of the actual paragraph text. Therefore:
   `tv_show_title`) or raw `<cite>` HTML (which `MarkdownHtmlConverter`
   will handle as a fallback).
 
+### Linking to Books, Authors, and Series
+
+**Never use raw Markdown or HTML links** to book, author, or series URLs.
+Always use the custom Liquid tags: `book_link`, `author_link`, `series_link`.
+`LinkValidator` breaks the build if it finds raw inline (`[text](url)`) or
+reference-style (`[ref]: url`) links to these URLs.
+
+If you need non-title link text (e.g., linking the word "before" to a book
+page), use `book_link` with `cite=false` and `link_text=`:
+
+```liquid
+{% book_link "The Triumphant" cite=false link_text="before" %}
+```
+
 ### Media Title Tags
 
 Simple formatting tags for non-book creative works. Emit

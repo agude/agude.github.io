@@ -6,6 +6,7 @@ require 'liquid'
 require_relative '../lists/by_title_alpha_finder'
 require_relative '../lists/renderers/by_title_alpha_renderer'
 require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/tags/display_tag_renderable'
 
 # Liquid Tag to display all books, grouped by the first letter of their
 # normalized title (articles "A", "An", "The" removed for sorting/grouping).
@@ -20,15 +21,14 @@ module Jekyll
       # Liquid tag for displaying books grouped by first letter of title.
       # Ignores articles (A, An, The) when determining the grouping letter.
       class DisplayBooksByTitleAlphaGroupTag < Liquid::Tag
+        include Jekyll::UI::DisplayTagRenderable
+
         def initialize(tag_name, markup, tokens)
           super
           return if markup.strip.empty?
 
           raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
         end
-
-        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
-        private_constant :MdCards
 
         def render(context)
           finder = Jekyll::Books::Lists::ByTitleAlphaFinder.new(
@@ -37,11 +37,8 @@ module Jekyll
           )
           data = finder.find
 
-          if context.registers[:render_mode] == :markdown
-            render_markdown(data)
-          else
-            output = +(data[:log_messages] || '')
-            output << Jekyll::Books::Lists::Renderers::ByTitleAlphaRenderer.new(context, data).render
+          render_display_tag(context, data) do |d|
+            Jekyll::Books::Lists::Renderers::ByTitleAlphaRenderer.new(context, d).render
           end
         end
 

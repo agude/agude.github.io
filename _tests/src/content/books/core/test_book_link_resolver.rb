@@ -332,18 +332,6 @@ class TestBookLinkResolver < Minitest::Test
     assert_match(/#{expected_pattern}/, output)
   end
 
-  def test_legacy_track_unreviewed_mention_works
-    @site.data['mention_tracker'].clear
-    unreviewed_title = 'Legacy Tracked Book'
-    normalized_title = 'legacy tracked book'
-    Jekyll.stub :logger, @silent_logger_stub do
-      Jekyll::Books::Core::BookLinkResolver.new(@ctx).track_unreviewed_mention_explicit(unreviewed_title)
-    end
-    tracker = @site.data['mention_tracker']
-    refute_nil tracker[normalized_title]
-    assert_equal 1, tracker[normalized_title][:original_titles][unreviewed_title]
-  end
-
   # --- Date Filter Tests ---
 
   def test_render_book_with_date_filter_succeeds
@@ -746,5 +734,50 @@ class TestBookLinkResolver < Minitest::Test
     # Call with nil
     result = resolver.send(:get_canonical_author, nil, {})
     assert_nil result
+  end
+
+  # --- HTML Element Builder Tests ---
+
+  def test_build_book_cite_element
+    resolver = Jekyll::Books::Core::BookLinkResolver.new(@ctx)
+    result = resolver.send(:build_book_cite_element, 'The Great Gatsby')
+    assert_equal '<cite class="book-title">The Great Gatsby</cite>', result
+  end
+
+  def test_build_book_text_element
+    resolver = Jekyll::Books::Core::BookLinkResolver.new(@ctx)
+    result = resolver.send(:build_book_text_element, 'The Great Gatsby')
+    assert_equal '<span class="book-text">The Great Gatsby</span>', result
+  end
+
+  def test_build_book_cite_element_applies_typography
+    resolver = Jekyll::Books::Core::BookLinkResolver.new(@ctx)
+    # TypographyUtils.prepare_display_title handles smart quotes, etc.
+    result = resolver.send(:build_book_cite_element, "Something's Wrong")
+    assert_includes result, '<cite class="book-title">'
+    assert_includes result, '</cite>'
+  end
+
+  # --- render_from_data Tests ---
+
+  def test_render_from_data_with_cite_true
+    resolver = Jekyll::Books::Core::BookLinkResolver.new(@ctx)
+    result = resolver.render_from_data('Unique Book', '/books/unique.html')
+    assert_equal '<a href="/books/unique.html"><cite class="book-title">Unique Book</cite></a>', result
+  end
+
+  def test_render_from_data_with_cite_false
+    resolver = Jekyll::Books::Core::BookLinkResolver.new(@ctx)
+    result = resolver.render_from_data('Unique Book', '/books/unique.html', cite: false)
+    assert_equal '<a href="/books/unique.html"><span class="book-text">Unique Book</span></a>', result
+  end
+
+  def test_render_from_data_self_link_no_anchor
+    # When the current page URL matches the link URL, no <a> wrapper
+    page = create_doc({ 'path' => 'self.html' }, '/books/unique.html')
+    ctx = create_context({}, { site: @site, page: page })
+    resolver = Jekyll::Books::Core::BookLinkResolver.new(ctx)
+    result = resolver.render_from_data('Unique Book', '/books/unique.html')
+    assert_equal '<cite class="book-title">Unique Book</cite>', result
   end
 end

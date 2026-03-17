@@ -7,7 +7,8 @@ require_relative '../lists/series_finder'
 require_relative '../lists/renderers/for_series_renderer'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../markdown_output/markdown_card_utils'
-require_relative '../../../infrastructure/text/markdown_text_utils'
+require_relative '../../../infrastructure/text_processing_utils'
+require_relative '../../../ui/tags/display_tag_renderable'
 
 module Jekyll
   module Books
@@ -20,6 +21,8 @@ module Jekyll
       #   {% display_books_for_series "The Lord of the Rings" %}
       #   {% display_books_for_series page.series %}
       class DisplayBooksForSeriesTag < Liquid::Tag
+        include Jekyll::UI::DisplayTagRenderable
+
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Finder = Jekyll::Books::Lists::SeriesFinder
@@ -35,9 +38,8 @@ module Jekyll
                 "Syntax Error in 'display_books_for_series': Series name (string literal or variable) is required."
         end
 
-        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
-        MdText = Jekyll::Infrastructure::Text::MarkdownTextUtils
-        private_constant :MdCards, :MdText
+        MdText = Jekyll::Infrastructure::TextProcessingUtils
+        private_constant :MdText
 
         def render(context)
           series_name_input = TagArgs.resolve_value(@series_name_markup, context)
@@ -55,11 +57,8 @@ module Jekyll
           )
           data = finder.find
 
-          if context.registers[:render_mode] == :markdown
-            render_markdown(data)
-          else
-            output = +(data[:log_messages] || '')
-            output << Renderer.new(context, data).render
+          render_display_tag(context, data) do |d|
+            Renderer.new(context, d).render
           end
         end
 

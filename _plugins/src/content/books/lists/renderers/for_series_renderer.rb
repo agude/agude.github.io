@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # _plugins/logic/book_lists/renderers/for_series_renderer.rb
-require_relative '../../core/book_card_utils'
+require_relative '../../core/book_card_renderer'
 
 module Jekyll
   module Books
@@ -22,7 +22,7 @@ module Jekyll
 
             output = +"<div class=\"card-grid\">\n"
             @books.each do |book|
-              output << Jekyll::Books::Core::BookCardUtils.render(book, @context) << "\n"
+              output << Jekyll::Books::Core::BookCardRenderer.render(book, @context) << "\n"
             end
             output << "</div>\n"
             output

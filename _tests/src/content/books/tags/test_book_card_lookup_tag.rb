@@ -7,7 +7,7 @@ require_relative '../../../../../_plugins/src/content/books/tags/book_card_looku
 # Tests for Jekyll::Books::Tags::BookCardLookupTag Liquid tag.
 #
 # Verifies that the tag correctly orchestrates between argument parsing,
-# BookFinder, and Jekyll::Books::Core::BookCardUtils.
+# BookFinder, and Jekyll::Books::Core::BookCardRenderer.
 class TestBookCardLookupTag < Minitest::Test
   def setup
     create_test_books
@@ -16,13 +16,13 @@ class TestBookCardLookupTag < Minitest::Test
     @silent_logger_stub = create_silent_logger_stub
   end
 
-  # Helper to render the tag, stubs Jekyll::Books::Core::BookCardUtils.render by default
+  # Helper to render the tag, stubs Jekyll::Books::Core::BookCardRenderer.render by default
   def render_tag(markup, context = @context, &)
     output = ''
     stub_logic = determine_stub_logic(&)
 
     Jekyll.stub :logger, @silent_logger_stub do # Silence Jekyll::Infrastructure::PluginLoggerUtils console output
-      Jekyll::Books::Core::BookCardUtils.stub :render, stub_logic do
+      Jekyll::Books::Core::BookCardRenderer.stub :render, stub_logic do
         output = Liquid::Template.parse("{% book_card_lookup #{markup} %}").render!(context)
       end
     end
@@ -63,7 +63,7 @@ class TestBookCardLookupTag < Minitest::Test
                                               captured_args = args
                                               mock_finder
                                             } do
-      Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
+      Jekyll::Books::Core::BookCardRenderer.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
         Jekyll.stub :logger, @silent_logger_stub do
           Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
 
@@ -84,12 +84,12 @@ class TestBookCardLookupTag < Minitest::Test
     mock_finder.expect :find, mock_result
 
     Jekyll::Books::Lookups::BookFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::Books::Core::BookCardUtils.stub :render,
-                                              lambda { |book, ctx|
-                                                captured_book = book
-                                                captured_context = ctx
-                                                '<div>Card</div>'
-                                              } do
+      Jekyll::Books::Core::BookCardRenderer.stub :render,
+                                                 lambda { |book, ctx|
+                                                   captured_book = book
+                                                   captured_context = ctx
+                                                   '<div>Card</div>'
+                                                 } do
         Jekyll.stub :logger, @silent_logger_stub do
           Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
 
@@ -109,7 +109,7 @@ class TestBookCardLookupTag < Minitest::Test
     mock_finder.expect :find, mock_result
 
     Jekyll::Books::Lookups::BookFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { mock_output } do
+      Jekyll::Books::Core::BookCardRenderer.stub :render, ->(_book, _ctx) { mock_output } do
         Jekyll.stub :logger, @silent_logger_stub do
           output = Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
 
@@ -187,13 +187,13 @@ class TestBookCardLookupTag < Minitest::Test
     log_verifier = lambda do |args|
       log_called = true
       assert_equal 'BOOK_CARD_LOOKUP', args[:tag_type]
-      assert_match 'Error calling CardUtils.render utility', args[:reason]
+      assert_match 'Error rendering book card', args[:reason]
       assert_equal :error, args[:level]
       ''
     end
 
     Jekyll::Books::Lookups::BookFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { raise StandardError, 'Render boom' } do
+      Jekyll::Books::Core::BookCardRenderer.stub :render, ->(_book, _ctx) { raise StandardError, 'Render boom' } do
         Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, log_verifier do
           Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
         end
@@ -228,7 +228,7 @@ class TestBookCardLookupTag < Minitest::Test
                                               captured_args = args
                                               mock_finder
                                             } do
-      Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
+      Jekyll::Books::Core::BookCardRenderer.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
         Jekyll.stub :logger, @silent_logger_stub do
           Liquid::Template.parse("{% book_card_lookup title='Hyperion' date='2023-10-17' %}").render!(@context)
 
@@ -253,7 +253,7 @@ class TestBookCardLookupTag < Minitest::Test
                                               captured_args = args
                                               mock_finder
                                             } do
-      Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
+      Jekyll::Books::Core::BookCardRenderer.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
         Jekyll.stub :logger, @silent_logger_stub do
           Liquid::Template.parse("{% book_card_lookup 'The First Book' %}").render!(@context)
 
@@ -316,7 +316,7 @@ class TestBookCardLookupTag < Minitest::Test
                                               captured_args = args
                                               mock_finder
                                             } do
-      Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
+      Jekyll::Books::Core::BookCardRenderer.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
         Jekyll.stub :logger, @silent_logger_stub do
           Liquid::Template.parse("{% book_card_lookup title='Hyperion' date=review_date %}").render!(context_with_date)
 
@@ -347,7 +347,7 @@ class TestBookCardLookupTag < Minitest::Test
                                               captured_args = args
                                               mock_finder
                                             } do
-      Jekyll::Books::Core::BookCardUtils.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
+      Jekyll::Books::Core::BookCardRenderer.stub :render, ->(_book, _ctx) { '<div>Card</div>' } do
         Jekyll.stub :logger, @silent_logger_stub do
           Liquid::Template.parse("{% book_card_lookup date='2023-10-17' title='Hyperion' %}").render!(@context)
 
@@ -431,7 +431,7 @@ class TestBookCardLookupTag < Minitest::Test
   # Creates test site with books collection
   def create_test_site
     create_site(
-      { 'url' => 'http://example.com' }, # For Jekyll::Books::Core::BookCardUtils -> Jekyll::UI::Cards::CardDataExtractorUtils -> Jekyll::Infrastructure::UrlUtils
+      { 'url' => 'http://example.com' }, # For Jekyll::Books::Core::BookCardRenderer -> Jekyll::UI::Cards::CardDataExtractorUtils -> Jekyll::Infrastructure::UrlUtils
       { 'books' => [@book1, @book2, @unpublished_book, @hyperion_review1, @hyperion_review2] },
     )
   end
@@ -462,12 +462,12 @@ class TestBookCardLookupTag < Minitest::Test
     end
   end
 
-  # Determines the stub logic for Jekyll::Books::Core::BookCardUtils.render
+  # Determines the stub logic for Jekyll::Books::Core::BookCardRenderer.render
   def determine_stub_logic(&book_card_utils_stub_block)
     if block_given?
       book_card_utils_stub_block
     else
-      ->(book_obj, _ctx) { "<!-- Jekyll::Books::Core::BookCardUtils.render called for #{book_obj.data['title']} -->" }
+      ->(book_obj, _ctx) { "<!-- Jekyll::Books::Core::BookCardRenderer.render called for #{book_obj.data['title']} -->" }
     end
   end
 end

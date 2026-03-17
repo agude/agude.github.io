@@ -31,7 +31,7 @@ class TestDisplayAwardsPageTag < Minitest::Test
 
     Jekyll::Books::Lists::ByAwardFinder.stub :new, ->(_args) { mock_award_finder } do
       Jekyll::Books::Lists::FavoritesListsFinder.stub :new, ->(_args) { mock_favorites_finder } do
-        Jekyll::Books::Core::BookCardUtils.stub :render, ->(book, _ctx) { "<!-- Card for: #{book.data['title']} -->\n" } do
+        Jekyll::Books::Core::BookCardRenderer.stub :render, ->(book, _ctx) { "<!-- Card for: #{book.data['title']} -->\n" } do
           Jekyll.stub :logger, @silent_logger_stub do
             output = Liquid::Template.parse('{% display_awards_page %}').render!(context)
           end

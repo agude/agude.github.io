@@ -232,19 +232,16 @@ class TestBacklinkBuilder < Minitest::Test
 
   private
 
-  def create_site_with_short_stories(books, short_stories_cache)
-    # Create a site and manually inject short stories into the link cache
-    site = create_site({}, { 'books' => books })
-
-    # Add short stories to the link cache
-    site.data['link_cache']['short_stories'] = short_stories_cache
-
-    # Re-run the backlink builder with the updated cache
+  def rebuild_backlinks(site)
     link_cache = site.data['link_cache']
     maps = Jekyll::Infrastructure::LinkCache::CacheMaps.new(link_cache)
-    builder = Jekyll::Infrastructure::LinkCache::BacklinkBuilder.new(site, link_cache, maps)
-    builder.build
+    Jekyll::Infrastructure::LinkCache::BacklinkBuilder.new(site, link_cache, maps).build
+  end
 
+  def create_site_with_short_stories(books, short_stories_cache)
+    site = create_site({}, { 'books' => books })
+    site.data['link_cache']['short_stories'] = short_stories_cache
+    rebuild_backlinks(site)
     site
   end
 end

@@ -21,24 +21,26 @@ class TestAuthorLinkTag < Minitest::Test
     )
   end
 
-  # Helper to parse the tag and capture arguments passed to the utility
+  # Helper to parse the tag and capture arguments passed to the resolver.
+  # Uses Minitest::Mock to verify that resolve is actually called and to
+  # capture the arguments for assertion.
   def parse_and_capture_args(markup, context = @context)
     captured_args = nil
-    # Stub the utility function
-    stub_render_author_link = lambda do |name, ctx, link_text_override, possessive, link:|
+    mock_resolver = Minitest::Mock.new
+    mock_resolver.expect(:resolve, '<!-- AuthorLinkResolver called -->') do |name, link_text_override, possessive, link:|
       captured_args = {
         name: name,
-        context: ctx,
         link_text_override: link_text_override,
         possessive: possessive,
         link: link,
       }
-      "<!-- Jekyll::Authors::AuthorLinkUtils called with name: #{name}, link_text: #{link_text_override}, " \
-        "possessive: #{possessive} -->"
+      true
     end
-    Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, stub_render_author_link do
+
+    Jekyll::Authors::AuthorLinkResolver.stub :new, mock_resolver do
       template = Liquid::Template.parse("{% author_link #{markup} %}")
       output = template.render!(context)
+      mock_resolver.verify
       return output, captured_args
     end
   end
@@ -52,10 +54,10 @@ class TestAuthorLinkTag < Minitest::Test
   end
 
   # This test is changed: The tag should parse '' successfully.
-  # The utility Jekyll::Authors::AuthorLinkUtils will handle the empty resolved name.
+  # The resolver will handle the empty resolved name.
   def test_render_author_name_empty_string_literal_passes_empty_to_util
     _output, captured_args = parse_and_capture_args("''")
-    assert_equal '', captured_args[:name], "Tag should resolve '' to an empty string for the utility"
+    assert_equal '', captured_args[:name], "Tag should resolve '' to an empty string for the resolver"
     assert_nil captured_args[:link_text_override]
     assert_equal false, captured_args[:possessive]
   end
@@ -80,7 +82,6 @@ class TestAuthorLinkTag < Minitest::Test
     assert_equal 'Jane Doe', captured_args[:name]
     assert_nil captured_args[:link_text_override]
     assert_equal false, captured_args[:possessive]
-    assert_equal @context, captured_args[:context]
   end
 
   def test_render_with_variable_name_only
@@ -179,7 +180,7 @@ class TestAuthorLinkTag < Minitest::Test
   end
 
   def test_render_with_trailing_whitespace_after_name
-    # This tests the branch on line 70 where scanner.eos? is true after skipping whitespace
+    # This tests the branch where scanner.eos? is true after skipping whitespace
     # Explicitly create markup with trailing spaces
     markup_with_trailing_spaces = "'Jane Doe' \t  " # Mix of space and tab
     _output, captured_args = parse_and_capture_args(markup_with_trailing_spaces)
@@ -191,41 +192,44 @@ class TestAuthorLinkTag < Minitest::Test
   # --- link=false Argument Parsing Tests ---
 
   def test_syntax_parses_link_false
-    captured_args = nil
-    stub = lambda do |name, ctx, link_text_override, possessive, link:|
-      captured_args = { name: name, link: link }
-      'stubbed'
+    mock_resolver = Minitest::Mock.new
+    mock_resolver.expect(:resolve, 'stubbed') do |_name, _override, _possessive, link:|
+      link == false
     end
-    Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, stub do
+
+    Jekyll::Authors::AuthorLinkResolver.stub :new, mock_resolver do
       template = Liquid::Template.parse("{% author_link 'Jane Doe' link=false %}")
       template.render!(@context)
     end
-    assert_equal false, captured_args[:link]
+    mock_resolver.verify
   end
 
   def test_syntax_parses_link_true
-    captured_args = nil
-    stub = lambda do |name, ctx, link_text_override, possessive, link:|
-      captured_args = { name: name, link: link }
-      'stubbed'
+    mock_resolver = Minitest::Mock.new
+    mock_resolver.expect(:resolve, 'stubbed') do |_name, _override, _possessive, link:|
+      link == true
     end
-    Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, stub do
+
+    Jekyll::Authors::AuthorLinkResolver.stub :new, mock_resolver do
       template = Liquid::Template.parse("{% author_link 'Jane Doe' link=true %}")
       template.render!(@context)
     end
-    assert_equal true, captured_args[:link]
+    mock_resolver.verify
   end
 
   def test_link_false_with_possessive
     captured_args = nil
-    stub = lambda do |name, ctx, link_text_override, possessive, link:|
+    mock_resolver = Minitest::Mock.new
+    mock_resolver.expect(:resolve, 'stubbed') do |name, _override, possessive, link:|
       captured_args = { name: name, possessive: possessive, link: link }
-      'stubbed'
+      true
     end
-    Jekyll::Authors::AuthorLinkUtils.stub :render_author_link, stub do
+
+    Jekyll::Authors::AuthorLinkResolver.stub :new, mock_resolver do
       template = Liquid::Template.parse("{% author_link 'Jane Doe' link=false possessive %}")
       template.render!(@context)
     end
+    mock_resolver.verify
     assert_equal false, captured_args[:link]
     assert_equal true, captured_args[:possessive]
   end
