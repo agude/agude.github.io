@@ -2,6 +2,6 @@
 ---
 # {{ site.title }}
 
-{{ site.description }}
+> {{ site.description }}
 
 {% llms_txt_index %}
