@@ -7,7 +7,10 @@ require 'time'
 
 # Tests for Jekyll::Posts::Tags::FrontPageFeedTag Liquid tag.
 #
-# Verifies that the tag correctly orchestrates between Jekyll::Posts::FeedUtils and Renderer.
+# Stubs FeedUtils (the data source) but lets the real Renderer run,
+# stubbing only ArticleCardRenderer/BookCardRenderer as leaf dependencies.
+# This tests the tag's parsing, limit resolution, empty-feed logging,
+# and Renderer integration.
 class TestFrontPageFeedTag < Minitest::Test
   def setup
     @site = create_site({ 'url' => 'http://example.com' })
@@ -19,7 +22,7 @@ class TestFrontPageFeedTag < Minitest::Test
       { 'page_limit' => 3 },
       { site: @site, page: create_doc({ 'path' => 'current_feed_page.md' }, '/current_feed_page.html') },
     )
-    @silent_logger_stub = create_silent_logger_stub
+    @silent_logger_stub = silent_logger
   end
 
   def render_tag(markup = '')
@@ -50,8 +53,6 @@ class TestFrontPageFeedTag < Minitest::Test
   end
 
   def test_syntax_error_malformed_argument_with_valid_later
-    # Tests line 74: when match? succeeds (pattern exists) but scan fails at position 0
-    # Input has junk before a valid "limit=5" - match? sees "limit=5" but scan fails on "junk"
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse('{% front_page_feed junk limit=5 %}')
     end
@@ -60,154 +61,128 @@ class TestFrontPageFeedTag < Minitest::Test
 
   # --- Orchestration Tests ---
 
-  def test_calls_feed_utils_and_renderer_with_default_limit
-    captured_feed_args = nil
-    mock_feed_items = [@post1, @book1]
+  def test_renders_card_grid_with_feed_items
+    stub_feed_and_cards([@post1, @book1]) do
+      output = render_tag
 
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, '<div class="card-grid">HTML</div>'
+      assert_includes output, '<div class="card-grid">'
+      assert_includes output, '[article:Recent Post]'
+      assert_includes output, '[book:Recent Book]'
+      assert_includes output, "</div>\n"
+    end
+  end
 
-    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items,
-                                  lambda { |args|
-                                    captured_feed_args = args
-                                    mock_feed_items
-                                  } do
-      Jekyll::Posts::Feed::Renderer.stub :new,
-                                         lambda { |context, items|
-                                           assert_equal @context, context
-                                           assert_equal mock_feed_items, items
-                                           mock_renderer
-                                         } do
-        output = render_tag
+  def test_passes_nil_limit_by_default
+    captured_args = nil
 
-        assert_equal '<div class="card-grid">HTML</div>', output
-        assert_nil captured_feed_args[:limit], 'Tag should pass nil so FeedUtils reads config'
-        assert_equal @site, captured_feed_args[:site]
-        mock_renderer.verify
+    stub_cards do
+      Jekyll::Posts::FeedUtils.stub :get_combined_feed_items,
+                                    lambda { |args|
+                                      captured_args = args
+                                      [@post1]
+                                    } do
+        render_tag
+
+        assert_nil captured_args[:limit], 'Tag should pass nil so FeedUtils reads config'
+        assert_equal @site, captured_args[:site]
       end
     end
   end
 
-  def test_calls_feed_utils_with_specified_limit_literal
-    captured_feed_args = nil
-    mock_feed_items = [@post1]
+  def test_passes_literal_limit
+    captured_args = nil
 
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, '<div>HTML</div>'
-
-    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items,
-                                  lambda { |args|
-                                    captured_feed_args = args
-                                    mock_feed_items
-                                  } do
-      Jekyll::Posts::Feed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
+    stub_cards do
+      Jekyll::Posts::FeedUtils.stub :get_combined_feed_items,
+                                    lambda { |args|
+                                      captured_args = args
+                                      [@post1]
+                                    } do
         render_tag('limit=3')
 
-        assert_equal 3, captured_feed_args[:limit]
-        mock_renderer.verify
+        assert_equal 3, captured_args[:limit]
       end
     end
   end
 
-  def test_calls_feed_utils_with_specified_limit_variable
-    captured_feed_args = nil
-    mock_feed_items = [@post1]
+  def test_passes_variable_limit
+    captured_args = nil
 
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, '<div>HTML</div>'
-
-    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items,
-                                  lambda { |args|
-                                    captured_feed_args = args
-                                    mock_feed_items
-                                  } do
-      Jekyll::Posts::Feed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
+    stub_cards do
+      Jekyll::Posts::FeedUtils.stub :get_combined_feed_items,
+                                    lambda { |args|
+                                      captured_args = args
+                                      [@post1]
+                                    } do
         render_tag('limit=page_limit') # page_limit is 3
 
-        assert_equal 3, captured_feed_args[:limit]
-        mock_renderer.verify
+        assert_equal 3, captured_args[:limit]
       end
     end
   end
 
-  def test_uses_default_limit_if_limit_arg_is_invalid_string
-    captured_feed_args = nil
-    mock_feed_items = [@post1]
+  def test_passes_nil_limit_for_invalid_string
+    captured_args = nil
 
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, '<div>HTML</div>'
-
-    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items,
-                                  lambda { |args|
-                                    captured_feed_args = args
-                                    mock_feed_items
-                                  } do
-      Jekyll::Posts::Feed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
+    stub_cards do
+      Jekyll::Posts::FeedUtils.stub :get_combined_feed_items,
+                                    lambda { |args|
+                                      captured_args = args
+                                      [@post1]
+                                    } do
         render_tag("limit='abc'")
 
-        assert_nil captured_feed_args[:limit], 'Invalid limit should pass nil so FeedUtils reads config'
-        mock_renderer.verify
+        assert_nil captured_args[:limit], 'Invalid limit should pass nil so FeedUtils reads config'
       end
     end
   end
 
-  def test_uses_default_limit_if_limit_arg_is_zero_or_negative
-    captured_feed_args = nil
-    mock_feed_items = [@post1]
+  def test_passes_nil_limit_for_non_positive
+    [0, -1].each do |bad_limit|
+      captured_args = nil
 
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, '<div>HTML</div>'
+      stub_cards do
+        Jekyll::Posts::FeedUtils.stub :get_combined_feed_items,
+                                      lambda { |args|
+                                        captured_args = args
+                                        [@post1]
+                                      } do
+          render_tag("limit=#{bad_limit}")
 
-    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items,
-                                  lambda { |args|
-                                    captured_feed_args = args
-                                    mock_feed_items
-                                  } do
-      Jekyll::Posts::Feed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
-        render_tag('limit=0')
-        assert_nil captured_feed_args[:limit], 'Zero limit should pass nil so FeedUtils reads config'
-        mock_renderer.verify
-      end
-    end
-  end
-
-  def test_logs_info_when_feed_utils_returns_empty_array
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, ''
-
-    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items, ->(_args) { [] } do
-      Jekyll::Posts::Feed::Renderer.stub :new,
-                                         lambda { |_context, items|
-                                           assert_equal [], items
-                                           mock_renderer
-                                         } do
-        Jekyll.stub :logger, @silent_logger_stub do
-          output = render_tag
-
-          expected_log_pattern = /\[INFO\] FRONT_PAGE_FEED_FAILURE: Reason='No items found for the front page feed\.'/
-          assert_match(expected_log_pattern, output)
-          mock_renderer.verify
+          assert_nil captured_args[:limit], "limit=#{bad_limit} should pass nil so FeedUtils reads config"
         end
       end
     end
   end
 
-  def test_concatenates_log_and_renderer_output
-    [@post1]
-
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, '<div>HTML</div>'
-
-    Jekyll::Posts::FeedUtils.stub :get_combined_feed_items, ->(_args) { [] } do
-      Jekyll::Posts::Feed::Renderer.stub :new, ->(_context, _items) { mock_renderer } do
+  def test_logs_info_and_renders_empty_when_feed_is_empty
+    stub_cards do
+      Jekyll::Posts::FeedUtils.stub :get_combined_feed_items, ->(_args) { [] } do
         Jekyll.stub :logger, @silent_logger_stub do
           output = render_tag
 
-          # Should have both log and HTML (even though HTML is empty for empty feed)
           assert_match(/FRONT_PAGE_FEED_FAILURE/, output)
-          mock_renderer.verify
+          assert_match(/No items found for the front page feed/, output)
         end
       end
+    end
+  end
+
+  def test_renders_only_posts_in_posts_only_feed
+    stub_feed_and_cards([@post1]) do
+      output = render_tag
+
+      assert_includes output, '[article:Recent Post]'
+      refute_includes output, '[book:'
+    end
+  end
+
+  def test_renders_only_books_in_books_only_feed
+    stub_feed_and_cards([@book1]) do
+      output = render_tag
+
+      assert_includes output, '[book:Recent Book]'
+      refute_includes output, '[article:'
     end
   end
 
@@ -248,15 +223,22 @@ class TestFrontPageFeedTag < Minitest::Test
     )
   end
 
-  def create_silent_logger_stub
-    Object.new.tap do |logger|
-      def logger.warn(topic, message); end
+  def stub_cards(&block)
+    Jekyll::Posts::ArticleCardRenderer.stub(
+      :render,
+      ->(post, _context) { "[article:#{post.data['title']}]" },
+    ) do
+      Jekyll::Books::Core::BookCardRenderer.stub(
+        :render,
+        ->(book, _context) { "[book:#{book.data['title']}]" },
+        &block
+      )
+    end
+  end
 
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
+  def stub_feed_and_cards(feed_items, &block)
+    stub_cards do
+      Jekyll::Posts::FeedUtils.stub(:get_combined_feed_items, ->(_args) { feed_items }, &block)
     end
   end
 end

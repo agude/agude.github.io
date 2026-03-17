@@ -13,7 +13,7 @@ class TestBookListAuthorFinder < Minitest::Test
     setup_test_books
     @site = create_site({}, { 'books' => @books_for_author_tests })
     @context = build_test_context
-    @silent_logger_stub = create_silent_logger
+    @silent_logger_stub = silent_logger
   end
 
   def get_author_data(author_name_filter, site = @site, context = @context)
@@ -196,15 +196,6 @@ class TestBookListAuthorFinder < Minitest::Test
   def build_test_context
     page = create_doc({ 'path' => 'current_page.html' }, '/current_page.html')
     create_context({}, { site: @site, page: page })
-  end
-
-  def create_silent_logger
-    Object.new.tap do |logger|
-      def logger.warn(prefix, msg); end
-      def logger.error(prefix, msg); end
-      def logger.info(prefix, msg); end
-      def logger.debug(prefix, msg); end
-    end
   end
 
   def assert_author_alpha_structure(data)

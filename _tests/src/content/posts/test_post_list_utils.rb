@@ -13,7 +13,7 @@ class TestPostListUtils < Minitest::Test
     @site_categories_data = build_site_categories
     @site = build_test_site
     @context = build_test_context
-    @silent_logger_stub = create_silent_logger
+    @silent_logger_stub = silent_logger
   end
 
   # Helper to call the utility method under test
@@ -180,15 +180,6 @@ class TestPostListUtils < Minitest::Test
   def build_test_context
     page = create_doc({ 'path' => 'current_page.html' }, '/current_page.html')
     create_context({}, { site: @site, page: page })
-  end
-
-  def create_silent_logger
-    Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-      def logger.error(topic, message); end
-      def logger.info(topic, message); end
-      def logger.debug(topic, message); end
-    end
   end
 
   def assert_valid_tech_posts_result(result)

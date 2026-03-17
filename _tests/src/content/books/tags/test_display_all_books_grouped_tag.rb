@@ -11,7 +11,7 @@ class TestDisplayAllBooksGroupedTag < Minitest::Test
   def setup
     create_test_books
     setup_site_and_context
-    @silent_logger_stub = create_silent_logger_stub
+    @silent_logger_stub = silent_logger
   end
 
   private
@@ -58,22 +58,6 @@ class TestDisplayAllBooksGroupedTag < Minitest::Test
     @context = create_context(
       {}, { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') },
     )
-  end
-
-  def create_silent_logger_stub
-    Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-
-      def logger.log_level=(level); end
-
-      def logger.progname=(name); end
-    end
   end
 
   public

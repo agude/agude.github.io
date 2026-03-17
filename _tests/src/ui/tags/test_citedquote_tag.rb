@@ -19,14 +19,7 @@ class TestCitedQuoteTag < Minitest::Test
       { site: @site, page: create_doc({ 'path' => 'test_page.md' }, '/test.html') },
     )
 
-    @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(_topic, _message); end
-      def logger.error(_topic, _message); end
-      def logger.info(_topic, _message); end
-      def logger.debug(_topic, _message); end
-      def logger.log_level=(_level); end
-      def logger.progname=(_name); end
-    end
+    @silent_logger_stub = silent_logger
   end
 
   # Helper to render the block tag

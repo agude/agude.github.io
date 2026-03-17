@@ -48,7 +48,7 @@ class TestBookListAllBooksByAuthorFinder < Minitest::Test
     page_data = { 'path' => 'current_page.html' }
     @context = create_context({}, { site: @site, page: create_doc(page_data, '/current_page.html') })
 
-    @silent_logger_stub = create_silent_logger
+    @silent_logger_stub = silent_logger
   end
 
   # Helper to set up Author Alpha's books
@@ -156,16 +156,6 @@ class TestBookListAllBooksByAuthorFinder < Minitest::Test
       },
       '/unpub_aa.html',
     )
-  end
-
-  # Helper to create a silent logger stub
-  def create_silent_logger
-    logger = Object.new
-    def logger.warn(_topic, _message); end
-    def logger.error(_topic, _message); end
-    def logger.info(_topic, _message); end
-    def logger.debug(_topic, _message); end
-    logger
   end
 
   def get_all_books_by_author_data(site = @site, context = @context)

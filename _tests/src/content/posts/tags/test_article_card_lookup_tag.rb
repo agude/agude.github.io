@@ -12,7 +12,7 @@ class TestArticleCardLookupTag < Minitest::Test
   def setup
     setup_mock_posts
     setup_site_and_context
-    @silent_logger_stub = create_silent_logger
+    @silent_logger_stub = silent_logger
   end
 
   private
@@ -31,23 +31,6 @@ class TestArticleCardLookupTag < Minitest::Test
       { 'page' => { 'url' => '/current.html', 'path' => 'current.html' } },
       { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') },
     )
-  end
-
-  # Helper to create a silent logger stub
-  def create_silent_logger
-    Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-
-      def logger.log_level=(level); end
-
-      def logger.progname=(name); end
-    end
   end
 
   # Helper to create a stub that captures arguments (returns container and stub)

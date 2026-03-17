@@ -146,10 +146,6 @@ class TestSeriesLinkResolver < Minitest::Test
     current_page = create_doc({}, '/current-page.html')
     ctx_logging = create_context({}, { site: site_with_logging, page: current_page })
 
-    silent_logger = Object.new
-    def silent_logger.warn(_topic, _message); end
-    def silent_logger.info(_topic, _message); end
-
     output = Jekyll.stub(:logger, silent_logger) do
       Jekyll::Series::SeriesLinkResolver.new(ctx_logging).resolve('', nil)
     end

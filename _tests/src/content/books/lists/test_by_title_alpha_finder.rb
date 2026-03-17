@@ -17,7 +17,7 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
       {},
       { site: @site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') },
     )
-    @silent_logger_stub = create_silent_logger_stub
+    @silent_logger_stub = silent_logger
   end
 
   # Helper to call the finder directly
@@ -159,19 +159,6 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
       @archived_book,
       @external_canonical_book,
     ]
-  end
-
-  # Creates a silent logger stub
-  def create_silent_logger_stub
-    Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-    end
   end
 
   # --- Assert Group # (Hash) ---

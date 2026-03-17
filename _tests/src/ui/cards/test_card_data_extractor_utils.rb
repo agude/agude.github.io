@@ -9,7 +9,7 @@ require_relative '../../../test_helper'
 class TestCardDataExtractorUtils < Minitest::Test
   def setup
     setup_sites_and_contexts
-    @silent_logger_stub = create_silent_logger_stub
+    @silent_logger_stub = silent_logger
   end
 
   def test_extract_base_data_valid_item_no_baseurl
@@ -260,17 +260,6 @@ class TestCardDataExtractorUtils < Minitest::Test
         page: create_doc({ 'path' => 'current.html' }, '/current.html'),
       },
     )
-  end
-
-  def create_silent_logger_stub
-    Object.new.tap do |logger|
-      def logger.warn(_topic, _message = nil); end
-      def logger.error(_topic, _message = nil); end
-      def logger.info(_topic, _message = nil); end
-      def logger.debug(_topic, _message = nil); end
-      def logger.log_level=(_level); end
-      def logger.progname=(_name); end
-    end
   end
 
   def extract_base_data_with_silent_logger(item, context, **options)

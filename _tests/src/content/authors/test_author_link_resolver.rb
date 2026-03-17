@@ -168,10 +168,6 @@ class TestAuthorLinkResolver < Minitest::Test
     site_with_logging.config['plugin_logging']['RENDER_AUTHOR_LINK'] = true
     ctx_logging = create_context({}, { site: site_with_logging, page: @page })
 
-    silent_logger = Object.new
-    def silent_logger.warn(_topic, _message); end
-    def silent_logger.info(_topic, _message); end
-
     output = Jekyll.stub(:logger, silent_logger) do
       Jekyll::Authors::AuthorLinkResolver.new(ctx_logging).resolve('', nil, nil)
     end

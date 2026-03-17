@@ -137,17 +137,7 @@ class TestBookListByAwardFinder < Minitest::Test
       },
     )
 
-    @silent_logger_stub = create_silent_logger
-  end
-
-  # Helper to create a silent logger stub
-  def create_silent_logger
-    logger = Object.new
-    def logger.warn(_topic, _message); end
-    def logger.error(_topic, _message); end
-    def logger.info(_topic, _message); end
-    def logger.debug(_topic, _message); end
-    logger
+    @silent_logger_stub = silent_logger
   end
 
   # Helper to call the finder directly

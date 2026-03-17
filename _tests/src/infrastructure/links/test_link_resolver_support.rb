@@ -100,9 +100,6 @@ class TestLinkResolverSupport < Minitest::Test
     site_with_logging.config['plugin_logging']['RENDER_AUTHOR_LINK'] = true
     ctx_logging = create_context({}, { site: site_with_logging, page: @page })
 
-    silent_logger = Object.new
-    def silent_logger.info(_topic, _message); end
-
     resolver = TestResolverStub.new(ctx_logging)
     output = Jekyll.stub(:logger, silent_logger) do
       resolver.log_failure(

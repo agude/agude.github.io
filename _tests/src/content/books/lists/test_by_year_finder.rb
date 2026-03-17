@@ -14,7 +14,7 @@ class TestBookListByYearFinderBase < Minitest::Test
   def setup
     setup_test_books
     setup_site_and_context
-    @silent_logger_stub = create_silent_logger
+    @silent_logger_stub = silent_logger
   end
 
   def get_all_books_by_year_data(site = @site, context = @context)
@@ -55,18 +55,6 @@ class TestBookListByYearFinderBase < Minitest::Test
       {},
       { site: @site, page: create_doc({ 'path' => 'current_page.html' }, '/current_page.html') },
     )
-  end
-
-  def create_silent_logger
-    Object.new.tap do |logger|
-      def logger.warn(_topic, _message); end
-
-      def logger.error(_topic, _message); end
-
-      def logger.info(_topic, _message); end
-
-      def logger.debug(_topic, _message); end
-    end
   end
 end
 

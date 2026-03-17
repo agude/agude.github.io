@@ -21,25 +21,8 @@ class TestDisplayAuthorsTag < Minitest::Test
       },
       { site: @site },
     )
-    @silent_logger_stub = create_silent_logger
+    @silent_logger_stub = silent_logger
   end
-
-  private
-
-  # Helper to create a silent logger stub
-  def create_silent_logger
-    Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-    end
-  end
-
-  public
 
   # --- Syntax Error Tests ---
 
