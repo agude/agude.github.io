@@ -144,7 +144,7 @@ class TestRelatedBooksTag < Minitest::Test
     def initialize(test_time_now, site_config_base)
       @test_time_now = test_time_now
       @site_config_base = site_config_base
-      @silent_logger_stub = create_silent_logger
+      @silent_logger_stub = silent_logger
     end
 
     def setup_generic_books
@@ -452,20 +452,6 @@ class TestRelatedBooksTag < Minitest::Test
       site = create_site(@site_config_base.dup, { 'books' => coll.docs })
       context = create_context({}, { site: site, page: wot })
       [wot, tlp, cc, fill, site, context]
-    end
-
-    private
-
-    def create_silent_logger
-      Object.new.tap do |logger|
-        def logger.warn(topic, message); end
-
-        def logger.error(topic, message); end
-
-        def logger.info(topic, message); end
-
-        def logger.debug(topic, message); end
-      end
     end
   end
 end

@@ -12,7 +12,7 @@ class TestArticleCardRenderer < Minitest::Test
     @site = create_site({ 'url' => 'http://example.com' })
     @context = create_context({}, { site: @site, page: create_doc({}, '/current.html') })
     setup_post_object
-    @silent_logger_stub = create_silent_logger
+    @silent_logger_stub = silent_logger
   end
 
   private
@@ -26,23 +26,6 @@ class TestArticleCardRenderer < Minitest::Test
       'description' => 'Front matter description.',
     }
     @post_object = create_doc(@post_data_hash, '/article.html')
-  end
-
-  # Helper to create a silent logger stub
-  def create_silent_logger
-    Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-
-      def logger.log_level=(level); end
-
-      def logger.progname=(name); end
-    end
   end
 
   public

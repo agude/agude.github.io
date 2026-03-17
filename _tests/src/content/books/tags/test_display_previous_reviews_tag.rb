@@ -6,14 +6,16 @@ require_relative '../../../../../_plugins/src/content/books/tags/display_previou
 
 # Tests for Jekyll::Books::Tags::DisplayPreviousReviewsTag Liquid tag.
 #
-# Verifies that the tag correctly orchestrates between Finder and Renderer.
+# Uses real Finder and Renderer with mock site data, stubbing only
+# BookCardRenderer.render (the leaf dependency) to avoid deep HTML rendering
+# while verifying actual tag integration.
 class TestDisplayPreviousReviewsTag < Minitest::Test
   def setup
-    @context = create_context({}, {})
+    @canonical_url = '/books/hyperion/'
   end
 
-  def render_tag
-    Liquid::Template.parse('{% display_previous_reviews %}').render!(@context)
+  def render_tag(context)
+    Liquid::Template.parse('{% display_previous_reviews %}').render!(context)
   end
 
   def test_syntax_error_with_arguments
@@ -22,92 +24,91 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     end
   end
 
-  def test_calls_finder_and_returns_logs_when_no_reviews
-    mock_finder = Minitest::Mock.new
-    mock_finder.expect :find, { logs: '<!-- Log message -->', reviews: [] }
+  def test_renders_previous_reviews_sorted_by_date_newest_first
+    archived_old = create_archived_review('2020-06-15', @canonical_url)
+    archived_new = create_archived_review('2023-10-17', @canonical_url)
+    current_page = create_doc(
+      { 'title' => 'Hyperion' },
+      @canonical_url,
+      'content',
+      nil,
+      MockCollection.new(nil, 'books'),
+    )
 
-    Jekyll::Books::Reviews::Finder.stub :new, ->(_site, _page) { mock_finder } do
-      output = render_tag
+    site = create_site(
+      { 'url' => 'http://example.com' },
+      { 'books' => [current_page, archived_old, archived_new] },
+    )
+    context = create_context({}, { site: site, page: current_page })
 
-      assert_equal '<!-- Log message -->', output
-      mock_finder.verify
-    end
+    output = stub_card_renderer { render_tag(context) }
+
+    assert_includes output, '<aside class="previous-reviews">'
+    assert_includes output, '<h2 class="previous-reviews-headline">Previous Reviews</h2>'
+    assert_includes output, '</aside>'
+    # Newest first: 2023 review should appear before 2020 review
+    pos_2023 = output.index('2023')
+    pos_2020 = output.index('2020')
+    assert pos_2023 && pos_2020, 'Both review years should appear in output'
+    assert pos_2023 < pos_2020, 'Newest review should appear first'
   end
 
-  def test_calls_finder_and_renderer_when_reviews_found
-    mock_doc = create_doc({ 'title' => 'Test' }, '/books/test.html')
+  def test_returns_only_logs_when_no_archived_reviews
+    current_page = create_doc(
+      { 'title' => 'Hyperion' },
+      @canonical_url,
+      'content',
+      nil,
+      MockCollection.new(nil, 'books'),
+    )
+    site = create_site(
+      { 'url' => 'http://example.com' },
+      { 'books' => [current_page] },
+    )
+    context = create_context({}, { site: site, page: current_page })
 
-    mock_finder = Minitest::Mock.new
-    mock_finder.expect :find, { logs: '', reviews: [mock_doc] }
+    output = render_tag(context)
 
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, '<aside>HTML output</aside>'
-
-    Jekyll::Books::Reviews::Finder.stub :new, ->(_site, _page) { mock_finder } do
-      Jekyll::Books::Reviews::Renderer.stub :new,
-                                            lambda { |_context, reviews|
-                                              assert_equal [mock_doc], reviews
-                                              mock_renderer
-                                            } do
-        output = render_tag
-
-        assert_equal '<aside>HTML output</aside>', output
-        mock_finder.verify
-        mock_renderer.verify
-      end
-    end
+    # No archived reviews → Finder returns empty reviews → tag returns logs only
+    refute_includes output, '<aside'
+    refute_includes output, 'Previous Reviews'
   end
 
-  def test_concatenates_logs_and_html_when_both_present
-    mock_doc = create_doc({ 'title' => 'Test' }, '/books/test.html')
+  def test_logs_error_when_page_is_nil
+    site = create_site({ 'url' => 'http://example.com' }, { 'books' => [] })
+    site.config['plugin_logging']['PREVIOUS_REVIEWS'] = true
+    context = create_context({}, { site: site, page: nil })
 
-    mock_finder = Minitest::Mock.new
-    mock_finder.expect :find, { logs: '<!-- Debug log -->', reviews: [mock_doc] }
+    output = Jekyll.stub(:logger, silent_logger) { render_tag(context) }
 
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, '<aside>HTML</aside>'
-
-    Jekyll::Books::Reviews::Finder.stub :new, ->(_site, _page) { mock_finder } do
-      Jekyll::Books::Reviews::Renderer.stub :new, ->(_context, _reviews) { mock_renderer } do
-        output = render_tag
-
-        assert_equal '<!-- Debug log --><aside>HTML</aside>', output
-        mock_finder.verify
-        mock_renderer.verify
-      end
-    end
+    assert_match(/PREVIOUS_REVIEWS_FAILURE/, output)
+    refute_includes output, '<aside'
   end
 
-  def test_passes_site_and_page_to_finder
-    mock_doc = create_doc({ 'title' => 'Test' }, '/books/test.html')
-    test_site = create_site({}, { 'books' => [mock_doc] })
-    test_page = create_doc({ 'title' => 'Current' }, '/books/current.html')
-    @context = create_context({}, { site: test_site, page: test_page })
+  private
 
-    site_passed_to_finder = nil
-    page_passed_to_finder = nil
+  def create_archived_review(date_str, canonical_url)
+    create_doc(
+      {
+        'title' => 'Hyperion',
+        'date' => Time.parse(date_str),
+        'canonical_url' => canonical_url,
+        'authors' => ['Dan Simmons'],
+      },
+      "/books/hyperion/review-#{date_str}.html",
+      'content',
+      nil,
+      MockCollection.new(nil, 'books'),
+    )
+  end
 
-    mock_finder = Minitest::Mock.new
-    mock_finder.expect :find, { logs: '', reviews: [mock_doc] }
-
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, '<aside>HTML</aside>'
-
-    Jekyll::Books::Reviews::Finder.stub :new,
-                                        lambda { |site, page|
-                                          site_passed_to_finder = site
-                                          page_passed_to_finder = page
-                                          mock_finder
-                                        } do
-      Jekyll::Books::Reviews::Renderer.stub :new,
-                                            lambda { |_context, _reviews|
-                                              mock_renderer
-                                            } do
-        render_tag
-
-        assert_equal test_site, site_passed_to_finder
-        assert_equal test_page, page_passed_to_finder
-      end
-    end
+  def stub_card_renderer(&)
+    Jekyll::Books::Core::BookCardRenderer.stub(
+      :render,
+      lambda { |doc, _context, subtitle: nil|
+        "<div class=\"book-card\">#{doc.data['title']} — #{subtitle}</div>"
+      },
+      &
+    )
   end
 end

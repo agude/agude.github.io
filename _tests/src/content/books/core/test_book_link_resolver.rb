@@ -37,21 +37,11 @@ class TestBookLinkResolver < Minitest::Test
     @ctx = create_context({}, { site: @site, page: @page })
 
     # Silent logger for tests that are expected to produce warnings/info logs
-    @silent_logger_stub = create_silent_logger
+    @silent_logger_stub = silent_logger
   end
 
   def render_link(title, link_text = nil, author = nil, context = @ctx)
     Jekyll::Books::Core::BookLinkResolver.new(context).resolve(title, link_text, author)
-  end
-
-  # Helper to create a silent logger stub
-  def create_silent_logger
-    logger = Object.new
-    def logger.warn(_topic, _message); end
-    def logger.error(_topic, _message); end
-    def logger.info(_topic, _message); end
-    def logger.debug(_topic, _message); end
-    logger
   end
 
   def test_render_unique_book_succeeds

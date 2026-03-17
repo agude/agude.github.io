@@ -12,7 +12,7 @@ class TestDisplayAwardsPageTag < Minitest::Test
     create_test_data
     @site = create_site({ 'url' => 'http://example.com' })
     @context = create_context({}, { site: @site, page: create_doc({ 'path' => 'current.html' }, '/current.html') })
-    @silent_logger_stub = create_silent_logger_stub
+    @silent_logger_stub = silent_logger
   end
 
   def render_tag(
@@ -248,19 +248,6 @@ class TestDisplayAwardsPageTag < Minitest::Test
       ],
       log_messages: '',
     }
-  end
-
-  # Creates a silent logger stub
-  def create_silent_logger_stub
-    Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-    end
   end
 
   # Asserts unified navigation bar is present

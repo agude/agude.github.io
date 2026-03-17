@@ -20,7 +20,7 @@ class TestBookCardRenderer < Minitest::Test
     @site.config['plugin_logging'] ||= {} # Ensure logging config exists
 
     setup_book_objects
-    @silent_logger_stub = create_silent_logger_stub
+    @silent_logger_stub = silent_logger
   end
 
   def test_uses_display_title_override_when_provided
@@ -593,15 +593,6 @@ class TestBookCardRenderer < Minitest::Test
       'excerpt' => Struct.new(:output).new('<p>Many authors.</p>'),
     }
     @book_object_four_authors = create_doc(@book_data_four_authors, '/book_four.html')
-  end
-
-  def create_silent_logger_stub
-    Object.new.tap do |logger|
-      def logger.warn(_topic, _message); end
-      def logger.error(_topic, _message); end
-      def logger.info(_topic, _message); end
-      def logger.debug(_topic, _message); end
-    end
   end
 
   def render_with_silent_logger(book, **options)

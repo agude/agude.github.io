@@ -11,7 +11,7 @@ class TestShortStoryResolver < Minitest::Test
     create_mock_story_cache
     setup_test_site
     setup_test_context
-    @silent_logger_stub = create_silent_logger_stub
+    @silent_logger_stub = silent_logger
   end
 
   # Helper to call the resolver
@@ -247,18 +247,5 @@ class TestShortStoryResolver < Minitest::Test
   def setup_test_context
     @current_page = create_doc({ 'path' => 'current_page.md' }, '/current-page.html')
     @context = create_context({}, { site: @site, page: @current_page })
-  end
-
-  # Creates a silent logger stub
-  def create_silent_logger_stub
-    Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-    end
   end
 end

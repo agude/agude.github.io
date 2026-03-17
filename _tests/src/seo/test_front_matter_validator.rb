@@ -42,17 +42,7 @@ class TestFrontMatterValidator < Minitest::Test
     # as we use override/reset methods in the plugin.
 
     # Silent logger stub to suppress console output during tests
-    @silent_logger_stub = create_silent_logger
-  end
-
-  # Helper to create a silent logger stub
-  def create_silent_logger
-    logger = Object.new
-    def logger.warn(_topic, _message); end
-    def logger.error(_topic, _message); end
-    def logger.info(_topic, _message); end
-    def logger.debug(_topic, _message); end
-    logger
+    @silent_logger_stub = silent_logger
   end
 
   def teardown
@@ -415,16 +405,7 @@ end
 class TestFrontMatterValidatorHooks < Minitest::Test
   def setup
     @site = create_site
-    @silent_logger_stub = create_silent_logger
-  end
-
-  def create_silent_logger
-    logger = Object.new
-    def logger.warn(_topic, _message); end
-    def logger.error(_topic, _message); end
-    def logger.info(_topic, _message); end
-    def logger.debug(_topic, _message); end
-    logger
+    @silent_logger_stub = silent_logger
   end
 
   def test_documents_hook_validates_document

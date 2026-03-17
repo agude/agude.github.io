@@ -43,7 +43,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
     @mock_stars_html_generic = '<span>Mock Stars</span>'
 
     # General silent logger for tests NOT focused on Jekyll.logger output
-    @silent_logger_stub = create_silent_logger
+    @silent_logger_stub = silent_logger
   end
 
   # Helper to set up book documents
@@ -69,16 +69,6 @@ class TestDisplayRankedBooksTag < Minitest::Test
     @non_existent_title_list = ['Book A (5 Stars)', 'Non Existent Book', 'Book C (4 Stars)']
     @invalid_rating_list = ['Book A (5 Stars)', 'Book Invalid Rating', 'Book C (4 Stars)']
     @monotonic_violation_list = ['Book C (4 Stars)', 'Book A (5 Stars)'] # 4 then 5
-  end
-
-  # Helper to create a silent logger stub
-  def create_silent_logger
-    logger = Object.new
-    def logger.warn(_topic, _message); end
-    def logger.error(_topic, _message); end
-    def logger.info(_topic, _message); end
-    def logger.debug(_topic, _message); end
-    logger
   end
 
   def render_tag(list_variable_name, context, logger_override = @silent_logger_stub)

@@ -13,7 +13,7 @@ class TestBookCardLookupTag < Minitest::Test
     create_test_books
     @site = create_test_site
     @context = create_test_context
-    @silent_logger_stub = create_silent_logger_stub
+    @silent_logger_stub = silent_logger
   end
 
   # Helper to render the tag, stubs Jekyll::Books::Core::BookCardRenderer.render by default
@@ -447,19 +447,6 @@ class TestBookCardLookupTag < Minitest::Test
       # Page path for SourcePage identifier in Jekyll::Infrastructure::PluginLoggerUtils
       { site: @site, page: create_doc({ 'path' => 'current_lookup_page.md' }, '/current-lookup-page.html') },
     )
-  end
-
-  # Creates a silent logger stub
-  def create_silent_logger_stub
-    Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-    end
   end
 
   # Determines the stub logic for Jekyll::Books::Core::BookCardRenderer.render

@@ -18,20 +18,7 @@ class TestUnitsTag < Minitest::Test
       { site: @site, page: create_doc({ 'path' => 'current_test_page.html' }, '/current.html') }, # Page path for SourcePage
     )
 
-    # Silent logger for tests not asserting specific console output
-    @silent_logger_stub = Object.new.tap do |logger|
-      def logger.warn(topic, message); end
-
-      def logger.error(topic, message); end
-
-      def logger.info(topic, message); end
-
-      def logger.debug(topic, message); end
-
-      def logger.log_level=(level); end
-
-      def logger.progname=(name); end
-    end
+    @silent_logger_stub = silent_logger
   end
 
   def render_tag(markup, context = @context)

@@ -493,6 +493,25 @@ def parse_fallback_date(date_str_param)
   parse_date_string(date_str_param.to_s) || Time.now
 end
 
+# Returns a no-op logger stub that swallows all Jekyll.logger output.
+# Use with `Jekyll.stub(:logger, silent_logger) { ... }` in tests that
+# deliberately trigger error/warning paths.
+def silent_logger
+  Object.new.tap do |logger|
+    def logger.debug(_topic, _message = nil); end
+
+    def logger.info(_topic, _message = nil); end
+
+    def logger.warn(_topic, _message = nil); end
+
+    def logger.error(_topic, _message = nil); end
+
+    def logger.log_level=(_level); end
+
+    def logger.progname=(_name); end
+  end
+end
+
 def setup_mock_excerpt(doc, base_data)
   if base_data.key?('excerpt_output_override')
     excerpt_html_output = base_data.delete('excerpt_output_override')

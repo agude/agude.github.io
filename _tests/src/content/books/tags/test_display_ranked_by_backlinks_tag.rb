@@ -6,112 +6,114 @@ require_relative '../../../../../_plugins/src/content/books/tags/display_ranked_
 
 # Tests for Jekyll::Books::Tags::DisplayRankedByBacklinksTag Liquid tag.
 #
-# Verifies that the tag correctly orchestrates between Finder and Renderer.
+# Uses real Finder and Renderer with mock site data, stubbing only
+# BookLinkResolver (the leaf dependency) so assertions check actual
+# tag behavior rather than mocked return values.
 class TestDisplayRankedByBacklinksTag < Minitest::Test
   def setup
-    @context = create_context({}, {})
+    @book_a = create_doc(
+      { 'title' => 'Hyperion', 'date' => Time.parse('2024-01-01'), 'authors' => ['Dan Simmons'] },
+      '/books/hyperion/',
+      'content',
+      nil,
+      MockCollection.new(nil, 'books'),
+    )
+    @book_b = create_doc(
+      { 'title' => 'Dune', 'date' => Time.parse('2024-02-01'), 'authors' => ['Frank Herbert'] },
+      '/books/dune/',
+      'content',
+      nil,
+      MockCollection.new(nil, 'books'),
+    )
   end
 
-  def render_tag
-    Liquid::Template.parse('{% display_ranked_by_backlinks %}').render!(@context)
+  def render_tag(context)
+    Liquid::Template.parse('{% display_ranked_by_backlinks %}').render!(context)
   end
 
-  def test_calls_finder_and_returns_logs_when_no_ranked_list
-    mock_finder = Minitest::Mock.new
-    mock_finder.expect :find, { logs: '<!-- Log message -->', ranked_list: [] }
+  def test_renders_ranked_list_with_real_data
+    site = build_site_with_backlinks(
+      '/books/hyperion/' => ['/books/dune/'],
+      '/books/dune/' => ['/books/hyperion/', '/some-post/'],
+    )
+    context = create_context({}, { site: site })
 
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, '<p>No books have been mentioned yet.</p>'
+    output = stub_resolver { render_tag(context) }
 
-    Jekyll::Books::Ranking::RankedByBacklinks::Finder.stub :new, ->(_context) { mock_finder } do
-      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new,
-                                                               lambda { |_context, ranked_list|
-                                                                 assert_equal [], ranked_list
-                                                                 mock_renderer
-                                                               } do
-        output = render_tag
+    assert_includes output, '<ol class="ranked-list">'
+    assert_includes output, '</ol>'
+    assert_includes output, '2 mentions'
+    assert_includes output, '1 mention'
+    # Dune (2 mentions) should appear before Hyperion (1 mention)
+    dune_pos = output.index('Dune')
+    hyperion_pos = output.index('Hyperion')
+    assert dune_pos < hyperion_pos, 'Dune (2 mentions) should rank above Hyperion (1 mention)'
+  end
 
-        assert_equal '<!-- Log message --><p>No books have been mentioned yet.</p>', output
-        mock_finder.verify
-        mock_renderer.verify
-      end
+  def test_renders_empty_message_when_no_backlinks
+    site = build_site_with_backlinks({})
+    context = create_context({}, { site: site })
+
+    output = stub_resolver { render_tag(context) }
+
+    assert_includes output, '<p>No books have been mentioned yet.</p>'
+    refute_includes output, '<ol'
+  end
+
+  def test_renders_empty_message_when_backlinks_exist_but_no_matching_books
+    site = build_site_with_backlinks('/books/nonexistent/' => ['/some-post/'])
+    context = create_context({}, { site: site })
+
+    output = stub_resolver { render_tag(context) }
+
+    assert_includes output, '<p>No books have been mentioned yet.</p>'
+  end
+
+  def test_prepends_error_log_when_prerequisites_missing
+    site = create_site({})
+    # Remove the link_cache to trigger the prerequisites check
+    site.data.delete('link_cache')
+    site.config['plugin_logging']['RANKED_BY_BACKLINKS'] = true
+    context = create_context({}, { site: site })
+
+    output = Jekyll.stub(:logger, silent_logger) { render_tag(context) }
+
+    assert_match(/RANKED_BY_BACKLINKS_FAILURE/, output)
+    assert_includes output, '<p>No books have been mentioned yet.</p>'
+  end
+
+  def test_single_mention_uses_singular_text
+    site = build_site_with_backlinks('/books/hyperion/' => ['/books/dune/'])
+    context = create_context({}, { site: site })
+
+    output = stub_resolver { render_tag(context) }
+
+    assert_includes output, '1 mention'
+    refute_includes output, '1 mentions'
+  end
+
+  FakeResolver = Struct.new(:context) do
+    def render_from_data(title, _url, cite: true) # rubocop:disable Lint/UnusedMethodArgument
+      "<a>#{title}</a>"
     end
   end
 
-  def test_calls_finder_and_renderer_when_ranked_list_found
-    mock_ranked_list = [
-      { title: 'Book A', url: '/a.html', count: 2 },
-    ]
+  private
 
-    mock_finder = Minitest::Mock.new
-    mock_finder.expect :find, { logs: '', ranked_list: mock_ranked_list }
-
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, '<ol>HTML output</ol>'
-
-    Jekyll::Books::Ranking::RankedByBacklinks::Finder.stub :new, ->(_context) { mock_finder } do
-      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new,
-                                                               lambda { |_context, ranked_list|
-                                                                 assert_equal mock_ranked_list, ranked_list
-                                                                 mock_renderer
-                                                               } do
-        output = render_tag
-
-        assert_equal '<ol>HTML output</ol>', output
-        mock_finder.verify
-        mock_renderer.verify
-      end
-    end
+  def build_site_with_backlinks(backlinks_hash)
+    site = create_site(
+      { 'url' => 'http://example.com' },
+      { 'books' => [@book_a, @book_b] },
+    )
+    site.data['link_cache']['backlinks'] = backlinks_hash
+    site
   end
 
-  def test_concatenates_logs_and_html_when_both_present
-    mock_ranked_list = [
-      { title: 'Book A', url: '/a.html', count: 2 },
-    ]
-
-    mock_finder = Minitest::Mock.new
-    mock_finder.expect :find, { logs: '<!-- Debug log -->', ranked_list: mock_ranked_list }
-
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, '<ol>HTML</ol>'
-
-    Jekyll::Books::Ranking::RankedByBacklinks::Finder.stub :new, ->(_context) { mock_finder } do
-      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new, ->(_context, _ranked_list) { mock_renderer } do
-        output = render_tag
-
-        assert_equal '<!-- Debug log --><ol>HTML</ol>', output
-        mock_finder.verify
-        mock_renderer.verify
-      end
-    end
-  end
-
-  def test_passes_context_to_finder_and_renderer
-    mock_ranked_list = [{ title: 'Book A', url: '/a.html', count: 2 }]
-    context_passed_to_finder = nil
-    context_passed_to_renderer = nil
-
-    mock_finder = Minitest::Mock.new
-    mock_finder.expect :find, { logs: '', ranked_list: mock_ranked_list }
-
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, '<ol>HTML</ol>'
-
-    Jekyll::Books::Ranking::RankedByBacklinks::Finder.stub :new,
-                                                           lambda { |context|
-                                                             context_passed_to_finder = context
-                                                             mock_finder
-                                                           } do
-      Jekyll::Books::Ranking::RankedByBacklinks::Renderer.stub :new,
-                                                               lambda { |context, _ranked_list|
-                                                                 context_passed_to_renderer = context
-                                                                 mock_renderer
-                                                               } do
-        render_tag
-
-        assert_equal @context, context_passed_to_finder
-        assert_equal @context, context_passed_to_renderer
-      end
-    end
+  def stub_resolver(&)
+    Jekyll::Books::Core::BookLinkResolver.stub(
+      :new,
+      ->(_context) { FakeResolver.new },
+      &
+    )
   end
 end
