@@ -6,7 +6,7 @@ series: Honor Harrington
 book_number: 3
 is_anthology: false
 rating: null
-image: /books/covers/the_short_victorious_war.jpg
+image: /books/covers/the_short_victorious_war_first_edition.jpg
 wikidata_qid: Q3549538
 isbn: 978-0-671-87596-1
 date_published: 1994-04
