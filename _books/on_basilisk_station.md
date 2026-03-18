@@ -6,7 +6,7 @@ series: Honor Harrington
 book_number: 1
 is_anthology: false
 rating: 4
-image: /books/covers/on_basilisk_station.jpg
+image: /books/covers/on_basilisk_station_first_edition.jpg
 wikidata_qid: Q3316723
 isbn: 978-0-671-72163-3
 date_published: 1993-04

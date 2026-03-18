@@ -6,7 +6,7 @@ series: Honor Harrington
 book_number: 2
 is_anthology: false
 rating: 3
-image: /books/covers/the_honor_of_the_queen.jpg
+image: /books/covers/the_honor_of_the_queen_first_edition.jpg
 wikidata_qid: Q3400447
 isbn: 978-0-671-72172-5
 date_published: 1993-06
@@ -53,8 +53,7 @@ can move forward; there's a constant theme of "the practical naval officer
 must---regrettably!---overrule the too-trusting bureaucrats"; and {{
 the_author }} is weird about Asian women in a way that hasn't aged well.
 
-[pizza]:
-https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
+[pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
 Harrington's mistakes are especially frustrating because they clash with {{
 the_authors_lastname_possessive }} own hawkish '90s centrism, which I also
