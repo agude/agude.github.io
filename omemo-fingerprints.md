@@ -13,7 +13,7 @@ omemo_fingerprints:
     fingerprint: 3937481a 47924f9f 70bebdc8 d7668596 c5ab7de1 e1e75d18 7cc10999 f57f895c
     qr_code: /files/omemo/linux-omemo-qr.png
   - device_name: MacOS Laptop BeagleIM
-    fingerprint: fdac370e 471001d9 73d7cb48 5b742a32 2a693ab4 bd41f076 2a905b3e a813cf4b
+    fingerprint: b68a9049 606b55a4 31bd2e1f 31fbc043 0d6ca500 709d9a7a bd9b1056 b500e845
     qr_code: null
   - device_name: Windows Desktop Gajim (Up to 2025)
     fingerprint: d80474d0 fbe7cf2e 25e87b1b 1e2cf7b5 6fc9be8d eb3bd07a 91b8b92d e5cc4536
