@@ -12,9 +12,6 @@ omemo_fingerprints:
   - device_name: Linux Desktop Gajim
     fingerprint: 3937481a 47924f9f 70bebdc8 d7668596 c5ab7de1 e1e75d18 7cc10999 f57f895c
     qr_code: /files/omemo/linux-omemo-qr.png
-  - device_name: MacOS Laptop BeagleIM
-    fingerprint: b68a9049 606b55a4 31bd2e1f 31fbc043 0d6ca500 709d9a7a bd9b1056 b500e845
-    qr_code: null
   - device_name: Windows Desktop Gajim (Up to 2025)
     fingerprint: d80474d0 fbe7cf2e 25e87b1b 1e2cf7b5 6fc9be8d eb3bd07a 91b8b92d e5cc4536
     qr_code: /files/omemo/windows-omemo-qr.png
@@ -24,6 +21,9 @@ omemo_fingerprints:
   - device_name: Windows Desktop Gajim (2026+)
     fingerprint: 67c3b428 cffb3b42 bf29c055 ce8b784b 5c5917d5 33abaf90 41463cd6 bcff6e6f
     qr_code: /files/omemo/windows-omemo-qr-2026.png
+   - device_name: Linux MacBook Gajim
+    fingerprint: 11945359 c40ecf1e f76450b9 73831322 c332a606 97d9415a f95c9f1b 63880f5f
+    qr_code: null
 ---
 
 # {{ page.title }}
