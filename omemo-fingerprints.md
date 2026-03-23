@@ -21,7 +21,7 @@ omemo_fingerprints:
   - device_name: Windows Desktop Gajim (2026+)
     fingerprint: 67c3b428 cffb3b42 bf29c055 ce8b784b 5c5917d5 33abaf90 41463cd6 bcff6e6f
     qr_code: /files/omemo/windows-omemo-qr-2026.png
-   - device_name: Linux MacBook Gajim
+  - device_name: Linux MacBook Gajim
     fingerprint: 11945359 c40ecf1e f76450b9 73831322 c332a606 97d9415a f95c9f1b 63880f5f
     qr_code: null
 ---
