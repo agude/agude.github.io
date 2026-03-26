@@ -1,11 +1,11 @@
 ---
-date: 2026-03-16
+date: 2026-03-25
 title: The Short Victorious War
 book_authors: David Weber
 series: Honor Harrington
 book_number: 3
 is_anthology: false
-rating: null
+rating: 4
 image: /books/covers/the_short_victorious_war_first_edition.jpg
 wikidata_qid: Q3549538
 isbn: 978-0-671-87596-1
