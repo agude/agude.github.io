@@ -1,5 +1,5 @@
 ---
-date: 2026-03-25
+date: 2026-03-25 21:45:04 -0700
 title: The Short Victorious War
 book_authors: David Weber
 series: Honor Harrington
