@@ -63,6 +63,7 @@ is the third book in {% series_text page.series link=false %}.
 {% capture tchaikovsky_lastname %}{% author_link "Adrian Tchaikovsky" link_text="Tchaikovsky" %}{% endcapture %}
 {% capture tchaikovskys_lastname %}{% author_link "Adrian Tchaikovsky" link_text="Tchaikovsky" possessive %}{% endcapture %}
 {% capture the_final_architecture %}{% series_link "The Final Architecture" %}{% endcapture %}
+{% capture uncreation %}{% book_link "Lords of Uncreation" %}{% endcapture %}
 
 {% capture clancy %}{% author_link "Tom Clancy" %}{% endcapture %}
 {% capture clancys %}{% author_link "Tom Clancy" possessive %}{% endcapture %}
@@ -72,3 +73,64 @@ is the third book in {% series_text page.series link=false %}.
 {% capture homer %}{% author_link "Homer" %}{% endcapture %}
 {% capture homers %}{% author_link "Homer" possessive %}{% endcapture %}
 {% capture the_iliad %}{% book_link "The Iliad" %}{% endcapture %}
+
+{{ this_book }} is the culmination of {{ hh1 }} and {{ hh2 }}, where the
+promised war with the People's Republic of Haven finally kicks off, with
+Harrington right in the middle of course.
+
+In my review of {{ hh1 }} I compared the competence of Harrington to the
+bumbling incompetence of the crew in {{ tchaikovskys_lastname }} {{
+the_final_architecture }}. This book brought up another comparison: how they
+treat the bad guys. In {{ uncreation }}, I complained about how {{
+tchaikovsky_lastname }} felt the need to question if the genocidal Originators
+were really evil, or if humanity was for defending themselves. {{
+the_authors_lastname }} feels no need for subtlety: the rapist Lord Pavel is
+unrepentant, his career is ruined, and hes getting fat and slovenly. Its
+actually refreshing to have a cartoon villain after _too much_ nuance in
+recent books.
+
+In my review of {{ hh1 }}, I compared Harrington's competence to the bumbling
+incompetence of the crew in {{ tchaikovskys }} {{ the_final_architecture }}.
+{{ this_book }} brings up another stark contrast: how these authors treat
+their villains. In {{ uncreation }}, I complained about how {{
+tchaikovsky_lastname }} felt the need to question whether the genocidal
+Originators were truly evil, or if humanity was the real monster just for
+defending itself. {{ the_authors_lastname }} feels no such need for subtlety.
+The rapist Lord Pavel Young is entirely unrepentant, his career is in ruins,
+and he's becoming increasingly fat and slovenly. It's actually refreshing to
+have a straight-up cartoon villain after suffering through _too much_ forced
+nuance in recent sci-fi.
+
+If there is one phrase that describes {{ the_authors_lastname_possessive }}
+writing it is: _No need for subtlety_. He never met a point of view he didn't
+want to tell, even as it takes the surprise out of the story. His politics are
+black and white: whiny socialists and naive liberals against the
+long-suffering moderates. His space battles are age of sails in space. The
+Space-French revolution is launched by [Rob S. Pierre][robespierre], they
+swear an [oath on a tennis court][tennis], they form the [Committee of Public
+Safety][safety].[^us] <!-- TODO Fix this paragraph -->
+
+[robespierre]: https://en.wikipedia.org/wiki/Maximilien_Robespierre
+[tennis]: https://en.wikipedia.org/wiki/Tennis_Court_Oath
+[safety]: https://en.wikipedia.org/wiki/Committee_of_Public_Safety
+
+[^us]:
+    Some of this {{ the_authors_lastname }} has said were intentional, if
+    heavy handed, red herrings:
+
+    > It would, however, be a mistake to read too much parallelism into the
+    > "Honorverse." There are obvious resonances, but although there are some
+    > distinct similarities between the People's Republic of Haven and
+    > Revolutionary France (and especially between the Jacobins and the Havenite
+    > Committee of Public Safety under one Rob S. Pierre), France was never the
+    > actual template upon which the People's Republic had been imposed. Mind you,
+    > I did my very best to fling out as many red herrings as possible to convince
+    > readers that it was, because I didn't want them to see where I really meant
+    > to go with the political developments in the series. By making Haven look
+    > like Revolutionary France (hence the French names, calling the capital
+    > "Nouveau Paris," and a few other minor things of that nature), I conditioned
+    > readers who'd picked up on it and who knew their history to expect me to
+    > eventually produce the Havenite equivalent of Emperor Napoleon, when in fact
+    > I had absolutely no intention of doing anything of the sort.
+
+    https://davidweber.net/faq/#honorverse
