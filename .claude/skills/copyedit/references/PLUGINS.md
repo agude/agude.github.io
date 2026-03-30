@@ -95,7 +95,7 @@ Used in anthology reviews to rate individual stories.
 
 ## Citations
 
-For inline citations:
+For inline citations. At least one parameter is required.
 
 ```liquid
 {% citation
@@ -108,9 +108,32 @@ For inline citations:
 %}
 ```
 
+**All citation parameters** (shared by `citation` and `citedquote`):
+
+| Parameter | Purpose |
+|---|---|
+| `author_first` | Author's first name |
+| `author_last` | Author's last name |
+| `author_handle` | Author handle (alternative to name) |
+| `work_title` | Title of the work |
+| `container_title` | Publication, journal, or website name |
+| `editor` | Editor name (rendered as "Edited by ...") |
+| `edition` | Edition info (e.g., "2nd", "Revised") |
+| `volume` | Volume number |
+| `number` | Issue number |
+| `publisher` | Publisher name |
+| `date` | Publication date |
+| `first_page` | Starting page number |
+| `last_page` | Ending page number |
+| `page` | Single page number |
+| `doi` | DOI (auto-linked) |
+| `url` | URL (used as link and blockquote cite) |
+| `access_date` | Access date for web sources |
+
 ## Cited Quotes
 
-For block quotes with attribution:
+For block quotes with attribution. Accepts all citation parameters above.
+Content between tags is processed as Markdown.
 
 ```liquid
 {% citedquote

@@ -118,19 +118,27 @@ Safety][safety].[^us] <!-- TODO Fix this paragraph -->
     Some of this {{ the_authors_lastname }} has said were intentional, if
     heavy handed, red herrings:
 
-    > It would, however, be a mistake to read too much parallelism into the
-    > "Honorverse." There are obvious resonances, but although there are some
-    > distinct similarities between the People's Republic of Haven and
-    > Revolutionary France (and especially between the Jacobins and the Havenite
-    > Committee of Public Safety under one Rob S. Pierre), France was never the
-    > actual template upon which the People's Republic had been imposed. Mind you,
-    > I did my very best to fling out as many red herrings as possible to convince
-    > readers that it was, because I didn't want them to see where I really meant
-    > to go with the political developments in the series. By making Haven look
-    > like Revolutionary France (hence the French names, calling the capital
-    > "Nouveau Paris," and a few other minor things of that nature), I conditioned
-    > readers who'd picked up on it and who knew their history to expect me to
-    > eventually produce the Havenite equivalent of Emperor Napoleon, when in fact
-    > I had absolutely no intention of doing anything of the sort.
-
-    https://davidweber.net/faq/#honorverse
+    {% citedquote
+      author_first="David"
+      author_last="Weber"
+      work_title="FAQ: Honorverse"
+      url="https://davidweber.net/faq/#honorverse"
+      access_date="March 28, 2026"
+      container_title="David Weber"
+    %}
+    It would, however, be a mistake to read too much parallelism into the
+    "Honorverse." There are obvious resonances, but although there are some
+    distinct similarities between the People's Republic of Haven and
+    Revolutionary France (and especially between the Jacobins and the Havenite
+    Committee of Public Safety under one Rob S. Pierre), France was never the
+    actual template upon which the People's Republic had been imposed. Mind
+    you, I did my very best to fling out as many red herrings as possible to
+    convince readers that it was, because I didn't want them to see where I
+    really meant to go with the political developments in the series. By
+    making Haven look like Revolutionary France (hence the French names,
+    calling the capital "Nouveau Paris," and a few other minor things of that
+    nature), I conditioned readers who'd picked up on it and who knew their
+    history to expect me to eventually produce the Havenite equivalent of
+    Emperor Napoleon, when in fact I had absolutely no intention of doing
+    anything of the sort.
+    {% endcitedquote %}
