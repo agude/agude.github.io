@@ -75,7 +75,7 @@ GEM
       bigdecimal
       rake (~> 13.3)
     hashery (2.1.2)
-    html-proofer (5.2.0)
+    html-proofer (5.2.1)
       addressable (~> 2.3)
       async (~> 2.1)
       benchmark (~> 0.5)
@@ -88,7 +88,7 @@ GEM
     http_parser.rb (0.8.1)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
-    io-event (1.14.3)
+    io-event (1.11.2)
     jekyll (4.4.1)
       addressable (~> 2.4)
       base64 (~> 0.2)
