@@ -20,7 +20,9 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the third book in {% series_text page.series link=false %}.
+is the third book in {% series_text page.series link=false %}. Harrington
+takes command of the battlecruiser _Nike_ as the People's Republic of Haven
+makes its move and a revolution brews in Nouveau Paris.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -81,22 +83,21 @@ but handling their shared pacing well, and in doing so he expands the universe
 without it feeling like a sudden change. And when the action kicks off, we get
 our first dreadnought and super dreadnought action in the series. These small
 improvements over the past two stories make {{ this_book }} the best one so
-far. But...
+far. But... {{ the_authors_lastname }} has no sense of subtlety!
 
-{{ the_authors_lastname }} has no sense of subtlety!
 Sometimes this is a strength. Pavel Young---Harrington's attempted rapist---is
-unrepentant, his career is in ruins, he's becoming fat and slovenly. And it
-works! I prefer this black-and-white villain to {{ tchaikovskys }} wavering
-over genocidal Originators {{ the_final_architecture }}.
+unrepentant. He's done it before, he'll do it again, he has no
+remorse. While Honor grows more attractive with age, Pavel is getting fat
+and slovenly. He's a cartoon villain, and after {{ tchaikovskys_lastname }}
+hand-wringing in {{ uncreation }} over whether the genocidal Originators
+really deserved to be fought, a cartoon villain is fine. Not every book needs
+to wrestle with who the real bad guys are.
 
-Other times it doesn't work as well. He loves long digressions to explain
-exactly how his world works, what characters are thinking, what political
-machinations are in progress; he tells verbosely instead of showing. Likewise
-his politics are black and white: naive liberals against the long-suffering
-moderates. And the Space-French
-revolution in this book is the pinacle: launched by [Rob S.
-Pierre][robespierre] and [Saint-Just][sj], they swear an [oath on a tennis
-court][tennis], they form the [Committee of Public Safety][safety].[^us]
+Other times it doesn't work. The Space-French revolution is the pinnacle:
+launched by [Rob S. Pierre][robespierre] and [Saint-Just][sj], they swear an
+[oath on a tennis court][tennis], they form the [Committee of Public
+Safety][safety]---and he does it all while explaining everything in minute
+detail.[^us]
 
 [robespierre]: https://en.wikipedia.org/wiki/Maximilien_Robespierre
 [sj]: https://en.wikipedia.org/wiki/Louis_Antoine_de_Saint-Just
