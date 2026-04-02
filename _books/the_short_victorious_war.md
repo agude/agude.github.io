@@ -77,8 +77,9 @@ Haven finally kicks off with Harrington right in the middle, of course. {{
 the_author }} brings in multiple storylines that expand the universe without
 it feeling like a sudden change, and when the shooting starts we get our first
 dreadnought and superdreadnought battles. These improvements over the first
-two books make {{ this_book }} the best one so far. But {{
-the_authors_lastname }} has no sense of subtlety!
+two books make {{ this_book }} the best one so far. It feels like it's
+operating on a completely new scale. But that larger scale makes one thing
+clear: {{ the_authors_lastname }} has no sense of subtlety.
 
 Sometimes this is a strength. Pavel Young---Harrington's attempted rapist---is
 unrepentant. He's done it before, he'll do it again, he has no remorse. While
@@ -91,8 +92,8 @@ the real bad guys are.
 Other times it doesn't work. The Space-French revolution is the pinnacle:
 launched by [Rob S. Pierre][robespierre] and [Saint-Just][sj], they swear an
 [oath on a tennis court][tennis], they form the [Committee of Public
-Safety][safety], all while explaining everything in minute detail, as if you
-might miss it otherwise.[^us]
+Safety][safety], all while {{ the_authors_lastname }} explains everything in
+minute detail, as if you might miss it otherwise.[^us]
 
 [robespierre]: https://en.wikipedia.org/wiki/Maximilien_Robespierre
 [sj]: https://en.wikipedia.org/wiki/Louis_Antoine_de_Saint-Just
@@ -128,19 +129,18 @@ might miss it otherwise.[^us]
     anything of the sort.
     {% endcitedquote %}
 
-{{ this_book }} reminded me of a few others. Haven's Mental Hygiene Police,
-who monitor citizens for ideological deviance, are straight out of {{
+{{ this_book }} reminded me of a few other books. Haven's Mental Hygiene
+Police, who monitor citizens for ideological deviance, are straight out of {{
 orwells_lastname }} {{ nineteen_eighty_four }}. The revolution against
 hereditary rulers is similar to {{ williamss_lastname }} {{
-metropolitan_series }}, though {{ the_authors_lastname }} is less interested
-in what comes after. The cover-ups and backroom dealings in Nouveau Paris have
-a {{ clancy_lastname }} feel, especially the assassination by
+metropolitan_series }}, though {{ the_authors_lastname }} is so far less
+interested in what comes after. The cover-ups and backroom dealings in Nouveau
+Paris have a {{ clancy_lastname }} feel, especially the assassination by
 shoulder-launched missile. And the "megs" of paperwork date the book the same
 way pocket computers but no smartphones date {{ benfords_lastname }} {{ eater
 }}.
 
 {{ the_authors_lastname_possessive }} lack of subtlety works in {{ this_book
-}} because it's a war story. When everything is big and over-the-top, that
-kind of approach works. But I'm worried about {{ hh4 }}. It looks like it's
-going to shift to more personal and political conflicts, and that's where the
-lack of subtlety might start to hurt.
+}} because it's big, over-the-top war story. But I'm worried about {{ hh4 }}.
+It looks like it's going to shift to more personal and political conflicts,
+and that's where the lack of subtlety might start to hurt.
