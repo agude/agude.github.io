@@ -74,43 +74,32 @@ is the third book in {% series_text page.series link=false %}.
 {% capture homers %}{% author_link "Homer" possessive %}{% endcapture %}
 {% capture the_iliad %}{% book_link "The Iliad" %}{% endcapture %}
 
-{{ this_book }} is the culmination of {{ hh1 }} and {{ hh2 }}, where the
-promised war with the People's Republic of Haven finally kicks off, with
-Harrington right in the middle of course.
+{{ this_book }} is the culmination of {{ hh1 }} and {{ hh2 }}: the war with
+Haven finally kicks off with Harrington right in the middle, of course. {{
+the_author }} brings in multiple storylines, not quite bringing them together
+but handling their shared pacing well, and in doing so he expands the universe
+without it feeling like a sudden change. And when the action kicks off, we get
+our first dreadnought and super dreadnought action in the series. These small
+improvements over the past two stories make {{ this_book }} the best one so
+far. But...
 
-In my review of {{ hh1 }} I compared the competence of Harrington to the
-bumbling incompetence of the crew in {{ tchaikovskys_lastname }} {{
-the_final_architecture }}. This book brought up another comparison: how they
-treat the bad guys. In {{ uncreation }}, I complained about how {{
-tchaikovsky_lastname }} felt the need to question if the genocidal Originators
-were really evil, or if humanity was for defending themselves. {{
-the_authors_lastname }} feels no need for subtlety: the rapist Lord Pavel is
-unrepentant, his career is ruined, and hes getting fat and slovenly. Its
-actually refreshing to have a cartoon villain after _too much_ nuance in
-recent books.
+{{ the_authors_lastname }} has no sense of subtlety!
+Sometimes this is a strength. Pavel Young---Harrington's attempted rapist---is
+unrepentant, his career is in ruins, he's becoming fat and slovenly. And it
+works! I prefer this black-and-white villain to {{ tchaikovskys }} wavering
+over genocidal Originators {{ the_final_architecture }}.
 
-In my review of {{ hh1 }}, I compared Harrington's competence to the bumbling
-incompetence of the crew in {{ tchaikovskys }} {{ the_final_architecture }}.
-{{ this_book }} brings up another stark contrast: how these authors treat
-their villains. In {{ uncreation }}, I complained about how {{
-tchaikovsky_lastname }} felt the need to question whether the genocidal
-Originators were truly evil, or if humanity was the real monster just for
-defending itself. {{ the_authors_lastname }} feels no such need for subtlety.
-The rapist Lord Pavel Young is entirely unrepentant, his career is in ruins,
-and he's becoming increasingly fat and slovenly. It's actually refreshing to
-have a straight-up cartoon villain after suffering through _too much_ forced
-nuance in recent sci-fi.
-
-If there is one phrase that describes {{ the_authors_lastname_possessive }}
-writing it is: _No need for subtlety_. He never met a point of view he didn't
-want to tell, even as it takes the surprise out of the story. His politics are
-black and white: whiny socialists and naive liberals against the
-long-suffering moderates. His space battles are age of sails in space. The
-Space-French revolution is launched by [Rob S. Pierre][robespierre], they
-swear an [oath on a tennis court][tennis], they form the [Committee of Public
-Safety][safety].[^us] <!-- TODO Fix this paragraph -->
+Other times it doesn't work as well. He loves long digressions to explain
+exactly how his world works, what characters are thinking, what political
+machinations are in progress; he tells verbosely instead of showing. Likewise
+his politics are black and white: naive liberals against the long-suffering
+moderates. And the Space-French
+revolution in this book is the pinacle: launched by [Rob S.
+Pierre][robespierre] and [Saint-Just][sj], they swear an [oath on a tennis
+court][tennis], they form the [Committee of Public Safety][safety].[^us]
 
 [robespierre]: https://en.wikipedia.org/wiki/Maximilien_Robespierre
+[sj]: https://en.wikipedia.org/wiki/Louis_Antoine_de_Saint-Just
 [tennis]: https://en.wikipedia.org/wiki/Tennis_Court_Oath
 [safety]: https://en.wikipedia.org/wiki/Committee_of_Public_Safety
 
