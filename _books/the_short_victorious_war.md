@@ -74,26 +74,25 @@ makes its move and a revolution brews in Nouveau Paris.
 
 {{ this_book }} is the culmination of {{ hh1 }} and {{ hh2 }}: the war with
 Haven finally kicks off with Harrington right in the middle, of course. {{
-the_author }} brings in multiple storylines, not quite bringing them together
-but handling their shared pacing well, and in doing so he expands the universe
-without it feeling like a sudden change. And when the action kicks off, we get
-our first dreadnought and super dreadnought action in the series. These small
-improvements over the past two stories make {{ this_book }} the best one so
-far. But... {{ the_authors_lastname }} has no sense of subtlety!
+the_author }} brings in multiple storylines that expand the universe without
+it feeling like a sudden change, and when the shooting starts we get our first
+dreadnought and superdreadnought battles. These improvements over the first
+two books make {{ this_book }} the best one so far. But {{
+the_authors_lastname }} has no sense of subtlety!
 
 Sometimes this is a strength. Pavel Young---Harrington's attempted rapist---is
-unrepentant. He's done it before, he'll do it again, he has no
-remorse. While Honor grows more attractive with age, Pavel is getting fat
-and slovenly. He's a cartoon villain, and after {{ tchaikovskys_lastname }}
-hand-wringing in {{ uncreation }} over whether the genocidal Originators
-really deserved to be fought, a cartoon villain is fine. Not every book needs
-to wrestle with who the real bad guys are.
+unrepentant. He's done it before, he'll do it again, he has no remorse. While
+Harrington grows more attractive with age, Young is getting fat and slovenly.
+He's a cartoon villain, and after {{ tchaikovskys_lastname }} hand-wringing in
+{{ uncreation }} over whether the genocidal Originators really deserved to be
+fought, a cartoon villain is fine. Not every book needs to wrestle with who
+the real bad guys are.
 
 Other times it doesn't work. The Space-French revolution is the pinnacle:
 launched by [Rob S. Pierre][robespierre] and [Saint-Just][sj], they swear an
 [oath on a tennis court][tennis], they form the [Committee of Public
-Safety][safety]---and he does it all while explaining everything in minute
-detail.[^us]
+Safety][safety], all while explaining everything in minute detail, as if you
+might miss it otherwise.[^us]
 
 [robespierre]: https://en.wikipedia.org/wiki/Maximilien_Robespierre
 [sj]: https://en.wikipedia.org/wiki/Louis_Antoine_de_Saint-Just
@@ -131,10 +130,17 @@ detail.[^us]
 
 {{ this_book }} reminded me of a few others. Haven's Mental Hygiene Police,
 who monitor citizens for ideological deviance, are straight out of {{
-orwells_lastname }} {{ nineteen_eighty_four }}. The revolution itself against
-the hereditary rulers is like {{ williamss_lastname }} {{ metropolitan_series
-}}, though {{ the_authors_lastname }} is less interested in what comes after
-so far. The cover-ups and backroom dealings in Nouveau Paris have a {{
-clancy_lastname }} feel, especially the assassination via shoulder launched
-missile. And the "megs" of paperwork date the book the same way the pocket
-computers but no smartphones dates {{ benfords_lastname }} {{ eater }}.
+orwells_lastname }} {{ nineteen_eighty_four }}. The revolution against
+hereditary rulers is similar to {{ williamss_lastname }} {{
+metropolitan_series }}, though {{ the_authors_lastname }} is less interested
+in what comes after. The cover-ups and backroom dealings in Nouveau Paris have
+a {{ clancy_lastname }} feel, especially the assassination by
+shoulder-launched missile. And the "megs" of paperwork date the book the same
+way pocket computers but no smartphones date {{ benfords_lastname }} {{ eater
+}}.
+
+{{ the_authors_lastname_possessive }} lack of subtlety works in {{ this_book
+}} because it's a war story. When everything is big and over-the-top, that
+kind of approach works. But I'm worried about {{ hh4 }}. It looks like it's
+going to shift to more personal and political conflicts, and that's where the
+lack of subtlety might start to hurt.
