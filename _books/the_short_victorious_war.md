@@ -67,7 +67,7 @@ the real bad guys are.
 
 Other times it doesn't work. The Space-French revolution is the pinnacle:
 launched by [Rob S. Pierre][robespierre] and [Saint-Just][sj], they swear an
-[oath on a tennis court][tennis], they form the [Committee of Public
+[oath on a tennis court][tennis] and form the [Committee of Public
 Safety][safety], all while {{ the_authors_lastname }} explains everything in
 minute detail, as if you might miss it otherwise.[^us]
 
@@ -77,8 +77,8 @@ minute detail, as if you might miss it otherwise.[^us]
 [safety]: https://en.wikipedia.org/wiki/Committee_of_Public_Safety
 
 [^us]:
-    Some of this {{ the_authors_lastname }} has said were intentional, if
-    heavy handed, red herrings:
+    Some of these, {{ the_authors_lastname }} has said, were intentional, if
+    heavy-handed, red herrings:
 
     {% citedquote
       author_first="David"
@@ -117,6 +117,6 @@ way pocket computers but no smartphones date {{ benfords_lastname }} {{ eater
 }}.
 
 {{ the_authors_lastname_possessive }} lack of subtlety works in {{ this_book
-}} because it's big, over-the-top war story. But I'm worried about {{ hh4 }}.
-It looks like it's going to shift to more personal and political conflicts,
-and that's where the lack of subtlety might start to hurt.
+}} because it's a big, over-the-top war story. But I'm worried about {{ hh4
+}}. It looks like it's going to shift to more personal and political
+conflicts, and that's where the lack of subtlety might start to hurt.
