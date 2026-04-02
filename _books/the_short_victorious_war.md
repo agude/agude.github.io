@@ -72,10 +72,6 @@ makes its move and a revolution brews in Nouveau Paris.
 {% capture clancy_lastname %}{% author_link "Tom Clancy" link_text="Clancy" %}{% endcapture %}
 {% capture clancys_lastname %}{% author_link "Tom Clancy" link_text="Clancy" possessive %}{% endcapture %}
 
-{% capture homer %}{% author_link "Homer" %}{% endcapture %}
-{% capture homers %}{% author_link "Homer" possessive %}{% endcapture %}
-{% capture the_iliad %}{% book_link "The Iliad" %}{% endcapture %}
-
 {{ this_book }} is the culmination of {{ hh1 }} and {{ hh2 }}: the war with
 Haven finally kicks off with Harrington right in the middle, of course. {{
 the_author }} brings in multiple storylines, not quite bringing them together
@@ -132,3 +128,13 @@ detail.[^us]
     Emperor Napoleon, when in fact I had absolutely no intention of doing
     anything of the sort.
     {% endcitedquote %}
+
+{{ this_book }} reminded me of a few others. Haven's Mental Hygiene Police,
+who monitor citizens for ideological deviance, are straight out of {{
+orwells_lastname }} {{ nineteen_eighty_four }}. The revolution itself against
+the hereditary rulers is like {{ williamss_lastname }} {{ metropolitan_series
+}}, though {{ the_authors_lastname }} is less interested in what comes after
+so far. The cover-ups and backroom dealings in Nouveau Paris have a {{
+clancy_lastname }} feel, especially the assassination via shoulder launched
+missile. And the "megs" of paperwork date the book the same way the pocket
+computers but no smartphones dates {{ benfords_lastname }} {{ eater }}.
