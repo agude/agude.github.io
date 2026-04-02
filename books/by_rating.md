@@ -48,13 +48,14 @@ ranked_list:
   - Dragon's Egg
   - Wild Seed
   - The Unconquerable
-  - On Basilisk Station
+  - The Short Victorious War
   - Pandora's Star
   - Judas Unchained
   - Metropolitan
   # 3 Stars
   - Eater
   - Night Without Stars
+  - On Basilisk Station
   - Rogue Protocol
   - A Drop of Corruption
   - The Honor of the Queen
