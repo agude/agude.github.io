@@ -1,11 +1,11 @@
 ---
-date: 2026-03-27
+date: 2026-04-05
 title: Field of Dishonor
 book_authors: David Weber
 series: Honor Harrington
 book_number: 4
 is_anthology: false
-rating: null
+rating: 4
 image: /books/covers/field_of_dishonor.jpg
 wikidata_qid: Q2870331
 isbn: 978-0-671-87624-0
