@@ -33,3 +33,16 @@ is the fourth book in {% series_text page.series link=false %}.
 {% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
+
+{% capture hh1 %}{% book_link "On Basilisk Station" %}{% endcapture %}
+{% capture hh2 %}{% book_link "The Honor of the Queen" %}{% endcapture %}
+{% capture hh3 %}{% book_link "The Short Victorious War" %}{% endcapture %}
+{% capture hh4 %}{% book_link "Field of Dishonor" %}{% endcapture %}
+{% capture hh5 %}{% book_link "Flag in Exile" %}{% endcapture %}
+
+{% capture herbert %}{% author_link "Frank Herbert" %}{% endcapture %}
+{% capture herberts %}{% author_link "Frank Herbert" possessive %}{% endcapture %}
+{% capture herbert_lastname %}{% author_link "Frank Herbert" link_text="Herbert" %}{% endcapture %}
+{% capture herberts_lastname %}{% author_link "Frank Herbert" link_text="Herbert" possessive %}{% endcapture %}
+{% capture dune_series %}{% series_link "Dune" %}{% endcapture %}
+{% capture dune %}{% book_link "Dune" %}{% endcapture %}
