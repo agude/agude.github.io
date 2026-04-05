@@ -1,5 +1,5 @@
 ---
-date: 2026-04-05
+date: 2026-04-05 12:23:59 -0700
 title: Field of Dishonor
 book_authors: David Weber
 series: Honor Harrington
