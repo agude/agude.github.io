@@ -3,19 +3,29 @@
 # requires-python = ">=3.10"
 # dependencies = ["PyYAML"]
 # ///
-"""Generate author and series pages from book front matter."""
+"""Generate author and series pages from book front matter.
 
-from typing import Dict, Union, TextIO, List, Tuple
-import glob
-import os
-import os.path as path
+Scans _books/*.md for book_authors and series fields, then creates
+stub pages under books/authors/ and books/series/ for any that don't
+already exist.
+
+Usage:
+    # From anywhere — auto-detects project root via git:
+    uv run _scripts/content/make_pages.py
+
+    # Explicit project root:
+    uv run _scripts/content/make_pages.py --project-root /path/to/site
+"""
+
+from __future__ import annotations
+
+import argparse
 import re
+import subprocess
+import sys
+from pathlib import Path
+
 import yaml
-
-
-# Constants
-MARKDOWN_EXTENSION = ".md"
-BOOK_FILE_GLOB = f"../_books/*{MARKDOWN_EXTENSION}"
 
 TEMPLATES = {
     "author": """---
@@ -35,225 +45,147 @@ description: >
 }
 
 
+def find_project_root() -> Path:
+    """Find the project root via git."""
+    result = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        print(
+            "Error: not inside a git repository and --project-root not given.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    return Path(result.stdout.strip())
+
+
 def normalize_filename(name: str) -> str:
-    """
-    Normalize a string for use as a filename.
-
-    Args:
-        name: String to normalize
-
-    Returns:
-        Normalized string suitable for filenames
-    """
-    normalized = name.lower()
-    # Replace non-alphanumeric (excluding hyphen and underscore) with underscore
-    normalized = re.sub(r"[^\w\-_]+", "_", normalized)
-    # Replace multiple underscores with a single underscore
-    normalized = re.sub(r"_+", "_", normalized)
-    # Remove leading/trailing underscores that might result
-    normalized = normalized.strip("_")
-    return normalized
+    """Normalize a string for use as a filename."""
+    s = name.lower()
+    s = re.sub(r"[^\w\-_]+", "_", s)
+    s = re.sub(r"_+", "_", s)
+    return s.strip("_")
 
 
-def write_pages_to_dir(
-    items: List[str], output_dir: str, template: str, markdown_extension: str = ".md"
-) -> None:
-    """
-    Write content from a list of items to Markdown files in a directory.
-    Skips writing if a file with the normalized name already exists.
-
-    Args:
-        items: List of items to write to separate Markdown files
-        output_dir: Directory path for output files
-        template: Template string for formatting content
-        markdown_extension: File extension to use (default: ".md")
-    """
-    os.makedirs(output_dir, exist_ok=True)  # Ensure output directory exists
-    for item in items:
-        if not item or not item.strip():  # Skip empty or whitespace-only items
-            print(f"Skipping empty item for page generation in {output_dir}.")
-            continue
-
-        filename = f"{normalize_filename(item)}{markdown_extension}"
-        full_path = path.join(output_dir, filename)
-
-        if path.exists(full_path):
-            print(f"Skipping '{full_path}': File already exists.")
-        else:
-            try:
-                with open(full_path, "w", encoding="utf-8") as write_file:
-                    write_file.write(template.format(item=item))
-                print(f"Created '{full_path}'")
-            except Exception as e:
-                print(f"Error writing file '{full_path}': {e}")
-
-
-def extract_yaml_header_from_markdown(
-    file_object: TextIO,
-) -> Dict[str, Union[str, int, float, list, dict, None]]:
+def extract_frontmatter(filepath: Path) -> dict:
     """Extract YAML frontmatter from a markdown file."""
-    content = file_object.read()
+    text = filepath.read_text(encoding="utf-8")
+    if not text.startswith("---\n"):
+        return {}
 
-    if not content.startswith("---\n"):
+    end = text.find("\n---\n", 4)
+    if end == -1:
         return {}
 
     try:
-        # Corrected regex to find the end delimiter more robustly
-        match = re.search(r"\n---\n", content[4:])
-        if not match:
-            return {}  # No end delimiter found after the first one
-
-        end_delimiter_index = match.start() + 4  # Get the start of the '---'
-        yaml_content = content[4:end_delimiter_index]
-        header_dict = yaml.safe_load(yaml_content)
-        return header_dict if isinstance(header_dict, dict) else {}
-    except (ValueError, yaml.YAMLError) as e:
-        print(f"Error parsing YAML from a file: {e}")
+        parsed = yaml.safe_load(text[4:end])
+        return parsed if isinstance(parsed, dict) else {}
+    except yaml.YAMLError:
         return {}
 
 
-def extract_metadata_from_files(files: List[str]) -> Tuple[List[str], List[str]]:
-    """
-    Extract author and series information from markdown files.
+def extract_metadata_from_books(
+    book_dir: Path,
+) -> tuple[list[str], list[str]]:
+    """Extract unique authors and series from all book files."""
+    authors: set[str] = set()
+    series: set[str] = set()
 
-    Args:
-        files: List of markdown file paths
+    for filepath in sorted(book_dir.glob("*.md")):
+        fm = extract_frontmatter(filepath)
 
-    Returns:
-        Tuple of (authors list, series list)
-    """
-    authors_set = set()
-    series_set = set()
+        book_authors = fm.get("book_authors")
+        if isinstance(book_authors, str):
+            if book_authors.strip():
+                authors.add(book_authors.strip())
+        elif isinstance(book_authors, list):
+            for a in book_authors:
+                if isinstance(a, str) and a.strip():
+                    authors.add(a.strip())
 
-    for file_path in files:
-        try:
-            with open(file_path, "r", encoding="utf-8") as opened_file:
-                front_matter = extract_yaml_header_from_markdown(opened_file)
+        book_series = fm.get("series")
+        if isinstance(book_series, str) and book_series.strip():
+            series.add(book_series.strip())
 
-                # Process book_authors (can be string or list)
-                authors_fm_value = front_matter.get("book_authors")
-                if isinstance(authors_fm_value, str):
-                    cleaned_author = authors_fm_value.strip()
-                    if cleaned_author:
-                        authors_set.add(cleaned_author)
-                elif isinstance(authors_fm_value, list):
-                    for author_item in authors_fm_value:
-                        if isinstance(author_item, str):
-                            cleaned_author = author_item.strip()
-                            if cleaned_author:
-                                authors_set.add(cleaned_author)
-
-                # Process series (typically a single string)
-                book_series_fm_value = front_matter.get("series")
-                if isinstance(book_series_fm_value, str):
-                    cleaned_series = book_series_fm_value.strip()
-                    # Handle 'null' or empty strings explicitly for series if needed,
-                    # though an empty string after strip won't be added.
-                    # 'null' as a string would be added unless filtered.
-                    if cleaned_series and cleaned_series.lower() != "null":
-                        series_set.add(cleaned_series)
-        except Exception as e:
-            print(f"Error processing file '{file_path}': {e}")
-
-    return sorted(list(authors_set)), sorted(list(series_set))
+    return sorted(authors), sorted(series)
 
 
-def build_known_authors_map(author_page_dir: str) -> Dict[str, str]:
-    """
-    Scans existing author pages to build a map of all known names (canonical and pen names)
-    to their canonical filename.
+def build_known_authors(author_dir: Path) -> set[str]:
+    """Build a set of normalized names (canonical + pen names) from existing author pages."""
+    known: set[str] = set()
+    if not author_dir.exists():
+        return known
 
-    Args:
-        author_page_dir: The directory containing author markdown files.
+    for filepath in author_dir.glob("*.md"):
+        fm = extract_frontmatter(filepath)
+        title = fm.get("title")
+        if isinstance(title, str) and title.strip():
+            known.add(normalize_filename(title))
 
-    Returns:
-        A dictionary mapping normalized names to the canonical filename.
-    """
-    known_authors = {}
-    author_files = glob.glob(path.join(author_page_dir, f"*{MARKDOWN_EXTENSION}"))
+        pen_names = fm.get("pen_names")
+        if isinstance(pen_names, list):
+            for name in pen_names:
+                if isinstance(name, str) and name.strip():
+                    known.add(normalize_filename(name))
 
-    for file_path in author_files:
-        try:
-            with open(file_path, "r", encoding="utf-8") as opened_file:
-                front_matter = extract_yaml_header_from_markdown(opened_file)
-                canonical_name = front_matter.get("title")
-
-                if canonical_name and isinstance(canonical_name, str):
-                    # Map the canonical name
-                    known_authors[normalize_filename(canonical_name)] = path.basename(
-                        file_path
-                    )
-
-                    # Map all pen names
-                    pen_names = front_matter.get("pen_names")
-                    if isinstance(pen_names, list):
-                        for pen_name in pen_names:
-                            if pen_name and isinstance(pen_name, str):
-                                known_authors[normalize_filename(pen_name)] = (
-                                    path.basename(file_path)
-                                )
-        except Exception as e:
-            print(f"Error reading author page '{file_path}': {e}")
-
-    return known_authors
+    return known
 
 
-def main():
-    """Main execution function."""
-    script_dir = path.dirname(path.abspath(__file__))
-    project_root = path.abspath(path.join(script_dir, ".."))
+def write_pages(items: list[str], output_dir: Path, template: str) -> int:
+    """Write stub pages for items that don't already have files. Returns count created."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+    created = 0
+    for item in items:
+        filepath = output_dir / f"{normalize_filename(item)}.md"
+        if filepath.exists():
+            continue
+        filepath.write_text(template.format(item=item), encoding="utf-8")
+        print(f"Created {filepath}")
+        created += 1
+    return created
 
-    book_file_glob_path = path.join(project_root, "_books", f"*{MARKDOWN_EXTENSION}")
-    authors_output_dir = path.join(project_root, "books", "authors")
-    series_output_dir = path.join(project_root, "books", "series")
 
-    # Step 1: Build a map of all existing authors and their aliases
-    print("Scanning existing author pages...")
-    known_authors_map = build_known_authors_map(authors_output_dir)
-    print(f"Found {len(known_authors_map)} known author names/aliases.")
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Generate author and series pages from book front matter.",
+    )
+    parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=None,
+        help="Project root directory (default: auto-detect via git)",
+    )
+    args = parser.parse_args()
 
-    # Step 2: Extract all unique author and series names from book files
-    markdown_files = glob.glob(book_file_glob_path)
-    if not markdown_files:
-        print(f"No book files found at: {book_file_glob_path}")
-        return
+    root = args.project_root or find_project_root()
+    book_dir = root / "_books"
+    author_dir = root / "books" / "authors"
+    series_dir = root / "books" / "series"
 
-    all_book_authors, all_series = extract_metadata_from_files(markdown_files)
+    if not book_dir.exists():
+        print(f"Error: {book_dir} does not exist.", file=sys.stderr)
+        sys.exit(1)
 
-    # Step 3: Determine which authors are new and need a page
-    new_authors_to_create = []
-    for author in all_book_authors:
-        if normalize_filename(author) not in known_authors_map:
-            new_authors_to_create.append(author)
+    known_authors = build_known_authors(author_dir)
+    all_authors, all_series = extract_metadata_from_books(book_dir)
 
-    print(f"\nFound {len(all_book_authors)} unique authors in books.")
-    print(f"Found {len(all_series)} unique series titles.\n")
+    new_authors = [a for a in all_authors if normalize_filename(a) not in known_authors]
 
-    # Write author pages only for new, unknown authors
-    if new_authors_to_create:
-        print(f"Writing {len(new_authors_to_create)} new author pages...")
-        write_pages_to_dir(
-            items=new_authors_to_create,
-            output_dir=authors_output_dir,
-            template=TEMPLATES["author"],
-            markdown_extension=MARKDOWN_EXTENSION,
-        )
+    print(f"{len(all_authors)} authors, {len(all_series)} series in books.")
+
+    if new_authors:
+        n = write_pages(new_authors, author_dir, TEMPLATES["author"])
+        print(f"Created {n} new author page(s).")
     else:
-        print("No new authors found to write pages for.")
+        print("No new authors.")
 
-    # Write series pages
-    if all_series:
-        print("\nWriting series pages...")
-        write_pages_to_dir(
-            items=all_series,
-            output_dir=series_output_dir,
-            template=TEMPLATES["series"],
-            markdown_extension=MARKDOWN_EXTENSION,
-        )
+    new_series = write_pages(all_series, series_dir, TEMPLATES["series"])
+    if new_series:
+        print(f"Created {new_series} new series page(s).")
     else:
-        print("No series found to write pages for.")
-
-    print("\nScript finished.")
+        print("No new series.")
 
 
 if __name__ == "__main__":

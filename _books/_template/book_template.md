@@ -1,16 +1,8 @@
 ---
-date: 2026-01-01
-title: Title
-book_authors: Author
-series: null
-book_number: 1
-is_anthology: false
-rating: null
-image: /books/covers/title.jpg
+<!-- FRONT_MATTER -->
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the first book in {% series_text page.series link=false %}.
+<!-- OPENING -->
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -22,4 +14,5 @@ is the first book in {% series_text page.series link=false %}.
 {% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
+
+<!-- IF_SERIES -->{% capture this_series %}{% series_text page.series %}{% endcapture %}

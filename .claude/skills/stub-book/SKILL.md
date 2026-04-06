@@ -48,35 +48,73 @@ translation.
 - If the results are all wrong or empty, the book has no Wikidata entry.
   Proceed to step 3 without a QID.
 
-### 3. Run the Stub Script
+### 3. Build the Front Matter and Opening
 
-The script at `scripts/stub_book.py` (relative to this skill) assembles
-the complete file. Run it from the **project root**:
+You are responsible for composing these two pieces. The script
+(`stub_book.py`) is a mechanical assembler — it does not make content
+decisions.
+
+#### Front matter
+
+Build a YAML block (without `---` delimiters) containing these fields:
+
+```yaml
+date: <today, YYYY-MM-DD>
+title: <title>
+book_authors: <author>
+series: <series name or null>
+book_number: <number, use 1 for standalone>
+is_anthology: false
+rating: null
+image: /books/covers/<snake_case_title>.jpg
+```
+
+#### Opening paragraph
+
+Write a one-line Liquid opening. Examples by case:
+
+- **Series with number:**
+  `{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is the second book in {% series_text page.series link=false %}.`
+- **Series without number:**
+  `{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is a book in {% series_text page.series link=false %}.`
+- **Standalone:**
+  `{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is ...`
+
+### 4. Run the Stub Script
+
+The script at `scripts/stub_book.py` (relative to this skill) reads
+`_books/_template/book_template.md`, replaces sentinel comments with the
+values you provide, and writes the result.
+
+Run from the **project root**:
 
 ```bash
 uv run .claude/skills/stub-book/scripts/stub_book.py \
-    --title "The Honor of the Queen" \
-    --author "David Weber" \
-    --series "Honor Harrington" \
-    --book-number 2 \
+    --front-matter "date: 2025-01-15
+title: The Honor of the Queen
+book_authors: David Weber
+series: Honor Harrington
+book_number: 2
+is_anthology: false
+rating: null
+image: /books/covers/the_honor_of_the_queen.jpg" \
+    --opening "{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is the second book in {% series_text page.series link=false %}." \
+    --series \
     --qid Q3400447 \
     --output _books/the_honor_of_the_queen.md
 ```
 
-**With a QID:** The script calls `fetch_book_metadata.py` internally to
-get `isbn`, `date_published`, and `same_as_urls`.
+**Flags:**
 
-**Without a QID:** Omit `--qid`. The script produces a stub without
-`wikidata_qid`, `isbn`, `date_published`, or `same_as_urls`. These can
-be added later if a Wikidata entry is created.
+| Flag | Purpose |
+|---|---|
+| `--front-matter` | YAML content (no `---` delimiters). Required. |
+| `--opening` | Opening paragraph with Liquid tags. Required. |
+| `--series` | Include the `this_series` capture block. Omit for standalone books. |
+| `--qid` | Wikidata Q-ID. Fetches `isbn`, `date_published`, `same_as_urls` and appends them to the front matter. |
+| `--output` / `-o` | Write to file. Omit to print to stdout. |
 
-**Without a series:** Omit `--series` and `--book-number`. The script
-adjusts the opening paragraph and omits the `this_series` capture.
-
-Use `--output` to write directly to `_books/<snake_case_title>.md`, or
-omit it to print to stdout.
-
-### 4. Post-Processing
+### 5. Post-Processing
 
 After the script runs, check for issues that need manual fixes:
 
@@ -100,9 +138,32 @@ edition) will have the richest set of `same_as_urls`. If you had to use
 an edition QID instead, the URLs may be sparse. Check whether the work
 entity exists separately and use its QID if possible.
 
-### 5. Report
+### 6. Create Author and Series Pages
+
+If the author is new to the site (no existing page under
+`books/authors/`), generate the page:
+
+```bash
+uv run _scripts/content/make_pages.py
+```
+
+This creates stub pages for any authors or series in `_books/` that
+don't already have one.
+
+Then fetch the author's `same_as_urls` from Wikidata:
+
+```bash
+cd _scripts/metadata && uv run fetch_author_same_as.py "Author Name"
+```
+
+The script prints numbered search results. Pick the entry for the
+person (not a bibliography or disambiguation page). Copy the
+`same_as_urls` list into the newly created author page under
+`books/authors/`.
+
+### 7. Report
 
 Tell the user what was created and flag remaining manual steps:
 - Cover image needs to be added at the `image` path.
 - `rating` and `date` need updating after the review is written.
-- Any metadata issues found in step 4.
+- Any metadata issues found in step 5.
