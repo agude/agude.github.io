@@ -46,3 +46,32 @@ is the fourth book in {% series_text page.series link=false %}.
 {% capture herberts_lastname %}{% author_link "Frank Herbert" link_text="Herbert" possessive %}{% endcapture %}
 {% capture dune_series %}{% series_link "Dune" %}{% endcapture %}
 {% capture dune %}{% book_link "Dune" %}{% endcapture %}
+
+{% capture clancy %}{% author_link "Tom Clancy" %}{% endcapture %}  
+{% capture clancys %}{% author_link "Tom Clancy" possessive %}{% endcapture %}  
+{% capture clancy_lastname %}{% author_link "Tom Clancy" link_text="Clancy" %}{% endcapture %}  
+{% capture clancys_lastname %}{% author_link "Tom Clancy" link_text="Clancy" possessive %}{% endcapture %}  
+{% capture without_remorse %}{% book_link "Without Remorse" %}{% endcapture %}
+
+{{ this_book }} begins right where {{ hh3 }} ends, with the court martial
+Pavel Young and the fallout from political compromise it forced. In my last
+review, I was worried because I knew this ship was going to be mostly political
+and personal drama without the massive naval battles that have been a feature
+of the series. But it actually worked really well! It was a good break.
+
+_But_ {{ the_authors }} writing is deteriorating in one specific way: he is
+**really** starting to add in long descriptions about his worldbuilding, what
+his characters are thinking and planing. Sometimes there would be entire
+paragraphs of explanation between each line of dialog. The <cite>[How David
+Weber orders a pizza][pizza]</cite> parody is too spot on. And I hear it only
+gets worse as we go. I'm not sure how much longer I can put up with it.
+
+[pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
+
+**But** again the action scenes are satisfying! The marine training mission
+that "accidentally" systematically dismantles gangster protecting Paul
+Tankersley is right out of {{ clancys }} {{ without_remorse }}. Even though
+dueling feels anachronistic, despite the setting being "the British Empire but
+in Space", they're tense and an opportunity for Honor to destroy people. And
+as I said above, the change from naval to personal scale drama did a lot to
+reinvigorate the series.
