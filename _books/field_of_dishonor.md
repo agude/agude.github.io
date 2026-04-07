@@ -47,24 +47,26 @@ is the fourth book in {% series_text page.series link=false %}.
 {% capture dune_series %}{% series_link "Dune" %}{% endcapture %}
 {% capture dune %}{% book_link "Dune" %}{% endcapture %}
 
-{% capture clancy %}{% author_link "Tom Clancy" %}{% endcapture %}  
-{% capture clancys %}{% author_link "Tom Clancy" possessive %}{% endcapture %}  
-{% capture clancy_lastname %}{% author_link "Tom Clancy" link_text="Clancy" %}{% endcapture %}  
-{% capture clancys_lastname %}{% author_link "Tom Clancy" link_text="Clancy" possessive %}{% endcapture %}  
+{% capture clancy %}{% author_link "Tom Clancy" %}{% endcapture %}
+{% capture clancys %}{% author_link "Tom Clancy" possessive %}{% endcapture %}
+{% capture clancy_lastname %}{% author_link "Tom Clancy" link_text="Clancy" %}{% endcapture %}
+{% capture clancys_lastname %}{% author_link "Tom Clancy" link_text="Clancy" possessive %}{% endcapture %}
 {% capture without_remorse %}{% book_link "Without Remorse" %}{% endcapture %}
 
 {{ this_book }} begins right where {{ hh3 }} ends, with the court martial of
 Pavel Young and the fallout from the political compromise it forced. I was
 worried going in because I knew this book was going to be mostly political and
 personal drama without the massive naval battles that have been a feature of
-the series. But it actually worked really well! It was a good break.
+the series. The change of pace was exactly what the series needed! It should
+have made it easily the best book in the series so far.
 
 _But_ {{ the_authors }} writing is deteriorating in one specific way: he is
 **really** starting to pad scenes with long descriptions of his worldbuilding
 and what his characters are thinking and planning. Sometimes there are entire
 paragraphs of explanation between each line of dialogue. The <cite>[How David
-Weber orders a pizza][pizza]</cite> parody is too spot on. And I hear it only
-gets worse from here. I'm not sure how much longer I can put up with it.
+Weber orders a pizza][pizza]</cite> parody is too spot on. And I've heard it
+only gets worse as the series progresses. I'm not sure how much longer I can
+put up with it.
 
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
