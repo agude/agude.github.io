@@ -53,25 +53,27 @@ is the fourth book in {% series_text page.series link=false %}.
 {% capture clancys_lastname %}{% author_link "Tom Clancy" link_text="Clancy" possessive %}{% endcapture %}  
 {% capture without_remorse %}{% book_link "Without Remorse" %}{% endcapture %}
 
-{{ this_book }} begins right where {{ hh3 }} ends, with the court martial
-Pavel Young and the fallout from political compromise it forced. In my last
-review, I was worried because I knew this ship was going to be mostly political
-and personal drama without the massive naval battles that have been a feature
-of the series. But it actually worked really well! It was a good break.
+{{ this_book }} begins right where {{ hh3 }} ends, with the court martial of
+Pavel Young and the fallout from the political compromise it forced. I was
+worried going in because I knew this book was going to be mostly political and
+personal drama without the massive naval battles that have been a feature of
+the series. But it actually worked really well! It was a good break.
 
 _But_ {{ the_authors }} writing is deteriorating in one specific way: he is
-**really** starting to add in long descriptions about his worldbuilding, what
-his characters are thinking and planing. Sometimes there would be entire
-paragraphs of explanation between each line of dialog. The <cite>[How David
+**really** starting to pad scenes with long descriptions of his worldbuilding
+and what his characters are thinking and planning. Sometimes there are entire
+paragraphs of explanation between each line of dialogue. The <cite>[How David
 Weber orders a pizza][pizza]</cite> parody is too spot on. And I hear it only
-gets worse as we go. I'm not sure how much longer I can put up with it.
+gets worse from here. I'm not sure how much longer I can put up with it.
 
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
-**But** again the action scenes are satisfying! The marine training mission
-that "accidentally" systematically dismantles gangster protecting Paul
-Tankersley is right out of {{ clancys }} {{ without_remorse }}. Even though
-dueling feels anachronistic, despite the setting being "the British Empire but
-in Space", they're tense and an opportunity for Honor to destroy people. And
-as I said above, the change from naval to personal scale drama did a lot to
-reinvigorate the series.
+**But** the action scenes are satisfying! The marine training mission that
+"accidentally" systematically dismantles the gangsters protecting Paul
+Tankersley's murder is right out of {{ clancys }} {{ without_remorse }}.
+Dueling was set up in {{ hh1 }} and then vanished for two books, and
+Manticoran society never really built the honor culture that would make it
+feel natural. But when it finally comes back here, the duels are tense and
+give Honor a chance to show how wrong Young was to mess with her. And as I
+said, the change from naval to personal-scale drama did a lot to reinvigorate
+the series.
