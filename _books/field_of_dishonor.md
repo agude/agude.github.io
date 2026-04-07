@@ -56,9 +56,9 @@ is the fourth book in {% series_text page.series link=false %}.
 {{ this_book }} begins right where {{ hh3 }} ends, with the court martial of
 Pavel Young and the fallout from the political compromise it forced. I was
 worried going in because I knew this book was going to be mostly political and
-personal drama without the massive naval battles that have been a feature of
-the series. The change of pace was exactly what the series needed! It should
-have made it easily the best book in the series so far.
+personal drama without the massive naval battles that have defined the first
+three books. But it worked! The change of pace was exactly what was needed! It
+should have easily been the best book of the series so far.
 
 _But_ {{ the_authors }} writing is deteriorating in one specific way: he is
 **really** starting to pad scenes with long descriptions of his worldbuilding
