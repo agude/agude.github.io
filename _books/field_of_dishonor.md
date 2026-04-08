@@ -84,7 +84,7 @@ put up with it.
 
 **But** the action scenes are satisfying! The marine training mission that
 "accidentally" systematically dismantles the gangsters protecting Paul
-Tankersley's murder is right out of {{ clancys }} {{ without_remorse }}.
+Tankersley's murderer is right out of {{ clancys }} {{ without_remorse }}.
 Dueling was set up in {{ hh1 }} and then vanished for two books, and
 Manticoran society never really built the honor culture that would make it
 feel natural. But when it finally comes back here, the duels are tense and
