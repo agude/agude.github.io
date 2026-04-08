@@ -65,12 +65,12 @@ Pavel Young's court martial.
 {% capture strosss_lastname %}{% author_link "Charles Stross" link_text="Stross" possessive %}{% endcapture %}
 {% capture accelerando %}{% book_link "Accelerando" %}{% endcapture %}
 
-{{ this_book }} begins right where {{ hh3 }} ends, with the court martial of
-Pavel Young and the fallout from the political compromise it forced. I was
-worried going in because I knew this book was going to be mostly political and
-personal drama without the massive naval battles that have defined the first
-three books. But it worked! The change of pace was exactly what was needed! It
-should have easily been the best book of the series so far.
+{{ this_book }} picks up right where {{ hh3 }} ends, with Pavel Young's court
+martial and the political compromise it forced. I was worried going in. This
+book is mostly political and personal drama without the massive naval battles
+that defined the first three books. But it worked! The change of pace was
+exactly what the series needed, and it should have easily been the best book
+so far.
 
 _But_ {{ the_authors }} writing is deteriorating in one specific way: he is
 **really** starting to pad scenes with long descriptions of his worldbuilding
@@ -83,14 +83,13 @@ put up with it.
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
 **But** the action scenes are satisfying! The marine training mission that
-"accidentally" systematically dismantles the gangsters protecting Paul
+"accidentally" and systematically dismantles the gangsters protecting Paul
 Tankersley's murderer is right out of {{ clancys }} {{ without_remorse }}.
 Dueling was set up in {{ hh1 }} and then vanished for two books, and
 Manticoran society never really built the honor culture that would make it
-feel natural. But when it finally comes back here, the duels are tense and
-give Honor a chance to show how wrong Young was to mess with her. And as I
-said, the change from naval to personal-scale drama did a lot to reinvigorate
-the series.
+feel natural. Still, when it finally comes back, the duels are tense and give
+Honor a chance to show how wrong Young was to mess with her. And the shift
+from naval to personal-scale drama did a lot to reinvigorate the series.
 
 I'll be taking a break from {{ this_series }} for a bit, and I'm honestly not
 sure if and when I'll return. Until then I'm going to read {{ strosss_lastname
