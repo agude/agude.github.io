@@ -20,9 +20,9 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the fourth book in {% series_text page.series link=false %}. It trades
-fleet battles for personal and political drama as Honor faces the fallout from
-Pavel Young's court martial.
+is the fourth book in {% series_text page.series link=false %}. It reduces the
+scale of the narrative, trading fleet battles for political maneuvering and
+personal grudges.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -65,20 +65,21 @@ Pavel Young's court martial.
 {% capture strosss_lastname %}{% author_link "Charles Stross" link_text="Stross" possessive %}{% endcapture %}
 {% capture accelerando %}{% book_link "Accelerando" %}{% endcapture %}
 
-{{ this_book }} picks up right where {{ hh3 }} ends, with Pavel Young's court
-martial and the political compromise it forced. I was worried going in. This
-book is mostly political and personal drama without the massive naval battles
-that defined the first three books. But it worked! The change of pace was
-exactly what the series needed, and it should have easily been the best book
-so far.
+{{ this_book }} picks up right where {{ hh3 }} ends, with a court martial
+split along political lines. Pavel Young is found guilty and cashiered, but
+acquitted of the charges that would have hanged him. I was worried going in.
+This book is mostly political and personal drama without the massive naval
+battles that defined the first three books. But it worked! The change of pace
+was exactly what the series needed, and it should have easily been the best
+book so far.
 
-_But_ {{ the_authors }} writing is deteriorating in one specific way: he is
-**really** starting to pad scenes with long descriptions of his worldbuilding
-and what his characters are thinking and planning. Sometimes there are entire
-paragraphs of explanation between each line of dialogue. The <cite>[How David
-Weber orders a pizza][pizza]</cite> parody is too spot on. And I've heard it
-only gets worse as the series progresses. I'm not sure how much longer I can
-put up with it.
+_But_ {{ the_authors }} writing is getting worse: he is **really** starting to
+pad scenes with long descriptions of his worldbuilding and what his characters
+are thinking and planning. Telling, not showing, taken to the extreme.
+Sometimes there are entire paragraphs of explanation between each line of
+dialogue. The <cite>[How David Weber orders a pizza][pizza]</cite> parody is
+too spot on. And I've heard it only gets worse as the series progresses. I'm
+not sure how much longer I can put up with it.
 
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
