@@ -20,7 +20,9 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the fourth book in {% series_text page.series link=false %}.
+is the fourth book in {% series_text page.series link=false %}. It trades
+fleet battles for personal and political drama as Honor faces the fallout from
+Pavel Young's court martial.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -53,6 +55,16 @@ is the fourth book in {% series_text page.series link=false %}.
 {% capture clancys_lastname %}{% author_link "Tom Clancy" link_text="Clancy" possessive %}{% endcapture %}
 {% capture without_remorse %}{% book_link "Without Remorse" %}{% endcapture %}
 
+{% capture qntm %}{% author_link "qntm" %}{% endcapture %}
+{% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
+{% capture antimemetics %}{% book_link "There Is No Antimemetics Division" %}{% endcapture %}
+
+{% capture stross %}{% author_link "Charles Stross" %}{% endcapture %}
+{% capture strosss %}{% author_link "Charles Stross" possessive %}{% endcapture %}
+{% capture stross_lastname %}{% author_link "Charles Stross" link_text="Stross" %}{% endcapture %}
+{% capture strosss_lastname %}{% author_link "Charles Stross" link_text="Stross" possessive %}{% endcapture %}
+{% capture accelerando %}{% book_link "Accelerando" %}{% endcapture %}
+
 {{ this_book }} begins right where {{ hh3 }} ends, with the court martial of
 Pavel Young and the fallout from the political compromise it forced. I was
 worried going in because I knew this book was going to be mostly political and
@@ -79,3 +91,9 @@ feel natural. But when it finally comes back here, the duels are tense and
 give Honor a chance to show how wrong Young was to mess with her. And as I
 said, the change from naval to personal-scale drama did a lot to reinvigorate
 the series.
+
+I'll be taking a break from {{ this_series }} for a bit, and I'm honestly not
+sure if and when I'll return. Until then I'm going to read {{ strosss_lastname
+}} {{ accelerando }} which has been sitting on my pile for 20 years, and
+probably skim {{ qntms }} {{ antimemetics }} which we're finally reading for
+book club.
