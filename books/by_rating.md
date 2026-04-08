@@ -55,6 +55,7 @@ ranked_list:
   # 3 Stars
   - Eater
   - Night Without Stars
+  - Field of Dishonor
   - On Basilisk Station
   - Rogue Protocol
   - A Drop of Corruption

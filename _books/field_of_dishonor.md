@@ -5,7 +5,7 @@ book_authors: David Weber
 series: Honor Harrington
 book_number: 4
 is_anthology: false
-rating: 4
+rating: 3
 image: /books/covers/field_of_dishonor.jpg
 wikidata_qid: Q2870331
 isbn: 978-0-671-87624-0
