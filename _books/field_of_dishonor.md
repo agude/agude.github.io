@@ -85,14 +85,14 @@ put up with it.
 **But** the action scenes are satisfying! The marine training mission that
 "accidentally" and systematically dismantles the gangsters protecting Paul
 Tankersley's murderer is right out of {{ clancys }} {{ without_remorse }}.
-Dueling was set up in {{ hh1 }} and then vanished for two books, and
-Manticoran society never really built the honor culture that would make it
-feel natural. Still, when it finally comes back, the duels are tense and give
-Honor a chance to show how wrong Young was to mess with her. And the shift
-from naval to personal-scale drama did a lot to reinvigorate the series.
+Dueling was set up in {{ hh1 }} but then vanished for two books, and
+{{ the_authors_lastname }} never really built the honor culture that would make it
+feel right. Still, the duels provide the perfect opportunity for Honor to show
+how deadly she is, and how wrong Young was to mess with her.
 
-I'll be taking a break from {{ this_series }} for a bit, and I'm honestly not
-sure if and when I'll return. Until then I'm going to read {{ strosss_lastname
-}} {{ accelerando }} which has been sitting on my pile for 20 years, and
-probably skim {{ qntms }} {{ antimemetics }} which we're finally reading for
-book club.
+I'll be taking a break from {{ this_series }} for a bit. {{
+the_authors_lastname_possessive }} style is starting to wear me down, and I'm
+honestly not sure if I'll come back. Until then I'm going to read {{
+strosss_lastname }} {{ accelerando }} which has been sitting on my pile for 20
+years, and probably skim {{ qntms }} {{ antimemetics }} again since we're
+finally reading it for book club.
