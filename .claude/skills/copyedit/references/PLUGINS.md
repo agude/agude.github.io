@@ -188,3 +188,4 @@ Then use as `{{ varname }}` in the text.
 2. **Spacing matters**: `{{ varname }}` not `{{varname}}`
 3. **Quotes**: Use double quotes for tag arguments
 4. **No tags in first paragraph**: Custom plugin tags cannot appear before capture definitions
+5. **Unreviewed books/authors are fine**: `book_link`, `author_link`, and `series_link` work whether or not the referenced book, author, or series has a page on the site. If no page exists, the tag renders styled text without a link. Always use the plugin tags — never fall back to raw HTML for unreviewed works.
