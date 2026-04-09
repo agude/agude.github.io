@@ -216,6 +216,246 @@ class TestBacklinkBuilder < Minitest::Test
     assert_equal 1, (backlinks['/books/book-b.html'] || []).length
   end
 
+  def test_series_text_with_quoted_string_creates_backlinks
+    series_book_1 = create_doc(
+      { 'title' => 'On Basilisk Station', 'published' => true, 'series' => 'Honor Harrington' },
+      '/books/basilisk.html',
+      'First book.',
+    )
+    series_book_2 = create_doc(
+      { 'title' => 'The Honor of the Queen', 'published' => true, 'series' => 'Honor Harrington' },
+      '/books/honor-queen.html',
+      'Second book.',
+    )
+    referencing_book = create_doc(
+      { 'title' => 'Some Review', 'published' => true },
+      '/books/review.html',
+      'I love the {% series_text "Honor Harrington" %} series!',
+    )
+    series_page = create_doc(
+      { 'title' => 'Honor Harrington', 'layout' => 'series_page' },
+      '/series/honor-harrington.html',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [series_book_1, series_book_2, referencing_book] },
+      [series_page],
+    )
+    backlinks = site.data['link_cache']['backlinks']
+
+    assert_equal 1, (backlinks['/books/basilisk.html'] || []).length
+    assert_equal 1, (backlinks['/books/honor-queen.html'] || []).length
+  end
+
+  def test_series_text_with_page_series_variable_creates_backlinks
+    series_book_1 = create_doc(
+      { 'title' => 'Foundation', 'published' => true, 'series' => 'Foundation Series' },
+      '/books/foundation.html',
+      'First book.',
+    )
+    series_book_2 = create_doc(
+      { 'title' => 'Foundation and Empire', 'published' => true, 'series' => 'Foundation Series' },
+      '/books/foundation-empire.html',
+      'Second book.',
+    )
+    # Uses series_text with page.series variable (link defaults to true)
+    referencing_book = create_doc(
+      { 'title' => 'Second Foundation', 'published' => true, 'series' => 'Foundation Series' },
+      '/books/second-foundation.html',
+      'Third in {% series_text page.series %}. Great series.',
+    )
+    series_page = create_doc(
+      { 'title' => 'Foundation Series', 'layout' => 'series_page' },
+      '/series/foundation.html',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [series_book_1, series_book_2, referencing_book] },
+      [series_page],
+    )
+    backlinks = site.data['link_cache']['backlinks']
+
+    # Both other series books should have backlinks from the referencing book
+    assert_equal 1, (backlinks['/books/foundation.html'] || []).length
+    assert_equal 1, (backlinks['/books/foundation-empire.html'] || []).length
+  end
+
+  def test_series_text_link_false_with_quoted_string_skips_backlinks
+    series_book = create_doc(
+      { 'title' => 'On Basilisk Station', 'published' => true, 'series' => 'Honor Harrington' },
+      '/books/basilisk.html',
+      'First book.',
+    )
+    referencing_book = create_doc(
+      { 'title' => 'Some Review', 'published' => true },
+      '/books/review.html',
+      'I read {% series_text "Honor Harrington" link=false %} books.',
+    )
+    series_page = create_doc(
+      { 'title' => 'Honor Harrington', 'layout' => 'series_page' },
+      '/series/honor-harrington.html',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [series_book, referencing_book] },
+      [series_page],
+    )
+    backlinks = site.data['link_cache']['backlinks']
+
+    # link=false means no link is rendered, so no backlink
+    assert_empty backlinks['/books/basilisk.html'] || []
+  end
+
+  def test_series_text_link_false_with_page_series_variable_skips_backlinks
+    series_book_1 = create_doc(
+      { 'title' => 'Foundation', 'published' => true, 'series' => 'Foundation Series' },
+      '/books/foundation.html',
+      'First book.',
+    )
+    series_book_2 = create_doc(
+      { 'title' => 'Foundation and Empire', 'published' => true, 'series' => 'Foundation Series' },
+      '/books/foundation-empire.html',
+      'Second book.',
+    )
+    # Uses series_text with page.series and link=false — no link rendered
+    referencing_book = create_doc(
+      { 'title' => 'Second Foundation', 'published' => true, 'series' => 'Foundation Series' },
+      '/books/second-foundation.html',
+      'Third in {% series_text page.series link=false %}. Great series.',
+    )
+    series_page = create_doc(
+      { 'title' => 'Foundation Series', 'layout' => 'series_page' },
+      '/series/foundation.html',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [series_book_1, series_book_2, referencing_book] },
+      [series_page],
+    )
+    backlinks = site.data['link_cache']['backlinks']
+
+    assert_empty backlinks['/books/foundation.html'] || []
+    assert_empty backlinks['/books/foundation-empire.html'] || []
+  end
+
+  def test_series_link_with_page_series_variable_creates_backlinks
+    series_book_1 = create_doc(
+      { 'title' => 'Dune', 'published' => true, 'series' => 'Dune' },
+      '/books/dune.html',
+      'First book.',
+    )
+    series_book_2 = create_doc(
+      { 'title' => 'Dune Messiah', 'published' => true, 'series' => 'Dune' },
+      '/books/dune-messiah.html',
+      'Second book.',
+    )
+    # Uses series_link with page.series variable
+    referencing_book = create_doc(
+      { 'title' => 'Children of Dune', 'published' => true, 'series' => 'Dune' },
+      '/books/children-dune.html',
+      'Third in {% series_link page.series %}. Still great.',
+    )
+    series_page = create_doc(
+      { 'title' => 'Dune', 'layout' => 'series_page' },
+      '/series/dune.html',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [series_book_1, series_book_2, referencing_book] },
+      [series_page],
+    )
+    backlinks = site.data['link_cache']['backlinks']
+
+    assert_equal 1, (backlinks['/books/dune.html'] || []).length
+    assert_equal 1, (backlinks['/books/dune-messiah.html'] || []).length
+  end
+
+  def test_page_series_variable_with_nil_series_skips_backlinks
+    series_book = create_doc(
+      { 'title' => 'Foundation', 'published' => true, 'series' => 'Foundation Series' },
+      '/books/foundation.html',
+      'First book.',
+    )
+    # No series in front matter — page.series is nil
+    referencing_book = create_doc(
+      { 'title' => 'Some Review', 'published' => true },
+      '/books/review.html',
+      'I read {% series_text page.series %}.',
+    )
+    series_page = create_doc(
+      { 'title' => 'Foundation Series', 'layout' => 'series_page' },
+      '/series/foundation.html',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [series_book, referencing_book] },
+      [series_page],
+    )
+    backlinks = site.data['link_cache']['backlinks']
+
+    assert_empty backlinks['/books/foundation.html'] || []
+  end
+
+  def test_page_series_variable_with_empty_series_skips_backlinks
+    series_book = create_doc(
+      { 'title' => 'Foundation', 'published' => true, 'series' => 'Foundation Series' },
+      '/books/foundation.html',
+      'First book.',
+    )
+    # Empty string series in front matter
+    referencing_book = create_doc(
+      { 'title' => 'Some Review', 'published' => true, 'series' => '' },
+      '/books/review.html',
+      'I read {% series_link page.series %}.',
+    )
+    series_page = create_doc(
+      { 'title' => 'Foundation Series', 'layout' => 'series_page' },
+      '/series/foundation.html',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [series_book, referencing_book] },
+      [series_page],
+    )
+    backlinks = site.data['link_cache']['backlinks']
+
+    assert_empty backlinks['/books/foundation.html'] || []
+  end
+
+  def test_link_false_with_mixed_quoting_skips_backlinks
+    series_book = create_doc(
+      { 'title' => 'On Basilisk Station', 'published' => true, 'series' => 'Honor Harrington' },
+      '/books/basilisk.html',
+      'First book.',
+    )
+    # Single-quoted series name with double-quoted "false"
+    referencing_book = create_doc(
+      { 'title' => 'Some Review', 'published' => true },
+      '/books/review.html',
+      "I read {% series_link 'Honor Harrington' link=\"false\" %} books.",
+    )
+    series_page = create_doc(
+      { 'title' => 'Honor Harrington', 'layout' => 'series_page' },
+      '/series/honor-harrington.html',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [series_book, referencing_book] },
+      [series_page],
+    )
+    backlinks = site.data['link_cache']['backlinks']
+
+    assert_empty backlinks['/books/basilisk.html'] || []
+  end
+
   def test_multiple_links_to_same_target_deduplicated
     multi_linker = create_doc(
       { 'title' => 'Multi Linker', 'published' => true },

@@ -11,6 +11,7 @@ module Jekyll
       # to track which books mention other books for display in backlink sections.
       class BacklinkBuilder
         LINK_TYPE_PRIORITY = { 'book' => 3, 'short_story' => 2, 'series' => 1 }.freeze
+        LINK_FALSE_PATTERN = /link\s*=\s*(?:'false'|"false"|false)/
 
         def initialize(site, link_cache, maps)
           @site = site
@@ -48,11 +49,42 @@ module Jekyll
         end
 
         def scan_series_links(doc)
-          doc.content.scan(/\{%\s*series_link\s+(?:'([^']+)'|"([^"]+)")/).each do |match|
-            title = match.compact.first
-            books = @link_cache['series_map'][Jekyll::Infrastructure::TextProcessingUtils.normalize_title(title)]
-            books&.each { |book| add_backlink(book.url, doc, 'series') }
+          scan_quoted_series_tags(doc)
+          scan_variable_series_tags(doc)
+        end
+
+        # Matches series_link and series_text tags with quoted string arguments:
+        #   {% series_link "Foundation Series" %}
+        #   {% series_text "Honor Harrington" %}
+        # Skips tags with link=false since no link is rendered.
+        def scan_quoted_series_tags(doc)
+          doc.content.scan(/\{%\s*series_(?:link|text)\s+(?:'([^']+)'|"([^"]+)")(.*?)%\}/).each do |match|
+            next if match[2]&.match?(LINK_FALSE_PATTERN)
+
+            title = match[0..1].compact.first
+            register_series_backlinks(doc, title)
           end
+        end
+
+        # Matches series_link and series_text tags with page.series variable:
+        #   {% series_link page.series %}
+        #   {% series_text page.series %}
+        # Resolves the variable from the document's front matter.
+        # Skips tags with link=false since no link is rendered.
+        def scan_variable_series_tags(doc)
+          doc.content.scan(/\{%\s*series_(?:link|text)\s+page\.series(.*?)%\}/).each do |match|
+            next if match[0]&.match?(LINK_FALSE_PATTERN)
+
+            series = doc.data['series']
+            next if series.nil? || series.to_s.strip.empty?
+
+            register_series_backlinks(doc, series)
+          end
+        end
+
+        def register_series_backlinks(doc, title)
+          books = @link_cache['series_map'][Jekyll::Infrastructure::TextProcessingUtils.normalize_title(title)]
+          books&.each { |book| add_backlink(book.url, doc, 'series') }
         end
 
         def scan_short_story_links(doc)
