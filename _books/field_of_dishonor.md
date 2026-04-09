@@ -34,7 +34,7 @@ personal grudges.
 {% capture hh1 %}{% book_link "On Basilisk Station" %}{% endcapture %}
 {% capture hh3 %}{% book_link "The Short Victorious War" %}{% endcapture %}
 
-{% capture clancys %}{% author_link "Tom Clancy" possessive %}{% endcapture %}
+{% capture clancys_lastname %}{% author_link "Tom Clancy" link_text="Clancy" possessive %}{% endcapture %}
 {% capture without_remorse %}{% book_link "Without Remorse" %}{% endcapture %}
 
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
@@ -63,11 +63,11 @@ progresses. I'm not sure how much longer I can put up with it.
 
 **But** the action scenes are satisfying! The marine training mission that
 "accidentally" and systematically dismantles the gangsters protecting Paul
-Tankersley's murderer is right out of {{ clancys }} {{ without_remorse }}.
-Dueling was set up in {{ hh1 }}, but then vanished for two books, and {{
-the_authors_lastname }} never really built the honor culture needed to make it
-feel right. Still, the duels provide the perfect opportunity for Honor to show
-how deadly she is, and how wrong Young was to mess with her.
+Tankersley's murderer is right out of {{ clancys_lastname }} {{
+without_remorse }}. And although {{ the_authors_lastname }} never really
+expanded on the dueling he set up in {{ hh1 }}, it still works: the duels give
+Honor a chance to show how deadly she is, and how wrong Young was to mess with
+her.
 
 I'll be taking a break from {{ this_series }} for a bit. {{
 the_authors_lastname_possessive }} style is starting to wear me down, and I'm
