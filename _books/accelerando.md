@@ -40,9 +40,9 @@ through [the singularity][singularity].
 [singularity]: https://en.wikipedia.org/wiki/Technological_singularity
 
 But it is also a book solidly anchored and unmoving in time. It was written
-from a corner of the geek internet that only exists from 2000--2005 on small
+from a corner of the geek internet that only existed from 2000--2005 on small
 forums and all together on Slashdot. It marks itself as such with shibboleths
 like IP rights, music piracy, Bill Gates and Microsoft. At the time, {{
 accelerando }} must have seemed like an eminently possible future, but the
-smart phone and cloud a few years later blew it away and now it is more a
-history of a technological ideal that never came to pass.
+smart phone and cloud computing a few years later blew it away and now it is
+more an alternate history of a technological ideal that never came to pass.
