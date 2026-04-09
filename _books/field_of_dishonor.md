@@ -46,7 +46,7 @@ personal grudges.
 {{ this_book }} picks up right where {{ hh3 }} ends, with a court martial
 split along political lines. Pavel Young is found guilty and cashiered, but
 acquitted of the charges that would have hanged him. I was worried going in.
-This book is mostly political and personal drama without the massive naval
+This book is mostly political and personal drama, without the massive naval
 battles that defined the first three books. But it worked! The change of pace
 was exactly what the series needed, and it should have easily been the best
 book so far.
@@ -55,23 +55,23 @@ _But_ {{ the_authors }} writing is getting worse: he is **really** starting to
 pad scenes with long descriptions of his worldbuilding and what his characters
 are thinking and planning. Telling, not showing, taken to the extreme.
 Sometimes there are entire paragraphs of explanation between each line of
-dialogue. The <cite>[How David Weber orders a pizza][pizza]</cite> parody is
-too spot on. And I've heard it only gets worse as the series progresses. I'm
-not sure how much longer I can put up with it.
+dialogue. The <cite>[How David Weber orders a pizza][pizza]</cite> parody is a
+little too spot on. And I've heard it only gets worse as the series
+progresses. I'm not sure how much longer I can put up with it.
 
 [pizza]: https://boards.straightdope.com/t/how-david-weber-orders-a-pizza/606473
 
 **But** the action scenes are satisfying! The marine training mission that
 "accidentally" and systematically dismantles the gangsters protecting Paul
 Tankersley's murderer is right out of {{ clancys }} {{ without_remorse }}.
-Dueling was set up in {{ hh1 }} but then vanished for two books, and
-{{ the_authors_lastname }} never really built the honor culture that would make it
+Dueling was set up in {{ hh1 }}, but then vanished for two books, and {{
+the_authors_lastname }} never really built the honor culture needed to make it
 feel right. Still, the duels provide the perfect opportunity for Honor to show
 how deadly she is, and how wrong Young was to mess with her.
 
 I'll be taking a break from {{ this_series }} for a bit. {{
 the_authors_lastname_possessive }} style is starting to wear me down, and I'm
 honestly not sure if I'll come back. Until then I'm going to read {{
-strosss_lastname }} {{ accelerando }} which has been sitting on my pile for 20
-years, and probably skim {{ qntms }} {{ antimemetics }} again since we're
+strosss_lastname }} {{ accelerando }}, which has been sitting on my pile for
+20 years, and probably skim {{ qntms }} {{ antimemetics }} again since we're
 finally reading it for book club.
