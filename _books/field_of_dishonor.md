@@ -25,43 +25,21 @@ scale of the narrative, trading fleet battles for political maneuvering and
 personal grudges.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 {% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
 {% capture hh1 %}{% book_link "On Basilisk Station" %}{% endcapture %}
-{% capture hh2 %}{% book_link "The Honor of the Queen" %}{% endcapture %}
 {% capture hh3 %}{% book_link "The Short Victorious War" %}{% endcapture %}
-{% capture hh4 %}{% book_link "Field of Dishonor" %}{% endcapture %}
-{% capture hh5 %}{% book_link "Flag in Exile" %}{% endcapture %}
 
-{% capture herbert %}{% author_link "Frank Herbert" %}{% endcapture %}
-{% capture herberts %}{% author_link "Frank Herbert" possessive %}{% endcapture %}
-{% capture herbert_lastname %}{% author_link "Frank Herbert" link_text="Herbert" %}{% endcapture %}
-{% capture herberts_lastname %}{% author_link "Frank Herbert" link_text="Herbert" possessive %}{% endcapture %}
-{% capture dune_series %}{% series_link "Dune" %}{% endcapture %}
-{% capture dune %}{% book_link "Dune" %}{% endcapture %}
-
-{% capture clancy %}{% author_link "Tom Clancy" %}{% endcapture %}
 {% capture clancys %}{% author_link "Tom Clancy" possessive %}{% endcapture %}
-{% capture clancy_lastname %}{% author_link "Tom Clancy" link_text="Clancy" %}{% endcapture %}
-{% capture clancys_lastname %}{% author_link "Tom Clancy" link_text="Clancy" possessive %}{% endcapture %}
 {% capture without_remorse %}{% book_link "Without Remorse" %}{% endcapture %}
 
-{% capture qntm %}{% author_link "qntm" %}{% endcapture %}
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 {% capture antimemetics %}{% book_link "There Is No Antimemetics Division" %}{% endcapture %}
 
-{% capture stross %}{% author_link "Charles Stross" %}{% endcapture %}
-{% capture strosss %}{% author_link "Charles Stross" possessive %}{% endcapture %}
-{% capture stross_lastname %}{% author_link "Charles Stross" link_text="Stross" %}{% endcapture %}
 {% capture strosss_lastname %}{% author_link "Charles Stross" link_text="Stross" possessive %}{% endcapture %}
 {% capture accelerando %}{% book_link "Accelerando" %}{% endcapture %}
 
