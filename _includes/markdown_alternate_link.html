@@ -1,0 +1,15 @@
+{% comment %}
+  Renders a button linking to the Markdown version of the current page.
+  Emits nothing if the page has no markdown alternate.
+{% endcomment %}
+{% assign markdown_alternate_href = page | optional: 'markdown_alternate_href' %}
+{% if markdown_alternate_href %}
+<a class="markdown-button"
+   href="{{ markdown_alternate_href | absolute_url }}"
+   rel="alternate"
+   type="text/markdown"
+   title="View Markdown version of this page"
+   aria-label="View Markdown version of this page">
+  {% include icon-markdown.svg %}
+</a>
+{% endif %}

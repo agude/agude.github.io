@@ -45,6 +45,25 @@
   }
 }
 
+// Button linking to the .md alternate of a page. Shares the sidebar-button
+// shape but the Markdown mark uses a stroked rect outline plus a filled
+// glyph, so both fill and stroke need to be painted.
+.markdown-button {
+  width: 2em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+
+  svg {
+    width: 100%;
+    height: auto;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
 // For the sidebar buttons
 .sidebar-social-links {
   color: #ffffff;

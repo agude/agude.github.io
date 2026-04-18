@@ -4,6 +4,7 @@ layout: default
 
 <article class="page">
   <h1 class="page-title"><cite class="book-title">{{ page.title }}</cite></h1>
+  {% include markdown_alternate_link.html %}
 
   {% assign image = page | optional: 'image' %}
   {% if image %}
