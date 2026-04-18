@@ -70,22 +70,26 @@ together. {{ boris }} said they had the concept for a long time but struggled
 ever quite found one.
 
 [^boris]:
-    > We came up with the idea of a story about wizards, witches, sorcerers,
-    > and magicians a long time ago, at the end of the 1950s. To begin with we
-    > had no idea of what might happen in it; all we knew was that the heroes
-    > would be characters from the fairy tales, legends, myths, and ghost
-    > stories of all cultures and times. And that their adventures would take
-    > place against the backdrop of a research institute with all its foibles,
-    > well known to one of us from his own personal experience, and to the
-    > other from the many stories recounted to him by his academic friends. We
-    > spent a long time gathering together jokes and nicknames and amusing
-    > characteristics for our future characters, and wrote them all down on
-    > separate scraps of paper (which, as always happens, were later lost).
-    > But no real advance took place; we were never able to think of a story
-    > or a plot for the adventure.
-
-    From {% citation author_last="Strugatsky" author_first="Boris"
-    work_title="Afterword" container_title="Monday Begins on Saturday" %}
+    {% citedquote
+      author_last="Strugatsky"
+      author_first="Boris"
+      work_title="Afterword"
+      container_title="Monday Begins on Saturday"
+    %}
+    We came up with the idea of a story about wizards, witches, sorcerers,
+    and magicians a long time ago, at the end of the 1950s. To begin with we
+    had no idea of what might happen in it; all we knew was that the heroes
+    would be characters from the fairy tales, legends, myths, and ghost
+    stories of all cultures and times. And that their adventures would take
+    place against the backdrop of a research institute with all its foibles,
+    well known to one of us from his own personal experience, and to the
+    other from the many stories recounted to him by his academic friends. We
+    spent a long time gathering together jokes and nicknames and amusing
+    characteristics for our future characters, and wrote them all down on
+    separate scraps of paper (which, as always happens, were later lost).
+    But no real advance took place; we were never able to think of a story
+    or a plot for the adventure.
+    {% endcitedquote %}
 
 {{ this_book }} is split into three loosely connected vignettes that wander
 around somewhat aimlessly. The third, where they solve the mystery of

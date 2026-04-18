@@ -52,19 +52,7 @@ human.
     {% endcitedquote %}
 
 [^not_art_quote]:
-    > "I believe art is something inherently and intrinsically human, even
-    > corporate art made-for-hire is meticulously crafted by experts in their
-    > fields," [Nicholas] Kole said. "When we sit down to draw, design, sculpt
-    > or paint, each mark is made with an intention. Each step of the process
-    > is an opportunity to ask new questions, tune the piece to the precise
-    > context it's intended for, to add expressiveness and even a point of
-    > view. The result---movies, shows, games---are intended to connect that
-    > intricate craft with an audience who appreciates and enjoys it." 
-    >
-    > AI does none of this, he explained, and he sees "a world filling up with
-    > meaningless, regurgitative cardboard cutouts that remind us of real art."
-
-    {% citation
+    {% citedquote
       author_first="Chloe"
       author_last="Xiang"
       work_title="Artists Are Revolting Against AI Art on ArtStation"
@@ -72,6 +60,18 @@ human.
       date="2022-12-14"
       url="https://www.vice.com/en/article/artists-are-revolt-against-ai-art-on-artstation/"
     %}
+    "I believe art is something inherently and intrinsically human, even
+    corporate art made-for-hire is meticulously crafted by experts in their
+    fields," [Nicholas] Kole said. "When we sit down to draw, design, sculpt
+    or paint, each mark is made with an intention. Each step of the process
+    is an opportunity to ask new questions, tune the piece to the precise
+    context it's intended for, to add expressiveness and even a point of
+    view. The result---movies, shows, games---are intended to connect that
+    intricate craft with an audience who appreciates and enjoys it." 
+
+    AI does none of this, he explained, and he sees "a world filling up with
+    meaningless, regurgitative cardboard cutouts that remind us of real art."
+    {% endcitedquote %}
 
 ## AI and Photography as Art
 
