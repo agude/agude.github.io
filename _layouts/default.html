@@ -12,10 +12,6 @@ layout: substitute
     {% include sidebar.html %}
 
     <main class="content container">
-      {% assign markdown_alternate_href = page | optional: 'markdown_alternate_href' %}
-      {% if markdown_alternate_href %}
-      <a class="visually-hidden" href="{{ markdown_alternate_href | absolute_url }}" rel="alternate" type="text/markdown">View Raw Markdown Source</a>
-      {% endif %}
       {% include anchor_headings.html h_min=2 html=content generateId=true anchorBody="<svg
         class='anchor-link-img' viewBox='0 0 16 16' version='1.1' width='16'
         height='32' aria-hidden='true'><path fill-rule='evenodd' d='M7.775
