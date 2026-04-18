@@ -45,6 +45,37 @@
   }
 }
 
+// Small inline "View as Markdown" affordance that sits directly under
+// a page's H1. Icon + text label, no pill/background — reads as a
+// caption, not a button.
+.markdown-alt-link {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.3em;
+  font-size: 0.75rem;
+  margin-top: -0.5rem;
+
+  svg {
+    height: 0.9em;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
+// Used on layouts (non-post, non-book) where content follows the link
+// directly with no metadata block in between. Restores a gap between
+// the title/link pair and the content below.
+.markdown-alt-link--standalone {
+  margin-bottom: 1rem;
+}
+
+// Match the muted tone used by .backlink-explanation. Needs the
+// .themed .content prefix so it beats the themed link color override.
+.themed .content a.markdown-alt-link {
+  color: $muted-color;
+}
+
 // For the sidebar buttons
 .sidebar-social-links {
   color: #ffffff;
