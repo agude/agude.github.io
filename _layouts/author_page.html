@@ -3,8 +3,9 @@ layout: default
 ---
 
 <div class="author-page">
-  <h1 class="author-title">
+  <h1 class="author-title has-markdown-alt">
     <span class="author-name">{{ page.title }}</span>
+    {% include markdown_alternate_link.html %}
   </h1>
 
   {{ content }}

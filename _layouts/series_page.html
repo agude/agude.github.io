@@ -3,8 +3,9 @@ layout: default
 ---
 
 <div class="series-page">
-  <h1 class="series-title">
+  <h1 class="series-title has-markdown-alt">
     <span class="book-series">{{ page.title }}</span>
+    {% include markdown_alternate_link.html %}
   </h1>
 
   {{ content }}
