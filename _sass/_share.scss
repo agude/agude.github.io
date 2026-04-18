@@ -45,11 +45,21 @@
   }
 }
 
+// Titles that host an inline .markdown-button. Flex centers the icon to
+// the title's line box instead of relying on vertical-align, which
+// anchors to the x-height and sits low next to capital-heavy text.
+.has-markdown-alt {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  flex-wrap: wrap;
+}
+
 // Button linking to the .md alternate of a page. Shares the sidebar-button
 // shape but the Markdown mark uses a stroked rect outline plus a filled
 // glyph, so both fill and stroke need to be painted.
 .markdown-button {
-  width: 2em;
+  width: 2rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
