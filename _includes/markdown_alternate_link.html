@@ -4,12 +4,12 @@
 {% endcomment %}
 {% assign markdown_alternate_href = page | optional: 'markdown_alternate_href' %}
 {% if markdown_alternate_href %}
-<a class="markdown-button"
+<a class="markdown-alt-link"
    href="{{ markdown_alternate_href | absolute_url }}"
    rel="alternate"
    type="text/markdown"
-   title="View Markdown version of this page"
-   aria-label="View Markdown version of this page">
+   title="View the Markdown version of this page">
   {% include icon-markdown.svg %}
+  <span>View as Markdown</span>
 </a>
 {% endif %}

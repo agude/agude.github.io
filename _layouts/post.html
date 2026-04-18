@@ -3,7 +3,8 @@ layout: default
 ---
 
 <article class="post">
-  <h1 class="post-title has-markdown-alt">{{ page.title }} {% include markdown_alternate_link.html %}</h1>
+  <h1 class="post-title">{{ page.title }}</h1>
+  {% include markdown_alternate_link.html %}
   <div class="post-under-title">
   <time datetime="{{ page.date | date_to_xmlschema }}" class="post-date">{{ page.date | date: '%B %d, %Y' }}</time>
 
