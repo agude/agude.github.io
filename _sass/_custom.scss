@@ -1,6 +1,5 @@
 // Use 'variables' and make its members available globally in this file
 @use "variables" as *;
-@use "sass:color";
 
 // Portraits
 .sidebar-portrait {
@@ -271,8 +270,7 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
 
 .backlink-explanation {
   font-size: $small-font-size;
-  // Use a lighter shade of your body color for a muted, consistent look.
-  color: color.adjust($body-color, $lightness: 20%);
+  color: $muted-color;
   margin-top: 1em;
 }
 

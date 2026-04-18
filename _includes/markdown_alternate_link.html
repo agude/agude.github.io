@@ -4,7 +4,7 @@
 {% endcomment %}
 {% assign markdown_alternate_href = page | optional: 'markdown_alternate_href' %}
 {% if markdown_alternate_href %}
-<a class="markdown-alt-link"
+<a class="markdown-alt-link{% if include.standalone %} markdown-alt-link--standalone{% endif %}"
    href="{{ markdown_alternate_href | absolute_url }}"
    rel="alternate"
    type="text/markdown"

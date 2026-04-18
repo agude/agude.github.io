@@ -4,7 +4,7 @@ layout: default
 
 <article class="page">
   <h1 class="page-title">{{ page.title }}</h1>
-  {% include markdown_alternate_link.html %}
+  {% include markdown_alternate_link.html standalone=true %}
 
   {% assign hide_lead = page | optional: 'hide_lead_image' %}
   {% assign image = page | optional: 'image' %}

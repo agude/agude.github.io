@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $root-font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 $code-font-family: "Ubuntu Mono", Menlo, Monaco, Consolas, "Lucida Console", monospace;
 $site-title-font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
@@ -6,6 +8,7 @@ $root-line-height: 1.5;
 
 $body-bg:            white;
 $body-color:         hsl(  0,  0%, 32%);
+$muted-color:        color.adjust($body-color, $lightness: 20%);
 $border-color:       hsl(  0,  0%, 90%);
 $code-color:         hsl(354, 42%, 56%);
 //$link-color:         hsl(205, 69%, 49%);
