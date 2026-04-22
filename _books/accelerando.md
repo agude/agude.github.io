@@ -1,5 +1,5 @@
 ---
-date: 2026-04-21
+date: 2026-04-21 21:51:25 -0700
 title: Accelerando
 book_authors: Charles Stross
 series: null
