@@ -8,18 +8,25 @@
 Example: ../../_books/matter.md
 
 Reads a _books/*.md file, fetches metadata from Wikidata, and writes
-the results (wikidata_qid, isbn, date_published, same_as_urls) directly
-into the file's YAML front matter.
+the results (wikidata_qid, isbn, date_published, awards, same_as_urls)
+directly into the file's YAML front matter.
+
+By default, only adds missing fields. Use --force to overwrite all, or
+--only to refresh specific fields. Never overwrites existing values with
+null (protects manually curated data).
 
 Usage:
     uv run update_book_metadata.py _books/matter.md
     uv run update_book_metadata.py _books/matter.md --qid Q302026
     uv run update_book_metadata.py _books/matter.md --force
+    uv run update_book_metadata.py _books/matter.md --only awards
+    uv run update_book_metadata.py _books/matter.md --only awards,isbn
 """
 
 from __future__ import annotations
 
 import argparse
+import logging
 import re
 import sys
 
@@ -141,6 +148,16 @@ def strip_managed_fields(front_matter: str) -> str:
     return result
 
 
+def _strip_field(front_matter: str, field: str) -> str:
+    """Remove a single field (and any indented continuation) from front matter."""
+    pattern = re.compile(rf"^{field}:.*(?:\n  - .*)*\n?", re.MULTILINE)
+    result = pattern.sub("", front_matter)
+    # Collapse any double newlines left behind.
+    while "\n\n" in result:
+        result = result.replace("\n\n", "\n")
+    return result
+
+
 def format_field(key: str, value) -> str:
     """Format a single field as YAML text."""
     if key == "awards":
@@ -206,18 +223,46 @@ def main() -> None:
         action="store_true",
         help="Overwrite existing fields instead of skipping",
     )
+    parser.add_argument(
+        "--only",
+        help=f"Comma-separated fields to update: {','.join(MANAGED_FIELDS)}",
+    )
+    parser.add_argument(
+        "--verbose", "-v",
+        action="store_true",
+        help="Show retry/backoff messages",
+    )
     args = parser.parse_args()
+
+    if args.verbose:
+        logging.basicConfig(level=logging.DEBUG)
+        logging.getLogger("urllib3").setLevel(logging.DEBUG)
+
+    # Validate --only fields.
+    only_fields: set[str] | None = None
+    if args.only:
+        only_fields = set(args.only.split(","))
+        invalid = only_fields - set(MANAGED_FIELDS)
+        if invalid:
+            print(f"Error: unknown fields: {', '.join(invalid)}", file=sys.stderr)
+            print(f"Valid fields: {', '.join(MANAGED_FIELDS)}", file=sys.stderr)
+            sys.exit(1)
 
     # Parse the file.
     front_matter, closing, body = parse_file(args.file)
     existing = extract_front_matter_keys(front_matter)
 
     # Resolve Q-ID: --qid flag → front matter → search by title.
+    existing_qid = existing.get("wikidata_qid")
     if args.qid:
         qid = args.qid
-    elif existing.get("wikidata_qid"):
-        qid = existing["wikidata_qid"]
+    elif existing_qid and existing_qid != "null":
+        qid = existing_qid
         print(f"Using wikidata_qid from front matter: {qid}", file=sys.stderr)
+    elif only_fields:
+        # Can't fetch specific fields without a Q-ID.
+        print(f"Skipping: no wikidata_qid in {args.file}", file=sys.stderr)
+        return
     else:
         title = existing.get("title", "")
         if not title:
@@ -230,9 +275,17 @@ def main() -> None:
     metadata = fetch_metadata(qid)
 
     # Determine which fields to write.
-    if args.force:
-        fields_to_write = list(MANAGED_FIELDS)
-        front_matter = strip_managed_fields(front_matter)
+    if args.force or only_fields:
+        candidates = list(only_fields) if only_fields else list(MANAGED_FIELDS)
+        # Never overwrite existing non-null values with null.
+        fields_to_write = [
+            f for f in candidates
+            if metadata[f] is not None or f not in existing
+        ]
+        # Strip only the fields we're updating.
+        for field in fields_to_write:
+            if field in existing:
+                front_matter = _strip_field(front_matter, field)
     else:
         fields_to_write = [f for f in MANAGED_FIELDS if f not in existing]
 
@@ -240,12 +293,19 @@ def main() -> None:
         print("All fields already present. Nothing to do.", file=sys.stderr)
         return
 
-    # Build new YAML lines.
+    # Build new YAML lines, filtering out empty results (e.g., awards with no data).
     new_lines = []
+    fields_written = []
     for field in fields_to_write:
         formatted = format_field(field, metadata[field])
         if formatted:
             new_lines.append(formatted)
+            fields_written.append(field)
+
+    if not new_lines:
+        empty_fields = [f for f in fields_to_write if not metadata[f]]
+        print(f"Skipping: no data for {', '.join(empty_fields)}", file=sys.stderr)
+        return
 
     # Ensure front matter ends with exactly one newline before we append.
     front_matter = front_matter.rstrip("\n") + "\n"
@@ -258,20 +318,29 @@ def main() -> None:
         f.write(output)
 
     # Summary.
-    action = "replaced" if args.force else "added"
-    for field in fields_to_write:
+    for field in fields_written:
         val = metadata[field]
+        action = "updated" if field in existing else "added"
         if field == "same_as_urls" and val:
             print(f"  {action}: {field} ({len(val)} URLs)", file=sys.stderr)
         elif field == "awards" and val:
             print(f"  {action}: {field} = {', '.join(val)}", file=sys.stderr)
         else:
-            display = "null" if val is None else val
-            print(f"  {action}: {field} = {display}", file=sys.stderr)
+            print(f"  {action}: {field} = {val}", file=sys.stderr)
 
-    skipped = [f for f in MANAGED_FIELDS if f not in fields_to_write]
-    for field in skipped:
-        print(f"  skipped: {field} (already set)", file=sys.stderr)
+    # Report skipped fields.
+    scope = set(only_fields) if only_fields else set(MANAGED_FIELDS)
+    for field in MANAGED_FIELDS:
+        if field in fields_written:
+            continue
+        if field not in scope:
+            continue  # Not requested via --only.
+        if field in existing and metadata[field] is None:
+            print(f"  skipped: {field} (would overwrite with null)", file=sys.stderr)
+        elif field in existing:
+            print(f"  skipped: {field} (already set)", file=sys.stderr)
+        elif not metadata[field]:
+            print(f"  skipped: {field} (no data from Wikidata)", file=sys.stderr)
 
     print(f"\nUpdated {args.file}", file=sys.stderr)
 
