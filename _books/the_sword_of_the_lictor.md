@@ -6,8 +6,6 @@ series: The Book of the New Sun
 book_number: 3
 rating: 4
 image: /books/covers/the_sword_of_the_lictor.jpg
-awards:
-  - locus
 wikidata_qid: Q3205411
 isbn: 978-0-671-43595-0
 date_published: 1982-01
@@ -18,6 +16,8 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/title.cgi?1063"
   - "https://www.librarything.com/work/100085"
   - "https://www.google.com/search?kgmid=/m/02xgn0j"
+awards:
+  - locus
 ---
 
 {% book_link page.title %} is the third book in {% author_link

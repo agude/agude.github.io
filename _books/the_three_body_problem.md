@@ -6,8 +6,6 @@ series: Remembrance of Earth's Past
 book_number: 1
 rating: 1
 image: /books/covers/the_three_body_problem.jpg
-awards:
-  - hugo
 wikidata_qid: Q607112
 isbn: 978-0-7653-7706-7
 date_published: 2006
@@ -18,6 +16,8 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/title.cgi?1779018"
   - "https://www.librarything.com/work/14831230"
   - "https://www.google.com/search?kgmid=/m/0gkxb4v"
+awards:
+  - hugo
 ---
 
 {% book_link page.title %} was recommended as a exciting, hard-scifi book full

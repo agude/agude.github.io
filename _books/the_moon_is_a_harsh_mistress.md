@@ -7,9 +7,6 @@ book_number: 1
 is_anthology: false
 rating: 3
 image: /books/covers/the_moon_is_a_harsh_mistress.jpg
-awards:
-  - hugo
-  - prometheus hall of fame
 wikidata_qid: Q1410482
 isbn: 978-0-425-01601-5
 date_published: 1966-06-02
@@ -20,6 +17,9 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/title.cgi?1502"
   - "https://www.librarything.com/work/7930"
   - "https://www.google.com/search?kgmid=/m/0f18s"
+awards:
+  - hugo
+  - prometheus hall of fame
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

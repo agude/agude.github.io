@@ -6,8 +6,6 @@ series: Cheela
 book_number: 1
 rating: 4
 image: /books/covers/dragons_egg.jpg
-awards:
-  - locus
 wikidata_qid: Q3205839
 isbn: 978-0-345-28646-8
 date_published: 1980-05
@@ -18,6 +16,8 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/title.cgi?6773"
   - "https://www.librarything.com/work/94939"
   - "https://www.google.com/search?kgmid=/m/0b_n9k"
+awards:
+  - locus
 ---
 
 {% book_link page.title %} is a hard sci-fi novel by <span

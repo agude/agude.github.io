@@ -3,14 +3,41 @@
 
 from __future__ import annotations
 
-import json
+import logging
 import sys
-import urllib.error
 import urllib.parse
-import urllib.request
+
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
+log = logging.getLogger(__name__)
 
 WIKIDATA_API = "https://www.wikidata.org/w/api.php"
+SPARQL_ENDPOINT = "https://query.wikidata.org/sparql"
 USER_AGENT = "alexgude-blog-scripts/0.1 (wikidata metadata fetcher)"
+
+# Shared session with retry/backoff configuration.
+_session: requests.Session | None = None
+
+
+def _get_session() -> requests.Session:
+    """Return a shared requests session with retry configuration."""
+    global _session
+    if _session is None:
+        log.debug("Creating new requests session with retry config")
+        _session = requests.Session()
+        _session.headers["User-Agent"] = USER_AGENT
+        retry = Retry(
+            total=3,
+            backoff_factor=1,
+            status_forcelist=[429, 500, 502, 503, 504],
+            respect_retry_after_header=True,
+        )
+        adapter = HTTPAdapter(max_retries=retry)
+        _session.mount("https://", adapter)
+    return _session
+
 
 # Characters that require quoting in YAML scalar values.
 _YAML_SPECIAL = set(": # ' \" [ ] { } , & * ? | > ! %".split())
@@ -32,24 +59,35 @@ def yaml_quoted(value: str) -> str:
 def api_get(params: dict[str, str]) -> dict:
     """Make a GET request to the Wikidata API and return parsed JSON."""
     params["format"] = "json"
-    url = f"{WIKIDATA_API}?{urllib.parse.urlencode(params)}"
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    log.debug("API request: %s", params.get("action", params))
     try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            return json.loads(resp.read().decode())
-    except urllib.error.HTTPError as exc:
-        print(f"Wikidata API returned HTTP {exc.code}: {exc.reason}", file=sys.stderr)
+        resp = _get_session().get(WIKIDATA_API, params=params, timeout=15)
+        resp.raise_for_status()
+        return resp.json()
+    except requests.RequestException as exc:
+        log.error("Wikidata API request failed: %s", exc)
         sys.exit(1)
-    except urllib.error.URLError as exc:
-        print(f"Failed to reach Wikidata API: {exc.reason}", file=sys.stderr)
-        sys.exit(1)
-    except json.JSONDecodeError:
-        print("Wikidata API returned invalid JSON", file=sys.stderr)
-        sys.exit(1)
+
+
+def sparql_query(query: str) -> list[dict]:
+    """Run a SPARQL query against Wikidata and return the result bindings."""
+    log.debug("SPARQL query: %s...", query[:80])
+    try:
+        resp = _get_session().get(
+            SPARQL_ENDPOINT,
+            params={"query": query, "format": "json"},
+            timeout=30,
+        )
+        resp.raise_for_status()
+        return resp.json().get("results", {}).get("bindings", [])
+    except requests.RequestException as exc:
+        log.error("SPARQL query failed: %s", exc)
+        return []
 
 
 def search_entity(name: str) -> str | None:
     """Search Wikidata for an entity by name. Return the Q-ID or None."""
+    log.debug("Searching for entity: %s", name)
     data = api_get(
         {
             "action": "wbsearchentities",
@@ -78,12 +116,13 @@ def search_entity(name: str) -> str | None:
         idx = 0
 
     qid = results[idx]["id"]
-    print(f"\nUsing: {qid} ({results[idx].get('label', '')})\n", file=sys.stderr)
+    log.info("Selected entity: %s (%s)", qid, results[idx].get("label", ""))
     return qid
 
 
 def fetch_entity(qid: str) -> dict:
     """Fetch a Wikidata entity by Q-ID."""
+    log.debug("Fetching entity: %s", qid)
     data = api_get(
         {
             "action": "wbgetentities",
@@ -164,23 +203,25 @@ def extract_same_as_urls(
                 urls.append(template.format(value=value))
 
     # Deduplicate while preserving order
+    log.debug("Extracted %d sameAs URLs", len(urls))
     return list(dict.fromkeys(urls))
 
 
-SPARQL_ENDPOINT = "https://query.wikidata.org/sparql"
-
-
-def sparql_query(query: str) -> list[dict]:
-    """Run a SPARQL query against Wikidata and return the result bindings."""
-    url = f"{SPARQL_ENDPOINT}?{urllib.parse.urlencode({'query': query, 'format': 'json'})}"
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            data = json.loads(resp.read().decode())
-        return data.get("results", {}).get("bindings", [])
-    except (urllib.error.URLError, json.JSONDecodeError, TimeoutError) as exc:
-        print(f"SPARQL query failed: {exc}", file=sys.stderr)
-        return []
+# Award family Q-IDs mapped to tag slugs. Specific awards (e.g., "Hugo Award
+# for Best Novel") link to these parents via P361 (part of) or P279 (subclass).
+AWARD_FAMILIES: dict[str, str] = {
+    "Q188914": "hugo",
+    "Q194285": "nebula",
+    "Q754655": "locus",
+    #"Q594886": "world_fantasy",
+    #"Q787680": "bsfa",
+    #"Q708830": "clarke",
+    #"Q582610": "sturgeon",
+    #"Q1030402": "campbell",
+    #"Q142392": "prometheus",
+    #"Q6418326": "kitschies",
+    #"Q5157154": "compton_crook",
+}
 
 
 def get_earliest_edition_isbn(work_qid: str) -> str | None:
@@ -200,7 +241,10 @@ def get_earliest_edition_isbn(work_qid: str) -> str | None:
             edition_qids.append(qid)
 
     if not edition_qids:
+        log.debug("No editions found for %s", work_qid)
         return None
+
+    log.debug("Checking %d editions for ISBN", len(edition_qids))
 
     # Fetch editions in batches of 50 (API limit).
     for i in range(0, len(edition_qids), 50):
@@ -218,6 +262,7 @@ def get_earliest_edition_isbn(work_qid: str) -> str | None:
                 entity, "P957"
             )
             if isbn_list:
+                log.debug("Found ISBN %s in edition %s", isbn_list[0], qid)
                 return isbn_list[0]
 
     return None
@@ -230,6 +275,73 @@ def resolve_qid(arg: str) -> str:
 
     qid = search_entity(arg)
     if qid is None:
-        print(f"No Wikidata entity found for: {arg}", file=sys.stderr)
+        log.error("No Wikidata entity found for: %s", arg)
         sys.exit(1)
     return qid
+
+
+def _resolve_award_family(award_qid: str, seen: set[str] | None = None) -> str | None:
+    """Resolve an award Q-ID to a family slug by traversing the hierarchy.
+
+    Follows P361 (part of) and P279 (subclass of) up to 5 levels to find
+    a known award family. Returns None if no family is found.
+    """
+    if seen is None:
+        seen = set()
+
+    if award_qid in seen or len(seen) > 5:
+        log.debug("Award hierarchy limit reached for %s", award_qid)
+        return None
+    seen.add(award_qid)
+
+    if award_qid in AWARD_FAMILIES:
+        log.debug("Resolved %s to family %s", award_qid, AWARD_FAMILIES[award_qid])
+        return AWARD_FAMILIES[award_qid]
+
+    entity = fetch_entity(award_qid)
+    claims = entity.get("claims", {})
+
+    for prop in ("P361", "P279"):
+        for claim in claims.get(prop, []):
+            parent_qid = claim.get("mainsnak", {}).get("datavalue", {}).get("value", {}).get("id")
+            if parent_qid:
+                log.debug("Traversing %s -> %s via %s", award_qid, parent_qid, prop)
+                result = _resolve_award_family(parent_qid, seen)
+                if result:
+                    return result
+
+    return None
+
+
+def fetch_awards(book_qid: str) -> list[str]:
+    """Fetch award slugs for a book from Wikidata.
+
+    Queries P166 (award received) and resolves each to a known award family.
+    Returns a sorted, deduplicated list of award slugs.
+    """
+    log.debug("Fetching awards for %s", book_qid)
+    entity = fetch_entity(book_qid)
+    claims = entity.get("claims", {})
+    award_claims = claims.get("P166", [])
+
+    if not award_claims:
+        log.debug("No awards (P166) found for %s", book_qid)
+        return []
+
+    log.debug("Found %d award claims", len(award_claims))
+
+    slugs: set[str] = set()
+    for claim in award_claims:
+        award_qid = claim.get("mainsnak", {}).get("datavalue", {}).get("value", {}).get("id")
+        if not award_qid:
+            continue
+
+        slug = _resolve_award_family(award_qid)
+        if slug:
+            slugs.add(slug)
+        else:
+            label = fetch_entity(award_qid).get("labels", {}).get("en", {}).get("value", award_qid)
+            log.info("Unknown award family: %s (%s)", label, award_qid)
+
+    log.debug("Resolved awards: %s", sorted(slugs))
+    return sorted(slugs)

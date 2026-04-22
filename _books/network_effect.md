@@ -15,6 +15,10 @@ same_as_urls:
   - "https://openlibrary.org/works/OL20735675W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2717735"
   - "https://www.librarything.com/work/22627423"
+awards:
+  - hugo
+  - locus
+  - nebula
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

@@ -6,8 +6,6 @@ series: Hyperion Cantos
 book_number: 2
 rating: 5
 image: /books/covers/the_fall_of_hyperion.jpg
-awards:
-  - locus
 wikidata_qid: Q2362526
 isbn: 978-0-385-26747-2
 date_published: 1990-03
@@ -18,6 +16,8 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/title.cgi?1970"
   - "https://www.librarything.com/work/2592013"
   - "https://www.google.com/search?kgmid=/m/039kff"
+awards:
+  - locus
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

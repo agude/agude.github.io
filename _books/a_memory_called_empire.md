@@ -6,8 +6,6 @@ series: Teixcalaan
 book_number: 1
 rating: 4
 image: /books/covers/a_memory_called_empire.jpg
-awards:
-  - hugo
 wikidata_qid: Q82566838
 isbn: 978-1-250-18643-0
 date_published: 2019-03-26
@@ -17,6 +15,8 @@ same_as_urls:
   - "https://openlibrary.org/works/OL20157046W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2500310"
   - "https://www.librarything.com/work/21852517"
+awards:
+  - hugo
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

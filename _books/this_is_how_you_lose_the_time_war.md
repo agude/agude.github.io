@@ -7,10 +7,6 @@ book_authors:
 book_number: 1
 rating: 2
 image: /books/covers/this_is_how_you_lose_the_time_war.jpg
-awards:
-  - hugo
-  - locus
-  - nebula
 wikidata_qid: Q73742845
 isbn: 978-1-5344-3100-3
 date_published: 2019-07-16
@@ -20,6 +16,10 @@ same_as_urls:
   - "https://openlibrary.org/works/OL20639540W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2567153"
   - "https://www.librarything.com/work/21713349"
+awards:
+  - hugo
+  - locus
+  - nebula
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors[0] link=false

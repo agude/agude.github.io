@@ -6,8 +6,6 @@ series: Zones of Thought
 book_number: 1
 rating: 5
 image: /books/covers/a_fire_upon_the_deep.jpg
-awards:
-  - hugo
 wikidata_qid: Q58221164
 isbn: 978-0-312-85182-8
 date_published: 1992-04
@@ -18,6 +16,8 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/title.cgi?1952"
   - "https://www.librarything.com/work/18501"
   - "https://www.google.com/search?kgmid=/m/0wkt"
+awards:
+  - hugo
 ---
 
 {% book_link page.title %} is a sci-fi novel by {% author_link
