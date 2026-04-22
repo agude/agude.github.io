@@ -1,11 +1,11 @@
 ---
-date: 2026-04-05
+date: 2026-04-21
 title: Accelerando
 book_authors: Charles Stross
 series: null
 book_number: 1
 is_anthology: false
-rating: null
+rating: 2
 image: /books/covers/accelerando.jpg
 wikidata_qid: Q2300209
 isbn: 978-0-441-01284-8
