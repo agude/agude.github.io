@@ -26,6 +26,7 @@ from fetch_book_metadata import BOOK_PROPERTY_MAP
 from wikidata_utils import (
     api_get,
     extract_same_as_urls,
+    fetch_awards,
     fetch_entity,
     get_claim_strings,
     get_claim_time,
@@ -82,7 +83,7 @@ def search_book_entity(title: str, author: str) -> str:
 
 
 # Fields this script manages, in output order.
-MANAGED_FIELDS = ("wikidata_qid", "isbn", "date_published", "same_as_urls")
+MANAGED_FIELDS = ("wikidata_qid", "isbn", "date_published", "awards", "same_as_urls")
 
 # Regex to match a managed field and any indented continuation lines
 # (e.g. same_as_urls list items).
@@ -141,6 +142,14 @@ def strip_managed_fields(front_matter: str) -> str:
 
 def format_field(key: str, value) -> str:
     """Format a single field as YAML text."""
+    if key == "awards":
+        if not value:
+            return ""
+        lines = [f"{key}:"]
+        for award in value:
+            lines.append(f"  - {award}")
+        return "\n".join(lines)
+
     if value is None:
         return f"{key}: null"
 
@@ -170,6 +179,9 @@ def fetch_metadata(qid: str) -> dict:
     # Publication date
     date_published = get_claim_time(entity, "P577")
 
+    # Awards
+    awards = fetch_awards(qid)
+
     # sameAs URLs
     urls = extract_same_as_urls(entity, qid, BOOK_PROPERTY_MAP)
 
@@ -177,6 +189,7 @@ def fetch_metadata(qid: str) -> dict:
         "wikidata_qid": qid,
         "isbn": isbn,
         "date_published": date_published,
+        "awards": awards if awards else None,
         "same_as_urls": urls if urls else None,
     }
 
@@ -229,7 +242,9 @@ def main() -> None:
     # Build new YAML lines.
     new_lines = []
     for field in fields_to_write:
-        new_lines.append(format_field(field, metadata[field]))
+        formatted = format_field(field, metadata[field])
+        if formatted:
+            new_lines.append(formatted)
 
     # Ensure front matter ends with exactly one newline before we append.
     front_matter = front_matter.rstrip("\n") + "\n"
@@ -247,6 +262,8 @@ def main() -> None:
         val = metadata[field]
         if field == "same_as_urls" and val:
             print(f"  {action}: {field} ({len(val)} URLs)", file=sys.stderr)
+        elif field == "awards" and val:
+            print(f"  {action}: {field} = {', '.join(val)}", file=sys.stderr)
         else:
             display = "null" if val is None else val
             print(f"  {action}: {field} = {display}", file=sys.stderr)

@@ -167,6 +167,22 @@ def extract_same_as_urls(
     return list(dict.fromkeys(urls))
 
 
+# Award family Q-IDs mapped to tag slugs. Specific awards (e.g., "Hugo Award
+# for Best Novel") link to these parents via P361 (part of) or P279 (subclass).
+AWARD_FAMILIES: dict[str, str] = {
+    "Q188914": "hugo",
+    "Q194285": "nebula",
+    "Q754655": "locus",
+    "Q594886": "world_fantasy",
+    "Q787680": "bsfa",
+    "Q708830": "clarke",
+    "Q582610": "sturgeon",
+    "Q1030402": "campbell",
+    "Q142392": "prometheus",
+    "Q6418326": "kitschies",
+    "Q5157154": "compton_crook",
+}
+
 SPARQL_ENDPOINT = "https://query.wikidata.org/sparql"
 
 
@@ -233,3 +249,59 @@ def resolve_qid(arg: str) -> str:
         print(f"No Wikidata entity found for: {arg}", file=sys.stderr)
         sys.exit(1)
     return qid
+
+
+def _resolve_award_family(award_qid: str, seen: set[str] | None = None) -> str | None:
+    """Resolve an award Q-ID to a family slug by traversing the hierarchy.
+
+    Follows P361 (part of) and P279 (subclass of) up to 5 levels to find
+    a known award family. Returns None if no family is found.
+    """
+    if seen is None:
+        seen = set()
+
+    if award_qid in seen or len(seen) > 5:
+        return None
+    seen.add(award_qid)
+
+    if award_qid in AWARD_FAMILIES:
+        return AWARD_FAMILIES[award_qid]
+
+    entity = fetch_entity(award_qid)
+    claims = entity.get("claims", {})
+
+    for prop in ("P361", "P279"):
+        for claim in claims.get(prop, []):
+            parent_qid = claim.get("mainsnak", {}).get("datavalue", {}).get("value", {}).get("id")
+            if parent_qid:
+                result = _resolve_award_family(parent_qid, seen)
+                if result:
+                    return result
+
+    return None
+
+
+def fetch_awards(book_qid: str) -> list[str]:
+    """Fetch award slugs for a book from Wikidata.
+
+    Queries P166 (award received) and resolves each to a known award family.
+    Returns a sorted, deduplicated list of award slugs.
+    """
+    entity = fetch_entity(book_qid)
+    claims = entity.get("claims", {})
+    award_claims = claims.get("P166", [])
+
+    slugs: set[str] = set()
+    for claim in award_claims:
+        award_qid = claim.get("mainsnak", {}).get("datavalue", {}).get("value", {}).get("id")
+        if not award_qid:
+            continue
+
+        slug = _resolve_award_family(award_qid)
+        if slug:
+            slugs.add(slug)
+        else:
+            label = fetch_entity(award_qid).get("labels", {}).get("en", {}).get("value", award_qid)
+            print(f"  Unknown award family: {label} ({award_qid})", file=sys.stderr)
+
+    return sorted(slugs)
