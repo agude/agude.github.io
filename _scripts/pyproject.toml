@@ -8,4 +8,4 @@ dev = ["pytest", "pyyaml", "requests", "isbnlib"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["content", "diagnostics", "metadata", "ranking", "../.claude/skills/stub-book/scripts"]
+pythonpath = ["content", "diagnostics", "metadata", "ranking", "skills"]
