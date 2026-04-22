@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # /// script
 # requires-python = ">=3.10"
+# dependencies = ["requests"]
 # ///
 """Fetch book metadata from Wikidata for book review front matter.
 

@@ -3,14 +3,37 @@
 
 from __future__ import annotations
 
-import json
 import sys
-import urllib.error
 import urllib.parse
-import urllib.request
+
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 WIKIDATA_API = "https://www.wikidata.org/w/api.php"
+SPARQL_ENDPOINT = "https://query.wikidata.org/sparql"
 USER_AGENT = "alexgude-blog-scripts/0.1 (wikidata metadata fetcher)"
+
+# Shared session with retry/backoff configuration.
+_session: requests.Session | None = None
+
+
+def _get_session() -> requests.Session:
+    """Return a shared requests session with retry configuration."""
+    global _session
+    if _session is None:
+        _session = requests.Session()
+        _session.headers["User-Agent"] = USER_AGENT
+        retry = Retry(
+            total=3,
+            backoff_factor=1,
+            status_forcelist=[429, 500, 502, 503, 504],
+            respect_retry_after_header=True,
+        )
+        adapter = HTTPAdapter(max_retries=retry)
+        _session.mount("https://", adapter)
+    return _session
+
 
 # Characters that require quoting in YAML scalar values.
 _YAML_SPECIAL = set(": # ' \" [ ] { } , & * ? | > ! %".split())
@@ -32,20 +55,28 @@ def yaml_quoted(value: str) -> str:
 def api_get(params: dict[str, str]) -> dict:
     """Make a GET request to the Wikidata API and return parsed JSON."""
     params["format"] = "json"
-    url = f"{WIKIDATA_API}?{urllib.parse.urlencode(params)}"
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            return json.loads(resp.read().decode())
-    except urllib.error.HTTPError as exc:
-        print(f"Wikidata API returned HTTP {exc.code}: {exc.reason}", file=sys.stderr)
+        resp = _get_session().get(WIKIDATA_API, params=params, timeout=15)
+        resp.raise_for_status()
+        return resp.json()
+    except requests.RequestException as exc:
+        print(f"Wikidata API request failed: {exc}", file=sys.stderr)
         sys.exit(1)
-    except urllib.error.URLError as exc:
-        print(f"Failed to reach Wikidata API: {exc.reason}", file=sys.stderr)
-        sys.exit(1)
-    except json.JSONDecodeError:
-        print("Wikidata API returned invalid JSON", file=sys.stderr)
-        sys.exit(1)
+
+
+def sparql_query(query: str) -> list[dict]:
+    """Run a SPARQL query against Wikidata and return the result bindings."""
+    try:
+        resp = _get_session().get(
+            SPARQL_ENDPOINT,
+            params={"query": query, "format": "json"},
+            timeout=30,
+        )
+        resp.raise_for_status()
+        return resp.json().get("results", {}).get("bindings", [])
+    except requests.RequestException as exc:
+        print(f"SPARQL query failed: {exc}", file=sys.stderr)
+        return []
 
 
 def search_entity(name: str) -> str | None:
@@ -182,21 +213,6 @@ AWARD_FAMILIES: dict[str, str] = {
     "Q6418326": "kitschies",
     "Q5157154": "compton_crook",
 }
-
-SPARQL_ENDPOINT = "https://query.wikidata.org/sparql"
-
-
-def sparql_query(query: str) -> list[dict]:
-    """Run a SPARQL query against Wikidata and return the result bindings."""
-    url = f"{SPARQL_ENDPOINT}?{urllib.parse.urlencode({'query': query, 'format': 'json'})}"
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            data = json.loads(resp.read().decode())
-        return data.get("results", {}).get("bindings", [])
-    except (urllib.error.URLError, json.JSONDecodeError, TimeoutError) as exc:
-        print(f"SPARQL query failed: {exc}", file=sys.stderr)
-        return []
 
 
 def get_earliest_edition_isbn(work_qid: str) -> str | None:
