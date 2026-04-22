@@ -6,9 +6,6 @@ series: Hainish Cycle
 book_number: 4
 rating: 3
 image: /books/covers/the_left_hand_of_darkness.jpg
-awards:
-  - hugo
-  - nebula
 wikidata_qid: Q2008211
 isbn: 978-0-356-02947-4
 date_published: 1969-03
@@ -20,6 +17,9 @@ same_as_urls:
   - "https://www.britannica.com/topic/The-Left-Hand-of-Darkness"
   - "https://www.librarything.com/work/23117"
   - "https://www.google.com/search?kgmid=/m/07l1r"
+awards:
+  - hugo
+  - nebula
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

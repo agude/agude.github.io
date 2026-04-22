@@ -6,8 +6,6 @@ series: Hyperion Cantos
 book_number: 4
 rating: 3
 image: /books/covers/the_rise_of_endymion.jpg
-awards:
-  - locus
 wikidata_qid: Q2521688
 isbn: 978-0-553-10652-7
 date_published: 1997-09
@@ -18,6 +16,8 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/title.cgi?12"
   - "https://www.librarything.com/work/23096"
   - "https://www.google.com/search?kgmid=/m/027cd0f"
+awards:
+  - locus
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

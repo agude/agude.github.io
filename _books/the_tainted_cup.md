@@ -6,8 +6,6 @@ series: Shadow of the Leviathan
 book_number: 1
 rating: 4
 image: /books/covers/the_tainted_cup.jpg
-awards:
-  - hugo
 wikidata_qid: Q133842917
 isbn: 978-1-9848-2070-9
 date_published: 2024-02-06
@@ -17,6 +15,8 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/title.cgi?3267240"
   - "https://www.librarything.com/work/30597048"
   - "https://www.google.com/search?kgmid=/g/11v02xhtt7"
+awards:
+  - hugo
 ---
 
 {% book_link page.title %} is a fantasy detective novel set in a world where

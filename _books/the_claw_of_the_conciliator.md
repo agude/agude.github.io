@@ -6,9 +6,6 @@ series: The Book of the New Sun
 book_number: 2
 rating: 3
 image: /books/covers/the_claw_of_the_conciliator.jpg
-awards:
-  - nebula
-  - locus
 wikidata_qid: Q3209610
 isbn: 978-0-671-41370-5
 date_published: 1981-03
@@ -19,6 +16,9 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/title.cgi?2225"
   - "https://www.librarything.com/work/99856"
   - "https://www.google.com/search?kgmid=/m/02xgm_x"
+awards:
+  - locus
+  - nebula
 ---
 
 {% book_link page.title %} is the second book in {% author_link

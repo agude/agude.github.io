@@ -7,8 +7,6 @@ book_number: 1
 is_anthology: true
 rating: 4
 image: /books/covers/a_canticle_for_leibowitz.jpg
-awards:
-  - hugo
 wikidata_qid: Q1659714
 isbn: 978-0-553-27381-6
 date_published: 1959-10
@@ -20,6 +18,8 @@ same_as_urls:
   - "https://www.britannica.com/topic/A-Canticle-for-Leibowitz"
   - "https://www.librarything.com/work/48053"
   - "https://www.google.com/search?kgmid=/m/01bvdl"
+awards:
+  - hugo
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

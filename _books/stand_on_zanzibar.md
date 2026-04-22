@@ -6,8 +6,6 @@ series: null
 book_number: 1
 rating: 1
 image: /books/covers/stand_on_zanzibar.jpg
-awards:
-  - hugo
 wikidata_qid: Q1416458
 isbn: 978-0-356-02625-1
 date_published: 1968-09
@@ -18,6 +16,8 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/title.cgi?1149"
   - "https://www.librarything.com/work/21041"
   - "https://www.google.com/search?kgmid=/m/01yy_9"
+awards:
+  - hugo
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
