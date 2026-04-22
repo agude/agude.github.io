@@ -213,14 +213,14 @@ AWARD_FAMILIES: dict[str, str] = {
     "Q188914": "hugo",
     "Q194285": "nebula",
     "Q754655": "locus",
-    "Q594886": "world_fantasy",
-    "Q787680": "bsfa",
-    "Q708830": "clarke",
-    "Q582610": "sturgeon",
-    "Q1030402": "campbell",
-    "Q142392": "prometheus",
-    "Q6418326": "kitschies",
-    "Q5157154": "compton_crook",
+    #"Q594886": "world_fantasy",
+    #"Q787680": "bsfa",
+    #"Q708830": "clarke",
+    #"Q582610": "sturgeon",
+    #"Q1030402": "campbell",
+    #"Q142392": "prometheus",
+    #"Q6418326": "kitschies",
+    #"Q5157154": "compton_crook",
 }
 
 
