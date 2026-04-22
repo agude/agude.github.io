@@ -36,87 +36,65 @@ If the user did not provide a QID, search for one:
 cd _scripts/metadata && uv run fetch_book_metadata.py "Book Title"
 ```
 
-The script prints numbered search results to stderr and picks the first
-match by default. **Read the results carefully.** Look for the entry
-described as the original novel/work, not a specific edition or
-translation.
+The script prints numbered search results to stderr. **Read the results
+carefully.** Look for the entry described as the original novel/work, not
+a specific edition or translation.
 
 - If the top result is wrong (e.g., a 2000 Baen edition instead of the
-  1993 original novel), note the correct QID from the list and pass it
-  to `--qid` in step 3. There is no need to re-run the search script;
-  the QID is all the stub script needs.
+  1993 original novel), note the correct QID from the list.
 - If the results are all wrong or empty, the book has no Wikidata entry.
   Proceed to step 3 without a QID.
 
-### 3. Build the Front Matter and Opening
+### 3. Run the Stub Script
 
-You are responsible for composing these two pieces. The script
-(`stub_book.py`) is a mechanical assembler — it does not make content
-decisions.
-
-#### Front matter
-
-Build a YAML block (without `---` delimiters) containing these fields:
-
-```yaml
-date: <today, YYYY-MM-DD>
-title: <title>
-book_authors: <author>
-series: <series name or null>
-book_number: <number, use 1 for standalone>
-is_anthology: false
-rating: null
-image: /books/covers/<snake_case_title>.jpg
-```
-
-#### Opening paragraph
-
-Write a one-line Liquid opening. Examples by case:
-
-- **Series with number:**
-  `{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is the second book in {% series_text page.series link=false %}.`
-- **Series without number:**
-  `{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is a book in {% series_text page.series link=false %}.`
-- **Standalone:**
-  `{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is ...`
-
-### 4. Run the Stub Script
-
-The script at `scripts/stub_book.py` (relative to this skill) reads
-`_books/_template/book_template.md`, replaces sentinel comments with the
-values you provide, and writes the result.
+The script at `scripts/stub_book.py` (relative to this skill) generates
+front matter and the opening paragraph from simple arguments.
 
 Run from the **project root**:
 
 ```bash
+# Standalone book
 uv run .claude/skills/stub-book/scripts/stub_book.py \
-    --front-matter "date: 2025-01-15
-title: The Honor of the Queen
-book_authors: David Weber
-series: Honor Harrington
-book_number: 2
-is_anthology: false
-rating: null
-image: /books/covers/the_honor_of_the_queen.jpg" \
-    --opening "{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is the second book in {% series_text page.series link=false %}." \
-    --series \
-    --qid Q3400447 \
-    --output _books/the_honor_of_the_queen.md
+    --title "Ubik" \
+    --author "Philip K. Dick" \
+    --qid Q617357
+
+# Series book
+uv run .claude/skills/stub-book/scripts/stub_book.py \
+    --title "The Honor of the Queen" \
+    --author "David Weber" \
+    --series "Honor Harrington" \
+    --book-number 2 \
+    --qid Q3400447
 ```
 
 **Flags:**
 
 | Flag | Purpose |
 |---|---|
-| `--front-matter` | YAML content (no `---` delimiters). Required. |
-| `--opening` | Opening paragraph with Liquid tags. Required. |
-| `--series` | Include the `this_series` capture block. Omit for standalone books. |
-| `--qid` | Wikidata Q-ID. Fetches `isbn`, `date_published`, `same_as_urls` and appends them to the front matter. |
-| `--output` / `-o` | Write to file. Omit to print to stdout. |
+| `--title` | Book title. Required. |
+| `--author` | Author name. Required. |
+| `--series` | Series name. Omit for standalone books. |
+| `--book-number` | Position in series (default: 1). |
+| `--qid` | Wikidata Q-ID (stored for enrichment in step 4). |
+| `--output` / `-o` | Output path (default: `_books/<slug>.md`). |
+
+### 4. Update Metadata
+
+Run the metadata update script to fetch all Wikidata data:
+
+```bash
+cd _scripts/metadata && uv run update_book_metadata.py /path/to/_books/book.md
+```
+
+This script:
+- Fetches ISBN, publication date, and `same_as_urls` from Wikidata
+- Fetches Hugo, Nebula, and Locus awards
+- Updates the file in place
 
 ### 5. Post-Processing
 
-After the script runs, check for issues that need manual fixes:
+After the scripts run, check for issues that need manual fixes:
 
 #### Refine `date_published`
 
