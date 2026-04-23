@@ -1,204 +1,175 @@
-"""Tests for .claude/skills/stub-book/scripts/stub_book.py pure functions."""
+"""Tests for skills/stub_book.py pure functions."""
 
-from unittest.mock import patch
-import subprocess
-
-import yaml
-
-from stub_book import (
-    build_front_matter,
-    build_opening,
-    fetch_metadata,
-    ordinal,
-    snake_case,
-)
+from stub_book import build_front_matter, build_opening, build_template, number_word, ordinal, slugify
 
 
-def parse_front_matter(text: str) -> dict:
-    """Extract and parse YAML from between --- delimiters."""
-    parts = text.split("---")
-    # parts[0] is empty (before first ---), parts[1] is the YAML content
-    return yaml.safe_load(parts[1])
-
-
-class TestSnakeCase:
+class TestSlugify:
     def test_simple_title(self):
-        assert snake_case("Hyperion") == "hyperion"
+        assert slugify("Hyperion") == "hyperion"
 
     def test_multi_word(self):
-        assert snake_case("The Honor of the Queen") == "the_honor_of_the_queen"
+        assert slugify("The Honor of the Queen") == "the_honor_of_the_queen"
 
     def test_apostrophe_stripped(self):
-        assert snake_case("Ender's Game") == "enders_game"
+        assert slugify("Ender's Game") == "enders_game"
 
     def test_colon_stripped(self):
-        assert snake_case("Star Wars: A New Hope") == "star_wars_a_new_hope"
+        assert slugify("Star Wars: A New Hope") == "star_wars_a_new_hope"
 
     def test_leading_trailing_whitespace(self):
-        assert snake_case("  Dune  ") == "dune"
+        assert slugify("  Dune  ") == "dune"
 
     def test_multiple_spaces_collapsed(self):
-        assert snake_case("The   Long    Way") == "the_long_way"
+        assert slugify("The   Long    Way") == "the_long_way"
 
     def test_unicode_preserved(self):
-        assert snake_case("Tête-à-Tête") == "têteàtête"
+        assert slugify("Tête-à-Tête") == "tête_à_tête"
+        assert slugify("José García") == "josé_garcía"
 
 
 class TestOrdinal:
-    def test_first_through_third(self):
-        assert ordinal(1) == "first"
-        assert ordinal(2) == "second"
-        assert ordinal(3) == "third"
+    def test_first_three(self):
+        assert ordinal(1) == "1st"
+        assert ordinal(2) == "2nd"
+        assert ordinal(3) == "3rd"
 
-    def test_spelled_out_up_to_twelve(self):
-        assert ordinal(10) == "tenth"
-        assert ordinal(12) == "twelfth"
-
-    def test_thirteen_uses_suffix(self):
-        assert ordinal(13) == "13th"
+    def test_fourth_through_tenth(self):
+        assert ordinal(4) == "4th"
+        assert ordinal(10) == "10th"
 
     def test_teens_use_th(self):
-        assert ordinal(11) == "eleventh"  # spelled out
-        assert ordinal(14) == "14th"
+        assert ordinal(11) == "11th"
+        assert ordinal(12) == "12th"
+        assert ordinal(13) == "13th"
 
     def test_twenty_first(self):
         assert ordinal(21) == "21st"
-
-    def test_twenty_second(self):
         assert ordinal(22) == "22nd"
-
-    def test_twenty_third(self):
         assert ordinal(23) == "23rd"
-
-    def test_twenty_fourth(self):
         assert ordinal(24) == "24th"
 
-    def test_hundred_eleventh(self):
-        # 111 should use "th" (teen exception applies to mod 100)
+    def test_hundred_eleven_through_thirteen(self):
         assert ordinal(111) == "111th"
-
-    def test_hundred_twelve(self):
         assert ordinal(112) == "112th"
-
-    def test_hundred_thirteen(self):
         assert ordinal(113) == "113th"
 
     def test_hundred_twenty_one(self):
         assert ordinal(121) == "121st"
 
-    def test_large_number(self):
-        assert ordinal(1000) == "1000th"
+
+class TestNumberWord:
+    def test_first_ten_spelled_out(self):
+        assert number_word(1) == "first"
+        assert number_word(2) == "second"
+        assert number_word(3) == "third"
+        assert number_word(10) == "tenth"
+
+    def test_above_ten_uses_ordinal(self):
+        assert number_word(11) == "11th"
+        assert number_word(21) == "21st"
 
 
 class TestBuildFrontMatter:
-    def test_minimal_no_metadata(self):
+    def test_standalone_book(self):
         result = build_front_matter(
-            title="Some Book",
-            author="Some Author",
+            title="Ubik",
+            author="Philip K. Dick",
             series=None,
-            book_number=None,
-            qid=None,
-            metadata={},
-        )
-        parsed = parse_front_matter(result)
-        assert parsed["title"] == "Some Book"
-        assert parsed["book_authors"] == "Some Author"
-        assert parsed["series"] is None
-        assert parsed["book_number"] is None
-        assert parsed["rating"] is None
-        assert parsed["image"] == "/books/covers/some_book.jpg"
-        assert "wikidata_qid" not in parsed
-        assert "isbn" not in parsed
-
-    def test_with_qid_and_metadata(self):
-        result = build_front_matter(
-            title="Hyperion",
-            author="Dan Simmons",
-            series="Hyperion Cantos",
             book_number=1,
-            qid="Q302026",
-            metadata={
-                "isbn": "978-0-553-28368-3",
-                "date_published": "1989-05",
-                "same_as_urls": [
-                    "https://www.wikidata.org/wiki/Q302026",
-                    "https://en.wikipedia.org/wiki/Hyperion_(Simmons_novel)",
-                ],
-            },
-        )
-        parsed = parse_front_matter(result)
-        assert parsed["wikidata_qid"] == "Q302026"
-        assert parsed["isbn"] == "978-0-553-28368-3"
-        assert parsed["date_published"] == "1989-05"
-        assert len(parsed["same_as_urls"]) == 2
-
-    def test_front_matter_delimiters(self):
-        result = build_front_matter(
-            title="Test",
-            author="Author",
-            series=None,
-            book_number=None,
             qid=None,
-            metadata={},
         )
-        lines = result.splitlines()
-        assert lines[0] == "---"
-        assert lines[-1] == "---"
+        assert "title: Ubik" in result
+        assert "book_authors: Philip K. Dick" in result
+        assert "series: null" in result
+        assert "image: /books/covers/ubik.jpg" in result
+        assert "wikidata_qid" not in result
+
+    def test_series_book_with_qid(self):
+        result = build_front_matter(
+            title="The Honor of the Queen",
+            author="David Weber",
+            series="Honor Harrington",
+            book_number=2,
+            qid="Q123456",
+        )
+        assert "title: The Honor of the Queen" in result
+        assert "series: Honor Harrington" in result
+        assert "book_number: 2" in result
+        assert "wikidata_qid: Q123456" in result
+
+    def test_image_path_uses_slug(self):
+        result = build_front_matter(
+            title="A Fire Upon the Deep",
+            author="Vernor Vinge",
+            series=None,
+            book_number=1,
+            qid=None,
+        )
+        assert "image: /books/covers/a_fire_upon_the_deep.jpg" in result
 
 
 class TestBuildOpening:
     def test_standalone(self):
-        result = build_opening(series=None, book_number=None)
-        assert "is ..." in result
+        result = build_opening(series=None, book_number=1)
+        assert "standalone novel" in result
         assert "series_text" not in result
 
-    def test_series_with_number(self):
+    def test_first_in_series(self):
+        result = build_opening(series="Honor Harrington", book_number=1)
+        assert "first book" in result
+        assert "series_text" in result
+
+    def test_second_in_series(self):
         result = build_opening(series="Honor Harrington", book_number=2)
         assert "second book" in result
         assert "series_text" in result
-
-    def test_series_without_number(self):
-        result = build_opening(series="Honor Harrington", book_number=None)
-        assert "a book in" in result
 
     def test_large_book_number(self):
         result = build_opening(series="Discworld", book_number=41)
         assert "41st book" in result
 
 
-class TestFetchMetadata:
-    def test_success(self):
-        fake_stdout = (
-            "# Hyperion\n"
-            "isbn: 978-0-553-28368-3\n"
-            "date_published: 1989-05\n"
-            "same_as_urls:\n"
-            '  - "https://www.wikidata.org/wiki/Q302026"\n'
+class TestBuildTemplate:
+    def test_replaces_front_matter_sentinel(self):
+        result = build_template(
+            front_matter="title: Test\nrating: null",
+            opening="This is the opening.",
+            is_series=False,
         )
-        with patch("stub_book.subprocess.run") as mock_run:
-            mock_run.return_value = subprocess.CompletedProcess(
-                args=[], returncode=0, stdout=fake_stdout, stderr=""
-            )
-            result = fetch_metadata("Q302026")
+        assert "title: Test" in result
+        assert "<!-- FRONT_MATTER -->" not in result
 
-        assert result["isbn"] == "978-0-553-28368-3"
-        assert result["date_published"] == "1989-05"
-        assert result["same_as_urls"] == ["https://www.wikidata.org/wiki/Q302026"]
+    def test_replaces_opening_sentinel(self):
+        result = build_template(
+            front_matter="title: Test",
+            opening="Opening paragraph here.",
+            is_series=False,
+        )
+        assert "Opening paragraph here." in result
+        assert "<!-- OPENING -->" not in result
 
-    def test_failure_returns_empty(self):
-        with patch("stub_book.subprocess.run") as mock_run:
-            mock_run.return_value = subprocess.CompletedProcess(
-                args=[], returncode=1, stdout="", stderr="error"
-            )
-            result = fetch_metadata("Q999999")
+    def test_includes_series_capture_when_is_series(self):
+        result = build_template(
+            front_matter="title: Test",
+            opening="Opening.",
+            is_series=True,
+        )
+        assert "this_series" in result
+        assert "<!-- IF_SERIES -->" not in result
 
-        assert result == {}
+    def test_excludes_series_capture_when_standalone(self):
+        result = build_template(
+            front_matter="title: Test",
+            opening="Opening.",
+            is_series=False,
+        )
+        assert "this_series" not in result
 
-    def test_malformed_yaml_returns_empty(self):
-        with patch("stub_book.subprocess.run") as mock_run:
-            mock_run.return_value = subprocess.CompletedProcess(
-                args=[], returncode=0, stdout="{{bad yaml", stderr=""
-            )
-            result = fetch_metadata("Q123")
-
-        assert result == {}
+    def test_preserves_liquid_captures(self):
+        result = build_template(
+            front_matter="title: Test",
+            opening="Opening.",
+            is_series=False,
+        )
+        assert "{% capture this_book %}" in result
+        assert "{% capture the_author %}" in result

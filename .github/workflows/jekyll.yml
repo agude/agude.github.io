@@ -39,6 +39,18 @@ jobs:
       - name: Run tests
         run: bundle exec ruby -I _plugins -I _tests -e "require 'test_helper'; Dir.glob('_tests/**/test_*.rb').each { |f| load f }"
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Run script tests
+        working-directory: _scripts
+        run: uv run pytest
+
       - name: Check for strict Liquid errors
         run: bundle exec ruby _bin/check_strict.rb
 
