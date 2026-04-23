@@ -1,15 +1,14 @@
 """Tests for ranking/push_ratings_from_ranking.py pure functions."""
 
-import tempfile
-from pathlib import Path
 from textwrap import dedent
 
 from push_ratings_from_ranking import parse_ranked_list_with_tiers
 
 
 class TestParseRankedListWithTiers:
-    def test_parses_simple_list(self):
-        content = dedent("""\
+    def test_parses_simple_list(self, tmp_path):
+        f = tmp_path / "ranking.md"
+        f.write_text(dedent("""\
             ---
             ranked_list:
               # 5 Stars
@@ -18,11 +17,8 @@ class TestParseRankedListWithTiers:
               # 4 Stars
               - Book Three
             ---
-            """)
-        with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as f:
-            f.write(content)
-            f.flush()
-            result = parse_ranked_list_with_tiers(Path(f.name))
+            """))
+        result = parse_ranked_list_with_tiers(f)
 
         assert result == [
             ("Book One", 5),
@@ -30,25 +26,24 @@ class TestParseRankedListWithTiers:
             ("Book Three", 4),
         ]
 
-    def test_handles_quoted_titles(self):
-        content = dedent("""\
+    def test_handles_quoted_titles(self, tmp_path):
+        f = tmp_path / "ranking.md"
+        f.write_text(dedent("""\
             ---
             ranked_list:
               # 5 Stars
               - "Book: A Story"
               - 'Another Book'
             ---
-            """)
-        with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as f:
-            f.write(content)
-            f.flush()
-            result = parse_ranked_list_with_tiers(Path(f.name))
+            """))
+        result = parse_ranked_list_with_tiers(f)
 
         assert result[0] == ("Book: A Story", 5)
         assert result[1] == ("Another Book", 5)
 
-    def test_handles_all_star_tiers(self):
-        content = dedent("""\
+    def test_handles_all_star_tiers(self, tmp_path):
+        f = tmp_path / "ranking.md"
+        f.write_text(dedent("""\
             ---
             ranked_list:
               # 5 Stars
@@ -62,11 +57,8 @@ class TestParseRankedListWithTiers:
               # 1 Star
               - One Star Book
             ---
-            """)
-        with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as f:
-            f.write(content)
-            f.flush()
-            result = parse_ranked_list_with_tiers(Path(f.name))
+            """))
+        result = parse_ranked_list_with_tiers(f)
 
         assert len(result) == 5
         assert result[0][1] == 5
@@ -75,21 +67,20 @@ class TestParseRankedListWithTiers:
         assert result[3][1] == 2
         assert result[4][1] == 1
 
-    def test_empty_list(self):
-        content = dedent("""\
+    def test_empty_list(self, tmp_path):
+        f = tmp_path / "ranking.md"
+        f.write_text(dedent("""\
             ---
             ranked_list:
             ---
-            """)
-        with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as f:
-            f.write(content)
-            f.flush()
-            result = parse_ranked_list_with_tiers(Path(f.name))
+            """))
+        result = parse_ranked_list_with_tiers(f)
 
         assert result == []
 
-    def test_ignores_blank_lines(self):
-        content = dedent("""\
+    def test_ignores_blank_lines(self, tmp_path):
+        f = tmp_path / "ranking.md"
+        f.write_text(dedent("""\
             ---
             ranked_list:
               # 5 Stars
@@ -97,10 +88,7 @@ class TestParseRankedListWithTiers:
 
               - Book Two
             ---
-            """)
-        with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as f:
-            f.write(content)
-            f.flush()
-            result = parse_ranked_list_with_tiers(Path(f.name))
+            """))
+        result = parse_ranked_list_with_tiers(f)
 
         assert len(result) == 2

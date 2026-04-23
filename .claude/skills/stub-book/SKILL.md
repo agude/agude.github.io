@@ -47,20 +47,20 @@ a specific edition or translation.
 
 ### 3. Run the Stub Script
 
-The script at `scripts/stub_book.py` (relative to this skill) generates
-front matter and the opening paragraph from simple arguments.
+The script at `_scripts/skills/stub_book.py` generates front matter and the
+opening paragraph from simple arguments.
 
 Run from the **project root**:
 
 ```bash
 # Standalone book
-uv run .claude/skills/stub-book/scripts/stub_book.py \
+uv run _scripts/skills/stub_book.py \
     --title "Ubik" \
     --author "Philip K. Dick" \
     --qid Q617357
 
 # Series book
-uv run .claude/skills/stub-book/scripts/stub_book.py \
+uv run _scripts/skills/stub_book.py \
     --title "The Honor of the Queen" \
     --author "David Weber" \
     --series "Honor Harrington" \

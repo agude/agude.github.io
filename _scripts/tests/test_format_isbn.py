@@ -48,7 +48,7 @@ class TestExtractIsbn:
         assert extract_isbn("test.md", fm) is None
 
     def test_handles_malformed_yaml(self):
-        # Regex fallback requires `isbn:` at start of line
-        fm = "title: Test\nisbn: 123\nfoo:\tbar\n"  # tabs in values trigger YAML error
+        # YAML parser fails on tabs; function falls back to regex extraction
+        fm = "title: Test\nisbn: 123\nfoo:\tbar\n"
         result = extract_isbn("test.md", fm)
         assert result == "123"

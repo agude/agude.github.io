@@ -22,6 +22,10 @@ class TestSlugify:
     def test_multiple_spaces_collapsed(self):
         assert slugify("The   Long    Way") == "the_long_way"
 
+    def test_unicode_preserved(self):
+        assert slugify("Tête-à-Tête") == "tête_à_tête"
+        assert slugify("José García") == "josé_garcía"
+
 
 class TestOrdinal:
     def test_first_three(self):

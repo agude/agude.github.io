@@ -28,20 +28,22 @@ from __future__ import annotations
 import argparse
 import re
 import sys
+import unicodedata
 from datetime import date
 from pathlib import Path
 
 _SCRIPT_DIR = Path(__file__).resolve().parent
-_SKILL_DIR = _SCRIPT_DIR.parent  # .claude/skills/stub-book/
-_PROJECT_ROOT = _SKILL_DIR.parent.parent.parent
+_PROJECT_ROOT = _SCRIPT_DIR.parent.parent  # _scripts/skills/ -> project root
 TEMPLATE_PATH = _PROJECT_ROOT / "_books" / "_template" / "book_template.md"
 
 
 def slugify(title: str) -> str:
-    """Convert title to snake_case filename."""
+    """Convert title to snake_case filename, preserving unicode letters."""
     slug = title.lower()
     slug = re.sub(r"[''']", "", slug)  # Remove apostrophes
-    slug = re.sub(r"[^a-z0-9]+", "_", slug)  # Replace non-alphanumeric with _
+    # Normalize unicode and replace non-letter/digit with underscore
+    slug = unicodedata.normalize("NFC", slug)
+    slug = re.sub(r"[^\w]+", "_", slug, flags=re.UNICODE)
     slug = slug.strip("_")
     return slug
 
