@@ -1,6 +1,6 @@
 """Tests for skills/stub_book.py pure functions."""
 
-from stub_book import build_front_matter, build_opening, number_word, ordinal, slugify
+from stub_book import build_front_matter, build_opening, build_template, number_word, ordinal, slugify
 
 
 class TestSlugify:
@@ -127,3 +127,49 @@ class TestBuildOpening:
     def test_large_book_number(self):
         result = build_opening(series="Discworld", book_number=41)
         assert "41st book" in result
+
+
+class TestBuildTemplate:
+    def test_replaces_front_matter_sentinel(self):
+        result = build_template(
+            front_matter="title: Test\nrating: null",
+            opening="This is the opening.",
+            is_series=False,
+        )
+        assert "title: Test" in result
+        assert "<!-- FRONT_MATTER -->" not in result
+
+    def test_replaces_opening_sentinel(self):
+        result = build_template(
+            front_matter="title: Test",
+            opening="Opening paragraph here.",
+            is_series=False,
+        )
+        assert "Opening paragraph here." in result
+        assert "<!-- OPENING -->" not in result
+
+    def test_includes_series_capture_when_is_series(self):
+        result = build_template(
+            front_matter="title: Test",
+            opening="Opening.",
+            is_series=True,
+        )
+        assert "this_series" in result
+        assert "<!-- IF_SERIES -->" not in result
+
+    def test_excludes_series_capture_when_standalone(self):
+        result = build_template(
+            front_matter="title: Test",
+            opening="Opening.",
+            is_series=False,
+        )
+        assert "this_series" not in result
+
+    def test_preserves_liquid_captures(self):
+        result = build_template(
+            front_matter="title: Test",
+            opening="Opening.",
+            is_series=False,
+        )
+        assert "{% capture this_book %}" in result
+        assert "{% capture the_author %}" in result

@@ -21,8 +21,8 @@ class TestNormalizeFilename:
         assert normalize_filename("__test__") == "test"
 
     def test_handles_unicode(self):
-        result = normalize_filename("José García")
-        assert "jos" in result
+        assert normalize_filename("José García") == "josé_garcía"
+        assert normalize_filename("Tête-à-Tête") == "tête-à-tête"
 
 
 class TestExtractFrontmatter:
