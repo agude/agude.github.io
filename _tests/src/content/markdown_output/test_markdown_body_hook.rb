@@ -129,6 +129,14 @@ class TestMarkdownBodyHook < Minitest::Test
     assert_equal '/books/hyperion-simmons.md', Hook.compute_markdown_href(doc)
   end
 
+  def test_compute_markdown_href_percent_encoded_url
+    # Jekyll percent-encodes special characters in page.url, but writes
+    # directories with UTF-8 filenames. The href must be decoded so the
+    # .md file matches the directory encoding.
+    doc = create_doc({}, '/books/authors/herg%C3%A9/')
+    assert_equal '/books/authors/hergé.md', Hook.compute_markdown_href(doc)
+  end
+
   # --- content_with_layout_tags ---
 
   def test_content_with_layout_tags_normal_page_unchanged
