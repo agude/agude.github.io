@@ -1,0 +1,53 @@
+{% comment %}
+  SEO Meta Tags - replaces jekyll-seo-tag
+  Reads data from site.data.seo_meta[page.url] populated by SeoMetaInjector
+{% endcomment %}
+{%- assign seo = site.data.seo_meta[page.url] -%}
+{%- if seo -%}
+<!-- Begin SEO Meta Tags -->
+<title>{{ seo.title | escape }}</title>
+<meta name="generator" content="Jekyll v{{ jekyll.version }}" />
+<meta property="og:title" content="{{ seo.og_title | escape }}" />
+{%- if seo.author -%}
+<meta name="author" content="{{ seo.author | escape }}" />
+{%- endif -%}
+{%- if seo.og_locale -%}
+<meta property="og:locale" content="{{ seo.og_locale }}" />
+{%- endif -%}
+{%- if seo.description -%}
+<meta name="description" content="{{ seo.description | escape }}" />
+<meta property="og:description" content="{{ seo.description | escape }}" />
+{%- endif -%}
+{%- if seo.canonical -%}
+<link rel="canonical" href="{{ seo.canonical }}" />
+<meta property="og:url" content="{{ seo.canonical }}" />
+{%- endif -%}
+{%- if seo.og_site_name -%}
+<meta property="og:site_name" content="{{ seo.og_site_name | escape }}" />
+{%- endif -%}
+{%- if seo.image -%}
+<meta property="og:image" content="{{ seo.image }}" />
+{%- endif -%}
+{%- if seo.og_type -%}
+<meta property="og:type" content="{{ seo.og_type }}" />
+{%- endif -%}
+{%- if seo.article_published_time -%}
+<meta property="article:published_time" content="{{ seo.article_published_time }}" />
+{%- endif -%}
+{%- if seo.twitter_card -%}
+<meta name="twitter:card" content="{{ seo.twitter_card }}" />
+{%- endif -%}
+{%- if seo.image -%}
+<meta property="twitter:image" content="{{ seo.image }}" />
+{%- endif -%}
+{%- if seo.og_title -%}
+<meta property="twitter:title" content="{{ seo.og_title | escape }}" />
+{%- endif -%}
+{%- if seo.google_site_verification -%}
+<meta name="google-site-verification" content="{{ seo.google_site_verification }}" />
+{%- endif -%}
+{%- if seo.bing_site_verification -%}
+<meta name="msvalidate.01" content="{{ seo.bing_site_verification }}" />
+{%- endif -%}
+<!-- End SEO Meta Tags -->
+{%- endif -%}

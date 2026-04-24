@@ -136,6 +136,10 @@ require 'src/seo/generators/blog_posting_generator'
 require 'src/seo/generators/book_review_generator'
 require 'src/seo/generators/generic_review_generator'
 
+# --- SEO Meta ---
+require 'src/seo/seo_meta_generator'
+require 'src/seo/seo_meta_injector'
+
 # --- Link Cache Components (_plugins/src/infrastructure/link_cache/) ---
 require 'src/infrastructure/link_cache/backlink_builder'
 require 'src/infrastructure/link_cache/book_family_validator'
