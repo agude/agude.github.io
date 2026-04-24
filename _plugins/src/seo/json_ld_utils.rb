@@ -10,6 +10,8 @@ module Jekyll
     # Utility module providing helper methods for building JSON-LD entities.
     # Contains methods for creating Person, ImageObject, Rating, and other schema entities.
     module JsonLdUtils
+      CC_BY_SA_LICENSE_URL = 'https://creativecommons.org/licenses/by-sa/4.0/'
+
       # --- Person Schema Object Helpers ---
 
       # Generates a Schema.org Person object from site configuration.

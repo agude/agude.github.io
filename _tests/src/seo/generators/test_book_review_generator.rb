@@ -181,6 +181,7 @@ class TestBookReviewLdGenerator < Minitest::Test
     {
       '@context' => 'https://schema.org',
       '@type' => 'Review',
+      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'author' => { '@type' => 'Person', 'name' => 'Alex Gude' },
       'datePublished' => '2023-10-26T11:00:00-05:00',
       'publisher' => { '@type' => 'Person', 'name' => 'Alex Gude', 'url' => 'https://alexgude.com/' },
@@ -216,6 +217,7 @@ class TestBookReviewLdGenerator < Minitest::Test
     {
       '@context' => 'https://schema.org',
       '@type' => 'Review',
+      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'author' => { '@type' => 'Person', 'name' => 'Alex Gude' },
       'datePublished' => Time.parse('2023-11-01').xmlschema,
       'publisher' => { '@type' => 'Person', 'name' => 'Alex Gude', 'url' => 'https://alexgude.com/' },
@@ -264,6 +266,7 @@ class TestBookReviewLdGenerator < Minitest::Test
     {
       '@context' => 'https://schema.org',
       '@type' => 'Review',
+      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'author' => { '@type' => 'Person', 'name' => 'Alex Gude' },
       'datePublished' => Time.parse('2023-11-15').xmlschema,
       'publisher' => { '@type' => 'Person', 'name' => 'Alex Gude', 'url' => 'https://alexgude.com/' },
@@ -332,6 +335,7 @@ class TestBookReviewLdGenerator < Minitest::Test
     {
       '@context' => 'https://schema.org',
       '@type' => 'Review',
+      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'author' => { '@type' => 'Person', 'name' => 'Alex Gude' },
       'datePublished' => Time.parse('2024-01-01').xmlschema,
       'publisher' => { '@type' => 'Person', 'name' => 'Alex Gude', 'url' => 'https://alexgude.com/' },

@@ -35,6 +35,7 @@ module Jekyll
           data = {
             '@context' => 'https://schema.org',
             '@type' => 'Review', # The page itself is a Review
+            'license' => Jekyll::SEO::JsonLdUtils::CC_BY_SA_LICENSE_URL,
           }
           add_review_metadata(data)
           data
