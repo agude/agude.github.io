@@ -68,9 +68,12 @@
     </div>
 
     {% comment %} Legal text {% endcomment %}
-    <div>
+    <div class="legal">
       <small>
-      &copy;&nbsp;<time datetime="{{ '2016-01-01T00:00:00Z' | date_to_xmlschema }}">2016</time>&ndash;<time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time> by {{ site.author.name }}
+        &copy;&nbsp;<time datetime="{{ '2016-01-01T00:00:00Z' | date_to_xmlschema }}">2016</time>&ndash;<time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time> by {{ site.author.name }}<br>
+        Original content licensed <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" class="license-icons">{% include cc.svg %}{% include by.svg %}{% include sa.svg %}</a>
+       </small>
+     </div>
       </small>
     </div>
 

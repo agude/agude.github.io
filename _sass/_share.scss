@@ -101,3 +101,17 @@
     align-content: center;
   }
 }
+
+.sidebar .legal {
+  margin-top: 1rem;
+  color: inherit;
+  line-height: 1.4;
+}
+
+.license-icons svg {
+  width: 0.8em;
+  height: 0.8em;
+  vertical-align: middle;
+  fill: rgba(255,255,255,.5);
+  margin-right: 0.15em;
+}
