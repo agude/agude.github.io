@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'cgi'
 require_relative 'markdown_html_converter'
 
 module Jekyll
@@ -91,7 +92,9 @@ module Jekyll
 
         url = url.chomp('/')
         url = url.sub(%r{\.[^./]+\z}, '') # strip file extension if present
-        "#{url}.md"
+        # Jekyll percent-encodes page URLs but writes directories with UTF-8.
+        # Decode so the .md filename matches the directory encoding.
+        "#{CGI.unescape(url)}.md"
       end
     end
   end
