@@ -37,6 +37,7 @@ class TestGenericReviewLdGenerator < Minitest::Test
     expected = {
       '@context' => 'https://schema.org',
       '@type' => 'Review',
+      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'author' => { '@type' => 'Person', 'name' => 'Reviewer Name' },
       'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', 'url' => 'https://myreviews.com/stuff/' },
       'datePublished' => Time.parse('2024-05-01').xmlschema,
@@ -72,6 +73,7 @@ class TestGenericReviewLdGenerator < Minitest::Test
     expected = {
       '@context' => 'https://schema.org',
       '@type' => 'Review',
+      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'author' => { '@type' => 'Person', 'name' => 'Reviewer Name' },
       'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', 'url' => 'https://myreviews.com/stuff/' },
       'datePublished' => Time.parse('2024-05-02').xmlschema,
@@ -131,6 +133,7 @@ class TestGenericReviewLdGenerator < Minitest::Test
     expected = {
       '@context' => 'https://schema.org',
       '@type' => 'Review',
+      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'author' => { '@type' => 'Person', 'name' => 'Reviewer Name' },
       'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', 'url' => 'https://myreviews.com/stuff/' },
       'datePublished' => Time.parse('2024-05-04').xmlschema,

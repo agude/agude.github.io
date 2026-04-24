@@ -29,6 +29,7 @@ module Jekyll
           {
             '@context' => 'https://schema.org',
             '@type' => 'BlogPosting',
+            'license' => Jekyll::SEO::JsonLdUtils::CC_BY_SA_LICENSE_URL,
           }
         end
 

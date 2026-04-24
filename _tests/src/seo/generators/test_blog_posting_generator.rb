@@ -74,6 +74,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
     {
       '@context' => 'https://schema.org',
       '@type' => 'BlogPosting',
+      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'headline' => 'My First Post',
       'author' => { '@type' => 'Person', 'name' => 'Test Author' },
       'publisher' => { '@type' => 'Person', 'name' => 'Test Author', 'url' => 'https://blog.example.com/' },
@@ -109,6 +110,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
     {
       '@context' => 'https://schema.org',
       '@type' => 'BlogPosting',
+      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'headline' => 'Post With Excerpt',
       'author' => { '@type' => 'Person', 'name' => 'Test Author' },
       'publisher' => { '@type' => 'Person', 'name' => 'Test Author', 'url' => 'https://blog.example.com/' },
@@ -146,6 +148,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
     {
       '@context' => 'https://schema.org',
       '@type' => 'BlogPosting',
+      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'headline' => 'Post With Description',
       'author' => { '@type' => 'Person', 'name' => 'Test Author' },
       'publisher' => { '@type' => 'Person', 'name' => 'Test Author', 'url' => 'https://blog.example.com/' },
@@ -181,6 +184,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
     {
       '@context' => 'https://schema.org',
       '@type' => 'BlogPosting',
+      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'headline' => 'Updated Post',
       'author' => { '@type' => 'Person', 'name' => 'Test Author' },
       'publisher' => { '@type' => 'Person', 'name' => 'Test Author', 'url' => 'https://blog.example.com/' },
@@ -229,6 +233,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
     expected_structure = {
       '@context' => 'https://schema.org',
       '@type' => 'BlogPosting',
+      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'headline' => 'Minimal',
       'author' => { '@type' => 'Person', 'name' => 'Test Author' },
       'publisher' => { '@type' => 'Person', 'name' => 'Test Author', 'url' => 'https://blog.example.com/' },
@@ -254,6 +259,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
     expected_keys = [
       '@context',
       '@type',
+      'license',
       'headline',
       'author',
       'publisher',
