@@ -139,6 +139,8 @@ require 'src/seo/generators/person_generator'
 require 'src/seo/generators/website_generator'
 require 'src/seo/generators/series_page_generator'
 require 'src/seo/generators/category_page_generator'
+require 'src/seo/generators/page_generator'
+require 'src/seo/generators/profile_page_generator'
 
 # --- SEO Meta ---
 require 'src/seo/seo_meta_generator'

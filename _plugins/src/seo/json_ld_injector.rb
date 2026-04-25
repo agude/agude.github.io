@@ -13,6 +13,8 @@ require_relative 'generators/person_generator'
 require_relative 'generators/website_generator'
 require_relative 'generators/series_page_generator'
 require_relative 'generators/category_page_generator'
+require_relative 'generators/page_generator'
+require_relative 'generators/profile_page_generator'
 
 # Injects structured data (JSON-LD) into Jekyll documents and pages.
 #
@@ -70,6 +72,10 @@ module Jekyll
           [Jekyll::SEO::Generators::SeriesPageLdGenerator, 'Series Page']
         elsif _is_category_page?(document)
           [Jekyll::SEO::Generators::CategoryPageLdGenerator, 'Category Page']
+        elsif _is_linktree_page?(document)
+          [Jekyll::SEO::Generators::ProfilePageLdGenerator, 'Profile Page']
+        elsif _is_generic_page?(document)
+          [Jekyll::SEO::Generators::PageLdGenerator, 'Generic Page']
         else
           [nil, 'Unknown']
         end
@@ -142,6 +148,14 @@ module Jekyll
 
       def self._is_category_page?(doc)
         doc.data['layout'] == 'category'
+      end
+
+      def self._is_linktree_page?(doc)
+        doc.url == '/linktree/'
+      end
+
+      def self._is_generic_page?(doc)
+        doc.data['layout'] == 'page'
       end
     end
   end
