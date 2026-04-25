@@ -2,8 +2,11 @@
 layout: resume
 sidebar_include: true
 title: "Resume"
+seo_title: "Alexander Gude - Resume"
 description: >
   Alexander Gude's Resume. Alex is a machine learning engineer.
+job_title: "Staff Machine Learning Engineer"
+works_for: "Cash App"
 ---
 
 # Alexander Gude

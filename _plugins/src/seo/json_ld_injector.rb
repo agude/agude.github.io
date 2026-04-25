@@ -9,6 +9,10 @@ require_relative 'generators/blog_posting_generator'
 require_relative 'generators/book_review_generator'
 require_relative 'generators/generic_review_generator'
 require_relative 'generators/author_profile_generator'
+require_relative 'generators/person_generator'
+require_relative 'generators/website_generator'
+require_relative 'generators/series_page_generator'
+require_relative 'generators/category_page_generator'
 
 # Injects structured data (JSON-LD) into Jekyll documents and pages.
 #
@@ -58,6 +62,14 @@ module Jekyll
           [Jekyll::SEO::Generators::BlogPostingLdGenerator, 'Blog Posting']
         elsif _is_author_page?(document)
           [Jekyll::SEO::Generators::AuthorProfileLdGenerator, 'Author Page']
+        elsif _is_homepage?(document)
+          [Jekyll::SEO::Generators::WebsiteLdGenerator, 'WebSite']
+        elsif _is_resume_page?(document)
+          [Jekyll::SEO::Generators::PersonLdGenerator, 'Person']
+        elsif _is_series_page?(document)
+          [Jekyll::SEO::Generators::SeriesPageLdGenerator, 'Series Page']
+        elsif _is_category_page?(document)
+          [Jekyll::SEO::Generators::CategoryPageLdGenerator, 'Category Page']
         else
           [nil, 'Unknown']
         end
@@ -114,6 +126,22 @@ module Jekyll
 
       def self._is_author_page?(doc)
         doc.data['layout'] == 'author_page'
+      end
+
+      def self._is_homepage?(doc)
+        doc.url == '/'
+      end
+
+      def self._is_resume_page?(doc)
+        doc.data['layout'] == 'resume'
+      end
+
+      def self._is_series_page?(doc)
+        doc.data['layout'] == 'series_page'
+      end
+
+      def self._is_category_page?(doc)
+        doc.data['layout'] == 'category'
       end
     end
   end
