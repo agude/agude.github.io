@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: linktree
 title: Linktree
 seo_title: "Alexander Gude - Linktree"
 description: >

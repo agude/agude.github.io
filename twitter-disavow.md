@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: standalone-page
 title: Twitter Disavow
 description: >
   Alex Gude deleted @alex_gude on Twitter (and his three bots) on 2024-11-10.
@@ -10,8 +10,6 @@ twitter_bot_handles:
   - RaspberryKaon
   - RaspberryRho
 ---
-
-# {{ page.title }}
 
 I have deleted my Twitter account, `@{{ page.main_twitter_handle }}`, on <time
 datetime="2024-11-10T00:48:30+00:00">November 10<sup>th</sup>, 2024</time>.

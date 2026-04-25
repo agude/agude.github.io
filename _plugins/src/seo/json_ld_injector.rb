@@ -2,7 +2,7 @@
 
 # _plugins/json_ld_injector.rb
 require 'json'
-require 'jekyll' # Required for Jekyll.logger and Hook classes
+require 'jekyll'
 
 # Require generator modules
 require_relative 'generators/blog_posting_generator'
@@ -17,158 +17,88 @@ require_relative 'generators/page_generator'
 require_relative 'generators/profile_page_generator'
 require_relative 'generators/web_page_generator'
 
-# Injects structured data (JSON-LD) into Jekyll documents and pages.
-#
-# Generates and embeds JSON-LD structured data for blog posts, book reviews,
 module Jekyll
-  # and author pages to enhance SEO and search engine understanding.
   module SEO
-    # Utility module for injecting JSON-LD structured data into Jekyll documents.
-    # Coordinates the generation and embedding of structured data for SEO.
+    # Injects JSON-LD structured data into Jekyll documents and pages.
+    # Uses a layout-to-generator mapping for simple, predictable routing.
     module JsonLdInjector
-      # Initialize storage within site.data
+      # Layout name → [Generator module, Human-readable type name]
+      LAYOUT_GENERATORS = {
+        'post' => [Generators::BlogPostingLdGenerator, 'BlogPosting'],
+        'review-post' => [Generators::GenericReviewLdGenerator, 'Review'],
+        'book' => [Generators::BookReviewLdGenerator, 'Book Review'],
+        'author_page' => [Generators::AuthorProfileLdGenerator, 'Author Profile'],
+        'resume' => [Generators::PersonLdGenerator, 'Person'],
+        'series_page' => [Generators::SeriesPageLdGenerator, 'Series Page'],
+        'category' => [Generators::CategoryPageLdGenerator, 'Category Page'],
+        'page' => [Generators::PageLdGenerator, 'Collection Page'],
+        'page-not-on-sidebar' => [Generators::PageLdGenerator, 'Collection Page'],
+        'standalone-page' => [Generators::WebPageLdGenerator, 'WebPage'],
+        'homepage' => [Generators::WebsiteLdGenerator, 'WebSite'],
+        'linktree' => [Generators::ProfilePageLdGenerator, 'Profile Page'],
+      }.freeze
+
+      # Layouts that intentionally have no JSON-LD (base/utility layouts)
+      SKIP_LAYOUTS = %w[default substitute compress redirect].freeze
+
       def self.initialize_script_storage(site)
-        # Use site.data for reliable persistence into Liquid payload
         site.data['generated_json_ld_scripts'] ||= {}
       end
 
-      # Central method to determine the type of document and generate JSON-LD
       def self.inject_json_ld(document, site)
         initialize_script_storage(site)
 
         doc_url = document.url
         unless doc_url && !doc_url.empty?
-          Jekyll.logger.warn 'JSON-LD:', "Skipping LD injection for document without URL: #{_doc_id(document)}"
+          Jekyll.logger.warn 'JSON-LD:', "Skipping document without URL: #{_doc_id(document)}"
           return
         end
 
-        generator, type_name = _determine_generator(document)
+        layout = document.data['layout']
+        generator, type_name = _generator_for_layout(layout, document)
         return unless generator
 
-        Jekyll.logger.debug 'JSON-LD Type:', "#{type_name} -> #{_doc_id(document)}"
-
+        Jekyll.logger.debug 'JSON-LD:', "#{type_name} -> #{_doc_id(document)}"
         _generate_and_store(generator, document, site, doc_url)
       end
-
-      # --- Private Helper Methods ---
 
       def self._doc_id(doc)
         doc.url || doc.path || doc.relative_path
       end
+      private_class_method :_doc_id
 
-      # rubocop:disable Metrics/PerceivedComplexity -- routing method with many content types
-      def self._determine_generator(document)
-        if _is_book_review?(document)
-          [Jekyll::SEO::Generators::BookReviewLdGenerator, 'Book Review']
-        elsif _is_generic_review_post?(document)
-          _handle_generic_review(document)
-        elsif _is_blog_post?(document)
-          [Jekyll::SEO::Generators::BlogPostingLdGenerator, 'Blog Posting']
-        elsif _is_author_page?(document)
-          [Jekyll::SEO::Generators::AuthorProfileLdGenerator, 'Author Page']
-        elsif _is_homepage?(document)
-          [Jekyll::SEO::Generators::WebsiteLdGenerator, 'WebSite']
-        elsif _is_resume_page?(document)
-          [Jekyll::SEO::Generators::PersonLdGenerator, 'Person']
-        elsif _is_series_page?(document)
-          [Jekyll::SEO::Generators::SeriesPageLdGenerator, 'Series Page']
-        elsif _is_category_page?(document)
-          [Jekyll::SEO::Generators::CategoryPageLdGenerator, 'Category Page']
-        elsif _is_linktree_page?(document)
-          [Jekyll::SEO::Generators::ProfilePageLdGenerator, 'Profile Page']
-        elsif _is_supplementary_page?(document)
-          [Jekyll::SEO::Generators::WebPageLdGenerator, 'Supplementary Page']
-        elsif _is_generic_page?(document)
-          [Jekyll::SEO::Generators::PageLdGenerator, 'Generic Page']
-        else
-          [nil, 'Unknown']
-        end
-      end
-      # rubocop:enable Metrics/PerceivedComplexity
+      def self._generator_for_layout(layout, document)
+        # Pages without a layout (nil/empty) or with skip layouts get no JSON-LD
+        return [nil, nil] if layout.nil? || layout.empty? || SKIP_LAYOUTS.include?(layout)
 
-      def self._handle_generic_review(document)
-        item_name = document.data.dig('review', 'item_name')
-        if item_name && !item_name.to_s.strip.empty?
-          [Jekyll::SEO::Generators::GenericReviewLdGenerator, 'Generic Review Post']
-        else
-          _log_missing_item_name(document)
-          [nil, 'Generic Review Post (Invalid)']
-        end
-      end
+        entry = LAYOUT_GENERATORS[layout]
+        return entry if entry
 
-      def self._log_missing_item_name(document)
-        Jekyll.logger.warn 'JSON-LD:',
-                           "Skipping Generic Review LD for '#{_doc_id(document)}'. Missing 'review.item_name'."
+        raise Jekyll::Errors::FatalException,
+              "JSON-LD: Unknown layout '#{layout}' for #{_doc_id(document)}. " \
+              'Add it to LAYOUT_GENERATORS or SKIP_LAYOUTS in json_ld_injector.rb'
       end
+      private_class_method :_generator_for_layout
 
       def self._generate_and_store(generator, document, site, doc_url)
         json_ld_hash = generator.generate_hash(document, site)
 
         if json_ld_hash && !json_ld_hash.empty?
-          _store_script(json_ld_hash, site, doc_url, document)
-        elsif json_ld_hash
-          Jekyll.logger.debug 'JSON-LD:', "Generated JSON-LD hash was empty for: #{_doc_id(document)}"
+          _store_script(json_ld_hash, site, doc_url)
         else
-          Jekyll.logger.debug 'JSON-LD:', "Generator returned nil hash for: #{_doc_id(document)}"
+          Jekyll.logger.debug 'JSON-LD:', "Empty or nil hash for: #{_doc_id(document)}"
         end
       end
+      private_class_method :_generate_and_store
 
-      def self._store_script(hash, site, doc_url, document)
+      def self._store_script(hash, site, doc_url)
         script_content = JSON.pretty_generate(hash)
         script_tag = "<script type=\"application/ld+json\">\n#{script_content}\n</script>"
         site.data['generated_json_ld_scripts'][doc_url] = script_tag
       rescue JSON::GeneratorError => e
-        Jekyll.logger.error 'JSON-LD:', "Failed to generate JSON for '#{_doc_id(document)}': #{e.message}"
+        Jekyll.logger.error 'JSON-LD:', "Failed to generate JSON for '#{doc_url}': #{e.message}"
       end
-
-      def self._is_book_review?(doc)
-        doc.is_a?(Jekyll::Document) && doc.collection&.label == 'books' && doc.data['layout'] == 'book'
-      end
-
-      def self._is_generic_review_post?(doc)
-        doc.is_a?(Jekyll::Document) && doc.collection&.label == 'posts' &&
-          doc.data['layout'] == 'post' && doc.data.key?('review')
-      end
-
-      def self._is_blog_post?(doc)
-        doc.is_a?(Jekyll::Document) && doc.collection&.label == 'posts' &&
-          doc.data['layout'] == 'post' && !doc.data.key?('review')
-      end
-
-      def self._is_author_page?(doc)
-        doc.data['layout'] == 'author_page'
-      end
-
-      def self._is_homepage?(doc)
-        doc.url == '/'
-      end
-
-      def self._is_resume_page?(doc)
-        doc.data['layout'] == 'resume'
-      end
-
-      def self._is_series_page?(doc)
-        doc.data['layout'] == 'series_page'
-      end
-
-      def self._is_category_page?(doc)
-        doc.data['layout'] == 'category'
-      end
-
-      def self._is_linktree_page?(doc)
-        doc.url == '/linktree/'
-      end
-
-      def self._is_supplementary_page?(doc)
-        source_path = doc.relative_path || doc.path
-        return false unless source_path&.start_with?('files/')
-
-        %w[page page-not-on-sidebar].include?(doc.data['layout'])
-      end
-
-      def self._is_generic_page?(doc)
-        %w[page page-not-on-sidebar].include?(doc.data['layout'])
-      end
+      private_class_method :_store_script
     end
   end
 end

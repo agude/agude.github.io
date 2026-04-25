@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: homepage
 title: Home
 description: >
   Hi there! I'm Alex Gude, a physicist and data scientist in Silicon Valley.
