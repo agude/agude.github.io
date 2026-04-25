@@ -58,7 +58,7 @@ class TestSeoMetaGenerator < Minitest::Test
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
-    assert_equal 'Reviews of Books by Adrian Tchaikovsky', result['title']
+    assert_equal 'Adrian Tchaikovsky - Book Reviews', result['title']
   end
 
   def test_title_series_page
@@ -66,15 +66,7 @@ class TestSeoMetaGenerator < Minitest::Test
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
-    assert_equal 'Reviews of the Bobiverse series', result['title']
-  end
-
-  def test_title_series_page_with_implied_series
-    doc = create_page_doc(title: 'Hyperion Cantos', layout: 'series_page')
-    site = create_site(@site_config)
-    result = generate_meta(doc, site)
-
-    assert_equal 'Reviews of the Hyperion Cantos', result['title']
+    assert_equal 'Bobiverse - Book Reviews', result['title']
   end
 
   def test_title_regular_page

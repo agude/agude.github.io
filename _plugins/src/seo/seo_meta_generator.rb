@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'nokogiri'
-require_relative '../content/series/series_text_utils'
 
 module Jekyll
   module SEO
@@ -52,21 +51,14 @@ module Jekyll
         when 'book'
           book_title
         when 'author_page'
-          "Reviews of Books by #{raw_title}"
+          "#{raw_title} - Book Reviews"
         when 'series_page'
-          series_title
+          "#{raw_title} - Book Reviews"
         when 'category'
           "#{category_title} - Articles"
         else
           homepage? ? "#{site_title} - #{site_tagline}" : raw_title
         end
-      end
-
-      def series_title
-        analysis = Jekyll::Series::SeriesTextUtils.analyze_series_name(raw_title)
-        return "Reviews of the #{raw_title} Series" unless analysis
-
-        "Reviews of #{analysis[:prefix]}#{analysis[:name]}#{analysis[:suffix]}"
       end
 
       def book_title
