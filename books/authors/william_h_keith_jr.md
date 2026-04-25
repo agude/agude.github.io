@@ -1,8 +1,9 @@
 ---
 layout: author_page
-title: William H. Keith, Jr.
+title: William H. Keith Jr.
 pen_names:
   - Bill Keith
+  - Bill Keith Jr.
   - Bill Keith, Jr.
   - H. Jay Riker
   - Ian Douglas
@@ -10,8 +11,9 @@ pen_names:
   - Keith William Andrews
   - Robert Cain
   - William H. Keith
+  - William H. Keith, Jr.
 description: >
-  Alex Gude's reviews of books written by William H. Keith, Jr..
+  Alex Gude's reviews of books written by William H. Keith Jr..
 same_as_urls:
   - https://en.wikipedia.org/wiki/William_H._Keith_Jr.
   - https://www.wikidata.org/wiki/Q8010470
