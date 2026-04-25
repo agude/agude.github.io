@@ -27,7 +27,7 @@ class TestSeoMetaGenerator < Minitest::Test
 
   # --- Title Tag Tests ---
 
-  def test_title_book_review
+  def test_title_book_review_single_author
     doc = create_book_doc(title: 'A Fire Upon The Deep')
     site = create_site(@site_config)
     result = generate_meta(doc, site)
@@ -35,14 +35,72 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_equal 'A Fire Upon The Deep by Test Author - Book Review', result['title']
   end
 
-  def test_title_book_review_long_falls_back
-    doc = create_book_doc(title: 'There Is No Antimemetics Division (Original Edition)')
+  def test_title_book_review_two_authors_shared_surname
+    doc = create_book_doc(title: 'Roadside Picnic', authors: ['Arkady Strugatsky', 'Boris Strugatsky'])
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
-    # Falls back to shorter format when full title exceeds 70 chars
-    assert result['title'].length <= 70
-    assert_includes result['title'], 'Book Review'
+    assert_equal 'Roadside Picnic by Arkady & Boris Strugatsky - Book Review', result['title']
+  end
+
+  def test_title_book_review_two_authors_different_surname
+    doc = create_book_doc(title: 'Good Omens', authors: ['Terry Pratchett', 'Neil Gaiman'])
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'Good Omens by Terry Pratchett & Neil Gaiman - Book Review', result['title']
+  end
+
+  def test_title_book_review_anthology_drops_authors
+    doc = create_book_doc(
+      title: 'Honor of the Regiment',
+      authors: ['S. M. Stirling', 'S. N. Lewitt', 'J. Andrew Keith', 'Mike Resnick'],
+    )
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'Honor of the Regiment - Book Review', result['title']
+  end
+
+  def test_title_book_review_handles_jr_suffix_solo_author
+    doc = create_book_doc(title: 'A Canticle for Leibowitz', authors: ['Walter M. Miller Jr.'])
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    # Solo author: suffix stays attached, used verbatim.
+    assert_equal 'A Canticle for Leibowitz by Walter M. Miller Jr. - Book Review', result['title']
+  end
+
+  def test_title_book_review_handles_jr_suffix_in_pair
+    doc = create_book_doc(
+      title: 'Imagined Book',
+      authors: ['John Doe Jr.', 'Jane Doe'],
+    )
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    # Suffix stripped before surname comparison; collapse triggers.
+    assert_equal 'Imagined Book by John & Jane Doe - Book Review', result['title']
+  end
+
+  def test_title_book_review_handles_comma_suffix
+    doc = create_book_doc(
+      title: 'Imagined Book',
+      authors: ['William H. Keith, Jr.', 'William H. Keith'],
+    )
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    # Comma + Jr. variants normalize to the same surname/given-names.
+    assert_equal 'Imagined Book by William H. & William H. Keith - Book Review', result['title']
+  end
+
+  def test_title_book_review_no_authors
+    doc = create_book_doc(title: 'Mystery Book', authors: [])
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'Mystery Book - Book Review', result['title']
   end
 
   def test_title_blog_post
@@ -78,7 +136,7 @@ class TestSeoMetaGenerator < Minitest::Test
   end
 
   def test_title_homepage
-    doc = create_page_doc(title: 'Home', layout: 'default', url: '/')
+    doc = create_page_doc(title: 'Home', layout: 'homepage', url: '/')
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
@@ -364,6 +422,30 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_nil result['article_published_time']
   end
 
+  # Forces every layout known to JSON-LD to be explicitly classified
+  # as either an article or a non-article. Catches the regression where
+  # adding a new layout silently defaults to og:type=website (the bug
+  # that landed for `review-post`).
+  def test_every_known_layout_has_article_classification
+    require_relative '../../../_plugins/src/seo/json_ld_injector'
+
+    article_layouts = %w[book post review-post]
+    non_article_layouts = %w[
+      author_page resume series_page category page page-not-on-sidebar
+      standalone-page homepage linktree
+    ]
+
+    classified = (article_layouts + non_article_layouts).sort
+    registered = Jekyll::SEO::JsonLdInjector::LAYOUT_GENERATORS.keys.sort
+
+    assert_equal registered, classified,
+                 'Every layout in JsonLdInjector::LAYOUT_GENERATORS must be ' \
+                 'classified as either article or non-article in this test. ' \
+                 'If you added a new layout, also add it to ARTICLE_LAYOUTS ' \
+                 'in seo_meta_generator.rb if it represents article content.'
+    assert_equal Jekyll::SEO::SeoMetaGenerator::ARTICLE_LAYOUTS.sort, article_layouts.sort
+  end
+
   # --- Site Author Tests ---
 
   def test_author_meta_from_site_config
@@ -416,11 +498,11 @@ class TestSeoMetaGenerator < Minitest::Test
 
   # --- Document Creation Helpers ---
 
-  def create_book_doc(title:, url: '/books/test/', image: nil, date: '2024-01-01', description: nil, excerpt: nil)
+  def create_book_doc(title:, url: '/books/test/', image: nil, date: '2024-01-01', description: nil, excerpt: nil, authors: ['Test Author'])
     data = {
       'layout' => 'book',
       'title' => title,
-      'book_authors' => ['Test Author'],
+      'book_authors' => authors,
     }
     data['image'] = image if image
     data['description'] = description if description

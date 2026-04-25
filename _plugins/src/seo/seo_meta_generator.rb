@@ -8,7 +8,17 @@ module Jekyll
     # Replaces jekyll-seo-tag functionality with custom control over output.
     class SeoMetaGenerator
       ARTICLE_LAYOUTS = %w[book post review-post].freeze
-      MAX_TITLE_LENGTH = 70
+
+      # Layouts whose SEO title is "<page title> - <suffix>".
+      # `book` and `homepage` use custom logic instead.
+      LAYOUT_TITLE_SUFFIX = {
+        'author_page' => 'Book Reviews',
+        'series_page' => 'Book Reviews',
+        'category'    => 'Articles',
+      }.freeze
+
+      # Name suffixes stripped before computing surname / given names.
+      NAME_SUFFIXES = %w[Jr. Jr Sr. Sr II III IV V].freeze
 
       def initialize(document, site)
         @document = document
@@ -46,35 +56,52 @@ module Jekyll
       def build_title
         return @data['seo_title'] if @data['seo_title']
 
-        case @data['layout']
-        when 'book'
-          book_title
-        when 'author_page', 'series_page'
-          "#{raw_title} - Book Reviews"
-        when 'category'
-          "#{raw_title} - Articles"
-        else
-          homepage? ? "#{site_title} - #{site_tagline}" : raw_title
-        end
+        layout = @data['layout']
+        return book_title if layout == 'book'
+        return "#{site_title} - #{site_tagline}" if layout == 'homepage'
+
+        suffix = LAYOUT_TITLE_SUFFIX[layout]
+        suffix ? "#{raw_title} - #{suffix}" : raw_title
       end
 
       def book_title
-        author = first_book_author
-        title = raw_title
-
-        candidates = [
-          "#{title} by #{author} - Book Review",
-          "#{title} by #{author} - Review",
-          "#{title} - Book Review",
-          "#{title} - Review",
-        ]
-
-        candidates.find { |c| c.length <= MAX_TITLE_LENGTH } || candidates.last
+        authors = Array(@data['book_authors']).reject { |a| a.to_s.strip.empty? }
+        by_clause = format_by_clause(authors)
+        by_clause.empty? ? "#{raw_title} - Book Review" : "#{raw_title} by #{by_clause} - Book Review"
       end
 
-      def first_book_author
-        authors = @data['book_authors']
-        authors.is_a?(Array) ? authors.first : authors.to_s
+      def format_by_clause(authors)
+        case authors.length
+        when 0 then ''
+        when 1 then authors.first.to_s
+        when 2 then format_pair(authors[0].to_s, authors[1].to_s)
+        else ''  # 3+ authors: anthology, drop the by-clause
+        end
+      end
+
+      def format_pair(first, second)
+        first_surname = surname(first)
+        if !first_surname.empty? && first_surname == surname(second)
+          "#{given_names(first)} & #{given_names(second)} #{first_surname}"
+        else
+          "#{first} & #{second}"
+        end
+      end
+
+      def surname(name)
+        parts = strip_name_suffixes(name)
+        parts.last.to_s
+      end
+
+      def given_names(name)
+        parts = strip_name_suffixes(name)
+        parts[0..-2].join(' ')
+      end
+
+      def strip_name_suffixes(name)
+        parts = name.to_s.strip.tr(',', '').split
+        parts.pop while !parts.empty? && NAME_SUFFIXES.include?(parts.last)
+        parts
       end
 
       def raw_title
@@ -89,10 +116,6 @@ module Jekyll
 
       def decode_html_entities(text)
         Nokogiri::HTML.fragment(text.to_s).text
-      end
-
-      def homepage?
-        @document.url == '/'
       end
 
       def site_title
