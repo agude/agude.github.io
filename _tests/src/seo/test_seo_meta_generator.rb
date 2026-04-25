@@ -121,6 +121,17 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_raises(Jekyll::Errors::FatalException) { generate_meta(doc, site) }
   end
 
+  def test_title_decodes_html_entities
+    doc = create_post_doc(title: 'Clever(ly&nbsp;Terrible) Code')
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    # Should decode &nbsp; to actual U+00A0 character, not leave as entity
+    refute_includes result['title'], '&nbsp;'
+    refute_includes result['title'], '&amp;'
+    assert_includes result['title'], ' '
+  end
+
   # --- Open Graph Type Tests ---
 
   def test_og_type_book_review_is_article
@@ -187,7 +198,7 @@ class TestSeoMetaGenerator < Minitest::Test
     doc = create_page_doc(
       title: 'Papers',
       layout: 'page',
-      description: 'A list of papers by Alexander Gude.'
+      description: 'A list of papers by Alexander Gude.',
     )
     site = create_site(@site_config)
     result = generate_meta(doc, site)
@@ -198,7 +209,7 @@ class TestSeoMetaGenerator < Minitest::Test
   def test_description_from_excerpt
     doc = create_post_doc(
       title: 'Test Post',
-      excerpt: 'This is the excerpt text.'
+      excerpt: 'This is the excerpt text.',
     )
     site = create_site(@site_config)
     result = generate_meta(doc, site)
@@ -209,7 +220,7 @@ class TestSeoMetaGenerator < Minitest::Test
   def test_description_normalizes_whitespace
     doc = create_post_doc(
       title: 'Test Post',
-      excerpt: "Line one.\n\n  Line two."
+      excerpt: "Line one.\n\n  Line two.",
     )
     site = create_site(@site_config)
     result = generate_meta(doc, site)
@@ -225,12 +236,25 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_equal @site_config['description'], result['description']
   end
 
+  def test_description_strips_trailing_whitespace
+    doc = create_page_doc(
+      title: 'Test',
+      layout: 'page',
+      description: "Description with trailing space. \n",
+    )
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'Description with trailing space.', result['description']
+    refute_match(/\s\z/, result['description'])
+  end
+
   # --- Image Tests ---
 
   def test_og_image_from_page_image
     doc = create_book_doc(
       title: 'Test Book',
-      image: '/books/covers/test_book.jpg'
+      image: '/books/covers/test_book.jpg',
     )
     site = create_site(@site_config)
     result = generate_meta(doc, site)
@@ -270,7 +294,7 @@ class TestSeoMetaGenerator < Minitest::Test
     doc = create_page_doc(
       title: 'Papers',
       layout: 'page',
-      description: 'A list of papers.'
+      description: 'A list of papers.',
     )
     site = create_site(@site_config)
     result = generate_meta(doc, site)

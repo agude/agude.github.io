@@ -10,6 +10,8 @@ require 'src/seo/generators/blog_posting_generator'
 require 'src/seo/generators/book_review_generator'
 require 'src/seo/generators/generic_review_generator'
 require 'src/seo/generators/author_profile_generator'
+require 'src/seo/generators/page_generator'
+require 'src/seo/generators/web_page_generator'
 
 # Base test class with shared setup and helpers for Jekyll::SEO::JsonLdInjector tests.
 #
@@ -542,5 +544,92 @@ class TestJsonLdInjectorHooks < TestJsonLdInjectorBase
     end
 
     mock_logger.verify
+  end
+end
+
+# Tests for page layout routing (page, page-not-on-sidebar, supplementary files).
+#
+# Verifies that different page types are routed to the correct generators.
+class TestJsonLdInjectorPageRouting < TestJsonLdInjectorBase
+  def setup
+    super
+    @page_hash = { '@type' => 'CollectionPage', 'name' => 'Test Page' }
+    @web_page_hash = { '@type' => 'WebPage', 'name' => 'Supplementary Content' }
+  end
+
+  def test_routes_page_layout_to_page_generator
+    page_doc = create_page_like(
+      { 'layout' => 'page', 'title' => 'Book Reviews' },
+      '/books/index.html',
+    )
+
+    Jekyll::SEO::Generators::PageLdGenerator.stub :generate_hash, @page_hash do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(page_doc, @site)
+    end
+
+    assert_json_script(page_doc, @site, @page_hash)
+  end
+
+  def test_routes_page_not_on_sidebar_to_page_generator
+    topics_page = create_page_like(
+      { 'layout' => 'page-not-on-sidebar', 'title' => 'Topics' },
+      '/topics/index.html',
+    )
+
+    Jekyll::SEO::Generators::PageLdGenerator.stub :generate_hash, @page_hash do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(topics_page, @site)
+    end
+
+    assert_json_script(topics_page, @site, @page_hash)
+  end
+
+  def test_routes_files_page_to_web_page_generator
+    supplementary_page = create_page_like(
+      { 'layout' => 'page-not-on-sidebar', 'title' => 'Code Sample' },
+      '/blog/sample-code.html',
+      'files/sample-code.md',
+    )
+
+    Jekyll::SEO::Generators::WebPageLdGenerator.stub :generate_hash, @web_page_hash do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(supplementary_page, @site)
+    end
+
+    assert_json_script(supplementary_page, @site, @web_page_hash)
+  end
+
+  def test_routes_nested_files_page_to_web_page_generator
+    nested_page = create_page_like(
+      { 'layout' => 'page-not-on-sidebar', 'title' => 'SAT2VEC Results' },
+      '/blog/sat2vec/results.html',
+      'files/sat2vec/results.md',
+    )
+
+    Jekyll::SEO::Generators::WebPageLdGenerator.stub :generate_hash, @web_page_hash do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(nested_page, @site)
+    end
+
+    assert_json_script(nested_page, @site, @web_page_hash)
+  end
+
+  def test_files_with_page_layout_routes_to_web_page_generator
+    files_page = create_page_like(
+      { 'layout' => 'page', 'title' => 'Embedded Data' },
+      '/blog/data.html',
+      'files/data.md',
+    )
+
+    Jekyll::SEO::Generators::WebPageLdGenerator.stub :generate_hash, @web_page_hash do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(files_page, @site)
+    end
+
+    assert_json_script(files_page, @site, @web_page_hash)
+  end
+
+  private
+
+  def create_page_like(data, url, source_path = nil)
+    page_struct = Struct.new(:site, :data, :url, :path, :relative_path)
+    path = source_path || url.delete_prefix('/')
+    page_struct.new(@site, data, url, path, path)
   end
 end

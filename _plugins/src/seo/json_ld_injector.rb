@@ -15,6 +15,7 @@ require_relative 'generators/series_page_generator'
 require_relative 'generators/category_page_generator'
 require_relative 'generators/page_generator'
 require_relative 'generators/profile_page_generator'
+require_relative 'generators/web_page_generator'
 
 # Injects structured data (JSON-LD) into Jekyll documents and pages.
 #
@@ -55,6 +56,7 @@ module Jekyll
         doc.url || doc.path || doc.relative_path
       end
 
+      # rubocop:disable Metrics/PerceivedComplexity -- routing method with many content types
       def self._determine_generator(document)
         if _is_book_review?(document)
           [Jekyll::SEO::Generators::BookReviewLdGenerator, 'Book Review']
@@ -74,12 +76,15 @@ module Jekyll
           [Jekyll::SEO::Generators::CategoryPageLdGenerator, 'Category Page']
         elsif _is_linktree_page?(document)
           [Jekyll::SEO::Generators::ProfilePageLdGenerator, 'Profile Page']
+        elsif _is_supplementary_page?(document)
+          [Jekyll::SEO::Generators::WebPageLdGenerator, 'Supplementary Page']
         elsif _is_generic_page?(document)
           [Jekyll::SEO::Generators::PageLdGenerator, 'Generic Page']
         else
           [nil, 'Unknown']
         end
       end
+      # rubocop:enable Metrics/PerceivedComplexity
 
       def self._handle_generic_review(document)
         item_name = document.data.dig('review', 'item_name')
@@ -154,8 +159,15 @@ module Jekyll
         doc.url == '/linktree/'
       end
 
+      def self._is_supplementary_page?(doc)
+        source_path = doc.relative_path || doc.path
+        return false unless source_path&.start_with?('files/')
+
+        %w[page page-not-on-sidebar].include?(doc.data['layout'])
+      end
+
       def self._is_generic_page?(doc)
-        doc.data['layout'] == 'page'
+        %w[page page-not-on-sidebar].include?(doc.data['layout'])
       end
     end
   end

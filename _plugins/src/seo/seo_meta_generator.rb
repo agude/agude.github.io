@@ -8,6 +8,7 @@ module Jekyll
     # Replaces jekyll-seo-tag functionality with custom control over output.
     class SeoMetaGenerator
       ARTICLE_LAYOUTS = %w[book post].freeze
+      MAX_TITLE_LENGTH = 70
 
       def initialize(document, site)
         @document = document
@@ -40,8 +41,6 @@ module Jekyll
 
       private
 
-      MAX_TITLE_LENGTH = 70
-
       # --- Title ---
 
       def build_title
@@ -50,9 +49,7 @@ module Jekyll
         case @data['layout']
         when 'book'
           book_title
-        when 'author_page'
-          "#{raw_title} - Book Reviews"
-        when 'series_page'
+        when 'author_page', 'series_page'
           "#{raw_title} - Book Reviews"
         when 'category'
           "#{raw_title} - Articles"
@@ -82,10 +79,16 @@ module Jekyll
 
       def raw_title
         title = @data['title']
-        return title if title && !title.to_s.strip.empty?
+        unless title && !title.to_s.strip.empty?
+          raise Jekyll::Errors::FatalException,
+                "SEO: Page '#{@document.relative_path || @document.url}' is missing a title"
+        end
 
-        raise Jekyll::Errors::FatalException,
-              "SEO: Page '#{@document.relative_path || @document.url}' is missing a title"
+        decode_html_entities(title)
+      end
+
+      def decode_html_entities(text)
+        Nokogiri::HTML.fragment(text.to_s).text
       end
 
       def homepage?
@@ -118,8 +121,8 @@ module Jekyll
       end
 
       def page_description
-        desc = @data['description']
-        desc&.strip&.empty? ? nil : desc
+        desc = @data['description']&.strip
+        desc&.empty? ? nil : desc
       end
 
       def excerpt_text
