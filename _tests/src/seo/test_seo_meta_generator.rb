@@ -12,6 +12,7 @@ class TestSeoMetaGenerator < Minitest::Test
       'url' => 'https://alexgude.com',
       'baseurl' => '',
       'title' => 'Alex Gude',
+      'tagline' => 'Data Scientist',
       'author' => { 'name' => 'Alexander Gude' },
       'description' => 'A blog about technology, data science, machine learning, and more!',
       'locale' => 'en_US',
@@ -31,7 +32,17 @@ class TestSeoMetaGenerator < Minitest::Test
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
-    assert_equal 'A Fire Upon The Deep | Alex Gude', result['title']
+    assert_equal 'A Fire Upon The Deep by Test Author - Book Review', result['title']
+  end
+
+  def test_title_book_review_long_falls_back
+    doc = create_book_doc(title: 'There Is No Antimemetics Division (Original Edition)')
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    # Falls back to shorter format when full title exceeds 70 chars
+    assert result['title'].length <= 70
+    assert_includes result['title'], 'Book Review'
   end
 
   def test_title_blog_post
@@ -39,7 +50,7 @@ class TestSeoMetaGenerator < Minitest::Test
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
-    assert_equal 'Plotting the 2019 Tour de France | Alex Gude', result['title']
+    assert_equal 'Plotting the 2019 Tour de France', result['title']
   end
 
   def test_title_author_page
@@ -47,7 +58,7 @@ class TestSeoMetaGenerator < Minitest::Test
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
-    assert_equal 'Adrian Tchaikovsky | Alex Gude', result['title']
+    assert_equal 'Reviews of Books by Adrian Tchaikovsky', result['title']
   end
 
   def test_title_series_page
@@ -55,7 +66,15 @@ class TestSeoMetaGenerator < Minitest::Test
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
-    assert_equal 'Bobiverse | Alex Gude', result['title']
+    assert_equal 'Reviews of the Bobiverse series', result['title']
+  end
+
+  def test_title_series_page_with_implied_series
+    doc = create_page_doc(title: 'Hyperion Cantos', layout: 'series_page')
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'Reviews of the Hyperion Cantos', result['title']
   end
 
   def test_title_regular_page
@@ -63,7 +82,7 @@ class TestSeoMetaGenerator < Minitest::Test
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
-    assert_equal 'Papers | Alex Gude', result['title']
+    assert_equal 'Papers', result['title']
   end
 
   def test_title_homepage
@@ -71,7 +90,7 @@ class TestSeoMetaGenerator < Minitest::Test
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
-    assert_equal 'Home | Alex Gude', result['title']
+    assert_equal 'Alex Gude - Data Scientist', result['title']
   end
 
   def test_title_category_page
@@ -79,7 +98,21 @@ class TestSeoMetaGenerator < Minitest::Test
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
-    assert_equal 'Data Science | Alex Gude', result['title']
+    assert_equal 'Data Science - Articles', result['title']
+  end
+
+  def test_title_seo_title_override
+    doc = create_doc(
+      { 'layout' => 'page', 'title' => 'Papers', 'seo_title' => 'Papers by Alexander Gude' },
+      '/papers/',
+      'Content',
+      nil,
+      nil,
+    )
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'Papers by Alexander Gude', result['title']
   end
 
   def test_missing_title_raises_exception
@@ -107,7 +140,7 @@ class TestSeoMetaGenerator < Minitest::Test
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
-    assert_equal 'Data Science | Alex Gude', result['title']
+    assert_equal 'Data Science - Articles', result['title']
   end
 
   # --- Open Graph Type Tests ---
@@ -162,12 +195,12 @@ class TestSeoMetaGenerator < Minitest::Test
 
   # --- Open Graph Title Tests ---
 
-  def test_og_title_matches_page_title
+  def test_og_title_matches_title
     doc = create_book_doc(title: 'A Fire Upon The Deep')
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
-    assert_equal 'A Fire Upon The Deep', result['og_title']
+    assert_equal result['title'], result['og_title']
   end
 
   # --- Description Tests ---
@@ -193,6 +226,17 @@ class TestSeoMetaGenerator < Minitest::Test
     result = generate_meta(doc, site)
 
     assert_equal 'This is the excerpt text.', result['description']
+  end
+
+  def test_description_normalizes_whitespace
+    doc = create_post_doc(
+      title: 'Test Post',
+      excerpt: "Line one.\n\n  Line two."
+    )
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'Line one. Line two.', result['description']
   end
 
   def test_description_fallback_to_site_description

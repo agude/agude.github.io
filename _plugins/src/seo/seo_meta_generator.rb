@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'nokogiri'
+require_relative '../content/series/series_text_utils'
 
 module Jekyll
   module SEO
@@ -23,7 +24,7 @@ module Jekyll
       def generate
         {
           'title' => build_title,
-          'og_title' => page_title,
+          'og_title' => build_title,
           'og_type' => og_type,
           'image' => absolute_image_url,
           'og_site_name' => site_title,
@@ -40,13 +41,54 @@ module Jekyll
 
       private
 
+      MAX_TITLE_LENGTH = 70
+
       # --- Title ---
 
       def build_title
-        "#{page_title} | #{site_title}"
+        return @data['seo_title'] if @data['seo_title']
+
+        case @data['layout']
+        when 'book'
+          book_title
+        when 'author_page'
+          "Reviews of Books by #{raw_title}"
+        when 'series_page'
+          series_title
+        when 'category'
+          "#{category_title} - Articles"
+        else
+          homepage? ? "#{site_title} - #{site_tagline}" : raw_title
+        end
       end
 
-      def page_title
+      def series_title
+        analysis = Jekyll::Series::SeriesTextUtils.analyze_series_name(raw_title)
+        return "Reviews of the #{raw_title} Series" unless analysis
+
+        "Reviews of #{analysis[:prefix]}#{analysis[:name]}#{analysis[:suffix]}"
+      end
+
+      def book_title
+        author = first_book_author
+        title = raw_title
+
+        candidates = [
+          "#{title} by #{author} - Book Review",
+          "#{title} by #{author} - Review",
+          "#{title} - Book Review",
+          "#{title} - Review",
+        ]
+
+        candidates.find { |c| c.length <= MAX_TITLE_LENGTH } || candidates.last
+      end
+
+      def first_book_author
+        authors = @data['book_authors']
+        authors.is_a?(Array) ? authors.first : authors.to_s
+      end
+
+      def raw_title
         title = @data['title'] || @data['category-title']
         return title if title && !title.to_s.strip.empty?
 
@@ -54,8 +96,20 @@ module Jekyll
               "SEO: Page '#{@document.relative_path || @document.url}' is missing a title"
       end
 
+      def category_title
+        @data['category-title'] || @data['title'] || 'Category'
+      end
+
+      def homepage?
+        @document.url == '/'
+      end
+
       def site_title
         @config['title'] || ''
+      end
+
+      def site_tagline
+        @config['tagline'] || ''
       end
 
       # --- Open Graph Type ---
@@ -93,7 +147,7 @@ module Jekyll
       end
 
       def strip_html(text)
-        Nokogiri::HTML.fragment(text.to_s).text.strip
+        Nokogiri::HTML.fragment(text.to_s).text.gsub(/\s+/, ' ').strip
       end
 
       # --- Image ---
