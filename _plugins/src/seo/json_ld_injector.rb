@@ -38,8 +38,11 @@ module Jekyll
         'linktree' => [Generators::ProfilePageLdGenerator, 'Profile Page'],
       }.freeze
 
-      # Layouts that intentionally have no JSON-LD (base/utility layouts)
-      SKIP_LAYOUTS = %w[default substitute compress redirect].freeze
+      # Layouts that intentionally have no JSON-LD.
+      # `substitute`, `compress`, `redirect` are base/utility layouts that should
+      # never appear as a leaf layout on content. `404` and `test-page` are
+      # content layouts whose pages don't need structured data.
+      SKIP_LAYOUTS = %w[substitute compress redirect 404 test-page].freeze
 
       def self.initialize_script_storage(site)
         site.data['generated_json_ld_scripts'] ||= {}

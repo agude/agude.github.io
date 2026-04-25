@@ -150,6 +150,14 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_equal 'article', result['og_type']
   end
 
+  def test_og_type_review_post_is_article
+    doc = create_review_post_doc(title: 'Gadget Review')
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'article', result['og_type']
+  end
+
   def test_og_type_author_page_is_website
     doc = create_page_doc(title: 'Author Name', layout: 'author_page')
     site = create_site(@site_config)
@@ -339,6 +347,15 @@ class TestSeoMetaGenerator < Minitest::Test
     assert result['article_published_time']
   end
 
+  def test_article_published_time_for_review_posts
+    doc = create_review_post_doc(title: 'Gadget Review', date: '2024-08-22')
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert result['article_published_time']
+    assert_match(/2024-08-22/, result['article_published_time'])
+  end
+
   def test_no_article_published_time_for_pages
     doc = create_page_doc(title: 'Test', layout: 'page')
     site = create_site(@site_config)
@@ -420,6 +437,14 @@ class TestSeoMetaGenerator < Minitest::Test
     data['description'] = description if description
     data['excerpt'] = mock_excerpt(excerpt) if excerpt
 
+    create_doc(data, url, 'Test content', date, @posts_collection)
+  end
+
+  def create_review_post_doc(title:, url: '/blog/review/', date: '2024-01-01')
+    data = {
+      'layout' => 'review-post',
+      'title' => title,
+    }
     create_doc(data, url, 'Test content', date, @posts_collection)
   end
 

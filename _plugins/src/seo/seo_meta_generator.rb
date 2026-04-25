@@ -7,7 +7,7 @@ module Jekyll
     # Generates SEO meta tag values for Jekyll documents and pages.
     # Replaces jekyll-seo-tag functionality with custom control over output.
     class SeoMetaGenerator
-      ARTICLE_LAYOUTS = %w[book post].freeze
+      ARTICLE_LAYOUTS = %w[book post review-post].freeze
       MAX_TITLE_LENGTH = 70
 
       def initialize(document, site)

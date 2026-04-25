@@ -89,7 +89,7 @@ class TestJsonLdInjectorBase < Minitest::Test
     @author_page_doc.site = @site
 
     @other_page_doc = create_doc(
-      { 'layout' => 'default', 'title' => 'Other Page' },
+      { 'layout' => 'compress', 'title' => 'Other Page' },
       '/other.html',
       'Other content',
       nil,
@@ -362,10 +362,10 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
     mock_logger.verify
   end
 
-  def test_handles_page_like_object_with_no_matching_layout
-    # Create a page-like object with a layout that doesn't match any generator
+  def test_handles_page_like_object_with_skipped_layout
+    # Create a page-like object with a layout in SKIP_LAYOUTS
     regular_page = PageLike.new(
-      { 'layout' => 'default', 'title' => 'Regular Page' },
+      { 'layout' => 'compress', 'title' => 'Regular Page' },
       '/regular.html',
       'regular.html',
       'regular.html',
@@ -378,6 +378,19 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
 
     # Should not have generated script
     assert_no_json_script(regular_page, @site)
+  end
+
+  def test_raises_for_unknown_layout
+    unknown_page = PageLike.new(
+      { 'layout' => 'totally-made-up', 'title' => 'Bad Layout' },
+      '/bad.html',
+      'bad.html',
+      'bad.html',
+    )
+
+    assert_raises(Jekyll::Errors::FatalException) do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(unknown_page, @site)
+    end
   end
 
   private

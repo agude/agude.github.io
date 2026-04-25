@@ -58,22 +58,13 @@ class TestJsonLdBuilder < Minitest::Test
     end
   end
 
-  # --- Simple Fields via method_missing ---
+  # --- Simple Fields ---
 
   def test_simple_field_sets_value
     result = Jekyll::SEO::JsonLdBuilder.build('Article') do |schema|
       schema.headline 'My Headline'
     end
     assert_equal 'My Headline', result['headline']
-  end
-
-  def test_snake_case_converts_to_camel_case
-    result = Jekyll::SEO::JsonLdBuilder.build('Article') do |schema|
-      schema.date_created '2024-03-15'
-      schema.word_count 500
-    end
-    assert_equal '2024-03-15', result['dateCreated']
-    assert_equal 500, result['wordCount']
   end
 
   def test_nil_value_is_not_added
@@ -99,13 +90,12 @@ class TestJsonLdBuilder < Minitest::Test
     assert_equal 'My Title', result['headline']
   end
 
-  def test_method_missing_preserves_arrays_and_booleans
-    result = Jekyll::SEO::JsonLdBuilder.build('Product') do |schema|
-      schema.offers [{ 'price' => 10 }]
-      schema.is_family_friendly true
+  def test_unknown_method_raises
+    assert_raises(NoMethodError) do
+      Jekyll::SEO::JsonLdBuilder.build('Article') do |schema|
+        schema.not_a_real_field 'value'
+      end
     end
-    assert_equal [{ 'price' => 10 }], result['offers']
-    assert_equal true, result['isFamilyFriendly']
   end
 
   # --- Explicit URL Method ---

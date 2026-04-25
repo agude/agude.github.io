@@ -281,6 +281,14 @@ module Jekyll
         set_if_present('isbn', value)
       end
 
+      def name(value)
+        set_if_present('name', value)
+      end
+
+      def headline(value)
+        set_if_present('headline', value)
+      end
+
       def require!(*keys)
         @required_keys.concat(keys)
       end
@@ -292,18 +300,6 @@ module Jekyll
       def to_h
         check_required_fields
         Jekyll::SEO::JsonLdUtils.cleanup_data_hash!(@data.dup)
-      end
-
-      def method_missing(method_name, *args, &)
-        return super if block_given?
-
-        json_key = snake_to_camel(method_name.to_s)
-        value = args.first
-        set_if_present(json_key, value)
-      end
-
-      def respond_to_missing?(method_name, include_private = false)
-        true || super
       end
 
       private
