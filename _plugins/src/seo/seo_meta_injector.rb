@@ -6,6 +6,18 @@ module Jekyll
   module SEO
     # Injects SEO meta tag data into Jekyll documents and pages.
     # Data is stored in site.data['seo_meta'][page.url] for use by includes.
+    #
+    # Data flow:
+    #   :documents/:pages, :post_convert hook ->
+    #   SeoMetaGenerator.generate produces a hash of meta tag values ->
+    #   stored in site.data['seo_meta'][doc.url] ->
+    #   _includes/seo_meta.html reads from site.data and emits the tags.
+    #
+    # Sister subsystem to JsonLdInjector, which populates structured data
+    # at site.data['generated_json_ld_scripts']. Both are read by
+    # _includes/head.html. Layout-specific behavior in this subsystem is
+    # limited to title formatting and og:type classification; see
+    # SeoMetaGenerator::LAYOUT_TITLE_SUFFIX and ARTICLE_LAYOUTS.
     module SeoMetaInjector
       def self.initialize_storage(site)
         site.data['seo_meta'] ||= {}

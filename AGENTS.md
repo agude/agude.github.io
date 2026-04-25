@@ -28,7 +28,16 @@ Jekyll-based static site (alexgude.com) running in Docker.
   - `infrastructure/`: Low-level utils (Logger, Text, URL), **Link Cache**,
     `GeneratedStaticFile`, `MarkdownWhitespaceNormalizer`.
   - `ui/`: Generic components (Cards, Ratings, Citations).
-  - `seo/`: JSON-LD generators & Validation.
+  - `seo/`: Two parallel subsystems both read by `_includes/head.html`:
+    - `JsonLdInjector` populates `site.data['generated_json_ld_scripts']`
+      with `<script type="application/ld+json">` tags. Layout-keyed
+      dispatch via `LAYOUT_GENERATORS`; unknown layout raises.
+    - `SeoMetaInjector` populates `site.data['seo_meta']` with meta tag
+      values (title, og_*, twitter_*, description, canonical). Layout
+      knowledge limited to title suffixes (`LAYOUT_TITLE_SUFFIX`) and
+      article classification (`ARTICLE_LAYOUTS`). The cross-check test
+      `test_every_known_layout_has_article_classification` enforces that
+      every layout in `LAYOUT_GENERATORS` is explicitly classified.
   - `content/`: Domain logic (Books, Posts, Authors, Series, **Markdown Output**).
 - **Tests:** `_tests/` (Mirrors `_plugins/src/` structure).
 

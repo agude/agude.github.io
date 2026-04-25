@@ -55,6 +55,12 @@ module Jekyll
         @data['image'] = entity if entity
       end
 
+      def image_url(path)
+        return if path.nil? || path.to_s.strip.empty?
+
+        @data['image'] = Jekyll::Infrastructure::UrlUtils.absolute_url(path, @site)
+      end
+
       def authors(value)
         names = Jekyll::Infrastructure::FrontMatterUtils.get_list_from_string_or_array(value)
         return if names.empty?
@@ -203,13 +209,6 @@ module Jekyll
         }
       end
 
-      def name_with_suffix(suffix)
-        title = @document&.data&.[]('title')
-        return unless title && !title.strip.empty?
-
-        @data['name'] = "#{title.strip} - #{suffix}"
-      end
-
       def site_name
         name = @site&.config&.[]('title')
         set_if_present('name', name)
@@ -291,10 +290,6 @@ module Jekyll
 
       def require!(*keys)
         @required_keys.concat(keys)
-      end
-
-      def raw(key, value)
-        @data[key] = value
       end
 
       def to_h

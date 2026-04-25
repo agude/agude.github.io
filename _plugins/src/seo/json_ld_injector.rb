@@ -21,6 +21,19 @@ module Jekyll
   module SEO
     # Injects JSON-LD structured data into Jekyll documents and pages.
     # Uses a layout-to-generator mapping for simple, predictable routing.
+    #
+    # Data flow:
+    #   :documents/:pages, :post_convert hook ->
+    #   inject_json_ld looks up generator from LAYOUT_GENERATORS by layout name ->
+    #   generator returns a hash ->
+    #   serialized to a <script type="application/ld+json"> tag ->
+    #   stored in site.data['generated_json_ld_scripts'][doc.url] ->
+    #   _includes/head.html reads from site.data and emits the tag.
+    #
+    # Strict on unknown layouts: an unregistered layout raises
+    # Jekyll::Errors::FatalException. Layouts that legitimately produce
+    # no JSON-LD (utility wrappers, redirects, 404, test pages) live in
+    # SKIP_LAYOUTS instead of LAYOUT_GENERATORS.
     module JsonLdInjector
       # Layout name → [Generator module, Human-readable type name]
       LAYOUT_GENERATORS = {

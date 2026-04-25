@@ -7,75 +7,45 @@ module Jekyll
   module SEO
     module Generators
       # Generates JSON-LD Review schema for generic reviews.
-      class GenericReviewLdGenerator
+      module GenericReviewLdGenerator
         def self.generate_hash(document, site)
-          new(document, site).generate
-        end
+          review_fm = document.data['review'] || {}
+          return {} unless valid_item_name?(document, review_fm)
 
-        def initialize(document, site)
-          @document = document
-          @site = site
-          @review_fm = document.data['review'] || {}
-        end
-
-        def generate
-          return {} unless valid_item_name?
-
-          Jekyll::SEO::JsonLdBuilder.build('Review', license: true, document: @document, site: @site) do |review|
+          Jekyll::SEO::JsonLdBuilder.build('Review', license: true, document: document, site: site) do |review|
             review.site_author
             review.date_published
             review.site_publisher
             review.review_body_from_fields(field_priority: ['description'])
             review.url
 
-            review.item_reviewed(@review_fm['item_type'] || 'Product') do |item|
-              item.name @review_fm['item_name']
-              add_item_image(item)
-              add_item_url(item)
-              add_item_description(item)
+            review.item_reviewed(review_fm['item_type'] || 'Product') do |item|
+              item.name review_fm['item_name']
+              item.image_url document.data['image']
+              item_url = review_fm['item_url']
+              item.url item_url if item_url && !item_url.to_s.strip.empty?
+              cleaned = clean_description(review_fm['item_description'])
+              item.description cleaned if cleaned
             end
           end
         end
 
-        private
-
-        def valid_item_name?
-          item_name = @review_fm['item_name']
+        def self.valid_item_name?(document, review_fm)
+          item_name = review_fm['item_name']
           return true if item_name && !item_name.to_s.strip.empty?
 
-          log_missing_item_name
-          false
-        end
-
-        def log_missing_item_name
-          id = @document.url || @document.path || @document.relative_path
+          id = document.url || document.path || document.relative_path
           Jekyll.logger.error(
             'JSON-LD (GenericReviewGen):',
             "Called for '#{id}' but 'review.item_name' is missing or empty.",
           )
+          false
         end
 
-        def add_item_image(item)
-          path = @document.data['image']
-          return unless path && !path.to_s.strip.empty?
+        def self.clean_description(text)
+          return nil unless text && !text.to_s.strip.empty?
 
-          abs_url = Jekyll::Infrastructure::UrlUtils.absolute_url(path, @site)
-          item.raw 'image', abs_url
-        end
-
-        def add_item_url(item)
-          url = @review_fm['item_url']
-          return unless url && !url.strip.empty?
-
-          item.url url
-        end
-
-        def add_item_description(item)
-          desc = @review_fm['item_description']
-          return unless desc && !desc.strip.empty?
-
-          cleaned = Jekyll::Infrastructure::TextProcessingUtils.clean_text_from_html(desc)
-          item.description cleaned unless cleaned.empty?
+          Jekyll::Infrastructure::TextProcessingUtils.clean_text_from_html(text)
         end
       end
     end

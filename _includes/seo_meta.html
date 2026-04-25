@@ -38,10 +38,10 @@
 <meta name="twitter:card" content="{{ seo.twitter_card }}" />
 {%- endif -%}
 {%- if seo.image -%}
-<meta property="twitter:image" content="{{ seo.image }}" />
+<meta name="twitter:image" content="{{ seo.image }}" />
 {%- endif -%}
 {%- if seo.og_title -%}
-<meta property="twitter:title" content="{{ seo.og_title | escape }}" />
+<meta name="twitter:title" content="{{ seo.og_title | escape }}" />
 {%- endif -%}
 {%- if seo.google_site_verification -%}
 <meta name="google-site-verification" content="{{ seo.google_site_verification }}" />

@@ -4,7 +4,7 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/seo/generators/generic_review_generator'
 
-# Tests for Jekyll::SEO::Generators::GenericReviewLdGenerator class.
+# Tests for Jekyll::SEO::Generators::GenericReviewLdGenerator module.
 #
 # Verifies that the generator correctly creates JSON-LD structured data for generic product reviews.
 class TestGenericReviewLdGenerator < Minitest::Test
@@ -48,7 +48,7 @@ class TestGenericReviewLdGenerator < Minitest::Test
         'name' => 'My Awesome Gadget',
       },
     }
-    assert_equal expected, Jekyll::SEO::Generators::GenericReviewLdGenerator.new(doc, @site).generate
+    assert_equal expected, Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_review_with_all_item_fields
@@ -95,7 +95,7 @@ class TestGenericReviewLdGenerator < Minitest::Test
                                         Jekyll::Infrastructure::UrlUtils.absolute_url(doc.data['review']['item_url'], @site)
                                       end
 
-    assert_equal expected, Jekyll::SEO::Generators::GenericReviewLdGenerator.new(doc, @site).generate
+    assert_equal expected, Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_review_default_item_type
@@ -111,7 +111,7 @@ class TestGenericReviewLdGenerator < Minitest::Test
       '2024-05-03',
       @post_collection,
     )
-    result_hash = Jekyll::SEO::Generators::GenericReviewLdGenerator.new(doc, @site).generate
+    result_hash = Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
     assert_equal 'Product', result_hash.dig('itemReviewed', '@type')
     assert_equal 'A Thingamajig', result_hash.dig('itemReviewed', 'name')
     assert_equal 'It is a thing.', result_hash['reviewBody']
@@ -144,7 +144,7 @@ class TestGenericReviewLdGenerator < Minitest::Test
       },
       # reviewBody will be missing
     }
-    assert_equal expected, Jekyll::SEO::Generators::GenericReviewLdGenerator.new(doc, @site).generate
+    assert_equal expected, Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
   end
 
   def test_generate_hash_returns_empty_if_item_name_is_missing_in_generator_guard
@@ -169,7 +169,7 @@ class TestGenericReviewLdGenerator < Minitest::Test
 
     actual_hash = nil
     Jekyll.stub :logger, mock_logger do
-      actual_hash = Jekyll::SEO::Generators::GenericReviewLdGenerator.new(doc_missing_item_name, @site).generate
+      actual_hash = Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc_missing_item_name, @site)
     end
 
     assert_equal({}, actual_hash)

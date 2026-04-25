@@ -516,13 +516,27 @@ class TestJsonLdBuilder < Minitest::Test
     assert_includes error.message, 'date_published'
   end
 
-  # --- Raw Escape Hatch ---
+  # --- Image URL (string variant of image) ---
 
-  def test_raw_sets_field_directly
-    result = Jekyll::SEO::JsonLdBuilder.build('Thing') do |schema|
-      schema.raw 'customField', { nested: 'value' }
+  def test_image_url_sets_absolute_string
+    result = Jekyll::SEO::JsonLdBuilder.build('Thing', site: @site) do |schema|
+      schema.image_url '/images/photo.jpg'
     end
-    assert_equal({ nested: 'value' }, result['customField'])
+    assert_equal 'https://example.com/blog/images/photo.jpg', result['image']
+  end
+
+  def test_image_url_nil_not_added
+    result = Jekyll::SEO::JsonLdBuilder.build('Thing', site: @site) do |schema|
+      schema.image_url nil
+    end
+    refute result.key?('image')
+  end
+
+  def test_image_url_empty_not_added
+    result = Jekyll::SEO::JsonLdBuilder.build('Thing', site: @site) do |schema|
+      schema.image_url '   '
+    end
+    refute result.key?('image')
   end
 
   # --- About Method (for series pages) ---
@@ -542,14 +556,5 @@ class TestJsonLdBuilder < Minitest::Test
     refute result.key?('about')
   end
 
-  # --- Cleanup Integration ---
-
-  def test_final_hash_is_cleaned
-    result = Jekyll::SEO::JsonLdBuilder.build('Article') do |schema|
-      schema.headline 'Title'
-      schema.raw 'emptyNested', { 'a' => nil, 'b' => '' }
-    end
-    assert_equal({}, result['emptyNested'])
-  end
 end
 # rubocop:enable Style/SymbolProc
