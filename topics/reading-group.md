@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: reading-group
-category-title: Reading Group
+title: Reading Group
 description: >
   All of the articles written by Alex Gude reviewing machine learning papers.
 ---

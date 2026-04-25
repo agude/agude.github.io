@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: machine-learning-engineering
-category-title: Machine Learning Engineering
+title: Machine Learning Engineering
 description: >
   All of the articles written by Alex Gude about putting machine learning in
   production.

@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: my-projects
-category-title: My Projects
+title: My Projects
 description: >
   All of the articles written by Alex Gude about the things he has built, both
   software and hardware.

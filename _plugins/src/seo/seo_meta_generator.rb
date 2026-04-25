@@ -55,7 +55,7 @@ module Jekyll
         when 'series_page'
           "#{raw_title} - Book Reviews"
         when 'category'
-          "#{category_title} - Articles"
+          "#{raw_title} - Articles"
         else
           homepage? ? "#{site_title} - #{site_tagline}" : raw_title
         end
@@ -81,15 +81,11 @@ module Jekyll
       end
 
       def raw_title
-        title = @data['title'] || @data['category-title']
+        title = @data['title']
         return title if title && !title.to_s.strip.empty?
 
         raise Jekyll::Errors::FatalException,
               "SEO: Page '#{@document.relative_path || @document.url}' is missing a title"
-      end
-
-      def category_title
-        @data['category-title'] || @data['title'] || 'Category'
       end
 
       def homepage?

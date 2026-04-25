@@ -39,11 +39,7 @@ module Jekyll
         end
 
         private_class_method def self.add_description(data, document)
-          description = document.data['description']
-          return unless description && !description.strip.empty?
-
-          cleaned = Jekyll::Infrastructure::TextProcessingUtils.clean_text_from_html(description)
-          data['description'] = cleaned unless cleaned.empty?
+          Jekyll::SEO::JsonLdUtils.add_cleaned_description(data, document)
         end
 
         private_class_method def self.add_author(data, site)

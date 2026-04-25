@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: lab41
-category-title: Lab41
+title: Lab41
 redirect_from: /lab41/
 description: >
   All of the articles written by Alex Gude for Lab41's blog on Deep Learning,

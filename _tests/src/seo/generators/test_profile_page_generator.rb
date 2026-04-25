@@ -53,6 +53,19 @@ class TestProfilePageLdGenerator < Minitest::Test
     assert_includes same_as, 'https://bsky.app/profile/alexgude.com'
   end
 
+  def test_generate_hash_includes_mastodon_with_instance
+    config = @site_config.dup
+    config['author'] = config['author'].merge(
+      'mastodon' => 'alex',
+      'mastodon_instance' => 'fosstodon.org'
+    )
+    doc = create_linktree_doc
+    site = create_site(config)
+    result = Jekyll::SEO::Generators::ProfilePageLdGenerator.generate_hash(doc, site)
+
+    assert_includes result['mainEntity']['sameAs'], 'https://fosstodon.org/@alex'
+  end
+
   def test_generate_hash_includes_name
     doc = create_linktree_doc(title: 'Linktree')
     site = create_site(@site_config)

@@ -121,20 +121,6 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_raises(Jekyll::Errors::FatalException) { generate_meta(doc, site) }
   end
 
-  def test_title_falls_back_to_category_title
-    doc = create_doc(
-      { 'layout' => 'category', 'title' => nil, 'category-title' => 'Data Science' },
-      '/topics/data-science/',
-      'Content',
-      nil,
-      nil,
-    )
-    site = create_site(@site_config)
-    result = generate_meta(doc, site)
-
-    assert_equal 'Data Science - Articles', result['title']
-  end
-
   # --- Open Graph Type Tests ---
 
   def test_og_type_book_review_is_article

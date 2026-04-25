@@ -67,6 +67,30 @@ class TestPersonLdGenerator < Minitest::Test
     assert_includes result['sameAs'], 'https://bsky.app/profile/alexgude.com'
   end
 
+  def test_generate_hash_includes_mastodon_with_instance
+    config = @site_config.dup
+    config['author'] = config['author'].merge(
+      'mastodon' => 'alex',
+      'mastodon_instance' => 'fosstodon.org'
+    )
+    doc = create_resume_doc
+    site = create_site(config)
+    result = Jekyll::SEO::Generators::PersonLdGenerator.generate_hash(doc, site)
+
+    assert_includes result['sameAs'], 'https://fosstodon.org/@alex'
+  end
+
+  def test_generate_hash_omits_mastodon_without_instance
+    config = @site_config.dup
+    config['author'] = config['author'].merge('mastodon' => 'alex')
+    doc = create_resume_doc
+    site = create_site(config)
+    result = Jekyll::SEO::Generators::PersonLdGenerator.generate_hash(doc, site)
+
+    refute result['sameAs'].any? { |link| link.include?('mastodon') },
+           'Mastodon without instance should be omitted'
+  end
+
   def test_generate_hash_without_social_profiles
     config = {
       'url' => 'https://alexgude.com',

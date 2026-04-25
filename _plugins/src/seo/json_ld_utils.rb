@@ -223,6 +223,39 @@ module Jekyll
         {}
       end
 
+      # --- Social Links Helper ---
+
+      # Builds an array of social profile URLs from author config.
+      # @param author [Hash] The author config hash from site.config['author'].
+      # @return [Array<String>] Array of social profile URLs.
+      def self.build_social_links(author)
+        return [] unless author.is_a?(Hash)
+
+        links = []
+        links << "https://www.linkedin.com/in/#{author['linkedin']}" if author['linkedin']
+        links << "https://github.com/#{author['github']}" if author['github']
+        links << "https://bsky.app/profile/#{author['bluesky']}" if author['bluesky']
+        links << "https://twitter.com/#{author['twitter']}" if author['twitter']
+        if author['mastodon'] && author['mastodon_instance']
+          links << "https://#{author['mastodon_instance']}/@#{author['mastodon']}"
+        end
+        links
+      end
+
+      # --- Description Helper ---
+
+      # Adds a cleaned description to the data hash from document's description field.
+      # @param data [Hash] The JSON-LD data hash to modify.
+      # @param document [Jekyll::Document] The Jekyll document.
+      # @return [void]
+      def self.add_cleaned_description(data, document)
+        description = document.data['description']
+        return unless description && !description.to_s.strip.empty?
+
+        cleaned = Jekyll::Infrastructure::TextProcessingUtils.clean_text_from_html(description)
+        data['description'] = cleaned unless cleaned.empty?
+      end
+
       # --- Utility Helpers ---
 
       # Cleans a Ruby Hash (representing a future JSON object) by removing keys

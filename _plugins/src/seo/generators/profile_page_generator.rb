@@ -36,11 +36,7 @@ module Jekyll
         end
 
         private_class_method def self.add_description(data, document)
-          description = document.data['description']
-          return unless description && !description.strip.empty?
-
-          cleaned = Jekyll::Infrastructure::TextProcessingUtils.clean_text_from_html(description)
-          data['description'] = cleaned unless cleaned.empty?
+          Jekyll::SEO::JsonLdUtils.add_cleaned_description(data, document)
         end
 
         private_class_method def self.add_main_entity(data, site)
@@ -52,20 +48,10 @@ module Jekyll
             'name' => author['name'],
           }
 
-          same_as = build_social_links(author)
+          same_as = Jekyll::SEO::JsonLdUtils.build_social_links(author)
           person['sameAs'] = same_as if same_as.any?
 
           data['mainEntity'] = person
-        end
-
-        private_class_method def self.build_social_links(author)
-          links = []
-          links << "https://www.linkedin.com/in/#{author['linkedin']}" if author['linkedin']
-          links << "https://github.com/#{author['github']}" if author['github']
-          links << "https://bsky.app/profile/#{author['bluesky']}" if author['bluesky']
-          links << "https://twitter.com/#{author['twitter']}" if author['twitter']
-          links << "https://mastodon.social/@#{author['mastodon']}" if author['mastodon']
-          links
         end
       end
     end

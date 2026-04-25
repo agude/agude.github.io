@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: software-development
-category-title: Software Development
+title: Software Development
 description: >
   All of the articles written by Alex Gude about software development,
   testing, Python, etc.

@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: python
-category-title: Python
+title: Python
 description: >
   All of the articles written by Alex Gude about Python.
 ---
