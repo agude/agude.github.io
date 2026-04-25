@@ -9,6 +9,7 @@ module Jekyll
   module SEO
     # Block-based DSL for building JSON-LD structured data.
     # Handles context binding, snake_case to camelCase conversion, and nested schemas.
+    # rubocop:disable Metrics/ClassLength -- builder has many small field methods by design
     class JsonLdBuilder
       CC_BY_SA_LICENSE_URL = 'https://creativecommons.org/licenses/by-sa/4.0/'
 
@@ -25,8 +26,9 @@ module Jekyll
         @site = site
         @is_root = is_root
         @required_keys = []
-        @data = { '@type' => type }
+        @data = {}
         @data['@context'] = 'https://schema.org' if is_root
+        @data['@type'] = type
         @data['license'] = CC_BY_SA_LICENSE_URL if license
       end
 
@@ -163,7 +165,12 @@ module Jekyll
       end
 
       def same_as(urls)
-        return unless urls.is_a?(Array)
+        return if urls.nil?
+
+        unless urls.is_a?(Array)
+          log_invalid_array_type('same_as_urls', 'sameAs')
+          return
+        end
 
         cleaned = urls.filter_map do |u|
           s = u.to_s.strip
@@ -173,7 +180,12 @@ module Jekyll
       end
 
       def awards(list)
-        return unless list.is_a?(Array)
+        return if list.nil?
+
+        unless list.is_a?(Array)
+          log_invalid_array_type('awards', 'award')
+          return
+        end
 
         cleaned = list.filter_map do |a|
           s = a.to_s.strip
@@ -189,6 +201,84 @@ module Jekyll
           '@type' => type,
           'name' => name.to_s.strip,
         }
+      end
+
+      def name_with_suffix(suffix)
+        title = @document&.data&.[]('title')
+        return unless title && !title.strip.empty?
+
+        @data['name'] = "#{title.strip} - #{suffix}"
+      end
+
+      def site_name
+        name = @site&.config&.[]('title')
+        set_if_present('name', name)
+      end
+
+      def site_description
+        desc = @site&.config&.[]('description')
+        set_if_present('description', desc)
+      end
+
+      def job_title(value)
+        set_if_present('jobTitle', value)
+      end
+
+      def works_for(org_name)
+        return unless org_name && !org_name.to_s.strip.empty?
+
+        @data['worksFor'] = {
+          '@type' => 'Organization',
+          'name' => org_name.to_s.strip,
+        }
+      end
+
+      def social_links_from_site
+        author = @site&.config&.[]('author') || {}
+        links = Jekyll::SEO::JsonLdUtils.build_social_links(author)
+        @data['sameAs'] = links if links.any?
+      end
+
+      def main_entity_person_with_social
+        author = @site&.config&.[]('author')
+        return unless author.is_a?(Hash) && author['name']
+
+        person = { '@type' => 'Person', 'name' => author['name'] }
+        links = Jekyll::SEO::JsonLdUtils.build_social_links(author)
+        person['sameAs'] = links if links.any?
+        @data['mainEntity'] = person
+      end
+
+      def alternate_names(names)
+        list = Jekyll::Infrastructure::FrontMatterUtils.get_list_from_string_or_array(names)
+        @data['alternateName'] = list if list.any?
+      end
+
+      def review_body_from_fields(field_priority:)
+        return unless @document
+
+        text = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
+          @document,
+          field_priority: field_priority,
+        )
+        set_if_present('reviewBody', text)
+      end
+
+      NOT_PROVIDED = Object.new.freeze
+      private_constant :NOT_PROVIDED
+
+      def date_published(value = NOT_PROVIDED)
+        if value == NOT_PROVIDED
+          return unless @document&.date
+
+          @data['datePublished'] = @document.date.to_time.xmlschema
+        else
+          set_if_present('datePublished', value)
+        end
+      end
+
+      def isbn(value)
+        set_if_present('isbn', value)
       end
 
       def require!(*keys)
@@ -242,6 +332,14 @@ module Jekyll
         str.gsub(/_([a-z])/) { ::Regexp.last_match(1).upcase }
       end
 
+      def log_invalid_array_type(front_matter_key, json_ld_key)
+        doc_id = @document&.url || 'unknown'
+        Jekyll.logger.warn(
+          'JSON-LD:',
+          "Front matter '#{front_matter_key}' for '#{doc_id}' is not an Array, skipping #{json_ld_key}.",
+        )
+      end
+
       def check_required_fields
         missing = @required_keys.select { |key| field_empty?(snake_to_camel(key.to_s)) }
         return if missing.empty?
@@ -256,5 +354,6 @@ module Jekyll
         value.nil? || (value.respond_to?(:empty?) && value.empty?)
       end
     end
+    # rubocop:enable Metrics/ClassLength
   end
 end

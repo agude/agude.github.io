@@ -69,10 +69,10 @@ class TestJsonLdBuilder < Minitest::Test
 
   def test_snake_case_converts_to_camel_case
     result = Jekyll::SEO::JsonLdBuilder.build('Article') do |schema|
-      schema.date_published '2024-03-15'
+      schema.date_created '2024-03-15'
       schema.word_count 500
     end
-    assert_equal '2024-03-15', result['datePublished']
+    assert_equal '2024-03-15', result['dateCreated']
     assert_equal 500, result['wordCount']
   end
 
@@ -425,6 +425,34 @@ class TestJsonLdBuilder < Minitest::Test
       schema.description 'Custom description'
     end
     assert_equal 'Custom description', result['description']
+  end
+
+  # --- Description From Fields Method ---
+
+  def test_description_from_fields_extracts_excerpt
+    doc = create_doc({ 'excerpt' => '<p>This is the excerpt.</p>' }, '/doc.html')
+    result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting', document: doc) do |schema|
+      schema.description_from_fields(field_priority: %w[excerpt description])
+    end
+    assert_equal 'This is the excerpt.', result['description']
+  end
+
+  def test_description_from_fields_with_truncate
+    long_text = 'word ' * 100
+    doc = create_doc({ 'excerpt' => long_text }, '/doc.html')
+    result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting', document: doc) do |schema|
+      schema.description_from_fields(field_priority: %w[excerpt], truncate_words: 10)
+    end
+    words = result['description'].split
+    assert words.length <= 11 # 10 words + ellipsis counts as part of last word
+    assert result['description'].end_with?('...')
+  end
+
+  def test_description_from_fields_no_document
+    result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting') do |schema|
+      schema.description_from_fields(field_priority: %w[excerpt description])
+    end
+    refute result.key?('description')
   end
 
   # --- Same As Method ---

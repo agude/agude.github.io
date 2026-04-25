@@ -77,7 +77,7 @@ class TestBookReviewLdGenerator < Minitest::Test
       @books_collection,
     )
     mock_logger = Minitest::Mock.new
-    mock_logger.expect(:warn, nil) { |p, m| p == 'JSON-LD (BookReviewGen):' && m.include?('not an Array') }
+    mock_logger.expect(:warn, nil) { |p, m| p == 'JSON-LD:' && m.include?('not an Array') }
     result_hash = nil
     Jekyll.stub :logger, mock_logger do
       result_hash = Jekyll::SEO::Generators::BookReviewLdGenerator.new(doc, @site).generate
@@ -312,7 +312,7 @@ class TestBookReviewLdGenerator < Minitest::Test
 
   def generate_with_mock_logger(doc)
     mock_logger = Minitest::Mock.new
-    mock_logger.expect(:warn, nil) { |p, m| p == 'JSON-LD (BookReviewGen):' && m.include?('not an Array') }
+    mock_logger.expect(:warn, nil) { |p, m| p == 'JSON-LD:' && m.include?('not an Array') }
     result_hash = nil
     Jekyll.stub :logger, mock_logger do
       result_hash = Jekyll::SEO::Generators::BookReviewLdGenerator.new(doc, @site).generate
