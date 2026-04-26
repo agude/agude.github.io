@@ -11,8 +11,6 @@ module Jekyll
     # Handles context binding, snake_case to camelCase conversion, and nested schemas.
     # rubocop:disable Metrics/ClassLength -- builder has many small field methods by design
     class JsonLdBuilder
-      CC_BY_SA_LICENSE_URL = 'https://creativecommons.org/licenses/by-sa/4.0/'
-
       attr_reader :document, :site
 
       def self.build(type, license: false, document: nil, site: nil, &block)
@@ -29,7 +27,7 @@ module Jekyll
         @data = {}
         @data['@context'] = 'https://schema.org' if is_root
         @data['@type'] = type
-        @data['license'] = CC_BY_SA_LICENSE_URL if license
+        @data['license'] = JsonLdUtils::CC_BY_SA_LICENSE_URL if license
       end
 
       def url(custom_path = nil)
