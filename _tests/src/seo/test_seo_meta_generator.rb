@@ -190,6 +190,27 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_includes result['title'], ' '
   end
 
+  def test_title_applies_typography
+    doc = create_post_doc(title: "My Second Son's Language Development")
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    # Straight apostrophe should become curly apostrophe (U+2019)
+    expected = 'My Second Son’s Language Development'
+    assert_equal expected, result['title']
+    refute_includes result['title'], "'"
+  end
+
+  def test_title_applies_typography_to_book_with_authors
+    doc = create_book_doc(title: "Ender's Game")
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    # Title with curly apostrophe, author by-clause included
+    assert_includes result['title'], 'Ender’s'
+    refute_includes result['title'], "Ender's"
+  end
+
   # --- Open Graph Type Tests ---
 
   def test_og_type_book_review_is_article

@@ -55,14 +55,17 @@ module Jekyll
       # --- Title ---
 
       def build_title
-        return @data['seo_title'] if @data['seo_title']
-
-        layout = @data['layout']
-        return book_title if layout == 'book'
-        return "#{site_title} - #{site_tagline}" if layout == 'homepage'
-
-        suffix = LAYOUT_TITLE_SUFFIX[layout]
-        suffix ? "#{raw_title} - #{suffix}" : raw_title
+        title = if @data['seo_title']
+                  @data['seo_title']
+                elsif @data['layout'] == 'book'
+                  book_title
+                elsif @data['layout'] == 'homepage'
+                  "#{site_title} - #{site_tagline}"
+                else
+                  suffix = LAYOUT_TITLE_SUFFIX[@data['layout']]
+                  suffix ? "#{raw_title} - #{suffix}" : raw_title
+                end
+        Infrastructure::TypographyUtils.apply_typography(title)
       end
 
       def book_title
