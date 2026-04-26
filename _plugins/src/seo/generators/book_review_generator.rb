@@ -24,6 +24,7 @@ module Jekyll
               book.authors document.data['book_authors']
               book.image document.data['image']
               book.isbn document.data['isbn']
+              book.in_language document.data['language'] || 'en'
               book.date_published document.data['date_published']
               book.awards document.data['awards']
               book.series document.data['series'], document.data['book_number']

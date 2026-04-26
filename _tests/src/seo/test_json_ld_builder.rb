@@ -592,6 +592,22 @@ class TestJsonLdBuilder < Minitest::Test
     refute result.key?('image')
   end
 
+  # --- inLanguage Method ---
+
+  def test_in_language_sets_value
+    result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
+      schema.in_language 'en'
+    end
+    assert_equal 'en', result['inLanguage']
+  end
+
+  def test_in_language_nil_not_added
+    result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
+      schema.in_language nil
+    end
+    refute result.key?('inLanguage')
+  end
+
   # --- About Method (for series pages) ---
 
   def test_about_builds_nested_type

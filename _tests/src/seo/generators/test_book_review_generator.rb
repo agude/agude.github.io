@@ -191,8 +191,9 @@ class TestBookReviewLdGenerator < Minitest::Test
       'itemReviewed' => {
         '@type' => 'Book',
         'name' => 'Hyperion',
-        'author' => { '@type' => 'Person', 'name' => 'Dan Simmons' },
         'url' => 'https://alexgude.com/books/hyperion.html',
+        'author' => { '@type' => 'Person', 'name' => 'Dan Simmons' },
+        'inLanguage' => 'en',
       },
     }
   end
@@ -227,11 +228,12 @@ class TestBookReviewLdGenerator < Minitest::Test
       'itemReviewed' => {
         '@type' => 'Book',
         'name' => 'Good Omens',
+        'url' => 'https://alexgude.com/books/good-omens.html',
         'author' => [
           { '@type' => 'Person', 'name' => 'Terry Pratchett' },
           { '@type' => 'Person', 'name' => 'Neil Gaiman' },
         ],
-        'url' => 'https://alexgude.com/books/good-omens.html',
+        'inLanguage' => 'en',
       },
     }
   end
@@ -281,17 +283,18 @@ class TestBookReviewLdGenerator < Minitest::Test
     {
       '@type' => 'Book',
       'name' => 'Dune',
+      'url' => 'https://alexgude.com/books/dune.html',
       'author' => { '@type' => 'Person', 'name' => 'Frank Herbert' },
       'image' => { '@type' => 'ImageObject', 'url' => 'https://alexgude.com/assets/covers/dune.jpg' },
       'isbn' => '978-0441172719',
+      'inLanguage' => 'en',
+      'datePublished' => '1965-08',
       'award' => ['Hugo Award', 'Nebula Award'],
       'isPartOf' => { '@type' => 'BookSeries', 'name' => 'Dune Saga', 'position' => '1' },
-      'datePublished' => '1965-08',
       'sameAs' => [
         'https://www.wikidata.org/wiki/Q190159',
         'https://en.wikipedia.org/wiki/Dune_(novel)',
       ],
-      'url' => 'https://alexgude.com/books/dune.html',
     }
   end
 
@@ -343,8 +346,9 @@ class TestBookReviewLdGenerator < Minitest::Test
       'itemReviewed' => {
         '@type' => 'Book',
         'name' => 'Minimal Book',
-        'author' => { '@type' => 'Person', 'name' => 'Min Author' },
         'url' => 'https://alexgude.com/books/minimal-book.html',
+        'author' => { '@type' => 'Person', 'name' => 'Min Author' },
+        'inLanguage' => 'en',
       },
     }
   end

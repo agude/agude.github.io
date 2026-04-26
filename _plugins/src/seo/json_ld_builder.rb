@@ -406,6 +406,10 @@ module Jekyll
         set_if_present('isbn', value)
       end
 
+      def in_language(value)
+        set_if_present('inLanguage', value)
+      end
+
       def name(value)
         set_if_present('name', value)
       end
