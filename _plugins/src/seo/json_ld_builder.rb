@@ -232,6 +232,94 @@ module Jekyll
         }
       end
 
+      def alumni_of(experience_list, education_list)
+        orgs = []
+
+        # Former employers (skip first/current)
+        if experience_list.is_a?(Array) && experience_list.length > 1
+          experience_list[1..].each do |job|
+            name = job['company']
+            next unless name && !name.to_s.strip.empty?
+
+            orgs << { '@type' => 'Organization', 'name' => name.to_s.strip }
+          end
+        end
+
+        # Educational institutions
+        if education_list.is_a?(Array)
+          education_list.each do |edu|
+            name = edu['company']
+            next unless name && !name.to_s.strip.empty?
+
+            orgs << { '@type' => 'EducationalOrganization', 'name' => name.to_s.strip }
+          end
+        end
+
+        @data['alumniOf'] = orgs if orgs.any?
+      end
+
+      def has_occupation(experience_list) # rubocop:disable Naming/PredicatePrefix
+        return unless experience_list.is_a?(Array) && experience_list.any?
+
+        roles = experience_list.flat_map do |job|
+          positions = job['positions']
+          next [] unless positions.is_a?(Array)
+
+          positions.filter_map do |pos|
+            title = pos['title']
+            dates = pos['dates']
+            next unless title
+
+            start_date, end_date = parse_date_range(dates)
+            role = {
+              '@type' => 'Role',
+              'hasOccupation' => { '@type' => 'Occupation', 'name' => title.to_s.strip },
+            }
+            role['startDate'] = start_date if start_date
+            role['endDate'] = end_date if end_date
+            role
+          end
+        end
+        @data['hasOccupation'] = roles if roles.any?
+      end
+
+      def has_credential(education_list) # rubocop:disable Naming/PredicatePrefix
+        return unless education_list.is_a?(Array) && education_list.any?
+
+        credentials = education_list.flat_map do |edu|
+          school = edu['company']
+          positions = edu['positions']
+          next [] unless school && positions.is_a?(Array)
+
+          positions.filter_map do |pos|
+            degree = pos['title']
+            next unless degree
+
+            {
+              '@type' => 'EducationalOccupationalCredential',
+              'credentialCategory' => 'degree',
+              'name' => degree.to_s.strip,
+              'recognizedBy' => { '@type' => 'EducationalOrganization', 'name' => school.to_s.strip },
+            }
+          end
+        end
+        @data['hasCredential'] = credentials if credentials.any?
+      end
+
+      def knows_about(skills_hash)
+        return unless skills_hash.is_a?(Hash)
+
+        items = []
+        %w[languages tools].each do |key|
+          val = skills_hash[key]
+          next unless val
+
+          cleaned = val.to_s.gsub(/<[^>]+>/, '').strip
+          items.concat(cleaned.split(',').map(&:strip).reject(&:empty?))
+        end
+        @data['knowsAbout'] = items.uniq if items.any?
+      end
+
       def social_links_from_site
         author = @site&.config&.[]('author') || {}
         links = Jekyll::SEO::JsonLdUtils.build_social_links(author)
@@ -343,6 +431,17 @@ module Jekyll
       def field_empty?(json_key)
         value = @data[json_key]
         value.nil? || (value.respond_to?(:empty?) && value.empty?)
+      end
+
+      def parse_date_range(dates_string)
+        return [nil, nil] unless dates_string
+
+        parts = dates_string.to_s.split('--').map(&:strip)
+        start_date = parts[0]
+        end_part = parts[1]
+
+        end_date = end_part && end_part.downcase != 'present' ? end_part : nil
+        [start_date.empty? ? nil : start_date, end_date]
       end
     end
     # rubocop:enable Metrics/ClassLength
