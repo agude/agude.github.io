@@ -505,6 +505,31 @@ class TestJsonLdBuilder < Minitest::Test
     refute result.key?('award')
   end
 
+  # --- Word Count Method ---
+
+  def test_word_count_from_document_content
+    doc = create_doc({ 'title' => 'Test' }, '/test.html', 'This is a test with seven words total.')
+    result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting', document: doc) do |schema|
+      schema.word_count
+    end
+    assert_equal 8, result['wordCount']
+  end
+
+  def test_word_count_not_added_without_document
+    result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting') do |schema|
+      schema.word_count
+    end
+    refute result.key?('wordCount')
+  end
+
+  def test_word_count_not_added_with_empty_content
+    doc = create_doc({ 'title' => 'Test' }, '/test.html', '')
+    result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting', document: doc) do |schema|
+      schema.word_count
+    end
+    refute result.key?('wordCount')
+  end
+
   # --- require! Validation ---
 
   def test_require_raises_on_missing_field

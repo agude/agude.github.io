@@ -414,6 +414,16 @@ module Jekyll
         set_if_present('headline', value)
       end
 
+      def word_count
+        return unless @document
+
+        content = @document.content
+        return unless content && !content.empty?
+
+        count = content.split.size
+        @data['wordCount'] = count if count.positive?
+      end
+
       def require!(*keys)
         @required_keys.concat(keys)
       end

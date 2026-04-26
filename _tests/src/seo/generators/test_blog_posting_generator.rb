@@ -86,6 +86,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
         '@id' => 'https://blog.example.com/tech/first-post.html',
       },
       'articleBody' => 'This is the main content.',
+      'wordCount' => 5,
       'keywords' => 'Tech',
     }
   end
@@ -123,6 +124,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
       },
       'description' => 'This is the excerpt.',
       'articleBody' => 'Full content here.',
+      'wordCount' => 3,
       'keywords' => 'Example, Test',
     }
   end
@@ -161,6 +163,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
       },
       'description' => 'This is the description from front matter.',
       'articleBody' => 'Main body.',
+      'wordCount' => 2,
       'keywords' => 'Info, Test',
     }
   end
@@ -197,6 +200,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
         '@id' => 'https://blog.example.com/updates/updated-post.html',
       },
       'articleBody' => 'Updated content.',
+      'wordCount' => 2,
     }
   end
 

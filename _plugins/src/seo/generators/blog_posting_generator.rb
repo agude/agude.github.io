@@ -18,6 +18,7 @@ module Jekyll
             schema.main_entity_of_page
             schema.description_from_fields(field_priority: %w[excerpt description], truncate_words: 50)
             schema.article_body
+            schema.word_count
             schema.keywords(document.data['categories'], document.data['tags'])
             schema.encoding document.data['markdown_alternate_href']
             schema.require! :headline, :url
