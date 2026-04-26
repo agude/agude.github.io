@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: review-post
 title: "A 1850-mile Review of the RadWagon 3"
 description: >
   The RadWagon electric cargo bike was a savior during lockdown family

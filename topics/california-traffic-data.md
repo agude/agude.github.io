@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: california-traffic-data
-category-title: California Traffic Data
+title: California Traffic Data
 description: >
   All of the articles written by Alex Gude using SWITRS traffic data from
   California.

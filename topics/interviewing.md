@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: interviewing
-category-title: Interviewing
+title: Interviewing
 description: >
   All of the articles written by Alex Gude about job interviewing.
 ---

@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: cycling
-category-title: Cycling
+title: Cycling
 description: >
   All of the articles written by Alex Gude about bikes, cycling, the Tour de
   France, etc.

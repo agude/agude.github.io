@@ -10,6 +10,8 @@ require 'src/seo/generators/blog_posting_generator'
 require 'src/seo/generators/book_review_generator'
 require 'src/seo/generators/generic_review_generator'
 require 'src/seo/generators/author_profile_generator'
+require 'src/seo/generators/page_generator'
+require 'src/seo/generators/web_page_generator'
 
 # Base test class with shared setup and helpers for Jekyll::SEO::JsonLdInjector tests.
 #
@@ -69,22 +71,13 @@ class TestJsonLdInjectorBase < Minitest::Test
     @book_review_doc.site = @site
 
     @generic_review_post_doc = create_doc(
-      { 'layout' => 'post', 'title' => 'Generic Review', 'review' => { 'item_name' => 'Gadget V1' } },
+      { 'layout' => 'review-post', 'title' => 'Generic Review', 'review' => { 'item_name' => 'Gadget V1' } },
       '/blog/generic.html',
       'Generic review content',
       nil,
       @posts_collection,
     )
     @generic_review_post_doc.site = @site
-
-    @generic_review_missing_item_doc = create_doc(
-      { 'layout' => 'post', 'title' => 'Generic Review Missing', 'review' => {} },
-      '/blog/generic-missing.html',
-      'Generic review missing content',
-      nil,
-      @posts_collection,
-    )
-    @generic_review_missing_item_doc.site = @site
 
     @author_page_doc = create_doc(
       { 'layout' => 'author_page', 'title' => 'Author Name' },
@@ -96,7 +89,7 @@ class TestJsonLdInjectorBase < Minitest::Test
     @author_page_doc.site = @site
 
     @other_page_doc = create_doc(
-      { 'layout' => 'default', 'title' => 'Other Page' },
+      { 'layout' => 'compress', 'title' => 'Other Page' },
       '/other.html',
       'Other content',
       nil,
@@ -225,18 +218,6 @@ end
 #
 # Verifies that the injector correctly skips invalid or inappropriate documents.
 class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
-  def test_skips_injection_for_generic_review_missing_item_name
-    mock_logger = create_warning_logger_mock
-    stub_all_generators_to_flunk do
-      Jekyll.stub :logger, mock_logger do
-        Jekyll::SEO::JsonLdInjector.inject_json_ld(@generic_review_missing_item_doc, @site)
-      end
-    end
-
-    assert_no_json_script(@generic_review_missing_item_doc, @site)
-    mock_logger.verify
-  end
-
   def test_skips_injection_for_unhandled_layout
     stub_all_generators_to_flunk do
       Jekyll::SEO::JsonLdInjector.inject_json_ld(@other_page_doc, @site)
@@ -272,7 +253,7 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
 
     mock_logger = Minitest::Mock.new
     mock_logger.expect(:warn, nil) do |prefix, message|
-      prefix == 'JSON-LD:' && message.include?('Skipping LD injection for document without URL')
+      prefix == 'JSON-LD:' && message.include?('Skipping document without URL')
     end
 
     stub_all_generators_to_flunk do
@@ -297,7 +278,7 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
 
     mock_logger = Minitest::Mock.new
     mock_logger.expect(:warn, nil) do |prefix, message|
-      prefix == 'JSON-LD:' && message.include?('Skipping LD injection for document without URL')
+      prefix == 'JSON-LD:' && message.include?('Skipping document without URL')
     end
 
     stub_all_generators_to_flunk do
@@ -315,7 +296,7 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
     invalid_hash = { '@type' => 'BlogPosting', 'invalid' => Float::INFINITY }
 
     mock_logger = Minitest::Mock.new
-    mock_logger.expect(:debug, nil, ['JSON-LD Type:', String])
+    mock_logger.expect(:debug, nil, ['JSON-LD:', String])
     mock_logger.expect(:error, nil) do |prefix, message|
       prefix == 'JSON-LD:' && message.include?('Failed to generate JSON')
     end
@@ -332,15 +313,6 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
   end
 
   private
-
-  def create_warning_logger_mock
-    mock = Minitest::Mock.new
-    mock.expect(:warn, nil) do |prefix, message|
-      prefix == 'JSON-LD:' && message.include?("Missing 'review.item_name'") &&
-        message.include?(@generic_review_missing_item_doc.url)
-    end
-    mock
-  end
 
   def stub_all_generators_to_flunk(&block)
     Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
@@ -377,7 +349,7 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
     # Jekyll::SEO::Generators::AuthorProfileLdGenerator should be called since layout matches
     mock_hash = { '@type' => 'Person', 'name' => 'Page Author' }
     mock_logger = Minitest::Mock.new
-    mock_logger.expect(:debug, nil, ['JSON-LD Type:', String])
+    mock_logger.expect(:debug, nil, ['JSON-LD:', String])
 
     Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash, mock_hash do
       Jekyll.stub :logger, mock_logger do
@@ -390,10 +362,10 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
     mock_logger.verify
   end
 
-  def test_handles_page_like_object_with_no_matching_layout
-    # Create a page-like object with a layout that doesn't match any generator
+  def test_handles_page_like_object_with_skipped_layout
+    # Create a page-like object with a layout in SKIP_LAYOUTS
     regular_page = PageLike.new(
-      { 'layout' => 'default', 'title' => 'Regular Page' },
+      { 'layout' => 'compress', 'title' => 'Regular Page' },
       '/regular.html',
       'regular.html',
       'regular.html',
@@ -406,6 +378,19 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
 
     # Should not have generated script
     assert_no_json_script(regular_page, @site)
+  end
+
+  def test_raises_for_unknown_layout
+    unknown_page = PageLike.new(
+      { 'layout' => 'totally-made-up', 'title' => 'Bad Layout' },
+      '/bad.html',
+      'bad.html',
+      'bad.html',
+    )
+
+    assert_raises(Jekyll::Errors::FatalException) do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(unknown_page, @site)
+    end
   end
 
   private
@@ -487,16 +472,18 @@ class TestJsonLdInjectorHooks < TestJsonLdInjectorBase
       { 'layout' => 'post' }, '/no-site.html', 'Content', Time.now, nil, @posts_collection, 'no-site.html',
     )
 
-    mock_logger = Minitest::Mock.new
-    mock_logger.expect(:error, nil) do |prefix, message|
-      prefix == 'JSON-LD Hook:' && message.include?('Site object not available')
+    error_logged = false
+    logger_stub = Object.new
+    logger_stub.define_singleton_method(:error) do |prefix, message|
+      error_logged = true if prefix == 'JSON-LD Hook:' && message.include?('Site object not available')
     end
+    logger_stub.define_singleton_method(:method_missing) { |*| nil }
 
-    Jekyll.stub :logger, mock_logger do
+    Jekyll.stub :logger, logger_stub do
       Jekyll::Hooks.trigger(:documents, :post_convert, doc_no_site)
     end
 
-    mock_logger.verify
+    assert error_logged, 'Expected error log for missing site'
   end
 
   def test_pages_post_convert_hook_injects_json_ld
@@ -532,15 +519,75 @@ class TestJsonLdInjectorHooks < TestJsonLdInjectorBase
       'no-site-page.html',
     )
 
-    mock_logger = Minitest::Mock.new
-    mock_logger.expect(:error, nil) do |prefix, message|
-      prefix == 'JSON-LD Hook:' && message.include?('Site object not available')
+    error_logged = false
+    logger_stub = Object.new
+    logger_stub.define_singleton_method(:error) do |prefix, message|
+      error_logged = true if prefix == 'JSON-LD Hook:' && message.include?('Site object not available')
     end
+    logger_stub.define_singleton_method(:method_missing) { |*| nil }
 
-    Jekyll.stub :logger, mock_logger do
+    Jekyll.stub :logger, logger_stub do
       Jekyll::Hooks.trigger(:pages, :post_convert, page_no_site)
     end
 
-    mock_logger.verify
+    assert error_logged, 'Expected error log for missing site'
+  end
+end
+
+# Tests for page layout routing (page, page-not-on-sidebar, supplementary files).
+#
+# Verifies that different page types are routed to the correct generators.
+class TestJsonLdInjectorPageRouting < TestJsonLdInjectorBase
+  def setup
+    super
+    @page_hash = { '@type' => 'CollectionPage', 'name' => 'Test Page' }
+    @web_page_hash = { '@type' => 'WebPage', 'name' => 'Supplementary Content' }
+  end
+
+  def test_routes_page_layout_to_page_generator
+    page_doc = create_page_like(
+      { 'layout' => 'page', 'title' => 'Book Reviews' },
+      '/books/index.html',
+    )
+
+    Jekyll::SEO::Generators::PageLdGenerator.stub :generate_hash, @page_hash do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(page_doc, @site)
+    end
+
+    assert_json_script(page_doc, @site, @page_hash)
+  end
+
+  def test_routes_page_not_on_sidebar_to_page_generator
+    topics_page = create_page_like(
+      { 'layout' => 'page-not-on-sidebar', 'title' => 'Topics' },
+      '/topics/index.html',
+    )
+
+    Jekyll::SEO::Generators::PageLdGenerator.stub :generate_hash, @page_hash do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(topics_page, @site)
+    end
+
+    assert_json_script(topics_page, @site, @page_hash)
+  end
+
+  def test_routes_standalone_page_to_web_page_generator
+    standalone_page = create_page_like(
+      { 'layout' => 'standalone-page', 'title' => 'Standalone Info' },
+      '/info/standalone.html',
+    )
+
+    Jekyll::SEO::Generators::WebPageLdGenerator.stub :generate_hash, @web_page_hash do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(standalone_page, @site)
+    end
+
+    assert_json_script(standalone_page, @site, @web_page_hash)
+  end
+
+  private
+
+  def create_page_like(data, url, source_path = nil)
+    page_struct = Struct.new(:site, :data, :url, :path, :relative_path)
+    path = source_path || url.delete_prefix('/')
+    page_struct.new(@site, data, url, path, path)
   end
 end

@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: large-language-models
-category-title: Large Language Models
+title: Large Language Models
 description: >
   All of the articles written by Alex Gude about large language models (LLMs).
 ---

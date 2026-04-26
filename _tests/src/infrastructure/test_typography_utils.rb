@@ -91,4 +91,35 @@ class TestTypographyUtils < Minitest::Test
     assert_equal '&lt;Start&gt; First – then<br>Second',
                  Jekyll::Infrastructure::TypographyUtils.prepare_display_title('<Start> First -- then<br>Second')
   end
+
+  # --- apply_typography (no HTML escaping) ---
+
+  def test_apply_typography_nil_and_empty
+    assert_equal '', Jekyll::Infrastructure::TypographyUtils.apply_typography(nil)
+    assert_equal '', Jekyll::Infrastructure::TypographyUtils.apply_typography('')
+  end
+
+  def test_apply_typography_preserves_html_chars
+    assert_equal 'Safe & <Tags>', Jekyll::Infrastructure::TypographyUtils.apply_typography('Safe & <Tags>')
+  end
+
+  def test_apply_typography_quotes
+    expected_hello = '“Hello”'
+    assert_equal expected_hello, Jekyll::Infrastructure::TypographyUtils.apply_typography('"Hello"')
+    expected_its = 'It’s fine'
+    assert_equal expected_its, Jekyll::Infrastructure::TypographyUtils.apply_typography("It's fine")
+    expected_90s = '’90s music'
+    assert_equal expected_90s, Jekyll::Infrastructure::TypographyUtils.apply_typography("'90s music")
+  end
+
+  def test_apply_typography_dashes_and_ellipsis
+    assert_equal 'En–dash', Jekyll::Infrastructure::TypographyUtils.apply_typography('En--dash')
+    assert_equal 'Em—dash', Jekyll::Infrastructure::TypographyUtils.apply_typography('Em---dash')
+    assert_equal 'Wait…', Jekyll::Infrastructure::TypographyUtils.apply_typography('Wait...')
+  end
+
+  def test_apply_typography_mixed
+    expected = 'It’s <OK> – “Sure…”'
+    assert_equal expected, Jekyll::Infrastructure::TypographyUtils.apply_typography("It's <OK> -- \"Sure...\"")
+  end
 end

@@ -1,6 +1,7 @@
 ---
-layout: default
-title: Alex Gude's Linktree
+layout: linktree
+title: Linktree
+seo_title: "Alexander Gude - Linktree"
 description: >
   Important links for Alex Gude.
 sidebar_include: false

@@ -194,33 +194,23 @@ module Jekyll
         }
       end
 
-      # --- Array Field Helper ---
+      # --- Social Links Helper ---
 
-      # Validates and cleans an array field from document data for JSON-LD output.
-      # Returns a single-entry hash suitable for merge! into the target, or an empty hash.
-      #
-      # @param document_data [Hash] The document's data hash.
-      # @param front_matter_key [String] The key to read from document_data.
-      # @param json_ld_key [String] The key to use in the returned hash.
-      # @param log_prefix [String] Prefix for warning messages (e.g. 'JSON-LD (BookReviewGen):').
-      # @param doc_id [String, nil] Document identifier for warnings. Falls back to data 'url'/'path'.
-      # @return [Hash] Either { json_ld_key => [cleaned values] } or {}.
-      def self.clean_array_field(document_data, front_matter_key, json_ld_key, log_prefix, doc_id: nil)
-        input = document_data[front_matter_key]
-        if input.is_a?(Array)
-          cleaned = input.filter_map do |v|
-            s = v.to_s.strip
-            s unless s.empty?
-          end
-          return { json_ld_key => cleaned } if cleaned.any?
-        elsif input
-          id = doc_id || document_data['url'] || document_data['path'] || 'unknown'
-          Jekyll.logger.warn(
-            log_prefix,
-            "Front matter '#{front_matter_key}' for '#{id}' is not an Array, skipping #{json_ld_key}.",
-          )
+      # Builds an array of social profile URLs from author config.
+      # @param author [Hash] The author config hash from site.config['author'].
+      # @return [Array<String>] Array of social profile URLs.
+      def self.build_social_links(author)
+        return [] unless author.is_a?(Hash)
+
+        links = []
+        links << "https://www.linkedin.com/in/#{author['linkedin']}" if author['linkedin']
+        links << "https://github.com/#{author['github']}" if author['github']
+        links << "https://bsky.app/profile/#{author['bluesky']}" if author['bluesky']
+        links << "https://twitter.com/#{author['twitter']}" if author['twitter']
+        if author['mastodon'] && author['mastodon_instance']
+          links << "https://#{author['mastodon_instance']}/@#{author['mastodon']}"
         end
-        {}
+        links
       end
 
       # --- Utility Helpers ---

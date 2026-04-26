@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: review-post
 title: "A Review of Nookdesk's Standing Desk"
 description: >
   I bought a Nookdesk standing desk now that I'm working from home; I like it!

@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: interview-prep
-category-title: Interview Prep
+title: Interview Prep
 description: >
   All of the articles written by Alex Gude about preparing for data science
   and machine learning interviews.

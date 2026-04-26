@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: jupyter
-category-title: Jupyter
+title: Jupyter
 description: >
   All of the articles written by Alex Gude about Jupyter.
 ---

@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: pelops
-category-title: Pelops
+title: Pelops
 description: >
   All of the articles written by Alex Gude for Lab41's project Pelops,
   matching cars with neural networks.

@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: machine-learning
-category-title: Machine Learning
+title: Machine Learning
 description: >
   All of the articles written by Alex Gude about machine learning and machine
   learning tools.

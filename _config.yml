@@ -67,7 +67,6 @@ plugins:
     - jekyll-feed
     - jekyll-paginate
     - jekyll-redirect-from
-    - jekyll-seo-tag
     - jekyll-sitemap
 
 # Setup
@@ -97,7 +96,7 @@ paginate: 10
 paginate_path: "/blog/page:num/"
 permalink: /blog/:slug/
 
-# Social for jekyll-seo-tag
+# Social links for SEO
 social:
     name: "Alexander Gude"
     links:
@@ -112,7 +111,7 @@ collections:
         output: true
 
 defaults:
-  # Add a default image and Twitter card for non-post layouts for jekyll-seo-tag
+  # Default image and Twitter card for pages
   - scope:
       path: ""
       type: "pages"

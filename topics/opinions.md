@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: opinions
-category-title: Opinions
+title: Opinions
 description: >
   All of the articles written by Alex Gude where he shares his opinions on
   things.

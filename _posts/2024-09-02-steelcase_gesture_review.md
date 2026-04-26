@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: review-post
 title: "Steelcase Gesture Review: A Disappointing Upgrade"
 description: >
   I spent eight months with the highly-rated Steelcase Gesture, only to be

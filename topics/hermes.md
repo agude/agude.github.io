@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: hermes
-category-title: Hermes
+title: Hermes
 description: >
   All of the articles written by Alex Gude for Lab41's project Hermes, a
   recommender system test bed.

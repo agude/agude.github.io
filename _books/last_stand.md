@@ -7,7 +7,7 @@ book_authors:
   - John Mina
   - William R. Forstchen
   - Robert Greenberger
-  - William H. Keith, Jr.
+  - William H. Keith Jr.
   - Todd Johnson
   - Steve Perry
   - John DeCamp
@@ -43,7 +43,7 @@ Melconians.
 {% capture author_forstchen %}{% author_link "William R. Forstchen" %}{% endcapture %}
 {% capture author_forstchen_lastname_possessive %}{% author_link "William R. Forstchen" link_text="Forstchen" possessive %}{% endcapture %}
 {% capture author_greenberger %}{% author_link "Robert Greenberger" %}{% endcapture %}
-{% capture author_keith %}{% author_link "William H. Keith, Jr." %}{% endcapture %}
+{% capture author_keith %}{% author_link "William H. Keith Jr." %}{% endcapture %}
 {% capture author_johnson %}{% author_link "Todd Johnson" %}{% endcapture %}
 {% capture author_perry %}{% author_link "Steve Perry" %}{% endcapture %}
 {% capture author_decamp %}{% author_link "John DeCamp" %}{% endcapture %}

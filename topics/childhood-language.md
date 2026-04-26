@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: childhood-language
-category-title: Childhood Language
+title: Childhood Language
 description: >
   All of the articles written by Alex Gude about childhood language
   development using data.

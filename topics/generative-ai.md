@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: generative-ai
-category-title: Generative AI
+title: Generative AI
 description: >
   All of the articles written by Alex Gude about Generative AI.
 ---

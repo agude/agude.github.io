@@ -1,7 +1,7 @@
 ---
 layout: category
 category-name: data-science
-category-title: Data Science
+title: Data Science
 description: >
   All of the articles written by Alex Gude about data science and data science
   tools.

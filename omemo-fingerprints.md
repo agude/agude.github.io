@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: standalone-page
 title: OMEMO Fingerprints
 description: >
   Alex Gude's OMEMO fingerprints and QR codes for secure messaging.
@@ -25,8 +25,6 @@ omemo_fingerprints:
     fingerprint: 11945359 c40ecf1e f76450b9 73831322 c332a606 97d9415a f95c9f1b 63880f5f
     qr_code: null
 ---
-
-# {{ page.title }}
 
 Below are my OMEMO fingerprints and their corresponding QR codes (where
 available) for secure messaging as of <time datetime="{{ page.date |

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: test-page
 title: Test Papge
 description: >
   Test page to render all elements of my website.
