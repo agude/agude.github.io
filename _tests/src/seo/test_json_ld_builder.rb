@@ -555,6 +555,5 @@ class TestJsonLdBuilder < Minitest::Test
     end
     refute result.key?('about')
   end
-
 end
 # rubocop:enable Style/SymbolProc

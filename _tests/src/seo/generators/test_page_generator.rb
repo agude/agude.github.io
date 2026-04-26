@@ -49,7 +49,7 @@ class TestPageLdGenerator < Minitest::Test
     doc = create_page_doc(
       title: 'Papers',
       url: '/papers/',
-      description: 'Academic papers by Alexander Gude.'
+      description: 'Academic papers by Alexander Gude.',
     )
     site = create_site(@site_config)
     result = Jekyll::SEO::Generators::PageLdGenerator.generate_hash(doc, site)

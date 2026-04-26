@@ -57,7 +57,7 @@ class TestProfilePageLdGenerator < Minitest::Test
     config = @site_config.dup
     config['author'] = config['author'].merge(
       'mastodon' => 'alex',
-      'mastodon_instance' => 'fosstodon.org'
+      'mastodon_instance' => 'fosstodon.org',
     )
     doc = create_linktree_doc
     site = create_site(config)

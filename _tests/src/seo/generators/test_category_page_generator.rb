@@ -29,7 +29,7 @@ class TestCategoryPageLdGenerator < Minitest::Test
   def test_generate_hash_includes_description
     doc = create_category_page_doc(
       title: 'Data Science',
-      description: 'Articles about data science and machine learning.'
+      description: 'Articles about data science and machine learning.',
     )
     site = create_site(@site_config)
     result = Jekyll::SEO::Generators::CategoryPageLdGenerator.generate_hash(doc, site)

@@ -29,7 +29,7 @@ class TestSeriesPageLdGenerator < Minitest::Test
   def test_generate_hash_includes_description
     doc = create_series_page_doc(
       title: 'Bobiverse',
-      description: 'Reviews of the Bobiverse series by Dennis E. Taylor.'
+      description: 'Reviews of the Bobiverse series by Dennis E. Taylor.',
     )
     site = create_site(@site_config)
     result = Jekyll::SEO::Generators::SeriesPageLdGenerator.generate_hash(doc, site)
