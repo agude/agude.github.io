@@ -246,7 +246,7 @@ class TestBookReviewLdGenerator < Minitest::Test
         'description' => 'An epic tale of desert power.',
         'image' => '/assets/covers/dune.jpg',
         'isbn' => '978-0441172719',
-        'awards' => ['Hugo Award', 'Nebula Award'],
+        'awards' => %w[hugo nebula],
         'series' => 'Dune Saga',
         'book_number' => '1',
         'date_published' => '1965-08',

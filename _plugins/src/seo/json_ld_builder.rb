@@ -11,6 +11,12 @@ module Jekyll
     # Handles context binding, snake_case to camelCase conversion, and nested schemas.
     # rubocop:disable Metrics/ClassLength -- builder has many small field methods by design
     class JsonLdBuilder
+      AWARD_NAMES = {
+        'hugo' => 'Hugo Award',
+        'nebula' => 'Nebula Award',
+        'locus' => 'Locus Award',
+      }.freeze
+
       attr_reader :document, :site
 
       def self.build(type, license: false, document: nil, site: nil, &block)
@@ -192,8 +198,10 @@ module Jekyll
         end
 
         cleaned = list.filter_map do |a|
-          s = a.to_s.strip
-          s unless s.empty?
+          key = a.to_s.strip.downcase
+          next if key.empty?
+
+          AWARD_NAMES[key] || key.capitalize
         end
         @data['award'] = cleaned if cleaned.any?
       end

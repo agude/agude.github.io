@@ -470,11 +470,39 @@ class TestJsonLdBuilder < Minitest::Test
 
   # --- Awards Method ---
 
-  def test_awards_with_array
+  def test_awards_maps_keys_to_names
     result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
-      schema.awards ['Hugo Award', 'Nebula Award']
+      schema.awards %w[hugo nebula locus]
     end
-    assert_equal ['Hugo Award', 'Nebula Award'], result['award']
+    assert_equal ['Hugo Award', 'Nebula Award', 'Locus Award'], result['award']
+  end
+
+  def test_awards_case_insensitive
+    result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
+      schema.awards %w[HUGO Hugo huGO]
+    end
+    assert_equal ['Hugo Award', 'Hugo Award', 'Hugo Award'], result['award']
+  end
+
+  def test_awards_unknown_key_capitalizes
+    result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
+      schema.awards %w[unknown]
+    end
+    assert_equal ['Unknown'], result['award']
+  end
+
+  def test_awards_empty_array_not_added
+    result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
+      schema.awards []
+    end
+    refute result.key?('award')
+  end
+
+  def test_awards_nil_not_added
+    result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
+      schema.awards nil
+    end
+    refute result.key?('award')
   end
 
   # --- require! Validation ---
