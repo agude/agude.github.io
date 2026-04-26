@@ -223,6 +223,38 @@ module Jekyll
         set_if_present('jobTitle', value)
       end
 
+      def given_name(value)
+        set_if_present('givenName', value)
+      end
+
+      def family_name(value)
+        set_if_present('familyName', value)
+      end
+
+      def honorific_prefix(value)
+        set_if_present('honorificPrefix', value)
+      end
+
+      def pronouns(value)
+        set_if_present('pronouns', value)
+      end
+
+      def gender(value)
+        set_if_present('gender', value)
+      end
+
+      def author_identity_from_site
+        author = @site&.config&.[]('author') || {}
+        name author['name']
+        given_name author['first']
+        family_name author['last']
+        alternate_names author['alternate_names']
+        honorific_prefix author['honorific_prefix']
+        pronouns author['pronouns']
+        gender author['gender']
+        image_url @site&.config&.[]('logo')
+      end
+
       def works_for(org_name)
         return unless org_name && !org_name.to_s.strip.empty?
 

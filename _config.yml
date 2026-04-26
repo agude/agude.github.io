@@ -74,6 +74,10 @@ author:
     name: "Alexander Gude"
     first: "Alexander"
     last: "Gude"
+    alternate_names: ["Alex Gude"]
+    honorific_prefix: "Dr."
+    pronouns: "he/him"
+    gender: "https://schema.org/Male"
     bluesky: "alexgude.com"
     mastodon: "alex_gude"
     mastodon_instance: "fediscience.org"

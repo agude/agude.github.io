@@ -13,7 +13,7 @@ module Jekyll
           current_employer = experience&.dig(0, 'company')
 
           Jekyll::SEO::JsonLdBuilder.build('Person', document: document, site: site) do |schema|
-            schema.name site.config.dig('author', 'name')
+            schema.author_identity_from_site
             schema.url
             schema.job_title document.data['job_title']
             schema.description
