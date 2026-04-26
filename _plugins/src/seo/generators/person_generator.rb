@@ -17,6 +17,7 @@ module Jekyll
             schema.url
             schema.job_title document.data['job_title']
             schema.description
+            schema.image site.config['logo']
             schema.social_links_from_site
             schema.works_for current_employer
             schema.alumni_of experience, education

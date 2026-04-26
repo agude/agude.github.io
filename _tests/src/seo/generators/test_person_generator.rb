@@ -367,6 +367,28 @@ class TestPersonLdGenerator < Minitest::Test
     refute knows.any? { |k| k.include?('<') }, 'Should not contain HTML'
   end
 
+  # --- Image ---
+
+  def test_generate_hash_includes_image_from_site_logo
+    config = @site_config.merge('logo' => '/files/headshot.jpg')
+    doc = create_resume_doc
+    site = create_site(config)
+    result = Jekyll::SEO::Generators::PersonLdGenerator.generate_hash(doc, site)
+
+    assert result.key?('image'), 'Should include image from site logo'
+    image = result['image']
+    assert_equal 'ImageObject', image['@type']
+    assert_equal 'https://alexgude.com/files/headshot.jpg', image['url']
+  end
+
+  def test_generate_hash_omits_image_without_logo
+    doc = create_resume_doc
+    site = create_site(@site_config)
+    result = Jekyll::SEO::Generators::PersonLdGenerator.generate_hash(doc, site)
+
+    refute result.key?('image'), 'Missing logo should omit image'
+  end
+
   private
 
   def create_resume_doc(job_title: nil, experience: nil, education: nil, skills: nil, description: nil)
