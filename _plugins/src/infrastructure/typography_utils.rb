@@ -32,6 +32,19 @@ module Jekyll
             .gsub('>', '&gt;')
       end
 
+      # Applies typographic transformations without HTML escaping.
+      # Use when the output will be escaped elsewhere (e.g., Liquid's escape filter).
+      #
+      # @param text [String] The text to transform.
+      # @return [String] The transformed text.
+      def self.apply_typography(text)
+        return '' if text.nil?
+
+        result = text.to_s.dup
+        _apply_typography(result)
+        result
+      end
+
       # Applies typographic transformations (dashes, quotes, apostrophes).
       #
       # @param text [String] The text to transform (modified in place).

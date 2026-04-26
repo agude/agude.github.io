@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'nokogiri'
+require_relative '../infrastructure/typography_utils'
 
 module Jekyll
   module SEO
@@ -14,7 +15,7 @@ module Jekyll
       LAYOUT_TITLE_SUFFIX = {
         'author_page' => 'Book Reviews',
         'series_page' => 'Book Reviews',
-        'category'    => 'Articles',
+        'category' => 'Articles',
       }.freeze
 
       # Name suffixes stripped before computing surname / given names.
@@ -72,10 +73,9 @@ module Jekyll
 
       def format_by_clause(authors)
         case authors.length
-        when 0 then ''
         when 1 then authors.first.to_s
         when 2 then format_pair(authors[0].to_s, authors[1].to_s)
-        else ''  # 3+ authors: anthology, drop the by-clause
+        else '' # 0 or 3+ authors: no by-clause
         end
       end
 
@@ -140,7 +140,8 @@ module Jekyll
       # --- Description ---
 
       def description
-        page_description || excerpt_text || site_description
+        raw = page_description || excerpt_text || site_description
+        Infrastructure::TypographyUtils.apply_typography(raw)
       end
 
       def page_description

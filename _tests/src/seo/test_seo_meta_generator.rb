@@ -315,6 +315,20 @@ class TestSeoMetaGenerator < Minitest::Test
     refute_match(/\s\z/, result['description'])
   end
 
+  def test_description_applies_typography
+    doc = create_page_doc(
+      title: 'Test',
+      layout: 'page',
+      description: 'He said "hello" and it\'s fine...',
+    )
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    # Expected: curly quotes, curly apostrophe, ellipsis
+    # Using Unicode escapes to avoid file encoding issues
+    expected = 'He said “hello” and it’s fine…'
+    assert_equal expected, result['description']
+  end
   # --- Image Tests ---
 
   def test_og_image_from_page_image
@@ -431,14 +445,22 @@ class TestSeoMetaGenerator < Minitest::Test
 
     article_layouts = %w[book post review-post]
     non_article_layouts = %w[
-      author_page resume series_page category page page-not-on-sidebar
-      standalone-page homepage linktree
+      author_page
+      resume
+      series_page
+      category
+      page
+      page-not-on-sidebar
+      standalone-page
+      homepage
+      linktree
     ]
 
     classified = (article_layouts + non_article_layouts).sort
     registered = Jekyll::SEO::JsonLdInjector::LAYOUT_GENERATORS.keys.sort
 
-    assert_equal registered, classified,
+    assert_equal registered,
+                 classified,
                  'Every layout in JsonLdInjector::LAYOUT_GENERATORS must be ' \
                  'classified as either article or non-article in this test. ' \
                  'If you added a new layout, also add it to ARTICLE_LAYOUTS ' \
