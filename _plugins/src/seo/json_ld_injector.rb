@@ -70,7 +70,7 @@ module Jekyll
           return
         end
 
-        layout = document.data['layout']
+        layout = document.data['layout']&.to_s
         generator, type_name = _generator_for_layout(layout, document)
         return unless generator
 
