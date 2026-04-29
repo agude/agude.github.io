@@ -14,16 +14,10 @@
   margin-top: 0.5em;
 }
 
-.article-card {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-gap: 0.5em;
-  align-items: center;
-}
-
+// Shared card styling
+.article-card,
 .book-card {
   display: grid;
-  grid-template-columns: 1fr 3fr;
   grid-gap: 1em;
   align-items: start;
   padding: 1.25em 0;
@@ -31,6 +25,28 @@
 
   &:first-child {
     border-top: 1px solid #e5e5e5;
+  }
+}
+
+// Stacked layout image constraint (narrow screens)
+.card-image,
+.card-book-cover {
+  max-width: 50%;
+}
+
+// Card-specific ratios (wide screens)
+@media (min-width: $more-space-breakpoint) {
+  .article-card {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .book-card {
+    grid-template-columns: 1fr 3fr;
+  }
+
+  .card-image,
+  .card-book-cover {
+    max-width: none;
   }
 }
 
