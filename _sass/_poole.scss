@@ -501,13 +501,18 @@ a.pagination-item:hover {
 .sidebar-nav-item {
   display: block;
   line-height: 1.75;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  transition: background 0.15s;
 }
 a.sidebar-nav-item:hover,
 a.sidebar-nav-item:focus {
-  text-decoration: underline;
+  text-decoration: none;
+  background: rgba(255,255,255,0.1);
 }
 .sidebar-nav-item.active {
   font-weight: bold;
+  background: rgba(255,255,255,0.15);
 }
 
 /* Sticky sidebar
@@ -540,8 +545,8 @@ a.sidebar-nav-item:focus {
 
 @media (min-width: $sidebar-appear-breakpoint) {
   .content {
-    max-width: 38rem;
-    margin-left: 20rem;
+    max-width: 44rem;
+    margin-left: 21rem;
     margin-right: 2rem;
   }
 }

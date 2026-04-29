@@ -5,14 +5,13 @@
 .card-grid {
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
-  background-color: #f9f9f9;
-  align-items: center;
-  border: 0.15em solid #e5e5e5;
-  border-radius: 5px;
-  padding: 0.25em;
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
+  gap: 0;
+  background-color: unset;
+  align-items: stretch;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin-top: 0.5em;
 }
 
 .article-card {
@@ -24,9 +23,15 @@
 
 .book-card {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-gap: 0.5em;
-  align-items: center;
+  grid-template-columns: 1fr 3fr;
+  grid-gap: 1em;
+  align-items: start;
+  padding: 1.25em 0;
+  border-bottom: 1px solid #e5e5e5;
+
+  &:first-child {
+    border-top: 1px solid #e5e5e5;
+  }
 }
 
 .card-element {
