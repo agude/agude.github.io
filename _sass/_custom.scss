@@ -201,8 +201,9 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
   .book-cover-float-container {
     // On desktop, float the container to the right
     float: right;
+    max-width: 11em;
     // Add margin to the left and bottom to create space for the text to wrap around
-    margin: 0.5rem 0 1rem 2rem;
+    margin: 0.25rem 0 1rem 2rem;
   }
 }
 
@@ -221,12 +222,27 @@ h1:hover .anchor-link-img, h2:hover .anchor-link-img, h3:hover .anchor-link-img,
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: baseline;
   gap: 0.5em;
+  margin-bottom: 1.5em;
 }
-.book-nav-item.active {
-  font-weight: bold;
+
+a.book-nav-item {
+  font-size: $small-font-size;
+  padding: 0.35em 1em;
+  background: transparent;
+  color: $body-color;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  transition: all 0.15s;
+
+  &:hover, &.active {
+    background: $sidebar-color;
+    color: white;
+    border-color: $sidebar-color;
+    text-decoration: none;
+  }
 }
 
 // Book series
@@ -327,22 +343,21 @@ abbr.etal {
 
 // Alphabetical jump links for book lists
 .alpha-jump-links {
-  display: flex; // Use Flexbox for centering rows
-  flex-wrap: wrap; // Allow items to wrap to the next line
-  justify-content: center; // Center items horizontally on each line
-  gap: 0.25em 0.5em; // Row and column gap
-  background-color: #f9f9f9;
-  border: 0.15em solid #e5e5e5;
-  border-radius: 5px;
-  padding: 0.5em;
-  margin-top: 1em;
-  margin-bottom: 1.5em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0 1em;
+  background-color: unset;
+  border: none;
+  border-radius: 0;
+  padding: 0.25em 0;
+  margin-bottom: 1em;
 
   // Common styles for both links and spans
   a, span {
-    font-family: $code-font-family;
-    font-weight: bold;
-    font-size: $h456-font-size;
+    font-family: $root-font-family;
+    font-weight: 600;
+    font-size: $small-font-size;
     padding: 0.1em 0.2em;
     text-decoration: none;
     border-radius: 3px;
