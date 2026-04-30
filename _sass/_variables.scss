@@ -27,10 +27,12 @@ $root-font-size: 1.25em;
 
 // Set headline font-sizes
 $site-title-font-size: 3.25rem;
-$h1-font-size: 2rem;
-$h2-font-size: 1.5rem;
-$h3-font-size: 1.25rem;
-$h456-font-size: 1rem;
+$h1-font-size: 2.1rem;   // page title — "Field of Dishonor", "Writings"
+$h2-font-size: 1.5rem;   // major section — "Review", "Related Books"
+$h3-font-size: 1.15rem;  // post subheading — "System Prompt", "Unit Tests"
+$h4-font-size: 0.9rem;   // rarely used; treat as a strong label
+$h5-font-size: 0.8rem;
+$h6-font-size: 0.75rem;
 
 // Set font sizes of some special elements
 $abbr-font-size: 0.85rem;

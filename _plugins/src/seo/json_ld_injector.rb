@@ -45,6 +45,7 @@ module Jekyll
         'series_page' => [Generators::SeriesPageLdGenerator, 'Series Page'],
         'category' => [Generators::CategoryPageLdGenerator, 'Category Page'],
         'page' => [Generators::PageLdGenerator, 'Collection Page'],
+        'papers' => [Generators::PageLdGenerator, 'Collection Page'],
         'page-not-on-sidebar' => [Generators::PageLdGenerator, 'Collection Page'],
         'standalone-page' => [Generators::WebPageLdGenerator, 'WebPage'],
         'homepage' => [Generators::WebsiteLdGenerator, 'WebSite'],

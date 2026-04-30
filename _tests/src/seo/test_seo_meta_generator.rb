@@ -472,6 +472,7 @@ class TestSeoMetaGenerator < Minitest::Test
       category
       page
       page-not-on-sidebar
+      papers
       standalone-page
       homepage
       linktree
