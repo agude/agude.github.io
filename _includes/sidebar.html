@@ -1,15 +1,17 @@
 {% assign homeurl = site.baseurl | append: "/" %}
 
 <aside class="sidebar">
-  <div class="sidebar-portrait">
-    <img src="/files/headshot-small.jpg" alt="Headshot of Alexander Gude"/>
-  </div>
   <div class="container sidebar-sticky">
     <div class="sidebar-about">
       <div class="site-title">
         <a href="{{ homeurl }}" title="Home">{{ site.title }}</a>
       </div>
-      <p class="lead">{{ site.description }}</p>
+      <div class="sidebar-identity">
+        <img class="sidebar-portrait-small"
+             src="/files/headshot-small.jpg"
+             alt="Headshot of Alexander Gude"/>
+        <p class="lead">{{ site.description }}</p>
+      </div>
     </div>
 
     <nav class="sidebar-nav">

@@ -557,7 +557,10 @@ a.sidebar-nav-item:focus {
 
 @media (min-width: $sidebar-appear-breakpoint) {
   .sidebar-sticky {
-    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
   }
 }
 
