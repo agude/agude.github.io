@@ -133,8 +133,7 @@ ranked_list:
   - The Three-Body Problem
 ---
 
-Below you'll find short reviews of the books I've read, grouped by rating and
-ranked within each group.
+Below you'll find short reviews of the books I've read.
 
 {% include books_topbar.html %}
 

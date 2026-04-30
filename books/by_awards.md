@@ -8,8 +8,7 @@ description: >
   Alexander Gude's (short) book reviews, grouped by awards the books have won.
 ---
 
-Below you'll find short reviews of the books I've read, grouped by the awards
-they've received.
+Below you'll find short reviews of the books I've read.
 
 {% include books_topbar.html %}
 
