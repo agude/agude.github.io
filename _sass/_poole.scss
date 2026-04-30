@@ -101,26 +101,51 @@ th {
  * Headings, body text, lists, and other misc typographic elements.
  */
 
-.fake-h1, h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  line-height: 1.25;
-  color: #313131;
-  text-rendering: optimizeLegibility;
+// Structural headings
+h1, h2, h3, h4, h5, h6 {
+  font-family: Georgia, "Times New Roman", serif;
+  color: $body-color;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-wrap: pretty;
 }
 
-.fake-h1, h1{
-  font-size: $h1-font-size;
+.fake-h1, h1 {
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25em;
 }
 
 h2 {
-  margin-top: 1rem;
-  font-size: $h2-font-size;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2.5em;
+  margin-bottom: 0.6em;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
+// H3 as label treatment (all-caps, body font)
 h3 {
-  margin-top: 1.5rem;
-  font-size: $h3-font-size;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: $muted-color;
+  font-family: $root-font-family;
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+}
+
+// In post content: H3 as proper subheading, not label
+.post h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  color: $body-color;
 }
 
 h4, h5, h6 {

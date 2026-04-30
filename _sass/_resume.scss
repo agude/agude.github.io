@@ -14,6 +14,16 @@
   // Headers
   .fake-h1, h1, h2, h3 {
     font-family: $site-title-font-family;
+    text-transform: none;
+    letter-spacing: normal;
+    color: $body-color;
+  }
+
+  h3 {
+    font-size: $h3-font-size;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
   .fake-h1, h1 {
