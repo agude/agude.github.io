@@ -8,7 +8,7 @@ description: >
   Alexander Gude's (short) book reviews, sorted by series.
 ---
 
-Below you'll find short reviews of the books I've read, sorted by series.
+Below you'll find short reviews of the books I've read.
 
 {% include books_topbar.html %}
 

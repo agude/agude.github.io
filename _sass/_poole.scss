@@ -101,31 +101,68 @@ th {
  * Headings, body text, lists, and other misc typographic elements.
  */
 
-.fake-h1, h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  line-height: 1.25;
+// Structural headings
+h1, h2, h3, h4, h5, h6 {
+  font-family: $site-title-font-family;
   color: #313131;
-  text-rendering: optimizeLegibility;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-wrap: pretty;
 }
 
-.fake-h1, h1{
+.fake-h1, h1 {
   font-size: $h1-font-size;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25em;
 }
 
 h2 {
-  margin-top: 1rem;
   font-size: $h2-font-size;
+  font-weight: 700;
+  margin-top: 1.2em;
+  margin-bottom: 0.6em;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 h3 {
-  margin-top: 1.5rem;
   font-size: $h3-font-size;
+  font-weight: 700;
+  margin-top: 1.2em;
+  margin-bottom: 0.6em;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
-h4, h5, h6 {
+// H3 as label treatment (all-caps, body font)
+.papers h3 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: $muted-color;
+  font-family: $root-font-family;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+h4 {
   margin-top: 1rem;
-  font-size: $h456-font-size;
+  margin-bottom: 0.5rem;
+  font-size: $h4-font-size;
+}
+
+h5 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: $h5-font-size;
+}
+
+h6 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: $h6-font-size;
 }
 
 p {
@@ -480,7 +517,7 @@ a.pagination-item:hover {
     top: 0;
     left: 0;
     bottom: 0;
-    width: 18rem;
+    width: 14rem;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -501,13 +538,18 @@ a.pagination-item:hover {
 .sidebar-nav-item {
   display: block;
   line-height: 1.75;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  transition: background 0.15s;
 }
 a.sidebar-nav-item:hover,
 a.sidebar-nav-item:focus {
-  text-decoration: underline;
+  text-decoration: none;
+  background: rgba(255,255,255,0.1);
 }
 .sidebar-nav-item.active {
   font-weight: bold;
+  background: rgba(255,255,255,0.15);
 }
 
 /* Sticky sidebar
@@ -518,7 +560,10 @@ a.sidebar-nav-item:focus {
 
 @media (min-width: $sidebar-appear-breakpoint) {
   .sidebar-sticky {
-    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
   }
 }
 
@@ -540,15 +585,15 @@ a.sidebar-nav-item:focus {
 
 @media (min-width: $sidebar-appear-breakpoint) {
   .content {
-    max-width: 38rem;
-    margin-left: 20rem;
+    max-width: 44rem;
+    margin-left: 17rem;
     margin-right: 2rem;
   }
 }
 
 @media (min-width: $more-space-breakpoint) {
   .content {
-    margin-left: 22rem;
+    margin-left: 18rem;
     margin-right: 4rem;
   }
 }

@@ -79,6 +79,10 @@
 // For the sidebar buttons
 .sidebar-social-links {
   color: #ffffff;
+
+  @media (min-width: $sidebar-appear-breakpoint) {
+    margin-top: auto;
+  }
 }
 
 .sidebar-social-links-buttons {

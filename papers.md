@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: papers
 sidebar_include: true
 title: Papers
 seo_title: "Alexander Gude - Papers"
