@@ -47,9 +47,9 @@ it was my favorite read of the year. In fact, I liked it _more_ than {{ ff1 }}
 because of its complex storyline, intriguing characters, and the broader
 perspective it offers on the world.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="Echopraxia" date="2024-04-19" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## The <span class="book-series">Culture</span> Series by <span class="author-name">Iain M. Banks</span>
 
@@ -73,12 +73,12 @@ closely followed by {{ c3 }}. I even enjoyed {{ c6 }}, one of the least
 well-reviewed of {{ bankss }} books. It will be bittersweet to finish the
 series with {{ c10 }} in 2025.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="The Player of Games" date="2024-02-19" %}
   {% book_card_lookup title="Inversions" date="2024-10-02" %}
   {% book_card_lookup title="Look to Windward" date="2024-10-16" %}
   {% book_card_lookup title="Surface Detail" date="2024-12-02" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## <cite class="book-title">A Fire Upon The Deep</cite> by <span class="author-name">Vernor Vinge</span>
 
@@ -89,9 +89,9 @@ while having galaxy-spanning implications. The Zones of Thought concept is
 also a unique way to structure the galaxy and explore how it shapes
 civilizations.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="A Fire Upon The Deep" date="2024-08-22" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## The <span class="book-series">Cheela</span> Series by <span class="author-name">Robert L. Forward</span>
 
@@ -108,10 +108,10 @@ on the surface of a neutron star and experiencing time a million times faster
 than humans---their characters still pulled me in. It was exciting to watch
 them build their civilization from hunter-gatherers to a spacefaring society.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="Dragon's Egg" date="2024-06-12" %}
   {% book_card_lookup title="Starquake" date="2024-06-20" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## <cite class="book-title">Childhood's End</cite> by <span class="author-name">Arthur C. Clarke</span>
 
@@ -124,6 +124,6 @@ books I ever read. Revisiting it years later was a treat, and I'm happy to say
 it holds up. The focus on humans' psychic abilities feels a little dated, but
 {{ clarkes }} crisp writing kept me engaged.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="Childhood's End" date="2024-05-26" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}

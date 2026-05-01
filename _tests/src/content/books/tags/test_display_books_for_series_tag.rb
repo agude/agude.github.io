@@ -29,7 +29,7 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
     }
 
     # 2. Define the mock HTML that the Renderer will "return"
-    mock_renderer_html = '<div class="card-grid">Book Cards</div>'
+    mock_renderer_html = '<ul class="card-grid">Book Cards</ul>'
 
     # 3. Set up mocks for the Finder and Renderer
     mock_finder = Minitest::Mock.new
@@ -56,7 +56,7 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
         output = Liquid::Template.parse("{% display_books_for_series 'Test Series' %}").render!(@context)
 
         # Assert that the final output is composed correctly (log_messages + rendered HTML)
-        assert_equal '<div class="card-grid">Book Cards</div>', output
+        assert_equal '<ul class="card-grid">Book Cards</ul>', output
       end
     end
 
@@ -72,7 +72,7 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
       books: [mock_book],
       log_messages: '',
     }
-    mock_renderer_html = '<div class="card-grid">Book Cards</div>'
+    mock_renderer_html = '<ul class="card-grid">Book Cards</ul>'
 
     mock_finder = Minitest::Mock.new
     mock_finder.expect :find, mock_finder_data
@@ -89,7 +89,7 @@ class TestDisplayBooksForSeriesTag < Minitest::Test
       Jekyll::Books::Lists::Renderers::ForSeriesRenderer.stub :new, ->(_context, _data) { mock_renderer } do
         # Use the variable defined in setup
         output = Liquid::Template.parse('{% display_books_for_series series_var %}').render!(@context)
-        assert_equal '<div class="card-grid">Book Cards</div>', output
+        assert_equal '<ul class="card-grid">Book Cards</ul>', output
       end
     end
 

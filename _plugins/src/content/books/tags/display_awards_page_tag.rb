@@ -153,12 +153,12 @@ module Jekyll
           end
 
           def render_book_grid(books, append_newline:)
-            html = +"<div class=\"card-grid\">\n"
+            html = +"<ul class=\"card-grid\">\n"
             books.each do |book|
               html << Jekyll::Books::Core::BookCardRenderer.render(book, @context)
               html << "\n" if append_newline
             end
-            html << "</div>\n"
+            html << "</ul>\n"
           end
         end
 

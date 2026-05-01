@@ -55,9 +55,9 @@ module Jekyll
           slug = 'standalone-books'
           options[:anchors]['#'] = slug if options[:generate_nav]
           html = "<h2 class=\"book-list-headline\" id=\"#{slug}\">Standalone Books</h2>\n"
-          html << "<div class=\"card-grid\">\n"
+          html << "<ul class=\"card-grid\">\n"
           books.each { |b| html << Jekyll::Books::Core::BookCardRenderer.render(b, context) << "\n" }
-          html << "</div>\n"
+          html << "</ul>\n"
           html
         end
 
@@ -69,9 +69,9 @@ module Jekyll
           heading_level = options[:series_hl]
           link = Jekyll::Series::SeriesLinkResolver.new(context).resolve(name, nil)
           html = "<h#{heading_level} class=\"series-title\" id=\"#{slug}\">#{link}</h#{heading_level}>\n"
-          html << "<div class=\"card-grid\">\n"
+          html << "<ul class=\"card-grid\">\n"
           group[:books].each { |b| html << Jekyll::Books::Core::BookCardRenderer.render(b, context) << "\n" }
-          html << "</div>\n"
+          html << "</ul>\n"
           html
         end
 

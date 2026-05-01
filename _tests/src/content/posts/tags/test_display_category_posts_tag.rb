@@ -80,9 +80,9 @@ class TestDisplayCategoryPostsTag < Minitest::Test
     stub_data_and_cards(mock_result) do
       output = render_tag("topic='Tech'")
 
-      assert_includes output, '<div class="card-grid">'
+      assert_includes output, '<ul class="card-grid">'
       assert_includes output, '[card:Tech Post]'
-      assert_includes output, "</div>\n"
+      assert_includes output, "</ul>\n"
     end
   end
 
@@ -120,7 +120,7 @@ class TestDisplayCategoryPostsTag < Minitest::Test
       output = render_tag("topic='Tech'")
 
       assert output.start_with?('<!-- Debug log -->'), 'Log messages should precede card HTML'
-      assert_includes output, '<div class="card-grid">'
+      assert_includes output, '<ul class="card-grid">'
     end
   end
 
@@ -131,7 +131,7 @@ class TestDisplayCategoryPostsTag < Minitest::Test
       output = render_tag("topic='Tech'")
 
       assert_equal '<!-- No posts -->', output
-      refute_includes output, '<div class="card-grid">'
+      refute_includes output, '<ul class="card-grid">'
     end
   end
 
@@ -181,7 +181,7 @@ class TestDisplayCategoryPostsTag < Minitest::Test
 
       expected_log_pattern = /<!-- \[ERROR\] DISPLAY_CATEGORY_POSTS_FAILURE: Reason='Argument &#39;topic&#39; resolved to an empty string\.'/
       assert_match(expected_log_pattern, output)
-      refute_match(/<div class="card-grid">/, output)
+      refute_match(/<ul class="card-grid">/, output)
     end
   end
 
@@ -193,7 +193,7 @@ class TestDisplayCategoryPostsTag < Minitest::Test
 
       expected_log_pattern = /<!-- \[ERROR\] DISPLAY_CATEGORY_POSTS_FAILURE: Reason='Argument &#39;topic&#39; resolved to an empty string\.'/
       assert_match(expected_log_pattern, output)
-      refute_match(/<div class="card-grid">/, output)
+      refute_match(/<ul class="card-grid">/, output)
     end
   end
 

@@ -42,9 +42,9 @@ creating some of the deepest and most fully developed characters in any
 medium. It's my favorite game of all time, and one of my favorite literary
 works, period.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="Disco Elysium" date="2025-07-19" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## The <span class="book-series">Hyperion Cantos</span> by <span class="author-name">Dan Simmons</span>
 
@@ -65,10 +65,10 @@ deeper and more complex than I did the first time through.
 This year I'll be tackling {{ hyperion3 }} and {{ hyperion4 }}, which I've
 heard don't live up to the greatness of the first two, but I'm still hopeful.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="Hyperion" date="2025-09-20" %}
   {% book_card_lookup title="The Fall of Hyperion" date="2025-12-30" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## <cite class="book-title">The Hydrogen Sonata</cite> by <span class="author-name">Iain M. Banks</span>
 
@@ -88,9 +88,9 @@ banks }} first explored in {{ phlebas }}, but with a more hopeful bent.
 It also feels like a fitting final book for {{ banks_full }} himself, with its
 message that life only has the meaning you give it.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="The Hydrogen Sonata" date="2025-02-06" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## The <span class="book-series">Teixcalaan</span> series by <span class="author-name">Arkady Martine</span>
 
@@ -106,10 +106,10 @@ memory }} and {{ peace }}. The writing itself is beautiful, and often reminded
 me of {{ wolfes }} {{ botns }}, with its mix of archaic prose and intentional
 vagueness.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="A Memory Called Empire" date="2025-03-16" %}
   {% book_card_lookup title="A Desolation Called Peace" date="2025-04-05" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## <cite class="book-title">Roadside Picnic</cite> by <span class="author-name">Arkady</span> and <span class="author-name">Boris Strugatsky</span>
 
@@ -123,9 +123,9 @@ atmosphere is completely different from Western sci-fi.
 
 It wasn't the only book of theirs that I read, but it was easily my favorite.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="Roadside Picnic" date="2025-08-04" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## <span class="book-series">The Murderbot Diaries</span> by <span class="author-name">Martha Wells</span>
 
@@ -138,12 +138,12 @@ still digging into deep philosophical questions about what it means to be a
 person. I've got a few more to go this year, and I'm really looking forward to
 them. I fully expect to see them on my 2026 list.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="Artificial Condition" date="2025-05-18" %}
   {% book_card_lookup title="Rogue Protocol" date="2025-05-21" %}
   {% book_card_lookup title="Exit Strategy" date="2025-05-23" %}
   {% book_card_lookup title="Network Effect" date="2025-07-17" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## <cite class="book-title">There Is No Antimemetics Division</cite> by <span class="author-name">qntm</span>
 
@@ -155,9 +155,9 @@ full of amazing ideas, but ultimately let down by a poorly written second act.
 His rewrite this year fixed every single problem. The result is a tight,
 cohesive book that brings its wild concepts to life. Highly recommend.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="There Is No Antimemetics Division" date="2025-11-21" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## <cite class="book-title">A Mote in Shadow</cite> by <span class="author-name">A. N. Alex</span>
 
@@ -169,9 +169,9 @@ sci-fi and techno-thriller, set in a fractured human civilization in the
 not-too-distant future. He's working on the sequel now, and I'm very much
 looking forward to it.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="A Mote in Shadow" date="2025-08-30" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## <cite class="book-title">The Triumphant</cite> by <span class="author-name">Linda Evans</span>, <span class="author-name">Robert R. Hollingsworth</span>, and <span class="author-name">David Weber</span>
 
@@ -189,6 +189,6 @@ honor and duty translate to machines. I recently started re-reading the series
 for nostalgia, and while most of the books are serviceable but not great, {{
 triumphant }} is the clear exception.
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% book_card_lookup title="The Triumphant" date="2025-09-23" %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}

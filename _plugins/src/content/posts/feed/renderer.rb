@@ -21,7 +21,7 @@ module Jekyll
         def render
           return '' if @feed_items.empty?
 
-          output = +"<div class=\"card-grid\">\n"
+          output = +"<ul class=\"card-grid\">\n"
           log_output = +''
 
           @feed_items.each do |item|
@@ -34,7 +34,7 @@ module Jekyll
             end
           end
 
-          output << "</div>\n"
+          output << "</ul>\n"
           log_output + output
         end
 

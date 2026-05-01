@@ -22,14 +22,14 @@ module Jekyll
           output = String.new
           output << "<aside class=\"previous-reviews\">\n"
           output << "  <h2 class=\"previous-reviews-headline\">Previous Reviews</h2>\n"
-          output << "  <div class=\"card-grid\">\n"
+          output << "  <ul class=\"card-grid\">\n"
 
           @reviews.each do |doc|
             subtitle = "Review from #{doc.date.strftime('%B %d, %Y')}"
             output << Jekyll::Books::Core::BookCardRenderer.render(doc, @context, subtitle: subtitle)
           end
 
-          output << "  </div>\n"
+          output << "  </ul>\n"
           output << '</aside>'
           output
         end

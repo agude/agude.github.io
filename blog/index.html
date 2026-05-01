@@ -15,12 +15,11 @@ Below you can find my writings on machine learning, data science, and
 technology. Enjoy!
 
 <!-- Posts -->
-<div class="card-grid">
-  {% for post in paginator.posts %}
-    {% comment %} Article cards with an image and description. {% endcomment %}
-    {% render_article_card post %}
-  {% endfor %}
-</div>
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
+{% for post in paginator.posts %}
+  {% render_article_card post %}
+{% endfor %}
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 <!-- "Older" and "Newer" buttons -->
 <div class="pagination">

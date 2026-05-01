@@ -25,11 +25,11 @@ module Jekyll
 
             @rating_groups.each do |group|
               output << render_group_header(group[:rating])
-              output << "<div class=\"card-grid\">\n"
+              output << "<ul class=\"card-grid\">\n"
               group[:books].each do |book|
                 output << Jekyll::Books::Core::BookCardRenderer.render(book, @context) << "\n"
               end
-              output << "</div>\n"
+              output << "</ul>\n"
             end
 
             output

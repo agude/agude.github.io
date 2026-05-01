@@ -266,9 +266,9 @@ class TestDisplayAwardsPageTag < Minitest::Test
   def assert_major_awards_section(output)
     assert_match %r{<h2>Major Awards</h2>}, output
     assert_match %r{<h3 class="book-list-headline" id="hugo-award">Hugo Award</h3>}, output
-    assert_match %r{<div class="card-grid">\s*<!-- Card for: Hugo Book -->\s*</div>}m, output
+    assert_match %r{<ul class="card-grid">\s*<!-- Card for: Hugo Book -->\s*</ul>}m, output
     assert_match %r{<h3 class="book-list-headline" id="nebula-award">Nebula Award</h3>}, output
-    assert_match %r{<div class="card-grid">\s*<!-- Card for: Nebula Book -->\s*</div>}m, output
+    assert_match %r{<ul class="card-grid">\s*<!-- Card for: Nebula Book -->\s*</ul>}m, output
   end
 
   # Asserts "My Favorite Books Lists" section is present and correct
@@ -277,11 +277,11 @@ class TestDisplayAwardsPageTag < Minitest::Test
     expected_h3_2024 =
       %r{<h3 class="book-list-headline" id="my-favorite-books-of-2024"><a href="/fav24.html">My Favorite Books of 2024</a></h3>}
     assert_match expected_h3_2024, output
-    assert_match %r{<div class="card-grid">\s*<!-- Card for: Fav Book A -->\s*</div>}m, output
+    assert_match %r{<ul class="card-grid">\s*<!-- Card for: Fav Book A -->\s*</ul>}m, output
     expected_h3_2023 =
       %r{<h3 class="book-list-headline" id="my-favorite-books-of-2023"><a href="/fav23.html">My Favorite Books of 2023</a></h3>}
     assert_match expected_h3_2023, output
-    assert_match %r{<div class="card-grid">\s*<!-- Card for: Fav Book B -->\s*</div>}m, output
+    assert_match %r{<ul class="card-grid">\s*<!-- Card for: Fav Book B -->\s*</ul>}m, output
   end
 
   # Asserts section order is correct

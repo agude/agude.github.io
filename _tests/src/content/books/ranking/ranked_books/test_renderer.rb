@@ -44,7 +44,7 @@ class TestRankedBooksRenderer < Minitest::Test
     renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context, groups)
     result = renderer.render
 
-    assert_includes result, '<div class="card-grid">'
+    assert_includes result, '<ul class="card-grid">'
   end
 
   def test_generates_navigation

@@ -86,6 +86,6 @@ reporting out the results. I discuss five of these roles in my next post:
 
 {% capture url %}{% post_url 2021-06-01-data_science_job_spectrum %}{% endcapture %}
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% article_card_lookup url=url %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}

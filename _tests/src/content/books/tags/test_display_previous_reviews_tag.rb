@@ -106,7 +106,7 @@ class TestDisplayPreviousReviewsTag < Minitest::Test
     Jekyll::Books::Core::BookCardRenderer.stub(
       :render,
       lambda { |doc, _context, subtitle: nil|
-        "<div class=\"book-card\">#{doc.data['title']} — #{subtitle}</div>"
+        "<li class=\"book-card\">#{doc.data['title']} — #{subtitle}</li>"
       },
       &
     )

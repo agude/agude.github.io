@@ -26,9 +26,9 @@ For my updated approach, check out my latest post:**
 
 {% capture url %}{% post_url 2025-02-02-how_i_write_with_llms_revised %}{% endcapture %}
 
-<div class="card-grid">
+{% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
   {% article_card_lookup url=url %}
-</div>
+{% if render_mode != 'markdown' %}</ul>{% endif %}
 
 <hr>
 

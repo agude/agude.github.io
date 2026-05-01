@@ -40,9 +40,9 @@ class TestRelatedBooksRenderer < Minitest::Test
 
     assert_match(/<aside class="related">/, output)
     assert_match(%r{<h2>Related Books</h2>}, output)
-    assert_match(/<div class="card-grid">/, output)
+    assert_match(/<ul class="card-grid">/, output)
     assert_equal 2, output.scan('<!-- Card for:').count
-    assert_match(%r{</div>\s*</aside>}m, output)
+    assert_match(%r{</ul>\s*</aside>}m, output)
   end
 
   def test_calls_book_card_utils_for_each_book

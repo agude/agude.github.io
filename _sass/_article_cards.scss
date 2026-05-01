@@ -1,7 +1,7 @@
 // Use 'variables' and make its members available globally in this file
 @use "variables" as *;
 
-// Card Grid
+// Card Grid - semantic list container
 .card-grid {
   display: flex;
   flex-direction: column;
@@ -12,6 +12,7 @@
   border-radius: 0;
   padding: 0;
   margin-top: 0.5em;
+  list-style: none;
 }
 
 // Shared card styling

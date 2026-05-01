@@ -20,11 +20,11 @@ module Jekyll
           def render
             return '' if @books.empty?
 
-            output = +"<div class=\"card-grid\">\n"
+            output = +"<ul class=\"card-grid\">\n"
             @books.each do |book|
               output << Jekyll::Books::Core::BookCardRenderer.render(book, @context) << "\n"
             end
-            output << "</div>\n"
+            output << "</ul>\n"
             output
           end
         end

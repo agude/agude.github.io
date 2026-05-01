@@ -22,12 +22,12 @@ class TestCategoryPostsRenderer < Minitest::Test
   end
 
   def test_generates_correct_html_structure
-    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(_post, _ctx) { '<div>Card</div>' } do
+    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(_post, _ctx) { '<li>Card</li>' } do
       renderer = Jekyll::Posts::Category::Renderer.new(@context, [@post1])
       output = renderer.render
 
-      assert_match(/<div class="card-grid">/, output)
-      assert_match(%r{</div>}, output)
+      assert_match(/<ul class="card-grid">/, output)
+      assert_match(%r{</ul>}, output)
     end
   end
 
@@ -80,16 +80,16 @@ class TestCategoryPostsRenderer < Minitest::Test
   end
 
   def test_wraps_all_cards_in_single_card_grid
-    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(_post, _ctx) { '<div>Card</div>' } do
+    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(_post, _ctx) { '<li>Card</li>' } do
       renderer = Jekyll::Posts::Category::Renderer.new(@context, [@post1, @post2])
       output = renderer.render
 
       # Count occurrences of card-grid opening and closing
-      opening_count = output.scan('<div class="card-grid">').length
-      closing_count = output.scan(%r{</div>}).length
+      opening_count = output.scan('<ul class="card-grid">').length
+      closing_count = output.scan(%r{</ul>}).length
 
       assert_equal 1, opening_count, 'Should have exactly one card-grid opening tag'
-      assert opening_count <= closing_count, 'Should have at least one closing div tag'
+      assert opening_count <= closing_count, 'Should have at least one closing ul tag'
     end
   end
 end
