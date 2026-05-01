@@ -103,7 +103,7 @@ th {
 
 // Structural headings
 h1, h2, h3, h4, h5, h6 {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: $site-title-font-family;
   color: #313131;
   letter-spacing: -0.01em;
   line-height: 1.2;

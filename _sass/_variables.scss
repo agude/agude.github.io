@@ -3,6 +3,7 @@
 $root-font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 $code-font-family: "Ubuntu Mono", Menlo, Monaco, Consolas, "Lucida Console", monospace;
 $site-title-font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+$headline-font-family: Georgia, "Times New Roman", Times, serif;
 
 $root-line-height: 1.5;
 
@@ -26,7 +27,7 @@ $small-screen-root-font-size: 1em;
 $root-font-size: 1.25em;
 
 // Set headline font-sizes
-$site-title-font-size: 2.1rem;
+$site-title-font-size: 2rem;
 $h1-font-size: 2.1rem;   // page title — "Field of Dishonor", "Writings"
 $h2-font-size: 1.5rem;   // major section — "Review", "Related Books"
 $h3-font-size: 1.15rem;  // post subheading — "System Prompt", "Unit Tests"
