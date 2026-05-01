@@ -19,11 +19,11 @@ module Jekyll
         def render
           return '' if @posts.empty?
 
-          output = +"<div class=\"card-grid\">\n"
+          output = +"<ul class=\"card-grid\">\n"
           @posts.each do |post|
             output << Jekyll::Posts::ArticleCardRenderer.render(post, @context) << "\n"
           end
-          output << "</div>\n"
+          output << "</ul>\n"
         end
       end
     end

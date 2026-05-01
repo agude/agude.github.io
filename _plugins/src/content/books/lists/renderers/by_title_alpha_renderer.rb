@@ -66,13 +66,13 @@ module Jekyll
             output = '<h2 class="book-list-headline" ' \
                      "id=\"letter-#{CGI.escapeHTML(id_letter)}\">" \
                      "#{CGI.escapeHTML(letter)}</h2>\n"
-            output << "<div class=\"card-grid\">\n"
+            output << "<ul class=\"card-grid\">\n"
 
             books_in_group.each do |book|
               output << Jekyll::Books::Core::BookCardRenderer.render(book, @context) << "\n"
             end
 
-            output << "</div>\n"
+            output << "</ul>\n"
             output
           end
         end

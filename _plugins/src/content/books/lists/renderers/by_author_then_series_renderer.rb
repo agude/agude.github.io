@@ -60,9 +60,9 @@ module Jekyll
 
             id = "standalone-books-#{slug}"
             html = "<h3 class=\"book-list-headline\" id=\"#{id}\">Standalone Books</h3>\n"
-            html << "<div class=\"card-grid\">\n"
+            html << "<ul class=\"card-grid\">\n"
             books.each { |book| html << Jekyll::Books::Core::BookCardRenderer.render(book, @context) << "\n" }
-            html << "</div>\n"
+            html << "</ul>\n"
           end
 
           def render_series(author_data)

@@ -42,10 +42,10 @@ module Jekyll
           def render
             return '' unless valid_data?
 
-            html = "<div class=\"#{@card_data[:base_class]}\">\n"
+            html = "<li class=\"#{@card_data[:base_class]}\">\n"
             html << render_image_section
             html << render_text_section
-            html << '</div>'
+            html << '</li>'
           end
 
           private

@@ -20,9 +20,9 @@ module Jekyll
           return '' if @posts.empty?
 
           header = @found_by_category ? 'Related Posts' : 'Recent Posts'
-          out = "<aside class=\"related\">\n  <h2>#{header}</h2>\n  <div class=\"card-grid\">\n"
+          out = "<aside class=\"related\">\n  <h2>#{header}</h2>\n  <ul class=\"card-grid\">\n"
           @posts.each { |p| out << Jekyll::Posts::ArticleCardRenderer.render(p, @context) << "\n" }
-          out << "  </div>\n</aside>"
+          out << "  </ul>\n</aside>"
         end
       end
     end

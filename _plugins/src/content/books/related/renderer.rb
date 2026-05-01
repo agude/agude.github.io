@@ -26,9 +26,9 @@ module Jekyll
         def build_related_books_html
           output = String.new("<aside class=\"related\">\n")
           output << "  <h2>Related Books</h2>\n"
-          output << "  <div class=\"card-grid\">\n"
+          output << "  <ul class=\"card-grid\">\n"
           @books.each { |book| output << Jekyll::Books::Core::BookCardRenderer.render(book, @context) << "\n" }
-          output << "  </div>\n"
+          output << "  </ul>\n"
           output << '</aside>'
         end
       end
