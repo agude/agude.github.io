@@ -31,8 +31,8 @@ class TestForSeriesRenderer < Minitest::Test
     renderer = Jekyll::Books::Lists::Renderers::ForSeriesRenderer.new(@context, data)
     result = renderer.render
 
-    assert_includes result, '<div class="card-grid">'
-    assert_includes result, '</div>'
+    assert_includes result, '<ul class="card-grid">'
+    assert_includes result, '</ul>'
   end
 
   def test_renders_single_book
@@ -85,5 +85,17 @@ class TestForSeriesRenderer < Minitest::Test
     renderer = Jekyll::Books::Lists::Renderers::ForSeriesRenderer.new(@context, data)
 
     assert_equal '', renderer.render
+  end
+
+  # --- Semantic HTML tests ---
+
+  def test_card_grid_is_unordered_list
+    data = { books: [@book1] }
+    renderer = Jekyll::Books::Lists::Renderers::ForSeriesRenderer.new(@context, data)
+    result = renderer.render
+
+    assert_includes result, '<ul class="card-grid">'
+    assert_includes result, '</ul>'
+    refute_includes result, '<div class="card-grid">'
   end
 end

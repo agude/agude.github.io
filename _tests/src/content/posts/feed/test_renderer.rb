@@ -41,12 +41,12 @@ class TestFrontPageFeedRenderer < Minitest::Test
   end
 
   def test_generates_correct_html_structure
-    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(_item, _ctx) { '<div>Article Card</div>' } do
+    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(_item, _ctx) { '<li>Article Card</li>' } do
       renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@post])
       output = renderer.render
 
-      assert_match(/<div class="card-grid">/, output)
-      assert_match(%r{</div>}, output)
+      assert_match(/<ul class="card-grid">/, output)
+      assert_match(%r{</ul>}, output)
     end
   end
 
@@ -126,7 +126,7 @@ class TestFrontPageFeedRenderer < Minitest::Test
       output = renderer.render
 
       # Should still create the grid
-      assert_match(/<div class="card-grid">/, output)
+      assert_match(/<ul class="card-grid">/, output)
 
       # Should contain warning log
       assert_match(/\[WARN\] FRONT_PAGE_FEED_FAILURE/, output)
@@ -136,13 +136,13 @@ class TestFrontPageFeedRenderer < Minitest::Test
   end
 
   def test_wraps_all_items_in_single_card_grid
-    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(_item, _ctx) { '<div>Card</div>' } do
-      Jekyll::Books::Core::BookCardRenderer.stub :render, ->(_item, _ctx) { '<div>Card</div>' } do
+    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(_item, _ctx) { '<li>Card</li>' } do
+      Jekyll::Books::Core::BookCardRenderer.stub :render, ->(_item, _ctx) { '<li>Card</li>' } do
         renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@post, @book])
         output = renderer.render
 
         # Count occurrences of card-grid opening
-        opening_count = output.scan('<div class="card-grid">').length
+        opening_count = output.scan('<ul class="card-grid">').length
         assert_equal 1, opening_count, 'Should have exactly one card-grid opening tag'
       end
     end
@@ -157,17 +157,30 @@ class TestFrontPageFeedRenderer < Minitest::Test
       def logger.warn(topic, message); end
     end
 
-    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(_item, _ctx) { '<div>Article</div>' } do
+    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(_item, _ctx) { '<li>Article</li>' } do
       Jekyll.stub :logger, silent_logger do
         renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@unknown_item, @post])
         output = renderer.render
 
         # Find positions of log and HTML
         log_idx = output.index('FRONT_PAGE_FEED_FAILURE')
-        grid_idx = output.index('<div class="card-grid">')
+        grid_idx = output.index('<ul class="card-grid">')
 
         assert log_idx < grid_idx, 'Log output should appear before HTML grid'
       end
+    end
+  end
+
+  # --- Semantic HTML tests (grid as unordered list) ---
+
+  def test_card_grid_is_unordered_list
+    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(_item, _ctx) { '<li>Card</li>' } do
+      renderer = Jekyll::Posts::Feed::Renderer.new(@context, [@post])
+      output = renderer.render
+
+      assert_match(/<ul class="card-grid">/, output, 'Grid should use <ul> element')
+      assert_match %r{</ul>}, output, 'Grid should close with </ul>'
+      refute_match(/<div class="card-grid">/, output, 'Grid should not use <div>')
     end
   end
 end

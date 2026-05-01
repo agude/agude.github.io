@@ -252,7 +252,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
     assert_match(/<nav class="alpha-jump-links">/, output)
     assert_match(/<h2 class="book-list-headline" id="rating-5">/, output)
     assert_match(/<h2 class="book-list-headline" id="rating-4">/, output)
-    assert_match(/<div class="card-grid">/, output)
+    assert_match(/<ul class="card-grid">/, output)
     assert_equal 3, output.scan('mock-book-card').count
   end
 
@@ -500,11 +500,11 @@ class TestDisplayRankedBooksTag < Minitest::Test
   def assert_rating_group(output, rating:, expected_titles:)
     star_label = rating == 1 ? 'Star' : 'Stars'
     # Assert header
-    assert_match %r{<h2 class="book-list-headline" id="rating-#{rating}"><span>Rating #{rating} #{star_label}</span></h2>\s*<div class="card-grid">},
+    assert_match %r{<h2 class="book-list-headline" id="rating-#{rating}"><span>Rating #{rating} #{star_label}</span></h2>\s*<ul class="card-grid">},
                  output
 
     # Build regex to match all titles in the group
     titles_pattern = expected_titles.map { |title| Regexp.escape(title) }.join('.*?')
-    assert_match %r{id="rating-#{rating}">.*?#{titles_pattern}.*?</div>}m, output
+    assert_match %r{id="rating-#{rating}">.*?#{titles_pattern}.*?</ul>}m, output
   end
 end

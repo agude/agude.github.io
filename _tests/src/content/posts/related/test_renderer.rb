@@ -47,7 +47,7 @@ class TestRelatedPostsRenderer < Minitest::Test
     renderer = Jekyll::Posts::Related::Renderer.new(@context, [@post], false)
     result = renderer.render
 
-    assert_includes result, '<div class="card-grid">'
+    assert_includes result, '<ul class="card-grid">'
   end
 
   def test_renders_multiple_posts
@@ -75,8 +75,8 @@ class TestRelatedPostsRenderer < Minitest::Test
     # Verify nested structure
     assert_includes result, '<aside class="related">'
     assert_includes result, '<h2>Related Posts</h2>'
-    assert_includes result, '<div class="card-grid">'
-    assert_includes result, '</div>'
+    assert_includes result, '<ul class="card-grid">'
+    assert_includes result, '</ul>'
     assert_includes result, '</aside>'
   end
 

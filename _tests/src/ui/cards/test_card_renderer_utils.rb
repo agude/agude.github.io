@@ -24,7 +24,7 @@ class TestCardRendererUtils < Minitest::Test
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
 
-    assert_match(/<div class="minimal-card">/, output)
+    assert_match(/<li class="minimal-card">/, output)
     assert_match(/<div class="card-element card-text">/, output)
     assert_match %r{<a href="/item/1">\s*<strong>Minimal Title</strong>\s*</a>}, output
     refute_match(/<img src=/, output, 'Image should not be present for minimal card')
@@ -45,7 +45,7 @@ class TestCardRendererUtils < Minitest::Test
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
 
-    assert_match(/<div class="image-card">/, output)
+    assert_match(/<li class="image-card">/, output)
     assert_match(/<div class="card-element custom-image-class">/, output)
     assert_match %r{<a href="/item/image-item">\s*<img src="/images/pic.jpg" alt="A picture" />\s*</a>}, output
     assert_match %r{<a href="/item/image-item">\s*<strong>Image Card Title</strong>\s*</a>}, output
@@ -131,7 +131,7 @@ class TestCardRendererUtils < Minitest::Test
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
 
-    assert_match(/<div class="full-card">/, output)
+    assert_match(/<li class="full-card">/, output)
     assert_match %r{<img src="/img/full.png" alt="Full image"}, output
     assert_match %r{<strong>Full Card Title</strong>}, output
     assert_match %r{<p>Extra info</p>}, output
@@ -183,5 +183,32 @@ class TestCardRendererUtils < Minitest::Test
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
     assert_match %r{<img src="/images/pic.jpg" alt="" />}, output # Expect empty alt attribute
+  end
+
+  # --- Semantic HTML tests (cards as list items) ---
+
+  def test_card_renders_as_list_item
+    card_data = {
+      base_class: 'book-card',
+      url: '/book/1',
+      title_html: '<strong>Test Book</strong>',
+    }
+    output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
+
+    assert_match(/^<li class="book-card">/, output, 'Card should open with <li> element')
+    assert_match %r{</li>$}, output, 'Card should close with </li>'
+    refute_match(/^<div class="book-card">/, output, 'Card should not use <div> wrapper')
+  end
+
+  def test_article_card_renders_as_list_item
+    card_data = {
+      base_class: 'article-card',
+      url: '/post/1',
+      title_html: '<strong>Test Post</strong>',
+    }
+    output = Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
+
+    assert_match(/^<li class="article-card">/, output, 'Article card should open with <li>')
+    assert_match %r{</li>$}, output, 'Article card should close with </li>'
   end
 end

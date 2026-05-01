@@ -48,7 +48,7 @@ class TestByTitleAlphaRenderer < Minitest::Test
     renderer = Jekyll::Books::Lists::Renderers::ByTitleAlphaRenderer.new(@context, data)
     result = renderer.render
 
-    assert_includes result, '<div class="card-grid">'
+    assert_includes result, '<ul class="card-grid">'
   end
 
   def test_generates_alpha_navigation

@@ -46,7 +46,7 @@ class TestPreviousReviewsRenderer < Minitest::Test
 
       assert_match(/<aside class="previous-reviews">/, output)
       assert_match %r{<h2 class="previous-reviews-headline">Previous Reviews</h2>}, output
-      assert_match(/<div class="card-grid">/, output)
+      assert_match(/<ul class="card-grid">/, output)
       assert_match(%r{</aside>}, output)
     end
   end

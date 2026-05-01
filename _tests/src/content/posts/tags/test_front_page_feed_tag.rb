@@ -65,10 +65,10 @@ class TestFrontPageFeedTag < Minitest::Test
     stub_feed_and_cards([@post1, @book1]) do
       output = render_tag
 
-      assert_includes output, '<div class="card-grid">'
+      assert_includes output, '<ul class="card-grid">'
       assert_includes output, '[article:Recent Post]'
       assert_includes output, '[book:Recent Book]'
-      assert_includes output, "</div>\n"
+      assert_includes output, "</ul>\n"
     end
   end
 

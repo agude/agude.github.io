@@ -148,4 +148,25 @@ class TestBookListRendererUtils < Minitest::Test
     # "The Amazing Series" should register under A, not T
     assert_includes result, '<a href="#the-amazing-series">A</a>'
   end
+
+  # --- Semantic HTML tests ---
+
+  def test_standalone_section_uses_unordered_list
+    data = { standalone_books: [@standalone], series_groups: [] }
+    result = Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(data, @context)
+
+    assert_includes result, '<ul class="card-grid">'
+    assert_includes result, '</ul>'
+    refute_includes result, '<div class="card-grid">'
+  end
+
+  def test_series_section_uses_unordered_list
+    series_group = { name: 'Epic Series', books: [@series_book] }
+    data = { standalone_books: [], series_groups: [series_group] }
+    result = Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(data, @context)
+
+    assert_includes result, '<ul class="card-grid">'
+    assert_includes result, '</ul>'
+    refute_includes result, '<div class="card-grid">'
+  end
 end

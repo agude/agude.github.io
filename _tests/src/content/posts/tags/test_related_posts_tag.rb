@@ -301,7 +301,7 @@ class TestRelatedPostsTag < Minitest::Test
 
     assert_match(/^<aside class="related">/, output)
     assert_match(%r{<h2>Related Posts</h2>}, output)
-    assert_match(/<div class="card-grid">/, output)
+    assert_match(/<ul class="card-grid">/, output)
     assert_match(/#{Regexp.escape(@post_review1.data['title'])}/, output)
     assert_match(/#{Regexp.escape(@post_tech1.data['title'])}/, output)
     assert_match(%r{</aside>$}, output)
@@ -319,7 +319,7 @@ class TestRelatedPostsTag < Minitest::Test
 
     assert_match(/^<aside class="related">/, output)
     assert_match(%r{<h2>Recent Posts</h2>}, output)
-    assert_match(/<div class="card-grid">/, output)
+    assert_match(/<ul class="card-grid">/, output)
     assert_match(/#{Regexp.escape(@post_uncat1.data['title'])}/, output)
     assert_match(/#{Regexp.escape(@post_tech2.data['title'])}/, output)
     assert_match(%r{</aside>$}, output)
