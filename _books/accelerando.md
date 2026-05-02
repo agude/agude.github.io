@@ -168,4 +168,25 @@ little hard to understand how he is so blasé about the large language models
 we've invented recently; they are exactly the kind of extension of the mind
 that he otherwise explores with gusto.
 
-{{ this_book }}, to my surprise, is the closest successor to
+{{ this_book }}, to my surprise, is a close successor of {{ simmonss_lastname
+}} {{ hyperion_cantos }}, even though {{ simmon_lastname }} is writing pure
+space opera and {{ the_authors_lastname }} is writing hard sci-fi. Both works'
+primary theme is the rise of a new order, led by machine intelligences the
+humans built, as they displace their creators. Both books look at how this
+transition effects the structures of our society---religion, law, government.
+And there are smaller similarities: houses connected by wormholes, simulated
+historical figures used to better understand humanity, <!-- need three to make
+a list --> But {{ simmonss_lastname }} work combines beautiful prose and
+intertexuality to create a timeless masterpiece, while {{
+the_authors_lastname_possessive }} book already feels dated.
+
+In the end, I just didn't enjoy {{ this_book }}. As a fix-up, the stories
+don't really come together into a whole; each feels disconnected and so there
+is no real payoff. And {{ the_authors_lastname_possessive }} goal was to write
+a book set in the singularity, something {{ vinge }} said was impossible. But
+he failed. {{ this_book }} _isn't_ really set in the singularity, it's
+sampling the singularity at 9 different points, but each point is static. And
+finally, for a book about how fast things move, it's stuck in the past,
+reading now more like retrofuturism.
+
+{{ this_book }} reminded me of many others.
