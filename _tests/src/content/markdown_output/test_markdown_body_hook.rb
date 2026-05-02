@@ -245,6 +245,38 @@ class TestMarkdownBodyHook < Minitest::Test
     end
   end
 
+  # Regression: Liquid's {% assign %} writes directly into the payload hash.
+  # The markdown pass must not leak render_mode='markdown' into the payload
+  # that Jekyll uses for the HTML render.
+  def test_render_markdown_body_does_not_mutate_payload_render_mode
+    site, _, payload = build_rendering_fixtures
+    payload['render_mode'] = 'html'
+    content = "{% book_link 'Hyperion' author='Dan Simmons' %}"
+
+    with_silent_logger do
+      Hook.render_markdown_body(content, site, payload)
+    end
+
+    assert_equal 'html',
+                 payload['render_mode'],
+                 'render_markdown_body must not mutate payload render_mode'
+  end
+
+  # When render_mode is unset before the call, ensure block restores nil
+  # (the :pre_render hook then sets 'html' for the HTML pass).
+  def test_render_markdown_body_restores_nil_when_render_mode_unset
+    site, _, payload = build_rendering_fixtures
+    payload.delete('render_mode')
+    content = "{% book_link 'Hyperion' author='Dan Simmons' %}"
+
+    with_silent_logger do
+      Hook.render_markdown_body(content, site, payload)
+    end
+
+    assert_nil payload['render_mode'],
+               'render_markdown_body must restore nil when render_mode was unset'
+  end
+
   # --- Integration: layout-driven pages render through markdown pass ---
 
   def test_author_page_renders_book_list_via_layout_tag

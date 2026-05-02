@@ -50,10 +50,18 @@ module Jekyll
           strict_variables: site.config.dig('liquid', 'strict_variables'),
         }
 
-        # Inject render_mode into payload for includes (which can't access registers)
-        payload_with_mode = payload.merge('render_mode' => 'markdown')
-        rendered = template.render!(payload_with_mode, info)
-        MarkdownHtmlConverter.convert(rendered)
+        # Liquid's {% assign %} writes directly into the payload hash passed
+        # to render!. We temporarily set render_mode='markdown' for this
+        # pass, then restore the original value so the caller's payload
+        # (used by Jekyll for the HTML render) isn't polluted.
+        original_render_mode = payload['render_mode']
+        begin
+          payload['render_mode'] = 'markdown'
+          rendered = template.render!(payload, info)
+          MarkdownHtmlConverter.convert(rendered)
+        ensure
+          payload['render_mode'] = original_render_mode
+        end
       end
 
       def self.enabled?(site)
@@ -102,9 +110,11 @@ end
 
 # Hook for collection documents (posts, books)
 Jekyll::Hooks.register :documents, :pre_render do |doc, payload|
-  # Ensure render_mode is always defined for strict Liquid compliance.
-  # The markdown pass overrides this to "markdown" via payload_with_mode.
-  payload['render_mode'] ||= 'html' if payload
+  # Unconditionally set render_mode='html' for the HTML render pass.
+  # Templates check this to conditionally output HTML-only markup.
+  # We overwrite (not ||=) because render_markdown_body restores the prior
+  # value after its pass — if that prior value was nil, we need 'html' here.
+  payload['render_mode'] = 'html' if payload
 
   next unless Jekyll::MarkdownOutput::MarkdownBodyHook.enabled?(doc.site)
   next unless Jekyll::MarkdownOutput::MarkdownBodyHook.eligible_document?(doc)
@@ -123,8 +133,8 @@ end
 
 # Hook for standalone pages (author, series, category, root pages, etc.)
 Jekyll::Hooks.register :pages, :pre_render do |page, payload|
-  # Ensure render_mode is always defined for strict Liquid compliance.
-  payload['render_mode'] ||= 'html' if payload
+  # See :documents hook above for why we unconditionally set 'html'.
+  payload['render_mode'] = 'html' if payload
 
   next unless Jekyll::MarkdownOutput::MarkdownBodyHook.enabled?(page.site)
   next unless Jekyll::MarkdownOutput::MarkdownBodyHook.eligible_page?(page)
