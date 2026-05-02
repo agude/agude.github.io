@@ -1,0 +1,206 @@
+// _components.scss
+// Buttons, forms, utilities, and small reusable elements
+@use "variables" as *;
+
+// Sharing buttons
+.sharing {
+  float: right;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+}
+
+.social-button {
+  padding: 0.4em;
+  margin: 0.15em;
+  width: 2em;
+  height: 2em;
+  border-radius: 0.3em;
+}
+
+.sidebar-button {
+  padding: 0.25em;
+  margin: 0.15em;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 0.2em;
+}
+
+.sidebar-button, .social-button {
+  display: flex;
+  align-items: center;
+  align-content: center;
+
+  svg {
+    fill: white;
+  }
+
+  background: $share-button-color;
+
+  &:hover {
+    background: $share-hover-color;
+  }
+}
+
+// Markdown alt link
+.markdown-alt-link {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.3em;
+  font-size: 0.75rem;
+  margin-top: -0.5rem;
+
+  svg {
+    height: 0.9em;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
+.markdown-alt-link--standalone {
+  margin-bottom: 1rem;
+}
+
+.themed .content a.markdown-alt-link {
+  color: $muted-color;
+}
+
+// Legal links
+.legal {
+  font-size: $legal-font-size;
+  color: #999999;
+}
+
+// Center headlines
+div.headline-center {
+  h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+  }
+}
+
+// Video
+.video-gif {
+  position : relative;
+  display : block;
+  width : 100%;
+  min-width : 200px;
+  margin : auto;
+  height : auto;
+}
+
+// Image captions using this trick: https://stackoverflow.com/a/30366422
+img + em { // An image followed by an emphasized line
+  display: block;
+  text-align: center;
+}
+
+// Center the image in a figure
+figure img {
+  margin: auto;
+}
+
+// Cited quotes ({% citedquote %} tag)
+.cited-quote figcaption {
+  font-size: $small-font-size;
+}
+
+// Check boxes
+input[type="checkbox"].task-list-item-checkbox {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  margin: 4px 8px 4px 4px !important;
+  width: 0.85rem;
+  height: 0.85rem !important;
+  border: 3px solid $body-bg;
+  outline: 1.5px solid $body-color;
+  vertical-align: bottom;
+}
+
+input[type="checkbox"]:checked.task-list-item-checkbox {
+  background: $body-color;
+}
+
+// Details with markdown="1"
+details>summary {
+  list-style: none;
+  margin-bottom: 1rem;
+}
+
+summary::after {
+  content: " ▶ Show";
+  color: $sidebar-color;
+  display: block;
+}
+
+details[open] summary:after {
+  content: " ▼ Hide";
+}
+
+// Nowrap utility
+.nowrap {
+  white-space: nowrap;
+}
+
+// Super and subscript on the same word
+.supsub {
+  display: inline-block;
+}
+
+.supsub sup,
+.supsub sub {
+  position: relative;
+  display: block;
+  font-size: 0.5em;
+  line-height: 1.2;
+}
+
+.supsub sub {
+  top: 0.3em;
+}
+
+// ChatGPT include
+.chatgpt-prompt-only,
+.chatgpt-output-only {
+  font-family: $code-font-family;
+}
+
+// OMEMO QR Code Images
+.omemo-qr-code {
+  width: 200px;
+  height: auto;
+  max-width: 100%;
+  border: None;
+}
+
+// Units
+abbr.unit-abbr {
+  border: none;
+  cursor: inherit;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  font-size: inherit;
+  text-decoration: none;
+  text-transform: none;
+
+  &[title] {
+    cursor: help;
+  }
+}
+
+// et al.
+abbr.etal {
+  border: none;
+  cursor: inherit;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: normal;
+  font-size: inherit;
+  text-decoration: none;
+  text-transform: none;
+}

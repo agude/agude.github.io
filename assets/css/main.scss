@@ -7,9 +7,13 @@
 @use "variables" as *;
 
 /* Import partials from `site.sass_dir` */
-@use "poole";
-@use "share";
-@use "custom";
-@use "article_cards";
+@use "base";
+@use "code";
+@use "layout";
+@use "sidebar";
+@use "components";
+@use "cards";
+@use "posts";
+@use "books";
 @use "resume";
 @use "linktree";

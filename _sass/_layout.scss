@@ -1,0 +1,43 @@
+// _layout.scss
+// Container, content, and page structure
+@use "variables" as *;
+
+.container {
+  max-width: 38rem;
+  padding-left:  1rem;
+  padding-right: 1rem;
+  margin-left:  auto;
+  margin-right: auto;
+}
+
+footer {
+  margin-bottom: 2rem;
+}
+
+.content {
+  padding-top:    4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: $sidebar-appear-breakpoint) {
+  .content {
+    max-width: 44rem;
+    margin-left: 17rem;
+    margin-right: 2rem;
+  }
+}
+
+@media (min-width: $more-space-breakpoint) {
+  .content {
+    margin-left: 18rem;
+    margin-right: 4rem;
+  }
+}
+
+.themed .sidebar {
+  background-color: $sidebar-color;
+}
+.themed .content a,
+.themed .related-posts li a:hover {
+  color: $sidebar_color;
+}

@@ -1,0 +1,160 @@
+// _books.scss
+// Book covers, ratings, navigation, backlinks, and series
+@use "variables" as *;
+
+// Mobile First Styles (No Float)
+.book-cover-float-container {
+  float: none;
+  margin: 0 0 1.5rem 0;
+  max-width: 15em;
+}
+
+// The book cover image itself
+.book-cover-lead {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+// Desktop Styles (With Float)
+@media (min-width: $large-breakpoint) {
+  .book-cover-float-container {
+    float: right;
+    margin: 0.25rem 0 1rem 2rem;
+  }
+}
+
+// Book titles in paragraphs
+.book-title, .short-story-title {
+  font-style: italic;
+}
+
+.book-rating {
+  font-size: 1.3em;
+  margin-bottom: 0.5em;
+}
+
+// Book list navigation
+.book-nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 0.5em;
+  margin-bottom: 1.5em;
+}
+
+a.book-nav-item {
+  font-size: $small-font-size;
+  padding: 0.35em 1em;
+  background: transparent;
+  color: $body-color;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  transition: all 0.15s;
+
+  &:hover, &.active {
+    background: $sidebar-color;
+    color: white;
+    border-color: $sidebar-color;
+    text-decoration: none;
+  }
+}
+
+// Book series
+.book-series {
+  font-style: italic;
+}
+
+// Archived review note
+.archived-notice {
+  margin-top: 1em;
+  font-style: italic;
+}
+
+// Previous Reviews
+.previous-reviews-headline {
+  font-size: $h4-font-size;
+}
+
+.previous-reviews > ul {
+  list-style-type: "";
+  font-size: $footnote-font-size;
+  padding: 0;
+}
+
+// Book Backlinks
+.book-backlink-section {
+  font-size: $h4-font-size;
+}
+
+.book-backlinks > ul {
+  list-style-type: "";
+  font-size: $footnote-font-size;
+  column-count: 2;
+  padding: 0;
+
+  li {
+    break-inside: avoid-column;
+  }
+}
+
+.backlink-explanation {
+  font-size: $small-font-size;
+  color: $muted-color;
+  margin-top: 1em;
+}
+
+
+.series-mention-indicator {
+  margin-left: 0.1em;
+  display: inline-block;
+  cursor: help;
+  text-decoration: none;
+}
+
+// Alphabetical jump links for book lists
+.alpha-jump-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0 1em;
+  background-color: unset;
+  border: none;
+  border-radius: 0;
+  padding: 0.25em 0;
+  margin-bottom: 1em;
+
+  // Common styles for both links and spans
+  a, span {
+    font-family: $root-font-family;
+    font-weight: 600;
+    font-size: $small-font-size;
+    padding: 0.1em 0.2em;
+    text-decoration: none;
+    border-radius: 3px;
+  }
+
+  // Specific style for active links
+  a {
+    color: $sidebar-color;
+
+    &:hover {
+      background-color: #e5e5e5;
+      text-decoration: underline;
+    }
+  }
+
+  // Specific style for inactive letters (spans)
+  span {
+    color: #cccccc;
+    cursor: default;
+  }
+
+  // Label for grouped navigation items (e.g., "Best of:")
+  .nav-label {
+    color: $body-color;
+    font-weight: normal;
+  }
+}
