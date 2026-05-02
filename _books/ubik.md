@@ -1,11 +1,11 @@
 ---
-date: 2026-04-22
+date: 2026-05-02
 title: Ubik
 book_authors: Philip K. Dick
 series: null
 book_number: 1
 is_anthology: false
-rating: null
+rating: 1
 image: /books/covers/ubik.jpg
 wikidata_qid: Q617357
 isbn: 978-0440092001
