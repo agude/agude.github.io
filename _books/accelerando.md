@@ -22,7 +22,9 @@ awards:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is in progress.
+is a hard sci-fi fix-up novel. Originally published as nine separate stories,
+it tracks three generations of the Macx family as they upload, fork, merge,
+and scatter across a solar system slowly being converted into computronium.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
