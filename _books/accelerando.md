@@ -175,10 +175,16 @@ primary theme is the rise of a new order, led by machine intelligences the
 humans built, as they displace their creators. Both books look at how this
 transition effects the structures of our society---religion, law, government.
 And there are smaller similarities: houses connected by wormholes, simulated
-historical figures used to better understand humanity, <!-- need three to make
-a list --> But {{ simmonss_lastname }} work combines beautiful prose and
+historical figures used to better understand humanity, and the [Omega
+Point][op]---[Teilhard de Chardin's][de Chardin] vision of consciousness
+evolving toward transcendence appears explicitly in {{ hyperion }} and {{
+this_book }}, where the singularity serves the same theological function in
+secular dress. But {{ simmonss_lastname }} work combines beautiful prose and
 intertexuality to create a timeless masterpiece, while {{
 the_authors_lastname_possessive }} book already feels dated.
+
+[de Chardin]: https://en.wikipedia.org/wiki/Pierre_Teilhard_de_Chardin
+[op]: https://en.wikipedia.org/wiki/Omega_Point
 
 In the end, I just didn't enjoy {{ this_book }}. As a fix-up, the stories
 don't really come together into a whole; each feels disconnected and so there
@@ -189,4 +195,22 @@ sampling the singularity at 9 different points, but each point is static. And
 finally, for a book about how fast things move, it's stuck in the past,
 reading now more like retrofuturism.
 
-{{ this_book }} reminded me of many others.
+{{ this_book }} reminded me of many others. Its closest cousin is {{
+rajaniemis_lastname }} {{ jean_le_flambeur }} series: both are set in
+post-human solar systems obsessed with identity, memory, and what makes "you"
+when minds can be copied and edited; both feature cryptographic control over
+who remembers what; both came out of the same early-2010s moment. The identity
+questions also echo {{ wattss_lastname }} {{ firefall }}, which treats
+consciousness as an accident evolution might discard, and {{ qntms }} {{ lena
+}}, which follows the ethics of uploading to their bleak conclusion. Pierre
+deleting his backups before dying and so making death permanent and
+intentional is the same choice Masaq' Oribtal makes in {{ bankss_lastname }}
+{{ look_to_windward }}. The dead in the final chapter, snapshots run forward
+from a fixed point each conversation, are like the half-life state in {{
+dicks_lastname }} {{ ubik }}. The Saturn festival feels lifted from {{
+the_authors_lastname_possessive }} own {{ eschaton }} series, where a
+traveling singularity disrupts every society it touches. {{ martines_lastname
+}} {{ a_memory_called_empire }} shares the interest in how societies structure
+themselves and who belongs. And {{ vinges_lastname }} {{ zones_of_thought }}
+looms over everything: with the sentient network packets as a direct nod to {{
+a_fire_upon_the_deep }}.
