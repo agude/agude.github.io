@@ -1,5 +1,5 @@
 ---
-date: 2026-05-02
+date: 2026-05-02 10:28:40 -0700
 title: Ubik
 book_authors: Philip K. Dick
 series: null
@@ -55,3 +55,5 @@ precogs. After a mission goes wrong, reality starts deteriorating as items
 transform into past versions of themselves and the team ages into dust. And
 the only thing that can stabilize reality it, perhaps, the substance known as
 Ubik.
+
+<!-- But the instability of reality was better handled by qntm and Wolfe. -->
