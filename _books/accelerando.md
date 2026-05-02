@@ -35,6 +35,103 @@ is in progress.
 {% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
+{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
+{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
+{% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
+{% capture culture %}{% series_link "Culture" %}{% endcapture %}
+{% capture the_hydrogen_sonata %}{% book_link "The Hydrogen Sonata" %}{% endcapture %}
+{% capture matter %}{% book_link "Matter" %}{% endcapture %}
+{% capture look_to_windward %}{% book_link "Look to Windward" %}{% endcapture %}
+{% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
+
+{% capture lethem %}{% author_link "Jonathan Lethem" %}{% endcapture %}
+{% capture lethems %}{% author_link "Jonathan Lethem" possessive %}{% endcapture %}
+{% capture lethem_lastname %}{% author_link "Jonathan Lethem" link_text="Lethem" %}{% endcapture %}
+{% capture lethems_lastname %}{% author_link "Jonathan Lethem" link_text="Lethem" possessive %}{% endcapture %}
+{% capture gun_with_occasional_music %}{% book_link "Gun, with Occasional Music" %}{% endcapture %}
+
+{% capture weber %}{% author_link "David Weber" %}{% endcapture %}
+{% capture webers %}{% author_link "David Weber" possessive %}{% endcapture %}
+{% capture weber_lastname %}{% author_link "David Weber" link_text="Weber" %}{% endcapture %}
+{% capture webers_lastname %}{% author_link "David Weber" link_text="Weber" possessive %}{% endcapture %}
+{% capture honor_harrington %}{% series_link "Honor Harrington" %}{% endcapture %}
+
+{% capture stephenson %}{% author_link "Neal Stephenson" %}{% endcapture %}
+{% capture stephensons %}{% author_link "Neal Stephenson" possessive %}{% endcapture %}
+{% capture stephenson_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" %}{% endcapture %}
+{% capture stephensons_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" possessive %}{% endcapture %}
+{% capture snow_crash %}{% book_link "Snow Crash" %}{% endcapture %}
+
+{% capture vonnegut %}{% author_link "Kurt Vonnegut" %}{% endcapture %}
+{% capture vonneguts %}{% author_link "Kurt Vonnegut" possessive %}{% endcapture %}
+{% capture vonnegut_lastname %}{% author_link "Kurt Vonnegut" link_text="Vonnegut" %}{% endcapture %}
+{% capture vonneguts_lastname %}{% author_link "Kurt Vonnegut" link_text="Vonnegut" possessive %}{% endcapture %}
+{% capture the_sirens_of_titan %}{% book_link "The Sirens of Titan" %}{% endcapture %}
+
+{% capture watts %}{% author_link "Peter Watts" %}{% endcapture %}
+{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
+{% capture watts_lastname %}{% author_link "Peter Watts" link_text="Watts" %}{% endcapture %}
+{% capture wattss_lastname %}{% author_link "Peter Watts" link_text="Watts" possessive %}{% endcapture %}
+{% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+
+{% capture vinge %}{% author_link "Vernor Vinge" %}{% endcapture %}
+{% capture vinges %}{% author_link "Vernor Vinge" possessive %}{% endcapture %}
+{% capture vinge_lastname %}{% author_link "Vernor Vinge" link_text="Vinge" %}{% endcapture %}
+{% capture vinges_lastname %}{% author_link "Vernor Vinge" link_text="Vinge" possessive %}{% endcapture %}
+{% capture zones_of_thought %}{% series_link "Zones of Thought" %}{% endcapture %}
+{% capture a_fire_upon_the_deep %}{% book_link "A Fire Upon The Deep" %}{% endcapture %}
+{% capture a_deepness_in_the_sky %}{% book_link "A Deepness in the Sky" %}{% endcapture %}
+
+{% capture rajaniemi %}{% author_link "Hannu Rajaniemi" %}{% endcapture %}
+{% capture rajaniemis %}{% author_link "Hannu Rajaniemi" possessive %}{% endcapture %}
+{% capture rajaniemi_lastname %}{% author_link "Hannu Rajaniemi" link_text="Rajaniemi" %}{% endcapture %}
+{% capture rajaniemis_lastname %}{% author_link "Hannu Rajaniemi" link_text="Rajaniemi" possessive %}{% endcapture %}
+{% capture jean_le_flambeur %}{% series_link "Jean le Flambeur" %}{% endcapture %}
+{% capture the_quantum_thief %}{% book_link "The Quantum Thief" %}{% endcapture %}
+{% capture the_fractal_prince %}{% book_link "The Fractal Prince" %}{% endcapture %}
+
+{% capture hamilton %}{% author_link "Peter F. Hamilton" %}{% endcapture %}
+{% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}
+{% capture hamilton_lastname %}{% author_link "Peter F. Hamilton" link_text="Hamilton" %}{% endcapture %}
+{% capture hamiltons_lastname %}{% author_link "Peter F. Hamilton" link_text="Hamilton" possessive %}{% endcapture %}
+{% capture commonwealth_saga %}{% series_link "Commonwealth Saga" %}{% endcapture %}
+
+{% capture simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
+{% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
+{% capture simmons_lastname %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
+{% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
+{% capture hyperion_cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
+{% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
+{% capture the_fall_of_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
+
+{% capture eschaton %}{% series_link "Eschaton" %}{% endcapture %}
+{% capture singularity_sky %}{% book_link "Singularity Sky" %}{% endcapture %}
+
+{% capture martine %}{% author_link "Arkady Martine" %}{% endcapture %}
+{% capture martines %}{% author_link "Arkady Martine" possessive %}{% endcapture %}
+{% capture martine_lastname %}{% author_link "Arkady Martine" link_text="Martine" %}{% endcapture %}
+{% capture martines_lastname %}{% author_link "Arkady Martine" link_text="Martine" possessive %}{% endcapture %}
+{% capture teixcalaan %}{% series_link "Teixcalaan" %}{% endcapture %}
+{% capture a_memory_called_empire %}{% book_link "A Memory Called Empire" %}{% endcapture %}
+
+{% capture qntm %}{% author_link "qntm" %}{% endcapture %}
+{% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
+{% capture lena %}{% short_story_link "Lena" %}{% endcapture %}
+
+{% capture card %}{% author_link "Orson Scott Card" %}{% endcapture %}
+{% capture cards %}{% author_link "Orson Scott Card" possessive %}{% endcapture %}
+{% capture card_lastname %}{% author_link "Orson Scott Card" link_text="Card" %}{% endcapture %}
+{% capture cards_lastname %}{% author_link "Orson Scott Card" link_text="Card" possessive %}{% endcapture %}
+{% capture enders_game_series %}{% series_link "Ender's Game" %}{% endcapture %}
+
+{% capture dick %}{% author_link "Philip K. Dick" %}{% endcapture %}
+{% capture dicks %}{% author_link "Philip K. Dick" possessive %}{% endcapture %}
+{% capture dick_lastname %}{% author_link "Philip K. Dick" link_text="Dick" %}{% endcapture %}
+{% capture dicks_lastname %}{% author_link "Philip K. Dick" link_text="Dick" possessive %}{% endcapture %}
+{% capture ubik %}{% book_link "Ubik" %}{% endcapture %}
+
 {{ this_book }} is about time and how fast change can come. It follows three
 generations of the Macx family as humanity approaches the [the
 singularity][singularity]. But it is also a book solidly anchored and unmoving
