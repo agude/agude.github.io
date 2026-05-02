@@ -1,0 +1,269 @@
+// _base.scss
+// Resets, typography, tables, and foundational styles
+@use "variables" as *;
+
+// Box-sizing reset
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  font-family: $root-font-family;
+  line-height: $root-line-height;
+  margin: 0;
+  padding: 0;
+
+  @media (min-width: $sidebar-appear-breakpoint) {
+    font-size: $small-screen-root-font-size;
+  }
+  @media (min-width: $font-size-increase-breakpoint) {
+    font-size: $root-font-size;
+  }
+  @media (min-width: $large-breakpoint) {
+    font-size: $root-font-size;
+  }
+
+}
+
+body {
+  color: $body-color;
+  background-color: $body-bg;
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+// Links
+a {
+  color: $sidebar-color;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+
+  strong {
+    color: inherit;
+  }
+}
+
+// Images
+img {
+  display: block;
+  max-width: 100%;
+  margin: 0 0 1rem;
+  border-radius: 5px;
+}
+
+// Tables
+table {
+  margin-bottom: 1.2em;
+  width: 100%;
+  font-size: $table-font-size;
+  font-variant-numeric: lining-nums tabular-nums;
+  border-collapse: collapse;
+  border-width: 0.12em 0;
+  border-color: #515151;
+  border-style: solid;
+}
+
+thead {
+  border-bottom: 0.06em solid #515151;
+  color: #303030;
+}
+
+tfoot {
+  border-top: 0.06em solid #515151;
+  color: #303030;
+}
+
+td,
+th {
+  padding: 0.25em 0.5em;
+}
+
+th {
+  text-align: left;
+}
+
+// Typography: Headings
+h1, h2, h3, h4, h5, h6 {
+  font-family: $site-title-font-family;
+  color: #313131;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-wrap: pretty;
+}
+
+.fake-h1, h1 {
+  font-size: $h1-font-size;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25em;
+}
+
+h2 {
+  font-size: $h2-font-size;
+  font-weight: 700;
+  margin-top: 1.2em;
+  margin-bottom: 0.6em;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+h3 {
+  font-size: $h3-font-size;
+  font-weight: 700;
+  margin-top: 1.2em;
+  margin-bottom: 0.6em;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+// H3 as label treatment (all-caps, body font)
+.papers h3 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: $muted-color;
+  font-family: $root-font-family;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+h4 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: $h4-font-size;
+}
+
+h5 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: $h5-font-size;
+}
+
+h6 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: $h6-font-size;
+}
+
+// Typography: Body text
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+strong {
+  color: #303030;
+}
+
+// Typography: Lists
+ul, ol, dl {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-bottom: .5rem;
+}
+
+// Dashed un-ordered lists
+ul {
+  list-style-type: "— "; /* em dash with space*/
+}
+
+ul > li::marker {
+  font-weight: bold;
+}
+
+// Bold numbers for numbered lists
+ol > li::marker {
+  font-weight: bold;
+}
+
+// Remove bottom margin for nested lists, and for paragraphs within lists
+li > ul,
+li > ol,
+li > p {
+  margin-bottom: 0;
+}
+
+// Horizontal rule
+hr {
+  position: relative;
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #ffffff;
+}
+
+// Abbreviations
+abbr {
+  font-size: $abbr-font-size;
+  font-weight: bold;
+  color: #555555;
+  text-transform: uppercase;
+
+  &[title] {
+    cursor: help;
+    border-bottom: 1px dotted #e5e5e5;
+  }
+}
+
+// Blockquotes
+blockquote {
+  padding: .5rem 1rem;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  margin-left: 0.2rem;
+  color: #7a7a7a;
+  border-left: .15rem solid #e5e5e5;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: $large-top-bar-breakpoint) {
+    padding-right: 5rem;
+    padding-left: 1.25rem;
+  }
+}
+
+// Markdown footnotes
+a[href^="#fn:"],
+a[href^="#fnref:"] {
+  display: inline-block;
+  margin-left: 0.1em;
+  font-weight: bold;
+}
+
+.footnotes {
+  margin-top: 1em;
+  font-size: $footnote-font-size;
+}
+
+.footnotes p {
+  margin-block-end: 0.5em;
+}
+
+// Lead text
+.lead {
+  font-size: $lead-font-size;
+  font-weight: 300;
+}

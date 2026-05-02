@@ -1,0 +1,150 @@
+// _sidebar.scss
+// Sidebar styling, navigation, identity block, and social links
+@use "variables" as *;
+
+.sidebar {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: rgba(255,255,255,.5);
+  background-color: #202020;
+}
+@media (min-width: $sidebar-appear-breakpoint) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 14rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    padding-top: 4rem;
+    padding-bottom: 1rem;
+  }
+}
+
+// Sidebar links
+.sidebar a {
+  color: #ffffff;
+}
+
+// Sidebar nav
+.sidebar-nav {
+  margin-bottom: 1rem;
+}
+.sidebar-nav-item {
+  display: block;
+  line-height: 1.75;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+a.sidebar-nav-item:hover,
+a.sidebar-nav-item:focus {
+  text-decoration: none;
+  background: rgba(255,255,255,0.1);
+}
+.sidebar-nav-item.active {
+  font-weight: bold;
+  background: rgba(255,255,255,0.15);
+}
+
+// Sticky sidebar
+@media (min-width: $sidebar-appear-breakpoint) {
+  .sidebar-sticky {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+  }
+}
+
+// Identity block: stacked and centered
+.sidebar-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar-portrait {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  object-fit: cover;
+  margin: 0;
+}
+
+.sidebar-identity .site-title {
+  margin-bottom: 0;
+}
+
+.sidebar-identity .lead {
+  font-size: 0.72rem;
+  font-weight: normal;
+  margin: 0;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+// Site Title (to avoid using H1)
+.site-title {
+  color: #ffffff;
+  font-family: $site-title-font-family;
+  font-size: $site-title-font-size;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+  text-rendering: optimizeLegibility;
+}
+
+// Small sidebar text
+.sidebar small {
+  font-size: $legal-font-size;
+}
+
+// Sidebar social links
+.sidebar-social-links {
+  color: #ffffff;
+
+  @media (min-width: $sidebar-appear-breakpoint) {
+    margin-top: auto;
+  }
+}
+
+.sidebar-social-links-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+@media (min-width: $sidebar-appear-breakpoint) {
+  .sidebar-social-links-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+  }
+}
+
+.sidebar .legal {
+  margin-top: 1rem;
+  color: inherit;
+  line-height: 1.4;
+}
+
+.license-icons svg {
+  width: 0.8em;
+  height: 0.8em;
+  vertical-align: middle;
+  fill: rgba(255,255,255,.5);
+  margin-right: 0.15em;
+}
