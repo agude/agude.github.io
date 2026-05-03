@@ -164,11 +164,11 @@ put it back for some other bored traveler. I **hated** it. I didn't find any
 redeeming features to it. The ensemble of characters were flat, disposable. I
 didn't care about them getting picked off {{ christie }}-style. The mystery of
 the planet was intriguing, but it soon became clear it too would disappoint.
-The prose were barely enough to tell you what was happening without any
+The prose was barely enough to tell you what was happening without any
 elegance. {{ the_authors_lastname_possessive }} ideas were wild, but they
 couldn't make up for the lack of characters, lack of plot, and lack of prose.
 
-A few weeks ago, I decide to read {{ this_book }}. I wanted to give {{
+A few weeks ago, I decided to read {{ this_book }}. I wanted to give {{
 the_author }} another shot because of how much of a titan of Hollywood sci-fi
 he is. I thought with 25 more years of life experience and hundreds more books
 read, I was finally ready to give him a fair shake. Instead, I found myself
@@ -194,7 +194,7 @@ see them for the 100th time.
 
 With so many ideas, its no surprise I've seen many of them elsewhere. Jory,
 the predator using the half-life world as a hunting ground to trap and consume
-people is {{ qntms }} Alastair Grey, the SCP that traps and consumes
+people is like {{ qntms }} Alastair Grey, the SCP that traps and consumes
 researchers in its own reality in {{ there_is_no_antimemetics_division }}. The
 noir-dystopia with freely available drugs shows up in {{ lethems_lastname }}
 {{ gun_with_occasional_music }}. The idea of minds as separate from the body,
@@ -207,12 +207,12 @@ wolfes_lastname }} {{ botns }} have unreliable realities. {{ butlers_lastname
 }} {{ patternist }} has psychics preying on regular humans, and Pat is almost
 like Doro from {{ wild_seed }} with how threatening she is just by existing.
 The evolution of psychic powers features in {{ clarkes_lastname }} {{
-childhoods_end }}. The advertisements at the star of chapters is similar to {{
-brunners_lastname }} {{ stand_on_zanzibar }}.
+childhoods_end }}. The advertisements at the start of chapters is similar to
+{{ brunners_lastname }} {{ stand_on_zanzibar }}.
 
 I can see why {{ the_author }} is so beloved in Hollywood: he creates great
 concepts with absolutely nothing else. There's nothing to remove to get them
 ready for filming, bring your own story, characters, plot and away you go. But
 I don't know that his writing is for me; I haven't liked a single book I've
-read by him, not even a little. Still, I suspect I'll try {{ Sheep }} and {{
-a_scanner_darkly }} at some point, I hope I like them!
+read by him, not even a little. Still, I suspect I'll try {{ androids }} and
+{{ a_scanner_darkly }} at some point, I hope I like them!
