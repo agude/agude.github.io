@@ -23,8 +23,8 @@ awards:
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
 is a hard sci-fi fix-up novel. Originally published as nine separate stories,
-it tracks three generations of the Macx family as they upload, fork, merge,
-and scatter across a solar system slowly being converted into computronium.
+it tracks 3 generations of the Macx family as they upload, fork, merge, and
+scatter across a solar system slowly being converted into computronium.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
@@ -64,7 +64,7 @@ and scatter across a solar system slowly being converted into computronium.
 {% capture dicks_lastname %}{% author_link "Philip K. Dick" link_text="Dick" possessive %}{% endcapture %}
 {% capture ubik %}{% book_link "Ubik" %}{% endcapture %}
 
-{{ this_book }} is about time and how fast change can come. It follows three
+{{ this_book }} is about time and how fast change can come. It follows 3
 generations of the Macx family as humanity approaches [the
 singularity][singularity]. But it is also a book solidly anchored in time. It
 was written from a corner of the geek internet that only existed from
@@ -127,10 +127,10 @@ don't really come together into a whole; each feels disconnected, so there is
 no real payoff. And {{ the_authors_lastname_possessive }} goal was to write a
 book set in the singularity, something {{ vinge }} said was impossible. But he
 failed. {{ this_book }} _isn't_ really set in the singularity; it's sampling
-the singularity at nine different points, but each point is static. And
-finally, for a book about how fast things move, it's stuck in the past,
-reading now more like retrofuturism. I think I would have loved this book in
-2005, in 2026 it feels dated.
+the singularity at 9 different points, but each point is static. And finally,
+for a book about how fast things move, it's stuck in the past, reading now
+more like retrofuturism. I think I would have loved this book in 2005, in 2026
+it feels dated.
 
 {{ this_book }} reminded me of many others. Its closest cousin is {{
 rajaniemis_lastname }} {{ jean_le_flambeur }} series: both are set in
