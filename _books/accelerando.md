@@ -23,7 +23,7 @@ awards:
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
 is a hard sci-fi fix-up novel. Originally published as nine separate stories,
-it tracks 3 generations of the Macx family as they upload, fork, merge, and
+it follows 3 generations of the Macx family as they upload, fork, merge, and
 scatter across a solar system slowly being converted into computronium.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
@@ -64,40 +64,36 @@ scatter across a solar system slowly being converted into computronium.
 {% capture dicks_lastname %}{% author_link "Philip K. Dick" link_text="Dick" possessive %}{% endcapture %}
 {% capture ubik %}{% book_link "Ubik" %}{% endcapture %}
 
-{{ this_book }} is about time and how fast change can come. It follows 3
-generations of the Macx family as humanity approaches [the
-singularity][singularity]. But it is also a book solidly anchored in time. It
-was written from a corner of the geek internet that only existed from
-2000--2005, on small forums and all together on Slashdot. It marks itself as
-such with shibboleths like IP rights, music piracy, Bill Gates and Microsoft.
-At the time, {{ this_book }} must have seemed like an eminently possible
-future, but the smartphone and cloud computing a few years later blew it away.
-Now it reads more like an alternate history of a technological ideal that
-never came to pass.
-
-[singularity]: https://en.wikipedia.org/wiki/Technological_singularity
+{{ this_book }} is about time and how fast change can come, but it is also a
+book solidly frozen in time. It was written from a corner of the geek internet
+that only existed from 2000--2005 on small forums and on Slashdot. It marks
+itself as such with shibboleths like IP rights, music piracy, Bill Gates and
+Microsoft. At the time, {{ this_book }} must have seemed like an eminently
+possible future, but the smartphone and cloud computing a few years later blew
+it away. Now it reads more like an alternate history of a technological ideal
+that never came to pass.
 
 The most interesting part of the book is how little it focuses on what we
 would consider "technology"---lasers and spaceships and computers and
 AIs---and how much it focuses on the legal technology that powers
 civilization. {{ the_authors_lastname }} predicts contracts as code,
-algorithmic law, sentient corporations. He sees evolution as a way to produce
-the next layer of life, things that look much less like humans and much more
-like corporations. It's a perfect fit for its 2005 techno-libertarian roots,
-the same era that birthed Wikipedia and Creative Commons, which used the
-protections of legal code to expand the rights of users rather than restrict
-them.
+algorithmic law and the loopholes it opens. He sees evolution as a way to
+produce the next layer of life, things that look much less like humans and
+much more like corporations. It's a perfect fit for its 2005
+techno-libertarian roots, the same era that birthed Wikipedia and Creative
+Commons, which used the protections of legal code to expand the rights of
+users rather than restrict them.
 
-{{ the_authors_lastname }} is also fascinated with what constitutes the self.
-Manfred slowly bleeds his "self" into his gadgets and external memories. By
-the third chapter, his glasses are more Manfred than he is, so when a thief
-steals them the _thief becomes Manfred_ while the real human struggles to
-remember who he is. People spin off hundreds of copies of themselves and
-recombine them, using them as agents. Lobsters are digitized and
-conscious,[^lobsters] Aineko isn't until she _obviously_ is. That fascination
-makes it a little hard to understand how blasé {{ the_authors_lastname }} is
-about the large language models we've invented recently; they are exactly the
-kind of extension of the mind he otherwise explores with gusto.
+{{ the_authors_lastname }} is fascinated with what constitutes the self.
+Manfred slowly bleeds his "self" into his glasses and external memories until
+by the third chapter, they are more Manfred than he is. When a thief steals
+them, the _thief becomes Manfred_ while the real human struggles to remember
+who he is. Lobsters are digitized and conscious,[^lobsters] Aineko isn't until
+she _obviously_ is. People fork copies of themselves, spinning off agents to
+research ideas and report back. Given his interests two decades ago, it is
+curious how blasé {{ the_authors_lastname }} is about modern LLMs, which are
+the closest we've gotten to creating a mind outside a human, and which almost
+exactly parallel the agents he envisioned.
 
 [^lobsters]:
     I appreciate the irony that it is the lobsters, apocryphally unable to
@@ -114,37 +110,35 @@ smaller similarities as well: houses connected by wormholes, simulated
 historical figures used to better understand humanity, and the [Omega
 Point][op]---[Teilhard de Chardin's][de Chardin] vision of consciousness
 evolving toward transcendence appears explicitly in {{ hyperion }} and {{
-this_book }}, where the singularity serves the same theological function in
-secular dress. But {{ simmonss_lastname }} work combines beautiful prose and
-intertextuality to create a timeless masterpiece, while {{
-the_authors_lastname_possessive }} book already feels dated.
+this_book }}, where the singularity serves the same theological function. But
+{{ simmonss_lastname }} work combines beautiful prose and intertextuality to
+create a timeless masterpiece, while {{ the_authors_lastname_possessive }}
+book already feels dated.
 
 [de Chardin]: https://en.wikipedia.org/wiki/Pierre_Teilhard_de_Chardin
 [op]: https://en.wikipedia.org/wiki/Omega_Point
 
 In the end, I just didn't enjoy {{ this_book }}. As a fix-up, the stories
 don't really come together into a whole; each feels disconnected, so there is
-no real payoff. And {{ the_authors_lastname_possessive }} goal was to write a
-book set in the singularity, something {{ vinge }} said was impossible. But he
+no real payoff. {{ the_authors_lastname_possessive }} goal was to write a book
+set in the singularity, something {{ vinge }} said was impossible. But he
 failed. {{ this_book }} _isn't_ really set in the singularity; it's sampling
 the singularity at 9 different points, but each point is static. And finally,
 for a book about how fast things move, it's stuck in the past, reading now
-more like retrofuturism. I think I would have loved this book in 2005, in 2026
-it feels dated.
+more like retrofuturism. I would have loved it in 2005.
 
-{{ this_book }} reminded me of many others. Its closest cousin is {{
+{{ this_book }} reminded me of many other books. Its closest cousin is {{
 rajaniemis_lastname }} {{ jean_le_flambeur }} series: both are set in
 post-human solar systems obsessed with identity, memory, and what makes "you"
 when minds can be copied and edited; both feature cryptographic control over
-who remembers what; both came out of the same early-2010s moment. The identity
-questions also echo {{ wattss_lastname }} {{ firefall }}, which treats
-consciousness as an accident evolution might discard, and {{ qntms }} {{ lena
-}}, which follows the ethics of uploading to their bleak conclusion. Pierre
-deleting his backups before dying, and so making death permanent and
-intentional, is the same choice Masaq' Orbital makes in {{ bankss_lastname }}
-{{ look_to_windward }}. The dead in the final chapter, snapshots run forward
-from a fixed point for each conversation, are like the half-life state in {{
-dicks_lastname }} {{ ubik }}. The Saturn festival feels lifted from {{
+who remembers what. The identity questions also echo {{ wattss_lastname }} {{
+firefall }}, which explores the many configurations a mind can take, and {{
+qntms }} {{ lena }}, which follows the ethics of uploading to their bleak
+conclusion. Pierre deleting his backups before committing suicide to make his
+death permanent is the same choice Masaq' Orbital makes in {{ bankss_lastname
+}} {{ look_to_windward }}. The dead in the final chapter, snapshots run
+forward from a fixed point for each conversation, are like the half-life state
+in {{ dicks_lastname }} {{ ubik }}. The Saturn festival feels lifted from {{
 the_authors_lastname_possessive }} own {{ eschaton }} series, where a
 traveling singularity disrupts every society it touches. {{ martines_lastname
 }} {{ a_memory_called_empire }} shares the same interest in how societies
