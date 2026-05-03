@@ -38,6 +38,10 @@ objects reverting to older versions.
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture maze %}{% book_link "A Maze of Death" %}{% endcapture %}
+{% capture androids %}{% book_link "Do Androids Dream of Electric Sheep?" %}{% endcapture %}  
+{% capture a_scanner_darkly %}{% book_link "A Scanner Darkly" %}{% endcapture %}
+
+{% capture christie %}{% author_link "Agatha Christie" %}{% endcapture %}
 
 {% capture brunner %}{% author_link "John Brunner" %}{% endcapture %}
 {% capture brunners %}{% author_link "John Brunner" possessive %}{% endcapture %}
@@ -65,13 +69,6 @@ objects reverting to older versions.
 {% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 
-{% capture weber %}{% author_link "David Weber" %}{% endcapture %}
-{% capture webers %}{% author_link "David Weber" possessive %}{% endcapture %}
-{% capture weber_lastname %}{% author_link "David Weber" link_text="Weber" %}{% endcapture %}
-{% capture webers_lastname %}{% author_link "David Weber" link_text="Weber" possessive %}{% endcapture %}
-{% capture honor_harrington %}{% series_link "Honor Harrington" %}{% endcapture %}
-{% capture on_basilisk_station %}{% book_link "On Basilisk Station" %}{% endcapture %}
-
 {% capture lethem %}{% author_link "Jonathan Lethem" %}{% endcapture %}
 {% capture lethems %}{% author_link "Jonathan Lethem" possessive %}{% endcapture %}
 {% capture lethem_lastname %}{% author_link "Jonathan Lethem" link_text="Lethem" %}{% endcapture %}
@@ -89,6 +86,13 @@ objects reverting to older versions.
 {% capture el_mohtar_and_gladstone %}{% author_link "Amal El-Mohtar" %} and {% author_link "Max Gladstone" %}{% endcapture %}
 {% capture el_mohtar_and_gladstones %}{% author_link "Amal El-Mohtar" %} and {% author_link "Max Gladstone" possessive %}{% endcapture %}
 {% capture this_is_how_you_lose_the_time_war %}{% book_link "This Is How You Lose the Time War" %}{% endcapture %}
+
+{% capture taylor %}{% author_link "Dennis E. Taylor" %}{% endcapture %}
+{% capture taylors %}{% author_link "Dennis E. Taylor" possessive %}{% endcapture %}
+{% capture taylor_lastname %}{% author_link "Dennis E. Taylor" link_text="Taylor" %}{% endcapture %}
+{% capture taylors_lastname %}{% author_link "Dennis E. Taylor" link_text="Taylor" possessive %}{% endcapture %}
+{% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
+{% capture we_are_legion %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
 
 {% capture clarke %}{% author_link "Arthur C. Clarke" %}{% endcapture %}
 {% capture clarkes %}{% author_link "Arthur C. Clarke" possessive %}{% endcapture %}
@@ -108,6 +112,18 @@ objects reverting to older versions.
 {% capture stephenson_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" %}{% endcapture %}
 {% capture stephensons_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" possessive %}{% endcapture %}
 {% capture anathem %}{% book_link "Anathem" %}{% endcapture %}
+
+{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
+{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
+{% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
+{% capture culture %}{% series_link "Culture" %}{% endcapture %}
+
+{% capture hamilton %}{% author_link "Peter F. Hamilton" %}{% endcapture %}
+{% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}
+{% capture hamilton_lastname %}{% author_link "Peter F. Hamilton" link_text="Hamilton" %}{% endcapture %}
+{% capture hamiltons_lastname %}{% author_link "Peter F. Hamilton" link_text="Hamilton" possessive %}{% endcapture %}
+{% capture commonwealth_saga %}{% series_link "Commonwealth Saga" %}{% endcapture %}
 
 {% capture wolfe %}{% author_link "Gene Wolfe" %}{% endcapture %}
 {% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
@@ -133,9 +149,9 @@ objects reverting to older versions.
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 {% capture there_is_no_antimemetics_division %}{% book_link "There Is No Antimemetics Division" %}{% endcapture %}
 
-{% capture tolkien %}{% author_link "J.R.R. Tolkien" %}{% endcapture %}  
-{% capture tolkiens %}{% author_link "J.R.R. Tolkien" possessive %}{% endcapture %}  
-{% capture tolkien_lastname %}{% author_link "J.R.R. Tolkien" link_text="Tolkien" %}{% endcapture %}  
+{% capture tolkien %}{% author_link "J.R.R. Tolkien" %}{% endcapture %}
+{% capture tolkiens %}{% author_link "J.R.R. Tolkien" possessive %}{% endcapture %}
+{% capture tolkien_lastname %}{% author_link "J.R.R. Tolkien" link_text="Tolkien" %}{% endcapture %}
 {% capture tolkiens_lastname %}{% author_link "J.R.R. Tolkien" link_text="Tolkien" possessive %}{% endcapture %}
 
 {% capture the_beatles %}<span class="band-name">The Beatles</span>{% endcapture %}
@@ -145,29 +161,58 @@ don't know where I got it, or why I picked it up. If I had to guess, I would
 say it was one of the books left in my family's run-down Adirondack cabin,
 probably by someone who didn't mind parting with it. I got halfway through and
 put it back for some other bored traveler. I **hated** it. I didn't find any
-redeeming features in {{ the_authors_lastname_possessive }} sparse prose or
-ensemble cast of disposable characters. I did not find the big ideas about
-reality to be compelling with nothing else around them.
+redeeming features to it. The ensemble of characters were flat, disposable. I
+didn't care about them getting picked off {{ christie }}-style. The mystery of
+the planet was intriguing, but it soon became clear it too would disappoint.
+The prose were barely enough to tell you what was happening without any
+elegance. {{ the_authors_lastname_possessive }} ideas were wild, but they
+couldn't make up for the lack of characters, lack of plot, and lack of prose.
 
-A few weeks ago I decide to read {{ this_book }}. I wanted to give {{
-the_author }} another shot because he is such a titan of Hollywood sci-fi, and
-I thought with 25 more years of life and reading I would be ready to give him
-a fair shake. Instead, I found myself reading almost _the exact same book_:
-another ensemble cast of disposable characters being killed off one-by-one,
-another reality that isn't real, another reveal that they're all stuck in pods
-while their minds experience the new reality.
+A few weeks ago, I decide to read {{ this_book }}. I wanted to give {{
+the_author }} another shot because of how much of a titan of Hollywood sci-fi
+he is. I thought with 25 more years of life experience and hundreds more books
+read, I was finally ready to give him a fair shake. Instead, I found myself
+reading almost _the exact same book_ I'd hated before: another ensemble cast
+of disposable characters being killed off one-by-one, another reality that
+wasn't real, another reveal that they're all stuck in pods while their minds
+experience the new reality.
 
-Along the way, {{ the_authors_lastname }} fills his world with the ideas that
-made him famous: the nickle-and-diming of daily life where your coffeemaker,
-TV, and door all demand payment and negotiate fees; half-life mortuaries where
-loved ones offer advice after their body has died; telepaths used for
-corporate espionage; newspapers printed fresh and tailored to each reader; a
-legal system where you're allowed to murder your wife if a precog says she
-would never grant a divorce. But his wonderful ideas can't prop up the book.
+Once again {{ the_authors_lastname }} has a million great ideas in his world:
+the nickle-and-diming of daily life where your coffeemaker, TV, and door all
+demand payment and negotiate fees; half-life mortuaries where loved ones offer
+advice after their body has died; telepaths used for corporate espionage;
+newspapers printed fresh and tailored to each reader; a legal system where
+you're allowed to murder your wife if a precog says she would never grant a
+divorce. But just like {{ maze }}, his wonderful ideas can't prop up the lack
+of characters, story, and prose in {{ this_book }}. I think {{
+the_authors_lastname }} suffers from the same malady as {{ tolkien_lastname }}
+or {{ the_beatles }}: they _originated_ their style and were so widely copied
+that a new adherents finds their work trite. But {{ tolkien_lastname }} had
+beautiful prose and characters, and the {{ the_beatles }} catchy lyrics. {{
+the_authors_lastname }} has only his ideas and they don't hit as hard when you
+see them for the 100th time.
 
-{{ the_authors_lastname }} suffers from the same malady as {{ tolkien_lastname
-}} or {{ the_beatles }}: they _originated_ their style and were so widely
-copied that a new adherents finds their work trite. But {{ tolkien_lastname }}
-had beautiful prose and characters, and the {{ the_beatles }} catchy lyrics.
-{{ the_authors_lastname }} has only his ideas and they don't hit as hard when
-you see them for the 100th time.
+With so many ideas, its no surprise I've seen many of them elsewhere. Jory,
+the predator using the half-life world as a hunting ground to trap and consume
+people is {{ qntms }} Alastair Grey, the SCP that traps and consumes
+researchers in its own reality in {{ there_is_no_antimemetics_division }}. The
+noir-dystopia with freely available drugs shows up in {{ lethems_lastname }}
+{{ gun_with_occasional_music }}. The idea of minds as separate from the body,
+able to go on after death appears too often to count: in {{ bankss_lastname }}
+{{ culture }}, {{ hamiltons_lastname }} {{ commonwealth_saga }}, {{
+rajaniemis_lastname }} {{ jean_le_flambeur }}, {{ strosss_lastname }} {{
+accelerando }}, {{ taylors_lastname }} {{ bobiverse }}, {{ wattss_lastname }}
+{{ firefall }}, etc. {{ stephensons_lastname }} {{ anathem }} and {{
+wolfes_lastname }} {{ botns }} have unreliable realities. {{ butlers_lastname
+}} {{ patternist }} has psychics preying on regular humans, and Pat is almost
+like Doro from {{ wild_seed }} with how threatening she is just by existing.
+The evolution of psychic powers features in {{ clarkes_lastname }} {{
+childhoods_end }}. The advertisements at the star of chapters is similar to {{
+brunners_lastname }} {{ stand_on_zanzibar }}.
+
+I can see why {{ the_author }} is so beloved in Hollywood: he creates great
+concepts with absolutely nothing else. There's nothing to remove to get them
+ready for filming, bring your own story, characters, plot and away you go. But
+I don't know that his writing is for me; I haven't liked a single book I've
+read by him, not even a little. Still, I suspect I'll try {{ Sheep }} and {{
+a_scanner_darkly }} at some point, I hope I like them!
