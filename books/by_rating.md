@@ -109,6 +109,7 @@ ranked_list:
   - The Fractal Prince
   - The Dragon's Banker
   - Heaven's River
+  - Accelerando
   - Gun, with Occasional Music
   - Clay's Ark
   - Cigars of the Pharaoh
