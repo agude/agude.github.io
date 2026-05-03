@@ -135,15 +135,15 @@ and scatter across a solar system slowly being converted into computronium.
 {% capture ubik %}{% book_link "Ubik" %}{% endcapture %}
 
 {{ this_book }} is about time and how fast change can come. It follows three
-generations of the Macx family as humanity approaches the [the
-singularity][singularity]. But it is also a book solidly anchored and unmoving
-in time. It was written from a corner of the geek internet that only existed
-from 2000--2005 on small forums and all together on Slashdot. It marks itself
-as such with shibboleths like IP rights, music piracy, Bill Gates and
-Microsoft. At the time, {{ this_book }} must have seemed like an eminently
-possible future, but the smart phone and cloud computing a few years later
-blew it away and now it is more an alternate history of a technological ideal
-that never came to pass.
+generations of the Macx family as humanity approaches [the
+singularity][singularity]. But it is also a book solidly anchored in time. It
+was written from a corner of the geek internet that only existed from
+2000--2005, on small forums and all together on Slashdot. It marks itself as
+such with shibboleths like IP rights, music piracy, Bill Gates and Microsoft.
+At the time, {{ this_book }} must have seemed like an eminently possible
+future, but the smartphone and cloud computing a few years later blew it away.
+Now it reads more like an alternate history of a technological ideal that
+never came to pass.
 
 [singularity]: https://en.wikipedia.org/wiki/Technological_singularity
 
@@ -151,38 +151,42 @@ The most interesting part of the book is how little it focuses on what we
 would consider "technology"---lasers and spaceships and computers and
 AIs---and how much it focuses on the legal technology that powers
 civilization. {{ the_authors_lastname }} predicts contracts as code,
-algorithmic law, sentient corporations. It sees evolution as a way to evolve
+algorithmic law, sentient corporations. He sees evolution as a way to produce
 the next layer of life, things that look much less like humans and much more
-like corporations. Its a perfect fit for its 2005 techno-libertarian roots,
-the same era the birthed Wikipedia and Creative Commons which used the
-protections to legal code to expand the rights of the users rather than
-restrict them. <!-- How do we bring trial by combat, divine right of kings,
-failures of democracy in the fleeing saturn chapeters? -->
+like corporations. It's a perfect fit for its 2005 techno-libertarian roots,
+the same era that birthed Wikipedia and Creative Commons, which used the
+protections of legal code to expand the rights of users rather than restrict
+them.
 
 {{ the_authors_lastname }} is also fascinated with what constitutes the self.
 Manfred slowly bleeds his "self" into his gadgets and external memories. By
-the third chapter, his glasses are more Manfred then he is, so that when a
-thief steal them the _thief becomes_ Manfred while the real human struggles to
-remember who he is. People spin off hundreds of copies of themselves and
-recombine them, using them as agents. Lobsters are digitized and conscious,
-Aineko isn't until she _obviously_ is. The author's fascination makes it a
-little hard to understand how he is so blasé about the large language models
-we've invented recently; they are exactly the kind of extension of the mind
-that he otherwise explores with gusto.
+the third chapter, his glasses are more Manfred than he is, so that when a
+thief steals them the _thief becomes Manfred_ while the real human struggles
+to remember who he is. People spin off hundreds of copies of themselves and
+recombine them, using them as agents. Lobsters are digitized and
+conscious,[^lobsters] Aineko isn't until she _obviously_ is. The author's
+fascination makes it a little hard to understand how he is so blasé about the
+large language models we've invented recently; they are exactly the kind of
+extension of the mind that he otherwise explores with gusto.
+
+[^lobsters]:
+    I appreciate the irony that it is the lobsters, apocryphally unable to
+    sense the water boiling around them, who are the first to realize the need
+    to escape the coming singularity.
 
 {{ this_book }}, to my surprise, is a close successor of {{ simmonss_lastname
-}} {{ hyperion_cantos }}, even though {{ simmon_lastname }} is writing pure
+}} {{ hyperion_cantos }}, even though {{ simmons_lastname }} is writing pure
 space opera and {{ the_authors_lastname }} is writing hard sci-fi. Both works'
 primary theme is the rise of a new order, led by machine intelligences the
-humans built, as they displace their creators. Both books look at how this
-transition effects the structures of our society---religion, law, government.
-And there are smaller similarities: houses connected by wormholes, simulated
-historical figures used to better understand humanity, and the [Omega
-Point][op]---[Teilhard de Chardin's][de Chardin] vision of consciousness
-evolving toward transcendence appears explicitly in {{ hyperion }} and {{
-this_book }}, where the singularity serves the same theological function in
-secular dress. But {{ simmonss_lastname }} work combines beautiful prose and
-intertexuality to create a timeless masterpiece, while {{
+humans built, as they displace their creators. Both look at how this
+transition affects the structures of our society---religion, law, government.
+And there are smaller similarities as well: houses connected by wormholes,
+simulated historical figures used to better understand humanity, and the
+[Omega Point][op]---[Teilhard de Chardin's][de Chardin] vision of
+consciousness evolving toward transcendence appears explicitly in {{ hyperion
+}} and {{ this_book }}, where the singularity serves the same theological
+function in secular dress. But {{ simmonss_lastname }} work combines beautiful
+prose and intertextuality to create a timeless masterpiece, while {{
 the_authors_lastname_possessive }} book already feels dated.
 
 [de Chardin]: https://en.wikipedia.org/wiki/Pierre_Teilhard_de_Chardin
@@ -192,9 +196,9 @@ In the end, I just didn't enjoy {{ this_book }}. As a fix-up, the stories
 don't really come together into a whole; each feels disconnected and so there
 is no real payoff. And {{ the_authors_lastname_possessive }} goal was to write
 a book set in the singularity, something {{ vinge }} said was impossible. But
-he failed. {{ this_book }} _isn't_ really set in the singularity, it's
-sampling the singularity at 9 different points, but each point is static. And
-finally, for a book about how fast things move, it's stuck in the past,
+he failed. {{ this_book }} _isn't_ really set in the singularity; it's
+sampling the singularity at nine different points, but each point is static.
+And finally, for a book about how fast things move, it's stuck in the past,
 reading now more like retrofuturism.
 
 {{ this_book }} reminded me of many others. Its closest cousin is {{
@@ -206,7 +210,7 @@ questions also echo {{ wattss_lastname }} {{ firefall }}, which treats
 consciousness as an accident evolution might discard, and {{ qntms }} {{ lena
 }}, which follows the ethics of uploading to their bleak conclusion. Pierre
 deleting his backups before dying and so making death permanent and
-intentional is the same choice Masaq' Oribtal makes in {{ bankss_lastname }}
+intentional is the same choice Masaq' Orbital makes in {{ bankss_lastname }}
 {{ look_to_windward }}. The dead in the final chapter, snapshots run forward
 from a fixed point each conversation, are like the half-life state in {{
 dicks_lastname }} {{ ubik }}. The Saturn festival feels lifted from {{
@@ -214,5 +218,5 @@ the_authors_lastname_possessive }} own {{ eschaton }} series, where a
 traveling singularity disrupts every society it touches. {{ martines_lastname
 }} {{ a_memory_called_empire }} shares the interest in how societies structure
 themselves and who belongs. And {{ vinges_lastname }} {{ zones_of_thought }}
-looms over everything: with the sentient network packets as a direct nod to {{
+looms over everything, with the sentient network packets as a direct nod to {{
 a_fire_upon_the_deep }}.
