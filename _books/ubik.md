@@ -19,7 +19,12 @@ same_as_urls:
   - "https://www.google.com/search?kgmid=/m/05ssr"
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is a 1969 science fiction novel.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is a 1969 science fiction novel about a Prudence organization which hires out
+anti-psis and anti-precogs to protect people's and corporation's privacy.
+They're soon lured into a too-good-to-be-true job where their boss is murdered
+and they're forced to flee. And just then reality starts deteriorating, with
+objects reverting to older versions.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -128,6 +133,13 @@ same_as_urls:
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 {% capture there_is_no_antimemetics_division %}{% book_link "There Is No Antimemetics Division" %}{% endcapture %}
 
+{% capture tolkien %}{% author_link "J.R.R. Tolkien" %}{% endcapture %}  
+{% capture tolkiens %}{% author_link "J.R.R. Tolkien" possessive %}{% endcapture %}  
+{% capture tolkien_lastname %}{% author_link "J.R.R. Tolkien" link_text="Tolkien" %}{% endcapture %}  
+{% capture tolkiens_lastname %}{% author_link "J.R.R. Tolkien" link_text="Tolkien" possessive %}{% endcapture %}
+
+{% capture the_beatles %}<span class="band-name">The Beatles</span>{% endcapture %}
+
 Twenty-five years ago, I read my first {{ the_author }} book: {{ maze }}. I
 don't know where I got it, or why I picked it up. If I had to guess, I would
 say it was one of the books left in my family's run-down Adirondack cabin,
@@ -139,15 +151,23 @@ reality to be compelling with nothing else around them.
 
 A few weeks ago I decide to read {{ this_book }}. I wanted to give {{
 the_author }} another shot because he is such a titan of Hollywood sci-fi, and
-I thought with Twenty-five more years of life and reading I would be ready to
-give him a fair shake. Instead, I found myself hating the exact same things I
-hated in {{ maze }}.
+I thought with 25 more years of life and reading I would be ready to give him
+a fair shake. Instead, I found myself reading almost _the exact same book_:
+another ensemble cast of disposable characters being killed off one-by-one,
+another reality that isn't real, another reveal that they're all stuck in pods
+while their minds experience the new reality.
 
-{{ this_book }} has a disposable cast of characters who work at a Prudence
-organization: a company that employees anti-psi to confound telepaths and
-precogs. After a mission goes wrong, reality starts deteriorating as items
-transform into past versions of themselves and the team ages into dust. And
-the only thing that can stabilize reality it, perhaps, the substance known as
-Ubik.
+Along the way, {{ the_authors_lastname }} fills his world with the ideas that
+made him famous: the nickle-and-diming of daily life where your coffeemaker,
+TV, and door all demand payment and negotiate fees; half-life mortuaries where
+loved ones offer advice after their body has died; telepaths used for
+corporate espionage; newspapers printed fresh and tailored to each reader; a
+legal system where you're allowed to murder your wife if a precog says she
+would never grant a divorce. But his wonderful ideas can't prop up the book.
 
-<!-- But the instability of reality was better handled by qntm and Wolfe. -->
+{{ the_authors_lastname }} suffers from the same malady as {{ tolkien_lastname
+}} or {{ the_beatles }}: they _originated_ their style and were so widely
+copied that a new adherents finds their work trite. But {{ tolkien_lastname }}
+had beautiful prose and characters, and the {{ the_beatles }} catchy lyrics.
+{{ the_authors_lastname }} has only his ideas and they don't hit as hard when
+you see them for the 100th time.
