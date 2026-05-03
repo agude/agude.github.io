@@ -90,7 +90,7 @@ mind parting with it. I got halfway through and put it back for some other
 bored traveler. I **hated** it. The ensemble cast was flat, disposable. I
 didn't care about them getting picked off {{ christie }}-style. The mystery
 hooked me, but then it collapsed as we learned nothing was actually real. The
-writing was barely adequate to tell you what was happening. {{
+prose just barely told you what was happening. {{
 the_authors_lastname_possessive }} ideas were wild, but they couldn't make up
 for the lack of characters, story, and prose.
 
@@ -110,12 +110,11 @@ espionage; newspapers printed fresh and tailored to each reader; a legal
 system where you can murder your wife if a precog says she would never grant a
 divorce. But just like {{ maze }}, his wonderful ideas can't prop up the lack
 of characters, story, and prose. I think {{ the_authors_lastname }} suffers
-from the same malady as {{ tolkien_lastname }} or {{ the_beatles }}: he
-_originated_ so many of the genre's ideas and was copied so widely that a new
-reader finds his work trite. But {{ tolkien_lastname }} had beautiful writing
-and characters, and {{ the_beatles }} catchy lyrics. {{ the_authors_lastname
-}} has only his ideas, and they don't hit as hard the hundredth time you see
-them.
+from the same malady as {{ tolkien_lastname }} or {{ the_beatles }}: he is so
+widely copied that a new reader finds his work trite. But {{ tolkien_lastname
+}} had beautiful writing and characters, and {{ the_beatles }} catchy lyrics.
+{{ the_authors_lastname }} has only his ideas, and they don't hit as hard the
+hundredth time you see them.
 
 With so many ideas, it's no surprise I've seen many of them elsewhere. Jory,
 the predator using the half-life world as a hunting ground to trap and consume
@@ -131,7 +130,7 @@ accelerando }}, {{ taylors_lastname }} {{ bobiverse }}, {{ wattss_lastname }}
 wolfes_lastname }} {{ botns }} have unreliable realities. {{ butlers_lastname
 }} {{ patternist }} has psychics preying on regular humans, and Pat is almost
 like Doro from {{ wild_seed }} in how threatening she is just by existing. The
-evolution of psychic powers features in {{ clarkes_lastname }} {{
+evolution of humanity's psychic powers features in {{ clarkes_lastname }} {{
 childhoods_end }}. The advertisements at the start of chapters remind me of {{
 brunners_lastname }} {{ stand_on_zanzibar }}.
 
