@@ -22,9 +22,10 @@ same_as_urls:
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
 is a 1969 science fiction novel about a prudence organization that hires out
 anti-psis and anti-precogs to protect people's and corporations' privacy.
-They're lured into a too-good-to-be-true job where their boss is murdered and
-they're forced to flee. Then reality starts deteriorating, with objects
-reverting to older versions, and the characters start dying one by one.
+Everything begins to fall apart when they're lured into a too-good-to-be-true
+job where their boss is murdered. Suddenly, reality starts deteriorating, with
+objects reverting to older versions, and the characters start dying one by
+one.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -87,11 +88,11 @@ can't remember where I found it. If I had to guess, it was one of the books
 left in my family's run-down Adirondack cabin, probably by someone who didn't
 mind parting with it. I got halfway through and put it back for some other
 bored traveler. I **hated** it. The ensemble cast was flat, disposable. I
-didn't care about them getting picked off {{ christie }}-style. The mystery of
-the planet was intriguing, but it soon became clear that would disappoint too.
-The prose barely told you what was happening. {{
+didn't care about them getting picked off {{ christie }}-style. The mystery
+hooked me, but then it collapsed as we learned nothing was actually real. The
+writing was barely adequate to tell you what was happening. {{
 the_authors_lastname_possessive }} ideas were wild, but they couldn't make up
-for the lack of characters, story, and craft.
+for the lack of characters, story, and prose.
 
 A few weeks ago, I decided to read {{ this_book }}. I wanted to give {{
 the_author }} another shot. He's a titan of Hollywood sci-fi, and with 25 more
@@ -110,10 +111,11 @@ system where you can murder your wife if a precog says she would never grant a
 divorce. But just like {{ maze }}, his wonderful ideas can't prop up the lack
 of characters, story, and prose. I think {{ the_authors_lastname }} suffers
 from the same malady as {{ tolkien_lastname }} or {{ the_beatles }}: he
-_originated_ his style and was so widely copied that a new reader finds his
-work trite. But {{ tolkien_lastname }} had beautiful prose and characters, and
-{{ the_beatles }} catchy lyrics. {{ the_authors_lastname }} has only his
-ideas, and they don't hit as hard the hundredth time you see them.
+_originated_ so many of the genre's ideas and was copied so widely that a new
+reader finds his work trite. But {{ tolkien_lastname }} had beautiful writing
+and characters, and {{ the_beatles }} catchy lyrics. {{ the_authors_lastname
+}} has only his ideas, and they don't hit as hard the hundredth time you see
+them.
 
 With so many ideas, it's no surprise I've seen many of them elsewhere. Jory,
 the predator using the half-life world as a hunting ground to trap and consume
