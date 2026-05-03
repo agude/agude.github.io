@@ -87,45 +87,45 @@ them.
 
 {{ the_authors_lastname }} is also fascinated with what constitutes the self.
 Manfred slowly bleeds his "self" into his gadgets and external memories. By
-the third chapter, his glasses are more Manfred than he is, so that when a
-thief steals them the _thief becomes Manfred_ while the real human struggles
-to remember who he is. People spin off hundreds of copies of themselves and
+the third chapter, his glasses are more Manfred than he is, so when a thief
+steals them the _thief becomes Manfred_ while the real human struggles to
+remember who he is. People spin off hundreds of copies of themselves and
 recombine them, using them as agents. Lobsters are digitized and
-conscious,[^lobsters] Aineko isn't until she _obviously_ is. The author's
-fascination makes it a little hard to understand how he is so blasé about the
-large language models we've invented recently; they are exactly the kind of
-extension of the mind that he otherwise explores with gusto.
+conscious,[^lobsters] Aineko isn't until she _obviously_ is. That fascination
+makes it a little hard to understand how blasé {{ the_authors_lastname }} is
+about the large language models we've invented recently; they are exactly the
+kind of extension of the mind he otherwise explores with gusto.
 
 [^lobsters]:
     I appreciate the irony that it is the lobsters, apocryphally unable to
     sense the water boiling around them, who are the first to realize the need
     to escape the coming singularity.
 
-{{ this_book }}, to my surprise, is a close successor of {{ simmonss_lastname
+{{ this_book }}, to my surprise, is a close successor to {{ simmonss_lastname
 }} {{ hyperion_cantos }}, even though {{ simmons_lastname }} is writing pure
 space opera and {{ the_authors_lastname }} is writing hard sci-fi. Both works'
-primary theme is the rise of a new order, led by machine intelligences the
-humans built, as they displace their creators. Both look at how this
-transition affects the structures of our society---religion, law, government.
-And there are smaller similarities as well: houses connected by wormholes,
-simulated historical figures used to better understand humanity, and the
-[Omega Point][op]---[Teilhard de Chardin's][de Chardin] vision of
-consciousness evolving toward transcendence appears explicitly in {{ hyperion
-}} and {{ this_book }}, where the singularity serves the same theological
-function in secular dress. But {{ simmonss_lastname }} work combines beautiful
-prose and intertextuality to create a timeless masterpiece, while {{
+primary theme is the rise of a new order, led by machine intelligences humans
+built, as they displace their creators. Both look at how this transition
+affects the structures of society---religion, law, government. And there are
+smaller similarities as well: houses connected by wormholes, simulated
+historical figures used to better understand humanity, and the [Omega
+Point][op]---[Teilhard de Chardin's][de Chardin] vision of consciousness
+evolving toward transcendence appears explicitly in {{ hyperion }} and {{
+this_book }}, where the singularity serves the same theological function in
+secular dress. But {{ simmonss_lastname }} work combines beautiful prose and
+intertextuality to create a timeless masterpiece, while {{
 the_authors_lastname_possessive }} book already feels dated.
 
 [de Chardin]: https://en.wikipedia.org/wiki/Pierre_Teilhard_de_Chardin
 [op]: https://en.wikipedia.org/wiki/Omega_Point
 
 In the end, I just didn't enjoy {{ this_book }}. As a fix-up, the stories
-don't really come together into a whole; each feels disconnected and so there
-is no real payoff. And {{ the_authors_lastname_possessive }} goal was to write
-a book set in the singularity, something {{ vinge }} said was impossible. But
-he failed. {{ this_book }} _isn't_ really set in the singularity; it's
-sampling the singularity at nine different points, but each point is static.
-And finally, for a book about how fast things move, it's stuck in the past,
+don't really come together into a whole; each feels disconnected, so there is
+no real payoff. And {{ the_authors_lastname_possessive }} goal was to write a
+book set in the singularity, something {{ vinge }} said was impossible. But he
+failed. {{ this_book }} _isn't_ really set in the singularity; it's sampling
+the singularity at nine different points, but each point is static. And
+finally, for a book about how fast things move, it's stuck in the past,
 reading now more like retrofuturism.
 
 {{ this_book }} reminded me of many others. Its closest cousin is {{
@@ -136,14 +136,14 @@ who remembers what; both came out of the same early-2010s moment. The identity
 questions also echo {{ wattss_lastname }} {{ firefall }}, which treats
 consciousness as an accident evolution might discard, and {{ qntms }} {{ lena
 }}, which follows the ethics of uploading to their bleak conclusion. Pierre
-deleting his backups before dying and so making death permanent and
-intentional is the same choice Masaq' Orbital makes in {{ bankss_lastname }}
+deleting his backups before dying, and so making death permanent and
+intentional, is the same choice Masaq' Orbital makes in {{ bankss_lastname }}
 {{ look_to_windward }}. The dead in the final chapter, snapshots run forward
-from a fixed point each conversation, are like the half-life state in {{
+from a fixed point for each conversation, are like the half-life state in {{
 dicks_lastname }} {{ ubik }}. The Saturn festival feels lifted from {{
 the_authors_lastname_possessive }} own {{ eschaton }} series, where a
 traveling singularity disrupts every society it touches. {{ martines_lastname
-}} {{ a_memory_called_empire }} shares the interest in how societies structure
-themselves and who belongs. And {{ vinges_lastname }} {{ zones_of_thought }}
-looms over everything, with the sentient network packets as a direct nod to {{
-a_fire_upon_the_deep }}.
+}} {{ a_memory_called_empire }} shares the same interest in how societies
+structure themselves and who belongs. And {{ vinges_lastname }} {{
+zones_of_thought }} looms over everything, with the sentient network packets
+as a direct nod to {{ a_fire_upon_the_deep }}.
