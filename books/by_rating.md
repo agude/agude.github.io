@@ -123,6 +123,7 @@ ranked_list:
   - The Sirens of Titan
   # 1 Stars
   - The Urth of the New Sun
+  - Ubik
   - Stand on Zanzibar
   - Lords of Uncreation
   - Eyes of the Void
