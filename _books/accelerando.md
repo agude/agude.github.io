@@ -31,6 +31,11 @@ and scatter across a solar system slowly being converted into computronium.
 {% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
 
+{% capture eschaton %}{% series_link "Eschaton" %}{% endcapture %}
+{% capture a_colder_war %}{% short_story_link "A Colder War" %}{% endcapture %}
+{% capture singularity_sky %}{% book_link "Singularity Sky" %}{% endcapture %}
+{% capture iron_sunrise %}{% book_link "Iron Sunrise" %}{% endcapture %}
+
 {% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
 {% capture look_to_windward %}{% book_link "Look to Windward" %}{% endcapture %}
 
@@ -49,8 +54,6 @@ and scatter across a solar system slowly being converted into computronium.
 {% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
 {% capture hyperion_cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
-
-{% capture eschaton %}{% series_link "Eschaton" %}{% endcapture %}
 
 {% capture martines_lastname %}{% author_link "Arkady Martine" link_text="Martine" possessive %}{% endcapture %}
 {% capture a_memory_called_empire %}{% book_link "A Memory Called Empire" %}{% endcapture %}
@@ -126,7 +129,8 @@ book set in the singularity, something {{ vinge }} said was impossible. But he
 failed. {{ this_book }} _isn't_ really set in the singularity; it's sampling
 the singularity at nine different points, but each point is static. And
 finally, for a book about how fast things move, it's stuck in the past,
-reading now more like retrofuturism.
+reading now more like retrofuturism. I think I would have loved this book in
+2005, in 2026 it feels dated.
 
 {{ this_book }} reminded me of many others. Its closest cousin is {{
 rajaniemis_lastname }} {{ jean_le_flambeur }} series: both are set in
@@ -147,3 +151,10 @@ traveling singularity disrupts every society it touches. {{ martines_lastname
 structure themselves and who belongs. And {{ vinges_lastname }} {{
 zones_of_thought }} looms over everything, with the sentient network packets
 as a direct nod to {{ a_fire_upon_the_deep }}.
+
+{{ this_book }} sat on my shelf for 20 years, and I was excited to finally get
+to it. I love {{ the_authors_lastname_possessive }} {{ a_colder_war
+}}---bureaucrats versus cosmic horrors is one of my favorite subgenres---and I
+enjoyed his {{ eschaton }} series: {{ singularity_sky }} and {{ iron_sunrise
+}}. But I think I waited too long. The world isn't the same place it was when
+this was written, and I'm not the same person either.
