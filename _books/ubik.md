@@ -105,7 +105,7 @@ where they're all stuck in pods.
 Once again {{ the_authors_lastname }} packs a million great ideas into his
 world: the nickel-and-diming of daily life where your coffeemaker, TV, and
 door all demand payment and negotiate fees; half-life mortuaries where loved
-ones offer advice after their body has died; telepaths used for corporate
+ones offer advice after their bodies have died; telepaths used for corporate
 espionage; newspapers printed fresh and tailored to each reader; a legal
 system where you can murder your wife if a precog says she would never grant a
 divorce. But just like {{ maze }}, his wonderful ideas can't prop up the lack
