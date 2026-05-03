@@ -22,8 +22,8 @@ awards:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is a hard sci-fi fix-up novel. Originally published as nine separate stories,
-it follows 3 generations of the Macx family as they upload, fork, merge, and
+is a hard sci-fi fix-up novel. Originally published as 9 separate stories, it
+follows 3 generations of the Macx family as they upload, fork, merge, and
 scatter across a solar system slowly being converted into computronium.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
@@ -88,7 +88,7 @@ users rather than restrict them.
 Manfred slowly bleeds his "self" into his glasses and external memories until
 by the third chapter, they are more Manfred than he is. When a thief steals
 them, the _thief becomes Manfred_ while the real human struggles to remember
-who he is. Lobsters are digitized and conscious,[^lobsters] Aineko isn't until
+who he is. Lobsters are digitized and conscious;[^lobsters] Aineko isn't until
 she _obviously_ is. People fork copies of themselves, spinning off agents to
 research ideas and report back. Given his interests two decades ago, it is
 curious how blasé {{ the_authors_lastname }} is about modern LLMs, which are
