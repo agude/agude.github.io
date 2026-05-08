@@ -1,11 +1,11 @@
 ---
-date: 2026-05-03
+date: 2026-05-07
 title: The Wind in the Willows
 book_authors: Kenneth Grahame
 series: null
 book_number: 1
 is_anthology: false
-rating: null
+rating: 4
 image: /books/covers/the_wind_in_the_willows.jpg
 wikidata_qid: Q936276
 isbn: 978-0-14-303909-9
