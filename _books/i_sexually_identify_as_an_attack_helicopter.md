@@ -1,5 +1,5 @@
 ---
-date: 2026-05-09
+date: 2026-05-09 13:30:06 -0700
 title: I Sexually Identify as an Attack Helicopter
 book_authors: Isabel Fall
 series: null
