@@ -1,11 +1,11 @@
 ---
-date: 2026-05-07
+date: 2026-05-09
 title: I Sexually Identify as an Attack Helicopter
 book_authors: Isabel Fall
 series: null
 book_number: 1
 is_anthology: false
-rating: null
+rating: 5
 image: /books/covers/clarkesworld_issue_160.jpg
 wikidata_qid: Q85768580
 isbn: null
