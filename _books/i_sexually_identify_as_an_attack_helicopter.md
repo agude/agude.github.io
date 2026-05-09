@@ -96,6 +96,15 @@ her work.
 
 {{ the_author }} does three things brilliantly in this story:
 
+First, she builds a world believably in crisis. One where climate change has
+deviated humanity and rendered the equator uninhabitable. Where climate
+refugees flee north and sell their services as mercenaries to buy a place for
+their people. It is also a world where AI runs the government, and is
+effective at that role but with quirks that people dare challenge because they
+don't understand how the system works and fear the quirks might be load
+bearing. Where AIs are more capricious gods than computers, demanding their
+followers plant pear trees. And she does it all in under 8,000 words!
+
 <!--
 
 1. Builds a world of climate crisis, where refugees sell their services are
@@ -118,11 +127,11 @@ them.
 -->
 
 There are stories I read where I think, dismissively "I could have written
-this". {{ dicks_lastname }} {{ ubik }} is one such example, where I just
-_know_ I could plot it, write the prose, stick the landing. Then there are
-works of genius, where even I am forced to admit that the author had some
-skill, some inspiration that is completely beyond me. Given a million years I
-could never even come close. {{ disco_elysium }} and {{ faulkners_lastname }}
-{{ absalom_absalom }} are two such examples. {{ this_book }} is a third: I
+this"; and maybe I'm even right. {{ dicks_lastname }} {{ ubik }} is one such
+example, where I just _know_ I could plot it, write the prose, stick the
+landing. Then there are works of genius, where even I am forced to admit that
+the author had an ability that is completely beyond me. Given a million years
+I could never even come close. {{ disco_elysium }} and {{ faulkners_lastname
+}} {{ absalom_absalom }} are two such examples. {{ this_book }} is a third: I
 could never have weaved the three pieces together, and imbued the words with
 the meaning about the self that {{ the_authors_lastname }} does.
