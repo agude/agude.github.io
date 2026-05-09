@@ -96,22 +96,20 @@ her work.
 
 {{ the_author }} does three things brilliantly in this story:
 
-First, she builds a world believably in crisis. One where climate change has
-deviated humanity and rendered the equator uninhabitable. Where climate
-refugees flee north and sell their services as mercenaries to buy a place for
-their people. It is also a world where AI runs the government, and is
-effective at that role but with quirks that people dare challenge because they
-don't understand how the system works and fear the quirks might be load
-bearing. Where AIs are more capricious gods than computers, demanding their
-followers plant pear trees. And she does it all in under 8,000 words!
+First, she builds a world believably in crisis. Climate change has rendered
+the equator uninhabitable; refugees flee north and sell their services as
+mercenaries to buy a place for their people. AI runs the United States and
+their enemies, the former Pear Mesa credit union. The AIs work, they keep
+civilization running, but they're black boxes that no one understands. They
+demand behaviors that seem insane---like bombing a high school or [planting
+pear trees everywhere][paperclip]---and no one dares to question it, unable to
+tell what is crazy and what is critical to survival. And {{ the_author }} does
+it all in under 8,000 words.
+
+[paperclip]: https://en.wikipedia.org/wiki/Instrumental_convergence#Paperclip_maximizer
 
 <!--
 
-1. Builds a world of climate crisis, where refugees sell their services are
-   mercenaries to escape a boiling world. Where AI runs the united states, and
-   Pear Mesa Budgetary Committee. They're black boxes that have some crazy
-   tendencies but people follow through on their commands because they do a
-   great job of keeping people alive.
 2. Gives us an action story in that world.
 3. Uses the story to explore and teach about gender identities, gender
    dysphoria, and the performance of gender in society in a way that helps me,
