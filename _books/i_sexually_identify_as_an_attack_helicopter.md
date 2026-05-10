@@ -21,7 +21,7 @@ same_as_urls:
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
 is a novelette about the militarization of everyday life and the coming
 climate catastrophe; of gender, how it is fluid, constructed, and innate; and
-it is a military sci-fi story of a helicopter attack on a highschool.
+it is a military sci-fi story of a helicopter attack on a high school.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_book_short %}{% book_link page.title link_text="Helicopter Story" %}{% endcapture %}
@@ -86,10 +86,14 @@ it is a military sci-fi story of a helicopter attack on a highschool.
 
 {% capture evans %}{% author_link "Linda Evans" %}{% endcapture %}
 {% capture evanss %}{% author_link "Linda Evans" possessive %}{% endcapture %}
+{% capture evans_lastname %}{% author_link "Linda Evans" link_text="Evans" %}{% endcapture %}
 {% capture evanss_lastname %}{% author_link "Linda Evans" link_text="Evans" possessive %}{% endcapture %}
+
+{% capture hollingsworths_lastname %}{% author_link "Robert R. Hollingsworth" link_text="Hollingsworth" possessive %}{% endcapture %}
 
 {% capture weber %}{% author_link "David Weber" %}{% endcapture %}
 {% capture webers %}{% author_link "David Weber" possessive %}{% endcapture %}
+{% capture webers_lastname %}{% author_link "David Weber" link_text="Weber" possessive %}{% endcapture %}
 
 {% capture bolo_series %}{% series_link "Bolo" %}{% endcapture %}
 {% capture the_triumphant %}{% book_link "The Triumphant" %}{% endcapture %}
@@ -97,13 +101,15 @@ it is a military sci-fi story of a helicopter attack on a highschool.
 {% capture little_red_hen %}{% short_story_link "Little Red Hen" %}{% endcapture %}
 {% capture miles_to_go %}{% short_story_link "Miles to Go" %}{% endcapture %}
 
+{% capture star_trek %}{% tv_show_title "Star Trek" %}{% endcapture %}
+
 I can't write about {{ this_book }} (sometimes titled {{ this_book_short }})
 without acknowledging the controversy that surrounded it. The story was
 published in January 2020 in [Clarkesworld Magazine Issue
 160][clarkesworld-issue]. It almost immediately [provoked
 outrage][vox-controversy], with people accusing {{ the_authors_lastname }} not
 of reclaiming the transphobic joke, but of furthering it. {{
-the_authors_lastname }} was harassed to point where she [asked to have the
+the_authors_lastname }} was harassed to the point where she [asked to have the
 story taken down][clarkesworld-statement]. Despite the controversy, it was
 nominated for the [Hugo Award][hugo-2021]; extremely well deserved! I have
 nothing new to add, except to say that I am saddened that we drove away a
@@ -164,11 +170,16 @@ landing. Then there are works of genius, where even I am forced to admit that
 the author had an ability that is completely beyond me. Given a million years
 I could never even come close. {{ disco_elysium }} and {{ faulkners_lastname
 }} {{ absalom_absalom }} are two such examples. {{ this_book }} is a third: I
-could never have weaved the three pieces together, and imbued the words with
-the meaning about the self that {{ the_authors_lastname }} does.
+could never have woven the three pieces together, or imbued them with the
+meaning {{ the_authors_lastname }} does.
 
-{{ this_book_short }} subverts a theme in science fiction of "machines as
-women", seen maybe most famously in {{ mccaffreys_lastname }} {{
-the_ship_who_sang }}. The story is also similar to {{ evanss_lastname }} {{
-little_red_hen }}, in which a Bolo tank is given a female gender identity,
-that makes it nurture its crew but also drives it insane when they die.
+There has been a theme of "machines as women" in science fiction, used to
+soften otherwise hard-edged systems by giving them a nurturing gloss. Perhaps
+most famous is the computer from {{ star_trek }}. In books we've seen it with
+{{ evans_lastname }} and {{ hollingsworths_lastname }} {{ little_red_hen }},
+in which a Bolo tank is given a female gender identity that makes it nurture
+its crew, but also drives it insane when they die, and again in {{
+webers_lastname }} {{ miles_to_go }}, in which a Bolo with a female identity
+falls in love with and sacrifices for her commander. {{
+the_authors_lastname_possessive }} subverts that an instead writes about a
+woman made machine, who trades her softness to be a hardened killer.
