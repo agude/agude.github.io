@@ -18,9 +18,13 @@ same_as_urls:
   - "https://www.google.com/search?kgmid=/g/11frm10q6b"
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is a short story.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is a novelette about the militarization of everyday life and the coming
+climate catastrophe; of gender, how it is fluid, constructed, and innate; and
+it is a military sci-fi story of a helicopter attack on a highschool.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture this_book_short %}{% book_link page.title link_text="Helicopter Story" %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
@@ -77,9 +81,10 @@ same_as_urls:
 {% capture asimovs_lastname %}{% author_link "Isaac Asimov" link_text="Asimov" possessive %}{% endcapture %}
 {% capture i_robot %}{% book_link "I, Robot" %}{% endcapture %}
 
-I can't write about {{ this_book }} without acknowledging the controversy that
-surrounded it. The story was published in January 2020 in [Clarkesworld
-Magazine Issue 160][clarkesworld-issue]. It almost immediately [provoked
+I can't write about {{ this_book }} (sometimes titled {{ this_book_short }})
+without acknowledging the controversy that surrounded it. The story was
+published in January 2020 in [Clarkesworld Magazine Issue
+160][clarkesworld-issue]. It almost immediately [provoked
 outrage][vox-controversy], with people accusing {{ the_authors_lastname }} not
 of reclaiming the transphobic joke, but of furthering it. {{
 the_authors_lastname }} was harassed to point where she [asked to have the
@@ -103,32 +108,22 @@ their enemies, the former Pear Mesa credit union. The AIs work, they keep
 civilization running, but they're black boxes that no one understands. They
 demand behaviors that seem insane---like bombing a high school or [planting
 pear trees everywhere][paperclip]---and no one dares to question it, unable to
-tell what is crazy and what is critical to survival. And {{ the_author }} does
-it all in under 8,000 words.
+tell what is crazy and what is critical to survival. Scientists have mapped
+out the parts of the brain that handle gender, and the military has co-opted
+the technology to make better soldiers. And {{ the_author }} does it all in
+under 8,000 words.
 
 [paperclip]: https://en.wikipedia.org/wiki/Instrumental_convergence#Paperclip_maximizer
 
-<!--
-
-2. Gives us an action story in that world.
-3. Uses the story to explore and teach about gender identities, gender
-   dysphoria, and the performance of gender in society in a way that helps me,
-   a straight cis male better understand. Quote the "OH, so you think gender
-   is just your body? Wear a dress then! Isn't your dick enough to make you a
-   man?"
-
-The writing is brilliant. The way she weaves these three parts together,
-breaking from one to another naturally. It's a story I couldn't have written,
-a work of genius like Disco Elysium or Absalom Absalom. Given infinite time, I
-could never have put the words on the page with the meaning Fall invests in
-them.
--->
+Second, {{ the_author }} tells the story of Apache Mystic pilot Seo Ji Hee,
+callsign _Barb_, a "XX-karyotope somatic female" who has her gender identity
+reassigned to "attack helicopter".
 
 Third, {{ the_authors_lastname }} works in examples and uses rhetorical
 questioning about you, the reader's, ideas about gender that shift your
 position. They don't come off as didactic, they fit perfectly into the story.
-As a straight cis male, I don't think I really understood how constructed
-_and_ performative gender is until {{ the_authors_lastname }} asked me:
+As a straight cis male, I knew gender was constructed _and_ performative, but
+I didn't really **understand** until {{ the_authors_lastname }} asked me:
 
 > [...] if your body-fact is enough to establish your gender, you would
 > willingly wear bright dresses and cry at movies, wouldn't you? You would
@@ -138,9 +133,9 @@ _and_ performative gender is until {{ the_authors_lastname }} asked me:
 > Have you ever guarded anything so vigilantly as you protect yourself against
 > the shame of gender-wrong?
 
-And the majesty of {{ this_book }} is how well {{ the_author }} weaves it
-together. She jumps from story, to world building, to dialogues about gender
-without interrupting the flow, without it feeling unnatural.
+And the majesty of {{ this_book_short }} is how well {{ the_author }} weaves
+it together. She jumps from story, to world building, to dialogues about
+gender without interrupting the flow, without it feeling unnatural.
 
 There are stories I read where I think, dismissively "I could have written
 this"; and maybe I'm even right. {{ dicks_lastname }} {{ ubik }} is one such
