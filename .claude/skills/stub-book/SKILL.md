@@ -143,5 +143,12 @@ person (not a bibliography or disambiguation page). Copy the
 
 Tell the user what was created and flag remaining manual steps:
 - Cover image needs to be added at the `image` path.
-- `rating` and `date` need updating after the review is written.
 - Any metadata issues found in step 5.
+
+## Front Matter Format
+
+When creating stubs (manually or via script), use these conventions:
+
+- **`rating`**: Set to `null`. The rating is added when the review is written.
+- **`date`**: Use `YYYY-MM-DD` format without a timestamp (e.g., `2026-05-10`).
+  The timestamp is added later by a script when the review is completed.
