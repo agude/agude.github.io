@@ -124,6 +124,24 @@ could never have put the words on the page with the meaning Fall invests in
 them.
 -->
 
+Third, {{ the_authors_lastname }} works in examples and uses rhetorical
+questioning about you, the reader's, ideas about gender that shift your
+position. They don't come off as didactic, they fit perfectly into the story.
+As a straight cis male, I don't think I really understood how constructed
+_and_ performative gender is until {{ the_authors_lastname }} asked me:
+
+> [...] if your body-fact is enough to establish your gender, you would
+> willingly wear bright dresses and cry at movies, wouldn't you? You would
+> hold hands and compliment each other on your beauty, wouldn't you? Because
+> your cock would be enough to make you a man.
+>
+> Have you ever guarded anything so vigilantly as you protect yourself against
+> the shame of gender-wrong?
+
+And the majesty of {{ this_book }} is how well {{ the_author }} weaves it
+together. She jumps from story, to world building, to dialogues about gender
+without interrupting the flow, without it feeling unnatural.
+
 There are stories I read where I think, dismissively "I could have written
 this"; and maybe I'm even right. {{ dicks_lastname }} {{ ubik }} is one such
 example, where I just _know_ I could plot it, write the prose, stick the
