@@ -81,6 +81,22 @@ it is a military sci-fi story of a helicopter attack on a highschool.
 {% capture asimovs_lastname %}{% author_link "Isaac Asimov" link_text="Asimov" possessive %}{% endcapture %}
 {% capture i_robot %}{% book_link "I, Robot" %}{% endcapture %}
 
+{% capture stirling %}{% author_link "S. M. Stirling" %}{% endcapture %}
+{% capture stirlings %}{% author_link "S. M. Stirling" possessive %}{% endcapture %}
+
+{% capture evans %}{% author_link "Linda Evans" %}{% endcapture %}
+{% capture evanss %}{% author_link "Linda Evans" possessive %}{% endcapture %}
+{% capture evanss_lastname %}{% author_link "Linda Evans" link_text="Evans" possessive %}{% endcapture %}
+
+{% capture weber %}{% author_link "David Weber" %}{% endcapture %}
+{% capture webers %}{% author_link "David Weber" possessive %}{% endcapture %}
+
+{% capture bolo_series %}{% series_link "Bolo" %}{% endcapture %}
+{% capture the_triumphant %}{% book_link "The Triumphant" %}{% endcapture %}
+
+{% capture little_red_hen %}{% short_story_link "Little Red Hen" %}{% endcapture %}
+{% capture miles_to_go %}{% short_story_link "Miles to Go" %}{% endcapture %}
+
 I can't write about {{ this_book }} (sometimes titled {{ this_book_short }})
 without acknowledging the controversy that surrounded it. The story was
 published in January 2020 in [Clarkesworld Magazine Issue
@@ -116,8 +132,12 @@ under 8,000 words.
 [paperclip]: https://en.wikipedia.org/wiki/Instrumental_convergence#Paperclip_maximizer
 
 Second, {{ the_author }} tells the story of Apache Mystic pilot Seo Ji Hee,
-callsign _Barb_, a "XX-karyotope somatic female" who has her gender identity
-reassigned to "attack helicopter".
+callsign _Barb_, a "XX-karyotope somatic female". The army reassigns Barb's
+gender identity to "attack helicopter" in order to make her a better pilot.
+The story follows Barb as she and her gunner, Axis, bomb a high school, and
+then escape a fighter, interspersed with flashbacks to when Barb was a woman,
+and how gender roles impacted her life back then, and also now make her a
+better warrior.
 
 Third, {{ the_authors_lastname }} works in examples and uses rhetorical
 questioning about you, the reader's, ideas about gender that shift your
@@ -146,3 +166,9 @@ I could never even come close. {{ disco_elysium }} and {{ faulkners_lastname
 }} {{ absalom_absalom }} are two such examples. {{ this_book }} is a third: I
 could never have weaved the three pieces together, and imbued the words with
 the meaning about the self that {{ the_authors_lastname }} does.
+
+{{ this_book_short }} subverts a theme in science fiction of "machines as
+women", seen maybe most famously in {{ mccaffreys_lastname }} {{
+the_ship_who_sang }}. The story is also similar to {{ evanss_lastname }} {{
+little_red_hen }}, in which a Bolo tank is given a female gender identity,
+that makes it nurture its crew but also drives it insane when they die.
