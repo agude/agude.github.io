@@ -35,6 +35,25 @@ it is a military sci-fi story of a helicopter attack on a high school.
 {% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
+{% capture watts %}{% author_link "Peter Watts" %}{% endcapture %}
+{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
+{% capture watts_lastname %}{% author_link "Peter Watts" link_text="Watts" %}{% endcapture %}
+{% capture wattss_lastname %}{% author_link "Peter Watts" link_text="Watts" possessive %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+
+{% capture wells %}{% author_link "Martha Wells" %}{% endcapture %}
+{% capture wellss %}{% author_link "Martha Wells" possessive %}{% endcapture %}
+{% capture wells_lastname %}{% author_link "Martha Wells" link_text="Wells" %}{% endcapture %}
+{% capture wellss_lastname %}{% author_link "Martha Wells" link_text="Wells" possessive %}{% endcapture %}
+{% capture murderbot %}{% series_link "The Murderbot Diaries" %}{% endcapture %}
+{% capture all_systems_red %}{% book_link "All Systems Red" %}{% endcapture %}
+
+{% capture le_guin %}{% author_link "Ursula K. Le Guin" %}{% endcapture %}
+{% capture le_guins %}{% author_link "Ursula K. Le Guin" possessive %}{% endcapture %}
+{% capture le_guin_lastname %}{% author_link "Ursula K. Le Guin" link_text="Le Guin" %}{% endcapture %}
+{% capture le_guins_lastname %}{% author_link "Ursula K. Le Guin" link_text="Le Guin" possessive %}{% endcapture %}
+{% capture left_hand_of_darkness %}{% book_link "The Left Hand of Darkness" %}{% endcapture %}
+
 {% capture dick %}{% author_link "Philip K. Dick" %}{% endcapture %}
 {% capture dicks %}{% author_link "Philip K. Dick" possessive %}{% endcapture %}
 {% capture dick_lastname %}{% author_link "Philip K. Dick" link_text="Dick" %}{% endcapture %}
@@ -173,13 +192,21 @@ I could never even come close. {{ disco_elysium }} and {{ faulkners_lastname
 could never have woven the three pieces together, or imbued them with the
 meaning {{ the_authors_lastname }} does.
 
-There has been a theme of "machines as women" in science fiction, used to
-soften otherwise hard-edged systems by giving them a nurturing gloss. Perhaps
-most famous is the computer from {{ star_trek }}. In books we've seen it with
-{{ evans_lastname }} and {{ hollingsworths_lastname }} {{ little_red_hen }},
-in which a Bolo tank is given a female gender identity that makes it nurture
-its crew, but also drives it insane when they die, and again in {{
-webers_lastname }} {{ miles_to_go }}, in which a Bolo with a female identity
-falls in love with and sacrifices for her commander. {{
-the_authors_lastname_possessive }} subverts that an instead writes about a
-woman made machine, who trades her softness to be a hardened killer.
+There is a theme of "machines as women" in science fiction, used to soften
+otherwise hard-edged systems by giving them a nurturing gloss. Perhaps the
+most famous example is the computer from {{ star_trek }}. We see it too in the
+{{ bolo_series }} series: in {{ little_red_hen }}, a tank's female identity
+makes it protect its crew but drives it insane when they die; in {{
+miles_to_go }}, a Bolo falls in love with her commander and dies for him. {{
+the_authors_lastname_possessive }} subverts that theme and instead writes
+about a woman made into a machine, who trades her softness to be a hardened
+killer.
+
+This story reminded me of a few other works. The focus on the spectrum of
+gender is similar to {{ le_guins_lastname }} {{ left_hand_of_darkness }} with
+its androgynous aliens. {{ the_authors_lastname_possessive }} story is sort of
+an inversion of {{ wellss_lastname }} {{ murderbot }}, in which a weapon wants
+to become more human. And the modifying Barb's fundamental nature to make her
+a better weapon is the same theme of {{ wattss_lastname }} {{ blindsight }},
+where the crew of the _Theseus_ has modified themselves to better perform
+their tasks in a transhuman world.
