@@ -177,16 +177,16 @@ until {{ the_authors_lastname }} asked me:
 > Have you ever guarded anything so vigilantly as you protect yourself against
 > the shame of gender-wrong?
 
-The majesty of {{ this_book_short }} is how well {{ the_author }} pulls it all
-together. She moves from story to world-building to dialogues about gender
-without interrupting the flow, without it feeling unnatural. There are books I
-read and think, "I could do that", like {{ dicks_lastname }} {{ ubik }}. I
-could plot it, write the prose, stick the landing, probably, maybe. Then there
-are works where I'm forced to admit the author had an ability completely
-beyond me. {{ faulkners_lastname }} {{ absalom_absalom }} is one. {{
-disco_elysium }} is another. {{ this_book_short }} is a third: how {{
-the_authors_lastname }} weaves the three pieces together, how she achieves so
-much in under 8,000 words---given a million years, I couldn't come close.
+The majesty of this story is how well {{ the_author }} pulls it all together.
+She moves from story to world-building to dialogues about gender without
+interrupting the flow, without it feeling unnatural. There are books I read
+and think, "I could do that", like {{ dicks_lastname }} {{ ubik }}. I could
+plot it, write the prose, stick the landing, probably, maybe. Then there are
+works where I'm forced to admit the author had an ability completely beyond
+me. {{ faulkners_lastname }} {{ absalom_absalom }} is one. {{ disco_elysium }}
+is another. {{ this_book }} is a third: how {{ the_authors_lastname }} weaves
+the three pieces together, how she achieves so much in under 8,000
+words---given a million years, I couldn't come close.
 
 {{ the_authors_lastname }} is also subverting a tradition in science fiction
 of softening machines by giving them female identities. Perhaps the most
@@ -206,6 +206,6 @@ better weapon echoes {{ wattss_lastname }} {{ blindsight }}, where the crew of
 the _Theseus_ has modified themselves to better perform their tasks in a
 transhuman world.
 
-{{ this_book_short }} is one of the best stories I've read, an example of how
+{{ this_book }} is one of the best stories I've read, an example of how
 science fiction can make us see our world and ourselves differently. I wish {{
 the_authors_lastname }} had the chance to write more.
