@@ -25,6 +25,7 @@ ranked_list:
   - The Fall of Hyperion
   - The Triumphant
   - A Mote in Shadow
+  - I Sexually Identify as an Attack Helicopter
   - There Is No Antimemetics Division
   # 4 Stars
   - A Memory Called Empire
