@@ -128,9 +128,9 @@ surrounded it. It was published in January 2020 in
 outrage][vox-controversy]. People accused {{ the_authors_lastname }} not of
 reclaiming the transphobic joke, but of furthering it. She was harassed until
 she [asked to have the story taken down][clarkesworld-statement]. It still
-earned a well-deserved [Hugo][hugo-2021] nomination. I'm saddened that we
-drove away a brilliant new author, and that I likely won't have the chance to
-read more of her work.
+earned a well-deserved [Hugo][hugo-2021] nomination, under the title {{
+this_book_short }}. I'm saddened that we drove away a brilliant new author,
+and that I likely won't have the chance to read more of her work.
 
 [vox-controversy]: https://www.vox.com/the-highlight/22543858/isabel-fall-attack-helicopter
 [clarkesworld-statement]: https://clarkesworldmagazine.com/fall_01_20/
@@ -177,14 +177,14 @@ until {{ the_authors_lastname }} asked me:
 > Have you ever guarded anything so vigilantly as you protect yourself against
 > the shame of gender-wrong?
 
-The majesty of {{ this_book }} is how well {{ the_author }} pulls it all
+The majesty of {{ this_book_short }} is how well {{ the_author }} pulls it all
 together. She moves from story to world-building to dialogues about gender
 without interrupting the flow, without it feeling unnatural. There are books I
 read and think, "I could do that", like {{ dicks_lastname }} {{ ubik }}. I
 could plot it, write the prose, stick the landing, probably, maybe. Then there
 are works where I'm forced to admit the author had an ability completely
 beyond me. {{ faulkners_lastname }} {{ absalom_absalom }} is one. {{
-disco_elysium }} is another. {{ this_book }} is a third: how {{
+disco_elysium }} is another. {{ this_book_short }} is a third: how {{
 the_authors_lastname }} weaves the three pieces together, how she achieves so
 much in under 8,000 words---given a million years, I couldn't come close.
 
@@ -206,6 +206,6 @@ better weapon echoes {{ wattss_lastname }} {{ blindsight }}, where the crew of
 the _Theseus_ has modified themselves to better perform their tasks in a
 transhuman world.
 
-{{ this_book }} is one of the best stories I've read, an example of how
+{{ this_book_short }} is one of the best stories I've read, an example of how
 science fiction can make us see our world and ourselves differently. I wish {{
 the_authors_lastname }} had the chance to write more.
