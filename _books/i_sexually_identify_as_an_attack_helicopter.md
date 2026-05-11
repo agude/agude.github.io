@@ -122,18 +122,15 @@ it is a military sci-fi story of a helicopter attack on a high school.
 
 {% capture star_trek %}{% tv_show_title "Star Trek" %}{% endcapture %}
 
-I can't write about {{ this_book }} (sometimes titled {{ this_book_short }})
-without acknowledging the controversy that surrounded it. The story was
-published in January 2020 in [Clarkesworld Magazine Issue
-160][clarkesworld-issue]. It almost immediately [provoked
-outrage][vox-controversy], with people accusing {{ the_authors_lastname }} not
-of reclaiming the transphobic joke, but of furthering it. {{
-the_authors_lastname }} was harassed to the point where she [asked to have the
-story taken down][clarkesworld-statement]. Despite the controversy, it was
-nominated for the [Hugo Award][hugo-2021]; extremely well deserved! I have
-nothing new to add, except to say that I am saddened that we drove away a
-brilliant new author, and that I likely won't have the chance to read more of
-her work.
+I can't write about {{ this_book }} without acknowledging the controversy that
+surrounded it. It was published in January 2020 in
+[Clarkesworld][clarkesworld-issue] and almost immediately [provoked
+outrage][vox-controversy]. People accused {{ the_authors_lastname }} not of
+reclaiming the transphobic joke, but of furthering it. She was harassed until
+she [asked to have the story taken down][clarkesworld-statement]. It was still
+nominated for a well deserved [Hugo][hugo-2021]. I'm saddened that we drove
+away a brilliant new author, and that I likely won't have the chance to read
+more of her work.
 
 [vox-controversy]: https://www.vox.com/the-highlight/22543858/isabel-fall-attack-helicopter
 [clarkesworld-statement]: https://clarkesworldmagazine.com/fall_01_20/
@@ -143,32 +140,34 @@ her work.
 {{ the_author }} does three things brilliantly in this story:
 
 First, she builds a world believably in crisis. Climate change has rendered
-the equator uninhabitable; refugees flee north and sell their services as
-mercenaries to buy a place for their people. AI runs the United States and
-their enemies, the former Pear Mesa credit union. The AIs work, they keep
-civilization running, but they're black boxes that no one understands. They
-demand behaviors that seem insane---like bombing a high school or [planting
-pear trees everywhere][paperclip]---and no one dares to question it, unable to
-tell what is crazy and what is critical to survival. Scientists have mapped
-out the parts of the brain that handle gender, and the military has co-opted
-the technology to make better soldiers. And {{ the_author }} does it all in
-under 8,000 words.
+the equator uninhabitable; refugees flee north and sell themselves as
+mercenaries to buy a place for their people. AIs run both the United States
+and its enemies. They keep civilization running, but they're black boxes no
+one understands, demanding behaviors that seem insane---like bombing a high
+school or [planting pear trees everywhere][paperclip]---and no one dares
+question it, unable to tell what is crazy and what is critical to survival.
+Scientists have mapped the parts of the brain that handle gender, and the
+military has co-opted the technology to make better soldiers. And {{
+the_author }} does it all in under 8,000 words.
 
 [paperclip]: https://en.wikipedia.org/wiki/Instrumental_convergence#Paperclip_maximizer
 
 Second, {{ the_author }} tells the story of Apache Mystic pilot Seo Ji Hee,
 callsign _Barb_, a "XX-karyotope somatic female". The army reassigns Barb's
-gender identity to "attack helicopter" in order to make her a better pilot.
-The story follows Barb as she and her gunner, Axis, bomb a high school, and
-then escape a fighter, interspersed with flashbacks to when Barb was a woman,
-and how gender roles impacted her life back then, and also now make her a
-better warrior.
+gender identity to "attack helicopter" to make her a better pilot. Barb is
+comfortable with what she's become, but her gunner Axis is not. Axis feels the
+wrongness of bombing a high school on an AI's orders as a dysphoria, something
+his new gender insists on but which he isn't comfortable with. Barb reflects
+that someone has to carry a conscience, and maybe that is a new form of
+queerness. The story interweaves their mission with flashbacks to Barb's life
+as a woman---how gender shaped her then, and how it makes her a better warrior
+now.
 
-Third, {{ the_authors_lastname }} works in examples and uses rhetorical
-questioning about you, the reader's, ideas about gender that shift your
-position. They don't come off as didactic, they fit perfectly into the story.
-As a straight cis male, I knew gender was constructed _and_ performative, but
-I didn't really **understand** until {{ the_authors_lastname }} asked me:
+Third, {{ the_authors_lastname }} uses rhetorical questions that make you, the
+reader, examine your assumptions about gender. They don't come off as
+didactic; they fit perfectly into the story. As a straight cis male, I knew
+gender was constructed _and_ performative, but I didn't really **understand**
+until {{ the_authors_lastname }} asked me:
 
 > [...] if your body-fact is enough to establish your gender, you would
 > willingly wear bright dresses and cry at movies, wouldn't you? You would
@@ -178,9 +177,9 @@ I didn't really **understand** until {{ the_authors_lastname }} asked me:
 > Have you ever guarded anything so vigilantly as you protect yourself against
 > the shame of gender-wrong?
 
-And the majesty of {{ this_book_short }} is how well {{ the_author }} weaves
-it together. She jumps from story, to world building, to dialogues about
-gender without interrupting the flow, without it feeling unnatural.
+The majesty of {{ this_book_short }} is how well {{ the_author }} weaves it
+together. She moves from story to world-building to dialogues about gender
+without interrupting the flow, without it feeling unnatural.
 
 There are stories I read where I think, dismissively "I could have written
 this"; and maybe I'm even right. {{ dicks_lastname }} {{ ubik }} is one such
@@ -206,7 +205,7 @@ This story reminded me of a few other works. The focus on the spectrum of
 gender is similar to {{ le_guins_lastname }} {{ left_hand_of_darkness }} with
 its androgynous aliens. {{ the_authors_lastname_possessive }} story is sort of
 an inversion of {{ wellss_lastname }} {{ murderbot }}, in which a weapon wants
-to become more human. And the modifying Barb's fundamental nature to make her
-a better weapon is the same theme of {{ wattss_lastname }} {{ blindsight }},
+to become more human. And modifying Barb's fundamental nature to make her a
+better weapon is the same theme of {{ wattss_lastname }} {{ blindsight }},
 where the crew of the _Theseus_ has modified themselves to better perform
 their tasks in a transhuman world.
