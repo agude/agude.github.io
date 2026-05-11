@@ -19,9 +19,9 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is a novelette about the militarization of everyday life and the coming
-climate catastrophe; of gender, how it is fluid, constructed, and innate; and
-it is a military sci-fi story of a helicopter attack on a high school.
+is a novelette about a pilot whose gender is reassigned to "attack helicopter"
+to make her a better soldier. It follows Barb as she bombs a high school,
+wrestles with what she's become, and asks what gender even is.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_book_short %}{% book_link page.title link_text="Helicopter Story" %}{% endcapture %}
@@ -152,16 +152,16 @@ the_author }} does it all in under 8,000 words.
 
 [paperclip]: https://en.wikipedia.org/wiki/Instrumental_convergence#Paperclip_maximizer
 
-Second, {{ the_author }} tells the story of Apache Mystic pilot Seo Ji Hee,
-callsign _Barb_, a "XX-karyotope somatic female". The army reassigns Barb's
-gender identity to "attack helicopter" to make her a better pilot. Barb is
-comfortable with what she's become, but her gunner Axis is not. Axis feels the
-wrongness of bombing a high school on an AI's orders as a dysphoria, something
-his new gender insists on but which he isn't comfortable with. Barb reflects
-that someone has to carry a conscience, and maybe that is a new form of
-queerness. The story interweaves their mission with flashbacks to Barb's life
-as a woman---how gender shaped her then, and how it makes her a better warrior
-now.
+Second, {{ the_authors_lastname }} tells the story of Apache Mystic pilot Seo
+Ji Hee, callsign _Barb_, a "XX-karyotope somatic female". The army reassigns
+Barb's gender identity to "attack helicopter" to make her a better pilot. Barb
+is comfortable with what she's become, but her gunner Axis is not. Axis feels
+the wrongness of bombing a high school on an AI's orders as a dysphoria,
+something his new gender insists on but which he isn't comfortable with. Barb
+reflects that someone has to carry a conscience, and maybe that is a new form
+of queerness. The story interweaves their mission with flashbacks to Barb's
+life as a woman---how gender shaped her then, and how it makes her a better
+warrior now.
 
 Third, {{ the_authors_lastname }} uses rhetorical questions that make you, the
 reader, examine your assumptions about gender. They don't come off as
@@ -177,29 +177,25 @@ until {{ the_authors_lastname }} asked me:
 > Have you ever guarded anything so vigilantly as you protect yourself against
 > the shame of gender-wrong?
 
-The majesty of {{ this_book_short }} is how well {{ the_author }} weaves it
+The majesty of {{ this_book }} is how well {{ the_author }} pulls it all
 together. She moves from story to world-building to dialogues about gender
-without interrupting the flow, without it feeling unnatural.
+without interrupting the flow, without it feeling unnatural. There are books I
+read and think, "I could do that", like {{ dicks_lastname }} {{ ubik }}. I
+could plot it, write the prose, stick the landing, probably, maybe. Then there
+are works where I'm forced to admit the author had an ability completely
+beyond me. {{ faulkners_lastname }} {{ absalom_absalom }} is one. {{
+disco_elysium }} is another. {{ this_book }} is a third: how {{
+the_authors_lastname }} weaves the three pieces together, how she achieves so
+much in under 8,000 words---given a million years, I couldn't come close.
 
-There are stories I read where I think, dismissively "I could have written
-this"; and maybe I'm even right. {{ dicks_lastname }} {{ ubik }} is one such
-example, where I just _know_ I could plot it, write the prose, stick the
-landing. Then there are works of genius, where even I am forced to admit that
-the author had an ability that is completely beyond me. Given a million years
-I could never even come close. {{ disco_elysium }} and {{ faulkners_lastname
-}} {{ absalom_absalom }} are two such examples. {{ this_book }} is a third: I
-could never have woven the three pieces together, or imbued them with the
-meaning {{ the_authors_lastname }} does.
-
-There is a theme of "machines as women" in science fiction, used to soften
-otherwise hard-edged systems by giving them a nurturing gloss. Perhaps the
-most famous example is the computer from {{ star_trek }}. We see it too in the
-{{ bolo_series }} series: in {{ little_red_hen }}, a tank's female identity
-makes it protect its crew but drives it insane when they die; in {{
-miles_to_go }}, a Bolo falls in love with her commander and dies for him. {{
-the_authors_lastname_possessive }} subverts that theme and instead writes
-about a woman made into a machine, who trades her softness to be a hardened
-killer.
+{{ the_authors_lastname }} is also subverting a tradition in science fiction
+of softening machines by giving them female identities. Perhaps the most
+famous example is the computer from {{ star_trek }}. We also see it in the {{
+bolo_series }} series: in {{ little_red_hen }}, a tank's female identity makes
+it protect its crew but drives it insane when they die; in {{ miles_to_go }},
+a Bolo falls in love with her commander and dies for him. {{
+the_authors_lastname }} instead writes about a woman made into a machine, who
+trades her softness to be a hardened killer.
 
 This story reminded me of a few other works. The focus on the spectrum of
 gender is similar to {{ le_guins_lastname }} {{ left_hand_of_darkness }} with
