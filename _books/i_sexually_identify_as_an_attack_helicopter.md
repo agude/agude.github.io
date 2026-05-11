@@ -127,10 +127,10 @@ surrounded it. It was published in January 2020 in
 [Clarkesworld][clarkesworld-issue] and almost immediately [provoked
 outrage][vox-controversy]. People accused {{ the_authors_lastname }} not of
 reclaiming the transphobic joke, but of furthering it. She was harassed until
-she [asked to have the story taken down][clarkesworld-statement]. It was still
-nominated for a well deserved [Hugo][hugo-2021]. I'm saddened that we drove
-away a brilliant new author, and that I likely won't have the chance to read
-more of her work.
+she [asked to have the story taken down][clarkesworld-statement]. It still
+earned a well-deserved [Hugo][hugo-2021] nomination. I'm saddened that we
+drove away a brilliant new author, and that I likely won't have the chance to
+read more of her work.
 
 [vox-controversy]: https://www.vox.com/the-highlight/22543858/isabel-fall-attack-helicopter
 [clarkesworld-statement]: https://clarkesworldmagazine.com/fall_01_20/
@@ -202,9 +202,9 @@ gender is similar to {{ le_guins_lastname }} {{ left_hand_of_darkness }} with
 its androgynous aliens. {{ the_authors_lastname_possessive }} story is sort of
 an inversion of {{ wellss_lastname }} {{ murderbot }}, in which a weapon wants
 to become more human. And modifying Barb's fundamental nature to make her a
-better weapon is the same theme of {{ wattss_lastname }} {{ blindsight }},
-where the crew of the _Theseus_ has modified themselves to better perform
-their tasks in a transhuman world.
+better weapon echoes {{ wattss_lastname }} {{ blindsight }}, where the crew of
+the _Theseus_ has modified themselves to better perform their tasks in a
+transhuman world.
 
 {{ this_book }} is one of the best stories I've read, an example of how
 science fiction can make us see our world and ourselves differently. I wish {{
