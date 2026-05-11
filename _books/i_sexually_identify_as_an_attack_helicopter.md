@@ -205,3 +205,7 @@ to become more human. And modifying Barb's fundamental nature to make her a
 better weapon is the same theme of {{ wattss_lastname }} {{ blindsight }},
 where the crew of the _Theseus_ has modified themselves to better perform
 their tasks in a transhuman world.
+
+{{ this_book }} is one of the best stories I've read, an example of how
+science fiction can make us see our world and ourselves differently. I wish {{
+the_authors_lastname }} had the chance to write more.
