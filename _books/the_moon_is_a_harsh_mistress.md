@@ -36,12 +36,12 @@ computer.
 {% capture stranger %}{% book_link "Stranger in a Strange Land" %}{% endcapture %}
 
 {% capture clarke_lastname_possessive %}{% author_link "Arthur C. Clarke" link_text="Clarke" possessive %}{% endcapture %}
-{% capture odyessy %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
+{% capture odyssey %}{% book_link "2001: A Space Odyssey" %}{% endcapture %}
 
 {% capture watchmen %}{% book_link "Watchmen" %}{% endcapture %}
 {% capture moore_and_gibbons_possessive %}{% author_link "Alan Moore" link_text="Moore" %} and {% author_link "Dave Gibbons" link_text="Gibbons" possessive %}{% endcapture %}
 
-{% capture tolkein_lastname_possessive %}{% author_link "J. R. R. Tolkien" link_text="Tolkien" possessive %}{% endcapture %}
+{% capture tolkien_lastname_possessive %}{% author_link "J. R. R. Tolkien" link_text="Tolkien" possessive %}{% endcapture %}
 {% capture lotr %}{% series_link "The Lord of the Rings" %}{% endcapture %}
 
 {% capture wells_lastname_possessive %}{% author_link "Martha Wells" link_text="Wells" possessive %}{% endcapture %}
@@ -100,8 +100,8 @@ computer backing them up! It wasn't my first time reading {{
 the_authors_lastname }}---that was {{ sst }} and {{ stranger }}---but it
 became my favorite. I even went out and bought a hardcover copy to display on
 my shelf after finishing the paperback. The only other books I've done that
-for were {{ clarke_lastname_possessive }} {{ odyessy }}, {{
-tolkein_lastname_possessive }} {{ lotr }}, and {{ moore_and_gibbons_possessive
+for were {{ clarke_lastname_possessive }} {{ odyssey }}, {{
+tolkien_lastname_possessive }} {{ lotr }}, and {{ moore_and_gibbons_possessive
 }} {{ watchmen }}. I didn't like {{ this_book }} as much this read-through.
 
 The story is still engaging, but the long libertarian digressions are much
