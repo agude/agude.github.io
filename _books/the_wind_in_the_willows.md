@@ -55,3 +55,7 @@ ferrets, and stoats. I remember him singing _When The Toad Came Home_. I don't
 know if we actually read the whole book, although on this re-read I found some
 of the chapters to be familiar, and others to be completely new, so I suspect
 we only read some of them.
+
+<!-- This book influence Jacques. He has the same "Wait they're in a human
+world?" problem. Horse animals doing work. (What!?) And weasels, stoats, and
+ferrets as the bad guys. Badgers as powerful. -->
