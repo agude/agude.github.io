@@ -21,7 +21,8 @@ same_as_urls:
   - "https://standardebooks.org/ebooks/kenneth-grahame/the-wind-in-the-willows"
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is a standalone novel.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is a standalone novel.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -39,14 +40,37 @@ same_as_urls:
 {% capture jacques %}{% author_link "Brian Jacques" %}{% endcapture %}
 {% capture jacquess %}{% author_link "Brian Jacques" possessive %}{% endcapture %}
 {% capture jacques_lastname %}{% author_link "Brian Jacques" link_text="Jacques" %}{% endcapture %}
-{% capture jacquess_lastname %}{% author_link "Brian Jacques" link_text="Jacques" possessive %}{% endcapture
-%}
+{% capture jacquess_lastname %}{% author_link "Brian Jacques" link_text="Jacques" possessive %}{% endcapture %}
 {% capture redwall_series %}{% series_link "Redwall" %}{% endcapture %}
 {% capture redwall %}{% book_link "Redwall" %}{% endcapture %}
+{% capture mossflower %}{% book_link "Mossflower" %}{% endcapture %}
 
 {% capture homer %}{% author_link "Homer" %}{% endcapture %}
 {% capture homers %}{% author_link "Homer" possessive %}{% endcapture %}
 {% capture the_odyssey %}{% book_link "The Odyssey" %}{% endcapture %}
+
+{% capture tennyson %}{% author_link "Alfred, Lord Tennyson" %}{% endcapture %}
+{% capture tennysons %}{% author_link "Alfred, Lord Tennyson" possessive %}{% endcapture %}
+{% capture tennyson_lastname %}{% author_link "Alfred, Lord Tennyson" link_text="Tennyson" %}{% endcapture %}
+{% capture tennysons_lastname %}{% author_link "Alfred, Lord Tennyson" link_text="Tennyson" possessive %}{% endcapture %}
+
+{% capture adams %}{% author_link "Richard Adams" %}{% endcapture %}
+{% capture adamss %}{% author_link "Richard Adams" possessive %}{% endcapture %}
+{% capture adams_lastname %}{% author_link "Richard Adams" link_text="Adams" %}{% endcapture %}
+{% capture adamss_lastname %}{% author_link "Richard Adams" link_text="Adams" possessive %}{% endcapture %}
+{% capture watership_down %}{% book_link "Watership Down" %}{% endcapture %}
+
+{% capture lewis %}{% author_link "C.S. Lewis" %}{% endcapture %}
+{% capture lewiss %}{% author_link "C.S. Lewis" possessive %}{% endcapture %}
+{% capture lewis_lastname %}{% author_link "C.S. Lewis" link_text="Lewis" %}{% endcapture %}
+{% capture lewiss_lastname %}{% author_link "C.S. Lewis" link_text="Lewis" possessive %}{% endcapture %}
+{% capture narnia %}{% series_link "The Chronicles of Narnia" %}{% endcapture %}
+
+{% capture milne %}{% author_link "A.A. Milne" %}{% endcapture %}
+{% capture milnes %}{% author_link "A.A. Milne" possessive %}{% endcapture %}
+{% capture milne_lastname %}{% author_link "A.A. Milne" link_text="Milne" %}{% endcapture %}
+{% capture milnes_lastname %}{% author_link "A.A. Milne" link_text="Milne" possessive %}{% endcapture %}
+{% capture winnie_the_pooh %}{% book_link "Winnie-the-Pooh" %}{% endcapture %}
 
 My father read {{ this_book }} to me when I was young. My first memory of it
 is him reading the final chapter, _The Return of Ulysses_, in which Toad,
@@ -56,6 +80,22 @@ know if we actually read the whole book, although on this re-read I found some
 of the chapters to be familiar, and others to be completely new, so I suspect
 we only read some of them.
 
-<!-- This book influence Jacques. He has the same "Wait they're in a human
-world?" problem. Horse animals doing work. (What!?) And weasels, stoats, and
-ferrets as the bad guys. Badgers as powerful. -->
+<!-- Section about how its like childhood: so much to do and so little needs
+to be done. How it captures my father's philosophy. -->
+
+{{ this_book }} was obviously hugely influential to {{ jacques }} when writing
+the {{ redwall_series }}. {{ jacquess_lastname }} animals share a lot of the
+same traits as {{ the_authors_lastname_possessive }}: badgers are fearsome and
+wise; moles are honest and obedient; weasels, ferrets, and stoats are bad.
+They're both English pastoral stories. They both feature songs woven through
+them. {{ jacquess_lastname }} {{ redwall }} even has the same uncomfortable
+juxtaposition of anthropomorphic animals in a human world, which he thankfully
+drops by the second book, {{ mossflower }}.
+
+{{ this_book }} reminded me of others I've read. Of course, Toad's vengeful
+return is based on Odysseus's from {{ homers }} {{ the_odyssey }}, it's in the
+chapter title! The focus on anthropomorphized animals in England is
+reminiscent of {{ adamss_lastname }} {{ watership_down }} (although {{
+watership_down }} is much darker). The way Mole can feel his home calling to
+him "like an electric shock" is the similar to how Shivers allows Harrier Du
+Bois to commune with Revachol in {{ disco_elysium }}.
