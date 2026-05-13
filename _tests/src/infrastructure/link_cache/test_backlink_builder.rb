@@ -470,6 +470,52 @@ class TestBacklinkBuilder < Minitest::Test
     assert_equal 1, (backlinks['/books/book-b.html'] || []).length
   end
 
+  def test_book_link_priority_over_series_link_multi_book_series
+    # Reproduces real scenario: Accelerando links to both "Hyperion Cantos" (series)
+    # AND "Hyperion" (book). The backlink to Hyperion should be type 'book'.
+    series_book_1 = create_doc(
+      { 'title' => 'Hyperion', 'published' => true, 'series' => 'Hyperion Cantos' },
+      '/books/hyperion.html',
+      'First book in series.',
+    )
+    series_book_2 = create_doc(
+      { 'title' => 'Fall of Hyperion', 'published' => true, 'series' => 'Hyperion Cantos' },
+      '/books/fall-of-hyperion.html',
+      'Second book in series.',
+    )
+    # Links to both the series AND a specific book in the series
+    dual_linker = create_doc(
+      { 'title' => 'Accelerando', 'published' => true },
+      '/books/accelerando.html',
+      "I compare this to {% series_link 'Hyperion Cantos' %} and specifically to {% book_link 'Hyperion' %}.",
+    )
+    series_page = create_doc(
+      { 'title' => 'Hyperion Cantos', 'layout' => 'series_page' },
+      '/series/hyperion-cantos.html',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [series_book_1, series_book_2, dual_linker] },
+      [series_page],
+    )
+    backlinks = site.data['link_cache']['backlinks']
+
+    # Hyperion should have backlink from Accelerando with type 'book' (direct link)
+    hyperion_backlinks = backlinks['/books/hyperion.html']
+    refute_nil hyperion_backlinks
+    accelerando_backlink = hyperion_backlinks.find { |b| b[:source].data['title'] == 'Accelerando' }
+    refute_nil accelerando_backlink, 'Should find backlink from Accelerando'
+    assert_equal 'book', accelerando_backlink[:type], 'Direct book_link should override series_link'
+
+    # Fall of Hyperion should have backlink from Accelerando with type 'series' (no direct link)
+    fall_backlinks = backlinks['/books/fall-of-hyperion.html']
+    refute_nil fall_backlinks
+    fall_accelerando = fall_backlinks.find { |b| b[:source].data['title'] == 'Accelerando' }
+    refute_nil fall_accelerando, 'Should find backlink from Accelerando to Fall of Hyperion'
+    assert_equal 'series', fall_accelerando[:type], 'Series-only link should be type series'
+  end
+
   private
 
   def rebuild_backlinks(site)

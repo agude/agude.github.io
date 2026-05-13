@@ -277,4 +277,187 @@ class TestBacklinksFinder < Minitest::Test
     titles = result[:backlinks].map(&:first)
     assert_equal 1, titles.count('Book C')
   end
+
+  def test_book_link_overrides_series_link_in_multi_book_series
+    # Bug reproduction: When a book links to both a series AND a specific book
+    # in that series, the Finder should return the direct book link type.
+    series_book_1 = create_doc(
+      { 'title' => 'Hyperion', 'published' => true, 'series' => 'Hyperion Cantos' },
+      '/books/hyperion.html',
+      'First book.',
+    )
+    series_book_2 = create_doc(
+      { 'title' => 'Fall of Hyperion', 'published' => true, 'series' => 'Hyperion Cantos' },
+      '/books/fall-of-hyperion.html',
+      'Second book.',
+    )
+    dual_linker = create_doc(
+      { 'title' => 'Accelerando', 'published' => true },
+      '/books/accelerando.html',
+      "{% series_link 'Hyperion Cantos' %} and {% book_link 'Hyperion' %}.",
+    )
+    series_page = create_doc(
+      { 'title' => 'Hyperion Cantos', 'layout' => 'series_page' },
+      '/series/hyperion-cantos.html',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [series_book_1, series_book_2, dual_linker] },
+      [series_page],
+    )
+
+    # Test Hyperion's backlinks - should show 'book' type for Accelerando
+    context = create_context({}, { site: site, page: series_book_1 })
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
+    result = finder.find
+
+    accelerando_backlink = result[:backlinks].find { |b| b[0] == 'Accelerando' }
+    refute_nil accelerando_backlink, 'Should find Accelerando in backlinks'
+    assert_equal 'book', accelerando_backlink[2], 'Direct book_link should override series_link'
+  end
+
+  def test_book_link_overrides_series_link_with_multiple_reviews
+    # Bug reproduction: Hyperion has two reviews (book family). Accelerando links to
+    # "Hyperion Cantos" (series) which creates backlinks to BOTH reviews with type='series'.
+    # Accelerando also has book_link "Hyperion" which creates a backlink to ONE review
+    # with type='book'. When merging backlinks from the book family, the book type
+    # should be preserved, not overwritten by the series type from the other review.
+    hyperion_new = create_doc(
+      { 'title' => 'Hyperion', 'published' => true, 'series' => 'Hyperion Cantos' },
+      '/books/hyperion/',
+      'Newer review.',
+    )
+    hyperion_old = create_doc(
+      {
+        'title' => 'Hyperion',
+        'published' => true,
+        'series' => 'Hyperion Cantos',
+        'canonical_url' => '/books/hyperion/',
+      },
+      '/books/hyperion/review-2023-10-17/',
+      'Older review.',
+    )
+    accelerando = create_doc(
+      { 'title' => 'Accelerando', 'published' => true },
+      '/books/accelerando/',
+      "{% series_link 'Hyperion Cantos' %} and {% book_link 'Hyperion' %}.",
+    )
+    series_page = create_doc(
+      { 'title' => 'Hyperion Cantos', 'layout' => 'series_page' },
+      '/series/hyperion-cantos/',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [hyperion_new, hyperion_old, accelerando] },
+      [series_page],
+    )
+
+    # Test from the newer Hyperion review's perspective
+    context = create_context({}, { site: site, page: hyperion_new })
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
+    result = finder.find
+
+    accelerando_backlink = result[:backlinks].find { |b| b[0] == 'Accelerando' }
+    refute_nil accelerando_backlink, 'Should find Accelerando in backlinks'
+    assert_equal 'book', accelerando_backlink[2],
+                 'Direct book_link should override series_link even with multiple reviews in family'
+  end
+
+  def test_series_backlinks_only_include_series_type_links
+    # add_series_links should only propagate series-type backlinks from other books
+    # in the series. If Book A links directly to Fall of Hyperion (book_link, not
+    # series_link), that should NOT appear on Hyperion's page.
+    hyperion = create_doc(
+      { 'title' => 'Hyperion', 'published' => true, 'series' => 'Hyperion Cantos' },
+      '/books/hyperion/',
+      'First book.',
+    )
+    fall_of_hyperion = create_doc(
+      { 'title' => 'Fall of Hyperion', 'published' => true, 'series' => 'Hyperion Cantos' },
+      '/books/fall-of-hyperion/',
+      'Second book.',
+    )
+    # This book only links to Fall of Hyperion directly, NOT to the series
+    direct_linker = create_doc(
+      { 'title' => 'Direct Linker', 'published' => true },
+      '/books/direct-linker/',
+      "{% book_link 'Fall of Hyperion' %}.",
+    )
+    series_page = create_doc(
+      { 'title' => 'Hyperion Cantos', 'layout' => 'series_page' },
+      '/series/hyperion-cantos/',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [hyperion, fall_of_hyperion, direct_linker] },
+      [series_page],
+    )
+
+    # Hyperion should NOT show Direct Linker - it only linked to another book in the series
+    context = create_context({}, { site: site, page: hyperion })
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
+    result = finder.find
+
+    titles = result[:backlinks].map(&:first)
+    refute_includes titles, 'Direct Linker',
+                    'Direct book links to OTHER series books should not appear as backlinks'
+
+    # But Fall of Hyperion SHOULD show Direct Linker
+    context2 = create_context({}, { site: site, page: fall_of_hyperion })
+    finder2 = Jekyll::Books::Backlinks::Finder.new(context2.registers[:site], context2.registers[:page])
+    result2 = finder2.find
+
+    titles2 = result2[:backlinks].map(&:first)
+    assert_includes titles2, 'Direct Linker',
+                    'Direct book link should appear on the target book page'
+  end
+
+  def test_deduplicates_source_with_multiple_reviews
+    # If the SOURCE of a backlink has multiple reviews, they should be deduplicated
+    # by canonical URL, keeping the highest priority type.
+    target = create_doc(
+      { 'title' => 'Target Book', 'published' => true, 'series' => 'Test Series' },
+      '/books/target/',
+      'Target.',
+    )
+    # Source book has two reviews - one links via series, one via book
+    source_new = create_doc(
+      { 'title' => 'Source Book', 'published' => true },
+      '/books/source/',
+      "{% book_link 'Target Book' %}.",
+    )
+    source_old = create_doc(
+      {
+        'title' => 'Source Book',
+        'published' => true,
+        'canonical_url' => '/books/source/',
+      },
+      '/books/source/old-review/',
+      "{% series_link 'Test Series' %}.",
+    )
+    series_page = create_doc(
+      { 'title' => 'Test Series', 'layout' => 'series_page' },
+      '/series/test/',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [target, source_new, source_old] },
+      [series_page],
+    )
+
+    context = create_context({}, { site: site, page: target })
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
+    result = finder.find
+
+    # Should only have ONE entry for Source Book (deduplicated by canonical URL)
+    source_backlinks = result[:backlinks].select { |b| b[0] == 'Source Book' }
+    assert_equal 1, source_backlinks.length, 'Source with multiple reviews should be deduplicated'
+    # And it should be type 'book' (higher priority than 'series')
+    assert_equal 'book', source_backlinks.first[2],
+                 'Deduplication should keep higher priority type'
+  end
 end

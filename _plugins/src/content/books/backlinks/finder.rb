@@ -98,14 +98,25 @@ module Jekyll
 
         def gather_backlinks(canonical_url)
           merged = {}
-          # Direct versions
+          prio_map = link_type_priority_map
+          # Direct versions - merge with priority to handle book families with multiple URLs
           (@caches[:book_families][canonical_url] || []).each do |url|
-            (@caches[:backlinks][url] || []).each { |e| merged[e[:source].url] = e }
+            (@caches[:backlinks][url] || []).each { |e| merge_entry(merged, e, prio_map) }
           end
           # Series mentions
           add_series_links(merged)
           # Deduplicate
           deduplicate(merged)
+        end
+
+        def merge_entry(merged, entry, prio_map)
+          key = entry[:source].url
+          existing = merged[key]
+          return merged[key] = entry unless existing
+
+          new_prio = prio_map[entry[:type]] || 0
+          old_prio = prio_map[existing[:type]] || 0
+          merged[key] = entry if new_prio > old_prio
         end
 
         def add_series_links(merged)
